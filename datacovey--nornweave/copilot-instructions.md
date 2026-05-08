@@ -1,244 +1,190 @@
-## nornweave
+## main
 
-> Enforce a precise, minimal design system inspired by Linear, Notion, and Stripe. Use this skill when building dashboards, admin interfaces, or any UI that needs Jony Ive-level precision - clean, modern, minimalist with taste. Every pixel matters.
+> NornWeave is an open-source, self-hosted Inbox-as-a-Service API for AI Agents. It provides a stateful email layer (Inboxes, Threads, History) and an intelligent layer (Markdown parsing, Semantic Search) for LLMs via REST or MCP.
 
 
-# Design Principles
+# NornWeave - Cursor Rules
 
-This rule enforces precise, crafted design for enterprise software, SaaS dashboards, admin interfaces, and web applications. The philosophy is Jony Ive-level precision with intentional personality — every interface is polished, and each is designed for its specific context.
+NornWeave is an open-source, self-hosted Inbox-as-a-Service API for AI Agents. It provides a stateful email layer (Inboxes, Threads, History) and an intelligent layer (Markdown parsing, Semantic Search) for LLMs via REST or MCP.
 
-Give priority to the shadcn/ui design components.
+## Repository Structure
 
-## Design Direction (REQUIRED)
-
-**Before writing any code, commit to a design direction.** Don't default. Think about what this specific product needs to feel like.
-
-### Think About Context
-
-- **What does this product do?** A finance tool needs different energy than a creative tool.
-- **Who uses it?** Power users want density. Occasional users want guidance.
-- **What's the emotional job?** Trust? Efficiency? Delight? Focus?
-- **What would make this memorable?** Every product has a chance to feel distinctive.
-
-### Choose a Personality
-
-Enterprise/SaaS UI has more range than you think. Consider these directions:
-
-**Precision & Density** — Tight spacing, monochrome, information-forward. For power users who live in the tool. Think Linear, Raycast, terminal aesthetics.
-
-**Warmth & Approachability** — Generous spacing, soft shadows, friendly colors. For products that want to feel human. Think Notion, Coda, collaborative tools.
-
-**Sophistication & Trust** — Cool tones, layered depth, financial gravitas. For products handling money or sensitive data. Think Stripe, Mercury, enterprise B2B.
-
-**Boldness & Clarity** — High contrast, dramatic negative space, confident typography. For products that want to feel modern and decisive. Think Vercel, minimal dashboards.
-
-**Utility & Function** — Muted palette, functional density, clear hierarchy. For products where the work matters more than the chrome. Think GitHub, developer tools.
-
-**Data & Analysis** — Chart-optimized, technical but accessible, numbers as first-class citizens. For analytics, metrics, business intelligence.
-
-Pick one. Or blend two. But commit to a direction that fits the product.
-
-### Choose a Color Foundation
-
-**Don't default to warm neutrals.** Consider the product:
-
-- **Warm foundations** (creams, warm grays) — approachable, comfortable, human
-- **Cool foundations** (slate, blue-gray) — professional, trustworthy, serious
-- **Pure neutrals** (true grays, black/white) — minimal, bold, technical
-- **Tinted foundations** (slight color cast) — distinctive, memorable, branded
-
-**Light or dark?** Dark modes aren't just light modes inverted. Dark feels technical, focused, premium. Light feels open, approachable, clean. Choose based on context.
-
-**Accent color** — Pick ONE that means something. Blue for trust. Green for growth. Orange for energy. Violet for creativity. Don't just reach for the same accent every time.
-
-### Choose a Layout Approach
-
-The content should drive the layout:
-
-- **Dense grids** for information-heavy interfaces where users scan and compare
-- **Generous spacing** for focused tasks where users need to concentrate
-- **Sidebar navigation** for multi-section apps with many destinations
-- **Top navigation** for simpler tools with fewer sections
-- **Split panels** for list-detail patterns where context matters
-
-### Choose Typography
-
-Typography sets tone. Don't always default:
-
-- **System fonts** — fast, native, invisible (good for utility-focused products)
-- **Geometric sans** (Geist, Inter) — modern, clean, technical
-- **Humanist sans** (SF Pro, Satoshi) — warmer, more approachable
-- **Monospace influence** — technical, developer-focused, data-heavy
-
----
-
-## Core Craft Principles
-
-These apply regardless of design direction. This is the quality floor.
-
-### The 4px Grid
-All spacing uses a 4px base grid:
-- `4px` - micro spacing (icon gaps)
-- `8px` - tight spacing (within components)
-- `12px` - standard spacing (between related elements)
-- `16px` - comfortable spacing (section padding)
-- `24px` - generous spacing (between sections)
-- `32px` - major separation
-
-### Symmetrical Padding
-**TLBR must match.** If top padding is 16px, left/bottom/right must also be 16px. Exception: when content naturally creates visual balance.
-
-```css
-/* Good */
-padding: 16px;
-padding: 12px 16px; /* Only when horizontal needs more room */
-
-/* Bad */
-padding: 24px 16px 12px 16px;
+```
+nornweave/
+├── src/nornweave/              # Main Python package
+│   ├── adapters/               # Email provider adapters (Mailgun, SES, SendGrid, Resend, SMTP/IMAP, demo)
+│   ├── core/                   # Core utilities (config, exceptions, interfaces)
+│   ├── models/                 # Pydantic/SQLAlchemy models (Event, Inbox, Message, Thread)
+│   ├── huginn/                 # MCP Resources (read operations for AI agents)
+│   ├── muninn/                 # MCP Tools (write operations for AI agents)
+│   ├── skuld/                  # Outbound layer (rate limiting, scheduling, sending, webhooks)
+│   ├── urdr/                   # Storage layer (database adapters, migrations)
+│   │   ├── adapters/           # PostgreSQL and SQLite adapters
+│   │   └── migrations/         # Alembic migration scripts
+│   ├── verdandi/               # Ingestion (webhook + IMAP, parsing, threading, attachments, LLM summarization)
+│   └── yggdrasil/              # FastAPI gateway
+│       ├── middleware/         # Auth and logging middleware
+│       └── routes/             # API routes (v1/, webhooks/, v1/demo when in demo mode)
+├── clients/                    # SDK clients for NornWeave API
+│   └── python/                 # Python client library (nornweave-client)
+├── packages/                   # External platform integrations
+│   └── n8n-nodes-nornweave/    # n8n community node for NornWeave
+├── tests/                      # Test suite (fixtures/, integration/, unit/, e2e/)
+├── web/                        # Hugo documentation website
+│   └── content/docs/           # Documentation content
+├── scripts/                    # Utility scripts (DB init, migrations, dev setup)
+├── skills/                     # Distributable AI assistant skills for NornWeave
+├── openspec/                   # OpenSpec artifacts (specs, changes, context for implementations)
+│   ├── specs/                  # Feature specifications and design documents
+│   └── changes/archive/        # Completed and archived changes
+└── .github/                    # CI/CD workflows
 ```
 
-### Border Radius Consistency
-Stick to the 4px grid. Sharper corners feel technical, rounder corners feel friendly. Pick a system and commit:
+## Architecture Overview
 
-- Sharp: 4px, 6px, 8px
-- Soft: 8px, 12px
-- Minimal: 2px, 4px, 6px
+NornWeave uses a thematic architecture inspired by Norse mythology:
 
-Don't mix systems. Consistency creates coherence.
+| Module | Name | Purpose |
+|--------|------|---------|
+| `urdr` | The Well | Storage layer - PostgreSQL/SQLite adapters, Alembic migrations |
+| `verdandi` | The Loom | Ingestion - webhook + IMAP, HTML→Markdown, threading, LLM thread summarization |
+| `skuld` | The Prophecy | Outbound - rate limiting, scheduling, email sending |
+| `yggdrasil` | World Tree | FastAPI gateway - routes, middleware, API endpoints |
+| `huginn` | Thought Raven | MCP Resources - read operations for AI agents |
+| `muninn` | Memory Raven | MCP Tools - write operations for AI agents |
 
-### Depth & Elevation Strategy
+## Technology Stack
 
-**Match your depth approach to your design direction.** Depth is a tool, not a requirement. Different products need different approaches:
+- **Python**: 3.14+ with full type hints
+- **Web Framework**: FastAPI with async/await
+- **Validation**: Pydantic v2 with `pydantic-settings`
+- **Database**: SQLAlchemy 2.0 (async) with PostgreSQL (asyncpg) or SQLite (aiosqlite)
+- **Migrations**: Alembic
+- **AI Integration**: MCP SDK for Claude/Cursor integration
+- **HTTP Client**: httpx (async)
+- **Package Manager**: uv
+- **Linting/Formatting**: Ruff
+- **Type Checking**: MyPy (strict mode)
+- **Testing**: pytest with pytest-asyncio
+- **Documentation**: Hugo static site
 
-**Borders-only (flat)** — Clean, technical, dense. Works for utility-focused tools where information density matters more than visual lift. Linear, Raycast, and many developer tools use almost no shadows — just subtle borders to define regions. This isn't lazy; it's intentional restraint.
+## Development Guidelines
 
-**Subtle single shadows** — Soft lift without complexity. A simple `0 1px 3px rgba(0,0,0,0.08)` can be enough. Works for approachable products that want gentle depth without the weight of layered shadows.
+### General Principles
+- **Type safety**: All functions must have complete type hints
+- **Async-first**: Use async/await for all I/O operations
+- **Documentation**: Docstrings for all public functions and classes
+- **Testing**: Unit tests for business logic, integration tests for API endpoints
+- **Security**: Never hardcode credentials; use environment variables
 
-**Layered shadows** — Rich, premium, dimensional. Multiple shadow layers create realistic depth for products that want to feel substantial. Stripe and Mercury use this approach. Best for cards that need to feel like physical objects.
+### Python Code Style
+- Follow PEP 8 (enforced by Ruff)
+- Line length: 100 characters
+- Use double quotes for strings
+- Use `pathlib.Path` over `os.path`
+- Use comprehensions where they improve readability
+- Prefer `httpx` for HTTP requests (async support)
 
-**Surface color shifts** — Background tints establish hierarchy without any shadows. A card at `#fff` on a `#f8fafc` background already feels elevated. Shadows can reinforce this, but color does the heavy lifting.
+### FastAPI Best Practices
+- Use dependency injection via `Depends()`
+- Define request/response models with Pydantic
+- Use `HTTPException` for error responses with appropriate status codes
+- Group routes in routers, version API endpoints (e.g., `/v1/`)
+- Add OpenAPI documentation to endpoints
 
-Choose ONE approach and commit. Mixing flat borders on some cards with heavy shadows on others creates visual inconsistency.
+### Database Guidelines
+- Use SQLAlchemy async sessions
+- Define models in `src/nornweave/models/`
+- Create Alembic migrations for all schema changes in `src/nornweave/urdr/migrations/`
+- Use repository pattern for data access in `urdr/adapters/`
+- Support both PostgreSQL (production) and SQLite (development/testing)
 
-```css
-/* Borders-only approach */
---border: rgba(0, 0, 0, 0.08);
---border-subtle: rgba(0, 0, 0, 0.05);
-border: 0.5px solid var(--border);
+### MCP Integration
+- Resources (read-only data) go in `huginn/`
+- Tools (actions) go in `muninn/`
+- Follow MCP SDK patterns for tool definitions
+- Include clear descriptions for AI agent consumption
 
-/* Single shadow approach */
---shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+### Testing
+- Place unit tests in `tests/unit/` mirroring source structure
+- Place integration tests in `tests/integration/`
+- Use `pytest.mark.asyncio` for async tests
+- Use fixtures from `tests/conftest.py`
+- Test files in `tests/fixtures/` (never commit real user data)
 
-/* Layered shadow approach (when appropriate) */
---shadow-layered:
-  0 0 0 0.5px rgba(0, 0, 0, 0.05),
-  0 1px 2px rgba(0, 0, 0, 0.04),
-  0 2px 4px rgba(0, 0, 0, 0.03),
-  0 4px 8px rgba(0, 0, 0, 0.02);
+### Documentation Website (web/)
+- Use Hugo for static site generation
+- Content in Markdown at `web/content/docs/`
+- Hosted on GitHub Pages
+- Keep API documentation in sync with code changes
+
+### Keeping documentation in sync
+When adding, changing, or removing **features** (e.g. providers, capabilities, architecture), update these so they stay accurate:
+- **README.md**: Sections "Features", "Architecture", "Supported Providers", "Repository Structure", and "MCP Integration" (tools table) as relevant.
+- **web/content/docs/**: Guides, API docs, and concept pages that describe the feature.
+- **.cursor/rules/main.mdc**: "Repository Structure" and "Architecture Overview" (and this list if doc locations change).
+Prefer a single commit that includes both the code change and the doc/rule updates.
+
+## File Organization
+
+- Module names: snake_case
+- Class names: PascalCase
+- Constants: UPPER_SNAKE_CASE
+- Pydantic models: `*Schema` for API, `*Model` for DB
+- Each module should have an `__init__.py` exposing public API
+
+## Git Workflow
+
+- Use conventional commits: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`
+- Keep commits focused and atomic
+- Reference issue numbers when applicable (e.g., `feat: add mailgun webhook (#42)`)
+- Run `make lint` and `make test` before committing
+
+## OpenSpec Workflow
+
+This repository uses **OpenSpec** for structured feature development and change management. OpenSpec artifacts provide detailed specifications, design decisions, and implementation context.
+
+### Directory Structure
+- `openspec/specs/` - Active feature specifications and design documents
+- `openspec/changes/archive/` - Completed changes for historical reference
+
+### When to Use OpenSpec
+- **Before implementing**: Check `openspec/specs/` for existing specifications related to your task
+- **For context**: Specs contain rationale, API designs, data models, and implementation details
+- **As reference**: Archived changes show how similar features were implemented
+
+### Spec Contents
+Each spec typically includes:
+- Problem statement and goals
+- API design and data models
+- Implementation approach and technical decisions
+- Edge cases and error handling
+- Testing strategy
+
+## Common Commands
+
+```bash
+make install-dev    # Install dependencies with dev extras
+make dev            # Run development server
+make test           # Run test suite
+make lint           # Run Ruff linter
+make format         # Format code with Ruff
+make migrate        # Run database migrations
+make typecheck      # Run MyPy type checker
 ```
 
-**The craft is in the choice, not the complexity.** A flat interface with perfect spacing and typography is more polished than a shadow-heavy interface with sloppy details.
+## AI Assistant Guidelines
 
-### Card Layouts Vary, Surface Treatment Stays Consistent
-Monotonous card layouts are lazy design. A metric card doesn't have to look like a plan card doesn't have to look like a settings card. One might have a sparkline, another an avatar stack, another a progress ring, another a two-column split.
-
-Design each card's internal structure for its specific content — but keep the surface treatment consistent: same border weight, shadow depth, corner radius, padding scale, typography. Cohesion comes from the container chrome, not from forcing every card into the same layout template.
-
-### Isolated Controls
-UI controls deserve container treatment. Date pickers, filters, dropdowns — these should feel like crafted objects sitting on the page, not plain text with click handlers.
-
-**Never use native form elements for styled UI.** Native `<select>`, `<input type="date">`, and similar elements render OS-native dropdowns and pickers that cannot be styled. Build custom components instead:
-
-- Custom select: trigger button + positioned dropdown menu
-- Custom date picker: input + calendar popover
-- Custom checkbox/radio: styled div with state management
-
-**Custom select triggers must use `display: inline-flex` with `white-space: nowrap`** to keep text and chevron icons on the same row. Without this, flex children can wrap to new lines.
-
-### Typography Hierarchy
-- Headlines: 600 weight, tight letter-spacing (-0.02em)
-- Body: 400-500 weight, standard tracking
-- Labels: 500 weight, slight positive tracking for uppercase
-- Scale: 11px, 12px, 13px, 14px (base), 16px, 18px, 24px, 32px
-
-### Monospace for Data
-Numbers, IDs, codes, timestamps belong in monospace. Use `tabular-nums` for columnar alignment. Mono signals "this is data."
-
-### Iconography
-Use **Phosphor Icons** (`@phosphor-icons/react`). Icons clarify, not decorate — if removing an icon loses no meaning, remove it.
-
-Give standalone icons presence with subtle background containers.
-
-### Animation
-- 150ms for micro-interactions, 200-250ms for larger transitions
-- Easing: `cubic-bezier(0.25, 1, 0.5, 1)`
-- No spring/bouncy effects in enterprise UI
-
-### Contrast Hierarchy
-Build a four-level system: foreground (primary) → secondary → muted → faint. Use all four consistently.
-
-### Color for Meaning Only
-Gray builds structure. Color only appears when it communicates: status, action, error, success. Decorative color is noise.
-
-When building data-heavy interfaces, ask whether each use of color is earning its place. Score bars don't need to be color-coded by performance — a single muted color works. Grade badges don't need traffic-light colors — typography can do the hierarchy work. Look at how GitHub renders tables and lists: almost entirely monochrome, with color reserved for status indicators and actionable elements.
+When working in this codebase:
+1. **Module awareness**: Understand the Norse mythology naming and purpose of each module
+2. **Async patterns**: All database and HTTP operations must be async
+3. **Type hints**: Always include complete type annotations
+4. **Provider abstraction**: Email providers are abstracted in `adapters/` - maintain this pattern
+5. **MCP compatibility**: When adding features, consider MCP tool/resource exposure for AI agents
+6. **OpenSpec context**: Check `openspec/specs/` for detailed specifications before implementing features - specs contain design decisions, API contracts, and implementation guidance
+7. **Doc sync**: When implementing or changing user-facing features, update README.md, relevant `web/content/docs/` pages, and `.cursor/rules/main.mdc` (Repository Structure / Architecture) so they stay accurate
+8. **.env file**: Use `.env.example` as a template for `.env` file and keep it up to date with the latest environment variables.
 
 ---
-
-## Navigation Context
-
-Screens need grounding. A data table floating in space feels like a component demo, not a product. Consider including:
-
-- **Navigation** — sidebar or top nav showing where you are in the app
-- **Location indicator** — breadcrumbs, page title, or active nav state
-- **User context** — who's logged in, what workspace/org
-
-When building sidebars, consider using the same background as the main content area. Tools like Supabase, Linear, and Vercel rely on a subtle border for separation rather than different background colors. This reduces visual weight and feels more unified.
-
----
-
-## Dark Mode Considerations
-
-Dark interfaces have different needs:
-
-**Borders over shadows** — Shadows are less visible on dark backgrounds. Lean more on borders for definition. A border at 10-15% white opacity might look nearly invisible but it's doing its job — resist the urge to make it more prominent.
-
-**Adjust semantic colors** — Status colors (success, warning, error) often need to be slightly desaturated or adjusted for dark backgrounds to avoid feeling harsh.
-
-**Same structure, different values** — The hierarchy system (foreground → secondary → muted → faint) still applies, just with inverted values.
-
----
-
-## Anti-Patterns
-
-### Never Do This
-- Dramatic drop shadows (`box-shadow: 0 25px 50px...`)
-- Large border radius (16px+) on small elements
-- Asymmetric padding without clear reason
-- Pure white cards on colored backgrounds
-- Thick borders (2px+) for decoration
-- Excessive spacing (margins > 48px between sections)
-- Spring/bouncy animations
-- Gradients for decoration
-- Multiple accent colors in one interface
-
-### Always Question
-- "Did I think about what this product needs, or did I default?"
-- "Does this direction fit the context and users?"
-- "Does this element feel crafted?"
-- "Is my depth strategy consistent and intentional?"
-- "Are all elements on the grid?"
-
----
-
-## The Standard
-
-Every interface should look designed by a team that obsesses over 1-pixel differences. Not stripped — *crafted*. And designed for its specific context.
-
-Different products want different things. A developer tool wants precision and density. A collaborative product wants warmth and space. A financial product wants trust and sophistication. Let the product context guide the aesthetic.
-
-The goal: intricate minimalism with appropriate personality. Same quality bar, context-driven execution.
-
----
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/DataCovey)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/DataCovey)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [DataCovey/nornweave](https://github.com/DataCovey/nornweave) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
