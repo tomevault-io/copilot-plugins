@@ -1,7 +1,7 @@
 {
   "name": "common-ka--ai-agent-unity-rules",
   "displayName": "ai-agent-unity-rules",
-  "description": "ai-agent-unity-rules",
+  "description": "\ud83c\udfae Production-ready AI rules for Unity 6.2+. Single Source of Truth for Cursor (.cursor) and Google Antigravity (.agent) with auto-sync workflow.",
   "version": "1.0.0",
   "author": "Common-ka",
   "homepage": "https://github.com/Common-ka/ai-agent-unity-rules",
