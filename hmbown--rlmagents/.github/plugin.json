@@ -1,0 +1,9 @@
+{
+  "name": "hmbown--rlmagents",
+  "displayName": "rlmagents",
+  "description": "RLM agent harness - built on Deep Agents",
+  "version": "1.0.0",
+  "author": "Hmbown",
+  "homepage": "https://github.com/Hmbown/rlmagents",
+  "skills": []
+}
