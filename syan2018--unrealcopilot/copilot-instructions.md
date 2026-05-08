@@ -1,85 +1,118 @@
-## python-guidelines
+## unreal-plugin
 
-> - 使用 dataclass 定义数据结构
+> UnrealProjectAnalyzer/ (插件根目录)
 
 
-# Python 开发规范
+# Unreal 插件开发规范
 
-## 基本规则
+## 插件结构
 
-- Python 3.11+ 语法
-- 使用 type hints
-- 异步优先 (async/await)
-- 使用 dataclass 定义数据结构
-
-## 代码风格
-
-- 行宽限制: 100 字符
-- 使用 ruff 进行 lint
-- 遵循 PEP 8
-
-## 项目特定规范
-
-### MCP 工具定义
-
-工具函数放在 `Mcp/src/unreal_analyzer/tools/` 目录，按领域分文件：
-- `blueprint.py` - 蓝图分析
-- `asset.py` - 资产分析
-- `cpp.py` - C++ 分析
-- `cross_domain.py` - 跨域查询
-
-工具函数规范：
-```python
-async def tool_name(param1: str, param2: int = 0) -> dict:
-    """工具描述 (会显示给 AI)。
-    
-    Args:
-        param1: 参数1说明
-        param2: 参数2说明
-    
-    Returns:
-        Dictionary containing:
-        - key1: 说明
-        - key2: 说明
-    """
+```
+UnrealProjectAnalyzer/ (插件根目录)
+├── UnrealProjectAnalyzer.uplugin         # 插件描述文件
+├── Source/UnrealProjectAnalyzer/
+│   ├── Public/                        # 头文件
+│   ├── Private/                       # 实现文件
+│   └── UnrealProjectAnalyzer.Build.cs
+└── Content/Python/                    # Python Bridge 脚本
 ```
 
-### 与 Unreal 插件通信
+## 模块职责
 
-使用 `ue_client.http_client.UEPluginClient`:
-```python
-from ..ue_client import get_client
+| 文件 | 职责 |
+|------|------|
+| `UnrealProjectAnalyzer.cpp/h` | 模块入口，HTTP Server 初始化 |
+| `BlueprintAnalyzer.cpp/h` | Blueprint 分析逻辑 |
+| `AssetAnalyzer.cpp/h` | Asset 引用分析逻辑 |
+| `HttpRoutes.cpp/h` | HTTP 路由注册 |
 
-async def my_tool():
-    client = get_client()
-    return await client.get("/endpoint", {"param": "value"})
+## HTTP API 设计
+
+### Blueprint API
+
+```
+GET /blueprint/search?pattern=xxx&class=xxx
+GET /blueprint/hierarchy?bp_path=/Game/...
+GET /blueprint/dependencies?bp_path=/Game/...
+GET /blueprint/referencers?bp_path=/Game/...
+GET /blueprint/graph?bp_path=/Game/...&graph_name=EventGraph
+GET /blueprint/details?bp_path=/Game/...
 ```
 
-### C++ 分析器
+### Asset API
 
-使用 `cpp_analyzer.analyzer.CppAnalyzer`:
-```python
-from ..cpp_analyzer import get_analyzer
-
-async def my_tool():
-    analyzer = get_analyzer()
-    return await analyzer.analyze_class("AMyClass")
+```
+GET /asset/search?pattern=xxx&type=xxx
+GET /asset/references?asset_path=/Game/...
+GET /asset/referencers?asset_path=/Game/...
+GET /asset/metadata?asset_path=/Game/...
 ```
 
-## 依赖管理
+### Analysis API
 
-使用 uv:
-```bash
-uv add package_name      # 添加依赖
-uv sync                   # 安装依赖
-uv run command           # 运行命令
+```
+GET /analysis/reference-chain?start=xxx&depth=xxx
+GET /analysis/cpp-class-usage?class=xxx
 ```
 
-## 测试
+## 编码规范
 
-- 测试文件放在 `Mcp/tests/` 目录
-- 使用 pytest + pytest-asyncio
-- 异步测试使用 `@pytest.mark.asyncio`
+### 命名
+
+- 类: `F` 前缀 (struct), `U` 前缀 (UObject), `A` 前缀 (Actor)
+- 模块类: `FUnrealProjectAnalyzerModule`
+- 布尔值: `b` 前缀 (`bIsEnabled`)
+
+### 日志
+
+```cpp
+UE_LOG(LogTemp, Log, TEXT("UnrealProjectAnalyzer: Message"));
+UE_LOG(LogTemp, Warning, TEXT("UnrealProjectAnalyzer: Warning"));
+UE_LOG(LogTemp, Error, TEXT("UnrealProjectAnalyzer: Error"));
+```
+
+### HTTP 路由注册
+
+```cpp
+Router->BindRoute(
+    FHttpPath(TEXT("/endpoint")),
+    EHttpServerRequestVerbs::VERB_GET,
+    [](const FHttpServerRequest& Request, const FHttpResultCallback& OnComplete)
+    {
+        // 处理请求
+        TUniquePtr<FHttpServerResponse> Response = FHttpServerResponse::Create(
+            TEXT("{\"key\": \"value\"}"),
+            TEXT("application/json")
+        );
+        OnComplete(MoveTemp(Response));
+        return true;
+    }
+);
+```
+
+## Python Bridge
+
+Python Bridge 通过 `PythonScriptPlugin` 在模块启动时自动拉起：
+
+```cpp
+// 在 StartupModule() 中
+IPythonScriptPlugin* PythonPlugin = FModuleManager::GetModulePtr<IPythonScriptPlugin>("PythonScriptPlugin");
+PythonPlugin->ExecPythonCommand(*PythonCommand);
+```
+
+## 依赖模块
+
+必需的 UE 模块 (在 Build.cs 中声明)：
+- `HTTP`, `HTTPServer` - HTTP 服务
+- `Json`, `JsonUtilities` - JSON 处理
+- `UnrealEd`, `BlueprintGraph`, `Kismet` - 蓝图 API
+- `AssetRegistry` - 资产引用 API
+- `PythonScriptPlugin` - Python 集成
+
+## 路由参数约定（重要）
+
+- **含 `/Game/...` 的资产/蓝图路径必须使用 query 参数传递**（例如 `bp_path=/Game/...`、`asset_path=/Game/...`）
+- **不要**把 `/Game/...` 直接拼进 URL path（如 `/blueprint/{path}/hierarchy`），因为 UE `HttpServer` 的路由匹配会按 `/` 分段，容易导致无法匹配或编码/解码异常。
 
 ---
 > Source: [syan2018/UnrealCopilot](https://github.com/syan2018/UnrealCopilot) — distributed by [TomeVault](https://tomevault.io).
