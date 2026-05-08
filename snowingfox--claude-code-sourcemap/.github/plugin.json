@@ -1,0 +1,9 @@
+{
+  "name": "snowingfox--claude-code-sourcemap",
+  "displayName": "claude-code-sourcemap",
+  "description": "The sourcemap of claude code, the best coding agent of the world",
+  "version": "1.0.0",
+  "author": "SnowingFox",
+  "homepage": "https://github.com/SnowingFox/claude-code-sourcemap",
+  "skills": []
+}
