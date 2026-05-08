@@ -1,0 +1,9 @@
+{
+  "name": "kilo-org--kilocode-legacy",
+  "displayName": "kilocode-legacy",
+  "description": "Kilo is the all-in-one agentic engineering platform. Build, ship, and iterate faster with the most popular open source coding agent.",
+  "version": "1.0.0",
+  "author": "Kilo-Org",
+  "homepage": "https://github.com/Kilo-Org/kilocode-legacy",
+  "skills": []
+}
