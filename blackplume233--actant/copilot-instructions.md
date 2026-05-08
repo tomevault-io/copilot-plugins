@@ -1,36 +1,25 @@
-## endurance-testing
+## qa-loop
 
-> Enforce endurance test maintenance when modifying agent lifecycle, state machine, or communication code
+> Trigger the QA cyclic verification loop: random-walk test → report → issue → fix → regression, repeating until 100% pass
 
 
-# Endurance Test Maintenance
+# /qa-loop Compatibility Stub
 
-When modifying files matching the globs above, you MUST check whether endurance tests need updating.
+`/qa-loop` 的主逻辑已经迁移到项目技能：
 
-## Trigger Conditions
+- [.agents/skills/qa-loop/SKILL.md](/Users/muyuli/Workspace/AgentCraft/.agents/skills/qa-loop/SKILL.md)
 
-Update `*.endurance.test.ts` when changes affect:
-- Agent state transitions (status, pid, processOwnership)
-- LaunchMode behavior (exit handling, restart logic, recovery action)
-- ProcessWatcher or RestartTracker logic
-- External Spawn API (resolve/attach/detach)
-- WorkspacePolicy or cleanup behavior
-- RPC handlers for agent operations
-- ACP/MCP communication (Phase 2+)
+执行 `qa-loop` 时，应以该技能为准，并继续复用：
 
-## Required Actions
+- [.agents/skills/qa-engineer/SKILL.md](/Users/muyuli/Workspace/AgentCraft/.agents/skills/qa-engineer/SKILL.md)
+- [.agents/skills/qa-engineer/workflows/cyclic-verification.md](/Users/muyuli/Workspace/AgentCraft/.agents/skills/qa-engineer/workflows/cyclic-verification.md)
+- [.agents/skills/issue-manager/SKILL.md](/Users/muyuli/Workspace/AgentCraft/.agents/skills/issue-manager/SKILL.md)
 
-1. **Read** `.trellis/spec/endurance-testing.md` to understand the coverage matrix
-2. **Update** affected `*.endurance.test.ts` files — new scenarios, updated invariants, or adapted interfaces
-3. **Verify** with `ENDURANCE_DURATION_MS=5000 pnpm test:endurance`
-4. **Add** coverage phase annotation if introducing new scenario category
+保留该文件仅用于：
 
-## Quick Reference
-
-- Endurance test files: `packages/*/src/**/*.endurance.test.ts`
-- Config: `vitest.endurance.config.ts`
-- Run: `pnpm test:endurance`
-- Spec: `.trellis/spec/endurance-testing.md`
+- 兼容历史 `/qa-loop` 用词
+- 指向新的技能入口
+- 防止 slash-command 文档和技能产生双重真相源
 
 ---
 > Source: [blackplume233/Actant](https://github.com/blackplume233/Actant) — distributed by [TomeVault](https://tomevault.io).
