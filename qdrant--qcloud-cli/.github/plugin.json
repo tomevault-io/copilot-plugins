@@ -1,0 +1,9 @@
+{
+  "name": "qdrant--qcloud-cli",
+  "displayName": "qcloud-cli",
+  "description": "The Command Line Interface for Qdrant Cloud",
+  "version": "1.0.0",
+  "author": "qdrant",
+  "homepage": "https://github.com/qdrant/qcloud-cli",
+  "skills": []
+}
