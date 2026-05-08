@@ -1,0 +1,9 @@
+{
+  "name": "justinwojo--swift-dotnet-packages",
+  "displayName": "swift-dotnet-packages",
+  "description": "A project housing various Swift .Net bindings and samples of popular 3rd party libraries",
+  "version": "1.0.0",
+  "author": "justinwojo",
+  "homepage": "https://github.com/justinwojo/swift-dotnet-packages",
+  "skills": []
+}
