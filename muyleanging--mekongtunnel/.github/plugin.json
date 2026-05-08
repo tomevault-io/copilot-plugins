@@ -1,0 +1,9 @@
+{
+  "name": "muyleanging--mekongtunnel",
+  "displayName": "MekongTunnel",
+  "description": "Expose localhost to the internet via SSH remote port forwarding. Self-hosted ngrok alternative written in Go. Self-hosted SSH tunnel server in Go. One command to get a public HTTPS URL for your local ",
+  "version": "1.0.0",
+  "author": "MuyleangIng",
+  "homepage": "https://github.com/MuyleangIng/MekongTunnel",
+  "skills": []
+}
