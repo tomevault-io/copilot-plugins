@@ -1,99 +1,172 @@
 ## spidershield
 
-> > Security scanner and runtime guard for MCP servers.
+> SpiderShield is a static analysis tool for MCP (Model Context Protocol) servers.
 
-# AGENTS.md — SpiderShield
+# SpiderShield -- MCP Server Security Linter
 
-> Security scanner and runtime guard for MCP servers.
-> Static analysis, policy enforcement, DLP, prompt injection detection.
+## Project Overview
+SpiderShield is a static analysis tool for MCP (Model Context Protocol) servers.
+It scans tool descriptions, security patterns, architecture quality, and licensing.
+Think "npm audit for MCP tools".
 
-## What This Project Does
-
-SpiderShield is an open-source security linter for MCP (Model Context Protocol) servers and AI agent skills. Think "npm audit for MCP tools." It scans tool descriptions, security patterns, architecture quality, and licensing, then outputs a 0-10 SpiderScore.
-
-## Quick Start
-
-```bash
-pip install spidershield
-
-# Scan an MCP server from GitHub
-spidershield scan https://github.com/owner/repo
-
-# Check an AI agent config (Claude Code / OpenClaw)
-spidershield agent-check /path/to/config
-
-# Run as MCP server (for integration with Claude Desktop, etc.)
-spidershield serve
-```
-
-## Project Structure
-
+## Architecture
 ```
 src/spidershield/
-  cli.py              -- Click CLI entry point
+  cli.py              -- Click CLI entry point (thin orchestrator)
+  commands/            -- CLI command modules (scan, rewrite, harden, eval, agent, dataset, guard, policy, audit)
   models.py            -- Pydantic V2 models (ScanReport, SecurityIssue, etc.)
   server.py            -- MCP server mode (scan_mcp_server tool)
+  spiderrating.py      -- SpiderRating format conversion (metadata, grades)
   scanner/
-    runner.py          -- 4-stage scan pipeline (descriptions → security → architecture → license)
+    runner.py          -- Orchestrates 4-stage scan pipeline + metadata emission
     description_quality.py -- Tool description scoring (7 criteria)
-    security_scan.py   -- 46+ static security patterns
+    security_scan.py   -- Static security pattern matching
     architecture_check.py -- Code quality checks
     license_check.py   -- License detection
+  dataset/
+    db.py              -- SQLite schema v5, migration, get_stats
+    collector.py       -- Best-effort recording (scans, rewrites, PRs, agent, guard)
   agent/
     scanner.py         -- Agent config security audit
-    skill_scanner.py   -- Skill malware/injection detection (20+ patterns)
-    toxic_flow.py      -- Dangerous capability combination detection
+    skill_scanner.py   -- Skill malware/injection pattern matching (20 patterns)
+    toxic_flow.py      -- Dangerous capability combination detection (keyword + AST)
     pinning.py         -- SHA-256 content pinning for rug-pull detection
+    allowlist.py       -- Approved-only skills enforcement
+    sarif.py           -- SARIF output for agent findings
+    models.py          -- Finding, SkillFinding, ScanResult, AuditFramework
+    issue_codes.py     -- TS-E/W/C/P code registry
   rewriter/
     runner.py          -- Template + LLM description rewriter
+    cache.py           -- SHA-256 keyed LLM rewrite cache
+    providers.py       -- Anthropic / OpenAI / Gemini providers
   hardener/runner.py   -- Security fix suggestions
+  evaluator/runner.py  -- Tool selection accuracy testing
 ```
 
-## Build & Test
+## Hard Constraints (G0 -- never violate)
 
-```bash
-# Install in dev mode
-pip install -e ".[dev]"
+1. **No false sense of security**: Never give A rating to a server with undetected critical issues.
+   If uncertain, score conservatively.
+2. **No destructive modifications**: `rewrite` and `harden` must never break working code.
+   Always preserve original semantics.
+3. **Reproducible results**: Same input must produce identical scan output.
+   No randomness, no network-dependent scoring.
 
-# Run tests (use empty env vars to skip Supabase, use local SQLite)
-SUPABASE_URL= SUPABASE_SERVICE_KEY= python -m pytest tests/ -x -q
+## Evolution Mode Protocol
 
-# Run a specific test
-python -m pytest tests/test_scanner.py -x -q
-```
+SpiderShield uses evidence-driven evolution (see docs/internal/001-audit-quality-evolution-2026-03-08.md).
 
-## Key Commands
+### Per-Change Cycle
+1. **Evidence first**: Before changing a scanner, document the false positive/negative that motivates the change
+2. **Measure before/after**: Run `spidershield scan` on test-targets/ before and after changes
+3. **Update observation doc**: Record what changed and why in docs/internal/
 
-| Command | What It Does |
-|---------|-------------|
-| `spidershield scan <repo>` | Full security scan of an MCP server |
-| `spidershield agent-check <path>` | Audit agent config + installed skills |
-| `spidershield rewrite <repo>` | AI-powered tool description improvement |
-| `spidershield harden <repo>` | Generate security fix suggestions |
-| `spidershield guard` | Runtime security guard mode |
-| `spidershield serve` | Run as MCP server |
+### Scanner Quality Rules
+- Security scanner: Minimize false positives. A false positive erodes trust more than a missed issue.
+- Description scorer: Score must correlate with actual LLM tool selection success.
+- Architecture checker: Gradual scoring preferred over binary pass/fail.
+- Overall score: SpiderRating formula `descriptions*0.35 + security_adjusted*0.35 + architecture*0.30`.
+- Architecture bonus: `min(2.0, arch_score / 5.0)` folds into security_adjusted.
+- Grade scale: F/D/C/B/A (thresholds: 3.0/5.0/7.0/9.0).
+- Hard constraints: critical→F, no_tools→F, license_banned→D cap.
 
-## Conventions
+### Scoring Calibration
+- A server with no quality signals in descriptions should score 0-2/10, not 3-4/10
+- A server with all quality signals should score 8-10/10
+- Security score 10.0 means zero issues found, not "secure" (we can't prove absence)
 
-- Python 3.11+, type hints on all functions
-- Pydantic V2 for data models
+## PR Campaign Quality Gates (G1 -- must pass before submitting any PR)
+
+Before submitting a PR to any external MCP repo, ALL 5 gates must pass:
+
+1. **Real problem**: The original description has a concrete, demonstrable issue
+   (ambiguous scope, missing side-effects, misleading trigger). Not "could be better".
+2. **Narrower and more precise**: The rewrite must be semantically narrower or more
+   specific than the original. Never broaden scope.
+3. **Preserves command semantics**: The rewrite must not change what the tool actually does.
+   `git fetch` fetches from git remotes, not URLs. `git add` stages files, not "appends".
+4. **One-sentence justification**: If you cannot explain the change in one sentence,
+   the change is not high-confidence enough for an automated PR.
+5. **Tests must pass**: If the target repo has CI, the PR must not break it.
+   Description-only changes should never break tests.
+
+### PR Strategy by Repo Type
+
+| Type | Stars | Action | Example |
+|------|-------|--------|---------|
+| A: Small active | < 1k | Direct PR | HenkDz/postgresql-mcp-server |
+| B: Large/strict | > 1k | Issue first, PR if invited | modelcontextprotocol/servers |
+| C: Corporate | any | Issue only | playwright-mcp, github-mcp |
+
+### PR Anti-Patterns (learned from rejected PRs)
+
+- **Tautological triggers**: "Opens a file. Use when user wants to open a file." (rejected by ida-pro-mcp #277)
+- **Semantic mismatches**: git "fetch" matched to URL "fetch", git "add" matched to "append" (flagged on git-mcp-server #42)
+- **Template boilerplate**: Generic error guidance unrelated to the tool's domain
+- **Too many changes**: Large PRs scare maintainers. Keep to 1-5 tool descriptions per PR.
+
+## Development Standards
+
+- Python 3.11+ with type hints on all new functions
+- Use Pydantic V2 for data models
 - Rich console for CLI output
-- Click for CLI framework
-- Tests in `tests/` directory
-- Security issue codes: TS-E (errors), TS-W (warnings), TS-C (config), TS-P (pinning)
+- Tests in tests/ directory
+- No unnecessary dependencies
 
-## SpiderRating API
+## Key Files for Common Tasks
 
-For programmatic access to ecosystem-wide security ratings (5,899 servers rated):
+| Task | Files |
+|------|-------|
+| Add security pattern | scanner/security_scan.py (DANGEROUS_PATTERNS dict) |
+| Add description criterion | scanner/description_quality.py + models.py (ToolDescriptionScore) |
+| Change scoring weights | scanner/description_quality.py (line ~90-108) |
+| Add tool extraction pattern | scanner/description_quality.py (_extract_python_tools, _extract_ts_tools, etc.) |
+| Change report output | scanner/runner.py (_print_table) |
+| SpiderRating conversion (MCP) | spiderrating.py (convert, metadata scoring) |
+| SpiderRating conversion (Skill) | spiderrating.py (convert_skill, score_skill_description) |
+| Agent security patterns | agent/skill_scanner.py (MALICIOUS_PATTERNS list) |
+| Agent config checks | agent/scanner.py |
+| Toxic flow detection | agent/toxic_flow.py (keyword + AST) |
+| LLM rewrite cache | rewriter/cache.py (~/.spidershield/rewrite-cache/) |
+| Dataset schema/migration | dataset/db.py (SCHEMA_VERSION, _migrate_vN) |
+| Add benchmark server | commands/dataset.py (dataset benchmark-add/list/run) |
+| Label calibration data | commands/dataset.py (dataset calibrate/calibrate-report) |
+| Add CLI command | commands/<module>.py + register in commands/__init__.py + cli.py |
+| Banned license policy | scoring_spec.py (BANNED_LICENSES) + docs/decisions/banned-licenses.md |
 
-```
-GET https://api.spiderrating.com/v1/public/score/{owner}/{repo}
-GET https://api.spiderrating.com/v1/public/check?tool={name}
-```
 
-Website: https://spiderrating.com
+## 🔴 Production Status — NEVER Infer from Local Files
+
+**This rule applies to ALL Owen's projects. Violation = wrong diagnosis.**
+
+When asked to check if a job/service/pipeline is running, healthy, or broken:
+
+### ❌ NEVER do this
+- Read local SQLite/MySQL file timestamps
+- Read local log files and infer production state
+- Read local tmp/cache/debug files
+- Use `git log` timestamps to guess if production is active
+- Use local scheduler config to assume production runs the same way
+- Use Explore agents to scan local repo as production audit evidence
+
+### ✅ ALWAYS do this instead
+1. **Ask the user for a production health endpoint** (`/api/admin/...`, `/api/health`, etc.)
+2. **Or ask the user to check** the hosting dashboard (Render / Railway / Cloudflare)
+3. **Or query the production database** (Supabase / Railway MySQL) directly
+4. **If none of the above is possible**, explicitly state: "I can only see local files. I cannot confirm production status. The following is a guess that may be completely wrong."
+
+### Production environment mapping
+| Project | Local | Production | How to check |
+|---------|-------|-----------|--------------|
+| fullhouse-sports | SQLite + dev server | Railway MySQL + Render | `/api/admin/pipeline/dashboard` |
+| fullhouse-asset | Windows Task Scheduler | Render / APScheduler | Supabase `ic_nominations` table |
+| teehoo-core-shell | No local runtime | Supabase Edge Functions + Render cron | Supabase `pipeline_runs` table |
+| spiderrating | Local pipeline occasional | Railway API + Cloudflare Pages | Railway metrics + Supabase |
+| teehoo-martech | Local scripts | TBD | TBD |
+
+### Why this rule exists
+2026-04-13 incident: Claude diagnosed fullhouse-sports as "possibly dead for 35 days" based on local SQLite mtime. Production was actually v3.9.1, 19 jobs running, 54 success/0 errors in 24h, 55 predictions generated. The diagnosis was 100% wrong and would have wasted hours fixing non-existent problems.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/teehooai)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/teehooai)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Source: [teehooai/spidershield](https://github.com/teehooai/spidershield) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-24 -->
