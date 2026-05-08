@@ -1,0 +1,9 @@
+{
+  "name": "dannywillowliu-uchi--claude-orchestrator",
+  "displayName": "claude-orchestrator",
+  "description": "Orchestration system for Claude Code enabling autonomous multi-step task execution with human oversight",
+  "version": "1.0.0",
+  "author": "dannywillowliu-uchi",
+  "homepage": "https://github.com/dannywillowliu-uchi/claude-orchestrator",
+  "skills": []
+}
