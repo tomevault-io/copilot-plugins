@@ -1,0 +1,58 @@
+{
+  "name": "nodnarbnitram--claude-code-extensions",
+  "displayName": "claude-code-extensions",
+  "description": "These are a collection of extension for Claude Code that can typically also be used in opencode. ",
+  "version": "1.0.0",
+  "author": "nodnarbnitram",
+  "homepage": "https://github.com/nodnarbnitram/claude-code-extensions",
+  "skills": [
+    {
+      "name": "tauri-v2",
+      "description": ""
+    },
+    {
+      "name": "esphome-config-helper",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-operations",
+      "description": ""
+    },
+    {
+      "name": "ha-api",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-health",
+      "description": ""
+    },
+    {
+      "name": "ha-energy",
+      "description": ""
+    },
+    {
+      "name": "ha-addon",
+      "description": ""
+    },
+    {
+      "name": "esphome-box3-builder",
+      "description": ""
+    },
+    {
+      "name": "grafana-plugin-scaffolding",
+      "description": ""
+    },
+    {
+      "name": "ha-dashboard",
+      "description": ""
+    },
+    {
+      "name": "ha-integration",
+      "description": ""
+    },
+    {
+      "name": "skill-skeleton",
+      "description": ""
+    }
+  ]
+}
