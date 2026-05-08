@@ -1,0 +1,44 @@
+{
+  "name": "Lingrove",
+  "owner": "zhdgzs",
+  "repo": "Lingrove",
+  "description": "\u4e00\u6b3e\u6c89\u6d78\u5f0f\u8bed\u8a00\u5b66\u4e60\u6d4f\u89c8\u5668\u63d2\u4ef6\uff0c\u7528\u4e8e\u6536\u96c6\u3001\u590d\u4e60\u548c\u5de9\u56fa\u8bcd\u6c47\u3002An immersive language learning browser plugin for collecting, reviewing, and consolidating vocabulary.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zhdgzs/Lingrove",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T15:23:14Z"
+}
