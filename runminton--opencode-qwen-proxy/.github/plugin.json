@@ -1,0 +1,9 @@
+{
+  "name": "runminton--opencode-qwen-proxy",
+  "displayName": "OpenCode-Qwen-Proxy",
+  "description": "OAuth authentication plugin for OpenCode CLI \u2013 Use Qwen3.5Plus-Coder models with your qwen.ai account (2,000 requests/day free)",
+  "version": "1.0.0",
+  "author": "RunMintOn",
+  "homepage": "https://github.com/RunMintOn/OpenCode-Qwen-Proxy",
+  "skills": []
+}
