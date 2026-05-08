@@ -1,101 +1,261 @@
-## code-style
+## core-modules
 
-> Code style and formatting rules for SGR Agent Core
+> Rules for core modules of SGR Agent Core
 
 
-# Code Style Rules
+# Rules for Core Modules
 
-## General Rules
+## Base Classes
 
-1. **Comments**: Write all code comments **ONLY in English**
-2. **User responses**: Respond in Russian unless user requests otherwise
-3. **Empty line at end of file**: Always add an empty line at the end of new files
-4. **Virtual environment**: Virtual environment is located in `.venv` directory
+### BaseAgent (`sgr_agent_core/base_agent.py`)
+- Parent class for all agents
+- Implements three-phase execution cycle: Reasoning → Select Action → Action
+- Manages agent context, conversation history, and streaming
+- Must be subclassed to implement `_reasoning_phase()`, `_select_action_phase()`, `_action_phase()`
+- Automatically registered in `AgentRegistry` via `AgentRegistryMixin`
+- Key attributes:
+  - `id`: Unique agent identifier (format: `{def_name or name}_{uuid}`)
+  - `name`: Agent class name
+  - `task_messages`: Initial task messages in OpenAI format
+  - `config`: AgentConfig instance with all settings
+  - `openai_client`: AsyncOpenAI client for LLM API
+  - `toolkit`: List of tool classes available to agent
+  - `_context`: AgentContext instance with execution state
+  - `conversation`: List of messages in OpenAI format for LLM context
+  - `streaming_generator`: OpenAIStreamingGenerator for streaming responses
+  - `logger`: Logger instance for agent logging
+  - `log`: List of execution logs
+  - `creation_time`: Datetime when agent was created
+- Key methods:
+  - `execute()`: Main execution loop (called externally)
+  - `_execution_step()`: Single step of execution cycle (can be overridden)
+  - `_prepare_context()`: Prepare conversation context (can be overridden)
+  - `_prepare_tools()`: Prepare available tools (can be overridden)
+  - `provide_clarification()`: Receive clarification from external source
+  - `_log_reasoning()`: Log reasoning phase results
+  - `_log_tool_execution()`: Log tool execution results
+  - `_save_agent_log()`: Save execution log to file
 
-## Code Formatting
+### BaseTool (`sgr_agent_core/base_tool.py`)
+- Parent class for all tools (Pydantic `BaseModel`)
+- Class variables: `tool_name` (ClassVar[str]), `description` (ClassVar[str])
+- Must implement `__call__(context: AgentContext, config: AgentConfig, **kwargs) -> str`
+- Returns string or JSON string from `__call__()`
+- Automatically registered in `ToolRegistry` via `ToolRegistryMixin`
+- `tool_name` defaults to class name (lowercase) if not set
+- `description` defaults to class docstring if not set
 
-### Ruff and Black
-- Use `ruff` for linting and formatting
-- Line length: **120 characters** (configured in `pyproject.toml`)
-- Follow rules from `pyproject.toml` and `.ruff.toml` if present
+### MCPBaseTool (`sgr_agent_core/base_tool.py`)
+- Base class for MCP-integrated tools (inherits from `BaseTool`)
+- Class variable: `_client` (ClassVar[Client | None]) - MCP client instance
+- `__call__()`: Calls MCP tool via `fastmcp.Client.call_tool()`
+- Converts MCP responses to JSON string
+- Respects `mcp_context_limit` from `ExecutionConfig`
+- Handles errors gracefully (returns error message as string)
 
-### Imports
-- Use `isort` for import sorting
-- Group imports: standard library → third-party → local
-- One import per line for long lists
+## Configuration Modules
 
-### Type Hints
-- **Mandatory**: Use type hints for all functions and methods
-- Prefer `T | None` over `Optional[T]` (Python 3.10+)
-- Use `Union[A, B]` for complex types when needed
-- Use `dict[str, Any]` instead of `Dict[str, Any]` (Python 3.9+)
+### GlobalConfig (`sgr_agent_core/agent_config.py`)
+- Singleton pattern for global configuration
+- All calls to `GlobalConfig()` return the same instance
+- Loads from YAML files via `from_yaml()` method
+- Loads from environment variables via `pydantic-settings` (prefix `SGR__`)
+- Contains: `llm`, `execution`, `prompts`, `mcp`, `agents`, `tools`
+- `agents`: Dictionary of `AgentDefinition` instances by name
+- `tools`: Dictionary of tool definitions by name
+- `definitions_from_yaml()`: Loads agent definitions from YAML (merges with existing)
 
-### Docstrings
-- Use docstrings in Google style format
-- All docstrings in **English**
-- Must document:
-  - Public classes and methods
-  - Complex business logic
-  - Parameters and return values
+### AgentDefinition (`sgr_agent_core/agent_definition.py`)
+- Definition template for creating agents
+- Inherits from `AgentConfig` (has all config fields)
+- Additional fields: `name`, `base_class`, `tools`
+- `base_class`: Can be class, ImportString (e.g., `"sgr_agent_core.agents.SGRAgent"`), or registry name
+- `tools`: List of `ToolDefinition` objects (resolved from names, classes, or dicts)
+- Supports YAML loading via `GlobalConfig.definitions_from_yaml()`
+- Validates import strings point to existing files
+- Automatically merges with `GlobalConfig` defaults (tools: global kwargs merged with agent-level kwargs)
 
-Example:
-```python
-def create_agent(self, agent_def: AgentDefinition, task_messages: list[dict]) -> BaseAgent:
-    """
-    Create an agent instance from a definition.
+### AgentConfig (`sgr_agent_core/agent_definition.py`)
+- Runtime configuration for agent instance
+- Combines: `LLMConfig`, `ExecutionConfig`, `PromptsConfig`, `MCPConfig`
+- Note: Search settings (`tavily_api_key`, `max_results`, etc.) are NOT in `AgentConfig`; they are configured per-tool in the `tools:` section as `SearchConfig` kwargs
+- Supports hierarchical inheritance from `GlobalConfig`
+- Uses `extra="allow"` to support custom fields for agent-specific parameters
 
-    Args:
-        agent_def: Agent definition with configuration
-        task_messages: Task messages in OpenAI format
+## Factory and Services
 
-    Returns:
-        Created agent instance
-    """
-```
+### AgentFactory (`sgr_agent_core/agent_factory.py`)
+- Creates agent instances from `AgentDefinition`
+- Resolves agent classes from `AgentRegistry` (by name or ImportString)
+- Resolves tools from `ToolRegistry` or `config.tools` section
+- Tool resolution order:
+  1. Tools defined in `config.tools` section
+  2. Tools in `ToolRegistry` by name (snake_case or PascalCase)
+  3. Auto-conversion snake_case → PascalCase for backward compatibility
+- Builds MCP tools via `MCP2ToolConverter`
+- Creates OpenAI client with proxy support via `httpx.AsyncClient`
+- `get_definitions_list()`: Returns all agent definitions from `GlobalConfig`
 
-## File Structure
+### AgentRegistry (`sgr_agent_core/services/registry.py`)
+- Registry for agent classes (subclass of `Registry[BaseAgent]`)
+- Automatic registration via `AgentRegistryMixin` in `BaseAgent.__init_subclass__()`
+- Registers by class name (lowercase) and `name` attribute
+- Supports lookup by name (case-insensitive)
 
-### Element Order in File
-1. Module docstring
-2. Imports (standard library → third-party → local)
-3. Constants
-4. Types and exceptions
-5. Classes and functions
+### ToolRegistry (`sgr_agent_core/services/registry.py`)
+- Registry for tool classes (subclass of `Registry[BaseTool]`)
+- Automatic registration via `ToolRegistryMixin` in `BaseTool.__init_subclass__()`
+- Registers by class name (lowercase) and `tool_name` attribute
+- Supports lookup by name (case-insensitive)
 
-### Naming
-- **Classes**: PascalCase (`SGRAgent`, `BaseTool`)
-- **Functions and methods**: snake_case (`create_agent`, `_prepare_context`)
-- **Constants**: UPPER_SNAKE_CASE (`MAX_ITERATIONS`)
-- **Private methods**: start with `_` (`_reasoning_phase`, `_log_reasoning`)
-- **Types**: PascalCase (`AgentContext`, `AgentDefinition`)
+### PromptLoader (`sgr_agent_core/services/prompt_loader.py`)
+- Static class for loading and formatting prompts
+- `get_system_prompt()`: Formats system prompt with available tools list
+- `get_initial_user_request()`: Formats initial user request with current date
+- `get_clarification_template()`: Formats clarification response template
+- Uses templates from `PromptsConfig` (files or strings)
+- Supports placeholders: `{available_tools}`, `{current_date}`
 
-## Error Handling
+### MCP2ToolConverter (`sgr_agent_core/services/mcp_service.py`)
+- Converts MCP server tools to `BaseTool` instances
+- `build_tools_from_mcp()`: Async method to build tools from MCP config
+- Uses `fastmcp.Client` to connect to MCP servers
+- Uses `jambo.SchemaConverter` to convert JSON schemas to Pydantic models
+- Creates dynamic tool classes inheriting from `MCPBaseTool`
+- Tool names converted to CamelCase (e.g., `web_search` → `MCPWebSearch`)
 
-- Use specific exceptions, not generic `Exception`
-- Create custom exceptions for business logic when needed
-- Always include informative error messages
-- Use `Optional` or `| None` for values that may be missing
+## Agent Implementations
 
-## Async/Await
+### SGRAgent (`sgr_agent_core/agents/sgr_agent.py`)
+- Uses Structured Output approach with `response_format`
+- Uses `NextStepToolsBuilder` to create dynamic union tool type
+- `_prepare_tools()` returns `Type[NextStepToolStub]` for structured output
+- `_reasoning_phase()` uses `response_format` to get `NextStepToolStub` with selected tool
+- `_select_action_phase()` extracts tool from `reasoning.function` field
+- LLM returns reasoning + tool selection in one structured call
+- Best for models with strong structured output support
 
-- Use `async def` for all asynchronous operations
-- Use `await` for all async calls
-- Don't use blocking I/O in async code
-- Use `httpx` instead of `requests` for async HTTP calls
+### ToolCallingAgent (`sgr_agent_core/agents/tool_calling_agent.py`)
+- Uses native Function Calling approach
+- `_reasoning_phase()` returns `None` (no explicit reasoning)
+- `_select_action_phase()` uses `tool_choice="required"` to force tool selection
+- LLM directly selects and calls tool via function calling
+- No structured reasoning output
+- Best for advanced LLM models with strong function calling support
 
-## FastAPI-Specific Guidelines
+### SGRToolCallingAgent (`sgr_agent_core/agents/sgr_tool_calling_agent.py`)
+- Hybrid approach: SGR reasoning + Function Calling for tools
+- `_reasoning_phase()` uses Function Calling to get `ReasoningTool` result
+- Executes `ReasoningTool` to get structured reasoning output
+- `_select_action_phase()` uses Function Calling with `tool_choice="required"` for tool selection
+- Handles edge case: if LLM returns text instead of tool call, creates `FinalAnswerTool`
+- Best balance for most tasks - combines structured reasoning with flexible tool selection
 
-- Avoid global scope variables, use application state
-- Use functional components and Pydantic models for validation
-- Use declarative route definitions with clear return type annotations
-- Use `async def` for asynchronous endpoints
-- Use Pydantic's `BaseModel` for input/output validation
-- Use `HTTPException` for expected errors
+## Tools
+
+### NextStepToolsBuilder (`sgr_agent_core/next_step_tool.py`)
+- Builder for creating dynamic union tool types
+- `build_NextStepTools()`: Creates `NextStepToolStub` subclass with union of available tools
+- Uses discriminated union pattern with `tool_name_discriminator` field
+- Enables structured output with dynamic tool selection
+- Used by `SGRAgent` for tool selection
+
+### NextStepToolStub (`sgr_agent_core/next_step_tool.py`)
+- Stub class for `NextStepTools` created by `NextStepToolsBuilder`
+- Inherits from `ReasoningTool` and contains `function` field with union of tools
+- Used in structured output to select tool for next step
+
+### ReasoningTool (`sgr_agent_core/tools/reasoning_tool.py`)
+- Provides structured reasoning output
+- Contains: reasoning_steps, current_situation, plan_status, enough_data, remaining_steps, task_completed
+- Base class for `NextStepToolStub`
+
+### ClarificationTool (`sgr_agent_core/tools/clarification_tool.py`)
+- Requests clarification from user
+- Pauses agent execution
+- Waits for user input via `provide_clarification()`
+
+### WebSearchTool (`sgr_agent_core/tools/web_search_tool.py`)
+- Performs web search via Tavily API
+- Returns search results with sources
+- Respects max_searches limit
+
+### ExtractPageContentTool (`sgr_agent_core/tools/extract_page_content_tool.py`)
+- Extracts content from web pages
+- Uses Tavily API for content extraction
+- Respects content_limit
+
+### GeneratePlanTool (`sgr_agent_core/tools/generate_plan_tool.py`)
+- Generates research plan
+- Defines research goal and steps
+- Provides search strategies
+
+### AdaptPlanTool (`sgr_agent_core/tools/adapt_plan_tool.py`)
+- Adapts existing plan based on new information
+- Updates research goal and steps
+- Modifies search strategies
+
+### CreateReportTool (`sgr_agent_core/tools/create_report_tool.py`)
+- Creates final research report
+- Saves report to file
+- Formats report with sources
+
+### FinalAnswerTool (`sgr_agent_core/tools/final_answer_tool.py`)
+- Provides final answer to user
+- Completes agent execution
+- Sets agent state to COMPLETED
+
+## Server and API
+
+### Server Settings (`sgr_agent_core/server/settings.py`)
+- Server configuration (host, port, etc.)
+- Used by FastAPI application
+
+### Server Models (`sgr_agent_core/server/models.py`)
+- Pydantic models for API requests/responses
+- `ChatCompletionRequest`: OpenAI-compatible request model
+- `MessagesList`: Root model for message lists with base64 truncation
+- `AgentStateResponse`: Agent state response model
+- `HealthResponse`: Health check response
+
+### FastAPI Application (`sgr_agent_core/server/app.py`)
+- Main FastAPI application
+- Configures CORS, middleware, logging
+- Registers API router from `endpoints.py`
+- Uses `server/settings.py` for configuration
+
+### API Endpoints (`sgr_agent_core/server/endpoints.py`)
+- `/v1/chat/completions` - OpenAI-compatible chat endpoint (streaming only)
+  - Creates agent from `AgentDefinition` by model name
+  - Supports clarification requests via agent ID in model field
+  - Returns streaming response via `OpenAIStreamingGenerator`
+- `/v1/models` - List available agent definitions (OpenAI-compatible)
+- `/agents/{agent_id}/state` - Get agent state (GET)
+- `/agents/{agent_id}/provide_clarification` - Provide clarification (POST)
+- `/agents` - List all active agents (GET)
+- `/health` - Health check endpoint
+
+### Streaming (`sgr_agent_core/stream.py`)
+- `OpenAIStreamingGenerator` for streaming responses
+- Formats events in OpenAI-compatible Server-Sent Events (SSE) format
+- Handles tool calls and content chunks
+- Provides async iterator via `stream()` method
+- Methods: `add_chunk()`, `add_tool_call()`, `add_chunk_from_str()`, `finish()`
+
+## General Rules for All Modules
+
+1. **Type hints**: Use type hints everywhere
+2. **Async**: All I/O operations must be async
+3. **Documentation**: Document public methods in English
+4. **Error handling**: Use specific exceptions
+5. **Registry**: Use registry pattern for discovery
+6. **Configuration**: Prefer YAML over hardcoded values
 
 ## References
 
-@pyproject.toml
-@pytest.ini
+@architecture.mdc
+@code-style.mdc
+@docs/en/framework/main-concepts.md
 
 ---
 > Source: [vamplabAI/sgr-agent-core](https://github.com/vamplabAI/sgr-agent-core) — distributed by [TomeVault](https://tomevault.io).
