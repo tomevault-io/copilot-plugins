@@ -1,0 +1,9 @@
+{
+  "name": "dustinlacewell--claude-config-manager",
+  "displayName": "claude-config-manager",
+  "description": "A native app for managing all Claude Code configuration",
+  "version": "1.0.0",
+  "author": "dustinlacewell",
+  "homepage": "https://github.com/dustinlacewell/claude-config-manager",
+  "skills": []
+}
