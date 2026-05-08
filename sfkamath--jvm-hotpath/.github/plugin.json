@@ -1,0 +1,9 @@
+{
+  "name": "sfkamath--jvm-hotpath",
+  "displayName": "jvm-hotpath",
+  "description": "JVM runtime execution analysis - finds hot code paths by frequency, not CPU time",
+  "version": "1.0.0",
+  "author": "sfkamath",
+  "homepage": "https://github.com/sfkamath/jvm-hotpath",
+  "skills": []
+}
