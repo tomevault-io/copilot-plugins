@@ -1,0 +1,9 @@
+{
+  "name": "kylejtobin--tca",
+  "displayName": "tca",
+  "description": "Construction replaces computation. A Pydantic architecture where the types are the program.",
+  "version": "1.0.0",
+  "author": "kylejtobin",
+  "homepage": "https://github.com/kylejtobin/tca",
+  "skills": []
+}
