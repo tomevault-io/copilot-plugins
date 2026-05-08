@@ -1,0 +1,9 @@
+{
+  "name": "quantbagel--rfx",
+  "displayName": "rfx",
+  "description": "An extremely fast ROS alternative written in Rust.",
+  "version": "1.0.0",
+  "author": "quantbagel",
+  "homepage": "https://github.com/quantbagel/rfx",
+  "skills": []
+}
