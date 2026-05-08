@@ -1,0 +1,9 @@
+{
+  "name": "andymai--brepjs",
+  "displayName": "brepjs",
+  "description": "Web CAD library with pluggable geometry kernel",
+  "version": "1.0.0",
+  "author": "andymai",
+  "homepage": "https://github.com/andymai/brepjs",
+  "skills": []
+}
