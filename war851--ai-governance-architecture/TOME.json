@@ -4,7 +4,7 @@
   "repo": "AI-Governance-Architecture",
   "description": "Claude Code best practices -- applied to application design. Interactive HLD/LLD visualization, implementation example. LLM-agnostic, DB-governed, GDPR-ready.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/war851/AI-Governance-Architecture",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T19:41:45Z"
+  "distributed_at": "2026-05-08T05:08:54Z"
 }
