@@ -1,0 +1,9 @@
+{
+  "name": "shiinasaku--github-card",
+  "displayName": "Github-Card",
+  "description": "A simple yet powerful GitHub profile card generator written with Elysiajs and bun ",
+  "version": "1.0.0",
+  "author": "ShiinaSaku",
+  "homepage": "https://github.com/ShiinaSaku/Github-Card",
+  "skills": []
+}
