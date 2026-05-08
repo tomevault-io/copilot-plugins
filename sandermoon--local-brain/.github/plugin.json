@@ -1,0 +1,9 @@
+{
+  "name": "sandermoon--local-brain",
+  "displayName": "local-brain",
+  "description": "A CLI tool for managing projects",
+  "version": "1.0.0",
+  "author": "SanderMoon",
+  "homepage": "https://github.com/SanderMoon/local-brain",
+  "skills": []
+}
