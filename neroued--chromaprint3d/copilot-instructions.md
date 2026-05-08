@@ -1,76 +1,37 @@
-## frontend-i18n
+## git-branch-pr-policy
 
-> 前端 i18n 国际化规范：新增或修改用户可见文案时必须走翻译流程
+> 禁止直接提交到 master，必须走分支 + PR
 
 
-# 前端 i18n 规范
+# Git 提交与合并规范
 
-## 基本原则
+## 强制要求
 
-- 所有用户可见的 UI 文本（按钮、标签、提示、错误消息、placeholder、title 等）禁止硬编码中文或英文，必须通过 `t('namespace.key')` 引用翻译 key。
-- 翻译 key 同时存在于 `src/locales/zh-CN.ts` 和 `src/locales/en.ts`，两个文件的 key 结构必须完全一致。
-- 代码注释中的中文不受此规则约束。
+- **禁止**在 `master` 分支直接提交代码并推送。
+- 所有代码改动必须在独立分支完成，并通过 Pull Request 合并到 `master`。
+- 分支未提交 PR 前，不得视为“已完成”。
 
-## 翻译调用方式
+## 标准流程
 
-| 场景 | 用法 |
-|------|------|
-| Vue 组件 `<script setup>` 或 composable（setup 上下文内） | `const { t } = useI18n()` |
-| 模块级常量 / 非 Vue 上下文（如 `types.ts`、独立工具函数） | `import i18n from '@/locales'`，使用 `i18n.global.t()` |
-| 带参数插值 | `t('namespace.key', { param: value })` |
+1. 同步基线：`git fetch origin`，基于最新 `origin/master` 创建分支。
+2. 分支开发：在功能分支完成修改与验证。
+3. 推送分支：`git push -u origin <branch>`。
+4. 创建 PR：说明变更、验证结果、风险与回滚方案。
+5. 合并条件：CI 通过 + Code Review 通过后再合并。
 
-## 模块级常量的处理
+## 分支命名建议
 
-若模块级常量数组的 `label` 字段需要翻译，禁止在模块作用域直接赋值，必须转为 getter 函数或 `computed`，确保标签在语言切换时动态更新：
+- `feat/<topic>`
+- `fix/<topic>`
+- `refactor/<topic>`
+- `docs/<topic>`
+- `chore/<topic>`
+- `release/vX.Y.Z`
 
-```typescript
-// ❌ 禁止
-const OPTIONS = [{ label: '自定义', value: 0 }]
+## 异常场景
 
-// ✅ 正确
-function getOptions(t: (key: string) => string) {
-  return [{ label: t('common.custom'), value: 0 }]
-}
-```
-
-## 新增翻译 key 的流程
-
-1. 在 `src/locales/zh-CN.ts` 对应命名空间下添加 key 和中文值。
-2. 在 `src/locales/en.ts` 同一位置添加相同 key 和英文值。
-3. 在组件/composable 中使用 `t('namespace.key')` 引用。
-
-## 命名空间对应关系
-
-| 命名空间 | 对应组件/模块 |
-|----------|---------------|
-| `common` | 全局公共文案 |
-| `app` | App.vue |
-| `convert` | ConvertPanel |
-| `param` | ParamPanel 及子组件 |
-| `calibration` | CalibrationPanel / Calibration8ColorPanel |
-| `vectorize` | VectorizePanel |
-| `matting` | MattingPanel |
-| `colordb` | ColorDBSelector / ColorDBBuildSection / ColorDBUploadSection |
-| `imageUpload` | ImageUpload |
-| `result` | ResultPanel |
-
-## locale 敏感格式化
-
-- 禁止在 `toLocaleString`、`toLocaleTimeString`、`Intl.DateTimeFormat` 等 API 中硬编码 `'zh-CN'` 或其他 locale 字符串。
-- 使用无参数调用（跟随系统 locale）或传入当前 `i18n.global.locale.value`。
-
-## 变更检查
-
-硬编码 UI 文本由 `.cursor/hooks.json` 中的 prompt hook 自动检测（afterFileEdit 事件），编辑前端文件后会即时提示遗漏的 `t()` 调用。
-
-- 新增或修改用户可见文案后，确认 `zh-CN.ts` 和 `en.ts` 的 key 已同步。
-- 如需手动全量扫描硬编码中文（排除 locales 目录和测试文件）：
-
-```bash
-cd web/frontend/src
-grep -rPn '[\x{4e00}-\x{9fff}]' --include='*.vue' --include='*.ts' \
-  --exclude-dir=locales --exclude='*.test.ts'
-```
+- 仅在紧急故障且仓库维护者明确授权时，才允许绕过该规范。
+- 事后必须补齐复盘记录与后续 PR 同步。
 
 ---
 > Source: [Neroued/ChromaPrint3D](https://github.com/Neroued/ChromaPrint3D) — distributed by [TomeVault](https://tomevault.io).
