@@ -1,0 +1,9 @@
+{
+  "name": "programcaicai--openclaw-context-safe-plugin",
+  "displayName": "openclaw-context-safe-plugin",
+  "description": "Standalone OpenClaw context-safe plugin for tool-result trimming and context-engine slot installation.",
+  "version": "1.0.0",
+  "author": "ProgramCaiCai",
+  "homepage": "https://github.com/ProgramCaiCai/openclaw-context-safe-plugin",
+  "skills": []
+}
