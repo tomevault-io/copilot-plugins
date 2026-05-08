@@ -1,114 +1,31 @@
-## cpp-coding-standards
+## end-to-end-change-checklist
 
-> C++ 编码规范：格式化、跨平台、代码结构与工具函数复用
+> 前后端联动大型修改必须进行端到端闭环检查（涉及 API/缓存/文件/下载链路时由 Agent 主动引用）
 
 
-# C++ 编码规范
+# 联动变更闭环检查
 
-## 格式化
+适用场景：涉及前后端联动、运行时缓存、下载链路、文件落盘与部署可写路径的修改。
 
-格式化由 `.cursor/hooks/format-cpp.sh` 自动执行（afterFileEdit hook），无需手动运行。
+## 根因复盘（先做）
 
-项目格式化风格（`.clang-format` 配置）：
-- 基于 LLVM 风格
-- 缩进：4 空格
-- 列宽限制：100
+- 禁止只围绕“当前报错点”做局部修补，必须先识别完整业务链路。
+- 必须区分主链路与分支链路（例如常规任务下载 vs 校色板下载），防止只改主链路。
+- 跨层修改默认存在遗漏风险，未完成清单前不得判定“已修复”。
 
-## 跨平台
+## 实施清单（硬性）
 
-确保代码在 Linux / macOS / Windows 三平台均可编译运行。
+1. 画出链路：入口 API -> 服务层 -> runtime/cache -> 文件系统 -> 下载响应 -> 前端调用。
+2. 全量检索同类路径：主流程、校色板/管理端点、历史/兼容分支，不得只看单一路径。
+3. 对齐行为语义：`content-type`、文件名、错误码、fallback 策略保持一致。
+4. 校验部署约束：`read_only`、`tmpfs/volume`、目录权限、TTL 清理策略一致。
+5. 最低回归要求：至少覆盖“1 条主链路 + 1 条分支链路”的端到端验证。
 
-### 文件系统路径
+## 提交前 Gate
 
-禁止硬编码 POSIX 路径，一律使用 `std::filesystem`（C++17）：
-
-```cpp
-// ❌ 禁止
-.setUploadPath("/tmp/my_uploads");
-
-// ✅ 正确
-auto dir = std::filesystem::temp_directory_path() / "my_uploads";
-std::filesystem::create_directories(dir);
-.setUploadPath(dir.string());
-```
-
-### 随机数 / ID 生成
-
-禁止直接读取 `/dev/urandom`，使用 `std::random_device`：
-
-```cpp
-// ❌ 禁止
-std::ifstream urandom("/dev/urandom", ...);
-
-// ✅ 正确（项目内使用 random_utils.h）
-#include "infrastructure/random_utils.h"
-return detail::RandomHex(16);
-```
-
-`std::random_device` 在 MSVC 下调用 `BCryptGenRandom`，在 GCC/Clang 下读取 `/dev/urandom`，行为等价且可移植。
-
-### CMake 外部库链接
-
-禁止硬编码 Linux 特有的库名：
-
-```cmake
-# ❌ 禁止
-set(UUID_LIBRARIES c)      # libc 在 Windows 下无意义
-target_link_libraries(foo uuid)  # libuuid 在 Windows 不存在
-
-# ✅ 正确：用自实现 shim 或条件分支
-set(UUID_LIBRARIES "" CACHE STRING "uuid library target" FORCE)
-```
-
-### 平台宏判断
-
-需要平台差异时，使用标准宏而非猜测：
-
-```cpp
-#if defined(_WIN32)
-    // Windows（含 64 位）
-#elif defined(__APPLE__)
-    // macOS / iOS
-#else
-    // Linux / 其他 POSIX
-#endif
-```
-
-### CI 脚本
-
-GitHub Actions 中禁止在跨平台 job 里直接调用 bash 脚本，使用 Python 替代：
-
-```yaml
-# ❌ 禁止（Windows runner 无 bash/sha256sum）
-run: ./scripts/download_models.sh
-
-# ✅ 正确（三平台均有 Python 3）
-run: python3 scripts/download_models.py
-```
-
-## 代码结构
-
-### 工具函数复用
-
-- 禁止重复编写语义相同的工具函数（包括轻微改名/改参数的复制版本）。
-- 新增工具函数前，先检索项目内是否已有可复用实现。
-- 若工具函数会被多个模块复用，应提取为公共函数（头文件声明 + 单一实现）。
-- 若仅当前文件使用，应保留为该 `.cpp` 的局部实现（匿名命名空间），避免不必要暴露。
-
-### `.cpp` 文件组织
-
-- 避免在 `.cpp` 内做非必要前向声明；优先通过合理的函数定义顺序解决依赖。
-- 仅在无法通过顺序重排解决（如互递归）时才允许前向声明，并在附近写明原因。
-- 实现文件应按"工具函数 → 核心流程 → 对外接口"组织，减少跳转与重复。
-
-### 变更检查
-
-每次新增或修改代码时，必须确认：
-- 是否依赖 POSIX 路径格式（`/` 开头的绝对路径）？
-- 是否调用了 POSIX-only API（`fork`、`dlopen`、`mmap` 等）？
-- 是否可用 `std::filesystem` / `std::random_device` / 标准库替代？
-- 新增的工具函数是文件内私有函数，还是应升级为公共函数？
-- 若发现已有重复实现，优先合并并删除重复代码，再继续功能开发。
+- 仅主链路通过不算完成，必须给出分支链路验证证据。
+- 提交说明需明确：改动覆盖了哪些链路、验证了哪些下载端点。
+- 若有未覆盖分支，必须显式记录风险与后续补齐计划。
 
 ---
 > Source: [Neroued/ChromaPrint3D](https://github.com/Neroued/ChromaPrint3D) — distributed by [TomeVault](https://tomevault.io).
