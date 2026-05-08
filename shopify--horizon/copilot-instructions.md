@@ -1,14 +1,14 @@
-## carousel-accessibility
+## cart-drawer-accessibility
 
-> Carousel component accessibility compliance pattern
+> Cart drawer component accessibility compliance pattern
 
-# Carousel Accessibility Standards
+# Cart Drawer Component Accessibility Standards
 
-Ensures carousel components follow WCAG compliance and WAI-ARIA Carousel Pattern specifications.
+Ensures cart drawer components follow WCAG compliance and ARIA Dialog Pattern specifications for ecommerce applications.
 
 <rule>
-name: carousel_accessibility_standards
-description: Enforce carousel component accessibility standards and WAI-ARIA Carousel Pattern compliance
+name: cart_drawer_accessibility_standards
+description: Enforce cart drawer component accessibility standards and ARIA Dialog Pattern compliance
 filters:
   - type: file_extension
     pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
@@ -16,465 +16,225 @@ filters:
 actions:
   - type: enforce
     conditions:
-      # Carousel container role requirement
-      - pattern: "(?i)<(div|section)[^>]*(?:carousel|slider|slideshow)[^>]*>"
-        pattern_negate: "(role=\"(region|group)\"|aria-roledescription=\"carousel\")"
-        message: "Carousel container must have role='region' or role='group' and aria-roledescription='carousel'."
+      # Cart activator missing aria-haspopup
+      - pattern: "(?i)<button[^>]*(?:cart|basket|shopping)[^>]*>"
+        pattern_negate: "aria-haspopup=\"dialog\""
+        message: "Cart activator buttons must include aria-haspopup='dialog' to inform users a dialog will open."
 
-      # Carousel label requirement
-      - pattern: "(?i)<[^>]*role=\"(region|group)\"[^>]*aria-roledescription=\"carousel\"[^>]*>"
-        pattern_negate: "(aria-labelledby|aria-label)=\"[^\"]+\""
-        message: "Carousel must have either aria-labelledby or aria-label for accessibility."
+      # Cart container missing dialog role
+      - pattern: "(?i)<(div|section|aside)[^>]*(?:cart|basket|drawer)[^>]*>"
+        pattern_negate: "role=\"dialog\""
+        message: "Cart drawer containers must have role='dialog' attribute."
 
-      # Slide role requirement
-      - pattern: "(?i)<(div|section)[^>]*(?:slide|carousel-item)[^>]*>"
-        pattern_negate: "(role=\"group\"|aria-roledescription=\"slide\")"
-        message: "Slide containers must have role='group' and aria-roledescription='slide'."
+      # Cart container missing aria-modal
+      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*(?:cart|basket|drawer)[^>]*>"
+        pattern_negate: "aria-modal=\"true\""
+        message: "Cart drawer dialog elements must have aria-modal='true' attribute."
 
-      # Slide label requirement
-      - pattern: "(?i)<[^>]*role=\"group\"[^>]*aria-roledescription=\"slide\"[^>]*>"
-        pattern_negate: "(aria-labelledby|aria-label)=\"[^\"]+\""
-        message: "Slides must have either aria-labelledby or aria-label for accessibility."
+      # Cart container missing proper labeling
+      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*(?:cart|basket|drawer)[^>]*>"
+        pattern_negate: "(aria-labelledby|aria-label)"
+        message: "Cart drawer dialog elements must have either aria-labelledby or aria-label for accessibility."
 
-      # Rotation control requirement
-      - pattern: "(?i)<button[^>]*(?:rotation|auto-play|autoplay)[^>]*>"
-        pattern_negate: "aria-label=\"[^\"]*(?:Start|Stop)[^\"]*slide[^\"]*rotation[^\"]*\""
-        message: "Rotation control must have aria-label indicating its current state (Start/Stop slide rotation)."
+      # Empty aria-label check
+      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*(?:cart|basket|drawer)[^>]*aria-label=\"\"[^>]*>"
+        message: "Cart drawer aria-label should not be empty; provide a meaningful description like 'Shopping Cart'."
 
-      # Navigation controls requirement
-      - pattern: "(?i)<button[^>]*(?:next|previous|prev)[^>]*>"
-        pattern_negate: "aria-label=\"[^\"]*(?:Next|Previous)[^\"]*slide[^\"]*\""
-        message: "Navigation controls must have aria-label indicating their purpose (Next/Previous slide)."
+      # Close button missing proper functionality
+      - pattern: "(?i)<button[^>]*(?:close|dismiss|cancel)[^>]*(?:cart|basket|drawer)[^>]*>"
+        pattern_negate: "(onClick|onclick|@click|v-on:click)"
+        message: "Cart drawer close buttons should have proper click handlers to close the dialog."
 
-      # Navigation button disabling check
-      - pattern: "(?i)\\.disabled.*next|previous.*disabled"
-        message: "Navigation buttons should not be disabled. Implement wrap-around navigation to first/last slide instead for better user experience."
+      # Close button missing aria-label
+      - pattern: "(?i)<button[^>]*(?:close|dismiss|×|&times;)[^>]*(?:cart|basket|drawer)[^>]*>"
+        pattern_negate: "aria-label=\"[^\"]*[Cc]lose[^\"]*\""
+        message: "Cart drawer close buttons should have aria-label='Close cart' or similar descriptive text."
 
-      # Missing keyboard event handlers
-      - pattern: "(?i)<button[^>]*(?:rotation|next|previous|prev)[^>]*>"
-        pattern_negate: "(onKeyDown|onkeydown|@keydown|v-on:keydown)"
-        message: "Carousel controls should handle keyboard events (Enter, Space)."
+      # Missing focus management indicators
+      - pattern: "(?i)(?:openCart|showCart|toggleCart|openDrawer)\\s*\\("
+        message: "When opening cart drawers, ensure focus management is implemented (focus should move to first focusable element inside the dialog)."
 
-      # Auto-rotation interval check (WCAG 2.2.2)
-      - pattern: "setInterval\\([^,]+,\\s*(?:[0-4]\\d{3}|[0-9]{1,4})\\)"
-        message: "Auto-rotation interval must be at least 5000ms (5 seconds) to comply with WCAG 2.2.2 Pause, Stop, Hide."
+      # Missing checkout button accessibility
+      - pattern: "(?i)<button[^>]*(?:checkout|proceed|purchase)[^>]*(?:cart|basket|drawer)[^>]*>"
+        pattern_negate: "(aria-label|aria-describedby)"
+        message: "Cart drawer checkout buttons should have proper labeling for screen readers."
 
-      # Mouse hover event handlers check
-      - pattern: "(?i)<(div|section)[^>]*(?:carousel|slider|slideshow)[^>]*>"
-        pattern_negate: "(onMouseEnter|onmouseenter|@mouseenter|v-on:mouseenter|onMouseLeave|onmouseleave|@mouseleave|v-on:mouseleave)"
-        message: "Carousel must handle mouseenter/mouseleave events to pause/resume auto-rotation."
+      # Quantity inputs missing aria-live for screen reader announcements
+      - pattern: "(?i)<input[^>]*type=\"number\"[^>]*(?:quantity|qty)[^>]*>"
+        pattern_negate: "aria-live=\"polite\""
+        message: "Cart quantity inputs must have aria-live='polite' to announce value changes to screen readers."
 
-      # aria-live attribute check
-      - pattern: "(?i)<[^>]*aria-live=\"[^\"]*\"[^>]*>"
-        pattern_negate: "aria-live=\"(off|polite)\""
-        message: "Carousel container must have aria-live set to 'off' during rotation and 'polite' when paused."
+      # Missing focus management for item removal
+      - pattern: "(?i)(?:removeItem|remove.*item|delete.*item)\\s*\\("
+        pattern_negate: "focus\\(|focus\\(\\).*close|close.*focus\\(\\"
+        message: "When removing cart items, implement focus management to shift focus to a logical location (e.g., close button) for better user experience."
 
   - type: suggest
     message: |
-      **Carousel Component Accessibility Best Practices:**
+      **Cart Drawer Component Accessibility Best Practices:**
 
       **Required ARIA Attributes:**
-      - **role='region' or role='group':** Set on carousel container
-      - **aria-roledescription='carousel':** Set on carousel container
-      - **aria-labelledby/aria-label:** Set on carousel container
-      - **role='group':** Set on slide containers
-      - **aria-roledescription='slide':** Set on slide containers
-      - **aria-labelledby/aria-label:** Set on slide containers
-      - **aria-label:** Set on rotation control (changes with state)
-      - **aria-label:** Set on navigation controls
-      - **aria-live:** Set to 'off' during rotation, 'polite' when paused
-
-      **Optional ARIA Attributes:**
-      - **aria-atomic='false':** On slide wrapper
-      - **aria-hidden='true':** Set on inactive slides to hide from screen readers
-      - **visibility: hidden:** CSS property on inactive slides to hide from keyboard and visual users
+      - **aria-haspopup='dialog':** Set on cart activator buttons to inform users a dialog will open
+      - **role='dialog':** Set on the cart drawer container element
+      - **aria-modal='true':** Indicates the cart drawer is modal and traps focus
+      - **aria-labelledby:** Reference to visible cart title, OR
+      - **aria-label:** Descriptive label like "Shopping Cart" if no visible title exists
 
       **Keyboard Interaction Requirements:**
-      - **Tab/Shift+Tab:** Navigate through interactive elements
-      - **Enter/Space:** Activate controls
-      - **Auto-rotation:** Stops on focus or mouse hover, resumes on blur or mouse away
-      - **Rotation Control:** First in tab sequence
+      - **Initial Focus:** When cart drawer opens, focus must move to the first focusable element (typically close button)
+      - **Tab Cycling:** Tab key should cycle through focusable elements within the cart drawer only
+      - **Shift+Tab:** Should cycle backwards through focusable elements within the cart drawer
+      - **Escape Key:** Must close the cart drawer and return focus to the activator
+      - **Focus Trap:** Focus should be contained within the cart drawer while open
 
-      **Navigation Button Best Practices:**
-      - **Always Enabled:** Navigation buttons should never be disabled
-      - **Wrap-Around Navigation:** Next button wraps to first slide, Previous button wraps to last slide
-      - **Consistent Behavior:** Users can always navigate in both directions
-      - **Better UX:** Prevents users from getting "stuck" at slide boundaries
+      **Focus Management:**
+      - Implement focus trapping to prevent tab navigation outside the cart drawer
+      - Return focus to the cart activator when drawer closes
+      - Move focus to the close button (first focusable element) when drawer opens
+      - Ensure close button is positioned first in DOM order within the dialog container
+      - **Item Removal Focus:** When removing cart items, shift focus to the close button for logical positioning
+      - **Quantity Changes:** Maintain focus on quantity controls during updates to prevent focus loss
 
-      **Auto-rotation Requirements (WCAG 2.2.2):**
-      - Minimum interval between slides: 5 seconds
-      - Must provide pause/stop control
-      - Must stop on user interaction
-      - Must stop when any element receives focus
-      - Must stop when mouse hovers over carousel
-      - Must resume when mouse leaves carousel (unless manually paused)
-      - Must not restart automatically after manual pause
-
-      **Mouse Interaction Requirements:**
-      - Pause auto-rotation on mouseenter
-      - Resume auto-rotation on mouseleave (unless manually paused)
-      - Maintain pause state when manually stopped
-      - Clear visual indication of pause state
-
-      **Play/Pause Button Requirements:**
-      - Button state should reflect user's explicit choice
-      - Button state should not change with temporary auto-rotation pauses
-      - Button should maintain its state across mouse/focus events
-      - Button should only change state when explicitly activated
-      - Button should provide clear visual feedback of current state
-      - Button state should be independent of focus/hover pause behavior
-
-      **State Management Requirements:**
-      - Track rotation state (isRotating)
-      - Track manual pause state (wasManuallyPaused)
-      - Track focus/hover pause state (isPausedByFocus)
-      - Update aria-live attribute based on rotation state
-      - Maintain button state across temporary pauses
-      - Handle state transitions appropriately
+      **Screen Reader Interaction:**
+      - Activator should announce "dialog popup" when focused
+      - On activation, announce "{Cart label}, dialog" when focus moves to cart drawer
+      - Provide clear navigation through cart content
+      - Announce return to activator when drawer closes
+      - **Quantity Updates:** Use aria-live="polite" on quantity inputs to announce value changes
+      - **Item Removal:** Announce item removal with descriptive text (e.g., "Product Name removed from cart")
+      - **Dynamic Content:** Ensure all cart state changes are announced to screen readers
 
       **Structure Requirements:**
-      - Use native button elements for controls
-      - Handle auto-rotation state changes
-      - Provide clear visual indicators
-      - Ensure proper slide labeling
-      - Hide off-screen slides from keyboard and screen reader users
-
-      **Slide Visibility Management:**
-      - Use `visibility: hidden` on inactive slides to hide from all users
-      - Use `visibility: visible` on active slide to make accessible
-      - The `visibility` property can be animated with CSS transitions
-      - Prevents keyboard focus on hidden slides
-      - Prevents screen reader access to hidden slides
-      - Improves performance by removing off-screen content from accessibility tree
+      - All interactive elements must be descendants of the cart drawer container
+      - Position close button first in DOM order within the cart drawer container
+      - Use semantic HTML within the cart drawer (headings, buttons, form labels)
+      - Provide clear visual focus indicators
+      - Close buttons should use aria-label="Close cart" with &times; entity for visual 'x' icon
 
       **Implementation Patterns:**
 
-      **Basic Carousel:**
+      **Cart Activator Button:**
       ```html
-      <div role="region"
-           aria-roledescription="carousel"
-           aria-label="Featured Products"
-           onmouseenter="pauseRotation()"
-           onmouseleave="resumeRotation()">
-        <div class="carousel-container" aria-live="off">
-          <button aria-label="Stop slide rotation">
-            Pause
-          </button>
-          <div role="group"
-               aria-roledescription="slide"
-               aria-label="Product 1 of 3">
-            <img src="product1.jpg" alt="Product 1">
-            <h3>Product 1</h3>
-          </div>
-          <button aria-label="Previous slide">
-            Previous
-          </button>
-          <button aria-label="Next slide">
-            Next
+      <button class="cart-activator"
+              aria-haspopup="dialog"
+              aria-label="View shopping cart"
+              onclick="openCartDrawer()">
+        <svg aria-hidden="true" width="24" height="24">
+          <!-- Cart icon -->
+        </svg>
+        <span class="cart-count">3</span>
+      </button>
+      ```
+
+      **Cart Drawer Container:**
+      ```html
+      <div role="dialog"
+           aria-modal="true"
+           aria-labelledby="cart-title"
+           class="cart-drawer"
+           id="cart-drawer">
+        <button type="button"
+                aria-label="Close cart"
+                onclick="closeCartDrawer()"
+                class="cart-close">&times;</button>
+        <h2 id="cart-title">Shopping Cart</h2>
+        <div class="cart-items">
+          <!-- Cart items -->
+        </div>
+        <div class="cart-summary">
+          <p>Total: $99.99</p>
+          <button aria-label="Proceed to checkout"
+                  onclick="proceedToCheckout()">
+            Checkout
           </button>
         </div>
       </div>
       ```
 
-      **Tab Controls Implementation:**
+      **Quantity Controls with aria-live:**
       ```html
-      <div role="region"
-           aria-roledescription="carousel"
-           aria-label="Featured Products"
-           onmouseenter="pauseRotation()"
-           onmouseleave="resumeRotation()">
-        <div class="carousel-container" aria-live="off">
-          <!-- Play/Pause Button -->
-          <button aria-label="Stop slide rotation"
-                  onclick="toggleRotation()"
-                  onkeydown="handleKeyPress(event)">
-            Pause
-          </button>
-
-          <!-- Slides -->
-          <div role="group"
-               aria-roledescription="slide"
-               aria-label="Product 1 of 3">
-            <img src="product1.jpg" alt="Product 1">
-            <h3>Product 1</h3>
-          </div>
-
-          <!-- Navigation Controls -->
-          <button aria-label="Previous slide"
-                  onclick="previousSlide()"
-                  onkeydown="handleKeyPress(event)">
-            Previous
-          </button>
-          <button aria-label="Next slide"
-                  onclick="nextSlide()"
-                  onkeydown="handleKeyPress(event)">
-            Next
-          </button>
-
-          <!-- Tab Controls -->
-          <div role="tablist" aria-label="Slide navigation" class="carousel-tabs">
-            <button role="tab"
-                    aria-selected="true"
-                    aria-controls="slide-1"
-                    id="tab-1"
-                    onclick="goToSlide(0)"
-                    onkeydown="handleTabKeyPress(event)">
-              Slide 1
-            </button>
-            <button role="tab"
-                    aria-selected="false"
-                    aria-controls="slide-2"
-                    id="tab-2"
-                    onclick="goToSlide(1)"
-                    onkeydown="handleTabKeyPress(event)">
-              Slide 2
-            </button>
-            <button role="tab"
-                    aria-selected="false"
-                    aria-controls="slide-3"
-                    id="tab-3"
-                    onclick="goToSlide(2)"
-                    onkeydown="handleTabKeyPress(event)">
-              Slide 3
-            </button>
-          </div>
-        </div>
+      <div class="quantity-controls">
+        <button class="quantity-btn decrease-btn"
+                aria-label="Decrease quantity"
+                onclick="updateQuantity(itemId, -1)">-</button>
+        <input type="number"
+               class="quantity-input"
+               value="1"
+               min="1"
+               aria-label="Quantity for Product Name"
+               aria-live="polite"
+               onchange="setQuantity(itemId, this.value)">
+        <button class="quantity-btn increase-btn"
+                aria-label="Increase quantity"
+                onclick="updateQuantity(itemId, 1)">+</button>
       </div>
+      ```
 
-      <style>
-        /* Tab Controls Styles with WCAG 2.2 compliant contrast */
-        .carousel-tabs {
-          display: flex;
-          gap: 1rem;
-          margin-top: 1rem;
-        }
+      **Item Removal with Focus Management:**
+      ```javascript
+      function removeItem(itemId) {
+          const item = cartItems.find(item => item.id === itemId);
+          if (item) {
+              cartItems = cartItems.filter(item => item.id !== itemId);
 
-        .carousel-tabs [role="tab"] {
-          padding: 0.5rem 1rem;
-          border: 2px solid #495057; /* 8.3:1 contrast with white */
-          background: #ffffff;
-          color: #212529; /* 16.6:1 contrast with white */
-          border-radius: 4px;
-          cursor: pointer;
-          font-weight: 500;
-        }
+              // Remove only the specific cart item element
+              const cartItem = document.querySelector(`[data-item-id="${itemId}"]`);
+              if (cartItem) {
+                  cartItem.remove();
+              }
 
-        /* Selected tab state */
-        .carousel-tabs [role="tab"][aria-selected="true"] {
-          background: #0056b3; /* 7.7:1 contrast with white */
-          color: #ffffff;
-          border-color: #004085;
-        }
+              // Update cart state
+              updateCartCount();
+              updateCartTotal();
 
-        /* Unselected tab state - still maintaining 4.5:1 contrast */
-        .carousel-tabs [role="tab"][aria-selected="false"] {
-          background: #ffffff;
-          color: #495057; /* 8.3:1 contrast with white */
-          border-color: #6c757d; /* 5.4:1 contrast with white */
-        }
+              // Announce removal to screen readers
+              announceToScreenReader(`${item.name} removed from cart`);
 
-        /* Focus state */
-        .carousel-tabs [role="tab"]:focus {
-          outline: 3px solid #0056b3; /* 7.7:1 contrast with white */
-          outline-offset: 2px;
-        }
-
-        /* Hover state */
-        .carousel-tabs [role="tab"]:hover {
-          background: #f8f9fa;
-          border-color: #0056b3;
-        }
-
-        /* Hover state for selected tab */
-        .carousel-tabs [role="tab"][aria-selected="true"]:hover {
-          background: #004085;
-        }
-
-        /* High contrast mode support */
-        @media (prefers-contrast: more) {
-          .carousel-tabs [role="tab"] {
-            border: 3px solid #000000;
-            color: #000000;
+              // Shift focus to close button for logical focus management
+              const closeButton = document.querySelector('.cart-close');
+              if (closeButton) {
+                  closeButton.focus();
+              }
           }
-
-          .carousel-tabs [role="tab"][aria-selected="true"] {
-            background: #000000;
-            color: #ffffff;
-          }
-
-          .carousel-tabs [role="tab"]:focus {
-            outline: 3px solid #000000;
-          }
-        }
-      </style>
-
-      <script>
-        // Tab Controls JavaScript
-        function handleTabKeyPress(event) {
-          const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
-          const currentTab = event.target;
-          const currentIndex = tabs.indexOf(currentTab);
-
-          switch (event.key) {
-            case 'ArrowLeft':
-              event.preventDefault();
-              const prevTab = tabs[currentIndex - 1] || tabs[tabs.length - 1];
-              prevTab.focus();
-              break;
-            case 'ArrowRight':
-              event.preventDefault();
-              const nextTab = tabs[currentIndex + 1] || tabs[0];
-              nextTab.focus();
-              break;
-            case 'Home':
-              event.preventDefault();
-              tabs[0].focus();
-              break;
-            case 'End':
-              event.preventDefault();
-              tabs[tabs.length - 1].focus();
-              break;
-          }
-        }
-
-        function goToSlide(index) {
-          // Update tab states
-          const tabs = document.querySelectorAll('[role="tab"]');
-          tabs.forEach((tab, i) => {
-            tab.setAttribute('aria-selected', i === index);
-          });
-
-          // Update slide visibility
-          const slides = document.querySelectorAll('[role="group"]');
-          slides.forEach((slide, i) => {
-            slide.setAttribute('aria-hidden', i !== index);
-          });
-
-          // Pause rotation when manually navigating
-          pauseRotation();
-        }
-      </script>
+      }
       ```
 
       **JavaScript Considerations:**
-      - Implement auto-rotation pause on focus or mouse hover
-      - Handle keyboard navigation
-      - Update ARIA labels for rotation state
-      - Implement proper tab sequence
-      - Handle slide picker controls
-      - Consider touch/swipe interactions
-      - Ensure minimum 5-second interval between slides
-      - Stop rotation on user interaction
-      - Do not restart rotation automatically after manual pause
-      - Handle mouse enter/leave events for pause/resume
-      - Maintain manual pause state across mouse events
-      - Separate auto-rotation pause behavior from Play/Pause button state
-      - Update button state only on explicit user interaction
-      - **Update aria-live attribute dynamically based on rotation state**
-      - Track and manage multiple pause states (manual vs. focus/hover)
+      - Implement proper event listeners for Escape key
+      - Manage body scroll when cart drawer is open
+      - Handle focus restoration on cart drawer close
+      - Implement focus trapping within cart drawer
+      - Store reference to activator for focus return
+      - Handle dynamic cart content updates
+      - Ensure proper announcement of cart state changes
+      - **Quantity Management:** Update only specific DOM elements instead of re-rendering entire cart
+      - **Focus Management:** Shift focus to close button when removing items
+      - **Performance:** Avoid unnecessary DOM manipulation to maintain accessibility features
 
-      **aria-live Management Example:**
-      ```javascript
-      function toggleRotation() {
-        const carouselContainer = document.querySelector('[aria-live]');
-        wasManuallyPaused = isRotating;
-        isRotating = !isRotating;
+      **Quantity Controls and Item Management:**
+      - **aria-live="polite":** Add to all quantity input fields for screen reader announcements
+      - **Focus Preservation:** Maintain focus on quantity controls during updates to prevent keyboard navigation issues
+      - **Value Announcements:** Screen readers should announce new quantity values when inputs change
+      - **Item Removal Focus:** Shift focus to close button after removing items for logical navigation flow
+      - **Dynamic Updates:** Avoid full cart re-rendering to preserve focus and improve performance
 
-        if (isRotating) {
-          startRotation();
-          playPauseButton.textContent = 'Pause';
-          playPauseButton.setAttribute('aria-label', 'Stop slide rotation');
-          // Set to 'off' when rotating - prevents announcement overload
-          carouselContainer.setAttribute('aria-live', 'off');
-        } else {
-          stopRotation();
-          playPauseButton.textContent = 'Play';
-          playPauseButton.setAttribute('aria-label', 'Start slide rotation');
-          // Set to 'polite' when paused - allows screen readers to announce changes
-          carouselContainer.setAttribute('aria-live', 'polite');
-        }
-      }
-
-      // Also update aria-live on hover pause/resume
-      function pauseRotation() {
-        if (!wasManuallyPaused && isRotating) {
-          stopRotation();
-          const carouselContainer = document.querySelector('[aria-live]');
-          carouselContainer.setAttribute('aria-live', 'polite');
-        }
-      }
-
-      function resumeRotation() {
-        if (!wasManuallyPaused && isRotating) {
-          startRotation();
-          const carouselContainer = document.querySelector('[aria-live]');
-          carouselContainer.setAttribute('aria-live', 'off');
-        }
-      }
-      ```
-
-      **Slide Visibility Management Example:**
-      ```css
-      /* Hide all slides by default */
-      .carousel-slide {
-        visibility: hidden;
-        opacity: 0;
-        transition: visibility 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
-      }
-
-      /* Show active slide */
-      .carousel-slide.active {
-        visibility: visible;
-        opacity: 1;
-      }
-
-      /* Alternative: Use data attribute for active state */
-      .carousel-slide[data-active="false"] {
-        visibility: hidden;
-        opacity: 0;
-      }
-
-      .carousel-slide[data-active="true"] {
-        visibility: visible;
-        opacity: 1;
-      }
-      ```
-
-      ```javascript
-      function updateSlide(index) {
-        const slides = document.querySelectorAll('.carousel-slide');
-        currentSlide = (index + slides.length) % slides.length;
-
-        slides.forEach((slide, i) => {
-          if (i === currentSlide) {
-            // Show active slide
-            slide.classList.add('active');
-            slide.setAttribute('aria-hidden', 'false');
-            slide.setAttribute('data-active', 'true');
-          } else {
-            // Hide inactive slides
-            slide.classList.remove('active');
-            slide.setAttribute('aria-hidden', 'true');
-            slide.setAttribute('data-active', 'false');
-          }
-        });
-
-        // Update visual position
-        slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
-      }
-      ```
+      **Ecommerce-Specific Considerations:**
+      - Announce cart item count changes
+      - Provide clear product information in cart items
+      - Ensure checkout button is prominently accessible
+      - Handle empty cart states appropriately
+      - Provide clear pricing and total information
+      - Support quantity adjustments with proper labeling
+      - Handle cart item removal with confirmation
 
       **Accessibility Notes:**
-      - Auto-rotation should be paused by default
-      - Provide clear visual focus indicators
-      - Ensure sufficient color contrast
-      - Test with screen readers
-      - Consider motion sensitivity
-      - Provide alternative navigation methods
-      - Comply with WCAG 2.2.2 Pause, Stop, Hide requirement
-      - Ensure mouse hover behavior is consistent and predictable
-      - Maintain clear distinction between temporary and permanent pause states
-      - Ensure screen reader announcements are appropriate for current state
+      - Cart drawers should not contain critical page navigation
+      - Ensure cart content is fully accessible to screen readers
+      - Test with screen readers to ensure proper announcement
+      - Consider using aria-live regions for dynamic cart updates
+      - Provide clear error messages for cart operations
+      - Ensure cart drawer works with keyboard-only navigation
+      - Test focus management with multiple cart activators
 
 metadata:
   priority: high
