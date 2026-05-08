@@ -1,0 +1,9 @@
+{
+  "name": "cloudchef--atlasclaw",
+  "displayName": "atlasclaw",
+  "description": "AtlasClaw is an enterprise agent framework supporting mutliple users and multi system integration. ",
+  "version": "1.0.0",
+  "author": "CloudChef",
+  "homepage": "https://github.com/CloudChef/atlasclaw",
+  "skills": []
+}
