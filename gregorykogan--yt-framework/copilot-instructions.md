@@ -1,60 +1,38 @@
-## test-authoring
+## testing
 
-> Angry-Tests-aligned pytest style, naming, and mandatory debug loop for agents
+> Keep automated and manual verification aligned with code; prove changes with pytest or documented alternatives
 
 
-# Test authoring and debugging (Angry Tests)
+# Testing maintenance
 
-Philosophy is aligned with Yegor Bugayenko’s [Angry Tests](https://www.yegor256.com/angry-tests.html) and related posts: [On the Layout of Tests](https://www.yegor256.com/2023/01/19/layout-of-tests.html), [single-statement / single-assertion tests](https://www.yegor256.com/2017/05/17/single-statement-unit-tests.html), and [unit testing anti-patterns](https://www.yegor256.com/2018/12/11/unit-testing-anti-patterns.html). Adaptations below are **pytest-specific** for this repo.
+For **how** to write and debug tests (Angry Tests–aligned pytest style and mandatory fix loop), use [test-authoring.mdc](test-authoring.mdc). This file focuses on **when** to test and **proof** obligations.
 
-Cross-links: proof obligations in [testing.mdc](testing.mdc); Conda commands in [conda-environment.mdc](conda-environment.mdc); general code style in [standards.mdc](standards.mdc).
+## Surfaces
 
-## Mindset
+Treat as testing scope: `tests/**` for **pytest** (dev dependency in repo-root `pyproject.toml`). Complementary checks when automated coverage is thin or behavior is pipeline/integration-heavy: **dev mode** and **example pipelines** as described in `CONTRIBUTING.md` (Testing). Test code follows [standards.mdc](standards.mdc) for style and clarity (types, assertions, `black` on changed Python files).
 
-- Tests are a **safety net**: a test that turns red after a change did its job—it localized a mistake. Fix **production code** or **update the test deliberately** when the contract changed; do not weaken assertions to “make green” without a stated reason.
-- Prefer tests that **pinpoint** the broken unit or scenario so the failure message and test name narrow the search space (layout-of-tests).
+## When to add or update tests
 
-## Naming and file placement
+Add or extend tests in the same change set when you change behavior, fix bugs, adjust public contracts, or touch logic that already has pytest coverage. Prefer focused tests next to the modules they exercise under `tests/`. When the suite does not yet cover an area, use dev mode and/or a minimal example pipeline to verify—and add pytest when the behavior is stable enough to automate.
 
-- Prefer **`tests/test_<module_basename>.py`** mapping to a single primary **system under test** (SUT), e.g. `test_job_command.py` for `yt_framework.operations.job_command`.
-- For flows that **do not** map 1:1 to one module, use **`tests/integration/`** (or `tests/it/`) and **scenario-oriented** module names (IT-style), still with clear docstrings.
-- Test function names describe **behavior or rule**, not `test1` / `test_foo` (layout-of-tests).
+## Obligation
 
-## Assertions (one logical outcome)
+Do not claim a change is verified without evidence. Update or add tests so they match the new semantics; remove or rewrite assertions that encode obsolete behavior. If you rely on dev mode or examples instead of pytest, say what you ran and the outcome.
 
-- Aim for **one logical outcome per test**: one main `assert`, or one `pytest.raises(...)` block, or one structured equality check. If you need two checks, split the test unless they are inseparable duplicates of the same outcome.
-- Use **`match=`** on `pytest.raises` when the message is part of the contract.
-- Use **`assert expr, "short reason"`** when the default pytest output would be obscure (layout-of-tests: descriptive failures).
+## While working
 
-## Structure: Arrange / Act / Assert
+- **Early**: Identify which modules or flows changed and whether `tests/` already covers them; note gaps.
+- **Before done**: Run the relevant pytest scope (full suite or targeted). For integration-only or uncovered paths, run the dev-mode or example steps from `CONTRIBUTING.md` and record the result.
 
-- Keep tests **short**. Visible three phases: build inputs → call the API → assert.
-- **Shared setup:** Prefer **fake objects** or small factories that live next to production code (or clearly named helpers) over opaque shared fixtures. Avoid “god” fixtures and cross-test coupling ([anti-patterns](https://www.yegor256.com/2018/12/11/unit-testing-anti-patterns.html)).
-- If you add **`tests/support/`**, keep helpers **explicit and minimal**; document what SUT they serve.
+## Proof
 
-## Mocks
+Run commands through the project Conda env: [conda-environment.mdc](conda-environment.mdc) (e.g. `conda run -n yt-framework -- …`).
 
-- Use **`unittest.mock` / `patch` sparingly**. This codebase is YT/S3-heavy: prefer **real pure logic**, **fakes**, **dev-mode** boundaries, or narrow integration tests over mocking large client surfaces unless there is no cheaper option.
+- **Touches production code or existing tests**: run pytest from the repo root, e.g. `conda run -n yt-framework -- pytest`. For a narrow check: `conda run -n yt-framework -- pytest tests/<file>.py` or `pytest path::test_name`. Optional coverage: `conda run -n yt-framework -- pytest --cov=yt_framework`.
+- **Integration-heavy or uncovered areas**: cite dev-mode or example runs per `CONTRIBUTING.md` (and add pytest when practical).
+- **Test-only or rule-only edits (no `docs/` or user-facing README/CONTRIBUTING changes)**: Sphinx is not required; still run pytest if Python tests changed.
 
-## Mandatory fix loop (agents)
-
-When a test fails or you are debugging tests, follow this loop **in order**; do not skip straight to refactors.
-
-1. **Reproduce:** `conda run -n yt-framework -- pytest <path>::<test_name> -xvs` (or `-k` with a unique substring). Confirm the failure is stable.
-2. **Read:** Study the **assertion output**, **exception message**, and **traceback top**—identify the failing line in test and production code.
-3. **Locate SUT:** Open the production module that owns the behavior; confirm whether the test expectation or the code is wrong.
-4. **Hypothesis:** State one sentence: e.g. “Off-by-one in path normalization” or “Test encodes old API.”
-5. **Minimal change:** Apply the **smallest** edit that addresses that hypothesis only (standards: root-cause, no drive-by rewrites).
-6. **Re-run:** Same single test, then full `conda run -n yt-framework -- pytest`.
-7. **If still red:** Do **not** stack unrelated edits. Return to step 2 with fresh output. If the failure is environmental (Conda, missing env), fix the environment or document `--no-verify` only as an emergency (see CONTRIBUTING).
-
-Proof of done: cite pytest output per [testing.mdc](testing.mdc).
-
-## Project conventions
-
-- Run pytest through **`conda run -n yt-framework --`** when verifying locally ([conda-environment.mdc](conda-environment.mdc)).
-- Test code: type hints and Black like production ([standards.mdc](standards.mdc)).
-- For breadth of coverage and repo status, see [.cursor/artifacts/project-details/testing-readiness-report.md](../artifacts/project-details/testing-readiness-report.md).
+Done = proof, same spirit as [standards.mdc](standards.mdc): do not claim completion without evidence appropriate to what changed.
 
 ---
 > Source: [GregoryKogan/yt-framework](https://github.com/GregoryKogan/yt-framework) — distributed by [TomeVault](https://tomevault.io).
