@@ -1,0 +1,56 @@
+## webchirp
+
+> This repository hosts a browser-based CHIRP interface (`web/`) that executes CHIRP Python code in Pyodide and communicates with radios via Web Serial.
+
+# AGENTS.md
+
+## Purpose
+This repository hosts a browser-based CHIRP interface (`web/`) that executes CHIRP Python code in Pyodide and communicates with radios via Web Serial.
+
+## Core Architecture
+- `web/app.js`: Browser UI and Web Serial bridge implementation.
+- `web/js/runtime-rpc.js`: Main-thread runtime RPC layer and Pyodide bootstrap.
+- `web/python/runtime_bridge.py`: Versioned Python runtime logic (no embedded Python in JS files).
+- `chirp/`: Upstream CHIRP source as a git submodule.
+
+## Rules for Agents
+- Keep Python and JavaScript separated. Put runtime Python code in `web/python/*.py`.
+- Prefer generic, parameterized flows based on selected CHIRP driver/module/class.
+- Do not reintroduce radio-specific RPC methods when generic selected-radio methods can be used.
+- Preserve debug visibility: full errors/tracebacks should be logged to the bottom debug panel.
+- Avoid context pollution by spawning sub-agents when appropriate. Use sub-agent sandboxing when a read-only task is to be executed.
+  - Use sub-agents to produce a summary for a commit message.
+- When you discover something new, or unexpected, put it in FINDINGS.md
+- Avoid regressions in clone workflow:
+  - Download should cache the image for the selected driver.
+  - Upload should use cached image and fail clearly if no cached image exists.
+  - Prepare serial session before clone operations (buffer clear, control lines, settle delay).
+
+## Agent CLI
+- For agent-operated real-radio reads, use `npm run radio:read -- --port <path> --module <driver_module> --class <driver_class> --format json|csv|img --output <file>`.
+- For agent-operated real-radio writes, use `npm run radio:write -- --port <path> --module <driver_module> --class <driver_class> --format json|csv|img --input <file>`.
+- Prefer `--format json` when the workflow needs rows, settings, normalized CSV, and binary image in one file.
+- `--format img` means a CHIRP `.img` clone file and is clone-image only; expect it to fail clearly on radios that do not expose clone-mode image workflows.
+
+## UI Expectations
+- Make/model options must be sourced from CHIRP driver sources.
+- Session status should be concise; detailed diagnostics belong in Debug Output.
+- Keep controls and labels task-oriented and explicit.
+
+## Change Process
+- Commit after every change.
+- Keep commits small and scoped to one functional fix/refactor when practical.
+- Include clear commit messages that describe user-visible behavior or architectural impact.
+- Include the user's input/request text in every commit message for agent-authored changes.
+- Before committing, edit RELEASE_NOTES.md, prepend an entry with the current date, or if the date is the same as today - append to the entry.
+
+## Validation
+Before committing, run relevant checks:
+- `node --check web/app.js`
+- `node --check web/js/runtime-rpc.js`
+- `python -m py_compile web/python/runtime_bridge.py`
+- `npm run test:channels`
+
+---
+> Source: [jasiek/webchirp](https://github.com/jasiek/webchirp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
