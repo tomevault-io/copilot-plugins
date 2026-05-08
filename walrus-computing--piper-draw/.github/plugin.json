@@ -1,0 +1,9 @@
+{
+  "name": "walrus-computing--piper-draw",
+  "displayName": "piper-draw",
+  "description": "Interactively draw pipe diagrams for lattice surgery.",
+  "version": "1.0.0",
+  "author": "Walrus-Computing",
+  "homepage": "https://github.com/Walrus-Computing/piper-draw",
+  "skills": []
+}
