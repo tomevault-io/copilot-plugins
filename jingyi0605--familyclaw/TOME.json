@@ -1,0 +1,44 @@
+{
+  "name": "FamilyClaw",
+  "owner": "jingyi0605",
+  "repo": "FamilyClaw",
+  "description": "\u4e00\u4e2a\u771f\u6b63\u4ee5\u300c\u5bb6\u4eba\u300d\u4e3a\u4e2d\u5fc3\u7684\u5bb6\u5ead AI \u64cd\u4f5c\u7cfb\u7edf",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jingyi0605/FamilyClaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T02:40:48Z"
+}
