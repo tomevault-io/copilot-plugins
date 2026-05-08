@@ -1,0 +1,9 @@
+{
+  "name": "agentailor--create-mcp-server",
+  "displayName": "create-mcp-server",
+  "description": "Scaffold production-ready MCP servers in seconds",
+  "version": "1.0.0",
+  "author": "agentailor",
+  "homepage": "https://github.com/agentailor/create-mcp-server",
+  "skills": []
+}
