@@ -1,0 +1,9 @@
+{
+  "name": "edytakucharska--agent-recorder",
+  "displayName": "agent_recorder",
+  "description": "Know what your AI agent actually did. Agent Recorder logs every tool call across your MCP servers \u2014 locally, to SQLite, without capturing prompts or reasoning. Debug failures, audit runs, and stop gue",
+  "version": "1.0.0",
+  "author": "EdytaKucharska",
+  "homepage": "https://github.com/EdytaKucharska/agent_recorder",
+  "skills": []
+}
