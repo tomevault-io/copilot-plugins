@@ -1,19 +1,19 @@
-## 08-skill-doc-lint
+## 09-skill-init-agent
 
-> SKILL: Documentation Quality Audit (use for /doc-lint)
+> SKILL: Generate QA Agent Persona qa_agent.md (use for /init-agent)
 
-# SKILL: DOC LINT
+# SKILL: INIT AGENT
 
 ## TRIGGER
-Use this when auditing documentation quality — size, structure, duplicates, SSOT violations.
+Use this when creating a new qa_agent.md — AI job description with QA culture, principles and anti-patterns.
 
 ## LOGIC SOURCE
-**EXECUTE the instruction set defined in:** `.claude/skills/doc-lint/SKILL.md`
+**EXECUTE the instruction set defined in:** `.claude/skills/init-agent/SKILL.md`
 
-@.claude/skills/doc-lint/SKILL.md
+@.claude/skills/init-agent/SKILL.md
 
 ## KEY CONSTRAINT
-- Do NOT use for code review or source code analysis.
+- Do NOT use to edit an existing qa_agent.md — edit it manually.
 
 ---
 > Source: [vlad-ryzhkov/AI-QA-workshop-feb19](https://github.com/vlad-ryzhkov/AI-QA-workshop-feb19) — distributed by [TomeVault](https://tomevault.io).
