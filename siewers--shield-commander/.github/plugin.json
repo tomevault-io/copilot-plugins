@@ -1,0 +1,9 @@
+{
+  "name": "siewers--shield-commander",
+  "displayName": "shield-commander",
+  "description": "A desktop app for managing NVIDIA Shield devices over ADB \u2014 monitor processes, install/uninstall apps, and view system details",
+  "version": "1.0.0",
+  "author": "siewers",
+  "homepage": "https://github.com/siewers/shield-commander",
+  "skills": []
+}
