@@ -1,0 +1,9 @@
+{
+  "name": "dylanmurzello--zed-android-port",
+  "displayName": "zed-android-port",
+  "description": "Native Android port of the Zed code editor,  gpui rendering through Vulkan, integrated Termux for LSPs and tooling, remote SSH support. Runs as an APK on tablets and Android desktop modes. Proof of co",
+  "version": "1.0.0",
+  "author": "Dylanmurzello",
+  "homepage": "https://github.com/Dylanmurzello/zed-android-port",
+  "skills": []
+}
