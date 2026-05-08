@@ -1,0 +1,9 @@
+{
+  "name": "paavohuhtala--openwa",
+  "displayName": "OpenWA",
+  "description": "An open source re-implementation of Worms Armageddon, written in Rust.",
+  "version": "1.0.0",
+  "author": "paavohuhtala",
+  "homepage": "https://github.com/paavohuhtala/OpenWA",
+  "skills": []
+}
