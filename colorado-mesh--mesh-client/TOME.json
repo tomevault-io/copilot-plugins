@@ -1,0 +1,44 @@
+{
+  "name": "mesh-client",
+  "owner": "Colorado-Mesh",
+  "repo": "mesh-client",
+  "description": "Cross-platform Electron desktop client for Meshtastic and MeshCore on macOS, Linux, and Windows \u2014 BLE, USB serial, Wi\u2011Fi/TCP, MQTT, local SQLite history, routing diagnostics, and keyboard-first workflows.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Colorado-Mesh/mesh-client",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T09:07:44Z"
+}
