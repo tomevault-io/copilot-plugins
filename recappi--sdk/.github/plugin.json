@@ -1,0 +1,9 @@
+{
+  "name": "recappi--sdk",
+  "displayName": "sdk",
+  "description": "Cross platform audio capture SDK",
+  "version": "1.0.0",
+  "author": "Recappi",
+  "homepage": "https://github.com/Recappi/sdk",
+  "skills": []
+}
