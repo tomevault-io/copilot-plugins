@@ -1,0 +1,44 @@
+{
+  "name": "OpenCode-Qwen-Proxy",
+  "owner": "RunMintOn",
+  "repo": "OpenCode-Qwen-Proxy",
+  "description": "OAuth authentication plugin for OpenCode CLI \u2013 Use Qwen3.5Plus-Coder models with your qwen.ai account (2,000 requests/day free)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/RunMintOn/OpenCode-Qwen-Proxy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T21:13:07Z"
+}
