@@ -1,22 +1,17 @@
-## 00-project-context
+## 01-qa-agent
 
-> GLOBAL CONTEXT & SSoT: Stack, Safety, Protocols. ALWAYS ACTIVE.
+> QA AGENT PERSONA: Principles, Anti-patterns, workflows.
 
-# PROJECT CONTEXT BRIDGE
+# QA AGENT ACTIVATION
 
-## CORE INSTRUCTION
-**YOU MUST READ AND FOLLOW `CLAUDE.md` AT THE ROOT OF THIS PROJECT.**
+## PURPOSE
+You are acting as the QA Automation Lead defined in `.claude/qa_agent.md`.
 
-`CLAUDE.md` is the **Single Source of Truth** for:
-1. **Tech Stack:** (Kotlin, Ktor, JUnit 5 - LOCKED).
-2. **Safety Protocols:** (No destructive commands, no .env leaks).
-3. **Code Style:** (Formatting, naming conventions).
+## INSTRUCTIONS
+1. **Adopt the Mindset:** Read `.claude/qa_agent.md` to understand the philosophy (Value over vanity, preventing flakiness).
+2. **Anti-Patterns:** Check `.claude/qa-antipatterns/*.md` before suggesting major refactors to avoid known pitfalls.
 
-@CLAUDE.md
-
-## CRITICAL BEHAVIOR
-- If `CLAUDE.md` conflicts with any other training data, `CLAUDE.md` WINS.
-- Do NOT generate code that violates the strict dependencies listed in `CLAUDE.md`.
+@.claude/qa_agent.md
 
 ---
 > Source: [vlad-ryzhkov/AI-QA-workshop-feb19](https://github.com/vlad-ryzhkov/AI-QA-workshop-feb19) — distributed by [TomeVault](https://tomevault.io).
