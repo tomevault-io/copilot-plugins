@@ -1,0 +1,9 @@
+{
+  "name": "cfal--garcon",
+  "displayName": "garcon",
+  "description": "Garcon is a coding workspace for Claude Code, Codex, OpenCode, and Amp.",
+  "version": "1.0.0",
+  "author": "cfal",
+  "homepage": "https://github.com/cfal/garcon",
+  "skills": []
+}
