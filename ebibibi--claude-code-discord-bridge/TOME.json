@@ -4,7 +4,7 @@
   "repo": "claude-code-discord-bridge",
   "description": "Discord frontend for Claude Code CLI - chat with Claude Code via Discord threads",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ebibibi/claude-code-discord-bridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T13:01:59Z"
+  "distributed_at": "2026-05-08T19:34:18Z"
 }
