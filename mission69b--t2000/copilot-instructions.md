@@ -1,76 +1,133 @@
-## coding-discipline
+## cron-job-architecture
 
-> Coding discipline — Think before coding, simplicity first, surgical changes
+> Cron job architecture — t2000 server cron triggers audric internal API endpoints. Sharding, auth, idempotency.
 
 
-# Coding Discipline
+# Cron Job Architecture
 
-Three habits that shrink diffs, reduce rewrites, and surface the right questions before code is written. Adapted from Karpathy's coding-skills repo.
+The pattern: **t2000 server** runs the actual cron schedule (ECS task with `node-cron`). **Audric web** owns the data and exposes internal API endpoints. The cron is a thin shell that POSTs into audric.
 
-## 1. Think Before Coding
+## Why this split
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+- Audric owns the Prisma schema and the user data. Putting cron logic inside audric/web would scatter user-iteration logic across Vercel cron + Node cron, with two clocks.
+- t2000 server is a long-running Node process suited to long batch jobs.
+- The split keeps the contract tiny: t2000 does HTTP fan-out, audric does the work.
 
-Before implementing:
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them — don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
+## The cron jobs
 
-This pairs with the **trace-the-full-path** principle in `engineering-principles.mdc` — before any fix, trace the actual execution path. Most "wrong fix" iterations come from skipping this.
+| Job | t2000 file | Audric endpoint | Purpose |
+|---|---|---|---|
+| Financial context snapshot | `cron/jobs/financialContextSnapshot.ts` | `POST /api/internal/financial-context-snapshot` | Daily `<financial_context>` block for every active user |
+| Portfolio snapshot | `cron/jobs/portfolioSnapshots.ts` | `POST /api/internal/portfolio-snapshot` | `PortfolioSnapshot` rows for timeline canvas |
+| Memory extraction | `cron/jobs/memoryExtraction.ts` | `POST /api/internal/memory-extraction` | Extract `UserMemory` from chat transcripts |
+| Profile inference | `cron/jobs/profileInference.ts` | `POST /api/internal/profile-inference` | Update `UserFinancialProfile` from chat history |
+| Chain memory | `cron/jobs/chainMemory.ts` | `POST /api/internal/chain-memory` | Run 7 chain classifiers → `ChainFact` rows |
 
-## 2. Simplicity First
+## The contract
 
-**Minimum code that solves the problem. Nothing speculative.**
+**Auth.** Every internal endpoint requires `x-internal-key: $T2000_INTERNAL_KEY` (also called `AUDRIC_INTERNAL_KEY` on the t2000 side — same value). Reject without it, return 401.
 
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
+**Request shape.** POST with empty body (cron passes no params) OR with sharding params (see below).
 
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+**Response shape.** Every endpoint returns:
+```json
+{
+  "created": 100,
+  "skipped": 50,
+  "errors": 2,
+  "total": 152
+}
+```
 
-This pairs with **single source of truth** (`single-source-of-truth.mdc`). Most over-complication comes from forking a canonical instead of extending it.
+**Idempotency.** Endpoints MUST be safe to re-call within the same UTC day (e.g. on cron retry). Use upsert, not insert.
 
-## 3. Surgical Changes
+## Sharding (target ≥ 1k DAU)
 
-**Touch only what you must. Clean up only your own mess.**
+Single-endpoint fan-out works at low DAU. At 1k+ users, the audric route hits Vercel function timeout (10s pro / 60s pro+). Solution: t2000 fires N parallel POSTs with shard params:
 
-When editing existing code:
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it — don't delete it.
+```typescript
+// t2000 cron job
+const SHARDS = 8;
+await Promise.all(
+  Array.from({ length: SHARDS }, (_, i) =>
+    fetch(url, {
+      method: 'POST',
+      headers: { 'x-internal-key': key, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ shard: i, total: SHARDS }),
+    }),
+  ),
+);
+```
 
-When your changes create orphans:
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
+```typescript
+// audric/apps/web/app/api/internal/financial-context-snapshot/route.ts
+const { shard, total } = await req.json();
+const users = await prisma.user.findMany({
+  where: shard != null ? { id: { /* hash-based shard filter */ } } : undefined,
+});
+```
 
-**The test:** Every changed line should trace directly to the user's request.
+Shard count guidance:
+- < 1k DAU: 1 shard (no sharding)
+- 1k–10k DAU: 8 shards (default — see `audric-scaling-spec.md` PR 4)
+- 10k+ DAU: 16+ shards, consider migrating to a queue (SQS / Inngest)
 
-## Why this matters in this codebase
+## Schedule (UTC)
 
-We've shipped fixes that took 4+ iterations because:
-- The first fix went in the wrong layer (didn't trace the full path → see `engineering-principles.mdc` Principle 5).
-- The fix included "while I'm here" refactors that introduced a new bug (failed surgical changes).
-- The fix added a "flexibility" config that wasn't needed (failed simplicity).
+| Time | Job | Why |
+|---|---|---|
+| 02:00 | Portfolio snapshot | After EU/US close — most stable wallet states |
+| 02:30 | Financial context snapshot | After portfolio snapshot — uses freshest numbers |
+| 03:00 | Profile inference | Uses prior day's transcripts |
+| 03:15 | Memory extraction | After profile inference (memory feeds profile) |
+| 04:00 | Chain memory classifiers | Daily classifier run |
 
-Time spent thinking before coding is faster than time spent unwinding the wrong fix.
+Order matters — financial-context depends on portfolio, profile/memory depend on yesterday's logs being complete.
 
-## Working signals
+## What MUST NOT happen
 
-These guidelines are working if:
-- Fewer unnecessary changes in diffs.
-- Fewer rewrites due to overcomplication.
-- Clarifying questions come **before** implementation rather than after mistakes.
-- Each PR can be summarized in 1-2 sentences without weasel words.
+```typescript
+// ❌ Cron job that hits Sui RPC for every user
+for (const user of users) {
+  await suiClient.getAllBalances({ owner: user.suiAddress });
+}
+// — at 10k users that's 10k RPC calls in 60s, instant rate limit.
+// — batch via BlockVision OR use the canonical getPortfolio (it caches).
+
+// ❌ Cron job that ALSO writes to a different domain
+// — financial-context-snapshot writing to UserMemory? No. One job, one domain.
+
+// ❌ Endpoint that's NOT idempotent
+prisma.userFinancialContext.create({ data: { userId, snapshot } });
+// — use upsert. Cron retries WILL happen.
+
+// ❌ Auth via "if it's running on ECS" assumption
+// — always check x-internal-key. ECS networking is not security.
+
+// ❌ Hardcoded URL/key
+fetch('https://audric.ai/api/internal/...');
+const key = 'hardcoded-key';
+// — env via the typed proxy (env-validation-gate.mdc)
+```
+
+## Adding a new cron job
+
+1. Create the audric endpoint at `audric/apps/web/app/api/internal/<job>/route.ts` first.
+2. Make it idempotent and accept optional `{ shard, total }`.
+3. Add t2000 cron file at `apps/server/src/cron/jobs/<job>.ts` mirroring the existing pattern.
+4. Register in `apps/server/src/cron/index.ts` with the right UTC schedule.
+5. Test:
+   - Curl the endpoint manually with the right `x-internal-key`.
+   - Trigger from t2000 cron in dev and verify the response.
+6. Update this catalog.
 
 ## Cross-references
 
-- Engineering principles (trace the full path, single source of truth, fix at root) → `engineering-principles.mdc`
-- Verifiable goals → `goal-driven-execution.mdc`
-- Karpathy's original → `https://github.com/forrestchang/andrej-karpathy-skills`
+- t2000 cron entry → `apps/server/src/cron/index.ts`
+- Audric internal endpoints → `audric/apps/web/app/api/internal/*`
+- Sharding spec → `audric-scaling-spec.md` PR 4
+- Internal auth → `audric/apps/web/lib/internal-auth.ts`
+- Env (T2000_INTERNAL_KEY / AUDRIC_INTERNAL_KEY) → `env-validation-gate.mdc`
 
 ---
 > Source: [mission69b/t2000](https://github.com/mission69b/t2000) — distributed by [TomeVault](https://tomevault.io).
