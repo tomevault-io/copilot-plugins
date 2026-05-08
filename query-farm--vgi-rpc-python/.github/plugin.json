@@ -1,0 +1,9 @@
+{
+  "name": "query-farm--vgi-rpc-python",
+  "displayName": "vgi-rpc-python",
+  "description": "Transport-agnostic RPC framework built on Apache Arrow IPC serialization. Define RPC interfaces as Python Protocol classes with automatic schema derivation, typed client proxies, and streaming support",
+  "version": "1.0.0",
+  "author": "Query-farm",
+  "homepage": "https://github.com/Query-farm/vgi-rpc-python",
+  "skills": []
+}
