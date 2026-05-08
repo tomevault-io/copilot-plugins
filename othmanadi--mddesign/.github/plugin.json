@@ -1,0 +1,9 @@
+{
+  "name": "othmanadi--mddesign",
+  "displayName": "MDDesign",
+  "description": "Orchestrator plugin: composes planning-with-files, DESIGN.md, memory routing, agent teams, and session handoff into one contract for any modern coding agent. Cross-IDE.",
+  "version": "1.0.0",
+  "author": "OthmanAdi",
+  "homepage": "https://github.com/OthmanAdi/MDDesign",
+  "skills": []
+}
