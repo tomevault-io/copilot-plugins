@@ -1,0 +1,9 @@
+{
+  "name": "rapticore--ore-mal-pkg-inspector",
+  "displayName": "ore-mal-pkg-inspector",
+  "description": "Multi-Ecosystem Malicious Package Detection and Supply Chain Security Scanner",
+  "version": "1.0.0",
+  "author": "rapticore",
+  "homepage": "https://github.com/rapticore/ore-mal-pkg-inspector",
+  "skills": []
+}
