@@ -1,0 +1,9 @@
+{
+  "name": "jetbrains--databao-agent",
+  "displayName": "databao-agent",
+  "description": "Databao agent is an open-source agent that enables you to chat with your data and receive answers in text, interactive charts, and tables.",
+  "version": "1.0.0",
+  "author": "JetBrains",
+  "homepage": "https://github.com/JetBrains/databao-agent",
+  "skills": []
+}
