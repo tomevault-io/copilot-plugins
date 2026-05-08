@@ -1,0 +1,9 @@
+{
+  "name": "ttnear--clarc",
+  "displayName": "Clarc",
+  "description": "Native macOS client for Claude Code \u2014 a GUI desktop app built with SwiftUI",
+  "version": "1.0.0",
+  "author": "ttnear",
+  "homepage": "https://github.com/ttnear/Clarc",
+  "skills": []
+}
