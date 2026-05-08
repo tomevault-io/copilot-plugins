@@ -1,90 +1,61 @@
-## debug-container
+## env-vars
 
-> 容器/浏览器问题排查指南 — 当用户报告 session 异常时，按此流程读取 CDP 日志定位根因
+> 环境变量管理规范 — 新增/修改环境变量时需同步更新的文件清单和读取机制
 
 
-# 容器排查指南
+# 环境变量管理
 
-当用户说「session xxx 有问题」或报告浏览器异常行为时，按以下流程排查。
+## 读取机制
 
-## 容器命名
+项目有两种读取方式，新增变量时必须选对：
 
-每个 session 对应一个 Docker 容器，名称为 `bp-{session_id[:12]}`。
+| 方式 | 用法 | `.env` 文件生效？ | 场景 |
+|------|------|-------------------|------|
+| `config._env(key, default)` | 先读 `.env` 文件，再 `os.environ`，再 default | 是（直接解析） | **首选**，用于所有业务配置 |
+| `os.environ.get(key, default)` | 仅读环境变量 | 仅通过 `start.sh`（`set -a; source .env`）或 `docker-compose env_file` 间接生效 | 仅用于基础设施级配置（如 `LOG_LEVEL`） |
 
-## 排查步骤
+**规则：新增环境变量优先使用 `config._env()`**，除非变量在 `config.py` 导入之前就需要读取（如 logging 初始化）。
 
-### 1. 读 CDP 事件日志（最重要）
+## 新增/修改环境变量的检查清单
 
-```bash
-docker exec bp-{id前12位} tail -100 /tmp/cdp-events.jsonl
-```
+每次新增或修改环境变量时，必须同步更新以下文件：
 
-每行是一个 JSON 对象，关键字段：
-- `ts` — UTC 时间戳
-- `type` — 事件类型：`console` | `network` | `navigation` | `error`
-- `summary` — 一行人类可读摘要
-- `method` — CDP 原始方法名
+1. **`.env.example`** — 添加变量和中文说明；敏感生产值只能作为本地 `.env` 配置，不能写入仓库
+2. **`README.md` Configuration 表** — 添加变量、默认值、英文描述
+3. **`backend/app/config.py`** — 使用 `_env()` 读取（如适用）
 
-按类型过滤：
-```bash
-docker exec bp-xxx tail -200 /tmp/cdp-events.jsonl | python3 -c "
-import sys, json
-for line in sys.stdin:
-    e = json.loads(line)
-    if e.get('type') == 'error':
-        print(e['ts'], e['summary'])
-"
-```
+如果变量影响 Docker 部署：
+4. **`docker-compose.yml`** — `environment` 或 `args` 中引用
 
-### 2. 常见问题模式
+## 当前变量全景
 
-| 日志特征 | 可能原因 |
-|---------|---------|
-| 连续 `Network.responseReceived` 302 | 被反爬重定向，需要手动过验证 |
-| `Network.loadingFailed` errorText=net::ERR_* | 网络不通或 DNS 解析失败 |
-| `Runtime.exceptionThrown` | 页面 JS 报错 |
-| 连续重复的 `Page.frameNavigated` 同一 URL | Agent 在重复导航（检查 prompt 规则） |
-| 无任何日志 | CDP logger 可能未启动，见步骤 3 |
+| 变量 | 读取位置 | 默认值 | 用途 |
+|------|----------|--------|------|
+| `DATABASE_URL` | config.py | 无代码默认；从 `.env` / 环境变量读取，`.env.example` 仅提供本地开发示例 | 数据库连接 |
+| `DOCKER_HOST_ADDR` | config.py | `localhost` | 后端访问浏览器容器地址 |
+| `API_BASE_URL` | config.py | `http://localhost:8000` | 内置存储文件 URL 前缀 |
+| `OPENAI_API_KEY` | auto_name.py | （空） | Session 自动命名 |
+| `LOG_LEVEL` | logging_config.py | `INFO` | 日志级别 |
+| `APP_TITLE` | config.py | `Browser Pilot` | 品牌名称 |
+| `CLI_COMMAND_NAME` | config.py | `bpilot` | CLI 命令名 |
+| `CLI_INSTALL_COMMAND` | config.py | `pip install bpilot-cli` | CLI 安装命令 |
+| `CONTAINER_PREFIX` | config.py | `bp` | Docker 容器名前缀 |
+| `SELENIUM_IMAGE_NAME` | config.py | `browser-pilot-selenium` | Selenium 镜像名 |
+| `SELENIUM_BASE_IMAGE` | docker-compose.yml | `selenium/standalone-chrome:latest` | Selenium 基础镜像（构建参数） |
+| `NETWORK_EGRESS_DOCKER_NETWORK` | config.py | `browser-pilot-net` | 浏览器容器和托管网络出口容器共用的 Docker 网络 |
+| `NETWORK_EGRESS_CONFIG_DIR` | config.py | `data/network-egress` | 托管 Clash/OpenVPN 出口配置目录 |
+| `NETWORK_EGRESS_CLASH_IMAGE` | config.py | `ghcr.io/metacubex/mihomo:latest` | 托管 Clash 出口镜像 |
+| `NETWORK_EGRESS_CLASH_PROXY_PORT` | config.py | `7890` | 托管 Clash 内部代理端口 |
+| `NETWORK_EGRESS_OPENVPN_IMAGE` | config.py | `browser-pilot-openvpn-egress:latest` | 托管 OpenVPN 出口镜像 |
+| `NETWORK_EGRESS_OPENVPN_PROXY_PORT` | config.py | `8888` | 托管 OpenVPN 内部 HTTP 代理端口 |
+| `POSTGRES_USER` | docker-compose.yml/start.sh | 无 Compose/start.sh 默认；从 `.env` / 环境变量读取，`.env.example` 仅提供本地开发示例 | PG 用户名 |
+| `POSTGRES_PASSWORD` | docker-compose.yml/start.sh | 无 Compose/start.sh 默认；从 `.env` / 环境变量读取，`.env.example` 仅提供本地开发示例 | PG 密码 |
+| `POSTGRES_DB` | docker-compose.yml/start.sh | 无 Compose/start.sh 默认；从 `.env` / 环境变量读取，`.env.example` 仅提供本地开发示例 | PG 数据库名 |
 
-### 3. 检查 CDP logger 本身
+## 数据库密码规则
 
-```bash
-docker exec bp-xxx cat /tmp/cdp-logger-supervisor.log
-```
-
-### 4. 容器进程状态
-
-```bash
-docker exec bp-xxx supervisorctl status
-```
-
-正常状态应有：`browser` RUNNING、`cdp-logger` RUNNING、其他 selenium 进程。
-
-### 5. 后端 API
-
-也可通过 HTTP 读取日志（前端面板使用此接口）：
-```
-GET /api/sessions/{session_id}/logs?tail=100&log_type=network
-```
-
-### 6. 内部 Docker / Selenium 请求不能走环境代理
-
-后端访问浏览器容器、Selenium Grid、WebDriver、CDP readiness 等内部地址时，HTTP 客户端必须显式绕过部署机器的 `HTTP_PROXY` / `HTTPS_PROXY` / `ALL_PROXY` 环境变量，例如 `httpx.AsyncClient(..., trust_env=False)`。
-
-典型症状：
-- `GET /api/browser/tabs` 返回 `Expecting value: line 1 column 1 (char 0)`
-- WebDriver 响应被代理替换成空 body、HTML 错误页、网关错误页
-- 局域网访问 API 本身正常，但浏览器操作接口失败
-
-这类问题不要只从外部 curl 判断“局域网不可用”；要继续确认后端到浏览器容器的内部链路是否被代理或错误 host 劫持。
-
-## JSONL 日志示例
-
-```json
-{"ts":"2026-04-05T12:03:01.123Z","type":"navigation","method":"Page.frameNavigated","summary":"navigated -> https://www.zhipin.com/web/user/"}
-{"ts":"2026-04-05T12:03:01.456Z","type":"network","method":"Network.responseReceived","summary":"<- GET https://www.zhipin.com/api/user 200 45ms"}
-{"ts":"2026-04-05T12:03:02.789Z","type":"error","method":"Runtime.exceptionThrown","summary":"TypeError: Cannot read properties of undefined (reading 'map')"}
-```
+- `backend/app/config.py` 和 `docker-compose.yml` 禁止硬编码数据库密码或含固定密码的 `DATABASE_URL`。
+- 本地开发示例值只放在 `.env.example`；真实部署必须复制到 `.env` 后修改。
 
 ---
 > Source: [NoDeskAI/browser-pilot](https://github.com/NoDeskAI/browser-pilot) — distributed by [TomeVault](https://tomevault.io).
