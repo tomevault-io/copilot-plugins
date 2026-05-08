@@ -1,0 +1,9 @@
+{
+  "name": "midwork-finds-jobs--duckdb-crawler",
+  "displayName": "duckdb-crawler",
+  "description": "duckdb-crawler",
+  "version": "1.0.0",
+  "author": "midwork-finds-jobs",
+  "homepage": "https://github.com/midwork-finds-jobs/duckdb-crawler",
+  "skills": []
+}
