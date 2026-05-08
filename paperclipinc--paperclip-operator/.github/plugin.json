@@ -1,0 +1,9 @@
+{
+  "name": "paperclipinc--paperclip-operator",
+  "displayName": "paperclip-operator",
+  "description": "Kubernetes operator for managing Paperclip instances - the open-source AI agent orchestration platform",
+  "version": "1.0.0",
+  "author": "paperclipinc",
+  "homepage": "https://github.com/paperclipinc/paperclip-operator",
+  "skills": []
+}
