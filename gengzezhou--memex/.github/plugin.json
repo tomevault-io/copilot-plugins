@@ -1,0 +1,9 @@
+{
+  "name": "gengzezhou--memex",
+  "displayName": "memex",
+  "description": "A portable identity for Claude Code. Clone it anywhere, and Claude knows you.",
+  "version": "1.0.0",
+  "author": "GengzeZhou",
+  "homepage": "https://github.com/GengzeZhou/memex",
+  "skills": []
+}
