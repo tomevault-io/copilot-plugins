@@ -4,7 +4,7 @@
   "repo": "brood",
   "description": "Reference-first AI image editing desktop for developers (macOS, Tauri, Rust).",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kevinshowkat/brood",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T12:57:33Z"
+  "distributed_at": "2026-05-08T00:50:51Z"
 }
