@@ -1,0 +1,9 @@
+{
+  "name": "erikveland--epstein-archive",
+  "displayName": "epstein-archive",
+  "description": "Epstein Files Archive - Document processing and analysis system for Epstein files with spice ratings, entity extraction, and advanced search capabilities",
+  "version": "1.0.0",
+  "author": "ErikVeland",
+  "homepage": "https://github.com/ErikVeland/epstein-archive",
+  "skills": []
+}
