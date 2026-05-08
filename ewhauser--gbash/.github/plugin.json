@@ -1,0 +1,9 @@
+{
+  "name": "ewhauser--gbash",
+  "displayName": "gbash",
+  "description": "Pure Go bash implementation for agent sandboxes",
+  "version": "1.0.0",
+  "author": "ewhauser",
+  "homepage": "https://github.com/ewhauser/gbash",
+  "skills": []
+}
