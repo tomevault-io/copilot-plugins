@@ -4,7 +4,7 @@
   "repo": "add",
   "description": "ADD \u2014 Agent Driven Development. Coordinated AI agent teams that ship verified software. Spec-driven TDD, trust-but-verify orchestration, maturity lifecycle. Runs on Claude Code + Codex CLI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MountainUnicorn/add",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T19:52:52Z"
+  "distributed_at": "2026-05-08T12:32:54Z"
 }
