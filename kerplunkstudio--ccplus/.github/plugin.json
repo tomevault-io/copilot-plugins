@@ -1,0 +1,9 @@
+{
+  "name": "kerplunkstudio--ccplus",
+  "displayName": "ccplus",
+  "description": "A desktop app for Claude Code with multi-tab sessions, agent observability, and usage analytics.",
+  "version": "1.0.0",
+  "author": "kerplunkstudio",
+  "homepage": "https://github.com/kerplunkstudio/ccplus",
+  "skills": []
+}
