@@ -1,95 +1,121 @@
-## project-overview
+## typescript-workflow
 
-> Adam is a web application that enables users to generate 3D CAD models through AI-powered natural language, images, and direct manipulation. The platform combines parametric modeling with creative AI generation.
+> - When modifying database schemas that affect TypeScript types
 
-# Adam - AI-Powered 3D CAD Model Generation Platform
+# TypeScript Workflow Rules
+version: 1.1.0
 
-## Project Overview
-Adam is a web application that enables users to generate 3D CAD models through AI-powered natural language, images, and direct manipulation. The platform combines parametric modeling with creative AI generation.
+## Type Checking
 
-## Tech Stack
-- **Frontend**: React 19 + TypeScript + Vite
-- **UI Framework**: Radix UI + Tailwind CSS + shadcn/ui
-- **3D Graphics**: Three.js + React Three Fiber
-- **Backend**: Supabase (PostgreSQL + Edge Functions)
-- **Authentication**: Supabase Auth
-- **AI Services**: Anthropic Claude
-- **State Management**: React Query + Context API
-- **Routing**: React Router v6
+### Always Run Type Check After Type Changes
+- When modifying database schemas that affect TypeScript types
+- When updating type definitions or interfaces
+- When there are potential type conflicts or errors
+- When the LLM cannot see all related files that might be affected
 
-## Project Structure
-```
-adam/
-├── src/                    # Frontend source code
-│   ├── components/         # Reusable UI components
-│   ├── views/             # Page-level components
-│   ├── contexts/          # React contexts
-│   ├── hooks/             # Custom React hooks
-│   ├── services/          # API service functions
-│   ├── utils/             # Utility functions
-│   ├── types/             # TypeScript type definitions
-│   ├── lib/               # Third-party library configurations
-│   └── worker/            # Web Worker for OpenSCAD processing
-├── supabase/              # Backend configuration
-│   ├── functions/         # Edge functions
-│   ├── migrations/        # Database migrations
-│   ├── schemas/           # Database schemas
-│   └── config.toml        # Supabase configuration
-├── public/                # Static assets
-└── shared/                # Items shared between backend and frontend
+### Type Check Commands
+
+#### Frontend (Node.js/TypeScript)
+For files in `src/`, `shared/`, and other frontend directories:
+```bash
+npm run typecheck
 ```
 
-## Development Conventions
+#### Supabase Edge Functions (Deno)
+For files in `supabase/functions/`, you must cd into each function directory:
+```bash
+cd supabase/functions/[function-name]
+deno check index.ts
+```
 
-### Code Style
-- Use TypeScript for all new code
-- Follow React 19 patterns and hooks
-- Use functional components with hooks
-- Implement proper error boundaries
-- Use React Query for server state management
+Example:
+```bash
+cd supabase/functions/chat
+deno check index.ts
+```
 
-### Component Structure
-- Components in `src/components/` are reusable
-- Views in `src/views/` are page-level components
-- Use proper TypeScript interfaces for props
-- Implement proper loading and error states
+You can also run the npm command
+```bash
+npm run lint:supabase
+```
 
-### State Management
-- Use React Context for global state (auth, user data)
-- Use React Query for server state
-- Use local state for component-specific data
-- Implement proper loading states and error handling
+## When to Run Type Check
 
-### API Integration
-- All API calls go through Supabase Edge Functions
-- Use React Query for caching and synchronization
-- Implement proper error handling and retry logic
-- Use TypeScript interfaces for API responses.
+### Database Schema Changes
+- After running `supabase gen types typescript --local`
+- After applying migrations that change table structures
+- When adding new columns, tables, or modifying existing ones
 
-### 3D Graphics
-- Use Three.js for 3D rendering
-- Implement proper cleanup for Three.js resources
-- Use React Three Fiber for React integration
-- Handle WebGL context loss gracefully
+### Type Definition Updates
+- After modifying `src/types/` or `shared/*.ts` files
+- When updating component prop interfaces
+- When changing API response types
+- When modifying context or hook return types
 
-### Security
-- All sensitive operations go through authenticated Edge Functions
-- Implement proper CORS policies
-- Validate all user inputs
-- Use environment variables for sensitive data
+### Potential Type Issues
+- When using `any` types as workarounds
+- When there are TypeScript errors in the editor
+- When importing/exporting between files with type dependencies
+- When the LLM cannot see all related files in the conversation
 
-## Environment Setup
-- Frontend: `.env.local` for Vite environment variables
-- Backend: `supabase/functions/.env` for Edge Function environment variables
-- Use ngrok for local webhook development
+## Workflow Integration
 
-## Common Patterns
-- Use React Query for data fetching and caching
-- Implement proper loading states with skeleton components
-- Use toast notifications for user feedback
-- Implement proper error boundaries
-- Use React Router for navigation
-- Follow the established component hierarchy
+### With Database Changes
+1. Edit schema files in `supabase/schemas/`
+2. Generate migration: `supabase db diff -f <name>`
+3. Apply migration: `supabase start && supabase migration up`
+4. Regenerate types: `supabase gen types typescript --local > shared/database.ts`
+5. **Run type check**: 
+   - Frontend: `npx tsc -b`
+   - Edge Functions: `cd supabase/functions/[function-name] && deno check index.ts`
+6. Fix any type errors in the codebase
+
+### With Frontend Changes
+1. Modify TypeScript files in `src/` or `shared/`
+2. **Run type check**: `npx tsc -b`
+3. Fix any type errors
+4. Continue with implementation
+
+### With Supabase Edge Function Changes
+1. Modify TypeScript files in `supabase/functions/`
+2. **Run type check**: `cd supabase/functions/[function-name] && deno check index.ts`
+3. Fix any type errors
+4. Continue with implementation
+
+## Error Resolution
+
+### Common Type Issues
+- Missing properties in interfaces
+- Incorrect return types from functions
+- Type mismatches between components
+- Missing imports for type definitions
+
+### Resolution Steps
+1. Run appropriate type check command based on file location:
+   - Frontend: `npx tsc -b`
+   - Edge Functions: `cd supabase/functions/[function-name] && deno check index.ts`
+2. Fix errors systematically, starting with the most critical
+3. Re-run type check after each fix
+4. Ensure all type errors are resolved before proceeding
+
+## Best Practices
+
+### Type Safety
+- Avoid using `any` types unless absolutely necessary
+- Use proper TypeScript interfaces and types
+- Leverage the generated Supabase types
+- Maintain type consistency across the codebase
+
+### Development Workflow
+- Run type checks frequently during development
+- Fix type errors immediately when they appear
+- Use TypeScript strict mode settings
+- Keep type definitions up to date with schema changes
+
+### Environment-Specific Considerations
+- **Frontend**: Uses Node.js TypeScript compiler, supports all standard TypeScript features
+- **Edge Functions**: Uses Deno's TypeScript compiler, may have different import/export requirements
+- **Shared Types**: Files in `shared/` are used by both environments, ensure compatibility
 
 ---
 > Source: [Adam-CAD/CADAM](https://github.com/Adam-CAD/CADAM) — distributed by [TomeVault](https://tomevault.io).
