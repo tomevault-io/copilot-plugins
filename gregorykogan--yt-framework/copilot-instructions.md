@@ -1,33 +1,34 @@
-## conda-environment
+## documentation
 
-> Use the project Conda env yt-framework for all shell/Python commands; no ad-hoc venvs
+> Keep user-facing docs aligned with code; verify coverage while working
 
 
-# Python environment (Conda)
+# Documentation maintenance
 
-Human-readable setup: [CONTRIBUTING.md](CONTRIBUTING.md) (Development Setup). Environment name: **`yt-framework`**.
+## Surfaces
 
-## Default for agents
+Treat as documentation: `docs/**`, root `README.md`, `CONTRIBUTING.md`, and `examples/**/README.md` when the change touches behavior, CLI, config, or workflows those files describe. Public API docstrings follow [standards.mdc](standards.mdc); keep them consistent with any narrative docs that mention the same API.
 
-- Run verification and tooling through that env, for example:
-  - `conda run -n yt-framework -- <command>`
-- Prefer `conda run` so activation hooks are not required. For compound commands from the repo root:
-  - `conda run -n yt-framework -- bash -lc '...'`
+## When to update docs
 
-## Do not
+Update docs in the same change set when behavior could confuse a reader: new/changed CLI commands or flags, defaults, config keys, env vars, user- or operator-visible errors, pipeline/stage semantics, YT/S3 integration, Docker or code upload flows, troubleshooting symptoms, or anything else someone would look up under `docs/` or READMEs.
 
-- Create `.venv` / `venv` or run `python -m venv` for routine tests, docs, or formatting unless the user explicitly asks.
+## Obligation
 
-## If Conda or the env is missing
+Update every affected surface (or add a focused new section for new behavior). Do not leave stale commands, options, or explanations that contradict the code.
 
-- Do not silently fall back to a disposable venv; tell the user to follow [CONTRIBUTING.md](CONTRIBUTING.md).
-- If Conda is available but `yt-framework` does not exist, a one-time setup is acceptable (keep commands aligned with CONTRIBUTING):
-  - `conda create -n yt-framework python=3.11 -y`
-  - `conda run -n yt-framework -- python -m pip install -e ".[dev,docs]"` (from the repository root; use `python -m pip` so installs target the env, not a system/Homebrew `pip`)
+## While working
 
-## If Conda is not installed
+- **Early**: Map edited modules/features to the relevant `docs/` pages and READMEs; read them and note gaps or drift.
+- **Before done**: Reconcile implementation with those docs; if public API changed, fix docstrings per `standards.mdc` and any prose that describes that API.
 
-- State that clearly; do not invent a replacement workflow without user direction.
+## Proof
+
+- **Touches `docs/` or example/root README/CONTRIBUTING**: run `make -C docs html` after installing doc dependencies (e.g. `pip install -e ".[docs]"` using the `docs` optional extra in repo-root `pyproject.toml`); cite success or fix warnings/errors Sphinx reports.
+- **Docstrings only, no prose under `docs/` or those READMEs**: state that Sphinx was not required; still ensure docstrings match behavior.
+- **Pure prose doc edits**: `make -C docs html` is the primary verification.
+
+Done = proof, same spirit as Standards: do not claim completion without evidence appropriate to what changed.
 
 ---
 > Source: [GregoryKogan/yt-framework](https://github.com/GregoryKogan/yt-framework) — distributed by [TomeVault](https://tomevault.io).
