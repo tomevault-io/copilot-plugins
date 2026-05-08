@@ -1,40 +1,135 @@
-## pulse
+## release
 
-> PULSE Framework - Call pulse_status on EVERY message
+> PULSE Release Process - Checklist for publishing updates
 
 
-# 🛑 PULSE: Call MCP tools!
+# 📦 PULSE Release Checklist
 
-## EVERY MESSAGE → pulse_status FIRST
+## ⛔ CRITICAL RULE: ALL ARTIFACTS MUST BE IN SYNC
+
+**NEVER release only one component. ALL must be updated together:**
 
 ```
-CallMcpTool: pulse_status
-Arguments: { "userMessage": "<user message>" }
+CLI (npm)     ←→  MCP (npm)     ←→  Extension (OpenVSX)  ←→  Git (repo)
+    ↑________________↑___________________↑____________________↑
+                        ALL MUST MATCH
 ```
 
-## AFTER CODE CHANGES → pulse_doctor
+**Before ANY release, check sync:**
+```bash
+echo "CLI: $(npm view pulse-framework-cli version)"
+echo "MCP: $(npm view pulse-framework-mcp version)"
+echo "Ext: $(curl -s 'https://open-vsx.org/api/pulse-framework/pulse-framework' | node -p 'JSON.parse(require(\"fs\").readFileSync(0)).version')"
+```
 
-## EVERY 10 MIN → pulse_checkpoint
+## Components to Update
 
-| Trigger | Tool |
-|---------|------|
-| Every message | `pulse_status` |
-| After edits | `pulse_doctor` |
-| 10+ min work | `pulse_checkpoint` |
-| "wrong"/"stop" | `pulse_correct` |
-| 2-3 failures | `pulse_escalate` |
-| Task done | `pulse_review` |
-
-## NON-NEGOTIABLE
-
-- ⏱️ MAX 30 min autonomous
-- 🗑️ NO delete without confirmation
-- 📤 NO push without confirmation
-- 🔐 NO secrets in code
+| Component | Location | Publish Command |
+|-----------|----------|-----------------|
+| **Git Repo** | GitHub | `git push` |
+| **CLI (npm)** | `packages/pulse-cli` | `npm publish` |
+| **MCP (npm)** | `packages/pulse-mcp` | `npm publish` |
+| **Extension (OpenVSX)** | `packages/pulse-vscode` | `npx ovsx publish` |
 
 ---
 
-**DID YOU CALL pulse_status? If not, do it NOW.**
+## 🔄 Release Flow
+
+### 1. CLI Changes (`packages/pulse-cli`)
+```bash
+# 1. Bump version in package.json
+# 2. Build
+cd packages/pulse-cli
+npm run build
+
+# 3. Publish to npm
+npm publish --access public
+
+# 4. Commit & push
+git add -A && git commit -m "feat(cli): description - vX.Y.Z"
+PULSE_ALLOW_PUSH=1 git push
+```
+
+### 2. MCP Changes (`packages/pulse-mcp`)
+```bash
+# 1. Bump version in package.json
+# 2. Build
+cd packages/pulse-mcp
+npm run build
+
+# 3. Publish to npm
+npm publish --access public
+
+# 4. Commit & push
+git add -A && git commit -m "feat(mcp): description - vX.Y.Z"
+PULSE_ALLOW_PUSH=1 git push
+```
+
+### 3. Extension Changes (`packages/pulse-vscode`)
+```bash
+# 1. Bump version in package.json AND extension.ts CURRENT_VERSION
+# 2. Update CHANGELOG.md
+# 3. Build & typecheck
+cd packages/pulse-vscode
+npm run build && npm run typecheck
+
+# 4. Package
+npx @vscode/vsce package --no-dependencies
+
+# 5. Publish to OpenVSX
+npx ovsx publish pulse-framework-X.Y.Z.vsix -p $OVSX_TOKEN
+
+# 6. Commit & push
+git add -A && git commit -m "feat(extension): description - vX.Y.Z"
+PULSE_ALLOW_PUSH=1 git push
+```
+
+---
+
+## ⚠️ IMPORTANT RULES
+
+1. **Always sync `package-lock.json`**
+   ```bash
+   npm install  # Run from repo root after any package.json change
+   ```
+
+2. **Extension version in TWO places**
+   - `packages/pulse-vscode/package.json` → `"version": "X.Y.Z"`
+   - `packages/pulse-vscode/src/extension.ts` → `CURRENT_VERSION = "X.Y.Z"`
+
+3. **Update CHANGELOGs**
+   - Root `CHANGELOG.md` for major releases
+   - `packages/pulse-vscode/CHANGELOG.md` for extension (shows on marketplace)
+
+4. **Tokens needed**
+   - npm: `~/.npmrc` with auth token
+   - OpenVSX: Pass with `-p` flag or set `OVSX_PAT` env var
+
+---
+
+## 🔍 Version Check Command
+
+Run this to verify all artifacts are in sync:
+
+```bash
+echo "Git: $(git log --oneline -1)"
+echo "CLI: $(npm view pulse-framework-cli version)"
+echo "MCP: $(npm view pulse-framework-mcp version)"
+echo "Ext: $(curl -s 'https://open-vsx.org/api/pulse-framework/pulse-framework' | node -e \"console.log(JSON.parse(require('fs').readFileSync(0,'utf8')).version)\")"
+```
+
+---
+
+## 📋 Quick Reference
+
+| What Changed | What to Publish |
+|--------------|-----------------|
+| CLI code | npm CLI + git |
+| MCP code | npm MCP + git |
+| Extension code | OpenVSX + git |
+| CLI templates | npm CLI + git |
+| Shared types | npm CLI + npm MCP + git |
+| Rules (`.mdc`) | npm CLI (templates) + git |
 
 ---
 > Source: [manuelfussTC/PulseFramework](https://github.com/manuelfussTC/PulseFramework) — distributed by [TomeVault](https://tomevault.io).
