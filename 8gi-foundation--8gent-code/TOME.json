@@ -1,0 +1,44 @@
+{
+  "name": "8gent-code",
+  "owner": "8gi-foundation",
+  "repo": "8gent-code",
+  "description": "8gent Code : The Infinite Gentleman Agent, Autonomous coding agent powered by local LLMs",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/8gi-foundation/8gent-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T05:16:33Z"
+}
