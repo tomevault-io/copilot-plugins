@@ -1,113 +1,99 @@
-## common-commands
+## deploy-infra
 
-> Common CLI commands for development, deployment, debugging, and GCP operations
+> Patterns for infrastructure changes — deploy scripts, Docker, Cloud Run, env vars, config
 
 
-# Common Commands
+# Infrastructure Change Patterns
 
-Quick reference for CLI commands that work in this project. Invoke this rule by name when needed.
+High-risk, low-frequency changes. Follow the full chain for every modification.
 
-## Local Development
+## Adding a New Environment Variable
 
-```bash
-# Frontend dev server (runs in devcontainer terminal task)
-cd frontend && PORT=3000 npm run dev -- --host
+Two chains depending on whether the value is a secret or plain config.
 
-# Backend (auto-starts via Air in devcontainer)
-cd backend && air -c .air.toml
+### If it's a SECRET (API key, password, signing key):
 
-# Run frontend unit tests
-cd frontend && npx vitest run
+1. `backend/internal/config/config.go` — add field to `Config` struct + `os.Getenv()` in `Load()`
+2. `config/.env.local` — add with dev/sandbox value (local dev only)
+3. `config/.env.example` — add with placeholder
+4. Create in GCP Secret Manager: `echo -n "value" | gcloud secrets create golid-{name}-{env} --data-file=- --project=PROJECT`
+5. `scripts/deploy.sh` — add `secret_exists` guard + append to `secrets` string in `ship_api()`
+6. Service constructor in `cmd/server/main.go` — pass `cfg.NewField` to the service
 
-# Run a specific test file
-cd frontend && npx vitest run src/routes/(private)/MODULE/MODULE.test.tsx
+### If it's plain CONFIG (URL, domain, feature flag):
 
-# Run E2E tests (requires full stack running)
-cd frontend && npx playwright install chromium  # first time
-cd frontend && npx playwright test
-cd frontend && npx playwright test tests/e2e/auth.spec.ts  # specific file
+1. `backend/internal/config/config.go` — add field to `Config` struct + `os.Getenv()` in `Load()`
+2. `config/.env.local` — add with dev/sandbox value
+3. `config/.env.example` — add with placeholder (backend vars only)
+4. `frontend/.env.example` — add with placeholder (for `VITE_*` browser-exposed vars only). Per-environment values (e.g. test vs live Stripe public key) go in `config/.env.{qa,prod}` and are passed as build args during frontend image build.
+5. `config/.env.qa` — add with QA value
+6. `config/.env.prod` — add with production value
+7. `scripts/deploy.sh` — add to the `env_vars` block in `ship_api()` (if backend needs it at runtime)
+8. Service constructor in `cmd/server/main.go` — pass `cfg.NewField` to the service
 
-# Build backend
-cd backend && go build ./...
+```go
+// config.go
+type Config struct {
+    // ...
+    NewAPIKey string
+}
 
-# Run backend tests
-cd backend && go test ./...
-
-# Run integration tests (requires running PostgreSQL)
-cd backend && go test -tags=integration ./...
-
-# Tidy Go modules
-cd backend && go mod tidy
-
-# Run database migrations
-migrate -path backend/migrations -database "$DATABASE_URL" up
-
-# Re-seed dev data
-psql "$DATABASE_URL" -f backend/seeds/dev_seed.sql
-
-# Scaffold a new module
-cd backend && make new-module name=notes
-
-# Rename the project
-cd backend && go run ./cmd/rename myapp github.com/user/myapp/backend
+// In Load():
+NewAPIKey: os.Getenv("NEW_API_KEY"),
 ```
 
-## GCP — Secrets
+## Docker Patterns
 
-```bash
-# List all secrets
-gcloud secrets list --project=YOUR_PROJECT --format="table(name)"
+- Multi-stage builds: build stage (Go compile) → runtime stage (minimal image)
+- Never copy `.env` files into images — env vars injected at runtime
+- Health check: `HEALTHCHECK CMD curl -f http://localhost:8080/health || exit 1`
+- Non-root user in production images
 
-# Read a secret value
-gcloud secrets versions access latest --secret=SECRET_NAME --project=YOUR_PROJECT
+## Cloud Run
 
-# Create a new secret
-echo -n "VALUE" | gcloud secrets create SECRET_NAME --data-file=- --project=YOUR_PROJECT
+- `concurrency: 80` (default, adjust based on load testing)
+- `memory: 512Mi` (sufficient for Go + pgx pool)
+- `min-instances: 0` (scale to zero in QA, 1+ in prod)
+- Always set `--no-traffic` on first deploy, then migrate traffic
 
-# Update an existing secret
-echo -n "NEW_VALUE" | gcloud secrets versions add SECRET_NAME --data-file=- --project=YOUR_PROJECT
-```
+## Secrets
 
-## GCP — Cloud Run Logs
+**Never hardcode secrets.** Hybrid approach:
 
-```bash
-# Structured JSON logs
-gcloud logging read 'resource.type="cloud_run_revision" AND resource.labels.service_name="SERVICE" AND jsonPayload.msg=~"SEARCH_TERM"' \
-  --project=YOUR_PROJECT --limit=10 --format=json
+- **Development:** `config/.env.local` (gitignored), loaded by Docker Compose
+- **QA/Prod — simple secrets** (`JWT_SECRET`, `MAILGUN_API_KEY`, `STRIPE_*`): stored in GCP Secret Manager, injected via Cloud Run `--set-secrets`. Never visible in service config.
+- **QA/Prod — `DB_PASSWORD`**: fetched from Secret Manager at deploy time by `deploy.sh`, used to construct `DATABASE_URL` (which requires the dynamic Cloud SQL socket path), then passed as `--set-env-vars`.
+- **QA/Prod — plain config** (`FRONTEND_URL`, `MAILGUN_DOMAIN`, etc.): stays in `config/.env.{qa,prod}`, passed as `--set-env-vars`.
 
-# All errors
-gcloud logging read 'resource.type="cloud_run_revision" AND resource.labels.service_name="SERVICE" AND jsonPayload.level="ERROR"' \
-  --project=YOUR_PROJECT --limit=10 --format=json
-```
+Secret naming: `golid-{name}-{env}` (e.g. `golid-jwt-secret-qa`). Env suffix prevents collisions when environments share a GCP project.
 
-## GCP — Deployment
+## Nginx (Frontend)
 
-```bash
-# Deploy to QA (both services)
-./scripts/deploy.sh qa
+- `proxy_pass` to backend with `resolver` for Cloud Run DNS
+- Security headers: `X-Content-Type-Options`, `X-Frame-Options`, `X-XSS-Protection`
+- Gzip enabled for text/html, application/json, application/javascript
 
-# Deploy to QA (backend only)
-./scripts/deploy.sh qa api
+## Long-Lived Connections (SSE, WebSockets)
 
-# Deploy to prod
-./scripts/deploy.sh prod
+If you add SSE or WebSocket endpoints, exclude them from:
+- Gzip middleware (causes flush panic on connection close)
+- Timeout middleware (long-lived connections)
+- Add skipper functions in `middleware/stack.go`
 
-# Pre-flight check
-./scripts/deploy.sh check
+## Infrastructure Files (infra/)
 
-# Check deployment URL
-gcloud run services describe SERVICE --region=us-central1 --project=YOUR_PROJECT --format="value(status.url)"
-```
+Cloud Build and Cloud Run configs live in `infra/`, not alongside app code:
+- `infra/backend-cloudbuild.yaml` — builds the backend Docker image
+- `infra/frontend-cloudbuild.yaml` — builds the frontend Docker image
+- `infra/backend-service.yaml` — Cloud Run service config for the API
+- `infra/frontend-service.yaml` — Cloud Run service config for the web frontend
+- `infra/scheduler.yaml` — Cloud Scheduler job configs
 
-## Git
+`scripts/deploy.sh` references these via `$PROJECT_ROOT/infra/`. Follow the naming convention: `{target}-{type}.yaml`.
 
-```bash
-# Check what's ahead of remote
-git log --oneline origin/main..HEAD
+## Frontend Config Files
 
-# Push from host (devcontainer may not have SSH keys)
-git push
-```
+- `frontend/.env.example` — documents `VITE_*` browser-exposed env vars. Separate from `config/.env.example` (backend vars). Backend secrets must never use the `VITE_` prefix.
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
