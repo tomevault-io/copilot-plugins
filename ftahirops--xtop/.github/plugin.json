@@ -1,0 +1,9 @@
+{
+  "name": "ftahirops--xtop",
+  "displayName": "xtop",
+  "description": "xtop \u2014 modern replacement for top/htop with root-cause analysis and eBPF insights.",
+  "version": "1.0.0",
+  "author": "ftahirops",
+  "homepage": "https://github.com/ftahirops/xtop",
+  "skills": []
+}
