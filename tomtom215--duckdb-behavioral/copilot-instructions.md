@@ -1,0 +1,477 @@
+## duckdb-behavioral
+
+> enables ClickHouse-compatible mode combinations (e.g., `strict | strict_increase`).
+
+# CLAUDE.md — DuckDB Behavioral Analytics Extension
+
+Engineering reference for the `duckdb-behavioral` codebase.
+
+## Table of Contents
+
+- [Project Overview](#project-overview)
+- [Architecture](#architecture)
+- [Build & Test](#build--test)
+- [Functions](#functions)
+- [Dependencies](#dependencies)
+- [Code Quality Standards](#code-quality-standards)
+- [Performance](#performance)
+- [ClickHouse Parity Status](#clickhouse-parity-status)
+- [Testing](#testing)
+- [CI/CD](#cicd)
+- [Common Tasks](#common-tasks)
+
+## Project Overview
+
+`duckdb-behavioral` is a DuckDB loadable extension written in Rust that provides
+behavioral analytics functions inspired by ClickHouse. It is listed in the
+[DuckDB Community Extensions](https://github.com/duckdb/community-extensions/tree/main/extensions/behavioral)
+repository and can be installed with `INSTALL behavioral FROM community; LOAD behavioral;`.
+It can also be built from source, producing a `.so`/`.dylib` that DuckDB loads at runtime.
+
+## Architecture
+
+```
+src/
+├── lib.rs                  # Entry point via quack_rs::entry_point_v2! macro
+├── common/
+│   ├── mod.rs
+│   ├── event.rs            # Event type (u32 bitmask conditions, Copy) shared by window_funnel, sequence_*
+│   └── timestamp.rs        # Interval-to-microseconds conversion
+├── pattern/
+│   ├── mod.rs
+│   ├── parser.rs           # Recursive descent parser for sequence patterns
+│   └── executor.rs         # NFA-based pattern matcher
+├── sessionize.rs           # Sessionize state (boundary-tracking for segment trees)
+├── retention.rs            # Retention state (bitmask-based)
+├── window_funnel.rs        # Window funnel state (greedy forward scan, bitflag modes)
+├── sequence.rs             # Sequence match/count/events state (wraps pattern engine)
+├── sequence_next_node.rs   # Sequence next node state (sequential matching, Arc<str> values)
+└── ffi/
+    ├── mod.rs              # register_all() — dispatches to all FFI modules via Registrar trait
+    ├── sessionize.rs       # FFI callbacks for sessionize (raw libduckdb-sys — window function)
+    ├── retention.rs        # FFI via quack-rs builder + returns_logical(LIST(BOOLEAN)) + ListVector
+    ├── window_funnel.rs    # FFI via quack-rs builder + FfiState + VectorReader/VectorWriter
+    ├── sequence.rs         # FFI via quack-rs builder for sequence_match + sequence_count
+    ├── sequence_match_events.rs  # FFI via quack-rs builder + returns_logical(LIST(TIMESTAMP)) + ListVector
+    └── sequence_next_node.rs     # FFI via quack-rs builder + VectorWriter::write_varchar
+```
+
+### Key Design Decisions
+
+1. **Pure Rust core + FFI bridge**: Business logic lives in top-level modules
+   (`sessionize.rs`, `retention.rs`, etc.) with zero FFI dependencies. The `ffi/`
+   submodules handle DuckDB C API registration only.
+
+2. **Aggregate functions via quack-rs SDK**: DuckDB's Rust crate does not yet
+   provide high-level aggregate function registration. We use `quack-rs` v0.7.1
+   ([crates.io](https://crates.io/crates/quack-rs)) which wraps the raw C API with safe builders
+   (`AggregateFunctionSetBuilder`), state management (`FfiState<T>`), vector I/O
+   (`VectorReader`/`VectorWriter` including `write_varchar`), complex type helpers
+   (`ListVector`, `LogicalType::list()`), parameterized return type support
+   (`returns_logical(LogicalType)`), and `AggregateTestHarness` for combine
+   testing. All 6 aggregate functions use the builder for registration --
+   including `retention` and `sequence_match_events` which use
+   `returns_logical(LogicalType::list(...))` for their `LIST(T)` return types.
+   `sessionize` remains fully hand-rolled (window function limitation in quack-rs).
+
+3. **Function sets for variadic signatures**: Since `duckdb_aggregate_function_set_varargs`
+   doesn't exist, we register function sets with 31 overloads (2-32 boolean parameters)
+   via `AggregateFunctionSetBuilder::overloads(2..=32, ...)` which automatically calls
+   `duckdb_aggregate_function_set_name` on each overload.
+
+4. **Combinable `FunnelMode` bitflags**: `window_funnel` modes are represented as a
+   `u8` bitflag struct (`FunnelMode(u8)`) rather than a mutually exclusive enum. This
+   enables ClickHouse-compatible mode combinations (e.g., `strict | strict_increase`).
+   Five ClickHouse modes are defined: `STRICT` (accepts both `'strict'` and
+   `'strict_deduplication'` SQL strings, matching ClickHouse aliases), `STRICT_ORDER`,
+   `STRICT_INCREASE`, `STRICT_ONCE`, `ALLOW_REENTRY`. One extension mode is defined:
+   `STRICT_DEDUPLICATION` (SQL: `'timestamp_dedup'`), providing timestamp-based
+   deduplication not present in ClickHouse.
+
+5. **O(1) combine for sessionize**: The `SessionizeBoundaryState` tracks `first_ts`,
+   `last_ts`, and `boundaries` count, enabling O(1) combine for DuckDB's segment
+   tree windowing machinery.
+
+6. **Entry point via `quack_rs::entry_point_v2!` macro**: The `behavioral_init_c_api`
+   symbol is generated by the macro, which handles API initialization, connection
+   management via `duckdb_connect`/`duckdb_disconnect`, and error reporting. The
+   closure receives a `&Connection` implementing the `Registrar` trait, providing
+   a version-agnostic API for registering extension components. Aggregate functions
+   use `con.register_aggregate_set(builder)` instead of raw `builder.register(con)`.
+   `sessionize` still uses `con.as_raw_connection()` for window function FFI.
+
+## Build & Test
+
+```sql
+-- Install from DuckDB Community Extensions (no build required)
+INSTALL behavioral FROM community;
+LOAD behavioral;
+```
+
+```bash
+# Build from source (dev)
+cargo build
+
+# Build from source (release, produces loadable .so/.dylib)
+cargo build --release
+
+# Run all unit tests (453 tests + 1 doc-test)
+cargo test
+
+# Run clippy (must produce zero warnings)
+cargo clippy --all-targets
+
+# Format check
+cargo fmt -- --check
+
+# Run benchmarks
+cargo bench
+
+# Build docs
+cargo doc --no-deps
+
+# E2E test against real DuckDB (requires duckdb CLI)
+# 1. Build release
+cargo build --release
+# 2. Copy and append metadata
+cp target/release/libbehavioral.so /tmp/behavioral.duckdb_extension
+python3 extension-ci-tools/scripts/append_extension_metadata.py \
+  -l /tmp/behavioral.duckdb_extension -n behavioral \
+  -p linux_amd64 -dv v1.5.1 -ev v0.4.0 --abi-type C_STRUCT_UNSTABLE \
+  -o /tmp/behavioral.duckdb_extension
+# 3. Load and test
+duckdb -unsigned -c "LOAD '/tmp/behavioral.duckdb_extension'; SELECT ..."
+```
+
+## Functions
+
+| Function | Signature | Returns | Description |
+|---|---|---|---|
+| `sessionize` | `(TIMESTAMP, INTERVAL)` | `BIGINT` | Window function assigning session IDs |
+| `retention` | `(BOOLEAN, BOOLEAN, ...)` | `BOOLEAN[]` | Cohort retention analysis |
+| `window_funnel` | `(INTERVAL[, VARCHAR], TIMESTAMP, BOOLEAN, ...)` | `INTEGER` | Conversion funnel step tracking |
+| `sequence_match` | `(VARCHAR, TIMESTAMP, BOOLEAN, ...)` | `BOOLEAN` | Pattern matching over events |
+| `sequence_count` | `(VARCHAR, TIMESTAMP, BOOLEAN, ...)` | `BIGINT` | Count non-overlapping pattern matches |
+| `sequence_match_events` | `(VARCHAR, TIMESTAMP, BOOLEAN, ...)` | `LIST(TIMESTAMP)` | Return matched condition timestamps |
+| `sequence_next_node` | `(VARCHAR, VARCHAR, TIMESTAMP, VARCHAR, BOOLEAN, BOOLEAN, ...)` | `VARCHAR` | Next event value after pattern match |
+
+## Dependencies
+
+**Runtime** (linked into the `.so`/`.dylib`):
+- `quack-rs` v0.7.1 ([crates.io](https://crates.io/crates/quack-rs)) — Rust SDK
+  for DuckDB loadable extensions. Provides `entry_point_v2!` macro,
+  `Connection`/`Registrar` trait for version-agnostic registration,
+  `AggregateFunctionSetBuilder` (with `returns_logical(LogicalType)` for `LIST(T)` returns),
+  `FfiState<T>`, `VectorReader`/`VectorWriter` (including `write_varchar`),
+  `ListVector` for LIST output, `LogicalType::list()` for parameterized types,
+  and `AggregateTestHarness` for combine testing. Re-exports `libduckdb-sys`
+  with `loadable-extension` feature.
+- `libduckdb-sys = "=1.10501.0"` with `loadable-extension` feature — Kept explicitly
+  for `sessionize` FFI (window function not supported by quack-rs). Re-exported
+  by quack-rs but pinned explicitly for the raw window function callbacks.
+  Note: crate versioning uses `1.MAJOR_MINOR_PATCH.x` scheme (DuckDB v1.5.1 →
+  crate v1.10501.x).
+
+**Dev-only** (unit tests and benchmarks):
+- `duckdb = "=1.10501.0"` with `bundled` feature — Used in `#[cfg(test)]` modules
+  for `Connection::open_in_memory()`. Not linked into the release extension.
+  Note: crate versioning uses `1.MAJOR_MINOR_PATCH.x` scheme (DuckDB v1.5.1 →
+  crate v1.10501.x).
+- `criterion = "0.8"` with `html_reports` feature — Statistical benchmarking
+- `proptest = "1"` — Property-based testing
+
+## Code Quality Standards
+
+### Mandatory Requirements
+
+Every change MUST meet these requirements:
+
+1. **`cargo test`** — ALL tests pass. Zero failures. Zero ignored.
+2. **`cargo clippy --all-targets`** — Zero warnings.
+3. **`cargo fmt -- --check`** — Zero formatting violations.
+4. **`cargo doc --no-deps`** — Builds without errors or warnings.
+5. **Test count verified** — Actual test count matches documented count.
+6. **Documentation accurate** — All claims in CLAUDE.md, PERF.md, docs/ are
+   verifiable and match current code state.
+
+### Current Metrics
+
+- **Zero clippy warnings** with pedantic, nursery, and cargo lint groups enabled
+- **453 unit tests** covering all functions, edge cases, combine associativity,
+  property-based testing (proptest), mutation-testing-guided coverage,
+  ClickHouse mode combinations, and `AggregateTestHarness` combine
+  config-propagation tests for all 5 aggregate functions
+- **1 doc-test** for the pattern parser
+- **E2E tests** against real DuckDB v1.5.1 CLI: 11 workflow test steps
+  (2 platforms) plus 7 SQL integration test files with 59 queries covering
+  all 7 functions with multiple scenarios (basic, timeout, modes, GROUP BY,
+  no-match, NULL inputs, empty tables, all funnel modes, 5+ conditions,
+  all 8 direction/base combinations)
+- **7 Criterion benchmark files** (sessionize, retention, window_funnel, sequence, sort,
+  sequence_next_node, sequence_match_events) with combine benchmarks, realistic
+  cardinality benchmarks, and throughput reporting up to 1B elements
+- **Mutation testing**: 88.4% kill rate via cargo-mutants (130 caught / 17 missed)
+- **MSRV 1.84.1** verified in CI
+- All public items have documentation
+- Release profile: LTO, single codegen unit, abort on panic, stripped symbols
+
+## Performance
+
+Performance engineering is documented in [`PERF.md`](PERF.md), which contains
+optimization history with before/after measurements, algorithmic complexity
+analysis, and the benchmark improvement protocol.
+
+**Current baseline (Criterion 0.8.2, 95% CI):**
+
+| Function | Scale | Wall Clock | Throughput |
+|---|---|---|---|
+| `sessionize_update` | **1 billion** | **1.20 s** | **830 Melem/s** |
+| `retention_combine` | 100 million | 274 ms | 365 Melem/s |
+| `window_funnel` | 100 million | 791 ms | 126 Melem/s |
+| `sequence_match` | 100 million | 1.05 s | 95 Melem/s |
+| `sequence_count` | 100 million | 1.18 s | 85 Melem/s |
+| `sequence_match_events` | 100 million | 1.07 s | 93 Melem/s |
+| `sequence_next_node` | 10 million | 546 ms | 18 Melem/s |
+
+Key optimizations: u32 bitmask conditions (eliminates per-event heap alloc),
+in-place O(N) combine (replaces O(N^2) merge-allocate), NFA lazy matching
+(eliminates catastrophic backtracking), fast-path linear scans for common
+pattern shapes, presorted detection, and `Arc<str>` for reference-counted
+string sharing in `sequence_next_node`.
+
+## ClickHouse Parity Status
+
+**Complete.** All six ClickHouse behavioral parametric functions are implemented.
+Verified against the
+[ClickHouse parametric functions documentation](https://clickhouse.com/docs/sql-reference/aggregate-functions/parametric-functions).
+
+### Scope
+
+The ClickHouse parametric functions page documents 10 functions. Six are
+behavioral (all implemented). Four are out of scope:
+
+| Category | Functions | Status |
+|---|---|---|
+| Behavioral | `retention`, `windowFunnel`, `sequenceMatch`, `sequenceCount`, `sequenceMatchEvents`, `sequenceNextNode` | All implemented |
+| Statistical | `histogram` | Out of scope (not behavioral) |
+| Cardinality | `uniqUpTo` | Out of scope (not behavioral) |
+| Map aggregation | `sumMapFiltered`, `sumMapFilteredWithOverflow` | Out of scope (not behavioral) |
+
+Full justification: [`docs/src/internals/clickhouse-compatibility.md`](docs/src/internals/clickhouse-compatibility.md)
+
+### `windowFunnel` Mode Mapping
+
+ClickHouse's `'strict'` and `'strict_deduplication'` are aliases for the same
+behavior. Both SQL strings map to `STRICT` (0x01). The extension also provides
+`'timestamp_dedup'` as a mode not present in ClickHouse.
+
+### Extensions Beyond ClickHouse
+
+- `sessionize`: Window function (no ClickHouse equivalent)
+- `sequence_match_events`: Returns matched timestamps as `LIST(TIMESTAMP)`
+- `'timestamp_dedup'` mode: Timestamp-based deduplication in `window_funnel`
+- `(?t!=N)` time constraint: Not-equal operator in sequence patterns
+- No experimental flags required (ClickHouse's `sequenceNextNode` requires
+  `SET allow_experimental_funnel_functions = 1`)
+
+### Known Semantic Differences
+
+1. **`strict` mode guard**: Our implementation adds a `!event.condition(current_step)`
+   guard -- if an event matches both the previously-matched condition AND the
+   next target condition, we advance rather than break. ClickHouse may break
+   unconditionally. Only affects events satisfying multiple conditions simultaneously.
+
+2. **Window parameter type**: ClickHouse uses integer seconds; we use DuckDB
+   `INTERVAL`. Functionally equivalent.
+
+## Testing
+
+Tests are organized as `#[cfg(test)] mod tests` within each module.
+
+**Test categories:**
+
+- **State tests**: Empty state, single update, multiple updates
+- **Edge cases**: Threshold boundaries, NULL handling, empty inputs
+- **Combine correctness**: Empty combine, boundary detection, associativity,
+  config propagation via `AggregateTestHarness`
+- **Property-based tests**: 29 proptest tests verifying algebraic properties
+  (associativity, commutativity, identity, idempotency, monotonicity)
+  including 10 tests exercising 32-condition paths
+- **Mutation-testing-guided tests**: 51 tests from cargo-mutants analysis
+- **Pattern parser**: All operators, error positions, whitespace tolerance
+- **NFA executor**: Match/no-match, wildcards, time constraints, counting,
+  event collection, fast-path classification
+- **`FunnelMode` tests**: Bitflag operations, parsing, all six modes,
+  mode combinations
+- **`sequence_match_events` tests**: Multi-step, gap events, no-match,
+  complex patterns
+- **`sequence_next_node` tests**: All 8 direction/base combinations,
+  multi-step patterns, combine, NULL handling, Arc\<str\> sharing
+
+Run with `cargo test`. All 453 tests + 1 doc-test run in <1 second.
+
+**E2E tests** (against real DuckDB CLI):
+- 11 workflow test steps per platform (Linux + macOS) in `e2e.yml`
+- 7 SQL integration test files with 59 queries in `test/sql/`
+- Covers all 7 functions with basic usage, timeouts, all 6 modes, GROUP BY,
+  no-match, NULL inputs, empty tables, 5+ conditions, all direction x base combinations
+- Requires: `cargo build --release`, metadata append, `duckdb -unsigned`
+
+## CI/CD
+
+GitHub Actions workflows in `.github/workflows/`:
+
+- **ci.yml**: check, test, clippy, fmt, doc, MSRV, bench-compile, deny, semver,
+  coverage, cross-platform (Linux + macOS), extension-build
+- **codeql.yml**: CodeQL static analysis for Rust (push, PR, weekly schedule)
+- **e2e.yml**: Builds extension, tests all 7 functions against real DuckDB CLI
+- **release.yml**: Builds release artifacts for x86_64 and aarch64 on Linux/macOS,
+  creates GitHub release on tag push with SemVer validation
+- **community-submission.yml**: On-demand workflow for community extension
+  submission -- validates, builds, tests, pins ref, generates submission package
+- **pages.yml**: Deploys mdBook documentation to GitHub Pages
+
+## Common Tasks
+
+### Adding a new function
+
+1. Create `src/new_function.rs` with state struct implementing `Default + Send + 'static`,
+   plus `update()`, `combine_in_place()`, `finalize()` methods
+2. Add `impl quack_rs::aggregate::AggregateState for NewFunctionState {}` in the FFI module
+3. Create `src/ffi/new_function.rs` using quack-rs builders:
+   - Use `AggregateFunctionSetBuilder::new("name").overloads(...)` for registration
+   - Use `FfiState::<NewFunctionState>::size_callback`/`init_callback`/`destroy_callback`
+   - Use `VectorReader` for input (read_bool, read_str, read_i64, read_interval)
+   - Use `VectorWriter` for output (write_i32, write_bool, write_varchar, set_null)
+   - For `LIST(T)` output, use `.returns_logical(LogicalType::list(TypeId::...))` on the
+     builder, and `ListVector` + `VectorWriter` for child data in finalize
+   - **CRITICAL**: `combine_in_place` must propagate ALL configuration fields (not just events)
+4. Register in `src/ffi/mod.rs` `register_all()` via `Registrar` trait
+5. Add `pub mod new_function;` to `src/lib.rs`
+6. Add benchmark in `benches/`
+7. Write unit tests + `AggregateTestHarness` combine config-propagation tests
+8. **E2E test**: Build release, load in DuckDB CLI, verify SQL produces correct results
+
+### Updating DuckDB version
+
+The entry point uses `quack-rs` which depends on `libduckdb-sys`. When updating:
+
+1. Update `libduckdb-sys` version in `[dependencies]` and `duckdb` in `[dev-dependencies]`
+2. Check if `duckdb_rs_extension_api_init` minimum version string needs updating
+   (currently `"v1.2.0"` -- find the new C API version from `duckdb-loadable-macros`)
+3. Update `append_extension_metadata.py -dv` to match the new C API version
+4. Run full unit test suite (`cargo test`)
+5. **MANDATORY**: E2E test -- build release, load in DuckDB CLI, verify all 7 functions
+
+### Performance optimization session
+
+Follow the protocol in [`PERF.md`](PERF.md):
+
+1. Run `cargo bench` 3 times. Record baseline. Compare against PERF.md "Current Baseline".
+2. One optimization per commit. Measure before/after with confidence intervals.
+3. Accept only when CIs do not overlap. Revert and document if not significant.
+4. Update PERF.md: add optimization history entry, update current baseline.
+5. Update test count in this file if tests were added or removed.
+
+## Critical Implementation Notes
+
+Hard-won knowledge from developing this extension. Consult before making changes.
+
+### DuckDB FFI Gotchas
+
+- **Combine creates zero-initialized targets**: DuckDB's segment tree calls
+  `state_init` on fresh target states, then combines sources into them. All
+  config fields (`window_size_us`, `mode`, `pattern_str`, `direction`, `base`,
+  `num_steps`) default to zero/empty and must be explicitly propagated in
+  `combine_in_place`. Failure produces silently wrong results at finalize.
+
+- **Function set name must be set per overload**: `duckdb_register_aggregate_function_set`
+  silently fails if individual functions don't have `duckdb_aggregate_function_set_name`
+  called. The quack-rs builder handles this automatically; raw registration must not forget it.
+
+- **`duckdb_vector_ensure_validity_writable` required before setting NULL**: Without
+  this call, `duckdb_vector_get_validity` returns an uninitialized pointer. Writing
+  to it produces garbage instead of NULL. `VectorWriter::set_null()` handles this
+  automatically.
+
+- **Extension metadata version uses DuckDB release version**: The
+  `append_extension_metadata.py -dv` flag takes the DuckDB release version
+  (e.g., `v1.5.1`). The community extension Makefile sets this automatically
+  from `TARGET_DUCKDB_VERSION`. The ABI type is `C_STRUCT_UNSTABLE`.
+
+- **`sessionize` cannot use quack-rs**: DuckDB's public C Extension API does not
+  expose window function registration hooks. This module stays on raw `libduckdb-sys`.
+
+### Performance Gotchas
+
+- **Combine is the dominant cost**: DuckDB's segment tree calls combine O(n log n)
+  times. Use `combine_in_place` with `Vec::extend_from_slice` (O(N) amortized) rather
+  than `combine` returning a new Vec (O(N^2) total copies for left-fold chains).
+
+- **NFA exploration order is catastrophic if wrong**: The `.*` wildcard must try
+  advancing the pattern first (lazy), not consuming events first (greedy). Wrong
+  order causes O(n * states * starts) behavior — 1,961x slower at 1M events.
+
+- **Presorted detection before sort**: DuckDB often provides timestamp-ordered data.
+  An O(n) `windows(2).all()` check before `sort_unstable_by_key` avoids O(n log n)
+  for the common case.
+
+- **`Arc<str>` not `String` for shared event values**: `sequence_next_node` stores
+  per-event string values. `Arc::clone` is ~1ns (atomic increment) vs `String::clone`
+  at ~20-80ns (byte copy). Compounds in combine operations.
+
+- **Radix sort is wrong for embedded-key structs**: LSD radix sort (8-bit, 8 passes)
+  on 16-byte `Event` structs was 4.3x slower than pdqsort at 100M elements due to
+  cache-hostile scatter patterns. Comparison sorts win for embedded keys.
+
+- **Branchless is wrong for well-predicted branches**: `CMOV` always evaluates both
+  paths. For 90/10 splits (like session boundary checks), the branch predictor
+  achieves near-perfect accuracy and branching is faster.
+
+### ClickHouse Semantics
+
+- **`strict` and `strict_deduplication` are aliases in ClickHouse**: Both map to
+  `STRICT` (0x01). The extension's `'timestamp_dedup'` mode (0x04) provides
+  timestamp-based deduplication — a behavior not in ClickHouse.
+
+- **`sequenceNextNode` always returns `Nullable(String)`**: Not polymorphic.
+  Simplifies FFI to a single VARCHAR return type.
+
+- **`sequence_next_node` requires base_condition AND event1 at start**: The starting
+  event must satisfy both `base_condition(i) && conditions[0](i)` simultaneously.
+
+- **Multi-step funnel advancement**: A single event can advance multiple funnel steps
+  when it satisfies consecutive conditions (use `while`, not `if`). `strict_once`
+  constrains to one step per event.
+
+### Build & Community Extension
+
+- **Library `[lib] name` must match extension name**: The community Makefile expects
+  `lib{name}.so`. The crate name `duckdb-behavioral` produces `libduckdb_behavioral.so`.
+  Fix: `[lib] name = "behavioral"` in Cargo.toml.
+
+- **`extension-ci-tools` submodule is required**: Initialize before any `make` invocation.
+  Provides Makefile includes, metadata script, and test runner.
+
+- **Local `interval_to_micros` rejects months intentionally**: quack-rs converts
+  months to 30 days. The local version returns `None` for month-based intervals
+  because 28-31 day ambiguity is unacceptable for behavioral analytics.
+
+### Testing Notes
+
+- **E2E testing is non-negotiable**: Unit tests once passed at 375/375 while the
+  extension was completely broken: SEGFAULT on load, 6 of 7 functions silently
+  failing to register, and `window_funnel` returning wrong results. All three bugs
+  were in the FFI layer that unit tests don't exercise.
+
+- **SQL test values must be validated against actual DuckDB output**: Session IDs
+  are 1-indexed (not 0-indexed), LIST(TIMESTAMP) uses single-quoted format,
+  `sequence_next_node` requires base_condition AND event1 conjunction.
+
+- **Event filtering in tests**: `update()` filters events where `has_any_condition()`
+  is false. Test "gap" events must have at least one true condition or they're silently
+  dropped.
+
+---
+> Source: [tomtom215/duckdb-behavioral](https://github.com/tomtom215/duckdb-behavioral) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-24 -->
