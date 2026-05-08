@@ -1,0 +1,9 @@
+{
+  "name": "dreamxist--balance",
+  "displayName": "balance",
+  "description": "Personal finance app with Balance Assertion + Reconciliation (delta = 0). Self-hosted Supabase backend + TypeScript CLI + React dashboard. @dreamxist/bal-cli on npm.",
+  "version": "1.0.0",
+  "author": "dreamxist",
+  "homepage": "https://github.com/dreamxist/balance",
+  "skills": []
+}
