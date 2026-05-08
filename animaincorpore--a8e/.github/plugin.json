@@ -1,0 +1,9 @@
+{
+  "name": "animaincorpore--a8e",
+  "displayName": "A8E",
+  "description": "A8E is a freeware Atari 800 XL emulator written in C by Sascha Springer and has been developed completely from scratch. It uses the SDL library for the user interface and the audio and graphics output",
+  "version": "1.0.0",
+  "author": "AnimaInCorpore",
+  "homepage": "https://github.com/AnimaInCorpore/A8E",
+  "skills": []
+}
