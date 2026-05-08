@@ -1,71 +1,375 @@
-## write-rules
+## write-tests
 
-> How to write, update, and maintain Cursor rules — use when creating a new rule or updating an existing one
+> Patterns for writing tests — integration tests with TestDB, unit tests for pure logic, test data seeding
 
 
-# Writing Cursor Rules
+# Writing Tests
 
-> **Thesis:** Every rule opens with a thesis. The thesis is the contract —
-> everything below it is the implementation.
+## Integration Tests (Service Layer)
 
-## Structure
+Test real SQL against a real PostgreSQL instance using `testutil.WithTestDB`.
 
-1. **Thesis (required)** — one sentence after the heading. States what the rule
-   enforces and why. This is the most important line — a thesis enables the AI
-   to generalize to novel situations; a pointer only enables pattern-matching.
+```go
+//go:build integration
 
-2. **Reference files** — "Follow the established patterns in X" goes here,
-   not in the thesis. The thesis says _what_; references say _where_.
+package service_test
 
-3. **Sections** — BAD/GOOD examples for the highest-consequence patterns.
-   Keep examples minimal — one BAD, one GOOD, showing the exact mistake and fix.
+import (
+    "testing"
+    "github.com/golid-ai/golid/backend/internal/service"
+    "github.com/golid-ai/golid/backend/internal/testutil"
+)
 
-## When to Create a New Rule
+func TestItemService_Create(t *testing.T) {
+    testutil.WithTestDB(t, func(pool *pgxpool.Pool) {
+        svc := service.NewItemService(pool, 20, 100)
 
-- A pattern has been explained 3+ times across conversations
-- A bug was caused by violating a convention that isn't written down
-- A new file category has no glob coverage
+        // Seed prerequisite data with raw SQL
+        _, err := pool.Exec(ctx, `INSERT INTO users (...) VALUES (...)`)
+        // ...
 
-## When to Extend an Existing Rule
+        // Test the service method
+        result, err := svc.Create(ctx, &service.CreateItemInput{...})
+        if err != nil { t.Fatalf("expected no error, got %v", err) }
+        if result.Title != "Test Item" { t.Errorf("expected title 'Test Item', got %s", result.Title) }
+    })
+}
+```
 
-- The new guidance applies to the same file glob
-- It's a sub-pattern of an existing rule's thesis
+### Key Rules
 
-## Updating Rules During Execution
+- **Build tag**: `//go:build integration` at the top of the file.
+- **File naming**: `x_integration_test.go` (not `x_test.go`) to make it clear.
+- **Seed with raw SQL**: Use `pool.Exec` with INSERT statements. Never use service methods to seed — they have their own validation and side effects.
+- **Test one thing per function**: Each test function should test one behavior (happy path, error case, permission check, etc.).
+- **Clean state**: `WithTestDB` provides a fresh database for each test. No cleanup needed.
 
-When a code change invalidates or reveals a gap in an existing rule, update the
-rule in the same pass — not as a follow-up task. Stale rules are worse than
-missing rules because they actively mislead.
+### What to Test
 
-Update triggers (only these — don't edit rules speculatively):
+- **Happy paths**: Create, Read, Update, Delete with valid inputs.
+- **Permission checks**: Wrong user type, non-owner, non-member. Expect `FORBIDDEN`.
+- **Status guards**: Operation on wrong-status parent. Expect `BAD_REQUEST`.
+- **Not found**: Non-existent ID. Expect `NOT_FOUND`.
+- **Conflict**: Duplicate entries. Expect `CONFLICT`.
+- **Edge cases**: Empty arrays, null optional fields, boundary values.
 
-- Bug fix exposed an unwritten convention → add to the relevant domain rule
-- Refactor moved/renamed files referenced by a rule → update the references
-- New pattern discovered (naming conflict, type safety convention) → add to
-  the rule covering that file category
-- Audit finding that should be enforced going forward → add to audit checklist
-  AND the relevant domain rule
+Reference: existing `_integration_test.go` files in `backend/internal/service/`
 
-Keep rule edits minimal — update the specific line or section affected, don't
-rewrite the entire rule. The goal is accuracy, not polish.
+## Unit Tests (Pure Logic)
 
-## Naming
+For validation helpers, parsing functions, and other pure logic — no build tag needed.
 
-`{domain}-{concern}.mdc` — e.g., `go-service`, `frontend-forms`, `write-tests`.
-Workflow rules use verb phrases: `plan-feature`, `document-module`, `audit-bugs`.
+```go
+package service
 
-## Activation
+import "testing"
 
-- **Glob-triggered** for domain rules (fires when editing matching files)
-- **Description-triggered** for workflow rules (fires when the task matches)
-- **alwaysApply** only for universal guardrails — every line costs context on
-  every interaction, so this is reserved for codebase-standards and
-  parallel-subagents
+func TestNormalizePagination(t *testing.T) {
+    tests := []struct {
+        page, perPage   int
+        wantP, wantPP   int
+    }{
+        {0, 0, 1, 20},
+        {-1, 200, 1, 20},
+        {5, 10, 5, 10},
+    }
+    for _, tt := range tests {
+        p, pp := NormalizePagination(tt.page, tt.perPage, 20, 100)
+        if p != tt.wantP || pp != tt.wantPP {
+            t.Errorf("NormalizePagination(%d, %d) = (%d, %d), want (%d, %d)",
+                tt.page, tt.perPage, p, pp, tt.wantP, tt.wantPP)
+        }
+    }
+}
+```
 
-## Size
+### Key Rules
 
-Aim for 40-80 lines of content (excluding frontmatter). Over 120 lines suggests
-the rule covers two concerns and should be split.
+- **No build tag** — runs on every `go test`.
+- **Same package** — test unexported functions directly (e.g., `NormalizePagination`).
+- **Table-driven tests** — use `[]struct` pattern for multiple cases.
+- **File naming**: `x_test.go` in the same directory as the code.
+
+Reference: existing `_test.go` files in `backend/internal/service/`
+
+## Mock-based Handler Tests
+
+Create a mock struct implementing the service interface. Set function fields for methods under test. Unimplemented methods panic. Inject mock directly into handler struct: `h := &AuthHandler{authService: &mockAuthService{...}}`. See `handler/auth_test.go` for examples.
+
+## Scaffold-Generated Tests
+
+`make new-module name=items` automatically generates `handler/item_test.go` with:
+
+- A `mockItemService` struct implementing the `itemServicer` interface
+- A `testItemDetail()` helper returning sample data
+- 5 test stubs: Create success, Create validation error, List, GetByID not found, Delete
+
+After scaffolding, fill in test bodies for your specific validation rules, error paths, and edge cases. The generated tests follow the same pattern as `auth_test.go`.
+
+## Always Test Error Paths
+
+Don't just test happy paths. Every service method should have tests for:
+
+- **Permission denied** — wrong user type, non-owner, non-member → expect `FORBIDDEN`
+- **Invalid status** — operation on wrong-status entity → expect `BAD_REQUEST`
+- **Not found** — non-existent ID → expect `NOT_FOUND`
+- **Duplicate/conflict** — re-creating existing entity → expect `CONFLICT`
+
+These are the bugs that slip through manual testing and break in production.
+
+## Component Unit Tests (SolidJS)
+
+Use `@solidjs/testing-library` for component-level tests. Test the public API: renders, accepts props, fires events.
+
+```tsx
+import { render, screen, fireEvent } from "@solidjs/testing-library";
+import { Button } from "./Button";
+
+test("calls onClick", async () => {
+  const handler = vi.fn();
+  render(() => <Button onClick={handler}>Click</Button>);
+  await fireEvent.click(screen.getByText("Click"));
+  expect(handler).toHaveBeenCalledTimes(1);
+});
+```
+
+Place test files next to the component: `Button.test.tsx` alongside `Button.tsx`. Vitest discovers `src/**/*.test.{ts,tsx}` automatically.
+
+**Important:** `vitest.config.ts` must have `resolve.conditions: ["development", "browser"]` to prevent Solid from resolving server-side bundles in jsdom.
+
+### Test Quality Bar
+
+Every component test must assert at least one **behavioral property**, not just existence. "Renders without crashing" is not a test.
+
+```tsx
+// BAD — tests nothing meaningful
+test("renders", () => {
+  const { container } = render(() => <Alert variant="success" message="Done" />);
+  expect(container).toBeTruthy();
+});
+
+// GOOD — tests actual behavior: correct variant class, message rendered, dismiss works
+test("renders success variant with message", () => {
+  render(() => <Alert variant="success" message="Done" />);
+  expect(screen.getByText("Done")).toBeInTheDocument();
+  expect(screen.getByRole("alert")).toHaveClass("bg-green");
+});
+
+test("calls onDismiss when close button clicked", async () => {
+  const onDismiss = vi.fn();
+  render(() => <Alert message="Done" onDismiss={onDismiss} />);
+  await fireEvent.click(screen.getByRole("button"));
+  expect(onDismiss).toHaveBeenCalledTimes(1);
+});
+```
+
+**Minimum assertions per component test file:**
+- Renders with required props and shows expected content
+- Variant/size/state props produce correct visual output (classes, attributes)
+- Callbacks fire when expected (onClick, onDismiss, onChange, etc.)
+- Accessibility: `axe(container)` passes with no violations (where feasible in jsdom)
+
+**jsdom limitations** — skip or mark as smoke-test-only:
+- SVG measurement APIs (`getBBox`, `getScreenCTM`) return zeros — Observable Plot/D3 chart tests can only verify render-without-crash
+- `getUserMedia`, `MediaRecorder`, WebGL — not available in jsdom, need E2E
+- Drag-and-drop (`pointermove` sequences) — unreliable in jsdom, need E2E
+
+### Coverage Thresholds
+
+After writing tests, update `vitest.config.ts` thresholds to 5% below the new actual coverage. This prevents regression without blocking future work. Ratchet up as coverage grows.
+
+Current thresholds: `statements: 80, branches: 84, functions: 77, lines: 80`. CI fails if coverage drops below these.
+
+### Pre-Commit Verification (MANDATORY — NEVER SKIP)
+
+**NEVER run `git commit` without passing ALL of these checks first.** If any check fails, fix the issue before committing.
+
+```bash
+# Backend — type check, lint, tests
+cd backend && go vet ./... && golangci-lint run ./... && go test ./...
+
+# Frontend — type check
+cd frontend && npx tsc --noEmit
+
+# Frontend — lint (catches unused imports, innerHTML, empty catches)
+cd frontend && npm run lint
+
+# Frontend — tests + coverage thresholds
+cd frontend && npx vitest run --coverage
+```
+
+**If you skip these checks and CI fails, you are responsible for fixing it immediately.**
+
+## E2E Tests (Playwright)
+
+E2E tests live in `frontend/tests/e2e/`. They require the full stack running (backend + DB + frontend).
+
+### SPA Navigation — Wait for Page Content, Not URLs
+
+SolidJS uses client-side routing (`pushState`). Playwright's `waitForURL` waits for a browser `load` event that never fires during SPA navigation. **Always wait for page content instead.**
+
+```typescript
+// BAD — hangs forever on SPA navigation
+await page.click('button[type="submit"]');
+await page.waitForURL("**/dashboard", { timeout: 15000 });
+
+// GOOD — waits for actual rendered content
+await page.click('button[type="submit"]');
+await expect(page.getByRole("heading", { name: "Dashboard" })).toBeVisible({
+  timeout: 15000,
+});
+```
+
+### Login Verification — Use Dashboard-Specific Content
+
+The login page shows "Welcome back" as its heading. **Never use `/welcome/i` to verify login succeeded** — it matches the login page text immediately, before login actually completes.
+
+```typescript
+// BAD — matches "Welcome back" on the login page itself
+await expect(page.getByText(/welcome/i)).toBeVisible();
+
+// GOOD — "Dashboard" h1 only exists on the dashboard page
+await expect(page.getByRole("heading", { name: "Dashboard" })).toBeVisible({
+  timeout: 15000,
+});
+```
+
+### Strict Mode Violations
+
+When text appears in multiple elements (navbar, heading, footer), use role-based selectors:
+
+```typescript
+// BAD — "Golid" appears in navbar, h1, and footer
+await expect(page.getByText("Golid")).toBeVisible();
+
+// GOOD — targets the specific heading
+await expect(page.getByRole("heading", { name: "Golid" })).toBeVisible();
+```
+
+### Form Validation
+
+SolidJS signals may not settle instantly after `fill()`. Wait for the submit button to be enabled before clicking:
+
+```typescript
+await page.fill('[placeholder="Create a password"]', "password123");
+await page.fill('[placeholder="Confirm your password"]', "password123");
+await expect(page.locator('button[type="submit"]')).toBeEnabled({
+  timeout: 5000,
+});
+await page.click('button[type="submit"]');
+```
+
+When testing client-side validation that disables submit, assert `toBeDisabled()` — don't try to click:
+
+```typescript
+// BAD — click waits forever for a disabled button to enable
+await page.click('button[type="submit"]');
+
+// GOOD — asserts the validation state directly
+await expect(page.locator('button[type="submit"]')).toBeDisabled();
+```
+
+### Input Values
+
+Playwright has no `getByDisplayValue`. Use `locator` + `toHaveValue`:
+
+```typescript
+// BAD — this method doesn't exist in Playwright
+await expect(page.getByDisplayValue("user@example.com")).toBeVisible();
+
+// GOOD
+await expect(page.locator("#email")).toHaveValue("user@example.com");
+```
+
+### Buttons vs Headings with Same Text
+
+When a heading and button share the same text (e.g., "Change Password" as both h2 and button), `page.click("text=Change Password")` may click the heading (no-op). Use role selectors:
+
+```typescript
+// BAD — may click the h2 heading instead of the button
+await page.click("text=Change Password");
+
+// GOOD — targets only the button
+await page.getByRole("button", { name: "Change Password" }).click();
+```
+
+### E2E Test Credentials (must match seed data)
+
+E2E tests use the seeded users from `backend/seeds/dev_seed.sql`. If you change seed data credentials, update ALL E2E test files in `frontend/tests/e2e/`. If you change E2E test credentials, update the seed data.
+
+### Prefer Client-Side Navigation in E2E
+
+For authenticated pages, use sidebar links instead of `page.goto()`. `page.goto()` triggers a full SSR request which can fail if the page has SSR-unsafe imports. Client-side navigation avoids SSR entirely.
+
+```typescript
+// BAD — triggers SSR, may show blank page if component uses window/document
+await page.goto("/settings");
+
+// GOOD — client-side navigation, no SSR
+await page.locator('a[href="/settings"]').first().click();
+await page.waitForURL("**/settings");
+```
+
+### Duplicate Elements (Desktop + Mobile)
+
+Responsive layouts often render the same link/button twice (desktop + mobile). Use `.first()`:
+
+```typescript
+// BAD — strict mode violation if element appears in both desktop and mobile nav
+await expect(page.getByRole("link", { name: "Sign Up" })).toBeVisible();
+
+// GOOD
+await expect(page.getByRole("link", { name: "Sign Up" }).first()).toBeVisible();
+```
+
+### Serial Execution (workers: 1)
+
+E2E tests run with `workers: 1` and `fullyParallel: false`. Auth endpoints use strict rate limiting (`AUTH_RATE_LIMIT`, default 5 req/min). Parallel workers exhaust the limit instantly. The dev `docker-compose.yml` sets `AUTH_RATE_LIMIT: 100` but serial execution remains the safest default for tests sharing a mutable database.
+
+### Signup Input Types
+
+The signup form uses `type="text"` with `inputmode="email"` (not `type="email"`). Use placeholder selectors:
+
+```typescript
+// BAD — won't match signup email input
+page.locator('input[type="email"]');
+
+// GOOD — works on both login (type=email) and signup (type=text)
+page.locator('[placeholder="you@example.com"]');
+```
+
+### Keep Tests In Sync With Code
+
+Any commit that changes a component's **public interface** must include test updates in the same commit. Public interface means:
+
+- Placeholder text, labels, or rendered copy
+- Toast/snackbar message strings (title, subtitle)
+- Component swaps (checkbox → button, outline → neutral)
+- Props that tests assert on (variant, size, disabled state)
+- API mock shapes (new fields, changed signatures)
+- Route changes or navigation targets
+
+**Search for affected tests before committing.** Use `rg "the old text"` across `*.test.tsx`, `*.test.ts`, and `tests/e2e/*.spec.ts`. If a test references something you changed, fix it in the same commit.
+
+## Running Tests
+
+```bash
+# Backend unit tests (fast, no DB needed)
+cd backend && go test ./...
+
+# Backend integration tests (requires running PostgreSQL)
+cd backend && go test -tags=integration ./...
+
+# Frontend unit + component tests
+cd frontend && npm test
+
+# Frontend type check (run before pushing — catches import errors tests miss)
+cd frontend && npx tsc --noEmit
+
+# E2E tests (requires full stack running)
+cd frontend && npx playwright install chromium  # first time only
+cd frontend && npx playwright test
+```
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
