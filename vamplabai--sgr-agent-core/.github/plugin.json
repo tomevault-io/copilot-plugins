@@ -1,0 +1,9 @@
+{
+  "name": "vamplabai--sgr-agent-core",
+  "displayName": "sgr-agent-core",
+  "description": "Schema-Guided Reasoning (SGR) has agentic system design created by neuraldeep community",
+  "version": "1.0.0",
+  "author": "vamplabAI",
+  "homepage": "https://github.com/vamplabAI/sgr-agent-core",
+  "skills": []
+}
