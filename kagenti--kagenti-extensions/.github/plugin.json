@@ -1,0 +1,238 @@
+{
+  "name": "kagenti--kagenti-extensions",
+  "displayName": "kagenti",
+  "description": "Repository for kagenti extensions projects",
+  "version": "1.0.0",
+  "author": "kagenti",
+  "homepage": "https://github.com/kagenti/kagenti-extensions",
+  "skills": [
+    {
+      "name": "auth",
+      "description": ""
+    },
+    {
+      "name": "auth:keycloak-confidential-client",
+      "description": ""
+    },
+    {
+      "name": "auth:mlflow-oidc-auth",
+      "description": ""
+    },
+    {
+      "name": "auth:otel-oauth2-exporter",
+      "description": ""
+    },
+    {
+      "name": "ci:status",
+      "description": ""
+    },
+    {
+      "name": "genai:semantic-conventions",
+      "description": ""
+    },
+    {
+      "name": "git",
+      "description": ""
+    },
+    {
+      "name": "git:commit",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "description": ""
+    },
+    {
+      "name": "github:issues",
+      "description": ""
+    },
+    {
+      "name": "github:last-week",
+      "description": ""
+    },
+    {
+      "name": "github:my-status",
+      "description": ""
+    },
+    {
+      "name": "github:prs",
+      "description": ""
+    },
+    {
+      "name": "git:rebase",
+      "description": ""
+    },
+    {
+      "name": "git:status",
+      "description": ""
+    },
+    {
+      "name": "git:worktree",
+      "description": ""
+    },
+    {
+      "name": "helm",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "description": ""
+    },
+    {
+      "name": "hypershift:cluster",
+      "description": ""
+    },
+    {
+      "name": "hypershift:preflight",
+      "description": ""
+    },
+    {
+      "name": "hypershift:setup",
+      "description": ""
+    },
+    {
+      "name": "istio:ambient-waypoint",
+      "description": ""
+    },
+    {
+      "name": "k8s",
+      "description": ""
+    },
+    {
+      "name": "k8s:health",
+      "description": ""
+    },
+    {
+      "name": "kagenti",
+      "description": ""
+    },
+    {
+      "name": "kagenti:deploy",
+      "description": ""
+    },
+    {
+      "name": "kagenti:operator",
+      "description": ""
+    },
+    {
+      "name": "kagenti:ui-debug",
+      "description": ""
+    },
+    {
+      "name": "kind",
+      "description": ""
+    },
+    {
+      "name": "kind:cluster",
+      "description": ""
+    },
+    {
+      "name": "local",
+      "description": ""
+    },
+    {
+      "name": "local:full-test",
+      "description": ""
+    },
+    {
+      "name": "local:testing",
+      "description": ""
+    },
+    {
+      "name": "meta",
+      "description": ""
+    },
+    {
+      "name": "meta:write-docs",
+      "description": ""
+    },
+    {
+      "name": "playwright-demo:debug",
+      "description": ""
+    },
+    {
+      "name": "playwright-research",
+      "description": ""
+    },
+    {
+      "name": "session",
+      "description": ""
+    },
+    {
+      "name": "session:dashboard",
+      "description": ""
+    },
+    {
+      "name": "session:extract",
+      "description": ""
+    },
+    {
+      "name": "session:post",
+      "description": ""
+    },
+    {
+      "name": "session:summary",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    },
+    {
+      "name": "skills:retrospective",
+      "description": ""
+    },
+    {
+      "name": "skills:scan",
+      "description": ""
+    },
+    {
+      "name": "skills:validate",
+      "description": ""
+    },
+    {
+      "name": "skills:write",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "description": ""
+    },
+    {
+      "name": "tdd:kind",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "description": ""
+    },
+    {
+      "name": "testing:kubectl-debugging",
+      "description": ""
+    },
+    {
+      "name": "test:playwright",
+      "description": ""
+    },
+    {
+      "name": "test:review",
+      "description": ""
+    },
+    {
+      "name": "test:run-hypershift",
+      "description": ""
+    },
+    {
+      "name": "test:run-kind",
+      "description": ""
+    },
+    {
+      "name": "test:ui",
+      "description": ""
+    },
+    {
+      "name": "test:write",
+      "description": ""
+    }
+  ]
+}
