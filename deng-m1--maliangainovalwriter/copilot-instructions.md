@@ -1,23 +1,25 @@
-## backend-structure
+## documentation-links
 
-> - **Entry Point**: [src/main/java/com/ainovel/server/AiNovelServerApplication.java](mdc:AINovalServer/src/main/java/com/ainovel/server/AiNovelServerApplication.java)
+> This file provides links to important documentation within the project.
 
-# Backend Structure (AINovalServer - Spring Boot)
+# Documentation Links
 
-- **Entry Point**: [src/main/java/com/ainovel/server/AiNovelServerApplication.java](mdc:AINovalServer/src/main/java/com/ainovel/server/AiNovelServerApplication.java)
-- **Dependencies**: [pom.xml](mdc:AINovalServer/pom.xml)
-- **Main Configuration**: [src/main/resources/application.yml](mdc:AINovalServer/src/main/resources/application.yml)
-- **Environment Configs**: Located in `src/main/resources/` (e.g., `application-dev.yml`)
-- **Source Code**: `src/main/java/com/ainovel/server/`
-  - `common/`: Common utilities and constants
-  - `config/`: Configuration classes (DB, Security, etc.)
-  - `domain/`: Domain models/entities
-  - `repository/`: Data access layer (JPA Repositories)
-  - `security/`: Security configuration and components
-  - `service/`: Business service layer
-  - `web/`: Web controllers (REST APIs)
-- **Resources**: `src/main/resources/`
-- **Tests**: `src/test/`
+This file provides links to important documentation within the project.
+
+- **Overall Architecture**: [项目架构说明.md](mdc:项目架构说明.md)
+- **Version Control Guide**: [版本控制功能说明.md](mdc:版本控制功能说明.md)
+- **Frontend README**: [AINoval/README.md](mdc:AINoval/README.md)
+- **Backend README**: [AINovalServer/README.md](mdc:AINovalServer/README.md)
+- **Backend Performance Testing**: [AINovalServer/PERFORMANCE_TESTING.md](mdc:AINovalServer/PERFORMANCE_TESTING.md)
+
+**Documentation Directories:**
+
+- **Requirements**: `需求文档/`
+- **Prototypes/Designs**: `原型图/`
+- **Testing Plans**: `测试计划与文档/`
+- **Backend Development Docs**: `后端开发文档/`
+- **Frontend Iteration Plans**: `前端产品敏捷迭代计划/`
+- **Postman Collections**: `postman/`
 
 ---
 > Source: [Deng-m1/MaliangAINovalWriter](https://github.com/Deng-m1/MaliangAINovalWriter) — distributed by [TomeVault](https://tomevault.io).
