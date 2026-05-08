@@ -1,0 +1,9 @@
+{
+  "name": "gabcoyne--airflow-unfactor",
+  "displayName": "airflow-unfactor",
+  "description": "MCP server for LLM-assisted conversion of Apache Airflow DAGs to Prefect flows",
+  "version": "1.0.0",
+  "author": "gabcoyne",
+  "homepage": "https://github.com/gabcoyne/airflow-unfactor",
+  "skills": []
+}
