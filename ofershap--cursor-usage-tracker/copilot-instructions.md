@@ -1,84 +1,59 @@
-## cursor-usage-tracker
+## coding-conventions
 
-> Cursor Enterprise API reference — endpoints, auth, response shapes, rate limits
+> Coding conventions and patterns for cursor-usage-tracker
 
 
-# Cursor Enterprise API Reference
+# Coding Conventions
 
-Base URL: `https://api.cursor.com`
-Auth: **Basic Auth** — `Authorization: Basic {base64(API_KEY + ':')}`
-Two separate API keys: Admin API key and Analytics API key (generated from team settings).
+## Imports
 
-## Rate Limits (per team, per minute)
+- NO `.js` extensions on internal imports — Next.js Turbopack bundler resolution doesn't support them
+- Use `@/` path alias for imports from `src/` (configured in tsconfig.json)
+- Use `import type` for type-only imports
 
-| API | Endpoint Type | Limit |
-|-----|---------------|-------|
-| Admin API | Most endpoints | 20 req/min |
-| Admin API | `/teams/user-spend-limit` | 250 req/min |
-| Analytics API | Team-level (`/analytics/team/*`) | 100 req/min |
-| Analytics API | By-user (`/analytics/by-user/*`) | 50 req/min |
+```typescript
+import { getDb } from "@/lib/db";
+import type { Anomaly } from "@/lib/types";
+```
 
-304 responses from ETag caching do NOT count against rate limits.
+## Database
 
-## Admin API Endpoints
+- All DB access goes through `src/lib/db.ts` — never import better-sqlite3 directly in pages/routes
+- Use `getDb()` singleton — it initializes schema on first call
+- Use transactions for batch inserts: `db.transaction(() => { ... })()`
+- SQLite column names use snake_case; TypeScript types use camelCase
+- Key-value metadata stored in `metadata` table via `setMetadata()`/`getMetadata()`
 
-### GET /teams/members
-Returns `{ teamMembers: [{ name, email, role }] }`
+## API Routes
 
-### POST /teams/daily-usage-data
-Body: `{ startDate: number (ms), endDate: number (ms) }`
-Poll at most once per hour (data aggregated hourly).
+- All API routes use `export const dynamic = "force-dynamic"` (data is always fresh from SQLite)
+- Cron endpoint requires `x-cron-secret` header or `?secret=` query param
+- Use Next.js App Router async params pattern: `{ params }: { params: Promise<{ id: string }> }`
+- Most GET endpoints support `?days=N` query param for time range filtering
 
-### POST /teams/spend
-Body: `{ page, pageSize }`
-Returns `{ teamMemberSpend: [{ email, spendCents, fastPremiumRequests }], subscriptionCycleStart: number, totalPages }`
+## Components
 
-### POST /teams/filtered-usage-events
-Body: `{ email?, startDate?, endDate?, page, pageSize }`
-Returns `{ usageEvents: [{ timestamp, model, kindLabel, tokenUsage: { inputTokens, outputTokens, cacheWriteTokens, cacheReadTokens }, userEmail }], pagination: { hasNextPage } }`
-Poll at most once per hour (data aggregated hourly). Max 30 days per request.
+- Dashboard pages: server component (page.tsx) fetches data, passes to client component (*-client.tsx)
+- Charts are always client components ("use client")
+- Use Tailwind CSS with zinc color palette (dark theme)
+- No shadcn/ui installed — components are hand-rolled
+- Model names displayed via `shortModel()` from `src/lib/format-utils.ts` with full name in tooltip
+- Self-contained components: components like `upgrade-banner.tsx` are designed with minimal footprint — single file, own modal/overlay logic baked in, easy to add/remove with 1-2 line diffs in consuming files. Do NOT extract shared modals or abstractions from them; keep them isolated.
+- `ExpandableCard` (`src/components/expandable-card.tsx`): wraps any card to add a fullscreen expand button. Wrap the outer card div, don't restructure the card internals.
 
-### POST /teams/user-spend-limit
-Body: `{ email, hardLimitDollars }`
+## Anomaly Detection
 
-### POST /teams/groups
-Returns `{ groups: [{ id, name, memberCount, spendCents, members: [{ email, joinedAt }] }], subscriptionCycleStart, subscriptionCycleEnd }`
-Also provides billing cycle dates (cycle_start, cycle_end) stored in the metadata table.
+- Three layers: thresholds → zscore → trends (all in `src/lib/anomaly/`)
+- `detector.ts` orchestrates all three, deduplicates by `userEmail:type:metric` key
+- New anomalies get inserted; existing ones that no longer fire get auto-resolved
+- Run via `npm run detect` CLI or as part of `POST /api/cron`
 
-## Analytics API Endpoints (separate key: CURSOR_ANALYTICS_API_KEY)
+## Testing
 
-All use `startDate`/`endDate` params (formats: `YYYY-MM-DD`, `7d`, `30d`, `today`, `yesterday`). Max 30 days. Default: last 7 days.
-Optional `users` param: comma-separated emails or user IDs.
-
-### Team-Level
-- `GET /analytics/team/dau` — daily active users (includes cli_dau, cloud_agent_dau, bugbot_dau)
-- `GET /analytics/team/models` — model usage with `model_breakdown` per day
-- `GET /analytics/team/agent-edits` — agent edits (suggested/accepted diffs and lines)
-- `GET /analytics/team/tabs` — tab autocomplete usage
-- `GET /analytics/team/leaderboard` — ranked by AI usage (supports `page`, `pageSize`)
-- `GET /analytics/team/mcp` — MCP tool adoption
-- `GET /analytics/team/commands` — command adoption
-- `GET /analytics/team/plans` — plan mode adoption
-- `GET /analytics/team/ask-mode` — ask mode adoption
-- `GET /analytics/team/client-versions` — Cursor version distribution
-- `GET /analytics/team/top-file-extensions` — most edited file types
-
-### By-User (paginated: `page`, `pageSize`, max 500)
-All follow pattern: `GET /analytics/by-user/{metric}`
-Available: `agent-edits`, `tabs`, `models`, `mcp`, `commands`, `plans`, `ask-mode`, `client-versions`, `top-file-extensions`
-
-## Known Model Strings (from API responses)
-
-`claude-sonnet-4.5`, `claude-opus-4.5`, `claude-opus-4.6`, `gpt-4o`, `gpt-5.2`, `gpt-5.3-codex`, `gemini-3-flash`, `gemini-3-pro`, `grok-code`
-
-## Caching
-
-Analytics and AI Code Tracking APIs support ETags. Use `If-None-Match` header for 304 responses (15-minute cache, `Cache-Control: public, max-age=900`).
-
-## Important
-
-Admin API endpoint response shapes are based on community implementations and may not exactly match the live API. Analytics API shapes are from official Cursor documentation (Feb 2026). If you encounter mismatches, update `src/lib/types.ts` and `src/lib/cursor-client.ts`.
+- Tests in `tests/` directory, use Vitest
+- Anomaly tests create their own test SQLite DB (not the main db.ts singleton)
+- API client tests mock `globalThis.fetch`
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ofershap) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [ofershap/cursor-usage-tracker](https://github.com/ofershap/cursor-usage-tracker) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
