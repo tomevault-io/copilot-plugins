@@ -1,0 +1,93 @@
+{
+  "name": "claude",
+  "owner": "krzemienski",
+  "repo": "claude-code-builder",
+  "description": "AI-powered Python CLI tool that automates the entire software development lifecycle using the Claude Code SDK. From specification to deployment, Claude Code Builder",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "anthropic-streaming-patterns",
+      "path": ".claude/skills/anthropic-streaming-patterns",
+      "github_url": "https://github.com/krzemienski/claude-code-builder/tree/main/.claude/skills/anthropic-streaming-patterns",
+      "description": ""
+    },
+    {
+      "name": "claude-mobile-cost-tracking",
+      "path": ".claude/skills/claude-mobile-cost-tracking",
+      "github_url": "https://github.com/krzemienski/claude-code-builder/tree/main/.claude/skills/claude-mobile-cost-tracking",
+      "description": ""
+    },
+    {
+      "name": "claude-mobile-ios-testing",
+      "path": ".claude/skills/claude-mobile-ios-testing",
+      "github_url": "https://github.com/krzemienski/claude-code-builder/tree/main/.claude/skills/claude-mobile-ios-testing",
+      "description": ""
+    },
+    {
+      "name": "claude-mobile-metro-manager",
+      "path": ".claude/skills/claude-mobile-metro-manager",
+      "github_url": "https://github.com/krzemienski/claude-code-builder/tree/main/.claude/skills/claude-mobile-metro-manager",
+      "description": ""
+    },
+    {
+      "name": "claude-mobile-validation-gate",
+      "path": ".claude/skills/claude-mobile-validation-gate",
+      "github_url": "https://github.com/krzemienski/claude-code-builder/tree/main/.claude/skills/claude-mobile-validation-gate",
+      "description": ""
+    },
+    {
+      "name": "idb-claude-mobile-testing",
+      "path": ".claude/skills/idb-claude-mobile-testing",
+      "github_url": "https://github.com/krzemienski/claude-code-builder/tree/main/.claude/skills/idb-claude-mobile-testing",
+      "description": ""
+    },
+    {
+      "name": "react-native-expo-development",
+      "path": ".claude/skills/react-native-expo-development",
+      "github_url": "https://github.com/krzemienski/claude-code-builder/tree/main/.claude/skills/react-native-expo-development",
+      "description": ""
+    },
+    {
+      "name": "websocket-integration-testing",
+      "path": ".claude/skills/websocket-integration-testing",
+      "github_url": "https://github.com/krzemienski/claude-code-builder/tree/main/.claude/skills/websocket-integration-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/krzemienski/claude-code-builder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T00:33:38Z"
+}
