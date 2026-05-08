@@ -1,0 +1,9 @@
+{
+  "name": "implyinfer--jetson-orin-nano-field-kit",
+  "displayName": "jetson-orin-nano-field-kit",
+  "description": "Start running LLMs, vision models, and camera pipelines in under an hour. This fully-configured single board computer comes with a bootable NVMe pre-loaded with Ollama, Llama.cpp, Roboflow vision infe",
+  "version": "1.0.0",
+  "author": "implyinfer",
+  "homepage": "https://github.com/implyinfer/jetson-orin-nano-field-kit",
+  "skills": []
+}
