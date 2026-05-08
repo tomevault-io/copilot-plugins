@@ -1,0 +1,9 @@
+{
+  "name": "nile-js--nile",
+  "displayName": "nile",
+  "description": "TypeScript-first, service and action oriented backend framework.",
+  "version": "1.0.0",
+  "author": "nile-js",
+  "homepage": "https://github.com/nile-js/nile",
+  "skills": []
+}
