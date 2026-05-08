@@ -1,84 +1,101 @@
-## frontend-forms
+## frontend-lib
 
-> Form submission and error display patterns — toast vs Alert, batch() in try/catch, field-level errors
+> Patterns for frontend lib files — API client, auth, constants, utilities
 
 
-# Frontend Forms & Error Display
+# Frontend Lib Patterns
 
-> **Thesis:** Display page-load errors in Switch/Match states, submission errors
-> via toast, and field-level errors inline. Never use try/catch/finally with signals.
+Follow the established patterns in `api.ts`, `auth.ts`, and `constants.ts`.
 
-## Error Display Decision Tree
+## API Client (`api.ts`)
 
-- API call fails during **page load** → `Switch/Match` error state with `<Alert>` component
-- API call fails during **form submit** → `toast.error()` with message
-- **Field-level validation** errors from backend → inline error messages under each input
-- **Network/auth errors** → handled by `api.ts` automatically (401 refresh, etc.)
+### Adding a New API Module
 
-## Form Submission Pattern
+Group types and methods together. Follow the established API object pattern:
 
-Uses `batch()` in both `try` and `catch`, never `finally`.
+```typescript
+// 1. Define TypeScript interfaces matching backend response structs
+export interface Item {
+  id: string;
+  title: string;
+  // ... fields match the Go Detail struct exactly
+}
 
-```tsx
-const [saving, setSaving] = createSignal(false);
-const [fieldErrors, setFieldErrors] = createSignal<Record<string, string>>({});
+export interface ItemListResult {
+  items: Item[];
+  total: number;
+  page: number;
+  per_page: number;
+  total_pages: number;
+}
 
-const handleSubmit = async () => {
-  setSaving(true);
-  setFieldErrors({});
-  try {
-    await api.create(formData);
-    if (!alive) return;
-    batch(() => {
-      setSaving(false);
-      toast.success("Created successfully");
-    });
-    onClose(); // or refetch
-  } catch (err) {
-    if (!alive) return;
-    const apiErr = err as {
-      message?: string;
-      details?: Record<string, string>;
-    };
-    batch(() => {
-      setSaving(false);
-      if (apiErr.details) {
-        setFieldErrors(apiErr.details);
-      } else {
-        toast.error(getErrorMessage(err, "Failed to create"));
-      }
-    });
-  }
-  // NO finally — setSaving(false) is in both try and catch, wrapped in batch()
+// 2. Query builder for list endpoints (if filterable)
+function buildItemQuery(params?: ItemListParams): string { ... }
+
+// 3. API object with typed methods
+export const itemsApi = {
+  create: (data: CreateItemInput) => post<Item>("/items", data),
+  list: (params?: ItemListParams) => get<ItemListResult>(`/items${buildItemQuery(params)}`),
+  getById: (id: string) => get<Item>(`/items/${id}`),
+  update: (id: string, data: Partial<Item>) => put<Item>(`/items/${id}`, data),
+  delete: (id: string) => del<{ message: string }>(`/items/${id}`),
 };
 ```
 
-## Why No `finally`
+### Conventions
 
-```tsx
-// BAD — finally runs unbatched after catch, creating intermediate state
-try { ... }
-catch { batch(() => { setError(msg); setSaving(false); }); }
-finally { setSaving(false); } // runs AFTER catch, unbatched — error + saving both true briefly
+- **Use the convenience helpers** — `get`, `post`, `put`, `patch`, `del` from the same file. Never raw `fetch`.
+- **Type every response** — `get<MyType>(...)` not `get<any>(...)`.
+- **All endpoints start with `/`** — the `api()` function prepends `/api/v1`.
+- **`skipAuth: true`** only for public endpoints (login, register, universities).
+- **Optional fields use `?`** — match the Go struct's `omitempty` tags.
 
-// GOOD — setSaving(false) inside both branches, always in batch()
-try {
-  if (!alive) return;
-  batch(() => { setSaving(false); toast.success("Done"); });
-} catch {
-  if (!alive) return;
-  batch(() => { setSaving(false); toast.error("Failed"); });
+### Search/Filter Query Builder
+
+For list endpoints with search and pagination, use a query builder function:
+
+```typescript
+function buildItemQuery(params?: { page?: number; perPage?: number; search?: string }): string {
+  const p = new URLSearchParams();
+  if (params?.page) p.set("page", String(params.page));
+  if (params?.perPage) p.set("per_page", String(params.perPage));
+  if (params?.search) p.set("search", params.search);
+  const qs = p.toString();
+  return qs ? `?${qs}` : "";
 }
 ```
 
-## Rules
+The scaffold tool generates this pattern automatically with `?search=` and `?page=` params for new modules.
 
-- `toast.success()` for mutations, never for reads
-- `toast.error()` for submission failures, `<Alert>` for page-load failures
-- Field-level errors: set a `fieldErrors` signal from `apiErr.details`, clear on re-submit, render inline under each `<Input>`
-- Submit button: `<Button loading={saving()} disabled={saving()}>Save</Button>`
-- `setSaving(false)` goes inside both `try` and `catch`, wrapped in `batch()` — never in `finally`
-- Form reset after successful submit: either close modal or clear signals via `batch()`
+### Error Handling
+
+Errors thrown by `api()` are typed as `ApiError` with `message`, `code`, `status`, and optional `details`. Catch them with:
+
+```typescript
+try {
+  await itemsApi.create(data);
+} catch (err) {
+  const apiErr = err as { message?: string; details?: Record<string, string> };
+  if (apiErr.details) { /* field-level errors */ }
+  else { toast.error(apiErr.message || "Something went wrong"); }
+}
+```
+
+## Constants (`constants.ts`)
+
+- **`PRIVATE_ROUTES`** — add every new protected route path. SSR middleware uses this for auth redirects. Missing entries = unauthenticated users see API errors instead of login redirect.
+
+## Auth (`auth.ts`)
+
+- Token refresh is handled automatically by `api()` on 401 responses.
+- `auth.user` is the reactive user object — read in components, updated via `auth.updateUser()`.
+- Don't access `localStorage` directly — use the `tokens` helper from `api.ts`.
+
+## API Proxy (`frontend/src/routes/api/[...path].ts`)
+
+- In production, all `/api/*` requests are proxied through SolidStart to the internal backend Cloud Run service.
+- In dev, Vite proxy handles this (configured in `app.config.ts`), so the proxy route is not used.
+- This file rarely changes. If you modify it, ensure: hop-by-hop headers are stripped, error responses return valid JSON with `code` field, and `BACKEND_URL` env var is respected.
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
