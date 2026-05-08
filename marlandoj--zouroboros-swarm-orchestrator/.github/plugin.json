@@ -1,0 +1,9 @@
+{
+  "name": "marlandoj--zouroboros-swarm-orchestrator",
+  "displayName": "zouroboros-swarm-orchestrator",
+  "description": "Swarm Orchestrator skill: coordinate multi-agent task execution, memory, and comms on Zo.",
+  "version": "1.0.0",
+  "author": "marlandoj",
+  "homepage": "https://github.com/marlandoj/zouroboros-swarm-orchestrator",
+  "skills": []
+}
