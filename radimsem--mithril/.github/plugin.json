@@ -1,0 +1,9 @@
+{
+  "name": "radimsem--mithril",
+  "displayName": "mithril",
+  "description": "A trustless MCP server that replaces the generic shell tool with validated, sandboxed, purpose-built execution tools for AI coding agents.",
+  "version": "1.0.0",
+  "author": "radimsem",
+  "homepage": "https://github.com/radimsem/mithril",
+  "skills": []
+}
