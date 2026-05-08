@@ -1,82 +1,101 @@
-## naming-convention
+## shadcn
 
-> Enforces consistent naming patterns for files, types, and functions
+> Use shadcn/ui components as needed for any UI code
 
 
-# Naming Conventions
+# Shadcn UI Components
 
-Standards for naming TypeScript and JavaScript files, types, and functions.
+This project uses @shadcn/ui for UI components. These are beautifully designed, accessible components that you can copy and paste into your apps.
 
-<rule>
-name: naming_conventions
-description: Enforces consistent naming patterns for files, types, and functions
-filters:
-  # Match TypeScript and JavaScript files
-  - type: file_extension
-    pattern: "\\.(ts|js)$"
-  # Match file creation and modification events
-  - type: event
-    pattern: "(file_create|file_modify)"
+## Finding and Using Components
 
-actions:
+Components are available in the `src/components/ui` directory, following the aliases configured in `components.json`
 
-- type: reject
-  conditions:
+## Using Components
 
-  # Reject files not in kebab-case
-  - pattern: "^(?!._[A-Z])(?!._\\s)(?!.\*\_)[a-z0-9-]+\\.(ts|js)$"
-    message: "File names must be in kebab-case (e.g., my-file-name.ts)"
+Import components from the ui directory using the configured aliases:
 
-- type: suggest
-  message: |
-  Follow these naming conventions:
-  1. Files:
-     - Use kebab-case for all TypeScript and JavaScript files
-     - Examples:
-       ✅ user-service.ts
-       ✅ api-client.js
-       ❌ UserService.ts
-       ❌ apiClient.js
+```tsx
+import { Button } from '@/components/ui/button'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+```
 
-  2. Types (interfaces, types, classes):
-     - Use PascalCase
-     - Examples:
-       ✅ interface UserProfile
-       ✅ type ApiResponse
-       ✅ class HttpClient
-       ❌ interface userProfile
-       ❌ type api_response
+Example usage:
 
-  3. Functions:
-     - Use camelCase
-     - Examples:
-       ✅ function getUserData()
-       ✅ const fetchApiResponse = () => {}
-       ❌ function GetUserData()
-       ❌ const fetch_api_response = () => {}
+```tsx
+<Button variant="outline">Click me</Button>
 
-examples:
+<Card>
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+    <CardDescription>Card Description</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p>Card Content</p>
+  </CardContent>
+  <CardFooter>
+    <p>Card Footer</p>
+  </CardFooter>
+</Card>
+```
 
-- input: |
-  // Bad: Incorrect naming
-  UserService.ts
-  API_client.js
+## Installing Additional Components
 
-  interface user_profile {}
-  function FetchData() {}
+Many more components are available but not currently installed. You can view the complete list at https://ui.shadcn.com/r
 
-  // Good: Correct naming
-  user-service.ts
-  api-client.js
+To install additional components, use the Shadcn CLI:
 
-  interface UserProfile {}
-  function fetchData() {}
-  output: "Correctly named files, types, and functions"
+```bash
+bunx shadcn@latest add [component-name]
+```
 
-metadata:
-priority: high
-version: 1.0
-</rule>
+For example, to add the Accordion component:
+
+```bash
+bunx shadcn@latest add accordion
+```
+
+Note: `bunx shadcn-ui@latest` is deprecated, use `bunx shadcn@latest` instead
+
+Some commonly used components are
+
+- Accordion
+- Alert
+- AlertDialog
+- AspectRatio
+- Avatar
+- Calendar
+- Checkbox
+- Collapsible
+- Command
+- ContextMenu
+- DataTable
+- DatePicker
+- Dropdown Menu
+- Form
+- Hover Card
+- Menubar
+- Navigation Menu
+- Popover
+- Progress
+- Radio Group
+- ScrollArea
+- Select
+- Separator
+- Sheet
+- Skeleton
+- Slider
+- Switch
+- Table
+- Textarea
+- Toast
+- Toggle
+- Tooltip
+
+## Component Styling
+
+This project uses the "new-york" style variant with the "neutral" base color and CSS variables for theming, as configured in `components.json`.
 
 ---
 > Source: [shamubernetes/siren](https://github.com/shamubernetes/siren) — distributed by [TomeVault](https://tomevault.io).
