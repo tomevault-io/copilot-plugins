@@ -1,133 +1,141 @@
-## cron-job-architecture
+## engine-tool-development
 
-> Cron job architecture — t2000 server cron triggers audric internal API endpoints. Sharding, auth, idempotency.
+> Engine tool development — buildTool factory, permission levels, flags, preflight, result budgeting
 
 
-# Cron Job Architecture
+# Engine Tool Development
 
-The pattern: **t2000 server** runs the actual cron schedule (ECS task with `node-cron`). **Audric web** owns the data and exposes internal API endpoints. The cron is a thin shell that POSTs into audric.
+The contract for every tool that lives in `packages/engine/src/tools/`. Use `buildTool()` from `tool.ts`. Don't construct the `Tool` interface by hand — the factory keeps defaults consistent.
 
-## Why this split
-
-- Audric owns the Prisma schema and the user data. Putting cron logic inside audric/web would scatter user-iteration logic across Vercel cron + Node cron, with two clocks.
-- t2000 server is a long-running Node process suited to long batch jobs.
-- The split keeps the contract tiny: t2000 does HTTP fan-out, audric does the work.
-
-## The cron jobs
-
-| Job | t2000 file | Audric endpoint | Purpose |
-|---|---|---|---|
-| Financial context snapshot | `cron/jobs/financialContextSnapshot.ts` | `POST /api/internal/financial-context-snapshot` | Daily `<financial_context>` block for every active user |
-| Portfolio snapshot | `cron/jobs/portfolioSnapshots.ts` | `POST /api/internal/portfolio-snapshot` | `PortfolioSnapshot` rows for timeline canvas |
-| Memory extraction | `cron/jobs/memoryExtraction.ts` | `POST /api/internal/memory-extraction` | Extract `UserMemory` from chat transcripts |
-| Profile inference | `cron/jobs/profileInference.ts` | `POST /api/internal/profile-inference` | Update `UserFinancialProfile` from chat history |
-| Chain memory | `cron/jobs/chainMemory.ts` | `POST /api/internal/chain-memory` | Run 7 chain classifiers → `ChainFact` rows |
-
-## The contract
-
-**Auth.** Every internal endpoint requires `x-internal-key: $T2000_INTERNAL_KEY` (also called `AUDRIC_INTERNAL_KEY` on the t2000 side — same value). Reject without it, return 401.
-
-**Request shape.** POST with empty body (cron passes no params) OR with sharding params (see below).
-
-**Response shape.** Every endpoint returns:
-```json
-{
-  "created": 100,
-  "skipped": 50,
-  "errors": 2,
-  "total": 152
-}
-```
-
-**Idempotency.** Endpoints MUST be safe to re-call within the same UTC day (e.g. on cron retry). Use upsert, not insert.
-
-## Sharding (target ≥ 1k DAU)
-
-Single-endpoint fan-out works at low DAU. At 1k+ users, the audric route hits Vercel function timeout (10s pro / 60s pro+). Solution: t2000 fires N parallel POSTs with shard params:
+## Tool anatomy
 
 ```typescript
-// t2000 cron job
-const SHARDS = 8;
-await Promise.all(
-  Array.from({ length: SHARDS }, (_, i) =>
-    fetch(url, {
-      method: 'POST',
-      headers: { 'x-internal-key': key, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ shard: i, total: SHARDS }),
-    }),
-  ),
-);
-```
+import { buildTool } from '../tool.js';
+import { z } from 'zod';
 
-```typescript
-// audric/apps/web/app/api/internal/financial-context-snapshot/route.ts
-const { shard, total } = await req.json();
-const users = await prisma.user.findMany({
-  where: shard != null ? { id: { /* hash-based shard filter */ } } : undefined,
+export const myTool = buildTool({
+  name: 'tool_name',
+  description: '...',  // What the LLM sees. Keep short and crisp.
+  inputSchema: z.object({ ... }),
+  jsonSchema: { type: 'object', properties: { ... }, required: [...] },
+  call: async (input, ctx) => {
+    return { data: ..., displayText: '...' };
+  },
+  isReadOnly: true,                 // default true
+  permissionLevel: 'auto',          // 'auto' | 'confirm' | 'explicit'
+  flags: { mutating: false, requiresBalance: false, ... },
+  preflight: (input) => ({ valid: true }),
+  maxResultSizeChars: 8_000,
+  cacheable: true,                  // default true
 });
 ```
 
-Shard count guidance:
-- < 1k DAU: 1 shard (no sharding)
-- 1k–10k DAU: 8 shards (default — see `audric-scaling-spec.md` PR 4)
-- 10k+ DAU: 16+ shards, consider migrating to a queue (SQS / Inngest)
+## Permission level — pick the right one
 
-## Schedule (UTC)
-
-| Time | Job | Why |
+| Level | Used for | Behavior |
 |---|---|---|
-| 02:00 | Portfolio snapshot | After EU/US close — most stable wallet states |
-| 02:30 | Financial context snapshot | After portfolio snapshot — uses freshest numbers |
-| 03:00 | Profile inference | Uses prior day's transcripts |
-| 03:15 | Memory extraction | After profile inference (memory feeds profile) |
-| 04:00 | Chain memory classifiers | Daily classifier run |
+| `auto` | All read tools, render_canvas | Engine executes server-side, no user prompt |
+| `confirm` | All write tools | Engine yields `pending_action`, host renders confirm card, user taps Confirm, host calls resume |
+| `explicit` | Power-user tools never dispatched by LLM | Reserved for future manual triggers |
 
-Order matters — financial-context depends on portfolio, profile/memory depend on yesterday's logs being complete.
+**Rule.** A write tool MUST be `confirm` under zkLogin. There is no `auto` write today. If you reach for `auto` on a write, you're breaking the user-consent contract — see `agent-harness-spec.mdc`.
 
-## What MUST NOT happen
+## Read tool patterns
+
+1. Keep them **fast** (target < 500ms p50). They're called per-turn.
+2. Set `isReadOnly: true`, `isConcurrencySafe: true` (default). The early-dispatcher fires them mid-stream.
+3. Cache common reads via `cacheable: true` (default) — the per-turn `turn-read-cache.ts` dedupes identical calls.
+4. Use `ctx.portfolioCache` (per-request `Map<address, AddressPortfolio>`) for shared portfolio reads — avoids 200–500ms BlockVision RTT amplification across tools in the same turn.
+5. Set `maxResultSizeChars` to keep the LLM context lean. Tools that can return large responses MUST cap.
+
+## Write tool patterns
+
+1. `permissionLevel: 'confirm'`, `isReadOnly: false`.
+2. Set `flags.mutating: true` and the relevant flags (`requiresBalance`, `affectsHealth`, `irreversible`, `costAware`).
+3. The `call()` for a `confirm` tool is **never invoked** under audric/web (the host executes via sponsored-tx flow). It's there for CLI / non-sponsored runtimes.
+4. Implement `preflight(input)` for cheap input validation that fails closed BEFORE the user is asked to confirm.
+5. Modifiable fields are sourced from `tool-modifiable-fields.ts` — add an entry there if the user should be able to edit `amount` / `to` / etc. before confirming.
+
+## Result budgeting (B.2)
 
 ```typescript
-// ❌ Cron job that hits Sui RPC for every user
-for (const user of users) {
-  await suiClient.getAllBalances({ owner: user.suiAddress });
-}
-// — at 10k users that's 10k RPC calls in 60s, instant rate limit.
-// — batch via BlockVision OR use the canonical getPortfolio (it caches).
-
-// ❌ Cron job that ALSO writes to a different domain
-// — financial-context-snapshot writing to UserMemory? No. One job, one domain.
-
-// ❌ Endpoint that's NOT idempotent
-prisma.userFinancialContext.create({ data: { userId, snapshot } });
-// — use upsert. Cron retries WILL happen.
-
-// ❌ Auth via "if it's running on ECS" assumption
-// — always check x-internal-key. ECS networking is not security.
-
-// ❌ Hardcoded URL/key
-fetch('https://audric.ai/api/internal/...');
-const key = 'hardcoded-key';
-// — env via the typed proxy (env-validation-gate.mdc)
+buildTool({
+  // ...
+  maxResultSizeChars: 8_000,
+  summarizeOnTruncate: (full, max) => {
+    return `${full.slice(0, max - 100)}\n\n[Truncated — call with narrower params]`;
+  },
+});
 ```
 
-## Adding a new cron job
+Without `maxResultSizeChars`, large results (e.g. portfolio with 100+ tokens) blow context budget and degrade subsequent turns.
 
-1. Create the audric endpoint at `audric/apps/web/app/api/internal/<job>/route.ts` first.
-2. Make it idempotent and accept optional `{ shard, total }`.
-3. Add t2000 cron file at `apps/server/src/cron/jobs/<job>.ts` mirroring the existing pattern.
-4. Register in `apps/server/src/cron/index.ts` with the right UTC schedule.
-5. Test:
-   - Curl the endpoint manually with the right `x-internal-key`.
-   - Trigger from t2000 cron in dev and verify the response.
-6. Update this catalog.
+## Flags reference
+
+| Flag | Used for |
+|---|---|
+| `mutating` | Any write — drives confirm gating + `onAutoExecuted` |
+| `requiresBalance` | Engine fetches balance before calling |
+| `affectsHealth` | Borrow/repay — engine fetches HF before/after |
+| `irreversible` | Drives stronger confirm UX (e.g. send_transfer) |
+| `producesArtifact` | Tool emits a canvas/card — drives result extraction |
+| `costAware` | Engine factors USD value into permission resolver (B.4) |
+| `maxRetries` | Override default retry count |
+
+## Preflight validation
+
+```typescript
+preflight: (input) => {
+  if (input.amount <= 0) return { valid: false, error: 'amount must be positive' };
+  if (input.amount > 1_000_000) return { valid: false, error: 'amount unreasonable' };
+  return { valid: true };
+}
+```
+
+Runs **before** the LLM round-trip when the engine pre-screens a tool call. Fast, synchronous. Don't reach into context here.
+
+## Tool naming
+
+- `<verb>_<object>` for writes — `swap_execute`, `save_deposit`, `send_transfer`.
+- `<object>_<state>` or `<verb>_<object>` for reads — `balance_check`, `health_check`, `transaction_history`.
+- New tool? Update CLAUDE.md tool counts AND `getDefaultTools()` exports.
+
+## Required tests
+
+Every new tool needs:
+1. **Unit test** — `packages/engine/src/__tests__/<tool>.test.ts` covering happy path + every preflight failure mode.
+2. **Permission test** — verify `permissionLevel` and `flags` (these are load-bearing for the harness contract).
+3. **Result budget test** — verify `maxResultSizeChars` caps output.
+4. **Integration test** — if the tool calls BlockVision/NAVI, mock + verify retry + circuit breaker behavior.
+
+## Forbidden in tool code
+
+```typescript
+// ❌ Direct env reads — engine doesn't own env, host does
+const key = process.env.BLOCKVISION_API_KEY;
+
+// ✅ From context (host threads it through)
+const key = ctx.blockvisionApiKey;
+
+// ❌ Mutating shared state
+SOME_GLOBAL_CACHE[address] = result;
+
+// ✅ Use the per-request caches (portfolioCache, turn-read-cache)
+ctx.portfolioCache?.set(address, result);
+
+// ❌ Calling other tools directly
+const balance = await balanceCheck.call(input, ctx);
+
+// ✅ Tools are LLM-orchestrated; if you need shared logic, extract a helper
+import { getPortfolioForTools } from './shared/portfolio.js';
+```
 
 ## Cross-references
 
-- t2000 cron entry → `apps/server/src/cron/index.ts`
-- Audric internal endpoints → `audric/apps/web/app/api/internal/*`
-- Sharding spec → `audric-scaling-spec.md` PR 4
-- Internal auth → `audric/apps/web/lib/internal-auth.ts`
-- Env (T2000_INTERNAL_KEY / AUDRIC_INTERNAL_KEY) → `env-validation-gate.mdc`
+- Factory + types → `packages/engine/src/tool.ts`, `packages/engine/src/types.ts`
+- Permission resolver → `packages/engine/src/permission-rules.ts`
+- Harness contract → `agent-harness-spec.mdc`
+- BlockVision usage → `blockvision-resilience.mdc`
 
 ---
 > Source: [mission69b/t2000](https://github.com/mission69b/t2000) — distributed by [TomeVault](https://tomevault.io).
