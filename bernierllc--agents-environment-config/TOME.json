@@ -2,9 +2,9 @@
   "name": "agents-environment-config",
   "owner": "bernierllc",
   "repo": "agents-environment-config",
-  "description": "",
+  "description": "Create a common base agents config for a dev environment. ",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/bernierllc",
+  "source_url": "https://github.com/bernierllc/agents-environment-config",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T07:08:19Z"
+  "distributed_at": "2026-05-08T14:34:21Z"
 }
