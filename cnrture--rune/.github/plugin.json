@@ -1,0 +1,9 @@
+{
+  "name": "cnrture--rune",
+  "displayName": "Rune",
+  "description": "IntelliJ IDE's plugin that brings Claude AI directly into your IDE. Manage terminal sessions, discover skills & agents, generate commit messages, create PRs, and fix review    comments \u2014 all powered b",
+  "version": "1.0.0",
+  "author": "cnrture",
+  "homepage": "https://github.com/cnrture/Rune",
+  "skills": []
+}
