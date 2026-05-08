@@ -1,9 +1,10 @@
-## js
+## mdx
 
-> Typescript authoring rules
+> Content Authoring Rules
 
 
-- Avoid nesting functions if you dont need to
+- Each sentence should be on it's own line
+- Prefer authoring @apps/docs/src/examples/ instead of too much inline the mdx file
 
 ---
 > Source: [hipstersmoothie/hip-ui](https://github.com/hipstersmoothie/hip-ui) — distributed by [TomeVault](https://tomevault.io).
