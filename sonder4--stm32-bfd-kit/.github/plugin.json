@@ -1,0 +1,9 @@
+{
+  "name": "sonder4--stm32-bfd-kit",
+  "displayName": "STM32-BFD-Kit",
+  "description": "BFD-Kit is a portable, CLI-first toolkit for AI-assisted STM32 debug workflows. It standardizes IOC discovery, active profile generation, flashing, RTT logging, register/data capture, and fault eviden",
+  "version": "1.0.0",
+  "author": "Sonder4",
+  "homepage": "https://github.com/Sonder4/STM32-BFD-Kit",
+  "skills": []
+}
