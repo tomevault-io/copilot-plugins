@@ -1,0 +1,24 @@
+## backend-structure
+
+> - **Entry Point**: [src/main/java/com/ainovel/server/AiNovelServerApplication.java](mdc:AINovalServer/src/main/java/com/ainovel/server/AiNovelServerApplication.java)
+
+# Backend Structure (AINovalServer - Spring Boot)
+
+- **Entry Point**: [src/main/java/com/ainovel/server/AiNovelServerApplication.java](mdc:AINovalServer/src/main/java/com/ainovel/server/AiNovelServerApplication.java)
+- **Dependencies**: [pom.xml](mdc:AINovalServer/pom.xml)
+- **Main Configuration**: [src/main/resources/application.yml](mdc:AINovalServer/src/main/resources/application.yml)
+- **Environment Configs**: Located in `src/main/resources/` (e.g., `application-dev.yml`)
+- **Source Code**: `src/main/java/com/ainovel/server/`
+  - `common/`: Common utilities and constants
+  - `config/`: Configuration classes (DB, Security, etc.)
+  - `domain/`: Domain models/entities
+  - `repository/`: Data access layer (JPA Repositories)
+  - `security/`: Security configuration and components
+  - `service/`: Business service layer
+  - `web/`: Web controllers (REST APIs)
+- **Resources**: `src/main/resources/`
+- **Tests**: `src/test/`
+
+---
+> Source: [Deng-m1/MaliangAINovalWriter](https://github.com/Deng-m1/MaliangAINovalWriter) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
