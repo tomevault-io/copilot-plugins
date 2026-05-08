@@ -1,0 +1,9 @@
+{
+  "name": "cwklurks--codesprint",
+  "displayName": "codesprint",
+  "description": "CodeSprint is a typing practice environment for software engineers that uses real LeetCode-style code snippets instead of lorem ipsum, tracking WPM, accuracy, and errors in real time inside a minimal,",
+  "version": "1.0.0",
+  "author": "cwklurks",
+  "homepage": "https://github.com/cwklurks/codesprint",
+  "skills": []
+}
