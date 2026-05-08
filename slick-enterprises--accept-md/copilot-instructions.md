@@ -1,45 +1,37 @@
-## handler-and-templates
+## packages-conventions
 
-> Handler and template rules — keep JS-compatible for end users
+> Package boundaries and conventions (core, middleware, cli)
 
 
-# Handler and template rules
+# Package conventions
 
-## Templates (`packages/middleware/src/templates.ts`)
+## Boundaries
 
-- `APP_ROUTE_HANDLER_TEMPLATE` and `PAGES_API_HANDLER_TEMPLATE` must be **plain JavaScript** only: no TypeScript syntax (no `import type`, no `: Type` annotations). JSDoc `@param` comments are allowed so that generated `.ts` files type-check.
-- These strings are written to user projects by the CLI. User projects may be JavaScript-only.
-- Escape backslashes in template literals as needed (e.g. regex `\b` in a string is `\\\\b` so the written file gets `\b`).
+- **@accept-md/core**: No dependency on Next.js or accept-md-runtime. Exports: types, `scanProject`, `loadConfig` (config loader re-exported from runtime in docs; core has types).
+- **accept-md-runtime**: Depends only on turndown, linkedom. Exports: `getMarkdownForPath`, `loadConfig`, template constants. Used by user apps and by the CLI (templates).
+- **accept-md** (CLI): Depends on core and runtime. No direct Next.js dependency; uses core for detection and runtime for templates.
 
-## Example handlers (`examples/*/api/accept-md/`)
+## Code style
 
-- Use **`.js`** files: `route.js` (App Router), `index.js` (Pages Router).
-- Content must match the templates (plain JS). Do not replace with `.ts` or add types here; the example is the reference for both TS and JS users.
+- ESM only (`"type": "module"`). Use `import`/`export`, `.js` in imports for TypeScript.
+- Prefer minimal config and small dependency sets.
+- Tests: `**/*.test.ts`, Vitest. Run with `pnpm run test` from root (filters to core and runtime).
 
-## CLI init (`packages/cli/src/init.ts`)
+## When changing behavior
 
-- Use `routeExt = detection.hasTypeScript ? 'ts' : 'js'` when writing the handler file. Do not hardcode `.ts` only.
-- Write the **template as-is** (no TypeScript-only additions). Doctor must accept both `route.ts` and `route.js` (and both `index.ts` and `index.js` for Pages).
-- **Next.js rewrite pattern**: Use catch-all `/:path*` in `next.config.js` rewrites (not complex regex like `/:path((?!api|_next).)*`). The complex regex doesn't match sub-routes reliably in Next.js. Exclusions for `/api` and `/_next` are handled in the handler code, not in the rewrite pattern.
+- If you change handler or middleware **contract** (exports, request/response shape), update:
+  - `packages/middleware` (handler, templates)
+  - `packages/cli` (init, doctor if it references paths)
+  - Both `examples/app-router` and `examples/pages-router`
+  - README and `packages/*/README.md` as needed
+- Run `pnpm run build` and `pnpm run test` before committing.
 
-## Handler path exclusion logic
+## Next.js rewrite configuration
 
-- The handler template (`APP_ROUTE_HANDLER_TEMPLATE`) must include exclusion logic that returns 404 for paths starting with `/api/` or `/_next/`:
-  ```javascript
-  // Exclude /api and /_next paths - return 404 for these
-  if (path.startsWith('/api/') || path.startsWith('/_next/')) {
-    return NextResponse.json({ error: 'Not found' }, { status: 404 });
-  }
-  ```
-- This prevents conflicts with Next.js internal routes and API routes.
-- The rewrite pattern uses catch-all `/:path*` to match all routes, then the handler filters out excluded paths.
-
-## Do not
-
-- Add TypeScript-only syntax (e.g. `import type`, `: NextRequest`) to the template strings.
-- Change examples back to `route.ts` / `index.ts` only.
-- Remove the JS path in init or doctor.
-- Use complex regex patterns in Next.js rewrite `source` fields - they don't work reliably for sub-routes. Use catch-all patterns and handle exclusions in code.
+- **Rewrite pattern**: Use catch-all `/:path*` in `next.config.js` rewrites. Complex regex patterns like `/:path((?!api|_next).)*` don't match sub-routes reliably in Next.js.
+- **Exclusion handling**: Path exclusions for `/api` and `/_next` are handled in the handler code (returns 404), not in the rewrite pattern.
+- **Destination format**: App Router uses `/api/accept-md/:path*` (path parameter). Pages Router can use `/api/accept-md?path=:path*` (query string) for backward compatibility.
+- The `getNextConfigRewrite()` function in `packages/middleware/src/templates.ts` returns the correct rewrite configuration.
 
 ---
 > Source: [slick-enterprises/accept-md](https://github.com/slick-enterprises/accept-md) — distributed by [TomeVault](https://tomevault.io).
