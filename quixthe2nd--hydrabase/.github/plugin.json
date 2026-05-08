@@ -1,0 +1,9 @@
+{
+  "name": "quixthe2nd--hydrabase",
+  "displayName": "Hydrabase",
+  "description": "Hydrabase is web-of-trust inspired consensus-less distributed relational database. The networks primary purpose is to act as a unified source that propagates music metadata.",
+  "version": "1.0.0",
+  "author": "QuixThe2nd",
+  "homepage": "https://github.com/QuixThe2nd/Hydrabase",
+  "skills": []
+}
