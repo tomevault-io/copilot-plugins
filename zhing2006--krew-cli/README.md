@@ -7,11 +7,11 @@ A multi agents meeting CLI.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [zhing2006/krew-cli](https://github.com/zhing2006/krew-cli).
+Original source: `CLAUDE.md` in [zhing2006/krew-cli](https://github.com/zhing2006/krew-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
