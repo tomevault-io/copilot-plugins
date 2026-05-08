@@ -1,20 +1,18 @@
-## no-flowblock-renderer
+## no-manual-css-parsing
 
-> Do not use FlowBlock/manual canvas flow renderer; use Blitz/engine-driven HTML+CSS rendering in this project.
+> Do not hand-roll CSS parsing; use real parsers or engine pipelines — manual CSS is not scalable.
 
 
-# Rendering: no FlowBlock fallback
+# CSS: no manual parsing
 
-Do **not** implement or route rendering through `FlowBlock`-based/manual canvas text layout for page rendering.
+Do **not** implement CSS by hand (ad-hoc brace splitting, regex rules, string hacks for selectors, etc.). That approach does **not** scale and will diverge from real CSS behavior.
 
-Rules:
+Prefer:
 
-- Do **not** add new usage of `FlowBlock` in primary render paths.
-- Do **not** introduce fallback code that paints page content via handcrafted block/word-wrap rendering.
-- Treat `FlowBlock` renderer as legacy/debug-only and avoid touching it unless explicitly requested.
-- For page rendering, use the **Blitz / Stylo-driven** pipeline so CSS comes from a real engine path.
+- Established **Rust CSS tooling** (e.g. Servo’s **`cssparser`** and a proper selector/cascade story), or  
+- An **embeddable HTML/CSS pipeline** where styles come from a real style system (e.g. [DioxusLabs/blitz](https://github.com/DioxusLabs/blitz) documents **Stylo** for CSS in **`blitz-dom`** — useful as **architecture reference**, not a mandatory dependency).
 
-If rendering fails, debug the engine path (resource fetches, async WebGPU path, stylesheet loading) instead of switching back to manual rendering.
+Choose what fits the **target** (e.g. WASM-in-tab vs native); the rule is **no bespoke CSS grammar**, not “must use Blitz.”
 
 ---
 > Source: [pdufour/browserbrowserbrowser](https://github.com/pdufour/browserbrowserbrowser) — distributed by [TomeVault](https://tomevault.io).
