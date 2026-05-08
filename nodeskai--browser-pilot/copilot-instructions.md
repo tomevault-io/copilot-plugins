@@ -1,34 +1,40 @@
-## fingerprint-popover-sync
+## keyboard-shortcuts-ux
 
-> 浏览器指纹多维度一致性同步规范
+> 快捷键交互必须有可见 UI 提示，并使用统一 kbd 样式
 
-# 指纹维度适配与同步规范
 
-## 问题背景
-指纹伪造是一个涉及前后端、扩展注入以及UI展示的全链路功能。一旦新增、删除或重命名某一个指纹维度时，很容易在各个环节出现不同步的问题（如：后端输出了数据但前端UI未能配置，或注入脚本没有生效，或状态栏指纹弹窗未能展示该维度）。
+# 快捷键 UX 规范
 
-## 核心原则：四端一致性
-当你需要修改指纹维度（如添加新的 CPU 参数、网络参数、字体信息等）时，**必须同时更新以下四个文件**，以保持全链路一致：
+所有新增或修改的快捷键交互，都必须同时更新用户可见的 UI 提示。不能只实现键盘监听而不在界面上标注快捷键。
 
-1. **后端生成源**: `backend/app/fingerprint.py`
-   - 修改 `_DEFAULT_POOL` 数据字典。
-   - 必须确保在 `generate_profile()` 的返回值中包含该字段，供下游使用。
+## 规则
 
-2. **浏览器注入脚本**: `services/selenium-chrome/stealth-ext/stealth.js`
-   - 拦截并覆盖相关浏览器 API。
-   - 必须从注入的全局变量 `__FP__` 中读取由 `generate_profile()` 输出的具体维度值，进行真实的指纹伪造。
+1. **快捷键必须可见**：有快捷键的按钮、菜单项、Tooltip 或 Dialog 操作，必须在对应操作旁展示快捷键提示。
+2. **统一使用 kbd 样式**：快捷键提示使用 `<kbd data-slot="kbd">...</kbd>`，不要在业务组件里手写背景、边框、字号、阴影或额外间距等 Tailwind 样式。
+3. **文案走 i18n**：用户可见的快捷键文本必须复用或新增 locale key；不要在 Vue 模板中硬编码英文文案。
+4. **Enter/Return 用图标**：确认类回车快捷键优先使用回车/Return 图标，例如 `CornerDownLeft`；保留 `sr-only` 文案用于可访问性。
+5. **ESC 用文字**：取消/关闭类快捷键显示为 `ESC`，不要写成 `Esc` 或其它大小写形式。
+6. **文字不替代状态**：快捷键提示只标注快捷键，不改变按钮主文案；例如 `删除 + ↵`，不要把按钮文案改成“回车删除”。
+7. **Keycap 必须轻量**：快捷键提示是辅助信息，样式应跟随当前按钮颜色，只使用 10% 透明叠色底；不要加边框，不要做成按钮里的第二个按钮。
+8. **底色算法固定**：keycap 底色基于 `currentColor` 计算，使用类似 `color-mix(in srgb, currentColor var(--kbd-bg-strength), transparent)` 的算法；默认强度为 10%，深色背景会被浅色前景提亮，浅色背景会被深色前景压暗。需要微调时只改全局 `--kbd-bg-strength`。
+9. **图标 keycap 单独留白**：文字 keycap 保持紧凑；图标 keycap 使用更大的正方形底色区域承载图标，保证图标四周有约 2-3px 视觉留白。
 
-3. **前端指纹池配置表单**: `frontend/src/components/FingerprintPoolSettings.vue`
-   - 增加表单双向绑定的输入组件（使用恰当的 input 类型或组件）。
-   - 更新 Vue 的 state ref 默认值以及 `openAdd()`、`openEdit()` 和 `buildData()` 里的数据结构解析和组装逻辑。
+## 示例
 
-4. **状态栏指纹弹窗展示**: `frontend/src/components/NoVNCViewer.vue`
-   - 在弹窗 `fpProfile` 详情区增加该维度的只读展示。
-   - 需确保与 `generate_profile()` 输出对齐，展示相应的指标概要信息，并在对应的 `en.ts` / `zh.ts` 文件中补充 i18n 国际化键。
+```vue
+<Button>
+  {{ t('session.confirmDelete') }}
+  <kbd data-slot="kbd" data-icon="true">
+    <CornerDownLeft aria-hidden="true" />
+    <span class="sr-only">{{ t('session.shortcutEnter') }}</span>
+  </kbd>
+</Button>
 
-## 注意事项
-- 在展示和注入时要注意数据格式的兼容性和判空，对于不存在的新增字段使用可选链 `?.` 或 `v-if` 进行容错降级。
-- WebGL 和 Audio 等高阶维度的拦截必须使用与之匹配的数据类型（如 TypedArray）。
+<Button variant="outline">
+  {{ t('session.cancel') }}
+  <kbd data-slot="kbd">{{ t('session.shortcutEscape') }}</kbd>
+</Button>
+```
 
 ---
 > Source: [NoDeskAI/browser-pilot](https://github.com/NoDeskAI/browser-pilot) — distributed by [TomeVault](https://tomevault.io).
