@@ -1,0 +1,9 @@
+{
+  "name": "jurre--huebar",
+  "displayName": "huebar",
+  "description": "A native macOS menubar app for controlling Philips Hue lights",
+  "version": "1.0.0",
+  "author": "jurre",
+  "homepage": "https://github.com/jurre/huebar",
+  "skills": []
+}
