@@ -1,0 +1,9 @@
+{
+  "name": "gocodeweb--terminal-visualizer",
+  "displayName": "terminal-visualizer",
+  "description": "Interactive terminal visualizations for AI coding agents \u2014 pixel-perfect SVG graphics via Kitty protocol with Ink/blessed fallback",
+  "version": "1.0.0",
+  "author": "gocodeweb",
+  "homepage": "https://github.com/gocodeweb/terminal-visualizer",
+  "skills": []
+}
