@@ -1,0 +1,9 @@
+{
+  "name": "semos-labs--glyph",
+  "displayName": "glyph",
+  "description": "TypeScript TUI framework \u2014 React renderer for full-screen, interactive terminal apps with flexbox layout and focus system.",
+  "version": "1.0.0",
+  "author": "semos-labs",
+  "homepage": "https://github.com/semos-labs/glyph",
+  "skills": []
+}
