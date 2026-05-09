@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--rich-rust",
+  "displayName": "rich_rust",
+  "description": "Beautiful terminal output for Rust inspired by Python's Rich: tables, panels, syntax highlighting, progress bars, and full-color rendering",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/rich_rust",
+  "skills": []
+}
