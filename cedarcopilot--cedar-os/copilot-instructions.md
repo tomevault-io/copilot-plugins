@@ -1,69 +1,146 @@
-## animation-rules
+## cedar-package-rules
 
-> Whenever code related to animation is used
+> When working with imports in this Cedar OS project, follow these strict rules based on file location:
 
-# Animations Guidelines
- 
-## Keep your animations fast
- 
-- Default to use `ease-out` for most animations.
-- Animations should never be longer than 1s (unless it's illustrative), most of them should be around 0.2s to 0.3s.
- 
-## Easing rules
- 
-- Don't use built-in CSS easings unless it's `ease` or `linear`.
-- Use the following easings for their described use case:
-  - **`ease-in`**: (Starts slow, speeds up) Should generally be avoided as it makes the UI feel slow.
-    - `ease-in-quad`: `cubic-bezier(.55, .085, .68, .53)`
-    - `ease-in-cubic`: `cubic-bezier(.550, .055, .675, .19)`
-    - `ease-in-quart`: `cubic-bezier(.895, .03, .685, .22)`
-    - `ease-in-quint`: `cubic-bezier(.755, .05, .855, .06)`
-    - `ease-in-expo`: `cubic-bezier(.95, .05, .795, .035)`
-    - `ease-in-circ`: `cubic-bezier(.6, .04, .98, .335)`
- 
-  - **`ease-out`**: (Starts fast, slows down) Best for elements entering the screen or user-initiated interactions.
-    - `ease-out-quad`: `cubic-bezier(.25, .46, .45, .94)`
-    - `ease-out-cubic`: `cubic-bezier(.215, .61, .355, 1)`
-    - `ease-out-quart`: `cubic-bezier(.165, .84, .44, 1)`
-    - `ease-out-quint`: `cubic-bezier(.23, 1, .32, 1)`
-    - `ease-out-expo`: `cubic-bezier(.19, 1, .22, 1)`
-    - `ease-out-circ`: `cubic-bezier(.075, .82, .165, 1)`
- 
-  - **`ease-in-out`**: (Smooth acceleration and deceleration) Perfect for elements moving within the screen.
-    - `ease-in-out-quad`: `cubic-bezier(.455, .03, .515, .955)`
-    - `ease-in-out-cubic`: `cubic-bezier(.645, .045, .355, 1)`
-    - `ease-in-out-quart`: `cubic-bezier(.77, 0, .175, 1)`
-    - `ease-in-out-quint`: `cubic-bezier(.86, 0, .07, 1)`
-    - `ease-in-out-expo`: `cubic-bezier(1, 0, 0, 1)`
-    - `ease-in-out-circ`: `cubic-bezier(.785, .135, .15, .86)`
- 
- 
-## Hover transitions
- 
-- Use the built-in CSS `ease` with a duration of `200ms` for simple hover transitions like `color`, `background-color`,`opacity`.
-- Fall back to easing rules for more complex hover transitions.
-- Disable hover transitions on touch devices with the `@media (hover: hover) and (pointer: fine)` media query.
- 
-## Accessibility
- 
-- If `transform` is use in the animation, disable it in the `prefers-reduced-motion` media query.
- 
-## Origin-aware animations
- 
-- Elements should animate from the trigger. If you open a dropdown or a popover it should animate from the button. Change `transform-origin` according to the trigger position.
- 
-## Performance
- 
-- Stick to opacity and transforms when possible. Example: Animate using `transform` instead of `top`, `left`, etc. when trying to move an element.
-- Do not animate drag gestures using CSS variables.
-- Do not animate blur values higher than 20px.
-- Use `will-change` to optimize your animation, but use it only for: `transform`, `opacity`, `clipPath`, `filter`.
-- When using Motion/Framer Motion use `transform` instead of `x` or `y` if you need animations to be hardware accelerated.
- 
-## Spring animations
- 
-- Default to spring animations when using Framer Motion.
-- Avoid using bouncy spring animations unless you are working with drag gestures.
+
+# Cedar OS Import Rules
+
+## Import Guidelines
+
+When working with imports in this Cedar OS project, follow these strict rules based on file location:
+
+### 1. Files in `packages/cedar-os/` importing from outside
+
+- **Rule**: Use `import from "cedar-os"` when importing Cedar OS exports from external files
+- **Example**:
+
+  ```tsx
+  // ❌ Wrong
+  import { useCedarStore } from '@/store/CedarStore';
+
+  // ✅ Correct (when importing from outside cedar-os)
+  import { useCedarStore } from 'cedar-os';
+  ```
+
+### 2. Files within `packages/cedar-os/` importing from within the same package
+
+- **Rule**: Use absolute imports with `@/` prefix, where `@` maps to `packages/cedar-os/src/`
+- **Examples**:
+
+  ```tsx
+  // In packages/cedar-os/src/components/CedarCopilot.tsx
+  import { createStateSlice } from '@/store/stateSlice/stateSlice';
+  import { useCedarEditor } from '@/components/chatInput/useCedarEditor';
+
+  // ❌ Wrong
+  import { createStateSlice } from '../store/stateSlice/stateSlice';
+  import { useCedarEditor } from './chatInput/useCedarEditor';
+  ```
+
+### 3. Files in `packages/cedar-os-components/`
+
+- **Rule**: Use absolute imports with `@/` prefix, where `@` maps to `packages/cedar-os-components/`
+- **Examples**:
+
+  ```tsx
+  // In packages/cedar-os-components/chatComponents/FloatingCedarChat.tsx
+  import { ChatInput } from '@/chatInput/ChatInput';
+  import { FloatingContainer } from '@/structural/FloatingContainer';
+
+  // When importing from cedar-os package
+  import { useCedarStore, useSpell } from 'cedar-os';
+  ```
+
+### 4. Files in the base Next.js app (`src/`)
+
+- **Rule**:
+  - Use `import from "cedar-os"` for Cedar OS package imports
+  - Use `@/` for local app imports, where `@` maps to `src/`
+- **Examples**:
+  ```tsx
+  // In src/app/examples/product-roadmap/page.tsx
+  import { useCedarStore } from 'cedar-os';
+  import { Navbar } from '@/components/Navbar';
+  import { SunlitBackground } from '@/components/SunlitBackground/SunlitBackground';
+  ```
+
+## Path Mappings Summary
+
+| Location                        | `@` maps to                     | External Cedar imports |
+| ------------------------------- | ------------------------------- | ---------------------- |
+| `packages/cedar-os/`            | `packages/cedar-os/src/`        | N/A (internal)         |
+| `packages/cedar-os-components/` | `packages/cedar-os-components/` | `from 'cedar-os'`      |
+| `src/` (Next.js app)            | `src/`                          | `from 'cedar-os'`      |
+
+## Additional Rules
+
+1. **Never use relative imports** (e.g., `../`, `./`) except for files in the same directory
+2. **Always prefer named imports** over default imports when possible
+3. **Group imports** in this order:
+   - React and external libraries
+   - Cedar OS package imports (`from 'cedar-os'`)
+   - Local absolute imports (`@/...`)
+   - Type imports
+
+## Example Import Organization
+
+```tsx
+// External libraries
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+
+// Cedar OS package (when outside cedar-os)
+import { useCedarStore, useSpell, Hotkey } from 'cedar-os';
+
+// Local absolute imports
+import { ChatInput } from '@/chatInput/ChatInput';
+import { Container3D } from '@/containers/Container3D';
+
+// Type imports
+import type { SpellState, ActivationConditions } from 'cedar-os';
+```
+
+## VSCode Configuration
+
+Ensure your `tsconfig.json` files have the correct path mappings:
+
+**packages/cedar-os/tsconfig.json:**
+
+```json
+{
+	"compilerOptions": {
+		"paths": {
+			"@/*": ["./src/*"]
+		}
+	}
+}
+```
+
+**packages/cedar-os-components/tsconfig.json:**
+
+```json
+{
+	"compilerOptions": {
+		"paths": {
+			"@/*": ["./*"]
+		}
+	}
+}
+```
+
+**Root tsconfig.json:**
+
+```json
+{
+	"compilerOptions": {
+		"paths": {
+			"@/*": ["./src/*"],
+			"cedar-os": ["./packages/cedar-os/src"],
+			"cedar-os/*": ["./packages/cedar-os/src/*"]
+		}
+	}
+}
+```
 
 ---
 > Source: [CedarCopilot/cedar-OS](https://github.com/CedarCopilot/cedar-OS) — distributed by [TomeVault](https://tomevault.io).
