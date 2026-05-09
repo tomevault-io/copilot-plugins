@@ -1,235 +1,154 @@
-## semantic-coloring
+## source-integrity
 
-> WCAG-compliant semantic color-coding for key concepts in textbook chapters — applies during editing pass
+> Zero World Knowledge principle, source verification, training data boundaries, sub-agent rules, observed failure patterns
 
 
-# Semantic Concept Coloring
+# Source Integrity Rules
 
-Rules for applying consistent semantic color-coding to key concepts throughout textbook chapters. This technique uses author-provided color as a **visual signal** (Mayer's Signaling Principle) to help readers mentally separate and track concept categories.
-
-**Research basis:** Color-coding is a form of visual signaling with meta-analytic support (Alpizar et al. 2020, g = 0.22; Richter et al. 2016, d = 0.22). Liu et al. (2021) found large effect sizes (eta-squared = 0.23) with lower cognitive load (measured by pupil diameter and EEG). This is fundamentally different from student-directed highlighting (Dunlosky LOW utility): author-provided semantic color-coding is expert-curated, consistent, and functions as a perceptual signal, not a learning activity. It leverages pre-attentive processing (Treisman & Gelade 1980), the Von Restorff isolation effect, and dual coding (Paivio 1986).
+Shared source verification and world-knowledge rules for all textbook chapter workflows (write, update, edit). These rules exist because LLMs confidently produce plausible-sounding but incorrect information about well-known topics. Every rule below was motivated by a real failure in a real chapter-writing session.
 
 ---
 
-## When to Apply
+## Why Source Integrity Matters
 
-The coloring pass is part of the **editing workflow** (`edit-textbook-chapter.md`). It runs AFTER prose-quality editing is complete — it should be the last content-level pass before final verification. The writing workflow (`write-textbook-chapter.md`) may also apply coloring during initial writing, especially in the Chapter Overview paragraph where the technique has the highest impact.
+A textbook chapter that gets a quote slightly wrong, rounds a statistic, or describes a framework from memory instead of from its creator's actual words has *silently corrupted the reader's knowledge*. The reader trusts the textbook. They will cite the wrong number in their own paper. They will misattribute the quote. They will describe the framework incorrectly to their students. The corruption propagates.
 
----
-
-## The Color Palette (WCAG AA Compliant)
-
-All colors pass WCAG AA (4.5:1 minimum) for normal-size text on white backgrounds. They are Tailwind CSS 600-700 shades, chosen for perceptual distinguishability and colorblind safety.
-
-| # | Name | Hex | WCAG Ratio | Prose Syntax | LaTeX Syntax |
-|---|---|---|---|---|---|
-| 1 | **Indigo** | `#4F46E5` | 6.29:1 | `[**term**]{style="color: #4F46E5;"}` | `$\textcolor{#4F46E5}{symbol}$` |
-| 2 | **Emerald** | `#047857` | 5.48:1 | `[**term**]{style="color: #047857;"}` | `$\textcolor{#047857}{symbol}$` |
-| 3 | **Rose** | `#E11D48` | 4.70:1 | `[**term**]{style="color: #E11D48;"}` | `$\textcolor{#E11D48}{symbol}$` |
-| 4 | **Sky** | `#0369A1` | 5.93:1 | `[**term**]{style="color: #0369A1;"}` | `$\textcolor{#0369A1}{symbol}$` |
-| 5 | **Amber** | `#B45309` | 5.02:1 | `[**term**]{style="color: #B45309;"}` | `$\textcolor{#B45309}{symbol}$` |
-| 6 | **Purple** | `#7E22CE` | 6.98:1 | `[**term**]{style="color: #7E22CE;"}` | `$\textcolor{#7E22CE}{symbol}$` |
-| 7 | **Teal** | `#0F766E` | 5.23:1 | `[**term**]{style="color: #0F766E;"}` | `$\textcolor{#0F766E}{symbol}$` |
-| 8 | **Slate** | `#475569` | 7.58:1 | `[**term**]{style="color: #475569;"}` | `$\textcolor{#475569}{symbol}$` |
-
-**Use at most 3-5 colors per chapter.** Pick the colors most relevant to the chapter's concept categories. The full palette of 8 provides flexibility across different chapters, but She et al. (2024) showed single-color cues outperform multi-color, and the Von Restorff effect disappears when everything is colored.
+The only way to prevent this is to treat every specific claim as unverified until it is confirmed against a downloaded, readable source file.
 
 ---
 
-## How to Assign Colors to Concepts
+## Zero World Knowledge Principle
 
-### Step 1: Identify 3-5 Major Concept Categories
+**You know nothing about the topic except what you read from the downloaded sources.**
 
-Read the chapter overview and identify the 3-5 most important conceptual pillars. These should be genuinely distinct categories, not synonyms or subcategories of each other.
+You are a skilled writer and organizer, but you have **zero reliable knowledge** about the chapter's topic. Your training data may contain information about the topic, but that information may be outdated, incomplete, or wrong. You MUST NOT:
 
-**Example (MoE chapter):**
+- Quote an author from memory (even a famous, widely-known quote)
+- Cite a statistic you "know" without reading the source
+- Describe a method, framework, or concept from training data instead of from a downloaded source
+- Fill in gaps when a source is unavailable by "remembering" the content
+- Assume a well-known fact is correct without verifying it in a source
 
-| Color | Category | Example Terms |
+**If you cannot find a claim in a downloaded, readable source file, the claim does not exist for you.** Drop it, or download a source that contains it.
+
+---
+
+## What Training Data Can and Cannot Be Used For
+
+The Zero World Knowledge Principle is strict, but not absolute. There is a precise boundary.
+
+### Hard Ban (Requires a Downloaded Source)
+
+| Category | Why It Must Be Sourced | Example of Failure |
 |---|---|---|
-| Indigo `#4F46E5` | Architecture/structure | MoE layer, expert FFN, dense vs sparse |
-| Emerald `#047857` | Routing/selection | router, top-k, gating, token assignment |
-| Rose `#E11D48` | Training/optimization | auxiliary loss, load balancing, capacity factor |
+| **Direct quotes** | Exact wording matters. Training data paraphrases, combines, and misattributes. | Attributing "writing is a primary mechanism for doing research" to Peyton Jones when the transcript says something different. |
+| **Statistics and numbers** | Specific numbers drift. A "21%" becomes "20%." A sample size gets rounded. | Writing "6.5-16.9% of reviews" when the paper says "15.8%." |
+| **Named frameworks and methodologies** | The creator's original formulation may differ from popularizations. | Describing the "ABT framework" without reading Olson's actual writing, getting the structure wrong. |
+| **Specific claims about what an author said, argued, or found** | Training data conflates authors, misattributes findings, merges claims from different papers. | Writing "Pinker argues X" when Pinker actually argues something subtly different. |
+| **Paper titles, author lists, venues, and years** | Training data frequently gets these wrong, especially for recent papers. | Attributing a paper to "Liang et al." when the actual authors are "Russo Latona et al." |
+| **Descriptions of specific papers, blog posts, or talks** | What a specific work contains must come from reading it. | Claiming a paper "found X" without reading it to verify. |
 
-**Example (Vision Transformers chapter):**
+### Acceptable (No Source Required)
 
-| Color | Category | Example Terms |
+| Category | Why It's Okay | Example |
 |---|---|---|
-| Indigo `#4F46E5` | Architecture | ViT, patch embedding, class token |
-| Emerald `#047857` | Attention mechanism | self-attention, multi-head, Q/K/V |
-| Amber `#B45309` | Training/scaling | pre-training, fine-tuning, data augmentation |
-| Sky `#0369A1` | Mathematical objects | patch vectors, position embeddings, attention weights |
+| **Pointing to well-known people as examples** | You are citing them as instances of a category, not claiming what they said. | "Karpathy's blog posts are widely read." "Lilian Weng writes survey-style posts." |
+| **General domain knowledge** (non-controversial, non-attributed) | Statements any practitioner would agree with. | "NeurIPS, ICML, and ICLR are top AI conferences." "LaTeX is standard for CS papers." |
+| **Structural and rhetorical devices** | How you organize the chapter, analogies, narrative framing. | Using a running example. Creating comparison tables. |
+| **Common vocabulary and definitions** | Terms whose meaning is standardized. | "An abstract summarizes the paper." "Ablation studies remove components one at a time." |
 
-### Step 2: Document the Color Map
+### The Litmus Test
 
-At the top of TEXTBOOK-PLAN.md (or in the editing pass notes), create an explicit color map table. This is the single source of truth for the chapter's coloring. Every colored term must trace back to this table.
+Before writing any claim, ask: **"Am I making a specific claim that could be wrong?"**
 
-### Step 3: Never Reuse a Color for a Different Category
+- "Karpathy writes clearly" → general characterization, okay.
+- "Karpathy writes in his blog that X" → specific claim, requires a source.
+- "The ABT framework stands for And, But, Therefore" → named framework, requires a source.
+- "AI conferences have high submission volumes" → general knowledge, okay.
+- "Jiang et al. found that writing quality predicts acceptance across 28,000 submissions" → specific statistic, requires the actual paper.
 
-If Indigo means "architecture" in Section 1, it must mean "architecture" in Section 6. Inconsistency turns signal into noise and violates the categorization benefit.
-
----
-
-## Where to Apply Color
-
-### In the Chapter Overview (HIGHEST IMPACT)
-
-The Chapter Overview paragraph is the ideal place for the first appearance of colored terms. This is where the reader builds their mental model of the chapter's structure, and color visually separates the pillars.
-
-**Example:**
-
-```markdown
-To understand MoE, you need a mental model with three layers: (1) the
-[**architecture**]{style="color: #4F46E5;"}, i.e. what an MoE layer looks like;
-(2) the [**routing mechanism**]{style="color: #047857;"}, i.e. how the model decides
-which expert handles which token; and (3) the
-[**training machinery**]{style="color: #E11D48;"}, i.e. the auxiliary losses and
-balancing tricks that make MoE training stable.
-```
-
-### On First Mention of a Key Term in Each Section
-
-Color the term on its **first significant appearance** in each section (similar to how citations are re-introduced per section). Do not color every single occurrence; that would violate the Von Restorff principle (if everything is colored, nothing stands out). Color the term when it is being introduced, defined, or used in a structurally important sentence.
-
-**Guideline:** 3-8 colored terms per section. Not every paragraph needs a colored term. The coloring should feel like a gentle visual rhythm, not a highlight party.
-
-### In Equations and "Where" Blocks (THE GAME-CHANGER)
-
-Color the key symbols in equations and match them to the same-colored definitions in the "where" block. This creates a visual link between the abstract symbol and its plain-language meaning.
-
-**Example:**
-
-```markdown
-$$
-y = \sum_{i=1}^{N} \textcolor{#047857}{G(x)_i} \cdot \textcolor{#4F46E5}{E_i(x)}
-$$
-
-where:
-
-- $\textcolor{#047857}{G(x)_i}$ is the [gate weight]{style="color: #047857;"} for expert $i$
-- $\textcolor{#4F46E5}{E_i(x)}$ is [expert $i$'s output]{style="color: #4F46E5;"}
-```
-
-**Rules for equation coloring:**
-
-- Use `\textcolor{#hex}{content}` (NOT `{\color{#hex} content}`) because `\textcolor` has explicit scoping
-- Color only the 2-3 most important symbols in an equation, not every symbol
-- The "where" block definitions MUST use the same hex color as the equation symbol
-- Uncolored symbols (like $N$, $i$, $y$) remain in default black
-- Do NOT color equation labels, equation numbers, or structural elements like $\sum$
-
-### In the Notation Table
-
-Optionally, the notation table in the introduction can color-code the Symbol column to match the chapter's color map:
-
-```markdown
-| Symbol | Definition | Valid Values | Example |
-|---|---|---|---|
-| $\textcolor{#047857}{G(x)_i}$ | Gate weight for expert $i$ | $[0, 1]$ | $G(\text{"bank"})_3 = 0.65$ |
-| $\textcolor{#4F46E5}{E_i(x)}$ | Output of expert $i$ | $\mathbb{R}^{d_{\text{model}}}$ | Expert 3's FFN output |
-```
+**When in doubt, download the source.** Minutes to download. The reader's trust to lose.
 
 ---
 
-## Where NOT to Apply Color
+## Source Readability Verification
 
-- **Callout boxes** (`.callout-warning`, `.callout-note`, `.callout-tip`): these already have their own visual styling. Adding colored terms inside callouts creates visual clutter.
-- **Exercise blocks** (`.exercise-mcq`, `.exercise-predict`, etc.): exercises should test comprehension without the color scaffolding. Colored terms in options would bias selection.
-- **Source headers**: the collapsible source tables are metadata, not pedagogical content.
-- **Code blocks**: syntax highlighting handles this separately.
-- **Closing section**: key takeaways and retrieval questions should work without color (tests the reader's independent recall).
+**Downloaded is not the same as readable.** A PDF in the source folder is useless if it has never been extracted to text.
 
----
+For each source folder, verify:
+1. Does it contain at least one `.md`, `.tex`, or `.txt` file with >500 characters?
+2. If NO: **STOP. Read `web-source-fetching.md` and `source-management.md` IN FULL before running any extraction command.** Do NOT guess. The rules files contain a decision tree and tool comparison table. What you "remember" may be wrong.
+3. Execute the extraction the rules specify.
+4. Verify the output has >500 characters of real content.
 
-## Technical Syntax Reference
-
-### Prose (Quarto Markdown)
-
-Use Pandoc's bracketed span syntax with an inline style:
-
-```markdown
-[**term text**]{style="color: #4F46E5;"}
-```
-
-The bold (`**...**`) inside the span is optional. Use bold+color for the first introduction of a category in the Chapter Overview. Use color-only (no bold) for subsequent references to avoid over-emphasizing.
-
-### LaTeX (Block Equations)
-
-```markdown
-$$
-\mathcal{L}_{aux} = \alpha \cdot N \cdot \sum_{i=1}^{N}
-\textcolor{#E11D48}{f_i} \cdot \textcolor{#047857}{P_i}
-$$
-```
-
-### LaTeX (Inline Equations)
-
-```markdown
-The fraction $\textcolor{#E11D48}{f_i}$ represents the actual dispatch count.
-```
-
-### Matching Prose and Equations
-
-The hex value must be **identical** in both the `style="color: #hex;"` attribute and the `\textcolor{#hex}{...}` command. MathJax renders math as HTML/CSS in the browser, so the same hex string produces the identical color.
+**The rule is absolute:** every source folder must contain at least one LLM-readable text file.
 
 ---
 
-## The Coloring Pass (Editing Workflow Integration)
+## Sub-Agent Source Reports Are Navigation Aids, Not Sources
 
-When performing the coloring pass during the editing workflow:
+If you use sub-agents to scout sources, the sub-agent's report tells you WHERE to look. It is NOT a substitute for looking yourself.
 
-### Step 0: Build the Color Map
+- Sub-agent says "Line 47 contains the key finding" → you MUST read line 47 yourself.
+- Sub-agent quotes "Author X said Y" → you MUST verify this quote by reading the file.
+- Sub-agent reports a statistic → you MUST find the statistic in the source yourself.
 
-1. Read the Chapter Overview to identify the 3-5 conceptual pillars
-2. Assign a color from the palette to each pillar
-3. Document the mapping in a table (kept in working notes, not in the chapter file)
-
-### Step 1: Color the Chapter Overview
-
-Apply color to the first mention of each pillar in the overview paragraph. This is the anchor that establishes the color-meaning association for the reader.
-
-### Step 2: Color Key Terms in Body Sections
-
-For each body section:
-- Identify 3-8 terms that belong to the color-mapped categories
-- Color each term on its first significant appearance in the section
-- Ensure every colored term uses the EXACT hex from the color map
-
-### Step 3: Color Equations and "Where" Blocks
-
-For each significant equation:
-- Identify the 2-3 most important symbols
-- Apply `\textcolor{#hex}{...}` to those symbols
-- Match the colors in the "where" block definitions
-
-### Step 4: Consistency Verification
-
-After all sections are colored:
-- Grep for all hex color codes across the chapter files
-- Verify that each hex code is used consistently for the same concept category
-- Verify that no two different categories share the same (or visually similar) color
-- Verify that the total number of distinct colors is 3-5
+If you write from the sub-agent's report without reading the source, you are hallucinating. The sub-agent may have misread, paraphrased, or fabricated.
 
 ---
 
-## Constraints and Pitfalls
+## Observed Failure Patterns
 
-### Maximum 3-5 colors per chapter
-She et al. (2024) showed single-color outperforms multi-color. The Von Restorff effect requires scarcity: if everything is colored, nothing is distinctive. Stay at 3-5 categories.
+These failures occurred in real chapter-writing sessions:
 
-### Do not color every occurrence of a term
-Color the first significant mention per section, not every instance. Over-coloring creates a "rainbow page" that defeats the purpose.
+1. **The Phantom Read:** Sub-agent fabricated provenance for an unreadable PDF. It claimed to have "extracted text via [some method]" and produced plausible quotes from training data. The main agent accepted the report. Every quote was wrong.
 
-### Never reuse a similar-looking color
-Indigo (#4F46E5) and Purple (#7E22CE) look similar. Sky (#0369A1) and Teal (#0F766E) can be confused. Never use two perceptually close colors in the same chapter. If you need both "architecture" and "theoretical concepts," pick colors from opposite sides of the palette (e.g., Indigo + Amber, not Indigo + Purple).
+2. **The Fatigue Drift:** For early sections, the agent read sources carefully. By section 5, it wrote from sub-agent reports and TEXTBOOK-PLAN summaries. Wrong statistics entered the chapter.
 
-### Avoid red as a primary category
-Ng et al. (2024) found red-inclusive color schemes were slowest and least preferred. Red carries strong affective interference (danger, error). Use Rose (#E11D48) sparingly for warnings, critical insights, or training/loss concepts.
+3. **The Misattribution:** The TEXTBOOK-PLAN said "Liang et al." The paper at that arXiv ID was actually by different authors. The agent never checked. Adjective frequency multipliers attributed to the paper (9.8x, 34.7x, 11.2x) did not exist in it.
 
-### Color is supplementary, not primary
-Every colored term must be fully understandable without color (the word itself carries the meaning). Color adds a visual categorization layer on top. This ensures accessibility for readers with color vision deficiency and for printed/grayscale versions.
+4. **The Shortcut Collapse:** The agent stopped spawning sub-agents for later sections, writing from memory and training data.
 
-### WCAG contrast
-All palette colors pass WCAG AA (4.5:1) on white backgrounds. Do NOT substitute lighter variants (Tailwind 400/500 shades) without checking contrast ratios. The user's original Emerald-500 (#10B981) has only 2.54:1 contrast and fails WCAG entirely.
+5. **The Plan Trust:** The agent copied specific statistics from the TEXTBOOK-PLAN into the chapter without reading the source papers. Every number was wrong.
+
+6. **The Grep Trap:** The agent searched a 62KB source file for specific terms (e.g., "ORM", "PRM") using grep with a low result limit. Early matches from boilerplate text (subscription notices, navigation elements) consumed all returned results, hiding the actual content at line 159. The agent concluded the source was truncated by a paywall and re-extracted unnecessarily. The content was there all along. **The fix:** when checking whether a source contains specific content, first list the section headings (`grep '^##'` or `grep '^###'`), then read the relevant sections directly. Do not rely on term-grep with result limits to determine whether content exists in a file. A false negative from grep is not evidence of missing content.
+
+---
+
+## Proof-of-Work Protocol
+
+**This protocol is mandatory before and after processing each section.** It exists because re-read instructions alone are insufficient. Agents claim to re-read but do not internalize. Producing a written analysis forces actual engagement with the rules.
+
+### Before Each Section: Rules Application Analysis
+
+**Before writing or editing a section**, the agent MUST produce a "Rules Application Analysis" in the chat. This analysis:
+
+1. **Re-reads from disk** (not from context): `source-integrity.md`, `writing-style.md`, and `visualization-standards.md`. If editing (update workflow), also re-read `exercise-syntax.md`.
+2. **Maps at least 3 specific rules from `writing-style.md`** to concrete decisions for THIS section. Not generic restatements. Specific: "This section explains the ABT framework. The given-new contract means I should introduce the familiar concept (narrative structure) before the new term (ABT). The emphasis hierarchy means I should bold the single most important takeaway, which is [X]."
+3. **Maps at least 2 specific rules from `source-integrity.md`** to THIS section's sources. Specific: "This section cites Olson's ABT framework. This is a named framework (Hard Ban category), so I must read the downloaded source at `sources/scienceneedsstory.com/.../content.md` and verify the structure before writing. I must NOT describe ABT from training data."
+4. **Lists every source** that will contribute to this section, with the file paths and line numbers the agent will read.
+
+**The analysis must be section-specific.** A generic restatement of rules ("I will follow the given-new contract and avoid AI tells") is not proof of work. It must reference the specific content of the section being written.
+
+### After Each Section: Source Audit Table
+
+**After writing or editing a section**, the agent MUST produce a source audit table in the chat.
+
+| Source | File:Lines Read | Read Method | What Was Used | Verified? |
+|---|---|---|---|---|
+| [Source] | `file.md` lines 1-80 | Read tool (direct) | Quote X, stat Y | YES |
+| [Source] | (not read) | Sub-agent only | Claim Z | **NO — MUST FIX** |
+| [World knowledge] | (no source) | Training data | Description of W | **NO — MUST FIX** |
+
+**Read Method must be one of:**
+- `Read tool (direct)` — acceptable
+- `Sub-agent report only` — NOT acceptable
+- `TEXTBOOK-PLAN.md` — NOT acceptable
+- `Training data` — NOT acceptable (for Hard Ban categories)
+- `Training data (general characterization)` — acceptable (for Acceptable categories only)
+- `Unavailable` — acceptable only if flagged to user and claims dropped
+
+**If ANY row shows "NO — MUST FIX":** STOP. Read the source. Edit the section. Regenerate the table. Do not proceed until all rows show YES or acceptable.
 
 ---
 > Source: [AI-Learning-Gems/AI-Learning-Gems.github.io](https://github.com/AI-Learning-Gems/AI-Learning-Gems.github.io) — distributed by [TomeVault](https://tomevault.io).
