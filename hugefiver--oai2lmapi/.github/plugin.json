@@ -1,0 +1,9 @@
+{
+  "name": "hugefiver--oai2lmapi",
+  "displayName": "OAI2LMApi",
+  "description": "OpenAI to Language Model API Bridge - Use OpenAI-Compatible API in Copilot - [VScode Extension]",
+  "version": "1.0.0",
+  "author": "hugefiver",
+  "homepage": "https://github.com/hugefiver/OAI2LMApi",
+  "skills": []
+}
