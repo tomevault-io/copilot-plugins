@@ -1,0 +1,9 @@
+{
+  "name": "phishy--opencode-snapshots",
+  "displayName": "opencode-snapshots",
+  "description": "Browse, search, and recover files from OpenCode AI coding sessions from TUI or web. View diffs, explore snapshots, and download any project state.",
+  "version": "1.0.0",
+  "author": "phishy",
+  "homepage": "https://github.com/phishy/opencode-snapshots",
+  "skills": []
+}
