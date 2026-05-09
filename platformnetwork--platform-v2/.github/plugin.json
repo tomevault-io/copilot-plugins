@@ -1,0 +1,9 @@
+{
+  "name": "platformnetwork--platform-v2",
+  "displayName": "platform-v2",
+  "description": "Fully decentralized P2P infrastructure for distributed evaluation on Bittensor",
+  "version": "1.0.0",
+  "author": "PlatformNetwork",
+  "homepage": "https://github.com/PlatformNetwork/platform-v2",
+  "skills": []
+}
