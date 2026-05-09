@@ -1,75 +1,23 @@
-## attachments-overview
+## general-behavior
 
-> Here is the distilled, most important element for developers to always keep in mind about the Attachments library:
+> When creating code, you must:
 
-Here is the distilled, most important element for developers to always keep in mind about the Attachments library:
+When creating code, you must:
+- Prioritize straightforward and simple code solutions.
+- Do not make assumptions about the problem or the codebase. Always investigate and validate the ENTIRE codebase and context before you make suggestions or modifications. Use external tools such as `codebase_search` and terminal commands (e.g., `pwd` and `tree -L 4 --gitignore | cat`).
+- Always prefer existing solutions over creating new ones. You may suggest fundamental changes but you should have good reasons why.
+- Always use descriptive variable names.
+- Manage configurations with environment variables.
+- Ensure robust error handling and logging, include rich context.
+- Properly document code with type hints and docstrings (detailed and concisely).
+- Always use assertions to guarantee code functionality.
+- Always use a virtual environment (do not install anything in global pip).
+- Always use uv run script.py when running python scripts.
+- Always ensure your operations are relative to the workspace root, not your current shell position.
 
----
-
-## **Core Principle: One Object, Any File**
-
-The **Attachments library** is built around a single goal:
-
-**"Turn any path or URL into an LLM-ready object (`Attachment`) containing `.text` for prompts and `.images` as base64."**
-
-### **Key Concepts**
-
-1. **Attachment Object**: Central, simple container that carries data through the pipeline:
-
-   ```python
-   Attachment:
-       path       # Original path or URL
-       commands   # DSL commands extracted from input
-       _obj       # Loaded content (PDF object, DataFrame, etc.)
-       text       # Text ready for prompt
-       images     # Images ready for LLMs (base64)
-       metadata   # Additional info
-   ```
-
-2. **Pipeline Stages** (Always follow this sequence):
-
-   ```plaintext
-   LOAD → MODIFY → PRESENT → REFINE → ADAPT
-   ```
-
-3. **Composable Grammar** (inspired by `dplyr`):
-
-   * **`|`**: Sequentially transforms the attachment.
-   * **`+`**: Combines multiple presenter outputs.
-
-   ```python
-   result = attach("doc.pdf") | load.pdf | present.markdown
-   content = attach("doc.pdf") | load.pdf | (present.text + present.images)
-   ```
-
-4. **Split & Vectorization**:
-
-   * `SPLIT`: Breaks attachments into granular chunks.
-   * **Automatic vectorization** of subsequent steps.
-
-   ```python
-   chunks = attach("doc.pdf") | load.pdf | split.pages | present.markdown
-   ```
-
-5. **Match System**:
-
-   * Centralized logic to decide file handling (e.g., file extensions, URL patterns).
-   * Reusable and extensible.
-
-6. **Registries and Namespaces**:
-
-   * Functions are organized into clear namespaces (`load`, `modify`, `present`, `refine`, `adapt`, `split`).
-   * Functions are automatically registered and discoverable.
-
----
-
-## **Always Remember:**
-
-* **Consistency**: Same patterns for any file type.
-* **Composability**: Verbs chain naturally.
-* **Extensibility**: Easily add support for new files or transformations.
-
-> **"If your new code isn't consistent, composable, and extensible, reconsider it!"**
+<!-- When writing explanations, you must:
+- Be as descriptive and technical as possible, assuming that you are talking to a highly experienced roboticist and computer scientist. Never use fluffy expressions and non-descriptive statements.
+- Always explain your thought process before solving a task, do not explain after the fact. -->
 
 ---
 > Source: [MaximeRivest/attachments](https://github.com/MaximeRivest/attachments) — distributed by [TomeVault](https://tomevault.io).
