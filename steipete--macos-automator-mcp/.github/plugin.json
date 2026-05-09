@@ -1,0 +1,9 @@
+{
+  "name": "steipete--macos-automator-mcp",
+  "displayName": "macos-automator-mcp",
+  "description": "An MCP server to run AppleScript and JXA (JavaScript for Automation) to macOS.",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/macos-automator-mcp",
+  "skills": []
+}
