@@ -1,0 +1,9 @@
+{
+  "name": "agentweave--cortex",
+  "displayName": "cortex",
+  "description": "Give your AI agents a chief of staff.",
+  "version": "1.0.0",
+  "author": "agentweave",
+  "homepage": "https://github.com/agentweave/cortex",
+  "skills": []
+}
