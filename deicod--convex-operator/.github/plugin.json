@@ -1,0 +1,9 @@
+{
+  "name": "deicod--convex-operator",
+  "displayName": "convex-operator",
+  "description": "Convex Kubernetes Operator - single instances - no funrun",
+  "version": "1.0.0",
+  "author": "deicod",
+  "homepage": "https://github.com/deicod/convex-operator",
+  "skills": []
+}
