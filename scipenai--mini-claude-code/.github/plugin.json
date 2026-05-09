@@ -1,0 +1,9 @@
+{
+  "name": "scipenai--mini-claude-code",
+  "displayName": "mini-claude-code",
+  "description": "A lightweight minimal implementation of Claude Code CLI tool",
+  "version": "1.0.0",
+  "author": "scipenai",
+  "homepage": "https://github.com/scipenai/mini-claude-code",
+  "skills": []
+}
