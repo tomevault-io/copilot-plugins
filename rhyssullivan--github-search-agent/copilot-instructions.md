@@ -1,94 +1,113 @@
-## prefer-imported-types
+## use-bun-instead-of-node-vite-npm-pnpm
 
-> Prefer importing types over recreating them
+> Use Bun instead of Node.js, npm, pnpm, or vite.
 
 
-Always prefer importing types from their source rather than recreating or duplicating type definitions.
+Default to using Bun instead of Node.js.
 
-## When to Import Types
+- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
+- Use `bun test` instead of `jest` or `vitest`
+- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
+- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
+- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
+- Bun automatically loads .env, so don't use dotenv.
 
-- Import types from libraries, packages, and dependencies
-- Import types from other files in the codebase
-- Use `import type` for type-only imports to improve tree-shaking
-- Re-export types when creating type utilities or wrappers
+## APIs
 
-## Examples
+- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
+- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
+- `Bun.redis` for Redis. Don't use `ioredis`.
+- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
+- `WebSocket` is built-in. Don't use `ws`.
+- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
+- Bun.$`ls` instead of execa.
 
-❌ Bad - Recreating a type that exists elsewhere:
+## Testing
 
-```typescript
-// Don't recreate types from libraries
-interface ApiResponse {
-  data: unknown;
-  status: number;
+Use `bun test` to run tests.
+
+```ts#index.test.ts
+import { test, expect } from "bun:test";
+
+test("hello world", () => {
+  expect(1).toBe(1);
+});
+```
+
+## Frontend
+
+Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
+
+Server:
+
+```ts#index.ts
+import index from "./index.html"
+
+Bun.serve({
+  routes: {
+    "/": index,
+    "/api/users/:id": {
+      GET: (req) => {
+        return new Response(JSON.stringify({ id: req.params.id }));
+      },
+    },
+  },
+  // optional websocket support
+  websocket: {
+    open: (ws) => {
+      ws.send("Hello, world!");
+    },
+    message: (ws, message) => {
+      ws.send(message);
+    },
+    close: (ws) => {
+      // handle close
+    }
+  },
+  development: {
+    hmr: true,
+    console: true,
+  }
+})
+```
+
+HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
+
+```html#index.html
+<html>
+  <body>
+    <h1>Hello, world!</h1>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
+```
+
+With the following `frontend.tsx`:
+
+```tsx#frontend.tsx
+import React from "react";
+
+// import .css files directly and it works
+import './index.css';
+
+import { createRoot } from "react-dom/client";
+
+const root = createRoot(document.body);
+
+export default function Frontend() {
+  return <h1>Hello, world!</h1>;
 }
 
-function handleResponse(response: ApiResponse) {
-  // ...
-}
+root.render(<Frontend />);
 ```
 
-✅ Good - Importing the type:
+Then, run index.ts
 
-```typescript
-import type { ApiResponse } from './api-types';
-
-function handleResponse(response: ApiResponse) {
-  // ...
-}
+```sh
+bun --hot ./index.ts
 ```
 
-❌ Bad - Duplicating types from dependencies:
-
-```typescript
-// Don't recreate types from node_modules
-type User = {
-  id: string;
-  name: string;
-  email: string;
-};
-```
-
-✅ Good - Importing from the library:
-
-```typescript
-import type { User } from '@auth/core/types';
-```
-
-❌ Bad - Recreating types that exist in the codebase:
-
-```typescript
-// Don't recreate types that exist elsewhere
-interface GitHubRepo {
-  id: number;
-  name: string;
-  full_name: string;
-}
-```
-
-✅ Good - Importing from the existing file:
-
-```typescript
-import type { GitHubRepo } from '@/tools/github-api';
-```
-
-## Type-Only Imports
-
-Use `import type` for type-only imports to ensure they are removed at compile time:
-
-```typescript
-import type { User, Session } from '@/lib/auth';
-import type { ComponentProps } from 'react';
-```
-
-## When It's Acceptable to Create Types
-
-- Creating new types specific to the current file/component
-- Extending existing types with `extends` or intersection types
-- Creating utility types (e.g., `Pick`, `Omit`, `Partial`)
-- Types that don't exist elsewhere and are needed for the current implementation
-
-If a type already exists (in a library, package, or elsewhere in the codebase), import it instead of recreating it.
+For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
 
 ---
 > Source: [RhysSullivan/github-search-agent](https://github.com/RhysSullivan/github-search-agent) — distributed by [TomeVault](https://tomevault.io).
