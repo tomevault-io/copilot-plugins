@@ -4,7 +4,7 @@
   "repo": "sema",
   "description": "A Lisp with first-class LLM primitives, implemented in Rust",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HelgeSverre/sema",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T11:38:46Z"
+  "distributed_at": "2026-05-09T22:05:42Z"
 }
