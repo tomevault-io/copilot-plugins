@@ -1,0 +1,44 @@
+{
+  "name": "mrburns",
+  "owner": "arjun-krishna1",
+  "repo": "mrburns",
+  "description": "Mr. Burns is a an executive-planner-worker agent swarm that co-ordinates multiple agents to complete complex projects",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/arjun-krishna1/mrburns",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T01:40:39Z"
+}
