@@ -1,0 +1,9 @@
+{
+  "name": "1eyewonder--weave",
+  "displayName": "Weave",
+  "description": "Weave is a modern component library for building web applications in F# with WebSharper",
+  "version": "1.0.0",
+  "author": "1eyewonder",
+  "homepage": "https://github.com/1eyewonder/Weave",
+  "skills": []
+}
