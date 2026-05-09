@@ -1,0 +1,9 @@
+{
+  "name": "nigelp--ai-model-tracker",
+  "displayName": "ai-model-tracker",
+  "description": "Tool to track AI models suitable for local use (i.e. under 24GB VRAM) on Hugging Space and Modelscope",
+  "version": "1.0.0",
+  "author": "nigelp",
+  "homepage": "https://github.com/nigelp/ai-model-tracker",
+  "skills": []
+}
