@@ -1,0 +1,9 @@
+{
+  "name": "mikeprasad--aria-knowledge",
+  "displayName": "aria-knowledge",
+  "description": "Structured knowledge management plugin for Claude Code. Captures insights, decisions, and feedback during AI-assisted development sessions, stages them in backlogs for human review, and promotes   val",
+  "version": "1.0.0",
+  "author": "mikeprasad",
+  "homepage": "https://github.com/mikeprasad/aria-knowledge",
+  "skills": []
+}
