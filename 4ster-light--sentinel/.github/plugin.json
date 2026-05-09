@@ -1,0 +1,9 @@
+{
+  "name": "4ster-light--sentinel",
+  "displayName": "sentinel",
+  "description": "Lightweight process supervisor CLI for managing background processes with ease",
+  "version": "1.0.0",
+  "author": "4ster-light",
+  "homepage": "https://github.com/4ster-light/sentinel",
+  "skills": []
+}
