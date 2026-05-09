@@ -1,0 +1,118 @@
+## hebo-gateway
+
+> This file gives coding agents a fast, reliable workflow for contributing to `@hebo-ai/gateway`.
+
+# AGENTS.md
+
+## Purpose
+
+This file gives coding agents a fast, reliable workflow for contributing to `@hebo-ai/gateway`.
+
+## Project Snapshot
+
+- Runtime: Bun + TypeScript (ESM).
+- Library type: Embeddable AI gateway framework with OpenAI-compatible endpoints.
+- Core domains:
+  - Model catalog + presets
+  - Provider canonicalization and routing
+  - OpenAI-compatible endpoint handlers (`/chat/completions`, `/embeddings`, `/models`)
+  - Middleware, telemetry, and framework integration examples
+
+## Technical Design Priorities
+
+1. Simple, clean, concise, and easy-to-read / maintain code.
+2. Modular and tree-shakable architecture with clear separation of concerns.
+3. Prefer clarity by default, but accept targeted complexity in hot paths when performance gains are measurable.
+4. Prefer Bun compiler/runtime optimizations over unnecessary manual micro-optimizations or boilerplate.
+5. Runtime-agnostic behavior across Bun, Deno, Node.js, Cloudflare Workers, Vercel, and AWS Lambda.
+
+If priorities conflict, apply this order:
+
+1. Public API compatibility
+2. Runtime portability
+3. Readability and style consistency
+4. Hot-path performance
+
+## Runtime-Agnostic Rules
+
+- Prefer Web-standard APIs (`fetch`, `Request`, `Response`, `URL`, `Headers`, `ReadableStream`) in shared runtime paths.
+- Avoid Node-only built-ins (`fs`, `net`, `tls`, `child_process`) in gateway core/runtime code unless explicitly isolated.
+- Keep framework/runtime-specific code inside adapters, examples, or optional integration boundaries.
+- Validate portability assumptions when changing request/streaming behavior.
+
+## Hot Path Rules
+
+- Minimize per-request allocations and repeated transformations in middleware/converter/handler paths.
+- Avoid extra abstraction layers in latency-sensitive code when they do not improve maintainability.
+- Keep branches and data-shape conversions explicit in hot paths for predictable performance.
+
+## Performance Learnings
+
+- **Use cheap string operations before heavyweight parsing.** When only a substring is needed (e.g. extracting a pathname), prefer `indexOf`/`slice` over constructing a `URL` or `RegExp` object. Fall back to full parsing only when the cheap path is insufficient.
+- **Avoid `delete` on objects in hot paths.** Deleting properties mutates V8/JSC hidden classes and forces objects into slower dictionary mode. Set to `undefined` instead, or construct a new object when removal semantics are required.
+
+## Repository Map
+
+- `src/index.ts`: public entrypoint.
+- `src/gateway.ts`: gateway construction and core lifecycle.
+- `src/models/types.ts`: canonical model ID union and catalog shape.
+- `src/models/*/presets.ts`: model preset definitions and grouped preset exports.
+- `src/providers/*/canonical.ts`: provider-specific canonical model ID mappings.
+- `src/providers/registry.ts`: canonical ID adapter wrapper and provider resolution logic.
+- `src/endpoints/*`: OpenAI-compatible schema/converter/handler layers.
+- `e2e/*`: framework integration examples (Elysia, Hono, Next.js, TanStack).
+- `test/` + `*.test.ts`: unit and integration tests.
+
+## Local Commands
+
+- Install deps: `bun install`
+- Build: `bun run build`
+- Type check: `bun run typecheck`
+- Test: `bun run test`
+- Lint: `bun run lint`
+- Format: `bun run format`
+- Do not run `bun run clean` unless explicitly requested (`git clean -fdx`).
+
+## Change Workflow
+
+1. Read the touched feature area first (`models`, `providers`, `endpoints`, etc.).
+2. Keep edits minimal and localized; avoid broad refactors unless asked.
+3. Update related tests when behavior changes.
+4. Run `bun run check` and `bun run test`.
+5. If formatting/linting is impacted, run `bun run format` and `bun run lint`.
+
+## Webpage Inspection
+
+- Use the **playwright-cli** skill (`.agents/skills/playwright-cli/SKILL.md`) when browsing or testing webpages that rely on JavaScript rendering, client-side routing, hydration, or dynamic DOM updates.
+- Prefer Playwright snapshots/evaluation over raw HTML fetching for JavaScript-rendered pages so agents inspect the rendered DOM rather than the initial server response.
+
+## Model & Provider Changes
+
+For detailed instructions on adding or updating models and providers, use the **add-model** skill (`.agents/skills/add-model/SKILL.md`). It covers research sources, classification, preset definitions, grouped exports, provider canonical mappings, and testing.
+
+## Testing Expectations
+
+- Prefer focused tests close to the changed code.
+- For endpoint shape changes, update schema/converter/handler tests together.
+- Run `e2e/` app checks when changes affect framework mounting, request/response wiring, or runtime portability.
+- `e2e/` checks are optional for purely internal refactors that do not change observable behavior.
+
+## Guardrails
+
+- Do not remove or rename public exports without explicit request.
+- Preserve OpenAI-compatible response contracts unless explicitly changing API behavior.
+- If public exports or API contracts change, update `README.md` and the related endpoint/provider tests in the same change.
+- Keep comments concise and only where intent is non-obvious.
+- Avoid speculative metadata; follow the **add-model** skill when touching model presets.
+
+## PR/Commit Checklist
+
+- [ ] Change is scoped to requested behavior.
+- [ ] Types compile (`bun run typecheck`).
+- [ ] Tests pass (`bun run test`) or failures are documented.
+- [ ] Model metadata (`created`, `knowledge`) follows the **add-model** skill when touched.
+- [ ] New canonical IDs are reflected in both model presets and provider mappings.
+
+---
+> Source: [8monkey-ai/hebo-gateway](https://github.com/8monkey-ai/hebo-gateway) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
