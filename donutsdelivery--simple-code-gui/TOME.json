@@ -1,0 +1,44 @@
+{
+  "name": "simple-code-gui",
+  "owner": "DonutsDelivery",
+  "repo": "simple-code-gui",
+  "description": "A desktop app for managing multiple Claude Code sessions across different projects. Features a sidebar for saved project folders, tabbed terminal windows, automatic session discovery from ~/.claude, and workspace persistence. Resume conversations where you left off and switch between projects instantly.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DonutsDelivery/simple-code-gui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T16:36:00Z"
+}
