@@ -1,48 +1,43 @@
-## cool
+## ucss
 
-> - 所有方法必须在被调用之前进行定义，避免出现“先调用后定义”的情况。
+> Uni-App X implements a subset of Web CSS on the App platform
 
+# css rules
+ucss是css的子集，但可以跨平台使用。除了浏览器之外，还支持App原生平台。
 
-# ts | uts
+## 布局规范
+- 禁用浮动、网格等布局，仅使用flex布局或绝对定位。
+- flex布局默认方向为垂直(通过 flex-direction:column 实现)。
 
-- 所有方法必须在被调用之前进行定义，避免出现“先调用后定义”的情况。
-- 当使用 {} 进行对象赋值时，必须显式声明类型，例如：{} as Data，确保类型安全与规范。
+## 选择器规则
+- 仅支持基本的类选择器 (.class)，禁止使用其他选择器。
+- 类名必须符合 [A-Za-z0-9_-]+ 规范，禁止使用特殊字符(例如 @class)。
 
-# setup
+## 文字样式规则
+- 文字内容需放置在组件 <text> 或 <button> 中。文字类样式(color、font-size)只能设置在 <text> 或 <button> 组件上。 其他组件（如<view>）禁止设置文本相关样式。
+- 文字样式不继承。
+- 禁用继承相关关键字，例如 inherit 和 unset。
 
-- 页面参数请通过 props 接收，避免使用 onLoad 接口。
+## 层级控制
+- z-index 仅对同级兄弟节点生效。
+- absolute 固定位与文档流分离，不支持分层覆盖。
 
-# <template>
+## 长度单位
+- 仅支持px、rpx、百分比。字体的line-height支持em。不能使用其他单位，如vh。
+- 除非width需要根据屏幕宽度而变化才使用rpx单位。其他场景不使用rpx单位。
+- 除非长度单位需要根据父容器大小而变化才使用百分比单位。其他场景不使用rpx单位。
 
-- 页面无需手动在最外层包裹 <scroll-view class="flex-1" scroll-y>，因已由 <cl-page> 统一处理页面滚动。
+## at-rules
+- 仅支持`@font-face`、`@import`，不使用其他at-rules。
+- 如需使用`@media` 适配不同屏幕，改用 uts 代码实现，先通过API `uni.getWindowInfo`获取屏幕宽度， 再通过代码进行适配。
+- 如需使用`@media` 适配暗黑模式， 改用 uts 代码 和 css变量 实现。
+- 如需使用`@keyframes`，改为通过UniElement对象的animate方法实现相同逻辑。
 
-# cool-ui
+## css function
+- 仅支持 url()、rgb()、rgba()、var()、env()，不使用其他css方法。
 
-- 组件参数值必须为合法、准确且符合预期的类型和取值范围，避免传递无效或异常数值。
-
-# 图标
-
-- 图标样式名称的使用请参考 /icons 目录下已定义的命名。
-
-# 设计规范
-
-- 组件开发请参考 /pages/demo 下的代码示例，遵循其用法与风格。
-- 页面开发建议参照 /pages/template 下的标准模板，保持结构与规范一致。
-- 当页面底部需要展示按钮等操作区域时，建议统一使用 cl-footer 组件配合实现，确保交互区域风格和布局规范一致。
-
-# 页面模板代码
-
-```uvue
-<template>
-    <cl-page>
-        <view class="p-3"></view>
-    </cl-page>
-</template>
-
-<script lang="ts" setup>
-
-</script>
-```
+## 样式作用范围规则
+- 不使用css scoped。
 
 ---
 > Source: [cool-team-official/cool-unix](https://github.com/cool-team-official/cool-unix) — distributed by [TomeVault](https://tomevault.io).
