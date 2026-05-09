@@ -1,0 +1,9 @@
+{
+  "name": "kevinedry--chloe",
+  "displayName": "chloe",
+  "description": "Rust-based terminal UI (TUI) application that serves as a Claude Code Instances Manager.",
+  "version": "1.0.0",
+  "author": "KevinEdry",
+  "homepage": "https://github.com/KevinEdry/chloe",
+  "skills": []
+}
