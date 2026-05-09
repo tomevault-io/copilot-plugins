@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--osmo",
+  "displayName": "OSMO",
+  "description": "The developer-first platform for scaling complex Physical AI workloads across heterogeneous compute\u2014unifying training GPUs, simulation clusters, and edge devices in a simple YAML",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/OSMO",
+  "skills": []
+}
