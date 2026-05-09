@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Awesome-Apps-in-Toss/create-apps-in-toss](https://github.com/Awesome-Apps-in-Toss/create-apps-in-toss).
+Original source: `CLAUDE.md` in [Awesome-Apps-in-Toss/create-apps-in-toss](https://github.com/Awesome-Apps-in-Toss/create-apps-in-toss).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
