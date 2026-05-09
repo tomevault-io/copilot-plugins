@@ -1,0 +1,9 @@
+{
+  "name": "ayarse--mock-efaas-server",
+  "displayName": "mock-efaas-server",
+  "description": "A drop in replacement for efaas developer environment",
+  "version": "1.0.0",
+  "author": "ayarse",
+  "homepage": "https://github.com/ayarse/mock-efaas-server",
+  "skills": []
+}
