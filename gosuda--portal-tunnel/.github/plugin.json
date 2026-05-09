@@ -1,0 +1,9 @@
+{
+  "name": "gosuda--portal-tunnel",
+  "displayName": "portal-tunnel",
+  "description": "A permissionless, self-hosted, e2ee relay network for exposing localhost.",
+  "version": "1.0.0",
+  "author": "gosuda",
+  "homepage": "https://github.com/gosuda/portal-tunnel",
+  "skills": []
+}
