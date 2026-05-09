@@ -1,0 +1,9 @@
+{
+  "name": "hbourget--octowatch",
+  "displayName": "Octowatch",
+  "description": "Effortless Github Actions monitoring, brought to the macOS menu bar. Swift Native, secure by design.",
+  "version": "1.0.0",
+  "author": "hbourget",
+  "homepage": "https://github.com/hbourget/Octowatch",
+  "skills": []
+}
