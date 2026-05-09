@@ -1,21 +1,17 @@
-## next-js-15-async-request-api-rules
+## next-js-15-component-architecture-rules
 
-> description: Dictates how asynchronous requests should be handled within Next.js 15, specifically concerning runtime APIs.
+> description: Specifies the best practices for building React components within the Next.js 15 App Router structure.
 
 ---
-description: Dictates how asynchronous requests should be handled within Next.js 15, specifically concerning runtime APIs.
+description: Specifies the best practices for building React components within the Next.js 15 App Router structure.
 globs: app/**/*
 ---
-- Always use async versions of runtime APIs:
-  typescript
-  const cookieStore = await cookies()
-  const headersList = await headers()
-  const { isEnabled } = await draftMode()
-  
-- Handle async params in layouts/pages:
-  typescript
-  const params = await props.params
-  const searchParams = await props.searchParams
+- Favor React Server Components (RSC) where possible.
+- Minimize 'use client' directives.
+- Implement proper error boundaries.
+- Use Suspense for async operations.
+- Optimize for performance and Web Vitals.
+- Use Shadcn UI whenever there is a component available for the UI goal
 
 ---
 > Source: [run-llama/auto_rfp](https://github.com/run-llama/auto_rfp) — distributed by [TomeVault](https://tomevault.io).
