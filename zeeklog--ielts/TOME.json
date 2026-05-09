@@ -1,0 +1,44 @@
+{
+  "name": "IELTS",
+  "owner": "zeeklog",
+  "repo": "IELTS",
+  "description": "\u2728 IELTS \u96c5\u601d\u8003\u8bd5\u771f\u9898\u3001\u96c5\u601d\u5199\u4f5c\u3001\u96c5\u601d\u542c\u529b\u3001 \u96c5\u601d\u771f\u9898\u6750\u6599\uff0c2025\u96c5\u601d\u5168\u5957\u6750\u6599\u3002\u96c5\u601d\u5907\u8003\u8d44\u6599\u5e93\uff1a\u5251\u6865\u771f\u9898\u3001\u542c\u529b\u97f3\u9891\u3001\u5199\u4f5c\u8303\u6587\u3001\u8003\u8bd5\u5b9d\u5178\uff0c\u6309\u542c\u529b/\u9605\u8bfb/\u5199\u4f5c/\u53e3\u8bed\u5206\u7c7b\uff0c\u652f\u6301\u5728\u7ebf\u9884\u89c8\u3002IELTS preparation materials & tips.IELTS Preparation Tips and Samples.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zeeklog/IELTS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T16:39:40Z"
+}
