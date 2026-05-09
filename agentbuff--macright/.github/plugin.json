@@ -1,0 +1,9 @@
+{
+  "name": "agentbuff--macright",
+  "displayName": "MacRight",
+  "description": "extended mac right click menu, add new word/excel/ppt/txt/terminal",
+  "version": "1.0.0",
+  "author": "AgentBuff",
+  "homepage": "https://github.com/AgentBuff/MacRight",
+  "skills": []
+}
