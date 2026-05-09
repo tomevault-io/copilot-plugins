@@ -1,0 +1,9 @@
+{
+  "name": "modern-tooling--aloc",
+  "displayName": "aloc",
+  "description": "Fast semantic codebase analyzer with role classification, health ratios, and effort estimates for a modern AI-developed world.",
+  "version": "1.0.0",
+  "author": "modern-tooling",
+  "homepage": "https://github.com/modern-tooling/aloc",
+  "skills": []
+}
