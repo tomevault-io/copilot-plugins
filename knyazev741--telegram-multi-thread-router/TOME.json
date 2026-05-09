@@ -4,7 +4,7 @@
   "repo": "telegram-multi-thread-router",
   "description": "Run multiple Claude Code sessions through Telegram forum topics. Each topic = isolated Claude agent.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/knyazev741/telegram-multi-thread-router",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T08:20:13Z"
+  "distributed_at": "2026-05-09T02:35:09Z"
 }
