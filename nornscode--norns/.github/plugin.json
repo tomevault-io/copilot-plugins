@@ -1,0 +1,9 @@
+{
+  "name": "nornscode--norns",
+  "displayName": "norns",
+  "description": "Durable execution for AI agents",
+  "version": "1.0.0",
+  "author": "nornscode",
+  "homepage": "https://github.com/nornscode/norns",
+  "skills": []
+}
