@@ -1,0 +1,9 @@
+{
+  "name": "rhel-lightspeed--linux-mcp-server",
+  "displayName": "linux-mcp-server",
+  "description": "Tools to allow LLM clients to interact with Linux systems remotely",
+  "version": "1.0.0",
+  "author": "rhel-lightspeed",
+  "homepage": "https://github.com/rhel-lightspeed/linux-mcp-server",
+  "skills": []
+}
