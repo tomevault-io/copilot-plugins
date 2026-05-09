@@ -1,0 +1,9 @@
+{
+  "name": "jbonatakis--blackbird",
+  "displayName": "blackbird",
+  "description": "The control plane for durable, dependency-aware planning and execution with AI agents.",
+  "version": "1.0.0",
+  "author": "jbonatakis",
+  "homepage": "https://github.com/jbonatakis/blackbird",
+  "skills": []
+}
