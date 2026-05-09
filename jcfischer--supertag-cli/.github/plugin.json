@@ -1,0 +1,9 @@
+{
+  "name": "jcfischer--supertag-cli",
+  "displayName": "supertag-cli",
+  "description": "CLI for Tana integration - query, create, sync, and manage Tana workspaces with semantic search and MCP Server",
+  "version": "1.0.0",
+  "author": "jcfischer",
+  "homepage": "https://github.com/jcfischer/supertag-cli",
+  "skills": []
+}
