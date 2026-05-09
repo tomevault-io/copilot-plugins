@@ -1,0 +1,9 @@
+{
+  "name": "masterblaster1999--nethack-roguelike",
+  "displayName": "Nethack-Roguelike",
+  "description": "playable C++17 + SDL2 NetHack-inspired, turn-based mini-roguelike where all tile textures and entity sprites are procedurally generated",
+  "version": "1.0.0",
+  "author": "masterblaster1999",
+  "homepage": "https://github.com/masterblaster1999/Nethack-Roguelike",
+  "skills": []
+}
