@@ -1,0 +1,9 @@
+{
+  "name": "gridctl--gridctl",
+  "displayName": "gridctl",
+  "description": "\ud83e\uddea Local Stack for testing Agents",
+  "version": "1.0.0",
+  "author": "gridctl",
+  "homepage": "https://github.com/gridctl/gridctl",
+  "skills": []
+}
