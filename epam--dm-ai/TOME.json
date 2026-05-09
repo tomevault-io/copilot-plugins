@@ -4,7 +4,7 @@
   "repo": "dm.ai",
   "description": "EPAM AI/Run DMTools",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/epam/dm.ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T08:24:53Z"
+  "distributed_at": "2026-05-09T20:03:22Z"
 }
