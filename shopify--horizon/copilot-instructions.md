@@ -1,15 +1,14 @@
-## global-accessibility-standards
+## heading-accessibility
 
-> Global scope accessibility standards per WCAG requirements for page language, viewport, title attributes, and skip links
+> Heading element accessibility compliance and WCAG 2.4.1 Bypass Blocks requirements
 
+# Heading Element Accessibility Standards
 
-# Global Scope Accessibility Standards
-
-Ensures global accessibility best practices are followed including page language, viewport meta tag, title attribute usage, and skip link implementation for WCAG compliance.
+Ensures heading elements follow WCAG compliance and provide proper content structure for screen reader navigation and bypass blocks functionality.
 
 <rule>
-name: global_accessibility_standards
-description: Enforce global scope accessibility standards per WCAG requirements for page language, viewport, title attributes, and skip links
+name: heading_accessibility_standards
+description: Enforce heading element accessibility standards per WCAG 2.4.1 Bypass Blocks requirements
 filters:
   - type: file_extension
     pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
@@ -17,340 +16,271 @@ filters:
 actions:
   - type: enforce
     conditions:
-      # Missing lang attribute on html element
-      - pattern: "<html[^>]*>"
-        pattern_negate: "lang=\"[a-z]{2}(?:-[A-Z]{2})?\""
-        message: "HTML element must have lang attribute set to ensure proper pronunciation by assistive technology. Use lang=\"en\" for English or appropriate language code."
+      # Missing heading markup for visually styled headings
+      - pattern: "(?i)<(div|span|p)[^>]*(?:heading|title|header)[^>]*>"
+        pattern_negate: "(role=\"heading\"|h[1-6])"
+        message: "Text that acts as a heading visually or structurally must be designated as a true heading (h1-h6) or use role='heading' with aria-level."
 
-      # Invalid language code format
-      - pattern: "lang=\"[^a-z]{2}(?:-[^A-Z]{2})?\""
-        message: "Language code must follow ISO 639-1 format (e.g., lang=\"en\", lang=\"fr-CA\")."
+      # Heading markup on non-heading content
+      - pattern: "(?i)<(h[1-6]|div[^>]*role=\"heading\")[^>]*>"
+        pattern_negate: "(heading|title|header|section|main|content|page)"
+        message: "Text that does not act as a heading visually or structurally should not be marked as a heading."
 
-      # Missing viewport meta tag
-      - pattern: "<head[^>]*>"
-        pattern_negate: "<meta[^>]*name=\"viewport\""
-        message: "Viewport meta tag is required for responsive design and accessibility. Include <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">."
+      # Missing aria-level on role="heading"
+      - pattern: "(?i)<[^>]*role=\"heading\"[^>]*>"
+        pattern_negate: "aria-level=\"[1-6]\""
+        message: "Elements with role='heading' must have aria-level attribute set to appropriate level (1-6)."
 
-      # Viewport meta tag preventing zoom
-      - pattern: "<meta[^>]*name=\"viewport\"[^>]*>"
-        pattern_negate: "(maximum-scale=1\\.0|user-scalable=no)"
-        message: "Viewport meta tag should not prevent zooming. Avoid maximum-scale=1.0 and user-scalable=no to maintain accessibility for low-vision users."
+      # Invalid aria-level values
+      - pattern: "(?i)aria-level=\"[^1-6]\""
+        message: "aria-level must be set to a value between 1 and 6 for heading elements."
 
-      # Problematic viewport attributes
-      - pattern: "(maximum-scale=1\\.0|user-scalable=no)"
-        message: "Viewport meta tag contains attributes that prevent zooming, which creates accessibility issues for low-vision users. Remove maximum-scale=1.0 and user-scalable=no."
+      # Missing h1 in main content
+      - pattern: "(?i)<main[^>]*>"
+        pattern_negate: "<h1[^>]*>"
+        message: "Main content should start with an h1 heading for proper document structure."
 
-      # Title attribute on non-iframe elements
-      - pattern: "(?i)<[^>]*title=\"[^\"]+\"[^>]*>"
-        pattern_negate: "(iframe|IFRAME)"
-        message: "Avoid using title attribute on non-iframe elements as it creates accessibility issues. Use visible text, aria-label, or custom tooltips instead."
+      # Multiple h1 elements (potential issue)
+      - pattern: "(?i)<h1[^>]*>.*<h1[^>]*>"
+        message: "Most web pages should have only one h1 element. Consider using h2-h6 for section headings."
 
-      # Missing title on iframe elements
-      - pattern: "<iframe[^>]*>"
-        pattern_negate: "title=\"[^\"]+\""
-        message: "Iframe elements must have title attribute to provide context for screen reader users."
+      # Skipped heading levels
+      - pattern: "(?i)<h1[^>]*>.*<h3[^>]*>"
+        message: "Headings should not skip hierarchical levels. Consider using h2 before h3."
 
-      # Empty or meaningless iframe title
-      - pattern: "<iframe[^>]*title=\"\\s*(?:iframe|frame|content|page)\\s*\"[^>]*>"
-        message: "Iframe title should be descriptive and meaningful, not generic terms like 'iframe' or 'content'."
+      - pattern: "(?i)<h2[^>]*>.*<h4[^>]*>"
+        message: "Headings should not skip hierarchical levels. Consider using h3 before h4."
 
-      # Missing skip link
-      - pattern: "<body[^>]*>"
-        pattern_negate: "<a[^>]*href=\"#[^\"]*\"[^>]*(?:skip|main|content)"
-        message: "Skip link is required for keyboard navigation accessibility. Add a skip link at the top of the page to bypass repeated content."
+      # Clickable headings with improper structure
+      - pattern: "(?i)<a[^>]*>.*<h[1-6][^>]*>.*</h[1-6]>.*</a>"
+        message: "Heading elements should not be children of link elements. The heading should wrap the link to maintain semantic structure."
 
-      # Skip link not at top of page
-      - pattern: "<a[^>]*href=\"#[^\"]*\"[^>]*(?:skip|main|content)[^>]*>"
-        pattern_negate: "(<body|<header|<nav)"
-        message: "Skip link should be one of the first elements in the document, typically within the header or at the top of the body."
+      # Empty or meaningless heading text
+      - pattern: "(?i)<h[1-6][^>]*>\\s*(?:&nbsp;|\\s|&amp;nbsp;)*</h[1-6]>"
+        message: "Heading elements should contain meaningful text content."
 
-      # Skip link without proper target
-      - pattern: "<a[^>]*href=\"#[^\"]*\"[^>]*(?:skip|main|content)[^>]*>"
-        pattern_negate: "href=\"#(main|content|primary|skip-content)\""
-        message: "Skip link href should target main content area (e.g., href=\"#main\")."
+      # Generic heading text
+      - pattern: "(?i)<h[1-6][^>]*>\\s*(?:heading|title|header|section)\\s*</h[1-6]>"
+        message: "Heading text should be specific and informative, not generic."
 
-      # Skip link target missing tabindex
-      - pattern: "<a[^>]*href=\"#(main|content|primary|skip-content)\"[^>]*>"
-        pattern_negate: "<(main|div|section)[^>]*id=\"(main|content|primary|skip-content)\"[^>]*tabindex=\"-1\""
-        message: "Skip link target element must have tabindex=\"-1\" to receive keyboard focus when skip link is activated."
+      # Heading text too long
+      - pattern: "(?i)<h[1-6][^>]*>[^<]{100,}</h[1-6]>"
+        message: "Heading text should be concise and relatively brief."
 
-      # Skip link without proper CSS classes
-      - pattern: "<a[^>]*href=\"#[^\"]*\"[^>]*(?:skip|main|content)[^>]*>"
-        pattern_negate: "(class=\"[^\"]*(?:visuallyhidden|sr-only|skip-link)[^\"]*\"|style=\"[^\"]*(?:position:\\s*absolute|clip:\\s*rect|overflow:\\s*hidden)[^\"]*\")"
-        message: "Skip link should have CSS classes or styles to hide it visually while keeping it accessible to screen readers and keyboard users."
-
-      # Skip link not properly hidden
-      - pattern: "<a[^>]*href=\"#[^\"]*\"[^>]*(?:skip|main|content)[^>]*>"
-        pattern_negate: "(display:\\s*none|visibility:\\s*hidden)"
-        message: "Skip link should not use display:none or visibility:hidden as these hide it from screen readers. Use visuallyhidden or sr-only classes instead."
+      # Missing heading for major content sections
+      - pattern: "(?i)<(section|article|main)[^>]*>"
+        pattern_negate: "<h[1-6][^>]*>"
+        message: "Major content sections should have appropriate heading elements for navigation."
 
   - type: suggest
     message: |
-      **Global Scope Accessibility Best Practices:**
+      **WCAG 2.4.1 Heading Accessibility Requirements:**
 
-      **1. Page Language (WCAG 3.1.1 Language of Page):**
+      **Bypass Blocks Functionality:**
+      - **Screen Reader Navigation:** Headings allow users to navigate by content sections
+      - **Content Structure:** Headings provide clear outline of page content
+      - **Landmark Support:** Headings work with landmarks and skip links for navigation
+
+      **Heading Markup Requirements:**
+
+      **1. Use Real Heading Elements:**
       ```html
-      <!-- Good: Proper language declaration -->
-      <!DOCTYPE html>
-      <html lang="en">
-        <head>
-          <title>Page Title</title>
-        </head>
-        <body>
-          <!-- Content in English -->
-        </body>
-      </html>
+      <!-- Good: Proper heading markup -->
+      <h1>Main Page Title</h1>
+      <h2>Section Heading</h2>
+      <h3>Subsection Heading</h3>
 
-      <!-- Good: Language toggle with proper lang attributes -->
-      <nav>
-        <a href="/en" lang="en">English</a>
-        <a href="/fr" lang="fr">Français</a>
-      </nav>
-
-      <!-- Good: Mixed language content -->
-      <p>Welcome to our site. <span lang="fr">Bienvenue sur notre site.</span></p>
+      <!-- Good: Role heading when real markup not possible -->
+      <div role="heading" aria-level="1">Main Page Title</div>
+      <div role="heading" aria-level="2">Section Heading</div>
       ```
 
-      **Language Code Requirements:**
-      - **Primary language:** Set on `<html>` element
-      - **Format:** ISO 639-1 (e.g., `lang="en"`, `lang="fr-CA"`)
-      - **Mixed content:** Use `lang` attribute on specific elements
-      - **Purpose:** Enables proper pronunciation by assistive technology
-
-      **2. Viewport Meta Tag (WCAG 1.3.3 Sensory Characteristics):**
+      **2. Proper Heading Hierarchy:**
       ```html
-      <!-- Good: Accessible viewport meta tag -->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Good: Logical heading structure -->
+      <h1>Product Catalog</h1>
+      <h2>Electronics</h2>
+      <h3>Smartphones</h3>
+      <h3>Laptops</h3>
+      <h2>Clothing</h2>
+      <h3>Men's Clothing</h3>
+      <h3>Women's Clothing</h3>
 
-      <!-- Good: With additional accessibility features -->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=5.0">
-
-      <!-- Bad: Prevents zooming (accessibility issue) -->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      <!-- Bad: Skipped levels -->
+      <h1>Product Catalog</h1>
+      <h3>Electronics</h3> <!-- Skipped h2 -->
       ```
 
-      **Viewport Requirements:**
-      - **Required:** Must be present for responsive design
-      - **Zoom support:** Must allow users to zoom content
-      - **Avoid:** `maximum-scale=1.0` and `user-scalable=no`
-      - **Purpose:** Enables low-vision users to zoom content
-
-      **3. Title Attribute (General Avoidance):**
+      **3. Clickable Headings:**
       ```html
-      <!-- Bad: Title attribute on non-iframe elements -->
-      <button title="Click to submit form">Submit</button>
-      <a href="/help" title="Get help with your account">Help</a>
+      <!-- Good: Heading wraps the link -->
+      <h2><a href="/products/electronics">Electronics</a></h2>
 
-      <!-- Good: Visible text instead of title -->
-      <button>Submit form</button>
-      <a href="/help">Get help with your account</a>
-
-      <!-- Good: Custom accessible tooltip -->
-      <button aria-describedby="submit-tooltip">Submit</button>
-      <div id="submit-tooltip" class="tooltip" role="tooltip">
-        Click to submit your form
-      </div>
+      <!-- Bad: Heading as child of link -->
+      <a href="/products/electronics">
+        <h2>Electronics</h2>
+      </a>
       ```
 
-      **Title Attribute Guidelines:**
-      - **Avoid:** On interactive elements, links, buttons
-      - **Exception:** Required on iframe elements
-      - **Alternatives:** Visible text, aria-label, aria-describedby
-      - **Issues:** Mouse-only, screen reader redundancy, low-vision interference
-
-      **4. Iframe Title Requirements:**
+      **4. Meaningful Heading Text:**
       ```html
-      <!-- Good: Iframe with descriptive title -->
-      <iframe
-        src="https://example.com/embed"
-        title="Interactive map showing store locations across the city"
-        width="600"
-        height="400">
-      </iframe>
+      <!-- Good: Specific and informative -->
+      <h1>Acme Corporation - Leading Tech Solutions</h1>
+      <h2>Our Services</h2>
+      <h3>Web Development</h3>
+      <h3>Mobile App Development</h3>
 
-      <!-- Good: Iframe with meaningful title -->
-      <iframe
-        src="https://example.com/calendar"
-        title="Company event calendar for December 2024"
-        width="100%"
-        height="500">
-      </iframe>
-
-      <!-- Bad: Generic or meaningless title -->
-      <iframe
-        src="https://example.com/embed"
-        title="iframe"
-        width="600"
-        height="400">
-      </iframe>
+      <!-- Bad: Generic or meaningless -->
+      <h1>Welcome</h1>
+      <h2>Section</h2>
+      <h3>Content</h3>
       ```
 
-      **Iframe Accessibility:**
-      - **Required:** Title attribute for context
-      - **Content:** Descriptive explanation of iframe purpose
-      - **Screen readers:** Need context before entering frame
-      - **Navigation:** Ctrl+Opt+Shift+Down to enter iframe (VoiceOver)
-
-      **5. Skip Link Implementation (WCAG 2.4.1 Bypass Blocks):**
+      **5. Single H1 Per Page:**
       ```html
-      <!-- Good: Skip link at top of page -->
-      <body>
-        <a href="#main" class="skip-link visuallyhidden focusable">
-          Skip to main content
-        </a>
+      <!-- Good: One main heading -->
+      <h1>Company Homepage</h1>
+      <h2>About Us</h2>
+      <h2>Our Services</h2>
+      <h2>Contact</h2>
 
-        <header>
-          <nav>
-            <!-- Navigation content -->
-          </nav>
-        </header>
-
-        <main id="main" tabindex="-1">
-          <h1>Page Title</h1>
-          <!-- Main content -->
-        </main>
-      </body>
+      <!-- Bad: Multiple h1 elements -->
+      <h1>Company Homepage</h1>
+      <h1>About Us</h1> <!-- Should be h2 -->
       ```
 
-      **Skip Link Requirements:**
-      - **Position:** First element in document (after body)
-      - **Target:** Main content area with matching ID
-      - **Focus:** Target element must have `tabindex="-1"`
-      - **Styling:** Hidden visually, visible on focus
-      - **Purpose:** Bypass repeated navigation content
-
-      **6. Skip Link CSS Implementation:**
-      ```css
-      /* Visually hidden but accessible */
-      .visuallyhidden {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-      }
-
-      /* Show on focus for keyboard users */
-      .focusable:focus {
-        position: static;
-        width: auto;
-        height: auto;
-        padding: 8px 16px;
-        margin: 0;
-        overflow: visible;
-        clip: auto;
-        white-space: normal;
-        background: #000;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 4px;
-        z-index: 1000;
-      }
-
-      /* Alternative: Screen reader only class */
-      .sr-only {
-        position: absolute;
-        left: -10000px;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-      }
+      **6. Proper Content Structure:**
+      ```html
+      <!-- Good: Clear content outline -->
+      <main>
+        <h1>Product Documentation</h1>
+        <section>
+          <h2>Installation Guide</h2>
+          <h3>System Requirements</h3>
+          <h3>Installation Steps</h3>
+        </section>
+        <section>
+          <h2>User Manual</h2>
+          <h3>Getting Started</h3>
+          <h3>Advanced Features</h3>
+        </section>
+      </main>
       ```
 
-      **Skip Link Best Practices:**
-      - **Target elements:** `<main>`, `<h1>`, or main content container
-      - **Focus management:** Use `tabindex="-1"` on target
-      - **Visual feedback:** Show link when it receives focus
-      - **Positioning:** Place at very top of document
-      - **Text:** Clear and descriptive (e.g., "Skip to main content")
-
-      **7. Complete Implementation Example:**
+      **7. Role Heading Implementation:**
       ```html
-      <!DOCTYPE html>
-      <html lang="en">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Accessible Web Page</title>
-          <style>
-            .skip-link {
-              position: absolute;
-              top: -40px;
-              left: 6px;
-              background: #000;
-              color: #fff;
-              padding: 8px;
-              text-decoration: none;
-              border-radius: 4px;
-              z-index: 1000;
-            }
-            .skip-link:focus {
-              top: 6px;
-            }
-          </style>
-        </head>
-        <body>
-          <!-- Skip link -->
-          <a href="#main" class="skip-link">Skip to main content</a>
+      <!-- When real heading elements cannot be used -->
+      <div role="heading" aria-level="1">Main Page Title</div>
+      <div role="heading" aria-level="2">Section Heading</div>
+      <div role="heading" aria-level="3">Subsection Heading</div>
 
-          <!-- Header -->
-          <header role="banner">
-            <h1>Company Name</h1>
-            <nav role="navigation" aria-label="Primary">
-              <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact">Contact</a></li>
-              </ul>
-            </nav>
-          </header>
+      <!-- With proper aria-level values -->
+      <div role="heading" aria-level="1">Company Overview</div>
+      <div role="heading" aria-level="2">Our Mission</div>
+      <div role="heading" aria-level="2">Our Values</div>
+      ```
 
-          <!-- Main content -->
-          <main id="main" role="main" tabindex="-1">
-            <h2>Welcome to Our Site</h2>
-            <p>This is the main content area that the skip link targets.</p>
+      **Heading Guidelines:**
 
-            <!-- Iframe example -->
-            <iframe
-              src="https://example.com/embed"
-              title="Interactive product demonstration video"
-              width="100%"
-              height="400">
-            </iframe>
-          </main>
+      **Content Structure:**
+      - **H1:** Main page title or primary content heading
+      - **H2:** Major section headings
+      - **H3:** Subsection headings
+      - **H4-H6:** Further subdivisions as needed
 
-          <!-- Footer -->
-          <footer role="contentinfo">
-            <p>&copy; 2024 Company Name</p>
-          </footer>
-        </body>
-      </html>
+      **Text Requirements:**
+      - **Concise:** Keep heading text brief and to the point
+      - **Descriptive:** Accurately describe the content that follows
+      - **Unique:** Each heading should be distinct and meaningful
+      - **Hierarchical:** Follow logical content structure
+
+      **Navigation Benefits:**
+      - **Screen Reader Users:** Can jump between sections using heading navigation
+      - **Keyboard Users:** Can navigate page structure efficiently
+      - **All Users:** Clear content organization and hierarchy
+
+      **Implementation Best Practices:**
+
+      **Page Structure Example:**
+      ```html
+      <header>
+        <nav>
+          <!-- Navigation content -->
+        </nav>
+      </header>
+
+      <main>
+        <h1>Product Documentation</h1>
+
+        <section>
+          <h2>Getting Started</h2>
+          <h3>Installation</h3>
+          <h3>Configuration</h3>
+        </section>
+
+        <section>
+          <h2>User Guide</h2>
+          <h3>Basic Features</h3>
+          <h3>Advanced Features</h3>
+          <h4>Customization</h4>
+          <h4>Integration</h4>
+        </section>
+
+        <section>
+          <h2>Troubleshooting</h2>
+          <h3>Common Issues</h3>
+          <h3>Support</h3>
+        </section>
+      </main>
+      ```
+
+      **Dynamic Content:**
+      ```html
+      <!-- Good: Proper heading for dynamic content -->
+      <h2>Search Results</h2>
+      <p>Found 15 results for "accessibility"</p>
+
+      <!-- Good: Descriptive heading for filtered content -->
+      <h2>Electronics (25 items)</h2>
+      <p>Showing 1-10 of 25 products</p>
+      ```
+
+      **Form Sections:**
+      ```html
+      <!-- Good: Clear form structure with headings -->
+      <h2>Contact Information</h2>
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email">
+      </form>
+
+      <h2>Shipping Address</h2>
+      <form>
+        <label for="address">Address:</label>
+        <input type="text" id="address">
+      </form>
       ```
 
       **Testing and Validation:**
-      - **Language:** Verify lang attribute is set correctly
-      - **Viewport:** Test zoom functionality on mobile devices
-      - **Title attributes:** Check for unnecessary usage on non-iframe elements
-      - **Iframe titles:** Verify descriptive titles for all iframes
-      - **Skip links:** Test keyboard navigation and focus management
-      - **Screen readers:** Verify skip link announces correctly
-      - **Focus order:** Ensure skip link target receives focus properly
+      - Test with screen reader heading navigation
+      - Verify heading hierarchy is logical
+      - Check that heading text is descriptive
+      - Ensure no skipped heading levels
+      - Validate single h1 per page
+      - Test keyboard navigation between headings
 
       **Common Mistakes to Avoid:**
-      - Missing lang attribute on html element
-      - Viewport meta tag preventing zoom
-      - Using title attributes on interactive elements
-      - Missing or generic iframe titles
-      - Skip link not positioned at top of page
-      - Skip link target without tabindex="-1"
-      - Skip link hidden with display:none
-      - Skip link not visible on focus
-      - Generic skip link text
-      - Skip link targeting wrong element
+      - Using heading elements for styling only
+      - Skipping heading levels (h1 → h3)
+      - Multiple h1 elements on same page
+      - Generic or meaningless heading text
+      - Missing headings for major content sections
+      - Improper heading structure for clickable elements
+      - Using heading markup for non-heading content
+      - Missing aria-level on role="heading" elements
 
 metadata:
   priority: high
