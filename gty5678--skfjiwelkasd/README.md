@@ -7,13 +7,13 @@ Local desktop app for media collection & library management: skeuomorphic DVD sh
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [gty5678/skfjiwelkasd](https://github.com/gty5678/skfjiwelkasd).
+Original source: `AGENTS.md` in [gty5678/skfjiwelkasd](https://github.com/gty5678/skfjiwelkasd).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
