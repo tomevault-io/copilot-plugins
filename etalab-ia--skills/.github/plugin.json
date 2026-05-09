@@ -1,0 +1,14 @@
+{
+  "name": "etalab-ia--skills",
+  "displayName": "skills",
+  "description": "AI instruction skills by etalab-ia",
+  "version": "1.0.0",
+  "author": "etalab-ia",
+  "homepage": "https://github.com/etalab-ia/skills",
+  "skills": [
+    {
+      "name": "react-dsfr",
+      "description": ""
+    }
+  ]
+}
