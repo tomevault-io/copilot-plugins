@@ -2,7 +2,7 @@
   "name": "transmission-web",
   "owner": "jianxcao",
   "repo": "transmission-web",
-  "description": "",
+  "description": "transmission web  tr web ",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/jianxcao",
+  "source_url": "https://github.com/jianxcao/transmission-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T16:03:31Z"
+  "distributed_at": "2026-05-09T02:48:08Z"
 }
