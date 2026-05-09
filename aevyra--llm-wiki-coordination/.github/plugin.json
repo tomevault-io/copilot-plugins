@@ -1,0 +1,9 @@
+{
+  "name": "aevyra--llm-wiki-coordination",
+  "displayName": "llm-wiki-coordination",
+  "description": "Multi-agent governance layer for self-maintaining LLM wikis",
+  "version": "1.0.0",
+  "author": "AEVYRA",
+  "homepage": "https://github.com/AEVYRA/llm-wiki-coordination",
+  "skills": []
+}
