@@ -1,52 +1,94 @@
-## no-any-usage
+## prefer-imported-types
 
-> Ban usage of TypeScript's `any` type
+> Prefer importing types over recreating them
 
 
-Never use TypeScript's `any` type. It defeats the purpose of type safety.
+Always prefer importing types from their source rather than recreating or duplicating type definitions.
 
-## Alternatives to `any`
+## When to Import Types
 
-- Use `unknown` when the type is truly unknown and needs runtime checks
-- Use proper type definitions or generics
-- Use `Record<string, unknown>` for objects with unknown structure
-- Use union types when multiple types are possible
-- Use type assertions (`as Type`) only when absolutely necessary and after proper type narrowing
+- Import types from libraries, packages, and dependencies
+- Import types from other files in the codebase
+- Use `import type` for type-only imports to improve tree-shaking
+- Re-export types when creating type utilities or wrappers
 
 ## Examples
 
-❌ Bad:
+❌ Bad - Recreating a type that exists elsewhere:
 
 ```typescript
-function processData(data: any) {
-  return data.value;
+// Don't recreate types from libraries
+interface ApiResponse {
+  data: unknown;
+  status: number;
+}
+
+function handleResponse(response: ApiResponse) {
+  // ...
 }
 ```
 
-✅ Good:
+✅ Good - Importing the type:
 
 ```typescript
-function processData(data: unknown) {
-  if (typeof data === "object" && data !== null && "value" in data) {
-    return (data as { value: unknown }).value;
-  }
-  throw new Error("Invalid data");
+import type { ApiResponse } from './api-types';
+
+function handleResponse(response: ApiResponse) {
+  // ...
 }
 ```
 
-❌ Bad:
+❌ Bad - Duplicating types from dependencies:
 
 ```typescript
-const result: any = fetchData();
+// Don't recreate types from node_modules
+type User = {
+  id: string;
+  name: string;
+  email: string;
+};
 ```
 
-✅ Good:
+✅ Good - Importing from the library:
 
 ```typescript
-const result: ApiResponse = fetchData();
+import type { User } from '@auth/core/types';
 ```
 
-If you encounter a situation where you think you need `any`, refactor to use proper types instead.
+❌ Bad - Recreating types that exist in the codebase:
+
+```typescript
+// Don't recreate types that exist elsewhere
+interface GitHubRepo {
+  id: number;
+  name: string;
+  full_name: string;
+}
+```
+
+✅ Good - Importing from the existing file:
+
+```typescript
+import type { GitHubRepo } from '@/tools/github-api';
+```
+
+## Type-Only Imports
+
+Use `import type` for type-only imports to ensure they are removed at compile time:
+
+```typescript
+import type { User, Session } from '@/lib/auth';
+import type { ComponentProps } from 'react';
+```
+
+## When It's Acceptable to Create Types
+
+- Creating new types specific to the current file/component
+- Extending existing types with `extends` or intersection types
+- Creating utility types (e.g., `Pick`, `Omit`, `Partial`)
+- Types that don't exist elsewhere and are needed for the current implementation
+
+If a type already exists (in a library, package, or elsewhere in the codebase), import it instead of recreating it.
 
 ---
 > Source: [RhysSullivan/github-search-agent](https://github.com/RhysSullivan/github-search-agent) — distributed by [TomeVault](https://tomevault.io).
