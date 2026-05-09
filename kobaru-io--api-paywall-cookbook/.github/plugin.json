@@ -1,0 +1,9 @@
+{
+  "name": "kobaru-io--api-paywall-cookbook",
+  "displayName": "api-paywall-cookbook",
+  "description": "The easiest way to monetize APIs using x402 & Kobaru",
+  "version": "1.0.0",
+  "author": "kobaru-io",
+  "homepage": "https://github.com/kobaru-io/api-paywall-cookbook",
+  "skills": []
+}
