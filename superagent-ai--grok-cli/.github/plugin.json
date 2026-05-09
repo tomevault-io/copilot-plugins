@@ -1,0 +1,9 @@
+{
+  "name": "superagent-ai--grok-cli",
+  "displayName": "grok-cli",
+  "description": "An open-source coding agent for the Grok API",
+  "version": "1.0.0",
+  "author": "superagent-ai",
+  "homepage": "https://github.com/superagent-ai/grok-cli",
+  "skills": []
+}
