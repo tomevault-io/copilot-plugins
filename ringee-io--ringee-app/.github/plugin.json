@@ -1,0 +1,9 @@
+{
+  "name": "ringee-io--ringee-app",
+  "displayName": "ringee-app",
+  "description": "Simple outbound calling for freelancers and teams",
+  "version": "1.0.0",
+  "author": "ringee-io",
+  "homepage": "https://github.com/ringee-io/ringee-app",
+  "skills": []
+}
