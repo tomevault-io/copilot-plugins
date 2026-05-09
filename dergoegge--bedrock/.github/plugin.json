@@ -1,0 +1,9 @@
+{
+  "name": "dergoegge--bedrock",
+  "displayName": "bedrock",
+  "description": "Experimental Hypervisor Purpose-Built for Deterministic Software Testing ",
+  "version": "1.0.0",
+  "author": "dergoegge",
+  "homepage": "https://github.com/dergoegge/bedrock",
+  "skills": []
+}
