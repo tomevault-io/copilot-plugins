@@ -1,104 +1,106 @@
-## ui
+## workflows
 
-> UI/UX patterns and rules
+> GitHub Actions and CI/CD workflow rules
 
 
-# UI Rules
+# Workflow Rules
 
-## Color Palette
+## CI Workflow (ci.yml)
 
-| Color | Usage |
-|-------|-------|
-| **Cyan** | Primary brand, headings, emphasis |
-| **Green** | Success states, confirmations |
-| **Yellow** | Warnings, modifications |
-| **Red** | Errors, deletions |
-| **Dim/Gray** | Secondary info, paths, hints |
+Runs on:
+- Push to main
+- Pull requests to main
 
-## Command Structure
+Jobs:
+1. **lint** - ESLint + TypeScript checking
+2. **test** - Run on Ubuntu + macOS, Node 18/20/22
+3. **build** - Build and verify CLI works
+4. **security** - Dependency audit
 
-Every command should follow this pattern:
+## Release Workflow (release.yml)
 
-```typescript
-prompts.intro('tuck commandname');
+Runs on:
+- Push to main (when CI passes)
+- Manual trigger (workflow_dispatch)
 
-// ... work with spinners/progress ...
+Jobs:
+1. **check** - Verify releasable changes exist
+2. **release** - Run semantic-release
+3. **build-binaries** - Build for all platforms
 
-prompts.note("Run 'tuck next' to continue", 'Next step');
-prompts.outro('Done!');
+## Workflow Conventions
+
+### Always Use
+
+- `pnpm/action-setup@v4` for pnpm
+- `actions/setup-node@v4` for Node.js
+- `actions/checkout@v4` for checkout
+- `pnpm install --frozen-lockfile` for deps
+
+### Version Matrix
+
+Test on:
+- Node.js: 18, 20, 22
+- OS: ubuntu-latest, macos-latest
+
+### Timeouts
+
+Set reasonable timeouts:
+- lint: 10 minutes
+- test: 15 minutes
+- build: 10 minutes
+- release: 20 minutes
+
+### Concurrency
+
+```yaml
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true  # For PRs
+  cancel-in-progress: false # For releases
 ```
 
-## Spinners
+## Secrets Required
 
-Use for operations >100ms:
+- `GITHUB_TOKEN` - Auto-provided
+- `NPM_TOKEN` - For npm publish
+- `CODECOV_TOKEN` - For coverage upload
 
-```typescript
-const spinner = prompts.spinner();
-spinner.start('Processing files...');
+## Binary Builds
 
-try {
-  await doWork();
-  spinner.stop('Processed 5 files');
-} catch (error) {
-  spinner.stop('Failed to process');
-  throw error;
+Build standalone binaries using pkg:
+- linux-x64, linux-arm64
+- darwin-x64, darwin-arm64
+- win32-x64
+
+Binaries are attached to GitHub releases.
+
+## Semantic Release
+
+Configuration in `package.json`:
+
+```json
+{
+  "release": {
+    "branches": ["main"],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/github",
+      "@semantic-release/git"
+    ]
+  }
 }
 ```
 
-## Progress Feedback
+## NEVER Do
 
-For multi-step operations:
-1. Show what's being done
-2. Show progress (X of Y)
-3. Show completion status
-
-```typescript
-prompts.log.step(`Syncing file ${i}/${total}: ${filename}`);
-```
-
-## Confirmations
-
-ALWAYS confirm destructive actions:
-
-```typescript
-const confirmed = await prompts.confirm(
-  'Delete all backups?',
-  false  // Default to NO (safe option)
-);
-
-if (!confirmed) {
-  prompts.cancel('Operation cancelled');
-  return;
-}
-```
-
-## Error Messages
-
-Provide helpful, actionable errors:
-
-```typescript
-// Good
-throw new FileNotFoundError(path, {
-  suggestion: "Run 'tuck add' first to track this file"
-});
-
-// Bad
-throw new Error('File not found');
-```
-
-## Interactive Mode
-
-Every command should support:
-- Interactive mode (default) - prompts for input
-- Non-interactive mode (--yes, --force) - for scripts
-
-## Next Steps
-
-Always end successful operations with guidance:
-
-```typescript
-prompts.note("Run 'tuck push' to upload changes", 'Next step');
-```
+- Skip CI with `[skip ci]` in production
+- Hardcode secrets in workflows
+- Use latest tags for actions (pin versions)
+- Skip tests in release workflow
 
 ---
 > Source: [Pranav-Karra-3301/tuck](https://github.com/Pranav-Karra-3301/tuck) — distributed by [TomeVault](https://tomevault.io).
