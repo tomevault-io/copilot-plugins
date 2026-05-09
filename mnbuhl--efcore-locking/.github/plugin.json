@@ -1,0 +1,9 @@
+{
+  "name": "mnbuhl--efcore-locking",
+  "displayName": "efcore-locking",
+  "description": " Pessimistic row-level locking and distributed advisory locks for EF Core \u2014 ForUpdate() / ForShare()",
+  "version": "1.0.0",
+  "author": "mnbuhl",
+  "homepage": "https://github.com/mnbuhl/efcore-locking",
+  "skills": []
+}
