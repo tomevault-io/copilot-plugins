@@ -1,0 +1,9 @@
+{
+  "name": "yutannihilation--rusqlite-gpkg",
+  "displayName": "rusqlite-gpkg",
+  "description": "GeoPackage reader/writer built on top of rusqlite.",
+  "version": "1.0.0",
+  "author": "yutannihilation",
+  "homepage": "https://github.com/yutannihilation/rusqlite-gpkg",
+  "skills": []
+}
