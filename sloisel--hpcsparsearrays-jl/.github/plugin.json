@@ -1,0 +1,9 @@
+{
+  "name": "sloisel--hpcsparsearrays-jl",
+  "displayName": "HPCSparseArrays.jl",
+  "description": "Distributed sparse matrix operations using MPI for Julia",
+  "version": "1.0.0",
+  "author": "sloisel",
+  "homepage": "https://github.com/sloisel/HPCSparseArrays.jl",
+  "skills": []
+}
