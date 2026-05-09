@@ -1,226 +1,201 @@
-## 20-hermes-api-api
+## 20-hermes-api-db
 
-> - Endpoints in `app/api/v1/endpoints/`
+> - Always use async sessions: `AsyncSession`
 
 
-# Hermes API - FastAPI Endpoints Rules
+# Hermes API - Database Layer Rules
 
-## Endpoint Structure
+## SQLAlchemy Async Patterns
 
-### File Organization
-- Endpoints in `app/api/v1/endpoints/`
-- One resource per file: `downloads.py`, `auth.py`
-- Router registration in `app/api/v1/router.py`
-- Shared dependencies in `app/api/dependencies.py`
+### Session Management
+- Always use async sessions: `AsyncSession`
+- Get sessions via dependency injection: `get_database_session()`
+- Never create sessions directly - use the session factory
+- Sessions are automatically committed/rolled back by FastAPI
 
-### Router Definition
+Example:
 ```python
-from fastapi import APIRouter
-
-router = APIRouter(tags=["downloads"])
-
-@router.get("/list")
-async def list_downloads():
-    pass
-```
-
-## Dependency Injection
-
-### Common Dependencies
-```python
-from app.api.dependencies import get_current_user_from_token
+from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.session import get_database_session
 
-@router.get("/profile")
-async def get_profile(
-    current_user: dict = Depends(get_current_user_from_token),
+async def my_endpoint(
     db: AsyncSession = Depends(get_database_session)
 ):
-    return current_user
-```
-
-- `get_database_session()` - Database session
-- `get_current_user_from_token()` - Authenticated user
-- `get_current_user_optional()` - Optional auth
-
-## Request/Response Models
-
-```python
-from pydantic import Field
-from app.models.pydantic.download import DownloadCreateRequest, DownloadResponse
-
-@router.post("/", response_model=DownloadResponse, status_code=201)
-async def create_download(
-    request: DownloadCreateRequest,
-    current_user: dict = Depends(get_current_user_from_token),
-    db: AsyncSession = Depends(get_database_session)
-):
-    # Implementation
+    # Use db session
     pass
 ```
 
-### Model Naming
-- `CreateRequest` - For creation
-- `UpdateRequest` - For updates
-- `Response` - For responses
-- `ListResponse` - For lists
+### Queries
+- Use async query methods: `execute()`, `scalar()`, `scalars()`
+- Always `await` database operations
+- Use `select()` for queries, not legacy query API
 
-## Error Handling
-
-### HTTP Exceptions
+Example:
 ```python
-from fastapi import HTTPException, status
+from sqlalchemy import select
+from app.db.models import User
 
-if not download:
-    raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND,
-        detail=f"Download {download_id} not found"
-    )
+result = await session.execute(
+    select(User).where(User.username == username)
+)
+user = result.scalar_one_or_none()
 ```
 
-Common status codes:
-- `400 BAD_REQUEST` - Invalid input
-- `401 UNAUTHORIZED` - Auth required
-- `403 FORBIDDEN` - Permission denied
-- `404 NOT_FOUND` - Not found
-- `409 CONFLICT` - Duplicate
-- `422 UNPROCESSABLE_ENTITY` - Validation error (automatic)
-- `500 INTERNAL_SERVER_ERROR` - Server error
+## Repository Pattern
 
-### Logging
+### Structure
+- Define repositories in `app/db/repositories.py`
+- Each model should have a corresponding repository class
+- Repositories encapsulate data access logic
+- Keep business logic out of repositories
+
+### Repository Methods
+- Use descriptive method names: `get_by_id()`, `create()`, `update()`, `delete()`
+- Return model instances or None (not query objects)
+- Handle exceptions at repository level
+- Use type hints for all parameters and returns
+
+Example:
 ```python
-from app.core.logging import get_logger
-
-logger = get_logger(__name__)
-
-try:
-    # Operation
-    pass
-except Exception as e:
-    logger.error(
-        "Operation failed",
-        error=str(e),
-        error_type=type(e).__name__,
-        user_id=current_user["id"]
-    )
-    raise HTTPException(
-        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-        detail="Operation failed"
-    )
-```
-
-## Endpoint Patterns
-
-### List
-```python
-@router.get("/", response_model=List[ItemResponse])
-async def list_items(
-    skip: int = Query(0, ge=0),
-    limit: int = Query(100, ge=1, le=100),
-    db: AsyncSession = Depends(get_database_session)
-):
-    repos = await get_repositories()
-    items = await repos["items"].get_all(skip=skip, limit=limit)
-    return items
-```
-
-### Create
-```python
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=ItemResponse)
-async def create_item(
-    request: ItemCreateRequest,
-    current_user: dict = Depends(get_current_user_from_token),
-    db: AsyncSession = Depends(get_database_session)
-):
-    repos = await get_repositories()
-    item = await repos["items"].create({
-        **request.dict(),
-        "user_id": current_user["id"]
-    })
-    return item
-```
-
-### Get
-```python
-@router.get("/{item_id}", response_model=ItemResponse)
-async def get_item(
-    item_id: str,
-    current_user: dict = Depends(get_current_user_from_token),
-    db: AsyncSession = Depends(get_database_session)
-):
-    repos = await get_repositories()
-    item = await repos["items"].get_by_id(item_id)
+class UserRepository:
+    def __init__(self, session: AsyncSession):
+        self.session = session
     
-    if not item:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Item {item_id} not found"
+    async def get_by_id(self, user_id: str) -> Optional[User]:
+        result = await self.session.execute(
+            select(User).where(User.id == user_id)
         )
+        return result.scalar_one_or_none()
     
-    if item.user_id != current_user["id"]:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Not authorized"
-        )
-    
-    return item
+    async def create(self, user_data: dict) -> User:
+        user = User(**user_data)
+        self.session.add(user)
+        await self.session.flush()
+        return user
 ```
 
-### Delete
+### Repository Access
+- Access repositories via `get_repositories()` function
+- Returns dictionary of repository instances
+- Repositories share the same session
+
 ```python
-@router.delete("/{item_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_item(
-    item_id: str,
-    current_user: dict = Depends(get_current_user_from_token),
-    db: AsyncSession = Depends(get_database_session)
-):
-    repos = await get_repositories()
-    item = await repos["items"].get_by_id(item_id)
-    
-    if not item:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
-    
-    if item.user_id != current_user["id"]:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
-    
-    await repos["items"].delete(item_id)
+from app.db.repositories import get_repositories
+
+repos = await get_repositories()
+user = await repos["users"].get_by_id(user_id)
 ```
 
-## Background Tasks
+## Models
 
+### Model Definition
+- Define models in `app/db/models.py`
+- Inherit from declarative base defined in `app/db/base.py`
+- Use type hints in column definitions
+- Include `__tablename__` attribute
+
+### Column Definitions
+- Use appropriate SQLAlchemy types
+- Set `nullable=False` for required fields
+- Define `default` or `server_default` for defaults
+- Use `index=True` for frequently queried columns
+
+### Relationships
+- Define relationships using `relationship()`
+- Use `back_populates` for bidirectional relationships
+- Use `lazy="selectin"` for async loading
+- Consider cascade delete behavior
+
+Example:
 ```python
-from app.tasks.download_tasks import process_download
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from datetime import datetime
+from typing import Optional
 
-@router.post("/download")
-async def trigger_download(
-    request: DownloadRequest,
-    current_user: dict = Depends(get_current_user_from_token)
-):
-    task = process_download.delay(
-        url=request.url,
-        user_id=current_user["id"]
+class User(Base):
+    __tablename__ = "users"
+    
+    id: Mapped[str] = mapped_column(primary_key=True)
+    username: Mapped[str] = mapped_column(unique=True, index=True)
+    email: Mapped[Optional[str]] = mapped_column(nullable=True)
+    created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
+    
+    # Relationships
+    downloads: Mapped[list["Download"]] = relationship(
+        back_populates="user",
+        lazy="selectin"
     )
-    
-    return {"task_id": task.id, "status": "queued"}
 ```
 
-## OpenAPI Documentation
+## Migrations (Alembic)
+
+### Creating Migrations
+- Use Alembic for schema migrations
+- Configuration in `alembic.ini`
+- Migration scripts in `migrations/versions/`
+- Use descriptive migration messages
+
+### Migration Commands
+```bash
+# Create new migration
+alembic revision --autogenerate -m "Add user table"
+
+# Apply migrations
+alembic upgrade head
+
+# Rollback migration
+alembic downgrade -1
+```
+
+### Migration Best Practices
+- Review auto-generated migrations before applying
+- Test migrations in development first
+- Include both upgrade and downgrade paths
+- Add data migrations when needed
+- Never modify applied migrations
+
+## Database Configuration
+
+### Connection Settings
+- Configure database URL in `app/core/config.py`
+- Use async SQLite driver: `aiosqlite`
+- Connection string format: `sqlite+aiosqlite:///./data/hermes.db`
+
+### Session Configuration
+- Pool settings configured in `app/db/session.py`
+- Echo SQL in development (for debugging)
+- Disable echo in production
+
+## Transactions
+
+### Transaction Boundaries
+- FastAPI handles transactions automatically
+- Manual transaction control when needed:
 
 ```python
-@router.get("/{item_id}", response_model=ItemResponse)
-async def get_item(item_id: str):
-    """
-    Get a single item by ID.
-    
-    Returns item details if found and user has access.
-    Raises 404 if item doesn't exist.
-    """
-    pass
+async with session.begin():
+    # Multiple operations in one transaction
+    user = await repos["users"].create(user_data)
+    await repos["api_keys"].create(api_key_data)
 ```
 
-- Include docstrings for all endpoints
-- Use tags to group related endpoints
-- Document parameters and responses
+### Error Handling
+- SQLAlchemy exceptions should be caught and converted to HTTP exceptions
+- Rollback happens automatically on exceptions
+- Log database errors with context
+
+## Testing
+
+### Test Database
+- Use separate database for tests
+- Reset database state between tests
+- Use fixtures for common test data
+
+### Repository Testing
+- Test each repository method independently
+- Mock external dependencies
+- Verify database state after operations
+- Test error conditions
 
 ---
 > Source: [TechSquidTV/Hermes](https://github.com/TechSquidTV/Hermes) — distributed by [TomeVault](https://tomevault.io).
