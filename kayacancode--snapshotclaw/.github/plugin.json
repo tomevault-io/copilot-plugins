@@ -1,0 +1,9 @@
+{
+  "name": "kayacancode--snapshotclaw",
+  "displayName": "snapshotclaw",
+  "description": "Content-addressed versioning for AI agent state, built on AT Protocol",
+  "version": "1.0.0",
+  "author": "kayacancode",
+  "homepage": "https://github.com/kayacancode/snapshotclaw",
+  "skills": []
+}
