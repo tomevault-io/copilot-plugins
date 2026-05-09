@@ -1,0 +1,9 @@
+{
+  "name": "kyoji2--raindrop-cli",
+  "displayName": "raindrop-cli",
+  "description": "AI-native command-line interface for managing Raindrop.io bookmarks, collections, and tags.",
+  "version": "1.0.0",
+  "author": "kyoji2",
+  "homepage": "https://github.com/kyoji2/raindrop-cli",
+  "skills": []
+}
