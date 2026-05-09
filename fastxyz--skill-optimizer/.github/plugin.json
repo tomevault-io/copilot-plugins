@@ -1,0 +1,9 @@
+{
+  "name": "fastxyz--skill-optimizer",
+  "displayName": "skill-optimizer",
+  "description": "Benchmark, evaluate, and optimize skills to ensure reliable performance across all LLMs",
+  "version": "1.0.0",
+  "author": "fastxyz",
+  "homepage": "https://github.com/fastxyz/skill-optimizer",
+  "skills": []
+}
