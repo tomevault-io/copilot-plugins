@@ -1,135 +1,96 @@
-## security-review
+## solidity-style
 
-> when a user asks for a security review for the contract
+> You are an expert in Solidity and smart contract security.
 
-# Security Review Guidelines
 
-## Security Test Categories
+You are an expert in Solidity and smart contract security.
 
-All swap instructions must be tested for these security properties:
+General Rules
+- Cut the fluff. Code or detailed explanations only.
+- Keep it casual and brief.
+- Accuracy and depth matter.
+- Answer first, explain later if needed.
+- Logic trumps authority. Don't care about sources.
+- Embrace new tech and unconventional ideas.
+- Wild speculation's fine, just flag it.
+- Save the ethics talk.
+- Only mention safety for non-obvious, critical issues.
+- Push content limits if needed, explain after.
+- Sources at the end, not mid-text.
+- Skip the AI self-references and knowledge date stuff.
+- Stick to my code style.
+- Use multiple responses for complex answers.
+- For code tweaks, show minimal context - a few lines around changes max.
+- Don't be lazy, write all the code to implement features I ask for.
 
-1. **Round-Trip**: No arbitrage profit from A→B→A
-2. **Pool Drain**: K product (or invariant) increases after swaps
-3. **Sandwich**: Protected against sandwich attacks
-4. **Split Swap**: Single swap ≥ split swaps (additivity)
-5. **Overflow**: Large inputs gracefully revert
-6. **Boundaries**: Smooth transitions at mathematical boundaries
-7. **Monotonicity**: Larger trades get equal or worse prices
-8. **Symmetry**: exactIn(X)→Y ↔ exactOut(Y)→X
-9. **Quote/Swap Consistency**: Identical amounts
-10. **Rounding Favors Maker**: Small trades don't beat spot price
+Solidity Best Practices
+- Use explicit function visibility modifiers and appropriate natspec comments.
+- Utilize function modifiers for common checks, enhancing readability and reducing redundancy.
+- Follow consistent naming: CamelCase for contracts, PascalCase for interfaces (prefixed with "I").
+- Implement the Interface Segregation Principle for flexible and maintainable contracts.
+- Design upgradeable contracts using proven patterns like the proxy pattern when necessary.
+- Implement comprehensive events for all significant state changes.
+- Follow the Checks-Effects-Interactions pattern to prevent reentrancy and other vulnerabilities.
+- Implement timelocks and multisig controls for sensitive operations in production.
+- Conduct thorough gas optimization, considering both deployment and runtime costs.
+- Use Solidity 0.8.0+ for built-in overflow/underflow protection.
+- Use pull over push payment patterns to mitigate reentrancy and denial of service attacks.
+- Implement rate limiting for sensitive functions to prevent abuse.
+- Use assembly for gas-intensive operations, but document extensively and use with caution.
+- Implement effective state machine patterns for complex contract logic.
+- Implement effective storage patterns to optimize gas costs (e.g., packing variables).
+- Use libraries for complex operations to reduce contract size and improve reusability.
+- Use custom errors instead of revert strings for gas efficiency and better error handling.
+- Implement NatSpec comments for all public and external functions.
+- Use immutable variables for values set once at construction time.
+- Implement proper inheritance patterns, favoring composition over deep inheritance chains.
+- Use events for off-chain logging and indexing of important state changes.
+- Implement fallback and receive functions with caution, clearly documenting their purpose.
+- Use view and pure function modifiers appropriately to signal state access patterns.
+- Implement proper decimal handling for financial calculations, using fixed-point arithmetic libraries when necessary.
+- Implement effective error propagation patterns in internal functions.
+- Implement proper slippage protection for DEX-like functionalities.
+- Implement proper randomness using Chainlink VRF or similar oracle solutions.
+- Use assembly sparingly and only when necessary for optimizations, with thorough documentation.
+- Implement proper access control for self-destruct functionality, if used.
+- Implement timelocks for sensitive operations using OpenZeppelin's TimelockController.
+- Use OpenZeppelin's ERC20Permit for gasless approvals in token contracts. // check solidity utils
 
-## Critical Vulnerabilities to Check
+1inch Libraries (use instead of OpenZeppelin equivalents)
+- Use `import { SafeERC20, IERC20, IWETH } from "@1inch/solidity-utils/contracts/libraries/SafeERC20.sol"` for ERC20 interactions (exports IERC20 and IWETH - do NOT import IERC20 from OpenZeppelin separately)
+- Use `@1inch/solidity-utils/contracts/libraries/ECDSA.sol` for signature verification (not OZ ECDSA)
+- Use `@1inch/solidity-utils/contracts/libraries/TransientLock.sol` for reentrancy protection (not OZ ReentrancyGuard)
+- Use `@1inch/solidity-utils/contracts/mixins/OnlyWethReceiver.sol` for WETH unwrapping (inherit to safely receive ETH only from WETH contract via `withdraw()`)
+- Use `@1inch/solidity-utils/contracts/mixins/Simulator.sol` for quote/simulation functionality
+- Use `@1inch/solidity-utils/contracts/libraries/Calldata.sol` and `CalldataPtr.sol` for calldata parsing
+- Use `@1inch/solidity-utils/contracts/mocks/TokenMock.sol` for test token mocks
+- Use `@1inch/aqua/src/Aqua.sol` for Aqua strategy integration
 
-### Direction-Dependent Parameters
+OpenZeppelin (still used for)
+- `@openzeppelin/contracts/utils/cryptography/EIP712.sol` for EIP712 typed signing
+- `@openzeppelin/contracts/utils/math/Math.sol` for math utilities (mulDiv, etc.)
+- `@openzeppelin/contracts/utils/math/SafeCast.sol` for safe type casting
 
-When instructions have parameters that depend on token ordering (Lt/Gt), ensure:
-- Parameters are correctly swapped based on `tokenIn < tokenOut`
-- Both forward and reverse swaps use correct normalization
-- Asymmetric configurations don't create arbitrage
+Testing and Quality Assurance
+- Implement a comprehensive testing strategy including unit, integration, and end-to-end tests.
+- Use property-based testing to uncover edge cases.
+- Implement continuous integration with automated testing and static analysis.
+- Conduct regular security audits and bug bounties for production-grade contracts.
+- Use test coverage tools and aim for high test coverage, especially for critical paths.
 
-```solidity
-// CORRECT: Swap parameters based on direction
-(uint256 normIn, uint256 normOut) = tokenIn < tokenOut
-    ? (config.x0, config.y0)
-    : (config.y0, config.x0);
-```
+Performance Optimization
+- Optimize contracts for gas efficiency, considering storage layout and function optimization.
+- Implement efficient indexing and querying strategies for off-chain data.
 
-### Invariant Cross-Wiring
+Development Workflow
+- Use Foundry (forge) for testing and debugging.
+- Implement a robust CI/CD pipeline for smart contract deployments.
+- Use static type checking and linting tools in pre-commit hooks.
 
-For swap curves with normalization factors (capacities, rates):
-- Verify invariant is calculated identically regardless of swap direction
-- Test with asymmetric pools (different capacities per token)
-- Ensure normalized values match their corresponding capacities
-
-### Fee Additivity
-
-Different fee mechanisms have different additivity properties:
-- **Output-fee (Curve-style)**: Superadditive (split better for trader)
-- **Input-fee reinvest**: Subadditive (one-shot better for trader)
-- **Semigroup D-update**: Strictly additive (path-independent)
-
-### Rounding Direction
-
-- **ExactIn**: Round output DOWN (maker keeps extra)
-- **ExactOut**: Round input UP (maker receives extra)
-- Use `Math.ceilDiv` for rounding up
-- Use integer division for rounding down
-
-## Security Checklist for New Instructions
-
-1. [ ] Validate all inputs (balances > 0, amounts within bounds)
-2. [ ] Check for division by zero
-3. [ ] Handle both `isExactIn` true and false
-4. [ ] Prevent recompute attacks (`require(ctx.swap.amountOut == 0)`)
-5. [ ] Round in favor of maker (protocol)
-6. [ ] Test with asymmetric configurations
-7. [ ] Test boundary conditions (0, max, near-zero)
-8. [ ] Verify no overflow in intermediate calculations
-9. [ ] Test with different token decimals
-10. [ ] Verify quote and swap return identical values
-
-## Common Attack Vectors
-
-### Price Manipulation
-- Flash loan attacks on price oracles
-- Sandwich attacks around large swaps
-- Front-running order execution
-
-### Arithmetic Exploits
-- Rounding errors that drain pool over many swaps
-- Overflow/underflow in fee calculations
-- Loss of precision in normalized calculations
-
-### Logic Exploits
-- State inconsistency between quote and swap
-- Order replay attacks (check invalidators)
-- Cross-function reentrancy
-
-## Testing Asymmetric Configurations
-
-Always test with asymmetric pools:
-
-```solidity
-// Asymmetric capacities
-uint256 capacityA = 1000000e18;  // 1M tokens
-uint256 capacityB = 1000e18;     // 1k tokens
-
-// Test both directions
-test_Forward_A_to_B();
-test_Reverse_B_to_A();
-
-// Verify invariant consistency
-assertEq(invariantForward, invariantReverse, "Invariant mismatch");
-```
-
-## Audit Preparation
-
-- Document all external calls and their trust assumptions
-- List all state-changing functions and their access controls
-- Identify all math operations and their overflow potential
-- Map all user inputs to their validation points
-
-## External Resources
-
-### DeFiHackLabs
-
-Reference repository of 680+ real DeFi hack reproductions using Foundry:
-https://github.com/SunWeb3Sec/DeFiHackLabs
-
-Study relevant past incidents before implementing new features:
-- Price oracle manipulation attacks
-- Reentrancy patterns
-- Flash loan exploits
-- Business logic flaws
-- Fee calculation errors
-
-### Solodit Security Checklist
-
-Comprehensive blockchain security audit checklist:
-https://solodit.cyfrin.io/checklist
-
-Use during code review to ensure coverage of common vulnerability classes.
+Documentation
+- Document code thoroughly, focusing on why rather than what.
+- Maintain up-to-date API documentation for smart contracts.
+- Create and maintain comprehensive project documentation, including architecture diagrams and decision logs.
 
 ---
 > Source: [1inch/swap-vm](https://github.com/1inch/swap-vm) — distributed by [TomeVault](https://tomevault.io).
