@@ -4,7 +4,7 @@
   "repo": "media-production-kit",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JJenglert1/media-production-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T00:12:15Z"
+  "distributed_at": "2026-05-09T14:49:18Z"
 }
