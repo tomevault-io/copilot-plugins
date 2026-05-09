@@ -1,0 +1,9 @@
+{
+  "name": "maxgfr--brutifi",
+  "displayName": "brutifi",
+  "description": "High-performance WiFi security testing app in Rust for educational and authorized security audits.",
+  "version": "1.0.0",
+  "author": "maxgfr",
+  "homepage": "https://github.com/maxgfr/brutifi",
+  "skills": []
+}
