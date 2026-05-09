@@ -1,0 +1,9 @@
+{
+  "name": "beam-cloud--lovable-clone",
+  "displayName": "lovable-clone",
+  "description": "A simple clone of lovable.dev using BAML / FastMCP / Beam",
+  "version": "1.0.0",
+  "author": "beam-cloud",
+  "homepage": "https://github.com/beam-cloud/lovable-clone",
+  "skills": []
+}
