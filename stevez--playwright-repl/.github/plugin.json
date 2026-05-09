@@ -1,0 +1,9 @@
+{
+  "name": "stevez--playwright-repl",
+  "displayName": "playwright-repl",
+  "description": "Interactive REPL for Playwright browser automation with record & replay",
+  "version": "1.0.0",
+  "author": "stevez",
+  "homepage": "https://github.com/stevez/playwright-repl",
+  "skills": []
+}
