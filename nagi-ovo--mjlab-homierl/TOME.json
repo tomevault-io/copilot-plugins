@@ -1,0 +1,44 @@
+{
+  "name": "mjlab-homierl",
+  "owner": "Nagi-ovo",
+  "repo": "mjlab-homierl",
+  "description": "Fork of mjlab which supports unitree H1 & robotiq_2f85, personal implementation of the locomotion policy training in \"HOMIE: Humanoid Loco-Manipulation with Isomorphic Exoskeleton Cockpit [RSS2025]\"",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Nagi-ovo/mjlab-homierl",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T16:56:43Z"
+}
