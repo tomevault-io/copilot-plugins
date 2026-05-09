@@ -4,7 +4,7 @@
   "repo": "AeroDL",
   "description": "The most elegant and intuitive way to download videos.  AeroDL is a modern and fluent graphical user interface for the powerful yt-dlp command-line tool. It is designed to be simple, user-friendly, and always available when you need it, without being intrusive.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kdroidFilter/AeroDL",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T02:15:04Z"
+  "distributed_at": "2026-05-09T23:05:13Z"
 }
