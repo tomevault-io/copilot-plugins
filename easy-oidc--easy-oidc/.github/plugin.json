@@ -1,0 +1,9 @@
+{
+  "name": "easy-oidc--easy-oidc",
+  "displayName": "easy-oidc",
+  "description": "Easy OIDC is an Open Source, minimal OIDC server written in Go and designed for use with Kubernetes",
+  "version": "1.0.0",
+  "author": "easy-oidc",
+  "homepage": "https://github.com/easy-oidc/easy-oidc",
+  "skills": []
+}
