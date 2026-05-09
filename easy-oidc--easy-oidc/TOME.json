@@ -1,0 +1,44 @@
+{
+  "name": "easy-oidc",
+  "owner": "easy-oidc",
+  "repo": "easy-oidc",
+  "description": "Easy OIDC is an Open Source, minimal OIDC server written in Go and designed for use with Kubernetes",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/easy-oidc/easy-oidc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T23:10:23Z"
+}
