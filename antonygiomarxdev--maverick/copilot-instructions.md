@@ -1,25 +1,16 @@
-## rust-no-magic-values
+## rust-solid-hexagonal
 
-> Rust — avoid magic literals; use named constants, enums, and newtypes
+> Rust — SOLID and ports-and-adapters (traits in core, I/O at edges)
 
 
-# Rust — no magic literals
+# Rust — SOLID and hexagonal layout
 
-- **Domain limits and protocol numbers** (frame sizes, ratios, timeouts, caps): `pub const` in a focused module per domain (`limits`, `defaults`, `lorawan`), not copy-pasted across files.
-- **Closed vocabularies** (states, telemetry sources, stable wire operation names): use an **enum** with a single place that defines representation (`Display`, `AsRef<str>`, or explicit `serde`). Do not scatter the same `&str` across layers.
-- **Identifiers and units**: **newtypes** (`struct DevEui(...)`) so sizes and parsing live in `impl`, not at every call site.
-- **SQL / columns / JSON keys**: constants or one `schema` / `keys` module in the adapter, not duplicated strings.
-- **Rule of thumb**: if a literal appears **twice** or crosses **core ↔ adapter ↔ I/O**, give it a name or a type.
-
-```rust
-// ❌ scattered
-if s.len() != 16 { ... }
-elevated_use_ratio: 0.75,
-
-// ✅ named / typed
-const EUI64_HEX_LEN: usize = 16;
-pub const ELEVATED_USE_RATIO_BALANCED: f32 = 0.75;
-```
+- **S** — One `struct`/`impl` per reason to change. Separate use-case orchestration from serialization or SQL details.
+- **O** — Extend with new types or **trait** implementations instead of growing a central `match` on strings; prefer enums when the set is closed and known.
+- **L** — Types that implement domain traits must honor the contract (no unexpected panics in methods the core treats as total).
+- **I** — Small, client-oriented traits (`SessionRepository`, `UplinkRepository`), not a single persistence “god trait”.
+- **D** — **Core/domain** depends on abstractions (`trait` in `ports`); **adapters** (sqlite, udp, …) implement those traits and depend on domain types, not the reverse.
+- **Hexagonal**: business rules without `tokio::net`, `rusqlite`, or filesystem paths in the nucleus—only types and ports. Side effects live at the edges.
 
 ---
 > Source: [antonygiomarxdev/maverick](https://github.com/antonygiomarxdev/maverick) — distributed by [TomeVault](https://tomevault.io).
