@@ -1,0 +1,9 @@
+{
+  "name": "meursyphus--comwit",
+  "displayName": "comwit",
+  "description": "React state management for vibe coding. Pass llm.txt to Claude Code.",
+  "version": "1.0.0",
+  "author": "meursyphus",
+  "homepage": "https://github.com/meursyphus/comwit",
+  "skills": []
+}
