@@ -1,0 +1,9 @@
+{
+  "name": "chrismidtempo--midtempo-framework",
+  "displayName": "midtempo-framework",
+  "description": "A constraint-first framework for LLM-assisted development. Enforces TDD, human approval gates, and external validation so engineers stay responsible without sacrificing velocity.",
+  "version": "1.0.0",
+  "author": "ChrisMidtempo",
+  "homepage": "https://github.com/ChrisMidtempo/midtempo-framework",
+  "skills": []
+}
