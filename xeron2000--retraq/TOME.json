@@ -1,0 +1,44 @@
+{
+  "name": "retraq",
+  "owner": "Xeron2000",
+  "repo": "retraq",
+  "description": "\u52a0\u5bc6\u8d27\u5e01\u4ea4\u6613\u590d\u76d8\u7cfb\u7edf - \u53ef\u89c6\u5316\u5206\u6790\u5386\u53f2\u4ea4\u6613\uff0c\u652f\u6301\u591a\u5468\u671fK\u7ebf\u5bf9\u6bd4\u3001\u4e70\u5356\u70b9\u6807\u6ce8\u3001\u80dc\u7387\u7edf\u8ba1 | React + FastAPI + OKX API",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Xeron2000/retraq",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T07:04:00Z"
+}
