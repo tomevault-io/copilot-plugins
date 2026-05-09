@@ -1,0 +1,9 @@
+{
+  "name": "deepnote--deepnote",
+  "displayName": "deepnote",
+  "description": "Deepnote is a drop-in replacement for Jupyter with an AI-first design, sleek UI, new blocks, and native data integrations. Use Python, R, and SQL locally in your favorite IDE, then scale to Deepnote c",
+  "version": "1.0.0",
+  "author": "deepnote",
+  "homepage": "https://github.com/deepnote/deepnote",
+  "skills": []
+}
