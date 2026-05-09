@@ -1,55 +1,86 @@
-## cursor-rules
+## jsdoc-quality
 
-> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
+> Enforce meaningful JSDoc comments and avoid redundant documentation
 
 
-- **Required Rule Structure:**
-  ```markdown
-  ---
-  description: Clear, one-line description of what the rule enforces
-  globs: path/to/files/*.ext, other/path/**/*
-  alwaysApply: boolean
-  ---
+# JSDoc Quality Standards
 
-  - **Main Points in Bold**
-    - Sub-points with details
-    - Examples and explanations
-  ```
+**Eliminate useless JSDoc comments that just repeat the function/variable name.**
 
-- **File References:**
-  - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
-  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
-  - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
+## ❌ **DON'T: Write redundant JSDoc**
 
-- **Code Examples:**
-  - Use language-specific code blocks
-  ```typescript
-  // ✅ DO: Show good examples
-  const goodExample = true;
-  
-  // ❌ DON'T: Show anti-patterns
-  const badExample = false;
-  ```
+```typescript
+/**
+ * Get settings
+ */
+get settings() { ... }
 
-- **Rule Content Guidelines:**
-  - Start with high-level overview
-  - Include specific, actionable requirements
-  - Show examples of correct implementation
-  - Reference existing code when possible
-  - Keep rules DRY by referencing other rules
+/**
+ * Load settings
+ */
+async loadSettings() { ... }
 
-- **Rule Maintenance:**
-  - Update rules when new patterns emerge
-  - Add examples from actual codebase
-  - Remove outdated patterns
-  - Cross-reference related rules
+/**
+ * Save settings
+ */
+async saveSettings() { ... }
 
-- **Best Practices:**
-  - Use bullet points for clarity
-  - Keep descriptions concise
-  - Include both DO and DON'T examples
-  - Reference actual code over theoretical examples
-  - Use consistent formatting across rules 
+/**
+ * Update profile
+ */
+async updateProfile(profile: CalendarProfile) { ... }
+```
+
+## ✅ **DO: Write meaningful documentation or none at all**
+
+```typescript
+// No JSDoc needed - method name is self-explanatory
+get settings() { ... }
+
+// No JSDoc needed - clear from name and parameters
+async loadSettings() { ... }
+
+// Add JSDoc only when it provides real value
+/**
+ * Migrates settings from older versions and validates structure.
+ * Throws error if migration fails or settings are invalid.
+ */
+private migrateSettings(data: any): CustomCalendarSettings { ... }
+
+/**
+ * Updates profile and automatically saves to disk.
+ * Creates new profile if ID doesn't exist, updates existing otherwise.
+ *
+ * @throws {Error} When max profile limit is reached for new profiles
+ */
+async updateProfile(profile: CalendarProfile): Promise<void> { ... }
+```
+
+## **When JSDoc adds value:**
+
+- **Complex logic**: Explain non-obvious behavior or algorithms
+- **Error conditions**: Document what exceptions are thrown and when
+- **Side effects**: Mention automatic saves, notifications, state changes
+- **Business rules**: Explain validation rules or constraints
+- **API contracts**: Document expected input/output for public methods
+- **Performance notes**: Mention caching, async behavior, or expensive operations
+
+## **When to skip JSDoc:**
+
+- **Self-explanatory names**: `getName()`, `setActive()`, `isValid()`
+- **Simple getters/setters**: Basic property access
+- **Obvious parameters**: `updateProfile(profile)`, `removeById(id)`
+- **Standard patterns**: Basic CRUD operations, event handlers
+- **Private utilities**: Internal helper methods with clear names
+
+## **Focus on code clarity first:**
+
+- Use descriptive method and variable names
+- Keep functions small and focused
+- Use TypeScript types for parameter documentation
+- Let the code tell the story, use JSDoc for context
+
+**Remember**: Good code needs less documentation. Write code so clear that JSDoc becomes unnecessary, then add JSDoc only where it genuinely helps.
 
 ---
 > Source: [Real1tyy/Fusion-Goals](https://github.com/Real1tyy/Fusion-Goals) — distributed by [TomeVault](https://tomevault.io).
