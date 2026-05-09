@@ -1,0 +1,9 @@
+{
+  "name": "seventhxiv--obsidian-board-view",
+  "displayName": "obsidian-board-view",
+  "description": "Interactive board view for obsidian bases, use as Kanban or Gallery, with grouping for rows and columns.",
+  "version": "1.0.0",
+  "author": "seventhxiv",
+  "homepage": "https://github.com/seventhxiv/obsidian-board-view",
+  "skills": []
+}
