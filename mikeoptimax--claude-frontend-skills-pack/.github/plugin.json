@@ -1,0 +1,9 @@
+{
+  "name": "mikeoptimax--claude-frontend-skills-pack",
+  "displayName": "claude-frontend-skills-pack",
+  "description": "One CLAUDE.md file that makes Claude Code build production-grade UI. 1,400+ components from 21st.dev, distinctive typography, Framer Motion, Next.js 15 patterns.",
+  "version": "1.0.0",
+  "author": "mikeoptimax",
+  "homepage": "https://github.com/mikeoptimax/claude-frontend-skills-pack",
+  "skills": []
+}
