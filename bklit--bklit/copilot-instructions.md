@@ -1,13 +1,66 @@
-## next-js
+## react-typescript-general
 
-> refer to the next.js documentation whenever we're using next.js
+> React and TypeScript best practices
 
 
-When working with Next.js we are always using typescript and the latest versions. Next.js releases happen often and there may be updated best-practices that you're not currently aware of.
+## Code Organization
 
-ref: https://nextjs.org/docs
+- Use `hooks/` directory for custom hooks: [use-mobile.ts](mdc:apps/dashboard/src/hooks/use-mobile.ts)
+- Use `lib/` directory for utilities: [utils.ts](mdc:apps/dashboard/src/lib/utils.ts)
+- Organize `lib/` into subfolders by domain (e.g., `lib/polar/`, `lib/maps/`)
 
-Always use most up-to-date next.js practices and techniques when possible.
+## TypeScript
+
+- Use `interface` for type definitions (not `type` aliases for objects)
+- Export interfaces from the file where they're defined
+- Use strict typing - avoid `any`
+
+```typescript
+// ✅ Good
+interface UserData {
+  id: string;
+  name: string;
+}
+
+// ❌ Avoid
+type UserData = { id: string; name: string };
+```
+
+## React Patterns
+
+- **Server Components first** - only use `"use client"` when necessary
+- Extract client-only logic into separate components
+- Avoid `useEffect` for data fetching - use React Query
+- Keep comments minimal - code should be self-documenting
+
+```tsx
+// ✅ Good - Server component with client child
+export default async function Page() {
+  const data = await fetchData();
+  return <ClientInteractiveComponent data={data} />;
+}
+
+// ❌ Avoid - Unnecessary client component
+"use client";
+export default function Page() {
+  const [data, setData] = useState(null);
+  useEffect(() => { fetchData().then(setData); }, []);
+  return <div>{data}</div>;
+}
+```
+
+## Imports
+
+```tsx
+// Named imports preferred
+import { Button } from "@bklit/ui/components/button";
+import { db } from "@bklit/db/client";
+
+// Group imports: external → internal → relative
+import { useState } from "react";
+import { Button } from "@bklit/ui/components/button";
+import { formatDate } from "@/lib/utils";
+```
 
 ---
 > Source: [bklit/bklit](https://github.com/bklit/bklit) — distributed by [TomeVault](https://tomevault.io).
