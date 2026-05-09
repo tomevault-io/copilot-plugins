@@ -1,0 +1,44 @@
+{
+  "name": "cmdop-claude",
+  "owner": "commandoperator",
+  "repo": "cmdop-claude",
+  "description": "Self-maintaining .claude/ runtime. Turns a static config folder into living project memory \u2014 LLM-powered documentation review, project map generation, task queue, auto-fix, MCP plugin management, and project initialization.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/commandoperator/cmdop-claude",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T21:15:28Z"
+}
