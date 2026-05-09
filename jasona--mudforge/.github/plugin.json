@@ -1,0 +1,9 @@
+{
+  "name": "jasona--mudforge",
+  "displayName": "mudforge",
+  "description": "A modern MUD driver using Node.js and Typescript that is inspired by many of the design philosophies of the old LP MUDs.",
+  "version": "1.0.0",
+  "author": "jasona",
+  "homepage": "https://github.com/jasona/mudforge",
+  "skills": []
+}
