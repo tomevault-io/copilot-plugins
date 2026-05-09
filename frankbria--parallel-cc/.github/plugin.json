@@ -1,0 +1,9 @@
+{
+  "name": "frankbria--parallel-cc",
+  "displayName": "parallel-cc",
+  "description": "Automated parallel management of Claude Code versions using Git worktrees and autonomous coordination between agents in separate terminals",
+  "version": "1.0.0",
+  "author": "frankbria",
+  "homepage": "https://github.com/frankbria/parallel-cc",
+  "skills": []
+}
