@@ -1,0 +1,44 @@
+{
+  "name": "code-your-own-llm",
+  "owner": "datawhalechina",
+  "repo": "code-your-own-llm",
+  "description": "\u4e00\u4efd\u5168\u6808\u5f0f\u5927\u8bed\u8a00\u6a21\u578b\u53c2\u8003\u6307\u5357\uff0c\u7528\u6700\u7b80\u6d01\u7684\u4ee3\u7801\u5e2e\u52a9\u4f60\u7aef\u5230\u7aef\u5b9a\u4e49\u6a21\u578b\u4ece\u96f6\u8bad\u7ec3\u5230\u5de5\u7a0b\u843d\u5730\u7684\u6bcf\u4e00\u4e2a\u7ec6\u8282",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/datawhalechina/code-your-own-llm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T19:57:54Z"
+}
