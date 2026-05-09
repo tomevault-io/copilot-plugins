@@ -1,87 +1,61 @@
-## search-pro
+## shader-development
 
-> 当我提的问题中带有“智能搜索”等相关词语时
+> - Use clear naming conventions for uniforms and varyings
 
-# 增强版 Cursor 搜索工具
+## Shader Development Guidelines
 
-## 自动激活
+### Code Organization
+- Use clear naming conventions for uniforms and varyings
+- Organize shader code into logical sections (uniforms, varyings, functions, main)
+- Use includes for shared functionality
+- Document complex mathematical operations
+- Keep shader files focused and single-purpose
 
-这些指令在本项目的所有对话中自动生效。应根据需要使用所有可用工具（顺序思维、Tavily 和 Fetch）。
+### Performance Optimization
+- Minimize conditional statements in fragment shaders
+- Use built-in GLSL functions when available
+- Optimize vector operations
+- Minimize texture lookups
+- Use appropriate precision qualifiers
+- Avoid dynamic loops where possible
+- Cache repeated calculations
 
-## 默认工作流程
+### Best Practices
+- Initialize all variables
+- Use appropriate data types
+- Handle edge cases gracefully
+- Implement proper error handling
+- Use preprocessor directives effectively
+- Follow GLSL version compatibility guidelines
+- Document performance implications
 
-每个新对话应自动以顺序思维开始，以确定完成当前任务所需的其他工具。
-回答用到哪个工具请加对应的图标以便我了解到你使用了这个工具 ，MCP 正常工作 
+### Texture Management
+- Use appropriate texture formats
+- Implement proper texture coordinate handling
+- Use texture arrays when appropriate
+- Handle texture boundaries properly
+- Implement proper mipmap usage
 
-- **sequential-thinking**: 🧠
-- **Tavily**: 🔍
-- **Fetch**: 🌐
+### Mathematics
+- Use efficient mathematical operations
+- Implement proper interpolation methods
+- Use appropriate coordinate spaces
+- Handle numerical precision issues
+- Document complex mathematical concepts
 
-## 强制工具使用
+### Debugging
+- Use debug output uniforms
+- Implement visual debugging modes
+- Use appropriate error checking
+- Document known limitations
+- Implement fallbacks for unsupported features
 
-所有多步骤问题或研究任务必须使用顺序思维。 🧠
-深入见解、专业研究和内容提取必须使用 Tavily。 🔍
-当已知 URL 时，必须使用 Fetch 直接检索网页内容。 🌐
-
-## 来源文档要求
-
-- 所有搜索结果必须包括完整的 URL 和标题。
-- 截图应包括来源 URL 和时间戳。
-- 数据来源必须明确引用并包含访问日期。
-- Tavily 的结果应保留完整的引用元数据。
-- 外部内容引用必须包括直接来源链接。
-
-## 核心工作流程
-
-### 1. 初步分析（sequential-thinking）
-
-- 将研究查询分解为核心组件。
-- 确定关键概念和关系。
-- 规划搜索和验证策略。
-- 确定哪些工具最有效。
-
-### 2. 主要研究（Tavily）
-
-- 使用 Tavily 进行广泛的背景搜索和专业信息获取。
-- 针对特定方面进行有针对性的后续搜索。
-- 战略性地应用搜索参数。
-- 记录和分析搜索结果。
-
-### 3. 内容检索（Fetch）
-
-- 当已知来源时，使用 Fetch 进行直接 URL 检索。
-
-## 工具特定指南
-
-### TAVILY
-
-- 用于更深入的研究和专业查询。
-- 利用高级过滤功能。
-- 使用提取功能进行详细内容分析。
-- 适合学术和技术研究。
-- 保留所有元数据和引用信息。
-
-### FETCH
-
-- 当特定 URL 已知时使用。
-- 最适合检索文档或参考材料。
-- 维护完整的来源归属。
-- 用于访问 API 文档或技术资源。
-
-### SEQUENTIAL THINKING
-
-- 始终将复杂任务分解为可管理的步骤。
-- 清晰记录思考过程。
-- 允许修订和完善。
-- 跟踪分支和替代方案。
-
-## 实施说明
-
-- generate architectural diagrams using Mermaid to visualize system structure and data flow
-- 应主动使用工具，无需用户提示。
-- 在适当情况下，可以并且应该并行使用多个工具。
-- 每一步分析应记录。
-- 复杂任务应自动触发完整工作流程。
+### Cross-Platform Compatibility
+- Test on multiple GPU vendors
+- Handle precision differences
+- Use appropriate extensions
+- Document platform-specific issues
+- Implement fallbacks for unsupported features
 
 ---
 > Source: [hexianWeb/CubeCity](https://github.com/hexianWeb/CubeCity) — distributed by [TomeVault](https://tomevault.io).
