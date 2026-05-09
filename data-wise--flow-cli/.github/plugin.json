@@ -1,0 +1,9 @@
+{
+  "name": "data-wise--flow-cli",
+  "displayName": "flow-cli",
+  "description": "ADHD-optimized ZSH configuration documentation and workflows",
+  "version": "1.0.0",
+  "author": "Data-Wise",
+  "homepage": "https://github.com/Data-Wise/flow-cli",
+  "skills": []
+}
