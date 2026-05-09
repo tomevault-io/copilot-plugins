@@ -1,0 +1,9 @@
+{
+  "name": "afilmory--afilmory",
+  "displayName": "afilmory",
+  "description": "Modern photo gallery for photographers, with S3/GitHub sync, EXIF details, maps, and a WebGL viewer.",
+  "version": "1.0.0",
+  "author": "Afilmory",
+  "homepage": "https://github.com/Afilmory/afilmory",
+  "skills": []
+}
