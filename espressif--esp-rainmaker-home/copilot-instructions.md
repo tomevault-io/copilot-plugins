@@ -1,37 +1,41 @@
-## project-agent-workflow
+## protected-config-files
 
-> > esp-rainmaker-home: before substantive work, follow the same routing model as cursor/agents/project-agent.md (layers, questions, change kind, output shape).
+> Certain config files that enforce code quality gates are permanently read-only for agents. NEVER modify: .eslintrc.cjs, .dependency-cruiser.cjs, .husky/pre-commit, or the check/lint/typecheck scripts in package.json.
 
 
-# Project agent workflow (esp-rainmaker-home)
+# Protected configuration files — never modify
 
-Aligned with **`.cursor/agents/project-agent.md`**. For **non-trivial** work (code changes, multi-file debug, new behavior, “where should this live?”), **before** editing:
+The following files enforce automated code quality gates (linting, architecture checks, type checking, pre-commit hooks). They must **never** be edited, created, deleted, or worked around by any agent or subagent under any circumstance.
 
-1. **Questions (if needed)** — If goal, SDK, scope, or layer is unclear, ask **2–5 short questions** (or state assumptions). If blocked, output questions first; optional provisional route.
-2. **Change kind** — One primary: **modify** · **add-files** (same domain/module) · **new-module** · **new-feature** (often `features.config` + surfaces + maybe `store` / `sdk-adaptors`).
-3. **Classify** — Intent: add \| update \| fix \| refactor \| configure. Map to **Category**: Config \| Integrations \| SDKAdaptors \| NativeAdaptors \| Features \| Context \| Shared \| Store \| CrossCutting.
+## Permanently read-only files
 
-**Startup flow (for orientation):** `integrations` → `runtime.config` → `sdk-adaptors` → `initCDF` (`store`) → active SDK via `sdk.config` + `sdk.identifiers`. `sdk.config` injects `native-adaptors` into `@espressif/*-sdk`. `features.config` ↔ `sdk.config`. `params.config` → `shared` ParamControls.
+| File | Gate it enforces |
+|------|-----------------|
+| `.eslintrc.cjs` | ESLint rules |
+| `.dependency-cruiser.cjs` | Architecture / import boundary rules |
+| `.husky/pre-commit` | Pre-commit hook runner |
 
-**Layer map (same as project-agent):**
+## Protected scripts in `package.json`
 
-- **Config** — `config/` (URLs, identifiers, runtime, flags, devices, params, agent)
-- **Integrations** — `src/integrations/` (`initializeApp`, adaptor registry, `initCDF`)
-- **SDK adaptors** — `src/sdk-adaptors/` (`ESPSDKAdaptor`, transformers → ESPCDF)
-- **Native adaptors** — `src/native-adaptors/` (RN/native bridges for SDK config)
-- **Features** — `src/features/<domain>/` (screens, components, hooks, utils, theme per domain)
-- **Context** — `src/context/`: app-wide `store`, `appRestart`; **flow contexts only** for multi-screen coordination (schedule, automation, scene)—**do not** add `*.context.tsx` per feature; prefer hooks + `store`
-- **Shared** — `src/shared/` (cross-feature UI, hooks, utils)
-- **Store** — `src/store/` (ESPCDF, MobX, sync; no UI)
-- Also **`src/tasks/`** or other paths when relevant; devices: `config/devices.config.ts` + feature UI.
+The following `scripts` entries in `package.json` must never be removed, renamed, or weakened:
 
-**Cross-cuts:** Features vs shared—domain code stays in `features/<domain>/`; lift to `shared/` only when reused across domains. Context—only multi-screen flows; else `store` + hooks. SDK API changes often touch **sdk-adaptors** + **store** + **sdk.config** / identifiers. Param UI: **params.config** + **shared/ParamControls**. Bad startup/SDK: **integrations** + **runtime.config** + **sdk.config**.
+```
+"lint":       "expo lint"
+"lint:arch":  "depcruise src config app --config .dependency-cruiser.cjs --validate --output-type err"
+"typecheck":  "tsc --noEmit"
+"check:arch": "npm run lint:arch"
+"check":      "npm run lint && npm run typecheck && npm run lint:arch"
+"prepare":    "husky"
+```
 
-**Mini output (before coding):** Category · Change kind · Intent · primary + related paths · what to add/change/remove at file/module level · why (1–2 sentences) · risks if any.
+## Hard rules
 
-Skip for pure Q&A with no code impact, or when the user wants a one-liner only.
-
-**Subagent:** For read-only triage only, delegate via Task with subagent **`project-agent`** (see `.cursor/agents/project-agent.md`).
+- **Do not edit** any of the files listed above for any reason, including to make a task "pass" faster.
+- **Do not relax** ESLint rules, depcruise rules, or pre-commit hooks to bypass a failing check.
+- **Do not remove or skip** `--validate`, `--noEmit`, or any flag that enforces strictness in those scripts.
+- **Do not add** `--no-verify` or equivalent flags to git commands to bypass the pre-commit hook.
+- If a check fails, **fix the source code** so it conforms to the rules — never adjust the rules to fit broken code.
+- This restriction applies to the agent, all subagents, and any automated workflow operating in this repo.
 
 ---
 > Source: [espressif/esp-rainmaker-home](https://github.com/espressif/esp-rainmaker-home) — distributed by [TomeVault](https://tomevault.io).
