@@ -1,0 +1,9 @@
+{
+  "name": "hjertefolger--root-operator",
+  "displayName": "Root_Operator",
+  "description": "Personal AI assistant for macOS powered by Claude Code channels",
+  "version": "1.0.0",
+  "author": "hjertefolger",
+  "homepage": "https://github.com/hjertefolger/Root_Operator",
+  "skills": []
+}
