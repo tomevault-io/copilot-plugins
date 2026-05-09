@@ -1,0 +1,9 @@
+{
+  "name": "aha-app--overitall",
+  "displayName": "overitall",
+  "description": "A terminal UI for process and log management",
+  "version": "1.0.0",
+  "author": "aha-app",
+  "homepage": "https://github.com/aha-app/overitall",
+  "skills": []
+}
