@@ -1,0 +1,9 @@
+{
+  "name": "atomicdotdev--atomic-pijul",
+  "displayName": "atomic-pijul",
+  "description": "A mathematically sound version control system based on patch theory",
+  "version": "1.0.0",
+  "author": "atomicdotdev",
+  "homepage": "https://github.com/atomicdotdev/atomic-pijul",
+  "skills": []
+}
