@@ -1,0 +1,9 @@
+{
+  "name": "jpl-au--fluent",
+  "displayName": "fluent",
+  "description": "Type-safe HTML generation for Go using a fluent API. No templates, native types, automatic escaping.",
+  "version": "1.0.0",
+  "author": "jpl-au",
+  "homepage": "https://github.com/jpl-au/fluent",
+  "skills": []
+}
