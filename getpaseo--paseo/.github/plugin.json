@@ -1,0 +1,9 @@
+{
+  "name": "getpaseo--paseo",
+  "displayName": "paseo",
+  "description": "Orchestrate coding agents remotely from your phone, desktop and CLI",
+  "version": "1.0.0",
+  "author": "getpaseo",
+  "homepage": "https://github.com/getpaseo/paseo",
+  "skills": []
+}
