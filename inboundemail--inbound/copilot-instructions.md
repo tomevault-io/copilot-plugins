@@ -1,116 +1,36 @@
-## changelog-guide
+## data-fetching-and-caching
 
-> The project uses an MDX-based changelog system located at `/changelog`. All changelog entries are stored as MDX files in the [app/changelog/entries](mdc:app/changelog/entries) directory.
+> This is an extremely important rule for client performance.
 
-# Changelog Management Guide
 
-## Overview
-The project uses an MDX-based changelog system located at `/changelog`. All changelog entries are stored as MDX files in the [app/changelog/entries](mdc:app/changelog/entries) directory.
+This is an extremely important rule for client performance.
 
-## Creating Changelog Entries
+This is an example of how we want data to be fetched:
 
-### File Naming Convention
-Use date-based naming: `YYYY-MM-DD-feature-name.mdx`
-Example: `2025-01-23-lambda-multi-recipient-fix.mdx`
+```tsx
+function StatsCard() {
+ return <Suspense=fallback{<Skeleton/>}>
+          <StatsCardInternal/>
+        </Suspense>
+};
 
-### Required Frontmatter
-Every changelog entry MUST include the following frontmatter:
-```yaml
----
-title: Your Feature Title
-date: YYYY-MM-DD
-version: X.Y.Z
-summary: Brief one-line description of the change
----
+function StatsCardInternal(){
+    const data = await getData();
+    return <div>{...data}</div>;
+};
 ```
 
-### Version Numbering
-Follow semantic versioning (SemVer):
-- **Major (X.0.0)**: Breaking changes, major overhauls
-- **Minor (0.X.0)**: New features, significant improvements
-- **Patch (0.0.X)**: Bug fixes, small improvements
+The reason this format is important is because it allows us to have a fallback UI while the data is loading, and a non-blocking experience for the user.
 
-### Content Structure
-1. **Overview/Problem**: Describe what issue this addresses or what's new
-2. **What Changed**: List the specific changes made
-3. **Technical Details** (if applicable): Code examples, configuration changes
-4. **Impact**: How this affects users
-5. **Migration Guide** (if needed): Steps users need to take
+Use react-query for data fetching and revalidation.
 
-### Example Entry
-```mdx
----
-title: Webhook Retry Logic Implementation
-date: 2025-01-24
-version: 1.9.1
-summary: Added automatic retry logic for failed webhook deliveries with exponential backoff
----
+Use the `useQuery` hook to fetch data.
 
-## Overview
-We've implemented robust retry logic to ensure webhook deliveries succeed even during temporary network issues.
+Use the `useMutation` hook to mutate data.
 
-## What Changed
-- Failed webhooks now retry up to 3 times
-- Exponential backoff prevents server overload
-- New monitoring metrics in dashboard
+Use the `useQueryClient` hook to get the query client.
 
-## Technical Details
-Webhooks now support configuration options:
-\`\`\`json
-{
-  "retryAttempts": 3,
-  "retryDelay": 1000
-}
-\`\`\`
-
-## Impact
-No action required - fully backward compatible.
-```
-
-## Changelog Page Features
-
-### Main Page ([/changelog](mdc:app/changelog/page.tsx))
-- Timeline visualization with connected dots
-- Sorted by date (newest first)
-- Shows title, date, version, and summary
-- Links to full entry details
-
-### Entry Pages ([/changelog/[slug]](mdc:app/changelog/[slug]/page.tsx))
-- Full MDX rendering with syntax highlighting
-- Custom styled components matching app theme
-- Back navigation to main changelog
-
-## Best Practices
-
-### DO:
-- Write user-focused summaries
-- Include code examples for technical changes
-- Mention if changes are breaking
-- Add migration guides when needed
-- Use clear, descriptive titles
-
-### DON'T:
-- Use internal jargon without explanation
-- Forget to test MDX rendering
-- Skip the summary field
-- Use inconsistent version numbers
-
-## Adding to Navigation
-The changelog is already linked in:
-- [SiteHeader](mdc:components/site-header.tsx) - For public pages
-- [MarketingHeader](mdc:components/marketing-header.tsx) - For marketing pages
-
-## MDX Components
-The changelog supports all standard markdown plus:
-- Code blocks with syntax highlighting
-- Tables
-- Images (automatically styled)
-- Links (styled with primary color)
-- Lists (bullets and numbered)
-- Blockquotes
-
-## Deployment
-Changelog entries are automatically included in the build. No additional configuration needed - just add the MDX file to the entries directory.
+Use the `useQueryState` hook to get the query state.
 
 ---
 > Source: [inboundemail/inbound](https://github.com/inboundemail/inbound) — distributed by [TomeVault](https://tomevault.io).
