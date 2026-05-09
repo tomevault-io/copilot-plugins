@@ -1,0 +1,9 @@
+{
+  "name": "ralsina--pasto",
+  "displayName": "pasto",
+  "description": "Crystal-based pastebin application with live syntax highlighting preview and extensive theme support",
+  "version": "1.0.0",
+  "author": "ralsina",
+  "homepage": "https://github.com/ralsina/pasto",
+  "skills": []
+}
