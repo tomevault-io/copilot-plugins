@@ -7,14 +7,14 @@ Simple uptime monitoring (open-source)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [syofyanzuhad/uptime-kita](https://github.com/syofyanzuhad/uptime-kita).
+Original source: `.cursor/rules/*.mdc` in [syofyanzuhad/uptime-kita](https://github.com/syofyanzuhad/uptime-kita).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/syofyanzuhad/uptime-kita](https://github.com/syofyanzuhad/uptime-kita)
