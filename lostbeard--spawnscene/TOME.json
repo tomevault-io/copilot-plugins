@@ -4,7 +4,7 @@
   "repo": "SpawnScene",
   "description": "Create interactive 3D Gaussian Splat scenes from a single photo \u2014 entirely in your browser.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LostBeard/SpawnScene",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T16:05:29Z"
+  "distributed_at": "2026-05-09T04:30:33Z"
 }
