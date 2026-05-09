@@ -1,0 +1,44 @@
+{
+  "name": "my-ai-agent",
+  "owner": "Cunninger",
+  "repo": "my-ai-agent",
+  "description": "My AI Agent \u662f\u4e00\u4e2a\u57fa\u4e8e Spring Boot \u548c Spring AI \u6846\u67b6\u6784\u5efa\u7684\u667a\u80fd\u4ee3\u7406\u670d\u52a1\uff0c\u96c6\u6210\u4e86\u73b0\u4ee3\u5927\u6a21\u578b\u80fd\u529b\uff0c\u63d0\u4f9b\u5bf9\u8bdd\u8bb0\u5fc6\u3001\u591a\u6a21\u6001\u4ea4\u4e92\u7b49\u529f\u80fd\u3002\u672c\u9879\u76ee\u901a\u8fc7\u6574\u5408\u963f\u91cc\u4e91\u7075\u79ef\u5927\u6a21\u578b\u670d\u52a1\uff0c\u5b9e\u73b0\u4e86RAG\u3001MCP\u7684\u7b49\u4e3b\u6d41\u529f\u80fd",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Cunninger/my-ai-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T16:44:50Z"
+}
