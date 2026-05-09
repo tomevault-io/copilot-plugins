@@ -1,0 +1,9 @@
+{
+  "name": "antonygiomarxdev--maverick",
+  "displayName": "maverick",
+  "description": "Offline-first LoRaWAN gateway + network server in a single binary. Runs on Raspberry Pi. No cloud required.",
+  "version": "1.0.0",
+  "author": "antonygiomarxdev",
+  "homepage": "https://github.com/antonygiomarxdev/maverick",
+  "skills": []
+}
