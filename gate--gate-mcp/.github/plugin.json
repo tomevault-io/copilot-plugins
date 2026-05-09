@@ -1,0 +1,9 @@
+{
+  "name": "gate--gate-mcp",
+  "displayName": "gate-mcp",
+  "description": "An MCP (Model Context Protocol) server that exposes Gate.io trading API as tools for AI agents.",
+  "version": "1.0.0",
+  "author": "gate",
+  "homepage": "https://github.com/gate/gate-mcp",
+  "skills": []
+}
