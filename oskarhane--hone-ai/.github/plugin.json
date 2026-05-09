@@ -1,0 +1,9 @@
+{
+  "name": "oskarhane--hone-ai",
+  "displayName": "hone-ai",
+  "description": "AI Coding Agent Orchestrator with continuous learning. Orchestration layer on top of Claude Code and OpenCode",
+  "version": "1.0.0",
+  "author": "oskarhane",
+  "homepage": "https://github.com/oskarhane/hone-ai",
+  "skills": []
+}
