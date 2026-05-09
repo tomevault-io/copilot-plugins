@@ -1,0 +1,9 @@
+{
+  "name": "ai-screams--hwpforge",
+  "displayName": "HwpForge",
+  "description": "Rust library for programmatic control of Korean HWPX documents \u2014 Markdown\u2192HWPX conversion, JSON   round-trip editing, MCP server for AI agents \ud83d\udd25",
+  "version": "1.0.0",
+  "author": "ai-screams",
+  "homepage": "https://github.com/ai-screams/HwpForge",
+  "skills": []
+}
