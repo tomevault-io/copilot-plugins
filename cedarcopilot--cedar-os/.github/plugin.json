@@ -1,0 +1,9 @@
+{
+  "name": "cedarcopilot--cedar-os",
+  "displayName": "cedar-OS",
+  "description": "The open-source framework for building AI-native frontends",
+  "version": "1.0.0",
+  "author": "CedarCopilot",
+  "homepage": "https://github.com/CedarCopilot/cedar-OS",
+  "skills": []
+}
