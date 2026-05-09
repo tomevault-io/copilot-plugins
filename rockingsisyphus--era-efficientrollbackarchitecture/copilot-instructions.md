@@ -1,51 +1,51 @@
 ## unnamed-skill
 
-> 当需要编写前端界面时, 你应该参考本文件
+> 当需要编写脚本时, 你应该参考本文件
 
-# 前端界面
+# 脚本
 
-如果 `src/xxx` 文件夹中既有 `index.ts` 文件也有 `index.html` 文件, 则它是一个前端界面项目.
+如果 `src/xxx` 文件夹中仅有 `index.ts` 文件, 则它是一个脚本项目.
 
-前端界面以无沙盒 iframe 的形式在酒馆消息楼层中前台显示, 有一个自己的界面, 你可以在其中添加静态内容、样式、脚本等.
+脚本以无沙盒 iframe 的形式在酒馆后台运行, 没有自己的界面, 只有代码部分可供编写.
 
-## index.html 中应该写什么
+## jquery
 
-前端界面的 index.html 仅可填写静态 `<body>` 内容, 不得引用项目中其他文件, 所有非内嵌样式、代码、额外的外部依赖都应通过 Typescript 文件导入. 具体来说:
+脚本中的 jquery 将直接作用于整个酒馆页面而非仅作用于脚本所在的 iframe. 例如 `$('body')` 将选择酒馆网页的 `<body>` 标签, 而不是脚本所在的 iframe 的 `<body>` 标签; 但 `appendTo` 等参数中的选择器依旧作用于脚本所在的 iframe, 因此请小心使用.
 
-```html
-<head>
-  <!-- 保留一个什么都没有的 <head> 标签, webpack 打包时会在这里插入样式、脚本等 -->
-</head>
-<body>
-  <!-- 这里写 <div>、<span> 等静态内容, 也可以只写 <div id="app"></div> 交给 vue 来渲染 -->
-</body>
+## vue
+
+由于脚本运行在 iframe 中, 当需要在脚本中向酒馆页面挂载 vue 组件时, 你应该使用 jquery 来创建一个要挂载的位置, 将其添加到酒馆网页上, 并使用 `app.mount($app[0])` 来挂载.
+
+此外, vue-style-loader 会将样式注入到 iframe 的 `<head>` 中, 为了使样式生效, 你需要将样式复制到酒馆网页的 `<head>` 中:
+
+```typescript
+export function teleport_style() {
+  $(`<div>`)
+    .attr('script_id', getScriptId())
+    .append($(`head > style`, document).clone())
+    .appendTo('head');
+}
+
+export function deteleport_style() {
+  $(`head > div[script_id="${getScriptId()}"]`).remove();
+}
 ```
 
-- 禁止在 `index.html` 中用 `<link rel="stylesheet" href="./index.css">` 导入样式, 而应该
-  - (优先) 设计 vue 组件, 在 vue 组件中用 `<style lang="scss">` 书写.
-  - 或在 Typescript 文件中用 `import './index.css'` 导入, 这样导入的样式将会经过打包最小化后插入到 `<head>` 部分;
-- 禁止在 `index.html` 中用 `<script src="./index.ts">` 来引用 `index.ts` 或其他本地脚本. `index.ts` 及它导入的文件会由 webpack 直接加入到最终打包好的 `dist/**/index.html` 中.
-- 在 `index.html` 中填入 `<img>` 标签时, 禁止使用 `src=""` 占位. 要么引用实际的图片, 要么不要有这个属性, 否则会导致 webpack 打包错误.
+## 脚本设置
 
-## 样式设计
+如果需要为用户提供自定义设置, 可以使用脚本变量, 并用 `zod` 来定义设置的类型和默认值.
 
-### 简单内嵌样式
+## 按钮
 
-对于简单的样式, 你可以在 `index.html` 中直接使用 tailwindcss 书写. 为此需要新建一个内容有 `@import 'tailwindcss'` 的 css 文件并 `import ./文件.css`.
+脚本可以在酒馆助手脚本库界面中设置按钮, 用户点击按钮时将会触发对应的事件.
 
-### 复杂外链样式
+我们可以在代码中这样注册按钮事件:
 
-如果样式复杂到需要使用 `<style>` 标签, 则你不应该直接在 html 里书写 `<style>`, 而应该
-
-- (优先) 设计 vue 组件, 并在 Typescript 文件中 `import Component from './文件.vue'` 再将其 `mount` 到界面上.
-- 或新建 scss 文件并在 Typescript 文件中以 `import './index.scss'` 的形式应用到界面上.
-
-### iframe 适配要求
-
-- 当对前端界面高度进行调整时, 禁止使用 `vh` 单位等会受宿主高度影响的单位, 而是使用 `width` 和 `aspect-ratio` 来让高度根据宽度动态调整.
-- 避免使用会强制撑高父容器的元素 (如 `min-height`、`overflow: auto`)
-- 页面整体应适配容器宽度，不产生横向滚动条
-- 如果样式更适合卡片形状，则不要有背景颜色，除非用户有明确要求
+```typescript
+eventOn(getButtonEvent('按钮名'), () => {
+  console.log('按钮被点击了');
+});
+```
 
 ---
 > Source: [RockingSisyphus/ERA-EfficientRollbackArchitecture](https://github.com/RockingSisyphus/ERA-EfficientRollbackArchitecture) — distributed by [TomeVault](https://tomevault.io).
