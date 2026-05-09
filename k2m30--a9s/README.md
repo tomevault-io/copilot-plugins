@@ -7,11 +7,11 @@ Terminal UI AWS Resource Manager — browse, inspect, and manage 60+ AWS resourc
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [k2m30/a9s](https://github.com/k2m30/a9s).
+Original source: `CLAUDE.md` in [k2m30/a9s](https://github.com/k2m30/a9s).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
