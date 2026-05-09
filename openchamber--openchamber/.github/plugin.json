@@ -1,0 +1,9 @@
+{
+  "name": "openchamber--openchamber",
+  "displayName": "openchamber",
+  "description": "Desktop and web interface for OpenCode AI agent",
+  "version": "1.0.0",
+  "author": "openchamber",
+  "homepage": "https://github.com/openchamber/openchamber",
+  "skills": []
+}
