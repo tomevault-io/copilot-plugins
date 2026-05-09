@@ -1,117 +1,226 @@
-## 10-hermes-api
+## 20-hermes-api-api
 
-> - Target Python 3.11+
+> - Endpoints in `app/api/v1/endpoints/`
 
 
-# Hermes API - Python/FastAPI Rules
+# Hermes API - FastAPI Endpoints Rules
 
-## Python Version
-- Target Python 3.11+
-- Use modern Python features (match/case, type hints, etc.)
+## Endpoint Structure
 
-## Code Style
+### File Organization
+- Endpoints in `app/api/v1/endpoints/`
+- One resource per file: `downloads.py`, `auth.py`
+- Router registration in `app/api/v1/router.py`
+- Shared dependencies in `app/api/dependencies.py`
 
-### Formatting (Black)
-- Line length: 88 characters (configured in `pyproject.toml`)
-- Let Black handle formatting automatically
-- Run: `black .` before committing
+### Router Definition
+```python
+from fastapi import APIRouter
 
-### Import Ordering (isort)
-- Profile: black (configured in `pyproject.toml`)
-- Order: standard library, third-party, local imports
-- Run: `isort .` before committing
+router = APIRouter(tags=["downloads"])
 
-### Type Hints (mypy)
-- All functions must have type hints for parameters and return values
-- Use `typing` module for complex types
-- Comply with mypy strict mode settings in `pyproject.toml`
-- Run: `mypy app` to check types
-
-## FastAPI Patterns
-
-### Async/Await
-- Use `async def` for all endpoint handlers
-- Use `await` for database operations and external API calls
-- Import `AsyncSession` for database operations
-
-### Dependencies
-- Use FastAPI's dependency injection system
-- Define dependencies in `app/api/dependencies.py`
-- Common dependencies:
-  - `get_database_session()` - Database session
-  - `get_current_user_from_token()` - Authenticated user
-  - `get_current_user_optional()` - Optional authentication
-
-### Error Handling
-- Use `HTTPException` for API errors
-- Include appropriate status codes from `fastapi.status`
-- Provide clear error messages in `detail` field
-- Log errors using structured logging
-
-### Request/Response Models
-- Define Pydantic models in `app/models/pydantic/`
-- Use type validation and serialization
-- Include field descriptions for API documentation
-- Separate request models from response models
-
-## Project Structure
-
-```
-app/
-├── api/               # API routes and endpoints
-│   ├── dependencies.py
-│   └── v1/
-│       ├── endpoints/  # Individual endpoint files
-│       └── router.py   # Route registration
-├── core/              # Core configuration
-│   ├── config.py      # Settings and configuration
-│   ├── logging.py     # Logging setup
-│   └── security.py    # Auth/security utilities
-├── db/                # Database layer
-│   ├── base.py        # Base model
-│   ├── models.py      # SQLAlchemy models
-│   ├── repositories.py # Repository pattern
-│   └── session.py     # DB session management
-├── models/            # Data models
-│   └── pydantic/      # Pydantic models
-├── services/          # Business logic
-├── tasks/             # Celery tasks
-└── utils/             # Utility functions
+@router.get("/list")
+async def list_downloads():
+    pass
 ```
 
-## Logging
+## Dependency Injection
 
-Use structured logging via `structlog`:
+### Common Dependencies
+```python
+from app.api.dependencies import get_current_user_from_token
+from app.db.session import get_database_session
+
+@router.get("/profile")
+async def get_profile(
+    current_user: dict = Depends(get_current_user_from_token),
+    db: AsyncSession = Depends(get_database_session)
+):
+    return current_user
+```
+
+- `get_database_session()` - Database session
+- `get_current_user_from_token()` - Authenticated user
+- `get_current_user_optional()` - Optional auth
+
+## Request/Response Models
+
+```python
+from pydantic import Field
+from app.models.pydantic.download import DownloadCreateRequest, DownloadResponse
+
+@router.post("/", response_model=DownloadResponse, status_code=201)
+async def create_download(
+    request: DownloadCreateRequest,
+    current_user: dict = Depends(get_current_user_from_token),
+    db: AsyncSession = Depends(get_database_session)
+):
+    # Implementation
+    pass
+```
+
+### Model Naming
+- `CreateRequest` - For creation
+- `UpdateRequest` - For updates
+- `Response` - For responses
+- `ListResponse` - For lists
+
+## Error Handling
+
+### HTTP Exceptions
+```python
+from fastapi import HTTPException, status
+
+if not download:
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail=f"Download {download_id} not found"
+    )
+```
+
+Common status codes:
+- `400 BAD_REQUEST` - Invalid input
+- `401 UNAUTHORIZED` - Auth required
+- `403 FORBIDDEN` - Permission denied
+- `404 NOT_FOUND` - Not found
+- `409 CONFLICT` - Duplicate
+- `422 UNPROCESSABLE_ENTITY` - Validation error (automatic)
+- `500 INTERNAL_SERVER_ERROR` - Server error
+
+### Logging
 ```python
 from app.core.logging import get_logger
 
 logger = get_logger(__name__)
-logger.info("Operation completed", user_id=user_id, action="download")
-logger.error("Operation failed", error=str(e), error_type=type(e).__name__)
+
+try:
+    # Operation
+    pass
+except Exception as e:
+    logger.error(
+        "Operation failed",
+        error=str(e),
+        error_type=type(e).__name__,
+        user_id=current_user["id"]
+    )
+    raise HTTPException(
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        detail="Operation failed"
+    )
 ```
 
-## Configuration
+## Endpoint Patterns
 
-- Use `pydantic-settings` for configuration management
-- Access settings via `app.core.config.settings`
-- Environment variables override default values
-- Never hardcode configuration values
+### List
+```python
+@router.get("/", response_model=List[ItemResponse])
+async def list_items(
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=100),
+    db: AsyncSession = Depends(get_database_session)
+):
+    repos = await get_repositories()
+    items = await repos["items"].get_all(skip=skip, limit=limit)
+    return items
+```
 
-## Testing
+### Create
+```python
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=ItemResponse)
+async def create_item(
+    request: ItemCreateRequest,
+    current_user: dict = Depends(get_current_user_from_token),
+    db: AsyncSession = Depends(get_database_session)
+):
+    repos = await get_repositories()
+    item = await repos["items"].create({
+        **request.dict(),
+        "user_id": current_user["id"]
+    })
+    return item
+```
 
-- Write tests in `tests/` directory
-- Use pytest with async support (`pytest-asyncio`)
-- Follow naming: `test_*.py` for files, `test_*` for functions
-- Use markers: `@pytest.mark.unit`, `@pytest.mark.integration`, `@pytest.mark.slow`
-- Run: `pytest` or `python -m pytest`
+### Get
+```python
+@router.get("/{item_id}", response_model=ItemResponse)
+async def get_item(
+    item_id: str,
+    current_user: dict = Depends(get_current_user_from_token),
+    db: AsyncSession = Depends(get_database_session)
+):
+    repos = await get_repositories()
+    item = await repos["items"].get_by_id(item_id)
+    
+    if not item:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Item {item_id} not found"
+        )
+    
+    if item.user_id != current_user["id"]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not authorized"
+        )
+    
+    return item
+```
 
-## Dependencies
+### Delete
+```python
+@router.delete("/{item_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_item(
+    item_id: str,
+    current_user: dict = Depends(get_current_user_from_token),
+    db: AsyncSession = Depends(get_database_session)
+):
+    repos = await get_repositories()
+    item = await repos["items"].get_by_id(item_id)
+    
+    if not item:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+    
+    if item.user_id != current_user["id"]:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
+    
+    await repos["items"].delete(item_id)
+```
 
-Manage dependencies with UV (following `pyproject.toml`):
-- Production dependencies in `[project.dependencies]`
-- Development dependencies in `[dependency-groups.dev]`
-- Pin versions for stability
-- Run: `uv pip compile` to update `uv.lock`
+## Background Tasks
+
+```python
+from app.tasks.download_tasks import process_download
+
+@router.post("/download")
+async def trigger_download(
+    request: DownloadRequest,
+    current_user: dict = Depends(get_current_user_from_token)
+):
+    task = process_download.delay(
+        url=request.url,
+        user_id=current_user["id"]
+    )
+    
+    return {"task_id": task.id, "status": "queued"}
+```
+
+## OpenAPI Documentation
+
+```python
+@router.get("/{item_id}", response_model=ItemResponse)
+async def get_item(item_id: str):
+    """
+    Get a single item by ID.
+    
+    Returns item details if found and user has access.
+    Raises 404 if item doesn't exist.
+    """
+    pass
+```
+
+- Include docstrings for all endpoints
+- Use tags to group related endpoints
+- Document parameters and responses
 
 ---
 > Source: [TechSquidTV/Hermes](https://github.com/TechSquidTV/Hermes) — distributed by [TomeVault](https://tomevault.io).
