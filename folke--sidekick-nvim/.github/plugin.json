@@ -1,0 +1,9 @@
+{
+  "name": "folke--sidekick-nvim",
+  "displayName": "sidekick.nvim",
+  "description": "Your Neovim AI sidekick",
+  "version": "1.0.0",
+  "author": "folke",
+  "homepage": "https://github.com/folke/sidekick.nvim",
+  "skills": []
+}
