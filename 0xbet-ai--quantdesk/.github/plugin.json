@@ -1,0 +1,9 @@
+{
+  "name": "0xbet-ai--quantdesk",
+  "displayName": "QuantDesk",
+  "description": "AI-agent workspace for quantitative trading \u2014 backtest, validate, and paper trade strategies with multi-agent collaboration",
+  "version": "1.0.0",
+  "author": "0xbet-ai",
+  "homepage": "https://github.com/0xbet-ai/QuantDesk",
+  "skills": []
+}
