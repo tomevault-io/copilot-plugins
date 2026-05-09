@@ -1,0 +1,44 @@
+{
+  "name": "Automn",
+  "owner": "AutomNexus",
+  "repo": "Automn",
+  "description": "Author, manage, and run scripts anywhere. Automn turns your code into callable webhooks or REST APIs complete with variable handling, logging, optional security and notifications so you can automate tasks and integrate systems with ease.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AutomNexus/Automn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T23:07:49Z"
+}
