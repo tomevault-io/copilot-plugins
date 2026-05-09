@@ -1,0 +1,9 @@
+{
+  "name": "wang1202--pltview",
+  "displayName": "pltview",
+  "description": "A simple viewer for AMReX plotfiles, inspired by ncview",
+  "version": "1.0.0",
+  "author": "wang1202",
+  "homepage": "https://github.com/wang1202/pltview",
+  "skills": []
+}
