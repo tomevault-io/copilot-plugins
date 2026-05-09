@@ -1,183 +1,222 @@
-## deployment-patterns
+## elysia
 
-> The project uses a multi-tier deployment approach with three main scripts in [scripts/](mdc:scripts):
+> When working with elysiaJS, here are reference guides:
 
-# Deployment Patterns and Configuration Guide
+When working with elysiaJS, here are reference guides:
 
-## Deployment Scripts Architecture
+## ⚠️ CRITICAL: OpenAPI Response Schemas
 
-The project uses a multi-tier deployment approach with three main scripts in [scripts/](mdc:scripts):
+**ALWAYS use status-code keyed objects for response schemas, NOT `t.Union()`.**
 
-### Script Hierarchy
-1. **[scripts/quick-deploy.ts](mdc:scripts/quick-deploy.ts)** - Simple, fast deployment for testing
-2. **[scripts/deploy-email-system.ts](mdc:scripts/deploy-email-system.ts)** - Full-featured deployment with validation
-3. **[scripts/test-deployment.ts](mdc:scripts/test-deployment.ts)** - Post-deployment verification
+This ensures OpenAPI documentation properly displays all response parameters.
 
-## Package.json Script Integration
-
-The [package.json](mdc:package.json) defines these deployment commands:
-- `deploy:quick` - Runs [scripts/quick-deploy.ts](mdc:scripts/quick-deploy.ts)
-- `deploy:email` - Runs [scripts/deploy-email-system.ts](mdc:scripts/deploy-email-system.ts)
-- `deploy:lambda` - Lambda-only deployment
-- `deploy:cdk` - CDK infrastructure-only deployment
-- `test:deployment` - Runs [scripts/test-deployment.ts](mdc:scripts/test-deployment.ts)
-
-## Environment Variable Patterns
-
-### Required Variables
-```bash
-SERVICE_API_URL="https://inbound.exon.dev"  # Your API endpoint
-SERVICE_API_KEY="your-secret-key"           # API authentication
-EMAIL_DOMAINS="exon.dev,example.com"        # Managed domains
-AWS_REGION="us-east-2"                      # Deployment region
-```
-
-### CDK Environment Injection
-The [aws/cdk/lib/inbound-email-stack.ts](mdc:aws/cdk/lib/inbound-email-stack.ts) reads environment variables:
+### ❌ WRONG - Response won't show in OpenAPI docs:
 ```typescript
-const serviceApiUrl = process.env.SERVICE_API_URL || 'https://inbound.exon.dev';
-const serviceApiKey = process.env.SERVICE_API_KEY || '';
-const emailDomains = process.env.EMAIL_DOMAINS?.split(',') || ['exon.dev'];
-```
-
-## Build Process Dependencies
-
-### Lambda Build Chain
-1. **Source**: [lambda/email-processor/index.ts](mdc:lambda/email-processor/index.ts)
-2. **Config**: [lambda/email-processor/tsconfig.json](mdc:lambda/email-processor/tsconfig.json)
-3. **Dependencies**: [lambda/email-processor/package.json](mdc:lambda/email-processor/package.json)
-4. **Output**: `lambda/email-processor/dist/`
-
-### CDK Build Chain
-1. **Source**: [aws/cdk/lib/inbound-email-stack.ts](mdc:aws/cdk/lib/inbound-email-stack.ts)
-2. **Config**: [aws/cdk/cdk.json](mdc:aws/cdk/cdk.json)
-3. **Dependencies**: [aws/cdk/package.json](mdc:aws/cdk/package.json)
-4. **Output**: `aws/cdk/cdk.out/`
-
-## Docker Bundling Resolution
-
-### Problem
-CDK originally used Docker bundling which required Docker Desktop to be running.
-
-### Solution
-Modified [aws/cdk/lib/inbound-email-stack.ts](mdc:aws/cdk/lib/inbound-email-stack.ts) to use pre-built assets:
-```typescript
-// Before (Docker bundling)
-code: lambda.Code.fromAsset('../../lambda/email-processor', {
-  bundling: { /* Docker commands */ }
-})
-
-// After (Pre-built)
-code: lambda.Code.fromAsset('../../lambda/email-processor/dist')
-```
-
-## TypeScript Compilation Issues
-
-### Import Path Resolution
-The [lambda/email-processor/tsconfig.json](mdc:lambda/email-processor/tsconfig.json) includes:
-```json
 {
-  "compilerOptions": {
-    "rootDir": "../../",
-  },
-  "include": [
-    "**/*.ts",
-    "../../lib/**/*.ts"
-  ]
+  response: t.Union([SuccessResponse, ErrorResponse]),
 }
 ```
 
-### Type Safety Fixes
-Fixed type annotations in [lib/aws-ses.ts](mdc:lib/aws-ses.ts):
+### ✅ CORRECT - All responses properly documented:
 ```typescript
-// Before
-const result = await response.json();
-
-// After
-const result = await response.json() as { isManaged?: boolean };
+{
+  response: {
+    200: SuccessResponse,        // Success
+    201: CreateResponse,         // Created (for POST)
+    400: ErrorResponse,          // Bad Request
+    401: ErrorResponse,          // Unauthorized
+    403: ErrorResponse,          // Forbidden
+    404: ErrorResponse,          // Not Found
+    409: ErrorResponse,          // Conflict
+    500: ErrorResponse,          // Server Error
+  },
+}
 ```
 
-## AWS Resource Naming Conventions
+### Standard Response Patterns by HTTP Method:
 
-### Consistent Naming Pattern
-- **S3 Bucket**: `inbound-emails-{account}-{region}`
-- **Lambda Function**: `inbound-email-processor`
-- **SES Rule Set**: `inbound-catchall-domain-default`
-- **DLQ**: `inbound-email-processor-dlq`
-- **CloudWatch Alarms**: `InboundEmailProcessor-{Type}`
-
-### Region Consistency
-All resources deployed to the same region (us-east-2 in current deployment).
-
-## Verification and Testing Patterns
-
-### Deployment Verification Steps
-The [scripts/test-deployment.ts](mdc:scripts/test-deployment.ts) performs:
-1. **AWS Credentials** - Verify authentication
-2. **CloudFormation Stack** - Check deployment status
-3. **Lambda Function** - Verify function state and configuration
-4. **S3 Bucket** - Confirm bucket creation
-5. **SES Rules** - Validate receipt rule configuration
-6. **Lambda Invocation** - Test function execution (expected to fail with mock data)
-
-### Expected Test Outcomes
-- ✅ Infrastructure components exist and are active
-- ❌ Lambda test invocation fails (expected - needs real SES events)
-- ✅ All AWS resources properly configured
-
-## Configuration Management Best Practices
-
-### Environment-Specific Deployments
-```bash
-# Development
-SERVICE_API_URL=https://dev.inbound.exon.dev bun run deploy:quick
-
-# Production
-SERVICE_API_URL=https://inbound.exon.dev \
-SERVICE_API_KEY=prod-secret-key \
-bun run deploy:email
+**GET (single item)**
+```typescript
+response: {
+  200: ItemResponse,
+  401: ErrorResponse,
+  404: ErrorResponse,
+  500: ErrorResponse,
+}
 ```
 
-### Multi-Domain Support
-```bash
-EMAIL_DOMAINS="exon.dev,example.com,test.org" bun run deploy:quick
+**GET (list)**
+```typescript
+response: {
+  200: ListResponse,
+  401: ErrorResponse,
+  500: ErrorResponse,
+}
 ```
 
-### Region-Specific Deployments
-```bash
-AWS_REGION=us-west-2 bun run deploy:quick
-AWS_REGION=eu-west-1 bun run deploy:quick
+**POST (create)**
+```typescript
+response: {
+  201: CreateResponse,
+  400: ErrorResponse,
+  401: ErrorResponse,
+  403: ErrorResponse,
+  409: ErrorResponse,
+  500: ErrorResponse,
+}
 ```
 
-## Monitoring and Maintenance
-
-### Log Monitoring Commands
-```bash
-# Real-time logs
-aws logs tail /aws/lambda/inbound-email-processor --follow --region us-east-2
-
-# Error filtering
-aws logs filter-log-events --log-group-name /aws/lambda/inbound-email-processor \
-  --filter-pattern "ERROR" --region us-east-2
+**PATCH/PUT (update)**
+```typescript
+response: {
+  200: UpdateResponse,
+  400: ErrorResponse,
+  401: ErrorResponse,
+  404: ErrorResponse,
+  500: ErrorResponse,
+}
 ```
 
-### Resource Cleanup
-```bash
-# Destroy all resources
-cd aws/cdk && bun run cdk destroy
-
-# Clean build artifacts
-rm -rf lambda/email-processor/dist aws/cdk/cdk.out
+**DELETE**
+```typescript
+response: {
+  200: DeleteResponse,
+  401: ErrorResponse,
+  404: ErrorResponse,
+  409: ErrorResponse,
+  500: ErrorResponse,
+}
 ```
 
-## Troubleshooting Deployment Issues
+---
 
-### Common Failure Points
-1. **AWS CLI not configured** - Run `aws configure`
-2. **CDK not bootstrapped** - Run `cd aws/cdk && bun run cdk bootstrap`
-3. **TypeScript compilation errors** - Check import paths and type annotations
-4. **Docker not running** - Use pre-built deployment approach (already implemented)
-5. **Region mismatch** - Ensure consistent AWS_REGION across all commands
+# Elysia - Ergonomic Framework for Humans
+
+> Ergonomic Framework for Humans
+
+Ergonomic Framework for Humans. TypeScript framework supercharged by Bun with End - to - End Type Safety, unified type system and outstanding developer experience
+
+## Table of Contents
+
+### Getting Started
+
+- [At glance - ElysiaJS](https://elysiajs.com/at-glance.md)
+- [Quick Start - ElysiaJS](https://elysiajs.com/quick-start.md)
+- [Key Concept - ElysiaJS](https://elysiajs.com/key-concept.md)
+
+### Essential
+
+- [Route - ElysiaJS](https://elysiajs.com/essential/route.md)
+- [Handler - ElysiaJS](https://elysiajs.com/essential/handler.md)
+- [Validation - ElysiaJS](https://elysiajs.com/essential/validation.md)
+- [Lifecycle - ElysiaJS](https://elysiajs.com/essential/life-cycle.md)
+- [Plugin - ElysiaJS](https://elysiajs.com/essential/plugin.md)
+- [Best Practice - ElysiaJS](https://elysiajs.com/essential/best-practice.md)
+
+### Patterns
+
+- [Config - ElysiaJS](https://elysiajs.com/patterns/configuration.md)
+- [Reactive Cookie - ElysiaJS](https://elysiajs.com/patterns/cookie.md)
+- [Deploy to Production - ElysiaJS](https://elysiajs.com/patterns/deploy.md)
+- [Error Handling - ElysiaJS](https://elysiajs.com/patterns/error-handling.md)
+- [Extends Context - ElysiaJS](https://elysiajs.com/patterns/extends-context.md)
+- [Fullstack Dev Server - ElysiaJS](https://elysiajs.com/patterns/fullstack-dev-server.md)
+- [Macro - ElysiaJS](https://elysiajs.com/patterns/macro.md)
+- [Mount - ElysiaJS](https://elysiajs.com/patterns/mount.md)
+- [OpenAPI - ElysiaJS](https://elysiajs.com/patterns/openapi.md)
+- [OpenTelemetry Plugin - ElysiaJS](https://elysiajs.com/patterns/opentelemetry.md)
+- [Trace - ElysiaJS](https://elysiajs.com/patterns/trace.md)
+- [TypeBox (Elysia.t) - ElysiaJS](https://elysiajs.com/patterns/typebox.md)
+- [TypeScript - ElysiaJS](https://elysiajs.com/patterns/typescript.md)
+- [Testing - ElysiaJS](https://elysiajs.com/patterns/unit-test.md)
+- [WebSocket - ElysiaJS](https://elysiajs.com/patterns/websocket.md)
+
+### Eden
+
+- [End-to-End Type Safety - ElysiaJS](https://elysiajs.com/eden/overview.md)
+- [Eden Installation - ElysiaJS](https://elysiajs.com/eden/installation.md)
+- [Eden Fetch - ElysiaJS](https://elysiajs.com/eden/fetch.md)
+
+#### Eden Treaty
+
+- [Overview - ElysiaJS](https://elysiajs.com/eden/treaty/overview.md)
+- [Eden Treaty Parameters - ElysiaJS](https://elysiajs.com/eden/treaty/parameters.md)
+- [Eden Treaty Response - ElysiaJS](https://elysiajs.com/eden/treaty/response.md)
+- [Eden Treaty Web Socket - ElysiaJS](https://elysiajs.com/eden/treaty/websocket.md)
+- [Eden Treaty Config - ElysiaJS](https://elysiajs.com/eden/treaty/config.md)
+- [Eden Treaty Unit Test - ElysiaJS](https://elysiajs.com/eden/treaty/unit-test.md)
+- [Eden Treaty Legacy - ElysiaJS](https://elysiajs.com/eden/treaty/legacy.md)
+
+### Plugins
+
+- [Plugin Overview - ElysiaJS](https://elysiajs.com/plugins/overview.md)
+- [Bearer Plugin - ElysiaJS](https://elysiajs.com/plugins/bearer.md)
+- [CORS Plugin - ElysiaJS](https://elysiajs.com/plugins/cors.md)
+- [Cron Plugin - ElysiaJS](https://elysiajs.com/plugins/cron.md)
+- [Apollo GraphQL Plugin - ElysiaJS](https://elysiajs.com/plugins/graphql-apollo.md)
+- [GraphQL Yoga Plugin - ElysiaJS](https://elysiajs.com/plugins/graphql-yoga.md)
+- [HTML Plugin - ElysiaJS](https://elysiajs.com/plugins/html.md)
+- [JWT Plugin - ElysiaJS](https://elysiajs.com/plugins/jwt.md)
+- [OpenAPI Plugin - ElysiaJS](https://elysiajs.com/plugins/openapi.md)
+- [OpenTelemetry Plugin - ElysiaJS](https://elysiajs.com/plugins/opentelemetry.md)
+- [Server Timing Plugin - ElysiaJS](https://elysiajs.com/plugins/server-timing.md)
+- [Static Plugin - ElysiaJS](https://elysiajs.com/plugins/static.md)
+
+### Comparison
+
+- [Migrate from Express - ElysiaJS](https://elysiajs.com/migrate/from-express.md)
+- [Migrate from Fastify - ElysiaJS](https://elysiajs.com/migrate/from-fastify.md)
+- [Migrate from Hono - ElysiaJS](https://elysiajs.com/migrate/from-hono.md)
+- [Migrate from tRPC - ElysiaJS](https://elysiajs.com/migrate/from-trpc.md)
+
+### Integration
+
+- [Integration with AI SDK - ElysiaJS](https://elysiajs.com/integrations/ai-sdk.md)
+- [Integration with Astro - ElysiaJS](https://elysiajs.com/integrations/astro.md)
+- [Better Auth - ElysiaJS](https://elysiajs.com/integrations/better-auth.md)
+- [Integration with Cloudflare Worker - ElysiaJS](https://elysiajs.com/integrations/cloudflare-worker.md)
+- [Integration with Deno - ElysiaJS](https://elysiajs.com/integrations/deno.md)
+- [Integration with Drizzle - ElysiaJS](https://elysiajs.com/integrations/drizzle.md)
+- [Integration with Expo - ElysiaJS](https://elysiajs.com/integrations/expo.md)
+- [Integration with Netlify Edge Function - ElysiaJS](https://elysiajs.com/integrations/netlify.md)
+- [Integration with Nextjs - ElysiaJS](https://elysiajs.com/integrations/nextjs.md)
+- [Integration with Node.js - ElysiaJS](https://elysiajs.com/integrations/node.md)
+- [Integration with Nuxt - ElysiaJS](https://elysiajs.com/integrations/nuxt.md)
+- [Integration with Prisma - ElysiaJS](https://elysiajs.com/integrations/prisma.md)
+- [React Email - ElysiaJS](https://elysiajs.com/integrations/react-email.md)
+- [Integration with SvelteKit - ElysiaJS](https://elysiajs.com/integrations/sveltekit.md)
+- [Integration with Tanstack Start - ElysiaJS](https://elysiajs.com/integrations/tanstack-start.md)
+- [Deploy Elysia on Vercel - ElysiaJS](https://elysiajs.com/integrations/vercel.md)
+
+### Other
+
+- [Cheat Sheet (Elysia by example) - ElysiaJS](https://elysiajs.com/integrations/cheat-sheet.md)
+- [Comparison with Other Frameworks](https://elysiajs.com/migrate.md)
+- [Cookie - Elysia Tutorial](https://elysiajs.com/tutorial/patterns/cookie.md)
+- [Eden Test - ElysiaJS](https://elysiajs.com/eden/test.md)
+- [Elysia Blog](https://elysiajs.com/4koma.md)
+- [Encapsulation - Elysia Tutorial](https://elysiajs.com/tutorial/getting-started/encapsulation.md)
+- [End-to-End Type Safety - Elysia Tutorial](https://elysiajs.com/tutorial/features/end-to-end-type-safety.md)
+- [Error Handling - Elysia Tutorial](https://elysiajs.com/tutorial/patterns/error-handling.md)
+- [Extends Context - Elysia Tutorial](https://elysiajs.com/tutorial/patterns/extends-context.md)
+- [Guard - Elysia Tutorial](https://elysiajs.com/tutorial/getting-started/guard.md)
+- [Handler and Context - Elysia Tutorial](https://elysiajs.com/tutorial/getting-started/handler-and-context.md)
+- [Introduction - Elysia Tutorial](https://elysiajs.com/tutorial.md)
+- [Life Cycle - Elysia Tutorial](https://elysiajs.com/tutorial/getting-started/life-cycle.md)
+- [Macro - Elysia Tutorial](https://elysiajs.com/tutorial/patterns/macro.md)
+- [Mount - Elysia Tutorial](https://elysiajs.com/tutorial/features/mount.md)
+- [OpenAPI - Elysia Tutorial](https://elysiajs.com/tutorial/features/openapi.md)
+- [Playground](https://elysiajs.com/playground.md)
+- [Plugin - Elysia Tutorial](https://elysiajs.com/tutorial/getting-started/plugin.md)
+- [Preview](https://elysiajs.com/playground/preview.md)
+- [Standalone Schema - Elysia Tutorial](https://elysiajs.com/tutorial/patterns/standalone-schema.md)
+- [Status and Headers - Elysia Tutorial](https://elysiajs.com/tutorial/getting-started/status-and-headers.md)
+- [Swagger Plugin - ElysiaJS](https://elysiajs.com/plugins/swagger.md)
+- [Unit Test - Elysia Tutorial](https://elysiajs.com/tutorial/features/unit-test.md)
+- [Validation - Elysia Tutorial](https://elysiajs.com/tutorial/getting-started/validation.md)
+- [Validation Error - Elysia Tutorial](https://elysiajs.com/tutorial/patterns/validation-error.md)
+- [What's Next - Elysia Tutorial](https://elysiajs.com/tutorial/whats-next.md)
+- [Your First Route - Elysia Tutorial](https://elysiajs.com/tutorial/getting-started/your-first-route.md)
 
 ---
 > Source: [inboundemail/inbound](https://github.com/inboundemail/inbound) — distributed by [TomeVault](https://tomevault.io).
