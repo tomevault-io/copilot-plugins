@@ -1,0 +1,9 @@
+{
+  "name": "codingwithriha--ai-email-agent",
+  "displayName": "ai-email-agent",
+  "description": "MailMind AI is a modern AI powered email generation platform built with Next.js 16, TypeScript, Tailwind CSS, and Groq AI.",
+  "version": "1.0.0",
+  "author": "codingwithriha",
+  "homepage": "https://github.com/codingwithriha/ai-email-agent",
+  "skills": []
+}
