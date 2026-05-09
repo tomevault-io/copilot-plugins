@@ -1,0 +1,9 @@
+{
+  "name": "awebai--aweb",
+  "displayName": "aweb",
+  "description": "Coordination tools for AI agents: messaging, tasks and file reservations.",
+  "version": "1.0.0",
+  "author": "awebai",
+  "homepage": "https://github.com/awebai/aweb",
+  "skills": []
+}
