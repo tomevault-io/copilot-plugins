@@ -1,40 +1,49 @@
-## playwright-e2e-testing
+## quality-workflow
 
-> Playwright E2E testing conventions
+> Quality gates and severity policy for this project
 
 
-# Playwright E2E Testing
+# Quality Workflow
 
 Reference: [CLAUDE.md](./CLAUDE.md) is the authoritative source.
 
-## Test Locations
+## Quality Gates (after every code change)
 
-- E2E specs in `tests/*.spec.ts`
+Run these steps after **every** code change:
 
-## Focus
+1. **Build compiles** — `npm run build` (frontend) + `npm run build:backend` (Go)
+2. **OpenAPI spec** — update `pkg/plugin/openapi/openapi.json` and run `validate:openapi` if routes changed
+3. **Code review** — fix critical/major/medium issues
+4. **Clean AI noise** — remove comments that restate code; only keep non-obvious *why* comments
+5. **Tests & lint** — `npm run test:ci`, `go test ./pkg/...`, `npm run lint`, `npm run typecheck`
 
-Test critical user flows: chat, session management, AppConfig, RBAC roles.
-Limit to **3–5 focused tests per file**.
-
-## Best Practices
-
-1. **Use `data-testid`** selectors from `src/components/testIds.ts` — not CSS or XPath
-2. **Mock external APIs** with `page.route()` for deterministic tests
-3. **Auto-waiting** — use Playwright's built-in waiting, avoid explicit `waitForTimeout`
-4. **Setup in `beforeEach`** — page navigation and route mocking
-5. **Test both success and error scenarios**
-
-## RBAC Testing
-
-Test RBAC with Admin, Editor, Viewer roles. Viewers must not access write tools.
-
-## Run Tests
+## Commands
 
 ```bash
-# Requires running server: nvm use 22 && npm run server
-nvm use 22 && npm run e2e
-nvm use 22 && npm run e2e -- --grep "test name pattern"
+# Always prefix npm commands with nvm use 22 &&
+nvm use 22 && npm run test:ci        # Frontend unit tests
+go test ./pkg/...                    # Backend tests
+nvm use 22 && npm run lint           # ESLint
+nvm use 22 && npm run typecheck      # TypeScript
+nvm use 22 && npm run validate:openapi  # OpenAPI validation
 ```
+
+## Severity Policy
+
+| Severity | Action |
+|----------|--------|
+| Critical | Fix now |
+| Major | Fix before commit |
+| Medium | Fix before PR |
+| Low | Optional |
+
+## Commit Format (CI-enforced)
+
+**Format:** `type(scope): description` — lowercase, imperative, no period.
+
+**Types:** feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+
+**Scopes:** chat, mcp, session, config, rbac, oauth, share, viz, backend, ui, frontend, deps, release, ci, main
 
 ---
 > Source: [Consensys/ask-o11y-plugin](https://github.com/Consensys/ask-o11y-plugin) — distributed by [TomeVault](https://tomevault.io).
