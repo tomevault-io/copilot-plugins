@@ -1,0 +1,9 @@
+{
+  "name": "jchristn--armada",
+  "displayName": "Armada",
+  "description": "Armada is a multi-agent orchestration system to allow humans to scale when working with multiple AI agents",
+  "version": "1.0.0",
+  "author": "jchristn",
+  "homepage": "https://github.com/jchristn/Armada",
+  "skills": []
+}
