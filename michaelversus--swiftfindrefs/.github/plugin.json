@@ -1,0 +1,9 @@
+{
+  "name": "michaelversus--swiftfindrefs",
+  "displayName": "SwiftFindRefs",
+  "description": "SwiftFindRefs is a macOS Swift CLI that resolves a project\u2019s DerivedData, reads Xcode\u2019s IndexStore, and reports every file referencing a chosen symbol, with optional verbose tracing for diagnostics.",
+  "version": "1.0.0",
+  "author": "michaelversus",
+  "homepage": "https://github.com/michaelversus/SwiftFindRefs",
+  "skills": []
+}
