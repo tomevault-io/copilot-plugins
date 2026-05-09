@@ -1,0 +1,9 @@
+{
+  "name": "hansipie--ecotokens",
+  "displayName": "ecotokens",
+  "description": "Token optimizer for Claude Code Gemini CLI & Qwen Code \u2014 compresses shell outputs via PreToolUse hook, tracks USD savings in TUI dashboard",
+  "version": "1.0.0",
+  "author": "hansipie",
+  "homepage": "https://github.com/hansipie/ecotokens",
+  "skills": []
+}
