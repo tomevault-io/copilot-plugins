@@ -1,0 +1,9 @@
+{
+  "name": "caido-community--authswap",
+  "displayName": "authswap",
+  "description": "Quickly switch between different user authentication contexts during manual testing",
+  "version": "1.0.0",
+  "author": "caido-community",
+  "homepage": "https://github.com/caido-community/authswap",
+  "skills": []
+}
