@@ -1,0 +1,9 @@
+{
+  "name": "shn2004--openfuel",
+  "displayName": "OpenFuel",
+  "description": "Serverless, zero-cost, real-time fuel price API for India.",
+  "version": "1.0.0",
+  "author": "SHN2004",
+  "homepage": "https://github.com/SHN2004/OpenFuel",
+  "skills": []
+}
