@@ -1,0 +1,9 @@
+{
+  "name": "kirikirby--macrophage-4-analysis",
+  "displayName": "Macrophage-4-Analysis",
+  "description": "This project is a Fiji / ImageJ macro for semi-automatic quantitative analysis of macrophage images with beads.",
+  "version": "1.0.0",
+  "author": "KiriKirby",
+  "homepage": "https://github.com/KiriKirby/Macrophage-4-Analysis",
+  "skills": []
+}
