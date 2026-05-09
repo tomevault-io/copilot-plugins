@@ -1,9 +1,9 @@
 {
   "name": "idun-group--idun-agent-platform",
   "displayName": "idun-agent-platform",
-  "description": "idun-agent-platform",
+  "description": "\ud83d\udfea Open source Agent Governance Platform that turns any LangGraph or ADK agent into a production-ready service. Supports: AG-UI, CopilotKit API, OpenTelemetry, MCP, memory, guardrails, SSO, RBAC.",
   "version": "1.0.0",
   "author": "Idun-Group",
-  "homepage": "https://tomevault.io/claim/Idun-Group",
+  "homepage": "https://github.com/Idun-Group/idun-agent-platform",
   "skills": []
 }
