@@ -1,63 +1,48 @@
-## shadcn-ui
+## tailwindcss
 
-> shadcn/ui component library setup in monorepo
+> Tailwind CSS v4 patterns
 
 
-## shadcn/ui Components
+## Tailwind CSS v4
 
-Components live in `packages/ui/src/components/` and are shared across all apps.
+We use Tailwind CSS v4.1+ with the new CSS-first configuration.
 
-### Checking for Components
+### Key Changes from v3
 
-Before creating a new component, check if it exists:
-```bash
-ls packages/ui/src/components/
-```
+- `tailwind.config.js` is **deprecated** - use CSS `@theme` directive
+- Size utilities: `w-4 h-4` → `size-4`
+- CSS variables for theming
 
-### Installing New Components
-
-Install from the `packages/ui` directory:
-```bash
-cd packages/ui
-pnpm dlx shadcn@latest add <component-name>
-```
-
-Or from root:
-```bash
-pnpm --filter=@bklit/ui dlx shadcn@latest add <component-name>
-```
-
-### Importing Components
+### Common Patterns
 
 ```tsx
-// Import from @bklit/ui
-import { Button } from "@bklit/ui/components/button";
-import { Card, CardHeader, CardContent } from "@bklit/ui/components/card";
-import { Skeleton } from "@bklit/ui/components/skeleton";
+// ✅ v4 syntax
+<div className="size-4" />           // width + height
+<div className="inset-0" />          // top/right/bottom/left: 0
+
+// ❌ Old v3 syntax
+<div className="w-4 h-4" />
 ```
 
-### Configuration
+### Theme Variables
 
-- Style: `new-york`
-- Icon library: `lucide`
-- CSS variables: enabled
-- Base color: `neutral`
+```css
+/* packages/ui/src/styles/globals.css */
+@theme {
+  --color-primary: oklch(0.7 0.15 200);
+  --radius-lg: 0.5rem;
+}
+```
 
-See [components.json](mdc:packages/ui/components.json) for full config.
+### Dark Mode
 
-### Radix Primitives
-
-All shadcn components use Radix primitives under the hood. You have access to all Radix props:
+Use `dark:` variant with CSS variables:
 
 ```tsx
-<Dialog onOpenChange={setOpen} modal={false}>
-  {/* Radix Dialog props available */}
-</Dialog>
+<div className="bg-background text-foreground dark:bg-background" />
 ```
 
-Refs:
-- https://ui.shadcn.com/docs/components
-- https://www.radix-ui.com/primitives
+Ref: https://tailwindcss.com/docs
 
 ---
 > Source: [bklit/bklit](https://github.com/bklit/bklit) — distributed by [TomeVault](https://tomevault.io).
