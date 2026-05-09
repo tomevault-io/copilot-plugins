@@ -4,7 +4,7 @@
   "repo": "vibe-working-template",
   "description": "vibe-working-now",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thinkthinking/vibe-working-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T06:06:14Z"
+  "distributed_at": "2026-05-09T18:05:56Z"
 }
