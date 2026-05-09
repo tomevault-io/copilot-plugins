@@ -1,69 +1,47 @@
-## bklit
+## create-update-delete
 
-> Data fetching patterns with tRPC and real-time SSE
+> Practices for creating, updating and deletions, forms, fields, tRPC.
 
 
-## Data Fetching
+When building create, updated or deletes such as forms, fields; refer to our `/apps/dashboard/src/actions/**` where we use tRPC APIs for most effective data transformations.
 
-Use [tRPC](https://trpc.io/docs) for data fetching and check our [schema.prisma](mdc:packages/db/prisma/schema.prisma) file for database models.
+Refer to docs: [tRPC](https://trpc.io/docs) and check our `packages/db/prisma/schema.prisma` file for our database models
 
-### tRPC Patterns
+## Key Patterns
 
-```tsx
-// Server component - use caller directly
-const data = await trpc.session.getById({ sessionId, projectId, organizationId });
+### Server Actions vs tRPC
 
-// Client component - use useQuery
-const { data, isLoading } = useQuery(
-  trpc.session.liveUsers.queryOptions({ projectId, organizationId })
-);
-```
+- **Use Server Actions** for form submissions and complex business logic
+- **Use tRPC mutations** for simple CRUD operations and real-time updates
+- **Server Actions** are better for: form validation, file uploads, complex workflows
+- **tRPC mutations** are better for: simple updates, optimistic updates, real-time features
 
-### Best Practices
+### Database Updates
 
-- Always wrap client requests in `Suspense` with [skeleton.tsx](mdc:packages/ui/src/components/skeleton.tsx) fallbacks
-- Avoid `useEffect` for data fetching - prefer React Query's declarative approach
-- Use `staleTime` and `refetchInterval` for caching strategy
-- Invalidate queries with `queryClient.invalidateQueries({ queryKey: [...] })`
+- **Better Auth API** has limitations - use Prisma directly for custom fields (like `theme`)
+- **Always use Prisma** for fields not supported by Better Auth API
+- **Import Prisma** from `@bklit/db/client` in server actions
 
-## Real-Time Data
+### Form Patterns
 
-For live/real-time features, use our SSE-based hooks instead of polling:
+- **Use `useActionState`** for server actions with proper typing
+- **Use `useMutation`** from React Query for tRPC mutations
+- **Always invalidate queries** after updates using `queryClient.invalidateQueries()`
+- **Use proper error handling** with try/catch and user feedback
 
-```tsx
-import { useLiveEventStream } from "@/hooks/use-live-event-stream";
+### Type Safety
 
-// Subscribe to real-time events (pageviews, custom events, session ends)
-const { isConnected } = useLiveEventStream(projectId, {
-  onPageview: (data) => { /* handle pageview */ },
-  onEvent: (data) => { /* handle custom event */ },
-  onSessionEnd: (data) => { /* handle session end */ },
-});
-```
+- **Export interfaces** from action files for reuse
+- **Use proper return types** in server actions
+- **Type form state** with `OrganizationFormState` pattern
+- **Cast tRPC actions** when needed: `createOrganizationAction as (prevState: OrganizationFormState, formData: FormData) => Promise<OrganizationFormState>`
 
-### Real-Time Architecture
+### Query Invalidation
 
-```
-SDK → Ingestion → Redis Queue → Worker → ClickHouse
-                                    ↓
-                              Redis Pub/Sub (live-events)
-                                    ↓
-                        /api/live-stream (SSE endpoint)
-                                    ↓
-                        Browser EventSource → React hooks → UI
-```
-
-### When to Use What
-
-| Use Case | Solution |
-|----------|----------|
-| Initial data load | tRPC `useQuery` |
-| Real-time updates | `useLiveEventStream` hook |
-| Form submissions | Server Actions or tRPC mutations |
-| Cache invalidation | `queryClient.invalidateQueries()` |
-
-Ref: [use-live-event-stream.ts](mdc:apps/dashboard/src/hooks/use-live-event-stream.ts)
+- **Invalidate specific queries** with proper query keys
+- **Use `queryClient.invalidateQueries()`** for cache updates
+- **Pattern**: `queryClient.invalidateQueries({ queryKey: ["organization", "fetch", { id: organizationId }] })`
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/bklit) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [bklit/bklit](https://github.com/bklit/bklit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
