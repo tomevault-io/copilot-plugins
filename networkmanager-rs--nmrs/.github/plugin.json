@@ -1,0 +1,9 @@
+{
+  "name": "networkmanager-rs--nmrs",
+  "displayName": "nmrs",
+  "description": "Rust bindings for NetworkManager over D-Bus.",
+  "version": "1.0.0",
+  "author": "networkmanager-rs",
+  "homepage": "https://github.com/networkmanager-rs/nmrs",
+  "skills": []
+}
