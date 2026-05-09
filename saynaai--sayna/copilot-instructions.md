@@ -1,82 +1,796 @@
-## livekit
+## openapi
 
-> We are using LiveKit Rust SDK [livekit-rust](https://github.com/livekit/livekit-rust) for our real-time communication needs.
+> This document provides comprehensive guidelines for writing OpenAPI annotations in the Sayna Rust/Axum codebase using the `utoipa` crate.
 
+# OpenAPI Documentation Guidelines
 
-We are using LiveKit Rust SDK [livekit-rust](https://github.com/livekit/livekit-rust) for our real-time communication needs.
-The idea is that we should have a separate folder named `livekit` in the `src` folder. That folder should contain the main logic for connecting to the livekit server and receiving the audio chunks from subscribed tracks.
+This document provides comprehensive guidelines for writing OpenAPI annotations in the Sayna Rust/Axum codebase using the `utoipa` crate.
 
-Basically, user should be able to send the Websocket API message containing the livekit token to connect to the livekit server as a part of the websocket initial message.
-Then after we subscribe to the audio track, for the incoming audio chunks, we should send the received audio chunks to the Websocket audio callback. Similarly, how we process the audio chunks right now using websocket incoming audio chunks with a callback.
+## Overview
 
-### Basic LiveKit Example
+Sayna uses `utoipa` (v5.3+, latest is v5.4) for OpenAPI 3.1 specification generation. All OpenAPI-related code is feature-gated behind the `openapi` feature flag to keep dependencies minimal in production builds.
 
-This code below connects to the livekit server and subscribes to the audio tracks.
+### Key Principles
+
+1. **Feature-Gated**: All OpenAPI code must be conditionally compiled with `#[cfg_attr(feature = "openapi", ...)]`
+2. **Centralized Documentation**: All paths, schemas, and tags are registered in `src/docs/openapi.rs`
+3. **Complete Examples**: Every field should have meaningful examples that reflect real-world usage
+4. **Consistent Style**: Follow established patterns for naming, descriptions, and error responses
+5. **Type Safety**: Leverage Rust's type system to ensure documentation matches implementation
+
+## Feature Flag Setup
+
+### Cargo.toml Configuration
+
+```toml
+[features]
+openapi = [
+    "dep:utoipa",
+]
+
+[dependencies]
+utoipa = { version = "5.3", optional = true, features = ["axum_extras"] }
+
+# Optional: For more ergonomic route registration
+# utoipa-axum = { version = "0.2", optional = true }
+```
+
+### Optional: Enhanced Axum Integration
+
+Consider adding `utoipa-axum` for more ergonomic route registration:
 
 ```rust
-use livekit::prelude::*;
+use utoipa_axum::{routes, router::OpenApiRouter};
 
-#[tokio::main]
-async fn main() -> Result<()> {
-    let (room, mut room_events) = Room::connect(&url, &token).await?;
+let (router, api) = OpenApiRouter::new()
+    .routes(routes!(health_check, list_voices, speak_handler))
+    .split_for_parts();
+```
 
-    while let Some(event) = room_events.recv().await {
-        match event {
-            RoomEvent::TrackSubscribed { track, publication, participant } => {
-                // ...
-            }
-            _ => {}
-        }
-    }
+### Running with OpenAPI
 
-    Ok(())
+```bash
+# Run server with OpenAPI endpoints
+cargo run --features openapi
+
+# Generate OpenAPI spec to file
+cargo run --features openapi -- openapi -o docs/openapi.yaml
+
+# Generate JSON format
+cargo run --features openapi -- openapi --format json -o docs/openapi.json
+```
+
+## Schema Annotations
+
+### Basic Schema Definition
+
+Use `#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]` on all types exposed in the API:
+
+```rust
+use serde::{Deserialize, Serialize};
+
+/// Health check response
+#[derive(Debug, Serialize, Deserialize)]
+#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
+pub struct HealthResponse {
+    /// Server status
+    #[cfg_attr(feature = "openapi", schema(example = "OK"))]
+    pub status: String,
 }
 ```
 
-This code below gets the audio chunks from the subscribed track.
-```rust
-...
-use futures::StreamExt; // this trait is required for iterating on audio & video frames
-use livekit::prelude::*;
+### Field-Level Annotations
 
-match event {
-    RoomEvent::TrackSubscribed { track, publication, participant } => {
-        match track {
-            RemoteTrack::Audio(audio_track) => {
-                let rtc_track = audio_track.rtc_track();
-                let mut audio_stream = NativeAudioStream::new(rtc_track);
-                tokio::spawn(async move {
-                    // Receive the audio frames in a new task
-                    while let Some(audio_frame) = audio_stream.next().await {
-                        log::info!("received audio frame - {audio_frame:#?}");
-                    }
-                });
-            },
-        }
+#### Examples
+
+Always provide realistic examples for every field:
+
+```rust
+#[derive(Debug, Deserialize)]
+#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
+pub struct TokenRequest {
+    /// The LiveKit room name to generate a token for
+    #[cfg_attr(feature = "openapi", schema(example = "conversation-room-123"))]
+    pub room_name: String,
+
+    /// Display name for the participant (e.g., "John Doe")
+    #[cfg_attr(feature = "openapi", schema(example = "Alice Smith"))]
+    pub participant_name: String,
+
+    /// Unique identifier for the participant (e.g., "user-123")
+    #[cfg_attr(feature = "openapi", schema(example = "user-alice-456"))]
+    pub participant_identity: String,
+}
+```
+
+#### Optional Fields and Defaults
+
+For optional fields, use serde attributes to control serialization:
+
+```rust
+#[derive(Debug, Deserialize, Serialize, Clone)]
+#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
+pub struct TTSWebSocketConfig {
+    /// Provider name (e.g., "deepgram")
+    #[cfg_attr(feature = "openapi", schema(example = "deepgram"))]
+    pub provider: String,
+
+    /// Voice ID or name to use for synthesis
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[cfg_attr(feature = "openapi", schema(example = "aura-asteria-en"))]
+    pub voice_id: Option<String>,
+
+    /// Speaking rate (0.25 to 4.0, 1.0 is normal)
+    #[cfg_attr(feature = "openapi", schema(example = 1.0))]
+    pub speaking_rate: Option<f32>,
+
+    /// List of participants (defaults to empty for all participants)
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub listen_participants: Vec<String>,
+}
+```
+
+#### Numeric Constraints
+
+Use schema attributes for numeric validations:
+
+```rust
+#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
+pub struct AudioConfig {
+    /// Sample rate of the audio in Hz
+    #[cfg_attr(feature = "openapi", schema(example = 16000, minimum = 8000, maximum = 48000))]
+    pub sample_rate: u32,
+
+    /// Number of audio channels (1 for mono, 2 for stereo)
+    #[cfg_attr(feature = "openapi", schema(example = 1, minimum = 1, maximum = 2))]
+    pub channels: u16,
+}
+```
+
+### Complex Types
+
+#### Enums
+
+For enum types used in discriminated unions:
+
+```rust
+#[derive(Debug, Serialize, Deserialize)]
+#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
+#[serde(tag = "type")]
+pub enum IncomingMessage {
+    #[serde(rename = "config")]
+    Config {
+        /// Enable audio processing (STT/TTS). Defaults to true if not specified.
+        #[serde(default = "default_audio_enabled")]
+        audio: Option<bool>,
+
+        /// STT configuration (required only when audio=true)
+        #[serde(skip_serializing_if = "Option::is_none")]
+        stt_config: Option<STTWebSocketConfig>,
+
+        /// TTS configuration (required only when audio=true)
+        #[serde(skip_serializing_if = "Option::is_none")]
+        tts_config: Option<TTSWebSocketConfig>,
+
+        /// Optional LiveKit configuration for real-time audio streaming
+        #[serde(skip_serializing_if = "Option::is_none")]
+        livekit: Option<LiveKitWebSocketConfig>,
     },
-    _ => {}
+
+    #[serde(rename = "speak")]
+    Speak {
+        /// Text to synthesize
+        text: String,
+
+        /// Allow this TTS to be interrupted
+        #[serde(skip_serializing_if = "Option::is_none")]
+        allow_interruption: Option<bool>,
+
+        /// Flush TTS buffer immediately
+        #[serde(skip_serializing_if = "Option::is_none")]
+        flush: Option<bool>,
+    },
+
+    #[serde(rename = "clear")]
+    Clear,
 }
 ```
 
-## Websocket API Logic that should be implemented
+#### HashMap and Collections
 
-During the initial configuration message, we should have the special JSON field object `livekit` that contains the livekit token and the related configuration as it is displayed below:
-```json
-{
-    ....
-    "livekit": {
-        "token": "livekit_token",
-        "url": "http://localhost:7880",
+For HashMap return types:
+
+```rust
+use std::collections::HashMap;
+
+pub type VoicesResponse = HashMap<String, Vec<Voice>>;
+
+// In the path annotation, reference it as:
+// body = HashMap<String, Vec<Voice>>
+```
+
+#### Nested Types
+
+For types with references to other schemas:
+
+```rust
+#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
+pub struct OutgoingMessage {
+    #[serde(rename = "type")]
+    pub message_type: String,
+
+    /// Unified message structure containing text/data from various sources
+    pub message: UnifiedMessage,
+}
+
+// Ensure UnifiedMessage is also registered in the central ApiDoc
+```
+
+## Path (Endpoint) Annotations
+
+### Basic REST Endpoint
+
+```rust
+/// Health check handler
+/// Returns a simple JSON response indicating the server is running
+#[cfg_attr(
+    feature = "openapi",
+    utoipa::path(
+        get,
+        path = "/",
+        responses(
+            (status = 200, description = "Server is healthy", body = HealthResponse)
+        ),
+        tag = "health"
+    )
+)]
+pub async fn health_check() -> Result<Json<HealthResponse>, StatusCode> {
+    Ok(Json(HealthResponse {
+        status: "OK".to_string(),
+    }))
+}
+```
+
+### POST Endpoint with Request Body
+
+```rust
+/// Handler for POST /livekit/token endpoint
+///
+/// Generates a LiveKit JWT token for a participant to join a specific room.
+///
+/// # Arguments
+/// * `state` - Shared application state containing LiveKit configuration
+/// * `request` - Token request with room name and participant details
+///
+/// # Returns
+/// * `Response` - JSON response with token or error status
+///
+/// # Errors
+/// * 400 Bad Request - Invalid request data (empty fields)
+/// * 500 Internal Server Error - LiveKit service not configured or token generation failed
+#[cfg_attr(
+    feature = "openapi",
+    utoipa::path(
+        post,
+        path = "/livekit/token",
+        request_body = TokenRequest,
+        responses(
+            (status = 200, description = "Token generated successfully", body = TokenResponse),
+            (status = 400, description = "Invalid request (missing or empty fields)"),
+            (status = 500, description = "LiveKit service not configured or token generation failed")
+        ),
+        security(
+            ("bearer_auth" = [])
+        ),
+        tag = "livekit"
+    )
+)]
+pub async fn generate_token(
+    State(state): State<Arc<AppState>>,
+    Json(request): Json<TokenRequest>,
+) -> Response {
+    // Implementation
+}
+```
+
+### Endpoint with Custom Response Headers
+
+```rust
+/// Handler for the /speak endpoint
+#[cfg_attr(
+    feature = "openapi",
+    utoipa::path(
+        post,
+        path = "/speak",
+        request_body = SpeakRequest,
+        responses(
+            (status = 200, description = "Audio generated successfully",
+                content_type = "audio/pcm",
+                headers(
+                    ("x-audio-format" = String, description = "Audio format (linear16, mp3, etc.)"),
+                    ("x-sample-rate" = u32, description = "Sample rate in Hz")
+                )
+            ),
+            (status = 400, description = "Invalid request (empty text)"),
+            (status = 500, description = "TTS synthesis failed")
+        ),
+        security(
+            ("bearer_auth" = [])
+        ),
+        tag = "tts"
+    )
+)]
+pub async fn speak_handler(
+    State(state): State<Arc<AppState>>,
+    Json(request): Json<SpeakRequest>,
+) -> Response {
+    // Implementation
+}
+```
+
+### Endpoint Returning Collections
+
+```rust
+/// Handler for GET /voices - returns available voices per provider
+#[cfg_attr(
+    feature = "openapi",
+    utoipa::path(
+        get,
+        path = "/voices",
+        responses(
+            (status = 200, description = "Available voices grouped by provider", body = HashMap<String, Vec<Voice>>),
+            (status = 500, description = "Internal server error")
+        ),
+        security(
+            ("bearer_auth" = [])
+        ),
+        tag = "voices"
+    )
+)]
+pub async fn list_voices(
+    State(state): State<Arc<AppState>>,
+) -> Result<Json<VoicesResponse>, StatusCode> {
+    // Implementation
+}
+```
+
+## Central API Documentation (src/docs/openapi.rs)
+
+All paths, schemas, and tags must be registered in the central `ApiDoc` struct:
+
+```rust
+use utoipa::OpenApi;
+
+/// OpenAPI documentation structure
+#[derive(OpenApi)]
+#[openapi(
+    info(
+        title = "Sayna API",
+        version = "0.1.0",
+        description = "Real-time voice processing server with Speech-to-Text (STT) and Text-to-Speech (TTS) services",
+        contact(
+            name = "Sayna",
+            url = "https://api.sayna.ai"
+        )
+    ),
+    servers(
+        (url = "https://api.sayna.ai", description = "Production API"),
+        (url = "http://localhost:3001", description = "Local development")
+    ),
+    paths(
+        // Register all handler functions here
+        crate::handlers::api::health_check,
+        crate::handlers::voices::list_voices,
+        crate::handlers::speak::speak_handler,
+        crate::handlers::livekit::generate_token,
+    ),
+    components(schemas(
+        // Register all schema types here
+        // REST API types
+        HealthResponse,
+        Voice,
+        SpeakRequest,
+        TokenRequest,
+        TokenResponse,
+        // WebSocket message types
+        IncomingMessage,
+        OutgoingMessage,
+        UnifiedMessage,
+        ParticipantDisconnectedInfo,
+        // Configuration types
+        STTWebSocketConfig,
+        TTSWebSocketConfig,
+        LiveKitWebSocketConfig,
+        Pronunciation,
+    )),
+    modifiers(&SecurityAddon),
+    tags(
+        (name = "health", description = "Health check endpoints"),
+        (name = "voices", description = "TTS voice management"),
+        (name = "tts", description = "Text-to-speech synthesis"),
+        (name = "livekit", description = "LiveKit room and token management"),
+        (name = "websocket", description = "WebSocket API for real-time communication")
+    )
+)]
+pub struct ApiDoc;
+```
+
+## Security Schemes
+
+Security schemes are added via modifiers:
+
+```rust
+/// Security scheme configuration
+struct SecurityAddon;
+
+impl utoipa::Modify for SecurityAddon {
+    fn modify(&self, openapi: &mut utoipa::openapi::OpenApi) {
+        if let Some(components) = openapi.components.as_mut() {
+            let mut http = utoipa::openapi::security::Http::new(
+                utoipa::openapi::security::HttpAuthScheme::Bearer,
+            );
+            http.bearer_format = Some("JWT".to_string());
+            http.description = Some(
+                "JWT token obtained from the authentication service. \
+                 Required when AUTH_REQUIRED is enabled."
+                    .to_string(),
+            );
+
+            components.add_security_scheme(
+                "bearer_auth",
+                utoipa::openapi::security::SecurityScheme::Http(http),
+            )
+        }
     }
 }
 ```
 
-After getting this message along side with the initial configuration message, we should do the following:
-1. Connect to the livekit server using the token and the url
-2. Subscribe to the audio track publications
-3. Make sure that the published track is not the current localParticipant track, for not getting the same audio chunks twice
-4. Subscribe to the audio track and get the audio chunks to the same callback where we receive the audio binary chunks from the websocket
-5. When the Livekit User leaves the room, we should unsubscribe from the audio track and disconnect from the livekit server
+## Documentation Comments
+
+### Type-Level Documentation
+
+Use Rust doc comments (///) for type-level documentation that appears in the OpenAPI description:
+
+```rust
+/// Request body for generating a LiveKit token
+///
+/// # Example
+/// ```json
+/// {
+///   "room_name": "conversation-room-123",
+///   "participant_name": "Alice Smith",
+///   "participant_identity": "user-alice-456"
+/// }
+/// ```
+#[derive(Debug, Deserialize)]
+#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
+pub struct TokenRequest {
+    // fields...
+}
+```
+
+### Field-Level Documentation
+
+Use Rust doc comments for individual fields:
+
+```rust
+#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
+pub struct LiveKitWebSocketConfig {
+    /// Room name to join or create
+    #[cfg_attr(feature = "openapi", schema(example = "conversation-room-123"))]
+    pub room_name: String,
+
+    /// Enable recording for this session
+    #[serde(default)]
+    pub enable_recording: bool,
+
+    /// List of participant identities to listen to for audio tracks and data messages.
+    ///
+    /// **Behavior**:
+    /// - If **empty** (default): Audio tracks and data messages from **all participants** will be processed
+    /// - If **populated**: Only audio tracks and data messages from participants whose identities
+    ///   are in this list will be processed; others will be ignored
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub listen_participants: Vec<String>,
+}
+```
+
+### Handler-Level Documentation
+
+Use Rust doc comments above handlers, with detailed sections:
+
+```rust
+/// Handler for POST /livekit/token endpoint
+///
+/// Generates a LiveKit JWT token for a participant to join a specific room.
+///
+/// # Arguments
+/// * `state` - Shared application state containing LiveKit configuration
+/// * `request` - Token request with room name and participant details
+///
+/// # Returns
+/// * `Response` - JSON response with token or error status
+///
+/// # Errors
+/// * 400 Bad Request - Invalid request data (empty fields)
+/// * 500 Internal Server Error - LiveKit service not configured or token generation failed
+#[cfg_attr(feature = "openapi", utoipa::path(...))]
+pub async fn generate_token(...) -> Response {
+    // Implementation
+}
+```
+
+## Best Practices
+
+### 1. Consistent Response Patterns
+
+Always document all possible HTTP status codes:
+
+```rust
+responses(
+    (status = 200, description = "Success description", body = SuccessType),
+    (status = 400, description = "Bad request - validation error"),
+    (status = 401, description = "Unauthorized - missing or invalid token"),
+    (status = 500, description = "Internal server error")
+)
+```
+
+### 2. Meaningful Examples
+
+Examples should reflect real-world usage:
+
+```rust
+// Good
+#[cfg_attr(feature = "openapi", schema(example = "conversation-room-123"))]
+pub room_name: String,
+
+// Avoid generic examples
+#[cfg_attr(feature = "openapi", schema(example = "string"))]
+pub room_name: String,
+```
+
+### 3. Complete Field Descriptions
+
+Every field should have a clear description:
+
+```rust
+/// The LiveKit room name to generate a token for
+#[cfg_attr(feature = "openapi", schema(example = "conversation-room-123"))]
+pub room_name: String,
+```
+
+### 4. Tag Organization
+
+Use consistent tags to group related endpoints:
+
+- `health` - Health check and status endpoints
+- `voices` - Voice management endpoints
+- `tts` - Text-to-speech endpoints
+- `stt` - Speech-to-text endpoints
+- `livekit` - LiveKit integration endpoints
+- `websocket` - WebSocket API documentation
+
+### 5. Security Requirements
+
+Always specify security requirements for protected endpoints:
+
+```rust
+security(
+    ("bearer_auth" = [])
+)
+```
+
+Omit for public endpoints (like health checks).
+
+### 6. Content Types
+
+Specify custom content types when returning non-JSON:
+
+```rust
+responses(
+    (status = 200, description = "Audio generated successfully",
+        content_type = "audio/pcm",
+        headers(...)
+    )
+)
+```
+
+## Testing OpenAPI Generation
+
+Always include tests in `src/docs/openapi.rs`:
+
+```rust
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_openapi_spec_generation() {
+        let spec = ApiDoc::openapi();
+        assert_eq!(spec.info.title, "Sayna API");
+        assert_eq!(spec.info.version, "0.1.0");
+    }
+
+    #[test]
+    fn test_yaml_export() {
+        let yaml = spec_yaml();
+        assert!(yaml.is_ok());
+        let yaml_str = yaml.unwrap();
+        assert!(yaml_str.contains("Sayna API"));
+    }
+
+    #[test]
+    fn test_json_export() {
+        let json = spec_json();
+        assert!(json.is_ok());
+    }
+}
+```
+
+## Validating OpenAPI Specs
+
+### Using Schemathesis (Recommended)
+
+Schemathesis performs property-based testing and validates your API implementation against the OpenAPI spec:
+
+```bash
+# Install
+pip install schemathesis
+
+# Generate the spec first
+cargo run --features openapi -- openapi -o docs/openapi.yaml
+
+# Validate against running server
+schemathesis run docs/openapi.yaml --base-url http://localhost:3001
+
+# Run in CI (stateless validation)
+schemathesis run docs/openapi.yaml --dry-run
+```
+
+### Using Online Validators
+
+- **Swagger Editor**: Upload to https://editor.swagger.io/
+- **Redocly CLI**: `npx @redocly/cli lint docs/openapi.yaml`
+- **Spectral**: `npx @stoplight/spectral-cli lint docs/openapi.yaml`
+
+### CI Integration Example
+
+```yaml
+# GitHub Actions
+validate-openapi:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - name: Generate OpenAPI spec
+      run: cargo run --features openapi -- openapi -o docs/openapi.yaml
+    - name: Validate with Redocly
+      run: npx @redocly/cli lint docs/openapi.yaml
+```
+
+## CLI Usage
+
+### Generate OpenAPI Spec
+
+The OpenAPI specification is generated via CLI commands only (no runtime HTTP endpoints):
+
+```bash
+# Generate YAML (default)
+cargo run --features openapi -- openapi -o docs/openapi.yaml
+
+# Generate JSON
+cargo run --features openapi -- openapi --format json -o docs/openapi.json
+
+# Print to stdout
+cargo run --features openapi -- openapi
+
+# Print JSON to stdout
+cargo run --features openapi -- openapi --format json
+```
+
+The generated spec can be viewed using external tools like Swagger Editor, Redoc, or other OpenAPI viewers.
+
+## Common Patterns
+
+### Pattern 1: Request/Response Pairs
+
+Always create paired request/response types:
+
+```rust
+#[derive(Debug, Deserialize)]
+#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
+pub struct TokenRequest { /* ... */ }
+
+#[derive(Debug, Serialize)]
+#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
+pub struct TokenResponse { /* ... */ }
+```
+
+### Pattern 2: WebSocket vs REST Configs
+
+Separate WebSocket configs (without API keys) from internal configs:
+
+```rust
+// WebSocket API type (no API key)
+#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
+pub struct TTSWebSocketConfig {
+    pub provider: String,
+    // No api_key field
+}
+
+impl TTSWebSocketConfig {
+    pub fn to_tts_config(&self, api_key: String) -> TTSConfig {
+        // Convert to internal config with API key
+    }
+}
+```
+
+### Pattern 3: Discriminated Unions
+
+Use `#[serde(tag = "type")]` for message enums:
+
+```rust
+#[derive(Debug, Serialize, Deserialize)]
+#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
+#[serde(tag = "type")]
+pub enum OutgoingMessage {
+    #[serde(rename = "ready")]
+    Ready { /* fields */ },
+
+    #[serde(rename = "stt_result")]
+    SttResult { /* fields */ },
+
+    #[serde(rename = "error")]
+    Error { /* fields */ },
+}
+```
+
+## Troubleshooting
+
+### Issue: Type not found in OpenAPI spec
+
+**Solution**: Ensure the type is registered in `components(schemas(...))` in `src/docs/openapi.rs`
+
+### Issue: Endpoint not appearing in spec
+
+**Solution**: Ensure the handler is registered in `paths(...)` in `src/docs/openapi.rs`
+
+### Issue: Examples not showing correctly
+
+**Solution**: Use `schema(example = "value")` not `example = "value"` within `#[cfg_attr]`
+
+### Issue: Optional fields showing as required
+
+**Solution**: Use `#[serde(skip_serializing_if = "Option::is_none")]` for optional fields
+
+### Issue: Compilation errors when openapi feature disabled
+
+**Solution**: Always use `#[cfg_attr(feature = "openapi", ...)]` instead of bare `#[derive(utoipa::ToSchema)]`
+
+## Checklist for Adding New Endpoints
+
+When adding a new endpoint, ensure:
+
+- [ ] Handler function has OpenAPI path annotation with `#[cfg_attr(feature = "openapi", utoipa::path(...))]`
+- [ ] All request/response types have `#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]`
+- [ ] All fields have examples via `#[cfg_attr(feature = "openapi", schema(example = "..."))]`
+- [ ] All types are registered in `src/docs/openapi.rs` components
+- [ ] Handler is registered in `src/docs/openapi.rs` paths
+- [ ] Appropriate tag is assigned
+- [ ] All response status codes are documented
+- [ ] Security requirements are specified (if protected endpoint)
+- [ ] Rust doc comments are complete and accurate
+- [ ] OpenAPI spec regenerates without errors: `cargo run --features openapi -- openapi -o docs/openapi.yaml`
+- [ ] Test the generated spec with a validator or Swagger UI
+
+## Version History
+
+- **v0.2.0**: Updated guidelines for utoipa 5.3+/5.4
+  - Added Schemathesis validation guidance
+  - Added utoipa-axum integration notes
+  - Added CI integration examples
+- **v0.1.0**: Initial OpenAPI documentation setup with utoipa 5.3
+- Uses OpenAPI 3.1 specification
+- Feature-gated to keep production builds lean
 
 ---
 > Source: [SaynaAI/sayna](https://github.com/SaynaAI/sayna) — distributed by [TomeVault](https://tomevault.io).
