@@ -1,134 +1,144 @@
-## snippets
+## switch-accessibility
 
-> Every snippet must include JSDoc-style comments using LiquidDoc:
+> Switch component accessibility compliance pattern
 
-# Snippet Development Standards
+# Switch Component Accessibility Standards
 
-## Snippet Documentation
+Ensures switch components follow WCAG compliance and WAI-ARIA Switch Pattern specifications.
 
-Every snippet must include JSDoc-style comments using LiquidDoc:
+<rule>
+name: switch_accessibility_standards
+description: Enforce switch component accessibility standards and WAI-ARIA Switch Pattern compliance
+filters:
+  - type: file_extension
+    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
 
-```liquid
-{% doc %}
-  Product Card Component
+actions:
+  - type: enforce
+    conditions:
+      # Switch role requirement
+      - pattern: "(?i)<(div|span|button)[^>]*(?:switch|toggle)[^>]*>"
+        pattern_negate: "role=\"switch\""
+        message: "Switch elements must have role='switch' attribute."
 
-  Renders a product card with customizable options.
+      # Missing aria-checked state
+      - pattern: "(?i)<[^>]*role=\"switch\"[^>]*>"
+        pattern_negate: "aria-checked=\"(true|false)\""
+        message: "Switch elements must have aria-checked attribute set to 'true' or 'false'."
 
-  @param product {Object} Product object (required)
-  @param show_vendor {Boolean} Display vendor name (default: false)
-  @param show_quick_add {Boolean} Show quick add button (default: false)
-  @param image_ratio {String} Image aspect ratio (default: 'adapt')
-  @param lazy_load {Boolean} Enable lazy loading (default: true)
-  @param card_class {String} Additional CSS classes
+      # Missing accessible label
+      - pattern: "(?i)<[^>]*role=\"switch\"[^>]*>"
+        pattern_negate: "(aria-labelledby|aria-label)"
+        message: "Switch elements must have either aria-labelledby or aria-label for accessibility."
 
-  @example
-    {% render 'product-card',
-       product: product,
-       show_vendor: true,
-       image_ratio: 'square'
-    %}
-{% enddoc %}
-```
+      # Empty aria-label check
+      - pattern: "(?i)<[^>]*role=\"switch\"[^>]*aria-label=\"\"[^>]*>"
+        message: "Switch aria-label should not be empty; provide a meaningful description."
 
-## Parameter Handling
+      # Missing keyboard event handlers
+      - pattern: "(?i)<[^>]*role=\"switch\"[^>]*>"
+        pattern_negate: "(onKeyDown|onkeydown|@keydown|v-on:keydown)"
+        message: "Switch elements should handle keyboard events (Space, optionally Enter)."
 
-Always provide defaults and validate parameters:
+      # Switch group missing proper structure
+      - pattern: "(?i)<(div|section)[^>]*(?:switch.*group|group.*switch)[^>]*>"
+        pattern_negate: "(role=\"group\"|fieldset)"
+        message: "Switch groups must use role='group' or fieldset element."
 
-```liquid
-{% liquid
-  # Parameter validation and defaults
-  assign product = product | default: empty
-  assign show_vendor = show_vendor | default: false
-  assign show_quick_add = show_quick_add | default: false
-  assign image_ratio = image_ratio | default: 'adapt'
-  assign lazy_load = lazy_load | default: true
-  assign card_class = card_class | default: ''
+      # Switch group missing label
+      - pattern: "(?i)<[^>]*role=\"group\"[^>]*>"
+        pattern_negate: "(aria-labelledby|legend)"
+        message: "Switch groups must have aria-labelledby or legend element for labeling."
 
-  # Early return if required parameters missing
-  unless product != empty
-    echo '<!-- Error: product parameter required for product-card snippet -->'
-    break
-  endunless
-%}
-```
+  - type: suggest
+    message: |
+      **Switch Component Accessibility Best Practices:**
 
-## Common Snippet Patterns
+      **Required ARIA Attributes:**
+      - **role='switch':** Set on the input element
+      - **aria-checked:** 'true' if switch is on, 'false' if off
+      - **aria-labelledby:** Reference to visible label, OR
+      - **aria-label:** Descriptive label if no visible label exists
 
-**Icon Snippet:**
-```liquid
-{% comment %}
-  @param icon {String} Icon name (required)
-  @param size {String} Icon size class (default: 'icon--medium')
-  @param class {String} Additional classes
-{% endcomment %}
+      **Optional ARIA Attributes:**
+      - **aria-describedby:** Reference to additional descriptive text
+      - **aria-disabled:** 'true' if switch cannot be toggled
 
-{% liquid
-  assign icon = icon | default: ''
-  assign size = size | default: 'icon--medium'
-  assign class = class | default: ''
+      **Keyboard Interaction Requirements:**
+      - **Space:** Toggle switch state
+      - **Enter:** (Optional) Toggle switch state
+      - **Tab/Shift+Tab:** Move through all focusable elements in page order
 
-  unless icon != blank
-    break
-  endunless
-%}
+      **Structure Requirements:**
+      - Switch must have a visible label that doesn't change with state
+      - Use semantic HTML within the switch (buttons, spans)
+      - Provide clear visual focus indicators
+      - Consider using native checkbox input with role='switch' for better semantics
 
-<svg class="icon {{ size }} {{ class }}" aria-hidden="true" focusable="false">
-  <use href="#icon-{{ icon }}"></use>
-</svg>
-```
+      **Implementation Patterns:**
 
-**Price Snippet:**
-```liquid
-{% comment %}
-  @param product {Object} Product object (required)
-  @param show_compare_at {Boolean} Show compare at price (default: true)
-  @param show_unit_price {Boolean} Show unit price (default: false)
-{% endcomment %}
+      **Basic Switch:**
+      ```html
+      <div class="switch">
+        <input type="checkbox"
+               id="notifications"
+               role="switch"
+               aria-checked="false"
+               tabindex="0">
+        <span class="switch-slider"></span>
+      </div>
+      <label for="notifications">Notifications</label>
+      ```
 
-{% liquid
-  assign show_compare_at = show_compare_at | default: true
-  assign show_unit_price = show_unit_price | default: false
-%}
+      **Switch with Description:**
+      ```html
+      <div class="switch">
+        <input type="checkbox"
+               id="dark-mode"
+               role="switch"
+               aria-checked="false"
+               tabindex="0"
+               aria-describedby="dark-mode-desc">
+        <span class="switch-slider"></span>
+      </div>
+      <label for="dark-mode">Dark Mode</label>
+      <span id="dark-mode-desc">Enable dark mode for reduced eye strain</span>
+      ```
 
-<div class="price">
-  <div class="price__regular">
-    {{ product.price | money }}
-  </div>
+      **Switch Group:**
+      ```html
+      <fieldset>
+        <legend>Notification Settings</legend>
+        <div class="switch">
+          <input type="checkbox"
+                 id="email-notifications"
+                 role="switch"
+                 aria-checked="false"
+                 tabindex="0">
+          <span class="switch-slider"></span>
+        </div>
+        <label for="email-notifications">Email Notifications</label>
+      </fieldset>
+      ```
 
-  {% if show_compare_at and product.compare_at_price > product.price %}
-    <div class="price__compare-at">
-      <s>{{ product.compare_at_price | money }}</s>
-    </div>
-  {% endif %}
+      **JavaScript Considerations:**
+      - Implement Space and optional Enter key handlers
+      - Update aria-checked state when switch toggles
+      - Ensure focus management is maintained
+      - Consider implementing disabled state
+      - Use CSS transitions for smooth state changes
 
-  {% if show_unit_price and product.selected_or_first_available_variant.unit_price_measurement %}
-    <div class="price__unit">
-      {{ product.selected_or_first_available_variant.unit_price | money }}/
-      {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value != 1 -%}
-        {{ product.selected_or_first_available_variant.unit_price_measurement.reference_value }}
-      {%- endif -%}
-      {{ product.selected_or_first_available_variant.unit_price_measurement.reference_unit }}
-    </div>
-  {% endif %}
-</div>
-```
+      **Accessibility Notes:**
+      - Choose between switch, checkbox, or toggle button based on semantics
+      - Use switch when on/off semantics are clearer than checked/unchecked
+      - Ensure visual state changes are clear and maintainable
+      - Test with screen readers to ensure proper announcement
+      - Consider implementing a visible focus indicator
 
-## Testing Patterns
-
-Include testing scenarios in comments:
-
-```liquid
-{% comment %}
-  Test cases:
-  - Product with variants
-  - Product without image
-  - Product with compare_at_price
-  - Product with unit pricing
-  - Out of stock product
-{% endcomment %}
-```
-
-[snippet-example.liquid](mdc:.cursor/rules/examples/snippet-example.liquid)
+metadata:
+  priority: high
+  version: 1.0
+</rule>
 
 ---
 > Source: [Shopify/horizon](https://github.com/Shopify/horizon) — distributed by [TomeVault](https://tomevault.io).
