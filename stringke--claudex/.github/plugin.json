@@ -1,0 +1,9 @@
+{
+  "name": "stringke--claudex",
+  "displayName": "claudex",
+  "description": "Multi-instance Claude Code manager with intelligent translation proxy. Use Claude Code with Grok, ChatGPT, DeepSeek, Gemini, Kimi, GLM, Ollama and more.",
+  "version": "1.0.0",
+  "author": "StringKe",
+  "homepage": "https://github.com/StringKe/claudex",
+  "skills": []
+}
