@@ -1,0 +1,9 @@
+{
+  "name": "muwinds--buuctf-agent",
+  "displayName": "BUUCTF_Agent",
+  "description": "\u4e13\u4e3aCTF\u8bbe\u8ba1\u7684\u53ef\u6269\u5c55AI Agent\uff0c\u53ef\u81ea\u52a8\u89e3CTF\u9898\uff0c\u4e5f\u80fd\u4e0e\u7528\u6237\u534f\u4f5c\u4ea4\u4e92\u89e3\u9898~",
+  "version": "1.0.0",
+  "author": "MuWinds",
+  "homepage": "https://github.com/MuWinds/BUUCTF_Agent",
+  "skills": []
+}
