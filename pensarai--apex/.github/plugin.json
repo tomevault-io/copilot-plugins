@@ -1,0 +1,9 @@
+{
+  "name": "pensarai--apex",
+  "displayName": "apex",
+  "description": "AI-powered offensive security testing using autonomous agents, directly in your terminal.",
+  "version": "1.0.0",
+  "author": "pensarai",
+  "homepage": "https://github.com/pensarai/apex",
+  "skills": []
+}
