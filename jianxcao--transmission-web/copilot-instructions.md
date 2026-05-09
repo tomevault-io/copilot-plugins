@@ -1,649 +1,416 @@
-## css-styles
+## file-organization
 
-> CSS 和样式规范（Tailwind 4 + Less）
+> 项目文件组织和结构规范
 
 
-# CSS 和样式规范
+# 文件组织规范
 
-本项目使用 Tailwind 4 + Less + UnoCSS
+## 目录结构
 
-## 样式优先级
-
-### 1. Tailwind 工具类（最优先）
-```vue
-<template>
-  <!-- ✅ 优先使用 Tailwind 类 -->
-  <div class="flex items-center justify-between gap-4 p-4">
-    <div class="w-full max-w-md">
-      <p class="text-lg font-semibold text-gray-900">标题</p>
-      <p class="text-sm text-gray-500">描述文本</p>
-    </div>
-  </div>
-</template>
+### 标准目录布局
+```
+src/
+├── api/              # API 接口层
+│   ├── rpc.ts       # Transmission RPC API
+│   └── trpc.ts      # tRPC 配置
+├── assets/          # 静态资源
+│   └── icons/       # SVG 图标
+├── components/      # 组件
+│   ├── AppHeader/   # 应用头部
+│   ├── CanvasList/  # Canvas 列表（虚拟滚动）
+│   ├── TorrentList/ # 种子列表
+│   ├── TorrentDetail/ # 种子详情
+│   ├── SiderbarView/ # 侧边栏
+│   └── dialog/      # 对话框组件
+├── composables/     # 可组合函数
+├── const/           # 常量定义
+├── i18n/            # 国际化
+│   └── locales/     # 语言文件
+├── router/          # 路由配置
+├── store/           # 状态管理（Pinia）
+├── styles/          # 全局样式
+├── types/           # TypeScript 类型定义
+├── utils/           # 工具函数
+└── views/           # 页面视图
 ```
 
-### 2. Naive UI 组件（次优先）
-```vue
-<template>
-  <!-- ✅ 使用 Naive UI 组件的内置样式 -->
-  <n-button type="primary" size="large" round>按钮</n-button>
-  <n-card title="卡片标题" :bordered="false" size="small">
-    卡片内容
-  </n-card>
-</template>
+## 组件组织
+
+### 组件文件夹结构
+```
+# 简单组件（单文件）
+components/
+├── IconButton.vue
+├── LanguageSwitcher.vue
+└── StatusBar.vue
+
+# 复杂组件（文件夹）
+components/
+└── TorrentList/
+    ├── TorrentList.vue          # 主组件
+    ├── TorrentListHeader.vue    # 子组件
+    ├── TorrentListRow.vue       # 子组件
+    ├── HeaderMenu.vue           # 菜单组件
+    ├── RowMenu.vue              # 菜单组件
+    └── cells/                   # 单元格组件
+        ├── NameCell.vue
+        ├── StatusCell.vue
+        └── ProgressCell.vue
 ```
 
-### 3. Less 样式（仅在必要时使用）
-```vue
-<style lang="less" scoped>
-// ⚠️ 仅用于动态样式、复杂动画或 Tailwind 无法实现的样式
-.custom-gradient {
-  background: linear-gradient(135deg, @primary-color, @secondary-color);
-}
-</style>
+### 组件命名规则
+```
+# ✅ 使用 PascalCase
+AppHeader.vue
+TorrentList.vue
+SettingsDialog.vue
+
+# ✅ 多词组件名
+UserProfile.vue
+TorrentDetail.vue
+ErrorMessage.vue
+
+# ❌ 避免单词组件名
+Header.vue  // 使用 AppHeader.vue
+List.vue    // 使用 TorrentList.vue
 ```
 
-## Tailwind 使用规范
-
-### 布局
-```vue
-<template>
-  <!-- ✅ Flexbox 布局 -->
-  <div class="flex flex-col gap-4">
-    <div class="flex items-center justify-between">
-      <span>标题</span>
-      <button>操作</button>
-    </div>
-  </div>
-  
-  <!-- ✅ Grid 布局 -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    <div>项目 1</div>
-    <div>项目 2</div>
-    <div>项目 3</div>
-  </div>
-  
-  <!-- ✅ 容器 -->
-  <div class="container mx-auto px-4">
-    内容
-  </div>
-</template>
+### 组件类型组织
+```
+components/
+├── layout/           # 布局组件
+│   ├── LayoutView.vue
+│   └── ResizeLine.vue
+├── common/           # 通用组件
+│   ├── IconButton.vue
+│   └── LanguageSwitcher.vue
+├── business/         # 业务组件
+│   ├── TorrentList/
+│   └── TorrentDetail/
+└── dialog/           # 对话框
+    ├── AddDialog.vue
+    └── SettingsDialog.vue
 ```
 
-### 间距
-```vue
-<template>
-  <!-- ✅ Padding 和 Margin -->
-  <div class="p-4">内边距 1rem</div>
-  <div class="px-6 py-3">水平 1.5rem，垂直 0.75rem</div>
-  <div class="mt-4 mb-6">上边距 1rem，下边距 1.5rem</div>
-  
-  <!-- ✅ Gap（用于 flex 和 grid）-->
-  <div class="flex gap-2">间距 0.5rem</div>
-  <div class="flex gap-4">间距 1rem</div>
-  <div class="flex gap-x-4 gap-y-2">水平 1rem，垂直 0.5rem</div>
-</template>
+## Composables 组织
+
+### Composables 文件结构
+```
+composables/
+├── useTorrentFilter.ts    # 种子过滤
+├── useTorrentSort.ts      # 种子排序
+├── useVirtualList.ts      # 虚拟列表
+├── useWebSocket.ts        # WebSocket 连接
+├── usePolling.ts          # 轮询
+└── useLocalStorage.ts     # 本地存储
 ```
 
-### 尺寸
-```vue
-<template>
-  <!-- ✅ 宽度 -->
-  <div class="w-full">100% 宽度</div>
-  <div class="w-1/2">50% 宽度</div>
-  <div class="w-64">16rem (256px) 宽度</div>
-  <div class="min-w-0 max-w-md">最小宽度 0，最大宽度 28rem</div>
-  
-  <!-- ✅ 高度 -->
-  <div class="h-screen">100vh 高度</div>
-  <div class="h-64">16rem 高度</div>
-  <div class="min-h-0 max-h-96">最小高度 0，最大高度 24rem</div>
-</template>
+### Composable 命名
+```typescript
+// ✅ use + PascalCase
+export function useTorrentFilter() {}
+export function useVirtualList() {}
+export function useLocalStorage() {}
+
+// ❌ 避免
+export function torrentFilter() {}  // 缺少 use 前缀
+export function use_torrent_filter() {}  // 使用下划线
 ```
 
-### 颜色
-```vue
-<template>
-  <!-- ✅ 文字颜色 -->
-  <p class="text-gray-900">深色文字</p>
-  <p class="text-gray-500">灰色文字</p>
-  <p class="text-blue-600">蓝色文字</p>
-  
-  <!-- ✅ 背景颜色 -->
-  <div class="bg-white">白色背景</div>
-  <div class="bg-gray-100">浅灰背景</div>
-  <div class="bg-blue-500">蓝色背景</div>
-  
-  <!-- ✅ 边框颜色 -->
-  <div class="border border-gray-300">灰色边框</div>
-  <div class="border-2 border-blue-500">蓝色边框</div>
-</template>
-```
+### Composable 结构
+```typescript
+// composables/useTorrentFilter.ts
+import type { TorrentInfo } from '@/types'
 
-### 文字样式
-```vue
-<template>
-  <!-- ✅ 字体大小 -->
-  <p class="text-xs">0.75rem (12px)</p>
-  <p class="text-sm">0.875rem (14px)</p>
-  <p class="text-base">1rem (16px)</p>
-  <p class="text-lg">1.125rem (18px)</p>
-  <p class="text-xl">1.25rem (20px)</p>
-  <p class="text-2xl">1.5rem (24px)</p>
+/**
+ * 种子过滤 composable
+ */
+export function useTorrentFilter(torrents: Ref<TorrentInfo[]>) {
+  // 状态
+  const filterText = ref('')
+  const filterStatus = ref<TorrentStatus | 'all'>('all')
   
-  <!-- ✅ 字体粗细 -->
-  <p class="font-normal">普通</p>
-  <p class="font-medium">中等</p>
-  <p class="font-semibold">半粗</p>
-  <p class="font-bold">粗体</p>
+  // 计算属性
+  const filteredTorrents = computed(() => {
+    // 过滤逻辑
+  })
   
-  <!-- ✅ 文字对齐 -->
-  <p class="text-left">左对齐</p>
-  <p class="text-center">居中</p>
-  <p class="text-right">右对齐</p>
+  // 方法
+  const clearFilters = () => {
+    filterText.value = ''
+    filterStatus.value = 'all'
+  }
   
-  <!-- ✅ 文字溢出 -->
-  <p class="truncate">单行截断</p>
-  <p class="line-clamp-2">两行截断</p>
-  <p class="overflow-hidden text-ellipsis">溢出隐藏</p>
-</template>
-```
-
-### 边框和圆角
-```vue
-<template>
-  <!-- ✅ 圆角 -->
-  <div class="rounded">0.25rem 圆角</div>
-  <div class="rounded-md">0.375rem 圆角</div>
-  <div class="rounded-lg">0.5rem 圆角</div>
-  <div class="rounded-full">完全圆形</div>
-  
-  <!-- ✅ 边框 -->
-  <div class="border">1px 边框</div>
-  <div class="border-2">2px 边框</div>
-  <div class="border-t">顶部边框</div>
-  <div class="border-b">底部边框</div>
-</template>
-```
-
-### 阴影
-```vue
-<template>
-  <!-- ✅ 阴影效果 -->
-  <div class="shadow-sm">小阴影</div>
-  <div class="shadow">中等阴影</div>
-  <div class="shadow-md">中大阴影</div>
-  <div class="shadow-lg">大阴影</div>
-  <div class="shadow-xl">超大阴影</div>
-  
-  <!-- ✅ 无阴影 -->
-  <div class="shadow-none">无阴影</div>
-</template>
-```
-
-### 响应式设计
-```vue
-<template>
-  <!-- ✅ 断点：sm(640px) md(768px) lg(1024px) xl(1280px) 2xl(1536px) -->
-  <div class="w-full md:w-1/2 lg:w-1/3">
-    <!-- 移动端全宽，平板半宽，桌面三分之一宽 -->
-  </div>
-  
-  <div class="text-sm md:text-base lg:text-lg">
-    <!-- 响应式字体大小 -->
-  </div>
-  
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-    <!-- 响应式网格列数 -->
-  </div>
-  
-  <!-- ✅ 隐藏/显示 -->
-  <div class="hidden md:block">桌面端显示</div>
-  <div class="block md:hidden">移动端显示</div>
-</template>
-```
-
-### 交互状态
-```vue
-<template>
-  <!-- ✅ Hover 状态 -->
-  <button class="bg-blue-500 hover:bg-blue-600">悬停变色</button>
-  <div class="opacity-80 hover:opacity-100">悬停不透明</div>
-  
-  <!-- ✅ Focus 状态 -->
-  <input class="border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
-  
-  <!-- ✅ Active 状态 -->
-  <button class="active:scale-95">点击缩放</button>
-  
-  <!-- ✅ Disabled 状态 -->
-  <button class="disabled:opacity-50 disabled:cursor-not-allowed">禁用按钮</button>
-</template>
-```
-
-### 过渡动画
-```vue
-<template>
-  <!-- ✅ 过渡效果 -->
-  <div class="transition-all duration-300 ease-in-out">
-    全部属性过渡
-  </div>
-  
-  <div class="transition-colors duration-200">
-    颜色过渡
-  </div>
-  
-  <div class="transition-transform duration-300 hover:scale-110">
-    悬停放大
-  </div>
-  
-  <!-- ✅ 动画 -->
-  <div class="animate-spin">旋转动画</div>
-  <div class="animate-pulse">脉冲动画</div>
-  <div class="animate-bounce">弹跳动画</div>
-</template>
-```
-
-## Less 使用规范
-
-### 变量定义
-```less
-// styles/variables.less
-// ✅ 颜色变量
-@primary-color: #18a058;
-@success-color: #18a058;
-@warning-color: #f0a020;
-@error-color: #d03050;
-
-// ✅ 间距变量
-@spacing-xs: 4px;
-@spacing-sm: 8px;
-@spacing-md: 16px;
-@spacing-lg: 24px;
-@spacing-xl: 32px;
-
-// ✅ 字体变量
-@font-size-sm: 12px;
-@font-size-base: 14px;
-@font-size-lg: 16px;
-
-// ✅ 断点变量
-@screen-sm: 640px;
-@screen-md: 768px;
-@screen-lg: 1024px;
-@screen-xl: 1280px;
-```
-
-### Mixin 使用
-```less
-// styles/mixins.less
-// ✅ 常用 mixin
-.flex-center() {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ellipsis() {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.multi-line-ellipsis(@lines: 2) {
-  display: -webkit-box;
-  -webkit-line-clamp: @lines;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-// ✅ 响应式 mixin
-.responsive(@breakpoint; @rules) {
-  @media (min-width: @breakpoint) {
-    @rules();
+  // 返回公开的 API
+  return {
+    filterText,
+    filterStatus,
+    filteredTorrents,
+    clearFilters
   }
 }
+```
+
+## Store 组织
+
+### Store 文件结构
+```
+store/
+├── index.ts           # Store 主入口
+├── torrent.ts         # 种子 store
+├── torrentUtils.ts    # 种子工具函数
+├── session.ts         # 会话 store
+├── setting.ts         # 设置 store
+└── stats.ts           # 统计 store
+```
+
+### Store 命名和导出
+```typescript
+// store/torrent.ts
+export const useTorrentStore = defineStore('torrent', () => {
+  // store 实现
+})
 
 // 使用
-.my-component {
-  .flex-center();
-  
-  .title {
-    .ellipsis();
-  }
-  
-  .description {
-    .multi-line-ellipsis(3);
-  }
+import { useTorrentStore } from '@/store/torrent'
+```
+
+## 类型定义组织
+
+### 类型文件结构
+```
+types/
+├── index.ts           # 主类型文件
+├── torrent.ts         # 种子相关类型
+├── api.ts             # API 相关类型
+└── ui.ts              # UI 相关类型
+```
+
+### 类型导出
+```typescript
+// types/torrent.ts
+export interface TorrentInfo {
+  id: number
+  name: string
+  // ...
+}
+
+export type TorrentStatus = 'stopped' | 'checking' | 'downloading' | 'seeding'
+
+// types/index.ts
+export * from './torrent'
+export * from './api'
+export * from './ui'
+```
+
+## 工具函数组织
+
+### Utils 文件结构
+```
+utils/
+├── format.ts          # 格式化函数
+├── date.ts            # 日期处理
+├── storage.ts         # 存储操作
+└── validators.ts      # 验证函数
+```
+
+### 工具函数示例
+```typescript
+// utils/format.ts
+/**
+ * 格式化字节大小
+ */
+export function formatBytes(bytes: number): string {
+  // 实现
+}
+
+/**
+ * 格式化速率
+ */
+export function formatSpeed(bytesPerSecond: number): string {
+  // 实现
+}
+
+// 导出所有格式化函数
+export default {
+  formatBytes,
+  formatSpeed
 }
 ```
 
-### 嵌套规则
-```less
-// ✅ 合理的嵌套（不超过 3 层）
-.torrent-list {
-  padding: @spacing-md;
-  
-  .torrent-item {
-    margin-bottom: @spacing-sm;
-    
-    &:hover {
-      background-color: #f5f5f5;
-    }
-    
-    &.selected {
-      background-color: #e6f7ff;
-    }
-  }
-  
-  .torrent-name {
-    .ellipsis();
-    font-size: @font-size-base;
-  }
-}
+## 样式组织
 
-// ❌ 避免过深的嵌套
-.component {
-  .wrapper {
-    .container {
-      .item {
-        .content {  // 5 层嵌套，太深！
-          color: red;
-        }
-      }
-    }
-  }
-}
+### 样式文件结构
+```
+src/
+├── style.css          # 全局样式入口
+└── styles/
+    ├── variables.less # 变量定义
+    ├── mixins.less    # 混入
+    └── animations.less # 动画
 ```
 
 ### 组件样式
 ```vue
+<!-- ✅ 优先使用 Tailwind -->
 <template>
-  <div class="torrent-card">
-    <div class="torrent-card-header">
-      <h3 class="torrent-card-title">{{ torrent.name }}</h3>
-    </div>
-    <div class="torrent-card-content">
-      <!-- 内容 -->
-    </div>
+  <div class="flex items-center gap-4 p-4">
+    <!-- 内容 -->
   </div>
 </template>
 
+<!-- ✅ 必要时使用 scoped 样式 -->
 <style lang="less" scoped>
-// ✅ 使用 BEM 命名
-.torrent-card {
-  padding: @spacing-md;
-  border-radius: 8px;
-  background: #fff;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  &-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: @spacing-sm;
-  }
-  
-  &-title {
-    .ellipsis();
-    font-size: @font-size-lg;
-    font-weight: 600;
-  }
-  
-  &-content {
-    color: @text-color-secondary;
-  }
+.custom-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
 }
 </style>
 ```
 
-### 动画定义
-```less
-// ✅ 关键帧动画
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
+## 路由组织
+
+### 路由文件结构
+```
+router/
+├── index.ts           # 路由主配置
+├── routes.ts          # 路由定义（可选）
+└── guards.ts          # 路由守卫（可选）
+```
+
+### 路由定义
+```typescript
+// router/index.ts
+const routes = [
+  {
+    path: '/',
+    name: 'dashboard',
+    component: () => import('@/views/DashboardView.vue')
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => import('@/views/SettingsPageView.vue')
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+]
+```
+
+## 国际化组织
+
+### i18n 文件结构
+```
+i18n/
+├── index.ts           # i18n 配置
+└── locales/
+    ├── en-US.json     # 英文
+    └── zh-CN.json     # 简体中文
+```
+
+### 翻译文件组织
+```json
+// locales/zh-CN.json
+{
+  "common": {
+    "ok": "确定",
+    "cancel": "取消"
+  },
+  "torrent": {
+    "add": "添加种子",
+    "delete": "删除种子",
+    "status": {
+      "stopped": "已停止",
+      "downloading": "下载中"
+    }
+  },
+  "settings": {
+    "title": "设置",
+    "network": "网络设置"
   }
 }
-
-.fade-in-animation {
-  animation: fadeIn 0.3s ease-out;
-}
-
-// ✅ 过渡动画
-.smooth-transition {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
 ```
 
-## CSS 模块化
+## 资源文件组织
 
-### Scoped 样式
-```vue
-<style lang="less" scoped>
-// ✅ scoped 样式只影响当前组件
-.container {
-  padding: 20px;
-}
+### Assets 结构
+```
+assets/
+└── icons/
+    ├── arrowDown.svg
+    ├── pause.svg
+    └── magnet.svg
 
-// ✅ 深度选择器（修改子组件样式）
-:deep(.n-button) {
-  margin-right: 8px;
-}
-
-// ✅ 全局选择器
-:global(.global-class) {
-  color: red;
-}
-
-// ✅ Slotted（修改插槽内容样式）
-:slotted(.slot-content) {
-  color: blue;
-}
-</style>
+public/
+├── apple-touch-icon.png
+└── transmission.svg
 ```
 
-### 全局样式
-```css
-/* style.css */
-/* ✅ 全局样式定义 */
-:root {
-  --primary-color: #18a058;
-  --text-color: #333;
-  --bg-color: #fff;
-}
+### 资源导入
+```typescript
+// ✅ SVG 作为组件导入
+import ArrowDownIcon from '@/assets/icons/arrowDown.svg?component'
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: var(--text-color);
-  background: var(--bg-color);
-}
+// ✅ SVG 作为 URL 导入
+import arrowDownUrl from '@/assets/icons/arrowDown.svg?url'
 ```
 
-## UnoCSS 使用
+## 文件命名总结
 
-### 图标
-```vue
-<template>
-  <!-- ✅ 使用 UnoCSS 图标 -->
-  <div class="i-carbon-play text-2xl" />
-  <div class="i-carbon-pause text-xl text-blue-500" />
-  
-  <!-- ✅ 自定义图标大小 -->
-  <div class="i-carbon-download" style="font-size: 24px;" />
-</template>
+### 组件文件
+- **格式**: PascalCase.vue
+- **示例**: `AppHeader.vue`, `TorrentList.vue`
+
+### TypeScript 文件
+- **Composables**: usePascalCase.ts
+- **Store**: camelCase.ts
+- **Utils**: camelCase.ts
+- **Types**: camelCase.ts
+
+### 样式文件
+- **格式**: kebab-case.less
+- **示例**: `global-styles.less`, `theme-variables.less`
+
+### 测试文件
+- **格式**: ComponentName.spec.ts
+- **示例**: `TorrentList.spec.ts`, `useTorrentFilter.spec.ts`
+
+## 导入路径
+
+### 使用路径别名
+```typescript
+// ✅ 使用 @ 别名
+import { useTorrentStore } from '@/store/torrent'
+import TorrentList from '@/components/TorrentList/TorrentList.vue'
+
+// ❌ 避免相对路径（深层嵌套时）
+import { useTorrentStore } from '../../../store/torrent'
 ```
 
-### Attributify 模式
-```vue
-<template>
-  <!-- ✅ 使用属性模式 -->
-  <button
-    flex="~"
-    items="center"
-    justify="center"
-    p="x-4 y-2"
-    bg="blue-500 hover:blue-600"
-    text="white"
-    rounded="md"
-  >
-    按钮
-  </button>
-</template>
+### 路径别名配置
+```typescript
+// vite.config.ts
+export default defineConfig({
+  resolve: {
+    alias: {
+      '@': '/src'
+    }
+  }
+})
 ```
 
-## 性能优化
+## 文件大小限制
 
-### 1. 避免不必要的样式重绘
-```vue
-<template>
-  <!-- ✅ 使用 transform 和 opacity -->
-  <div class="transition-transform hover:scale-105">
-    硬件加速
-  </div>
-  
-  <!-- ❌ 避免频繁修改 width/height -->
-  <div :style="{ width: dynamicWidth + 'px' }">
-    触发重排
-  </div>
-</template>
-```
+### 推荐限制
+- **组件文件**: < 300 行
+- **Composable**: < 150 行
+- **Store**: < 400 行
+- **工具函数**: < 100 行
 
-### 2. 减少选择器复杂度
-```less
-// ❌ 避免
-div.container > ul > li > a.link {
-  color: blue;
-}
-
-// ✅ 使用类选择器
-.nav-link {
-  color: blue;
-}
-```
-
-### 3. 使用 CSS 变量
-```vue
-<script setup lang="ts">
-const progress = ref(50)
-</script>
-
-<template>
-  <!-- ✅ 使用 CSS 变量 -->
-  <div 
-    class="progress-bar"
-    :style="{ '--progress': `${progress}%` }"
-  />
-</template>
-
-<style scoped>
-.progress-bar {
-  width: var(--progress);
-  transition: width 0.3s ease;
-}
-</style>
-```
-
-## 最佳实践总结
-
-### 样式编写顺序
-1. **优先使用 Tailwind 工具类**
-2. **使用 Naive UI 组件样式**
-3. **使用 UnoCSS 图标**
-4. **仅在必要时使用 Less**
-
-### 命名规范
-- **BEM 命名**：`.block__element--modifier`
-- **语义化命名**：使用描述性名称
-- **一致性**：保持项目命名风格统一
-
-### 避免的做法
-```vue
-<!-- ❌ 避免行内样式 -->
-<div style="color: red; font-size: 14px;">不推荐</div>
-
-<!-- ✅ 使用类名 -->
-<div class="text-red-500 text-sm">推荐</div>
-
-<!-- ❌ 避免 !important -->
-<style>
-.my-class {
-  color: red !important; /* 不推荐 */
-}
-</style>
-
-<!-- ✅ 提高选择器优先级 -->
-<style>
-.parent .my-class {
-  color: red;
-}
-</style>
-```
-
-### 代码组织
-```vue
-<style lang="less" scoped>
-// 1. 变量
-@local-spacing: 16px;
-
-// 2. Mixins
-.local-mixin() {
-  // ...
-}
-
-// 3. 组件样式
-.component {
-  // 布局
-  display: flex;
-  
-  // 定位
-  position: relative;
-  
-  // 尺寸
-  width: 100%;
-  height: auto;
-  
-  // 间距
-  padding: @local-spacing;
-  margin: 0;
-  
-  // 文字
-  font-size: 14px;
-  color: #333;
-  
-  // 背景
-  background: #fff;
-  
-  // 边框
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  
-  // 阴影
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  
-  // 过渡
-  transition: all 0.3s ease;
-  
-  // 其他
-  cursor: pointer;
-}
-</style>
-```
+### 重构建议
+当文件超过限制时，考虑：
+- 拆分为多个文件
+- 提取可复用逻辑
+- 创建子组件
+- 使用 composables
 
 ---
 > Source: [jianxcao/transmission-web](https://github.com/jianxcao/transmission-web) — distributed by [TomeVault](https://tomevault.io).
