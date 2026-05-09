@@ -1,0 +1,44 @@
+{
+  "name": "claude-nexus-hyper-agent-team-light",
+  "owner": "asiflow",
+  "repo": "claude-nexus-hyper-agent-team-light",
+  "description": "A lean version of the 31-agent Claude Code team (https://github.com/asiflow/claude-nexus-hyper-agent-team). Keeps runtime discipline, adversarial review, Bayesian trust calibration, NEXUS syscall protocol, and Shadow Mind cognitive layer. The 5-agent BEAM/Elixir stack moves to an opt-in _optional/ directory, with a session-budget hook bundled in.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/asiflow/claude-nexus-hyper-agent-team-light",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T03:10:48Z"
+}
