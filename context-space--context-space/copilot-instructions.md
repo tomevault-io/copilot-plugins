@@ -1,50 +1,39 @@
-## branch-naming-style
+## commit-message-style
 
-> Generating properly formatted git branch name.
+> Generating properly formatted git commit message.
 
-# Branch Naming Guidelines
+# Commit Message Guidelines
 
-## Standard Format
+## Format
 ```
-<type>/<short-description>
+<type>(<scope>): <description>
 ```
 
-## Type Categories
-- **feat**: New feature development
-- **fix**: Bug fix branches
-- **docs**: Documentation updates
-- **chore**: Maintenance, build, tools, dependencies
+## Types
+- **feat**: New feature
+- **fix**: Bug fix
+- **docs**: Documentation changes
 - **refactor**: Code refactoring
 - **test**: Adding or modifying tests
-- **hotfix**: Critical production fixes
+- **chore**: Build process, tools, dependencies
+- **perf**: Performance improvements
 
-## Naming Rules
-- Use lowercase letters only
-- Use hyphens (-) to separate words
+## Rules
+- Use present tense, imperative mood ("add", not "added")
+- Don't capitalize first letter
+- Don't end with period
 - Keep under 50 characters
-- No spaces, underscores, or special characters
-- Be descriptive but concise
+- Optional scope in parentheses: `(auth)`, `(ui)`, `(api)`
+- Breaking changes: add `!` after type/scope
 
 ## Examples
 ```bash
-# Good
-feat/user-authentication
-fix/login-button-alignment
-docs/api-documentation
-chore/update-dependencies
-
-# Avoid
-feature-branch          # Too generic
-fix_bug                 # Use hyphens, not underscores
-UpdateDocumentation     # No camelCase
+feat: add user authentication
+fix(ui): resolve responsive layout issues
+docs: update API documentation
+chore(deps): upgrade React to v18
+feat!: redesign authentication API
 ```
-
-## Best Practices
-1. **Keep it short** - Under 50 characters
-2. **Be descriptive** - Name should explain the purpose
-3. **Use consistent prefixes** - Follow the type categories
-4. **Match commit style** - Use similar type prefixes as commits
-5. **Use hyphens** - Always use hyphens, never underscores
 
 ---
 > Source: [context-space/context-space](https://github.com/context-space/context-space) — distributed by [TomeVault](https://tomevault.io).
