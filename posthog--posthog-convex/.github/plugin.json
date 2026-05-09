@@ -1,0 +1,30 @@
+{
+  "name": "posthog--posthog-convex",
+  "displayName": "posthog",
+  "description": "PostHog analytics and feature flags for your Convex backend.",
+  "version": "1.0.0",
+  "author": "PostHog",
+  "homepage": "https://github.com/PostHog/posthog-convex",
+  "skills": [
+    {
+      "name": "signals",
+      "description": ""
+    },
+    {
+      "name": "adopting-generated-api-types",
+      "description": ""
+    },
+    {
+      "name": "improving-drf-endpoints",
+      "description": ""
+    },
+    {
+      "name": "setup-web-tests",
+      "description": ""
+    },
+    {
+      "name": "django-migrations",
+      "description": ""
+    }
+  ]
+}
