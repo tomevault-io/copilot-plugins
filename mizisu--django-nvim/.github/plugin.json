@@ -1,0 +1,9 @@
+{
+  "name": "mizisu--django-nvim",
+  "displayName": "django.nvim",
+  "description": "Django utilities for Neovim",
+  "version": "1.0.0",
+  "author": "mizisu",
+  "homepage": "https://github.com/mizisu/django.nvim",
+  "skills": []
+}
