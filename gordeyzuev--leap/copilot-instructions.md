@@ -1,52 +1,57 @@
-## alembic-migrations
+## documentation
 
-> Alembic revision numbering, file layout, apply/verify workflow, and data-migration checks
+> Where and how to write LEAP documentation (guides, ADR, INDEX, dev_notes)
 
 
-# Alembic migrations
+# Documentation — structure, tone, and rules
 
-**DB URL:** `alembic/env.py` uses `DatabaseConfig.from_env()` (not the placeholder URL in `alembic.ini`). Run all commands from **`backend/`** with the same env the app uses.
+## Source of truth hierarchy
 
-**Release notes:** document new revisions and deploy order in `backend/docs/CHANGELOG.md` per **`workflow-changelog.mdc`**.
+1. **`backend/docs/INDEX.md`** — navigation hub; update when adding major docs.
+2. **`backend/docs/guides/`** — how-tos: deployment, OAuth, Celery, integrations (Zoom, VK, yt-dlp, Yandex, …), templates, quotas.
+3. **`backend/docs/TECHNICAL.md`** — REST API and technical reference.
+4. **`backend/docs/ADR_OVERVIEW.md`**, **`backend/docs/ADR_FEATURES.md`** — architecture decisions.
+5. **`backend/docs/DATABASE_DESIGN.md`**, **`backend/docs/ARCHITECTURE_SCHEMAS.md`** — schema and diagrams.
+6. **`backend/docs/CHANGELOG.md`** — release history (see **`workflow-changelog.mdc`**).
+7. **`backend/docs/archive/`** — historical / thesis / legacy material (do not treat as current runbooks).
+8. **`backend/docs/dev_notes/`** — drafts, TODOs, superseded investigations; **never** prefer over `guides/` when they conflict.
 
-## Revision IDs and filenames
+## Root and package READMEs
 
-- **`revision`:** zero-padded **3-digit** string (`"001"` … `"019"`, next `"020"`). Same value in the module docstring line `Revision ID:`.
-- **`down_revision`:** previous revision id, or `None` only for the first migration.
-- **Filename:** `backend/alembic/versions/{revision}_{snake_case_slug}.py` (example: `019_replace_leap_dt_in_template_jsonb.py`).
-- **Linear history:** one `down_revision` per revision; avoid branches unless unavoidable. Use `depends_on` only when Alembic requires explicit ordering between heads.
+- **Root `README.md`:** product overview, high-level pipeline, version line; keep aligned with `backend/pyproject.toml` on releases. Avoid a duplicate version footer and unnecessary semver stamps in every guide.
+- **`backend/README.md`:** developer quick start (`uv`, `make`, Docker pointer).
 
-`make migration` runs `alembic revision --autogenerate`. If Alembic emits a **non-numeric** `revision`, **rename the file** and set `revision` / `down_revision` to the next numeric id and current head so the chain matches the repo convention.
+## Writing style
 
-## Implementing upgrades
+- **Audience:** backend operators and contributors (English is primary for new technical prose; existing Russian guides may stay Russian — be consistent within one file).
+- **Headings:** use hierarchical `##` / `###`; avoid skipping levels.
+- **Code blocks:** fence with language tags (`bash`, `python`, `json`, `sql`).
+- **Paths:** repo-relative from repository root (e.g. `backend/api/...`) or state anchor directory explicitly.
+- **Env vars:** document **names and semantics**; never commit example secrets (point to `.env.example`).
 
-- Review autogenerate output: drop accidental drops, fix types, add `server_default` / `nullable` where needed.
-- **Data migrations:** prefer small helpers under `api/` (or existing modules), keep `upgrade()`/`downgrade()` thin; large JSONB transforms should stay testable (see `tests/unit/alembic/`).
-- **Irreversible data changes:** state in the module docstring (e.g. downgrade `pass` with explanation). Note deploy cautions in CHANGELOG.
+## API documentation
 
-## Applying and verifying
+- **OpenAPI** is generated from FastAPI — keep **Pydantic schema** `description`/`examples` accurate when behavior changes.
+- For narrative API docs, update **`backend/docs/TECHNICAL.md`** (and guides if the flow is integration-specific).
 
-| Step | Command |
-|------|---------|
-| Apply all pending | `make migrate` → `uv run python -m alembic upgrade head` |
-| Current revision | `make db-version` → `alembic current` |
-| History | `make db-history` → `alembic history` |
-| Roll back one | `make migrate-down` → `alembic downgrade -1` |
+## Diagrams and heavy reference
 
-**After `upgrade head`:**
+- Prefer **`backend/docs/ARCHITECTURE_SCHEMAS.md`** or Mermaid in guides when behavior is flow-heavy.
+- Large generated artifacts belong under **`backend/docs/archive/`** or **`backend/docs/examples/`**, not mixed into runbooks.
 
-1. `alembic current` must print the **expected** revision (usually `head`’s id).
-2. `alembic history` should show a **single** unbroken line from base to head (no unexpected multiple heads).
-3. If the migration is non-trivial, run targeted tests (`tests/unit/alembic/` or related suites).
+## Jinja / templates
 
-**Fresh database:** `make init-db` creates the DB (if needed) and runs `upgrade head`.
+- Template variable reference → **`backend/docs/guides/JINJA_METADATA_TEMPLATES.md`**; keep in sync with `template_renderer` and related tests.
 
-## Cross-checks before merge
+## Changelog vs guides
 
-- New file under `alembic/versions/` with numeric `revision` and matching filename.
-- If **`downgrade()`** is meant to reverse schema/data (not a documented no-op), verify **`alembic downgrade -1`** against a throwaway DB before merge.
-- CHANGELOG + any `DATABASE_DESIGN.md` / guide updates if schema or operator steps change.
-- `ruff` / `ty`: `alembic/versions` is excluded from `ty`; Ruff uses per-file ignores for migrations — still avoid sloppy unused imports when easy to clean.
+- **CHANGELOG:** *what shipped* and *migration/deploy warnings*.
+- **Guides:** *how to use or operate* sustained procedures.
+
+## Do not
+
+- Add stray top-level `.md` files without a clear home in INDEX or `guides/`.
+- Duplicate the same procedure in three places — **link** to one canonical guide.
 
 ---
 > Source: [GordeyZuev/LEAP](https://github.com/GordeyZuev/LEAP) — distributed by [TomeVault](https://tomevault.io).
