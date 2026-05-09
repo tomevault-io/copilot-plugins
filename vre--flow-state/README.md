@@ -7,11 +7,11 @@ Flow State - a Claude Plugin Marketplace
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vre/flow-state](https://github.com/vre/flow-state).
+Original source: `CLAUDE.md` in [vre/flow-state](https://github.com/vre/flow-state).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
