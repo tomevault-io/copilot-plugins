@@ -1,0 +1,9 @@
+{
+  "name": "0xferrous--agent-box",
+  "displayName": "agent-box",
+  "description": " Sandboxed containers for AI coding agents with disposable Git/Jujutsu workspaces",
+  "version": "1.0.0",
+  "author": "0xferrous",
+  "homepage": "https://github.com/0xferrous/agent-box",
+  "skills": []
+}
