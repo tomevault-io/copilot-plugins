@@ -1,0 +1,9 @@
+{
+  "name": "nihildigit--waybar-ai-usage",
+  "displayName": "waybar-ai-usage",
+  "description": "Monitor Claude Code and OpenAI Codex CLI usage directly in your Waybar status bar.",
+  "version": "1.0.0",
+  "author": "NihilDigit",
+  "homepage": "https://github.com/NihilDigit/waybar-ai-usage",
+  "skills": []
+}
