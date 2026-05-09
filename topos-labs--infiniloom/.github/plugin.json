@@ -1,0 +1,9 @@
+{
+  "name": "topos-labs--infiniloom",
+  "displayName": "infiniloom",
+  "description": "High-performance repository context generator for LLMs - Transform codebases into optimized formats for Claude, GPT-4/5, Gemini, and other LLMs",
+  "version": "1.0.0",
+  "author": "Topos-Labs",
+  "homepage": "https://github.com/Topos-Labs/infiniloom",
+  "skills": []
+}
