@@ -1,0 +1,9 @@
+{
+  "name": "keras-team--kinetic",
+  "displayName": "kinetic",
+  "description": "Run ML workloads seamlessly on cloud TPUs and GPUs with a single Python decorator. No infrastructure management required.",
+  "version": "1.0.0",
+  "author": "keras-team",
+  "homepage": "https://github.com/keras-team/kinetic",
+  "skills": []
+}
