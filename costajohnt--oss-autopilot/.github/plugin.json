@@ -1,0 +1,9 @@
+{
+  "name": "costajohnt--oss-autopilot",
+  "displayName": "oss-autopilot",
+  "description": "Claude Code plugin \u2014 AI-powered autopilot for managing open source contributions. Track PRs, respond to maintainers, discover issues, maintain velocity.",
+  "version": "1.0.0",
+  "author": "costajohnt",
+  "homepage": "https://github.com/costajohnt/oss-autopilot",
+  "skills": []
+}
