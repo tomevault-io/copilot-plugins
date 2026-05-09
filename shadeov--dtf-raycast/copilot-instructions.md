@@ -1,211 +1,144 @@
-## raycast-api
+## raycast-store
 
-> <List isShowingDetail={true} pagination={pagination}>
+> - Use **Title Case** (Apple Style Guide convention)
 
-# Raycast API Guidelines
+# Raycast Extension Store Guidelines
 
-## UI Components
+## Naming Conventions
 
-### List with Detail
+### Extension & Command Titles
+
+- Use **Title Case** (Apple Style Guide convention)
+- ✅ Good: `Google Workspace`, `Search Posts`, `Open in Browser`
+- ❌ Bad: `google workspace`, `search posts`, `open in browser`
+- Lowercase is acceptable for trademarks: `iOS`, `macOS`, `npm`
+
+### Command Titles
+
+- Structure: `<verb> <noun>` or just `<noun>`
+- ✅ Good: `Search Recent Projects`, `Translate`, `Open Issues`, `Create Task`
+- ❌ Bad: `Recent Projects Search`, `Translation`, `New Task`
+- Avoid articles: use `Search Emoji` not `Search an Emoji`
+
+### Command Subtitles
+
+- Use subtitles to add context (usually app/service name)
+- Don't use subtitles as descriptions
+- If subtitle duplicates command title, omit it
+
+### Action Panel Actions
+
+- Follow **Title Case** convention
+- ✅ Good: `Open in Browser`, `Copy to Clipboard`, `Toggle Preview`
+- ❌ Bad: `Copy url`, `set project`, `toggle preview`
+- Add ellipses `…` for actions with submenus: `Set Priority…`
+- Provide icons if other actions in the list have icons
+
+## UI/UX Guidelines
+
+### Placeholders
+
+- Always add placeholders to text fields and search bars
+- ❌ Don't leave search bar without a placeholder
+
+### Empty States
+
+- Customize empty views using `List.EmptyView` or `Grid.EmptyView`
+- Prevent flickering: don't return empty list before data arrives
+- Show loading indicator while fetching data
 
 ```typescript
-<List isShowingDetail={true} pagination={pagination}>
-  <List.Item
-    title="Title"
-    icon={{ source: avatarUrl, mask: Image.Mask.Circle }}
-    detail={<List.Item.Detail markdown={md} metadata={...} />}
-    actions={<ActionPanel>...</ActionPanel>}
-  />
-</List>
+// Prevent empty state flicker
+{posts.length === 0 && !isLoading ? (
+  <List.EmptyView title="No results" />
+) : (
+  posts.map(post => <List.Item ... />)
+)}
 ```
 
-### Detail View (Full Screen)
+### Navigation
 
-Use `Action.Push` to navigate to a Detail view:
+- Use Navigation API (`Action.Push`) for new screens
+- Don't replace view content manually when push is expected
+- Keep `navigationTitle` short; use it only in nested screens
+- Don't change `navigationTitle` in root command (it's auto-set)
 
-```typescript
-<Action.Push
-  title="Open Details"
-  icon={Icon.Eye}
-  target={<Detail markdown={md} metadata={...} />}
-/>
-```
+### Preferences
 
-### Image Markdown
+- Use preferences API for user configuration and credentials
+- Don't build separate commands for configuration
+- Use `required: true` for mandatory preferences
 
-Control image dimensions with query strings:
+## Manifest (package.json)
+
+### Required Fields
+
+- `author`: Your Raycast username
+- `license`: Must be `MIT`
+- `icon`: Custom 512x512px PNG icon (not default Raycast icon)
+- `categories`: At least one category
+
+### Platform Field
+
+- Set `platforms` if using platform-specific APIs
+- Options: `["macOS"]`, `["Windows"]`, or `["macOS", "Windows"]`
+
+## Code Quality
+
+### Before Submitting
+
+- Run `npm run build` for distribution build
+- Run `npm run lint` for linting
+- Test extension in Raycast with production build
+
+### Dependencies
+
+- Use `npm` (not yarn) for package management
+- Include `package-lock.json` in commits
+- Keep Raycast API version up to date
+
+## README
+
+- Write README in **US English** (not British)
+- Provide README if extension requires additional setup
+- Explain API token configuration if needed
+- Put media files (screenshots) in top-level `media` folder (not `assets`)
+- Assets folder (`assets/`) is only for extension icons and internal images
+
+## Screenshots
+
+- Size: **2000 x 1250 pixels** (landscape, 16:10 aspect ratio)
+- Format: PNG
+- Use Raycast's built-in screenshot tool (in dev mode)
+- Choose a background with good contrast
+- Be consistent — use the same background for all screenshots
+- Don't include sensitive data
+- Don't include screenshots of other applications
+- Focus on the most informative commands
+
+## Localization
+
+- Raycast only supports **US English**
+- Don't implement custom localization
+- Use preferences API for locale-dependent settings
+
+## Analytics & Security
+
+- External analytics are **not allowed**
+- Keychain Access requests will be **rejected**
+- Don't bundle opaque binaries without available sources
+
+## CHANGELOG Format
 
 ```markdown
-![](image.png?raycast-width=500&raycast-height=280)
+# Extension Name Changelog
+
+## [Feature Name] - {PR_MERGE_DATE}
+
+- Added feature X
+- Fixed bug Y
+- Improved Z
 ```
-
-### Metadata Panel
-
-```typescript
-<Detail.Metadata>
-  <Detail.Metadata.Label title="Label" text="value" icon={Icon.Person} />
-  <Detail.Metadata.Link title="Link" target="url" text="Click" />
-  <Detail.Metadata.TagList title="Tags">
-    <Detail.Metadata.TagList.Item text="Tag" color="#color" />
-  </Detail.Metadata.TagList>
-  <Detail.Metadata.Separator />
-</Detail.Metadata>
-```
-
-### Circular Icons
-
-Always use mask for avatar images:
-
-```typescript
-icon={{ source: avatarUrl, mask: Image.Mask.Circle }}
-```
-
-### Actions Priority
-
-First action = Enter key, use shortcuts for others:
-
-```typescript
-<ActionPanel>
-  <Action.Push title="Open" target={...} />  {/* Enter */}
-  <Action.OpenInBrowser url={...} shortcut={{ modifiers: ["cmd"], key: "return" }} />
-</ActionPanel>
-```
-
-### Search Bar Accessory (Dropdown)
-
-```typescript
-<List
-  searchBarAccessory={
-    <List.Dropdown tooltip="Filter" storeValue={true} onChange={setValue}>
-      <List.Dropdown.Item title="Option 1" value="1" />
-      <List.Dropdown.Item title="Option 2" value="2" />
-    </List.Dropdown>
-  }
->
-```
-
-### Pagination with useFetch
-
-```typescript
-const { data, pagination, isLoading } = useFetch(
-  (options) => {
-    const params = new URLSearchParams();
-    if (options.cursor) params.set("lastId", options.cursor);
-    return `${URL}?${params}`;
-  },
-  {
-    mapResult(result) {
-      return {
-        data: result.items,
-        hasMore: !!result.lastId,
-        cursor: String(result.lastId),
-      };
-    },
-    keepPreviousData: true,
-    initialData: [],
-  }
-);
-
-<List pagination={pagination} isLoading={isLoading}>
-```
-
-### Command Arguments
-
-In `package.json`:
-
-```json
-{
-  "name": "search",
-  "arguments": [{
-    "name": "query",
-    "placeholder": "Search...",
-    "type": "text",
-    "required": false
-  }]
-}
-```
-
-In component:
-
-```typescript
-export default function Command({ arguments }: LaunchProps<{ arguments: { query?: string } }>) {
-  const initialQuery = arguments?.query || "";
-}
-```
-
-### Server-Side Search (Disable Local Filtering)
-
-```typescript
-<List
-  filtering={false}
-  onSearchTextChange={setSearchText}
-  searchText={searchText}
-  throttle={true}
->
-```
-
-## AI Features
-
-```typescript
-import { AI, environment } from "@raycast/api";
-import { useAI } from "@raycast/utils";
-
-// Check if AI is available
-const hasAIAccess = environment.canAccess(AI);
-
-// Streaming AI response
-const { data, isLoading } = useAI(prompt, {
-  creativity: "low",  // or "medium", "high"
-  stream: true,
-});
-
-// One-shot AI call
-const response = await AI.ask(prompt, { creativity: "low" });
-```
-
-## Menu Bar Commands
-
-> Note: Menu Bar is macOS only due to Raycast platform limitations.
-
-```typescript
-import { MenuBarExtra, launchCommand, LaunchType } from "@raycast/api";
-
-<MenuBarExtra
-  icon={icon}
-  title={title}
-  tooltip="Tooltip"
-  isLoading={isLoading}
->
-  <MenuBarExtra.Section title="Section">
-    <MenuBarExtra.Item
-      title="Item"
-      icon={Icon.Star}
-      shortcut={{ modifiers: ["cmd"], key: "o" }}
-      onAction={() => { /* ... */ }}
-    />
-    <MenuBarExtra.Submenu title="Submenu">
-      <MenuBarExtra.Item title="Sub Item" />
-    </MenuBarExtra.Submenu>
-  </MenuBarExtra.Section>
-</MenuBarExtra>
-
-// Launch another command
-launchCommand({
-  name: "command-name",
-  type: LaunchType.UserInitiated,
-});
-```
-
-## Best Practices
-
-1. **Keys**: Use unique keys, filter duplicates if API returns them
-2. **Icons**: Always circular for avatars
-3. **Actions**: Push for details, Cmd+Enter for browser
-4. **Metadata**: Make it toggleable with `showMetadata` prop
-5. **Pagination**: Use `keepPreviousData: true` for smooth scrolling
-6. **Empty States**: Provide `List.EmptyView` with helpful messages
-7. **Platform shortcuts**: Use `{ macOS: {...}, Windows: {...} }` format
-8. **AI Features**: Check `environment.canAccess(AI)` before using
 
 ---
 > Source: [shadeov/dtf-raycast](https://github.com/shadeov/dtf-raycast) — distributed by [TomeVault](https://tomevault.io).
