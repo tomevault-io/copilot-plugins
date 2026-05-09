@@ -1,148 +1,53 @@
-## github-search-agent
+## no-any-usage
 
-> Avoid unnecessary useEffect hooks
+> Ban usage of TypeScript's `any` type
 
 
-Avoid using `useEffect` when the same result can be achieved with simpler React patterns. Many common `useEffect` use cases can be replaced with direct state derivation, event handlers, or other React features.
+Never use TypeScript's `any` type. It defeats the purpose of type safety.
 
-## Common Anti-Patterns to Avoid
+## Alternatives to `any`
 
-### 1. Synchronizing state with props
+- Use `unknown` when the type is truly unknown and needs runtime checks
+- Use proper type definitions or generics
+- Use `Record<string, unknown>` for objects with unknown structure
+- Use union types when multiple types are possible
+- Use type assertions (`as Type`) only when absolutely necessary and after proper type narrowing
+
+## Examples
 
 ❌ Bad:
 
 ```typescript
-function Component({ value }: { value: string }) {
-  const [localValue, setLocalValue] = useState(value);
-
-  useEffect(() => {
-    setLocalValue(value);
-  }, [value]);
-
-  return (
-    <input value={localValue} onChange={(e) => setLocalValue(e.target.value)} />
-  );
+function processData(data: any) {
+  return data.value;
 }
 ```
 
 ✅ Good:
 
 ```typescript
-function Component({ value }: { value: string }) {
-  const [localValue, setLocalValue] = useState(value);
-
-  // Use key prop to reset when value changes externally
-  return <input key={value} value={localValue} onChange={(e) => setLocalValue(e.target.value)} />;
-
-  // Or use getDerivedStateFromProps pattern with useState
-  const [localValue, setLocalValue] = useState(value);
-  if (value !== localValue && /* some condition */) {
-    setLocalValue(value);
+function processData(data: unknown) {
+  if (typeof data === "object" && data !== null && "value" in data) {
+    return (data as { value: unknown }).value;
   }
+  throw new Error("Invalid data");
 }
 ```
-
-### 2. Computing derived state
 
 ❌ Bad:
 
 ```typescript
-function Component({ items }: { items: Item[] }) {
-  const [filteredItems, setFilteredItems] = useState<Item[]>([]);
-
-  useEffect(() => {
-    setFilteredItems(items.filter(item => item.active));
-  }, [items]);
-
-  return <div>{filteredItems.map(...)}</div>;
-}
+const result: any = fetchData();
 ```
 
 ✅ Good:
 
 ```typescript
-function Component({ items }: { items: Item[] }) {
-  const filteredItems = items.filter(item => item.active);
-
-  return <div>{filteredItems.map(...)}</div>;
-}
+const result: ApiResponse = fetchData();
 ```
 
-### 3. Event handlers that don't need effects
-
-❌ Bad:
-
-```typescript
-function Component() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    const handleClick = () => setCount((c) => c + 1);
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
-  }, []);
-
-  return <div>{count}</div>;
-}
-```
-
-✅ Good:
-
-```typescript
-function Component() {
-  const [count, setCount] = useState(0);
-
-  const handleClick = () => setCount((c) => c + 1);
-
-  return <div onClick={handleClick}>{count}</div>;
-}
-```
-
-### 4. Initializing state from props
-
-❌ Bad:
-
-```typescript
-function Component({ initialValue }: { initialValue: string }) {
-  const [value, setValue] = useState("");
-
-  useEffect(() => {
-    setValue(initialValue);
-  }, [initialValue]);
-
-  return <input value={value} onChange={(e) => setValue(e.target.value)} />;
-}
-```
-
-✅ Good:
-
-```typescript
-function Component({ initialValue }: { initialValue: string }) {
-  const [value, setValue] = useState(initialValue);
-
-  return <input value={value} onChange={(e) => setValue(e.target.value)} />;
-}
-```
-
-## When useEffect IS Appropriate
-
-Use `useEffect` for:
-
-- Side effects (API calls, subscriptions, DOM manipulation)
-- Cleanup operations (removing event listeners, canceling requests)
-- Synchronizing with external systems (browser APIs, third-party libraries)
-- Effects that should run after render, not during render
-
-## Best Practices
-
-1. **Derive state directly** - If you can compute it during render, do so
-2. **Use event handlers** - For user interactions, use onClick, onChange, etc.
-3. **Initialize state properly** - Pass initial values directly to useState
-4. **Use key prop** - To reset component state when props change
-5. **Consider useMemo/useCallback** - For expensive computations, not state synchronization
-
-If you find yourself using `useEffect` to synchronize state, ask: "Can this be computed during render instead?"
+If you encounter a situation where you think you need `any`, refactor to use proper types instead.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/RhysSullivan) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [RhysSullivan/github-search-agent](https://github.com/RhysSullivan/github-search-agent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
