@@ -1,27 +1,35 @@
-## linter
+## sdk-validation
 
-> Linter Guidelines
+> Caido SDK API Validation
 
 
-# Linter
+# Caido SDK API Validation
 
-We have a built-in ESLint linter configured at the root folder. After making any significant change, always run the linter with `pnpm lint` and fix all potential issues.
+## Valid API Usage
 
-## Most common mistakes that lead to linter errors
+Always use documented Caido SDK APIs directly without runtime checks or validation.
 
-### Lint Rule: Unexpected nullable string value in conditional. Please handle nullish or empty cases explicitly
+- Good
+  ```typescript
+  sdk.window.showToast("Message", { variant: "error" });
+  sdk.backend.myFunction();
+  sdk.commands.register("my-command", { name: "Command", run: () => {} });
+  ```
 
-To prevent this, when comparing strings, instead of writing:
+- Bad (NEVER do this)
+  ```typescript
+  if ("showToast" in sdk.window && typeof sdk.window.showToast === "function") {
+    sdk.window.showToast("Message");
+  }
+  ```
 
-```
-if (!str) {}
-```
+## Rules
 
-do this:
+1. Never use runtime API existence checks (`typeof`, `in` operator)
+2. Never assume undocumented SDK methods exist
+3. If unsure about an API, ask for clarification rather than guessing
 
-```
-if (str !== undefined) {}
-```
+The SDK is typed and guaranteed to have the documented methods available.
 
 ---
 > Source: [caido-community/authswap](https://github.com/caido-community/authswap) — distributed by [TomeVault](https://tomevault.io).
