@@ -1,0 +1,9 @@
+{
+  "name": "cx330blake--shellcode-ide",
+  "displayName": "Shellcode-IDE",
+  "description": "Shellcode IDE \u2014 makes developing and analyzing shellcode much more convenient.",
+  "version": "1.0.0",
+  "author": "CX330Blake",
+  "homepage": "https://github.com/CX330Blake/Shellcode-IDE",
+  "skills": []
+}
