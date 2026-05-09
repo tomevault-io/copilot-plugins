@@ -1,0 +1,9 @@
+{
+  "name": "phenomenoner--openclaw-mem",
+  "displayName": "openclaw-mem",
+  "description": "Trust-aware context packing + review-gated memory hygiene for OpenClaw.",
+  "version": "1.0.0",
+  "author": "phenomenoner",
+  "homepage": "https://github.com/phenomenoner/openclaw-mem",
+  "skills": []
+}
