@@ -4,7 +4,7 @@
   "repo": "hndigest",
   "description": "Chat to build your own Hacker News email digest and schedule it.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Anmol-Baranwal/hndigest",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T08:17:51Z"
+  "distributed_at": "2026-05-09T19:49:37Z"
 }
