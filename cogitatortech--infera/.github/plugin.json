@@ -1,0 +1,9 @@
+{
+  "name": "cogitatortech--infera",
+  "displayName": "infera",
+  "description": "A DuckDB extension for in-database inference",
+  "version": "1.0.0",
+  "author": "CogitatorTech",
+  "homepage": "https://github.com/CogitatorTech/infera",
+  "skills": []
+}
