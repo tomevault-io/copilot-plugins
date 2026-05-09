@@ -1,0 +1,9 @@
+{
+  "name": "fmguerreiro--pgmold",
+  "displayName": "pgmold",
+  "description": "PostgreSQL schema-as-code management tool",
+  "version": "1.0.0",
+  "author": "fmguerreiro",
+  "homepage": "https://github.com/fmguerreiro/pgmold",
+  "skills": []
+}
