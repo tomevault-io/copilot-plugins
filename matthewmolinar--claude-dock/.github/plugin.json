@@ -1,0 +1,9 @@
+{
+  "name": "matthewmolinar--claude-dock",
+  "displayName": "claude-dock",
+  "description": "Lightweight terminal dock for macOS - manage multiple Claude Code sessions",
+  "version": "1.0.0",
+  "author": "matthewmolinar",
+  "homepage": "https://github.com/matthewmolinar/claude-dock",
+  "skills": []
+}
