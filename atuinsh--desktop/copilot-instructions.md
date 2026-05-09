@@ -1,89 +1,73 @@
-## conventional-commits
+## rule-storage
 
-> Writing a good commit message
+> Rules for placing and organizing Cursor rule files in the repository.
 
-# Conventional Commits
+# Cursor Rules Location
 
-A rule to enforce proper conventional commit formatting with clear, descriptive messages.
+Rules for placing and organizing Cursor rule files in the repository.
 
 <rule>
-name: conventional_commits
-description: Enforces conventional commit format with concise, explanatory first lines
-
+name: cursor_rules_location
+description: Standards for placing Cursor rule files in the correct directory
 filters:
+  # Match any .mdc files
+  - type: file_extension
+    pattern: "\\.mdc$"
+  # Match files that look like Cursor rules
+  - type: content
+    pattern: "(?s)<rule>.*?</rule>"
+  # Match file creation events
   - type: event
-    pattern: "git_commit"
+    pattern: "file_create"
 
 actions:
   - type: reject
     conditions:
-      # Reject non-conventional commit types
-      - pattern: "^(?!feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(?:\\(.*\\))?:"
-        message: "Commit message must start with a conventional type (feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert)"
-      
-      # Reject first lines that are too long (>72 chars)
-      - pattern: "^.{73,}"
-        message: "First line should be 72 characters or less to avoid truncation in GitHub and other tools"
-      
-      # Reject commits without a space after the colon
-      - pattern: "^\\w+(?:\\(.*\\))?:(?!\\s)"
-        message: "Include a space after the colon in your commit message"
-      
-      # Reject first lines that start with lowercase (after the type)
-      - pattern: "^\\w+(?:\\(.*\\))?:\\s[a-z]"
-        message: "First word after type should be capitalized"
+      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
+        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
 
   - type: suggest
     message: |
-      # Conventional Commit Format
-      
-      Follow this format for all commits:
-      
-      ```
-      type(scope): Short summary
-      
-      Detailed explanation if needed
-      ```
-      
-      ## Requirements:
-      
-      - **Type**: One of: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
-      - **Scope**: Optional component name in parentheses
-      - **Summary**: 
-        - Clear and concise (50-72 chars)
-        - Written in imperative ("Add feature" not "Added feature")
-        - First letter capitalized
-        - No period at the end
-      - **Body**: Optional, separated by blank line, explains WHY not HOW
-      
-      ## Examples:
-      
-      ✅ `feat(auth): Add password reset functionality`
-      
-      ✅ `fix: Prevent crash when API returns empty response`
-      
-      ✅ `docs(readme): Update installation instructions`
+      When creating Cursor rules:
+
+      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
+         ```
+         .cursor/rules/
+         ├── your-rule-name.mdc
+         ├── another-rule.mdc
+         └── ...
+         ```
+
+      2. Follow the naming convention:
+         - Use kebab-case for filenames
+         - Always use .mdc extension
+         - Make names descriptive of the rule's purpose
+
+      3. Directory structure:
+         ```
+         PROJECT_ROOT/
+         ├── .cursor/
+         │   └── rules/
+         │       ├── your-rule-name.mdc
+         │       └── ...
+         └── ...
+         ```
+
+      4. Never place rule files:
+         - In the project root
+         - In subdirectories outside .cursor/rules
+         - In any other location
 
 examples:
   - input: |
-      added new button to the ui
-    output: |
-      feat(ui): Add new button
-  
-  - input: |
-      fixed the bug in authentication
-    output: |
-      fix(auth): Resolve authentication failure on expired sessions
-  
-  - input: |
-      feat(users): implemented email verification system with token expiration and email templates for better onboarding experience
-    output: |
-      feat(users): Implement email verification system
-      
-      Add token-based verification with:
-      - 24h expiration
-      - Customized email templates
-      - Improved onboarding flow
+      # Bad: Rule file in wrong location
+      rules/my-rule.mdc
+      my-rule.mdc
+      .rules/my-rule.mdc
+
+      # Good: Rule file in correct location
+      .cursor/rules/my-rule.mdc
+    output: "Correctly placed Cursor rule file"
 
 metadata:
   priority: high
