@@ -1,65 +1,53 @@
-## 300-adaption
+## 400-change
 
-> The Adaptation & Learning Engine. It governs how the agent handles uncertainty, learns from failure, and makes complex decisions. This is the agent's cognitive core.
+> The Change Controller. A high-priority interrupt handler for managing mid-project scope changes. It ensures the project adapts to new requirements gracefully and systematically.
 
 
-# 300 · Adaptation Engine: Research, Reflect, Resolve
+# 400 · Change Controller: Interrupt, Document, Re-plan
 
 ## CONTEXT
-This rule set is invoked when the agent encounters situations beyond standard execution: unknown technologies or persistent failures. It provides a multi-layered strategy for adaptation and problem-solving.
+This rule is an **interrupt-driven protocol**, triggered exclusively by a direct user command that indicates a change in project requirements (e.g., "Add a new feature," "Change the authentication method," "/replan").
 
 ---
-### PROTOCOL A: PROACTIVE KNOWLEDGE ACQUISITION (Research Spike)
+### PROTOCOL: THE CHANGE MANAGEMENT LIFECYCLE
 
-- **TRIGGER:** When a task requires using a technology not detailed in `/docs/TECH_SPEC.md` or for which the agent lacks high confidence.
-- **ACTION:**
-    1.  **PAUSE** the current implementation task.
-    2.  **CREATE** a new task with `type: research` in `/project/tasks/todo/`. The task's goal is to produce a summary of best practices for the unknown technology.
-    3.  **EXECUTE** the research task, utilizing built-in search and any available `@context` MCPs to study official documentation.
-    4.  **LOG DECISION:** The primary deliverable of the research task is a new, detailed entry in `/docs/DECISION_LOG.md` (ADR format), documenting the chosen approach, key findings, and code examples.
-    5.  **RESUME** the original implementation task, now grounded with new knowledge.
+**STEP 1: ACKNOWLEDGE & SAFE-PAUSE**
+- **Action:**
+    1.  Immediately acknowledge the user's request: "Change request received. Pausing current work to process the update."
+    2.  If a task is active in `/project/tasks/in_progress/`, execute `mv ./project/tasks/in_progress/T<ID>.md ./project/tasks/todo/T<ID>.md`. This safely returns the task to the `todo` queue for future re-evaluation.
+- **Goal:** Ensure the system is in a stable, non-executing state before applying changes.
 
----
-### PROTOCOL B: STRATEGIC DECISION LOGGING (ADR)
+**STEP 2: DOCUMENT THE CHANGE (Source of Truth Update)**
+- **Action:**
+    1.  Your first implementation action **MUST** be to modify the source documents in `/docs/`.
+    2.  A functional change **MUST** be reflected in `PRD.md`.
+    3.  An architectural or technical change **MUST** be reflected in `TECH_SPEC.md`.
+    4.  The rationale for this significant change **MUST** be logged as a new entry in `/docs/DECISION_LOG.md` (ADR format).
+- **Goal:** Guarantee that documentation always reflects the latest requirements *before* any planning or coding happens.
 
-- **TRIGGER:** After any non-trivial architectural choice, library selection, or resolution of a complex trade-off.
-- **ACTION:** You **MUST** append a new, timestamped entry to `/docs/DECISION_LOG.md`. The log entry must be concise but comprehensive, following the ADR template. This is a non-negotiable step for ensuring project traceability.
+**STEP 3: TRIGGER RE-PLANNING ENGINE**
+- **Action:**
+    1.  Inform the user: "Source documents have been updated. I will now invoke the Core Engine to reconcile the project plan."
+    2.  Invoke the `100-engine.mdc`'s re-planning logic. The engine is responsible for:
+        - Performing an "intelligent diff" between the updated `/docs` and the current `/project/plan.json`.
+        - Generating new Epics and Tasks for new requirements.
+- **Goal:** Delegate the complex task of re-planning to the specialized engine, keeping this rule lightweight.
 
----
-### PROTOCOL C: HIERARCHICAL FAILURE RESOLUTION
-> This protocol is a state machine triggered by the `attempts` counter, which is managed by the **100-engine** on each failed test run for a given task.
+**STEP 4: SYNCHRONIZE EXTERNAL MEMORY (Optional)**
+- **Action:**
+    ```
+    {% if env.EXTERNAL_MEMORY == 'true' %}
+    # Push the updated decision log to the external memory provider.
+    <call memory.write file="/docs/DECISION_LOG.md" namespace="cursor-pm-main"/>
+    {% endif %}
+    ```
+- **Goal:** Ensure that for teams using persistent cross-session memory (like OpenAI's Memory API), the most critical project changes are immediately synchronized.
 
-**Level 1: Simple Patch & Retry (`attempts` < 3)**
-- **ACTION:** Attempt to fix the bug directly based on the test failure output. If the stack trace includes a `file:line`, prioritize a targeted patch on that line (Execution-Guided Line Patch).
-
-**Level 2: Self-Reflection (`attempts` == 3)**
-- **ACTION:**
-    1.  **PAUSE** implementation attempts.
-    2.  **REFLECT:** Generate a structured reflection note.
-        ```markdown
-        <<REFLECTION_NOTE>>
-        **Problem:** A brief summary of the failing test.
-        **Root Cause Analysis:** My hypothesis for why the previous attempts failed.
-        **Next Strategy:** A new, alternative approach to solve the problem.
-        <</REFLECTION_NOTE>>
-    3.  **SELF-SCORE (R³):** Append a `self_score: [1-5]` to the reflection, rating your confidence in the new strategy. If the score is ≤ 3, you must regenerate the reflection with a different strategy.
-    4.  **LOG:** Append the final, high-scoring reflection note to `/docs/DECISION_LOG.md`.
-    5.  **RETRY:** Prepend the reflection note to your next implementation prompt and resume attempts.
-
-**Level 3: Competitive Self-Duel (`attempts` == 5)**
-- **ACTION:**
-    1.  **PAUSE** all other approaches.
-    2.  **INITIATE DUEL:** In a single prompt, instruct yourself to act as two independent expert coders, `Coder A (using Strategy A)` and `Coder B (using Strategy B)`. Generate two distinct patches for the problem.
-    3.  **SELF-CRITIQUE:** After generating both patches, provide a critique of the pros and cons of each.
-    4.  **JUDGE:** Select the winning patch based on your critique.
-    5.  **APPLY & LOG:** Apply the winning patch and log the entire duel (both patches and the critique) to `/docs/DECISION_LOG.md`.
-    6.  **RESET & RETRY:** Reset the `attempts` counter to 0 and re-run the tests with the winning patch.
-
-**Level 4: Escalation (`attempts` > 5 or after a failed Duel)**
-- **ACTION:**
-    1.  **HALT:** Stop all implementation attempts for this task.
-    2.  **BLOCK TASK:** Move the task file from `/project/tasks/in_progress/` to `/project/tasks/blocked/`.
-    3.  **REPORT TO HUMAN:** Update `project_status.md` to show the task is blocked. Clearly state the problem, link to the relevant entries in `/docs/DECISION_LOG.md`, and explicitly ask for human guidance. You may suggest creating a new research task or simplifying the requirement.
+**STEP 5: COMMUNICATE & RESUME**
+- **Action:**
+    1.  Report a concise summary of the plan changes to the user (e.g., "Re-plan complete. Plan diff: +3 new tasks, -1 obsolete task.").
+    2.  Announce that you are resuming work based on the updated plan by activating the next high-priority task from the `todo` queue.
+- **Goal:** Provide a clear confirmation to the user that their change has been fully integrated and that normal operation is resuming.
 
 ---
 > Source: [heyzgj/cursor-project-master](https://github.com/heyzgj/cursor-project-master) — distributed by [TomeVault](https://tomevault.io).
