@@ -1,0 +1,28 @@
+## infoq-scaffold-ai
+
+> |IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning for any project tasks. Read repository files before relying on framework pretraining data.
+
+# GEMINI.md
+|IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning for any project tasks. Read repository files before relying on framework pretraining data.
+|概览:InfoQ-Scaffold-AI 是专为 AI 主力研发设计的全栈脚手架，集成 Spring Boot 3 后端与 Vue 3/React 19 双端管理台及小程序（uni-app/Taro）。
+|后端栈:Spring Boot 3.5.10|JDK 17|MyBatis-Plus 3.5.16|Sa-Token 1.44.0|MySQL 8|Redis 7|Java package `cc.infoq.{module}.{layer}`|4-space indent.
+|Vue 栈:Vue 3.5.30|Element Plus 2.11.9|Vite 6.4.1|Pinia|Vue Router 4|uni-app 3|2-space indent.
+|React 栈:React 19.2.4|Ant Design 6.3.3|Vite 7.3.1|Zustand|React Router 7|Taro 4|2-space indent.
+|视觉系统:Vanilla CSS 优先|Tesla 极简主义设计|真值见 `DESIGN.md`|Demo 见 `doc/ui-demos/tesla-design-foundation.html`。
+|后端命令:run=mvn spring-boot:run -pl infoq-admin|build=mvn clean package -P dev|test=mvn test|port=8080。
+|Vue 命令:dev=pnpm run dev|build=pnpm run build:prod|test=pnpm run test:unit。
+|React 命令:dev=pnpm run dev|build=pnpm run build:prod|test=pnpm run test。
+|小程序命令:Vue=pnpm --dir infoq-scaffold-frontend-weapp-vue build-open:weapp:dev|React=pnpm --dir infoq-scaffold-frontend-weapp-react build-open:weapp:dev|需配置 `TARO_APP_ID`。
+|AI 规约层:根 `AGENTS.md` (全局)|工作区 `AGENTS.md` (栈细则)|优先级:工作区优先。
+|OpenSpec 交付:L3(强制):新功能/API 变更/跨工作区，需在 `openspec/changes/<change-id>/` 建规约|L1:小修复需写 Acceptance Contract。
+|自动化 Skill:验证={infoq-vue-runtime-verification,infoq-react-runtime-verification,infoq-backend-smoke-test}|单测={infoq-vue-unit-test-patterns,infoq-react-unit-test-patterns,infoq-backend-unit-test-patterns}|浏览器=infoq-browser-automation|项目参考=infoq-project-reference|索引同步=infoq-codebase-index。
+|UI/UX 协议:重大 UI 变更需走 Phase 1 (ASCII 线框) -> Phase 2 (静态 Demo) -> Phase 3 (实现) -> Phase 4 (验证)|门禁=`LAYOUT APPROVED`|`DEMO APPROVED`。
+|工程红线:UTF-8 编码|前端必用 `pnpm`|禁止硬编码密钥|边界校验输入|错误信息禁止出现 `[object Object]`。
+|文档真值:根 `doc/` 是正文真值源|文档站 `infoq-scaffold-docs` 仅为展示层|同步命令=`pnpm run docs:sync`。
+|文档验证:sync=cd infoq-scaffold-docs && pnpm run docs:sync|check=cd infoq-scaffold-docs && pnpm run docs:check-links|build=cd infoq-scaffold-docs && pnpm run docs:build。
+|MCP 环境:默认启用={playwright,openai-docs,chrome-devtools}|按需启动={mysql,redis}|真值见 `.codex/config.toml`。
+|检索入口:openspec:{project.md,specs/README.md,changes/README.md}|doc:{agents-guide.md,skills-guide.md,subagents-guide.md}|DESIGN.md|AGENTS.md。
+
+---
+> Source: [LuckyKuang/infoq-scaffold-ai](https://github.com/LuckyKuang/infoq-scaffold-ai) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
