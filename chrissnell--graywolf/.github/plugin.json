@@ -1,0 +1,9 @@
+{
+  "name": "chrissnell--graywolf",
+  "displayName": "graywolf",
+  "description": "A fully-featured APRS digipeater/iGate/beacon with modern web UI",
+  "version": "1.0.0",
+  "author": "chrissnell",
+  "homepage": "https://github.com/chrissnell/graywolf",
+  "skills": []
+}
