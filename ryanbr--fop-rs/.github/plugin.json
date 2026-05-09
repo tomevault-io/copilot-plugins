@@ -1,0 +1,9 @@
+{
+  "name": "ryanbr--fop-rs",
+  "displayName": "fop-rs",
+  "description": "FOP  Filter Orderer and Preener re-written in Rust",
+  "version": "1.0.0",
+  "author": "ryanbr",
+  "homepage": "https://github.com/ryanbr/fop-rs",
+  "skills": []
+}
