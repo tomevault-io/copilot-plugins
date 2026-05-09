@@ -1,0 +1,9 @@
+{
+  "name": "datarobot-community--datarobot-agent-application",
+  "displayName": "datarobot-agent-application",
+  "description": "DataRobot Agentic Starter Application Template",
+  "version": "1.0.0",
+  "author": "datarobot-community",
+  "homepage": "https://github.com/datarobot-community/datarobot-agent-application",
+  "skills": []
+}
