@@ -1,0 +1,9 @@
+{
+  "name": "deepclause--deepclause-sdk",
+  "displayName": "deepclause-sdk",
+  "description": "DeepClause Typescript DML SDK and runtime",
+  "version": "1.0.0",
+  "author": "deepclause",
+  "homepage": "https://github.com/deepclause/deepclause-sdk",
+  "skills": []
+}
