@@ -1,0 +1,9 @@
+{
+  "name": "wesselgrift--firesvelte",
+  "displayName": "firesvelte",
+  "description": "An opinionated SvelteKit 2, Svelte 5 and ShadCN starter for building Firebase-authenticated apps.",
+  "version": "1.0.0",
+  "author": "wesselgrift",
+  "homepage": "https://github.com/wesselgrift/firesvelte",
+  "skills": []
+}
