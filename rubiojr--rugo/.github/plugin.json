@@ -1,0 +1,38 @@
+{
+  "name": "rubiojr--rugo",
+  "displayName": "rugo",
+  "description": "It's a Rugo-dabba-doo time! \ud83e\uddb4",
+  "version": "1.0.0",
+  "author": "rubiojr",
+  "homepage": "https://github.com/rubiojr/rugo",
+  "skills": [
+    {
+      "name": "idiomatic-rugo",
+      "description": ""
+    },
+    {
+      "name": "rugo-developer",
+      "description": ""
+    },
+    {
+      "name": "rugo-go-modules",
+      "description": ""
+    },
+    {
+      "name": "rugo-native-module-writer",
+      "description": ""
+    },
+    {
+      "name": "rugo-quickstart",
+      "description": ""
+    },
+    {
+      "name": "rugo-rats",
+      "description": ""
+    },
+    {
+      "name": "rugo-runmd",
+      "description": ""
+    }
+  ]
+}
