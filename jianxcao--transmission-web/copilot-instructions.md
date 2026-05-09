@@ -1,297 +1,539 @@
-## transmission-web
+## api-data-handling
 
-> Git 提交规范 - Conventional Commits
+> API 调用和数据处理规范（Transmission RPC）
 
 
-# Git 提交规范
+# API 和数据处理规范
 
-遵循 [Conventional Commits](https://www.conventionalcommits.org/) 规范
+针对 Transmission RPC API 的最佳实践
 
-## 提交消息格式
+## API 层设计
 
+### API 文件组织
 ```
-<type>(<scope>): <subject>
-
-<body>
-
-<footer>
-```
-
-### 基本格式
-```bash
-# 简单提交
-feat: 添加种子过滤功能
-
-# 带 scope 的提交
-fix(torrent): 修复下载进度计算错误
-
-# 带 body 的提交
-feat(ui): 添加暗色主题支持
-
-- 实现主题切换功能
-- 添加主题配置选项
-- 更新所有组件样式
+api/
+├── rpc.ts           # Transmission RPC 核心接口
+├── trpc.ts          # tRPC 配置
+├── types.ts         # API 类型定义
+└── interceptors.ts  # 请求拦截器（可选）
 ```
 
-## Type 类型
-
-### 主要类型
-- **feat**: 新功能
-- **fix**: 修复 bug
-- **docs**: 文档变更
-- **style**: 代码格式（不影响代码运行的变动）
-- **refactor**: 重构（既不是新增功能，也不是修复 bug）
-- **perf**: 性能优化
-- **test**: 添加测试
-- **chore**: 构建过程或辅助工具的变动
-
-### 特殊类型
-- **revert**: 回滚之前的提交
-- **build**: 影响构建系统或外部依赖的变更
-- **ci**: CI 配置文件和脚本的变更
-
-## Scope 范围
-
-根据项目结构定义的范围：
-
-### 功能模块
-- **torrent**: 种子相关功能
-- **ui**: 用户界面
-- **api**: API 接口
-- **store**: 状态管理
-- **router**: 路由
-- **i18n**: 国际化
-
-### 组件范围
-- **header**: 应用头部
-- **sidebar**: 侧边栏
-- **list**: 列表组件
-- **detail**: 详情组件
-- **dialog**: 对话框组件
-- **settings**: 设置相关
-
-### 工具和配置
-- **deps**: 依赖管理
-- **config**: 配置文件
-- **build**: 构建相关
-- **ci**: CI/CD
-
-## Subject 主题
-
-### 规则
-- 使用中文描述
-- 使用祈使句，现在时态（"添加"而不是"添加了"）
-- 首字母小写
-- 结尾不加句号
-- 不超过 50 个字符
-
-### 示例
-```bash
-# ✅ 好的 subject
-feat: 添加种子搜索功能
-fix: 修复上传速度显示错误
-docs: 更新 README 安装说明
-
-# ❌ 不好的 subject
-feat: 添加了种子搜索功能。
-fix: bug修复
-docs: 修改文档
-```
-
-## Body 正文
-
-### 何时需要 body
-- 解释"为什么"做这个改动
-- 如何解决问题
-- 有什么副作用
-- 改动涉及的细节
-
-### 格式规则
-- 与 subject 之间空一行
-- 使用列表或段落
-- 每行不超过 72 个字符
-
-### 示例
-```bash
-feat(list): 实现虚拟滚动优化性能
-
-当种子数量超过 1000 时，传统的列表渲染会导致性能问题：
-- 使用 vue-virtual-scroller 实现虚拟滚动
-- 仅渲染可见区域的种子项
-- 支持动态高度计算
-
-性能提升：
-- 初始渲染时间从 2s 降低到 200ms
-- 内存占用减少 80%
-```
-
-## Footer 页脚
-
-### Breaking Changes
-```bash
-feat(api): 更新 RPC API 版本到 v17
-
-BREAKING CHANGE: 移除了 torrent-get 方法的 fields 参数
-现在需要使用 torrent-get-all 方法获取所有字段
-```
-
-### 关联 Issue
-```bash
-# 关闭 issue
-fix(torrent): 修复种子状态更新延迟
-
-Closes #123
-
-# 关联多个 issue
-fix(ui): 修复移动端布局问题
-
-Fixes #123, #124, #125
-
-# 仅关联不关闭
-feat(settings): 添加网络设置页面
-
-Refs #234
-```
-
-## 完整示例
-
-### 简单提交
-```bash
-feat(list): 添加种子排序功能
-```
-
-### 标准提交
-```bash
-fix(torrent): 修复暂停状态下的进度显示
-
-当种子处于暂停状态时，进度条仍然显示动画效果。
-修改 StatusCell 组件的逻辑，在暂停状态下禁用动画。
-
-Fixes #89
-```
-
-### 包含 Breaking Change
-```bash
-feat(store)!: 重构 torrent store 结构
-
-BREAKING CHANGE: torrent store 的 API 已完全重构
-- 移除 getTorrentById 方法，使用 torrents computed 属性
-- 重命名 updateTorrent 为 patchTorrent
-- actions 现在返回 Promise
-
-迁移指南：
+### RPC 方法封装
 ```typescript
-// 之前
-store.getTorrentById(id)
+// api/rpc.ts
+import axios, { AxiosInstance } from 'axios'
 
-// 现在
-store.torrents.find(t => t.id === id)
+class TransmissionRPC {
+  private client: AxiosInstance
+  private sessionId: string = ''
+  
+  constructor(baseURL: string) {
+    this.client = axios.create({
+      baseURL,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    
+    this.setupInterceptors()
+  }
+  
+  // ✅ 统一的 RPC 调用方法
+  private async call<T = any>(
+    method: string, 
+    arguments?: Record<string, any>
+  ): Promise<T> {
+    try {
+      const response = await this.client.post('/rpc', {
+        method,
+        arguments
+      }, {
+        headers: {
+          'X-Transmission-Session-Id': this.sessionId
+        }
+      })
+      
+      if (response.data.result !== 'success') {
+        throw new Error(response.data.result)
+      }
+      
+      return response.data.arguments as T
+    } catch (error) {
+      this.handleError(error)
+      throw error
+    }
+  }
+  
+  // ✅ 具体的 API 方法
+  async getTorrents(ids?: number[]): Promise<TorrentInfo[]> {
+    const args = ids ? { ids } : {}
+    const result = await this.call<{ torrents: TorrentInfo[] }>(
+      'torrent-get',
+      {
+        ...args,
+        fields: TORRENT_FIELDS
+      }
+    )
+    return result.torrents
+  }
+  
+  async addTorrent(options: AddTorrentOptions): Promise<TorrentInfo> {
+    const result = await this.call<{ torrent-added: TorrentInfo }>(
+      'torrent-add',
+      options
+    )
+    return result['torrent-added']
+  }
+}
+
+export const rpc = new TransmissionRPC(
+  import.meta.env.VITE_RPC_URL || '/transmission/rpc'
+)
 ```
 
-Refs #156
+## 错误处理
+
+### 统一错误处理
+```typescript
+// api/errors.ts
+export class TransmissionError extends Error {
+  constructor(
+    message: string,
+    public code?: string,
+    public statusCode?: number
+  ) {
+    super(message)
+    this.name = 'TransmissionError'
+  }
+}
+
+export class SessionIdError extends TransmissionError {
+  constructor() {
+    super('Invalid session ID', 'SESSION_ID_ERROR', 409)
+  }
+}
+
+export class NetworkError extends TransmissionError {
+  constructor(message: string) {
+    super(message, 'NETWORK_ERROR')
+  }
+}
+
+// api/rpc.ts
+private handleError(error: any): void {
+  // 409 错误：需要更新 Session ID
+  if (error.response?.status === 409) {
+    const sessionId = error.response.headers['x-transmission-session-id']
+    if (sessionId) {
+      this.sessionId = sessionId
+      throw new SessionIdError()
+    }
+  }
+  
+  // 网络错误
+  if (!error.response) {
+    throw new NetworkError('Network connection failed')
+  }
+  
+  // 其他错误
+  throw new TransmissionError(
+    error.response?.data?.message || error.message,
+    'UNKNOWN_ERROR',
+    error.response?.status
+  )
+}
 ```
 
-### Revert 提交
-```bash
-revert: feat(list): 添加种子排序功能
+### 组件中的错误处理
+```typescript
+// ✅ 使用 try-catch 和用户友好的提示
+import { useMessage } from 'naive-ui'
 
-This reverts commit 1234567890abcdef.
+const message = useMessage()
 
-原因：排序功能导致性能问题，需要重新设计
-```
-
-## 提交频率
-
-### 何时提交
-- ✅ 完成一个独立的功能或修复
-- ✅ 代码通过测试和 lint 检查
-- ✅ 逻辑完整，不会破坏现有功能
-- ❌ 不要提交未完成的代码
-- ❌ 不要提交无法运行的代码
-
-### 提交大小
-- 每个 commit 只做一件事
-- 如果一个功能太大，拆分为多个 commit
-- 相关的改动放在同一个 commit
-
-## 最佳实践
-
-### 1. 提交前检查
-```bash
-# 检查改动
-git diff
-
-# 运行 lint
-pnpm lint
-
-# 运行类型检查
-pnpm check
-
-# 确保构建成功
-pnpm build
-```
-
-### 2. 使用 commitlint（推荐）
-项目可以添加 commitlint 强制执行规范：
-```json
-{
-  "devDependencies": {
-    "@commitlint/cli": "^18.0.0",
-    "@commitlint/config-conventional": "^18.0.0"
+async function handleAddTorrent() {
+  try {
+    await rpc.addTorrent({ filename: magnetLink })
+    message.success('种子添加成功')
+  } catch (error) {
+    if (error instanceof SessionIdError) {
+      // 自动重试
+      return handleAddTorrent()
+    }
+    
+    if (error instanceof NetworkError) {
+      message.error('网络连接失败，请检查连接')
+    } else {
+      message.error('添加种子失败')
+    }
+    
+    console.error('Failed to add torrent:', error)
   }
 }
 ```
 
-### 3. 原子性提交
-```bash
-# ✅ 好的提交方式
-git add src/components/TorrentList.vue
-git commit -m "feat(list): 添加多选功能"
+## 数据处理
 
-git add src/store/torrent.ts
-git commit -m "feat(store): 添加批量操作方法"
+### JSON 解析
+```typescript
+// ✅ 始终使用 try-catch 处理 JSON 解析
+function parseStoredConfig(): Config {
+  try {
+    const json = localStorage.getItem('config')
+    if (!json) {
+      return DEFAULT_CONFIG
+    }
+    return JSON.parse(json)
+  } catch (error) {
+    console.error('Failed to parse config:', error)
+    return DEFAULT_CONFIG
+  }
+}
 
-# ❌ 不好的提交方式
-git add .
-git commit -m "添加新功能"
+// ✅ 使用类型守卫验证解析结果
+function isValidConfig(data: unknown): data is Config {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    'theme' in data &&
+    'language' in data
+  )
+}
+
+function loadConfig(): Config {
+  try {
+    const json = localStorage.getItem('config')
+    if (!json) return DEFAULT_CONFIG
+    
+    const data = JSON.parse(json)
+    if (isValidConfig(data)) {
+      return data
+    }
+    
+    console.warn('Invalid config format, using default')
+    return DEFAULT_CONFIG
+  } catch (error) {
+    console.error('Failed to load config:', error)
+    return DEFAULT_CONFIG
+  }
+}
 ```
 
-### 4. 提交前暂存
-```bash
-# 使用 stash 保存未完成的工作
-git stash
+### 数据转换
+```typescript
+// ✅ 将 API 数据转换为应用数据
+interface RpcTorrent {
+  id: number
+  name: string
+  totalSize: number
+  downloadedEver: number
+  status: number
+  rateDownload: number
+  rateUpload: number
+}
 
-# 提交已完成的部分
-git add <files>
-git commit -m "feat: 完成的功能"
+interface TorrentInfo {
+  id: number
+  name: string
+  totalSize: number
+  downloadedSize: number
+  status: TorrentStatus
+  downloadSpeed: number
+  uploadSpeed: number
+  progress: number
+}
 
-# 恢复未完成的工作
-git stash pop
+// 转换函数
+function transformTorrent(rpc: RpcTorrent): TorrentInfo {
+  return {
+    id: rpc.id,
+    name: rpc.name,
+    totalSize: rpc.totalSize,
+    downloadedSize: rpc.downloadedEver,
+    status: getRpcStatus(rpc.status),
+    downloadSpeed: rpc.rateDownload,
+    uploadSpeed: rpc.rateUpload,
+    progress: rpc.totalSize > 0 
+      ? (rpc.downloadedEver / rpc.totalSize) * 100 
+      : 0
+  }
+}
+
+// 状态映射
+function getRpcStatus(status: number): TorrentStatus {
+  const STATUS_MAP: Record<number, TorrentStatus> = {
+    0: 'stopped',
+    1: 'checking',
+    2: 'checking',
+    3: 'downloading',
+    4: 'downloading',
+    5: 'seeding',
+    6: 'seeding'
+  }
+  return STATUS_MAP[status] || 'stopped'
+}
 ```
 
-## 模板
+### 数据验证
+```typescript
+// ✅ 验证 API 响应数据
+function validateTorrentResponse(data: unknown): data is { torrents: RpcTorrent[] } {
+  if (typeof data !== 'object' || data === null) {
+    return false
+  }
+  
+  if (!('torrents' in data) || !Array.isArray(data.torrents)) {
+    return false
+  }
+  
+  return data.torrents.every(t => 
+    typeof t === 'object' &&
+    typeof t.id === 'number' &&
+    typeof t.name === 'string' &&
+    typeof t.totalSize === 'number'
+  )
+}
 
-可以设置 git commit 模板：
-
-```bash
-# .gitmessage
-# <type>(<scope>): <subject>
-# 
-# <body>
-# 
-# <footer>
-#
-# Type: feat, fix, docs, style, refactor, perf, test, chore
-# Scope: torrent, ui, api, store, router, i18n, etc.
-# Subject: 简短描述（不超过 50 字符）
-# Body: 详细说明（可选）
-# Footer: Breaking changes, Issue 关联（可选）
-
-# 配置模板
-git config commit.template .gitmessage
+// 使用
+async function fetchTorrents(): Promise<TorrentInfo[]> {
+  try {
+    const response = await rpc.call('torrent-get', {
+      fields: TORRENT_FIELDS
+    })
+    
+    if (!validateTorrentResponse(response)) {
+      throw new Error('Invalid response format')
+    }
+    
+    return response.torrents.map(transformTorrent)
+  } catch (error) {
+    console.error('Failed to fetch torrents:', error)
+    throw error
+  }
+}
 ```
+
+## Store 中的数据管理
+
+### 异步操作
+```typescript
+// store/torrent.ts
+export const useTorrentStore = defineStore('torrent', () => {
+  const torrents = ref<TorrentInfo[]>([])
+  const loading = ref(false)
+  const error = ref<Error | null>(null)
+  
+  // ✅ 统一的加载状态管理
+  async function fetchTorrents(): Promise<void> {
+    loading.value = true
+    error.value = null
+    
+    try {
+      const data = await rpc.getTorrents()
+      torrents.value = data
+    } catch (e) {
+      error.value = e as Error
+      throw e
+    } finally {
+      loading.value = false
+    }
+  }
+  
+  // ✅ 乐观更新
+  async function updateTorrent(
+    id: number, 
+    updates: Partial<TorrentInfo>
+  ): Promise<void> {
+    // 保存旧值用于回滚
+    const index = torrents.value.findIndex(t => t.id === id)
+    if (index === -1) return
+    
+    const oldTorrent = { ...torrents.value[index] }
+    
+    // 立即更新 UI
+    torrents.value[index] = { ...oldTorrent, ...updates }
+    
+    try {
+      await rpc.setTorrent(id, updates)
+    } catch (error) {
+      // 回滚
+      torrents.value[index] = oldTorrent
+      throw error
+    }
+  }
+  
+  return {
+    torrents: readonly(torrents),
+    loading: readonly(loading),
+    error: readonly(error),
+    fetchTorrents,
+    updateTorrent
+  }
+})
+```
+
+### 轮询更新
+```typescript
+// composables/usePolling.ts
+export function usePolling(
+  callback: () => Promise<void>,
+  interval: number = 3000
+) {
+  const isPolling = ref(false)
+  let timerId: number | null = null
+  
+  async function poll() {
+    if (!isPolling.value) return
+    
+    try {
+      await callback()
+    } catch (error) {
+      console.error('Polling error:', error)
+    }
+    
+    if (isPolling.value) {
+      timerId = window.setTimeout(poll, interval)
+    }
+  }
+  
+  function start() {
+    if (isPolling.value) return
+    isPolling.value = true
+    poll()
+  }
+  
+  function stop() {
+    isPolling.value = false
+    if (timerId !== null) {
+      clearTimeout(timerId)
+      timerId = null
+    }
+  }
+  
+  // 组件卸载时自动停止
+  onUnmounted(stop)
+  
+  return {
+    isPolling: readonly(isPolling),
+    start,
+    stop
+  }
+}
+
+// 使用
+const torrentStore = useTorrentStore()
+const { start, stop } = usePolling(
+  () => torrentStore.fetchTorrents(),
+  3000
+)
+
+onMounted(start)
+```
+
+## 请求优化
+
+### 请求合并
+```typescript
+// ✅ 合并多个请求
+async function fetchAllData(): Promise<void> {
+  const [torrents, session, stats] = await Promise.all([
+    rpc.getTorrents(),
+    rpc.getSession(),
+    rpc.getStats()
+  ])
+  
+  // 更新 store
+  torrentStore.setTorrents(torrents)
+  sessionStore.setSession(session)
+  statsStore.setStats(stats)
+}
+```
+
+### 请求取消
+```typescript
+// ✅ 使用 AbortController 取消请求
+export function useAbortableRequest<T>(
+  requestFn: (signal: AbortSignal) => Promise<T>
+) {
+  const controller = ref<AbortController>()
+  const loading = ref(false)
+  
+  async function execute(): Promise<T | undefined> {
+    // 取消之前的请求
+    controller.value?.abort()
+    
+    controller.value = new AbortController()
+    loading.value = true
+    
+    try {
+      const result = await requestFn(controller.value.signal)
+      return result
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        console.log('Request aborted')
+        return undefined
+      }
+      throw error
+    } finally {
+      loading.value = false
+    }
+  }
+  
+  onUnmounted(() => {
+    controller.value?.abort()
+  })
+  
+  return {
+    execute,
+    loading: readonly(loading)
+  }
+}
+```
+
+### 缓存策略
+```typescript
+// ✅ 简单的内存缓存
+class CachedRPC {
+  private cache = new Map<string, { data: any, timestamp: number }>()
+  private ttl = 5000 // 5 秒
+  
+  async get<T>(
+    key: string, 
+    fetcher: () => Promise<T>
+  ): Promise<T> {
+    const cached = this.cache.get(key)
+    
+    if (cached && Date.now() - cached.timestamp < this.ttl) {
+      return cached.data
+    }
+    
+    const data = await fetcher()
+    this.cache.set(key, { data, timestamp: Date.now() })
+    
+    return data
+  }
+  
+  clear(key?: string): void {
+    if (key) {
+      this.cache.delete(key)
+    } else {
+      this.cache.clear()
+    }
+  }
+}
+```
+
+## 最佳实践总结
+
+1. **错误处理**: 始终使用 try-catch，提供用户友好的错误提示
+2. **JSON 解析**: 使用 try-catch 保护 JSON.parse 操作
+3. **数据验证**: 使用类型守卫验证 API 响应
+4. **数据转换**: 将 API 数据转换为应用数据模型
+5. **加载状态**: 统一管理 loading 和 error 状态
+6. **乐观更新**: 提供即时反馈，失败时回滚
+7. **请求优化**: 合并请求、实现缓存、支持取消
+8. **类型安全**: 使用 TypeScript 类型定义所有 API 接口
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/jianxcao)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/jianxcao)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [jianxcao/transmission-web](https://github.com/jianxcao/transmission-web) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
