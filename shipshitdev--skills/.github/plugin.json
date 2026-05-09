@@ -1,0 +1,9 @@
+{
+  "name": "shipshitdev--skills",
+  "displayName": "skills",
+  "description": "Claude, Cursor, Codex skills and commands",
+  "version": "1.0.0",
+  "author": "shipshitdev",
+  "homepage": "https://github.com/shipshitdev/skills",
+  "skills": []
+}
