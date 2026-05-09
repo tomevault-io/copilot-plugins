@@ -1,110 +1,555 @@
-## readme
+## testing-guidelines
 
-> NOWCRM development rules and best practices
+> Testing guidelines for NOWCRM
 
-# Twenty Development Rules
 
-This directory contains NOWCRM's development guidelines and best practices in the modern Cursor Rules format (MDC). These rules are automatically applied based on file patterns and provide context-aware guidance to AI assistants.
+# Testing Guidelines for NOWCRM
 
-## Rules Overview
+## Overview
 
-### Core Guidelines
-- **architecture.mdc** - Project overview, technology stack, and infrastructure setup (Always Applied)
+NOWCRM uses **Playwright** for end-to-end (E2E) testing. All tests follow the **Page Object Model (POM)** pattern for maintainability and reusability.
 
-### Code Quality
-- **typescript-guidelines.mdc** - TypeScript best practices and conventions (Auto-attached to .ts/.tsx files)
-- **code-style.mdc** - General coding standards and style guide (Auto-attached to code files)
-- **file-structure.mdc** - File and directory organization patterns (Auto-attached to config files)
+## Test Structure
 
-### React Development
-- **react-general-guidelines.mdc** - Core React development principles (Auto-attached to React files)
+### Directory Organization
 
-### Testing & Quality
-- **testing-guidelines.mdc** - Testing strategies and best practices (Auto-attached to test files)
-
-### Internationalization
-- **translations.mdc** - Translation workflow and i18n setup (Auto-attached to locale files)
-
-## How Rules Work
-
-### Automatic Attachment
-Rules are automatically included in your AI context based on file patterns (globs). When you work on TypeScript files, the TypeScript guidelines are automatically loaded.
-
-### Manual Reference
-You can manually reference any rule using the `@ruleName` syntax:
-- `@react-general-guidelines` - Load React best practices
-- `@testing-guidelines` - Get testing recommendations
-
-### Rule Types Used
-- **Always Applied** - Loaded in every context (architecture.mdc, README.mdc)  
-- **Auto Attached** - Loaded when matching file patterns are referenced
-- **Agent Requested** - Available for AI to include when relevant
-- **Manual** - Only included when explicitly mentioned
-
-## Development Commands
-
-### Frontend Commands
-
-todo:
-
-### Backend Commands
-
-todo:
-
-## Usage Guidelines
-
-### For Developers
-- Rules are automatically applied based on file context
-- Check rule descriptions to understand when they're activated
-- Use manual references (`@ruleName`) for additional context
-- Keep rules updated as the codebase evolves
-
-### For AI Assistants
-- Rules provide consistent guidance across conversations
-- Use rule context to maintain coding standards
-- Reference specific rules when making recommendations
-- Apply rule principles in code suggestions and reviews
-
-## Contributing to Rules
-
-### Adding New Rules
-1. Create a new `.mdc` file in this directory
-2. Include proper metadata headers with description and globs
-3. Write clear, actionable guidelines with examples
-4. Test the rule with relevant file patterns
-5. Update this README if needed
-
-### Updating Existing Rules
-1. Modify the rule content while preserving metadata
-2. Test changes with affected file patterns
-3. Ensure consistency with other rules
-4. Update examples and best practices as needed
-
-## Rule Format Reference
-
-Each rule file uses the MDC format with metadata:
-
-```markdown
----
-description: Brief description of the rule's purpose
-globs: ["**/*.ts", "**/*.tsx"]  # File patterns for auto-attachment
-alwaysApply: false              # Whether to always include this rule
----
-
-# Rule Title
-
-Rule content in Markdown format...
+```
+apps/nowcrm/tests/
+├── *.spec.ts              # Test specification files (numbered for execution order)
+├── pages/                  # Page Object Models (POMs)
+│   ├── CommonPage.ts
+│   ├── ContactsListPage.ts
+│   └── ...
+├── utils/                  # Test utilities and helpers
+│   ├── authHelper.ts
+│   └── data.ts
+├── setup/                  # Setup and teardown scripts
+│   ├── global-setup.ts
+│   ├── create-users.ts
+│   └── delete-users.ts
+└── files/                  # Test fixtures and data files
 ```
 
-## Migration from Legacy Format
+### File Naming Conventions
 
-The rules have been migrated from the legacy `.md` format to the modern `.mdc` format, providing:
-- Better context awareness through file pattern matching
-- Improved organization with metadata headers
-- More flexible rule application strategies
-- Enhanced integration with Cursor's AI features
+- **Test files**: Use numbered prefixes for execution order (e.g., `01Authentication.spec.ts`, `02Contacts.spec.ts`)
+- **Page Objects**: Use descriptive names ending with `Page` or `Modal` (e.g., `ContactsListPage.ts`, `ContactCreateModal.ts`)
+- **Utilities**: Use descriptive names (e.g., `authHelper.ts`, `data.ts`)
 
-For the most up-to-date version of these guidelines, always refer to the files in this directory.
+## Page Object Model (POM) Pattern
+
+### Structure
+
+Every Page Object should follow this structure:
+
+```typescript
+import { type Locator, type Page, expect } from '@playwright/test';
+
+export class PageName {
+    readonly page: Page;
+    
+    // Locators - declare as readonly
+    readonly elementName: Locator;
+    
+    constructor(page: Page) {
+        this.page = page;
+        // Initialize locators
+        this.elementName = page.getByRole('button', { name: 'Button Name' });
+    }
+    
+    // Actions - async methods that perform interactions
+    async performAction() {
+        await expect(this.elementName).toBeVisible();
+        await this.elementName.click();
+    }
+    
+    // Assertions - async methods that verify state
+    async expectSomethingVisible(timeout: number = 5000) {
+        await expect(this.elementName, 'Descriptive message').toBeVisible({ timeout });
+    }
+}
+```
+
+### Locator Best Practices
+
+1. **Prefer role-based selectors**:
+```typescript
+// ✅ Good - accessible and stable
+this.createButton = page.getByRole('button', { name: 'Create' });
+this.emailInput = page.getByRole('textbox', { name: 'Email' });
+
+// ❌ Avoid - fragile CSS selectors
+this.createButton = page.locator('.btn-primary');
+```
+
+2. **Scope locators within dialogs/modals**:
+```typescript
+constructor(page: Page) {
+    this.dialog = page.getByRole('dialog', { name: /Create Contact/i });
+    // Scope inputs within dialog
+    this.firstNameInput = this.dialog.getByRole('textbox', { name: 'First name' });
+}
+```
+
+3. **Use descriptive locator names**:
+```typescript
+// ✅ Good
+readonly userMenuTrigger: Locator;
+readonly deleteMassActionMenuItem: Locator;
+
+// ❌ Avoid
+readonly btn1: Locator;
+readonly menuItem: Locator;
+```
+
+### Action Methods
+
+- **Naming**: Use verb phrases (e.g., `clickCreateButton`, `fillAndSubmit`, `openUserMenu`)
+- **Wait for visibility**: Always wait for elements before interacting
+- **Return values**: Return relevant data when needed (e.g., created entity ID)
+
+```typescript
+async clickCreateButton() {
+    await expect(this.createButton, 'Create button should be visible').toBeVisible({ timeout: 20000 });
+    await this.createButton.click();
+}
+
+async fillAndSubmit(data: ContactData) {
+    await this.firstNameInput.fill(data.firstName);
+    await this.lastNameInput.fill(data.lastName);
+    await this.emailInput.fill(data.email);
+    await this.createButton.click();
+}
+```
+
+### Assertion Methods
+
+- **Naming**: Prefix with `expect` (e.g., `expectDashboardVisible`, `expectStatusMessage`)
+- **Descriptive messages**: Always include meaningful error messages
+- **Configurable timeouts**: Accept timeout parameters with sensible defaults
+
+```typescript
+async expectStatusMessage(message: string, timeout: number = 20000) {
+    const messageLocator = this.page.getByText(message, { exact: true });
+    await expect(messageLocator, `Status message "${message}" should be visible`)
+        .toBeVisible({ timeout });
+}
+
+async expectDashboardVisible(timeout: number = 10000) {
+    await expect(this.page, 'URL should indicate CRM dashboard')
+        .toHaveURL(/\/crm$/, { timeout });
+}
+```
+
+## Test File Structure
+
+### Basic Template
+
+```typescript
+import { test, expect } from '@playwright/test';
+import { faker } from '@faker-js/faker';
+
+// Import Page Object Models
+import { ContactsListPage } from './pages/ContactsListPage';
+import { ContactCreateModal } from './pages/ContactCreateModal';
+
+// Import utilities
+import { loginUser } from './utils/authHelper';
+
+test.describe('Feature Name', () => {
+    let pageObject1: ContactsListPage;
+    let pageObject2: ContactCreateModal;
+
+    test.beforeEach(async ({ page }) => {
+        // Initialize POMs
+        pageObject1 = new ContactsListPage(page);
+        pageObject2 = new ContactCreateModal(page);
+        
+        // Common setup (e.g., login)
+        await loginUser(page);
+        await pageObject1.goto();
+    });
+
+    test('User can perform action', async () => {
+        // Arrange - set up test data
+        const testData = { 
+            firstName: faker.person.firstName(), 
+            email: faker.internet.email() 
+        };
+        
+        // Act - perform actions
+        await pageObject1.clickCreateButton();
+        await pageObject2.fillAndSubmit(testData);
+        
+        // Assert - verify results
+        await pageObject2.expectCreationStatusMessage(testData.firstName);
+        await expect(pageObject1.getRowLocator(testData.email))
+            .toBeVisible({ timeout: 10000 });
+    });
+});
+```
+
+### Test Organization
+
+1. **Use `test.describe` blocks** to group related tests
+2. **Initialize POMs in `beforeEach`** for consistency
+3. **Number test files** for execution order (e.g., `01Authentication.spec.ts`)
+4. **One feature per describe block** (e.g., 'Contact Management', 'Authentication Flow')
+
+## Test Data Management
+
+### Using Faker for Test Data
+
+```typescript
+import { faker } from '@faker-js/faker';
+
+// Generate unique test data
+const contact = {
+    firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    email: faker.internet.email({ provider: `test.${faker.string.alphanumeric(5)}.pw` }),
+    address: faker.location.streetAddress(),
+};
+```
+
+### Unique Identifiers
+
+- **Use timestamps or random strings** to ensure uniqueness:
+```typescript
+const uniqueEmail = `testuser+${Date.now()}@example.com`;
+const uniqueListName = `List_${faker.string.alphanumeric(6)}`;
+```
+
+### Test Credentials
+
+- **Store in environment variables** via `utils/data.ts`:
+```typescript
+export const testCredentials = {
+    email: process.env.TEST_USER_EMAIL || 'testuser@example.com',
+    password: process.env.TEST_USER_PASSWORD || 'StrongPassword123!',
+};
+```
+
+## Authentication and Setup
+
+### Global Setup
+
+- **Use `global-setup.ts`** for authentication state management
+- **Save storage state** to avoid repeated logins:
+```typescript
+await page.context().storageState({ path: STORAGE_STATE_PATH });
+```
+
+### Login Helper
+
+- **Create reusable login function** in `utils/authHelper.ts`:
+```typescript
+export async function loginUser(
+    page: Page,
+    postLoginUrlRegex: RegExp = /\/crm$/
+): Promise<void> {
+    await page.goto('/en/auth');
+    await page.getByRole('textbox', { name: 'Email' }).fill(testCredentials.email);
+    await page.getByRole('textbox', { name: 'Password' }).fill(testCredentials.password);
+    await page.getByRole('button', { name: 'Sign in' }).click();
+    await expect(page).toHaveURL(postLoginUrlRegex, { timeout: 15000 });
+}
+```
+
+## Test Execution Patterns
+
+### Waiting Strategies
+
+1. **Use Playwright's auto-waiting**:
+```typescript
+// ✅ Good - Playwright waits automatically
+await button.click();
+
+// ❌ Avoid - unnecessary manual waits
+await page.waitForTimeout(1000);
+await button.click();
+```
+
+2. **Use explicit waits for async operations**:
+```typescript
+// ✅ Good - wait for specific condition
+await expect(element).toBeVisible({ timeout: 10000 });
+
+// ✅ Good - wait for URL change
+await expect(page).toHaveURL(/\/contacts\/\d+\/details/);
+```
+
+3. **Use `waitForTimeout` sparingly** (only when necessary):
+```typescript
+// Only when waiting for async operations that can't be detected
+await page.waitForTimeout(300); // Wait for dropdown to render
+```
+
+### Error Handling
+
+- **Use try/finally blocks** for cleanup:
+```typescript
+test('User can perform action', async ({ page, request }) => {
+    const uniqueEmail = `test+${Date.now()}@example.com`;
+    
+    try {
+        // Test logic
+        await createTestUser(request, { email: uniqueEmail });
+        // ... test steps ...
+    } finally {
+        // Cleanup
+        await deleteUserFromStrapi(request, uniqueEmail);
+        await request.delete('http://localhost:8025/api/v1/messages');
+    }
+});
+```
+
+### Test Isolation
+
+- **Each test should be independent** - don't rely on test execution order
+- **Clean up test data** after each test
+- **Use unique identifiers** to avoid conflicts
+
+## Assertions
+
+### Best Practices
+
+1. **Always include descriptive messages**:
+```typescript
+// ✅ Good
+await expect(contactRow, 'Contact row should contain correct email')
+    .toContainText(contact.email);
+
+// ❌ Avoid
+await expect(contactRow).toContainText(contact.email);
+```
+
+2. **Use appropriate matchers**:
+```typescript
+await expect(element).toBeVisible({ timeout: 10000 });
+await expect(element).toHaveText('Expected Text');
+await expect(element).toContainText('Partial Text');
+await expect(page).toHaveURL(/\/crm$/);
+await expect(locator).toHaveCount(1);
+```
+
+3. **Set reasonable timeouts**:
+```typescript
+// Default timeout: 5000ms
+await expect(element).toBeVisible();
+
+// Custom timeout for slow operations
+await expect(element).toBeVisible({ timeout: 20000 });
+```
+
+## Helper Functions
+
+### Reusable Test Helpers
+
+Create helper functions for common operations:
+
+```typescript
+// In test file or utils
+async function createContactViaUI(data: ContactData) {
+    await contactsListPage.clickCreateButton();
+    await contactCreateModal.waitForDialogVisible();
+    await contactCreateModal.fillAndSubmit(data);
+    await contactCreateModal.expectCreationStatusMessage(data.firstName);
+    await contactsListPage.goto();
+    await expect(contactsListPage.getRowLocator(data.email))
+        .toBeVisible({ timeout: 10000 });
+}
+```
+
+### External Service Helpers
+
+For services like Mailpit, create helper classes:
+
+```typescript
+export class MailpitHelper {
+    readonly request: APIRequestContext;
+    
+    constructor(request: APIRequestContext) {
+        this.request = request;
+    }
+    
+    async waitForEmails(recipient: string, subject: string, expectedCount = 2) {
+        // Implementation
+    }
+}
+```
+
+## Test Configuration
+
+### Playwright Config
+
+Key configuration patterns:
+
+```typescript
+export default defineConfig({
+    testDir: './tests',
+    timeout: TIMEOUT, // Default: 30000
+    globalSetup: require.resolve('./tests/setup/global-setup'),
+    expect: {
+        timeout: EXPECT_TIMEOUT, // Default: 5000
+    },
+    fullyParallel: false, // Set to false for sequential execution
+    retries: CI ? 1 : 0,
+    workers: CI ? 1 : WORKERS,
+    use: {
+        baseURL: CRM_BASE_URL,
+        trace: 'on-first-retry',
+        screenshot: 'only-on-failure',
+        video: 'on-first-retry',
+    },
+});
+```
+
+### Environment Variables
+
+Required environment variables:
+
+- `CRM_BASE_URL` - Base URL for the application
+- `TEST_USER_EMAIL` - Test user email
+- `TEST_USER_PASSWORD` - Test user password
+- `STRAPI_TEST_ADMIN_EMAIL` - Strapi admin email
+- `STRAPI_TEST_ADMIN_PASSWORD` - Strapi admin password
+- `PLAYWRIGHT_WORKERS` - Number of workers (optional)
+- `PLAYWRIGHT_RETRIES` - Number of retries (optional)
+- `PLAYWRIGHT_TIMEOUT` - Test timeout (optional)
+
+## Test Maintenance
+
+### Handling Flaky Tests
+
+1. **Increase timeouts** for slow operations
+2. **Add explicit waits** for async operations
+3. **Use more stable locators** (role-based over CSS)
+4. **Retry logic** for known flaky operations:
+```typescript
+let langSelected = false;
+for (let i = 0; i < 3; i++) {
+    try {
+        await langOption.click();
+        langSelected = true;
+        break;
+    } catch (err) {
+        if (i === 2) throw err;
+        await this.page.waitForTimeout(100);
+    }
+}
+```
+
+### Skipping Tests
+
+- **Use `test.skip()`** for temporarily disabled tests:
+```typescript
+test.skip('should allow creating a journey with drag-and-drop', async () => {
+    // Test implementation
+});
+```
+
+- **Use `test.fail()`** for tests that are expected to fail (document why):
+```typescript
+// This test is marked as expected to fail due to a known application bug.
+test.fail('User can edit a list name (expected failure due to edit bug)', async () => {
+    // Test implementation
+});
+```
+
+## Code Style
+
+### Comments
+
+- **Add comments** explaining complex test logic
+- **Document test steps** in multi-step tests:
+```typescript
+// Step 1: Navigate to the login page
+await loginPage.goto();
+
+// Step 2: Fill in credentials
+await loginPage.fillCredentials(email, password);
+
+// Step 3: Submit and verify
+await loginPage.clickSignIn();
+await commonPage.expectDashboardVisible();
+```
+
+### Naming Conventions
+
+- **Test descriptions**: Use "User can..." or "should..." format
+- **Helper functions**: Use descriptive verb phrases
+- **Variables**: Use camelCase with descriptive names
+
+## Common Patterns
+
+### Row Operations
+
+```typescript
+// Get row locator
+const row = contactsListPage.getRowLocator(uniqueEmail);
+
+// Get row-specific elements
+const checkbox = contactsListPage.getCheckboxForRow(row);
+const link = contactsListPage.getLinkForRow(row, firstName);
+const deleteButton = contactsListPage.getDeleteButtonForRow(row);
+
+// Interact with row
+await checkbox.check();
+await link.click();
+await deleteButton.click();
+```
+
+### Modal/Dialog Operations
+
+```typescript
+// Wait for modal
+await modal.waitForDialogVisible();
+
+// Fill form
+await modal.fillAndSubmit(data);
+
+// Verify success
+await modal.expectCreationStatusMessage(data.name);
+```
+
+### Mass Actions
+
+```typescript
+// Select items
+await contactsListPage.getCheckboxForRow(row).check();
+
+// Open mass actions menu
+await contactsListPage.openMassActionsMenu();
+
+// Perform action
+await contactsListPage.clickDeleteMassAction();
+await contactsListPage.clickDeleteConfirmMassAction();
+```
+
+## Best Practices Summary
+
+1. ✅ **Use Page Object Model** for all page interactions
+2. ✅ **Prefer role-based locators** over CSS selectors
+3. ✅ **Use descriptive test names** and assertion messages
+4. ✅ **Generate unique test data** using Faker
+5. ✅ **Clean up test data** in finally blocks
+6. ✅ **Use helper functions** for common operations
+7. ✅ **Set appropriate timeouts** for async operations
+8. ✅ **Keep tests independent** and isolated
+9. ✅ **Document complex test logic** with comments
+10. ✅ **Handle errors gracefully** with try/finally blocks
+
+## Anti-Patterns to Avoid
+
+1. ❌ **Hardcoded test data** - Use Faker or environment variables
+2. ❌ **CSS selectors** - Prefer role-based or accessible selectors
+3. ❌ **Unnecessary waits** - Use Playwright's auto-waiting
+4. ❌ **Test dependencies** - Keep tests independent
+5. ❌ **Missing cleanup** - Always clean up test data
+6. ❌ **Vague assertions** - Include descriptive error messages
+7. ❌ **Duplicate code** - Extract to helper functions or POMs
+8. ❌ **Fragile locators** - Use stable, accessible selectors
 
 ---
 > Source: [nowtec/nowCRM](https://github.com/nowtec/nowCRM) — distributed by [TomeVault](https://tomevault.io).
