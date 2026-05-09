@@ -1,69 +1,83 @@
-## project-overview
+## python-code-quality
 
-> LEAP monorepo layout, stack, tenancy, security, and tooling defaults (always read first)
+> Python style, Ruff, ty, pre-commit, imports, and docstrings for backend/
 
 
-# LEAP — Project overview (agent context)
+# Python — style, linting, and type checking
 
-## Product
+General design values (KISS, DRY, YAGNI): `engineering-principles.mdc`.
 
-**LEAP** (Lecture Enhancement & Automation Platform) is a **multi-tenant** backend for educational video processing: ingestion (Zoom OAuth, yt-dlp, Yandex Disk, uploads), FFmpeg trimming, ASR (Fireworks/Whisper), topic extraction (DeepSeek), subtitles, and multi-platform upload (YouTube, VK, Yandex, etc.).
+## Runtime and package manager
 
-## Repository layout
+- **Python:** `>= 3.14` per `backend/pyproject.toml`.
+- **Dependencies / runner:** `uv` from `backend/` (`uv sync`, `uv run …`).
 
-| Area | Path | Notes |
-|------|------|--------|
-| **Application** | `backend/` | FastAPI app, Celery workers, Alembic, Python **≥ 3.14**, `uv` |
-| **Package version** | `backend/pyproject.toml` | `[project].version` is canonical |
-| **Docker / infra** | Repo root | `docker-compose.yml`, root `Makefile` (Docker-only) |
-| **Backend tasks** | `backend/Makefile` | API, Celery queues, DB, lint, tests |
-| **Authoritative docs** | `backend/docs/` | See `INDEX.md` |
-| **Draft / internal** | `backend/docs/dev_notes/` | May be outdated; prefer `guides/` + ADR |
+## Ruff (lint + format)
 
-**Pipeline (mental model):** download → trim (FFmpeg) → transcribe → topics → subtitles → upload. Work is orchestrated via **Celery** chains and **specialized queues** (`downloads`, `uploads`, `async_operations`, `processing_cpu`, `maintenance`) — see `backend/Makefile` worker targets.
+- **Config:** `backend/ruff.toml` (authoritative).
+- **Line length:** 120; **quotes:** double (`"`).
+- **Formatter:** Ruff format (not Black).
+- **Target:** `target-version = "py311"` in `ruff.toml` (lint baseline); runtime remains 3.14.
 
-**Design values:** KISS, DRY, YAGNI — see `engineering-principles.mdc`.
+### Commands (from `backend/`)
 
-## Backend code layout (where things live)
+```bash
+make lint          # ruff check .
+make lint-fix      # ruff check . --fix && ruff format .
+make format        # ruff format .
+```
 
-| Concern | Typical location |
-|---------|------------------|
-| FastAPI app, routers | `backend/api/` |
-| SQLAlchemy models | `backend/database/` |
-| Celery tasks | `backend/api/tasks/` |
-| Business logic | services / repositories alongside existing modules |
+Or: `uv run python -m ruff check .` / `uv run python -m ruff format .`
 
-**Default DB name** in local/docker examples is often **`zoom_manager`** (align env with `backend/docs/guides/DEPLOYMENT.md`).
+### Conventions encoded in Ruff
 
-## Multi-tenancy and data safety
+- **Imports:** isort-compatible; `known-first-party` lists `api`, `config`, `database`, `models`, `utils`, and video/* modules — keep new first-party packages aligned with `ruff.toml`.
+- **Tests:** relaxed rules under `tests/**/*.py` (asserts, magic values, etc.).
+- **Alembic:** `alembic/versions/*.py` has per-file ignores (upgrade/downgrade signatures).
+- **Celery tasks:** `api/tasks/*.py` allows unused method args per Celery signatures.
 
-- Every API and repository change must **preserve tenant/user isolation** (no cross-tenant reads or writes). Scope queries like existing code (**`user_id`** / ownership filters).
-- Enforce access with project patterns: **`ResourceAccessValidator`**, **`TaskAccessService`** — follow neighboring endpoints; do not add “bare” IDs without checks.
-- **OAuth tokens** are stored **encrypted** in the DB; use existing crypto/storage helpers, do not log or persist plaintext tokens in new code paths.
-- Do not log secrets, tokens, or raw credentials. Follow `backend/docs/guides/CREDENTIAL_SECURITY.md` when touching auth or storage.
+## ty (type checker)
 
-## Local debugging signals
+- **Config:** `[tool.ty]` in `backend/pyproject.toml`.
+- **Checked roots:** `api`, `database`, `models`, `utils`, `config`, download/process/upload modules, AI modules, etc. — see `include` list in pyproject.
+- **Excluded:** `alembic/versions`, `tests` (tests have overrides for softer rules).
 
-- API / app: `backend/logs/app.log`
-- Async Celery worker: `backend/logs/celery-async.log`
-- When investigating stuck recordings, relate log lines to **recording id**, **task name**, and **queue**.
+### Commands (from `backend/`)
 
-## Tooling entrypoint
+```bash
+make typecheck          # uv run python -m ty check
+make typecheck-watch    # ty check --watch
+make typecheck-verbose
+```
 
-- Install/sync deps from **`backend/`**: `uv sync` (dev group includes pytest, pre-commit, `ty`).
-- Run API: `make api` from `backend/` (requires DB/Redis per README).
+## Pre-commit (repository root)
 
-## Agent behavior (this repo)
+- Config: **`.pre-commit-config.yaml`** at monorepo root.
+- **Ruff** hooks: files `^backend/` (check with `--fix`, `ruff-format`).
+- **ty** hook: `cd backend && uv run python -m ty check` (whole project, not per-file).
 
-- **Minimal diffs:** change only what the task requires; no drive-by refactors.
-- **Match existing code:** naming, imports (`ruff` isort first-party list), patterns in neighboring modules.
-- **Do not add** unsolicited markdown files; documentation updates follow **`documentation.mdc`**.
-- **Optional skills** (repo checklists): `leap-version-bump`, `leap-release`, `leap-docs-hygiene`, `leap-debug-pipeline`.
-- Prefer **`uv run python`** / **`make`** targets from `backend/` over ad-hoc global Python.
+Install from `backend/`: `make pre-commit-install` (or `uv run pre_commit install` from repo root after `uv` env is ready).
 
-## License
+## Quality aggregate
 
-Business Source License 1.1 (see `backend/pyproject.toml`).
+From `backend/`: `make quality` runs **lint + typecheck + pytest quality markers** (`tests/quality/`, `-m quality`).
+
+## Docstrings and comments
+
+- **Language:** write **docstrings and comments in English** (consistent codebase and tooling).
+- **Modules:** one-line module docstring is typical (`"""…"""` after imports style varies; follow neighboring files).
+- **Public APIs:** document non-obvious behavior, invariants, side effects (DB, Celery enqueue, external HTTP).
+- **Prefer** concise explanations over boilerplate; let **type hints** carry parameter/return detail when names are clear.
+- **Comments:** use them **sparingly** — only when they add real value (non-obvious *why*, hazards, external constraints). Skip comments that restate the code. When you do comment, explain *why*, not what the code literally does.
+
+## FastAPI / Pydantic v2
+
+- Use **Pydantic v2** patterns (`model_validate`, `model_dump`, `Field`, …) consistent with existing schemas.
+- Dependency injection: `Depends` patterns may trigger Ruff `B008` ignore at config level — do not “fix” by removing valid FastAPI defaults.
+
+## Logging
+
+- Use project logging (**loguru** / middleware patterns already in codebase); avoid `print` in library/API code (`T201` may apply outside scripts).
 
 ---
 > Source: [GordeyZuev/LEAP](https://github.com/GordeyZuev/LEAP) — distributed by [TomeVault](https://tomevault.io).
