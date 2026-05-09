@@ -1,120 +1,106 @@
-## errors
+## files
 
-> Error handling rules
+> File organization and structure rules
 
 
-# Error Handling Rules
+# File Organization Rules
 
-## Custom Error Classes
+## Directory Structure
 
-ALWAYS use custom errors from `src/errors.ts`:
-
-```typescript
-import {
-  TuckError,                // Base error class
-  NotInitializedError,      // Tuck not set up
-  AlreadyInitializedError,  // Already initialized
-  FileNotFoundError,        // File doesn't exist
-  FileNotTrackedError,      // File not in manifest
-  FileAlreadyTrackedError,  // Already tracked
-  GitError,                 // Git operation failed
-  ConfigError,              // Configuration issue
-  ManifestError,            // Manifest corruption
-  PermissionError,          // Can't read/write
-  GitHubCliError,           // GitHub CLI issues
-  BackupError,              // Backup/snapshot issues
-} from '../errors.js';
+```
+src/
+├── commands/     # CLI command implementations (14 commands)
+│   ├── init, add, remove, sync, push, pull
+│   ├── restore, status, list, diff, config
+│   └── apply, undo, scan
+├── lib/          # Core library modules (11 modules)
+│   ├── paths, config, manifest, git, files
+│   ├── backup, hooks, github, timemachine
+│   └── merge, detect
+├── ui/           # Terminal UI components
+│   └── banner, logger, prompts, spinner, table
+├── schemas/      # Zod validation schemas
+│   └── config.schema, manifest.schema
+├── constants.ts  # App constants
+├── types.ts      # TypeScript types
+├── errors.ts     # Custom error classes
+└── index.ts      # Entry point
 ```
 
-## Error Structure
+## File Placement
 
-All custom errors include:
-- Human-readable message
-- Error code for programmatic handling
-- Suggestions for resolution
+### Commands (`src/commands/`)
+- One file per command
+- Named after the command: `add.ts`, `sync.ts`
+- Export named command: `export const addCommand`
+- Register in `src/commands/index.ts`
 
-```typescript
-throw new FileNotFoundError(path, {
-  suggestion: "Run 'tuck add' to track this file first"
-});
-```
+### Library Modules (`src/lib/`)
+- Core functionality, reusable across commands
+- Named by domain: `paths.ts`, `git.ts`, `config.ts`
+- Export all public functions
+- Register in `src/lib/index.ts`
 
-## Error Handling Patterns
+### UI Components (`src/ui/`)
+- Terminal UI utilities
+- Named by function: `logger.ts`, `prompts.ts`
+- Wrapper around @clack/prompts, chalk, etc.
+- Register in `src/ui/index.ts`
 
-### Catching Errors
+### Schemas (`src/schemas/`)
+- Zod validation schemas
+- Named with `.schema.ts` suffix
+- Export input and output types
 
-```typescript
-// Good - handle specific error
-try {
-  await loadManifest(tuckDir);
-} catch (error) {
-  if (error instanceof ManifestError) {
-    throw new NotInitializedError();
-  }
-  throw error; // Re-throw unknown errors
-}
-```
+## Creating New Files
 
-### NEVER Do
+### New Command
 
-```typescript
-// Bad - silent failure
-await operation().catch(() => {});
+1. Create `src/commands/mycommand.ts`
+2. Export from `src/commands/index.ts`
+3. Register in `src/index.ts`
+4. Add tests in `tests/commands/mycommand.test.ts`
 
-// Bad - generic error
-throw new Error('Something went wrong');
+### New Library Module
 
-// Bad - swallowing errors
-try {
-  await operation();
-} catch {
-  // Do nothing
-}
-```
+1. Create `src/lib/mymodule.ts`
+2. Export from `src/lib/index.ts`
+3. Add tests in `tests/lib/mymodule.test.ts`
 
-## User-Facing Errors
+### New Schema
 
-Errors shown to users should:
-1. Explain what happened
-2. Suggest how to fix it
-3. Be actionable
+1. Create `src/schemas/myschema.schema.ts`
+2. Export input type, output type, and schema
+
+## Index Files
+
+Always use barrel exports:
 
 ```typescript
-// Good
-throw new ConfigError(
-  'Configuration file is corrupted',
-  {
-    code: 'CONFIG_CORRUPT',
-    suggestion: "Run 'tuck config reset' to restore defaults"
-  }
-);
+// src/lib/index.ts
+export * from './paths.js';
+export * from './config.js';
+export * from './git.js';
 ```
 
-## Logging Errors
+## Import Paths
 
-Use the logger for debug info, not console:
+Always include `.js` extension:
 
 ```typescript
-import { logger } from '../ui/index.js';
+// Correct
+import { getTuckDir } from '../lib/paths.js';
 
-logger.debug('Processing file:', filePath);
-logger.error('Failed to read file:', error.message);
+// Wrong
+import { getTuckDir } from '../lib/paths';
 ```
 
-## Error Recovery
+## File Naming
 
-When possible, provide recovery paths:
-
-```typescript
-try {
-  await writeFile(path, content);
-} catch (error) {
-  // Provide backup location
-  throw new PermissionError(path, 'write', {
-    suggestion: `Check permissions or restore from ${backupPath}`
-  });
-}
-```
+- Use kebab-case for multi-word files: `my-module.ts`
+- Use `.schema.ts` for Zod schemas
+- Use `.test.ts` for test files
+- Entry point is always `index.ts`
 
 ---
 > Source: [Pranav-Karra-3301/tuck](https://github.com/Pranav-Karra-3301/tuck) — distributed by [TomeVault](https://tomevault.io).
