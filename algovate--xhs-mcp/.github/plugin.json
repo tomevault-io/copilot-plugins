@@ -1,0 +1,9 @@
+{
+  "name": "algovate--xhs-mcp",
+  "displayName": "xhs-mcp",
+  "description": "\u7528\u4e8e\u5c0f\u7ea2\u4e66\uff08xiaohongshu.com\uff09\u7684 Model Context Protocol\uff08MCP\uff09\u670d\u52a1\u5668\u4e0e CLI \u5de5\u5177\uff0c\u652f\u6301\u767b\u5f55\u3001\u53d1\u5e03\u3001\u641c\u7d22\u3001\u63a8\u8350\u7b49\u81ea\u52a8\u5316\u80fd\u529b",
+  "version": "1.0.0",
+  "author": "Algovate",
+  "homepage": "https://github.com/Algovate/xhs-mcp",
+  "skills": []
+}
