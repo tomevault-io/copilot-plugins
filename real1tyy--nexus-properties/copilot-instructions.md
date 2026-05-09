@@ -1,187 +1,210 @@
-## obsidian-frontmatter-api
+## utility-extraction
 
-> Enforce use of Obsidian's processFrontMatter API instead of manual YAML manipulation
+> Always extract non-business-logic functions to utils and test them
 
 
-# Obsidian Frontmatter API Usage Rule
+# Utility Function Extraction Rule
 
-**CRITICAL: Always use Obsidian's `app.fileManager.processFrontMatter()` API for all frontmatter modifications. Never manipulate YAML manually.**
+**CRITICAL: ANY function that is NOT directly related to business logic MUST be extracted to `src/utils/` with comprehensive unit tests.**
 
-## ✅ **ALWAYS Use processFrontMatter**
+## Core Principle
 
+**If a function can exist without knowing about your business domain, it MUST be in utils.**
+
+## ✅ Functions That MUST Be Extracted to Utils
+
+### Value Checking & Validation
 ```typescript
-// ✅ CORRECT: Use Obsidian's built-in API
-await this.app.fileManager.processFrontMatter(file, (fm) => {
-  // Treat `fm` as a mutable JavaScript object
-  fm["title"] = "My recurring event";           // set/overwrite
-  fm["tags"] = (fm["tags"] ?? []).concat("calendar"); // append to array
-  fm["start"] = new Date().toISOString();       // ISO string for dates
-  fm[settings.startProp] = eventData.start;     // dynamic property names
-  delete fm["obsoleteProp"];                    // remove properties
+// ❌ WRONG: In component class
+private isEmptyValue(value: unknown): boolean { ... }
+private isValidEmail(email: string): boolean { ... }
+private hasValue(val: any): boolean { ... }
 
-  // Handle conditional updates
-  if (eventData.allDay && settings.allDayProp) {
-    fm[settings.allDayProp] = eventData.allDay;
-  }
-});
+// ✅ CORRECT: In src/utils/value-check-utils.ts
+export function isEmptyValue(value: unknown): boolean { ... }
+export function isValidEmail(email: string): boolean { ... }
+export function hasValue(val: any): boolean { ... }
 ```
 
-## ❌ **NEVER Manipulate YAML Manually**
-
+### String Manipulation
 ```typescript
-// ❌ WRONG: Manual YAML string manipulation
-private async updateFrontmatterPreservingFormat(content: string, eventData: any): Promise<string> {
-  const yamlMatch = frontmatterSection.match(/^---\n([\s\S]*?)\n---$/);
-  let yamlContent = yamlMatch[1];
-  yamlContent = this.updateYamlProperty(yamlContent, key, value);
-  return `${beforeFrontmatter}---\n${yamlContent}\n---${afterFrontmatter}`;
-}
+// ❌ WRONG: In business logic
+private sanitizeFileName(name: string): string { ... }
+private truncateText(text: string, maxLength: number): string { ... }
 
-// ❌ WRONG: Manual YAML property updates
-private updateYamlProperty(yamlContent: string, key: string, value: any): string {
-  const keyRegex = new RegExp(`^(${escapedKey}:\\s*)(.*)$`, "m");
-  return yamlContent.replace(keyRegex, `$1${formattedValue}`);
-}
-
-// ❌ WRONG: Manual frontmatter creation
-private createFrontmatterFromEventData(eventData: any): string {
-  const lines: string[] = [];
-  lines.push(`${settings.titleProp}: "${eventData.title}"`);
-  return lines.join("\n");
-}
+// ✅ CORRECT: In src/utils/string-utils.ts
+export function sanitizeFileName(name: string): string { ... }
+export function truncateText(text: string, maxLength: number): string { ... }
 ```
 
-## **How processFrontMatter Works**
-
-1. **Loads** the file's current YAML frontmatter
-2. **Provides** it to your updater function as a mutable JS object
-3. **Writes back** any mutations you make, automatically re-serialized as YAML
-4. **Creates** frontmatter if none exists
-5. **Handles** all YAML formatting, escaping, and edge cases
-
-## **Key Benefits**
-
-- **Automatic YAML serialization** - No manual string manipulation
-- **Handles edge cases** - Special characters, arrays, nested objects
-- **Creates frontmatter** if file has none
-- **Atomic updates** - All changes applied together
-- **Type safety** - Work with JS objects, not strings
-- **Obsidian integration** - Triggers proper cache updates
-
-## **Common Patterns**
-
-### Event Updates
+### Date/Time Operations
 ```typescript
-// ✅ Update event properties
-await this.app.fileManager.processFrontMatter(file, (fm) => {
-  fm[settings.startProp] = info.event.start.toISOString();
-  if (info.event.end && settings.endProp) {
-    fm[settings.endProp] = info.event.end.toISOString();
-  }
-});
+// ❌ WRONG: In component
+private formatDate(date: Date): string { ... }
+private parseDateTime(str: string): Date { ... }
+
+// ✅ CORRECT: In src/utils/date-utils.ts
+export function formatDate(date: Date): string { ... }
+export function parseDateTime(str: string): Date { ... }
 ```
 
-### Conditional Property Setting
+### Array/Object Manipulation
 ```typescript
-// ✅ Set properties conditionally
-await this.app.fileManager.processFrontMatter(file, (fm) => {
-  if (eventData.title && settings.titleProp) {
-    fm[settings.titleProp] = eventData.title;
-  }
-  if (settings.zettelIdProp) {
-    fm[settings.zettelIdProp] = generateZettelId();
-  }
-});
+// ❌ WRONG: In service class
+private removeDuplicates<T>(arr: T[]): T[] { ... }
+private groupBy<T>(arr: T[], key: keyof T): Record<string, T[]> { ... }
+
+// ✅ CORRECT: In src/utils/array-utils.ts or src/utils/collection-utils.ts
+export function removeDuplicates<T>(arr: T[]): T[] { ... }
+export function groupBy<T>(arr: T[], key: keyof T): Record<string, T[]> { ... }
 ```
 
-### Array Manipulation
+### File Operations
 ```typescript
-// ✅ Handle arrays properly
-await this.app.fileManager.processFrontMatter(file, (fm) => {
-  fm["tags"] = (fm["tags"] ?? []).concat("new-tag");
-  fm[propertyName] = normalizedRefs;  // Replace entire array
-});
+// ❌ WRONG: Scattered across components
+private getFileExtension(path: string): string { ... }
+private joinPaths(...parts: string[]): string { ... }
+
+// ✅ CORRECT: In src/utils/file-utils.ts
+export function getFileExtension(path: string): string { ... }
+export function joinPaths(...parts: string[]): string { ... }
 ```
 
-### Preserving Existing Data
+### DOM Helpers
 ```typescript
-// ✅ Preserve non-calendar properties
-await this.app.fileManager.processFrontMatter(file, (fm) => {
-  // Only update specific properties, others remain unchanged
-  fm[settings.startProp] = eventData.start;
-  fm[settings.endProp] = eventData.end;
-  // All other frontmatter properties are automatically preserved
-});
+// ❌ WRONG: In view class
+private createButton(text: string, onClick: () => void): HTMLElement { ... }
+
+// ✅ CORRECT: In src/utils/dom-utils.ts
+export function createButton(text: string, onClick: () => void): HTMLElement { ... }
 ```
 
-## **Migration Examples**
+## 🚫 Functions That Stay in Business Logic
 
-### Replace Manual YAML Updates
+- Event handlers specific to the component
+- State management for the component
+- API calls specific to the domain
+- Workflow orchestration
+- Component lifecycle methods
+- Methods that directly manipulate component state
+
+## Implementation Checklist
+
+For EVERY utility function:
+
+1. **Extract to appropriate utils file**
+   - Create new file if needed: `src/utils/[domain]-utils.ts`
+   - Use clear, descriptive names
+   - Add proper TypeScript types
+
+2. **Write comprehensive unit tests**
+   - Create test file: `tests/[domain]-utils.test.ts`
+   - Test happy paths
+   - Test edge cases
+   - Test error conditions
+   - Aim for 100% coverage
+
+3. **Export from utils**
+   - Ensure function is exported
+   - Use named exports, not default exports
+
+4. **Import in business logic**
+   - Use absolute imports where possible
+   - Import only what you need
+
+## Testing Requirements
+
 ```typescript
-// ❌ BEFORE: Manual string manipulation
-private async updateEventFile(eventData: any): Promise<void> {
-  const content = await this.app.vault.read(file);
-  const updatedContent = await this.updateFrontmatterPreservingFormat(content, eventData);
-  await this.app.vault.modify(file, updatedContent);
-}
+// tests/value-check-utils.test.ts
+import { describe, expect, it } from "vitest";
+import { isEmptyValue } from "../src/utils/value-check-utils";
 
-// ✅ AFTER: Use processFrontMatter
-private async updateEventFile(eventData: any): Promise<void> {
-  const file = this.app.vault.getAbstractFileByPath(eventData.filePath);
-  if (!(file instanceof TFile)) return;
+describe("isEmptyValue", () => {
+  describe("null and undefined", () => {
+    it("should return true for null", () => {
+      expect(isEmptyValue(null)).toBe(true);
+    });
 
-  await this.app.fileManager.processFrontMatter(file, (fm) => {
-    if (eventData.title && settings.titleProp) {
-      fm[settings.titleProp] = eventData.title;
-    }
-    fm[settings.startProp] = eventData.start;
-    if (eventData.end) {
-      fm[settings.endProp] = eventData.end;
-    }
-    if (eventData.allDay !== undefined && settings.allDayProp) {
-      fm[settings.allDayProp] = eventData.allDay;
-    }
+    it("should return true for undefined", () => {
+      expect(isEmptyValue(undefined)).toBe(true);
+    });
   });
-}
-```
 
-## **Error Handling**
+  describe("strings", () => {
+    it("should return true for empty string", () => {
+      expect(isEmptyValue("")).toBe(true);
+    });
 
-```typescript
-// ✅ Proper error handling with processFrontMatter
-try {
-  await this.app.fileManager.processFrontMatter(file, (fm) => {
-    fm[settings.startProp] = eventData.start;
-    // Mutations here are atomic
+    it("should return true for whitespace-only string", () => {
+      expect(isEmptyValue("   ")).toBe(true);
+    });
+
+    it("should return false for non-empty string", () => {
+      expect(isEmptyValue("hello")).toBe(false);
+    });
   });
-  console.log("Event updated successfully");
-} catch (error) {
-  console.error("Error updating event:", error);
-  // File remains unchanged if error occurs
-}
+
+  describe("arrays", () => {
+    it("should return true for empty array", () => {
+      expect(isEmptyValue([])).toBe(true);
+    });
+
+    it("should return false for non-empty array", () => {
+      expect(isEmptyValue([1])).toBe(false);
+    });
+  });
+
+  describe("edge cases", () => {
+    it("should handle zero as not empty", () => {
+      expect(isEmptyValue(0)).toBe(false);
+    });
+
+    it("should handle false as not empty", () => {
+      expect(isEmptyValue(false)).toBe(false);
+    });
+  });
+});
 ```
 
-## **Zero Tolerance Policy**
+## Detection Questions
 
-- **NEVER** use string manipulation for YAML
-- **NEVER** manually construct `---\nkey: value\n---` strings
-- **NEVER** use regex to update YAML properties
-- **NEVER** parse YAML manually with `matter()` for updates
-- **ALWAYS** use `processFrontMatter` for any frontmatter changes
-- **DELETE** any existing manual YAML manipulation code immediately
+Before writing any helper function, ask:
 
-## **Current Violations to Fix**
+1. **Domain Independence**: Can this function work without knowing about my app's domain?
+2. **Reusability**: Could this function be useful in other projects?
+3. **Business Logic**: Does this function contain business rules or just technical logic?
+4. **Pure Function**: Does this function only depend on its inputs?
 
-The following methods in [event-context-menu.ts](mdc:apps/custom-calendar/src/components/event-context-menu.ts) violate this rule and must be replaced:
+If you answered "Yes" to questions 1-2 or "No" to question 3, **EXTRACT IT TO UTILS**.
 
-- `updateFrontmatterPreservingFormat()` - Lines 204-264
-- `updateYamlProperty()` - Lines 266-305
-- `updateYamlArrayProperty()` - Lines 307-336
-- `createFrontmatterFromEventData()` - Lines 338-356
+## Examples from This Project
 
-Replace the entire `updateEventFile()` method to use `processFrontMatter` instead.
+### ✅ Recently Extracted
+- `isEmptyValue()` - Moved from `NodePreviewModal` to `src/utils/value-check-utils.ts`
+- Full test coverage with 16 test cases
 
-**Remember**: Obsidian's `processFrontMatter` handles all the complexity of YAML serialization, formatting, and edge cases. Trust the API and never manipulate YAML strings manually.
+### 🔍 Look For These Patterns
+- Private methods with `is`, `has`, `check` prefixes
+- Private methods with `format`, `parse`, `convert` in the name
+- Private methods that don't reference `this`
+- Private methods that could be `static`
+
+## Zero Tolerance
+
+- **NEVER write utility functions in component/service classes**
+- **NEVER skip unit tests for utility functions**
+- **ALWAYS check if a similar util already exists before creating new ones**
+- **ALWAYS extract utilities BEFORE writing business logic**
+
+## Benefits
+
+- **Reusability**: Write once, use everywhere
+- **Testability**: Easier to test pure functions in isolation
+- **Maintainability**: Single source of truth for common operations
+- **DRY**: Avoid code duplication across the codebase
+- **Quality**: Comprehensive test coverage ensures reliability
+
+**Remember: If it's not business logic, it belongs in utils. No exceptions.**
 
 ---
 > Source: [Real1tyy/Nexus-Properties](https://github.com/Real1tyy/Nexus-Properties) — distributed by [TomeVault](https://tomevault.io).
