@@ -1,0 +1,9 @@
+{
+  "name": "davidmigloz--ai-clients-dart",
+  "displayName": "ai_clients_dart",
+  "description": "A collection of Dart client libraries for popular AI APIs. Provides type-safe, well-documented, and idiomatic interfaces to OpenAI, Anthropic (Claude), Google AI (Gemini), Mistral, Ollama, and other p",
+  "version": "1.0.0",
+  "author": "davidmigloz",
+  "homepage": "https://github.com/davidmigloz/ai_clients_dart",
+  "skills": []
+}
