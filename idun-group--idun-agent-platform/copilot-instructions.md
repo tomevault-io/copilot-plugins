@@ -1,17 +1,28 @@
-## manager
+## project-overview
 
-> Rules for working on the idun_agent_manager service
+> Project overview and conventions for the Idun Agent Platform monorepo
 
-# Idun Agent Manager
+# Idun Agent Platform
 
-Read `services/idun_agent_manager/CLAUDE.md` before making changes. It contains the full API route map, auth flow, database models, and conventions.
+This is a monorepo. Each package/service has its own `CLAUDE.md` with detailed architecture, module maps, and conventions. **Always read the relevant CLAUDE.md before working on a specific package.**
 
-- All DB operations are async (`AsyncSession`).
-- Config stored as JSONB, validated in/out via `idun_agent_schema` Pydantic models.
-- Router pattern: `_get_<resource>()` helper for fetch + 404, `_model_to_schema()` for DB model → response.
-- Workspace scoping via `require_workspace` dependency on all resource endpoints.
-- Migrations: `cd services/idun_agent_manager && alembic revision --autogenerate -m "description"`.
-- Guardrails from the frontend use simplified configs converted via `convert_guardrail()`.
+## Documentation Map
+
+- `CLAUDE.md` — Root: project overview, build commands, testing, linting, development principles
+- `libs/idun_agent_schema/CLAUDE.md` — Schema library: Pydantic models, config hierarchy, discriminated unions, manager CRUD schemas
+- `libs/idun_agent_engine/CLAUDE.md` — Engine SDK: agent adapters, config flow, YAML structure, server endpoints, guardrails, observability, MCP, CLI
+- `services/idun_agent_manager/CLAUDE.md` — Manager API: routes, authentication, multi-tenancy, database models, migrations, settings
+- `services/idun_agent_web/CLAUDE.md` — Web UI: routes, auth flow, API layer, styling, i18n, state management
+
+## Key Rules
+
+- Read before you write. Understand existing patterns before modifying.
+- Schema changes go in `idun_agent_schema` first, then propagate to engine and manager.
+- Python: async throughout, Ruff + Black formatting, line length 88.
+- Run `make lint` and `make precommit` before committing.
+- No `Any` types unless genuinely unavoidable.
+- Don't mix refactoring with feature work in the same change.
+- Small, focused commits — one concern per commit.
 
 ---
 > Source: [Idun-Group/idun-agent-platform](https://github.com/Idun-Group/idun-agent-platform) — distributed by [TomeVault](https://tomevault.io).
