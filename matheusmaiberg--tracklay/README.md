@@ -7,11 +7,11 @@ First-party tracking proxy for Shopify on Cloudflare Workers. Bypass ad-blockers
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [matheusmaiberg/tracklay](https://github.com/matheusmaiberg/tracklay).
+Original source: `CLAUDE.md` in [matheusmaiberg/tracklay](https://github.com/matheusmaiberg/tracklay).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
