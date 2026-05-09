@@ -1,0 +1,9 @@
+{
+  "name": "intelligentelectron--universal-netlist",
+  "displayName": "universal-netlist",
+  "description": "Give AI agents the power to read Cadence/Altium designs",
+  "version": "1.0.0",
+  "author": "IntelligentElectron",
+  "homepage": "https://github.com/IntelligentElectron/universal-netlist",
+  "skills": []
+}
