@@ -1,0 +1,9 @@
+{
+  "name": "dimillian--mastodoncli",
+  "displayName": "MastodonCLI",
+  "description": "A CLI to interact with your Mastodon account",
+  "version": "1.0.0",
+  "author": "Dimillian",
+  "homepage": "https://github.com/Dimillian/MastodonCLI",
+  "skills": []
+}
