@@ -1,0 +1,9 @@
+{
+  "name": "lagz0ne--c3-skill",
+  "displayName": "c3-skill",
+  "description": "C3 (Context-Container-Component) architecture design methodology plugin for Claude Code",
+  "version": "1.0.0",
+  "author": "lagz0ne",
+  "homepage": "https://github.com/lagz0ne/c3-skill",
+  "skills": []
+}
