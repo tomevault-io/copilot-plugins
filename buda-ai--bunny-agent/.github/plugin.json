@@ -1,0 +1,9 @@
+{
+  "name": "buda-ai--bunny-agent",
+  "displayName": "bunny-agent",
+  "description": "Build coding agent SaaS via native AI SDK UI",
+  "version": "1.0.0",
+  "author": "buda-ai",
+  "homepage": "https://github.com/buda-ai/bunny-agent",
+  "skills": []
+}
