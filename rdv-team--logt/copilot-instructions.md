@@ -1,101 +1,147 @@
-## 04-tj-events-core
+## 05-tj-properties-core
 
-> description: Core 1C technical log event catalog for operation reconstruction and performance analysis
+> description: Core technical log properties for correlation, context, DB analysis, and diagnostics
 
 ---
-description: Core 1C technical log event catalog for operation reconstruction and performance analysis
+description: Core technical log properties for correlation, context, DB analysis, and diagnostics
 globs: src/**/*.py
 alwaysApply: false
 ---
 
-# Core events for LogT and tech-log parsing
+# Core properties for parsing and correlation
 
-This project focuses on the subset of events most relevant to:
-- reconstructing user operations
-- reconstructing background operations
-- analyzing latency
-- diagnosing DB waits, locks, errors, and context
+Organize properties by meaning, not alphabetically.
 
-## operation boundary events
+## routing and correlation keys
 
-`VRSREQUEST`
-- request to server for a resource
-- natural start boundary for client-server operation reconstruction
+`t:clientID`
+- TCP client connection identifier
+- critical for client-server operation reconstruction
 
-`VRSRESPONSE`
-- server response
-- natural end boundary for client-server operation reconstruction
+`SessionID`
+- assigned session number for the current thread
+- critical for session/background reconstruction
 
-`SESN`
-- session-related actions
-- used for session lifecycle and background job reconstruction
-- `Func=Start`, `Func=Restore`, `Func=Finish`, `Func=Wait`, `Func=Attach`, etc.
+`t:connectID`
+- infobase connection identifier
+- useful for cross-event linking and diagnostics
+- Common to many server calls. A single connection handles multiple server call sessions. Cannot uniquely determine the relationship of events.
 
-## code execution / remote call events
+`p:processName`
+- The name of the server context, which is usually the same as the name of the infobase.
+- useful as part of correlation key or source partition
 
-`CALL`
-- incoming remote call on the receiver side
-- contains important context and runtime metrics
+`IB`
+- infobase name
+- important routing and filtering dimension
 
-`SCALL`
-- outgoing remote call on the source side
+`Usr`
+- infobase user name
+- often sparse, but high-value for operation identity
 
-## DB and query events
+## execution context
 
-`DBMSSQL`
-`DBPOSTGRS`
-- DB-level SQL execution
+`Context`
+- execution context
+- may include built-in language stack or UI context
 
-`SDBL`
-- query/model database layer activity
+`Module` - The name of the called system module (for example, a common module in the 1C configuration)
+`Method` - Name of a function or procedure in a module `Module`
+`MName` - The name of the remotely invoked method (for SCALL and CALL events).
+`IName` - The name of the passed interface whose method is called remotely (for SCALL and CALL events).
+`Func` - Name of the action being performed
 
-## locking and concurrency
+`Func` property values:
+Start - Session start. For SESN events, this marks the beginning of a session and has no duration.
+finish - Session finish. For SESN events, this marks the end of a session, and its duration equals the full session lifetime.
+Attach - Session assigned to a connection. For SESN events, duration shows how long the session remained assigned to that connection.
+Busy - The session is already assigned to another connection. For SESN events, this is emitted when assignment is attempted for a session that is already attached.
+Wait - Waiting for session assignment. For SESN events, duration equals the waiting time before the connection gets a session or the assignment is released.
+beginTransaction - Transaction start. For SDBL events, this is logged at transaction start and has no duration.
+commitTransaction - Transaction commit.
+rollbackTransaction - Transaction rollback.
+lookupTmpTable - Get or create a temporary database table.
+FtextMngrIndexChanges - Full-text index update in file mode.
 
-`TLOCK`
-- managed transaction locks
+## DB and query properties
 
-`TTIMEOUT`
-- lock wait timeout
+`Sql`
+- SQL text
 
-`TDEADLOCK`
-- deadlock detected
+`Rows` - The number of database records retrieved.
+`RowsAffected` - The number of modified database records.
 
-## errors and crashes
+`Database`
+- database path or server\database identifier
 
-`EXCP`
-- exception / severe error event
+`Dbpid`
+- DB-side connection/process identifier
 
-`EXCPCNTX`
-- exception context, unfinished events at crash/error time
 
-## infra / cluster / connection
+## latency and resource usage
 
-`CLSTR`
-- cluster operations and cluster state changes
+`Duration`
+`Durationus`
+- duration properties, event-specific
 
-`CONN`
-- connection establish / break and ping-related connection diagnostics
+`CpuTime`
+- CPU time, especially valuable in CALL
 
-`PROC`
-- process lifecycle and process-level events
+`Memory`
+- memory retained during server call
 
-## memory / diagnostics
+`MemoryPeak`
+- peak memory during server call
 
-`MEM`
-- memory growth diagnostics if enabled
+## locking
 
-`LEAKS`
-- leak diagnostics if enabled
+`Locks`
+- List of managed transaction locks (for TLOCK event).
 
-## event handling guidance
+`WaitConnections`
+- Connection `t:connectID` number of the person causing the blocking
 
-Do not assume all events are present in every environment.
-Presence depends on `logcfg.xml` and enabled platform mechanisms.
+`DeadlockConnectionIntersections`
+- List of transaction pairs that form a deadlock (for the TDEADLOCK event).
 
-For LogT:
-- `VRSREQUEST`, `VRSRESPONSE`, `SESN`, `CALL` are the most important correlation events
-- DB and lock events are supporting evidence inside the reconstructed operation
-- `EXCP`, `TTIMEOUT`, `TDEADLOCK` are high-value diagnostics inside the operation timeline
+Lock augmentation properties may also appear:
+lka='1' - the thread is the lock source.
+lkp='1' - the thread is the lock victim.
+lkpid - the DBMS request number indicating who blocked whom (only for the lock victim thread). For example, '423'.
+lkaid - a list of DBMS request numbers indicating who blocked whom (only for the lock source thread). For example, '271,273,274'.
+lksrc - the connection number of the lock source if the thread is the lock victim, for example, '23'.
+lkpto - the time in seconds elapsed since the thread was detected as a victim. For example, '15'.
+lkato ‑ the time in seconds since the thread was detected as a blocker. For example, ‘21’.
+
+## exceptions
+
+`Descr`
+- description text
+
+`Exception`
+- exception name
+
+`RetExcp`
+- exception passed back as result in CALL error cases
+
+## important guidance
+
+Property names may be missing.
+Do not fail if a property is absent.
+
+Property semantics depend on event family.
+Do not treat `Method` or `Func` as globally uniform across all events.
+
+For LogT correlation, prioritize:
+- `t:clientID`
+- `SessionID`
+- `p:processName`
+- `IB`
+- `Usr`
+- `Context`
+- `CpuTime`
+- `Memory`
+- `MemoryPeak`
 
 ---
 > Source: [rdv-team/logt](https://github.com/rdv-team/logt) — distributed by [TomeVault](https://tomevault.io).
