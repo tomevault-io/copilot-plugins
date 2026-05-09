@@ -1,0 +1,9 @@
+{
+  "name": "quinoto-tech--quinotospec",
+  "displayName": "QuinotoSpec",
+  "description": "QuinotoSpec: Framework de Desarrollo Ag\u00e9ntico Guiado por IA. Metodolog\u00eda \"Proposal-First\" para estructurar el trabajo de los LLMs, asegurando calidad, documentaci\u00f3n consistente y cero alucinaciones.",
+  "version": "1.0.0",
+  "author": "Quinoto-Tech",
+  "homepage": "https://github.com/Quinoto-Tech/QuinotoSpec",
+  "skills": []
+}
