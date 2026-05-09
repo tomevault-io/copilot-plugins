@@ -2,6 +2,8 @@
 
 > Sourced from [jordigilh/kubernaut](https://github.com/jordigilh/kubernaut) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+Open-source AIOps platform that closes the loop from Kubernetes alert to automated remediation. An LLM agent investigates live via native client-go bindings, logs, and Prometheus, selects a fix from a workflow catalog, and executes it — or escalates with a full RCA. Approval gates, OPA policies, and audit trails keep humans in control.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
