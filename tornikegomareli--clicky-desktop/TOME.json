@@ -4,7 +4,7 @@
   "repo": "clicky-desktop",
   "description": "Clicky but for Linux & Windows",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tornikegomareli/clicky-desktop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T07:34:14Z"
+  "distributed_at": "2026-05-09T18:56:17Z"
 }
