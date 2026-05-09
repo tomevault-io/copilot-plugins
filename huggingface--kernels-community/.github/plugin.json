@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--kernels-community",
+  "displayName": "kernels-community",
+  "description": "Kernel sources for https://huggingface.co/kernels-community",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/kernels-community",
+  "skills": []
+}
