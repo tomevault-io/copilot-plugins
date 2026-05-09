@@ -1,0 +1,9 @@
+{
+  "name": "tesslateai--opensail",
+  "displayName": "OpenSail",
+  "description": "OpenSail is the open-source alternative to Codex App, Claude Desktop, Cursor, and Cowork for agentic software work.",
+  "version": "1.0.0",
+  "author": "TesslateAI",
+  "homepage": "https://github.com/TesslateAI/OpenSail",
+  "skills": []
+}
