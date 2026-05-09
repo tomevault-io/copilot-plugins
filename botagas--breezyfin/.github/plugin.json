@@ -1,0 +1,9 @@
+{
+  "name": "botagas--breezyfin",
+  "displayName": "Breezyfin",
+  "description": "UX and performance oriented webOS TV client for Jellyfin.",
+  "version": "1.0.0",
+  "author": "botagas",
+  "homepage": "https://github.com/botagas/Breezyfin",
+  "skills": []
+}
