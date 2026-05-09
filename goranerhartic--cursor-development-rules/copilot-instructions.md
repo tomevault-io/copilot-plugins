@@ -1,42 +1,33 @@
-## cursor-development-rules
+## quick-start
 
-> Error handling - Error boundaries, Result pattern, global error handling, toast notifications
+> Quick-start playbook for rule discovery - first-run steps, task-to-rule shortcuts, and fallback when project context is missing.
 
 
-# Error Handling
+# Quick Start
 
-Concepts (Result pattern, when to use vs exceptions): see `../../patterns/error-handling.mdc`. **Error Boundaries** (class component, fallback UI): see `error-boundaries.mdc`.
+Use this file when you need to quickly decide which rules to load.
 
-## Result Pattern (minimal implementation)
+## First 4 Steps
 
-- **Type:** `Result<T, E> = { success: true; value: T } | { success: false; error: E }`; helpers: `Result.ok(value)`, `Result.err(error)`, `Result.isOk(r)`, `Result.isErr(r)`
-- **API/async:** Return `Result` from async functions; in component, check `Result.isErr(result)` and render error UI
-- Use for expected failures (validation, not found); throw for programming errors
+1. Read `agent-behavior.mdc` for core constraints and conflict protocol.
+2. Read `project-context.mdc` to identify active stack routers.
+3. Open the relevant router from `rule-index.mdc`.
+4. Load only 2–3 rules needed for the current sub-task.
 
-## Global Handling
+## If `project-context.mdc` Is Placeholder-Only
 
-- **Error boundary** at app or route level for uncaught render errors; log and show fallback
-- **Async errors:** In loaders/actions, throw Response or redirect; in useQuery, use `error` and `isError`; in event handlers, try/catch and show toast or set error state
+Request `development/project-onboarding.mdc`, generate `project-context.mdc`, then continue with router-driven loading.
 
-## Toasts / Inline Errors
+## Common Task Shortcuts
 
-- For form or mutation errors: set error state or use toast; do not rely only on console
-- Server validation errors: map to form fields (`setError`) or show toast for generic message
+- Build API endpoint: `languages/*/controllers.mdc`, `languages/*/validation.mdc`, `languages/*/error-handling.mdc`
+- Add tests: `languages/*/testing.mdc`, `patterns/testing.mdc`, `development/tdd-workflow.mdc`
+- Security hardening: `languages/*/security.mdc`, `languages/*/input-sanitization.mdc`, `languages/*/auth.mdc`
+- Refactor/cleanup: `patterns/clean-code.mdc`, stack `languages/*/code-quality.mdc`
+- Infra changes (Lambda): `languages/aws-lambda/cdk-infrastructure-*.mdc`, `languages/aws-lambda/monitoring.mdc`, `languages/aws-lambda/security.mdc`
 
-## Forms
-
-- Use `formState.errors` (RHF) and display near fields; for API errors use `setError('root', { message })` or per-field
-
-## Best Practices
-
-- Result for expected failures; boundaries for render errors; user-visible feedback for async/form errors; log for debugging
-
-## Anti-Patterns
-
-- Swallowing errors; no user feedback; mixing Result and throw inconsistently
-
-**See also:** `error-boundaries.mdc`, `forms.mdc`, `../../patterns/error-handling.mdc`
+**See also:** `rule-index.mdc`, `README.md`, `development/project-onboarding.mdc`
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/GoranErhartic) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [GoranErhartic/cursor-development-rules](https://github.com/GoranErhartic/cursor-development-rules) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
