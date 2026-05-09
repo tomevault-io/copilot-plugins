@@ -1,0 +1,9 @@
+{
+  "name": "moonshotai--kimi-cli",
+  "displayName": "kimi-cli",
+  "description": "Kimi Code CLI is your next CLI agent.",
+  "version": "1.0.0",
+  "author": "MoonshotAI",
+  "homepage": "https://github.com/MoonshotAI/kimi-cli",
+  "skills": []
+}
