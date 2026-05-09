@@ -1,0 +1,9 @@
+{
+  "name": "inboundemail--react-email-templates",
+  "displayName": "react-email-templates",
+  "description": "High quality, reusable email templates build on react-email.",
+  "version": "1.0.0",
+  "author": "inboundemail",
+  "homepage": "https://github.com/inboundemail/react-email-templates",
+  "skills": []
+}
