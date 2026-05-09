@@ -1,33 +1,16 @@
-## project
+## typescript-style
 
-> AI Phone Agent — TypeScript voice backend (Twilio + Amazon Connect)
+> TypeScript style — prefer arrow functions and consistent callbacks
 
 
-# Project context
+# TypeScript style
 
-- **Stack:** Node.js, TypeScript, Express; OpenAI Realtime for phone audio.
-- **Channels:** `src/service/twilio-phone/` (Twilio Media Streams) and `src/service/amazon-connect-phone/openai-sip-webhook/` (Connect + OpenAI SIP webhook).
-- **Shared code:** `src/foundation/` (OpenAI helpers, MCP, Twilio WS, Amazon Connect SDK).
+Follow **`eslint.config.mjs`** (Airbnb + TypeScript + Prettier) first; this file only adds **arrow-function** preferences for the AI.
 
-# Conventions
-
-- **Linting:** `eslint.config.mjs` extends **Airbnb base** + **@kesills/eslint-config-airbnb-typescript** (TypeScript layer) + **eslint-config-prettier**. Run `npm run lint`; new code should pass.
-- **TypeScript style** (arrow functions, callbacks): `.cursor/rules/typescript-style.mdc` applies when you edit `src/**/*.ts(x)`.
-- Prefer **small, task-focused changes**; match existing patterns and naming.
-- Imports: **`@/*` maps to `src/*`**. After `npm run build`, `tsc-alias` rewrites paths in `dist/`.
-- **New tools** (Connect Realtime): add Zod + `parametersJsonSchema`, export tool, register in `openai-sip-webhook/tools/index.ts`.
-- **SIP voice prompts:** `openai-sip-webhook/agents/` (Connect; not the Twilio stack).
-- **Twilio Realtime agent + tools:** `service/twilio-phone/agents/` (front-desk + `general-agents`).
-
-# Security
-
-- Do not commit or hardcode secrets; `.env` is gitignored. Use GSM or env vars in deployment.
-- Do not log tokens, API keys, or unnecessary PII.
-
-# When unsure
-
-- Read `doc/amazon-connect-openai-webhook.md` or `doc/twilio-integration.md` before changing call flow.
-- Developer-facing agent instructions: root `AGENTS.md` / `CLAUDE.md` (keep in sync).
+- **Named / exported helpers:** Prefer `const fn = (): ReturnType => { ... }` over `function fn() { ... }`, unless hoisting is required, you need `function` for `this`/`arguments`, or the file already uses a pattern you must match in a tiny edit.
+- **Callbacks:** Use arrow functions — e.g. `.map((x) => ...)`, `promise.then((v) => ...)`, `array.filter((item) => ...)`. Avoid `function` callbacks unless the API requires a non-arrow receiver.
+- **Inline handlers:** Prefer `(args) => { ... }` for tool `execute`, event handlers, and similar.
+- **Consistency:** When touching existing code, prefer arrows for **new** lines; do not rewrite an entire file only to switch declaration style unless the user asks.
 
 ---
 > Source: [bobbylkchao/ai-phone-agent](https://github.com/bobbylkchao/ai-phone-agent) — distributed by [TomeVault](https://tomevault.io).
