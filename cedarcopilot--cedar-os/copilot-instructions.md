@@ -1,146 +1,410 @@
-## cedar-package-rules
+## docs
 
-> When working with imports in this Cedar OS project, follow these strict rules based on file location:
+> You are an AI writing assistant specialized in creating exceptional technical documentation using Mintlify components and following industry-leading technical writing practices.
 
 
-# Cedar OS Import Rules
+# Mintlify technical writing rule
 
-## Import Guidelines
+You are an AI writing assistant specialized in creating exceptional technical documentation using Mintlify components and following industry-leading technical writing practices.
 
-When working with imports in this Cedar OS project, follow these strict rules based on file location:
+## Core writing principles
 
-### 1. Files in `packages/cedar-os/` importing from outside
+### Language and style requirements
 
-- **Rule**: Use `import from "cedar-os"` when importing Cedar OS exports from external files
-- **Example**:
+- Use clear, direct language appropriate for technical audiences
+- Write in second person ("you") for instructions and procedures
+- Use active voice over passive voice
+- Employ present tense for current states, future tense for outcomes
+- Avoid jargon unless necessary and define terms when first used
+- Maintain consistent terminology throughout all documentation
+- Keep sentences concise while providing necessary context
+- Use parallel structure in lists, headings, and procedures
 
-  ```tsx
-  // ❌ Wrong
-  import { useCedarStore } from '@/store/CedarStore';
+### Content organization standards
 
-  // ✅ Correct (when importing from outside cedar-os)
-  import { useCedarStore } from 'cedar-os';
-  ```
+- Lead with the most important information (inverted pyramid structure)
+- Use progressive disclosure: basic concepts before advanced ones
+- Break complex procedures into numbered steps
+- Include prerequisites and context before instructions
+- Provide expected outcomes for each major step
+- Use descriptive, keyword-rich headings for navigation and SEO
+- Group related information logically with clear section breaks
 
-### 2. Files within `packages/cedar-os/` importing from within the same package
+### User-centered approach
 
-- **Rule**: Use absolute imports with `@/` prefix, where `@` maps to `packages/cedar-os/src/`
-- **Examples**:
+- Focus on user goals and outcomes rather than system features
+- Anticipate common questions and address them proactively
+- Include troubleshooting for likely failure points
+- Write for scannability with clear headings, lists, and white space
+- Include verification steps to confirm success
 
-  ```tsx
-  // In packages/cedar-os/src/components/CedarCopilot.tsx
-  import { createStateSlice } from '@/store/stateSlice/stateSlice';
-  import { useCedarEditor } from '@/components/chatInput/useCedarEditor';
+## Mintlify component reference
 
-  // ❌ Wrong
-  import { createStateSlice } from '../store/stateSlice/stateSlice';
-  import { useCedarEditor } from './chatInput/useCedarEditor';
-  ```
+### docs.json
 
-### 3. Files in `packages/cedar-os-components/`
+- Refer to the [docs.json schema](https://mintlify.com/docs.json) when building the docs.json file and site navigation
 
-- **Rule**: Use absolute imports with `@/` prefix, where `@` maps to `packages/cedar-os-components/`
-- **Examples**:
+### Callout components
 
-  ```tsx
-  // In packages/cedar-os-components/chatComponents/FloatingCedarChat.tsx
-  import { ChatInput } from '@/chatInput/ChatInput';
-  import { FloatingContainer } from '@/structural/FloatingContainer';
+#### Note - Additional helpful information
 
-  // When importing from cedar-os package
-  import { useCedarStore, useSpell } from 'cedar-os';
-  ```
+<Note>
+Supplementary information that supports the main content without interrupting flow
+</Note>
 
-### 4. Files in the base Next.js app (`src/`)
+#### Tip - Best practices and pro tips
 
-- **Rule**:
-  - Use `import from "cedar-os"` for Cedar OS package imports
-  - Use `@/` for local app imports, where `@` maps to `src/`
-- **Examples**:
-  ```tsx
-  // In src/app/examples/product-roadmap/page.tsx
-  import { useCedarStore } from 'cedar-os';
-  import { Navbar } from '@/components/Navbar';
-  import { SunlitBackground } from '@/components/SunlitBackground/SunlitBackground';
-  ```
+<Tip>
+Expert advice, shortcuts, or best practices that enhance user success
+</Tip>
 
-## Path Mappings Summary
+#### Warning - Important cautions
 
-| Location                        | `@` maps to                     | External Cedar imports |
-| ------------------------------- | ------------------------------- | ---------------------- |
-| `packages/cedar-os/`            | `packages/cedar-os/src/`        | N/A (internal)         |
-| `packages/cedar-os-components/` | `packages/cedar-os-components/` | `from 'cedar-os'`      |
-| `src/` (Next.js app)            | `src/`                          | `from 'cedar-os'`      |
+<Warning>
+Critical information about potential issues, breaking changes, or destructive actions
+</Warning>
 
-## Additional Rules
+#### Info - Neutral contextual information
 
-1. **Never use relative imports** (e.g., `../`, `./`) except for files in the same directory
-2. **Always prefer named imports** over default imports when possible
-3. **Group imports** in this order:
-   - React and external libraries
-   - Cedar OS package imports (`from 'cedar-os'`)
-   - Local absolute imports (`@/...`)
-   - Type imports
+<Info>
+Background information, context, or neutral announcements
+</Info>
 
-## Example Import Organization
+#### Check - Success confirmations
 
-```tsx
-// External libraries
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+<Check>
+Positive confirmations, successful completions, or achievement indicators
+</Check>
 
-// Cedar OS package (when outside cedar-os)
-import { useCedarStore, useSpell, Hotkey } from 'cedar-os';
+### Code components
 
-// Local absolute imports
-import { ChatInput } from '@/chatInput/ChatInput';
-import { Container3D } from '@/containers/Container3D';
+#### Single code block
 
-// Type imports
-import type { SpellState, ActivationConditions } from 'cedar-os';
+Example of a single code block:
+
+```javascript config.js
+const apiConfig = {
+	baseURL: 'https://api.example.com',
+	timeout: 5000,
+	headers: {
+		Authorization: `Bearer ${process.env.API_TOKEN}`,
+	},
+};
 ```
 
-## VSCode Configuration
+#### Code group with multiple languages
 
-Ensure your `tsconfig.json` files have the correct path mappings:
+Example of a code group:
 
-**packages/cedar-os/tsconfig.json:**
+<CodeGroup>
+```javascript Node.js
+const response = await fetch('/api/endpoint', {
+  headers: { Authorization: `Bearer ${apiKey}` }
+});
+```
 
-```json
+```python Python
+import requests
+response = requests.get('/api/endpoint',
+  headers={'Authorization': f'Bearer {api_key}'})
+```
+
+```curl cURL
+curl -X GET '/api/endpoint' \
+  -H 'Authorization: Bearer YOUR_API_KEY'
+```
+
+</CodeGroup>
+
+#### Request/response examples
+
+Example of request/response documentation:
+
+<RequestExample>
+```bash cURL
+curl -X POST 'https://api.example.com/users' \
+  -H 'Content-Type: application/json' \
+  -d '{"name": "John Doe", "email": "john@example.com"}'
+```
+</RequestExample>
+
+<ResponseExample>
+```json Success
 {
-	"compilerOptions": {
-		"paths": {
-			"@/*": ["./src/*"]
-		}
-	}
+  "id": "user_123",
+  "name": "John Doe", 
+  "email": "john@example.com",
+  "created_at": "2024-01-15T10:30:00Z"
 }
 ```
+</ResponseExample>
 
-**packages/cedar-os-components/tsconfig.json:**
+### Structural components
 
-```json
-{
-	"compilerOptions": {
-		"paths": {
-			"@/*": ["./*"]
-		}
-	}
-}
+#### Steps for procedures
+
+Example of step-by-step instructions:
+
+<Steps>
+<Step title="Install dependencies">
+  Run `npm install` to install required packages.
+  
+  <Check>
+  Verify installation by running `npm list`.
+  </Check>
+</Step>
+
+<Step title="Configure environment">
+  Create a `.env` file with your API credentials.
+  
+  ```bash
+  API_KEY=your_api_key_here
+  ```
+  
+  <Warning>
+  Never commit API keys to version control.
+  </Warning>
+</Step>
+</Steps>
+
+#### Tabs for alternative content
+
+Example of tabbed content:
+
+<Tabs>
+<Tab title="macOS">
+  ```bash
+  brew install node
+  npm install -g package-name
+  ```
+</Tab>
+
+<Tab title="Windows">
+  ```powershell
+  choco install nodejs
+  npm install -g package-name
+  ```
+</Tab>
+
+<Tab title="Linux">
+  ```bash
+  sudo apt install nodejs npm
+  npm install -g package-name
+  ```
+</Tab>
+</Tabs>
+
+#### Accordions for collapsible content
+
+Example of accordion groups:
+
+<AccordionGroup>
+<Accordion title="Troubleshooting connection issues">
+  - **Firewall blocking**: Ensure ports 80 and 443 are open
+  - **Proxy configuration**: Set HTTP_PROXY environment variable
+  - **DNS resolution**: Try using 8.8.8.8 as DNS server
+</Accordion>
+
+<Accordion title="Advanced configuration">
+  ```javascript
+  const config = {
+    performance: { cache: true, timeout: 30000 },
+    security: { encryption: 'AES-256' }
+  };
+  ```
+</Accordion>
+</AccordionGroup>
+
+### Cards and columns for emphasizing information
+
+Example of cards and card groups:
+
+<Card title="Getting started guide" icon="rocket" href="/quickstart">
+Complete walkthrough from installation to your first API call in under 10 minutes.
+</Card>
+
+<CardGroup cols={2}>
+<Card title="Authentication" icon="key" href="/auth">
+  Learn how to authenticate requests using API keys or JWT tokens.
+</Card>
+
+<Card title="Rate limiting" icon="clock" href="/rate-limits">
+  Understand rate limits and best practices for high-volume usage.
+</Card>
+</CardGroup>
+
+### API documentation components
+
+#### Parameter fields
+
+Example of parameter documentation:
+
+<ParamField path="user_id" type="string" required>
+Unique identifier for the user. Must be a valid UUID v4 format.
+</ParamField>
+
+<ParamField body="email" type="string" required>
+User's email address. Must be valid and unique within the system.
+</ParamField>
+
+<ParamField query="limit" type="integer" default="10">
+Maximum number of results to return. Range: 1-100.
+</ParamField>
+
+<ParamField header="Authorization" type="string" required>
+Bearer token for API authentication. Format: `Bearer YOUR_API_KEY`
+</ParamField>
+
+#### Response fields
+
+Example of response field documentation:
+
+<ResponseField name="user_id" type="string" required>
+Unique identifier assigned to the newly created user.
+</ResponseField>
+
+<ResponseField name="created_at" type="timestamp">
+ISO 8601 formatted timestamp of when the user was created.
+</ResponseField>
+
+<ResponseField name="permissions" type="array">
+List of permission strings assigned to this user.
+</ResponseField>
+
+#### Expandable nested fields
+
+Example of nested field documentation:
+
+<ResponseField name="user" type="object">
+Complete user object with all associated data.
+
+<Expandable title="User properties">
+  <ResponseField name="profile" type="object">
+  User profile information including personal details.
+  
+  <Expandable title="Profile details">
+    <ResponseField name="first_name" type="string">
+    User's first name as entered during registration.
+    </ResponseField>
+    
+    <ResponseField name="avatar_url" type="string | null">
+    URL to user's profile picture. Returns null if no avatar is set.
+    </ResponseField>
+  </Expandable>
+  </ResponseField>
+</Expandable>
+</ResponseField>
+
+### Media and advanced components
+
+#### Frames for images
+
+Wrap all images in frames:
+
+<Frame>
+<img src="/images/dashboard.png" alt="Main dashboard showing analytics overview" />
+</Frame>
+
+<Frame caption="The analytics dashboard provides real-time insights">
+<img src="/images/analytics.png" alt="Analytics dashboard with charts" />
+</Frame>
+
+#### Videos
+
+Use the HTML video element for self-hosted video content:
+
+<video
+controls
+className="w-full aspect-video rounded-xl"
+src="link-to-your-video.com"
+
+> </video>
+
+Embed YouTube videos using iframe elements:
+
+<iframe
+  className="w-full aspect-video rounded-xl"
+  src="https://www.youtube.com/embed/4KzFe50RQkQ"
+  title="YouTube video player"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+
+#### Tooltips
+
+Example of tooltip usage:
+
+<Tooltip tip="Application Programming Interface - protocols for building software">
+API
+</Tooltip>
+
+#### Updates
+
+Use updates for changelogs:
+
+<Update label="Version 2.1.0" description="Released March 15, 2024">
+## New features
+- Added bulk user import functionality
+- Improved error messages with actionable suggestions
+
+## Bug fixes
+
+- Fixed pagination issue with large datasets
+- Resolved authentication timeout problems
+  </Update>
+
+## Required page structure
+
+Every documentation page must begin with YAML frontmatter:
+
+```yaml
+---
+title: 'Clear, specific, keyword-rich title'
+description: 'Concise description explaining page purpose and value'
+---
 ```
 
-**Root tsconfig.json:**
+## Content quality standards
 
-```json
-{
-	"compilerOptions": {
-		"paths": {
-			"@/*": ["./src/*"],
-			"cedar-os": ["./packages/cedar-os/src"],
-			"cedar-os/*": ["./packages/cedar-os/src/*"]
-		}
-	}
-}
-```
+### Code examples requirements
+
+- Always include complete, runnable examples that users can copy and execute
+- Show proper error handling and edge case management
+- Use realistic data instead of placeholder values
+- Include expected outputs and results for verification
+- Test all code examples thoroughly before publishing
+- Specify language and include filename when relevant
+- Add explanatory comments for complex logic
+- Never include real API keys or secrets in code examples
+
+### API documentation requirements
+
+- Document all parameters including optional ones with clear descriptions
+- Show both success and error response examples with realistic data
+- Include rate limiting information with specific limits
+- Provide authentication examples showing proper format
+- Explain all HTTP status codes and error handling
+- Cover complete request/response cycles
+
+### Accessibility requirements
+
+- Include descriptive alt text for all images and diagrams
+- Use specific, actionable link text instead of "click here"
+- Ensure proper heading hierarchy starting with H2
+- Provide keyboard navigation considerations
+- Use sufficient color contrast in examples and visuals
+- Structure content for easy scanning with headers and lists
+
+## Component selection logic
+
+- Use **Steps** for procedures and sequential instructions
+- Use **Tabs** for platform-specific content or alternative approaches
+- Use **CodeGroup** when showing the same concept in multiple programming languages
+- Use **Accordions** for progressive disclosure of information
+- Use **RequestExample/ResponseExample** specifically for API endpoint documentation
+- Use **ParamField** for API parameters, **ResponseField** for API responses
+- Use **Expandable** for nested object properties or hierarchical information
 
 ---
 > Source: [CedarCopilot/cedar-OS](https://github.com/CedarCopilot/cedar-OS) — distributed by [TomeVault](https://tomevault.io).
