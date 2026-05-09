@@ -1,298 +1,103 @@
-## aws-ses-v2-client
+## better-auth-orgs
 
-> Amazon SES API v2 is an Amazon Web Services service for sending email messages to customers. This reference provides a comprehensive overview of the SESv2Client commands and configuration options.
+> Full docs: https://www.better-auth.com/docs/plugins/organization
 
-# AWS SES v2 Client Reference
+# Better Auth — Organization Plugin
 
-Amazon SES API v2 is an Amazon Web Services service for sending email messages to customers. This reference provides a comprehensive overview of the SESv2Client commands and configuration options.
+Full docs: https://www.better-auth.com/docs/plugins/organization
 
-## Installation
+## Setup
 
-Install the AWS SDK for JavaScript v3 SES v2 client:
+```ts
+// server
+import { organization } from "better-auth/plugins"
+export const auth = betterAuth({ plugins: [organization()] })
 
-```bash
-# Using bun (preferred for this project)
-bun add @aws-sdk/client-sesv2
-
-# Alternative package managers
-npm install @aws-sdk/client-sesv2
-yarn add @aws-sdk/client-sesv2
-pnpm add @aws-sdk/client-sesv2
+// client
+import { organizationClient } from "better-auth/client/plugins"
+export const authClient = createAuthClient({ plugins: [organizationClient()] })
 ```
 
-## Client Configuration
+## Key Client Methods
 
-The SESv2Client accepts the following configuration parameters:
+```ts
+// Org management
+authClient.organization.create({ name, slug })
+authClient.organization.update({ data: { name, slug, logo } })
+authClient.organization.delete({ organizationId })
+authClient.organization.setActive({ organizationId })
+authClient.useActiveOrganization()
+authClient.useListOrganizations()
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `region` | `string \| Provider<string>` | **Required.** The AWS region to send requests to |
-| `credentials` | `AwsCredentialIdentity \| Provider<AwsCredentialIdentity>` | AWS credentials for authentication |
-| `maxAttempts` | `number \| Provider<number>` | Maximum number of retry attempts (default: 3) |
-| `retryMode` | `string \| Provider<string>` | Retry algorithm to use (`legacy`, `standard`, `adaptive`) |
-| `logger` | `Logger` | Logger for debug/info/warn/error messages |
-| `requestHandler` | `__HttpHandlerUserInput` | HTTP handler (Fetch in browser, Https in Node.js) |
-| `defaultsMode` | `DefaultsMode \| Provider<DefaultsMode>` | How default configuration options are resolved |
-| `profile` | `string` | AWS profile name for credential resolution |
-| `useDualstackEndpoint` | `boolean \| Provider<boolean>` | Enable IPv6/IPv4 dualstack endpoint |
-| `useFipsEndpoint` | `boolean \| Provider<boolean>` | Enable FIPS-compliant endpoints |
-| `disableHostPrefix` | `boolean` | Disable dynamic endpoint modification |
-| `extensions` | `RuntimeExtension[]` | Optional runtime extensions |
+// Members
+authClient.organization.inviteMember({ email, role, organizationId })
+authClient.organization.acceptInvitation({ invitationId })
+authClient.organization.removeMember({ memberIdOrEmail, organizationId })
+authClient.organization.updateMemberRole({ role, memberId, organizationId })
+authClient.organization.leave({ organizationId })
 
-## Commands by Category
-
-### Account Management
-| Command | Purpose |
-|---------|---------|
-| `GetAccountCommand` | Get account email-sending status and capabilities |
-| `PutAccountDetailsCommand` | Update Amazon SES account details |
-| `PutAccountSendingAttributesCommand` | Enable/disable account email sending |
-| `PutAccountSuppressionAttributesCommand` | Configure account-level suppression list |
-| `PutAccountVdmAttributesCommand` | Update account VDM (Virtual Deliverability Manager) attributes |
-| `PutAccountDedicatedIpWarmupAttributesCommand` | Configure automatic IP warm-up |
-
-### Email Identities
-| Command | Purpose |
-|---------|---------|
-| `CreateEmailIdentityCommand` | Start verifying an email address or domain |
-| `DeleteEmailIdentityCommand` | Delete an email identity |
-| `GetEmailIdentityCommand` | Get identity verification status and settings |
-| `ListEmailIdentitiesCommand` | List all email identities in account |
-| `PutEmailIdentityConfigurationSetAttributesCommand` | Associate identity with configuration set |
-| `PutEmailIdentityDkimAttributesCommand` | Enable/disable DKIM authentication |
-| `PutEmailIdentityDkimSigningAttributesCommand` | Configure DKIM signing attributes |
-| `PutEmailIdentityFeedbackAttributesCommand` | Configure bounce/complaint feedback |
-| `PutEmailIdentityMailFromAttributesCommand` | Configure custom Mail-From domain |
-
-### Email Sending
-| Command | Purpose |
-|---------|---------|
-| `SendEmailCommand` | Send a single email (simple, raw, or templated) |
-| `SendBulkEmailCommand` | Send email to multiple destinations |
-| `SendCustomVerificationEmailCommand` | Send custom verification email |
-
-### Configuration Sets
-| Command | Purpose |
-|---------|---------|
-| `CreateConfigurationSetCommand` | Create a configuration set |
-| `DeleteConfigurationSetCommand` | Delete a configuration set |
-| `GetConfigurationSetCommand` | Get configuration set details |
-| `ListConfigurationSetsCommand` | List all configuration sets |
-| `PutConfigurationSetArchivingOptionsCommand` | Configure email archiving |
-| `PutConfigurationSetDeliveryOptionsCommand` | Associate with dedicated IP pool |
-| `PutConfigurationSetReputationOptionsCommand` | Enable/disable reputation tracking |
-| `PutConfigurationSetSendingOptionsCommand` | Enable/disable sending for configuration set |
-| `PutConfigurationSetSuppressionOptionsCommand` | Configure suppression list preferences |
-| `PutConfigurationSetTrackingOptionsCommand` | Configure open/click tracking domain |
-| `PutConfigurationSetVdmOptionsCommand` | Configure VDM preferences |
-
-### Event Destinations
-| Command | Purpose |
-|---------|---------|
-| `CreateConfigurationSetEventDestinationCommand` | Create event destination |
-| `DeleteConfigurationSetEventDestinationCommand` | Delete event destination |
-| `GetConfigurationSetEventDestinationsCommand` | List event destinations |
-| `UpdateConfigurationSetEventDestinationCommand` | Update event destination configuration |
-
-### Email Templates
-| Command | Purpose |
-|---------|---------|
-| `CreateEmailTemplateCommand` | Create an email template |
-| `DeleteEmailTemplateCommand` | Delete an email template |
-| `GetEmailTemplateCommand` | Get template details |
-| `ListEmailTemplatesCommand` | List all email templates |
-| `UpdateEmailTemplateCommand` | Update an email template |
-| `TestRenderEmailTemplateCommand` | Preview template with test data |
-
-### Custom Verification Templates
-| Command | Purpose |
-|---------|---------|
-| `CreateCustomVerificationEmailTemplateCommand` | Create custom verification template |
-| `DeleteCustomVerificationEmailTemplateCommand` | Delete custom verification template |
-| `GetCustomVerificationEmailTemplateCommand` | Get custom verification template |
-| `ListCustomVerificationEmailTemplatesCommand` | List custom verification templates |
-| `UpdateCustomVerificationEmailTemplateCommand` | Update custom verification template |
-
-### Dedicated IP Management
-| Command | Purpose |
-|---------|---------|
-| `CreateDedicatedIpPoolCommand` | Create dedicated IP pool |
-| `DeleteDedicatedIpPoolCommand` | Delete dedicated IP pool |
-| `GetDedicatedIpCommand` | Get dedicated IP information |
-| `GetDedicatedIpPoolCommand` | Get dedicated IP pool information |
-| `GetDedicatedIpsCommand` | List dedicated IP addresses |
-| `ListDedicatedIpPoolsCommand` | List dedicated IP pools |
-| `PutDedicatedIpInPoolCommand` | Move dedicated IP to pool |
-| `PutDedicatedIpPoolScalingAttributesCommand` | Configure pool scaling mode |
-| `PutDedicatedIpWarmupAttributesCommand` | Configure IP warm-up |
-
-### Contact Management
-| Command | Purpose |
-|---------|---------|
-| `CreateContactCommand` | Create a contact |
-| `DeleteContactCommand` | Delete a contact |
-| `GetContactCommand` | Get contact details |
-| `ListContactsCommand` | List contacts in a contact list |
-| `UpdateContactCommand` | Update contact preferences |
-| `CreateContactListCommand` | Create a contact list |
-| `DeleteContactListCommand` | Delete a contact list |
-| `GetContactListCommand` | Get contact list metadata |
-| `ListContactListsCommand` | List all contact lists |
-| `UpdateContactListCommand` | Update contact list metadata |
-
-### Suppression Management
-| Command | Purpose |
-|---------|---------|
-| `GetSuppressedDestinationCommand` | Get suppressed email details |
-| `ListSuppressedDestinationsCommand` | List suppressed email addresses |
-| `PutSuppressedDestinationCommand` | Add email to suppression list |
-| `DeleteSuppressedDestinationCommand` | Remove email from suppression list |
-
-### Deliverability & Analytics
-| Command | Purpose |
-|---------|---------|
-| `BatchGetMetricDataCommand` | Get batches of metric data |
-| `CreateDeliverabilityTestReportCommand` | Create inbox placement test |
-| `GetDeliverabilityTestReportCommand` | Get inbox placement test results |
-| `ListDeliverabilityTestReportsCommand` | List inbox placement tests |
-| `GetDeliverabilityDashboardOptionsCommand` | Get deliverability dashboard status |
-| `PutDeliverabilityDashboardOptionCommand` | Enable/disable deliverability dashboard |
-| `GetDomainDeliverabilityCampaignCommand` | Get domain deliverability data |
-| `ListDomainDeliverabilityCampaignsCommand` | List domain deliverability campaigns |
-| `GetDomainStatisticsReportCommand` | Get domain statistics report |
-| `GetBlacklistReportsCommand` | Get IP blacklist reports |
-| `GetMessageInsightsCommand` | Get message-specific insights |
-
-### Reputation Management
-| Command | Purpose |
-|---------|---------|
-| `GetReputationEntityCommand` | Get reputation entity details |
-| `ListReputationEntitiesCommand` | List reputation entities |
-| `ListRecommendationsCommand` | List reputation recommendations |
-| `UpdateReputationEntityCustomerManagedStatusCommand` | Update customer-managed status |
-| `UpdateReputationEntityPolicyCommand` | Update reputation management policy |
-
-### Multi-Region Endpoints
-| Command | Purpose |
-|---------|---------|
-| `CreateMultiRegionEndpointCommand` | Create global endpoint |
-| `DeleteMultiRegionEndpointCommand` | Delete global endpoint |
-| `GetMultiRegionEndpointCommand` | Get global endpoint configuration |
-| `ListMultiRegionEndpointsCommand` | List global endpoints |
-
-### Tenant Management (Multi-Tenant Features)
-| Command | Purpose |
-|---------|---------|
-| `CreateTenantCommand` | Create a tenant |
-| `DeleteTenantCommand` | Delete a tenant |
-| `GetTenantCommand` | Get tenant details |
-| `ListTenantsCommand` | List all tenants |
-| `CreateTenantResourceAssociationCommand` | Associate resource with tenant |
-| `DeleteTenantResourceAssociationCommand` | Remove resource-tenant association |
-| `ListTenantResourcesCommand` | List tenant's resources |
-| `ListResourceTenantsCommand` | List tenants using a resource |
-
-### Import/Export Jobs
-| Command | Purpose |
-|---------|---------|
-| `CreateExportJobCommand` | Create data export job |
-| `CreateImportJobCommand` | Create data import job |
-| `GetExportJobCommand` | Get export job status |
-| `GetImportJobCommand` | Get import job status |
-| `ListExportJobsCommand` | List export jobs |
-| `ListImportJobsCommand` | List import jobs |
-| `CancelExportJobCommand` | Cancel export job |
-
-### Authorization & Policies
-| Command | Purpose |
-|---------|---------|
-| `CreateEmailIdentityPolicyCommand` | Create sending authorization policy |
-| `DeleteEmailIdentityPolicyCommand` | Delete sending authorization policy |
-| `GetEmailIdentityPoliciesCommand` | Get identity authorization policies |
-| `UpdateEmailIdentityPolicyCommand` | Update sending authorization policy |
-
-### Resource Tagging
-| Command | Purpose |
-|---------|---------|
-| `TagResourceCommand` | Add tags to resource |
-| `UntagResourceCommand` | Remove tags from resource |
-| `ListTagsForResourceCommand` | List resource tags |
-
-## Rate Limits
-
-Several commands have specific rate limits:
-- Most template operations: **1 request per second**
-- `BatchGetMetricDataCommand`: **16 requests per second, 160 queries per second**
-- Account VDM operations: **1 request per second**
-- Configuration set VDM operations: **1 request per second**
-- Message insights: **1 request per second**
-- Recommendations: **1 request per second**
-
-## Common Usage Patterns
-
-### Basic Client Setup
-```typescript
-import { SESv2Client } from '@aws-sdk/client-sesv2';
-
-const client = new SESv2Client({
-  region: 'us-east-1',
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  },
-});
+// Permissions
+authClient.organization.hasPermission({ permissions: { resource: ["action"] } })
 ```
 
-### Sending Email
-```typescript
-import { SendEmailCommand } from '@aws-sdk/client-sesv2';
+## Key Server Methods
 
-const command = new SendEmailCommand({
-  FromEmailAddress: 'sender@example.com',
-  Destination: {
-    ToAddresses: ['recipient@example.com'],
-  },
-  Content: {
-    Simple: {
-      Subject: { Data: 'Test Subject' },
-      Body: { Text: { Data: 'Test Body' } },
-    },
-  },
-});
-
-const response = await client.send(command);
+```ts
+auth.api.createOrganization({ body: { name, slug }, headers })
+auth.api.getFullOrganization({ query: { organizationId }, headers })
+auth.api.createInvitation({ body: { email, role, organizationId } })
+auth.api.addMember({ body: { userId, role, organizationId } })
+auth.api.hasPermission({ headers, body: { permissions: { resource: ["action"] } } })
 ```
 
-### Creating Email Identity
-```typescript
-import { CreateEmailIdentityCommand } from '@aws-sdk/client-sesv2';
+## Default Roles
 
-const command = new CreateEmailIdentityCommand({
-  EmailIdentity: 'example.com',
-  DkimSigningAttributes: {
-    DomainSigningSelector: 'selector1',
-    DomainSigningPrivateKey: 'private-key-content',
-  },
-});
+| Role | Permissions |
+|------|-------------|
+| `owner` | Full control |
+| `admin` | Full control except delete org / change owner |
+| `member` | Read only on org/member/invitation resources |
 
-const response = await client.send(command);
+## Custom Permissions
+
+```ts
+import { createAccessControl } from "better-auth/plugins/access"
+
+const statement = { project: ["create", "update", "delete"] } as const
+const ac = createAccessControl(statement)
+const member = ac.newRole({ project: ["create"] })
+const admin = ac.newRole({ project: ["create", "update"] })
+
+// Pass to both server and client plugins: { ac, roles: { member, admin, owner } }
 ```
 
-## Error Handling
+## Lifecycle Hooks
 
-Common error types to handle:
-- `MessageRejected`: Email was rejected
-- `MailFromDomainNotVerifiedException`: Mail-From domain not verified
-- `ConfigurationSetDoesNotExistException`: Configuration set not found
-- `TemplateDoesNotExistException`: Email template not found
-- `AccountSuspendedException`: Account is suspended
-- `SendingPausedException`: Sending is paused
+```ts
+organization({
+  organizationHooks: {
+    beforeCreateOrganization: async ({ organization, user }) => ({ data: { ...organization } }),
+    afterCreateOrganization: async ({ organization, member, user }) => { /* ... */ },
+    beforeAddMember: async ({ member, user, organization }) => { /* throw to block */ },
+    afterAddMember: async ({ member, user, organization }) => { /* ... */ },
+    beforeCreateInvitation: async ({ invitation, inviter, organization }) => ({ data: { ...invitation } }),
+    afterAcceptInvitation: async ({ invitation, member, user, organization }) => { /* ... */ },
+  },
+  sendInvitationEmail: async (data) => {
+    const link = `https://yourapp.com/accept-invitation/${data.id}`
+    // send email with link
+  },
+})
+```
 
-## Related Documentation
+## Teams (optional)
 
-- [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/)
-- [AWS SDK for JavaScript v3 Documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/)
-- [SES API Reference](https://docs.aws.amazon.com/ses/latest/APIReference/)
+```ts
+organization({ teams: { enabled: true, maximumTeams: 10 } })
+organizationClient({ teams: { enabled: true } })
+
+// Methods: createTeam, listTeams, updateTeam, removeTeam, addTeamMember, removeTeamMember
+```
 
 ---
 > Source: [inboundemail/inbound](https://github.com/inboundemail/inbound) — distributed by [TomeVault](https://tomevault.io).
