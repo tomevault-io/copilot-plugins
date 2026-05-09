@@ -1,0 +1,9 @@
+{
+  "name": "teoobarca--perplexity-mcp",
+  "displayName": "perplexity-mcp",
+  "description": "Free Perplexity AI MCP server with multi-account pooling, React admin dashboard, zero-cost health monitoring, and Telegram alerts. No API keys needed.",
+  "version": "1.0.0",
+  "author": "teoobarca",
+  "homepage": "https://github.com/teoobarca/perplexity-mcp",
+  "skills": []
+}
