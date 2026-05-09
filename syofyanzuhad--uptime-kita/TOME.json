@@ -4,7 +4,7 @@
   "repo": "uptime-kita",
   "description": "Simple uptime monitoring (open-source)",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/syofyanzuhad/uptime-kita",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T00:09:51Z"
+  "distributed_at": "2026-05-09T14:56:34Z"
 }
