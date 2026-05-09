@@ -1,0 +1,9 @@
+{
+  "name": "verygoodplugins--whatsapp-mcp",
+  "displayName": "whatsapp-mcp",
+  "description": "WhatsApp MCP server - Connect Claude to WhatsApp for reading and sending messages",
+  "version": "1.0.0",
+  "author": "verygoodplugins",
+  "homepage": "https://github.com/verygoodplugins/whatsapp-mcp",
+  "skills": []
+}
