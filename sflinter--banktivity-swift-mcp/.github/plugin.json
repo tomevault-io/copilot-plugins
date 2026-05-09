@@ -1,0 +1,9 @@
+{
+  "name": "sflinter--banktivity-swift-mcp",
+  "displayName": "banktivity-swift-mcp",
+  "description": "MCP server for Banktivity personal finance files \u2014 Swift/Core Data rewrite for CloudKit-safe read/write access",
+  "version": "1.0.0",
+  "author": "sflinter",
+  "homepage": "https://github.com/sflinter/banktivity-swift-mcp",
+  "skills": []
+}
