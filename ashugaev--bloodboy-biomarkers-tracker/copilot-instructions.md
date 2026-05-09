@@ -1,81 +1,100 @@
-## general
+## react-component
 
-> - don't use any adjectives in names like: "fast", "simple", "quick", "heavy"
+> Every component in its own folder:
 
+# React Component Structure
 
-- don't use any adjectives in names like: "fast", "simple", "quick", "heavy"
-- Do not add fallbacks for legacy logic unless explicitly requested. Mention if backward compatibility is lost.
-- Do not create any example files unless asked.
-- Minimize your updates; make only necessary and important edits.
-- Do not add fallbacks unless explicitly requested.
-- Write all code comments in English, even if I speak in other languages.
-- Do not delete any logs.
-- Do not delete comments; modify only if needed.
-- Do not delete any comments; modify only if required.
-- Always minimize your updates; make only necessary and important edits.
-- Use English only for coding.
-- Do not use the ENV: prefix.
-- Do not create .md files unless asked.
-- Write less code to do less.
-- Try to minimally affect existing logic.
-- Avoid overhead in logs and try/catch.
-- Improve function and constant naming; avoid unnecessary comments.
-- Do not generate code that will not be used unless explicitly requested.
-- Do not use runtime imports unless strictly necessary.
-- Do not add any comments in code or change existing ones unless strictly necessary.
-- Do not write obvious documentation; do not add args, return, etc., when the function is simple. Avoid redundancy.
-- Use clean code principles.
-- Do not create any example files or .md files for new features.
-- Never use a fallback for a getter (`obj.get('field')`).
-- Never wrap imports in try/catch. Imports are always on top of the file.
-- **Always use camelCase for file names** (e.g., `recordKey.ts`, `entity.utils.ts`, not `record-key.ts`, `entity-utils.ts`)
+## Component Structure Pattern
+Every component in its own folder:
 
-## Import Rules
-- **Always use absolute imports with `@/` alias** instead of relative imports
-- ✅ Good: `import { Button } from '@/components/Button'`
-- ❌ Bad: `import { Button } from '../Button'`
-- ✅ Good: `import { db } from '@/db/services/db.service'`
-- ❌ Bad: `import { db } from '../../services/db.service'`
-- Import order:
-  1. External packages (React, antd, etc.)
-  2. Components (`@/components/...`)
-  3. Database models (`@/db/...`)
-  4. Other imports (`@/utils/...`, `@/constants/...`, etc.)
-  5. Relative imports for local files (only `./ComponentName.types.ts`, `./ComponentName.utils.ts`)
+```
+ComponentName/
+├── ComponentName.tsx       # Main component file (required)
+├── ComponentName.types.ts  # TypeScript types (required)
+├── ComponentName.utils.ts  # ALL helper functions for this component (optional)
+├── ComponentName.hooks.ts  # Custom hooks (optional)
+└── index.ts                # Exports (required)
+```
 
-## File Structure Rules
+### File Rules:
+- **ComponentName.tsx**: Component logic only
+- **ComponentName.types.ts**: All TypeScript interfaces/types
+- **ComponentName.utils.ts**: All helper functions (multiple allowed)
+- **ComponentName.hooks.ts**: All custom hooks (multiple allowed)
+- **index.ts**: Export all public APIs
 
-### Global Utilities (src/utils/, src/db/utils/, etc.)
-- **One file = one utility function**
-- Example: `src/utils/formatDate.ts` exports only `formatDate()`
+## Component Template (ComponentName.tsx)
 
-### React Component Utilities
-- **All component utilities in ComponentName.utils.ts**
-- Multiple helper functions allowed in one file
-- Example: `UploadArea/UploadArea.utils.ts` can export `createRecordKey()`, `validateFile()`, etc.
+```tsx
+import cn from 'classnames'
 
-## Colors
-- Always use color constants from `src/constants/colors.ts`
-- Import: `import { COLORS } from '@/constants/colors'`
-- Never use hardcoded color values like `#ff4d4f`, use `COLORS.ERROR` instead
+import { ComponentNameProps } from './ComponentName.types'
 
-## PostHog Product Metrics
-- **All user actions and key interactions must be tracked with PostHog**
-- Use `usePostHog()` hook from `posthog-js/react` in React components
-- Use `captureEvent(posthog, eventName, properties?)` and `captureException(posthog, error, context?)` from `@/utils`
-- Event naming: `snake_case` (e.g., `document_upload_started`, `biomarker_extraction_failed`)
-- Track: clicks, form submissions, CRUD operations, uploads/downloads, errors, navigation, modal actions
-- Include relevant properties in events
+export const ComponentName = (props: ComponentNameProps) => {
+    const { className } = props
 
-## Enums
-- **Always use enums instead of string literal unions for fixed sets of values**
-- **Global enums**: `src/types/{Name}.types.ts` - for types used across multiple components/modules
-- **Component-local enums**: `{ComponentName}.types.ts` - for types used only within that component
-- Naming: PascalCase ending in `Type`/`Mode` (e.g., `RangeType`, `ViewMode`), values: UPPER_SNAKE_CASE (e.g., `RangeType.NORMAL`)
-- ✅ Good: `outOfRange?: RangeType` | ❌ Bad: `type Status = 'active' | 'inactive'`
+    return (
+        <div className={cn('p-4 bg-white rounded', className)}>
+            ComponentName
+        </div>
+    )
+}
+```
 
-## Constants
-- **Never use hardcoded string keys** for localStorage, sessionStorage, IndexedDB keys, API endpoints, etc. **Always define constants** in appropriate constants files 
+## Types Template (ComponentName.types.ts)
+
+```tsx
+export interface ComponentNameProps {
+    className?: string
+}
+```
+
+## Index Template (index.ts)
+
+```tsx
+export * from './ComponentName'
+export * from './ComponentName.types'
+export * from './ComponentName.utils'
+```
+
+## Styling with Tailwind CSS
+
+Use Tailwind utility classes directly in className:
+```tsx
+// Layout
+className='flex items-center justify-between'
+
+// Spacing
+className='p-4 m-2 gap-4'
+
+// Colors (use theme colors when possible)
+className='bg-primary text-white'
+
+// Responsive
+className='text-sm md:text-base lg:text-lg'
+
+// States
+className='hover:bg-gray-100 focus:outline-none'
+```
+
+## Rules
+
+### Structure:
+- One component = one folder (no standalone .tsx files)
+- All files named ComponentName.* (PascalCase)
+- All exports go through index.ts
+
+### Code Organization:
+- Component logic → ComponentName.tsx
+- All types → ComponentName.types.ts (one file)
+- All helper functions → ComponentName.utils.ts (one file, multiple functions allowed)
+- All custom hooks → ComponentName.hooks.ts (one file, multiple hooks allowed)
+
+### Code Style:
+- Named exports only (no default exports)
+- Always include className prop for composition
+- Use classnames (cn) for combining Tailwind classes
+- Prefer Tailwind utilities over custom CSS
 
 ---
 > Source: [ashugaev/bloodboy-biomarkers-tracker](https://github.com/ashugaev/bloodboy-biomarkers-tracker) — distributed by [TomeVault](https://tomevault.io).
