@@ -1,0 +1,9 @@
+{
+  "name": "akshadjaiswal--go-backend-production",
+  "displayName": "go-backend-production",
+  "description": "A step-by-step Go backend built for production, covering routing, auth, databases, logging, testing, and deployment.",
+  "version": "1.0.0",
+  "author": "akshadjaiswal",
+  "homepage": "https://github.com/akshadjaiswal/go-backend-production",
+  "skills": []
+}
