@@ -1,0 +1,9 @@
+{
+  "name": "prjctimg--p5-nvim",
+  "displayName": "p5.nvim",
+  "description": "Better editor support for p5.js \ud83c\udf38 sketchspaces in Neovim",
+  "version": "1.0.0",
+  "author": "prjctimg",
+  "homepage": "https://github.com/prjctimg/p5.nvim",
+  "skills": []
+}
