@@ -4,7 +4,7 @@
   "repo": "dokman",
   "description": "Dokman is a command-line manager for Docker Compose deployments that lets you register projects and then list, start, stop, restart, redeploy, inspect, and monitor them via a unified CLI",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Alg0rix/dokman",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T03:55:02Z"
+  "distributed_at": "2026-05-09T15:58:01Z"
 }
