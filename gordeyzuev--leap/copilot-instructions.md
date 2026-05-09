@@ -1,83 +1,57 @@
-## python-code-quality
+## testing
 
-> Python style, Ruff, ty, pre-commit, imports, and docstrings for backend/
+> Pytest layout, markers, coverage, and Make targets for LEAP backend tests
 
 
-# Python — style, linting, and type checking
+# Testing — pytest, markers, and commands
 
-General design values (KISS, DRY, YAGNI): `engineering-principles.mdc`.
+## Configuration
 
-## Runtime and package manager
+- **`backend/pytest.ini`** — `testpaths = tests`, `asyncio_mode = auto`, strict markers, short tracebacks.
+- **Coverage (default addopts):** `--cov=api` with term + HTML reports (`pytest.ini` `addopts`).
 
-- **Python:** `>= 3.14` per `backend/pyproject.toml`.
-- **Dependencies / runner:** `uv` from `backend/` (`uv sync`, `uv run …`).
+## Layout
 
-## Ruff (lint + format)
+- Tests live under **`backend/tests/`** (e.g. `unit/`, `quality/`, integration paths per project convention).
+- Mirror production package structure where it aids discovery (`tests/unit/api/...`).
 
-- **Config:** `backend/ruff.toml` (authoritative).
-- **Line length:** 120; **quotes:** double (`"`).
-- **Formatter:** Ruff format (not Black).
-- **Target:** `target-version = "py311"` in `ruff.toml` (lint baseline); runtime remains 3.14.
+## Markers (declared in `pytest.ini`)
 
-### Commands (from `backend/`)
+Use explicit markers: `unit`, `integration`, `e2e`, `quality`, `security`, `slow`, `performance`.
 
-```bash
-make lint          # ruff check .
-make lint-fix      # ruff check . --fix && ruff format .
-make format        # ruff format .
-```
+Register new markers in **`pytest.ini`** if you add categories (keeps `--strict-markers` green).
 
-Or: `uv run python -m ruff check .` / `uv run python -m ruff format .`
+## Commands (from `backend/`)
 
-### Conventions encoded in Ruff
+| Target | Purpose |
+|--------|---------|
+| `make test` | Full suite: `uv run python -m pytest tests/ -v` |
+| `make tests-mock` | Fast path: `ruff check tests/` + `pytest tests/unit/ -v --tb=short` |
+| `make tests-quality` | `pytest tests/quality/ -v -m quality` |
+| `make tests-security` | `pytest tests/quality/ -v -m security` |
 
-- **Imports:** isort-compatible; `known-first-party` lists `api`, `config`, `database`, `models`, `utils`, and video/* modules — keep new first-party packages aligned with `ruff.toml`.
-- **Tests:** relaxed rules under `tests/**/*.py` (asserts, magic values, etc.).
-- **Alembic:** `alembic/versions/*.py` has per-file ignores (upgrade/downgrade signatures).
-- **Celery tasks:** `api/tasks/*.py` allows unused method args per Celery signatures.
-
-## ty (type checker)
-
-- **Config:** `[tool.ty]` in `backend/pyproject.toml`.
-- **Checked roots:** `api`, `database`, `models`, `utils`, `config`, download/process/upload modules, AI modules, etc. — see `include` list in pyproject.
-- **Excluded:** `alembic/versions`, `tests` (tests have overrides for softer rules).
-
-### Commands (from `backend/`)
+**Note:** Default `pytest.ini` adds coverage flags; for a quicker local loop you may run subsets explicitly:
 
 ```bash
-make typecheck          # uv run python -m ty check
-make typecheck-watch    # ty check --watch
-make typecheck-verbose
+uv run python -m pytest tests/unit/path/test_foo.py -v --no-cov
 ```
 
-## Pre-commit (repository root)
+## Writing tests
 
-- Config: **`.pre-commit-config.yaml`** at monorepo root.
-- **Ruff** hooks: files `^backend/` (check with `--fix`, `ruff-format`).
-- **ty** hook: `cd backend && uv run python -m ty check` (whole project, not per-file).
+- **Async:** `asyncio_mode = auto` — write async tests with plain `async def` where needed.
+- **Fixtures:** colocate in `conftest.py` hierarchically; prefer explicit fixtures over implicit shared state.
+- **DB integration:** use project patterns (transactions, test DB URL) — follow neighboring integration tests.
+- **Celery:** prefer unit tests with mocks; full worker tests only where justified (mark `slow` if heavy).
+- **Assertions:** clear messages or helper comparisons; avoid brittle full-response dumps unless snapshot-tested intentionally.
 
-Install from `backend/`: `make pre-commit-install` (or `uv run pre_commit install` from repo root after `uv` env is ready).
+## Ruff in tests
 
-## Quality aggregate
+- `tests/**/*.py` has relaxed security/style rules per `ruff.toml`, but keep imports clean and avoid unused noise.
 
-From `backend/`: `make quality` runs **lint + typecheck + pytest quality markers** (`tests/quality/`, `-m quality`).
+## CI mindset
 
-## Docstrings and comments
-
-- **Language:** write **docstrings and comments in English** (consistent codebase and tooling).
-- **Modules:** one-line module docstring is typical (`"""…"""` after imports style varies; follow neighboring files).
-- **Public APIs:** document non-obvious behavior, invariants, side effects (DB, Celery enqueue, external HTTP).
-- **Prefer** concise explanations over boilerplate; let **type hints** carry parameter/return detail when names are clear.
-- **Comments:** use them **sparingly** — only when they add real value (non-obvious *why*, hazards, external constraints). Skip comments that restate the code. When you do comment, explain *why*, not what the code literally does.
-
-## FastAPI / Pydantic v2
-
-- Use **Pydantic v2** patterns (`model_validate`, `model_dump`, `Field`, …) consistent with existing schemas.
-- Dependency injection: `Depends` patterns may trigger Ruff `B008` ignore at config level — do not “fix” by removing valid FastAPI defaults.
-
-## Logging
-
-- Use project logging (**loguru** / middleware patterns already in codebase); avoid `print` in library/API code (`T201` may apply outside scripts).
+- Before merge: at minimum **`make tests-mock`** (or full `make test` when touching core paths) + **`make lint`** + **`make typecheck`** from `backend/`.
+- **`make quality`** aggregates lint, ty, and quality-marker tests.
 
 ---
 > Source: [GordeyZuev/LEAP](https://github.com/GordeyZuev/LEAP) — distributed by [TomeVault](https://tomevault.io).
