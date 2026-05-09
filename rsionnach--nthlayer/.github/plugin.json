@@ -1,0 +1,9 @@
+{
+  "name": "rsionnach--nthlayer",
+  "displayName": "nthlayer",
+  "description": "Generate the complete reliability stack from a service spec in 5 minutes. Dashboards, alerts, SLOs, PagerDuty - zero toil.",
+  "version": "1.0.0",
+  "author": "rsionnach",
+  "homepage": "https://github.com/rsionnach/nthlayer",
+  "skills": []
+}
