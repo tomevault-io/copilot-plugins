@@ -1,0 +1,9 @@
+{
+  "name": "neuralwatt--neuralwatt-tools",
+  "displayName": "neuralwatt-tools",
+  "description": "Tools and recipes for using the Neuralwatt inference API.",
+  "version": "1.0.0",
+  "author": "neuralwatt",
+  "homepage": "https://github.com/neuralwatt/neuralwatt-tools",
+  "skills": []
+}
