@@ -1,0 +1,44 @@
+{
+  "name": "xhs-mcp",
+  "owner": "Algovate",
+  "repo": "xhs-mcp",
+  "description": "\u7528\u4e8e\u5c0f\u7ea2\u4e66\uff08xiaohongshu.com\uff09\u7684 Model Context Protocol\uff08MCP\uff09\u670d\u52a1\u5668\u4e0e CLI \u5de5\u5177\uff0c\u652f\u6301\u767b\u5f55\u3001\u53d1\u5e03\u3001\u641c\u7d22\u3001\u63a8\u8350\u7b49\u81ea\u52a8\u5316\u80fd\u529b",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Algovate/xhs-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T22:15:17Z"
+}
