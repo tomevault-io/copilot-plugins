@@ -1,40 +1,31 @@
-## project-context
+## retrospective
 
-> Project context for pmctl — Precious Metals Intelligence CLI
+> Agent self-improvement - rule retrospectives, gap/conflict reporting, improvement proposals, IMPROVEMENTS.md
 
 
-# Project Context
+# Agent Retrospective Protocol
 
-## Project
+## End-of-Task Review
 
-| Field | Value |
-|-------|-------|
-| Name | pmctl |
-| Type | monolith |
+After completing any non-trivial task, evaluate:
 
-## Active Stacks (directory → router)
+1. **Rule Effectiveness** - Did existing rules provide sufficient guidance?
+2. **Gaps Encountered** - What was unclear or missing?
+3. **Contradictions** - Did any rules conflict?
+4. **Improvements** - Specific suggestions for rule changes
 
-| Directory / path pattern | Router file |
-|--------------------------|-------------|
-| `src/**/*.ts`, `tests/**/*.ts` | `languages/nodejs/nodejs-base.mdc` |
+## Retrospective Format
 
-## Key Dependencies
+Include in summary when applicable:
 
-| Area | Key deps |
-|------|----------|
-| Runtime | Node.js 20+ (ESM), TypeScript 5.9 (strict) |
-| CLI | commander 14, chalk 5, cli-table3 |
-| Validation | zod 4 |
-| Storage | better-sqlite3 (SQLite — caching + history) |
-| Logging | pino 10, pino-pretty |
-| Rate limiting | bottleneck |
-| LLM | @google/generative-ai (Gemini Flash) |
-| Analysis | technicalindicators |
-| Testing | vitest 4, tsx (dev runner) |
+### Rule Observations
+- **Gap:** [Description of missing guidance]
+- **Contradiction:** [Conflicting rules and how resolved]
+- **Proposal:** [Specific improvement suggestion]
 
-## Architecture Notes
+## Improvement File
 
-CLI tool that fetches data from multiple free REST APIs (Alpha Vantage, MetalpriceAPI, FRED, GDELT, NewsAPI), caches responses in SQLite, computes technical indicators and a composite Buy Score for gold/silver, and optionally generates an LLM narrative via Gemini Flash. No web server — single-command execution model.
+Append significant findings to: `.cursor/rules/IMPROVEMENTS.md`
 
 ---
 > Source: [GoranErhartic/cursor-development-rules](https://github.com/GoranErhartic/cursor-development-rules) — distributed by [TomeVault](https://tomevault.io).
