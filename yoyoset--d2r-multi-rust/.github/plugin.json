@@ -1,0 +1,54 @@
+{
+  "name": "yoyoset--d2r-multi-rust",
+  "displayName": "D2R_Multi_rust",
+  "description": "Minimalist Rust rewrite of the D2R multi-boxing tool. Replaces the bulky C# original with a lightweight, secure, and clean implementation. (D2R \u591a\u5f00\u5de5\u5177\u7684\u6781\u7b80 Rust \u91cd\u5199\u7248\u3002\u4ee5\u8f7b\u91cf\u3001\u5b89\u5168\u3001\u5e72\u51c0\u7684\u5b9e\u73b0\u66ff\u4ee3\u4e86\u5e9e\u5927\u7684 C# \u539f\u7248\u3002)",
+  "version": "1.0.0",
+  "author": "yoyoset",
+  "homepage": "https://github.com/yoyoset/D2R_Multi_rust",
+  "skills": [
+    {
+      "name": "canvas-design",
+      "description": ""
+    },
+    {
+      "name": "coordinator-bridge",
+      "description": ""
+    },
+    {
+      "name": "idea-to-spec",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "notebooklm",
+      "description": ""
+    },
+    {
+      "name": "project-governance",
+      "description": ""
+    },
+    {
+      "name": "rust-expert",
+      "description": ""
+    },
+    {
+      "name": "shopify-development",
+      "description": ""
+    },
+    {
+      "name": "tailwind-patterns",
+      "description": ""
+    },
+    {
+      "name": "tauri-patterns",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "description": ""
+    }
+  ]
+}
