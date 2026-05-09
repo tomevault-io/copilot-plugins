@@ -4,7 +4,7 @@
   "repo": "outcome-kit",
   "description": "Outcome analysis system with enrichment, attribution quality, and confidence-aware recommendations",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TheMattBerman/outcome-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T07:46:00Z"
+  "distributed_at": "2026-05-09T19:07:56Z"
 }
