@@ -1,0 +1,9 @@
+{
+  "name": "dryadeai--dryade",
+  "displayName": "Dryade",
+  "description": "Self-hosted AI orchestration platform. Connect any LLM, orchestrate agents, build workflows \u2014 all on your infrastructure.",
+  "version": "1.0.0",
+  "author": "DryadeAI",
+  "homepage": "https://github.com/DryadeAI/Dryade",
+  "skills": []
+}
