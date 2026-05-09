@@ -1,0 +1,9 @@
+{
+  "name": "drishtantkaushal--agentcommons",
+  "displayName": "AgentCommons",
+  "description": "Multi-terminal orchestration layer for Claude Code. Approval relay, task delegation, persistent agent identity.",
+  "version": "1.0.0",
+  "author": "DrishtantKaushal",
+  "homepage": "https://github.com/DrishtantKaushal/AgentCommons",
+  "skills": []
+}
