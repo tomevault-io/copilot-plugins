@@ -1,48 +1,113 @@
-## tailwindcss
+## turborepo
 
-> Tailwind CSS v4 patterns
+> Turborepo monorepo patterns and best practices
 
 
-## Tailwind CSS v4
+## Monorepo Structure
 
-We use Tailwind CSS v4.1+ with the new CSS-first configuration.
+```
+apps/
+  dashboard/     # Next.js dashboard (@bklit/dashboard)
+  docs/          # Documentation site (@bklit/docs)
+  playground/    # SDK testing playground (@bklit/playground)
+  website/       # Marketing website (@bklit/website)
 
-### Key Changes from v3
-
-- `tailwind.config.js` is **deprecated** - use CSS `@theme` directive
-- Size utilities: `w-4 h-4` → `size-4`
-- CSS variables for theming
-
-### Common Patterns
-
-```tsx
-// ✅ v4 syntax
-<div className="size-4" />           // width + height
-<div className="inset-0" />          // top/right/bottom/left: 0
-
-// ❌ Old v3 syntax
-<div className="w-4 h-4" />
+packages/
+  ui/            # Shared UI components (@bklit/ui)
+  db/            # Prisma schema & client (@bklit/db)
+  api/           # tRPC routers (@bklit/api)
+  redis/         # Redis client & types (@bklit/redis)
+  analytics/     # ClickHouse service (@bklit/analytics)
+  sdk/           # Client SDK (@bklit/sdk)
+  ingestion/     # Event ingestion server (@bklit/ingestion)
+  worker/        # Background job processor (@bklit/worker)
 ```
 
-### Theme Variables
+## Environment Variables
 
-```css
-/* packages/ui/src/styles/globals.css */
-@theme {
-  --color-primary: oklch(0.7 0.15 200);
-  --radius-lg: 0.5rem;
+### Turbo Configuration
+
+Define env vars in [turbo.json](mdc:turbo.json) for proper caching:
+
+```json
+{
+  "tasks": {
+    "build": {
+      "env": ["DATABASE_URL", "REDIS_URL", "CLICKHOUSE_HOST"]
+    },
+    "dev": {
+      "env": ["DATABASE_URL", "REDIS_URL"]
+    }
+  }
 }
 ```
 
-### Dark Mode
+### Package-Specific Env
 
-Use `dark:` variant with CSS variables:
+Use `@t3-oss/env-nextjs` for type-safe env in apps:
 
 ```tsx
-<div className="bg-background text-foreground dark:bg-background" />
+// apps/dashboard/src/env.ts
+import { createEnv } from "@t3-oss/env-nextjs";
+
+export const env = createEnv({
+  server: { DATABASE_URL: z.string().url() },
+  client: { NEXT_PUBLIC_APP_URL: z.string().url().optional() },
+  experimental__runtimeEnv: {
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+  },
+});
 ```
 
-Ref: https://tailwindcss.com/docs
+## Commands
+
+### Running Apps
+
+```bash
+pnpm dev                    # All apps in watch mode
+pnpm dev:services           # Docker + ingestion + worker
+pnpm dev:stop               # Stop all services
+```
+
+### Package-Specific Commands
+
+```bash
+pnpm --filter=@bklit/dashboard dev     # Run single app
+pnpm --filter=@bklit/sdk build         # Build single package
+pnpm --filter=@bklit/ui dlx shadcn@latest add button  # Add shadcn component
+```
+
+### Build & Type Check
+
+```bash
+pnpm build          # Build all packages
+pnpm typecheck      # Type check all packages
+pnpm lint           # Lint all packages
+```
+
+## Package Imports
+
+Always use package aliases, not relative paths across packages:
+
+```tsx
+// ✅ Good
+import { db } from "@bklit/db/client";
+import { Button } from "@bklit/ui/components/button";
+import { getRedisClient } from "@bklit/redis";
+
+// ❌ Bad
+import { db } from "../../../packages/db/src/client";
+```
+
+## Adding Dependencies
+
+```bash
+# Add to specific package
+pnpm --filter=@bklit/dashboard add lodash
+
+# Add to root (dev dependencies for tooling)
+pnpm add -D -w typescript
+```
 
 ---
 > Source: [bklit/bklit](https://github.com/bklit/bklit) — distributed by [TomeVault](https://tomevault.io).
