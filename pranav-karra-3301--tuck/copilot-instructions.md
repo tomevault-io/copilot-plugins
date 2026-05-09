@@ -1,93 +1,90 @@
-## git
+## safety
 
-> Git workflow and commit rules
+> Safety and security rules
 
 
-# Git Rules
+# Safety Rules
 
-## Branch Strategy
+## Core Safety Principles
 
-- `main` - Production-ready, protected
-- `feat/*` - New features
-- `fix/*` - Bug fixes
-- `docs/*` - Documentation
-- `refactor/*` - Code restructuring
+1. **Never lose user data** - This is the most important rule
+2. **Confirm destructive actions** - Always ask before deleting/overwriting
+3. **Create backups** - Before any file modification
+4. **Validate all input** - Use Zod schemas
 
-## Before Starting Work
+## Destructive Operations
 
-ALWAYS sync with main:
-```bash
-git checkout main
-git fetch origin
-git pull origin main
-git checkout -b feat/your-feature
+ALWAYS confirm before:
+- Deleting files
+- Overwriting files
+- Removing tracked files
+- Resetting configuration
+
+```typescript
+// Required pattern
+const confirmed = await prompts.confirm(
+  'This will delete all backups. Continue?',
+  false  // Default to safe option
+);
+
+if (!confirmed) {
+  prompts.cancel('Operation cancelled');
+  return;
+}
 ```
 
-## Commit Messages
+## Backup Requirements
 
-Follow [Conventional Commits](https://conventionalcommits.org):
+Before modifying any user file:
+1. Create a backup copy
+2. Store backup location
+3. Provide restore path in error messages
 
-```
-<type>(<scope>): <description>
+```typescript
+// Create backup before modification
+const backupPath = await createBackup(originalPath);
 
-[optional body]
-
-[optional footer]
-```
-
-### Types
-
-| Type | Description | Version Bump |
-|------|-------------|--------------|
-| `feat` | New feature | Minor (0.x.0) |
-| `fix` | Bug fix | Patch (0.0.x) |
-| `docs` | Documentation | None |
-| `style` | Formatting | None |
-| `refactor` | Restructuring | None |
-| `perf` | Performance | Patch |
-| `test` | Tests | None |
-| `chore` | Maintenance | None |
-
-### Examples
-
-```bash
-feat: add restore command for backup recovery
-fix: handle missing config file gracefully
-docs: update installation instructions
-refactor: extract git operations to lib/git.ts
-test: add integration tests for sync command
-chore: update dependencies
+try {
+  await modifyFile(originalPath);
+} catch (error) {
+  throw new Error(`Failed. Restore from: ${backupPath}`);
+}
 ```
 
-### Breaking Changes
+## Secrets and Credentials
 
-```bash
-feat!: redesign configuration format
+NEVER:
+- Store API keys in tracked files
+- Track SSH private keys
+- Include passwords in config
+- Log sensitive data
 
-BREAKING CHANGE: Config files must be migrated
+## Input Validation
+
+Use Zod for ALL external data:
+- Config file contents
+- Manifest file contents
+- User-provided paths
+- Environment variables
+
+```typescript
+import { ConfigSchema } from '../schemas/config.schema.js';
+
+const data = JSON.parse(fileContent);
+const config = ConfigSchema.parse(data); // Throws if invalid
 ```
 
-## Before Committing
+## Path Handling
 
-Run all checks:
-```bash
-pnpm lint && pnpm typecheck && pnpm test
-```
+ALWAYS use path utilities:
+- `expandPath()` - Expand ~ to full path
+- `collapsePath()` - Collapse home to ~
+- `pathExists()` - Check existence safely
 
-## Pull Requests
-
-1. Create against `main`
-2. Wait for CI to pass
-3. Request review
-4. Address feedback
-5. Merge when approved
-
-## NEVER Do
-
-- Force push to main
-- Skip CI checks
-- Merge without review
-- Commit directly to main
+NEVER:
+- Assume path format
+- Use raw ~ in fs operations
+- Hardcode paths
 
 ---
 > Source: [Pranav-Karra-3301/tuck](https://github.com/Pranav-Karra-3301/tuck) — distributed by [TomeVault](https://tomevault.io).
