@@ -1,7 +1,7 @@
 {
   "name": "jordigilh--kubernaut",
   "displayName": "kubernaut",
-  "description": "kubernaut",
+  "description": "Open-source AIOps platform that closes the loop from Kubernetes alert to automated remediation. An LLM agent investigates live via native client-go bindings, logs, and Prometheus, selects a fix from a",
   "version": "1.0.0",
   "author": "jordigilh",
   "homepage": "https://github.com/jordigilh/kubernaut",
