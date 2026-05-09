@@ -1,0 +1,9 @@
+{
+  "name": "andoniaf--telegram-pr-notify",
+  "displayName": "telegram-pr-notify",
+  "description": "GitHub Action that sends Telegram notifications for pull request events \u2014 opens, merges, reviews, comments, and more. Zero dependencies, customizable templates.",
+  "version": "1.0.0",
+  "author": "andoniaf",
+  "homepage": "https://github.com/andoniaf/telegram-pr-notify",
+  "skills": []
+}
