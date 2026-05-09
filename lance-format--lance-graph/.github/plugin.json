@@ -1,0 +1,9 @@
+{
+  "name": "lance-format--lance-graph",
+  "displayName": "lance-graph",
+  "description": "Run Graph Queries with Lance",
+  "version": "1.0.0",
+  "author": "lance-format",
+  "homepage": "https://github.com/lance-format/lance-graph",
+  "skills": []
+}
