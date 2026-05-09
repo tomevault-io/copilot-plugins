@@ -1,7 +1,7 @@
 {
   "name": "inboundemail--inbound",
   "displayName": "inbound",
-  "description": "inbound",
+  "description": "email infrastructure for agent and indie devs",
   "version": "1.0.0",
   "author": "inboundemail",
   "homepage": "https://github.com/inboundemail/inbound",
