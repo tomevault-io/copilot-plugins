@@ -1,0 +1,9 @@
+{
+  "name": "aydiler--md-viewer",
+  "displayName": "md-viewer",
+  "description": "Fast, lightweight markdown viewer for Linux with tabs, file explorer, and live reload",
+  "version": "1.0.0",
+  "author": "aydiler",
+  "homepage": "https://github.com/aydiler/md-viewer",
+  "skills": []
+}
