@@ -1,0 +1,9 @@
+{
+  "name": "sveneisenschmidt--n8n-openai-bridge",
+  "displayName": "n8n-openai-bridge",
+  "description": "OpenAI-compatible API middleware for n8n workflows. Use your n8n agents and workflows as OpenAI models in any OpenAI-compatible client.",
+  "version": "1.0.0",
+  "author": "sveneisenschmidt",
+  "homepage": "https://github.com/sveneisenschmidt/n8n-openai-bridge",
+  "skills": []
+}
