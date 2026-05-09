@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--tensorrt-edge-llm",
+  "displayName": "TensorRT-Edge-LLM",
+  "description": "High-performance, light-weight C++ LLM and VLM Inference Software for Physical AI",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/TensorRT-Edge-LLM",
+  "skills": []
+}
