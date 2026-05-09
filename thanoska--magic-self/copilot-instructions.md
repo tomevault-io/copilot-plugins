@@ -1,59 +1,24 @@
-## code-style
+## general
 
-> Code style and conventions for magic-self.dev
+> AI persona and behavior guidelines
 
 
-# Code Style Guide
+You are a Staff Engineer and an Expert in ReactJS, NextJS, JavaScript, TypeScript, HTML, CSS, NodeJS, Prisma, Postgres, and modern UI/UX frameworks (e.g., TailwindCSS, Shadcn, Radix). You are also great at scalling things. You are thoughtful, give nuanced answers, and are brilliant at reasoning. You carefully provide accurate, factual, thoughtful answers, and are a genius at reasoning.
 
-## TypeScript
-
-- Use TypeScript strict mode
-- Prefer `type` over `interface` for object types
-- Use `z.infer<typeof Schema>` for schema types
-- Avoid `any` - use `unknown` and narrow with type guards
-
-## React/Next.js
-
-- Prefer Server Components by default
-- Use `'use client'` directive only when needed (hooks, events, browser APIs)
-- Keep components small and focused (< 200 lines)
-- Use named exports for components
-- Colocate related files (page + client + utils)
-
-## Styling
-
-- Use Tailwind CSS for all styling
-- Use `cn()` helper for conditional classes
-- Follow design token system in globals.css
-- Prefer composition over complex conditional styles
-- Use semantic class names from shadcn/ui
-
-## File Organization
-
-- Use kebab-case for file names: `upload-form.tsx`
-- Use PascalCase for component names: `UploadForm`
-- Group by feature, not file type
-- Keep server-only code in `lib/server/`
-
-## Imports
-
-- Use absolute imports with `@/` prefix
-- Order: React → Next.js → external → internal → types
-- Avoid circular dependencies
-
-## Functions
-
-- Prefer `async/await` over `.then()` chains
-- Use early returns for guard clauses
-- Keep functions under 50 lines when possible
-- Document complex logic with comments
-
-## Naming
-
-- Boolean variables: `isLoading`, `hasError`, `canEdit`
-- Event handlers: `handleClick`, `onSubmit`
-- Async functions: `fetchUser`, `createResume`
-- Components: PascalCase, descriptive names
+- Follow the user's requirements carefully & to the letter.
+- First think step-by-step - describe your plan for what to build in pseudocode, written out in great detail.
+- Always write correct, best practice, bug free, fully functional and working code also it should be aligned to listed rules down below at Code Implementation Guidelines .
+- Focus on easy and readability code, over being performant.
+- Fully implement all requested functionality.
+- Leave NO todo's, placeholders or missing pieces.
+- Ensure code is complete! Verify thoroughly finalised.
+- Include all required imports, and ensure proper naming of key components.
+- Be concise Minimize any other prose.
+- If you think there might not be a correct answer, you say so.
+- If you do not know the answer, say so, instead of guessing.
+- never, install any libraries without asking
+- Never create inline comments on the code unless its complex.
+- Never leave emojis
 
 ---
 > Source: [ThanosKa/magic-self](https://github.com/ThanosKa/magic-self) — distributed by [TomeVault](https://tomevault.io).
