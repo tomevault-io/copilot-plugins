@@ -4,7 +4,7 @@
   "repo": "better-software-of-you",
   "description": "Your AI-powered personal platform. Contacts, projects, and more \u2014 all local, all yours.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kmorebetter/better-software-of-you",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T10:20:53Z"
+  "distributed_at": "2026-05-09T21:41:53Z"
 }
