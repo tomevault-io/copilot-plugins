@@ -1,0 +1,9 @@
+{
+  "name": "mmdemirbas--ice-lens",
+  "displayName": "ice-lens",
+  "description": "Visual inspector for Apache Iceberg tables",
+  "version": "1.0.0",
+  "author": "mmdemirbas",
+  "homepage": "https://github.com/mmdemirbas/ice-lens",
+  "skills": []
+}
