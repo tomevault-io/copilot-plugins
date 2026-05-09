@@ -1,0 +1,9 @@
+{
+  "name": "mohsenoid--certhunter",
+  "displayName": "CertHunter",
+  "description": "An Android Util app which help querying installed apps certificate's fingerprints",
+  "version": "1.0.0",
+  "author": "mohsenoid",
+  "homepage": "https://github.com/mohsenoid/CertHunter",
+  "skills": []
+}
