@@ -1,0 +1,81 @@
+{
+  "name": "zeroquant",
+  "owner": "berrzebb",
+  "repo": "zeroquant",
+  "description": "Rust \uae30\ubc18 \uace0\uc131\ub2a5 \uc790\ub3d9\ud654 \ud2b8\ub808\uc774\ub529 \uc2dc\uc2a4\ud15c",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-api",
+      "path": "crates/trader-api/.claude/skills/add-api",
+      "github_url": "https://github.com/berrzebb/zeroquant/tree/main/crates/trader-api/.claude/skills/add-api",
+      "description": ""
+    },
+    {
+      "name": "add-component",
+      "path": "frontend/.claude/skills/add-component",
+      "github_url": "https://github.com/berrzebb/zeroquant/tree/main/frontend/.claude/skills/add-component",
+      "description": ""
+    },
+    {
+      "name": "add-strategy",
+      "path": "crates/trader-strategy/.claude/skills/add-strategy",
+      "github_url": "https://github.com/berrzebb/zeroquant/tree/main/crates/trader-strategy/.claude/skills/add-strategy",
+      "description": ""
+    },
+    {
+      "name": "crawl-api-spec",
+      "path": ".claude/skills/crawl-api-spec",
+      "github_url": "https://github.com/berrzebb/zeroquant/tree/main/.claude/skills/crawl-api-spec",
+      "description": ""
+    },
+    {
+      "name": "diagnose",
+      "path": ".claude/skills/diagnose",
+      "github_url": "https://github.com/berrzebb/zeroquant/tree/main/.claude/skills/diagnose",
+      "description": ""
+    },
+    {
+      "name": "shipping-code",
+      "path": ".claude/skills/shipping-code",
+      "github_url": "https://github.com/berrzebb/zeroquant/tree/main/.claude/skills/shipping-code",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/berrzebb/zeroquant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T12:31:36Z"
+}
