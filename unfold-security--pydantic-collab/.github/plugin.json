@@ -1,0 +1,9 @@
+{
+  "name": "unfold-security--pydantic-collab",
+  "displayName": "pydantic-collab",
+  "description": "Multi-agent orchestration framework powered by Pydantic AI. Build complex agent collaborations with clean, declarative code, automatic topology validation, built-in execution tracking, and full contro",
+  "version": "1.0.0",
+  "author": "Unfold-Security",
+  "homepage": "https://github.com/Unfold-Security/pydantic-collab",
+  "skills": []
+}
