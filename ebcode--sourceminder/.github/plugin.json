@@ -1,0 +1,9 @@
+{
+  "name": "ebcode--sourceminder",
+  "displayName": "SourceMinder",
+  "description": "A Token-Efficient Code Search for Solo Devs and LLMs",
+  "version": "1.0.0",
+  "author": "ebcode",
+  "homepage": "https://github.com/ebcode/SourceMinder",
+  "skills": []
+}
