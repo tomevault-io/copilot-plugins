@@ -1,77 +1,66 @@
-## shadcn-components
+## typescript
 
-> How to install shadcn React components
+> - Prefer interfaces over types for object definitions
 
 
-The following official shadcn-ui components are available. Please check to see if they are installed under `./apps/web/components/ui` before installing them with `pnpm dlx shadcn@latest add <component-id>`.
+# TypeScript Best Practices
 
-Notice that The 'shadcn-ui' package is deprecated. Please use the 'shadcn' package instead. For example:
+## Type System
 
-```bash
-pnpm dlx shadcn@latest add progress --cwd apps/web
-```
+- Prefer interfaces over types for object definitions
+- Use type for unions, intersections, and mapped types
+- NEVER use `any` or `as any` types or coercion
+- Use strict TypeScript configuration
+- Leverage TypeScript's built-in utility types
+- Use generics for reusable type patterns
+- Use `unknown` for variables that are not yet typed
+- Use `Zod` for schema validation
+- Use the type guards pattern for runtime type checking
+- Use `assertString` for runtime string checking
 
-YOU MUST use `pnpm dlx shadcn@latest` when installing shadcn packages.
+## Naming Conventions
 
-Docs for each components are available at `https://ui.shadcn.com/docs/components/<component-id>`. Fetch and read the docs before using the component so that your knowledge is up-to-date.
+- Use PascalCase for type names and interfaces
+- Use camelCase for variables and functions
+- Use UPPER_CASE for constants
+- Use descriptive names with auxiliary verbs (e.g., isLoading, hasError)
+- Prefix interfaces for React props with 'Props' (e.g., ButtonProps)
 
-- `accordion` - Accordion: Stack of headings that expand/collapse to reveal hidden content.
-- `alert` - Alert: Static call-out box for status or info messages.
-- `alert-dialog` - Alert Dialog: Modal that interrupts the flow to confirm or warn about critical actions.
-- `aspect-ratio` - Aspect Ratio: Wrapper that locks children to a fixed width-to-height ratio (great for responsive media).
-- `avatar` - Avatar: Small user/asset image or initials placeholder.
-- `badge` - Badge: Tiny label for counts or status (e.g. "New", "3").
-- `breadcrumb` - Breadcrumb: Navigation trail that shows "where you are" in the app hierarchy.
-- `button` - Button: Click/tap element that triggers an action.
-- `calendar` - Calendar: Stand-alone calendar view, used by Date Picker or on its own.
-- `card` - Card: Content container with optional header/body/footer.
-- `carousel` - Carousel: Horizontal slider that cycles through a set of items or images.
-- `chart` - Chart: Light wrapper for quick bar/line/pie visualizations.
-- `checkbox` - Checkbox: Square control for on/off selection of independent items.
-- `collapsible` - Collapsible: Utility that hides/reveals content with smooth height animation.
-- `combobox` - Combobox: Autocomplete text input that filters a long list and lets users pick an item.
-- `command` - Command Palette: VS Code-style keyboard overlay for fuzzy-searching actions.
-- `context-menu` - Context Menu: Right-click (long-press) menu with context-specific commands.
-- `data-table` - Data Table: Table with helpers for sorting, filtering and pagination.
-- `date-picker` - Date Picker: Input field that pops a calendar for choosing dates or ranges.
-- `dialog` - Dialog: Generic modal overlay for arbitrary interactive content.
-- `drawer` - Drawer: Slide-in panel (often from edge/bottom) for secondary workflows.
-- `dropdown-menu` - Dropdown Menu: Triggered list of options/actions that auto-dismisses on selection.
-- `form` - Form: Helpers and styles for accessible, validated forms.
-- `hover-card` - Hover Card: Lightweight popover that appears on hover/focus to show extra info.
-- `input` - Input: Standard single-line text field.
-- `input-otp` - Input OTP: Grouped inputs optimised for entering one-time pass-codes.
-- `label` - Label: Accessible label element for any form control.
-- `menubar` - Menubar: Horizontal desktop-app-style menu with dropdown sub-menus.
-- `navigation-menu` - Navigation Menu: Multi-level nav bar with active indicators and hover previews.
-- `pagination` - Pagination: Next/previous + numbered page controls for paginated data sets.
-- `popover` - Popover: Non-modal floating panel anchored to a trigger (e.g. emoji picker).
-- `progress` - Progress: Linear bar that shows completion percentage.
-- `radio-group` - Radio Group: Set of mutually-exclusive selection buttons.
-- `resizable` - Resizable: Wrapper that lets users drag to resize split panes.
-- `scroll-area` - Scroll Area: Augments native scrolling with custom styling and shadows.
-- `select` - Select: Styled single-select dropdown (native <select> replacement).
-- `separator` - Separator: Horizontal or vertical rule dividing content.
-- `sheet` - Sheet: Mobile-friendly slide-up bottom sheet (from tiny to full-screen).
-- `sidebar` - Sidebar: Vertical navigation rail that can collapse/expand.
-- `skeleton` - Skeleton: Grey placeholder shapes shown while real content loads.
-- `slider` - Slider: Draggable handle on a track for numeric values or ranges.
-- `sonner` - Sonner: Opinionated toast component (thin wrapper around the Sonner library).
-- `switch` - Switch: Toggle switch for true/false settings.
-- `table` - Table: Basic static table markup & styling.
-- `tabs` - Tabs: Tab strip that swaps between associated panels.
-- `textarea` - Textarea: Multi-line text input.
-- `toast` - Toast: Ephemeral message that pops at screen edge and auto-dismisses.
-- `toggle` - Toggle: Pressable button that stays pressed/un-pressed to indicate state.
-- `toggle-group` - Toggle Group: Collection of toggles acting as single- or multi-select controls.
-- `tooltip` - Tooltip: Small hover/focus label supplying helper text.
-- `spinner` - Spinner: An indicator to show a loading state.
-- `kbd` - Kbd: Display a keyboard key or group of keys.
-- `button-group` - Button Group: A group of buttons for actions and split buttons.
-- `input-group` - Input Group: Input with icons, buttons, labels and more.
-- `field` - Field: One component. All your forms.
-- `item` - Item: Display lists of items, cards, and more.
-- `empty` - Empty: Use this one for empty states.
+## Code Organization
+
+- Keep type definitions close to where they're used
+- Export types and interfaces from dedicated type files when shared
+- Use barrel exports (index.ts) for organizing exports
+- Place shared types in a `types.ts` file
+- Co-locate component props with their components
+- Prefer to use multiple files.
+- Never place two classes or components in the same file.
+
+## Functions
+
+- Use explicit return types for public functions
+- Use arrow functions for callbacks and methods
+- Use function overloads for complex type scenarios
+- Prefer async/await over Promises
+- Prefer function declarations over function expressions.
+- Prefer functional programming over classes.
+
+## Best Practices
+
+- Enable strict mode in tsconfig.json
+- Use readonly for immutable properties
+- Leverage discriminated unions for type safety
+- Implement proper null checking
+
+## Imports
+
+- ALWAYS use `@/` style imports vs relative imports, except when importing from the same directory.
+- NEVER do an inline `await import(...)` call.
+- NEVER use `'UNKNOWN'` or `'UNKNOWN_VALUE'`, or similar to indicate an unknown value - use `null` instead.
+
+## Error Handling
+
+- DO NOT proactively add error handling
 
 ---
 > Source: [maccman/ai-monorepo-scaffold](https://github.com/maccman/ai-monorepo-scaffold) — distributed by [TomeVault](https://tomevault.io).
