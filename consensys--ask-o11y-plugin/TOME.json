@@ -2,7 +2,7 @@
   "name": "ask-o11y-plugin",
   "owner": "Consensys",
   "repo": "ask-o11y-plugin",
-  "description": "",
+  "description": "AI-powered observability assistant for Grafana that helps you query data, investigate issues, and manage dashboards through natural language.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Consensys/ask-o11y-plugin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T18:10:33Z"
+  "distributed_at": "2026-05-09T03:03:21Z"
 }
