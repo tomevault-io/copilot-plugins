@@ -1,123 +1,264 @@
-## api-development
+## code-patterns
 
-> API development
+> Code patterns
 
-# API Development Patterns
+# Go Code Patterns and Conventions
 
-## Route Organization in Main
-Routes are defined in [cmd/api/main.go](mdc:cmd/api/main.go) with clear groupings:
+## Architecture Pattern: Repository-Service-Handler
 
-### Public Routes
-- No authentication required
-- Registration, login, password reset
-- Social OAuth callbacks
-
-### Protected Routes  
-- Require JWT authentication via `middleware.AuthMiddleware()`
-- User profile, logout, 2FA management
-- Activity logs
-
-### Admin Routes
-- Protected with auth middleware
-- Future role-based access control
-
-## Adding New API Endpoints
-
-### 1. Create DTOs
-Define request/response structures in `pkg/dto/`:
+### Repository Layer
 ```go
-type CreateSomethingRequest struct {
-    Name        string `json:"name" validate:"required" example:"Sample Name"`
-    Description string `json:"description,omitempty" example:"Sample description"`
+type Repository interface {
+    Create(entity *Entity) error
+    GetByID(id uint) (*Entity, error)
+    Update(entity *Entity) error
+    Delete(id uint) error
 }
 
-type SomethingResponse struct {
-    ID          uint   `json:"id" example:"1"`
-    Name        string `json:"name" example:"Sample Name"`
-    CreatedAt   string `json:"created_at" example:"2023-01-01T00:00:00Z"`
+type repository struct {
+    db *gorm.DB
+}
+
+func NewRepository(db *gorm.DB) Repository {
+    return &repository{db: db}
 }
 ```
 
-### 2. Add Handler with Swagger Annotations
+### Service Layer
 ```go
-// CreateSomething creates a new something
-// @Summary Create something
-// @Description Create a new something with the provided data
-// @Tags something
+type Service interface {
+    BusinessOperation(input Input) (*Output, error)
+}
+
+type service struct {
+    repo Repository
+    // other dependencies
+}
+
+func NewService(repo Repository) Service {
+    return &service{repo: repo}
+}
+```
+
+### Handler Layer
+```go
+type Handler struct {
+    service Service
+}
+
+func NewHandler(service Service) *Handler {
+    return &Handler{service: service}
+}
+
+// @Summary Operation description
+// @Router /endpoint [method]
+func (h *Handler) HandlerMethod(c *gin.Context) {
+    // Request binding
+    // Validation
+    // Service call
+    // Response
+}
+```
+
+## Dependency Injection Pattern
+
+### Constructor Functions
+All components use constructor functions with dependency injection:
+```go
+func NewService(repo Repository, emailService EmailService) Service {
+    return &service{
+        repo:         repo,
+        emailService: emailService,
+    }
+}
+```
+
+### Main Function Organization
+In [cmd/api/main.go](mdc:cmd/api/main.go):
+1. Initialize infrastructure (DB, Redis)
+2. Create repositories
+3. Create services with dependencies
+4. Create handlers
+5. Setup routes
+
+## Error Handling Patterns
+
+### Custom Error Types
+Define in `pkg/errors/`:
+```go
+type AuthError struct {
+    Code    string
+    Message string
+    Err     error
+}
+
+func (e *AuthError) Error() string {
+    return e.Message
+}
+```
+
+### Error Response Pattern
+```go
+if err != nil {
+    c.JSON(http.StatusBadRequest, gin.H{
+        "success": false,
+        "error":   err.Error(),
+    })
+    return
+}
+```
+
+### Success Response Pattern
+```go
+c.JSON(http.StatusOK, gin.H{
+    "success": true,
+    "data":    result,
+})
+```
+
+## Database Patterns
+
+### GORM Models
+Located in `pkg/models/`:
+```go
+type User struct {
+    ID        uint      `gorm:"primaryKey" json:"id"`
+    Email     string    `gorm:"unique;not null" json:"email"`
+    Password  string    `gorm:"not null" json:"-"`
+    CreatedAt time.Time `json:"created_at"`
+    UpdatedAt time.Time `json:"updated_at"`
+}
+```
+
+### Repository Methods
+```go
+func (r *repository) GetByEmail(email string) (*models.User, error) {
+    var user models.User
+    if err := r.db.Where("email = ?", email).First(&user).Error; err != nil {
+        return nil, err
+    }
+    return &user, nil
+}
+```
+
+## DTO (Data Transfer Object) Patterns
+
+### Request DTOs
+```go
+type LoginRequest struct {
+    Email    string `json:"email" validate:"required,email" example:"user@example.com"`
+    Password string `json:"password" validate:"required,min=8" example:"password123"`
+}
+```
+
+### Response DTOs
+```go
+type UserResponse struct {
+    ID        uint   `json:"id" example:"1"`
+    Email     string `json:"email" example:"user@example.com"`
+    CreatedAt string `json:"created_at" example:"2023-01-01T00:00:00Z"`
+}
+```
+
+## Swagger Documentation Pattern
+
+### Handler Annotations
+```go
+// @Summary User login
+// @Description Authenticate user with email and password
+// @Tags authentication
 // @Accept json
 // @Produce json
-// @Param request body dto.CreateSomethingRequest true "Something data"
-// @Success 201 {object} dto.APIResponse{data=dto.SomethingResponse}
+// @Param request body dto.LoginRequest true "Login credentials"
+// @Success 200 {object} dto.APIResponse{data=dto.LoginResponse}
 // @Failure 400 {object} dto.APIResponse
-// @Security ApiKeyAuth
-// @Router /something [post]
-func (h *Handler) CreateSomething(c *gin.Context) {
-    // Implementation
+// @Router /login [post]
+```
+
+## Configuration Pattern
+
+### Environment Variables
+Using Viper in [cmd/api/main.go](mdc:cmd/api/main.go):
+```go
+viper.AutomaticEnv()
+viper.SetDefault("PORT", "8080")
+viper.SetDefault("ACCESS_TOKEN_EXPIRATION_MINUTES", 15)
+```
+
+## Testing Patterns
+
+### Table-Driven Tests
+```go
+func TestService_Method(t *testing.T) {
+    tests := []struct {
+        name    string
+        input   Input
+        want    Output
+        wantErr bool
+    }{
+        // test cases
+    }
+    
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            // test implementation
+        })
+    }
 }
 ```
 
-### 3. Register Route
-Add to appropriate group in [cmd/api/main.go](mdc:cmd/api/main.go):
+### Mock Interfaces
+Use interfaces for all dependencies to enable mocking in tests.
+
+## Security Code Patterns
+
+### Password Hashing
 ```go
-protected.POST("/something", handler.CreateSomething)
-```
-
-### 4. Regenerate Documentation
-```bash
-make swag-init
-```
-
-## Authentication Patterns
-
-### JWT Middleware
-- Applied to protected routes in [cmd/api/main.go](mdc:cmd/api/main.go)
-- Validates JWT tokens and extracts user information
-- Sets user context for handlers
-
-### 2FA Flow
-- Temporary tokens for 2FA verification
-- Separate verification endpoint
-- Recovery code support
-
-### Social Authentication
-- OAuth2 flow with state verification
-- Provider-specific callbacks
-- User linking/creation logic
-
-## Response Format Standards
-
-### Success Response
-```go
-{
-  "success": true,
-  "data": {...}
+func HashPassword(password string) (string, error) {
+    bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+    return string(bytes), err
 }
 ```
 
-### Error Response
+### JWT Token Generation
 ```go
-{
-  "success": false,
-  "error": "descriptive error message"
+func GenerateToken(userID uint, tokenType string) (string, error) {
+    claims := jwt.MapClaims{
+        "user_id": userID,
+        "type":    tokenType,
+        "exp":     time.Now().Add(expiration).Unix(),
+    }
+    // token generation logic
 }
 ```
 
-## Input Validation
-- Use `go-playground/validator` tags in DTOs
-- Validate in handlers before service calls
-- Return appropriate HTTP status codes
+## Activity Logging Pattern
 
-## Activity Logging
-- Log security-relevant events
-- Include user ID, IP address, user agent
-- Use structured logging format
-- Examples: login attempts, password changes, 2FA events
+### Log Service Usage
+```go
+logService.LogActivity(logService.ActivityLogParams{
+    UserID:      userID,
+    EventType:   "login_success",
+    Description: "User logged in successfully",
+    IPAddress:   c.ClientIP(),
+    UserAgent:   c.GetHeader("User-Agent"),
+})
+```
 
-## Database Operations
-- Use GORM models from `pkg/models/`
-- Repository pattern for data access
-- Transaction support for multi-step operations
-- Proper error handling and logging
+## File Organization Rules
+
+### Package Structure
+- One responsibility per package
+- Internal packages in `internal/`
+- Shared packages in `pkg/`
+- Feature-based organization
+
+### File Naming
+- `handler.go` for HTTP handlers
+- `service.go` for business logic
+- `repository.go` for data access
+- `models.go` for database models
+- `dto.go` for data transfer objects
 
 ---
 > Source: [gjovanovicst/golang-auth-api](https://github.com/gjovanovicst/golang-auth-api) — distributed by [TomeVault](https://tomevault.io).
