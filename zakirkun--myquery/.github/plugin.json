@@ -1,0 +1,9 @@
+{
+  "name": "zakirkun--myquery",
+  "displayName": "myquery",
+  "description": "myquery is a Python-based CLI assistant that lets you query, explore, and analyze your databases through natural language. Built with LangChain and OpenAI, it transforms your questions into SQL querie",
+  "version": "1.0.0",
+  "author": "zakirkun",
+  "homepage": "https://github.com/zakirkun/myquery",
+  "skills": []
+}
