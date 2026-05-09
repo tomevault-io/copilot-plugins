@@ -1,603 +1,227 @@
-## openapi
+## rust
 
-> This document provides comprehensive guidelines for writing OpenAPI annotations in the Sayna Rust/Axum codebase using the `utoipa` crate.
+> Comprehensive best practices for Rust development (Edition 2024)
 
-# OpenAPI Documentation Guidelines
+# Rust Best Practices (2024-2025)
 
-This document provides comprehensive guidelines for writing OpenAPI annotations in the Sayna Rust/Axum codebase using the `utoipa` crate.
+This document outlines a comprehensive set of best practices for Rust development, covering various aspects from code organization to security and tooling. Adhering to these guidelines will help you write idiomatic, efficient, secure, and maintainable Rust code.
 
-## Overview
+**Note:** This project uses **Rust Edition 2024** (released Feb 2025 with Rust 1.85).
 
-Sayna uses `utoipa` (v5.3+, latest is v5.4) for OpenAPI 3.1 specification generation. All OpenAPI-related code is feature-gated behind the `openapi` feature flag to keep dependencies minimal in production builds.
+## 1. Code Organization and Structure
 
-### Key Principles
+### 1.1. Directory Structure
 
-1. **Feature-Gated**: All OpenAPI code must be conditionally compiled with `#[cfg_attr(feature = "openapi", ...)]`
-2. **Centralized Documentation**: All paths, schemas, and tags are registered in `src/docs/openapi.rs`
-3. **Complete Examples**: Every field should have meaningful examples that reflect real-world usage
-4. **Consistent Style**: Follow established patterns for naming, descriptions, and error responses
-5. **Type Safety**: Leverage Rust's type system to ensure documentation matches implementation
+-   **`src/`**: Contains all the Rust source code.
+    -   **`main.rs`**: The entry point for binary crates.
+    -   **`lib.rs`**: The entry point for library crates.
+    -   **`bin/`**:  Contains source files for multiple binary executables within the same project.  Each file in `bin/` will be compiled into a separate executable.
+    -   **`modules/` or `components/`**: (Optional)  For larger projects, group related modules or components into subdirectories. Use descriptive names.
+    -   **`tests/`**:  Integration tests. (See Testing section below for more details.)
+    -   **`examples/`**: Example code that demonstrates how to use the library.
+-   **`benches/`**: Benchmark tests (using `criterion` or similar).
+-   **`Cargo.toml`**: Project manifest file.
+-   **`Cargo.lock`**: Records the exact versions of dependencies used. **Do not manually edit.**
+-   **`.gitignore`**: Specifies intentionally untracked files that Git should ignore.
+-   **`README.md`**: Project documentation, including usage instructions, build instructions, and license information.
 
-## Feature Flag Setup
 
-### Cargo.toml Configuration
+sayna/
+├── Cargo.toml
+├── Cargo.lock
+├── src/
+│   ├── main.rs         # Entry point for a binary crate
+│   ├── lib.rs          # Entry point for a library crate
+│   ├── modules/
+│   │   ├── module_a.rs # A module within the crate
+│   │   └── module_b.rs # Another module
+│   └── bin/
+│       ├── cli_tool.rs # A separate binary executable
+│       └── worker.rs   # Another binary executable
+├── tests/
+│   └── integration_test.rs # Integration tests
+├── benches/
+│   └── my_benchmark.rs # Benchmark tests using Criterion
+├── examples/
+│   └── example_usage.rs # Example code using the library
+├── README.md
 
-```toml
-[features]
-openapi = [
-    "dep:utoipa",
-]
 
-[dependencies]
-utoipa = { version = "5.3", optional = true, features = ["axum_extras"] }
+### 1.2. File Naming Conventions
 
-# Optional: For more ergonomic route registration
-# utoipa-axum = { version = "0.2", optional = true }
-```
+-   Rust source files use the `.rs` extension.
+-   Module files (e.g., `module_a.rs`) should be named after the module they define.
+-   Use snake_case for file names (e.g., `my_module.rs`).
 
-### Optional: Enhanced Axum Integration
+### 1.3. Module Organization
 
-Consider adding `utoipa-axum` for more ergonomic route registration:
-
-```rust
-use utoipa_axum::{routes, router::OpenApiRouter};
-
-let (router, api) = OpenApiRouter::new()
-    .routes(routes!(health_check, list_voices, speak_handler))
-    .split_for_parts();
-```
-
-### Running with OpenAPI
-
-```bash
-# Run server with OpenAPI endpoints
-cargo run --features openapi
-
-# Generate OpenAPI spec to file
-cargo run --features openapi -- openapi -o docs/openapi.yaml
-
-# Generate JSON format
-cargo run --features openapi -- openapi --format json -o docs/openapi.json
-```
-
-## Schema Annotations
-
-### Basic Schema Definition
-
-Use `#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]` on all types exposed in the API:
+-   Use modules to organize code into logical units.
+-   Declare modules in `lib.rs` or `main.rs` using the `mod` keyword.
+-   Use `pub mod` to make modules public.
+-   Create separate files for each module to improve readability and maintainability.
+-   Use `use` statements to bring items from other modules into scope.
 
 ```rust
-use serde::{Deserialize, Serialize};
+// lib.rs
 
-/// Health check response
-#[derive(Debug, Serialize, Deserialize)]
-#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
-pub struct HealthResponse {
-    /// Server status
-    #[cfg_attr(feature = "openapi", schema(example = "OK"))]
-    pub status: String,
+pub mod my_module;
+
+mod internal_module; // Not public
+
+
+rust
+// my_module.rs
+
+pub fn my_function() {
+    //...
 }
 ```
 
-### Field-Level Annotations
-
-#### Examples
-
-Always provide realistic examples for every field:
-
-```rust
-#[derive(Debug, Deserialize)]
-#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
-pub struct TokenRequest {
-    /// The LiveKit room name to generate a token for
-    #[cfg_attr(feature = "openapi", schema(example = "conversation-room-123"))]
-    pub room_name: String,
-
-    /// Display name for the participant (e.g., "John Doe")
-    #[cfg_attr(feature = "openapi", schema(example = "Alice Smith"))]
-    pub participant_name: String,
-
-    /// Unique identifier for the participant (e.g., "user-123")
-    #[cfg_attr(feature = "openapi", schema(example = "user-alice-456"))]
-    pub participant_identity: String,
-}
-```
-
-#### Optional Fields and Defaults
-
-For optional fields, use serde attributes to control serialization:
-
-```rust
-#[derive(Debug, Deserialize, Serialize, Clone)]
-#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
-pub struct TTSWebSocketConfig {
-    /// Provider name (e.g., "deepgram")
-    #[cfg_attr(feature = "openapi", schema(example = "deepgram"))]
-    pub provider: String,
+### 1.4. Component Architecture
 
-    /// Voice ID or name to use for synthesis
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[cfg_attr(feature = "openapi", schema(example = "aura-asteria-en"))]
-    pub voice_id: Option<String>,
+-   For larger applications, consider using a component-based architecture.
+-   Each component should be responsible for a specific part of the application's functionality.
+-   Components should communicate with each other through well-defined interfaces (traits).
+-   Consider using dependency injection to decouple components and improve testability.
 
-    /// Speaking rate (0.25 to 4.0, 1.0 is normal)
-    #[cfg_attr(feature = "openapi", schema(example = 1.0))]
-    pub speaking_rate: Option<f32>,
+### 1.5. Code Splitting Strategies
 
-    /// List of participants (defaults to empty for all participants)
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub listen_participants: Vec<String>,
-}
-```
+-   Split code into smaller, reusable modules.
+-   Use feature flags to conditionally compile code for different platforms or features.
+-   Consider using dynamic linking (if supported by your target platform) to reduce binary size.
 
-#### Numeric Constraints
+## 2. Common Patterns and Anti-patterns
 
-Use schema attributes for numeric validations:
+### 2.1. Design Patterns
 
-```rust
-#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
-pub struct AudioConfig {
-    /// Sample rate of the audio in Hz
-    #[cfg_attr(feature = "openapi", schema(example = 16000, minimum = 8000, maximum = 48000))]
-    pub sample_rate: u32,
-
-    /// Number of audio channels (1 for mono, 2 for stereo)
-    #[cfg_attr(feature = "openapi", schema(example = 1, minimum = 1, maximum = 2))]
-    pub channels: u16,
-}
-```
-
-### Complex Types
-
-#### Enums
-
-For enum types used in discriminated unions:
-
-```rust
-#[derive(Debug, Serialize, Deserialize)]
-#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
-#[serde(tag = "type")]
-pub enum IncomingMessage {
-    #[serde(rename = "config")]
-    Config {
-        /// Enable audio processing (STT/TTS). Defaults to true if not specified.
-        #[serde(default = "default_audio_enabled")]
-        audio: Option<bool>,
-
-        /// STT configuration (required only when audio=true)
-        #[serde(skip_serializing_if = "Option::is_none")]
-        stt_config: Option<STTWebSocketConfig>,
-
-        /// TTS configuration (required only when audio=true)
-        #[serde(skip_serializing_if = "Option::is_none")]
-        tts_config: Option<TTSWebSocketConfig>,
-
-        /// Optional LiveKit configuration for real-time audio streaming
-        #[serde(skip_serializing_if = "Option::is_none")]
-        livekit: Option<LiveKitWebSocketConfig>,
-    },
-
-    #[serde(rename = "speak")]
-    Speak {
-        /// Text to synthesize
-        text: String,
-
-        /// Allow this TTS to be interrupted
-        #[serde(skip_serializing_if = "Option::is_none")]
-        allow_interruption: Option<bool>,
-
-        /// Flush TTS buffer immediately
-        #[serde(skip_serializing_if = "Option::is_none")]
-        flush: Option<bool>,
-    },
-
-    #[serde(rename = "clear")]
-    Clear,
-}
-```
-
-#### HashMap and Collections
-
-For HashMap return types:
-
-```rust
-use std::collections::HashMap;
-
-pub type VoicesResponse = HashMap<String, Vec<Voice>>;
-
-// In the path annotation, reference it as:
-// body = HashMap<String, Vec<Voice>>
-```
-
-#### Nested Types
-
-For types with references to other schemas:
-
-```rust
-#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
-pub struct OutgoingMessage {
-    #[serde(rename = "type")]
-    pub message_type: String,
-
-    /// Unified message structure containing text/data from various sources
-    pub message: UnifiedMessage,
-}
-
-// Ensure UnifiedMessage is also registered in the central ApiDoc
-```
-
-## Path (Endpoint) Annotations
-
-### Basic REST Endpoint
-
-```rust
-/// Health check handler
-/// Returns a simple JSON response indicating the server is running
-#[cfg_attr(
-    feature = "openapi",
-    utoipa::path(
-        get,
-        path = "/",
-        responses(
-            (status = 200, description = "Server is healthy", body = HealthResponse)
-        ),
-        tag = "health"
-    )
-)]
-pub async fn health_check() -> Result<Json<HealthResponse>, StatusCode> {
-    Ok(Json(HealthResponse {
-        status: "OK".to_string(),
-    }))
-}
-```
-
-### POST Endpoint with Request Body
-
-```rust
-/// Handler for POST /livekit/token endpoint
-///
-/// Generates a LiveKit JWT token for a participant to join a specific room.
-///
-/// # Arguments
-/// * `state` - Shared application state containing LiveKit configuration
-/// * `request` - Token request with room name and participant details
-///
-/// # Returns
-/// * `Response` - JSON response with token or error status
-///
-/// # Errors
-/// * 400 Bad Request - Invalid request data (empty fields)
-/// * 500 Internal Server Error - LiveKit service not configured or token generation failed
-#[cfg_attr(
-    feature = "openapi",
-    utoipa::path(
-        post,
-        path = "/livekit/token",
-        request_body = TokenRequest,
-        responses(
-            (status = 200, description = "Token generated successfully", body = TokenResponse),
-            (status = 400, description = "Invalid request (missing or empty fields)"),
-            (status = 500, description = "LiveKit service not configured or token generation failed")
-        ),
-        security(
-            ("bearer_auth" = [])
-        ),
-        tag = "livekit"
-    )
-)]
-pub async fn generate_token(
-    State(state): State<Arc<AppState>>,
-    Json(request): Json<TokenRequest>,
-) -> Response {
-    // Implementation
-}
-```
-
-### Endpoint with Custom Response Headers
-
-```rust
-/// Handler for the /speak endpoint
-#[cfg_attr(
-    feature = "openapi",
-    utoipa::path(
-        post,
-        path = "/speak",
-        request_body = SpeakRequest,
-        responses(
-            (status = 200, description = "Audio generated successfully",
-                content_type = "audio/pcm",
-                headers(
-                    ("x-audio-format" = String, description = "Audio format (linear16, mp3, etc.)"),
-                    ("x-sample-rate" = u32, description = "Sample rate in Hz")
-                )
-            ),
-            (status = 400, description = "Invalid request (empty text)"),
-            (status = 500, description = "TTS synthesis failed")
-        ),
-        security(
-            ("bearer_auth" = [])
-        ),
-        tag = "tts"
-    )
-)]
-pub async fn speak_handler(
-    State(state): State<Arc<AppState>>,
-    Json(request): Json<SpeakRequest>,
-) -> Response {
-    // Implementation
-}
-```
-
-### Endpoint Returning Collections
-
-```rust
-/// Handler for GET /voices - returns available voices per provider
-#[cfg_attr(
-    feature = "openapi",
-    utoipa::path(
-        get,
-        path = "/voices",
-        responses(
-            (status = 200, description = "Available voices grouped by provider", body = HashMap<String, Vec<Voice>>),
-            (status = 500, description = "Internal server error")
-        ),
-        security(
-            ("bearer_auth" = [])
-        ),
-        tag = "voices"
-    )
-)]
-pub async fn list_voices(
-    State(state): State<Arc<AppState>>,
-) -> Result<Json<VoicesResponse>, StatusCode> {
-    // Implementation
-}
-```
-
-## Central API Documentation (src/docs/openapi.rs)
-
-All paths, schemas, and tags must be registered in the central `ApiDoc` struct:
-
-```rust
-use utoipa::OpenApi;
-
-/// OpenAPI documentation structure
-#[derive(OpenApi)]
-#[openapi(
-    info(
-        title = "Sayna API",
-        version = "0.1.0",
-        description = "Real-time voice processing server with Speech-to-Text (STT) and Text-to-Speech (TTS) services",
-        contact(
-            name = "Sayna",
-            url = "https://api.sayna.ai"
-        )
-    ),
-    servers(
-        (url = "https://api.sayna.ai", description = "Production API"),
-        (url = "http://localhost:3001", description = "Local development")
-    ),
-    paths(
-        // Register all handler functions here
-        crate::handlers::api::health_check,
-        crate::handlers::voices::list_voices,
-        crate::handlers::speak::speak_handler,
-        crate::handlers::livekit::generate_token,
-    ),
-    components(schemas(
-        // Register all schema types here
-        // REST API types
-        HealthResponse,
-        Voice,
-        SpeakRequest,
-        TokenRequest,
-        TokenResponse,
-        // WebSocket message types
-        IncomingMessage,
-        OutgoingMessage,
-        UnifiedMessage,
-        ParticipantDisconnectedInfo,
-        // Configuration types
-        STTWebSocketConfig,
-        TTSWebSocketConfig,
-        LiveKitWebSocketConfig,
-        Pronunciation,
-    )),
-    modifiers(&SecurityAddon),
-    tags(
-        (name = "health", description = "Health check endpoints"),
-        (name = "voices", description = "TTS voice management"),
-        (name = "tts", description = "Text-to-speech synthesis"),
-        (name = "livekit", description = "LiveKit room and token management"),
-        (name = "websocket", description = "WebSocket API for real-time communication")
-    )
-)]
-pub struct ApiDoc;
-```
-
-## Security Schemes
-
-Security schemes are added via modifiers:
-
-```rust
-/// Security scheme configuration
-struct SecurityAddon;
-
-impl utoipa::Modify for SecurityAddon {
-    fn modify(&self, openapi: &mut utoipa::openapi::OpenApi) {
-        if let Some(components) = openapi.components.as_mut() {
-            let mut http = utoipa::openapi::security::Http::new(
-                utoipa::openapi::security::HttpAuthScheme::Bearer,
-            );
-            http.bearer_format = Some("JWT".to_string());
-            http.description = Some(
-                "JWT token obtained from the authentication service. \
-                 Required when AUTH_REQUIRED is enabled."
-                    .to_string(),
-            );
-
-            components.add_security_scheme(
-                "bearer_auth",
-                utoipa::openapi::security::SecurityScheme::Http(http),
-            )
-        }
-    }
-}
-```
-
-## Documentation Comments
-
-### Type-Level Documentation
-
-Use Rust doc comments (///) for type-level documentation that appears in the OpenAPI description:
-
-```rust
-/// Request body for generating a LiveKit token
-///
-/// # Example
-/// ```json
-/// {
-///   "room_name": "conversation-room-123",
-///   "participant_name": "Alice Smith",
-///   "participant_identity": "user-alice-456"
-/// }
-/// ```
-#[derive(Debug, Deserialize)]
-#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
-pub struct TokenRequest {
-    // fields...
-}
-```
-
-### Field-Level Documentation
-
-Use Rust doc comments for individual fields:
-
-```rust
-#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
-pub struct LiveKitWebSocketConfig {
-    /// Room name to join or create
-    #[cfg_attr(feature = "openapi", schema(example = "conversation-room-123"))]
-    pub room_name: String,
-
-    /// Enable recording for this session
-    #[serde(default)]
-    pub enable_recording: bool,
-
-    /// List of participant identities to listen to for audio tracks and data messages.
-    ///
-    /// **Behavior**:
-    /// - If **empty** (default): Audio tracks and data messages from **all participants** will be processed
-    /// - If **populated**: Only audio tracks and data messages from participants whose identities
-    ///   are in this list will be processed; others will be ignored
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub listen_participants: Vec<String>,
-}
-```
-
-### Handler-Level Documentation
-
-Use Rust doc comments above handlers, with detailed sections:
-
-```rust
-/// Handler for POST /livekit/token endpoint
-///
-/// Generates a LiveKit JWT token for a participant to join a specific room.
-///
-/// # Arguments
-/// * `state` - Shared application state containing LiveKit configuration
-/// * `request` - Token request with room name and participant details
-///
-/// # Returns
-/// * `Response` - JSON response with token or error status
-///
-/// # Errors
-/// * 400 Bad Request - Invalid request data (empty fields)
-/// * 500 Internal Server Error - LiveKit service not configured or token generation failed
-#[cfg_attr(feature = "openapi", utoipa::path(...))]
-pub async fn generate_token(...) -> Response {
-    // Implementation
-}
-```
-
-## Best Practices
-
-### 1. Consistent Response Patterns
-
-Always document all possible HTTP status codes:
-
-```rust
-responses(
-    (status = 200, description = "Success description", body = SuccessType),
-    (status = 400, description = "Bad request - validation error"),
-    (status = 401, description = "Unauthorized - missing or invalid token"),
-    (status = 500, description = "Internal server error")
-)
-```
-
-### 2. Meaningful Examples
-
-Examples should reflect real-world usage:
-
-```rust
-// Good
-#[cfg_attr(feature = "openapi", schema(example = "conversation-room-123"))]
-pub room_name: String,
-
-// Avoid generic examples
-#[cfg_attr(feature = "openapi", schema(example = "string"))]
-pub room_name: String,
-```
-
-### 3. Complete Field Descriptions
-
-Every field should have a clear description:
-
-```rust
-/// The LiveKit room name to generate a token for
-#[cfg_attr(feature = "openapi", schema(example = "conversation-room-123"))]
-pub room_name: String,
-```
-
-### 4. Tag Organization
-
-Use consistent tags to group related endpoints:
-
-- `health` - Health check and status endpoints
-- `voices` - Voice management endpoints
-- `tts` - Text-to-speech endpoints
-- `stt` - Speech-to-text endpoints
-- `livekit` - LiveKit integration endpoints
-- `websocket` - WebSocket API documentation
-
-### 5. Security Requirements
-
-Always specify security requirements for protected endpoints:
-
-```rust
-security(
-    ("bearer_auth" = [])
-)
-```
-
-Omit for public endpoints (like health checks).
-
-### 6. Content Types
-
-Specify custom content types when returning non-JSON:
-
-```rust
-responses(
-    (status = 200, description = "Audio generated successfully",
-        content_type = "audio/pcm",
-        headers(...)
-    )
-)
-```
-
-## Testing OpenAPI Generation
-
-Always include tests in `src/docs/openapi.rs`:
+-   **Builder Pattern**: For constructing complex objects with many optional parameters.
+-   **Factory Pattern**: For creating objects without specifying their concrete types.
+-   **Observer Pattern**: For implementing event-driven systems.
+-   **Strategy Pattern**: For selecting algorithms at runtime.
+-   **Visitor Pattern**: For adding new operations to existing data structures without modifying them.
+
+### 2.2. Recommended Approaches for Common Tasks
+
+-   **Data Structures**: Use `Vec` for dynamic arrays, `HashMap` for key-value pairs, `HashSet` for unique elements, `BTreeMap` and `BTreeSet` for sorted collections.
+-   **Concurrency**: Use `Arc` and `Mutex` for shared mutable state, channels for message passing, and the `rayon` crate for data parallelism.
+-   **Asynchronous Programming**: Use `async` and `await` for writing asynchronous code.
+-   **Error Handling**: Use the `Result` type for recoverable errors and `panic!` for unrecoverable errors.
+
+### 2.3. Anti-patterns and Code Smells
+
+-   **Unnecessary Cloning**: Avoid cloning data unless it is absolutely necessary. Use references instead.
+-   **Excessive `unwrap()` Calls**: Handle errors properly instead of using `unwrap()`, which can cause the program to panic.
+-   **Overuse of `unsafe`**: Minimize the use of `unsafe` code and carefully review any unsafe code to ensure it is correct.
+-   **Ignoring Compiler Warnings**: Treat compiler warnings as errors and fix them.
+-   **Premature Optimization**: Focus on writing clear, correct code first, and then optimize only if necessary.
+
+### 2.4. State Management
+
+-   **Immutability by Default**: Prefer immutable data structures and functions that return new values instead of modifying existing ones.
+-   **Ownership and Borrowing**: Use Rust's ownership and borrowing system to manage memory and prevent data races.
+-   **Interior Mutability**: Use `Cell`, `RefCell`, `Mutex`, and `RwLock` for interior mutability when necessary, but be careful to avoid data races.
+
+### 2.5. Error Handling
+
+-   **`Result<T, E>`**: Use `Result` to represent fallible operations. `T` is the success type, and `E` is the error type.
+-   **`Option<T>`**: Use `Option` to represent the possibility of a missing value. `Some(T)` for a value, `None` for no value.
+-   **`?` Operator**: Use the `?` operator to propagate errors up the call stack.
+-   **Custom Error Types**: Define custom error types using enums or structs to provide more context about errors.
+-   **`anyhow` and `thiserror` Crates**: Consider using the `anyhow` crate for simple error handling and the `thiserror` crate for defining custom error types.
+
+## 3. Performance Considerations
+
+### 3.1. Optimization Techniques
+
+-   **Profiling**: Use profiling tools to identify performance bottlenecks:
+    -   **Samply**: Modern profiler with Firefox Profiler UI (recommended for 2024+)
+    -   **pprof-rs**: CPU profiler with Criterion integration
+    -   **cargo-flamegraph**: Classic flamegraph generation
+    -   **Bytehound**: Best available memory profiling tool for Rust
+    -   **DHAT/dhat-rs**: Memory profiling and allocation tracking
+-   **Benchmarking**: Use benchmarking tools to measure performance:
+    -   **Divan**: Modern go-to benchmark framework (simpler API than Criterion)
+    -   **Criterion**: Mature statistical benchmarking
+    -   **Iai-Callgrind**: Instruction-count based (reliable in CI environments)
+-   **Zero-Cost Abstractions**: Leverage Rust's zero-cost abstractions, such as iterators, closures, and generics.
+-   **Inlining**: Use the `#[inline]` attribute to encourage the compiler to inline functions.
+-   **LTO (Link-Time Optimization)**: Enable LTO to improve performance by optimizing across crate boundaries.
+
+### 3.2. Memory Management
+
+-   **Minimize Allocations**: Reduce the number of allocations and deallocations by reusing memory and using stack allocation when possible.
+-   **Avoid Copying Large Data Structures**: Use references or smart pointers to avoid copying large data structures.
+-   **Use Efficient Data Structures**: Choose the right data structure for the job based on its performance characteristics.
+-   **Consider `Box` and `Rc`**: `Box` for single ownership heap allocation, `Rc` and `Arc` for shared ownership (latter thread-safe).
+
+### 3.3. Rendering Optimization
+
+-   **(Relevant if the Rust application involves rendering, e.g., a game or GUI)**
+-   **Batch draw calls**: Combine multiple draw calls into a single draw call to reduce overhead.
+-   **Use efficient data structures**: Use data structures that are optimized for rendering, such as vertex buffers and index buffers.
+-   **Profile rendering performance**: Use profiling tools to identify rendering bottlenecks.
+
+### 3.4. Bundle Size Optimization
+
+-   **Strip Debug Symbols**: Remove debug symbols from release builds to reduce binary size.
+-   **Enable LTO**: LTO can also reduce binary size by removing dead code.
+-   **Use `minisize` Profile**: Create a `minisize` profile in `Cargo.toml` for optimizing for size.
+-   **Avoid Unnecessary Dependencies**: Only include the dependencies that are absolutely necessary.
+
+### 3.5. Lazy Loading
+
+-   **Load Resources on Demand**: Load resources (e.g., images, sounds, data files) only when they are needed.
+-   **Use a Loading Screen**: Display a loading screen while resources are being loaded.
+-   **Consider Streaming**: Stream large resources from disk or network instead of loading them all at once.
+
+## 4. Security Best Practices
+
+### 4.1. Security Auditing Tools
+
+-   **cargo-audit**: Audit dependencies for known vulnerabilities (uses RustSec Advisory Database)
+    ```bash
+    cargo install cargo-audit
+    cargo audit
+    ```
+-   **cargo-deny**: Check dependencies for licenses, bans, and advisories
+-   Run security audits in CI pipelines and pre-commit hooks
+
+### 4.2. Common Vulnerabilities
+
+-   **Buffer Overflows**: Prevent buffer overflows by using safe indexing methods (e.g., `get()`, `get_mut()`) and validating input sizes.
+-   **SQL Injection**: Prevent SQL injection by using parameterized queries and escaping user input.
+-   **Cross-Site Scripting (XSS)**: Prevent XSS by escaping user input when rendering HTML.
+-   **Command Injection**: Prevent command injection by avoiding the use of `std::process::Command` with user-supplied arguments.
+-   **Denial of Service (DoS)**: Protect against DoS attacks by limiting resource usage (e.g., memory, CPU, network connections).
+-   **Integer Overflows**: Use `checked_add`, `checked_sub`, `checked_mul`, etc. Enable `overflow-checks = true` in Cargo.toml for release builds.
+-   **Use-After-Free**:  Rust's ownership system largely prevents this, but be cautious when using `unsafe` code or dealing with raw pointers.
+-   **Data Races**:  Avoid data races by using appropriate synchronization primitives (`Mutex`, `RwLock`, channels).
+-   **Uninitialized Memory**: Rust generally initializes memory, but `unsafe` code can bypass this.  Be careful when working with uninitialized memory.
+
+### 4.3. Input Validation
+
+-   **Validate All Input**: Validate all input from external sources, including user input, network data, and file contents.
+-   **Use a Whitelist Approach**: Define a set of allowed values and reject any input that does not match.
+-   **Sanitize Input**: Remove or escape any potentially dangerous characters from input.
+-   **Limit Input Length**: Limit the length of input strings to prevent buffer overflows.
+-   **Check Data Types**: Ensure that input data is of the expected type.
+
+## 5. Testing Approaches
+
+### 5.1. Unit Testing
+
+-   **Test Individual Units of Code**: Write unit tests to verify the correctness of individual functions, modules, and components.
+-   **Use the `#[test]` Attribute**: Use the `#[test]` attribute to mark functions as unit tests.
+-   **Use `assert!` and `assert_eq!`**: Use `assert!` and `assert_eq!` macros to check that the code behaves as expected.
+-   **Test Driven Development (TDD)**: Consider writing tests before writing code.
+-   **Table-Driven Tests**:  Use parameterized tests or table-driven tests for testing multiple scenarios with different inputs.
+
+### 5.1.1. Modern Testing Tools
+
+-   **cargo-nextest**: Next-generation test runner with better performance and output
+-   **rstest**: Fixture-based testing (like pytest fixtures) with `#[rstest]` macro
+-   **proptest**: Property-based testing with automatic shrinking
+-   **QuickCheck**: Alternative property-based testing framework
 
 ```rust
 #[cfg(test)]
@@ -605,192 +229,136 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_openapi_spec_generation() {
-        let spec = ApiDoc::openapi();
-        assert_eq!(spec.info.title, "Sayna API");
-        assert_eq!(spec.info.version, "0.1.0");
-    }
-
-    #[test]
-    fn test_yaml_export() {
-        let yaml = spec_yaml();
-        assert!(yaml.is_ok());
-        let yaml_str = yaml.unwrap();
-        assert!(yaml_str.contains("Sayna API"));
-    }
-
-    #[test]
-    fn test_json_export() {
-        let json = spec_json();
-        assert!(json.is_ok());
+    fn test_add() {
+        assert_eq!(add(2, 3), 5);
     }
 }
 ```
 
-## Validating OpenAPI Specs
 
-### Using Schemathesis (Recommended)
+### 5.2. Integration Testing
 
-Schemathesis performs property-based testing and validates your API implementation against the OpenAPI spec:
+-   **Test Interactions Between Components**: Write integration tests to verify that different components of the application work together correctly.
+-   **Create a `tests/` Directory**: Place integration tests in a `tests/` directory at the root of the project.
+-   **Use Separate Test Files**: Create separate test files for each integration test.
 
-```bash
-# Install
-pip install schemathesis
+### 5.3. End-to-End Testing
 
-# Generate the spec first
-cargo run --features openapi -- openapi -o docs/openapi.yaml
+-   **Test the Entire Application**: Write end-to-end tests to verify that the entire application works as expected.
+-   **Use a Testing Framework**: Use a testing framework (e.g., `cucumber`, `selenium`) to automate end-to-end tests.
+-   **Test User Flows**: Test common user flows to ensure that the application is usable.
 
-# Validate against running server
-schemathesis run docs/openapi.yaml --base-url http://localhost:3001
+### 5.4. Test Organization
 
-# Run in CI (stateless validation)
-schemathesis run docs/openapi.yaml --dry-run
-```
+-   **Group Tests by Functionality**: Organize tests into modules and submodules based on the functionality they test.
+-   **Use Descriptive Test Names**: Use descriptive test names that clearly indicate what the test is verifying.
+-   **Keep Tests Separate from Production Code**: Keep tests in separate files and directories to avoid cluttering the production code.
+-   **Run tests frequently**: Integrate tests into your development workflow and run them frequently to catch errors early.
 
-### Using Online Validators
+### 5.5. Mocking and Stubbing
 
-- **Swagger Editor**: Upload to https://editor.swagger.io/
-- **Redocly CLI**: `npx @redocly/cli lint docs/openapi.yaml`
-- **Spectral**: `npx @stoplight/spectral-cli lint docs/openapi.yaml`
+-   **Use Mocking Libraries**: Use mocking libraries (e.g., `mockall`, `mockito`) to create mock objects for testing.
+-   **Use Traits for Interfaces**: Define traits for interfaces to enable mocking and stubbing.
+-   **Avoid Global State**: Avoid global state to make it easier to mock and stub dependencies.
 
-### CI Integration Example
+## 6. Common Pitfalls and Gotchas
 
-```yaml
-# GitHub Actions
-validate-openapi:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v4
-    - name: Generate OpenAPI spec
-      run: cargo run --features openapi -- openapi -o docs/openapi.yaml
-    - name: Validate with Redocly
-      run: npx @redocly/cli lint docs/openapi.yaml
-```
+### 6.1. Frequent Mistakes
 
-## CLI Usage
+-   **Borrowing Rules**: Misunderstanding Rust's borrowing rules can lead to compile-time errors. Ensure you understand ownership, borrowing, and lifetimes.
+-   **Move Semantics**: Be aware of move semantics and how they affect ownership. Data is moved by default, not copied.
+-   **Lifetime Annotations**: Forgetting lifetime annotations can lead to compile-time errors. Annotate lifetimes when necessary.
+-   **Error Handling**: Not handling errors properly can lead to unexpected panics. Use `Result` and the `?` operator to handle errors gracefully.
+-   **Unsafe Code**: Overusing or misusing `unsafe` code can lead to undefined behavior and security vulnerabilities.
 
-### Generate OpenAPI Spec
+### 6.2. Edge Cases
 
-The OpenAPI specification is generated via CLI commands only (no runtime HTTP endpoints):
+-   **Integer Overflow**: Be aware of integer overflow and use checked arithmetic methods to prevent it.
+-   **Unicode**: Handle Unicode characters correctly to avoid unexpected behavior.
+-   **File Paths**: Handle file paths correctly, especially when dealing with different operating systems.
+-   **Concurrency**: Be careful when writing concurrent code to avoid data races and deadlocks.
 
-```bash
-# Generate YAML (default)
-cargo run --features openapi -- openapi -o docs/openapi.yaml
+### 6.3. Version-Specific Issues
 
-# Generate JSON
-cargo run --features openapi -- openapi --format json -o docs/openapi.json
+-   **Check Release Notes**: Review the release notes for new versions of Rust to identify any breaking changes or new features that may affect your code.
+-   **Use `rustup`**: Use `rustup` to manage multiple versions of Rust.
+-   **Update Dependencies**: Keep your dependencies up to date to take advantage of bug fixes and new features.
 
-# Print to stdout
-cargo run --features openapi -- openapi
+### 6.4. Compatibility Concerns
 
-# Print JSON to stdout
-cargo run --features openapi -- openapi --format json
-```
+-   **C Interoperability**: Be careful when interacting with C code to avoid undefined behavior.
+-   **Platform-Specific Code**: Use conditional compilation to handle platform-specific code.
+-   **WebAssembly**: Be aware of the limitations of WebAssembly when targeting the web.
 
-The generated spec can be viewed using external tools like Swagger Editor, Redoc, or other OpenAPI viewers.
+### 6.5. Debugging Strategies
 
-## Common Patterns
+-   **Use `println!`**: Use `println!` statements for quick debugging (remove before committing).
+-   **Use a Debugger**: Use a debugger (e.g., `gdb`, `lldb`) to step through the code and inspect variables.
+-   **Use `assert!`**: Use `assert!` to check that the code behaves as expected.
+-   **Use Structured Logging**: Prefer `tracing` over `log` for structured, async-aware logging:
+    -   Use `#[instrument]` macro to automatically capture function arguments
+    -   Use `tracing-subscriber` for log formatting and filtering
+    -   Configure via `RUST_LOG` environment variable
+    -   Integrate with OpenTelemetry via `tracing-opentelemetry` for production observability
+-   **Clippy**: Use Clippy to catch common mistakes and improve code quality.
+-   **Profiling**: Use Samply or cargo-flamegraph to profile and visualize the execution of your code.
 
-### Pattern 1: Request/Response Pairs
+## 7. Tooling and Environment
 
-Always create paired request/response types:
+### 7.1. Recommended Development Tools
 
-```rust
-#[derive(Debug, Deserialize)]
-#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
-pub struct TokenRequest { /* ... */ }
+-   **Rustup**: For managing Rust toolchains and versions.
+-   **Cargo**: The Rust package manager and build tool.
+-   **IDE/Editor**: VS Code with the rust-analyzer extension, IntelliJ Rust, or other editors with Rust support.
+-   **Clippy**: A linter for Rust code.
+-   **Rustfmt**: A code formatter for Rust code.
+-   **Cargo-edit**: A utility for easily modifying `Cargo.toml` dependencies.
+-   **Cargo-watch**: Automatically runs tests on file changes.
+-   **lldb or GDB**: Debuggers for Rust applications.
 
-#[derive(Debug, Serialize)]
-#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
-pub struct TokenResponse { /* ... */ }
-```
+### 7.2. Build Configuration
 
-### Pattern 2: WebSocket vs REST Configs
+-   **Use `Cargo.toml`**: Configure build settings, dependencies, and metadata in the `Cargo.toml` file.
+-   **Use Profiles**: Define different build profiles for development, release, and testing.
+-   **Feature Flags**: Use feature flags to conditionally compile code for different platforms or features.
 
-Separate WebSocket configs (without API keys) from internal configs:
+toml
+[package]
+name = "sayna"
+version = "0.1.0"
+edition = "2024"
 
-```rust
-// WebSocket API type (no API key)
-#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
-pub struct TTSWebSocketConfig {
-    pub provider: String,
-    // No api_key field
-}
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
 
-impl TTSWebSocketConfig {
-    pub fn to_tts_config(&self, api_key: String) -> TTSConfig {
-        // Convert to internal config with API key
-    }
-}
-```
+[dev-dependencies]
+rand = "0.8"
 
-### Pattern 3: Discriminated Unions
+[features]
+default = ["serde"] # 'default' feature enables 'serde'
+expensive_feature = []
 
-Use `#[serde(tag = "type")]` for message enums:
+[profile.release]
+opt-level = 3
+debug = false
+lto = true
 
-```rust
-#[derive(Debug, Serialize, Deserialize)]
-#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
-#[serde(tag = "type")]
-pub enum OutgoingMessage {
-    #[serde(rename = "ready")]
-    Ready { /* fields */ },
 
-    #[serde(rename = "stt_result")]
-    SttResult { /* fields */ },
+### 7.3. Linting and Formatting
 
-    #[serde(rename = "error")]
-    Error { /* fields */ },
-}
-```
+-   **Use Clippy**: Use Clippy to catch common mistakes and enforce coding standards.
+-   **Use Rustfmt**: Use Rustfmt to automatically format code according to the Rust style guide.
+-   **Configure Editor**: Configure your editor to automatically run Clippy and Rustfmt on save.
+-   **Pre-commit Hooks**: Set up pre-commit hooks to run Clippy and Rustfmt before committing code.
 
-## Troubleshooting
+# Run Clippy
+cargo clippy
 
-### Issue: Type not found in OpenAPI spec
+# Run Rustfmt
+cargo fmt
 
-**Solution**: Ensure the type is registered in `components(schemas(...))` in `src/docs/openapi.rs`
 
-### Issue: Endpoint not appearing in spec
-
-**Solution**: Ensure the handler is registered in `paths(...)` in `src/docs/openapi.rs`
-
-### Issue: Examples not showing correctly
-
-**Solution**: Use `schema(example = "value")` not `example = "value"` within `#[cfg_attr]`
-
-### Issue: Optional fields showing as required
-
-**Solution**: Use `#[serde(skip_serializing_if = "Option::is_none")]` for optional fields
-
-### Issue: Compilation errors when openapi feature disabled
-
-**Solution**: Always use `#[cfg_attr(feature = "openapi", ...)]` instead of bare `#[derive(utoipa::ToSchema)]`
-
-## Checklist for Adding New Endpoints
-
-When adding a new endpoint, ensure:
-
-- [ ] Handler function has OpenAPI path annotation with `#[cfg_attr(feature = "openapi", utoipa::path(...))]`
-- [ ] All request/response types have `#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]`
-- [ ] All fields have examples via `#[cfg_attr(feature = "openapi", schema(example = "..."))]`
-- [ ] All types are registered in `src/docs/openapi.rs` components
-- [ ] Handler is registered in `src/docs/openapi.rs` paths
-- [ ] Appropriate tag is assigned
-- [ ] All response status codes are documented
-- [ ] Security requirements are specified (if protected endpoint)
-- [ ] Rust doc comments are complete and accurate
-- [ ] OpenAPI spec regenerates without errors: `cargo run --features openapi -- openapi -o docs/openapi.yaml`
-- [ ] Test the generated spec with a validator or Swagger UI
-
-## Version History
-
-- **v0.2.0**: Updated guidelines for utoipa 5.3+/5.4
-  - Added Schemathesis validation guidance
-  - Added utoipa-axum integration notes
-  - Added CI integration examples
-- **v0.1.0**: Initial OpenAPI documentation setup with utoipa 5.3
-- Uses OpenAPI 3.1 specification
-- Feature-gated to keep production builds lean
+By following these best practices, you can write high-quality Rust code that is efficient, secure, and maintainable. Remember to stay up-to-date with the latest Rust features and best practices to continuously improve your skills and knowledge.
 
 ---
 > Source: [SaynaAI/sayna](https://github.com/SaynaAI/sayna) — distributed by [TomeVault](https://tomevault.io).
