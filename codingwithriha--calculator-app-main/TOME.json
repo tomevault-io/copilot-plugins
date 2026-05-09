@@ -4,7 +4,7 @@
   "repo": "calculator-app-main",
   "description": "Interactive Calculator App with Dynamic Theme Switching\ud83d\udcdf",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/codingwithriha/calculator-app-main",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T09:59:43Z"
+  "distributed_at": "2026-05-09T21:09:01Z"
 }
