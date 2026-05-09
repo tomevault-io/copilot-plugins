@@ -1,189 +1,206 @@
-## 11-development-reference
+## 12-ai-ml-development-methodology
 
-> Quick reference and common development tasks for kubernaut
+> AI/ML Development Methodology - TDD workflow and integration patterns
 
-# Kubernaut Development Reference
 
-## Quick Start Commands
+# AI/ML Development Methodology
+
+## 🎯 **PURPOSE**
+
+Provides AI-specific TDD patterns that integrate with [00-kubernaut-core-rules.mdc](mdc:.cursor/rules/00-kubernaut-core-rules.mdc) APDC methodology.
+
+**Resolves**: Conflicts between TDD methodology, AI/ML patterns, and integration requirements.
+
+---
+
+## 🤖 **AI-SPECIFIC TDD PHASES**
+
+### **AI Discovery Phase** (5-10 min)
+
+**Action**: Use APDC Analysis phase with AI-specific discovery patterns
+**Rule**: Search existing AI interfaces BEFORE creating new
+
+**Mandatory Checks**:
 ```bash
-# Complete development environment setup
-make bootstrap-dev              # Setup everything (except LLM at 192.168.1.169:8080)
-make test-integration-dev       # Run integration tests
-make cleanup-dev               # Clean up environment
-
-# Testing workflow
-make test                      # Unit tests (70%+ coverage, 85-90% confidence)
-make test-integration-kind     # Integration tests (20% coverage, 80-85% confidence)
-make test-e2e-ocp             # E2E tests (10% coverage, 90-95% confidence)
-
-# Development utilities
-make dev-status               # Check environment status
-make fmt                      # Format Go code
-make lint                     # Run linters
+# Check existing AI interfaces
+grep -r "Client.*interface" pkg/ai/ --include="*.go"
+# Check main app AI usage
+grep -r "AI\|LLM\|Holmes" cmd/ --include="*.go"
+# Decision point: enhance existing vs create new AI component
 ```
 
-## Common Development Patterns
+**Success**: Found existing AI interfaces to enhance, confirmed main app integration
 
-### Adding New AI Provider
-1. Implement interface in [pkg/ai/llm/](mdc:pkg/ai/llm/)
-2. Add configuration in [config/](mdc:config/) YAML files
-3. Update [pkg/ai/holmesgpt/client.go](mdc:pkg/ai/holmesgpt/client.go) for integration
-4. Add tests in [test/unit/ai/](mdc:test/unit/ai/) and [test/integration/ai/](mdc:test/integration/ai/)
+---
 
-### Adding New Kubernetes Action
-1. Implement in [pkg/platform/executor/executor.go](mdc:pkg/platform/executor/executor.go)
-2. Add safety validation logic
-3. Update [pkg/workflow/templates/](mdc:pkg/workflow/templates/) if needed
-4. Add comprehensive tests covering safety scenarios
+### **AI RED Phase** (15-20 min)
 
-### Adding New Business Requirement
-1. **MANDATORY**: Follow TDD workflow - write tests first per [00-project-guidelines.mdc](mdc:.cursor/rules/00-project-guidelines.mdc)
-2. Map to specific business requirement (BR-[CATEGORY]-[NUMBER] format)
-3. Identify test tier: Unit (algorithmic), Integration (cross-component), or E2E (workflow)
-4. Add test in appropriate [test/](mdc:test/) subdirectory
-5. Use Ginkgo/Gomega BDD framework with clear business requirement naming
-6. Update confidence metrics in test documentation
+**Rule**: Import existing AI interfaces (`pkg/ai/llm.Client`)
+**Forbidden**: Creating new AI interfaces
+**Validation**: Built-in through TDD RED phase design
 
-## Key Interfaces to Implement
+**AI-Specific RED Pattern**:
 ```go
-// Core workflow engine
-type WorkflowEngine interface {
-    CreateWorkflow(ctx context.Context, alert AlertData) (*Workflow, error)
-    ExecuteWorkflow(ctx context.Context, workflow *Workflow) error
+// ✅ CORRECT AI RED: Uses existing AI interface
+var _ = Describe("AI Context Optimization", func() {
+    var (
+        llmClient llm.Client  // Existing interface
+        ctx       context.Context
+    )
+
+    BeforeEach(func() {
+        llmClient = testutil.NewMockLLMClient() // Existing factory
+        ctx = context.Background()
+    })
+
+    It("should optimize context using AI analysis (BR-AI-045)", func() {
+        // Call existing AI interface method
+        analysis, err := llmClient.AnalyzeContext(ctx, "test content")
+        Expect(err).ToNot(HaveOccurred())
+        Expect(analysis.Quality).To(BeNumerically(">", 0.8))
+    })
+})
+```
+
+---
+
+### **AI GREEN Phase** (20-25 min)
+
+**Rule**: Enhance existing AI client (e.g., `ClientImpl`)
+**Integration**: Add to main app (`cmd/*/main.go`)
+**Forbidden**: New AI service files
+**Validation**: Built-in through GREEN phase integration requirement
+
+**AI-Specific GREEN Pattern**:
+```go
+// ✅ CORRECT AI GREEN: Enhance existing AI client
+// In pkg/ai/llm/client.go
+type Client interface {
+    // ... existing methods ...
+    AnalyzeContext(ctx context.Context, content string) (*ContextAnalysis, error) // ADD TO EXISTING
 }
 
-// AI service integration
-type AIProvider interface {
-    AnalyzeAlert(ctx context.Context, alert AlertData) (*Analysis, error)
-    GenerateWorkflow(ctx context.Context, analysis *Analysis) (*Workflow, error)
+type ClientImpl struct {
+    // ... existing fields ...
 }
 
-// Kubernetes operations
-type ActionExecutor interface {
-    ExecuteAction(ctx context.Context, action Action) error
-    ValidateAction(ctx context.Context, action Action) error
+func (c *ClientImpl) AnalyzeContext(ctx context.Context, content string) (*ContextAnalysis, error) {
+    // Minimal implementation to pass tests
+    return &ContextAnalysis{Quality: 0.8}, nil
 }
 ```
 
-## Environment Variables
-```bash
-# Core configuration
-KUBECONFIG=/path/to/kubeconfig
-LOG_LEVEL=info
-CONFIG_FILE=config/development.yaml
-
-# AI/ML integration
-LLM_ENDPOINT=http://192.168.1.169:8080
-LLM_PROVIDER=ollama
-LLM_MODEL=hf://ggml-org/gpt-oss-20b-GGUF
-HOLMESGPT_ENDPOINT=http://localhost:8090
-
-# Testing configuration
-USE_MOCK_LLM=false            # Set to true for CI
-USE_FAKE_K8S_CLIENT=false     # Set to true for pure unit tests
-SKIP_SLOW_TESTS=false         # Set to true for quick test runs
-
-# Database configuration
-DB_HOST=localhost
-DB_PORT=5433
-DB_NAME=action_history
-DB_USER=slm_user
-DB_PASSWORD=slm_password_dev
+**Integration Example**:
+```go
+// cmd/kubernaut/main.go
+llmClient := llm.NewClient(config.LLM)
+workflowEngine.SetLLMClient(llmClient)
+processor := processor.New(llmClient, deps...)
 ```
 
-## Debugging and Troubleshooting
+---
 
-### Common Issues
-1. **AI Service Connection**: Check `LLM_ENDPOINT` and service availability
-2. **Database Connection**: Verify PostgreSQL is running on correct port
-3. **Kubernetes Access**: Ensure `KUBECONFIG` is set and cluster is accessible
-4. **Test Failures**: Check environment setup with `make dev-status`
+### **AI REFACTOR Phase** (25-35 min)
 
-### Log Analysis
-```bash
-# Check kubernaut application logs
-kubectl logs -f deployment/kubernaut -n prometheus-alerts-slm
+**Rule**: Enhance same AI methods tests call
+**Forbidden**: New AI types, files, interfaces
+**Validation**: Built-in through REFACTOR phase enhancement focus
 
-# Check HolmesGPT integration logs
-kubectl logs -f deployment/holmesgpt -n prometheus-alerts-slm
+**AI-Specific REFACTOR Focus**:
+```go
+// ✅ CORRECT AI REFACTOR: Enhance existing method
+func (c *ClientImpl) AnalyzeContext(ctx context.Context, content string) (*ContextAnalysis, error) {
+    // Enhanced implementation with sophisticated logic
+    tokens := c.tokenizer.Tokenize(content)
+    embeddings := c.embeddingGenerator.Generate(tokens)
+    quality := c.qualityAnalyzer.CalculateQuality(embeddings)
 
-# Local development logs
-tail -f logs/kubernaut.log
+    return &ContextAnalysis{
+        Quality: quality,
+        TokenCount: len(tokens),
+        OptimizationSuggestions: c.generateSuggestions(embeddings),
+    }, nil
+}
 ```
 
-### Performance Monitoring
-- **Metrics Endpoint**: `http://localhost:9090/metrics`
-- **Health Check**: `http://localhost:8080/health`
-- **AI Response Times**: Monitor via Prometheus metrics
-- **Database Performance**: Check connection pool metrics
+---
 
-## Testing Strategies by Component
+## 🔧 **AI INTEGRATION PATTERNS**
 
-### AI Components (pkg/ai/**)
-- **Unit Tests**: Mock AI responses, test confidence calculation algorithms
-- **Integration Tests**: Real AI service calls with known inputs/outputs
-- **Performance Tests**: Response time and cost optimization
+### **Mock Usage Decision Matrix**
 
-### Workflow Engine (pkg/workflow/**)
-- **Unit Tests**: Workflow step logic, condition evaluation algorithms
-- **Integration Tests**: End-to-end workflow execution with real components
-- **E2E Tests**: Complete alert-to-resolution scenarios
+| Component | Action |
+|-----------|--------|
+| **External AI APIs** (HolmesGPT, OpenAI) | MOCK |
+| **AI Business Logic** (analysis algorithms) | REAL |
+| **Error Simulation** | MOCK |
+| **Performance Testing** | MOCK |
 
-### Kubernetes Platform (pkg/platform/**)
-- **Unit Tests**: Safety validation logic, RBAC permission checks
-- **Integration Tests**: Real Kubernetes API operations with Kind clusters
-- **E2E Tests**: Multi-cluster scenarios with production-like setup
+### **AI Integration Conflict Resolution**
 
-## Security Considerations
-- **RBAC**: Use minimal required permissions for Kubernetes operations
-- **Secrets**: Store API keys and credentials in Kubernetes secrets
-- **Network**: Implement proper network policies for service isolation
-- **Audit**: Log all administrative actions with detailed context
-- **Validation**: Sanitize all inputs to prevent injection attacks
+**When AI rules conflict with general TDD**:
+1. **AI Discovery**: Use AI-specific search patterns (`pkg/ai/`)
+2. **AI Interface Reuse**: Use existing `pkg/ai/llm.Client` interface
+3. **AI Client Enhancement**: Enhance existing clients, don't create new
+4. **AI REFACTOR**: Focus on method enhancement, not structural changes
 
-## Performance Optimization Tips
-- **Caching**: Use Redis for frequent AI responses and embeddings
-- **Batching**: Group similar operations for efficiency
-- **Connection Pooling**: Manage database connections effectively
-- **Circuit Breakers**: Implement for external service resilience
-- **Resource Limits**: Set appropriate CPU/memory limits for containers
+---
 
-## Confidence Assessment Requirements
-After completing any development work, provide BOTH:
+## 📋 **AI-SPECIFIC ANTI-PATTERNS**
 
-### Simple Percentage (Required)
-Rate confidence from 60-100% based on:
-- Business requirement alignment
-- Code integration quality
-- Test coverage completeness
-- Risk assessment
+### **Creating Parallel AI Components**
+**Violation**: Creating new AI service during REFACTOR
+**Rule**: Enhance existing AI methods only
 
-### Detailed Justification (Required)
-Include:
-- **Implementation approach**: How solution aligns with business requirements
-- **Integration assessment**: How well code integrates with existing system
-- **Risk analysis**: Potential issues and mitigation strategies
-- **Validation strategy**: How confidence level was determined
+### **AI-Only Testing**
+**Violation**: AI components only used in tests
+**Rule**: MANDATORY integration in `cmd/*/main.go`
 
-**Example Format**:
-```
-Confidence Assessment: 85%
-Justification: Implementation follows established patterns in pkg/workflow/engine/
-and integrates cleanly with existing HolmesGPT client. Business requirement BR-AI-003
-fully satisfied. Risk: Minor performance impact on high-alert scenarios.
-Validation: Unit tests cover 90% of edge cases, integration tests validate
-end-to-end workflow.
-```
+### **Hardcoded AI Endpoints**
+**Violation**: Hardcoded LLM URLs in code
+**Rule**: Use configuration for all AI endpoints
 
-## Release Workflow
-1. **Feature Development**: Create feature branch with comprehensive tests
-2. **TDD Compliance**: Ensure all changes follow mandatory TDD workflow
-3. **Business Requirement Validation**: Confirm all code maps to documented requirements
-4. **Integration Testing**: Run full test suite including E2E scenarios
-5. **Confidence Assessment**: Provide required percentage and justification
-6. **Code Review**: Ensure adherence to coding standards and safety practices
-7. **Documentation Update**: Update relevant documentation and ADRs
-8. **Release**: Tag version and update deployment manifests
+### **AI Without Business Validation**
+**Violation**: Testing AI technical function without business outcome
+**Rule**: Validate business value delivered (confidence, accuracy, recommendations)
+
+---
+
+## ⚡ **QUICK REFERENCE**
+
+### **AI TDD Checklist**
+
+**Discovery**:
+- [ ] Searched existing AI interfaces in `pkg/ai/`
+- [ ] Confirmed main app AI usage in `cmd/`
+- [ ] Chose enhancement over creation
+
+**RED**:
+- [ ] Used existing `pkg/ai/llm.Client` interface
+- [ ] Used existing mock factories
+- [ ] Tests failing appropriately
+
+**GREEN**:
+- [ ] Enhanced existing AI client
+- [ ] Integrated in `cmd/*/main.go`
+- [ ] Minimal implementation passes tests
+
+**REFACTOR**:
+- [ ] Enhanced existing AI methods only
+- [ ] No new AI types/files created
+- [ ] Integration preserved
+
+---
+
+## 📚 **RELATED DOCUMENTATION**
+
+- **[Core Rules](mdc:.cursor/rules/00-kubernaut-core-rules.mdc)** - APDC methodology and TDD workflow
+- **[AI/ML Guidelines](mdc:.cursor/rules/04-ai-ml-guidelines.mdc)** - AI provider patterns and integration
+- **[Testing Strategy](mdc:.cursor/rules/03-testing-strategy.mdc)** - Mock strategy and test pyramid
+
+---
+
+**Remember**: AI components follow the same APDC and TDD rules as all other code. Use existing interfaces, integrate in main apps, enhance rather than create.
 
 ---
 > Source: [jordigilh/kubernaut](https://github.com/jordigilh/kubernaut) — distributed by [TomeVault](https://tomevault.io).
