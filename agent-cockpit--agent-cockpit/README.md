@@ -7,14 +7,14 @@ Cockpit for AI Agents.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [agent-cockpit/agent-cockpit](https://github.com/agent-cockpit/agent-cockpit).
+Original source: `GEMINI.md` in [agent-cockpit/agent-cockpit](https://github.com/agent-cockpit/agent-cockpit).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 From [agent-cockpit/agent-cockpit](https://github.com/agent-cockpit/agent-cockpit) — a repo with 28+ stars on GitHub.
