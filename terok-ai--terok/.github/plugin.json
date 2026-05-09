@@ -1,0 +1,9 @@
+{
+  "name": "terok-ai--terok",
+  "displayName": "terok",
+  "description": "Manager for podman containers for AI coding agents",
+  "version": "1.0.0",
+  "author": "terok-ai",
+  "homepage": "https://github.com/terok-ai/terok",
+  "skills": []
+}
