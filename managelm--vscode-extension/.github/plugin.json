@@ -1,0 +1,9 @@
+{
+  "name": "managelm--vscode-extension",
+  "displayName": "vscode-extension",
+  "description": "Manage Linux & Windows servers from VS Code Copilot Chat \u2014 @managelm with 13 tools, security audits, inventory scans",
+  "version": "1.0.0",
+  "author": "managelm",
+  "homepage": "https://github.com/managelm/vscode-extension",
+  "skills": []
+}
