@@ -1,0 +1,9 @@
+{
+  "name": "hephaistos-io--alexandria",
+  "displayName": "alexandria",
+  "description": "Free open source OSINT platform for gathering, ingesting, and analyzing open-source intelligence data",
+  "version": "1.0.0",
+  "author": "hephaistos-io",
+  "homepage": "https://github.com/hephaistos-io/alexandria",
+  "skills": []
+}
