@@ -1,0 +1,9 @@
+{
+  "name": "unknowlars--grafana-alloy-bootstrap",
+  "displayName": "Grafana-alloy-bootstrap",
+  "description": "A rerunnable Grafana Alloy installer + config generator that lets you enable \u201cpacks\u201d (metrics/logs integrations), renders templates safely, remembers last-used endpoints, and applies changes with vali",
+  "version": "1.0.0",
+  "author": "Unknowlars",
+  "homepage": "https://github.com/Unknowlars/Grafana-alloy-bootstrap",
+  "skills": []
+}
