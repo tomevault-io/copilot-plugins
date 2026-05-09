@@ -1,0 +1,9 @@
+{
+  "name": "kshdotdev--hono-crud",
+  "displayName": "hono-crud",
+  "description": "A powerful CRUD generator for Hono with Zod validation and automatic OpenAPI documentation.",
+  "version": "1.0.0",
+  "author": "kshdotdev",
+  "homepage": "https://github.com/kshdotdev/hono-crud",
+  "skills": []
+}
