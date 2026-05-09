@@ -1,0 +1,9 @@
+{
+  "name": "justinguese--python-tradingbot-framework",
+  "displayName": "python_tradingbot_framework",
+  "description": "Python algorithmic trading bot framework for Kubernetes: backtesting, hyperparameter optimization, 150+ technical analysis indicators (RSI, MACD, Bollinger Bands, ADX), portfolio management, PostgreSQ",
+  "version": "1.0.0",
+  "author": "JustinGuese",
+  "homepage": "https://github.com/JustinGuese/python_tradingbot_framework",
+  "skills": []
+}
