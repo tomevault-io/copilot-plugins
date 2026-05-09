@@ -1,0 +1,9 @@
+{
+  "name": "vexorkai--claude-trace",
+  "displayName": "claude-trace",
+  "description": "CLI to analyze Claude Code token usage by session, tool, project, and timeline",
+  "version": "1.0.0",
+  "author": "vexorkai",
+  "homepage": "https://github.com/vexorkai/claude-trace",
+  "skills": []
+}
