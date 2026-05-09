@@ -1,291 +1,284 @@
-## 20-hermes-app-components
+## 20-hermes-app-hooks
 
-> ├── ui/              # shadcn/ui components (styled primitives)
+> - **MUST** start with `use` prefix: `useDownloadActions`, `useTheme`, `useApiKeys`
 
 
-# Hermes App - React Components Rules
+# Hermes App - Custom Hooks Rules
 
-## Component Structure
+## Hook Naming
 
-```
-components/
-├── ui/              # shadcn/ui components (styled primitives)
-├── layout/          # Layout components
-├── auth/            # Authentication components
-├── download/        # Download-related components
-├── queue/           # Queue view components
-└── settings/        # Settings components
-```
-
-## Component Definition
-
-```typescript
-interface ComponentNameProps {
-  title: string;
-  onAction?: () => void;
-  items?: Item[];
-  className?: string;
-}
-
-export function ComponentName({
-  title,
-  onAction,
-  items = [],
-  className,
-}: ComponentNameProps) {
-  return (
-    <div className={cn("base-classes", className)}>
-      {title}
-    </div>
-  );
-}
-```
-
-### Rules
-- Use functional components with TypeScript
-- Component names use PascalCase
-- File names match component names
+- **MUST** start with `use` prefix: `useDownloadActions`, `useTheme`, `useApiKeys`
+- File name must match hook name: `useTheme.ts` exports `useTheme`
 - Export as named export, not default
-- Use hooks for state management
-- Keep components focused and single-purpose
+- Use descriptive names that indicate purpose
 
-## Props and TypeScript
+## Hook Structure
 
-### Props Definition
+### Basic Template
 ```typescript
-interface ButtonProps {
-  /** The button's display text */
-  label: string;
-  /** Optional click handler */
-  onClick?: () => void;
-  /** Button visual style */
-  variant?: "primary" | "secondary" | "destructive";
-  disabled?: boolean;
-  className?: string;
+interface UseFeatureOptions {
+  initialValue?: string;
+  onSuccess?: (data: Data) => void;
 }
 
-export function Button({
-  label,
-  onClick,
-  variant = "primary",
-  disabled = false,
-  className,
-}: ButtonProps) {
-  // Implementation
+interface UseFeatureReturn {
+  data: Data | null;
+  isLoading: boolean;
+  error: Error | null;
+  actions: {
+    fetch: () => Promise<void>;
+    reset: () => void;
+  };
 }
-```
 
-### Event Handlers
-- Prefix with `on`: `onClick`, `onChange`, `onSubmit`
-- Use proper event types: `React.MouseEvent`, `React.ChangeEvent`
+/**
+ * @example
+ * const { data, isLoading, actions } = useFeature({ initialValue: 'test' });
+ */
+export function useFeature(options: UseFeatureOptions = {}): UseFeatureReturn {
+  const [data, setData] = useState<Data | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
-### Children Props
-```typescript
-interface ContainerProps {
-  children: React.ReactNode;
-  className?: string;
+  return { data, isLoading, error, actions: { fetch, reset } };
 }
 ```
 
-## shadcn/ui Integration
+### TypeScript Requirements
+- Define explicit return types
+- Create interfaces for options and return values
+- Avoid `any` type
 
-### Using UI Components
+## Hook Patterns
+
+### Data Fetching (TanStack Query)
 ```typescript
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+export function useApiKeys() {
+  const queryClient = useQueryClient();
 
-export function FeatureCard({ title, className }: Props) {
-  return (
-    <Card className={cn("w-full", className)}>
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Button>Action</Button>
-      </CardContent>
-    </Card>
+  const { data: apiKeys, isLoading, error } = useQuery({
+    queryKey: ["apiKeys"],
+    queryFn: fetchApiKeys,
+  });
+
+  const createMutation = useMutation({
+    mutationFn: createApiKey,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["apiKeys"] });
+    },
+  });
+
+  return {
+    apiKeys: apiKeys ?? [],
+    isLoading,
+    error,
+    createApiKey: createMutation.mutateAsync,
+    isCreating: createMutation.isPending,
+  };
+}
+```
+
+### Action Hook
+```typescript
+export function useDownloadActions() {
+  const queryClient = useQueryClient();
+
+  const pauseMutation = useMutation({
+    mutationFn: pauseDownload,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["downloads"] });
+      toast.success("Download paused");
+    },
+    onError: (error) => toast.error(`Failed: ${error.message}`),
+  });
+
+  const pause = useCallback(
+    (id: string) => pauseMutation.mutateAsync(id),
+    [pauseMutation]
   );
+
+  return { pause, isPausing: pauseMutation.isPending };
 }
 ```
 
-- Import from `@/components/ui/`
-- Don't modify UI component files directly
-- Compose UI components to build features
-- Use `cn()` for className merging
-
-## Styling with Tailwind CSS
-
-### Class Organization
+### Utility Hook
 ```typescript
-<div className={cn(
-  // Layout
-  "flex flex-col md:flex-row gap-4",
-  // Spacing
-  "p-4 m-2",
-  // Typography
-  "text-sm font-medium",
-  // Colors
-  "bg-background text-foreground",
-  // Effects
-  "rounded-lg shadow-md hover:shadow-lg",
-  // Conditional
-  isActive && "bg-accent",
-  className
-)}>
+export function useDebounce<T>(value: T, delay: number = 500): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => setDebouncedValue(value), delay);
+    return () => clearTimeout(handler);
+  }, [value, delay]);
+
+  return debouncedValue;
+}
 ```
 
-### Theme Variables
-Use CSS variables for theme colors (support light/dark):
+### Context Hook
 ```typescript
-<div className="bg-background text-foreground border-border">
-<div className="bg-primary text-primary-foreground">
-<div className="bg-muted text-muted-foreground">
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within AuthProvider");
+  }
+  return context;
+}
 ```
 
-### Responsive Design
+## TanStack Query Integration
+
+### Query Keys
+Use hierarchical, descriptive keys with parameters:
+
 ```typescript
-<div className={cn(
-  "grid grid-cols-1",      // Mobile
-  "md:grid-cols-2",        // Tablet
-  "lg:grid-cols-3",        // Desktop
-  "xl:grid-cols-4"         // Large
-)}>
+// ✅ Good
+queryKey: ["downloads", "list", { status: "active" }]
+queryKey: ["downloads", "detail", downloadId]
+
+// ❌ Bad
+queryKey: ["data"]
+queryKey: ["downloads"]  // Too generic
 ```
 
-## State Management
+### Mutations
+- Invalidate queries after successful mutations
+- Handle optimistic updates when appropriate
+- Show toast notifications for user feedback
 
-### Local State
 ```typescript
-const [count, setCount] = useState<number>(0);
-const [items, setItems] = useState<Item[]>([]);
-
-// Functional update
-setCount((prev) => prev + 1);
-setItems((prev) => [...prev, newItem]);
+const mutation = useMutation({
+  mutationFn: updateItem,
+  onMutate: async (newItem) => {
+    await queryClient.cancelQueries({ queryKey: ["items"] });
+    const prev = queryClient.getQueryData(["items"]);
+    queryClient.setQueryData(["items"], (old: Item[]) =>
+      old.map((item) => (item.id === newItem.id ? newItem : item))
+    );
+    return { prev };
+  },
+  onError: (err, newItem, context) => {
+    queryClient.setQueryData(["items"], context?.prev);
+    toast.error("Update failed");
+  },
+  onSettled: () => {
+    queryClient.invalidateQueries({ queryKey: ["items"] });
+  },
+});
 ```
 
-### Effects
+## Hook Composition
+
+Compose smaller hooks into larger ones:
+
+```typescript
+export function useQueueData() {
+  const { downloads, isLoading: isLoadingDownloads } = useDownloads();
+  const { stats, isLoading: isLoadingStats } = useStats();
+  const { pause, resume, cancel } = useDownloadActions();
+  const filters = useFilters();
+
+  const filteredDownloads = useMemo(
+    () => applyFilters(downloads, filters.active),
+    [downloads, filters.active]
+  );
+
+  return {
+    downloads: filteredDownloads,
+    stats,
+    isLoading: isLoadingDownloads || isLoadingStats,
+    actions: { pause, resume, cancel },
+    filters,
+  };
+}
+```
+
+## Side Effects
+
+### Dependencies
+- Always declare all dependencies
+- Use ESLint to catch missing dependencies
+- Extract stable references with `useCallback`
+
+### Cleanup
+- Return cleanup function from effects
+- Cancel pending requests
+- Clear timers and subscriptions
+
 ```typescript
 useEffect(() => {
-  const subscription = subscribeToData();
-  return () => subscription.unsubscribe();
-}, [dependency]);
-```
+  const controller = new AbortController();
 
-### Server State (TanStack Query)
-```typescript
-import { useQuery } from "@tanstack/react-query";
-
-export function DownloadList() {
-  const { data: downloads, isLoading, error } = useQuery({
-    queryKey: ["downloads"],
-    queryFn: fetchDownloads,
-  });
-
-  if (isLoading) return <LoadingSpinner />;
-  if (error) return <ErrorDisplay error={error} />;
-
-  return <div>{/* Render downloads */}</div>;
-}
-```
-
-## Component Composition
-
-### Container/Presentational Pattern
-```typescript
-// Container - handles data
-export function DownloadListContainer() {
-  const { data, isLoading } = useQuery({
-    queryKey: ["downloads"],
-    queryFn: fetchDownloads,
-  });
-  
-  const handleDelete = (id: string) => { /* ... */ };
-
-  return (
-    <DownloadListPresentation
-      downloads={data}
-      isLoading={isLoading}
-      onDelete={handleDelete}
-    />
-  );
-}
-
-// Presentation - pure rendering
-function DownloadListPresentation({ downloads, isLoading, onDelete }: Props) {
-  // Pure rendering logic
-}
-```
-
-## Accessibility
-
-### Semantic HTML
-- Use appropriate HTML elements
-- Use `<button>` for actions, `<a>` for navigation
-- Don't use `<div>` for interactive elements
-
-### ARIA Attributes
-```typescript
-<button
-  aria-label="Delete download"
-  aria-pressed={isActive}
-  aria-disabled={isDisabled}
->
-  <TrashIcon />
-</button>
-
-<div role="status" aria-live="polite">
-  {statusMessage}
-</div>
-```
-
-### Keyboard Navigation
-```typescript
-const handleKeyDown = (e: React.KeyboardEvent) => {
-  if (e.key === "Enter" || e.key === " ") {
-    e.preventDefault();
-    onClick();
+  async function fetchData() {
+    try {
+      const data = await fetch(url, { signal: controller.signal });
+      setData(data);
+    } catch (error) {
+      if (error.name !== "AbortError") setError(error);
+    }
   }
-};
+
+  fetchData();
+  return () => controller.abort();
+}, [url]);
 ```
 
 ## Performance
 
 ### Memoization
+- Use `useCallback` for function references passed as props
+- Use `useMemo` for expensive computations
+- Don't over-optimize - profile first
+
 ```typescript
-import { useMemo, useCallback, memo } from "react";
+export function useFilters() {
+  const [filters, setFilters] = useState<Filter[]>([]);
 
-// Memoize calculations
-const sortedItems = useMemo(
-  () => items.sort((a, b) => a.name.localeCompare(b.name)),
-  [items]
-);
+  const activeFilters = useMemo(
+    () => filters.filter((f) => f.active),
+    [filters]
+  );
 
-// Memoize callbacks
-const handleClick = useCallback(() => {
-  doSomething(id);
-}, [id]);
+  const addFilter = useCallback((filter: Filter) => {
+    setFilters((prev) => [...prev, filter]);
+  }, []);
 
-// Memoize components
-export const ExpensiveComponent = memo(function ExpensiveComponent({ data }: Props) {
-  return <div>{/* ... */}</div>;
-});
+  return { filters, activeFilters, addFilter };
+}
 ```
 
-## Loading States
+## Error Handling
 
 ```typescript
-import { Skeleton } from "@/components/ui/skeleton";
+export function useVideoInfo(url: string) {
+  const [info, setInfo] = useState<VideoInfo | null>(null);
+  const [error, setError] = useState<Error | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-if (isLoading) {
-  return <Skeleton className="h-10 w-full" />;
+  const fetchInfo = useCallback(async () => {
+    if (!url) return;
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const data = await api.getVideoInfo(url);
+      setInfo(data);
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error("Unknown error");
+      setError(error);
+      toast.error(`Failed: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [url]);
+
+  useEffect(() => {
+    fetchInfo();
+  }, [fetchInfo]);
+
+  return { info, error, isLoading, refetch: fetchInfo };
 }
-
-// Conditional rendering
-{isLoading && <LoadingSpinner />}
-{error && <ErrorDisplay error={error} />}
-{data && <DataDisplay data={data} />}
 ```
 
 ---
