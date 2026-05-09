@@ -2,9 +2,9 @@
   "name": "hacs.integration_blueprint",
   "owner": "jpawlowski",
   "repo": "hacs.integration_blueprint",
-  "description": "",
+  "description": "AI-enabled Modern Home Assistant Custom Integration Blueprint",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/jpawlowski",
+  "source_url": "https://github.com/jpawlowski/hacs.integration_blueprint",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T00:07:42Z"
+  "distributed_at": "2026-05-09T21:08:35Z"
 }
