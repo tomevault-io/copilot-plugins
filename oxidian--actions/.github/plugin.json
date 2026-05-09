@@ -1,0 +1,9 @@
+{
+  "name": "oxidian--actions",
+  "displayName": "actions",
+  "description": "A collection of reusable and composite github actions.",
+  "version": "1.0.0",
+  "author": "oxidian",
+  "homepage": "https://github.com/oxidian/actions",
+  "skills": []
+}
