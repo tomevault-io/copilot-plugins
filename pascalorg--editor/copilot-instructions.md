@@ -1,90 +1,56 @@
-## viewer-isolation
+## editor
 
-> Viewer must be editor-agnostic — controlled from outside via props and children
+> This repository uses shared architecture rules for AI assistants. Treat the rule files as the source of truth for architecture-sensitive work.
 
+# Pascal Agent Instructions
 
-# Viewer Isolation
+This repository uses shared architecture rules for AI assistants. Treat the rule files as the source of truth for architecture-sensitive work.
 
-`@pascal-app/viewer` is a standalone 3D canvas library. It must never know about editor-specific features, UI state, or tools. This keeps it usable in the read-only `/viewer/[id]` route and in any future embedding context.
+## Required Rule Sources
 
-## The Rule
+The canonical rules live in `.cursor/rules/*.mdc`.
 
-> The viewer is controlled from outside. It exposes control points (props, callbacks, children). It never reaches into `apps/editor`.
+Claude-compatible paths are exposed in `.claude/rules/*.md`.
+Codex-compatible paths are exposed in `.codex/rules/*.md`.
 
-## Forbidden in `packages/viewer`
+Both should point to the same Cursor rule sources so Claude and Codex review the exact same rules.
 
-```ts
-// ❌ Never import from the editor app
-import { useEditor } from '@/store/use-editor'
-import { ToolManager } from '@/components/tools/tool-manager'
+## Architecture Rules
 
-// ❌ Never reference editor-specific concepts
-if (isEditorMode) { … }
-```
+Read the relevant rules before making or reviewing changes in these areas:
 
-## Correct Pattern — Pass Control from Outside
+- `.codex/rules/systems.md` — core systems vs viewer systems, what each may do
+- `.codex/rules/renderers.md` — renderer responsibilities and prohibitions
+- `.codex/rules/tools.md` — editor tools live only in `apps/editor/components/tools/`
+- `.codex/rules/viewer-isolation.md` — viewer must stay editor-agnostic
+- `.codex/rules/layers.md`
+- `.codex/rules/selection-managers.md`
+- `.codex/rules/scene-registry.md`
+- `.codex/rules/spatial-queries.md`
+- `.codex/rules/node-schemas.md`
+- `.codex/rules/events.md`
 
-The editor mounts the viewer and passes what it needs:
+For architecture reviews, the first four are always required. Read the remaining rules when the diff touches their subject area.
 
-```tsx
-// apps/editor/components/editor-canvas.tsx  ✅
-import { Viewer } from '@pascal-app/viewer'
-import { ToolManager } from '../tools/tool-manager'
-import { useEditor } from '../../store/use-editor'
+## Layer Boundaries
 
-export function EditorCanvas() {
-  const { selection } = useViewer()
+`packages/core` owns domain data and pure logic. It must not import Three.js, `packages/viewer`, `apps/editor`, rendering/UI concepts, tools, modes, phases, or view-specific concepts such as floorplan or paint preview.
 
-  return (
-    <Viewer
-      theme="light"
-      onSelect={(id) => useViewer.getState().setSelection(id)}
-      onExport={handleExport}
-    >
-      {/* Editor injects tools as children — viewer renders them inside the canvas */}
-      <ToolManager />
-    </Viewer>
-  )
-}
-```
+`packages/viewer` owns the standalone 3D canvas, renderers, viewer systems, and genuine presentation state. It must not know about `useEditor`, editor tools, phases, modes, paint mode, floorplan state, or editor-only presentation vocabulary.
 
-The viewer accepts `children` and renders them inside the R3F canvas. This is the extension point for tools, overlays, and editor-specific systems.
+`apps/editor` owns the editing experience: tools, `useEditor`, panels, floorplan helpers, paint mode, keyboard shortcuts, command palette, action menus, cursor badges, and editor-only overlays. Editor features are injected into `<Viewer>` via props and children.
 
-## Viewer's Own State (`useViewer`)
+## Review Expectations
 
-The viewer store contains **only presentation state**:
+When reviewing architecture changes:
 
-- `selection` — which nodes are highlighted
-- `cameraMode` — perspective / orthographic
-- `levelMode` — stacked / exploded / solo / manual
-- `wallMode` — up / cutaway / down
-- `theme` — light / dark
-- Display toggles: `showScans`, `showGuides`, `showGrid`
+1. Classify every new file, type, store field, and exported helper as core, viewer, or editor before writing findings.
+2. Lead with layer-boundary blockers.
+3. Check hook hygiene for `useEditor`, `useScene`, and `useViewer`.
+4. Check selector performance for broad subscriptions and selectors that allocate fresh references.
+5. Skip formatting and import ordering unless they hide a real behavior or architecture issue.
 
-If a piece of state is only meaningful inside the editor (e.g. active tool, phase, edit mode) — it belongs in `useEditor`, not `useViewer`.
-
-## Nested Viewer for Editor-Specific Features
-
-When an editor feature needs to live "inside" the canvas but must not pollute the viewer package, inject it as a child:
-
-```tsx
-// ✅ Editor-specific overlay injected as child
-<Viewer>
-  <SelectionBoxOverlay />   {/* editor only */}
-  <SnapIndicator />         {/* editor only */}
-  <ToolManager />           {/* editor only */}
-</Viewer>
-```
-
-This pattern lets the viewer stay ignorant of these components while they still have access to the R3F context.
-
-## Checklist Before Adding Code to `packages/viewer`
-
-- [ ] Does this feature make sense in the read-only viewer route?
-- [ ] Does it reference `useEditor`, tool state, or phase/mode?
-- [ ] Could it be passed in as a prop or child instead?
-
-If any answer is "editor-specific", keep it in `apps/editor` and inject it via children or props.
+Use `.codex/skills/review-architecture/SKILL.md` when the user asks Codex to review a PR, audit a branch, or check architecture compliance.
 
 ---
 > Source: [pascalorg/editor](https://github.com/pascalorg/editor) — distributed by [TomeVault](https://tomevault.io).
