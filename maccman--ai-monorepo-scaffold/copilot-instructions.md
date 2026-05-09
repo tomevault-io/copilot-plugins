@@ -1,138 +1,155 @@
-## database
+## env-vars
 
-> Find the schema here: [schema.sql](mdc:packages/db/schema.sql)
+> How to add env vas or environmental variables to the app.
 
-## Database
+**Environment Variables (Astro Way)**: Astro provides type-safe environment variables. Follow these steps:
 
-Find the schema here: [schema.sql](mdc:packages/db/schema.sql)
+    **1. Define in astro.config.ts:**
+    ```typescript
+    // astro.config.ts
+    env: {
+      schema: {
+        MY_ENV_VAR: envField.string({
+          context: 'server',  // 'server' or 'client'
+          access: 'secret',   // 'secret' or 'public'
+          optional: false,    // true if the variable is optional
+        }),
+        PUBLIC_API_URL: envField.string({
+          context: 'client',
+          access: 'public',
+          optional: false,
+        }),
+      },
+    },
+    ```
 
-### Commands
+    **2. Import and use in your code:**
+    ```typescript
+    // Server-side variables (access: 'secret', context: 'server')
+    import { DATABASE_URL, MAILGUN_WEBHOOK_SIGNING_KEY } from 'astro:env/server'
+    
+    // Client-side variables (access: 'public', context: 'client')
+    import { LIVEKIT_API_KEY } from 'astro:env/client'
+    ```
 
-Run from the root directory:
+    **Key guidelines:**
+    - **Server variables** (`context: 'server'`): Only accessible in server-side code, import from `astro:env/server`
+    - **Client variables** (`context: 'client'`): Accessible in both client and server code, import from `astro:env/client`
+    - **Secret variables** (`access: 'secret'`): Should never be exposed to the client
+    - **Public variables** (`access: 'public'`): Can be safely exposed to the client
+    - All environment variables are type-safe and validated at build time
+    - Ignore linter errors on recently created env vars. Astro needs to rerun its dev server to update its internal types references first.
 
-- `DATABASE_URL=postgres://localhost:5432/monorepo-scaffold pnpm --filter @app/db db:migrate:create <name>` - Create a new database migration template
-- `DATABASE_URL=postgres://localhost:5432/monorepo-scaffold pnpm --filter @app/db db:migrate` - Run database migrations
-- `DATABASE_URL=postgres://localhost:5432/monorepo-scaffold pnpm --filter @app/db db:migrate:down` - Rollback database migrations
-- `DATABASE_URL=postgres://localhost:5432/monorepo-scaffold pnpm --filter @app/db db:reset` - Reset database
-- `DATABASE_URL=postgres://localhost:5432/monorepo-scaffold pnpm --filter @app/db db:seed` - Seed database with initial data (default tenant and permissions)
+    **Example usage:**
+    ```typescript
+    // apps/web/src/server/db.ts
+    import { setupDb } from '@app/db'
+    import { DATABASE_URL } from 'astro:env/server'
+    
+    export const db = setupDb({
+      connectionString: DATABASE_URL,
+    })
+    ```
+    
 
-### Create a new migration
+**Passing Environment Variables to tRPC**: To make environment variables available in tRPC procedures, follow this pattern:
 
-1. Run `db:migrate:create <myname>`
-2. Edit the file it creates, always add an Up and Down migration.
-3. Run `db:migrate`
+    **1. Define the Env interface in context.ts:**
+    ```typescript
+    // packages/api/src/context.ts
+    export interface Env {
+      appEndpoint: string
+      gcsProjectId: string
+      ...
+    }
 
-Note:
+    export interface Context {
+      db: Kysely<DB>
+      env: Env
+      session: Session | null
+      user: SelectableUser | null
+    }
+    ```
 
-- Do not generate types.gen.ts files yourself - they'll be auto generated.
-- Never alter an `OWNER` in a migration.
+    **2. Pass environment variables in the tRPC handler:**
+    ```typescript
+    // apps/web/src/pages/api/trpc/[trpc].ts
+    import { LIVEKIT_API_KEY } from 'astro:env/client'
+    import {
+      GCS_BUCKET,
+      GCS_CLIENT_EMAIL,
+      GCS_PRIVATE_KEY,
+      GCS_PROJECT_ID,
+      GEMINI_API_KEY,
+      LIVEKIT_API_SECRET,
+      LIVEKIT_URL,
+      PERPLEXITY_API_KEY,
+    } from 'astro:env/server'
 
-### Using Kysely Type Helpers
+    async function createContext({ req }: CreateContextOptions): Promise<Context> {
+      const env: Env = {
+        appEndpoint: getAppEndpoint(req),
+        gcsProjectId: GCS_PROJECT_ID,
+       ...
+      }
 
-When working with database types in TypeScript, always use Kysely's type helper utilities for proper type safety:
+      return { db, session: session ?? null, env, user }
+    }
+    ```
 
-1. **Selectable<T>** - Use when selecting/reading data from the database:
-   ```typescript
-   import type { Selectable } from 'kysely'
-   import type { User } from '@app/db/types'
-   
-   // Function that returns user data from DB
-   async function getUser(id: string): Promise<Selectable<User> | null> {
-     return await db.selectFrom('users').where('id', '=', id).selectAll().executeTakeFirst()
-   }
-   
-   // Component props
-   interface UserProfileProps {
-     user: Selectable<User>
-   }
-   ```
+    **3. Access environment variables in tRPC procedures:**
+    ```typescript
+    // In any tRPC procedure
+    export const myProcedure = protectedProcedure
+      .input(z.object({ /* ... */ }))
+      .mutation(async ({ ctx, input }) => {
+        // Access env vars through ctx.env
+        const gcsProjectId = ctx.env.gcsProjectId
+        // ... use the environment variables
+      })
+    ```
 
-2. **Insertable<T>** - Use when inserting data into the database:
-   ```typescript
-   import type { Insertable } from 'kysely'
-   import type { Project } from '@app/db/types'
-   
-   // Function parameters for creating records
-   async function createProject(data: Insertable<Project>): Promise<Selectable<Project>> {
-     return await db.insertInto('projects').values(data).returningAll().executeTakeFirstOrThrow()
-   }
-   
-   // Partial inserts with required fields
-   async function createUser(data: Partial<Insertable<User>> & { email: string; tenantId: string }) {
-     return await db.insertInto('users').values({
-       emailVerified: false,
-       status: 'active',
-       ...data,
-     }).returningAll().executeTakeFirstOrThrow()
-   }
-   ```
+    **Key guidelines for tRPC env vars:**
+    - Always define new env vars in the `Env` interface in `context.ts`
+    - Import env vars from Astro's env system in the tRPC handler
+    - Map them to the `env` object in `createContext`
+    - Access them via `ctx.env` in any tRPC procedure
+    - This ensures type safety and centralized env var management
 
-3. **Updateable<T>** - Use when updating records in the database:
-   ```typescript
-   import type { Updateable } from 'kysely'
-   import type { Task } from '@app/db/types'
-   
-   async function updateTask(id: string, data: Updateable<Task>): Promise<Selectable<Task>> {
-     return await db.updateTable('tasks')
-       .set(data)
-       .where('id', '=', id)
-       .returningAll()
-       .executeTakeFirstOrThrow()
-   }
-   ```
+**Build and CI Configuration**: When adding new environment variables, you must also update build and CI configuration files:
 
-4. **General Guidelines**:
-   - Never use raw table types directly (e.g., `User`, `Project`) for function parameters or return types
-   - Always wrap with appropriate helper based on the operation
-   - For partial updates/inserts, combine `Partial<Insertable<T>>` or `Partial<Updateable<T>>` with required fields
-   - When passing database records between functions/components, use `Selectable<T>`
-   - We use underscore naming for table columns in the database, but Kysely always maps these to camelCase names. So from within TypeScript, you will need to use camelCase when interacting with a column, say, using it in a `where` condition.
-   - **Timestamp columns are typed as `Date`**: Columns like `TIMESTAMP` or `TIMESTAMPTZ` are automatically returned as JavaScript `Date` objects (not strings). You can safely call `getTime()` etc. without parsing.
+    **1. Update turbo.json:**
+    Add new environment variables to the `env` array under the `build` task so Turborepo can properly cache builds:
+    ```json
+    // turbo.json
+    {
+      "tasks": {
+        "build": {
+          "outputs": ["dist/**"],
+          "dependsOn": ["^build"],
+          "env": [
+            "DATABASE_URL",
+            "AUTH_SECRET",
+            "MY_NEW_ENV_VAR",   // Add your new env var here
+            // ... other env vars
+          ]
+        }
+      }
+    }
+    ```
 
-### Handling JSONB Types
+    **2. Update GitHub Actions (if needed):**
+    If your environment variable needs to be available during CI/CD builds or tests, ensure it's properly configured in your GitHub Actions workflows. This may involve:
+    - Adding the env var to repository secrets (for sensitive values)
+    - Setting the env var in workflow files (for public values)
+    - Updating setup actions if they need access to the env var
 
-When working with JSONB columns in the database, you need to specify proper TypeScript types to ensure type safety. Follow these steps:
-
-1. **Create column type definitions** in `packages/db/src/column-types.ts`:
-
-```typescript
-export type ProjectStage = {
-  name: string
-  description: string
-}
-
-// Includes RawBuilder to allow for JSONB
-export type ProjectStageColumnType = ColumnType<
-  ProjectStage[] | null,
-  ProjectStage[] | null | RawBuilder<ProjectStage[]>,
-  ProjectStage[] | null | RawBuilder<ProjectStage[]>
->
-```
-
-2. **Reference the type in Kysely codegen configuration** in `packages/db/.kysely-codegenrc.yaml`:
-
-```yaml
-serializer-properties:
-  'public.projects.stages': 'import("./src/column-types").ProjectStageColumnType | null'
-```
-
-3. **Use the type in your migrations**:
-
-```sql
-ALTER TABLE projects ADD COLUMN tools_config JSONB;
-```
-
-The types will be automatically generated and available through `@app/db/types` after running the migration and type generation.
-
-**Important**: Always define explicit TypeScript interfaces for JSONB columns rather than using generic types like `any` or `unknown`. This ensures type safety throughout the application.
-
-# Using psql
-
-You can always query the local database.
-
-```bash
-psql postgres://localhost:5432/monorepo-scaffold -c "SELECT * FROM users LIMIT 5"
-```
+    **Key guidelines for build/CI config:**
+    - **Always** add new env vars to `turbo.json` if they affect build output
+    - Only add sensitive env vars to GitHub repository secrets, never commit them to workflow files
+    - Test your builds locally with the new env vars before pushing
+    - Consider whether the env var is needed at build time vs runtime
+    - Document any new env vars in your project's README or deployment docs
 
 ---
 > Source: [maccman/ai-monorepo-scaffold](https://github.com/maccman/ai-monorepo-scaffold) — distributed by [TomeVault](https://tomevault.io).
