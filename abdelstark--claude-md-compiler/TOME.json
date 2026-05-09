@@ -4,7 +4,7 @@
   "repo": "claude-md-compiler",
   "description": "Compile CLAUDE.md into a lockfile, then enforce repo changes against it in local runs, staged diffs, or CI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AbdelStark/claude-md-compiler",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T07:56:46Z"
+  "distributed_at": "2026-05-09T00:54:18Z"
 }
