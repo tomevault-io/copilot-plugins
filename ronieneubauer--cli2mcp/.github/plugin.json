@@ -1,0 +1,9 @@
+{
+  "name": "ronieneubauer--cli2mcp",
+  "displayName": "cli2mcp",
+  "description": "Wrap any CLI as a Model Context Protocol (MCP) server for Claude, ChatGPT, Cursor, Gemini and any MCP-compatible client \u2014 schema auto-inferred from --help.",
+  "version": "1.0.0",
+  "author": "RonieNeubauer",
+  "homepage": "https://github.com/RonieNeubauer/cli2mcp",
+  "skills": []
+}
