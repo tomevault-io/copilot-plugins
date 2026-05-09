@@ -4,7 +4,7 @@
   "repo": "web-bro",
   "description": "Browser-only workspace agent built with transformers.js.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aeroxy/web-bro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T11:53:14Z"
+  "distributed_at": "2026-05-09T03:34:13Z"
 }
