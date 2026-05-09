@@ -1,123 +1,113 @@
-## payload-cms-field-types
+## use-bun-instead-of-node-vite-npm-pnpm
 
-> Payload CMS Field Types
+> Use Bun instead of Node.js, npm, pnpm, or vite.
 
 
-<!-- Credits: @nickvbn -->
+Default to using Bun instead of Node.js.
 
-# Payload CMS Field Types
+- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
+- Use `bun test` instead of `jest` or `vitest`
+- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
+- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
+- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
+- Use `bunx <package> <command>` instead of `npx <package> <command>`
+- Bun automatically loads .env, so don't use dotenv.
 
-**IMPORTANT:** Before implementing or modifying any field, always visit https://payloadcms.com/docs/fields/overview to ensure you are using the most current field definitions and that your implementation will pass validation. This helps keep field usage up-to-date and compliant with Payload's latest standards.
+## APIs
 
-**TIP**: Always avoid visiting a link unless the description directly matches your implementation need. Most fields are very purpose-specific.
+- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
+- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
+- `Bun.redis` for Redis. Don't use `ioredis`.
+- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
+- `WebSocket` is built-in. Don't use `ws`.
+- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
+- Bun.$`ls` instead of execa.
 
-If unsure between two similar fields (e.g., `Select` vs `Radio`, or `Text` vs `Textarea`), this guide prioritizes general-use recommendations and links to documentation that provide usage examples and configuration tips.
+## Testing
 
----
+Use `bun test` to run tests.
 
-### DATA FIELDS
+```ts#index.test.ts
+import { test, expect } from "bun:test";
 
-**Array**  
-URL: https://payloadcms.com/docs/fields/array  
-**Use When**: You need a repeatable list of similar field groups, such as FAQs, list items, or images. Great for nesting complex structures.
+test("hello world", () => {
+  expect(1).toBe(1);
+});
+```
 
-**Blocks**  
-URL: https://payloadcms.com/docs/fields/blocks  
-**Use When**: You require flexible, composable content like layout builders, page sections, or reusable content chunks with their own structures.
+## Frontend
 
-**Checkbox**  
-URL: https://payloadcms.com/docs/fields/checkbox  
-**Use When**: You need a simple boolean toggle (true/false). Ideal for flags like "Published" or "Featured".
+Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
 
-**Code**  
-URL: https://payloadcms.com/docs/fields/code  
-**Use When**: You want to store or edit code snippets. Supports syntax highlighting. Use for templates, JSON blobs, or configuration blocks.
+Server:
 
-**Date**  
-URL: https://payloadcms.com/docs/fields/date  
-**Use When**: You need date/time storage, e.g., for event scheduling, publication timing, or tracking updates.
+```ts#index.ts
+import index from "./index.html"
 
-**Email**  
-URL: https://payloadcms.com/docs/fields/email  
-**Use When**: You need to store validated email addresses, typically for contact forms or user profiles.
+Bun.serve({
+  routes: {
+    "/": index,
+    "/api/users/:id": {
+      GET: (req) => {
+        return new Response(JSON.stringify({ id: req.params.id }));
+      },
+    },
+  },
+  // optional websocket support
+  websocket: {
+    open: (ws) => {
+      ws.send("Hello, world!");
+    },
+    message: (ws, message) => {
+      ws.send(message);
+    },
+    close: (ws) => {
+      // handle close
+    }
+  },
+  development: {
+    hmr: true,
+    console: true,
+  }
+})
+```
 
-**Group**  
-URL: https://payloadcms.com/docs/fields/group  
-**Use When**: You want to logically group several related fields together (like address fields: street, city, zip).
+HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
 
-**JSON**  
-URL: https://payloadcms.com/docs/fields/json  
-**Use When**: You need to store free-form structured data. Ideal for external API configurations or advanced schema setups.
+```html#index.html
+<html>
+  <body>
+    <h1>Hello, world!</h1>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
+```
 
-**Number**  
-URL: https://payloadcms.com/docs/fields/number  
-**Use When**: You need to store numeric values (integers, floats, etc.) such as price, quantity, or ratings.
+With the following `frontend.tsx`:
 
-**Point**  
-URL: https://payloadcms.com/docs/fields/point  
-**Use When**: You need to store geolocation data (latitude, longitude). Useful for mapping or location-based filtering.
+```tsx#frontend.tsx
+import React from "react";
+import { createRoot } from "react-dom/client";
 
-**Radio**  
-URL: https://payloadcms.com/docs/fields/radio  
-**Use When**: You want users to select one option from a short predefined list. Good for categories or statuses.
+// import .css files directly and it works
+import './index.css';
 
-**Relationship**  
-URL: https://payloadcms.com/docs/fields/relationship  
-**Use When**: You need to link one document to another (e.g., post to author, product to category). Supports single or multiple relations.
+const root = createRoot(document.body);
 
-**Rich Text**  
-URL: https://payloadcms.com/docs/fields/rich-text
-**Use When**: You need advanced content editing, like WYSIWYG support for articles, blogs, or marketing pages.
+export default function Frontend() {
+  return <h1>Hello, world!</h1>;
+}
 
-**Select**  
-URL: https://payloadcms.com/docs/fields/select  
-**Use When**: You want a dropdown field with one or multiple selectable options. Useful for status, role, or tag selection.
+root.render(<Frontend />);
+```
 
-**Tabs (Named)**  
-URL: https://payloadcms.com/docs/fields/tabs  
-**Use When**: You want to organize complex admin forms into clearly labeled sections.
+Then, run index.ts
 
-**Text**  
-URL: https://payloadcms.com/docs/fields/text  
-**Use When**: You need short string input (title, slug, username). Limited to a single line.
+```sh
+bun --hot ./index.ts
+```
 
-**Textarea**  
-URL: https://payloadcms.com/docs/fields/textarea  
-**Use When**: You need longer, multi-line text input such as summaries, bios, or descriptions.
-
-**Upload**  
-URL: https://payloadcms.com/docs/fields/upload  
-**Use When**: You need file or image uploads linked to a document. Useful for profile pictures, attachments, media libraries.
-
----
-
-### PRESENTATIONAL FIELDS
-
-**Collapsible**  
-URL: https://payloadcms.com/docs/fields/collapsible  
-**Use When**: You want to hide or reveal field groups in the admin panel to improve visual clarity.
-
-**Row**  
-URL: https://payloadcms.com/docs/fields/row  
-**Use When**: You want fields to appear side-by-side in the admin interface. Enhances UI readability for related inputs.
-
-**Tabs**  
-URL: https://payloadcms.com/docs/fields/tabs  
-**Use When**: You want to split the admin UI into unnamed tabbed sections. Similar to named tabs but used without labels.
-
-**UI**  
-URL: https://payloadcms.com/docs/fields/ui  
-**Use When**: You want to inject custom UI components (like dividers, instructions, or custom widgets) without storing any data.
-
----
-
-### VIRTUAL FIELDS
-
-**Join**  
-URL: https://payloadcms.com/docs/fields/join  
-**Use When**: You need to populate a field using resolved data from a different collection (similar to GraphQL joins). Useful for denormalized or computed field structures.
-
----
+For more information, read the Bun API docs in `node_modules/bun-types/docs/**.mdx`.
 
 ---
 > Source: [fluid-design-io/payload-better-auth-starter](https://github.com/fluid-design-io/payload-better-auth-starter) — distributed by [TomeVault](https://tomevault.io).
