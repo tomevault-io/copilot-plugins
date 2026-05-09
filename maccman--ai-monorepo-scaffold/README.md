@@ -2,6 +2,8 @@
 
 > Sourced from [maccman/ai-monorepo-scaffold](https://github.com/maccman/ai-monorepo-scaffold) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+A scaffold demonstrating how to use a turbo, mono repo, trpc, better auth, react, postgres and cursor ai rules.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
