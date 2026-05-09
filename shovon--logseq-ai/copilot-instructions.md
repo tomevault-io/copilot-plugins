@@ -1,52 +1,13 @@
-## code-style
+## logseq
 
-> Before reading the coding rules below, it's important to remember Postel's law (also known as robustness principle):
+> Always use kebab-case for Logseq property names. It's fine if JavaScript/TypeScript variables use camelCase (and it's, in fact, encouraged to do so), but the actual property names that gets embedded into a Logseq block **must** use kebab-case. This is a non-negotiable.
 
 
-Before reading the coding rules below, it's important to remember Postel's law (also known as robustness principle):
+Always use kebab-case for Logseq property names. It's fine if JavaScript/TypeScript variables use camelCase (and it's, in fact, encouraged to do so), but the actual property names that gets embedded into a Logseq block **must** use kebab-case. This is a non-negotiable.
 
-> be conservative in what you do, be liberal in what you accept from others
+If we use kebab-case, Logseq simply forces everything into lowercase. This is unacceptable. We should never allow mixed case make their way into Logseq properties.
 
-## Do not extend nominal types
-
-This is the "be conservative in what you do" principle of Postel's law.
-
-```typescript
-// A nominal type defined as:
-//
-// type SomeLibraryType = {
-//   [SomeUnexportedLibrarySymbol]: true
-//   // All the rest
-// };
-// Note: SomeUnexportedLibrarySymbol is simply inaccessible directly.
-
-// ❌ Do not do this
-type SomeLibraryTypeExtention = SomeLibraryType & {
-  /* More fields here */
-};
-```
-
-### What to do instead
-
-No matter how much extending feels "elegant", just wrap the object that you "feel" like extending into an object that contain the fields that you want:
-
-```
-type SomeTypeAndMore = {
-  libraryType: SomeLibraryType,
-
-  // more fields
-}
-```
-
-The idiom in a lot of other programming languages have something called "embedded" types, for example Go, albeit Go has a bunch of other syntactic and other semantic sugars on top, but at a lower-level, it's all the same thing.
-
-## Avoid exposing nominal types
-
-This is the "be liberal in what you accept from others" principle of Postel's law.
-
-Bottom line is, just avoid nominal types in general. You can't control what users will do.
-
-That said, runtime assertions are often necessary, but nominal types add more overhead than is already necessary. Use them very, very sparingly.
+Just a thing to note: when pulling up props using the Logseq API, it automatically converts kebab-case properties to JavaScript camelCase. However, when writing without the Logseq API, then we _must_ first convert to kebab-case before writing to the UI.
 
 ---
 > Source: [shovon/logseq-ai](https://github.com/shovon/logseq-ai) — distributed by [TomeVault](https://tomevault.io).
