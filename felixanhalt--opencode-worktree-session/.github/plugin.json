@@ -1,0 +1,9 @@
+{
+  "name": "felixanhalt--opencode-worktree-session",
+  "displayName": "opencode-worktree-session",
+  "description": "Automatic Git worktree management for OpenCode sessions. Creates isolated environments for every task, commits changes, and cleans up on exit.",
+  "version": "1.0.0",
+  "author": "felixAnhalt",
+  "homepage": "https://github.com/felixAnhalt/opencode-worktree-session",
+  "skills": []
+}
