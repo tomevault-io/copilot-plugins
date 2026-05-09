@@ -4,7 +4,7 @@
   "repo": "sofos-code",
   "description": "AI coding agent for your terminal, implemented in pure Rust",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alexylon/sofos-code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T05:46:26Z"
+  "distributed_at": "2026-05-09T17:19:21Z"
 }
