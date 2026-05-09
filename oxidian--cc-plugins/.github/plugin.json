@@ -1,0 +1,9 @@
+{
+  "name": "oxidian--cc-plugins",
+  "displayName": "cc-plugins",
+  "description": "Plugins to keep claude code on the rails.",
+  "version": "1.0.0",
+  "author": "oxidian",
+  "homepage": "https://github.com/oxidian/cc-plugins",
+  "skills": []
+}
