@@ -1,0 +1,9 @@
+{
+  "name": "fradser--openclaw-agent-team",
+  "displayName": "openclaw-agent-team",
+  "description": "Multi-agent team coordination plugin for OpenClaw",
+  "version": "1.0.0",
+  "author": "FradSer",
+  "homepage": "https://github.com/FradSer/openclaw-agent-team",
+  "skills": []
+}
