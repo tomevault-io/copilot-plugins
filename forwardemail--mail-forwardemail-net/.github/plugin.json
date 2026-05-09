@@ -1,0 +1,9 @@
+{
+  "name": "forwardemail--mail-forwardemail-net",
+  "displayName": "mail.forwardemail.net",
+  "description": "Open-Source & Privacy-focused Webmail: A privacy-first, offline-capable Progressive Web App for Forward Email. Ships as static assets and runs entirely in the browser with local caching, full-text sea",
+  "version": "1.0.0",
+  "author": "forwardemail",
+  "homepage": "https://github.com/forwardemail/mail.forwardemail.net",
+  "skills": []
+}
