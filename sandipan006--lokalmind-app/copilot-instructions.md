@@ -1,79 +1,63 @@
-## git-conventions
+## main
 
-> Git commit and push message conventions for LokalMind v2.
+> Main engineering rule for senior-level React Native code in LokalMind v2.
 
-# Git Conventions
 
-## Commit / Push Description Format
+# LokalMind v2 - Cursor Rules
 
-Every commit message must follow this exact format:
+## Scope of changes (read first)
+- Do exactly what is requested. No unrelated refactors, no extra files, no unsolicited improvements.
+- When editing existing files, match surrounding style, naming, and import patterns before introducing anything new.
+- Do not generate barrel files, index re-exports, README files, or boilerplate unless explicitly asked.
+- Keep final explanations short and technical.
 
-```
-DD/MM/YYYY - [short description] - #[serial number]
-```
+## Engineering bar
+- Write production-ready, senior-level React Native + TypeScript code.
+- Keep implementations concise, modular, and easy to review.
+- Prefer maintainable patterns over quick hacks; avoid duplication.
+- Add brief developer comments only for non-obvious decisions or complex logic.
 
-### Rules
+## Architecture (mandatory)
+- Follow Clean Architecture: Presentation -> Use Cases -> Domain; Data implements repositories; infrastructure injected via DI.
+- Never bypass contracts in `src/core/ports/` or repository interfaces.
+- Keep domain pure: no framework or third-party SDK imports in domain entities or use cases.
+- If a change conflicts with architecture, refactor to comply - do not add exceptions.
 
-- **Date**: DD/MM/YYYY format, e.g. `04/03/2026`
-- **Description**: Short, imperative, point-wise if multiple changes. Use bullet points with `·` separator for multiple items on one line, or a multiline body for longer descriptions.
-- **Serial number**: Incrementing integer starting from `#1`. Never reuse a number.
+## LokalMind conventions (mandatory)
+- Respect naming and folder conventions for screens, ViewModels, use cases, repositories, and routes.
+- Use `Result<T>`-style flows for use cases; explicit error branches in ViewModels.
+- MobX ViewModels: `makeAutoObservable(this)` first in constructor; all async mutations inside `runInAction`.
+- Stack: Expo 54, RN 0.81, React 19.1, expo-router v6, MobX 6, llama.rn (GGUF), whisper.rn, expo-sqlite, RevenueCat.
 
-### Examples
+## Platform constraints
+- No Node.js-only APIs; all packages must be Expo-compatible.
+- Validate native module compatibility (llama.rn, whisper.rn) before adding new dependencies.
+- Whenever using a package, verify API usage against current docs and do not use deprecated APIs.
+- Do not assume web APIs are available; guard platform-specific branches explicitly.
 
-Single change:
-```
-04/03/2026 - Add GlassSurface component with expo-blur fallback - #1
-```
+## TypeScript strictness
+- TypeScript strictness: avoid `any`, prefer precise interfaces and explicit return types on public APIs.
+- Use guard clauses and early returns to keep control flow flat.
+- Handle edge cases first; never swallow errors silently.
+- Keep UI code declarative; business logic belongs in use cases and ViewModels.
 
-Multiple changes (inline):
-```
-04/03/2026 - Add ChatViewModel · SendMessageUseCase · IChatRepository - #2
-```
+## Performance defaults
+- Avoid unnecessary re-renders; memoize only where it produces measurable improvement.
+- Stable keys and item layout strategies for large lists.
+- Keep expensive computation out of render paths.
+- Prefer incremental/streaming patterns for long-running tasks (inference, STT).
 
-Multiple changes (multiline body):
-```
-04/03/2026 - Phase 1: LLM pipeline - #3
+## Developer comments (high-signal only)
+- Comment the "why", not the "what".
+- 1-2 lines max; technical and precise.
+- Comment around complex async flow, fallback behavior, and architectural trade-offs.
+- Remove stale comments when code changes.
 
-· Add llamaRnAdapter implementing ILLMEngine
-· Add model download with resumable support
-· Add EnsureModelLoadedUseCase
-· Add streaming token debounce in ChatViewModel
-```
-
-Feature completion:
-```
-04/03/2026 - Complete memory pipeline (extraction + injection + toast) - #12
-```
-
-Bug fix:
-```
-04/03/2026 - Fix streaming cursor not clearing after generation ends - #13
-```
-
-## Branch Naming
-
-```
-feature/[short-name]       ← new feature work
-fix/[short-name]           ← bug fix
-refactor/[short-name]      ← refactoring, no behaviour change
-docs/[short-name]          ← documentation only
-phase/[phase-number]       ← phase-level branch (e.g. phase/1-llm-pipeline)
-```
-
-Examples:
-- `feature/reply-to-message`
-- `fix/streaming-cursor-clear`
-- `phase/2-chat-ui`
-
-## Rules
-
-- Never commit directly to `main` - always use a branch + PR
-- Never commit generated files (`node_modules/`, `.expo/`, `*.gguf`, `*.bin`)
-- Never commit `.env` or any file containing secrets or API keys
-- Serial number `#N` must be unique across the entire commit history - check the last commit before pushing
-- PR title must match the commit message format
-- **Always stage and commit ALL modified and untracked files** (`git add -A`) - never cherry-pick only the files changed in the current session. Every dirty file in the working tree goes into the commit.
-- Never commit without explicit user permission or request
+## Testing and reliability
+- Add or update tests for critical logic changes and bug fixes.
+- Unit tests for use cases and ViewModels; integration tests for key user flows.
+- Keep tests deterministic; no time or network flakiness.
+- Do not change behavior without validation.
 
 ---
 > Source: [Sandipan006/lokalmind-app](https://github.com/Sandipan006/lokalmind-app) — distributed by [TomeVault](https://tomevault.io).
