@@ -1,14 +1,14 @@
-## dropdown-navigation-accessibility
+## flip-card-accessibility
 
-> Dropdown Navigation component accessibility compliance pattern
+> Flip Card component accessibility compliance pattern
 
-# Dropdown Navigation Component Accessibility Standards
+# Flip Card Component Accessibility Standards
 
-Ensures dropdown navigation components follow WCAG compliance and proper navigation semantics, including mobile modal patterns and disclosure controls.
+Ensures flip card components follow WCAG compliance and provide proper state management for screen reader users.
 
 <rule>
-name: dropdown_navigation_accessibility_standards
-description: Enforce dropdown navigation component accessibility standards and proper navigation semantics
+name: flip_card_accessibility_standards
+description: Enforce flip card component accessibility standards and proper state management
 filters:
   - type: file_extension
     pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
@@ -16,368 +16,365 @@ filters:
 actions:
   - type: enforce
     conditions:
-      # Navigation landmark requirement
-      - pattern: "(?i)<nav[^>]*(?:navigation|menu|dropdown)[^>]*>"
-        pattern_negate: "(aria-label|aria-labelledby)=\"[^\"]+\""
-        message: "Navigation elements must have aria-label or aria-labelledby attribute for accessibility."
+      # Flip button requirement
+      - pattern: "(?i)<(div|section)[^>]*(?:card|flip)[^>]*>"
+        pattern_negate: "<button[^>]*aria-pressed"
+        message: "Flip cards must contain a button with aria-pressed attribute to control card state."
 
-      # Navigation list structure requirement
-      - pattern: "(?i)<nav[^>]*(?:navigation|menu|dropdown)[^>]*>"
-        pattern_negate: "<ul[^>]*>"
-        message: "Navigation should use unordered list (ul) for proper semantic structure."
+      # aria-pressed attribute requirement
+      - pattern: "(?i)<button[^>]*(?:flip|card)[^>]*>"
+        pattern_negate: "aria-pressed=\"(true|false)\""
+        message: "Flip card buttons must have aria-pressed attribute set to 'true' or 'false'."
 
-      # Dropdown button role requirement
-      - pattern: "(?i)<(button|div|span)[^>]*(?:dropdown|expand|collapse)[^>]*>"
-        pattern_negate: "role=\"button\""
-        message: "Dropdown controls must have role='button' (or use native button element which has implicit role)."
+      # Card front/back structure requirement
+      - pattern: "(?i)<(div|section)[^>]*(?:card|flip)[^>]*>"
+        pattern_negate: "(card--front|card--back|front|back)"
+        message: "Flip cards must have both front and back content sections for proper structure."
 
-      # Dropdown button aria-expanded requirement
-      - pattern: "(?i)<[^>]*role=\"button\"[^>]*(?:dropdown|expand|collapse)[^>]*>"
-        pattern_negate: "aria-expanded=\"(true|false)\""
-        message: "Dropdown controls must have aria-expanded attribute set to 'true' or 'false'."
+      # Unique accessible name requirement
+      - pattern: "(?i)<button[^>]*aria-pressed[^>]*>"
+        pattern_negate: "(aria-label|aria-labelledby|>.*[A-Za-z]{10,})"
+        message: "Flip card buttons must have unique, descriptive accessible names that reference visible card content."
 
-      # Dropdown content missing proper identification
-      - pattern: "(?i)<(div|section)[^>]*(?:dropdown.*content|content.*dropdown)[^>]*>"
-        pattern_negate: "id=\"[^\"]+\""
-        message: "Dropdown content must have unique ID attributes for aria-controls reference."
+      # Keyboard focus indicator requirement
+      - pattern: "(?i)<(div|section)[^>]*(?:card|flip)[^>]*>"
+        pattern_negate: "(focus|:focus|focus-visible|:focus-visible)"
+        message: "Flip card containers should have visible keyboard focus indicators when the flip button is focused."
 
-      # Missing aria-current on navigation items
-      - pattern: "(?i)<a[^>]*(?:nav|navigation)[^>]*>"
-        pattern_negate: "aria-current=\"(page|false)\""
-        message: "Navigation links should have aria-current attribute set to 'page' for active items or 'false' for inactive."
+      # Content visibility management
+      - pattern: "(?i)aria-pressed=\"(true|false)\""
+        pattern_negate: "(visibility.*hidden|display.*none|hidden)"
+        message: "Use aria-pressed state to control content visibility - false shows front, true shows back. Prefer visibility: hidden/visible for smooth animations."
 
-      # Mobile modal missing dialog role
-      - pattern: "(?i)<(div|section)[^>]*(?:mobile.*nav|nav.*mobile|modal.*nav)[^>]*>"
-        pattern_negate: "role=\"dialog\""
-        message: "Mobile navigation modal containers must have role='dialog' attribute."
+      # Missing flip button type
+      - pattern: "(?i)<button[^>]*(?:flip|card)[^>]*>"
+        pattern_negate: "type=\"button\""
+        message: "Flip card buttons should have type='button' to prevent form submission behavior."
 
-      # Mobile modal missing aria-modal
-      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*(?:mobile.*nav|nav.*mobile)[^>]*>"
-        pattern_negate: "aria-modal=\"true\""
-        message: "Mobile navigation dialog elements must have aria-modal='true' attribute."
-
-      # Mobile modal missing proper labeling
-      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*(?:mobile.*nav|nav.*mobile)[^>]*>"
-        pattern_negate: "(aria-labelledby|aria-label)"
-        message: "Mobile navigation dialog elements must have either aria-labelledby or aria-label for accessibility."
-
-      # Mobile launcher missing aria-haspopup
-      - pattern: "(?i)<button[^>]*(?:mobile.*nav|nav.*mobile|hamburger|menu)[^>]*>"
-        pattern_negate: "aria-haspopup=\"dialog\""
-        message: "Mobile navigation launcher buttons must include aria-haspopup='dialog' to inform users a dialog will open."
-
-      # Mobile close button missing aria-label
-      - pattern: "(?i)<button[^>]*(?:close|dismiss|×|&times;)[^>]*(?:mobile.*nav|nav.*mobile)[^>]*>"
-        pattern_negate: "aria-label=\"[^\"]*[Cc]lose[^\"]*\""
-        message: "Mobile navigation close buttons should have aria-label='Close navigation' or similar descriptive text."
-
-      # Missing keyboard event handlers for dropdown
-      - pattern: "(?i)<[^>]*role=\"button\"[^>]*(?:dropdown|expand|collapse)[^>]*>"
-        pattern_negate: "(onKeyDown|onkeydown|@keydown|v-on:keydown)"
-        message: "Dropdown controls should handle keyboard events (Enter, Space, and Escape)."
-
-      # Missing Escape key support for dropdown content
-      - pattern: "(?i)<div[^>]*(?:dropdown.*content|content.*dropdown)[^>]*>"
-        pattern_negate: "(onKeyDown|onkeydown|@keydown|v-on:keydown)"
-        message: "Dropdown content areas should handle Escape key to close dropdown and return focus to launcher."
-
-      # Incorrect menu role usage
-      - pattern: "(?i)role=\"(menu|menuitem|menubar|menuitemcheckbox|menuitemradio)\""
-        message: "Navigation components should NOT use menu roles. Use proper navigation semantics with ul/li/a elements."
-
-      # Incorrect aria-haspopup usage
-      - pattern: "(?i)aria-haspopup=\"(true|menu|listbox)\""
-        pattern_negate: "aria-haspopup=\"dialog\""
-        message: "Navigation components should NOT use aria-haspopup except for mobile modal launchers with aria-haspopup='dialog'."
+      # Incomplete card structure
+      - pattern: "(?i)<div[^>]*class=\"card[^>]*>"
+        pattern_negate: "(card--front.*card--back|card--back.*card--front)"
+        message: "Flip cards must contain both front and back content sections for proper functionality."
 
   - type: suggest
     message: |
-      **Dropdown Navigation Component Accessibility Best Practices:**
+      **Flip Card Component Accessibility Best Practices:**
 
-      **Navigation Semantics:**
-      - **role='navigation':** Implicit on nav element, provides landmark
-      - **aria-label/aria-labelledby:** On nav element to describe the navigation
-      - **aria-current:** Set on active navigation items ('page' for current page, 'false' for inactive)
-      - **ul + li + a:** Use semantic list structure for navigation items
-      - **NO menu roles:** Do not use role="menu", role="menuitem", etc.
+      **Required ARIA Attributes:**
+      - **aria-pressed:** 'false' shows front content, 'true' shows back content
+      - **type="button":** Prevents form submission behavior
+      - **Unique accessible name:** Should reference visible card content
 
-      **Dropdown Disclosure Pattern:**
-      - **role='button':** Set on dropdown launcher elements (or use native button)
-      - **aria-expanded:** 'true' if dropdown content is visible, 'false' if hidden
-      - **aria-controls:** Reference to the ID of the associated dropdown content
-      - **aria-current:** Set on active dropdown items
+      **DOM Structure Requirements:**
+      - Card container with front and back content sections
+      - Flip button positioned between or adjacent to content sections
+      - Use CSS display: none to hide non-visible content
+      - Maintain logical reading order in the DOM
 
-      **Mobile Modal Pattern:**
-      - **role='dialog':** Set on mobile navigation modal container
-      - **aria-modal='true':** Indicates the dialog is modal
-      - **aria-labelledby/aria-label:** On mobile dialog for accessibility
-      - **aria-haspopup='dialog':** Set on mobile launcher button
-      - **aria-label:** Set on mobile close button
+      **Content Visibility Management:**
+      - **aria-pressed="false":** Show front content, hide back content
+      - **aria-pressed="true":** Show back content, hide front content
+      - Use CSS display property for smooth transitions
+      - Ensure only one side is visible at a time
 
-      **Keyboard Interaction Requirements:**
-      - **Tab:** Move through natural tab order on page
-      - **Enter:** Activate links
-      - **Space/Enter:** Open/close dropdown when launcher is focused
-      - **Escape:** Close dropdown component (launcher focused or not)
-      - **NO auto-open:** Do not open dropdown on keyboard focus
-      - **Mobile:** Focus management for modal open/close
+      **Keyboard and Focus Requirements:**
+      - **Enter:** Toggle card state
+      - **Space:** Toggle card state
+      - **Tab:** Move focus to next focusable element
+      - **Shift+Tab:** Move focus to previous focusable element
+      - **Focus indicator:** Should wrap the card content container
+      - **Hover state:** Blue border matching focus indicator for visual consistency
 
-      **Mouse Interaction Requirements:**
-      - **Hover:** Show underline on links
-      - **Hover:** Open dropdown, close on mouse-away
-      - **Click:** Activate links (include mouse-specific click handlers)
-      - **Mobile:** Click launcher opens modal, click close button closes modal
-      - **Double-click:** Mobile dropdown launchers navigate to associated page
-
-      **Mobile Interaction Requirements:**
-      - **Three-line button:** Opens modal, focus moves to first focusable item
-      - **X close button:** Closes modal, focus returns to launcher
-      - **Dropdown launcher:** Reveals content section, single-click toggles, double-click navigates
-      - **Focus management:** Proper focus trapping and restoration
-
-      **Implementation Patterns:**
-
-      **Desktop Navigation Structure:**
+      **Implementation Example:**
       ```html
-      <header>
-        <nav aria-label="Main navigation">
-          <ul>
-            <li>
-              <a href="/home" aria-current="page">Home</a>
-            </li>
-            <li>
-              <button type="button"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="products-dropdown">
-                Products
-                <span class="chevron">▼</span>
-              </button>
-              <div id="products-dropdown" hidden>
-                <ul>
-                  <li><a href="/products/category1">Category 1</a></li>
-                  <li><a href="/products/category2">Category 2</a></li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <a href="/about" aria-current="false">About</a>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      ```
+      <!-- ✅ Correct: Proper flip card structure -->
+      <div class="card">
+        <div class="card--front">
+          <h3>Card Title</h3>
+          <img src="front-image.jpg" alt="Front view of the product">
+        </div>
 
-      **Mobile Navigation Structure:**
-      ```html
-      <header>
         <button type="button"
-                aria-haspopup="dialog"
-                aria-label="Open navigation menu"
-                onclick="openMobileNav()">
-          <span class="hamburger">☰</span>
+                class="flip-button"
+                aria-pressed="false"
+                aria-label="More about Card Title">
         </button>
-      </header>
 
-      <div role="dialog"
-           aria-modal="true"
-           aria-labelledby="mobile-nav-title"
-           class="mobile-nav-modal"
-           hidden>
-        <button type="button"
-                aria-label="Close navigation menu"
-                onclick="closeMobileNav()">
-          ×
-        </button>
-        <h2 id="mobile-nav-title">Navigation</h2>
-        <nav aria-label="Mobile navigation">
-          <ul>
-            <li>
-              <a href="/home" aria-current="page">Home</a>
-            </li>
-            <li>
-              <button type="button"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="mobile-products-dropdown"
-                      data-href="/products">
-                Products
-                <span class="chevron">▼</span>
-              </button>
-              <div id="mobile-products-dropdown" hidden>
-                <ul>
-                  <li><a href="/products/category1">Category 1</a></li>
-                  <li><a href="/products/category2">Category 2</a></li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <a href="/about" aria-current="false">About</a>
-            </li>
-          </ul>
-        </nav>
+        <div class="card--back">
+          <p class="card--tagline">Inspiring content</p>
+          <img src="back-image-1.jpg" alt="Product detail view 1">
+          <img src="back-image-2.jpg" alt="Product detail view 2">
+          <img src="back-image-3.jpg" alt="Product detail view 3">
+          <p>More detailed content about the product</p>
+          <a href="/product-details">
+            <img src="link-icon.svg" alt="View full product details">
+          </a>
+        </div>
       </div>
       ```
 
-      **JavaScript for Dropdown Toggle:**
-      ```javascript
-      function toggleDropdown(button) {
-        const isExpanded = button.getAttribute('aria-expanded') === 'true';
-        const content = document.getElementById(button.getAttribute('aria-controls'));
-
-        button.setAttribute('aria-expanded', !isExpanded);
-        content.hidden = isExpanded;
-
-        // Update chevron icon
-        const chevron = button.querySelector('.chevron');
-        if (chevron) {
-          chevron.textContent = isExpanded ? '▼' : '▲';
-        }
-
-        if (!isExpanded) {
-          // Add escape key listener to content
-          content.addEventListener('keydown', handleDropdownEscapeKey);
-        } else {
-          // Remove escape key listener
-          content.removeEventListener('keydown', handleDropdownEscapeKey);
-        }
+      **CSS Implementation:**
+      ```css
+      .card {
+        position: relative;
+        perspective: 1000px;
+        /* Focus indicator for keyboard navigation */
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        /* Visual affordance for clickable card */
+        cursor: pointer;
       }
 
-      function handleDropdownEscapeKey(event) {
-        if (event.key === 'Escape') {
-          const content = event.target.closest('[hidden]');
-          if (content) {
-            const button = document.querySelector(`[aria-controls="${content.id}"]`);
-            if (button) {
-              button.setAttribute('aria-expanded', 'false');
-              content.hidden = true;
-              button.focus(); // Return focus to launcher
-              content.removeEventListener('keydown', handleDropdownEscapeKey);
-            }
-          }
+      .card:focus-within {
+        outline-color: #0056b3;
+        outline-width: 3px;
+      }
+
+      .card:hover {
+        outline-color: #0056b3;
+        outline-width: 3px;
+      }
+
+      .card--front,
+      .card--back {
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
+      }
+
+      /* Show front by default */
+      .card--front {
+        visibility: visible;
+        opacity: 1;
+        transform: rotateY(0deg);
+      }
+
+      .card--back {
+        visibility: hidden;
+        opacity: 0;
+        transform: rotateY(180deg);
+      }
+
+      /* Show back when aria-pressed="true" */
+      .card[data-pressed="true"] .card--front {
+        visibility: hidden;
+        opacity: 0;
+        transform: rotateY(-180deg);
+      }
+
+      .card[data-pressed="true"] .card--back {
+        visibility: visible;
+        opacity: 1;
+        transform: rotateY(0deg);
+      }
+
+      .flip-button {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: #0056b3;
+        color: #ffffff;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        line-height: 1;
+      }
+
+      .flip-button:hover {
+        background: #004085;
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(0, 86, 179, 0.3);
+      }
+
+      .flip-button:focus {
+        outline: 3px solid #ffd700;
+        outline-offset: 2px;
+        background: #004085;
+      }
+
+      .flip-button:active {
+        transform: scale(0.95);
+      }
+
+      /* Button icon states */
+      .flip-button::before {
+        content: "↻"; /* Circular arrow icon for front state */
+        transition: all 0.3s ease;
+      }
+
+      /* Show X icon when back is visible */
+      .card[data-pressed="true"] .flip-button::before {
+        content: "×"; /* X icon for back state */
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      /* Reduced motion support */
+      @media (prefers-reduced-motion: reduce) {
+        .card--front,
+        .card--back {
+          transition: none;
+        }
+
+        .flip-button {
+          transition: none;
+        }
+
+        .flip-button:hover {
+          transform: none;
+          box-shadow: none;
+        }
+
+        .flip-button:active {
+          transform: none;
+        }
+
+        .card {
+          transition: none;
         }
       }
       ```
 
-      **JavaScript for Mobile Modal:**
+      **JavaScript State Management:**
       ```javascript
-      function openMobileNav() {
-        const modal = document.querySelector('.mobile-nav-modal');
-        const closeButton = modal.querySelector('button[aria-label*="Close"]');
+      const flipCards = document.querySelectorAll('.card');
 
-        modal.hidden = false;
-        closeButton.focus(); // Focus first focusable element
-      }
+      flipCards.forEach(card => {
+        const button = card.querySelector('.flip-button');
+        const front = card.querySelector('.card--front');
+        const back = card.querySelector('.card--back');
 
-      function closeMobileNav() {
-        const modal = document.querySelector('.mobile-nav-modal');
-        const launcher = document.querySelector('[aria-haspopup="dialog"]');
+        function toggleCard() {
+          const isPressed = button.getAttribute('aria-pressed') === 'true';
+          const newState = !isPressed;
 
-        modal.hidden = true;
-        launcher.focus(); // Return focus to launcher
-      }
+          // Update ARIA state
+          button.setAttribute('aria-pressed', newState);
 
-      // Handle escape key for mobile modal
-      document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-          const modal = document.querySelector('.mobile-nav-modal');
-          if (!modal.hidden) {
-            closeMobileNav();
-          }
+          // Update card data attribute for CSS
+          card.setAttribute('data-pressed', newState);
+
+          // Announce state change to screen readers
+          const announcement = newState ? 'Showing back of card' : 'Showing front of card';
+          announceToScreenReader(announcement);
         }
-      });
 
-      // Mobile dropdown click and double-click handlers
-      document.addEventListener('DOMContentLoaded', function() {
-        const mobileDropdownButtons = document.querySelectorAll('.mobile-dropdown-button');
+        // Button click handler
+        button.addEventListener('click', (event) => {
+          event.stopPropagation(); // Prevent card click when button is clicked
+          toggleCard();
+        });
 
-        mobileDropdownButtons.forEach(button => {
-          // Single click toggles dropdown
-          button.addEventListener('click', (event) => {
+        // Card container click handler for mouse/touch users
+        card.addEventListener('click', toggleCard);
+
+        // Keyboard handler
+        button.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
-            toggleDropdown(button);
-          });
-
-          // Double click navigates to page
-          button.addEventListener('dblclick', (event) => {
-            event.preventDefault();
-            const href = button.getAttribute('data-href') || '/default';
-            window.location.href = href;
-          });
+            toggleCard();
+          }
         });
       });
-      ```
 
-      **CSS for Hover Interactions:**
-      ```css
-      /* Link hover underline */
-      nav a:hover {
-        text-decoration: underline;
-      }
+      // Screen reader announcement helper
+      function announceToScreenReader(message) {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.className = 'sr-only';
+        announcement.textContent = message;
 
-      /* Dropdown hover behavior */
-      .dropdown-launcher:hover + .dropdown-content,
-      .dropdown-content:hover {
-        display: block;
-      }
+        document.body.appendChild(announcement);
 
-      .dropdown-content {
-        display: none;
-      }
-
-      /* Chevron rotation */
-      .chevron {
-        transition: transform 0.2s ease;
-      }
-
-      button[aria-expanded="true"] .chevron {
-        transform: rotate(180deg);
+        setTimeout(() => {
+          document.body.removeChild(announcement);
+        }, 1000);
       }
       ```
 
-      **JavaScript Considerations:**
-      - Implement proper event listeners for all keyboard interactions
-      - Handle mouse hover events for dropdown display
-      - Manage focus for mobile modal open/close
-      - Update aria-current states based on current page
-      - Handle chevron icon rotation
-      - Implement proper escape key handling
-      - Ensure no auto-opening on keyboard focus
-      - Handle mouse-specific click events for navigation
-      - Implement double-click navigation for mobile dropdown launchers
+      **Accessibility Guidelines:**
 
-      **Accessibility Notes:**
-      - Navigation is NOT a menu - use proper navigation semantics
-      - Avoid menu roles and aria-haspopup (except mobile modal)
-      - Ensure proper focus management for mobile modal
-      - Test with screen readers for proper announcement
-      - Maintain clear visual indicators for active states
-      - Consider implementing skip links for large navigation
-      - Ensure sufficient color contrast for all navigation elements
-      - Test keyboard navigation flow thoroughly
+      **Button Requirements:**
+      - Must have type="button" to prevent form submission
+      - aria-pressed attribute must be present and toggle between "true" and "false"
+      - Accessible name should reference visible card content via aria-label
+      - Should handle both click and keyboard events
+      - Position in top-right corner for intuitive placement
+      - Use dynamic icons: ↻ (arrow) for front state, × (X) for back state
 
-      **Testing Requirements:**
-      - Test keyboard navigation through all navigation items
-      - Verify dropdown opens/closes with keyboard and mouse
-      - Test mobile modal focus management
-      - Verify screen reader announcement of navigation structure
-      - Test aria-current updates correctly
-      - Ensure escape key closes dropdowns and modals
-      - Test hover interactions work as expected
-      - Verify no auto-opening on keyboard focus
+      **Card Container Interaction:**
+      - **Mouse/Touch Support:** Allow clicking anywhere on card to flip
+      - **Visual Affordance:** Use cursor: pointer to indicate clickable area
+      - **Event Handling:** Prevent conflicts between card and button clicks
+      - **Accessibility Maintained:** All keyboard and screen reader functionality preserved
+
+      **Content Structure:**
+      - Front and back content must be present
+      - Only one side visible at a time
+      - Use semantic HTML for content (headings, paragraphs, images)
+      - Maintain logical reading order
+      - Use `visibility: hidden/visible` for smooth animations while maintaining accessibility
+
+      **Focus Management:**
+      - Focus indicator should wrap the entire card when button is focused
+      - Use :focus-within CSS pseudo-class for container focus
+      - Ensure focus indicator has sufficient contrast (3:1 minimum)
+      - Maintain focus order during state changes
+
+      **Screen Reader Support:**
+      - aria-pressed state announces current card side
+      - Consider adding aria-live region for state changes
+      - Ensure content is properly labeled and described
+      - Test with screen readers to verify announcements
+
+      **Animation Considerations:**
+      - Use CSS transitions for smooth flipping effects
+      - Ensure animations don't interfere with accessibility
+      - **Always implement prefers-reduced-motion media query**
+      - Remove all animations, transforms, and transitions when reduced motion is preferred
+      - Maintain content visibility during transitions
+      - Respect user's motion sensitivity preferences
+
+      **Button Design Best Practices:**
+      - **Positioning**: Place in top-right corner for intuitive access
+      - **Shape**: Use circular design for modern, clean appearance
+      - **Icons**: Implement dynamic icons that change with card state
+        - Front state: ↻ (circular arrow) indicating "click to flip"
+        - Back state: × (X) indicating "click to return"
+      - **Visual Feedback**: Include hover, focus, and active states
+      - **Accessibility**: Maintain aria-label for screen reader context
+      - **Responsive**: Scale appropriately for different card sizes
+
+      **Testing Checklist:**
+      - Verify aria-pressed toggles correctly
+      - Test keyboard navigation (Enter, Space, Tab)
+      - Check focus indicator visibility and contrast
+      - Validate screen reader announcements
+      - Test content visibility changes
+      - Verify accessible names are descriptive via aria-label
+      - Check that only one side is visible at a time
+      - Verify button positioning in top-right corner
+      - Test dynamic icon changes (↻ to ×) with state changes
+      - Ensure button remains accessible in all card states
+      - Validate responsive button sizing for different card layouts
+      - Test card container click functionality (anywhere on card)
+      - Verify hover states show blue border matching focus indicator
+      - Check cursor pointer appears on card hover
+      - Ensure no conflicts between card and button click events
+      - Test reduced motion preference support (prefers-reduced-motion: reduce)
+      - Verify all animations are disabled when reduced motion is preferred
 
 metadata:
   priority: high
   version: 1.0
 </rule>
-description:
-globs:
-alwaysApply: false
----
-description:
-globs:
-alwaysApply: false
----
 
 ---
 > Source: [Shopify/horizon](https://github.com/Shopify/horizon) — distributed by [TomeVault](https://tomevault.io).
