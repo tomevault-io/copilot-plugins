@@ -4,7 +4,7 @@
   "repo": "FuckingCheapFlipperZero-DIY-Flipper-zero-The-real-on",
   "description": "DIY suitable forced open source hw Flipper zero + Momentum optimized to run on it. Off the shelf modules, arduino skill level needed only, price from 10 (minimal)  to 30 (complete) euros per build ",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GthiN89/FuckingCheapFlipperZero-DIY-Flipper-zero-The-real-on",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T09:17:45Z"
+  "distributed_at": "2026-05-09T19:50:26Z"
 }
