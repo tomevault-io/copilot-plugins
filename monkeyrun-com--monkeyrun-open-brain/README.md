@@ -2,20 +2,22 @@
 
 > Source: [MonkeyRun-com/monkeyrun-open-brain](https://github.com/MonkeyRun-com/monkeyrun-open-brain) — distributed by [TomeVault](https://tomevault.io)
 
+Open Brain — personal knowledge/memory MCP server for AI agents
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [MonkeyRun-com/monkeyrun-open-brain](https://github.com/MonkeyRun-com/monkeyrun-open-brain).
+Original source: `CLAUDE.md` in [MonkeyRun-com/monkeyrun-open-brain](https://github.com/MonkeyRun-com/monkeyrun-open-brain).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [MonkeyRun-com/monkeyrun-open-brain](https://github.com/MonkeyRun-com/monkeyrun-open-brain) — a repo with 0+ stars on GitHub.
+From [MonkeyRun-com/monkeyrun-open-brain](https://github.com/MonkeyRun-com/monkeyrun-open-brain) — a repo with 9+ stars on GitHub.
 
 ---
 
