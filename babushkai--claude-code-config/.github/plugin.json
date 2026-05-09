@@ -1,0 +1,9 @@
+{
+  "name": "babushkai--claude-code-config",
+  "displayName": "claude-code-config",
+  "description": "Production-ready Claude Code configuration defaults. Hooks, Skills, Rules, Permissions, MCP \u2014 one-command setup.",
+  "version": "1.0.0",
+  "author": "babushkai",
+  "homepage": "https://github.com/babushkai/claude-code-config",
+  "skills": []
+}
