@@ -1,0 +1,9 @@
+{
+  "name": "wotai-dev--woterclip",
+  "displayName": "woterclip",
+  "description": "Linear-backed agent orchestration for Claude Code - persona-based task routing with heartbeat loops",
+  "version": "1.0.0",
+  "author": "wotai-dev",
+  "homepage": "https://github.com/wotai-dev/woterclip",
+  "skills": []
+}
