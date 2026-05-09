@@ -1,0 +1,9 @@
+{
+  "name": "nixarn--atmanforge",
+  "displayName": "atmanforge",
+  "description": "Free, open source AI image editor for macOS. Use your own API key via Replicate with Gemini, GPT-Image, and more.",
+  "version": "1.0.0",
+  "author": "Nixarn",
+  "homepage": "https://github.com/Nixarn/atmanforge",
+  "skills": []
+}
