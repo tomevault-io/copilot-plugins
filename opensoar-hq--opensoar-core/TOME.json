@@ -4,7 +4,7 @@
   "repo": "opensoar-core",
   "description": "Open-source SOAR platform \u2014 Python-native playbooks, real-time alert ingestion, AI-ready architecture",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/opensoar-hq/opensoar-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T15:31:08Z"
+  "distributed_at": "2026-05-09T06:42:05Z"
 }
