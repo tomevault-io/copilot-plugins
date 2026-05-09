@@ -1,458 +1,474 @@
-## components
+## integrations
 
-> description: React component patterns and WebGL integration
+> description: Third-party integration guidelines (Sanity, Shopify, HubSpot, etc.)
 
 ---
-description: React component patterns and WebGL integration
-globs: *.tsx, *.jsx, *.js, *.ts
+description: Third-party integration guidelines (Sanity, Shopify, HubSpot, etc.)
+globs: *.tsx, *.jsx, *.css, *.js, *.ts
 ---
 
-# Component Guidelines
+# Third-Party Integration Guidelines
 
-## Imports and Dependencies
+## Sanity CMS Integration
 
-### Utility Functions
-Always use `cn` from `clsx` for className conditionals
+### Configuration & Setup
+Use CDN for performance with stega for visual editing. Store credentials securely in environment variables. All Sanity files are organized in `/integrations/sanity/` directory.
 
-```tsx
-import cn from 'clsx'
-
-function MyComponent({ className }) {
-  return <div className={cn(s.component, className)} />
-}
-```
-
-### Base UI Components
-Use components from `@base-ui-components/react` when available
-
-```tsx
-import { Select } from '@base-ui-components/react/select'
-```
-
-### Animation Libraries
-- Use `gsap` for complex animations
-- Use `lenis` for smooth scrolling
-- Use `tempus` for timing utilities
-- Use `hamo` for DOM utilities
-
-## Component Structure
-
-### CSS Modules
-Use CSS modules for component styling. Import styles as `s`
-
-```tsx
-import s from './component-name.module.css'
-```
-
-### Client Components
-Add 'use client' directive for client components
-
-```tsx
-'use client'
-
-import { useState } from 'react'
-```
-
-### Props Interface
-Define props interface at the top of the file. Extend HTML attributes when appropriate.
-
-```tsx
-import type { ComponentProps } from 'react'
-
-interface ButtonProps extends ComponentProps<'button'> {
-  variant?: 'primary' | 'secondary'
-  size?: 'sm' | 'md' | 'lg'
-}
-```
-
-### React 19 Ref Handling
-In React 19, ref is passed as a regular prop (no forwardRef needed)
-
-```tsx
-// Old pattern (React 18)
-// const Button = forwardRef<HTMLButtonElement, ButtonProps>(...)
-
-// New pattern (React 19)
-function Button({ ref, variant = 'primary', ...props }: ButtonProps & { ref?: React.Ref<HTMLButtonElement> }) {
-  return <button ref={ref} {...props} />
-}
-```
-
-### Default Exports
-Use named function declarations for components. Export the component as default.
-
-```tsx
-function Button({ variant = 'primary', size = 'md', ...props }: ButtonProps) {
-  // component logic
-}
-
-export default Button
-```
-
-## Form Components
-
-### Form Handling
-- Use custom form hooks when appropriate
-- Connect to integrations for external services
-- Implement proper validation
-
-```tsx
-import { useForm } from '~/components/form/hook'
-import { HubspotNewsletterAction } from '~/integrations/hubspot/action'
-```
-
-### Server Actions
-Use Server Actions for form submissions when possible. Implement proper error handling.
-
-```tsx
-async function submitForm(formData: FormData) {
-  'use server'
-  // server-side logic
-}
-```
-
-## Responsive Design
-
-### Device Detection
-Use `useDeviceDetection` hook from `~/hooks` for responsive logic
-
-```tsx
-import { useDeviceDetection } from '~/hooks/use-device-detection'
-
-function ResponsiveComponent() {
-  const { isMobile } = useDeviceDetection()
-  return isMobile ? <MobileVersion /> : <DesktopVersion />
-}
-```
-
-### Viewport Units
-Use custom viewport units for responsive values (see styling.mdc for details)
-
-```css
-.element {
-  width: mobile-vw(150);
-  margin-top: desktop-vh(100);
-}
-```
-
-## Performance Best Practices
-
-### Code Splitting
-Use `next/dynamic` for heavy components
-
-```tsx
-import dynamic from 'next/dynamic'
-
-const HeavyComponent = dynamic(() => import('./HeavyComponent'), {
-  loading: () => <div>Loading...</div>,
-  ssr: false // if needed
+```typescript
+// In integrations/sanity/client.ts
+export const client = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  apiVersion: '2024-03-15',
+  useCdn: true, // Use CDN for better performance
+  token: process.env.SANITY_API_WRITE_TOKEN, // Write token for editing
+  stega: {
+    studioUrl: process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || '/studio',
+  },
 })
 ```
 
-### Memoization
-See main.mdc for React Compiler guidance - manual memoization is rarely needed.
+### Schema Management
 
-## Error Handling
+#### Content Modelling
+- Unless explicitly modelling web pages or app views, create content models for what things are, not what they look like in a front-end
+- For example, consider the `status` of an element instead of its `color`
 
-### Error Boundaries
-Implement error boundaries for critical sections. Provide meaningful fallback UI.
+#### Basic Schema Types
+- ALWAYS use the `defineType`, `defineField`, and `defineArrayMember` helper functions
+- ALWAYS write schema types to their own files and export a named `const` that matches the filename
+- ONLY use a `name` attribute in fields unless the `title` needs to be something other than a title-case version of the `name`
+- ANY `string` field type with an `options.list` array with fewer than 5 options must use `options.layout: "radio"`
+- ANY `image` field must include `options.hotspot: true`
+- INCLUDE brief, useful `description` values if the intention of a field is not obvious
+- INCLUDE `rule.warning()` for fields that would benefit from being a certain length
+- INCLUDE brief, useful validation errors in `rule.required().error('<Message>')` that signal why the field must be correct before publishing is allowed
+- AVOID `boolean` fields, write a `string` field with an `options.list` configuration
+- NEVER write single `reference` type fields, always write an `array` of references
+- CONSIDER the order of fields, from most important and relevant first, to least often used last
 
-### Loading States
-Always handle loading states. Use Suspense boundaries where appropriate.
+```ts
+// ./src/schemaTypes/lessonType.ts
+import {defineField, defineType} from 'sanity'
 
----
+export const lessonType = defineType({
+  name: 'lesson',
+  title: 'Lesson',
+  type: 'document',
+  fields: [
+    defineField({
+      name: 'title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'categories',
+      type: 'array',
+      of: [defineArrayMember({type: 'reference', to: {type: 'category'}})],
+    }),
+  ],
+})
+```
 
-# WebGL Components
+#### Schema Type with Custom Input Components
+If a schema type has input components, they should be colocated with the schema type file. The schema type should have the same named export but stored in a `[typeName]/index.ts` file:
 
-## React Three Fiber Setup
+```ts
+// ./src/schemaTypes/seoType/index.ts
+import {defineField, defineType} from 'sanity'
+import seoInput from './seoInput'
 
-### Canvas Component
-Use the custom Canvas wrapper from `~/webgl/components/canvas`
+export const seoType = defineType({
+  name: 'seo',
+  title: 'SEO',
+  type: 'object',
+  components: { input: seoInput }
+  // ...
+})
+```
 
-```tsx
-import { Canvas } from '~/webgl/components/canvas'
+#### No Anonymous Reusable Schema Types
+ANY schema type that benefits from being reused in multiple document types should be registered as its own custom schema type.
 
-function Scene() {
+```ts
+// ./src/schemaTypes/blockContentType.ts
+import {defineField, defineType} from 'sanity'
+
+export const blockContentType = defineType({
+  name: 'blockContent',
+  title: 'Block content',
+  type: 'array',
+  of: [defineField({name: 'block',type: 'block'})],
+})
+```
+
+#### Decorating Schema Types
+Every `document` and `object` schema type should:
+
+- Have an `icon` property from `@sanity/icons`
+- Have a customized `preview` property that shows rich contextual details about the document
+- Use `groups` when the schema type has more than a few fields to collate related fields and only show the most important group by default. These `groups` should use the icon property as well.
+- Use `fieldsets` with `options: {columns: 2}` if related fields could be grouped visually together, such as `startDate` and `endDate`
+
+### Visual Editing
+Always add `data-sanity` attributes for visual editing. Use SanityContextProvider for document access. Implement proper draft mode handling. Import from `/integrations/sanity` directory.
+
+```typescript
+import { useSanityContext, RichText } from '~/integrations/sanity'
+
+export function MyComponent() {
+  const { document } = useSanityContext()
+  
   return (
-    <Canvas
-      camera={{ position: [0, 0, 5], fov: 50 }}
-      gl={{ antialias: true, alpha: true }}
-    >
-      {/* 3D content */}
-    </Canvas>
+    <div data-sanity={document._id}>
+      <h1 data-sanity="title">{document.title}</h1>
+      <div data-sanity="content">
+        <RichText content={document.content} />
+      </div>
+    </div>
   )
 }
 ```
 
-## WebGL File Organization
+### Data Fetching
+Use proper perspective for draft vs published content. Implement caching strategies for performance. Handle errors gracefully with try-catch. Import from `/integrations/sanity` directory. Use `~/libs/metadata` helpers for SEO optimization. All `sanityFetch` calls automatically use `cacheSignal()` for request cleanup.
 
-Separate WebGL logic into `webgl.tsx` files. Keep React logic in main component files.
+```typescript
+// In integrations/sanity/queries.ts
+import { sanityFetch } from './live'
+import { generateSanityMetadata } from '~/libs/metadata'
 
-```
-components/
-  scene/
-    index.tsx         # React component
-    webgl.tsx         # Three.js logic
-    scene.module.css  # Styles
-```
-
-### WebGL Component Pattern
-
-```tsx
-// scene/webgl.tsx
-import { useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
-import type { Mesh } from 'three'
-
-export default function SceneWebGL() {
-  const meshRef = useRef<Mesh>(null)
-  
-  useFrame((state, delta) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += delta
-    }
+// Use sanityFetch (automatically includes cacheSignal)
+export async function fetchSanityPage(slug: string, isDraftMode = false) {
+  const { data, error } = await sanityFetch({
+    query: pageQuery,
+    params: { slug },
+    isDraftMode
   })
   
-  // Simple logs are auto-stripped in production by Next.js
-  console.log('SceneWebGL rendered')
-  
-  return (
-    <mesh ref={meshRef}>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="hotpink" />
-    </mesh>
-  )
-}
-```
-
-## Drei Components
-
-### Common Helpers
-Use Drei components for common functionality
-
-```tsx
-import {
-  OrbitControls,
-  PerspectiveCamera,
-  Environment,
-  useGLTF,
-  useTexture
-} from '@react-three/drei'
-```
-
-### Loading Assets
-Preload assets using Drei hooks. Implement proper loading states.
-
-```tsx
-// Preload in separate component
-function Preload() {
-  const start = performance.now()
-  useGLTF.preload('/models/model.glb')
-  useTexture.preload('/textures/texture.jpg')
-  // Console logs auto-stripped in production by Next.js
-  console.log(`Preload took ${performance.now() - start}ms`)
-  return null
-}
-```
-
-## Custom Shaders
-
-### Shader Materials
-Use template literals for GLSL. Implement proper uniforms.
-
-```tsx
-import { shaderMaterial } from '@react-three/drei'
-import { extend } from '@react-three/fiber'
-
-const CustomMaterial = shaderMaterial(
-  { uTime: 0, uColor: new THREE.Color(0.0, 0.0, 0.0) },
-  vertexShader,
-  fragmentShader
-)
-
-extend({ CustomMaterial })
-```
-
-### GLSL Best Practices
-- Keep shaders in separate files when complex
-- Use proper precision qualifiers
-- Comment complex calculations
-
-```glsl
-precision mediump float;
-
-uniform float uTime;
-varying vec2 vUv;
-
-void main() {
-  // Shader logic
-}
-```
-
-## Animation & Interaction
-
-### Animation Loops
-Use `useFrame` for frame-based animations. Consider performance impact.
-
-```tsx
-useFrame((state, delta) => {
-  // Animation logic
-}, priority) // Lower priority = runs first
-```
-
-### Interaction
-Use Drei's interaction helpers. Implement proper hover/click states.
-
-```tsx
-import { useCursor } from '@react-three/drei'
-
-function InteractiveObject() {
-  const [hovered, setHovered] = useState(false)
-  useCursor(hovered)
-  
-  return (
-    <mesh
-      onPointerOver={() => setHovered(true)}
-      onPointerOut={() => setHovered(false)}
-    >
-      {/* geometry and material */}
-    </mesh>
-  )
-}
-```
-
-## Post-Processing
-
-### Effect Composer
-Use postprocessing library for effects. Chain effects efficiently.
-
-```tsx
-import { EffectComposer, Bloom, ChromaticAberration } from '@react-three/postprocessing'
-
-function Effects() {
-  return (
-    <EffectComposer>
-      <Bloom intensity={1.5} />
-      <ChromaticAberration offset={[0.002, 0.002]} />
-    </EffectComposer>
-  )
-}
-```
-
-### Performance Considerations
-- Limit number of passes
-- Use lower resolution for effects when possible
-- Profile performance impact
-
-## WebGL Best Practices
-
-### Memory Management
-Dispose of geometries and materials when components unmount. Clean up in useEffect return for complex resources. React Compiler handles most cleanup automatically.
-
-```tsx
-useEffect(() => {
-  // Only for complex resources that need explicit disposal
-  return () => {
-    geometry.dispose()
-    material.dispose()
-    texture.dispose()
+  if (error) {
+    console.error('fetchSanityPage error:', error)
+    return { data: null, error }
   }
-}, [geometry, material, texture])
+  
+  return { data, error: null }
+}
+
+// In page.tsx for SEO
+export async function generateMetadata({ params }) {
+  const { data } = await fetchSanityPage(params.slug)
+  return generateSanityMetadata(data)
+}
+```
+
+**Cache Components Notes:**
+- Draft mode automatically uses `cache: 'no-store'` ✅
+- Published content uses ISR with revalidation ✅
+- All queries use `cacheSignal()` for automatic cleanup ✅
+- Wrap in Suspense boundaries for proper loading states ✅
+
+### GROQ Queries
+
+- ALWAYS use SCREAMING_SNAKE_CASE for variable names, for example POSTS_QUERY
+- ALWAYS write queries to their own variables, never as a parameter in a function
+- ALWAYS import the `defineQuery` function to wrap query strings from the `groq` or `next-sanity` package
+- ALWAYS write every required attribute in a projection when writing a query
+- ALWAYS put each segment of a filter, and each attribute on its own line
+- ALWAYS use parameters for variables in a query
+- NEVER insert dynamic values using string interpolation
+
+```ts
+// In integrations/sanity/queries.ts
+import { groq } from 'next-sanity'
+
+export const pageQuery = groq`
+  *[_type == "page" && slug.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    content,
+    "imageUrl": image.asset->url,
+    _updatedAt
+  }
+`
+
+// Good query example
+import {defineQuery} from 'groq'
+
+export const POST_QUERY = defineQuery(`*[
+  _type == "post"
+  && slug.current == $slug
+][0]{
+  _id,
+  title,
+  image,
+  author->{
+    _id,
+    name
+  }
+}`)
 ```
 
 ### Performance Optimization
-See main.mdc for React Compiler guidance. For WebGL-specific object instantiation, always use `useRef`:
+Use ISR for static content with revalidation. Implement proper cache invalidation via webhooks. Optimize images with proper sizing. Use consolidated imports for better tree-shaking. Use metadata helpers for consistent SEO.
 
-```tsx
-// ⚠️ EXCEPTION: Object instantiation MUST use useRef to prevent infinite loops
-// Creating new objects on every render creates new references that trigger effects
+```typescript
+import { urlForImage } from '~/integrations/sanity'
+import { generateSanityMetadata } from '~/libs/metadata'
 
-// ❌ DON'T: This causes infinite re-renders
-const flowmap = new Flowmap()
+// Use ISR for published content
+export const revalidate = 3600
 
-// ✅ DO: Use useRef for object instantiation
-const flowmapRef = useRef<Flowmap | null>(null)
-if (!flowmapRef.current) {
-  flowmapRef.current = new Flowmap(gl, { size: 128 })
-}
-const flowmap = flowmapRef.current
-```
+// Optimize images
+<SanityImage image={document.image} maxWidth={1200} />
 
-### Responsive Design
-Handle window resizing. Adjust quality based on device capabilities.
-
-```tsx
-const { viewport } = useThree()
-// Use viewport.width, viewport.height for responsive sizing
-```
-
-## React 19.2 Activity Integration
-
-Use `<Activity />` to optimize WebGL performance by deferring off-screen scenes:
-
-```tsx
-import { Activity, useEffect, useRef, useState } from 'react'
-import { useRect } from 'hamo'
-import { WebGLTunnel } from '~/webgl/components/tunnel'
-
-export function WebGLScene({ className }) {
-  const [setRectRef, rect] = useRect()
-  const [isVisible, setIsVisible] = useState(true)
-  const elementRef = useRef<HTMLDivElement | null>(null)
-
-  // Intersection Observer with 200px margin for pre-activation
-  useEffect(() => {
-    const element = elementRef.current
-    if (!element) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { rootMargin: '200px' }
-    )
-
-    observer.observe(element)
-    return () => observer.disconnect()
-  }, [])
-
-  return (
-    // Wrap DOM container - defers rect tracking when off-screen
-    <Activity mode={isVisible ? 'visible' : 'hidden'}>
-      <div ref={(el) => { setRectRef(el); elementRef.current = el }} className={className}>
-        {/* WebGL content goes in WebGLTunnel (no Activity wrapper needed) */}
-        <WebGLTunnel>
-          <WebGLComponent rect={rect} />
-        </WebGLTunnel>
-      </div>
-    </Activity>
-  )
+// Generate SEO metadata
+export async function generateMetadata({ params }) {
+  const page = await fetchSanityPage(params.slug)
+  return generateSanityMetadata(page, {
+    title: page.seo?.title || page.title,
+    description: page.seo?.description,
+    image: page.seo?.image || page.image,
+    noIndex: page.seo?.noIndex,
+  })
 }
 ```
 
-**Pattern**: `<Activity />` → DOM container → `WebGLTunnel` → WebGL content
+### Project Structure
+All Sanity files are organized in `/integrations/sanity/` directory
 
-### Debugging
-- Use Theatre.js for animation debugging
-- Enable WebGL inspector in development
-- **Always gate debug UI components** - these are NOT auto-removed
-- Simple console logs are auto-stripped in production by Next.js
-
-```tsx
-// Simple logs: Auto-stripped in production
-console.log('WebGL state:', { fps, drawCalls, triangles })
-
-// Debug components: MUST be gated (not auto-removed)
-{process.env.NODE_ENV === 'development' && <Stats />}
-{process.env.NODE_ENV === 'development' && <Perf />}
+```
+integrations/sanity/
+├── sanity.cli.ts           # CLI configuration
+├── sanity.config.ts        # Studio configuration
+├── env.ts                  # Environment variables
+├── structure.ts            # Studio structure
+├── client.ts               # Sanity client
+├── queries.ts              # GROQ queries and fetch functions
+├── index.ts                # Main exports
+├── README.md               # Documentation
+├── schemaTypes/            # Content type definitions
+├── components/             # React components
+│   ├── context.tsx         # React context
+│   └── rich-text.tsx       # Rich text component
+└── utils/
+    └── image.ts            # Image utilities
 ```
 
-### Mobile Optimization
-- Reduce polygon count for mobile
-- Use simpler shaders
-- Implement touch controls
+### Writing Sanity Content for Importing
 
-```tsx
-const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+When asked to write content:
+
+- ONLY use the existing schema types registered in the Studio configuration
+- ALWAYS write content as an `.ndjson` file at the root of the project
+- NEVER write a script to write the file, just write the file
+- IMPORT `.ndjson` files using the CLI command `npx sanity dataset import <filename.ndjson>`
+- NEVER include a `.` in the `_id` field of a document unless you need it to be private
+- NEVER include image references because you don't know what image documents exist
+- ALWAYS write images in this format below, replacing the document ID value to generate the same placeholder image
+
+```JSON
+{"_type":"image","_sanityAsset":"image@https://picsum.photos/seed/[[REPLACE_WITH_DOCUMENT_ID]]/1920/1080"}
 ```
+
+### TypeScript Generation
+
+#### For the Studio
+ALWAYS re-run schema extraction after making schema file changes with `npx sanity@latest schema extract`
+
+#### For Monorepos
+ALWAYS use a simple pnpm workspace configuration to place the studio in `apps/studio`
+
+```
+your-project/
+└── apps/
+    ├── studio/ -> Sanity Studio
+    └── web/    -> Front-end
+```
+
+- ALWAYS extract the schema to the web folder with `npx sanity@latest schema extract --path=../<front-end-folder>/sanity/extract.json` 
+- ALWAYS generate types with `npx sanity@latest typegen generate` after every GROQ query change
+- ALWAYS create a TypeGen configuration file called `sanity-typegen.json` at the root of the front-end code-base
+
+```json
+{
+  "path": "./**/*.{ts,tsx,js,jsx}",
+  "schema": "./<front-end-folder>/sanity/extract.json",
+  "generates": "./<web-folder>/sanity/types.ts"
+}
+```
+
+#### For the Front-end
+ONLY write Types for document types and query responses if you cannot generate them with Sanity TypeGen
+
+### Project Settings and Data
+ALWAYS check if there is a way to interact with a project via the CLI before writing custom scripts `npx sanity --help`
+
+---
+
+## Shopify Integration
+
+### API Configuration
+Use GraphQL for queries. Store credentials securely.
+
+```typescript
+const shopifyClient = createShopifyClient({
+  domain: process.env.SHOPIFY_DOMAIN,
+  storefrontAccessToken: process.env.SHOPIFY_STOREFRONT_TOKEN
+})
+```
+
+### Product Management
+Use fragments for reusable queries. Implement proper error handling.
+
+```typescript
+import { PRODUCT_FRAGMENT } from '~/integrations/shopify/fragments'
+```
+
+### Cart Operations
+Use mutations for cart operations. Maintain cart state with Zustand.
+
+```typescript
+import { ADD_TO_CART } from '~/integrations/shopify/mutations'
+```
+
+---
+
+## HubSpot Forms
+
+### Form Integration
+Use Server Actions for submissions. Validate data server-side.
+
+```typescript
+export async function submitToHubspot(formData: FormData) {
+  'use server'
+  const client = new HubspotClient({
+    accessToken: process.env.HUBSPOT_ACCESS_TOKEN
+  })
+  // submission logic
+}
+```
+
+### Newsletter Subscriptions
+Implement proper consent management. Handle errors gracefully.
+
+```typescript
+import { HubspotNewsletterAction } from '~/integrations/hubspot/action'
+```
+
+---
+
+## General Integration Best Practices
+
+### Environment Variables
+- Never commit API keys
+- Use `.env.local` for development
+- Document required variables in `.env.example`
+- Use `~/libs/validate-env` for runtime validation
+
+```typescript
+import { validateEnv } from '~/libs/validate-env'
+
+// Validate required env vars on startup
+validateEnv(['NEXT_PUBLIC_API_KEY', 'API_SECRET'])
+```
+
+### API Resilience
+**Always use `fetchWithTimeout` for external API calls**
+
+- Standard timeouts: 8-10 seconds for most integrations
+- Implement proper error handling and retry logic
+- Use `cacheSignal()` for automatic request cleanup (React 19.2)
+
+```typescript
+import { fetchWithTimeout } from '~/libs/fetch-with-timeout'
+import { cacheSignal } from 'react'
+
+// HubSpot: 8 seconds
+const response = await fetchWithTimeout(url, { 
+  timeout: 8000,
+  ...options 
+})
+
+// Mailchimp: 10 seconds
+const response = await fetchWithTimeout(url, { 
+  timeout: 10000,
+  ...options 
+})
+
+// With cacheSignal for automatic cleanup
+const signal = cacheSignal()
+const response = await fetchWithTimeout(url, {
+  timeout: 10000,
+  signal: signal as AbortSignal,
+  ...options
+})
+```
+
+### Error Handling
+Implement timeout handling for all API calls. Provide user-friendly error messages. Log errors for debugging with context.
+
+```typescript
+try {
+  const response = await fetchWithTimeout(url, options, 10000)
+  return { data: await response.json(), error: null }
+} catch (error) {
+  console.error('API call failed:', error)
+  return { data: null, error: error.message }
+}
+```
+
+### Type Safety
+Generate TypeScript types from APIs when possible. Use proper validation (e.g., Zod schemas).
+
+```typescript
+import * as z from "zod"; 
+
+const ProductSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  price: z.number()
+})
+```
+
+### Performance
+- Cache API responses appropriately (except user-specific data)
+- Use ISR (Incremental Static Regeneration) for dynamic content
+- Implement proper loading states with Suspense boundaries
+- Use `cacheSignal()` for automatic request cleanup
+
+**⚠️ Cache Components Gotchas:**
+- **User-specific data**: Never cache (carts, accounts, private content)
+- **Real-time data**: Use `cache: 'no-store'` for live feeds
+- **Suspense boundaries**: Required for cached data fetching
+- **Cache invalidation**: Use `revalidateTag()` or `revalidatePath()` in webhooks
+- **Testing**: Test with hard refresh AND navigation (different cache layers)
+
+### Security
+- Validate all user inputs
+- Use server-side API calls for sensitive operations
+- Implement rate limiting where necessary
+
+### Integration Management
+- Use `~/libs/cleanup-integrations` to remove unused integration code
+- Check integration usage with `~/integrations/check-integration`
+- Keep only active integrations to optimize bundle size
+
+## Webhook Handling
+
+### Verification
+Always verify webhook signatures. Use proper authentication.
+
+```typescript
+export async function verifyWebhookSignature(
+  payload: string,
+  signature: string
+): Promise<boolean> {
+  // verification logic
+}
+```
+
+### Processing
+Process webhooks asynchronously. Implement idempotency. Return 200 status quickly.
 
 Last updated: 2025-10-07
 
