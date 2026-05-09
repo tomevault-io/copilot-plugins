@@ -1,0 +1,9 @@
+{
+  "name": "venere-labs--ragfs",
+  "displayName": "ragfs",
+  "description": "A FUSE semantic filesystem for  LLM/AI AgentsAgentic FUSE filesystem for LLM agents. Structured file operations with JSON feedback, audit logging, undo support, and semantic search.",
+  "version": "1.0.0",
+  "author": "Venere-Labs",
+  "homepage": "https://github.com/Venere-Labs/ragfs",
+  "skills": []
+}
