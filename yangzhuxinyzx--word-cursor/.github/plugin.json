@@ -1,0 +1,9 @@
+{
+  "name": "yangzhuxinyzx--word-cursor",
+  "displayName": "Word-Cursor",
+  "description": "AI-powered desktop document editor \u2014 Cursor-style conversational editing for Word/Excel/PPT. Built with Electron + React + Tiptap.",
+  "version": "1.0.0",
+  "author": "yangzhuxinyzx",
+  "homepage": "https://github.com/yangzhuxinyzx/Word-Cursor",
+  "skills": []
+}
