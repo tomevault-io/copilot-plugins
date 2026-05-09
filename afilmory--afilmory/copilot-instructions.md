@@ -1,12 +1,29 @@
-## code-quality
+## color
 
-> 你需要考虑代码质量，以下的规则请务必遵守：
+> write a component
 
-你需要考虑代码质量，以下的规则请务必遵守：
+# UIKit Colors for Tailwind CSS
 
-1. 你要尽可能避免重复代码出现，遇到多次使用的 types 需要提取一个通用 Type；遇到多次使用的组件代码，需要封装一个通用组件。
-2. 你要避免出现逻辑过大的组件，需要使用抽离 hook 或者拆分小组件的方式实现。
-3. 在编写 React 组件时，需要熟练掌握 React 哲学。学会正确使用 Context、拆分组件使得状态下沉等方式解决 React 重渲染问题。
+You should use @https://github.com/Innei/apple-uikit-colors/blob/main/packages/uikit-colors/macos.ts TailwindCSS atom classname.
+
+Use Apple UIKit color system with Tailwind classes. **Important**: Always use the correct Tailwind prefix for each color category:
+
+**System Colors**: `text-red`, `bg-red`, `border-red` (same for `orange`, `yellow`, `green`, `mint`, `teal`, `cyan`, `blue`, `indigo`, `purple`, `pink`, `brown`, `gray`)
+
+**Fill Colors**:
+
+- Background: `bg-fill`, `bg-fill-secondary`, `bg-fill-tertiary`, `bg-fill-quaternary`, `bg-fill-quinary`, `bg-fill-vibrant`, `bg-fill-vibrant-secondary`, `bg-fill-vibrant-tertiary`, `bg-fill-vibrant-quaternary`, `bg-fill-vibrant-quinary`
+- Border: `border-fill`, `border-fill-secondary`, etc.
+
+**Text Colors**: `text-text`, `text-text-secondary`, `text-text-tertiary`, `text-text-quaternary`, `text-text-quinary`, `text-text-vibrant`, `text-text-vibrant-secondary`, `text-text-vibrant-tertiary`, `text-text-vibrant-quaternary`, `text-text-vibrant-quinary`
+
+**Material Colors**: `bg-material-ultra-thick`, `bg-material-thick`, `bg-material-medium`, `bg-material-thin`, `bg-material-ultra-thin`, `bg-material-opaque`
+
+**Control Colors**: `bg-control-enabled`, `bg-control-disabled`
+
+**Interface Colors**: `bg-menu`, `bg-popover`, `bg-titlebar`, `bg-sidebar`, `bg-selection-focused`, `bg-selection-focused-fill`, `bg-selection-unfocused`, `bg-selection-unfocused-fill`, `bg-header-view`, `bg-tooltip`, `bg-under-window-background`
+
+These colors automatically adapt to light/dark mode following Apple's design system. Remember to use the appropriate prefix (`text-`, `bg-`, `border-`) based on the CSS property you're styling.
 
 ---
 > Source: [Afilmory/afilmory](https://github.com/Afilmory/afilmory) — distributed by [TomeVault](https://tomevault.io).
