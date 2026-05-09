@@ -1,0 +1,9 @@
+{
+  "name": "nex-crm--nex-as-a-skill",
+  "displayName": "nex-as-a-skill",
+  "description": "Turn every AI agent session  into company intelligence. Nex silently unifies every AI agent conversation with your email, Slack, CRM, and 100+ tools into one knowledge graph. The more your team works,",
+  "version": "1.0.0",
+  "author": "nex-crm",
+  "homepage": "https://github.com/nex-crm/nex-as-a-skill",
+  "skills": []
+}
