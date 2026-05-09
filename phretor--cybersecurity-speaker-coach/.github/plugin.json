@@ -1,0 +1,9 @@
+{
+  "name": "phretor--cybersecurity-speaker-coach",
+  "displayName": "cybersecurity-speaker-coach",
+  "description": "An AI agent skill that coaches cybersecurity professionals to design and deliver outstanding presentations.",
+  "version": "1.0.0",
+  "author": "phretor",
+  "homepage": "https://github.com/phretor/cybersecurity-speaker-coach",
+  "skills": []
+}
