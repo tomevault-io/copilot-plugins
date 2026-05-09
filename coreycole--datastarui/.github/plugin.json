@@ -1,9 +1,9 @@
 {
   "name": "coreycole--datastarui",
   "displayName": "datastarui",
-  "description": "datastarui",
+  "description": "Templ components built with Datastar and Tailwind",
   "version": "1.0.0",
   "author": "CoreyCole",
-  "homepage": "https://tomevault.io/claim/CoreyCole",
+  "homepage": "https://github.com/CoreyCole/datastarui",
   "skills": []
 }
