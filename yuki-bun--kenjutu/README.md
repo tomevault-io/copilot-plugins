@@ -7,11 +7,11 @@ Track your code review progress hunk-by-hunk through history rewrites for jj use
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Yuki-bun/kenjutu](https://github.com/Yuki-bun/kenjutu).
+Original source: `CLAUDE.md` in [Yuki-bun/kenjutu](https://github.com/Yuki-bun/kenjutu).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
