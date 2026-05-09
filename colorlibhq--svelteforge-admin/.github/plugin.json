@@ -1,0 +1,9 @@
+{
+  "name": "colorlibhq--svelteforge-admin",
+  "displayName": "svelteforge-admin",
+  "description": "A full-featured admin dashboard built with SvelteKit 2, Svelte 5, Tailwind CSS 4, Drizzle ORM, and custom session auth.",
+  "version": "1.0.0",
+  "author": "ColorlibHQ",
+  "homepage": "https://github.com/ColorlibHQ/svelteforge-admin",
+  "skills": []
+}
