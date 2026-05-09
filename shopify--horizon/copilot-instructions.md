@@ -1,14 +1,14 @@
-## modal-accessibility
+## product-card-accessibility
 
-> Modal window accessibility compliance and ARIA Dialog Pattern
+> Product card accessibility compliance pattern
 
-# Modal Window Accessibility Standards
+# Product Card Component Accessibility Standards
 
-Ensures modal windows follow WCAG compliance and ARIA Dialog Pattern specifications.
+Ensures product card components follow WCAG compliance and implement proper single tab-stop navigation for keyboard and screen reader users.
 
 <rule>
-name: modal_accessibility_standards
-description: Enforce modal window accessibility standards and ARIA Dialog Pattern compliance
+name: product_card_accessibility_standards
+description: Enforce product card component accessibility standards and single tab-stop navigation compliance
 filters:
   - type: file_extension
     pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
@@ -16,97 +16,264 @@ filters:
 actions:
   - type: enforce
     conditions:
-      # Dialog role requirement
-      - pattern: "(?i)<(div|section|article)[^>]*(?:modal|dialog)[^>]*>"
-        pattern_negate: "role=\"dialog\""
-        message: "Modal containers must have role='dialog' attribute."
+      # Product card missing article wrapper
+      - pattern: "(?i)<(div|section)[^>]*(?:product.*card|card.*product)[^>]*>"
+        pattern_negate: "<article"
+        message: "Product cards should be wrapped with the article element for semantic structure."
 
-      # aria-modal requirement
-      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*>"
-        pattern_negate: "aria-modal=\"true\""
-        message: "Dialog elements must have aria-modal='true' attribute."
+      # Product card missing proper link structure
+      - pattern: "(?i)<article[^>]*(?:product.*card|card.*product)[^>]*>"
+        pattern_negate: "<a[^>]*>.*?</a>"
+        message: "Product cards must contain a link element for keyboard navigation and screen reader accessibility."
 
-      # aria-labelledby or aria-label requirement
-      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*>"
-        pattern_negate: "(aria-labelledby|aria-label)"
-        message: "Dialog elements must have either aria-labelledby or aria-label for accessibility."
+      # Product title not wrapped in link
+      - pattern: "(?i)<(h1|h2|h3|h4|h5|h6)[^>]*(?:product.*title|title.*product)[^>]*>"
+        pattern_negate: "<a[^>]*>.*?</a>"
+        message: "Product titles should be wrapped in link elements to provide proper navigation context."
 
-      # Empty aria-label check
-      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*aria-label=\"\"[^>]*>"
-        message: "Dialog aria-label should not be empty; provide a meaningful description."
+      # Heading not wrapping link element
+      - pattern: "(?i)<(h1|h2|h3|h4|h5|h6)[^>]*(?:product.*title|title.*product)[^>]*>"
+        pattern_negate: "<a[^>]*>"
+        message: "Product card headings should wrap link elements to maintain proper heading semantics."
 
-      # Button without proper close functionality
-      - pattern: "(?i)<button[^>]*(?:close|dismiss|cancel)[^>]*>"
-        pattern_negate: "(onClick|onclick|@click|v-on:click)"
-        message: "Modal close buttons should have proper click handlers to close the dialog."
+      # Missing product image alt text
+      - pattern: "(?i)<img[^>]*(?:product|card)[^>]*>"
+        pattern_negate: "alt=\"[^\"]+\""
+        message: "Product card images must have descriptive alt text for screen reader users."
 
-      # Close button should have aria-label
-      - pattern: "(?i)<button[^>]*(?:close|dismiss|×|&times;)[^>]*>"
-        pattern_negate: "aria-label=\"[^\"]*[Cc]lose[^\"]*\""
-        message: "Modal close buttons should have aria-label='Close' or similar descriptive text for screen readers."
+      # Empty alt text on product images
+      - pattern: "(?i)<img[^>]*(?:product|card)[^>]*alt=\"\"[^>]*>"
+        message: "Product card images should not have empty alt text; provide descriptive text or use alt=\"\" only for decorative images."
 
-      # Missing focus trap indicators
-      - pattern: "(?i)(?:showModal|openModal|displayModal)\\s*\\("
-        message: "When opening modals, ensure focus management is implemented (focus should move to an element inside the dialog)."
+      # Product price missing proper semantic structure
+      - pattern: "(?i)<(div|span)[^>]*(?:price|cost)[^>]*>"
+        pattern_negate: "(<span[^>]*aria-label|aria-label=\"[^\"]*price[^\"]*\")"
+        message: "Product prices should have proper semantic labeling for screen readers."
 
-      # Modal launcher should have aria-haspopup
-      - pattern: "(?i)<button[^>]*(?:open|show|launch)[^>]*(?:modal|dialog)[^>]*>"
-        pattern_negate: "aria-haspopup=\"dialog\""
-        message: "Buttons that open modals should include aria-haspopup='dialog' to inform users a dialog will open."
+      # Product description not in paragraph element
+      - pattern: "(?i)<(div|span)[^>]*(?:product.*description|description.*product)[^>]*>"
+        pattern_negate: "<p"
+        message: "Product descriptions should be wrapped in paragraph elements for proper semantic structure."
+
+      # Missing focus indicators
+      - pattern: "(?i)<a[^>]*(?:product.*card|card.*product)[^>]*>"
+        pattern_negate: "(focus|hover|active)"
+        message: "Product card links should have visible focus indicators for keyboard navigation."
+
+      # Product card without proper positioning context
+      - pattern: "(?i)<article[^>]*(?:product.*card|card.*product)[^>]*>"
+        pattern_negate: "(position.*relative|position: relative)"
+        message: "Product card containers should have position: relative for proper link overlay positioning."
+
+      # Product card missing aria-labelledby
+      - pattern: "(?i)<article[^>]*(?:product.*card|card.*product)[^>]*>"
+        pattern_negate: "aria-labelledby=\"[^\"]+\""
+        message: "Product card articles should have aria-labelledby referencing the heading ID for better screen reader context."
+
+      # Product card heading missing ID
+      - pattern: "(?i)<(h1|h2|h3|h4|h5|h6)[^>]*(?:product.*title|title.*product)[^>]*>"
+        pattern_negate: "id=\"[^\"]+\""
+        message: "Product card headings should have unique ID attributes for aria-labelledby reference."
+
+      # Mouse-only link missing tabindex="-1"
+      - pattern: "(?i)<a[^>]*class=\"[^\"]*product-link-mouse[^\"]*\"[^>]*>"
+        pattern_negate: "tabindex=\"-1\""
+        message: "Mouse-only product links should have tabindex='-1' to remove them from tab order."
 
   - type: suggest
     message: |
-      **Modal Window Accessibility Best Practices:**
+      **Product Card Component Accessibility Best Practices:**
 
-      **Required ARIA Attributes:**
-      - **role='dialog':** Set on the modal container element
-      - **aria-modal='true':** Indicates the dialog is modal
-      - **aria-labelledby:** Reference to visible dialog title, OR
-      - **aria-label:** Descriptive label if no visible title exists
-      - **aria-haspopup='dialog':** Set on buttons/elements that trigger the modal to inform users a dialog will open
+      **Required Structure:**
+      - **article element:** Wrap each product card with the article element for semantic meaning
+      - **Single tab-stop:** Each product card should contain only one keyboard tab-stop
+      - **Link overlay:** Use absolutely positioned link that covers the entire card area
+      - **Heading wraps link:** The heading should wrap the link element to maintain proper heading semantics
 
-      **Keyboard Interaction Requirements:**
-      - **Initial Focus:** When dialog opens, focus must move to an element inside the dialog
-      - **Tab Cycling:** Tab key should cycle through tabbable elements within the dialog only
-      - **Shift+Tab:** Should cycle backwards through tabbable elements within the dialog
-      - **Escape Key:** Must close the dialog
-      - **Focus Trap:** Focus should be contained within the modal while open
+      **ARIA and Semantic Requirements:**
+      - **article role:** Implicit with article element, provides semantic structure
+      - **aria-labelledby:** Reference to the heading ID for article labeling
+      - **Heading ID:** Unique ID attribute for aria-labelledby reference
+      - **Link text:** Product title should be descriptive and unique
+      - **Image alt text:** Provide descriptive alt text for product images
+      - **Price text:** Use visible text for pricing information
+      - **Description text:** Use paragraph elements for product descriptions
 
-      **Focus Management:**
-      - Implement focus trapping to prevent tab navigation outside the modal
-      - Return focus to the triggering element when modal closes
-      - Move focus to the close button (first focusable element) when modal opens
-      - Ensure close button is positioned first in DOM order within the dialog
+      **Keyboard Navigation Requirements:**
+      - **Single tab-stop:** Each product card should be navigable with one tab key press
+      - **Enter key:** Activate the link to navigate to product detail page
+      - **Focus indicators:** Provide clear visual focus indicators for keyboard users
+      - **Logical order:** Ensure tab order follows visual layout
+      - **Mouse-only links:** Use tabindex="-1" to remove mouse-only links from tab order
 
-      **Structure Requirements:**
-      - All interactive elements must be descendants of the dialog container
-      - Position close button first in DOM order within the dialog container
-      - Use semantic HTML within the modal (headings, buttons, form labels)
-      - Provide clear visual focus indicators
-      - Close buttons should use aria-label="Close" with &times; entity for visual 'x' icon
+      **CSS Positioning Requirements:**
+      - **position: relative:** Set on card container for absolute positioning context
+      - **position: absolute:** Set on link element to cover card area
+      - **z-index:** Ensure link appears above other card content
+      - **pointer-events:** May need to manage pointer events for interactive elements
 
-      **Example Implementation:**
+      **Implementation Patterns:**
+
+      **Basic Product Card Structure:**
       ```html
-      <!-- Modal launcher -->
-      <button aria-haspopup="dialog" onclick="openModal()">Open Settings</button>
+      <article class="product-card" aria-labelledby="product-123-title">
+        <a href="/product/123" class="product-link-mouse" aria-hidden="true" tabindex="-1"></a>
+        <h2 id="product-123-title" class="product-title">
+          <a href="/product/123" class="product-link">Product Name</a>
+        </h2>
+        <img src="product-image.jpg" alt="Product description" class="product-image">
+        <div class="product-price">$29.99</div>
+        <p class="product-description">Product description text...</p>
+      </article>
+      ```
 
-      <!-- Modal dialog -->
-      <div role="dialog" aria-modal="true" aria-labelledby="modal-title">
-        <button type="button" aria-label="Close" onclick="closeModal()">&times;</button>
-        <h2 id="modal-title">Modal Title</h2>
-        <p>Modal content...</p>
-      </div>
+      **CSS for Visual Layout:**
+      ```css
+      .product-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .product-title {
+        order: 2; /* Move heading after image visually */
+        margin: 0;
+        padding: 16px;
+      }
+
+      .product-image {
+        order: 1; /* Move image before heading visually */
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+      ```
+
+      **CSS for Link Overlay:**
+      ```css
+      .product-card {
+        position: relative;
+        /* Other card styling */
+      }
+
+      .product-link {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        text-decoration: none;
+        /* Ensure link text is visible */
+        color: inherit;
+      }
+
+      .product-title {
+        /* Style the title within the link */
+        margin: 0;
+        padding: 1rem;
+      }
+      ```
+
+      **Advanced Product Card with Interactive Elements:**
+      ```html
+      <article class="product-card" aria-labelledby="product-123-title">
+        <a href="/product/123" class="product-link-mouse" aria-hidden="true" tabindex="-1"></a>
+        <h2 id="product-123-title" class="product-title">
+          <a href="/product/123" class="product-link">Product Name</a>
+        </h2>
+        <img src="product-image.jpg" alt="Product description" class="product-image">
+        <div class="product-price">$29.99</div>
+        <button class="add-to-cart">Add to Cart</button>
+      </article>
+      ```
+
+      **CSS for Advanced Layout:**
+      ```css
+      .product-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .product-title {
+        order: 2; /* Heading appears after image visually */
+        margin: 0;
+        padding: 16px;
+      }
+
+      .product-image {
+        order: 1; /* Image appears before heading visually */
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .product-content {
+        order: 3; /* Content appears after heading */
+        padding: 0 16px 16px;
+        position: relative;
+      }
+      ```
+
+      **CSS for Interactive Elements:**
+      ```css
+      .product-card {
+        position: relative;
+      }
+
+      .product-link {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        /* Allow clicks to pass through to buttons */
+        pointer-events: none;
+      }
+
+      .product-title {
+        pointer-events: auto;
+      }
+
+      .add-to-cart {
+        position: relative;
+        z-index: 2;
+        /* Ensure button is above link overlay */
+      }
       ```
 
       **JavaScript Considerations:**
-      - Implement proper event listeners for Escape key
-      - Manage body scroll when modal is open
-      - Handle focus restoration on modal close
+      - Ensure proper event handling for interactive elements within cards
+      - Manage pointer events appropriately for overlay links
+      - Test keyboard navigation flow with screen readers
+      - Verify that screen readers can access all card content
+      - Consider implementing skip links for large product grids
+
+      **Accessibility Notes:**
+      - Screen readers will announce the link text (product title) when focusing
+      - Other card content remains discoverable through normal screen reader navigation
+      - The article element provides semantic structure for screen readers
+      - Ensure sufficient color contrast for all text elements
+      - Test with various screen reader and browser combinations
+      - Consider implementing skip links for large product grids (10+ items)
+
+      **Testing Requirements:**
+      - Navigate using Tab key only - each card should be one tab-stop
+      - Use screen reader to verify all content is accessible
+      - Test with keyboard-only navigation
+      - Verify focus indicators are visible and clear
+      - Test with high contrast mode enabled
 
 metadata:
   priority: high
   version: 1.0
 </rule>
+description:
+globs:
+alwaysApply: false
+---
 
 ---
 > Source: [Shopify/horizon](https://github.com/Shopify/horizon) — distributed by [TomeVault](https://tomevault.io).
