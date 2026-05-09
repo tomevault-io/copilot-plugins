@@ -1,0 +1,9 @@
+{
+  "name": "abhirawat4841--mathematica-mcp",
+  "displayName": "mathematica-mcp",
+  "description": "Model Context Protocol (MCP) server that connects AI agents (Claude, Cursor, etc.) to Wolfram Mathematica for symbolic computation, visualization, and notebook manipulation.",
+  "version": "1.0.0",
+  "author": "AbhiRawat4841",
+  "homepage": "https://github.com/AbhiRawat4841/mathematica-mcp",
+  "skills": []
+}
