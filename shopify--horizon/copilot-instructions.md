@@ -1,85 +1,177 @@
-## sections
+## slider-accessibility
 
-> Section coding standards and best practices guide
+> Slider component accessibility compliance pattern
 
-# Section Development Standards
+# Slider Component Accessibility Standards
 
-## Section Requirements
+Ensures slider components follow WCAG compliance and WAI-ARIA Slider Pattern specifications.
 
-Every section must include:
+<rule>
+name: slider_accessibility_standards
+description: Enforce slider component accessibility standards and WAI-ARIA Slider Pattern compliance
+filters:
+  - type: file_extension
+    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
 
-- `{% schema %}` tag with valid JSON
-- Proper HTML semantic structure
-- CSS scoping with section classes
-- Translation keys for all text
+actions:
+  - type: enforce
+    conditions:
+      # Slider role requirement
+      - pattern: "(?i)<(div|input)[^>]*(?:slider|range)[^>]*>"
+        pattern_negate: "role=\"slider\""
+        message: "Slider controls must have role='slider' attribute."
 
-## Section Patterns
+      # aria-valuenow requirement
+      - pattern: "(?i)<[^>]*role=\"slider\"[^>]*>"
+        pattern_negate: "aria-valuenow=\"[0-9.-]+\""
+        message: "Slider elements must have aria-valuenow attribute set to the current value."
 
-**Basic Section Structure:**
+      # aria-valuemin requirement
+      - pattern: "(?i)<[^>]*role=\"slider\"[^>]*>"
+        pattern_negate: "aria-valuemin=\"[0-9.-]+\""
+        message: "Slider elements must have aria-valuemin attribute set to the minimum allowed value."
 
-```liquid
-{% liquid
-  assign section_id = section.settings.custom_id | default: section.id
-  assign section_class = 'section-' | append: section.type
-%}
+      # aria-valuemax requirement
+      - pattern: "(?i)<[^>]*role=\"slider\"[^>]*>"
+        pattern_negate: "aria-valuemax=\"[0-9.-]+\""
+        message: "Slider elements must have aria-valuemax attribute set to the maximum allowed value."
 
-<section
-  id="{{ section_id }}"
-  class="{{ section_class }}"
-  style="
-    --section-padding-top: {{ section.settings.padding_top }}px;
-    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
-  "
->
-  <div class="page-width">
-    {% content_for 'blocks %}
-  </div>
-</section>
+      # Missing keyboard event handlers
+      - pattern: "(?i)<[^>]*role=\"slider\"[^>]*>"
+        pattern_negate: "(onKeyDown|onkeydown|@keydown|v-on:keydown)"
+        message: "Slider elements should handle keyboard events (Arrow keys, Home, End, Page Up/Down)."
 
-{% stylesheet %}
-.{{ section_class }} {
-  padding-top: var(--section-padding-top, 40px);
-  padding-bottom: var(--section-padding-bottom, 40px);
-}
-{% endstylesheet %}
+      # Missing label
+      - pattern: "(?i)<[^>]*role=\"slider\"[^>]*>"
+        pattern_negate: "(aria-labelledby|aria-label)"
+        message: "Slider elements must have either aria-labelledby or aria-label for accessibility."
 
-{% schema %}
-{
-  "name": "t:names.section_name",
-  "tag": "section",
-  "class": "section-name",
-  "blocks": [
-    {"type": "@theme"},
-    {"type": "@app"}
-  ],
-  "settings": [
-    {
-      "type": "range",
-      "id": "padding_top",
-      "label": "t:settings.padding",
-      "min": 0,
-      "max": 100,
-      "default": 40,
-      "unit": "px"
-    }
-  ],
-  "presets": [
-    {
-      "name": "t:names.section_name"
-    }
-  ]
-}
-{% endschema %}
-```
+  - type: suggest
+    message: |
+      **Slider Component Accessibility Best Practices:**
 
-## Performance Patterns
+      **Required ARIA Attributes:**
+      - **role='slider':** Set on the slider control element
+      - **aria-valuenow:** Current value of the slider
+      - **aria-valuemin:** Minimum allowed value
+      - **aria-valuemax:** Maximum allowed value
+      - **aria-valuetext:** (Optional) User-friendly text representation of the value
+      - **aria-orientation:** (Optional) 'vertical' for vertical sliders, defaults to 'horizontal'
+      - **aria-labelledby:** Reference to visible label, OR
+      - **aria-label:** Descriptive label if no visible label exists
 
-- Use `{% liquid %}` for multiline logic
-- Lazy load images with `loading="lazy"`
-- Scope CSS variables to section
-- Use `container-queries` for responsive behavior
+      **Keyboard Interaction Requirements:**
+      - **Right/Up Arrow:** Increase value by one step
+      - **Left/Down Arrow:** Decrease value by one step
+      - **Home:** Set to minimum value
+      - **End:** Set to maximum value
+      - **Page Up:** (Optional) Increase by larger step
+      - **Page Down:** (Optional) Decrease by larger step
 
-[section-example.liquid](mdc:.cursor/rules/examples/section-example.liquid)
+      **Implementation Example:**
+      ```html
+      <div class="slider-container">
+        <label id="slider-label" for="slider">Select a value:</label>
+        <div class="slider-wrapper">
+          <div role="slider"
+               id="slider"
+               tabindex="0"
+               aria-labelledby="slider-label"
+               aria-valuemin="0"
+               aria-valuemax="100"
+               aria-valuenow="50"
+               aria-valuetext="50%">
+            <div class="slider-track">
+              <div class="slider-fill" style="width: 50%"></div>
+              <div class="slider-thumb" style="left: 50%"></div>
+            </div>
+          </div>
+          <div class="slider-value" aria-hidden="true">50%</div>
+        </div>
+      </div>
+
+      <script>
+        const slider = document.querySelector('[role="slider"]');
+        const thumb = slider.querySelector('.slider-thumb');
+        const fill = slider.querySelector('.slider-fill');
+        const valueDisplay = document.querySelector('.slider-value');
+
+        const min = parseInt(slider.getAttribute('aria-valuemin'));
+        const max = parseInt(slider.getAttribute('aria-valuemax'));
+        const step = 1; // Define step value
+
+        function updateSlider(value) {
+          // Ensure value is within bounds
+          value = Math.max(min, Math.min(max, value));
+
+          // Update ARIA attributes
+          slider.setAttribute('aria-valuenow', value);
+          slider.setAttribute('aria-valuetext', `${value}%`);
+
+          // Update visual elements
+          thumb.style.left = `${value}%`;
+          fill.style.width = `${value}%`;
+          valueDisplay.textContent = `${value}%`;
+        }
+
+        // Keyboard interaction
+        slider.addEventListener('keydown', (event) => {
+          let newValue = parseInt(slider.getAttribute('aria-valuenow'));
+
+          switch(event.key) {
+            case 'ArrowRight':
+            case 'ArrowUp':
+              newValue += step;
+              break;
+            case 'ArrowLeft':
+            case 'ArrowDown':
+              newValue -= step;
+              break;
+            case 'Home':
+              newValue = min;
+              break;
+            case 'End':
+              newValue = max;
+              break;
+            case 'PageUp':
+              newValue += step * 10; // Larger step
+              break;
+            case 'PageDown':
+              newValue -= step * 10; // Larger step
+              break;
+            default:
+              return;
+          }
+
+          event.preventDefault();
+          updateSlider(newValue);
+        });
+      </script>
+      ```
+
+      **JavaScript Considerations:**
+      - Implement all required keyboard interactions
+      - Update ARIA attributes dynamically
+      - Ensure values stay within min/max bounds
+      - Provide visual feedback for value changes
+      - Handle both mouse and touch interactions
+      - Consider implementing smooth animations
+      - Support both horizontal and vertical orientations
+
+      **Accessibility Notes:**
+      - Ensure proper focus management
+      - Provide clear visual focus indicators
+      - Support high contrast mode
+      - Test with screen readers
+      - Consider touch target sizes
+      - Provide visual feedback for interactions
+      - Support both mouse and keyboard users
+      - Consider adding value announcements for screen readers
+
+metadata:
+  priority: high
+  version: 1.0
+</rule>
 
 ---
 > Source: [Shopify/horizon](https://github.com/Shopify/horizon) — distributed by [TomeVault](https://tomevault.io).
