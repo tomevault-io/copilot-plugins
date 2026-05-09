@@ -1,17 +1,20 @@
-## schema
+## web
 
-> Rules for working on the idun_agent_schema package
+> Rules for working on the idun_agent_web frontend
 
-# Idun Agent Schema
+# Idun Agent Web
 
-Read `libs/idun_agent_schema/CLAUDE.md` before making changes. It contains the full model hierarchy, discriminated unions, and conventions.
+Read `services/idun_agent_web/CLAUDE.md` before making changes. It contains the full project layout, routes, auth flow, API layer, and conventions.
 
-This is the **source of truth** for all data shapes. Schema changes start here, then propagate to engine and manager.
+For backend API routes, see `services/idun_agent_manager/CLAUDE.md`. For data schemas, see `libs/idun_agent_schema/CLAUDE.md`.
 
-- No runtime dependencies beyond Pydantic — this package must stay lightweight.
-- Most models use camelCase aliases (`ConfigDict(alias_generator=to_camel, populate_by_name=True)`).
-- Discriminated unions use the `type` field as discriminator.
-- Guardrails V2 and Observability V2 are the current standards (V1 is deprecated).
+- styled-components for all styling — no CSS modules or Tailwind.
+- React Context API for state — no Redux/Zustand.
+- All API calls go through `src/utils/api.ts` — never use `fetch` directly.
+- Use `useTranslation()` for all user-facing strings.
+- Auto-generated types from OpenAPI spec in `src/generated/agent-manager.ts`.
+- Components follow folder convention: `component.tsx` + optional `component.stories.tsx`.
+- Use `npm run plop` to scaffold new components/pages.
 
 ---
 > Source: [Idun-Group/idun-agent-platform](https://github.com/Idun-Group/idun-agent-platform) — distributed by [TomeVault](https://tomevault.io).
