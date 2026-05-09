@@ -1,106 +1,47 @@
-## files
+## general
 
-> File organization and structure rules
+> General project rules for tuck dotfiles manager
 
 
-# File Organization Rules
+# General Project Rules
 
-## Directory Structure
+## Project Identity
 
-```
-src/
-├── commands/     # CLI command implementations (14 commands)
-│   ├── init, add, remove, sync, push, pull
-│   ├── restore, status, list, diff, config
-│   └── apply, undo, scan
-├── lib/          # Core library modules (11 modules)
-│   ├── paths, config, manifest, git, files
-│   ├── backup, hooks, github, timemachine
-│   └── merge, detect
-├── ui/           # Terminal UI components
-│   └── banner, logger, prompts, spinner, table
-├── schemas/      # Zod validation schemas
-│   └── config.schema, manifest.schema
-├── constants.ts  # App constants
-├── types.ts      # TypeScript types
-├── errors.ts     # Custom error classes
-└── index.ts      # Entry point
-```
+tuck is a modern, beautiful dotfiles manager CLI built with TypeScript. It prioritizes:
 
-## File Placement
+1. **Safety** - Never lose user data
+2. **Beauty** - Polished terminal experience
+3. **Git-native** - Built on git, abstracts complexity
+4. **Zero-config** - Works immediately
 
-### Commands (`src/commands/`)
-- One file per command
-- Named after the command: `add.ts`, `sync.ts`
-- Export named command: `export const addCommand`
-- Register in `src/commands/index.ts`
+## Tech Stack
 
-### Library Modules (`src/lib/`)
-- Core functionality, reusable across commands
-- Named by domain: `paths.ts`, `git.ts`, `config.ts`
-- Export all public functions
-- Register in `src/lib/index.ts`
+- Runtime: Node.js 18+ (ESM only)
+- Language: TypeScript 5.x (strict mode)
+- Package Manager: pnpm 9+ (NEVER npm or yarn)
+- CLI Framework: Commander.js
+- Prompts: @clack/prompts
+- Styling: chalk, boxen, ora
+- Git: simple-git
+- Validation: Zod
+- Testing: Vitest
+- Build: tsup
 
-### UI Components (`src/ui/`)
-- Terminal UI utilities
-- Named by function: `logger.ts`, `prompts.ts`
-- Wrapper around @clack/prompts, chalk, etc.
-- Register in `src/ui/index.ts`
+## Key Principles
 
-### Schemas (`src/schemas/`)
-- Zod validation schemas
-- Named with `.schema.ts` suffix
-- Export input and output types
+1. Always validate user input
+2. Create backups before destructive operations
+3. Confirm dangerous actions with user
+4. Provide helpful error messages
+5. Show progress for long operations
+6. End commands with next step suggestions
 
-## Creating New Files
+## Package Manager
 
-### New Command
-
-1. Create `src/commands/mycommand.ts`
-2. Export from `src/commands/index.ts`
-3. Register in `src/index.ts`
-4. Add tests in `tests/commands/mycommand.test.ts`
-
-### New Library Module
-
-1. Create `src/lib/mymodule.ts`
-2. Export from `src/lib/index.ts`
-3. Add tests in `tests/lib/mymodule.test.ts`
-
-### New Schema
-
-1. Create `src/schemas/myschema.schema.ts`
-2. Export input type, output type, and schema
-
-## Index Files
-
-Always use barrel exports:
-
-```typescript
-// src/lib/index.ts
-export * from './paths.js';
-export * from './config.js';
-export * from './git.js';
-```
-
-## Import Paths
-
-Always include `.js` extension:
-
-```typescript
-// Correct
-import { getTuckDir } from '../lib/paths.js';
-
-// Wrong
-import { getTuckDir } from '../lib/paths';
-```
-
-## File Naming
-
-- Use kebab-case for multi-word files: `my-module.ts`
-- Use `.schema.ts` for Zod schemas
-- Use `.test.ts` for test files
-- Entry point is always `index.ts`
+ALWAYS use pnpm commands:
+- `pnpm install` not `npm install`
+- `pnpm test` not `npm test`
+- `pnpm build` not `npm build`
 
 ---
 > Source: [Pranav-Karra-3301/tuck](https://github.com/Pranav-Karra-3301/tuck) — distributed by [TomeVault](https://tomevault.io).
