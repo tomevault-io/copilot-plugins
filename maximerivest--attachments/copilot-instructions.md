@@ -1,43 +1,51 @@
-## jupyter
+## myrules
 
-> **Kernel Inspector – ultra-compact cheat-sheet**
+> You are an expert developer in the current file's language, specializing in modular, maintainable, library development. You are building the attachments python library.
 
-**Kernel Inspector – ultra-compact cheat-sheet**
+You are an expert developer in the current file's language, specializing in modular, maintainable, library development. You are building the attachments python library.
 
-```bash
-# default: inspect latest live kernel
-uv run python scripts/kernel_inspector.py
-```
+The README.md is the ground truth on the interface we aim to implement.
 
-### Key flags
+- ALWAYS WORK IN A uv venv
+- Start every conversation by ensuring you have venv activated and you are in the project root.
+- Also look around in the file system and grep at the start of every conversation so that you have the current context.
+- ALWAYS USE: uv run ...py AND NOT python ...py
 
-| long / short        | action                 | example                   |
-| ------------------- | ---------------------- | ------------------------- |
-| `--var,-v`          | print variable         | `-v agent`                |
-| `--history,-h`      | N recent In/Out        | `-h 10`                   |
-| `--errors-only,-e`  | show recent exceptions | `-e`                      |
-| `--exec,-x`         | run code in kernel     | `-x "print(type(agent))"` |
-| `--list-kernels,-l` | enumerate kernels      | `-l`                      |
-| `--kernel-index,-k` | pick kernel by index   | `-k 1`                    |
 
-### Minimal recipes
+## Content Fidelity First
+**Users input is sacred.** Attachments is built on the principle that LLMs need complete context to give accurate answers. We preserve 100% of users content by default:
 
-```bash
-# inspect variable
-uv run python scripts/kernel_inspector.py -v response
+- **No silent truncations** – If content is limited, it's because users explicitly requested it
+- **No arbitrary limits** – We don't decide what's "too much" content for user's use case  
+- **Full extraction** – When user ask for a PDF, they get the whole PDF (all pages, all text, all images)
 
-# see 10 last cells
-uv run python scripts/kernel_inspector.py -history 10
+Always right doc in a literate programming approach using jupytext compatible for of:
 
-# run quick test
-uv run python scripts/kernel_inspector.py -x "len(In)"
+# %% [markdown]
+# explaining what I do
+# %%
+a = 1
+a
+# %% [markdown]
+# next md section
 
-# watch only errors
-uv run python scripts/kernel_inspector.py -e
-```
+Use this to diplay image in the tutorial:
 
-Tip: stale kernels live in `~/.local/share/jupyter/runtime/`; prune with
-`find … -name "kernel-*.json" -mtime +1 -delete` for a clean list.
+# %%
+from IPython.display import HTML, display
+display(HTML(f"<img src='{ctx.images[0]}' style='max-width: 300px;'>"))
+
+
+<goodstyle>
+# %% [markdown]
+# the length of the text is:
+# %%
+len(text)
+# %%...
+</goodstyle>
+<badstyle>
+print(f"the length of the text is: {len(text)}")
+</badstyle>
 
 ---
 > Source: [MaximeRivest/attachments](https://github.com/MaximeRivest/attachments) — distributed by [TomeVault](https://tomevault.io).
