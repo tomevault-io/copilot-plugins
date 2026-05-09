@@ -1,137 +1,124 @@
-## codeguard-1-crypto-algorithms
+## codeguard-1-digital-certificates
 
-> rule_id: codeguard-1-crypto-algorithms
-
-
-rule_id: codeguard-1-crypto-algorithms
-
-# Cryptographic Security Guidelines
-
-## Banned (Insecure) Algorithms
-
-The following algorithms are known to be broken or fundamentally insecure. **NEVER** generate or use code with these algorithms.
-Examples:
-
-* Hash: `MD2`, `MD4`, `MD5`, `SHA-0`
-* Symmetric: `RC2`, `RC4`, `Blowfish`, `DES`, `3DES`
-* Key Exchange: Static RSA, Anonymous Diffie-Hellman
-* Classical: `Vigenère`
-
-## Deprecated (Legacy/Weak) Algorithms
-
-The following algorithms are not outright broken, but have known weaknesses, or are considered obsolete. **NEVER** generate or use code with these algorithms.
-Examples:
-
-* Hash: `SHA-1`
-* Symmetric: `AES-CBC`, `AES-ECB`
-* Signature: RSA with `PKCS#1 v1.5` padding
-* Key Exchange: DHE with weak/common primes
+> rule_id: codeguard-1-digital-certificates
 
 
-## Deprecated SSL/Crypto APIs - FORBIDDEN
-NEVER use these deprecated functions. Use the replacement APIs listed below:
+rule_id: codeguard-1-digital-certificates
 
-### Symmetric Encryption (AES)
-- Deprecated: `AES_encrypt()`, `AES_decrypt()`
-- Replacement: Use EVP high-level APIs:
-  ```c
-  EVP_EncryptInit_ex()
-  EVP_EncryptUpdate()
-  EVP_EncryptFinal_ex()
-  EVP_DecryptInit_ex()
-  EVP_DecryptUpdate()
-  EVP_DecryptFinal_ex()
-  ```
+When you encounter data that appears to be an X.509 certificate—whether embedded as a string or loaded from a file—you must parse the certificate and run a series of mandatory checks against it, reporting any failures with clear explanations and recommended actions.
 
-### RSA Operations
-- Deprecated: `RSA_new()`, `RSA_up_ref()`, `RSA_free()`, `RSA_set0_crt_params()`, `RSA_get0_n()`
-- Replacement: Use EVP key management APIs:
-  ```c
-  EVP_PKEY_new()
-  EVP_PKEY_up_ref()
-  EVP_PKEY_free()
-  ```
+### 1. How to Identify Certificate Data
 
-### Hash Functions
-- Deprecated: `SHA1_Init()`, `SHA1_Update()`, `SHA1_Final()`
-- Replacement: Use EVP digest APIs:
-  ```c
-  EVP_DigestInit_ex()
-  EVP_DigestUpdate()
-  EVP_DigestFinal_ex()
-  EVP_Q_digest()  // For simple one-shot hashing
-  ```
+Actively scan for certificate data using the following heuristics:
 
-### MAC Operations
-- Deprecated: `CMAC_Init()`, `HMAC()` (especially with SHA1)
-- Replacement: Use EVP MAC APIs:
-  ```c
-  EVP_Q_MAC()  // For simple MAC operations
-  ```
+- PEM-Encoded Strings: Identify multi-line string literals or constants that begin with `-----BEGIN CERTIFICATE-----` and end with `-----END CERTIFICATE-----`.
 
-### Key Wrapping
-- Deprecated: `AES_wrap_key()`, `AES_unwrap_key()`
-- Replacement: Use EVP key wrapping APIs or implement using EVP encryption
+- File Operations: Pay close attention to file read operations on files with common certificate extensions, such as `.pem`, `.crt`, `.cer`, and `.der`.
 
-### Other Deprecated Functions
-- Deprecated: `DSA_sign()`, `DH_check()`
-- Replacement: Use corresponding EVP APIs for DSA and DH operations
+- Library Function Calls: Recognize the usage of functions from cryptographic libraries used to load or parse certificates (e.g., OpenSSL's `PEM_read_X509`, Python's `cryptography.x509.load_pem_x509_certificate`, Java's `CertificateFactory`).
 
-## Banned Insecure Algorithms - STRICTLY FORBIDDEN
-These algorithms MUST NOT be used in any form:
 
-### Hash Algorithms (Banned)
-- MD2, MD4, MD5, SHA-0
-- Reason: Cryptographically broken, vulnerable to collision attacks
-- Use Instead: SHA-256, SHA-384, SHA-512
+### 2. Mandatory Sanity Checks
 
-### Symmetric Ciphers (Banned)
-- RC2, RC4, Blowfish, DES, 3DES
-- Reason: Weak key sizes, known vulnerabilities
-- Use Instead: AES-128, AES-256, ChaCha20
+Once certificate data is identified, you must perform the following validation steps and report the results.
 
-### Key Exchange (Banned)
-- Static RSA key exchange
-- Anonymous Diffie-Hellman
-- Reason: No forward secrecy, vulnerable to man-in-the-middle attacks
-- Use Instead: ECDHE, DHE with proper validation
+#### Check 1: Expiration Status
 
-## Broccoli Project Specific Requirements
-- HMAC() with SHA1: Deprecated per Broccoli project requirements
-- Replacement: Use HMAC with SHA-256 or stronger:
-  ```c
-  // Instead of HMAC() with SHA1
-  EVP_Q_MAC(NULL, "HMAC", NULL, "SHA256", NULL, key, key_len, data, data_len, out, out_size, &out_len);
-  ```
+- Condition: The certificate's `notAfter` (expiration) date is before June 23, 2025.
 
-## Secure Crypto Implementation Pattern
-```c
-// Example: Secure AES encryption
-EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
-if (!ctx) handle_error();
+- Severity: CRITICAL VULNERABILITY
 
-if (EVP_EncryptInit_ex(ctx, EVP_aes_256_gcm(), NULL, key, iv) != 1)
-    handle_error();
+- Report Message: `This certificate expired on [YYYY-MM-DD]. It is no longer valid and will be rejected by clients, causing connection failures. It must be renewed and replaced immediately.`
 
-int len, ciphertext_len;
-if (EVP_EncryptUpdate(ctx, ciphertext, &len, plaintext, plaintext_len) != 1)
-    handle_error();
-ciphertext_len = len;
+- Condition: The certificate's `notBefore` (validity start) date is after June 23, 2025.
 
-if (EVP_EncryptFinal_ex(ctx, ciphertext + len, &len) != 1)
-    handle_error();
-ciphertext_len += len;
+- Severity: Warning
 
-EVP_CIPHER_CTX_free(ctx);
-```
+- Report Message: `This certificate is not yet valid. Its validity period begins on [YYYY-MM-DD].`
 
-## Code Review Checklist
-- [ ] No deprecated SSL/crypto APIs used
-- [ ] No banned algorithms (MD5, DES, RC4, etc.)
-- [ ] HMAC uses SHA-256 or stronger (not SHA1)
-- [ ] All crypto operations use EVP high-level APIs
-- [ ] Proper error handling for all crypto operations
-- [ ] Key material properly zeroed after use
+
+#### Check 2: Public Key Strength
+
+- Condition: The public key algorithm or size is weak.
+
+    - Weak Keys: RSA keys with a modulus smaller than 2048 bits. Elliptic Curve (EC) keys using curves with less than a 256-bit prime modulus (e.g., `secp192r1`, `P-192`, `P-224`).
+
+- Severity: High-Priority Warning
+
+- Report Message: `The certificate's public key is cryptographically weak ([Algorithm], [Key Size]). Keys of this strength are vulnerable to factorization or discrete logarithm attacks. The certificate should be re-issued using at least an RSA 2048-bit key or an ECDSA key on a P-256 (or higher) curve.`
+
+
+#### Check 3: Signature Algorithm
+
+- Condition: The algorithm used to sign the certificate is insecure.
+
+    - Insecure Algorithms: Any signature algorithm using MD5 or SHA-1 (e.g., `md5WithRSAEncryption`, `sha1WithRSAEncryption`).
+
+- Severity: High-Priority Warning
+
+- Report Message: `The certificate is signed with the insecure algorithm '[Algorithm]'. This makes it vulnerable to collision attacks, potentially allowing for certificate forgery. It must be re-issued using a signature based on the SHA-2 family (e.g., sha256WithRSAEncryption).`
+
+
+#### Check 4: Issuer Type (Self-Signed Check)
+
+- Condition: The certificate's `Issuer` and `Subject` fields are identical.
+
+- Severity: Informational
+
+- Report Message: `This is a self-signed certificate. Ensure this is intentional and only used for development, testing, or internal services where trust is explicitly configured. Self-signed certificates should never be used for public-facing production systems as they will not be trusted by browsers or standard clients.`
+
+
+### 3. Actionable Examples
+
+Your feedback should be direct and easy to understand.
+
+Example 1: Flagging an Expired, In-line Certificate
+
+- Code Snippet:
+
+    ```
+    # Certificate for connecting to legacy_service
+    LEGACY_CERT = """
+    -----BEGIN CERTIFICATE-----
+    MIIC... (data for a certificate that expired on 2024-12-01) ...
+    -----END CERTIFICATE-----
+    """
+    ```
+
+- Your Analysis and Report:
+
+    > CRITICAL VULNERABILITY: The certificate stored in the `LEGACY_CERT` variable is invalid.
+    >
+    > - Reason: It expired on 2024-12-01.
+    >
+    > - Impact: Any TLS connection attempting to use this certificate will fail.
+    >
+    > - Action: This certificate must be renewed and the variable updated with the new PEM data immediately.
+    >
+
+
+Example 2: Flagging a Weak Key in a Loaded Certificate
+
+- Code Snippet:
+
+    ```
+    // Load the server certificate from disk
+    cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
+    // Assume server.crt contains a 1024-bit RSA key.
+    ```
+
+- Your Analysis and Report:
+
+    > High-Priority Warning: The certificate being loaded from `server.crt` is using a weak public key.
+    >
+    > - Reason: It uses an RSA key with a 1024-bit modulus.
+    >
+    > - Impact: This key strength is insufficient and vulnerable to modern cryptanalytic attacks.
+    >
+    > - Action: A new certificate and key must be generated with at least a 2048-bit RSA key or a modern elliptic curve.
+
+
+You must always explain how this rule was applied and why it was applied.
 
 ---
 > Source: [cisco-ai-defense/model-provenance-kit](https://github.com/cisco-ai-defense/model-provenance-kit) — distributed by [TomeVault](https://tomevault.io).
