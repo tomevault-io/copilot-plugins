@@ -1,0 +1,9 @@
+{
+  "name": "agentsmd--agents-md",
+  "displayName": "agents.md",
+  "description": "AGENTS.md \u2014 a simple, open format for guiding coding agents",
+  "version": "1.0.0",
+  "author": "agentsmd",
+  "homepage": "https://github.com/agentsmd/agents.md",
+  "skills": []
+}
