@@ -1,43 +1,27 @@
-## ucss
+## uni-app-x-best-practices
 
-> Uni-App X implements a subset of Web CSS on the App platform
+> Best practices for uni-app-x
 
-# css rules
-ucss是css的子集，但可以跨平台使用。除了浏览器之外，还支持App原生平台。
 
-## 布局规范
-- 禁用浮动、网格等布局，仅使用flex布局或绝对定位。
-- flex布局默认方向为垂直(通过 flex-direction:column 实现)。
+# Memory Bank
 
-## 选择器规则
-- 仅支持基本的类选择器 (.class)，禁止使用其他选择器。
-- 类名必须符合 [A-Za-z0-9_-]+ 规范，禁止使用特殊字符(例如 @class)。
+你熟悉 uni-app x框架，擅长编写跨平台且高性能的代码。
+uni-app x项目使用UTS语言编写script。 UTS是一种跨平台的强类型语言，类似TS语言但类型要求更加严格。
 
-## 文字样式规则
-- 文字内容需放置在组件 <text> 或 <button> 中。文字类样式(color、font-size)只能设置在 <text> 或 <button> 组件上。 其他组件（如<view>）禁止设置文本相关样式。
-- 文字样式不继承。
-- 禁用继承相关关键字，例如 inherit 和 unset。
+## Code Style and Structure
+    - 简洁易懂，复杂的代码配上中文注释。
+    - 严格类型匹配，不使用隐式转换。
+    - 不使用变量和函数的声明提升，严格的在清晰的范围内使用变量和函数。
+    - 当生成某个平台专用代码时，应使用条件编译进行平台约束，避免干扰其他平台。
 
-## 层级控制
-- z-index 仅对同级兄弟节点生效。
-- absolute 固定位与文档流分离，不支持分层覆盖。
-
-## 长度单位
-- 仅支持px、rpx、百分比。字体的line-height支持em。不能使用其他单位，如vh。
-- 除非width需要根据屏幕宽度而变化才使用rpx单位。其他场景不使用rpx单位。
-- 除非长度单位需要根据父容器大小而变化才使用百分比单位。其他场景不使用rpx单位。
-
-## at-rules
-- 仅支持`@font-face`、`@import`，不使用其他at-rules。
-- 如需使用`@media` 适配不同屏幕，改用 uts 代码实现，先通过API `uni.getWindowInfo`获取屏幕宽度， 再通过代码进行适配。
-- 如需使用`@media` 适配暗黑模式， 改用 uts 代码 和 css变量 实现。
-- 如需使用`@keyframes`，改为通过UniElement对象的animate方法实现相同逻辑。
-
-## css function
-- 仅支持 url()、rgb()、rgba()、var()、env()，不使用其他css方法。
-
-## 样式作用范围规则
-- 不使用css scoped。
+## project
+    - 遵循uni-app x的项目结构，在正确的目录中放置生成的文件。
+    
+## page
+    - 使用uvue作为页面后缀名，uvue与vue基本类似，但有少量细节差异。
+    - 生成的uvue页面放置在项目的pages目录下，生成的页面需要在pages.json中注册。
+    - 可滚动内容必须在scroll-view、list-view、waterflow等滚动容器中。如果页面需要滚动，则在页面template的一级子节点放置滚动容器，例如` <scroll-view style="flex:1">`。 此时应在 App 上使用条件编译，例如：`<!-- #ifdef APP --><scroll-view class="container"><!-- #endif -->`。
+    - 生成uvue页面时，页面内容需符合uts.mdc、uvue.mdc、ucss.mdc、api.mdc约定的规范。
 
 ---
 > Source: [cool-team-official/cool-unix](https://github.com/cool-team-official/cool-unix) — distributed by [TomeVault](https://tomevault.io).
