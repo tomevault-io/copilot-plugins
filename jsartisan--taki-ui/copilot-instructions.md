@@ -1,473 +1,1018 @@
-## creating-demo-files
+## creating-mdx-files
 
-> **Remember:** The goal of demo files is to help developers understand how to use components effectively. Focus on clarity, simplicity, and practical examples.
+> **Remember:** MDX documentation files are the face of your component library. They should be clear, comprehensive, and help developers quickly understand how to use components effectively.
 
-**Remember:** The goal of demo files is to help developers understand how to use components effectively. Focus on clarity, simplicity, and practical examples.
+**Remember:** MDX documentation files are the face of your component library. They should be clear, comprehensive, and help developers quickly understand how to use components effectively.
 
-# Creating Demo Files
+# Creating MDX Documentation Files
 
-This guide explains how to create demo files for components in the Kuro UI library.
+This guide explains how to create MDX documentation files for components in the Kuro UI library.
 
 ## Overview
 
-Demo files showcase how to use components and are essential for documentation. The process involves three main steps:
+MDX files are located in `apps/v1/content/docs/components/` and serve as the main documentation for each component. They combine Markdown with JSX to create interactive, component-rich documentation.
 
-1. Create the demo component file
-2. Register it in the registry
-3. Build the registry
+## File Naming Convention
 
-## Step 1: Create the Demo Component File
-
-Demo files are located in the `apps/v1/registry/new-york/examples/` directory.
-
-### File Naming Convention
-
-Follow this pattern: `{component-name}-{variant}.tsx`
+MDX files should be named after the component in kebab-case:
 
 **Examples:**
-- `checkbox-demo.tsx` - Main demo
-- `checkbox-disabled.tsx` - Disabled state demo
-- `button-with-icon.tsx` - Button with icon demo
-- `input-group-tooltip.tsx` - Input group with tooltip
+- `button.mdx` - Button component
+- `checkbox-group.mdx` - Checkbox Group component
+- `input-group.mdx` - Input Group component
+- `radio-group.mdx` - Radio Group component
 
-### Demo File Structure
+## MDX File Structure
+
+A typical MDX file consists of the following sections:
+
+1. **Front Matter** - Metadata about the component
+2. **Component Preview** - Live demo of the component
+3. **Installation** - How to install the component
+4. **Usage** - Basic usage examples
+5. **Examples** - Various use cases and variants
+6. **API Reference** - (Optional) Props and API documentation
+7. **Changelog** - (Optional) Version history and breaking changes
+
+### Basic Template
+
+```mdx
+---
+title: Component Name
+description: A brief description of what the component does.
+component: true
+---
+
+<ComponentPreview name="component-demo" description="A component demo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
+
+```bash
+npx taki-ui@latest add component-name
+```
+
+</TabsContent>
+
+<TabsContent id="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="component-name" title="components/ui/component-name.tsx" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
 
 ```tsx
-import { ComponentName } from "@/registry/new-york/ui/component-name"
-
-export default function ComponentDemo() {
-  return (
-    <div>
-      <ComponentName />
-    </div>
-  )
-}
+import { ComponentName } from "@/components/ui/component-name"
 ```
-
-### Best Practices
-
-1. **Keep it Simple**: Each demo should illustrate one specific use case
-2. **Self-contained**: Include all necessary imports and setup
-3. **Export Default**: Always use default export for the demo component
-4. **Descriptive Names**: Use clear, descriptive function names
-
-### Example: Creating a Checkbox Demo
-
-**File:** `apps/v1/registry/new-york/examples/checkbox-demo.tsx`
 
 ```tsx
-import { Checkbox } from "@/registry/new-york/ui/checkbox"
-import { Label } from "@/registry/new-york/ui/label"
-
-export default function CheckboxDemo() {
-  return (
-    <div className="flex items-center space-x-2">
-      <Checkbox id="terms" />
-      <Label htmlFor="terms">Accept terms and conditions</Label>
-    </div>
-  )
-}
+<ComponentName />
+```
 ```
 
-## Step 2: Register in registry-examples.ts
+## Front Matter Fields
 
-After creating your demo file, register it in `apps/v1/registry/registry-examples.ts`.
+The front matter section at the top of the MDX file contains metadata:
 
-### Basic Registry Entry
-
-```typescript
-{
-  name: "component-demo",
-  type: "registry:example",
-  registryDependencies: ["component"],
-  files: [
-    {
-      path: "examples/component-demo.tsx",
-      type: "registry:example",
-    },
-  ],
-}
+```yaml
+---
+title: Component Name
+description: A brief description of what the component does.
+component: true
+featured: true  # Optional - shows on homepage
+links:
+  doc: https://external-docs-url.com
+  api: https://external-api-reference-url.com
+---
 ```
 
-### Registry Entry Properties
+### Front Matter Properties
 
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
-| `name` | `string` | Yes | Unique identifier for the demo |
-| `type` | `string` | Yes | Always `"registry:example"` |
-| `registryDependencies` | `string[]` | Yes | List of UI components used |
-| `files` | `Array<{path, type}>` | Yes | Demo file location |
-| `dependencies` | `string[]` | No | External npm packages required |
-| `categories` | `string[]` | No | Categories for organization |
-| `meta` | `object` | No | Metadata for display configuration |
-| `description` | `string` | No | Brief description of the demo |
+| `title` | `string` | Yes | Display name of the component |
+| `description` | `string` | Yes | Brief description (1-2 sentences) |
+| `component` | `boolean` | Yes | Always set to `true` for component docs |
+| `featured` | `boolean` | No | If `true`, shows on featured list |
+| `links.doc` | `string` | No | URL to external documentation (e.g., Radix UI) |
+| `links.api` | `string` | No | URL to external API reference |
 
-### Example: Checkbox Registry Entry
+### Examples:
 
-```typescript
-{
-  name: "checkbox-demo",
-  type: "registry:example",
-  registryDependencies: ["checkbox"],
-  files: [
-    {
-      path: "examples/checkbox-demo.tsx",
-      type: "registry:example",
-    },
-  ],
-}
+**Simple Component:**
+```yaml
+---
+title: Switch
+description: A control that allows the user to toggle between checked and not checked.
+component: true
+links:
+  doc: https://www.radix-ui.com/docs/primitives/components/switch
+  api: https://www.radix-ui.com/docs/primitives/components/switch#api-reference
+---
 ```
 
-### Example: Complex Demo with Multiple Dependencies
-
-```typescript
-{
-  name: "form-rhf-demo",
-  type: "registry:example",
-  registryDependencies: ["field", "input", "input-group", "button", "card"],
-  files: [
-    {
-      path: "examples/form-rhf-demo.tsx",
-      type: "registry:example",
-    },
-  ],
-  dependencies: ["react-hook-form", "@hookform/resolvers", "zod"],
-}
+**Featured Component:**
+```yaml
+---
+title: Button
+description: Displays a button or a component that looks like a button.
+featured: true
+component: true
+links:
+  doc: https://react-spectrum.adobe.com/react-aria/Button.html
+  api: https://react-spectrum.adobe.com/react-aria/Button.html#props
+---
 ```
 
-### Example: Demo with Metadata
+## Component Preview Section
 
-```typescript
-{
-  name: "calendar-hijri",
-  description: "A Persian calendar.",
-  type: "registry:example",
-  registryDependencies: ["calendar"],
-  files: [
-    {
-      path: "examples/calendar-hijri.tsx",
-      type: "registry:example",
-    },
-  ],
-  categories: ["calendar", "date"],
-  meta: {
-    iframeHeight: "600px",
-    container: "w-full bg-surface min-h-svh flex px-4 py-12 items-start md:py-20 justify-center min-w-0",
-    mobile: "component",
-  },
-}
+The `<ComponentPreview>` component displays a live, interactive demo of your component.
+
+### Basic Usage
+
+```mdx
+<ComponentPreview name="component-demo" description="A component demo" />
 ```
 
-### Where to Add Your Entry
+### Props
 
-Add your new registry entry to the `examples` array in `registry-examples.ts`. The array is organized alphabetically by component name, so place your entry in the appropriate location.
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `name` | `string` | Yes | Name of the demo file (without extension) |
+| `description` | `string` | No | Short description shown below the demo |
+| `className` | `string` | No | Custom CSS classes for styling the preview container |
 
-```typescript
-export const examples: Registry["items"] = [
-  {
-    name: "accordion-demo",
-    // ...
-  },
-  // ... other entries ...
-  {
-    name: "your-new-demo", // <-- Add here in alphabetical order
-    type: "registry:example",
-    registryDependencies: ["your-component"],
-    files: [
-      {
-        path: "examples/your-new-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  // ... more entries ...
-]
+### Examples:
+
+**Basic Preview:**
+```mdx
+<ComponentPreview name="switch-demo" description="A switch component." />
 ```
 
-## Step 3: Build the Registry
+**With Custom Styling:**
+```mdx
+<ComponentPreview
+  name="field-demo"
+  className="[&_.preview]:h-[800px] [&_.preview]:p-6 md:[&_.preview]:h-[850px]"
+/>
+```
 
-After creating the demo file and adding the registry entry, build the registry to make it available.
+**With Description Only:**
+```mdx
+<ComponentPreview
+  name="radio-group-demo"
+  description="A radio group with 3 items."
+/>
+```
 
-### Command
+### Multiple Previews
 
-Navigate to the `apps/v1` directory and run:
+You can include multiple previews throughout the documentation:
+
+```mdx
+<ComponentPreview name="button-demo" description="A button" className="mb-4" />
+
+```tsx showLineNumbers
+<Button variant="outline">Button</Button>
+<Button variant="outline" size="icon" aria-label="Submit">
+  <ArrowUpIcon />
+</Button>
+```
+```
+
+## Installation Section
+
+The installation section provides two methods: CLI and manual installation.
+
+### Structure
+
+```mdx
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
 
 ```bash
-cd apps/v1
-pnpm run registry:build
+npx taki-ui@latest add component-name
 ```
 
-This command:
-- Validates all registry entries
-- Processes demo files
-- Generates registry JSON files
-- Creates necessary metadata
+</TabsContent>
 
-### Expected Output
+<TabsContent id="manual">
 
-You should see output indicating successful build:
+<Steps>
 
-```
-Building registry...
-✓ Validated registry entries
-✓ Processed examples
-✓ Generated registry files
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install package-name
 ```
 
-### Troubleshooting Build Errors
+<Step>Copy and paste the following code into your project.</Step>
 
-**Error: File not found**
-- Verify the file path in your registry entry matches the actual file location
-- Check for typos in the filename
+<ComponentSource name="component-name" title="components/ui/component-name.tsx" />
 
-**Error: Invalid registry dependencies**
-- Ensure all components listed in `registryDependencies` exist
-- Check spelling of component names
+<Step>Update the import paths to match your project setup.</Step>
 
-**Error: Duplicate name**
-- Each demo must have a unique `name` in the registry
-- Check if the name is already used elsewhere
+</Steps>
 
-## Complete Workflow Example
+</TabsContent>
 
-Let's create a complete example: a button loading demo.
+</CodeTabs>
+```
 
-### 1. Create the Demo File
+### Components Used
 
-**File:** `apps/v1/registry/new-york/examples/button-loading.tsx`
+- `<CodeTabs>` - Container for tabbed code blocks
+- `<TabsList>` - Container for tab triggers
+- `<TabsTrigger>` - Individual tab button
+- `<TabsContent>` - Content for each tab
+- `<Steps>` - Sequential step container
+- `<Step>` - Individual step
+- `<ComponentSource>` - Displays the component source code
+
+### Example: Component with Dependencies
+
+```mdx
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
+
+```bash
+npx taki-ui@latest add button
+```
+
+</TabsContent>
+
+<TabsContent id="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install @radix-ui/react-slot
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="button" title="components/ui/button.tsx" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+```
+
+### Example: Component without Dependencies
+
+```mdx
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
+
+```bash
+npx taki-ui@latest add input
+```
+
+</TabsContent>
+
+<TabsContent id="manual">
+
+<Steps>
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="input" title="components/ui/input.tsx" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+```
+
+## Usage Section
+
+The usage section shows basic import and usage patterns.
+
+### Basic Pattern
+
+```mdx
+## Usage
 
 ```tsx
-import { Button } from "@/registry/new-york/ui/button"
-import { Loader2 } from "lucide-react"
-
-export default function ButtonLoading() {
-  return (
-    <Button disabled>
-      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-      Please wait
-    </Button>
-  )
-}
+import { ComponentName } from "@/components/ui/component-name"
 ```
 
-### 2. Add Registry Entry
-
-**File:** `apps/v1/registry/registry-examples.ts`
-
-Find the appropriate location in the array (alphabetically) and add:
-
-```typescript
-{
-  name: "button-loading",
-  type: "registry:example",
-  registryDependencies: ["button"],
-  files: [
-    {
-      path: "examples/button-loading.tsx",
-      type: "registry:example",
-    },
-  ],
-}
+```tsx
+<ComponentName />
+```
 ```
 
-### 3. Build the Registry
+### With Line Numbers
+
+Use `showLineNumbers` attribute to show line numbers:
+
+```mdx
+## Usage
+
+```tsx showLineNumbers
+import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+```
+
+```tsx showLineNumbers
+<RadioGroup defaultValue="option-one">
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="option-one" id="option-one" />
+    <Label htmlFor="option-one">Option One</Label>
+  </div>
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="option-two" id="option-two" />
+    <Label htmlFor="option-two">Option Two</Label>
+  </div>
+</RadioGroup>
+```
+```
+
+### Multiple Imports
+
+For components with multiple exports:
+
+```mdx
+## Usage
+
+```tsx showLineNumbers
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+  FieldTitle,
+} from "@/components/ui/field"
+```
+```
+
+## Examples Section
+
+The examples section demonstrates various use cases, variants, and configurations.
+
+### Structure
+
+Each example should have:
+1. A heading (h3)
+2. A component preview (optional)
+3. Code snippet showing the usage
+
+```mdx
+## Examples
+
+### Variant Name
+
+<ComponentPreview name="component-variant" className="mb-4" />
+
+```tsx
+<Component variant="example" />
+```
+```
+
+### Example: Multiple Variants
+
+```mdx
+## Examples
+
+### Default
+
+<ComponentPreview
+  name="button-default"
+  description="A primary button"
+  className="mb-4"
+/>
+
+```tsx
+<Button>Button</Button>
+```
+
+### Outline
+
+<ComponentPreview
+  name="button-outline"
+  description="A button using the outline variant."
+  className="mb-4"
+/>
+
+```tsx
+<Button variant="outline">Outline</Button>
+```
+
+### Ghost
+
+<ComponentPreview
+  name="button-ghost"
+  description="A button using the ghost variant"
+  className="mb-4"
+/>
+
+```tsx
+<Button variant="ghost">Ghost</Button>
+```
+```
+
+### Example: Size Variants
+
+```mdx
+### Size
+
+<ComponentPreview name="button-size" className="mb-4" />
+
+```tsx
+// Small
+<Button size="sm" variant="outline">Small</Button>
+
+// Medium
+<Button variant="outline">Default</Button>
+
+// Large
+<Button size="lg" variant="outline">Large</Button>
+```
+```
+
+### Example: With Inline Code
+
+You can show quick examples with inline code before the preview:
+
+```mdx
+<ComponentPreview name="button-demo" description="A button" className="mb-4" />
+
+```tsx showLineNumbers
+<Button variant="outline">Button</Button>
+<Button variant="outline" size="icon" aria-label="Submit">
+  <ArrowUpIcon />
+</Button>
+```
+```
+
+## Code Blocks
+
+### Basic Code Block
+
+````mdx
+```tsx
+<Button>Click me</Button>
+```
+````
+
+### Code Block Attributes
+
+| Attribute | Description | Example |
+|-----------|-------------|---------|
+| `showLineNumbers` | Shows line numbers | ```````tsx showLineNumbers```` |
+| `title` | Adds a title to the code block | ```````tsx title="components/ui/button.tsx"```` |
+| `{1,3-5}` | Highlights specific lines | ```````tsx {1,3-5}```` |
+
+### Examples:
+
+**With Line Numbers:**
+````mdx
+```tsx showLineNumbers
+import { Button } from "@/components/ui/button"
+
+export default function App() {
+  return <Button>Click me</Button>
+}
+```
+````
+
+**With Title:**
+````mdx
+```css showLineNumbers title="globals.css"
+@layer base {
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+}
+```
+````
+
+**With Highlighting:**
+````mdx
+```tsx showLineNumbers {2,4-6}
+import { Button } from "@/components/ui/button"
+import { ArrowUpIcon } from "lucide-react"
+
+export default function App() {
+  return <Button><ArrowUpIcon />Click me</Button>
+}
+```
+````
+
+## Special Sections
+
+### Anatomy Section
+
+Explains the structure and hierarchy of complex components:
+
+```mdx
+## Anatomy
+
+The `Field` family is designed for composing accessible forms. A typical field is structured as follows:
+
+```tsx showLineNumbers
+<Field>
+  <FieldLabel htmlFor="input-id">Label</FieldLabel>
+  {/* Input, Select, Switch, etc. */}
+  <FieldDescription>Optional helper text.</FieldDescription>
+  <FieldError>Validation message.</FieldError>
+</Field>
+```
+
+- `Field` is the core wrapper for a single field.
+- `FieldContent` is a flex column that groups label and description.
+- Wrap related fields with `FieldGroup`, and use `FieldSet` with `FieldLegend` for semantic grouping.
+```
+
+### API Reference Section
+
+Documents props, variants, and API details:
+
+```mdx
+## API Reference
+
+### Button
+
+The `Button` component is a wrapper around the `button` element that adds a variety of styles and functionality.
+
+| Prop      | Type                                                                          | Default     |
+| --------- | ----------------------------------------------------------------------------- | ----------- |
+| `variant` | `"default" \| "outline" \| "ghost" \| "destructive" \| "secondary" \| "link"` | `"default"` |
+| `size`    | `"default" \| "sm" \| "lg" \| "icon" \| "icon-sm" \| "icon-lg"`               | `"default"` |
+
+Apart from the props above, the `Button` component also supports the props from the `react-aria-components` `Button` component.
+```
+
+### Changelog Section
+
+Documents version history and breaking changes:
+
+```mdx
+## Changelog
+
+### 2025-09-18 Remove `flex` class
+
+Edit `input.tsx` and remove the `flex` class from the input component. This is no longer needed.
+```
+
+### Notes and Callouts
+
+For important information:
+
+```mdx
+## Cursor
+
+Tailwind v4 [switched](https://tailwindcss.com/docs/upgrade-guide#buttons-use-the-default-cursor) from `cursor: pointer` to `cursor: default` for the button component.
+
+If you want to keep the `cursor: pointer` behavior, add the following code to your CSS file:
+
+```css showLineNumbers title="globals.css"
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+```
+```
+
+### Cross-References
+
+Link to related components or documentation:
+
+```mdx
+### Button Group
+
+To create a button group, use the `ButtonGroup` component. See the [Button Group](/docs/components/button-group) documentation for more details.
+```
+
+## Importing React Components
+
+You can import and use React components in MDX:
+
+```mdx
+---
+title: Button
+description: Displays a button or a component that looks like a button.
+component: true
+---
+
+import { InfoIcon } from "lucide-react"
+
+<ComponentPreview name="button-demo" description="A button" className="mb-4" />
+```
+
+## Complete Example
+
+Here's a complete MDX file for a Checkbox Group component:
+
+```mdx
+---
+title: Checkbox Group
+description: A checkbox group allows a user to select multiple items from a list of options.
+component: true
+links:
+  doc: https://react-spectrum.adobe.com/react-aria/CheckboxGroup.html
+  api: https://react-spectrum.adobe.com/react-aria/CheckboxGroup.html#props
+---
+
+<ComponentPreview name="checkbox-group-demo" description="A checkbox group" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger id="cli">CLI</TabsTrigger>
+  <TabsTrigger id="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent id="cli">
 
 ```bash
-cd apps/v1
-pnpm run registry:build
+npx taki-ui@latest add checkbox
 ```
 
-### 4. Verify
+</TabsContent>
 
-After building, your demo should be available in the documentation system and can be referenced in MDX files or used in the component documentation.
+<TabsContent id="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install react-aria-components
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="checkbox" title="components/ui/checkbox.tsx" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx showLineNumbers
+import { Checkbox, CheckboxGroup } from "@/components/ui/checkbox"
+```
+
+```tsx showLineNumbers
+<CheckboxGroup label="Notifications">
+  <Checkbox value="email">Email notifications</Checkbox>
+  <Checkbox value="push">Push notifications</Checkbox>
+  <Checkbox value="sms">SMS notifications</Checkbox>
+</CheckboxGroup>
+```
+
+## Examples
+
+### Default
+
+<ComponentPreview name="checkbox-group-demo" description="A basic checkbox group." />
+
+### With Description
+
+<ComponentPreview name="checkbox-group-description" description="A checkbox group with a description." />
+
+```tsx showLineNumbers
+<CheckboxGroup
+  label="Notifications"
+  description="Select which notifications you'd like to receive."
+>
+  <Checkbox value="email">Email notifications</Checkbox>
+  <Checkbox value="push">Push notifications</Checkbox>
+  <Checkbox value="sms">SMS notifications</Checkbox>
+</CheckboxGroup>
+```
+
+### Disabled
+
+<ComponentPreview name="checkbox-group-disabled" description="A disabled checkbox group." />
+
+```tsx showLineNumbers
+<CheckboxGroup label="Marketing Preferences" isDisabled>
+  <Checkbox value="newsletter">Newsletter</Checkbox>
+  <Checkbox value="updates">Product Updates</Checkbox>
+</CheckboxGroup>
+```
+
+## API Reference
+
+### CheckboxGroup
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | - | Label for the checkbox group |
+| `description` | `string` | - | Help text displayed below the label |
+| `errorMessage` | `string \| ((validation: ValidationResult) => string)` | - | Error message for validation |
+| `isDisabled` | `boolean` | `false` | Whether the checkbox group is disabled |
+| `defaultValue` | `string[]` | - | Default selected values |
+| `value` | `string[]` | - | Controlled selected values |
+| `onChange` | `(value: string[]) => void` | - | Callback when selection changes |
+
+### Checkbox
+
+See the [Checkbox](/docs/components/checkbox) documentation for checkbox-specific props.
+```
+
+## Best Practices
+
+### 1. Write Clear Descriptions
+
+**Good:**
+```yaml
+description: A checkbox group allows a user to select multiple items from a list of options.
+```
+
+**Bad:**
+```yaml
+description: Checkbox group component.
+```
+
+### 2. Show Progressive Complexity
+
+Start with simple examples and gradually introduce more complex ones:
+
+```mdx
+## Examples
+
+### Default
+<ComponentPreview name="button-demo" />
+
+### With Icon
+<ComponentPreview name="button-with-icon" />
+
+### Loading State
+<ComponentPreview name="button-loading" />
+```
+
+### 3. Include Realistic Examples
+
+Use real-world scenarios that developers can relate to:
+
+**Good:**
+```tsx
+<CheckboxGroup label="Notifications">
+  <Checkbox value="email">Email notifications</Checkbox>
+  <Checkbox value="push">Push notifications</Checkbox>
+</CheckboxGroup>
+```
+
+**Bad:**
+```tsx
+<CheckboxGroup label="Label">
+  <Checkbox value="1">Item 1</Checkbox>
+  <Checkbox value="2">Item 2</Checkbox>
+</CheckboxGroup>
+```
+
+### 4. Document Edge Cases
+
+Show how to handle common edge cases:
+
+```mdx
+### Disabled State
+
+<ComponentPreview name="checkbox-group-disabled" />
+
+### With Validation
+
+<ComponentPreview name="checkbox-group-validation" />
+
+### Custom Styling
+
+<ComponentPreview name="checkbox-group-custom" />
+```
+
+### 5. Link to Related Components
+
+```mdx
+## Related
+
+- [Checkbox](/docs/components/checkbox) - Individual checkbox component
+- [Radio Group](/docs/components/radio-group) - For single selection
+- [Field](/docs/components/field) - For form field composition
+```
 
 ## Common Patterns
 
-### Multiple Variants of Same Component
+### Pattern 1: Form Input Component
 
-Create separate demos for each variant:
+```mdx
+---
+title: Input
+description: Displays a form input field.
+component: true
+---
 
-```
-checkbox-demo.tsx        → Main demo
-checkbox-disabled.tsx    → Disabled state
-checkbox-with-text.tsx   → With descriptive text
-checkbox-form-single.tsx → In a form context
-```
+<ComponentPreview name="input-demo" />
 
-Each gets its own registry entry:
+## Installation
+...
 
-```typescript
-{
-  name: "checkbox-demo",
-  type: "registry:example",
-  registryDependencies: ["checkbox"],
-  files: [{ path: "examples/checkbox-demo.tsx", type: "registry:example" }],
-},
-{
-  name: "checkbox-disabled",
-  type: "registry:example",
-  registryDependencies: ["checkbox"],
-  files: [{ path: "examples/checkbox-disabled.tsx", type: "registry:example" }],
-}
+## Usage
+...
+
+## Examples
+
+### Default
+### Disabled
+### With Label
+### With Error
 ```
 
-### Composition Demos
+### Pattern 2: Complex Composite Component
 
-When demonstrating component composition:
+```mdx
+---
+title: Field
+description: Combine labels, controls, and help text to compose accessible form fields.
+component: true
+---
 
-```typescript
-{
-  name: "input-with-button",
-  type: "registry:example",
-  registryDependencies: ["input", "button"],
-  files: [
-    {
-      path: "examples/input-with-button.tsx",
-      type: "registry:example",
-    },
-  ],
-}
+<ComponentPreview name="field-demo" />
+
+## Installation
+...
+
+## Usage
+...
+
+## Anatomy
+[Explain component structure]
+
+## Examples
+...
+
+## API Reference
+[Document all sub-components]
 ```
 
-### Form Integration Demos
+### Pattern 3: Interactive Component
 
-When showing form library integration:
+```mdx
+---
+title: Dialog
+description: A modal dialog that interrupts the user.
+component: true
+links:
+  doc: https://external-docs.com
+  api: https://external-docs.com/api
+---
 
-```typescript
-{
-  name: "form-rhf-input",
-  type: "registry:example",
-  registryDependencies: ["field", "input", "button", "card"],
-  files: [
-    {
-      path: "examples/form-rhf-input.tsx",
-      type: "registry:example",
-    },
-  ],
-  dependencies: ["react-hook-form", "@hookform/resolvers", "zod"],
-}
-```
+<ComponentPreview name="dialog-demo" />
 
-## Tips for Quality Demos
+## Installation
+...
 
-### 1. Progressive Complexity
+## Usage
+...
 
-Start with the simplest use case, then create more complex demos:
+## Examples
 
-```
-button-demo.tsx          → Basic button
-button-with-icon.tsx     → Adding an icon
-button-loading.tsx       → Loading state
-button-as-child.tsx      → Advanced composition
-```
-
-### 2. Real-World Examples
-
-Create demos that solve actual use cases:
-
-```tsx
-// Good: Shows practical usage
-export default function FormLoginDemo() {
-  return (
-    <form>
-      <Field label="Email" name="email">
-        <Input type="email" placeholder="you@example.com" />
-      </Field>
-      <Field label="Password" name="password">
-        <Input type="password" />
-      </Field>
-      <Button type="submit">Sign In</Button>
-    </form>
-  )
-}
-
-// Less helpful: Too abstract
-export default function FieldDemo() {
-  return <Field><Input /></Field>
-}
-```
-
-### 3. Accessibility Examples
-
-Show accessible patterns:
-
-```tsx
-export default function CheckboxDemo() {
-  return (
-    <div className="flex items-center space-x-2">
-      <Checkbox id="terms" />
-      <Label htmlFor="terms">Accept terms and conditions</Label>
-    </div>
-  )
-}
-```
-
-### 4. State Management
-
-Include state when relevant:
-
-```tsx
-"use client"
-
-import { useState } from "react"
-import { Checkbox } from "@/registry/new-york/ui/checkbox"
-
-export default function CheckboxControlled() {
-  const [checked, setChecked] = useState(false)
-
-  return (
-    <div className="space-y-2">
-      <div className="flex items-center space-x-2">
-        <Checkbox 
-          id="controlled" 
-          checked={checked}
-          onCheckedChange={setChecked}
-        />
-        <Label htmlFor="controlled">Controlled checkbox</Label>
-      </div>
-      <p className="text-sm text-muted-foreground">
-        Checked: {checked ? "Yes" : "No"}
-      </p>
-    </div>
-  )
-}
+### Basic
+### With Form
+### Nested
+### Custom Styling
 ```
 
 ## Checklist
 
-Before submitting your demo:
+Before submitting your MDX file:
 
-- [ ] Demo file created in `apps/v1/registry/new-york/examples/`
-- [ ] File follows naming convention: `{component}-{variant}.tsx`
-- [ ] Demo uses default export
-- [ ] Registry entry added to `registry-examples.ts` in alphabetical order
-- [ ] `registryDependencies` includes all used UI components
-- [ ] `dependencies` includes all external npm packages (if any)
-- [ ] Registry built successfully with `pnpm run registry:build`
-- [ ] No build errors or warnings
-- [ ] Demo is self-contained and functional
-- [ ] Code follows existing patterns and conventions
+- [ ] Front matter includes `title`, `description`, and `component: true`
+- [ ] Links to external docs (if applicable) are included
+- [ ] At least one `<ComponentPreview>` is included
+- [ ] Installation section has both CLI and Manual tabs
+- [ ] Usage section shows import and basic usage
+- [ ] Examples section demonstrates key use cases
+- [ ] Code blocks use appropriate syntax highlighting
+- [ ] All referenced demo files exist in `registry/new-york/examples/`
+- [ ] File is named in kebab-case matching the component name
+- [ ] No typos or grammatical errors
+- [ ] Links to related components work correctly
+
+## Validation
+
+After creating your MDX file, verify:
+
+1. **Preview the documentation** - Check that it renders correctly
+2. **Test all demos** - Ensure component previews work
+3. **Verify links** - All internal and external links are valid
+4. **Check code blocks** - Syntax highlighting works correctly
+5. **Mobile responsive** - Documentation looks good on mobile devices
+
+## Tips for Quality Documentation
+
+### 1. Be Concise but Complete
+
+Cover all important use cases without overwhelming the reader.
+
+### 2. Use Semantic Headings
+
+```mdx
+# Page Title (h1 - only in front matter as 'title')
+## Main Sections (h2 - Installation, Usage, Examples)
+### Subsections (h3 - Specific examples or variants)
+```
+
+### 3. Show, Don't Just Tell
+
+Use component previews liberally to demonstrate functionality.
+
+### 4. Consider Accessibility
+
+Include examples that demonstrate accessible patterns:
+
+```tsx
+<Button size="icon" aria-label="Submit">
+  <ArrowUpIcon />
+</Button>
+```
+
+### 5. Keep Examples Self-Contained
+
+Each example should be independently understandable without needing to reference other examples.
 
 ## Additional Resources
 
-- Component definitions: `apps/v1/registry/new-york/ui/`
-- Existing demos: `apps/v1/registry/new-york/examples/`
-- Registry schema: `packages/shadcn/src/schema.ts`
-- Build scripts: `apps/v1/scripts/build-registry.mts`
+- MDX syntax: https://mdxjs.com/
+- Component previews: `apps/v1/components/component-preview.tsx`
+- Existing MDX files: `apps/v1/content/docs/components/`
+- Demo files: `apps/v1/registry/new-york/examples/`
 
 ## Getting Help
 
 If you encounter issues:
 
-1. Check existing demos for similar patterns
-2. Verify file paths and naming conventions
-3. Ensure all dependencies are installed
-4. Review build error messages carefully
-5. Compare your registry entry with working examples
+1. Check existing MDX files for similar patterns
+2. Verify all component preview names match actual demo files
+3. Ensure front matter YAML is valid
+4. Test the documentation in the development environment
+5. Compare your MDX structure with working examples
 
 ---
 
-**Remember:** The goal of demo files is to help developers understand how to use components effectively. Focus on clarity, simplicity, and practical examples.
+**Remember:** MDX documentation files are the face of your component library. They should be clear, comprehensive, and help developers quickly understand how to use components effectively.
 
 ---
 > Source: [jsartisan/taki-ui](https://github.com/jsartisan/taki-ui) — distributed by [TomeVault](https://tomevault.io).
