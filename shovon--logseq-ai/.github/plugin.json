@@ -1,0 +1,9 @@
+{
+  "name": "shovon--logseq-ai",
+  "displayName": "logseq-ai",
+  "description": "A plugin for Logseq to \"chat\" with your graph",
+  "version": "1.0.0",
+  "author": "shovon",
+  "homepage": "https://github.com/shovon/logseq-ai",
+  "skills": []
+}
