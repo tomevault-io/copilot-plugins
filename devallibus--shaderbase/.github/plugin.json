@@ -1,0 +1,9 @@
+{
+  "name": "devallibus--shaderbase",
+  "displayName": "shaderbase",
+  "description": "Agent-first shader registry, CLI, MCP, and SDK",
+  "version": "1.0.0",
+  "author": "devallibus",
+  "homepage": "https://github.com/devallibus/shaderbase",
+  "skills": []
+}
