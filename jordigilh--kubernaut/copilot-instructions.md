@@ -1,309 +1,331 @@
-## 09-interface-method-validation
+## 10-container-deployment-standards
 
-> Interface and method validation before code generation
+> **MANDATORY**: All final service images MUST use the standardized registry prefix:
 
-# Interface and Method Validation Mandate - ENHANCED
+# Container and Deployment Standards
 
-## 🔍 **MANDATORY: Interface and Method Validation Before Code Generation**
+## 🐳 **Container Image Standards - MANDATORY**
 
-### Critical Validation Process - ENHANCED
-**MANDATORY**: Before generating ANY test code that calls methods or uses types:
+### Final Service Image Registry
+**MANDATORY**: All final service images MUST use the standardized registry prefix:
 
-1. **Interface Verification**: Use `codebase_search` to verify actual interface definitions
-2. **Method Existence Check**: Confirm all called methods exist with EXACT signatures
-3. **Type Validation**: Verify all referenced types and struct fields exist
-4. **Import Validation**: Ensure all imported packages and types are available
-5. **🆕 COMPILATION VERIFICATION**: MANDATORY compilation check after interface usage
-6. **🆕 TYPE COMPATIBILITY CHECK**: Verify parameter and return type compatibility
+```
+quay.io/jordigilh/
+```
 
-### 🆕 **MANDATORY CODE GENERATION HALT PROTOCOL - ENHANCED**
-**BEFORE generating ANY line of code:**
+### Base Image Strategy
+**IMPORTANT DISTINCTION**:
+- **Base Images**: Use official upstream images (Red Hat UBI, Alpine, etc.)
+- **Final Service Images**: Use `quay.io/jordigilh/` registry
 
-1. **MANDATORY SEARCH**: Run `codebase_search "existing [ComponentType] real implementations"` first, then `codebase_search "existing [ComponentType] mock implementations"`
-2. **MANDATORY VERIFICATION**: If real business logic exists, PREFER it over mocks; if using mocks, use existing ones
-3. **🆕 BUILD ERROR PREVENTION**: Check for common build error patterns
-4. **🆕 IMPORT CONSISTENCY**: Verify all imports exist and are properly used
-5. **VIOLATION RESPONSE**: If attempting to create duplicate mocks, IMMEDIATELY STOP and use existing
+### Image Naming Convention
+**Final Service Images Format**: `quay.io/jordigilh/{service-name}:{version}`
 
-**ENFORCEMENT TRIGGER WORDS**:
-- Creating any type with "Mock" in name → TRIGGER validation
-- Using `NewMock*` → TRIGGER existing pattern search
-- Implementing interfaces → TRIGGER interface validation
+**Examples**:
+```dockerfile
+# ✅ CORRECT: Use official base images for building
+FROM registry.access.redhat.com/ubi10/go-toolset:1.25 AS builder
+FROM registry.access.redhat.com/ubi10/ubi-minimal:latest
 
-**VIOLATION AUTO-DETECTION - ENHANCED**:
+# OR for Alpine-based services
+FROM golang:1.23-alpine AS builder
+FROM alpine:latest
+
+# Final service images use quay.io/jordigilh/ registry
+# Built image will be: quay.io/jordigilh/webhook-service:v1.0.0
+```
+
+### Base Image Preferences
+**Priority Order**:
+1. **Red Hat UBI** (Universal Base Images) - Preferred for enterprise
+2. **Alpine Linux** - For minimal footprint
+3. **Distroless** - For maximum security
+4. **Official language images** - For build stages only
+
+```dockerfile
+# ✅ PREFERRED: Red Hat UBI for enterprise services
+FROM registry.access.redhat.com/ubi10/go-toolset:1.25 AS builder
+FROM registry.access.redhat.com/ubi10/ubi-minimal:latest
+
+# ✅ ACCEPTABLE: Alpine for minimal services
+FROM golang:1.23-alpine AS builder
+FROM alpine:latest
+
+# ❌ AVOID: Random third-party base images
+FROM some-random-registry/custom-image:latest
+```
+
+## 🏗️ **Dockerfile Standards**
+
+### Multi-Stage Build Pattern
+**MANDATORY**: Use multi-stage builds for all services
+
+```dockerfile
+# Build stage - Use official base images
+FROM registry.access.redhat.com/ubi10/go-toolset:1.25 AS builder
+
+USER root
+RUN dnf update -y && dnf install -y git ca-certificates && dnf clean all
+USER 1001
+
+WORKDIR /opt/app-root/src
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -o service-name ./cmd/service-name
+
+# Runtime stage - Use official base images
+FROM registry.access.redhat.com/ubi10/ubi-minimal:latest
+
+RUN microdnf update -y && microdnf install -y ca-certificates && microdnf clean all
+RUN useradd -r -u 1001 -g root service-user
+
+COPY --from=builder /opt/app-root/src/service-name /usr/local/bin/
+USER 1001
+EXPOSE 8080
+ENTRYPOINT ["/usr/local/bin/service-name"]
+
+# Final image will be pushed as: quay.io/jordigilh/service-name:v1.0.0
+```
+
+### Security Standards
+**MANDATORY**: All containers must follow security best practices
+
+```dockerfile
+# ✅ REQUIRED: Non-root user
+RUN useradd -r -u 1001 -g root service-user
+USER service-user
+
+# ✅ REQUIRED: Minimal attack surface
+FROM quay.io/jordigilh/kubernaut-minimal:latest
+
+# ✅ REQUIRED: Health checks
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD ["/usr/local/bin/service-name", "--health-check"] || exit 1
+
+# ✅ REQUIRED: Proper labels
+LABEL name="kubernaut-service-name" \
+      vendor="Kubernaut" \
+      version="1.0.0" \
+      maintainer="kubernaut-team@example.com"
+```
+
+## 📦 **Image Versioning Strategy**
+
+### Version Tags
+**Format**: Semantic versioning with environment tags
+
 ```bash
-# If you find yourself typing any of these, STOP:
-type Mock* struct          # ❌ VIOLATION: Check existing mocks first
-func NewMock*             # ❌ VIOLATION: Use existing patterns
-*Mock struct {            # ❌ VIOLATION: Reuse existing mocks
-logrus.New()              # ❌ VIOLATION: Use existing mocks.NewMockLogger()
-mockLogger                # ❌ VIOLATION: Check variable declaration
-import.*logrus.*\n.*not   # ❌ VIOLATION: Unused import detected
+# Production releases
+quay.io/jordigilh/webhook-service:v1.2.3
+quay.io/jordigilh/webhook-service:v1.2
+quay.io/jordigilh/webhook-service:v1
+quay.io/jordigilh/webhook-service:latest
+
+# Development builds
+quay.io/jordigilh/webhook-service:dev-abc123f
+quay.io/jordigilh/webhook-service:pr-456
+quay.io/jordigilh/webhook-service:main-latest
+
+# Environment-specific
+quay.io/jordigilh/webhook-service:staging-v1.2.3
+quay.io/jordigilh/webhook-service:prod-v1.2.3
 ```
 
-**🆕 COMMON BUILD ERROR PATTERNS TO PREVENT**:
+### Build Automation
+**MANDATORY**: Use consistent build process
+
+```yaml
+# .github/workflows/build.yml
+- name: Build and push image
+  run: |
+    IMAGE_TAG="quay.io/jordigilh/${SERVICE_NAME}:${VERSION}"
+    docker build -t ${IMAGE_TAG} .
+    docker push ${IMAGE_TAG}
+```
+
+## 🚀 **Deployment Standards**
+
+### Kubernetes Manifests
+**MANDATORY**: Use standardized image references
+
+```yaml
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webhook-service
+spec:
+  template:
+    spec:
+      containers:
+      - name: webhook-service
+        image: quay.io/jordigilh/webhook-service:v1.2.3
+        imagePullPolicy: IfNotPresent
+```
+
+### Helm Charts
+**MANDATORY**: Parameterize registry in values
+
+```yaml
+# values.yaml
+image:
+  registry: quay.io/jordigilh
+  repository: webhook-service
+  tag: v1.2.3
+  pullPolicy: IfNotPresent
+
+# templates/deployment.yaml
+image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+```
+
+## 🔧 **Development Workflow**
+
+### Local Development
+**Pattern**: Use consistent local image names
+
 ```bash
-# These patterns MUST trigger immediate validation:
-mockLogger.*without.*var  # ❌ Undefined variable usage
-import.*unused           # ❌ Unused import statements
-mocks\..*without.*import  # ❌ Mock usage without import
-NewMock.*duplicate       # ❌ Duplicate mock creation
+# Build local development image
+docker build -t quay.io/jordigilh/webhook-service:dev .
+
+# Run locally
+docker run -p 8080:8080 quay.io/jordigilh/webhook-service:dev
 ```
 
----
+### CI/CD Integration
+**MANDATORY**: Standardized pipeline variables
 
-## 🚨 **MANDATORY VALIDATION SEQUENCE - ENHANCED**
-
-### **Step 1: Interface Discovery and Verification**
 ```bash
-# MANDATORY: Search for existing interfaces before creating/using
-codebase_search "existing [InterfaceName] interface definitions"
-codebase_search "existing [InterfaceName] implementations"
+# Environment variables
+export REGISTRY="quay.io/jordigilh"
+export SERVICE_NAME="webhook-service"
+export IMAGE_TAG="${REGISTRY}/${SERVICE_NAME}:${VERSION}"
 
-# Verify interface exists and get exact signature
-grep -r "type.*[InterfaceName].*interface" pkg/ --include="*.go"
+# Build command
+docker build -t ${IMAGE_TAG} -f docker/${SERVICE_NAME}.Dockerfile .
 ```
 
-**Example Validation**:
+## 📋 **Registry Management**
+
+### Image Scanning
+**MANDATORY**: All images must pass security scanning
+
 ```bash
-# Before using WorkflowEngine interface
-codebase_search "existing WorkflowEngine interface definitions"
-# Result should show: pkg/workflow/engine/interfaces.go
+# Security scan before push
+docker scan quay.io/jordigilh/webhook-service:v1.2.3
 
-# Verify method signatures
-grep -A 10 "type WorkflowEngine interface" pkg/workflow/engine/interfaces.go
+# Vulnerability assessment
+trivy image quay.io/jordigilh/webhook-service:v1.2.3
 ```
 
-### **Step 2: Method Signature Validation**
+### Image Cleanup
+**Policy**: Automated cleanup of old images
+
 ```bash
-# MANDATORY: Verify exact method signatures before calling
-grep -A 20 "type.*[InterfaceName].*interface" [interface_file.go]
-
-# Check method parameters and return types
-grep "[MethodName].*(" [interface_file.go]
+# Retention policy: Keep last 10 versions
+# Cleanup images older than 90 days (except latest, stable tags)
 ```
 
-**Example Method Validation**:
-```go
-// ✅ CORRECT: Verify method signature first
-// From pkg/workflow/engine/interfaces.go:
-// CreateWorkflow(ctx context.Context, alert AlertData) (*Workflow, error)
+## 🔍 **Monitoring and Observability**
 
-// Then use in test:
-workflow, err := workflowEngine.CreateWorkflow(ctx, alertData)
-```
+### Image Metrics
+**Track**: Image size, build time, vulnerability count
 
-### **Step 3: Mock Existence and Reuse Check**
 ```bash
-# MANDATORY: Check for existing mocks before creating new ones
-find pkg/testutil/mocks/ -name "*[ComponentName]*" -type f
-grep -r "Mock[ComponentName]" pkg/testutil/ --include="*.go"
+# Image size optimization
+docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}"
 
-# If mocks exist, REUSE them
-# If no mocks exist, check if real component should be used instead
+# Build time tracking
+time docker build -t quay.io/jordigilh/service:tag .
 ```
 
-**Mock Reuse Decision Matrix**:
-| Component Type | Action |
-|---------------|--------|
-| **External Services** (AI, K8s, DB) | Use existing mocks from `pkg/testutil/mocks/` |
-| **Business Logic** (Engine, Analytics) | Use REAL components |
-| **Configuration** | Use real config with test values |
-| **Utilities** | Use real utilities |
+### Runtime Monitoring
+**MANDATORY**: Container runtime observability
 
-### **🆕 Step 4: Compilation Verification**
+```yaml
+# Prometheus metrics
+- name: container_image_info
+  labels:
+    registry: "quay.io/jordigilh"
+    service: "webhook-service"
+    version: "v1.2.3"
+```
+
+## 🚨 **Anti-Patterns - FORBIDDEN**
+
+### Registry Anti-Patterns
+```dockerfile
+# ❌ WRONG: Mixed registries
+FROM docker.io/alpine:latest
+FROM gcr.io/project/base:latest
+FROM registry.redhat.io/ubi8/ubi:latest
+
+# ❌ WRONG: Hardcoded external registries
+FROM nginx:latest
+FROM postgres:13
+FROM redis:alpine
+```
+
+### Security Anti-Patterns
+```dockerfile
+# ❌ WRONG: Running as root
+USER root
+USER 0
+
+# ❌ WRONG: No health checks
+# Missing HEALTHCHECK instruction
+
+# ❌ WRONG: Exposing unnecessary ports
+EXPOSE 22 3306 5432
+```
+
+### Versioning Anti-Patterns
 ```bash
-# MANDATORY: Test compilation after interface usage
-go build ./test/[test_package]/ 2>&1 | tee build_check.log
+# ❌ WRONG: Inconsistent naming
+quay.io/different-org/webhook:v1.0.0
+docker.io/jordigilh/webhook:latest
+gcr.io/project/webhook-svc:1.0
 
-# Check for common errors:
-grep "undefined:" build_check.log    # Undefined symbols
-grep "cannot use" build_check.log    # Type mismatches
-grep "not enough arguments" build_check.log  # Parameter mismatches
+# ❌ WRONG: No versioning strategy
+quay.io/jordigilh/webhook:random-tag
+quay.io/jordigilh/webhook:build-123
 ```
 
-### **🆕 Step 5: Import Consistency Check**
+## 📚 **Documentation Requirements**
+
+### Service Documentation
+**MANDATORY**: Each service must document its container usage
+
+```markdown
+# Service Name
+
+## Container Image
+- **Registry**: quay.io/jordigilh/service-name
+- **Latest Version**: v1.2.3
+- **Base Image**: quay.io/jordigilh/kubernaut-runtime:latest
+
+## Build Instructions
 ```bash
-# MANDATORY: Verify all imports are used and correct
-go mod tidy
-goimports -w [test_file.go]
-
-# Check for unused imports
-go build [test_file.go] 2>&1 | grep "imported and not used"
+docker build -t quay.io/jordigilh/service-name:dev .
 ```
 
----
-
-## 🔧 **AUTOMATED VALIDATION TOOLS**
-
-### **Interface Validation Script**
-```bash
-#!/bin/bash
-# scripts/validate-interface-usage.sh
-
-INTERFACE_NAME="$1"
-TEST_FILE="$2"
-
-echo "🔍 VALIDATING INTERFACE USAGE: $INTERFACE_NAME in $TEST_FILE"
-
-# Step 1: Find interface definition
-INTERFACE_FILE=$(find pkg/ -name "*.go" -exec grep -l "type.*$INTERFACE_NAME.*interface" {} \;)
-if [ -z "$INTERFACE_FILE" ]; then
-    echo "❌ ERROR: Interface $INTERFACE_NAME not found"
-    exit 1
-fi
-
-echo "✅ Interface found in: $INTERFACE_FILE"
-
-# Step 2: Extract interface methods
-METHODS=$(grep -A 50 "type.*$INTERFACE_NAME.*interface" "$INTERFACE_FILE" | grep -E "^\s*[A-Z].*\(" | sed 's/^\s*//')
-echo "📋 Available methods:"
-echo "$METHODS"
-
-# Step 3: Check test file usage
-echo "🔍 Checking method usage in $TEST_FILE..."
-while IFS= read -r method; do
-    METHOD_NAME=$(echo "$method" | cut -d'(' -f1 | xargs)
-    if grep -q "$METHOD_NAME" "$TEST_FILE"; then
-        echo "✅ Method used: $METHOD_NAME"
-    fi
-done <<< "$METHODS"
-
-# Step 4: Compilation check
-echo "🔨 Testing compilation..."
-if go build "$TEST_FILE" 2>/dev/null; then
-    echo "✅ Compilation successful"
-else
-    echo "❌ Compilation failed:"
-    go build "$TEST_FILE" 2>&1
-    exit 1
-fi
-
-echo "✅ Interface validation complete"
+## Deployment
+```yaml
+image: quay.io/jordigilh/service-name:v1.2.3
+```
 ```
 
-### **Mock Reuse Validation Script**
-```bash
-#!/bin/bash
-# scripts/validate-mock-reuse.sh
+### Registry Documentation
+**Location**: `docs/operations/deployment/CONTAINER_REGISTRY.md`
+**Content**: Registry access, credentials, policies
 
-COMPONENT_NAME="$1"
+## 🔗 **Integration Points**
 
-echo "🔍 VALIDATING MOCK REUSE: $COMPONENT_NAME"
+**Enforces**: [05-kubernetes-safety.mdc](mdc:.cursor/rules/05-kubernetes-safety.mdc) deployment safety
+**Supports**: [06-documentation-standards.mdc](mdc:.cursor/rules/06-documentation-standards.mdc) documentation requirements
+**Integrates**: CI/CD pipelines and deployment automation
 
-# Check for existing mocks
-EXISTING_MOCKS=$(find pkg/testutil/mocks/ -name "*$COMPONENT_NAME*" -type f)
-if [ -n "$EXISTING_MOCKS" ]; then
-    echo "✅ Existing mocks found:"
-    echo "$EXISTING_MOCKS"
-    echo "🔧 RECOMMENDATION: Reuse existing mocks"
-
-    # Show mock usage patterns
-    echo "📋 Mock usage patterns:"
-    grep -r "NewMock$COMPONENT_NAME\|Mock$COMPONENT_NAME" pkg/testutil/mocks/ --include="*.go"
-else
-    echo "⚠️  No existing mocks found for $COMPONENT_NAME"
-
-    # Check if real component should be used
-    REAL_COMPONENT=$(find pkg/ -name "*.go" -not -path "*/mocks/*" -not -name "*_test.go" -exec grep -l "$COMPONENT_NAME" {} \;)
-    if [ -n "$REAL_COMPONENT" ]; then
-        echo "💡 RECOMMENDATION: Consider using real component instead of creating mock"
-        echo "📁 Real component locations:"
-        echo "$REAL_COMPONENT"
-    fi
-fi
-```
-
----
-
-## 🚨 **VIOLATION DETECTION AND PREVENTION**
-
-### **Real-Time Violation Detection**
-```bash
-# Monitor for interface violations during development
-fswatch test/ | while read file; do
-    if [[ "$file" == *_test.go ]]; then
-        echo "🔍 Checking $file for interface violations..."
-        # Prevention through interface verification during APDC Analysis phase "$file"
-    fi
-done
-```
-
-### **Pre-Commit Interface Validation**
-```bash
-#!/bin/bash
-# .git/hooks/pre-commit addition
-
-echo "🔍 Validating interface usage in modified test files..."
-
-MODIFIED_TESTS=$(git diff --cached --name-only --diff-filter=ACM | grep "_test.go$")
-for test_file in $MODIFIED_TESTS; do
-    echo "Validating: $test_file"
-
-    # Check for interface usage
-    INTERFACES_USED=$(grep -o "[A-Z][a-zA-Z]*Engine\|[A-Z][a-zA-Z]*Client\|[A-Z][a-zA-Z]*Service" "$test_file" | sort -u)
-
-    for interface_name in $INTERFACES_USED; do
-        # Prevention through interface verification during APDC Analysis phase "$interface_name" "$test_file"
-        if [ $? -ne 0 ]; then
-            echo "❌ Interface validation failed for $interface_name in $test_file"
-            exit 1
-        fi
-    done
-done
-
-echo "✅ All interface validations passed"
-```
-
----
-
-## 📋 **INTERFACE VALIDATION CHECKLIST**
-
-### **Before Writing ANY Test Code**
-- [ ] **Interface Discovery**: `codebase_search "existing [Interface] definitions"`
-- [ ] **Method Verification**: Confirmed exact method signatures
-- [ ] **Mock Check**: Verified existing mocks or decided on real components
-- [ ] **Import Validation**: All imports are correct and used
-- [ ] **Compilation Test**: Code compiles without errors
-
-### **During Test Development**
-- [ ] **Method Calls**: All method calls match exact interface signatures
-- [ ] **Parameter Types**: All parameters match expected types
-- [ ] **Return Handling**: All return values handled correctly
-- [ ] **Error Handling**: All error returns properly handled
-
-### **After Test Completion**
-- [ ] **Final Compilation**: Full test suite compiles
-- [ ] **Import Cleanup**: No unused imports
-- [ ] **Mock Consistency**: Consistent mock usage patterns
-- [ ] **Interface Compliance**: All interface contracts satisfied
-
----
-
-## 🎯 **QUALITY GATES**
-
-### **Interface Usage Gates**
-- **Gate 1**: Interface must exist before usage
-- **Gate 2**: Method signatures must match exactly
-- **Gate 3**: Existing mocks must be reused
-- **Gate 4**: Code must compile after interface usage
-- **Gate 5**: All imports must be used and correct
-
-### **Mock Usage Gates**
-- **Gate 1**: Check existing mocks before creating new
-- **Gate 2**: Prefer real business logic over mocks
-- **Gate 3**: External dependencies only for mocks
-- **Gate 4**: Consistent mock patterns across tests
-
----
-
-## 🔗 **INTEGRATION WITH OTHER RULES**
-
-**Enforces**: [08-testing-anti-patterns.mdc](mdc:.cursor/rules/08-testing-anti-patterns.mdc) mock usage guidelines
-**Supports**: [03-testing-strategy.mdc](mdc:.cursor/rules/03-testing-strategy.mdc) pyramid testing approach
-**Validates**: [12-ai-ml-development-methodology.mdc](mdc:.cursor/rules/12-ai-ml-development-methodology.mdc) AI interface usage
-**Prevents**: Build errors and undefined symbol issues
-**Priority**: VALIDATION - Prevents interface-related development errors before they occur
+**Priority**: ESSENTIAL - standardized container strategy for all services
 
 ---
 > Source: [jordigilh/kubernaut](https://github.com/jordigilh/kubernaut) — distributed by [TomeVault](https://tomevault.io).
