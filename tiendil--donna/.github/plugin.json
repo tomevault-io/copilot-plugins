@@ -1,0 +1,9 @@
+{
+  "name": "tiendil--donna",
+  "displayName": "donna",
+  "description": "Deterministic behavior, state machines, artifact management, and meta programming for your coding agent",
+  "version": "1.0.0",
+  "author": "Tiendil",
+  "homepage": "https://github.com/Tiendil/donna",
+  "skills": []
+}
