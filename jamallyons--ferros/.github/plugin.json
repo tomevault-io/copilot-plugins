@@ -1,0 +1,9 @@
+{
+  "name": "jamallyons--ferros",
+  "displayName": "ferros",
+  "description": "A next-generation, Rust-native debugger built to understand ownership, lifetimes, and Rust\u2019s unique memory model.",
+  "version": "1.0.0",
+  "author": "JamalLyons",
+  "homepage": "https://github.com/JamalLyons/ferros",
+  "skills": []
+}
