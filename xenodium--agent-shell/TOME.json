@@ -4,7 +4,7 @@
   "repo": "agent-shell",
   "description": "A native Emacs buffer to interact with LLM agents powered by ACP",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xenodium/agent-shell",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T02:04:42Z"
+  "distributed_at": "2026-05-09T21:57:39Z"
 }
