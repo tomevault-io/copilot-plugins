@@ -1,0 +1,43 @@
+## etyb-skills
+
+> This is a collection of 30 AI agent skills organized as a virtual engineering team.
+
+# ETYB Skills — Virtual Engineering Company
+
+This is a collection of 30 AI agent skills organized as a virtual engineering team.
+
+## Entry Point
+
+**ETYB** (`skills/etyb/SKILL.md`) is the main skill — your virtual CTO. It routes requests to the right domain experts and activates process protocols. Start here for any engineering work.
+
+## Architecture
+
+- **ETYB** (1) — CTO-level routing, gate enforcement, plan management
+- **Domain Experts** (20) — 14 core teams + 6 vertical specialists (WHO/WHAT)
+- **Process Protocols** (9) — Always-on engineering disciplines (HOW)
+- **ETYB References** (1) — Process architecture (plan artifact format, gate definitions, mandating rules). Verification and debugging are now standalone peer protocol skills.
+
+## Always-On Engineering Culture
+
+These disciplines are embedded in ETYB and enforced by hooks:
+
+1. **TDD** — No code without a failing test first
+2. **Verification** — Evidence before claims, always
+3. **Review** — No performative agreement, push back with evidence
+4. **Plan Execution** — One task at a time, verify before advancing
+5. **Brainstorm-First** — Explore before solving (for ambiguous requests)
+6. **Branch Safety** — Never merge without green tests
+7. **Subagent Coordination** — One agent per domain, two-stage review
+8. **Self-Improvement** — No skill change without failing eval
+9. **Debugging** — Root cause first, one variable at a time
+
+## Hook Enforcement
+
+Hooks in `.claude/settings.json` fire deterministically, outside the LLM:
+- `pre-edit-check` — Warns if editing source without test file
+- `pre-merge-verify` — Blocks merge if tests fail
+- `pre-commit-review-check` — Warns if no review evidence before commit
+
+---
+> Source: [e-t-y-b/etyb-skills](https://github.com/e-t-y-b/etyb-skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-25 -->
