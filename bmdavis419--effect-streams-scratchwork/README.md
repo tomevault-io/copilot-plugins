@@ -1,6 +1,8 @@
-# effect-streams-scratchwork — distributed by TomeVault
+# effect-streams-scratchwork
 
-> Originally from [bmdavis419/effect-streams-scratchwork](https://github.com/bmdavis419/effect-streams-scratchwork). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [bmdavis419/effect-streams-scratchwork](https://github.com/bmdavis419/effect-streams-scratchwork) — distributed by [TomeVault](https://tomevault.io)
+
+doing a bunch of testing on effect streams (splitting)
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [bmdavis419/effect-streams-scratchwork
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/bmdavis419)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/bmdavis419/effect-streams-scratchwork](https://github.com/bmdavis419/effect-streams-scratchwork)
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install bmdavis419/effect-streams-scratchwork
 ```
-Or browse all formats at [https://tomevault.io/claim/bmdavis419](https://tomevault.io/claim/bmdavis419).
+Source: [github.com/bmdavis419/effect-streams-scratchwork](https://github.com/bmdavis419/effect-streams-scratchwork).
 
 <!-- genome:d-i-p -->
