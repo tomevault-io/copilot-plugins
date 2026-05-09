@@ -1,0 +1,44 @@
+{
+  "name": "DeepH-dock",
+  "owner": "kYangLi",
+  "repo": "DeepH-dock",
+  "description": "DeepH-dock seamlessly integrates deep learning with first-principles calculations. It serves as a modular and extensible bridge, functioning both as the dedicated interface for the DeepH-pack suite and as a standalone tool for coupling deep learning models with computational materials science workflows.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kYangLi/DeepH-dock",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T10:42:37Z"
+}
