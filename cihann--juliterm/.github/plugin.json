@@ -1,0 +1,9 @@
+{
+  "name": "cihann--juliterm",
+  "displayName": "juliterm",
+  "description": "Web-based tmux client for monitoring and managing agentic coding sessions from any browser",
+  "version": "1.0.0",
+  "author": "cihann",
+  "homepage": "https://github.com/cihann/juliterm",
+  "skills": []
+}
