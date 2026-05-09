@@ -1,0 +1,9 @@
+{
+  "name": "terryso--claude-code-playwright-mcp-test",
+  "displayName": "claude-code-playwright-mcp-test",
+  "description": "A YAML-based Playwright MCP automation testing framework designed for Claude Code",
+  "version": "1.0.0",
+  "author": "terryso",
+  "homepage": "https://github.com/terryso/claude-code-playwright-mcp-test",
+  "skills": []
+}
