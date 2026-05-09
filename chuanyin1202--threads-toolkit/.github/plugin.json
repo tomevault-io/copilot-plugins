@@ -1,0 +1,9 @@
+{
+  "name": "chuanyin1202--threads-toolkit",
+  "displayName": "threads-toolkit",
+  "description": "Threads scraper for posts, profiles, and hashtags. Extracts text, images, videos, engagement stats, and replies. No login required.",
+  "version": "1.0.0",
+  "author": "Chuanyin1202",
+  "homepage": "https://github.com/Chuanyin1202/threads-toolkit",
+  "skills": []
+}
