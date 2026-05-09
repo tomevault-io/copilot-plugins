@@ -1,0 +1,9 @@
+{
+  "name": "unstackedapps--opensuitemcp",
+  "displayName": "opensuitemcp",
+  "description": "AI-driven NetSuite assistant powered by MCP. Chat with your ERP data using Next.js, Gemini, Claude, OpenAI and Inception Labs",
+  "version": "1.0.0",
+  "author": "unstackedapps",
+  "homepage": "https://github.com/unstackedapps/opensuitemcp",
+  "skills": []
+}
