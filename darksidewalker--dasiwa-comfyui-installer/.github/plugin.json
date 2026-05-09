@@ -1,0 +1,9 @@
+{
+  "name": "darksidewalker--dasiwa-comfyui-installer",
+  "displayName": "dasiwa-comfyui-installer",
+  "description": "\ud83d\ude80 High-speed, modular ComfyUI installer with automated GPU optimization and curated Custom Nodes.",
+  "version": "1.0.0",
+  "author": "darksidewalker",
+  "homepage": "https://github.com/darksidewalker/dasiwa-comfyui-installer",
+  "skills": []
+}
