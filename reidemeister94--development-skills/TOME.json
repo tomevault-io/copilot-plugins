@@ -4,7 +4,7 @@
   "repo": "development-skills",
   "description": "Makes Agents produce staff-engineer-quality code",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/reidemeister94/development-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T11:38:26Z"
+  "distributed_at": "2026-05-09T02:57:45Z"
 }
