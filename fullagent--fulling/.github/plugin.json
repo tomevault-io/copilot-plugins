@@ -1,0 +1,9 @@
+{
+  "name": "fullagent--fulling",
+  "displayName": "fulling",
+  "description": "Fulling is an AI-powered Full-stack Engineer Agent. Built with Next.js, Claude, shadcn/ui, and PostgreSQL. Use kubernetes as infra.",
+  "version": "1.0.0",
+  "author": "FullAgent",
+  "homepage": "https://github.com/FullAgent/fulling",
+  "skills": []
+}
