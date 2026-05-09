@@ -1,0 +1,9 @@
+{
+  "name": "bacek--chgeos",
+  "displayName": "chgeos",
+  "description": "PostGIS-compatible spatial functions for ClickHouse, delivered as a WebAssembly UDF module powered by GEOS 3.12+.",
+  "version": "1.0.0",
+  "author": "bacek",
+  "homepage": "https://github.com/bacek/chgeos",
+  "skills": []
+}
