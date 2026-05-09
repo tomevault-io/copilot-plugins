@@ -1,156 +1,53 @@
-## templates
+## theme-settings
 
-> All JSON templates must follow this exact structure:
+> Guidelines and examples for organizing and structuring the Shopify theme settings schema.
 
-# Templates
+# Settings Schema Standards
 
-All JSON templates must follow this exact structure:
+## Settings Schema Structure
 
-## Required Schema
 ```json
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
-  "required": ["sections"],
-  "properties": {
-    "sections": {
-      "type": "object",
-      "patternProperties": {
-        "^[a-zA-Z0-9_-]+$": {
-          "type": "object",
-          "required": ["type"],
-          "properties": {
-            "type": {
-              "type": "string",
-              "pattern": "^[a-zA-Z0-9_-]+$"
-            },
-            "settings": {
-              "type": "object"
-            },
-            "blocks": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "required": ["type"],
-                "properties": {
-                  "type": {
-                    "type": "string"
-                  },
-                  "settings": {
-                    "type": "object"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+  "name": "theme_info",
+  "theme_name": "Theme Name",
+  "theme_version": "1.0.0",
+  "theme_author": "Author Name",
+  "theme_documentation_url": "https://...",
+  "theme_support_url": "https://..."
+},
+{
+  "name": "Colors",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Brand Colors"
     },
-    "order": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
+    {
+      "type": "color",
+      "id": "color_primary",
+      "label": "Primary",
+      "default": "#121212"
     }
-  }
+  ]
 }
 ```
 
-## Template Structure Rules
+## Setting Categories
 
-- Every template must have a `sections` object
-- Section keys must be alphanumeric with dashes/underscores
-- Each section must have a `type` property
-- `settings` and `blocks` are optional
-- `order` array defines section sequence
-- Blocks must have a `type` property
+**Typography:**
+- `font_picker` for font selections
+- `range` for font sizes (12-72px)
+- `select` for font weights
 
+**Layout:**
+- `range` for spacing (0-100px)
+- `select` for layout options
+- `checkbox` for feature toggles
 
-## Template Types
-
-**Standard Templates:**
-- `index.json` - Homepage
-- `product.json` - Product pages
-- `collection.json` - Collection pages
-- `page.json` - Static pages
-- `blog.json` - Blog listing
-- `article.json` - Blog posts
-- `cart.json` - Shopping cart
-- `search.json` - Search results
-
-**Alternate Templates:**
-Alternative templates may exist for any of the standard templates, following the structure `template-name.template-suffix.template-file-type`, for example: `product.alternate.json`
-
-## Valid Template Examples
-
-**Product Template:**
-```json
-{
-  "sections": {
-    "header": {
-      "type": "header"
-    },
-    "main": {
-      "type": "main-product",
-      "settings": {
-        "show_vendor": true,
-        "show_sku": false,
-        "media_size": "medium"
-      },
-      "blocks": {
-        "title": {
-          "type": "title",
-          "settings": {}
-        },
-        "price": {
-          "type": "price",
-          "settings": {
-            "show_compare_at": true
-          }
-        },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "dropdown"
-          }
-        }
-      },
-      "block_order": ["title", "price", "variant_picker"]
-    },
-    "footer": {
-      "type": "footer"
-    }
-  },
-  "order": ["header", "main", "footer"]
-}
-```
-
-**Collection Template:**
-```json
-{
-  "sections": {
-    "header": {
-      "type": "header"
-    },
-    "collection-banner": {
-      "type": "collection-banner",
-      "settings": {
-        "show_collection_description": true,
-        "show_collection_image": false
-      }
-    },
-    "main": {
-      "type": "main-collection-product-grid",
-      "settings": {
-        "products_per_page": 24,
-        "columns_desktop": 4,
-        "columns_mobile": 2
-      }
-    }
-  },
-  "order": ["header", "collection-banner", "main"]
-}
-```
+**Performance:**
+- `checkbox` for lazy loading
+- `select` for image quality
+- `number` for pagination limits
 
 ---
 > Source: [Shopify/horizon](https://github.com/Shopify/horizon) — distributed by [TomeVault](https://tomevault.io).
