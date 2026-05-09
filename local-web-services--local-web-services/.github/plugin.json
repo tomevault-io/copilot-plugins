@@ -1,0 +1,9 @@
+{
+  "name": "local-web-services--local-web-services",
+  "displayName": "local-web-services",
+  "description": "Run AWS CDK and Terraform infrastructure locally \u2014 zero code changes required",
+  "version": "1.0.0",
+  "author": "local-web-services",
+  "homepage": "https://github.com/local-web-services/local-web-services",
+  "skills": []
+}
