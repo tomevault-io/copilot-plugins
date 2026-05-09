@@ -1,0 +1,44 @@
+{
+  "name": "distributed-lock-spring-boot-starter",
+  "owner": "ChildrenGreens",
+  "repo": "distributed-lock-spring-boot-starter",
+  "description": "distributed-lock-spring-boot-starter is a distributed lock starter for Spring Boot, designed to provide reliable and extensible distributed locking capabilities for applications through minimal intrusion and a unified abstraction.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ChildrenGreens/distributed-lock-spring-boot-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T17:46:25Z"
+}
