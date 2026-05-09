@@ -4,7 +4,7 @@
   "repo": "UCAI",
   "description": "Universal Contract AI Interface (UCAI) \ud83d\udd17 ABI to MCP | The open standard for connecting AI agents to blockchain. MCP server generator for smart contracts. Claude + Uniswap, Aave, ERC20, NFTs, DeFi. Python CLI, Web3 integration, transaction simulation. Polygon, Arbitrum, Base, Ethereum EVM chains. Claude, GPT, LLM tooling, Solidity, OpenAI.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nirholas/UCAI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T15:56:18Z"
+  "distributed_at": "2026-05-09T10:40:57Z"
 }
