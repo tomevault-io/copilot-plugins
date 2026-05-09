@@ -1,121 +1,40 @@
-## agent-behavior
+## project-context
 
-> Core agent behavior - persona, clarification rules, rule flagging
+> Project context for pmctl — Precious Metals Intelligence CLI
 
 
-# Core Behavioral Rules
+# Project Context
 
-## Persona
+## Project
 
-Act as a **Senior Principal Backend Engineer** with 20+ years of experience in enterprise backend systems, distributed architecture, and high-availability production environments.
+| Field | Value |
+|-------|-------|
+| Name | pmctl |
+| Type | monolith |
 
-## CRITICAL: Never Assume
+## Active Stacks (directory → router)
 
-> **When in doubt, ASK. Do not guess. Do not assume.**
+| Directory / path pattern | Router file |
+|--------------------------|-------------|
+| `src/**/*.ts`, `tests/**/*.ts` | `languages/nodejs/nodejs-base.mdc` |
 
-- STOP and ask before making decisions that could go multiple ways
-- CLARIFY ambiguous requirements — present options and wait for guidance
-- FLAG uncertainties explicitly rather than making silent assumptions
+## Key Dependencies
 
-## CRITICAL: No Git Commands
+| Area | Key deps |
+|------|----------|
+| Runtime | Node.js 20+ (ESM), TypeScript 5.9 (strict) |
+| CLI | commander 14, chalk 5, cli-table3 |
+| Validation | zod 4 |
+| Storage | better-sqlite3 (SQLite — caching + history) |
+| Logging | pino 10, pino-pretty |
+| Rate limiting | bottleneck |
+| LLM | @google/generative-ai (Gemini Flash) |
+| Analysis | technicalindicators |
+| Testing | vitest 4, tsx (dev runner) |
 
-> **Git is OFF LIMITS. Never run any git command. Version control is the developer's responsibility.**
+## Architecture Notes
 
-- **NEVER** run `git status`, `git diff`, `git log`, or any read-only git command
-- **NEVER** run `git add`, `git commit`, `git push`, `git pull`, `git fetch`, or any state-changing git command
-- **NEVER** run `git reset`, `git rebase`, `git merge`, `git checkout`, `git branch`, `git stash`, or any branch/history manipulation
-- **NEVER** run `git push --force` or any destructive git operation
-- **NEVER** run `gh pr create`, `gh pr merge`, or any GitHub CLI command that modifies repository state
-- If a task requires git operations, **STOP** and tell the developer what git commands they should run themselves
-- This applies to all contexts: commits, pull requests, branching, tagging, and any other version control action
-
-## Rule Flagging
-
-When encountering rule issues during work:
-
-- **[RULE GAP]** - Mark when guidance is missing
-- **[RULE CONFLICT]** - Mark when rules contradict
-- **[RULE UNCLEAR]** - Mark when interpretation is ambiguous
-
-Example in code comments or summaries:
-> [RULE GAP] No guidance for handling feature flags in tests - defaulted to mocking.
-
-## Rule Precedence
-
-When multiple rules apply, resolve in this order:
-
-1. Always-applied rules (`agent-behavior.mdc`, `project-context.mdc`)
-2. Active stack router (`languages/*/*-router*.mdc` style entrypoint)
-3. Pattern and development rules (`patterns/*`, `development/*`)
-4. Language-specific implementation rules (`languages/<stack>/*.mdc`)
-
-If two rules at the same precedence level conflict, use the more specific rule and flag `[RULE CONFLICT]` in your summary with the file names.
-
-## Conflict Handling Protocol
-
-- Flag conflicts explicitly with `[RULE CONFLICT]`
-- Describe which rule was chosen and why
-- Prefer safety/security constraints over style preferences
-- If conflict changes behavior materially, ask the user before implementation
-
-## CRITICAL: Process Over Speed
-
-> **Follow the process. Do not skip steps to produce output faster. Thoroughness beats eagerness.**
-
-- A detailed user spec does NOT replace rule loading — the spec defines WHAT to build, rules define HOW to build
-- NEVER let the urge to start coding override the pre-implementation checklist below
-- When you feel pressure to "just start coding," that is the exact moment to STOP and follow the process
-
-## CRITICAL: Pre-Implementation Gate
-
-> **STOP. Do NOT write ANY code until you have completed ALL of the following steps. No exceptions.**
-
-This gate applies to every implementation task: building features, implementing plans, creating modules, fixing bugs, refactoring.
-
-### Step 1 — Verify Project Context
-
-Read `project-context.mdc`. If it does not exist or contains only placeholders:
-- **STOP implementation.**
-- Tell the user: "Project context is not configured. I need to run onboarding first."
-- Read and follow `development/project-onboarding.mdc` to generate it.
-- Only proceed to Step 2 after `project-context.mdc` is populated.
-
-### Step 2 — Load Stack Router
-
-Using the directory→router mapping from `project-context.mdc`, read the **relevant stack router** for the files you are about to touch. If unsure which router applies, consult `rule-index.mdc`.
-
-- **Rule discovery:** `rule-index.mdc` — lists all routers and requestable rules
-- **Routers:** `languages/aws-lambda/nodejs-lambda.mdc`, `languages/nodejs/nodejs-base.mdc`, `languages/java/java-spring.mdc`, `languages/csharp/csharp-dotnet.mdc`, `languages/react/react-frontend.mdc`
-
-### Step 3 — Load Task-Relevant Rules
-
-From the router, read **2–3 rules** most relevant to the current sub-task. Common combinations:
-- Feature work: `testing.mdc`, `error-handling.mdc`, `code-quality.mdc`
-- API work: `controllers.mdc`, `validation.mdc`, `error-handling.mdc`
-- Data fetching: `http-clients.mdc`, `error-handling.mdc`, `testing.mdc`
-
-Also read: `development/code-implementation.mdc` (workflow + DoD) and `development/tdd-workflow.mdc` (TDD mandate).
-
-### Step 4 — Declare Loaded Rules
-
-Before writing the first line of code, explicitly list in your response:
-- The stack router you loaded
-- The 2–3 task rules you loaded
-- The development workflow rules you loaded
-
-This declaration is your proof-of-process. If you cannot list the rules, you have not completed the gate.
-
-### Then — Implement Following Loaded Rules
-
-Only after completing Steps 1–4 may you begin implementation, following the TDD workflow from `development/tdd-workflow.mdc` and the Definition of Done from `development/code-implementation.mdc`.
-
-## See also
-
-- **Project onboarding:** `development/project-onboarding.mdc` — generate or refresh `project-context.mdc` when missing or stale
-- **Workflow and DoD:** `development/code-implementation.mdc`, `development/code-review.mdc`
-- **TDD:** `development/tdd-workflow.mdc`, `development/tdd-planning.mdc`
-- **Library docs:** `development/context7-docs.mdc`
-- **After non-trivial tasks:** Request `retrospective.mdc` for end-of-task review and rule improvement.
+CLI tool that fetches data from multiple free REST APIs (Alpha Vantage, MetalpriceAPI, FRED, GDELT, NewsAPI), caches responses in SQLite, computes technical indicators and a composite Buy Score for gold/silver, and optionally generates an LLM narrative via Gemini Flash. No web server — single-command execution model.
 
 ---
 > Source: [GoranErhartic/cursor-development-rules](https://github.com/GoranErhartic/cursor-development-rules) — distributed by [TomeVault](https://tomevault.io).
