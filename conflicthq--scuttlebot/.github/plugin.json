@@ -1,0 +1,9 @@
+{
+  "name": "conflicthq--scuttlebot",
+  "displayName": "scuttlebot",
+  "description": "Agent coordination backplane built on IRC",
+  "version": "1.0.0",
+  "author": "ConflictHQ",
+  "homepage": "https://github.com/ConflictHQ/scuttlebot",
+  "skills": []
+}
