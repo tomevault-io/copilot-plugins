@@ -1,0 +1,9 @@
+{
+  "name": "flagos-ai--skills",
+  "displayName": "skills",
+  "description": "FlagOS skills for model deployment, HW adaptation, train&infer, eval, kernel dev and perf tuning",
+  "version": "1.0.0",
+  "author": "flagos-ai",
+  "homepage": "https://github.com/flagos-ai/skills",
+  "skills": []
+}
