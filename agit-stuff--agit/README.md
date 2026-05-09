@@ -7,13 +7,13 @@ agit - Code Context Management for Git that captures reasoning context alongside
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [agit-stuff/agit](https://github.com/agit-stuff/agit).
+Original source: `CLAUDE.md` in [agit-stuff/agit](https://github.com/agit-stuff/agit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
