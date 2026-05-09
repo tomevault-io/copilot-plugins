@@ -1,53 +1,36 @@
-## frontend-patterns
+## jest-unit-testing
 
-> React/TypeScript patterns for src/ code
+> Jest unit testing conventions
 
 
-# Frontend Patterns
+# Jest Unit Testing
 
 Reference: [CLAUDE.md](./CLAUDE.md) is the authoritative source.
 
-## Theme Integration — NEVER hardcode colors
+## Test Locations
 
-```tsx
-// ✅ CORRECT — semantic Tailwind classes
-<div className="bg-background text-primary border-weak">
-<span className="text-error">Error occurred</span>
+- Unit tests in `src/**/*.test.{ts,tsx}` alongside the code they test
+- Use `data-testid` from `src/components/testIds.ts` for component references
 
-// ❌ WRONG — hardcoded colors break dark/light mode
-<div className="bg-gray-900 text-white border-gray-700">
+## Focus
+
+Test critical functionality: business logic, utility functions, service classes.
+Limit to **3–5 focused tests per file**.
+
+## Best Practices
+
+1. **Mock dependencies before imports** with `jest.mock()`
+2. **Test three scenarios**: valid inputs, invalid inputs, edge cases (null, undefined, unexpected types)
+3. **Descriptive names** — test name should describe expected behavior
+4. **Group** related tests in `describe` blocks
+5. **Clear mocks** in `beforeEach` with `jest.clearAllMocks()`
+
+## Run Tests
+
+```bash
+nvm use 22 && npm run test:ci              # CI mode
+nvm use 22 && npm test -- path/to/test.ts  # Single file
 ```
-
-**Semantic classes:**
-- Backgrounds: `bg-background` `bg-secondary` `bg-surface` `bg-canvas` `bg-elevated`
-- Text: `text-primary` `text-secondary` `text-disabled` `text-link`
-- Borders: `border-weak` `border-medium` `border-strong`
-- Status: `text-success` `text-warning` `text-error` `text-info`
-
-Prefer `@grafana/ui` components over custom implementations.
-
-## Error Handling — No silent failures, no console.*
-
-```tsx
-// ✅ CORRECT — surface errors in the UI
-} catch (err) {
-  setError('Failed to load tools. Please try again.');
-}
-
-// ❌ WRONG — swallowed error, console pollution
-} catch (err) {
-  console.error(err);
-}
-```
-
-No `console.log`, `console.error`, or `console.warn` in shipped code.
-
-## Component Patterns
-
-- Functional components with hooks only — no class components
-- `async/await` not `.then()/.catch()`
-- Custom hooks for reusable business logic (`useChat`, `useSessionManager`)
-- `useMemo` / `useCallback` for performance-sensitive computations
 
 ---
 > Source: [Consensys/ask-o11y-plugin](https://github.com/Consensys/ask-o11y-plugin) — distributed by [TomeVault](https://tomevault.io).
