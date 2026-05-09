@@ -1,0 +1,9 @@
+{
+  "name": "thewallproject--mono",
+  "displayName": "mono",
+  "description": "This is the monorepo that contains the addon and it's data.",
+  "version": "1.0.0",
+  "author": "theWallProject",
+  "homepage": "https://github.com/theWallProject/mono",
+  "skills": []
+}
