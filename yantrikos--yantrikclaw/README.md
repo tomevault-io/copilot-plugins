@@ -7,11 +7,11 @@ Personal AI assistant with cognitive memory, tier-aware tools, and 20+ messaging
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yantrikos/yantrikclaw](https://github.com/yantrikos/yantrikclaw).
+Original source: `CLAUDE.md` in [yantrikos/yantrikclaw](https://github.com/yantrikos/yantrikclaw).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
