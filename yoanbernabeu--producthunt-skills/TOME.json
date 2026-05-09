@@ -1,0 +1,225 @@
+{
+  "name": "producthunt-skills",
+  "owner": "yoanbernabeu",
+  "repo": "producthunt-skills",
+  "description": "\ud83d\ude80 31 AI Agent Skills for Product Hunt launches. Expert guidance for strategy, content, marketing, compliance & more. Works with Claude Code, Cursor, Codex, and 20+ AI agents.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ph-algorithm-guide",
+      "path": "skills/compliance/ph-algorithm-guide",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/compliance/ph-algorithm-guide",
+      "description": ""
+    },
+    {
+      "name": "ph-post-launch-followup",
+      "path": "skills/post-launch/ph-post-launch-followup",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/post-launch/ph-post-launch-followup",
+      "description": ""
+    },
+    {
+      "name": "ph-thumbnail-creator",
+      "path": "skills/content/ph-thumbnail-creator",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/content/ph-thumbnail-creator",
+      "description": ""
+    },
+    {
+      "name": "ph-analytics-setup",
+      "path": "skills/analytics/ph-analytics-setup",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/analytics/ph-analytics-setup",
+      "description": ""
+    },
+    {
+      "name": "ph-ban-prevention",
+      "path": "skills/compliance/ph-ban-prevention",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/compliance/ph-ban-prevention",
+      "description": ""
+    },
+    {
+      "name": "ph-comment-responder",
+      "path": "skills/launch-day/ph-comment-responder",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/launch-day/ph-comment-responder",
+      "description": ""
+    },
+    {
+      "name": "ph-competitor-analysis",
+      "path": "skills/strategy/ph-competitor-analysis",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/strategy/ph-competitor-analysis",
+      "description": ""
+    },
+    {
+      "name": "ph-content-recycling",
+      "path": "skills/post-launch/ph-content-recycling",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/post-launch/ph-content-recycling",
+      "description": ""
+    },
+    {
+      "name": "ph-conversion-tracking",
+      "path": "skills/analytics/ph-conversion-tracking",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/analytics/ph-conversion-tracking",
+      "description": ""
+    },
+    {
+      "name": "ph-description-writer",
+      "path": "skills/content/ph-description-writer",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/content/ph-description-writer",
+      "description": ""
+    },
+    {
+      "name": "ph-email-strategy",
+      "path": "skills/marketing/ph-email-strategy",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/marketing/ph-email-strategy",
+      "description": ""
+    },
+    {
+      "name": "ph-gallery-assets",
+      "path": "skills/content/ph-gallery-assets",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/content/ph-gallery-assets",
+      "description": ""
+    },
+    {
+      "name": "ph-golden-kitty",
+      "path": "skills/awards/ph-golden-kitty",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/awards/ph-golden-kitty",
+      "description": ""
+    },
+    {
+      "name": "ph-hunter-finder",
+      "path": "skills/hunters/ph-hunter-finder",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/hunters/ph-hunter-finder",
+      "description": ""
+    },
+    {
+      "name": "ph-launch-day-checklist",
+      "path": "skills/launch-day/ph-launch-day-checklist",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/launch-day/ph-launch-day-checklist",
+      "description": ""
+    },
+    {
+      "name": "ph-launch-offers",
+      "path": "skills/pricing/ph-launch-offers",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/pricing/ph-launch-offers",
+      "description": ""
+    },
+    {
+      "name": "ph-launch-strategy",
+      "path": "skills/strategy/ph-launch-strategy",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/strategy/ph-launch-strategy",
+      "description": ""
+    },
+    {
+      "name": "ph-maker-comment",
+      "path": "skills/content/ph-maker-comment",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/content/ph-maker-comment",
+      "description": ""
+    },
+    {
+      "name": "ph-newsletter-pitch",
+      "path": "skills/awards/ph-newsletter-pitch",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/awards/ph-newsletter-pitch",
+      "description": ""
+    },
+    {
+      "name": "ph-pricing-psychology",
+      "path": "skills/pricing/ph-pricing-psychology",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/pricing/ph-pricing-psychology",
+      "description": ""
+    },
+    {
+      "name": "ph-profile-optimizer",
+      "path": "skills/hunters/ph-profile-optimizer",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/hunters/ph-profile-optimizer",
+      "description": ""
+    },
+    {
+      "name": "ph-real-time-monitor",
+      "path": "skills/launch-day/ph-real-time-monitor",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/launch-day/ph-real-time-monitor",
+      "description": ""
+    },
+    {
+      "name": "ph-relaunch-strategy",
+      "path": "skills/post-launch/ph-relaunch-strategy",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/post-launch/ph-relaunch-strategy",
+      "description": ""
+    },
+    {
+      "name": "ph-safe-messaging",
+      "path": "skills/compliance/ph-safe-messaging",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/compliance/ph-safe-messaging",
+      "description": ""
+    },
+    {
+      "name": "ph-seo-benefits",
+      "path": "skills/post-launch/ph-seo-benefits",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/post-launch/ph-seo-benefits",
+      "description": ""
+    },
+    {
+      "name": "ph-social-media-launch",
+      "path": "skills/marketing/ph-social-media-launch",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/marketing/ph-social-media-launch",
+      "description": ""
+    },
+    {
+      "name": "ph-supporter-network",
+      "path": "skills/marketing/ph-supporter-network",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/marketing/ph-supporter-network",
+      "description": ""
+    },
+    {
+      "name": "ph-tagline-writer",
+      "path": "skills/content/ph-tagline-writer",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/content/ph-tagline-writer",
+      "description": ""
+    },
+    {
+      "name": "ph-timing-optimizer",
+      "path": "skills/strategy/ph-timing-optimizer",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/strategy/ph-timing-optimizer",
+      "description": ""
+    },
+    {
+      "name": "ph-video-demo",
+      "path": "skills/content/ph-video-demo",
+      "github_url": "https://github.com/yoanbernabeu/producthunt-skills/tree/main/skills/content/ph-video-demo",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yoanbernabeu/producthunt-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T14:31:29Z"
+}
