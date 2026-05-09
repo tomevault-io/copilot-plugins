@@ -1,0 +1,44 @@
+{
+  "name": "ThreeD-Personality-Room",
+  "owner": "techspire0924",
+  "repo": "ThreeD-Personality-Room",
+  "description": "A playful experiment combining real-time 3D, mood-based design, and web accessibility \u2014 built to show that frontend can be fun, smart, and beautifully engineered. Built with Next.js, React Three Fiber, Zustand, Tailwind, and shadcn/ui. Try typing \u201cI\u2019m sleepy and love synthwave\u201d and watch your room come alive.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/techspire0924/ThreeD-Personality-Room",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T20:44:08Z"
+}
