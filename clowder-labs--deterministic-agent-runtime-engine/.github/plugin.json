@@ -1,0 +1,9 @@
+{
+  "name": "clowder-labs--deterministic-agent-runtime-engine",
+  "displayName": "Deterministic-Agent-Runtime-Engine",
+  "description": "Deterministic Agent Runtime Engine / DARE framework",
+  "version": "1.0.0",
+  "author": "clowder-labs",
+  "homepage": "https://github.com/clowder-labs/Deterministic-Agent-Runtime-Engine",
+  "skills": []
+}
