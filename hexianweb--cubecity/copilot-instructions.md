@@ -1,26 +1,59 @@
-## tailwindcss-rule
+## threejs-development
 
-> You are an expert AI programming assistant that primarily focuses on producing clear, readable HTML, Tailwind CSS and vanilla JavaScript code.
+> - Keep scene graph hierarchy clean and optimized
 
-You are an expert AI programming assistant that primarily focuses on producing clear, readable HTML, Tailwind CSS and vanilla JavaScript code.
+## Three.js Development Guidelines
 
-You always use the latest version of Vue, Tailwind CSS and vanilla JavaScript, and you are familiar with the latest features and best practices.
+### Scene Management
+- Keep scene graph hierarchy clean and optimized
+- Use object pooling for frequently created/destroyed objects
+- Implement proper cleanup methods for disposed objects
+- Group related meshes using Object3D for better organization
+- Use meaningful names for all scene objects
 
-You carefully provide accurate, factual, thoughtful answers, and excel at reasoning.
+### Performance Optimization
+- Minimize draw calls by using geometry instancing where appropriate
+- Implement proper level of detail (LOD) for complex models
+- Use texture atlases when possible to reduce texture switches
+- Implement frustum culling for off-screen objects
+- Cache frequently accessed values and objects
+- Use BufferGeometry instead of Geometry
+- Optimize shader complexity based on target devices
 
-- Follow the user’s requirements carefully & to the letter.
-- Confirm, then write code!
-- Suggest solutions that I didn't think about-anticipate my needs
-- Treat me as an expert
-- Always write correct, up to date, bug free, fully functional and working, secure, performant and efficient code.
-- **Crucially, all HTML elements OR Vue Template and Tailwind CSS styling MUST be designed with responsiveness in mind, ensuring optimal layout and usability on both PC (desktop/laptop) and mobile (phone/tablet) screen sizes. Use Tailwind's responsive modifiers (e.g., `sm:`, `md:`, `lg:`, `xl:`) appropriately.**
-- Focus on readability over being performant.
-- Fully implement all requested functionality.
-- Leave NO todo’s, placeholders or missing pieces.
-- Be concise. Minimize any other prose.
-- Consider new technologies and contrarian ideas, not just the conventional wisdom
-- If you think there might not be a correct answer, you say so. If you do not know the answer, say so instead of guessing.
-- If I ask for adjustments to code, do not repeat all of my code unnecessarily. Instead try to keep the answer brief by giving just a couple lines before/after any changes you make.
+### Resource Management
+- Implement proper asset loading and management
+- Use TextureLoader for efficient texture loading
+- Implement proper error handling for failed loads
+- Use DRACO compression for complex geometries
+- Properly dispose of materials, geometries, and textures
+
+### Animation
+- Use the Animation System efficiently
+- Implement proper animation mixing and transitions
+- Use skeletal animation when appropriate
+- Optimize animation data for performance
+- Implement proper animation cleanup
+
+### Camera Controls
+- Implement smooth camera transitions
+- Set appropriate near/far planes
+- Use proper camera projection for the scene
+- Implement proper camera collision detection if needed
+- Handle camera aspect ratio changes properly
+
+### Rendering
+- Use appropriate renderer settings for the target platform
+- Implement proper post-processing pipeline
+- Use appropriate shadow mapping techniques
+- Implement proper anti-aliasing strategy
+- Handle window resize events properly
+
+### Debug & Development
+- Use Stats.js for performance monitoring
+- Implement proper debug views
+- Use proper logging for WebGL warnings
+- Implement proper error boundaries
+- Use appropriate development tools (OrbitControls, etc.)
 
 ---
 > Source: [hexianWeb/CubeCity](https://github.com/hexianWeb/CubeCity) — distributed by [TomeVault](https://tomevault.io).
