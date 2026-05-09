@@ -1,0 +1,9 @@
+{
+  "name": "jmandel--greenbergolem",
+  "displayName": "greenbergolem",
+  "description": "Greenberg-style claim-specific citation network builder and viewer",
+  "version": "1.0.0",
+  "author": "jmandel",
+  "homepage": "https://github.com/jmandel/greenbergolem",
+  "skills": []
+}
