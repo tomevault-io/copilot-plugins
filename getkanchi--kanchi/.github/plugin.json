@@ -1,0 +1,9 @@
+{
+  "name": "getkanchi--kanchi",
+  "displayName": "kanchi",
+  "description": "A realtime celery task monitoring and management system",
+  "version": "1.0.0",
+  "author": "getkanchi",
+  "homepage": "https://github.com/getkanchi/kanchi",
+  "skills": []
+}
