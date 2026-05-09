@@ -1,0 +1,9 @@
+{
+  "name": "mergd--ccproxy",
+  "displayName": "ccproxy",
+  "description": "Use Claude Code plans in Cursor!",
+  "version": "1.0.0",
+  "author": "mergd",
+  "homepage": "https://github.com/mergd/ccproxy",
+  "skills": []
+}
