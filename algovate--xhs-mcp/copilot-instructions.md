@@ -1,52 +1,56 @@
-## project-structure
+## typescript-standards
 
-> XHS MCP project structure and architecture patterns
+> TypeScript coding standards and conventions
 
 
-# XHS MCP Project Structure Guide
+# TypeScript Standards for XHS MCP
 
-## Core Architecture
-This is a TypeScript-based XiaoHongShu (XHS) automation tool with MCP (Model Context Protocol) server capabilities.
+## Type Safety
+- **Strict Mode**: Always use strict TypeScript configuration
+- **Explicit Types**: Use explicit return types for public methods: `method(): ReturnType`
+- **No Any**: Avoid `any` type - use `unknown` or specific types
+- **Nullish Coalescing**: Use `??` operator instead of `||` for null/undefined checks
+- **Optional Chaining**: Use `?.` operator for safe property access
 
-### Main Entry Points
-- CLI: [src/cli/cli.ts](mdc:src/cli/cli.ts) - Command-line interface
-- Library: [src/index.ts](mdc:src/index.ts) - Main library exports
-- MCP Server: [src/server/mcp.server.ts](mdc:src/server/mcp.server.ts) - MCP protocol server
-- HTTP Server: [src/server/http.server.ts](mdc:src/server/http.server.ts) - HTTP transport
+## Import/Export Patterns
+- **ES Modules**: Use ES module syntax (`import`/`export`)
+- **Named Exports**: Prefer named exports over default exports
+- **Index Files**: Use index files for clean module boundaries
+- **Type Imports**: Use `import type` for type-only imports
 
-### Service Layer Architecture
-- **Base Service**: [src/shared/base.service.ts](mdc:src/shared/base.service.ts) - Abstract base class for all services
-- **Core Services**: [src/core/](mdc:src/core/) - Business logic services
-  - Authentication: [src/core/auth/](mdc:src/core/auth/)
-  - Browser Management: [src/core/browser/](mdc:src/core/browser/)
-  - Feed Operations: [src/core/feeds/](mdc:src/core/feeds/)
-  - Publishing: [src/core/publishing/](mdc:src/core/publishing/)
+## Interface Design
+- **Consistent Naming**: Use PascalCase for interfaces (`XHSResponse`, `BrowserConfig`)
+- **Generic Types**: Use generics for reusable interfaces (`XHSResponse<T>`)
+- **Optional Properties**: Mark optional properties with `?`
+- **Readonly**: Use `readonly` for immutable properties
 
-### Shared Infrastructure
-- **Types**: [src/shared/types.ts](mdc:src/shared/types.ts) - Core type definitions
-- **Errors**: [src/shared/errors.ts](mdc:src/shared/errors.ts) - Custom error classes
-- **Configuration**: [src/shared/config.ts](mdc:src/shared/config.ts) - App configuration
-- **Utilities**: [src/shared/utils.ts](mdc:src/shared/utils.ts) - Common utilities
+## Error Handling
+- **Custom Errors**: Extend `XHSError` base class for domain-specific errors
+- **Error Context**: Include context objects with error information
+- **Type-Safe Errors**: Use specific error types (`AuthenticationError`, `BrowserError`)
 
-### Server Layer
-- **Handlers**: [src/server/handlers/](mdc:src/server/handlers/) - Request handlers
-- **Schemas**: [src/server/schemas/](mdc:src/server/schemas/) - MCP tool schemas
+## Service Patterns
+- **Base Service**: All services extend `BaseService`
+- **Dependency Injection**: Inject dependencies via constructor
+- **Protected Methods**: Use `protected` for internal service methods
+- **Abstract Classes**: Use abstract base classes for common functionality
 
-### Build Configuration
-- TypeScript: [config/tsconfig.json](mdc:config/tsconfig.json)
-- ESLint: [config/eslint.config.js](mdc:config/eslint.config.js)
-- Webpack: [config/webpack.config.js](mdc:config/webpack.config.js)
+## Code Organization
+- **Single Responsibility**: One class/service per file
+- **Co-location**: Keep related types and implementations together
+- **Barrel Exports**: Use index files for clean imports
+- **File Naming**: Use kebab-case for files (`auth.service.ts`, `browser.manager.ts`)
 
-### Output Artifacts
-- Compiled bundle: [dist/xhs-mcp.js](mdc:dist/xhs-mcp.js)
-- CLI executable: [dist/xhs-cli.js](mdc:dist/xhs-cli.js)
+## Async Patterns
+- **Async/Await**: Prefer async/await over Promises
+- **Error Propagation**: Let errors bubble up naturally
+- **Timeout Handling**: Use proper timeout configurations
+- **Resource Cleanup**: Ensure proper cleanup in finally blocks
 
-## Key Patterns
-1. **Service Inheritance**: All services extend `BaseService`
-2. **Error Hierarchy**: Custom errors extend `XHSError` with specific error types
-3. **Configuration-Driven**: Services receive config via constructor
-4. **Browser Automation**: Centralized browser management via `BrowserManager`
-5. **MCP Protocol**: Standard MCP server implementation with tool and resource handlers
+## Documentation
+- **JSDoc Comments**: Document public APIs with JSDoc
+- **Type Comments**: Add comments for complex type definitions
+- **Examples**: Include usage examples in documentation
 
 ---
 > Source: [Algovate/xhs-mcp](https://github.com/Algovate/xhs-mcp) — distributed by [TomeVault](https://tomevault.io).
