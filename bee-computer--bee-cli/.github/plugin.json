@@ -1,0 +1,9 @@
+{
+  "name": "bee-computer--bee-cli",
+  "displayName": "bee-cli",
+  "description": "CLI client for Bee",
+  "version": "1.0.0",
+  "author": "bee-computer",
+  "homepage": "https://github.com/bee-computer/bee-cli",
+  "skills": []
+}
