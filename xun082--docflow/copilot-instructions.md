@@ -1,15 +1,84 @@
-## 11-global-components-utils
+## 15-react19-activity
 
-> Global components and utilities conventions
+> React 19 Activity component usage guidelines
 
 
-When working in `components/**` and `utils/**`:
+# React 19 `<Activity>` Component
 
-- Components under `components/**` are reusable across the app; keep them pure and well-typed.
-- `utils/**` contains side-effect-free helpers, constants, and data transforms.
-- Naming: PascalCase for components/types/enums; camelCase for variables/functions/hooks; kebab-case for file names.
-- Avoid framework-specific assumptions in `utils/`.
-- Provide examples and minimal docs in code comments where helpful (self-explanatory first).
+React 19 introduces the `<Activity>` component for managing UI and state visibility.
+
+## When to Use
+
+Use `<Activity>` to preserve component state when hiding/showing UI:
+- **Dialogs and Modals**: Keep form state when users close/reopen
+- **Tab Panels**: Preserve scroll position and input values
+- **Accordions**: Maintain expanded content state
+- **Conditional UI**: Keep state when toggling visibility
+
+## Usage Pattern
+
+```typescript
+import { Activity } from 'react';
+
+function MyDialog({ open, onOpenChange }) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <Activity mode={open ? 'visible' : 'hidden'}>
+          {/* Form content here */}
+          {/* State is preserved when hidden */}
+        </Activity>
+      </DialogContent>
+    </Dialog>
+  );
+}
+```
+
+## Benefits
+
+1. **State Preservation**: Component state persists when hidden
+2. **Better UX**: Users don't lose work when closing/reopening
+3. **Performance**: Avoids unmounting/remounting overhead
+4. **Simple API**: Just two modes: `visible` and `hidden`
+
+## Best Practices
+
+- Wrap content that should preserve state, not the entire dialog
+- Use for forms, complex inputs, or stateful components
+- Combine with proper reset logic (only reset on success, not on close)
+- Don't overuse - only for genuinely stateful content
+
+## Example: Form Dialog
+
+```typescript
+function CreateItemDialog({ open, onOpenChange }) {
+  const [formData, setFormData] = useState({ title: '', content: '' });
+  
+  const handleSuccess = () => {
+    setFormData({ title: '', content: '' }); // Reset only on success
+    onOpenChange(false);
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <Activity mode={open ? 'visible' : 'hidden'}>
+          {/* Form preserves state when closed */}
+          <Input 
+            value={formData.title} 
+            onChange={(e) => setFormData({...formData, title: e.target.value})} 
+          />
+          <Textarea 
+            value={formData.content}
+            onChange={(e) => setFormData({...formData, content: e.target.value})} 
+          />
+          <Button onClick={handleSuccess}>Submit</Button>
+        </Activity>
+      </DialogContent>
+    </Dialog>
+  );
+}
+```
 
 ---
 > Source: [xun082/DocFlow](https://github.com/xun082/DocFlow) — distributed by [TomeVault](https://tomevault.io).
