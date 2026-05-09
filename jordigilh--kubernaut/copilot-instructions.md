@@ -1,226 +1,113 @@
-## 15-testing-coverage-standards
+## kubernaut-collaboration-rules
 
-> Testing coverage standards - AUTHORITATIVE reference to prevent inconsistencies
+> Before executing any significant action (tests, commits, refactors, new implementations, destructive operations), the AI agent MUST pause and assess whether there is anything relevant to share with the user.
 
+# Kubernaut AI Collaboration Rules
 
-# Testing Coverage Standards - AUTHORITATIVE
+## Rule 1: Pause, Assess, Communicate (Before Significant Actions)
 
-## 🚨 **MANDATORY: Single Source of Truth**
+Before executing any significant action (tests, commits, refactors, new implementations, destructive operations), the AI agent MUST pause and assess whether there is anything relevant to share with the user.
 
-**PRIMARY AUTHORITY**: [03-testing-strategy.mdc](mdc:.cursor/rules/03-testing-strategy.mdc)
+### When to Pause and Share
 
-**This rule exists to prevent documentation inconsistencies discovered on 2025-11-18.**
+**ALWAYS share if you have:**
+- ❓ **Questions**: Ambiguities, missing information, or unclear requirements
+- ⚠️ **Concerns**: Potential issues, risks, conflicts, or anti-patterns
+- 🔄 **Alternatives**: Different approaches worth considering
+- 📊 **Confidence Gaps**: Uncertainty about the approach (<90% confidence)
+- 💡 **Recommendations**: Suggested improvements or optimizations with rationale
 
----
+**SKIP if:**
+- ✅ Everything is clear, straightforward, and routine
+- ✅ High confidence (>95%) with no concerns
+- ✅ User explicitly said "proceed without asking"
 
-## ✅ **CORRECT Testing Coverage Standards for Kubernaut**
+### Scope: Significant Actions
 
-### **MANDATORY Percentages (Microservices Architecture)**
+- Running tests (integration, E2E) - especially if >5 min execution time
+- Committing code changes
+- Refactoring existing code
+- Creating new files or modules
+- Destructive operations (delete, force push, etc.)
+- Long-running builds or deployments
+- Architectural changes
 
-```markdown
-- **Unit Tests**: 70%+ coverage (ALL unit-testable BRs)
-- **Integration Tests**: >50% coverage (microservices coordination)
-- **E2E Tests**: 10-15% coverage (critical user journeys)
+### Format for Assessment
+
+When pausing, provide:
+
+1. **Questions**: What needs clarification?
+2. **Concerns**: What might go wrong? What are the risks?
+3. **Alternatives**: Are there other approaches to consider?
+4. **Confidence**: High/Medium/Low + explain gaps
+5. **Recommendations**: What do you suggest and why?
+
+### Example
+
 ```
+Before running E2E tests, I want to share:
 
-### **Why >50% Integration Coverage is Required**
+❓ Questions:
+- Should we run all E2E tests or just the BR-HAPI-197 subset?
 
-Kubernaut's microservices architecture requires high integration test coverage for:
-- ✅ **CRD-based coordination** between 10+ services
-- ✅ **Watch-based status propagation** (difficult to unit test)
-- ✅ **Owner reference lifecycle management**
-- ✅ **Cross-service error handling**
-- ✅ **Service discovery and communication patterns**
+⚠️ Concerns:
+- E2E tests take ~10 minutes and create a full Kind cluster
+- Mock LLM scenario "mock_rca_incomplete" may not be loaded in ConfigMap yet
 
-**Authoritative Source**: [03-testing-strategy.mdc lines 72-86](mdc:.cursor/rules/03-testing-strategy.mdc)
+🔄 Alternatives:
+A) Run just BR-HAPI-197 tests (faster, focused)
+B) Run full suite (comprehensive, but 20+ min)
 
----
+📊 Confidence: Medium (75%)
+- Mock LLM integration is untested with new scenario
 
-## ❌ **INCORRECT Standards to AVOID**
+💡 Recommendation: Run BR-HAPI-197 tests first (Option A), validate Mock LLM scenario works, then run full suite
 
-### **Old/Monolithic Standards (DO NOT USE)**
-
-```markdown
-❌ Unit Tests: 70%
-❌ Integration Tests: <20% or 20%  ← WRONG FOR MICROSERVICES
-❌ E2E Tests: <10%
-```
-
-**Why This is Wrong**:
-- ❌ Based on monolithic application patterns
-- ❌ Insufficient for CRD controller testing requirements
-- ❌ Does not account for microservices coordination needs
-- ❌ Inadequate for watch-based patterns and K8s API testing
-
----
-
-## 📋 **Documentation Locations to Keep Consistent**
-
-### **High-Priority User-Facing Documents**
-1. ✅ **`README.md`** - Main project documentation (line ~254)
-2. ✅ **Service READMEs** (effectiveness-monitor, etc.)
-3. ✅ **Test file comments** (e.g., `test/integration/gateway/storm_aggregation_test.go`)
-
-### **Service-Specific Documentation**
-4. ✅ **Implementation Plans** (current versions only, e.g., `IMPLEMENTATION_PLAN_V2.24.md`)
-5. ✅ **Testing Strategy Documents** (per service)
-6. ✅ **Implementation Checklists**
-7. ✅ **BR Coverage Matrix Documents**
-8. ✅ **Service Location Decisions**
-
-### **Archived Documents**
-- ⚠️ **Lower Priority**: Archived implementation plans can remain as historical records
-
----
-
-## 🔍 **Detection Commands**
-
-### **Find Incorrect "<20%" References**
-```bash
-# Find files with incorrect integration coverage
-grep -r "Integration.*<20%\|Integration.*20%" \
-  --include="*.md" \
-  --include="*_test.go" \
-  --exclude-dir="archive" \
-  . | grep -v "archive/"
-```
-
-### **Verify Correct ">50%" Usage**
-```bash
-# Find files with correct integration coverage
-grep -r "Integration.*>50%" \
-  --include="*.md" \
-  --include="*_test.go" \
-  .
+Proceed with Option A?
 ```
 
 ---
 
-## ✍️ **Standard Phrasing for Documentation**
+## Rule 2: Strict TDD Adherence
 
-### **For Markdown Documentation**
-```markdown
-### Testing Strategy
+Follow RED-GREEN-REFACTOR cycle rigorously:
+1. **RED**: Write failing test first
+2. **GREEN**: Implement minimal code to pass
+3. **REFACTOR**: Improve code quality, reduce duplication
 
-Kubernaut follows a **defense-in-depth testing pyramid**:
-
-- **Unit Tests**: **70%+ coverage** - Extensive business logic with external mocks only
-- **Integration Tests**: **>50% coverage** - Cross-service coordination, CRD-based flows, microservices architecture
-- **E2E Tests**: **10-15% coverage** - Critical end-to-end user journeys
-
-**Rationale**: Microservices architecture with CRD-based coordination requires high integration coverage for validating service interactions, watch-based patterns, and Kubernetes API behavior.
-```
-
-### **For Test File Comments**
-```go
-// Defense-in-Depth Strategy (per 03-testing-strategy.mdc):
-// - Unit tests (70%+): Business logic in isolation
-// - Integration tests (>50%): Infrastructure interaction, microservices coordination
-// - E2E tests (10-15%): Complete workflow validation
-```
-
-### **For Service Implementation Plans**
-```markdown
-**Unit Tests (70%+)**:
-- **MOCK**: External dependencies only (Redis, LLM, etc.)
-- **REAL**: All business logic components
-
-**Integration Tests (>50%)**:
-- **MOCK**: NONE - Use real services in Kind cluster
-- **REAL**: Cross-service interactions, CRD coordination, K8s API
-- **RATIONALE**: Microservices architecture with CRD-based coordination requires high integration coverage
-
-**E2E Tests (10-15%)**:
-- **MOCK**: Minimal
-- **REAL**: Complete end-to-end workflows
-```
+Never skip REFACTOR phase. Self-check for TDD compliance in assessments.
 
 ---
 
-## 🚫 **AI Assistant Enforcement**
+## Rule 3: No Pending Tests
 
-### **MANDATORY Pre-Documentation Generation Check**
+Never use `XIt` or pending tests. Either:
+- Implement the test (following TDD)
+- Remove it from the test plan
 
-Before generating or modifying any testing documentation, AI MUST:
-
-```xml
-<function_calls>
-<invoke name="Grep">
-<parameter name="pattern">Integration.*coverage|integration.*test</parameter>
-<parameter name="path">[target_file]</parameter>
-<parameter name="output_mode">content</parameter>
-<parameter name="-i">true</parameter>
-</invoke>
-</function_calls>
-```
-
-**Validation Checkpoint**:
-```
-✅ TESTING COVERAGE DOCUMENTATION CHECKPOINT:
-- [ ] Used ">50%" for integration tests ✅/❌
-- [ ] Avoided "<20%" or "20%" for integration ✅/❌
-- [ ] Referenced microservices architecture rationale ✅/❌
-- [ ] Cited authoritative source (03-testing-strategy.mdc) ✅/❌
-
-❌ STOP: Cannot generate documentation until ALL checkboxes are ✅
-```
-
-**RULE VIOLATION DETECTION**:
-If ANY checkbox is ❌ → "🚨 TESTING COVERAGE STANDARD VIOLATION: Documentation uses incorrect integration coverage - DEVELOPMENT STOPPED"
+Pending tests violate Kubernaut's TDD philosophy.
 
 ---
 
-## 🎯 **Quick Reference Card**
+## Rule 4: Follow Authoritative Documentation
 
-| Aspect | Correct Standard | Incorrect (Avoid) | Rationale |
-|--------|-----------------|-------------------|-----------|
-| **Unit** | 70%+ | 70% (exact) | ALL unit-testable BRs, not just 70% |
-| **Integration** | **>50%** | <20% or 20% | **Microservices coordination** |
-| **E2E** | 10-15% | <10% | Range accounts for service type |
+Always consult and align with:
+- Business Requirements (BRs)
+- Architecture Decision Records (ADRs)
+- Design Documents (DDs)
+- Testing Guidelines
 
----
-
-## 📚 **Reference Authority Hierarchy**
-
-1. **PRIMARY**: [03-testing-strategy.mdc](mdc:.cursor/rules/03-testing-strategy.mdc) (lines 72-86)
-2. **SECONDARY**: Service-specific `testing-strategy.md` files (must reference primary)
-3. **TERTIARY**: Implementation plans (must reference primary or secondary)
-
-**CONFLICT RESOLUTION**: If any document conflicts with 03-testing-strategy.mdc, the rule file is AUTHORITATIVE.
+Flag conflicts between docs and implementation.
 
 ---
 
-## 🔧 **Maintenance Protocol**
+## Rule 5: Code Quality Standards
 
-### **When to Update This Rule**
-- Architecture changes (e.g., move from microservices to monolithic)
-- Testing strategy evolution (documented in ADR)
-- Discovery of new inconsistencies
-
-### **Update Process**
-1. Update [03-testing-strategy.mdc](mdc:.cursor/rules/03-testing-strategy.mdc) first (with ADR if significant)
-2. Update this rule file (15-testing-coverage-standards.mdc)
-3. Run detection commands to find affected files
-4. Update all affected documentation systematically
-5. Create PR with "testing-coverage-standards" label
-
----
-
-## ✅ **Success Criteria**
-
-This rule is successful when:
-- ✅ All new documentation uses ">50%" for integration tests
-- ✅ Zero instances of "<20%" or "20%" in non-archived documentation
-- ✅ All service documentation references microservices rationale
-- ✅ AI assistant blocks incorrect coverage documentation
-
----
-
-**Document Status**: ✅ Active
-**Created**: 2025-11-18
-**Last Updated**: 2025-11-18
-**Priority Level**: 4 - ENFORCEMENT (per conflict-resolution-matrix)
-**Authority**: Enforces 03-testing-strategy.mdc standards
+- Reuse existing patterns (don't reinvent)
+- Avoid duplication (extract helpers)
+- Use table-driven tests where appropriate
+- Follow existing naming conventions
+- Preserve exact indentation (tabs/spaces)
 
 ---
 > Source: [jordigilh/kubernaut](https://github.com/jordigilh/kubernaut) — distributed by [TomeVault](https://tomevault.io).
