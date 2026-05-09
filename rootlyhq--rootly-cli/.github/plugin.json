@@ -1,0 +1,9 @@
+{
+  "name": "rootlyhq--rootly-cli",
+  "displayName": "rootly-cli",
+  "description": "CLI for managing Rootly incidents, alerts, services, teams, and on-call schedules",
+  "version": "1.0.0",
+  "author": "rootlyhq",
+  "homepage": "https://github.com/rootlyhq/rootly-cli",
+  "skills": []
+}
