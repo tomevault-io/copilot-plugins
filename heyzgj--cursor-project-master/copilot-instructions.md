@@ -1,113 +1,51 @@
-## 100-engine
+## 200-quality
 
-> The Core Engine. It orchestrates the project's entire lifecycle, from initial planning and scaffolding to the iterative task execution loop. It acts as the central state machine.
+> The Quality Guardian. It enforces a non-negotiable set of engineering commandments including Contract-First, TDD, code cleanliness, and security baselines. It acts as the project's automated QA lead and code reviewer.
 
-# 100 · Core Engine: Plan → Scaffold → Execute
+# 200 · Quality Guardian: The Engineering Commandments
 
----
-## PHASE 1: PROJECT INITIALIZATION
-> This phase runs ONLY ONCE at the start of a project when `/project/plan.json` is absent.
-
-1.  **REQUIREMENT VALIDATION**
-    - Read all documents in `/docs`.
-    - **MANDATORY CHECK:** If `PRD.md` is missing core features, or `TECH_SPEC.md` is missing `techStack` details, you **MUST PAUSE** and ask the user for clarification. Do not proceed with incomplete specifications.
-
-2.  **TECH STACK & STARTER SELECTION**
-    - Detect `techStack` from `TECH_SPEC.md`. Default to `nextjs-prisma-tailwind-shadcn-supabase-vercel`.
-    - **Use your search capability** to find the official starter template on Vercel or GitHub for the selected stack. Prioritize templates with high star counts and recent updates.
-    - If new or unfamiliar frameworks are specified, use the `context7` MCP to fetch their latest official documentation to inform the scaffolding process.
-
-3.  **SCAFFOLDING**
-    - Execute the starter's official CLI command with non-interactive flags (e.g., `npx create-next-app@latest ... --ts --tailwind`).
-    - **On Failure:** If scaffolding fails, automatically clean the directory, log the error in `TROUBLESHOOTING_LOG.md`, and prompt the user with the error details.
-    - **On Success:** Clean any demo files/routes to create a blank canvas including starter readme file and change meta data to project version. Run `npx tailwindcss init -p` if necessary.
-
-4.  **DECOMPOSITION (PLAN GENERATION)**
-    - **INPUT:** Concatenate all files from `/docs` into a single context string.
-    - **PROMPT:**
-        <START_LLM_PROMPT>
-        **Role:** You are a Principal Technical Program Manager specializing in breaking down product briefs for autonomous software agents.
-        **Mission:** Convert the provided project documentation into a precise, machine-readable JSON work-plan. The output MUST be a valid JSON object and nothing else.
-        **Output Schema:**
-        ```jsonc
-        {
-          "epics": [{"id": "E-1", "title": "...", "children": ["T-1"]}],
-          "tasks": [{"id": "T-1", "epic": "E-1", "title": "...", "description": "...", "criteria": ["..."], "dependencies": [], "ui_review": true}]
-        }
-        ```
-        **Rules:**
-        - Task titles MUST be imperative (e.g., "Implement Login API").
-        - Task descriptions MUST be concise (≤ 140 chars).
-        - The dependency graph MUST be acyclic.
-        - Split any task whose `criteria` list exceeds 5 items.
-        - **If `ui_review: true`, the generated task file MUST contain a `design_review: pending` flag.**
-        <END_LLM_PROMPT>
-    - **OUTPUT:**
-        a. Save the generated JSON to `/project/plan.json`.
-        b. For each task in the JSON, create a corresponding markdown file in `/project/tasks/todo/` using the `/project/_templates/task.md` template.
-        c. Commit the plan and tasks with `git commit -m "chore(plan): initial project decomposition"`.
-    - **KANBAN**
-        a. Initialize Kanban: 
-            1. cd kanban && npm install
-            2. npm run dev
-
-5.  **INITIALIZATION COMPLETE**
-    - Generate the `/project/project_status.md` dashboard.
-    - Activate the first task by moving it to `/project/tasks/in_progress/`.
-    - Report to the user: "Planning and setup are complete. I will now begin work on task T-1: [Task Title]."
+## CONTEXT
+These commandments are the absolute law governing all code generation. They are invoked during the `EXECUTE & VERIFY` step of the `100-engine.mdc` task loop. Failure to comply with any of these commandments constitutes a failed task attempt and **MUST** trigger a reflection cycle.
 
 ---
-## PHASE 2: TASK EXECUTION LOOP
-> This is the main work loop. It continues until `/project/tasks/todo/` and `/project/tasks/in_progress/` are both empty.
 
-For the active task `T<ID>` in `/project/tasks/in_progress/`:
+### COMMANDMENT I: THE CONTRACT IS LAW (Contract-First)
 
-A. **LOAD CONTEXT & PREPARE**
-   - Read the task file `T<ID>.md`.
-   - Load ONLY the files listed in its `Context Binding`.
-   - If the task has `design_review: pending`, PAUSE and ask the user for a visual sign-off before writing code. Proceed only after user approval.
+1.  **Single Source of Truth**: The Zod schemas defined in `./schemas/` are the **immutable and sole source of truth** for all data entities and API payloads.
+2.  **No Manual Implementations**: You are **STRICTLY PROHIBITED** from manually writing TypeScript types, database models (e.g., Prisma schema), or API validation logic for any entity defined in the schemas.
+3.  **Mandatory Code Generation**: You **MUST** use the designated script (e.g., `npm run generate:types`) to transform Zod schemas into all necessary code artifacts. If a schema is modified, this script **MUST** be re-run before any other code is written.
 
-B. **EXECUTE & VERIFY (TDD CYCLE)**
-   - Strictly adhere to the `200-quality.mdc` rule for TDD, contract-first development, and linting.
-   - Run `npm run test` (or equivalent) repeatedly until all tests for the current task pass.
+### COMMANDMENT II: THOU SHALT WRITE TESTS FIRST (TDD)
 
-C. **CI/CD GATE**
-   - After local tests pass, commit and push the code to trigger the CI/CD pipeline.
-   - **Monitor the CI result.**
-   - **If CI fails due to missing secrets** (e.g., `VERCEL_TOKEN`), PAUSE and prompt the user to add them via GitHub Secrets, referencing the `README.md` guide.
-   - **If CI fails for any other reason**, mark the task as failed, log the failure, and trigger the `300-adaptation.mdc` failure-reflection loop.
+1.  **The Unskippable Cycle**: For any task of `type: feature` or `type: bug`, the **Red-Green-Refactor** cycle is mandatory.
+    1.  **RED**: Before writing any implementation, create the minimum number of unit or E2E tests that will fail because the feature is missing.
+    2.  **GREEN**: Write the absolute minimum amount of code necessary to make the failing tests pass.
+    3.  **REFACTOR**: Clean up the code without changing its functionality.
+2.  **Acceptance Criteria as Tests**: Every item in a task's `Acceptance Criteria` checklist **MUST** be covered by at least one verifiable test case.
+3.  **Visual & Design Compliance**: For any task that touches the UI (`ui_review: true`), E2E tests (using Playwright) **MUST** also validate compliance with the visual specifications defined in `/docs/DESIGN_SPEC.md`, including layout, component usage, and style guide adherence.
 
-D. **ARCHIVE & REPORT**
-   - **On Green CI:**
-     a. Archive the completed task: `mkdir -p ./project/tasks/done/$(date +%Y-Q%q) && mv ./project/tasks/in_progress/T<ID>.md ./project/tasks/done/$(date +%Y-Q%q)/`
-     b. Update the task file's internal status to `Done`.
-     c. Run `python scripts/report.py` if a reporting milestone is reached (epic complete or 5 tasks done).
+### COMMANDMENT III: THOU SHALT NOT HARDCODE
 
-E. **SELECT NEXT TASK & REPEAT**
-   - Update `/project/project_status.md`.
-   - Identify the next available task from `/project/tasks/todo/` whose dependencies are met.
-   - Activate it by moving it to `/project/tasks/in_progress/`.
-   - Announce the next task to the user and repeat the loop.
+1.  **Sanctity of `/config`**: All environment-specific variables (URLs, API Keys, Ports) and magic constants **MUST** reside exclusively in the `/config` directory and be loaded from there.
+2.  **Zero Tolerance**: A `grep` for common hardcoded patterns (e.g., `localhost`, `http://`, API key prefixes) is a mandatory part of the pre-commit check. Any findings constitute a failure.
 
----
-## PHASE 3: PROJECT RECONCILIATION
-> This phase is triggered by `400-change.mdc` when an existing plan needs to be updated.
+### COMMANDMENT IV: CLEANLINESS IS NEXT TO GODLINESS (Linting & Formatting)
 
-1.  **ANALYZE CHANGE IMPACT**
-    - Perform a semantic diff between the updated `/docs` and the tasks in `/project/plan.json`.
-    - Identify:
-        - **New Tasks:** Requirements in docs with no corresponding tasks.
-        - **Obsolete Tasks:** Tasks whose requirements no longer exist in docs.
-        - **Modified Tasks:** Tasks whose requirements have changed.
+1.  **Mandatory Checks**: Before any `git commit`, the commands `eslint --max-warnings=0` and `prettier --check .` **MUST** be executed and pass.
+2.  **Zero Warnings, Zero Errors**: A single warning or error from either tool constitutes a failure. You must fix all reported issues before proceeding.
 
-2.  **UPDATE PLAN**
-    - For Obsolete Tasks: Move their files to `/project/tasks/archived/` with a note `reason: obsolete`.
-    - For Modified Tasks: Update the task markdown and move it back to `todo` if it was `in_progress`.
-    - For New Tasks: Generate new tasks using the decomposition prompt and add them to the plan and `/project/tasks/todo/`.
+### COMMANDMENT V: THOU SHALT HAVE NO CRITICAL VULNERABILITIES (Security)
 
-3.  **REPORT & RESUME**
-    - Report a summary of changes to the user.
-    - Resume the `PHASE 2: TASK EXECUTION LOOP`.
+1.  **Mandatory Audit**: Before any `git commit` that modifies `package.json` or other dependency files, the command `npm audit --production` (or equivalent) **MUST** be executed.
+2.  **Zero Tolerance Gate**: The presence of any **High** or **Critical** level vulnerabilities constitutes a failure. You must find a safe version, an alternative package, or document the risk in a `/docs/DECISION_LOG.md` entry if no alternative exists.
+
+### COMMANDMENT VI: THOU SHALT MAINTAIN COVERAGE (Continuous Testing)
+
+1.  **The 70% Threshold**: The overall test line coverage, as measured by the CI pipeline, **MUST NOT** fall below 70%.
+2.  **Automatic Test Regeneration Trigger**: A new `regen-tests` task **MUST** be automatically created and prioritized if:
+    *   The coverage drops below the 70% threshold after a task is completed.
+    *   Any file within `./schemas/` is modified (as this changes the data contract).
+    *   An entire Epic is completed (as a final integration and regression check).
 
 ---
 > Source: [heyzgj/cursor-project-master](https://github.com/heyzgj/cursor-project-master) — distributed by [TomeVault](https://tomevault.io).
