@@ -1,45 +1,18 @@
-## rust-clean-code
+## rust-linter-configuration
 
-> Rust — clean code (functions, modules, errors, naming)
+> Rust — formatter, Clippy, CI parity, and allow-attribute policy
 
 
-# Rust — clean code
+# Rust — linter and formatter configuration
 
-## ⚠️ BEFORE WRITING CODE — ALWAYS ASK:
-- Is this KISS? (simple and readable over clever)
-- Does this follow SOLID principles?
-- Is this file too large? (> 400 lines = refactor candidate)
-
-## Functions
-- One clear responsibility; if the name needs "and", consider splitting
-- Prefer early returns over deep nesting
-- Small enough to understand at a glance
-
-## Modules
-- Smallest reasonable public API (`pub use` only where it helps)
-- Hide internals in private submodules
-- **File size: < 400 lines** — if larger, consider splitting
-
-## Errors
-- Explicit error types (`thiserror`, failure enums)
-- Avoid generic `String` for control flow
-- Do not silence failures with `unwrap`/`expect` in production code except documented invariants or tests
-
-## Naming
-- Follow Rust conventions (`snake_case`, `UpperCamelCase`)
-- Names should express domain intent, not only type (`retain_count` over `n`)
-
-## Comments
-- Only where "why" is non-obvious
-- "What" should read from the code
-
-## Duplication
-- Extract when two paths share business rules
-- Do not duplicate blocks across adapters
-
-## Tests
-- Names describe behavior
-- Assertions use messages or types that fail with useful context
+- **Source of truth**
+  - **Formatting**: [`rustfmt.toml`](rustfmt.toml) at the repo root (`edition`, `max_width`, import reordering, etc.). Run `cargo fmt --all` or `cargo fmt-check` (see [`.cargo/config.toml`](.cargo/config.toml)).
+  - **Shared lint levels**: [`Cargo.toml`](Cargo.toml) `[workspace.lints.*]` (Cargo 1.74+). Every workspace crate sets `[lints] workspace = true` to inherit a small **community-style baseline** (e.g. deny `unused_must_use`, deny `dbg_macro`, warn on `todo!` / `unimplemented!`, warn `unsafe_op_in_unsafe_fn`). This is versioned like a team ESLint config—**not** `clippy::pedantic`.
+  - **Clippy + rustc warnings**: CI runs `cargo clippy --all-targets --all-features -- -D warnings` (see [`.github/workflows/ci.yml`](.github/workflows/ci.yml)). Locally: `cargo lint` (alias in `.cargo/config.toml`).
+- **CI parity**: Before pushing, run `cargo fmt-check` and `cargo lint`; fix issues instead of widening ignores.
+- **`#[allow(...)]` / `#[expect(...)]`**: avoid blanket allows. If unavoidable, attach a **short comment** explaining why (false positive, interoperability, measured hot path). Prefer fixing the code or scoping the allow to the smallest item.
+- **Per-crate overrides**: rare; prefer workspace-wide consistency. If a crate needs an exception, document it next to the attribute and consider a follow-up issue.
+- **Editor integration**: rust-analyzer uses `rustfmt` and shows Clippy when `cargo clippy` or `check` runs with clippy as the check command; match the flags above when configuring “check on save”.
 
 ---
 > Source: [antonygiomarxdev/maverick](https://github.com/antonygiomarxdev/maverick) — distributed by [TomeVault](https://tomevault.io).
