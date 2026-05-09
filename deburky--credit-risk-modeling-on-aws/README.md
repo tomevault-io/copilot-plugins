@@ -1,6 +1,8 @@
 # credit-risk-modeling-on-aws
 
-> Tome by [deburky](https://github.com/deburky/credit-risk-modeling-on-aws) — distributed by [TomeVault](https://tomevault.io/claim/deburky)
+> Tome by [deburky](https://github.com/deburky/credit-risk-modeling-on-aws) — distributed by [TomeVault](https://tomevault.io)
+
+Credit Risk Modeling on AWS project
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [deburky/credit-risk-modeling-on-aws](
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/deburky#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/deburky/credit-risk-modeling-on-aws](https://github.com/deburky/credit-risk-modeling-on-aws)
 
 ---
 
