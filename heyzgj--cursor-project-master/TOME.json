@@ -1,0 +1,44 @@
+{
+  "name": "cursor-project-master",
+  "owner": "heyzgj",
+  "repo": "cursor-project-master",
+  "description": "Cursor Project Master (CPM) \u2014 turn a Markdown PRD into a live Kanban and fully-built app, all inside Cursor.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/heyzgj/cursor-project-master",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T11:33:48Z"
+}
