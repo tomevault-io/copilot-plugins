@@ -1,0 +1,9 @@
+{
+  "name": "gingergraham--bash-logger",
+  "displayName": "bash-logger",
+  "description": "A flexible, reusable logging module for Bash scripts that provides standardized logging functionality with various configuration options.",
+  "version": "1.0.0",
+  "author": "GingerGraham",
+  "homepage": "https://github.com/GingerGraham/bash-logger",
+  "skills": []
+}
