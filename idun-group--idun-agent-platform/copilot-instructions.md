@@ -1,28 +1,17 @@
-## project-overview
+## schema
 
-> Project overview and conventions for the Idun Agent Platform monorepo
+> Rules for working on the idun_agent_schema package
 
-# Idun Agent Platform
+# Idun Agent Schema
 
-This is a monorepo. Each package/service has its own `CLAUDE.md` with detailed architecture, module maps, and conventions. **Always read the relevant CLAUDE.md before working on a specific package.**
+Read `libs/idun_agent_schema/CLAUDE.md` before making changes. It contains the full model hierarchy, discriminated unions, and conventions.
 
-## Documentation Map
+This is the **source of truth** for all data shapes. Schema changes start here, then propagate to engine and manager.
 
-- `CLAUDE.md` — Root: project overview, build commands, testing, linting, development principles
-- `libs/idun_agent_schema/CLAUDE.md` — Schema library: Pydantic models, config hierarchy, discriminated unions, manager CRUD schemas
-- `libs/idun_agent_engine/CLAUDE.md` — Engine SDK: agent adapters, config flow, YAML structure, server endpoints, guardrails, observability, MCP, CLI
-- `services/idun_agent_manager/CLAUDE.md` — Manager API: routes, authentication, multi-tenancy, database models, migrations, settings
-- `services/idun_agent_web/CLAUDE.md` — Web UI: routes, auth flow, API layer, styling, i18n, state management
-
-## Key Rules
-
-- Read before you write. Understand existing patterns before modifying.
-- Schema changes go in `idun_agent_schema` first, then propagate to engine and manager.
-- Python: async throughout, Ruff + Black formatting, line length 88.
-- Run `make lint` and `make precommit` before committing.
-- No `Any` types unless genuinely unavoidable.
-- Don't mix refactoring with feature work in the same change.
-- Small, focused commits — one concern per commit.
+- No runtime dependencies beyond Pydantic — this package must stay lightweight.
+- Most models use camelCase aliases (`ConfigDict(alias_generator=to_camel, populate_by_name=True)`).
+- Discriminated unions use the `type` field as discriminator.
+- Guardrails V2 and Observability V2 are the current standards (V1 is deprecated).
 
 ---
 > Source: [Idun-Group/idun-agent-platform](https://github.com/Idun-Group/idun-agent-platform) — distributed by [TomeVault](https://tomevault.io).
