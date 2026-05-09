@@ -1,0 +1,9 @@
+{
+  "name": "akutishevsky--nutrition-mcp",
+  "displayName": "nutrition-mcp",
+  "description": "A remote MCP server for personal nutrition tracking \u2014 log meals, track macros, and review nutrition history through conversation.",
+  "version": "1.0.0",
+  "author": "akutishevsky",
+  "homepage": "https://github.com/akutishevsky/nutrition-mcp",
+  "skills": []
+}
