@@ -1,0 +1,9 @@
+{
+  "name": "octrafic--octrafic-cli",
+  "displayName": "octrafic-cli",
+  "description": "AI-powered CLI tool for API testing and exploration. Chat naturally with your APIs - no scripts, no configuration files, just conversation.",
+  "version": "1.0.0",
+  "author": "Octrafic",
+  "homepage": "https://github.com/Octrafic/octrafic-cli",
+  "skills": []
+}
