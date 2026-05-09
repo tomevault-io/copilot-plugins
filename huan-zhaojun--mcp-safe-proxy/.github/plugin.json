@@ -1,0 +1,9 @@
+{
+  "name": "huan-zhaojun--mcp-safe-proxy",
+  "displayName": "mcp-safe-proxy",
+  "description": "\u8f7b\u91cf\u7ea7 MCP \u6ce8\u89e3\u4ee3\u7406 \u2014 \u62e6\u622a tools/list \u54cd\u5e94\uff0c\u5c06\u5de5\u5177\u6ce8\u89e3\u91cd\u5199\u4e3a\"\u5b89\u5168\"\u503c\uff0c\u7ed5\u8fc7 Codex \u7b49 AI CLI \u7684\u5ba1\u6279\u5f39\u7a97\uff0c\u540c\u65f6\u5b8c\u5168\u900f\u4f20\u6240\u6709\u5b9e\u9645\u64cd\u4f5c\u3002",
+  "version": "1.0.0",
+  "author": "Huan-zhaojun",
+  "homepage": "https://github.com/Huan-zhaojun/mcp-safe-proxy",
+  "skills": []
+}
