@@ -1,0 +1,9 @@
+{
+  "name": "cajami--tauro-template",
+  "displayName": "tauro-template",
+  "description": "Starter template built with Angular 17 + Tailwind CSS v4.",
+  "version": "1.0.0",
+  "author": "Cajami",
+  "homepage": "https://github.com/Cajami/tauro-template",
+  "skills": []
+}
