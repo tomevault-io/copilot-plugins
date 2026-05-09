@@ -4,7 +4,7 @@
   "repo": "ia_boilerplate",
   "description": "Cross-AI workflow bootstrap for software delivery. Standardizes how Copilot, Claude, and Codex interact with your repo through shared artifacts, planning contracts, and execution rules.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mlucascosta/ia_boilerplate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T07:41:22Z"
+  "distributed_at": "2026-05-09T19:02:43Z"
 }
