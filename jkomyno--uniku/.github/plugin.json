@@ -1,0 +1,9 @@
+{
+  "name": "jkomyno--uniku",
+  "displayName": "uniku",
+  "description": "TypeScript ID generator, compatible with every modern JS runtime",
+  "version": "1.0.0",
+  "author": "jkomyno",
+  "homepage": "https://github.com/jkomyno/uniku",
+  "skills": []
+}
