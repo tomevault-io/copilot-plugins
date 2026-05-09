@@ -1,0 +1,53 @@
+## project-structure
+
+> XHS MCP project structure and architecture patterns
+
+
+# XHS MCP Project Structure Guide
+
+## Core Architecture
+This is a TypeScript-based XiaoHongShu (XHS) automation tool with MCP (Model Context Protocol) server capabilities.
+
+### Main Entry Points
+- CLI: [src/cli/cli.ts](mdc:src/cli/cli.ts) - Command-line interface
+- Library: [src/index.ts](mdc:src/index.ts) - Main library exports
+- MCP Server: [src/server/mcp.server.ts](mdc:src/server/mcp.server.ts) - MCP protocol server
+- HTTP Server: [src/server/http.server.ts](mdc:src/server/http.server.ts) - HTTP transport
+
+### Service Layer Architecture
+- **Base Service**: [src/shared/base.service.ts](mdc:src/shared/base.service.ts) - Abstract base class for all services
+- **Core Services**: [src/core/](mdc:src/core/) - Business logic services
+  - Authentication: [src/core/auth/](mdc:src/core/auth/)
+  - Browser Management: [src/core/browser/](mdc:src/core/browser/)
+  - Feed Operations: [src/core/feeds/](mdc:src/core/feeds/)
+  - Publishing: [src/core/publishing/](mdc:src/core/publishing/)
+
+### Shared Infrastructure
+- **Types**: [src/shared/types.ts](mdc:src/shared/types.ts) - Core type definitions
+- **Errors**: [src/shared/errors.ts](mdc:src/shared/errors.ts) - Custom error classes
+- **Configuration**: [src/shared/config.ts](mdc:src/shared/config.ts) - App configuration
+- **Utilities**: [src/shared/utils.ts](mdc:src/shared/utils.ts) - Common utilities
+
+### Server Layer
+- **Handlers**: [src/server/handlers/](mdc:src/server/handlers/) - Request handlers
+- **Schemas**: [src/server/schemas/](mdc:src/server/schemas/) - MCP tool schemas
+
+### Build Configuration
+- TypeScript: [config/tsconfig.json](mdc:config/tsconfig.json)
+- ESLint: [config/eslint.config.js](mdc:config/eslint.config.js)
+- Webpack: [config/webpack.config.js](mdc:config/webpack.config.js)
+
+### Output Artifacts
+- Compiled bundle: [dist/xhs-mcp.js](mdc:dist/xhs-mcp.js)
+- CLI executable: [dist/xhs-cli.js](mdc:dist/xhs-cli.js)
+
+## Key Patterns
+1. **Service Inheritance**: All services extend `BaseService`
+2. **Error Hierarchy**: Custom errors extend `XHSError` with specific error types
+3. **Configuration-Driven**: Services receive config via constructor
+4. **Browser Automation**: Centralized browser management via `BrowserManager`
+5. **MCP Protocol**: Standard MCP server implementation with tool and resource handlers
+
+---
+> Source: [Algovate/xhs-mcp](https://github.com/Algovate/xhs-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
