@@ -1,75 +1,66 @@
-## development-workflow
+## project-structure
 
-> development workflow
+> Project structure
 
-# Development Workflow and Tools
+# Project Structure and Architecture
 
-## Development Setup
-Reference [Makefile](mdc:Makefile) for all available commands.
+## Overview
+This is a Go REST API for authentication and authorization with JWT tokens, 2FA, social login, and comprehensive security features.
 
-### Initial Setup
-```bash
-make setup              # Install dependencies and tools
-cp .env.example .env    # Configure environment variables
-make docker-dev         # Start development environment
-```
+## Key Entry Points
+- [cmd/api/main.go](mdc:cmd/api/main.go) - Application entry point with route definitions and dependency injection
+- [go.mod](mdc:go.mod) - Go module dependencies
+- [Makefile](mdc:Makefile) - Development, testing, and deployment commands
+- [.air.toml](mdc:.air.toml) - Hot reload configuration for development
 
-### Daily Development
-```bash
-make dev               # Start with hot reload using Air
-make swag-init         # Regenerate Swagger docs after API changes
-make test              # Run tests
-make security          # Run security scans
-make fmt               # Format code
-```
+## Core Architecture Layers
 
-## Key Development Tools
+### Repository Layer (`internal/*/repository.go`)
+- Data access layer using GORM
+- Database operations and queries
+- Located in each feature package
 
-### Hot Reload with Air
-- Configuration in [.air.toml](mdc:.air.toml)
-- Watches for Go file changes and rebuilds automatically
-- Excludes test files and temporary directories
+### Service Layer (`internal/*/service.go`) 
+- Business logic implementation
+- Orchestrates repository calls
+- Handles complex business rules
 
-### Docker Development
-- [Dockerfile.dev](mdc:Dockerfile.dev) - Development container
-- [docker-compose.dev.yml](mdc:docker-compose.dev.yml) - Development services
-- [Dockerfile](mdc:Dockerfile) - Production container
-- [docker-compose.yml](mdc:docker-compose.yml) - Production services
+### Handler Layer (`internal/*/handler.go`)
+- HTTP request/response handling
+- Input validation and Swagger documentation
+- Route-specific logic
 
-### Security Scanning
-- Configuration in [.gosec.json](mdc:.gosec.json)
-- `make security` runs gosec and nancy vulnerability scans
-- Required before committing
+## Package Structure
 
-### API Documentation
-- Swagger annotations in handler functions
-- Auto-generated docs in `docs/` directory
-- Accessible at `/swagger/index.html` during development
+### `internal/` - Core Business Logic
+- `auth/` - Authentication handlers and logic
+- `user/` - User management (registration, profile, etc.)
+- `social/` - OAuth2 social login providers
+- `twofa/` - Two-Factor Authentication with TOTP
+- `log/` - Activity logging system
+- `email/` - Email verification and password reset
+- `middleware/` - JWT authentication middleware
+- `database/` - Database connection and migrations
+- `redis/` - Redis session management
+- `config/` - Configuration management
+- `util/` - Utility functions
 
-## Testing Strategy
-- Unit tests for service layer functions
-- Integration tests for complete flows
-- Table-driven tests where appropriate
-- Mock external dependencies
-- Coverage tracking
+### `pkg/` - Shared Packages
+- `models/` - Database models with GORM tags
+- `dto/` - Data Transfer Objects for API requests/responses
+- `errors/` - Custom error types
+- `jwt/` - JWT token utilities
 
-## Git Workflow
-- Feature branches from main
-- Descriptive commit messages
-- Include tests for new functionality
-- Run `make security` before committing
-- Update documentation when needed
+### `docs/` - API Documentation
+- Auto-generated Swagger documentation
+- [docs/swagger.json](mdc:docs/swagger.json) and [docs/swagger.yaml](mdc:docs/swagger.yaml)
 
-## Environment Variables
-- Use [.env](mdc:.env) for local development
-- Never commit sensitive data
-- Reference environment variables in code via viper
-- Default values defined in [cmd/api/main.go](mdc:cmd/api/main.go)
-
-## Build and Deployment
-- `make build-prod` for production builds
-- Multi-stage Docker builds for optimization
-- Environment-specific configurations
+## Development Patterns
+- Constructor functions for dependency injection (e.g., `NewService()`, `NewHandler()`)
+- Interface-based design for testability
+- Clean separation between layers
+- Comprehensive error handling with custom types
+- Activity logging for security auditing
 
 ---
 > Source: [gjovanovicst/golang-auth-api](https://github.com/gjovanovicst/golang-auth-api) — distributed by [TomeVault](https://tomevault.io).
