@@ -1,64 +1,54 @@
-## ask-o11y-plugin
+## frontend-patterns
 
-> Go backend patterns, error handling, and conventions for this plugin
+> React/TypeScript patterns for src/ code
 
 
-# Go Backend Patterns
+# Frontend Patterns
 
-## Logging — Never use fmt.Println or stdlib log
+Reference: [CLAUDE.md](./CLAUDE.md) is the authoritative source.
 
-```go
-// ✅ CORRECT — use the SDK logger
-p.logger.Warn("Invalid request body", "error", err)
-p.logger.Error("MCP call failed", "tool", toolName, "error", err)
+## Theme Integration — NEVER hardcode colors
 
-// ❌ WRONG
-fmt.Println("error:", err)
-log.Printf("error: %v", err)
+```tsx
+// ✅ CORRECT — semantic Tailwind classes
+<div className="bg-background text-primary border-weak">
+<span className="text-error">Error occurred</span>
+
+// ❌ WRONG — hardcoded colors break dark/light mode
+<div className="bg-gray-900 text-white border-gray-700">
 ```
 
-## HTTP Error Responses — Never leak internals
+**Semantic classes:**
+- Backgrounds: `bg-background` `bg-secondary` `bg-surface` `bg-canvas` `bg-elevated`
+- Text: `text-primary` `text-secondary` `text-disabled` `text-link`
+- Borders: `border-weak` `border-medium` `border-strong`
+- Status: `text-success` `text-warning` `text-error` `text-info`
 
-```go
-// ✅ CORRECT — generic message to client, details in log
-if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-    p.logger.Warn("Invalid request body", "error", err)
-    http.Error(w, "Invalid request body", http.StatusBadRequest)
-    return
+Prefer `@grafana/ui` components over custom implementations.
+
+## Error Handling — No silent failures, no console.*
+
+```tsx
+// ✅ CORRECT — surface errors in the UI
+} catch (err) {
+  setError('Failed to load tools. Please try again.');
 }
 
-// ❌ WRONG — leaks request fragments / internal error details
-http.Error(w, fmt.Sprintf("Invalid request: %v", err), http.StatusBadRequest)
+// ❌ WRONG — swallowed error, console pollution
+} catch (err) {
+  console.error(err);
+}
 ```
 
-## RBAC — Double-check pattern (list AND execute)
+No `console.log`, `console.error`, or `console.warn` in shipped code.
 
-1. Extract role from `req.Context()`
-2. Call `canAccessTool(role, toolName)` — return 403 if unauthorized
-3. Enforcement must happen at BOTH tool listing **and** tool execution
+## Component Patterns
 
-## OpenAPI Spec — Update when changing HTTP endpoints
-
-Any change to routes in `pkg/plugin/plugin.go` requires:
-1. Update `pkg/plugin/openapi/openapi.json`
-2. Run `nvm use 22 && npm run validate:openapi`
-
-## Backend Rebuild Cycle
-
-```bash
-nvm use 22 && npm run build:backend
-docker compose restart grafana
-go test ./pkg/...
-docker compose logs -f grafana   # verify no startup errors
-```
-
-## Multi-Org Constraints
-
-- SA token from `backend.GrafanaConfigFromContext()` is **Org 1 only**
-- `useBuiltInMCP: true` only works for Org 1 — never set it in multi-org configs
-- For multi-org: use external `mcp-grafana` sidecar (see `docker-compose-full.yaml`)
-- The LLM client intentionally does **not** send `X-Grafana-Org-Id` when using SA token auth
+- Functional components with hooks only — no class components
+- `async/await` not `.then()/.catch()`
+- Custom hooks for reusable business logic (`useChat`, `useSessionManager`)
+- `useMemo` / `useCallback` for performance-sensitive computations
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Consensys) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [Consensys/ask-o11y-plugin](https://github.com/Consensys/ask-o11y-plugin) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
