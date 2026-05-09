@@ -1,0 +1,9 @@
+{
+  "name": "radexito--djmanager",
+  "displayName": "DjManager",
+  "description": "Your music library, built for DJs. Import tracks, analyse BPM and key automatically, build playlists, and prepare sets \u2014 all offline, all on your machine.",
+  "version": "1.0.0",
+  "author": "Radexito",
+  "homepage": "https://github.com/Radexito/DjManager",
+  "skills": []
+}
