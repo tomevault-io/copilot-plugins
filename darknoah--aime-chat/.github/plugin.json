@@ -1,0 +1,9 @@
+{
+  "name": "darknoah--aime-chat",
+  "displayName": "aime-chat",
+  "description": "A cross-platform AI desktop chat cowork app supporting 10+ LLM providers, RAG knowledge base, and MCP tools. Built with Electron + React + Mastra.",
+  "version": "1.0.0",
+  "author": "DarkNoah",
+  "homepage": "https://github.com/DarkNoah/aime-chat",
+  "skills": []
+}
