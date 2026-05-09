@@ -1,0 +1,9 @@
+{
+  "name": "tunsuy--claude-code-go",
+  "displayName": "claude-code-go",
+  "description": "A Go implementation of Claude Code \u2014 This project was built entirely by a team of Claude AI agents working in parallel ",
+  "version": "1.0.0",
+  "author": "tunsuy",
+  "homepage": "https://github.com/tunsuy/claude-code-go",
+  "skills": []
+}
