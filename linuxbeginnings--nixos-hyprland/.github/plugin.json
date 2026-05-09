@@ -1,0 +1,9 @@
+{
+  "name": "linuxbeginnings--nixos-hyprland",
+  "displayName": "NixOS-Hyprland",
+  "description": "Flake to install Hyprland and related pkgs ",
+  "version": "1.0.0",
+  "author": "LinuxBeginnings",
+  "homepage": "https://github.com/LinuxBeginnings/NixOS-Hyprland",
+  "skills": []
+}
