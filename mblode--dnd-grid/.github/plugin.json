@@ -1,0 +1,9 @@
+{
+  "name": "mblode--dnd-grid",
+  "displayName": "dnd-grid",
+  "description": "A draggable and resizable grid layout for React.",
+  "version": "1.0.0",
+  "author": "mblode",
+  "homepage": "https://github.com/mblode/dnd-grid",
+  "skills": []
+}
