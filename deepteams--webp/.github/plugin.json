@@ -1,0 +1,9 @@
+{
+  "name": "deepteams--webp",
+  "displayName": "webp",
+  "description": "Pure Go encoder and decoder for the webp",
+  "version": "1.0.0",
+  "author": "deepteams",
+  "homepage": "https://github.com/deepteams/webp",
+  "skills": []
+}
