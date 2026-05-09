@@ -1,0 +1,9 @@
+{
+  "name": "hugodaniel--miniray",
+  "displayName": "miniray",
+  "description": "Minify your WGSL shader strings",
+  "version": "1.0.0",
+  "author": "HugoDaniel",
+  "homepage": "https://github.com/HugoDaniel/miniray",
+  "skills": []
+}
