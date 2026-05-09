@@ -1,0 +1,9 @@
+{
+  "name": "trenchydev--trenchy-pumpfun-launcher-bundler-dashboard-react",
+  "displayName": "trenchy-pumpfun-launcher-bundler-dashboard-react",
+  "description": "Updated for Pump.fun Feb 26 2026 migration. Solana token launcher with Jito bundler, vanity address generation, and real-time trading UI.",
+  "version": "1.0.0",
+  "author": "TrenchyDev",
+  "homepage": "https://github.com/TrenchyDev/trenchy-pumpfun-launcher-bundler-dashboard-react",
+  "skills": []
+}
