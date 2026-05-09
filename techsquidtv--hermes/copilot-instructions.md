@@ -1,301 +1,290 @@
-## 20-hermes-app-routes
+## 30-docs
 
-> validateSearch: (search: Record<string, unknown>) => {
+> - Use ATX-style: `#`, `##`, etc.
 
 
-# Hermes App - TanStack Router Rules
+# Documentation Standards
 
-## Route File Structure
+## Markdown Formatting
 
-### File-Based Routing
-- Route files in `src/routes/`
-- File names determine route paths using dot notation
-- Special file names: `__root.tsx`, `index.tsx`
+### Headings
+- Use ATX-style: `#`, `##`, etc.
+- Start with single `#` for title
+- Use hierarchical structure
+- Keep concise and descriptive
 
+### Code Blocks
+Always specify language:
+
+````markdown
+```python
+def hello_world():
+    print("Hello, World!")
 ```
-routes/
-├── __root.tsx           # Root layout (wraps all routes)
-├── index.tsx            # Home page (/)
-├── queue.tsx            # /queue
-├── settings.tsx         # /settings
-├── auth.login.tsx       # /auth/login
-└── auth.signup.tsx      # /auth/signup
-```
 
-### Route File Template
 ```typescript
-import { createFileRoute } from "@tanstack/react-router";
-
-export const Route = createFileRoute("/route-path")({
-  component: RouteComponent,
-  loader: async ({ context, params }) => {
-    // Load data
-    return { data };
-  },
-  errorComponent: ErrorComponent,
-  pendingComponent: LoadingComponent,
-  beforeLoad: async ({ context, location }) => {
-    // Auth checks, redirects
-  },
-});
-
-function RouteComponent() {
-  const data = Route.useLoaderData();
-  return <div>{/* Route content */}</div>;
+function greet(name: string): string {
+  return `Hello, ${name}!`;
 }
 ```
 
-## Root Layout (__root.tsx)
+```bash
+docker compose up -d
+```
+````
 
-```typescript
-import { createRootRoute, Outlet } from "@tanstack/react-router";
-import { AppLayout } from "@/components/layout/AppLayout";
+### Lists
 
-export const Route = createRootRoute({
-  component: RootLayout,
-  errorComponent: RootErrorComponent,
-});
+Unordered:
+```markdown
+- First item
+- Second item
+  - Nested item
+- Third item
+```
 
-function RootLayout() {
-  return (
-    <AppLayout>
-      <Outlet />
-    </AppLayout>
-  );
+Ordered:
+```markdown
+1. First step
+1. Second step
+   1. Sub-step
+1. Third step
+```
+
+### Links
+```markdown
+✅ Good:
+See the [Configuration Guide](docs/CONFIGURATION.md) for details.
+
+❌ Bad:
+Click [here](docs/CONFIGURATION.md).
+```
+
+### Emphasis
+- `**bold**` for strong emphasis or UI elements
+- `*italic*` for light emphasis
+- `` `code` `` for inline code, commands, file names
+
+## Document Structure
+
+### Project README
+Required sections:
+1. Title and description
+2. Key features
+3. Quick start
+4. Usage examples
+5. Documentation links
+6. Contributing
+7. License
+
+### Package README
+Required sections:
+1. Package purpose
+2. Installation
+3. API/Usage
+4. Configuration
+5. Development setup
+
+### Configuration Docs
+
+Structure:
+```markdown
+# Configuration Guide
+
+## Environment Variables
+
+### `HERMES_SECRET_KEY`
+- **Type:** String
+- **Required:** Yes
+- **Description:** Secret key for JWT
+- **Example:** `openssl rand -base64 32`
+
+### `LOG_LEVEL`
+- **Type:** String
+- **Required:** No
+- **Default:** `info`
+- **Options:** `debug`, `info`, `warning`, `error`
+```
+
+### API Documentation
+
+```markdown
+### `POST /api/v1/downloads`
+
+Create a new download task.
+
+**Authentication:** Required (Bearer token)
+
+**Request:**
+```json
+{
+  "url": "https://example.com/video",
+  "profile_id": "default"
 }
 ```
 
-## Data Loading
-
-### Loaders
-```typescript
-export const Route = createFileRoute("/downloads")({
-  loader: async ({ context }) => {
-    const downloads = await fetchDownloads();
-    const stats = await fetchStats();
-    return { downloads, stats };
-  },
-  component: DownloadsPage,
-});
-
-function DownloadsPage() {
-  const { downloads, stats } = Route.useLoaderData();
-  return (
-    <div>
-      <Stats data={stats} />
-      <DownloadList items={downloads} />
-    </div>
-  );
+**Response:** `201 Created`
+```json
+{
+  "id": "abc123",
+  "status": "queued",
+  "created_at": "2024-01-01T00:00:00Z"
 }
 ```
 
-### With Search Params
-```typescript
-export const Route = createFileRoute("/downloads")({
-  validateSearch: (search: Record<string, unknown>) => {
-    return {
-      status: (search.status as string) || "all",
-      page: Number(search.page) || 1,
-    };
-  },
-  loader: async ({ context, search }) => {
-    const downloads = await fetchDownloads({
-      status: search.status,
-      page: search.page,
-    });
-    return { downloads };
-  },
-});
+**Errors:**
+- `400` - Invalid URL
+- `401` - Invalid token
+- `429` - Rate limit exceeded
 ```
 
-## Navigation
+## Code Examples
 
-### Link Component
-```typescript
-import { Link } from "@tanstack/react-router";
+Keep examples:
+- Concise and focused
+- Include necessary imports
+- Show realistic use cases
+- Add comments for complex logic
 
-<Link to="/queue" className="nav-link" activeProps={{ className: "active" }}>
-  Queue
-</Link>
+```markdown
+### Creating a Download
 
-// With params
-<Link to="/downloads/$downloadId" params={{ downloadId: "123" }}>
-  View Download
-</Link>
-
-// With search
-<Link to="/downloads" search={{ status: "completed", page: 1 }}>
-  Completed
-</Link>
+```python
+async def create_download(url: str, token: str):
+    """Create a new download task."""
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            "http://localhost:8000/api/v1/downloads",
+            json={"url": url},
+            headers={"Authorization": f"Bearer {token}"}
+        )
+        return response.json()
+```
 ```
 
-### Programmatic Navigation
+## Tables
+
+```markdown
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/v1/downloads` | List downloads |
+| POST | `/api/v1/downloads` | Create download |
+| DELETE | `/api/v1/downloads/{id}` | Delete download |
+```
+
+## Badges
+
+```markdown
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Python](https://img.shields.io/badge/python-3.11+-blue.svg)
+```
+
+## Admonitions
+
+```markdown
+> **Note:** This feature is experimental.
+
+> **Warning:** Never commit `.env` files.
+
+> **Tip:** Use `docker compose logs -f` for live logs.
+```
+
+## Changelog
+
+Follow [Keep a Changelog](https://keepachangelog.com/):
+
+```markdown
+# Changelog
+
+## [1.2.0] - 2024-01-15
+
+### Added
+- Playlist download feature
+- Custom output formats
+
+### Changed
+- Improved error handling
+
+### Fixed
+- Memory leak in worker
+
+### Deprecated
+- Legacy API endpoints
+```
+
+## Documentation Maintenance
+
+- Update docs with code changes
+- Review docs in PRs
+- Mark deprecated features
+- Remove outdated info
+
+### Docstrings
+
+Python (Google-style):
+```python
+def fetch_data(url: str, timeout: int = 30) -> dict:
+    """Fetch data from URL.
+    
+    Args:
+        url: The URL to fetch from
+        timeout: Request timeout in seconds
+        
+    Returns:
+        Dictionary containing response data
+        
+    Raises:
+        ValueError: If URL is invalid
+        TimeoutError: If request times out
+    """
+    pass
+```
+
+TypeScript (JSDoc):
 ```typescript
-import { useNavigate } from "@tanstack/react-router";
-
-function MyComponent() {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate({ to: "/downloads", search: { status: "active" } });
-  };
-
-  return <button onClick={handleClick}>Go</button>;
+/**
+ * Fetch data from URL
+ * 
+ * @param url - The URL to fetch from
+ * @param timeout - Request timeout in seconds
+ * @returns Promise resolving to response data
+ * @throws {Error} If URL is invalid
+ */
+async function fetchData(url: string, timeout: number = 30): Promise<Data> {
+  // ...
 }
 ```
 
-## Protected Routes
+## Writing Style
 
-```typescript
-import { createFileRoute, redirect } from "@tanstack/react-router";
-import { isAuthenticated } from "@/services/auth";
+### Guidelines
+- Use clear, simple language
+- Define acronyms on first use
+- Use active voice
+- Keep sentences concise
+- Use inclusive language
 
-export const Route = createFileRoute("/protected")({
-  beforeLoad: async ({ context, location }) => {
-    if (!isAuthenticated()) {
-      throw redirect({
-        to: "/auth/login",
-        search: { redirect: location.href },
-      });
-    }
-  },
-  component: ProtectedPage,
-});
+### Commands
+```markdown
+✅ Good:
+Run `docker compose up` to start services.
+
+❌ Bad:
+You should probably run docker compose up.
 ```
 
-## Search Params
+## Images
 
-### Validating Search
-```typescript
-import { z } from "zod";
+```markdown
+![Architecture diagram](./images/architecture.png)
 
-const searchSchema = z.object({
-  status: z.enum(["all", "active", "completed", "failed"]).default("all"),
-  sort: z.enum(["date", "title", "size"]).default("date"),
-  page: z.number().int().positive().default(1),
-  limit: z.number().int().positive().max(100).default(20),
-});
-
-export const Route = createFileRoute("/downloads")({
-  validateSearch: (search) => searchSchema.parse(search),
-});
-
-function Component() {
-  const search = Route.useSearch();
-  // search is fully typed
-}
+*Figure 1: System architecture*
 ```
 
-### Updating Search
-```typescript
-const navigate = useNavigate();
-const search = Route.useSearch();
-
-const updateStatus = (status: string) => {
-  navigate({
-    search: (prev) => ({
-      ...prev,
-      status,
-      page: 1, // Reset page
-    }),
-  });
-};
-```
-
-## Route Params
-
-```typescript
-// File: routes/downloads.$downloadId.tsx
-export const Route = createFileRoute("/downloads/$downloadId")({
-  loader: async ({ params }) => {
-    const download = await fetchDownload(params.downloadId);
-    return { download };
-  },
-  component: DownloadDetail,
-});
-
-function DownloadDetail() {
-  const { download } = Route.useLoaderData();
-  const { downloadId } = Route.useParams();
-  return <div>{download.title}</div>;
-}
-```
-
-## Error Handling
-
-```typescript
-export const Route = createFileRoute("/route")({
-  errorComponent: RouteErrorComponent,
-});
-
-function RouteErrorComponent({ error }: { error: Error }) {
-  return (
-    <div className="error-container">
-      <h1>Something went wrong</h1>
-      <p>{error.message}</p>
-    </div>
-  );
-}
-```
-
-### Loader Errors
-```typescript
-export const Route = createFileRoute("/data")({
-  loader: async () => {
-    const data = await fetchData();
-    if (!data) throw new Error("Data not found");
-    return { data };
-  },
-});
-```
-
-## Loading States
-
-```typescript
-export const Route = createFileRoute("/downloads")({
-  loader: fetchDownloads,
-  pendingComponent: LoadingDownloads,
-  component: DownloadsPage,
-});
-
-function LoadingDownloads() {
-  return <div>Loading...</div>;
-}
-```
-
-## Route Context
-
-### Providing Context
-```typescript
-// In root route
-export const Route = createRootRoute({
-  beforeLoad: async () => {
-    const user = await getCurrentUser();
-    const config = await getConfig();
-    return { auth: { user }, config };
-  },
-});
-```
-
-### Consuming Context
-```typescript
-export const Route = createFileRoute("/profile")({
-  beforeLoad: ({ context }) => {
-    const user = context.auth?.user;
-    return { user };
-  },
-});
-```
-
-## Code Splitting
-
-```typescript
-import { createFileRoute, lazyRouteComponent } from "@tanstack/react-router";
-
-export const Route = createFileRoute("/large")({
-  component: lazyRouteComponent(() => import("./LargeComponent")),
-});
-```
+- Store in `docs/images/` or `assets/`
+- Use descriptive file names
+- Optimize sizes
+- Provide alt text
 
 ---
 > Source: [TechSquidTV/Hermes](https://github.com/TechSquidTV/Hermes) — distributed by [TomeVault](https://tomevault.io).
