@@ -1,0 +1,9 @@
+{
+  "name": "danielckv--contextloom",
+  "displayName": "ContextLoom",
+  "description": "ContextLoom is the shared \"brain\" for multi-agent systems. It weaves together memory threads from frameworks like DSPy and CrewAI into a unified, persistent context, powered by Redis and hydrated from",
+  "version": "1.0.0",
+  "author": "danielckv",
+  "homepage": "https://github.com/danielckv/ContextLoom",
+  "skills": []
+}
