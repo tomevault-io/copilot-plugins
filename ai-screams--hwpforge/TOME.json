@@ -1,0 +1,44 @@
+{
+  "name": "HwpForge",
+  "owner": "ai-screams",
+  "repo": "HwpForge",
+  "description": "Rust library for programmatic control of Korean HWPX documents \u2014 Markdown\u2192HWPX conversion, JSON   round-trip editing, MCP server for AI agents \ud83d\udd25",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ai-screams/HwpForge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T12:51:15Z"
+}
