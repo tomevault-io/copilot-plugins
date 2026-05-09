@@ -1,0 +1,9 @@
+{
+  "name": "iurysza--android-use",
+  "displayName": "android-use",
+  "description": "A CLI + SKILL for Android device automation built for agents and humans.",
+  "version": "1.0.0",
+  "author": "iurysza",
+  "homepage": "https://github.com/iurysza/android-use",
+  "skills": []
+}
