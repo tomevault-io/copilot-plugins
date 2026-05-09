@@ -1,0 +1,9 @@
+{
+  "name": "bnomei--nereid",
+  "displayName": "nereid",
+  "description": "Create and explore Mermaid diagrams in collaboration with AI agents (TUI + MCP Server)",
+  "version": "1.0.0",
+  "author": "bnomei",
+  "homepage": "https://github.com/bnomei/nereid",
+  "skills": []
+}
