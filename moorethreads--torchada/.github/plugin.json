@@ -1,0 +1,9 @@
+{
+  "name": "moorethreads--torchada",
+  "displayName": "torchada",
+  "description": "An adapter layer that ensures torch_musa\ud83d\udd26 delivers a CUDA-compatible PyTorch experience.",
+  "version": "1.0.0",
+  "author": "MooreThreads",
+  "homepage": "https://github.com/MooreThreads/torchada",
+  "skills": []
+}
