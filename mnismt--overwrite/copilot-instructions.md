@@ -1,30 +1,52 @@
-## tests
+## vscode-elements-ui-guide
 
-> This rule provides an overview of the testing setup for the Overwrite VS Code extension, including unit and integration tests.
+> This guide provides instructions for using `@vscode-elements/elements` components within the React 19 application located in the `src/webview-ui` directory. These components provide a VS Code-native look and feel for the extension's webview interface.
 
-# Testing Rules Guide
+# Using @vscode-elements/elements in src/webview-ui
 
-This rule provides an overview of the testing setup for the Overwrite VS Code extension, including unit and integration tests.
+This guide provides instructions for using `@vscode-elements/elements` components within the React 19 application located in the `src/webview-ui` directory. These components provide a VS Code-native look and feel for the extension's webview interface.
 
-## Key Concepts
-- **Testing Framework:** Uses Mocha for writing tests, integrated with VS Code's testing tools via `@vscode/test-cli`.
-- **Test Structure:** Tests are located in the `src/test/` directory. The main test file is [src/test/suite/extension.test.ts](mdc:src/test/suite/extension.test.ts), which includes sample tests for the extension.
-- **Configuration Files:** 
-  - [.vscode-test.mjs](mdc:.vscode-test.mjs) defines the test runner configuration, specifying files like 'out/test/**/*.test.js'.
-  - [tsconfig.json](mdc:tsconfig.json) includes test files under 'src/**/*.ts' and sets output to 'out/'.
-  - [esbuild.js](mdc:esbuild.js) bundles test files into the 'out/' directory.
-- **Scripts:** 
-  - Run tests with the command `pnpm test`, which compiles code, runs linting with Biome, and executes tests.
-  - Pretest script in [package.json](mdc:package.json) ensures compilation and linting before testing.
+## Key Considerations for `src/webview-ui`
 
-## How to Run Tests
-- **Command Line:** Execute `pnpm test` from the root directory.
-- **In VS Code:** Use the Test Explorer view or run the 'Extension Tests' launch configuration from .vscode/launch.json.
+*   **React 19 Integration:** React 19 fully supports web components. You can use `@vscode-elements/elements` directly in your JSX.
+*   **Styling:** Components automatically adapt to the current VS Code theme via CSS variables.
+*   **Type Definitions:** All necessary type definitions for using these components within React (including props and custom event handlers) are configured in [global.d.ts](mdc:src/webview-ui/src/global.d.ts). **Refer to this file frequently** for correct typing when using the components.
 
-## Best Practices
-- Write tests in `src/test/suite/` using assertions from 'node:assert'.
-- Ensure tests import from 'vscode' for extension API interactions.
-- Debug tests via the 'Extension Tests' configuration in [.vscode/launch.json](mdc:.vscode/launch.json).
+## How to Use vscode-elements components (React 19 Specifics)
+
+1.  **Import:** You don't need to import any component, use them directly because they're already defined in `src/webview-ui/src/global.d.ts`
+2.  **JSX Usage:** Use the components like standard HTML elements in your JSX.
+3.  **Props:**
+    *   Use standard HTML attribute names like `class` and `for` (instead of React's `className` or `htmlFor`) (note: ONLY apply for custom web components, not normal HTML tags like h1, p, span etc).
+    *   Other props are passed as expected. Refer to [global.d.ts](mdc:src/webview-ui/src/global.d.ts) or the component documentation for available props.
+4.  **Events:**
+    *   Custom events from the components are handled using `on`-prefixed props.
+    *   The event name directly follows the `on` prefix, e.g., `vsc-tabs-select` event is handled with the `onvsc-tabs-select` prop.
+    *   Event handler types can be found in [global.d.ts](mdc:src/webview-ui/src/global.d.ts).
+
+    ```jsx
+    // Example from global.d.ts definitions
+    import { VscTabsSelectEvent } from '@vscode-elements/elements/dist/vscode-tabs/vscode-tabs';
+
+    const handleTabChange = (event: VscTabsSelectEvent) => {
+      console.log('Selected tab:', event.detail.tabId);
+    };
+
+    <vscode-tabs onvsc-tabs-select={handleTabChange}>
+      {/* ... tabs ... */}
+    </vscode-tabs>
+    ```
+
+## Available Components Overview
+
+While [global.d.ts](mdc:src/webview-ui/src/global.d.ts) lists all typed components, here's a general overview of categories available in the library:
+
+*   **Form Controls:** `vscode-textfield`, `vscode-textarea`, `vscode-checkbox`, `vscode-radio`, `vscode-single-select`, `vscode-multi-select`, `vscode-button`.
+*   **Layout:** `vscode-scrollable`, `vscode-collapsible`, `vscode-split-layout`.
+*   **Navigation:** `vscode-tabs` (used for the main panel), `vscode-tree` (useful for file display), `vscode-context-menu`.
+*   **Display:** `vscode-table`, `vscode-badge`, `vscode-progress-ring`, `vscode-divider`, `vscode-icon`.
+
+For detailed API and usage examples for specific components, consult the official `@vscode-elements/elements` documentation if needed, but prioritize using the types defined in [global.d.ts](mdc:src/webview-ui/src/global.d.ts) for development within this project.
 
 ---
 > Source: [mnismt/overwrite](https://github.com/mnismt/overwrite) — distributed by [TomeVault](https://tomevault.io).
