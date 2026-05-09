@@ -1,0 +1,22 @@
+{
+  "name": "pavelzw--skill-forge",
+  "displayName": "skill-forge",
+  "description": "A place to store coding agent skills.",
+  "version": "1.0.0",
+  "author": "pavelzw",
+  "homepage": "https://github.com/pavelzw/skill-forge",
+  "skills": [
+    {
+      "name": "matplotlib-data-visualization",
+      "description": ""
+    },
+    {
+      "name": "sqlalchemy",
+      "description": ""
+    },
+    {
+      "name": "typst",
+      "description": ""
+    }
+  ]
+}
