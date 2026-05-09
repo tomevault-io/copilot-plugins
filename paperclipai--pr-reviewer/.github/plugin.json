@@ -1,0 +1,9 @@
+{
+  "name": "paperclipai--pr-reviewer",
+  "displayName": "pr-reviewer",
+  "description": "pr triage ui",
+  "version": "1.0.0",
+  "author": "paperclipai",
+  "homepage": "https://github.com/paperclipai/pr-reviewer",
+  "skills": []
+}
