@@ -4,7 +4,7 @@
   "repo": "ERA-EfficientRollbackArchitecture",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RockingSisyphus/ERA-EfficientRollbackArchitecture",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T20:50:56Z"
+  "distributed_at": "2026-05-09T22:41:04Z"
 }
