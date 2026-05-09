@@ -1,34 +1,40 @@
-## visualize-data
+## web-ui
 
-> Implement CLI and web-based data visualization for `myquery`, allowing users to visualize query results (e.g., sales trends, category comparisons, etc.) directly after execution.
+> Build a FastAPI-based Web UI for `myquery`, providing a conversational chat interface, schema explorer, and visualization dashboard.
 
-# 🧩 Task: Data Visualization System for myquery
+# 🌐 Task: Web UI for myquery
 
 ## 🎯 Goal
-Implement CLI and web-based data visualization for `myquery`, allowing users to visualize query results (e.g., sales trends, category comparisons, etc.) directly after execution.
+Build a FastAPI-based Web UI for `myquery`, providing a conversational chat interface, schema explorer, and visualization dashboard.
 
 ## ⚙️ Requirements
-- Create a tool named `visualize_data_tool` in `tools/visualize_data_tool.py`.
-- Use **Plotly** for chart generation (preferred) with fallback to **Matplotlib**.
-- CLI mode: render quick ASCII preview using **Rich** or show static Plotly output in terminal-compatible mode.
-- Web mode: generate interactive charts and serve via `/api/visualize` FastAPI endpoint.
-- Support chart types:
-  - `bar`, `line`, `scatter`, `pie`, `heatmap`
-- Auto-detect chart type from data (categorical → bar/pie, numeric/time → line/scatter).
+- Create `web/main.py` using **FastAPI**.
+- Build REST and WebSocket APIs:
+  - `/api/query` → Execute natural language or SQL queries
+  - `/api/analyze` → Generate AI-based summaries
+  - `/api/visualize` → Serve Plotly visualization JSON
+  - `/schema` → Get current database schema
+- Integrate **React** or **Svelte** frontend:
+  - Chat interface with prompt input
+  - Query output table
+  - Visualization panel
+  - Connection status indicator
+- Use **MCP (port 7766)** to sync context between CLI and Web UI.
 
 ## 🧠 Steps
-1. Define LangChain tool `visualize_data_tool`.
-2. Input: query results (list[dict]) + metadata (user prompt, chart type).
-3. Output: plot object + CLI preview.
-4. If running via Web UI, return Plotly JSON for rendering.
-5. Add a `--visualize` flag to CLI commands for automatic visualization.
-6. Integrate visualization step after `execute_query_tool` in the main agent.
+1. Scaffold FastAPI app with routes in `web/routes/`.
+2. Add WebSocket for live responses.
+3. Connect backend to LangChain agent pipeline.
+4. Add minimal frontend (React/Svelte + TailwindCSS).
+5. Integrate chart rendering using Plotly.js.
+6. Add “debug mode” toggle in UI to show SQL and logs.
+7. Expose `/health` endpoint for monitoring.
 
 ## 🧩 Cursor Hints
-- Use `@cursor: define-tool visualize_data_tool`
-- Keep functions pure and testable.
-- Store plots temporarily in `/tmp/myquery/plots/`.
-- Add support for exporting charts as `.png` or `.html`.
+- Use `@cursor: define-tool web_ui_tool`
+- Keep backend modular — do not mix agent logic inside routes.
+- Use FastAPI dependency injection for DB and agent context.
+- Make the Web UI theme consistent with CLI color palette.
 
 ---
 > Source: [zakirkun/myquery](https://github.com/zakirkun/myquery) — distributed by [TomeVault](https://tomevault.io).
