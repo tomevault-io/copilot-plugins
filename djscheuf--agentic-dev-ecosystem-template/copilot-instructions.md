@@ -1,312 +1,321 @@
-## ts-bdd-testing-rules
+## typescript-rules
 
-> - Write tests first (TDD)
+> - Enable strict mode in all TypeScript projects
 
 
-# TypeScript BDD Testing Standards
+# TypeScript Coding Standards
 
-## Core Principles
+## General Principles
 
-- Write tests first (TDD)
-- Each test verifies one behavior
-- Tests are independent, isolated, fast, deterministic
-- **Test behavior, not implementation** - _"Would test break if CSS changed but behavior stayed same?"_ YES = bad test
-- Use GWT for complex tests, simple describe/it for straightforward tests
+- Enable strict mode in all TypeScript projects
+- Prefer type inference where types are obvious
+- Use explicit types for function signatures and exports
+- Never use `any`; use `unknown` when type is truly unknown
+- Follow "Intent Over Implementation" - name things by what they do, not how they work
 
-## What to Test
+## TypeScript Configuration
 
-**✅ Test:**
-- Content rendering, user interactions, state changes
-- Conditional rendering, accessibility (ARIA, roles, keyboard)
-- Data validation, error messages, API calls, side effects
-
-**❌ Never Test:**
-- CSS classes (`toHaveClass`), colors, fonts, spacing
-- Component internal structure, styling library specifics
-- **Use Storybook for visual testing**
-
-## Test Patterns
-
-### Simple Pattern (Single Assertion)
-
-```typescript
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-
-describe('ComponentName', () => {
-  const defaultProps = { title: 'Test', onSubmit: vi.fn() };
-  
-  describe('when rendered with title', () => {
-    it('displays the title', () => {
-      render(<ComponentName {...defaultProps} />);
-      expect(screen.getByText('Test')).toBeInTheDocument();
-    });
-  });
-  
-  describe('when submit clicked', () => {
-    it('calls onSubmit', () => {
-      render(<ComponentName {...defaultProps} />);
-      fireEvent.click(screen.getByRole('button', { name: /submit/i }));
-      expect(defaultProps.onSubmit).toHaveBeenCalled();
-    });
-  });
-});
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
 ```
 
-### Enhanced GWT Pattern (Multiple Assertions)
+## Naming Conventions
+
+| Item | Format | Example |
+|------|--------|---------|
+| Interface/Type | PascalCase | `UserProfile`, `TacticStatus` |
+| Variable/Function | camelCase | `getUserProfile`, `isFormValid` |
+| True Constants | SCREAMING_SNAKE_CASE | `MAX_UPLOAD_SIZE`, `API_VERSION` |
+| Configuration | camelCase | `apiBaseUrl`, `featureFlags` |
+| Enum | PascalCase | `TacticStatus.Draft` |
+| Boolean | is/has/can/should | `isLoading`, `hasPermission` |
+| Generic | T, U or PascalCase | `T`, `State`, `Action` |
+
+### Examples
 
 ```typescript
-describe('apiClient', () => {
-  beforeEach(() => { vi.clearAllMocks(); });
-  
-  describe('GIVEN token available', () => {
-    beforeEach(() => { localStorage.setItem('auth_token', 'test-token'); });
-    
-    describe('WHEN request made', () => {
-      let response: Response;
-      
-      beforeEach(async () => {
-        response = await apiClient('https://api.example.com');
-      });
-      
-      it('THEN adds Authorization header', () => {
-        const headers = vi.mocked(fetch).mock.calls[0][1]?.headers as Headers;
-        expect(headers.get('Authorization')).toBe('Bearer test-token');
-      });
-      
-      it('THEN returns response', () => {
-        expect(response).toBeDefined();
-      });
-    });
-  });
-});
+// Interfaces - no I prefix
+interface UserProfile {
+  id: string;
+  name: string;
+  email: string;
+}
+
+// Types for unions
+type TacticStatus = 'draft' | 'active' | 'archived';
+type ApiResponse<T> = { data: T; status: number };
+
+// Constants
+const MAX_UPLOAD_SIZE = 5_000_000;
+const apiBaseUrl = process.env.API_URL;
+
+// Enums
+enum TacticStatus {
+  Draft = 'draft',
+  Active = 'active',
+  Archived = 'archived',
+}
+
+// Booleans
+const isLoading = false;
+const hasPermission = true;
 ```
 
-## Naming
+## Type Definitions
+
+### Interface vs Type
+
+- **Interface:** Object shapes, component props, domain models
+- **Type:** Unions, intersections, mapped types, utilities
 
 ```typescript
-describe('ComponentName', () => {})           // Top level
-describe('GIVEN user logged in', () => {})    // GWT context
-describe('WHEN button clicked', () => {})     // GWT action
-describe('when form invalid', () => {})       // Natural language
+// Interface for objects
+interface UserProfile {
+  id: string;
+  name: string;
+}
 
-it('THEN displays user name', () => {})       // GWT
-it('displays user name', () => {})            // Natural language
+// Type for unions and utilities
+type TacticStatus = 'draft' | 'active' | 'archived';
+type Nullable<T> = T | null;
 ```
 
-**Avoid:** `it('should...')`, `it('test...')`, `it('works correctly')`, mixing GWT and natural language
-
-## File Structure
+### Utility Types
 
 ```typescript
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { ComponentName } from './ComponentName';
+type PartialUser = Partial<User>;
+type RequiredUser = Required<User>;
+type UserKeys = keyof User;
+type PickedUser = Pick<User, "id" | "name">;
+type OmittedUser = Omit<User, "password">;
 
-describe('ComponentName', () => {
-  const defaultProps = { title: 'Test', onSubmit: vi.fn() };
-  
-  beforeEach(() => { vi.clearAllMocks(); });
-  
-  describe('rendering', () => {});
-  describe('user interactions', () => {});
-  describe('error handling', () => {});
-});
-```
-
-## Mocking
-
-```typescript
-// Functions
-const mockOnClick = vi.fn();
-expect(mockOnClick).toHaveBeenCalled();
-expect(mockOnClick).toHaveBeenCalledTimes(1);
-expect(mockOnClick).toHaveBeenCalledWith(expectedArg);
-beforeEach(() => { vi.clearAllMocks(); });
-
-// Modules
-vi.mock('./api-client', () => ({ apiClient: vi.fn() }));
-import { apiClient } from './api-client';
-const mockedApiClient = vi.mocked(apiClient);
-
-// Return values
-mockFn.mockReturnValue('result');
-mockFn.mockResolvedValue({ data: 'result' });
-mockFn.mockRejectedValue(new Error('Failed'));
-mockFn.mockReturnValueOnce('first').mockReturnValueOnce('second');
-```
-
-## Async Tests
-
-```typescript
-it('fetches user data', async () => {
-  const result = await fetchUser('123');
-  expect(result).toBeDefined();
-});
-
-it('throws error', async () => {
-  await expect(fetchUser('invalid')).rejects.toThrow(NotFoundError);
-});
-
-it('displays user after loading', async () => {
-  render(<UserProfile userId="123" />);
-  expect(await screen.findByText('John Doe')).toBeInTheDocument();
-});
-
-it('hides loading spinner', async () => {
-  render(<UserProfile userId="123" />);
-  await waitFor(() => {
-    expect(screen.queryByRole('status')).not.toBeInTheDocument();
-  });
-});
-```
-
-## Test Data
-
-```typescript
-// Factory
-const createUser = (overrides: Partial<User> = {}): User => ({
-  id: 'user-123',
-  name: 'Default',
-  email: 'default@example.com',
-  ...overrides,
-});
-
-// Fixtures
-export const testUsers = {
-  active: { id: '1', name: 'Active User', status: 'active' },
-  inactive: { id: '2', name: 'Inactive User', status: 'inactive' },
+type NonNullableFields<T> = {
+  [K in keyof T]: NonNullable<T[K]>;
 };
 ```
 
-## React Testing
+### Discriminated Unions
 
 ```typescript
-import { render, screen, fireEvent } from '@testing-library/react';
+type LoadingState = { status: "loading" };
+type SuccessState<T> = { status: "success"; data: T };
+type ErrorState = { status: "error"; error: string };
+type AsyncState<T> = LoadingState | SuccessState<T> | ErrorState;
 
-// Render
-render(<Button>Click me</Button>);
-render(<AuthProvider><UserProfile userId="123" /></AuthProvider>);
-
-// Query (prefer getByRole)
-screen.getByRole('button', { name: /submit/i });
-screen.getByRole('textbox', { name: /email/i });
-screen.getByLabelText('Email address');
-screen.getByText('Welcome');
-screen.getByTestId('custom-element');
-
-// Query variants
-screen.getBy*()     // Throws if not found
-screen.queryBy*()   // Returns null if not found
-screen.findBy*()    // Async - waits for element
-
-// Interactions
-fireEvent.click(screen.getByRole('button'));
-fireEvent.change(input, { target: { value: 'test@example.com' } });
-fireEvent.submit(form);
-fireEvent.keyDown(input, { key: 'Enter' });
+function handleState<T>(state: AsyncState<T>): void {
+  switch (state.status) {
+    case "loading": break;
+    case "success": console.log(state.data); break;
+    case "error": console.error(state.error); break;
+  }
+}
 ```
 
-## TestId Queries
+### Type File Organization
 
 ```typescript
-// Import constants
-import { ComponentTestIds } from './Component.testids';
-
-// Query patterns
-const saveButton = screen.getByTestId(ComponentTestIds.SaveButton);
-const input = screen.getByTestId(`${ComponentTestIds.Container}-input`);
-
-// Test behavior, NOT testId values
-const button = screen.getByTestId(ComponentTestIds.SaveButton);
-expect(button).toBeEnabled();
-fireEvent.click(button);
-expect(mockOnSave).toHaveBeenCalled();
-
-// ❌ Never test testId attribute
-expect(button).toHaveAttribute('data-testid', 'save-button'); // FORBIDDEN
-
-// Prefer semantic queries
-screen.getByRole('button', { name: /save/i });  // Better than testId
+// domain.types.ts
+export enum TacticStatus { Draft = 'draft', Active = 'active' }
+export type TacticId = string;
+export interface Tactic { id: TacticId; name: string; status: TacticStatus; }
+export interface CreateTacticRequest { name: string; description: string; }
+export type PartialTactic = Partial<Tactic>;
 ```
 
-## Common Patterns
+## Functions
 
 ```typescript
-// State changes
-it('toggles visibility', () => {
-  render(<CollapsibleCard title="Test" />);
-  expect(screen.getByText('Content')).toBeVisible();
-  fireEvent.click(screen.getByRole('button'));
-  expect(screen.getByText('Content')).not.toBeVisible();
-});
+// Explicit types for exported functions
+export function calculateTotal(items: CartItem[]): number {
+  return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+}
 
-// Error states
-it('displays error message', async () => {
-  vi.mocked(apiClient).mockRejectedValue(new Error('Network error'));
-  render(<UserProfile userId="123" />);
-  expect(await screen.findByText(/failed to load/i)).toBeInTheDocument();
-});
+// Arrow functions
+const isAdult = (age: number): boolean => age >= 18;
 
-// Conditional rendering
-it('shows edit button when permitted', () => {
-  render(<UserCard user={user} canEdit />);
-  expect(screen.getByRole('button', { name: /edit/i })).toBeInTheDocument();
-});
+// Optional parameters with defaults
+function greet(name: string, greeting: string = "Hello"): string {
+  return `${greeting}, ${name}!`;
+}
+
+// Rest parameters
+function merge<T extends object>(...objects: T[]): T {
+  return Object.assign({}, ...objects);
+}
+
+// Async functions - explicit Promise<T>
+async function fetchUser(id: string): Promise<User> {
+  const response = await fetch(`/api/users/${id}`);
+  if (!response.ok) throw new ApiError(`Failed: ${response.status}`);
+  return response.json();
+}
 ```
 
-## Parameterized Tests
+## Error Handling
 
 ```typescript
-it.each([
-  ['user@example.com', true],
-  ['invalid-email', false],
-])('validateEmail(%s) returns %s', (email, expected) => {
-  expect(validateEmail(email)).toBe(expected);
-});
+// Custom error classes
+class AppError extends Error {
+  constructor(
+    message: string,
+    public readonly code: string,
+    public readonly statusCode: number = 500
+  ) {
+    super(message);
+    this.name = this.constructor.name;
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
 
-const testCases = [
-  { input: 0, expected: 0, description: 'returns 0 for input 0' },
-  { input: 10, expected: 55, description: 'calculates correctly' },
-];
-it.each(testCases)('$description', ({ input, expected }) => {
-  expect(fibonacci(input)).toBe(expected);
-});
+class NotFoundError extends AppError {
+  constructor(resource: string, id: string) {
+    super(`${resource} with ID ${id} not found`, "NOT_FOUND", 404);
+  }
+}
+
+// Result type pattern
+type Result<T, E = Error> =
+  | { success: true; data: T }
+  | { success: false; error: E };
+
+function parseJson<T>(json: string): Result<T> {
+  try {
+    return { success: true, data: JSON.parse(json) };
+  } catch (error) {
+    return { success: false, error: error as Error };
+  }
+}
 ```
 
-## Coverage Targets
+## Null/Undefined Handling
 
-- Unit tests: 80% line coverage
-- Critical business logic: 100% branch coverage
-- Integration tests: All API endpoints and database operations
+```typescript
+// Optional chaining
+const userName = user?.profile?.name;
 
-**Coverage is NOT a goal** - Write tests to verify behavior, not hit percentages.
+// Nullish coalescing
+const displayName = user.name ?? "Anonymous";
+
+// Type guards
+function isUser(value: unknown): value is User {
+  return typeof value === "object" && value !== null && "id" in value;
+}
+
+// Non-null assertion (use sparingly with comment)
+const element = document.getElementById("app")!; // Known to exist
+```
+
+## Avoid `any`
+
+```typescript
+// Use unknown with type guards
+function processData(data: unknown) {
+  if (isValidData(data)) return data.value;
+  throw new Error('Invalid data');
+}
+
+function isValidData(data: unknown): data is { value: string } {
+  return typeof data === 'object' && data !== null && 'value' in data;
+}
+
+// Or use generics
+function processData<T extends { value: string }>(data: T) {
+  return data.value;
+}
+```
+
+## Imports/Exports
+
+```typescript
+// Named exports (preferred)
+export function calculateTax(amount: number): number {}
+export interface TaxConfig {}
+export const TAX_RATE = 0.1;
+
+// Default exports (only for main entry points)
+export default class UserService {}
+
+// Import order: Node → External → Internal → Relative
+import { readFile } from "fs/promises";
+import express from "express";
+import { config } from "@/core/config";
+import { UserRepository } from "./repositories/UserRepository";
+import type { User } from "./types";
+```
+
+## Classes
+
+```typescript
+class UserService {
+  readonly #repository: UserRepository;
+  readonly #logger: Logger;
+
+  constructor(repository: UserRepository, logger: Logger) {
+    this.#repository = repository;
+    this.#logger = logger;
+  }
+
+  async getUser(id: string): Promise<User | null> {
+    return this.#repository.findById(id);
+  }
+
+  #validateUserData(data: CreateUserDto): void {
+    if (!data.email.includes("@")) {
+      throw new ValidationError("Invalid email");
+    }
+  }
+}
+```
+
+## Zod Validation
+
+```typescript
+import { z } from "zod";
+
+const userSchema = z.object({
+  id: z.string().uuid(),
+  email: z.string().email(),
+  name: z.string().min(1).max(100),
+  role: z.enum(["user", "admin"]),
+});
+
+type User = z.infer<typeof userSchema>;
+
+function validateUser(data: unknown): User {
+  return userSchema.parse(data);
+}
+
+function safeValidateUser(data: unknown): Result<User> {
+  const result = userSchema.safeParse(data);
+  return result.success
+    ? { success: true, data: result.data }
+    : { success: false, error: new ValidationError(result.error.message) };
+}
+```
 
 ## Forbidden Practices
 
-- ❌ Test CSS classes, colors, styling (`toHaveClass`, `toHaveStyle`)
-- ❌ Test implementation details (internal state, private methods)
-- ❌ Test testId attribute values (`toHaveAttribute('data-testid', ...)`)
-- ❌ Test interdependence, hardcoded delays (`setTimeout`)
-- ❌ Ignore flaky tests, mock external dependencies without wrapping
-- ❌ Multiple Acts in single test, share mutable state between tests
-- ❌ Use `any` type, mix GWT and natural language naming
-- ❌ Hardcode testId strings (import from `.testids.ts`)
-
-## Quick Reference
-
-**Pattern selection:**
-- Single assertion → Simple Pattern
-- Multiple assertions for same action → Enhanced GWT
-
-**Query priority:**
-1. `getByRole` (semantic, accessible)
-2. `getByLabelText` (forms)
-3. `getByTestId` (last resort)
-
-**Mocking:**
-- Own code → `vi.mock()` directly
-- External dependency → Wrap first, mock wrapper
+- ❌ Never use `any` (use `unknown` + type guards)
+- ❌ Never use `@ts-ignore` (use `@ts-expect-error` with comment if required)
+- ❌ Never use non-null assertion without justification
+- ❌ Never use `var` (use `const` or `let`)
+- ❌ Never mutate function parameters
+- ❌ Never use `==` or `!=` (use `===` and `!==`)
+- ❌ Never leave unused imports or variables
+- ❌ Never use `String`, `Number`, `Boolean` constructors
+- ❌ Never use `Object` or `Function` as types
+- ❌ Never prefix interfaces with `I`
 
 ---
 > Source: [djscheuf/agentic-dev-ecosystem-template](https://github.com/djscheuf/agentic-dev-ecosystem-template) — distributed by [TomeVault](https://tomevault.io).
