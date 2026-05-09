@@ -1,0 +1,9 @@
+{
+  "name": "incremen--py-unicode-golf",
+  "displayName": "py-unicode-golf",
+  "description": "App to turn any unicode character into composition of python functions with no literals",
+  "version": "1.0.0",
+  "author": "incremen",
+  "homepage": "https://github.com/incremen/py-unicode-golf",
+  "skills": []
+}
