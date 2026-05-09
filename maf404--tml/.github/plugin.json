@@ -1,0 +1,9 @@
+{
+  "name": "maf404--tml",
+  "displayName": "tml",
+  "description": "TML is an open format that makes it easy for AI agents to discover and use public APIs. Write tool definitions in human-readable TML, compile to .min (one line per tool), and any LLM can read them",
+  "version": "1.0.0",
+  "author": "maf404",
+  "homepage": "https://github.com/maf404/tml",
+  "skills": []
+}
