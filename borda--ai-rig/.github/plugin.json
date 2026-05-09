@@ -1,0 +1,9 @@
+{
+  "name": "borda--ai-rig",
+  "displayName": "AI-Rig",
+  "description": "A collection of personal AI coding assistant configurations, specialist agents, and automated workflows optimized for Python and ML open-source development.",
+  "version": "1.0.0",
+  "author": "Borda",
+  "homepage": "https://github.com/Borda/AI-Rig",
+  "skills": []
+}
