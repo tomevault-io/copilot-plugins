@@ -4,7 +4,7 @@
   "repo": "mcp-to-cli",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/smithery-ai/mcp-to-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T16:18:13Z"
+  "distributed_at": "2026-05-09T06:46:44Z"
 }
