@@ -1,0 +1,9 @@
+{
+  "name": "paulirish--markpaste",
+  "displayName": "markpaste",
+  "description": "Select stuff in the browser, copy, paste it here, and we'll clean it and markdown it  for pasting to an editor, Docs, Gmail, etc",
+  "version": "1.0.0",
+  "author": "paulirish",
+  "homepage": "https://github.com/paulirish/markpaste",
+  "skills": []
+}
