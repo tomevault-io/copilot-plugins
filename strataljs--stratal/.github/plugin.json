@@ -1,0 +1,9 @@
+{
+  "name": "strataljs--stratal",
+  "displayName": "stratal",
+  "description": "A modular framework for building Cloudflare Workers with dependency injection, OpenAPI documentation, queues, cron jobs, and more.",
+  "version": "1.0.0",
+  "author": "strataljs",
+  "homepage": "https://github.com/strataljs/stratal",
+  "skills": []
+}
