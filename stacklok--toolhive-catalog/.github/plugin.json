@@ -1,0 +1,42 @@
+{
+  "name": "stacklok--toolhive-catalog",
+  "displayName": "toolhive",
+  "description": "ToolHive's registry catalog of MCP servers",
+  "version": "1.0.0",
+  "author": "stacklok",
+  "homepage": "https://github.com/stacklok/toolhive-catalog",
+  "skills": [
+    {
+      "name": "deploy-otel",
+      "description": ""
+    },
+    {
+      "name": "deploying-vmcp-locally",
+      "description": ""
+    },
+    {
+      "name": "doc-review",
+      "description": ""
+    },
+    {
+      "name": "deploy-otel",
+      "description": ""
+    },
+    {
+      "name": "deploy-registry-server-with-cnpg",
+      "description": ""
+    },
+    {
+      "name": "deploy-registry-server-with-otel",
+      "description": ""
+    },
+    {
+      "name": "review-rfc",
+      "description": ""
+    },
+    {
+      "name": "write-rfc",
+      "description": ""
+    }
+  ]
+}
