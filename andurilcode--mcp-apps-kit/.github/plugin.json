@@ -1,0 +1,9 @@
+{
+  "name": "andurilcode--mcp-apps-kit",
+  "displayName": "mcp-apps-kit",
+  "description": "A TypeScript framework for building interactive MCP applications that work seamlessly with both MCP Apps and ChatGPT (OpenAI Apps SDK) from a single codebase.",
+  "version": "1.0.0",
+  "author": "AndurilCode",
+  "homepage": "https://github.com/AndurilCode/mcp-apps-kit",
+  "skills": []
+}
