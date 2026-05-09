@@ -1,47 +1,93 @@
-## general
+## git
 
-> General project rules for tuck dotfiles manager
+> Git workflow and commit rules
 
 
-# General Project Rules
+# Git Rules
 
-## Project Identity
+## Branch Strategy
 
-tuck is a modern, beautiful dotfiles manager CLI built with TypeScript. It prioritizes:
+- `main` - Production-ready, protected
+- `feat/*` - New features
+- `fix/*` - Bug fixes
+- `docs/*` - Documentation
+- `refactor/*` - Code restructuring
 
-1. **Safety** - Never lose user data
-2. **Beauty** - Polished terminal experience
-3. **Git-native** - Built on git, abstracts complexity
-4. **Zero-config** - Works immediately
+## Before Starting Work
 
-## Tech Stack
+ALWAYS sync with main:
+```bash
+git checkout main
+git fetch origin
+git pull origin main
+git checkout -b feat/your-feature
+```
 
-- Runtime: Node.js 18+ (ESM only)
-- Language: TypeScript 5.x (strict mode)
-- Package Manager: pnpm 9+ (NEVER npm or yarn)
-- CLI Framework: Commander.js
-- Prompts: @clack/prompts
-- Styling: chalk, boxen, ora
-- Git: simple-git
-- Validation: Zod
-- Testing: Vitest
-- Build: tsup
+## Commit Messages
 
-## Key Principles
+Follow [Conventional Commits](https://conventionalcommits.org):
 
-1. Always validate user input
-2. Create backups before destructive operations
-3. Confirm dangerous actions with user
-4. Provide helpful error messages
-5. Show progress for long operations
-6. End commands with next step suggestions
+```
+<type>(<scope>): <description>
 
-## Package Manager
+[optional body]
 
-ALWAYS use pnpm commands:
-- `pnpm install` not `npm install`
-- `pnpm test` not `npm test`
-- `pnpm build` not `npm build`
+[optional footer]
+```
+
+### Types
+
+| Type | Description | Version Bump |
+|------|-------------|--------------|
+| `feat` | New feature | Minor (0.x.0) |
+| `fix` | Bug fix | Patch (0.0.x) |
+| `docs` | Documentation | None |
+| `style` | Formatting | None |
+| `refactor` | Restructuring | None |
+| `perf` | Performance | Patch |
+| `test` | Tests | None |
+| `chore` | Maintenance | None |
+
+### Examples
+
+```bash
+feat: add restore command for backup recovery
+fix: handle missing config file gracefully
+docs: update installation instructions
+refactor: extract git operations to lib/git.ts
+test: add integration tests for sync command
+chore: update dependencies
+```
+
+### Breaking Changes
+
+```bash
+feat!: redesign configuration format
+
+BREAKING CHANGE: Config files must be migrated
+```
+
+## Before Committing
+
+Run all checks:
+```bash
+pnpm lint && pnpm typecheck && pnpm test
+```
+
+## Pull Requests
+
+1. Create against `main`
+2. Wait for CI to pass
+3. Request review
+4. Address feedback
+5. Merge when approved
+
+## NEVER Do
+
+- Force push to main
+- Skip CI checks
+- Merge without review
+- Commit directly to main
 
 ---
 > Source: [Pranav-Karra-3301/tuck](https://github.com/Pranav-Karra-3301/tuck) — distributed by [TomeVault](https://tomevault.io).
