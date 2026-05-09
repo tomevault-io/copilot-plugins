@@ -1,0 +1,9 @@
+{
+  "name": "shuv1337--oc-manager",
+  "displayName": "oc-manager",
+  "description": "Terminal UI for inspecting, filtering, and pruning OpenCode metadata stored on disk. The app is written in TypeScript, runs on Bun, and renders with @opentui/react",
+  "version": "1.0.0",
+  "author": "shuv1337",
+  "homepage": "https://github.com/shuv1337/oc-manager",
+  "skills": []
+}
