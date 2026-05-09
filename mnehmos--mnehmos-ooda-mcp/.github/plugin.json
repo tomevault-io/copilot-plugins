@@ -1,0 +1,9 @@
+{
+  "name": "mnehmos--mnehmos-ooda-mcp",
+  "displayName": "mnehmos.ooda.mcp",
+  "description": "OODA loop MCP server with filesystem, CLI, and automation tools",
+  "version": "1.0.0",
+  "author": "Mnehmos",
+  "homepage": "https://github.com/Mnehmos/mnehmos.ooda.mcp",
+  "skills": []
+}
