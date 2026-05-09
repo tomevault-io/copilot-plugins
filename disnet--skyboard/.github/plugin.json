@@ -1,0 +1,14 @@
+{
+  "name": "disnet--skyboard",
+  "displayName": "skyboard",
+  "description": "A collaborative kanban board on the AT Protocol",
+  "version": "1.0.0",
+  "author": "disnet",
+  "homepage": "https://github.com/disnet/skyboard",
+  "skills": [
+    {
+      "name": "sb",
+      "description": ""
+    }
+  ]
+}
