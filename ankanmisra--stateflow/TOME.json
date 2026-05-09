@@ -4,7 +4,7 @@
   "repo": "StateFlow",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AnkanMisra/StateFlow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T04:28:12Z"
+  "distributed_at": "2026-05-09T16:57:09Z"
 }
