@@ -1,0 +1,9 @@
+{
+  "name": "ankanmisra--chainshield",
+  "displayName": "ChainShield",
+  "description": "A policy-based security gate that blocks unsafe crypto transactions and auto-fires remediation playbooks with tamper-evident audit",
+  "version": "1.0.0",
+  "author": "AnkanMisra",
+  "homepage": "https://github.com/AnkanMisra/ChainShield",
+  "skills": []
+}
