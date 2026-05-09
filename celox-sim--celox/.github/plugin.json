@@ -1,0 +1,9 @@
+{
+  "name": "celox-sim--celox",
+  "displayName": "celox",
+  "description": "Celox HDL Simulator",
+  "version": "1.0.0",
+  "author": "celox-sim",
+  "homepage": "https://github.com/celox-sim/celox",
+  "skills": []
+}
