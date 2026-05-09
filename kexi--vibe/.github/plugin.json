@@ -1,0 +1,9 @@
+{
+  "name": "kexi--vibe",
+  "displayName": "vibe",
+  "description": "Super fast Git worktree management tool with Copy-on-Write optimization",
+  "version": "1.0.0",
+  "author": "kexi",
+  "homepage": "https://github.com/kexi/vibe",
+  "skills": []
+}
