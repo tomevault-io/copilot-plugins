@@ -1,0 +1,9 @@
+{
+  "name": "clickhouse--ai-sdk-cpp",
+  "displayName": "ai-sdk-cpp",
+  "description": "The AI Toolkit for Modern C++. From the engineers at ClickHouse, ai-sdk-cpp is a free, open\u2011source library for building AI\u2011powered applications and agents.",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/ai-sdk-cpp",
+  "skills": []
+}
