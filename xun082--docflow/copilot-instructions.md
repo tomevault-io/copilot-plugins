@@ -1,15 +1,15 @@
-## 10-page-components
+## 11-global-components-utils
 
-> Page-level private component rules (applies to app/**/_components/**)
+> Global components and utilities conventions
 
 
-For files under `app/**/_components/**`:
+When working in `components/**` and `utils/**`:
 
-- Treat components as route-scoped, not global; prefer local composition over exporting to global `components/`.
-- Keep props minimal and stable; move shared logic to `utils/` or global components when reused.
-- Avoid `useMemo`/`useCallback` unless profiling justifies them; prefer splitting and simplifying.
-- Ensure accessibility (roles, labels, keyboard navigation).
-- Default export by default; use named exports only when multiple related exports are required.
+- Components under `components/**` are reusable across the app; keep them pure and well-typed.
+- `utils/**` contains side-effect-free helpers, constants, and data transforms.
+- Naming: PascalCase for components/types/enums; camelCase for variables/functions/hooks; kebab-case for file names.
+- Avoid framework-specific assumptions in `utils/`.
+- Provide examples and minimal docs in code comments where helpful (self-explanatory first).
 
 ---
 > Source: [xun082/DocFlow](https://github.com/xun082/DocFlow) — distributed by [TomeVault](https://tomevault.io).
