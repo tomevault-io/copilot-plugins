@@ -4,7 +4,7 @@
   "repo": "obsidian-agent-client",
   "description": "Bring AI agents into Obsidian via Agent Client Protocol (ACP), such as Claude Code, Codex and Gemini CLI.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RAIT-09/obsidian-agent-client",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T02:01:56Z"
+  "distributed_at": "2026-05-09T21:53:54Z"
 }
