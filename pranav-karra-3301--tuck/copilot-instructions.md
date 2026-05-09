@@ -1,80 +1,103 @@
-## typescript
+## ui
 
-> TypeScript coding rules
+> UI/UX patterns and rules
 
 
-# TypeScript Rules
+# UI Rules
 
-## Type Safety
+## Color Palette
 
-1. **NEVER use `any` type**
-   ```typescript
-   // Bad
-   const data: any = JSON.parse(content);
+| Color | Usage |
+|-------|-------|
+| **Cyan** | Primary brand, headings, emphasis |
+| **Green** | Success states, confirmations |
+| **Yellow** | Warnings, modifications |
+| **Red** | Errors, deletions |
+| **Dim/Gray** | Secondary info, paths, hints |
 
-   // Good
-   const data: unknown = JSON.parse(content);
-   const validated = Schema.parse(data);
-   ```
+## Command Structure
 
-2. **Use explicit types for functions**
-   ```typescript
-   // Bad
-   const process = async (path) => { ... };
-
-   // Good
-   const process = async (path: string): Promise<void> => { ... };
-   ```
-
-3. **Prefer `unknown` over `any`**
-   - Use type guards to narrow `unknown`
-   - Use Zod for runtime validation
-
-## Import Conventions
-
-ALWAYS use `.js` extension for local imports (ESM requirement):
+Every command should follow this pattern:
 
 ```typescript
-// Correct
-import { getTuckDir } from '../lib/paths.js';
-import type { TuckConfig } from '../types.js';
+prompts.intro('tuck commandname');
 
-// Wrong - will fail at runtime
-import { getTuckDir } from '../lib/paths';
+// ... work with spinners/progress ...
+
+prompts.note("Run 'tuck next' to continue", 'Next step');
+prompts.outro('Done!');
 ```
 
-## Interface vs Type
+## Spinners
 
-- Use `interface` for object shapes
-- Use `type` for unions, intersections, primitives
+Use for operations >100ms:
 
 ```typescript
-// Objects
-interface FileChange {
-  path: string;
-  status: 'added' | 'modified' | 'deleted';
+const spinner = prompts.spinner();
+spinner.start('Processing files...');
+
+try {
+  await doWork();
+  spinner.stop('Processed 5 files');
+} catch (error) {
+  spinner.stop('Failed to process');
+  throw error;
 }
-
-// Unions/primitives
-type Status = 'pending' | 'complete' | 'error';
-type Path = string;
 ```
 
-## Constants
+## Progress Feedback
 
-- Use `const` for variables that won't change
-- Never use `var`
-- Use `let` only when reassignment is needed
+For multi-step operations:
+1. Show what's being done
+2. Show progress (X of Y)
+3. Show completion status
 
-## Nullish Values
+```typescript
+prompts.log.step(`Syncing file ${i}/${total}: ${filename}`);
+```
 
-- Prefer `undefined` over `null`
-- Use optional chaining `?.`
-- Use nullish coalescing `??`
+## Confirmations
+
+ALWAYS confirm destructive actions:
+
+```typescript
+const confirmed = await prompts.confirm(
+  'Delete all backups?',
+  false  // Default to NO (safe option)
+);
+
+if (!confirmed) {
+  prompts.cancel('Operation cancelled');
+  return;
+}
+```
+
+## Error Messages
+
+Provide helpful, actionable errors:
 
 ```typescript
 // Good
-const value = obj?.nested?.property ?? 'default';
+throw new FileNotFoundError(path, {
+  suggestion: "Run 'tuck add' first to track this file"
+});
+
+// Bad
+throw new Error('File not found');
+```
+
+## Interactive Mode
+
+Every command should support:
+- Interactive mode (default) - prompts for input
+- Non-interactive mode (--yes, --force) - for scripts
+
+## Next Steps
+
+Always end successful operations with guidance:
+
+```typescript
+prompts.note("Run 'tuck push' to upload changes", 'Next step');
 ```
 
 ---
