@@ -1,102 +1,376 @@
-## 00-analysis-first-protocol
+## 00-kubernaut-core-rules
 
-> **Priority**: FOUNDATIONAL - Applied before all other rules and guidelines
+> Core development rules: APDC methodology, TDD workflow, AI assistant behavior, and code quality
 
-# Analysis-First Protocol - Mandatory Cognitive Framework
 
-## 🧠 **MANDATORY ANALYSIS-FIRST PROTOCOL**
+# Kubernaut Core Development Rules
 
-**Priority**: FOUNDATIONAL - Applied before all other rules and guidelines
+## 🚨 **MANDATORY PRINCIPLES**
 
-### **Core Principle**
-Every AI response MUST follow systematic analysis before providing solutions. This prevents solution-first cognitive bias and ensures evidence-based recommendations.
+### 1. Business Requirements Mandate
+**EVERY code change MUST be backed by at least ONE business requirement**
 
-## 📋 **MANDATORY RESPONSE SEQUENCE**
+**Format**: `BR-[CATEGORY]-[NUMBER]` (e.g., BR-WORKFLOW-001, BR-AI-056)
 
-### **STEP 1: ANALYZE (REQUIRED)**
-🔍 **ANALYZING YOUR REQUEST:**
-- What is the user's actual question/need?
-- What problem are they trying to solve?
-- What assumptions am I making about their request?
+**Categories**: WORKFLOW, AI, INTEGRATION, SECURITY, PLATFORM, API, STORAGE, MONITORING, SAFETY, PERFORMANCE
 
-### **STEP 2: SEARCH (REQUIRED)**
-📚 **CHECKING EXISTING SOLUTIONS:**
-- Search project rules (.cursor/rules/) for existing guidance
-- Check existing implementations (pkg/, cmd/) for current solutions
-- Review established patterns and documentation
-- Use codebase_search, read_file, or grep tools as needed
+**Rules**:
+- All tests must map to specific business requirements
+- All implementation code must serve documented business needs
+- No speculative or "nice to have" code without business backing
 
-### **STEP 3: ASSESS (REQUIRED)**
-🎯 **GAP ASSESSMENT:**
-- Do existing mechanisms already solve this?
-- What's the specific gap (if any)?
-- Is the user's proposed approach actually necessary?
+---
 
-### **STEP 4: RESPOND (REQUIRED)**
-💡 **RECOMMENDATION:**
-- Reference what existing solutions were found
-- Explain gap analysis results
-- Provide recommendations based on evidence
-- If proposing new solutions, justify why existing ones are insufficient
+### 2. Critical Decision Process
+**MANDATORY**: Ask for input on ALL critical decisions:
+- Architecture changes and design patterns
+- New dependencies or external integrations
+- Performance trade-offs and optimization decisions
+- Security implementations and access controls
+- Refactoring that affects system complexity
 
-## 🚫 **FORBIDDEN ACTIONS**
+**Format**: Provide recommendation with detailed justification when asking
 
-**NEVER:**
-- Skip directly to solutions without analysis
-- Assume user needs without validation
-- Propose new mechanisms without checking existing ones
-- Provide recommendations without evidence
-- Ignore existing project resources
+---
 
-## ✅ **ENFORCEMENT MECHANISMS**
+### 3. APDC Methodology (Complex Tasks)
+**Use for**: Complex features, refactoring, new components, build error fixing, AI/ML development
 
-### **Response Format Requirement**
-Every response must start with these four sections:
-- 🔍 **ANALYZING YOUR REQUEST:** [analysis]
-- 📚 **CHECKING EXISTING SOLUTIONS:** [search results]
-- 🎯 **GAP ASSESSMENT:** [necessity evaluation]
-- 💡 **RECOMMENDATION:** [evidence-based response]
+**Phases**:
+1. **Analysis** (5-15 min): Context + business alignment + risk assessment
+2. **Plan** (10-20 min): Strategy + TDD mapping + **user approval required**
+3. **Do** (Variable): RED → GREEN → REFACTOR with validation checkpoints
+4. **Check** (5-10 min): Validation + confidence assessment (60-100%)
 
-### **Tool Usage Requirement**
-Before any technical response, AI MUST use appropriate tools:
-- `codebase_search` for existing implementations
-- `read_file` for rule/documentation verification
-- `grep` for pattern analysis
+**See**: [Complete APDC Framework](mdc:docs/development/methodology/APDC_FRAMEWORK.md)
+**Quick Ref**: [APDC Quick Reference](mdc:docs/development/methodology/APDC_QUICK_REFERENCE.md)
 
-### **Evidence Requirement**
-All recommendations must include:
-- References to specific files/rules found
-- Explanation of why existing solutions do/don't meet needs
-- Justification for any new implementations
+---
 
-## 🎯 **SUCCESS CRITERIA**
+### 4. TDD Workflow (All Development)
+**MANDATORY**: RED → GREEN → REFACTOR (tests first, always)
 
-**Analysis-First Protocol is successful when:**
-- ✅ User receives evidence-based recommendations
-- ✅ Existing project resources are leveraged effectively
-- ✅ Solution-first cognitive bias is prevented
-- ✅ Recommendations align with project methodology
-- ✅ Technical decisions are justified with analysis
+1. **RED**: Write failing tests defining business contract
+2. **GREEN**: Minimal implementation + MANDATORY main app integration
+3. **REFACTOR**: Enhance existing code with sophisticated logic
 
-## 🔗 **Integration with Other Rules**
+**NEVER**: Use `Skip()` to avoid test failures
+**NEVER**: Skip REFACTOR phase
 
-This protocol **enhances** all other rules by ensuring:
-- TDD methodology is applied after proper analysis
-- Business requirements are validated before implementation
-- Technical patterns are researched before creation
-- Integration requirements are confirmed before coding
+---
 
-**Priority**: This rule is applied FIRST, then other rules operate within its framework.
+## 🤖 **AI ASSISTANT BEHAVIOR - MANDATORY CHECKPOINTS**
 
-## 📚 **Quick Reference**
+### **CHECKPOINT A: Type Reference Validation**
+**TRIGGER**: About to reference any struct field (e.g., `object.FieldName`)
 
-**User asks any question → AI must:**
-1. 🔍 Analyze what they're really asking
-2. 📚 Search existing project resources
-3. 🎯 Assess if new solutions are needed
-4. 💡 Provide evidence-based recommendations
+**MANDATORY ACTION**:
+```bash
+# HALT: Read type definition file BEFORE referencing fields
+read_file [type_definition_file]
+# RULE: Verify field exists in struct definition
+```
 
-**This prevents the error pattern of jumping to solutions without understanding context.**
+**Violation**: "🚨 Type reference attempted without validation - DEVELOPMENT STOPPED"
+
+---
+
+### **CHECKPOINT B: Test Creation Validation**
+**TRIGGER**: About to create test file with business logic references
+
+**MANDATORY ACTION**:
+```bash
+# HALT: Search for existing implementations FIRST
+codebase_search "existing [ComponentType] implementations"
+grep -r "[ComponentType]" pkg/ --include="*.go"
+# RULE: Enhance existing patterns instead of creating new
+```
+
+**Violation**: "🚨 Test creation attempted without existing implementation analysis - DEVELOPMENT STOPPED"
+
+---
+
+### **CHECKPOINT C: Business Integration Validation**
+**TRIGGER**: Creating new business types or interfaces
+
+**MANDATORY ACTION**:
+```bash
+# HALT: Verify main application integration
+grep -r "[NewComponentType]" cmd/ --include="*.go"
+# RULE: Business code MUST be integrated in main applications (cmd/)
+```
+
+**Violation**: "🚨 Business component creation attempted without main app integration validation - DEVELOPMENT STOPPED"
+
+---
+
+### **CHECKPOINT D: Build Error Investigation**
+**TRIGGER**: User reports build errors or undefined symbols
+
+**MANDATORY ACTION**:
+```bash
+# HALT: Execute comprehensive symbol analysis
+codebase_search "[undefined_symbol] usage patterns and dependencies"
+grep -r "[undefined_symbol]" . --include="*.go" -n
+go build [affected_file] 2>&1
+# RULE: Present complete analysis with options A/B/C before implementation
+```
+
+**Required Report Format**:
+```
+🚨 UNDEFINED SYMBOL ANALYSIS:
+Symbol: [undefined_symbol]
+References found: [N files with paths]
+Dependent infrastructure: [list missing types/functions]
+Scope: [minimal/medium/extensive with evidence]
+
+OPTIONS (Evidence-Based):
+A) Implement complete infrastructure ([X] files affected)
+B) Create minimal stub ([Z] files affected, may break [W] files)
+C) Alternative approach: [evidence-based alternative]
+
+🚫 MANDATORY USER DECISION REQUIRED: Which approach? (A/B/C)
+```
+
+**Violation**: "🚨 Build error resolution attempted without comprehensive analysis + user approval - DEVELOPMENT STOPPED"
+
+---
+
+## 🚫 **FORBIDDEN AI ACTIONS**
+
+**NEVER DO THESE**:
+1. **NEVER** reference struct fields without first reading the type definition file
+2. **NEVER** assume testutil types exist - always validate with `read_file` or `grep`
+3. **NEVER** create test code without first using `codebase_search` for existing implementations
+4. **NEVER** generate business types without confirming main application usage
+5. **NEVER** proceed if any validation step fails
+6. **NEVER** implement missing types without full dependency analysis (CHECKPOINT D)
+
+---
+
+## 💻 **CODE QUALITY STANDARDS**
+
+### Error Handling (MANDATORY)
+- **ALWAYS** handle errors, never ignore them
+- **ALWAYS** add log entry for every error
+- Use structured error types from `internal/errors/`
+- Wrap errors with context: `fmt.Errorf("description: %w", err)`
+
+### Type System
+- **AVOID** using `any` or `interface{}` unless absolutely necessary
+- **ALWAYS** use structured field values with specific types
+- **AVOID** local type definitions to resolve import cycles
+- Use shared types from `pkg/shared/types/` instead
+
+### Business Integration
+- **MANDATORY**: Integrate all new business code with main code (cmd/)
+- Remove any code not backed by business requirements
+- Ensure seamless integration with existing architecture
+
+### Real-Time Integration Checkpoints
+```bash
+# CHECKPOINT 1: Before creating ANY new type
+grep -r "NewComponent\|ComponentName" cmd/ pkg/workflow/ pkg/processor/
+# RULE: If ZERO results, ask "Why isn't this enhancing existing code?"
+
+# CHECKPOINT 2: During TDD GREEN Phase (tests passing)
+find cmd/ -name "*.go" -exec grep -l "YourNewComponent" {} \;
+# RULE: Must show at least ONE main application file, or STOP and integrate
+
+# CHECKPOINT 3: After ANY sophisticated enhancement
+grep -r "New.*Optimizer\|New.*Engine\|New.*Builder" cmd/ --include="*.go"
+# RULE: New sophisticated code MUST appear in main application startup
+```
+
+---
+
+## 🧪 **TESTING REQUIREMENTS**
+
+### Framework (MANDATORY)
+- **Ginkgo/Gomega BDD** framework (NO standard Go testing)
+- **Test Identification** (in test descriptions):
+  - **PREFERRED**: Test Scenario IDs (e.g., `UT-WF-197-001`, `IT-GW-045-010`) if test plan exists
+  - **FALLBACK**: Business requirement references (BR-[CATEGORY]-[NUMBER]) if no test plan
+- **Test Plans**: Create formal test plan BEFORE implementation (aids TDD methodology)
+  - **Template**: `docs/development/testing/V1_0_SERVICE_MATURITY_TEST_PLAN_TEMPLATE.md`
+  - **Policy**: `docs/architecture/decisions/DD-TEST-006-test-plan-policy.md`
+  - **Benefit**: Methodical TDD execution with pre-defined test scenarios
+
+### Per-Tier Testable Code Coverage (>=80% per tier)
+- **Unit Tests**: >=80% of **unit-testable** code (pure logic: config, validators, scoring, builders)
+- **Integration Tests**: >=80% of **integration-testable** code (I/O: reconciler, K8s clients, HTTP handlers, DB adapters)
+- **E2E Tests**: >=80% of full service code (full stack execution in Kind)
+- **All Tiers**: >=80% merged (line-by-line dedup across all tiers)
+
+**TDD Mandate**: Every business requirement MUST have a corresponding test. If a feature has no test, it risks not being implemented. Coverage is measured per-tier against the tier-specific code subset (see `scripts/coverage/coverage_report.py` and TESTING_GUIDELINES.md).
+
+### Mock Strategy
+**Mock ONLY External Dependencies**:
+- ✅ External APIs (LLM, HolmesGPT, OpenAI)
+- ✅ Databases (PostgreSQL, Vector DB, Redis)
+- ✅ Kubernetes API (use `fake.NewClientBuilder()`)
+- ✅ Network services (external HTTP/gRPC)
+
+**Use Real Business Logic**:
+- ✅ **ALL** `pkg/` code
+- ✅ **ALL** internal algorithms
+- ✅ **ALL** business validators/analyzers/optimizers
+
+**See**: [Testing Strategy](mdc:.cursor/rules/03-testing-strategy.mdc)
+
+---
+
+## 📋 **TDD ANTI-PATTERNS - FORBIDDEN**
+
+### Discovery Skip
+**Violation**: Creating without searching existing
+**Rule**: Use `codebase_search` FIRST
+
+### RED Skip
+**Violation**: Implementation without failing tests
+**Rule**: Write tests FIRST
+
+### GREEN Complexity
+**Violation**: Sophisticated logic in GREEN phase
+**Rule**: Keep minimal, enhance in REFACTOR
+
+### REFACTOR Creation
+**Violation**: New types in REFACTOR phase
+**Rule**: Enhance existing only
+
+### Integration Delay
+**Violation**: Component not integrated in GREEN
+**Rule**: MANDATORY integration in GREEN phase
+
+
+### Refactoring Without Build Validation
+**Violation**: Refactoring code (renaming, field type changes, etc.) without checking for lingering build failures
+**Rule**: After refactoring, ALWAYS verify build success across entire codebase
+**Risk**: Field renames, type changes, and signature updates often break dependent code
+
+**MANDATORY Post-Refactor Validation**:
+```bash
+# After ANY refactoring (rename, type change, signature update)
+go build ./...                     # Verify entire codebase builds
+go test ./... -run=^$ -timeout=30s # Quick compile-only test check
+grep -r "OldFieldName|OldTypeName" . --include="*.go" # Check for missed references
+```
+
+**Common Refactoring Pitfalls**:
+- Field renames: Old field name still referenced elsewhere
+- Type changes: Dependent code expects old type
+- Signature updates: Callers not updated to match
+- Package moves: Import paths not updated
+
+**Rule**: Treat refactoring as HIGH RISK for build failures - validate immediately
+---
+
+## 🎯 **COMPLETION REQUIREMENTS**
+
+### Post-Development Checklist (MANDATORY)
+
+After completing any development task:
+
+1. **Build Validation**: Code builds without errors
+2. **Lint Compliance**: No new lint errors (unusedparam, unusedfunc, etc.)
+3. **Business Integration**: Confidence assessment of business code integration
+4. **Enhancement Proposals**: Suggest improvements with ≥60% confidence level
+
+### Confidence Assessment Format (REQUIRED)
+
+Provide BOTH:
+- **Simple Percentage**: 60-100% confidence rating
+- **Detailed Justification**: Including risks, assumptions, and validation approach
+
+**Example**:
+```
+Confidence Assessment: 85%
+Justification: Implementation follows established patterns in pkg/workflow/engine/
+and integrates cleanly with existing HolmesGPT client. Risk: Minor performance
+impact on high-alert scenarios. Validation: Unit tests cover 90% of edge cases.
+```
+
+---
+
+## 🔧 **VALIDATION COMMANDS**
+
+```bash
+# Build and lint
+go build ./...
+golangci-lint run --timeout=5m
+
+# Test pyramid
+make test                          # Unit tests
+make test-integration-[service]    # Integration tests
+make test-e2e-[service]            # E2E tests
+
+# Rule compliance
+make lint-test-patterns            # Test anti-patterns
+make lint-business-integration     # Business code integration
+make lint-tdd-compliance           # TDD and BDD framework
+```
+
+---
+
+## 📚 **COMPLETE DOCUMENTATION**
+
+### Core Methodology
+- **[APDC Framework](mdc:docs/development/methodology/APDC_FRAMEWORK.md)** - Complete APDC guide with examples
+- **[APDC Quick Reference](mdc:docs/development/methodology/APDC_QUICK_REFERENCE.md)** - Quick reference card
+- **[Project Guidelines](mdc:docs/development/project%20guidelines.md)** - Updated development guidelines
+
+### Testing
+- **[Testing Strategy](mdc:.cursor/rules/03-testing-strategy.mdc)** - Defense-in-depth testing approach
+- **[Testing Patterns](mdc:docs/testing/TESTING_PATTERNS_QUICK_REFERENCE.md)** - Daily development reference
+- **[Anti-Pattern Detection](mdc:docs/testing/ANTI_PATTERN_DETECTION.md)** - Violation detection guide
+
+### Technical Standards
+- **[Go Coding Standards](mdc:.cursor/rules/02-go-coding-standards.mdc)** - Go implementation patterns
+- **[Technical Implementation](mdc:.cursor/rules/02-technical-implementation.mdc)** - Technical architecture
+- **[Kubernetes Safety](mdc:.cursor/rules/05-kubernetes-safety.mdc)** - K8s operational safety
+
+---
+
+## ⚡ **QUICK REFERENCE CHECKLIST**
+
+Before any code submission:
+
+**Business & Planning**:
+- [ ] Business requirement mapped (BR-[CATEGORY]-[NUMBER])
+- [ ] Critical decisions escalated with recommendations
+- [ ] APDC phases executed for complex tasks (Analysis → Plan → Do → Check)
+
+**TDD Workflow**:
+- [ ] Tests written first (RED phase)
+- [ ] Minimal implementation passes tests (GREEN phase)
+- [ ] Code enhanced and refactored (REFACTOR phase)
+- [ ] All tests use Ginkgo/Gomega BDD framework
+
+**AI Checkpoints**:
+- [ ] Type definitions validated before field access (CHECKPOINT A)
+- [ ] Existing implementations searched (CHECKPOINT B)
+- [ ] Main application integration verified (CHECKPOINT C)
+- [ ] Build errors analyzed comprehensively (CHECKPOINT D, if applicable)
+
+**Code Quality**:
+- [ ] All errors handled and logged
+- [ ] No lint or compilation errors
+- [ ] Code integrated with main business logic (cmd/)
+- [ ] Confidence assessment provided (60-100% with justification)
+
+---
+
+## 🔗 **RULE INTEGRATION**
+
+**PRIORITY LEVEL**: 1 - FOUNDATIONAL
+
+**Authority**: This rule establishes mandatory methodology that controls all other development rules
+
+**Integration**: All specialized rules (AI/ML, Kubernetes, Testing, etc.) operate within this foundational framework
+
+---
+
+**Remember**: Business requirements drive functionality. TDD ensures quality. APDC ensures systematic delivery. AI checkpoints prevent errors before they occur.
 
 ---
 > Source: [jordigilh/kubernaut](https://github.com/jordigilh/kubernaut) — distributed by [TomeVault](https://tomevault.io).
