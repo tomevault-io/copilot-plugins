@@ -1,0 +1,9 @@
+{
+  "name": "shelby--shelby-skills",
+  "displayName": "shelby-skills",
+  "description": "Agent skills for building on Shelby",
+  "version": "1.0.0",
+  "author": "shelby",
+  "homepage": "https://github.com/shelby/shelby-skills",
+  "skills": []
+}
