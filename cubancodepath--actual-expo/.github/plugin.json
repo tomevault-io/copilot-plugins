@@ -1,0 +1,9 @@
+{
+  "name": "cubancodepath--actual-expo",
+  "displayName": "actual-expo",
+  "description": "Native iOS client for Actual Budget \u2014 open-source, self-hosted, offline-first budgeting with CRDT sync",
+  "version": "1.0.0",
+  "author": "cubancodepath",
+  "homepage": "https://github.com/cubancodepath/actual-expo",
+  "skills": []
+}
