@@ -1,0 +1,9 @@
+{
+  "name": "vylasaven--claude-sonar",
+  "displayName": "claude-sonar",
+  "description": "Screen reader accessibility plugin for Claude Code",
+  "version": "1.0.0",
+  "author": "vylasaven",
+  "homepage": "https://github.com/vylasaven/claude-sonar",
+  "skills": []
+}
