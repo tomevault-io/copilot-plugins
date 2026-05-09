@@ -1,0 +1,9 @@
+{
+  "name": "hiroshiyui--baudrate",
+  "displayName": "baudrate",
+  "description": "Baudrate: ActivityPub-enabled Bulletin Board System",
+  "version": "1.0.0",
+  "author": "hiroshiyui",
+  "homepage": "https://github.com/hiroshiyui/baudrate",
+  "skills": []
+}
