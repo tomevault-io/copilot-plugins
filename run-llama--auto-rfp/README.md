@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [run-llama/auto_rfp](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [run-llama/auto_rfp](https://github.com/run-llama/auto_rfp) — a repo with 0+ stars on GitHub.
+From [run-llama/auto_rfp](https://github.com/run-llama/auto_rfp) — a repo with 205+ stars on GitHub.
 
 ---
 
