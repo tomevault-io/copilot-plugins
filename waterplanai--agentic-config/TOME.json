@@ -4,7 +4,7 @@
   "repo": "agentic-config",
   "description": "Project-agnostic, composable AI workflow automation via pi packages and Claude Code plugins.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WaterplanAI/agentic-config",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T22:59:34Z"
+  "distributed_at": "2026-05-09T19:06:12Z"
 }
