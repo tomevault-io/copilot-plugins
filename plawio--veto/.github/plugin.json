@@ -1,0 +1,9 @@
+{
+  "name": "plawio--veto",
+  "displayName": "veto",
+  "description": "The authorization kernel for AI agents. Block, allow, or escalate agent tool calls with YAML rules \u2014 deterministic-first, LLM fallback.",
+  "version": "1.0.0",
+  "author": "PlawIO",
+  "homepage": "https://github.com/PlawIO/veto",
+  "skills": []
+}
