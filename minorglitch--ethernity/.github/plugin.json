@@ -1,0 +1,9 @@
+{
+  "name": "minorglitch--ethernity",
+  "displayName": "ethernity",
+  "description": "Create printable, encrypted QR backups you can recover offline without cloud services.",
+  "version": "1.0.0",
+  "author": "MinorGlitch",
+  "homepage": "https://github.com/MinorGlitch/ethernity",
+  "skills": []
+}
