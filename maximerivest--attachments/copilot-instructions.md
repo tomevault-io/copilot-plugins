@@ -1,23 +1,43 @@
-## general-behavior
+## jupyter
 
-> When creating code, you must:
+> **Kernel Inspector – ultra-compact cheat-sheet**
 
-When creating code, you must:
-- Prioritize straightforward and simple code solutions.
-- Do not make assumptions about the problem or the codebase. Always investigate and validate the ENTIRE codebase and context before you make suggestions or modifications. Use external tools such as `codebase_search` and terminal commands (e.g., `pwd` and `tree -L 4 --gitignore | cat`).
-- Always prefer existing solutions over creating new ones. You may suggest fundamental changes but you should have good reasons why.
-- Always use descriptive variable names.
-- Manage configurations with environment variables.
-- Ensure robust error handling and logging, include rich context.
-- Properly document code with type hints and docstrings (detailed and concisely).
-- Always use assertions to guarantee code functionality.
-- Always use a virtual environment (do not install anything in global pip).
-- Always use uv run script.py when running python scripts.
-- Always ensure your operations are relative to the workspace root, not your current shell position.
+**Kernel Inspector – ultra-compact cheat-sheet**
 
-<!-- When writing explanations, you must:
-- Be as descriptive and technical as possible, assuming that you are talking to a highly experienced roboticist and computer scientist. Never use fluffy expressions and non-descriptive statements.
-- Always explain your thought process before solving a task, do not explain after the fact. -->
+```bash
+# default: inspect latest live kernel
+uv run python scripts/kernel_inspector.py
+```
+
+### Key flags
+
+| long / short        | action                 | example                   |
+| ------------------- | ---------------------- | ------------------------- |
+| `--var,-v`          | print variable         | `-v agent`                |
+| `--history,-h`      | N recent In/Out        | `-h 10`                   |
+| `--errors-only,-e`  | show recent exceptions | `-e`                      |
+| `--exec,-x`         | run code in kernel     | `-x "print(type(agent))"` |
+| `--list-kernels,-l` | enumerate kernels      | `-l`                      |
+| `--kernel-index,-k` | pick kernel by index   | `-k 1`                    |
+
+### Minimal recipes
+
+```bash
+# inspect variable
+uv run python scripts/kernel_inspector.py -v response
+
+# see 10 last cells
+uv run python scripts/kernel_inspector.py -history 10
+
+# run quick test
+uv run python scripts/kernel_inspector.py -x "len(In)"
+
+# watch only errors
+uv run python scripts/kernel_inspector.py -e
+```
+
+Tip: stale kernels live in `~/.local/share/jupyter/runtime/`; prune with
+`find … -name "kernel-*.json" -mtime +1 -delete` for a clean list.
 
 ---
 > Source: [MaximeRivest/attachments](https://github.com/MaximeRivest/attachments) — distributed by [TomeVault](https://tomevault.io).
