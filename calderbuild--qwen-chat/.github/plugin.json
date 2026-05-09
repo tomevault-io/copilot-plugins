@@ -1,0 +1,9 @@
+{
+  "name": "calderbuild--qwen-chat",
+  "displayName": "qwen-chat",
+  "description": "\u57fa\u4e8e\u901a\u4e49\u5343\u95eeQwen\u7684\u667a\u80fd\u804a\u5929\u52a9\u624b\uff0c\u652f\u6301\u8bed\u97f3\u8f93\u5165\u3001\u6587\u5b57\u804a\u5929\u548c\u56fe\u7247\u8bc6\u522b",
+  "version": "1.0.0",
+  "author": "calderbuild",
+  "homepage": "https://github.com/calderbuild/qwen-chat",
+  "skills": []
+}
