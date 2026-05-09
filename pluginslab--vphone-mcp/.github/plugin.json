@@ -1,0 +1,9 @@
+{
+  "name": "pluginslab--vphone-mcp",
+  "displayName": "vphone-mcp",
+  "description": "MCP server for programmatic control of vphone-cli iOS VMs \u2014 AI-driven E2E testing",
+  "version": "1.0.0",
+  "author": "pluginslab",
+  "homepage": "https://github.com/pluginslab/vphone-mcp",
+  "skills": []
+}
