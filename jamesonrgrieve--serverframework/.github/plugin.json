@@ -1,0 +1,9 @@
+{
+  "name": "jamesonrgrieve--serverframework",
+  "displayName": "ServerFramework",
+  "description": "Automatically generate database models, GraphQL schema, REST endpoints, MCPs, SDKs and tests from Pydantic models.",
+  "version": "1.0.0",
+  "author": "JamesonRGrieve",
+  "homepage": "https://github.com/JamesonRGrieve/ServerFramework",
+  "skills": []
+}
