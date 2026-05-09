@@ -1,0 +1,9 @@
+{
+  "name": "thuml--miniveo3-reasoner",
+  "displayName": "MiniVeo3-Reasoner",
+  "description": "Thinking with Videos from Open-Source Priors. We reproduce chain-of-frames visual reasoning by fine-tuning open-source video models. Give it a star \ud83c\udf1f if you find it useful.",
+  "version": "1.0.0",
+  "author": "thuml",
+  "homepage": "https://github.com/thuml/MiniVeo3-Reasoner",
+  "skills": []
+}
