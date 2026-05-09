@@ -4,7 +4,7 @@
   "repo": "droi",
   "description": "Cross-platform desktop application for Droid CLI - built with Electron, React & TypeScript",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kkkk2323/droi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T10:24:27Z"
+  "distributed_at": "2026-05-09T21:45:37Z"
 }
