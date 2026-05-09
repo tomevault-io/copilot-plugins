@@ -1,150 +1,104 @@
-## dtf-extension
+## raycast-api
 
-> This is a Raycast extension for browsing DTF.ru (Russian gaming and entertainment portal). It uses the public DTF API (Osnova platform) to fetch posts, news, and search content.
+> <List isShowingDetail={true} pagination={pagination}>
 
-# DTF Raycast Extension - Development Guidelines
+# Raycast API Guidelines
 
-## Overview
+## UI Components
 
-This is a Raycast extension for browsing DTF.ru (Russian gaming and entertainment portal). It uses the public DTF API (Osnova platform) to fetch posts, news, and search content.
-
-## Project Structure
-
-```text
-src/
-├── api/
-│   ├── client.ts      # HTTP client, API methods, caching
-│   └── types.ts       # TypeScript types for API responses
-├── components/
-│   ├── AIPostView.tsx       # AI-powered post analysis view
-│   ├── PeriodDropdown.tsx   # Time period selector for Popular
-│   ├── PostActions.tsx      # Action panel for posts
-│   ├── PostDetail.tsx       # List item detail preview
-│   ├── PostDetailView.tsx   # Full-screen Detail view with rich content
-│   ├── PostList.tsx         # Reusable post list component
-│   ├── SortingDropdown.tsx  # Sorting selector for Latest
-│   ├── SubsiteSortingDropdown.tsx # Sorting for Topics/Blogs
-│   └── index.ts             # Component exports
-├── utils/
-│   ├── ai-helpers.ts  # AI prompts and text extraction
-│   └── formatters.ts  # Date/number formatting utilities
-├── tools/             # AI tools for @dtf mentions
-│   ├── get-news.ts
-│   ├── get-popular-posts.ts
-│   ├── get-topic-posts.ts
-│   ├── get-topics.ts
-│   └── search-posts.ts
-├── latest-posts.tsx   # Latest posts command
-├── popular-posts.tsx  # Popular posts command
-├── news.tsx           # News command
-├── search-posts.tsx   # Search command
-├── browse-subsites.tsx # Topics browser command
-├── top-blogs.tsx      # Top blogs command
-└── menu-bar.tsx       # Menu bar command (macOS only)
-```
-
-## DTF API Reference
-
-### Base URLs
-
-- Primary: `https://api.dtf.ru/v2.10/` (recommended)
-- Legacy: `https://api.dtf.ru/v2.1/`
-
-### Key Endpoints
-
-| Endpoint | Description | Pagination |
-|----------|-------------|------------|
-| `/v2.10/timeline` | General feed | `cursor` |
-| `/v2.10/timeline?subsitesIds=ID` | Posts by subsite | `cursor` |
-| `/v2.10/feed?sorting=hotness&pageName=popular` | Popular posts | `cursor` |
-| `/v2.10/news` | Editorial news | `lastId`, `lastSortingValue` |
-| `/v2.10/search?query=TEXT&order_by=relevant` | Search | N/A |
-| `/v2.10/discovery/topics` | Topics list | N/A |
-| `/v2.10/discovery/blogs` | Top blogs | N/A |
-
-### Response Structure
+### List with Detail
 
 ```typescript
-interface ApiResponse<T> {
-  message: string;
-  result: T;
-  error?: { code: number; info: unknown[] };
-}
-
-// Timeline/Feed response
-interface TimelineResult {
-  items: TimelineItem[];
-  cursor?: string;
-  lastId?: number;
-}
-
-// News response
-interface NewsResult {
-  news: Post[];
-  lastId?: number;
-}
-
-// Search response - IMPORTANT: uses "contents", not "items"
-interface SearchResult {
-  contents: TimelineItem[];
-  subsites?: { users: [], subsites: [] };
-  lastId?: number;
-}
+<List isShowingDetail={true} pagination={pagination}>
+  <List.Item
+    title="Title"
+    icon={{ source: avatarUrl, mask: Image.Mask.Circle }}
+    detail={<List.Item.Detail markdown={md} metadata={...} />}
+    actions={<ActionPanel>...</ActionPanel>}
+  />
+</List>
 ```
 
-### Pagination Notes
+### Detail View (Full Screen)
 
-1. **Standard pagination**: Use `cursor` parameter (v2.10+)
-2. **News pagination**: Requires BOTH `lastId` AND `lastSortingValue`
-   - `lastSortingValue` is typically the `date` field of the last post
-   - Example: `?lastId=4416613&lastSortingValue=1764226095`
-
-### Image URLs
-
-All images use the Leonardo CDN:
-
-```text
-https://leonardo.osnova.io/{UUID}/-/preview/{SIZE}/
-```
-
-Common sizes: `100/` (avatars), `400/`, `800/` (covers)
-
-### Personal Blog Detection
-
-When `author.id === subsite.id`, it's a personal blog - don't show subsite separately.
-
-## Raycast Best Practices
-
-### Action Priority
-
-1. `Action.Push` → Opens Detail view (Enter key)
-2. `Action.OpenInBrowser` → Opens in browser (Cmd+Enter)
-
-### Platform-Specific Shortcuts
+Use `Action.Push` to navigate to a Detail view:
 
 ```typescript
-shortcut={{
-  macOS: { modifiers: ["cmd"], key: "return" },
-  Windows: { modifiers: ["ctrl"], key: "return" },
-}}
+<Action.Push
+  title="Open Details"
+  icon={Icon.Eye}
+  target={<Detail markdown={md} metadata={...} />}
+/>
 ```
 
-### Icons
+### Image Markdown
 
-- Always use circular mask for avatars: `{ source: url, mask: Image.Mask.Circle }`
-- Fallback to author avatar if subsite avatar is missing
+Control image dimensions with query strings:
+
+```markdown
+![](image.png?raycast-width=500&raycast-height=280)
+```
+
+### Metadata Panel
+
+```typescript
+<Detail.Metadata>
+  <Detail.Metadata.Label title="Label" text="value" icon={Icon.Person} />
+  <Detail.Metadata.Link title="Link" target="url" text="Click" />
+  <Detail.Metadata.TagList title="Tags">
+    <Detail.Metadata.TagList.Item text="Tag" color="#color" />
+  </Detail.Metadata.TagList>
+  <Detail.Metadata.Separator />
+</Detail.Metadata>
+```
+
+### Circular Icons
+
+Always use mask for avatar images:
+
+```typescript
+icon={{ source: avatarUrl, mask: Image.Mask.Circle }}
+```
+
+### Actions Priority
+
+First action = Enter key, use shortcuts for others:
+
+```typescript
+<ActionPanel>
+  <Action.Push title="Open" target={...} />  {/* Enter */}
+  <Action.OpenInBrowser url={...} shortcut={{ modifiers: ["cmd"], key: "return" }} />
+</ActionPanel>
+```
+
+### Search Bar Accessory (Dropdown)
+
+```typescript
+<List
+  searchBarAccessory={
+    <List.Dropdown tooltip="Filter" storeValue={true} onChange={setValue}>
+      <List.Dropdown.Item title="Option 1" value="1" />
+      <List.Dropdown.Item title="Option 2" value="2" />
+    </List.Dropdown>
+  }
+>
+```
 
 ### Pagination with useFetch
 
 ```typescript
-const { data, pagination } = useFetch(
-  (options) => `${URL}?cursor=${options.cursor || ""}`,
+const { data, pagination, isLoading } = useFetch(
+  (options) => {
+    const params = new URLSearchParams();
+    if (options.cursor) params.set("lastId", options.cursor);
+    return `${URL}?${params}`;
+  },
   {
     mapResult(result) {
       return {
-        data: transformedPosts,
-        hasMore: !!result.result?.cursor && posts.length > 0,
-        cursor: result.result?.cursor,
+        data: result.items,
+        hasMore: !!result.lastId,
+        cursor: String(result.lastId),
       };
     },
     keepPreviousData: true,
@@ -152,130 +106,106 @@ const { data, pagination } = useFetch(
   }
 );
 
-// Pass pagination to List
-<List pagination={pagination}>
+<List pagination={pagination} isLoading={isLoading}>
 ```
 
-### Filtering Duplicates
+### Command Arguments
 
-API may return duplicate posts during pagination:
+In `package.json`:
+
+```json
+{
+  "name": "search",
+  "arguments": [{
+    "name": "query",
+    "placeholder": "Search...",
+    "type": "text",
+    "required": false
+  }]
+}
+```
+
+In component:
 
 ```typescript
-const uniquePosts = useMemo(() => {
-  const seen = new Set<number>();
-  return data.filter((post) => {
-    if (seen.has(post.id)) return false;
-    seen.add(post.id);
-    return true;
-  });
-}, [data]);
+export default function Command({ arguments }: LaunchProps<{ arguments: { query?: string } }>) {
+  const initialQuery = arguments?.query || "";
+}
 ```
 
-### List.Dropdown for Filters
+### Server-Side Search (Disable Local Filtering)
 
 ```typescript
 <List
-  searchBarAccessory={
-    <List.Dropdown tooltip="Filter" onChange={setValue}>
-      <List.Dropdown.Item title="Option" value="value" />
-    </List.Dropdown>
-  }
+  filtering={false}
+  onSearchTextChange={setSearchText}
+  searchText={searchText}
+  throttle={true}
 >
-```
-
-### Detail Metadata Toggle
-
-Use `showMetadata` prop to allow hiding metadata panel:
-
-```typescript
-<PostDetail post={post} showMetadata={showMetadata} />
 ```
 
 ## AI Features
 
-The extension includes AI-powered features:
-
-### Available AI Actions
-
-- **Summarize** (`⌘S` / `Ctrl+S`) - 2-3 paragraph summary
-- **Translate** (`⌘T` / `Ctrl+T`) - Translation to English
-- **Key Points** (`⌘⇧K` / `Ctrl+Shift+K`) - 3-5 bullet points
-- **Quick TLDR** (`⌘⇧S` / `Ctrl+Shift+S`) - One-liner copied to clipboard
-
-### AI Implementation
-
 ```typescript
-// Check AI access
+import { AI, environment } from "@raycast/api";
+import { useAI } from "@raycast/utils";
+
+// Check if AI is available
 const hasAIAccess = environment.canAccess(AI);
 
-// Use AI hook for streaming
+// Streaming AI response
 const { data, isLoading } = useAI(prompt, {
-  creativity: "low",
+  creativity: "low",  // or "medium", "high"
   stream: true,
 });
 
-// Quick AI action
-const tldr = await AI.ask(prompt, { creativity: "low" });
+// One-shot AI call
+const response = await AI.ask(prompt, { creativity: "low" });
 ```
 
-### AI Tools for @dtf Mentions
+## Menu Bar Commands
 
-Located in `src/tools/`:
-
-- `get-news.ts` - Fetches latest news
-- `get-popular-posts.ts` - Fetches popular posts by period
-- `search-posts.ts` - Searches posts by keyword
-- `get-topics.ts` - Lists available topics
-- `get-topic-posts.ts` - Gets posts from specific topic
-
-## Menu Bar Features
-
-> **Note:** Menu Bar is macOS only due to Raycast platform limitations.
-
-The menu bar command supports extensive customization with 25+ preferences:
-
-### Display Modes
-
-- Icon only
-- Post count
-- Latest post title
-- Top post stats (views/comments)
-
-### Sections (configurable)
-
-- News
-- Popular
-- Latest
-- Topics (submenu with posts)
-- Top Blogs (submenu with posts)
-- More (navigation links)
-
-### Caching
-
-Menu bar uses `Cache` API for storing posts between refreshes:
+> Note: Menu Bar is macOS only due to Raycast platform limitations.
 
 ```typescript
-const cache = new Cache();
-setCachedData(CACHE_KEY, posts);
-const cached = getCachedData<DisplayPost[]>(CACHE_KEY);
+import { MenuBarExtra, launchCommand, LaunchType } from "@raycast/api";
+
+<MenuBarExtra
+  icon={icon}
+  title={title}
+  tooltip="Tooltip"
+  isLoading={isLoading}
+>
+  <MenuBarExtra.Section title="Section">
+    <MenuBarExtra.Item
+      title="Item"
+      icon={Icon.Star}
+      shortcut={{ modifiers: ["cmd"], key: "o" }}
+      onAction={() => { /* ... */ }}
+    />
+    <MenuBarExtra.Submenu title="Submenu">
+      <MenuBarExtra.Item title="Sub Item" />
+    </MenuBarExtra.Submenu>
+  </MenuBarExtra.Section>
+</MenuBarExtra>
+
+// Launch another command
+launchCommand({
+  name: "command-name",
+  type: LaunchType.UserInitiated,
+});
 ```
 
-## Common Issues
+## Best Practices
 
-1. **Search returns empty**: Check if using `result.contents` (not `items`)
-2. **Duplicate keys in list**: Filter duplicates with Set
-3. **Missing icons**: Use circular mask and fallback to author avatar
-4. **Pagination stops early**: Ensure `lastSortingValue` for news endpoint
-5. **Menu bar timeout**: Use `withTimeout` wrapper for all fetch operations
-
-## Testing
-
-Run linting before publishing:
-
-```bash
-npm run lint
-npm run build
-```
+1. **Keys**: Use unique keys, filter duplicates if API returns them
+2. **Icons**: Always circular for avatars
+3. **Actions**: Push for details, Cmd+Enter for browser
+4. **Metadata**: Make it toggleable with `showMetadata` prop
+5. **Pagination**: Use `keepPreviousData: true` for smooth scrolling
+6. **Empty States**: Provide `List.EmptyView` with helpful messages
+7. **Platform shortcuts**: Use `{ macOS: {...}, Windows: {...} }` format
+8. **AI Features**: Check `environment.canAccess(AI)` before using
 
 ---
 > Source: [shadeov/dtf-raycast](https://github.com/shadeov/dtf-raycast) — distributed by [TomeVault](https://tomevault.io).
