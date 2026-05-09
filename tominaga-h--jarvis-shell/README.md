@@ -7,13 +7,13 @@ Next Generation AI Integrated Shell inspired by J.A.R.V.I.S. on marvel
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [tominaga-h/jarvis-shell](https://github.com/tominaga-h/jarvis-shell).
+Original source: `CLAUDE.md` in [tominaga-h/jarvis-shell](https://github.com/tominaga-h/jarvis-shell).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
