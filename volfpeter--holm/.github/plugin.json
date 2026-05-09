@@ -1,0 +1,9 @@
+{
+  "name": "volfpeter--holm",
+  "displayName": "holm",
+  "description": "Hypermedia web development framework that brings the Next.js developer experience to Python, built on FastAPI.",
+  "version": "1.0.0",
+  "author": "volfpeter",
+  "homepage": "https://github.com/volfpeter/holm",
+  "skills": []
+}
