@@ -1,0 +1,38 @@
+{
+  "name": "joelhooks--atproto-agent-network",
+  "displayName": "atproto-agent-network",
+  "description": "\u26a1 AT Protocol concepts on Cloudflare primitives \u2014 decentralized agent identity, memory, and coordination",
+  "version": "1.0.0",
+  "author": "joelhooks",
+  "homepage": "https://github.com/joelhooks/atproto-agent-network",
+  "skills": [
+    {
+      "name": "cloudflare-do",
+      "description": ""
+    },
+    {
+      "name": "d1-patterns",
+      "description": ""
+    },
+    {
+      "name": "envelope-encryption",
+      "description": ""
+    },
+    {
+      "name": "ios-app",
+      "description": ""
+    },
+    {
+      "name": "pi-agent",
+      "description": ""
+    },
+    {
+      "name": "vectorize-search",
+      "description": ""
+    },
+    {
+      "name": "zap-cli",
+      "description": ""
+    }
+  ]
+}
