@@ -4,7 +4,7 @@
   "repo": "a9s",
   "description": "Terminal UI AWS Resource Manager \u2014 browse, inspect, and manage 60+ AWS resource types",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/k2m30/a9s",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T08:26:03Z"
+  "distributed_at": "2026-05-09T20:05:59Z"
 }
