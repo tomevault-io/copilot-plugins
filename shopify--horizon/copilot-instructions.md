@@ -1,644 +1,682 @@
-## focus-order-and-styles-accessibility
+## form-accessibility
 
-> Focus order and focus styles accessibility standards per WCAG 2.4.7 Focus Visible, 1.4.11 Non-Text Contrast, 2.4.13 Focus Appearance, and 2.4.11 Focus Not Obscured requirements
+> Form component accessibility standards and WCAG compliance for form inputs, labels, instructions, and error handling
 
 
-# Focus Order and Focus Styles Accessibility Standards
+# Form Accessibility Standards
 
-Ensures proper focus order, tabindex usage, and focus indicators following WCAG 2.4.7 Focus Visible, 1.4.11 Non-Text Contrast, 2.4.13 Focus Appearance, and 2.4.11 Focus Not Obscured requirements.
+Ensures form components follow WCAG compliance and provide proper accessibility for all users including screen reader users and keyboard-only users.
 
 <rule>
-name: focus_order_and_styles_accessibility_standards
-description: Enforce focus order and focus styles accessibility standards per WCAG requirements
+name: form_accessibility_standards
+description: Enforce form component accessibility standards and WCAG compliance for form inputs, labels, instructions, and error handling
 filters:
   - type: file_extension
-    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts|css|scss|sass|less)$"
+    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
 
 actions:
   - type: enforce
     conditions:
-      # Positive tabindex values (should not be used)
-      - pattern: "tabindex=\"[1-9]\""
-        message: "Positive tabindex values create illogical focus order. Use DOM order instead or tabindex=\"0\" for custom focusable elements."
+      # Missing label association for form inputs
+      - pattern: "(?i)<(input|textarea|select)[^>]*>"
+        pattern_negate: "(<label[^>]*for|id.*for|aria-label|aria-labelledby|title=)"
+        message: "Form inputs must have programmatically associated labels via label/for, aria-label, aria-labelledby, or title attributes."
 
-      # Missing focus styles (outline: 0 or outline: none)
-      - pattern: "outline:\\s*0|outline:\\s*none"
-        message: "Focus styles should not be removed. Use custom focus indicators that meet WCAG contrast requirements."
+      # Empty or meaningless labels
+      - pattern: "(?i)<label[^>]*>\\s*(?:label|input|field|required)\\s*</label>"
+        message: "Form labels must contain meaningful text that describes the input purpose, not generic terms."
 
-      # Focus styles with insufficient contrast (light colors)
-      - pattern: "outline.*#[89abcdefABCDEF]{6}|outline.*#[cdefCDEF]{3,6}"
-        message: "Light focus outline colors may not meet 3:1 contrast ratio requirement for UI component identification."
+      # Placeholder as only label
+      - pattern: "(?i)<input[^>]*placeholder=\"[^\"]+\"[^>]*>"
+        pattern_negate: "(<label|aria-label|aria-labelledby|title=)"
+        message: "Placeholder text cannot be the only method of providing a label. Add a proper label element or aria-label."
 
-      # Missing focus-visible implementation
-      - pattern: ":focus\\s*\\{"
-        pattern_negate: ":focus-visible|:focus:not\\(:focus-visible\\)"
-        message: "Consider implementing :focus-visible for better keyboard-only focus indication."
+      # Missing required field indicators
+      - pattern: "(?i)<(input|textarea|select)[^>]*required[^>]*>"
+        pattern_negate: "(data-required|aria-required=\"true\"|\\*|aria-describedby)"
+        message: "Required fields should use data-required='true' instead of native required attribute, with visual indicators and aria-required='true' for screen readers."
 
-      # Focus styles that may be obscured
-      - pattern: "outline-offset:\\s*-?0\\.?0*px|outline-offset:\\s*0"
-        message: "Consider using positive outline-offset to prevent focus indicators from being obscured by adjacent elements."
+      # Missing fieldset for grouped inputs
+      - pattern: "(?i)<input[^>]*type=\"(radio|checkbox)\"[^>]*name=\"[^\"]+\"[^>]*>"
+        pattern_negate: "(<fieldset|<div[^>]*role=\"group\")"
+        message: "Radio button and checkbox groups should be wrapped in fieldset or have role='group' for proper grouping."
 
-      # Missing forced-colors media query for Windows High Contrast
-      - pattern: "@media\\s*\\(forced-colors:\\s*active\\)"
-        pattern_negate: "outline.*transparent"
-        message: "Windows High Contrast Mode requires transparent outline for native focus appearance."
+      # Missing legend for fieldset
+      - pattern: "(?i)<fieldset[^>]*>"
+        pattern_negate: "<legend"
+        message: "Fieldset elements must have legend elements to provide context for the group."
 
-      # Custom focusable elements without proper tabindex
-      - pattern: "<(div|span|button)[^>]*onclick|onkeydown|onkeypress"
-        pattern_negate: "tabindex=\"[0-9]\"|role=\"button\"|role=\"link\""
-        message: "Custom interactive elements should have tabindex=\"0\" or appropriate ARIA role for keyboard accessibility."
+      # Missing input purpose identification
+      - pattern: "(?i)<input[^>]*type=\"(text|email|tel|url|password)\"[^>]*>"
+        pattern_negate: "(autocomplete|aria-describedby|aria-label|placeholder)"
+        message: "Text inputs should have autocomplete attributes or other methods to identify their purpose for personal data collection."
 
-      # Focus styles with insufficient area
-      - pattern: "outline-width:\\s*1px|outline-width:\\s*0\\.1rem"
-        message: "Thin focus outlines may not meet WCAG 2.4.13 Focus Appearance requirements for minimum area."
+      # Missing error association
+      - pattern: "(?i)<[^>]*aria-invalid=\"true\"[^>]*>"
+        pattern_negate: "(aria-describedby|aria-errormessage)"
+        message: "Inputs with aria-invalid='true' should have error messages associated via aria-describedby or aria-errormessage."
 
-      # Focus styles that blend with background
-      - pattern: "outline.*rgba\\([^)]*0\\.1[^)]*\\)|outline.*rgba\\([^)]*0\\.2[^)]*\\)"
-        message: "Very transparent focus outlines may not provide sufficient contrast for visibility."
+      # Missing error message visibility
+      - pattern: "(?i)<[^>]*class=\"[^\"]*(?:error|invalid)[^\"]*\"[^>]*>"
+        pattern_negate: "(display.*none|visibility.*hidden|hidden|aria-hidden=\"true\")"
+        message: "Error messages should be visible to users and not hidden with CSS or aria-hidden."
 
-      # Missing focus styles on interactive elements
-      - pattern: "<(button|a|input|select|textarea)[^>]*>"
-        pattern_negate: ":focus|:focus-visible|tabindex"
-        message: "Interactive elements should have visible focus styles for keyboard navigation accessibility."
+      # Missing focus management for error summaries
+      - pattern: "(?i)<(div|section)[^>]*(?:error.*summary|summary.*error)[^>]*>"
+        pattern_negate: "(tabindex|focus|scrollIntoView)"
+        message: "Error summary containers should implement focus management to shift focus to the error banner heading when errors appear, improving user experience and accessibility."
 
-      # Dynamic content removal without focus management
-      - pattern: "\\.remove\\(\\)|removeChild|innerHTML\\s*="
-        pattern_negate: "focus\\(|focus\\(\\)"
-        message: "When removing dynamic content, ensure proper focus management by restoring focus to a logical location."
+      # Missing form instructions association
+      - pattern: "(?i)<(div|p)[^>]*(?:instruction|help|hint)[^>]*>"
+        pattern_negate: "(aria-describedby|aria-labelledby|id=)"
+        message: "Form instructions should be programmatically associated with their corresponding inputs via aria-describedby."
+
+      # Missing success message
+      - pattern: "(?i)<form[^>]*>.*</form>"
+        pattern_negate: "(role=\"alert\"|aria-live|success|confirmation)"
+        message: "Forms should provide success confirmation messages, especially for critical operations like financial transactions."
+
+      # Missing focus management for success messages
+      - pattern: "(?i)<(div|section)[^>]*(?:success|confirmation)[^>]*>"
+        pattern_negate: "(tabindex|focus|scrollIntoView)"
+        message: "Success message containers should implement focus management to shift focus to the success banner heading when messages appear, improving user experience and accessibility."
+
+      # Missing focusable headings for error/success messages
+      - pattern: "(?i)<(h2|h3)[^>]*(?:error|success|confirmation)[^>]*>"
+        pattern_negate: "tabindex=\"-1\""
+        message: "Error and success message headings should have tabindex='-1' to make them programmatically focusable for focus management."
+
+      # Missing time limit controls
+      - pattern: "(?i)<form[^>]*>.*(?:time.*limit|session.*expir|expir.*time)"
+        pattern_negate: "(extend|turn.*off|adjust|customize|20.*hour)"
+        message: "Forms with time limits must provide options to extend, turn off, or adjust the time limit, or allow at least 20 hours."
+
+      # Missing error prevention for critical forms
+      - pattern: "(?i)<form[^>]*(?:legal|financial|transaction|payment|commitment)[^>]*>"
+        pattern_negate: "(confirm|review|reversible|check.*error)"
+        message: "Critical forms (legal/financial) must implement error prevention techniques like confirmation, review, or reversibility."
+
+      # Missing disabled field alternatives
+      - pattern: "(?i)<input[^>]*disabled[^>]*>"
+        pattern_negate: "(aria-describedby|aria-label|title=|role=\"text\")"
+        message: "Disabled fields that are essential to understanding content must have alternative ways to communicate their information."
+
+      # Missing data input restrictions communication
+      - pattern: "(?i)<input[^>]*(?:maxlength|pattern|min|max)[^>]*>"
+        pattern_negate: "(aria-describedby|title=|placeholder|aria-label)"
+        message: "Inputs with restrictions (maxlength, pattern, min, max) should communicate these restrictions in labels or instructions."
+
+      # Help text using div instead of semantic small element
+      - pattern: "(?i)<div[^>]*class=\"[^\"]*help-text[^\"]*\"[^>]*>"
+        pattern_negate: "<small"
+        message: "Help text should use the semantic small element instead of div for better HTML5 compliance and accessibility."
+
+      # Form sections nested within main element
+      - pattern: "(?i)<main[^>]*>.*<section[^>]*class=\"[^\"]*form-section[^\"]*\"[^>]*>"
+        message: "Form sections should be direct children of the container, not nested within the main element. Use main only for the form itself."
+
+      # Missing proper section structure
+      - pattern: "(?i)<section[^>]*class=\"[^\"]*form-section[^\"]*\"[^>]*>"
+        pattern_negate: "(</section>|aria-labelledby)"
+        message: "Form sections must be properly closed with </section> tags and have aria-labelledby for accessibility."
+
+      # Improper section nesting within main element
+      - pattern: "(?i)<main[^>]*>.*<section[^>]*class=\"[^\"]*form-section[^\"]*\"[^>]*>.*</section>"
+        message: "Form sections should not be nested within the main element. Move sections outside main and use main only for the form itself."
+
+      # Missing container wrapper for form sections
+      - pattern: "(?i)<section[^>]*class=\"[^\"]*form-section[^\"]*\"[^>]*>"
+        pattern_negate: "<div[^>]*class=\"[^\"]*container[^\"]*\"[^>]*>"
+        message: "Form sections should be wrapped in a container div for proper organization and styling."
+
+      # Missing proper heading structure in form sections
+      - pattern: "(?i)<section[^>]*class=\"[^\"]*form-section[^\"]*\"[^>]*>"
+        pattern_negate: "<h[1-6][^>]*>"
+        message: "Form sections must contain proper heading elements (h1-h6) for accessibility and content structure."
+
+      # Missing redundant entry prevention
+      - pattern: "(?i)<form[^>]*>.*<input[^>]*name=\"(email|password|confirm)[^\"]*\"[^>]*>"
+        pattern_negate: "(autocomplete|auto.*populate|select.*previous)"
+        message: "Forms requiring redundant information entry should provide auto-population or selection of previously entered data."
+
+      # Missing keyboard navigation support
+      - pattern: "(?i)<(input|textarea|select|button)[^>]*>"
+        pattern_negate: "(tabindex|onKeyDown|onkeydown|@keydown|v-on:keydown)"
+        message: "Form elements should support keyboard navigation and not interfere with tab order."
+
+      # Missing focus indicators
+      - pattern: "(?i)<(input|textarea|select|button)[^>]*>"
+        pattern_negate: "(focus|:focus|outline|box-shadow)"
+        message: "Form elements must have visible focus indicators for keyboard navigation."
+
+      # Missing focus indicators for error/success message headings
+      - pattern: "(?i)<(h2|h3)[^>]*tabindex=\"-1\"[^>]*>"
+        pattern_negate: "(focus|:focus|outline|box-shadow)"
+        message: "Focusable error and success message headings must have visible focus indicators for keyboard navigation."
+
+      # Help text with insufficient color contrast
+      - pattern: "(?i)<[^>]*class=\"[^\"]*help-text[^\"]*\"[^>]*>"
+        pattern_negate: "(color:\\s*#[0-4][0-9a-fA-F]{5}|color:\\s*#[5-9a-fA-F][0-9a-fA-F]{5})"
+        message: "Help text must have sufficient color contrast (minimum 4.5:1 for normal text, 7:1 recommended). Use darker colors like #495057 for better accessibility."
+
+      # Missing form validation feedback
+      - pattern: "(?i)<form[^>]*>"
+        pattern_negate: "(validate|check.*error|aria-invalid|aria-describedby)"
+        message: "Forms should provide validation feedback and error checking for user input."
 
   - type: suggest
     message: |
-      **WCAG Focus Order and Focus Styles Requirements:**
+      **Form Accessibility Best Practices:**
 
-      **Focus Order Requirements:**
+      **Label Requirements:**
+      - **Programmatic Association:** Labels MUST be programmatically associated with inputs
+      - **Meaningful Text:** Labels MUST contain meaningful, descriptive text
+      - **Visible Labels:** Labels MUST be visible to users
+      - **No Sensory Dependencies:** Labels MUST NOT rely solely on visual characteristics
+      - **Icon Labels:** Icons can be used as visual labels if meaning is self-evident AND semantic label is provided
 
-      **1. Logical DOM Order:**
-      - **Default:** Focus order follows DOM element order
-      - **Navigation:** Tab key moves forward, Shift+Tab moves backward
-      - **Avoid:** Positive tabindex values (1, 2, 3, etc.)
+      **Label Implementation Patterns:**
 
-      **2. Tabindex Usage:**
+      **Basic Label Association:**
       ```html
-      <!-- Good: Use DOM order (default) -->
-      <button>First Button</button>
-      <button>Second Button</button>
-      <button>Third Button</button>
+      <!-- Good: Label with for attribute -->
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username">
 
-      <!-- Good: tabindex="0" for custom focusable elements -->
-      <div role="button" tabindex="0" onclick="handleClick()">
-        Custom Button
+      <!-- Good: aria-label for simple cases -->
+      <input type="text" aria-label="Search products" placeholder="Enter search term">
+
+      <!-- Good: aria-labelledby for complex labels -->
+      <h3 id="address-heading">Shipping Address</h3>
+      <input type="text" aria-labelledby="address-heading" name="street">
+      ```
+
+      **Required Field Indicators:**
+      ```html
+      <label for="email">
+        Email Address <span class="required" aria-label="required">*</span>
+      </label>
+      <input type="email"
+             id="email"
+             name="email"
+             required
+             aria-required="true"
+             aria-describedby="email-help">
+      <small id="email-help" class="help-text">
+        We'll use this to send you order confirmations
+      </small>
+      ```
+
+      **Input Groups with Fieldset:**
+      ```html
+      <fieldset>
+        <legend>Contact Preferences</legend>
+        <label for="email-notifications">
+          <input type="checkbox" id="email-notifications" name="notifications[]" value="email">
+          Email Notifications
+        </label>
+        <label for="sms-notifications">
+          <input type="checkbox" id="sms-notifications" name="notifications[]" value="sms">
+          SMS Notifications
+        </label>
+      </fieldset>
+      ```
+
+      **Input Purpose Identification:**
+      ```html
+      <!-- Personal data inputs should have autocomplete -->
+      <label for="full-name">Full Name</label>
+      <input type="text"
+             id="full-name"
+             name="fullName"
+             autocomplete="name">
+
+      <label for="email-address">Email Address</label>
+      <input type="email"
+             id="email-address"
+             name="email"
+             autocomplete="email">
+
+      <label for="phone-number">Phone Number</label>
+      <input type="tel"
+             id="phone-number"
+             name="phone"
+             autocomplete="tel">
+      ```
+
+      **Error Handling and Validation:**
+
+      **Error Message Association:**
+      ```html
+      <label for="password">Password</label>
+      <input type="password"
+             id="password"
+             name="password"
+             aria-describedby="password-requirements password-error"
+             aria-invalid="false">
+
+      <small id="password-requirements" class="help-text">
+        Password must be at least 8 characters with uppercase, lowercase, and number
+      </small>
+
+      <div id="password-error" class="error-message" role="alert" hidden>
+        Password does not meet requirements
       </div>
-
-      <!-- Good: tabindex="-1" for programmatic focus only -->
-      <div id="target" tabindex="-1">Focus target</div>
-      <button onclick="document.getElementById('target').focus()">
-        Focus Target
-      </button>
-
-      <!-- Bad: Positive tabindex values -->
-      <button tabindex="1">First</button>
-      <button tabindex="3">Third</button>
-      <button tabindex="2">Second</button>
       ```
 
-      **Focus Styles Requirements:**
+      **Real-time Validation:**
+      ```javascript
+      function validatePassword(input) {
+        const password = input.value;
+        const requirements = document.getElementById('password-requirements');
+        const error = document.getElementById('password-error');
 
-      **1. WCAG 2.4.7 Focus Visible (Level A):**
-      - **Requirement:** Focus indicator must exist
-      - **Purpose:** Keyboard users need visible focus indication
+        // Check requirements
+        const hasLength = password.length >= 8;
+        const hasUpper = /[A-Z]/.test(password);
+        const hasLower = /[a-z]/.test(password);
+        const hasNumber = /\d/.test(password);
 
-      **2. WCAG 1.4.11 Non-Text Contrast (Level AA):**
-      - **Requirement:** Minimum 3:1 contrast ratio for UI components
-      - **Applies to:** Focus indicators, borders, focus outlines
-
-      **3. WCAG 2.4.13 Focus Appearance (Level AAA):**
-      - **Requirement:** Minimum area and contrast for focus indicators
-      - **Area:** Focus indicator should be clearly visible
-
-      **4. WCAG 2.4.11 Focus Not Obscured (Level AA):**
-      - **Requirement:** Focused element not hidden by other content
-      - **Solution:** Use outline-offset to prevent overlap
-
-      **Focus Styles Implementation:**
-
-      **1. Basic Focus Styles:**
-      ```css
-      /* Good: Visible focus indicator */
-      button:focus {
-        outline: 2px solid #0056b3;
-        outline-offset: 2px;
-      }
-
-      /* Good: Custom focus styles */
-      .custom-button:focus {
-        outline: 3px solid #dc3545;
-        outline-offset: 3px;
-        box-shadow: 0 0 8px rgba(220, 53, 69, 0.5);
-      }
-      ```
-
-      **2. Focus-Visible Implementation:**
-      ```css
-      /* Default focus styles */
-      button:focus {
-        outline: 2px solid #0056b3;
-        outline-offset: 2px;
-      }
-
-      /* Remove focus styles for mouse users */
-      button:focus:not(:focus-visible) {
-        outline: none;
-        box-shadow: none;
-      }
-
-      /* Enhanced focus styles for keyboard users */
-      button:focus-visible {
-        outline: 3px solid #0056b3;
-        outline-offset: 3px;
-        box-shadow: 0 0 8px rgba(0, 86, 179, 0.5);
-      }
-      ```
-
-      **3. High Contrast Focus Styles:**
-      ```css
-      /* Default focus styles */
-      *:focus-visible {
-        outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
-        outline-offset: -0.2rem;
-        box-shadow: 0 0 0.2rem rgba(var(--color-foreground), 0.3);
-      }
-
-      /* Windows High Contrast Mode */
-      @media (forced-colors: active) {
-        *:focus {
-          outline: 0.2rem solid transparent;
+        if (hasLength && hasUpper && hasLower && hasNumber) {
+          input.setAttribute('aria-invalid', 'false');
+          error.hidden = true;
+          requirements.className = 'help-text valid';
+        } else {
+          input.setAttribute('aria-invalid', 'true');
+          error.hidden = false;
+          requirements.className = 'help-text invalid';
         }
       }
       ```
 
-      **4. Component-Specific Focus Styles:**
-      ```css
-      /* Form inputs */
-      input:focus-visible,
-      textarea:focus-visible,
-      select:focus-visible {
-        outline: 2px solid #0056b3;
-        outline-offset: 2px;
-        border-color: #0056b3;
-      }
+      **Form Instructions and Help:**
 
-      /* Links */
-      a:focus-visible {
-        outline: 2px solid #0056b3;
-        outline-offset: 2px;
-        text-decoration: underline;
-      }
-
-      /* Buttons */
-      button:focus-visible {
-        outline: 2px solid #0056b3;
-        outline-offset: 2px;
-        box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0056b3;
-      }
-      ```
-
-      **Focus Order Best Practices:**
-
-      **1. Logical Content Flow:**
+      **Input Instructions:**
       ```html
-      <!-- Good: Logical reading and focus order -->
-      <header>
-        <h1>Page Title</h1>
-        <nav>
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-          <a href="/contact">Contact</a>
-        </nav>
-      </header>
-
-      <main>
-        <h2>Main Content</h2>
-        <form>
-          <label for="name">Name:</label>
-          <input type="text" id="name">
-
-          <label for="email">Email:</label>
-          <input type="email" id="email">
-
-          <button type="submit">Submit</button>
-        </form>
-      </main>
-      ```
-
-      **2. Custom Interactive Elements:**
-      ```html
-      <!-- Good: Proper focusable custom element -->
-      <div role="button"
-           tabindex="0"
-           onclick="handleClick()"
-           onkeydown="handleKeydown(event)"
-           class="custom-button">
-        Custom Button
+      <label for="zip-code">ZIP Code</label>
+      <input type="text"
+             id="zip-code"
+             name="zipCode"
+             maxlength="5"
+             pattern="[0-9]{5}"
+             aria-describedby="zip-help">
+      <div id="zip-help" class="help-text">
+        Enter 5-digit ZIP code (e.g., 12345)
       </div>
-
-      <!-- CSS for custom button focus -->
-      .custom-button:focus-visible {
-        outline: 2px solid #0056b3;
-        outline-offset: 2px;
-        background-color: #e7f3ff;
-      }
       ```
 
-      **3. Skip Links and Focus Management:**
+      **Form-level Instructions:**
       ```html
-      <!-- Skip link for main content -->
-      <a href="#main-content" class="skip-link">
-        Skip to main content
-      </a>
+      <form aria-describedby="form-instructions">
+        <div id="form-instructions" class="form-instructions">
+          <p>All fields marked with * are required. Please review your information before submitting.</p>
+        </div>
 
-      <!-- Main content with id for focus target -->
-      <main id="main-content" tabindex="-1">
-        <h1>Main Content</h1>
-        <!-- Content here -->
-      </main>
-
-      <!-- CSS for skip link -->
-      .skip-link {
-        position: absolute;
-        top: -40px;
-        left: 6px;
-        background: #0056b3;
-        color: #ffffff;
-        padding: 8px;
-        text-decoration: none;
-        z-index: 1000;
-      }
-
-      .skip-link:focus {
-        top: 6px;
-        outline: 2px solid #ffffff;
-        outline-offset: 2px;
-      }
+        <!-- Form fields here -->
+      </form>
       ```
 
-      **Focus Styles Guidelines:**
+      **Success and Error Messages:**
 
-      **1. Contrast Requirements:**
-      - **Minimum:** 3:1 contrast ratio for focus indicators
-      - **Recommended:** 4.5:1 or higher for better visibility
-      - **Test:** Against adjacent colors and backgrounds
-
-      **2. Size and Visibility:**
-      - **Outline width:** Minimum 2px for visibility
-      - **Outline offset:** Use positive values to prevent overlap
-      - **Area:** Focus indicator should be clearly visible
-
-      **3. Color Selection:**
-      ```css
-      /* High contrast focus colors */
-      :focus-visible {
-        outline: 2px solid #0056b3; /* Blue - high contrast */
-        outline-offset: 2px;
-      }
-
-      /* Alternative high contrast colors */
-      :focus-visible {
-        outline: 2px solid #dc3545; /* Red - high contrast */
-        outline-offset: 2px;
-      }
-
-      :focus-visible {
-        outline: 2px solid #198754; /* Green - high contrast */
-        outline-offset: 2px;
-      }
+      **Success Confirmation:**
+      ```html
+      <div id="success-message"
+           class="success-message"
+           role="alert"
+           aria-live="polite"
+           hidden>
+        Your order has been successfully submitted! Order #12345
+      </div>
       ```
 
-      **4. Focus Not Obscured:**
-      ```css
-      /* Prevent focus indicator overlap */
-      button:focus-visible {
-        outline: 2px solid #0056b3;
-        outline-offset: 3px; /* Space between element and outline */
-      }
-
-      /* Alternative: Use box-shadow for non-overlapping focus */
-      button:focus-visible {
-        outline: none;
-        box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0056b3;
-      }
+      **Error Summary:**
+      ```html
+      <div id="error-summary"
+           class="error-summary"
+           role="alert"
+           aria-live="assertive"
+           hidden>
+        <h2 tabindex="-1">Please correct the following errors:</h2>
+        <ul>
+          <li><a href="#email">Email address is required</a></li>
+          <li><a href="#phone">Phone number format is invalid</a></li>
+        </ul>
+      </div>
       ```
 
-      **5. Dynamic Content Focus Management:**
+            **Focus Management for Error and Success Messages:**
       ```javascript
-      // Focus management best practices
-      class FocusManager {
-        constructor() {
-          this.focusHistory = [];
-          this.currentFocus = null;
-        }
+      function showErrorSummary(errors) {
+        const errorSummary = document.getElementById('error-summary');
+        const errorHeading = errorSummary.querySelector('h2');
 
-        // Save focus before making changes
-        saveFocus() {
-          this.currentFocus = document.activeElement;
-          this.focusHistory.push(this.currentFocus);
-        }
+        // Show error summary
+        errorSummary.classList.add('show');
 
-        // Restore focus to previous location
-        restoreFocus() {
-          if (this.focusHistory.length > 0) {
-            const previousFocus = this.focusHistory.pop();
-            if (previousFocus && document.contains(previousFocus)) {
-              previousFocus.focus();
-            }
+        // Shift focus to error banner heading for better user experience
+        // Use requestAnimationFrame to ensure the element is fully visible before focusing
+        requestAnimationFrame(() => {
+          if (errorHeading) {
+            errorHeading.focus();
+            errorHeading.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
-        }
-
-        // Focus first interactive element in new content
-        focusNewContent(container) {
-          const focusableElements = container.querySelectorAll(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-          );
-
-          if (focusableElements.length > 0) {
-            focusableElements[0].focus();
-          }
-        }
-
-        // Find logical focus target when content is removed
-        findLogicalFocusTarget(removedElement, container) {
-          // Try to focus next sibling element
-          const nextSibling = removedElement.nextElementSibling;
-          if (nextSibling) {
-            const focusableElement = nextSibling.querySelector(
-              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-            );
-            if (focusableElement) {
-              return focusableElement;
-            }
-          }
-
-          // Try to focus previous sibling element
-          const prevSibling = removedElement.previousElementSibling;
-          if (prevSibling) {
-            const focusableElement = prevSibling.querySelector(
-              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-            );
-            if (focusableElement) {
-              return focusableElement;
-            }
-          }
-
-          // Fallback to container or trigger button
-          return container.querySelector('button, [href], input') ||
-                 document.querySelector('[aria-haspopup="dialog"]');
-        }
+        });
       }
 
-      // Usage example
-      const focusManager = new FocusManager();
+      function showSuccessMessage() {
+        const successMessage = document.getElementById('success-message');
+        const successHeading = successMessage.querySelector('h3');
 
-      function addContent() {
-        focusManager.saveFocus();
+        successMessage.classList.add('show');
 
-        // Add new content
-        const newContent = createNewContent();
-        container.appendChild(newContent);
-
-        // Focus first interactive element
-        focusManager.focusNewContent(newContent);
-      }
-
-      function removeContent(element) {
-        const container = element.parentElement;
-
-        // Find logical focus target before removing
-        const focusTarget = focusManager.findLogicalFocusTarget(element, container);
-
-        // Remove the element
-        element.remove();
-
-        // Focus the logical target
-        if (focusTarget) {
-          focusTarget.focus();
-        }
-      }
-      ```
-
-      **Testing and Validation:**
-
-      **1. Keyboard Navigation Testing:**
-      - Navigate using Tab and Shift+Tab
-      - Verify focus order is logical
-      - Check that focus indicators are visible
-      - Test with different focus styles
-
-      **2. Contrast Testing:**
-      - Use browser dev tools for contrast ratios
-      - Test against different backgrounds
-      - Verify 3:1 minimum contrast requirement
-      - Test with color blindness simulators
-
-      **3. Focus Visibility Testing:**
-      - Test with screen readers
-      - Verify focus indicators are not obscured
-      - Check focus styles in different themes
-      - Test Windows High Contrast Mode
-
-      **4. Dynamic Content Focus Testing:**
-      - Test focus management when adding new content
-      - Verify focus moves to first interactive element in new content
-      - Test focus restoration when removing content
-      - Ensure focus returns to logical location
-      - Test focus management with multiple dynamic elements
-      - Verify focus history is maintained correctly
-
-      **Common Mistakes to Avoid:**
-
-      **1. Focus Order Issues:**
-      - Using positive tabindex values
-      - Skipping focusable elements
-      - Illogical DOM structure
-      - Missing focusable elements
-
-      **2. Focus Style Problems:**
-      - Removing focus styles with `outline: none`
-      - Insufficient contrast ratios
-      - Focus indicators that are too small
-      - Focus styles that blend with background
-
-      **3. Implementation Issues:**
-      - Missing focus-visible implementation
-      - Not testing with keyboard navigation
-      - Ignoring Windows High Contrast Mode
-      - Focus indicators that are obscured
-
-      **4. Accessibility Violations:**
-      - No visible focus indicators
-      - Focus order that doesn't match reading order
-      - Custom elements without proper focus management
-      - Missing keyboard event handlers
-
-      **Advanced Focus Management:**
-
-      **1. Programmatic Focus Control:**
-      ```javascript
-      // Focus management for modals
-      function openModal() {
-        const modal = document.getElementById('modal');
-        const closeButton = document.getElementById('close-modal');
-
-        modal.style.display = 'block';
-        closeButton.focus(); // Focus close button when modal opens
-      }
-
-      // Trap focus within modal
-      function trapFocus(modal) {
-        const focusableElements = modal.querySelectorAll(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
-
-        const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];
-
-        // Handle Tab key
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'Tab') {
-            if (e.shiftKey) {
-              if (document.activeElement === firstElement) {
-                lastElement.focus();
-                e.preventDefault();
-              }
-            } else {
-              if (document.activeElement === lastElement) {
-                firstElement.focus();
-                e.preventDefault();
-              }
-            }
+        // Shift focus to success message heading for better user experience
+        // Use requestAnimationFrame to ensure the element is fully visible before focusing
+        requestAnimationFrame(() => {
+          if (successHeading) {
+            successHeading.focus();
+            successHeading.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         });
       }
       ```
 
-      **2. Dynamic Focus Management:**
-      ```javascript
-      // Focus restoration after dynamic content
-      function loadContent() {
-        const container = document.getElementById('content');
-        const previousFocus = document.activeElement;
+      **Focus Management Benefits:**
+      - **User Experience:** Places cursor at beginning of error information
+      - **Accessibility:** Screen readers announce error content from the start
+      - **Navigation:** Users can easily navigate through error list
+      - **Context:** Provides clear starting point for error resolution
 
-        // Load new content
-        container.innerHTML = newContent;
+      **Implementation Considerations:**
+      - **Timing:** Use requestAnimationFrame to ensure elements are fully visible before focusing
+      - **Fallback:** Provide fallback focus management if headings aren't found
+      - **Smooth Scrolling:** Use smooth scrolling for better user experience
+      - **Focus Indicators:** Ensure focusable headings have visible focus indicators
+      - **Browser Behavior:** Prevent default browser focus behavior on form submission
 
-        // Restore focus or set to first focusable element
-        const firstFocusable = container.querySelector(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
-
-        if (firstFocusable) {
-          firstFocusable.focus();
-        } else if (previousFocus) {
-          previousFocus.focus();
-        }
-      }
-      ```
-
-      **3. Focus Indicators for Complex Components:**
+      **CSS for Focusable Error and Success Message Headings:**
       ```css
-      /* Multi-state focus indicators */
-      .accordion-item:focus-visible {
-        outline: 2px solid #0056b3;
+      /* Make error and success message headings focusable */
+      .error-summary h2:focus,
+      .success-message h3:focus {
+        outline: 3px solid #0056b3;
         outline-offset: 2px;
+        border-radius: 4px;
       }
 
-      .accordion-item[aria-expanded="true"]:focus-visible {
-        outline-color: #198754; /* Different color for expanded state */
-      }
-
-      /* Focus indicators for different interaction states */
-      .interactive-element:focus-visible {
-        outline: 2px solid #0056b3;
-        outline-offset: 2px;
-      }
-
-      .interactive-element:hover:focus-visible {
-        outline-color: #004085; /* Darker on hover + focus */
-      }
-
-      .interactive-element:active:focus-visible {
-        outline-color: #002752; /* Even darker when active */
+      /* High contrast mode support */
+      @media (prefers-contrast: more) {
+        .error-summary h2:focus,
+        .success-message h3:focus {
+          outline: 3px solid #000000;
+        }
       }
       ```
 
-      **4. Dynamic Content Focus Management:**
+      **Form Structure and Semantic HTML:**
+
+      **Proper Section Organization:**
+      ```html
+      <div class="container">
+        <!-- Form Instructions (standalone section) -->
+        <section class="form-section" aria-labelledby="instructions-heading">
+          <h2 id="instructions-heading">Form Instructions</h2>
+          <small id="form-instructions" class="help-text">
+            <!-- Instructions content -->
+          </small>
+        </section>
+
+        <!-- Time Limit Warning (standalone div) -->
+        <div class="time-limit-warning" role="alert" aria-live="polite">
+          <!-- Timer content -->
+        </div>
+
+        <!-- Error Summary (standalone div) -->
+        <div id="error-summary" class="error-summary" role="alert" aria-live="assertive">
+          <!-- Error content -->
+        </div>
+
+        <!-- Main Form (contained in main landmark) -->
+        <main role="main" aria-labelledby="main-heading">
+          <h2 id="main-heading" class="sr-only">Form Content</h2>
+          <form id="main-form" onsubmit="handleFormSubmit(event)">
+            <!-- Form sections within the form -->
+            <section class="form-section" aria-labelledby="personal-info-heading">
+              <h2 id="personal-info-heading">Personal Information</h2>
+              <!-- Form fields -->
+            </section>
+          </form>
+        </main>
+
+        <!-- Additional sections after the form -->
+        <section class="form-section" aria-labelledby="disabled-field-heading">
+          <h2 id="disabled-field-heading">Disabled Field Example</h2>
+          <!-- Content -->
+        </section>
+      </div>
+      ```
+
+      **Help Text Semantic Elements:**
+      ```html
+      <!-- Good: Use small element for help text -->
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" aria-describedby="email-help">
+      <small id="email-help" class="help-text">
+        We'll use this to send you order confirmations
+      </small>
+
+      <!-- Avoid: Using div for help text -->
+      <div id="email-help" class="help-text">
+        We'll use this to send you order confirmations
+      </div>
+      ```
+
+      **Help Text Color Contrast Requirements:**
+      ```css
+      .help-text {
+        font-size: 0.875rem;
+        color: #495057; /* 7.0:1 contrast ratio on white */
+        margin-top: 4px;
+        margin-bottom: 8px;
+        display: block;
+        line-height: 1.4;
+      }
+
+      /* High contrast mode support */
+      @media (prefers-contrast: more) {
+        .help-text,
+        small.help-text {
+          color: #000000; /* Maximum contrast */
+        }
+      }
+      ```
+
+      **Structural Guidelines:**
+      - **Container Organization:** All sections should be direct children of the container div
+      - **Main Landmark:** Use main element only for the form itself, not for wrapper content
+      - **Section Semantics:** Use section elements for major content areas with proper headings
+      - **Help Text Elements:** Use small elements for supplementary text and instructions
+      - **Color Contrast:** Ensure help text meets minimum 4.5:1 contrast ratio (7.0:1 recommended)
+      - **Proper Nesting:** Avoid nesting sections within other sections or main elements
+
+      **Time Limits and Error Prevention:**
+
+      **Time Limit Controls:**
+      ```html
+      <div class="time-limit-warning" role="alert" aria-live="polite">
+        <p>Your session will expire in <span id="time-remaining">14:30</span> minutes</p>
+        <button type="button" onclick="extendSession()">Extend Session</button>
+        <button type="button" onclick="turnOffTimer()">Turn Off Timer</button>
+      </div>
+      ```
+
+      **Critical Form Confirmation:**
+      ```html
+      <form onsubmit="return confirmSubmission()">
+        <!-- Form fields -->
+
+        <div class="confirmation-section">
+          <h3>Review Your Information</h3>
+          <div id="order-summary" class="order-summary">
+            <!-- Order summary content -->
+          </div>
+
+          <label for="confirm-checkbox">
+            <input type="checkbox" id="confirm-checkbox" required>
+            I confirm that all information is correct and I agree to the terms
+          </label>
+        </div>
+
+        <button type="submit">Submit Order</button>
+      </form>
+      ```
+
+      **JavaScript for Form Accessibility:**
+
+      **Form Validation:**
       ```javascript
-      // When adding content: focus first interactive element
-      function addDynamicContent() {
-        const container = document.getElementById('content');
-        const newElement = document.createElement('div');
-        newElement.innerHTML = `
-          <h3>New Content</h3>
-          <button class="btn">Action Button</button>
-        `;
+      function validateForm() {
+        const form = document.querySelector('form');
+        const inputs = form.querySelectorAll('input, textarea, select');
+        let hasErrors = false;
 
-        container.appendChild(newElement);
-
-        // Focus the first focusable element in new content
-        const firstFocusable = newElement.querySelector('button');
-        if (firstFocusable) {
-          firstFocusable.focus();
-        }
-      }
-
-      // When removing content: restore focus to logical location
-      function removeDynamicContent(element) {
-        const triggerButton = document.querySelector('[onclick="addDynamicContent()"]');
-
-        // Store reference to element being removed
-        const removedElement = element;
-
-        // Remove the element
-        element.remove();
-
-        // Restore focus to the trigger button
-        if (triggerButton) {
-          triggerButton.focus();
-        }
-      }
-
-      // Advanced focus management for multiple elements
-      function removeSpecificElement(element, elementType) {
-        const container = element.parentElement;
-        const triggerButton = document.querySelector(`[onclick="add${elementType}()"]`);
-
-        // Find the next logical focus target
-        let nextFocusTarget = triggerButton;
-
-        // If there are other elements, focus the next one
-        const remainingElements = container.querySelectorAll(`.${elementType.toLowerCase()}`);
-        if (remainingElements.length > 0) {
-          const targetElement = remainingElements[0];
-          const focusableElement = targetElement.querySelector('button, a, input');
-          if (focusableElement) {
-            nextFocusTarget = focusableElement;
+        inputs.forEach(input => {
+          if (input.hasAttribute('required') && !input.value.trim()) {
+            showError(input, 'This field is required');
+            hasErrors = true;
+          } else if (input.getAttribute('aria-invalid') === 'true') {
+            hasErrors = true;
           }
+        });
+
+        if (hasErrors) {
+          showErrorSummary();
+          return false;
         }
 
-        // Remove the element
-        element.remove();
+        return true;
+      }
 
-        // Set focus to the appropriate target
-        nextFocusTarget.focus();
+      function showError(input, message) {
+        const errorId = input.id + '-error';
+        let errorElement = document.getElementById(errorId);
+
+        if (!errorElement) {
+          errorElement = document.createElement('div');
+          errorElement.id = errorId;
+          errorElement.className = 'error-message';
+          errorElement.role = 'alert';
+          input.parentNode.appendChild(errorElement);
+        }
+
+        errorElement.textContent = message;
+        errorElement.hidden = false;
+        input.setAttribute('aria-invalid', 'true');
+        input.setAttribute('aria-describedby',
+          input.getAttribute('aria-describedby') + ' ' + errorId);
       }
       ```
+
+      **Focus Management:**
+      ```javascript
+      function focusFirstError() {
+        const firstError = document.querySelector('[aria-invalid="true"]');
+        if (firstError) {
+          firstError.focus();
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+
+      function focusSuccessMessage() {
+        const successMessage = document.getElementById('success-message');
+        if (successMessage) {
+          successMessage.hidden = false;
+          successMessage.focus();
+        }
+      }
+      ```
+
+      **CSS for Accessibility:**
+
+      **Focus Indicators:**
+      ```css
+      /* High contrast focus indicators */
+      input:focus,
+      textarea:focus,
+      select:focus,
+      button:focus {
+        outline: 3px solid #0056b3;
+        outline-offset: 2px;
+        border-color: #0056b3;
+      }
+
+      /* Error states */
+      input[aria-invalid="true"] {
+        border-color: #dc3545;
+        border-width: 2px;
+      }
+
+      /* Required field indicators */
+      .required {
+        color: #dc3545;
+        font-weight: bold;
+      }
+
+      /* Help text styling */
+      .help-text {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-top: 0.25rem;
+      }
+
+      /* Error message styling */
+      .error-message {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        font-weight: 500;
+      }
+
+      /* Success message styling */
+      .success-message {
+        color: #198754;
+        background-color: #d1e7dd;
+        border: 1px solid #badbcc;
+        padding: 1rem;
+        border-radius: 0.375rem;
+        margin: 1rem 0;
+      }
+      ```
+
+      **Testing and Validation:**
+
+      **Accessibility Checklist:**
+      - All form inputs have associated labels
+      - Required fields are clearly indicated
+      - Error messages are associated with inputs
+      - Form can be completed with keyboard only
+      - Focus indicators are visible and clear
+      - Screen readers can access all form content
+      - Time limits have appropriate controls
+      - Critical forms have error prevention
+      - Success/error messages are announced
+      - Form instructions are accessible
+
+      **Common Mistakes to Avoid:**
+      - Using placeholder text as the only label
+      - Missing required field indicators
+      - Not associating error messages with inputs
+      - Missing form-level instructions
+      - No success confirmation messages
+      - Insufficient time limit controls
+      - Missing error prevention for critical forms
+      - Poor focus management
+      - Inaccessible validation feedback
+      - Missing input purpose identification
 
 metadata:
   priority: high
   version: 1.0
 </rule>
-description:
-globs:
-alwaysApply: false
----
 
 ---
 > Source: [Shopify/horizon](https://github.com/Shopify/horizon) — distributed by [TomeVault](https://tomevault.io).
