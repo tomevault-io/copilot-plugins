@@ -1,0 +1,9 @@
+{
+  "name": "cogitatortech--onager",
+  "displayName": "onager",
+  "description": "A DuckDB extension for graph data analytics",
+  "version": "1.0.0",
+  "author": "CogitatorTech",
+  "homepage": "https://github.com/CogitatorTech/onager",
+  "skills": []
+}
