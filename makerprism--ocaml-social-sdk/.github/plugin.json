@@ -1,0 +1,9 @@
+{
+  "name": "makerprism--ocaml-social-sdk",
+  "displayName": "ocaml-social-sdk",
+  "description": "clients for various social media APIs in continuation passing style",
+  "version": "1.0.0",
+  "author": "makerprism",
+  "homepage": "https://github.com/makerprism/ocaml-social-sdk",
+  "skills": []
+}
