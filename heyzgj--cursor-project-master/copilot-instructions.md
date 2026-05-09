@@ -1,39 +1,113 @@
-## 010-initialization
+## 100-engine
 
-> The Project Initializer. This rule handles the first-time setup, guiding the user through an interactive requirements-gathering session to generate the core project documents.
+> The Core Engine. It orchestrates the project's entire lifecycle, from initial planning and scaffolding to the iterative task execution loop. It acts as the central state machine.
 
-# 010 · Project Initialization: The Guided Setup
-
-## CONTEXT
-This protocol is triggered by the `init` command on a fresh project. Its sole purpose is to populate the `/docs` directory by interviewing the user. It transforms a conversation into the structured documents the `100-engine` needs to build the software.
+# 100 · Core Engine: Plan → Scaffold → Execute
 
 ---
+## PHASE 1: PROJECT INITIALIZATION
+> This phase runs ONLY ONCE at the start of a project when `/project/plan.json` is absent.
 
-### PROTOCOL: INTERACTIVE REQUIREMENTS GATHERING
+1.  **REQUIREMENT VALIDATION**
+    - Read all documents in `/docs`.
+    - **MANDATORY CHECK:** If `PRD.md` is missing core features, or `TECH_SPEC.md` is missing `techStack` details, you **MUST PAUSE** and ask the user for clarification. Do not proceed with incomplete specifications.
 
-1.  **ACKNOWLEDGE & GREET:**
-    - Output: "Welcome to Cursor Project Master! I see we're starting a new project. I'll be your autonomous engineering partner. To get started, I need to understand your vision. **In a few sentences, what is the core idea for the application you want to build?**"
-    - PAUSE and wait for user input.
+2.  **TECH STACK & STARTER SELECTION**
+    - Detect `techStack` from `TECH_SPEC.md`. Default to `nextjs-prisma-tailwind-shadcn-supabase-vercel`.
+    - **Use your search capability** to find the official starter template on Vercel or GitHub for the selected stack. Prioritize templates with high star counts and recent updates.
+    - If new or unfamiliar frameworks are specified, use the `context7` MCP to fetch their latest official documentation to inform the scaffolding process.
 
-2.  **DOCUMENT GENERATION LOOP:**
-    - You will now proceed to generate the contents for the core documents, one by one. For each document:
-        a. Inform the user which document you are creating (e.g., "Great, let's start by creating the Product Requirements Document (PRD.md).").
-        b. Use the user's initial idea and the corresponding template from `/docs/_templates/` as context.
-        c. Generate the full content for the document.
-        d. Present the generated markdown to the user and ask for approval: **"Here is the draft for `[FILENAME]`. Please review it. Shall I save this and move to the next step? You can ask for changes or just say 'next'."**
-        e. If the user requests changes, regenerate the document with the new feedback.
-        f. Once approved, write the content to the corresponding file in `/docs/`.
+3.  **SCAFFOLDING**
+    - Execute the starter's official CLI command with non-interactive flags (e.g., `npx create-next-app@latest ... --ts --tailwind`).
+    - **On Failure:** If scaffolding fails, automatically clean the directory, log the error in `TROUBLESHOOTING_LOG.md`, and prompt the user with the error details.
+    - **On Success:** Clean any demo files/routes to create a blank canvas including starter readme file and change meta data to project version. Run `npx tailwindcss init -p` if necessary.
 
-3.  **GENERATION ORDER (MANDATORY):**
-    1.  `PRD.md`
-    2.  `TECH_SPEC.md` (You may suggest a default stack like 'Next.js, Tailwind, Supabase' and ask for confirmation).
-    3.  `DATA_MAP.md`
-    4.  `UX_FLOW.md`
-    5.  `STYLE_GUIDE.md`
+4.  **DECOMPOSITION (PLAN GENERATION)**
+    - **INPUT:** Concatenate all files from `/docs` into a single context string.
+    - **PROMPT:**
+        <START_LLM_PROMPT>
+        **Role:** You are a Principal Technical Program Manager specializing in breaking down product briefs for autonomous software agents.
+        **Mission:** Convert the provided project documentation into a precise, machine-readable JSON work-plan. The output MUST be a valid JSON object and nothing else.
+        **Output Schema:**
+        ```jsonc
+        {
+          "epics": [{"id": "E-1", "title": "...", "children": ["T-1"]}],
+          "tasks": [{"id": "T-1", "epic": "E-1", "title": "...", "description": "...", "criteria": ["..."], "dependencies": [], "ui_review": true}]
+        }
+        ```
+        **Rules:**
+        - Task titles MUST be imperative (e.g., "Implement Login API").
+        - Task descriptions MUST be concise (≤ 140 chars).
+        - The dependency graph MUST be acyclic.
+        - Split any task whose `criteria` list exceeds 5 items.
+        - **If `ui_review: true`, the generated task file MUST contain a `design_review: pending` flag.**
+        <END_LLM_PROMPT>
+    - **OUTPUT:**
+        a. Save the generated JSON to `/project/plan.json`.
+        b. For each task in the JSON, create a corresponding markdown file in `/project/tasks/todo/` using the `/project/_templates/task.md` template.
+        c. Commit the plan and tasks with `git commit -m "chore(plan): initial project decomposition"`.
+    - **KANBAN**
+        a. Initialize Kanban: 
+            1. cd kanban && npm install
+            2. npm run dev
 
-4.  **HANDOFF:**
-    - Once all documents are created and saved, inform the user: "Excellent. The project documentation is complete. I now have everything I need to begin building your application."
-    - **Crucially, you will now pass control to the Core Engine.** Your final action is to invoke the `100-engine.mdc`'s planning phase.
+5.  **INITIALIZATION COMPLETE**
+    - Generate the `/project/project_status.md` dashboard.
+    - Activate the first task by moving it to `/project/tasks/in_progress/`.
+    - Report to the user: "Planning and setup are complete. I will now begin work on task T-1: [Task Title]."
+
+---
+## PHASE 2: TASK EXECUTION LOOP
+> This is the main work loop. It continues until `/project/tasks/todo/` and `/project/tasks/in_progress/` are both empty.
+
+For the active task `T<ID>` in `/project/tasks/in_progress/`:
+
+A. **LOAD CONTEXT & PREPARE**
+   - Read the task file `T<ID>.md`.
+   - Load ONLY the files listed in its `Context Binding`.
+   - If the task has `design_review: pending`, PAUSE and ask the user for a visual sign-off before writing code. Proceed only after user approval.
+
+B. **EXECUTE & VERIFY (TDD CYCLE)**
+   - Strictly adhere to the `200-quality.mdc` rule for TDD, contract-first development, and linting.
+   - Run `npm run test` (or equivalent) repeatedly until all tests for the current task pass.
+
+C. **CI/CD GATE**
+   - After local tests pass, commit and push the code to trigger the CI/CD pipeline.
+   - **Monitor the CI result.**
+   - **If CI fails due to missing secrets** (e.g., `VERCEL_TOKEN`), PAUSE and prompt the user to add them via GitHub Secrets, referencing the `README.md` guide.
+   - **If CI fails for any other reason**, mark the task as failed, log the failure, and trigger the `300-adaptation.mdc` failure-reflection loop.
+
+D. **ARCHIVE & REPORT**
+   - **On Green CI:**
+     a. Archive the completed task: `mkdir -p ./project/tasks/done/$(date +%Y-Q%q) && mv ./project/tasks/in_progress/T<ID>.md ./project/tasks/done/$(date +%Y-Q%q)/`
+     b. Update the task file's internal status to `Done`.
+     c. Run `python scripts/report.py` if a reporting milestone is reached (epic complete or 5 tasks done).
+
+E. **SELECT NEXT TASK & REPEAT**
+   - Update `/project/project_status.md`.
+   - Identify the next available task from `/project/tasks/todo/` whose dependencies are met.
+   - Activate it by moving it to `/project/tasks/in_progress/`.
+   - Announce the next task to the user and repeat the loop.
+
+---
+## PHASE 3: PROJECT RECONCILIATION
+> This phase is triggered by `400-change.mdc` when an existing plan needs to be updated.
+
+1.  **ANALYZE CHANGE IMPACT**
+    - Perform a semantic diff between the updated `/docs` and the tasks in `/project/plan.json`.
+    - Identify:
+        - **New Tasks:** Requirements in docs with no corresponding tasks.
+        - **Obsolete Tasks:** Tasks whose requirements no longer exist in docs.
+        - **Modified Tasks:** Tasks whose requirements have changed.
+
+2.  **UPDATE PLAN**
+    - For Obsolete Tasks: Move their files to `/project/tasks/archived/` with a note `reason: obsolete`.
+    - For Modified Tasks: Update the task markdown and move it back to `todo` if it was `in_progress`.
+    - For New Tasks: Generate new tasks using the decomposition prompt and add them to the plan and `/project/tasks/todo/`.
+
+3.  **REPORT & RESUME**
+    - Report a summary of changes to the user.
+    - Resume the `PHASE 2: TASK EXECUTION LOOP`.
 
 ---
 > Source: [heyzgj/cursor-project-master](https://github.com/heyzgj/cursor-project-master) — distributed by [TomeVault](https://tomevault.io).
