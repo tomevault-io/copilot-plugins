@@ -1,10 +1,11 @@
-## overview
+## repo
 
-> - When a prompt refers to "page" or "pages", it's almost always referring to a Logseq page.
+> GitHub repo is at https://github.com/shovon/logseq-ai.
 
 
-- When a prompt refers to "page" or "pages", it's almost always referring to a Logseq page.
-- When a prompt refers to a "block" or "blocks", it's almost always referring to a block in a Logseq page.
+GitHub repo is at https://github.com/shovon/logseq-ai.
+
+All issues should be read from there.
 
 ---
 > Source: [shovon/logseq-ai](https://github.com/shovon/logseq-ai) — distributed by [TomeVault](https://tomevault.io).
