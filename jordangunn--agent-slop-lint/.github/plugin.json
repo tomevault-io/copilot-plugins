@@ -1,0 +1,9 @@
+{
+  "name": "jordangunn--agent-slop-lint",
+  "displayName": "agent-slop-lint",
+  "description": "Language-agnostic code quality linter for the agentic era. Catches structural rot before it becomes architectural. Ten rules, one config, exit code 0 or 1.",
+  "version": "1.0.0",
+  "author": "JordanGunn",
+  "homepage": "https://github.com/JordanGunn/agent-slop-lint",
+  "skills": []
+}
