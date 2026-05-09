@@ -1,0 +1,9 @@
+{
+  "name": "devnullvoid--dms-ai-assistant",
+  "displayName": "dms-ai-assistant",
+  "description": "AI chat assistant plugin for DankMaterialShell with multi-provider support, streaming responses, and markdown rendering",
+  "version": "1.0.0",
+  "author": "devnullvoid",
+  "homepage": "https://github.com/devnullvoid/dms-ai-assistant",
+  "skills": []
+}
