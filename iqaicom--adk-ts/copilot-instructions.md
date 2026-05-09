@@ -1,33 +1,44 @@
-## aim
+## naming-conventions
 
-> The aim of this project is to port the adk-python implementation to TypeScript (adk-ts). When porting code:
+> All files in this project should use kebab-case for naming. This means:
 
-# Project Aim
+# File Naming Conventions
 
-## Python to TypeScript Port
+## Kebab Case for File Names
 
-The aim of this project is to port the adk-python implementation to TypeScript (adk-ts). When porting code:
+All files in this project should use kebab-case for naming. This means:
 
-- Refer to the original implementation of the Python files
-- Replicate their logic faithfully in TypeScript
-- Ensure the core functionality remains identical
-- Maintain the same logical structure and components
+- All lowercase letters
+- Words separated by hyphens
+- No spaces or underscores
+- No PascalCase or camelCase
 
-## Requirements
+### Examples:
 
-1. **Logic Preservation**: The TypeScript implementation MUST maintain the same logical flow and behavior as the Python version.
+✅ Good:
+- `base-tool.ts`
+- `google-search-tool.ts`
+- `exit-loop-tool.ts`
+- `llm-agent.ts`
+- `memory-service.ts`
 
-2. **Component Naming**: Core components should maintain conceptual naming parity with the Python version.
+❌ Bad:
+- `BaseTool.ts`
+- `GoogleSearchTool.ts`
+- `exit_loop_tool.ts`
+- `LlmAgent.ts`
+- `memoryService.ts`
 
-3. **Architecture**: Follow the same architectural patterns and separation of concerns as the Python implementation.
+## Class and Interface Naming
 
-4. **File Organization**: Mirror the Python project's organizational structure where appropriate, adapting to TypeScript conventions.
+While files use kebab-case, TypeScript classes and interfaces should still follow standard conventions:
 
-## Implementation Notes
+- Classes and Interfaces: PascalCase (e.g., `class BaseTool`, `interface ToolConfig`)
+- Methods and Properties: camelCase (e.g., `runAsync()`, `getDeclaration()`)
 
-- Use TypeScript's type system to enhance the original Python implementation
-- Apply language-specific best practices for TypeScript while preserving the original logic
-- Adapt Python-specific patterns to TypeScript equivalents where direct ports aren't possible
+## Implementation Note
+
+This standardization helps maintain consistency across the codebase and aligns with common TypeScript ecosystem practices.
 
 ---
 > Source: [IQAIcom/adk-ts](https://github.com/IQAIcom/adk-ts) — distributed by [TomeVault](https://tomevault.io).
