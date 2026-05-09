@@ -1,130 +1,193 @@
-## builder-storage
+## color
 
-> generateS3Url
+> You should use @https://github.com/Innei/apple-uikit-colors/blob/main/packages/uikit-colors/macos.ts TailwindCSS atom classname.
 
-# 存储抽象层
+# UIKit Colors for Tailwind CSS
 
-本模块使用适配器模式提供了统一的存储接口，支持多种存储提供商。目前已实现 S3 存储提供商，后续可以方便地扩展其他存储服务。
+You should use @https://github.com/Innei/apple-uikit-colors/blob/main/packages/uikit-colors/macos.ts TailwindCSS atom classname.
 
-## 架构设计
+## System Colors
+red
+orange
+yellow
+green
+mint
+teal
+cyan
+blue
+indigo
+purple
+pink
+brown
+gray
 
-- **`interfaces.ts`**: 定义通用的存储接口和数据结构
-- **`providers/`**: 具体的存储提供商实现
-  - **`s3-provider.ts`**: S3 存储提供商实现
-- **`factory.ts`**: 存储提供商工厂，负责创建具体的存储实例
-- **`manager.ts`**: 存储管理器，提供统一的存储操作接口
-- **`adapters.ts`**: 适配器函数，保持与原有 API 的兼容性
+## Fill Colors
+fill
+fill-secondary
+fill-tertiary
+fill-quaternary
+fill-quinary
+fill-vibrant
+fill-vibrant-secondary
+fill-vibrant-tertiary
+fill-vibrant-quaternary
+fill-vibrant-quinary
 
-## 使用方式
+## Text Colors
+text
+text-secondary
+text-tertiary
+text-quaternary
+text-quinary
+text-vibrant
+text-vibrant-secondary
+text-vibrant-tertiary
+text-vibrant-quaternary
+text-vibrant-quinary
 
-### 推荐方式：使用 StorageManager
+## Material Colors
+material-ultra-thick
+material-thick
+material-medium
+material-thin
+material-ultra-thin
+material-opaque
 
-```typescript
-import { defaultStorageManager, StorageManager } from '@/core/storage'
+## Control Colors
+control-enabled
+control-disabled
 
-// 使用默认存储管理器（基于环境变量配置）
-const buffer = await defaultStorageManager.getFile('path/to/image.jpg')
-const images = await defaultStorageManager.listImages()
-const allFiles = await defaultStorageManager.listAllFiles()
-const publicUrl = defaultStorageManager.generatePublicUrl('path/to/image.jpg')
-const livePhotos = await defaultStorageManager.detectLivePhotos()
+## Interface Colors
+menu
+popover
+titlebar
+sidebar
+selection-focused
+selection-focused-fill
+selection-unfocused
+selection-unfocused-fill
+header-view
+tooltip
+under-window-background
 
-// 或者创建自定义配置的存储管理器
-const customManager = new StorageManager({
-  provider: 's3',
-  bucket: 'my-bucket',
-  region: 'us-east-1',
-  endpoint: 'https://s3.amazonaws.com',
-  prefix: 'photos/',
-  customDomain: 'https://cdn.example.com'
-})
-```
 
-### 兼容性方式：使用原有 API
+## Applied Colors
+All above tailwind atom will match this colors.
 
-```typescript
-// 这些函数仍然可用，但标记为 deprecated
-import {
-  getImageFromS3,
-  listImagesFromS3,
-  listAllFilesFromS3,
-  detectLivePhotos,
-  generateS3Url
-} from '@/core/s3/operations'
-
-const buffer = await getImageFromS3('path/to/image.jpg')
-const images = await listImagesFromS3()
-```
-
-### 直接使用存储提供商
-
-```typescript
-import { S3StorageProvider } from '@/core/storage'
-
-const s3Provider = new S3StorageProvider({
-  provider: 's3',
-  bucket: 'my-bucket',
-  region: 'us-east-1',
-  // ... 其他配置
-})
-
-const buffer = await s3Provider.getFile('path/to/image.jpg')
-```
-
-## 扩展新的存储提供商
-
-1. 实现 `StorageProvider` 接口：
-
-```typescript
-import { StorageProvider, StorageObject } from '@/core/storage/interfaces'
-
-export class MyStorageProvider implements StorageProvider {
-  async getFile(key: string, logger?: Logger['s3']): Promise<Buffer | null> {
-    // 实现文件获取逻辑
+```css
+@media (prefers-color-scheme: light) {
+  html {
+    --color-red: 255 69 58;
+    --color-orange: 255 149 0;
+    --color-yellow: 255 204 0;
+    --color-green: 40 205 65;
+    --color-mint: 0 199 190;
+    --color-teal: 89 173 196;
+    --color-cyan: 85 190 240;
+    --color-blue: 0 122 255;
+    --color-indigo: 88 86 214;
+    --color-purple: 175 82 222;
+    --color-pink: 255 45 85;
+    --color-brown: 162 132 94;
+    --color-gray: 142 142 147;
+    --color-fill: 0 0 0 / 0.1;
+    --color-fillSecondary: 0 0 0 / 0.08;
+    --color-fillTertiary: 0 0 0 / 0.05;
+    --color-fillQuaternary: 0 0 0 / 0.03;
+    --color-fillQuinary: 0 0 0 / 0.02;
+    --color-fillVibrant: 217 217 217;
+    --color-fillVibrantSecondary: 230 230 230;
+    --color-fillVibrantTertiary: 242 242 242;
+    --color-fillVibrantQuaternary: 247 247 247;
+    --color-fillVibrantQuinary: 251 251 251;
+    --color-text: 0 0 0 / 0.85;
+    --color-textSecondary: 0 0 0 / 0.5;
+    --color-textTertiary: 0 0 0 / 0.25;
+    --color-textQuaternary: 0 0 0 / 0.1;
+    --color-textQuinary: 0 0 0 / 0.05;
+    --color-textVibrant: 76 76 76;
+    --color-textVibrantSecondary: 128 128 128;
+    --color-textVibrantTertiary: 191 191 191;
+    --color-textVibrantQuaternary: 230 230 230;
+    --color-textVibrantQuinary: 242 242 242;
+    --color-materialUltraThick: 246 246 246 / 0.84;
+    --color-materialThick: 246 246 246 / 0.72;
+    --color-materialMedium: 246 246 246 / 0.6;
+    --color-materialThin: 246 246 246 / 0.48;
+    --color-materialUltraThin: 246 246 246 / 0.36;
+    --color-materialOpaque: 246 246 246;
+    --color-controlEnabled: 251 251 251;
+    --color-controlDisabled: 243 243 243;
+    --color-menu: 40 40 40 / 0.58;
+    --color-popover: 0 0 0 / 0.28;
+    --color-titlebar: 234 234 234 / 0.8;
+    --color-sidebar: 234 234 234 / 0.84;
+    --color-selectionFocused: 10 130 255 / 0.75;
+    --color-selectionFocusedFill: 10 130 255;
+    --color-selectionUnfocused: 0 0 0 / 0.1;
+    --color-selectionUnfocusedFill: 246 246 246 / 0.84;
+    --color-headerView: 255 255 255 / 0.8;
+    --color-tooltip: 246 246 246 / 0.6;
+    --color-underWindowBackground: 246 246 246 / 0.84;
   }
-
-  async listImages(): Promise<StorageObject[]> {
-    // 实现图片列表逻辑
+}
+@media (prefers-color-scheme: dark) {
+  html {
+    --color-red: 255 69 58;
+    --color-orange: 255 159 10;
+    --color-yellow: 255 214 10;
+    --color-green: 50 215 75;
+    --color-mint: 106 196 220;
+    --color-teal: 106 196 220;
+    --color-cyan: 90 200 245;
+    --color-blue: 10 132 255;
+    --color-indigo: 94 92 230;
+    --color-purple: 191 90 242;
+    --color-pink: 255 55 95;
+    --color-brown: 172 142 104;
+    --color-gray: 152 152 157;
+    --color-fill: 255 255 255 / 0.1;
+    --color-fillSecondary: 255 255 255 / 0.08;
+    --color-fillTertiary: 255 255 255 / 0.05;
+    --color-fillQuaternary: 255 255 255 / 0.03;
+    --color-fillQuinary: 255 255 255 / 0.02;
+    --color-fillVibrant: 36 36 36;
+    --color-fillVibrantSecondary: 20 20 20;
+    --color-fillVibrantTertiary: 13 13 13;
+    --color-fillVibrantQuaternary: 9 9 9;
+    --color-fillVibrantQuinary: 7 7 7;
+    --color-text: 255 255 255 / 0.85;
+    --color-textSecondary: 255 255 255 / 0.5;
+    --color-textTertiary: 255 255 255 / 0.25;
+    --color-textQuaternary: 255 255 255 / 0.1;
+    --color-textQuinary: 255 255 255 / 0.05;
+    --color-textVibrant: 229 229 229;
+    --color-textVibrantSecondary: 124 124 124;
+    --color-textVibrantTertiary: 65 65 65;
+    --color-textVibrantQuaternary: 35 35 35;
+    --color-textVibrantQuinary: 17 17 17;
+    --color-materialUltraThick: 40 40 40 / 0.84;
+    --color-materialThick: 40 40 40 / 0.72;
+    --color-materialMedium: 40 40 40 / 0.6;
+    --color-materialThin: 40 40 40 / 0.48;
+    --color-materialUltraThin: 40 40 40 / 0.36;
+    --color-materialOpaque: 40 40 40;
+    --color-controlEnabled: 255 255 255 / 0.2;
+    --color-controlDisabled: 255 255 255 / 0.1;
+    --color-menu: 246 246 246 / 0.72;
+    --color-popover: 246 246 246 / 0.6;
+    --color-titlebar: 60 60 60 / 0.8;
+    --color-sidebar: 0 0 0 / 0.45;
+    --color-selectionFocused: 10 130 255 / 0.75;
+    --color-selectionFocusedFill: 10 130 255;
+    --color-selectionUnfocused: 255 255 255 / 0.1;
+    --color-selectionUnfocusedFill: 40 40 40 / 0.65;
+    --color-headerView: 30 30 30 / 0.8;
+    --color-tooltip: 0 0 0 / 0.35;
+    --color-underWindowBackground: 0 0 0 / 0.45;
   }
-
-  // ... 实现其他接口方法
 }
 ```
-
-2. 在工厂类中注册新的提供商：
-
-```typescript
-// 在 factory.ts 中添加新的 case
-case 'my-storage':
-  return new MyStorageProvider(config)
-```
-
-3. 更新 `StorageConfig` 接口的 `provider` 类型。
-
-## 优势
-
-1. **解耦**: 业务逻辑与具体存储实现分离
-2. **可扩展**: 轻松添加新的存储提供商
-3. **统一接口**: 所有存储操作使用相同的 API
-4. **向后兼容**: 保持原有 API 的兼容性
-5. **类型安全**: 完整的 TypeScript 类型支持
-6. **配置灵活**: 支持多种配置方式
-
-## 迁移指南
-
-现有代码可以继续使用原有的 S3 函数，无需立即修改。建议在新代码中使用 `StorageManager` API，并逐步迁移现有代码。
-
-旧代码：
-```typescript
-import { getImageFromS3 } from '@/core/s3/operations'
-const buffer = await getImageFromS3('key')
-```
-
-新代码：
-```typescript
-import { defaultStorageManager } from '@/core/storage'
-const buffer = await defaultStorageManager.getFile('key')
-``` 
 
 ---
 > Source: [Innei/photo-gallery](https://github.com/Innei/photo-gallery) — distributed by [TomeVault](https://tomevault.io).
