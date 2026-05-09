@@ -1,0 +1,9 @@
+{
+  "name": "excitedhaha--context-task-planning",
+  "displayName": "context-task-planning",
+  "description": "Persistent task runtime for AI coding: recover long-running work across sessions, agents, and repos.",
+  "version": "1.0.0",
+  "author": "excitedhaha",
+  "homepage": "https://github.com/excitedhaha/context-task-planning",
+  "skills": []
+}
