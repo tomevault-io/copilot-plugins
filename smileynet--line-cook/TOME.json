@@ -1,0 +1,57 @@
+{
+  "name": "line-cook",
+  "owner": "smileynet",
+  "repo": "line-cook",
+  "description": "Structured AI workflow execution with guardrails. prep\u2192cook\u2192serve\u2192tidy for Claude Code, OpenCode, and Kiro.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "line-cook",
+      "path": "plugins/kiro/skills/line-cook",
+      "github_url": "https://github.com/smileynet/line-cook/tree/main/plugins/kiro/skills/line-cook",
+      "description": ""
+    },
+    {
+      "name": "line-cook",
+      "path": "plugins/opencode/skills/line-cook",
+      "github_url": "https://github.com/smileynet/line-cook/tree/main/plugins/opencode/skills/line-cook",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/smileynet/line-cook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T18:30:08Z"
+}
