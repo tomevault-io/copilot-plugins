@@ -1,0 +1,9 @@
+{
+  "name": "bukely--rag-api",
+  "displayName": "rag-api",
+  "description": "Multi-tenant RAG API powered by LightRAG/RAG-Anything. Auto-selects best parser (DeepSeek-OCR/MinerU/Docling) via complexity scoring",
+  "version": "1.0.0",
+  "author": "BukeLy",
+  "homepage": "https://github.com/BukeLy/rag-api",
+  "skills": []
+}
