@@ -1,0 +1,111 @@
+{
+  "name": "D2R_Multi_rust",
+  "owner": "yoyoset",
+  "repo": "D2R_Multi_rust",
+  "description": "Minimalist Rust rewrite of the D2R multi-boxing tool. Replaces the bulky C# original with a lightweight, secure, and clean implementation. (D2R \u591a\u5f00\u5de5\u5177\u7684\u6781\u7b80 Rust \u91cd\u5199\u7248\u3002\u4ee5\u8f7b\u91cf\u3001\u5b89\u5168\u3001\u5e72\u51c0\u7684\u5b9e\u73b0\u66ff\u4ee3\u4e86\u5e9e\u5927\u7684 C# \u539f\u7248\u3002)",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "canvas-design",
+      "path": ".agent/skills/canvas-design",
+      "github_url": "https://github.com/yoyoset/D2R_Multi_rust/tree/main/.agent/skills/canvas-design",
+      "description": ""
+    },
+    {
+      "name": "coordinator-bridge",
+      "path": ".agent/skills/coordinator-bridge",
+      "github_url": "https://github.com/yoyoset/D2R_Multi_rust/tree/main/.agent/skills/coordinator-bridge",
+      "description": ""
+    },
+    {
+      "name": "idea-to-spec",
+      "path": ".agent/skills/idea-to-spec",
+      "github_url": "https://github.com/yoyoset/D2R_Multi_rust/tree/main/.agent/skills/idea-to-spec",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "path": ".agent/skills/mcp-builder",
+      "github_url": "https://github.com/yoyoset/D2R_Multi_rust/tree/main/.agent/skills/mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "notebooklm",
+      "path": ".agent/skills/notebooklm",
+      "github_url": "https://github.com/yoyoset/D2R_Multi_rust/tree/main/.agent/skills/notebooklm",
+      "description": ""
+    },
+    {
+      "name": "project-governance",
+      "path": ".agent/skills/project-governance",
+      "github_url": "https://github.com/yoyoset/D2R_Multi_rust/tree/main/.agent/skills/project-governance",
+      "description": ""
+    },
+    {
+      "name": "rust-expert",
+      "path": ".agent/skills/rust-expert",
+      "github_url": "https://github.com/yoyoset/D2R_Multi_rust/tree/main/.agent/skills/rust-expert",
+      "description": ""
+    },
+    {
+      "name": "shopify-development",
+      "path": ".agent/skills/shopify-development",
+      "github_url": "https://github.com/yoyoset/D2R_Multi_rust/tree/main/.agent/skills/shopify-development",
+      "description": ""
+    },
+    {
+      "name": "tailwind-patterns",
+      "path": ".agent/skills/tailwind-patterns",
+      "github_url": "https://github.com/yoyoset/D2R_Multi_rust/tree/main/.agent/skills/tailwind-patterns",
+      "description": ""
+    },
+    {
+      "name": "tauri-patterns",
+      "path": ".agent/skills/tauri-patterns",
+      "github_url": "https://github.com/yoyoset/D2R_Multi_rust/tree/main/.agent/skills/tauri-patterns",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "path": ".agent/skills/webapp-testing",
+      "github_url": "https://github.com/yoyoset/D2R_Multi_rust/tree/main/.agent/skills/webapp-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yoyoset/D2R_Multi_rust",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T14:33:58Z"
+}
