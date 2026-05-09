@@ -1,69 +1,65 @@
-## folder-guidelines
+## project-structure
 
-> This document provides guidelines for organizing code in the AI Backends project.
+> This document outlines the recommended folder structure for the AI Backends project.
 
-# Folder Organization Guidelines
+# AI Backends Project Structure
 
-This document provides guidelines for organizing code in the AI Backends project.
+This document outlines the recommended folder structure for the AI Backends project.
 
-## src/config/
+## Main Structure
 
-- Store environment variables, app settings, and configuration values
-- Export constants for API keys, server settings, etc.
-- Configuration should be loaded from environment variables when possible
+The main entry point is [src/index.ts](mdc:src/index.ts), which initializes the application.
 
-## src/controllers/
+```
+ai-backend/
+├── src/                    # Source code
+│   ├── config/             # App configuration, env vars
+│   ├── controllers/        # Route controllers (handle request/response)
+│   ├── middlewares/        # Express middlewares
+│   ├── models/             # Data models
+│   ├── routes/             # Route definitions
+│   ├── services/           # Business logic
+│   ├── utils/              # Utility functions
+│   ├── schemas/            # Validation schemas
+│   └── index.ts            # App entry point
+├── tests/                  # Test files
+│   ├── unit/
+│   ├── integration/
+│   └── fixtures/           # Test data
+├── dist/                   # Compiled output
+├── docs/                   # Documentation
+└── scripts/                # Utility scripts
+```
 
-- Controllers should handle HTTP request/response cycle
-- Extract request data and validate it
-- Call appropriate services to process business logic
-- Format and return responses
-- Keep controllers thin, move business logic to services
+## Key Directories
 
-## src/middlewares/
+### src/routes/
 
-- Create reusable middleware functions
-- Handle cross-cutting concerns like authentication, logging, error handling
-- Keep middleware focused on a single responsibility
+Contains route definitions for the application's API endpoints. Examples include:
+- [routes/keywords.ts](../../src/routes/keywords.ts) - Keyword extraction endpoint
+- [routes/summarize.ts](../../src/routes/summarize.ts) - Text summarization endpoint
+- [routes/describeImage.ts](../../src/routes/describeImage.ts) - Image description endpoint
 
-## src/models/
+### src/schemas/
 
-- Define data structures and types
-- Create interfaces for database entities if applicable
-- Define schemas for data validation
+Contains validation schemas for request and response data.
 
-## src/routes/
+### src/services/
 
-- Define API routes and endpoints
-- Connect routes to controllers
-- Group related routes in separate files
-- Use descriptive names that reflect the resource being accessed
+Contains business logic and external API interactions.
+- [services/ai.ts](../../src/services/ai.ts) - AI service layer
+- [services/ollama.ts](../../src/services/ollama.ts) - Ollama service layer
+- [services/openai.ts](../../src/services/openai.ts) - OpenAI service layer
+- [services/anthropic.ts](../../src/services/anthropic.ts) - Anthropic service layer
+- [services/openrouter.ts](../../src/services/openrouter.ts) - OpenRouter service layer
 
-## src/services/
+### src/utils/
 
-- Implement core business logic
-- Handle external API calls
-- Maintain separation of concerns
-- Services should be testable in isolation
+Contains utility functions used throughout the application.
 
-## src/utils/
+## Build Process
 
-- Create reusable utility functions
-- Keep functions pure when possible
-- Group related utilities in separate files
-
-## src/schemas/
-
-- Define validation schemas using Zod
-- Create reusable schema components
-- Keep schemas aligned with OpenAPI documentation
-
-## tests/
-
-- Create comprehensive test coverage
-- Unit tests should focus on individual functions
-- Integration tests should test API endpoints
-- Use fixtures for test data
+The build configuration is defined in [tsconfig.json](mdc:tsconfig.json) and build scripts are in [package.json](mdc:package.json).
 
 ---
 > Source: [donvito/ai-backends](https://github.com/donvito/ai-backends) — distributed by [TomeVault](https://tomevault.io).
