@@ -1,0 +1,9 @@
+{
+  "name": "kieirra--murmure",
+  "displayName": "murmure",
+  "description": "Fully local, private and cross platform Speech-to-Text with LLM Post-processing",
+  "version": "1.0.0",
+  "author": "Kieirra",
+  "homepage": "https://github.com/Kieirra/murmure",
+  "skills": []
+}
