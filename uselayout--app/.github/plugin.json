@@ -1,0 +1,9 @@
+{
+  "name": "uselayout--app",
+  "displayName": "app",
+  "description": "Layout Studio \u2014 extract design systems from Figma, serve them to AI coding agents",
+  "version": "1.0.0",
+  "author": "uselayout",
+  "homepage": "https://github.com/uselayout/app",
+  "skills": []
+}
