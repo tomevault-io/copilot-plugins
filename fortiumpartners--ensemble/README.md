@@ -7,11 +7,11 @@ Ensemble Plugin Ecosystem - Modular Claude Code plugins for AI-augmented develop
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [FortiumPartners/ensemble](https://github.com/FortiumPartners/ensemble).
+Original source: `CLAUDE.md` in [FortiumPartners/ensemble](https://github.com/FortiumPartners/ensemble).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
