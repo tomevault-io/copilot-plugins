@@ -1,0 +1,9 @@
+{
+  "name": "grcorsair--corsair",
+  "displayName": "corsair",
+  "description": "Compliance trust shouldn't require emailing PDFs and hoping nobody tampered with them. Corsair signs compliance findings as verifiable digital certificates that anyone can check with a standard JWT li",
+  "version": "1.0.0",
+  "author": "grcorsair",
+  "homepage": "https://github.com/grcorsair/corsair",
+  "skills": []
+}
