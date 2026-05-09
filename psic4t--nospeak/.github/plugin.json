@@ -1,0 +1,9 @@
+{
+  "name": "psic4t--nospeak",
+  "displayName": "nospeak",
+  "description": "nospeak is a modern Nostr chat client",
+  "version": "1.0.0",
+  "author": "psic4t",
+  "homepage": "https://github.com/psic4t/nospeak",
+  "skills": []
+}
