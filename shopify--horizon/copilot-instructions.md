@@ -1,952 +1,389 @@
-## javascript-standards
-
-> Writing JavaScript inside `.js` files, or within the `{% javascript %}` or `{% script %}` tags in `.liquid` files.
-
-# JavaScript Standards
-
-## General Principles
-
-- **Zero external dependencies** - Use native browser APIs
-- **Avoid mutation** - Use `const` over `let` unless necessary
-- **Use `for (const item of items)`** over `items.forEach()`
-- **Add new lines before blocks** with `{` and `}`
-- **Use the component framework** - See [the framework code](mdc:assets/component.js) and the [component documentation](mdc:codex/component-framework.md)
-
-## Async/Await Syntax
-
-**Always use async/await over .then() chaining:**
-
-```javascript
-const fetchProducts = async () => {
-  try {
-    const response = await fetch('/products.json');
-    const data = await response.json();
-    return data.products;
-  } catch (error) {
-    console.error('Failed to fetch products:', error);
-    return [];
-  }
-};
-
-## Web Components Pattern
-
-**Initialize JavaScript components using the Component framework:**
-
-```javascript
-import { Component } from '@theme/component';
-
-/**
- * @typedef {Object} ProductCardRefs
- * @property {HTMLButtonElement} addButton - Add to cart button
- * @property {HTMLElement} priceDisplay - Price display element
- * @property {HTMLImageElement} [productImage] - Optional product image
- */
-
-/**
- * @extends {Component<ProductCardRefs>}
- */
-class ProductCard extends Component {
-  constructor() {
-    super();
-    this.cache = new Map();
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    this.#initializeCard();
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.#cleanup();
-  }
-
-  // Public method for external use
-  updatePrice(newPrice) {
-    if (!this.refs.priceDisplay) return;
-    this.refs.priceDisplay.textContent = newPrice;
-  }
-
-  // Event handler for add to cart button
-  async handleAddToCart(event) {
-    event.preventDefault();
-
-    const productId = this.cache.get('productId');
-    this.refs.addButton.disabled = true;
-    this.refs.addButton.textContent = 'Adding...';
-
-    try {
-      await addToCart(productId);
-      this.refs.addButton.textContent = 'Added!';
-
-      // Dispatch custom event for cart updates
-      this.dispatchEvent(new CustomEvent('cart:item-added', {
-        detail: { productId },
-        bubbles: true
-      }));
-    } catch (error) {
-      this.refs.addButton.textContent = 'Try again';
-      console.error('Add to cart error:', error);
-    } finally {
-      setTimeout(() => {
-        this.refs.addButton.disabled = false;
-        this.refs.addButton.textContent = 'Add to cart';
-      }, 2000);
-    }
-  }
-
-  // Private method requiring instance access
-  #initializeCard() {
-    const productId = this.dataset.productId;
-    this.cache.set('productId', productId);
-  }
-
-  #cleanup() {
-    this.cache.clear();
-  }
-}
-
-// Module-scoped utility - no instance access needed
-const addToCart = async (productId) => {
-  const formData = new FormData();
-  formData.append('id', productId);
-  formData.append('quantity', 1);
-
-  try {
-    const response = await fetch('/cart/add.js', {
-      method: 'POST',
-      body: formData
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to add to cart');
-    }
-
-    const cartData = await response.json();
-    return cartData;
-  } catch (error) {
-    console.error('Add to cart error:', error);
-    throw error;
-  }
-};
-
-customElements.define('product-card', ProductCard);
-```
-
-**HTML usage with the Component framework:**
-
-```liquid
-<product-card data-product-id="{{ product.id }}">
-  <img ref="productImage" src="{{ product.featured_image | image_url }}" alt="{{ product.title }}">
-  <h3>{{ product.title }}</h3>
-  <div ref="priceDisplay" class="product-card__price">{{ product.price | money }}</div>
-  <button ref="addButton" on:click="/handleAddToCart" data-add-to-cart>
-    Add to cart
-  </button>
-</product-card>
-```
-
-## Early Returns and Conditional Logic
-
-**Use early returns over nested conditionals:**
-
-```javascript
-// Good
-const processOrder = (order) => {
-  if (!order) return;
-  if (!order.items.length) return;
-  if (order.status !== 'pending') return;
-
-  // Process the order
-  updateOrderStatus(order.id, 'processing');
-  sendConfirmationEmail(order.email);
-};
-
-// Avoid
-const processOrder = (order) => {
-  if (order) {
-    if (order.items.length) {
-      if (order.status === 'pending') {
-        updateOrderStatus(order.id, 'processing');
-        sendConfirmationEmail(order.email);
-      }
-    }
-  }
-};
-```
-
-**Optional chaining guidelines:**
-
-```javascript
-// Multiple chains - use early return
-const updateButton = (product) => {
-  const button = product.querySelector('[data-ref="button"]');
-  if (!button) return;
-
-  button.disabled = false;
-  button.textContent = 'Add to cart';
-};
-
-// Single chain is fine
-const updateButton = (product) => {
-  const button = product.querySelector('[data-ref="button"]');
-  button?.enable();
-};
-```
-
-## Simplification Patterns
-
-**Ternary operators for simple conditions:**
-```javascript
-const buttonText = isLoading ? 'Loading...' : 'Add to cart';
-element.textContent = buttonText;
-```
-
-**One-liner conditionals:**
-```javascript
-if (isOutOfStock) return;
-```
-
-**Return boolean comparisons directly:**
-```javascript
-const isAvailable = product.available && product.price > 0;
-return isAvailable;
-```
-
-## Event-Driven Architecture
-
-**Use events for component communication:**
-
-```javascript
-import { Component } from '@theme/component';
-
-/**
- * @typedef {Object} CartDrawerRefs
- * @property {HTMLElement} itemCountDisplay - Element showing item count
- * @property {HTMLButtonElement} closeButton - Close button
- */
-
-/**
- * @extends {Component<CartDrawerRefs>}
- */
-class CartDrawer extends Component {
-  handleCartUpdate() {
-    const itemCount = this.getItemCount();
-
-    // Update local display
-    if (this.refs.itemCountDisplay) {
-      this.refs.itemCountDisplay.textContent = itemCount;
-    }
-
-    // Dispatch custom event for other components
-    this.dispatchEvent(new CustomEvent('cart:updated', {
-      bubbles: true,
-      detail: { itemCount }
-    }));
-  }
-
-  getItemCount() {
-    // Implementation to get cart item count
-    return this.querySelectorAll('.cart-item').length;
-  }
-}
-
-/**
- * @typedef {Object} CartCounterRefs
- * @property {HTMLElement} countDisplay - The count display element
- */
-
-/**
- * @extends {Component<CartCounterRefs>}
- */
-class CartCounter extends Component {
-  connectedCallback() {
-    super.connectedCallback();
-    // Listen for cart updates
-    document.addEventListener('cart:updated', this.#handleCartUpdate.bind(this));
-  }
-
-  #handleCartUpdate(event) {
-    if (this.refs.countDisplay) {
-      this.refs.countDisplay.textContent = event.detail.itemCount;
-    }
-  }
-}
-```
-
-## JavaScript in Liquid Files
-
-**Use `{% javascript %}` tags for component-specific scripts:**
-
-```liquid
-{% javascript %}
-import { Component } from '@theme/component';
-
-/**
- * @typedef {Object} FeaturedCollectionRefs
- * @property {HTMLElement} productGrid - The product grid container
- * @property {HTMLButtonElement[]} filterButtons - Filter button elements
- * @property {HTMLElement} [loadingIndicator] - Optional loading indicator
- */
-
-/**
- * @extends {Component<FeaturedCollectionRefs>}
- */
-class FeaturedCollection extends Component {
-  async handleFilter(filterValue, event) {
-    event.preventDefault();
-
-    const url = new URL(window.location.href);
-    url.searchParams.set('filter', filterValue);
-
-    // Show loading state
-    if (this.refs.loadingIndicator) {
-      this.refs.loadingIndicator.hidden = false;
-    }
-
-    try {
-      const response = await fetch(url.toString());
-      const html = await response.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-
-      const newGrid = doc.querySelector('.product-grid');
-
-      if (newGrid && this.refs.productGrid) {
-        this.refs.productGrid.replaceWith(newGrid);
-        // Update the ref after replacement
-        this.#updateRefs();
-      }
-
-      // Update URL without page reload
-      history.pushState({ filter: filterValue }, '', url.toString());
-    } catch (error) {
-      console.error('Filter error:', error);
-    } finally {
-      if (this.refs.loadingIndicator) {
-        this.refs.loadingIndicator.hidden = true;
-      }
-    }
-  }
-}
-
-customElements.define('featured-collection', FeaturedCollection);
-{% endjavascript %}
-```
-
-**HTML usage in Liquid template:**
-
-```liquid
-<featured-collection>
-  <div class="filters">
-    <button ref="filterButtons[]" on:click="/handleFilter/new" data-filter="new">
-      New Arrivals
-    </button>
-    <button ref="filterButtons[]" on:click="/handleFilter/sale" data-filter="sale">
-      On Sale
-    </button>
-    <button ref="filterButtons[]" on:click="/handleFilter/best-selling" data-filter="best-selling">
-      Best Sellers
-    </button>
-  </div>
-
-  <div ref="loadingIndicator" class="loading" hidden>Loading...</div>
-
-  <div ref="productGrid" class="product-grid">
-    {% for product in collection.products %}
-      {% render 'product-card', product: product %}
-    {% endfor %}
-  </div>
-</featured-collection>
-```
-
-## File Structure
-
-**Group scripts by feature area:**
-- `product.js` - All product-related classes
-- `cart.js` - Cart functionality
-- `collection.js` - Collection and filtering
-- `search.js` - Search functionality
-
-**Co-locate related classes:**
-```javascript
-// collection.js
-class CollectionFilters extends HTMLElement { }
-class CollectionGrid extends HTMLElement { }
-class CollectionSort extends HTMLElement { }
-```
-
-## Optimistic UI Patterns
-
-**Update UI before server response for high-certainty actions:**
-
-```javascript
-import { Component } from '@theme/component';
-
-/**
- * @typedef {Object} AddToCartButtonRefs
- * @property {HTMLElement} buttonText - The button text element
- * @property {HTMLElement} [loadingSpinner] - Optional loading spinner
- */
-
-/**
- * @extends {Component<AddToCartButtonRefs>}
- */
-class AddToCartButton extends Component {
-  async handleAddToCart(event) {
-    event.preventDefault();
-
-    // Optimistic UI update
-    this.#updateButtonState('adding');
-    this.#updateCartCount(1);
-
-    try {
-      const result = await this.#addToCart();
-      this.#updateButtonState('added');
-    } catch (error) {
-      // Revert optimistic changes
-      this.#updateButtonState('error');
-      this.#updateCartCount(-1);
-      console.error('Add to cart failed:', error);
-    }
-  }
-
-  #updateButtonState(state) {
-    const states = {
-      adding: 'Adding...',
-      added: 'Added!',
-      error: 'Try again'
-    };
-
-    if (this.refs.buttonText) {
-      this.refs.buttonText.textContent = states[state] || 'Add to cart';
-    }
-
-    // Toggle loading spinner if available
-    if (this.refs.loadingSpinner) {
-      this.refs.loadingSpinner.hidden = state !== 'adding';
-    }
-  }
-
-  #updateCartCount(delta) {
-    const counter = document.querySelector('cart-counter-component');
-    if (!counter || typeof counter.updateCount !== 'function') return;
-
-    // Call public method on cart counter component
-    counter.updateCount(delta);
-  }
-
-  async #addToCart() {
-    // Implementation for adding to cart
-    const formData = new FormData();
-    formData.append('id', this.dataset.variantId);
-    formData.append('quantity', '1');
-
-    const response = await fetch('/cart/add.js', {
-      method: 'POST',
-      body: formData
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to add to cart');
-    }
-
-    return response.json();
-  }
-}
-
-customElements.define('add-to-cart-button', AddToCartButton);
-```
-
-## Error Handling
-
-**Always handle errors gracefully:**
-
-```javascript
-const fetchData = async (url) => {
-  try {
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Fetch error:', error);
-    // Return fallback data or empty state
-    return null;
-  }
-};
-```
-
-## Type Safety with JSDoc
-
-**Always annotate function parameters, return types, and complex objects:**
-
-```javascript
-/**
- * @typedef {Object} ProductData
- * @property {string} id - Product identifier
- * @property {number} price - Product price
- * @property {boolean} [available] - Availability status (optional)
- */
-
-/**
- * Updates product pricing display
- * @param {ProductData} product - The product to update
- * @param {HTMLElement} container - Target container element
- * @returns {Promise<void>}
- * @throws {Error} If container element is invalid
- */
-const updateProductDisplay = async (product, container) => {
-  if (!(container instanceof HTMLElement)) {
-    throw new Error('Invalid container element');
-  }
-  // Implementation
-};
-```
-
-### 2. **Enhance Component Communication Patterns**
-
-Your current rules mention custom events but lack the detailed parent-child communication patterns. Expand the "Event-Driven Architecture" section:
-
-```javascript
-## Component Communication Patterns
-
-### Parent-to-Child Communication
-**Parents may invoke public methods on child components:**
-
-```javascript
-import { Component } from '@theme/component';
-
-/**
- * @typedef {Object} ProductGalleryRefs
- * @property {HTMLImageElement[]} images - Gallery images
- * @property {HTMLElement} mainImage - Main display image
- */
-
-/**
- * @extends {Component<ProductGalleryRefs>}
- */
-class ProductGallery extends Component {
-  /**
-   * Selects a specific image by index
-   * @param {number} index - Image index to select
-   */
-  selectImage(index) {
-    const targetImage = this.refs.images[index];
-    if (targetImage && this.refs.mainImage) {
-      this.refs.mainImage.src = targetImage.dataset.fullSrc || targetImage.src;
-      this.#updateActiveState(index);
-    }
-  }
-
-  #updateActiveState(activeIndex) {
-    this.refs.images.forEach((img, idx) => {
-      img.classList.toggle('active', idx === activeIndex);
-    });
-  }
-}
-
-/**
- * @typedef {Object} ProductPageRefs
- * @property {ProductGallery} productGallery - Product gallery component
- * @property {HTMLSelectElement} variantSelector - Variant selector
- */
-
-/**
- * @extends {Component<ProductPageRefs>}
- */
-class ProductPage extends Component {
-  handleVariantChange(event) {
-    const variantId = event.target.value;
-
-    // Direct method invocation is acceptable from parent to child
-    if (this.refs.productGallery) {
-      this.refs.productGallery.selectImage(0);
-    }
-  }
-}
-```
-
-### Child-to-Parent Communication
-**Children should emit custom events with typed details:**
-
-```javascript
-/**
- * @typedef {Object} VariantSelectDetail
- * @property {string} variantId - Selected variant ID
- * @property {number} price - Variant price
- * @property {boolean} available - Variant availability
- */
-
-/**
- * @typedef {Object} VariantSelectorRefs
- * @property {HTMLSelectElement} variantSelect - Variant dropdown
- * @property {HTMLElement} priceDisplay - Price display element
- */
-
-/**
- * @extends {Component<VariantSelectorRefs>}
- */
-class VariantSelector extends Component {
-  handleSelection(event) {
-    const selectedOption = event.target.selectedOptions[0];
-    const variantId = selectedOption.value;
-    const price = Number(selectedOption.dataset.price);
-    const available = selectedOption.dataset.available === 'true';
-
-    /**
-     * @type {CustomEvent<VariantSelectDetail>}
-     */
-    const customEvent = new CustomEvent('variant:select', {
-      detail: { variantId, price, available },
-      bubbles: true
-    });
-
-    this.dispatchEvent(customEvent);
-
-    // Update local UI
-    if (this.refs.priceDisplay) {
-      this.refs.priceDisplay.textContent = this.#formatPrice(price);
-    }
-  }
-
-  #formatPrice(price) {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(price / 100);
-  }
-}
-```
-
-### 3. **Add URL Handling Best Practices**
-
-This is completely missing from your current rules and should be a dedicated section:
-
-```javascript
-## URL Manipulation
-
-**Always use URL and URLSearchParams APIs over string manipulation:**
-
-```javascript
-// Good - Type-safe URL manipulation
-const updateFilters = (filters) => {
-  const url = new URL(window.location.href);
-
-  for (const [key, value] of Object.entries(filters)) {
-    if (value) {
-      url.searchParams.set(key, value);
-    } else {
-      url.searchParams.delete(key);
-    }
-  }
-
-  return url;
-};
-
-// Navigation with proper state management
-const navigateToFilters = (filters) => {
-  const url = updateFilters(filters);
-  const params = url.searchParams.toString();
-
-  history.pushState({ urlParameters: params }, '', url.toString());
-  updateProductGrid(url.searchParams);
-};
-
-// Avoid - String manipulation
-const updateFilters = (filters) => {
-  let url = window.location.pathname + '?';
-  url += Object.entries(filters)
-    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-    .join('&');
-  return url;
-};
-```
-
-### 4. **Enhance Error Handling Section**
-
-Your current error handling is basic. Expand it with defensive programming patterns:
-
-```javascript
-## Defensive Programming and Error Handling
-
-**Always validate DOM elements before use:**
-
-```javascript
-/**
- * @param {string} selector - CSS selector
- * @returns {HTMLElement}
- * @throws {Error} If element not found or invalid type
- */
-const getRequiredElement = (selector) => {
-  const element = document.querySelector(selector);
-  if (!(element instanceof HTMLElement)) {
-    throw new Error(`Required element not found: ${selector}`);
-  }
-  return element;
-};
-
-**Handle async operations with proper cleanup:**
-
-```javascript
-import { Component } from '@theme/component';
-
-/**
- * @typedef {Object} DataLoaderRefs
- * @property {HTMLElement} content - Content container
- * @property {HTMLElement} [errorMessage] - Error display element
- * @property {HTMLElement} [loadingIndicator] - Loading indicator
- */
-
-/**
- * @extends {Component<DataLoaderRefs>}
- */
-class DataLoader extends Component {
-  /** @type {AbortController|null} */
-  #abortController = null;
-
-  async loadData(url) {
-    // Cancel previous request
-    this.#abortController?.abort();
-    this.#abortController = new AbortController();
-
-    // Show loading state
-    this.#setLoadingState(true);
-
-    try {
-      const response = await fetch(url, {
-        signal: this.#abortController.signal
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      this.#displayData(data);
-      return data;
-    } catch (error) {
-      if (error.name === 'AbortError') {
-        console.log('Request cancelled');
-        return null;
-      }
-
-      this.#displayError(error.message);
-      throw error;
-    } finally {
-      this.#setLoadingState(false);
-    }
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.#abortController?.abort();
-  }
-
-  #setLoadingState(loading) {
-    if (this.refs.loadingIndicator) {
-      this.refs.loadingIndicator.hidden = !loading;
-    }
-    if (this.refs.content) {
-      this.refs.content.setAttribute('aria-busy', loading);
-    }
-  }
-
-  #displayData(data) {
-    if (this.refs.content) {
-      // Implementation specific to data type
-      this.refs.content.textContent = JSON.stringify(data, null, 2);
-    }
-  }
-
-  #displayError(message) {
-    if (this.refs.errorMessage) {
-      this.refs.errorMessage.textContent = message;
-      this.refs.errorMessage.hidden = false;
-    }
-  }
-}
-```
-
-### 5. **Strengthen Web Components Pattern**
-
-Your current web components section is good but could benefit from the new guidance on refs and type safety:
-
-```javascript
-import { Component } from '@theme/component';
-
-/**
- * @typedef {Object} ProductCardRefs
- * @property {HTMLButtonElement} addButton - Add to cart button
- * @property {HTMLElement} priceDisplay - Price display element
- * @property {HTMLImageElement} productImage - Product image
- * @property {HTMLElement} [stockIndicator] - Optional stock indicator
- */
-
-/**
- * @extends {Component<ProductCardRefs>}
- */
-class ProductCard extends Component {
-  /** @type {AbortController|null} */
-  #addToCartController = null;
-
-  // Specify required refs for this component
-  requiredRefs = ['addButton', 'priceDisplay'];
-
-  connectedCallback() {
-    super.connectedCallback();
-    // Refs are automatically managed by Component base class
-    // No need to manually cache or update them
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.#addToCartController?.abort();
-  }
-
-  /**
-   * Public method for external control
-   * @param {boolean} disabled - Whether to disable the card
-   */
-  setDisabled(disabled) {
-    this.refs.addButton.disabled = disabled;
-    this.classList.toggle('product-card--disabled', disabled);
-
-    // Update optional elements if they exist
-    if (this.refs.stockIndicator) {
-      this.refs.stockIndicator.hidden = disabled;
-    }
-  }
-
-  async handleAddToCart(event) {
-    event.preventDefault();
-
-    // Cancel any pending requests
-    this.#addToCartController?.abort();
-    this.#addToCartController = new AbortController();
-
-    try {
-      const response = await fetch('/cart/add.js', {
-        method: 'POST',
-        signal: this.#addToCartController.signal,
-        body: new FormData(event.target.form)
-      });
-
-      if (!response.ok) throw new Error('Failed to add to cart');
-
-      const result = await response.json();
-      this.#handleSuccess(result);
-    } catch (error) {
-      if (error.name !== 'AbortError') {
-        this.#handleError(error);
-      }
-    }
-  }
-
-  #handleSuccess(result) {
-    this.refs.addButton.textContent = 'Added!';
-    this.dispatchEvent(new CustomEvent('product:added', {
-      detail: result,
-      bubbles: true
-    }));
-  }
-
-  #handleError(error) {
-    this.refs.addButton.textContent = 'Error - Try again';
-    console.error('Add to cart error:', error);
-  }
-}
-
-customElements.define('product-card', ProductCard);
-```
-
-### 6. **Add Performance Optimization Section**
-
-**Use debouncing for expensive operations:**
-
-```javascript
-/**
- * @param {Function} func - Function to debounce
- * @param {number} wait - Wait time in milliseconds
- * @returns {Function} Debounced function
- */
-const debounce = (func, wait) => {
-  let timeout;
-  return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func.apply(this, args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
-};
-
-class SearchInput extends Component {
-  constructor() {
-    super();
-    this.#debouncedSearch = debounce(this.performSearch.bind(this), 300);
-  }
-
-  handleInput(event) {
-    const query = event.target.value.trim();
-
-    if (query.length < 2) {
-      this.#clearResults();
-      return;
-    }
-
-    this.#debouncedSearch(query);
-  }
-
-  async performSearch(query) {
-    if (this.refs.loadingSpinner) {
-      this.refs.loadingSpinner.hidden = false;
-    }
-
-    try {
-      const url = new URL('/search/suggest', window.location.origin);
-      url.searchParams.set('q', query);
-      url.searchParams.set('limit', '5');
-
-      const response = await fetch(url);
-      const results = await response.json();
-
-      this.#displayResults(results);
-    } catch (error) {
-      console.error('Search error:', error);
-      this.#clearResults();
-    } finally {
-      if (this.refs.loadingSpinner) {
-        this.refs.loadingSpinner.hidden = true;
-      }
-    }
-  }
-
-  #displayResults(results) {
-    if (!this.refs.resultsContainer) return;
-
-    // Implementation specific to your search results format
-    this.refs.resultsContainer.innerHTML = results
-      .map(result => `<div class="search-result">${result.title}</div>`)
-      .join('');
-  }
-
-  #clearResults() {
-    if (this.refs.resultsContainer) {
-      this.refs.resultsContainer.innerHTML = '';
-    }
-  }
-
-  /** @type {Function} */
-  #debouncedSearch;
-}
-
-customElements.define('search-input', SearchInput);
-```
+## landmark-accessibility
+
+> Landmark element accessibility compliance and WCAG 2.4.1 Bypass Blocks requirements
+
+# Landmark Element Accessibility Standards
+
+Ensures landmark elements follow WCAG compliance and provide proper content structure for screen reader navigation and bypass blocks functionality.
+
+<rule>
+name: landmark_accessibility_standards
+description: Enforce landmark element accessibility standards per WCAG 2.4.1 Bypass Blocks requirements
+filters:
+  - type: file_extension
+    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
+
+actions:
+  - type: enforce
+    conditions:
+      # Multiple instances of single-instance landmarks
+      - pattern: "(?i)<(header|banner)[^>]*>.*<(header|banner)[^>]*>"
+        message: "Page should not contain more than one instance of header/banner landmark."
+
+      - pattern: "(?i)<main[^>]*>.*<main[^>]*>"
+        message: "Page should not contain more than one instance of main landmark."
+
+      - pattern: "(?i)<(footer|contentinfo)[^>]*>.*<(footer|contentinfo)[^>]*>"
+        message: "Page should not contain more than one instance of footer/contentinfo landmark."
+
+      # Missing distinguishable names for multiple landmarks of same type
+      - pattern: "(?i)<nav[^>]*>.*<nav[^>]*>"
+        pattern_negate: "(aria-label|aria-labelledby)"
+        message: "Multiple navigation landmarks should have distinguishable names using aria-label or aria-labelledby."
+
+      - pattern: "(?i)<(section|region)[^>]*>.*<(section|region)[^>]*>"
+        pattern_negate: "(aria-label|aria-labelledby)"
+        message: "Multiple section/region landmarks should have distinguishable names using aria-label or aria-labelledby."
+
+      - pattern: "(?i)<(aside|complementary)[^>]*>.*<(aside|complementary)[^>]*>"
+        pattern_negate: "(aria-label|aria-labelledby)"
+        message: "Multiple aside/complementary landmarks should have distinguishable names using aria-label or aria-labelledby."
+
+      # Content outside landmarks
+      - pattern: "(?i)<body[^>]*>"
+        pattern_negate: "(<header|<nav|<main|<aside|<section|<footer|<banner|<navigation|<complementary|<contentinfo|<region)"
+        message: "All content should be contained within landmark regions."
+
+      # Excessive number of landmarks (more than 8-10)
+      - pattern: "(?i)(<header|<nav|<main|<aside|<section|<footer|<banner|<navigation|<complementary|<contentinfo|<region)"
+        pattern_negate: "(aria-label|aria-labelledby)"
+        message: "Consider reducing the number of landmarks to minimize navigation complexity."
+
+      # Missing main landmark
+      - pattern: "(?i)<body[^>]*>"
+        pattern_negate: "<main[^>]*>"
+        message: "Page should contain a main landmark for primary content."
+
+      # Landmark without proper role or semantic element
+      - pattern: "(?i)role=\"(banner|navigation|main|complementary|contentinfo|region)\""
+        pattern_negate: "(<header|<nav|<main|<aside|<section|<footer)"
+        message: "Landmark roles should be used with semantic HTML elements when possible."
+
+      # Nested landmarks of same type
+      - pattern: "(?i)<nav[^>]*>.*<nav[^>]*>.*</nav>.*</nav>"
+        message: "Avoid nesting landmarks of the same type."
+
+      - pattern: "(?i)<section[^>]*>.*<section[^>]*>.*</section>.*</section>"
+        message: "Avoid nesting landmarks of the same type."
+
+      # Landmark without accessible name
+      - pattern: "(?i)<(section|region|aside|complementary)[^>]*>"
+        pattern_negate: "(aria-label|aria-labelledby|<h[1-6])"
+        message: "Landmarks should have accessible names via aria-label, aria-labelledby, or heading elements."
+
+      # Generic landmark names
+      - pattern: "(?i)aria-label=\"(section|region|content|area)\""
+        message: "Landmark names should be specific and descriptive, not generic."
+
+      # Landmark with empty or meaningless name
+      - pattern: "(?i)aria-label=\"\\s*\""
+        message: "Landmark aria-label should contain meaningful text."
+
+  - type: suggest
+    message: |
+      **WCAG 2.4.1 Landmark Accessibility Requirements:**
+
+      **Bypass Blocks Functionality:**
+      - **Screen Reader Navigation:** Landmarks allow users to navigate by page sections
+      - **Content Structure:** Landmarks provide clear layout organization
+      - **Alternative Methods:** Skip links, headings, and expand/collapse regions can also be used
+
+      **Landmark Structural Organization:**
+
+      **1. Page Layout Groupings:**
+      ```html
+      <!-- Good: Proper page structure with landmarks -->
+      <body>
+        <header role="banner">
+          <h1>Company Name</h1>
+          <nav role="navigation" aria-label="Primary">
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main role="main">
+          <h2>Page Content</h2>
+          <p>Main content goes here...</p>
+        </main>
+
+        <aside role="complementary" aria-label="Related information">
+          <h3>Related Links</h3>
+          <ul>
+            <li><a href="/related">Related Content</a></li>
+          </ul>
+        </aside>
+
+        <footer role="contentinfo">
+          <p>&copy; 2024 Company Name</p>
+        </footer>
+      </body>
+      ```
+
+      **2. Content Within Landmarks:**
+      ```html
+      <!-- Good: All content within landmarks -->
+      <body>
+        <header>
+          <h1>Page Title</h1>
+          <nav aria-label="Main navigation">
+            <!-- Navigation content -->
+          </nav>
+        </header>
+
+        <main>
+          <section aria-labelledby="intro-heading">
+            <h2 id="intro-heading">Introduction</h2>
+            <p>Content here...</p>
+          </section>
+
+          <section aria-labelledby="details-heading">
+            <h2 id="details-heading">Details</h2>
+            <p>More content...</p>
+          </section>
+        </main>
+
+        <footer>
+          <p>Footer content</p>
+        </footer>
+      </body>
+      ```
+
+      **3. Landmark Names for Multiple Instances:**
+      ```html
+      <!-- Good: Distinguishable landmark names -->
+      <nav aria-label="Primary navigation">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Secondary navigation">
+        <ul>
+          <li><a href="/help">Help</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <aside aria-label="Product sidebar">
+        <h3>Product Categories</h3>
+        <!-- Sidebar content -->
+      </aside>
+
+      <aside aria-label="News sidebar">
+        <h3>Latest News</h3>
+        <!-- News content -->
+      </aside>
+      ```
+
+      **4. Single Instance Landmarks:**
+      ```html
+      <!-- Good: One instance of each single-instance landmark -->
+      <body>
+        <header role="banner">
+          <!-- Header content -->
+        </header>
+
+        <main role="main">
+          <!-- Main content -->
+        </main>
+
+        <footer role="contentinfo">
+          <!-- Footer content -->
+        </footer>
+      </body>
+      ```
+
+      **5. Landmark Markup Options:**
+      ```html
+      <!-- Option 1: Semantic HTML elements -->
+      <header role="banner">
+        <h1>Page Title</h1>
+      </header>
+
+      <nav role="navigation" aria-label="Main menu">
+        <ul>
+          <li><a href="/">Home</a></li>
+        </ul>
+      </nav>
+
+      <main role="main">
+        <h2>Content</h2>
+      </main>
+
+      <footer role="contentinfo">
+        <p>Footer</p>
+      </footer>
+
+      <!-- Option 2: ARIA roles on div elements -->
+      <div role="banner">
+        <h1>Page Title</h1>
+      </div>
+
+      <div role="navigation" aria-label="Main menu">
+        <ul>
+          <li><a href="/">Home</a></li>
+        </ul>
+      </div>
+
+      <div role="main">
+        <h2>Content</h2>
+      </div>
+
+      <div role="contentinfo">
+        <p>Footer</p>
+      </div>
+      ```
+
+      **Landmark Guidelines:**
+
+      **Available Landmarks:**
+      - **banner:** Page header (usually one per page)
+      - **navigation:** Navigation menus (can have multiple with different names)
+      - **main:** Main content area (one per page)
+      - **complementary:** Supporting content (sidebars, related info)
+      - **contentinfo:** Page footer (usually one per page)
+      - **region:** Generic landmark for page sections
+      - **search:** Search functionality
+      - **form:** Form sections
+
+      **Naming Requirements:**
+      - **Multiple instances:** Must have distinguishable names
+      - **Descriptive names:** Use aria-label or aria-labelledby
+      - **Specific names:** Avoid generic terms like "section" or "content"
+      - **Meaningful names:** Describe the purpose or content
+
+      **Implementation Best Practices:**
+
+      **Page Structure Example:**
+      ```html
+      <body>
+        <!-- Header landmark -->
+        <header role="banner">
+          <h1>Acme Corporation</h1>
+          <nav role="navigation" aria-label="Primary">
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/products">Products</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <!-- Main content landmark -->
+        <main role="main">
+          <h2>Welcome to Acme Corporation</h2>
+
+          <!-- Content sections -->
+          <section aria-labelledby="services-heading">
+            <h2 id="services-heading">Our Services</h2>
+            <p>Service descriptions...</p>
+          </section>
+
+          <section aria-labelledby="products-heading">
+            <h2 id="products-heading">Featured Products</h2>
+            <p>Product information...</p>
+          </section>
+        </main>
+
+        <!-- Complementary landmark -->
+        <aside role="complementary" aria-label="Related information">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="/support">Support</a></li>
+            <li><a href="/faq">FAQ</a></li>
+          </ul>
+        </aside>
+
+        <!-- Footer landmark -->
+        <footer role="contentinfo">
+          <p>&copy; 2024 Acme Corporation. All rights reserved.</p>
+          <nav role="navigation" aria-label="Footer">
+            <ul>
+              <li><a href="/privacy">Privacy Policy</a></li>
+              <li><a href="/terms">Terms of Service</a></li>
+            </ul>
+          </nav>
+        </footer>
+      </body>
+      ```
+
+      **Multiple Navigation Landmarks:**
+      ```html
+      <!-- Primary navigation -->
+      <nav role="navigation" aria-label="Primary">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/products">Products</a></li>
+          <li><a href="/services">Services</a></li>
+        </ul>
+      </nav>
+
+      <!-- Secondary navigation -->
+      <nav role="navigation" aria-label="Secondary">
+        <ul>
+          <li><a href="/help">Help</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </nav>
+
+      <!-- Footer navigation -->
+      <nav role="navigation" aria-label="Footer">
+        <ul>
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/terms">Terms</a></li>
+        </ul>
+      </nav>
+      ```
+
+      **Landmark with Accessible Names:**
+      ```html
+      <!-- Using aria-label -->
+      <section role="region" aria-label="Product specifications">
+        <h2>Product Specifications</h2>
+        <p>Detailed specifications...</p>
+      </section>
+
+      <!-- Using aria-labelledby -->
+      <section role="region" aria-labelledby="reviews-heading">
+        <h2 id="reviews-heading">Customer Reviews</h2>
+        <p>Review content...</p>
+      </section>
+
+      <!-- Using heading element -->
+      <section role="region">
+        <h2>Product Features</h2>
+        <p>Feature descriptions...</p>
+      </section>
+      ```
+
+      **Testing and Validation:**
+      - Test with screen reader landmark navigation
+      - Verify landmark names are descriptive and unique
+      - Check that all content is within landmarks
+      - Ensure single-instance landmarks appear only once
+      - Test keyboard navigation between landmarks
+      - Validate landmark hierarchy is logical
+
+      **Common Mistakes to Avoid:**
+      - Multiple instances of single-instance landmarks
+      - Missing accessible names for multiple landmarks
+      - Content outside landmark regions
+      - Excessive number of landmarks
+      - Generic or meaningless landmark names
+      - Nested landmarks of same type
+      - Missing main landmark
+      - Using landmarks for styling only
+
+metadata:
+  priority: high
+  version: 1.0
+</rule>
 
 ---
 > Source: [Shopify/horizon](https://github.com/Shopify/horizon) — distributed by [TomeVault](https://tomevault.io).
