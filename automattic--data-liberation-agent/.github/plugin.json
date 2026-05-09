@@ -1,0 +1,9 @@
+{
+  "name": "automattic--data-liberation-agent",
+  "displayName": "data-liberation-agent",
+  "description": "Extract content from closed web platforms into WordPress-compatible WXR files.",
+  "version": "1.0.0",
+  "author": "Automattic",
+  "homepage": "https://github.com/Automattic/data-liberation-agent",
+  "skills": []
+}
