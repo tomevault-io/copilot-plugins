@@ -1,0 +1,9 @@
+{
+  "name": "volta-net--volta",
+  "displayName": "volta",
+  "description": "The AI-powered GitHub inbox for open-source maintainers.",
+  "version": "1.0.0",
+  "author": "volta-net",
+  "homepage": "https://github.com/volta-net/volta",
+  "skills": []
+}
