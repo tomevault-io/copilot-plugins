@@ -1,0 +1,9 @@
+{
+  "name": "paiad--mcp-java-news-crawler",
+  "displayName": "mcp-java-news-crawler",
+  "description": "\u2728\u7528Java\u5b9e\u73b0\u7684MCP\uff0c\u722c\u53d6\u6700\u65b0\u70ed\u70b9\u65b0\u95fb\uff0c\u5141\u8bb8LLM\u8c03\u7528\u3002\u544a\u522b\u4fe1\u606f\u8327\u623f\uff0c\u7528AI\u6d1e\u6089\u4e16\u754c\u3002",
+  "version": "1.0.0",
+  "author": "paiad",
+  "homepage": "https://github.com/paiad/mcp-java-news-crawler",
+  "skills": []
+}
