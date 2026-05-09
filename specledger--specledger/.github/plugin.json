@@ -1,0 +1,9 @@
+{
+  "name": "specledger--specledger",
+  "displayName": "specledger",
+  "description": "Specledger CLI",
+  "version": "1.0.0",
+  "author": "specledger",
+  "homepage": "https://github.com/specledger/specledger",
+  "skills": []
+}
