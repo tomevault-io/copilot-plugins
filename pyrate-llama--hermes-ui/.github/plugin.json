@@ -1,0 +1,9 @@
+{
+  "name": "pyrate-llama--hermes-ui",
+  "displayName": "hermes-ui",
+  "description": "The command center for Hermes Agent \u2014 chat, steer, browse files, manage skills, and monitor everything from a single glassmorphic HTML app.",
+  "version": "1.0.0",
+  "author": "pyrate-llama",
+  "homepage": "https://github.com/pyrate-llama/hermes-ui",
+  "skills": []
+}
