@@ -1,0 +1,64 @@
+## rllm
+
+> A TypeScript implementation of [Recursive Language Models](https://arxiv.org/abs/2512.24601) for processing large contexts with LLMs.
+
+# RLLM: Recursive Large Language Models (TypeScript)
+
+A TypeScript implementation of [Recursive Language Models](https://arxiv.org/abs/2512.24601) for processing large contexts with LLMs.
+
+Inspired by [Cloudflare's Code Mode](https://blog.cloudflare.com/code-mode/) approach.
+
+### Sandbox Bindings
+
+The V8 isolate provides these bindings to LLM-generated code:
+
+| Binding | Description |
+|---------|-------------|
+| `context` | The loaded context data |
+| `llm_query(prompt, model?)` | Query sub-LLM |
+| `llm_query_batched(prompts, model?)` | Batch query sub-LLMs |
+| `giveFinalAnswer({ message, data? })` | Return final answer |
+| `print(...)` | Console output |
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  RLLM TypeScript                                            │
+│                                                             │
+│  ┌─────────────┐    ┌──────────────────────────────────┐   │
+│  │   RLLM      │    │  V8 Isolate (Sandbox)            │   │
+│  │   Class     │───▶│                                  │   │
+│  └─────────────┘    │  • context (injected data)       │   │
+│        │            │  • llm_query() ──┐               │   │
+│        │            │  • llm_query_batched()           │   │
+│        ▼            │  • print() / console             │   │
+│  ┌─────────────┐    │  • giveFinalAnswer()             │   │
+│  │  LLMClient  │◀───┼──────────────────┘               │   │
+│  │  (OpenAI)   │    │                                  │   │
+│  └─────────────┘    │  LLM-generated JS code runs here │   │
+│                     └──────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+
+No TCP. No subprocess. Direct function calls via bindings.
+```
+
+## Development rules
+
+```bash
+# Install dependencies
+pnpm install
+
+# Build
+pnpm build
+
+# Run example
+pnpm example
+
+# Run tests
+pnpm test
+```
+
+---
+> Source: [code-rabi/rllm](https://github.com/code-rabi/rllm) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
