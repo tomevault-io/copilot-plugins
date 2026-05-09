@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-ai-blueprints--retail-agentic-commerce",
+  "displayName": "Retail-Agentic-Commerce",
+  "description": "Reference implementation of the Agentic Commerce Protocol (ACP) and Universal Commerce Protocol (UCP)- enabling AI-powered checkout   negotiation while maintaining merchant control.",
+  "version": "1.0.0",
+  "author": "NVIDIA-AI-Blueprints",
+  "homepage": "https://github.com/NVIDIA-AI-Blueprints/Retail-Agentic-Commerce",
+  "skills": []
+}
