@@ -1,0 +1,9 @@
+{
+  "name": "elliotttate--sts2-modding-mcp",
+  "displayName": "sts2-modding-mcp",
+  "description": "MCP server for Slay the Spire 2 modding \u2014 153 tools for game data querying, mod code generation, building, and deployment",
+  "version": "1.0.0",
+  "author": "elliotttate",
+  "homepage": "https://github.com/elliotttate/sts2-modding-mcp",
+  "skills": []
+}
