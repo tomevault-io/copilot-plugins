@@ -1,46 +1,13 @@
-## create-update-delete
+## next-js
 
-> Practices for creating, updating and deletions, forms, fields, tRPC.
+> refer to the next.js documentation whenever we're using next.js
 
 
-When building create, updated or deletes such as forms, fields; refer to our `/apps/dashboard/src/actions/**` where we use tRPC APIs for most effective data transformations.
+When working with Next.js we are always using typescript and the latest versions. Next.js releases happen often and there may be updated best-practices that you're not currently aware of.
 
-Refer to docs: [tRPC](https://trpc.io/docs) and check our `packages/db/prisma/schema.prisma` file for our database models
+ref: https://nextjs.org/docs
 
-## Key Patterns
-
-### Server Actions vs tRPC
-
-- **Use Server Actions** for form submissions and complex business logic
-- **Use tRPC mutations** for simple CRUD operations and real-time updates
-- **Server Actions** are better for: form validation, file uploads, complex workflows
-- **tRPC mutations** are better for: simple updates, optimistic updates, real-time features
-
-### Database Updates
-
-- **Better Auth API** has limitations - use Prisma directly for custom fields (like `theme`)
-- **Always use Prisma** for fields not supported by Better Auth API
-- **Import Prisma** from `@bklit/db/client` in server actions
-
-### Form Patterns
-
-- **Use `useActionState`** for server actions with proper typing
-- **Use `useMutation`** from React Query for tRPC mutations
-- **Always invalidate queries** after updates using `queryClient.invalidateQueries()`
-- **Use proper error handling** with try/catch and user feedback
-
-### Type Safety
-
-- **Export interfaces** from action files for reuse
-- **Use proper return types** in server actions
-- **Type form state** with `OrganizationFormState` pattern
-- **Cast tRPC actions** when needed: `createOrganizationAction as (prevState: OrganizationFormState, formData: FormData) => Promise<OrganizationFormState>`
-
-### Query Invalidation
-
-- **Invalidate specific queries** with proper query keys
-- **Use `queryClient.invalidateQueries()`** for cache updates
-- **Pattern**: `queryClient.invalidateQueries({ queryKey: ["organization", "fetch", { id: organizationId }] })`
+Always use most up-to-date next.js practices and techniques when possible.
 
 ---
 > Source: [bklit/bklit](https://github.com/bklit/bklit) — distributed by [TomeVault](https://tomevault.io).
