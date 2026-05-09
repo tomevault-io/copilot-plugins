@@ -1,0 +1,9 @@
+{
+  "name": "tokuhirom--dashyard",
+  "displayName": "dashyard",
+  "description": "An AI-native Prometheus dashboard.",
+  "version": "1.0.0",
+  "author": "tokuhirom",
+  "homepage": "https://github.com/tokuhirom/dashyard",
+  "skills": []
+}
