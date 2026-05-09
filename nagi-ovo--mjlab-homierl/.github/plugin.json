@@ -1,0 +1,9 @@
+{
+  "name": "nagi-ovo--mjlab-homierl",
+  "displayName": "mjlab-homierl",
+  "description": "Fork of mjlab which supports unitree H1 & robotiq_2f85, personal implementation of the locomotion policy training in \"HOMIE: Humanoid Loco-Manipulation with Isomorphic Exoskeleton Cockpit [RSS2025]\"",
+  "version": "1.0.0",
+  "author": "Nagi-ovo",
+  "homepage": "https://github.com/Nagi-ovo/mjlab-homierl",
+  "skills": []
+}
