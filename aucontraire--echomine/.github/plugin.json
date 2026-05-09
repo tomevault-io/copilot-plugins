@@ -1,0 +1,9 @@
+{
+  "name": "aucontraire--echomine",
+  "displayName": "echomine",
+  "description": "Library-first tool for parsing AI conversation exports with search, filtering, and markdown export",
+  "version": "1.0.0",
+  "author": "aucontraire",
+  "homepage": "https://github.com/aucontraire/echomine",
+  "skills": []
+}
