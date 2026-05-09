@@ -1,66 +1,165 @@
-## typescript
+## zod-json-parsing
 
-> - Prefer interfaces over types for object definitions
+> Requires Zod validation for all JSON parsing operations
 
 
-# TypeScript Best Practices
+# JSON Parsing - MANDATORY Zod Validation
 
-## Type System
+## NEVER USE TYPE ASSERTIONS FOR JSON
 
-- Prefer interfaces over types for object definitions
-- Use type for unions, intersections, and mapped types
-- NEVER use `any` or `as any` types or coercion
-- Use strict TypeScript configuration
-- Leverage TypeScript's built-in utility types
-- Use generics for reusable type patterns
-- Use `unknown` for variables that are not yet typed
-- Use `Zod` for schema validation
-- Use the type guards pattern for runtime type checking
-- Use `assertString` for runtime string checking
+**VIOLATION EXAMPLES (DO NOT DO THIS):**
 
-## Naming Conventions
+```typescript
+// ❌ WRONG: Type assertion
+const result = (await response.json()) as SomeType
 
-- Use PascalCase for type names and interfaces
-- Use camelCase for variables and functions
-- Use UPPER_CASE for constants
-- Use descriptive names with auxiliary verbs (e.g., isLoading, hasError)
-- Prefix interfaces for React props with 'Props' (e.g., ButtonProps)
+// ❌ WRONG: Unsafe parsing
+const body = await request.json()
+const { field } = body
 
-## Code Organization
+// ❌ WRONG: Any type
+const data: any = await response.json()
+```
 
-- Keep type definitions close to where they're used
-- Export types and interfaces from dedicated type files when shared
-- Use barrel exports (index.ts) for organizing exports
-- Place shared types in a `types.ts` file
-- Co-locate component props with their components
-- Prefer to use multiple files.
-- Never place two classes or components in the same file.
+**CORRECT APPROACH - ALWAYS USE ZOD:**
 
-## Functions
+```typescript
+// ✅ CORRECT: Zod schema validation
+const resultSchema = z.object({
+  success: z.boolean(),
+  data: z.string(),
+})
 
-- Use explicit return types for public functions
-- Use arrow functions for callbacks and methods
-- Use function overloads for complex type scenarios
-- Prefer async/await over Promises
-- Prefer function declarations over function expressions.
-- Prefer functional programming over classes.
+const result = resultSchema.parse(await response.json())
 
-## Best Practices
+// ✅ CORRECT: Request body parsing
+const requestSchema = z.object({
+  retailerId: z.string().uuid(),
+  force: z.boolean().optional(),
+})
 
-- Enable strict mode in tsconfig.json
-- Use readonly for immutable properties
-- Leverage discriminated unions for type safety
-- Implement proper null checking
+const body = requestSchema.parse(await request.json())
+```
 
-## Imports
+## MANDATORY PATTERNS
 
-- ALWAYS use `@/` style imports vs relative imports, except when importing from the same directory.
-- NEVER do an inline `await import(...)` call.
-- NEVER use `'UNKNOWN'` or `'UNKNOWN_VALUE'`, or similar to indicate an unknown value - use `null` instead.
+### 1. Define Zod Schema First
 
-## Error Handling
+```typescript
+// Always define the schema before parsing
+const apiResponseSchema = z.object({
+  message: z.string(),
+  data: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+    }),
+  ),
+})
 
-- DO NOT proactively add error handling
+type ApiResponse = z.infer<typeof apiResponseSchema>
+```
+
+### 2. Parse with Error Handling
+
+```typescript
+// Handle Zod validation errors gracefully
+try {
+  const parsed = schema.parse(rawData)
+  return parsed
+} catch (error) {
+  console.error('Validation failed:', error)
+  throw new Error('Invalid data format')
+}
+```
+
+### 3. API Endpoint Pattern
+
+```typescript
+export const POST: APIRoute = async ({ request }) => {
+  try {
+    // Define schema for request body
+    const requestSchema = z.object({
+      field1: z.string(),
+      field2: z.number().optional(),
+    })
+
+    // Parse with Zod (never type assertion)
+    const body = requestSchema.parse(await request.json())
+
+    // Use the validated data
+    const result = await businessLogic(body)
+
+    return new Response(JSON.stringify(result))
+  } catch (error) {
+    // Handle Zod validation errors
+    return new Response('Invalid request', { status: 400 })
+  }
+}
+```
+
+### 4. External API Response Pattern
+
+```typescript
+// Always validate external API responses
+const externalApiSchema = z.object({
+  data: z
+    .object({
+      field: z.string(),
+    })
+    .optional(),
+  errors: z
+    .array(
+      z.object({
+        message: z.string(),
+      }),
+    )
+    .optional(),
+})
+
+const response = await fetch(externalApi)
+const validated = externalApiSchema.parse(await response.json())
+```
+
+## COMMON LOCATIONS REQUIRING ZOD
+
+### ✅ API Route Handlers
+
+- `await request.json()` → Always use Zod schema
+- Request body parsing
+- Query parameter validation
+
+### ✅ External API Calls
+
+- Third-party API responses (Browserless, OpenAI, etc.)
+- Webhook payloads
+- Configuration files
+
+### ✅ Inter-Service Communication
+
+- Worker function payloads
+- tRPC procedure inputs (already handled by tRPC)
+- Message queue payloads
+
+## BENEFITS OF ZOD VALIDATION
+
+- ✅ **Runtime Type Safety**: Catches invalid data at runtime
+- ✅ **Clear Error Messages**: Descriptive validation errors
+- ✅ **Documentation**: Schema serves as API documentation
+- ✅ **TypeScript Integration**: Automatic type inference
+- ✅ **Transformation**: Built-in data coercion and defaults
+
+## COST OF VIOLATIONS
+
+Using type assertions or unsafe JSON parsing leads to:
+
+- ❌ Runtime errors from invalid data
+- ❌ Security vulnerabilities
+- ❌ Difficult-to-debug issues
+- ❌ Linting warnings/errors
+- ❌ Loss of type safety benefits
+
+**REMEMBER: If you're parsing JSON, you MUST use Zod. No exceptions.**
 
 ---
 > Source: [maccman/ai-monorepo-scaffold](https://github.com/maccman/ai-monorepo-scaffold) — distributed by [TomeVault](https://tomevault.io).
