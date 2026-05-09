@@ -1,227 +1,84 @@
-## 05-kubernetes-safety
+## 06-documentation-standards
 
-> Kubernetes operations and safety patterns for kubernaut
+> Documentation standards and architecture guidelines for kubernaut
 
 
-# Kubernetes Operations and Safety
+# Documentation Standards for Kubernaut
 
-## 🛡️ **Core Safety Principles**
+## Documentation Structure
 
-Kubernaut implements **25+ production-ready Kubernetes operations** with comprehensive safety mechanisms.
+### In-Repo Documentation (`docs/`)
 
-### **Safety-First Architecture**
-1. **Validation Before Action**: Always validate resources exist and are in expected state
-2. **Dry-Run Support**: Use Kubernetes dry-run mode whenever possible
-3. **Rollback Capability**: Ensure all operations can be safely reversed
-4. **Timeout Enforcement**: All operations have explicit timeouts
-5. **RBAC Compliance**: Respect Kubernetes role-based access controls
+Technical documentation for developers and contributors, organized into 7 directories:
 
----
+- **[docs/architecture/](mdc:docs/architecture/)** - Architectural Decision Records (ADRs), Design Decisions (DDs), diagrams, case studies, shared utilities patterns
+- **[docs/design/](mdc:docs/design/)** - CRD design specifications (`design/CRD/`)
+- **[docs/requirements/](mdc:docs/requirements/)** - Business requirements (`BR-*`), module documentation
+- **[docs/testing/](mdc:docs/testing/)** - Test plans, testing guidelines, patterns reference, per-issue test documentation
+- **[docs/operations/](mdc:docs/operations/)** - Deployment guides, build guides, CI/CD, troubleshooting, runbooks
+- **[docs/development/](mdc:docs/development/)** - APDC methodology, coding guidelines, getting-started guides, technical debt tracking
+- **[docs/services/](mdc:docs/services/)** - Per-service documentation split into `stateless/` and `crd-controllers/`
 
-## 🔌 **Kubernetes Client Pattern**
+### User-Facing Documentation
 
-### **Unified Client Usage**
-**Location**: [pkg/platform/k8s/client.go](mdc:pkg/platform/k8s/client.go)
+The public documentation site lives in a separate repository and is published at:
+[https://jordigilh.github.io/kubernaut-docs/](https://jordigilh.github.io/kubernaut-docs/)
 
-```go
-k8sClient := k8s.NewClient(config.Kubernetes)
-defer k8sClient.Close()
+### Root-Level Files
 
-if err := k8sClient.ValidateAccess(ctx, namespace, resource); err != nil {
-    return fmt.Errorf("insufficient permissions: %w", err)
-}
-```
+- [README.md](mdc:README.md) - Project overview and quick start
+- [CONTRIBUTING.md](mdc:CONTRIBUTING.md) - Contribution guidelines
+- [CODE_OF_CONDUCT.md](mdc:CODE_OF_CONDUCT.md) - Community code of conduct
+- [SECURITY.md](mdc:SECURITY.md) - Security vulnerability reporting
+- [CHANGELOG.md](mdc:CHANGELOG.md) - Release changelog
 
-### **Client Configuration**
-- Use in-cluster config for pod deployment
-- Support kubeconfig for local development
-- Implement connection pooling and retry logic
-- Handle API server rate limiting gracefully
+## Where to Put New Documentation
 
----
+| Document Type | Location |
+|---|---|
+| Architectural decision (long-term impact) | `docs/architecture/decisions/DD-[CATEGORY]-NNN-title.md` or `ADR-NNN-title.md` |
+| Business requirement | `docs/requirements/BR-[CATEGORY]-NNN-title.md` |
+| Test plan for an issue/BR | `docs/testing/[ISSUE-ID]/TEST_PLAN.md` |
+| Service-specific guide | `docs/services/{stateless,crd-controllers}/[service-name]/` |
+| Deployment or operational guide | `docs/operations/deployment/` or `docs/operations/runbooks/` |
+| Development methodology or standards | `docs/development/` |
+| Troubleshooting guide | `docs/operations/troubleshooting/` |
 
-## ⚙️ **Supported Remediation Actions**
+## Code Documentation Standards
 
-### **Scaling & Resource Management**
-- `scale_deployment` - Horizontal scaling with replica validation
-- `increase_resources` - Vertical scaling with resource limits
-- `update_hpa` - HPA modifications with safety bounds
-- `scale_statefulset` - StatefulSet scaling with proper ordering
+### Package Documentation
+- Document all exported functions, methods, and interfaces
+- Include parameter descriptions and potential errors
+- Provide usage examples for complex functions
 
-### **Pod & Application Lifecycle**
-- `restart_pod` - Safe pod restart with readiness checks
-- `rollback_deployment` - Rollback with revision validation
-- `quarantine_pod` - Pod isolation for investigation
-- `migrate_workload` - Workload migration with validation
+### Test Documentation
+- Use Ginkgo/Gomega BDD framework
+- Reference business requirements in test descriptions (e.g., `BR-AI-008`)
+- Reference test plan IDs when available (e.g., `UT-WF-197-001`)
 
-### **Node Operations**
-- `drain_node` - Graceful draining with timeout
-- `cordon_node` - Mark unschedulable with confirmation
-- `restart_daemonset` - DaemonSet restart with rolling update
+## Architectural Decision Records
 
----
+Store in [docs/architecture/decisions/](mdc:docs/architecture/decisions/):
+- **Design Decisions**: `DD-[CATEGORY]-NNN-title.md`
+- **Architecture Decision Records**: `ADR-NNN-title.md`
+- **Status**: Proposed, Accepted, Deprecated, Superseded
 
-## ✅ **Safety Validation Framework**
+## Testing Documentation
 
-### **Pre-Action Validation**
-```go
-type SafetyValidator interface {
-    ValidateAction(ctx context.Context, action ActionType, params map[string]interface{}) error
-    CheckPrerequisites(ctx context.Context, resource ResourceSpec) error
-    ValidatePermissions(ctx context.Context, namespace, resource string) error
-}
-```
+Location: [docs/testing/](mdc:docs/testing/)
+- [docs/testing/README.md](mdc:docs/testing/README.md) - Testing strategy overview
+- [docs/testing/TESTING_PATTERNS_QUICK_REFERENCE.md](mdc:docs/testing/TESTING_PATTERNS_QUICK_REFERENCE.md) - Daily patterns reference
+- [docs/testing/ANTI_PATTERN_DETECTION.md](mdc:docs/testing/ANTI_PATTERN_DETECTION.md) - Anti-pattern detection guide
+- Per-issue test plans in `docs/testing/[ISSUE-ID]/`
 
-### **Validation Checks**
-1. **Resource Existence**: Confirm target resources exist
-2. **Resource State**: Validate current state matches expectations
-3. **Dependencies**: Check for dependent resources
-4. **Permissions**: Verify RBAC permissions
-5. **Impact Assessment**: Evaluate potential blast radius
+## Writing Style Guidelines
 
----
-
-## 🚀 **Action Execution Pattern**
-
-**Location**: [pkg/platform/executor/executor.go](mdc:pkg/platform/executor/executor.go)
-
-```go
-func (e *Executor) ExecuteAction(ctx context.Context, action Action) error {
-    // 1. Safety validation
-    if err := e.validator.ValidateAction(ctx, action); err != nil {
-        return fmt.Errorf("safety validation failed: %w", err)
-    }
-
-    // 2. Dry-run execution
-    if !action.Force {
-        if err := e.executeDryRun(ctx, action); err != nil {
-            return fmt.Errorf("dry-run failed: %w", err)
-        }
-    }
-
-    // 3. Actual execution with monitoring
-    return e.executeWithMonitoring(ctx, action)
-}
-```
-
----
-
-## 🔄 **Error Handling and Recovery**
-
-### **Kubernetes API Errors**
-- Handle transient network errors with exponential backoff
-- Retry on API server unavailability
-- Gracefully handle resource version conflicts
-- Log detailed error context for troubleshooting
-
-### **Operation Recovery**
-- Implement checkpoint-based recovery for long operations
-- Store operation state for resumption after failure
-- Provide clear rollback procedures for each action type
-- Monitor operation progress with health checks
-
----
-
-## 🌐 **Multi-Cluster Operations**
-
-### **Cluster Management**
-**Location**: [pkg/platform/multicluster/](mdc:pkg/platform/multicluster/)
-- Support for multiple Kubernetes clusters
-- Cluster discovery and health monitoring
-- Cross-cluster workload management
-
-### **Service Discovery**
-**Location**: [pkg/platform/k8s/service_discovery.go](mdc:pkg/platform/k8s/service_discovery.go)
-- Automatic service discovery across clusters
-- Health checking and failover mechanisms
-
----
-
-## 🔐 **RBAC and Security**
-
-### **Required Permissions**
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: kubernaut-operator
-rules:
-- apiGroups: [""]
-  resources: ["pods", "nodes", "events", "configmaps", "secrets"]
-  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-- apiGroups: ["apps"]
-  resources: ["deployments", "replicasets", "statefulsets", "daemonsets"]
-  verbs: ["get", "list", "watch", "create", "update", "patch"]
-```
-
-### **Security Best Practices**
-- Use service accounts with minimal required permissions
-- Implement secret rotation for API credentials
-- Validate all input parameters to prevent injection attacks
-- Audit all administrative actions with detailed logging
-
----
-
-## 📊 **Monitoring and Observability**
-
-### **Resource Monitoring**
-- Track resource utilization before and after actions
-- Monitor application health post-action
-- Alert on unexpected resource state changes
-- Collect metrics on action success/failure rates
-
-### **Performance Metrics**
-- Measure action execution times
-- Track API server response times
-- Monitor resource consumption during operations
-
----
-
-## 🧪 **Testing Kubernetes Operations**
-
-### **Integration Testing**
-- Use Kind clusters for local testing: `make setup-kind`
-- Test against real Kubernetes API servers
-- Validate RBAC configurations in test environments
-- Include chaos testing for resilience validation
-
-### **Safety Testing**
-- Test dry-run functionality for all operations
-- Validate rollback procedures under various scenarios
-- Test permission boundaries and access controls
-- Simulate API server failures and network partitions
-
----
-
-## 🔧 **Development Workflow**
-
-### **Local Development**
-```bash
-# Setup Kind cluster for testing
-make setup-kind
-
-# Build and load test image
-make build-test-image
-
-# Run Kubernetes integration tests
-make test-integration-kind
-```
-
-### **Production Deployment**
-- Deploy via Kustomize: `kubectl apply -k deploy/`
-- Implement operator pattern for lifecycle management
-- Support for GitOps deployment workflows
-
----
-
-## 📚 **Related Documentation**
-
-- **[Core Rules](mdc:.cursor/rules/00-kubernaut-core-rules.mdc)** - APDC methodology and TDD workflow
-- **[Testing Strategy](mdc:.cursor/rules/03-testing-strategy.mdc)** - Integration testing and mock strategy
-
----
-
-**Remember**: All Kubernetes operations must include safety validation, dry-run support, and rollback capability.
+- Use clear, concise language
+- Write in active voice
+- Use present tense for current functionality
+- Include concrete examples and code snippets
+- Structure content with clear headings and bullet points
+- Ensure all code examples are tested and functional
 
 ---
 > Source: [jordigilh/kubernaut](https://github.com/jordigilh/kubernaut) — distributed by [TomeVault](https://tomevault.io).
