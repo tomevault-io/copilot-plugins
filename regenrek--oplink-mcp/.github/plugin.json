@@ -1,0 +1,9 @@
+{
+  "name": "regenrek--oplink-mcp",
+  "displayName": "oplink-mcp",
+  "description": "easy workflows for mcp tools",
+  "version": "1.0.0",
+  "author": "regenrek",
+  "homepage": "https://github.com/regenrek/oplink-mcp",
+  "skills": []
+}
