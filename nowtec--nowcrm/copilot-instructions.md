@@ -1,88 +1,88 @@
-## file-structure
+## react-general-guidelines
 
-> File structure guidelines for NOWCRM
+> React general guidelines for Twenty CRM
 
-# File Structure Guidelines
+# React Guidelines
 
-## Directory Organization
-```
-apps/nowcrm/
-├── components/     # Reusable UI components
-├── app/            # Route components  
-├── i18n/           # I18N configuration
-├── lib/            # Handling server actions and different utils
-├── hooks/          # Custom hooks
-├── types/          # Type definitions
-└── messages/       # I18N jsons for each language
+## Core Rules
+- **Functional components only** (no classes)
+- **Named exports only** (no default exports)
+- **Event handlers over useEffect** for state updates
 
-apps/composer/src/
-├── api/            # Api routes
-├── api-docs/       # Handling api routes setup
-├── common/         # Common and reused utils
-├── lib/            # Functions, types and workers
-└── scheduler/      # Scheduler which are integrated with composer calendar
-
-apps/journeys/src/
-├── api/            # Handling webhooks api routes for journeys
-├── common/         # Common and reused utils
-├── consumers/      # All journeys consumers setup
-├── cron/           # Cron jobs which acts as a producer to create new jobs
-├── jobs/           # All job configuration
-├── lib/            # Functions, types and workers
-└── rabbitmq/       # Rabbitmq setup
-```
-
-## File Naming
-- **kebab-case** for all files and directories
-- **Descriptive suffixes** for clarity
-```
-// ✅ Correct naming
-user.tsx
-user.component.tsx
-user.service.ts
-user.test.tsx
-```
-
-## Index Files & Barrel Exports
+## Component Structure
 ```typescript
-// ✅ Clean barrel exports in index.ts
-export { UserCard } from './user-card.component';
-export { UserList } from './user-list.component';
-export type { UserCardProps, UserListProps } from './types';
-
-// ✅ Usage - clean imports
-import { UserCard, UserList } from '@/components/user';
+// ✅ Correct
+export const UserProfile = ({ user, onEdit }: UserProfileProps) => {
+  const handleEdit = () => onEdit(user.id);
+  
+  return (
+    <StyledContainer>
+      <h1>{user.name}</h1>
+      <Button onClick={handleEdit}>Edit</Button>
+    </StyledContainer>
+  );
+};
 ```
 
-## File Size Guidelines
-- **Components**: Under 300 lines if possible
-- **Services**: Under 500 lines if possible
-- **Extract logic** into hooks/utilities when files grow large
-- **Use composition** over large monolithic components
+## Props & Event Handlers
+```typescript
+// ✅ Correct - Destructure props
+const Button = ({ onClick, isDisabled, children }: ButtonProps) => (
+  <button onClick={onClick} disabled={isDisabled}>
+    {children}
+  </button>
+);
 
-## Configuration Files
+// ✅ Correct - Event handlers over useEffect
+const UserForm = ({ onSubmit }: UserFormProps) => {
+  const handleSubmit = async (data: FormData) => {
+    await onSubmit(data);
+    // Direct event handling, not useEffect
+  };
 
-### Project Configuration
-```
-.vscode/                       # VSCode settings
-├── settings.json
-├── extensions.json
-└── launch.json
-
-.github/                       # GitHub workflows
-├── workflows/
-└── templates/
-
-.cursor/                       # Cursor rules
-├── rules/
-└── environment.json
+  return <Form onSubmit={handleSubmit} />;
+};
 ```
 
-### Build Configuration
-- Keep build configs in root or package directories
-- Use consistent naming for config files
-- Comment complex configurations
-- Version control all configuration files
+## Component Design
+- **Small, focused components** - Single responsibility
+- **Composition over inheritance** - Combine simple components
+- **Extract complex logic** into custom hooks
+
+```typescript
+// ✅ Good - Composed from smaller components
+const UserCard = ({ user }: UserCardProps) => (
+  <StyledCard>
+    <UserAvatar user={user} />
+    <UserInfo user={user} />
+    <UserActions user={user} />
+  </StyledCard>
+);
+```
+
+## Performance
+```typescript
+// ✅ Use memo for expensive components only
+const ExpensiveChart = memo(({ data }: ChartProps) => {
+  // Complex rendering logic
+  return <ComplexChart data={data} />;
+});
+
+// ✅ Memoize callbacks when needed
+const UserList = ({ users, onUserSelect }: UserListProps) => {
+  const handleUserSelect = useCallback((user: User) => {
+    onUserSelect(user);
+  }, [onUserSelect]);
+
+  return (
+    <div>
+      {users.map(user => (
+        <UserItem key={user.id} user={user} onSelect={handleUserSelect} />
+      ))}
+    </div>
+  );
+};
+```
 
 ---
 > Source: [nowtec/nowCRM](https://github.com/nowtec/nowCRM) — distributed by [TomeVault](https://tomevault.io).
