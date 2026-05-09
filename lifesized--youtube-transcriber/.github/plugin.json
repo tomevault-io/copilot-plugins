@@ -1,0 +1,9 @@
+{
+  "name": "lifesized--youtube-transcriber",
+  "displayName": "youtube-transcriber",
+  "description": "Easily transcribe and summarize YouTube content  in your LLM of choice for free. ",
+  "version": "1.0.0",
+  "author": "lifesized",
+  "homepage": "https://github.com/lifesized/youtube-transcriber",
+  "skills": []
+}
