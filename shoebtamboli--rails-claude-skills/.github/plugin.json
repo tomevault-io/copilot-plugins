@@ -1,0 +1,9 @@
+{
+  "name": "shoebtamboli--rails-claude-skills",
+  "displayName": "rails_claude_skills",
+  "description": "A Rails generator gem that scaffolds Claude AI skills and agents for any Rails project.",
+  "version": "1.0.0",
+  "author": "Shoebtamboli",
+  "homepage": "https://github.com/Shoebtamboli/rails_claude_skills",
+  "skills": []
+}
