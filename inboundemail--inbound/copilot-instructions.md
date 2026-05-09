@@ -1,113 +1,169 @@
-## inbound
+## api-endpoints
 
-> Default to using Bun instead of Node.js.
+> This rule establishes consistent structure, typing, auth, logging, error handling, and pagination patterns for all API endpoints. It is based on existing implementations under `inbound-app/app/api/v2/` and complements the more concise spec in [v2-api-spec.mdc](mdc:inbound-app/app/api/v2/.cursor/v2-api-spec.mdc).
 
-Default to using Bun instead of Node.js.
+# v2 API Endpoint Coding Rules
 
-- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
-- Use `bun test` instead of `jest` or `vitest`
-- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
-- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
-- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
-- Bun automatically loads .env, so don't use dotenv.
+This rule establishes consistent structure, typing, auth, logging, error handling, and pagination patterns for all API endpoints. It is based on existing implementations under `inbound-app/app/api/v2/` and complements the more concise spec in [v2-api-spec.mdc](mdc:inbound-app/app/api/v2/.cursor/v2-api-spec.mdc).
 
-## APIs
+## Core Principles
+- **Auth first**: Validate every request at the top of each handler using `validateRequest(request)` from [helper/main.ts](mdc:inbound-app/app/api/v2/helper/main.ts). Return 401 with `{ error }` on failure.
+- **Typed handlers**: Define request/response TypeScript interfaces immediately above each handler function (GET/POST/PUT/DELETE). Avoid duplicate DB types; infer database shapes via Drizzle in feature layers. Only define API request/response shapes here.
+- **No any**: Never use `any`. Prefer explicit interfaces and discriminated unions where needed.
+- **Params discipline**: For dynamic routes, type `params` as `Promise<{ id: string }>` and destructure with `const { id } = await params` before use.
+- **Simple, shallow routes**: Keep depth to 2: `/api/v2/{resource}` and `/api/v2/{resource}/[id]` or `/api/v2/{resource}/[id]/{subresource}` when necessary (e.g., `dns-records`, `test`).
+- **Descriptive logging with emojis**: Log key steps, inputs (sanitized), branching, and outcomes. Use the existing style from v2 endpoints.
+- **User scoping**: Always constrain DB queries by `userId` from auth for multi-tenant safety.
+- **Consistent pagination**: List endpoints return `data` + `pagination` (+ optional `meta`).
+- **Explicit status codes**: 200/201 for success, 400 for validation, 401 for auth, 403 for access, 404 for not found, 409 for conflict, 500 for unhandled.
+- **Docs + tests**: When creating/updating endpoints, also add/update tests alongside `inbound-app/app/api/v2/api.test.ts` and update Mintlify docs in `inbound-docs/` following the docs rules.
+- **Email data source**: Use `structuredEmails` tables; do not reintroduce deprecated `receivedEmails` or `parsedEmails`.
 
-- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
-- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
-- `Bun.redis` for Redis. Don't use `ioredis`.
-- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
-- `WebSocket` is built-in. Don't use `ws`.
-- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
-- Bun.$`ls` instead of execa.
+## Route Structure
+- Directory pattern:
+  - Collection: `inbound-app/app/api/v2/{resource}/route.ts`
+  - Item: `inbound-app/app/api/v2/{resource}/[id]/route.ts`
+  - Limited subresource: `inbound-app/app/api/v2/{resource}/[id]/{subresource}/route.ts` (e.g., `dns-records`, `test`)
+- Keep resource depth ≤ 2.
 
-## Testing
+## Handler Template
+Use this skeleton as a starting point, adapting names and shapes per endpoint. See examples in
+[domains/route.ts](mdc:inbound-app/app/api/v2/domains/route.ts),
+[domains/[id]/route.ts](mdc:inbound-app/app/api/v2/domains/[id]/route.ts),
+[email-addresses/route.ts](mdc:inbound-app/app/api/v2/email-addresses/route.ts),
+[emails/route.ts](mdc:inbound-app/app/api/v2/emails/route.ts), and
+[emails/[id]/reply/route.ts](mdc:inbound-app/app/api/v2/emails/[id]/reply/route.ts).
 
-Use `bun test` to run tests.
+```ts
+import { NextRequest, NextResponse } from 'next/server'
+import { validateRequest } from '../helper/main'
+import { db } from '@/lib/db'
+import { eq, and, desc, count } from 'drizzle-orm'
+// import needed schema tables from '@/lib/db/schema'
 
-```ts#index.test.ts
-import { test, expect } from "bun:test";
-
-test("hello world", () => {
-  expect(1).toBe(1);
-});
-```
-
-## Frontend
-
-Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
-
-Server:
-
-```ts#index.ts
-import index from "./index.html"
-
-Bun.serve({
-  routes: {
-    "/": index,
-    "/api/users/:id": {
-      GET: (req) => {
-        return new Response(JSON.stringify({ id: req.params.id }));
-      },
-    },
-  },
-  // optional websocket support
-  websocket: {
-    open: (ws) => {
-      ws.send("Hello, world!");
-    },
-    message: (ws, message) => {
-      ws.send(message);
-    },
-    close: (ws) => {
-      // handle close
-    }
-  },
-  development: {
-    hmr: true,
-    console: true,
-  }
-})
-```
-
-HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
-
-```html#index.html
-<html>
-  <body>
-    <h1>Hello, world!</h1>
-    <script type="module" src="./frontend.tsx"></script>
-  </body>
-</html>
-```
-
-With the following `frontend.tsx`:
-
-```tsx#frontend.tsx
-import React from "react";
-
-// import .css files directly and it works
-import './index.css';
-
-import { createRoot } from "react-dom/client";
-
-const root = createRoot(document.body);
-
-export default function Frontend() {
-  return <h1>Hello, world!</h1>;
+// TYPES FOR GET
+export interface GetThingsRequest {
+  limit?: number
+  offset?: number
 }
 
-root.render(<Frontend />);
+export interface ThingItem {
+  id: string
+  // ...fields exposed by the API (not necessarily 1:1 with DB)
+}
+
+export interface GetThingsResponse {
+  data: ThingItem[]
+  pagination: { limit: number; offset: number; total: number; hasMore: boolean }
+}
+
+export async function GET(request: NextRequest) {
+  console.log('🌐 GET /api/v2/things - Starting request')
+  try {
+    console.log('🔐 Validating request authentication')
+    const { userId, error } = await validateRequest(request)
+    if (!userId) {
+      console.log('❌ Authentication failed:', error)
+      return NextResponse.json({ error }, { status: 401 })
+    }
+    console.log('✅ Authentication successful for userId:', userId)
+
+    const { searchParams } = new URL(request.url)
+    const limit = Math.min(parseInt(searchParams.get('limit') || '50'), 100)
+    const offset = parseInt(searchParams.get('offset') || '0')
+    if (limit < 1 || limit > 100) return NextResponse.json({ error: 'Limit must be between 1 and 100' }, { status: 400 })
+    if (offset < 0) return NextResponse.json({ error: 'Offset must be non-negative' }, { status: 400 })
+
+    // Query DB with user scoping and return results...
+    // const rows = await db.select(...).from(things).where(eq(things.userId, userId)).orderBy(desc(things.createdAt)).limit(limit).offset(offset)
+    // const total = (await db.select({ count: count() }).from(things).where(eq(things.userId, userId)))[0]?.count || 0
+
+    const response: GetThingsResponse = {
+      data: [],
+      pagination: { limit, offset, total: 0, hasMore: false }
+    }
+    console.log('✅ Successfully retrieved things')
+    return NextResponse.json(response)
+  } catch (err) {
+    console.error('❌ GET /api/v2/things - Error:', err)
+    return NextResponse.json({ error: 'Failed to fetch things', details: err instanceof Error ? err.message : 'Unknown error' }, { status: 500 })
+  }
+}
+
+// TYPES FOR POST
+export interface PostThingsRequest { /* ... */ }
+export interface PostThingsResponse { id: string }
+
+export async function POST(request: NextRequest) {
+  console.log('➕ POST /api/v2/things - Starting')
+  try {
+    const { userId, error } = await validateRequest(request)
+    if (!userId) return NextResponse.json({ error }, { status: 401 })
+
+    const data: PostThingsRequest = await request.json()
+    // Validate inputs and create resource
+
+    const response: PostThingsResponse = { id: '...' }
+    return NextResponse.json(response, { status: 201 })
+  } catch (err) {
+    console.error('❌ POST /api/v2/things - Error:', err)
+    return NextResponse.json({ error: 'Failed to create', details: err instanceof Error ? err.message : 'Unknown error' }, { status: 500 })
+  }
+}
 ```
 
-Then, run index.ts
+## Authentication
+- Always call `validateRequest(request)` first. Example usage in
+  - [domains/route.ts](mdc:inbound-app/app/api/v2/domains/route.ts)
+  - [email-addresses/[id]/route.ts](mdc:inbound-app/app/api/v2/email-addresses/[id]/route.ts)
+- All queries must be scoped by the returned `userId`.
 
-```sh
-bun --hot ./index.ts
-```
+## Parameters and Query Handling
+- Dynamic route params: `export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) { const { id } = await params }`
+- Query params: `const { searchParams } = new URL(request.url)`; coerce, bound-check, and validate values. See
+  - [domains/route.ts (GET)](mdc:inbound-app/app/api/v2/domains/route.ts)
 
-For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
+## Logging Guidelines
+- Use clear, stepwise logs with emojis for start, auth, validation, DB ops, external calls, and completion. Examples:
+  - Start: `🌐 GET /api/v2/domains - Starting request`
+  - Auth OK/Fail: `✅ Authentication successful…` / `❌ Authentication failed: …`
+  - DB ops: `🔍 Querying …` / `📊 Found N …`
+  - External service ops (AWS, DNS): `🔧`, `🔍`, `✅`, `⚠️`
+  - Completion: `✅ Successfully …`
+  - Errors: `❌ <METHOD> <path> - Error:` with structured details
+
+## Response Shapes
+- Lists return `{ data, pagination: { limit, offset, total, hasMore }, meta? }`.
+  - Examples: [endpoints/route.ts](mdc:inbound-app/app/api/v2/endpoints/route.ts), [domains/route.ts](mdc:inbound-app/app/api/v2/domains/route.ts), [email-addresses/route.ts](mdc:inbound-app/app/api/v2/email-addresses/route.ts)
+- Single resource returns a flat, typed object (include nested objects where helpful). Example: [domains/[id]/route.ts](mdc:inbound-app/app/api/v2/domains/[id]/route.ts)
+- Error responses: `{ error: string, details?: string }` with appropriate status code.
+
+## Database and Types
+- Import `db` from `@/lib/db` and schema tables from `@/lib/db/schema`.
+- Use Drizzle operators (`eq`, `and`, `desc`, `count`) and `.limit`, `.offset` for pagination.
+- Scope queries by `userId` for tenant safety.
+- Follow the project-wide types rule: infer DB types via Drizzle in feature layers and avoid duplicating schema shapes in endpoint code. API request/response types are defined per-handler.
+
+## Idempotency (when creating/sending)
+- For create/send actions (e.g., emails), support the `Idempotency-Key` header and return the previously created resource when the same key is reused. See tests in [api.test.ts](mdc:inbound-app/app/api/v2/api.test.ts) and implementation in [emails/route.ts](mdc:inbound-app/app/api/v2/emails/route.ts).
+
+## AWS/DNS Operations
+- Wrap AWS SES and DNS verification calls in try/catch with clear logs. Update DB flags accordingly. See
+  - [domains/route.ts](mdc:inbound-app/app/api/v2/domains/route.ts)
+  - [domains/[id]/route.ts](mdc:inbound-app/app/api/v2/domains/[id]/route.ts)
+
+## Reply and Threading Conventions
+- For email replies, construct proper `In-Reply-To`/`References` headers, default `to` to the original sender when omitted, and default subject to `Re: {original}` when omitted. See [emails/[id]/reply/route.ts](mdc:inbound-app/app/api/v2/emails/[id]/reply/route.ts).
+- For threads, normalize `Message-Id` and `References` consistently. See [mail/[id]/thread/route.ts](mdc:inbound-app/app/api/v2/mail/[id]/thread/route.ts).
+
+## Testing and Documentation
+- Add/extend endpoint coverage in [api.test.ts](mdc:inbound-app/app/api/v2/api.test.ts).
+- Update Mintlify docs in `inbound-docs/` using the clean documentation standard (see workspace rule), reflecting new endpoints, params, and response shapes.
+
+## Do/Don’t Summary
+- Do: auth first, typed inputs/outputs, await `params`, validate queries, user-scope DB, consistent logging, correct status codes, structured pagination, idempotency where applicable, and update docs/tests.
+- Don’t: use `any`, duplicate DB types, exceed route depth 2, leak tenant data, or reference deprecated email tables.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/inboundemail) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [inboundemail/inbound](https://github.com/inboundemail/inbound) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
