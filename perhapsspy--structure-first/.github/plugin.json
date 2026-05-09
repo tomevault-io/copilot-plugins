@@ -1,0 +1,14 @@
+{
+  "name": "perhapsspy--structure-first",
+  "displayName": "structure-first",
+  "description": "A structure-first agent skill for readable, composable code.",
+  "version": "1.0.0",
+  "author": "perhapsspy",
+  "homepage": "https://github.com/perhapsspy/structure-first",
+  "skills": [
+    {
+      "name": "structure-first",
+      "description": ""
+    }
+  ]
+}
