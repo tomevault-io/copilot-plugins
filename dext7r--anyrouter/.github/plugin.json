@@ -1,0 +1,9 @@
+{
+  "name": "dext7r--anyrouter",
+  "displayName": "anyrouter",
+  "description": "\u8f7b\u91cf\u7ea7 API \u4ee3\u7406\u670d\u52a1\uff0c\u652f\u6301\u591a\u7aef\u70b9\u3001\u591a Token \u7ba1\u7406\uff0c\u57fa\u4e8e Cloudflare Workers",
+  "version": "1.0.0",
+  "author": "dext7r",
+  "homepage": "https://github.com/dext7r/anyrouter",
+  "skills": []
+}
