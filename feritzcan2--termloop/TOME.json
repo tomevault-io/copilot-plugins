@@ -4,7 +4,7 @@
   "repo": "termloop",
   "description": "TermLoop workspace",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/feritzcan2/termloop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T02:21:33Z"
+  "distributed_at": "2026-05-09T23:06:32Z"
 }
