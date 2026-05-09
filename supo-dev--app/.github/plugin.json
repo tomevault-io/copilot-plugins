@@ -1,0 +1,9 @@
+{
+  "name": "supo-dev--app",
+  "displayName": "app",
+  "description": "Supo is a terminal-exclusive social network that brings back the raw energy of early Twitter\u2014before algorithms decided what you should see. It's built by developers, for developers.",
+  "version": "1.0.0",
+  "author": "supo-dev",
+  "homepage": "https://github.com/supo-dev/app",
+  "skills": []
+}
