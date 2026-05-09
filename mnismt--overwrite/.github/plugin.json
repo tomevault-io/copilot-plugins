@@ -1,0 +1,9 @@
+{
+  "name": "mnismt--overwrite",
+  "displayName": "overwrite",
+  "description": "Pack your entire repo in a single prompt",
+  "version": "1.0.0",
+  "author": "mnismt",
+  "homepage": "https://github.com/mnismt/overwrite",
+  "skills": []
+}
