@@ -1,91 +1,120 @@
-## dependencies
+## errors
 
-> Dependency management rules
+> Error handling rules
 
 
-# Dependency Rules
+# Error Handling Rules
 
-## Package Manager
+## Custom Error Classes
 
-ALWAYS use pnpm:
-```bash
-pnpm install        # Install deps
-pnpm add <pkg>      # Add dependency
-pnpm add -D <pkg>   # Add dev dependency
-pnpm remove <pkg>   # Remove dependency
-pnpm update         # Update all deps
+ALWAYS use custom errors from `src/errors.ts`:
+
+```typescript
+import {
+  TuckError,                // Base error class
+  NotInitializedError,      // Tuck not set up
+  AlreadyInitializedError,  // Already initialized
+  FileNotFoundError,        // File doesn't exist
+  FileNotTrackedError,      // File not in manifest
+  FileAlreadyTrackedError,  // Already tracked
+  GitError,                 // Git operation failed
+  ConfigError,              // Configuration issue
+  ManifestError,            // Manifest corruption
+  PermissionError,          // Can't read/write
+  GitHubCliError,           // GitHub CLI issues
+  BackupError,              // Backup/snapshot issues
+} from '../errors.js';
 ```
 
-NEVER use npm or yarn commands.
+## Error Structure
 
-## Core Dependencies
+All custom errors include:
+- Human-readable message
+- Error code for programmatic handling
+- Suggestions for resolution
 
-| Package | Purpose | Version |
-|---------|---------|---------|
-| commander | CLI framework | ^12.x |
-| @clack/prompts | Interactive prompts | ^0.7.x |
-| chalk | Terminal colors | ^5.x |
-| boxen | Terminal boxes | ^8.x |
-| ora | Spinners | ^8.x |
-| simple-git | Git operations | ^3.x |
-| fs-extra | File operations | ^11.x |
-| zod | Schema validation | ^3.x |
-
-## Dev Dependencies
-
-| Package | Purpose |
-|---------|---------|
-| typescript | Type checking |
-| tsup | Bundling |
-| vitest | Testing |
-| eslint | Linting |
-| prettier | Formatting |
-| @types/* | Type definitions |
-
-## Version Pinning
-
-- Use caret (^) for minor updates
-- Pin major versions
-- Lock file must be committed
-
-## Security Audits
-
-Run regularly:
-```bash
-pnpm audit
-pnpm audit --fix  # Auto-fix if possible
+```typescript
+throw new FileNotFoundError(path, {
+  suggestion: "Run 'tuck add' to track this file first"
+});
 ```
 
-CI runs `pnpm audit --audit-level=high`
+## Error Handling Patterns
 
-## Adding Dependencies
+### Catching Errors
 
-Before adding a new dependency:
-1. Check if existing dep can do it
-2. Verify it supports ESM
-3. Check maintenance status
-4. Review bundle size impact
-5. Prefer deps with TypeScript types
-
-## Updating Dependencies
-
-1. Check for breaking changes
-2. Run full test suite
-3. Test manually
-4. Update in feature branch
-
-```bash
-pnpm update --interactive  # Select updates
-pnpm outdated              # Check outdated
+```typescript
+// Good - handle specific error
+try {
+  await loadManifest(tuckDir);
+} catch (error) {
+  if (error instanceof ManifestError) {
+    throw new NotInitializedError();
+  }
+  throw error; // Re-throw unknown errors
+}
 ```
 
-## NEVER Do
+### NEVER Do
 
-- Use `npm install`
-- Commit without lock file
-- Ignore security warnings
-- Add unnecessary deps
-- Use deps without ESM support
+```typescript
+// Bad - silent failure
+await operation().catch(() => {});
+
+// Bad - generic error
+throw new Error('Something went wrong');
+
+// Bad - swallowing errors
+try {
+  await operation();
+} catch {
+  // Do nothing
+}
+```
+
+## User-Facing Errors
+
+Errors shown to users should:
+1. Explain what happened
+2. Suggest how to fix it
+3. Be actionable
+
+```typescript
+// Good
+throw new ConfigError(
+  'Configuration file is corrupted',
+  {
+    code: 'CONFIG_CORRUPT',
+    suggestion: "Run 'tuck config reset' to restore defaults"
+  }
+);
+```
+
+## Logging Errors
+
+Use the logger for debug info, not console:
+
+```typescript
+import { logger } from '../ui/index.js';
+
+logger.debug('Processing file:', filePath);
+logger.error('Failed to read file:', error.message);
+```
+
+## Error Recovery
+
+When possible, provide recovery paths:
+
+```typescript
+try {
+  await writeFile(path, content);
+} catch (error) {
+  // Provide backup location
+  throw new PermissionError(path, 'write', {
+    suggestion: `Check permissions or restore from ${backupPath}`
+  });
+}
+```
 
 ---
 > Source: [Pranav-Karra-3301/tuck](https://github.com/Pranav-Karra-3301/tuck) — distributed by [TomeVault](https://tomevault.io).
