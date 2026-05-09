@@ -1,0 +1,44 @@
+{
+  "name": "autovoice",
+  "owner": "joshhu",
+  "repo": "autovoice",
+  "description": "AI \u9a45\u52d5\u7684\u5f71\u7247\u914d\u97f3\u5de5\u5177\uff1a\u81ea\u52d5\u514b\u9686\u8aaa\u8a71\u8005\u8072\u97f3\uff0c\u7ffb\u8b6f\u4e26\u91cd\u65b0\u914d\u97f3 | AI-powered video dubbing with voice cloning",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/joshhu/autovoice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T04:54:42Z"
+}
