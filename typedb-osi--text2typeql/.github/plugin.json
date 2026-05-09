@@ -1,0 +1,9 @@
+{
+  "name": "typedb-osi--text2typeql",
+  "displayName": "text2typeql",
+  "description": "Datasets for Text to TypeQL3",
+  "version": "1.0.0",
+  "author": "typedb-osi",
+  "homepage": "https://github.com/typedb-osi/text2typeql",
+  "skills": []
+}
