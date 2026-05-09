@@ -1,0 +1,9 @@
+{
+  "name": "tron-format--tron-javascript",
+  "displayName": "tron-javascript",
+  "description": "A JavaScript library for working with the TRON format",
+  "version": "1.0.0",
+  "author": "tron-format",
+  "homepage": "https://github.com/tron-format/tron-javascript",
+  "skills": []
+}
