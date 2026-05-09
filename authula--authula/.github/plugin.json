@@ -1,0 +1,9 @@
+{
+  "name": "authula--authula",
+  "displayName": "authula",
+  "description": "An open-source authentication solution that scales with you. Embed it as a library in your Go app, or run it as a standalone auth server with any tech stack.",
+  "version": "1.0.0",
+  "author": "Authula",
+  "homepage": "https://github.com/Authula/authula",
+  "skills": []
+}
