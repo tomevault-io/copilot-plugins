@@ -1,0 +1,9 @@
+{
+  "name": "ghostwriternr--sandbox-mcp",
+  "displayName": "sandbox-mcp",
+  "description": "Remote MCP to run OpenCode on Sandboxes",
+  "version": "1.0.0",
+  "author": "ghostwriternr",
+  "homepage": "https://github.com/ghostwriternr/sandbox-mcp",
+  "skills": []
+}
