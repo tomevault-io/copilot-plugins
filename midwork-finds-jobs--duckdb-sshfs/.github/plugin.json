@@ -1,0 +1,9 @@
+{
+  "name": "midwork-finds-jobs--duckdb-sshfs",
+  "displayName": "duckdb-sshfs",
+  "description": "DuckDB sshfs extension - Read and write files through ssh inside DuckDB",
+  "version": "1.0.0",
+  "author": "midwork-finds-jobs",
+  "homepage": "https://github.com/midwork-finds-jobs/duckdb-sshfs",
+  "skills": []
+}
