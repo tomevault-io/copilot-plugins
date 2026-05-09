@@ -1,0 +1,9 @@
+{
+  "name": "angelmunoz--mibo",
+  "displayName": "Mibo",
+  "description": "A micro-framework built on top of Monogame for F# Devs",
+  "version": "1.0.0",
+  "author": "AngelMunoz",
+  "homepage": "https://github.com/AngelMunoz/Mibo",
+  "skills": []
+}
