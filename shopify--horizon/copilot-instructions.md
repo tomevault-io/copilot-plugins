@@ -1,15 +1,15 @@
-## form-accessibility
+## global-accessibility-standards
 
-> Form component accessibility standards and WCAG compliance for form inputs, labels, instructions, and error handling
+> Global scope accessibility standards per WCAG requirements for page language, viewport, title attributes, and skip links
 
 
-# Form Accessibility Standards
+# Global Scope Accessibility Standards
 
-Ensures form components follow WCAG compliance and provide proper accessibility for all users including screen reader users and keyboard-only users.
+Ensures global accessibility best practices are followed including page language, viewport meta tag, title attribute usage, and skip link implementation for WCAG compliance.
 
 <rule>
-name: form_accessibility_standards
-description: Enforce form component accessibility standards and WCAG compliance for form inputs, labels, instructions, and error handling
+name: global_accessibility_standards
+description: Enforce global scope accessibility standards per WCAG requirements for page language, viewport, title attributes, and skip links
 filters:
   - type: file_extension
     pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
@@ -17,661 +17,340 @@ filters:
 actions:
   - type: enforce
     conditions:
-      # Missing label association for form inputs
-      - pattern: "(?i)<(input|textarea|select)[^>]*>"
-        pattern_negate: "(<label[^>]*for|id.*for|aria-label|aria-labelledby|title=)"
-        message: "Form inputs must have programmatically associated labels via label/for, aria-label, aria-labelledby, or title attributes."
+      # Missing lang attribute on html element
+      - pattern: "<html[^>]*>"
+        pattern_negate: "lang=\"[a-z]{2}(?:-[A-Z]{2})?\""
+        message: "HTML element must have lang attribute set to ensure proper pronunciation by assistive technology. Use lang=\"en\" for English or appropriate language code."
 
-      # Empty or meaningless labels
-      - pattern: "(?i)<label[^>]*>\\s*(?:label|input|field|required)\\s*</label>"
-        message: "Form labels must contain meaningful text that describes the input purpose, not generic terms."
+      # Invalid language code format
+      - pattern: "lang=\"[^a-z]{2}(?:-[^A-Z]{2})?\""
+        message: "Language code must follow ISO 639-1 format (e.g., lang=\"en\", lang=\"fr-CA\")."
 
-      # Placeholder as only label
-      - pattern: "(?i)<input[^>]*placeholder=\"[^\"]+\"[^>]*>"
-        pattern_negate: "(<label|aria-label|aria-labelledby|title=)"
-        message: "Placeholder text cannot be the only method of providing a label. Add a proper label element or aria-label."
+      # Missing viewport meta tag
+      - pattern: "<head[^>]*>"
+        pattern_negate: "<meta[^>]*name=\"viewport\""
+        message: "Viewport meta tag is required for responsive design and accessibility. Include <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">."
 
-      # Missing required field indicators
-      - pattern: "(?i)<(input|textarea|select)[^>]*required[^>]*>"
-        pattern_negate: "(data-required|aria-required=\"true\"|\\*|aria-describedby)"
-        message: "Required fields should use data-required='true' instead of native required attribute, with visual indicators and aria-required='true' for screen readers."
+      # Viewport meta tag preventing zoom
+      - pattern: "<meta[^>]*name=\"viewport\"[^>]*>"
+        pattern_negate: "(maximum-scale=1\\.0|user-scalable=no)"
+        message: "Viewport meta tag should not prevent zooming. Avoid maximum-scale=1.0 and user-scalable=no to maintain accessibility for low-vision users."
 
-      # Missing fieldset for grouped inputs
-      - pattern: "(?i)<input[^>]*type=\"(radio|checkbox)\"[^>]*name=\"[^\"]+\"[^>]*>"
-        pattern_negate: "(<fieldset|<div[^>]*role=\"group\")"
-        message: "Radio button and checkbox groups should be wrapped in fieldset or have role='group' for proper grouping."
+      # Problematic viewport attributes
+      - pattern: "(maximum-scale=1\\.0|user-scalable=no)"
+        message: "Viewport meta tag contains attributes that prevent zooming, which creates accessibility issues for low-vision users. Remove maximum-scale=1.0 and user-scalable=no."
 
-      # Missing legend for fieldset
-      - pattern: "(?i)<fieldset[^>]*>"
-        pattern_negate: "<legend"
-        message: "Fieldset elements must have legend elements to provide context for the group."
+      # Title attribute on non-iframe elements
+      - pattern: "(?i)<[^>]*title=\"[^\"]+\"[^>]*>"
+        pattern_negate: "(iframe|IFRAME)"
+        message: "Avoid using title attribute on non-iframe elements as it creates accessibility issues. Use visible text, aria-label, or custom tooltips instead."
 
-      # Missing input purpose identification
-      - pattern: "(?i)<input[^>]*type=\"(text|email|tel|url|password)\"[^>]*>"
-        pattern_negate: "(autocomplete|aria-describedby|aria-label|placeholder)"
-        message: "Text inputs should have autocomplete attributes or other methods to identify their purpose for personal data collection."
+      # Missing title on iframe elements
+      - pattern: "<iframe[^>]*>"
+        pattern_negate: "title=\"[^\"]+\""
+        message: "Iframe elements must have title attribute to provide context for screen reader users."
 
-      # Missing error association
-      - pattern: "(?i)<[^>]*aria-invalid=\"true\"[^>]*>"
-        pattern_negate: "(aria-describedby|aria-errormessage)"
-        message: "Inputs with aria-invalid='true' should have error messages associated via aria-describedby or aria-errormessage."
+      # Empty or meaningless iframe title
+      - pattern: "<iframe[^>]*title=\"\\s*(?:iframe|frame|content|page)\\s*\"[^>]*>"
+        message: "Iframe title should be descriptive and meaningful, not generic terms like 'iframe' or 'content'."
 
-      # Missing error message visibility
-      - pattern: "(?i)<[^>]*class=\"[^\"]*(?:error|invalid)[^\"]*\"[^>]*>"
-        pattern_negate: "(display.*none|visibility.*hidden|hidden|aria-hidden=\"true\")"
-        message: "Error messages should be visible to users and not hidden with CSS or aria-hidden."
+      # Missing skip link
+      - pattern: "<body[^>]*>"
+        pattern_negate: "<a[^>]*href=\"#[^\"]*\"[^>]*(?:skip|main|content)"
+        message: "Skip link is required for keyboard navigation accessibility. Add a skip link at the top of the page to bypass repeated content."
 
-      # Missing focus management for error summaries
-      - pattern: "(?i)<(div|section)[^>]*(?:error.*summary|summary.*error)[^>]*>"
-        pattern_negate: "(tabindex|focus|scrollIntoView)"
-        message: "Error summary containers should implement focus management to shift focus to the error banner heading when errors appear, improving user experience and accessibility."
+      # Skip link not at top of page
+      - pattern: "<a[^>]*href=\"#[^\"]*\"[^>]*(?:skip|main|content)[^>]*>"
+        pattern_negate: "(<body|<header|<nav)"
+        message: "Skip link should be one of the first elements in the document, typically within the header or at the top of the body."
 
-      # Missing form instructions association
-      - pattern: "(?i)<(div|p)[^>]*(?:instruction|help|hint)[^>]*>"
-        pattern_negate: "(aria-describedby|aria-labelledby|id=)"
-        message: "Form instructions should be programmatically associated with their corresponding inputs via aria-describedby."
+      # Skip link without proper target
+      - pattern: "<a[^>]*href=\"#[^\"]*\"[^>]*(?:skip|main|content)[^>]*>"
+        pattern_negate: "href=\"#(main|content|primary|skip-content)\""
+        message: "Skip link href should target main content area (e.g., href=\"#main\")."
 
-      # Missing success message
-      - pattern: "(?i)<form[^>]*>.*</form>"
-        pattern_negate: "(role=\"alert\"|aria-live|success|confirmation)"
-        message: "Forms should provide success confirmation messages, especially for critical operations like financial transactions."
+      # Skip link target missing tabindex
+      - pattern: "<a[^>]*href=\"#(main|content|primary|skip-content)\"[^>]*>"
+        pattern_negate: "<(main|div|section)[^>]*id=\"(main|content|primary|skip-content)\"[^>]*tabindex=\"-1\""
+        message: "Skip link target element must have tabindex=\"-1\" to receive keyboard focus when skip link is activated."
 
-      # Missing focus management for success messages
-      - pattern: "(?i)<(div|section)[^>]*(?:success|confirmation)[^>]*>"
-        pattern_negate: "(tabindex|focus|scrollIntoView)"
-        message: "Success message containers should implement focus management to shift focus to the success banner heading when messages appear, improving user experience and accessibility."
+      # Skip link without proper CSS classes
+      - pattern: "<a[^>]*href=\"#[^\"]*\"[^>]*(?:skip|main|content)[^>]*>"
+        pattern_negate: "(class=\"[^\"]*(?:visuallyhidden|sr-only|skip-link)[^\"]*\"|style=\"[^\"]*(?:position:\\s*absolute|clip:\\s*rect|overflow:\\s*hidden)[^\"]*\")"
+        message: "Skip link should have CSS classes or styles to hide it visually while keeping it accessible to screen readers and keyboard users."
 
-      # Missing focusable headings for error/success messages
-      - pattern: "(?i)<(h2|h3)[^>]*(?:error|success|confirmation)[^>]*>"
-        pattern_negate: "tabindex=\"-1\""
-        message: "Error and success message headings should have tabindex='-1' to make them programmatically focusable for focus management."
-
-      # Missing time limit controls
-      - pattern: "(?i)<form[^>]*>.*(?:time.*limit|session.*expir|expir.*time)"
-        pattern_negate: "(extend|turn.*off|adjust|customize|20.*hour)"
-        message: "Forms with time limits must provide options to extend, turn off, or adjust the time limit, or allow at least 20 hours."
-
-      # Missing error prevention for critical forms
-      - pattern: "(?i)<form[^>]*(?:legal|financial|transaction|payment|commitment)[^>]*>"
-        pattern_negate: "(confirm|review|reversible|check.*error)"
-        message: "Critical forms (legal/financial) must implement error prevention techniques like confirmation, review, or reversibility."
-
-      # Missing disabled field alternatives
-      - pattern: "(?i)<input[^>]*disabled[^>]*>"
-        pattern_negate: "(aria-describedby|aria-label|title=|role=\"text\")"
-        message: "Disabled fields that are essential to understanding content must have alternative ways to communicate their information."
-
-      # Missing data input restrictions communication
-      - pattern: "(?i)<input[^>]*(?:maxlength|pattern|min|max)[^>]*>"
-        pattern_negate: "(aria-describedby|title=|placeholder|aria-label)"
-        message: "Inputs with restrictions (maxlength, pattern, min, max) should communicate these restrictions in labels or instructions."
-
-      # Help text using div instead of semantic small element
-      - pattern: "(?i)<div[^>]*class=\"[^\"]*help-text[^\"]*\"[^>]*>"
-        pattern_negate: "<small"
-        message: "Help text should use the semantic small element instead of div for better HTML5 compliance and accessibility."
-
-      # Form sections nested within main element
-      - pattern: "(?i)<main[^>]*>.*<section[^>]*class=\"[^\"]*form-section[^\"]*\"[^>]*>"
-        message: "Form sections should be direct children of the container, not nested within the main element. Use main only for the form itself."
-
-      # Missing proper section structure
-      - pattern: "(?i)<section[^>]*class=\"[^\"]*form-section[^\"]*\"[^>]*>"
-        pattern_negate: "(</section>|aria-labelledby)"
-        message: "Form sections must be properly closed with </section> tags and have aria-labelledby for accessibility."
-
-      # Improper section nesting within main element
-      - pattern: "(?i)<main[^>]*>.*<section[^>]*class=\"[^\"]*form-section[^\"]*\"[^>]*>.*</section>"
-        message: "Form sections should not be nested within the main element. Move sections outside main and use main only for the form itself."
-
-      # Missing container wrapper for form sections
-      - pattern: "(?i)<section[^>]*class=\"[^\"]*form-section[^\"]*\"[^>]*>"
-        pattern_negate: "<div[^>]*class=\"[^\"]*container[^\"]*\"[^>]*>"
-        message: "Form sections should be wrapped in a container div for proper organization and styling."
-
-      # Missing proper heading structure in form sections
-      - pattern: "(?i)<section[^>]*class=\"[^\"]*form-section[^\"]*\"[^>]*>"
-        pattern_negate: "<h[1-6][^>]*>"
-        message: "Form sections must contain proper heading elements (h1-h6) for accessibility and content structure."
-
-      # Missing redundant entry prevention
-      - pattern: "(?i)<form[^>]*>.*<input[^>]*name=\"(email|password|confirm)[^\"]*\"[^>]*>"
-        pattern_negate: "(autocomplete|auto.*populate|select.*previous)"
-        message: "Forms requiring redundant information entry should provide auto-population or selection of previously entered data."
-
-      # Missing keyboard navigation support
-      - pattern: "(?i)<(input|textarea|select|button)[^>]*>"
-        pattern_negate: "(tabindex|onKeyDown|onkeydown|@keydown|v-on:keydown)"
-        message: "Form elements should support keyboard navigation and not interfere with tab order."
-
-      # Missing focus indicators
-      - pattern: "(?i)<(input|textarea|select|button)[^>]*>"
-        pattern_negate: "(focus|:focus|outline|box-shadow)"
-        message: "Form elements must have visible focus indicators for keyboard navigation."
-
-      # Missing focus indicators for error/success message headings
-      - pattern: "(?i)<(h2|h3)[^>]*tabindex=\"-1\"[^>]*>"
-        pattern_negate: "(focus|:focus|outline|box-shadow)"
-        message: "Focusable error and success message headings must have visible focus indicators for keyboard navigation."
-
-      # Help text with insufficient color contrast
-      - pattern: "(?i)<[^>]*class=\"[^\"]*help-text[^\"]*\"[^>]*>"
-        pattern_negate: "(color:\\s*#[0-4][0-9a-fA-F]{5}|color:\\s*#[5-9a-fA-F][0-9a-fA-F]{5})"
-        message: "Help text must have sufficient color contrast (minimum 4.5:1 for normal text, 7:1 recommended). Use darker colors like #495057 for better accessibility."
-
-      # Missing form validation feedback
-      - pattern: "(?i)<form[^>]*>"
-        pattern_negate: "(validate|check.*error|aria-invalid|aria-describedby)"
-        message: "Forms should provide validation feedback and error checking for user input."
+      # Skip link not properly hidden
+      - pattern: "<a[^>]*href=\"#[^\"]*\"[^>]*(?:skip|main|content)[^>]*>"
+        pattern_negate: "(display:\\s*none|visibility:\\s*hidden)"
+        message: "Skip link should not use display:none or visibility:hidden as these hide it from screen readers. Use visuallyhidden or sr-only classes instead."
 
   - type: suggest
     message: |
-      **Form Accessibility Best Practices:**
+      **Global Scope Accessibility Best Practices:**
 
-      **Label Requirements:**
-      - **Programmatic Association:** Labels MUST be programmatically associated with inputs
-      - **Meaningful Text:** Labels MUST contain meaningful, descriptive text
-      - **Visible Labels:** Labels MUST be visible to users
-      - **No Sensory Dependencies:** Labels MUST NOT rely solely on visual characteristics
-      - **Icon Labels:** Icons can be used as visual labels if meaning is self-evident AND semantic label is provided
-
-      **Label Implementation Patterns:**
-
-      **Basic Label Association:**
+      **1. Page Language (WCAG 3.1.1 Language of Page):**
       ```html
-      <!-- Good: Label with for attribute -->
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username">
+      <!-- Good: Proper language declaration -->
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <title>Page Title</title>
+        </head>
+        <body>
+          <!-- Content in English -->
+        </body>
+      </html>
 
-      <!-- Good: aria-label for simple cases -->
-      <input type="text" aria-label="Search products" placeholder="Enter search term">
+      <!-- Good: Language toggle with proper lang attributes -->
+      <nav>
+        <a href="/en" lang="en">English</a>
+        <a href="/fr" lang="fr">Français</a>
+      </nav>
 
-      <!-- Good: aria-labelledby for complex labels -->
-      <h3 id="address-heading">Shipping Address</h3>
-      <input type="text" aria-labelledby="address-heading" name="street">
+      <!-- Good: Mixed language content -->
+      <p>Welcome to our site. <span lang="fr">Bienvenue sur notre site.</span></p>
       ```
 
-      **Required Field Indicators:**
+      **Language Code Requirements:**
+      - **Primary language:** Set on `<html>` element
+      - **Format:** ISO 639-1 (e.g., `lang="en"`, `lang="fr-CA"`)
+      - **Mixed content:** Use `lang` attribute on specific elements
+      - **Purpose:** Enables proper pronunciation by assistive technology
+
+      **2. Viewport Meta Tag (WCAG 1.3.3 Sensory Characteristics):**
       ```html
-      <label for="email">
-        Email Address <span class="required" aria-label="required">*</span>
-      </label>
-      <input type="email"
-             id="email"
-             name="email"
-             required
-             aria-required="true"
-             aria-describedby="email-help">
-      <small id="email-help" class="help-text">
-        We'll use this to send you order confirmations
-      </small>
+      <!-- Good: Accessible viewport meta tag -->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <!-- Good: With additional accessibility features -->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=5.0">
+
+      <!-- Bad: Prevents zooming (accessibility issue) -->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
       ```
 
-      **Input Groups with Fieldset:**
+      **Viewport Requirements:**
+      - **Required:** Must be present for responsive design
+      - **Zoom support:** Must allow users to zoom content
+      - **Avoid:** `maximum-scale=1.0` and `user-scalable=no`
+      - **Purpose:** Enables low-vision users to zoom content
+
+      **3. Title Attribute (General Avoidance):**
       ```html
-      <fieldset>
-        <legend>Contact Preferences</legend>
-        <label for="email-notifications">
-          <input type="checkbox" id="email-notifications" name="notifications[]" value="email">
-          Email Notifications
-        </label>
-        <label for="sms-notifications">
-          <input type="checkbox" id="sms-notifications" name="notifications[]" value="sms">
-          SMS Notifications
-        </label>
-      </fieldset>
-      ```
+      <!-- Bad: Title attribute on non-iframe elements -->
+      <button title="Click to submit form">Submit</button>
+      <a href="/help" title="Get help with your account">Help</a>
 
-      **Input Purpose Identification:**
-      ```html
-      <!-- Personal data inputs should have autocomplete -->
-      <label for="full-name">Full Name</label>
-      <input type="text"
-             id="full-name"
-             name="fullName"
-             autocomplete="name">
+      <!-- Good: Visible text instead of title -->
+      <button>Submit form</button>
+      <a href="/help">Get help with your account</a>
 
-      <label for="email-address">Email Address</label>
-      <input type="email"
-             id="email-address"
-             name="email"
-             autocomplete="email">
-
-      <label for="phone-number">Phone Number</label>
-      <input type="tel"
-             id="phone-number"
-             name="phone"
-             autocomplete="tel">
-      ```
-
-      **Error Handling and Validation:**
-
-      **Error Message Association:**
-      ```html
-      <label for="password">Password</label>
-      <input type="password"
-             id="password"
-             name="password"
-             aria-describedby="password-requirements password-error"
-             aria-invalid="false">
-
-      <small id="password-requirements" class="help-text">
-        Password must be at least 8 characters with uppercase, lowercase, and number
-      </small>
-
-      <div id="password-error" class="error-message" role="alert" hidden>
-        Password does not meet requirements
+      <!-- Good: Custom accessible tooltip -->
+      <button aria-describedby="submit-tooltip">Submit</button>
+      <div id="submit-tooltip" class="tooltip" role="tooltip">
+        Click to submit your form
       </div>
       ```
 
-      **Real-time Validation:**
-      ```javascript
-      function validatePassword(input) {
-        const password = input.value;
-        const requirements = document.getElementById('password-requirements');
-        const error = document.getElementById('password-error');
+      **Title Attribute Guidelines:**
+      - **Avoid:** On interactive elements, links, buttons
+      - **Exception:** Required on iframe elements
+      - **Alternatives:** Visible text, aria-label, aria-describedby
+      - **Issues:** Mouse-only, screen reader redundancy, low-vision interference
 
-        // Check requirements
-        const hasLength = password.length >= 8;
-        const hasUpper = /[A-Z]/.test(password);
-        const hasLower = /[a-z]/.test(password);
-        const hasNumber = /\d/.test(password);
-
-        if (hasLength && hasUpper && hasLower && hasNumber) {
-          input.setAttribute('aria-invalid', 'false');
-          error.hidden = true;
-          requirements.className = 'help-text valid';
-        } else {
-          input.setAttribute('aria-invalid', 'true');
-          error.hidden = false;
-          requirements.className = 'help-text invalid';
-        }
-      }
-      ```
-
-      **Form Instructions and Help:**
-
-      **Input Instructions:**
+      **4. Iframe Title Requirements:**
       ```html
-      <label for="zip-code">ZIP Code</label>
-      <input type="text"
-             id="zip-code"
-             name="zipCode"
-             maxlength="5"
-             pattern="[0-9]{5}"
-             aria-describedby="zip-help">
-      <div id="zip-help" class="help-text">
-        Enter 5-digit ZIP code (e.g., 12345)
-      </div>
+      <!-- Good: Iframe with descriptive title -->
+      <iframe
+        src="https://example.com/embed"
+        title="Interactive map showing store locations across the city"
+        width="600"
+        height="400">
+      </iframe>
+
+      <!-- Good: Iframe with meaningful title -->
+      <iframe
+        src="https://example.com/calendar"
+        title="Company event calendar for December 2024"
+        width="100%"
+        height="500">
+      </iframe>
+
+      <!-- Bad: Generic or meaningless title -->
+      <iframe
+        src="https://example.com/embed"
+        title="iframe"
+        width="600"
+        height="400">
+      </iframe>
       ```
 
-      **Form-level Instructions:**
+      **Iframe Accessibility:**
+      - **Required:** Title attribute for context
+      - **Content:** Descriptive explanation of iframe purpose
+      - **Screen readers:** Need context before entering frame
+      - **Navigation:** Ctrl+Opt+Shift+Down to enter iframe (VoiceOver)
+
+      **5. Skip Link Implementation (WCAG 2.4.1 Bypass Blocks):**
       ```html
-      <form aria-describedby="form-instructions">
-        <div id="form-instructions" class="form-instructions">
-          <p>All fields marked with * are required. Please review your information before submitting.</p>
-        </div>
+      <!-- Good: Skip link at top of page -->
+      <body>
+        <a href="#main" class="skip-link visuallyhidden focusable">
+          Skip to main content
+        </a>
 
-        <!-- Form fields here -->
-      </form>
-      ```
+        <header>
+          <nav>
+            <!-- Navigation content -->
+          </nav>
+        </header>
 
-      **Success and Error Messages:**
-
-      **Success Confirmation:**
-      ```html
-      <div id="success-message"
-           class="success-message"
-           role="alert"
-           aria-live="polite"
-           hidden>
-        Your order has been successfully submitted! Order #12345
-      </div>
-      ```
-
-      **Error Summary:**
-      ```html
-      <div id="error-summary"
-           class="error-summary"
-           role="alert"
-           aria-live="assertive"
-           hidden>
-        <h2 tabindex="-1">Please correct the following errors:</h2>
-        <ul>
-          <li><a href="#email">Email address is required</a></li>
-          <li><a href="#phone">Phone number format is invalid</a></li>
-        </ul>
-      </div>
-      ```
-
-            **Focus Management for Error and Success Messages:**
-      ```javascript
-      function showErrorSummary(errors) {
-        const errorSummary = document.getElementById('error-summary');
-        const errorHeading = errorSummary.querySelector('h2');
-
-        // Show error summary
-        errorSummary.classList.add('show');
-
-        // Shift focus to error banner heading for better user experience
-        // Use requestAnimationFrame to ensure the element is fully visible before focusing
-        requestAnimationFrame(() => {
-          if (errorHeading) {
-            errorHeading.focus();
-            errorHeading.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        });
-      }
-
-      function showSuccessMessage() {
-        const successMessage = document.getElementById('success-message');
-        const successHeading = successMessage.querySelector('h3');
-
-        successMessage.classList.add('show');
-
-        // Shift focus to success message heading for better user experience
-        // Use requestAnimationFrame to ensure the element is fully visible before focusing
-        requestAnimationFrame(() => {
-          if (successHeading) {
-            successHeading.focus();
-            successHeading.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        });
-      }
-      ```
-
-      **Focus Management Benefits:**
-      - **User Experience:** Places cursor at beginning of error information
-      - **Accessibility:** Screen readers announce error content from the start
-      - **Navigation:** Users can easily navigate through error list
-      - **Context:** Provides clear starting point for error resolution
-
-      **Implementation Considerations:**
-      - **Timing:** Use requestAnimationFrame to ensure elements are fully visible before focusing
-      - **Fallback:** Provide fallback focus management if headings aren't found
-      - **Smooth Scrolling:** Use smooth scrolling for better user experience
-      - **Focus Indicators:** Ensure focusable headings have visible focus indicators
-      - **Browser Behavior:** Prevent default browser focus behavior on form submission
-
-      **CSS for Focusable Error and Success Message Headings:**
-      ```css
-      /* Make error and success message headings focusable */
-      .error-summary h2:focus,
-      .success-message h3:focus {
-        outline: 3px solid #0056b3;
-        outline-offset: 2px;
-        border-radius: 4px;
-      }
-
-      /* High contrast mode support */
-      @media (prefers-contrast: more) {
-        .error-summary h2:focus,
-        .success-message h3:focus {
-          outline: 3px solid #000000;
-        }
-      }
-      ```
-
-      **Form Structure and Semantic HTML:**
-
-      **Proper Section Organization:**
-      ```html
-      <div class="container">
-        <!-- Form Instructions (standalone section) -->
-        <section class="form-section" aria-labelledby="instructions-heading">
-          <h2 id="instructions-heading">Form Instructions</h2>
-          <small id="form-instructions" class="help-text">
-            <!-- Instructions content -->
-          </small>
-        </section>
-
-        <!-- Time Limit Warning (standalone div) -->
-        <div class="time-limit-warning" role="alert" aria-live="polite">
-          <!-- Timer content -->
-        </div>
-
-        <!-- Error Summary (standalone div) -->
-        <div id="error-summary" class="error-summary" role="alert" aria-live="assertive">
-          <!-- Error content -->
-        </div>
-
-        <!-- Main Form (contained in main landmark) -->
-        <main role="main" aria-labelledby="main-heading">
-          <h2 id="main-heading" class="sr-only">Form Content</h2>
-          <form id="main-form" onsubmit="handleFormSubmit(event)">
-            <!-- Form sections within the form -->
-            <section class="form-section" aria-labelledby="personal-info-heading">
-              <h2 id="personal-info-heading">Personal Information</h2>
-              <!-- Form fields -->
-            </section>
-          </form>
+        <main id="main" tabindex="-1">
+          <h1>Page Title</h1>
+          <!-- Main content -->
         </main>
-
-        <!-- Additional sections after the form -->
-        <section class="form-section" aria-labelledby="disabled-field-heading">
-          <h2 id="disabled-field-heading">Disabled Field Example</h2>
-          <!-- Content -->
-        </section>
-      </div>
+      </body>
       ```
 
-      **Help Text Semantic Elements:**
-      ```html
-      <!-- Good: Use small element for help text -->
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" aria-describedby="email-help">
-      <small id="email-help" class="help-text">
-        We'll use this to send you order confirmations
-      </small>
+      **Skip Link Requirements:**
+      - **Position:** First element in document (after body)
+      - **Target:** Main content area with matching ID
+      - **Focus:** Target element must have `tabindex="-1"`
+      - **Styling:** Hidden visually, visible on focus
+      - **Purpose:** Bypass repeated navigation content
 
-      <!-- Avoid: Using div for help text -->
-      <div id="email-help" class="help-text">
-        We'll use this to send you order confirmations
-      </div>
-      ```
-
-      **Help Text Color Contrast Requirements:**
+      **6. Skip Link CSS Implementation:**
       ```css
-      .help-text {
-        font-size: 0.875rem;
-        color: #495057; /* 7.0:1 contrast ratio on white */
-        margin-top: 4px;
-        margin-bottom: 8px;
-        display: block;
-        line-height: 1.4;
+      /* Visually hidden but accessible */
+      .visuallyhidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
       }
 
-      /* High contrast mode support */
-      @media (prefers-contrast: more) {
-        .help-text,
-        small.help-text {
-          color: #000000; /* Maximum contrast */
-        }
+      /* Show on focus for keyboard users */
+      .focusable:focus {
+        position: static;
+        width: auto;
+        height: auto;
+        padding: 8px 16px;
+        margin: 0;
+        overflow: visible;
+        clip: auto;
+        white-space: normal;
+        background: #000;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        z-index: 1000;
+      }
+
+      /* Alternative: Screen reader only class */
+      .sr-only {
+        position: absolute;
+        left: -10000px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
       }
       ```
 
-      **Structural Guidelines:**
-      - **Container Organization:** All sections should be direct children of the container div
-      - **Main Landmark:** Use main element only for the form itself, not for wrapper content
-      - **Section Semantics:** Use section elements for major content areas with proper headings
-      - **Help Text Elements:** Use small elements for supplementary text and instructions
-      - **Color Contrast:** Ensure help text meets minimum 4.5:1 contrast ratio (7.0:1 recommended)
-      - **Proper Nesting:** Avoid nesting sections within other sections or main elements
+      **Skip Link Best Practices:**
+      - **Target elements:** `<main>`, `<h1>`, or main content container
+      - **Focus management:** Use `tabindex="-1"` on target
+      - **Visual feedback:** Show link when it receives focus
+      - **Positioning:** Place at very top of document
+      - **Text:** Clear and descriptive (e.g., "Skip to main content")
 
-      **Time Limits and Error Prevention:**
-
-      **Time Limit Controls:**
+      **7. Complete Implementation Example:**
       ```html
-      <div class="time-limit-warning" role="alert" aria-live="polite">
-        <p>Your session will expire in <span id="time-remaining">14:30</span> minutes</p>
-        <button type="button" onclick="extendSession()">Extend Session</button>
-        <button type="button" onclick="turnOffTimer()">Turn Off Timer</button>
-      </div>
-      ```
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Accessible Web Page</title>
+          <style>
+            .skip-link {
+              position: absolute;
+              top: -40px;
+              left: 6px;
+              background: #000;
+              color: #fff;
+              padding: 8px;
+              text-decoration: none;
+              border-radius: 4px;
+              z-index: 1000;
+            }
+            .skip-link:focus {
+              top: 6px;
+            }
+          </style>
+        </head>
+        <body>
+          <!-- Skip link -->
+          <a href="#main" class="skip-link">Skip to main content</a>
 
-      **Critical Form Confirmation:**
-      ```html
-      <form onsubmit="return confirmSubmission()">
-        <!-- Form fields -->
+          <!-- Header -->
+          <header role="banner">
+            <h1>Company Name</h1>
+            <nav role="navigation" aria-label="Primary">
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+              </ul>
+            </nav>
+          </header>
 
-        <div class="confirmation-section">
-          <h3>Review Your Information</h3>
-          <div id="order-summary" class="order-summary">
-            <!-- Order summary content -->
-          </div>
+          <!-- Main content -->
+          <main id="main" role="main" tabindex="-1">
+            <h2>Welcome to Our Site</h2>
+            <p>This is the main content area that the skip link targets.</p>
 
-          <label for="confirm-checkbox">
-            <input type="checkbox" id="confirm-checkbox" required>
-            I confirm that all information is correct and I agree to the terms
-          </label>
-        </div>
+            <!-- Iframe example -->
+            <iframe
+              src="https://example.com/embed"
+              title="Interactive product demonstration video"
+              width="100%"
+              height="400">
+            </iframe>
+          </main>
 
-        <button type="submit">Submit Order</button>
-      </form>
-      ```
-
-      **JavaScript for Form Accessibility:**
-
-      **Form Validation:**
-      ```javascript
-      function validateForm() {
-        const form = document.querySelector('form');
-        const inputs = form.querySelectorAll('input, textarea, select');
-        let hasErrors = false;
-
-        inputs.forEach(input => {
-          if (input.hasAttribute('required') && !input.value.trim()) {
-            showError(input, 'This field is required');
-            hasErrors = true;
-          } else if (input.getAttribute('aria-invalid') === 'true') {
-            hasErrors = true;
-          }
-        });
-
-        if (hasErrors) {
-          showErrorSummary();
-          return false;
-        }
-
-        return true;
-      }
-
-      function showError(input, message) {
-        const errorId = input.id + '-error';
-        let errorElement = document.getElementById(errorId);
-
-        if (!errorElement) {
-          errorElement = document.createElement('div');
-          errorElement.id = errorId;
-          errorElement.className = 'error-message';
-          errorElement.role = 'alert';
-          input.parentNode.appendChild(errorElement);
-        }
-
-        errorElement.textContent = message;
-        errorElement.hidden = false;
-        input.setAttribute('aria-invalid', 'true');
-        input.setAttribute('aria-describedby',
-          input.getAttribute('aria-describedby') + ' ' + errorId);
-      }
-      ```
-
-      **Focus Management:**
-      ```javascript
-      function focusFirstError() {
-        const firstError = document.querySelector('[aria-invalid="true"]');
-        if (firstError) {
-          firstError.focus();
-          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }
-
-      function focusSuccessMessage() {
-        const successMessage = document.getElementById('success-message');
-        if (successMessage) {
-          successMessage.hidden = false;
-          successMessage.focus();
-        }
-      }
-      ```
-
-      **CSS for Accessibility:**
-
-      **Focus Indicators:**
-      ```css
-      /* High contrast focus indicators */
-      input:focus,
-      textarea:focus,
-      select:focus,
-      button:focus {
-        outline: 3px solid #0056b3;
-        outline-offset: 2px;
-        border-color: #0056b3;
-      }
-
-      /* Error states */
-      input[aria-invalid="true"] {
-        border-color: #dc3545;
-        border-width: 2px;
-      }
-
-      /* Required field indicators */
-      .required {
-        color: #dc3545;
-        font-weight: bold;
-      }
-
-      /* Help text styling */
-      .help-text {
-        font-size: 0.875rem;
-        color: #6c757d;
-        margin-top: 0.25rem;
-      }
-
-      /* Error message styling */
-      .error-message {
-        color: #dc3545;
-        font-size: 0.875rem;
-        margin-top: 0.25rem;
-        font-weight: 500;
-      }
-
-      /* Success message styling */
-      .success-message {
-        color: #198754;
-        background-color: #d1e7dd;
-        border: 1px solid #badbcc;
-        padding: 1rem;
-        border-radius: 0.375rem;
-        margin: 1rem 0;
-      }
+          <!-- Footer -->
+          <footer role="contentinfo">
+            <p>&copy; 2024 Company Name</p>
+          </footer>
+        </body>
+      </html>
       ```
 
       **Testing and Validation:**
-
-      **Accessibility Checklist:**
-      - All form inputs have associated labels
-      - Required fields are clearly indicated
-      - Error messages are associated with inputs
-      - Form can be completed with keyboard only
-      - Focus indicators are visible and clear
-      - Screen readers can access all form content
-      - Time limits have appropriate controls
-      - Critical forms have error prevention
-      - Success/error messages are announced
-      - Form instructions are accessible
+      - **Language:** Verify lang attribute is set correctly
+      - **Viewport:** Test zoom functionality on mobile devices
+      - **Title attributes:** Check for unnecessary usage on non-iframe elements
+      - **Iframe titles:** Verify descriptive titles for all iframes
+      - **Skip links:** Test keyboard navigation and focus management
+      - **Screen readers:** Verify skip link announces correctly
+      - **Focus order:** Ensure skip link target receives focus properly
 
       **Common Mistakes to Avoid:**
-      - Using placeholder text as the only label
-      - Missing required field indicators
-      - Not associating error messages with inputs
-      - Missing form-level instructions
-      - No success confirmation messages
-      - Insufficient time limit controls
-      - Missing error prevention for critical forms
-      - Poor focus management
-      - Inaccessible validation feedback
-      - Missing input purpose identification
+      - Missing lang attribute on html element
+      - Viewport meta tag preventing zoom
+      - Using title attributes on interactive elements
+      - Missing or generic iframe titles
+      - Skip link not positioned at top of page
+      - Skip link target without tabindex="-1"
+      - Skip link hidden with display:none
+      - Skip link not visible on focus
+      - Generic skip link text
+      - Skip link targeting wrong element
 
 metadata:
   priority: high
