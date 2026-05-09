@@ -1,0 +1,9 @@
+{
+  "name": "moond4rk--keychainbreaker",
+  "displayName": "keychainbreaker",
+  "description": "A Go library for parsing and decrypting macOS Keychain files (login.keychain-db)",
+  "version": "1.0.0",
+  "author": "moonD4rk",
+  "homepage": "https://github.com/moonD4rk/keychainbreaker",
+  "skills": []
+}
