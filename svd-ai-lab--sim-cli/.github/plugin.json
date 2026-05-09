@@ -1,0 +1,9 @@
+{
+  "name": "svd-ai-lab--sim-cli",
+  "displayName": "sim-cli",
+  "description": "sim \u2014 a CLI runtime that lets LLM agents launch, drive, and observe CAD/CAE simulators through one protocol",
+  "version": "1.0.0",
+  "author": "svd-ai-lab",
+  "homepage": "https://github.com/svd-ai-lab/sim-cli",
+  "skills": []
+}
