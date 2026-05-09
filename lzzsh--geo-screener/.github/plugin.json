@@ -1,0 +1,9 @@
+{
+  "name": "lzzsh--geo-screener",
+  "displayName": "GEO_Screener",
+  "description": "LLM-powered dataset curation for NCBI GEO \u2014 search, screen, annotate, and export with any OpenAI-compatible model",
+  "version": "1.0.0",
+  "author": "lzzsh",
+  "homepage": "https://github.com/lzzsh/GEO_Screener",
+  "skills": []
+}
