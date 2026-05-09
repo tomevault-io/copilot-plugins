@@ -1,0 +1,9 @@
+{
+  "name": "nemanjavlahovic--instruments-mcp-server",
+  "displayName": "instruments-mcp-server",
+  "description": "MCP server for Xcode Instruments \u2014 AI agents get structured performance profiling (CPU, SwiftUI, memory, hitches) instead of raw xctrace XML",
+  "version": "1.0.0",
+  "author": "nemanjavlahovic",
+  "homepage": "https://github.com/nemanjavlahovic/instruments-mcp-server",
+  "skills": []
+}
