@@ -1,0 +1,9 @@
+{
+  "name": "seongwoongcho--adaptive-harness",
+  "displayName": "adaptive-harness",
+  "description": "A self-improving harness router for Claude Code.",
+  "version": "1.0.0",
+  "author": "SeongwoongCho",
+  "homepage": "https://github.com/SeongwoongCho/adaptive-harness",
+  "skills": []
+}
