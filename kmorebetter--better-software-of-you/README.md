@@ -7,11 +7,11 @@ Your AI-powered personal platform. Contacts, projects, and more — all local, a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kmorebetter/better-software-of-you](https://github.com/kmorebetter/better-software-of-you).
+Original source: `CLAUDE.md` in [kmorebetter/better-software-of-you](https://github.com/kmorebetter/better-software-of-you).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
