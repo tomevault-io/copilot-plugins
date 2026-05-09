@@ -1,9 +1,9 @@
 {
   "name": "wangjianjq--skill",
   "displayName": "Skill",
-  "description": "Skill",
+  "description": "Auto agents",
   "version": "1.0.0",
   "author": "wangjianjq",
-  "homepage": "https://tomevault.io/claim/wangjianjq",
+  "homepage": "https://github.com/wangjianjq/Skill",
   "skills": []
 }
