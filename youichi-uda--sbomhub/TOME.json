@@ -1,0 +1,44 @@
+{
+  "name": "sbomhub",
+  "owner": "youichi-uda",
+  "repo": "sbomhub",
+  "description": "\u65e5\u672c\u5e02\u5834\u5411\u3051\u30aa\u30fc\u30d7\u30f3\u30bd\u30fc\u30b9SBOM\u7ba1\u7406\u30c0\u30c3\u30b7\u30e5\u30dc\u30fc\u30c9 / Open-source SBOM management dashboard with NVD/JVN vulnerability correlation, Japanese UI, and METI guidelines compliance",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/youichi-uda/sbomhub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T22:46:49Z"
+}
