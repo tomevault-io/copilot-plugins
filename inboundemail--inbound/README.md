@@ -2,6 +2,8 @@
 
 > Sourced from [inboundemail/inbound](https://github.com/inboundemail/inbound) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+email infrastructure for agent and indie devs
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
