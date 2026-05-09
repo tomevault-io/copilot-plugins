@@ -1,0 +1,9 @@
+{
+  "name": "yaronbeen--showme",
+  "displayName": "ShowMe",
+  "description": "Visual mockup and annotation tool for Claude Code. Draw mockups, add multi-page references, and provide coordinate-tracked feedback.",
+  "version": "1.0.0",
+  "author": "yaronbeen",
+  "homepage": "https://github.com/yaronbeen/ShowMe",
+  "skills": []
+}
