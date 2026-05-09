@@ -1,0 +1,9 @@
+{
+  "name": "retrocode-org--retrocode",
+  "displayName": "RetroCode",
+  "description": "Turn your agent inference traces into insights that benefits future work",
+  "version": "1.0.0",
+  "author": "RetroCode-Org",
+  "homepage": "https://github.com/RetroCode-Org/RetroCode",
+  "skills": []
+}
