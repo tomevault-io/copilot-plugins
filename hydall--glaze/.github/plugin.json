@@ -1,0 +1,9 @@
+{
+  "name": "hydall--glaze",
+  "displayName": "Glaze",
+  "description": "Glaze is a local, novice-friendly AI roleplay chat client for mobile devices. Works with any OpenAI-compatible (Chat Completion) LLM provider.",
+  "version": "1.0.0",
+  "author": "hydall",
+  "homepage": "https://github.com/hydall/Glaze",
+  "skills": []
+}
