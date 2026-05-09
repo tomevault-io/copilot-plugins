@@ -1,0 +1,9 @@
+{
+  "name": "championswimmer--env-sync-local",
+  "displayName": "env.sync.local",
+  "description": "sync your env secrets securely peer-to-peer on local networks",
+  "version": "1.0.0",
+  "author": "championswimmer",
+  "homepage": "https://github.com/championswimmer/env.sync.local",
+  "skills": []
+}
