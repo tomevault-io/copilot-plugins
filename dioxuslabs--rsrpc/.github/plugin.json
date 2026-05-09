@@ -1,0 +1,9 @@
+{
+  "name": "dioxuslabs--rsrpc",
+  "displayName": "rsrpc",
+  "description": "The simplest Rust RPC library",
+  "version": "1.0.0",
+  "author": "DioxusLabs",
+  "homepage": "https://github.com/DioxusLabs/rsrpc",
+  "skills": []
+}
