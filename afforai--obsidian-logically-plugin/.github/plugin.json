@@ -1,0 +1,9 @@
+{
+  "name": "afforai--obsidian-logically-plugin",
+  "displayName": "obsidian-logically-plugin",
+  "description": "Logically AI Research Assistant (Obsidian)",
+  "version": "1.0.0",
+  "author": "afforai",
+  "homepage": "https://github.com/afforai/obsidian-logically-plugin",
+  "skills": []
+}
