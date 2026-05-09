@@ -1,0 +1,9 @@
+{
+  "name": "nickjlamb--pubcrawl",
+  "displayName": "pubcrawl",
+  "description": "A peer-reviewed pub crawl through the literature \u2014 MCP server for PubMed & biomedical literature search",
+  "version": "1.0.0",
+  "author": "nickjlamb",
+  "homepage": "https://github.com/nickjlamb/pubcrawl",
+  "skills": []
+}
