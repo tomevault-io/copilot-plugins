@@ -1,63 +1,46 @@
-## main
+## mobx
 
-> Main engineering rule for senior-level React Native code in LokalMind v2.
+> MobX ViewModel patterns for LokalMind v2.
 
 
-# LokalMind v2 - Cursor Rules
+# MobX Rules
 
-## Scope of changes (read first)
-- Do exactly what is requested. No unrelated refactors, no extra files, no unsolicited improvements.
-- When editing existing files, match surrounding style, naming, and import patterns before introducing anything new.
-- Do not generate barrel files, index re-exports, README files, or boilerplate unless explicitly asked.
-- Keep final explanations short and technical.
+Full reference: `docs/development/CONVENTIONS.md` section 4.
 
-## Engineering bar
-- Write production-ready, senior-level React Native + TypeScript code.
-- Keep implementations concise, modular, and easy to review.
-- Prefer maintainable patterns over quick hacks; avoid duplication.
-- Add brief developer comments only for non-obvious decisions or complex logic.
+## ViewModel template
 
-## Architecture (mandatory)
-- Follow Clean Architecture: Presentation -> Use Cases -> Domain; Data implements repositories; infrastructure injected via DI.
-- Never bypass contracts in `src/core/ports/` or repository interfaces.
-- Keep domain pure: no framework or third-party SDK imports in domain entities or use cases.
-- If a change conflicts with architecture, refactor to comply - do not add exceptions.
+```typescript
+import { makeAutoObservable, runInAction } from 'mobx';
 
-## LokalMind conventions (mandatory)
-- Respect naming and folder conventions for screens, ViewModels, use cases, repositories, and routes.
-- Use `Result<T>`-style flows for use cases; explicit error branches in ViewModels.
-- MobX ViewModels: `makeAutoObservable(this)` first in constructor; all async mutations inside `runInAction`.
-- Stack: Expo 54, RN 0.81, React 19.1, expo-router v6, MobX 6, llama.rn (GGUF), whisper.rn, expo-sqlite, RevenueCat.
+export class ExampleViewModel {
+  isLoading = false;
+  errorMessage: string | null = null;
 
-## Platform constraints
-- No Node.js-only APIs; all packages must be Expo-compatible.
-- Validate native module compatibility (llama.rn, whisper.rn) before adding new dependencies.
-- Whenever using a package, verify API usage against current docs and do not use deprecated APIs.
-- Do not assume web APIs are available; guard platform-specific branches explicitly.
+  constructor(private readonly someUseCase: SomeUseCase) {
+    makeAutoObservable(this); // always first
+  }
 
-## TypeScript strictness
-- TypeScript strictness: avoid `any`, prefer precise interfaces and explicit return types on public APIs.
-- Use guard clauses and early returns to keep control flow flat.
-- Handle edge cases first; never swallow errors silently.
-- Keep UI code declarative; business logic belongs in use cases and ViewModels.
+  async doAction() {
+    this.isLoading = true;
+    const result = await this.someUseCase.execute();
+    runInAction(() => {
+      this.isLoading = false;
+      if (!result.success) this.errorMessage = result.error.message;
+    });
+  }
 
-## Performance defaults
-- Avoid unnecessary re-renders; memoize only where it produces measurable improvement.
-- Stable keys and item layout strategies for large lists.
-- Keep expensive computation out of render paths.
-- Prefer incremental/streaming patterns for long-running tasks (inference, STT).
+  get isReady() { return !this.isLoading; }
+}
+```
 
-## Developer comments (high-signal only)
-- Comment the "why", not the "what".
-- 1-2 lines max; technical and precise.
-- Comment around complex async flow, fallback behavior, and architectural trade-offs.
-- Remove stale comments when code changes.
+## Hard rules
 
-## Testing and reliability
-- Add or update tests for critical logic changes and bug fixes.
-- Unit tests for use cases and ViewModels; integration tests for key user flows.
-- Keep tests deterministic; no time or network flakiness.
-- Do not change behavior without validation.
+1. `makeAutoObservable(this)` - first statement in constructor, always
+2. Async state mutations - always in `runInAction()`
+3. Computed - getter syntax only, no `@computed`
+4. All screens/components reading VM state - must be wrapped with `observer()`
+5. MobX only in `presentation/` - never in `domain/`, `data/`, `infrastructure/`
+6. No `useState` / `useReducer` for state that belongs in a ViewModel
 
 ---
 > Source: [Sandipan006/lokalmind-app](https://github.com/Sandipan006/lokalmind-app) — distributed by [TomeVault](https://tomevault.io).
