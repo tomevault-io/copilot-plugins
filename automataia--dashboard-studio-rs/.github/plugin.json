@@ -1,0 +1,9 @@
+{
+  "name": "automataia--dashboard-studio-rs",
+  "displayName": "dashboard-studio-rs",
+  "description": "Privacy-first, client-side data visualization powered by Rust + WebAssembly. Upload data, create interactive dashboards with 11 chart types, drag-and-drop layout, auto-save, undo/redo\u2014all running in y",
+  "version": "1.0.0",
+  "author": "automataIA",
+  "homepage": "https://github.com/automataIA/dashboard-studio-rs",
+  "skills": []
+}
