@@ -2,7 +2,7 @@
   "name": "inbound",
   "owner": "inboundemail",
   "repo": "inbound",
-  "description": "",
+  "description": "email infrastructure for agent and indie devs",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/inboundemail/inbound",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T12:04:21Z"
+  "distributed_at": "2026-05-09T13:14:32Z"
 }
