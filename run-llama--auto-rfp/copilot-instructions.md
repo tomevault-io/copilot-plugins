@@ -1,23 +1,21 @@
-## general-typescript-and-react-rules
+## next-js-15-async-request-api-rules
 
-> description: Applies general coding principles and best practices for TypeScript and React development across the project.
+> description: Dictates how asynchronous requests should be handled within Next.js 15, specifically concerning runtime APIs.
 
 ---
-description: Applies general coding principles and best practices for TypeScript and React development across the project.
-globs: **/*.{ts,tsx}
+description: Dictates how asynchronous requests should be handled within Next.js 15, specifically concerning runtime APIs.
+globs: app/**/*
 ---
-- Write concise, readable TypeScript code.
-- Use functional and declarative programming patterns.
-- Follow DRY (Don't Repeat Yourself) principle.
-- Implement early returns for better readability.
-- Structure components logically: exports, subcomponents, helpers, types.
-- Use descriptive names with auxiliary verbs (isLoading, hasError).
-- Prefix event handlers with 'handle' (handleClick, handleSubmit).
-- Use TypeScript for all code.
-- Prefer interfaces over types.
-- Avoid enums; use const maps instead.
-- Implement proper type safety and inference.
-- Use `satisfies` operator for type validation.
+- Always use async versions of runtime APIs:
+  typescript
+  const cookieStore = await cookies()
+  const headersList = await headers()
+  const { isEnabled } = await draftMode()
+  
+- Handle async params in layouts/pages:
+  typescript
+  const params = await props.params
+  const searchParams = await props.searchParams
 
 ---
 > Source: [run-llama/auto_rfp](https://github.com/run-llama/auto_rfp) — distributed by [TomeVault](https://tomevault.io).
