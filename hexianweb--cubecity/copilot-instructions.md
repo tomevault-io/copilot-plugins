@@ -1,63 +1,87 @@
-## project-structure
+## search-pro
 
-> - Keep related files together in appropriate directories
+> 当我提的问题中带有“智能搜索”等相关词语时
 
-## Project Structure Guidelines
+# 增强版 Cursor 搜索工具
 
-### Directory Organization
-- Keep related files together in appropriate directories
-- Use consistent naming conventions across the project
-- Maintain clear separation of concerns between components
-- Follow the established directory structure
-- Document any deviations from standard structure
+## 自动激活
 
-### Asset Management
-- Store assets in appropriate directories under /public
-- Use proper file formats for different asset types
-- Maintain proper versioning for assets
-- Document asset requirements and formats
-- Implement proper asset optimization pipeline
+这些指令在本项目的所有对话中自动生效。应根据需要使用所有可用工具（顺序思维、Tavily 和 Fetch）。
 
-### Component Organization
-- Keep components focused and single-purpose
-- Implement proper component hierarchy
-- Use consistent component structure
-- Document component dependencies
-- Maintain proper component documentation
+## 默认工作流程
 
-### Code Style
-- Follow established coding style guidelines
-- Use consistent naming conventions
-- Implement proper code documentation
-- Maintain proper error handling
+每个新对话应自动以顺序思维开始，以确定完成当前任务所需的其他工具。
+回答用到哪个工具请加对应的图标以便我了解到你使用了这个工具 ，MCP 正常工作 
 
-### Build Process
-- Follow Vite.js best practices
-- Optimize build configuration
-- Implement proper environment handling
-- Document build requirements
-- Maintain proper dependency management
+- **sequential-thinking**: 🧠
+- **Tavily**: 🔍
+- **Fetch**: 🌐
 
-### Testing
-- Implement comprehensive test coverage
-- Use appropriate testing frameworks
-- Maintain proper test organization
-- Document testing requirements
-- Follow test-driven development practices
+## 强制工具使用
 
-### Documentation
-- Maintain up-to-date documentation
-- Use consistent documentation format
-- Document all major features
-- Keep README.md current
-- Document all configuration options
+所有多步骤问题或研究任务必须使用顺序思维。 🧠
+深入见解、专业研究和内容提取必须使用 Tavily。 🔍
+当已知 URL 时，必须使用 Fetch 直接检索网页内容。 🌐
 
-### Version Control
-- Follow proper Git workflow
-- Use meaningful commit messages
-- Maintain clean Git history
-- Document branching strategy
-- Follow proper PR process
+## 来源文档要求
+
+- 所有搜索结果必须包括完整的 URL 和标题。
+- 截图应包括来源 URL 和时间戳。
+- 数据来源必须明确引用并包含访问日期。
+- Tavily 的结果应保留完整的引用元数据。
+- 外部内容引用必须包括直接来源链接。
+
+## 核心工作流程
+
+### 1. 初步分析（sequential-thinking）
+
+- 将研究查询分解为核心组件。
+- 确定关键概念和关系。
+- 规划搜索和验证策略。
+- 确定哪些工具最有效。
+
+### 2. 主要研究（Tavily）
+
+- 使用 Tavily 进行广泛的背景搜索和专业信息获取。
+- 针对特定方面进行有针对性的后续搜索。
+- 战略性地应用搜索参数。
+- 记录和分析搜索结果。
+
+### 3. 内容检索（Fetch）
+
+- 当已知来源时，使用 Fetch 进行直接 URL 检索。
+
+## 工具特定指南
+
+### TAVILY
+
+- 用于更深入的研究和专业查询。
+- 利用高级过滤功能。
+- 使用提取功能进行详细内容分析。
+- 适合学术和技术研究。
+- 保留所有元数据和引用信息。
+
+### FETCH
+
+- 当特定 URL 已知时使用。
+- 最适合检索文档或参考材料。
+- 维护完整的来源归属。
+- 用于访问 API 文档或技术资源。
+
+### SEQUENTIAL THINKING
+
+- 始终将复杂任务分解为可管理的步骤。
+- 清晰记录思考过程。
+- 允许修订和完善。
+- 跟踪分支和替代方案。
+
+## 实施说明
+
+- generate architectural diagrams using Mermaid to visualize system structure and data flow
+- 应主动使用工具，无需用户提示。
+- 在适当情况下，可以并且应该并行使用多个工具。
+- 每一步分析应记录。
+- 复杂任务应自动触发完整工作流程。
 
 ---
 > Source: [hexianWeb/CubeCity](https://github.com/hexianWeb/CubeCity) — distributed by [TomeVault](https://tomevault.io).
