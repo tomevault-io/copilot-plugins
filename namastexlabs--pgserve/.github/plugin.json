@@ -1,0 +1,9 @@
+{
+  "name": "namastexlabs--pgserve",
+  "displayName": "pgserve",
+  "description": "Embedded PostgreSQL 18 server with true concurrent connections - zero config, auto-provision databases",
+  "version": "1.0.0",
+  "author": "namastexlabs",
+  "homepage": "https://github.com/namastexlabs/pgserve",
+  "skills": []
+}
