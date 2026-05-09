@@ -1,0 +1,9 @@
+{
+  "name": "canermastan--jazzy-framework",
+  "displayName": "jazzy-framework",
+  "description": "Productive, developer-friendly web framework for Nim. Write less code, build more features.",
+  "version": "1.0.0",
+  "author": "canermastan",
+  "homepage": "https://github.com/canermastan/jazzy-framework",
+  "skills": []
+}
