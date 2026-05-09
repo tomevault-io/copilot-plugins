@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--srt-slurm",
+  "displayName": "srt-slurm",
+  "description": "NVIDIA Inference Benchmarks provide recipes in ready-to-use templates for evaluating platform speed.  Validate your platform across specific AI use cases across hardware and software combinations.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/srt-slurm",
+  "skills": []
+}
