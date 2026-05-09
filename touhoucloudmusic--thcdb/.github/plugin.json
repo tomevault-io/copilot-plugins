@@ -1,0 +1,9 @@
+{
+  "name": "touhoucloudmusic--thcdb",
+  "displayName": "thcdb",
+  "description": "A modern, fast, open source doujin music database",
+  "version": "1.0.0",
+  "author": "TouhouCloudMusic",
+  "homepage": "https://github.com/TouhouCloudMusic/thcdb",
+  "skills": []
+}
