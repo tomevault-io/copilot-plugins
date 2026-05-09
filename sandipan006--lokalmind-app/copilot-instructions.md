@@ -1,39 +1,44 @@
-## design-system
+## error-handling
 
-> Design system rules - tokens, glass surfaces, animations for LokalMind v2.
+> Error handling patterns for LokalMind v2 use cases, repositories, and ViewModels.
 
+# Error Handling
 
-# Design System Rules
+Full reference: `docs/development/CONVENTIONS.md` section 5.
 
-Full reference: `docs/development/CONVENTIONS.md` section 8 · `docs/design/DESIGN-SYSTEM.md`.
-
-## Never hardcode - always use tokens
-
-```typescript
-// Colors   → import from '@/src/design-system/tokens/colors'
-// Fonts    → import from '@/src/design-system/tokens/typography' (FONTS, FONT_SIZE)
-// Spacing  → import from '@/src/design-system/tokens/spacing' (SPACING, BORDER_RADIUS)
-```
-
-No hex literals, no named colors (`'white'`), no raw pixel values in StyleSheet.
-
-## Glass surfaces - always use GlassSurface
+## Use cases return Result - never throw
 
 ```typescript
-import { GlassSurface } from '@/src/design-system/components';
+import { ok, err } from '@/src/core/types';
 
-<GlassSurface tier="heavy">{children}</GlassSurface>           // neutral
-<GlassSurface tier="heavy" tint="brand">{children}</GlassSurface> // active/selected
+class SendMessageUseCase {
+  async execute(input: string): Promise<Result<Message>> {
+    if (!input.trim()) return err({ code: 'VALIDATION_ERROR', message: 'Empty input' });
+    try {
+      return ok(await this.repo.saveMessage(input));
+    } catch (e) {
+      return err({ code: 'STORAGE_ERROR', message: 'Save failed', cause: e });
+    }
+  }
+}
 ```
 
-Tiers: `ultra` (modals) · `heavy` (cards) · `medium` (input bars) · `light` (highlights)
+## ViewModels handle both branches
 
-Never import `GlassView` or `BlurView` in feature code - `GlassSurface` handles fallback.
+```typescript
+const result = await this.useCase.execute(input);
+runInAction(() => {
+  if (!result.success) { this.errorMessage = result.error.message; return; }
+  this.data = result.data;
+});
+```
 
-## Animations
+## Rules
 
-- `react-native-reanimated` only - never `Animated` from `react-native`
-- Lottie only for splash and specific branded moments
+- Use cases: MUST return `Result<T>` - never throw
+- Infrastructure adapters: MUST catch and wrap exceptions as `AppError`
+- Never use `any` as error type
+- Never swallow silently - every `catch` must re-throw or return `err(...)`
 
 ---
 > Source: [Sandipan006/lokalmind-app](https://github.com/Sandipan006/lokalmind-app) — distributed by [TomeVault](https://tomevault.io).
