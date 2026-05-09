@@ -1,0 +1,9 @@
+{
+  "name": "revfactory--claude-code-chat",
+  "displayName": "claude-code-chat",
+  "description": "claude-code-chat",
+  "version": "1.0.0",
+  "author": "revfactory",
+  "homepage": "https://github.com/revfactory/claude-code-chat",
+  "skills": []
+}
