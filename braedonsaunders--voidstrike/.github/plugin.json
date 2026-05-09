@@ -1,0 +1,9 @@
+{
+  "name": "braedonsaunders--voidstrike",
+  "displayName": "voidstrike",
+  "description": "Multiplayer real-time strategy game running entirely in the browser. WebGPU graphics, serverless P2P networking via WebRTC/Nostr, deterministic lockstep simulation, and three asymmetric factions.",
+  "version": "1.0.0",
+  "author": "braedonsaunders",
+  "homepage": "https://github.com/braedonsaunders/voidstrike",
+  "skills": []
+}
