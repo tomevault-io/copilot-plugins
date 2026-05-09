@@ -7,11 +7,11 @@ Pure-Go DataFrames modeled on polars, built on Apache Arrow. No cgo.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Gaurav-Gosain/golars](https://github.com/Gaurav-Gosain/golars).
+Original source: `CLAUDE.md` in [Gaurav-Gosain/golars](https://github.com/Gaurav-Gosain/golars).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
