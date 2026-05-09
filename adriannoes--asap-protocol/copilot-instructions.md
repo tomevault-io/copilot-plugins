@@ -1,36 +1,79 @@
-## testing-standards
+## asap-protocol
 
-> Testing standards for pytest, fixtures, async patterns, and test organization. Apply when writing or reviewing tests.
+> > **Context Map for AI Agents**. Use this file to locate project knowledge.
 
+# AGENTS.md
 
-# Testing Standards (Pytest + UV)
+> **Context Map for AI Agents**. Use this file to locate project knowledge.
+> **Rules Enforcement**: Strictly follow all active `.cursor/rules/*.mdc`.
 
-## 1. Tooling & Environment
-- **Runner:** Always use `uv run pytest`.
-- **Async:** We use `pytest-asyncio` with `asyncio_mode = "auto"`.
-- **Parallelism:** We use `pytest-xdist` (`-n auto`).
+## Project Context
 
-## 2. Directory Structure
-- **Unit:** `tests/{module}/unit/` (No HTTP, pure logic).
-- **Integration:** `tests/{module}/integration/` (Server, Rate Limits, DB).
-- **E2E:** `tests/e2e/`.
+**ASAP Protocol** (Async Simple Agent Protocol) is a production-ready standard for agent-to-agent communication.
+- **Stack**: Python 3.13+, FastAPI, Pydantic v2.
+- **Transport**: JSON-RPC 2.0 over HTTP/WebSocket.
+- **Status**: v2.2.1 (Released); next planning focus is the v2.3.x adoption train.
+- **Framework Integrations**: LangChain, CrewAI, PydanticAI, LlamaIndex, SmolAgents, Vercel AI SDK, MCP, OpenClaw, A2H.
+- **General contact** (humans coordinating on the protocol; not security): [info@asap-protocol.com](mailto:info@asap-protocol.com) — vulnerabilities: [SECURITY.md](SECURITY.md).
 
-## 3. Fixtures & Mocks
-- **Do NOT import fixtures manually.** They are loaded automatically from `asap.testing.fixtures` via `conftest.py`.
-- **Rate Limiting:** If testing transport/API, you MUST use the patterns in `tests/transport/conftest.py` (e.g., `isolated_limiter_factory`, `NoRateLimitTestBase`) to avoid flaky tests due to global state.
-- **Typing:** All tests must have type hints. Use `TYPE_CHECKING` imports for fixtures like `CaptureFixture` or `MockerFixture`.
+## Quick Start
 
-## 4. Anti-Patterns
-- Never use `time.sleep()`. Use `asyncio.sleep()`.
-- Do not bypass `ruff` or `mypy` checks in tests.
+```bash
+uv sync                                     # Install dependencies
+uv run pytest                               # Run tests (add -v for verbose)
+uv run uvicorn asap.transport.server:app --reload  # Start dev server
+uv run mypy src/ scripts/ tests/ && uv run ruff check src/  # Verify quality
+```
 
-## 5. CI and pytest-xdist
+## Knowledge Map
 
-When running tests in parallel (`-n auto`), follow these rules to avoid INTERNALERROR (exit code 3) and flaky CI:
+### 1. Product & Architecture (Read First)
+- **Vision & Roadmap**: ADRs and PRDs (`product/decision-records/`, `product/prd/`). Narrative vision files under `product/strategy/` are **local-only** (ignored on the remote).
+- **Feature Specs (PRDs)**: `product/prd/`
+- **Arch Decisions (ADRs)**: `product/decision-records/`
+- **Documentation checkpoints** (post-release PRD follow-up): `product/checkpoints.md`
+- **Tech Stack**: `engineering/architecture/tech-stack-decisions.md`
 
-- **Rate limiter isolation:** The global rate limiter (slowapi) is shared across workers. `tests/conftest.py` provides an autouse fixture `_isolate_rate_limiter` that replaces it with an isolated instance per test. Do not remove this fixture; tests that need specific rate limits (e.g. `tests/transport/integration/test_rate_limiting.py`) skip isolation via `request.fspath` check.
-- **Coverage and xdist:** Do NOT add `--cov=src` or `--cov-report=*` to pytest `addopts` in `pyproject.toml`. Running coverage with pytest-xdist can cause INTERNALERROR. Run coverage only in a dedicated CI job without `-n auto` (e.g. `uv run pytest --cov=src --cov-report=xml --cov-fail-under=85`). The fail-under value is the minimum project coverage threshold; do not lower it without team agreement.
-- **Benchmarks and testpaths:** `testpaths` must include only `tests/`, not `benchmarks/`. The benchmarks use Locust, which monkey-patches gevent/ssl on import; that conflicts with pytest-xdist workers. Run benchmarks separately when needed: `uv run pytest benchmarks/` or `uv run locust -f benchmarks/load_test.py`.
+### 2. Development Status
+- **Active Sprint**: `engineering/tasks/`
+- **Adoption Roadmap**: v2.3.0 OpenAPI + TypeScript SDK foundations, followed by private v2.3.x adapter/distribution planning.
+- **Code Reviews**: `engineering/code-review/`
+
+## Organization
+
+### Project Structure
+```text
+src/asap/
+├── models/        # Data models (Envelope, TaskRequest, TaskStream)
+├── auth/          # OAuth2/OIDC, Agent Identity, Capabilities, Approval
+├── transport/     # HTTP Client/Server, WebSocket, SSE Streaming
+├── state/         # Async persistence (AsyncSnapshotStore/AsyncMeteringStore)
+├── handlers/      # Task processing logic
+├── economics/     # Metering, Delegation, SLA
+└── discovery/     # Manifests, Health, Lite Registry
+```
+
+### AI Toolbox (Available Capabilities)
+- **Rules**: `.cursor/rules/*.mdc` (Auto-loaded context)
+- **Commands**: `.cursor/commands/` (Workflows like `create-prd`, `generate-tasks`)
+- **Skills**: `.cursor/skills/` (Specialized agents for Security, Reviews)
+- **Web E2E**: `apps/web/docs/playwright-e2e.md` — Playwright browser path troubleshooting
+
+## Key Architectural Patterns
+
+1.  **Envelope Protocol**: All messages wrapped in `Envelope[T]` (`models/envelope.py`).
+2.  **State Machine**: Tasks strictly follow `PENDING → RUNNING → COMPLETED` (`models/files.py`).
+3.  **Circuit Breaker**: Transport reliability logic (`transport/http_client.py`).
+4.  **Agent Identity**: Per-runtime Ed25519 identity with Host/Agent JWT (`auth/agent_jwt.py`).
+5.  **Capability AuthZ**: Constraint-based capability grants (`auth/capabilities.py`).
+
+## Security Context
+
+- **Auth**: OAuth2/OIDC for agent-to-agent (ADR-17); Agent Identity with Host/Agent JWT (v2.2).
+- **Identity**: Ed25519 Signed Manifests (v1.2); Per-runtime agent identity with JWK thumbprint (v2.2).
+- **Capabilities**: Constraint-based authorization with approval flows (v2.2).
+- **Transport**: mTLS optional (v1.2); ASAP-Version negotiation (v2.2).
+- **Compliance**: `asap-compliance` package validates specs.
 
 ---
 > Source: [adriannoes/asap-protocol](https://github.com/adriannoes/asap-protocol) — distributed by [TomeVault](https://tomevault.io).
