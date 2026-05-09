@@ -1,0 +1,14 @@
+{
+  "name": "ed-donner--prelegal",
+  "displayName": "prelegal",
+  "description": "A platform for drafting common legal agreements",
+  "version": "1.0.0",
+  "author": "ed-donner",
+  "homepage": "https://github.com/ed-donner/prelegal",
+  "skills": [
+    {
+      "name": "cerebras",
+      "description": ""
+    }
+  ]
+}
