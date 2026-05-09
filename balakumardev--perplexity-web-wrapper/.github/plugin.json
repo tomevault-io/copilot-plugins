@@ -1,0 +1,9 @@
+{
+  "name": "balakumardev--perplexity-web-wrapper",
+  "displayName": "perplexity-web-wrapper",
+  "description": "Use your existing Perplexity subscription with MCP - no API costs. Web wrapper + MCP server for coding agents (Claude Code, Cursor, Windsurf, etc.)",
+  "version": "1.0.0",
+  "author": "balakumardev",
+  "homepage": "https://github.com/balakumardev/perplexity-web-wrapper",
+  "skills": []
+}
