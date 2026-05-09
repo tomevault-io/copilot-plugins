@@ -1,0 +1,9 @@
+{
+  "name": "ramborogers--cyber-inference",
+  "displayName": "cyber-inference",
+  "description": "Cyber-Inference is a web GUI management tool for running OpenAI-compatible inference servers. Built on llama.cpp, it provides automatic model management, dynamic resource allocation, and a beautiful c",
+  "version": "1.0.0",
+  "author": "RamboRogers",
+  "homepage": "https://github.com/RamboRogers/cyber-inference",
+  "skills": []
+}
