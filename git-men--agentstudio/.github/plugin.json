@@ -1,0 +1,9 @@
+{
+  "name": "git-men--agentstudio",
+  "displayName": "agentstudio",
+  "description": "A sophisticated AI-powered workspace built on top of Claude Code SDK",
+  "version": "1.0.0",
+  "author": "git-men",
+  "homepage": "https://github.com/git-men/agentstudio",
+  "skills": []
+}
