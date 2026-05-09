@@ -1,0 +1,9 @@
+{
+  "name": "endorhq--capsule",
+  "displayName": "capsule",
+  "description": "Capsule is an interactive inspector that turns session logs into a browsable and explorable timeline.",
+  "version": "1.0.0",
+  "author": "endorhq",
+  "homepage": "https://github.com/endorhq/capsule",
+  "skills": []
+}
