@@ -1,0 +1,9 @@
+{
+  "name": "shipsecai--studio",
+  "displayName": "studio",
+  "description": "Workflow automation for Security Teams",
+  "version": "1.0.0",
+  "author": "ShipSecAI",
+  "homepage": "https://github.com/ShipSecAI/studio",
+  "skills": []
+}
