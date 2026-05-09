@@ -1,0 +1,44 @@
+{
+  "name": "CubeCity",
+  "owner": "hexianWeb",
+  "repo": "CubeCity",
+  "description": "A city waiting to be built by you \ud83c\udfd9\ufe0f\ud83d\udd28\u2728. Threejs Version (\u4e00\u4e2a\u7b49\u7740\u88ab\u4f60\u5efa\u9020\u7684\u57ce\u5e02)",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hexianWeb/CubeCity",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T04:41:27Z"
+}
