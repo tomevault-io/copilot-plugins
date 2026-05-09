@@ -1,0 +1,9 @@
+{
+  "name": "warehousefinds--psscriptmodule",
+  "displayName": "PSScriptModule",
+  "description": "A production-grade PowerShell script module template designed to standardize module development. It integrates automated builds, dependency management, static code analysis, testing, documentation, an",
+  "version": "1.0.0",
+  "author": "WarehouseFinds",
+  "homepage": "https://github.com/WarehouseFinds/PSScriptModule",
+  "skills": []
+}
