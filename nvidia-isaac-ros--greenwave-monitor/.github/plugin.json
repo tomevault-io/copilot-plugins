@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-isaac-ros--greenwave-monitor",
+  "displayName": "greenwave_monitor",
+  "description": "ROS 2 Topic Monitoring",
+  "version": "1.0.0",
+  "author": "NVIDIA-ISAAC-ROS",
+  "homepage": "https://github.com/NVIDIA-ISAAC-ROS/greenwave_monitor",
+  "skills": []
+}
