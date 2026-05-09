@@ -1,0 +1,9 @@
+{
+  "name": "inventage-ai--asylum",
+  "displayName": "asylum",
+  "description": "Docker sandbox for AI coding agents",
+  "version": "1.0.0",
+  "author": "inventage-ai",
+  "homepage": "https://github.com/inventage-ai/asylum",
+  "skills": []
+}
