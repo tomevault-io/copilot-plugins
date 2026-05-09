@@ -1,0 +1,44 @@
+{
+  "name": "compose-multiplatform-boilerplate",
+  "owner": "composablehorizons",
+  "repo": "compose-multiplatform-boilerplate",
+  "description": "Get started with Compose Unstyled and Compose Multiplatform in seconds.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/composablehorizons/compose-multiplatform-boilerplate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T17:33:15Z"
+}
