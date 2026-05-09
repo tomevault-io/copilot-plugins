@@ -1,0 +1,9 @@
+{
+  "name": "vericontext--vibeframe",
+  "displayName": "vibeframe",
+  "description": "AI-Native Video Editor \u2014 CLI-first, MCP-ready. Generate, edit, and ship videos from your terminal.",
+  "version": "1.0.0",
+  "author": "vericontext",
+  "homepage": "https://github.com/vericontext/vibeframe",
+  "skills": []
+}
