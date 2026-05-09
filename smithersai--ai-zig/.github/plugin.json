@@ -1,0 +1,9 @@
+{
+  "name": "smithersai--ai-zig",
+  "displayName": "ai-zig",
+  "description": "Zig AI SDK - A comprehensive AI SDK for Zig, ported from the Vercel AI SDK",
+  "version": "1.0.0",
+  "author": "smithersai",
+  "homepage": "https://github.com/smithersai/ai-zig",
+  "skills": []
+}
