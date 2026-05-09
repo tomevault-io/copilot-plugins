@@ -1,0 +1,9 @@
+{
+  "name": "bpdbi--bpdbi",
+  "displayName": "bpdbi",
+  "description": "Blocking pipelined db interface for Postgres on the JVM",
+  "version": "1.0.0",
+  "author": "bpdbi",
+  "homepage": "https://github.com/bpdbi/bpdbi",
+  "skills": []
+}
