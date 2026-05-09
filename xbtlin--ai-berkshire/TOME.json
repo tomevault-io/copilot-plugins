@@ -1,0 +1,44 @@
+{
+  "name": "ai-berkshire",
+  "owner": "xbtlin",
+  "repo": "ai-berkshire",
+  "description": "AI \u65f6\u4ee3\u7684\u4f2f\u514b\u5e0c\u5c14\uff1a\u57fa\u4e8e Claude Code \u7684\u4ef7\u503c\u6295\u8d44\u7814\u7a76\u6846\u67b6\u3002\u5df4\u83f2\u7279\u00b7\u8292\u683c\u00b7\u6bb5\u6c38\u5e73\u00b7\u674e\u5f55\u56db\u5927\u5e08\u65b9\u6cd5\u8bba + \u591aAgent\u5e76\u884c\u7814\u7a76\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xbtlin/ai-berkshire",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T00:49:14Z"
+}
