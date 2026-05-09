@@ -1,0 +1,9 @@
+{
+  "name": "xrgarcia--slashbin-ai-foreman",
+  "displayName": "slashbin-ai-foreman",
+  "description": "Open-source daemon that watches GitHub repos for approved issues and implements them using Claude Agent SDK",
+  "version": "1.0.0",
+  "author": "xrgarcia",
+  "homepage": "https://github.com/xrgarcia/slashbin-ai-foreman",
+  "skills": []
+}
