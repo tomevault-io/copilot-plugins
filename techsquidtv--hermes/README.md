@@ -2,6 +2,8 @@
 
 > Sourced from [TechSquidTV/Hermes](https://github.com/TechSquidTV/Hermes) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+Hermes Video Downloader — Self-hosted video downloader compatible with 1,000+ sites.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
