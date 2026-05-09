@@ -1,7 +1,7 @@
 {
   "name": "maccman--ai-monorepo-scaffold",
   "displayName": "ai-monorepo-scaffold",
-  "description": "ai-monorepo-scaffold",
+  "description": "A scaffold demonstrating how to use a turbo, mono repo, trpc, better auth, react, postgres and cursor ai rules.",
   "version": "1.0.0",
   "author": "maccman",
   "homepage": "https://github.com/maccman/ai-monorepo-scaffold",
