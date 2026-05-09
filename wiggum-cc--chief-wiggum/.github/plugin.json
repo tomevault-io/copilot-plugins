@@ -1,0 +1,9 @@
+{
+  "name": "wiggum-cc--chief-wiggum",
+  "displayName": "chief-wiggum",
+  "description": "Chief Wiggum turns Kanban tasks and GitHub issues into production-ready pull requests. Be the 1000x engineer and ship 200+ features per day.",
+  "version": "1.0.0",
+  "author": "wiggum-cc",
+  "homepage": "https://github.com/wiggum-cc/chief-wiggum",
+  "skills": []
+}
