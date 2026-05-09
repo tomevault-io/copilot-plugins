@@ -4,7 +4,7 @@
   "repo": "rigour",
   "description": "The immune system for AI coding agents",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rigour-labs/rigour",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T15:51:12Z"
+  "distributed_at": "2026-05-09T10:50:01Z"
 }
