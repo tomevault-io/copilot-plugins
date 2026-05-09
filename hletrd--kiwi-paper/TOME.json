@@ -1,0 +1,44 @@
+{
+  "name": "kiwi-paper",
+  "owner": "hletrd",
+  "repo": "kiwi-paper",
+  "description": "\ud83e\udd5d \ub531\ub531\ud55c \ub17c\ubb38\uc774\ub098 API \ubb38\uc11c\ub97c \ub098\ubb34\uc704\ud0a4 \ubb38\uc11c\ub85c \ubc14\uafd4\uc90d\ub2c8\ub2e4. Claude Code, OpenCode, Codex, Gemini CLI \uc9c0\uc6d0.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hletrd/kiwi-paper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T06:39:09Z"
+}
