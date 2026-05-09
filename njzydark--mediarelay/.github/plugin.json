@@ -1,0 +1,9 @@
+{
+  "name": "njzydark--mediarelay",
+  "displayName": "MediaRelay",
+  "description": "\u4e00\u6b3e Emby/Jellyfin \u8bf7\u6c42\u4e2d\u7ee7/\u4ee3\u7406\u5de5\u5177\uff0c\u6838\u5fc3\u529f\u80fd\u5c31\u662f\u5c06\u89c6\u9891\u6d41\u76f8\u5173\u8bf7\u6c42302\u91cd\u5b9a\u5411\u5230\u7f51\u76d8\u76f4\u94fe\u4e0a\uff0c\u4ece\u800c\u5f7b\u5e95\u89e3\u51b3\u7531\u4e8e\u5e26\u5bbd\u4e0d\u8db3\u5bfc\u81f4\u7684\u516c\u7f51\u89c2\u770b\u89c6\u9891\u5361\u987f\u95ee\u9898",
+  "version": "1.0.0",
+  "author": "njzydark",
+  "homepage": "https://github.com/njzydark/MediaRelay",
+  "skills": []
+}
