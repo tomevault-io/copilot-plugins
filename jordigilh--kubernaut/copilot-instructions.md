@@ -1,206 +1,121 @@
-## 12-ai-ml-development-methodology
+## 13-conflict-resolution-matrix
 
-> AI/ML Development Methodology - TDD workflow and integration patterns
+> Conflict resolution matrix and automated detection for kubernaut rules
 
+# Conflict Resolution Matrix
 
-# AI/ML Development Methodology
+## Priority Hierarchy - MANDATORY
 
-## 🎯 **PURPOSE**
+**Rule**: Apply higher priority rules first when conflicts occur
+**Prevention**: Use priority hierarchy to avoid conflicts during design phase
 
-Provides AI-specific TDD patterns that integrate with [00-kubernaut-core-rules.mdc](mdc:.cursor/rules/00-kubernaut-core-rules.mdc) APDC methodology.
+### Authoritative Rule Hierarchy
+| Priority | Rule | Status | Authority | Scope |
+|----------|------|--------|-----------|-------|
+| **1. FOUNDATIONAL** | 00-core-development-methodology.mdc | FOUNDATIONAL | APDC Framework | All development |
+| **2. MANDATORY** | 00-project-guidelines.mdc | MANDATORY PRINCIPLES | TDD & Business Requirements | All development |
+| **3. BEHAVIORAL** | 01-ai-assistant-behavior.mdc | AI ASSISTANT CONTROL | AI Assistant Behavior | AI assistant usage |
+| **5. TESTING** | 03-testing-strategy.mdc | AUTHORITATIVE SOURCE | Testing & Mock Strategy | All testing |
+| **6. SPECIALIZED** | 04,05,12,etc | DOMAIN-SPECIFIC | Specialized Implementation | Specific domains |
+| **7. QUALITY** | 06,08,09,10 | VALIDATION | Quality Assurance | Post-development |
+| **8. INTEGRATION** | 07,01,02 | IMPLEMENTATION | Code Integration | Implementation details |
 
-**Resolves**: Conflicts between TDD methodology, AI/ML patterns, and integration requirements.
+### Rule Precedence When Conflicts Occur
+1. **FOUNDATIONAL (00-core)** overrides everything - APDC methodology is mandatory
+2. **MANDATORY PRINCIPLES (00-project)** override all except foundational
+3. **BEHAVIORAL CONSTRAINTS** override development decisions but not methodology
+4. **TESTING STRATEGY (03)** is authoritative for all testing and mock decisions
+5. **SPECIALIZED RULES** override general implementation but not methodology/testing
+6. **QUALITY RULES** provide validation but don't override implementation decisions
 
----
+## Common Conflicts Resolution
 
-## 🤖 **AI-SPECIFIC TDD PHASES**
+### Integration vs Speed
+**CONFLICT**: AI sophistication vs Integration requirement
+**RESOLUTION**: Integration wins - implement simple → integrate → enhance in REFACTOR
+**PREVENTION**: Plan integration points during APDC Analysis phase
 
-### **AI Discovery Phase** (5-10 min)
+### TDD vs Sophistication
+**CONFLICT**: Complex algorithms vs TDD GREEN minimalism
+**RESOLUTION**: TDD timing controls - minimal GREEN → sophisticated REFACTOR
+**PREVENTION**: Reserve sophisticated logic for REFACTOR phase in APDC Plan
 
-**Action**: Use APDC Analysis phase with AI-specific discovery patterns
-**Rule**: Search existing AI interfaces BEFORE creating new
+### AI vs General (Rule 12 vs Others)
+**CONFLICT**: AI-specific guidance vs general Go patterns
+**RESOLUTION**: AI-specific rules win for AI components
+**PREVENTION**: Identify AI components during APDC Analysis phase
 
-**Mandatory Checks**:
-```bash
-# Check existing AI interfaces
-grep -r "Client.*interface" pkg/ai/ --include="*.go"
-# Check main app AI usage
-grep -r "AI\|LLM\|Holmes" cmd/ --include="*.go"
-# Decision point: enhance existing vs create new AI component
-```
+### Testing Strategy vs Anti-Patterns (Rule 03 vs Rule 08)
+**CONFLICT**: Pyramid testing approach vs anti-pattern detection
+**RESOLUTION**: Both apply - pyramid strategy with anti-pattern prevention
+**PREVENTION**: Design tests following pyramid strategy during APDC Plan phase
 
-**Success**: Found existing AI interfaces to enhance, confirmed main app integration
+### Interface Validation vs Development Speed (Rule 09)
+**CONFLICT**: Interface validation requirements vs rapid development
+**RESOLUTION**: Validation wins - prevents build errors and technical debt
+**PREVENTION**: Verify interface existence during APDC Analysis phase
 
----
+### Safety vs Speed
+**CONFLICT**: K8s safety validation vs development speed
+**RESOLUTION**: Safety wins - include safety in GREEN phase
+**PREVENTION**: Consider safety requirements during APDC Analysis and Plan phases
 
-### **AI RED Phase** (15-20 min)
+## Prevention-Focused Conflict Resolution
 
-**Rule**: Import existing AI interfaces (`pkg/ai/llm.Client`)
-**Forbidden**: Creating new AI interfaces
-**Validation**: Built-in through TDD RED phase design
+### Core APDC Prevention Framework
+**Built-in quality through systematic approach:**
 
-**AI-Specific RED Pattern**:
-```go
-// ✅ CORRECT AI RED: Uses existing AI interface
-var _ = Describe("AI Context Optimization", func() {
-    var (
-        llmClient llm.Client  // Existing interface
-        ctx       context.Context
-    )
+**Analysis Prevention**: Start with clear business context and existing code understanding
+**Plan Prevention**: Design integration and success criteria before coding
+**Do Prevention**: Follow TDD phases with mandatory integration in GREEN
+**Check Prevention**: Verify planned outcomes were achieved through implementation
 
-    BeforeEach(func() {
-        llmClient = testutil.NewMockLLMClient() // Existing factory
-        ctx = context.Background()
-    })
+### Business Requirements Prevention
+**Conflict Prevention**: Use standardized BR-[CATEGORY]-[NUMBER] format during Analysis
+**Integration Prevention**: Plan main application integration during Plan phase
+**Alignment Prevention**: Map all code to documented business requirements
 
-    It("should optimize context using AI analysis (BR-AI-045)", func() {
-        // Call existing AI interface method
-        analysis, err := llmClient.AnalyzeContext(ctx, "test content")
-        Expect(err).ToNot(HaveOccurred())
-        Expect(analysis.Quality).To(BeNumerically(">", 0.8))
-    })
-})
-```
+### TDD Phase Conflict Prevention
+**RED Prevention**: Write tests first, use existing interfaces
+**GREEN Prevention**: Minimal implementation with mandatory integration
+**REFACTOR Prevention**: Enhance existing code only, no new types
 
----
+### Prevention-Focused Conflict Avoidance
+**Integration Conflict Prevention**:
+- Plan main application integration during APDC Analysis phase
+- Design component usage before implementation begins
+- Ensure business code serves documented requirements
 
-### **AI GREEN Phase** (20-25 min)
+**TDD Phase Conflict Prevention**:
+- Reserve new type creation for RED phase only
+- Plan enhancement approach during REFACTOR phase
+- Design minimal implementation strategy for GREEN phase
 
-**Rule**: Enhance existing AI client (e.g., `ClientImpl`)
-**Integration**: Add to main app (`cmd/*/main.go`)
-**Forbidden**: New AI service files
-**Validation**: Built-in through GREEN phase integration requirement
+**Testing Strategy Conflict Prevention**:
+- Follow authoritative mock usage matrix from Rule 03
+- Design testing approach following pyramid strategy
+- Plan anti-pattern avoidance during design phase
 
-**AI-Specific GREEN Pattern**:
-```go
-// ✅ CORRECT AI GREEN: Enhance existing AI client
-// In pkg/ai/llm/client.go
-type Client interface {
-    // ... existing methods ...
-    AnalyzeContext(ctx context.Context, content string) (*ContextAnalysis, error) // ADD TO EXISTING
-}
+## Prevention Protocol
 
-type ClientImpl struct {
-    // ... existing fields ...
-}
+### Preventive Resolution
+1. **ANALYZE**: Apply rule priority hierarchy during APDC Analysis phase
+2. **PLAN**: Design implementation to avoid conflicts during APDC Plan phase
+3. **IMPLEMENT**: Follow highest priority rule guidance during APDC Do phase
+4. **VERIFY**: Confirm conflict prevention during APDC Check phase
 
-func (c *ClientImpl) AnalyzeContext(ctx context.Context, content string) (*ContextAnalysis, error) {
-    // Minimal implementation to pass tests
-    return &ContextAnalysis{Quality: 0.8}, nil
-}
-```
+### Manual Resolution Process
+**When conflicts arise during implementation:**
+1. **STOP**: Halt implementation immediately
+2. **HIERARCHY**: Apply rule priority hierarchy (Foundational > Mandatory > Behavioral > etc.)
+3. **REDESIGN**: Modify approach to follow highest priority rule
+4. **CONTINUE**: Proceed with conflict-free implementation
 
-**Integration Example**:
-```go
-// cmd/kubernaut/main.go
-llmClient := llm.NewClient(config.LLM)
-workflowEngine.SetLLMClient(llmClient)
-processor := processor.New(llmClient, deps...)
-```
+## Integration Points
 
----
-
-### **AI REFACTOR Phase** (25-35 min)
-
-**Rule**: Enhance same AI methods tests call
-**Forbidden**: New AI types, files, interfaces
-**Validation**: Built-in through REFACTOR phase enhancement focus
-
-**AI-Specific REFACTOR Focus**:
-```go
-// ✅ CORRECT AI REFACTOR: Enhance existing method
-func (c *ClientImpl) AnalyzeContext(ctx context.Context, content string) (*ContextAnalysis, error) {
-    // Enhanced implementation with sophisticated logic
-    tokens := c.tokenizer.Tokenize(content)
-    embeddings := c.embeddingGenerator.Generate(tokens)
-    quality := c.qualityAnalyzer.CalculateQuality(embeddings)
-
-    return &ContextAnalysis{
-        Quality: quality,
-        TokenCount: len(tokens),
-        OptimizationSuggestions: c.generateSuggestions(embeddings),
-    }, nil
-}
-```
-
----
-
-## 🔧 **AI INTEGRATION PATTERNS**
-
-### **Mock Usage Decision Matrix**
-
-| Component | Action |
-|-----------|--------|
-| **External AI APIs** (HolmesGPT, OpenAI) | MOCK |
-| **AI Business Logic** (analysis algorithms) | REAL |
-| **Error Simulation** | MOCK |
-| **Performance Testing** | MOCK |
-
-### **AI Integration Conflict Resolution**
-
-**When AI rules conflict with general TDD**:
-1. **AI Discovery**: Use AI-specific search patterns (`pkg/ai/`)
-2. **AI Interface Reuse**: Use existing `pkg/ai/llm.Client` interface
-3. **AI Client Enhancement**: Enhance existing clients, don't create new
-4. **AI REFACTOR**: Focus on method enhancement, not structural changes
-
----
-
-## 📋 **AI-SPECIFIC ANTI-PATTERNS**
-
-### **Creating Parallel AI Components**
-**Violation**: Creating new AI service during REFACTOR
-**Rule**: Enhance existing AI methods only
-
-### **AI-Only Testing**
-**Violation**: AI components only used in tests
-**Rule**: MANDATORY integration in `cmd/*/main.go`
-
-### **Hardcoded AI Endpoints**
-**Violation**: Hardcoded LLM URLs in code
-**Rule**: Use configuration for all AI endpoints
-
-### **AI Without Business Validation**
-**Violation**: Testing AI technical function without business outcome
-**Rule**: Validate business value delivered (confidence, accuracy, recommendations)
-
----
-
-## ⚡ **QUICK REFERENCE**
-
-### **AI TDD Checklist**
-
-**Discovery**:
-- [ ] Searched existing AI interfaces in `pkg/ai/`
-- [ ] Confirmed main app AI usage in `cmd/`
-- [ ] Chose enhancement over creation
-
-**RED**:
-- [ ] Used existing `pkg/ai/llm.Client` interface
-- [ ] Used existing mock factories
-- [ ] Tests failing appropriately
-
-**GREEN**:
-- [ ] Enhanced existing AI client
-- [ ] Integrated in `cmd/*/main.go`
-- [ ] Minimal implementation passes tests
-
-**REFACTOR**:
-- [ ] Enhanced existing AI methods only
-- [ ] No new AI types/files created
-- [ ] Integration preserved
-
----
-
-## 📚 **RELATED DOCUMENTATION**
-
-- **[Core Rules](mdc:.cursor/rules/00-kubernaut-core-rules.mdc)** - APDC methodology and TDD workflow
-- **[AI/ML Guidelines](mdc:.cursor/rules/04-ai-ml-guidelines.mdc)** - AI provider patterns and integration
-- **[Testing Strategy](mdc:.cursor/rules/03-testing-strategy.mdc)** - Mock strategy and test pyramid
-
----
-
-**Remember**: AI components follow the same APDC and TDD rules as all other code. Use existing interfaces, integrate in main apps, enhance rather than create.
+**Prevents**: Rule interpretation conflicts that block development
+**Supports**: All rules by providing clear resolution when guidance conflicts
+**Priority**: CRITICAL - enables rule system to function without ambiguity
 
 ---
 > Source: [jordigilh/kubernaut](https://github.com/jordigilh/kubernaut) — distributed by [TomeVault](https://tomevault.io).
