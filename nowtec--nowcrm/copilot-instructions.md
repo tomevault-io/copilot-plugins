@@ -1,38 +1,89 @@
-## architecture
+## code-style
 
-> NOWCRM architecture overview - monorepo structure, tech stack, and development principles
+> Code style guidelines for NOWCRM
 
+# Code Style Guidelines
 
-# NOWCRM Architecture
+## Formatting Standards
+- **Prettier**: 2-space indentation, single quotes, trailing commas, semicolons
+- **Print width**: 80 characters
+- **ESLint**: No unused imports, consistent import ordering, prefer const over let
 
-## Tech Stack
-- **Frontend**: React 19, TypeScript, NextJs 15, ShadCN components
-- **Backend**: Nodejs, PostgreSQL, Redis, Rabbitmq
-- **Monorepo**: pnpm workspace with docker composer
+## Naming Conventions
+```typescript
+// ✅ Variables and functions - camelCase
+const userAccountBalance = 1000;
+const calculateMonthlyPayment = () => {};
 
-## app Structure
+// ✅ Constants - SCREAMING_SNAKE_CASE
+const API_ROUTES_STRAPI = {
+  USERS: 'users',
+  CONTATs: 'contacts',
+} as const;
+
+// ✅ Types and Classes - PascalCase
+class UserService {}
+type UserAccountData = {};
+type ButtonProps = {}; // Component props suffix with 'Props'
+
+// ✅ Files and directories - kebab-case
+// user-profile.component.tsx
+// user-profile.styles.ts
 ```
-./
-├── nowcrm/          # Nextjs front app
-├── dal/             # Orchestrates heavy asynchronous or bulk operations using BullMQ.
-├── composer/        # Handles content generation, channel dispatch, and AWS SES event ingestion. |
-├── journeys/        # Manages automated multi-step marketing journeys.
-└── strapi/          # Headless CMS used as the universal data backend, authentication layer, and admin panel.
+
+## Function Structure
+```typescript
+// ✅ Small, focused functions
+// ✅ Required parameters first, optional last
+const processUserData = (
+  user: User,
+  options: ProcessingOptions,
+  callback?: (result: ProcessedUser) => void
+): ProcessedUser => {
+  const processedUser = transformUserData(user);
+  applyOptions(processedUser, options);
+  
+  if (callback) {
+    callback(processedUser);
+  }
+  
+  return processedUser;
+};
 ```
 
-## library Structure
-```
-./
-├── services/        # Handle types, services which talks withs strapi and common functions
+## Comments
+```typescript
+// ✅ Explain business logic and non-obvious intentions
+// Apply 15% discount for premium users with orders > $100
+const discount = isPremiumUser && orderTotal > 100 ? 0.15 : 0;
+
+// TODO: Replace with proper authentication service
+const isAuthenticated = localStorage.getItem('token') !== null;
+
+/**
+ * JSDoc for public APIs
+ * @param basePrice - The base price before modifications
+ * @returns The final price after tax and discount
+ */
+const calculateTotalPrice = (basePrice: number): number => {
+  // Implementation
+};
 ```
 
-## Key Principles
-- **Functional components only** (no classes)
-- **Named exports only** (no default exports)
-- **Types over interfaces** (except for extending third-party)
-- **String literals over enums**
-- **No 'any' type allowed**
-- **Event handlers over useEffect** for state updates
+## Error Handling
+```typescript
+// ✅ Proper error types and meaningful messages
+try {
+  const user = await userService.findById(userId);
+  if (!user) {
+    throw new UserNotFoundError(`User with ID ${userId} not found`);
+  }
+  return user;
+} catch (error) {
+  logger.error('Failed to fetch user', { userId, error });
+  throw error;
+}
+```
 
 ---
 > Source: [nowtec/nowCRM](https://github.com/nowtec/nowCRM) — distributed by [TomeVault](https://tomevault.io).
