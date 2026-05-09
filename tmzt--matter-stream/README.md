@@ -7,11 +7,11 @@ A WGPU UI library based on TSX with no JS Virtual Machine
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tmzt/matter-stream](https://github.com/tmzt/matter-stream).
+Original source: `CLAUDE.md` in [tmzt/matter-stream](https://github.com/tmzt/matter-stream).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
