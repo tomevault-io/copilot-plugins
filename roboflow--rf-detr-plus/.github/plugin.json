@@ -1,0 +1,9 @@
+{
+  "name": "roboflow--rf-detr-plus",
+  "displayName": "rf-detr_plus",
+  "description": "An extension of RF-DETR that unlocks larger, more powerful detection models for when you need the highest possible accuracy.",
+  "version": "1.0.0",
+  "author": "roboflow",
+  "homepage": "https://github.com/roboflow/rf-detr_plus",
+  "skills": []
+}
