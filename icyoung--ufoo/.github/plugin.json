@@ -1,0 +1,9 @@
+{
+  "name": "icyoung--ufoo",
+  "displayName": "ufoo",
+  "description": "Multi-agent workspace protocol - context sharing, event bus, and coordination for AI agents",
+  "version": "1.0.0",
+  "author": "Icyoung",
+  "homepage": "https://github.com/Icyoung/ufoo",
+  "skills": []
+}
