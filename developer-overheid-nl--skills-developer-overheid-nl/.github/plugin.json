@@ -1,0 +1,9 @@
+{
+  "name": "developer-overheid-nl--skills-developer-overheid-nl",
+  "displayName": "skills-developer-overheid-nl",
+  "description": "Agent skills for the Dutch Government Developer Portal (developer.overheid.nl) knowledge base.",
+  "version": "1.0.0",
+  "author": "developer-overheid-nl",
+  "homepage": "https://github.com/developer-overheid-nl/skills-developer-overheid-nl",
+  "skills": []
+}
