@@ -1,389 +1,212 @@
-## landmark-accessibility
-
-> Landmark element accessibility compliance and WCAG 2.4.1 Bypass Blocks requirements
-
-# Landmark Element Accessibility Standards
-
-Ensures landmark elements follow WCAG compliance and provide proper content structure for screen reader navigation and bypass blocks functionality.
-
-<rule>
-name: landmark_accessibility_standards
-description: Enforce landmark element accessibility standards per WCAG 2.4.1 Bypass Blocks requirements
-filters:
-  - type: file_extension
-    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
-
-actions:
-  - type: enforce
-    conditions:
-      # Multiple instances of single-instance landmarks
-      - pattern: "(?i)<(header|banner)[^>]*>.*<(header|banner)[^>]*>"
-        message: "Page should not contain more than one instance of header/banner landmark."
-
-      - pattern: "(?i)<main[^>]*>.*<main[^>]*>"
-        message: "Page should not contain more than one instance of main landmark."
-
-      - pattern: "(?i)<(footer|contentinfo)[^>]*>.*<(footer|contentinfo)[^>]*>"
-        message: "Page should not contain more than one instance of footer/contentinfo landmark."
-
-      # Missing distinguishable names for multiple landmarks of same type
-      - pattern: "(?i)<nav[^>]*>.*<nav[^>]*>"
-        pattern_negate: "(aria-label|aria-labelledby)"
-        message: "Multiple navigation landmarks should have distinguishable names using aria-label or aria-labelledby."
-
-      - pattern: "(?i)<(section|region)[^>]*>.*<(section|region)[^>]*>"
-        pattern_negate: "(aria-label|aria-labelledby)"
-        message: "Multiple section/region landmarks should have distinguishable names using aria-label or aria-labelledby."
-
-      - pattern: "(?i)<(aside|complementary)[^>]*>.*<(aside|complementary)[^>]*>"
-        pattern_negate: "(aria-label|aria-labelledby)"
-        message: "Multiple aside/complementary landmarks should have distinguishable names using aria-label or aria-labelledby."
-
-      # Content outside landmarks
-      - pattern: "(?i)<body[^>]*>"
-        pattern_negate: "(<header|<nav|<main|<aside|<section|<footer|<banner|<navigation|<complementary|<contentinfo|<region)"
-        message: "All content should be contained within landmark regions."
-
-      # Excessive number of landmarks (more than 8-10)
-      - pattern: "(?i)(<header|<nav|<main|<aside|<section|<footer|<banner|<navigation|<complementary|<contentinfo|<region)"
-        pattern_negate: "(aria-label|aria-labelledby)"
-        message: "Consider reducing the number of landmarks to minimize navigation complexity."
-
-      # Missing main landmark
-      - pattern: "(?i)<body[^>]*>"
-        pattern_negate: "<main[^>]*>"
-        message: "Page should contain a main landmark for primary content."
-
-      # Landmark without proper role or semantic element
-      - pattern: "(?i)role=\"(banner|navigation|main|complementary|contentinfo|region)\""
-        pattern_negate: "(<header|<nav|<main|<aside|<section|<footer)"
-        message: "Landmark roles should be used with semantic HTML elements when possible."
-
-      # Nested landmarks of same type
-      - pattern: "(?i)<nav[^>]*>.*<nav[^>]*>.*</nav>.*</nav>"
-        message: "Avoid nesting landmarks of the same type."
-
-      - pattern: "(?i)<section[^>]*>.*<section[^>]*>.*</section>.*</section>"
-        message: "Avoid nesting landmarks of the same type."
-
-      # Landmark without accessible name
-      - pattern: "(?i)<(section|region|aside|complementary)[^>]*>"
-        pattern_negate: "(aria-label|aria-labelledby|<h[1-6])"
-        message: "Landmarks should have accessible names via aria-label, aria-labelledby, or heading elements."
-
-      # Generic landmark names
-      - pattern: "(?i)aria-label=\"(section|region|content|area)\""
-        message: "Landmark names should be specific and descriptive, not generic."
-
-      # Landmark with empty or meaningless name
-      - pattern: "(?i)aria-label=\"\\s*\""
-        message: "Landmark aria-label should contain meaningful text."
-
-  - type: suggest
-    message: |
-      **WCAG 2.4.1 Landmark Accessibility Requirements:**
-
-      **Bypass Blocks Functionality:**
-      - **Screen Reader Navigation:** Landmarks allow users to navigate by page sections
-      - **Content Structure:** Landmarks provide clear layout organization
-      - **Alternative Methods:** Skip links, headings, and expand/collapse regions can also be used
-
-      **Landmark Structural Organization:**
-
-      **1. Page Layout Groupings:**
-      ```html
-      <!-- Good: Proper page structure with landmarks -->
-      <body>
-        <header role="banner">
-          <h1>Company Name</h1>
-          <nav role="navigation" aria-label="Primary">
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/about">About</a></li>
-            </ul>
-          </nav>
-        </header>
-
-        <main role="main">
-          <h2>Page Content</h2>
-          <p>Main content goes here...</p>
-        </main>
-
-        <aside role="complementary" aria-label="Related information">
-          <h3>Related Links</h3>
-          <ul>
-            <li><a href="/related">Related Content</a></li>
-          </ul>
-        </aside>
-
-        <footer role="contentinfo">
-          <p>&copy; 2024 Company Name</p>
-        </footer>
-      </body>
-      ```
-
-      **2. Content Within Landmarks:**
-      ```html
-      <!-- Good: All content within landmarks -->
-      <body>
-        <header>
-          <h1>Page Title</h1>
-          <nav aria-label="Main navigation">
-            <!-- Navigation content -->
-          </nav>
-        </header>
-
-        <main>
-          <section aria-labelledby="intro-heading">
-            <h2 id="intro-heading">Introduction</h2>
-            <p>Content here...</p>
-          </section>
-
-          <section aria-labelledby="details-heading">
-            <h2 id="details-heading">Details</h2>
-            <p>More content...</p>
-          </section>
-        </main>
-
-        <footer>
-          <p>Footer content</p>
-        </footer>
-      </body>
-      ```
-
-      **3. Landmark Names for Multiple Instances:**
-      ```html
-      <!-- Good: Distinguishable landmark names -->
-      <nav aria-label="Primary navigation">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-        </ul>
-      </nav>
-
-      <nav aria-label="Secondary navigation">
-        <ul>
-          <li><a href="/help">Help</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-      </nav>
-
-      <aside aria-label="Product sidebar">
-        <h3>Product Categories</h3>
-        <!-- Sidebar content -->
-      </aside>
-
-      <aside aria-label="News sidebar">
-        <h3>Latest News</h3>
-        <!-- News content -->
-      </aside>
-      ```
-
-      **4. Single Instance Landmarks:**
-      ```html
-      <!-- Good: One instance of each single-instance landmark -->
-      <body>
-        <header role="banner">
-          <!-- Header content -->
-        </header>
-
-        <main role="main">
-          <!-- Main content -->
-        </main>
-
-        <footer role="contentinfo">
-          <!-- Footer content -->
-        </footer>
-      </body>
-      ```
-
-      **5. Landmark Markup Options:**
-      ```html
-      <!-- Option 1: Semantic HTML elements -->
-      <header role="banner">
-        <h1>Page Title</h1>
-      </header>
-
-      <nav role="navigation" aria-label="Main menu">
-        <ul>
-          <li><a href="/">Home</a></li>
-        </ul>
-      </nav>
-
-      <main role="main">
-        <h2>Content</h2>
-      </main>
-
-      <footer role="contentinfo">
-        <p>Footer</p>
-      </footer>
-
-      <!-- Option 2: ARIA roles on div elements -->
-      <div role="banner">
-        <h1>Page Title</h1>
-      </div>
-
-      <div role="navigation" aria-label="Main menu">
-        <ul>
-          <li><a href="/">Home</a></li>
-        </ul>
-      </div>
-
-      <div role="main">
-        <h2>Content</h2>
-      </div>
-
-      <div role="contentinfo">
-        <p>Footer</p>
-      </div>
-      ```
-
-      **Landmark Guidelines:**
-
-      **Available Landmarks:**
-      - **banner:** Page header (usually one per page)
-      - **navigation:** Navigation menus (can have multiple with different names)
-      - **main:** Main content area (one per page)
-      - **complementary:** Supporting content (sidebars, related info)
-      - **contentinfo:** Page footer (usually one per page)
-      - **region:** Generic landmark for page sections
-      - **search:** Search functionality
-      - **form:** Form sections
-
-      **Naming Requirements:**
-      - **Multiple instances:** Must have distinguishable names
-      - **Descriptive names:** Use aria-label or aria-labelledby
-      - **Specific names:** Avoid generic terms like "section" or "content"
-      - **Meaningful names:** Describe the purpose or content
-
-      **Implementation Best Practices:**
-
-      **Page Structure Example:**
-      ```html
-      <body>
-        <!-- Header landmark -->
-        <header role="banner">
-          <h1>Acme Corporation</h1>
-          <nav role="navigation" aria-label="Primary">
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/products">Products</a></li>
-              <li><a href="/about">About</a></li>
-              <li><a href="/contact">Contact</a></li>
-            </ul>
-          </nav>
-        </header>
-
-        <!-- Main content landmark -->
-        <main role="main">
-          <h2>Welcome to Acme Corporation</h2>
-
-          <!-- Content sections -->
-          <section aria-labelledby="services-heading">
-            <h2 id="services-heading">Our Services</h2>
-            <p>Service descriptions...</p>
-          </section>
-
-          <section aria-labelledby="products-heading">
-            <h2 id="products-heading">Featured Products</h2>
-            <p>Product information...</p>
-          </section>
-        </main>
-
-        <!-- Complementary landmark -->
-        <aside role="complementary" aria-label="Related information">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="/support">Support</a></li>
-            <li><a href="/faq">FAQ</a></li>
-          </ul>
-        </aside>
-
-        <!-- Footer landmark -->
-        <footer role="contentinfo">
-          <p>&copy; 2024 Acme Corporation. All rights reserved.</p>
-          <nav role="navigation" aria-label="Footer">
-            <ul>
-              <li><a href="/privacy">Privacy Policy</a></li>
-              <li><a href="/terms">Terms of Service</a></li>
-            </ul>
-          </nav>
-        </footer>
-      </body>
-      ```
-
-      **Multiple Navigation Landmarks:**
-      ```html
-      <!-- Primary navigation -->
-      <nav role="navigation" aria-label="Primary">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/products">Products</a></li>
-          <li><a href="/services">Services</a></li>
-        </ul>
-      </nav>
-
-      <!-- Secondary navigation -->
-      <nav role="navigation" aria-label="Secondary">
-        <ul>
-          <li><a href="/help">Help</a></li>
-          <li><a href="/contact">Contact</a></li>
-          <li><a href="/about">About</a></li>
-        </ul>
-      </nav>
-
-      <!-- Footer navigation -->
-      <nav role="navigation" aria-label="Footer">
-        <ul>
-          <li><a href="/privacy">Privacy</a></li>
-          <li><a href="/terms">Terms</a></li>
-        </ul>
-      </nav>
-      ```
-
-      **Landmark with Accessible Names:**
-      ```html
-      <!-- Using aria-label -->
-      <section role="region" aria-label="Product specifications">
-        <h2>Product Specifications</h2>
-        <p>Detailed specifications...</p>
-      </section>
-
-      <!-- Using aria-labelledby -->
-      <section role="region" aria-labelledby="reviews-heading">
-        <h2 id="reviews-heading">Customer Reviews</h2>
-        <p>Review content...</p>
-      </section>
-
-      <!-- Using heading element -->
-      <section role="region">
-        <h2>Product Features</h2>
-        <p>Feature descriptions...</p>
-      </section>
-      ```
-
-      **Testing and Validation:**
-      - Test with screen reader landmark navigation
-      - Verify landmark names are descriptive and unique
-      - Check that all content is within landmarks
-      - Ensure single-instance landmarks appear only once
-      - Test keyboard navigation between landmarks
-      - Validate landmark hierarchy is logical
-
-      **Common Mistakes to Avoid:**
-      - Multiple instances of single-instance landmarks
-      - Missing accessible names for multiple landmarks
-      - Content outside landmark regions
-      - Excessive number of landmarks
-      - Generic or meaningless landmark names
-      - Nested landmarks of same type
-      - Missing main landmark
-      - Using landmarks for styling only
-
-metadata:
-  priority: high
-  version: 1.0
-</rule>
+## liquid
+
+> Liquid syntax standards
+
+
+# Liquid Syntax Standards
+
+## ⚠️ CRITICAL: Schema Editing
+
+**NEVER edit the `{% schema %}` block directly in `.liquid` files!**
+
+Schemas are generated from source files in the `schemas/` folder. To make schema changes:
+
+1. Find the corresponding `.js` file in `schemas/blocks/` or `schemas/sections/`
+2. Edit the JavaScript source file
+3. Run `npm run build:schemas` to regenerate the `.liquid` files
+
+See [@schemas](mdc:.cursor/rules/schemas.mdc) for more details.
+
+---
+
+## Valid Tags with Parameters
+
+**Control Flow:**
+
+- `if condition` / `endif` - Conditional logic
+- `unless condition` / `endunless` - Negative conditional
+- `case variable` / `when value` / `endcase` - Switch statement
+- `for item in array` / `endfor` - Loop with optional `limit:`, `offset:`
+
+**Variable Assignment:**
+
+- `assign variable = value` - Create variable
+- `capture variable` / `endcapture` - Capture output
+- `increment variable` - Add 1 to counter
+- `decrement variable` - Subtract 1 from counter
+
+**Template Inclusion:**
+
+- `render 'snippet-name'` - Include snippet
+- `render 'snippet-name', param: value` - With parameters
+- `section 'section-name'` - Include section
+
+**Forms:**
+
+- `form 'cart'` / `endform` - Cart form
+- `form 'product'` / `endform` - Product form
+- `form 'customer_login'` / `endform` - Login form
+
+**Other:**
+
+- `paginate collection.products by 12` / `endpaginate` - Paginate results
+- `liquid` / `endliquid` - Multiline Liquid block
+- `comment` / `endcomment` - Block comments
+- `raw` / `endraw` - Output without processing
+
+## Valid Filters
+
+**Array Filters:**
+
+- `compact` - Remove nil values: `array | compact`
+- `concat` - Join arrays: `array | concat: array`
+- `find` - Find object: `array | find: property, value`
+- `where` - Filter objects: `array | where: property, value`
+- `map` - Extract property: `array | map: property`
+- `sort` - Sort array: `array | sort`
+- `reverse` - Reverse order: `array | reverse`
+- `first` - First item: `array | first`
+- `last` - Last item: `array | last`
+- `size` - Count items: `array | size`
+
+**String Filters:**
+
+- `escape` - HTML escape: `string | escape`
+- `truncate` - Limit length: `string | truncate: 150`
+- `handleize` - URL handle: `string | handleize`
+- `replace` - Replace text: `string | replace: 'old', 'new'`
+- `split` - Split string: `string | split: 'delimiter'`
+- `upcase` - Uppercase: `string | upcase`
+- `downcase` - Lowercase: `string | downcase`
+- `capitalize` - Capitalize: `string | capitalize`
+
+**Money Filters:**
+
+- `money` - Format price: `price | money`
+- `money_with_currency` - With symbol: `price | money_with_currency`
+- `money_without_currency` - No symbol: `price | money_without_currency`
+
+**Media Filters:**
+
+- `image_url` - Responsive image: `image | image_url: width: 800`
+- `image_tag` - Complete img tag: `image | image_tag`
+- `asset_url` - Theme asset: `'style.css' | asset_url`
+
+## Syntax Rules
+
+- Use `{% liquid %}` for multiline code blocks
+- Use `{% # comment %}` for inline comments
+- Never invent new filters, tags, or objects
+- Follow proper tag closing order (last opened, first closed)
+- Use object dot notation: `product.title` not `product['title']`
+- Respect object scope and availability
+
+## Snippet Documentation with {% doc %}
+
+All snippets must include documentation using `{% doc %}` and `{% enddoc %}` tags.
+
+**Parameter types:** `{object}`, `{string}`, `{number}`, `{boolean}`, `{array}`
+**Optional params:** Use brackets like `[param_name]`
+**Nested properties:** Use dash notation like `object - .property`
+
+**Example:**
+
+```liquid
+{% doc %}
+  Volume Pricing Info
+
+  Renders volume pricing information with quantity rules in a popover.
+  Only renders if variant has quantity rules or volume pricing.
+
+  @param {object} variant - The variant object to display pricing for
+  @param {string} [unique_id] - Optional unique identifier to append to popover ID
+  @param {number} [quantity] - The current quantity (for highlighting active tier)
+
+  @example
+  {% render 'volume-pricing-info',
+    variant: item.variant,
+    unique_id: item.index,
+    quantity: item.quantity
+  %}
+{% enddoc %}
+```
+
+## Inline Variables Pattern
+
+For props that are relatively straightforward, prefer to inline the liquid instead of declaring extra variables. In smaller components it doesn't make a big difference, but in bigger ones it helps not having to scroll up and down to know what is being applied where.
+
+**✅ Do this (inline approach):**
+
+```liquid
+<div
+  class='component component--{{ settings.style_modifier }}'
+  style='
+    color: {{ settings.text_color }};
+    {% if settings.show_border %}
+      border: 1px solid {{ settings.border_color }};
+    {% endif %}
+  '
+>
+  <h2>{{ 'sections.component.title' | t }}</h2>
+
+  {{ content | truncate: settings.max_length | default: 200 }}
+
+  <a
+    href='{{ link_url }}'
+    class='link--{{ settings.link_style | default: 'primary' }}'
+  >
+    {{ 'general.read_more' | t }}
+  </a>
+</div>
+```
+
+**❌ Don't do this (variable declaration approach):**
+
+```liquid
+{% liquid
+  assign component_class = 'component component--' | append: settings.style_modifier
+  assign text_color = settings.text_color
+  assign truncate_length = settings.max_length | default: 200
+  assign link_class = 'link--' | append: settings.link_style | default: 'primary'
+%}
+
+{% capture component_style %}
+  color: {{ text_color }};
+  {% if settings.show_border %}
+    border: 1px solid {{ settings.border_color }};
+  {% endif %}
+{% endcapture %}
+
+<div
+  class='{{ component_class }}'
+  style='{{ component_style }}'
+>
+  <h2>{{ 'sections.component.title' | t }}</h2>
+
+  {{ content | truncate: truncate_length }}
+
+  <a
+    href='{{ link_url }}'
+    class='{{ link_class }}'
+  >
+    {{ 'general.read_more' | t }}
+  </a>
+</div>
+```
+
+**Exceptions:**
+
+- When Liquid filter parameters require string values and complex logic cannot be inlined
+- When the same complex calculation is used multiple times
+- When the logic is extremely complex and would harm readability
+- When you need to build a string incrementally with conditional parts
+
+**Benefits:**
+
+- Easier to understand what's being applied where
+- No need to scroll up and down to find variable definitions
+- Reduces cognitive load in larger components
+- Makes the code more maintainable
 
 ---
 > Source: [Shopify/horizon](https://github.com/Shopify/horizon) — distributed by [TomeVault](https://tomevault.io).
