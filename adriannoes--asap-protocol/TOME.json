@@ -4,7 +4,7 @@
   "repo": "asap-protocol",
   "description": "Standard protocol for agent-to-agent communication with stateful orchestration, MCP-compatible and a public marketplace to discover and register agents.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/adriannoes/asap-protocol",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T03:14:22Z"
+  "distributed_at": "2026-05-09T08:36:51Z"
 }
