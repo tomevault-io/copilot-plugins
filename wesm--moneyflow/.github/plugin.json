@@ -1,0 +1,9 @@
+{
+  "name": "wesm--moneyflow",
+  "displayName": "moneyflow",
+  "description": "Moneyflow: Personal Finance Data Interface for Power Users (supporting backends like Monarch Money, YNAB)",
+  "version": "1.0.0",
+  "author": "wesm",
+  "homepage": "https://github.com/wesm/moneyflow",
+  "skills": []
+}
