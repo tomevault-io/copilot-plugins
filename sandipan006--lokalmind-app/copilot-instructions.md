@@ -1,46 +1,90 @@
-## mobx
+## naming
 
-> MobX ViewModel patterns for LokalMind v2.
+> File and symbol naming conventions for LokalMind v2.
 
+# Naming Conventions
 
-# MobX Rules
+## File Naming
 
-Full reference: `docs/development/CONVENTIONS.md` section 4.
+### Screens
+- PascalCase + `Screen` suffix
+- Examples: `ChatScreen.tsx`, `ModelBrowserScreen.tsx`, `ProfileScreen.tsx`
+- Location: `src/features/{feature}/presentation/screens/`
 
-## ViewModel template
+### ViewModels
+- PascalCase + `ViewModel` suffix
+- Examples: `ChatViewModel.ts`, `ModelBrowserViewModel.ts`
+- Location: `src/features/{feature}/presentation/viewmodels/`
 
-```typescript
-import { makeAutoObservable, runInAction } from 'mobx';
+### Use Cases
+- PascalCase + `UseCase` suffix
+- Examples: `SendMessageUseCase.ts`, `GetMemoryFactsUseCase.ts`, `MemoryExtractionUseCase.ts`
+- Location: `src/features/{feature}/domain/usecases/`
 
-export class ExampleViewModel {
-  isLoading = false;
-  errorMessage: string | null = null;
+### Repository Interfaces
+- `I` prefix + PascalCase + `Repository` suffix
+- Examples: `IChatRepository.ts`, `IModelRepository.ts`, `IMemoryRepository.ts`
+- Location: `src/features/{feature}/domain/repositories/`
 
-  constructor(private readonly someUseCase: SomeUseCase) {
-    makeAutoObservable(this); // always first
-  }
+### Repository Implementations
+- PascalCase + `RepositoryImpl` suffix
+- Examples: `ChatRepositoryImpl.ts`, `ModelRepositoryImpl.ts`
+- Location: `src/features/{feature}/data/repositories/`
 
-  async doAction() {
-    this.isLoading = true;
-    const result = await this.someUseCase.execute();
-    runInAction(() => {
-      this.isLoading = false;
-      if (!result.success) this.errorMessage = result.error.message;
-    });
-  }
+### Infrastructure Adapters
+- camelCase + `Adapter` suffix
+- Examples: `llamaRnAdapter.ts`, `whisperRnAdapter.ts`
+- Location: `src/infrastructure/{layer}/`
 
-  get isReady() { return !this.isLoading; }
-}
-```
+### Interfaces / Ports
+- `I` prefix + PascalCase
+- Examples: `ILLMEngine.ts`, `IWhisperEngine.ts`
+- Location: `src/core/ports/`
 
-## Hard rules
+### Entities
+- PascalCase, no suffix
+- Examples: `Chat.ts`, `Message.ts`, `MemoryFact.ts`, `Model.ts`, `User.ts`
+- Location: `src/features/{feature}/domain/entities/`
 
-1. `makeAutoObservable(this)` - first statement in constructor, always
-2. Async state mutations - always in `runInAction()`
-3. Computed - getter syntax only, no `@computed`
-4. All screens/components reading VM state - must be wrapped with `observer()`
-5. MobX only in `presentation/` - never in `domain/`, `data/`, `infrastructure/`
-6. No `useState` / `useReducer` for state that belongs in a ViewModel
+### React Components
+- PascalCase, no suffix (unless Screen/ViewModel)
+- Examples: `MessageBubble.tsx`, `InputBar.tsx`, `GlassSurface.tsx`, `ModelCard.tsx`
+
+### Hooks
+- camelCase + `use` prefix
+- Examples: `useViewModel.ts`, `useResumableDownload.ts`, `useFontLoader.ts`
+
+### Design System Tokens
+- `colors.ts`, `typography.ts`, `glass.ts`, `spacing.ts` - all lowercase
+- Token constants: SCREAMING_SNAKE_CASE
+- Examples: `PRIMARY_ORANGE`, `BLACK_PRIMARY`, `TEXT_WHITE_60`
+
+## Symbol Naming
+
+### MobX ViewModels
+- Class name matches file name (PascalCase + `ViewModel`)
+- Observable state: camelCase properties
+- Actions: camelCase verbs (`sendMessage`, `loadChats`, `toggleSidebar`)
+- Computed: camelCase nouns/adjectives (`isLoading`, `hasMessages`, `activeModel`)
+
+### Use Cases
+- Single public method: `execute(...args)`
+- Constructor receives repository interfaces only
+
+### Repository Interfaces
+- Methods: camelCase verbs
+- Examples: `getChats()`, `saveMessage()`, `deleteChat()`, `getMemoryFacts()`
+
+### Expo Router Files
+- All lowercase with hyphens for multi-word routes
+- Examples: `ai-behavior.tsx`, `model-setup.tsx`, `[id].tsx`
+- Special: `_layout.tsx`, `index.tsx`
+
+## Anti-patterns to avoid
+- No `Manager`, `Handler`, `Helper`, `Utils` class names - use specific domain names
+- No `data`, `info`, `stuff` as variable names
+- No abbreviated names unless universally understood (`id`, `url`, `db`, `vm`)
+- No `IInterface` redundancy - `ILLMEngine` not `ILLMEngineInterface`
 
 ---
 > Source: [Sandipan006/lokalmind-app](https://github.com/Sandipan006/lokalmind-app) — distributed by [TomeVault](https://tomevault.io).
