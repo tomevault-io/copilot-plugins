@@ -1,0 +1,44 @@
+{
+  "name": "dashboard-studio-rs",
+  "owner": "automataIA",
+  "repo": "dashboard-studio-rs",
+  "description": "Privacy-first, client-side data visualization powered by Rust + WebAssembly. Upload data, create interactive dashboards with 11 chart types, drag-and-drop layout, auto-save, undo/redo\u2014all running in your browser. Zero backend, 100% GDPR-compliant, <500KB bundle.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/automataIA/dashboard-studio-rs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T16:04:29Z"
+}
