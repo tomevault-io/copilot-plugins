@@ -1,0 +1,9 @@
+{
+  "name": "jkolo--debug-mcp",
+  "displayName": "debug-mcp",
+  "description": "MCP server for .NET debugging \u2014 34 tools for breakpoints, inspection, exception autopsy, code analysis, and more. Built on ICorDebug.",
+  "version": "1.0.0",
+  "author": "jkolo",
+  "homepage": "https://github.com/jkolo/debug-mcp",
+  "skills": []
+}
