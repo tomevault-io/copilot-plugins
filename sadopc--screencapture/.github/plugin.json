@@ -1,0 +1,9 @@
+{
+  "name": "sadopc--screencapture",
+  "displayName": "ScreenCapture",
+  "description": "Native macOS menu bar app for capturing and annotating screenshots. Features include full-screen/region capture, annotation tools (rectangles, arrows, freehand, text), multi-monitor support, and quick",
+  "version": "1.0.0",
+  "author": "sadopc",
+  "homepage": "https://github.com/sadopc/ScreenCapture",
+  "skills": []
+}
