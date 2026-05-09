@@ -1,0 +1,9 @@
+{
+  "name": "acidsugarx--babel-nvim",
+  "displayName": "babel.nvim",
+  "description": "\ud83c\udf0d Translate text without leaving Neovim",
+  "version": "1.0.0",
+  "author": "acidsugarx",
+  "homepage": "https://github.com/acidsugarx/babel.nvim",
+  "skills": []
+}
