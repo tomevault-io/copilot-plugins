@@ -1,0 +1,9 @@
+{
+  "name": "cisco-ai-defense--model-provenance-kit",
+  "displayName": "model-provenance-kit",
+  "description": "Toolkit to assess and determine model provenance",
+  "version": "1.0.0",
+  "author": "cisco-ai-defense",
+  "homepage": "https://github.com/cisco-ai-defense/model-provenance-kit",
+  "skills": []
+}
