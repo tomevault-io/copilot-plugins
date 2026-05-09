@@ -1,0 +1,44 @@
+{
+  "name": "PairTranslate",
+  "owner": "Cookee24",
+  "repo": "PairTranslate",
+  "description": "\u5f00\u6e90\u7684\u6c89\u6d78\u5f0f\u7ffb\u8bd1\uff0c\u652f\u6301\u9009\u6bb5/\u67e5\u8bcd/\u9009\u8bcd\u7ffb\u8bd1 | Open-source immersive translation, supporting segment/word lookup and selection translation",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Cookee24/PairTranslate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T19:41:40Z"
+}
