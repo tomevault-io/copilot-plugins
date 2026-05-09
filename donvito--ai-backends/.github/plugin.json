@@ -1,0 +1,9 @@
+{
+  "name": "donvito--ai-backends",
+  "displayName": "ai-backends",
+  "description": "AI API server for common use cases \u2014 supports multiple models and providers. Run locally with Ollama or LM Studio, or in the cloud via OpenRouter, OpenAI, Anthropic, or Google.",
+  "version": "1.0.0",
+  "author": "donvito",
+  "homepage": "https://github.com/donvito/ai-backends",
+  "skills": []
+}
