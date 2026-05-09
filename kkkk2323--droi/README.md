@@ -7,11 +7,11 @@ Cross-platform desktop application for Droid CLI - built with Electron, React & 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kkkk2323/droi](https://github.com/kkkk2323/droi).
+Original source: `CLAUDE.md` in [kkkk2323/droi](https://github.com/kkkk2323/droi).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
