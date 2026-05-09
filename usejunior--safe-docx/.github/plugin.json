@@ -1,0 +1,9 @@
+{
+  "name": "usejunior--safe-docx",
+  "displayName": "safe-docx",
+  "description": "Safe DOCX suite: docx-primitives, docx-comparison, safe-docx MCP server",
+  "version": "1.0.0",
+  "author": "UseJunior",
+  "homepage": "https://github.com/UseJunior/safe-docx",
+  "skills": []
+}
