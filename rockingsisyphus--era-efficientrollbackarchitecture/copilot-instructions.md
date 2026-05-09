@@ -1,54 +1,51 @@
-## typescript-syntax-in-js
+## unnamed-skill
 
-> 解释在 JavaScript 环境中使用 TypeScript 类型注解导致的 `Unexpected token ':'` 错误，并提供可独立运行的示例。
+> 当需要编写前端界面时, 你应该参考本文件
 
-# 语法错误：`Unexpected token ':'`
+# 前端界面
 
-## 问题根源
+如果 `src/xxx` 文件夹中既有 `index.ts` 文件也有 `index.html` 文件, 则它是一个前端界面项目.
 
-当你在一个不支持 TypeScript 的纯 JavaScript 环境（例如酒馆助手的脚本执行环境）中运行代码时，如果代码中包含了 TypeScript 的**类型注解**（即在变量或函数参数后使用冒号 `:` 来指定类型），就会触发 `Uncaught SyntaxError: Unexpected token ':'` 错误。
+前端界面以无沙盒 iframe 的形式在酒馆消息楼层中前台显示, 有一个自己的界面, 你可以在其中添加静态内容、样式、脚本等.
 
-JavaScript 解释器不认识这种语法，因此会报错。
+## index.html 中应该写什么
 
----
+前端界面的 index.html 仅可填写静态 `<body>` 内容, 不得引用项目中其他文件, 所有非内嵌样式、代码、额外的外部依赖都应通过 Typescript 文件导入. 具体来说:
 
-### 错误示例（会报错）
-
-下面的脚本可以直接复制到酒馆助手的脚本库中运行。由于它在 `logMessage` 函数的参数 `message` 后面使用了 `: string` 类型注解，执行时会在浏览器的控制台中产生 `Unexpected token ':'` 错误。
-
-```javascript
-// 文件名: 错误示例.js
-// 描述: 此脚本会因包含 TypeScript 类型注解而报错。
-
-$(function() {
-  function logMessage(message: string) {
-    console.log('消息: ' + message);
-  }
-
-  logMessage('这段消息将无法被打印');
-});
+```html
+<head>
+  <!-- 保留一个什么都没有的 <head> 标签, webpack 打包时会在这里插入样式、脚本等 -->
+</head>
+<body>
+  <!-- 这里写 <div>、<span> 等静态内容, 也可以只写 <div id="app"></div> 交给 vue 来渲染 -->
+</body>
 ```
 
----
+- 禁止在 `index.html` 中用 `<link rel="stylesheet" href="./index.css">` 导入样式, 而应该
+  - (优先) 设计 vue 组件, 在 vue 组件中用 `<style lang="scss">` 书写.
+  - 或在 Typescript 文件中用 `import './index.css'` 导入, 这样导入的样式将会经过打包最小化后插入到 `<head>` 部分;
+- 禁止在 `index.html` 中用 `<script src="./index.ts">` 来引用 `index.ts` 或其他本地脚本. `index.ts` 及它导入的文件会由 webpack 直接加入到最终打包好的 `dist/**/index.html` 中.
+- 在 `index.html` 中填入 `<img>` 标签时, 禁止使用 `src=""` 占位. 要么引用实际的图片, 要么不要有这个属性, 否则会导致 webpack 打包错误.
 
-### 修复示例（可正常运行）
+## 样式设计
 
-这是修复后的版本。唯一的改动就是**移除了 `: string` 类型注解**。这个脚本可以被酒馆助手正常执行，并在控制台中打印出消息。
+### 简单内嵌样式
 
-```javascript
-// 文件名: 修复示例.js
-// 描述: 移除了类型注解，脚本可以正常运行。
+对于简单的样式, 你可以在 `index.html` 中直接使用 tailwindcss 书写. 为此需要新建一个内容有 `@import 'tailwindcss'` 的 css 文件并 `import ./文件.css`.
 
-$(function() {
-  function logMessage(message) {
-    console.log('消息: ' + message);
-  }
+### 复杂外链样式
 
-  logMessage('这段消息可以被成功打印');
-});
-```
+如果样式复杂到需要使用 `<style>` 标签, 则你不应该直接在 html 里书写 `<style>`, 而应该
 
-通过对比这两个简单的示例，可以清楚地看到，解决此类问题的关键就是确保在纯 JavaScript 环境中不使用 TypeScript 特有的语法。
+- (优先) 设计 vue 组件, 并在 Typescript 文件中 `import Component from './文件.vue'` 再将其 `mount` 到界面上.
+- 或新建 scss 文件并在 Typescript 文件中以 `import './index.scss'` 的形式应用到界面上.
+
+### iframe 适配要求
+
+- 当对前端界面高度进行调整时, 禁止使用 `vh` 单位等会受宿主高度影响的单位, 而是使用 `width` 和 `aspect-ratio` 来让高度根据宽度动态调整.
+- 避免使用会强制撑高父容器的元素 (如 `min-height`、`overflow: auto`)
+- 页面整体应适配容器宽度，不产生横向滚动条
+- 如果样式更适合卡片形状，则不要有背景颜色，除非用户有明确要求
 
 ---
 > Source: [RockingSisyphus/ERA-EfficientRollbackArchitecture](https://github.com/RockingSisyphus/ERA-EfficientRollbackArchitecture) — distributed by [TomeVault](https://tomevault.io).
