@@ -4,7 +4,7 @@
   "repo": "getmcp",
   "description": "One command. Every AI app. Install and configure MCP servers across 19 applications - from Claude Desktop to VS Code to Cursor. 3k+ servers ready, with automatic config generation for JSON, JSONC, YAML, and TOML.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RodrigoTomeES/getmcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T15:54:38Z"
+  "distributed_at": "2026-05-09T07:10:57Z"
 }
