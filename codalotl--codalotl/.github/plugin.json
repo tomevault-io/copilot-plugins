@@ -1,0 +1,9 @@
+{
+  "name": "codalotl--codalotl",
+  "displayName": "codalotl",
+  "description": "Coding agent for Go",
+  "version": "1.0.0",
+  "author": "codalotl",
+  "homepage": "https://github.com/codalotl/codalotl",
+  "skills": []
+}
