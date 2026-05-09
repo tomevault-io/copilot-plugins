@@ -1,0 +1,9 @@
+{
+  "name": "bc183--otun",
+  "displayName": "otun",
+  "description": "  \ud83d\ude80 Lightweight, self-hosted ngrok alternative. Expose localhost to the internet with one command.",
+  "version": "1.0.0",
+  "author": "bc183",
+  "homepage": "https://github.com/bc183/otun",
+  "skills": []
+}
