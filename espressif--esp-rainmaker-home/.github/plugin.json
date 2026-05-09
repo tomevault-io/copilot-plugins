@@ -1,0 +1,9 @@
+{
+  "name": "espressif--esp-rainmaker-home",
+  "displayName": "esp-rainmaker-home",
+  "description": "ESP RainMaker Home App",
+  "version": "1.0.0",
+  "author": "espressif",
+  "homepage": "https://github.com/espressif/esp-rainmaker-home",
+  "skills": []
+}
