@@ -1,0 +1,9 @@
+{
+  "name": "iwangjie--restgap",
+  "displayName": "RestGap",
+  "description": "RestGap is a pure Rust-implemented menu bar rest reminder software.",
+  "version": "1.0.0",
+  "author": "iwangjie",
+  "homepage": "https://github.com/iwangjie/RestGap",
+  "skills": []
+}
