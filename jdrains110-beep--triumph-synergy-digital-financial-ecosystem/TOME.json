@@ -1,0 +1,44 @@
+{
+  "name": "Triumph-Synergy-Digital-Financial-Ecosystem",
+  "owner": "jdrains110-beep",
+  "repo": "Triumph-Synergy-Digital-Financial-Ecosystem",
+  "description": "Quantum Financial System (QFS) built on Pi Network - Quantum-resistant cryptography (Kyber/Dilithium), Supabase RLS + Realtime, Pi SDK 2.0 payments, Fast-Track KYC/KYB, PiRC Protocol, 100+ Pi ecosystem forks",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jdrains110-beep/Triumph-Synergy-Digital-Financial-Ecosystem",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T18:41:34Z"
+}
