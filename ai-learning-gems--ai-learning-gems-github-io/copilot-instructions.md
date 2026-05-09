@@ -1,147 +1,300 @@
-## source-management
+## visualization-standards
 
-> Shared source handling: centralized storage, naming, downloads, citations, blog attribution
+> Shared visualization rules: D2 diagrams, hvplot/bokeh, source images, priority order
 
 
-# Source Management
+# Visualization Standards
 
-Shared source handling rules for all textbook chapter workflows. For site-specific fetch strategies, see `web-source-fetching.md`. For the curated blog registry, see `high-quality-blogs.md`.
+Shared visualization rules for all textbook chapter workflows (research, write, edit, update).
 
----
-
-## Centralized Source Storage (CRITICAL)
-
-**All sources are stored in `AI-Learning-Gems/sources/` — NOT in each chapter folder.**
-
-This is a shared, centralized repository. The same source can be referenced by multiple chapters.
-
-### Source Folder Naming Conventions
-
-| Source Type | Folder Pattern | Example |
-|---|---|---|
-| **arXiv papers** | `sources/arxiv-{PAPER_ID}` | `sources/arxiv-2010.11929/` |
-| **Blog posts** | `sources/{domain}/{path}/` | `sources/lilianweng.github.io/posts/2022-06-09-vlm/` |
-| **d2l.ai chapters** | `sources/d2l.ai/{chapter-path}/` | `sources/d2l.ai/chapter_attention-mechanisms-and-transformers/vision-transformer/` |
-| **HuggingFace docs** | `sources/huggingface.co/docs/{path}/` | `sources/huggingface.co/docs/transformers/model_doc/vit/` |
-| **PyTorch docs** | `sources/pytorch.org/{path}/` | `sources/pytorch.org/docs/stable/generated/torch.nn.MultiheadAttention/` |
-| **Other sites** | `sources/{domain}/{path}/` | `sources/distill.pub/2021/gnn-intro/` |
-
-**Blog/site URL → folder name rules:**
-1. Strip `https://` and `http://`
-2. Strip `www.`
-3. Use the remaining URL path as the folder path
-4. Store main content as `content.md` inside the folder
-5. Store images in `images/` subfolder
-
-**arXiv rules:**
-1. Use `arxiv-{PAPER_ID}` (hyphenated)
-2. Download LaTeX source: `curl -sL "https://arxiv.org/src/{PAPER_ID}" -o source.tar.gz && tar -xzf source.tar.gz`
-3. Contains `.tex` files, `images/`, `.bib`
+**Goal:** Your chapter should contain the absolutely perfect picture to explain each concept.
 
 ---
 
-## Checking for Existing Sources (MANDATORY)
+## Visual Priority Order (CRITICAL)
 
-**BEFORE downloading any source, check if it already exists:**
+**Follow this order when choosing how to illustrate a concept:**
 
-```bash
-ls "AI-Learning-Gems/sources/arxiv-2010.11929/" 2>/dev/null && echo "EXISTS" || echo "NEW"
-```
+1. **Source images from downloaded papers** — Check the TEXTBOOK-PLAN.md Source Image Catalog FIRST. These are canonical, authoritative figures that readers expect to see. Copy them to `{Chapter}/images/` and embed.
+2. **D2 diagrams** — for concept maps, flowcharts, and structural diagrams. Always use ELK engine.
+3. **Python/hvplot (bokeh backend)** — for data visualizations, distributions, function plots, and ANY visual that must be numerically accurate.
+4. **Web downloads** — for images not in sources/ (search and download during writing).
+5. **generate_image** — ONLY for decorative/conceptual illustrations where numerical accuracy is irrelevant (e.g., a stylized icon, a non-data artistic illustration). See the warning below.
 
-If a source already exists, skip downloading and reference the existing path.
+> **NEVER use `generate_image` for plots, charts, graphs, reliability diagrams, bar charts, heatmaps, confusion matrices, or ANY visual that needs to display accurate data.**
+>
+> LLM image generation tools (e.g. Gemini Imagen, DALL-E) produce visually plausible but **factually incorrect** data in plots. The numbers, axis labels, bar heights, curve shapes, and data points will look reasonable but will be WRONG. This is unacceptable in a textbook.
+>
+> **For any visual that contains numerical data, use one of these instead:**
+> - **Source images from papers** — always preferred for canonical results (copy from `sources/`)
+> - **Python code** — generate the plot programmatically with `hvplot` (bokeh backend) or `matplotlib` directly, using real data or carefully constructed synthetic data
+> - **Web download** — find the original published figure online and download it
+>
+> The ONLY acceptable use of `generate_image` is for purely conceptual/artistic illustrations where no data accuracy is needed (e.g., a stylized banner image, an abstract concept illustration).
 
----
+### Choosing the Right Visualization Approach
 
-## Source Downloading Quick Reference
-
-| Source Type | Command (Run ONLY if folder is NEW) |
+| Type of Visual | Approach |
 |---|---|
-| **arXiv papers** | `mkdir -p "sources/arxiv-{ID}" && cd "sources/arxiv-{ID}" && curl -sL "https://arxiv.org/src/{ID}" -o source.tar.gz && tar -xzf source.tar.gz && rm source.tar.gz` |
-| **GitHub repos/gists** | `git clone --depth 1 "https://github.com/OWNER/REPO.git" "sources/github.com/OWNER/REPO"` |
-| **Blog posts, Substack, Medium, JS-heavy pages** | `conda activate ai-learning-gems && python scripts/authenticated_extract.py "URL"` (add `--profile substack` or `--profile medium` for login-gated sites) |
-| **d2l.ai chapters** | `conda activate ai-learning-gems && python scripts/authenticated_extract.py "https://d2l.ai/{chapter}/{section}.html" -s ".document"` |
-| **Static HTML pages (fast fallback, no JS)** | `conda activate ai-learning-gems && python scripts/webpage_to_md.py "URL" -o "sources/{domain}/{path}/"` |
-| **Single raw file from GitHub** | `mkdir -p "sources/github.com/OWNER/REPO/DIR" && curl -sL "https://raw.githubusercontent.com/OWNER/REPO/BRANCH/PATH" -o "sources/github.com/OWNER/REPO/PATH"` |
-
-For the complete site-specific lookup table, see `web-source-fetching.md`.
-
----
-
-## PDF Figure Conversion
-
-Many arXiv papers include figures as PDFs. Quarto cannot embed PDFs inline, so they must be converted to PNG.
-
-**IMPORTANT:** PDF figures from arXiv are full-page PDFs with LaTeX margins. You MUST render at high DPI AND trim whitespace.
-
-```bash
-# PREFERRED: ImageMagick (renders + trims in one step)
-magick -density 400 images/figure.pdf -trim +repage images/figure.png
-
-# Batch convert all PDF figures in an arXiv source:
-find "sources/arxiv-{ID}/" \( -name '*.pdf' \) \( -path '*/images/*' -o -path '*/figs/*' -o -path '*/figures/*' -o -path '*/resources/*' \) | while read f; do
-  outfile="${f%.pdf}"
-  [ ! -f "${outfile}.png" ] && magick -density 400 "$f" -trim +repage "${outfile}.png" && echo "Converted: $f → ${outfile}.png"
-done
-```
-
-**Validate converted images** (detect blank placeholders):
-```bash
-find "sources/arxiv-{ID}/" \( -path '*/images/*' -o -path '*/figs/*' -o -path '*/figures/*' \) -name '*.png' -size -10k | while read f; do
-  pdf="${f%.png}.pdf"
-  if [ -f "$pdf" ]; then
-    echo "SUSPECT BLANK: $f — PDF exists, re-converting..."
-    magick -density 400 "$pdf" -trim +repage "$f"
-  fi
-done
-```
+| **Canonical figures from papers** (architecture diagrams, attention maps, scaling plots) | **Copy from `sources/` — see Source Image Catalog** |
+| **Data plots** (distributions, functions, comparisons) | **Generate with code (hvplot with bokeh backend) — NEVER use `generate_image`** |
+| **Reproducing a paper's plot** (when source image unavailable or low-res) | **Write Python code to recreate it from the paper's reported numbers** |
+| **Simple concept maps** (flowcharts, relationships) | Generate with D2 |
+| **Mathematical diagrams** (geometric, annotated) | Generate with TikZ |
+| **Complex images NOT in sources** (rare) | **Download from web** |
+| **Decorative/conceptual art** (no data accuracy needed) | `generate_image` (ONLY case where this is acceptable) |
 
 ---
 
-## Per-Section Source Headers
+## Source Images (From Downloaded Papers — PREFERRED)
 
-Each section file should include its own sources as a collapsible header at the top. See `quarto-conventions.md` (Per-Section Source Headers section) for the full template.
-
-## Blog Attribution
-
-Many sources come from independent researchers' blogs. These must be attributed in source headers, figure captions, and in-text framings. See `high-quality-blogs.md` for the curated blog registry, and `quarto-conventions.md` (Attribution for Blog Content) for the formatting rules.
-
----
-
-## Citation Format
-
-**Inline Citations:** Every significant factual claim needs a citation:
-`[Source Name](URL) (Written: <date>, Accessed: <date>)`
-
-**Exact Quotes:** For major claims, include the exact sentence from the source:
-```
-From [Source Name](URL):
-
-> "Exact quote from the source text [...] continuing relevant portion."
-```
-
-**Source Quality Indicators:**
-- [TEXTBOOK] for established textbooks
-- [ACADEMIC] for peer-reviewed papers
-- [COURSE] for university course materials
-- [TUTORIAL] for educational blogs/videos
-- [COMMUNITY] for forums/discussions
+1. Check the TEXTBOOK-PLAN.md **Source Image Catalog** for images assigned to this section
+2. **CRITICAL: Always convert from PDF, never just copy the PNG.** arXiv source PNGs are frequently low-resolution thumbnails (e.g., 586x288px) or blank white placeholders. Even when a PNG exists and looks non-empty, it is almost always a low-DPI version of the PDF. The PDF is the authoritative source.
+   ```bash
+   mkdir -p "{Chapter}/images"
+   pdf_source="AI-Learning-Gems/sources/arxiv-XXXX/figures/figure.pdf"
+   png_source="AI-Learning-Gems/sources/arxiv-XXXX/figures/figure.png"
+   dest="{Chapter}/images/descriptive-name.png"
+   if [ -f "$pdf_source" ]; then
+     magick -density 400 "$pdf_source" -flatten -trim +repage "$dest"
+   elif [ -f "$png_source" ]; then
+     cp "$png_source" "$dest"
+     echo "WARNING: No PDF found, copied PNG directly. Verify resolution."
+   fi
+   ```
+   **Why?** LaTeX `\includegraphics{figures/teaser}` picks the PDF (vector, full resolution). PNGs in arXiv sources are low-res fallbacks. Copying the PNG gives a thumbnail (e.g., 586x288); converting the PDF at 400 DPI gives a crisp figure (e.g., 2412x1161). macOS `sips` CANNOT rasterize vector PDFs. Always use ImageMagick (`brew install imagemagick ghostscript`).
+3. Name descriptively: `vit-architecture.png`, `dino-attention-maps.png`, `scaling-vs-data.png`
+4. Embed with caption and attribution:
+   ```markdown
+   ![Caption describing the figure. Source: Author et al. (Year), Figure N.]([Topic Name]/images/descriptive-name.png){#fig-label}
+   ```
+5. **CRITICAL:** Always attribute the source in the caption. Use the format: `Source: Author et al. (Year), Figure N.`
+6. **CRITICAL:** Do NOT add explicit `width` tags to images (e.g. `width="60%"`, `width="95%"`). Omit the width entirely and let Quarto's global defaults handle the image sizing.
+7. **CRITICAL — image path resolution:** Quarto resolves ALL paths (images, includes) relative to the **index file location**, NOT relative to the section file. Since section files live inside `[Topic Name]/` but the index file is one level up, image paths in section files MUST be prefixed with the folder name: `[Topic Name]/images/filename.png`, NOT `images/filename.png`. If you use bare `images/filename.png`, Quarto will look for the image next to the index file (wrong) instead of inside the chapter folder (correct), resulting in 404 errors.
 
 ---
 
-## Source Selection Criteria
+## Web Downloads (Canonical/Complex Images NOT in Sources)
 
-**Prioritize sources that:**
-1. Are authoritative (original papers, official docs, university courses)
-2. Contain equations, code, or precise technical details
-3. Include figures and diagrams you can reference
-4. Have different perspectives (theory, intuition, implementation)
-5. Cover edge cases and common misconceptions
+1. Search the web for the best version of the image
+2. Download to the chapter's `images/` subfolder
+3. Name descriptively: `transformer-architecture.png`, `attention-mechanism.png`
+4. Reference in markdown: `![Caption. Image Source: URL]([Topic Name]/images/filename.png){#fig-label}`
+5. **CRITICAL:** Do NOT add explicit `width` tags to images (e.g. `width="60%"`, `width="95%"`). Omit the width entirely and let Quarto's global defaults handle the image sizing.
+6. **CRITICAL — image path resolution:** Same rule as source images: paths must be relative to the **index file**, not the section file. Use `[Topic Name]/images/filename.png`, not `images/filename.png`.
 
-**Minimum source set for a chapter:**
-- 1-2 original/foundational papers (arXiv LaTeX)
-- 1-2 authoritative tutorials (d2l.ai, official docs)
-- 2-3 intuition-focused explanations (blogs, videos transcripts)
-- 1-2 implementation references (code documentation)
+---
+
+## D2 Diagrams (Structures, Flowcharts, Concept Maps)
+
+> **MANDATORY: ALWAYS USE D2 FOR ALL DIAGRAMS**
+>
+> Do NOT use Mermaid. Do NOT use Graphviz. Use D2 with the ELK engine for ALL concept maps, flowcharts, and structural diagrams.
+>
+> D2 produces professional, "LinkedIn-worthy" diagrams with proper shadows, semantic coloring, and clean layouts.
+
+### D2 Diagram Standard (REQUIRED)
+
+**Requirements:**
+- Quarto extension: `pandoc-ext/diagram` installed at project root (`_extensions/pandoc-ext/diagram/`)
+- D2 CLI installed
+- **CRITICAL:** The main `.qmd` file MUST include the diagram filter with a RELATIVE PATH to the Lua file:
+  ```yaml
+  ---
+  title: "Your Chapter"
+  filters:
+    - ../_extensions/pandoc-ext/diagram/diagram.lua
+  ---
+  ```
+
+### The "Modern SaaS" Theme (Default)
+
+**6 Semantic Color Classes** for complex concept maps:
+
+| Class | Purpose | Stroke Color | Fill Color | Notes |
+|---|---|---|---|---|
+| `input` | Data, observations, givens | `#6366F1` (Indigo) | `#EEF2FF` | |
+| `process` | Transformations, computations | `#10B981` (Emerald) | `#ECFDF5` | |
+| `decision` | Branches, choices, alternatives | `#F59E0B` (Amber) | `#FFFBEB` | |
+| `output` | Final results, conclusions | `#1D4ED8` (Blue) | `#3B82F6` (filled) | |
+| `highlight` | Key concepts, "aha moments" | `#F43F5E` (Rose) | `#FFF1F2` | |
+| `container` | Grouping related nodes | `#D1D5DB` (Gray) | `#F9FAFB` | **Bold header, font-size 16** |
+
+### Standard D2 Template (MUST USE THIS STYLE)
+
+````
+```{.d2}
+# =========================================================================
+# 1. LAYOUT CONFIGURATION
+# =========================================================================
+direction: down
+vars: {
+  d2-config: {
+    layout-engine: elk
+  }
+}
+
+# =========================================================================
+# 2. DESIGN SYSTEM (6 Semantic Classes)
+# =========================================================================
+classes: {
+  base: {
+    style: {
+      fill: "white"
+      stroke: "#E5E7EB"
+      stroke-width: 2
+      shadow: true
+      border-radius: 8
+      font-size: 14
+    }
+  }
+  input: {
+    style: {
+      stroke: "#6366F1"
+      fill: "#EEF2FF"
+      font-color: "#3730A3"
+    }
+  }
+  process: {
+    style: {
+      stroke: "#10B981"
+      fill: "#ECFDF5"
+      font-color: "#065F46"
+    }
+  }
+  decision: {
+    style: {
+      stroke: "#F59E0B"
+      fill: "#FFFBEB"
+      font-color: "#92400E"
+    }
+  }
+  output: {
+    style: {
+      fill: "#3B82F6"
+      stroke: "#1D4ED8"
+      font-color: "white"
+    }
+  }
+  highlight: {
+    style: {
+      stroke: "#F43F5E"
+      fill: "#FFF1F2"
+      font-color: "#BE123C"
+      stroke-width: 3
+    }
+  }
+  container: {
+    style: {
+      fill: "#F9FAFB"
+      stroke: "#D1D5DB"
+      font-color: "#1F2937"
+      font-size: 16
+      bold: true
+    }
+  }
+}
+
+# =========================================================================
+# 3. CONTENT (auto-sized nodes with padding)
+# =========================================================================
+ExampleNode: {
+  class: [base; input]
+  label: "        Example Label        "
+}
+```
+````
+
+**Key Styling Rules:**
+
+1. **Use 6 semantic classes:** Assign each node a class based on its role (`input`, `process`, `decision`, `output`, `highlight`, `container`).
+2. **Use `direction: down`** for concept maps (top-to-bottom flow).
+3. **Let D2 auto-size nodes** — add non-breaking spaces as padding for short labels.
+4. **Use shadows & rounded corners:** `shadow: true` and `border-radius: 8`.
+5. **Render Math with LaTeX:** Use `label: |latex ... |` or `label: ||latex ... ||` (double pipes if content contains `|`). Add `shape: rectangle` explicitly for LaTeX nodes.
+6. **Use containers for grouping:** `label.near: top-left` to prevent arrow overlap.
+
+### Fallbacks
+
+- **FALLBACK ONLY: Mermaid with ELK** — DO NOT USE MERMAID unless D2 explicitly fails to compile.
+- **LAST RESORT: Graphviz** — DO NOT USE GRAPHVIZ unless both D2 and Mermaid fail.
+
+---
+
+## Plots (hvplot with Bokeh Backend)
+
+> **CRITICAL: hvplot + bokeh + Quarto requires a TWO-CELL pattern.**
+>
+> Each intermediate hvplot operation creates a separate output. Quarto captures ALL of them as sub-figures. **You MUST split into two cells:**
+>
+> 1. **Cell 1** (`#| output: false`): All imports, computation, and hvplot object construction
+> 2. **Cell 2** (`#| echo: false` + `#| label` + `#| fig-cap`): Uses `bokeh.io.output_notebook()` + `bokeh.io.show(hv.render(...))` to produce exactly ONE unified output
+
+**Additional rules:**
+- Use **bokeh param names** in hvplot calls: `line_width` (not `linewidth`), `line_dash` (not `linestyle`), `size` for scatter (not `s`)
+- `width` and `height` work directly with bokeh (unlike matplotlib which ignores them)
+
+**Three layers of plot options (critical distinction):**
+
+| Layer | How to apply | What goes here |
+|---|---|---|
+| **`hvplot_opts`** | `df.hvplot.line(**hvplot_opts, ...)` | `width`, `height`, `grid`, `xlabel`, `ylabel`, `title`, `rot`, `color`, `line_width`, `line_dash`, `size` |
+| **`hv_opts`** | `.opts(**hv_opts)` chained after hvplot call | `show_grid`, `show_legend`, `gridstyle`, `active_tools`, `toolbar`, `fontsize` |
+| **`backend_opts`** (rare) | `.opts(backend_opts={...})` | Raw bokeh model properties like `'xgrid.grid_line_alpha': 0.5` |
+
+**Correct pattern:**
+
+````
+```{python}
+#| output: false
+#| error: true
+#| warning: false
+import warnings
+warnings.filterwarnings("ignore")
+import numpy as np
+import pandas as pd
+import hvplot.pandas
+import holoviews as hv
+hv.extension('bokeh')
+
+hvplot_opts = dict(width=700, height=450, grid=True)
+hv_opts = dict(
+    show_grid=True,
+    default_tools=['hover', 'save', 'pan', 'box_zoom', 'reset', 'wheel_zoom'],
+    active_tools=['pan'],
+)
+
+x = np.linspace(-5, 5, 200)
+df = pd.DataFrame({'x': x, 'ReLU': np.maximum(0, x), 'Sigmoid': 1/(1+np.exp(-x))})
+df_melted = df.melt(id_vars=['x'], var_name='Function', value_name='f(x)')
+final_plot = df_melted.hvplot.line(
+    x='x', y='f(x)', by='Function',
+    **hvplot_opts,
+    line_width=2,
+).opts(**hv_opts)
+```
+
+```{python}
+#| label: fig-activation
+#| fig-cap: "Activation functions comparison"
+#| echo: false
+#| warning: false
+from bokeh.io import output_notebook, show
+import holoviews as hv
+output_notebook(hide_banner=True)
+show(hv.render(final_plot, backend='bokeh'))
+```
+````
+
+---
+
+## Visual Design Rules (Mayer's Principles)
+
+- Integrate labels directly INTO the visual — no separate legends
+- Place visuals immediately adjacent to related text
+- Use arrows and annotations to guide attention
+- Keep visuals simple
+- No decorative images that do not aid understanding
 
 ---
 > Source: [AI-Learning-Gems/AI-Learning-Gems.github.io](https://github.com/AI-Learning-Gems/AI-Learning-Gems.github.io) — distributed by [TomeVault](https://tomevault.io).
