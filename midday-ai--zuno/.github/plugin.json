@@ -1,0 +1,9 @@
+{
+  "name": "midday-ai--zuno",
+  "displayName": "zuno",
+  "description": "A unified API that provides a thin layer over multiple ERP systems.",
+  "version": "1.0.0",
+  "author": "midday-ai",
+  "homepage": "https://github.com/midday-ai/zuno",
+  "skills": []
+}
