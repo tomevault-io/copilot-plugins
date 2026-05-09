@@ -1,0 +1,9 @@
+{
+  "name": "steipete--swiftdansi",
+  "displayName": "Swiftdansi",
+  "description": "Markdown to ANSI for Swift. The ltitle sister of Markdansi, powered by swift-markdown",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/Swiftdansi",
+  "skills": []
+}
