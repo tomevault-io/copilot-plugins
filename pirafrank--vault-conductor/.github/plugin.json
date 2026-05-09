@@ -1,0 +1,9 @@
+{
+  "name": "pirafrank--vault-conductor",
+  "displayName": "vault-conductor",
+  "description": "An SSH Agent that provides SSH keys stored in Bitwarden Secrets Manager",
+  "version": "1.0.0",
+  "author": "pirafrank",
+  "homepage": "https://github.com/pirafrank/vault-conductor",
+  "skills": []
+}
