@@ -1,0 +1,44 @@
+{
+  "name": "doodlestein_self_releaser",
+  "owner": "Dicklesworthstone",
+  "repo": "doodlestein_self_releaser",
+  "description": "Local release tool that reuses your GitHub Actions workflow YAML to build via nektos/act when CI queues are throttled, then uploads artifacts to GitHub Releases",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Dicklesworthstone/doodlestein_self_releaser",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T02:32:37Z"
+}
