@@ -1,51 +1,16 @@
 ## unnamed-skill
 
-> 当需要编写脚本时, 你应该参考本文件
+> 酒馆变量可用于持久化地存储前端界面、脚本的数据, 可通过酒馆助手的 `getVariables`、`replaceVariables` 等接口读写.
 
-# 脚本
+# 酒馆变量
 
-如果 `src/xxx` 文件夹中仅有 `index.ts` 文件, 则它是一个脚本项目.
+酒馆变量可用于持久化地存储前端界面、脚本的数据, 可通过酒馆助手的 `getVariables`、`replaceVariables` 等接口读写.
 
-脚本以无沙盒 iframe 的形式在酒馆后台运行, 没有自己的界面, 只有代码部分可供编写.
-
-## jquery
-
-脚本中的 jquery 将直接作用于整个酒馆页面而非仅作用于脚本所在的 iframe. 例如 `$('body')` 将选择酒馆网页的 `<body>` 标签, 而不是脚本所在的 iframe 的 `<body>` 标签; 但 `appendTo` 等参数中的选择器依旧作用于脚本所在的 iframe, 因此请小心使用.
-
-## vue
-
-由于脚本运行在 iframe 中, 当需要在脚本中向酒馆页面挂载 vue 组件时, 你应该使用 jquery 来创建一个要挂载的位置, 将其添加到酒馆网页上, 并使用 `app.mount($app[0])` 来挂载.
-
-此外, vue-style-loader 会将样式注入到 iframe 的 `<head>` 中, 为了使样式生效, 你需要将样式复制到酒馆网页的 `<head>` 中:
-
-```typescript
-export function teleport_style() {
-  $(`<div>`)
-    .attr('script_id', getScriptId())
-    .append($(`head > style`, document).clone())
-    .appendTo('head');
-}
-
-export function deteleport_style() {
-  $(`head > div[script_id="${getScriptId()}"]`).remove();
-}
-```
-
-## 脚本设置
-
-如果需要为用户提供自定义设置, 可以使用脚本变量, 并用 `zod` 来定义设置的类型和默认值.
-
-## 按钮
-
-脚本可以在酒馆助手脚本库界面中设置按钮, 用户点击按钮时将会触发对应的事件.
-
-我们可以在代码中这样注册按钮事件:
-
-```typescript
-eventOn(getButtonEvent('按钮名'), () => {
-  console.log('按钮被点击了');
-});
-```
+- 全局变量: 在酒馆中全局一致, 无论是否打开角色卡、哪张角色卡, 都共享同样的全局变量.
+- 角色卡变量: 绑定在角色卡上的变量.
+- 脚本变量: 绑定在某个脚本上的变量.
+- 聊天变量: 绑定在某角色卡的某个聊天文件上的变量. 当在酒馆中选择某张角色卡与 LLM 进行对话时, 都需要创建一个聊天文件.
+- 消息楼层变量: 绑定在某角色卡、某聊天的某个楼层上. 当在酒馆中用某个聊天文件与 LLM 进行对话时, 可能会逐渐有很多用户输入和 AI 输出, 每个用户输入和 AI 输出都是单独的消息楼层.
 
 ---
 > Source: [RockingSisyphus/ERA-EfficientRollbackArchitecture](https://github.com/RockingSisyphus/ERA-EfficientRollbackArchitecture) — distributed by [TomeVault](https://tomevault.io).
