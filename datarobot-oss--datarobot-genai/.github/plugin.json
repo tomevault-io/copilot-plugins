@@ -1,0 +1,9 @@
+{
+  "name": "datarobot-oss--datarobot-genai",
+  "displayName": "datarobot-genai",
+  "description": "Repository for datarobot-genai library",
+  "version": "1.0.0",
+  "author": "datarobot-oss",
+  "homepage": "https://github.com/datarobot-oss/datarobot-genai",
+  "skills": []
+}
