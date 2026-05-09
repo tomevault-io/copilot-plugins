@@ -1,0 +1,9 @@
+{
+  "name": "doanbactam--agent-skills-directory",
+  "displayName": "agent-skills-directory",
+  "description": "Browse SKILL.md files for Claude, Cursor, Windsurf and other AI tools",
+  "version": "1.0.0",
+  "author": "doanbactam",
+  "homepage": "https://github.com/doanbactam/agent-skills-directory",
+  "skills": []
+}
