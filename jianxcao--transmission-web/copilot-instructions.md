@@ -1,726 +1,480 @@
-## naive-ui
+## typescript
 
-> Naive UI 组件库使用规范
+> TypeScript 类型安全和最佳实践
 
 
-# Naive UI 组件库规范
+# TypeScript 规范
 
-本项目使用 [Naive UI](https://www.naiveui.com/) 作为主要组件库
+## 类型系统
 
-## 组件导入
-
-### 自动导入配置
+### 基础类型使用
 ```typescript
-// ✅ 使用自动导入，无需手动 import
-<template>
-  <n-button type="primary">按钮</n-button>
-  <n-input v-model:value="text" />
-  <n-select v-model:value="value" :options="options" />
-</template>
+// ✅ 优先使用类型推断
+const count = 0 // 推断为 number
+const message = 'hello' // 推断为 string
 
-// ❌ 不需要手动导入
-import { NButton, NInput } from 'naive-ui'
+// ✅ 必要时显式声明类型
+let userId: number
+let torrentName: string
+
+// ❌ 避免冗余类型声明
+const count: number = 0 // 不必要
 ```
 
-### Message、Dialog、Notification 等组合式 API
+### Interface vs Type
+
+#### 使用 Interface
 ```typescript
-// ✅ 使用 composable API
-<script setup lang="ts">
-import { useMessage, useDialog, useNotification } from 'naive-ui'
-
-const message = useMessage()
-const dialog = useDialog()
-const notification = useNotification()
-
-function handleClick() {
-  message.success('操作成功')
-  dialog.warning({
-    title: '警告',
-    content: '确定要执行此操作吗？'
-  })
-}
-</script>
-```
-
-## 常用组件使用
-
-### Button 按钮
-```vue
-<template>
-  <!-- ✅ 基础按钮 -->
-  <n-button type="primary">主要按钮</n-button>
-  <n-button type="info">信息按钮</n-button>
-  <n-button type="success">成功按钮</n-button>
-  <n-button type="warning">警告按钮</n-button>
-  <n-button type="error">错误按钮</n-button>
-  
-  <!-- ✅ 按钮尺寸 -->
-  <n-button size="tiny">极小</n-button>
-  <n-button size="small">小</n-button>
-  <n-button size="medium">中（默认）</n-button>
-  <n-button size="large">大</n-button>
-  
-  <!-- ✅ 按钮状态 -->
-  <n-button :loading="loading">加载中</n-button>
-  <n-button :disabled="disabled">禁用</n-button>
-  
-  <!-- ✅ 图标按钮 -->
-  <n-button circle quaternary>
-    <template #icon>
-      <n-icon><PauseIcon /></n-icon>
-    </template>
-  </n-button>
-  
-  <!-- ✅ 文字按钮 -->
-  <n-button text tag="a" href="/settings">设置</n-button>
-</template>
-```
-
-### Input 输入框
-```vue
-<template>
-  <!-- ✅ 基础输入 -->
-  <n-input 
-    v-model:value="text"
-    placeholder="请输入内容"
-    clearable
-  />
-  
-  <!-- ✅ 带图标 -->
-  <n-input v-model:value="search" placeholder="搜索">
-    <template #prefix>
-      <n-icon><SearchIcon /></n-icon>
-    </template>
-  </n-input>
-  
-  <!-- ✅ 密码输入 -->
-  <n-input 
-    v-model:value="password"
-    type="password"
-    show-password-on="click"
-  />
-  
-  <!-- ✅ 文本域 -->
-  <n-input
-    v-model:value="description"
-    type="textarea"
-    :rows="4"
-    placeholder="多行文本"
-  />
-  
-  <!-- ✅ 输入组 -->
-  <n-input-group>
-    <n-input v-model:value="username" placeholder="用户名" />
-    <n-button type="primary">搜索</n-button>
-  </n-input-group>
-</template>
-```
-
-### Select 选择器
-```vue
-<script setup lang="ts">
-const value = ref<string>()
-const options = [
-  { label: '选项1', value: '1' },
-  { label: '选项2', value: '2' },
-  { label: '选项3', value: '3' }
-]
-
-// ✅ 带分组的选项
-const groupedOptions = [
-  {
-    type: 'group',
-    label: '分组1',
-    key: 'group1',
-    children: [
-      { label: '选项1', value: '1' }
-    ]
-  }
-]
-</script>
-
-<template>
-  <!-- ✅ 基础选择器 -->
-  <n-select v-model:value="value" :options="options" />
-  
-  <!-- ✅ 多选 -->
-  <n-select 
-    v-model:value="values"
-    :options="options"
-    multiple
-    filterable
-  />
-  
-  <!-- ✅ 可搜索 -->
-  <n-select
-    v-model:value="value"
-    :options="options"
-    filterable
-    placeholder="搜索选择"
-  />
-  
-  <!-- ✅ 自定义渲染 -->
-  <n-select
-    v-model:value="value"
-    :options="options"
-    :render-label="renderLabel"
-  />
-</template>
-```
-
-### Dialog 对话框
-```vue
-<script setup lang="ts">
-const showModal = ref(false)
-const dialog = useDialog()
-
-// ✅ 使用 useDialog API
-function showConfirm() {
-  dialog.warning({
-    title: '确认删除',
-    content: '确定要删除这个种子吗？',
-    positiveText: '确定',
-    negativeText: '取消',
-    onPositiveClick: () => {
-      message.success('已删除')
-    }
-  })
-}
-
-// ✅ 使用 n-modal 组件
-</script>
-
-<template>
-  <!-- ✅ Modal 组件 -->
-  <n-modal 
-    v-model:show="showModal"
-    preset="dialog"
-    title="对话框标题"
-    positive-text="确定"
-    negative-text="取消"
-    @positive-click="handleConfirm"
-  >
-    对话框内容
-  </n-modal>
-  
-  <!-- ✅ 自定义内容的 Modal -->
-  <n-modal v-model:show="showModal">
-    <n-card
-      style="width: 600px"
-      title="自定义对话框"
-      :bordered="false"
-      size="huge"
-      role="dialog"
-      aria-modal="true"
-    >
-      <template #header-extra>
-        <n-button @click="showModal = false">关闭</n-button>
-      </template>
-      自定义内容
-    </n-card>
-  </n-modal>
-</template>
-```
-
-### Message 消息提示
-```typescript
-// ✅ 使用 message API
-const message = useMessage()
-
-// 成功消息
-message.success('操作成功')
-
-// 错误消息
-message.error('操作失败')
-
-// 警告消息
-message.warning('请注意')
-
-// 信息消息
-message.info('提示信息')
-
-// 加载消息
-const loading = message.loading('加载中...', {
-  duration: 0 // 持续显示
-})
-// 手动关闭
-loading.destroy()
-
-// ✅ 配置消息
-message.success('操作成功', {
-  duration: 3000,
-  closable: true,
-  onClose: () => {
-    console.log('消息已关闭')
-  }
-})
-```
-
-### Table 表格
-```vue
-<script setup lang="ts">
-import type { DataTableColumns } from 'naive-ui'
-
-interface TorrentRow {
+// ✅ 对象形状定义
+interface TorrentInfo {
   id: number
   name: string
-  size: number
-  progress: number
+  status: TorrentStatus
+  totalSize: number
+  downloadedSize: number
 }
 
-const columns: DataTableColumns<TorrentRow> = [
-  {
-    key: 'name',
-    title: '名称',
-    width: 300,
-    ellipsis: {
-      tooltip: true
-    }
-  },
-  {
-    key: 'size',
-    title: '大小',
-    render: (row) => formatBytes(row.size)
-  },
-  {
-    key: 'progress',
-    title: '进度',
-    render: (row) => h(NProgress, {
-      percentage: row.progress,
-      type: 'line'
-    })
-  }
-]
+// ✅ 接口扩展
+interface DetailedTorrent extends TorrentInfo {
+  files: FileInfo[]
+  peers: PeerInfo[]
+}
 
-const data = ref<TorrentRow[]>([])
-const loading = ref(false)
-const pagination = reactive({
-  page: 1,
-  pageSize: 20,
-  showSizePicker: true,
-  pageSizes: [10, 20, 50, 100]
-})
-</script>
-
-<template>
-  <!-- ✅ 基础表格 -->
-  <n-data-table
-    :columns="columns"
-    :data="data"
-    :loading="loading"
-    :pagination="pagination"
-  />
-  
-  <!-- ✅ 可选择行 -->
-  <n-data-table
-    v-model:checked-row-keys="checkedKeys"
-    :columns="columns"
-    :data="data"
-    :row-key="(row: TorrentRow) => row.id"
-  />
-</template>
+// ✅ 声明合并
+interface Window {
+  customProperty: string
+}
 ```
 
-### Form 表单
-```vue
-<script setup lang="ts">
-import type { FormInst, FormRules } from 'naive-ui'
-
-interface FormModel {
-  name: string
-  downloadDir: string
-  seedRatioLimit: number
-}
-
-const formRef = ref<FormInst>()
-const model = ref<FormModel>({
-  name: '',
-  downloadDir: '',
-  seedRatioLimit: 2.0
-})
-
-// ✅ 表单验证规则
-const rules: FormRules = {
-  name: [
-    {
-      required: true,
-      message: '请输入名称',
-      trigger: 'blur'
-    }
-  ],
-  downloadDir: [
-    {
-      required: true,
-      message: '请选择下载目录',
-      trigger: 'change'
-    }
-  ],
-  seedRatioLimit: [
-    {
-      type: 'number',
-      required: true,
-      message: '请输入做种比率',
-      trigger: 'blur'
-    },
-    {
-      validator: (rule, value) => value > 0,
-      message: '做种比率必须大于 0',
-      trigger: 'blur'
-    }
-  ]
-}
-
-async function handleSubmit() {
-  await formRef.value?.validate()
-  // 验证通过，提交表单
-}
-</script>
-
-<template>
-  <n-form
-    ref="formRef"
-    :model="model"
-    :rules="rules"
-    label-placement="left"
-    label-width="120"
-  >
-    <n-form-item label="名称" path="name">
-      <n-input v-model:value="model.name" />
-    </n-form-item>
-    
-    <n-form-item label="下载目录" path="downloadDir">
-      <n-input v-model:value="model.downloadDir" />
-    </n-form-item>
-    
-    <n-form-item label="做种比率" path="seedRatioLimit">
-      <n-input-number v-model:value="model.seedRatioLimit" :min="0" />
-    </n-form-item>
-    
-    <n-form-item>
-      <n-button type="primary" @click="handleSubmit">提交</n-button>
-    </n-form-item>
-  </n-form>
-</template>
-```
-
-### Dropdown 下拉菜单
-```vue
-<script setup lang="ts">
-import type { DropdownOption } from 'naive-ui'
-
-const options: DropdownOption[] = [
-  {
-    label: '开始',
-    key: 'start',
-    icon: renderIcon(PlayIcon)
-  },
-  {
-    label: '暂停',
-    key: 'pause',
-    icon: renderIcon(PauseIcon)
-  },
-  {
-    type: 'divider',
-    key: 'divider'
-  },
-  {
-    label: '删除',
-    key: 'delete',
-    icon: renderIcon(DeleteIcon),
-    props: {
-      style: 'color: red'
-    }
-  }
-]
-
-function handleSelect(key: string) {
-  console.log('Selected:', key)
-}
-
-function renderIcon(icon: Component) {
-  return () => h(NIcon, null, { default: () => h(icon) })
-}
-</script>
-
-<template>
-  <!-- ✅ 基础下拉菜单 -->
-  <n-dropdown :options="options" @select="handleSelect">
-    <n-button>操作</n-button>
-  </n-dropdown>
-  
-  <!-- ✅ 右键菜单 -->
-  <div @contextmenu.prevent="handleContextMenu">
-    右键点击
-  </div>
-</template>
-```
-
-### Tabs 标签页
-```vue
-<template>
-  <!-- ✅ 基础标签页 -->
-  <n-tabs v-model:value="activeTab" type="line">
-    <n-tab-pane name="general" tab="常规">
-      常规设置内容
-    </n-tab-pane>
-    <n-tab-pane name="peers" tab="对等点">
-      对等点列表
-    </n-tab-pane>
-    <n-tab-pane name="trackers" tab="Trackers">
-      Tracker 列表
-    </n-tab-pane>
-  </n-tabs>
-  
-  <!-- ✅ 卡片式标签页 -->
-  <n-tabs type="card" closable @close="handleClose">
-    <n-tab-pane v-for="tab in tabs" :key="tab.id" :name="tab.id">
-      {{ tab.content }}
-    </n-tab-pane>
-  </n-tabs>
-</template>
-```
-
-### Loading 加载
-```vue
-<template>
-  <!-- ✅ Spin 加载指示器 -->
-  <n-spin :show="loading">
-    <div class="content">
-      内容区域
-    </div>
-  </n-spin>
-  
-  <!-- ✅ Skeleton 骨架屏 -->
-  <n-skeleton v-if="loading" :sharp="false" />
-  <div v-else>
-    实际内容
-  </div>
-  
-  <!-- ✅ 自定义加载描述 -->
-  <n-spin :show="loading" description="加载中...">
-    <div class="content">内容</div>
-  </n-spin>
-</template>
-```
-
-## 主题定制
-
-### 全局主题配置
+#### 使用 Type
 ```typescript
-// main.ts
-import { createApp } from 'vue'
-import { 
-  create, 
-  NConfigProvider, 
-  type GlobalThemeOverrides 
-} from 'naive-ui'
+// ✅ 联合类型
+type TorrentStatus = 'stopped' | 'checking' | 'downloading' | 'seeding'
+type FilterType = 'all' | 'active' | 'downloading' | 'seeding' | 'paused'
 
-const themeOverrides: GlobalThemeOverrides = {
-  common: {
-    primaryColor: '#18A058FF',
-    primaryColorHover: '#36AD6AFF',
-    primaryColorPressed: '#0C7A43FF',
-    primaryColorSuppl: '#36AD6AFF'
+// ✅ 交叉类型
+type TorrentWithMeta = TorrentInfo & {
+  addedDate: number
+  creator: string
+}
+
+// ✅ 工具类型
+type PartialTorrent = Partial<TorrentInfo>
+type ReadonlyTorrent = Readonly<TorrentInfo>
+
+// ✅ 复杂类型
+type AsyncResponse<T> = Promise<{
+  success: boolean
+  data: T
+  error?: string
+}>
+```
+
+## 类型定义
+
+### 函数类型
+```typescript
+// ✅ 函数签名
+type FetchTorrents = (ids?: number[]) => Promise<TorrentInfo[]>
+type TorrentPredicate = (torrent: TorrentInfo) => boolean
+
+// ✅ 函数重载
+function getTorrent(id: number): TorrentInfo | undefined
+function getTorrent(name: string): TorrentInfo[]
+function getTorrent(idOrName: number | string): TorrentInfo | TorrentInfo[] | undefined {
+  // implementation
+}
+
+// ✅ 泛型函数
+function createStore<T>(initialState: T) {
+  const state = ref(initialState)
+  return {
+    state: readonly(state),
+    setState: (newState: T) => {
+      state.value = newState
+    }
+  }
+}
+```
+
+### 对象类型
+```typescript
+// ✅ 索引签名
+interface TorrentMap {
+  [id: number]: TorrentInfo
+}
+
+interface TranslationMessages {
+  [key: string]: string | TranslationMessages
+}
+
+// ✅ 可选属性
+interface TorrentOptions {
+  downloadDir?: string
+  bandwidthPriority?: -1 | 0 | 1
+  seedRatioLimit?: number
+}
+
+// ✅ 只读属性
+interface SessionConfig {
+  readonly version: string
+  readonly rpcVersion: number
+}
+```
+
+### 数组和元组
+```typescript
+// ✅ 数组类型
+const torrents: TorrentInfo[] = []
+const ids: number[] = [1, 2, 3]
+const statuses: Array<TorrentStatus> = []
+
+// ✅ 只读数组
+const COLUMNS: readonly string[] = ['name', 'size', 'progress']
+
+// ✅ 元组类型
+type Point = [number, number]
+type NamedPoint = [x: number, y: number]
+
+// ✅ 带可选元素的元组
+type RpcResponse = [success: boolean, data?: any, error?: string]
+```
+
+## 泛型
+
+### 基础泛型
+```typescript
+// ✅ 泛型接口
+interface ApiResponse<T> {
+  success: boolean
+  data: T
+  timestamp: number
+}
+
+// ✅ 泛型约束
+interface HasId {
+  id: number
+}
+
+function findById<T extends HasId>(items: T[], id: number): T | undefined {
+  return items.find(item => item.id === id)
+}
+
+// ✅ 多个泛型参数
+function pair<K, V>(key: K, value: V): [K, V] {
+  return [key, value]
+}
+```
+
+### 实用泛型
+```typescript
+// ✅ 常用工具类型
+type PartialTorrent = Partial<TorrentInfo> // 所有属性可选
+type RequiredOptions = Required<TorrentOptions> // 所有属性必填
+type ReadonlyTorrent = Readonly<TorrentInfo> // 所有属性只读
+type TorrentKeys = keyof TorrentInfo // 键的联合类型
+
+// ✅ Pick 和 Omit
+type TorrentPreview = Pick<TorrentInfo, 'id' | 'name' | 'status'>
+type TorrentWithoutFiles = Omit<DetailedTorrent, 'files' | 'peers'>
+
+// ✅ Record
+type TorrentStatusCount = Record<TorrentStatus, number>
+// 等同于：
+// {
+//   stopped: number
+//   checking: number
+//   downloading: number
+//   seeding: number
+// }
+```
+
+## 类型守卫
+
+### 内置类型守卫
+```typescript
+// ✅ typeof
+function formatValue(value: string | number): string {
+  if (typeof value === 'number') {
+    return value.toFixed(2)
+  }
+  return value
+}
+
+// ✅ instanceof
+class CustomError extends Error {
+  code: number
+}
+
+function handleError(error: Error | CustomError) {
+  if (error instanceof CustomError) {
+    console.log(`Error code: ${error.code}`)
+  }
+}
+
+// ✅ in
+interface NetworkError {
+  statusCode: number
+}
+
+function isNetworkError(error: unknown): error is NetworkError {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    'statusCode' in error
+  )
+}
+```
+
+### 自定义类型守卫
+```typescript
+// ✅ 使用 is 关键字
+function isTorrent(value: unknown): value is TorrentInfo {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'id' in value &&
+    'name' in value &&
+    'status' in value
+  )
+}
+
+// 使用
+function processTorrent(data: unknown) {
+  if (isTorrent(data)) {
+    // data 的类型现在是 TorrentInfo
+    console.log(data.name)
+  }
+}
+
+// ✅ 数组类型守卫
+function isTorrentArray(value: unknown): value is TorrentInfo[] {
+  return Array.isArray(value) && value.every(isTorrent)
+}
+```
+
+## 空值处理
+
+### Null 和 Undefined
+```typescript
+// ✅ 使用可选链
+const fileName = torrent.files?.[0]?.name
+
+// ✅ 空值合并运算符
+const downloadDir = settings.downloadDir ?? '/downloads'
+
+// ✅ 类型收窄
+function getTorrentName(torrent: TorrentInfo | undefined): string {
+  if (!torrent) {
+    return 'Unknown'
+  }
+  return torrent.name
+}
+
+// ✅ 非空断言（确定不为空时使用）
+const torrent = torrents.find(t => t.id === id)!
+// 注意：仅在确定值存在时使用，否则使用可选链
+```
+
+### 类型断言
+```typescript
+// ✅ as 断言
+const input = document.querySelector('#torrent-name') as HTMLInputElement
+input.value = 'New Name'
+
+// ✅ 双重断言（谨慎使用）
+const unknownData = responseData as unknown as TorrentInfo
+
+// ❌ 避免不必要的断言
+const count = (5 + 3) as number // 不必要
+
+// ✅ 使用类型守卫代替断言
+if (isTorrent(data)) {
+  // 类型安全
+  console.log(data.name)
+}
+```
+
+## Vue 中的 TypeScript
+
+### 组件 Props
+```typescript
+// ✅ 使用泛型定义 props
+interface Props {
+  torrent: TorrentInfo
+  compact?: boolean
+  onSelect?: (id: number) => void
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  compact: false
+})
+
+// ✅ PropType 用于复杂类型
+import type { PropType } from 'vue'
+
+const props = defineProps({
+  status: {
+    type: String as PropType<TorrentStatus>,
+    required: true
   },
-  Button: {
-    textColor: '#000000'
+  torrents: {
+    type: Array as PropType<TorrentInfo[]>,
+    default: () => []
+  }
+})
+```
+
+### Composables
+```typescript
+// ✅ 明确返回类型
+export function useTorrentFilter(torrents: Ref<TorrentInfo[]>) {
+  const filterText = ref('')
+  
+  const filtered = computed(() => {
+    return torrents.value.filter(t => 
+      t.name.toLowerCase().includes(filterText.value.toLowerCase())
+    )
+  })
+  
+  return {
+    filterText: readonly(filterText),
+    filtered: readonly(filtered)
   }
 }
 
-// ✅ 使用 ConfigProvider
-app.component('NConfigProvider', NConfigProvider)
-```
-
-### 组件中使用主题
-```vue
-<script setup lang="ts">
-import type { GlobalThemeOverrides } from 'naive-ui'
-
-const themeOverrides: GlobalThemeOverrides = {
-  common: {
-    primaryColor: '#18A058FF'
+// ✅ 泛型 composable
+export function useAsync<T>(
+  asyncFn: () => Promise<T>
+) {
+  const data = ref<T>()
+  const error = ref<Error>()
+  const loading = ref(false)
+  
+  const execute = async () => {
+    loading.value = true
+    try {
+      data.value = await asyncFn()
+    } catch (e) {
+      error.value = e as Error
+    } finally {
+      loading.value = false
+    }
+  }
+  
+  return {
+    data: readonly(data),
+    error: readonly(error),
+    loading: readonly(loading),
+    execute
   }
 }
-</script>
-
-<template>
-  <n-config-provider :theme-overrides="themeOverrides">
-    <n-button type="primary">自定义主题按钮</n-button>
-  </n-config-provider>
-</template>
 ```
 
-### 暗色主题
-```vue
-<script setup lang="ts">
-import { darkTheme } from 'naive-ui'
-
-const isDark = ref(false)
-</script>
-
-<template>
-  <n-config-provider :theme="isDark ? darkTheme : null">
-    <n-button @click="isDark = !isDark">切换主题</n-button>
-  </n-config-provider>
-</template>
-```
-
-## 图标使用
-
-### 使用 @vicons
-```vue
-<script setup lang="ts">
-import { PlayCircle, PauseCircle } from '@vicons/ionicons5'
-</script>
-
-<template>
-  <!-- ✅ 在按钮中使用图标 -->
-  <n-button>
-    <template #icon>
-      <n-icon><PlayCircle /></n-icon>
-    </template>
-    播放
-  </n-button>
+### Store 类型
+```typescript
+// ✅ 定义 Store 类型
+export const useTorrentStore = defineStore('torrent', () => {
+  const torrents = ref<TorrentInfo[]>([])
+  const selectedIds = ref<Set<number>>(new Set())
   
-  <!-- ✅ 独立使用图标 -->
-  <n-icon size="20" color="#18a058">
-    <PauseCircle />
-  </n-icon>
-</template>
+  const selectedTorrents = computed(() => {
+    return torrents.value.filter(t => selectedIds.value.has(t.id))
+  })
+  
+  async function fetchTorrents(): Promise<void> {
+    const response = await torrentApi.getAll()
+    torrents.value = response.data
+  }
+  
+  return {
+    torrents: readonly(torrents),
+    selectedIds,
+    selectedTorrents,
+    fetchTorrents
+  }
+})
+
+// ✅ 使用 Store 类型
+export type TorrentStore = ReturnType<typeof useTorrentStore>
 ```
 
-## 响应式设计
+## 严格模式
 
-### Grid 栅格系统
-```vue
-<template>
-  <!-- ✅ 响应式栅格 -->
-  <n-grid :cols="24" :x-gap="12" :y-gap="8">
-    <n-grid-item :span="24 :m-span="12" :l-span="8">
-      <n-card>卡片 1</n-card>
-    </n-grid-item>
-    <n-grid-item :span="24" :m-span="12" :l-span="8">
-      <n-card>卡片 2</n-card>
-    </n-grid-item>
-  </n-grid>
-  
-  <!-- ✅ 响应式断点：s(640px) m(1024px) l(1280px) xl(1536px) -->
-</template>
+### tsconfig.json 配置
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  }
+}
 ```
 
 ## 最佳实践
 
-### 1. 使用 composable API 而非全局 API
+### 1. 避免 any
 ```typescript
-// ✅ 推荐
-const message = useMessage()
-message.success('成功')
+// ❌ 不要使用 any
+const data: any = response.data
 
-// ❌ 不推荐
-window.$message.success('成功')
-```
+// ✅ 使用具体类型
+const data: TorrentInfo = response.data
 
-### 2. 表单验证统一处理
-```typescript
-async function handleSubmit() {
-  try {
-    await formRef.value?.validate()
-    // 验证通过，执行提交
-    await submitForm()
-    message.success('提交成功')
-  } catch (errors) {
-    message.error('请检查表单')
-  }
+// ✅ 使用 unknown + 类型守卫
+const data: unknown = response.data
+if (isTorrent(data)) {
+  console.log(data.name)
 }
 ```
 
-### 3. 优先使用组件的 Props 而非深度修改样式
-```vue
-<!-- ✅ 使用 Props -->
-<n-button size="large" type="primary" round>按钮</n-button>
-
-<!-- ❌ 避免深度修改样式 -->
-<style>
-:deep(.n-button) {
-  border-radius: 20px;
-}
-</style>
-```
-
-### 4. 合理使用 loading 状态
+### 2. 使用 const assertions
 ```typescript
-const loading = ref(false)
+// ✅ const assertions 保持字面量类型
+const STATUSES = ['stopped', 'downloading', 'seeding'] as const
+type Status = typeof STATUSES[number] // 'stopped' | 'downloading' | 'seeding'
 
-async function fetchData() {
-  loading.value = true
-  try {
-    await api.getData()
-  } finally {
-    loading.value = false
-  }
-}
+// ✅ 对象 const assertion
+const CONFIG = {
+  maxRetries: 3,
+  timeout: 5000
+} as const
 ```
 
-### 5. Drawer 用于详情，Modal 用于表单
-```vue
-<!-- ✅ Drawer 显示详情 -->
-<n-drawer v-model:show="showDetail" width="60%">
-  <n-drawer-content title="种子详情">
-    <!-- 详情内容 -->
-  </n-drawer-content>
-</n-drawer>
-
-<!-- ✅ Modal 显示表单 -->
-<n-modal v-model:show="showForm" preset="dialog">
-  <n-form>
-    <!-- 表单内容 -->
-  </n-form>
-</n-modal>
-```
-
-## 性能优化
-
-### 1. 虚拟列表
-```vue
-<template>
-  <!-- ✅ 大数据量使用虚拟列表 -->
-  <n-virtual-list
-    :item-size="80"
-    :items="torrents"
-    style="max-height: 600px"
-  >
-    <template #default="{ item }">
-      <TorrentRow :torrent="item" />
-    </template>
-  </n-virtual-list>
-</template>
-```
-
-### 2. 懒加载
+### 3. 优先使用类型推断
 ```typescript
-// ✅ Select 懒加载选项
-const options = computed(() => {
-  // 动态计算选项
-})
+// ❌ 冗余的类型声明
+const torrents: TorrentInfo[] = getTorrents()
+
+// ✅ 让 TypeScript 推断
+const torrents = getTorrents() // 已经知道返回 TorrentInfo[]
 ```
 
-### 3. 防抖和节流
-```vue
-<template>
-  <!-- ✅ 搜索输入使用防抖 -->
-  <n-input
-    v-model:value="searchText"
-    @update:value="debouncedSearch"
-  />
-</template>
+### 4. 使用枚举的替代方案
+```typescript
+// ❌ 枚举（运行时开销）
+enum TorrentStatus {
+  Stopped = 'stopped',
+  Downloading = 'downloading'
+}
 
-<script setup lang="ts">
-import { debounce } from 'lodash-es'
+// ✅ 联合类型（无运行时开销）
+const TORRENT_STATUS = {
+  STOPPED: 'stopped',
+  DOWNLOADING: 'downloading'
+} as const
 
-const debouncedSearch = debounce((value: string) => {
-  search(value)
-}, 300)
-</script>
+type TorrentStatus = typeof TORRENT_STATUS[keyof typeof TORRENT_STATUS]
 ```
 
 ---
