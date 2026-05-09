@@ -1,0 +1,44 @@
+{
+  "name": "hermes-ui",
+  "owner": "pyrate-llama",
+  "repo": "hermes-ui",
+  "description": "The command center for Hermes Agent \u2014 chat, steer, browse files, manage skills, and monitor everything from a single glassmorphic HTML app.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pyrate-llama/hermes-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T18:09:52Z"
+}
