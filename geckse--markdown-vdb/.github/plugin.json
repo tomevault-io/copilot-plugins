@@ -1,0 +1,9 @@
+{
+  "name": "geckse--markdown-vdb",
+  "displayName": "markdown-vdb",
+  "description": "A filesystem-native vector database built around Markdown files. For AGENTS and MEMORY in mind. CLI first, folder based, no servers, no containers. Build with Rust for Performance.",
+  "version": "1.0.0",
+  "author": "geckse",
+  "homepage": "https://github.com/geckse/markdown-vdb",
+  "skills": []
+}
