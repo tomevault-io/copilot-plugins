@@ -1,0 +1,9 @@
+{
+  "name": "anqv--arduino-gtx330",
+  "displayName": "Arduino-GTX330",
+  "description": "Garmin GTX330 transponder panel emulator \u2014 Arduino Mega 2560 + SSD1322 OLED + Air Manager / X-Plane integration",
+  "version": "1.0.0",
+  "author": "Anqv",
+  "homepage": "https://github.com/Anqv/Arduino-GTX330",
+  "skills": []
+}
