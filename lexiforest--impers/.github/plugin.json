@@ -1,0 +1,9 @@
+{
+  "name": "lexiforest--impers",
+  "displayName": "impers",
+  "description": " The nodejs version of curl-cffi. JavaScript binding for curl-impersonation.",
+  "version": "1.0.0",
+  "author": "lexiforest",
+  "homepage": "https://github.com/lexiforest/impers",
+  "skills": []
+}
