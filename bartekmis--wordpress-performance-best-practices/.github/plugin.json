@@ -1,0 +1,9 @@
+{
+  "name": "bartekmis--wordpress-performance-best-practices",
+  "displayName": "wordpress-performance-best-practices",
+  "description": "AI skill to check Wordpress code against web performance best practises.",
+  "version": "1.0.0",
+  "author": "bartekmis",
+  "homepage": "https://github.com/bartekmis/wordpress-performance-best-practices",
+  "skills": []
+}
