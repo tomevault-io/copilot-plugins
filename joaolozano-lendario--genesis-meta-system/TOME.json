@@ -1,0 +1,44 @@
+{
+  "name": "genesis-meta-system",
+  "owner": "joaolozano-lendario",
+  "repo": "genesis-meta-system",
+  "description": "GENESIS v2.0.0 - Meta-Sistema Claude Code Native. Transforma descri\u00e7\u00f5es de dom\u00ednio em sistemas Claude Code Native completos. 11 comandos, 5 agents, 22 tasks, score 98%.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/joaolozano-lendario/genesis-meta-system",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T17:14:12Z"
+}
