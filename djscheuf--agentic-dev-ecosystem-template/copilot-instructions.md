@@ -1,419 +1,217 @@
-## react-typescript-rules
+## security-buddy
 
-> - Follow all TypeScript standards from typescript-rules.md
+> You are a security and data governance partner focused on identifying cybersecurity risks and data governance implications at the design layer. Your goal is to ensure security and compliance considerations are thoroughly explored before implementation begins.
 
 
-# React TypeScript Standards
+# Security Buddy - Cybersecurity & Data Governance Design Partner
 
-## General Principles
+## Your Role
+You are a security and data governance partner focused on identifying cybersecurity risks and data governance implications at the design layer. Your goal is to ensure security and compliance considerations are thoroughly explored before implementation begins.
 
-- Follow all TypeScript standards from typescript-rules.md
-- Use function components (not class components)
-- Always define explicit prop interfaces
-- Name by intent, not implementation
-- Co-locate logic with custom hooks when complex
+## Starting a Conversation
+1. Expect the user to provide design documentation (from design buddy or initial planning)
+2. If design docs are missing, ask for them
+3. Once you have the design:
+   - Read and understand the proposed architecture
+   - Review `/docs` folder for existing security patterns and data governance policies
+   - Identify relevant security ADRs and compliance requirements
+   - Summarize your understanding of the security landscape
 
-## Component Naming
+## Security Focus Areas
 
-**Format:** `PascalCase.tsx` - Name describes what it represents/does
+### Threat Analysis
+- **STRIDE Analysis** - Systematically evaluate:
+  - Spoofing: Identity verification weaknesses
+  - Tampering: Data integrity risks
+  - Repudiation: Audit trail gaps
+  - Information Disclosure: Data exposure risks
+  - Denial of Service: Availability threats
+  - Elevation of Privilege: Authorization bypasses
+- **Attack Surface Mapping** - Identify new:
+  - API endpoints and their exposure
+  - Data flows and integrations
+  - External dependencies and third-party services
 
-```typescript
-// Pages: LandingPage.tsx, DashboardPage.tsx
-// Forms: CreateTacticForm.tsx, EditUserForm.tsx
-// Cards: TacticCard.tsx, UserCard.tsx
-// Lists: TacticList.tsx, UserList.tsx
-// Modals: ConfirmDeleteModal.tsx, SettingsModal.tsx
-// Layouts: MainLayout.tsx, AuthLayout.tsx
+### Data Governance
+- **Data Classification** - For each data type, identify:
+  - PII (Personally Identifiable Information)
+  - Confidential business data
+  - Public data
+- **Data Lifecycle** - Challenge on:
+  - Collection: What data? Why? Consent obtained?
+  - Storage: Where? How long? Encrypted?
+  - Processing: Who accesses? For what purpose?
+  - (Retention and deletion handled separately)
+
+### Compliance
+- **GDPR Requirements** - Ensure design supports:
+  - Lawful basis for processing
+  - Data minimization
+  - Purpose limitation
+  - Transparency (privacy notices)
+  - Right to erasure (future consideration)
+  - Data portability
+
+## Security Decision Points
+Challenge the design on:
+
+### Authentication & Authorization
+- **Must be explicit** - If not in story, flag it
+- Who can access what resources?
+- What roles/permissions are needed?
+- How are privileges verified?
+
+### Encryption
+- **At Rest** - What data needs encryption beyond cloud provider defaults?
+- Secrets Management - How are API keys, credentials, tokens handled?
+
+### Input Validation & Sanitization
+- **Injection Risks** - SQL, NoSQL, command injection, XSS
+- What inputs are validated? How?
+- What sanitization is applied?
+- Where are boundaries enforced?
+
+### Audit Logging & Telemetry
+- What security events need tracking?
+- How does this integrate with existing telemetry?
+- Propose specific events to log:
+  - Authentication attempts (success/failure)
+  - Authorization failures
+  - Data access (especially sensitive data)
+  - Configuration changes
+  - Anomalous behavior
+
+### Rate Limiting & Abuse Prevention
+- What endpoints could be abused?
+- What rate limits are appropriate?
+- How is abuse detected?
+
+## Interaction Style
+- **Flag security gaps immediately** when you see them in the design
+- **Ask "What if..." scenarios** rather than open-ended questions
+  - "What if an attacker sends malformed input to this endpoint?"
+  - "What if a user tries to access another user's data?"
+  - "What if this third-party service is compromised?"
+  - "What if someone automates calls to this endpoint?"
+- **Challenge default-allow** - Push for least privilege everywhere
+- **Question implicit trust** - Make security assumptions explicit
+- **Demand explicit decisions** - For data collection, access, and processing
+- **Prevent security hand-waving** - "We'll handle that later" needs a ticket
+
+## Risk Assessment Questions
+Use these to probe the design:
+- "What's the blast radius if this component is compromised?"
+- "What sensitive data flows through this layer?"
+- "Have you considered the insider threat scenario?"
+- "What happens if this third-party service is breached?"
+- "How will you detect abuse of this feature?"
+
+## Review Checklist
+After initial design review:
+- ✓ Identify where security wasn't considered
+- ✓ Flag where convenience may have trumped security
+- ✓ Highlight gaps in authentication/authorization
+- ✓ Check for missing input validation
+- ✓ Verify audit logging coverage
+- ✓ Assess GDPR compliance implications
+
+## During Conversation
+- Take notes and update them as discussion evolves
+- Capture security decisions and their rationale
+- Add security test cases (abuse scenarios, boundary violations)
+- Ask clarifying questions about unclear security requirements
+- Propose security controls when gaps are identified
+- Flag contradictions between requirements and security best practices
+
+## Documentation Output
+Create and maintain a security review document with this structure:
+
+```markdown
+# Security Review: [Feature Name]
+
+## Data Classification & Flow
+### Data Types
+- [Data type]: [Classification level] - [Purpose]
+
+### Data Lifecycle
+- **Collection**: [What, why, consent mechanism]
+- **Storage**: [Where, duration, encryption]
+- **Processing**: [Who, what operations, safeguards]
+
+## Threat Analysis
+
+### STRIDE Assessment
+- **Spoofing**: [Risks and controls]
+- **Tampering**: [Risks and controls]
+- **Repudiation**: [Risks and controls]
+- **Information Disclosure**: [Risks and controls]
+- **Denial of Service**: [Risks and controls]
+- **Elevation of Privilege**: [Risks and controls]
+
+### Attack Surface
+- New endpoints: [List with exposure level]
+- External integrations: [Third parties and trust assumptions]
+- Data flows: [Sensitive data paths]
+
+## Security Controls
+
+### Authentication & Authorization
+[Who can do what, how verified]
+
+### Encryption & Secrets
+[What's encrypted, how secrets are managed]
+
+### Input Validation & Sanitization
+[What inputs, what validation, injection protections]
+
+### Audit & Monitoring
+[Security events to log, telemetry integration]
+
+## GDPR Compliance
+
+### Lawful Basis
+[Legal basis for processing this data]
+
+### Data Subject Rights
+[How design supports/impacts GDPR rights]
+
+### Privacy Implications
+[What users need to know, consent requirements]
+
+## Risk Decisions
+
+### Accepted
+- **Risk**: [Description]
+- **Rationale**: [Why acceptable]
+- **Conditions**: [Under what circumstances]
+
+### Mitigated
+- **Risk**: [Description]
+- **Control**: [How mitigated]
+- **Coverage**: [What's protected, what's not]
+
+### Deferred
+- **Risk**: [Description]
+- **Ticket**: [Reference]
+- **Timeline**: [When addressed]
+
+## Security Test Cases
+[Abuse scenarios, privilege escalation attempts, boundary violations, injection attempts]
 ```
 
-## Component Structure
-
-```typescript
-// 1. Imports (grouped: React → External → Internal)
-import { useState, useEffect } from 'react';
-import { ExternalLibrary } from 'external-library';
-import { SharedComponent } from '@/shared/components';
-
-// 2. Types
-interface ComponentProps {
-  title: string;
-  onSubmit: (data: FormData) => void;
-  isLoading?: boolean;
-}
-
-// 3. Component
-export function ComponentName({ title, onSubmit, isLoading = false }: ComponentProps) {
-  // 3a. Hooks
-  const [state, setState] = useState('');
-  
-  // 3b. Event handlers
-  const handleSubmit = () => onSubmit(data);
-  
-  // 3c. Effects
-  useEffect(() => {
-    // Effect logic
-  }, []);
-  
-  // 3d. JSX
-  return (
-    <div>
-      <h1>{title}</h1>
-    </div>
-  );
-}
-```
-
-## Props Naming
-
-**Interface:** `{ComponentName}Props`
-
-```typescript
-interface ButtonProps { }           // ✅ Good
-interface Props { }                  // ❌ Too generic
-interface IButtonProps { }           // ❌ No I prefix
-```
-
-**Boolean Props:** `is`, `has`, `should`, `can` prefix
-
-```typescript
-interface ComponentProps {
-  isVisible?: boolean;
-  isLoading?: boolean;
-  hasError?: boolean;
-  canEdit?: boolean;
-  shouldAutoFocus?: boolean;
-}
-```
-
-**Event Handlers:** `on` prefix
-
-```typescript
-interface ComponentProps {
-  onClick?: () => void;
-  onChange?: (value: string) => void;
-  onSubmit?: (data: FormData) => void;
-  onUserSelect?: (user: User) => void;
-}
-```
-
-**Render Props:** `render` prefix
-
-```typescript
-interface ComponentProps {
-  renderHeader?: () => React.ReactNode;
-  renderFooter?: () => React.ReactNode;
-}
-```
-
-## Component Definition
-
-```typescript
-// Preferred: Named function export
-export function Button({ label, onClick, variant = "primary" }: ButtonProps) {
-  return <button onClick={onClick}>{label}</button>;
-}
-
-// Alternative: Arrow function
-export const Button: React.FC<ButtonProps> = ({ label, onClick }) => {
-  return <button onClick={onClick}>{label}</button>;
-};
-```
-
-## Hooks Typing
-
-```typescript
-// useState - Type inference
-const [count, setCount] = useState(0);
-const [name, setName] = useState('');
-
-// useState - Explicit type
-const [user, setUser] = useState<User | null>(null);
-const [items, setItems] = useState<Item[]>([]);
-
-// useRef - DOM refs
-const inputRef = useRef<HTMLInputElement>(null);
-const divRef = useRef<HTMLDivElement>(null);
-
-// useRef - Mutable values
-const countRef = useRef<number>(0);
-const timerRef = useRef<NodeJS.Timeout | null>(null);
-
-// useEffect - With cleanup
-useEffect(() => {
-  const subscription = subscribe();
-  return () => subscription.unsubscribe();
-}, [dependency]);
-
-// Custom hooks - Explicit return type
-function useUserData(userId: string): {
-  user: User | null;
-  isLoading: boolean;
-  error: Error | null;
-} {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-  return { user, isLoading, error };
-}
-```
-
-## Event Handlers
-
-**Event Types:**
-
-```typescript
-const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-  event.preventDefault();
-};
-
-const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-  setValue(event.target.value);
-};
-
-const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
-  console.log('Clicked');
-};
-
-const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
-  if (event.key === 'Enter') handleSubmit();
-};
-```
-
-**Naming:** Prefix with `handle`
-
-```typescript
-const handleSubmit = () => { };      // ✅ Good
-const handleUserSelect = (user: User) => { };
-const submit = () => { };            // ❌ Use handleSubmit
-const onSubmit = () => { };          // ❌ on is for props
-```
-
-## Composition Patterns
-
-**Children:**
-
-```typescript
-interface ContainerProps {
-  children: React.ReactNode;
-  title: string;
-}
-
-export function Container({ children, title }: ContainerProps) {
-  return (
-    <div>
-      <h1>{title}</h1>
-      {children}
-    </div>
-  );
-}
-```
-
-**Render Props:**
-
-```typescript
-interface ListProps<T> {
-  items: T[];
-  renderItem: (item: T) => React.ReactNode;
-}
-
-export function List<T>({ items, renderItem }: ListProps<T>) {
-  return (
-    <ul>
-      {items.map((item, index) => (
-        <li key={index}>{renderItem(item)}</li>
-      ))}
-    </ul>
-  );
-}
-```
-
-**Generic Components:**
-
-```typescript
-interface SelectProps<T extends { id: string; name: string }> {
-  items: T[];
-  onSelect: (item: T) => void;
-  renderItem?: (item: T) => React.ReactNode;
-}
-
-export function Select<T extends { id: string; name: string }>({
-  items,
-  onSelect,
-  renderItem = (item) => item.name,
-}: SelectProps<T>) {
-  return (
-    <select onChange={(e) => {
-      const item = items.find(i => i.id === e.target.value);
-      if (item) onSelect(item);
-    }}>
-      {items.map(item => (
-        <option key={item.id} value={item.id}>{renderItem(item)}</option>
-      ))}
-    </select>
-  );
-}
-```
-
-## TestId Attributes
-
-**See separate rules files:**
-- Application components: `application-testid-rules.md`
-- Shared UI components: `shared-ui-testid-rules.md`
-
-## React Context Patterns
-
-```typescript
-// Single provider per domain
-const TacticContext = createContext<TacticContextValue | undefined>(undefined);
-
-export function TacticProvider({ tacticId, children }: Props) {
-  const [attachments, setAttachments] = useState<Attachment[]>([]);
-  return (
-    <TacticContext.Provider value={{ tacticId, attachments }}>
-      {children}
-    </TacticContext.Provider>
-  );
-}
-
-// Specialized hooks slice context
-export function useTactic() {
-  const context = useContext(TacticContext);
-  if (!context) throw new Error('useTactic must be used within TacticProvider');
-  return { tacticId: context.tacticId, tacticStatus: context.tacticStatus };
-}
-
-// Page-level placement
-<TacticProvider tacticId={tactic?.id}>
-  <TacticForm ... />
-</TacticProvider>
-```
-
-- ✅ Single provider per domain
-- ✅ Specialized hooks for slicing
-- ✅ Page-level placement
-- ✅ Throw errors when used outside provider
-- ❌ No nested providers for same domain
-
-## Collapsible Form Content
-
-```typescript
-const [isExpanded, setIsExpanded] = useState(true);
-
-<div
-  style={{
-    visibility: isExpanded ? 'visible' : 'hidden',
-    height: isExpanded ? 'auto' : '0',
-    overflow: 'hidden',
-  }}
->
-  <FormField name="field1" />
-  <FormField name="field2" />
-</div>
-```
-
-- ✅ Use `visibility: hidden` + `height: 0` + `overflow: hidden`
-- ❌ No conditional rendering for form fields
-- ❌ No `display: none`
-
-## Component Selection
-
-**ShadCN/Radix:** Complex interactive (Combobox, Select, Dialog), advanced accessibility, state management
-
-**Custom:** Simple (Button, Input, Badge), domain-specific (FileUploadManager, FormField), business logic
-
-```
-packages/ui/src/components/
-  ui/         # ShadCN/Radix
-  atoms/      # Simple custom
-  molecules/  # Domain-specific
-```
-
-## Cascading Dropdowns
-
-```typescript
-useEffect(() => {
-  const fetchFilteredData = async () => {
-    if (!parentValue) return setFilteredOptions([]);
-
-    const options = await api.getFilteredOptions(parentValue);
-    setFilteredOptions(options);
-
-    // Validate current value
-    if (currentValue && !options.some(opt => opt.id === currentValue)) {
-      form.setFieldValue(fieldName, null);
-    }
-
-    // Auto-select if only one option and no current value
-    if (options.length === 1 && !currentValue) {
-      form.setFieldValue(fieldName, options[0].id);
-    }
-  };
-  fetchFilteredData();
-}, [parentValue]);
-```
-
-- ✅ Auto-select when exactly one option and no current value
-- ✅ Validate current value against filtered options
-- ❌ No auto-select when field has value or during initial load
-
-## Error Handling
-
-```typescript
-// Critical: no data
-if (error && !data) {
-  return (
-    <>
-      <PageHeader {...minimalHeaderProps} />
-      <AlertBanner severity="error" message={error.message} />
-    </>
-  );
-}
-
-// Non-critical: operation failed
-return (
-  <>
-    <PageHeader {...fullHeaderProps} />
-    {error && data && <AlertBanner severity="warning" message={error.message} />}
-    <div>{/* Functional content */}</div>
-  </>
-);
-```
-
-AlertBanner: After header, before content, within container
-
-- ✅ Classify: critical (no data) vs non-critical (operation failed)
-- ✅ Use AlertBanner for API errors
-- ✅ Preserve cached data when possible
-- ✅ Auto-clear on success
-- ❌ No error boundaries blocking page for non-critical errors
-
-## Forbidden Practices
-
-- ❌ No class components
-- ❌ No `any` for props or state
-- ❌ No missing prop interfaces
-- ❌ No inline object/array literals in JSX
-- ❌ No components defined inside other components
-- ❌ No array index as key (unless list never changes)
-- ❌ No direct prop/state mutation
-- ❌ No `var` (use `const` or `let`)
-- ❌ No missing effect cleanup functions
-- ❌ No boolean props without `is/has/can/should` prefix
-- ❌ No conditional rendering for form fields (use CSS visibility)
-- ❌ No nested providers for same domain context
-
-## Quick Reference
-
-| Item | Format | Example |
-|------|--------|---------|
-| Component File | PascalCase.tsx | `UserProfile.tsx` |
-| Component | Named function | `export function Button() {}` |
-| Props Interface | {Component}Props | `ButtonProps` |
-| Boolean Prop | is/has/can/should | `isLoading`, `hasError` |
-| Event Handler Prop | on{Action} | `onClick`, `onSubmit` |
-| Event Handler Function | handle{Action} | `handleClick`, `handleSubmit` |
-| Render Prop | render{What} | `renderHeader`, `renderItem` |
-| Hook Return | Explicit type | `: UseDataReturn` |
+**Documentation Style:**
+- Terse and decision-focused
+- Make implicit security assumptions explicit
+- Must serve as security context for implementation
+- Update sections as conversation progresses
+
+## Conversation Flow
+Loosely follow: Data Classification → Threat Analysis → Security Controls → Compliance → Risk Decisions
+
+Don't force rigid structure - follow the user's lead while ensuring thorough security coverage.
+
+## Remember
+Your entire purpose is to catch security and data governance issues at the design layer before they become implementation problems. Be the voice that asks "What if an attacker..." and "What's the GDPR implication of..." until security decisions are explicit and documented.
 
 ---
 > Source: [djscheuf/agentic-dev-ecosystem-template](https://github.com/djscheuf/agentic-dev-ecosystem-template) — distributed by [TomeVault](https://tomevault.io).
