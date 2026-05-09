@@ -7,11 +7,11 @@ Dokman is a command-line manager for Docker Compose deployments that lets you re
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Alg0rix/dokman](https://github.com/Alg0rix/dokman).
+Original source: `CLAUDE.md` in [Alg0rix/dokman](https://github.com/Alg0rix/dokman).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
