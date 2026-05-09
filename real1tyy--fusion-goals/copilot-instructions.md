@@ -1,51 +1,55 @@
-## context7
+## cursor-rules
 
-> **Always use Context7 for up-to-date library and API documentation**
+> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
 
 
-# Context7 MCP Integration Rule
+- **Required Rule Structure:**
+  ```markdown
+  ---
+  description: Clear, one-line description of what the rule enforces
+  globs: path/to/files/*.ext, other/path/**/*
+  alwaysApply: boolean
+  ---
 
-**Always use Context7 for up-to-date library and API documentation**
+  - **Main Points in Bold**
+    - Sub-points with details
+    - Examples and explanations
+  ```
 
-## When to Use Context7
+- **File References:**
+  - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
+  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
+  - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
 
-Context7 MCP pulls up-to-date, version-specific documentation and code examples straight from the source. Use Context7 whenever you need:
+- **Code Examples:**
+  - Use language-specific code blocks
+  ```typescript
+  // ✅ DO: Show good examples
+  const goodExample = true;
+  
+  // ❌ DON'T: Show anti-patterns
+  const badExample = false;
+  ```
 
-- **Library Documentation**: Any third-party library usage, setup, or configuration
-- **API Documentation**: REST APIs, GraphQL APIs, or any external service integration
-- **Framework Examples**: React, Vue, Angular, or any framework-specific code
-- **Tool Configuration**: Build tools, testing frameworks, deployment tools
-- **Package Setup**: Installation guides, dependency management
-- **Code Examples**: Implementation patterns from official sources
-- **Version-Specific Info**: Latest features, deprecated methods, breaking changes
+- **Rule Content Guidelines:**
+  - Start with high-level overview
+  - Include specific, actionable requirements
+  - Show examples of correct implementation
+  - Reference existing code when possible
+  - Keep rules DRY by referencing other rules
 
-## Implementation
+- **Rule Maintenance:**
+  - Update rules when new patterns emerge
+  - Add examples from actual codebase
+  - Remove outdated patterns
+  - Cross-reference related rules
 
-Context7 should be automatically invoked when users request:
-- Code examples for any library
-- Setup or configuration steps
-- Library/API documentation
-- Integration guides
-- Best practices from official sources
-
-## Benefits
-
-- **Up-to-date Information**: Prevents using outdated documentation
-- **Version-Specific**: Gets the right info for the specific version being used
-- **Official Sources**: Pulls directly from authoritative documentation
-- **Code Examples**: Provides working, tested examples
-- **Reduced Errors**: Avoids common mistakes from outdated tutorials
-
-## Usage Pattern
-
-Instead of relying on training data that may be outdated, always use Context7 to:
-1. Get the latest API changes
-2. Find current best practices
-3. Retrieve working code examples
-4. Understand new features
-5. Check for deprecated methods
-
-**Remember**: Context7 ensures you're working with the most current and accurate information available.
+- **Best Practices:**
+  - Use bullet points for clarity
+  - Keep descriptions concise
+  - Include both DO and DON'T examples
+  - Reference actual code over theoretical examples
+  - Use consistent formatting across rules 
 
 ---
 > Source: [Real1tyy/Fusion-Goals](https://github.com/Real1tyy/Fusion-Goals) — distributed by [TomeVault](https://tomevault.io).
