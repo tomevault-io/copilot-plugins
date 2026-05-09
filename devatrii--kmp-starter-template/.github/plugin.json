@@ -1,0 +1,9 @@
+{
+  "name": "devatrii--kmp-starter-template",
+  "displayName": "Kmp-Starter-Template",
+  "description": "Starter template is a multi-module KMP boilerplate for Android & iOS with clean architecture and high-quality code. It handles basics like remote config, in-app purchases, and analytics so you can foc",
+  "version": "1.0.0",
+  "author": "DevAtrii",
+  "homepage": "https://github.com/DevAtrii/Kmp-Starter-Template",
+  "skills": []
+}
