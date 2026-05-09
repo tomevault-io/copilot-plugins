@@ -1,0 +1,9 @@
+{
+  "name": "managelm--claude-extension",
+  "displayName": "claude-extension",
+  "description": "Manage Linux & Windows servers directly from Claude using natural language \u2014 MCP extension with 31 skills, multi-server targeting, security audits",
+  "version": "1.0.0",
+  "author": "managelm",
+  "homepage": "https://github.com/managelm/claude-extension",
+  "skills": []
+}
