@@ -1,66 +1,69 @@
-## imports
+## codingbuddy
 
-> codingbuddy common rules - applied to all conversations
+> - **🔴 CRITICAL (Block merge)**: Security vulnerabilities, logic errors, breaking changes, data loss risks
 
+# Copilot Code Review Instructions
 
-# codingbuddy Rules
+## Review Priority Levels
 
-## Workflow
+- **🔴 CRITICAL (Block merge)**: Security vulnerabilities, logic errors, breaking changes, data loss risks
+- **🟡 IMPORTANT (Requires discussion)**: Code quality issues, missing tests, performance bottlenecks, architectural deviations
+- **🟢 SUGGESTION (Non-blocking)**: Readability improvements, minor optimizations, best practice refinements
 
-- **PLAN** → **ACT** → **PLAN** (default flow)
-- **EVAL** only on explicit request
-- **AUTO** for autonomous PLAN → ACT → EVAL cycle until quality achieved
+## Security Review
 
-## Required Actions
+- Check for hardcoded secrets, API keys, or credentials
+- Look for SQL injection and XSS vulnerabilities
+- Verify proper input validation and sanitization
+- Check for command injection in shell executions
+- Ensure authentication/authorization is properly implemented
+- Verify dependencies don't have known vulnerabilities
 
-When `PLAN`, `ACT`, `EVAL`, `AUTO` keywords detected → **Immediately** call `parse_mode` MCP tool
+## TypeScript Standards
 
-## Context Persistence
+- No `any` type usage — use `unknown` or specific types with strict mode
+- Prefer `const` over `let`, never use `var`
+- Use explicit return types for public functions
+- Ensure proper null/undefined handling with strict null checks
+- Prefer pure functions over impure ones (separate files for pure/impure)
 
-After completing work in any mode → call `update_context` MCP tool to persist decisions and notes.
+## Code Quality
 
-## Quality Tools
+- Functions should follow Single Responsibility Principle (10-20 lines max)
+- No deeply nested code (max 3-4 levels)
+- No magic numbers — use named constants
+- Remove dead code and unused imports
+- DRY: No duplicated logic across files
+- Keep methods small and focused
 
-- `analyze_task` — Pre-planning task analysis with risk assessment
-- `generate_checklist` — Contextual checklists for security, accessibility, performance
-- `search_rules` — Search project rules and guidelines
-- `get_code_conventions` — Get code conventions and style guide
+## Testing Standards
 
-## Core Principles
+- Core logic (entities, shared/utils, hooks) MUST have tests (TDD approach)
+- UI components (features, widgets) should have test-after coverage
+- Target 90%+ test coverage
+- No mocking — test real behavior with actual implementations
+- Use Arrange-Act-Assert pattern
+- Test edge cases and error paths
 
-- TDD: Red → Green → Refactor
-- Test coverage 90%+
-- TypeScript strict (no `any`)
-- Server Components first
+## Architecture
 
-## Project Config
+- Layer dependency: app → widgets → features → entities → shared
+- No circular dependencies between modules
+- Server Components as default, Client Components only when necessary
+- Pure/impure function separation (different files)
 
-Use `get_project_config` MCP tool to retrieve project-specific settings (language, tech stack, conventions).
+## NestJS Patterns (MCP Server)
 
-## Skills
+- Follow NestJS module pattern (Module → Controller/Gateway → Service)
+- Use dependency injection properly
+- Validate DTOs with class-validator decorators
+- Handle errors with proper NestJS exception filters
 
-When a skill might apply to the user's task:
-1. Call `recommend_skills` with the user's prompt
-2. If recommendations returned, call `get_skill` with the top skillName
-3. Follow the loaded skill instructions
+## Commit & PR Standards
 
-Key skill triggers:
-- Bug/error/debug → `systematic-debugging`
-- New feature/build → `brainstorming` → `writing-plans`
-- TDD/test → `test-driven-development`
-- Plan execution → `executing-plans`
-
-## Detailed Rules
-
-All details in Single Source of Truth:
-
-- [`packages/rules/.ai-rules/rules/augmented-coding.md`](../../packages/rules/.ai-rules/rules/augmented-coding.md)
-- [`packages/rules/.ai-rules/rules/clarification-guide.md`](../../packages/rules/.ai-rules/rules/clarification-guide.md)
-- [`packages/rules/.ai-rules/rules/core.md`](../../packages/rules/.ai-rules/rules/core.md)
-- [`packages/rules/.ai-rules/rules/parallel-execution.md`](../../packages/rules/.ai-rules/rules/parallel-execution.md)
-- [`packages/rules/.ai-rules/rules/project.md`](../../packages/rules/.ai-rules/rules/project.md)
-- [`packages/rules/.ai-rules/rules/structured-reasoning-guide.md`](../../packages/rules/.ai-rules/rules/structured-reasoning-guide.md)
-- [`packages/rules/.ai-rules/agents/README.md`](../../packages/rules/.ai-rules/agents/README.md)
+- Conventional commits format (feat:, fix:, refactor:, test:, docs:, chore:)
+- Each PR should be focused on a single concern
+- PR description must explain "why", not just "what"
 
 ---
 > Source: [JeremyDev87/codingbuddy](https://github.com/JeremyDev87/codingbuddy) — distributed by [TomeVault](https://tomevault.io).
