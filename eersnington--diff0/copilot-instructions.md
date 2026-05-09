@@ -1,724 +1,514 @@
-## convex-rules
+## ultracite
 
-> Guidelines and best practices for building Convex projects, including database schema design, queries, mutations, and real-world examples
+> Project Context - Rules, Standard and Linter
 
 
-# Convex guidelines
+Concise rules for building accessible, fast, delightful UIs Use MUST/SHOULD/NEVER to guide decisions
 
-## Function guidelines
+## Interactions
 
-### New function syntax
+- Keyboard
+  - MUST: Full keyboard support per [WAI-ARIA APG](https://wwww3org/WAI/ARIA/apg/patterns/)
+  - MUST: Visible focus rings (`:focus-visible`; group with `:focus-within`)
+  - MUST: Manage focus (trap, move, and return) per APG patterns
+- Targets & input
+  - MUST: Hit target ≥24px (mobile ≥44px) If visual <24px, expand hit area
+  - MUST: Mobile `<input>` font-size ≥16px or set:
+    ```html
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+    />
+    ```
+  - NEVER: Disable browser zoom
+  - MUST: `touch-action: manipulation` to prevent double-tap zoom; set `-webkit-tap-highlight-color` to match design
+- Inputs & forms (behavior)
+  - MUST: Hydration-safe inputs (no lost focus/value)
+  - NEVER: Block paste in `<input>/<textarea>`
+  - MUST: Loading buttons show spinner and keep original label
+  - MUST: Enter submits focused text input In `<textarea>`, ⌘/Ctrl+Enter submits; Enter adds newline
+  - MUST: Keep submit enabled until request starts; then disable, show spinner, use idempotency key
+  - MUST: Don’t block typing; accept free text and validate after
+  - MUST: Allow submitting incomplete forms to surface validation
+  - MUST: Errors inline next to fields; on submit, focus first error
+  - MUST: `autocomplete` + meaningful `name`; correct `type` and `inputmode`
+  - SHOULD: Disable spellcheck for emails/codes/usernames
+  - SHOULD: Placeholders end with ellipsis and show example pattern (eg, `+1 (123) 456-7890`, `sk-012345…`)
+  - MUST: Warn on unsaved changes before navigation
+  - MUST: Compatible with password managers & 2FA; allow pasting one-time codes
+  - MUST: Trim values to handle text expansion trailing spaces
+  - MUST: No dead zones on checkboxes/radios; label+control share one generous hit target
+- State & navigation
+  - MUST: URL reflects state (deep-link filters/tabs/pagination/expanded panels) Prefer libs like [nuqs](https://nuqs.dev)
+  - MUST: Back/Forward restores scroll
+  - MUST: Links are links—use `<a>/<Link>` for navigation (support Cmd/Ctrl/middle-click)
+- Feedback
+  - SHOULD: Optimistic UI; reconcile on response; on failure show error and rollback or offer Undo
+  - MUST: Confirm destructive actions or provide Undo window
+  - MUST: Use polite `aria-live` for toasts/inline validation
+  - SHOULD: Ellipsis (`…`) for options that open follow-ups (eg, “Rename…”)
+- Touch/drag/scroll
+  - MUST: Design forgiving interactions (generous targets, clear affordances; avoid finickiness)
+  - MUST: Delay first tooltip in a group; subsequent peers no delay
+  - MUST: Intentional `overscroll-behavior: contain` in modals/drawers
+  - MUST: During drag, disable text selection and set `inert` on dragged element/containers
+  - MUST: No “dead-looking” interactive zones—if it looks clickable, it is
+- Autofocus
+  - SHOULD: Autofocus on desktop when there’s a single primary input; rarely on mobile (to avoid layout shift)
 
-- ALWAYS use the new function syntax for Convex functions. For example:
+## Animation
+
+- MUST: Honor `prefers-reduced-motion` (provide reduced variant)
+- SHOULD: Prefer CSS > Web Animations API > JS libraries
+- MUST: Animate compositor-friendly props (`transform`, `opacity`); avoid layout/repaint props (`top/left/width/height`)
+- SHOULD: Animate only to clarify cause/effect or add deliberate delight
+- SHOULD: Choose easing to match the change (size/distance/trigger)
+- MUST: Animations are interruptible and input-driven (avoid autoplay)
+- MUST: Correct `transform-origin` (motion starts where it “physically” should)
+
+## Layout
+
+- SHOULD: Optical alignment; adjust by ±1px when perception beats geometry
+- MUST: Deliberate alignment to grid/baseline/edges/optical centers—no accidental placement
+- SHOULD: Balance icon/text lockups (stroke/weight/size/spacing/color)
+- MUST: Verify mobile, laptop, ultra-wide (simulate ultra-wide at 50% zoom)
+- MUST: Respect safe areas (use env(safe-area-inset-\*))
+- MUST: Avoid unwanted scrollbars; fix overflows
+
+## Content & Accessibility
+
+- SHOULD: Inline help first; tooltips last resort
+- MUST: Skeletons mirror final content to avoid layout shift
+- MUST: `<title>` matches current context
+- MUST: No dead ends; always offer next step/recovery
+- MUST: Design empty/sparse/dense/error states
+- SHOULD: Curly quotes (“ ”); avoid widows/orphans
+- MUST: Tabular numbers for comparisons (`font-variant-numeric: tabular-nums` or a mono like Geist Mono)
+- MUST: Redundant status cues (not color-only); icons have text labels
+- MUST: Don’t ship the schema—visuals may omit labels but accessible names still exist
+- MUST: Use the ellipsis character `…` (not ``)
+- MUST: `scroll-margin-top` on headings for anchored links; include a “Skip to content” link; hierarchical `<h1–h6>`
+- MUST: Resilient to user-generated content (short/avg/very long)
+- MUST: Locale-aware dates/times/numbers/currency
+- MUST: Accurate names (`aria-label`), decorative elements `aria-hidden`, verify in the Accessibility Tree
+- MUST: Icon-only buttons have descriptive `aria-label`
+- MUST: Prefer native semantics (`button`, `a`, `label`, `table`) before ARIA
+- SHOULD: Right-clicking the nav logo surfaces brand assets
+- MUST: Use non-breaking spaces to glue terms: `10&nbsp;MB`, `⌘&nbsp;+&nbsp;K`, `Vercel&nbsp;SDK`
+
+## Performance
+
+- SHOULD: Test iOS Low Power Mode and macOS Safari
+- MUST: Measure reliably (disable extensions that skew runtime)
+- MUST: Track and minimize re-renders (React DevTools/React Scan)
+- MUST: Profile with CPU/network throttling
+- MUST: Batch layout reads/writes; avoid unnecessary reflows/repaints
+- MUST: Mutations (`POST/PATCH/DELETE`) target <500 ms
+- SHOULD: Prefer uncontrolled inputs; make controlled loops cheap (keystroke cost)
+- MUST: Virtualize large lists (eg, `virtua`)
+- MUST: Preload only above-the-fold images; lazy-load the rest
+- MUST: Prevent CLS from images (explicit dimensions or reserved space)
+
+## Design
+
+- SHOULD: Layered shadows (ambient + direct)
+- SHOULD: Crisp edges via semi-transparent borders + shadows
+- SHOULD: Nested radii: child ≤ parent; concentric
+- SHOULD: Hue consistency: tint borders/shadows/text toward bg hue
+- MUST: Accessible charts (color-blind-friendly palettes)
+- MUST: Meet contrast—prefer [APCA](https://apcacontrastcom/) over WCAG 2
+- MUST: Increase contrast on `:hover/:active/:focus`
+- SHOULD: Match browser UI to bg
+- SHOULD: Avoid gradient banding (use masks when needed)
+
+## Code Style and Structure:
+
+- Write concise, technical TypeScript code with accurate examples
+- Use functional and declarative programming patterns; avoid classes
+- Prefer iteration and modularization over code duplication
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError)
+- Structure files: exported component, subcomponents, helpers, static content, types
+
+## Naming Conventions:
+
+- Use lowercase with dashes for directories (e.g., components/auth-wizard)
+- Favor named exports for components
+
+## TypeScript Usage:
+
+- Use TypeScript for all code; prefer types over interfaces UNLESS specificially for intersections (Typescript Performance)
+- Avoid enums; use maps instead
+- Use functional components with types
+
+## Syntax and Formatting:
+
+- Use the "function" keyword for pure functions
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements
+- Use declarative JSX
+
+## Error Handling and Validation:
+
+- Prioritize error handling: handle errors and edge cases early
+- Use early returns and guard clauses
+- Implement proper error logging and user-friendly messages
+- Use Zod for form validation
+- Model expected errors as return values in Server Actions
+- Use error boundaries for unexpected errors
+
+## Performance Optimization:
+
+- Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC)
+- Wrap client components in Suspense with fallback
+- Use dynamic loading for non-critical components
+- Optimize images: use WebP format, include size data, implement lazy loading
+
+## Key Conventions:
+
+- Use 'nuqs' for URL search parameter state management
+- Optimize Web Vitals (LCP, CLS, FID)
+- Limit 'use client':
+  - Favor server components and Next.js SSR
+  - Use only for Web API access in small components
+  - Avoid for data fetching or state management
+
+# Project Linter Context
+
+Ultracite enforces strict type safety, accessibility standards, and consistent code quality for JavaScript/TypeScript projects using Biome's lightning-fast formatter and linter.
+
+## Key Principles
+
+- Zero configuration required
+- Subsecond performance
+- Maximum type safety
+- AI-friendly code generation
+
+## Before Writing Code
+
+1. Analyze existing patterns in the codebase
+2. Consider edge cases and error scenarios
+3. Follow the rules below strictly
+4. Validate accessibility requirements
+
+## Rules
+
+### Accessibility (a11y)
+
+- Don't use `accessKey` attribute on any HTML element.
+- Don't set `aria-hidden="true"` on focusable elements.
+- Don't add ARIA roles, states, and properties to elements that don't support them.
+- Don't use distracting elements like `<marquee>` or `<blink>`.
+- Only use the `scope` prop on `<th>` elements.
+- Don't assign non-interactive ARIA roles to interactive HTML elements.
+- Make sure label elements have text content and are associated with an input.
+- Don't assign interactive ARIA roles to non-interactive HTML elements.
+- Don't assign `tabIndex` to non-interactive HTML elements.
+- Don't use positive integers for `tabIndex` property.
+- Don't include "image", "picture", or "photo" in img alt prop.
+- Don't use explicit role property that's the same as the implicit/default role.
+- Make static elements with click handlers use a valid role attribute.
+- Always include a `title` element for SVG elements.
+- Give all elements requiring alt text meaningful information for screen readers.
+- Make sure anchors have content that's accessible to screen readers.
+- Assign `tabIndex` to non-interactive HTML elements with `aria-activedescendant`.
+- Include all required ARIA attributes for elements with ARIA roles.
+- Make sure ARIA properties are valid for the element's supported roles.
+- Always include a `type` attribute for button elements.
+- Make elements with interactive roles and handlers focusable.
+- Give heading elements content that's accessible to screen readers (not hidden with `aria-hidden`).
+- Always include a `lang` attribute on the html element.
+- Always include a `title` attribute for iframe elements.
+- Accompany `onClick` with at least one of: `onKeyUp`, `onKeyDown`, or `onKeyPress`.
+- Accompany `onMouseOver`/`onMouseOut` with `onFocus`/`onBlur`.
+- Include caption tracks for audio and video elements.
+- Use semantic elements instead of role attributes in JSX.
+- Make sure all anchors are valid and navigable.
+- Ensure all ARIA properties (`aria-*`) are valid.
+- Use valid, non-abstract ARIA roles for elements with ARIA roles.
+- Use valid ARIA state and property values.
+- Use valid values for the `autocomplete` attribute on input elements.
+- Use correct ISO language/country codes for the `lang` attribute.
+
+### Code Complexity and Quality
+
+- Don't use consecutive spaces in regular expression literals.
+- Don't use the `arguments` object.
+- Don't use primitive type aliases or misleading types.
+- Don't use the comma operator.
+- Don't use empty type parameters in type aliases and interfaces.
+- Don't write functions that exceed a given Cognitive Complexity score.
+- Don't nest describe() blocks too deeply in test files.
+- Don't use unnecessary boolean casts.
+- Don't use unnecessary callbacks with flatMap.
+- Use for...of statements instead of Array.forEach.
+- Don't create classes that only have static members (like a static namespace).
+- Don't use this and super in static contexts.
+- Don't use unnecessary catch clauses.
+- Don't use unnecessary constructors.
+- Don't use unnecessary continue statements.
+- Don't export empty modules that don't change anything.
+- Don't use unnecessary escape sequences in regular expression literals.
+- Don't use unnecessary fragments.
+- Don't use unnecessary labels.
+- Don't use unnecessary nested block statements.
+- Don't rename imports, exports, and destructured assignments to the same name.
+- Don't use unnecessary string or template literal concatenation.
+- Don't use String.raw in template literals when there are no escape sequences.
+- Don't use useless case statements in switch statements.
+- Don't use ternary operators when simpler alternatives exist.
+- Don't use useless `this` aliasing.
+- Don't use any or unknown as type constraints.
+- Don't initialize variables to undefined.
+- Don't use the void operators (they're not familiar).
+- Use arrow functions instead of function expressions.
+- Use Date.now() to get milliseconds since the Unix Epoch.
+- Use .flatMap() instead of map().flat() when possible.
+- Use literal property access instead of computed property access.
+- Don't use parseInt() or Number.parseInt() when binary, octal, or hexadecimal literals work.
+- Use concise optional chaining instead of chained logical expressions.
+- Use regular expression literals instead of the RegExp constructor when possible.
+- Don't use number literal object member names that aren't base 10 or use underscore separators.
+- Remove redundant terms from logical expressions.
+- Use while loops instead of for loops when you don't need initializer and update expressions.
+- Don't pass children as props.
+- Don't reassign const variables.
+- Don't use constant expressions in conditions.
+- Don't use `Math.min` and `Math.max` to clamp values when the result is constant.
+- Don't return a value from a constructor.
+- Don't use empty character classes in regular expression literals.
+- Don't use empty destructuring patterns.
+- Don't call global object properties as functions.
+- Don't declare functions and vars that are accessible outside their block.
+- Make sure builtins are correctly instantiated.
+- Don't use super() incorrectly inside classes. Also check that super() is called in classes that extend other constructors.
+- Don't use variables and function parameters before they're declared.
+- Don't use 8 and 9 escape sequences in string literals.
+- Don't use literal numbers that lose precision.
+
+### React and JSX Best Practices
+
+- Don't use the return value of React.render.
+- Make sure all dependencies are correctly specified in React hooks.
+- Make sure all React hooks are called from the top level of component functions.
+- Don't forget key props in iterators and collection literals.
+- Don't destructure props inside JSX components in Solid projects.
+- Don't define React components inside other components.
+- Don't use event handlers on non-interactive elements.
+- Don't assign to React component props.
+- Don't use both `children` and `dangerouslySetInnerHTML` props on the same element.
+- Don't use dangerous JSX props.
+- Don't use Array index in keys.
+- Don't insert comments as text nodes.
+- Don't assign JSX properties multiple times.
+- Don't add extra closing tags for components without children.
+- Use `<>...</>` instead of `<Fragment>...</Fragment>`.
+- Watch out for possible "wrong" semicolons inside JSX elements.
+
+### Correctness and Safety
+
+- Don't assign a value to itself.
+- Don't return a value from a setter.
+- Don't compare expressions that modify string case with non-compliant values.
+- Don't use lexical declarations in switch clauses.
+- Don't use variables that haven't been declared in the document.
+- Don't write unreachable code.
+- Make sure super() is called exactly once on every code path in a class constructor before this is accessed if the class has a superclass.
+- Don't use control flow statements in finally blocks.
+- Don't use optional chaining where undefined values aren't allowed.
+- Don't have unused function parameters.
+- Don't have unused imports.
+- Don't have unused labels.
+- Don't have unused private class members.
+- Don't have unused variables.
+- Make sure void (self-closing) elements don't have children.
+- Don't return a value from a function with the return type 'void'
+- Use isNaN() when checking for NaN.
+- Make sure "for" loop update clauses move the counter in the right direction.
+- Make sure typeof expressions are compared to valid values.
+- Make sure generator functions contain yield.
+- Don't use await inside loops.
+- Don't use bitwise operators.
+- Don't use expressions where the operation doesn't change the value.
+- Make sure Promise-like statements are handled appropriately.
+- Don't use **dirname and **filename in the global scope.
+- Prevent import cycles.
+- Don't use configured elements.
+- Don't hardcode sensitive data like API keys and tokens.
+- Don't let variable declarations shadow variables from outer scopes.
+- Don't use the TypeScript directive @ts-ignore.
+- Prevent duplicate polyfills from Polyfill.io.
+- Don't use useless backreferences in regular expressions that always match empty strings.
+- Don't use unnecessary escapes in string literals.
+- Don't use useless undefined.
+- Make sure getters and setters for the same property are next to each other in class and object definitions.
+- Make sure object literals are declared consistently (defaults to explicit definitions).
+- Use static Response methods instead of new Response() constructor when possible.
+- Make sure switch-case statements are exhaustive.
+- Make sure the `preconnect` attribute is used when using Google Fonts.
+- Use `Array#{indexOf,lastIndexOf}()` instead of `Array#{findIndex,findLastIndex}()` when looking for the index of an item.
+- Make sure iterable callbacks return consistent values.
+- Use `with { type: "json" }` for JSON module imports.
+- Use numeric separators in numeric literals.
+- Use object spread instead of `Object.assign()` when constructing new objects.
+- Always use the radix argument when using `parseInt()`.
+- Make sure JSDoc comment lines start with a single asterisk, except for the first one.
+- Include a description parameter for `Symbol()`.
+- Don't use spread (`...`) syntax on accumulators.
+- Don't use the `delete` operator.
+- Don't access namespace imports dynamically.
+- Don't use namespace imports.
+- Declare regex literals at the top level.
+- Don't use `target="_blank"` without `rel="noopener"`.
+
+### TypeScript Best Practices
+
+- Don't use TypeScript enums.
+- Don't export imported variables.
+- Don't add type annotations to variables, parameters, and class properties that are initialized with literal expressions.
+- Don't use TypeScript namespaces.
+- Don't use non-null assertions with the `!` postfix operator.
+- Don't use parameter properties in class constructors.
+- Don't use user-defined types.
+- Use `as const` instead of literal types and type annotations.
+- Use either `T[]` or `Array<T>` consistently.
+- Initialize each enum member value explicitly.
+- Use `export type` for types.
+- Use `import type` for types.
+- Make sure all enum members are literal values.
+- Don't use TypeScript const enum.
+- Don't declare empty interfaces.
+- Don't let variables evolve into any type through reassignments.
+- Don't use the any type.
+- Don't misuse the non-null assertion operator (!) in TypeScript files.
+- Don't use implicit any type on variable declarations.
+- Don't merge interfaces and classes unsafely.
+- Don't use overload signatures that aren't next to each other.
+- Use the namespace keyword instead of the module keyword to declare TypeScript namespaces.
+
+### Style and Consistency
+
+- Don't use global `eval()`.
+- Don't use callbacks in asynchronous tests and hooks.
+- Don't use negation in `if` statements that have `else` clauses.
+- Don't use nested ternary expressions.
+- Don't reassign function parameters.
+- This rule lets you specify global variable names you don't want to use in your application.
+- Don't use specified modules when loaded by import or require.
+- Don't use constants whose value is the upper-case version of their name.
+- Use `String.slice()` instead of `String.substr()` and `String.substring()`.
+- Don't use template literals if you don't need interpolation or special-character handling.
+- Don't use `else` blocks when the `if` block breaks early.
+- Don't use yoda expressions.
+- Don't use Array constructors.
+- Use `at()` instead of integer index access.
+- Follow curly brace conventions.
+- Use `else if` instead of nested `if` statements in `else` clauses.
+- Use single `if` statements instead of nested `if` clauses.
+- Use `new` for all builtins except `String`, `Number`, and `Boolean`.
+- Use consistent accessibility modifiers on class properties and methods.
+- Use `const` declarations for variables that are only assigned once.
+- Put default function parameters and optional function parameters last.
+- Include a `default` clause in switch statements.
+- Use the `**` operator instead of `Math.pow`.
+- Use `for-of` loops when you need the index to extract an item from the iterated array.
+- Use `node:assert/strict` over `node:assert`.
+- Use the `node:` protocol for Node.js builtin modules.
+- Use Number properties instead of global ones.
+- Use assignment operator shorthand where possible.
+- Use function types instead of object types with call signatures.
+- Use template literals over string concatenation.
+- Use `new` when throwing an error.
+- Don't throw non-Error values.
+- Use `String.trimStart()` and `String.trimEnd()` over `String.trimLeft()` and `String.trimRight()`.
+- Use standard constants instead of approximated literals.
+- Don't assign values in expressions.
+- Don't use async functions as Promise executors.
+- Don't reassign exceptions in catch clauses.
+- Don't reassign class members.
+- Don't compare against -0.
+- Don't use labeled statements that aren't loops.
+- Don't use void type outside of generic or return types.
+- Don't use console.
+- Don't use control characters and escape sequences that match control characters in regular expression literals.
+- Don't use debugger.
+- Don't assign directly to document.cookie.
+- Use `===` and `!==`.
+- Don't use duplicate case labels.
+- Don't use duplicate class members.
+- Don't use duplicate conditions in if-else-if chains.
+- Don't use two keys with the same name inside objects.
+- Don't use duplicate function parameter names.
+- Don't have duplicate hooks in describe blocks.
+- Don't use empty block statements and static blocks.
+- Don't let switch clauses fall through.
+- Don't reassign function declarations.
+- Don't allow assignments to native objects and read-only global variables.
+- Use Number.isFinite instead of global isFinite.
+- Use Number.isNaN instead of global isNaN.
+- Don't assign to imported bindings.
+- Don't use irregular whitespace characters.
+- Don't use labels that share a name with a variable.
+- Don't use characters made with multiple code points in character class syntax.
+- Make sure to use new and constructor properly.
+- Don't use shorthand assign when the variable appears on both sides.
+- Don't use octal escape sequences in string literals.
+- Don't use Object.prototype builtins directly.
+- Don't redeclare variables, functions, classes, and types in the same scope.
+- Don't have redundant "use strict".
+- Don't compare things where both sides are exactly the same.
+- Don't let identifiers shadow restricted names.
+- Don't use sparse arrays (arrays with holes).
+- Don't use template literal placeholder syntax in regular strings.
+- Don't use the then property.
+- Don't use unsafe negation.
+- Don't use var.
+- Don't use with statements in non-strict contexts.
+- Make sure async functions actually use await.
+- Make sure default clauses in switch statements come last.
+- Make sure to pass a message value when creating a built-in error.
+- Make sure get methods always return a value.
+- Use a recommended display strategy with Google Fonts.
+- Make sure for-in loops include an if statement.
+- Use Array.isArray() instead of instanceof Array.
+- Make sure to use the digits argument with Number#toFixed().
+- Make sure to use the "use strict" directive in script files.
+
+### Next.js Specific Rules
+
+- Don't use `<img>` elements in Next.js projects.
+- Don't use `<head>` elements in Next.js projects.
+- Don't import next/document outside of pages/\_document.jsx in Next.js projects.
+- Don't use the next/head module in pages/\_document.js on Next.js projects.
+
+### Testing Best Practices
+
+- Don't use export or module.exports in test files.
+- Don't use focused tests.
+- Make sure the assertion function, like expect, is placed inside an it() function call.
+- Don't use disabled tests.
+
+## Common Tasks
+
+- `npx ultracite init` - Initialize Ultracite in your project
+- `npx ultracite fix` - Format and fix code automatically
+- `npx ultracite check` - Check for issues without fixing
+
+## Example: Error Handling
 
 ```typescript
-import { query } from "./_generated/server";
-import { v } from "convex/values";
-export const f = query({
-  args: {},
-  returns: v.null(),
-  handler: async (ctx, args) => {
-    // Function body
-  },
-});
-```
-
-### Http endpoint syntax
-
-- HTTP endpoints are defined in `convex/http.ts` and require an `httpAction` decorator. For example:
-
-```typescript
-import { httpRouter } from "convex/server";
-import { httpAction } from "./_generated/server";
-const http = httpRouter();
-http.route({
-  path: "/echo",
-  method: "POST",
-  handler: httpAction(async (ctx, req) => {
-    const body = await req.bytes();
-    return new Response(body, { status: 200 });
-  }),
-});
-```
-
-- HTTP endpoints are always registered at the exact path you specify in the `path` field. For example, if you specify `/api/someRoute`, the endpoint will be registered at `/api/someRoute`.
-
-### Validators
-
-- Below is an example of an array validator:
-
-```typescript
-import { mutation } from "./_generated/server";
-import { v } from "convex/values";
-
-export default mutation({
-  args: {
-    simpleArray: v.array(v.union(v.string(), v.number())),
-  },
-  handler: async (ctx, args) => {
-    //...
-  },
-});
-```
-
-- Below is an example of a schema with validators that codify a discriminated union type:
-
-```typescript
-import { defineSchema, defineTable } from "convex/server";
-import { v } from "convex/values";
-
-export default defineSchema({
-  results: defineTable(
-    v.union(
-      v.object({
-        kind: v.literal("error"),
-        errorMessage: v.string(),
-      }),
-      v.object({
-        kind: v.literal("success"),
-        value: v.number(),
-      })
-    )
-  ),
-});
-```
-
-- Always use the `v.null()` validator when returning a null value. Below is an example query that returns a null value:
-
-```typescript
-import { query } from "./_generated/server";
-import { v } from "convex/values";
-
-export const exampleQuery = query({
-  args: {},
-  returns: v.null(),
-  handler: async (ctx, args) => {
-    console.log("This query returns a null value");
-    return null;
-  },
-});
-```
-
-- Here are the valid Convex types along with their respective validators:
-  Convex Type | TS/JS type | Example Usage | Validator for argument validation and schemas | Notes |
-  | ----------- | ------------| -----------------------| -----------------------------------------------| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-  | Id | string | `doc._id` | `v.id(tableName)` | |
-  | Null | null | `null` | `v.null()` | JavaScript's `undefined` is not a valid Convex value. Functions the return `undefined` or do not return will return `null` when called from a client. Use `null` instead. |
-  | Int64 | bigint | `3n` | `v.int64()` | Int64s only support BigInts between -2^63 and 2^63-1. Convex supports `bigint`s in most modern browsers. |
-  | Float64 | number | `3.1` | `v.number()` | Convex supports all IEEE-754 double-precision floating point numbers (such as NaNs). Inf and NaN are JSON serialized as strings. |
-  | Boolean | boolean | `true` | `v.boolean()` |
-  | String | string | `"abc"` | `v.string()` | Strings are stored as UTF-8 and must be valid Unicode sequences. Strings must be smaller than the 1MB total size limit when encoded as UTF-8. |
-  | Bytes | ArrayBuffer | `new ArrayBuffer(8)` | `v.bytes()` | Convex supports first class bytestrings, passed in as `ArrayBuffer`s. Bytestrings must be smaller than the 1MB total size limit for Convex types. |
-  | Array | Array] | `[1, 3.2, "abc"]` | `v.array(values)` | Arrays can have at most 8192 values. |
-  | Object | Object | `{a: "abc"}` | `v.object({property: value})` | Convex only supports "plain old JavaScript objects" (objects that do not have a custom prototype). Objects can have at most 1024 entries. Field names must be nonempty and not start with "$" or "_". |
-| Record      | Record      | `{"a": "1", "b": "2"}` | `v.record(keys, values)`                       | Records are objects at runtime, but can have dynamic keys. Keys must be only ASCII characters, nonempty, and not start with "$" or "\_". |
-
-### Function registration
-
-- Use `internalQuery`, `internalMutation`, and `internalAction` to register internal functions. These functions are private and aren't part of an app's API. They can only be called by other Convex functions. These functions are always imported from `./_generated/server`.
-- Use `query`, `mutation`, and `action` to register public functions. These functions are part of the public API and are exposed to the public Internet. Do NOT use `query`, `mutation`, or `action` to register sensitive internal functions that should be kept private.
-- You CANNOT register a function through the `api` or `internal` objects.
-- ALWAYS include argument and return validators for all Convex functions. This includes all of `query`, `internalQuery`, `mutation`, `internalMutation`, `action`, and `internalAction`. If a function doesn't return anything, include `returns: v.null()` as its output validator.
-- If the JavaScript implementation of a Convex function doesn't have a return value, it implicitly returns `null`.
-
-### Function calling
-
-- Use `ctx.runQuery` to call a query from a query, mutation, or action.
-- Use `ctx.runMutation` to call a mutation from a mutation or action.
-- Use `ctx.runAction` to call an action from an action.
-- ONLY call an action from another action if you need to cross runtimes (e.g. from V8 to Node). Otherwise, pull out the shared code into a helper async function and call that directly instead.
-- Try to use as few calls from actions to queries and mutations as possible. Queries and mutations are transactions, so splitting logic up into multiple calls introduces the risk of race conditions.
-- All of these calls take in a `FunctionReference`. Do NOT try to pass the callee function directly into one of these calls.
-- When using `ctx.runQuery`, `ctx.runMutation`, or `ctx.runAction` to call a function in the same file, specify a type annotation on the return value to work around TypeScript circularity limitations. For example,
-
-```
-export const f = query({
-  args: { name: v.string() },
-  returns: v.string(),
-  handler: async (ctx, args) => {
-    return "Hello " + args.name;
-  },
-});
-
-export const g = query({
-  args: {},
-  returns: v.null(),
-  handler: async (ctx, args) => {
-    const result: string = await ctx.runQuery(api.example.f, { name: "Bob" });
-    return null;
-  },
-});
-```
-
-### Function references
-
-- Function references are pointers to registered Convex functions.
-- Use the `api` object defined by the framework in `convex/_generated/api.ts` to call public functions registered with `query`, `mutation`, or `action`.
-- Use the `internal` object defined by the framework in `convex/_generated/api.ts` to call internal (or private) functions registered with `internalQuery`, `internalMutation`, or `internalAction`.
-- Convex uses file-based routing, so a public function defined in `convex/example.ts` named `f` has a function reference of `api.example.f`.
-- A private function defined in `convex/example.ts` named `g` has a function reference of `internal.example.g`.
-- Functions can also registered within directories nested within the `convex/` folder. For example, a public function `h` defined in `convex/messages/access.ts` has a function reference of `api.messages.access.h`.
-
-### Api design
-
-- Convex uses file-based routing, so thoughtfully organize files with public query, mutation, or action functions within the `convex/` directory.
-- Use `query`, `mutation`, and `action` to define public functions.
-- Use `internalQuery`, `internalMutation`, and `internalAction` to define private, internal functions.
-
-### Pagination
-
-- Paginated queries are queries that return a list of results in incremental pages.
-- You can define pagination using the following syntax:
-
-```ts
-import { v } from "convex/values";
-import { query, mutation } from "./_generated/server";
-import { paginationOptsValidator } from "convex/server";
-export const listWithExtraArg = query({
-  args: { paginationOpts: paginationOptsValidator, author: v.string() },
-  handler: async (ctx, args) => {
-    return await ctx.db
-      .query("messages")
-      .filter((q) => q.eq(q.field("author"), args.author))
-      .order("desc")
-      .paginate(args.paginationOpts);
-  },
-});
-```
-
-Note: `paginationOpts` is an object with the following properties:
-
-- `numItems`: the maximum number of documents to return (the validator is `v.number()`)
-- `cursor`: the cursor to use to fetch the next page of documents (the validator is `v.union(v.string(), v.null())`)
-- A query that ends in `.paginate()` returns an object that has the following properties: - page (contains an array of documents that you fetches) - isDone (a boolean that represents whether or not this is the last page of documents) - continueCursor (a string that represents the cursor to use to fetch the next page of documents)
-
-## Validator guidelines
-
-- `v.bigint()` is deprecated for representing signed 64-bit integers. Use `v.int64()` instead.
-- Use `v.record()` for defining a record type. `v.map()` and `v.set()` are not supported.
-
-## Schema guidelines
-
-- Always define your schema in `convex/schema.ts`.
-- Always import the schema definition functions from `convex/server`:
-- System fields are automatically added to all documents and are prefixed with an underscore. The two system fields that are automatically added to all documents are `_creationTime` which has the validator `v.number()` and `_id` which has the validator `v.id(tableName)`.
-- Always include all index fields in the index name. For example, if an index is defined as `["field1", "field2"]`, the index name should be "by_field1_and_field2".
-- Index fields must be queried in the same order they are defined. If you want to be able to query by "field1" then "field2" and by "field2" then "field1", you must create separate indexes.
-
-## Typescript guidelines
-
-- You can use the helper typescript type `Id` imported from './\_generated/dataModel' to get the type of the id for a given table. For example if there is a table called 'users' you can use `Id<'users'>` to get the type of the id for that table.
-- If you need to define a `Record` make sure that you correctly provide the type of the key and value in the type. For example a validator `v.record(v.id('users'), v.string())` would have the type `Record<Id<'users'>, string>`. Below is an example of using `Record` with an `Id` type in a query:
-
-```ts
-import { query } from "./_generated/server";
-import { Doc, Id } from "./_generated/dataModel";
-
-export const exampleQuery = query({
-  args: { userIds: v.array(v.id("users")) },
-  returns: v.record(v.id("users"), v.string()),
-  handler: async (ctx, args) => {
-    const idToUsername: Record<Id<"users">, string> = {};
-    for (const userId of args.userIds) {
-      const user = await ctx.db.get(userId);
-      if (user) {
-        idToUsername[user._id] = user.username;
-      }
-    }
-
-    return idToUsername;
-  },
-});
-```
-
-- Be strict with types, particularly around id's of documents. For example, if a function takes in an id for a document in the 'users' table, take in `Id<'users'>` rather than `string`.
-- Always use `as const` for string literals in discriminated union types.
-- When using the `Array` type, make sure to always define your arrays as `const array: Array<T> = [...];`
-- When using the `Record` type, make sure to always define your records as `const record: Record<KeyType, ValueType> = {...};`
-- Always add `@types/node` to your `package.json` when using any Node.js built-in modules.
-
-## Full text search guidelines
-
-- A query for "10 messages in channel '#general' that best match the query 'hello hi' in their body" would look like:
-
-const messages = await ctx.db
-.query("messages")
-.withSearchIndex("search_body", (q) =>
-q.search("body", "hello hi").eq("channel", "#general"),
-)
-.take(10);
-
-## Query guidelines
-
-- Do NOT use `filter` in queries. Instead, define an index in the schema and use `withIndex` instead.
-- Convex queries do NOT support `.delete()`. Instead, `.collect()` the results, iterate over them, and call `ctx.db.delete(row._id)` on each result.
-- Use `.unique()` to get a single document from a query. This method will throw an error if there are multiple documents that match the query.
-- When using async iteration, don't use `.collect()` or `.take(n)` on the result of a query. Instead, use the `for await (const row of query)` syntax.
-
-### Ordering
-
-- By default Convex always returns documents in ascending `_creationTime` order.
-- You can use `.order('asc')` or `.order('desc')` to pick whether a query is in ascending or descending order. If the order isn't specified, it defaults to ascending.
-- Document queries that use indexes will be ordered based on the columns in the index and can avoid slow table scans.
-
-## Mutation guidelines
-
-- Use `ctx.db.replace` to fully replace an existing document. This method will throw an error if the document does not exist.
-- Use `ctx.db.patch` to shallow merge updates into an existing document. This method will throw an error if the document does not exist.
-
-## Action guidelines
-
-- Always add `"use node";` to the top of files containing actions that use Node.js built-in modules.
-- Never use `ctx.db` inside of an action. Actions don't have access to the database.
-- Below is an example of the syntax for an action:
-
-```ts
-import { action } from "./_generated/server";
-
-export const exampleAction = action({
-  args: {},
-  returns: v.null(),
-  handler: async (ctx, args) => {
-    console.log("This action does not return anything");
-    return null;
-  },
-});
-```
-
-## Scheduling guidelines
-
-### Cron guidelines
-
-- Only use the `crons.interval` or `crons.cron` methods to schedule cron jobs. Do NOT use the `crons.hourly`, `crons.daily`, or `crons.weekly` helpers.
-- Both cron methods take in a FunctionReference. Do NOT try to pass the function directly into one of these methods.
-- Define crons by declaring the top-level `crons` object, calling some methods on it, and then exporting it as default. For example,
-
-```ts
-import { cronJobs } from "convex/server";
-import { internal } from "./_generated/api";
-import { internalAction } from "./_generated/server";
-
-const empty = internalAction({
-  args: {},
-  returns: v.null(),
-  handler: async (ctx, args) => {
-    console.log("empty");
-  },
-});
-
-const crons = cronJobs();
-
-// Run `internal.crons.empty` every two hours.
-crons.interval("delete inactive users", { hours: 2 }, internal.crons.empty, {});
-
-export default crons;
-```
-
-- You can register Convex functions within `crons.ts` just like any other file.
-- If a cron calls an internal function, always import the `internal` object from '\_generated/api', even if the internal function is registered in the same file.
-
-## File storage guidelines
-
-- Convex includes file storage for large files like images, videos, and PDFs.
-- The `ctx.storage.getUrl()` method returns a signed URL for a given file. It returns `null` if the file doesn't exist.
-- Do NOT use the deprecated `ctx.storage.getMetadata` call for loading a file's metadata.
-
-                    Instead, query the `_storage` system table. For example, you can use `ctx.db.system.get` to get an `Id<"_storage">`.
-
-```
-import { query } from "./_generated/server";
-import { Id } from "./_generated/dataModel";
-
-type FileMetadata = {
-    _id: Id<"_storage">;
-    _creationTime: number;
-    contentType?: string;
-    sha256: string;
-    size: number;
+// ✅ Good: Comprehensive error handling
+try {
+  const result = await fetchData();
+  return { success: true, data: result };
+} catch (error) {
+  console.error("API call failed:", error);
+  return { success: false, error: error.message };
 }
 
-export const exampleQuery = query({
-    args: { fileId: v.id("_storage") },
-    returns: v.null(),
-    handler: async (ctx, args) => {
-        const metadata: FileMetadata | null = await ctx.db.system.get(args.fileId);
-        console.log(metadata);
-        return null;
-    },
-});
-```
-
-- Convex storage stores items as `Blob` objects. You must convert all items to/from a `Blob` when using Convex storage.
-
-# Examples:
-
-## Example: chat-app
-
-### Task
-
-```
-Create a real-time chat application backend with AI responses. The app should:
-- Allow creating users with names
-- Support multiple chat channels
-- Enable users to send messages to channels
-- Automatically generate AI responses to user messages
-- Show recent message history
-
-The backend should provide APIs for:
-1. User management (creation)
-2. Channel management (creation)
-3. Message operations (sending, listing)
-4. AI response generation using OpenAI's GPT-4
-
-Messages should be stored with their channel, author, and content. The system should maintain message order
-and limit history display to the 10 most recent messages per channel.
-
-```
-
-### Analysis
-
-1. Task Requirements Summary:
-
-- Build a real-time chat backend with AI integration
-- Support user creation
-- Enable channel-based conversations
-- Store and retrieve messages with proper ordering
-- Generate AI responses automatically
-
-2. Main Components Needed:
-
-- Database tables: users, channels, messages
-- Public APIs for user/channel management
-- Message handling functions
-- Internal AI response generation system
-- Context loading for AI responses
-
-3. Public API and Internal Functions Design:
-   Public Mutations:
-
-- createUser:
-  - file path: convex/index.ts
-  - arguments: {name: v.string()}
-  - returns: v.object({userId: v.id("users")})
-  - purpose: Create a new user with a given name
-- createChannel:
-  - file path: convex/index.ts
-  - arguments: {name: v.string()}
-  - returns: v.object({channelId: v.id("channels")})
-  - purpose: Create a new channel with a given name
-- sendMessage:
-  - file path: convex/index.ts
-  - arguments: {channelId: v.id("channels"), authorId: v.id("users"), content: v.string()}
-  - returns: v.null()
-  - purpose: Send a message to a channel and schedule a response from the AI
-
-Public Queries:
-
-- listMessages:
-  - file path: convex/index.ts
-  - arguments: {channelId: v.id("channels")}
-  - returns: v.array(v.object({
-    \_id: v.id("messages"),
-    \_creationTime: v.number(),
-    channelId: v.id("channels"),
-    authorId: v.optional(v.id("users")),
-    content: v.string(),
-    }))
-  - purpose: List the 10 most recent messages from a channel in descending creation order
-
-Internal Functions:
-
-- generateResponse:
-  - file path: convex/index.ts
-  - arguments: {channelId: v.id("channels")}
-  - returns: v.null()
-  - purpose: Generate a response from the AI for a given channel
-- loadContext:
-  - file path: convex/index.ts
-  - arguments: {channelId: v.id("channels")}
-  - returns: v.array(v.object({
-    \_id: v.id("messages"),
-    \_creationTime: v.number(),
-    channelId: v.id("channels"),
-    authorId: v.optional(v.id("users")),
-    content: v.string(),
-    }))
-- writeAgentResponse:
-  - file path: convex/index.ts
-  - arguments: {channelId: v.id("channels"), content: v.string()}
-  - returns: v.null()
-  - purpose: Write an AI response to a given channel
-
-4. Schema Design:
-
-- users
-  - validator: { name: v.string() }
-  - indexes: <none>
-- channels
-  - validator: { name: v.string() }
-  - indexes: <none>
-- messages
-  - validator: { channelId: v.id("channels"), authorId: v.optional(v.id("users")), content: v.string() }
-  - indexes
-    - by_channel: ["channelId"]
-
-5. Background Processing:
-
-- AI response generation runs asynchronously after each user message
-- Uses OpenAI's GPT-4 to generate contextual responses
-- Maintains conversation context using recent message history
-
-### Implementation
-
-#### package.json
-
-```typescript
-{
-  "name": "chat-app",
-  "description": "This example shows how to build a chat app without authentication.",
-  "version": "1.0.0",
-  "dependencies": {
-    "convex": "^1.17.4",
-    "openai": "^4.79.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.7.3"
-  }
-}
-```
-
-#### tsconfig.json
-
-```typescript
-{
-  "compilerOptions": {
-    "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
-  },
-  "exclude": ["convex"],
-  "include": ["**/src/**/*.tsx", "**/src/**/*.ts", "vite.config.ts"]
-}
-```
-
-#### convex/index.ts
-
-```typescript
-import {
-  query,
-  mutation,
-  internalQuery,
-  internalMutation,
-  internalAction,
-} from "./_generated/server";
-import { v } from "convex/values";
-import OpenAI from "openai";
-import { internal } from "./_generated/api";
-
-/**
- * Create a user with a given name.
- */
-export const createUser = mutation({
-  args: {
-    name: v.string(),
-  },
-  returns: v.id("users"),
-  handler: async (ctx, args) => {
-    return await ctx.db.insert("users", { name: args.name });
-  },
-});
-
-/**
- * Create a channel with a given name.
- */
-export const createChannel = mutation({
-  args: {
-    name: v.string(),
-  },
-  returns: v.id("channels"),
-  handler: async (ctx, args) => {
-    return await ctx.db.insert("channels", { name: args.name });
-  },
-});
-
-/**
- * List the 10 most recent messages from a channel in descending creation order.
- */
-export const listMessages = query({
-  args: {
-    channelId: v.id("channels"),
-  },
-  returns: v.array(
-    v.object({
-      _id: v.id("messages"),
-      _creationTime: v.number(),
-      channelId: v.id("channels"),
-      authorId: v.optional(v.id("users")),
-      content: v.string(),
-    })
-  ),
-  handler: async (ctx, args) => {
-    const messages = await ctx.db
-      .query("messages")
-      .withIndex("by_channel", (q) => q.eq("channelId", args.channelId))
-      .order("desc")
-      .take(10);
-    return messages;
-  },
-});
-
-/**
- * Send a message to a channel and schedule a response from the AI.
- */
-export const sendMessage = mutation({
-  args: {
-    channelId: v.id("channels"),
-    authorId: v.id("users"),
-    content: v.string(),
-  },
-  returns: v.null(),
-  handler: async (ctx, args) => {
-    const channel = await ctx.db.get(args.channelId);
-    if (!channel) {
-      throw new Error("Channel not found");
-    }
-    const user = await ctx.db.get(args.authorId);
-    if (!user) {
-      throw new Error("User not found");
-    }
-    await ctx.db.insert("messages", {
-      channelId: args.channelId,
-      authorId: args.authorId,
-      content: args.content,
-    });
-    await ctx.scheduler.runAfter(0, internal.index.generateResponse, {
-      channelId: args.channelId,
-    });
-    return null;
-  },
-});
-
-const openai = new OpenAI();
-
-export const generateResponse = internalAction({
-  args: {
-    channelId: v.id("channels"),
-  },
-  returns: v.null(),
-  handler: async (ctx, args) => {
-    const context = await ctx.runQuery(internal.index.loadContext, {
-      channelId: args.channelId,
-    });
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: context,
-    });
-    const content = response.choices[0].message.content;
-    if (!content) {
-      throw new Error("No content in response");
-    }
-    await ctx.runMutation(internal.index.writeAgentResponse, {
-      channelId: args.channelId,
-      content,
-    });
-    return null;
-  },
-});
-
-export const loadContext = internalQuery({
-  args: {
-    channelId: v.id("channels"),
-  },
-  returns: v.array(
-    v.object({
-      role: v.union(v.literal("user"), v.literal("assistant")),
-      content: v.string(),
-    })
-  ),
-  handler: async (ctx, args) => {
-    const channel = await ctx.db.get(args.channelId);
-    if (!channel) {
-      throw new Error("Channel not found");
-    }
-    const messages = await ctx.db
-      .query("messages")
-      .withIndex("by_channel", (q) => q.eq("channelId", args.channelId))
-      .order("desc")
-      .take(10);
-
-    const result = [];
-    for (const message of messages) {
-      if (message.authorId) {
-        const user = await ctx.db.get(message.authorId);
-        if (!user) {
-          throw new Error("User not found");
-        }
-        result.push({
-          role: "user" as const,
-          content: `${user.name}: ${message.content}`,
-        });
-      } else {
-        result.push({ role: "assistant" as const, content: message.content });
-      }
-    }
-    return result;
-  },
-});
-
-export const writeAgentResponse = internalMutation({
-  args: {
-    channelId: v.id("channels"),
-    content: v.string(),
-  },
-  returns: v.null(),
-  handler: async (ctx, args) => {
-    await ctx.db.insert("messages", {
-      channelId: args.channelId,
-      content: args.content,
-    });
-    return null;
-  },
-});
-```
-
-#### convex/schema.ts
-
-```typescript
-import { defineSchema, defineTable } from "convex/server";
-import { v } from "convex/values";
-
-export default defineSchema({
-  channels: defineTable({
-    name: v.string(),
-  }),
-
-  users: defineTable({
-    name: v.string(),
-  }),
-
-  messages: defineTable({
-    channelId: v.id("channels"),
-    authorId: v.optional(v.id("users")),
-    content: v.string(),
-  }).index("by_channel", ["channelId"]),
-});
-```
-
-#### src/App.tsx
-
-```typescript
-export default function App() {
-  return <div>Hello World</div>;
+// ❌ Bad: Swallowing errors
+try {
+  return await fetchData();
+} catch (e) {
+  console.log(e);
 }
 ```
 
