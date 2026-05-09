@@ -1,0 +1,9 @@
+{
+  "name": "danielkerridge--mdatemplate-powerplatform",
+  "displayName": "MDATemplate-PowerPlatform",
+  "description": "A Model-Driven App experience rebuilt as a Power Apps Code App with React, Fluent UI, and Dataverse. Includes Claude Code skills for AI-assisted Power Platform development.",
+  "version": "1.0.0",
+  "author": "DanielKerridge",
+  "homepage": "https://github.com/DanielKerridge/MDATemplate-PowerPlatform",
+  "skills": []
+}
