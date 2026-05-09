@@ -1,0 +1,9 @@
+{
+  "name": "sonisoft-cnanda--now-sdk-ext-mcp",
+  "displayName": "now-sdk-ext-mcp",
+  "description": "MCP server for ServiceNow \u2014 enables AI assistants (Claude, etc.) to execute scripts, query data, run ATF tests, and more via the Model Context Protocol",
+  "version": "1.0.0",
+  "author": "sonisoft-cnanda",
+  "homepage": "https://github.com/sonisoft-cnanda/now-sdk-ext-mcp",
+  "skills": []
+}
