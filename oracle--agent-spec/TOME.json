@@ -1,0 +1,44 @@
+{
+  "name": "agent-spec",
+  "owner": "oracle",
+  "repo": "agent-spec",
+  "description": "Open Agent Spec (Agent Spec) is a framework-agnostic declarative language for defining agentic systems. It defines building blocks for standalone agents and structured agentic workflows as well as common ways of composing them into multi-agent systems.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/oracle/agent-spec",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T22:10:26Z"
+}
