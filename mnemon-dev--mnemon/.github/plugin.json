@@ -1,0 +1,9 @@
+{
+  "name": "mnemon-dev--mnemon",
+  "displayName": "mnemon",
+  "description": "LLM-supervised persistent memory for AI agents \u2014 graph-based recall, cross-session knowledge, single binary. Works with Claude Code, OpenClaw, and any CLI agent.",
+  "version": "1.0.0",
+  "author": "mnemon-dev",
+  "homepage": "https://github.com/mnemon-dev/mnemon",
+  "skills": []
+}
