@@ -1,380 +1,644 @@
-## flip-card-accessibility
+## focus-order-and-styles-accessibility
 
-> Flip Card component accessibility compliance pattern
+> Focus order and focus styles accessibility standards per WCAG 2.4.7 Focus Visible, 1.4.11 Non-Text Contrast, 2.4.13 Focus Appearance, and 2.4.11 Focus Not Obscured requirements
 
-# Flip Card Component Accessibility Standards
 
-Ensures flip card components follow WCAG compliance and provide proper state management for screen reader users.
+# Focus Order and Focus Styles Accessibility Standards
+
+Ensures proper focus order, tabindex usage, and focus indicators following WCAG 2.4.7 Focus Visible, 1.4.11 Non-Text Contrast, 2.4.13 Focus Appearance, and 2.4.11 Focus Not Obscured requirements.
 
 <rule>
-name: flip_card_accessibility_standards
-description: Enforce flip card component accessibility standards and proper state management
+name: focus_order_and_styles_accessibility_standards
+description: Enforce focus order and focus styles accessibility standards per WCAG requirements
 filters:
   - type: file_extension
-    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
+    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts|css|scss|sass|less)$"
 
 actions:
   - type: enforce
     conditions:
-      # Flip button requirement
-      - pattern: "(?i)<(div|section)[^>]*(?:card|flip)[^>]*>"
-        pattern_negate: "<button[^>]*aria-pressed"
-        message: "Flip cards must contain a button with aria-pressed attribute to control card state."
+      # Positive tabindex values (should not be used)
+      - pattern: "tabindex=\"[1-9]\""
+        message: "Positive tabindex values create illogical focus order. Use DOM order instead or tabindex=\"0\" for custom focusable elements."
 
-      # aria-pressed attribute requirement
-      - pattern: "(?i)<button[^>]*(?:flip|card)[^>]*>"
-        pattern_negate: "aria-pressed=\"(true|false)\""
-        message: "Flip card buttons must have aria-pressed attribute set to 'true' or 'false'."
+      # Missing focus styles (outline: 0 or outline: none)
+      - pattern: "outline:\\s*0|outline:\\s*none"
+        message: "Focus styles should not be removed. Use custom focus indicators that meet WCAG contrast requirements."
 
-      # Card front/back structure requirement
-      - pattern: "(?i)<(div|section)[^>]*(?:card|flip)[^>]*>"
-        pattern_negate: "(card--front|card--back|front|back)"
-        message: "Flip cards must have both front and back content sections for proper structure."
+      # Focus styles with insufficient contrast (light colors)
+      - pattern: "outline.*#[89abcdefABCDEF]{6}|outline.*#[cdefCDEF]{3,6}"
+        message: "Light focus outline colors may not meet 3:1 contrast ratio requirement for UI component identification."
 
-      # Unique accessible name requirement
-      - pattern: "(?i)<button[^>]*aria-pressed[^>]*>"
-        pattern_negate: "(aria-label|aria-labelledby|>.*[A-Za-z]{10,})"
-        message: "Flip card buttons must have unique, descriptive accessible names that reference visible card content."
+      # Missing focus-visible implementation
+      - pattern: ":focus\\s*\\{"
+        pattern_negate: ":focus-visible|:focus:not\\(:focus-visible\\)"
+        message: "Consider implementing :focus-visible for better keyboard-only focus indication."
 
-      # Keyboard focus indicator requirement
-      - pattern: "(?i)<(div|section)[^>]*(?:card|flip)[^>]*>"
-        pattern_negate: "(focus|:focus|focus-visible|:focus-visible)"
-        message: "Flip card containers should have visible keyboard focus indicators when the flip button is focused."
+      # Focus styles that may be obscured
+      - pattern: "outline-offset:\\s*-?0\\.?0*px|outline-offset:\\s*0"
+        message: "Consider using positive outline-offset to prevent focus indicators from being obscured by adjacent elements."
 
-      # Content visibility management
-      - pattern: "(?i)aria-pressed=\"(true|false)\""
-        pattern_negate: "(visibility.*hidden|display.*none|hidden)"
-        message: "Use aria-pressed state to control content visibility - false shows front, true shows back. Prefer visibility: hidden/visible for smooth animations."
+      # Missing forced-colors media query for Windows High Contrast
+      - pattern: "@media\\s*\\(forced-colors:\\s*active\\)"
+        pattern_negate: "outline.*transparent"
+        message: "Windows High Contrast Mode requires transparent outline for native focus appearance."
 
-      # Missing flip button type
-      - pattern: "(?i)<button[^>]*(?:flip|card)[^>]*>"
-        pattern_negate: "type=\"button\""
-        message: "Flip card buttons should have type='button' to prevent form submission behavior."
+      # Custom focusable elements without proper tabindex
+      - pattern: "<(div|span|button)[^>]*onclick|onkeydown|onkeypress"
+        pattern_negate: "tabindex=\"[0-9]\"|role=\"button\"|role=\"link\""
+        message: "Custom interactive elements should have tabindex=\"0\" or appropriate ARIA role for keyboard accessibility."
 
-      # Incomplete card structure
-      - pattern: "(?i)<div[^>]*class=\"card[^>]*>"
-        pattern_negate: "(card--front.*card--back|card--back.*card--front)"
-        message: "Flip cards must contain both front and back content sections for proper functionality."
+      # Focus styles with insufficient area
+      - pattern: "outline-width:\\s*1px|outline-width:\\s*0\\.1rem"
+        message: "Thin focus outlines may not meet WCAG 2.4.13 Focus Appearance requirements for minimum area."
+
+      # Focus styles that blend with background
+      - pattern: "outline.*rgba\\([^)]*0\\.1[^)]*\\)|outline.*rgba\\([^)]*0\\.2[^)]*\\)"
+        message: "Very transparent focus outlines may not provide sufficient contrast for visibility."
+
+      # Missing focus styles on interactive elements
+      - pattern: "<(button|a|input|select|textarea)[^>]*>"
+        pattern_negate: ":focus|:focus-visible|tabindex"
+        message: "Interactive elements should have visible focus styles for keyboard navigation accessibility."
+
+      # Dynamic content removal without focus management
+      - pattern: "\\.remove\\(\\)|removeChild|innerHTML\\s*="
+        pattern_negate: "focus\\(|focus\\(\\)"
+        message: "When removing dynamic content, ensure proper focus management by restoring focus to a logical location."
 
   - type: suggest
     message: |
-      **Flip Card Component Accessibility Best Practices:**
+      **WCAG Focus Order and Focus Styles Requirements:**
 
-      **Required ARIA Attributes:**
-      - **aria-pressed:** 'false' shows front content, 'true' shows back content
-      - **type="button":** Prevents form submission behavior
-      - **Unique accessible name:** Should reference visible card content
+      **Focus Order Requirements:**
 
-      **DOM Structure Requirements:**
-      - Card container with front and back content sections
-      - Flip button positioned between or adjacent to content sections
-      - Use CSS display: none to hide non-visible content
-      - Maintain logical reading order in the DOM
+      **1. Logical DOM Order:**
+      - **Default:** Focus order follows DOM element order
+      - **Navigation:** Tab key moves forward, Shift+Tab moves backward
+      - **Avoid:** Positive tabindex values (1, 2, 3, etc.)
 
-      **Content Visibility Management:**
-      - **aria-pressed="false":** Show front content, hide back content
-      - **aria-pressed="true":** Show back content, hide front content
-      - Use CSS display property for smooth transitions
-      - Ensure only one side is visible at a time
-
-      **Keyboard and Focus Requirements:**
-      - **Enter:** Toggle card state
-      - **Space:** Toggle card state
-      - **Tab:** Move focus to next focusable element
-      - **Shift+Tab:** Move focus to previous focusable element
-      - **Focus indicator:** Should wrap the card content container
-      - **Hover state:** Blue border matching focus indicator for visual consistency
-
-      **Implementation Example:**
+      **2. Tabindex Usage:**
       ```html
-      <!-- ✅ Correct: Proper flip card structure -->
-      <div class="card">
-        <div class="card--front">
-          <h3>Card Title</h3>
-          <img src="front-image.jpg" alt="Front view of the product">
-        </div>
+      <!-- Good: Use DOM order (default) -->
+      <button>First Button</button>
+      <button>Second Button</button>
+      <button>Third Button</button>
 
-        <button type="button"
-                class="flip-button"
-                aria-pressed="false"
-                aria-label="More about Card Title">
-        </button>
-
-        <div class="card--back">
-          <p class="card--tagline">Inspiring content</p>
-          <img src="back-image-1.jpg" alt="Product detail view 1">
-          <img src="back-image-2.jpg" alt="Product detail view 2">
-          <img src="back-image-3.jpg" alt="Product detail view 3">
-          <p>More detailed content about the product</p>
-          <a href="/product-details">
-            <img src="link-icon.svg" alt="View full product details">
-          </a>
-        </div>
+      <!-- Good: tabindex="0" for custom focusable elements -->
+      <div role="button" tabindex="0" onclick="handleClick()">
+        Custom Button
       </div>
+
+      <!-- Good: tabindex="-1" for programmatic focus only -->
+      <div id="target" tabindex="-1">Focus target</div>
+      <button onclick="document.getElementById('target').focus()">
+        Focus Target
+      </button>
+
+      <!-- Bad: Positive tabindex values -->
+      <button tabindex="1">First</button>
+      <button tabindex="3">Third</button>
+      <button tabindex="2">Second</button>
       ```
 
-      **CSS Implementation:**
+      **Focus Styles Requirements:**
+
+      **1. WCAG 2.4.7 Focus Visible (Level A):**
+      - **Requirement:** Focus indicator must exist
+      - **Purpose:** Keyboard users need visible focus indication
+
+      **2. WCAG 1.4.11 Non-Text Contrast (Level AA):**
+      - **Requirement:** Minimum 3:1 contrast ratio for UI components
+      - **Applies to:** Focus indicators, borders, focus outlines
+
+      **3. WCAG 2.4.13 Focus Appearance (Level AAA):**
+      - **Requirement:** Minimum area and contrast for focus indicators
+      - **Area:** Focus indicator should be clearly visible
+
+      **4. WCAG 2.4.11 Focus Not Obscured (Level AA):**
+      - **Requirement:** Focused element not hidden by other content
+      - **Solution:** Use outline-offset to prevent overlap
+
+      **Focus Styles Implementation:**
+
+      **1. Basic Focus Styles:**
       ```css
-      .card {
-        position: relative;
-        perspective: 1000px;
-        /* Focus indicator for keyboard navigation */
-        outline: 2px solid transparent;
+      /* Good: Visible focus indicator */
+      button:focus {
+        outline: 2px solid #0056b3;
         outline-offset: 2px;
-        /* Visual affordance for clickable card */
-        cursor: pointer;
       }
 
-      .card:focus-within {
-        outline-color: #0056b3;
-        outline-width: 3px;
+      /* Good: Custom focus styles */
+      .custom-button:focus {
+        outline: 3px solid #dc3545;
+        outline-offset: 3px;
+        box-shadow: 0 0 8px rgba(220, 53, 69, 0.5);
+      }
+      ```
+
+      **2. Focus-Visible Implementation:**
+      ```css
+      /* Default focus styles */
+      button:focus {
+        outline: 2px solid #0056b3;
+        outline-offset: 2px;
       }
 
-      .card:hover {
-        outline-color: #0056b3;
-        outline-width: 3px;
+      /* Remove focus styles for mouse users */
+      button:focus:not(:focus-visible) {
+        outline: none;
+        box-shadow: none;
       }
 
-      .card--front,
-      .card--back {
-        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
+      /* Enhanced focus styles for keyboard users */
+      button:focus-visible {
+        outline: 3px solid #0056b3;
+        outline-offset: 3px;
+        box-shadow: 0 0 8px rgba(0, 86, 179, 0.5);
+      }
+      ```
+
+      **3. High Contrast Focus Styles:**
+      ```css
+      /* Default focus styles */
+      *:focus-visible {
+        outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+        outline-offset: -0.2rem;
+        box-shadow: 0 0 0.2rem rgba(var(--color-foreground), 0.3);
       }
 
-      /* Show front by default */
-      .card--front {
-        visibility: visible;
-        opacity: 1;
-        transform: rotateY(0deg);
+      /* Windows High Contrast Mode */
+      @media (forced-colors: active) {
+        *:focus {
+          outline: 0.2rem solid transparent;
+        }
+      }
+      ```
+
+      **4. Component-Specific Focus Styles:**
+      ```css
+      /* Form inputs */
+      input:focus-visible,
+      textarea:focus-visible,
+      select:focus-visible {
+        outline: 2px solid #0056b3;
+        outline-offset: 2px;
+        border-color: #0056b3;
       }
 
-      .card--back {
-        visibility: hidden;
-        opacity: 0;
-        transform: rotateY(180deg);
+      /* Links */
+      a:focus-visible {
+        outline: 2px solid #0056b3;
+        outline-offset: 2px;
+        text-decoration: underline;
       }
 
-      /* Show back when aria-pressed="true" */
-      .card[data-pressed="true"] .card--front {
-        visibility: hidden;
-        opacity: 0;
-        transform: rotateY(-180deg);
+      /* Buttons */
+      button:focus-visible {
+        outline: 2px solid #0056b3;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0056b3;
       }
+      ```
 
-      .card[data-pressed="true"] .card--back {
-        visibility: visible;
-        opacity: 1;
-        transform: rotateY(0deg);
+      **Focus Order Best Practices:**
+
+      **1. Logical Content Flow:**
+      ```html
+      <!-- Good: Logical reading and focus order -->
+      <header>
+        <h1>Page Title</h1>
+        <nav>
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </header>
+
+      <main>
+        <h2>Main Content</h2>
+        <form>
+          <label for="name">Name:</label>
+          <input type="text" id="name">
+
+          <label for="email">Email:</label>
+          <input type="email" id="email">
+
+          <button type="submit">Submit</button>
+        </form>
+      </main>
+      ```
+
+      **2. Custom Interactive Elements:**
+      ```html
+      <!-- Good: Proper focusable custom element -->
+      <div role="button"
+           tabindex="0"
+           onclick="handleClick()"
+           onkeydown="handleKeydown(event)"
+           class="custom-button">
+        Custom Button
+      </div>
+
+      <!-- CSS for custom button focus -->
+      .custom-button:focus-visible {
+        outline: 2px solid #0056b3;
+        outline-offset: 2px;
+        background-color: #e7f3ff;
       }
+      ```
 
-      .flip-button {
+      **3. Skip Links and Focus Management:**
+      ```html
+      <!-- Skip link for main content -->
+      <a href="#main-content" class="skip-link">
+        Skip to main content
+      </a>
+
+      <!-- Main content with id for focus target -->
+      <main id="main-content" tabindex="-1">
+        <h1>Main Content</h1>
+        <!-- Content here -->
+      </main>
+
+      <!-- CSS for skip link -->
+      .skip-link {
         position: absolute;
-        top: 1rem;
-        right: 1rem;
+        top: -40px;
+        left: 6px;
         background: #0056b3;
         color: #ffffff;
-        border: none;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-        line-height: 1;
+        padding: 8px;
+        text-decoration: none;
+        z-index: 1000;
       }
 
-      .flip-button:hover {
-        background: #004085;
-        transform: scale(1.1);
-        box-shadow: 0 4px 12px rgba(0, 86, 179, 0.3);
-      }
-
-      .flip-button:focus {
-        outline: 3px solid #ffd700;
+      .skip-link:focus {
+        top: 6px;
+        outline: 2px solid #ffffff;
         outline-offset: 2px;
-        background: #004085;
+      }
+      ```
+
+      **Focus Styles Guidelines:**
+
+      **1. Contrast Requirements:**
+      - **Minimum:** 3:1 contrast ratio for focus indicators
+      - **Recommended:** 4.5:1 or higher for better visibility
+      - **Test:** Against adjacent colors and backgrounds
+
+      **2. Size and Visibility:**
+      - **Outline width:** Minimum 2px for visibility
+      - **Outline offset:** Use positive values to prevent overlap
+      - **Area:** Focus indicator should be clearly visible
+
+      **3. Color Selection:**
+      ```css
+      /* High contrast focus colors */
+      :focus-visible {
+        outline: 2px solid #0056b3; /* Blue - high contrast */
+        outline-offset: 2px;
       }
 
-      .flip-button:active {
-        transform: scale(0.95);
+      /* Alternative high contrast colors */
+      :focus-visible {
+        outline: 2px solid #dc3545; /* Red - high contrast */
+        outline-offset: 2px;
       }
 
-      /* Button icon states */
-      .flip-button::before {
-        content: "↻"; /* Circular arrow icon for front state */
-        transition: all 0.3s ease;
+      :focus-visible {
+        outline: 2px solid #198754; /* Green - high contrast */
+        outline-offset: 2px;
+      }
+      ```
+
+      **4. Focus Not Obscured:**
+      ```css
+      /* Prevent focus indicator overlap */
+      button:focus-visible {
+        outline: 2px solid #0056b3;
+        outline-offset: 3px; /* Space between element and outline */
       }
 
-      /* Show X icon when back is visible */
-      .card[data-pressed="true"] .flip-button::before {
-        content: "×"; /* X icon for back state */
-        font-size: 24px;
-        font-weight: bold;
+      /* Alternative: Use box-shadow for non-overlapping focus */
+      button:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0056b3;
+      }
+      ```
+
+      **5. Dynamic Content Focus Management:**
+      ```javascript
+      // Focus management best practices
+      class FocusManager {
+        constructor() {
+          this.focusHistory = [];
+          this.currentFocus = null;
+        }
+
+        // Save focus before making changes
+        saveFocus() {
+          this.currentFocus = document.activeElement;
+          this.focusHistory.push(this.currentFocus);
+        }
+
+        // Restore focus to previous location
+        restoreFocus() {
+          if (this.focusHistory.length > 0) {
+            const previousFocus = this.focusHistory.pop();
+            if (previousFocus && document.contains(previousFocus)) {
+              previousFocus.focus();
+            }
+          }
+        }
+
+        // Focus first interactive element in new content
+        focusNewContent(container) {
+          const focusableElements = container.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
+
+          if (focusableElements.length > 0) {
+            focusableElements[0].focus();
+          }
+        }
+
+        // Find logical focus target when content is removed
+        findLogicalFocusTarget(removedElement, container) {
+          // Try to focus next sibling element
+          const nextSibling = removedElement.nextElementSibling;
+          if (nextSibling) {
+            const focusableElement = nextSibling.querySelector(
+              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            if (focusableElement) {
+              return focusableElement;
+            }
+          }
+
+          // Try to focus previous sibling element
+          const prevSibling = removedElement.previousElementSibling;
+          if (prevSibling) {
+            const focusableElement = prevSibling.querySelector(
+              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            if (focusableElement) {
+              return focusableElement;
+            }
+          }
+
+          // Fallback to container or trigger button
+          return container.querySelector('button, [href], input') ||
+                 document.querySelector('[aria-haspopup="dialog"]');
+        }
       }
 
-      /* Reduced motion support */
-      @media (prefers-reduced-motion: reduce) {
-        .card--front,
-        .card--back {
-          transition: none;
-        }
+      // Usage example
+      const focusManager = new FocusManager();
 
-        .flip-button {
-          transition: none;
-        }
+      function addContent() {
+        focusManager.saveFocus();
 
-        .flip-button:hover {
-          transform: none;
-          box-shadow: none;
-        }
+        // Add new content
+        const newContent = createNewContent();
+        container.appendChild(newContent);
 
-        .flip-button:active {
-          transform: none;
-        }
+        // Focus first interactive element
+        focusManager.focusNewContent(newContent);
+      }
 
-        .card {
-          transition: none;
+      function removeContent(element) {
+        const container = element.parentElement;
+
+        // Find logical focus target before removing
+        const focusTarget = focusManager.findLogicalFocusTarget(element, container);
+
+        // Remove the element
+        element.remove();
+
+        // Focus the logical target
+        if (focusTarget) {
+          focusTarget.focus();
         }
       }
       ```
 
-      **JavaScript State Management:**
+      **Testing and Validation:**
+
+      **1. Keyboard Navigation Testing:**
+      - Navigate using Tab and Shift+Tab
+      - Verify focus order is logical
+      - Check that focus indicators are visible
+      - Test with different focus styles
+
+      **2. Contrast Testing:**
+      - Use browser dev tools for contrast ratios
+      - Test against different backgrounds
+      - Verify 3:1 minimum contrast requirement
+      - Test with color blindness simulators
+
+      **3. Focus Visibility Testing:**
+      - Test with screen readers
+      - Verify focus indicators are not obscured
+      - Check focus styles in different themes
+      - Test Windows High Contrast Mode
+
+      **4. Dynamic Content Focus Testing:**
+      - Test focus management when adding new content
+      - Verify focus moves to first interactive element in new content
+      - Test focus restoration when removing content
+      - Ensure focus returns to logical location
+      - Test focus management with multiple dynamic elements
+      - Verify focus history is maintained correctly
+
+      **Common Mistakes to Avoid:**
+
+      **1. Focus Order Issues:**
+      - Using positive tabindex values
+      - Skipping focusable elements
+      - Illogical DOM structure
+      - Missing focusable elements
+
+      **2. Focus Style Problems:**
+      - Removing focus styles with `outline: none`
+      - Insufficient contrast ratios
+      - Focus indicators that are too small
+      - Focus styles that blend with background
+
+      **3. Implementation Issues:**
+      - Missing focus-visible implementation
+      - Not testing with keyboard navigation
+      - Ignoring Windows High Contrast Mode
+      - Focus indicators that are obscured
+
+      **4. Accessibility Violations:**
+      - No visible focus indicators
+      - Focus order that doesn't match reading order
+      - Custom elements without proper focus management
+      - Missing keyboard event handlers
+
+      **Advanced Focus Management:**
+
+      **1. Programmatic Focus Control:**
       ```javascript
-      const flipCards = document.querySelectorAll('.card');
+      // Focus management for modals
+      function openModal() {
+        const modal = document.getElementById('modal');
+        const closeButton = document.getElementById('close-modal');
 
-      flipCards.forEach(card => {
-        const button = card.querySelector('.flip-button');
-        const front = card.querySelector('.card--front');
-        const back = card.querySelector('.card--back');
+        modal.style.display = 'block';
+        closeButton.focus(); // Focus close button when modal opens
+      }
 
-        function toggleCard() {
-          const isPressed = button.getAttribute('aria-pressed') === 'true';
-          const newState = !isPressed;
+      // Trap focus within modal
+      function trapFocus(modal) {
+        const focusableElements = modal.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
 
-          // Update ARIA state
-          button.setAttribute('aria-pressed', newState);
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
 
-          // Update card data attribute for CSS
-          card.setAttribute('data-pressed', newState);
-
-          // Announce state change to screen readers
-          const announcement = newState ? 'Showing back of card' : 'Showing front of card';
-          announceToScreenReader(announcement);
-        }
-
-        // Button click handler
-        button.addEventListener('click', (event) => {
-          event.stopPropagation(); // Prevent card click when button is clicked
-          toggleCard();
-        });
-
-        // Card container click handler for mouse/touch users
-        card.addEventListener('click', toggleCard);
-
-        // Keyboard handler
-        button.addEventListener('keydown', (event) => {
-          if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            toggleCard();
+        // Handle Tab key
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Tab') {
+            if (e.shiftKey) {
+              if (document.activeElement === firstElement) {
+                lastElement.focus();
+                e.preventDefault();
+              }
+            } else {
+              if (document.activeElement === lastElement) {
+                firstElement.focus();
+                e.preventDefault();
+              }
+            }
           }
         });
-      });
-
-      // Screen reader announcement helper
-      function announceToScreenReader(message) {
-        const announcement = document.createElement('div');
-        announcement.setAttribute('aria-live', 'polite');
-        announcement.setAttribute('aria-atomic', 'true');
-        announcement.className = 'sr-only';
-        announcement.textContent = message;
-
-        document.body.appendChild(announcement);
-
-        setTimeout(() => {
-          document.body.removeChild(announcement);
-        }, 1000);
       }
       ```
 
-      **Accessibility Guidelines:**
+      **2. Dynamic Focus Management:**
+      ```javascript
+      // Focus restoration after dynamic content
+      function loadContent() {
+        const container = document.getElementById('content');
+        const previousFocus = document.activeElement;
 
-      **Button Requirements:**
-      - Must have type="button" to prevent form submission
-      - aria-pressed attribute must be present and toggle between "true" and "false"
-      - Accessible name should reference visible card content via aria-label
-      - Should handle both click and keyboard events
-      - Position in top-right corner for intuitive placement
-      - Use dynamic icons: ↻ (arrow) for front state, × (X) for back state
+        // Load new content
+        container.innerHTML = newContent;
 
-      **Card Container Interaction:**
-      - **Mouse/Touch Support:** Allow clicking anywhere on card to flip
-      - **Visual Affordance:** Use cursor: pointer to indicate clickable area
-      - **Event Handling:** Prevent conflicts between card and button clicks
-      - **Accessibility Maintained:** All keyboard and screen reader functionality preserved
+        // Restore focus or set to first focusable element
+        const firstFocusable = container.querySelector(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
 
-      **Content Structure:**
-      - Front and back content must be present
-      - Only one side visible at a time
-      - Use semantic HTML for content (headings, paragraphs, images)
-      - Maintain logical reading order
-      - Use `visibility: hidden/visible` for smooth animations while maintaining accessibility
+        if (firstFocusable) {
+          firstFocusable.focus();
+        } else if (previousFocus) {
+          previousFocus.focus();
+        }
+      }
+      ```
 
-      **Focus Management:**
-      - Focus indicator should wrap the entire card when button is focused
-      - Use :focus-within CSS pseudo-class for container focus
-      - Ensure focus indicator has sufficient contrast (3:1 minimum)
-      - Maintain focus order during state changes
+      **3. Focus Indicators for Complex Components:**
+      ```css
+      /* Multi-state focus indicators */
+      .accordion-item:focus-visible {
+        outline: 2px solid #0056b3;
+        outline-offset: 2px;
+      }
 
-      **Screen Reader Support:**
-      - aria-pressed state announces current card side
-      - Consider adding aria-live region for state changes
-      - Ensure content is properly labeled and described
-      - Test with screen readers to verify announcements
+      .accordion-item[aria-expanded="true"]:focus-visible {
+        outline-color: #198754; /* Different color for expanded state */
+      }
 
-      **Animation Considerations:**
-      - Use CSS transitions for smooth flipping effects
-      - Ensure animations don't interfere with accessibility
-      - **Always implement prefers-reduced-motion media query**
-      - Remove all animations, transforms, and transitions when reduced motion is preferred
-      - Maintain content visibility during transitions
-      - Respect user's motion sensitivity preferences
+      /* Focus indicators for different interaction states */
+      .interactive-element:focus-visible {
+        outline: 2px solid #0056b3;
+        outline-offset: 2px;
+      }
 
-      **Button Design Best Practices:**
-      - **Positioning**: Place in top-right corner for intuitive access
-      - **Shape**: Use circular design for modern, clean appearance
-      - **Icons**: Implement dynamic icons that change with card state
-        - Front state: ↻ (circular arrow) indicating "click to flip"
-        - Back state: × (X) indicating "click to return"
-      - **Visual Feedback**: Include hover, focus, and active states
-      - **Accessibility**: Maintain aria-label for screen reader context
-      - **Responsive**: Scale appropriately for different card sizes
+      .interactive-element:hover:focus-visible {
+        outline-color: #004085; /* Darker on hover + focus */
+      }
 
-      **Testing Checklist:**
-      - Verify aria-pressed toggles correctly
-      - Test keyboard navigation (Enter, Space, Tab)
-      - Check focus indicator visibility and contrast
-      - Validate screen reader announcements
-      - Test content visibility changes
-      - Verify accessible names are descriptive via aria-label
-      - Check that only one side is visible at a time
-      - Verify button positioning in top-right corner
-      - Test dynamic icon changes (↻ to ×) with state changes
-      - Ensure button remains accessible in all card states
-      - Validate responsive button sizing for different card layouts
-      - Test card container click functionality (anywhere on card)
-      - Verify hover states show blue border matching focus indicator
-      - Check cursor pointer appears on card hover
-      - Ensure no conflicts between card and button click events
-      - Test reduced motion preference support (prefers-reduced-motion: reduce)
-      - Verify all animations are disabled when reduced motion is preferred
+      .interactive-element:active:focus-visible {
+        outline-color: #002752; /* Even darker when active */
+      }
+      ```
+
+      **4. Dynamic Content Focus Management:**
+      ```javascript
+      // When adding content: focus first interactive element
+      function addDynamicContent() {
+        const container = document.getElementById('content');
+        const newElement = document.createElement('div');
+        newElement.innerHTML = `
+          <h3>New Content</h3>
+          <button class="btn">Action Button</button>
+        `;
+
+        container.appendChild(newElement);
+
+        // Focus the first focusable element in new content
+        const firstFocusable = newElement.querySelector('button');
+        if (firstFocusable) {
+          firstFocusable.focus();
+        }
+      }
+
+      // When removing content: restore focus to logical location
+      function removeDynamicContent(element) {
+        const triggerButton = document.querySelector('[onclick="addDynamicContent()"]');
+
+        // Store reference to element being removed
+        const removedElement = element;
+
+        // Remove the element
+        element.remove();
+
+        // Restore focus to the trigger button
+        if (triggerButton) {
+          triggerButton.focus();
+        }
+      }
+
+      // Advanced focus management for multiple elements
+      function removeSpecificElement(element, elementType) {
+        const container = element.parentElement;
+        const triggerButton = document.querySelector(`[onclick="add${elementType}()"]`);
+
+        // Find the next logical focus target
+        let nextFocusTarget = triggerButton;
+
+        // If there are other elements, focus the next one
+        const remainingElements = container.querySelectorAll(`.${elementType.toLowerCase()}`);
+        if (remainingElements.length > 0) {
+          const targetElement = remainingElements[0];
+          const focusableElement = targetElement.querySelector('button, a, input');
+          if (focusableElement) {
+            nextFocusTarget = focusableElement;
+          }
+        }
+
+        // Remove the element
+        element.remove();
+
+        // Set focus to the appropriate target
+        nextFocusTarget.focus();
+      }
+      ```
 
 metadata:
   priority: high
   version: 1.0
 </rule>
+description:
+globs:
+alwaysApply: false
+---
 
 ---
 > Source: [Shopify/horizon](https://github.com/Shopify/horizon) — distributed by [TomeVault](https://tomevault.io).
