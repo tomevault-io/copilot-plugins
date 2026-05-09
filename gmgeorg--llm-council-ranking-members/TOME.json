@@ -1,0 +1,44 @@
+{
+  "name": "llm-council-ranking-members",
+  "owner": "gmgeorg",
+  "repo": "llm-council-ranking-members",
+  "description": "The LLM Council with focus on Ranking Members using Elo-rating like models + user able to participate in responses and rankings (LLM Council based on Karpaty's repo)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gmgeorg/llm-council-ranking-members",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T17:35:18Z"
+}
