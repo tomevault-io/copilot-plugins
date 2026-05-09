@@ -1,0 +1,9 @@
+{
+  "name": "bigkaa--dephealth-ui",
+  "displayName": "dephealth-ui",
+  "description": "Microservices health and topology visualization",
+  "version": "1.0.0",
+  "author": "BigKAA",
+  "homepage": "https://github.com/BigKAA/dephealth-ui",
+  "skills": []
+}
