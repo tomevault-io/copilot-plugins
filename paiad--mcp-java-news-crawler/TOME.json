@@ -1,0 +1,44 @@
+{
+  "name": "mcp-java-news-crawler",
+  "owner": "paiad",
+  "repo": "mcp-java-news-crawler",
+  "description": "\u2728\u7528Java\u5b9e\u73b0\u7684MCP\uff0c\u722c\u53d6\u6700\u65b0\u70ed\u70b9\u65b0\u95fb\uff0c\u5141\u8bb8LLM\u8c03\u7528\u3002\u544a\u522b\u4fe1\u606f\u8327\u623f\uff0c\u7528AI\u6d1e\u6089\u4e16\u754c\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/paiad/mcp-java-news-crawler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T19:08:49Z"
+}
