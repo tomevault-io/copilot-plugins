@@ -1,0 +1,44 @@
+{
+  "name": "OpenDraft",
+  "owner": "Proteus-Technologies-Private-Limited",
+  "repo": "OpenDraft",
+  "description": "Open Draft - Free, open-source screenwriting software \u2014 a modern alternative to Final Draft. Professional screenplay formatting, real-time collaboration, beat boards, and version control. Desktop (macOS/Windows/Linux) & browser.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Proteus-Technologies-Private-Limited/OpenDraft",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T02:43:25Z"
+}
