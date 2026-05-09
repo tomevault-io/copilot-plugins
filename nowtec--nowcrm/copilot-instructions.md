@@ -1,89 +1,88 @@
-## code-style
+## file-structure
 
-> Code style guidelines for NOWCRM
+> File structure guidelines for NOWCRM
 
-# Code Style Guidelines
+# File Structure Guidelines
 
-## Formatting Standards
-- **Prettier**: 2-space indentation, single quotes, trailing commas, semicolons
-- **Print width**: 80 characters
-- **ESLint**: No unused imports, consistent import ordering, prefer const over let
+## Directory Organization
+```
+apps/nowcrm/
+├── components/     # Reusable UI components
+├── app/            # Route components  
+├── i18n/           # I18N configuration
+├── lib/            # Handling server actions and different utils
+├── hooks/          # Custom hooks
+├── types/          # Type definitions
+└── messages/       # I18N jsons for each language
 
-## Naming Conventions
-```typescript
-// ✅ Variables and functions - camelCase
-const userAccountBalance = 1000;
-const calculateMonthlyPayment = () => {};
+apps/composer/src/
+├── api/            # Api routes
+├── api-docs/       # Handling api routes setup
+├── common/         # Common and reused utils
+├── lib/            # Functions, types and workers
+└── scheduler/      # Scheduler which are integrated with composer calendar
 
-// ✅ Constants - SCREAMING_SNAKE_CASE
-const API_ROUTES_STRAPI = {
-  USERS: 'users',
-  CONTATs: 'contacts',
-} as const;
-
-// ✅ Types and Classes - PascalCase
-class UserService {}
-type UserAccountData = {};
-type ButtonProps = {}; // Component props suffix with 'Props'
-
-// ✅ Files and directories - kebab-case
-// user-profile.component.tsx
-// user-profile.styles.ts
+apps/journeys/src/
+├── api/            # Handling webhooks api routes for journeys
+├── common/         # Common and reused utils
+├── consumers/      # All journeys consumers setup
+├── cron/           # Cron jobs which acts as a producer to create new jobs
+├── jobs/           # All job configuration
+├── lib/            # Functions, types and workers
+└── rabbitmq/       # Rabbitmq setup
 ```
 
-## Function Structure
-```typescript
-// ✅ Small, focused functions
-// ✅ Required parameters first, optional last
-const processUserData = (
-  user: User,
-  options: ProcessingOptions,
-  callback?: (result: ProcessedUser) => void
-): ProcessedUser => {
-  const processedUser = transformUserData(user);
-  applyOptions(processedUser, options);
-  
-  if (callback) {
-    callback(processedUser);
-  }
-  
-  return processedUser;
-};
+## File Naming
+- **kebab-case** for all files and directories
+- **Descriptive suffixes** for clarity
+```
+// ✅ Correct naming
+user.tsx
+user.component.tsx
+user.service.ts
+user.test.tsx
 ```
 
-## Comments
+## Index Files & Barrel Exports
 ```typescript
-// ✅ Explain business logic and non-obvious intentions
-// Apply 15% discount for premium users with orders > $100
-const discount = isPremiumUser && orderTotal > 100 ? 0.15 : 0;
+// ✅ Clean barrel exports in index.ts
+export { UserCard } from './user-card.component';
+export { UserList } from './user-list.component';
+export type { UserCardProps, UserListProps } from './types';
 
-// TODO: Replace with proper authentication service
-const isAuthenticated = localStorage.getItem('token') !== null;
-
-/**
- * JSDoc for public APIs
- * @param basePrice - The base price before modifications
- * @returns The final price after tax and discount
- */
-const calculateTotalPrice = (basePrice: number): number => {
-  // Implementation
-};
+// ✅ Usage - clean imports
+import { UserCard, UserList } from '@/components/user';
 ```
 
-## Error Handling
-```typescript
-// ✅ Proper error types and meaningful messages
-try {
-  const user = await userService.findById(userId);
-  if (!user) {
-    throw new UserNotFoundError(`User with ID ${userId} not found`);
-  }
-  return user;
-} catch (error) {
-  logger.error('Failed to fetch user', { userId, error });
-  throw error;
-}
+## File Size Guidelines
+- **Components**: Under 300 lines if possible
+- **Services**: Under 500 lines if possible
+- **Extract logic** into hooks/utilities when files grow large
+- **Use composition** over large monolithic components
+
+## Configuration Files
+
+### Project Configuration
 ```
+.vscode/                       # VSCode settings
+├── settings.json
+├── extensions.json
+└── launch.json
+
+.github/                       # GitHub workflows
+├── workflows/
+└── templates/
+
+.cursor/                       # Cursor rules
+├── rules/
+└── environment.json
+```
+
+### Build Configuration
+- Keep build configs in root or package directories
+- Use consistent naming for config files
+- Comment complex configurations
+- Version control all configuration files
 
 ---
 > Source: [nowtec/nowCRM](https://github.com/nowtec/nowCRM) — distributed by [TomeVault](https://tomevault.io).
