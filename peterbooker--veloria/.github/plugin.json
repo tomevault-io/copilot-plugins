@@ -1,0 +1,9 @@
+{
+  "name": "peterbooker--veloria",
+  "displayName": "veloria",
+  "description": "Veloria is a regex based code search service. It searches all WordPress core versions, plugins and themes.",
+  "version": "1.0.0",
+  "author": "PeterBooker",
+  "homepage": "https://github.com/PeterBooker/veloria",
+  "skills": []
+}
