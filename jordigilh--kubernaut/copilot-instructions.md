@@ -1,460 +1,226 @@
-## 14-design-decisions-documentation
+## 15-testing-coverage-standards
 
-> Design Decision Documentation (DD-XXX) standards for architectural choices
+> Testing coverage standards - AUTHORITATIVE reference to prevent inconsistencies
 
 
-# Design Decision Documentation Standards
+# Testing Coverage Standards - AUTHORITATIVE
 
-## 🎯 **Purpose**
+## 🚨 **MANDATORY: Single Source of Truth**
 
-This rule ensures **all major architectural decisions** are documented using the DD-XXX format with clear rationale, alternatives considered, and consequences. This provides:
-- Historical context for "why" decisions were made
-- Alternatives considered and rejected
-- Guidance for future design reviews
-- Onboarding support for new developers
+**PRIMARY AUTHORITY**: [03-testing-strategy.mdc](mdc:.cursor/rules/03-testing-strategy.mdc)
 
-**Related Rules**:
-- [06-documentation-standards.mdc](mdc:.cursor/rules/06-documentation-standards.mdc) - General documentation standards
-- [00-kubernaut-core-rules.mdc](mdc:.cursor/rules/00-kubernaut-core-rules.mdc) - APDC methodology (Analysis includes decision documentation)
+**This rule exists to prevent documentation inconsistencies discovered on 2025-11-18.**
 
 ---
 
-## 📋 **When to Create a Design Decision (DD-XXX)**
+## ✅ **CORRECT Testing Coverage Standards for Kubernaut**
 
-### **MANDATORY**: Document These Decisions
+### **MANDATORY Percentages (Microservices Architecture)**
 
-Create a DD-XXX entry when making decisions about:
+```markdown
+- **Unit Tests**: 70%+ coverage (ALL unit-testable BRs)
+- **Integration Tests**: >50% coverage (microservices coordination)
+- **E2E Tests**: 10-15% coverage (critical user journeys)
+```
 
-1. **Architecture Patterns**
-   - New CRD interaction patterns
-   - Data flow between controllers
-   - Integration point designs
-   - State management approaches
+### **Why >50% Integration Coverage is Required**
 
-2. **Technology Choices**
-   - Framework selections (when alternatives exist)
-   - Library adoptions with architectural impact
-   - Infrastructure components (databases, message queues)
-   - Testing framework decisions
+Kubernaut's microservices architecture requires high integration test coverage for:
+- ✅ **CRD-based coordination** between 10+ services
+- ✅ **Watch-based status propagation** (difficult to unit test)
+- ✅ **Owner reference lifecycle management**
+- ✅ **Cross-service error handling**
+- ✅ **Service discovery and communication patterns**
 
-3. **Business Logic Patterns**
-   - Error handling strategies
-   - Recovery mechanisms
-   - Validation approaches
-   - Data enrichment patterns
-
-4. **Performance Trade-offs**
-   - Caching strategies
-   - Batch vs. real-time processing
-   - Resource allocation patterns
-   - Optimization approaches
-
-### **NOT REQUIRED**: Skip DD-XXX for These
-
-**Do NOT create DD-XXX for**:
-- Obvious technology choices (Go for K8s controllers, Kubernetes for orchestration)
-- Standard practices (REST APIs, semantic versioning)
-- Tactical implementation details without alternatives
-- Decisions that are easily reversible
-- Changes to deprecated/legacy code
+**Authoritative Source**: [03-testing-strategy.mdc lines 72-86](mdc:.cursor/rules/03-testing-strategy.mdc)
 
 ---
 
-## 🚨 **AI ASSISTANT ENFORCEMENT PROTOCOL**
+## ❌ **INCORRECT Standards to AVOID**
 
-### **BLOCKING REQUIREMENT - BEFORE IMPLEMENTING ARCHITECTURAL DECISIONS**
+### **Old/Monolithic Standards (DO NOT USE)**
 
-When user requests or AI proposes a significant architectural change, AI MUST:
-
-#### **CHECKPOINT DD: Design Decision Validation**
-
-**AI MUST execute this validation sequence:**
-
-```
-✅ DESIGN DECISION CHECKPOINT:
-- [ ] Searched for similar architectural patterns (codebase_search executed) ✅/❌
-- [ ] Identified 2-3 alternative approaches ✅/❌
-- [ ] Presented alternatives to user for approval ✅/❌
-- [ ] User approved specific approach ✅/❌
-- [ ] DD-XXX entry created in DESIGN_DECISIONS.md ✅/❌
-- [ ] DD-XXX referenced in implementation docs ✅/❌
-- [ ] DD-XXX referenced in code comments ✅/❌
-
-❌ STOP: Cannot implement architectural change until ALL checkboxes are ✅
+```markdown
+❌ Unit Tests: 70%
+❌ Integration Tests: <20% or 20%  ← WRONG FOR MICROSERVICES
+❌ E2E Tests: <10%
 ```
 
-#### **Validation Steps**
+**Why This is Wrong**:
+- ❌ Based on monolithic application patterns
+- ❌ Insufficient for CRD controller testing requirements
+- ❌ Does not account for microservices coordination needs
+- ❌ Inadequate for watch-based patterns and K8s API testing
 
-**Step 1: Discovery (REQUIRED)**
+---
+
+## 📋 **Documentation Locations to Keep Consistent**
+
+### **High-Priority User-Facing Documents**
+1. ✅ **`README.md`** - Main project documentation (line ~254)
+2. ✅ **Service READMEs** (effectiveness-monitor, etc.)
+3. ✅ **Test file comments** (e.g., `test/integration/gateway/storm_aggregation_test.go`)
+
+### **Service-Specific Documentation**
+4. ✅ **Implementation Plans** (current versions only, e.g., `IMPLEMENTATION_PLAN_V2.24.md`)
+5. ✅ **Testing Strategy Documents** (per service)
+6. ✅ **Implementation Checklists**
+7. ✅ **BR Coverage Matrix Documents**
+8. ✅ **Service Location Decisions**
+
+### **Archived Documents**
+- ⚠️ **Lower Priority**: Archived implementation plans can remain as historical records
+
+---
+
+## 🔍 **Detection Commands**
+
+### **Find Incorrect "<20%" References**
 ```bash
-# AI must search for existing patterns
-codebase_search "existing [pattern] implementations"
-grep -r "[ArchitecturalPattern]" docs/architecture/ docs/services/
+# Find files with incorrect integration coverage
+grep -r "Integration.*<20%\|Integration.*20%" \
+  --include="*.md" \
+  --include="*_test.go" \
+  --exclude-dir="archive" \
+  . | grep -v "archive/"
 ```
 
-**Step 2: Alternatives Analysis (REQUIRED)**
-AI must present to user:
-- **Alternative 1**: [Approach A with pros/cons]
-- **Alternative 2**: [Approach B with pros/cons]
-- **Alternative 3**: [Approach C with pros/cons]
-- **Recommendation**: [Preferred approach with confidence %]
-
-**Step 3: User Approval (REQUIRED)**
-Wait for explicit user approval before implementing.
-
-**Step 4: DD-XXX Creation (REQUIRED)**
-Create entry in `docs/architecture/DESIGN_DECISIONS.md` using template below.
-
-**Step 5: Reference in Code (REQUIRED)**
-Add DD-XXX references in:
-- Implementation documentation
-- Code comments for key functions
-- CRD schema comments
-- Controller reconciliation logic
+### **Verify Correct ">50%" Usage**
+```bash
+# Find files with correct integration coverage
+grep -r "Integration.*>50%" \
+  --include="*.md" \
+  --include="*_test.go" \
+  .
+```
 
 ---
 
-## 📝 **DD-XXX Documentation Template**
+## ✍️ **Standard Phrasing for Documentation**
 
-### **Location**: `docs/architecture/DESIGN_DECISIONS.md`
-
-When creating a new DD-XXX, use this template:
-
+### **For Markdown Documentation**
 ```markdown
-## DD-XXX: [Decision Title]
+### Testing Strategy
 
-### Status
-**[Status Emoji] [Status]** (YYYY-MM-DD)
-**Last Reviewed**: YYYY-MM-DD
-**Confidence**: XX%
+Kubernaut follows a **defense-in-depth testing pyramid**:
 
-### Context & Problem
-[What problem are we solving? Why does it matter?]
+- **Unit Tests**: **70%+ coverage** - Extensive business logic with external mocks only
+- **Integration Tests**: **>50% coverage** - Cross-service coordination, CRD-based flows, microservices architecture
+- **E2E Tests**: **10-15% coverage** - Critical end-to-end user journeys
 
-**Key Requirements**:
-- Requirement 1
-- Requirement 2
-- Requirement 3
-
-### Alternatives Considered
-
-#### Alternative 1: [Approach A]
-**Approach**: [Brief description]
-
-**Pros**:
-- ✅ Benefit 1
-- ✅ Benefit 2
-
-**Cons**:
-- ❌ Trade-off 1
-- ❌ Trade-off 2
-
-**Confidence**: XX% (approved/rejected)
-
----
-
-#### Alternative 2: [Approach B]
-**Approach**: [Brief description]
-
-**Pros**:
-- ✅ Benefit 1
-- ✅ Benefit 2
-
-**Cons**:
-- ❌ Trade-off 1
-- ❌ Trade-off 2
-
-**Confidence**: XX% (approved/rejected)
-
----
-
-#### Alternative 3: [Approach C]
-**Approach**: [Brief description]
-
-**Pros**:
-- ✅ Benefit 1
-- ✅ Benefit 2
-
-**Cons**:
-- ❌ Trade-off 1
-- ❌ Trade-off 2
-
-**Confidence**: XX% (approved/rejected)
-
----
-
-### Decision
-
-**APPROVED: Alternative X** - [Approach Name]
-
-**Rationale**:
-1. **Key Reason 1**: [Explanation]
-2. **Key Reason 2**: [Explanation]
-3. **Key Reason 3**: [Explanation]
-
-**Key Insight**: [Critical insight that drove the decision]
-
-### Implementation
-
-**Primary Implementation Files**:
-- [File 1 path and description]
-- [File 2 path and description]
-- [File 3 path and description]
-
-**Data Flow**:
-1. Step 1 description
-2. Step 2 description
-3. Step 3 description
-
-**Graceful Degradation** (if applicable):
-[How system behaves when components fail]
-
-### Consequences
-
-**Positive**:
-- ✅ Benefit 1
-- ✅ Benefit 2
-- ✅ Benefit 3
-
-**Negative**:
-- ⚠️ Trade-off 1 - **Mitigation**: [How we address this]
-- ⚠️ Trade-off 2 - **Mitigation**: [How we address this]
-
-**Neutral**:
-- 🔄 Impact 1
-- 🔄 Impact 2
-
-### Validation Results
-
-**Confidence Assessment Progression**:
-- Initial assessment: XX% confidence
-- After analysis: XX% confidence
-- After implementation review: XX% confidence
-
-**Key Validation Points**:
-- ✅ Validation 1
-- ✅ Validation 2
-- ✅ Validation 3
-
-### Related Decisions
-- **Supersedes**: [Previous DD-XXX if applicable]
-- **Builds On**: [Related DD-XXX]
-- **Supports**: [Business requirements BR-XXX-XXX]
-
-### Review & Evolution
-
-**When to Revisit**:
-- If [condition 1]
-- If [condition 2]
-- If [condition 3]
-
-**Success Metrics**:
-- Metric 1: Target value
-- Metric 2: Target value
-- Metric 3: Target value
+**Rationale**: Microservices architecture with CRD-based coordination requires high integration coverage for validating service interactions, watch-based patterns, and Kubernetes API behavior.
 ```
 
----
-
-## 💻 **Code Comment Standards for DD-XXX References**
-
-### **Format for Go Code Comments**
-
+### **For Test File Comments**
 ```go
-// ========================================
-// [Component Name] (DD-XXX)
-// 📋 Design Decision: DD-XXX | ✅ Approved Design | Confidence: XX%
-// See: docs/architecture/DESIGN_DECISIONS.md#dd-xxx-decision-title
-// ========================================
-//
-// [Brief explanation of why this approach was chosen]
-//
-// WHY DD-XXX?
-// - ✅ Key benefit 1
-// - ✅ Key benefit 2
-// - ✅ Key benefit 3
-//
-// [Optional: Trade-offs accepted]
-// ⚠️ Trade-off 1 - Mitigation: [explanation]
-// ========================================
+// Defense-in-Depth Strategy (per 03-testing-strategy.mdc):
+// - Unit tests (70%+): Business logic in isolation
+// - Integration tests (>50%): Infrastructure interaction, microservices coordination
+// - E2E tests (10-15%): Complete workflow validation
 ```
 
-### **Example: Recovery Context Enrichment (DD-001)**
-
-```go
-// ========================================
-// RECOVERY CONTEXT ENRICHMENT (DD-001)
-// 📋 Design Decision: DD-001 | ✅ Approved Design | Confidence: 95%
-// See: docs/architecture/DESIGN_DECISIONS.md#dd-001-recovery-context-enrichment-alternative-2
-// ========================================
-//
-// RemediationProcessing Controller enriches ALL contexts for recovery attempts.
-//
-// WHY DD-001 (Alternative 2)?
-// - ✅ Temporal consistency: All contexts captured at same timestamp
-// - ✅ Fresh contexts: Recovery gets CURRENT cluster state (not stale)
-// - ✅ Immutable audit trail: Each RemediationProcessing CRD is complete snapshot
-// - ✅ Self-contained CRDs: AIAnalysis reads from spec only (no API calls)
-//
-// ⚠️ Trade-off: ~1 minute recovery initiation time
-//    Mitigation: Better AI decisions worth the time penalty
-// ========================================
-
-if isRecovery {
-    recoveryCtx, err := r.enrichRecoveryContext(ctx, rp)
-    // ... implementation
-}
-```
-
----
-
-## 📚 **Documentation Reference Standards**
-
-### **In Implementation Documents**
-
-When documenting implementation that follows a design decision, include this header:
-
+### **For Service Implementation Plans**
 ```markdown
-### [Feature Name]
+**Unit Tests (70%+)**:
+- **MOCK**: External dependencies only (Redis, LLM, etc.)
+- **REAL**: All business logic components
 
----
+**Integration Tests (>50%)**:
+- **MOCK**: NONE - Use real services in Kind cluster
+- **REAL**: Cross-service interactions, CRD coordination, K8s API
+- **RATIONALE**: Microservices architecture with CRD-based coordination requires high integration coverage
 
-> **📋 Design Decision Status**
->
-> **Current Implementation**: **DD-XXX Alternative Y** (Approved Design)
-> **Status**: ✅ **Production-Ready**
-> **Confidence**: XX%
-> **Design Decision**: [DD-XXX](../architecture/DESIGN_DECISIONS.md#dd-xxx-decision-title)
-> **Business Requirement**: BR-XXX-XXX
->
-> <details>
-> <summary><b>Why DD-XXX?</b> (Click to expand)</summary>
->
-> - ✅ **Benefit 1**: [Explanation]
-> - ✅ **Benefit 2**: [Explanation]
-> - ✅ **Benefit 3**: [Explanation]
->
-> **Full Analysis**: See [DESIGN_DECISIONS.md - DD-XXX](../architecture/DESIGN_DECISIONS.md#dd-xxx-decision-title)
-> </details>
-
----
-```
-
-### **In Business Requirements**
-
-When a BR-XXX-XXX references a design decision:
-
-```markdown
-##### [Requirement Category]
-
-> **📋 Design Decision**: [DD-XXX - Alternative Y](../architecture/DESIGN_DECISIONS.md#dd-xxx-decision-title) | ✅ **Approved Design** | Confidence: XX%
-
-- **BR-XXX-XXX**: MUST [requirement description]
-  - **Rationale**: [Why this is needed]
-  - **Design**: [High-level design approach from DD-XXX]
+**E2E Tests (10-15%)**:
+- **MOCK**: Minimal
+- **REAL**: Complete end-to-end workflows
 ```
 
 ---
 
-## 🔍 **Quick Reference: When to Document**
+## 🚫 **AI Assistant Enforcement**
 
-| Scenario | Action | DD-XXX Required? |
-|---|---|---|
-| New CRD interaction pattern | ✅ Create DD-XXX | YES |
-| Choosing between 2+ architectural approaches | ✅ Create DD-XXX | YES |
-| Changing existing architectural pattern | ✅ Create DD-XXX | YES |
-| Adding new external service integration | ✅ Create DD-XXX | YES |
-| Refactoring with architectural impact | ✅ Create DD-XXX | YES |
-| Simple bug fix | ❌ No DD-XXX | NO |
-| Adding new function to existing pattern | ❌ No DD-XXX | NO |
-| Configuration change | ❌ No DD-XXX | NO |
-| Test-only changes | ❌ No DD-XXX | NO |
+### **MANDATORY Pre-Documentation Generation Check**
 
----
+Before generating or modifying any testing documentation, AI MUST:
 
-## 📊 **Enforcement Metrics**
+```xml
+<function_calls>
+<invoke name="Grep">
+<parameter name="pattern">Integration.*coverage|integration.*test</parameter>
+<parameter name="path">[target_file]</parameter>
+<parameter name="output_mode">content</parameter>
+<parameter name="-i">true</parameter>
+</invoke>
+</function_calls>
+```
 
-AI assistant should track:
-- Number of architectural changes without DD-XXX documentation
-- Time between decision and documentation
-- Confidence assessment quality (are alternatives truly considered?)
+**Validation Checkpoint**:
+```
+✅ TESTING COVERAGE DOCUMENTATION CHECKPOINT:
+- [ ] Used ">50%" for integration tests ✅/❌
+- [ ] Avoided "<20%" or "20%" for integration ✅/❌
+- [ ] Referenced microservices architecture rationale ✅/❌
+- [ ] Cited authoritative source (03-testing-strategy.mdc) ✅/❌
 
-**Success Criteria**:
-- 100% of architectural changes have DD-XXX documentation
-- DD-XXX created before or during implementation (not after)
-- All DD-XXX entries include 2-3 alternatives with confidence assessments
+❌ STOP: Cannot generate documentation until ALL checkboxes are ✅
+```
 
----
-
-## 🎯 **APDC Integration**
-
-This rule integrates with APDC methodology:
-
-| APDC Phase | DD-XXX Integration |
-|---|---|
-| **Analysis** | Search for similar patterns, identify alternatives |
-| **Plan** | Document alternatives, get user approval, create DD-XXX |
-| **Do** | Reference DD-XXX in code comments and implementation docs |
-| **Check** | Verify DD-XXX documentation complete and accurate |
-
-**Priority**: BEHAVIORAL - Controls AI assistant documentation behavior within APDC framework
+**RULE VIOLATION DETECTION**:
+If ANY checkbox is ❌ → "🚨 TESTING COVERAGE STANDARD VIOLATION: Documentation uses incorrect integration coverage - DEVELOPMENT STOPPED"
 
 ---
 
-## 📖 **Examples**
+## 🎯 **Quick Reference Card**
 
-### **Example 1: Existing DD-001**
-
-**Scenario**: Recovery context enrichment decision
-**DD-XXX**: DD-001
-**Referenced In**:
-- `docs/requirements/04_WORKFLOW_ENGINE_ORCHESTRATION.md` (BR-WF-RECOVERY-011)
-- `docs/services/crd-controllers/01-signalprocessing/controller-implementation.md` (code comments)
-- `docs/services/crd-controllers/02-aianalysis/controller-implementation.md` (design status box)
-- `docs/services/crd-controllers/05-remediationorchestrator/controller-implementation.md` (function header)
-
-### **Example 2: Hypothetical DD-002**
-
-**Scenario**: Choosing BDD testing framework (Ginkgo/Gomega vs. standard Go testing)
-**DD-XXX**: DD-002 (to be created)
-**Should Reference In**:
-- `.cursor/rules/03-testing-strategy.mdc` (testing framework rationale)
-- All `*_test.go` files (comment header)
-- `docs/services/*/testing-strategy.md` (framework selection explanation)
+| Aspect | Correct Standard | Incorrect (Avoid) | Rationale |
+|--------|-----------------|-------------------|-----------|
+| **Unit** | 70%+ | 70% (exact) | ALL unit-testable BRs, not just 70% |
+| **Integration** | **>50%** | <20% or 20% | **Microservices coordination** |
+| **E2E** | 10-15% | <10% | Range accounts for service type |
 
 ---
 
-## ✅ **Compliance Checklist**
+## 📚 **Reference Authority Hierarchy**
 
-Before merging code with architectural changes:
+1. **PRIMARY**: [03-testing-strategy.mdc](mdc:.cursor/rules/03-testing-strategy.mdc) (lines 72-86)
+2. **SECONDARY**: Service-specific `testing-strategy.md` files (must reference primary)
+3. **TERTIARY**: Implementation plans (must reference primary or secondary)
 
-- [ ] **DD-XXX exists** in `docs/architecture/DESIGN_DECISIONS.md`
-- [ ] **2-3 alternatives** documented with pros/cons
-- [ ] **User approval** documented in DD-XXX
-- [ ] **Confidence assessment** provided (XX%)
-- [ ] **Code comments** reference DD-XXX
-- [ ] **Implementation docs** include design decision status box
-- [ ] **Business requirements** (if applicable) link to DD-XXX
-- [ ] **Related decisions** cross-referenced
+**CONFLICT RESOLUTION**: If any document conflicts with 03-testing-strategy.mdc, the rule file is AUTHORITATIVE.
 
 ---
 
-## 🔗 **Integration with Other Rules**
+## 🔧 **Maintenance Protocol**
 
-This rule **complements**:
-- [00-core-development-methodology.mdc](mdc:.cursor/rules/00-core-development-methodology.mdc) - APDC Analysis phase
-- [06-documentation-standards.mdc](mdc:.cursor/rules/06-documentation-standards.mdc) - General documentation
-- [13-conflict-resolution-matrix.mdc](mdc:.cursor/rules/13-conflict-resolution-matrix.mdc) - Priority hierarchy
+### **When to Update This Rule**
+- Architecture changes (e.g., move from microservices to monolithic)
+- Testing strategy evolution (documented in ADR)
+- Discovery of new inconsistencies
 
-**Priority**: BEHAVIORAL (Level 4) - Enforces documentation within APDC framework
+### **Update Process**
+1. Update [03-testing-strategy.mdc](mdc:.cursor/rules/03-testing-strategy.mdc) first (with ADR if significant)
+2. Update this rule file (15-testing-coverage-standards.mdc)
+3. Run detection commands to find affected files
+4. Update all affected documentation systematically
+5. Create PR with "testing-coverage-standards" label
 
 ---
 
-## 📚 **References**
+## ✅ **Success Criteria**
 
-- [Architecture Decision Records (ADR)](https://adr.github.io/) - Industry best practices
-- [DESIGN_DECISIONS.md](mdc:docs/architecture/DESIGN_DECISIONS.md) - Kubernaut DD-XXX index
-- [DD-001 Example](mdc:docs/architecture/DESIGN_DECISIONS.md#dd-001-recovery-context-enrichment-alternative-2) - Reference implementation
+This rule is successful when:
+- ✅ All new documentation uses ">50%" for integration tests
+- ✅ Zero instances of "<20%" or "20%" in non-archived documentation
+- ✅ All service documentation references microservices rationale
+- ✅ AI assistant blocks incorrect coverage documentation
+
+---
+
+**Document Status**: ✅ Active
+**Created**: 2025-11-18
+**Last Updated**: 2025-11-18
+**Priority Level**: 4 - ENFORCEMENT (per conflict-resolution-matrix)
+**Authority**: Enforces 03-testing-strategy.mdc standards
 
 ---
 > Source: [jordigilh/kubernaut](https://github.com/jordigilh/kubernaut) — distributed by [TomeVault](https://tomevault.io).
