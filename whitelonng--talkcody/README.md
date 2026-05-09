@@ -7,11 +7,11 @@ Based on the Talkcode Project Expansion Function
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [whitelonng/Talkcody](https://github.com/whitelonng/Talkcody).
+Original source: `CLAUDE.md` in [whitelonng/Talkcody](https://github.com/whitelonng/Talkcody).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
