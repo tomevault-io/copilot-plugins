@@ -1,0 +1,9 @@
+{
+  "name": "chriscox--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Reusable skills for AI coding agents \u2014 Claude Code, Codex, Gemini CLI, and OpenClaw",
+  "version": "1.0.0",
+  "author": "chriscox",
+  "homepage": "https://github.com/chriscox/agent-skills",
+  "skills": []
+}
