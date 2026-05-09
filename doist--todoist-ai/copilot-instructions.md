@@ -1,44 +1,23 @@
-## todoist-ai
+## context7
 
-> - Google Gemini API fails with nullable types in OpenAPI 3.1 format
+> Use context7 when referencing library documentation to ensure up-to-date and accurate information
 
-# Todoist AI MCP Server - Cursor Rules
+# Context7 Documentation Tool
 
-## Critical: Tool Schema Compatibility
+**Always use context7 for up-to-date library documentation.**
 
-### NEVER use .nullable() in tool schemas
-- Google Gemini API fails with nullable types in OpenAPI 3.1 format
-- Use `.optional()` only for optional string fields
-- See PR #181 for reference
+Use for:
+- Library API references
+- Framework documentation  
+- Package usage examples
+- Version-specific features
+- Migration guides
 
-### Pattern for clearing optional fields:
-```typescript
-// ❌ WRONG - breaks Gemini
-fieldName: z.string().nullable().optional()
+## Best Practices
 
-// ✅ CORRECT
-fieldName: z.string().optional()
-
-// Runtime handling for clearing:
-if (fieldValue === null || fieldValue === 'remove') {
-    updateArgs = { ...updateArgs, fieldName: null }
-}
-```
-
-### Use special strings for removal:
-- Use "unassign" for assignments
-- Use "remove" for other clearable fields
-- Document in schema descriptions
-
-## Testing Requirements
-- Add tests for new parameters
-- All 333+ tests must pass
-- Verify build and type-check
-
-## Documentation
-- Update schema descriptions
-- Update src/mcp-server.ts guidelines
-- Add usage examples
+- Always resolve library ID first
+- Be specific about topics when possible
+- Prefer context7 over web search for established libraries
 
 ---
 > Source: [Doist/todoist-ai](https://github.com/Doist/todoist-ai) — distributed by [TomeVault](https://tomevault.io).
