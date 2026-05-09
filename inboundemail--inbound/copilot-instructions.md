@@ -1,54 +1,219 @@
-## api-management
+## autumn-pricing
 
-> When working on an API route it must have a 3-4 line description of what the API does on the top.
+> This project uses Autumn for pricing, billing, and subscription management. Here are the key patterns and configurations:
 
+# Autumn Pricing Integration Guide
 
-When working on an API route it must have a 3-4 line description of what the API does on the top. 
+This project uses Autumn for pricing, billing, and subscription management. Here are the key patterns and configurations:
 
-For every API function like /api/(version)/domains there will be a:
+## Core Integration Functions
 
-- GET (retrieving information)
-- POST (creating information)
-- DELETE (deleting information)
-- PUT (updating information)
+There are 3 essential functions for implementing pricing:
 
-## Authentication Pattern
+1. **`attach()`** - Redirects customers to Stripe checkout when they click "Upgrade to Pro"
+2. **`check()`** - Checks if customers have remaining usage and permissions for features
+3. **`track()`** - Sends usage events to Autumn for billing tracking
 
-Remember every API function must try to either auth via session or via API key.
+## Client-Side Hooks
 
-Check if a session is valid first, then if there is no session check the request headers for an Authorization header.
+### Basic Setup
+Import the main hooks from `autumn-js/react`:
 
-If there is an Authorization header, check if it is a valid API key.
+```typescript
+import { useAutumn, useCustomer } from "autumn-js/react";
 
-## Error Handling Standards
+const { attach, check, track } = useAutumn();
+const { customer, refetch } = useCustomer();
+```
 
-### Response Format
-All API responses should follow a consistent format:
-- Success: `{ success: true, data: {...} }`
-- Error: `{ success: false, error: "message", details?: "additional info" }`
+### Usage Patterns
 
-### Error Status Codes
-- 400: Bad Request (validation errors, missing fields)
-- 401: Unauthorized (invalid auth)
-- 403: Forbidden (valid auth but insufficient permissions)
-- 404: Not Found (resource doesn't exist)
-- 409: Conflict (resource already exists)
-- 500: Internal Server Error (unexpected errors)
+```typescript
+// Purchase/Upgrade Flow
+await attach({ 
+  productId: "pro",
+  dialog: ProductChangeDialog // Optional: for upgrade flows
+});
 
-### Error Logging
-- Use console.log with emoji prefixes for better visibility
-- Include operation context: `console.log('📋 GET /api/v1/endpoints - Fetching user endpoints')`
-- Log errors with full context: `console.error('❌ POST /api/v1/endpoints - Error:', error)`
+// Feature Permission Check
+const { data } = await check({ 
+  featureId: "messages",
+  dialog: PaywallDialog // Optional: for paywall flows
+});
 
-## Validation Requirements
+if (!data?.allowed) {
+  // Handle blocked access
+}
 
-### Input Validation
-- Always validate required fields before processing
-- Use type-safe validation (current: manual checks, future: Effect Schema)
-- Validate data types and formats (URLs, emails, etc.)
-- Return specific error messages for validation failures
+// Track Usage
+await track({ featureId: "messages" });
+```
 
-Make sure the functions you use are in the lib/ folder, make sure if you are creating a new function or file that it is in the correct lib/xyz folder like a domain related function should be in lib/domain-and-dns/<filename>.ts
+## Provider Setup
+
+The app should be wrapped with `AutumnProvider` in [app/layout.tsx](mdc:app/layout.tsx):
+
+```typescript
+import { AutumnProvider } from "autumn-js/react";
+
+<AutumnProvider backendUrl={process.env.BETTER_AUTH_URL || ""}>
+  {children}
+</AutumnProvider>
+```
+
+## Billing Flow Components
+
+### Product Change Dialog
+For handling upgrades, downgrades, and subscription changes:
+
+```bash
+bunx --bun shadcn@latest add https://ui.useautumn.com/classic/product-change-dialog.json
+```
+
+**Usage:**
+```typescript
+import ProductChangeDialog from "@components/autumn/product-change-dialog";
+
+<Button
+  onClick={async () =>
+    await attach({
+      productId: "pro",
+      dialog: ProductChangeDialog,
+    })
+  }
+/>
+```
+
+**Scenarios handled:**
+- `upgrade` - Customer upgrading their product
+- `downgrade` - Customer downgrading to another paid tier  
+- `cancel` - Customer downgrading to free product
+- `renew` - Customer reactivating cancelled product
+- `scheduled` - Product already scheduled for future
+- `active` - Customer already has the product
+
+### Paywall Dialog
+For blocking access and prompting upgrades:
+
+```bash
+bunx --bun shadcn@latest add https://ui.useautumn.com/classic/paywall-dialog.json
+```
+
+**Usage:**
+```typescript
+import PaywallDialog from "@components/autumn/paywall-dialog";
+
+const { data } = await check({
+  featureId: "ai-messages",
+  dialog: PaywallDialog,
+});
+```
+
+**Scenarios handled:**
+- `usage_limit` - Customer hit usage limit for feature
+- `feature_flag` - Customer doesn't have access to feature
+
+### Pricing Table
+For displaying available products and features:
+
+```bash
+bunx --bun shadcn@latest add https://ui.useautumn.com/classic/pricing-table.json
+```
+
+**Usage:**
+```typescript
+import { PricingTable } from "@components/autumn/pricing-table";
+
+export const PricingPage = () => (
+  <div>
+    <PricingTable />
+  </div>
+);
+```
+
+## Customization Files
+
+When installing components, these customization files are created:
+
+- `/lib/autumn/get-product-change-texts.tsx` - Customize product change dialog texts
+- `/lib/autumn/get-paywall-texts.tsx` - Customize paywall dialog texts
+
+## Component Styles
+
+Available style variants for all components:
+- `classic` - Default style
+- `clean` - Minimal style  
+- `dev` - Developer-focused style
+
+Change the URL in installation commands to use different styles. View all at pricecn.com.
+
+## Environment Variables
+
+Required for Autumn integration:
+- `BETTER_AUTH_URL` - Backend URL for Autumn provider
+- Stripe keys should be configured in Autumn dashboard
+
+## Common Implementation Patterns
+
+### Feature Gating
+```typescript
+const { check } = useAutumn();
+
+const handleFeatureUse = async () => {
+  const { data } = await check({ featureId: "premium-feature" });
+  
+  if (data?.allowed) {
+    // Execute feature
+    await track({ featureId: "premium-feature" });
+  } else {
+    // Show paywall or upgrade prompt
+  }
+};
+```
+
+### Subscription Status Display
+```typescript
+const { customer } = useCustomer();
+
+return (
+  <div>
+    <h1>Welcome {customer?.name}</h1>
+    <p>Plan: {customer?.product?.name}</p>
+    <p>Usage: {customer?.usage?.messages} messages used</p>
+  </div>
+);
+```
+
+### Conditional Feature Access
+```typescript
+const { customer } = useCustomer();
+const isPro = customer?.product?.id === "pro";
+
+return (
+  <div>
+    {isPro ? (
+      <PremiumFeature />
+    ) : (
+      <UpgradePrompt />
+    )}
+  </div>
+);
+```
+
+## Best Practices
+
+1. **Always check permissions** before allowing feature usage
+2. **Track usage immediately** after successful feature execution
+3. **Use dialogs for smooth UX** instead of direct redirects
+4. **Customize dialog texts** to match your brand voice
+5. **Handle loading states** during billing operations
+6. **Implement proper error handling** for failed payments
+7. **Test with Stripe test keys** before going live
+8. **Use TypeScript types** for customer and product data
+
+## Server-Side Integration
+
+For server-side feature checks and usage tracking, use Autumn's backend SDK with the same patterns as client-side hooks.
 
 ---
 > Source: [inboundemail/inbound](https://github.com/inboundemail/inbound) — distributed by [TomeVault](https://tomevault.io).
