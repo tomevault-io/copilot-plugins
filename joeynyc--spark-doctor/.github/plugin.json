@@ -1,0 +1,9 @@
+{
+  "name": "joeynyc--spark-doctor",
+  "displayName": "spark-doctor",
+  "description": "Local diagnostic CLI for NVIDIA DGX Spark (GB10). Detects power caps, unified memory pressure, thermal risk, Docker/runtime issues, and validates vLLM/Ollama/llama.cpp/SGLang recipes.",
+  "version": "1.0.0",
+  "author": "joeynyc",
+  "homepage": "https://github.com/joeynyc/spark-doctor",
+  "skills": []
+}
