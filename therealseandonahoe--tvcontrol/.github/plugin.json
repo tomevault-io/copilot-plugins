@@ -1,0 +1,9 @@
+{
+  "name": "therealseandonahoe--tvcontrol",
+  "displayName": "tvcontrol",
+  "description": "TVControl: TradingView MCP System. AI remote control for TradingView Desktop. 88 MCP tools, ~320 tests, full CLI parity. All local, no cloud calls.",
+  "version": "1.0.0",
+  "author": "TheRealSeanDonahoe",
+  "homepage": "https://github.com/TheRealSeanDonahoe/tvcontrol",
+  "skills": []
+}
