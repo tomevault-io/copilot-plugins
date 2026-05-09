@@ -1,0 +1,9 @@
+{
+  "name": "evolvingagentslabs--skillos",
+  "displayName": "skillos",
+  "description": "PoC about how generate an Agentic OS, based in Skills as programs",
+  "version": "1.0.0",
+  "author": "EvolvingAgentsLabs",
+  "homepage": "https://github.com/EvolvingAgentsLabs/skillos",
+  "skills": []
+}
