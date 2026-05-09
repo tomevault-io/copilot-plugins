@@ -1,0 +1,9 @@
+{
+  "name": "nathanstitt--pbtsdb",
+  "displayName": "pbtsdb",
+  "description": "TanStack DB adapter providing type-safe PocketBase integration ",
+  "version": "1.0.0",
+  "author": "nathanstitt",
+  "homepage": "https://github.com/nathanstitt/pbtsdb",
+  "skills": []
+}
