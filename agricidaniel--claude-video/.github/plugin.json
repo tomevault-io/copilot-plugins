@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--claude-video",
+  "displayName": "claude-video",
+  "description": "AI-powered video production suite for Claude Code. Edit, transcode, caption, analyze, generate (Veo), stock footage promos with contrast-aware text, shortform pipeline, and more.",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/claude-video",
+  "skills": []
+}
