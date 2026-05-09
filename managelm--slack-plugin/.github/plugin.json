@@ -1,0 +1,9 @@
+{
+  "name": "managelm--slack-plugin",
+  "displayName": "slack-plugin",
+  "description": "ManageLM integration for Slack \u2014 real-time alerts, slash commands, task execution, interactive approvals",
+  "version": "1.0.0",
+  "author": "managelm",
+  "homepage": "https://github.com/managelm/slack-plugin",
+  "skills": []
+}
