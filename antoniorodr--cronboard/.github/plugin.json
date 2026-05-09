@@ -1,0 +1,9 @@
+{
+  "name": "antoniorodr--cronboard",
+  "displayName": "cronboard",
+  "description": "A terminal-based dashboard for managing cron jobs locally and on servers.",
+  "version": "1.0.0",
+  "author": "antoniorodr",
+  "homepage": "https://github.com/antoniorodr/cronboard",
+  "skills": []
+}
