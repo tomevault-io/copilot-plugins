@@ -1,0 +1,9 @@
+{
+  "name": "romilly--video-transcriber",
+  "displayName": "video-transcriber",
+  "description": "Create a zip file containing a markdown file with png images from an mp4 video of a presentation.",
+  "version": "1.0.0",
+  "author": "romilly",
+  "homepage": "https://github.com/romilly/video-transcriber",
+  "skills": []
+}
