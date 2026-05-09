@@ -1,0 +1,9 @@
+{
+  "name": "compusophy--tempo-x402",
+  "displayName": "tempo-x402",
+  "description": "Autonomous AI colony on the blockchain. Self-replicating agents that clone, evolve their own source code, benchmark their IQ, share neural weights, and pay each other with crypto. All in Rust.",
+  "version": "1.0.0",
+  "author": "compusophy",
+  "homepage": "https://github.com/compusophy/tempo-x402",
+  "skills": []
+}
