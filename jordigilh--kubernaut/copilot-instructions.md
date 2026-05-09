@@ -1,353 +1,294 @@
-## 02-technical-implementation
+## 03-testing-strategy
 
-> Technical implementation standards: Go patterns, AI/ML integration, and system architecture
+> Testing strategy and patterns for kubernaut's defense-in-depth approach
 
-# Technical Implementation Standards
 
-## 🔧 **Go Coding Standards**
+# Testing Strategy for Kubernaut
 
-### Code Organization
-- **Business Names**: Use descriptive names reflecting business domain (`EffectivenessAssessor`, `WorkflowEngine`)
-- **Business Requirements**: Every component MUST serve documented business requirement (BR-[CATEGORY]-[NUMBER])
-- **Package Cohesion**: Group related functionality following DDD principles
-- **Interface Design**: Implement interfaces over concrete types for testability
-- **Unique Names**: Avoid duplicating structure names - use unique, business-aligned identifiers
+## 🔑 **CRITICAL: KUBERNETES CLIENT MANDATE**
 
-### Error Handling
+**AUTHORITATIVE RULE**: All services that interact with Kubernetes MUST use the approved K8s client interface:
+
+| Test Tier | MANDATORY Interface | Package |
+|-----------|---------------------|---------|
+| **Unit Tests** | **Fake K8s Client** | `sigs.k8s.io/controller-runtime/pkg/client/fake` |
+| **Integration Tests** | Real K8s API (envtest/KIND) | `sigs.k8s.io/controller-runtime/pkg/client` |
+| **E2E Tests** | Real K8s API (OCP/KIND) | `sigs.k8s.io/controller-runtime/pkg/client` |
+
+**❌ FORBIDDEN**: Custom `MockK8sClient` implementations - use fake client instead
+**✅ APPROVED**: `fake.NewClientBuilder()` for all unit tests requiring K8s interaction
+
+**See**: [ADR-004: Fake Kubernetes Client for Unit Testing](mdc:docs/architecture/decisions/ADR-004-fake-kubernetes-client.md)
+
+---
+
+## 📊 **Defense-in-Depth Testing Pyramid**
+
+### Coverage Targets: Per-Tier Testable Code Coverage (>=80%)
+
+**TDD Mandate**: Every business requirement MUST have a corresponding test. If a feature has no test, it risks not being implemented. Coverage is measured **per tier against the tier-specific code subset**.
+
+**Per-Tier Code Coverage** (AUTHORITATIVE):
+- **Unit**: >=80% of **unit-testable** code (pure logic: config, validators, scoring, builders, types)
+- **Integration**: >=80% of **integration-testable** code (I/O: reconciler, K8s clients, HTTP handlers, DB adapters)
+- **E2E**: >=80% of full service code (full stack execution)
+- **All Tiers**: >=80% merged (line-by-line dedup across all tiers)
+
+**Code Partitioning**: Each service defines `unit_exclude`/`int_include` patterns in `scripts/coverage/coverage_report.py` that partition code into unit-testable (pure logic) and integration-testable (I/O-dependent) subsets. See TESTING_GUIDELINES.md v2.7.0 "Code Partitioning" section.
+
+**Measurement**: `make coverage-report` (runs `scripts/coverage/coverage_report.py`)
+
+**Business Requirement (BR) Coverage** - OVERLAPPING:
+- **Unit**: 70%+ of ALL BRs (maximum coverage foundation)
+- **Integration**: >50% of ALL BRs (critical interactions)
+- **E2E**: <10% BR coverage (essential user journeys)
+
+**Key**: Same BRs tested at multiple tiers (e.g., retry logic in unit, integration, AND E2E)
+
+**See**: [TESTING_GUIDELINES.md](mdc:docs/development/business-requirements/TESTING_GUIDELINES.md) for full coverage model
+
+---
+
+## 🧪 **Test Tier Specifications**
+
+### Unit Tests (70%+ BRs, >=80% Unit-Testable Code Coverage)
+
+**Location**: `test/unit/`
+**Purpose**: Extensive business logic validation covering ALL unit-testable business requirements
+**Execution**: `make test`
+**Framework**: **Ginkgo/Gomega BDD** (MANDATORY - no standard Go testing)
+**Confidence**: 85-90%
+
+**Mock Strategy**:
 ```go
-// Always wrap errors with context
-return fmt.Errorf("operation description: %w", err)
+// ✅ CORRECT: Mock ONLY external dependencies
+var (
+    mockLLMProvider   *mocks.MockLLMProvider    // External: AI service
+    mockK8sClient     client.Client              // External: Use fake.NewClientBuilder()
+    mockVectorDB      *mocks.MockVectorDatabase  // External: Database
 
-// Use structured error types
-return &internal.BusinessError{
-    Operation: "workflow execution",
-    Cause:     err,
-    Context:   map[string]interface{}{"workflowID": id},
-}
-
-// Log with structured fields
-logger.WithError(err).WithField("operation", "validate").Error("validation failed")
+    // Use REAL business logic components
+    workflowBuilder   *engine.IntelligentWorkflowBuilder
+    safetyFramework   *platform.SafetyFramework
+    analyticsEngine   *insights.AnalyticsEngine
+)
 ```
 
-### Context and Cancellation
+**What to Mock**:
+- ✅ External APIs (LLM, HolmesGPT, OpenAI)
+- ✅ Databases (PostgreSQL, Vector DB, Redis)
+- ✅ Kubernetes API (use `fake.NewClientBuilder()`)
+- ✅ Network services (external HTTP/gRPC)
+
+**What to Keep Real**:
+- ✅ **ALL** business logic (`pkg/` code)
+- ✅ **ALL** internal algorithms
+- ✅ **ALL** business validators/analyzers/optimizers
+- ✅ **ALL** cross-package business interactions
+
+**See**: [Unit Test Patterns](mdc:docs/testing/TESTING_PATTERNS_QUICK_REFERENCE.md)
+
+---
+
+### Integration Tests (<20% BRs, 50% Code Coverage)
+
+**Location**: `test/integration/`
+**Purpose**: Critical component interactions requiring real infrastructure
+**Execution**: `make test-integration-[service]`
+**Framework**: Ginkgo/Gomega BDD with envtest/KIND
+**Confidence**: 75-85%
+
+**When to Write**:
+- ✅ CRD lifecycle with Kubernetes API
+- ✅ Database transaction coordination
+- ✅ Multi-service coordination flows
+- ✅ Complex state management requiring real infrastructure
+
+**Mock Strategy**:
 ```go
-// Always accept context as first parameter
-func ProcessWorkflow(ctx context.Context, workflow *Workflow) error
-
-// Respect context cancellation
-for {
-    select {
-    case <-ctx.Done():
-        return ctx.Err()
-    default:
-        // Continue processing
-    }
-}
-
-// Use context for request-scoped values
-traceID := ctx.Value("traceID").(string)
+// ✅ ZERO MOCKS for business logic
+// ✅ Real K8s API via envtest
+// ✅ Real databases via testcontainers
+// ✅ Mock ONLY external services (LLM, external APIs)
 ```
 
-### Type System Guidelines
-- **MANDATORY**: Avoid using `any` or `interface{}` unless absolutely necessary
-- **ALWAYS**: Use structured field values with specific types
-- **AVOID**: Local type definitions to resolve import cycles
-- **USE**: Shared types from `pkg/shared/types/` package instead
-- **PREFER**: Strongly-typed interfaces that reflect business domain concepts
+**See**: [Integration Test Infrastructure](mdc:docs/testing/INTEGRATION_E2E_NO_MOCKS_POLICY.md)
 
-## 🤖 **AI/ML Integration Architecture**
+---
 
-### Supported AI Providers
-| Provider | Use Case | Integration Path |
-|----------|----------|------------------|
-| **HolmesGPT** | Primary AI service | `pkg/ai/holmesgpt/client.go` |
-| **OpenAI** | GPT-3.5, GPT-4 models | Direct API integration |
-| **Anthropic** | Claude models | API client |
-| **Azure OpenAI** | Enterprise deployment | Azure SDK |
-| **AWS Bedrock** | Amazon AI service | AWS SDK |
-| **Ollama** | Local LLM deployment | Local API |
-| **Ramalama** | Local model serving | Local API |
+### E2E Tests (<10% BRs, 50% Code Coverage)
 
-### HolmesGPT Integration Pattern
+**Location**: `test/e2e/`
+**Purpose**: Essential customer-facing workflows in production-like environments
+**Execution**: `make test-e2e-[service]`
+**Framework**: Ginkgo/Gomega BDD with KIND/OCP clusters
+**Confidence**: 90-95%
+
+**When to Write**:
+- ✅ Critical user journeys (onboarding, alert → remediation)
+- ✅ End-to-end security flows (auth, RBAC)
+- ✅ Production deployment verification
+- ✅ Cross-service full-stack scenarios
+
+**Mock Strategy**:
 ```go
-// Use the unified HolmesGPT client
-holmesClient := holmesgpt.NewClient(config.HolmesGPT)
-response, err := holmesClient.AnalyzeAlert(ctx, alertData)
-if err != nil {
-    return fmt.Errorf("HolmesGPT analysis failed: %w", err)
-}
+// ✅ ZERO MOCKS for internal components
+// ✅ Real Kubernetes clusters (KIND/OCP)
+// ✅ Real databases and infrastructure
+// ✅ Mock LLM MAY be acceptable for test speed
 ```
 
-### AI Response Processing Pipeline
-1. **Structure Validation**: Ensure response matches expected schema
-2. **Confidence Scoring**: Evaluate AI recommendation confidence
-3. **Safety Validation**: Check recommendations against safety policies
-4. **Business Rule Validation**: Ensure recommendations align with business logic
+**See**: [E2E Testing Strategy](mdc:docs/testing/DEFENSE_IN_DEPTH_CI_CD_STRATEGY.md)
 
-### Confidence Thresholds
+---
+
+## 🚨 **Testing Anti-Patterns - FORBIDDEN**
+
+### **NULL-TESTING (Most Critical)**
 ```go
-type ConfidenceLevel struct {
-    High   float64 // >0.8 - Execute automatically
-    Medium float64 // 0.5-0.8 - Require approval
-    Low    float64 // <0.5 - Log only, no action
-}
+// ❌ FORBIDDEN: Weak assertions
+Expect(result).ToNot(BeNil())
+Expect(items).ToNot(BeEmpty())
+
+// ✅ CORRECT: Business outcome validation
+Expect(workflow.SafetyValidation).To(ContainElement("resource-limits"))
+Expect(analysis.ConfidenceScore).To(BeNumerically(">=", 0.8))
 ```
 
-### AI Safety and Reliability
+### **MOCK OVERUSE**
 ```go
-// Circuit breaker for AI service calls
-breaker := circuitbreaker.New(&Config{
-    Timeout:     30 * time.Second,
-    MaxRequests: 100,
-    Interval:    60 * time.Second,
+// ❌ FORBIDDEN: Mocking business logic
+mockValidator := mocks.NewMockWorkflowValidator()
+mockAnalyzer := mocks.NewMockPerformanceAnalyzer()
+
+// ✅ CORRECT: Real business components
+validator := business.NewWorkflowValidator()
+analyzer := business.NewPerformanceAnalyzer()
+```
+
+### **LIBRARY TESTING**
+```go
+// ❌ FORBIDDEN: Testing third-party libraries
+logger := logrus.New()
+Expect(logger).ToNot(BeNil())
+
+// ✅ CORRECT: Testing business logic
+logger := business.NewStructuredLogger(config)
+logger.LogWorkflowEvent("workflow-123", "completed")
+Expect(logger.GetLastEvent().WorkflowID).To(Equal("workflow-123"))
+```
+
+**Detection**: Run `make lint-test-patterns`
+**See**: [Anti-Pattern Detection Guide](mdc:docs/testing/ANTI_PATTERN_DETECTION.md)
+
+---
+
+## 📋 **Mandatory Requirements**
+
+### **1. Business Requirement Mapping**
+**MANDATORY**: ALL tests must reference test plan IDs (preferred) or business requirements
+
+**Test Identification Priority**:
+1. **PREFERRED**: Test Scenario ID (e.g., UT-WF-197-001, IT-GW-045-010) - enables methodical TDD execution
+2. **FALLBACK**: Business Requirement (BR-[CATEGORY]-[NUMBER]) - when test plan not available
+
+**Test Plan Locations**:
+- **Single-Service**: docs/services/{service-type}/{service-name}/TEST_PLAN.md
+- **Transactional/Cross-Service**: docs/testing/{BR-NAME}/ (for BRs impacting multiple services)
+- **Example**: docs/testing/BR-HAPI-197/ contains cross-service RCA integration test plans
+
+```go
+// PREFERRED: With Test Plan ID
+Describe("UT-WF-197-001: Workflow Creation with Safety Validation", func() {
+    It("should generate workflows with resource limits", func() {
+        // Test implementation
+    })
+})
+
+// FALLBACK: With BR Reference (no test plan)
+Describe("BR-WORKFLOW-001: Intelligent Workflow Generation", func() {
+    It("should generate workflows with safety validation", func() {
+        // Test implementation
+    })
 })
 ```
 
-#### Fallback Strategies
-1. **Primary**: HolmesGPT with full context
-2. **Secondary**: Direct LLM provider with reduced context
-3. **Fallback**: Rule-based decision making
-4. **Emergency**: Safe default actions only
 
-## 🗄️ **System Architecture Patterns**
+### **2. BDD Framework**
+**MANDATORY**: Use Ginkgo/Gomega for ALL tests (no standard Go testing)
 
-### Database Access
 ```go
-// PostgreSQL with connection pooling
-db := postgresql.NewPool(config.Database)
+// ❌ FORBIDDEN
+func TestWorkflow(t *testing.T) { }
 
-// Prepared statements
-stmt, err := db.Prepare("SELECT * FROM workflows WHERE id = $1")
-
-// Transaction management
-tx, err := db.Begin()
-defer tx.Rollback() // Will be ignored if committed
-// ... operations
-tx.Commit()
-
-// Vector database operations
-vectorDB := vector.NewClient(config.VectorDB)
-embeddings, err := vectorDB.SimilaritySearch(ctx, query, limit)
+// ✅ CORRECT
+var _ = Describe("Workflow Engine", func() {
+    It("should process workflows", func() {
+        // Test with Expect() assertions
+    })
+})
 ```
 
-### Kubernetes Client Patterns
+### **3. Real Business Logic**
+**MANDATORY**: Use real `pkg/` components, mock only external dependencies
+
 ```go
-// Use shared client
-k8sClient := k8s.NewClient(config.Kubernetes)
-defer k8sClient.Close()
+// ✅ CORRECT Pattern
+BeforeEach(func() {
+    // Mock external dependencies
+    mockLLM = testutil.NewMockLLMClient()
+    mockK8s = fake.NewClientBuilder().Build()
 
-// Safety checks before destructive operations
-if err := k8sClient.ValidateAccess(ctx, namespace, resource); err != nil {
-    return fmt.Errorf("insufficient permissions: %w", err)
-}
-
-// Dry-run validation
-if err := k8sClient.DryRun(ctx, operation); err != nil {
-    return fmt.Errorf("dry-run failed: %w", err)
-}
+    // Use REAL business components
+    engine = business.NewWorkflowEngine(mockLLM, mockK8s)
+    validator = business.NewSafetyValidator()
+    analyzer = business.NewPerformanceAnalyzer()
+})
 ```
 
-### Concurrency Patterns
-```go
-// Worker pools with resource limits
-pool := workerpool.New(maxWorkers)
+---
 
-// Circuit breakers for external services
-breaker := circuitbreaker.New(failureThreshold)
+## 🔧 **Validation Commands**
 
-// sync.Once for expensive initialization
-var once sync.Once
-once.Do(func() { initializeExpensiveResource() })
+```bash
+# Run test pyramid validation
+make test                          # Unit tests
+make test-integration-[service]    # Integration tests
+make test-e2e-[service]            # E2E tests
 
-// Prefer channels over shared memory
-results := make(chan ProcessingResult, bufferSize)
+# Check for anti-patterns
+make lint-test-patterns            # Detect NULL-TESTING, mock overuse
+
+# Verify business integration
+make lint-business-integration     # Check cmd/ integration
+
+# Verify TDD compliance
+make lint-tdd-compliance           # Check BDD framework, BR references
 ```
 
-## 🧠 **Workflow Engine AI Integration**
+---
 
-### Intelligent Workflow Builder
-**Location**: `pkg/workflow/engine/intelligent_workflow_builder_impl.go`
-- AI-generated multi-step remediation workflows
-- Dynamic template generation based on alert patterns
-- Learning from historical workflow effectiveness
+## 📚 **Complete Documentation**
 
-### AI Condition Evaluator
-**Location**: `pkg/workflow/engine/ai_condition_evaluator_impl.go`
-- Intelligent step condition evaluation
-- Context-aware decision making
-- Pattern recognition for workflow branching
+- **[Testing Strategy Guide](mdc:docs/testing/README.md)** - Complete testing documentation index
+- **[Pyramid Migration Guide](mdc:docs/testing/PYRAMID_TEST_MIGRATION_GUIDE.md)** - 8-week migration plan
+- **[Testing Patterns Quick Reference](mdc:docs/testing/TESTING_PATTERNS_QUICK_REFERENCE.md)** - Daily development reference
+- **[Anti-Pattern Detection](mdc:docs/testing/ANTI_PATTERN_DETECTION.md)** - Violation detection and remediation
+- **[Integration/E2E No-Mocks Policy](mdc:docs/testing/INTEGRATION_E2E_NO_MOCKS_POLICY.md)** - Zero mocks mandate
+- **[CI/CD Strategy](mdc:docs/testing/DEFENSE_IN_DEPTH_CI_CD_STRATEGY.md)** - Defense-in-depth execution
 
-### Context Enrichment
-- **Kubernetes Context**: Real-time cluster data from `pkg/platform/k8s/client.go`
-- **Historical Context**: Action patterns from PostgreSQL via `pkg/ai/context/`
-- **Vector Context**: Similarity search from vector database
+---
 
-## 🔍 **Vector Database and Learning**
+## ⚡ **Quick Reference**
 
-### Embedding Generation
-**Location**: `pkg/ai/embedding/pipeline.go`
-- Support for multiple embedding models (OpenAI, HuggingFace)
-- Consistent embedding generation for similarity search
-- Caching for performance optimization
+| Test Tier | BR Coverage | Code Coverage (per-tier subset) | Framework | Mock Strategy |
+|-----------|-------------|-------------------------------|-----------|---------------|
+| **Unit** | 70%+ | >=80% of unit-testable | Ginkgo/Gomega | External deps only |
+| **Integration** | >50% | >=80% of integration-testable | Ginkgo/Gomega + envtest | Zero business mocks |
+| **E2E** | <10% | >=80% of full service | Ginkgo/Gomega + KIND | Zero internal mocks |
+| **All Tiers** | — | >=80% merged | — | — |
 
-### Pattern Discovery
-**Location**: `pkg/intelligence/patterns/pattern_discovery_engine.go`
-- Identify recurring alert patterns
-- Discover correlation between actions and outcomes
-- Generate insights for proactive maintenance
-
-### Effectiveness Assessment
-**Location**: `pkg/ai/insights/assessor.go`
-- Track action outcomes and effectiveness
-- Learn from successful and failed interventions
-- Adjust confidence scores based on historical performance
-
-## 🧪 **Testing Patterns**
-
-### Testing Strategy - Defense-in-Depth
-- **MANDATORY**: Follow TDD methodology from [00-core-development-methodology.mdc](mdc:.cursor/rules/00-core-development-methodology.mdc)
-- **Framework**: Use Ginkgo/Gomega BDD testing
-- **Pyramid Strategy**: 70%+ unit, <20% integration, <10% e2e (per [03-testing-strategy.mdc](mdc:.cursor/rules/03-testing-strategy.mdc))
-- **Business Outcomes**: Validate business results, not implementation details
-- **Requirements**: All tests must reference specific business requirements (BR-[CATEGORY]-[NUMBER])
-- **Real Business Logic**: Use actual business components in unit tests with external mocks only
-
-### Mock Usage Decision Matrix - Defense-in-Depth Strategy
-| Component Type | Action | Reason |
-|---------------|--------|--------|
-| **External AI APIs** | Always mock in unit tests | Reliability, cost control, speed |
-| **External Databases** | Always mock in unit tests | Speed, isolation, reproducibility |
-| **Business Logic** | **NEVER mock** - use real components | Unit tests validate actual business logic |
-| **Kubernetes APIs** | Always mock in unit tests | Safety, reproducibility, speed |
-| **Network Services** | Always mock in unit tests | Reliability, speed, error simulation |
-| **File System** | Always mock in unit tests | Isolation, reproducibility |
-
-### What NOT to Mock in Unit Tests
-| Business Component | Use Real Implementation | Reason |
-|-------------------|-------------------------|--------|
-| **Workflow Engine** | Real business logic | Core business functionality |
-| **Safety Framework** | Real business logic | Critical business rules |
-| **Analytics Engine** | Real business logic | Business calculation logic |
-| **Pattern Discovery** | Real business logic | Business intelligence |
-| **Effectiveness Assessor** | Real business logic | Business metrics |
-
-### AI Testing Patterns
-```go
-// Use mock AI services for unit tests
-mockAI := testutil.NewMockAIClient()
-mockAI.SetResponse("expected response")
-
-// Integration testing with real AI when available
-if !config.UseMockLLM {
-    realAIClient := holmesgpt.NewClient(config.HolmesGPT)
-}
-
-// Error simulation
-mockAI.SetError(errors.New("AI service unavailable"))
-```
-
-## ⚙️ **Configuration Management**
-
-### Configuration Pattern
-```go
-// YAML configuration files
-type Config struct {
-    Database    DatabaseConfig    `yaml:"database"`
-    AI          AIConfig         `yaml:"ai"`
-    Kubernetes  K8sConfig        `yaml:"kubernetes"`
-}
-
-// Environment variable overrides
-func LoadConfig() (*Config, error) {
-    config := &Config{}
-
-    // Load from YAML
-    if err := yaml.Unmarshal(configData, config); err != nil {
-        return nil, err
-    }
-
-    // Override with environment variables
-    if endpoint := os.Getenv("LLM_ENDPOINT"); endpoint != "" {
-        config.AI.Endpoint = endpoint
-    }
-
-    // Validation
-    return config.Validate()
-}
-```
-
-## 📊 **Performance and Monitoring**
-
-### Performance Optimization
-```go
-// Caching strategy
-cache := redis.NewClient(config.Redis)
-embeddings := cache.GetEmbeddings(query)
-if embeddings == nil {
-    embeddings = generateEmbeddings(query)
-    cache.SetEmbeddings(query, embeddings, ttl)
-}
-
-// Batch processing
-alerts := collectAlertsForBatch(batchSize)
-responses := aiClient.AnalyzeBatch(ctx, alerts)
-```
-
-### Monitoring Patterns
-```go
-// Metrics collection
-metrics.Counter("ai_requests_total").WithLabelValues(provider).Inc()
-metrics.Histogram("ai_response_duration").Observe(duration.Seconds())
-
-// Health checks
-func (c *AIClient) HealthCheck(ctx context.Context) error {
-    _, err := c.Ping(ctx)
-    return err
-}
-```
-
-## 🚨 **Anti-Patterns - FORBIDDEN**
-
-### Code Organization Anti-Patterns
-```go
-// ❌ WRONG: Generic/vague naming
-type Manager struct{}
-type Service struct{}
-
-// ✅ CORRECT: Business-domain naming
-type WorkflowEngine struct{}
-type EffectivenessAssessor struct{}
-```
-
-### Error Handling Anti-Patterns
-```go
-// ❌ WRONG: Ignoring errors
-result, _ := riskyOperation()
-
-// ✅ CORRECT: Proper error handling
-result, err := riskyOperation()
-if err != nil {
-    return fmt.Errorf("operation failed: %w", err)
-}
-```
-
-### AI Integration Anti-Patterns
-```go
-// ❌ WRONG: Hardcoded AI endpoints
-client := ai.NewClient("http://localhost:8080")
-
-// ✅ CORRECT: Configurable endpoints
-client := ai.NewClient(config.AI.Endpoint)
-```
-
-## 🔗 **Integration Points**
-
-**Enforces**: [00-core-development-methodology.mdc](mdc:.cursor/rules/00-core-development-methodology.mdc) principles
-**Supports**: [03-testing-strategy.mdc](mdc:.cursor/rules/03-testing-strategy.mdc) testing framework
-**Integrates**: [05-kubernetes-safety.mdc](mdc:.cursor/rules/05-kubernetes-safety.mdc) safety patterns
-**Guides**: All technical implementation following business requirements
-
-**Priority**: ESSENTIAL - foundational patterns for all technical implementation
+**Remember**: Mock external dependencies, use real business logic, validate business outcomes. **If a feature has no test, it risks not being implemented.**
 
 ---
 > Source: [jordigilh/kubernaut](https://github.com/jordigilh/kubernaut) — distributed by [TomeVault](https://tomevault.io).
