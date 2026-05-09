@@ -1,0 +1,9 @@
+{
+  "name": "davidb--dioxus-iconify",
+  "displayName": "dioxus-iconify",
+  "description": "CLI tool for importing/vendoring icons from [Iconify](https://icon-sets.iconify.design/) (material, lucid, heroicons,....) or from local SVG files in Dioxus projects",
+  "version": "1.0.0",
+  "author": "davidB",
+  "homepage": "https://github.com/davidB/dioxus-iconify",
+  "skills": []
+}
