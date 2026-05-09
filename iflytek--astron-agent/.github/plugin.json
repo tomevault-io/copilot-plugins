@@ -1,0 +1,9 @@
+{
+  "name": "iflytek--astron-agent",
+  "displayName": "astron-agent",
+  "description": "Enterprise-grade, commercial-friendly agentic workflow platform for building next-generation SuperAgents.",
+  "version": "1.0.0",
+  "author": "iflytek",
+  "homepage": "https://github.com/iflytek/astron-agent",
+  "skills": []
+}
