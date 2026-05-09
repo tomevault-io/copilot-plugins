@@ -1,0 +1,9 @@
+{
+  "name": "kenangonnot--rag-lab",
+  "displayName": "rag-lab",
+  "description": "Simple RAG application in python",
+  "version": "1.0.0",
+  "author": "kenanGonnot",
+  "homepage": "https://github.com/kenanGonnot/rag-lab",
+  "skills": []
+}
