@@ -1,9 +1,9 @@
 {
   "name": "jetbrains-research--the-complexity-trap",
   "displayName": "the-complexity-trap",
-  "description": "the-complexity-trap",
+  "description": "This repo accompanies the paper \"The Complexity Trap: Simple Observation Masking Is as Efficient as LLM Summarization for Agent Context Management\" presented at the Fourth Deep Learning for Code (DL4C",
   "version": "1.0.0",
   "author": "JetBrains-Research",
-  "homepage": "https://tomevault.io/claim/JetBrains-Research",
+  "homepage": "https://github.com/JetBrains-Research/the-complexity-trap",
   "skills": []
 }
