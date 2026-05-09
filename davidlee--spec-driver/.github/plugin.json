@@ -1,0 +1,9 @@
+{
+  "name": "davidlee--spec-driver",
+  "displayName": "spec-driver",
+  "description": "You install it. Claude drives the CLI tool. At first it might seem like too much. Eventually, nothing less will make sense. ",
+  "version": "1.0.0",
+  "author": "davidlee",
+  "homepage": "https://github.com/davidlee/spec-driver",
+  "skills": []
+}
