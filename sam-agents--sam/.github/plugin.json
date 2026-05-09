@@ -1,0 +1,9 @@
+{
+  "name": "sam-agents--sam",
+  "displayName": "sam",
+  "description": "SAM - Autonomous TDD agent system for Claude Code",
+  "version": "1.0.0",
+  "author": "sam-agents",
+  "homepage": "https://github.com/sam-agents/sam",
+  "skills": []
+}
