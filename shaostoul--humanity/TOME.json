@@ -1,0 +1,44 @@
+{
+  "name": "Humanity",
+  "owner": "Shaostoul",
+  "repo": "Humanity",
+  "description": "Humanity is an open, public-domain project exploring how humans can live together with dignity, cooperation, and long-term continuity. It combines civilizational principles with rigorous system design to model learning, stewardship, and peaceful scalability.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Shaostoul/Humanity",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T23:06:57Z"
+}
