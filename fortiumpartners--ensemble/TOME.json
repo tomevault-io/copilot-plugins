@@ -4,7 +4,7 @@
   "repo": "ensemble",
   "description": "Ensemble Plugin Ecosystem - Modular Claude Code plugins for AI-augmented development workflows",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FortiumPartners/ensemble",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T04:10:29Z"
+  "distributed_at": "2026-05-09T16:37:48Z"
 }
