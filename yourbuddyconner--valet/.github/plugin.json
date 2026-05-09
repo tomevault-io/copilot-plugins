@@ -1,7 +1,7 @@
 {
   "name": "yourbuddyconner--valet",
   "displayName": "valet",
-  "description": "valet",
+  "description": "Self-hosted background coding agents with full dev environments.",
   "version": "1.0.0",
   "author": "yourbuddyconner",
   "homepage": "https://github.com/yourbuddyconner/valet",
