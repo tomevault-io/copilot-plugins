@@ -1,84 +1,246 @@
-## 06-documentation-standards
+## 07-business-code-integration
 
-> Documentation standards and architecture guidelines for kubernaut
+> Business code integration patterns and validation requirements for kubernaut
 
+# Business Code Integration Standards
 
-# Documentation Standards for Kubernaut
+## Core Requirement - MANDATORY
 
-## Documentation Structure
+**Rule**: ALL business logic MUST be integrated into main application workflows
+**Prevention**: Design integration points during APDC Analysis and Plan phases
 
-### In-Repo Documentation (`docs/`)
+## Integration Definition
 
-Technical documentation for developers and contributors, organized into 7 directories:
+Business code is **properly integrated** when:
+1. **Main Application Entry**: Code is instantiated and used in main application entry points
+2. **Runtime Execution**: Code executes during normal application workflows (not just tests)
+3. **Dependency Chain**: All dependencies are properly wired in main application
+4. **Interface Implementation**: Interfaces are implemented by real business code (not just mocks)
+5. **Configuration Loading**: Business code configuration is loaded in main application
+6. **Error Integration**: Business code errors are handled in main application flow
+7. **Monitoring Integration**: Business code metrics are exposed in main application
 
-- **[docs/architecture/](mdc:docs/architecture/)** - Architectural Decision Records (ADRs), Design Decisions (DDs), diagrams, case studies, shared utilities patterns
-- **[docs/design/](mdc:docs/design/)** - CRD design specifications (`design/CRD/`)
-- **[docs/requirements/](mdc:docs/requirements/)** - Business requirements (`BR-*`), module documentation
-- **[docs/testing/](mdc:docs/testing/)** - Test plans, testing guidelines, patterns reference, per-issue test documentation
-- **[docs/operations/](mdc:docs/operations/)** - Deployment guides, build guides, CI/CD, troubleshooting, runbooks
-- **[docs/development/](mdc:docs/development/)** - APDC methodology, coding guidelines, getting-started guides, technical debt tracking
-- **[docs/services/](mdc:docs/services/)** - Per-service documentation split into `stateless/` and `crd-controllers/`
+## Integration Validation Matrix
 
-### User-Facing Documentation
+| Integration Aspect | Validation Method | Required Evidence |
+|-------------------|------------------|-------------------|
+| **Main Entry Point** | Code tracing from `cmd/*/main.go` | Direct instantiation or factory usage |
+| **Runtime Path** | Execution flow analysis | Normal workflow execution path |
+| **Dependency Wiring** | Dependency injection validation | All deps available at runtime |
+| **Interface Usage** | Implementation verification | Real implementations in main app |
+| **Configuration** | Config loading verification | Business config loaded in main |
+| **Error Handling** | Error flow analysis | Business errors handled in main |
+| **Monitoring** | Metrics integration check | Business metrics exposed |
 
-The public documentation site lives in a separate repository and is published at:
-[https://jordigilh.github.io/kubernaut-docs/](https://jordigilh.github.io/kubernaut-docs/)
+## 🚫 **IRONCLAD INTEGRATION VERIFICATION PROCESS**
 
-### Root-Level Files
+### **MANDATORY INTEGRATION VALIDATION - BLOCKING REQUIREMENTS**
 
-- [README.md](mdc:README.md) - Project overview and quick start
-- [CONTRIBUTING.md](mdc:CONTRIBUTING.md) - Contribution guidelines
-- [CODE_OF_CONDUCT.md](mdc:CODE_OF_CONDUCT.md) - Community code of conduct
-- [SECURITY.md](mdc:SECURITY.md) - Security vulnerability reporting
-- [CHANGELOG.md](mdc:CHANGELOG.md) - Release changelog
+**🚫 BLOCKING REQUIREMENT - BEFORE ANY BUSINESS CODE CREATION**:
 
-## Where to Put New Documentation
+<function_calls>
+<invoke name="Grep">
+<parameter name="pattern">[BusinessComponentType]</parameter>
+<parameter name="path">cmd/</parameter>
+<parameter name="output_mode">content</parameter>
+<parameter name="-n">true</parameter>
+</invoke>
+</function_calls>
 
-| Document Type | Location |
-|---|---|
-| Architectural decision (long-term impact) | `docs/architecture/decisions/DD-[CATEGORY]-NNN-title.md` or `ADR-NNN-title.md` |
-| Business requirement | `docs/requirements/BR-[CATEGORY]-NNN-title.md` |
-| Test plan for an issue/BR | `docs/testing/[ISSUE-ID]/TEST_PLAN.md` |
-| Service-specific guide | `docs/services/{stateless,crd-controllers}/[service-name]/` |
-| Deployment or operational guide | `docs/operations/deployment/` or `docs/operations/runbooks/` |
-| Development methodology or standards | `docs/development/` |
-| Troubleshooting guide | `docs/operations/troubleshooting/` |
+<function_calls>
+<invoke name="Task">
+<parameter name="subagent_type">general-purpose</parameter>
+<parameter name="description">Main application integration analysis</parameter>
+<parameter name="prompt">Analyze main applications in cmd/ directory to understand integration patterns. Find how similar business components are instantiated, configured, and wired into the application flow.</parameter>
+</invoke>
+</function_calls>
 
-## Code Documentation Standards
+```
+✅ INTEGRATION VERIFICATION CHECKPOINT:
+- [ ] Main application search executed ✅/❌
+- [ ] Integration patterns identified and documented ✅/❌
+- [ ] Similar component usage patterns discovered ✅/❌
+- [ ] Integration plan developed for cmd/ applications ✅/❌
+- [ ] Runtime execution path verified ✅/❌
 
-### Package Documentation
-- Document all exported functions, methods, and interfaces
-- Include parameter descriptions and potential errors
-- Provide usage examples for complex functions
+❌ STOP: Cannot create business code until ALL checkboxes are ✅
+```
 
-### Test Documentation
-- Use Ginkgo/Gomega BDD framework
-- Reference business requirements in test descriptions (e.g., `BR-AI-008`)
-- Reference test plan IDs when available (e.g., `UT-WF-197-001`)
+**🚫 MANDATORY INTEGRATION EVIDENCE - POST-IMPLEMENTATION**:
 
-## Architectural Decision Records
+<function_calls>
+<invoke name="Grep">
+<parameter name="pattern">[ImplementedBusinessComponent]</parameter>
+<parameter name="path">cmd/</parameter>
+<parameter name="output_mode">files_with_matches</parameter>
+</invoke>
+</function_calls>
 
-Store in [docs/architecture/decisions/](mdc:docs/architecture/decisions/):
-- **Design Decisions**: `DD-[CATEGORY]-NNN-title.md`
-- **Architecture Decision Records**: `ADR-NNN-title.md`
-- **Status**: Proposed, Accepted, Deprecated, Superseded
+<function_calls>
+<invoke name="Grep">
+<parameter name="pattern">New[BusinessComponent]|Create[BusinessComponent]</parameter>
+<parameter name="path">cmd/</parameter>
+<parameter name="output_mode">content</parameter>
+</invoke>
+</function_calls>
 
-## Testing Documentation
+```
+✅ INTEGRATION EVIDENCE CHECKPOINT:
+- [ ] Component appears in main applications ✅/❌
+- [ ] Component instantiation confirmed ✅/❌
+- [ ] Runtime execution path verified ✅/❌
+- [ ] No orphaned business code ✅/❌
 
-Location: [docs/testing/](mdc:docs/testing/)
-- [docs/testing/README.md](mdc:docs/testing/README.md) - Testing strategy overview
-- [docs/testing/TESTING_PATTERNS_QUICK_REFERENCE.md](mdc:docs/testing/TESTING_PATTERNS_QUICK_REFERENCE.md) - Daily patterns reference
-- [docs/testing/ANTI_PATTERN_DETECTION.md](mdc:docs/testing/ANTI_PATTERN_DETECTION.md) - Anti-pattern detection guide
-- Per-issue test plans in `docs/testing/[ISSUE-ID]/`
+❌ VIOLATION: If ANY checkbox is ❌ → "🚨 ORPHANED BUSINESS CODE VIOLATION: All business code MUST be integrated in main applications - DEVELOPMENT STOPPED"
+```
 
-## Writing Style Guidelines
+### Step 1: Call Graph Analysis (Tool-Enforced)
+```bash
+# MANDATORY: Execute these validation commands
+grep -r "[BusinessComponentType]" cmd/ --include="*.go"
+find pkg/ -name "*.go" -not -name "*_test.go" -exec grep -l "[BusinessComponentType]" {} \;
+```
 
-- Use clear, concise language
-- Write in active voice
-- Use present tense for current functionality
-- Include concrete examples and code snippets
-- Structure content with clear headings and bullet points
-- Ensure all code examples are tested and functional
+### Step 2: Runtime Path Verification
+```go
+// Add integration validation to main application startup
+func validateBusinessIntegration() error {
+    // Verify each business component is properly integrated
+    if businessComponent == nil {
+        return fmt.Errorf("business component not integrated")
+    }
+
+    // Test business component can be invoked
+    if err := businessComponent.HealthCheck(); err != nil {
+        return fmt.Errorf("business component not functional: %w", err)
+    }
+
+    return nil
+}
+```
+
+### Step 3: Dependency Chain Validation
+```go
+// Verify all business code dependencies are available
+func validateDependencyChain() error {
+    requiredDeps := []string{"database", "vectorDB", "llmClient", "k8sClient"}
+
+    for _, dep := range requiredDeps {
+        if !isDependencyAvailable(dep) {
+            return fmt.Errorf("required dependency %s not available for business code", dep)
+        }
+    }
+
+    return nil
+}
+```
+
+## Integration Patterns
+
+### Pattern 1: Direct Main Application Integration
+```go
+// cmd/kubernaut/main.go
+func main() {
+    // Create business components
+    analyticsEngine := insights.NewAnalyticsEngine(deps...)
+    workflowBuilder := engine.NewIntelligentWorkflowBuilder(deps...)
+
+    // Integrate into main application flow
+    processor := processor.New(analyticsEngine, workflowBuilder)
+    server.Start(processor)
+}
+```
+
+### Pattern 2: Factory-Based Integration
+```go
+// cmd/dynamic-toolset-server/main.go
+func createBusinessComponents(config *Config) (*BusinessComponents, error) {
+    components := &BusinessComponents{
+        Analytics:       createAnalyticsEngine(config),
+        WorkflowBuilder: createWorkflowBuilder(config),
+    }
+    return components, components.Validate()
+}
+```
+
+### Pattern 3: Interface-Based Integration
+```go
+// Integration point
+func integrateBusinessLogic(engine WorkflowEngine, config *Config) {
+    analytics := insights.NewAnalyticsEngine(config.Analytics)
+    patterns := intelligence.NewPatternMatcher(config.Patterns)
+
+    engine.SetAnalyticsEngine(analytics)
+    engine.SetPatternMatcher(patterns)
+}
+```
+
+## Anti-Patterns - FORBIDDEN
+
+### Test-Only Business Code
+```go
+// ❌ WRONG: Business code only used in tests
+func TestAnalytics(t *testing.T) {
+    engine := insights.NewAnalyticsEngine() // Only used here!
+}
+
+// ✅ CORRECT: Business code used in main application
+func main() {
+    engine := insights.NewAnalyticsEngine()
+    processor.SetAnalyticsEngine(engine)
+}
+```
+
+### Mock-Only Interfaces
+```go
+// ❌ WRONG: Interface only implemented by mocks
+type BusinessService interface { Process() error }
+type MockBusinessService struct{}  // Only implementation
+
+// ✅ CORRECT: Real implementation used in main
+type RealBusinessService struct{}
+func main() {
+    service := &RealBusinessService{}
+    app.SetBusinessService(service)
+}
+```
+
+## Prevention-Focused Integration
+
+### Integration Verification Through APDC
+**Prevention-focused approach**:
+1. **APDC Analysis**: Search for existing components and usage patterns
+2. **APDC Plan**: Design integration points before implementation begins
+3. **APDC Do-GREEN**: Integrate component during GREEN phase (mandatory)
+4. **APDC Check**: Verify integration success through main app validation
+
+### Integration Success Indicators
+**Built-in quality indicators**:
+- ✅ Component instantiated in main application entry points
+- ✅ Runtime execution path confirmed in normal workflows
+- ✅ Dependency chain properly wired in main application
+- ✅ Business errors handled in main application flow
+
+## Enforcement Protocol
+
+### Integration Failure Response
+1. **STOP**: Halt development until integration fixed
+2. **INTEGRATE**: Add component to main application
+3. **VERIFY**: Confirm integration through APDC Check phase validation
+4. **DOCUMENT**: Record integration approach
+
+### Continuous Prevention
+**Prevention through APDC methodology**:
+- **Analysis Phase**: Identify integration points before coding
+- **Plan Phase**: Design component usage in main applications
+- **Do-GREEN Phase**: Mandatory integration during minimal implementation
+- **Check Phase**: Verify integration success before completion
+
+## Integration Points
+
+**Enforces**: [00-core-development-methodology.mdc](mdc:.cursor/rules/00-core-development-methodology.mdc) integration mandate
+**Supports**: [03-testing-strategy.mdc](mdc:.cursor/rules/03-testing-strategy.mdc) business requirement testing
+**Priority**: MANDATORY - no business code without main application integration
 
 ---
 > Source: [jordigilh/kubernaut](https://github.com/jordigilh/kubernaut) — distributed by [TomeVault](https://tomevault.io).
