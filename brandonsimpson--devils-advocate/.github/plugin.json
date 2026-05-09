@@ -1,0 +1,9 @@
+{
+  "name": "brandonsimpson--devils-advocate",
+  "displayName": "devils-advocate",
+  "description": "A Claude Code plugin that adds adversarial self-critique to every task. Claude scores its own work across multiple dimensions, identifies weaknesses, and proposes improvements \u2014 before you ship anythi",
+  "version": "1.0.0",
+  "author": "brandonsimpson",
+  "homepage": "https://github.com/brandonsimpson/devils-advocate",
+  "skills": []
+}
