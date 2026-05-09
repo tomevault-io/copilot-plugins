@@ -1,0 +1,9 @@
+{
+  "name": "aasimsani--gwt-zsh",
+  "displayName": "gwt-zsh",
+  "description": "Stupidly simple git worktree management - Smart branch naming, interactive pruning, and automatic config copying for ZSH",
+  "version": "1.0.0",
+  "author": "aasimsani",
+  "homepage": "https://github.com/aasimsani/gwt-zsh",
+  "skills": []
+}
