@@ -1,136 +1,74 @@
-## powershell
+## self-improve
 
-> 本文件定义了在使用 AI 辅助编程时，应遵循的 PowerShell 语法和风格规范，以确保生成代码的正确性、可读性和一致性。AI 应严格遵守以下规则。
+> Guidelines for continuously improving Cursor rules based on emerging code patterns and best practices.
 
-# AI PowerShell 协作规则 (PowerShell Rules for AI)
 
-本文件定义了在使用 AI 辅助编程时，应遵循的 PowerShell 语法和风格规范，以确保生成代码的正确性、可读性和一致性。AI 应严格遵守以下规则。
+- **Rule Improvement Triggers:**
+  - New code patterns not covered by existing rules
+  - Repeated similar implementations across files
+  - Common error patterns that could be prevented
+  - New libraries or tools being used consistently
+  - Emerging best practices in the codebase
 
-## 1. 核心原则
+- **Analysis Process:**
+  - Compare new code with existing rules
+  - Identify patterns that should be standardized
+  - Look for references to external documentation
+  - Check for consistent error handling patterns
+  - Monitor test patterns and coverage
 
-- **原生优先**: 总是优先使用 PowerShell 原生 Cmdlet，而不是 Unix/Linux 命令。
-- **对象管道**: 理解 PowerShell 的管道传递的是结构化对象（.NET Objects），而不是纯文本。
-- **禁止别名**: 为保证脚本清晰无歧义，禁止在最终代码中使用 `curl`, `ls`, `cat` 等常用别名，应使用其完整的 Cmdlet 名称。
+- **Rule Updates:**
+  - **Add New Rules When:**
+    - A new technology/pattern is used in 3+ files
+    - Common bugs could be prevented by a rule
+    - Code reviews repeatedly mention the same feedback
+    - New security or performance patterns emerge
 
-## 2. 命令执行与分隔符
+  - **Modify Existing Rules When:**
+    - Better examples exist in the codebase
+    - Additional edge cases are discovered
+    - Related rules have been updated
+    - Implementation details have changed
 
-此规则用于确保命令序列的正确执行。
-
-- **❌ 禁止**: 使用 `&&` 连接命令，此语法在 PowerShell 中无效。
-
-  ```powershell
-  # 错误：此命令会失败
-  cd ./my-app && npm install
+- **Example Pattern Recognition:**
+  ```typescript
+  // If you see repeated patterns like:
+  const data = await prisma.user.findMany({
+    select: { id: true, email: true },
+    where: { status: 'ACTIVE' }
+  });
+  
+  // Consider adding to [prisma.mdc](mdc:.cursor/rules/prisma.mdc):
+  // - Standard select fields
+  // - Common where conditions
+  // - Performance optimization patterns
   ```
 
-- **✅ 正确**: 使用换行（推荐）或分号 (`;`) 分隔命令。
+- **Rule Quality Checks:**
+  - Rules should be actionable and specific
+  - Examples should come from actual code
+  - References should be up to date
+  - Patterns should be consistently enforced
 
-  ```powershell
-  # 推荐方式：使用换行，清晰易读
-  cd ./my-app
-  npm install
-  ```
+- **Continuous Improvement:**
+  - Monitor code review comments
+  - Track common development questions
+  - Update rules after major refactors
+  - Add links to relevant documentation
+  - Cross-reference related rules
 
-## 3. Unix 命令替代方案
+- **Rule Deprecation:**
+  - Mark outdated patterns as deprecated
+  - Remove rules that no longer apply
+  - Update references to deprecated rules
+  - Document migration paths for old patterns
 
-必须使用 PowerShell 的等效命令替换所有常见的 Unix 命令。
-
-### 文本搜索 (Grep)
-
-- **❌ 错误**
-
-  ```powershell
-  # PowerShell 中没有 grep 命令
-  npm list | grep "react"
-  ```
-
-- **✅ 正确**: 使用 `Select-String`。
-
-  ```powershell
-  npm list | Select-String -Pattern "react"
-  ```
-
-### 查看文件内容 (Cat / Head / Tail)
-
-- **❌ 错误**
-
-  ```powershell
-  # PowerShell 中没有 cat, head, tail 命令
-  cat package.json
-  head -n 10 package.json
-  ```
-
-- **✅ 正确**: 使用 `Get-Content` 结合 `Select-Object`。
-
-  ```powershell
-  # 查看整个文件 (替代 cat)
-  Get-Content ./package.json
-
-  # 查看文件前 10 行 (替代 head)
-  Get-Content ./package.json | Select-Object -First 10
-  ```
-
-### **创建多个目录 (mkdir -p)**
-
-- **❌ 错误**: 使用 Unix 的 `-p` 参数和空格分隔的路径。
-
-  ```powershell
-  # 错误：PowerShell 不识别 -p 参数，也不接受用空格分隔的多个路径
-  mkdir -p src\components src\pages src\types
-  ```
-
-- **✅ 正确**: 使用 `New-Item`，将所有路径作为一个**数组**传给 `-Path` 参数，并使用 `-Force` 开关。
-
-  ```powershell
-  # 正确：-Path 接受一个逗号分隔的数组，-Force 确保父目录存在
-  New-Item -ItemType Directory -Path "src\components", "src\pages", "src\types" -Force
-  ```
-
-### 列出文件 (ls)
-
-- **❌ 错误**
-
-  ```powershell
-  # ls 是别名，规则禁止使用别名
-  ls -l
-  ```
-
-- **✅ 正确**: 使用 `Get-ChildItem`。
-
-  ```powershell
-  Get-ChildItem -Path .
-  ```
-
-## 4. 网络请求
-
-- **❌ 规则**: 严禁使用 `curl`。
-
-  **原因**: PowerShell 中的 `curl` 是 `Invoke-WebRequest` 的一个别名，其参数和行为与 Linux/macOS 的 `curl` **完全不同**，极易引起混淆和错误。
-
-- **✅ 正确**: 使用 `Invoke-RestMethod` 或 `Invoke-WebRequest`。
-
-  ```powershell
-  # 推荐用于 API 请求，它会自动解析 JSON
-  $data = Invoke-RestMethod -Uri "[https://api.example.com/data](https://api.example.com/data)"
-  ```
-
-## 5. 命令速查表
-
-在生成代码时，请参考此表进行命令替换。
-
-| Unix 命令 | PowerShell 等效命令 | 完整 cmdlet (推荐使用) |
-| :--- | :--- | :--- |
-| `grep` | `Select-String` | `Select-String` |
-| `head` | `Select-Object -First N` | `Select-Object` |
-| `tail` | `Select-Object -Last N` | `Select-Object` |
-| `cat` | `Get-Content` | `Get-Content` |
-| `ls` | `Get-ChildItem` | `Get-ChildItem` |
-| `mkdir` | `New-Item -ItemType Directory` | `New-Item` |
-| `pwd` | `Get-Location` | `Get-Location` |
-| `cp` | `Copy-Item` | `Copy-Item` |
-| `mv` | `Move-Item` | `Move-Item` |
-
-| `rm` | `Remove-Item` | `Remove-Item` |
+- **Documentation Updates:**
+  - Keep examples synchronized with code
+  - Update references to external docs
+  - Maintain links between related rules
+  - Document breaking changes
+Follow [cursor_rules.mdc](mdc:.cursor/rules/cursor_rules.mdc) for proper rule formatting and structure.
 
 ---
 > Source: [gaoxt/zhouwenwang](https://github.com/gaoxt/zhouwenwang) — distributed by [TomeVault](https://tomevault.io).
