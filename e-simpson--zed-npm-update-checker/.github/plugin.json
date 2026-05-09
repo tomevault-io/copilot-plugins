@@ -1,0 +1,9 @@
+{
+  "name": "e-simpson--zed-npm-update-checker",
+  "displayName": "zed-npm-update-checker",
+  "description": "Zed Extension/LSP that shows package.json updates",
+  "version": "1.0.0",
+  "author": "e-simpson",
+  "homepage": "https://github.com/e-simpson/zed-npm-update-checker",
+  "skills": []
+}
