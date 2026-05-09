@@ -1,0 +1,34 @@
+{
+  "name": "berrzebb--zeroquant",
+  "displayName": "zeroquant",
+  "description": "Rust \uae30\ubc18 \uace0\uc131\ub2a5 \uc790\ub3d9\ud654 \ud2b8\ub808\uc774\ub529 \uc2dc\uc2a4\ud15c",
+  "version": "1.0.0",
+  "author": "berrzebb",
+  "homepage": "https://github.com/berrzebb/zeroquant",
+  "skills": [
+    {
+      "name": "add-api",
+      "description": ""
+    },
+    {
+      "name": "add-component",
+      "description": ""
+    },
+    {
+      "name": "add-strategy",
+      "description": ""
+    },
+    {
+      "name": "crawl-api-spec",
+      "description": ""
+    },
+    {
+      "name": "diagnose",
+      "description": ""
+    },
+    {
+      "name": "shipping-code",
+      "description": ""
+    }
+  ]
+}
