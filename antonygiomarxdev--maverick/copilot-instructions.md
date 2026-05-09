@@ -1,18 +1,25 @@
-## rust-linter-configuration
+## rust-no-magic-values
 
-> Rust — formatter, Clippy, CI parity, and allow-attribute policy
+> Rust — avoid magic literals; use named constants, enums, and newtypes
 
 
-# Rust — linter and formatter configuration
+# Rust — no magic literals
 
-- **Source of truth**
-  - **Formatting**: [`rustfmt.toml`](rustfmt.toml) at the repo root (`edition`, `max_width`, import reordering, etc.). Run `cargo fmt --all` or `cargo fmt-check` (see [`.cargo/config.toml`](.cargo/config.toml)).
-  - **Shared lint levels**: [`Cargo.toml`](Cargo.toml) `[workspace.lints.*]` (Cargo 1.74+). Every workspace crate sets `[lints] workspace = true` to inherit a small **community-style baseline** (e.g. deny `unused_must_use`, deny `dbg_macro`, warn on `todo!` / `unimplemented!`, warn `unsafe_op_in_unsafe_fn`). This is versioned like a team ESLint config—**not** `clippy::pedantic`.
-  - **Clippy + rustc warnings**: CI runs `cargo clippy --all-targets --all-features -- -D warnings` (see [`.github/workflows/ci.yml`](.github/workflows/ci.yml)). Locally: `cargo lint` (alias in `.cargo/config.toml`).
-- **CI parity**: Before pushing, run `cargo fmt-check` and `cargo lint`; fix issues instead of widening ignores.
-- **`#[allow(...)]` / `#[expect(...)]`**: avoid blanket allows. If unavoidable, attach a **short comment** explaining why (false positive, interoperability, measured hot path). Prefer fixing the code or scoping the allow to the smallest item.
-- **Per-crate overrides**: rare; prefer workspace-wide consistency. If a crate needs an exception, document it next to the attribute and consider a follow-up issue.
-- **Editor integration**: rust-analyzer uses `rustfmt` and shows Clippy when `cargo clippy` or `check` runs with clippy as the check command; match the flags above when configuring “check on save”.
+- **Domain limits and protocol numbers** (frame sizes, ratios, timeouts, caps): `pub const` in a focused module per domain (`limits`, `defaults`, `lorawan`), not copy-pasted across files.
+- **Closed vocabularies** (states, telemetry sources, stable wire operation names): use an **enum** with a single place that defines representation (`Display`, `AsRef<str>`, or explicit `serde`). Do not scatter the same `&str` across layers.
+- **Identifiers and units**: **newtypes** (`struct DevEui(...)`) so sizes and parsing live in `impl`, not at every call site.
+- **SQL / columns / JSON keys**: constants or one `schema` / `keys` module in the adapter, not duplicated strings.
+- **Rule of thumb**: if a literal appears **twice** or crosses **core ↔ adapter ↔ I/O**, give it a name or a type.
+
+```rust
+// ❌ scattered
+if s.len() != 16 { ... }
+elevated_use_ratio: 0.75,
+
+// ✅ named / typed
+const EUI64_HEX_LEN: usize = 16;
+pub const ELEVATED_USE_RATIO_BALANCED: f32 = 0.75;
+```
 
 ---
 > Source: [antonygiomarxdev/maverick](https://github.com/antonygiomarxdev/maverick) — distributed by [TomeVault](https://tomevault.io).
