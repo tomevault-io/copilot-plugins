@@ -7,11 +7,11 @@ Python client SDK for connecting agents to any ADP-compliant server
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [agenticdataprotocol/python-sdk](https://github.com/agenticdataprotocol/python-sdk).
+Original source: `CLAUDE.md` in [agenticdataprotocol/python-sdk](https://github.com/agenticdataprotocol/python-sdk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
