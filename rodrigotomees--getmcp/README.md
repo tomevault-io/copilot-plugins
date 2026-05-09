@@ -7,11 +7,11 @@ One command. Every AI app. Install and configure MCP servers across 19 applicati
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [RodrigoTomeES/getmcp](https://github.com/RodrigoTomeES/getmcp).
+Original source: `CLAUDE.md` in [RodrigoTomeES/getmcp](https://github.com/RodrigoTomeES/getmcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
