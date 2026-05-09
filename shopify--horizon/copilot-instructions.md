@@ -1,14 +1,14 @@
-## switch-accessibility
+## tab-accessibility
 
-> Switch component accessibility compliance pattern
+> Tab component accessibility compliance pattern
 
-# Switch Component Accessibility Standards
+# Tab Component Accessibility Standards
 
-Ensures switch components follow WCAG compliance and WAI-ARIA Switch Pattern specifications.
+Ensures tab components follow WCAG compliance and WAI-ARIA Tab Pattern specifications.
 
 <rule>
-name: switch_accessibility_standards
-description: Enforce switch component accessibility standards and WAI-ARIA Switch Pattern compliance
+name: tab_accessibility_standards
+description: Enforce tab component accessibility standards and WAI-ARIA Tab Pattern compliance
 filters:
   - type: file_extension
     pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
@@ -16,124 +16,153 @@ filters:
 actions:
   - type: enforce
     conditions:
-      # Switch role requirement
-      - pattern: "(?i)<(div|span|button)[^>]*(?:switch|toggle)[^>]*>"
-        pattern_negate: "role=\"switch\""
-        message: "Switch elements must have role='switch' attribute."
+      # Tablist role requirement
+      - pattern: "(?i)<(div|nav|section)[^>]*(?:tab.*list|list.*tab)[^>]*>"
+        pattern_negate: "role=\"tablist\""
+        message: "Tab list container must have role='tablist' attribute."
 
-      # Missing aria-checked state
-      - pattern: "(?i)<[^>]*role=\"switch\"[^>]*>"
-        pattern_negate: "aria-checked=\"(true|false)\""
-        message: "Switch elements must have aria-checked attribute set to 'true' or 'false'."
+      # Tab role requirement
+      - pattern: "(?i)<(button|a|div)[^>]*(?:tab)[^>]*>"
+        pattern_negate: "role=\"tab\""
+        message: "Tab elements must have role='tab' attribute."
 
-      # Missing accessible label
-      - pattern: "(?i)<[^>]*role=\"switch\"[^>]*>"
-        pattern_negate: "(aria-labelledby|aria-label)"
-        message: "Switch elements must have either aria-labelledby or aria-label for accessibility."
+      # Tabpanel role requirement
+      - pattern: "(?i)<(div|section)[^>]*(?:tab.*panel|panel.*tab)[^>]*>"
+        pattern_negate: "role=\"tabpanel\""
+        message: "Tab panel elements must have role='tabpanel' attribute."
 
-      # Empty aria-label check
-      - pattern: "(?i)<[^>]*role=\"switch\"[^>]*aria-label=\"\"[^>]*>"
-        message: "Switch aria-label should not be empty; provide a meaningful description."
+      # Missing aria-selected state
+      - pattern: "(?i)<[^>]*role=\"tab\"[^>]*>"
+        pattern_negate: "aria-selected=\"(true|false)\""
+        message: "Tab elements must have aria-selected attribute set to 'true' or 'false'."
+
+      # Missing aria-controls
+      - pattern: "(?i)<[^>]*role=\"tab\"[^>]*>"
+        pattern_negate: "aria-controls=\"[^\"]+\""
+        message: "Tab elements must have aria-controls attribute referencing their associated panel."
+
+      # Missing aria-labelledby on tabpanel
+      - pattern: "(?i)<[^>]*role=\"tabpanel\"[^>]*>"
+        pattern_negate: "aria-labelledby=\"[^\"]+\""
+        message: "Tab panel elements must have aria-labelledby referencing their associated tab."
 
       # Missing keyboard event handlers
-      - pattern: "(?i)<[^>]*role=\"switch\"[^>]*>"
+      - pattern: "(?i)<[^>]*role=\"tab\"[^>]*>"
         pattern_negate: "(onKeyDown|onkeydown|@keydown|v-on:keydown)"
-        message: "Switch elements should handle keyboard events (Space, optionally Enter)."
+        message: "Tab elements should handle keyboard events (Arrow keys, Space, Enter, Home, End)."
 
-      # Switch group missing proper structure
-      - pattern: "(?i)<(div|section)[^>]*(?:switch.*group|group.*switch)[^>]*>"
-        pattern_negate: "(role=\"group\"|fieldset)"
-        message: "Switch groups must use role='group' or fieldset element."
+      # Missing tablist label
+      - pattern: "(?i)<[^>]*role=\"tablist\"[^>]*>"
+        pattern_negate: "(aria-labelledby|aria-label)"
+        message: "Tab list must have either aria-labelledby or aria-label for accessibility."
 
-      # Switch group missing label
-      - pattern: "(?i)<[^>]*role=\"group\"[^>]*>"
-        pattern_negate: "(aria-labelledby|legend)"
-        message: "Switch groups must have aria-labelledby or legend element for labeling."
+      # Empty aria-label check
+      - pattern: "(?i)<[^>]*role=\"tablist\"[^>]*aria-label=\"\"[^>]*>"
+        message: "Tab list aria-label should not be empty; provide a meaningful description."
 
   - type: suggest
     message: |
-      **Switch Component Accessibility Best Practices:**
+      **Tab Component Accessibility Best Practices:**
 
       **Required ARIA Attributes:**
-      - **role='switch':** Set on the input element
-      - **aria-checked:** 'true' if switch is on, 'false' if off
-      - **aria-labelledby:** Reference to visible label, OR
-      - **aria-label:** Descriptive label if no visible label exists
+      - **role='tablist':** Set on the container of tab elements
+      - **role='tab':** Set on each tab element
+      - **role='tabpanel':** Set on each panel element
+      - **aria-selected:** 'true' for active tab, 'false' for inactive tabs
+      - **aria-controls:** On tab elements, referencing their panel
+      - **aria-labelledby:** On tab panels, referencing their tab
+      - **aria-labelledby/aria-label:** On tablist for accessibility
 
       **Optional ARIA Attributes:**
-      - **aria-describedby:** Reference to additional descriptive text
-      - **aria-disabled:** 'true' if switch cannot be toggled
+      - **aria-orientation:** 'vertical' if tabs are vertically oriented
+      - **aria-haspopup:** Set on tabs with popup menus
+      - **aria-disabled:** 'true' if tab cannot be activated
 
       **Keyboard Interaction Requirements:**
-      - **Space:** Toggle switch state
-      - **Enter:** (Optional) Toggle switch state
-      - **Tab/Shift+Tab:** Move through all focusable elements in page order
+      - **Tab:** Move focus into/out of tab list
+      - **Left/Right Arrow:** Move between tabs (horizontal)
+      - **Up/Down Arrow:** Move between tabs (vertical)
+      - **Space/Enter:** Activate focused tab
+      - **Home:** Move to first tab
+      - **End:** Move to last tab
+      - **Shift + F10:** Open popup menu if available
+      - **Delete:** (Optional) Remove tab
 
       **Structure Requirements:**
-      - Switch must have a visible label that doesn't change with state
-      - Use semantic HTML within the switch (buttons, spans)
-      - Provide clear visual focus indicators
-      - Consider using native checkbox input with role='switch' for better semantics
+      - Tab list must contain all tab elements
+      - Each tab must be associated with exactly one panel
+      - Active tab must be visually distinct
+      - Tab panels must be properly labeled
+      - Consider using native button elements for tabs
 
       **Implementation Patterns:**
 
-      **Basic Switch:**
+      **Basic Tab Structure:**
       ```html
-      <div class="switch">
-        <input type="checkbox"
-               id="notifications"
-               role="switch"
-               aria-checked="false"
-               tabindex="0">
-        <span class="switch-slider"></span>
+      <div role="tablist" aria-label="Settings">
+        <button role="tab"
+                aria-selected="true"
+                aria-controls="panel-1"
+                id="tab-1">
+          Account
+        </button>
+        <button role="tab"
+                aria-selected="false"
+                aria-controls="panel-2"
+                id="tab-2">
+          Security
+        </button>
       </div>
-      <label for="notifications">Notifications</label>
+
+      <div role="tabpanel"
+           id="panel-1"
+           aria-labelledby="tab-1">
+        Account settings content...
+      </div>
+      <div role="tabpanel"
+           id="panel-2"
+           aria-labelledby="tab-2"
+           hidden>
+        Security settings content...
+      </div>
       ```
 
-      **Switch with Description:**
+      **Vertical Tab List:**
       ```html
-      <div class="switch">
-        <input type="checkbox"
-               id="dark-mode"
-               role="switch"
-               aria-checked="false"
-               tabindex="0"
-               aria-describedby="dark-mode-desc">
-        <span class="switch-slider"></span>
+      <div role="tablist"
+           aria-label="Settings"
+           aria-orientation="vertical">
+        <button role="tab"
+                aria-selected="true"
+                aria-controls="panel-1"
+                id="tab-1">
+          Account
+        </button>
+        <button role="tab"
+                aria-selected="false"
+                aria-controls="panel-2"
+                id="tab-2">
+          Security
+        </button>
       </div>
-      <label for="dark-mode">Dark Mode</label>
-      <span id="dark-mode-desc">Enable dark mode for reduced eye strain</span>
-      ```
-
-      **Switch Group:**
-      ```html
-      <fieldset>
-        <legend>Notification Settings</legend>
-        <div class="switch">
-          <input type="checkbox"
-                 id="email-notifications"
-                 role="switch"
-                 aria-checked="false"
-                 tabindex="0">
-          <span class="switch-slider"></span>
-        </div>
-        <label for="email-notifications">Email Notifications</label>
-      </fieldset>
       ```
 
       **JavaScript Considerations:**
-      - Implement Space and optional Enter key handlers
-      - Update aria-checked state when switch toggles
-      - Ensure focus management is maintained
-      - Consider implementing disabled state
-      - Use CSS transitions for smooth state changes
+      - Implement keyboard navigation between tabs
+      - Handle tab activation on Space/Enter
+      - Update aria-selected states
+      - Manage focus when switching tabs
+      - Handle optional features (Home/End, Delete)
+      - Consider implementing automatic activation
+      - Ensure proper focus management
 
       **Accessibility Notes:**
-      - Choose between switch, checkbox, or toggle button based on semantics
-      - Use switch when on/off semantics are clearer than checked/unchecked
-      - Ensure visual state changes are clear and maintainable
-      - Test with screen readers to ensure proper announcement
-      - Consider implementing a visible focus indicator
+      - Choose between automatic and manual activation
+      - Ensure visual focus indicators are clear
+      - Test with screen readers for proper announcement
+      - Consider implementing skip links for long tab lists
+      - Maintain proper heading structure within panels
+      - Ensure sufficient color contrast for active/inactive states
 
 metadata:
   priority: high
