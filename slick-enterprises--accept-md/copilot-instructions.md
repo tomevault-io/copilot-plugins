@@ -1,38 +1,15 @@
-## project-overview
+## accept-md
 
-> accept-md monorepo layout and rules for AI contributors
+> - **Monorepo**: packages/core, packages/middleware (accept-md-runtime), packages/cli (accept-md). examples/* and website are separate apps.
 
+# accept-md — rules for AI and contributors
 
-# accept-md project rules
-
-## Monorepo layout
-
-- **packages/core** (`@accept-md/core`): Route scanner (app/pages), config types, project detection. No Next.js runtime dependency.
-- **packages/middleware** (`accept-md-runtime`): HTML→Markdown, handler logic, config loader, **templates**. Used by end-user apps.
-- **packages/cli** (`accept-md`): CLI (init, doctor, fix-routes). Depends on core and runtime.
-- **examples/app-router**, **examples/pages-router**: Example Next.js apps. Used for manual testing.
-- **website**: Marketing/docs site (Next.js).
-
-Workspace: pnpm. Build from root with `pnpm run build`. Tests: `pnpm run test`. Lint: `pnpm run lint`.
-
-## User-facing code must stay JS-compatible
-
-- **Generated handler files** (e.g. `app/api/accept-md/route.js` or `route.ts`) are written by the CLI for **end users**. Many users do **not** use TypeScript.
-- **Templates** in `packages/middleware/src/templates.ts` must be **plain JavaScript** (no type annotations). The CLI writes either `.js` or `.ts` based on `tsconfig.json`; the content is the same.
-- **Examples** in `examples/*` use **`.js`** for the accept-md handler (`route.js`, `index.js`) so the examples work for both TS and JS users.
-- Do **not** convert handler templates or example handlers to TypeScript-only. Do not add TypeScript-only syntax to files that get copied into user projects.
-
-## Backward compatibility
-
-- CLI **init** creates `route.ts` / `index.ts` only when the project has `tsconfig.json`; otherwise creates `route.js` / `index.js`.
-- **Doctor** considers the handler present if either `route.ts` or `route.js` (App) or `index.ts` or `index.js` (Pages) exists.
-- When changing handler or middleware contract, update both App and Pages examples and the README.
-
-## Conventions
-
-- Use TypeScript and ESM in **this repo** (packages, website).
-- Keep runtime dependencies minimal (turndown, linkedom only in runtime).
-- When editing init/templates, keep generated output valid for both JS and TS user projects.
+- **Monorepo**: packages/core, packages/middleware (accept-md-runtime), packages/cli (accept-md). examples/* and website are separate apps.
+- **User-facing code is JS-compatible**: Generated handlers and templates in packages/middleware must be plain JavaScript (no TypeScript types). Examples use route.js / index.js. Init writes .ts only when the user project has tsconfig.json; otherwise .js.
+- **Do not** convert handler templates or example API routes to TypeScript-only. Do not remove support for .js handler files.
+- **Contract changes**: When changing handler or middleware behavior, update both App and Pages examples and the README.
+- **Build & test**: Use `pnpm run build` and `pnpm run test` from repo root. Lint: `pnpm run lint`.
+- See .cursor/rules/ for file-specific rules and docs/CONTRIBUTING.md for full contributing guide.
 
 ---
 > Source: [slick-enterprises/accept-md](https://github.com/slick-enterprises/accept-md) — distributed by [TomeVault](https://tomevault.io).
