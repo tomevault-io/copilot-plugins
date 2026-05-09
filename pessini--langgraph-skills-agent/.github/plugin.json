@@ -1,0 +1,9 @@
+{
+  "name": "pessini--langgraph-skills-agent",
+  "displayName": "langgraph-skills-agent",
+  "description": "Source repo for the blog post Stop Stuffing Your System Prompt: Build Scalable Agent Skills in LangGraph",
+  "version": "1.0.0",
+  "author": "pessini",
+  "homepage": "https://github.com/pessini/langgraph-skills-agent",
+  "skills": []
+}
