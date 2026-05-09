@@ -4,7 +4,7 @@
   "repo": "testcase-ac",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/testcase-ac/testcase-ac",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T08:16:40Z"
+  "distributed_at": "2026-05-09T19:47:05Z"
 }
