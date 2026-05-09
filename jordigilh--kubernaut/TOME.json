@@ -2,7 +2,7 @@
   "name": "kubernaut",
   "owner": "jordigilh",
   "repo": "kubernaut",
-  "description": "",
+  "description": "Open-source AIOps platform that closes the loop from Kubernetes alert to automated remediation. An LLM agent investigates live via native client-go bindings, logs, and Prometheus, selects a fix from a workflow catalog, and executes it \u2014 or escalates with a full RCA. Approval gates, OPA policies, and audit trails keep humans in control.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jordigilh/kubernaut",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T14:51:18Z"
+  "distributed_at": "2026-05-09T22:53:36Z"
 }
