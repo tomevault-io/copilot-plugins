@@ -1,0 +1,9 @@
+{
+  "name": "deepklarity--harness-kit",
+  "displayName": "harness-kit",
+  "description": "A kit for building with AI agents \u2014 not just the orchestration, but also the engineering patterns around it. ",
+  "version": "1.0.0",
+  "author": "deepklarity",
+  "homepage": "https://github.com/deepklarity/harness-kit",
+  "skills": []
+}
