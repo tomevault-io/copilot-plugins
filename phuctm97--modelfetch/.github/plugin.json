@@ -1,0 +1,9 @@
+{
+  "name": "phuctm97--modelfetch",
+  "displayName": "modelfetch",
+  "description": "Runtime-agnostic TypeScript/JavaScript SDK for MCP Servers",
+  "version": "1.0.0",
+  "author": "phuctm97",
+  "homepage": "https://github.com/phuctm97/modelfetch",
+  "skills": []
+}
