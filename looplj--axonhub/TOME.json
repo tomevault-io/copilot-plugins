@@ -4,7 +4,7 @@
   "repo": "axonhub",
   "description": "\u26a1\ufe0f Open-source AI Gateway \u2014 Use any SDK to call 100+ LLMs. Built-in failover, load balancing, cost control & end-to-end tracing.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/looplj/axonhub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T01:56:46Z"
+  "distributed_at": "2026-05-09T21:47:42Z"
 }
