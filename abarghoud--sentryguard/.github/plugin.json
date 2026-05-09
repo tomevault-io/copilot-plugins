@@ -1,0 +1,9 @@
+{
+  "name": "abarghoud--sentryguard",
+  "displayName": "SentryGuard",
+  "description": "Free Real-time Tesla sentry security alerts via Telegram",
+  "version": "1.0.0",
+  "author": "abarghoud",
+  "homepage": "https://github.com/abarghoud/SentryGuard",
+  "skills": []
+}
