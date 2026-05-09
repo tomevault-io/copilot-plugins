@@ -1,0 +1,44 @@
+{
+  "name": "spectre",
+  "owner": "vudsen",
+  "repo": "spectre",
+  "description": "\u8ba9 alibaba/arthas \u4ece\u624b\u52a8\u8fd0\u7ef4\u8d70\u5411\u81ea\u52a8\u5316\uff1a\u96f6\u4fb5\u5165\u4e00\u952e attach JVM\uff0c\u65e0\u9700\u624b\u52a8\u4e0a\u4f20\u4e0e\u8fde\u63a5\uff0c\u4f5c\u4e3a\u547d\u4ee4\u6267\u884c\u7f51\u5173\u63d0\u4f9b\u5b89\u5168\u7684\u7ec6\u7c92\u5ea6\u6743\u9650\u63a7\u5236\uff0c\u652f\u6301 Docker / Kubernetes \u63a5\u5165\uff0c\u5e76\u96c6\u6210 AI \u5b9e\u73b0\u81ea\u52a8\u5316\u6392\u969c\u4e0e\u667a\u80fd\u8bca\u65ad",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vudsen/spectre",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T21:35:09Z"
+}
