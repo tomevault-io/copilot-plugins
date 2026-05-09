@@ -1,0 +1,44 @@
+{
+  "name": "fiori-ai-prototype",
+  "owner": "alespad",
+  "repo": "fiori-ai-prototype",
+  "description": "Claude.md + Prototype Spec template for building real SAPUI5 / Fiori prototypes ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/alespad/fiori-ai-prototype",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T21:49:21Z"
+}
