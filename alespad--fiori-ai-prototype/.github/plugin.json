@@ -1,0 +1,9 @@
+{
+  "name": "alespad--fiori-ai-prototype",
+  "displayName": "fiori-ai-prototype",
+  "description": "Claude.md + Prototype Spec template for building real SAPUI5 / Fiori prototypes ",
+  "version": "1.0.0",
+  "author": "alespad",
+  "homepage": "https://github.com/alespad/fiori-ai-prototype",
+  "skills": []
+}
