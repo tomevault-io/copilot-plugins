@@ -1,0 +1,9 @@
+{
+  "name": "siqiliu-tsinghua--mma-mcp",
+  "displayName": "mma-mcp",
+  "description": "A MCP server that wraps a local Wolfram Engine, enabling AI assistants (Claude, ChatGPT, etc.) to perform symbolic math, numerical analysis, and data visualization via Wolfram Language.",
+  "version": "1.0.0",
+  "author": "siqiliu-tsinghua",
+  "homepage": "https://github.com/siqiliu-tsinghua/mma-mcp",
+  "skills": []
+}
