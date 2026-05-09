@@ -1,0 +1,9 @@
+{
+  "name": "ao92265--claude-code-playbook",
+  "displayName": "claude-code-playbook",
+  "description": "Battle-tested Claude Code best practices, skills, hooks, and configuration templates",
+  "version": "1.0.0",
+  "author": "ao92265",
+  "homepage": "https://github.com/ao92265/claude-code-playbook",
+  "skills": []
+}
