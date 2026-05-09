@@ -1,262 +1,100 @@
-## 01-ai-assistant-behavior
+## 01-project-structure
 
-> AI assistant behavioral checkpoints and validation requirements
+> Kubernaut is an AIOps platform for intelligent Kubernetes remediation. It follows a microservices architecture with CRD-based communication between controllers.
 
+# Kubernaut Project Structure Guide
 
-# AI Assistant Behavioral Guidelines
+## Core Architecture
 
-## 🎯 **Core Principle**
+Kubernaut is an AIOps platform for intelligent Kubernetes remediation. It follows a microservices architecture with CRD-based communication between controllers.
 
-**PREVENTION over CORRECTION**: Execute validation BEFORE generating code, not after.
+### Main Binaries (`cmd/`)
 
-**Authority**: These guidelines enforce compliance with [00-kubernaut-core-rules.mdc](mdc:.cursor/rules/00-kubernaut-core-rules.mdc)
+Each binary maps to a Kubernetes Deployment:
 
----
+- [cmd/gateway/](mdc:cmd/gateway/) - Signal ingestion (Prometheus alerts, K8s events)
+- [cmd/signalprocessing/](mdc:cmd/signalprocessing/) - Signal enrichment and classification
+- [cmd/aianalysis/](mdc:cmd/aianalysis/) - AI-powered root cause analysis via HolmesGPT
+- [cmd/remediationorchestrator/](mdc:cmd/remediationorchestrator/) - Remediation lifecycle orchestration
+- [cmd/workflowexecution/](mdc:cmd/workflowexecution/) - Workflow execution (Job, Tekton, Ansible)
+- [cmd/effectivenessmonitor/](mdc:cmd/effectivenessmonitor/) - Post-remediation effectiveness assessment
+- [cmd/notification/](mdc:cmd/notification/) - Notification delivery (Slack, file, webhook)
+- [cmd/datastorage/](mdc:cmd/datastorage/) - REST API for audit, workflow catalog, action history
+- [cmd/authwebhook/](mdc:cmd/authwebhook/) - Kubernetes admission webhook for validation
+- [cmd/must-gather/](mdc:cmd/must-gather/) - Diagnostic collection tool
 
-## 🚨 **MANDATORY VALIDATION CHECKPOINTS**
+### CRD API Types (`api/`)
 
-### **CHECKPOINT A: Type Reference Validation**
+Custom Resource Definitions that form the inter-service communication protocol:
 
-**TRIGGER**: About to reference any struct field (e.g., `object.FieldName`)
+- [api/remediation/](mdc:api/remediation/) - `RemediationRequest`, `RemediationApprovalRequest`
+- [api/signalprocessing/](mdc:api/signalprocessing/) - `SignalProcessing`
+- [api/aianalysis/](mdc:api/aianalysis/) - `AIAnalysis`
+- [api/workflowexecution/](mdc:api/workflowexecution/) - `WorkflowExecution`
+- [api/effectivenessassessment/](mdc:api/effectivenessassessment/) - `EffectivenessAssessment`
+- [api/notification/](mdc:api/notification/) - `NotificationRequest`
+- [api/actiontype/](mdc:api/actiontype/) - `ActionType`
+- [api/remediationworkflow/](mdc:api/remediationworkflow/) - `RemediationWorkflow`
 
-**ACTION**:
-```bash
-# HALT: Read type definition file FIRST
-read_file pkg/path/to/type_definition.go
-# Verify field exists in struct definition before referencing
-```
+### Business Logic (`pkg/`)
 
-**RULE**: All referenced fields MUST exist in type definitions
-**VIOLATION**: "🚨 CHECKPOINT A VIOLATION: Type reference attempted without validation - DEVELOPMENT STOPPED"
+Each service has a corresponding package under `pkg/`:
 
----
+- [pkg/gateway/](mdc:pkg/gateway/) - Gateway server, processing pipeline, distributed locking
+- [pkg/signalprocessing/](mdc:pkg/signalprocessing/) - Rego policy evaluation, enrichment
+- [pkg/aianalysis/](mdc:pkg/aianalysis/) - Phase management, metrics
+- [pkg/remediationorchestrator/](mdc:pkg/remediationorchestrator/) - Routing, scope blocking
+- [pkg/workflowexecution/](mdc:pkg/workflowexecution/) - Execution engines, conditions
+- [pkg/effectivenessmonitor/](mdc:pkg/effectivenessmonitor/) - Scoring, conditions
+- [pkg/notification/](mdc:pkg/notification/) - Delivery, status, phase management
+- [pkg/datastorage/](mdc:pkg/datastorage/) - OCI schema, repository, validation, reconstruction
+- [pkg/authwebhook/](mdc:pkg/authwebhook/) - Webhook handler
+- [pkg/holmesgpt/](mdc:pkg/holmesgpt/) - HolmesGPT API client
+- [pkg/shared/](mdc:pkg/shared/) - Shared utilities (auth, hotreload, sanitization, types)
+- [pkg/audit/](mdc:pkg/audit/) - Audit trail helpers
+- [pkg/k8sutil/](mdc:pkg/k8sutil/) - Kubernetes client utilities
+- [pkg/workflowschema/](mdc:pkg/workflowschema/) - Workflow schema parsing
 
-### **CHECKPOINT B: Test Creation Validation**
+### Internal Packages (`internal/`)
 
-**TRIGGER**: About to create test file with business logic references
+- [internal/controller/](mdc:internal/controller/) - CRD controller implementations (one per controller type)
+- [internal/config/](mdc:internal/config/) - Shared configuration types
+- [internal/version/](mdc:internal/version/) - Build version info
 
-**ACTION**:
-```bash
-# HALT: Search for existing implementations FIRST
-codebase_search "existing [ComponentType] implementations"
-grep -r "[ComponentType]" pkg/ --include="*.go"
-```
+### Testing (`test/`)
 
-**RULE**: Enhance existing patterns instead of creating new
-**VIOLATION**: "🚨 CHECKPOINT B VIOLATION: Test creation attempted without existing implementation analysis - DEVELOPMENT STOPPED"
+Three-tier testing strategy (80% per-tier coverage target):
 
----
+- [test/unit/](mdc:test/unit/) - Pure logic tests (per-service subdirs)
+- [test/integration/](mdc:test/integration/) - Cross-component with real I/O (per-service subdirs)
+- [test/e2e/](mdc:test/e2e/) - Full Kind cluster tests (per-service subdirs)
+- [test/infrastructure/](mdc:test/infrastructure/) - Shared test infrastructure helpers
+- [test/shared/](mdc:test/shared/) - Shared test validators and helpers
 
-### **CHECKPOINT C: Business Integration Validation**
+## Documentation (`docs/`)
 
-**TRIGGER**: Creating new business types or interfaces
+Organized into 7 top-level directories:
 
-**ACTION**:
-```bash
-# HALT: Verify main application integration
-grep -r "[NewComponentType]" cmd/ --include="*.go"
-```
+- [docs/architecture/](mdc:docs/architecture/) - ADRs, DDs, diagrams, case studies, patterns
+- [docs/design/](mdc:docs/design/) - CRD design specifications
+- [docs/requirements/](mdc:docs/requirements/) - Business requirements (BR-*) and module docs
+- [docs/testing/](mdc:docs/testing/) - Test plans, guidelines, patterns, per-issue test docs
+- [docs/operations/](mdc:docs/operations/) - Deployment, build, CI/CD, troubleshooting, runbooks
+- [docs/development/](mdc:docs/development/) - Methodology (APDC), guidelines, getting-started, guides
+- [docs/services/](mdc:docs/services/) - Per-service documentation (stateless + CRD controllers)
 
-**RULE**: Business code MUST be integrated in main applications (cmd/)
-**VIOLATION**: "🚨 CHECKPOINT C VIOLATION: Business component creation attempted without main app integration validation - DEVELOPMENT STOPPED"
+User-facing documentation lives at [kubernaut-docs](https://jordigilh.github.io/kubernaut-docs/).
 
----
+## Deployment
 
-### **CHECKPOINT D: Build Error Investigation**
+- [charts/kubernaut/](mdc:charts/kubernaut/) - Helm chart (primary deployment method)
+- [deploy/](mdc:deploy/) - Per-service Kustomize manifests, action types, CRDs
 
-**TRIGGER**: User reports build errors or undefined symbols
+## Build System
 
-**ACTION**:
-```bash
-# HALT: Execute comprehensive symbol analysis
-codebase_search "[undefined_symbol] usage patterns and dependencies"
-grep -r "[undefined_symbol]" . --include="*.go" -n
-go build [affected_file] 2>&1
-```
-
-**REQUIRED REPORT**:
-```
-🚨 UNDEFINED SYMBOL ANALYSIS:
-Symbol: [undefined_symbol]
-References found: [N files with paths]
-Dependent infrastructure: [list missing types/functions]
-Scope: [minimal/medium/extensive with evidence]
-
-OPTIONS (Evidence-Based):
-A) Implement complete infrastructure ([X] files affected)
-B) Create minimal stub ([Z] files affected, may break [W] files)
-C) Alternative approach: [evidence-based alternative]
-
-🚫 MANDATORY USER DECISION REQUIRED: Which approach? (A/B/C)
-```
-
-**RULE**: NO implementation without user approval after complete analysis
-**VIOLATION**: "🚨 CHECKPOINT D VIOLATION: Build error resolution attempted without comprehensive analysis + user approval - DEVELOPMENT STOPPED"
-
----
-
-## 🚫 **FORBIDDEN AI ACTIONS**
-
-**NEVER DO THESE**:
-1. ❌ Reference struct fields without reading type definition file
-2. ❌ Assume testutil types exist - validate with `read_file` or `grep`
-3. ❌ Create test code without `codebase_search` for existing implementations
-4. ❌ Generate business types without confirming main application usage
-5. ❌ Proceed if any validation step fails
-6. ❌ Implement missing types without full dependency analysis (CHECKPOINT D)
-
----
-
-## 🔧 **MANDATORY TOOL USAGE PATTERN**
-
-AI MUST use tools in this sequence for any code generation:
-
-### **Step 1: Discovery (REQUIRED)**
-```bash
-codebase_search "existing [ComponentType] implementations"
-# OR
-grep -r "[TypeName]" pkg/ --include="*.go"
-```
-
-### **Step 2: Type Validation (REQUIRED)**
-```bash
-read_file pkg/path/to/type_definition.go
-# Verify all referenced fields exist in struct definitions
-```
-
-### **Step 3: Integration Check (REQUIRED)**
-```bash
-grep -r "[NewType]" cmd/ --include="*.go"
-# Verify business code is used in main applications
-```
-
----
-
-## ✅ **MANDATORY DECISION GATES**
-
-AI must answer YES to ALL questions before proceeding:
-
-### **For Type References:**
-- ✅ Have I read the actual type definition file?
-- ✅ Do all referenced fields exist in the struct?
-- ✅ Are there no empty struct{} definitions?
-
-### **For Test Creation:**
-- ✅ Have I searched for existing test patterns?
-- ✅ Am I following TDD RED-GREEN-REFACTOR sequence?
-- ✅ Do all testutil dependencies actually exist?
-
-### **For Business Code:**
-- ✅ Is this integrated into main applications?
-- ✅ Are all interfaces implemented by real code?
-- ✅ Have I verified the complete dependency chain?
-
-### **For Build Error Fixes (CHECKPOINT D):**
-- ✅ Have I analyzed ALL references to the undefined symbol?
-- ✅ Have I mapped the complete dependency chain?
-- ✅ Have I presented options A/B/C to the user?
-- ✅ Have I received explicit approval before implementing?
-
----
-
-## 📊 **CONFIDENCE ASSESSMENT REQUIREMENTS**
-
-After any code generation, AI must provide:
-
-```
-Validation Confidence: [60-100]%
-Type Safety: ✅/❌ All referenced fields exist in type definitions
-TDD Compliance: ✅/❌ Follows RED-GREEN-REFACTOR sequence
-Integration Status: ✅/❌ Business code integrated in main applications
-Build Error Analysis: ✅/❌ Complete dependency analysis performed (if applicable)
-Risk Assessment: [Description of potential issues]
-```
-
----
-
-## 🛑 **EMERGENCY STOP CONDITIONS**
-
-AI must immediately halt and request manual intervention if:
-
-1. **Type definitions incomplete** (empty structs) - SESSION RISK: Runtime panics
-2. **Referenced fields don't exist** - SESSION RISK: Compilation failures
-3. **Business code has no main app integration** - SESSION RISK: Orphaned code
-4. **TDD sequence being bypassed** - SESSION RISK: Incomplete implementations
-5. **Validation scripts missing/failing** - SESSION RISK: Undetected problems
-6. **Undefined symbols without complete analysis** - SESSION RISK: Cascade failures
-
----
-
-## 🎯 **QUALITY GATES**
-
-No code generation permitted without:
-
-- ✅ Type safety validation passing
-- ✅ TDD methodology compliance confirmed
-- ✅ Business integration verified
-- ✅ Dependency existence validated
-- ✅ Main application usage confirmed
-- ✅ Build error analysis completed (when applicable)
-
----
-
-## 🔄 **ERROR PREVENTION PROTOCOL**
-
-### **Recovery Actions**
-
-When validation fails:
-1. **STOP** code generation immediately
-2. **REPORT** specific validation failure
-3. **SUGGEST** corrective action following TDD methodology
-4. **REQUIRE** validation success before proceeding
-
-### **Example Tool Call Enforcement**
-
-**For ANY struct field reference (object.FieldName)**:
-```xml
-<function_calls>
-<invoke name="read_file">
-<parameter name="target_file">pkg/workflow/engine/types.go</parameter>
-</invoke>
-</function_calls>
-```
-
-**For ANY undefined symbol error**:
-```xml
-<function_calls>
-<invoke name="codebase_search">
-<parameter name="query">[symbol_name] usage patterns and dependencies</parameter>
-<parameter name="target_directories">[]</parameter>
-</invoke>
-</function_calls>
-```
-
----
-
-## 📚 **INTEGRATION WITH OTHER RULES**
-
-This rule **enforces** compliance with:
-- [00-kubernaut-core-rules.mdc](mdc:.cursor/rules/00-kubernaut-core-rules.mdc) - Core TDD methodology
-- [03-testing-strategy.mdc](mdc:.cursor/rules/03-testing-strategy.mdc) - Testing framework
-- [02-go-coding-standards.mdc](mdc:.cursor/rules/02-go-coding-standards.mdc) - Technical patterns
-
-**PRIORITY LEVEL**: 3 - BEHAVIORAL (per [13-conflict-resolution-matrix.mdc](mdc:.cursor/rules/13-conflict-resolution-matrix.mdc))
-
-**Scope**: AI assistant behavior - does not override APDC methodology or testing strategy
-
----
-
-## ⚡ **QUICK REFERENCE FOR BUILD ERROR INVESTIGATION**
-
-| User Command | AI Response |
-|--------------|-------------|
-| "Fix build errors" | Execute CHECKPOINT D + ask for approval |
-| "undefined [symbol]" | Complete symbol analysis + show options A/B/C |
-| "implement recommended approach" | Follow approved option exactly as specified |
-
----
-
-**Remember**: Problems are PREVENTED during the session through mandatory AI validation, not caught after commit.
+- [Makefile](mdc:Makefile) - All build operations
+- [docker/](mdc:docker/) - Per-service Dockerfiles
+- `make test` (unit), `make test-integration` (integration), `make test-e2e` (E2E)
 
 ---
 > Source: [jordigilh/kubernaut](https://github.com/jordigilh/kubernaut) — distributed by [TomeVault](https://tomevault.io).
