@@ -1,178 +1,162 @@
-## file-editing
+## swift-macos
 
-> Advanced file editing patterns using command-line tools
+> Swift macOS development guidelines and best practices for CodeLooper
 
 
-# Advanced File Editing Patterns
+# Swift macOS Development Guidelines for CodeLooper
 
-This document provides guidance for complex file editing operations using command-line tools, optimized for AI assistant usage.
+This document provides guidance for AI assistants when working with the CodeLooper Swift macOS application.
 
-## Core Philosophy for AI Assistants
+## Project Overview
 
-- **Perl is the Workhorse**: Prioritize Perl for regex operations, in-place editing with backups (`-pi.bak`), multi-line handling (`-0777` slurp mode), and range operators (`/START/../END/`)
-- **`ripgrep` (`rg`) for Extraction**: Use `rg` for fast finding and extracting content blocks
-- **One-Liners**: Aim for concise, powerful one-line commands
-- **Backups are Non-Negotiable**: Always include `.bak` with Perl's `-i` or manual `cp`
-- **Regex Quoting**: Single quotes (`'...'`) are default for Perl regex on command line
-- **Specificity & Non-Greedy**: Generate specific start/end regexes with non-greedy matching (`.*?`)
+CodeLooper is a Swift macOS menu bar application that provides automation and workflow enhancement capabilities. The project uses:
 
-## Pattern Templates
+- **Swift Package Manager (SPM)** for dependency management
+- **SwiftUI** for modern UI components
+- **AppKit** for traditional macOS functionality
+- **AXorcist** accessibility framework integration
+- **Swift 6.0** with strict concurrency checking
 
-### 1. Editing Text Within a Defined Block (In-Place)
+## Architecture Overview
 
-**Goal**: Modify specific text found between `START_REGEX` and `END_REGEX`
+- **Application Layer** (`Sources/Application/`): Core app lifecycle, delegates, and coordination
+- **Components** (`Sources/Components/`): SwiftUI views, alerts, and UI components
+- **Diagnostics** (`Sources/Diagnostics/`): Logging, error handling, and debugging
+- **Settings** (`Sources/Settings/`): User preferences and configuration
+- **StatusBar** (`Sources/StatusBar/`): Menu bar interface and icon management
+- **Utilities** (`Sources/Utilities/`): Helper functions, extensions, and shared utilities
 
-```bash
-perl -pi.bak -e 'if (/START_REGEX/../END_REGEX/) { s/REGEX_WITHIN_BLOCK/NEW_TEXT_CONTENT/g }' source_file.txt
-```
+## Code Quality Standards
 
-**Example**: Update version number in Swift Package.swift
-```bash
-perl -pi.bak -e 'if (/let version/../"/) { s/"\d+\.\d+\.\d+"/"1.2.3"/g }' Package.swift
-```
+### SwiftLint Configuration
+- Use the project's `.swiftlint.yml` configuration
+- **CRITICAL**: Preserve explicit `self.` references for Swift 6 concurrency compliance
+- The `redundant_self` rule is disabled to maintain capture semantics
+- Run `./run-swiftlint.sh` to check compliance
 
-### 2. Replacing an Entire Block of Text (In-Place)
+### Swift 6 Concurrency
+- Use `@MainActor` for UI-related code
+- Add explicit `self.` in closures to satisfy capture semantics
+- Handle `Sendable` conformance properly
+- Use structured concurrency (`async`/`await`) over callbacks
 
-**Goal**: Replace whole block from `START_REGEX` to `END_REGEX` with new content
+### Naming Conventions
+- Use descriptive variable names (avoid single letters like `i`, `x`, `y`)
+- Function names should be clear and self-documenting
+- Follow Swift API design guidelines
 
-```bash
-perl -0777 -pi.bak -e 's/FULL_BLOCK_REGEX_PCRE/NEW_TEXT_CONTENT/sg' source_file.txt
-```
-
-**Example**: Replace entire SwiftLint rule configuration
-```bash
-perl -0777 -pi.bak -e 's/(?s)disabled_rules:.*?^opt_in_rules:/disabled_rules:\n  - trailing_whitespace\n\nopt_in_rules:/sm' .swiftlint.yml
-```
-
-### 3. Deleting a Block of Text (In-Place)
-
-**Goal**: Remove everything from `START_REGEX` to `END_REGEX`
-
-**Option A (Range Operator)**:
-```bash
-perl -ni.bak -e 'print unless /START_REGEX/../END_REGEX/' source_file.txt
-```
-
-**Option B (Slurp Mode)**:
-```bash
-perl -0777 -pi.bak -e 's/FULL_BLOCK_REGEX_PCRE//sg' source_file.txt
-```
-
-**Example**: Remove entire comment block
-```bash
-perl -ni.bak -e 'print unless /^\/\*\*/../\*\/$/' MyFile.swift
-```
-
-### 4. Adding/Inserting New Block of Text (In-Place)
-
-**Goal**: Insert new content after a marker line
-
-**Insert After Marker**:
-```bash
-perl -pi.bak -e 'if (s/TARGET_INSERTION_MARKER_REGEX/$&\nNEW_TEXT_CONTENT/) {}' source_file.txt
-```
-
-**Using Environment Variable for Complex Content**:
-```bash
-NEW_BLOCK_VAR="$NEW_TEXT_CONTENT" perl -pi.bak -e 'if (s/TARGET_INSERTION_MARKER_REGEX/$&\n$ENV{NEW_BLOCK_VAR}/) {}' source_file.txt
-```
-
-**Example**: Add new import after existing imports
-```bash
-perl -pi.bak -e 'if (s/(^import Foundation$)/$1\nimport AXorcist/) {}' MyFile.swift
-```
-
-## Advanced Patterns for Swift/macOS Projects
-
-### SwiftLint Configuration Updates
-```bash
-# Add new disabled rule
-perl -pi.bak -e 'if (/^disabled_rules:/../^$/) { s/^$/  - new_rule\n/ if /^$/ }' .swiftlint.yml
-
-# Update line length warning
-perl -pi.bak -e 's/(line_length:\s*\n\s*warning:\s*)\d+/${1}120/' .swiftlint.yml
-```
-
-### Package.swift Dependency Management
-```bash
-# Add new dependency
-NEW_DEP='        .package(url: "https://github.com/user/repo.git", from: "1.0.0"),' 
-echo "$NEW_DEP" | perl -pi.bak -e 'if (/dependencies:\s*\[/../\]/) { s/^(\s*\.package.*)$/$1\n$ENV{NEW_DEP}/ if eof }' Package.swift
-```
-
-### Swift Source Code Modifications
-```bash
-# Add import statement
-perl -pi.bak -e 'if (/^import / && !$seen++) { print "import AXorcist\n" }' *.swift
-
-# Update @MainActor annotations
-perl -pi.bak -e 's/^(\s*)(class|struct)(\s+\w+.*\{)$/$1@MainActor\n$1$2$3/' ViewModels/*.swift
-```
-
-## Moving Blocks Between Files
-
-**Goal**: Extract block from source, insert into target, delete from source
+## Common Development Commands
 
 ```bash
-# Step 1: Extract block into shell variable
-EXTRACTED_BLOCK=$(perl -0777 -ne 'print $& if /FULL_BLOCK_REGEX_PCRE/sg' source_file.txt)
+# Build the project
+swift build
 
-# Check if block was extracted
-if [ -z "$EXTRACTED_BLOCK" ]; then
-  echo "Error: Block not found in source_file.txt"
-else
-  # Step 2: Insert block into target
-  BLOCK_TO_INSERT="$EXTRACTED_BLOCK" \
-  perl -pi.bak_target -e 's/(TARGET_INSERTION_MARKER_REGEX)/$1\n$ENV{BLOCK_TO_INSERT}/' target_file.txt && \
-  \
-  # Step 3: Delete block from source
-  perl -0777 -pi.bak_source -e 's/FULL_BLOCK_REGEX_PCRE//sg' source_file.txt && \
-  echo "Block moved successfully."
-fi
+# Run SwiftLint
+./run-swiftlint.sh
+
+# Run SwiftFormat
+./run-swiftformat.sh
+
+# Generate Xcode project (via Tuist)
+./scripts/generate-xcproj.sh
+
+# Open in Xcode
+./scripts/open-xcode.sh
+
+# Run the application
+./scripts/run-app.sh
 ```
 
-## Best Practices for AI Assistants
+## Accessibility Integration
 
-### Regex Generation Guidelines
-1. **Request PCRE explicitly**: "Generate a Perl Compatible Regular Expression..."
-2. **Emphasize non-greedy**: "Use non-greedy matching (.*?) with the s flag"
-3. **Include backup mechanism**: "Always include Perl's -pi.bak"
-4. **Specify multi-line handling**: "Use -0777 slurp mode for whole-block operations"
+The project integrates with **AXorcist** for macOS accessibility automation:
 
-### Error Prevention
-- Test regex with simple cases first
-- Use environment variables for complex replacement text
-- Validate file existence before operations
-- Check backup files were created
+- Located in `AXorcist/` submodule
+- Provides UI element querying and interaction
+- Requires accessibility permissions
+- Use `axorc` command-line tool for testing
 
-### Common Swift/macOS File Patterns
+## File Organization Guidelines
 
-#### Configuration Files
-- **SwiftLint**: `.swiftlint.yml` - YAML structure with nested rules
-- **Package.swift**: Swift Package Manager - structured Swift code
-- **Info.plist**: XML property lists - use specialized tools or careful regex
+### New Swift Files
+- Place in appropriate source directory based on functionality
+- Use clear, descriptive file names
+- Include proper import statements
+- Follow existing code organization patterns
 
-#### Source Files
-- **Swift files**: Respect Swift syntax, imports, class/struct boundaries
-- **Markdown docs**: Preserve formatting, handle code blocks specially
-- **Shell scripts**: Be careful with quoting and escaping
+### Extensions
+- Place utility extensions in `Sources/Utilities/Extensions/`
+- Keep extensions focused on single responsibilities
+- Use `// MARK:` comments for organization
 
-### Debugging File Operations
-```bash
-# Before operation - create manual backup
-cp important_file.swift important_file.swift.manual_backup
+### SwiftUI Components
+- Place in `Sources/Components/SwiftUI/`
+- Use `@MainActor` for view models
+- Follow SwiftUI best practices for state management
 
-# Test regex matching without modification
-perl -ne 'print if /YOUR_REGEX/' test_file.txt
+## Debugging and Logging
 
-# Verify backup was created
-ls -la *.bak
+### Diagnostic System
+- Use the project's `Logger` class for consistent logging
+- Different log levels: `debug`, `info`, `warning`, `error`
+- Category-based logging via `LogCategory`
+- File-based logging available via `FileLogger`
 
-# Compare changes
-diff original_file.txt original_file.txt.bak
+### Debug Patterns
+```swift
+import Diagnostics
+
+// Use the logger
+private let logger = Logger(category: .application)
+
+// Log with context
+logger.info("Starting application setup")
+logger.error("Failed to initialize: \(error)")
 ```
 
-This guide ensures reliable, repeatable file editing operations that maintain data integrity through proper backup mechanisms.
+## Security Considerations
+
+- Never commit API keys or secrets
+- Use macOS Keychain for sensitive data
+- Validate all user inputs
+- Follow principle of least privilege for permissions
+
+## Performance Guidelines
+
+- Use lazy initialization where appropriate
+- Avoid blocking the main thread
+- Use background queues for heavy operations
+- Profile memory usage in Instruments
+
+## Testing Strategy
+
+- Unit tests should go in `Tests/`
+- Use XCTest framework
+- Mock external dependencies
+- Test accessibility features with AXorcist tools
+
+## Agent Operational Guidelines
+
+### When Working on This Project
+1. **Always check SwiftLint** after making changes
+2. **Preserve `self.` references** in closures for Swift 6 compliance
+3. **Use TodoWrite tool** to track complex tasks
+4. **Read existing code** to understand patterns before implementing
+5. **Check for similar implementations** in the codebase first
+
+### Common Patterns to Follow
+- Use `@MainActor` for UI code
+- Implement proper error handling with `Result` types
+- Use structured concurrency over completion handlers
+- Follow the existing diagnostic logging patterns
+
+### Before Submitting Changes
+1. Run SwiftLint: `./run-swiftlint.sh`
+2. Run SwiftFormat: `./run-swiftformat.sh`
+3. Verify build: `swift build`
+4. Test functionality manually if UI changes
+
+This guide ensures consistent, high-quality Swift code that follows the project's established patterns and requirements.
 
 ---
 > Source: [steipete/CodeLooper](https://github.com/steipete/CodeLooper) — distributed by [TomeVault](https://tomevault.io).
