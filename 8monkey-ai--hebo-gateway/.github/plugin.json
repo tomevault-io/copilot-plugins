@@ -1,0 +1,9 @@
+{
+  "name": "8monkey-ai--hebo-gateway",
+  "displayName": "hebo-gateway",
+  "description": "AI gateway as a framework. For full control over models, routing & lifecycle. OpenAI /chat/completions, OpenResponses /responses & Anthropic /messages.",
+  "version": "1.0.0",
+  "author": "8monkey-ai",
+  "homepage": "https://github.com/8monkey-ai/hebo-gateway",
+  "skills": []
+}
