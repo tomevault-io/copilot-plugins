@@ -1,0 +1,9 @@
+{
+  "name": "egoist--claude-code-mcp",
+  "displayName": "claude-code-mcp",
+  "description": "Run Claude Code as an MCP server",
+  "version": "1.0.0",
+  "author": "egoist",
+  "homepage": "https://github.com/egoist/claude-code-mcp",
+  "skills": []
+}
