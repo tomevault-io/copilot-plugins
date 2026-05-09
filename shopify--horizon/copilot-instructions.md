@@ -1,14 +1,14 @@
-## tab-accessibility
+## table-accessibility
 
-> Tab component accessibility compliance pattern
+> Table element accessibility compliance
 
-# Tab Component Accessibility Standards
+# Table Element Accessibility Standards
 
-Ensures tab components follow WCAG compliance and WAI-ARIA Tab Pattern specifications.
+Ensures table elements follow WCAG compliance and provide proper structure for screen reader navigation and data relationships.
 
 <rule>
-name: tab_accessibility_standards
-description: Enforce tab component accessibility standards and WAI-ARIA Tab Pattern compliance
+name: table_accessibility_standards
+description: Enforce table element accessibility standards per WCAG 1.3.1 Info and Relationships requirements
 filters:
   - type: file_extension
     pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
@@ -16,153 +16,297 @@ filters:
 actions:
   - type: enforce
     conditions:
-      # Tablist role requirement
-      - pattern: "(?i)<(div|nav|section)[^>]*(?:tab.*list|list.*tab)[^>]*>"
-        pattern_negate: "role=\"tablist\""
-        message: "Tab list container must have role='tablist' attribute."
+      # Table headers must use th elements
+      - pattern: "(?i)<table[^>]*>.*<td[^>]*>.*</td>.*<td[^>]*>.*</td>"
+        pattern_negate: "<th[^>]*>"
+        message: "Data tables must use th elements for headers. Use th for header cells and td for data cells."
 
-      # Tab role requirement
-      - pattern: "(?i)<(button|a|div)[^>]*(?:tab)[^>]*>"
-        pattern_negate: "role=\"tab\""
-        message: "Tab elements must have role='tab' attribute."
+      # Missing scope attribute on th elements
+      - pattern: "(?i)<th[^>]*>"
+        pattern_negate: "scope=\"(col|row|colgroup|rowgroup)\""
+        message: "Table header cells should have scope attribute set to 'col', 'row', 'colgroup', or 'rowgroup' for proper associations."
 
-      # Tabpanel role requirement
-      - pattern: "(?i)<(div|section)[^>]*(?:tab.*panel|panel.*tab)[^>]*>"
-        pattern_negate: "role=\"tabpanel\""
-        message: "Tab panel elements must have role='tabpanel' attribute."
+      # Data cells not associated with headers
+      - pattern: "(?i)<td[^>]*>"
+        pattern_negate: "(scope=\"(col|row)\"|headers=\"[^\"]+\"|<th[^>]*scope)"
+        message: "Table data cells must be associated with their corresponding header cells via scope or headers attributes."
 
-      # Missing aria-selected state
-      - pattern: "(?i)<[^>]*role=\"tab\"[^>]*>"
-        pattern_negate: "aria-selected=\"(true|false)\""
-        message: "Tab elements must have aria-selected attribute set to 'true' or 'false'."
+      # Layout table with headers
+      - pattern: "(?i)<table[^>]*class=\"[^\"]*(?:layout|grid|position)[^\"]*\"[^>]*>"
+        pattern_negate: "(role=\"table\"|data-table)"
+        message: "Layout tables should not contain header elements. Use role='table' for data tables or remove headers from layout tables."
 
-      # Missing aria-controls
-      - pattern: "(?i)<[^>]*role=\"tab\"[^>]*>"
-        pattern_negate: "aria-controls=\"[^\"]+\""
-        message: "Tab elements must have aria-controls attribute referencing their associated panel."
+      # Missing caption or accessible name
+      - pattern: "(?i)<table[^>]*>"
+        pattern_negate: "(<caption|aria-label|aria-labelledby)"
+        message: "Data tables should have a caption element or aria-label/aria-labelledby for accessibility."
 
-      # Missing aria-labelledby on tabpanel
-      - pattern: "(?i)<[^>]*role=\"tabpanel\"[^>]*>"
-        pattern_negate: "aria-labelledby=\"[^\"]+\""
-        message: "Tab panel elements must have aria-labelledby referencing their associated tab."
+      # Empty caption
+      - pattern: "(?i)<caption[^>]*>\\s*</caption>"
+        message: "Table caption should contain meaningful text describing the table's purpose."
 
-      # Missing keyboard event handlers
-      - pattern: "(?i)<[^>]*role=\"tab\"[^>]*>"
-        pattern_negate: "(onKeyDown|onkeydown|@keydown|v-on:keydown)"
-        message: "Tab elements should handle keyboard events (Arrow keys, Space, Enter, Home, End)."
+      # Generic caption text
+      - pattern: "(?i)<caption[^>]*>\\s*(table|data|information)\\s*</caption>"
+        message: "Table caption should be specific and descriptive, not generic."
 
-      # Missing tablist label
-      - pattern: "(?i)<[^>]*role=\"tablist\"[^>]*>"
-        pattern_negate: "(aria-labelledby|aria-label)"
-        message: "Tab list must have either aria-labelledby or aria-label for accessibility."
+      # Missing table structure elements
+      - pattern: "(?i)<table[^>]*>.*<tr[^>]*>.*<td[^>]*>"
+        pattern_negate: "(<thead|<tbody|<tfoot)"
+        message: "Complex tables should use thead, tbody, and tfoot elements for proper structure."
 
-      # Empty aria-label check
-      - pattern: "(?i)<[^>]*role=\"tablist\"[^>]*aria-label=\"\"[^>]*>"
-        message: "Tab list aria-label should not be empty; provide a meaningful description."
+      # Incorrect role usage
+      - pattern: "(?i)role=\"(table|rowgroup|cell|columnheader|rowheader)\""
+        pattern_negate: "(<table|<tbody|<thead|<tfoot|<td|<th)"
+        message: "Table roles should only be used when native HTML table elements are not available."
+
+      # Missing headers attribute for complex associations
+      - pattern: "(?i)<td[^>]*>"
+        pattern_negate: "(headers=\"[^\"]+\"|scope=\"(col|row)\")"
+        message: "Data cells in complex tables should have headers attribute referencing their associated header IDs."
+
+      # Missing ID on header cells for headers attribute
+      - pattern: "(?i)<td[^>]*headers=\"[^\"]+\"[^>]*>"
+        pattern_negate: "<th[^>]*id=\"[^\"]+\"[^>]*>"
+        message: "Header cells referenced by headers attribute must have unique ID attributes."
+
+      # Nested tables without proper isolation
+      - pattern: "(?i)<table[^>]*>.*<table[^>]*>"
+        pattern_negate: "(role=\"table\"|aria-label|aria-labelledby)"
+        message: "Nested tables should have proper accessible names and structure to avoid confusion."
+
+      # Table without proper row structure
+      - pattern: "(?i)<table[^>]*>"
+        pattern_negate: "<tr[^>]*>"
+        message: "Tables must contain tr (table row) elements for proper structure."
+
+      # Missing table role when using ARIA
+      - pattern: "(?i)role=\"(rowgroup|cell|columnheader|rowheader)\""
+        pattern_negate: "role=\"table\""
+        message: "When using table ARIA roles, the table element must have role='table'."
 
   - type: suggest
     message: |
-      **Tab Component Accessibility Best Practices:**
+      **WCAG 1.3.1 Table Accessibility Requirements:**
 
-      **Required ARIA Attributes:**
-      - **role='tablist':** Set on the container of tab elements
-      - **role='tab':** Set on each tab element
-      - **role='tabpanel':** Set on each panel element
-      - **aria-selected:** 'true' for active tab, 'false' for inactive tabs
-      - **aria-controls:** On tab elements, referencing their panel
-      - **aria-labelledby:** On tab panels, referencing their tab
-      - **aria-labelledby/aria-label:** On tablist for accessibility
+      **Table Headers:**
+      - **Header Tag:** Table headers MUST be designated with `th` elements
+      - **Meaningful Header:** Header text MUST accurately describe the category of corresponding data cells
+      - **Header Associations:** Data cells MUST be associated with their corresponding header cells
+      - **Scope Attribute:** Use `scope="col"` and `scope="row"` for simple tables
+      - **Complex Associations:** Use `headers` and `id` attributes for complex header relationships
 
-      **Optional ARIA Attributes:**
-      - **aria-orientation:** 'vertical' if tabs are vertically oriented
-      - **aria-haspopup:** Set on tabs with popup menus
-      - **aria-disabled:** 'true' if tab cannot be activated
+      **Tabular Data:**
+      - **Tables:** Tabular data SHOULD be represented in a `table` element
+      - **Data Relationships:** WCAG 1.3.1 requires data to be associated with their labels
 
-      **Keyboard Interaction Requirements:**
-      - **Tab:** Move focus into/out of tab list
-      - **Left/Right Arrow:** Move between tabs (horizontal)
-      - **Up/Down Arrow:** Move between tabs (vertical)
-      - **Space/Enter:** Activate focused tab
-      - **Home:** Move to first tab
-      - **End:** Move to last tab
-      - **Shift + F10:** Open popup menu if available
-      - **Delete:** (Optional) Remove tab
+      **Caption Requirements:**
+      - **Caption:** Data tables SHOULD have a `caption` element or accessible name
+      - **Meaningful Caption:** Caption SHOULD describe the table's identity or purpose
+      - **Unique Caption:** Each table SHOULD have a unique caption within the page context
 
-      **Structure Requirements:**
-      - Tab list must contain all tab elements
-      - Each tab must be associated with exactly one panel
-      - Active tab must be visually distinct
-      - Tab panels must be properly labeled
-      - Consider using native button elements for tabs
+      **Layout Tables:**
+      - **Avoid Layout Tables:** Tables SHOULD NOT be used for purely visual layout
+      - **No Headers in Layout:** Layout tables MUST NOT contain header elements
+
+      **HTML Markup Requirements:**
+      - **Native Elements:** Use semantic HTML `table`, `caption`, `tr`, `th`, `td`, `thead`, `tbody`, `tfoot`
+      - **ARIA Roles:** Only use table roles when native HTML is not available
 
       **Implementation Patterns:**
 
-      **Basic Tab Structure:**
+      **Basic Data Table:**
       ```html
-      <div role="tablist" aria-label="Settings">
-        <button role="tab"
-                aria-selected="true"
-                aria-controls="panel-1"
-                id="tab-1">
-          Account
-        </button>
-        <button role="tab"
-                aria-selected="false"
-                aria-controls="panel-2"
-                id="tab-2">
-          Security
-        </button>
-      </div>
+      <table>
+        <caption>Monthly Sales Report - Q1 2024</caption>
+        <thead>
+          <tr>
+            <th scope="col">Month</th>
+            <th scope="col">Revenue</th>
+            <th scope="col">Units Sold</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>January</td>
+            <td>$45,000</td>
+            <td>1,200</td>
+          </tr>
+          <tr>
+            <td>February</td>
+            <td>$52,000</td>
+            <td>1,350</td>
+          </tr>
+        </tbody>
+      </table>
+      ```
 
-      <div role="tabpanel"
-           id="panel-1"
-           aria-labelledby="tab-1">
-        Account settings content...
-      </div>
-      <div role="tabpanel"
-           id="panel-2"
-           aria-labelledby="tab-2"
-           hidden>
-        Security settings content...
+      **Complex Table with Multiple Headers:**
+      ```html
+      <table>
+        <caption>Product Performance by Region and Quarter</caption>
+        <thead>
+          <tr>
+            <th scope="col" rowspan="2">Product</th>
+            <th scope="colgroup" colspan="2">Q1 2024</th>
+            <th scope="colgroup" colspan="2">Q2 2024</th>
+          </tr>
+          <tr>
+            <th scope="col">North</th>
+            <th scope="col">South</th>
+            <th scope="col">North</th>
+            <th scope="col">South</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Widget A</th>
+            <td>150</td>
+            <td>200</td>
+            <td>175</td>
+            <td>225</td>
+          </tr>
+          <tr>
+            <th scope="row">Widget B</th>
+            <td>300</td>
+            <td>250</td>
+            <td>325</td>
+            <td>275</td>
+          </tr>
+        </tbody>
+      </table>
+      ```
+
+      **Table with Headers Attribute:**
+      ```html
+      <table>
+        <caption>Employee Directory</caption>
+        <thead>
+          <tr>
+            <th id="name">Name</th>
+            <th id="department">Department</th>
+            <th id="email">Email</th>
+            <th id="phone">Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td headers="name">John Smith</td>
+            <td headers="department">Engineering</td>
+            <td headers="email">john.smith@company.com</td>
+            <td headers="phone">555-0101</td>
+          </tr>
+          <tr>
+            <td headers="name">Jane Doe</td>
+            <td headers="department">Marketing</td>
+            <td headers="email">jane.doe@company.com</td>
+            <td headers="phone">555-0102</td>
+          </tr>
+        </tbody>
+      </table>
+      ```
+
+      **ARIA Table (when native HTML not available):**
+      ```html
+      <div role="table" aria-label="Product Inventory">
+        <div role="rowgroup">
+          <div role="row">
+            <div role="columnheader" scope="col">Product</div>
+            <div role="columnheader" scope="col">Stock</div>
+            <div role="columnheader" scope="col">Price</div>
+          </div>
+        </div>
+        <div role="rowgroup">
+          <div role="row">
+            <div role="cell">Widget A</div>
+            <div role="cell">150</div>
+            <div role="cell">$25.00</div>
+          </div>
+          <div role="row">
+            <div role="cell">Widget B</div>
+            <div role="cell">200</div>
+            <div role="cell">$30.00</div>
+          </div>
+        </div>
       </div>
       ```
 
-      **Vertical Tab List:**
+      **Table Structure Guidelines:**
+
+      **Simple Tables:**
+      - Use `th` with `scope="col"` for column headers
+      - Use `th` with `scope="row"` for row headers
+      - Include meaningful `caption` element
+
+      **Complex Tables:**
+      - Use `thead`, `tbody`, `tfoot` for structure
+      - Use `headers` and `id` attributes for complex associations
+      - Consider using `colgroup` and `rowgroup` for grouped headers
+
+      **Layout Tables (Avoid):**
       ```html
-      <div role="tablist"
-           aria-label="Settings"
-           aria-orientation="vertical">
-        <button role="tab"
-                aria-selected="true"
-                aria-controls="panel-1"
-                id="tab-1">
-          Account
-        </button>
-        <button role="tab"
-                aria-selected="false"
-                aria-controls="panel-2"
-                id="tab-2">
-          Security
-        </button>
+      <!-- ❌ Bad: Using table for layout -->
+      <table>
+        <tr>
+          <td>Header</td>
+          <td>Content</td>
+        </tr>
+      </table>
+
+      <!-- ✅ Good: Using CSS for layout -->
+      <div class="layout-container">
+        <header>Header</header>
+        <main>Content</main>
       </div>
       ```
 
-      **JavaScript Considerations:**
-      - Implement keyboard navigation between tabs
-      - Handle tab activation on Space/Enter
-      - Update aria-selected states
-      - Manage focus when switching tabs
-      - Handle optional features (Home/End, Delete)
-      - Consider implementing automatic activation
-      - Ensure proper focus management
+      **Caption Best Practices:**
+      ```html
+      <!-- ✅ Good: Specific and descriptive -->
+      <table>
+        <caption>Monthly Sales Performance - Q1 2024</caption>
+        <!-- table content -->
+      </table>
 
-      **Accessibility Notes:**
-      - Choose between automatic and manual activation
-      - Ensure visual focus indicators are clear
-      - Test with screen readers for proper announcement
-      - Consider implementing skip links for long tab lists
-      - Maintain proper heading structure within panels
-      - Ensure sufficient color contrast for active/inactive states
+      <!-- ❌ Bad: Generic caption -->
+      <table>
+        <caption>Data Table</caption>
+        <!-- table content -->
+      </table>
+      ```
+
+      **Scope Attribute Usage:**
+      ```html
+      <!-- Column headers -->
+      <th scope="col">Product Name</th>
+      <th scope="col">Price</th>
+
+      <!-- Row headers -->
+      <th scope="row">Widget A</th>
+      <th scope="row">Widget B</th>
+
+      <!-- Group headers -->
+      <th scope="colgroup" colspan="2">Q1 2024</th>
+      <th scope="rowgroup" rowspan="3">Product Category</th>
+      ```
+
+      **Testing and Validation:**
+      - Test with screen readers to verify header associations
+      - Verify table navigation works properly
+      - Check that captions are announced correctly
+      - Test keyboard navigation through table cells
+      - Validate scope attributes are used appropriately
+      - Ensure complex tables have proper header associations
+
+      **Common Mistakes to Avoid:**
+      - Using `td` elements for headers instead of `th`
+      - Missing scope attributes on header cells
+      - Using tables for layout purposes
+      - Generic or meaningless captions
+      - Missing accessible names for tables
+      - Incorrect use of ARIA table roles
+      - Nested tables without proper isolation
+      - Missing header associations in complex tables
+      - Using layout tables with header elements
 
 metadata:
   priority: high
