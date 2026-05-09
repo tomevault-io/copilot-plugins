@@ -1,0 +1,44 @@
+{
+  "name": "etyb-skills",
+  "owner": "e-t-y-b",
+  "repo": "etyb-skills",
+  "description": "ETYB \u2014 virtual engineering company for AI coding agents. 31 skills: CTO + 20 specialists + 9 engineering disciplines. Claude Code, Codex, Antigravity.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/e-t-y-b/etyb-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T03:02:50Z"
+}
