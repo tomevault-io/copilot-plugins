@@ -1,0 +1,9 @@
+{
+  "name": "jasonstrimpel--lead-genius-plugin",
+  "displayName": "lead-genius-plugin",
+  "description": "AI-powered lead generation plugin for Claude Code and Claude Cowork",
+  "version": "1.0.0",
+  "author": "jasonstrimpel",
+  "homepage": "https://github.com/jasonstrimpel/lead-genius-plugin",
+  "skills": []
+}
