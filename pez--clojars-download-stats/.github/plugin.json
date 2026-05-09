@@ -1,0 +1,9 @@
+{
+  "name": "pez--clojars-download-stats",
+  "displayName": "clojars-download-stats",
+  "description": "An always up-to-date, complete SQL export of artifacts daily downloads since November 2012",
+  "version": "1.0.0",
+  "author": "PEZ",
+  "homepage": "https://github.com/PEZ/clojars-download-stats",
+  "skills": []
+}
