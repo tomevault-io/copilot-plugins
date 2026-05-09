@@ -1,132 +1,82 @@
-## core
+## livekit
 
-> Core STT/TTS abstraction layer documentation
+> We are using LiveKit Rust SDK [livekit-rust](https://github.com/livekit/livekit-rust) for our real-time communication needs.
 
-# Sayna Core Module
 
-This Rust Axum project is a unified STT, TTS server that handles real-time WebSocket APIs for STT and TTS providers like Deepgram, ElevenLabs, Google, Microsoft Azure, Cartesia, and others into one unified WebSocket API that abstracts away provider-specific details.
+We are using LiveKit Rust SDK [livekit-rust](https://github.com/livekit/livekit-rust) for our real-time communication needs.
+The idea is that we should have a separate folder named `livekit` in the `src` folder. That folder should contain the main logic for connecting to the livekit server and receiving the audio chunks from subscribed tracks.
 
-The main business logic is inside `src/core/`, which uses trait-based abstraction to have unified higher-level implementations of TTS and STT separated into dedicated folders.
+Basically, user should be able to send the Websocket API message containing the livekit token to connect to the livekit server as a part of the websocket initial message.
+Then after we subscribe to the audio track, for the incoming audio chunks, we should send the received audio chunks to the Websocket audio callback. Similarly, how we process the audio chunks right now using websocket incoming audio chunks with a callback.
 
-## STT Base Abstraction (`src/core/stt/base.rs`)
+### Basic LiveKit Example
 
-The `BaseSTT` trait defines the interface for all STT providers:
-
-### Required Methods
-
-| Method | Signature | Description |
-|--------|-----------|-------------|
-| `new` | `fn new(config: STTConfig) -> Result<Self, STTError>` | Create a new instance with STT configuration |
-| `connect` | `async fn connect(&mut self) -> Result<(), STTError>` | Initiate connection to STT provider |
-| `disconnect` | `async fn disconnect(&mut self) -> Result<(), STTError>` | Disconnect from provider |
-| `is_ready` | `fn is_ready(&self) -> bool` | Check if connection is ready |
-| `send_audio` | `async fn send_audio(&mut self, audio_data: Vec<u8>) -> Result<(), STTError>` | Send audio bytes for transcription |
-| `on_result` | `async fn on_result(&mut self, callback: STTResultCallback) -> Result<(), STTError>` | Register transcription result callback |
-| `on_error` | `async fn on_error(&mut self, callback: STTErrorCallback) -> Result<(), STTError>` | Register error callback for streaming errors |
-| `get_config` | `fn get_config(&self) -> Option<&STTConfig>` | Get current configuration |
-| `update_config` | `async fn update_config(&mut self, config: STTConfig) -> Result<(), STTError>` | Update configuration while connected |
-| `get_provider_info` | `fn get_provider_info(&self) -> &'static str` | Get provider-specific information |
-
-### STTResult Type
+This code below connects to the livekit server and subscribes to the audio tracks.
 
 ```rust
-pub struct STTResult {
-    pub transcript: String,      // The transcribed text
-    pub is_final: bool,          // Whether this is a final result
-    pub is_speech_final: bool,   // Whether speech segment ended
-    pub confidence: f32,         // Confidence score (0.0 to 1.0)
+use livekit::prelude::*;
+
+#[tokio::main]
+async fn main() -> Result<()> {
+    let (room, mut room_events) = Room::connect(&url, &token).await?;
+
+    while let Some(event) = room_events.recv().await {
+        match event {
+            RoomEvent::TrackSubscribed { track, publication, participant } => {
+                // ...
+            }
+            _ => {}
+        }
+    }
+
+    Ok(())
 }
 ```
 
-### STTConfig Type
-
+This code below gets the audio chunks from the subscribed track.
 ```rust
-pub struct STTConfig {
-    pub provider: String,        // Provider name (e.g., "deepgram")
-    pub api_key: String,         // API key for the provider
-    pub language: String,        // Language code (e.g., "en-US")
-    pub sample_rate: u32,        // Audio sample rate in Hz
-    pub channels: u16,           // Number of audio channels
-    pub punctuation: bool,       // Enable punctuation
-    pub encoding: String,        // Audio encoding (e.g., "linear16")
-    pub model: String,           // Model to use (e.g., "nova-3")
+...
+use futures::StreamExt; // this trait is required for iterating on audio & video frames
+use livekit::prelude::*;
+
+match event {
+    RoomEvent::TrackSubscribed { track, publication, participant } => {
+        match track {
+            RemoteTrack::Audio(audio_track) => {
+                let rtc_track = audio_track.rtc_track();
+                let mut audio_stream = NativeAudioStream::new(rtc_track);
+                tokio::spawn(async move {
+                    // Receive the audio frames in a new task
+                    while let Some(audio_frame) = audio_stream.next().await {
+                        log::info!("received audio frame - {audio_frame:#?}");
+                    }
+                });
+            },
+        }
+    },
+    _ => {}
 }
 ```
 
-## TTS Base Abstraction (`src/core/tts/base.rs`)
+## Websocket API Logic that should be implemented
 
-The `BaseTTS` trait defines the interface for all TTS providers:
-
-### Required Methods
-
-| Method | Signature | Description |
-|--------|-----------|-------------|
-| `new` | `fn new(config: TTSConfig) -> TTSResult<Self>` | Create a new instance with TTS configuration |
-| `connect` | `async fn connect(&mut self) -> TTSResult<()>` | Initiate connection to TTS provider |
-| `disconnect` | `async fn disconnect(&mut self) -> TTSResult<()>` | Disconnect from provider |
-| `is_ready` | `fn is_ready(&self) -> bool` | Check if connection is ready |
-| `speak` | `async fn speak(&mut self, text: &str, flush: bool) -> TTSResult<()>` | Send text for synthesis (flush=true starts immediately) |
-| `clear` | `async fn clear(&mut self) -> TTSResult<()>` | Clear queued text |
-| `flush` | `async fn flush(&self) -> TTSResult<()>` | Force processing of queued text |
-| `on_audio` | `fn on_audio(&mut self, callback: Arc<dyn AudioCallback>) -> TTSResult<()>` | Register audio output callback |
-| `get_connection_state` | `fn get_connection_state(&self) -> ConnectionState` | Get current connection state |
-| `remove_audio_callback` | `fn remove_audio_callback(&mut self) -> TTSResult<()>` | Remove registered callback |
-| `get_provider_info` | `fn get_provider_info(&self) -> serde_json::Value` | Get provider-specific information |
-
-### AudioCallback Trait
-
-```rust
-pub trait AudioCallback: Send + Sync {
-    fn on_audio(&self, audio_data: AudioData) -> Pin<Box<dyn Future<Output = ()> + Send + '_>>;
-    fn on_error(&self, error: TTSError) -> Pin<Box<dyn Future<Output = ()> + Send + '_>>;
-    fn on_complete(&self) -> Pin<Box<dyn Future<Output = ()> + Send + '_>>;
+During the initial configuration message, we should have the special JSON field object `livekit` that contains the livekit token and the related configuration as it is displayed below:
+```json
+{
+    ....
+    "livekit": {
+        "token": "livekit_token",
+        "url": "http://localhost:7880",
+    }
 }
 ```
 
-### AudioData Type
-
-```rust
-pub struct AudioData {
-    pub data: Vec<u8>,           // Audio bytes
-    pub sample_rate: u32,        // Sample rate in Hz
-    pub format: String,          // Audio format (e.g., "pcm", "wav")
-    pub duration_ms: Option<u32>, // Duration in milliseconds
-}
-```
-
-### TTSConfig Type
-
-```rust
-pub struct TTSConfig {
-    pub provider: String,              // Provider name
-    pub api_key: String,               // API key
-    pub voice_id: Option<String>,      // Voice ID or name
-    pub model: String,                 // Model to use
-    pub speaking_rate: Option<f32>,    // Speaking rate (0.25 to 4.0)
-    pub audio_format: Option<String>,  // Audio format preference
-    pub sample_rate: Option<u32>,      // Sample rate preference
-    pub connection_timeout: Option<u64>, // Connection timeout (seconds)
-    pub request_timeout: Option<u64>,  // Request timeout (seconds)
-    pub pronunciations: Vec<Pronunciation>, // Custom pronunciations
-    pub request_pool_size: Option<usize>,   // HTTP request pool size
-}
-```
-
-## Supported Providers
-
-### STT Providers (`src/core/stt/`)
-- **Deepgram** - WebSocket-based streaming STT
-- **Google** - gRPC-based Cloud Speech-to-Text V2
-- **ElevenLabs** - WebSocket-based STT
-- **Microsoft Azure** - WebSocket-based Speech Services
-- **Cartesia** - WebSocket-based STT
-
-### TTS Providers (`src/core/tts/`)
-- **Deepgram** - WebSocket/HTTP-based TTS
-- **ElevenLabs** - WebSocket-based streaming TTS
-- **Google** - HTTP-based Cloud Text-to-Speech
-- **Microsoft Azure** - WebSocket-based Speech Services
-- **Cartesia** - WebSocket-based streaming TTS
+After getting this message along side with the initial configuration message, we should do the following:
+1. Connect to the livekit server using the token and the url
+2. Subscribe to the audio track publications
+3. Make sure that the published track is not the current localParticipant track, for not getting the same audio chunks twice
+4. Subscribe to the audio track and get the audio chunks to the same callback where we receive the audio binary chunks from the websocket
+5. When the Livekit User leaves the room, we should unsubscribe from the audio track and disconnect from the livekit server
 
 ---
 > Source: [SaynaAI/sayna](https://github.com/SaynaAI/sayna) — distributed by [TomeVault](https://tomevault.io).
