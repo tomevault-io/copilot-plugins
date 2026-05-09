@@ -1,0 +1,9 @@
+{
+  "name": "kronael--claude-serve",
+  "displayName": "claude-serve",
+  "description": "Wraps Claude Code in Ollama api so that you can code against that in services and use your Claude plan",
+  "version": "1.0.0",
+  "author": "kronael",
+  "homepage": "https://github.com/kronael/claude-serve",
+  "skills": []
+}
