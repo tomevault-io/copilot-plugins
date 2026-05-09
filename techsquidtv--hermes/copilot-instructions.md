@@ -1,290 +1,278 @@
-## 30-docs
+## 30-tests
 
-> - Use ATX-style: `#`, `##`, etc.
+> - **Unit Tests (70%)**: Fast, isolated
 
 
-# Documentation Standards
+# Cross-Cutting Testing Standards
 
-## Markdown Formatting
+## Testing Philosophy
 
-### Headings
-- Use ATX-style: `#`, `##`, etc.
-- Start with single `#` for title
-- Use hierarchical structure
-- Keep concise and descriptive
+### Test Pyramid
+- **Unit Tests (70%)**: Fast, isolated
+- **Integration Tests (20%)**: Component interactions
+- **E2E Tests (10%)**: Complete workflows
 
-### Code Blocks
-Always specify language:
+### What to Test
+✅ **Do test:**
+- Business logic
+- Edge cases and errors
+- API contracts
+- Critical workflows
+- Data transformations
 
-````markdown
+❌ **Don't test:**
+- Third-party library internals
+- Trivial getters/setters
+- Framework code
+
+## Test Organization
+
+Python (hermes-api):
+```
+tests/
+├── conftest.py              # Shared fixtures
+├── test_api/                # API tests
+├── test_integration/        # Integration tests
+├── test_services/           # Service tests
+└── test_tasks/              # Task tests
+```
+
+TypeScript (hermes-app):
+```
+src/
+├── components/__tests__/    # Component tests
+├── hooks/__tests__/         # Hook tests
+└── services/__tests__/      # Service tests
+```
+
+### File Naming
+- Python: `test_*.py`
+- TypeScript: `*.test.ts`, `*.test.tsx`
+- Match test file to source file name
+
+## Test Structure
+
+### Arrange-Act-Assert
 ```python
-def hello_world():
-    print("Hello, World!")
-```
-
-```typescript
-function greet(name: string): string {
-  return `Hello, ${name}!`;
-}
-```
-
-```bash
-docker compose up -d
-```
-````
-
-### Lists
-
-Unordered:
-```markdown
-- First item
-- Second item
-  - Nested item
-- Third item
-```
-
-Ordered:
-```markdown
-1. First step
-1. Second step
-   1. Sub-step
-1. Third step
-```
-
-### Links
-```markdown
-✅ Good:
-See the [Configuration Guide](docs/CONFIGURATION.md) for details.
-
-❌ Bad:
-Click [here](docs/CONFIGURATION.md).
-```
-
-### Emphasis
-- `**bold**` for strong emphasis or UI elements
-- `*italic*` for light emphasis
-- `` `code` `` for inline code, commands, file names
-
-## Document Structure
-
-### Project README
-Required sections:
-1. Title and description
-2. Key features
-3. Quick start
-4. Usage examples
-5. Documentation links
-6. Contributing
-7. License
-
-### Package README
-Required sections:
-1. Package purpose
-2. Installation
-3. API/Usage
-4. Configuration
-5. Development setup
-
-### Configuration Docs
-
-Structure:
-```markdown
-# Configuration Guide
-
-## Environment Variables
-
-### `HERMES_SECRET_KEY`
-- **Type:** String
-- **Required:** Yes
-- **Description:** Secret key for JWT
-- **Example:** `openssl rand -base64 32`
-
-### `LOG_LEVEL`
-- **Type:** String
-- **Required:** No
-- **Default:** `info`
-- **Options:** `debug`, `info`, `warning`, `error`
-```
-
-### API Documentation
-
-```markdown
-### `POST /api/v1/downloads`
-
-Create a new download task.
-
-**Authentication:** Required (Bearer token)
-
-**Request:**
-```json
-{
-  "url": "https://example.com/video",
-  "profile_id": "default"
-}
-```
-
-**Response:** `201 Created`
-```json
-{
-  "id": "abc123",
-  "status": "queued",
-  "created_at": "2024-01-01T00:00:00Z"
-}
-```
-
-**Errors:**
-- `400` - Invalid URL
-- `401` - Invalid token
-- `429` - Rate limit exceeded
-```
-
-## Code Examples
-
-Keep examples:
-- Concise and focused
-- Include necessary imports
-- Show realistic use cases
-- Add comments for complex logic
-
-```markdown
-### Creating a Download
-
-```python
-async def create_download(url: str, token: str):
-    """Create a new download task."""
-    async with httpx.AsyncClient() as client:
-        response = await client.post(
-            "http://localhost:8000/api/v1/downloads",
-            json={"url": url},
-            headers={"Authorization": f"Bearer {token}"}
-        )
-        return response.json()
-```
-```
-
-## Tables
-
-```markdown
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/v1/downloads` | List downloads |
-| POST | `/api/v1/downloads` | Create download |
-| DELETE | `/api/v1/downloads/{id}` | Delete download |
-```
-
-## Badges
-
-```markdown
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Python](https://img.shields.io/badge/python-3.11+-blue.svg)
-```
-
-## Admonitions
-
-```markdown
-> **Note:** This feature is experimental.
-
-> **Warning:** Never commit `.env` files.
-
-> **Tip:** Use `docker compose logs -f` for live logs.
-```
-
-## Changelog
-
-Follow [Keep a Changelog](https://keepachangelog.com/):
-
-```markdown
-# Changelog
-
-## [1.2.0] - 2024-01-15
-
-### Added
-- Playlist download feature
-- Custom output formats
-
-### Changed
-- Improved error handling
-
-### Fixed
-- Memory leak in worker
-
-### Deprecated
-- Legacy API endpoints
-```
-
-## Documentation Maintenance
-
-- Update docs with code changes
-- Review docs in PRs
-- Mark deprecated features
-- Remove outdated info
-
-### Docstrings
-
-Python (Google-style):
-```python
-def fetch_data(url: str, timeout: int = 30) -> dict:
-    """Fetch data from URL.
+def test_create_user():
+    # Arrange
+    user_data = {"username": "test", "email": "test@example.com"}
     
-    Args:
-        url: The URL to fetch from
-        timeout: Request timeout in seconds
-        
-    Returns:
-        Dictionary containing response data
-        
-    Raises:
-        ValueError: If URL is invalid
-        TimeoutError: If request times out
-    """
+    # Act
+    result = create_user(user_data)
+    
+    # Assert
+    assert result.username == "test"
+    assert result.id is not None
+```
+
+### Test Naming
+Follow: `test_<what>_<condition>_<expected>`
+
+```python
+# ✅ Good
+def test_create_download_valid_url_returns_download():
+def test_get_download_not_found_raises_404():
+
+# ❌ Bad
+def test_download():
+def test_1():
+```
+
+## Best Practices
+
+### Test Independence
+- Each test runs independently
+- Don't rely on order
+- Clean up after tests
+- Use fresh data
+
+### Single Assertion Concept
+```python
+# ✅ Good - One concept (user creation)
+def test_create_user():
+    user = create_user({"username": "test"})
+    assert user.username == "test"
+    assert user.id is not None
+    assert user.created_at is not None
+
+# ❌ Bad - Multiple concepts
+def test_user_workflow():
+    user = create_user({"username": "test"})
+    updated = update_user(user)
+    delete_user(user.id)
+```
+
+### Descriptive Assertions
+```python
+assert response.status_code == 200, f"Expected 200, got {response.status_code}"
+assert len(downloads) > 0, "Should return downloads"
+assert "id" in data, "Missing required 'id' field"
+```
+
+## Mocking
+
+### When to Mock
+- External API calls
+- File system operations
+- Database calls (in unit tests)
+- Time-dependent code
+- Slow operations
+
+### Python
+```python
+def test_fetch_video(mocker):
+    mock_api = mocker.patch("app.services.yt_dlp_service.extract_info")
+    mock_api.return_value = {"title": "Test", "duration": 120}
+    
+    result = get_video_info("https://example.com")
+    
+    assert result["title"] == "Test"
+    mock_api.assert_called_once()
+```
+
+### TypeScript
+```typescript
+test("fetches user", async () => {
+  const mockFetch = jest.fn().mockResolvedValue({
+    json: async () => ({ id: "1", name: "Test" }),
+  });
+  global.fetch = mockFetch;
+  
+  const user = await fetchUser("1");
+  expect(user.name).toBe("Test");
+});
+```
+
+## Test Data
+
+### Fixtures (Python)
+```python
+@pytest.fixture
+def test_user():
+    return {
+        "username": "testuser",
+        "email": "test@example.com"
+    }
+
+@pytest.fixture
+def test_download(test_user):
+    return {
+        "url": "https://example.com/video",
+        "user_id": test_user["id"]
+    }
+```
+
+### Builders
+```python
+class DownloadBuilder:
+    def __init__(self):
+        self.data = {"url": "https://example.com", "status": "queued"}
+    
+    def with_url(self, url: str):
+        self.data["url"] = url
+        return self
+    
+    def build(self):
+        return self.data
+
+# Usage
+download = DownloadBuilder().with_status("completed").build()
+```
+
+## Coverage
+
+### Running Coverage
+Python:
+```bash
+pytest --cov=app --cov-report=html
+```
+
+TypeScript:
+```bash
+npm test -- --coverage
+```
+
+### Goals
+- Aim for 80%+ on critical code
+- 100% not required
+- Focus on meaningful coverage
+- Prioritize complex logic
+
+## Performance
+
+### Mark Slow Tests
+```python
+@pytest.mark.slow
+def test_large_download():
+    pass
+
+# Run fast tests only
+# pytest -m "not slow"
+```
+
+## Integration Testing
+
+```python
+@pytest.mark.integration
+async def test_full_flow(db_session, test_user):
+    repos = await get_repositories()
+    
+    # Create
+    download = await repos["downloads"].create({
+        "url": "https://example.com",
+        "user_id": test_user.id
+    })
+    
+    # Verify
+    retrieved = await repos["downloads"].get_by_id(download.id)
+    assert retrieved is not None
+```
+
+## Error Testing
+
+```python
+def test_invalid_url():
+    with pytest.raises(ValidationError) as exc:
+        create_download("not-a-url")
+    assert "Invalid URL" in str(exc.value)
+
+def test_not_found():
+    with pytest.raises(HTTPException) as exc:
+        get_download("nonexistent")
+    assert exc.value.status_code == 404
+```
+
+## CI Integration
+
+- Run full suite on every commit
+- Run linting and type checking
+- Generate coverage reports
+- Fail build on failures
+
+### Skip in CI
+```python
+@pytest.mark.skipif(
+    os.getenv("CI") == "true",
+    reason="Requires external service"
+)
+def test_external():
     pass
 ```
 
-TypeScript (JSDoc):
-```typescript
-/**
- * Fetch data from URL
- * 
- * @param url - The URL to fetch from
- * @param timeout - Request timeout in seconds
- * @returns Promise resolving to response data
- * @throws {Error} If URL is invalid
- */
-async function fetchData(url: string, timeout: number = 30): Promise<Data> {
-  // ...
-}
+## Documentation
+
+```python
+def test_download_formats():
+    """Test various supported URL formats."""
+    urls = [
+        "https://www.youtube.com/watch?v=abc",
+        "https://youtu.be/abc",
+    ]
+    for url in urls:
+        result = parse_url(url)
+        assert result is not None, f"Failed: {url}"
 ```
-
-## Writing Style
-
-### Guidelines
-- Use clear, simple language
-- Define acronyms on first use
-- Use active voice
-- Keep sentences concise
-- Use inclusive language
-
-### Commands
-```markdown
-✅ Good:
-Run `docker compose up` to start services.
-
-❌ Bad:
-You should probably run docker compose up.
-```
-
-## Images
-
-```markdown
-![Architecture diagram](./images/architecture.png)
-
-*Figure 1: System architecture*
-```
-
-- Store in `docs/images/` or `assets/`
-- Use descriptive file names
-- Optimize sizes
-- Provide alt text
 
 ---
 > Source: [TechSquidTV/Hermes](https://github.com/TechSquidTV/Hermes) — distributed by [TomeVault](https://tomevault.io).
