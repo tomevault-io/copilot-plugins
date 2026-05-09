@@ -1,89 +1,81 @@
-## testing
+## typescript
 
-> Testing guidelines and rules
+> TypeScript coding rules
 
 
-# Testing Rules
+# TypeScript Rules
 
-## Test Framework
+## Type Safety
 
-- Use Vitest for all tests
-- Tests mirror src/ structure in tests/
-- Test files end with `.test.ts`
+1. **NEVER use `any` type**
+   ```typescript
+   // Bad
+   const data: any = JSON.parse(content);
 
-## Running Tests
+   // Good
+   const data: unknown = JSON.parse(content);
+   const validated = Schema.parse(data);
+   ```
 
-```bash
-pnpm test              # Run all tests
-pnpm test:watch        # Watch mode
-pnpm test:coverage     # With coverage
-```
+2. **Use explicit types for functions**
+   ```typescript
+   // Bad
+   const process = async (path) => { ... };
 
-## Test Structure
+   // Good
+   const process = async (path: string): Promise<void> => { ... };
+   ```
+
+3. **Prefer `unknown` over `any`**
+   - Use type guards to narrow `unknown`
+   - Use Zod for runtime validation
+
+## Import Conventions
+
+ALWAYS use `.js` extension for local imports (ESM requirement):
 
 ```typescript
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+// Correct
+import { getTuckDir } from '../lib/paths.js';
+import type { TuckConfig } from '../types.js';
 
-describe('functionName', () => {
-  beforeEach(() => {
-    // Setup before each test
-  });
-
-  afterEach(() => {
-    // Cleanup after each test
-  });
-
-  it('should do X when given Y', () => {
-    const result = functionName(input);
-    expect(result).toBe(expected);
-  });
-
-  it('should throw CustomError when given invalid input', () => {
-    expect(() => functionName(invalid)).toThrow(CustomError);
-  });
-});
+// Wrong - will fail at runtime
+import { getTuckDir } from '../lib/paths';
 ```
 
-## Test Guidelines
+## Interface vs Type
 
-1. **Test both paths** - Success AND error cases
-2. **Use temp directories** - For file operations
-3. **Mock external services** - Don't hit real APIs
-4. **Meaningful assertions** - Test behavior, not implementation
-5. **Descriptive names** - "should X when Y" format
+- Use `interface` for object shapes
+- Use `type` for unions, intersections, primitives
 
-## What to Test
+```typescript
+// Objects
+interface FileChange {
+  path: string;
+  status: 'added' | 'modified' | 'deleted';
+}
 
-### Unit Tests
-- Individual functions
-- Edge cases
-- Error handling
-- Input validation
-
-### Integration Tests
-- Command workflows
-- Git operations
-- File system changes
-
-## Coverage
-
-- Aim for high coverage but prioritize meaningful tests
-- Don't test implementation details
-- Focus on public API behavior
-
-## Test File Location
-
-```
-src/lib/paths.ts      -> tests/lib/paths.test.ts
-src/commands/add.ts   -> tests/commands/add.test.ts
+// Unions/primitives
+type Status = 'pending' | 'complete' | 'error';
+type Path = string;
 ```
 
-## NEVER
+## Constants
 
-- Skip tests in PRs
-- Commit failing tests
-- Test private implementation details
-- Leave flaky tests unfixed
+- Use `const` for variables that won't change
+- Never use `var`
+- Use `let` only when reassignment is needed
+
+## Nullish Values
+
+- Prefer `undefined` over `null`
+- Use optional chaining `?.`
+- Use nullish coalescing `??`
+
+```typescript
+// Good
+const value = obj?.nested?.property ?? 'default';
+```
 
 ---
 > Source: [Pranav-Karra-3301/tuck](https://github.com/Pranav-Karra-3301/tuck) — distributed by [TomeVault](https://tomevault.io).
