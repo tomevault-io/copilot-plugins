@@ -1,21 +1,23 @@
 # autorun
 
-> Tome by [ahundt](https://github.com/ahundt/autorun) — distributed by [TomeVault](https://tomevault.io/claim/ahundt)
+> Tome by [ahundt](https://github.com/ahundt/autorun) — distributed by [TomeVault](https://tomevault.io)
+
+Claude Code plugin & Gemini cli extension to keep ai running, keep data safe, plan better, and keep running until tasks are done.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [ahundt/autorun](https://github.com/ahundt/autorun).
+Original source: `CLAUDE.md` in [ahundt/autorun](https://github.com/ahundt/autorun).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/ahundt#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ahundt/autorun](https://github.com/ahundt/autorun)
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install ahundt/autorun
 ```
-Or browse all formats at [https://tomevault.io/claim/ahundt](https://tomevault.io/claim/ahundt).
+Source: [github.com/ahundt/autorun](https://github.com/ahundt/autorun).
 
 <!-- genome:t-i-q -->
