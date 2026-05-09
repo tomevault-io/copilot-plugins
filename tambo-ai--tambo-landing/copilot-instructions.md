@@ -1,282 +1,469 @@
-## main
+## styling
 
-> Provides an `AbortSignal` that triggers when the component's cache scope expires.
+> description: CSS Modules, Tailwind CSS v4, and responsive design patterns
 
 ---
-description: Project overview and cross-cutting concerns
+description: CSS Modules, Tailwind CSS v4, and responsive design patterns
 globs: *.tsx, *.jsx, *.css, *.js, *.ts
 ---
 
-# Satus Project Guidelines
+# Styling Guidelines
 
-## Technology Stack
+## CSS Modules
 
-- **Next.js 16.0.1** - App Router with Turbopack support and Cache Components
-- **React 19.2.0** - Latest features including `<Activity />`, `useEffectEvent`, and `cacheSignal`
-- **React Compiler enabled** - Automatically optimizes most component re-renders and memoization; manual memoization is rarely needed
-- **TypeScript** - Strict mode enabled
-- **Tailwind CSS 4.1.16** - CSS-first configuration
-- **Biome 2.3.3** - Linting and formatting
-- **Bun** - JavaScript runtime and package manager
+### File Naming
+Use kebab-case for CSS module files. Match the component name followed by `.module.css`
 
-## React 19.2 New Features
-
-### 1. `<Activity />` Component
-Manage off-screen component visibility and defer updates for better performance.
-
-```tsx
-import { Activity } from 'react'
-
-// Hide tab content when not visible
-<Activity mode={isActive ? 'visible' : 'hidden'}>
-  <ExpensiveComponent />
-</Activity>
+```
+button.tsx
+button.module.css
 ```
 
-**Use Cases:**
-- Tab systems or carousels
-- Off-screen WebGL scenes (3D graphics, shaders)
-- Accordion components
-- Drawer/modal systems
-- Image galleries and carousels
+### Class Naming
+Use camelCase for class names. Use descriptive, semantic names.
 
-**Benefits:**
-- Pre-render content without performance impact
-- Automatic effect cleanup when hidden
-- Better resource management for complex UIs
+```css
+.button { /* Base styles */ }
+.isPrimary { /* Variant styles */ }
+.isDisabled { /* State styles */ }
+```
 
-### 2. `useEffectEvent` Hook
-Separate event logic from effect dependencies to prevent unnecessary re-runs.
+### Imports in Components
+Always import CSS modules as `s`
 
 ```tsx
-import { useEffect, useEffectEvent } from 'react'
+import s from './component-name.module.css'
 
-function Component({ url, theme }) {
-  const onConnected = useEffectEvent(() => {
-    showNotification('Connected!', theme) // theme changes won't trigger reconnect
-  })
-
-  useEffect(() => {
-    const connection = createConnection(url)
-    connection.on('connected', onConnected)
-    connection.connect()
-    return () => connection.disconnect()
-  }, [url]) // Only reconnect when url changes
+function Component() {
+  return <div className={s.wrapper} />
 }
 ```
 
-**Use Cases:**
-- Complex event handlers with multiple dependencies
-- Scroll/transform callbacks
-- WebGL mouse/interaction handlers
-- Animation callbacks
+## Responsive Design
 
-**Benefits:**
-- Reduces unnecessary effect re-runs
-- Cleaner dependency arrays
-- Better separation of concerns
+### Viewport Functions
+Use custom viewport functions for responsive sizing
 
-### 3. `cacheSignal` (Server Components Only)
-Provides an `AbortSignal` that triggers when the component's cache scope expires.
-
-```tsx
-import { cacheSignal } from 'react'
-
-async function fetchUserData(id: string) {
-  const signal = cacheSignal() // Auto-aborts on cache expiry
-  const response = await fetch(`/api/users/${id}`, { signal })
-  return response.json()
+```css
+.element {
+  width: mobile-vw(150);      /* 150px at mobile viewport */
+  height: mobile-vh(100);     /* 100px at mobile viewport */
+  margin: desktop-vw(50);     /* 50px at desktop viewport */
+  padding: desktop-vh(25);    /* 25px at desktop viewport */
 }
 ```
 
-**Use Cases:**
-- Sanity CMS queries
-- Shopify API calls
-- Any server component data fetching
-- Replace custom timeout logic with automatic cleanup
+### Breakpoints
+Desktop breakpoint: 800px (defined in styles/config.ts)
 
-**Benefits:**
-- Automatic cleanup of stale requests
-- Better resource management
-- Simpler than manual AbortController
-
-### 4. Performance Tracks in Chrome DevTools
-React 19.2 integrates custom performance tracks into Chrome DevTools:
-- **Scheduler Track:** Displays React's workload prioritization
-- **Components Track:** Shows component hierarchy and timing
-
-**Usage:** Open Chrome DevTools → Performance tab → Record a profile → Look for React-specific tracks
-
-## File Organization
-
-```
-├── app/                  # Next.js pages and routes
-├── components/           # Reusable UI components
-├── hooks/                # Custom React hooks
-├── integrations/         # Third-party integrations
-├── libs/                 # Utility libraries
-│   ├── cleanup-integrations.ts  # Remove unused integrations
-│   ├── fetch-with-timeout.ts    # API resilience
-│   ├── metadata.ts              # SEO/metadata helpers
-│   ├── validate-env.ts          # Environment validation
-│   └── ...
-├── orchestra/            # Debug tools (dev-only)
-├── styles/               # Styling configuration
-└── webgl/                # WebGL and 3D graphics
-```
-
-## Cross-Cutting Concerns
-
-### React Compiler & Memoization
-
-**React Compiler is enabled and handles ALL optimization automatically.**
-
-- **DO NOT use `useMemo`, `useCallback`, or `React.memo` in new code.**
-- The compiler optimizes all component re-renders, memoization, and dependencies automatically.
-- Only use manual memoization if you encounter a proven edge case where the compiler cannot optimize (extremely rare).
-- If you see these in existing code, they can likely be removed safely.
-- **CRITICAL EXCEPTION: Use `useRef` for object instantiation** - Creating new object instances on every render creates new references that trigger effects, causing infinite loops.
-- Refer to the [React Compiler documentation](https://react.dev/reference/react/compiler) for edge cases.
-
-```tsx
-// ❌ DON'T: Manual memoization for simple calculations (compiler handles this)
-const memoizedValue = useMemo(() => computeExpensive(a, b), [a, b])
-const memoizedCallback = useCallback(() => doSomething(a), [a])
-
-// ✅ DO: Let React Compiler optimize automatically
-const value = computeExpensive(a, b)
-const handleClick = () => doSomething(a)
-
-// ⚠️ EXCEPTION: Object instantiation MUST use useRef
-// ❌ DON'T: This causes infinite re-renders when passed to effects/deps
-const instance = new SomeClass()
-
-// ✅ DO: Use useRef for object instantiation
-const instanceRef = useRef<SomeClass | null>(null)
-if (!instanceRef.current) {
-  instanceRef.current = new SomeClass(params)
-}
-const instance = instanceRef.current
-```
-
-### Image Optimization
-
-**Always use the custom Image component for all images.**
-
-- **DO NOT use `next/image` directly**
-- Use `~/components/image` for standard images
-- **In WebGL contexts, use `~/webgl/components/image`** which wraps the custom Image component for DOM fallback and WebGL texture integration
-
-```tsx
-import { Image } from '~/components/image'
-// For WebGL:
-import { Image as WebGLImage } from '~/webgl/components/image'
-```
-
-### Development vs Production
-
-**Console logs are automatically stripped in production** by Next.js compiler (except `console.error` and `console.warn`)
-
-- **Always gate debug UI components** - these are NOT automatically removed
-- **Gate expensive debug computations** - avoid running heavy operations in production
-
-```tsx
-// ✅ Simple logs: Optional to gate (Next.js strips them automatically)
-console.log('Debug info:', data)
-
-// ✅ Better: Gate expensive operations to avoid computation overhead
-if (process.env.NODE_ENV === 'development') {
-  console.log('Heavy computation:', expensiveDebugCalculation())
-}
-
-// ⚠️ REQUIRED: Always gate debug UI components (not auto-removed)
-{process.env.NODE_ENV === 'development' && <DebugPanel />}
-{process.env.NODE_ENV === 'development' && <Stats />}
-```
-
-**Bundle Size Optimization:**
-- Keep production bundles minimal by excluding dev-only code
-- Use tree-shaking friendly imports
-- Check bundle size impact of new dependencies
-- Debug UI components must be gated (Next.js won't remove them automatically)
-
-## Core Utility Libraries
-
-### Available Utilities
-- **`~/libs/validate-env`** - Validate required environment variables at runtime
-- **`~/libs/cleanup-integrations`** - Remove unused integration code to optimize bundle size
-- **`~/libs/fetch-with-timeout`** - Resilient API calls with configurable timeouts (5-10s standard)
-- **`~/libs/metadata`** - Centralized SEO and metadata generation for consistent OpenGraph, Twitter cards, etc.
-
-### Usage Examples
-
-```typescript
-// Validate environment variables
-import { validateEnv } from '~/libs/validate-env'
-validateEnv(['NEXT_PUBLIC_API_KEY', 'DATABASE_URL'])
-
-// Fetch with timeout
-import { fetchWithTimeout } from '~/libs/fetch-with-timeout'
-const response = await fetchWithTimeout(url, { timeout: 10000, ...options })
-
-// Generate metadata
-import { generateSanityMetadata } from '~/libs/metadata'
-export async function generateMetadata({ params }) {
-  const page = await fetchPage(params.slug)
-  return generateSanityMetadata(page)
+```css
+@media (min-width: 800px) {
+  /* Desktop styles */
 }
 ```
 
-## Getting Started
+### Grid System
+Use the column function for grid-based layouts
 
-1. Review relevant best practices before starting work in a specific area
-2. Follow the project structure guidelines
-3. Use the provided development tools and debugging features
-4. Consult the documentation for specific implementation details
-5. Use utility libraries for common patterns (API calls, env validation, metadata)
+```css
+.container {
+  width: columns(6);          /* Span 6 columns */
+  margin-left: columns(1);    /* Offset by 1 column */
+}
+```
 
-## Updates
+## Typography
 
-These best practices are regularly updated to reflect:
-- New dependencies and versions
-- Improved patterns and practices
-- Community feedback and learnings
-- Project-specific requirements
+### Font Hierarchy
+Use typography variables from the theme
 
-## Next.js 16 Cache Components
+```css
+.title {
+  font-size: var(--font-size-title);
+  line-height: var(--line-height-title);
+  font-weight: var(--font-weight-bold);
+}
+```
 
-Cache Components are enabled globally (`cacheComponents: true` in `next.config.ts`). This provides advanced caching strategies for Server Components.
+### Text Scaling
+Use scale utilities with the 's' prefix
 
-### Important Gotchas
+```css
+.scalingText {
+  --size: 1;
+  font-size: s(var(--size) * 16px);   /* Scales appropriately */
+}
+```
 
-**1. Server Components Only**
-- Cache Components work only in Server Components
-- Client Components (`'use client'`) cannot use Cache Components
-- Move data fetching to Server Components, pass props to Client Components
+## Colors and Themes
 
-**2. Suspense Boundaries Required**
-- Cached components must be wrapped in Suspense boundaries
-- Use proper loading fallbacks for better UX
+### Color Variables
+Use theme colors from CSS variables
 
-**3. User-Specific Data**
-- ❌ **Never cache** personalized data (user profiles, cart contents, private content)
-- ✅ **Always use** `cache: 'no-store'` for user-specific requests
-- Example: Shopping carts, user accounts, private content
+```css
+.element {
+  color: var(--color-text);
+  background-color: var(--color-background);
+  border-color: var(--color-accent);
+}
+```
 
-**4. Real-Time Data**
-- Live feeds, stock prices, chat messages should use `cache: 'no-store'`
-- Only cache data that doesn't change frequently
+### Theme Switching
+Use theme-specific variables when needed
 
-**5. Testing Caching**
-- Hard refresh (`Cmd+Shift+R`) bypasses router cache
-- Normal navigation uses router cache
-- Test both behaviors, especially with dynamic routes
-- Development and production behave differently
+```css
+.element {
+  color: var(--theme-dark-text);
+  background-color: var(--theme-dark-background);
+}
 
-**6. Cache Invalidation**
-- Use `revalidateTag()` or `revalidatePath()` in webhook handlers
-- Set proper cache tags: `next: { tags: ['products'] }`
-- Dynamic routes require careful cache tag management
+[data-theme="light"] .element {
+  color: var(--theme-light-text);
+  background-color: var(--theme-light-background);
+}
+```
+
+## Animations and Transitions
+
+### Transition Timing
+Use consistent transition variables
+
+```css
+.element {
+  transition: opacity var(--transition-duration) var(--transition-ease);
+}
+```
+
+### Animation Easings
+Import easings from the theme
+
+```css
+.element {
+  transition: transform 0.5s var(--ease-out-expo);
+}
+```
+
+## Best Practices
+
+### Performance
+Prefer CPU-friendly properties (transform, opacity). Use `will-change` sparingly and only when needed.
+
+```css
+.animatedElement {
+  will-change: transform, opacity;
+}
+```
+
+### Organization
+Group related properties together. Order properties consistently.
+
+```css
+.element {
+  /* Positioning */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  
+  /* Box model */
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+  
+  /* Visual */
+  background-color: var(--color-background);
+  border-radius: 4px;
+  
+  /* Typography */
+  font-size: 1rem;
+  color: var(--color-text);
+  
+  /* Animation */
+  transition: all 0.3s ease;
+}
+```
+
+---
+
+# Tailwind CSS v4
+
+## Core Changes
+
+### CSS-first configuration
+Configuration is now done in CSS instead of JavaScript. Use `@theme` directive in CSS instead of `tailwind.config.js`
+
+```css
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Satoshi", "sans-serif";
+  --breakpoint-3xl: 1920px;
+  --color-avocado-500: oklch(0.84 0.18 117.33);
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+}
+```
+
+### CSS import syntax
+Use `@import "tailwindcss"` instead of `@tailwind` directives
+
+- Old: `@tailwind base; @tailwind components; @tailwind utilities;`
+- New: `@import "tailwindcss";`
+
+### Package changes
+- PostCSS plugin is now `@tailwindcss/postcss` (not `tailwindcss`)
+- CLI is now `@tailwindcss/cli`
+- Vite plugin is `@tailwindcss/vite`
+- No need for `postcss-import` or `autoprefixer` anymore
+
+### Native CSS cascade layers
+Uses real CSS `@layer` instead of Tailwind's custom implementation
+
+## Theme Configuration
+
+### CSS theme variables
+All design tokens are available as CSS variables
+
+- Namespace format: `--category-name` (e.g., `--color-blue-500`, `--font-sans`)
+- Access in CSS: `var(--color-blue-500)`
+- Available namespaces:
+  - `--color-*` : Color utilities like `bg-red-500` and `text-sky-300`
+  - `--font-*` : Font family utilities like `font-sans`
+  - `--text-*` : Font size utilities like `text-xl`
+  - `--font-weight-*` : Font weight utilities like `font-bold`
+  - `--tracking-*` : Letter spacing utilities like `tracking-wide`
+  - `--leading-*` : Line height utilities like `leading-tight`
+  - `--breakpoint-*` : Responsive breakpoint variants like `sm:*`
+  - `--container-*` : Container query variants like `@sm:*` and size utilities like `max-w-md`
+  - `--spacing-*` : Spacing and sizing utilities like `px-4` and `max-h-16`
+  - `--radius-*` : Border radius utilities like `rounded-sm`
+  - `--shadow-*` : Box shadow utilities like `shadow-md`
+  - `--inset-shadow-*` : Inset box shadow utilities like `inset-shadow-xs`
+  - `--drop-shadow-*` : Drop shadow filter utilities like `drop-shadow-md`
+  - `--blur-*` : Blur filter utilities like `blur-md`
+  - `--perspective-*` : Perspective utilities like `perspective-near`
+  - `--aspect-*` : Aspect ratio utilities like `aspect-video`
+  - `--ease-*` : Transition timing function utilities like `ease-out`
+  - `--animate-*` : Animation utilities like `animate-spin`
+
+### Simplified theme configuration
+Many utilities no longer need theme configuration
+
+- Utilities like `grid-cols-12`, `z-40`, and `opacity-70` work without configuration
+- Data attributes like `data-selected:opacity-100` don't need configuration
+
+### Dynamic spacing scale
+Derived from a single spacing value
+
+- Default: `--spacing: 0.25rem`
+- Every multiple of the base value is available (e.g., `mt-21` works automatically)
+
+### Overriding theme namespaces
+- Override entire namespace: `--font-*: initial;`
+- Override entire theme: `--*: initial;`
+
+## New Features
+
+### Container query support
+Built-in now, no plugin needed
+
+- `@container` for container context
+- `@sm:`, `@md:`, etc. for container-based breakpoints
+- `@max-md:` for max-width container queries
+- Combine with `@min-md:@max-xl:hidden` for ranges
+
+### 3D transforms
+- `transform-3d` enables 3D transforms
+- `rotate-x-*`, `rotate-y-*`, `rotate-z-*` for 3D rotation
+- `scale-z-*` for z-axis scaling
+- `translate-z-*` for z-axis translation
+- `perspective-*` utilities (`perspective-near`, `perspective-distant`, etc.)
+- `perspective-origin-*` utilities
+- `backface-visible` and `backface-hidden`
+
+### Gradient enhancements
+- Linear gradient angles: `bg-linear-45` (renamed from `bg-gradient-*`)
+- Gradient interpolation: `bg-linear-to-r/oklch`, `bg-linear-to-r/srgb`
+- Conic and radial gradients: `bg-conic`, `bg-radial-[at_25%_25%]`
+
+### Shadow enhancements
+- `inset-shadow-*` and `inset-ring-*` utilities
+- Can be composed with regular `shadow-*` and `ring-*`
+
+### New CSS property utilities
+- `field-sizing-content` for auto-resizing textareas
+- `scheme-light`, `scheme-dark` for `color-scheme` property
+- `font-stretch-*` utilities for variable fonts
+
+## New Variants
+
+### Composable variants
+Chain variants together
+
+```tsx
+// Example: group-has-data-potato:opacity-100
+```
+
+### New variants
+- `starting` variant for `@starting-style` transitions
+- `not-*` variant for `:not()` pseudo-class
+- `inert` variant for `inert` attribute
+- `nth-*` variants (`nth-3:`, `nth-last-5:`, `nth-of-type-4:`, `nth-last-of-type-6:`)
+- `in-*` variant (like `group-*` but without adding `group` class)
+- `open` variant now supports `:popover-open`
+- `**` variant for targeting all descendants
+
+## Custom Extensions
+
+### Custom utilities
+Use `@utility` directive
+
+```css
+@utility tab-4 {
+  tab-size: 4;
+}
+```
+
+### Custom variants
+Use `@variant` directive
+
+```css
+@variant pointer-coarse (@media (pointer: coarse));
+@variant theme-midnight (&:where([data-theme="midnight"] *));
+```
+
+### Plugins
+Use `@plugin` directive
+
+```css
+@plugin "@tailwindcss/typography";
+```
+
+## Breaking Changes
+
+### Removed deprecated utilities
+- `bg-opacity-*` → Use `bg-black/50` instead
+- `text-opacity-*` → Use `text-black/50` instead
+- And others: `border-opacity-*`, `divide-opacity-*`, etc.
+
+### Renamed utilities
+- `shadow-sm` → `shadow-xs` (and `shadow` → `shadow-sm`)
+- `drop-shadow-sm` → `drop-shadow-xs` (and `drop-shadow` → `drop-shadow-sm`)
+- `blur-sm` → `blur-xs` (and `blur` → `blur-sm`)
+- `rounded-sm` → `rounded-xs` (and `rounded` → `rounded-sm`)
+- `outline-none` → `outline-hidden` (for the old behavior)
+
+### Default style changes
+- Default border color is now `currentColor` (was `gray-200`)
+- Default `ring` width is now 1px (was 3px)
+- Placeholder text now uses current color at 50% opacity (was `gray-400`)
+- Hover styles only apply on devices that support hover (`@media (hover: hover)`)
+
+### Syntax changes
+- CSS variables in arbitrary values: `bg-(--brand-color)` instead of `bg-[--brand-color]`
+- Stacked variants now apply left-to-right (not right-to-left)
+- Use CSS variables instead of `theme()` function 
+
+## Advanced Configuration
+
+### Using a prefix
+
+```css
+@import "tailwindcss" prefix(tw);
+```
+
+Results in classes like `tw:flex`, `tw:bg-red-500`, `tw:hover:bg-red-600`
+
+### Source detection
+- Automatic by default (ignores `.gitignore` files and binary files)
+- Add sources: `@source "../node_modules/@my-company/ui-lib";`
+- Disable automatic detection: `@import "tailwindcss" source(none);`
+
+### Legacy config files
+
+```css
+@import "tailwindcss";
+@config "../../tailwind.config.js";
+```
+
+### Dark mode configuration
+
+```css
+@import "tailwindcss";
+@variant dark (&:where(.dark, .dark *));
+```
+
+### Container customization
+Extend with `@utility`
+
+```css
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+```
+
+### Using `@apply` in Vue/Svelte
+
+```html
+<style>
+  @import "../../my-theme.css" theme(reference);
+  /* or */
+  @import "tailwindcss/theme" theme(reference);
+  
+  h1 {
+    @apply font-bold text-2xl text-red-500;
+  }
+</style>
+```
+
+---
+
+# Project-Specific Custom Utilities
+
+The project includes custom utility classes and functions generated by scripts in `styles/scripts`. These are available globally in all CSS.
+
+## Custom Utility Classes (`dr-*`)
+
+### Scaling Utilities (responsive to device width)
+- `dr-text-*` — font-size
+- `dr-tracking-*` — letter-spacing
+- `dr-leading-*` — line-height
+- `dr-border-*`, `dr-border-t-*`, `dr-border-r-*`, `dr-border-b-*`, `dr-border-l-*` — border widths
+- `dr-rounded-*`, `dr-rounded-t-*`, `dr-rounded-r-*`, `dr-rounded-b-*`, `dr-rounded-l-*`, `dr-rounded-tl-*`, `dr-rounded-tr-*`, `dr-rounded-br-*`, `dr-rounded-bl-*` — border radii
+
+### Column-Based Sizing Utilities (responsive to grid columns)
+- `dr-w-col-*`, `dr-min-w-col-*`, `dr-max-w-col-*` — width, min-width, max-width by columns
+- `dr-h-col-*`, `dr-min-h-col-*`, `dr-max-h-col-*` — height, min-height, max-height by columns
+- `dr-gap-col-*`, `dr-gap-x-col-*`, `dr-gap-y-col-*` — grid gaps by columns
+- `dr-p-col-*`, `dr-px-col-*`, `dr-py-col-*`, `dr-pt-col-*`, `dr-pr-col-*`, `dr-pl-col-*`, `dr-pb-col-*` — padding by columns
+- `dr-m-col-*`, `dr-mx-col-*`, `dr-my-col-*`, `dr-mt-col-*`, `dr-mr-col-*`, `dr-ml-col-*`, `dr-mb-col-*` — margin by columns
+
+### Standard Sizing Utilities (responsive to device width)
+- `dr-w-*`, `dr-min-w-*`, `dr-max-w-*` — width, min-width, max-width
+- `dr-h-*`, `dr-min-h-*`, `dr-max-h-*` — height, min-height, max-height
+- `dr-gap-*`, `dr-gap-x-*`, `dr-gap-y-*` — grid gaps
+- `dr-p-*`, `dr-px-*`, `dr-py-*`, `dr-pt-*`, `dr-pr-*`, `dr-pl-*`, `dr-pb-*` — padding
+- `dr-m-*`, `dr-mx-*`, `dr-my-*`, `dr-mt-*`, `dr-mr-*`, `dr-ml-*`, `dr-mb-*` — margin
+- `dr-top-*`, `dr-right-*`, `dr-bottom-*`, `dr-left-*`, `dr-inset-*`, `dr-inset-x-*`, `dr-inset-y-*` — positioning
+
+### Layout and Grid Utilities
+- `dr-grid` — sets display: grid and grid-template-columns based on project columns
+- `dr-layout-block` — sets margin-inline and width for layout blocks
+- `dr-layout-block-inner` — sets padding-inline and width for inner layout blocks
+- `dr-layout-grid` — combines layout block and grid
+- `dr-layout-grid-inner` — combines inner layout block and grid
+- `desktop-only` — hides element on mobile
+- `mobile-only` — hides element on desktop
+
+## Custom PostCSS Functions
+- `mobile-vw(pixels)` — converts pixels to viewport width for mobile
+- `mobile-vh(pixels)` — converts pixels to viewport height for mobile
+- `desktop-vw(pixels)` — converts pixels to viewport width for desktop
+- `desktop-vh(pixels)` — converts pixels to viewport height for desktop
+- `columns(n)` — calculates width based on number of grid columns
+
+## Theme and Utility Generation
+The theme, utilities, and variants are generated from project config and may differ from vanilla Tailwind. Always check `/styles/css/tailwind.css` for the latest generated classes.
 
 Last updated: 2025-10-07
 
