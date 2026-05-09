@@ -4,7 +4,7 @@
   "repo": "claude-code-mascot-statusline",
   "description": "\ud83d\udc3e A tiny pixel pet that lives in your Claude Code status line \u2014 it thinks when you think, panics when context runs low, and celebrates every successful tool call. Your emotional support companion for AI-powered coding.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TeXmeijin/claude-code-mascot-statusline",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T09:51:34Z"
+  "distributed_at": "2026-05-09T21:01:19Z"
 }
