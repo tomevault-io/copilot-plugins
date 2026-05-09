@@ -1,110 +1,100 @@
-## agent
+## mcp-inspector
 
-> This file provides guidance to AI assistants when working with code in this repository.
+> Rule Name: mcp-inspector
 
-# Agent Instructions
+Rule Name: mcp-inspector
+Description: Debugging and verifying the `macos-automator-mcp` server via the MCP Inspector, using Playwright for UI automation and direct terminal commands for server management. This rule prioritizes stability and detailed verification through Playwright's introspection capabilities.
 
-This file provides guidance to AI assistants when working with code in this repository.
+**Required Tools:**
+- `run_terminal_cmd`
+- `mcp_playwright_browser_navigate`
+- `mcp_playwright_browser_type`
+- `mcp_playwright_browser_click`
+- `mcp_playwright_browser_snapshot`
+- `mcp_playwright_browser_console_messages`
+- `mcp_playwright_browser_wait_for`
 
-## Project Overview
+**User Workspace Path Placeholder:**
+- The path to the `start.sh` script will be specified as `[WORKSPACE_PATH]/start.sh`.
+- The AI assistant executing this rule **MUST** replace `[WORKSPACE_PATH]` with the absolute path to the user's current project workspace (e.g., as found in the `<user_info>` context block during rule execution).
+- Example of a resolved path if the workspace is `/Users/username/Projects/my-mcp-project`: `/Users/username/Projects/my-mcp-project/start.sh`.
 
-This is the `macos-automator-mcp` project, which provides a Model Context Protocol (MCP) server that enables executing AppleScript and JavaScript for Automation (JXA) scripts on macOS. The server features a knowledge base of pre-defined scripts accessible by ID and supports inline scripts, script files, and argument passing.
+---
+**Main Flow:**
 
-## Architecture
+**Phase 1: Start MCP Inspector Server**
+1.  **Kill Existing Inspector Processes:**
+    *   Action: Call `run_terminal_cmd`.
+    *   `command`: `pkill -f 'npx @modelcontextprotocol/inspector' || true`
+    *   `is_background`: `false`
+    *   Expected: Cleans up any lingering Inspector processes.
+2.  **Start New Inspector Process:**
+    *   Action: Call `run_terminal_cmd`.
+    *   `command`: `npx @modelcontextprotocol/inspector`
+    *   `is_background`: `true`
+    *   Expected: MCP Inspector starts in the background.
+3.  **Wait for Inspector Initialization:**
+    *   Action: Call `mcp_playwright_browser_wait_for`.
+    *   `time`: `10` (seconds)
+    *   Expected: Allows ample time for the Inspector server to be ready. This step requires an active Playwright page, so it's implicitly preceded by navigation in Phase 2 if the browser isn't already open.
 
-- **Server Configuration**: The server reads configuration from environment variables like `LOG_LEVEL` and `KB_PARSING`.
-- **MCP Tools**: Two main tools are provided:
-  1. `execute_script`: Executes AppleScript/JXA from inline content, file path, or knowledge base ID
-  2. `get_scripting_tips`: Retrieves information from the knowledge base
-- **Knowledge Base**: A collection of pre-defined scripts stored as Markdown files in `knowledge_base/` directory with YAML frontmatter
-- **ScriptExecutor**: Core component that executes scripts via `osascript` command
+**Phase 2: Connect to Server via Playwright**
+1.  **Navigate to Inspector URL:**
+    *   Action: Call `mcp_playwright_browser_navigate`.
+    *   `url`: `http://127.0.0.1:6274`
+    *   Expected: Playwright opens the MCP Inspector web UI.
+    *   Snapshot: Take a snapshot (`mcp_playwright_browser_snapshot`) to confirm page load and identify initial form element references (`ref`).
+2.  **Fill Form (Command & Args only):**
+    *   **Set Command:**
+        *   Action: Call `mcp_playwright_browser_type`.
+        *   `element`: "Command textbox" (Obtain `ref` from snapshot).
+        *   `text`: `macos-automator-mcp`
+    *   **Set Arguments:**
+        *   Action: Call `mcp_playwright_browser_type`.
+        *   `element`: "Arguments textbox" (Obtain `ref` from snapshot).
+        *   `text`: `[WORKSPACE_PATH]/start.sh` (This placeholder MUST be replaced by the AI executing the rule with the absolute path to the user's current workspace).
+    *   *(Note: Environment Variables are skipped in this flow for simplicity and stability, as issues were previously observed when setting LOG_LEVEL=DEBUG during connection.)*
+3.  **Click "Connect":**
+    *   Action: Call `mcp_playwright_browser_click`.
+    *   `element`: "Connect button" (Obtain `ref` from snapshot).
+    *   Expected: Connection to the `macos-automator-mcp` server is established.
+    *   Snapshot: Take a snapshot. Verify connection status (e.g., text changes to "Connected") and check for initial server logs in the UI.
 
-## Knowledge Base System
+**Phase 3: Interact with a Tool via Playwright**
+1.  **List Tools:**
+    *   Action: Call `mcp_playwright_browser_click`.
+    *   `element`: "List Tools button" (Obtain `ref` from the latest snapshot).
+    *   Expected: The list of available tools from the `macos-automator-mcp` server is displayed.
+    *   Snapshot: Take a snapshot. Verify tools like `execute_script` and `get_scripting_tips` are visible.
+2.  **Select 'get_scripting_tips' Tool:**
+    *   Action: Call `mcp_playwright_browser_click`.
+    *   `element`: "get_scripting_tips tool in list" (Obtain `ref` by identifying it in the snapshot's tool list).
+    *   Expected: The parameters form for `get_scripting_tips` is displayed in the right-hand panel.
+    *   Snapshot: Take a snapshot. Verify the right panel shows details for `get_scripting_tips` (e.g., its name, description, and parameter fields like 'searchTerm', 'listCategories', etc.).
+3.  **Execute 'get_scripting_tips' (default parameters):**
+    *   Action: Call `mcp_playwright_browser_click`.
+    *   `element`: "Run Tool button" (Obtain `ref` for the 'Run Tool' button specific to the `get_scripting_tips` form in the right panel from the snapshot).
+    *   Expected: The `get_scripting_tips` tool is executed with its default parameters.
+    *   Snapshot: Take a snapshot.
 
-The knowledge base (`knowledge_base/` directory) contains numerous Markdown files organized by category:
-- Each file has YAML frontmatter with metadata: `id`, `title`, `description`, `language`, etc.
-- The actual script code is contained in the Markdown body in a fenced code block
-- Scripts can use placeholders like `--MCP_INPUT:keyName` and `--MCP_ARG_N` for parameter substitution
+**Phase 4: Verify Tool Execution and Logs in Playwright**
+1.  **Check for Results in UI:**
+    *   Action: Examine the latest snapshot.
+    *   Look for: The results of the `get_scripting_tips` call (e.g., a list of script categories if `listCategories` was implicitly true by default, or an empty result if no default search term was run).
+    *   The results should appear in the 'Result from tool' or a similarly named section within the right-hand panel where the tool's form was.
+2.  **Check Console Logs (Optional but Recommended):**
+    *   Action: Call `mcp_playwright_browser_console_messages`.
+    *   Expected: Review for any errors or relevant messages from the Inspector or the tool interaction.
+3.  **Check MCP Server Logs in UI:**
+    *   Action: Examine the latest snapshot.
+    *   Look for: Logs related to the `get_scripting_tips` tool execution in the main server log panel (usually bottom-left, titled "Error output from MCP server" or similar, but also shows general logs).
 
-## Common Development Commands
-
-```bash
-# Install dependencies
-npm install
-
-# Run the server in development mode with hot reloading
-npm run dev
-
-# Build the TypeScript project
-npm run build
-
-# Start the compiled server
-npm run start
-
-# Lint the codebase
-npm run lint
-
-# Format the codebase
-npm run format
-
-# Validate the knowledge base
-npm run validate
-```
-
-## Environment Variables
-
-- `LOG_LEVEL`: Set logging level (`DEBUG`, `INFO`, `WARN`, `ERROR`) - default is `INFO`
-- `KB_PARSING`: Controls when knowledge base is parsed:
-  - `lazy` (default): Parsed on first request
-  - `eager`: Parsed when server starts
-
-## Working with the Knowledge Base
-
-When adding new scripts to the knowledge base:
-1. Create a new `.md` file in the appropriate category folder
-2. Include required YAML frontmatter (`title`, `description`, etc.)
-3. Add the script code in a fenced code block
-4. Run `npm run validate` to ensure the new content is correctly formatted
-
-## Code Execution Flow
-
-1. The `server.ts` file defines the MCP server and its tools
-2. `knowledgeBaseService.ts` loads and indexes scripts from the knowledge base
-3. `ScriptExecutor.ts` handles the actual execution of scripts
-4. Input validation is handled via Zod schemas in `schemas.ts`
-5. Logging is managed by the `Logger` class in `logger.ts`
-
-## Security and Permissions
-
-Remember that scripts run on macOS require specific permissions:
-- Automation permissions for controlling applications
-- Accessibility permissions for UI scripting via System Events
-- Full Disk Access for certain file operations
-
-## Agent Operational Learnings and Debugging Strategies
-
-This section captures key operational strategies and debugging techniques for the agent (me) based on collaborative sessions.
-
-### Prioritizing Log Visibility for Debugging
-
-When an external tool or script (like AppleScript via `osascript`) returns cryptic errors, or when agent-generated code/substitutions might be faulty:
-
-1.  **Suspect Dynamic Content**: Issues often stem from the dynamic content being passed to the external tool (e.g., incorrect placeholder substitutions leading to syntax errors in the target language).
-2.  **Enable/Add Detailed Logging**: Prioritize enabling any built-in detailed logging features of the tool in question (e.g., `includeSubstitutionLogs: true` for this project's `execute_script` tool).
-3.  **Ensure Log Visibility**: If standard debug logging doesn't appear in the primary output channel the user is observing, attempt to modify the code to force critical diagnostic information (like step-by-step transformations, variable states, or the exact content being passed externally) into that main output. This might involve temporarily altering the structure of the success or error messages to include these logs.
-    *   **Confirm Restarts and Code Version**: For changes requiring server restarts (common in this project), leverage any features that confirm the new code is active. For example, the server startup timestamp and execution mode info appended to `get_scripting_tips` output helps verify that a restart was successful and the intended code version (e.g., TypeScript source via `tsx` vs. compiled `dist/server.js`) is running.
-
-### Iterative Simplification for Complex Patterns (e.g., Regex)
-
-If a complex pattern (like a regular expression) in code being generated or modified by the agent is not working as expected, and the cause isn't immediately obvious:
-
-1.  **Isolate the Pattern**: Identify the specific complex pattern (e.g., a regex for string replacement).
-2.  **Drastically Simplify**: Reduce the pattern to its most basic form that should still achieve a part of the goal or match a core component of the target string. (e.g., simplifying `/(?:["'])--MCP_INPUT:(\w+)(?:["'])/g` to `/--MCP_INPUT:/g` to test basic matching of the placeholder prefix).
-3.  **Test the Simple Form**: Verify if this simplified pattern works. If it does, the core string manipulation mechanism is likely sound.
-4.  **Incrementally Rebuild & Test**: Gradually add back elements of the original complexity (e.g., capture groups, character sets, quantifiers, lookarounds, backreferences like `\1`). Test at each incremental step to pinpoint which specific construct or combination introduces the failure. This process helped identify that `(?:["'])` was problematic in our placeholder regex, leading to a solution using a capturing group and a backreference like `/(["'])--MCP_INPUT:(\w+)\1/g`.
-5.  **Verify Replacement Logic**: Ensure that if the pattern involves capturing groups for use in a replacement, the replacement logic correctly utilizes these captures and produces the intended output format (e.g., `valueToAppleScriptLiteral` for AppleScript).
-
-This methodical approach is more effective than repeatedly trying minor variations of an already complex and failing pattern.
+**Troubleshooting Notes:**
+- If connection fails, check the `run_terminal_cmd` output for the Inspector to ensure it started correctly.
+- Check Playwright console messages for clues.
+- Ensure the `[WORKSPACE_PATH]` was correctly resolved and points to an existing `start.sh` script.
+- Element `ref` values can change. Always use the latest snapshot to get correct `ref` values before an interaction.
+- Shadow DOM: The MCP Inspector UI uses Shadow DOM extensively for the tool details and results panels. Playwright's default selectors should pierce Shadow DOM, but if issues arise with finding elements *within* the tool panel (right-hand side after selecting a tool), be mindful of this. The provided flow assumes Playwright's auto-piercing handles this sufficiently.
 
 ---
 > Source: [steipete/macos-automator-mcp](https://github.com/steipete/macos-automator-mcp) — distributed by [TomeVault](https://tomevault.io).
