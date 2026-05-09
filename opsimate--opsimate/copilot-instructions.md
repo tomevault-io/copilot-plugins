@@ -1,0 +1,68 @@
+## code-style
+
+> Enforce code organization with split subcomponents, separate utils, constants, and types.
+
+
+# Cursor Code Style Rule
+
+Always design for split subcomponents and strong separation of concerns.
+
+1. Component Structure:
+   - Each component must have its own subdirectory with the same name as the component.
+   - The main component file is `${componentName}.tsx` inside the subdirectory.
+   - Include an `index.ts` file that exports the component for clean imports.
+   - Example: `AlertsHeatmap/AlertsHeatmap.tsx` and `AlertsHeatmap/index.ts`.
+
+2. Subcomponents & Hooks:
+   - If logic/UI grows, split into subcomponents or hooks.
+   - Each subcomponent/hook lives in its own file within the component directory.
+   - File name matches export name exactly.
+   - Props interface stays in the same file above the definition.
+
+3. Utils:
+   - Stateless pure helper functions go to `${componentName}.utils.ts` in the component directory.
+
+4. Constants:
+   - No hardcoded strings or magic numbers.
+   - Put them in `${componentName}.constants.ts` in the component directory and export/import.
+
+5. Types:
+   - No anonymous inline object types.
+   - Use interfaces only.
+   - Props interfaces remain in the component/hook file (never in a separate types file).
+   - Only create `${componentName}.types.ts` for shared domain interfaces that are NOT props.
+   - Always use types from `@OpsiMate/shared` package when available instead of creating duplicates.
+   - Before creating a new interface, check if it already exists in the shared package.
+
+6. Component Composition & Conditional Rendering:
+   - Avoid conditional rendering for mutually exclusive states (loading, error, empty, data).
+   - Use early returns instead of nested conditional rendering in JSX.
+   - Break down UI into component hierarchy - identify shared layout vs. state-specific content.
+   - Extract shared layout into separate components that accept `children` prop.
+   - Use early returns for different component states to reduce cognitive load and improve type inference.
+   - Each early return represents one state the user can see - makes code easier to reason about top-down.
+   - Layout duplication across early returns is acceptable and helps components evolve better.
+   - Example: Instead of `{isPending ? <Skeleton /> : data ? <Content /> : <Empty />}`, use:
+     ```
+     if (isPending) return <Layout><Skeleton /></Layout>;
+     if (!data) return <Layout><Empty /></Layout>;
+     return <Layout><Content data={data} /></Layout>;
+     ```
+
+7. Unused Variables & Code Cleanup:
+   - Remove all unused variables, parameters, and imports immediately.
+   - If a variable is intentionally unused (e.g., future feature), prefix it with underscore (`_variant`).
+   - Never leave unused code "for later" - remove it and add it back when needed.
+   - Unused props should be removed from interfaces and component destructuring.
+   - Run linter/formatter before committing to catch unused code.
+
+8. Logging:
+   - NEVER use `console.log`, `console.error`, `console.warn`, or any other `console.*` methods.
+   - ALWAYS use `Logger` from `@OpsiMate/shared` for all logging needs.
+   - Create a logger instance: `const logger = new Logger('module-name');`
+   - Use appropriate log levels: `logger.info()`, `logger.warn()`, `logger.error()`, `logger.debug()`.
+   - Logger provides structured logging and can be configured for different environments.
+
+---
+> Source: [OpsiMate/OpsiMate](https://github.com/OpsiMate/OpsiMate) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
