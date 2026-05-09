@@ -1,100 +1,80 @@
-## 01-project-structure
+## 02-go-coding-standards
 
-> Kubernaut is an AIOps platform for intelligent Kubernetes remediation. It follows a microservices architecture with CRD-based communication between controllers.
+> Go coding standards and patterns specific to kubernaut
 
-# Kubernaut Project Structure Guide
+# Go Coding Standards for Kubernaut
 
-## Core Architecture
+## Code Organization
+- Use clear, descriptive names that reflect business domain (e.g., `EffectivenessAssessor`, `WorkflowEngine`)
+- **MANDATORY**: Every component must serve a documented business requirement (BR-[CATEGORY]-[NUMBER])
+- Group related functionality into cohesive packages following DDD principles
+- Implement interfaces over concrete types for testability and flexibility
+- **AVOID** duplicating structure names - use unique, business-aligned names
 
-Kubernaut is an AIOps platform for intelligent Kubernetes remediation. It follows a microservices architecture with CRD-based communication between controllers.
+## Error Handling
+- Always wrap errors with context using `fmt.Errorf("operation description: %w", err)`
+- Use structured error types from [internal/errors/](mdc:internal/errors/) for consistent error categorization
+- Log errors using `logr.Logger` interface per DD-005 v2.0
 
-### Main Binaries (`cmd/`)
+## Logging Standards (DD-005 v2.0)
+- **Unified Interface**: Use `github.com/go-logr/logr` as the standard logging interface for ALL services
+- **Backend**: Use `go.uber.org/zap` via `github.com/go-logr/zapr` adapter for performance
+- **Stateless services** (Gateway, Data Storage): Create logger with `zapr.NewLogger(zapLogger)`
+- **CRD controllers** (Signal Processing, Notification): Use native `ctrl.Log.WithName("component")`
+- **Shared libraries** (`pkg/*`): MUST accept `logr.Logger` parameter (not `*zap.Logger`)
+- **Error logging**: `logger.Error(err, "message", "key", "value")` (error as first argument)
+- **Debug logging**: `logger.V(1).Info("message", "key", "value")` (verbosity levels)
+- **Key-value pairs**: Use alternating key-value pairs, not `zap.String()` helpers
 
-Each binary maps to a Kubernetes Deployment:
+## Context and Cancellation
+- Always accept `context.Context` as first parameter for operations that can be cancelled
+- Respect context cancellation in loops and long-running operations
+- Use context for request-scoped values like trace IDs and user information
 
-- [cmd/gateway/](mdc:cmd/gateway/) - Signal ingestion (Prometheus alerts, K8s events)
-- [cmd/signalprocessing/](mdc:cmd/signalprocessing/) - Signal enrichment and classification
-- [cmd/aianalysis/](mdc:cmd/aianalysis/) - AI-powered root cause analysis via HolmesGPT
-- [cmd/remediationorchestrator/](mdc:cmd/remediationorchestrator/) - Remediation lifecycle orchestration
-- [cmd/workflowexecution/](mdc:cmd/workflowexecution/) - Workflow execution (Job, Tekton, Ansible)
-- [cmd/effectivenessmonitor/](mdc:cmd/effectivenessmonitor/) - Post-remediation effectiveness assessment
-- [cmd/notification/](mdc:cmd/notification/) - Notification delivery (Slack, file, webhook)
-- [cmd/datastorage/](mdc:cmd/datastorage/) - REST API for audit, workflow catalog, action history
-- [cmd/authwebhook/](mdc:cmd/authwebhook/) - Kubernetes admission webhook for validation
-- [cmd/must-gather/](mdc:cmd/must-gather/) - Diagnostic collection tool
+## Type System Guidelines
+- **MANDATORY**: Avoid using `any` or `interface{}` unless absolutely necessary
+- **ALWAYS** use structured field values with specific types
+- **AVOID** local type definitions to resolve import cycles
+- Use shared types from [pkg/shared/types/](mdc:pkg/shared/types/) package instead
+- Prefer strongly-typed interfaces that reflect business domain concepts
 
-### CRD API Types (`api/`)
+## Testing Patterns
+- **MANDATORY**: Follow Test-Driven Development (TDD) - write tests first per [00-project-guidelines.mdc](mdc:.cursor/rules/00-project-guidelines.mdc)
+- Use Ginkgo/Gomega BDD testing framework as established in [test/](mdc:test/)
+- Follow three-tier testing strategy: unit (pure logic), integration (cross-component), e2e (full workflow)
+- Use mock factories from [pkg/testutil/mock_factory.go](mdc:pkg/testutil/mock_factory.go) for consistent test doubles
+- Test scenarios must validate business outcomes, not implementation details
+- **ALL tests must reference specific business requirements** (BR-[CATEGORY]-[NUMBER] format)
 
-Custom Resource Definitions that form the inter-service communication protocol:
+## AI/ML Integration Patterns
+- Use interfaces for AI providers to support multiple LLM backends (OpenAI, Anthropic, Ollama, etc.)
+- Implement retry logic with exponential backoff for AI API calls
+- Always validate AI responses before acting on them
+- Use confidence scores to make decisions about AI recommendations
 
-- [api/remediation/](mdc:api/remediation/) - `RemediationRequest`, `RemediationApprovalRequest`
-- [api/signalprocessing/](mdc:api/signalprocessing/) - `SignalProcessing`
-- [api/aianalysis/](mdc:api/aianalysis/) - `AIAnalysis`
-- [api/workflowexecution/](mdc:api/workflowexecution/) - `WorkflowExecution`
-- [api/effectivenessassessment/](mdc:api/effectivenessassessment/) - `EffectivenessAssessment`
-- [api/notification/](mdc:api/notification/) - `NotificationRequest`
-- [api/actiontype/](mdc:api/actiontype/) - `ActionType`
-- [api/remediationworkflow/](mdc:api/remediationworkflow/) - `RemediationWorkflow`
+## Kubernetes Client Patterns
+- Use the shared client from [pkg/platform/k8s/client.go](mdc:pkg/platform/k8s/client.go)
+- Implement safety checks before performing destructive operations
+- Always use dry-run mode when possible for validation
+- Handle Kubernetes API rate limiting gracefully
 
-### Business Logic (`pkg/`)
+## Database Access
+- Use connection pooling and prepared statements for PostgreSQL operations
+- Implement proper transaction management for multi-step operations
+- Use separate connections for vector database operations
+- Handle database migrations through [migrations/](mdc:migrations/) directory
 
-Each service has a corresponding package under `pkg/`:
+## Concurrency
+- Use worker pools for parallel processing with proper resource limits
+- Implement circuit breakers for external service calls
+- Use sync.Once for expensive initialization operations
+- Prefer channels over shared memory for communication between goroutines
 
-- [pkg/gateway/](mdc:pkg/gateway/) - Gateway server, processing pipeline, distributed locking
-- [pkg/signalprocessing/](mdc:pkg/signalprocessing/) - Rego policy evaluation, enrichment
-- [pkg/aianalysis/](mdc:pkg/aianalysis/) - Phase management, metrics
-- [pkg/remediationorchestrator/](mdc:pkg/remediationorchestrator/) - Routing, scope blocking
-- [pkg/workflowexecution/](mdc:pkg/workflowexecution/) - Execution engines, conditions
-- [pkg/effectivenessmonitor/](mdc:pkg/effectivenessmonitor/) - Scoring, conditions
-- [pkg/notification/](mdc:pkg/notification/) - Delivery, status, phase management
-- [pkg/datastorage/](mdc:pkg/datastorage/) - OCI schema, repository, validation, reconstruction
-- [pkg/authwebhook/](mdc:pkg/authwebhook/) - Webhook handler
-- [pkg/holmesgpt/](mdc:pkg/holmesgpt/) - HolmesGPT API client
-- [pkg/shared/](mdc:pkg/shared/) - Shared utilities (auth, hotreload, sanitization, types)
-- [pkg/audit/](mdc:pkg/audit/) - Audit trail helpers
-- [pkg/k8sutil/](mdc:pkg/k8sutil/) - Kubernetes client utilities
-- [pkg/workflowschema/](mdc:pkg/workflowschema/) - Workflow schema parsing
-
-### Internal Packages (`internal/`)
-
-- [internal/controller/](mdc:internal/controller/) - CRD controller implementations (one per controller type)
-- [internal/config/](mdc:internal/config/) - Shared configuration types
-- [internal/version/](mdc:internal/version/) - Build version info
-
-### Testing (`test/`)
-
-Three-tier testing strategy (80% per-tier coverage target):
-
-- [test/unit/](mdc:test/unit/) - Pure logic tests (per-service subdirs)
-- [test/integration/](mdc:test/integration/) - Cross-component with real I/O (per-service subdirs)
-- [test/e2e/](mdc:test/e2e/) - Full Kind cluster tests (per-service subdirs)
-- [test/infrastructure/](mdc:test/infrastructure/) - Shared test infrastructure helpers
-- [test/shared/](mdc:test/shared/) - Shared test validators and helpers
-
-## Documentation (`docs/`)
-
-Organized into 7 top-level directories:
-
-- [docs/architecture/](mdc:docs/architecture/) - ADRs, DDs, diagrams, case studies, patterns
-- [docs/design/](mdc:docs/design/) - CRD design specifications
-- [docs/requirements/](mdc:docs/requirements/) - Business requirements (BR-*) and module docs
-- [docs/testing/](mdc:docs/testing/) - Test plans, guidelines, patterns, per-issue test docs
-- [docs/operations/](mdc:docs/operations/) - Deployment, build, CI/CD, troubleshooting, runbooks
-- [docs/development/](mdc:docs/development/) - Methodology (APDC), guidelines, getting-started, guides
-- [docs/services/](mdc:docs/services/) - Per-service documentation (stateless + CRD controllers)
-
-User-facing documentation lives at [kubernaut-docs](https://jordigilh.github.io/kubernaut-docs/).
-
-## Deployment
-
-- [charts/kubernaut/](mdc:charts/kubernaut/) - Helm chart (primary deployment method)
-- [deploy/](mdc:deploy/) - Per-service Kustomize manifests, action types, CRDs
-
-## Build System
-
-- [Makefile](mdc:Makefile) - All build operations
-- [docker/](mdc:docker/) - Per-service Dockerfiles
-- `make test` (unit), `make test-integration` (integration), `make test-e2e` (E2E)
+## Configuration
+- Use YAML configuration files in [config/](mdc:config/) directory
+- Implement environment variable overrides for deployment flexibility
+- Validate configuration at startup with clear error messages
+- Use defaults that work for local development
 
 ---
 > Source: [jordigilh/kubernaut](https://github.com/jordigilh/kubernaut) — distributed by [TomeVault](https://tomevault.io).
