@@ -1,0 +1,130 @@
+## project
+
+> This project is a Visual Studio Code extension designed to streamline the process of packing the context of the entire repository into a single file, with the ability to copy it to the clipboard for easy sharing or further processing.
+
+# Project Overview: Overwrite VS Code Extension
+
+This project is a Visual Studio Code extension designed to streamline the process of packing the context of the entire repository into a single file, with the ability to copy it to the clipboard for easy sharing or further processing.
+
+## Core Functionality
+
+The extension provides a multi-tab Webview Panel accessible via an Activity Bar icon:
+
+2.  **Context Tab:**
+    *   Displays the workspace file tree.
+    *   Allows users to select files/folders to include as context.
+    *   Features search/filter and refresh capabilities.
+    *   Shows currently selected files.
+    *   Generates structured XML context:
+        *   `<file_map>`: Hierarchical view of selected items.
+        *   `<file_contents>`: Code content of selected files.
+    *   Includes a text area for `<user_instructions>`.
+    *   Provides prompt management (save/load/delete instructions).
+    *   Includes fixed `<xml_formatting_instructions>`.
+    *   Offers two copy buttons: one with and one without formatting instructions.
+    *   (Optional) Token count estimation.
+3.  **Apply Tab:**
+    *   Allows pasting an LLM's XML response.
+    *   Parses the response for file modification actions (`create`, `rewrite`, `modify`, `delete`).
+    *   Applies changes to the workspace using VS Code APIs (integrating with undo/redo).
+    *   Provides feedback on applied changes.
+
+## UI/UX
+
+*   Integrates with VS Code via Activity Bar and a Webview Panel with tabs.
+*   Uses standard VS Code UI components and styling (`@vscode-elements/elements`).
+
+## Technical Stack
+
+*   **Language:** TypeScript
+*   **Framework:** VS Code Extension API
+*   **UI:** HTML, CSS, JavaScript within Webview, using `@vscode-elements/elements` components. The project uses React 19, which supports web components directly from the `@vscode-elements/elements` package. Type definitions for these components can be found in [global.d.ts](mdc:src/webview-ui/src/global.d.ts).
+*   **File System:** `vscode.workspace.fs` and `vscode.workspace.applyEdit`.
+*   **Package Manager:** PNPM
+
+## Important Notes
+- When updating permissions, update the extension's manifest or capabilities as needed
+
+## Webview-Extension Communication Architecture
+
+### Overview
+The Overwrite extension follows a strict frontend-backend architecture where the webview (React app) and extension host communicate exclusively through message passing. **NEVER use `vscode.commands.executeCommand()` directly in the webview.**
+
+### Communication Pattern
+
+#### 1. Webview → Extension (Frontend to Backend)
+**Location**: Webview components use [getVsCodeApi()](mdc:src/webview-ui/src/utils/vscode.ts)
+```typescript
+const vscode = getVsCodeApi()
+vscode.postMessage({
+  command: 'commandName',
+  payload: { /* data */ }
+})
+```
+
+#### 2. Extension → Webview (Backend to Frontend)
+**Location**: [FileExplorerWebviewProvider](mdc:src/providers/file-explorer/index.ts)
+```typescript
+this._view.webview.postMessage({
+  command: 'responseCommand',
+  payload: { /* response data */ }
+})
+```
+
+### Message Handler Locations
+
+#### Extension Host Handler
+All incoming messages from webview are handled in:
+- **File**: [FileExplorerWebviewProvider](mdc:src/providers/file-explorer/index.ts)
+- **Method**: `webviewView.webview.onDidReceiveMessage(async (message) => { ... })`
+- **Pattern**: Switch statement on `message.command`
+
+#### Webview Handler
+All incoming messages from extension are handled in:
+- **File**: [App.tsx](mdc:src/webview-ui/src/App.tsx) (main handler)
+- **File**: [context-tab utils](mdc:src/webview-ui/src/components/context-tab/utils.ts) (specific handlers)
+- **Pattern**: Event listener on `window` for `message` events
+
+### Example: Token Counting System
+
+#### Request Flow (Webview → Extension)
+1. **Webview**: [countTokens()](mdc:src/webview-ui/src/components/context-tab/utils.ts) calls `getVsCodeApi().postMessage()`
+2. **Extension**: [_handleGetTokenCount()](mdc:src/providers/file-explorer/index.ts) processes request
+3. **Extension**: Uses [TokenCounter service](mdc:src/services/token-counter.ts) for computation
+4. **Extension**: Sends response via `this._view.webview.postMessage()`
+
+#### Message Types
+```typescript
+// Webview → Extension
+{
+  command: 'getTokenCount',
+  payload: { text: string, requestId: string }
+}
+
+// Extension → Webview  
+{
+  command: 'tokenCountResponse',
+  requestId: string,
+  tokenCount: number
+}
+```
+
+### Critical Rules
+
+1. **Single API Instance**: Use [getVsCodeApi()](mdc:src/webview-ui/src/utils/vscode.ts) - never call `acquireVsCodeApi()` directly
+2. **Message Recognition**: All message commands must be handled in [App.tsx](mdc:src/webview-ui/src/App.tsx) to prevent "unknown command" warnings
+3. **Async Patterns**: Use Promise-based patterns with request IDs for request-response flows
+4. **Error Handling**: Always include fallback/timeout mechanisms in webview requests
+
+### Services Architecture
+- **Extension Services**: [services/](mdc:src/services) (e.g., [token-counter.ts](mdc:src/services/token-counter.ts))
+- **Webview Utils**: [webview-ui/src/utils/](mdc:src/webview-ui/src/utils) (e.g., [vscode.ts](mdc:src/webview-ui/src/utils/vscode.ts))
+
+## Additional Rules
+
+- All file names in the project must use kebab-case (e.g., `context-tab.tsx`, `file-system.ts`) to maintain consistency and ease of use in URLs and imports
+- Always use for .. of instead of forEach
+
+---
+> Source: [mnismt/overwrite](https://github.com/mnismt/overwrite) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
