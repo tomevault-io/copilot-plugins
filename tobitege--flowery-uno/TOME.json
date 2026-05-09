@@ -4,7 +4,7 @@
   "repo": "Flowery.Uno",
   "description": "Beautiful themed components for Uno Platform in C#",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tobitege/Flowery.Uno",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T02:44:25Z"
+  "distributed_at": "2026-05-09T03:11:41Z"
 }
