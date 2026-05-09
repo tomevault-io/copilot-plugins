@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--coding-agent-usage-tracker",
+  "displayName": "coding_agent_usage_tracker",
+  "description": "Single CLI to monitor LLM provider usage across Codex, Claude, Gemini, Cursor, and Copilot: remaining quota, rate limits, and cost tracking in one place",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/coding_agent_usage_tracker",
+  "skills": []
+}
