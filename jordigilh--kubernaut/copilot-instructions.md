@@ -1,183 +1,227 @@
-## 04-ai-ml-guidelines
+## 05-kubernetes-safety
 
-> AI/ML components and integration patterns for kubernaut
+> Kubernetes operations and safety patterns for kubernaut
 
 
-# AI/ML Guidelines for Kubernaut
+# Kubernetes Operations and Safety
 
-## 🤖 **AI Service Architecture**
+## 🛡️ **Core Safety Principles**
 
-Kubernaut integrates multiple AI providers through a unified interface pattern.
+Kubernaut implements **25+ production-ready Kubernetes operations** with comprehensive safety mechanisms.
 
-**CRITICAL**: Follow AI development methodology in [12-ai-ml-development-methodology.mdc](mdc:.cursor/rules/12-ai-ml-development-methodology.mdc) for TDD and interface management.
-
-### **Interface Reuse Principles - MANDATORY**
-- **FORBIDDEN**: Creating new AI interfaces - use existing `pkg/ai/llm.Client`
-- **MANDATORY**: Enhance existing AI clients rather than creating new ones
-- **INTEGRATION**: All AI components must integrate with main applications (`cmd/*/main.go`)
-
-### **Supported AI Providers**
-- **HolmesGPT**: Primary AI service ([pkg/ai/holmesgpt/client.go](mdc:pkg/ai/holmesgpt/client.go))
-- **OpenAI**: GPT-3.5, GPT-4 models
-- **Anthropic**: Claude models
-- **Azure OpenAI**: Enterprise OpenAI deployment
-- **AWS Bedrock**: Amazon's AI service
-- **Ollama**: Local LLM deployment
-- **Ramalama**: Local model serving
+### **Safety-First Architecture**
+1. **Validation Before Action**: Always validate resources exist and are in expected state
+2. **Dry-Run Support**: Use Kubernetes dry-run mode whenever possible
+3. **Rollback Capability**: Ensure all operations can be safely reversed
+4. **Timeout Enforcement**: All operations have explicit timeouts
+5. **RBAC Compliance**: Respect Kubernetes role-based access controls
 
 ---
 
-## 🔌 **Integration Patterns**
+## 🔌 **Kubernetes Client Pattern**
 
-### **Client Usage**
+### **Unified Client Usage**
+**Location**: [pkg/platform/k8s/client.go](mdc:pkg/platform/k8s/client.go)
+
 ```go
-// ✅ CORRECT: Use existing unified interface
-import "pkg/ai/llm"
+k8sClient := k8s.NewClient(config.Kubernetes)
+defer k8sClient.Close()
 
-llmClient := llm.NewClient(config.LLM)
-response, err := llmClient.AnalyzeAlert(ctx, alertData)
-if err != nil {
-    return fmt.Errorf("AI analysis failed: %w", err)
+if err := k8sClient.ValidateAccess(ctx, namespace, resource); err != nil {
+    return fmt.Errorf("insufficient permissions: %w", err)
 }
 ```
 
-### **Context Enrichment**
-- **Kubernetes Context**: Real-time cluster data ([pkg/platform/k8s/client.go](mdc:pkg/platform/k8s/client.go))
-- **Historical Context**: Action patterns from PostgreSQL ([pkg/ai/context/](mdc:pkg/ai/context/))
-- **Vector Context**: Similarity search from vector database
+### **Client Configuration**
+- Use in-cluster config for pod deployment
+- Support kubeconfig for local development
+- Implement connection pooling and retry logic
+- Handle API server rate limiting gracefully
 
 ---
 
-## ✅ **Response Validation**
+## ⚙️ **Supported Remediation Actions**
 
-### **Validation Pipeline**
-1. **Structure Validation**: Ensure response matches expected schema
-2. **Confidence Scoring**: Evaluate AI recommendation confidence (>0.8 high, 0.5-0.8 medium, <0.5 low)
-3. **Safety Validation**: Check recommendations against safety policies
-4. **Business Rule Validation**: Ensure recommendations align with business logic
+### **Scaling & Resource Management**
+- `scale_deployment` - Horizontal scaling with replica validation
+- `increase_resources` - Vertical scaling with resource limits
+- `update_hpa` - HPA modifications with safety bounds
+- `scale_statefulset` - StatefulSet scaling with proper ordering
 
----
+### **Pod & Application Lifecycle**
+- `restart_pod` - Safe pod restart with readiness checks
+- `rollback_deployment` - Rollback with revision validation
+- `quarantine_pod` - Pod isolation for investigation
+- `migrate_workload` - Workload migration with validation
 
-## 🎯 **Workflow Engine AI Integration**
-
-### **Intelligent Workflow Builder**
-**Location**: [pkg/workflow/engine/intelligent_workflow_builder_impl.go](mdc:pkg/workflow/engine/intelligent_workflow_builder_impl.go)
-- AI-generated multi-step remediation workflows
-- Dynamic template generation based on alert patterns
-
-### **AI Condition Evaluator**
-**Location**: [pkg/workflow/engine/ai_condition_evaluator_impl.go](mdc:pkg/workflow/engine/ai_condition_evaluator_impl.go)
-- Intelligent step condition evaluation
-- Context-aware decision making
+### **Node Operations**
+- `drain_node` - Graceful draining with timeout
+- `cordon_node` - Mark unschedulable with confirmation
+- `restart_daemonset` - DaemonSet restart with rolling update
 
 ---
 
-## 🗄️ **Vector Database Integration**
+## ✅ **Safety Validation Framework**
 
-### **Embedding Generation**
-**Location**: [pkg/ai/embedding/pipeline.go](mdc:pkg/ai/embedding/pipeline.go)
-- Support for multiple embedding models (OpenAI, HuggingFace)
-- Caching for performance optimization
-
-### **Vector Storage**
-**Location**: [pkg/storage/vector/](mdc:pkg/storage/vector/)
-- PostgreSQL with pgvector extension
-- Similarity search for historical patterns
-- RAG (Retrieval Augmented Generation) enhancement
-
----
-
-## 🛡️ **Safety and Reliability**
-
-### **Fallback Strategies**
-1. **Primary**: HolmesGPT with full context
-2. **Secondary**: Direct LLM provider with reduced context
-3. **Fallback**: Rule-based decision making
-4. **Emergency**: Safe default actions only
-
-### **Circuit Breaker Pattern**
+### **Pre-Action Validation**
 ```go
-breaker := circuitbreaker.New(&Config{
-    Timeout:     30 * time.Second,
-    MaxRequests: 100,
-    Interval:    60 * time.Second,
-})
+type SafetyValidator interface {
+    ValidateAction(ctx context.Context, action ActionType, params map[string]interface{}) error
+    CheckPrerequisites(ctx context.Context, resource ResourceSpec) error
+    ValidatePermissions(ctx context.Context, namespace, resource string) error
+}
 ```
 
-### **Rate Limiting**
-- Respect AI provider rate limits
-- Implement exponential backoff for retries
-- Monitor AI service usage and costs
-- Prioritize high-criticality alerts
+### **Validation Checks**
+1. **Resource Existence**: Confirm target resources exist
+2. **Resource State**: Validate current state matches expectations
+3. **Dependencies**: Check for dependent resources
+4. **Permissions**: Verify RBAC permissions
+5. **Impact Assessment**: Evaluate potential blast radius
 
 ---
 
-## 🧪 **Testing Patterns**
+## 🚀 **Action Execution Pattern**
 
-### **Mock Strategy**
-**AUTHORITY**: Follow comprehensive mock usage matrix in [03-testing-strategy.mdc](mdc:.cursor/rules/03-testing-strategy.mdc)
+**Location**: [pkg/platform/executor/executor.go](mdc:pkg/platform/executor/executor.go)
 
-**AI-Specific**:
-- **Unit Tests**: Mock external AI APIs ([pkg/testutil/mocks/ai_mocks.go](mdc:pkg/testutil/mocks/ai_mocks.go))
-- **Business Logic**: Always test real AI analysis algorithms
-- **CI/CD**: Use mock LLM for reliability (`USE_MOCK_LLM=true`)
-- **Error Testing**: Include error simulation and timeout testing
+```go
+func (e *Executor) ExecuteAction(ctx context.Context, action Action) error {
+    // 1. Safety validation
+    if err := e.validator.ValidateAction(ctx, action); err != nil {
+        return fmt.Errorf("safety validation failed: %w", err)
+    }
 
----
+    // 2. Dry-run execution
+    if !action.Force {
+        if err := e.executeDryRun(ctx, action); err != nil {
+            return fmt.Errorf("dry-run failed: %w", err)
+        }
+    }
 
-## 🎓 **Learning and Adaptation**
-
-### **Effectiveness Assessment**
-**Location**: [pkg/ai/insights/assessor.go](mdc:pkg/ai/insights/assessor.go)
-- Track action outcomes and effectiveness
-- Adjust confidence scores based on historical performance
-
-### **Pattern Discovery**
-**Location**: [pkg/intelligence/patterns/pattern_discovery_engine.go](mdc:pkg/intelligence/patterns/pattern_discovery_engine.go)
-- Identify recurring alert patterns
-- Discover correlation between actions and outcomes
+    // 3. Actual execution with monitoring
+    return e.executeWithMonitoring(ctx, action)
+}
+```
 
 ---
 
-## ⚡ **Performance Optimization**
+## 🔄 **Error Handling and Recovery**
 
-### **Caching Strategy**
-- Cache embedding generation results with TTL
-- Store frequent AI responses in Redis
-- Use distributed caching across instances
+### **Kubernetes API Errors**
+- Handle transient network errors with exponential backoff
+- Retry on API server unavailability
+- Gracefully handle resource version conflicts
+- Log detailed error context for troubleshooting
 
-### **Batch Processing**
-- Group similar alerts for batch AI analysis
-- Optimize context sharing across related requests
-- Balance latency vs. throughput based on criticality
+### **Operation Recovery**
+- Implement checkpoint-based recovery for long operations
+- Store operation state for resumption after failure
+- Provide clear rollback procedures for each action type
+- Monitor operation progress with health checks
+
+---
+
+## 🌐 **Multi-Cluster Operations**
+
+### **Cluster Management**
+**Location**: [pkg/platform/multicluster/](mdc:pkg/platform/multicluster/)
+- Support for multiple Kubernetes clusters
+- Cluster discovery and health monitoring
+- Cross-cluster workload management
+
+### **Service Discovery**
+**Location**: [pkg/platform/k8s/service_discovery.go](mdc:pkg/platform/k8s/service_discovery.go)
+- Automatic service discovery across clusters
+- Health checking and failover mechanisms
+
+---
+
+## 🔐 **RBAC and Security**
+
+### **Required Permissions**
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubernaut-operator
+rules:
+- apiGroups: [""]
+  resources: ["pods", "nodes", "events", "configmaps", "secrets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "replicasets", "statefulsets", "daemonsets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch"]
+```
+
+### **Security Best Practices**
+- Use service accounts with minimal required permissions
+- Implement secret rotation for API credentials
+- Validate all input parameters to prevent injection attacks
+- Audit all administrative actions with detailed logging
 
 ---
 
 ## 📊 **Monitoring and Observability**
 
-### **AI Metrics**
-- Track AI response times and success rates
-- Monitor confidence score distributions
-- Measure action effectiveness over time
-- Alert on AI service degradation
+### **Resource Monitoring**
+- Track resource utilization before and after actions
+- Monitor application health post-action
+- Alert on unexpected resource state changes
+- Collect metrics on action success/failure rates
 
-### **Cost Management**
-- Track AI service usage and costs per provider
-- Implement budget alerts and quotas
-- Optimize prompt size and frequency
-- Use appropriate model tiers based on complexity
+### **Performance Metrics**
+- Measure action execution times
+- Track API server response times
+- Monitor resource consumption during operations
+
+---
+
+## 🧪 **Testing Kubernetes Operations**
+
+### **Integration Testing**
+- Use Kind clusters for local testing: `make setup-kind`
+- Test against real Kubernetes API servers
+- Validate RBAC configurations in test environments
+- Include chaos testing for resilience validation
+
+### **Safety Testing**
+- Test dry-run functionality for all operations
+- Validate rollback procedures under various scenarios
+- Test permission boundaries and access controls
+- Simulate API server failures and network partitions
+
+---
+
+## 🔧 **Development Workflow**
+
+### **Local Development**
+```bash
+# Setup Kind cluster for testing
+make setup-kind
+
+# Build and load test image
+make build-test-image
+
+# Run Kubernetes integration tests
+make test-integration-kind
+```
+
+### **Production Deployment**
+- Deploy via Kustomize: `kubectl apply -k deploy/`
+- Implement operator pattern for lifecycle management
+- Support for GitOps deployment workflows
 
 ---
 
 ## 📚 **Related Documentation**
 
-- **[AI/ML Methodology](mdc:.cursor/rules/12-ai-ml-development-methodology.mdc)** - TDD workflow for AI components
-- **[Testing Strategy](mdc:.cursor/rules/03-testing-strategy.mdc)** - Mock usage and test pyramid
 - **[Core Rules](mdc:.cursor/rules/00-kubernaut-core-rules.mdc)** - APDC methodology and TDD workflow
+- **[Testing Strategy](mdc:.cursor/rules/03-testing-strategy.mdc)** - Integration testing and mock strategy
 
 ---
 
-**Remember**: AI components must integrate with main applications, use existing interfaces, and follow the same TDD methodology as all other code.
+**Remember**: All Kubernetes operations must include safety validation, dry-run support, and rollback capability.
 
 ---
 > Source: [jordigilh/kubernaut](https://github.com/jordigilh/kubernaut) — distributed by [TomeVault](https://tomevault.io).
