@@ -1,52 +1,37 @@
-## architecture
+## async-patterns
 
-> Clean Architecture layer enforcement for LokalMind v2. Apply to all source files in src/.
+> Async patterns for LLM generation, downloads, and streaming in LokalMind v2.
 
+# Async Patterns
 
-# Clean Architecture Layer Rules
+Full reference: `docs/development/CONVENTIONS.md` section 6.
 
-## Layer Import Restrictions
+## LLM generation - required
 
-### Domain layer (`src/features/*/domain/`)
-- ZERO third-party dependencies allowed
-- No imports from: `llama.rn`, `whisper.rn`, `expo-sqlite`, `@react-native-async-storage`, `expo-file-system`, `expo-blur`, `expo-glass-effect`, or any npm package
-- Only allowed imports: other domain files, `src/core/ports/`, TypeScript built-ins
-- Entities are plain TypeScript interfaces/classes - no decorators, no MobX, no React
+```typescript
+// 1. AbortSignal on every call
+const controller = new AbortController();
+await llmEngine.generateResponse(messages, config, onToken, controller.signal);
 
-### Presentation layer (`src/features/*/presentation/`)
-- NEVER import from `src/infrastructure/` directly
-- NEVER import `llama.rn`, `whisper.rn`, `expo-sqlite`, or `@react-native-async-storage` directly
-- Only calls domain use cases and repository interfaces
-- ViewModels live here - MobX is allowed only in this layer
+// 2. Token debounce - 50ms batch, never per-token runInAction
+private buffer = '';
+private flushTimer: ReturnType<typeof setTimeout> | null = null;
+appendToken(token: string) {
+  this.buffer += token;
+  if (this.flushTimer) return;
+  this.flushTimer = setTimeout(() => {
+    runInAction(() => { this.text += this.buffer; this.buffer = ''; this.flushTimer = null; });
+  }, 50);
+}
+```
 
-### Data layer (`src/features/*/data/`)
-- Implements domain repository interfaces
-- Receives infrastructure drivers via constructor injection - never imports them globally
-- Never imported by presentation layer directly
+## Rules
 
-### Infrastructure layer (`src/infrastructure/`)
-- The ONLY place that imports `llama.rn`, `whisper.rn`, `expo-sqlite`, `@react-native-async-storage`
-- Injected into data repositories via `src/core/di/container.ts`
-- Never imported directly from presentation or domain
-
-## Interface Rules
-- `ILLMEngine` is defined in `src/core/ports/ILLMEngine.ts` - this is the only LLM contract
-- `IWhisperEngine` is defined in `src/core/ports/IWhisperEngine.ts` - this is the only Whisper contract
-- `llamaRnAdapter.ts` and `whisperRnAdapter.ts` are the ONLY files that implement these interfaces
-- No other file may call `initLlama`, `LlamaContext`, or any `llama.rn` / `whisper.rn` API directly
-
-## DI Container
-- `src/core/di/container.ts` is the single composition root
-- All infrastructure adapters are instantiated here and injected downward
-- No singleton service locators (`getInstance()` pattern) outside infrastructure adapters
-
-## Violations to flag
-- Any `import ... from 'llama.rn'` outside `src/infrastructure/llm/`
-- Any `import ... from 'whisper.rn'` outside `src/infrastructure/whisper/`
-- Any `import ... from 'expo-sqlite'` outside `src/infrastructure/storage/`
-- Any `import ... from '@react-native-async-storage'` outside `src/infrastructure/storage/`
-- Any domain file importing from a node_modules package
-- Any presentation file importing from `src/infrastructure/`
+- Every generation: MUST accept `AbortSignal` · ViewModel MUST expose `cancelGeneration()`
+- Token updates: debounced 50ms
+- Download progress: throttled 250ms
+- Memory extraction: fire-and-forget - `.catch(() => {})` - never await in main pipeline
+- Never `await` inside MobX `reaction` or `autorun`
 
 ---
 > Source: [Sandipan006/lokalmind-app](https://github.com/Sandipan006/lokalmind-app) — distributed by [TomeVault](https://tomevault.io).
