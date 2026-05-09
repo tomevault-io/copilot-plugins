@@ -1,0 +1,9 @@
+{
+  "name": "firstp1ck--pacsea",
+  "displayName": "Pacsea",
+  "description": "Fast TUI for searching, inspecting, and queueing pacman/AUR packages.",
+  "version": "1.0.0",
+  "author": "Firstp1ck",
+  "homepage": "https://github.com/Firstp1ck/Pacsea",
+  "skills": []
+}
