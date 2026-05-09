@@ -1,68 +1,47 @@
-## project-overview
+## react-ink-components
 
-> Project overview and architecture reference
+> Guidelines for React components using Ink for terminal UI
 
 
-# Grok CLI — Project Overview
+# React + Ink Terminal UI
 
-Grok CLI (`@vibe-kit/grok-cli`) is an open-source AI coding agent powered by Grok that brings AI assistance directly into the terminal.
+## Framework
 
-## Tech Stack
+This project uses [Ink](https://github.com/vadimdemedes/ink) v4 to render React components in the terminal. Ink provides `<Box>`, `<Text>`, and other primitives instead of HTML elements.
 
-- **Language**: TypeScript (ES2022, ESNext modules)
-- **Runtime**: Bun (primary)
-- **UI Framework**: React with [OpenTUI](https://github.com/anomalyco/opentui) for terminal rendering
-- **Build**: `tsc` (TypeScript compiler)
-- **Package Manager**: Bun
-- **API Client**: OpenAI SDK (for OpenAI-compatible xAI API)
-- **Tools**: Bash-only (all file operations via shell commands)
-- **Search**: X Search API + Web Search via xAI Responses API
+## Component Patterns
 
-## Architecture
+- Use **functional components** with hooks — no class components.
+- JSX is compiled with `"jsx": "react"` (classic transform), so `import React from "react"` is required in every `.tsx` file.
+- Components are in `src/ui/components/` and follow kebab-case naming (`chat-interface.tsx`, `diff-renderer.tsx`).
 
-```
-src/
-├── index.ts          # CLI entry point (Commander.js + OpenTUI)
-├── agent/
-│   └── agent.ts      # Agent — orchestrates client, bash tool, search
-├── grok/
-│   ├── client.ts     # Grok API client (Chat Completions + Responses API)
-│   ├── models.ts     # Model definitions and metadata
-│   └── tools.ts      # Tool schemas (bash, search_web, search_x)
-├── tools/
-│   └── bash.ts       # Bash command execution
-├── ui/
-│   └── app.tsx       # OpenTUI React terminal UI
-├── utils/
-│   ├── settings.ts   # User and project settings
-│   ├── git-root.ts   # Resolve git repository root for AGENTS.md discovery
-│   └── instructions.ts # AGENTS.md (ecosystem) custom instructions
-└── types/
-    └── index.ts      # Shared TypeScript types
-```
+## Key Components
 
-## Key Patterns
+| Component | Purpose |
+|-----------|---------|
+| `ChatInterface` | Main chat loop, orchestrates agent interaction |
+| `ChatHistory` | Renders conversation entries |
+| `ChatInput` | User text input with key bindings |
+| `DiffRenderer` | Displays file diffs |
+| `ModelSelection` | Model picker UI |
+| `LoadingSpinner` | Animated loading indicator |
+| `ConfirmationDialog` | User confirmation prompts for tool operations |
+| `McpStatus` | MCP server connection status |
+| `CommandSuggestions` | Autocomplete suggestions |
+| `ApiKeyInput` | API key entry prompt |
 
-- **Agent loop**: `Agent.processMessage()` is an async generator that yields `StreamChunk` objects — the LLM responds, tools execute, results feed back until no more tool calls remain.
-- **Bash-only tools**: The agent uses bash for everything (file editing, searching, git, builds, etc.).
-- **X Search & Web Search**: Integrated via the xAI Responses API for real-time information.
-- **Settings hierarchy**: Environment variables → User-level (`~/.grok/user-settings.json`) → Project-level (`.grok/settings.json`).
-- **Custom instructions**: `~/.grok/AGENTS.md`, then `AGENTS.override.md` / `AGENTS.md` per directory from git root through the workspace cwd (Codex-style merge).
-- **ESM only**: The project uses `"type": "module"` — all imports use `.js` extensions for compiled output.
+## Ink-Specific Guidelines
 
-## Latest Grok Models
+- Use `<Box>` for layout (flexbox model) and `<Text>` for styled text.
+- Use Ink's `useInput` hook for keyboard handling.
+- Use `chalk` for color utilities in `src/ui/utils/colors.ts`.
+- Markdown rendering for chat output uses `marked` + `marked-terminal`.
+- The app is rendered via `render(React.createElement(ChatInterface, { agent, initialMessage }))` in the entry point.
 
-- grok-4-0709 (flagship reasoning)
-- grok-4.20-beta-0309 (multi-agent, 2M context)
-- grok-4-fast (fast reasoning, 2M context)
-- grok-4-1-fast (latest fast, 2M context)
-- grok-code-fast-1 (code optimized)
-- grok-3, grok-3-mini
+## Hooks
 
-## CI/CD
-
-- **typecheck.yml**: Runs `tsc --noEmit` on push/PR to `main`/`develop`.
-- **security.yml**: Runs `npm audit` and TruffleHog secret scanning.
+- Custom hooks live in `src/hooks/`.
+- Follow the `use` prefix convention (`useInput`, `useChat`, etc.).
 
 ---
 > Source: [superagent-ai/grok-cli](https://github.com/superagent-ai/grok-cli) — distributed by [TomeVault](https://tomevault.io).
