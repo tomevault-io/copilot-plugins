@@ -1,0 +1,9 @@
+{
+  "name": "cjtrowbridge--all-seeing-eye",
+  "displayName": "All-Seeing-Eye",
+  "description": "A 3d printed structure to contain broad spectrum sub-ghz meshtastic VLBI elements",
+  "version": "1.0.0",
+  "author": "cjtrowbridge",
+  "homepage": "https://github.com/cjtrowbridge/All-Seeing-Eye",
+  "skills": []
+}
