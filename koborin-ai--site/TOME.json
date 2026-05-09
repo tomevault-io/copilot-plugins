@@ -4,7 +4,7 @@
   "repo": "site",
   "description": "\ud83e\uddea Personal site and technical proving ground on GCP",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/koborin-ai/site",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T06:00:19Z"
+  "distributed_at": "2026-05-09T17:53:04Z"
 }
