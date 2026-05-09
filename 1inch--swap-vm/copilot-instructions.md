@@ -1,39 +1,40 @@
-## 00-base
+## foundry-tests
 
-> VM-based swap protocol where orders are bytecode programs.
+> **NEVER define mock contracts inline.** Use:
 
 
-# SwapVM
+# Test Rules
 
-VM-based swap protocol where orders are bytecode programs.
+## Mocks
 
-## Program Encoding
+**NEVER define mock contracts inline.** Use:
+- `TokenMock` (see solidity-style.mdc for import)
+- Existing mocks in `test/mocks/`
+- New mocks go in `test/mocks/<Name>.sol`
 
+## Inheritance
+
+- **Aqua tests**: `AquaSwapVMTest`
+- **Direct tests**: `Test` + `OpcodesDebug`
+- **Invariant tests**: `CoreInvariants`
+
+## Error Handling
+
+Specify exact error type:
+
+```solidity
+vm.expectRevert(Contract.ErrorName.selector);
+// NOT: vm.expectRevert();
 ```
-[opcode: 1 byte][argsLength: 1 byte][args: argsLength bytes]
-```
 
-## Key Structures
+## Fixing Tests
 
-- `VM` - program counter, opcodes array, static context flag
-- `Context` - VM + query + swap registers
-- `SwapRegisters` - balanceIn/Out, amountIn/Out
-
-## Swap Flow
-
-1. `router.swap(order, tokenIn, tokenOut, amount, takerData)`
-2. Extract program from `order.traits.program(order.data)`
-3. VM executes bytecode
-4. Handle transfers and hooks
-
-## Key Locations
-
-- Core VM: `src/SwapVM.sol` (abstract base)
-- Instructions: `src/instructions/`
-- Opcodes: `src/opcodes/` (Opcodes, LimitOpcodes, AquaOpcodes)
-- Libraries: `src/libs/` (VM.sol, MakerTraits.sol, TakerTraits.sol)
-- Routers: `src/routers/`
-- Interfaces: `src/interfaces/`
+When asked to fix failing tests:
+- **Minimal changes only** - fix the existing test, don't rewrite it
+- **Never create new test files** unless explicitly requested
+- **Never add new test functions** unless explicitly requested
+- Preserve the original test structure and intent
+- Update assertions/expectations to match new behavior if needed
 
 ---
 > Source: [1inch/swap-vm](https://github.com/1inch/swap-vm) — distributed by [TomeVault](https://tomevault.io).
