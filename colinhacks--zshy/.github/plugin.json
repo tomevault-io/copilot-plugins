@@ -1,0 +1,9 @@
+{
+  "name": "colinhacks--zshy",
+  "displayName": "zshy",
+  "description": "\ud83d\udc12 Bundler-free build tool for TypeScript libraries. Powered by tsc.",
+  "version": "1.0.0",
+  "author": "colinhacks",
+  "homepage": "https://github.com/colinhacks/zshy",
+  "skills": []
+}
