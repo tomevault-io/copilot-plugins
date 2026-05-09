@@ -1,0 +1,9 @@
+{
+  "name": "rustedbytes--hrs-launcher",
+  "displayName": "hrs-launcher",
+  "description": "A launcher for Hytale: Windows, macOS, and Linux",
+  "version": "1.0.0",
+  "author": "RustedBytes",
+  "homepage": "https://github.com/RustedBytes/hrs-launcher",
+  "skills": []
+}
