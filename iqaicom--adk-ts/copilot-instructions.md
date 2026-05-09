@@ -1,44 +1,41 @@
-## naming-conventions
+## no-comments
 
-> All files in this project should use kebab-case for naming. This means:
+> This project follows a minimalist approach to code comments, focusing on clarity through well-structured, self-documenting code.
 
-# File Naming Conventions
+# Code Documentation Guidelines
 
-## Kebab Case for File Names
+## Commenting Philosophy
 
-All files in this project should use kebab-case for naming. This means:
+This project follows a minimalist approach to code comments, focusing on clarity through well-structured, self-documenting code.
 
-- All lowercase letters
-- Words separated by hyphens
-- No spaces or underscores
-- No PascalCase or camelCase
+## Comment Guidelines
 
-### Examples:
+1. **Documentation Comments Only**: Add comments only when they provide documentation value. The code itself should be clear enough to understand without excessive comments.
 
-✅ Good:
-- `base-tool.ts`
-- `google-search-tool.ts`
-- `exit-loop-tool.ts`
-- `llm-agent.ts`
-- `memory-service.ts`
+2. **No Line-by-Line Comments**: Avoid explaining each line of code with a comment. This creates maintenance overhead and often becomes outdated.
 
-❌ Bad:
-- `BaseTool.ts`
-- `GoogleSearchTool.ts`
-- `exit_loop_tool.ts`
-- `LlmAgent.ts`
-- `memoryService.ts`
+3. **Method-Level Documentation**: Place concise documentation comments above methods/functions to explain:
+   - Purpose of the method
+   - Complex logic that may not be immediately obvious
+   - Any important side effects
 
-## Class and Interface Naming
+4. **Class-Level Documentation**: Document classes with a brief description of their purpose and responsibility.
 
-While files use kebab-case, TypeScript classes and interfaces should still follow standard conventions:
+5. **Interface Documentation**: Document interfaces with clear descriptions of their intent and contract.
 
-- Classes and Interfaces: PascalCase (e.g., `class BaseTool`, `interface ToolConfig`)
-- Methods and Properties: camelCase (e.g., `runAsync()`, `getDeclaration()`)
+## When to Use Comments
 
-## Implementation Note
+✅ **Good Use of Comments**:
+- Explaining "why" something is done a certain way
+- Documenting complex algorithms
+- Flagging future enhancements (TODO comments)
+- Documenting API interfaces
 
-This standardization helps maintain consistency across the codebase and aligns with common TypeScript ecosystem practices.
+❌ **Avoid Comments For**:
+- Explaining obvious code
+- Duplicating what the code already clearly states
+- Commenting out unused code (delete it instead)
+- Line-by-line explanations
 
 ---
 > Source: [IQAIcom/adk-ts](https://github.com/IQAIcom/adk-ts) — distributed by [TomeVault](https://tomevault.io).
