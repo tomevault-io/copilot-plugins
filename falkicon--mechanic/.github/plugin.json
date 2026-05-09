@@ -1,0 +1,9 @@
+{
+  "name": "falkicon--mechanic",
+  "displayName": "Mechanic",
+  "description": "In-game development hub for World of Warcraft addon developers. Centralizes debugging, testing, error capture, and performance monitoring with universal copy support.",
+  "version": "1.0.0",
+  "author": "Falkicon",
+  "homepage": "https://github.com/Falkicon/Mechanic",
+  "skills": []
+}
