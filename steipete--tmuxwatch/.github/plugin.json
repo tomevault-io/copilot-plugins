@@ -1,0 +1,9 @@
+{
+  "name": "steipete--tmuxwatch",
+  "displayName": "tmuxwatch",
+  "description": "A simple TUI to watch tmux sessions",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/tmuxwatch",
+  "skills": []
+}
