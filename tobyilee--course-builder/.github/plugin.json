@@ -1,0 +1,9 @@
+{
+  "name": "tobyilee--course-builder",
+  "displayName": "course-builder",
+  "description": "AI multi-agent harness that plans, designs, and produces online courses (slides + notes + TTS audio + quiz + player) from a topic using ADDIE + Bloom's Taxonomy.",
+  "version": "1.0.0",
+  "author": "tobyilee",
+  "homepage": "https://github.com/tobyilee/course-builder",
+  "skills": []
+}
