@@ -1,0 +1,9 @@
+{
+  "name": "makerprism--solid-ml",
+  "displayName": "solid-ml",
+  "description": "An OCaml framework for building reactive web applications with server-side rendering (SSR), inspired by SolidJS",
+  "version": "1.0.0",
+  "author": "makerprism",
+  "homepage": "https://github.com/makerprism/solid-ml",
+  "skills": []
+}
