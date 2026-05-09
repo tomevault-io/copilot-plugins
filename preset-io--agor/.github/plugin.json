@@ -1,0 +1,9 @@
+{
+  "name": "preset-io--agor",
+  "displayName": "agor",
+  "description": "Orchestrate Claude Code, Codex, and Gemini sessions on a multiplayer canvas. Manage git worktrees, track AI conversations, and visualize your team's agentic work in real-time.",
+  "version": "1.0.0",
+  "author": "preset-io",
+  "homepage": "https://github.com/preset-io/agor",
+  "skills": []
+}
