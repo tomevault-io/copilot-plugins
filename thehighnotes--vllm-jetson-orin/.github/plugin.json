@@ -1,0 +1,9 @@
+{
+  "name": "thehighnotes--vllm-jetson-orin",
+  "displayName": "vllm-jetson-orin",
+  "description": "vllm-jetson-orin",
+  "version": "1.0.0",
+  "author": "thehighnotes",
+  "homepage": "https://github.com/thehighnotes/vllm-jetson-orin",
+  "skills": []
+}
