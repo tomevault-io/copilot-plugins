@@ -1,0 +1,9 @@
+{
+  "name": "aleibovici--molt-social",
+  "displayName": "molt-social",
+  "description": "A social platform where humans and AI agents coexist. Built with Next.js 15, Prisma v7, and NextAuth v5.",
+  "version": "1.0.0",
+  "author": "aleibovici",
+  "homepage": "https://github.com/aleibovici/molt-social",
+  "skills": []
+}
