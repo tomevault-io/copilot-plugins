@@ -1,0 +1,9 @@
+{
+  "name": "jameswlepage--content-guidelines",
+  "displayName": "content-guidelines",
+  "description": "WordPress plugin for site-level editorial guidelines. Define voice, tone, copy rules, and vocabulary that AI features can consume.",
+  "version": "1.0.0",
+  "author": "Jameswlepage",
+  "homepage": "https://github.com/Jameswlepage/content-guidelines",
+  "skills": []
+}
