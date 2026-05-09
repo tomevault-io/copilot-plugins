@@ -1,0 +1,9 @@
+{
+  "name": "h-shiono--mrtklib-docker-ui",
+  "displayName": "mrtklib-docker-ui",
+  "description": "Web UI for MRTKLIB \u2014 GNSS post-processing, real-time positioning, QZSS CLAS/MADOCA, in Docker",
+  "version": "1.0.0",
+  "author": "h-shiono",
+  "homepage": "https://github.com/h-shiono/mrtklib-docker-ui",
+  "skills": []
+}
