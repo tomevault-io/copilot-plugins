@@ -4,7 +4,7 @@
   "repo": "account-policies",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/base/account-policies",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T17:48:46Z"
+  "distributed_at": "2026-05-09T23:08:14Z"
 }
