@@ -7,11 +7,11 @@ Obsidian plugin that allows to drag the divider lines to resize tab groups on mo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [churnish/resize-mobile-split-view](https://github.com/churnish/resize-mobile-split-view).
+Original source: `CLAUDE.md` in [churnish/resize-mobile-split-view](https://github.com/churnish/resize-mobile-split-view).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
