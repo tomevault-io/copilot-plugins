@@ -1,0 +1,184 @@
+## lineark
+
+> lineark is an unofficial Linear (issue tracker) ecosystem for Rust:
+
+# CLAUDE.md — lineark
+
+## What is this
+
+lineark is an unofficial Linear (issue tracker) ecosystem for Rust:
+- **lineark-sdk** (`crates/lineark-sdk/`) — Async-first Rust SDK for the Linear GraphQL API
+- **lineark-derive** (`crates/lineark-derive/`) — Proc macro crate providing `#[derive(GraphQLFields)]` for type-driven field selection
+- **lineark** (`crates/lineark/`) — CLI for humans and LLMs, powered by lineark-sdk
+- **lineark-codegen** (`crates/lineark-codegen/`) — Internal tool that reads `schema/schema.graphql` and generates typed Rust code into `crates/lineark-sdk/src/generated/`
+
+See `docs/MASTERPLAN.md` for the full architecture, roadmap, and design decisions (huge file, only read if needed, to keep token consumption down in day-to-day work).
+
+## Workspace layout
+
+```
+Cargo.toml              # workspace root
+crates/
+  lineark-sdk/          # library (published to crates.io)
+  lineark-derive/       # proc macro for #[derive(GraphQLFields)]
+  lineark/              # CLI binary (published to crates.io + binary releases)
+  lineark-codegen/      # codegen tool (not published)
+schema/
+  schema.graphql        # Linear's GraphQL schema (checked in, fetched from API)
+  operations.toml       # allowlist of which queries/mutations to generate
+docs/
+  MASTERPLAN.md         # full project plan and roadmap
+```
+
+## Key commands
+
+```bash
+rustup update stable                     # sync local toolchain with CI (do this before developing)
+cargo run -p lineark-codegen             # regenerate SDK types from schema
+cargo run -p lineark -- <args>           # run the CLI
+make check                               # lint + doc + build (no tests)
+make test                                # offline tests (unit + integration, fast, no API token)
+make test-online                         # online tests (live API, serial, needs token)
+```
+
+`make check && make test` is the canonical local pre-push check. Add `make test-online` when you have a test API token and need full coverage.
+
+**Online tests must run serially.** They hit the live Linear API, which has plan-level limits (e.g. max teams). Running them in parallel causes spurious failures from resource exhaustion. `make test-online` handles this automatically.
+
+### Writing online tests: the three pillars
+
+Linear's API has permanent, structural consistency issues — not "temporary flakiness that will go away". Treat them as part of the environment you're testing against. **Every online test must apply all three of these**, in every CRUD path it touches, or it will flake in CI:
+
+**1. Proactive cleanup.** Never assume the workspace is empty, and never leak resources between tests.
+
+- Call `create_test_team()` (from `lineark-test-utils`) for every test that needs a team. It invokes `cleanup_zombies()` once per process and assigns a fresh unique team key, dodging Linear's indexed-identifier collisions.
+- Wrap every created resource in the matching RAII guard from `lineark_test_utils::guards` (`TeamGuard`, `IssueGuard`, `ProjectGuard`, `DocumentGuard`, `LabelGuard`) *immediately* after the create returns its ID. Guards delete on drop, so cleanup happens even when a later assert panics. Never rely on explicit `.delete(...)` calls — a panic will skip them.
+- If the test creates resources through a path the guards don't yet cover (e.g. a new Linear entity type), add a new guard to `crates/lineark-test-utils/src/guards.rs` before shipping the test.
+
+**2. Unique names per attempt.** Linear's API returns phantom "conflict on insert" errors keyed on request body content, so two attempts with the same body get the same sticky conflict.
+
+- Generate a per-test random suffix: `format!("[test] <what> {}", &uuid::Uuid::new_v4().to_string()[..8])`. The `[test]` prefix is what `cleanup_workspace` looks for.
+- If a helper retries a mutation on transient failure (see pillar 3), it **must mutate the request body between attempts** — not just re-send. Our CLI helper `run_lineark_with_retry` appends a fresh `retry-<uuid6>` suffix to the `<name>` positional and returns the actually-used name so the test can look the entity up later.
+- Don't reuse fixture names across tests. Each test call site should get its own UUID-suffixed name.
+
+**3. Retries on every API call that can fail transiently.**
+
+- **Creates** (`retry_create` in `lineark-test-utils`): **15 attempts** with backoffs `[0, 2, 5, 10, 20, 30, 60×9]`s (~9 min worst case), retries on "conflict on insert" / "already exists". Use for any SDK `*_create` call. The CLI-shell variant is `run_lineark_with_retry` in `crates/lineark/tests/online.rs` — same 15-attempt budget, plus body mutation (appends a fresh `retry-<uuid6>` suffix to the positional after `"create"`, gated on `[test]` prefix so UUID positionals like `comments create <uuid>` aren't corrupted).
+- **Reads after a recent create** (`retry_search` / `retry_with_backoff`): Linear's search/filter indexes are eventually consistent — a freshly-created resource may not be queryable by name for several seconds. Use `retry_search` with a predicate, or `retry_with_backoff` for arbitrary checks that need time to propagate.
+- **`settle()` (5s sleep)** between a create and the subsequent assertion, when retry-with-predicate isn't applicable.
+- **No suite-level retry.** CI runs the online suite single-shot. Per-call persistence inside the helpers above is the line of defense — if a test fails, it's a real regression, not a flake worth retrying. Earlier iterations had a 3x suite wrapper + `continue-on-error: true`; both removed once per-call retries became persistent enough to stand on their own.
+
+### Other online-test rules
+
+- **Check process exit before parsing output.** For tests that shell out to `lineark`, always `assert!(output.status.success(), "<msg>\nstdout: {stdout}\nstderr: {stderr}")` **before** `serde_json::from_str`. A bare `.unwrap()` on JSON parsing hides the real error (usually auth, schema drift, or a new required field).
+- **Skip when no token.** Guard every online test with `#[test_with::runtime_ignore_if(no_online_test_token)]` so contributors without a token aren't blocked.
+- **No production tokens.** The test token must point at a dedicated test workspace. `cleanup_workspace` deletes everything with the `[test]` prefix — running against prod would be catastrophic.
+- **Multi-workspace token pool.** `~/.linear_api_token_test` (and the `LINEAR_TEST_TOKEN` GitHub secret) accept a `;`-separated pool of API tokens — one per Linear workspace. `test_token()` picks one at random per test process and pins it for the process lifetime, spreading load across workspaces (free-plan limits, trash retention). Single-token files still work unchanged. Newlines also separate; `#`-prefixed comment lines are ignored. The `cleanup-test-workspace` binary iterates every pooled workspace, not just the one drawn this run.
+
+## Updating the schema
+
+`schema/schema.graphql` is a vendored copy of Linear's public GraphQL schema (SDL). It's checked in for reproducible builds and reviewable diffs. To update it:
+
+```bash
+make update-schema    # fetch latest schema + regenerate SDK types
+# or equivalently:
+cargo run -p lineark-codegen -- --fetch
+```
+
+This fetches the schema via introspection (no API key needed — Linear's endpoint is public), writes `schema/schema.graphql`, then runs codegen to regenerate `crates/lineark-sdk/src/generated/`. Pure Rust, no external tools.
+
+To regenerate without fetching (e.g. after editing `operations.toml`):
+
+```bash
+make codegen
+```
+
+After updating, fix any compilation errors caused by schema changes, then `make check`.
+
+There's a Claude Code command for the full workflow (fetch + codegen + fix breakage + lint):
+
+```
+/update-linear-schema
+```
+
+## Conventions
+
+- **All generated code** lives in `crates/lineark-sdk/src/generated/`. Never hand-edit these files — they are overwritten by codegen.
+- **Hand-written SDK code** (client, auth, error, pagination) should stay under 2000 lines total. Keep it simple and LLM-readable.
+- **Codegen uses `apollo-parser`** crate to parse the schema SDL into a CST, then emits `.rs` files formatted with `prettyplease`.
+- **Operations are incremental.** Types/enums/inputs are always fully generated. Query and mutation functions are gated by `schema/operations.toml`.
+- **Auth precedence:** `--api-token` flag > `$LINEAR_API_TOKEN` env var > `~/.linear_api_token` file.
+- **Output format:** auto-detect with `std::io::IsTerminal` — human tables when interactive, JSON when piped. Override with `--format human|json`.
+- **Async only.** The SDK uses tokio + reqwest async. Consumers who need sync access can wrap calls with `tokio::runtime::Runtime::block_on()`.
+- **Generic queries.** All query and mutation functions are generic over `T: DeserializeOwned + GraphQLFields`. Generated types have auto-generated `impl GraphQLFields` from codegen. Consumers can define custom lean types with `#[derive(GraphQLFields)]` to avoid overfetching.
+- **Minimal proc macros.** The only proc macro is `#[derive(GraphQLFields)]` in `lineark-derive` — it enables consumer-defined lean types for field selection. Codegen emits plain Rust structs and `impl GraphQLFields` blocks.
+
+## CLI discoverability
+
+- **`lineark usage`** is the LLM entry point — a compact (<1000 tokens) command reference. Keep it small for token efficiency. Only add flags/commands here when they're important enough that an LLM should know about them upfront.
+- **`--help`** on every command/subcommand is the detailed reference. All flags, descriptions, defaults, and examples go here via clap doc comments. Commands should be fully self-discoverable via `--help`.
+- Rule of thumb: `usage` = "what can I do?", `--help` = "how exactly does this work?"
+- **Keep `usage` in sync with structural changes.** When adding or removing a command, or materially changing a flag's shape/semantics (not cosmetic tweaks, renames of hidden internals, or adding a `visible_alias`), review `crates/lineark/src/commands/usage.rs` and update it. If the "what can I do?" answer changed, `usage` must reflect it.
+
+## PR guidelines
+
+Every PR must pass CI before merge. Locally: `make check && make test` covers lint, doc, build, and offline tests. Add `make test-online` for full coverage (requires `~/.linear_api_token_test`).
+
+These run on five targets: `x86_64-unknown-linux-gnu`, `x86_64-unknown-linux-musl`, `aarch64-unknown-linux-gnu`, `aarch64-unknown-linux-musl`, `aarch64-apple-darwin`.
+
+When opening a PR, include a summary of changes and a test plan. If codegen was modified, verify with `cargo run -p lineark-codegen` that the generated output is clean (codegen runs `cargo fmt` as a post-step).
+
+Before merging, run `/update-docs` to review and update all documentation (top-level README, CLI README, SDK README) so they reflect the current codebase. Documentation must stay in sync with code.
+
+**Working on contributor fork branches:** When a contributor grants push access to their fork, use `git merge origin/main` (not rebase) to bring their branch up to date. Rebasing rewrites their commit history and requires force-pushing to their branch, which is inconsiderate if they're working concurrently.
+
+## Commit style
+
+- Use conventional commits (`feat:`, `fix:`, `chore:`, `docs:`, etc.)
+- No `Co-Authored-By` lines
+- No "Generated with Claude Code" footers
+- Keep messages concise, focused on "why" not "what"
+
+## Versioning
+
+All crates use `version = "0.0.0"` in their Cargo.toml — this is intentional. It means "current dev". Actual versions are set dynamically at release time by the GitHub Actions release workflow (`.github/workflows/release.yml`), which is triggered by publishing a GitHub Release. The workflow:
+
+1. Extracts the version from the release tag (`v1.2.3` → `1.2.3`)
+2. Patches all `0.0.0` placeholders via `sed` (workspace version + inter-crate dep versions)
+3. Publishes in dependency order: `lineark-derive` → `lineark-sdk` → `lineark`
+4. Builds platform binaries and uploads them to the release
+
+Never manually set version numbers in Cargo.toml files. To release, create a GitHub Release with a semver tag like `v0.1.0` (via the GitHub UI or `gh release create v0.1.0 --generate-notes`).
+
+**Always check the current version before reasoning about version bumps.** The `0.0.0` placeholder in Cargo.toml is a dev sentinel, not the real version. Run `gh release list --limit 5` to see the actual most recent release, then decide the next tag. Don't assume "pre-1.0" or guess from stale context — the project has shipped past 1.0 and is subject to normal semver rules (breaking changes → major bump, new features → minor, fixes → patch). If a PR introduces a breaking change, call out in the PR description which major version the next release should be (current_major + 1).
+
+## Issue tracking
+
+Issue tracking for lineark development happens in GitHub Issues, not in Linear. Use `gh issue` commands to view, create, and manage issues.
+
+## What NOT to do
+
+- Don't hand-edit files in `crates/lineark-sdk/src/generated/` — run codegen instead
+- Don't add proc macro dependencies beyond `lineark-derive`
+- Don't add webhook support, MCP server, or raw GraphQL escape hatches — these are out of scope
+- Don't generate operations not listed in `schema/operations.toml` — operations are added incrementally
+- Don't remove `~/.linear_api_token` auth support
+
+## Dependencies (key choices, don't change without good reason)
+
+| Purpose | Crate |
+|---|---|
+| HTTP client | `reqwest` (async) |
+| Async runtime | `tokio` |
+| Serialization | `serde` + `serde_json` |
+| Date/time | `chrono` |
+| CLI framework | `clap` (derive) |
+| Table output | `tabled` |
+| Terminal colors | `colored` |
+| Derive macro | `lineark-derive` (workspace crate) |
+| Schema parsing | `apollo-parser` (in codegen only) |
+| Code formatting | `prettyplease` (in codegen only) |
+
+---
+> Source: [flipbit03/lineark](https://github.com/flipbit03/lineark) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-25 -->
