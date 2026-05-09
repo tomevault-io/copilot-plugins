@@ -1,0 +1,9 @@
+{
+  "name": "mkerix--toolscript",
+  "displayName": "toolscript",
+  "description": "Efficient MCP tool calling in code mode for Claude Code",
+  "version": "1.0.0",
+  "author": "mKeRix",
+  "homepage": "https://github.com/mKeRix/toolscript",
+  "skills": []
+}
