@@ -4,7 +4,7 @@
   "repo": "corbis-literature-starter-kit",
   "description": "A lightweight Claude Code project for exploring academic literature, brainstorming research ideas, and managing citations. Powered by Corbis MCP.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Agentic-Assets/corbis-literature-starter-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T08:03:24Z"
+  "distributed_at": "2026-05-09T19:42:06Z"
 }
