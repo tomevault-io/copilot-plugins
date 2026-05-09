@@ -1,18 +1,20 @@
-## the-complexity-trap
+## project-overview
 
-> - Use python with type annotations
+> SWE-agent implements an AI software engineering agent that uses language models to
 
+# SWE-agent overview
 
-# Your rule content
+SWE-agent implements an AI software engineering agent that uses language models to
+fix github issues.
+Here's what you need to know about the project structure:
 
-- Use python with type annotations
-- Target python 3.11 or higher
-- Use `pathlib` instead of `os.path`. Also use `Path.read_text()` over `with ...open()` constructs
-- Use `argparse` to add interfaces
-- Keep code comments to a minimum and only highlight particularly logically challenging things
-- Do not append to the README unless specifically requested
+- The main entry points to running are in the `sweagent/run`, in particular `run_single.py` and `run_batch.py`, where the latter is used for benchmarking.
+- The main class that governs agent behavior is `sweagent/agent/agents.py`
+- The AI agent proposes actions that are executed in sandboxed docker containers
+- At the beginning of an agent class, we initialize a `SWEEnv` class from `sweagent/environment/swe_env.py`. This class interfaces with the SWE-ReX project to interface with the sandboxed docker containers
+- Part of the SWE-agent project are tools in `tools/`. They are organized in bundles. These bundles are copied to the sandboxed container and made available in the $PATH variable.
+- In addition we provide two "inspectors" that allow to inspect trajectories (the output files of agents), `inspector_cli.py` provides a command line interface and `sweagent/inspector/server.py` a web interface.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/JetBrains-Research)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/JetBrains-Research)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [JetBrains-Research/the-complexity-trap](https://github.com/JetBrains-Research/the-complexity-trap) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
