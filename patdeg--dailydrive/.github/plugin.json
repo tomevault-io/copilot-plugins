@@ -1,0 +1,9 @@
+{
+  "name": "patdeg--dailydrive",
+  "displayName": "dailydrive",
+  "description": "Recreate Spotify's killed Daily Drive \u2014 auto-mix podcasts and music into a daily playlist",
+  "version": "1.0.0",
+  "author": "patdeg",
+  "homepage": "https://github.com/patdeg/dailydrive",
+  "skills": []
+}
