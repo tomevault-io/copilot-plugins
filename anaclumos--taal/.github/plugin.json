@@ -1,0 +1,9 @@
+{
+  "name": "anaclumos--taal",
+  "displayName": "taal",
+  "description": "Sync MCPs and Agent Skills across AI coding assistants",
+  "version": "1.0.0",
+  "author": "anaclumos",
+  "homepage": "https://github.com/anaclumos/taal",
+  "skills": []
+}
