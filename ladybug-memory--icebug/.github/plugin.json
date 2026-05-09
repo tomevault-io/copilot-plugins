@@ -1,0 +1,9 @@
+{
+  "name": "ladybug-memory--icebug",
+  "displayName": "icebug",
+  "description": "Icebug is a fork of networkit emphasizing zero-copy columnar storage",
+  "version": "1.0.0",
+  "author": "Ladybug-Memory",
+  "homepage": "https://github.com/Ladybug-Memory/icebug",
+  "skills": []
+}
