@@ -1,0 +1,9 @@
+{
+  "name": "corewood-tech--rootstock",
+  "displayName": "rootstock",
+  "description": "LLM-assisted architecture that you can branch off of without uprooting your project.",
+  "version": "1.0.0",
+  "author": "corewood-tech",
+  "homepage": "https://github.com/corewood-tech/rootstock",
+  "skills": []
+}
