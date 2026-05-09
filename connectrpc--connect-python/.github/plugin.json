@@ -1,0 +1,9 @@
+{
+  "name": "connectrpc--connect-python",
+  "displayName": "connect-python",
+  "description": "The Python implementation of Connect: Protobuf RPC that works.",
+  "version": "1.0.0",
+  "author": "connectrpc",
+  "homepage": "https://github.com/connectrpc/connect-python",
+  "skills": []
+}
