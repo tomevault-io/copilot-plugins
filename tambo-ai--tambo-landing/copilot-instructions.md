@@ -1,474 +1,282 @@
-## integrations
+## main
 
-> description: Third-party integration guidelines (Sanity, Shopify, HubSpot, etc.)
+> Provides an `AbortSignal` that triggers when the component's cache scope expires.
 
 ---
-description: Third-party integration guidelines (Sanity, Shopify, HubSpot, etc.)
+description: Project overview and cross-cutting concerns
 globs: *.tsx, *.jsx, *.css, *.js, *.ts
 ---
 
-# Third-Party Integration Guidelines
+# Satus Project Guidelines
 
-## Sanity CMS Integration
+## Technology Stack
 
-### Configuration & Setup
-Use CDN for performance with stega for visual editing. Store credentials securely in environment variables. All Sanity files are organized in `/integrations/sanity/` directory.
+- **Next.js 16.0.1** - App Router with Turbopack support and Cache Components
+- **React 19.2.0** - Latest features including `<Activity />`, `useEffectEvent`, and `cacheSignal`
+- **React Compiler enabled** - Automatically optimizes most component re-renders and memoization; manual memoization is rarely needed
+- **TypeScript** - Strict mode enabled
+- **Tailwind CSS 4.1.16** - CSS-first configuration
+- **Biome 2.3.3** - Linting and formatting
+- **Bun** - JavaScript runtime and package manager
 
-```typescript
-// In integrations/sanity/client.ts
-export const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  apiVersion: '2024-03-15',
-  useCdn: true, // Use CDN for better performance
-  token: process.env.SANITY_API_WRITE_TOKEN, // Write token for editing
-  stega: {
-    studioUrl: process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || '/studio',
-  },
-})
+## React 19.2 New Features
+
+### 1. `<Activity />` Component
+Manage off-screen component visibility and defer updates for better performance.
+
+```tsx
+import { Activity } from 'react'
+
+// Hide tab content when not visible
+<Activity mode={isActive ? 'visible' : 'hidden'}>
+  <ExpensiveComponent />
+</Activity>
 ```
 
-### Schema Management
+**Use Cases:**
+- Tab systems or carousels
+- Off-screen WebGL scenes (3D graphics, shaders)
+- Accordion components
+- Drawer/modal systems
+- Image galleries and carousels
 
-#### Content Modelling
-- Unless explicitly modelling web pages or app views, create content models for what things are, not what they look like in a front-end
-- For example, consider the `status` of an element instead of its `color`
+**Benefits:**
+- Pre-render content without performance impact
+- Automatic effect cleanup when hidden
+- Better resource management for complex UIs
 
-#### Basic Schema Types
-- ALWAYS use the `defineType`, `defineField`, and `defineArrayMember` helper functions
-- ALWAYS write schema types to their own files and export a named `const` that matches the filename
-- ONLY use a `name` attribute in fields unless the `title` needs to be something other than a title-case version of the `name`
-- ANY `string` field type with an `options.list` array with fewer than 5 options must use `options.layout: "radio"`
-- ANY `image` field must include `options.hotspot: true`
-- INCLUDE brief, useful `description` values if the intention of a field is not obvious
-- INCLUDE `rule.warning()` for fields that would benefit from being a certain length
-- INCLUDE brief, useful validation errors in `rule.required().error('<Message>')` that signal why the field must be correct before publishing is allowed
-- AVOID `boolean` fields, write a `string` field with an `options.list` configuration
-- NEVER write single `reference` type fields, always write an `array` of references
-- CONSIDER the order of fields, from most important and relevant first, to least often used last
+### 2. `useEffectEvent` Hook
+Separate event logic from effect dependencies to prevent unnecessary re-runs.
 
-```ts
-// ./src/schemaTypes/lessonType.ts
-import {defineField, defineType} from 'sanity'
+```tsx
+import { useEffect, useEffectEvent } from 'react'
 
-export const lessonType = defineType({
-  name: 'lesson',
-  title: 'Lesson',
-  type: 'document',
-  fields: [
-    defineField({
-      name: 'title',
-      type: 'string',
-    }),
-    defineField({
-      name: 'categories',
-      type: 'array',
-      of: [defineArrayMember({type: 'reference', to: {type: 'category'}})],
-    }),
-  ],
-})
-```
-
-#### Schema Type with Custom Input Components
-If a schema type has input components, they should be colocated with the schema type file. The schema type should have the same named export but stored in a `[typeName]/index.ts` file:
-
-```ts
-// ./src/schemaTypes/seoType/index.ts
-import {defineField, defineType} from 'sanity'
-import seoInput from './seoInput'
-
-export const seoType = defineType({
-  name: 'seo',
-  title: 'SEO',
-  type: 'object',
-  components: { input: seoInput }
-  // ...
-})
-```
-
-#### No Anonymous Reusable Schema Types
-ANY schema type that benefits from being reused in multiple document types should be registered as its own custom schema type.
-
-```ts
-// ./src/schemaTypes/blockContentType.ts
-import {defineField, defineType} from 'sanity'
-
-export const blockContentType = defineType({
-  name: 'blockContent',
-  title: 'Block content',
-  type: 'array',
-  of: [defineField({name: 'block',type: 'block'})],
-})
-```
-
-#### Decorating Schema Types
-Every `document` and `object` schema type should:
-
-- Have an `icon` property from `@sanity/icons`
-- Have a customized `preview` property that shows rich contextual details about the document
-- Use `groups` when the schema type has more than a few fields to collate related fields and only show the most important group by default. These `groups` should use the icon property as well.
-- Use `fieldsets` with `options: {columns: 2}` if related fields could be grouped visually together, such as `startDate` and `endDate`
-
-### Visual Editing
-Always add `data-sanity` attributes for visual editing. Use SanityContextProvider for document access. Implement proper draft mode handling. Import from `/integrations/sanity` directory.
-
-```typescript
-import { useSanityContext, RichText } from '~/integrations/sanity'
-
-export function MyComponent() {
-  const { document } = useSanityContext()
-  
-  return (
-    <div data-sanity={document._id}>
-      <h1 data-sanity="title">{document.title}</h1>
-      <div data-sanity="content">
-        <RichText content={document.content} />
-      </div>
-    </div>
-  )
-}
-```
-
-### Data Fetching
-Use proper perspective for draft vs published content. Implement caching strategies for performance. Handle errors gracefully with try-catch. Import from `/integrations/sanity` directory. Use `~/libs/metadata` helpers for SEO optimization. All `sanityFetch` calls automatically use `cacheSignal()` for request cleanup.
-
-```typescript
-// In integrations/sanity/queries.ts
-import { sanityFetch } from './live'
-import { generateSanityMetadata } from '~/libs/metadata'
-
-// Use sanityFetch (automatically includes cacheSignal)
-export async function fetchSanityPage(slug: string, isDraftMode = false) {
-  const { data, error } = await sanityFetch({
-    query: pageQuery,
-    params: { slug },
-    isDraftMode
+function Component({ url, theme }) {
+  const onConnected = useEffectEvent(() => {
+    showNotification('Connected!', theme) // theme changes won't trigger reconnect
   })
-  
-  if (error) {
-    console.error('fetchSanityPage error:', error)
-    return { data: null, error }
-  }
-  
-  return { data, error: null }
-}
 
-// In page.tsx for SEO
-export async function generateMetadata({ params }) {
-  const { data } = await fetchSanityPage(params.slug)
-  return generateSanityMetadata(data)
+  useEffect(() => {
+    const connection = createConnection(url)
+    connection.on('connected', onConnected)
+    connection.connect()
+    return () => connection.disconnect()
+  }, [url]) // Only reconnect when url changes
 }
 ```
 
-**Cache Components Notes:**
-- Draft mode automatically uses `cache: 'no-store'` ✅
-- Published content uses ISR with revalidation ✅
-- All queries use `cacheSignal()` for automatic cleanup ✅
-- Wrap in Suspense boundaries for proper loading states ✅
+**Use Cases:**
+- Complex event handlers with multiple dependencies
+- Scroll/transform callbacks
+- WebGL mouse/interaction handlers
+- Animation callbacks
 
-### GROQ Queries
+**Benefits:**
+- Reduces unnecessary effect re-runs
+- Cleaner dependency arrays
+- Better separation of concerns
 
-- ALWAYS use SCREAMING_SNAKE_CASE for variable names, for example POSTS_QUERY
-- ALWAYS write queries to their own variables, never as a parameter in a function
-- ALWAYS import the `defineQuery` function to wrap query strings from the `groq` or `next-sanity` package
-- ALWAYS write every required attribute in a projection when writing a query
-- ALWAYS put each segment of a filter, and each attribute on its own line
-- ALWAYS use parameters for variables in a query
-- NEVER insert dynamic values using string interpolation
+### 3. `cacheSignal` (Server Components Only)
+Provides an `AbortSignal` that triggers when the component's cache scope expires.
 
-```ts
-// In integrations/sanity/queries.ts
-import { groq } from 'next-sanity'
-
-export const pageQuery = groq`
-  *[_type == "page" && slug.current == $slug][0] {
-    _id,
-    title,
-    slug,
-    content,
-    "imageUrl": image.asset->url,
-    _updatedAt
-  }
-`
-
-// Good query example
-import {defineQuery} from 'groq'
-
-export const POST_QUERY = defineQuery(`*[
-  _type == "post"
-  && slug.current == $slug
-][0]{
-  _id,
-  title,
-  image,
-  author->{
-    _id,
-    name
-  }
-}`)
-```
-
-### Performance Optimization
-Use ISR for static content with revalidation. Implement proper cache invalidation via webhooks. Optimize images with proper sizing. Use consolidated imports for better tree-shaking. Use metadata helpers for consistent SEO.
-
-```typescript
-import { urlForImage } from '~/integrations/sanity'
-import { generateSanityMetadata } from '~/libs/metadata'
-
-// Use ISR for published content
-export const revalidate = 3600
-
-// Optimize images
-<SanityImage image={document.image} maxWidth={1200} />
-
-// Generate SEO metadata
-export async function generateMetadata({ params }) {
-  const page = await fetchSanityPage(params.slug)
-  return generateSanityMetadata(page, {
-    title: page.seo?.title || page.title,
-    description: page.seo?.description,
-    image: page.seo?.image || page.image,
-    noIndex: page.seo?.noIndex,
-  })
-}
-```
-
-### Project Structure
-All Sanity files are organized in `/integrations/sanity/` directory
-
-```
-integrations/sanity/
-├── sanity.cli.ts           # CLI configuration
-├── sanity.config.ts        # Studio configuration
-├── env.ts                  # Environment variables
-├── structure.ts            # Studio structure
-├── client.ts               # Sanity client
-├── queries.ts              # GROQ queries and fetch functions
-├── index.ts                # Main exports
-├── README.md               # Documentation
-├── schemaTypes/            # Content type definitions
-├── components/             # React components
-│   ├── context.tsx         # React context
-│   └── rich-text.tsx       # Rich text component
-└── utils/
-    └── image.ts            # Image utilities
-```
-
-### Writing Sanity Content for Importing
-
-When asked to write content:
-
-- ONLY use the existing schema types registered in the Studio configuration
-- ALWAYS write content as an `.ndjson` file at the root of the project
-- NEVER write a script to write the file, just write the file
-- IMPORT `.ndjson` files using the CLI command `npx sanity dataset import <filename.ndjson>`
-- NEVER include a `.` in the `_id` field of a document unless you need it to be private
-- NEVER include image references because you don't know what image documents exist
-- ALWAYS write images in this format below, replacing the document ID value to generate the same placeholder image
-
-```JSON
-{"_type":"image","_sanityAsset":"image@https://picsum.photos/seed/[[REPLACE_WITH_DOCUMENT_ID]]/1920/1080"}
-```
-
-### TypeScript Generation
-
-#### For the Studio
-ALWAYS re-run schema extraction after making schema file changes with `npx sanity@latest schema extract`
-
-#### For Monorepos
-ALWAYS use a simple pnpm workspace configuration to place the studio in `apps/studio`
-
-```
-your-project/
-└── apps/
-    ├── studio/ -> Sanity Studio
-    └── web/    -> Front-end
-```
-
-- ALWAYS extract the schema to the web folder with `npx sanity@latest schema extract --path=../<front-end-folder>/sanity/extract.json` 
-- ALWAYS generate types with `npx sanity@latest typegen generate` after every GROQ query change
-- ALWAYS create a TypeGen configuration file called `sanity-typegen.json` at the root of the front-end code-base
-
-```json
-{
-  "path": "./**/*.{ts,tsx,js,jsx}",
-  "schema": "./<front-end-folder>/sanity/extract.json",
-  "generates": "./<web-folder>/sanity/types.ts"
-}
-```
-
-#### For the Front-end
-ONLY write Types for document types and query responses if you cannot generate them with Sanity TypeGen
-
-### Project Settings and Data
-ALWAYS check if there is a way to interact with a project via the CLI before writing custom scripts `npx sanity --help`
-
----
-
-## Shopify Integration
-
-### API Configuration
-Use GraphQL for queries. Store credentials securely.
-
-```typescript
-const shopifyClient = createShopifyClient({
-  domain: process.env.SHOPIFY_DOMAIN,
-  storefrontAccessToken: process.env.SHOPIFY_STOREFRONT_TOKEN
-})
-```
-
-### Product Management
-Use fragments for reusable queries. Implement proper error handling.
-
-```typescript
-import { PRODUCT_FRAGMENT } from '~/integrations/shopify/fragments'
-```
-
-### Cart Operations
-Use mutations for cart operations. Maintain cart state with Zustand.
-
-```typescript
-import { ADD_TO_CART } from '~/integrations/shopify/mutations'
-```
-
----
-
-## HubSpot Forms
-
-### Form Integration
-Use Server Actions for submissions. Validate data server-side.
-
-```typescript
-export async function submitToHubspot(formData: FormData) {
-  'use server'
-  const client = new HubspotClient({
-    accessToken: process.env.HUBSPOT_ACCESS_TOKEN
-  })
-  // submission logic
-}
-```
-
-### Newsletter Subscriptions
-Implement proper consent management. Handle errors gracefully.
-
-```typescript
-import { HubspotNewsletterAction } from '~/integrations/hubspot/action'
-```
-
----
-
-## General Integration Best Practices
-
-### Environment Variables
-- Never commit API keys
-- Use `.env.local` for development
-- Document required variables in `.env.example`
-- Use `~/libs/validate-env` for runtime validation
-
-```typescript
-import { validateEnv } from '~/libs/validate-env'
-
-// Validate required env vars on startup
-validateEnv(['NEXT_PUBLIC_API_KEY', 'API_SECRET'])
-```
-
-### API Resilience
-**Always use `fetchWithTimeout` for external API calls**
-
-- Standard timeouts: 8-10 seconds for most integrations
-- Implement proper error handling and retry logic
-- Use `cacheSignal()` for automatic request cleanup (React 19.2)
-
-```typescript
-import { fetchWithTimeout } from '~/libs/fetch-with-timeout'
+```tsx
 import { cacheSignal } from 'react'
 
-// HubSpot: 8 seconds
-const response = await fetchWithTimeout(url, { 
-  timeout: 8000,
-  ...options 
-})
-
-// Mailchimp: 10 seconds
-const response = await fetchWithTimeout(url, { 
-  timeout: 10000,
-  ...options 
-})
-
-// With cacheSignal for automatic cleanup
-const signal = cacheSignal()
-const response = await fetchWithTimeout(url, {
-  timeout: 10000,
-  signal: signal as AbortSignal,
-  ...options
-})
-```
-
-### Error Handling
-Implement timeout handling for all API calls. Provide user-friendly error messages. Log errors for debugging with context.
-
-```typescript
-try {
-  const response = await fetchWithTimeout(url, options, 10000)
-  return { data: await response.json(), error: null }
-} catch (error) {
-  console.error('API call failed:', error)
-  return { data: null, error: error.message }
+async function fetchUserData(id: string) {
+  const signal = cacheSignal() // Auto-aborts on cache expiry
+  const response = await fetch(`/api/users/${id}`, { signal })
+  return response.json()
 }
 ```
 
-### Type Safety
-Generate TypeScript types from APIs when possible. Use proper validation (e.g., Zod schemas).
+**Use Cases:**
+- Sanity CMS queries
+- Shopify API calls
+- Any server component data fetching
+- Replace custom timeout logic with automatic cleanup
 
-```typescript
-import * as z from "zod"; 
+**Benefits:**
+- Automatic cleanup of stale requests
+- Better resource management
+- Simpler than manual AbortController
 
-const ProductSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  price: z.number()
-})
+### 4. Performance Tracks in Chrome DevTools
+React 19.2 integrates custom performance tracks into Chrome DevTools:
+- **Scheduler Track:** Displays React's workload prioritization
+- **Components Track:** Shows component hierarchy and timing
+
+**Usage:** Open Chrome DevTools → Performance tab → Record a profile → Look for React-specific tracks
+
+## File Organization
+
+```
+├── app/                  # Next.js pages and routes
+├── components/           # Reusable UI components
+├── hooks/                # Custom React hooks
+├── integrations/         # Third-party integrations
+├── libs/                 # Utility libraries
+│   ├── cleanup-integrations.ts  # Remove unused integrations
+│   ├── fetch-with-timeout.ts    # API resilience
+│   ├── metadata.ts              # SEO/metadata helpers
+│   ├── validate-env.ts          # Environment validation
+│   └── ...
+├── orchestra/            # Debug tools (dev-only)
+├── styles/               # Styling configuration
+└── webgl/                # WebGL and 3D graphics
 ```
 
-### Performance
-- Cache API responses appropriately (except user-specific data)
-- Use ISR (Incremental Static Regeneration) for dynamic content
-- Implement proper loading states with Suspense boundaries
-- Use `cacheSignal()` for automatic request cleanup
+## Cross-Cutting Concerns
 
-**⚠️ Cache Components Gotchas:**
-- **User-specific data**: Never cache (carts, accounts, private content)
-- **Real-time data**: Use `cache: 'no-store'` for live feeds
-- **Suspense boundaries**: Required for cached data fetching
-- **Cache invalidation**: Use `revalidateTag()` or `revalidatePath()` in webhooks
-- **Testing**: Test with hard refresh AND navigation (different cache layers)
+### React Compiler & Memoization
 
-### Security
-- Validate all user inputs
-- Use server-side API calls for sensitive operations
-- Implement rate limiting where necessary
+**React Compiler is enabled and handles ALL optimization automatically.**
 
-### Integration Management
-- Use `~/libs/cleanup-integrations` to remove unused integration code
-- Check integration usage with `~/integrations/check-integration`
-- Keep only active integrations to optimize bundle size
+- **DO NOT use `useMemo`, `useCallback`, or `React.memo` in new code.**
+- The compiler optimizes all component re-renders, memoization, and dependencies automatically.
+- Only use manual memoization if you encounter a proven edge case where the compiler cannot optimize (extremely rare).
+- If you see these in existing code, they can likely be removed safely.
+- **CRITICAL EXCEPTION: Use `useRef` for object instantiation** - Creating new object instances on every render creates new references that trigger effects, causing infinite loops.
+- Refer to the [React Compiler documentation](https://react.dev/reference/react/compiler) for edge cases.
 
-## Webhook Handling
+```tsx
+// ❌ DON'T: Manual memoization for simple calculations (compiler handles this)
+const memoizedValue = useMemo(() => computeExpensive(a, b), [a, b])
+const memoizedCallback = useCallback(() => doSomething(a), [a])
 
-### Verification
-Always verify webhook signatures. Use proper authentication.
+// ✅ DO: Let React Compiler optimize automatically
+const value = computeExpensive(a, b)
+const handleClick = () => doSomething(a)
+
+// ⚠️ EXCEPTION: Object instantiation MUST use useRef
+// ❌ DON'T: This causes infinite re-renders when passed to effects/deps
+const instance = new SomeClass()
+
+// ✅ DO: Use useRef for object instantiation
+const instanceRef = useRef<SomeClass | null>(null)
+if (!instanceRef.current) {
+  instanceRef.current = new SomeClass(params)
+}
+const instance = instanceRef.current
+```
+
+### Image Optimization
+
+**Always use the custom Image component for all images.**
+
+- **DO NOT use `next/image` directly**
+- Use `~/components/image` for standard images
+- **In WebGL contexts, use `~/webgl/components/image`** which wraps the custom Image component for DOM fallback and WebGL texture integration
+
+```tsx
+import { Image } from '~/components/image'
+// For WebGL:
+import { Image as WebGLImage } from '~/webgl/components/image'
+```
+
+### Development vs Production
+
+**Console logs are automatically stripped in production** by Next.js compiler (except `console.error` and `console.warn`)
+
+- **Always gate debug UI components** - these are NOT automatically removed
+- **Gate expensive debug computations** - avoid running heavy operations in production
+
+```tsx
+// ✅ Simple logs: Optional to gate (Next.js strips them automatically)
+console.log('Debug info:', data)
+
+// ✅ Better: Gate expensive operations to avoid computation overhead
+if (process.env.NODE_ENV === 'development') {
+  console.log('Heavy computation:', expensiveDebugCalculation())
+}
+
+// ⚠️ REQUIRED: Always gate debug UI components (not auto-removed)
+{process.env.NODE_ENV === 'development' && <DebugPanel />}
+{process.env.NODE_ENV === 'development' && <Stats />}
+```
+
+**Bundle Size Optimization:**
+- Keep production bundles minimal by excluding dev-only code
+- Use tree-shaking friendly imports
+- Check bundle size impact of new dependencies
+- Debug UI components must be gated (Next.js won't remove them automatically)
+
+## Core Utility Libraries
+
+### Available Utilities
+- **`~/libs/validate-env`** - Validate required environment variables at runtime
+- **`~/libs/cleanup-integrations`** - Remove unused integration code to optimize bundle size
+- **`~/libs/fetch-with-timeout`** - Resilient API calls with configurable timeouts (5-10s standard)
+- **`~/libs/metadata`** - Centralized SEO and metadata generation for consistent OpenGraph, Twitter cards, etc.
+
+### Usage Examples
 
 ```typescript
-export async function verifyWebhookSignature(
-  payload: string,
-  signature: string
-): Promise<boolean> {
-  // verification logic
+// Validate environment variables
+import { validateEnv } from '~/libs/validate-env'
+validateEnv(['NEXT_PUBLIC_API_KEY', 'DATABASE_URL'])
+
+// Fetch with timeout
+import { fetchWithTimeout } from '~/libs/fetch-with-timeout'
+const response = await fetchWithTimeout(url, { timeout: 10000, ...options })
+
+// Generate metadata
+import { generateSanityMetadata } from '~/libs/metadata'
+export async function generateMetadata({ params }) {
+  const page = await fetchPage(params.slug)
+  return generateSanityMetadata(page)
 }
 ```
 
-### Processing
-Process webhooks asynchronously. Implement idempotency. Return 200 status quickly.
+## Getting Started
+
+1. Review relevant best practices before starting work in a specific area
+2. Follow the project structure guidelines
+3. Use the provided development tools and debugging features
+4. Consult the documentation for specific implementation details
+5. Use utility libraries for common patterns (API calls, env validation, metadata)
+
+## Updates
+
+These best practices are regularly updated to reflect:
+- New dependencies and versions
+- Improved patterns and practices
+- Community feedback and learnings
+- Project-specific requirements
+
+## Next.js 16 Cache Components
+
+Cache Components are enabled globally (`cacheComponents: true` in `next.config.ts`). This provides advanced caching strategies for Server Components.
+
+### Important Gotchas
+
+**1. Server Components Only**
+- Cache Components work only in Server Components
+- Client Components (`'use client'`) cannot use Cache Components
+- Move data fetching to Server Components, pass props to Client Components
+
+**2. Suspense Boundaries Required**
+- Cached components must be wrapped in Suspense boundaries
+- Use proper loading fallbacks for better UX
+
+**3. User-Specific Data**
+- ❌ **Never cache** personalized data (user profiles, cart contents, private content)
+- ✅ **Always use** `cache: 'no-store'` for user-specific requests
+- Example: Shopping carts, user accounts, private content
+
+**4. Real-Time Data**
+- Live feeds, stock prices, chat messages should use `cache: 'no-store'`
+- Only cache data that doesn't change frequently
+
+**5. Testing Caching**
+- Hard refresh (`Cmd+Shift+R`) bypasses router cache
+- Normal navigation uses router cache
+- Test both behaviors, especially with dynamic routes
+- Development and production behave differently
+
+**6. Cache Invalidation**
+- Use `revalidateTag()` or `revalidatePath()` in webhook handlers
+- Set proper cache tags: `next: { tags: ['products'] }`
+- Dynamic routes require careful cache tag management
 
 Last updated: 2025-10-07
 
