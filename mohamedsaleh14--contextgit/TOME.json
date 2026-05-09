@@ -4,7 +4,7 @@
   "repo": "ContextGit",
   "description": "Context and requirement Management tool for CLI LLM tools",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mohamedsaleh14/ContextGit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T21:38:52Z"
+  "distributed_at": "2026-05-09T17:44:19Z"
 }
