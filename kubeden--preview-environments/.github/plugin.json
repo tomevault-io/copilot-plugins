@@ -1,0 +1,9 @@
+{
+  "name": "kubeden--preview-environments",
+  "displayName": "preview-environments",
+  "description": "GitOps preview environments allowing isolated testing of LLM-written code.",
+  "version": "1.0.0",
+  "author": "kubeden",
+  "homepage": "https://github.com/kubeden/preview-environments",
+  "skills": []
+}
