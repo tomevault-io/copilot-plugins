@@ -1,37 +1,39 @@
-## async-patterns
+## design-system
 
-> Async patterns for LLM generation, downloads, and streaming in LokalMind v2.
+> Design system rules - tokens, glass surfaces, animations for LokalMind v2.
 
-# Async Patterns
 
-Full reference: `docs/development/CONVENTIONS.md` section 6.
+# Design System Rules
 
-## LLM generation - required
+Full reference: `docs/development/CONVENTIONS.md` section 8 · `docs/design/DESIGN-SYSTEM.md`.
+
+## Never hardcode - always use tokens
 
 ```typescript
-// 1. AbortSignal on every call
-const controller = new AbortController();
-await llmEngine.generateResponse(messages, config, onToken, controller.signal);
-
-// 2. Token debounce - 50ms batch, never per-token runInAction
-private buffer = '';
-private flushTimer: ReturnType<typeof setTimeout> | null = null;
-appendToken(token: string) {
-  this.buffer += token;
-  if (this.flushTimer) return;
-  this.flushTimer = setTimeout(() => {
-    runInAction(() => { this.text += this.buffer; this.buffer = ''; this.flushTimer = null; });
-  }, 50);
-}
+// Colors   → import from '@/src/design-system/tokens/colors'
+// Fonts    → import from '@/src/design-system/tokens/typography' (FONTS, FONT_SIZE)
+// Spacing  → import from '@/src/design-system/tokens/spacing' (SPACING, BORDER_RADIUS)
 ```
 
-## Rules
+No hex literals, no named colors (`'white'`), no raw pixel values in StyleSheet.
 
-- Every generation: MUST accept `AbortSignal` · ViewModel MUST expose `cancelGeneration()`
-- Token updates: debounced 50ms
-- Download progress: throttled 250ms
-- Memory extraction: fire-and-forget - `.catch(() => {})` - never await in main pipeline
-- Never `await` inside MobX `reaction` or `autorun`
+## Glass surfaces - always use GlassSurface
+
+```typescript
+import { GlassSurface } from '@/src/design-system/components';
+
+<GlassSurface tier="heavy">{children}</GlassSurface>           // neutral
+<GlassSurface tier="heavy" tint="brand">{children}</GlassSurface> // active/selected
+```
+
+Tiers: `ultra` (modals) · `heavy` (cards) · `medium` (input bars) · `light` (highlights)
+
+Never import `GlassView` or `BlurView` in feature code - `GlassSurface` handles fallback.
+
+## Animations
+
+- `react-native-reanimated` only - never `Animated` from `react-native`
+- Lottie only for splash and specific branded moments
 
 ---
 > Source: [Sandipan006/lokalmind-app](https://github.com/Sandipan006/lokalmind-app) — distributed by [TomeVault](https://tomevault.io).
