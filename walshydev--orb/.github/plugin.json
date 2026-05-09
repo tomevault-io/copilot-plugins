@@ -1,0 +1,9 @@
+{
+  "name": "walshydev--orb",
+  "displayName": "orb",
+  "description": "Modern HTTP tooling built in Rust",
+  "version": "1.0.0",
+  "author": "WalshyDev",
+  "homepage": "https://github.com/WalshyDev/orb",
+  "skills": []
+}
