@@ -1,0 +1,9 @@
+{
+  "name": "roguectrl--openclawdreams",
+  "displayName": "OpenClawDreams",
+  "description": "An OpenClaw plugin that gives your AI agent a background reflection process and nightly dream cycle \u2014 encrypted memory, autonomous synthesis, and surreal narrative generation.",
+  "version": "1.0.0",
+  "author": "RogueCtrl",
+  "homepage": "https://github.com/RogueCtrl/OpenClawDreams",
+  "skills": []
+}
