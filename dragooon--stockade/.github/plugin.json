@@ -1,0 +1,9 @@
+{
+  "name": "dragooon--stockade",
+  "displayName": "stockade",
+  "description": "Multi-agent orchestrator for Claude with layered security",
+  "version": "1.0.0",
+  "author": "Dragooon",
+  "homepage": "https://github.com/Dragooon/stockade",
+  "skills": []
+}
