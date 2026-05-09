@@ -1,18 +1,13 @@
-## primary
+## style-guide
 
-> - Only use bun for package manager
+> When writing code, always apply the following style guide:
 
-Project Rules:
 
-- Only use bun for package manager
-- Never run `bun run dev` or `bun run build` without my approval
-- Before every message say "Rules Loaded: Primary (any others)"
-- Never run npx tsc or any other build/type checker without my approval first — this will break the project
-- `receivedEmails` and `parsedEmails` are deprecated — always use `structuredEmails` instead
-- Never create duplicate type definitions; always find/extend an existing type from the schema
-- All icons use Nucleo via MCP
-- New functions and components go in the API folder — follow the correct API spec
-- Do not run AWS CLI list commands; give me the command and I'll run it
+When writing code, always apply the following style guide:
+
+1. Use variant props for component styling — never apply custom colors, sizes, or border-radius directly. `className` is only for spacing and layout.
+2. Always use CSS color variables from `global.css` — never hardcode colors.
+3. Default theme is light mode; all new styles go in `globals.css` under light mode.
 
 ---
 > Source: [inboundemail/inbound](https://github.com/inboundemail/inbound) — distributed by [TomeVault](https://tomevault.io).
