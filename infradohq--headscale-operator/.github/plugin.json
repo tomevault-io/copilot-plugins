@@ -1,0 +1,9 @@
+{
+  "name": "infradohq--headscale-operator",
+  "displayName": "headscale-operator",
+  "description": "Headscale Kubernetes Operator",
+  "version": "1.0.0",
+  "author": "infradohq",
+  "homepage": "https://github.com/infradohq/headscale-operator",
+  "skills": []
+}
