@@ -1,0 +1,9 @@
+{
+  "name": "deimosfr--xextension-aisummary",
+  "displayName": "xExtension-AiSummary",
+  "description": "FreshRSS extension to summarize any article with one click using your favorite AI provider.",
+  "version": "1.0.0",
+  "author": "deimosfr",
+  "homepage": "https://github.com/deimosfr/xExtension-AiSummary",
+  "skills": []
+}
