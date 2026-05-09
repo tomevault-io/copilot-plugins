@@ -1,18 +1,45 @@
-## rust-best-practices
+## rust-clean-code
 
-> Rust — idioms, Clippy, safety, async, and API quality
+> Rust — clean code (functions, modules, errors, naming)
 
 
-# Rust — best practices
+# Rust — clean code
 
-- **Tooling**: keep the workspace warning-free; fix new Clippy lints rather than silencing without cause. Use repo settings: [`rust-linter-configuration`](rust-linter-configuration.mdc) (rustfmt, CI flags, `cargo lint` / `cargo fmt-check`).
-- **`Option` / `Result`**: use `?`, `map`, `and_then`, and `if let` idiomatically; avoid `.unwrap()`/`.expect()` outside tests or documented invariants.
-- **Ownership**: prefer borrowing (`&str`, `&[u8]`) in APIs; take `Into<String>` or `Cow` only when ownership is truly required.
-- **Collections**: prefer iterator chains when they improve clarity; avoid indexed loops when iterators express intent better.
-- **`unsafe`**: smallest possible scope, with a `// SAFETY:` comment explaining invariants the compiler cannot check. Never hide `unsafe` behind a safe API without a bulletproof contract.
-- **Async**: respect `Send` bounds across task boundaries; avoid holding non-`Send` guards across `.await`.
-- **Public API**: document `pub` items that are not obvious; breaking changes deserve a clear changelog mindset (types, trait methods, error variants).
-- **Dependencies**: add crates for real leverage; prefer `std` when it stays clear and small.
+## ⚠️ BEFORE WRITING CODE — ALWAYS ASK:
+- Is this KISS? (simple and readable over clever)
+- Does this follow SOLID principles?
+- Is this file too large? (> 400 lines = refactor candidate)
+
+## Functions
+- One clear responsibility; if the name needs "and", consider splitting
+- Prefer early returns over deep nesting
+- Small enough to understand at a glance
+
+## Modules
+- Smallest reasonable public API (`pub use` only where it helps)
+- Hide internals in private submodules
+- **File size: < 400 lines** — if larger, consider splitting
+
+## Errors
+- Explicit error types (`thiserror`, failure enums)
+- Avoid generic `String` for control flow
+- Do not silence failures with `unwrap`/`expect` in production code except documented invariants or tests
+
+## Naming
+- Follow Rust conventions (`snake_case`, `UpperCamelCase`)
+- Names should express domain intent, not only type (`retain_count` over `n`)
+
+## Comments
+- Only where "why" is non-obvious
+- "What" should read from the code
+
+## Duplication
+- Extract when two paths share business rules
+- Do not duplicate blocks across adapters
+
+## Tests
+- Names describe behavior
+- Assertions use messages or types that fail with useful context
 
 ---
 > Source: [antonygiomarxdev/maverick](https://github.com/antonygiomarxdev/maverick) — distributed by [TomeVault](https://tomevault.io).
