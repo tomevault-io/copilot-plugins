@@ -1,0 +1,14 @@
+{
+  "name": "ahmadabdalla--azure-cost-calculator",
+  "displayName": "azure-cost-calculator",
+  "description": "Azure Cost Calculator AI capability (Plugin) to provide deterministic and accurate estimations of Azure services costs",
+  "version": "1.0.0",
+  "author": "ahmadabdalla",
+  "homepage": "https://github.com/ahmadabdalla/azure-cost-calculator",
+  "skills": [
+    {
+      "name": "azure-cost-calculator",
+      "description": ""
+    }
+  ]
+}
