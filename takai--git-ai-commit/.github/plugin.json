@@ -1,0 +1,9 @@
+{
+  "name": "takai--git-ai-commit",
+  "displayName": "git-ai-commit",
+  "description": "Generate Git commit messages using local or external LLM CLIs (Claude, Codex, etc.) \u2014 no API key required.",
+  "version": "1.0.0",
+  "author": "takai",
+  "homepage": "https://github.com/takai/git-ai-commit",
+  "skills": []
+}
