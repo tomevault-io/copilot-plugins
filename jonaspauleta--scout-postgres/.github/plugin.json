@@ -1,0 +1,9 @@
+{
+  "name": "jonaspauleta--scout-postgres",
+  "displayName": "scout-postgres",
+  "description": "Native Postgres full-text search + pg_trgm engine for Laravel Scout. Drop-in replacement for Meilisearch/Algolia/Typesense when you already run Postgres.",
+  "version": "1.0.0",
+  "author": "jonaspauleta",
+  "homepage": "https://github.com/jonaspauleta/scout-postgres",
+  "skills": []
+}
