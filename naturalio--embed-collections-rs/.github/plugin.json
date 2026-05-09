@@ -1,0 +1,9 @@
+{
+  "name": "naturalio--embed-collections-rs",
+  "displayName": "embed-collections-rs",
+  "description": "Cache aware and mem efficient data structures for rust",
+  "version": "1.0.0",
+  "author": "NaturalIO",
+  "homepage": "https://github.com/NaturalIO/embed-collections-rs",
+  "skills": []
+}
