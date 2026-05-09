@@ -1,0 +1,75 @@
+{
+  "name": "posthog",
+  "owner": "PostHog",
+  "repo": "posthog-convex",
+  "description": "PostHog analytics and feature flags for your Convex backend.",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "signals",
+      "path": "products/signals/skills/signals",
+      "github_url": "https://github.com/PostHog/posthog-convex/tree/main/products/signals/skills/signals",
+      "description": ""
+    },
+    {
+      "name": "adopting-generated-api-types",
+      "path": ".agents/skills/adopting-generated-api-types",
+      "github_url": "https://github.com/PostHog/posthog-convex/tree/main/.agents/skills/adopting-generated-api-types",
+      "description": ""
+    },
+    {
+      "name": "improving-drf-endpoints",
+      "path": ".agents/skills/improving-drf-endpoints",
+      "github_url": "https://github.com/PostHog/posthog-convex/tree/main/.agents/skills/improving-drf-endpoints",
+      "description": ""
+    },
+    {
+      "name": "setup-web-tests",
+      "path": ".agents/skills/setup-web-tests",
+      "github_url": "https://github.com/PostHog/posthog-convex/tree/main/.agents/skills/setup-web-tests",
+      "description": ""
+    },
+    {
+      "name": "django-migrations",
+      "path": ".agents/skills/django-migrations",
+      "github_url": "https://github.com/PostHog/posthog-convex/tree/main/.agents/skills/django-migrations",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/PostHog/posthog-convex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T12:34:31Z"
+}
