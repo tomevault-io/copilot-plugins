@@ -1,0 +1,9 @@
+{
+  "name": "deevsdeevs--agent-system",
+  "displayName": "agent-system",
+  "description": "Just a set of claude/codex skills to be 10x Deevs' engineer",
+  "version": "1.0.0",
+  "author": "DeevsDeevs",
+  "homepage": "https://github.com/DeevsDeevs/agent-system",
+  "skills": []
+}
