@@ -1,0 +1,9 @@
+{
+  "name": "swapnil-bo--echochamber",
+  "displayName": "EchoChamber",
+  "description": "AI-powered auto-podcast generator. Drop a URL, PDF, or Wikipedia page \u2014 get a 5-minute debate podcast with two AI personas. Built with Gemini Flash, edge-tts, FastAPI, and React.",
+  "version": "1.0.0",
+  "author": "Swapnil-bo",
+  "homepage": "https://github.com/Swapnil-bo/EchoChamber",
+  "skills": []
+}
