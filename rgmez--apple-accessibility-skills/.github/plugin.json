@@ -1,0 +1,14 @@
+{
+  "name": "rgmez--apple-accessibility-skills",
+  "displayName": "apple-accessibility-skills",
+  "description": "Accessibility audit skills for Apple platforms (SwiftUI, UIKit, AppKit)",
+  "version": "1.0.0",
+  "author": "rgmez",
+  "homepage": "https://github.com/rgmez/apple-accessibility-skills",
+  "skills": [
+    {
+      "name": "appkit-accessibility-auditor",
+      "description": ""
+    }
+  ]
+}
