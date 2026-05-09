@@ -1,0 +1,9 @@
+{
+  "name": "yusufkaraaslan--skill-seekers",
+  "displayName": "Skill_Seekers",
+  "description": "Convert documentation websites, GitHub repositories, and PDFs into Claude AI skills with automatic conflict detection",
+  "version": "1.0.0",
+  "author": "yusufkaraaslan",
+  "homepage": "https://github.com/yusufkaraaslan/Skill_Seekers",
+  "skills": []
+}
