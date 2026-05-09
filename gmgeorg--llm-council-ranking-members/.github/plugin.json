@@ -1,0 +1,9 @@
+{
+  "name": "gmgeorg--llm-council-ranking-members",
+  "displayName": "llm-council-ranking-members",
+  "description": "The LLM Council with focus on Ranking Members using Elo-rating like models + user able to participate in responses and rankings (LLM Council based on Karpaty's repo)",
+  "version": "1.0.0",
+  "author": "gmgeorg",
+  "homepage": "https://github.com/gmgeorg/llm-council-ranking-members",
+  "skills": []
+}
