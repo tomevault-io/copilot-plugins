@@ -1,0 +1,9 @@
+{
+  "name": "mullionlabs--mullion-ts",
+  "displayName": "mullion-ts",
+  "description": "Type-safe LLM context management for TypeScript",
+  "version": "1.0.0",
+  "author": "mullionlabs",
+  "homepage": "https://github.com/mullionlabs/mullion-ts",
+  "skills": []
+}
