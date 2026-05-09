@@ -1,0 +1,44 @@
+{
+  "name": "Nethack-Roguelike",
+  "owner": "masterblaster1999",
+  "repo": "Nethack-Roguelike",
+  "description": "playable C++17 + SDL2 NetHack-inspired, turn-based mini-roguelike where all tile textures and entity sprites are procedurally generated",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/masterblaster1999/Nethack-Roguelike",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T17:48:56Z"
+}
