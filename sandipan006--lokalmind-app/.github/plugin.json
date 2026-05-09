@@ -1,0 +1,9 @@
+{
+  "name": "sandipan006--lokalmind-app",
+  "displayName": "lokalmind-app",
+  "description": "On-device AI chat for iOS. Private, offline-first. Runs open-weight LLMs via llama.rn with semantic memory - no cloud, no API keys",
+  "version": "1.0.0",
+  "author": "Sandipan006",
+  "homepage": "https://github.com/Sandipan006/lokalmind-app",
+  "skills": []
+}
