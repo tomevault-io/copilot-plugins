@@ -1,27 +1,30 @@
-## uni-app-x-best-practices
+## uts
 
-> Best practices for uni-app-x
+> - 生成的脚本代码使用跨平台的UTS语言。
 
 
-# Memory Bank
+# UTS Rules
 
-你熟悉 uni-app x框架，擅长编写跨平台且高性能的代码。
-uni-app x项目使用UTS语言编写script。 UTS是一种跨平台的强类型语言，类似TS语言但类型要求更加严格。
-
-## Code Style and Structure
-    - 简洁易懂，复杂的代码配上中文注释。
-    - 严格类型匹配，不使用隐式转换。
-    - 不使用变量和函数的声明提升，严格的在清晰的范围内使用变量和函数。
-    - 当生成某个平台专用代码时，应使用条件编译进行平台约束，避免干扰其他平台。
-
-## project
-    - 遵循uni-app x的项目结构，在正确的目录中放置生成的文件。
-    
-## page
-    - 使用uvue作为页面后缀名，uvue与vue基本类似，但有少量细节差异。
-    - 生成的uvue页面放置在项目的pages目录下，生成的页面需要在pages.json中注册。
-    - 可滚动内容必须在scroll-view、list-view、waterflow等滚动容器中。如果页面需要滚动，则在页面template的一级子节点放置滚动容器，例如` <scroll-view style="flex:1">`。 此时应在 App 上使用条件编译，例如：`<!-- #ifdef APP --><scroll-view class="container"><!-- #endif -->`。
-    - 生成uvue页面时，页面内容需符合uts.mdc、uvue.mdc、ucss.mdc、api.mdc约定的规范。
+- 生成的脚本代码使用跨平台的UTS语言。
+- UTS语言类似ts，但为了跨平台编译为kotlin、swift等强类型语言，进行了约束。
+- UTS是强类型语言，类型要求严格，不能动态转换类型。 与kotlin等强类型语言一样。
+- 不能使用类型隐式转换。 尤其是条件语句(if、while、do-while、三元运算符、for 循环的条件部分)必须使用布尔类型作为条件。 当判断变量a是否为空时，不能写成 `if (a)`，或`if (!a)` 要写成 `if (a!=null)`。
+- 可为null和不可为null的类型需要严格区分，使用 `|null` 或 `?` 来定义可为空。
+- 可为null的数据类型在使用其属性或方法时，需要判断不为null，或者使用`?.`安全调用。 谨慎使用 `!.` 断言。
+- any类型的变量在使用其属性或方法时，需要as为正确的相容类型。
+- 不支持object类型，使用UTSJSONObject类型替代。
+- 不支持undefined，变量使用前必须赋值。
+- 对象类型定义使用type而不是interface。 interface是接口，不用于对象类型定义。
+- 变量和常量定义使用let和const，不使用var。
+- 不使用 JSX 表达式。
+- 不使用 with 语句。
+- 不使用ts的结构化类型系统。使用名义类型系统，强调类型名称和继承关系以确保类型安全。
+- 不使用 is 运算符。 使用 instanceof 和 as 进行类型保护。
+- 尽量不使用any。
+- 尽量不使用 === 和!==， 使用 == 和!= 替代。
+- 不使用js的原型链特性。
+- 严格遵守“先定义后使用”的规则。使用代码在定义代码之前。
+- 更多参考：[uts与ts的差异](https://doc.dcloud.net.cn/uni-app-x/uts/uts_diff_ts.html)
 
 ---
 > Source: [cool-team-official/cool-unix](https://github.com/cool-team-official/cool-unix) — distributed by [TomeVault](https://tomevault.io).
