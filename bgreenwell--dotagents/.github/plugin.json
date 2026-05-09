@@ -1,0 +1,9 @@
+{
+  "name": "bgreenwell--dotagents",
+  "displayName": "dotagents",
+  "description": "A proposed standard for the .agents/ directory to prevent context bloat and improve agent reasoning in complex codebases.",
+  "version": "1.0.0",
+  "author": "bgreenwell",
+  "homepage": "https://github.com/bgreenwell/dotagents",
+  "skills": []
+}
