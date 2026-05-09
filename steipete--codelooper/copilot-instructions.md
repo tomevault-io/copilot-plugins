@@ -1,389 +1,178 @@
-## debugloop
+## file-editing
 
-> This document summarizes the debugging process used to locate a specific UI element (the AI slash input field) in the "Cursor" application (`com.todesktop.230313mzl4w4u92`) using `axorc`.
+> Advanced file editing patterns using command-line tools
 
-# AXorcist Debugging: Finding the Cursor AI Slash Input Field
 
-This document summarizes the debugging process used to locate a specific UI element (the AI slash input field) in the "Cursor" application (`com.todesktop.230313mzl4w4u92`) using `axorc`.
+# Advanced File Editing Patterns
 
-## Goal
+This document provides guidance for complex file editing operations using command-line tools, optimized for AI assistant usage.
 
-The primary goal was to programmatically find the coordinates and read the text of the AI slash input field within the Cursor application. The key identifier for this field was its `AXDOMClassList` attribute, which was known to contain `"aislash-editor-input"`.
+## Core Philosophy for AI Assistants
 
-## Initial Challenges & Learnings
+- **Perl is the Workhorse**: Prioritize Perl for regex operations, in-place editing with backups (`-pi.bak`), multi-line handling (`-0777` slurp mode), and range operators (`/START/../END/`)
+- **`ripgrep` (`rg`) for Extraction**: Use `rg` for fast finding and extracting content blocks
+- **One-Liners**: Aim for concise, powerful one-line commands
+- **Backups are Non-Negotiable**: Always include `.bak` with Perl's `-i` or manual `cp`
+- **Regex Quoting**: Single quotes (`'...'`) are default for Perl regex on command line
+- **Specificity & Non-Greedy**: Generate specific start/end regexes with non-greedy matching (`.*?`)
 
-1.  **`kAXDOMClassListAttribute`**: This constant needed to be added to `AXorcist/Sources/AXorcist/Core/AccessibilityConstants.swift` to be usable in queries.
-2.  **`AXElementMatcher.swift` Modification**: The matching logic in `AXorcist/Sources/AXorcist/Search/PathNavigator.swift` (specifically `elementMatchesAllCriteria`) was updated to handle `AXDOMClassListAttribute` with "contains" logic for arrays of strings or space-separated strings.
-3.  **Build & Execution**:
-    *   Initial attempts to run `axorc` via `mcp_terminator_execute` failed.
-    *   Switching to `run_terminal_cmd` allowed successful builds (`swift package clean && swift build --product axorc` in the `AXorcist` directory) and execution.
-    *   Query input files (e.g., `query_cursor_input.json`) must exist at the specified path.
-4.  **Query Refinement - "Element not found"**:
-    *   Early queries directly targeting `AXDOMClassList` containing `"aislash-editor-input"` failed, even with increased `max_depth`.
-    *   Simplifying the query to fetch basic attributes of the application element (`"criteria": []`) helped confirm `axorc` could access the application.
-    *   Targeting broader elements like `AXScrollArea` also failed, indicating an incorrect assumption about the UI hierarchy or role.
-    *   Targeting `AXGroup` was partially successful but didn't immediately reveal the target.
+## Pattern Templates
 
-## Breakthrough: UI Tree Dumping and Analysis
+### 1. Editing Text Within a Defined Block (In-Place)
 
-The key breakthrough came from dumping a wider section of the UI tree to a file for manual analysis.
+**Goal**: Modify specific text found between `START_REGEX` and `END_REGEX`
 
-1.  **Query to Dump "RootView" Children**:
-    *   A query was crafted to find an `AXGroup` element whose `AXDOMClassList`     contained `"RootView"`.
-    *   `attributes_to_fetch` and `fetch_children_attributes` were set to `"all"`.
-    *   `max_depth` was set to `15`.
-    *   `debugLogging` was set to `true`.
-    *   The output was redirected to a file: `./AXorcist/.build/debug/axorc --file query_cursor_input.json > axorc_rootview_dump.json`
-
-    The `query_cursor_input.json` for this was:
-    ```json
-    {
-      "command_id": "cursor-input-dump-rootview-children-to-file-001",
-      "command": "query",
-      "application": "com.todesktop.230313mzl4w4u92",
-      "locator": {
-        "criteria": [
-          {
-            "attribute": "AXDOMClassList",
-            "value": "RootView",
-            "match_type": "contains"
-          }
-        ]
-      },
-      "attributes_to_fetch": "all",
-      "fetch_children_attributes": "all",
-      "max_depth": 15,
-      "debugLogging": true
-    }
-    ```
-
-2.  **Analyzing `axorc_rootview_dump.json`**:
-    *   The extensive `debugLogs` array in the output JSON was crucial.
-    *   By tracing the `[_Traverse Entry] Visiting Role: ... at depth X` messages and associated `SearchCrit/DOMClass` logs, the hierarchy and `AXDOMClassList` attributes of nested elements were identified.
-
-## Identifying the Target Element
-
-The analysis of the dump file revealed the following path to the target element:
-
-*   `AXWindow`
-    *   `AXGroup` (AXDOMClassList: `("RootView")`)
-        *   `AXGroup` (AXDOMClassList: `("CodeMirror", "cm-s-cursor-theme")`)
-            *   `AXGroup` (AXDOMClassList: `("cm-scroller")`)
-                *   `AXGroup` (AXDOMClassList: `("cm-content", "cm-ai-mode", "cm-ai-mode-background")`)
-                    *   **`AXTextArea` (AXDOMClassList: `("aislash-editor-input")`)** <-- This is the target!
-
-## Final Successful Query
-
-Based on these findings, a targeted query successfully retrieved the element's details:
-
-    ```json
-    {
-  "command_id": "cursor-input-find-aislash-textarea-001",
-  "command": "query",
-      "application": "com.todesktop.230313mzl4w4u92",
-      "locator": {
-    "criteria": [
-      {
-        "attribute": "AXRole",
-        "value": "AXTextArea"
-      },
-      {
-        "attribute": "AXDOMClassList",
-        "value": "aislash-editor-input",
-        "match_type": "contains"
-      }
-    ]
-  },
-  "attributes_to_fetch": [
-    "AXValue",
-    "AXPosition",
-    "AXSize",
-    "AXRole",
-    "AXRoleDescription",
-    "AXIdentifier",
-    "AXDOMClassList",
-    "AXPath"
-  ],
-  "fetch_children_attributes": "none",
-  "max_depth": 25,
-  "debugLogging": true
-}
+```bash
+perl -pi.bak -e 'if (/START_REGEX/../END_REGEX/) { s/REGEX_WITHIN_BLOCK/NEW_TEXT_CONTENT/g }' source_file.txt
 ```
 
-## Key Retrieved Attributes for the Target Element
-
-*   **`AXRole`**: `"AXTextArea"`
-*   **`AXDOMClassList`**: `["aislash-editor-input"]`
-*   **`AXValue`**: The current text content of the input field (e.g., `"2 and 3"`).
-*   **`AXPosition`**: e.g., `{ "x": 1226, "y": 1575 }` (top-left coordinates).
-*   **`AXSize`**: e.g., `{ "height": 18, "width": 1845 }`.
-*   **`AXPath`**: `"Path (depth 6): AXApplication -> AXWindow -> AXGroup -> AXGroup -> AXGroup -> AXGroup -> AXTextArea"`
-
-## Conclusion
-
-This iterative process of refining queries, dealing with tool execution, and especially using broad, verbose dumps for offline analysis was key to successfully identifying and targeting the desired UI element. The `debugLogging: true` feature of `axorc` combined with output redirection is invaluable for complex UI hierarchies.
-
-## Post-Discovery: Reading AXValue and Intermittent Issues
-
-After successfully identifying the element and its `AXPath`, the next goal was to reliably read its `AXValue`.
-
-1.  **Initial `AXValue` Success**: The query shown in "Final Successful Query" did initially return the `AXValue` (e.g., "Hi this is the text I wanted to see") along with `AXPosition`, `AXSize`, etc.
-
-2.  **Intermittent Failures**: Subsequent attempts to run the exact same query, or even slightly modified versions (e.g., fetching only `AXPath` or querying for any `AXTextArea`), started failing with "Element not found matching criteria." This indicated a potential timing or state-dependency issue with the accessibility tree or `axorc`'s interaction with it.
-
-3.  **Dump File Limitations**: Attempts to dump the UI tree to a file (e.g., `axorc_rootview_dump.json`) for offline parsing revealed a limitation: `axorc`, when redirecting output (`>`), serializes the *first found matching element* based on the primary `locator.criteria` but does *not* recursively serialize its children into a nested JSON structure within that output file. The `fetch_children_attributes: "all"` and `max_depth` settings seemed to affect internal traversal for finding the element, not the structure of the single-element JSON output to a file.
-    *   This was confirmed by querying for a generic `AXGroup`, redirecting to `axorc_generic_group_dump.json`, and observing that only the `AXGroup` itself was in the file, not its detailed children, despite `fetch_children_attributes: "all"`.
-
-4.  **Final Successful `AXValue` Retrieval**: The breakthrough for consistently (or at least, successfully again) retrieving the `AXValue` came from:
-    *   Reverting to the known successful query criteria (targeting `AXTextArea` with `AXDOMClassList` containing `"aislash-editor-input"`).
-    *   Requesting `AXValue` and other key attributes.
-    *   Setting `max_depth` to a high value (`30`).
-    *   **Crucially, ensuring the output went to `stdout` and was not redirected to a file.**
-
-    The successful query was:
-    ```json
-    {
-      "command_id": "cursor-input-find-aislash-textarea-retry-002",
-      "command": "query",
-      "application": "com.todesktop.230313mzl4w4u92",
-      "locator": {
-        "criteria": [
-          {
-            "attribute": "AXRole",
-            "value": "AXTextArea"
-          },
-          {
-            "attribute": "AXDOMClassList",
-            "value": "aislash-editor-input",
-            "match_type": "contains"
-          }
-        ]
-      },
-      "attributes_to_fetch": [
-        "AXValue",
-        "AXPosition",
-        "AXSize",
-        "AXRole",
-        "AXRoleDescription",
-        "AXIdentifier",
-        "AXDOMClassList",
-        "AXPath"
-      ],
-      "fetch_children_attributes": "none",
-      "max_depth": 30, 
-      "debugLogging": true
-    }
-    ```
-    This yielded:
-    *   `AXValue`: `"Hi this is the text I wanted to see"`
-
-This suggests that for complex or potentially unstable accessibility trees, direct queries to `stdout` with a sufficient `max_depth` might be more reliable for fetching attributes from deeply nested elements than relying on file-based tree dumps if `axorc`'s file output behavior for children is limited.
-
-## Further Investigation into AXValue Flakiness (Attempt with Logging)
-
-To understand why `AXValue` retrieval was intermittent, an attempt was made to add logging directly into `AXorcist/Sources/AXorcist/Values/ValueUnwrapper.swift`, specifically in the `unwrapAXValue` method. The goal was to log the `AXValueType` being processed, especially when fetching the `AXValue` attribute.
-
-1.  **Logging Added**: Debug logs were added to print the `AXValueType` (and its raw value) and the result of `axVal.value()` call.
-2.  **Build**: `axorc` was rebuilt with these changes.
-3.  **Test Query**: The query to fetch `AXValue`, `AXRole`, and `AXDOMClassList` for the target `AXTextArea` (ID: `cursor-input-find-aislash-textarea-debug-type-001`) was run.
-
-### Outcome of Logging Attempt:
-
-Surprisingly, the query **succeeded** on this attempt, returning the `AXValue` correctly (e.g., "This is some text in the Cursor input field.").
-
-The extensive debug logs produced by `axorc` were too long for the terminal output capture to reliably show the newly added log lines from `ValueUnwrapper.swift`. This means we couldn't definitively see the `AXValueType` that was processed in this successful run through the captured output.
-
-### Implications:
-
-*   The success on this run further highlights the **intermittent nature** of the issue. The same query that failed multiple times before, and immediately prior to this, succeeded after adding logging and rebuilding.
-*   The inability to see the specific log lines in the truncated output means we still lack concrete data on what `AXValueType` is encountered when `AXValue` *is* successfully read as a string, or more importantly, when it fails.
-*   The problem likely still resides in how `AXValue.value()` (in `AXValue+Extensions.swift`) handles or *fails to handle* certain `AXValueType`s that might represent strings, or there's an inconsistency in whether the `AXValue` attribute returns a direct `CFStringRef` vs. an `AXValueRef` that wraps the string.
-
-Further debugging would require a more reliable way to capture these detailed logs (e.g., file-based logging within AXorcist) when a failure occurs to make a targeted fix to `AXValue+Extensions.swift`.
-
-## Enhanced Logging and Stability
-
-To further diagnose the intermittent "Element not found" errors, extensive logging was added to key parts of `AXorcist`:
-
-1.  **`AXorcist/Sources/AXorcist/Search/PathNavigator.swift`**:
-    *   Detailed logging in `elementMatchesAllCriteria` to show which element is being checked against which criteria and the outcome.
-    *   Logging in `findMatchingChild` to trace child iteration and matching.
-    *   Logging in `processPathComponent` to show how each part of a path hint is processed.
-2.  **`AXorcist/Sources/AXorcist/Search/ElementSearch.swift`**:
-    *   Logging at the start of `findTargetElement` showing all input parameters (app ID, locator details, max depth).
-    *   Logging upon successfully finding an element or when it's not found.
-    *   Logging for `JSONPathHint` navigation steps.
-3.  **`AXorcist/Sources/AXorcist/Utils/TreeTraversal.swift`**:
-    *   Logging in `TreeTraverser._traverse` for each element visited, depth, and when pruning branches due to max depth or cycles.
-    *   Logging before and after calling the `visitor.visit` method, showing the action returned.
-    *   Logging in `SearchVisitor.visit` and `CollectAllVisitor.visit` for elements being processed.
-
-### Build Process with Enhanced Logging:
-After adding these log statements, `axorc` was rebuilt using `swift package clean && swift build --product axorc` in the `AXorcist` directory. Several iterations were needed to fix syntax errors in the new log statements, primarily related to string interpolations and escaping.
-
-### Test Runs with Enhanced Logging:
-The same query that was previously intermittent was used:
-
-```json
-{
-  "command_id": "cursor-input-find-aislash-textarea-final-test-001",
-  "command": "query",
-  "application": "com.todesktop.230313mzl4w4u92",
-  "locator": {
-    "criteria": [
-      {
-        "attribute": "AXRole",
-        "value": "AXTextArea"
-      },
-      {
-        "attribute": "AXDOMClassList",
-        "value": "aislash-editor-input",
-        "match_type": "contains"
-      }
-    ]
-  },
-  "attributes_to_fetch": [
-    "AXValue",
-    "AXPosition",
-    "AXSize",
-    "AXRole",
-    "AXRoleDescription",
-    "AXIdentifier",
-    "AXDOMClassList",
-    "AXPath"
-  ],
-  "fetch_children_attributes": "none",
-  "max_depth": 30,
-  "debugLogging": true // Kept true to see axorc's internal logs alongside new GlobalAXLogger logs
-}
+**Example**: Update version number in Swift Package.swift
+```bash
+perl -pi.bak -e 'if (/let version/../"/) { s/"\d+\.\d+\.\d+"/"1.2.3"/g }' Package.swift
 ```
 
-**Outcome:**
-With the enhanced logging in place, `axorc` **successfully found the target element and its `AXValue` on multiple consecutive runs (at least 4 times)**. The output included a large volume of logs from `GlobalAXLogger`, alongside the `axorc` `debugLogs` and the final JSON result.
+### 2. Replacing an Entire Block of Text (In-Place)
 
-For example, one successful run returned:
-```json
-{
-  // ... extensive logs ...
-  "attributes": {
-    // ... other attributes ...
-    "AXValue": "booooo secreet pssst!", // Example text
-    // ... other attributes ...
-  },
-  "success": true
-}
+**Goal**: Replace whole block from `START_REGEX` to `END_REGEX` with new content
+
+```bash
+perl -0777 -pi.bak -e 's/FULL_BLOCK_REGEX_PCRE/NEW_TEXT_CONTENT/sg' source_file.txt
 ```
 
-### Conclusion from Enhanced Logging:
-The addition of detailed, fine-grained logging throughout the element search and traversal process appears to have coincided with a period of stability in `axorc`'s ability to find the target element. While it's difficult to definitively state that the logging *caused* the stability (it could be a coincidence, or the act of rebuilding/restarting might have cleared a transient issue), the consistent success after these changes is notable.
-
-The logs themselves, though voluminous, would be invaluable for pinpointing the exact step where a failure occurs if the intermittent issues return. The current hypothesis is that the traversal logic, especially around child fetching or criteria matching, might have been sensitive to timing or unhandled states that the logging, by slightly altering execution flow or by making the process more observable, has mitigated or helped bypass.
-
-The problem of `AXValue` itself being intermittently unreadable (as distinct from the element not being found) was not specifically re-tested with a focus on the `ValueUnwrapper` logs in this latest round, as the element finding stability became the primary focus. However, with the element now being found reliably, future tests can re-focus on `AXValue` if it becomes problematic again.
-
-# AXorcist / debugloop – Cursor project internal notes (2025-05-27)
-
-These notes capture the accessibility-debugging deep-dive we ran while
-teaching AXorcist to locate the chat-input textarea inside the **Cursor**
-Electron app.
-
-## 1  Electron accessibility model recap
-• Each Electron window is an `AXWindow` that contains a single
-  `AXWebArea` (the Chromium renderer).
-• Chromium keeps its real accessibility tree in a **remote renderer
-  process**.  The host process exposes *only* a proxy `BrowserAccessibilityCocoa`
-  node.  By default this proxy has **no children** – depth stalls at
-  ~30–40.
-• macOS pulls a subtree from the renderer *only* for:
-  – the element that currently has accessibility focus, or
-  – elements explicitly fetched via Chromium's internal IPC (not exposed
-    through the generic AXUIElement API).
-
-## 2  Traversal lessons
-1. `kAXChildren` on an `AXApplication` returns **only the front-most
-   window**.  Additional windows live in the `kAXWindows` attribute.
-2. Our original optimisation (filtered container roles) prevented
-   descending through non-container leaves, making deep WebArea walks
-   impossible.  We added:
-   - `--scan-all` flag → ignores `containerRoles` guard.
-   - cycle guard (`VisitedSet`) → prevents infinite loops.
-3. We added an unconditional `collectApplicationWindows()` call so every
-   window is always reachable, even in brute-force mode.
-4. Global counters/logging:
-   - `axorcTraversalTimeout` (CLI `--timeout`)
-   - `traversalNodeCounter`  (nodes visited)
-   - `SearchVisitor.deepestDepthReached`
-
-## 3  CLI flags added
-| flag              | effect                                                     |
-|-------------------|------------------------------------------------------------|
-| `--verbose`       | full diagnostic logs                                        |
-| `--debug`         | concise diagnostic logs                                     |
-| `--scan-all`      | visit every child regardless of role pruning               |
-| `--no-stop-first` | don't exit after first criteria match (breadth search)     |
-| `--timeout n`     | override 30 s default traversal deadline                   |
-
-Global vars exposed in `ElementSearch.swift`:
-```swift
-public var axorcScanAll: Bool
-public var axorcStopAtFirstMatch: Bool
+**Example**: Replace entire SwiftLint rule configuration
+```bash
+perl -0777 -pi.bak -e 's/(?s)disabled_rules:.*?^opt_in_rules:/disabled_rules:\n  - trailing_whitespace\n\nopt_in_rules:/sm' .swiftlint.yml
 ```
 
-## 4  When brute-force still fails
-Even with `scan-all` + `no-stop-first` the walker stops at depth≈38,
-because Chromium's remote tree remains hidden.  **Solution**:
-1. Focus the desired element (e.g. send `AXPress` or click the editor).
-2. Query the focused element:
-```json
-{ "command":"getFocusedElement", "attributes_to_return":["AXValue"] }
-```
-This returns the remote `AXTextArea` with `AXValue` = chat text.
+### 3. Deleting a Block of Text (In-Place)
 
-## 5  Best-practice query templates
-### Focused element query
-```jsonc
-{ "command":"getFocusedElement", "command_id":"focused-chat", "application":"com.todesktop.230313mzl4w4u92", "attributes_to_return":["AXValue","AXDOMClassList"] }
-```
-### Perform action to focus textarea
-```jsonc
-{ "command":"performAction", "command_id":"focus-chat", "application":"com.todesktop.230313mzl4w4u92", "locator":{"criteria":[{"attribute":"AXRole","value":"AXTextArea"},{"attribute":"DOM","value":"aislash-editor-input","match_type":"contains"}]}, "action":"AXPress" }
+**Goal**: Remove everything from `START_REGEX` to `END_REGEX`
+
+**Option A (Range Operator)**:
+```bash
+perl -ni.bak -e 'print unless /START_REGEX/../END_REGEX/' source_file.txt
 ```
 
-## 6  Generic troubleshooting checklist
-1. Run with `--verbose --scan-all --no-stop-first --timeout 600` to see
-   node/depth counts.
-2. If depth < 40, you're stuck in host-process tree ⇒ need focus-based
-   query.
-3. If depth grows but value not found, refine criteria (check
-   `AXDOMClassList`/`AXDOMIdentifier`).
-
-## 7  System-wide focus path
-Electron/Chromium inserts the renderer proxy subtree **only** under the *system-wide* accessibility root, not under the application node.  The attribute chain is:
-
-```
-AXSystemWide  ─▶  AXFocusedUIElement  ─▶  BrowserAccessibilityCocoa proxy  ─▶  … deep subtree …
+**Option B (Slurp Mode)**:
+```bash
+perl -0777 -pi.bak -e 's/FULL_BLOCK_REGEX_PCRE//sg' source_file.txt
 ```
 
-Therefore a reliable, focus-based query uses a two-step `path_from_root`:
-
-```jsonc
-{
-  "path_from_root": [
-    { "attribute":"AXRole",             "value":"AXSystemWide", "depth":0 },
-    { "attribute":"AXFocusedUIElement", "value":"*",            "matchType":"any", "depth":0 }
-  ],
-  "criteria": [
-    { "attribute":"AXRole", "value":"AXTextArea" },
-    { "attribute":"DOM",    "value":"aislash-editor-input", "match_type":"contains" }
-  ]
-}
+**Example**: Remove entire comment block
+```bash
+perl -ni.bak -e 'print unless /^\/\*\*/../\*\/$/' MyFile.swift
 ```
 
-This works regardless of how many windows the app has or whether the proxy appears as a child in the per-application tree.
+### 4. Adding/Inserting New Block of Text (In-Place)
 
----
-This file is intentionally committed under `.cursor/rules/` so future
-sessions can import these learnings without re-discovering them.
+**Goal**: Insert new content after a marker line
+
+**Insert After Marker**:
+```bash
+perl -pi.bak -e 'if (s/TARGET_INSERTION_MARKER_REGEX/$&\nNEW_TEXT_CONTENT/) {}' source_file.txt
+```
+
+**Using Environment Variable for Complex Content**:
+```bash
+NEW_BLOCK_VAR="$NEW_TEXT_CONTENT" perl -pi.bak -e 'if (s/TARGET_INSERTION_MARKER_REGEX/$&\n$ENV{NEW_BLOCK_VAR}/) {}' source_file.txt
+```
+
+**Example**: Add new import after existing imports
+```bash
+perl -pi.bak -e 'if (s/(^import Foundation$)/$1\nimport AXorcist/) {}' MyFile.swift
+```
+
+## Advanced Patterns for Swift/macOS Projects
+
+### SwiftLint Configuration Updates
+```bash
+# Add new disabled rule
+perl -pi.bak -e 'if (/^disabled_rules:/../^$/) { s/^$/  - new_rule\n/ if /^$/ }' .swiftlint.yml
+
+# Update line length warning
+perl -pi.bak -e 's/(line_length:\s*\n\s*warning:\s*)\d+/${1}120/' .swiftlint.yml
+```
+
+### Package.swift Dependency Management
+```bash
+# Add new dependency
+NEW_DEP='        .package(url: "https://github.com/user/repo.git", from: "1.0.0"),' 
+echo "$NEW_DEP" | perl -pi.bak -e 'if (/dependencies:\s*\[/../\]/) { s/^(\s*\.package.*)$/$1\n$ENV{NEW_DEP}/ if eof }' Package.swift
+```
+
+### Swift Source Code Modifications
+```bash
+# Add import statement
+perl -pi.bak -e 'if (/^import / && !$seen++) { print "import AXorcist\n" }' *.swift
+
+# Update @MainActor annotations
+perl -pi.bak -e 's/^(\s*)(class|struct)(\s+\w+.*\{)$/$1@MainActor\n$1$2$3/' ViewModels/*.swift
+```
+
+## Moving Blocks Between Files
+
+**Goal**: Extract block from source, insert into target, delete from source
+
+```bash
+# Step 1: Extract block into shell variable
+EXTRACTED_BLOCK=$(perl -0777 -ne 'print $& if /FULL_BLOCK_REGEX_PCRE/sg' source_file.txt)
+
+# Check if block was extracted
+if [ -z "$EXTRACTED_BLOCK" ]; then
+  echo "Error: Block not found in source_file.txt"
+else
+  # Step 2: Insert block into target
+  BLOCK_TO_INSERT="$EXTRACTED_BLOCK" \
+  perl -pi.bak_target -e 's/(TARGET_INSERTION_MARKER_REGEX)/$1\n$ENV{BLOCK_TO_INSERT}/' target_file.txt && \
+  \
+  # Step 3: Delete block from source
+  perl -0777 -pi.bak_source -e 's/FULL_BLOCK_REGEX_PCRE//sg' source_file.txt && \
+  echo "Block moved successfully."
+fi
+```
+
+## Best Practices for AI Assistants
+
+### Regex Generation Guidelines
+1. **Request PCRE explicitly**: "Generate a Perl Compatible Regular Expression..."
+2. **Emphasize non-greedy**: "Use non-greedy matching (.*?) with the s flag"
+3. **Include backup mechanism**: "Always include Perl's -pi.bak"
+4. **Specify multi-line handling**: "Use -0777 slurp mode for whole-block operations"
+
+### Error Prevention
+- Test regex with simple cases first
+- Use environment variables for complex replacement text
+- Validate file existence before operations
+- Check backup files were created
+
+### Common Swift/macOS File Patterns
+
+#### Configuration Files
+- **SwiftLint**: `.swiftlint.yml` - YAML structure with nested rules
+- **Package.swift**: Swift Package Manager - structured Swift code
+- **Info.plist**: XML property lists - use specialized tools or careful regex
+
+#### Source Files
+- **Swift files**: Respect Swift syntax, imports, class/struct boundaries
+- **Markdown docs**: Preserve formatting, handle code blocks specially
+- **Shell scripts**: Be careful with quoting and escaping
+
+### Debugging File Operations
+```bash
+# Before operation - create manual backup
+cp important_file.swift important_file.swift.manual_backup
+
+# Test regex matching without modification
+perl -ne 'print if /YOUR_REGEX/' test_file.txt
+
+# Verify backup was created
+ls -la *.bak
+
+# Compare changes
+diff original_file.txt original_file.txt.bak
+```
+
+This guide ensures reliable, repeatable file editing operations that maintain data integrity through proper backup mechanisms.
 
 ---
 > Source: [steipete/CodeLooper](https://github.com/steipete/CodeLooper) — distributed by [TomeVault](https://tomevault.io).
