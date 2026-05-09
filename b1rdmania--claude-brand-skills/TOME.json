@@ -1,0 +1,63 @@
+{
+  "name": "claude-brand-skills",
+  "owner": "b1rdmania",
+  "repo": "claude-brand-skills",
+  "description": "Claude Code skills for brand development, image generation, and frontend design \u2014 built around the convergence problem. LLMs generate the average. These workflows escape it.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "art",
+      "path": "art",
+      "github_url": "https://github.com/b1rdmania/claude-brand-skills/tree/main/art",
+      "description": ""
+    },
+    {
+      "name": "brand-skill",
+      "path": "brand-skill",
+      "github_url": "https://github.com/b1rdmania/claude-brand-skills/tree/main/brand-skill",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "frontend-design",
+      "github_url": "https://github.com/b1rdmania/claude-brand-skills/tree/main/frontend-design",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/b1rdmania/claude-brand-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T12:30:59Z"
+}
