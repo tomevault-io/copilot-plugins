@@ -1,0 +1,9 @@
+{
+  "name": "highhands89--seny-executive-assistant",
+  "displayName": "seny-executive-assistant",
+  "description": "A self-hosted AI executive assistant powered by Claude. Connects to Gmail, Calendar, Slack, Telegram, and more. Human-in-the-loop design \u2014 no arbitrary system access.",
+  "version": "1.0.0",
+  "author": "highhands89",
+  "homepage": "https://github.com/highhands89/seny-executive-assistant",
+  "skills": []
+}
