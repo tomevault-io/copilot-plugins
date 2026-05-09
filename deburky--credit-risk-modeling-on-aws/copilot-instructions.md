@@ -1,120 +1,99 @@
-## credit-risk-modeling-on-aws
+## make
 
-> Rules for writing Markdown documentation
+> Rules for writing and maintaining Makefiles with proper formatting and validation
 
 
-## Markdown Formatting
+## Makefile Quality and Validation Tools
 
-When writing notes, use the following format:
+### Syntax Validation with mbake
 
-> [!NOTE]  
-> Highlights information that users should take into account, even when skimming.
+- After finalizing Makefile edits, validate syntax with `mbake`:
+```bash
+  # Validate Makefile using uvx (recommended)
+  uvx mbake format Makefile
+  uvx mbake validate Makefile
+  
+  # Or using pipx
+  pipx run mbake format Makefile
+  pipx run mbake validate Makefile
+  
+  # Validate all Makefiles in project
+  uvx mbake format **/Makefile
+  uvx mbake validate **/Makefile
+```
+- `mbake format` formats the Makefile according to the rules
+- `mbake validate` catches syntax errors, invalid target names, and common mistakes
+- Run before committing to ensure Makefile is valid
+- Fix all validation errors - don't ignore warnings
 
-> [!TIP]
-> Optional information to help a user be more successful.
+### Makefile Best Practices
 
-> [!IMPORTANT]  
-> Crucial information necessary for users to succeed.
+- Use tabs (not spaces) for recipe indentation - this is a hard requirement
+- Declare `.PHONY` targets at the top for non-file targets
+- Use meaningful target names that describe the action
+- Add help target with `##` comments for documentation
+- Use variables for repeated values (e.g., `PYTHON := python3`)
+- Keep recipes concise and focused on a single task
 
-> [!WARNING]  
-> Critical content demanding immediate user attention due to potential risks.
+### Target Documentation
+```makefile
+.PHONY: help
+help: ## Show available targets
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
+		awk 'BEGIN {FS = ":.*?## "}; {printf "  %-20s %s\n", $$1, $$2}'
 
-> [!CAUTION]
-> Negative potential consequences of an action.
+.PHONY: test
+test: ## Run tests
+	pytest tests/
 
-## Diagrams Over Lists
-
-- Use Mermaid diagrams for workflows with >5 steps or complex architectures
-- [GitHub Mermaid Docs](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams)
-
-````mermaid
-graph LR
-    Train --> Package --> Upload --> Deploy --> Test
-````
-
-- Keep simple lists for 2-4 items only
-
-## Mathematical Expressions
-
-### Use LaTeX for Formulas
-
-- Use inline math with `$...$` and display math with `$$...$$`
-- GitHub natively renders LaTeX mathematical expressions
-- See: [GitHub Math Documentation](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions)
-
-````markdown
-# Inline math
-The Gini coefficient is calculated as $G = 2 \cdot AUC - 1$
-
-# Display math (centered block)
-$$
-\text{Gini} = 2 \int_0^1 (ROC(t) - t) \, dt
-$$
-
-# Multiple equations
-$$
-\begin{align}
-\text{Precision} &= \frac{TP}{TP + FP} \\
-\text{Recall} &= \frac{TP}{TP + FN}
-\end{align}
-$$
-````
-
-### Common Use Cases
-
-**Model Metrics**
-````markdown
-$$
-F_1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
-$$
-````
-
-**Loss Functions**
-````markdown
-$$
-L(\theta) = -\frac{1}{N} \sum_{i=1}^{N} [y_i \log(p_i) + (1-y_i) \log(1-p_i)]
-$$
-````
-
-**Statistical Tests**
-````markdown
-The KS statistic is defined as $KS = \max_t |F_1(t) - F_0(t)|$
-````
-
-### When to Use Math
-
-- Documenting model formulas and metrics
-- Explaining statistical methods
-- Loss functions and optimization
-- Credit scoring formulas (e.g., odds ratio, log-odds)
-- Keep simple ratios as text: "precision = TP / (TP + FP)" for casual references
-
-### Lists and Line Breaks
-
-- Always add a blank line before lists (ordered or unordered)
-- Lists must be separated from preceding text by a blank line
-
-```markdown
-# Good: Blank line before list
-Reference Documentation:
-
-- [LocalStack Lambda ECR Tutorial](https://example.com)
-- [Detailed Fix Documentation](path/to/doc.md)
-
-# Bad: No blank line before list
-Reference Documentation:
-- [LocalStack Lambda ECR Tutorial](https://example.com)
-- [Detailed Fix Documentation](path/to/doc.md)
+.PHONY: lint
+lint: ## Run linters
+	ruff check .
+	mypy .
 ```
 
-### Other Formatting Rules
+## Output Formatting
 
-- Use `**bold**` for emphasis, not `__bold__`
-- Use `*italic*` for emphasis, not `_italic_`
-- Add blank line before and after code blocks
-- Add blank line before and after headers (except at document start)
+### Recommended Patterns
+
+- Use plain text status indicators: "Success", "Error", "Running", "Complete"
+- Use simple symbols: ✓ (checkmark), ✗ (cross), → (arrow)
+- Colors are acceptable via ANSI codes for important messages
+- Keep output concise and actionable
+
+### Example Output Style
+```makefile
+.PHONY: build
+build: ## Build the project
+	@echo "→ Building project..."
+	@uv build
+	@echo "✓ Build complete"
+
+.PHONY: clean
+clean: ## Clean build artifacts
+	@echo "→ Cleaning build artifacts..."
+	@rm -rf dist/ build/
+	@echo "✓ Clean complete"
+```
+
+### Prohibited Patterns
+
+- Excessive decorative lines with repeated characters
+- Unnecessary blank lines between status messages
+- Over-use of emojis (✓ and ✗ are sufficient)
+- Verbose multi-line explanations in output
+
+## Validation Workflow
+
+1. Edit Makefile
+2. Run `uvx mbake validate Makefile` to check syntax
+3. Test targets manually: `make <target>`
+4. Commit only if validation passes and targets work
+
+### Rationale
+
+Clean, validated Makefiles that are easy to maintain and use across the team.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/deburky)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/deburky)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [deburky/credit-risk-modeling-on-aws](https://github.com/deburky/credit-risk-modeling-on-aws) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
