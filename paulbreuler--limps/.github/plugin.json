@@ -1,0 +1,26 @@
+{
+  "name": "paulbreuler--limps",
+  "displayName": "limps",
+  "description": "limps your Local Intelligent MCP Planning Server across AI assistants. No subscriptions, no cloud\u2014run it locally. Version control your planning docs in git. No more context drift\u2014one shared source of ",
+  "version": "1.0.0",
+  "author": "paulbreuler",
+  "homepage": "https://github.com/paulbreuler/limps",
+  "skills": [
+    {
+      "name": "branch-code-review",
+      "description": ""
+    },
+    {
+      "name": "git-commit-best-practices",
+      "description": ""
+    },
+    {
+      "name": "limps-planning",
+      "description": ""
+    },
+    {
+      "name": "mcp-code-review",
+      "description": ""
+    }
+  ]
+}
