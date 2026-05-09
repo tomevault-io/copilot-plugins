@@ -1,35 +1,39 @@
-## jest-unit-testing
+## playwright-e2e-testing
 
-> Jest unit testing conventions
+> Playwright E2E testing conventions
 
 
-# Jest Unit Testing
+# Playwright E2E Testing
 
 Reference: [CLAUDE.md](./CLAUDE.md) is the authoritative source.
 
 ## Test Locations
 
-- Unit tests in `src/**/*.test.{ts,tsx}` alongside the code they test
-- Use `data-testid` from `src/components/testIds.ts` for component references
+- E2E specs in `tests/*.spec.ts`
 
 ## Focus
 
-Test critical functionality: business logic, utility functions, service classes.
+Test critical user flows: chat, session management, AppConfig, RBAC roles.
 Limit to **3–5 focused tests per file**.
 
 ## Best Practices
 
-1. **Mock dependencies before imports** with `jest.mock()`
-2. **Test three scenarios**: valid inputs, invalid inputs, edge cases (null, undefined, unexpected types)
-3. **Descriptive names** — test name should describe expected behavior
-4. **Group** related tests in `describe` blocks
-5. **Clear mocks** in `beforeEach` with `jest.clearAllMocks()`
+1. **Use `data-testid`** selectors from `src/components/testIds.ts` — not CSS or XPath
+2. **Mock external APIs** with `page.route()` for deterministic tests
+3. **Auto-waiting** — use Playwright's built-in waiting, avoid explicit `waitForTimeout`
+4. **Setup in `beforeEach`** — page navigation and route mocking
+5. **Test both success and error scenarios**
+
+## RBAC Testing
+
+Test RBAC with Admin, Editor, Viewer roles. Viewers must not access write tools.
 
 ## Run Tests
 
 ```bash
-nvm use 22 && npm run test:ci              # CI mode
-nvm use 22 && npm test -- path/to/test.ts  # Single file
+# Requires running server: nvm use 22 && npm run server
+nvm use 22 && npm run e2e
+nvm use 22 && npm run e2e -- --grep "test name pattern"
 ```
 
 ---
