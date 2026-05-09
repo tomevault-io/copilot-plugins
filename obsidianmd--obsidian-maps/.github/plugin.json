@@ -1,0 +1,9 @@
+{
+  "name": "obsidianmd--obsidian-maps",
+  "displayName": "obsidian-maps",
+  "description": "Map layout for Obsidian Bases. Display your notes as an interactive map view.",
+  "version": "1.0.0",
+  "author": "obsidianmd",
+  "homepage": "https://github.com/obsidianmd/obsidian-maps",
+  "skills": []
+}
