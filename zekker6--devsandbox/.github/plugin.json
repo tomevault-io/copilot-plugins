@@ -1,0 +1,9 @@
+{
+  "name": "zekker6--devsandbox",
+  "displayName": "devsandbox",
+  "description": "Sandbox for running untrusted dev tools. Filesystem isolation via bubblewrap, optional MITM proxy for traffic inspection. Perfect for AI coding   assistants.",
+  "version": "1.0.0",
+  "author": "zekker6",
+  "homepage": "https://github.com/zekker6/devsandbox",
+  "skills": []
+}
