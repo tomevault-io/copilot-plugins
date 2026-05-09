@@ -4,7 +4,7 @@
   "repo": "opentask",
   "description": "\ud83c\udf05 Self-hosted task manager with snooze-first workflow, AI enrichment, and native iOS app",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/trentmcnitt/opentask",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T12:03:30Z"
+  "distributed_at": "2026-05-09T04:40:32Z"
 }
