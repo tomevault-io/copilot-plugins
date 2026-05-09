@@ -1,0 +1,9 @@
+{
+  "name": "anupchavan--obsidian-custom-views",
+  "displayName": "obsidian-custom-views",
+  "description": "An Obsidian Plugin to create custom HTML views for your notes based on filter rules. Transform how your notes are displayed with custom templates.",
+  "version": "1.0.0",
+  "author": "anupchavan",
+  "homepage": "https://github.com/anupchavan/obsidian-custom-views",
+  "skills": []
+}
