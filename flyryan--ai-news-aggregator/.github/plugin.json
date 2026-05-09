@@ -1,0 +1,9 @@
+{
+  "name": "flyryan--ai-news-aggregator",
+  "displayName": "ai-news-aggregator",
+  "description": "Multi-agent AI news pipeline powered by Claude Opus 4.6 with extended thinking",
+  "version": "1.0.0",
+  "author": "flyryan",
+  "homepage": "https://github.com/flyryan/ai-news-aggregator",
+  "skills": []
+}
