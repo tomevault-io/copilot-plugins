@@ -4,7 +4,7 @@
   "repo": "mewt",
   "description": "mewt is a mutation testing framework",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/trailofbits/mewt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T10:59:03Z"
+  "distributed_at": "2026-05-09T21:04:43Z"
 }
