@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--vectr",
+  "displayName": "vectr",
+  "description": "A free, open-source template for building natural language image search on the AI Cloud.",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/vectr",
+  "skills": []
+}
