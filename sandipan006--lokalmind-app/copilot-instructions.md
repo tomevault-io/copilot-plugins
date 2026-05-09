@@ -1,44 +1,34 @@
-## error-handling
+## folder-structure
 
-> Error handling patterns for LokalMind v2 use cases, repositories, and ViewModels.
+> Where new files must be created in LokalMind v2.
 
-# Error Handling
+# Folder Structure
 
-Full reference: `docs/development/CONVENTIONS.md` section 5.
+Full reference: `docs/development/CONVENTIONS.md` section 2 · `docs/development/FOLDER-STRUCTURE.md`.
 
-## Use cases return Result - never throw
+## Feature module layout
 
-```typescript
-import { ok, err } from '@/src/core/types';
-
-class SendMessageUseCase {
-  async execute(input: string): Promise<Result<Message>> {
-    if (!input.trim()) return err({ code: 'VALIDATION_ERROR', message: 'Empty input' });
-    try {
-      return ok(await this.repo.saveMessage(input));
-    } catch (e) {
-      return err({ code: 'STORAGE_ERROR', message: 'Save failed', cause: e });
-    }
-  }
-}
+```
+src/features/{feature}/
+├── presentation/  screens/ · viewmodels/ · components/
+├── domain/        entities/ · repositories/ · usecases/
+└── data/          repositories/ · services/
 ```
 
-## ViewModels handle both branches
+## Where new files go
 
-```typescript
-const result = await this.useCase.execute(input);
-runInAction(() => {
-  if (!result.success) { this.errorMessage = result.error.message; return; }
-  this.data = result.data;
-});
-```
-
-## Rules
-
-- Use cases: MUST return `Result<T>` - never throw
-- Infrastructure adapters: MUST catch and wrap exceptions as `AppError`
-- Never use `any` as error type
-- Never swallow silently - every `catch` must re-throw or return `err(...)`
+| File type | Location |
+|---|---|
+| Screen | `src/features/{feature}/presentation/screens/` |
+| ViewModel | `src/features/{feature}/presentation/viewmodels/` |
+| Feature component | `src/features/{feature}/presentation/components/` |
+| Shared UI component | `src/design-system/components/` |
+| Use case | `src/features/{feature}/domain/usecases/` |
+| Entity | `src/features/{feature}/domain/entities/` |
+| Repository interface | `src/features/{feature}/domain/repositories/` |
+| Repository impl | `src/features/{feature}/data/repositories/` |
+| Infrastructure adapter | `src/infrastructure/{llm\|whisper\|storage\|downloads}/` |
+| Route | `app/` (expo-router, max 30 lines, no business logic) |
 
 ---
 > Source: [Sandipan006/lokalmind-app](https://github.com/Sandipan006/lokalmind-app) — distributed by [TomeVault](https://tomevault.io).
