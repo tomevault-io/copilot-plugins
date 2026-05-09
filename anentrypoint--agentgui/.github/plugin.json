@@ -1,0 +1,9 @@
+{
+  "name": "anentrypoint--agentgui",
+  "displayName": "agentgui",
+  "description": "Multi-agent GUI for AI coding assistants \u2014 Claude Code, Gemini CLI, OpenCode & more. npx agentgui",
+  "version": "1.0.0",
+  "author": "AnEntrypoint",
+  "homepage": "https://github.com/AnEntrypoint/agentgui",
+  "skills": []
+}
