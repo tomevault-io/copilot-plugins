@@ -1,0 +1,9 @@
+{
+  "name": "blockforger--pytorch",
+  "displayName": "pytorch",
+  "description": "Tensors and Dynamic neural networks in Python with strong GPU acceleration",
+  "version": "1.0.0",
+  "author": "blockforgeR",
+  "homepage": "https://github.com/blockforgeR/pytorch",
+  "skills": []
+}
