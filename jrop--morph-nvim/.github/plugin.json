@@ -1,0 +1,9 @@
+{
+  "name": "jrop--morph-nvim",
+  "displayName": "morph.nvim",
+  "description": "React-like renderer for Neovim",
+  "version": "1.0.0",
+  "author": "jrop",
+  "homepage": "https://github.com/jrop/morph.nvim",
+  "skills": []
+}
