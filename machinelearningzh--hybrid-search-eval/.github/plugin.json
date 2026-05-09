@@ -1,0 +1,9 @@
+{
+  "name": "machinelearningzh--hybrid-search-eval",
+  "displayName": "hybrid-search-eval",
+  "description": "A framework for benchmarking embedding models in hybrid search scenarios (BM25 + vector search) using Weaviate.",
+  "version": "1.0.0",
+  "author": "machinelearningZH",
+  "homepage": "https://github.com/machinelearningZH/hybrid-search-eval",
+  "skills": []
+}
