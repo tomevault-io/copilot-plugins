@@ -4,7 +4,7 @@
   "repo": "open-llm-vtuber-sora-qwen3tts",
   "description": "Open-LLM-VTuber + cliproxy + Qwen3-TTS (Sora preset)",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HaD0Yun/open-llm-vtuber-sora-qwen3tts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T19:45:35Z"
+  "distributed_at": "2026-05-09T10:39:43Z"
 }
