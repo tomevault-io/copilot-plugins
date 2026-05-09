@@ -1,0 +1,9 @@
+{
+  "name": "bloknayrb--tandem",
+  "displayName": "tandem",
+  "description": "Collaborative AI-human document editor \u2014 real-time annotations, suggestions, and review powered by Claude Code via MCP",
+  "version": "1.0.0",
+  "author": "bloknayrb",
+  "homepage": "https://github.com/bloknayrb/tandem",
+  "skills": []
+}
