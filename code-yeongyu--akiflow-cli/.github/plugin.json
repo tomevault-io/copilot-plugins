@@ -1,0 +1,14 @@
+{
+  "name": "code-yeongyu--akiflow-cli",
+  "displayName": "akiflow-cli",
+  "description": "Command-line interface for Akiflow task management",
+  "version": "1.0.0",
+  "author": "code-yeongyu",
+  "homepage": "https://github.com/code-yeongyu/akiflow-cli",
+  "skills": [
+    {
+      "name": "akiflow-cli",
+      "description": ""
+    }
+  ]
+}
