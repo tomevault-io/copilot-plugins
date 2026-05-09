@@ -1,98 +1,307 @@
-## make
+## python
 
-> Rules for writing and maintaining Makefiles with proper formatting and validation
+> Rules for writing Python code with proper formatting and output standards for AWS ML workflows
 
 
-## Makefile Quality and Validation Tools
+## Code Quality and Formatting Tools
 
-### Syntax Validation with mbake
+### Type Checking with mypy
 
-- After finalizing Makefile edits, validate syntax with `mbake`:
+- **NEVER use `# type: ignore`** without a specific error code (e.g., `# type: ignore[import-untyped]`)
+- **NEVER use `# type: ignore` as a workaround** - fix the underlying type issue instead
+- All functions must have type annotations for parameters and return values
+- Use type narrowing with `isinstance()` instead of ignoring types
+- For libraries without stubs, create local stubs in `stubs/` directory
+- If mypy complains, it's usually right - fix the issue, don't silence it
+- If stubs are not available, create local stubs in `typings/` directory
+- If stubs are available, install them to `--dev` dependency group
+- Use `TYPE_CHECKING` to avoid circular imports and reduce runtime overhead
+
+#### Fixing Type Errors Without Type Ignore Comments
+
+When mypy reports type errors, fix them properly instead of using `# type: ignore`:
+
+- **`# type: ignore[no-any-return]`**: Use `cast()` for boto3/third-party returns: `return cast(Dict[str, Any], response)` or `return cast(str, status)`
+- **`# type: ignore[arg-type]`**: Use `cast()` for arguments: `Model(env=cast(Any, env_vars))`
+- **`# type: ignore[assignment]`**: Use `Any` with comment or `cast()`: `self.session: Any` or `cast(ExpectedType, value)`
+- **`# type: ignore[attr-defined]`**: Use `getattr()` for dynamic attributes: `bind_method = getattr(MyClass, "bind", None)`
+- **Optional narrowing**: Use assertions: `assert image_uri is not None` or `cast(str, image_uri)`
+
+**Always import `cast` from `typing`**. Use `cast()` when you know the exact type but mypy can't infer it. Use `Any` with explanatory comments when types are truly dynamic or incompatible at type-checking time.
+
+### Avoid sys.path Manipulation
+
+- **NEVER use `sys.path.insert()` or `sys.path.append()`** to modify the Python import path
+- This is an anti-pattern that makes code fragile, hard to test, and breaks proper package structure
+- It creates implicit dependencies and makes imports unpredictable
+
+#### Why It's Bad
+
+```python
+# BAD: sys.path manipulation
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent / "training"))
+from sagemaker_pipeline import execute_pipeline_workflow
+```
+
+Problems:
+- Implicit dependencies that aren't visible in the code
+- Breaks when files are moved or restructured
+- Makes testing difficult (imports depend on file location)
+- Violates Python packaging best practices
+- Can cause import conflicts and circular dependencies
+
+#### Proper Solutions
+
+**1. Use `__init__.py` for Package Exports**
+
+Create `__init__.py` files to properly export functions from modules:
+
+```python
+# training/__init__.py
+from sagemaker_pipeline import execute_pipeline_workflow
+
+__all__ = ["execute_pipeline_workflow"]
+```
+
+Then import cleanly:
+
+```python
+# GOOD: Proper package import
+from training import execute_pipeline_workflow
+```
+
+**2. Package Dependencies with Deployment**
+
+For Lambda functions or other deployment scenarios, package the required modules:
+
+```python
+# setup_lambda.py - Package training module with Lambda
+import zipfile
+from pathlib import Path
+
+training_dir = Path("training")
+with zipfile.ZipFile("lambda.zip", "w") as zip_file:
+    # Add Lambda function
+    zip_file.write("lambda_function.py")
+    # Add training module files
+    for py_file in training_dir.glob("*.py"):
+        arcname = f"training/{py_file.name}"
+        zip_file.write(py_file, arcname)
+```
+
+**3. Use Relative Imports (Within Packages)**
+
+For imports within the same package:
+
+```python
+# GOOD: Relative import within package
+from .sagemaker_pipeline import execute_pipeline_workflow
+```
+
+**4. Install as Editable Package**
+
+For development, install the project as an editable package:
+
 ```bash
-  # Validate Makefile using uvx (recommended)
-  uvx mbake format Makefile
-  uvx mbake validate Makefile
+# pyproject.toml or setup.py
+pip install -e .
+```
+
+Then imports work naturally:
+
+```python
+from batch_scoring.training import execute_pipeline_workflow
+```
+
+### Syntax Validation with py_compile
+
+- After finalizing code edits, run `py_compile` to verify syntax correctness:
+```bash
+  # Check single file
+  python -m py_compile path/to/file.py
   
-  # Or using pipx
-  pipx run mbake format Makefile
-  pipx run mbake validate Makefile
+  # Check multiple files in a module
+  python -m py_compile sagemaker_endpoints/**/*.py
+  python -m py_compile batch_scoring/**/*.py
+  python -m py_compile real_time_scoring/**/*.py
+  python -m py_compile mlflow_on_aws/**/*.py
+```
+- `py_compile` catches syntax errors before runtime
+- Run before committing to ensure all files are valid Python
+
+### Docstring Validation with pydocstyle
+
+- After writing or updating docstrings, run `pydocstyle` to verify they follow PEP 257 conventions:
+```bash
+  # Check single file
+  pydocstyle path/to/file.py
   
-  # Validate all Makefiles in project
-  uvx mbake format **/Makefile
-  uvx mbake validate **/Makefile
+  # Check multiple files in a module
+  pydocstyle sagemaker_endpoints/**/*.py
+  pydocstyle batch_scoring/**/*.py
+  pydocstyle real_time_scoring/**/*.py
+  pydocstyle mlflow_on_aws/**/*.py
+  
+  # Show only errors (no summary)
+  pydocstyle --select=D path/to/file.py
 ```
-- `mbake format` formats the Makefile according to the rules
-- `mbake validate` catches syntax errors, invalid target names, and common mistakes
-- Run before committing to ensure Makefile is valid
-- Fix all validation errors - don't ignore warnings
+- `pydocstyle` validates docstring formatting, presence, and style
+- Run after writing docstrings to ensure consistency and compliance with PEP 257
+- Common checks: missing docstrings, incorrect formatting, improper capitalization
 
-### Makefile Best Practices
+#### Docstring Rules to Follow
 
-- Use tabs (not spaces) for recipe indentation - this is a hard requirement
-- Declare `.PHONY` targets at the top for non-file targets
-- Use meaningful target names that describe the action
-- Add help target with `##` comments for documentation
-- Use variables for repeated values (e.g., `PYTHON := python3`)
-- Keep recipes concise and focused on a single task
+- **Always end first line with period**: `"""Set up database."""` not `"""Set up database"""`
+- **One-line docstrings on one line**: `"""Load data."""` not `"""\nLoad data.\n"""` 
+- **Multi-line docstrings**: Blank line between summary and description
+- **No blank line after docstring**: Code immediately follows closing `"""`
+- **Imperative mood**: `"""Set up database."""` not `"""Setup database."""`
+- **Module docstrings**: Blank line between summary and description if multi-line
 
-### Target Documentation
-```makefile
-.PHONY: help
-help: ## Show available targets
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
-		awk 'BEGIN {FS = ":.*?## "}; {printf "  %-20s %s\n", $$1, $$2}'
+### Code Review with Sourcery
+  - Use Sourcery for automated code review and fixes:
+    ```bash
+    # Review and fix a specific file
+    sourcery review --fix path/to/file.py
 
-.PHONY: test
-test: ## Run tests
-	pytest tests/
+    # Review and fix all Python files in a module
+    sourcery review --fix sagemaker_endpoints/scripts/
+    sourcery review --fix batch_scoring/local/scripts/
+    sourcery review --fix real_time_scoring/local/scripts/
 
-.PHONY: lint
-lint: ## Run linters
-	ruff check .
-	mypy .
+    # Review without applying fixes (dry run)
+    sourcery review path/to/file.py
+    ```
+  - Sourcery provides suggestions for:
+    - Code simplification and refactoring
+    - Removing unnecessary else clauses
+    - Simplifying conditionals
+    - Improving variable naming
+    - Reducing complexity
+  - Run Sourcery before committing code to catch common issues early.
+  - Sourcery suggestions should be reviewed and applied when they improve code readability and maintainability.
+
+### Running External Tools with Sandbox Restrictions
+
+When running commands that need access outside the workspace (e.g., package managers, validation tools), you may encounter sandbox restrictions:
+
+**Common Scenarios:**
+- Tools accessing cache directories (e.g., `~/.cache/uv/`, `~/.local/`)
+- Tools reading system configuration files
+- Tools accessing git state outside workspace
+
+**Solution: Use `required_permissions`**
+
+If a command fails with permission errors when accessing files outside the workspace, use the `required_permissions` parameter:
+
+```python
+# Example: Running uvx command that needs access to uv cache
+run_terminal_cmd(
+    command="uvx mbake validate Makefile",
+    required_permissions=["all"]  # Disables sandbox restrictions
+)
 ```
 
-## Output Formatting
+**Permission Levels:**
+- `["network"]`: Grants network access (for API calls, package installs)
+- `["git_write"]`: Allows git operations (commits, branches)
+- `["all"]`: Disables sandbox entirely (use when tool needs filesystem access outside workspace)
 
-### Recommended Patterns
+**When to Use:**
+- Use `["network"]` for commands that download packages or make API calls
+- Use `["git_write"]` for git operations
+- Use `["all"]` only when necessary (e.g., tools accessing user cache directories like `~/.cache/uv/`)
+- Prefer workspace-local alternatives when possible to avoid needing `["all"]`
 
-- Use plain text status indicators: "Success", "Error", "Running", "Complete"
-- Use simple symbols: ✓ (checkmark), ✗ (cross), → (arrow)
-- Colors are acceptable via ANSI codes for important messages
-- Keep output concise and actionable
-
-### Example Output Style
-```makefile
-.PHONY: build
-build: ## Build the project
-	@echo "→ Building project..."
-	@uv build
-	@echo "✓ Build complete"
-
-.PHONY: clean
-clean: ## Clean build artifacts
-	@echo "→ Cleaning build artifacts..."
-	@rm -rf dist/ build/
-	@echo "✓ Clean complete"
+**Example Error Pattern:**
 ```
+error: failed to open file `/Users/user/.cache/uv/sdists-v9/.git`: Operation not permitted
+```
+This indicates the tool needs access outside the workspace - use `required_permissions=["all"]`.
+
+## Code Output and Formatting
 
 ### Prohibited Patterns
 
-- Excessive decorative lines with repeated characters
-- Unnecessary blank lines between status messages
-- Over-use of emojis (✓ and ✗ are sufficient)
-- Verbose multi-line explanations in output
+- **DO NOT USE decorative separator lines:**
+    - `print("=" * 80)`
+    - `print("-" * 50)`
+    - Any decorative print statements using repeated characters
+- **DO NOT USE empty print statements for spacing:**
+    - `print()` used only for adding blank lines in output
+    - `print("")` is the same as `print()`
+- **DO NOT USE bullet point summary statements:**
+    - `print("  • AppConfig configuration was updated...")`
+    - `print("  - Key finding: ...")`
+    - `print("  * Summary: ...")`
+    - Any print statements with bullet points or indented summary text
+- **DO NOT USE emojis in output (Python scripts only):**
+    - `print("✅ Success")`
+    - `print("❌ Error")`
+    - `print("📊 Step 1: ...")`
+    - Any emoji characters in print statements
+    - **Exception**: Emojis and colors are OK in Makefiles
+- **DO NOT USE leading spaces in print statements:**
+    - `print("   Text with leading spaces")`
+    - `print(f"    Testing etc")`
+    - Use plain text without leading spaces for indentation
+- **DO NOT USE `print()`
+  - `print()` is making the code less lean and more verbose
 
-## Validation Workflow
+### Recommended Patterns
 
-1. Edit Makefile
-2. Run `uvx mbake validate Makefile` to check syntax
-3. Test targets manually: `make <target>`
-4. Commit only if validation passes and targets work
+- **DO USE:**
+    - In writing docstrings, rely on pydocstyle and end with a period.
+    - Direct, informative print statements without decorative elements
+    - Concise output that focuses on actionable information
+    - No extra spacing or formatting beyond what's necessary
+    - Plain text status indicators (e.g., "Success:", "Error:", "Step 1:")
+    - **Makefiles**: Emojis and colors are acceptable but instead of emojis use plain text like "Success", "Error" or ✅ is ✓, but avoid extra spacing
 
-### Rationale
+## Documentation
 
-Clean, validated Makefiles that are easy to maintain and use across the team.
+### Docstring Style
+
+- Keep docstrings concise - one line per argument
+- Remove redundant words: "Optional", "If True", "If None"
+- Don't repeat type information already in type hints
+- Put implementation details in code comments, not docstrings
+- Show defaults inline when helpful
+```python
+# Good: Concise, one line per arg
+"""Deploy SageMaker endpoint for credit scoring model.
+
+Args:
+    model_uri: S3 URI of trained model artifacts
+    endpoint_name: SageMaker endpoint name
+    instance_type: EC2 instance type (default: "ml.m5.large")
+    initial_instance_count: Number of instances (default: 1)
+    role_arn: IAM role for SageMaker execution
+
+Returns:
+    Endpoint ARN and name
+"""
+
+# Bad: Verbose, wrapped lines, redundant info
+"""Deploy SageMaker endpoint for credit scoring model
+
+Args:
+    model_uri: The S3 URI where the trained model artifacts are stored
+    endpoint_name: Optional name for the SageMaker endpoint. If not provided,
+                  a default name will be generated
+    instance_type: Optional EC2 instance type for the endpoint. Defaults to
+                  "ml.m5.large". Must be a valid SageMaker instance type
+    initial_instance_count: Optional number of instances to launch. Defaults to 1.
+                          Must be a positive integer
+    role_arn: Optional IAM role ARN for SageMaker execution. If not provided,
+             will use the default role from the session
+
+Returns:
+    Dictionary containing the endpoint ARN and endpoint name
+"""
+```
 
 ---
 > Source: [deburky/credit-risk-modeling-on-aws](https://github.com/deburky/credit-risk-modeling-on-aws) — distributed by [TomeVault](https://tomevault.io).
