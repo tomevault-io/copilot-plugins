@@ -1,0 +1,9 @@
+{
+  "name": "inekipelov--swiftui-alert-advance",
+  "displayName": "swiftui-alert-advance",
+  "description": "SwiftUI helpers that let you embed custom SwiftUI views inside UIAlertController",
+  "version": "1.0.0",
+  "author": "inekipelov",
+  "homepage": "https://github.com/inekipelov/swiftui-alert-advance",
+  "skills": []
+}
