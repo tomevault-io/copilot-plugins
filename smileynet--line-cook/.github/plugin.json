@@ -1,0 +1,18 @@
+{
+  "name": "smileynet--line-cook",
+  "displayName": "line-cook",
+  "description": "Structured AI workflow execution with guardrails. prep\u2192cook\u2192serve\u2192tidy for Claude Code, OpenCode, and Kiro.",
+  "version": "1.0.0",
+  "author": "smileynet",
+  "homepage": "https://github.com/smileynet/line-cook",
+  "skills": [
+    {
+      "name": "line-cook",
+      "description": ""
+    },
+    {
+      "name": "line-cook",
+      "description": ""
+    }
+  ]
+}
