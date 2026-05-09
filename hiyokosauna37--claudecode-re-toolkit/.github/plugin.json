@@ -1,0 +1,9 @@
+{
+  "name": "hiyokosauna37--claudecode-re-toolkit",
+  "displayName": "claudecode-re-toolkit",
+  "description": "Reverse engineering & malware analysis toolkit for Claude Code - Static/Dynamic/Network analysis with Docker isolation",
+  "version": "1.0.0",
+  "author": "HiyokoSauna37",
+  "homepage": "https://github.com/HiyokoSauna37/claudecode-re-toolkit",
+  "skills": []
+}
