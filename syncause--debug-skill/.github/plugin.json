@@ -1,0 +1,9 @@
+{
+  "name": "syncause--debug-skill",
+  "displayName": "debug-skill",
+  "description": "Agent debugging skill. Stop AI debugging guesswork with runtime evidence.",
+  "version": "1.0.0",
+  "author": "Syncause",
+  "homepage": "https://github.com/Syncause/debug-skill",
+  "skills": []
+}
