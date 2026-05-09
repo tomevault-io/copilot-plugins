@@ -1,0 +1,9 @@
+{
+  "name": "badlogic--sitegeist",
+  "displayName": "sitegeist",
+  "description": "An AI assistant that lives in your browser. Built for collaboration, not autonomy theater. You guide, it executes. Automate repetitive web tasks, extract data from any website, and transform it into w",
+  "version": "1.0.0",
+  "author": "badlogic",
+  "homepage": "https://github.com/badlogic/sitegeist",
+  "skills": []
+}
