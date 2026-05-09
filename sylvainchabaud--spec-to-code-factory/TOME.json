@@ -1,0 +1,44 @@
+{
+  "name": "spec-to-code-factory",
+  "owner": "SylvainChabaud",
+  "repo": "spec-to-code-factory",
+  "description": "Pipeline automatis\u00e9 Spec-to-Code pour Claude Code. Transforme un requirements.md en projet livrable via 4 phases (BREAK \u2192     MODEL \u2192 ACT \u2192 DEBRIEF) avec 5 gates de validation. Inclut agents sp\u00e9cialis\u00e9s, templates, et outils de qualit\u00e9.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SylvainChabaud/spec-to-code-factory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T13:15:17Z"
+}
