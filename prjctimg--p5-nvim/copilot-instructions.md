@@ -1,0 +1,26 @@
+## p5-nvim
+
+> - Create test cases for every refactor.
+
+# p5.nvim
+
+## Dev environment tips
+
+- Create test cases for every refactor.
+- Clean up test files after you're done and before you commit the changes.
+- Commit the changes using conventional commit guidelines.
+- Sign off on all commits
+
+## Coding Guidelines
+
+- Use consistent and preferably short variable names.
+- Avoid declaring single use variables when possible.
+- Avoid repetitive calls to chained methods/fields and instead alias them so that the LOC remain small.
+- Use non deprecated Neovim APIs (v0.11.0+)
+- Instead of the default `M` variable for a module's export, use the module's filename first letter.
+- Use non-blocking constructs for indefinitely running tasks.
+- Update the README for any user facing changes.
+
+---
+> Source: [prjctimg/p5.nvim](https://github.com/prjctimg/p5.nvim) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
