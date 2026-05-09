@@ -1,0 +1,9 @@
+{
+  "name": "stripe-samples--machine-payments",
+  "displayName": "machine-payments",
+  "description": "machine-payments",
+  "version": "1.0.0",
+  "author": "stripe-samples",
+  "homepage": "https://github.com/stripe-samples/machine-payments",
+  "skills": []
+}
