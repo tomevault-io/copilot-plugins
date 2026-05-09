@@ -1,0 +1,9 @@
+{
+  "name": "lde-org--lde",
+  "displayName": "lde",
+  "description": "A package manager, test runner and runtime for Lua, written in Lua.",
+  "version": "1.0.0",
+  "author": "lde-org",
+  "homepage": "https://github.com/lde-org/lde",
+  "skills": []
+}
