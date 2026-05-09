@@ -1,311 +1,93 @@
-## component-creation
+## conventional-commits
 
-> Writing a new block component for atuin runbooks
+> Writing a good commit message
 
-# Creating Components for Atuin Runbooks
+# Conventional Commits
 
-Guidelines for creating new component blocks for the Atuin runbook editor.
+A rule to enforce proper conventional commit formatting with clear, descriptive messages.
 
 <rule>
-name: atuin_component_creation
-description: Standards for creating and implementing component blocks in Atuin Desktop
+name: conventional_commits
+description: Enforces conventional commit format with concise, explanatory first lines
 
 filters:
   - type: event
-    pattern: "file_create"
-  - type: file_path
-    pattern: "src/components/runbooks/editor/blocks/.*"
+    pattern: "git_commit"
 
 actions:
+  - type: reject
+    conditions:
+      # Reject non-conventional commit types
+      - pattern: "^(?!feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(?:\\(.*\\))?:"
+        message: "Commit message must start with a conventional type (feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert)"
+      
+      # Reject first lines that are too long (>72 chars)
+      - pattern: "^.{73,}"
+        message: "First line should be 72 characters or less to avoid truncation in GitHub and other tools"
+      
+      # Reject commits without a space after the colon
+      - pattern: "^\\w+(?:\\(.*\\))?:(?!\\s)"
+        message: "Include a space after the colon in your commit message"
+      
+      # Reject first lines that start with lowercase (after the type)
+      - pattern: "^\\w+(?:\\(.*\\))?:\\s[a-z]"
+        message: "First word after type should be capitalized"
+
   - type: suggest
     message: |
-      # Creating Components for Atuin Desktop
+      # Conventional Commit Format
       
-      ## Component Types
-      
-      There are two primary types of components:
-      
-      1. **Passive Blocks** - Provide context or configuration for other blocks (e.g., Directory, Env, Var, Host)
-      2. **Executable Blocks** - Run commands or execute actions (e.g., Run, Script, HTTP)
-      
-      ## Component Structure
+      Follow this format for all commits:
       
       ```
-      src/components/runbooks/editor/blocks/[ComponentName]/
-      ├── ComponentName.tsx  (or index.tsx)
-      └── index.ts           (exports the component)
+      type(scope): Short summary
+      
+      Detailed explanation if needed
       ```
       
-      ## Implementation Steps
+      ## Requirements:
       
-      1. **Create Component Directory**
-      2. **Create Main Component File**:
-         - Use `createReactBlockSpec` to define the block
-         - Implement a React component for the UI
-      3. **Create Index File** for exports
-      4. **Register in Schema** (`create_editor.ts`)
-      5. **Add to Menu Items** (`Editor.tsx`) in the appropriate group
-      6. **Create Backend Command** if the component needs to interact with the system:
-         - Create in `backend/src/commands/[category].rs`
-         - Add module to `backend/src/commands/mod.rs` 
-         - Register command in main.rs (`tauri::generate_handler!`)
+      - **Type**: One of: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+      - **Scope**: Optional component name in parentheses
+      - **Summary**: 
+        - Clear and concise (50-72 chars)
+        - Written in imperative ("Add feature" not "Added feature")
+        - First letter capitalized
+        - No period at the end
+      - **Body**: Optional, separated by blank line, explains WHY not HOW
       
-      ## Component Specification Example
+      ## Examples:
       
-      ```typescript
-      export default createReactBlockSpec(
-        {
-          type: "your-component-type", 
-          propSchema: {
-            property: { default: "default-value" },
-          },
-          content: "none",
-        },
-        {
-          render: ({ block, editor }) => {
-            return <YourComponent {...props} />;
-          },
-        }
-      );
-      ```
+      ✅ `feat(auth): Add password reset functionality`
       
-      ## Suggestion Menu Item Example
+      ✅ `fix: Prevent crash when API returns empty response`
       
-      ```typescript
-      export const insertYourComponent = (schema: any) => (editor: typeof schema.BlockNoteEditor) => ({
-        title: "Component Name",
-        subtext: "Description of component",
-        onItemClick: () => {
-          insertOrUpdateBlock(editor, {
-            type: "your-component-type",
-          });
-        },
-        icon: <SomeIcon size={18} />,
-        group: "Appropriate Group", // Network, Execute, Database, etc.
-      });
-      ```
-      
-      ## For Passive Variable Blocks
-      
-      When creating variable blocks (like Env or template Var):
-      
-      1. Create a React component with input fields for name and value
-      2. Use props to manage state and sync with editor
-      3. For template variables, invoke a Tauri command to update backend state:
-      
-      ```typescript
-      // In your component's render function:
-      const onUpdate = (name: string, value: string): void => {
-        // Update block props locally
-        editor.updateBlock(block, {
-          props: { ...block.props, name, value },
-        });
-        
-        // Update backend state via command
-        if (name && currentRunbookId) {
-          invoke("set_template_var", {
-            runbook: currentRunbookId,
-            name,
-            value,
-          }).catch(console.error);
-        }
-      };
-      ```
-      
-      ## Backend Command Structure
-      
-      For components that need backend state:
-      
-      ```rust
-      // In backend/src/commands/template.rs
-      #[tauri::command]
-      pub async fn set_template_var(
-          state: tauri::State<'_, crate::state::AtuinState>,
-          runbook: String,
-          name: String,
-          value: String,
-      ) -> Result<(), String> {
-          // Update state logic here
-          state
-              .runbook_output_variables
-              .write()
-              .await
-              .entry(runbook)
-              .or_insert(HashMap::new())
-              .insert(name, value);
-      
-          Ok(())
-      }
-      ```
-      
-      ## Architecture Guidelines
-      
-      - Commands using the Tauri API should live in `@commands` directory
-      - Runtime functionality (without Tauri dependencies) lives in `@runtime`
-      - Use the component's `onUpdate` method to trigger backend state changes
-      - For passive blocks, use `findFirstParentOfType` and `findAllParentsOfType` to discover block values
-      
-      ## Best Practices
-      
-      - Follow existing patterns for similar block types
-      - Maintain consistent styling with other blocks
-      - Add tooltips to explain functionality
-      - Group components properly in the menu
-      - For passive blocks, use `findFirstParentOfType` to find parent blocks
-      - Use `@heroui/react` components and `lucide-react` icons
-      - When updating backend state, check that required values are present
+      ✅ `docs(readme): Update installation instructions`
 
 examples:
   - input: |
-      Creating a new Host block component
+      added new button to the ui
     output: |
-      // Host component (src/components/runbooks/editor/blocks/Host/HostSelect.tsx)
-      
-      import { Button, Tooltip } from "@heroui/react";
-      import { HomeIcon } from "lucide-react";
-      import { createReactBlockSpec } from "@blocknote/react";
-      import { insertOrUpdateBlock } from "@blocknote/core";
-      
-      const HostSelect = ({ isEditable }) => (
-        <div className="w-full">
-          <Tooltip content="Specifies that commands run on the local machine">
-            <div className="flex flex-row items-center w-full">
-              <div className="mr-2"><HomeIcon size={18} /></div>
-              <div className="flex-grow">
-                <Button variant="flat" className="w-full justify-start">localhost</Button>
-              </div>
-            </div>
-          </Tooltip>
-        </div>
-      );
-      
-      export default createReactBlockSpec(
-        {
-          type: "host-select",
-          propSchema: { host: { default: "local" } },
-          content: "none",
-        },
-        {
-          render: ({ block, editor }) => <HostSelect isEditable={editor.isEditable} />
-        }
-      );
-      
-      export const insertHostSelect = (schema) => (editor) => ({
-        title: "Host",
-        subtext: "Specify that commands run on localhost",
-        onItemClick: () => { insertOrUpdateBlock(editor, { type: "host-select" }); },
-        icon: <HomeIcon size={18} />,
-        group: "Network",
-      });
+      feat(ui): Add new button
   
   - input: |
-      Creating a template variable block that updates backend state
+      fixed the bug in authentication
     output: |
-      // Component definition (src/components/runbooks/editor/blocks/Var/index.tsx)
-      import React from "react";
-      import { Input, Tooltip, Button } from "@heroui/react";
-      import { TextCursorInputIcon } from "lucide-react";
-      import { invoke } from "@tauri-apps/api/core";
-      import { useStore } from "@/state/store";
-      import { createReactBlockSpec } from "@blocknote/react";
+      fix(auth): Resolve authentication failure on expired sessions
+  
+  - input: |
+      feat(users): implemented email verification system with token expiration and email templates for better onboarding experience
+    output: |
+      feat(users): Implement email verification system
       
-      const Var = ({ name, value, onUpdate, isEditable }) => {
-        const handleKeyChange = (e) => {
-          onUpdate(e.currentTarget.value, value);
-        };
-      
-        const handleValueChange = (e) => {
-          onUpdate(name, e.currentTarget.value);
-        };
-      
-        return (
-          <Tooltip content="Set a template variable for subsequent blocks">
-            <div className="flex flex-row items-center space-x-2 w-full">
-              <div className="flex flex-1 flex-row gap-2">
-                <Button isIconOnly isDisabled variant="light">
-                  <TextCursorInputIcon />
-                </Button>
-                <Input
-                  placeholder="Name"
-                  value={name}
-                  onChange={handleKeyChange}
-                  disabled={!isEditable}
-                />
-              </div>
-              <div className="flex-1">
-                <Input
-                  placeholder="Value"
-                  value={value}
-                  onChange={handleValueChange}
-                  disabled={!isEditable}
-                />
-              </div>
-            </div>
-          </Tooltip>
-        );
-      };
-      
-      export default createReactBlockSpec(
-        {
-          type: "var",
-          propSchema: {
-            name: { default: "" },
-            value: { default: "" },
-          },
-          content: "none",
-        },
-        {
-          render: ({ block, editor }) => {
-            const currentRunbookId = useStore((store) => store.currentRunbookId);
-            
-            const onUpdate = (name, value) => {
-              editor.updateBlock(block, {
-                props: { ...block.props, name, value },
-              });
-              
-              if (name && currentRunbookId) {
-                invoke("set_template_var", {
-                  runbook: currentRunbookId,
-                  name,
-                  value,
-                }).catch(console.error);
-              }
-            };
-      
-            return (
-              <Var
-                name={block.props.name}
-                value={block.props.value}
-                onUpdate={onUpdate}
-                isEditable={editor.isEditable}
-              />
-            );
-          },
-        },
-      );
-      
-      // Backend command (backend/src/commands/template.rs)
-      #[tauri::command]
-      pub async fn set_template_var(
-          state: tauri::State<'_, crate::state::AtuinState>,
-          runbook: String,
-          name: String,
-          value: String,
-      ) -> Result<(), String> {
-          state
-              .runbook_output_variables
-              .write()
-              .await
-              .entry(runbook)
-              .or_insert(HashMap::new())
-              .insert(name, value);
-      
-          Ok(())
-      }
+      Add token-based verification with:
+      - 24h expiration
+      - Customized email templates
+      - Improved onboarding flow
 
 metadata:
-  priority: medium
-  version: 1.1
+  priority: high
+  version: 1.0
 </rule>
 
 ---
