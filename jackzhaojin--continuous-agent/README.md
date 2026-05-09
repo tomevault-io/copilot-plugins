@@ -7,11 +7,11 @@ Continuous Agent 2026-01
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jackzhaojin/continuous-agent](https://github.com/jackzhaojin/continuous-agent).
+Original source: `CLAUDE.md` in [jackzhaojin/continuous-agent](https://github.com/jackzhaojin/continuous-agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
