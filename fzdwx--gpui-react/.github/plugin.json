@@ -1,0 +1,9 @@
+{
+  "name": "fzdwx--gpui-react",
+  "displayName": "gpui-react",
+  "description": " React renderer for Zed's GPUI using Bun native FFI. Build native GPU-accelerated UIs with React, running directly on GPUI runtime",
+  "version": "1.0.0",
+  "author": "fzdwx",
+  "homepage": "https://github.com/fzdwx/gpui-react",
+  "skills": []
+}
