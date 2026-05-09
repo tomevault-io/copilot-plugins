@@ -1,6 +1,8 @@
 # nowCRM
 
-> Tome by [nowtec](https://github.com/nowtec/nowCRM) — distributed by [TomeVault](https://tomevault.io/claim/nowtec)
+> Tome by [nowtec](https://github.com/nowtec/nowCRM) — distributed by [TomeVault](https://tomevault.io)
+
+Open source CRM with multichannel outreach capabilities and efficient data management at scale
 
 ## GitHub Copilot Config
 
@@ -15,10 +17,10 @@ Original source: `.cursor/rules/*.mdc` in [nowtec/nowCRM](https://github.com/now
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/nowtec)
+From [nowtec/nowCRM](https://github.com/nowtec/nowCRM) — a repo with 23+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/nowtec) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-s -->
