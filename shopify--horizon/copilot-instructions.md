@@ -1,176 +1,217 @@
-## sale-price-accessibility
+## schemas
 
-> Sale price component accessibility compliance pattern
+> Every section and block must include a `{% schema %}` tag with valid JSON structure.
 
-# Sale Price Component Accessibility Standards
 
-Ensures sale price components follow WCAG compliance and provide proper context for screen reader users.
+# Schema Standards
 
-<rule>
-name: sale_price_accessibility_standards
-description: Enforce sale price component accessibility standards and screen reader context compliance
-filters:
-  - type: file_extension
-    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
+Every section and block must include a `{% schema %}` tag with valid JSON structure.
 
-actions:
-  - type: enforce
-    conditions:
-      # Sale price missing screen reader context
-      - pattern: "(?i)<[^>]*(?:sale|discount|price)[^>]*>.*\\$[0-9]+.*\\$[0-9]+"
-        pattern_negate: "(class.*sr-only|class.*visually-hidden)"
-        message: "Sale price components must include visually hidden text to explain regular and sale prices."
+We write our schemas in the schemas folder and then run `npm run build:schemas` to push them to the `.liquid` files. This allows us to take advantage of Typescript for validation and reuse parts of schemas to avoid re-writing them many times.
 
-      # Strike-through price missing context
-      - pattern: "(?i)<[^>]*(?:strike|line-through|text-decoration)[^>]*>.*\\$[0-9]+"
-        pattern_negate: "(Regular price|Original price|Was|Before)"
-        message: "Strike-through prices must include visually hidden context like 'Regular price' or 'Original price'."
+## Schema Structure
 
-      # Sale price missing context
-      - pattern: "(?i)<[^>]*(?:sale|discount|offer)[^>]*>.*\\$[0-9]+"
-        pattern_negate: "(Sale price|Now|Current price|Discounted price)"
-        message: "Sale prices must include visually hidden context like 'Sale price' or 'Now'."
-
-      # Missing visually hidden elements for context
-      - pattern: "(?i)<[^>]*class=\"[^\"]*(?:sale|price|discount)[^\"]*\"[^>]*>"
-        pattern_negate: "(sr-only|visually-hidden|screen-reader-only)"
-        message: "Sale price components should include visually hidden elements for screen reader context."
-
-      # Unnecessary aria-hidden on visible price content
-      - pattern: "(?i)<[^>]*class=\"[^\"]*(?:price|sale|discount)[^\"]*\"[^>]*aria-hidden=\"true\"[^>]*>"
-        message: "Visible price content should not be hidden from screen readers with aria-hidden. Only decorative elements should use aria-hidden."
-
-  - type: suggest
-    message: |
-      **Sale Price Component Accessibility Best Practices:**
-
-      **Required Screen Reader Context:**
-      - **Regular Price:** Must include "Regular price" or "Original price" context
-      - **Sale Price:** Must include "Sale price" or "Now" context
-      - **Visual Hiding:** Use visually hidden elements to provide context without affecting visual design
-
-      **Screen Reader Announcement Requirements:**
-      - Regular price should announce: "Regular price, $X"
-      - Sale price should announce: "Sale price, $Y"
-      - Discount should announce: "X% OFF" (visible badge text is sufficient)
-      - Complete announcement: "Regular price, $45, Sale price, $35, 20% OFF"
-
-      **Implementation Patterns:**
-
-      **Basic Sale Price Structure:**
-      ```html
-      <div class="price-container">
-        <span class="sr-only">Regular price, </span>
-        <span class="regular-price">$45.00</span>
-        <span class="sr-only">Sale price, </span>
-        <span class="sale-price">$35.00</span>
-        <span class="discount-badge">20% OFF</span>
-      </div>
-      ```
-
-      **CSS for Visually Hidden Elements:**
-      ```css
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["name", "settings"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "tag": {
+      "type": "string",
+      "enum": ["div", "section", "aside", "header", "footer", "main"]
+    },
+    "class": {
+      "type": "string"
+    },
+    "settings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "id", "label"],
+        "properties": {
+          "type": {
+            "enum": [
+              "text",
+              "textarea",
+              "number",
+              "range",
+              "color",
+              "checkbox",
+              "select",
+              "radio",
+              "collection",
+              "product",
+              "blog",
+              "page",
+              "header",
+              "paragraph",
+              "image_picker",
+              "font_picker",
+              "video",
+              "richtext"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 30
+          },
+          "visible_if": {
+            "type": "string",
+            "pattern": "\\{\\{\\s+[a-zA-Z_][a-zA-Z0-9_]*\\s+\\}\\}"
+          }
+        }
       }
-      ```
-
-      **Complex Sale Price Examples:**
-
-      **With Multiple Discounts:**
-      ```html
-      <div class="price-container">
-        <span class="sr-only">Regular price, </span>
-        <span class="regular-price">$100.00</span>
-        <span class="sr-only">Sale price, </span>
-        <span class="sale-price">$75.00</span>
-        <span class="discount">25% OFF</span>
-        <span class="sr-only">Member price, </span>
-        <span class="member-price">$67.50</span>
-        <span class="savings-amount">Extra 10% OFF</span>
-      </div>
-      ```
-
-      **With Currency and Formatting:**
-      ```html
-      <div class="price-container">
-        <span class="sr-only">Regular price, </span>
-        <span class="regular-price">$1,299.99</span>
-        <span class="sr-only">Sale price, </span>
-        <span class="sale-price">$999.99</span>
-        <span class="savings-amount">Save $300</span>
-      </div>
-      ```
-
-      **Button Implementation:**
-      ```html
-      <!-- Good: Natural button text -->
-      <button class="add-to-cart-btn">
-        Add to Cart
-      </button>
-      ```
-
-      **JavaScript Considerations:**
-      - Dynamically update visually hidden context when prices change
-      - Calculate and update discount percentages automatically
-      - Handle currency formatting for different locales
-      - Ensure context is updated when prices are updated via AJAX
-
-      **Dynamic Price Updates:**
-      ```javascript
-      function updateSalePrice(regularPrice, salePrice) {
-        const regularElement = document.querySelector('.regular-price');
-        const saleElement = document.querySelector('.sale-price');
-        const discountElement = document.querySelector('.discount');
-
-        // Calculate discount percentage
-        const discount = Math.round(((regularPrice - salePrice) / regularPrice) * 100);
-
-        // Update visual elements
-        regularElement.textContent = `$${regularPrice.toFixed(2)}`;
-        saleElement.textContent = `$${salePrice.toFixed(2)}`;
-        discountElement.textContent = `${discount}% OFF`;
+    },
+    "blocks": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "required": ["type", "name", "settings"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "pattern": "^(@theme|@app|[a-z][a-z0-9_]*)$"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 30
+          },
+          "settings": {
+            "type": "array"
+          }
+        }
       }
-      ```
+    },
+    "presets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "settings": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}
+```
 
-      **Accessibility Notes:**
-      - Screen reader context should be concise but clear
-      - Avoid redundant information in visual and screen reader content
-      - Test with actual screen readers to ensure proper announcement
-      - Consider using aria-live regions for dynamic price updates
-      - Ensure price information is accessible in product listings and detail pages
-      - Handle cases where sale prices are temporary or time-limited
-      - Provide context for different types of discounts (percentage, fixed amount, member-only)
-      - Do not hide visible price content from screen readers with aria-hidden
-      - Let natural button text serve as the accessible name when sufficient
+## Setting Types and Usage
 
-      **Common Patterns to Avoid:**
-      - Don't rely solely on visual styling (strike-through, colors) to convey meaning
-      - Don't use generic terms like "price" without context
-      - Don't announce prices without indicating which is regular vs sale
-      - Don't forget to announce discount percentages or savings amounts
-      - Don't use decorative elements without proper screen reader alternatives
-      - Don't hide visible price content with aria-hidden="true"
-      - Don't duplicate discount information in visually hidden text when visible badges are sufficient
+### Input settings
 
-      **Color Contrast Requirements:**
-      - Ensure all text meets WCAG 2.2 contrast requirements (4.5:1 for normal text)
-      - Savings amounts and discount text must be readable against background
-      - Test contrast ratios for all price-related text elements
-      - Use darker colors for better accessibility (e.g., #157347 instead of #28a745)
+These are the bulk of the settings with which the merchant will interact.
 
-metadata:
-  priority: high
-  version: 1.0
-</rule>
+See [input settings documentation](mdc:https:/shopify.dev/docs/storefronts/themes/architecture/settings/input-settings)
+
+### Sidebar settings
+
+These are informative settings to guide the merchant.
+
+See [sidebar settings documentation](mdc:https:/shopify.dev/docs/storefronts/themes/architecture/settings/sidebar-settings)
+
+## Best practices
+
+### Label Guidelines
+
+- Keep labels concise (under 30 characters)
+- Setting type provides context - "Columns" not "Number of columns"
+- No verb-based labels for checkboxes
+- Use title case: "Show Vendor" not "show vendor"
+
+### Translation Keys
+
+- Schema names must use valid translation keys: `'t:names.keyname'`
+- Keys must exist in `locales/en.default.schema.json` under the `names` section
+- **If a key doesn't exist, add it to the `names` section** (e.g., `"carousel": "Carousel"`)
+- Run `npm run build:schemas` after making changes
+
+### Setting Organization Rules
+
+**1. Resource Pickers First**
+
+- Collection, product, blog, page pickers come first
+- These are required for section functionality
+
+**2. Visual Impact Order**
+
+- Layout settings (columns, spacing)
+- Typography settings (fonts, sizes)
+- Color settings (background, text)
+- Padding/margin last
+
+**3. Group settings using Headers**
+
+```json
+{
+  "type": "header",
+  "content": "Layout"
+}
+```
+
+### Schema Structure
+
+**Minimal schema:**
+
+```javascript
+export default {
+  name: 't:names.section',
+  settings: [
+    /* settings array */
+  ],
+};
+```
+
+**With presets (optional):**
+
+```javascript
+export default {
+  name: 't:names.section',
+  settings: [
+    /* settings array */
+  ],
+  presets: [{ name: 't:names.section', settings: {} }],
+};
+```
+
+## Nested Blocks in Presets
+
+When a block has nested `blocks`, you must include a `block_order` array.
+
+```javascript
+blocks: {
+  'product-details': {
+    type: '_product-details',
+    static: true,
+    blocks: {
+      header: {
+        type: 'group',
+        blocks: {
+          title: { type: 'product-title' },
+          price: { type: 'price' },
+        },
+        block_order: ['title', 'price'],
+      },
+    },
+    block_order: ['header'],
+  },
+}
+```
 
 ---
 > Source: [Shopify/horizon](https://github.com/Shopify/horizon) — distributed by [TomeVault](https://tomevault.io).
