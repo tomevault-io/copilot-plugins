@@ -1,0 +1,43 @@
+## snapshot-updates
+
+> When tests fail due to snapshot mismatches, update the snapshots using:
+
+---
+---
+
+# Snapshot Testing Guide
+
+## Updating Snapshots
+
+When tests fail due to snapshot mismatches, update the snapshots using:
+
+```bash
+pnpm vitest run --update
+```
+
+or the short form:
+
+```bash
+pnpm vitest run -u
+```
+
+## When to Update Snapshots
+
+- After making intentional changes to test behavior
+- When fixing bugs that affect test output
+- When adding new features that change build output
+- After refactoring code that impacts test results
+
+## Snapshot Files
+
+Snapshots are stored in [test/**snapshots**/zshy.test.ts.snap](mdc:test/__snapshots__/zshy.test.ts.snap) and contain expected output from the zshy build tool tests.
+
+## Best Practices
+
+- Review the diff before updating snapshots to ensure changes are expected
+- Only update snapshots when the new behavior is correct
+- Commit snapshot updates separately from code changes for easier review
+
+---
+> Source: [colinhacks/zshy](https://github.com/colinhacks/zshy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
