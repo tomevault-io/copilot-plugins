@@ -1,0 +1,19 @@
+## codalotl
+
+> - Write tests with testify.
+
+- Write tests with testify.
+    - DON'T supply string descriptions in asserts (ex: assert.True(t, someBool, "dont include this string")) UNLESS the assert has indirection of some kind where extra context is needed.
+- Misc Go coding guidelines:
+    - RARELY sanitize strings with strings.TrimSpace. You may ONLY use strings.TrimSpace as part of a deliberate algorithm, not "just to be sure".
+    - You probably don't need to use filepath.Clean: filepath's Join, Abs, Relative automatically Clean the result.
+- Don't keep around old code/APIs to "support legacy codepaths" unless told otherwise, or unless you know for sure you need to.
+- Concerning internal/noninteractive/integration tests:
+    - These tests use HTTP replay against a mock openai to verify the request shape and event contents stay the same.
+    - If they fail:
+        - It could be because we're deliberately changing something. If so, manually patch the tests to match.
+        - If we didn't intent to change the HTTP shapes or tool call/response details, it's worth investigating and fixing.
+
+---
+> Source: [codalotl/codalotl](https://github.com/codalotl/codalotl) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
