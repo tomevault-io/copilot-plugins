@@ -1,0 +1,9 @@
+{
+  "name": "gtwatts--mainframe",
+  "displayName": "mainframe",
+  "description": "AI-Native Bash Runtime with LSP & MCP | 2,000+ pure bash functions | Zero dependencies | Safe execution, structured output, first-time correctness for AI agents",
+  "version": "1.0.0",
+  "author": "gtwatts",
+  "homepage": "https://github.com/gtwatts/mainframe",
+  "skills": []
+}
