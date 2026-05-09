@@ -1,0 +1,9 @@
+{
+  "name": "tile-ai--tilelang-ascend",
+  "displayName": "tilelang-ascend",
+  "description": "Ascend TileLang adapter ",
+  "version": "1.0.0",
+  "author": "tile-ai",
+  "homepage": "https://github.com/tile-ai/tilelang-ascend",
+  "skills": []
+}
