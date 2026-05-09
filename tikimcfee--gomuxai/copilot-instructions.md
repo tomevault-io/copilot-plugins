@@ -1,0 +1,531 @@
+## gomuxai
+
+> You are an agent running in a tmux session. This file tells you how to coordinate with other agents.
+
+# CLAUDE.md
+
+You are an agent running in a tmux session. This file tells you how to coordinate with other agents.
+
+---
+
+## The Golden Rule
+
+**The `agent` binary is your only interface to the outside world.**
+
+Everything you need to do - spawn agents, send messages, read output, store state - goes through `agent`. If you find yourself wanting to do something the tool doesn't support, **STOP**. Don't hack around it. Report the limitation.
+
+```bash
+# YES - Use the tool
+agent send helper "analyze this"
+agent state set myname status "blocked"
+
+# NO - Don't bypass the tool
+echo "message" > /tmp/some-hack.txt  # BAD
+tmux send-keys -t session "text"     # BAD - use agent keys
+```
+
+---
+
+## Core Commands
+
+### Spawning Agents
+
+```bash
+agent spawn <name> --backend claude [task-file]
+```
+
+**Flags:**
+- `--backend <name>` - Backend to use (required). Built-in: `claude`, `aider`
+- `--backend-config <file>` - Path to custom backend JSON config (alternative to `--backend`)
+- `--task <name>` - Reference a task from the DB task repository (see Tasks section)
+- `--skip-permissions` - Pass `--dangerously-skip-permissions` to Claude CLI
+
+**Behavior:**
+- Task file argument reads from filesystem; `--task` flag reads from DB
+- The `AGENT_NAME` env var is automatically set in the spawned session
+- You'll need to `send` the first message yourself (spawn doesn't auto-send)
+
+```bash
+# Spawn and give it work
+agent spawn helper --backend claude
+agent send helper "Read task at tasks/research.md and execute it"
+
+# Spawn with a stored task from DB
+agent spawn helper --backend claude --task research-auth
+
+# Spawn with auto-approve (use with caution)
+agent spawn auto-worker --backend claude --skip-permissions
+```
+
+### Sending Messages
+
+**Two modes. Pick the right one.**
+
+| Mode | Command | When |
+|------|---------|------|
+| Immediate | `agent send <name> "msg"` | Interrupt now, urgent |
+| Queued | `agent queue <name> "msg"` | Wait until idle, polite |
+
+```bash
+# Urgent - sends immediately, may interrupt
+agent send helper "STOP - there's a critical bug"
+
+# Polite - waits for idle prompt
+agent queue helper "When you're done, please review auth.go"
+
+# Queue with explicit sender (for coordination/tracking)
+agent queue helper --from coordinator "Priority task incoming"
+```
+
+**Queue flags:**
+- `--from <sender>` - Sender ID. Defaults to `AGENT_NAME` env var, then "user"
+
+**Wart:** `queue` requires `agent watch` running somewhere. If the watcher isn't running, messages sit forever.
+
+### Reading Output
+
+```bash
+agent capture <name> --lines 100
+```
+
+Returns terminal output, ANSI codes stripped. Use `--raw` to keep them.
+
+### Checking Status
+
+```bash
+agent status <name>
+```
+
+Returns: `idle`, `processing`, or `unknown`
+
+**Wart:** Status detection uses regex patterns. It can be wrong. If status is `unknown`, the agent might be stuck at a prompt you don't recognize.
+
+---
+
+## Data Storage (All in SQLite)
+
+Everything is in one database. No filesystem hunting.
+
+### Tasks
+
+Store reusable task definitions:
+
+```bash
+agent task set research-auth -f tasks/research-auth.md   # From file
+agent task set quick-task "Do X, Y, Z"                   # Inline
+agent task get research-auth                              # Retrieve
+agent task list                                           # List all
+agent task clear research-auth                            # Remove
+```
+
+Tasks exist independently of agents. Multiple agents can reference the same task.
+
+### State (Key-Value)
+
+Store your working state:
+
+```bash
+agent state set myname status "analyzing auth module"
+agent state set myname progress "3/5 files done"
+agent state get myname status
+agent state list myname
+agent state clear myname
+```
+
+**Use this for coordination.** Other agents can read your state:
+
+```bash
+# Helper writes its status
+agent state set helper status "done"
+agent state set helper result "Found 3 vulnerabilities"
+
+# Coordinator reads it
+agent state get helper status
+agent state get helper result
+```
+
+**Behaviors:**
+- State persists until explicitly cleared or the agent is cleaned up (cleanup deletes state and logs)
+- Reading a non-existent key prints "No state found for X.Y" (not an error)
+
+### Logs
+
+Query captured output from DB (ANSI-stripped):
+
+```bash
+agent logs <name>                  # Last 50 entries
+agent logs <name> --lines 100      # More entries
+agent logs <name> --since 5m       # Since 5 minutes ago
+```
+
+### Capture vs Logs: When to Use Which
+
+| Method | Source | Use When |
+|--------|--------|----------|
+| `capture` | Live terminal buffer | Need current screen state, checking prompts |
+| `logs` | DB (persistent) | Need historical output, timestamped entries |
+
+**Capture** is ephemeral - it's whatever's in the tmux scrollback right now. Good for status checks and reading recent output.
+
+**Logs** are persistent - entries are stored with timestamps as the agent runs. Good for debugging what happened, auditing, or recovering context after the fact.
+
+---
+
+## Agent Identity
+
+When an agent is spawned, the `AGENT_NAME` environment variable is set in its session. This is useful for:
+
+1. **Self-identification** - Agent knows its own name without being told
+2. **Queue sender defaults** - `agent queue` uses `AGENT_NAME` as default `--from`
+3. **State namespacing** - Conventionally use your own name for state keys
+
+```bash
+# Inside a spawned agent session, AGENT_NAME is set
+echo $AGENT_NAME  # "helper" (or whatever name was used in spawn)
+
+# Queue uses it automatically
+agent queue coordinator "I'm done"  # --from defaults to $AGENT_NAME
+```
+
+---
+
+## Low-Level Tmux Control
+
+For when you need raw terminal access.
+
+**Naming convention:** When you spawn an agent named `helper`, the tmux session is named `agent-helper`. High-level commands use agent names; low-level commands use session names.
+
+```bash
+agent session new <name>           # Create raw session (no CLI tool)
+agent session kill <name>          # Kill session
+agent session list                 # List all sessions
+
+agent keys <session> "text"        # Send text + Enter
+agent keys <session> "text" --no-enter  # Send text only
+agent key <session> c-c            # Send Ctrl+C
+agent key <session> Enter          # Send Enter
+
+agent clear <session>              # Clear screen + scrollback
+```
+
+**Special keys:** `Enter`, `Escape`, `Tab`, `Space`, `c-c`, `c-d`, `c-z`, `c-l`, `Up`, `Down`, `Left`, `Right`, `Home`, `End`, `PgUp`, `PgDn`, `F1`-`F12`
+
+---
+
+## Rules
+
+### 1. Always Use the Tool
+
+Don't shell out to tmux directly. Don't write to random files. Don't hack around limitations. The tool is the interface.
+
+### 2. Report What You Can't Do
+
+If the tool doesn't support something you need:
+
+```bash
+agent state set myname blocked "Need feature X - agent tool doesn't support it"
+```
+
+Then stop. Don't improvise.
+
+### 3. Clean Up After Yourself
+
+```bash
+# When done with helpers
+agent cleanup helper
+
+# When cleaning up ALL your spawned agents
+agent cleanup --all --as myname
+
+# Clean up all except specific agents
+agent cleanup --all --as myname --except builder,tester
+```
+
+**Cleanup flags:**
+- `--all` - Clean up all agents (requires `--as`)
+- `--as <name>` - Your agent name (prevents self-termination)
+- `--except <names>` - Comma-separated list of agents to skip
+
+### 4. Use State for Coordination
+
+Don't rely on capturing output to coordinate. State is explicit:
+
+```bash
+# BAD - fragile coordination via output parsing
+output=$(agent capture helper --lines 5)
+if [[ "$output" == *"done"* ]]; then ...
+
+# GOOD - explicit coordination via state
+status=$(agent state get helper status)
+if [[ "$status" == "done" ]]; then ...
+```
+
+**The distinction:**
+- **Coordination** (signaling between agents) → Use state. Explicit, reliable.
+- **Diagnostics** (understanding what's happening) → Use capture. Visual inspection, debugging.
+
+### 5. Check Before Spawning
+
+```bash
+agent list
+```
+
+Is there already an agent doing what you need? Reuse it instead of spawning duplicates.
+
+---
+
+## Workflow Example
+
+```bash
+# 1. Spawn a helper
+agent spawn analyzer --backend claude
+
+# 2. Give it work
+agent send analyzer "Analyze auth.go for security issues"
+
+# 3. Let it work, check periodically
+agent status analyzer  # idle? processing?
+
+# 4. When idle, read results
+agent capture analyzer --lines 200
+
+# 5. Or check its state (if it wrote any)
+agent state get analyzer result
+
+# 6. Send follow-up if needed
+agent queue analyzer "Also check session.go"
+
+# 7. When done, cleanup
+agent cleanup analyzer
+```
+
+---
+
+## Common Patterns
+
+### Coordinator + Specialists
+
+```bash
+# Spawn specialists
+agent spawn api-analyzer --backend claude
+agent spawn db-analyzer --backend claude
+
+# Assign tasks
+agent send api-analyzer "Analyze API routes, store findings in state"
+agent send db-analyzer "Analyze database queries, store findings in state"
+
+# Wait for both (poll state)
+while true; do
+  api_done=$(agent state get api-analyzer status)
+  db_done=$(agent state get db-analyzer status)
+  [[ "$api_done" == "done" && "$db_done" == "done" ]] && break
+  sleep 5
+done
+
+# Collect results
+agent state get api-analyzer findings
+agent state get db-analyzer findings
+
+# Cleanup
+agent cleanup api-analyzer
+agent cleanup db-analyzer
+```
+
+### Handoff Pattern
+
+```bash
+# Agent A finishes, signals ready
+agent state set agent-a status "done"
+agent state set agent-a output-file "results.json"
+agent queue agent-b "Agent A is done. Read results from state."
+```
+
+---
+
+## Warts & Limitations
+
+| Issue | Workaround |
+|-------|------------|
+| `queue` needs watcher running | Start `agent watch` in background (use `--interval` to tune) |
+| `status` can return `unknown` | Check state instead, or capture output |
+| Spawn doesn't auto-send task | Use `send` after spawn |
+| No streaming capture | Poll with `capture` periodically |
+| Backend always required | Use `--backend claude` or config file |
+| Watch interval defaults to 2s | Use `agent watch --interval 5s` for less frequent polling |
+
+---
+
+## Data Location
+
+All data lives next to the binary:
+
+```
+.gomuxai/
+└── gomuxai.db    # Everything: agents, messages, tasks, logs, state
+```
+
+Delete the folder, delete all traces. Portable.
+
+---
+
+## If Something Goes Wrong
+
+### Diagnostic Steps
+
+1. Check the agent exists: `agent list`
+2. Check session exists: `agent session list`
+3. Check status: `agent status <name>`
+4. Capture output: `agent capture <name> --lines 200`
+5. Check state: `agent state list <name>`
+
+### Common Failure Modes and Recovery
+
+**Agent not responding (status: unknown)**
+```bash
+# Check if it's actually stuck or just busy (uses agent name)
+agent capture helper --lines 50
+
+# If stuck at a prompt you don't recognize, try sending Enter (uses session name)
+agent key agent-helper Enter
+
+# If truly hung, send interrupt
+agent key agent-helper c-c
+```
+
+Note: `capture` uses agent name (`helper`), but `key` uses session name (`agent-helper`).
+
+**Session exists but agent record doesn't (orphaned session)**
+```bash
+# List raw tmux sessions
+agent session list
+
+# Kill the orphan directly
+agent session kill agent-helper
+```
+
+**Agent record exists but session doesn't (stale record)**
+```bash
+# Cleanup will handle this - it checks session existence
+agent cleanup helper
+```
+
+**Queue messages not being delivered**
+```bash
+# Check if watcher is running (it should print periodic status)
+# If not running, start it:
+agent watch
+
+# Or run in background with custom interval
+agent watch --interval 5s &
+```
+
+Multiple watchers can run safely - they'll just duplicate delivery checks.
+
+**Agent spawned but CLI didn't start**
+```bash
+# Capture to see what happened
+agent capture helper --lines 50
+
+# Maybe the backend CLI isn't installed or PATH issue
+# Kill and retry with corrected environment
+agent cleanup helper
+```
+
+### When to Use Escape Hatches
+
+The low-level commands exist for recovery:
+
+| Situation | Escape Hatch |
+|-----------|--------------|
+| Need to send Ctrl+C to interrupt | `agent key <session> c-c` |
+| Need to clear garbled terminal | `agent clear <session>` |
+| Need raw session without agent record | `agent session new <name>` |
+| High-level command failing | Drop to `agent keys` / `agent capture` |
+
+### Reporting Blockers
+
+If the tool errors or doesn't do what you expect, **set your state to blocked and report it**:
+
+```bash
+agent state set myname status "BLOCKED"
+agent state set myname error "agent send failed with: <error>"
+```
+
+Then stop. Don't improvise workarounds that bypass the tool.
+
+---
+
+## Development Notes
+
+This section explains implementation details for developers working on the tool.
+
+### Architecture: Why Tmux?
+
+The tool is a coordination layer over tmux sessions. Each agent runs in its own tmux session, which provides:
+
+1. **Process isolation** - Agents can crash without taking down others
+2. **Persistent terminals** - Sessions survive disconnects
+3. **Scriptable I/O** - Send keys, capture output programmatically
+4. **Escape hatches** - Low-level control when abstractions fail
+
+The high-level commands (`spawn`, `send`, `queue`, `status`) are conveniences. The low-level commands (`session`, `keys`, `key`, `capture`) expose the underlying tmux operations for when you need direct control.
+
+### Status Detection Internals
+
+Status detection works by capturing terminal output and matching regex patterns:
+
+**Claude backend patterns** (`internal/backend/namedagents/claude.go`):
+- Idle: `^>\s*$` (prompt at line start)
+- Processing: spinner chars (`⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏`), "Thinking", "Using tool", "Writing to", "Reading"
+- Error: "Permission denied", "Rate limit", "Error:", "API Error", "failed", "could not"
+
+**Aider backend patterns** (`internal/backend/namedagents/aider.go`):
+- Idle: `^aider>\s*$`
+- Processing: "Thinking", "Working", "Applying", "Generating", "Streaming"
+
+**Why `unknown` happens:**
+- Output doesn't match any pattern (unusual prompt state)
+- Capturing during transition between states
+- Backend CLI changed its output format
+
+When status is unreliable, use explicit state coordination instead.
+
+### Custom Backend Configuration
+
+Create a JSON file with this structure:
+
+```json
+{
+  "name": "my-backend",
+  "launch_command": "my-cli --some-flag",
+  "init_message": "Please read {taskfile}",
+  "exit_command": "/quit",
+  "idle_pattern": "^> $",
+  "processing_pattern": "(Working|Thinking)"
+}
+```
+
+Use with: `agent spawn helper --backend-config my-backend.json`
+
+### Database Schema
+
+All data is in SQLite (`.gomuxai/gomuxai.db`):
+
+- `agents` - Name, session, backend, task file, created timestamp
+- `messages` - Sender, receiver, content, status (pending/delivered), timestamps
+- `tasks` - Name, content, source file, created timestamp
+- `state` - Agent name, key, value, updated timestamp
+- `logs` - Agent name, content (ANSI-stripped), captured timestamp
+
+---
+
+## Remember
+
+- **The tool is the interface.** Everything through `agent`.
+- **State is for coordination.** Write yours, read others'.
+- **If it doesn't work, report it.** Don't hack around.
+- **Clean up.** Don't leave orphan agents.
+
+---
+> Source: [tikimcfee/gomuxai](https://github.com/tikimcfee/gomuxai) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-25 -->
