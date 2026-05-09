@@ -1,0 +1,9 @@
+{
+  "name": "rhettbull--sqv",
+  "displayName": "sqv",
+  "description": "SQLite database viewer terminal/text user interface (TUI) for exploring SQLite databases.",
+  "version": "1.0.0",
+  "author": "RhetTbull",
+  "homepage": "https://github.com/RhetTbull/sqv",
+  "skills": []
+}
