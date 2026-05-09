@@ -1,84 +1,103 @@
-## 15-react19-activity
+## 20-styles-architecture
 
-> React 19 Activity component usage guidelines
+> Styles architecture and CSS loading strategy
 
 
-# React 19 `<Activity>` Component
+# DocFlow 样式架构规范
 
-React 19 introduces the `<Activity>` component for managing UI and state visibility.
+## 文件结构
 
-## When to Use
+- `src/styles/global.css` - 全局基础样式（Tailwind CSS + 主题变量）
+- `src/styles/index.css` - Tiptap 编辑器样式（仅在 /docs 路由加载）
+- `src/styles/partials/**` - 编辑器样式模块（blocks、collab、code 等）
 
-Use `<Activity>` to preserve component state when hiding/showing UI:
-- **Dialogs and Modals**: Keep form state when users close/reopen
-- **Tab Panels**: Preserve scroll position and input values
-- **Accordions**: Maintain expanded content state
-- **Conditional UI**: Keep state when toggling visibility
+## CSS 加载策略
 
-## Usage Pattern
+### 全局加载（`app/layout.tsx`）
 
-```typescript
-import { Activity } from 'react';
-
-function MyDialog({ open, onOpenChange }) {
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
-        <Activity mode={open ? 'visible' : 'hidden'}>
-          {/* Form content here */}
-          {/* State is preserved when hidden */}
-        </Activity>
-      </DialogContent>
-    </Dialog>
-  );
-}
+```tsx
+import '@/styles/global.css';
 ```
 
-## Benefits
+包含：
 
-1. **State Preservation**: Component state persists when hidden
-2. **Better UX**: Users don't lose work when closing/reopening
-3. **Performance**: Avoids unmounting/remounting overhead
-4. **Simple API**: Just two modes: `visible` and `hidden`
+- Tailwind CSS 基础层、组件层、工具层
+- 主题变量（`:root` 和 `.dark`）
+- 全局样式重置
+- 字体配置
 
-## Best Practices
+### 按需加载（`app/docs/layout.tsx`）
 
-- Wrap content that should preserve state, not the entire dialog
-- Use for forms, complex inputs, or stateful components
-- Combine with proper reset logic (only reset on success, not on close)
-- Don't overuse - only for genuinely stateful content
-
-## Example: Form Dialog
-
-```typescript
-function CreateItemDialog({ open, onOpenChange }) {
-  const [formData, setFormData] = useState({ title: '', content: '' });
-  
-  const handleSuccess = () => {
-    setFormData({ title: '', content: '' }); // Reset only on success
-    onOpenChange(false);
-  };
-
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
-        <Activity mode={open ? 'visible' : 'hidden'}>
-          {/* Form preserves state when closed */}
-          <Input 
-            value={formData.title} 
-            onChange={(e) => setFormData({...formData, title: e.target.value})} 
-          />
-          <Textarea 
-            value={formData.content}
-            onChange={(e) => setFormData({...formData, content: e.target.value})} 
-          />
-          <Button onClick={handleSuccess}>Submit</Button>
-        </Activity>
-      </DialogContent>
-    </Dialog>
-  );
-}
+```tsx
+import '@/styles/index.css';
 ```
+
+包含：
+
+- KaTeX 数学公式样式
+- 代码高亮样式
+- Tiptap 编辑器样式
+- 协作光标样式
+- 表格、列表等编辑器组件样式
+
+## 重要规则
+
+### ✅ 正确做法
+
+1. `global.css` 包含 `@import 'tailwindcss'` 和主题变量
+2. `index.css` **不**重复导入 Tailwind，但可以使用 `@apply` 指令
+3. 编辑器相关的大型 CSS（katex、highlight.js 等）只在 `/docs` 路由加载
+4. 所有 `partials/**` 文件使用 `@apply` 指令，依赖 Tailwind
+
+### ❌ 错误做法
+
+1. ~~在 `index.css` 中重复导入 `@import 'tailwindcss'`~~
+2. ~~在全局 layout 中导入 `index.css`~~
+3. ~~在 `index.css` 中重复定义主题变量~~
+
+## 性能优化原理
+
+- **首页加载**：只加载 ~15KB 的 `global.css`
+- **编辑器页面**：额外加载 ~200KB 的 `index.css`（包括 katex 等）
+- **减少首屏时间**：首页不需要的样式延迟到访问编辑器时才加载
+
+## 文件依赖关系
+
+```
+app/layout.tsx
+  └─ global.css (Tailwind + 主题)
+
+app/docs/layout.tsx
+  └─ index.css
+       ├─ katex.min.css
+       ├─ partials/animations.css (使用 @apply)
+       ├─ partials/blocks.css (使用 @apply)
+       ├─ partials/code.css (使用 @apply)
+       ├─ partials/collab.css
+       ├─ partials/lists.css (使用 @apply)
+       ├─ partials/placeholder.css (使用 @apply)
+       ├─ partials/table.css (使用 @apply)
+       ├─ partials/typography.css (使用 @apply)
+       ├─ partials/draggable.css (使用 @apply)
+       └─ partials/frappe-gantt.css (使用 @apply)
+```
+
+## 修改样式时的注意事项
+
+1. **修改全局样式**：编辑 `global.css`
+2. **修改编辑器样式**：编辑 `index.css` 或相应的 `partials/**` 文件
+3. **添加新的编辑器样式模块**：在 `partials/` 创建新文件，然后在 `index.css` 中导入
+4. **使用 Tailwind 工具类**：可以在任何 CSS 文件中使用 `@apply` 指令
+
+## 测试检查清单
+
+修改样式后，确保：
+
+- [ ] `pnpm build` 成功编译
+- [ ] 首页样式正常显示
+- [ ] 编辑器页面样式正常显示
+- [ ] 没有 CSS 相关的构建警告
+- [ ] 首页不加载编辑器 CSS（检查 Network 面板）
 
 ---
 > Source: [xun082/DocFlow](https://github.com/xun082/DocFlow) — distributed by [TomeVault](https://tomevault.io).
