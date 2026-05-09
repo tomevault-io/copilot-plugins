@@ -1,60 +1,69 @@
-## coding-standards
+## folder-guidelines
 
-> This document outlines coding standards and best practices for the AI Backends project.
+> This document provides guidelines for organizing code in the AI Backends project.
 
-# Coding Standards
+# Folder Organization Guidelines
 
-This document outlines coding standards and best practices for the AI Backends project.
+This document provides guidelines for organizing code in the AI Backends project.
 
-## TypeScript Usage
+## src/config/
 
-- Use proper TypeScript types and avoid `any` when possible
-- Create interfaces for complex data structures
-- Use type guards when necessary for type narrowing
-- Leverage TypeScript's utility types (Pick, Omit, Partial, etc.)
+- Store environment variables, app settings, and configuration values
+- Export constants for API keys, server settings, etc.
+- Configuration should be loaded from environment variables when possible
 
-## API Design
+## src/controllers/
 
-- Follow RESTful principles for resource-based endpoints
-- Use consistent naming conventions for endpoints
-- Document APIs using OpenAPI/Swagger via Hono's built-in support
-- Return appropriate HTTP status codes
-- Implement proper error handling and validation
-- Routes should be in the src/routes folder and named with dash-separated lowercase words
+- Controllers should handle HTTP request/response cycle
+- Extract request data and validate it
+- Call appropriate services to process business logic
+- Format and return responses
+- Keep controllers thin, move business logic to services
 
-## Error Handling
+## src/middlewares/
 
-- Use consistent error handling patterns
-- Provide meaningful error messages
-- Create custom error classes when appropriate
-- Log errors with sufficient context for debugging
-- Don't expose sensitive information in error messages
+- Create reusable middleware functions
+- Handle cross-cutting concerns like authentication, logging, error handling
+- Keep middleware focused on a single responsibility
 
-## Performance Considerations
+## src/models/
 
-- Avoid blocking operations when possible
-- Use caching where appropriate
-- Consider rate limiting for resource-intensive operations
-- Implement pagination for large data sets
-- Implement exponential backoff for all external API calls to avoid hitting rate limits
+- Define data structures and types
+- Create interfaces for database entities if applicable
+- Define schemas for data validation
 
-## Security Best Practices
+## src/routes/
 
-- Sanitize and validate all user input
-- Store sensitive information in environment variables
-- Implement proper authentication and authorization
-- Follow the principle of least privilege
-- Keep dependencies updated
+- Define API routes and endpoints
+- Connect routes to controllers
+- Group related routes in separate files
+- Use descriptive names that reflect the resource being accessed
 
-## AI Integration
+## src/services/
 
-- Handle AI model responses appropriately
-- Set reasonable timeouts for AI model calls
-- Implement fallbacks for when AI services are unavailable
-- Consider streaming responses for long-running AI operations
-- Validate AI output before returning to clients
-- Implement exponential backoff for all external API calls to avoid hitting rate limits
-- Use the reusable AI service layer when connecting from API routes
+- Implement core business logic
+- Handle external API calls
+- Maintain separation of concerns
+- Services should be testable in isolation
+
+## src/utils/
+
+- Create reusable utility functions
+- Keep functions pure when possible
+- Group related utilities in separate files
+
+## src/schemas/
+
+- Define validation schemas using Zod
+- Create reusable schema components
+- Keep schemas aligned with OpenAPI documentation
+
+## tests/
+
+- Create comprehensive test coverage
+- Unit tests should focus on individual functions
+- Integration tests should test API endpoints
+- Use fixtures for test data
 
 ---
 > Source: [donvito/ai-backends](https://github.com/donvito/ai-backends) — distributed by [TomeVault](https://tomevault.io).
