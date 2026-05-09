@@ -1,0 +1,9 @@
+{
+  "name": "dedalus-labs--dedalus-mcp-python",
+  "displayName": "dedalus-mcp-python",
+  "description": "A simple and performant Model Context Protocol framework for Python.",
+  "version": "1.0.0",
+  "author": "dedalus-labs",
+  "homepage": "https://github.com/dedalus-labs/dedalus-mcp-python",
+  "skills": []
+}
