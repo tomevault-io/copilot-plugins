@@ -1,0 +1,130 @@
+{
+  "name": "yoanbernabeu--producthunt-skills",
+  "displayName": "producthunt-skills",
+  "description": "\ud83d\ude80 31 AI Agent Skills for Product Hunt launches. Expert guidance for strategy, content, marketing, compliance & more. Works with Claude Code, Cursor, Codex, and 20+ AI agents.",
+  "version": "1.0.0",
+  "author": "yoanbernabeu",
+  "homepage": "https://github.com/yoanbernabeu/producthunt-skills",
+  "skills": [
+    {
+      "name": "ph-algorithm-guide",
+      "description": ""
+    },
+    {
+      "name": "ph-post-launch-followup",
+      "description": ""
+    },
+    {
+      "name": "ph-thumbnail-creator",
+      "description": ""
+    },
+    {
+      "name": "ph-analytics-setup",
+      "description": ""
+    },
+    {
+      "name": "ph-ban-prevention",
+      "description": ""
+    },
+    {
+      "name": "ph-comment-responder",
+      "description": ""
+    },
+    {
+      "name": "ph-competitor-analysis",
+      "description": ""
+    },
+    {
+      "name": "ph-content-recycling",
+      "description": ""
+    },
+    {
+      "name": "ph-conversion-tracking",
+      "description": ""
+    },
+    {
+      "name": "ph-description-writer",
+      "description": ""
+    },
+    {
+      "name": "ph-email-strategy",
+      "description": ""
+    },
+    {
+      "name": "ph-gallery-assets",
+      "description": ""
+    },
+    {
+      "name": "ph-golden-kitty",
+      "description": ""
+    },
+    {
+      "name": "ph-hunter-finder",
+      "description": ""
+    },
+    {
+      "name": "ph-launch-day-checklist",
+      "description": ""
+    },
+    {
+      "name": "ph-launch-offers",
+      "description": ""
+    },
+    {
+      "name": "ph-launch-strategy",
+      "description": ""
+    },
+    {
+      "name": "ph-maker-comment",
+      "description": ""
+    },
+    {
+      "name": "ph-newsletter-pitch",
+      "description": ""
+    },
+    {
+      "name": "ph-pricing-psychology",
+      "description": ""
+    },
+    {
+      "name": "ph-profile-optimizer",
+      "description": ""
+    },
+    {
+      "name": "ph-real-time-monitor",
+      "description": ""
+    },
+    {
+      "name": "ph-relaunch-strategy",
+      "description": ""
+    },
+    {
+      "name": "ph-safe-messaging",
+      "description": ""
+    },
+    {
+      "name": "ph-seo-benefits",
+      "description": ""
+    },
+    {
+      "name": "ph-social-media-launch",
+      "description": ""
+    },
+    {
+      "name": "ph-supporter-network",
+      "description": ""
+    },
+    {
+      "name": "ph-tagline-writer",
+      "description": ""
+    },
+    {
+      "name": "ph-timing-optimizer",
+      "description": ""
+    },
+    {
+      "name": "ph-video-demo",
+      "description": ""
+    }
+  ]
+}
