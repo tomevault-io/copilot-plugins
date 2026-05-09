@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-nemo--datadesigner",
+  "displayName": "DataDesigner",
+  "description": "\ud83c\udfa8 NeMo Data Designer: Generate high-quality synthetic data from scratch or from seed data.",
+  "version": "1.0.0",
+  "author": "NVIDIA-NeMo",
+  "homepage": "https://github.com/NVIDIA-NeMo/DataDesigner",
+  "skills": []
+}
