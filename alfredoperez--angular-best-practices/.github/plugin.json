@@ -1,0 +1,50 @@
+{
+  "name": "alfredoperez--angular-best-practices",
+  "displayName": "angular-best-practices",
+  "description": "Curated Angular best practices for AI agents",
+  "version": "1.0.0",
+  "author": "alfredoperez",
+  "homepage": "https://github.com/alfredoperez/angular-best-practices",
+  "skills": [
+    {
+      "name": "angular-best-practices",
+      "description": ""
+    },
+    {
+      "name": "angular-best-practices-primeng",
+      "description": ""
+    },
+    {
+      "name": "angular-best-practices-ngrx",
+      "description": ""
+    },
+    {
+      "name": "angular-best-practices-signalstore",
+      "description": ""
+    },
+    {
+      "name": "angular-best-practices-material",
+      "description": ""
+    },
+    {
+      "name": "angular-best-practices-tanstack",
+      "description": ""
+    },
+    {
+      "name": "angular-best-practices-transloco",
+      "description": ""
+    },
+    {
+      "name": "angular-best-practices-spartan",
+      "description": ""
+    },
+    {
+      "name": "angular-best-practices-rule-creator",
+      "description": ""
+    },
+    {
+      "name": "angular-best-practices-rules-reviewer",
+      "description": ""
+    }
+  ]
+}
