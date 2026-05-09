@@ -1,0 +1,9 @@
+{
+  "name": "chrisdoherty4--maint",
+  "displayName": "maint",
+  "description": "A Home Assistant integration to track recurring home maintenance tasks",
+  "version": "1.0.0",
+  "author": "chrisdoherty4",
+  "homepage": "https://github.com/chrisdoherty4/maint",
+  "skills": []
+}
