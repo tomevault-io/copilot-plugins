@@ -1,0 +1,9 @@
+{
+  "name": "doublewordai--autobatcher",
+  "displayName": "autobatcher",
+  "description": "Drop-in AsyncOpenAI replacement that transparently batches requests",
+  "version": "1.0.0",
+  "author": "doublewordai",
+  "homepage": "https://github.com/doublewordai/autobatcher",
+  "skills": []
+}
