@@ -1,0 +1,9 @@
+{
+  "name": "gethuksec--burp-mcp-assistant",
+  "displayName": "Burp-MCP-Assistant",
+  "description": "Burp Suite MCP Assistant in IDE Extension",
+  "version": "1.0.0",
+  "author": "gethuksec",
+  "homepage": "https://github.com/gethuksec/Burp-MCP-Assistant",
+  "skills": []
+}
