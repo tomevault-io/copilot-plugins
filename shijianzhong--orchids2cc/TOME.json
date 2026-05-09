@@ -1,0 +1,44 @@
+{
+  "name": "orchids2cc",
+  "owner": "shijianzhong",
+  "repo": "orchids2cc",
+  "description": "\u7c7b\u4f3c\u628a kiro \u6216\u8005\u662fantigravity\u7684claude \u6a21\u578b \u4ee3\u7406\uff08\u5077\uff09\u51fa\u6765 \u7ed9 claude code\u7528\uff1b\u628aorchids app \u7684\u6a21\u578b\u4ee3\u7406",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shijianzhong/orchids2cc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T01:05:27Z"
+}
