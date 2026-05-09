@@ -1,0 +1,9 @@
+{
+  "name": "hexrayssa--ida-cyberchef",
+  "displayName": "ida-cyberchef",
+  "description": "A Qt-based CyberChef interface designed for malware analysis workflows, particularly in IDA Pro",
+  "version": "1.0.0",
+  "author": "HexRaysSA",
+  "homepage": "https://github.com/HexRaysSA/ida-cyberchef",
+  "skills": []
+}
