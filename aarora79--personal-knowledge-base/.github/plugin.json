@@ -1,0 +1,9 @@
+{
+  "name": "aarora79--personal-knowledge-base",
+  "displayName": "personal-knowledge-base",
+  "description": "LLM-authored knowledge base on Generative AI. Raw sources are clipped and compiled into interlinked wiki articles by Claude Code.",
+  "version": "1.0.0",
+  "author": "aarora79",
+  "homepage": "https://github.com/aarora79/personal-knowledge-base",
+  "skills": []
+}
