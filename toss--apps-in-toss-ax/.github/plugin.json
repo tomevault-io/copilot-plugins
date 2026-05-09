@@ -1,0 +1,9 @@
+{
+  "name": "toss--apps-in-toss-ax",
+  "displayName": "apps-in-toss-ax",
+  "description": "An AI-powered MCP/CLI toolkit for AppsInToss mini-app development, designed to assist the entire workflow from documentation and code examples to project scaffolding, building, and deployment",
+  "version": "1.0.0",
+  "author": "toss",
+  "homepage": "https://github.com/toss/apps-in-toss-ax",
+  "skills": []
+}
