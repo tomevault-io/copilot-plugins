@@ -1,0 +1,9 @@
+{
+  "name": "childrengreens--distributed-lock-spring-boot-starter",
+  "displayName": "distributed-lock-spring-boot-starter",
+  "description": "distributed-lock-spring-boot-starter is a distributed lock starter for Spring Boot, designed to provide reliable and extensible distributed locking capabilities for applications through minimal intrus",
+  "version": "1.0.0",
+  "author": "ChildrenGreens",
+  "homepage": "https://github.com/ChildrenGreens/distributed-lock-spring-boot-starter",
+  "skills": []
+}
