@@ -1,0 +1,9 @@
+{
+  "name": "averyy--esp-uac2-host",
+  "displayName": "esp-uac2-host",
+  "description": "USB Audio Class 2.0 host driver for ESP32-S3",
+  "version": "1.0.0",
+  "author": "Averyy",
+  "homepage": "https://github.com/Averyy/esp-uac2-host",
+  "skills": []
+}
