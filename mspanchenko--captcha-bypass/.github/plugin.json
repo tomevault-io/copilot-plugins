@@ -1,0 +1,9 @@
+{
+  "name": "mspanchenko--captcha-bypass",
+  "displayName": "captcha-bypass",
+  "description": "Self-hosted async captcha bypass service with HTTP API. Tested on Cloudflare and Amazon challenges.",
+  "version": "1.0.0",
+  "author": "MSPanchenko",
+  "homepage": "https://github.com/MSPanchenko/captcha-bypass",
+  "skills": []
+}
