@@ -1,0 +1,9 @@
+{
+  "name": "computer-vision-with-marco--yolo-training-template",
+  "displayName": "yolo-training-template",
+  "description": "In this repo there are some tips and a template to train your YOLO model for any kind of computer vision application",
+  "version": "1.0.0",
+  "author": "computer-vision-with-marco",
+  "homepage": "https://github.com/computer-vision-with-marco/yolo-training-template",
+  "skills": []
+}
