@@ -1,0 +1,9 @@
+{
+  "name": "apoorvdarshan--github-readme-contribution-merger",
+  "displayName": "github-readme-contribution-merger",
+  "description": "Merge multiple GitHub users' contribution graphs into a single SVG heatmap for your readme.",
+  "version": "1.0.0",
+  "author": "apoorvdarshan",
+  "homepage": "https://github.com/apoorvdarshan/github-readme-contribution-merger",
+  "skills": []
+}
