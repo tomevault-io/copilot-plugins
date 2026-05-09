@@ -1,0 +1,9 @@
+{
+  "name": "levitateos--levitateos",
+  "displayName": "LevitateOS",
+  "description": "A Linux distribution where you maintain your own packages. Write simple Rhai recipes, build from source, with local AI assistance. Full control, no upstream dependencies.",
+  "version": "1.0.0",
+  "author": "LevitateOS",
+  "homepage": "https://github.com/LevitateOS/LevitateOS",
+  "skills": []
+}
