@@ -1,47 +1,73 @@
-## third-party-testing
+## harbor
 
-> How to give 3rd party developers a test harness they can generate or import from Harbor
+> This file provides guidance for AI coding assistants working on the Harbor codebase.
 
+# Agent Guidelines for Harbor Development
 
-# Third-Party Testing: Generate & Import
+This file provides guidance for AI coding assistants working on the Harbor codebase.
 
-When a **third-party developer** (or the user) wants to **test their app** that uses the Web Agents API (`window.ai` / `window.agent`) and is building on Harbor, help them get the **test harness** from this repo so they can accelerate testing.
+## Browser Priority
 
-## How they get the harness
+**Firefox is the PRIMARY browser.** All development, testing, and demos should target Firefox first.
 
-1. **Generate into their project (recommended)**  
-   From the **Harbor repo root** run:
-   ```bash
-   node scripts/generate-test-harness.mjs /path/to/their/project
-   ```
-   This creates `their-project/harbor-test/` with:
-   - `mock.js` – installable mock for `window.ai` and `window.agent` (unit tests, no browser)
-   - `playwright.harbor.config.example.ts` – Playwright config for E2E with extensions
-   - `fixtures/harbor.ts` – optional Playwright fixture
-   - `web-agents-api.d.ts` – TypeScript declarations
-   - `README.md` – how to use each piece
+- Firefox: Primary target
+- Chrome/Chromium: Secondary target  
+- Safari: Tertiary target (macOS App Store distribution)
 
-2. **Copy from the template**  
-   If they can’t run the script (e.g. they only have a clone or Cursor is in their project and Harbor is referenced), **copy the contents** of `spec/testing/harness-template/` into their project (e.g. into `harbor-test/` or `tests/harbor/`). Same files as above.
+## Extension Architecture
 
-3. **Point Cursor at Harbor**  
-   If they’re in **their** project and have added Harbor as a reference (e.g. `@harbor` or path to Harbor repo), you can:
-   - Suggest they run the generator from their machine (clone Harbor, then `node path/to/harbor/scripts/generate-test-harness.mjs .` from their project root), or
-   - Copy the template files from Harbor’s `spec/testing/harness-template/` into their project and tell them how to import the mock and use the Playwright example.
+Harbor uses a **two-extension architecture**:
 
-## What to tell them
+1. **Harbor Extension** (`extension/dist-firefox/`)
+   - Background service for LLM providers, MCP servers, native bridge
+   - Does NOT inject APIs into web pages directly
 
-- **Unit / integration tests:** Use `installWebAgentsMock(globalThis)` (or `window` in a browser env), then e.g. `mock.permissions.grantAll()`, `mock.ai.textSessionResponse = '...'`. Their code that calls `window.ai` / `window.agent` then runs against the mock.
-- **E2E tests:** They need Playwright and the two extension paths (Harbor + Web Agents API). The generated `playwright.harbor.config.example.ts` shows how to load both extensions; they set `HARBOR_EXTENSION_PATH` and `WEB_AGENTS_EXTENSION_PATH` to their Harbor build output (e.g. `extension/dist-chrome`, `web-agents-api/dist-chrome`).
-- **Entry points in Harbor:** `spec/testing/README.md`, `docs/THIRD_PARTY_TESTING_PLAN.md`, and this rule.
+2. **Web Agents API Extension** (`web-agents-api/dist-firefox/`)
+   - Injects `window.ai` and `window.agent` into web pages
+   - Requires Harbor extension to be installed for full functionality
 
-## When this applies
+Both extensions must be loaded for demos and tests to work properly.
 
-- User asks how to test their app that uses Harbor or the Web Agents API.
-- User wants a “test harness,” “mocks for window.ai,” or “E2E with Harbor extensions.”
-- User has referenced Harbor (or is in Harbor) and wants to give another team or project a way to test Harbor-based code.
+## Build Commands
 
-Do **not** use this rule for Harbor’s own internal tests (those live under `tests/` and use `tests/e2e/fixtures/`); this rule is for **external** developers building on top of Harbor.
+```bash
+# Build for Firefox (default)
+npm run build
+
+# Build for Chrome
+npm run build:chrome
+
+# Build for all browsers
+npm run build:all
+```
+
+## Testing
+
+```bash
+# Run unit tests
+npm run test:unit
+
+# Run E2E browser tests (Firefox)
+cd tests/e2e && npm run test:browser
+
+# Run with browser visible for debugging
+cd tests/e2e && npm run test:browser:keep-open
+```
+
+## Key Directories
+
+- `extension/` - Harbor core extension
+- `web-agents-api/` - Web Agents API extension (page-facing)
+- `bridge-rs/` - Native messaging bridge (Rust)
+- `demo/` - Demo pages for testing
+- `tests/e2e/` - End-to-end browser tests (Harbor's own)
+- `spec/testing/` - Test harness for **third-party** apps: run `scripts/generate-test-harness.mjs <target-dir>` to give them mocks + Playwright E2E
+
+## Common Pitfalls
+
+1. **Don't use Chromium for testing** - Use Firefox
+2. **Don't forget both extensions** - Most features need both Harbor AND Web Agents API
+3. **Check native bridge connection** - Many features require the Rust bridge running
 
 ---
 > Source: [r/Harbor](https://github.com/r/Harbor) — distributed by [TomeVault](https://tomevault.io).
