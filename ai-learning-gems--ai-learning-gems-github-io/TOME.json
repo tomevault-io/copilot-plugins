@@ -2,7 +2,7 @@
   "name": "AI-Learning-Gems.github.io",
   "owner": "AI-Learning-Gems",
   "repo": "AI-Learning-Gems.github.io",
-  "description": "",
+  "description": "Textbook-style AI notes: researched by LLMs, curated by me",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AI-Learning-Gems/AI-Learning-Gems.github.io",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T05:55:53Z"
+  "distributed_at": "2026-05-09T17:43:34Z"
 }
