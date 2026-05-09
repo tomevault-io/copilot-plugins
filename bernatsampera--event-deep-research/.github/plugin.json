@@ -1,0 +1,9 @@
+{
+  "name": "bernatsampera--event-deep-research",
+  "displayName": "event-deep-research",
+  "description": "AI Agent that researches the lives of historical figures and extracts events into structured JSON timelines using LangGraph multi-agent orchestration.",
+  "version": "1.0.0",
+  "author": "bernatsampera",
+  "homepage": "https://github.com/bernatsampera/event-deep-research",
+  "skills": []
+}
