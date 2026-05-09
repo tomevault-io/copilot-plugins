@@ -1,15 +1,15 @@
-## product-filter-accessibility
+## product-media-gallery-accessibility
 
-> Product filter component accessibility compliance pattern
+> Enforce product media gallery component accessibility standards and proper landmark structure for media galleries
 
 
-# Product Filter Component Accessibility Standards
+# Product Media Gallery Component Accessibility Standards
 
-Ensures product filter components follow WCAG compliance and WAI-ARIA Disclosure Pattern specifications, including sort controls and grid layout buttons.
+Ensures product media gallery components follow WCAG compliance and provide proper accessibility for image, video, and 3D model galleries with screen reader support and keyboard navigation.
 
 <rule>
-name: product_filter_accessibility_standards
-description: Enforce product filter component accessibility standards and WAI-ARIA Disclosure Pattern compliance
+name: product_media_gallery_accessibility_standards
+description: Enforce product media gallery component accessibility standards and proper landmark structure for media galleries
 filters:
   - type: file_extension
     pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
@@ -17,422 +17,562 @@ filters:
 actions:
   - type: enforce
     conditions:
-      # Filter disclosure button role requirement (for non-button elements)
-      - pattern: "(?i)<(div|span)[^>]*(?:filter|disclosure|expand|collapse)[^>]*>"
-        pattern_negate: "role=\"button\""
-        message: "Non-button filter disclosure controls must have role='button'. Native button elements have implicit role and don't need explicit role attribute."
+      # Missing gallery container landmark role
+      - pattern: "(?i)<(div|section)[^>]*(?:gallery|media.*gallery|product.*gallery)[^>]*>"
+        pattern_negate: "role=\"region\""
+        message: "Product media gallery containers must have role='region' to provide proper landmark structure."
 
-      # Filter disclosure aria-expanded requirement
-      - pattern: "(?i)<[^>]*role=\"button\"[^>]*(?:filter|disclosure|expand|collapse)[^>]*>"
-        pattern_negate: "aria-expanded=\"(true|false)\""
-        message: "Filter disclosure controls must have aria-expanded attribute set to 'true' or 'false'."
+      # Missing gallery landmark aria-labelledby
+      - pattern: "(?i)<[^>]*role=\"region\"[^>]*(?:gallery|media.*gallery|product.*gallery)[^>]*>"
+        pattern_negate: "aria-labelledby=\"[^\"]+\""
+        message: "Gallery region must have aria-labelledby referencing a heading element for proper screen reader identification."
 
-      # Filter disclosure missing keyboard event handlers
-      - pattern: "(?i)<[^>]*role=\"button\"[^>]*(?:filter|disclosure|expand|collapse)[^>]*>"
-        pattern_negate: "(onKeyDown|onkeydown|@keydown|v-on:keydown)"
-        message: "Filter disclosure controls should handle keyboard events (Enter, Space, and Escape)."
+      # Missing gallery landmark heading
+      - pattern: "(?i)<[^>]*role=\"region\"[^>]*(?:gallery|media.*gallery|product.*gallery)[^>]*>"
+        pattern_negate: "<h[1-6][^>]*id=\"[^\"]+\"[^>]*>"
+        message: "Gallery region must contain a heading element with unique ID for aria-labelledby reference."
 
-      # Missing Escape key support for filter content
-      - pattern: "(?i)<div[^>]*(?:filter.*content|content.*filter)[^>]*>"
-        pattern_negate: "(onKeyDown|onkeydown|@keydown|v-on:keydown)"
-        message: "Filter content areas should handle Escape key to close filter and return focus to launcher."
+      # Missing gallery viewer container
+      - pattern: "(?i)<[^>]*role=\"region\"[^>]*(?:gallery|media.*gallery|product.*gallery)[^>]*>"
+        pattern_negate: "<(div|section)[^>]*(?:viewer|display|main.*image)[^>]*>"
+        message: "Gallery region must contain a gallery viewer container for displaying selected media."
 
-      # Filter disclosure content not a sibling
-      - pattern: "(?i)<[^>]*role=\"button\"[^>]*(?:filter|disclosure)[^>]*>"
-        pattern_negate: "<(div|section)[^>]*id=\"[^\"]+\"[^>]*>"
-        message: "Filter disclosure content must be a sibling to the disclosure control in the DOM."
+      # Gallery viewer missing proper image alt text
+      - pattern: "(?i)<img[^>]*(?:gallery|viewer|main.*image)[^>]*>"
+        pattern_negate: "alt=\"[^\"]+\""
+        message: "Gallery viewer images must have descriptive alt text via alt attribute for screen reader accessibility."
 
-      # Grid layout buttons missing aria-current
-      - pattern: "(?i)<(button|div|span)[^>]*(?:grid|layout|view)[^>]*>"
+      # Hidden media not properly hidden from assistive technology
+      - pattern: "(?i)<(img|video|iframe)[^>]*(?:gallery|media)[^>]*>"
+        pattern_negate: "(hidden|aria-hidden=\"true\"|display.*none|visibility.*hidden)"
+        message: "Hidden media items must use hidden attribute to remove them from both visual and assistive technology access."
+
+      # Thumbnail buttons missing button element structure
+      - pattern: "(?i)<(div|span)[^>]*(?:thumbnail|thumb)[^>]*>"
+        pattern_negate: "(<button|role=\"button\")"
+        message: "Thumbnail media selectors must use button elements or have role='button' for proper keyboard accessibility."
+
+      # Thumbnail buttons missing descriptive aria-label
+      - pattern: "(?i)<button[^>]*(?:thumbnail|thumb)[^>]*>"
+        pattern_negate: "aria-label=\"[^\"]*[Ll]oad[^\"]*[Mm]edia[^\"]*[Gg]allery[^\"]*[Vv]iewer[^\"]*\""
+        message: "Thumbnail buttons must have descriptive aria-label like 'Load media 1 into gallery viewer' for screen reader context."
+
+      # Missing aria-current on active thumbnail
+      - pattern: "(?i)<button[^>]*(?:thumbnail|thumb)[^>]*>"
         pattern_negate: "aria-current=\"(true|false)\""
-        message: "Grid layout buttons must have aria-current attribute set to 'true' or 'false'."
+        message: "Thumbnail buttons must have aria-current attribute to indicate which media is currently loaded in the viewer."
 
-      # Sort filter missing proper labeling
-      - pattern: "(?i)<(button|div|span)[^>]*(?:sort|order)[^>]*>"
-        pattern_negate: "(aria-label|aria-labelledby)"
-        message: "Sort filter controls should have proper labeling for screen reader context."
+      # Missing aria-describedby on thumbnail buttons
+      - pattern: "(?i)<button[^>]*(?:thumbnail|thumb)[^>]*>"
+        pattern_negate: "aria-describedby=\"[^\"]+\""
+        message: "Thumbnail buttons must have aria-describedby referencing the underlying media ID for alt text context."
 
-      # Sort filter using checkboxes instead of radio buttons
-      - pattern: "(?i)<input[^>]*type=\"checkbox\"[^>]*(?:sort|order)[^>]*>"
-        message: "Sort filter options should use radio buttons since only one option can be selected at a time."
+      # Missing aria-controls on thumbnail buttons
+      - pattern: "(?i)<button[^>]*(?:thumbnail|thumb)[^>]*>"
+        pattern_negate: "aria-controls=\"[^\"]+\""
+        message: "Thumbnail buttons must have aria-controls referencing the gallery viewer container ID."
 
-      # Checkbox groups missing fieldset
-      - pattern: "(?i)<input[^>]*type=\"checkbox\"[^>]*(?:filter|option)[^>]*>"
-        pattern_negate: "<fieldset"
-        message: "Filter checkbox groups should be wrapped in fieldset elements for proper grouping."
-
-      # Fieldset missing legend
-      - pattern: "(?i)<fieldset[^>]*(?:filter|option)[^>]*>"
-        pattern_negate: "<legend"
-        message: "Filter fieldsets must have legend elements to provide context for the group."
-
-      # Filter options missing proper IDs
-      - pattern: "(?i)<input[^>]*type=\"checkbox\"[^>]*(?:filter|option)[^>]*>"
-        pattern_negate: "id=\"[^\"]+\""
-        message: "Filter checkboxes should have unique ID attributes for proper labeling."
-
-      # Missing product count live region
-      - pattern: "(?i)<[^>]*(?:product.*count|count.*product)[^>]*>"
+      # Missing live region for media loading announcements
+      - pattern: "(?i)<(div|section)[^>]*(?:gallery|media.*gallery|product.*gallery)[^>]*>"
         pattern_negate: "role=\"status\""
-        message: "Product count displays should use role='status' for screen reader announcements."
+        message: "Gallery must include a live region with role='status' for announcing media loading completion to screen readers."
 
+      # Live region with unnecessary aria-hidden attribute
+      - pattern: "(?i)<[^>]*role=\"status\"[^>]*(?:gallery|media)[^>]*aria-hidden=\"true\"[^>]*>"
+        message: "Gallery live region should not use aria-hidden='true' when content is dynamically managed through JavaScript."
 
+      # Live region with redundant aria-live attribute
+      - pattern: "(?i)<[^>]*role=\"status\"[^>]*aria-live=\"[^\"]*\"[^>]*>"
+        message: "Live regions with role='status' should not include aria-live attribute as it's redundant and unnecessary."
 
-      # Missing main products heading
-      - pattern: "(?i)<[^>]*(?:product.*filter|filter.*product)[^>]*>"
-        pattern_negate: "<h1[^>]*>.*[Pp]roducts?[^<]*</h1>"
-        message: "Product filter pages should have an h1 heading with 'Products' for proper page structure."
+      # Live region with unnecessary aria-hidden attribute
+      - pattern: "(?i)<[^>]*role=\"status\"[^>]*aria-hidden=\"true\"[^>]*>"
+        message: "Live regions with role='status' should not use aria-hidden='true' when content is dynamically managed through JavaScript."
+
+      # Missing list structure for thumbnail grid layout
+      - pattern: "(?i)<(div|section)[^>]*(?:thumbnail|thumb)[^>]*>"
+        pattern_negate: "(<ul|<ol|<li)"
+        message: "Desktop thumbnail layouts should use list structure (ul/ol/li) to convey the number of available media items."
+
+      # Mobile slider missing navigation controls
+      - pattern: "(?i)<(div|section)[^>]*(?:mobile.*slider|slider.*mobile|thumbnail.*slider)[^>]*>"
+        pattern_negate: "(previous|next|arrow|navigation)"
+        message: "Mobile thumbnail sliders must include previous/next navigation controls for accessing hidden thumbnails."
+
+      # Mobile slider missing proper hiding of off-screen content
+      - pattern: "(?i)<(div|section)[^>]*(?:mobile.*slider|slider.*mobile|thumbnail.*slider)[^>]*>"
+        pattern_negate: "(hidden|aria-hidden=\"true\"|display.*none)"
+        message: "Mobile slider content not currently visible must be hidden from both visual and assistive technology access."
+
+      # Zoom button missing proper labeling
+      - pattern: "(?i)<button[^>]*(?:zoom|expand|enlarge)[^>]*(?:gallery|viewer)[^>]*>"
+        pattern_negate: "aria-label=\"[^\"]*[Zz]oom[^\"]*[Ii]mage[^\"]*\""
+        message: "Gallery zoom buttons must have aria-label='Zoom image' for proper screen reader identification."
+
+      # Zoom button missing modal functionality
+      - pattern: "(?i)<button[^>]*(?:zoom|expand|enlarge)[^>]*(?:gallery|viewer)[^>]*>"
+        pattern_negate: "(onClick|onclick|@click|v-on:click|role=\"button\")"
+        message: "Gallery zoom buttons must have proper click handlers to launch modal windows for expanded viewing."
+
+      # Zoom button missing aria-haspopup
+      - pattern: "(?i)<button[^>]*(?:zoom|expand|enlarge)[^>]*(?:gallery|viewer)[^>]*>"
+        pattern_negate: "aria-haspopup=\"dialog\""
+        message: "Gallery zoom buttons must have aria-haspopup='dialog' to indicate they open a dialog popup."
+
+      # Missing focus management for media changes
+      - pattern: "(?i)<button[^>]*(?:thumbnail|thumb)[^>]*>"
+        pattern_negate: "(onClick|onclick|@click|v-on:click)"
+        message: "Thumbnail buttons must have click handlers to load media into the gallery viewer and manage focus appropriately."
+
+      # Missing focus restoration on modal close
+      - pattern: "(?i)<button[^>]*(?:close|dismiss)[^>]*(?:modal|dialog)[^>]*>"
+        pattern_negate: "(onClick|onclick|@click|v-on:click)"
+        message: "Modal close buttons should have proper click handlers to close the dialog and restore focus to the activator."
+
+      # Gallery viewer missing proper ID for aria-controls reference
+      - pattern: "(?i)<(div|section)[^>]*(?:viewer|display|main.*image)[^>]*>"
+        pattern_negate: "id=\"[^\"]+\""
+        message: "Gallery viewer container must have unique ID for aria-controls reference from thumbnail buttons."
+
+      # Thumbnail media missing proper ID for aria-describedby reference
+      - pattern: "(?i)<(img|video|iframe)[^>]*(?:thumbnail|thumb)[^>]*>"
+        pattern_negate: "id=\"[^\"]+\""
+        message: "Thumbnail media items must have unique IDs for aria-describedby reference from thumbnail buttons."
 
   - type: suggest
     message: |
-      **Product Filter Component Accessibility Best Practices:**
+      **Product Media Gallery Component Accessibility Best Practices:**
 
-      **Page Structure Requirements:**
-      - Use `<h1>` for the main "Products" heading
-      - Wrap filter controls and product count in a `<div class="products-header">`
-      - Remove separate section headings for filters and product cards
-      - Present filters, count, and products as one cohesive section
-
-      **Product Count Live Region:**
-      - Add product count display with `role="status"`
-      - Use unique ID for the count text element (e.g., `id="product-count-text"`)
-      - Update count dynamically as filters are applied/removed
-      - Ensure count is announced to screen readers when it changes
-
-      **Required ARIA Attributes:**
-      - **role='button':** Only required for non-button elements (native button elements have implicit role)
-      - **aria-expanded:** 'true' if filter content is visible, 'false' if hidden
-      - **aria-controls:** Reference to the ID of the associated filter content
-      - **aria-current:** Set on grid layout buttons ('true' for active, 'false' for inactive)
-      - **aria-label/aria-labelledby:** Provide context for sort controls
-
-      **DOM Structure Requirements:**
-      - Filter disclosure content MUST be a sibling to the disclosure control
-      - Checkbox groups should be wrapped in fieldset with legend
-      - Grid layout buttons should be grouped together
-      - Maintain logical reading order in the DOM
-
-      **Keyboard Interaction Requirements:**
-      - **Enter/Space:** Toggle filter disclosure content visibility
-      - **Tab:** Navigate through filter controls and options
-      - **Arrow keys:** Navigate within checkbox groups
-      - **Escape:** Close open filter disclosures and return focus to launcher button
-
-      **Implementation Patterns:**
-
-            **Complete Page Structure:**
+      **1. Gallery Container Structure:**
       ```html
-      <h1>Products</h1>
+      <!-- Gallery region landmark -->
+      <div role="region" aria-labelledby="gallery-heading" class="product-gallery">
+        <h2 id="gallery-heading" class="visually-hidden">Gallery Viewer</h2>
+        <!-- Gallery viewer for main media display -->
+        <div id="gallery-viewer" class="gallery-viewer">
+          <img src="product-1.jpg"
+               alt="Product front view showing design details"
+               class="main-image">
 
-      <div class="products-header">
-        <form action="/products/filter" method="get" id="product-filters-form">
-          <div class="filter-section">
-            <!-- Filter groups here -->
-          </div>
-        </form>
-
-        <div role="status" class="product-count">
-          <span id="product-count-text">3 products</span>
-        </div>
-      </div>
-
-      <div class="product-grid" id="product-grid">
-        <!-- Product cards here -->
-      </div>
-      ```
-
-      **Basic Filter Disclosure:**
-      ```html
-      <form action="/products/filter" method="get" id="product-filters-form">
-        <div class="filter-group">
+          <!-- Optional zoom button -->
           <button type="button"
-                  aria-expanded="false"
-                  aria-controls="size-filter-content">
-            Size Filter
+                  class="zoom-button"
+                  aria-label="Zoom image"
+                  aria-haspopup="dialog"
+                  onclick="openImageModal()">
+            <svg aria-hidden="true" width="24" height="24">
+              <!-- Zoom icon -->
+            </svg>
           </button>
-          <div id="size-filter-content" hidden>
-            <fieldset>
-              <legend>Select sizes</legend>
-              <label for="size-s">
-                <input type="checkbox" id="size-s" name="size" value="s">
-                Small
-              </label>
-              <label for="size-m">
-                <input type="checkbox" id="size-m" name="size" value="m">
-                Medium
-              </label>
-              <label for="size-l">
-                <input type="checkbox" id="size-l" name="size" value="l">
-                Large
-              </label>
-            </fieldset>
-          </div>
         </div>
-      </form>
-      ```
 
-      **Sort Filter with Disclosure:**
-      ```html
-      <form action="/products/filter" method="get" id="product-filters-form">
-        <div class="sort-filter">
-          <button type="button"
-                  aria-expanded="false"
-                  aria-controls="sort-options-content">
-            Sort by
-          </button>
-          <div id="sort-options-content" hidden>
-            <fieldset>
-              <legend>Sort options</legend>
-              <label for="sort-featured">
-                <input type="radio" id="sort-featured" name="sort" value="featured">
-                Featured
-              </label>
-              <label for="sort-date-newest">
-                <input type="radio" id="sort-date-newest" name="sort" value="date-newest">
-                Date (Newest to Oldest)
-              </label>
-              <label for="sort-date-oldest">
-                <input type="radio" id="sort-date-oldest" name="sort" value="date-oldest">
-                Date (Oldest to Newest)
-              </label>
-              <label for="sort-alphabetical-az">
-                <input type="radio" id="sort-alphabetical-az" name="sort" value="alphabetical-az">
-                Alphabetical (A-Z)
-              </label>
-              <label for="sort-alphabetical-za">
-                <input type="radio" id="sort-alphabetical-za" name="sort" value="alphabetical-za">
-                Alphabetical (Z-A)
-              </label>
-            </fieldset>
-          </div>
+        <!-- Thumbnail navigation -->
+        <div class="thumbnail-section">
+          <ul class="thumbnail-list">
+            <li>
+              <button type="button"
+                      class="thumbnail-button"
+                      aria-label="Load media 1 into gallery viewer"
+                      aria-current="true"
+                      aria-describedby="media-1"
+                      aria-controls="gallery-viewer"
+                      onclick="loadMedia(1)">
+                <img src="product-1-thumb.jpg"
+                     id="media-1"
+                     alt="Product front view thumbnail"
+                     class="thumbnail-image">
+              </button>
+            </li>
+            <li>
+              <button type="button"
+                      class="thumbnail-button"
+                      aria-label="Load media 2 into gallery viewer"
+                      aria-current="false"
+                      aria-describedby="media-2"
+                      aria-controls="gallery-viewer"
+                      onclick="loadMedia(2)">
+                <img src="product-2-thumb.jpg"
+                     id="media-2"
+                     alt="Product side view thumbnail"
+                     class="thumbnail-image">
+              </button>
+            </li>
+          </ul>
         </div>
-      </form>
-      ```
 
-      **Grid Layout Controls:**
-      ```html
-      <div class="layout-controls">
-        <button type="button"
-                aria-current="true"
-                aria-label="Grid layout"
-                onclick="setLayout('grid')">
-          <span class="sr-only">Grid layout</span>
-          <svg><!-- Grid icon --></svg>
-        </button>
-        <button type="button"
-                aria-current="false"
-                aria-label="List layout"
-                onclick="setLayout('list')">
-          <span class="sr-only">List layout</span>
-          <svg><!-- List icon --></svg>
-        </button>
+        <!-- Live region for announcements -->
+        <div class="visually-hidden"
+             role="status"
+             id="gallery-announcement">
+        </div>
       </div>
       ```
 
-      **JavaScript for Grid Layout:**
+      **2. JavaScript Media Loading Function:**
       ```javascript
-      function setLayout(layout) {
-        const buttons = document.querySelectorAll('[aria-label*="layout"]');
+      function loadMedia(mediaIndex) {
+        const galleryViewer = document.getElementById('gallery-viewer');
+        const thumbnailButtons = document.querySelectorAll('.thumbnail-button');
+        const announcement = document.getElementById('gallery-announcement');
 
-        buttons.forEach(button => {
-          if (button.getAttribute('aria-label').includes(layout)) {
-            button.setAttribute('aria-current', 'true');
-          } else {
-            button.setAttribute('aria-current', 'false');
+        // Update aria-current states
+        thumbnailButtons.forEach((button, index) => {
+          button.setAttribute('aria-current', index === mediaIndex - 1 ? 'true' : 'false');
+        });
+
+        // Load new media into viewer
+        const newMedia = getMediaByIndex(mediaIndex);
+        galleryViewer.innerHTML = `
+          <img src="${newMedia.src}"
+               alt="${newMedia.alt}"
+               class="main-image">
+          <button type="button"
+                  class="zoom-button"
+                  aria-label="Zoom image"
+                  onclick="openImageModal()">
+            <svg aria-hidden="true" width="24" height="24">
+              <!-- Zoom icon -->
+            </svg>
+          </button>
+        `;
+
+        // Announce media change
+        announcement.textContent = `Media ${mediaIndex} is now available in gallery view`;
+
+        // Hide announcement after 3 seconds
+        setTimeout(() => {
+          announcement.textContent = '';
+        }, 3000);
+
+        // Maintain focus on thumbnail button
+        event.target.focus();
+      }
+      ```
+
+      **3. Unified Thumbnail System Implementation:**
+      ```html
+      <!-- Single thumbnail list for both desktop and mobile -->
+      <div class="thumbnail-container">
+        <button type="button"
+                class="slider-nav prev"
+                aria-label="Previous thumbnails"
+                onclick="slideThumbnails('prev')">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+          </svg>
+        </button>
+
+        <ul class="thumbnail-list" id="thumbnails">
+          <li>
+            <button type="button"
+                    class="thumbnail-button"
+                    aria-label="Load media 1 into gallery viewer"
+                    aria-current="true"
+                    aria-describedby="media-1"
+                    aria-controls="gallery-viewer"
+                    onclick="loadMedia(1)">
+              <img src="product-1-thumb.jpg"
+                   id="media-1"
+                   alt="Product front view thumbnail"
+                   class="thumbnail-image">
+            </button>
+          </li>
+          <li>
+            <button type="button"
+                    class="thumbnail-button"
+                    aria-label="Load media 2 into gallery viewer"
+                    aria-current="false"
+                    aria-describedby="media-2"
+                    aria-controls="gallery-viewer"
+                    onclick="loadMedia(2)">
+              <img src="product-2-thumb.jpg"
+                   id="media-2"
+                   alt="Product side view thumbnail"
+                   class="thumbnail-image">
+            </button>
+          </li>
+          <!-- Additional thumbnails as needed -->
+        </ul>
+
+        <button type="button"
+                class="slider-nav next"
+                aria-label="Next thumbnails"
+                onclick="slideThumbnails('next')">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+          </svg>
+        </button>
+      </div>
+      ```
+
+      **4. CSS for Unified Thumbnail System:**
+      ```css
+      /* Thumbnail container with navigation */
+      .thumbnail-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        max-width: 100%;
+      }
+
+      /* Desktop grid layout */
+      .thumbnail-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 12px;
+        list-style: none;
+        margin: 0 auto;
+        padding: 0;
+        flex-wrap: wrap;
+        transition: transform 0.3s ease-in-out;
+        text-align: center;
+      }
+
+      /* Mobile slider layout */
+      @media screen and (max-width: 749px) {
+        .thumbnail-container {
+          overflow: hidden;
+          padding: 0 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .thumbnail-list {
+          flex-wrap: nowrap;
+          justify-content: center;
+          gap: 8px;
+          min-width: max-content;
+          transform: translateX(0);
+          position: relative;
+          left: 50%;
+          margin-left: -50%;
+        }
+
+        .slider-nav {
+          display: block;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 2;
+        }
+
+        .slider-nav.prev {
+          left: 0;
+        }
+
+        .slider-nav.next {
+          right: 0;
+        }
+      }
+
+      /* Hide navigation on desktop */
+      @media screen and (min-width: 750px) {
+        .slider-nav {
+          display: none;
+        }
+      }
+      ```
+
+      **5. Modal Window Integration:**
+      ```javascript
+      function openImageModal() {
+        const galleryViewer = document.getElementById('gallery-viewer');
+        const currentImage = galleryViewer.querySelector('.main-image');
+        const zoomButton = document.querySelector('.zoom-button');
+
+        // Create modal with current image
+        const modal = document.createElement('div');
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('aria-labelledby', 'modal-title');
+        modal.className = 'image-modal';
+
+        modal.innerHTML = `
+          <div class="modal-content">
+            <button type="button"
+                    class="close-button"
+                    aria-label="Close modal"
+                    onclick="closeImageModal()">
+              &times;
+            </button>
+            <h2 id="modal-title" class="visually-hidden">Product Image</h2>
+            <img src="${currentImage.src}"
+                 alt="${currentImage.alt}"
+                 class="modal-image">
+          </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        // Focus management
+        const closeButton = modal.querySelector('.close-button');
+        closeButton.focus();
+
+        // Trap focus within modal
+        trapFocus(modal);
+      }
+
+      function closeImageModal() {
+        const modal = document.querySelector('.image-modal');
+        if (modal) {
+          // Restore focus to the zoom button
+          const zoomButton = document.querySelector('.zoom-button');
+          if (zoomButton) {
+            zoomButton.focus();
+          }
+          modal.remove();
+        }
+      }
+
+      // Infinite loop thumbnail navigation
+      function slideThumbnails(direction) {
+        const thumbnailList = document.querySelector('#thumbnails');
+        const thumbnails = thumbnailList.querySelectorAll('li');
+        const visibleCount = 3; // Number of visible thumbnails on mobile
+        const thumbnailWidth = 68; // 60px width + 8px gap
+        const currentTransform = getComputedStyle(thumbnailList).transform;
+        const currentX = currentTransform === 'none' ? 0 : parseInt(currentTransform.split(',')[4]) || 0;
+
+        let newX = currentX;
+
+        if (direction === 'next') {
+          newX = currentX - (visibleCount * thumbnailWidth);
+        } else if (direction === 'prev') {
+          newX = currentX + (visibleCount * thumbnailWidth);
+        }
+
+        // Infinite loop - wrap around when reaching the end
+        const totalWidth = thumbnails.length * thumbnailWidth;
+        if (newX <= -totalWidth) {
+          newX = 0;
+        } else if (newX > 0) {
+          newX = -totalWidth + (visibleCount * thumbnailWidth);
+        }
+
+        thumbnailList.style.transform = `translateX(${newX}px)`;
+      }
+      ```
+
+      **6. Accessibility Testing Checklist:**
+      ```javascript
+      function testGalleryAccessibility() {
+        const issues = [];
+
+        // Check landmark structure
+        const galleryRegion = document.querySelector('[role="region"][aria-label*="Gallery"]');
+        if (!galleryRegion) {
+          issues.push('Missing gallery region landmark');
+        }
+
+        // Check thumbnail button accessibility
+        const thumbnailButtons = document.querySelectorAll('.thumbnail-button');
+        thumbnailButtons.forEach((button, index) => {
+          if (!button.getAttribute('aria-label')) {
+            issues.push(`Thumbnail button ${index + 1} missing aria-label`);
+          }
+          if (!button.getAttribute('aria-describedby')) {
+            issues.push(`Thumbnail button ${index + 1} missing aria-describedby`);
+          }
+          if (!button.getAttribute('aria-controls')) {
+            issues.push(`Thumbnail button ${index + 1} missing aria-controls`);
           }
         });
 
-        // Update visual layout
-        updateProductLayout(layout);
-      }
-      ```
-
-      **JavaScript for Filter Toggle with Escape Support:**
-      ```javascript
-      function toggleFilter(button) {
-        const isExpanded = button.getAttribute('aria-expanded') === 'true';
-        const content = document.getElementById(button.getAttribute('aria-controls'));
-
-        button.setAttribute('aria-expanded', !isExpanded);
-        content.hidden = isExpanded;
-
-        if (!isExpanded) {
-          // Add escape key listener to content
-          content.addEventListener('keydown', handleEscapeKey);
-        } else {
-          // Remove escape key listener
-          content.removeEventListener('keydown', handleEscapeKey);
+        // Check live region
+        const liveRegion = document.querySelector('[role="status"]');
+        if (!liveRegion) {
+          issues.push('Missing live region for announcements');
         }
-      }
 
-      function handleEscapeKey(event) {
-        if (event.key === 'Escape') {
-          const content = event.target.closest('[hidden]');
-          if (content) {
-            const button = document.querySelector(`[aria-controls="${content.id}"]`);
-            if (button) {
-              button.setAttribute('aria-expanded', 'false');
-              content.hidden = true;
-              button.focus(); // Return focus to launcher
-              content.removeEventListener('keydown', handleEscapeKey);
-            }
+        // Check image alt text
+        const images = document.querySelectorAll('img');
+        images.forEach((img, index) => {
+          if (!img.alt) {
+            issues.push(`Image ${index + 1} missing alt text`);
           }
-        }
-      }
+        });
 
-      // Update product count
-      function updateProductCount() {
-        const visibleProducts = document.querySelectorAll('.product-card:not([hidden])');
-        const count = visibleProducts.length;
-        const countText = document.getElementById('product-count-text');
-        countText.textContent = `${count} product${count !== 1 ? 's' : ''}`;
+        return issues;
       }
-
-      // Initialize product count on page load
-      document.addEventListener('DOMContentLoaded', function() {
-        updateProductCount();
-      });
       ```
 
-      **Complete Filter Implementation:**
-      ```html
-      <h1>Products</h1>
+      **Gallery Structure Requirements:**
 
-      <div class="products-header">
-        <form action="/products/filter" method="get" id="product-filters-form">
-          <div class="filter-section">
-            <!-- Size Filter -->
-            <div class="filter-group">
-              <button type="button"
-                      aria-expanded="false"
-                      aria-controls="size-filter-content">
-                Size
-              </button>
-              <div id="size-filter-content" hidden>
-                <fieldset>
-                  <legend>Select sizes</legend>
-                  <label for="size-s">
-                    <input type="checkbox" id="size-s" name="size" value="s">
-                    Small
-                  </label>
-                  <label for="size-m">
-                    <input type="checkbox" id="size-m" name="size" value="m">
-                    Medium
-                  </label>
-                  <label for="size-l">
-                    <input type="checkbox" id="size-l" name="size" value="l">
-                    Large
-                  </label>
-                </fieldset>
-              </div>
-            </div>
+      **Landmark Structure:**
+      - **role="region"**: On gallery container
+      - **aria-labelledby**: References heading ID for gallery identification
+      - **Heading element**: h2-h6 with unique ID for semantic structure
+      - **Proper heading hierarchy**: Use h2-h6 for gallery sections
 
-            <!-- Color Filter -->
-            <div class="filter-group">
-              <button type="button"
-                      aria-expanded="false"
-                      aria-controls="color-filter-content">
-                Color
-              </button>
-              <div id="color-filter-content" hidden>
-                <fieldset>
-                  <legend>Select colors</legend>
-                  <label for="color-red">
-                    <input type="checkbox" id="color-red" name="color" value="red">
-                    Red
-                  </label>
-                  <label for="color-blue">
-                    <input type="checkbox" id="color-blue" name="color" value="blue">
-                    Blue
-                  </label>
-                  <label for="color-green">
-                    <input type="checkbox" id="color-green" name="color" value="green">
-                    Green
-                  </label>
-                </fieldset>
-              </div>
-            </div>
+      **Gallery Viewer:**
+      - **Unique ID**: For aria-controls reference
+      - **Alt text**: Descriptive alt text on main images
+      - **Zoom button**: Properly labeled with aria-label and aria-haspopup="dialog"
+      - **Focus management**: Maintain focus during media changes
+      - **Modal focus restoration**: Return focus to zoom button when modal closes
 
-            <!-- Sort Filter -->
-            <div class="sort-filter">
-              <button type="button"
-                      aria-expanded="false"
-                      aria-controls="sort-options-content">
-                Sort by
-              </button>
-              <div id="sort-options-content" hidden>
-                <fieldset>
-                  <legend>Sort options</legend>
-                  <label for="sort-featured">
-                    <input type="radio" id="sort-featured" name="sort" value="featured">
-                    Featured
-                  </label>
-                  <label for="sort-date">
-                    <input type="radio" id="sort-date" name="sort" value="date">
-                    Date
-                  </label>
-                  <label for="sort-alphabetical">
-                    <input type="radio" id="sort-alphabetical" name="sort" value="alphabetical">
-                    Alphabetical
-                  </label>
-                </fieldset>
-              </div>
-            </div>
+      **Thumbnail Navigation:**
+      - **Button elements**: Use native button or role="button"
+      - **Descriptive labels**: aria-label with "Load media X into gallery viewer"
+      - **State indication**: aria-current="true" for active media
+      - **Context information**: aria-describedby for media alt text
+      - **Control reference**: aria-controls for gallery viewer
 
-            <!-- Layout Controls -->
-            <div class="layout-controls">
-              <button type="button"
-                      aria-current="true"
-                      aria-label="Grid layout"
-                      onclick="setLayout('grid')">
-                <span class="sr-only">Grid layout</span>
-                <svg><!-- Grid icon --></svg>
-              </button>
-              <button type="button"
-                      aria-current="false"
-                      aria-label="List layout"
-                      onclick="setLayout('list')">
-                <span class="sr-only">List layout</span>
-                <svg><!-- List icon --></svg>
-              </button>
-            </div>
-          </div>
-        </form>
+      **Live Announcements:**
+      - **role="status"**: For live region functionality (no aria-live needed)
+      - **Dynamic content management**: JavaScript inserts/removes text content
+      - **No aria-hidden**: Content managed through JavaScript, not ARIA attributes
+      - **Timing control**: 3-second display before hiding
 
-        <div role="status" class="product-count">
-          <span id="product-count-text">3 products</span>
-        </div>
-      </div>
+      **Mobile Responsiveness:**
+      - **Unified system**: Single thumbnail list for both desktop and mobile
+      - **Infinite loop navigation**: Previous/next controls with seamless wrapping
+      - **Smooth animations**: CSS transitions for thumbnail sliding
+      - **Responsive layout**: Grid on desktop, horizontal slider on mobile
+      - **Touch accessibility**: Proper touch targets and gestures
 
-      <div class="product-grid" id="product-grid">
-        <!-- Product cards here -->
-      </div>
-      ```
+      **Modal Integration:**
+      - **Zoom functionality**: Button overlaid on gallery viewer
+      - **Modal compliance**: Follow modal accessibility standards
+      - **Focus management**: Proper focus trapping and restoration
+      - **Close controls**: Accessible close button with proper labeling
 
-      **JavaScript Considerations:**
-      - Implement Enter and Space key handlers for disclosure toggles
-      - Update aria-expanded state when filter content toggles
-      - Manage aria-current state for layout buttons
-      - Handle filter state changes and update product display
-      - Implement proper focus management when filters open/close
-      - Consider implementing live regions for dynamic content updates
+      **Testing and Validation:**
+      - Test with screen readers (NVDA, JAWS, VoiceOver)
+      - Verify landmark navigation works correctly
+      - Check thumbnail button announcements
+      - Test unified thumbnail system on both desktop and mobile
+      - Validate infinite loop navigation functionality
+      - Test smooth thumbnail sliding animations
+      - Validate modal window accessibility
+      - Ensure focus management works properly
+      - Test with keyboard-only navigation
+      - Verify responsive design across different screen sizes
+      - Test thumbnail center alignment on all devices
 
-      **Accessibility Notes:**
-      - Filter content MUST be a sibling to the control in the DOM
-      - Use fieldset and legend for checkbox/radio groups
-      - Provide clear labels for all filter controls
-      - Test with screen readers to ensure proper announcement
-      - Consider adding aria-live regions for dynamic filter results
-      - Maintain proper focus management when filters toggle
-      - Ensure grid layout buttons have clear visual and screen reader indicators
-
-      **Testing Requirements:**
-      - Test keyboard navigation through all filter controls
-      - Verify disclosure content opens/closes with keyboard
-      - Test screen reader announcement of filter states
-      - Verify aria-current updates correctly on layout changes
-      - Test focus management when filters open/close
-      - Ensure filter results update properly with screen readers
+      **Common Mistakes to Avoid:**
+      - Missing role="region" on gallery container
+      - Incomplete aria-labelledby on gallery region
+      - Missing heading element with unique ID for aria-labelledby
+      - Missing alt text on gallery images
+      - Thumbnail buttons without proper button semantics
+      - Missing aria-current state management
+      - Incomplete aria-describedby references
+      - Missing aria-controls on thumbnail buttons
+      - Live region not properly managed
+      - Separate thumbnail systems for desktop and mobile (use unified system)
+      - Mobile slider without infinite loop navigation
+      - Zoom button without modal functionality
+      - Missing focus management during media changes
+      - Missing aria-haspopup="dialog" on zoom button
+      - Missing focus restoration when modal closes
+      - Redundant aria-live attribute on role="status" elements
+      - Unnecessary aria-hidden on dynamically managed live regions
+      - Missing smooth animations for thumbnail navigation
+      - Incomplete responsive design implementation
 
 metadata:
   priority: high
