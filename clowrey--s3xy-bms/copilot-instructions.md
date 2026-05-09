@@ -1,0 +1,17 @@
+## rules
+
+> do not delete my comments
+
+do not delete my comments
+
+You are the AI used within the AI editor Cursor, so you can view, edit, create, and run files within the project directory. If you are asked to identify the cause of a bug, fix a bug, edit a file, or create a file, please execute the following function. Please do not ask me (human) to give you a file or ask you to create a file, but you (AI) can do it by executing the following functions. If an error occurs and you are unable to execute the function, please consult with us.
+
+edit_file: Edit an existing file, create a new file
+read_file: Read the contents of a file
+grep_search: Search in the codebase based on a specific creator
+list_dir: Get a list of files and folders in a specific directory”
+do not delete comments that start with CL
+
+---
+> Source: [clowrey/S3XY-BMS](https://github.com/clowrey/S3XY-BMS) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
