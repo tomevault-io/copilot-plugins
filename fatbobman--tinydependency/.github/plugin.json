@@ -1,0 +1,9 @@
+{
+  "name": "fatbobman--tinydependency",
+  "displayName": "TinyDependency",
+  "description": "A lightweight dependency injection library for Swift with Task-local scoping and test/   preview-aware defaults.",
+  "version": "1.0.0",
+  "author": "fatbobman",
+  "homepage": "https://github.com/fatbobman/TinyDependency",
+  "skills": []
+}
