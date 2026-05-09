@@ -1,0 +1,9 @@
+{
+  "name": "legacycodehq--clarity-cli",
+  "displayName": "clarity-cli",
+  "description": "Clarity is a software design tool for AI-native developers and coding agents.",
+  "version": "1.0.0",
+  "author": "LegacyCodeHQ",
+  "homepage": "https://github.com/LegacyCodeHQ/clarity-cli",
+  "skills": []
+}
