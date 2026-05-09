@@ -1,11 +1,15 @@
-## repo
+## structure
 
-> GitHub repo is at https://github.com/shovon/logseq-ai.
+> Files are organized by feature; not by functionality.
 
 
-GitHub repo is at https://github.com/shovon/logseq-ai.
+Files are organized by feature; not by functionality.
 
-All issues should be read from there.
+So there's generally no dedicated `views` folder. It's all just features.
+
+For example, if `App.tsx` will rely on a component, but no other component will rely on it, then don't place the component in some `views` folder; just put it in the same `App` folder.
+
+The only time functionality are factored in is when it is shared across different parts of the code (such as services).
 
 ---
 > Source: [shovon/logseq-ai](https://github.com/shovon/logseq-ai) — distributed by [TomeVault](https://tomevault.io).
