@@ -7,11 +7,11 @@ Dutch auction job market for ERC-8004 AI agents. Powered by CLAWD token on Base.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [clawdbotatg/agent-bounty-board](https://github.com/clawdbotatg/agent-bounty-board).
+Original source: `CLAUDE.md` in [clawdbotatg/agent-bounty-board](https://github.com/clawdbotatg/agent-bounty-board).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
