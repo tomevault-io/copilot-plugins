@@ -1,0 +1,9 @@
+{
+  "name": "intina47--context-sync",
+  "displayName": "context-sync",
+  "description": "Local persistent memory store for LLM applications including continue.dev, cursor, claude desktop, github copilot, codex, antigravity, etc.",
+  "version": "1.0.0",
+  "author": "Intina47",
+  "homepage": "https://github.com/Intina47/context-sync",
+  "skills": []
+}
