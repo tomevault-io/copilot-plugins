@@ -1,29 +1,15 @@
-## color
+## i18n
 
-> write a component
+> 1. 阅读并遵循 https://www.i18next.com/translation-function/formatting
 
-# UIKit Colors for Tailwind CSS
+i18n 编写规范。
 
-You should use @https://github.com/Innei/apple-uikit-colors/blob/main/packages/uikit-colors/macos.ts TailwindCSS atom classname.
-
-Use Apple UIKit color system with Tailwind classes. **Important**: Always use the correct Tailwind prefix for each color category:
-
-**System Colors**: `text-red`, `bg-red`, `border-red` (same for `orange`, `yellow`, `green`, `mint`, `teal`, `cyan`, `blue`, `indigo`, `purple`, `pink`, `brown`, `gray`)
-
-**Fill Colors**:
-
-- Background: `bg-fill`, `bg-fill-secondary`, `bg-fill-tertiary`, `bg-fill-quaternary`, `bg-fill-quinary`, `bg-fill-vibrant`, `bg-fill-vibrant-secondary`, `bg-fill-vibrant-tertiary`, `bg-fill-vibrant-quaternary`, `bg-fill-vibrant-quinary`
-- Border: `border-fill`, `border-fill-secondary`, etc.
-
-**Text Colors**: `text-text`, `text-text-secondary`, `text-text-tertiary`, `text-text-quaternary`, `text-text-quinary`, `text-text-vibrant`, `text-text-vibrant-secondary`, `text-text-vibrant-tertiary`, `text-text-vibrant-quaternary`, `text-text-vibrant-quinary`
-
-**Material Colors**: `bg-material-ultra-thick`, `bg-material-thick`, `bg-material-medium`, `bg-material-thin`, `bg-material-ultra-thin`, `bg-material-opaque`
-
-**Control Colors**: `bg-control-enabled`, `bg-control-disabled`
-
-**Interface Colors**: `bg-menu`, `bg-popover`, `bg-titlebar`, `bg-sidebar`, `bg-selection-focused`, `bg-selection-focused-fill`, `bg-selection-unfocused`, `bg-selection-unfocused-fill`, `bg-header-view`, `bg-tooltip`, `bg-under-window-background`
-
-These colors automatically adapt to light/dark mode following Apple's design system. Remember to use the appropriate prefix (`text-`, `bg-`, `border-`) based on the CSS property you're styling.
+1. 阅读并遵循 https://www.i18next.com/translation-function/formatting
+2. 使用扁平键。使用 `.` 方式分割。不能使用 object 形式嵌套。
+3. 对单复数敏感的语言应该区分，使用 `_one` 和 `_other` 的形式。
+4. 在 build 阶段，扁平化的点分隔键（如 'exif.custom.rendered.custom'）会自动转换为嵌套的 object 对象，因此可能引发冲突。例如，'exif.custom.rendered.custom' 会与 'exif.custom.rendered' 发生冲突。请避免使用此类点分隔的扁平键。
+5. @locales 位于根目录，需要同时处理已有的全部的语言
+6. 你需要修改 [en.json](mdc:locales/app/en.json) 然后再修改 [zh-CN.json](mdc:locales/app/zh-CN.json) 和其他语言。因为 eslint 会自动删除其他 json 中的 en 中没有的 key。
 
 ---
 > Source: [Afilmory/afilmory](https://github.com/Afilmory/afilmory) — distributed by [TomeVault](https://tomevault.io).
