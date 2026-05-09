@@ -1,160 +1,163 @@
-## ui-development-guidelines
+## unit-testing-guidelines
 
-> UI Development Guidelines
+> Project Guidelines for Unit Testing
 
+- Use (the unit testing guidelines)[https://github.com/MetaMask/contributor-docs/blob/main/docs/testing/unit-testing.md]
 
-# MetaMask Mobile React Native UI Development Guidelines
+# Developer Best Practices
 
-## Core Principle
-
-Always prioritize @metamask/design-system-react-native components and Tailwind CSS patterns over custom implementations.
-
-## Component Hierarchy (STRICT ORDER)
-
-1. **FIRST**: Use `@metamask/design-system-react-native` components
-2. **SECOND**: Use `app/component-library` components only if design system lacks the component
-3. **LAST RESORT**: Custom components with StyleSheet (avoid unless absolutely necessary)
-
-## Required Imports for React Native
-
-```tsx
-// ALWAYS prefer these imports
-import { useTailwind } from '@metamask/design-system-twrnc-preset';
-import {
-  Box,
-  Text,
-  Button,
-  ButtonBase,
-  Icon,
-  TextVariant,
-  BoxFlexDirection,
-  BoxAlignItems,
-  BoxJustifyContent,
-  // ... other design system components
-} from '@metamask/design-system-react-native';
+- Use meaningful test names that describe the purpose, not implementation details.
+```ts
+it('displays an error when input is invalid', () => { ... });
+```
+- Structure tests using the AAA pattern (Arrange, Act, Assert) for readability and maintainability.
+```ts
+// Arrange
+const input = 'bad';
+// Act
+const result = validate(input);
+// Assert
+expect(result).toBe(false);
+```
+- Each test must cover one behavior and be isolated from others.
+```ts
+it('returns true for valid email', () => { expect(isEmail('a@b.com')).toBe(true); });
+```
+- Favor focused assertions and clear structure.
+```ts
+expect(screen.getByText('Welcome')).toBeOnTheScreen();
+```
+- Avoid duplicated or polluted tests.
+```ts
+// Only define shared mocks once, not in every test
+beforeEach(() => mockReset());
+```
+- Use mocks only when necessary.
+```ts
+jest.mock('api'); // mock only when calling real API is not feasible
+```
+- Parameterize tests to cover all values (e.g., enums) with type-safe iteration.
+```ts
+it.each(['small', 'medium', 'large'] as const)('renders %s size', (size) => {
+  expect(renderComponent(size)).toBeOnTheScreen();
+});
+```
+- Prefer comments like "Given / When / Then" for test case clarity.
+```ts
+// Given a logged out user
+// When they visit the dashboard
+// Then they should be redirected to login
 ```
 
-## Styling Rules (ENFORCE STRICTLY)
+# Test Determinism & Brittleness
 
-### ✅ ALWAYS DO:
+- Avoid brittle tests: do not test internal state or UI snapshots for logic.
+- Only test public behavior, not implementation details.
+- Mock time, randomness, and external systems to ensure consistent results.
+```ts
+jest.useFakeTimers();
+jest.setSystemTime(new Date('2024-01-01'));
+```
+- Avoid relying on global state or hardcoded values (e.g., dates) or mock it.
 
-- Use `const tw = useTailwind();` hook instead of importing twrnc directly
-- Use `Box` component instead of `View`
-- Use `Text` component with variants instead of raw Text with styles
-- Use `twClassName` prop for static styles
-- Use `tw.style()` function for interactive/dynamic styles
-- Use design system color tokens: `bg-default`, `text-primary`, `border-muted`
-- Use component props first: `variant`, `color`, `size`, etc.
+# Reviewer Responsibilities
 
-### ❌ NEVER SUGGEST:
+- Validate that tests fail when the code is broken (test the test).
+```ts
+// Break the SuT and make sure this test fails
+expect(result).toBe(false);
+```
+- Ensure tests use proper matchers (`toBeOnTheScreen` vs `toBeDefined`).
+- Do not approve PRs without reviewing snapshot diffs.
+- Reject tests with complex names combining multiple logical conditions (AND/OR).
+```ts
+// OK
+it('renders button when enabled')
 
-- `import tw from 'twrnc'` (use useTailwind hook instead)
-- `StyleSheet.create()` (use Tailwind classes)
-- Raw `View` or `Text` components (use Box/Text from design system)
-- Arbitrary color values like `bg-[#3B82F6]` or `text-[#000000]`
-- Inline style objects unless for dynamic values
-- Mixing multiple styling approaches unnecessarily
-
-## Code Pattern Templates
-
-### Basic Container:
-
-```tsx
-const MyComponent = () => {
-  const tw = useTailwind();
-
-  return (
-    <Box twClassName="w-full bg-default p-4">
-      <Text variant={TextVariant.HeadingMd}>Title</Text>
-    </Box>
-  );
-};
+// NOT OK
+it('renders and disables button when input is empty or invalid')
 ```
 
-### Flex Layout:
+# Refactoring Support
 
-```tsx
-<Box
-  flexDirection={BoxFlexDirection.Row}
-  alignItems={BoxAlignItems.Center}
-  justifyContent={BoxJustifyContent.Between}
-  twClassName="gap-3"
->
+- Ensure tests provide safety nets during refactors and logic changes. Run the tests before pushing commits!
+- Encourage small, testable components.
+- Unit tests must act as documentation for feature expectations.
+
+# Anti-patterns to Avoid
+
+- ❌ Do not consider snapshot coverage as functional coverage.
+```ts
+expect(component).toMatchSnapshot(); // 🚫 not behavior validation
+```
+- ❌ Do not rely on code coverage percentage without real assertions.
+```ts
+// 100% lines executed, but no assertions
+```
+- ❌ Do not use weak matchers like `toBeDefined` or `toBeTruthy` to assert element presence.
+```ts
+expect(queryByText('Item')).toBeOnTheScreen(); // ✅ use strong matchers
 ```
 
-### Interactive Element:
+# Unit tests developement workflow
 
-```tsx
-<ButtonBase
-  twClassName="h-20 flex-1 rounded-lg bg-muted px-0 py-4"
-  style={({ pressed }) =>
-    tw.style(
-      'w-full flex-row items-center justify-center',
-      pressed && 'bg-pressed',
-    )
-  }
->
-  <Text fontWeight={FontWeight.Medium}>Button Text</Text>
-</ButtonBase>
+- Always run unit tests after making code changes.
+```shell
+yarn test:unit
+```
+- Confirm all tests are passing before commit.
+- When a snapshot update is detected, confirm the changes are expected.
+- Do not blindly update snapshots without understanding the differences.
+
+# Reference Code Examples
+
+## ✅ Proper Test Structure (AAA)
+```ts
+it('indicates expired milk when past due date', () => {
+  // Arrange
+  const today = new Date('2025-06-01');
+  const milk = { expiration: new Date('2025-05-30') };
+
+  // Act
+  const result = isMilkGood(today, milk);
+
+  // Assert
+  expect(result).toBe(false);
+});
 ```
 
-### Pressable with Tailwind:
-
-```tsx
-<Pressable
-  style={({ pressed }) =>
-    tw.style(
-      'w-full flex-row items-center justify-between px-4 py-2',
-      pressed && 'bg-pressed',
-    )
-  }
->
+## ❌ Brittle Snapshot
+```ts
+it('renders the button', () => {
+  const { container } = render(<MyButton />);
+  expect(container).toMatchSnapshot(); // 🚫 fails on minor style changes
+});
 ```
 
-## Component Conversion Guide
+## ✅ Robust UI Assertion
+```ts
+it('displays error message when API fails', async () => {
+  mockApi.failOnce();
+  const { findByText } = render(<MyComponent />);
+  expect(await findByText('Something went wrong')).toBeOnTheScreen();
+});
+```
 
-| DON'T Use                            | USE Instead                            |
-| ------------------------------------ | -------------------------------------- |
-| `<View>`                             | `<Box>`                                |
-| `<Text style={...}>`                 | `<Text variant={TextVariant.BodyMd}>`  |
-| `StyleSheet.create()`                | `twClassName="..."`                    |
-| `style={{ backgroundColor: 'red' }}` | `twClassName="bg-error-default"`       |
-| `flexDirection: 'row'`               | `flexDirection={BoxFlexDirection.Row}` |
-| Manual padding/margin                | `twClassName="p-4 m-2"`                |
+## ✅ Test the Test
+```ts
+it('hides selector when disabled', () => {
+  const { queryByTestId } = render(<Selector enabled={false} />);
+  expect(queryByTestId('IPFS_GATEWAY_SELECTED')).toBeNull();
 
-## Error Prevention
+  // Intentionally break: render with enabled=true and see if test fails
+});
+```
 
-When you see these patterns, IMMEDIATELY suggest alternatives:
+# Resources
 
-- Any `import tw from 'twrnc'` → `import { useTailwind } from '@metamask/design-system-twrnc-preset'`
-- Any `View` component → `Box` from design system
-- Any `StyleSheet` usage → Tailwind classes
-- Any arbitrary color values → Design system tokens
-- Any manual flex properties → Box component props + twClassName
-
-## Design System Priority
-
-Before suggesting any UI solution:
-
-1. Check if `@metamask/design-system-react-native` has the component
-2. Use component's built-in props (variant, color, size)
-3. Add layout/spacing with `twClassName`
-4. Add interactions with `tw.style()`
-5. Only suggest component-library or custom components if design system lacks it
-
-## Reference Examples
-
-Always reference the patterns from `app/component-library/components/design-system.stories.tsx` for proper usage examples.
-
-## Enforcement
-
-- REJECT any code suggestions that use StyleSheet.create()
-- REJECT raw View/Text usage when Box/Text components exist
-- REQUIRE useTailwind hook for all Tailwind usage
-- REQUIRE design system components as first choice
-- ENFORCE design token usage over arbitrary values
-
-@app/component-library/components/design-system.stories.tsx
+- Contributor docs: https://github.com/MetaMask/contributor-docs/blob/main/docs/testing/unit-testing.md
+- Jest Matchers: https://jestjs.io/docs/using-matchers
+- React Native Testing Library: https://testing-library.com/docs/react-native-testing-library/intro/
 
 ---
 > Source: [MiloOweno/node-forge](https://github.com/MiloOweno/node-forge) — distributed by [TomeVault](https://tomevault.io).
