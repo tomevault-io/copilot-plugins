@@ -1,0 +1,9 @@
+{
+  "name": "open-spaced-repetition--srs-simulator",
+  "displayName": "srs-simulator",
+  "description": "A fast, dual\u2011engine spaced\u2011repetition simulator for comparing schedulers, memory models, and study behaviors at scale.",
+  "version": "1.0.0",
+  "author": "open-spaced-repetition",
+  "homepage": "https://github.com/open-spaced-repetition/srs-simulator",
+  "skills": []
+}
