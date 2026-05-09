@@ -1,0 +1,9 @@
+{
+  "name": "zpdcqu--langchain-skills-agent",
+  "displayName": "langchain-skills-agent",
+  "description": "LangChain 1.0 Skills Agent",
+  "version": "1.0.0",
+  "author": "zpdcqu",
+  "homepage": "https://github.com/zpdcqu/langchain-skills-agent",
+  "skills": []
+}
