@@ -7,11 +7,11 @@ A native desktop GUI for managing open agent skills
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Hccake/skill-deck](https://github.com/Hccake/skill-deck).
+Original source: `CLAUDE.md` in [Hccake/skill-deck](https://github.com/Hccake/skill-deck).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
