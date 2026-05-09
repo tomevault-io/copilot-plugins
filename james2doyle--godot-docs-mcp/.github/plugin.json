@@ -1,0 +1,9 @@
+{
+  "name": "james2doyle--godot-docs-mcp",
+  "displayName": "godot-docs-mcp",
+  "description": "A hosted MCP for searching and fetching the Godot docs",
+  "version": "1.0.0",
+  "author": "james2doyle",
+  "homepage": "https://github.com/james2doyle/godot-docs-mcp",
+  "skills": []
+}
