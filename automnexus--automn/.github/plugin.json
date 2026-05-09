@@ -1,0 +1,9 @@
+{
+  "name": "automnexus--automn",
+  "displayName": "Automn",
+  "description": "Author, manage, and run scripts anywhere. Automn turns your code into callable webhooks or REST APIs complete with variable handling, logging, optional security and notifications so you can automate t",
+  "version": "1.0.0",
+  "author": "AutomNexus",
+  "homepage": "https://github.com/AutomNexus/Automn",
+  "skills": []
+}
