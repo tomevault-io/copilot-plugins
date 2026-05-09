@@ -1,0 +1,9 @@
+{
+  "name": "grigorijejakisic--claudex",
+  "displayName": "Claudex",
+  "description": " Claudex \u2014 Persistent memory, incremental checkpointing, and context-aware intelligence for Claude Code. Hook-based system that survives context compaction, tracks 1M token sessions, and makes Claude ",
+  "version": "1.0.0",
+  "author": "grigorijejakisic",
+  "homepage": "https://github.com/grigorijejakisic/Claudex",
+  "skills": []
+}
