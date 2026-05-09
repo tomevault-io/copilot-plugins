@@ -1,0 +1,9 @@
+{
+  "name": "hoveychen--claw-fleet",
+  "displayName": "claw-fleet",
+  "description": "Mission control for your Claude Code agents.",
+  "version": "1.0.0",
+  "author": "hoveychen",
+  "homepage": "https://github.com/hoveychen/claw-fleet",
+  "skills": []
+}
