@@ -1,0 +1,9 @@
+{
+  "name": "sammcj--force-hidpi",
+  "displayName": "force-hidpi",
+  "description": "Virtual display for macOS to work around the M4/M5 Apple Silicon regression with 4k external displays not running in HiDPI mode",
+  "version": "1.0.0",
+  "author": "sammcj",
+  "homepage": "https://github.com/sammcj/force-hidpi",
+  "skills": []
+}
