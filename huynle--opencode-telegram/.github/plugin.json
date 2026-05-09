@@ -1,0 +1,9 @@
+{
+  "name": "huynle--opencode-telegram",
+  "displayName": "opencode-telegram",
+  "description": "Telegram bot that orchestrates multiple OpenCode instances through forum topics",
+  "version": "1.0.0",
+  "author": "huynle",
+  "homepage": "https://github.com/huynle/opencode-telegram",
+  "skills": []
+}
