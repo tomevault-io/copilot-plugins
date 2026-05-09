@@ -1,0 +1,9 @@
+{
+  "name": "zwaetschge--plum-code-webui",
+  "displayName": "plum-code-webui",
+  "description": "Self-hosted web interface for the Claude Code, Codex, and OpenCode CLIs. Real-time streaming, tool execution tracking, multi-session management, integrated git/GitHub, file browsing, and ComfyUI image",
+  "version": "1.0.0",
+  "author": "zwaetschge",
+  "homepage": "https://github.com/zwaetschge/plum-code-webui",
+  "skills": []
+}
