@@ -1,4 +1,4 @@
-## uptime-kita
+## laravel-boost
 
 > <laravel-boost-guidelines>
 
