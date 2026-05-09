@@ -1,0 +1,9 @@
+{
+  "name": "agentorchestrator--agentbase",
+  "displayName": "AgentBase",
+  "description": "Multi-agent orchestrator for tracking and analyzing AI coding assistant conversations (Claude Code, Cursor, Windsurf)",
+  "version": "1.0.0",
+  "author": "AgentOrchestrator",
+  "homepage": "https://github.com/AgentOrchestrator/AgentBase",
+  "skills": []
+}
