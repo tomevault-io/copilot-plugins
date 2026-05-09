@@ -1,0 +1,9 @@
+{
+  "name": "bluecoral-vn--vdrive",
+  "displayName": "vdrive",
+  "description": "Modern cloud storage API built with Laravel 12, PHP 8.4, SQLite, and Cloudflare R2.",
+  "version": "1.0.0",
+  "author": "bluecoral-vn",
+  "homepage": "https://github.com/bluecoral-vn/vdrive",
+  "skills": []
+}
