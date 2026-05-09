@@ -1,68 +1,68 @@
-## development-workflow
+## project-overview
 
-> Development workflow and common commands
+> Project overview and architecture reference
 
 
-# Development Workflow
+# Grok CLI — Project Overview
 
-## Prerequisites
+Grok CLI (`@vibe-kit/grok-cli`) is an open-source AI coding agent powered by Grok that brings AI assistance directly into the terminal.
 
-- Bun 1.0+ (required)
+## Tech Stack
 
-## Common Commands
+- **Language**: TypeScript (ES2022, ESNext modules)
+- **Runtime**: Bun (primary)
+- **UI Framework**: React with [OpenTUI](https://github.com/anomalyco/opentui) for terminal rendering
+- **Build**: `tsc` (TypeScript compiler)
+- **Package Manager**: Bun
+- **API Client**: OpenAI SDK (for OpenAI-compatible xAI API)
+- **Tools**: Bash-only (all file operations via shell commands)
+- **Search**: X Search API + Web Search via xAI Responses API
 
-```bash
-# Install dependencies
-bun install
+## Architecture
 
-# Development (runs from source with Bun)
-bun run dev
-
-# Build (compile TypeScript to dist/)
-bun run build
-
-# Type checking (no emit)
-bun run typecheck
-
-# Linting
-bun run lint
-
-# Format (check / write)
-bun run format
-bun run format:fix
-
-# Run the built CLI
-bun run start
+```
+src/
+├── index.ts          # CLI entry point (Commander.js + OpenTUI)
+├── agent/
+│   └── agent.ts      # Agent — orchestrates client, bash tool, search
+├── grok/
+│   ├── client.ts     # Grok API client (Chat Completions + Responses API)
+│   ├── models.ts     # Model definitions and metadata
+│   └── tools.ts      # Tool schemas (bash, search_web, search_x)
+├── tools/
+│   └── bash.ts       # Bash command execution
+├── ui/
+│   └── app.tsx       # OpenTUI React terminal UI
+├── utils/
+│   ├── settings.ts   # User and project settings
+│   ├── git-root.ts   # Resolve git repository root for AGENTS.md discovery
+│   └── instructions.ts # AGENTS.md (ecosystem) custom instructions
+└── types/
+    └── index.ts      # Shared TypeScript types
 ```
 
-## Environment Variables
+## Key Patterns
 
-| Variable | Required | Description |
-|----|----|----|
-| `GROK_API_KEY` | Yes | API key for xAI Grok |
-| `GROK_BASE_URL` | No | Custom API endpoint (default: `https://api.x.ai/v1`) |
-| `GROK_MODEL` | No | Model override (default: `grok-4-1-fast`) |
-| `GROK_MAX_TOKENS` | No | Max tokens per response (default: 16384) |
+- **Agent loop**: `Agent.processMessage()` is an async generator that yields `StreamChunk` objects — the LLM responds, tools execute, results feed back until no more tool calls remain.
+- **Bash-only tools**: The agent uses bash for everything (file editing, searching, git, builds, etc.).
+- **X Search & Web Search**: Integrated via the xAI Responses API for real-time information.
+- **Settings hierarchy**: Environment variables → User-level (`~/.grok/user-settings.json`) → Project-level (`.grok/settings.json`).
+- **Custom instructions**: `~/.grok/AGENTS.md`, then `AGENTS.override.md` / `AGENTS.md` per directory from git root through the workspace cwd (Codex-style merge).
+- **ESM only**: The project uses `"type": "module"` — all imports use `.js` extensions for compiled output.
 
-Copy `.env.example` to `.env` and fill in your values.
+## Latest Grok Models
 
-## Git hooks
+- grok-4-0709 (flagship reasoning)
+- grok-4.20-beta-0309 (multi-agent, 2M context)
+- grok-4-fast (fast reasoning, 2M context)
+- grok-4-1-fast (latest fast, 2M context)
+- grok-code-fast-1 (code optimized)
+- grok-3, grok-3-mini
 
-After `bun install`, **Husky** installs a **pre-commit** hook that runs **`lint-staged`**: Biome **format + lint** (`check --write`) on staged `*.{ts,tsx,js,mjs,cjs,json}` files. Fixes are written to disk and re-staged automatically when possible.
+## CI/CD
 
-## Before Submitting Changes
-
-1. Run `bun run typecheck` — CI enforces this on every PR.
-2. Run `bun run lint` — fix any Biome issues (or let pre-commit apply safe fixes).
-3. Ensure no secrets or `.env` files are committed.
-4. Follow the PR template in `.github/pull_request_template.md`.
-
-## Project Structure Conventions
-
-- Source code lives in `src/`, compiled output in `dist/` (gitignored).
-- The CLI entry point is `src/index.ts` which uses Commander.js for argument parsing.
-- UI is built with OpenTUI React (`@opentui/react`).
-- Only tool is bash — all file operations happen through shell commands.
+- **typecheck.yml**: Runs `tsc --noEmit` on push/PR to `main`/`develop`.
+- **security.yml**: Runs `npm audit` and TruffleHog secret scanning.
 
 ---
 > Source: [superagent-ai/grok-cli](https://github.com/superagent-ai/grok-cli) — distributed by [TomeVault](https://tomevault.io).
