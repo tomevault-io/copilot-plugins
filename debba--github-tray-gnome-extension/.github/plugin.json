@@ -1,0 +1,9 @@
+{
+  "name": "debba--github-tray-gnome-extension",
+  "displayName": "github-tray-gnome-extension",
+  "description": "A GNOME Shell extension that puts your GitHub dashboard in the top bar. Track notifications, monitor repository stats, view issues, and manage Actions workflows without opening a browser.",
+  "version": "1.0.0",
+  "author": "debba",
+  "homepage": "https://github.com/debba/github-tray-gnome-extension",
+  "skills": []
+}
