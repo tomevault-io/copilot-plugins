@@ -1,0 +1,9 @@
+{
+  "name": "clowrey--s3xy-bms",
+  "displayName": "S3XY-BMS",
+  "description": "Replacement BMS hardware / firmware for Tesla Model 3 / Y battery packs ",
+  "version": "1.0.0",
+  "author": "clowrey",
+  "homepage": "https://github.com/clowrey/S3XY-BMS",
+  "skills": []
+}
