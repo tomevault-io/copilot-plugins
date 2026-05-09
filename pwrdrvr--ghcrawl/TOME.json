@@ -4,7 +4,7 @@
   "repo": "ghcrawl",
   "description": "Terminal UI and local CLI for crawling GitHub issues and pull requests, generating embeddings, and clustering related work.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pwrdrvr/ghcrawl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T11:49:25Z"
+  "distributed_at": "2026-05-09T03:09:29Z"
 }
