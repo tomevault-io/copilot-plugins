@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--doodlestein-self-releaser",
+  "displayName": "doodlestein_self_releaser",
+  "description": "Local release tool that reuses your GitHub Actions workflow YAML to build via nektos/act when CI queues are throttled, then uploads artifacts to GitHub Releases",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/doodlestein_self_releaser",
+  "skills": []
+}
