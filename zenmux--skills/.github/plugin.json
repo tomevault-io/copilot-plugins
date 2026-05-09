@@ -1,0 +1,9 @@
+{
+  "name": "zenmux--skills",
+  "displayName": "skills",
+  "description": "ZenMux Skills Repo",
+  "version": "1.0.0",
+  "author": "ZenMux",
+  "homepage": "https://github.com/ZenMux/skills",
+  "skills": []
+}
