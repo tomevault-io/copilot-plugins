@@ -1,244 +1,964 @@
-## combobox-accessibility
+## css-standards
 
-> Combobox component accessibility compliance pattern
+> Writing CSS, whether inside .css files or in the `{% stylesheet %}…{% endstylesheet %}` or `{% style %}…{% endstyle %}` tags
 
-# Combobox Component Accessibility Standards
 
-Ensures combobox components follow WCAG compliance and WAI-ARIA Combobox Pattern specifications.
+# CSS Standards
 
-<rule>
-name: combobox_accessibility_standards
-description: Enforce combobox component accessibility standards and WAI-ARIA Combobox Pattern compliance
-filters:
-  - type: file_extension
-    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
+## Specificity Rules
 
-actions:
-  - type: enforce
-    conditions:
-      # Combobox role requirement
-      - pattern: "(?i)<(div|section)[^>]*(?:combobox|autocomplete)[^>]*>"
-        pattern_negate: "role=\"combobox\""
-        message: "Combobox containers must have role='combobox' attribute."
+- **Never** use IDs as selectors
+- **Avoid** using elements as selectors
+- **Avoid** using `!important` at all costs - if you must use it, comment why in the code
+- Use a `0 1 0` specificity wherever possible, meaning a single `.class` selector.
+- In cases where you must use higher specificity due to a parent/child relationship, try to keep the specificity to a maximum of `0 4 0`
+  - Note that this can sometimes be impossible due to the `0 1 0` specificity of pseudo-classes like `:hover`. There may be situations where `.parent:hover .child` is the only way to achieve the desired effect.
+- **Avoid** complex selectors. A selector should be easy to understand at a glance. Don't over do it with pseudo selectors (:has, :where, :nth-child, etc).
 
-      # aria-expanded requirement
-      - pattern: "(?i)<[^>]*role=\"combobox\"[^>]*>"
-        pattern_negate: "aria-expanded=\"(true|false)\""
-        message: "Combobox elements must have aria-expanded attribute set to 'true' or 'false'."
+See [MDN](mdc:https:/developer.mozilla.org/en-US/docs/Web/CSS/Specificity) for more a comprehensive list of specificity rules.
 
-      # aria-haspopup requirement
-      - pattern: "(?i)<[^>]*role=\"combobox\"[^>]*>"
-        pattern_negate: "aria-haspopup=\"listbox\""
-        message: "Combobox elements must have aria-haspopup='listbox' attribute."
+### Notes on `:has()` selector and Shopify themes
 
-      # aria-controls requirement
-      - pattern: "(?i)<[^>]*role=\"combobox\"[^>]*>"
-        pattern_negate: "aria-controls=\"[^\"]+\""
-        message: "Combobox elements must have aria-controls attribute referencing the ID of the associated listbox."
+The `:has()` selector is incredibly useful, but can impact performance. This is mainly a problem during dynamic DOM updates as the browser engines must re-evaluate `:has()` selectors. This is especially important in Shopify themes where dynamic content updates are common (cart updates, variant selection, filtering, etc.). See [MDN :has performance considerations](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:has#performance_considerations) for more information.
 
-      # aria-autocomplete requirement
-      - pattern: "(?i)<[^>]*role=\"combobox\"[^>]*>"
-        pattern_negate: "aria-autocomplete=\"(list|both|inline|none)\""
-        message: "Combobox elements must have aria-autocomplete attribute set to 'list', 'both', 'inline', or 'none'."
+Performance mitigation strategies:
 
-      # aria-activedescendant requirement when expanded
-      - pattern: "(?i)<[^>]*role=\"combobox\"[^>]*aria-expanded=\"true\"[^>]*>"
-        pattern_negate: "aria-activedescendant=\"[^\"]+\""
-        message: "Expanded combobox elements must have aria-activedescendant attribute referencing the ID of the active option."
+#### Minimize Subtree Traversals
 
-      # Listbox role requirement
-      - pattern: "(?i)<(div|ul)[^>]*(?:listbox|dropdown|popup)[^>]*>"
-        pattern_negate: "role=\"listbox\""
-        message: "Listbox containers must have role='listbox' attribute."
+Anchor of an element as close to the children as possible. i.e. `A:has(B)`, where `A` is the anchor.
 
-      # Option role requirement
-      - pattern: "(?i)<(div|li)[^>]*(?:option|item)[^>]*>"
-        pattern_negate: "role=\"option\""
-        message: "Listbox options must have role='option' attribute."
+Use combinators like `>` or `+` so there is a very clear path for the browser to evaluate. Anything too broad increases the number of leaf nodes to verify.
 
-      # Option ID requirement for aria-activedescendant
-      - pattern: "(?i)<[^>]*role=\"option\"[^>]*>"
-        pattern_negate: "id=\"[^\"]+\""
-        message: "Listbox options must have unique id attributes for aria-activedescendant to reference them."
+```css
+/* ❌ AVOID: May trigger full subtree traversal */
+.ancestor:has(.foo) {
+  /* Any change within .ancestor requires checking ALL descendants */
+}
 
-      # aria-selected requirement for options
-      - pattern: "(?i)<[^>]*role=\"option\"[^>]*>"
-        pattern_negate: "aria-selected=\"(true|false)\""
-        message: "Listbox options must have aria-selected attribute set to 'true' or 'false'."
+/* ✅ GOOD: More constrained - limits traversal */
+.ancestor:has(> .foo) {
+  /* Only checks direct children */
+}
+```
 
-      # Missing keyboard event handlers
-      - pattern: "(?i)<[^>]*role=\"combobox\"[^>]*>"
-        pattern_negate: "(onKeyDown|onkeydown|@keydown|v-on:keydown)"
-        message: "Combobox elements should handle keyboard events (Arrow keys, Enter, Escape, etc.)."
+#### Leverage server-rendered classes when possible
 
-      # Missing status region
-      - pattern: "(?i)<[^>]*role=\"combobox\"[^>]*>"
-        pattern_negate: "aria-controls=\"[^\"]+\".*?<[^>]*role=\"status\""
-        message: "Combobox should have a status region to announce available options."
+If the dynamic content is being server rendered, you might be able to write a class higher in the DOM than rely on `:has()`
 
-  - type: suggest
-    message: |
-      **Combobox Component Accessibility Best Practices:**
+Example: With filters, instead of checking based on the state of the inner `input` element, create a disabled class.
 
-      **Required ARIA Attributes:**
-      - **role='combobox':** Set on the input container element
-      - **aria-expanded:** 'true' if listbox is visible, 'false' if hidden
-      - **aria-haspopup='listbox':** Indicates the combobox has a listbox popup
-      - **aria-controls:** Reference to the ID of the associated listbox
-      - **aria-autocomplete:** 'list', 'both', 'inline', or 'none' based on behavior
-      - **aria-activedescendant:** Reference to the ID of the currently active option (remove when listbox is hidden)
-      - **role='listbox':** Set on the popup container element (preferably on a `ul` element)
-      - **role='option':** Set on each selectable item in the listbox (preferably on an `li` element)
-      - **id:** Unique ID on each option element for `aria-activedescendant` to reference
-      - **aria-selected:** 'true' or 'false' on each option
-      - **role='status':** Set on a visually hidden element to announce available options
+```css
+/* ❌ AVOID: Styling .filter-label based on child */
+.filter-label:has(input[disabled]) {
+  /* Disabled styles */
+}
 
-      **Keyboard Interaction Requirements:**
-      - **Down Arrow:** Open listbox and move focus to first option
-      - **Up Arrow:** Open listbox and move focus to last option
-      - **Enter/Space:** Select focused option and close listbox
-      - **Escape:** Close listbox without selection
-      - **Tab:** Move focus to next focusable element
-      - **Shift+Tab:** Move focus to previous focusable element
-      - **Home/End:** Move focus to first/last option
-      - **Character Keys:** Filter options based on input
+/* ✅ GOOD: .disabled set server side */
+.filter-label.disabled {
+  /* Disabled styles */
+}
+```
 
-      **Focus Management:**
-      - Focus should remain on the input while navigating options
-      - Use aria-activedescendant to indicate the currently focused option
-      - Return focus to input after selection or closing
-      - Ensure focus is trapped within the combobox while open
+This strategy won't work for client-side events, like a `checked`, `selected`, `focus` event.
 
-      **Status Region Requirements:**
-      - Must announce number of available options when listbox opens
-      - Must announce when no options are available
-      - Must use proper pluralization ("1 item available" vs "2 items available")
-      - Must be visually hidden but available to screen readers
-      - Should update dynamically as options are filtered
+## CSS Variables
 
-      **Semantic HTML Structure:**
-      - Use `ul` element for the listbox container
-      - Use `li` elements for individual options
-      - This provides better semantic structure and is more appropriate for lists
+CSS variables, a.k.a. custom properties, are a powerful tool for reducing redundancy and making it easier to update values across a component.
 
-      **Implementation Example:**
-      ```html
-      <div class="combobox-container">
-        <label for="combobox-input">Select an option:</label>
-        <input type="text"
-               id="combobox-input"
-               role="combobox"
-               aria-expanded="false"
-               aria-haspopup="listbox"
-               aria-controls="listbox-popup"
-               aria-autocomplete="list">
-        <ul id="listbox-popup"
-            role="listbox"
-            hidden>
-          <li role="option"
-              id="option-1"
-              aria-selected="false">
-            Option 1
-          </li>
-          <li role="option"
-              id="option-2"
-              aria-selected="false">
-            Option 2
-          </li>
-        </ul>
-        <div id="listbox-status"
-             role="status"
-             class="visually-hidden">
-          <!-- Status messages will be dynamically updated -->
-        </div>
-      </div>
+- If you need to hardcode a value, set it to a variable and use that variable in the declaration. Example: a touch target size. `--touch-target-size: 44px;`
+- **Never** hardcode colors, always use the color schemes
 
-      <style>
-        .visually-hidden {
-          position: absolute;
-          width: 1px;
-          height: 1px;
-          padding: 0;
-          margin: -1px;
-          overflow: hidden;
-          clip: rect(0, 0, 0, 0);
-          white-space: nowrap;
-          border: 0;
-        }
+### Global Variables
 
-        #listbox-popup {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-      </style>
+Global variables should be scoped to the `:root` selector in `snippets/theme-styles-variables.liquid`.
 
-      <script>
-        const input = document.getElementById('combobox-input');
-        const listbox = document.getElementById('listbox-popup');
-        const statusElement = document.getElementById('listbox-status');
+**Example of global variables**
 
-        // Status message handling
-        function updateStatusMessage(count) {
-          if (count === 0) {
-            statusElement.textContent = 'No items available';
-          } else {
-            statusElement.textContent = `${count} ${count === 1 ? 'item' : 'items'} available`;
-          }
-        }
+```css
+/* in snippets/theme-styles-variables.liquid */
+:root {
+    --page-width: 1400px;
+     --font-body--family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }}; /* Referencing a theme setting */
+     --font-{{ preset_name_dash }}--family: {{ settings[preset_font] | prepend: 'var(--font-' | append: '--family)' }}; /* Using Liquid to set a variable */
+}
+```
 
-        // Show listbox
-        function showListbox() {
-          listbox.hidden = false;
-          input.setAttribute('aria-expanded', 'true');
-          const options = listbox.querySelectorAll('[role="option"]');
-          updateStatusMessage(options.length);
-        }
+### Scoped Variables
 
-        // Hide listbox
-        function hideListbox() {
-          listbox.hidden = true;
-          input.setAttribute('aria-expanded', 'false');
-          input.removeAttribute('aria-activedescendant'); // Important: remove when hiding
-          statusElement.textContent = '';
-        }
+Be sure to scope your CSS variables to the component they are being used in, if they are not meant to be global. Scoped variables can reference global variables.
 
-        // Set active option
-        function setActiveOption(optionId) {
-          input.setAttribute('aria-activedescendant', optionId);
-        }
+**Example of scoped variables**
 
-        // Example usage:
-        // When opening listbox with options:
-        showListbox();
-        // When setting active option:
-        setActiveOption('option-1');
-        // When closing listbox:
-        hideListbox();
-      </script>
-      ```
+```css
+/* in assets/facets.css */
+.facets {
+  --drawer-padding: var(--padding-md); /* Referencing a global variable */
+  --facets-upper-z-index: 3;
+  --facets-open-z-index: 4;
 
-      **JavaScript Considerations:**
-      - Implement proper event listeners for all keyboard interactions
-      - Update ARIA attributes dynamically based on state
-      - **Remove `aria-activedescendant` when hiding the listbox** to avoid referencing hidden elements
-      - Handle focus management and trapping
-      - Implement proper filtering and selection logic
-      - Update status messages for all state changes
-      - Ensure proper pluralization in status messages
-      - Handle edge cases (no matches, empty input, etc.)
+  --facets-clear-shadow: 0px -4px 14px 0px rgb(var(--color-foreground-rgb) / var(--opacity-10)); /* Referencing a Color Scheme variable */
+}
+```
 
-      **Accessibility Notes:**
-      - Status region helps screen readers understand available options
-      - Proper pluralization improves user experience
-      - Clear status messages help users understand the current state
-      - Visual feedback should match announced status
-      - Test with screen readers to ensure proper announcement
+### Namespace Your CSS Variables
 
-metadata:
-  priority: high
-  version: 1.0
-</rule>
+Namespace your variables to avoid collisions unless you explicitly want them to bleed through to other components.
+
+✅ Do this:
+
+```css
+.component {
+  --component-padding: ...;
+  --component-aspect-ratio: ...;
+}
+```
+
+❌ Don't do this:
+
+```css
+.component {
+  --padding: ...;
+  --aspect-ratio: ...;
+}
+```
+
+### Semantic Color Variables
+
+Use semantic naming for better maintainability:
+
+```css
+:root {
+  /* Base colors */
+  --color-primary: {{ settings.colors_accent_1 }};
+  --color-secondary: {{ settings.colors_accent_2 }};
+
+  /* Semantic colors */
+  --color-text-primary: rgb(var(--color-foreground));
+  --color-text-secondary: rgb(var(--color-foreground) / 0.75);
+  --color-text-disabled: rgb(var(--color-foreground) / 0.38);
+
+  /* Interactive states */
+  --color-interactive-default: rgb(var(--color-accent));
+  /* color-mix isn't supported in earlier version of iOS <16.2 so limit its usage to progressive enhancement */
+  --color-interactive-hover: color-mix(in srgb, rgb(var(--color-accent)) 90%, black);
+  --color-interactive-pressed: color-mix(in srgb, rgb(var(--color-accent)) 80%, black);
+  --color-interactive-disabled: rgb(var(--color-accent) / 0.38);
+}
+```
+
+### Design Token System
+
+Establish consistent spacing and typography scales:
+
+```css
+:root {
+  /* Spacing scale */
+  --space-3xs: 0.25rem; /* 4px */
+  --space-2xs: 0.5rem; /* 8px */
+  --space-xs: 0.75rem; /* 12px */
+  --space-sm: 1rem; /* 16px */
+  --space-md: 1.5rem; /* 24px */
+  --space-lg: 2rem; /* 32px */
+  --space-xl: 3rem; /* 48px */
+  --space-2xl: 4rem; /* 64px */
+  --space-3xl: 6rem; /* 96px */
+
+  /* Typography scale */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+}
+```
+
+## Scoping CSS to Instances of Sections and Blocks
+
+Reset CSS variable values inline on a `style` attribute with a section/block settings. This has a couple benefits:
+
+- Less CSS in Liquid which allows us to use the `{% stylesheet %}` tag for all CSS.
+- Reduces redundancy in CSS selectors and number of selectors in the HTML, i.e. `.selector--{{ block.id }}` pattern.
+
+✅ Do this:
+
+```html
+<section
+  style="
+    --background-color: {{ settings.background_color }};
+    --padding: {{ settings.padding }}px;
+  "
+>
+  ...
+</section>
+
+<button style="--button-color: {{ settings.button_color }};">...</button>
+```
+
+❌ Don't do this:
+
+```html
+{% style %} .selector--{{ block.id }} { --button-color: {{ settings.button_color }}; } {% endstyle %}
+
+<button class="selector--{{ block.id }}">...</button>
+```
+
+### Redundancy
+
+Use variables to reduce property assignment redundancy.
+
+```css
+/* Do this */
+.block-name {
+  background: rgb(var(--block-name-color) / 0.75);
+}
+
+.block-name--secondary {
+  --block-name-color: var(--secondary-color);
+}
+
+/* Not this */
+.block-name {
+  background: rgb(var(--primary-color) / 0.75);
+}
+
+.block-name--secondary {
+  background: rgb(var(--secondary-color) / 0.75);
+}
+```
+
+## BEM Naming Convention
+
+Use the @BEM CSS convention for class names.
+
+BEM TL;DR:
+
+- **Block**: Component name (`.product-card`)
+- **Element**: Block + element (`.product-card__title`)
+- **Modifier**: Block/element + modifier (`.product-card--featured`)
+- **Use dashes** to separate words in names
+
+```css
+/* Good BEM structure */
+.product-card {
+}
+.product-card__image {
+}
+.product-card__title {
+}
+.product-card__price {
+}
+.product-card--featured {
+}
+.product-card__title--large {
+}
+```
+
+```css
+.block {
+  ...;
+}
+.block--modifier {
+  ...;
+}
+.block__element {
+  ...;
+}
+.block__multi-word-element {
+  ...;
+}
+.block__element--modifier {
+  ...;
+}
+.block__element--multi-word-modifier {
+  ...;
+}
+```
+
+Dashes are used to separate words in blocks, elements, and modifiers.
+
+Exception: We also use global @utility classes that can be applied to block and and elements without following BEM naming convention.
+
+### Naming a "Block" (component)
+
+The root "block" namespace must wrap any elements derived from it.
+
+✅ Do this:
+
+```html
+<div class="my-component">
+  <div class="my-component__wrapper"></div>
+</div>
+```
+
+❌ Not this:
+
+`.my-component__wrapper` is used as a parent to `.my-component`.
+
+```html
+<div class="my-component__wrapper my-component--page-width">
+  <div class="my-component"></div>
+</div>
+```
+
+### Naming an "Element" (child)
+
+There should only be a _single_ "element" in a classname. Only the root "block" name needs to be included in child classnames. If additional naming specificity is necessary, use a "-" to seperate words or consider starting a new BEM scope altogether when an element could make sense as a standalone entity.
+
+✅ Do this:
+
+```html
+<div class="my-component my-component--full-width">
+  <div class="my-component__wrapper">
+    <button class="my-component__button">
+      <span class="my-component__button-label">My button</span>
+    </button>
+  </div>
+</div>
+```
+
+✅ Or this:
+
+Started new scope with `.button-component`.
+
+```html
+<div class="my-component my-component--full-width">
+  <div class="my-component__wrapper">
+    <button class="button-component">
+      <span class="button-component__label">My button</span>
+    </button>
+  </div>
+</div>
+```
+
+❌ Not this:
+
+Multiple element names are used (`__wrapper__button__label`).
+
+```html
+<div class="my-component my-component--full-width">
+  <div class="my-component__wrapper">
+    <button class="my-component__wrapper__button">
+      <span class="my-component__wrapper__button__label">My button</span>
+    </button>
+  </div>
+</div>
+```
+
+### Naming a "Modifier" (variant)
+
+Any "modifier" classname should always use a "--" and should always correspond to an existing block and element namespace. Never use a modifier class on an element that doesn't also have a base classname.
+
+✅ Do this:
+
+The `.button` class is the base classname and modified by `--secondary`.
+
+```html
+<button class="button button--secondary"></button>
+```
+
+❌ Not this:
+
+The `.button` and `.button-secondary` classes are both named as _exclusive_ components and should not used together.
+
+```html
+<button class="button button-secondary"></button>
+```
+
+❌ Or this:
+
+Modifer class is used without corresponding base classname.
+
+```html
+<button class="button--secondary"></button>
+```
+
+Also consider keeping modifiers at the highest element that makes sense. This makes the component more extensible and resilient as styling needs are changed or added in the future.
+
+✅ Do this:
+
+```html
+<div class="my-component my-component--size-large my-component--page-width">
+  <div class="my-component__wrapper"></div>
+</div>
+```
+
+### Utility Classes
+
+Utility classes are intended to act as global overrides for a single styling decision, e.g. alignment, show/hide, etc. BEM conventions are not followed, there is no hierarchy in utility classes and utility classes do not assume they are used with any particular block or element.
+
+Name multi-word utility classes with hyphens `-`. Append any viewport specifications at the **end**, e.g. `hidden-mobile`.
+
+✅ This is fine:
+
+```css
+.align-left {
+  text-align: left;
+}
+```
+
+```html
+<div class="my-component align-left">
+  <p class="my-component__text"></p>
+</div>
+```
+
+## Modern CSS Features
+
+### Container Queries
+
+Use container queries for truly responsive components:
+
+```css
+.product-grid {
+  container-type: inline-size;
+}
+
+@container (min-width: 400px) {
+  .product-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+```
+
+### CSS Functions
+
+Leverage modern CSS functions for better responsiveness:
+
+```css
+.component {
+  /* Fluid spacing */
+  padding: clamp(1rem, 4vw, 3rem);
+
+  /* Intrinsic sizing */
+  width: min(100%, 800px);
+
+  /* Dynamic colors */
+  /* color-mix isn't supported in earlier version of iOS <16.2 so limit its usage */
+  background: color-mix(in srgb, rgb(var(--color-primary)) 90%, white);
+}
+```
+
+### Cascade Layers
+
+For better CSS organization in complex themes:
+
+```css
+@layer reset, base, components, utilities, overrides;
+
+@layer components {
+  .button {
+    /* Component styles here won't conflict with utilities */
+  }
+}
+```
+
+### View Transitions
+
+```css
+@view-transition {
+  navigation: auto;
+}
+
+.page-content {
+  view-transition-name: main-content;
+}
+```
+
+## Media Queries
+
+- Default to mobile first. e.g. `min-width` queries
+- Use `screen` for all media queries
+
+### Breakpoint System
+
+Define consistent breakpoints:
+
+```css
+/* Mobile first breakpoints */
+--breakpoint-sm: 576px; /* Small devices */
+--breakpoint-md: 768px; /* Medium devices */
+--breakpoint-lg: 992px; /* Large devices */
+--breakpoint-xl: 1200px; /* Extra large devices */
+--breakpoint-2xl: 1400px; /* 2X Extra large devices */
+```
+
+### Context-Aware Queries
+
+Use feature queries alongside media queries:
+
+```css
+@supports (display: grid) {
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@supports not (display: grid) {
+  .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+```
+
+### Print Styles
+
+Always consider print stylesheets:
+
+```css
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  a[href^='http']:after {
+    content: ' (' attr(href) ')';
+  }
+}
+```
+
+## CSS Nesting Rules
+
+Nesting can make styles harder to read. Be responsible with it.
+
+- **No `&` operator** in nested selectors
+- **Never nest beyond first level** (except media queries/states)
+- **Keep nesting simple** and readable
+- Only use `&` when there is a direct relationship between the two selectors
+  - State based selectors e.g. `&:hover`, `&:focus`, `&:active`
+  - Modifiers that affect each other e.g. `button--integrated { &.button--text }`
+- Never nest beyond the first level
+- See below for exceptions
+
+### Nesting Media Queries
+
+Use nesting for media queries
+
+```css
+.header {
+  width: 100%;
+
+  @media screen and (min-width: 750px) {
+    width: 100px;
+  }
+}
+```
+
+This includes when there is nothing to override, e.g.
+
+```css
+.header {
+  @media screen and (min-width: 750px) {
+    width: 100px;
+  }
+}
+```
+
+That way, if something needs to be added later, it can just be added without needing to flip the media query to the inside.
+
+### If-like Parent-Child Relationships
+
+You may use nesting to help organize parent-child relationship when the parent can have **multiple states or modifiers** that affect children. In the example below, a number of child selectors need to change when the parent is the `--full-width` variant. This saves you from needing to append `parent--full-width` to each css selector.
+
+```css
+.parent {
+  grid-columns: var(--gap) 1fr var(--gap);
+}
+
+.child {
+  grid-column: 2;
+}
+
+.grand-child {
+  ...;
+}
+
+.parent--full-screen {
+  grid-columns: 1fr;
+
+  .child {
+    grid-column: 1;
+  }
+
+  .grand-child {
+    ...;
+  }
+}
+```
+
+In cases like this, the styles that are being applied are the direct result of the parent's modifier. We can see this as a kind of if-like relationship where the logic is easier to follow if the child styles are nested inside the parent.
+
+This is not a reason to nest multiple levels. Maintain the single level rule.
+
+## Logical Properties
+
+Where appropriate, use logical properties to have baseline support for Right-to-Left (RTL) languages.
+Focusing on these properties:
+
+- padding
+- margin
+- border
+- text-align
+- top, bottom, left, right
+
+✅ Do this:
+
+```css
+.element {
+  padding-inline: 2rem;
+  padding-block: 1rem;
+  margin-inline: auto;
+  margin-block: 0;
+  border-inline-end: 1rem solid var(--color-background);
+  text-align: start;
+  inset: 0;
+}
+```
+
+❌ Not this:
+
+```css
+.element {
+  padding: 1rem 2rem;
+  margin: 0 auto;
+  border-bottom: 1rem solid var(--color-background);
+  text-align: left;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+```
+
+## Layout Patterns
+
+### CSS Grid for Layouts
+
+```css
+.section-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+```
+
+### Flexbox for Components
+
+```css
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+```
+
+### Aspect Ratio for Media
+
+```css
+.product-card__image {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+```
+
+## Fancy Selectors
+
+### Using `:is()`
+
+When giving the same styles to multiple selectors, use a comma separated list.
+
+✅ Do this:
+
+```css
+.facets__label,
+.facets__clear-all,
+.clear-filter {
+  ...;
+}
+```
+
+❌ Not this:
+
+```css
+:is(.facets__label, .facets__clear-all, .clear-filter) {
+  ...;
+}
+```
+
+However, if you are giving the same styles to a parent-child relationship with different selectors, you may use `:is()`.
+
+✅ Do this:
+
+```css
+.parent:is(.child-1, .child-2) {
+  ...;
+}
+```
+
+❌ Not this:
+
+```css
+.parent .child-1,
+.parent .child-2 {
+  ...;
+}
+```
+
+✅ Do this:
+
+```css
+:is(.parent, .parent-2) .child {
+  ...;
+}
+```
+
+❌ Not this:
+
+```css
+.parent .child,
+.parent-2 .child {
+  ...;
+}
+```
+
+Try to keep the same specificity for all selectors within a single `:is()` to avoid increasing the overall specificity of the selector unintentionally.
+
+## Accessibility
+
+### Motion and Animation
+
+- Always respect user motion preferences
+- Provide fallbacks for users who prefer reduced motion
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+```
+
+### Focus Management
+
+- Ensure all interactive elements have visible focus indicators
+- Use `:focus-visible` for better UX
+
+```css
+.button:focus-visible {
+  outline: 2px solid rgb(var(--color-focus));
+  outline-offset: 2px;
+}
+```
+
+### Color and Contrast
+
+- Maintain WCAG AA contrast ratios (4.5:1 for normal text, 3:1 for large text)
+- Test with high contrast mode
+- Never rely solely on color to convey information
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark theme variables */
+  }
+}
+```
+
+## Performance Considerations
+
+### Animation Performance
+
+- Use `transform` and `opacity` for animations
+- Avoid animating layout properties (`width`, `height`, `margin`, `padding`)
+- Use `will-change` sparingly and remove after animation
+
+```css
+.product-card {
+  transition: transform 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-2px); /* Better than animating top/margin */
+}
+
+/* Only use will-change during animation */
+.product-card:hover {
+  will-change: transform;
+}
+
+.product-card:not(:hover) {
+  will-change: auto;
+}
+```
+
+### Layout Performance
+
+- Use `contain` property for better rendering performance
+- Prefer CSS Grid and Flexbox over complex positioning
+
+```css
+.product-grid {
+  contain: content;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+```
+
+## CSS Organization
+
+### CSS Property Order
+
+Maintain consistent property order within declarations:
+
+```css
+.component {
+  /* 1. Layout & Positioning */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  /* 2. Box Model */
+  width: 100%;
+  margin: 0;
+  padding: var(--space-md);
+  border: 1px solid rgb(var(--color-border));
+
+  /* 3. Typography */
+  font-family: var(--font-body-family);
+  font-size: var(--font-size-base);
+
+  /* 4. Visual */
+  background: rgb(var(--color-surface));
+  color: rgb(var(--color-text));
+
+  /* 5. Animation & Transforms */
+  transition: transform 0.2s ease;
+}
+```
+
+## Error Prevention
+
+### Common Pitfalls
+
+- **Never** use `position: fixed` without considering mobile keyboards
+- **Always** test with zoom up to 200%
+- **Avoid** magic numbers - use variables or calc() instead
+- **Remember** that `vh` units can be problematic on mobile, use `dvh` to mitage this
+
+### Defensive CSS
+
+Write CSS that gracefully handles edge cases:
+
+```css
+.product-card {
+  /* Prevent content overflow */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  /* Handle long content */
+  min-width: 0; /* Allows flex items to shrink below content size */
+
+  /* Prevent layout shift */
+  aspect-ratio: 1 / 1;
+
+  /* Fallback for missing images */
+  background: rgb(var(--color-surface-secondary));
+}
+```
+
+### Browser Support
+
+- Test in browsers used by your audience
+- Provide fallbacks for newer CSS features
+- Use progressive enhancement approach
+
+## CSS Documentation
+
+### Commenting Standards
+
+Use consistent commenting for better maintainability:
+
+```css
+/* =============================================================================
+   Component Name
+   ============================================================================= */
+
+/**
+ * Brief component description
+ *
+ * @example
+ * <div class="component component--modifier">
+ *   <div class="component__element">Content</div>
+ * </div>
+ */
+.component {
+  /* Implementation */
+}
+
+/* Component modifiers
+   ========================================================================== */
+
+/**
+ * Modifier description
+ */
+.component--modifier {
+  /* Modifier styles */
+}
+
+/* Component elements
+   ========================================================================== */
+
+/**
+ * Element description
+ */
+.component__element {
+  /* Element styles */
+}
+```
+
+## Example Component Structure
+
+```liquid
+{% stylesheet %}
+  .featured-collection {
+    --section-padding: {{ section.settings.padding | default: 60 }}px;
+    --bg-color: {{ section.settings.background_color | default: '#ffffff' }};
+    --text-color: {{ section.settings.text_color | default: '#000000' }};
+
+    padding: var(--section-padding) 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    container-type: inline-size;
+  }
+
+  .featured-collection__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  @container (min-width: 768px) {
+    .featured-collection__grid {
+      grid-template-columns: repeat({{ section.settings.columns | default: 4 }}, 1fr);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .featured-collection * {
+      transition: none !important;
+    }
+  }
+{% endstylesheet %}
+```
 
 ---
 > Source: [Shopify/horizon](https://github.com/Shopify/horizon) — distributed by [TomeVault](https://tomevault.io).
