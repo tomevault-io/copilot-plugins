@@ -4,7 +4,7 @@
   "repo": "agentic_kb",
   "description": "Cross repo knowledge base that may be referenced by multiple repositories as git submodule",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/drguptavivek/agentic_kb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T04:02:05Z"
+  "distributed_at": "2026-05-09T16:11:07Z"
 }
