@@ -4,7 +4,7 @@
   "repo": "oza",
   "description": "A modern replacement for the ZIM file format",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stazelabs/oza",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T09:55:04Z"
+  "distributed_at": "2026-05-09T21:07:44Z"
 }
