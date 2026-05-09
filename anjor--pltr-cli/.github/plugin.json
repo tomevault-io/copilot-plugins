@@ -1,0 +1,14 @@
+{
+  "name": "anjor--pltr-cli",
+  "displayName": "pltr-cli",
+  "description": "AI instruction skills by anjor",
+  "version": "1.0.0",
+  "author": "anjor",
+  "homepage": "https://github.com/anjor/pltr-cli",
+  "skills": [
+    {
+      "name": "claude_skill",
+      "description": ""
+    }
+  ]
+}
