@@ -1,0 +1,9 @@
+{
+  "name": "scorpio69t--rustfs-go",
+  "displayName": "rustfs-go",
+  "description": "Rustfs Go client SDK for S3 compatible object storage",
+  "version": "1.0.0",
+  "author": "Scorpio69t",
+  "homepage": "https://github.com/Scorpio69t/rustfs-go",
+  "skills": []
+}
