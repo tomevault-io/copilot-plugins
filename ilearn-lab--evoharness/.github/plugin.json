@@ -1,0 +1,9 @@
+{
+  "name": "ilearn-lab--evoharness",
+  "displayName": "EvoHarness",
+  "description": "EvoHarness delivers terminal-native agent infrastructure: tools, commands, skills, agents, plugins, MCP, memory, approvals, and controlled self-evolution",
+  "version": "1.0.0",
+  "author": "iLearn-Lab",
+  "homepage": "https://github.com/iLearn-Lab/EvoHarness",
+  "skills": []
+}
