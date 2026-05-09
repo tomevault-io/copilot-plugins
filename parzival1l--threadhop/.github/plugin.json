@@ -1,0 +1,9 @@
+{
+  "name": "parzival1l--threadhop",
+  "displayName": "threadhop",
+  "description": "ThreadHop is a local TUI and CLI that turns isolated coding-agent sessions into a connected workspace with cross-session search, session tagging, structured memory, and compressed handoffs.",
+  "version": "1.0.0",
+  "author": "parzival1l",
+  "homepage": "https://github.com/parzival1l/threadhop",
+  "skills": []
+}
