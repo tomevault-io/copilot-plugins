@@ -1,107 +1,101 @@
-## 03-tj-record-format
+## 04-tj-events-core
 
-> description: 1C tech log record format - text and JSON, quoting, timestamps, durations, and multiline values
+> description: Core 1C technical log event catalog for operation reconstruction and performance analysis
 
 ---
-description: 1C tech log record format - text and JSON, quoting, timestamps, durations, and multiline values
+description: Core 1C technical log event catalog for operation reconstruction and performance analysis
 globs: src/**/*.py
 alwaysApply: false
 ---
 
-# Technical log record format
+# Core events for LogT and tech-log parsing
 
-The technical log can be written in:
-- plain text format
-- JSON object sequence format
+This project focuses on the subset of events most relevant to:
+- reconstructing user operations
+- reconstructing background operations
+- analyzing latency
+- diagnosing DB waits, locks, errors, and context
 
-## text format in folders mode
+## operation boundary events
 
-Event line shape:
-`mm:ss.microseconds-duration_us,EventName,Depth,property=value,...`
+`VRSREQUEST`
+- request to server for a resource
+- natural start boundary for client-server operation reconstruction
 
-Meaning:
-- `mm` - minute in current hour
-- `ss` - second in current minute
-- `microseconds` - microsecond part
-- `duration_us` - event duration in microseconds
-- `EventName` - event type
-- `Depth` - nesting depth in current thread
-- then properties
+`VRSRESPONSE`
+- server response
+- natural end boundary for client-server operation reconstruction
 
-## text format in plain mode
+`SESN`
+- session-related actions
+- used for session lifecycle and background job reconstruction
+- `Func=Start`, `Func=Restore`, `Func=Finish`, `Func=Wait`, `Func=Attach`, etc.
 
-The beginning changes to full datetime:
-`YYYY-MM-DDTHH:MM:SS.microseconds-duration_us,...`
+## code execution / remote call events
 
-## JSON format
+`CALL`
+- incoming remote call on the receiver side
+- contains important context and runtime metrics
 
-JSON records include named fields:
-- `ts`
-- `duration`
-- `name`
-- `depth`
-- plus event properties
+`SCALL`
+- outgoing remote call on the source side
 
-## quoting and separators
+## DB and query events
 
-Property pairs are comma-separated.
+`DBMSSQL`
+`DBPOSTGRS`
+- DB-level SQL execution
 
-However:
-- property values may contain commas
-- property values may contain line breaks
-- such values are quoted using quotes or apostrophes
-- quote characters inside values may be doubled
+`SDBL`
+- query/model database layer activity
 
-Therefore:
-- NEVER parse a record using naive `split(',')`
-- ALWAYS use a stateful parser that respects quotes and multiline values
+## locking and concurrency
 
-# Quoted values with doubled quotes examples
+`TLOCK`
+- managed transaction locks
 
-23:45.123456-1500,EXCP,2,Descr="Error: value ""Not found"" is invalid"
+`TTIMEOUT`
+- lock wait timeout
 
-23:45.123456-1500,EXCP,2,Descr='Error: value ''Not found'' is invalid'
+`TDEADLOCK`
+- deadlock detected
 
-23:45.123456-1500,CALL,3,Context="Call ""Object.Method()"" finished"
+## errors and crashes
 
-23:45.123456-1500,CALL,3,Context="Method ""Process(1,2,3)"" executed",Usr=Ivanov
+`EXCP`
+- exception / severe error event
 
-23:45.123456-1500,EXCP,2,Descr="Error: ""Method(Param1, Param2)"" returned ""NULL"""
+`EXCPCNTX`
+- exception context, unfinished events at crash/error time
 
-23:45.123456-1500,EXCP,2,Descr="Error:
-value ""Not found""
-at line 5"
+## infra / cluster / connection
 
-23:45.123456-1500,CALL,3,Context="Executing ""Calculate(10,20)""",CpuTime=1200,Memory=2048
+`CLSTR`
+- cluster operations and cluster state changes
 
-23:45.123456-1500,CALL,3,Context='Executing ''Calculate(10,20)''',CpuTime=1200,Memory=2048
+`CONN`
+- connection establish / break and ping-related connection diagnostics
 
-23:45.123456-1500,EXCP,2,Descr="Unexpected token "","" in expression"
+`PROC`
+- process lifecycle and process-level events
 
-23:45.123456-1500,EXCP,2,Descr='Unexpected token '','' in expression'
+## memory / diagnostics
 
-## multiline behavior
+`MEM`
+- memory growth diagnostics if enabled
 
-A logical event may span multiple physical lines in text logs because property values can contain line breaks.
+`LEAKS`
+- leak diagnostics if enabled
 
-Parser requirements:
-- support multiline property values
-- continue reading until record structure is complete
-- do not assume one physical line equals one logical event
+## event handling guidance
 
-## timestamps
+Do not assume all events are present in every environment.
+Presence depends on `logcfg.xml` and enabled platform mechanisms.
 
-In text logs under `folders` placement:
-- event line itself contains only minute/second/microseconds within an hour
-- full hour context comes from filename timestamp
-
-In `plain` mode and JSON:
-- full timestamp is directly present in the record
-
-## duration
-
-Duration is in microseconds in the record format used by modern technical logs.
-Do not reinterpret duration units without explicit version-based evidence.
+For LogT:
+- `VRSREQUEST`, `VRSRESPONSE`, `SESN`, `CALL` are the most important correlation events
+- DB and lock events are supporting evidence inside the reconstructed operation
+- `EXCP`, `TTIMEOUT`, `TDEADLOCK` are high-value diagnostics inside the operation timeline
 
 ---
 > Source: [rdv-team/logt](https://github.com/rdv-team/logt) — distributed by [TomeVault](https://tomevault.io).
