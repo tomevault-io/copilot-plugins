@@ -1,0 +1,9 @@
+{
+  "name": "sigma-quantiphi--pyth-pandas",
+  "displayName": "pyth-pandas",
+  "description": "pandas-style client for the Pyth Pro Router (Pyth Lazer) REST + WebSocket API",
+  "version": "1.0.0",
+  "author": "sigma-quantiphi",
+  "homepage": "https://github.com/sigma-quantiphi/pyth-pandas",
+  "skills": []
+}
