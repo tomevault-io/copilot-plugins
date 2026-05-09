@@ -1,0 +1,9 @@
+{
+  "name": "trustless-engineering--leader-stream",
+  "displayName": "leader-stream",
+  "description": "Solana Leader TPU List and Event Stream",
+  "version": "1.0.0",
+  "author": "trustless-engineering",
+  "homepage": "https://github.com/trustless-engineering/leader-stream",
+  "skills": []
+}
