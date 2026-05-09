@@ -4,7 +4,7 @@
   "repo": "lina",
   "description": "Lina.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gqcn/lina",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T12:10:08Z"
+  "distributed_at": "2026-05-09T04:55:57Z"
 }
