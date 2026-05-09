@@ -1,0 +1,9 @@
+{
+  "name": "ev2geny--beanquery-interactive-manual",
+  "displayName": "beanquery-interactive-manual",
+  "description": "Intercative manual for beanquery: Customizable lightweight SQL query tool for beancount",
+  "version": "1.0.0",
+  "author": "Ev2geny",
+  "homepage": "https://github.com/Ev2geny/beanquery-interactive-manual",
+  "skills": []
+}
