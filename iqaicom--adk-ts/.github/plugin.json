@@ -1,0 +1,9 @@
+{
+  "name": "iqaicom--adk-ts",
+  "displayName": "adk-ts",
+  "description": "A robust framework for building AI agents with multi-provider LLM support",
+  "version": "1.0.0",
+  "author": "IQAIcom",
+  "homepage": "https://github.com/IQAIcom/adk-ts",
+  "skills": []
+}
