@@ -1,88 +1,138 @@
-## code-conventions
+## database
 
-> - **React & Astro** - Build interactive UIs with React components in Astro
+> Find the schema here: [schema.sql](mdc:packages/db/schema.sql)
 
+## Database
 
-## Technologies used
+Find the schema here: [schema.sql](mdc:packages/db/schema.sql)
 
-- **React & Astro** - Build interactive UIs with React components in Astro
-- **tRPC** - End-to-end type-safe APIs without schemas or code generation
-- **Tailwind CSS** - Utility-first CSS framework for rapid UI development
-- **TypeScript** - Full type safety across all packages
-- **Turborepo** - High-performance build system for JavaScript/TypeScript monorepos
-- **PNPM Workspaces** - Fast, disk-efficient package management
-- **ESLint & Prettier** - Code quality tools configured and ready to use
-- **Renovate** - Automated dependency updates
-- **Auth** - We use better-auth
-- **DB** - We use postgres and kysely as the client.
+### Commands
 
-# Code Conventions
+Run from the root directory:
 
-When writing or modifying code in this project, please adhere to the following conventions:
+- `DATABASE_URL=postgres://localhost:5432/monorepo-scaffold pnpm --filter @app/db db:migrate:create <name>` - Create a new database migration template
+- `DATABASE_URL=postgres://localhost:5432/monorepo-scaffold pnpm --filter @app/db db:migrate` - Run database migrations
+- `DATABASE_URL=postgres://localhost:5432/monorepo-scaffold pnpm --filter @app/db db:migrate:down` - Rollback database migrations
+- `DATABASE_URL=postgres://localhost:5432/monorepo-scaffold pnpm --filter @app/db db:reset` - Reset database
+- `DATABASE_URL=postgres://localhost:5432/monorepo-scaffold pnpm --filter @app/db db:seed` - Seed database with initial data (default tenant and permissions)
 
-1.  **TypeScript Best Practices**: Follow standard, idiomatic TypeScript coding practices for structure, naming, and types, unless otherwise overridden.
-2.  **Minimal Comments**: Avoid adding comments unless they explain complex logic or non-obvious decisions. Well-written, self-explanatory code is preferred. Do not add comments that merely restate what the code does.
-3.  **Tests as Documentation**: Rely on comprehensive tests (which will be added later if not present) to document the behavior and usage of the code, rather than extensive comments within the code itself.
-4.  **File naming conventions**: Use kebab-case when naming directories, TypeScript, and other files.
-5.  **Type checking**: after major modifications run `pnpm typecheck` and fix any errors.
-6.  **UX/UI** We are using Tailwind CSS, React, shadcn/ui components and Lucide React icons. Generate responsive designs. Provide default props for React Components. Check to see if a shadcn component exists under `apps/web/src/components/ui` before installing it. Always use `cn` from `@/lib/utils` for class name merging.
-7.  **Models/db/tables** When pulling in a database type, use:
+### Create a new migration
+
+1. Run `db:migrate:create <myname>`
+2. Edit the file it creates, always add an Up and Down migration.
+3. Run `db:migrate`
+
+Note:
+
+- Do not generate types.gen.ts files yourself - they'll be auto generated.
+- Never alter an `OWNER` in a migration.
+
+### Using Kysely Type Helpers
+
+When working with database types in TypeScript, always use Kysely's type helper utilities for proper type safety:
+
+1. **Selectable<T>** - Use when selecting/reading data from the database:
+   ```typescript
+   import type { Selectable } from 'kysely'
+   import type { User } from '@app/db/types'
+   
+   // Function that returns user data from DB
+   async function getUser(id: string): Promise<Selectable<User> | null> {
+     return await db.selectFrom('users').where('id', '=', id).selectAll().executeTakeFirst()
+   }
+   
+   // Component props
+   interface UserProfileProps {
+     user: Selectable<User>
+   }
+   ```
+
+2. **Insertable<T>** - Use when inserting data into the database:
+   ```typescript
+   import type { Insertable } from 'kysely'
+   import type { Project } from '@app/db/types'
+   
+   // Function parameters for creating records
+   async function createProject(data: Insertable<Project>): Promise<Selectable<Project>> {
+     return await db.insertInto('projects').values(data).returningAll().executeTakeFirstOrThrow()
+   }
+   
+   // Partial inserts with required fields
+   async function createUser(data: Partial<Insertable<User>> & { email: string; tenantId: string }) {
+     return await db.insertInto('users').values({
+       emailVerified: false,
+       status: 'active',
+       ...data,
+     }).returningAll().executeTakeFirstOrThrow()
+   }
+   ```
+
+3. **Updateable<T>** - Use when updating records in the database:
+   ```typescript
+   import type { Updateable } from 'kysely'
+   import type { Task } from '@app/db/types'
+   
+   async function updateTask(id: string, data: Updateable<Task>): Promise<Selectable<Task>> {
+     return await db.updateTable('tasks')
+       .set(data)
+       .where('id', '=', id)
+       .returningAll()
+       .executeTakeFirstOrThrow()
+   }
+   ```
+
+4. **General Guidelines**:
+   - Never use raw table types directly (e.g., `User`, `Project`) for function parameters or return types
+   - Always wrap with appropriate helper based on the operation
+   - For partial updates/inserts, combine `Partial<Insertable<T>>` or `Partial<Updateable<T>>` with required fields
+   - When passing database records between functions/components, use `Selectable<T>`
+   - We use underscore naming for table columns in the database, but Kysely always maps these to camelCase names. So from within TypeScript, you will need to use camelCase when interacting with a column, say, using it in a `where` condition.
+   - **Timestamp columns are typed as `Date`**: Columns like `TIMESTAMP` or `TIMESTAMPTZ` are automatically returned as JavaScript `Date` objects (not strings). You can safely call `getTime()` etc. without parsing.
+
+### Handling JSONB Types
+
+When working with JSONB columns in the database, you need to specify proper TypeScript types to ensure type safety. Follow these steps:
+
+1. **Create column type definitions** in `packages/db/src/column-types.ts`:
 
 ```typescript
-import type { Conversation } from '@app/db/types'
-import type { Selectable } from 'kysely'
-
-interface ConversationItemProps {
-  conversation: Selectable<Conversation>
+export type ProjectStage = {
+  name: string
+  description: string
 }
+
+// Includes RawBuilder to allow for JSONB
+export type ProjectStageColumnType = ColumnType<
+  ProjectStage[] | null,
+  ProjectStage[] | null | RawBuilder<ProjectStage[]>,
+  ProjectStage[] | null | RawBuilder<ProjectStage[]>
+>
 ```
 
-8. **Installing packages**. We are using a pnpm Monorepo or Workspace. Typically when you install a pnpm package, you'll want to install it either in an app or you'll install it inside of a package. For example `pnpm add uuid --filter @app/web && pnpm add -D @types/uuid --filter @app/web`
+2. **Reference the type in Kysely codegen configuration** in `packages/db/.kysely-codegenrc.yaml`:
 
-9. **Actions Pattern**: Organize server-side logic in the `packages/api/src/actions` directory following this structure:
-   - **Getters** (`getters.ts`) - Functions that retrieve data from the database
-   - **Setters** (`setters.ts`) - Functions that create or update data
-   - **Validators** (`validators.ts`) - Functions that validate input data
-   - **Checkers** (`checkers.ts`) - Functions that check permissions and authorization
-   - **Domain-specific logic** - Additional files for complex business logic (e.g., `process-inbound.ts`)
+```yaml
+serializer-properties:
+  'public.projects.stages': 'import("./src/column-types").ProjectStageColumnType | null'
+```
 
-   Example structure:
+3. **Use the type in your migrations**:
 
-   ```
-   packages/api/src/actions/emails/
-   ├── getters.ts     # getProjectInboundEmailAddress()
-   ├── setters.ts     # createProjectInboundEmailToken()
-   ├── validators.ts  # validateMailgunWebhook()
-   ├── checkers.ts    # assertProjectEmailPermission()
-   └── process-inbound.ts  # processInboundEmail()
-   ```
+```sql
+ALTER TABLE projects ADD COLUMN tools_config JSONB;
+```
 
-10. **API Exports for apps/web**: To make functions and types from `packages/api` available in `apps/web`, you MUST export them in `packages/api/src/index.ts`:
+The types will be automatically generated and available through `@app/db/types` after running the migration and type generation.
 
-    ```typescript
-    // packages/api/src/index.ts
+**Important**: Always define explicit TypeScript interfaces for JSONB columns rather than using generic types like `any` or `unknown`. This ensures type safety throughout the application.
 
-    // Export functions
-    export { processInboundEmail } from './actions/emails/process-inbound'
-    export { getProjectInboundEmailAddress } from './actions/emails/getters'
+# Using psql
 
-    // Export types
-    export type { MailgunWebhookSchema } from './actions/emails/process-inbound'
-    ```
+You can always query the local database.
 
-    Then in `apps/web`, import from `@app/api`:
-
-    ```typescript
-    // ✅ Correct - imports from the package export
-    import { processInboundEmail, MailgunWebhookSchema } from '@app/api'
-
-    // ❌ Wrong - direct file imports will fail
-    import { processInboundEmail } from '@app/api/src/actions/emails/process-inbound'
-    ```
-
-    **Important**: If you forget to export in `index.ts`, the import will fail with linting/type errors.
-
-Only make the exact changes I request—do not modify, remove, or alter any other code, styling, or page elements unless explicitly instructed. If my request conflicts with existing code, styling, or functionality, or if you anticipate any issues, pause execution and notify me for confirmation before proceeding. Always follow this rule for every modification. If in doubt, ask before making any change.
+```bash
+psql postgres://localhost:5432/monorepo-scaffold -c "SELECT * FROM users LIMIT 5"
+```
 
 ---
 > Source: [maccman/ai-monorepo-scaffold](https://github.com/maccman/ai-monorepo-scaffold) — distributed by [TomeVault](https://tomevault.io).
