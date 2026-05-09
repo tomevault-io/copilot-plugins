@@ -1,316 +1,103 @@
-## kubernaut
+## 00-analysis-first-protocol
 
-> Critical testing anti-patterns to avoid - detection and remediation
+> **Priority**: FOUNDATIONAL - Applied before all other rules and guidelines
 
+# Analysis-First Protocol - Mandatory Cognitive Framework
 
-# Testing Anti-Patterns - Critical Reference
+## 🧠 **MANDATORY ANALYSIS-FIRST PROTOCOL**
 
-## 🚨 **CRITICAL ANTI-PATTERNS - IMMEDIATE REJECTION**
+**Priority**: FOUNDATIONAL - Applied before all other rules and guidelines
 
-### **ANTI-PATTERN 1: NULL-TESTING (Most Critical)**
+### **Core Principle**
+Every AI response MUST follow systematic analysis before providing solutions. This prevents solution-first cognitive bias and ensures evidence-based recommendations.
 
-**Definition**: Testing for basic existence rather than business outcomes
+## 📋 **MANDATORY RESPONSE SEQUENCE**
 
-**Violations**:
-```go
-// ❌ NULL-TESTING: Tests nothing meaningful
-Expect(result).ToNot(BeNil())
-Expect(result).ToNot(BeEmpty())
-Expect(len(items)).To(BeNumerically(">", 0))
-Expect(err).To(BeNil())  // Weak error testing
-```
+### **STEP 1: ANALYZE (REQUIRED)**
+🔍 **ANALYZING YOUR REQUEST:**
+- What is the user's actual question/need?
+- What problem are they trying to solve?
+- What assumptions am I making about their request?
 
-**Correct Approach**:
-```go
-// ✅ BUSINESS OUTCOME TESTING
-Expect(workflow.Template.SafetyValidation).To(ContainElement("resource-limits"))
-Expect(analysis.ConfidenceScore).To(BeNumerically(">=", 0.8))
-Expect(recommendation.Actions).To(HaveLen(3))
-```
+### **STEP 2: SEARCH (REQUIRED)**
+📚 **CHECKING EXISTING SOLUTIONS:**
+- Search project rules (.cursor/rules/) for existing guidance
+- Check existing implementations (pkg/, cmd/) for current solutions
+- Review established patterns and documentation
+- Use codebase_search, read_file, or grep tools as needed
 
----
+### **STEP 3: ASSESS (REQUIRED)**
+🎯 **GAP ASSESSMENT:**
+- Do existing mechanisms already solve this?
+- What's the specific gap (if any)?
+- Is the user's proposed approach actually necessary?
 
-### **ANTI-PATTERN 2: STATIC DATA TESTING**
+### **STEP 4: RESPOND (REQUIRED)**
+💡 **RECOMMENDATION:**
+- Reference what existing solutions were found
+- Explain gap analysis results
+- Provide recommendations based on evidence
+- If proposing new solutions, justify why existing ones are insufficient
 
-**Definition**: Testing hardcoded values instead of business logic
+## 🚫 **FORBIDDEN ACTIONS**
 
-**Violations**:
-```go
-// ❌ STATIC DATA TESTING
-input := "test-alert-name"
-Expect(result.Name).To(Equal("test-alert-name"))
-```
+**NEVER:**
+- Skip directly to solutions without analysis
+- Assume user needs without validation
+- Propose new mechanisms without checking existing ones
+- Provide recommendations without evidence
+- Ignore existing project resources
 
-**Correct Approach**:
-```go
-// ✅ BUSINESS LOGIC TESTING
-input := testutil.GenerateAlertName()
-Expect(result.Name).To(MatchRegexp("^alert-[0-9]+$"))
-```
+## ✅ **ENFORCEMENT MECHANISMS**
 
----
+### **Response Format Requirement**
+Every response must start with these four sections:
+- 🔍 **ANALYZING YOUR REQUEST:** [analysis]
+- 📚 **CHECKING EXISTING SOLUTIONS:** [search results]
+- 🎯 **GAP ASSESSMENT:** [necessity evaluation]
+- 💡 **RECOMMENDATION:** [evidence-based response]
 
-### **ANTI-PATTERN 3: LIBRARY TESTING**
+### **Tool Usage Requirement**
+Before any technical response, AI MUST use appropriate tools:
+- `codebase_search` for existing implementations
+- `read_file` for rule/documentation verification
+- `grep` for pattern analysis
 
-**Definition**: Testing third-party libraries instead of business logic
+### **Evidence Requirement**
+All recommendations must include:
+- References to specific files/rules found
+- Explanation of why existing solutions do/don't meet needs
+- Justification for any new implementations
 
-**Violations**:
-```go
-// ❌ LIBRARY TESTING
-logger := logrus.New()
-Expect(logger).ToNot(BeNil())
-```
+## 🎯 **SUCCESS CRITERIA**
 
-**Correct Approach**:
-```go
-// ✅ BUSINESS LOGIC TESTING
-logger := business.NewStructuredLogger(config)
-logger.LogWorkflowEvent("workflow-123", "completed")
-Expect(logger.GetLastEvent().WorkflowID).To(Equal("workflow-123"))
-```
+**Analysis-First Protocol is successful when:**
+- ✅ User receives evidence-based recommendations
+- ✅ Existing project resources are leveraged effectively
+- ✅ Solution-first cognitive bias is prevented
+- ✅ Recommendations align with project methodology
+- ✅ Technical decisions are justified with analysis
 
-**Rule**: If it's not in `pkg/`, don't test it
+## 🔗 **Integration with Other Rules**
 
----
+This protocol **enhances** all other rules by ensuring:
+- TDD methodology is applied after proper analysis
+- Business requirements are validated before implementation
+- Technical patterns are researched before creation
+- Integration requirements are confirmed before coding
 
-### **ANTI-PATTERN 4: IMPLEMENTATION TESTING**
+**Priority**: This rule is applied FIRST, then other rules operate within its framework.
 
-**Definition**: Testing how code works instead of what business outcome it produces
+## 📚 **Quick Reference**
 
-**Violations**:
-```go
-// ❌ IMPLEMENTATION TESTING
-Expect(engine.parseWorkflowSteps(input)).To(HaveLen(3))
-Expect(workflow.internalCache).To(HaveKey("step-1"))
-```
+**User asks any question → AI must:**
+1. 🔍 Analyze what they're really asking
+2. 📚 Search existing project resources
+3. 🎯 Assess if new solutions are needed
+4. 💡 Provide evidence-based recommendations
 
-**Correct Approach**:
-```go
-// ✅ BUSINESS OUTCOME TESTING
-workflow, err := engine.CreateWorkflow(input)
-Expect(err).ToNot(HaveOccurred())
-Expect(workflow.Status).To(Equal(business.StatusReady))
-Expect(workflow.CanExecute()).To(BeTrue())
-```
-
----
-
-### **ANTI-PATTERN 5: MOCK OVERUSE**
-
-**Definition**: Mocking internal business logic instead of external dependencies
-
-**Violations**:
-```go
-// ❌ MOCK OVERUSE: All business logic mocked = testing nothing
-mockValidator := mocks.NewMockWorkflowValidator()
-mockAnalyzer := mocks.NewMockPerformanceAnalyzer()
-mockOptimizer := mocks.NewMockResourceOptimizer()
-engine := NewEngine(mockValidator, mockAnalyzer, mockOptimizer)
-```
-
-**Correct Approach**:
-```go
-// ✅ REAL BUSINESS LOGIC: Mock only external dependencies
-mockLLMClient := mocks.NewMockLLMClient()
-mockK8sClient := fake.NewClientBuilder().Build()
-
-// Use REAL business components
-validator := business.NewWorkflowValidator()
-analyzer := business.NewPerformanceAnalyzer()
-engine := NewEngine(validator, analyzer, mockLLMClient, mockK8sClient)
-```
+**This prevents the error pattern of jumping to solutions without understanding context.**
 
 ---
-
-### **ANTI-PATTERN 6: ENVIRONMENT VARIABLE CONFIGURATION (Python)**
-
-**Definition**: Using environment variables for configuration instead of YAML files (ADR-030)
-
-**Scope**: Python production code AND test code
-
-**Violations**:
-```python
-# ❌ Configuration via env vars
-url = os.getenv("DATA_STORAGE_URL")
-timeout = int(os.getenv("TIMEOUT", "30"))
-```
-
-**Correct Approach**:
-```python
-# ✅ YAML configuration
-import yaml
-with open(config_file, 'r') as f:
-    config = yaml.safe_load(f)
-url = config['data_storage']['url']
-```
-
-**ONLY Exception**: `CONFIG_FILE` env var to specify YAML file location
-
-**Detection**: `grep -r "os.getenv" holmesgpt-api/ --include="*.py" | grep -v "CONFIG_FILE"`
-
----
-
-## 🔧 **AUTOMATED DETECTION**
-
-### **Run Anti-Pattern Detection**
-
-```bash
-# Comprehensive anti-pattern check
-make lint-test-patterns
-
-# Or directly via script
-./scripts/validation/check-test-anti-patterns.sh
-
-# Verbose mode (shows file locations)
-./scripts/validation/check-test-anti-patterns.sh --verbose
-```
-
-### **Manual Detection Commands**
-
-```bash
-# Detect NULL-TESTING violations
-grep -r "ToNot(BeNil())\|ToNot(BeEmpty())" test/ --include="*_test.go"
-
-# Detect STATIC DATA violations
-grep -r "Equal(\".*\")" test/ --include="*_test.go" | grep -v "BR-"
-
-# Detect LIBRARY TESTING violations
-grep -r "logrus\.New()\|context\.WithValue" test/ --include="*_test.go"
-
-# Check for missing BR references
-find test/ -name "*_test.go" -exec grep -L "BR-" {} \;
-```
-
----
-
-## 🚨 **ENFORCEMENT**
-
-### **Pre-Commit Hook**
-
-```bash
-#!/bin/bash
-# .git/hooks/pre-commit
-
-./scripts/validation/check-test-anti-patterns.sh
-
-if [ $? -ne 0 ]; then
-    echo "❌ Test anti-patterns detected. Commit blocked."
-    exit 1
-fi
-```
-
-**Setup**: Run `./scripts/setup-githooks.sh` to install
-
----
-
-### **CI/CD Integration**
-
-**Pipeline**: Tests automatically checked in pull requests
-**Blocking**: PR cannot merge with anti-pattern violations
-**Reporting**: Detailed violation report in PR comments
-
----
-
-## 📊 **REMEDIATION WORKFLOW**
-
-### **Step 1: Identify Violations**
-
-```bash
-# Run detection with file locations
-./scripts/validation/check-test-anti-patterns.sh --verbose
-```
-
-### **Step 2: Fix Pattern**
-
-```go
-// BEFORE (NULL-TESTING)
-It("should return a result", func() {
-    result := engine.Process(input)
-    Expect(result).ToNot(BeNil())
-})
-
-// AFTER (BUSINESS OUTCOME)
-It("should process workflow and return ready status (BR-WF-001)", func() {
-    result := engine.Process(input)
-    Expect(result.Status).To(Equal(business.StatusReady))
-    Expect(result.CanExecute()).To(BeTrue())
-})
-```
-
-### **Step 3: Validate Fix**
-
-```bash
-# Re-run tests
-go test ./test/unit/workflow/... -v
-
-# Re-run anti-pattern detection
-./scripts/validation/check-test-anti-patterns.sh
-
-# Verify BR reference added
-grep "BR-WF-001" test/unit/workflow/engine_test.go
-```
-
----
-
-## 🎯 **BEST PRACTICES**
-
-### **Writing Tests**
-
-1. ✅ **Always** reference business requirements (BR-XXX-XXX)
-2. ✅ **Always** test business outcomes, not implementation
-3. ✅ **Always** use real business logic, mock only external deps
-4. ✅ **Always** use descriptive assertions with business context
-
-### **Common Questions**
-
-**Q**: How do I know if my assertion is weak?
-**A**: If you're testing `BeNil()` or `BeEmpty()` without business context, it's weak.
-
-**Q**: What counts as "business logic" vs "external dependency"?
-**A**: Business logic = `pkg/` code. External = databases, APIs, K8s, LLM services.
-
-**Q**: Can I ever use `ToNot(BeNil())`?
-**A**: Only with business context:
-```go
-Expect(result).ToNot(BeNil(),
-    "BR-WF-001: Workflow must return result for tracking")
-```
-
-**Q**: How many mocks are too many?
-**A**: >3 mocks in a single test = red flag. Use real business components instead.
-
----
-
-## 📚 **COMPLETE DOCUMENTATION**
-
-**See**: [Anti-Pattern Detection Guide](mdc:docs/testing/ANTI_PATTERN_DETECTION.md)
-
-**Complete guide includes**:
-- Detailed violation examples
-- Automated detection scripts
-- CI/CD integration details
-- Historical tracking
-- Training scenarios
-
----
-
-## ⚡ **QUICK REFERENCE**
-
-| Anti-Pattern | Detection | Fix |
-|--------------|-----------|-----|
-| **NULL-TESTING** | `BeNil()\|BeEmpty()` | Test business outcomes |
-| **STATIC DATA** | Hardcoded strings | Use testutil generators |
-| **LIBRARY TESTING** | Testing `logrus`, `context` | Test business logic |
-| **IMPLEMENTATION** | Testing internal methods | Test public behavior |
-| **MOCK OVERUSE** | >3 mocks | Use real business components |
-| **ENV VAR CONFIG (Python)** | `os.getenv\|os.environ` | Use YAML config files |
-
-**Command**: `make lint-test-patterns`
-
----
-
-**Remember**: Tests validate business value, not technical implementation. Focus on outcomes, not mechanics.
-
----
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/jordigilh) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [jordigilh/kubernaut](https://github.com/jordigilh/kubernaut) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
