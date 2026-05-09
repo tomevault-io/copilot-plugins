@@ -1,0 +1,9 @@
+{
+  "name": "nimblepros--dotnet-codingagent-template",
+  "displayName": "dotnet-codingagent-template",
+  "description": "A template repository for dotnet applications that leverage coding agents",
+  "version": "1.0.0",
+  "author": "NimblePros",
+  "homepage": "https://github.com/NimblePros/dotnet-codingagent-template",
+  "skills": []
+}
