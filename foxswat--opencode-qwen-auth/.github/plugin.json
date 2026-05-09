@@ -1,0 +1,9 @@
+{
+  "name": "foxswat--opencode-qwen-auth",
+  "displayName": "opencode-qwen-auth",
+  "description": "Qwen OAuth authentication plugin for OpenCode with multi-account rotation and proactive token refresh",
+  "version": "1.0.0",
+  "author": "foxswat",
+  "homepage": "https://github.com/foxswat/opencode-qwen-auth",
+  "skills": []
+}
