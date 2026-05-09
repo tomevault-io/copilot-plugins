@@ -1,0 +1,9 @@
+{
+  "name": "2233admin--obsidian-llm-wiki",
+  "displayName": "obsidian-llm-wiki",
+  "description": "Your markdown vault, compiled into a 6-persona MCP team for Claude Code, Codex, OpenCode, and Gemini CLI. Headless-first. Cites, doesn't guess.",
+  "version": "1.0.0",
+  "author": "2233admin",
+  "homepage": "https://github.com/2233admin/obsidian-llm-wiki",
+  "skills": []
+}
