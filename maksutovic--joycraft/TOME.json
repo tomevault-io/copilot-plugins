@@ -4,7 +4,7 @@
   "repo": "joycraft",
   "description": "CLI + Claude Code plugin that scaffolds and upgrades AI development harnesses \u2014 from vibe coding to autonomous spec-driven development",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/maksutovic/joycraft",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T08:25:21Z"
+  "distributed_at": "2026-05-09T02:41:22Z"
 }
