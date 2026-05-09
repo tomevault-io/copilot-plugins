@@ -1,0 +1,225 @@
+## agent
+
+> CodeLooper project guidance for AI assistants
+
+# Agent Instructions
+
+This file provides guidance to AI assistants when working with code in this repository.
+
+## General useful for debug loops:
+- The Claude Code tool is helpful to analyze large logs or do complex file edits.
+- Pipe scripts that output lots of logs into a file for easier reading.
+- Use AppleScript to execute apps such as Claude Code to test the mcp.
+(This requires that the mcp is correctly set up)
+- Whenever you want to ask something to the user, ask Claude Code first instead.
+- Use AppleScript to find the bundle identifier for an app name
+- Use `jq` to analyze large json files.
+- We do not need backward compatibility, refactor properly.
+- We use Swift 6 for the CLI.
+
+- When I say "regenerate" then use `./scripts/generate-xcproj.sh` to regen the xcodeproj and use `xcodebuild` to test that it builds.
+- "fix build" means using `xcodebuild` with `CodeLooper.xcodeproj`. When you added/removed/changed files, regenerate first.
+- You don't need to regenerate the Xcode project as long as you just make modifications in one file. You only need to do this if you add or remove files. 
+
+## Project Overview
+
+This is the **CodeLooper** project, a Swift macOS menu bar application that provides automation and workflow enhancement capabilities. The application focuses on:
+
+- Menu bar presence with status icon management
+- User settings and preferences management  
+- macOS accessibility automation via AXorcist integration
+- Comprehensive logging and diagnostics system
+- SwiftUI-based settings interface with AppKit foundation
+- AXorcist is based on C-API that is synchronous and main-thread only. Therefore basically nothing in there should use async.
+- Refactor and improve code while you fix up things, don't go for the easy route, do it properly.
+
+## Architecture
+
+- **Swift Package Manager (SPM)**: Primary dependency management and build system
+- **Tuist**: Project generation and workspace management. Tuist uses a `Project.swift` manifest file to define the project structure, dependencies, and build settings. The main project configuration can be found in `Project.swift` at the root of the repository.
+- **SwiftUI + AppKit**: Hybrid UI approach with SwiftUI for modern components and AppKit for system integration
+- **AXorcist Integration**: Accessibility automation framework (git submodule)
+- **Swift 6.0**: Strict concurrency checking enabled
+
+### Key Directories
+
+- **`Sources/Application/`**: Core app lifecycle, delegates, and coordination
+  - `AppDelegate.swift`: Main application delegate with menu management
+  - `AppMain.swift`: Application entry point and setup
+  - `WindowPositionManager.swift`: Window management utilities
+- **`Sources/Components/`**: UI components and SwiftUI views
+  - `SwiftUI/`: Modern SwiftUI-based interface components
+  - `Alert/`: Alert presentation system
+- **`Sources/Diagnostics/`**: Comprehensive logging and error handling
+  - `Logger.swift`: Main logging interface
+  - `DiagnosticsLogger.swift`: Advanced diagnostic capabilities
+  - `LogManager.swift`: Log configuration and management
+- **`Sources/Settings/`**: User preferences and configuration
+  - `Models/DefaultsManager.swift`: UserDefaults management
+  - `Views/`: Settings UI components
+- **`Sources/StatusBar/`**: Menu bar interface and icon management
+  - `MenuManager.swift`: Main menu coordination
+  - `StatusIcon/`: Icon animation and state management
+- **`Sources/Utilities/`**: Shared utilities, extensions, and helpers
+  - `Extensions/`: Swift and Foundation extensions
+  - `Resources/`: Resource loading and management
+- **`AXorcist/`**: Accessibility automation framework (git submodule)
+
+## Development Workflow
+
+### Essential Commands
+
+```bash
+# Project setup and building
+swift build                           # Build with SPM (less common for day-to-day Xcode work)
+./scripts/generate-xcproj.sh         # CRITICAL: Generate/regenerate Xcode project via Tuist. ALWAYS use this script.
+                                      # This script includes vital patches for Swift 6 Sendable compliance with Tuist-generated code.
+./scripts/open-xcode.sh             # Open in Xcode (use after generating project)
+./scripts/run-app.sh                # Run the application (preferably from Xcode after project generation)
+
+# Code quality and formatting
+./run-swiftlint.sh                  # Check code quality (preserves self. references)
+./run-swiftformat.sh                # Format code automatically
+swift test                          # Run unit tests
+
+# AXorcist accessibility testing
+cd AXorcist && swift build          # Build accessibility tools
+./AXorcist/.build/debug/axorc --help # Test accessibility CLI
+```
+
+### Tuist Project Generation
+
+Due to Swift 6's strict concurrency checking and how Tuist generates code (specifically for Plist constants like `cfBundleURLTypes`),
+**it is essential to always use the `./scripts/generate-xcproj.sh` script to generate or regenerate the Xcode project.**
+
+This script performs the following crucial steps:
+1. Runs `tuist generate` to create the base Xcode project.
+2. **Applies necessary patches** to Tuist-generated Swift files (e.g., `Derived/Sources/TuistPlists+CodeLooper.swift`).
+   These patches modify the generated code to ensure Sendable compliance, for instance by:
+    - Adjusting types (e.g., from `[[String: String]]` to `[[String: Any]]` for `cfBundleURLTypes`).
+    - Potentially adding `nonisolated(unsafe)` to static properties that use non-Sendable types if Tuist generation doesn't handle it.
+
+**Failure to use this script will likely result in build errors related to Sendable compliance or incorrect type definitions in the generated Xcode project.**
+If you encounter build errors related to `TuistPlists+CodeLooper.swift` or Sendable types in generated code, ensure you have run `./scripts/generate-xcproj.sh` most recently.
+
+### Git Workflow
+- **Main Branch**: `main` (default for PRs)
+- **AXorcist Submodule**: Located at `AXorcist/`, requires separate git operations
+- **CI/CD**: GitHub Actions with macOS runners for automated builds and tests
+
+## Code Quality Standards
+
+### SwiftLint Configuration (CRITICAL)
+- **Explicit `self.` References**: The `redundant_self` rule is **disabled** to preserve explicit `self.` references required for Swift 6 concurrency compliance
+- **Never remove** `self.` references in closures - they're required for capture semantics
+
+### Swift 6 Concurrency Compliance
+- Use `@MainActor` for UI-related classes and methods
+- Add explicit `self.` in closures: `logger.info("Value: \(self.propertyName)")`
+- Handle `Sendable` conformance properly with custom types
+- Prefer structured concurrency (`async`/`await`) over completion handlers
+
+### Naming and Style
+- Descriptive variable names: `frameIndex` not `i`, `xPosition` not `x`
+- Clear function names that describe intent
+- Consistent indentation (4 spaces, configured in SwiftLint)
+- Use `// MARK:` comments for code organization
+
+## Diagnostic and Logging System
+
+### Logger Usage Patterns
+```swift
+import Diagnostics
+
+private let logger = Logger(category: .statusBar)
+
+// Standard logging
+logger.info("Menu bar icon updated successfully")
+logger.warning("Icon animation may be slow on this system")
+logger.error("Failed to load icon resource: \(error)")
+
+// Structured logging with context
+logger.debug("Processing menu update", metadata: [
+    "itemCount": "\(items.count)",
+    "hasIcons": "\(hasIcons)"
+])
+```
+
+### Available Log Categories
+- `.application`: App lifecycle and coordination
+- `.ui`: User interface components
+- `.network`: Network operations (if any)
+- `.diagnostics`: Logging system itself
+- `.statusBar`: Menu bar and icon management
+
+## AXorcist Integration
+
+### Accessibility Framework
+- **Purpose**: macOS UI automation via accessibility APIs
+- **CLI Tool**: `axorc` for JSON-based automation
+- **Library**: Swift package integration for programmatic use
+- **Permissions**: Requires macOS Accessibility permissions
+
+### Common Usage Patterns
+```bash
+# Test accessibility connection
+./AXorcist/.build/debug/axorc '{"command_id":"test","command":"ping"}'
+
+# Query UI elements
+./AXorcist/.build/debug/axorc --debug '{"command":"query","application":"com.apple.finder","locator":{"criteria":{"AXRole":"AXWindow"}}}'
+```
+
+## Agent Operational Guidelines
+
+### Code Modification Workflow
+1. **Always run SwiftLint** after any code changes: `./run-swiftlint.sh`
+2. **Preserve explicit `self.` references** in closures (critical for Swift 6)
+3. **Use TodoWrite tool** to track multi-step tasks and maintain visibility
+4. **Read existing code patterns** before implementing new features
+5. **Test build success** with `swift build` before considering changes complete
+
+### Common Debugging Strategies
+- **Enable verbose logging**: Use `logger.debug()` extensively during development
+- **Check AXorcist integration**: Test accessibility features with the CLI tool
+- **Use Xcode Instruments**: Profile performance for UI responsiveness
+- **Verify permissions**: Ensure accessibility permissions are granted for automation features
+
+### File Organization Principles
+- Place new Swift files in appropriate `Sources/` subdirectories based on functionality
+- Use clear, descriptive file names that indicate purpose
+- Include proper import statements (minimize dependencies)
+- Follow existing architectural patterns within each module
+
+### Before Submitting Changes
+1. **SwiftLint compliance**: `./run-swiftlint.sh` (must show no errors)
+2. **Code formatting**: `./run-swiftformat.sh` (consistent style)
+3. **Build verification**: `swift build` (must succeed)
+4. **Functional testing**: Manual verification of UI changes
+5. **AXorcist testing**: Verify accessibility integration if modified
+
+## Security and Performance
+
+### Security Considerations
+- Never commit secrets, API keys, or sensitive configuration
+- Use macOS Keychain for secure credential storage
+- Validate all user inputs, especially from accessibility automation
+- Follow principle of least privilege for system permissions
+
+### Performance Guidelines
+- Use lazy initialization for expensive resources
+- Avoid blocking the main thread (use background queues)
+- Profile memory usage with Instruments for menu bar efficiency
+- Cache frequently accessed resources (icons, preferences)
+
+## Testing Strategy
+
+- **Unit Tests**: Located in `Tests/` directory using XCTest framework
+- **AXorcist Tests**: Use `./AXorcist/run_tests.sh` for accessibility testing
+- **Manual Testing**: Essential for UI components and menu bar behavior
+- **CI Testing**: Automated via GitHub Actions on macOS runners
+
+This guide ensures consistent, high-quality development that aligns with the project's architectural principles and quality standards.
+
+---
+> Source: [steipete/CodeLooper](https://github.com/steipete/CodeLooper) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
