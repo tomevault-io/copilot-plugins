@@ -1,0 +1,9 @@
+{
+  "name": "darrenkoh--document-management-agents",
+  "displayName": "document-management-agents",
+  "description": "Document Management Agentic Workflow (LLM + VLM)",
+  "version": "1.0.0",
+  "author": "darrenkoh",
+  "homepage": "https://github.com/darrenkoh/document-management-agents",
+  "skills": []
+}
