@@ -1,196 +1,244 @@
-## color-swatch-accessibility
+## combobox-accessibility
 
-> Color swatch component accessibility compliance pattern
+> Combobox component accessibility compliance pattern
 
-# Color Swatch Variant Selector Component Accessibility Standards
+# Combobox Component Accessibility Standards
 
-Ensures color swatch variant selectors follow WCAG compliance and provide proper accessibility for all users.
+Ensures combobox components follow WCAG compliance and WAI-ARIA Combobox Pattern specifications.
 
 <rule>
-name: color_swatch_accessibility_standards
-description: Enforce color swatch variant selector accessibility standards and WCAG compliance
+name: combobox_accessibility_standards
+description: Enforce combobox component accessibility standards and WAI-ARIA Combobox Pattern compliance
 filters:
   - type: file_extension
-    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts|css|scss|sass|less)$"
+    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
 
 actions:
   - type: enforce
     conditions:
-      # Radio buttons hidden with display: none (accessibility blocker)
-      - pattern: "(?i)input\\[type=\"radio\"\\].*\\{[^}]*display:\\s*none"
-        message: "Radio buttons must not use display: none as it removes keyboard and screen reader access. Use appearance: none or visually-hidden class instead."
+      # Combobox role requirement
+      - pattern: "(?i)<(div|section)[^>]*(?:combobox|autocomplete)[^>]*>"
+        pattern_negate: "role=\"combobox\""
+        message: "Combobox containers must have role='combobox' attribute."
 
-      # Color swatches missing accessible labels
-      - pattern: "(?i)<input[^>]*type=\"radio\"[^>]*>"
-        pattern_negate: "(id.*for|label.*for)"
-        message: "Color swatch radio buttons must have associated label elements via id/for attributes."
+      # aria-expanded requirement
+      - pattern: "(?i)<[^>]*role=\"combobox\"[^>]*>"
+        pattern_negate: "aria-expanded=\"(true|false)\""
+        message: "Combobox elements must have aria-expanded attribute set to 'true' or 'false'."
 
-      # Color-only information without text alternatives
-      - pattern: "(?i)<[^>]*(?:color|swatch|variant)[^>]*>"
-        pattern_negate: "(data-label|aria-label|title|data-tooltip|class.*tooltip)"
-        message: "Color swatches must include text alternatives (data-label, tooltips, labels) as color alone cannot convey information to all users."
+      # aria-haspopup requirement
+      - pattern: "(?i)<[^>]*role=\"combobox\"[^>]*>"
+        pattern_negate: "aria-haspopup=\"listbox\""
+        message: "Combobox elements must have aria-haspopup='listbox' attribute."
 
-      # Missing fieldset and legend for variant groups
-      - pattern: "(?i)<input[^>]*type=\"radio\"[^>]*name=\"[^\"]*\"[^>]*>"
-        pattern_negate: "(fieldset|role=\"group\"|aria-labelledby)"
-        message: "Radio button groups should be wrapped in fieldset with legend or have role='group' with aria-labelledby."
+      # aria-controls requirement
+      - pattern: "(?i)<[^>]*role=\"combobox\"[^>]*>"
+        pattern_negate: "aria-controls=\"[^\"]+\""
+        message: "Combobox elements must have aria-controls attribute referencing the ID of the associated listbox."
 
-      # Missing keyboard navigation support
-      - pattern: "(?i)<[^>]*(?:color|swatch|variant)[^>]*>"
-        pattern_negate: "(onKeyDown|onkeydown|@keydown|v-on:keydown|tabindex)"
-        message: "Color swatch components should handle keyboard navigation (arrow keys) for variant selection."
+      # aria-autocomplete requirement
+      - pattern: "(?i)<[^>]*role=\"combobox\"[^>]*>"
+        pattern_negate: "aria-autocomplete=\"(list|both|inline|none)\""
+        message: "Combobox elements must have aria-autocomplete attribute set to 'list', 'both', 'inline', or 'none'."
 
-      # Missing focus indicators
-      - pattern: "(?i)<[^>]*(?:color|swatch|variant)[^>]*>"
-        pattern_negate: "(focus|:focus|outline|box-shadow)"
-        message: "Color swatch components must have visible focus indicators for keyboard navigation."
+      # aria-activedescendant requirement when expanded
+      - pattern: "(?i)<[^>]*role=\"combobox\"[^>]*aria-expanded=\"true\"[^>]*>"
+        pattern_negate: "aria-activedescendant=\"[^\"]+\""
+        message: "Expanded combobox elements must have aria-activedescendant attribute referencing the ID of the active option."
 
-      # Tooltip missing proper accessibility
-      - pattern: "(?i)<[^>]*(?:tooltip|title)[^>]*>"
-        pattern_negate: "(role=\"tooltip\"|aria-describedby|aria-label)"
-        message: "Color swatch tooltips must have proper ARIA attributes for screen reader accessibility."
+      # Listbox role requirement
+      - pattern: "(?i)<(div|ul)[^>]*(?:listbox|dropdown|popup)[^>]*>"
+        pattern_negate: "role=\"listbox\""
+        message: "Listbox containers must have role='listbox' attribute."
+
+      # Option role requirement
+      - pattern: "(?i)<(div|li)[^>]*(?:option|item)[^>]*>"
+        pattern_negate: "role=\"option\""
+        message: "Listbox options must have role='option' attribute."
+
+      # Option ID requirement for aria-activedescendant
+      - pattern: "(?i)<[^>]*role=\"option\"[^>]*>"
+        pattern_negate: "id=\"[^\"]+\""
+        message: "Listbox options must have unique id attributes for aria-activedescendant to reference them."
+
+      # aria-selected requirement for options
+      - pattern: "(?i)<[^>]*role=\"option\"[^>]*>"
+        pattern_negate: "aria-selected=\"(true|false)\""
+        message: "Listbox options must have aria-selected attribute set to 'true' or 'false'."
+
+      # Missing keyboard event handlers
+      - pattern: "(?i)<[^>]*role=\"combobox\"[^>]*>"
+        pattern_negate: "(onKeyDown|onkeydown|@keydown|v-on:keydown)"
+        message: "Combobox elements should handle keyboard events (Arrow keys, Enter, Escape, etc.)."
+
+      # Missing status region
+      - pattern: "(?i)<[^>]*role=\"combobox\"[^>]*>"
+        pattern_negate: "aria-controls=\"[^\"]+\".*?<[^>]*role=\"status\""
+        message: "Combobox should have a status region to announce available options."
 
   - type: suggest
     message: |
-      **Color Swatch Variant Selector Accessibility Best Practices:**
+      **Combobox Component Accessibility Best Practices:**
 
-      **Required Accessibility Features:**
-      - **Keyboard Navigation:** Arrow keys (←/→) to navigate between variants
-      - **Screen Reader Support:** Proper labeling and announcements
-      - **Focus Indicators:** Highly visible focus states
-      - **Text Alternatives:** Tooltips or labels for color information
-      - **Proper Styling:** Use appearance: none instead of display: none
-      - **Label Focus:** Labels automatically receive focus when their associated input is focused (no tabindex needed)
-      - **Input Focus:** Radio inputs are naturally focusable and part of tab order (no tabindex needed)
+      **Required ARIA Attributes:**
+      - **role='combobox':** Set on the input container element
+      - **aria-expanded:** 'true' if listbox is visible, 'false' if hidden
+      - **aria-haspopup='listbox':** Indicates the combobox has a listbox popup
+      - **aria-controls:** Reference to the ID of the associated listbox
+      - **aria-autocomplete:** 'list', 'both', 'inline', or 'none' based on behavior
+      - **aria-activedescendant:** Reference to the ID of the currently active option (remove when listbox is hidden)
+      - **role='listbox':** Set on the popup container element (preferably on a `ul` element)
+      - **role='option':** Set on each selectable item in the listbox (preferably on an `li` element)
+      - **id:** Unique ID on each option element for `aria-activedescendant` to reference
+      - **aria-selected:** 'true' or 'false' on each option
+      - **role='status':** Set on a visually hidden element to announce available options
 
-      **Implementation Patterns:**
+      **Keyboard Interaction Requirements:**
+      - **Down Arrow:** Open listbox and move focus to first option
+      - **Up Arrow:** Open listbox and move focus to last option
+      - **Enter/Space:** Select focused option and close listbox
+      - **Escape:** Close listbox without selection
+      - **Tab:** Move focus to next focusable element
+      - **Shift+Tab:** Move focus to previous focusable element
+      - **Home/End:** Move focus to first/last option
+      - **Character Keys:** Filter options based on input
 
-      **Basic Color Swatch Structure:**
+      **Focus Management:**
+      - Focus should remain on the input while navigating options
+      - Use aria-activedescendant to indicate the currently focused option
+      - Return focus to input after selection or closing
+      - Ensure focus is trapped within the combobox while open
+
+      **Status Region Requirements:**
+      - Must announce number of available options when listbox opens
+      - Must announce when no options are available
+      - Must use proper pluralization ("1 item available" vs "2 items available")
+      - Must be visually hidden but available to screen readers
+      - Should update dynamically as options are filtered
+
+      **Semantic HTML Structure:**
+      - Use `ul` element for the listbox container
+      - Use `li` elements for individual options
+      - This provides better semantic structure and is more appropriate for lists
+
+      **Implementation Example:**
       ```html
-      <fieldset class="color-swatches">
-        <legend>Color</legend>
-        <div class="swatch-group" role="radiogroup" aria-labelledby="color-legend">
-          <input type="radio"
-                 id="color-red"
-                 name="color"
-                 value="red"
-                 class="visually-hidden">
-          <label for="color-red"
-                 class="color-swatch"
-                 data-label="Red - Classic crimson shade">
-            <span class="swatch-color" style="background-color: red;"></span>
-          </label>
-
-          <input type="radio"
-                 id="color-blue"
-                 name="color"
-                 value="blue"
-                 class="visually-hidden">
-          <label for="color-blue"
-                 class="color-swatch"
-                 data-label="Blue - Navy blue shade">
-            <span class="swatch-color" style="background-color: blue;"></span>
-          </label>
+      <div class="combobox-container">
+        <label for="combobox-input">Select an option:</label>
+        <input type="text"
+               id="combobox-input"
+               role="combobox"
+               aria-expanded="false"
+               aria-haspopup="listbox"
+               aria-controls="listbox-popup"
+               aria-autocomplete="list">
+        <ul id="listbox-popup"
+            role="listbox"
+            hidden>
+          <li role="option"
+              id="option-1"
+              aria-selected="false">
+            Option 1
+          </li>
+          <li role="option"
+              id="option-2"
+              aria-selected="false">
+            Option 2
+          </li>
+        </ul>
+        <div id="listbox-status"
+             role="status"
+             class="visually-hidden">
+          <!-- Status messages will be dynamically updated -->
         </div>
-      </fieldset>
+      </div>
+
+      <style>
+        .visually-hidden {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border: 0;
+        }
+
+        #listbox-popup {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+      </style>
+
+      <script>
+        const input = document.getElementById('combobox-input');
+        const listbox = document.getElementById('listbox-popup');
+        const statusElement = document.getElementById('listbox-status');
+
+        // Status message handling
+        function updateStatusMessage(count) {
+          if (count === 0) {
+            statusElement.textContent = 'No items available';
+          } else {
+            statusElement.textContent = `${count} ${count === 1 ? 'item' : 'items'} available`;
+          }
+        }
+
+        // Show listbox
+        function showListbox() {
+          listbox.hidden = false;
+          input.setAttribute('aria-expanded', 'true');
+          const options = listbox.querySelectorAll('[role="option"]');
+          updateStatusMessage(options.length);
+        }
+
+        // Hide listbox
+        function hideListbox() {
+          listbox.hidden = true;
+          input.setAttribute('aria-expanded', 'false');
+          input.removeAttribute('aria-activedescendant'); // Important: remove when hiding
+          statusElement.textContent = '';
+        }
+
+        // Set active option
+        function setActiveOption(optionId) {
+          input.setAttribute('aria-activedescendant', optionId);
+        }
+
+        // Example usage:
+        // When opening listbox with options:
+        showListbox();
+        // When setting active option:
+        setActiveOption('option-1');
+        // When closing listbox:
+        hideListbox();
+      </script>
       ```
 
-      **CSS for Accessible Styling:**
-      ```css
-      /* Visually hide radio buttons while keeping them accessible */
-      .visually-hidden {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-      }
+      **JavaScript Considerations:**
+      - Implement proper event listeners for all keyboard interactions
+      - Update ARIA attributes dynamically based on state
+      - **Remove `aria-activedescendant` when hiding the listbox** to avoid referencing hidden elements
+      - Handle focus management and trapping
+      - Implement proper filtering and selection logic
+      - Update status messages for all state changes
+      - Ensure proper pluralization in status messages
+      - Handle edge cases (no matches, empty input, etc.)
 
-      /* Focus Management: Labels automatically receive focus when their input is focused */
-      /* No tabindex needed on labels - they are naturally focusable through their input association */
-      /* No tabindex needed on inputs - radio inputs are naturally focusable and part of tab order */
+      **Accessibility Notes:**
+      - Status region helps screen readers understand available options
+      - Proper pluralization improves user experience
+      - Clear status messages help users understand the current state
+      - Visual feedback should match announced status
+      - Test with screen readers to ensure proper announcement
 
-      /* Alternative: Use appearance: none for custom styling */
-      input[type="radio"] {
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        /* Custom styling here */
-      }
-
-      /* Color swatch styling */
-      .color-swatch {
-        display: inline-block;
-        width: 40px;
-        height: 40px;
-        border: 2px solid transparent;
-        border-radius: 50%;
-        cursor: pointer;
-        position: relative;
-        transition: border-color 0.2s ease;
-      }
-
-      .color-swatch:focus {
-        outline: 3px solid #0056b3;
-        outline-offset: 2px;
-        border-color: #0056b3;
-      }
-
-      /* Show focus styles on label when input is focused */
-      .color-swatch:has(+ input:focus) {
-        outline: 3px solid #0056b3;
-        outline-offset: 2px;
-        border-color: #0056b3;
-      }
-
-      /* Alternative: Use :focus-within for broader browser support */
-      .color-swatch:focus-within {
-        outline: 3px solid #0056b3;
-        outline-offset: 2px;
-        border-color: #0056b3;
-      }
-
-      .color-swatch:has(+ input:checked) {
-        border-color: #212529;
-        box-shadow: 0 0 0 2px #fff, 0 0 0 4px #212529;
-      }
-
-      .swatch-color {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        display: block;
-      }
-
-      /* Tooltip styling */
-      .color-swatch::after {
-        content: attr(data-label);
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #212529;
-        color: white;
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 0.75rem;
-        white-space: nowrap;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.2s ease;
-        z-index: 1000;
-      }
-
-      .color-swatch:hover::after,
-      .color-swatch:focus::after,
-      .color-swatch:has(+ input:focus)::after {
-        opacity: 1;
-      }
-      ```
+metadata:
+  priority: high
+  version: 1.0
+</rule>
 
 ---
 > Source: [Shopify/horizon](https://github.com/Shopify/horizon) — distributed by [TomeVault](https://tomevault.io).
