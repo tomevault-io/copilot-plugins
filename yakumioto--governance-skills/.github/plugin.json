@@ -1,0 +1,9 @@
+{
+  "name": "yakumioto--governance-skills",
+  "displayName": "governance-skills",
+  "description": "Structured development governance framework enabling scoped execution, auditable changes, and reproducible engineering workflows.",
+  "version": "1.0.0",
+  "author": "yakumioto",
+  "homepage": "https://github.com/yakumioto/governance-skills",
+  "skills": []
+}
