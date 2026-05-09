@@ -2,9 +2,9 @@
   "name": "autorun",
   "owner": "ahundt",
   "repo": "autorun",
-  "description": "",
+  "description": "Claude Code plugin & Gemini cli extension to keep ai running, keep data safe, plan better, and keep running until tasks are done.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/ahundt",
+  "source_url": "https://github.com/ahundt/autorun",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T01:47:02Z"
+  "distributed_at": "2026-05-09T12:59:36Z"
 }
