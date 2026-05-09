@@ -2,6 +2,8 @@
 
 > Sourced from [Consensys/ask-o11y-plugin](https://github.com/Consensys/ask-o11y-plugin) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+AI-powered observability assistant for Grafana that helps you query data, investigate issues, and manage dashboards through natural language.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [Consensys/ask-o11y-plugin](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Consensys/ask-o11y-plugin](https://github.com/Consensys/ask-o11y-plugin) — a repo with 0+ stars on GitHub.
+From [Consensys/ask-o11y-plugin](https://github.com/Consensys/ask-o11y-plugin) — a repo with 23+ stars on GitHub.
 
 ---
 
