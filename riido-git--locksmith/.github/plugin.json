@@ -1,0 +1,9 @@
+{
+  "name": "riido-git--locksmith",
+  "displayName": "locksmith",
+  "description": "A Spring Boot starter for Redis-based distributed locking using annotations. Ensures only one instance across all servers executes a method at a time.",
+  "version": "1.0.0",
+  "author": "riido-git",
+  "homepage": "https://github.com/riido-git/locksmith",
+  "skills": []
+}
