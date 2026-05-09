@@ -1,0 +1,9 @@
+{
+  "name": "pdugan20--libby-downloader",
+  "displayName": "libby-downloader",
+  "description": "A command-line tool and chrome extension for downloading audiobooks from Libby.",
+  "version": "1.0.0",
+  "author": "pdugan20",
+  "homepage": "https://github.com/pdugan20/libby-downloader",
+  "skills": []
+}
