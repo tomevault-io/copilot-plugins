@@ -1,0 +1,61 @@
+## coding-standards
+
+> This document outlines coding standards and best practices for the AI Backends project.
+
+# Coding Standards
+
+This document outlines coding standards and best practices for the AI Backends project.
+
+## TypeScript Usage
+
+- Use proper TypeScript types and avoid `any` when possible
+- Create interfaces for complex data structures
+- Use type guards when necessary for type narrowing
+- Leverage TypeScript's utility types (Pick, Omit, Partial, etc.)
+
+## API Design
+
+- Follow RESTful principles for resource-based endpoints
+- Use consistent naming conventions for endpoints
+- Document APIs using OpenAPI/Swagger via Hono's built-in support
+- Return appropriate HTTP status codes
+- Implement proper error handling and validation
+- Routes should be in the src/routes folder and named with dash-separated lowercase words
+
+## Error Handling
+
+- Use consistent error handling patterns
+- Provide meaningful error messages
+- Create custom error classes when appropriate
+- Log errors with sufficient context for debugging
+- Don't expose sensitive information in error messages
+
+## Performance Considerations
+
+- Avoid blocking operations when possible
+- Use caching where appropriate
+- Consider rate limiting for resource-intensive operations
+- Implement pagination for large data sets
+- Implement exponential backoff for all external API calls to avoid hitting rate limits
+
+## Security Best Practices
+
+- Sanitize and validate all user input
+- Store sensitive information in environment variables
+- Implement proper authentication and authorization
+- Follow the principle of least privilege
+- Keep dependencies updated
+
+## AI Integration
+
+- Handle AI model responses appropriately
+- Set reasonable timeouts for AI model calls
+- Implement fallbacks for when AI services are unavailable
+- Consider streaming responses for long-running AI operations
+- Validate AI output before returning to clients
+- Implement exponential backoff for all external API calls to avoid hitting rate limits
+- Use the reusable AI service layer when connecting from API routes
+
+---
+> Source: [donvito/ai-backends](https://github.com/donvito/ai-backends) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
