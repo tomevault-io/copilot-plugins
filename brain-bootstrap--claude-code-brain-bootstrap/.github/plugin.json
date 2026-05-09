@@ -1,0 +1,9 @@
+{
+  "name": "brain-bootstrap--claude-code-brain-bootstrap",
+  "displayName": "claude-code-brain-bootstrap",
+  "description": "\ud83e\udde0 Give Claude Code the operating context it's missing: persistent rules, enforced hooks, on-demand skills and deep knowledge of your codebase.",
+  "version": "1.0.0",
+  "author": "brain-bootstrap",
+  "homepage": "https://github.com/brain-bootstrap/claude-code-brain-bootstrap",
+  "skills": []
+}
