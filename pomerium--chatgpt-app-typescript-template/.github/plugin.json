@@ -1,0 +1,9 @@
+{
+  "name": "pomerium--chatgpt-app-typescript-template",
+  "displayName": "chatgpt-app-typescript-template",
+  "description": "ChatGPT app template using Pomerium, OpenAI Apps SDK and Model Context Protocol (MCP), with a Node.js server and React widgets.",
+  "version": "1.0.0",
+  "author": "pomerium",
+  "homepage": "https://github.com/pomerium/chatgpt-app-typescript-template",
+  "skills": []
+}
