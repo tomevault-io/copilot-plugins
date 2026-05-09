@@ -1,0 +1,9 @@
+{
+  "name": "skillscat--skillscat",
+  "displayName": "skillscat",
+  "description": "An open platform for discovering, sharing, and installing AI agent skills.",
+  "version": "1.0.0",
+  "author": "SkillsCat",
+  "homepage": "https://github.com/SkillsCat/skillscat",
+  "skills": []
+}
