@@ -1,0 +1,44 @@
+{
+  "name": "skytest-agent",
+  "owner": "oursky",
+  "repo": "skytest-agent",
+  "description": "AI-powered web automation agent for natural language testing. Built with Next.js 16, Midscene.js, and Playwright. Describe steps, automate interactions.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/oursky/skytest-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T16:54:07Z"
+}
