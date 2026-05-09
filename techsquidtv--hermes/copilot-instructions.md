@@ -1,284 +1,300 @@
-## 20-hermes-app-hooks
+## 20-hermes-app-routes
 
-> - **MUST** start with `use` prefix: `useDownloadActions`, `useTheme`, `useApiKeys`
+> validateSearch: (search: Record<string, unknown>) => {
 
 
-# Hermes App - Custom Hooks Rules
+# Hermes App - TanStack Router Rules
 
-## Hook Naming
+## Route File Structure
 
-- **MUST** start with `use` prefix: `useDownloadActions`, `useTheme`, `useApiKeys`
-- File name must match hook name: `useTheme.ts` exports `useTheme`
-- Export as named export, not default
-- Use descriptive names that indicate purpose
+### File-Based Routing
+- Route files in `src/routes/`
+- File names determine route paths using dot notation
+- Special file names: `__root.tsx`, `index.tsx`
 
-## Hook Structure
+```
+routes/
+├── __root.tsx           # Root layout (wraps all routes)
+├── index.tsx            # Home page (/)
+├── queue.tsx            # /queue
+├── settings.tsx         # /settings
+├── auth.login.tsx       # /auth/login
+└── auth.signup.tsx      # /auth/signup
+```
 
-### Basic Template
+### Route File Template
 ```typescript
-interface UseFeatureOptions {
-  initialValue?: string;
-  onSuccess?: (data: Data) => void;
-}
+import { createFileRoute } from "@tanstack/react-router";
 
-interface UseFeatureReturn {
-  data: Data | null;
-  isLoading: boolean;
-  error: Error | null;
-  actions: {
-    fetch: () => Promise<void>;
-    reset: () => void;
-  };
-}
+export const Route = createFileRoute("/route-path")({
+  component: RouteComponent,
+  loader: async ({ context, params }) => {
+    // Load data
+    return { data };
+  },
+  errorComponent: ErrorComponent,
+  pendingComponent: LoadingComponent,
+  beforeLoad: async ({ context, location }) => {
+    // Auth checks, redirects
+  },
+});
 
-/**
- * @example
- * const { data, isLoading, actions } = useFeature({ initialValue: 'test' });
- */
-export function useFeature(options: UseFeatureOptions = {}): UseFeatureReturn {
-  const [data, setData] = useState<Data | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-
-  return { data, isLoading, error, actions: { fetch, reset } };
+function RouteComponent() {
+  const data = Route.useLoaderData();
+  return <div>{/* Route content */}</div>;
 }
 ```
 
-### TypeScript Requirements
-- Define explicit return types
-- Create interfaces for options and return values
-- Avoid `any` type
+## Root Layout (__root.tsx)
 
-## Hook Patterns
-
-### Data Fetching (TanStack Query)
 ```typescript
-export function useApiKeys() {
-  const queryClient = useQueryClient();
+import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { AppLayout } from "@/components/layout/AppLayout";
 
-  const { data: apiKeys, isLoading, error } = useQuery({
-    queryKey: ["apiKeys"],
-    queryFn: fetchApiKeys,
-  });
+export const Route = createRootRoute({
+  component: RootLayout,
+  errorComponent: RootErrorComponent,
+});
 
-  const createMutation = useMutation({
-    mutationFn: createApiKey,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["apiKeys"] });
-    },
-  });
-
-  return {
-    apiKeys: apiKeys ?? [],
-    isLoading,
-    error,
-    createApiKey: createMutation.mutateAsync,
-    isCreating: createMutation.isPending,
-  };
-}
-```
-
-### Action Hook
-```typescript
-export function useDownloadActions() {
-  const queryClient = useQueryClient();
-
-  const pauseMutation = useMutation({
-    mutationFn: pauseDownload,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["downloads"] });
-      toast.success("Download paused");
-    },
-    onError: (error) => toast.error(`Failed: ${error.message}`),
-  });
-
-  const pause = useCallback(
-    (id: string) => pauseMutation.mutateAsync(id),
-    [pauseMutation]
+function RootLayout() {
+  return (
+    <AppLayout>
+      <Outlet />
+    </AppLayout>
   );
-
-  return { pause, isPausing: pauseMutation.isPending };
 }
 ```
 
-### Utility Hook
+## Data Loading
+
+### Loaders
 ```typescript
-export function useDebounce<T>(value: T, delay: number = 500): T {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value);
-
-  useEffect(() => {
-    const handler = setTimeout(() => setDebouncedValue(value), delay);
-    return () => clearTimeout(handler);
-  }, [value, delay]);
-
-  return debouncedValue;
-}
-```
-
-### Context Hook
-```typescript
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within AuthProvider");
-  }
-  return context;
-}
-```
-
-## TanStack Query Integration
-
-### Query Keys
-Use hierarchical, descriptive keys with parameters:
-
-```typescript
-// ✅ Good
-queryKey: ["downloads", "list", { status: "active" }]
-queryKey: ["downloads", "detail", downloadId]
-
-// ❌ Bad
-queryKey: ["data"]
-queryKey: ["downloads"]  // Too generic
-```
-
-### Mutations
-- Invalidate queries after successful mutations
-- Handle optimistic updates when appropriate
-- Show toast notifications for user feedback
-
-```typescript
-const mutation = useMutation({
-  mutationFn: updateItem,
-  onMutate: async (newItem) => {
-    await queryClient.cancelQueries({ queryKey: ["items"] });
-    const prev = queryClient.getQueryData(["items"]);
-    queryClient.setQueryData(["items"], (old: Item[]) =>
-      old.map((item) => (item.id === newItem.id ? newItem : item))
-    );
-    return { prev };
+export const Route = createFileRoute("/downloads")({
+  loader: async ({ context }) => {
+    const downloads = await fetchDownloads();
+    const stats = await fetchStats();
+    return { downloads, stats };
   },
-  onError: (err, newItem, context) => {
-    queryClient.setQueryData(["items"], context?.prev);
-    toast.error("Update failed");
+  component: DownloadsPage,
+});
+
+function DownloadsPage() {
+  const { downloads, stats } = Route.useLoaderData();
+  return (
+    <div>
+      <Stats data={stats} />
+      <DownloadList items={downloads} />
+    </div>
+  );
+}
+```
+
+### With Search Params
+```typescript
+export const Route = createFileRoute("/downloads")({
+  validateSearch: (search: Record<string, unknown>) => {
+    return {
+      status: (search.status as string) || "all",
+      page: Number(search.page) || 1,
+    };
   },
-  onSettled: () => {
-    queryClient.invalidateQueries({ queryKey: ["items"] });
+  loader: async ({ context, search }) => {
+    const downloads = await fetchDownloads({
+      status: search.status,
+      page: search.page,
+    });
+    return { downloads };
   },
 });
 ```
 
-## Hook Composition
+## Navigation
 
-Compose smaller hooks into larger ones:
-
+### Link Component
 ```typescript
-export function useQueueData() {
-  const { downloads, isLoading: isLoadingDownloads } = useDownloads();
-  const { stats, isLoading: isLoadingStats } = useStats();
-  const { pause, resume, cancel } = useDownloadActions();
-  const filters = useFilters();
+import { Link } from "@tanstack/react-router";
 
-  const filteredDownloads = useMemo(
-    () => applyFilters(downloads, filters.active),
-    [downloads, filters.active]
-  );
+<Link to="/queue" className="nav-link" activeProps={{ className: "active" }}>
+  Queue
+</Link>
 
-  return {
-    downloads: filteredDownloads,
-    stats,
-    isLoading: isLoadingDownloads || isLoadingStats,
-    actions: { pause, resume, cancel },
-    filters,
+// With params
+<Link to="/downloads/$downloadId" params={{ downloadId: "123" }}>
+  View Download
+</Link>
+
+// With search
+<Link to="/downloads" search={{ status: "completed", page: 1 }}>
+  Completed
+</Link>
+```
+
+### Programmatic Navigation
+```typescript
+import { useNavigate } from "@tanstack/react-router";
+
+function MyComponent() {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate({ to: "/downloads", search: { status: "active" } });
   };
+
+  return <button onClick={handleClick}>Go</button>;
 }
 ```
 
-## Side Effects
-
-### Dependencies
-- Always declare all dependencies
-- Use ESLint to catch missing dependencies
-- Extract stable references with `useCallback`
-
-### Cleanup
-- Return cleanup function from effects
-- Cancel pending requests
-- Clear timers and subscriptions
+## Protected Routes
 
 ```typescript
-useEffect(() => {
-  const controller = new AbortController();
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { isAuthenticated } from "@/services/auth";
 
-  async function fetchData() {
-    try {
-      const data = await fetch(url, { signal: controller.signal });
-      setData(data);
-    } catch (error) {
-      if (error.name !== "AbortError") setError(error);
+export const Route = createFileRoute("/protected")({
+  beforeLoad: async ({ context, location }) => {
+    if (!isAuthenticated()) {
+      throw redirect({
+        to: "/auth/login",
+        search: { redirect: location.href },
+      });
     }
-  }
-
-  fetchData();
-  return () => controller.abort();
-}, [url]);
+  },
+  component: ProtectedPage,
+});
 ```
 
-## Performance
+## Search Params
 
-### Memoization
-- Use `useCallback` for function references passed as props
-- Use `useMemo` for expensive computations
-- Don't over-optimize - profile first
+### Validating Search
+```typescript
+import { z } from "zod";
+
+const searchSchema = z.object({
+  status: z.enum(["all", "active", "completed", "failed"]).default("all"),
+  sort: z.enum(["date", "title", "size"]).default("date"),
+  page: z.number().int().positive().default(1),
+  limit: z.number().int().positive().max(100).default(20),
+});
+
+export const Route = createFileRoute("/downloads")({
+  validateSearch: (search) => searchSchema.parse(search),
+});
+
+function Component() {
+  const search = Route.useSearch();
+  // search is fully typed
+}
+```
+
+### Updating Search
+```typescript
+const navigate = useNavigate();
+const search = Route.useSearch();
+
+const updateStatus = (status: string) => {
+  navigate({
+    search: (prev) => ({
+      ...prev,
+      status,
+      page: 1, // Reset page
+    }),
+  });
+};
+```
+
+## Route Params
 
 ```typescript
-export function useFilters() {
-  const [filters, setFilters] = useState<Filter[]>([]);
+// File: routes/downloads.$downloadId.tsx
+export const Route = createFileRoute("/downloads/$downloadId")({
+  loader: async ({ params }) => {
+    const download = await fetchDownload(params.downloadId);
+    return { download };
+  },
+  component: DownloadDetail,
+});
 
-  const activeFilters = useMemo(
-    () => filters.filter((f) => f.active),
-    [filters]
-  );
-
-  const addFilter = useCallback((filter: Filter) => {
-    setFilters((prev) => [...prev, filter]);
-  }, []);
-
-  return { filters, activeFilters, addFilter };
+function DownloadDetail() {
+  const { download } = Route.useLoaderData();
+  const { downloadId } = Route.useParams();
+  return <div>{download.title}</div>;
 }
 ```
 
 ## Error Handling
 
 ```typescript
-export function useVideoInfo(url: string) {
-  const [info, setInfo] = useState<VideoInfo | null>(null);
-  const [error, setError] = useState<Error | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+export const Route = createFileRoute("/route")({
+  errorComponent: RouteErrorComponent,
+});
 
-  const fetchInfo = useCallback(async () => {
-    if (!url) return;
-
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const data = await api.getVideoInfo(url);
-      setInfo(data);
-    } catch (err) {
-      const error = err instanceof Error ? err : new Error("Unknown error");
-      setError(error);
-      toast.error(`Failed: ${error.message}`);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [url]);
-
-  useEffect(() => {
-    fetchInfo();
-  }, [fetchInfo]);
-
-  return { info, error, isLoading, refetch: fetchInfo };
+function RouteErrorComponent({ error }: { error: Error }) {
+  return (
+    <div className="error-container">
+      <h1>Something went wrong</h1>
+      <p>{error.message}</p>
+    </div>
+  );
 }
+```
+
+### Loader Errors
+```typescript
+export const Route = createFileRoute("/data")({
+  loader: async () => {
+    const data = await fetchData();
+    if (!data) throw new Error("Data not found");
+    return { data };
+  },
+});
+```
+
+## Loading States
+
+```typescript
+export const Route = createFileRoute("/downloads")({
+  loader: fetchDownloads,
+  pendingComponent: LoadingDownloads,
+  component: DownloadsPage,
+});
+
+function LoadingDownloads() {
+  return <div>Loading...</div>;
+}
+```
+
+## Route Context
+
+### Providing Context
+```typescript
+// In root route
+export const Route = createRootRoute({
+  beforeLoad: async () => {
+    const user = await getCurrentUser();
+    const config = await getConfig();
+    return { auth: { user }, config };
+  },
+});
+```
+
+### Consuming Context
+```typescript
+export const Route = createFileRoute("/profile")({
+  beforeLoad: ({ context }) => {
+    const user = context.auth?.user;
+    return { user };
+  },
+});
+```
+
+## Code Splitting
+
+```typescript
+import { createFileRoute, lazyRouteComponent } from "@tanstack/react-router";
+
+export const Route = createFileRoute("/large")({
+  component: lazyRouteComponent(() => import("./LargeComponent")),
+});
 ```
 
 ---
