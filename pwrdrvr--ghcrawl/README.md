@@ -7,11 +7,11 @@ Terminal UI and local CLI for crawling GitHub issues and pull requests, generati
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [pwrdrvr/ghcrawl](https://github.com/pwrdrvr/ghcrawl).
+Original source: `CLAUDE.md` in [pwrdrvr/ghcrawl](https://github.com/pwrdrvr/ghcrawl).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
