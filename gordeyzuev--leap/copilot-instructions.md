@@ -1,57 +1,16 @@
-## documentation
+## engineering-principles
 
-> Where and how to write LEAP documentation (guides, ADR, INDEX, dev_notes)
+> KISS, DRY, YAGNI and readability expectations for all project work
 
 
-# Documentation — structure, tone, and rules
+# Engineering principles
 
-## Source of truth hierarchy
+- **KISS** — prefer the simplest design that solves the problem.
+- **DRY** — no duplicated logic without reason; extract when repetition hurts maintenance.
+- **YAGNI** — do not build features or abstractions until they are needed.
+- **Readability** — optimize for the next reader; avoid speculative “future-proofing.”
 
-1. **`backend/docs/INDEX.md`** — navigation hub; update when adding major docs.
-2. **`backend/docs/guides/`** — how-tos: deployment, OAuth, Celery, integrations (Zoom, VK, yt-dlp, Yandex, …), templates, quotas.
-3. **`backend/docs/TECHNICAL.md`** — REST API and technical reference.
-4. **`backend/docs/ADR_OVERVIEW.md`**, **`backend/docs/ADR_FEATURES.md`** — architecture decisions.
-5. **`backend/docs/DATABASE_DESIGN.md`**, **`backend/docs/ARCHITECTURE_SCHEMAS.md`** — schema and diagrams.
-6. **`backend/docs/CHANGELOG.md`** — release history (see **`workflow-changelog.mdc`**).
-7. **`backend/docs/archive/`** — historical / thesis / legacy material (do not treat as current runbooks).
-8. **`backend/docs/dev_notes/`** — drafts, TODOs, superseded investigations; **never** prefer over `guides/` when they conflict.
-
-## Root and package READMEs
-
-- **Root `README.md`:** product overview, high-level pipeline, version line; keep aligned with `backend/pyproject.toml` on releases. Avoid a duplicate version footer and unnecessary semver stamps in every guide.
-- **`backend/README.md`:** developer quick start (`uv`, `make`, Docker pointer).
-
-## Writing style
-
-- **Audience:** backend operators and contributors (English is primary for new technical prose; existing Russian guides may stay Russian — be consistent within one file).
-- **Headings:** use hierarchical `##` / `###`; avoid skipping levels.
-- **Code blocks:** fence with language tags (`bash`, `python`, `json`, `sql`).
-- **Paths:** repo-relative from repository root (e.g. `backend/api/...`) or state anchor directory explicitly.
-- **Env vars:** document **names and semantics**; never commit example secrets (point to `.env.example`).
-
-## API documentation
-
-- **OpenAPI** is generated from FastAPI — keep **Pydantic schema** `description`/`examples` accurate when behavior changes.
-- For narrative API docs, update **`backend/docs/TECHNICAL.md`** (and guides if the flow is integration-specific).
-
-## Diagrams and heavy reference
-
-- Prefer **`backend/docs/ARCHITECTURE_SCHEMAS.md`** or Mermaid in guides when behavior is flow-heavy.
-- Large generated artifacts belong under **`backend/docs/archive/`** or **`backend/docs/examples/`**, not mixed into runbooks.
-
-## Jinja / templates
-
-- Template variable reference → **`backend/docs/guides/JINJA_METADATA_TEMPLATES.md`**; keep in sync with `template_renderer` and related tests.
-
-## Changelog vs guides
-
-- **CHANGELOG:** *what shipped* and *migration/deploy warnings*.
-- **Guides:** *how to use or operate* sustained procedures.
-
-## Do not
-
-- Add stray top-level `.md` files without a clear home in INDEX or `guides/`.
-- Duplicate the same procedure in three places — **link** to one canonical guide.
+These apply to **code, APIs, and docs**. Tooling-specific rules (Ruff, `ty`, pytest) live in `python-code-quality.mdc` and `testing.mdc`.
 
 ---
 > Source: [GordeyZuev/LEAP](https://github.com/GordeyZuev/LEAP) — distributed by [TomeVault](https://tomevault.io).
