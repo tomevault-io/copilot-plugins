@@ -1,0 +1,9 @@
+{
+  "name": "balalofernandez--docx-revisions",
+  "displayName": "docx-revisions",
+  "description": "Python library to read, write and manipulate track changes (revisions) in .docx files. Adds <w:ins> and <w:del> support to python-docx",
+  "version": "1.0.0",
+  "author": "balalofernandez",
+  "homepage": "https://github.com/balalofernandez/docx-revisions",
+  "skills": []
+}
