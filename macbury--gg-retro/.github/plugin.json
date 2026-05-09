@@ -1,0 +1,9 @@
+{
+  "name": "macbury--gg-retro",
+  "displayName": "gg-retro",
+  "description": "Reimplementacja serwera protoko\u0142u Gadu-Gadu 6.0 w j\u0119zyku Rust. Projekt umo\u017cliwia uruchomienie w\u0142asnego serwera kompatybilnego z oryginalnym klientem GG 6.0.",
+  "version": "1.0.0",
+  "author": "macbury",
+  "homepage": "https://github.com/macbury/gg-retro",
+  "skills": []
+}
