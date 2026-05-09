@@ -1,0 +1,9 @@
+{
+  "name": "spring-ai-community--spring-ai-agentcore",
+  "displayName": "spring-ai-agentcore",
+  "description": "Spring Boot integrations for Amazon Bedrock AgentCore",
+  "version": "1.0.0",
+  "author": "spring-ai-community",
+  "homepage": "https://github.com/spring-ai-community/spring-ai-agentcore",
+  "skills": []
+}
