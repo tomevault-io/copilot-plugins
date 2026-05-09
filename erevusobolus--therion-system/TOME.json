@@ -1,0 +1,44 @@
+{
+  "name": "THERION-SYSTEM",
+  "owner": "erevusobolus",
+  "repo": "THERION-SYSTEM",
+  "description": "  The Mindset Your AI Is Missing Like hiring an entire team. Except it's free. 67 specialists across 12 professional fields \u2014 security auditor, business strategist, project manager, database architect, DevOps engineer, and more. Your AI reads your question and the right specialist responds. No menus. No switching. You just ask.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/erevusobolus/THERION-SYSTEM",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T06:46:19Z"
+}
