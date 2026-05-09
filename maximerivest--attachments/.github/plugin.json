@@ -1,0 +1,9 @@
+{
+  "name": "maximerivest--attachments",
+  "displayName": "attachments",
+  "description": "Easiest way to give context to LLMs; Attachments has the ambition to be the general funnel for any files to be transformed into images+text for large language models context by only adding 2 lines to ",
+  "version": "1.0.0",
+  "author": "MaximeRivest",
+  "homepage": "https://github.com/MaximeRivest/attachments",
+  "skills": []
+}
