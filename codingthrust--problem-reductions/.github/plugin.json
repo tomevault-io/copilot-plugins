@@ -1,0 +1,9 @@
+{
+  "name": "codingthrust--problem-reductions",
+  "displayName": "problem-reductions",
+  "description": "A command line tool for computational hard problems and their reductions",
+  "version": "1.0.0",
+  "author": "CodingThrust",
+  "homepage": "https://github.com/CodingThrust/problem-reductions",
+  "skills": []
+}
