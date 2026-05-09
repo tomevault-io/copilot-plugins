@@ -1,0 +1,9 @@
+{
+  "name": "inceptyon-labs--tars",
+  "displayName": "TARS",
+  "description": "TARS is a centralized hub for discovering, creating, editing, and managing Claude Code resources. It provides a visual interface for managing skills, agents, commands, hooks, MCP servers, and plugins ",
+  "version": "1.0.0",
+  "author": "inceptyon-labs",
+  "homepage": "https://github.com/inceptyon-labs/TARS",
+  "skills": []
+}
