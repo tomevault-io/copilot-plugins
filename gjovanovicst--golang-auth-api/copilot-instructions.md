@@ -1,264 +1,243 @@
-## code-patterns
+## commit-messages
 
-> Code patterns
+> <type>(<scope>): <description>
 
-# Go Code Patterns and Conventions
+# Commit Message Conventions and Flow
 
-## Architecture Pattern: Repository-Service-Handler
+## Commit Message Format
 
-### Repository Layer
-```go
-type Repository interface {
-    Create(entity *Entity) error
-    GetByID(id uint) (*Entity, error)
-    Update(entity *Entity) error
-    Delete(id uint) error
-}
+### Standard Format
+```
+<type>(<scope>): <description>
 
-type repository struct {
-    db *gorm.DB
-}
+[optional body]
 
-func NewRepository(db *gorm.DB) Repository {
-    return &repository{db: db}
-}
+[optional footer(s)]
 ```
 
-### Service Layer
-```go
-type Service interface {
-    BusinessOperation(input Input) (*Output, error)
-}
+### Type Categories
 
-type service struct {
-    repo Repository
-    // other dependencies
-}
+#### Core Types
+- **feat**: New feature for the user (e.g., new API endpoint, authentication method)
+- **fix**: Bug fix for the user (e.g., security vulnerability, broken endpoint)
+- **docs**: Documentation changes (README, API docs, comments)
+- **style**: Code style changes (formatting, missing semicolons, no logic changes)
+- **refactor**: Code refactoring (no new features or bug fixes)
+- **test**: Adding or updating tests
+- **chore**: Maintenance tasks (dependency updates, build scripts)
 
-func NewService(repo Repository) Service {
-    return &service{repo: repo}
-}
+#### Security-Specific Types
+- **security**: Security patches, vulnerability fixes, security improvements
+- **deps**: Dependency updates (especially security-related)
+
+### Scope Guidelines
+
+#### Feature-Based Scopes
+- **auth**: Authentication-related changes ([internal/auth/](mdc:internal/auth))
+- **user**: User management functionality ([internal/user/](mdc:internal/user))
+- **social**: Social login providers ([internal/social/](mdc:internal/social))
+- **twofa**: Two-factor authentication ([internal/twofa/](mdc:internal/twofa))
+- **email**: Email verification and notifications ([internal/email/](mdc:internal/email))
+- **middleware**: HTTP middleware ([internal/middleware/](mdc:internal/middleware))
+- **database**: Database operations and migrations ([internal/database/](mdc:internal/database))
+- **redis**: Redis operations and caching ([internal/redis/](mdc:internal/redis))
+- **log**: Activity logging system ([internal/log/](mdc:internal/log))
+
+#### Technical Scopes
+- **api**: API endpoints and handlers
+- **models**: Database models ([pkg/models/](mdc:pkg/models))
+- **dto**: Data transfer objects ([pkg/dto/](mdc:pkg/dto))
+- **jwt**: JWT token handling ([pkg/jwt/](mdc:pkg/jwt))
+- **config**: Configuration management ([internal/config/](mdc:internal/config))
+- **docker**: Docker configuration ([Dockerfile](mdc:Dockerfile), [docker-compose.yml](mdc:docker-compose.yml))
+- **build**: Build system ([Makefile](mdc:Makefile), Go modules)
+- **ci**: CI/CD pipeline (.github workflows)
+
+## Commit Message Examples
+
+### Feature Development
+```
+feat(auth): add JWT token blacklisting for secure logout
+
+- Implement Redis-based token blacklisting
+- Add middleware check for blacklisted tokens
+- Ensure immediate token invalidation on logout
+- Include TTL for automatic cleanup
+
+Closes #123
 ```
 
-### Handler Layer
-```go
-type Handler struct {
-    service Service
-}
+### Security Fixes
+```
+security(middleware): fix JWT token validation bypass
 
-func NewHandler(service Service) *Handler {
-    return &Handler{service: service}
-}
+Critical security patch for authentication middleware that
+allows unauthorized access when malformed tokens are provided.
 
-// @Summary Operation description
-// @Router /endpoint [method]
-func (h *Handler) HandlerMethod(c *gin.Context) {
-    // Request binding
-    // Validation
-    // Service call
-    // Response
-}
+- Validate token format before parsing
+- Add proper error handling for invalid tokens
+- Include rate limiting for failed attempts
+
+BREAKING CHANGE: Invalid tokens now return 401 instead of 500
 ```
 
-## Dependency Injection Pattern
+### API Changes
+```
+feat(user): add user profile update endpoint
 
-### Constructor Functions
-All components use constructor functions with dependency injection:
-```go
-func NewService(repo Repository, emailService EmailService) Service {
-    return &service{
-        repo:         repo,
-        emailService: emailService,
-    }
-}
+- Add PUT /profile endpoint for user updates
+- Implement email change verification flow
+- Add validation for profile data
+- Update Swagger documentation
+
+Refs #456
 ```
 
-### Main Function Organization
-In [cmd/api/main.go](mdc:cmd/api/main.go):
-1. Initialize infrastructure (DB, Redis)
-2. Create repositories
-3. Create services with dependencies
-4. Create handlers
-5. Setup routes
+### Database Changes
+```
+feat(models): add activity log model for audit tracking
 
-## Error Handling Patterns
+- Create ActivityLog model with GORM tags
+- Add database migration for activity_logs table
+- Include indexing for performance optimization
+- Add foreign key relationships
 
-### Custom Error Types
-Define in `pkg/errors/`:
-```go
-type AuthError struct {
-    Code    string
-    Message string
-    Err     error
-}
-
-func (e *AuthError) Error() string {
-    return e.Message
-}
+Migration: 20240121_create_activity_logs.sql
 ```
 
-### Error Response Pattern
-```go
-if err != nil {
-    c.JSON(http.StatusBadRequest, gin.H{
-        "success": false,
-        "error":   err.Error(),
-    })
-    return
-}
+### Documentation Updates
+```
+docs(api): update Swagger annotations for 2FA endpoints
+
+- Add comprehensive examples for TOTP setup
+- Document recovery code generation flow
+- Include error response schemas
+- Update authentication requirements
 ```
 
-### Success Response Pattern
-```go
-c.JSON(http.StatusOK, gin.H{
-    "success": true,
-    "data":    result,
-})
+### Testing
+```
+test(auth): add comprehensive JWT middleware tests
+
+- Test token validation edge cases
+- Add blacklist functionality tests
+- Include performance benchmarks
+- Mock Redis for isolated testing
+
+Coverage: middleware/auth.go 95% -> 98%
 ```
 
-## Database Patterns
+### Dependency Updates
+```
+deps(security): update Go dependencies for security patches
 
-### GORM Models
-Located in `pkg/models/`:
-```go
-type User struct {
-    ID        uint      `gorm:"primaryKey" json:"id"`
-    Email     string    `gorm:"unique;not null" json:"email"`
-    Password  string    `gorm:"not null" json:"-"`
-    CreatedAt time.Time `json:"created_at"`
-    UpdatedAt time.Time `json:"updated_at"`
-}
+- Update golang.org/x/crypto to v0.17.0
+- Patch GORM to v1.25.5 for SQL injection fix
+- Update Gin framework to v1.9.1
+
+Addresses CVE-2023-45288, CVE-2023-45289
 ```
 
-### Repository Methods
-```go
-func (r *repository) GetByEmail(email string) (*models.User, error) {
-    var user models.User
-    if err := r.db.Where("email = ?", email).First(&user).Error; err != nil {
-        return nil, err
-    }
-    return &user, nil
-}
+## Breaking Changes
+
+### Format for Breaking Changes
+```
+feat(auth): redesign authentication flow for enhanced security
+
+BREAKING CHANGE: Login endpoint now requires email verification.
+All existing API clients must update to handle the new two-step
+authentication process.
+
+Migration guide:
+1. Update login requests to include verification_required field
+2. Implement email verification step before token issuance
+3. Update error handling for unverified accounts
+
+Closes #789
 ```
 
-## DTO (Data Transfer Object) Patterns
+## Multi-Component Changes
 
-### Request DTOs
-```go
-type LoginRequest struct {
-    Email    string `json:"email" validate:"required,email" example:"user@example.com"`
-    Password string `json:"password" validate:"required,min=8" example:"password123"`
-}
+### When Changes Affect Multiple Areas
+```
+feat(auth,user,middleware): implement role-based access control
+
+- Add Role model and user-role relationships
+- Update JWT claims to include user roles
+- Add middleware for role-based endpoint protection
+- Update user registration to assign default roles
+
+Files modified:
+- pkg/models/user.go
+- pkg/models/role.go
+- internal/middleware/auth.go
+- internal/user/service.go
+
+Closes #234, #235, #236
 ```
 
-### Response DTOs
-```go
-type UserResponse struct {
-    ID        uint   `json:"id" example:"1"`
-    Email     string `json:"email" example:"user@example.com"`
-    CreatedAt string `json:"created_at" example:"2023-01-01T00:00:00Z"`
-}
+## Commit Flow Integration
+
+### Pre-Commit Checklist
+Before committing, ensure:
+- [ ] Run `make fmt` for code formatting
+- [ ] Run `make test` for test validation  
+- [ ] Run `make security` for security scans
+- [ ] Update Swagger docs with `make swag-init` if API changed
+- [ ] Update relevant documentation in [docs/](mdc:docs)
+
+### Reference Integration with Development Workflow
+Commit messages should align with:
+- Issue tracking (reference issue numbers)
+- Pull request descriptions (from [.github/PULL_REQUEST_TEMPLATE.md](mdc:.github/PULL_REQUEST_TEMPLATE.md))
+- Security policy guidelines (from [SECURITY.md](mdc:SECURITY.md))
+- Contributing guidelines (from [CONTRIBUTING.md](mdc:CONTRIBUTING.md))
+
+### Automated Checks
+Consider implementing commit message validation:
+```bash
+# .git/hooks/commit-msg
+#!/bin/sh
+# Validate commit message format
+if ! grep -qE "^(feat|fix|docs|style|refactor|test|chore|security|deps)(\(.+\))?: .+" "$1"; then
+    echo "Invalid commit message format!"
+    echo "Use: <type>(<scope>): <description>"
+    exit 1
+fi
 ```
 
-## Swagger Documentation Pattern
+### Release Notes Generation
+Properly formatted commits enable automatic release note generation:
+- `feat` commits become "Features"
+- `fix` commits become "Bug Fixes"  
+- `security` commits become "Security Updates"
+- `BREAKING CHANGE` commits get special highlighting
 
-### Handler Annotations
-```go
-// @Summary User login
-// @Description Authenticate user with email and password
-// @Tags authentication
-// @Accept json
-// @Produce json
-// @Param request body dto.LoginRequest true "Login credentials"
-// @Success 200 {object} dto.APIResponse{data=dto.LoginResponse}
-// @Failure 400 {object} dto.APIResponse
-// @Router /login [post]
+## Special Considerations for Authentication API
+
+### Security-First Messaging
+- Always mention security implications in auth-related commits
+- Reference vulnerability IDs when applicable (CVE numbers)
+- Include impact assessment for security changes
+
+### Compliance and Audit
+- Use descriptive commits for audit trail clarity
+- Reference security standards when applicable (OWASP, NIST)
+- Include performance impacts for auth-related changes
+
+### API Versioning
+When API changes affect client integration:
 ```
+feat(api): add v2 login endpoint with enhanced security
 
-## Configuration Pattern
+- Implement new /v2/auth/login endpoint
+- Maintain backward compatibility with /v1/auth/login
+- Add comprehensive rate limiting and CAPTCHA support
+- Include detailed migration documentation
 
-### Environment Variables
-Using Viper in [cmd/api/main.go](mdc:cmd/api/main.go):
-```go
-viper.AutomaticEnv()
-viper.SetDefault("PORT", "8080")
-viper.SetDefault("ACCESS_TOKEN_EXPIRATION_MINUTES", 15)
+Deprecation notice: v1 endpoint will be removed in 6 months
+Migration guide: docs/api-migration-v1-to-v2.md
 ```
-
-## Testing Patterns
-
-### Table-Driven Tests
-```go
-func TestService_Method(t *testing.T) {
-    tests := []struct {
-        name    string
-        input   Input
-        want    Output
-        wantErr bool
-    }{
-        // test cases
-    }
-    
-    for _, tt := range tests {
-        t.Run(tt.name, func(t *testing.T) {
-            // test implementation
-        })
-    }
-}
-```
-
-### Mock Interfaces
-Use interfaces for all dependencies to enable mocking in tests.
-
-## Security Code Patterns
-
-### Password Hashing
-```go
-func HashPassword(password string) (string, error) {
-    bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-    return string(bytes), err
-}
-```
-
-### JWT Token Generation
-```go
-func GenerateToken(userID uint, tokenType string) (string, error) {
-    claims := jwt.MapClaims{
-        "user_id": userID,
-        "type":    tokenType,
-        "exp":     time.Now().Add(expiration).Unix(),
-    }
-    // token generation logic
-}
-```
-
-## Activity Logging Pattern
-
-### Log Service Usage
-```go
-logService.LogActivity(logService.ActivityLogParams{
-    UserID:      userID,
-    EventType:   "login_success",
-    Description: "User logged in successfully",
-    IPAddress:   c.ClientIP(),
-    UserAgent:   c.GetHeader("User-Agent"),
-})
-```
-
-## File Organization Rules
-
-### Package Structure
-- One responsibility per package
-- Internal packages in `internal/`
-- Shared packages in `pkg/`
-- Feature-based organization
-
-### File Naming
-- `handler.go` for HTTP handlers
-- `service.go` for business logic
-- `repository.go` for data access
-- `models.go` for database models
-- `dto.go` for data transfer objects
 
 ---
 > Source: [gjovanovicst/golang-auth-api](https://github.com/gjovanovicst/golang-auth-api) — distributed by [TomeVault](https://tomevault.io).
