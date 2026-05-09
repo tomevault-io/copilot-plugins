@@ -1,0 +1,9 @@
+{
+  "name": "samhoque--convex-posthog",
+  "displayName": "convex-posthog",
+  "description": "PostHog analytics component for Convex - track user events server-side",
+  "version": "1.0.0",
+  "author": "SamHoque",
+  "homepage": "https://github.com/SamHoque/convex-posthog",
+  "skills": []
+}
