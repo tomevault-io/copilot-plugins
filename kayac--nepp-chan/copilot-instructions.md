@@ -1,0 +1,173 @@
+## nepp-chan
+
+> 音威子府村 AI キャラクター「ねっぷちゃん」チャットシステム。
+
+# CLAUDE.md - nepp-chan
+
+音威子府村 AI キャラクター「ねっぷちゃん」チャットシステム。
+Cloudflare Workers（API）+ Pages（Web）のモノレポ構成。
+
+## クイックリファレンス
+
+```bash
+# 開発
+pnpm server:dev          # API 開発サーバー（8787）
+pnpm web:dev             # Web 開発サーバー（5173）
+
+# 品質チェック
+pnpm lint                # Biome + astro check + tsc
+pnpm format              # Biome フォーマット
+
+# DB マイグレーション
+pnpm db:generate         # スキーマ → SQL 生成
+pnpm db:migrate:local    # ローカル D1 適用
+pnpm db:migrate:dev      # dev 環境 D1 適用
+pnpm db:migrate:prd      # prd 環境 D1 適用
+
+# ナレッジ
+pnpm knowledge:upload:local  # ローカル R2 → Vectorize 同期
+pnpm knowledge:upload:dev    # dev 環境
+pnpm knowledge:upload:prd    # prd 環境
+```
+
+## プロジェクト構造
+
+```text
+server/              → API（詳細: server/CLAUDE.md）
+web/                 → フロントエンド（詳細: web/CLAUDE.md）
+knowledge/           → RAG 用 Markdown ファイル
+```
+
+### ナレッジ Vectorize ベクター数の基準値
+
+knowledge/ 配下 329 ファイルを clean アップロードした場合の正しいベクター数。
+大幅に乖離している場合はアップロード失敗やバグの可能性がある。
+
+| 日付 | ファイル数 | ベクター数 | 備考 |
+|------|:---------:|:---------:|------|
+| 2026-03-09 | 329 | 2,891 | clean 後の正確な値 |
+
+## 重要な規約
+
+### パス別名
+
+```typescript
+import { something } from "~/middleware"; // ~ = src/
+```
+
+### Mastra 配置ルール
+
+- `mastra/agents/` - Agent のみ
+- `mastra/tools/` - Tool のみ
+- `mastra/workflows/` - Workflow のみ
+- `services/` - ビジネスロジック（Mastra プリミティブ以外）
+
+### createTool シグネチャ
+
+```typescript
+execute: async (inputData, context) => {
+  const env = context?.requestContext?.get("env") as CloudflareBindings;
+  // inputData は inputSchema のフィールドを直接持つ
+};
+```
+
+### D1Store 初期化
+
+```typescript
+const storage = new D1Store({ id: "mastra-storage", binding: db });
+await storage.init(); // 必須
+```
+
+## 環境変数
+
+`.env.example` をコピーして `.env` を作成。
+
+```bash
+# ルート
+cp .env.example .env
+cp .env.production.example .env.production  # 本番ナレッジアップロード用（任意）
+
+# server
+cp server/.env.example server/.env
+cp server/.dev.vars.example server/.dev.vars
+
+# web
+cp web/.env.example web/.env
+```
+
+### ルート環境変数
+
+| 変数名                 | 用途                           |
+| ---------------------- | ------------------------------ |
+| `CLOUDFLARE_ACCOUNT_ID`| Cloudflare アカウント ID       |
+| `R2_BUCKET_NAME`       | R2 バケット名                  |
+| `VECTORIZE_INDEX_NAME` | Vectorize インデックス名       |
+
+### server 環境変数
+
+| 変数名                         | 用途              |
+| ------------------------------ | ----------------- |
+| `GOOGLE_GENERATIVE_AI_API_KEY` | Gemini API        |
+| `GOOGLE_SEARCH_ENGINE_ID`      | Custom Search     |
+| `WEB_URL`                      | Web URL           |
+| `LINE_CHANNEL_SECRET`          | LINE 署名検証     |
+| `LINE_CHANNEL_ACCESS_TOKEN`    | LINE API 認証     |
+
+### web 環境変数
+
+| 変数名         | 用途    |
+| -------------- | ------- |
+| `PUBLIC_API_URL` | API URL |
+
+### 本番環境
+
+本番環境の機密情報は Cloudflare の環境変数で管理。
+
+```bash
+# Workers シークレット
+wrangler secret put GOOGLE_GENERATIVE_AI_API_KEY
+
+# Pages 環境変数は Cloudflare Dashboard で設定
+```
+
+## デプロイ環境
+
+| 環境 | Web | API |
+| ---- | --- | --- |
+| ローカル | http://localhost:5173 | http://localhost:8787 |
+| dev | https://dev-web.nepp-chan.ai | https://dev-api.nepp-chan.ai |
+| prd | https://web.nepp-chan.ai | https://api.nepp-chan.ai |
+
+## ブランチ
+
+- メイン: `develop`
+- 機能: `feature/*`
+
+## CI/CD
+
+### GitHub Actions ワークフロー
+
+| ワークフロー | トリガー | 内容 |
+| ------------ | -------- | ---- |
+| `ci.yml` | PR / develop push | Biome lint + tsc + テスト |
+| `deploy-dev.yml` | develop push | DB マイグレーション → サーバーデプロイ → Web デプロイ |
+| `tagpr.yml` | develop push | バージョンバンプ PR 自動作成 |
+| `deploy-prd.yml` | `v*` タグ push / tagpr からトリガー | 本番 DB マイグレーション → サーバーデプロイ → Web デプロイ |
+| `eval.yml` | 毎週月曜 9:00 JST / 手動 | ナレッジエージェント評価 |
+
+### リリースフロー
+
+```
+feature/* → PR → develop（CI + dev 自動デプロイ）
+  ↓
+tagpr がバージョンバンプ PR を自動作成
+  ↓
+バージョンバンプ PR マージ → タグ + GitHub Release → 本番デプロイ
+```
+
+- デフォルトは patch バンプ。`tagpr:minor` / `tagpr:major` ラベルで制御
+- 本番デプロイは tagpr が `gh workflow run deploy-prd.yml` でトリガー
+
+---
+> Source: [kayac/nepp-chan](https://github.com/kayac/nepp-chan) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-25 -->
