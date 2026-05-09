@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--infra-controller-rest",
+  "displayName": "infra-controller-rest",
+  "description": "NVIDIA Infra Controller - Hardware Lifecycle Management (REST API)",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/infra-controller-rest",
+  "skills": []
+}
