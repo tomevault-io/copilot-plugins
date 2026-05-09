@@ -1,0 +1,44 @@
+{
+  "name": "FloatingClock",
+  "owner": "amchii",
+  "repo": "FloatingClock",
+  "description": "\u60ac\u6d6e\u65f6\u95f4\uff0c\u7cbe\u786e\u663e\u793a\u523010\u6beb\u79d2",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/amchii/FloatingClock",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T23:03:58Z"
+}
