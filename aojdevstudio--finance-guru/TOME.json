@@ -4,7 +4,7 @@
   "repo": "Finance-Guru",
   "description": "Finance Guru\u2122 - AI-powered family office system built on BMAD-CORE\u2122 v6 architecture",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AojdevStudio/Finance-Guru",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T09:16:16Z"
+  "distributed_at": "2026-05-09T19:42:56Z"
 }
