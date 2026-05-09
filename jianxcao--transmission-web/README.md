@@ -1,6 +1,8 @@
-# transmission-web — distributed by TomeVault
+# transmission-web
 
-> Originally from [jianxcao/transmission-web](https://github.com/jianxcao/transmission-web). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [jianxcao/transmission-web](https://github.com/jianxcao/transmission-web) — distributed by [TomeVault](https://tomevault.io)
+
+transmission web  tr web 
 
 ## GitHub Copilot Config
 
@@ -15,10 +17,10 @@ Original source: `.cursor/rules/*.mdc` in [jianxcao/transmission-web](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/jianxcao#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/jianxcao/transmission-web](https://github.com/jianxcao/transmission-web)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/jianxcao) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-q -->
