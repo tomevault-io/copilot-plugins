@@ -1,0 +1,9 @@
+{
+  "name": "model-context-interface--mci-uvx",
+  "displayName": "mci-uvx",
+  "description": "CLI tool designed to manage MCI (Model Context Interface) schemas and dynamically run MCP servers using defined MCI toolsets",
+  "version": "1.0.0",
+  "author": "Model-Context-Interface",
+  "homepage": "https://github.com/Model-Context-Interface/mci-uvx",
+  "skills": []
+}
