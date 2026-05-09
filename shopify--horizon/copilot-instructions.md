@@ -1,291 +1,952 @@
-## heading-accessibility
+## javascript-standards
 
-> Heading element accessibility compliance and WCAG 2.4.1 Bypass Blocks requirements
+> Writing JavaScript inside `.js` files, or within the `{% javascript %}` or `{% script %}` tags in `.liquid` files.
 
-# Heading Element Accessibility Standards
+# JavaScript Standards
 
-Ensures heading elements follow WCAG compliance and provide proper content structure for screen reader navigation and bypass blocks functionality.
+## General Principles
 
-<rule>
-name: heading_accessibility_standards
-description: Enforce heading element accessibility standards per WCAG 2.4.1 Bypass Blocks requirements
-filters:
-  - type: file_extension
-    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
+- **Zero external dependencies** - Use native browser APIs
+- **Avoid mutation** - Use `const` over `let` unless necessary
+- **Use `for (const item of items)`** over `items.forEach()`
+- **Add new lines before blocks** with `{` and `}`
+- **Use the component framework** - See [the framework code](mdc:assets/component.js) and the [component documentation](mdc:codex/component-framework.md)
 
-actions:
-  - type: enforce
-    conditions:
-      # Missing heading markup for visually styled headings
-      - pattern: "(?i)<(div|span|p)[^>]*(?:heading|title|header)[^>]*>"
-        pattern_negate: "(role=\"heading\"|h[1-6])"
-        message: "Text that acts as a heading visually or structurally must be designated as a true heading (h1-h6) or use role='heading' with aria-level."
+## Async/Await Syntax
 
-      # Heading markup on non-heading content
-      - pattern: "(?i)<(h[1-6]|div[^>]*role=\"heading\")[^>]*>"
-        pattern_negate: "(heading|title|header|section|main|content|page)"
-        message: "Text that does not act as a heading visually or structurally should not be marked as a heading."
+**Always use async/await over .then() chaining:**
 
-      # Missing aria-level on role="heading"
-      - pattern: "(?i)<[^>]*role=\"heading\"[^>]*>"
-        pattern_negate: "aria-level=\"[1-6]\""
-        message: "Elements with role='heading' must have aria-level attribute set to appropriate level (1-6)."
+```javascript
+const fetchProducts = async () => {
+  try {
+    const response = await fetch('/products.json');
+    const data = await response.json();
+    return data.products;
+  } catch (error) {
+    console.error('Failed to fetch products:', error);
+    return [];
+  }
+};
 
-      # Invalid aria-level values
-      - pattern: "(?i)aria-level=\"[^1-6]\""
-        message: "aria-level must be set to a value between 1 and 6 for heading elements."
+## Web Components Pattern
 
-      # Missing h1 in main content
-      - pattern: "(?i)<main[^>]*>"
-        pattern_negate: "<h1[^>]*>"
-        message: "Main content should start with an h1 heading for proper document structure."
+**Initialize JavaScript components using the Component framework:**
 
-      # Multiple h1 elements (potential issue)
-      - pattern: "(?i)<h1[^>]*>.*<h1[^>]*>"
-        message: "Most web pages should have only one h1 element. Consider using h2-h6 for section headings."
+```javascript
+import { Component } from '@theme/component';
 
-      # Skipped heading levels
-      - pattern: "(?i)<h1[^>]*>.*<h3[^>]*>"
-        message: "Headings should not skip hierarchical levels. Consider using h2 before h3."
+/**
+ * @typedef {Object} ProductCardRefs
+ * @property {HTMLButtonElement} addButton - Add to cart button
+ * @property {HTMLElement} priceDisplay - Price display element
+ * @property {HTMLImageElement} [productImage] - Optional product image
+ */
 
-      - pattern: "(?i)<h2[^>]*>.*<h4[^>]*>"
-        message: "Headings should not skip hierarchical levels. Consider using h3 before h4."
+/**
+ * @extends {Component<ProductCardRefs>}
+ */
+class ProductCard extends Component {
+  constructor() {
+    super();
+    this.cache = new Map();
+  }
 
-      # Clickable headings with improper structure
-      - pattern: "(?i)<a[^>]*>.*<h[1-6][^>]*>.*</h[1-6]>.*</a>"
-        message: "Heading elements should not be children of link elements. The heading should wrap the link to maintain semantic structure."
+  connectedCallback() {
+    super.connectedCallback();
+    this.#initializeCard();
+  }
 
-      # Empty or meaningless heading text
-      - pattern: "(?i)<h[1-6][^>]*>\\s*(?:&nbsp;|\\s|&amp;nbsp;)*</h[1-6]>"
-        message: "Heading elements should contain meaningful text content."
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.#cleanup();
+  }
 
-      # Generic heading text
-      - pattern: "(?i)<h[1-6][^>]*>\\s*(?:heading|title|header|section)\\s*</h[1-6]>"
-        message: "Heading text should be specific and informative, not generic."
+  // Public method for external use
+  updatePrice(newPrice) {
+    if (!this.refs.priceDisplay) return;
+    this.refs.priceDisplay.textContent = newPrice;
+  }
 
-      # Heading text too long
-      - pattern: "(?i)<h[1-6][^>]*>[^<]{100,}</h[1-6]>"
-        message: "Heading text should be concise and relatively brief."
+  // Event handler for add to cart button
+  async handleAddToCart(event) {
+    event.preventDefault();
 
-      # Missing heading for major content sections
-      - pattern: "(?i)<(section|article|main)[^>]*>"
-        pattern_negate: "<h[1-6][^>]*>"
-        message: "Major content sections should have appropriate heading elements for navigation."
+    const productId = this.cache.get('productId');
+    this.refs.addButton.disabled = true;
+    this.refs.addButton.textContent = 'Adding...';
 
-  - type: suggest
-    message: |
-      **WCAG 2.4.1 Heading Accessibility Requirements:**
+    try {
+      await addToCart(productId);
+      this.refs.addButton.textContent = 'Added!';
 
-      **Bypass Blocks Functionality:**
-      - **Screen Reader Navigation:** Headings allow users to navigate by content sections
-      - **Content Structure:** Headings provide clear outline of page content
-      - **Landmark Support:** Headings work with landmarks and skip links for navigation
+      // Dispatch custom event for cart updates
+      this.dispatchEvent(new CustomEvent('cart:item-added', {
+        detail: { productId },
+        bubbles: true
+      }));
+    } catch (error) {
+      this.refs.addButton.textContent = 'Try again';
+      console.error('Add to cart error:', error);
+    } finally {
+      setTimeout(() => {
+        this.refs.addButton.disabled = false;
+        this.refs.addButton.textContent = 'Add to cart';
+      }, 2000);
+    }
+  }
 
-      **Heading Markup Requirements:**
+  // Private method requiring instance access
+  #initializeCard() {
+    const productId = this.dataset.productId;
+    this.cache.set('productId', productId);
+  }
 
-      **1. Use Real Heading Elements:**
-      ```html
-      <!-- Good: Proper heading markup -->
-      <h1>Main Page Title</h1>
-      <h2>Section Heading</h2>
-      <h3>Subsection Heading</h3>
+  #cleanup() {
+    this.cache.clear();
+  }
+}
 
-      <!-- Good: Role heading when real markup not possible -->
-      <div role="heading" aria-level="1">Main Page Title</div>
-      <div role="heading" aria-level="2">Section Heading</div>
-      ```
+// Module-scoped utility - no instance access needed
+const addToCart = async (productId) => {
+  const formData = new FormData();
+  formData.append('id', productId);
+  formData.append('quantity', 1);
 
-      **2. Proper Heading Hierarchy:**
-      ```html
-      <!-- Good: Logical heading structure -->
-      <h1>Product Catalog</h1>
-      <h2>Electronics</h2>
-      <h3>Smartphones</h3>
-      <h3>Laptops</h3>
-      <h2>Clothing</h2>
-      <h3>Men's Clothing</h3>
-      <h3>Women's Clothing</h3>
+  try {
+    const response = await fetch('/cart/add.js', {
+      method: 'POST',
+      body: formData
+    });
 
-      <!-- Bad: Skipped levels -->
-      <h1>Product Catalog</h1>
-      <h3>Electronics</h3> <!-- Skipped h2 -->
-      ```
+    if (!response.ok) {
+      throw new Error('Failed to add to cart');
+    }
 
-      **3. Clickable Headings:**
-      ```html
-      <!-- Good: Heading wraps the link -->
-      <h2><a href="/products/electronics">Electronics</a></h2>
+    const cartData = await response.json();
+    return cartData;
+  } catch (error) {
+    console.error('Add to cart error:', error);
+    throw error;
+  }
+};
 
-      <!-- Bad: Heading as child of link -->
-      <a href="/products/electronics">
-        <h2>Electronics</h2>
-      </a>
-      ```
+customElements.define('product-card', ProductCard);
+```
 
-      **4. Meaningful Heading Text:**
-      ```html
-      <!-- Good: Specific and informative -->
-      <h1>Acme Corporation - Leading Tech Solutions</h1>
-      <h2>Our Services</h2>
-      <h3>Web Development</h3>
-      <h3>Mobile App Development</h3>
+**HTML usage with the Component framework:**
 
-      <!-- Bad: Generic or meaningless -->
-      <h1>Welcome</h1>
-      <h2>Section</h2>
-      <h3>Content</h3>
-      ```
+```liquid
+<product-card data-product-id="{{ product.id }}">
+  <img ref="productImage" src="{{ product.featured_image | image_url }}" alt="{{ product.title }}">
+  <h3>{{ product.title }}</h3>
+  <div ref="priceDisplay" class="product-card__price">{{ product.price | money }}</div>
+  <button ref="addButton" on:click="/handleAddToCart" data-add-to-cart>
+    Add to cart
+  </button>
+</product-card>
+```
 
-      **5. Single H1 Per Page:**
-      ```html
-      <!-- Good: One main heading -->
-      <h1>Company Homepage</h1>
-      <h2>About Us</h2>
-      <h2>Our Services</h2>
-      <h2>Contact</h2>
+## Early Returns and Conditional Logic
 
-      <!-- Bad: Multiple h1 elements -->
-      <h1>Company Homepage</h1>
-      <h1>About Us</h1> <!-- Should be h2 -->
-      ```
+**Use early returns over nested conditionals:**
 
-      **6. Proper Content Structure:**
-      ```html
-      <!-- Good: Clear content outline -->
-      <main>
-        <h1>Product Documentation</h1>
-        <section>
-          <h2>Installation Guide</h2>
-          <h3>System Requirements</h3>
-          <h3>Installation Steps</h3>
-        </section>
-        <section>
-          <h2>User Manual</h2>
-          <h3>Getting Started</h3>
-          <h3>Advanced Features</h3>
-        </section>
-      </main>
-      ```
+```javascript
+// Good
+const processOrder = (order) => {
+  if (!order) return;
+  if (!order.items.length) return;
+  if (order.status !== 'pending') return;
 
-      **7. Role Heading Implementation:**
-      ```html
-      <!-- When real heading elements cannot be used -->
-      <div role="heading" aria-level="1">Main Page Title</div>
-      <div role="heading" aria-level="2">Section Heading</div>
-      <div role="heading" aria-level="3">Subsection Heading</div>
+  // Process the order
+  updateOrderStatus(order.id, 'processing');
+  sendConfirmationEmail(order.email);
+};
 
-      <!-- With proper aria-level values -->
-      <div role="heading" aria-level="1">Company Overview</div>
-      <div role="heading" aria-level="2">Our Mission</div>
-      <div role="heading" aria-level="2">Our Values</div>
-      ```
+// Avoid
+const processOrder = (order) => {
+  if (order) {
+    if (order.items.length) {
+      if (order.status === 'pending') {
+        updateOrderStatus(order.id, 'processing');
+        sendConfirmationEmail(order.email);
+      }
+    }
+  }
+};
+```
 
-      **Heading Guidelines:**
+**Optional chaining guidelines:**
 
-      **Content Structure:**
-      - **H1:** Main page title or primary content heading
-      - **H2:** Major section headings
-      - **H3:** Subsection headings
-      - **H4-H6:** Further subdivisions as needed
+```javascript
+// Multiple chains - use early return
+const updateButton = (product) => {
+  const button = product.querySelector('[data-ref="button"]');
+  if (!button) return;
 
-      **Text Requirements:**
-      - **Concise:** Keep heading text brief and to the point
-      - **Descriptive:** Accurately describe the content that follows
-      - **Unique:** Each heading should be distinct and meaningful
-      - **Hierarchical:** Follow logical content structure
+  button.disabled = false;
+  button.textContent = 'Add to cart';
+};
 
-      **Navigation Benefits:**
-      - **Screen Reader Users:** Can jump between sections using heading navigation
-      - **Keyboard Users:** Can navigate page structure efficiently
-      - **All Users:** Clear content organization and hierarchy
+// Single chain is fine
+const updateButton = (product) => {
+  const button = product.querySelector('[data-ref="button"]');
+  button?.enable();
+};
+```
 
-      **Implementation Best Practices:**
+## Simplification Patterns
 
-      **Page Structure Example:**
-      ```html
-      <header>
-        <nav>
-          <!-- Navigation content -->
-        </nav>
-      </header>
+**Ternary operators for simple conditions:**
+```javascript
+const buttonText = isLoading ? 'Loading...' : 'Add to cart';
+element.textContent = buttonText;
+```
 
-      <main>
-        <h1>Product Documentation</h1>
+**One-liner conditionals:**
+```javascript
+if (isOutOfStock) return;
+```
 
-        <section>
-          <h2>Getting Started</h2>
-          <h3>Installation</h3>
-          <h3>Configuration</h3>
-        </section>
+**Return boolean comparisons directly:**
+```javascript
+const isAvailable = product.available && product.price > 0;
+return isAvailable;
+```
 
-        <section>
-          <h2>User Guide</h2>
-          <h3>Basic Features</h3>
-          <h3>Advanced Features</h3>
-          <h4>Customization</h4>
-          <h4>Integration</h4>
-        </section>
+## Event-Driven Architecture
 
-        <section>
-          <h2>Troubleshooting</h2>
-          <h3>Common Issues</h3>
-          <h3>Support</h3>
-        </section>
-      </main>
-      ```
+**Use events for component communication:**
 
-      **Dynamic Content:**
-      ```html
-      <!-- Good: Proper heading for dynamic content -->
-      <h2>Search Results</h2>
-      <p>Found 15 results for "accessibility"</p>
+```javascript
+import { Component } from '@theme/component';
 
-      <!-- Good: Descriptive heading for filtered content -->
-      <h2>Electronics (25 items)</h2>
-      <p>Showing 1-10 of 25 products</p>
-      ```
+/**
+ * @typedef {Object} CartDrawerRefs
+ * @property {HTMLElement} itemCountDisplay - Element showing item count
+ * @property {HTMLButtonElement} closeButton - Close button
+ */
 
-      **Form Sections:**
-      ```html
-      <!-- Good: Clear form structure with headings -->
-      <h2>Contact Information</h2>
-      <form>
-        <label for="name">Name:</label>
-        <input type="text" id="name">
+/**
+ * @extends {Component<CartDrawerRefs>}
+ */
+class CartDrawer extends Component {
+  handleCartUpdate() {
+    const itemCount = this.getItemCount();
 
-        <label for="email">Email:</label>
-        <input type="email" id="email">
-      </form>
+    // Update local display
+    if (this.refs.itemCountDisplay) {
+      this.refs.itemCountDisplay.textContent = itemCount;
+    }
 
-      <h2>Shipping Address</h2>
-      <form>
-        <label for="address">Address:</label>
-        <input type="text" id="address">
-      </form>
-      ```
+    // Dispatch custom event for other components
+    this.dispatchEvent(new CustomEvent('cart:updated', {
+      bubbles: true,
+      detail: { itemCount }
+    }));
+  }
 
-      **Testing and Validation:**
-      - Test with screen reader heading navigation
-      - Verify heading hierarchy is logical
-      - Check that heading text is descriptive
-      - Ensure no skipped heading levels
-      - Validate single h1 per page
-      - Test keyboard navigation between headings
+  getItemCount() {
+    // Implementation to get cart item count
+    return this.querySelectorAll('.cart-item').length;
+  }
+}
 
-      **Common Mistakes to Avoid:**
-      - Using heading elements for styling only
-      - Skipping heading levels (h1 → h3)
-      - Multiple h1 elements on same page
-      - Generic or meaningless heading text
-      - Missing headings for major content sections
-      - Improper heading structure for clickable elements
-      - Using heading markup for non-heading content
-      - Missing aria-level on role="heading" elements
+/**
+ * @typedef {Object} CartCounterRefs
+ * @property {HTMLElement} countDisplay - The count display element
+ */
 
-metadata:
-  priority: high
-  version: 1.0
-</rule>
+/**
+ * @extends {Component<CartCounterRefs>}
+ */
+class CartCounter extends Component {
+  connectedCallback() {
+    super.connectedCallback();
+    // Listen for cart updates
+    document.addEventListener('cart:updated', this.#handleCartUpdate.bind(this));
+  }
+
+  #handleCartUpdate(event) {
+    if (this.refs.countDisplay) {
+      this.refs.countDisplay.textContent = event.detail.itemCount;
+    }
+  }
+}
+```
+
+## JavaScript in Liquid Files
+
+**Use `{% javascript %}` tags for component-specific scripts:**
+
+```liquid
+{% javascript %}
+import { Component } from '@theme/component';
+
+/**
+ * @typedef {Object} FeaturedCollectionRefs
+ * @property {HTMLElement} productGrid - The product grid container
+ * @property {HTMLButtonElement[]} filterButtons - Filter button elements
+ * @property {HTMLElement} [loadingIndicator] - Optional loading indicator
+ */
+
+/**
+ * @extends {Component<FeaturedCollectionRefs>}
+ */
+class FeaturedCollection extends Component {
+  async handleFilter(filterValue, event) {
+    event.preventDefault();
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('filter', filterValue);
+
+    // Show loading state
+    if (this.refs.loadingIndicator) {
+      this.refs.loadingIndicator.hidden = false;
+    }
+
+    try {
+      const response = await fetch(url.toString());
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      const newGrid = doc.querySelector('.product-grid');
+
+      if (newGrid && this.refs.productGrid) {
+        this.refs.productGrid.replaceWith(newGrid);
+        // Update the ref after replacement
+        this.#updateRefs();
+      }
+
+      // Update URL without page reload
+      history.pushState({ filter: filterValue }, '', url.toString());
+    } catch (error) {
+      console.error('Filter error:', error);
+    } finally {
+      if (this.refs.loadingIndicator) {
+        this.refs.loadingIndicator.hidden = true;
+      }
+    }
+  }
+}
+
+customElements.define('featured-collection', FeaturedCollection);
+{% endjavascript %}
+```
+
+**HTML usage in Liquid template:**
+
+```liquid
+<featured-collection>
+  <div class="filters">
+    <button ref="filterButtons[]" on:click="/handleFilter/new" data-filter="new">
+      New Arrivals
+    </button>
+    <button ref="filterButtons[]" on:click="/handleFilter/sale" data-filter="sale">
+      On Sale
+    </button>
+    <button ref="filterButtons[]" on:click="/handleFilter/best-selling" data-filter="best-selling">
+      Best Sellers
+    </button>
+  </div>
+
+  <div ref="loadingIndicator" class="loading" hidden>Loading...</div>
+
+  <div ref="productGrid" class="product-grid">
+    {% for product in collection.products %}
+      {% render 'product-card', product: product %}
+    {% endfor %}
+  </div>
+</featured-collection>
+```
+
+## File Structure
+
+**Group scripts by feature area:**
+- `product.js` - All product-related classes
+- `cart.js` - Cart functionality
+- `collection.js` - Collection and filtering
+- `search.js` - Search functionality
+
+**Co-locate related classes:**
+```javascript
+// collection.js
+class CollectionFilters extends HTMLElement { }
+class CollectionGrid extends HTMLElement { }
+class CollectionSort extends HTMLElement { }
+```
+
+## Optimistic UI Patterns
+
+**Update UI before server response for high-certainty actions:**
+
+```javascript
+import { Component } from '@theme/component';
+
+/**
+ * @typedef {Object} AddToCartButtonRefs
+ * @property {HTMLElement} buttonText - The button text element
+ * @property {HTMLElement} [loadingSpinner] - Optional loading spinner
+ */
+
+/**
+ * @extends {Component<AddToCartButtonRefs>}
+ */
+class AddToCartButton extends Component {
+  async handleAddToCart(event) {
+    event.preventDefault();
+
+    // Optimistic UI update
+    this.#updateButtonState('adding');
+    this.#updateCartCount(1);
+
+    try {
+      const result = await this.#addToCart();
+      this.#updateButtonState('added');
+    } catch (error) {
+      // Revert optimistic changes
+      this.#updateButtonState('error');
+      this.#updateCartCount(-1);
+      console.error('Add to cart failed:', error);
+    }
+  }
+
+  #updateButtonState(state) {
+    const states = {
+      adding: 'Adding...',
+      added: 'Added!',
+      error: 'Try again'
+    };
+
+    if (this.refs.buttonText) {
+      this.refs.buttonText.textContent = states[state] || 'Add to cart';
+    }
+
+    // Toggle loading spinner if available
+    if (this.refs.loadingSpinner) {
+      this.refs.loadingSpinner.hidden = state !== 'adding';
+    }
+  }
+
+  #updateCartCount(delta) {
+    const counter = document.querySelector('cart-counter-component');
+    if (!counter || typeof counter.updateCount !== 'function') return;
+
+    // Call public method on cart counter component
+    counter.updateCount(delta);
+  }
+
+  async #addToCart() {
+    // Implementation for adding to cart
+    const formData = new FormData();
+    formData.append('id', this.dataset.variantId);
+    formData.append('quantity', '1');
+
+    const response = await fetch('/cart/add.js', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to add to cart');
+    }
+
+    return response.json();
+  }
+}
+
+customElements.define('add-to-cart-button', AddToCartButton);
+```
+
+## Error Handling
+
+**Always handle errors gracefully:**
+
+```javascript
+const fetchData = async (url) => {
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Fetch error:', error);
+    // Return fallback data or empty state
+    return null;
+  }
+};
+```
+
+## Type Safety with JSDoc
+
+**Always annotate function parameters, return types, and complex objects:**
+
+```javascript
+/**
+ * @typedef {Object} ProductData
+ * @property {string} id - Product identifier
+ * @property {number} price - Product price
+ * @property {boolean} [available] - Availability status (optional)
+ */
+
+/**
+ * Updates product pricing display
+ * @param {ProductData} product - The product to update
+ * @param {HTMLElement} container - Target container element
+ * @returns {Promise<void>}
+ * @throws {Error} If container element is invalid
+ */
+const updateProductDisplay = async (product, container) => {
+  if (!(container instanceof HTMLElement)) {
+    throw new Error('Invalid container element');
+  }
+  // Implementation
+};
+```
+
+### 2. **Enhance Component Communication Patterns**
+
+Your current rules mention custom events but lack the detailed parent-child communication patterns. Expand the "Event-Driven Architecture" section:
+
+```javascript
+## Component Communication Patterns
+
+### Parent-to-Child Communication
+**Parents may invoke public methods on child components:**
+
+```javascript
+import { Component } from '@theme/component';
+
+/**
+ * @typedef {Object} ProductGalleryRefs
+ * @property {HTMLImageElement[]} images - Gallery images
+ * @property {HTMLElement} mainImage - Main display image
+ */
+
+/**
+ * @extends {Component<ProductGalleryRefs>}
+ */
+class ProductGallery extends Component {
+  /**
+   * Selects a specific image by index
+   * @param {number} index - Image index to select
+   */
+  selectImage(index) {
+    const targetImage = this.refs.images[index];
+    if (targetImage && this.refs.mainImage) {
+      this.refs.mainImage.src = targetImage.dataset.fullSrc || targetImage.src;
+      this.#updateActiveState(index);
+    }
+  }
+
+  #updateActiveState(activeIndex) {
+    this.refs.images.forEach((img, idx) => {
+      img.classList.toggle('active', idx === activeIndex);
+    });
+  }
+}
+
+/**
+ * @typedef {Object} ProductPageRefs
+ * @property {ProductGallery} productGallery - Product gallery component
+ * @property {HTMLSelectElement} variantSelector - Variant selector
+ */
+
+/**
+ * @extends {Component<ProductPageRefs>}
+ */
+class ProductPage extends Component {
+  handleVariantChange(event) {
+    const variantId = event.target.value;
+
+    // Direct method invocation is acceptable from parent to child
+    if (this.refs.productGallery) {
+      this.refs.productGallery.selectImage(0);
+    }
+  }
+}
+```
+
+### Child-to-Parent Communication
+**Children should emit custom events with typed details:**
+
+```javascript
+/**
+ * @typedef {Object} VariantSelectDetail
+ * @property {string} variantId - Selected variant ID
+ * @property {number} price - Variant price
+ * @property {boolean} available - Variant availability
+ */
+
+/**
+ * @typedef {Object} VariantSelectorRefs
+ * @property {HTMLSelectElement} variantSelect - Variant dropdown
+ * @property {HTMLElement} priceDisplay - Price display element
+ */
+
+/**
+ * @extends {Component<VariantSelectorRefs>}
+ */
+class VariantSelector extends Component {
+  handleSelection(event) {
+    const selectedOption = event.target.selectedOptions[0];
+    const variantId = selectedOption.value;
+    const price = Number(selectedOption.dataset.price);
+    const available = selectedOption.dataset.available === 'true';
+
+    /**
+     * @type {CustomEvent<VariantSelectDetail>}
+     */
+    const customEvent = new CustomEvent('variant:select', {
+      detail: { variantId, price, available },
+      bubbles: true
+    });
+
+    this.dispatchEvent(customEvent);
+
+    // Update local UI
+    if (this.refs.priceDisplay) {
+      this.refs.priceDisplay.textContent = this.#formatPrice(price);
+    }
+  }
+
+  #formatPrice(price) {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    }).format(price / 100);
+  }
+}
+```
+
+### 3. **Add URL Handling Best Practices**
+
+This is completely missing from your current rules and should be a dedicated section:
+
+```javascript
+## URL Manipulation
+
+**Always use URL and URLSearchParams APIs over string manipulation:**
+
+```javascript
+// Good - Type-safe URL manipulation
+const updateFilters = (filters) => {
+  const url = new URL(window.location.href);
+
+  for (const [key, value] of Object.entries(filters)) {
+    if (value) {
+      url.searchParams.set(key, value);
+    } else {
+      url.searchParams.delete(key);
+    }
+  }
+
+  return url;
+};
+
+// Navigation with proper state management
+const navigateToFilters = (filters) => {
+  const url = updateFilters(filters);
+  const params = url.searchParams.toString();
+
+  history.pushState({ urlParameters: params }, '', url.toString());
+  updateProductGrid(url.searchParams);
+};
+
+// Avoid - String manipulation
+const updateFilters = (filters) => {
+  let url = window.location.pathname + '?';
+  url += Object.entries(filters)
+    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+    .join('&');
+  return url;
+};
+```
+
+### 4. **Enhance Error Handling Section**
+
+Your current error handling is basic. Expand it with defensive programming patterns:
+
+```javascript
+## Defensive Programming and Error Handling
+
+**Always validate DOM elements before use:**
+
+```javascript
+/**
+ * @param {string} selector - CSS selector
+ * @returns {HTMLElement}
+ * @throws {Error} If element not found or invalid type
+ */
+const getRequiredElement = (selector) => {
+  const element = document.querySelector(selector);
+  if (!(element instanceof HTMLElement)) {
+    throw new Error(`Required element not found: ${selector}`);
+  }
+  return element;
+};
+
+**Handle async operations with proper cleanup:**
+
+```javascript
+import { Component } from '@theme/component';
+
+/**
+ * @typedef {Object} DataLoaderRefs
+ * @property {HTMLElement} content - Content container
+ * @property {HTMLElement} [errorMessage] - Error display element
+ * @property {HTMLElement} [loadingIndicator] - Loading indicator
+ */
+
+/**
+ * @extends {Component<DataLoaderRefs>}
+ */
+class DataLoader extends Component {
+  /** @type {AbortController|null} */
+  #abortController = null;
+
+  async loadData(url) {
+    // Cancel previous request
+    this.#abortController?.abort();
+    this.#abortController = new AbortController();
+
+    // Show loading state
+    this.#setLoadingState(true);
+
+    try {
+      const response = await fetch(url, {
+        signal: this.#abortController.signal
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      this.#displayData(data);
+      return data;
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        console.log('Request cancelled');
+        return null;
+      }
+
+      this.#displayError(error.message);
+      throw error;
+    } finally {
+      this.#setLoadingState(false);
+    }
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.#abortController?.abort();
+  }
+
+  #setLoadingState(loading) {
+    if (this.refs.loadingIndicator) {
+      this.refs.loadingIndicator.hidden = !loading;
+    }
+    if (this.refs.content) {
+      this.refs.content.setAttribute('aria-busy', loading);
+    }
+  }
+
+  #displayData(data) {
+    if (this.refs.content) {
+      // Implementation specific to data type
+      this.refs.content.textContent = JSON.stringify(data, null, 2);
+    }
+  }
+
+  #displayError(message) {
+    if (this.refs.errorMessage) {
+      this.refs.errorMessage.textContent = message;
+      this.refs.errorMessage.hidden = false;
+    }
+  }
+}
+```
+
+### 5. **Strengthen Web Components Pattern**
+
+Your current web components section is good but could benefit from the new guidance on refs and type safety:
+
+```javascript
+import { Component } from '@theme/component';
+
+/**
+ * @typedef {Object} ProductCardRefs
+ * @property {HTMLButtonElement} addButton - Add to cart button
+ * @property {HTMLElement} priceDisplay - Price display element
+ * @property {HTMLImageElement} productImage - Product image
+ * @property {HTMLElement} [stockIndicator] - Optional stock indicator
+ */
+
+/**
+ * @extends {Component<ProductCardRefs>}
+ */
+class ProductCard extends Component {
+  /** @type {AbortController|null} */
+  #addToCartController = null;
+
+  // Specify required refs for this component
+  requiredRefs = ['addButton', 'priceDisplay'];
+
+  connectedCallback() {
+    super.connectedCallback();
+    // Refs are automatically managed by Component base class
+    // No need to manually cache or update them
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.#addToCartController?.abort();
+  }
+
+  /**
+   * Public method for external control
+   * @param {boolean} disabled - Whether to disable the card
+   */
+  setDisabled(disabled) {
+    this.refs.addButton.disabled = disabled;
+    this.classList.toggle('product-card--disabled', disabled);
+
+    // Update optional elements if they exist
+    if (this.refs.stockIndicator) {
+      this.refs.stockIndicator.hidden = disabled;
+    }
+  }
+
+  async handleAddToCart(event) {
+    event.preventDefault();
+
+    // Cancel any pending requests
+    this.#addToCartController?.abort();
+    this.#addToCartController = new AbortController();
+
+    try {
+      const response = await fetch('/cart/add.js', {
+        method: 'POST',
+        signal: this.#addToCartController.signal,
+        body: new FormData(event.target.form)
+      });
+
+      if (!response.ok) throw new Error('Failed to add to cart');
+
+      const result = await response.json();
+      this.#handleSuccess(result);
+    } catch (error) {
+      if (error.name !== 'AbortError') {
+        this.#handleError(error);
+      }
+    }
+  }
+
+  #handleSuccess(result) {
+    this.refs.addButton.textContent = 'Added!';
+    this.dispatchEvent(new CustomEvent('product:added', {
+      detail: result,
+      bubbles: true
+    }));
+  }
+
+  #handleError(error) {
+    this.refs.addButton.textContent = 'Error - Try again';
+    console.error('Add to cart error:', error);
+  }
+}
+
+customElements.define('product-card', ProductCard);
+```
+
+### 6. **Add Performance Optimization Section**
+
+**Use debouncing for expensive operations:**
+
+```javascript
+/**
+ * @param {Function} func - Function to debounce
+ * @param {number} wait - Wait time in milliseconds
+ * @returns {Function} Debounced function
+ */
+const debounce = (func, wait) => {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func.apply(this, args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+};
+
+class SearchInput extends Component {
+  constructor() {
+    super();
+    this.#debouncedSearch = debounce(this.performSearch.bind(this), 300);
+  }
+
+  handleInput(event) {
+    const query = event.target.value.trim();
+
+    if (query.length < 2) {
+      this.#clearResults();
+      return;
+    }
+
+    this.#debouncedSearch(query);
+  }
+
+  async performSearch(query) {
+    if (this.refs.loadingSpinner) {
+      this.refs.loadingSpinner.hidden = false;
+    }
+
+    try {
+      const url = new URL('/search/suggest', window.location.origin);
+      url.searchParams.set('q', query);
+      url.searchParams.set('limit', '5');
+
+      const response = await fetch(url);
+      const results = await response.json();
+
+      this.#displayResults(results);
+    } catch (error) {
+      console.error('Search error:', error);
+      this.#clearResults();
+    } finally {
+      if (this.refs.loadingSpinner) {
+        this.refs.loadingSpinner.hidden = true;
+      }
+    }
+  }
+
+  #displayResults(results) {
+    if (!this.refs.resultsContainer) return;
+
+    // Implementation specific to your search results format
+    this.refs.resultsContainer.innerHTML = results
+      .map(result => `<div class="search-result">${result.title}</div>`)
+      .join('');
+  }
+
+  #clearResults() {
+    if (this.refs.resultsContainer) {
+      this.refs.resultsContainer.innerHTML = '';
+    }
+  }
+
+  /** @type {Function} */
+  #debouncedSearch;
+}
+
+customElements.define('search-input', SearchInput);
+```
 
 ---
 > Source: [Shopify/horizon](https://github.com/Shopify/horizon) — distributed by [TomeVault](https://tomevault.io).
