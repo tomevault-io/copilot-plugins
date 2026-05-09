@@ -1,0 +1,9 @@
+{
+  "name": "guyinwonder168--opencode-glm-quota",
+  "displayName": "opencode-glm-quota",
+  "description": "Opencode plugin to query Z.ai GLM Coding Plan usage statistics with real-time quota monitoring, model usage tracking, and MCP Tools usage",
+  "version": "1.0.0",
+  "author": "guyinwonder168",
+  "homepage": "https://github.com/guyinwonder168/opencode-glm-quota",
+  "skills": []
+}
