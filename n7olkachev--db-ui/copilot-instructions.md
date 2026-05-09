@@ -1,72 +1,19 @@
-## project-overview
+## server-components
 
-> This project is a modern, user-friendly database management web interface built with Next.js, TypeScript, and shadcn/ui. It aims to provide a simpler and more elegant alternative to traditional database management tools like pgAdmin or phpmyadmin.
+> 1. ALWAYS use server components for data fetching in Next.js applications
 
+# Next.js Server Components Rules
 
-# Database Management UI Project Overview
-
-## Description
-
-This project is a modern, user-friendly database management web interface built with Next.js, TypeScript, and shadcn/ui. It aims to provide a simpler and more elegant alternative to traditional database management tools like pgAdmin or phpmyadmin.
-
-## Tech Stack
-
-- **Framework**: Next.js with App Router
-- **Language**: TypeScript
-- **UI Components**: shadcn/ui
-- **Database**: PostgreSQL, MySQL and MSSQL must be supported
-- **Styling**: Tailwind CSS
-
-## Project Goals
-
-1. **Simplicity**: Provide an intuitive interface for database operations
-2. **Modern Design**: Clean, responsive UI with a focus on user experience
-3. **Performance**: Efficient data handling and real-time updates
-4. **Security**: Secure database connections and operations
-5. **Developer Experience**: Type-safe development with TypeScript
-
-## Key Features
-
-- Database connection management
-- Table browsing and editing
-- Query execution interface
-- Schema visualization
-- Data export/import capabilities
-
-## Development Guidelines
-
-1. Follow TypeScript best practices and maintain type safety
-2. Use server components for data fetching operations
-3. Implement responsive design for all components
-4. Write clean, maintainable code with proper documentation
-5. Follow shadcn/ui design patterns for consistency
-
-## Server Components Usage
-
-Always prefer server components for data fetching operations. Use 'use server' directive and server components by default unless there's a specific reason to use client components (like interactivity or browser APIs).
-
-### Examples
-
-#### Good
-
-```tsx
-"use server";
-// In a server component
-async function getData() {
-  const data = await db.query("SELECT * FROM users");
-  return data;
-}
-```
-
-#### Bad
-
-```tsx
-// In a client component
-'use client';
-useEffect(() => {
-  fetch('/api/users').then(...);
-}, []);
-```
+1. ALWAYS use server components for data fetching in Next.js applications
+2. NEVER use client-side state management when URL parameters can be used instead
+3. ALWAYS fetch data on the server side using async/await in server components
+4. NEVER use useEffect or useState for data fetching
+5. ALWAYS make components async when they need to fetch data
+6. ALWAYS use proper typing for component props and data structures
+7. ALWAYS handle loading and error states appropriately
+8. ALWAYS use proper error boundaries for server components
+9. ALWAYS use proper caching strategies for server components
+10. ALWAYS use proper revalidation strategies for server components
 
 ---
 > Source: [n7olkachev/db-ui](https://github.com/n7olkachev/db-ui) — distributed by [TomeVault](https://tomevault.io).
