@@ -1,0 +1,9 @@
+{
+  "name": "jinchenggao-infty--linkbuddy",
+  "displayName": "LinkBuddy",
+  "description": "Personal AI assistant daemon powered by Claude Code SDK, accessible via Telegram",
+  "version": "1.0.0",
+  "author": "JinchengGao-Infty",
+  "homepage": "https://github.com/JinchengGao-Infty/LinkBuddy",
+  "skills": []
+}
