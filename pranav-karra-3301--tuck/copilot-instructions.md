@@ -1,90 +1,89 @@
-## safety
+## testing
 
-> Safety and security rules
+> Testing guidelines and rules
 
 
-# Safety Rules
+# Testing Rules
 
-## Core Safety Principles
+## Test Framework
 
-1. **Never lose user data** - This is the most important rule
-2. **Confirm destructive actions** - Always ask before deleting/overwriting
-3. **Create backups** - Before any file modification
-4. **Validate all input** - Use Zod schemas
+- Use Vitest for all tests
+- Tests mirror src/ structure in tests/
+- Test files end with `.test.ts`
 
-## Destructive Operations
+## Running Tests
 
-ALWAYS confirm before:
-- Deleting files
-- Overwriting files
-- Removing tracked files
-- Resetting configuration
-
-```typescript
-// Required pattern
-const confirmed = await prompts.confirm(
-  'This will delete all backups. Continue?',
-  false  // Default to safe option
-);
-
-if (!confirmed) {
-  prompts.cancel('Operation cancelled');
-  return;
-}
+```bash
+pnpm test              # Run all tests
+pnpm test:watch        # Watch mode
+pnpm test:coverage     # With coverage
 ```
 
-## Backup Requirements
-
-Before modifying any user file:
-1. Create a backup copy
-2. Store backup location
-3. Provide restore path in error messages
+## Test Structure
 
 ```typescript
-// Create backup before modification
-const backupPath = await createBackup(originalPath);
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 
-try {
-  await modifyFile(originalPath);
-} catch (error) {
-  throw new Error(`Failed. Restore from: ${backupPath}`);
-}
+describe('functionName', () => {
+  beforeEach(() => {
+    // Setup before each test
+  });
+
+  afterEach(() => {
+    // Cleanup after each test
+  });
+
+  it('should do X when given Y', () => {
+    const result = functionName(input);
+    expect(result).toBe(expected);
+  });
+
+  it('should throw CustomError when given invalid input', () => {
+    expect(() => functionName(invalid)).toThrow(CustomError);
+  });
+});
 ```
 
-## Secrets and Credentials
+## Test Guidelines
 
-NEVER:
-- Store API keys in tracked files
-- Track SSH private keys
-- Include passwords in config
-- Log sensitive data
+1. **Test both paths** - Success AND error cases
+2. **Use temp directories** - For file operations
+3. **Mock external services** - Don't hit real APIs
+4. **Meaningful assertions** - Test behavior, not implementation
+5. **Descriptive names** - "should X when Y" format
 
-## Input Validation
+## What to Test
 
-Use Zod for ALL external data:
-- Config file contents
-- Manifest file contents
-- User-provided paths
-- Environment variables
+### Unit Tests
+- Individual functions
+- Edge cases
+- Error handling
+- Input validation
 
-```typescript
-import { ConfigSchema } from '../schemas/config.schema.js';
+### Integration Tests
+- Command workflows
+- Git operations
+- File system changes
 
-const data = JSON.parse(fileContent);
-const config = ConfigSchema.parse(data); // Throws if invalid
+## Coverage
+
+- Aim for high coverage but prioritize meaningful tests
+- Don't test implementation details
+- Focus on public API behavior
+
+## Test File Location
+
+```
+src/lib/paths.ts      -> tests/lib/paths.test.ts
+src/commands/add.ts   -> tests/commands/add.test.ts
 ```
 
-## Path Handling
+## NEVER
 
-ALWAYS use path utilities:
-- `expandPath()` - Expand ~ to full path
-- `collapsePath()` - Collapse home to ~
-- `pathExists()` - Check existence safely
-
-NEVER:
-- Assume path format
-- Use raw ~ in fs operations
-- Hardcode paths
+- Skip tests in PRs
+- Commit failing tests
+- Test private implementation details
+- Leave flaky tests unfixed
 
 ---
 > Source: [Pranav-Karra-3301/tuck](https://github.com/Pranav-Karra-3301/tuck) — distributed by [TomeVault](https://tomevault.io).
