@@ -1,69 +1,86 @@
-## feature-documentation
+## jsdoc-quality
 
-> **CRITICAL: For every new feature or significant code change, documentation MUST be updated alongside the code.**
+> Enforce meaningful JSDoc comments and avoid redundant documentation
 
 
-# Feature Documentation Rule
+# JSDoc Quality Standards
 
-**CRITICAL: For every new feature or significant code change, documentation MUST be updated alongside the code.**
+**Eliminate useless JSDoc comments that just repeat the function/variable name.**
 
-## Required Documentation for New Features
+## ❌ **DON'T: Write redundant JSDoc**
 
-### 1. Documentation Site Updates
+```typescript
+/**
+ * Get settings
+ */
+get settings() { ... }
 
-All new features MUST be documented in [docs-site/docs/](mdc:docs-site/docs/):
+/**
+ * Load settings
+ */
+async loadSettings() { ... }
 
-**Create or Update Relevant Documentation**:
-- Add new page in [docs-site/docs/features/](mdc:docs-site/docs/features/) for major features
-- Update existing feature pages for enhancements
-- Include clear examples, use cases, and step-by-step instructions
-- Add screenshots or diagrams where helpful
+/**
+ * Save settings
+ */
+async saveSettings() { ... }
 
-**Update Feature Overview**:
-- Add feature to [docs-site/docs/features/overview.md](mdc:docs-site/docs/features/overview.md)
-- Include brief description and link to detailed documentation
-
-**Update Related Pages**:
-- [quickstart.md](mdc:docs-site/docs/quickstart.md) - If feature affects getting started
-- [configuration.md](mdc:docs-site/docs/configuration.md) - For new settings
-- [troubleshooting.md](mdc:docs-site/docs/troubleshooting.md) - Add common issues
-- [faq.md](mdc:docs-site/docs/faq.md) - Add frequently asked questions
-
-### 2. Changelog Updates
-
-**ALWAYS update** [docs-site/docs/changelog.md](mdc:docs-site/docs/changelog.md):
-
-- Add to appropriate version section (or create new version section)
-- Use clear, user-friendly language
-- Explain WHAT changed, WHY it's useful, and HOW to use it
-- Include examples and workflows where applicable
-- Link to detailed documentation
-
-**Changelog Format**:
-```markdown
-## X.Y.Z
-
-### New Features
-
-#### Feature Name
-- **Key Point 1**: Brief description of what users can do with this feature.
-- **Key Point 2**: Another user benefit or capability.
-- **Key Point 3**: Additional user-facing detail.
-
-### Bug Fixes
-- Brief description of what was fixed from user perspective.
-
-### Improvements
-- Brief description of enhancement from user perspective.
+/**
+ * Update profile
+ */
+async updateProfile(profile: CalendarProfile) { ... }
 ```
 
-**Changelog Style Guidelines**:
-- Keep entries concise (3-5 bullet points per feature)
-- Focus on WHAT users can do, not HOW it's implemented
-- No technical implementation details
-- Use bold for feature highlights
-- User-friendly language only
-- No emojis in section headers
+## ✅ **DO: Write meaningful documentation or none at all**
+
+```typescript
+// No JSDoc needed - method name is self-explanatory
+get settings() { ... }
+
+// No JSDoc needed - clear from name and parameters
+async loadSettings() { ... }
+
+// Add JSDoc only when it provides real value
+/**
+ * Migrates settings from older versions and validates structure.
+ * Throws error if migration fails or settings are invalid.
+ */
+private migrateSettings(data: any): CustomCalendarSettings { ... }
+
+/**
+ * Updates profile and automatically saves to disk.
+ * Creates new profile if ID doesn't exist, updates existing otherwise.
+ *
+ * @throws {Error} When max profile limit is reached for new profiles
+ */
+async updateProfile(profile: CalendarProfile): Promise<void> { ... }
+```
+
+## **When JSDoc adds value:**
+
+- **Complex logic**: Explain non-obvious behavior or algorithms
+- **Error conditions**: Document what exceptions are thrown and when
+- **Side effects**: Mention automatic saves, notifications, state changes
+- **Business rules**: Explain validation rules or constraints
+- **API contracts**: Document expected input/output for public methods
+- **Performance notes**: Mention caching, async behavior, or expensive operations
+
+## **When to skip JSDoc:**
+
+- **Self-explanatory names**: `getName()`, `setActive()`, `isValid()`
+- **Simple getters/setters**: Basic property access
+- **Obvious parameters**: `updateProfile(profile)`, `removeById(id)`
+- **Standard patterns**: Basic CRUD operations, event handlers
+- **Private utilities**: Internal helper methods with clear names
+
+## **Focus on code clarity first:**
+
+- Use descriptive method and variable names
+- Keep functions small and focused
+- Use TypeScript types for parameter documentation
+- Let the code tell the story, use JSDoc for context
+
+**Remember**: Good code needs less documentation. Write code so clear that JSDoc becomes unnecessary, then add JSDoc only where it genuinely helps.
 
 ---
 > Source: [Real1tyy/Nexus-Properties](https://github.com/Real1tyy/Nexus-Properties) — distributed by [TomeVault](https://tomevault.io).
