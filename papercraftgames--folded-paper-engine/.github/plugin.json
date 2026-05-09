@@ -1,0 +1,9 @@
+{
+  "name": "papercraftgames--folded-paper-engine",
+  "displayName": "folded-paper-engine",
+  "description": "A custom Blender-to-Godot addon that makes level and gameplay creation as easy as a few clicks!",
+  "version": "1.0.0",
+  "author": "papercraftgames",
+  "homepage": "https://github.com/papercraftgames/folded-paper-engine",
+  "skills": []
+}
