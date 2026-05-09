@@ -1,0 +1,9 @@
+{
+  "name": "redtachyon--gyllm",
+  "displayName": "gyllm",
+  "description": "LLM RL envs done right, plus some training code",
+  "version": "1.0.0",
+  "author": "RedTachyon",
+  "homepage": "https://github.com/RedTachyon/gyllm",
+  "skills": []
+}
