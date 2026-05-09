@@ -1,0 +1,87 @@
+{
+  "name": "rugo",
+  "owner": "rubiojr",
+  "repo": "rugo",
+  "description": "It's a Rugo-dabba-doo time! \ud83e\uddb4",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "idiomatic-rugo",
+      "path": "extras/claude/skills/idiomatic-rugo",
+      "github_url": "https://github.com/rubiojr/rugo/tree/main/extras/claude/skills/idiomatic-rugo",
+      "description": ""
+    },
+    {
+      "name": "rugo-developer",
+      "path": "extras/claude/skills/rugo-developer",
+      "github_url": "https://github.com/rubiojr/rugo/tree/main/extras/claude/skills/rugo-developer",
+      "description": ""
+    },
+    {
+      "name": "rugo-go-modules",
+      "path": "extras/claude/skills/rugo-go-modules",
+      "github_url": "https://github.com/rubiojr/rugo/tree/main/extras/claude/skills/rugo-go-modules",
+      "description": ""
+    },
+    {
+      "name": "rugo-native-module-writer",
+      "path": "extras/claude/skills/rugo-native-module-writer",
+      "github_url": "https://github.com/rubiojr/rugo/tree/main/extras/claude/skills/rugo-native-module-writer",
+      "description": ""
+    },
+    {
+      "name": "rugo-quickstart",
+      "path": "extras/claude/skills/rugo-quickstart",
+      "github_url": "https://github.com/rubiojr/rugo/tree/main/extras/claude/skills/rugo-quickstart",
+      "description": ""
+    },
+    {
+      "name": "rugo-rats",
+      "path": "extras/claude/skills/rugo-rats",
+      "github_url": "https://github.com/rubiojr/rugo/tree/main/extras/claude/skills/rugo-rats",
+      "description": ""
+    },
+    {
+      "name": "rugo-runmd",
+      "path": "extras/claude/skills/rugo-runmd",
+      "github_url": "https://github.com/rubiojr/rugo/tree/main/extras/claude/skills/rugo-runmd",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rubiojr/rugo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T12:32:58Z"
+}
