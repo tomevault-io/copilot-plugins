@@ -1,42 +1,13 @@
-## snapshot-updates
+## testing-tsconfig
 
-> When tests fail due to snapshot mismatches, update the snapshots using:
+> When adding new tests to this project, always use the existing [tsconfig.basic.json](mdc:test/tsconfig.basic.json) fixture. Do not create new tsconfig files for testing purposes.
 
----
----
 
-# Snapshot Testing Guide
+# Testing TypeScript Configuration
 
-## Updating Snapshots
+When adding new tests to this project, always use the existing [tsconfig.basic.json](mdc:test/tsconfig.basic.json) fixture. Do not create new tsconfig files for testing purposes.
 
-When tests fail due to snapshot mismatches, update the snapshots using:
-
-```bash
-pnpm vitest run --update
-```
-
-or the short form:
-
-```bash
-pnpm vitest run -u
-```
-
-## When to Update Snapshots
-
-- After making intentional changes to test behavior
-- When fixing bugs that affect test output
-- When adding new features that change build output
-- After refactoring code that impacts test results
-
-## Snapshot Files
-
-Snapshots are stored in [test/**snapshots**/zshy.test.ts.snap](mdc:test/__snapshots__/zshy.test.ts.snap) and contain expected output from the zshy build tool tests.
-
-## Best Practices
-
-- Review the diff before updating snapshots to ensure changes are expected
-- Only update snapshots when the new behavior is correct
-- Commit snapshot updates separately from code changes for easier review
+The test configuration is already set up in [tsconfig.basic.json](mdc:test/tsconfig.basic.json) and should be reused for all new test cases. This maintains consistency across the test suite and avoids unnecessary configuration duplication. Do not create any new source files within `test`. Do not create an new entrypoints.
 
 ---
 > Source: [colinhacks/zshy](https://github.com/colinhacks/zshy) — distributed by [TomeVault](https://tomevault.io).
