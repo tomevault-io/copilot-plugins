@@ -1,0 +1,9 @@
+{
+  "name": "magicnight--mac-mlx",
+  "displayName": "Mac-MLX",
+  "description": "macMLX brings local LLM inference to Apple Silicon with a first-class native macOS experience. No cloud, no telemetry, no Electron \u2014 just your Mac running models at full speed.",
+  "version": "1.0.0",
+  "author": "magicnight",
+  "homepage": "https://github.com/magicnight/Mac-MLX",
+  "skills": []
+}
