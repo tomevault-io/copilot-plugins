@@ -1,0 +1,41 @@
+## albumentations-rules
+
+> Quick reference rules for AlbumentationsX
+
+
+# AlbumentationsX Quick Rules
+
+## Code Style
+- Avoid unclear variable names (e.g., single-letter `k`); use descriptive names like `rot90_count`
+- `get_params_dependent_on_data` should be minimal and clear - just call other functions from it
+- Use `fill`, not `fill_value`. Use `fill_mask`, not `fill_mask_value`
+- NO default values in InitSchema classes (except discriminator fields for Pydantic unions)
+- Use `pytest.mark.parametrize` for parameterized tests
+- Default test values should be 137, not 42
+- NEVER create temporary tests - add permanent tests to test suite
+- Within `Compose`, images and volumes always have an explicit channel dimension:
+  `(H, W, C)`, `(N, H, W, C)`, `(D, H, W, C)`, or `(N, D, H, W, C)`
+- Grayscale in Compose is `(H, W, 1)`, not `(H, W)`; do not add 2D grayscale compatibility branches to
+  transform `apply_*` methods or functional kernels used by Compose
+- For performance work, benchmark before choosing `cv2`, `sz_lut`, or NumPy. Direct bitwise operations can beat
+  LUTs for true bit masks, scalar NumPy bitwise can beat OpenCV, and tiny transforms may be dominated by dispatch
+  overhead rather than pixel kernels.
+
+## Complete Documentation
+
+See these documents for comprehensive guidelines:
+
+### Contributing & Coding
+- `docs/contributing/coding_guidelines.md` - Complete coding standards and best practices
+- `docs/contributing/environment_setup.md` - Development environment setup
+- `CONTRIBUTING.md` - Contribution process overview
+- `CLAUDE.md` - Code review guidelines for AI assistants
+
+### Design Documents
+- `docs/design/dithering.md` - Dithering transform design
+- `docs/design/keypoint_label_swapping.md` - Keypoint label handling design
+- `docs/design/mosaic.md` - Mosaic transform technical specification
+
+---
+> Source: [albumentations-team/AlbumentationsX](https://github.com/albumentations-team/AlbumentationsX) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
