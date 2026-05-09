@@ -1,58 +1,117 @@
-## 00-project
+## 10-hermes-api
 
-> This is a pnpm workspace monorepo with two main packages:
+> - Target Python 3.11+
 
 
-# Hermes Project-Wide Rules
+# Hermes API - Python/FastAPI Rules
 
-## Monorepo Structure
+## Python Version
+- Target Python 3.11+
+- Use modern Python features (match/case, type hints, etc.)
 
-This is a pnpm workspace monorepo with two main packages:
-- `packages/hermes-api` - Python FastAPI backend
-- `packages/hermes-app` - TypeScript React frontend
+## Code Style
 
-## General Conventions
+### Formatting (Black)
+- Line length: 88 characters (configured in `pyproject.toml`)
+- Let Black handle formatting automatically
+- Run: `black .` before committing
 
-### File Organization
-- Keep package-specific code within respective `packages/` directories
-- Shared documentation goes in `docs/` at root level
-- Docker configuration can be at root or package level
+### Import Ordering (isort)
+- Profile: black (configured in `pyproject.toml`)
+- Order: standard library, third-party, local imports
+- Run: `isort .` before committing
 
-### Environment Variables
-- Always provide `.env.example` with placeholder values
-- Use `HERMES_` prefix for all environment variables
-- Document all environment variables in `docs/CONFIGURATION.md`
+### Type Hints (mypy)
+- All functions must have type hints for parameters and return values
+- Use `typing` module for complex types
+- Comply with mypy strict mode settings in `pyproject.toml`
+- Run: `mypy app` to check types
 
-### Git Commits
-- Use conventional commit format: `type(scope): description`
-- Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
-- Keep commits atomic and focused
-- Reference issue numbers when applicable
+## FastAPI Patterns
 
-### Code Quality
-- All code must pass respective linters before commit
-- Write tests for new features
-- Update documentation when changing behavior
-- Follow language-specific style guides (Black for Python, ESLint for TypeScript)
+### Async/Await
+- Use `async def` for all endpoint handlers
+- Use `await` for database operations and external API calls
+- Import `AsyncSession` for database operations
 
-### Documentation
-- README files should be clear and up-to-date
+### Dependencies
+- Use FastAPI's dependency injection system
+- Define dependencies in `app/api/dependencies.py`
+- Common dependencies:
+  - `get_database_session()` - Database session
+  - `get_current_user_from_token()` - Authenticated user
+  - `get_current_user_optional()` - Optional authentication
 
-## pnpm Workspace Commands
+### Error Handling
+- Use `HTTPException` for API errors
+- Include appropriate status codes from `fastapi.status`
+- Provide clear error messages in `detail` field
+- Log errors using structured logging
 
-Run commands from root using:
-```bash
-pnpm --filter hermes-app <command>
-pnpm --filter hermes-api <command>
+### Request/Response Models
+- Define Pydantic models in `app/models/pydantic/`
+- Use type validation and serialization
+- Include field descriptions for API documentation
+- Separate request models from response models
+
+## Project Structure
+
+```
+app/
+├── api/               # API routes and endpoints
+│   ├── dependencies.py
+│   └── v1/
+│       ├── endpoints/  # Individual endpoint files
+│       └── router.py   # Route registration
+├── core/              # Core configuration
+│   ├── config.py      # Settings and configuration
+│   ├── logging.py     # Logging setup
+│   └── security.py    # Auth/security utilities
+├── db/                # Database layer
+│   ├── base.py        # Base model
+│   ├── models.py      # SQLAlchemy models
+│   ├── repositories.py # Repository pattern
+│   └── session.py     # DB session management
+├── models/            # Data models
+│   └── pydantic/      # Pydantic models
+├── services/          # Business logic
+├── tasks/             # Celery tasks
+└── utils/             # Utility functions
 ```
 
-Or use the convenience scripts defined in root `package.json`.
+## Logging
 
-## Tooling
+Use structured logging via `structlog`:
+```python
+from app.core.logging import get_logger
 
-- hermes-app uses `pnpm` for package management. Do not use `npm`.
-- hermes-api uses `uv` for package management. Do not use `pip`.
-- Use `docker compose` for container orchestration. Do not use `docker-compose`.
+logger = get_logger(__name__)
+logger.info("Operation completed", user_id=user_id, action="download")
+logger.error("Operation failed", error=str(e), error_type=type(e).__name__)
+```
+
+## Configuration
+
+- Use `pydantic-settings` for configuration management
+- Access settings via `app.core.config.settings`
+- Environment variables override default values
+- Never hardcode configuration values
+
+## Testing
+
+- Write tests in `tests/` directory
+- Use pytest with async support (`pytest-asyncio`)
+- Follow naming: `test_*.py` for files, `test_*` for functions
+- Use markers: `@pytest.mark.unit`, `@pytest.mark.integration`, `@pytest.mark.slow`
+- Run: `pytest` or `python -m pytest`
+
+## Dependencies
+
+Manage dependencies with UV (following `pyproject.toml`):
+- Production dependencies in `[project.dependencies]`
+- Development dependencies in `[dependency-groups.dev]`
+- Pin versions for stability
+- Run: `uv pip compile` to update `uv.lock`
 
 ---
 > Source: [TechSquidTV/Hermes](https://github.com/TechSquidTV/Hermes) — distributed by [TomeVault](https://tomevault.io).
