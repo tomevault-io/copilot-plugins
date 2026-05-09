@@ -1,0 +1,9 @@
+{
+  "name": "rajish--cc-hdrm",
+  "displayName": "cc-hdrm",
+  "description": "macOS menu bar utility showing Claude subscription 5h/7d session headroom at a glance",
+  "version": "1.0.0",
+  "author": "rajish",
+  "homepage": "https://github.com/rajish/cc-hdrm",
+  "skills": []
+}
