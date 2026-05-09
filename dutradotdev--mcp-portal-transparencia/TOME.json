@@ -1,0 +1,44 @@
+{
+  "name": "mcp-portal-transparencia",
+  "owner": "dutradotdev",
+  "repo": "mcp-portal-transparencia",
+  "description": "MCP para orquestra\u00e7\u00e3o automatizada de chamadas \u00e0 API do Portal da Transpar\u00eancia do Governo Federal brasileiro",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dutradotdev/mcp-portal-transparencia",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T05:08:04Z"
+}
