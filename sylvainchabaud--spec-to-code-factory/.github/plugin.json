@@ -1,0 +1,9 @@
+{
+  "name": "sylvainchabaud--spec-to-code-factory",
+  "displayName": "spec-to-code-factory",
+  "description": "Pipeline automatis\u00e9 Spec-to-Code pour Claude Code. Transforme un requirements.md en projet livrable via 4 phases (BREAK \u2192     MODEL \u2192 ACT \u2192 DEBRIEF) avec 5 gates de validation. Inclut agents sp\u00e9cialis",
+  "version": "1.0.0",
+  "author": "SylvainChabaud",
+  "homepage": "https://github.com/SylvainChabaud/spec-to-code-factory",
+  "skills": []
+}
