@@ -1,0 +1,9 @@
+{
+  "name": "shioneko2026--fanfan-gallery-dl",
+  "displayName": "fanfan-gallery-dl",
+  "description": "A PyQt6 desktop GUI for downloading media from creator subscription platforms using gallery-dl",
+  "version": "1.0.0",
+  "author": "shioneko2026",
+  "homepage": "https://github.com/shioneko2026/fanfan-gallery-dl",
+  "skills": []
+}
