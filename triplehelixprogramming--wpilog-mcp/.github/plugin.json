@@ -1,0 +1,9 @@
+{
+  "name": "triplehelixprogramming--wpilog-mcp",
+  "displayName": "wpilog-mcp",
+  "description": "Conversational FRC telemetry analysis with built-in guardrails against LLM overconfidence. MCP server for WPILib and REV logs.",
+  "version": "1.0.0",
+  "author": "TripleHelixProgramming",
+  "homepage": "https://github.com/TripleHelixProgramming/wpilog-mcp",
+  "skills": []
+}
