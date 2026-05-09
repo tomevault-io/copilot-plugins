@@ -1,0 +1,9 @@
+{
+  "name": "astralsightstudios--astrobox-ng",
+  "displayName": "AstroBox-NG",
+  "description": "A Rust-powered, highly extensible and portable toolbox for wearables, focused on installing and managing third-party apps on your device.",
+  "version": "1.0.0",
+  "author": "AstralSightStudios",
+  "homepage": "https://github.com/AstralSightStudios/AstroBox-NG",
+  "skills": []
+}
