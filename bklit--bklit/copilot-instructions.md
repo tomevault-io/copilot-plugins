@@ -1,66 +1,209 @@
-## react-typescript-general
+## realtime
 
-> React and TypeScript best practices
+> Real-time analytics architecture and patterns
 
 
-## Code Organization
+## Real-Time Architecture
 
-- Use `hooks/` directory for custom hooks: [use-mobile.ts](mdc:apps/dashboard/src/hooks/use-mobile.ts)
-- Use `lib/` directory for utilities: [utils.ts](mdc:apps/dashboard/src/lib/utils.ts)
-- Organize `lib/` into subfolders by domain (e.g., `lib/polar/`, `lib/maps/`)
+Bklit uses **WebSockets** for real-time analytics, hosted on **bklit.ws** (Hetzner VPS).
 
-## TypeScript
+## Animated cards
 
-- Use `interface` for type definitions (not `type` aliases for objects)
-- Export interfaces from the file where they're defined
-- Use strict typing - avoid `any`
+Use the motion mcp - we use motion/react for animated components that display real-time data.
+
+### Data Flow
+
+```
+SDK (visitor browser) → WebSocket (bklit.ws) → Redis Queue → Worker → ClickHouse
+                              ↓
+                    Broadcast to dashboards
+                              ↓
+                   Dashboard WebSocket (bklit.ws)
+```
+
+### Session End Detection
+
+Sessions end **instantly** (<1 second) when:
+- Visitor closes browser tab → WebSocket disconnect → Server detects → Session ends in ClickHouse → Dashboards notified
+
+No `beforeunload` handlers needed. Browser automatically closes WebSocket connection.
+
+### Key Files
+
+| File | Purpose |
+| ---- | ------- |
+| [packages/websocket/src/server.ts](mdc:packages/websocket/src/server.ts) | WebSocket server on bklit.ws (port 8080) |
+| [use-live-event-stream.ts](mdc:apps/dashboard/src/hooks/use-live-event-stream.ts) | Dashboard WebSocket connection hook |
+| [use-live-sessions.ts](mdc:apps/dashboard/src/hooks/use-live-sessions.ts) | Real-time session state management |
+| [packages/sdk/src/index.ts](mdc:packages/sdk/src/index.ts) | SDK WebSocket client |
+| [packages/redis/src/types.ts](mdc:packages/redis/src/types.ts) | LiveEvent type definitions |
+
+### WebSocket URLs
+
+- **Production:** `wss://bklit.ws`
+- **Development:** `ws://localhost:8080`
+
+### SDK Connection
 
 ```typescript
-// ✅ Good
-interface UserData {
-  id: string;
-  name: string;
-}
+// SDK connects to WebSocket on init
+const ws = new WebSocket(`wss://bklit.ws?projectId=${projectId}&sessionId=${sessionId}`);
 
-// ❌ Avoid
-type UserData = { id: string; name: string };
+// Sends events over WebSocket
+ws.send(JSON.stringify({
+  type: 'pageview',
+  data: { url, timestamp, ... }
+}));
+
+// Session ends automatically when connection closes
+ws.onclose = () => {
+  // Server handles session end in ClickHouse
+  // Broadcasts session_end to dashboards
+};
 ```
 
-## React Patterns
+### Dashboard Connection
 
-- **Server Components first** - only use `"use client"` when necessary
-- Extract client-only logic into separate components
-- Avoid `useEffect` for data fetching - use React Query
-- Keep comments minimal - code should be self-documenting
+```typescript
+import { useLiveEventStream } from "@/hooks/use-live-event-stream";
 
-```tsx
-// ✅ Good - Server component with client child
-export default async function Page() {
-  const data = await fetchData();
-  return <ClientInteractiveComponent data={data} />;
-}
+function MyComponent({ projectId }: { projectId: string }) {
+  const { isConnected } = useLiveEventStream(projectId, {
+    onPageview: (data) => {
+      // data.url, data.sessionId, data.country, etc.
+    },
+    onEvent: (data) => {
+      // data.trackingId, data.eventType, data.sessionId, etc.
+    },
+    onSessionEnd: (data) => {
+      // data.sessionId - instant notification (<1 second)
+    },
+  });
 
-// ❌ Avoid - Unnecessary client component
-"use client";
-export default function Page() {
-  const [data, setData] = useState(null);
-  useEffect(() => { fetchData().then(setData); }, []);
-  return <div>{data}</div>;
+  return <div>{isConnected ? "🟢 Live" : "🟡 Reconnecting..."}</div>;
 }
 ```
 
-## Imports
+### Event Types
 
-```tsx
-// Named imports preferred
-import { Button } from "@bklit/ui/components/button";
-import { db } from "@bklit/db/client";
+```typescript
+// From @bklit/redis types
+interface PageviewEvent {
+  type: "pageview";
+  data: {
+    url: string;
+    sessionId?: string;
+    country?: string;
+    countryCode?: string;
+    city?: string;
+    lat?: number;
+    lon?: number;
+  };
+}
 
-// Group imports: external → internal → relative
-import { useState } from "react";
-import { Button } from "@bklit/ui/components/button";
-import { formatDate } from "@/lib/utils";
+interface TrackedEvent {
+  type: "event";
+  data: {
+    trackingId: string;
+    eventType: string;
+    sessionId?: string;
+  };
+}
+
+interface SessionEndEvent {
+  type: "session_end";
+  data: {
+    sessionId: string;
+    reason: "disconnect" | "manual";
+  };
+}
 ```
+
+### Connection Management
+
+The WebSocket server tracks connections in a Map:
+
+```typescript
+// packages/websocket/src/server.ts
+interface ConnectionInfo {
+  ws: WebSocket;
+  sessionId: string;
+  projectId: string;
+  connectedAt: Date;
+  type: "sdk" | "dashboard";
+  isAuthenticated: boolean;
+}
+```
+
+- **SDK connections:** One per visitor browser tab
+- **Dashboard connections:** One per project (shared across components using singleton pattern)
+
+### Reconnection Logic
+
+Both SDK and dashboard implement exponential backoff:
+
+```typescript
+// SDK: 1s, 2s, 4s, 8s, 16s (max 5 attempts)
+// Dashboard: 3s delay, infinite attempts while listeners exist
+```
+
+### Infrastructure
+
+- **bklit.ws** - WebSocket server (Hetzner VPS, port 8080)
+- **Vercel** - Dashboard UI (Next.js) and tRPC API routes
+- **Upstash Redis** - Event queue and pub/sub
+- **Hetzner ClickHouse** - Analytics database
+
+### DNS Configuration
+
+bklit.ws must use **gray cloud** (DNS only) in Cloudflare to avoid 100-second timeout:
+
+```
+Type: A
+Name: @
+Content: <hetzner-ip>
+Proxy: DNS only ⚪ (gray cloud)
+TTL: Auto
+```
+
+### Local Development
+
+```bash
+# Start services
+pnpm dev:services    # Docker (Redis, ClickHouse) + WebSocket + Worker
+
+# Services run on:
+# - ws://localhost:8080     (WebSocket server)
+# - redis://localhost:6379  (Redis)
+# - http://localhost:8123   (ClickHouse)
+```
+
+### Debugging Real-Time
+
+Use the terminal route to see live events flowing through the pipeline:
+
+```
+/[organizationId]/[projectId]/terminal
+```
+
+This shows: SDK → WebSocket → Queue → Worker → ClickHouse → Broadcast
+
+### Redis Channels
+
+| Channel | Purpose |
+| ------- | ------- |
+| `live-events` | Real-time analytics events broadcast to dashboards |
+| `debug-logs` | Pipeline debugging/monitoring |
+| `analytics:queue` | Event processing queue |
+
+### Best Practices
+
+1. **Always use singleton pattern** for WebSocket connections (one per projectId)
+2. **Don't create new connections** on every component mount
+3. **Clean up listeners** in useEffect cleanup
+4. **Handle reconnection** gracefully with exponential backoff
+5. **Queue messages** when connection is not ready
+6. **Authenticate** with API key on first message
 
 ---
 > Source: [bklit/bklit](https://github.com/bklit/bklit) — distributed by [TomeVault](https://tomevault.io).
