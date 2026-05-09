@@ -1,0 +1,22 @@
+{
+  "name": "databayt--hogwarts",
+  "displayName": "hogwarts",
+  "description": "Educational automation streamlining operations for students, educators, and school leaders.",
+  "version": "1.0.0",
+  "author": "databayt",
+  "homepage": "https://github.com/databayt/hogwarts",
+  "skills": [
+    {
+      "name": "api-designer",
+      "description": ""
+    },
+    {
+      "name": "react-performance",
+      "description": ""
+    },
+    {
+      "name": "test-generator",
+      "description": ""
+    }
+  ]
+}
