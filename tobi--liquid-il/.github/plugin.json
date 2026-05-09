@@ -1,0 +1,9 @@
+{
+  "name": "tobi--liquid-il",
+  "displayName": "liquid-il",
+  "description": "A Liquid template engine, 100% vibe coded by Claude Code against liquid-spec",
+  "version": "1.0.0",
+  "author": "tobi",
+  "homepage": "https://github.com/tobi/liquid-il",
+  "skills": []
+}
