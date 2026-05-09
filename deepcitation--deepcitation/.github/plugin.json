@@ -1,0 +1,9 @@
+{
+  "name": "deepcitation--deepcitation",
+  "displayName": "deepcitation",
+  "description": "Stop hallucinations by verifying citations.",
+  "version": "1.0.0",
+  "author": "DeepCitation",
+  "homepage": "https://github.com/DeepCitation/deepcitation",
+  "skills": []
+}
