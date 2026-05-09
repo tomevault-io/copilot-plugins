@@ -1,177 +1,134 @@
-## slider-accessibility
+## snippets
 
-> Slider component accessibility compliance pattern
+> Every snippet must include JSDoc-style comments using LiquidDoc:
 
-# Slider Component Accessibility Standards
+# Snippet Development Standards
 
-Ensures slider components follow WCAG compliance and WAI-ARIA Slider Pattern specifications.
+## Snippet Documentation
 
-<rule>
-name: slider_accessibility_standards
-description: Enforce slider component accessibility standards and WAI-ARIA Slider Pattern compliance
-filters:
-  - type: file_extension
-    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
+Every snippet must include JSDoc-style comments using LiquidDoc:
 
-actions:
-  - type: enforce
-    conditions:
-      # Slider role requirement
-      - pattern: "(?i)<(div|input)[^>]*(?:slider|range)[^>]*>"
-        pattern_negate: "role=\"slider\""
-        message: "Slider controls must have role='slider' attribute."
+```liquid
+{% doc %}
+  Product Card Component
 
-      # aria-valuenow requirement
-      - pattern: "(?i)<[^>]*role=\"slider\"[^>]*>"
-        pattern_negate: "aria-valuenow=\"[0-9.-]+\""
-        message: "Slider elements must have aria-valuenow attribute set to the current value."
+  Renders a product card with customizable options.
 
-      # aria-valuemin requirement
-      - pattern: "(?i)<[^>]*role=\"slider\"[^>]*>"
-        pattern_negate: "aria-valuemin=\"[0-9.-]+\""
-        message: "Slider elements must have aria-valuemin attribute set to the minimum allowed value."
+  @param product {Object} Product object (required)
+  @param show_vendor {Boolean} Display vendor name (default: false)
+  @param show_quick_add {Boolean} Show quick add button (default: false)
+  @param image_ratio {String} Image aspect ratio (default: 'adapt')
+  @param lazy_load {Boolean} Enable lazy loading (default: true)
+  @param card_class {String} Additional CSS classes
 
-      # aria-valuemax requirement
-      - pattern: "(?i)<[^>]*role=\"slider\"[^>]*>"
-        pattern_negate: "aria-valuemax=\"[0-9.-]+\""
-        message: "Slider elements must have aria-valuemax attribute set to the maximum allowed value."
+  @example
+    {% render 'product-card',
+       product: product,
+       show_vendor: true,
+       image_ratio: 'square'
+    %}
+{% enddoc %}
+```
 
-      # Missing keyboard event handlers
-      - pattern: "(?i)<[^>]*role=\"slider\"[^>]*>"
-        pattern_negate: "(onKeyDown|onkeydown|@keydown|v-on:keydown)"
-        message: "Slider elements should handle keyboard events (Arrow keys, Home, End, Page Up/Down)."
+## Parameter Handling
 
-      # Missing label
-      - pattern: "(?i)<[^>]*role=\"slider\"[^>]*>"
-        pattern_negate: "(aria-labelledby|aria-label)"
-        message: "Slider elements must have either aria-labelledby or aria-label for accessibility."
+Always provide defaults and validate parameters:
 
-  - type: suggest
-    message: |
-      **Slider Component Accessibility Best Practices:**
+```liquid
+{% liquid
+  # Parameter validation and defaults
+  assign product = product | default: empty
+  assign show_vendor = show_vendor | default: false
+  assign show_quick_add = show_quick_add | default: false
+  assign image_ratio = image_ratio | default: 'adapt'
+  assign lazy_load = lazy_load | default: true
+  assign card_class = card_class | default: ''
 
-      **Required ARIA Attributes:**
-      - **role='slider':** Set on the slider control element
-      - **aria-valuenow:** Current value of the slider
-      - **aria-valuemin:** Minimum allowed value
-      - **aria-valuemax:** Maximum allowed value
-      - **aria-valuetext:** (Optional) User-friendly text representation of the value
-      - **aria-orientation:** (Optional) 'vertical' for vertical sliders, defaults to 'horizontal'
-      - **aria-labelledby:** Reference to visible label, OR
-      - **aria-label:** Descriptive label if no visible label exists
+  # Early return if required parameters missing
+  unless product != empty
+    echo '<!-- Error: product parameter required for product-card snippet -->'
+    break
+  endunless
+%}
+```
 
-      **Keyboard Interaction Requirements:**
-      - **Right/Up Arrow:** Increase value by one step
-      - **Left/Down Arrow:** Decrease value by one step
-      - **Home:** Set to minimum value
-      - **End:** Set to maximum value
-      - **Page Up:** (Optional) Increase by larger step
-      - **Page Down:** (Optional) Decrease by larger step
+## Common Snippet Patterns
 
-      **Implementation Example:**
-      ```html
-      <div class="slider-container">
-        <label id="slider-label" for="slider">Select a value:</label>
-        <div class="slider-wrapper">
-          <div role="slider"
-               id="slider"
-               tabindex="0"
-               aria-labelledby="slider-label"
-               aria-valuemin="0"
-               aria-valuemax="100"
-               aria-valuenow="50"
-               aria-valuetext="50%">
-            <div class="slider-track">
-              <div class="slider-fill" style="width: 50%"></div>
-              <div class="slider-thumb" style="left: 50%"></div>
-            </div>
-          </div>
-          <div class="slider-value" aria-hidden="true">50%</div>
-        </div>
-      </div>
+**Icon Snippet:**
+```liquid
+{% comment %}
+  @param icon {String} Icon name (required)
+  @param size {String} Icon size class (default: 'icon--medium')
+  @param class {String} Additional classes
+{% endcomment %}
 
-      <script>
-        const slider = document.querySelector('[role="slider"]');
-        const thumb = slider.querySelector('.slider-thumb');
-        const fill = slider.querySelector('.slider-fill');
-        const valueDisplay = document.querySelector('.slider-value');
+{% liquid
+  assign icon = icon | default: ''
+  assign size = size | default: 'icon--medium'
+  assign class = class | default: ''
 
-        const min = parseInt(slider.getAttribute('aria-valuemin'));
-        const max = parseInt(slider.getAttribute('aria-valuemax'));
-        const step = 1; // Define step value
+  unless icon != blank
+    break
+  endunless
+%}
 
-        function updateSlider(value) {
-          // Ensure value is within bounds
-          value = Math.max(min, Math.min(max, value));
+<svg class="icon {{ size }} {{ class }}" aria-hidden="true" focusable="false">
+  <use href="#icon-{{ icon }}"></use>
+</svg>
+```
 
-          // Update ARIA attributes
-          slider.setAttribute('aria-valuenow', value);
-          slider.setAttribute('aria-valuetext', `${value}%`);
+**Price Snippet:**
+```liquid
+{% comment %}
+  @param product {Object} Product object (required)
+  @param show_compare_at {Boolean} Show compare at price (default: true)
+  @param show_unit_price {Boolean} Show unit price (default: false)
+{% endcomment %}
 
-          // Update visual elements
-          thumb.style.left = `${value}%`;
-          fill.style.width = `${value}%`;
-          valueDisplay.textContent = `${value}%`;
-        }
+{% liquid
+  assign show_compare_at = show_compare_at | default: true
+  assign show_unit_price = show_unit_price | default: false
+%}
 
-        // Keyboard interaction
-        slider.addEventListener('keydown', (event) => {
-          let newValue = parseInt(slider.getAttribute('aria-valuenow'));
+<div class="price">
+  <div class="price__regular">
+    {{ product.price | money }}
+  </div>
 
-          switch(event.key) {
-            case 'ArrowRight':
-            case 'ArrowUp':
-              newValue += step;
-              break;
-            case 'ArrowLeft':
-            case 'ArrowDown':
-              newValue -= step;
-              break;
-            case 'Home':
-              newValue = min;
-              break;
-            case 'End':
-              newValue = max;
-              break;
-            case 'PageUp':
-              newValue += step * 10; // Larger step
-              break;
-            case 'PageDown':
-              newValue -= step * 10; // Larger step
-              break;
-            default:
-              return;
-          }
+  {% if show_compare_at and product.compare_at_price > product.price %}
+    <div class="price__compare-at">
+      <s>{{ product.compare_at_price | money }}</s>
+    </div>
+  {% endif %}
 
-          event.preventDefault();
-          updateSlider(newValue);
-        });
-      </script>
-      ```
+  {% if show_unit_price and product.selected_or_first_available_variant.unit_price_measurement %}
+    <div class="price__unit">
+      {{ product.selected_or_first_available_variant.unit_price | money }}/
+      {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value != 1 -%}
+        {{ product.selected_or_first_available_variant.unit_price_measurement.reference_value }}
+      {%- endif -%}
+      {{ product.selected_or_first_available_variant.unit_price_measurement.reference_unit }}
+    </div>
+  {% endif %}
+</div>
+```
 
-      **JavaScript Considerations:**
-      - Implement all required keyboard interactions
-      - Update ARIA attributes dynamically
-      - Ensure values stay within min/max bounds
-      - Provide visual feedback for value changes
-      - Handle both mouse and touch interactions
-      - Consider implementing smooth animations
-      - Support both horizontal and vertical orientations
+## Testing Patterns
 
-      **Accessibility Notes:**
-      - Ensure proper focus management
-      - Provide clear visual focus indicators
-      - Support high contrast mode
-      - Test with screen readers
-      - Consider touch target sizes
-      - Provide visual feedback for interactions
-      - Support both mouse and keyboard users
-      - Consider adding value announcements for screen readers
+Include testing scenarios in comments:
 
-metadata:
-  priority: high
-  version: 1.0
-</rule>
+```liquid
+{% comment %}
+  Test cases:
+  - Product with variants
+  - Product without image
+  - Product with compare_at_price
+  - Product with unit pricing
+  - Out of stock product
+{% endcomment %}
+```
+
+[snippet-example.liquid](mdc:.cursor/rules/examples/snippet-example.liquid)
 
 ---
 > Source: [Shopify/horizon](https://github.com/Shopify/horizon) — distributed by [TomeVault](https://tomevault.io).
