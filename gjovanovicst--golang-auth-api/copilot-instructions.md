@@ -1,66 +1,135 @@
-## project-structure
+## security-patterns
 
-> Project structure
+> Security patterns
 
-# Project Structure and Architecture
+# Security Patterns and Best Practices
 
-## Overview
-This is a Go REST API for authentication and authorization with JWT tokens, 2FA, social login, and comprehensive security features.
+## Authentication Flow
 
-## Key Entry Points
-- [cmd/api/main.go](mdc:cmd/api/main.go) - Application entry point with route definitions and dependency injection
-- [go.mod](mdc:go.mod) - Go module dependencies
-- [Makefile](mdc:Makefile) - Development, testing, and deployment commands
-- [.air.toml](mdc:.air.toml) - Hot reload configuration for development
+### JWT Token Management
+- Access tokens: Short-lived (15 minutes default)
+- Refresh tokens: Long-lived (720 hours default)
+- Token rotation on refresh
+- Redis-based session management
 
-## Core Architecture Layers
+### Two-Factor Authentication (2FA)
+- TOTP (Time-based One-Time Password) implementation
+- QR code generation for authenticator apps
+- Recovery codes for backup access
+- Secure secret generation and storage
 
-### Repository Layer (`internal/*/repository.go`)
-- Data access layer using GORM
-- Database operations and queries
-- Located in each feature package
+### Social Authentication
+- OAuth2 flow with state verification
+- Secure provider callback handling
+- User account linking/creation
+- Scope validation
 
-### Service Layer (`internal/*/service.go`) 
-- Business logic implementation
-- Orchestrates repository calls
-- Handles complex business rules
+## Security Configuration
 
-### Handler Layer (`internal/*/handler.go`)
-- HTTP request/response handling
-- Input validation and Swagger documentation
-- Route-specific logic
+### Security Scanning
+Configuration in [.gosec.json](mdc:.gosec.json):
+- Medium severity and confidence thresholds
+- Excludes vendor and node_modules directories
+- Includes test files in scanning
+- JSON output format for CI/CD integration
 
-## Package Structure
+### Environment Security
+- Never expose sensitive data in responses
+- Use environment variables for secrets
+- Hash passwords with bcrypt
+- Secure session management with Redis
 
-### `internal/` - Core Business Logic
-- `auth/` - Authentication handlers and logic
-- `user/` - User management (registration, profile, etc.)
-- `social/` - OAuth2 social login providers
-- `twofa/` - Two-Factor Authentication with TOTP
-- `log/` - Activity logging system
-- `email/` - Email verification and password reset
-- `middleware/` - JWT authentication middleware
-- `database/` - Database connection and migrations
-- `redis/` - Redis session management
-- `config/` - Configuration management
-- `util/` - Utility functions
+## Authorization Patterns
 
-### `pkg/` - Shared Packages
-- `models/` - Database models with GORM tags
-- `dto/` - Data Transfer Objects for API requests/responses
-- `errors/` - Custom error types
-- `jwt/` - JWT token utilities
+### Middleware Protection
+- JWT validation in `middleware.AuthMiddleware()`
+- User context extraction
+- Route-level protection in [cmd/api/main.go](mdc:cmd/api/main.go)
 
-### `docs/` - API Documentation
-- Auto-generated Swagger documentation
-- [docs/swagger.json](mdc:docs/swagger.json) and [docs/swagger.yaml](mdc:docs/swagger.yaml)
+### Role-Based Access Control (Future)
+- Admin routes prepared for role checking
+- Extensible middleware pattern
+- User role management ready
 
-## Development Patterns
-- Constructor functions for dependency injection (e.g., `NewService()`, `NewHandler()`)
-- Interface-based design for testability
-- Clean separation between layers
-- Comprehensive error handling with custom types
-- Activity logging for security auditing
+## Input Validation and Sanitization
+
+### Request Validation
+- Use `go-playground/validator` tags in DTOs
+- Validate all user inputs before processing
+- Sanitize data before database operations
+- Parameterized queries to prevent SQL injection
+
+### Rate Limiting (Recommended)
+- Implement rate limiting for authentication endpoints
+- Protect against brute force attacks
+- Monitor suspicious activity patterns
+
+## Security Event Logging
+
+### Activity Logging System
+- Log all authentication events
+- Track user activities with context
+- Include IP address, user agent, timestamps
+- Pagination and filtering for security analysis
+
+### Security-Relevant Events
+- Login attempts (success/failure)
+- Password changes
+- 2FA enable/disable
+- Account modifications
+- Suspicious activity detection
+
+## Data Protection
+
+### Password Security
+- Bcrypt hashing with appropriate cost
+- Password complexity requirements
+- Secure password reset flow
+- Protection against timing attacks
+
+### Sensitive Data Handling
+- Never log sensitive information
+- Secure token storage and transmission
+- Proper secret rotation procedures
+- Clean error messages (no information leakage)
+
+## Network Security
+
+### HTTPS Requirements
+- Enforce HTTPS in production
+- Secure cookie settings
+- CORS policy implementation
+- Security headers configuration
+
+### Database Security
+- Connection pooling with limits
+- Secure connection strings
+- Database access control
+- Regular security updates
+
+## Vulnerability Management
+
+### Security Scanning Tools
+- gosec for Go-specific security issues
+- nancy for vulnerability scanning
+- Regular dependency updates
+- Automated security checks in CI/CD
+
+### Security Testing
+- Include security test cases
+- Test authentication flows
+- Validate authorization controls
+- Test input validation boundaries
+
+## Production Security Checklist
+
+### Deployment Security
+- Environment variable protection
+- Secure container images
+- Network isolation
+- Monitoring and alerting
+- Regular security audits
+- Incident response procedures
 
 ---
 > Source: [gjovanovicst/golang-auth-api](https://github.com/gjovanovicst/golang-auth-api) — distributed by [TomeVault](https://tomevault.io).
