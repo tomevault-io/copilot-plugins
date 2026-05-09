@@ -1,210 +1,137 @@
-## utility-extraction
+## utils-first
 
-> Always extract non-business-logic functions to utils and test them
+> Always check utils directory before duplicating logic
 
 
-# Utility Function Extraction Rule
+# Utils-First Development Rule
 
-**CRITICAL: ANY function that is NOT directly related to business logic MUST be extracted to `src/utils/` with comprehensive unit tests.**
+**CRITICAL: Always check [src/utils/](mdc:src/utils/) before implementing any helper function or utility logic.**
 
 ## Core Principle
 
-**If a function can exist without knowing about your business domain, it MUST be in utils.**
+**If a function is NOT directly related to business logic, it MUST be in utils.**
 
-## ✅ Functions That MUST Be Extracted to Utils
+Before writing ANY helper function, you MUST:
+1. **Check** if the function already exists in [src/utils/](mdc:src/utils/)
+2. **Check** if a similar function exists that can be extended
+3. **Only create new code** if no existing utility can be reused
 
-### Value Checking & Validation
+## ✅ Available Utils Modules
+
+### [frontmatter-value.ts](mdc:src/utils/frontmatter-value.ts)
+- `isEmptyValue()` - Check if value is null/undefined/empty
+- `formatValue()` - Format values for display (booleans, numbers, objects)
+- `parseWikiLink()` - Parse single wiki link `[[path|alias]]`
+- `parseInlineWikiLinks()` - Parse wiki links within text
+- `filterPropertiesForDisplay()` - Filter properties based on hide empty/underscore settings
+- `filterSpecificProperties()` - Filter specific property names with settings
+- `formatValueForNode()` - Format values for compact graph node display
+- `normalizeProperty()` - Normalize frontmatter values to string arrays
+- `truncateString()` - Truncate with ellipsis
+- `removeWikiLinks()` - Strip wiki link syntax from text
+
+### [property-utils.ts](mdc:src/utils/property-utils.ts)
+- Property manipulation utilities
+
+### [file.ts](mdc:src/utils/file.ts)
+- `extractDisplayName()` - Get display name from file path
+- `extractFilePath()` - Extract file path from wiki link
+- `getFileContext()` - Get file and frontmatter context
+
+### [link-parser.ts](mdc:src/utils/link-parser.ts)
+- Link parsing and resolution utilities
+
+### [filters.ts](mdc:src/utils/filters.ts)
+- `FilterEvaluator` - Evaluate filter expressions
+
+### [colors.ts](mdc:src/utils/colors.ts)
+- `ColorEvaluator` - Evaluate color rules
+
+## ❌ Common Violations
+
+### Duplicate Property Filtering
 ```typescript
-// ❌ WRONG: In component class
-private isEmptyValue(value: unknown): boolean { ... }
-private isValidEmail(email: string): boolean { ... }
-private hasValue(val: any): boolean { ... }
-
-// ✅ CORRECT: In src/utils/value-check-utils.ts
-export function isEmptyValue(value: unknown): boolean { ... }
-export function isValidEmail(email: string): boolean { ... }
-export function hasValue(val: any): boolean { ... }
-```
-
-### String Manipulation
-```typescript
-// ❌ WRONG: In business logic
-private sanitizeFileName(name: string): string { ... }
-private truncateText(text: string, maxLength: number): string { ... }
-
-// ✅ CORRECT: In src/utils/string-utils.ts
-export function sanitizeFileName(name: string): string { ... }
-export function truncateText(text: string, maxLength: number): string { ... }
-```
-
-### Date/Time Operations
-```typescript
-// ❌ WRONG: In component
-private formatDate(date: Date): string { ... }
-private parseDateTime(str: string): Date { ... }
-
-// ✅ CORRECT: In src/utils/date-utils.ts
-export function formatDate(date: Date): string { ... }
-export function parseDateTime(str: string): Date { ... }
-```
-
-### Array/Object Manipulation
-```typescript
-// ❌ WRONG: In service class
-private removeDuplicates<T>(arr: T[]): T[] { ... }
-private groupBy<T>(arr: T[], key: keyof T): Record<string, T[]> { ... }
-
-// ✅ CORRECT: In src/utils/array-utils.ts or src/utils/collection-utils.ts
-export function removeDuplicates<T>(arr: T[]): T[] { ... }
-export function groupBy<T>(arr: T[], key: keyof T): Record<string, T[]> { ... }
-```
-
-### File Operations
-```typescript
-// ❌ WRONG: Scattered across components
-private getFileExtension(path: string): string { ... }
-private joinPaths(...parts: string[]): string { ... }
-
-// ✅ CORRECT: In src/utils/file-utils.ts
-export function getFileExtension(path: string): string { ... }
-export function joinPaths(...parts: string[]): string { ... }
-```
-
-### DOM Helpers
-```typescript
-// ❌ WRONG: In view class
-private createButton(text: string, onClick: () => void): HTMLElement { ... }
-
-// ✅ CORRECT: In src/utils/dom-utils.ts
-export function createButton(text: string, onClick: () => void): HTMLElement { ... }
-```
-
-## 🚫 Functions That Stay in Business Logic
-
-- Event handlers specific to the component
-- State management for the component
-- API calls specific to the domain
-- Workflow orchestration
-- Component lifecycle methods
-- Methods that directly manipulate component state
-
-## Implementation Checklist
-
-For EVERY utility function:
-
-1. **Extract to appropriate utils file**
-   - Create new file if needed: `src/utils/[domain]-utils.ts`
-   - Use clear, descriptive names
-   - Add proper TypeScript types
-
-2. **Write comprehensive unit tests**
-   - Create test file: `tests/[domain]-utils.test.ts`
-   - Test happy paths
-   - Test edge cases
-   - Test error conditions
-   - Aim for 100% coverage
-
-3. **Export from utils**
-   - Ensure function is exported
-   - Use named exports, not default exports
-
-4. **Import in business logic**
-   - Use absolute imports where possible
-   - Import only what you need
-
-## Testing Requirements
-
-```typescript
-// tests/value-check-utils.test.ts
-import { describe, expect, it } from "vitest";
-import { isEmptyValue } from "../src/utils/value-check-utils";
-
-describe("isEmptyValue", () => {
-  describe("null and undefined", () => {
-    it("should return true for null", () => {
-      expect(isEmptyValue(null)).toBe(true);
-    });
-
-    it("should return true for undefined", () => {
-      expect(isEmptyValue(undefined)).toBe(true);
-    });
-  });
-
-  describe("strings", () => {
-    it("should return true for empty string", () => {
-      expect(isEmptyValue("")).toBe(true);
-    });
-
-    it("should return true for whitespace-only string", () => {
-      expect(isEmptyValue("   ")).toBe(true);
-    });
-
-    it("should return false for non-empty string", () => {
-      expect(isEmptyValue("hello")).toBe(false);
-    });
-  });
-
-  describe("arrays", () => {
-    it("should return true for empty array", () => {
-      expect(isEmptyValue([])).toBe(true);
-    });
-
-    it("should return false for non-empty array", () => {
-      expect(isEmptyValue([1])).toBe(false);
-    });
-  });
-
-  describe("edge cases", () => {
-    it("should handle zero as not empty", () => {
-      expect(isEmptyValue(0)).toBe(false);
-    });
-
-    it("should handle false as not empty", () => {
-      expect(isEmptyValue(false)).toBe(false);
-    });
-  });
+// ❌ DON'T: Duplicate filtering logic in components
+const filtered = Object.entries(frontmatter).filter(([key, value]) => {
+  if (settings.hideUnderscoreProperties && key.startsWith("_")) return false;
+  if (settings.hideEmptyProperties && isEmptyValue(value)) return false;
+  return true;
 });
+
+// ✅ DO: Use existing utility with settings
+import { filterPropertiesForDisplay } from "../utils/frontmatter-value";
+const filtered = filterPropertiesForDisplay(frontmatter, settings);
 ```
 
-## Detection Questions
+### Duplicate Wiki Link Parsing
+```typescript
+// ❌ DON'T: Manually parse wiki links
+const wikiLinkRegex = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g;
+let lastIndex = 0;
+const matches = text.matchAll(wikiLinkRegex);
+// ... complex parsing logic
 
-Before writing any helper function, ask:
+// ✅ DO: Use existing utility
+import { parseInlineWikiLinks } from "../utils/frontmatter-value";
+const segments = parseInlineWikiLinks(text);
+for (const segment of segments) {
+  if (segment.type === "link") {
+    // Use segment.linkPath and segment.displayText
+  }
+}
+```
 
-1. **Domain Independence**: Can this function work without knowing about my app's domain?
-2. **Reusability**: Could this function be useful in other projects?
-3. **Business Logic**: Does this function contain business rules or just technical logic?
-4. **Pure Function**: Does this function only depend on its inputs?
+### Duplicate Value Formatting
+```typescript
+// ❌ DON'T: Manually format values
+if (typeof value === "boolean") {
+  return value ? "Yes" : "No";
+}
+if (typeof value === "number") {
+  return value.toString();
+}
 
-If you answered "Yes" to questions 1-2 or "No" to question 3, **EXTRACT IT TO UTILS**.
+// ✅ DO: Use existing utility
+import { formatValue } from "../utils/frontmatter-value";
+return formatValue(value);
+```
 
-## Examples from This Project
+## 🎯 When to Create New Utils
 
-### ✅ Recently Extracted
-- `isEmptyValue()` - Moved from `NodePreviewModal` to `src/utils/value-check-utils.ts`
-- Full test coverage with 16 test cases
+Create a new utility function when:
+1. **No existing function** covers the use case
+2. **Function is reusable** across multiple components
+3. **Function is pure** (no side effects, depends only on inputs)
+4. **Function is domain-independent** (not tied to specific business logic)
 
-### 🔍 Look For These Patterns
-- Private methods with `is`, `has`, `check` prefixes
-- Private methods with `format`, `parse`, `convert` in the name
-- Private methods that don't reference `this`
-- Private methods that could be `static`
+## 📋 Pre-Code Checklist
 
-## Zero Tolerance
+Before writing ANY helper function:
+- [ ] Searched [src/utils/](mdc:src/utils/) for existing function
+- [ ] Checked if existing function can be extended
+- [ ] Verified no similar logic exists in other components
+- [ ] If creating new util, added comprehensive unit tests
+- [ ] If creating new util, exported from appropriate utils file
 
-- **NEVER write utility functions in component/service classes**
-- **NEVER skip unit tests for utility functions**
-- **ALWAYS check if a similar util already exists before creating new ones**
-- **ALWAYS extract utilities BEFORE writing business logic**
+## 🚨 Red Flags
 
-## Benefits
+These indicate you should look for existing utils:
+- Writing regex for wiki links
+- Parsing or formatting frontmatter values
+- Filtering properties based on settings
+- Checking if values are empty
+- Truncating or manipulating strings
+- Converting between data types
 
-- **Reusability**: Write once, use everywhere
-- **Testability**: Easier to test pure functions in isolation
-- **Maintainability**: Single source of truth for common operations
-- **DRY**: Avoid code duplication across the codebase
-- **Quality**: Comprehensive test coverage ensures reliability
+## Benefits of Utils-First Approach
 
-**Remember: If it's not business logic, it belongs in utils. No exceptions.**
+- **DRY**: Write once, use everywhere
+- **Tested**: Utils have comprehensive test coverage
+- **Consistent**: Same logic produces same results
+- **Maintainable**: Fix bugs in one place
+- **Discoverable**: Centralized location for common operations
+
+**Remember: When in doubt, check utils first!**
 
 ---
 > Source: [Real1tyy/Nexus-Properties](https://github.com/Real1tyy/Nexus-Properties) — distributed by [TomeVault](https://tomevault.io).
