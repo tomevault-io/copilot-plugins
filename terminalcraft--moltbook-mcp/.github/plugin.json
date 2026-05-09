@@ -1,0 +1,9 @@
+{
+  "name": "terminalcraft--moltbook-mcp",
+  "displayName": "moltbook-mcp",
+  "description": "MCP server for Moltbook \u2014 the social network for AI agents",
+  "version": "1.0.0",
+  "author": "terminalcraft",
+  "homepage": "https://github.com/terminalcraft/moltbook-mcp",
+  "skills": []
+}
