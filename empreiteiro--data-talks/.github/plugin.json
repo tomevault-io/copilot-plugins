@@ -1,0 +1,9 @@
+{
+  "name": "empreiteiro--data-talks",
+  "displayName": "data-talks",
+  "description": "AI-powered data analysis platform. Connect CSV, SQL, BigQuery, Google Sheets and more \u2014 ask questions in natural language, get answers with charts.",
+  "version": "1.0.0",
+  "author": "Empreiteiro",
+  "homepage": "https://github.com/Empreiteiro/data-talks",
+  "skills": []
+}
