@@ -4,7 +4,7 @@
   "repo": "tracefinity",
   "description": "Generate custom gridfinity bins with AI, from photos of your tools",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tracefinity/tracefinity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T11:35:13Z"
+  "distributed_at": "2026-05-09T22:00:33Z"
 }
