@@ -1,0 +1,9 @@
+{
+  "name": "oursky--skytest-agent",
+  "displayName": "skytest-agent",
+  "description": "AI-powered web automation agent for natural language testing. Built with Next.js 16, Midscene.js, and Playwright. Describe steps, automate interactions.",
+  "version": "1.0.0",
+  "author": "oursky",
+  "homepage": "https://github.com/oursky/skytest-agent",
+  "skills": []
+}
