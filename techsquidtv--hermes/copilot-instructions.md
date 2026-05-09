@@ -1,201 +1,247 @@
-## 20-hermes-api-db
+## 20-hermes-api-tests
 
-> - Always use async sessions: `AsyncSession`
+> - Test files: `test_*.py`
 
 
-# Hermes API - Database Layer Rules
+# Hermes API - Testing Rules
 
-## SQLAlchemy Async Patterns
+## Pytest Configuration
 
-### Session Management
-- Always use async sessions: `AsyncSession`
-- Get sessions via dependency injection: `get_database_session()`
-- Never create sessions directly - use the session factory
-- Sessions are automatically committed/rolled back by FastAPI
+### Test Discovery
+- Test files: `test_*.py`
+- Test classes: `Test*`
+- Test functions: `test_*`
+- Location: `packages/hermes-api/tests/`
 
-Example:
+### Running Tests
+```bash
+pytest                  # All tests
+pytest -v               # Verbose
+pytest -m unit          # Only unit tests
+pytest -m "not slow"    # Exclude slow tests
+pytest tests/test_api/test_auth.py  # Specific file
+```
+
+## Test Organization
+
+```
+tests/
+├── conftest.py           # Shared fixtures
+├── test_api/             # API endpoint tests
+├── test_integration/     # Integration tests
+├── test_services/        # Service layer tests
+└── test_tasks/           # Celery task tests
+```
+
+### Test Markers
 ```python
-from sqlalchemy.ext.asyncio import AsyncSession
-from app.db.session import get_database_session
+@pytest.mark.unit
+def test_simple_function():
+    pass
 
-async def my_endpoint(
-    db: AsyncSession = Depends(get_database_session)
-):
-    # Use db session
+@pytest.mark.integration
+async def test_full_workflow():
+    pass
+
+@pytest.mark.slow
+async def test_large_download():
     pass
 ```
 
-### Queries
-- Use async query methods: `execute()`, `scalar()`, `scalars()`
-- Always `await` database operations
-- Use `select()` for queries, not legacy query API
+## Async Testing
 
-Example:
 ```python
-from sqlalchemy import select
-from app.db.models import User
+import pytest
+from httpx import AsyncClient
 
-result = await session.execute(
-    select(User).where(User.username == username)
-)
-user = result.scalar_one_or_none()
+@pytest.mark.asyncio
+async def test_async_endpoint(client: AsyncClient):
+    response = await client.get("/api/v1/health")
+    assert response.status_code == 200
 ```
 
-## Repository Pattern
+## Fixtures
 
-### Structure
-- Define repositories in `app/db/repositories.py`
-- Each model should have a corresponding repository class
-- Repositories encapsulate data access logic
-- Keep business logic out of repositories
-
-### Repository Methods
-- Use descriptive method names: `get_by_id()`, `create()`, `update()`, `delete()`
-- Return model instances or None (not query objects)
-- Handle exceptions at repository level
-- Use type hints for all parameters and returns
-
-Example:
+### Common Fixtures (conftest.py)
 ```python
-class UserRepository:
-    def __init__(self, session: AsyncSession):
-        self.session = session
-    
-    async def get_by_id(self, user_id: str) -> Optional[User]:
-        result = await self.session.execute(
-            select(User).where(User.id == user_id)
-        )
-        return result.scalar_one_or_none()
-    
-    async def create(self, user_data: dict) -> User:
-        user = User(**user_data)
-        self.session.add(user)
-        await self.session.flush()
-        return user
-```
+@pytest.fixture
+async def client():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        yield ac
 
-### Repository Access
-- Access repositories via `get_repositories()` function
-- Returns dictionary of repository instances
-- Repositories share the same session
-
-```python
-from app.db.repositories import get_repositories
-
-repos = await get_repositories()
-user = await repos["users"].get_by_id(user_id)
-```
-
-## Models
-
-### Model Definition
-- Define models in `app/db/models.py`
-- Inherit from declarative base defined in `app/db/base.py`
-- Use type hints in column definitions
-- Include `__tablename__` attribute
-
-### Column Definitions
-- Use appropriate SQLAlchemy types
-- Set `nullable=False` for required fields
-- Define `default` or `server_default` for defaults
-- Use `index=True` for frequently queried columns
-
-### Relationships
-- Define relationships using `relationship()`
-- Use `back_populates` for bidirectional relationships
-- Use `lazy="selectin"` for async loading
-- Consider cascade delete behavior
-
-Example:
-```python
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-from datetime import datetime
-from typing import Optional
-
-class User(Base):
-    __tablename__ = "users"
-    
-    id: Mapped[str] = mapped_column(primary_key=True)
-    username: Mapped[str] = mapped_column(unique=True, index=True)
-    email: Mapped[Optional[str]] = mapped_column(nullable=True)
-    created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
-    
-    # Relationships
-    downloads: Mapped[list["Download"]] = relationship(
-        back_populates="user",
-        lazy="selectin"
+@pytest.fixture
+async def auth_token(client: AsyncClient, test_user):
+    response = await client.post(
+        "/api/v1/auth/login",
+        json={"username": test_user.username, "password": "password123"}
     )
+    return response.json()["access_token"]
+
+@pytest.fixture
+async def db_session():
+    async for session in get_database_session():
+        yield session
+        await session.rollback()
 ```
 
-## Migrations (Alembic)
+## API Testing
 
-### Creating Migrations
-- Use Alembic for schema migrations
-- Configuration in `alembic.ini`
-- Migration scripts in `migrations/versions/`
-- Use descriptive migration messages
+### Testing Endpoints
+```python
+@pytest.mark.asyncio
+async def test_get_endpoint(client: AsyncClient, auth_token: str):
+    headers = {"Authorization": f"Bearer {auth_token}"}
+    response = await client.get("/api/v1/downloads", headers=headers)
+    
+    assert response.status_code == 200
+    data = response.json()
+    assert isinstance(data, list)
 
-### Migration Commands
-```bash
-# Create new migration
-alembic revision --autogenerate -m "Add user table"
-
-# Apply migrations
-alembic upgrade head
-
-# Rollback migration
-alembic downgrade -1
+@pytest.mark.asyncio
+async def test_post_endpoint(client: AsyncClient, auth_token: str):
+    headers = {"Authorization": f"Bearer {auth_token}"}
+    payload = {"url": "https://example.com/video", "profile_id": "default"}
+    
+    response = await client.post(
+        "/api/v1/downloads",
+        headers=headers,
+        json=payload
+    )
+    
+    assert response.status_code == 201
+    assert "id" in response.json()
 ```
 
-### Migration Best Practices
-- Review auto-generated migrations before applying
-- Test migrations in development first
-- Include both upgrade and downgrade paths
-- Add data migrations when needed
-- Never modify applied migrations
+### Testing Auth
+```python
+@pytest.mark.asyncio
+async def test_protected_without_auth(client: AsyncClient):
+    response = await client.get("/api/v1/downloads")
+    assert response.status_code == 401
 
-## Database Configuration
+@pytest.mark.asyncio
+async def test_protected_invalid_token(client: AsyncClient):
+    headers = {"Authorization": "Bearer invalid"}
+    response = await client.get("/api/v1/downloads", headers=headers)
+    assert response.status_code == 401
+```
 
-### Connection Settings
-- Configure database URL in `app/core/config.py`
-- Use async SQLite driver: `aiosqlite`
-- Connection string format: `sqlite+aiosqlite:///./data/hermes.db`
+### Testing Errors
+```python
+@pytest.mark.asyncio
+async def test_not_found(client: AsyncClient, auth_token: str):
+    headers = {"Authorization": f"Bearer {auth_token}"}
+    response = await client.get("/api/v1/downloads/nonexistent", headers=headers)
+    
+    assert response.status_code == 404
+    assert "not found" in response.json()["detail"].lower()
 
-### Session Configuration
-- Pool settings configured in `app/db/session.py`
-- Echo SQL in development (for debugging)
-- Disable echo in production
+@pytest.mark.asyncio
+async def test_validation_error(client: AsyncClient, auth_token: str):
+    headers = {"Authorization": f"Bearer {auth_token}"}
+    response = await client.post("/api/v1/downloads", headers=headers, json={})
+    
+    assert response.status_code == 422
+```
 
-## Transactions
-
-### Transaction Boundaries
-- FastAPI handles transactions automatically
-- Manual transaction control when needed:
+## Database Testing
 
 ```python
-async with session.begin():
-    # Multiple operations in one transaction
-    user = await repos["users"].create(user_data)
-    await repos["api_keys"].create(api_key_data)
+@pytest.mark.asyncio
+async def test_create_user(db_session: AsyncSession):
+    repo = UserRepository(db_session)
+    
+    user_data = {
+        "username": "testuser",
+        "email": "test@example.com",
+        "password_hash": "hashed"
+    }
+    
+    user = await repo.create(user_data)
+    
+    assert user.id is not None
+    assert user.username == "testuser"
 ```
 
-### Error Handling
-- SQLAlchemy exceptions should be caught and converted to HTTP exceptions
-- Rollback happens automatically on exceptions
-- Log database errors with context
+## Mocking
 
-## Testing
+```python
+@pytest.mark.asyncio
+async def test_with_mock(mocker):
+    mock_yt_dlp = mocker.patch("app.services.yt_dlp_service.YtDlpService.get_info")
+    mock_yt_dlp.return_value = {"title": "Test Video", "duration": 120}
+    
+    result = await some_function()
+    
+    assert result["title"] == "Test Video"
+    mock_yt_dlp.assert_called_once()
 
-### Test Database
-- Use separate database for tests
-- Reset database state between tests
-- Use fixtures for common test data
+@pytest.mark.asyncio
+async def test_celery_task(client, auth_token, mocker):
+    mock_task = mocker.patch("app.tasks.download_tasks.process_download.delay")
+    mock_task.return_value.id = "task-123"
+    
+    headers = {"Authorization": f"Bearer {auth_token}"}
+    response = await client.post(
+        "/api/v1/downloads",
+        headers=headers,
+        json={"url": "https://example.com"}
+    )
+    
+    assert response.status_code == 201
+    mock_task.assert_called_once()
+```
 
-### Repository Testing
-- Test each repository method independently
-- Mock external dependencies
-- Verify database state after operations
-- Test error conditions
+## Test Best Practices
+
+### Arrange-Act-Assert
+```python
+def test_something():
+    # Arrange
+    user_data = {"username": "test"}
+    
+    # Act
+    result = create_user(user_data)
+    
+    # Assert
+    assert result.username == "test"
+```
+
+### Test Names
+```python
+# ✅ Good
+def test_create_download_success()
+def test_get_download_not_found()
+def test_delete_download_unauthorized()
+
+# ❌ Bad
+def test_download()
+def test_1()
+```
+
+### Test Independence
+- Each test should be independent
+- Don't rely on execution order
+- Clean up after tests
+- Use fixtures for setup
+
+### Assertions
+```python
+assert response.status_code == 200, "Expected successful response"
+assert "id" in data, "Response should include ID"
+assert len(downloads) > 0, "Should return downloads"
+```
+
+## Coverage
+
+```bash
+pytest --cov=app --cov-report=html
+open htmlcov/index.html
+```
+
+- Aim for 80%+ coverage on critical code
+- Focus on meaningful coverage
+- Test edge cases and error conditions
 
 ---
 > Source: [TechSquidTV/Hermes](https://github.com/TechSquidTV/Hermes) — distributed by [TomeVault](https://tomevault.io).
