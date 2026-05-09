@@ -1,0 +1,9 @@
+{
+  "name": "parameterlab--maseval",
+  "displayName": "MASEval",
+  "description": "Multi-Agent LLM Evaluation Docs: https://maseval.readthedocs.io/",
+  "version": "1.0.0",
+  "author": "parameterlab",
+  "homepage": "https://github.com/parameterlab/MASEval",
+  "skills": []
+}
