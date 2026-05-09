@@ -1,0 +1,44 @@
+{
+  "name": "asterdex-hl-trading-bot",
+  "owner": "mooncitydev",
+  "repo": "asterdex-hl-trading-bot",
+  "description": " A Bun-powered trading workstation for Aster and Hyperliquid perpetual contracts that ships two production-ready agents: an SMA30 trend follower and a dual-sided market maker. The CLI is built with Ink, synchronises risk state from the exchange, and automatically recovers from restarts or disconnects.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mooncitydev/asterdex-hl-trading-bot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T22:08:48Z"
+}
