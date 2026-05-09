@@ -1,0 +1,9 @@
+{
+  "name": "nihondo--agentlimits",
+  "displayName": "AgentLimits",
+  "description": "AgentLimits is macOS widgets that display Codex/Claude Code usage limits and ccusage tokens, cost, heatmap",
+  "version": "1.0.0",
+  "author": "Nihondo",
+  "homepage": "https://github.com/Nihondo/AgentLimits",
+  "skills": []
+}
