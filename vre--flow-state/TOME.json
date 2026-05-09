@@ -4,7 +4,7 @@
   "repo": "flow-state",
   "description": "Flow State - a Claude Plugin Marketplace",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vre/flow-state",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T06:01:31Z"
+  "distributed_at": "2026-05-09T17:54:21Z"
 }
