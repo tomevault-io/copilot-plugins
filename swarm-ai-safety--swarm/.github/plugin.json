@@ -1,0 +1,9 @@
+{
+  "name": "swarm-ai-safety--swarm",
+  "displayName": "swarm",
+  "description": "SWARM: System-Wide Assessment of Risk in Multi-agent systems",
+  "version": "1.0.0",
+  "author": "swarm-ai-safety",
+  "homepage": "https://github.com/swarm-ai-safety/swarm",
+  "skills": []
+}
