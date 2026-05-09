@@ -2,7 +2,7 @@
   "name": "nowCRM",
   "owner": "nowtec",
   "repo": "nowCRM",
-  "description": "",
+  "description": "Open source CRM with multichannel outreach capabilities and efficient data management at scale",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/nowtec",
+  "source_url": "https://github.com/nowtec/nowCRM",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T01:49:55Z"
+  "distributed_at": "2026-05-09T21:52:21Z"
 }
