@@ -1,0 +1,9 @@
+{
+  "name": "dev-five-git--vespera",
+  "displayName": "vespera",
+  "description": "A fully automated OpenAPI engine for Axum with zero-config route and schema discovery",
+  "version": "1.0.0",
+  "author": "dev-five-git",
+  "homepage": "https://github.com/dev-five-git/vespera",
+  "skills": []
+}
