@@ -1,0 +1,9 @@
+{
+  "name": "ruicsh--tailwind-hover-nvim",
+  "displayName": "tailwind-hover.nvim",
+  "description": "Shows consolidated Tailwind CSS styles applied to the element under the cursor.",
+  "version": "1.0.0",
+  "author": "ruicsh",
+  "homepage": "https://github.com/ruicsh/tailwind-hover.nvim",
+  "skills": []
+}
