@@ -1,0 +1,9 @@
+{
+  "name": "markpollack--acp-java-tutorial",
+  "displayName": "acp-java-tutorial",
+  "description": "Progressive tutorial for learning the ACP Java SDK",
+  "version": "1.0.0",
+  "author": "markpollack",
+  "homepage": "https://github.com/markpollack/acp-java-tutorial",
+  "skills": []
+}
