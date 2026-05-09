@@ -1,0 +1,9 @@
+{
+  "name": "deevsdeevs--wagner",
+  "displayName": "wagner",
+  "description": "Multi-repo task manager for agents sessions. Orchestrates multiple Agent instances across git worktrees with tmux.",
+  "version": "1.0.0",
+  "author": "DeevsDeevs",
+  "homepage": "https://github.com/DeevsDeevs/wagner",
+  "skills": []
+}
