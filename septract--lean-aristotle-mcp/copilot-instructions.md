@@ -1,0 +1,140 @@
+## lean-aristotle-mcp
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Code Quality Rules
+
+**NEVER ignore linting or type checking rules.** If a check fails, fix the code properly. Do not:
+- Add `# noqa` comments
+- Add `# type: ignore` comments
+- Add ignore rules to pyproject.toml
+- Disable any checks in configuration
+
+If a rule seems wrong for a specific case, fix the code structure to satisfy the rule properly.
+
+## Project Overview
+
+This is an MCP (Model Context Protocol) server that wraps Harmonic's Aristotle theorem prover, enabling AI assistants to invoke automated theorem proving during Lean 4 development. The server exposes tools for proving theorems, filling in `sorry` statements, and formalizing natural language to Lean 4.
+
+## Build System
+
+The project uses a Makefile that auto-detects the `.venv` virtual environment. Run `make help` for all targets.
+
+### Setup
+
+```bash
+make venv          # Create virtual environment
+make install-dev   # Install with dev dependencies (ruff, mypy, pytest)
+```
+
+### Code Quality
+
+```bash
+make check         # Run all checks (lint + type-check)
+make lint          # Run ruff linter
+make format        # Auto-fix lint issues
+make type-check    # Run mypy
+```
+
+### Testing
+
+```bash
+make test          # Run mock tests (default, no API key needed)
+make test-api      # Run live API tests (requires ARISTOTLE_API_KEY)
+make test-all      # Run all available tests
+make test-lean     # Verify the test Lean project builds
+make verify        # Full verification (lint + type-check + tests + lean)
+```
+
+### Running
+
+```bash
+make run           # Start MCP server
+make run-mock      # Start MCP server in mock mode
+```
+
+### Build & Clean
+
+```bash
+make build         # Build wheel package
+make clean         # Remove build artifacts
+make clean-all     # Remove all generated files (build + test + lean artifacts)
+```
+
+### CI
+
+```bash
+make ci            # Run CI locally with act (auto-starts colima)
+```
+
+Requires [act](https://github.com/nektos/act) and [colima](https://github.com/abiosoft/colima) for local Docker.
+
+## Environment Configuration
+
+Copy `.env.example` to `.env` and set:
+- `ARISTOTLE_API_KEY` - API key from https://aristotle.harmonic.fun/
+- `ARISTOTLE_MOCK=true` - Enable mock mode for testing without API
+
+## Architecture
+
+```
+src/aristotle_mcp/
+├── __init__.py     # Package exports (main function)
+├── __main__.py     # Entry point for `python -m aristotle_mcp`
+├── server.py       # MCP server setup using FastMCP, tool registration
+├── tools.py        # Tool implementations (prove, prove_file, formalize, check_proof)
+├── models.py       # Shared result dataclasses (ProveResult, ProveFileResult, etc.)
+└── mock.py         # Mock responses for testing without API
+```
+
+**Key flow:** `server.py` creates a FastMCP server and registers tools that delegate to `tools.py`. Each tool function checks `is_mock_mode()` to decide whether to use mock responses or call the real Aristotle API via `aristotlelib`.
+
+**Async pattern:** Tools support `wait=False` for non-blocking operation. Async jobs store metadata (output paths, timestamps) for up to 30 days, allowing polling with `check_*` tools.
+
+## MCP Tools Provided
+
+1. **`prove`** - Fill in `sorry` statements in Lean 4 code. Supports async mode with `wait=False`.
+2. **`check_proof`** - Poll status of async proof submissions from `prove`.
+3. **`prove_file`** - Prove all sorries in a Lean file with automatic import resolution. Supports async mode.
+4. **`check_prove_file`** - Poll status of async file proofs. Use `save=True` to write the solution file.
+5. **`formalize`** - Convert natural language math to Lean 4 code. Supports async mode with `wait=False`.
+6. **`check_formalize`** - Poll status of async formalization jobs.
+
+## MCP Resources
+
+- `aristotle://status` - Returns connection status (mock_mode, api_key_configured, ready)
+
+## Test Structure
+
+```
+tests/
+├── test_mock.py       # Mock mode tests (no API key needed)
+├── test_helpers.py    # Unit tests for helper functions and models
+├── test_edge_cases.py # Edge case and error handling tests
+├── test_api.py        # Direct aristotlelib API tests (requires API key)
+├── test_api_tools.py  # Live API tool tests (requires API key)
+├── fixtures/
+│   └── example.lean   # Test fixture with Lean code
+└── lean_project/      # Full Lean project for integration tests
+    └── TestProject/
+        ├── Basic.lean
+        └── Arithmetic.lean
+```
+
+### Mock Mode Behavior
+
+Mock mode (`ARISTOTLE_MOCK=true`) simulates the Aristotle API for testing:
+- Code containing `false_theorem` or `bad_lemma` returns counterexamples
+- Code containing `timeout` or `hard` returns failed status
+- Files with `partial` in the filename return partial success
+- Files with `fail` in the filename return failed status
+- Async operations simulate queued → in_progress → complete flow over multiple polls
+- Formalize generates plausible Lean code based on keywords (even, prime, commutative)
+
+---
+> Source: [septract/lean-aristotle-mcp](https://github.com/septract/lean-aristotle-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-25 -->
