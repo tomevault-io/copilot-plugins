@@ -1,0 +1,9 @@
+{
+  "name": "afreenlikecaffeine--claude-prayer-statusline",
+  "displayName": "claude-prayer-statusline",
+  "description": "Islamic prayer time countdown for your Claude Code status line. Zero dependencies, auto-installs.",
+  "version": "1.0.0",
+  "author": "AfreenLikeCaffeine",
+  "homepage": "https://github.com/AfreenLikeCaffeine/claude-prayer-statusline",
+  "skills": []
+}
