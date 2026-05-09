@@ -1,222 +1,208 @@
-## elysia
+## features-types-unified
 
-> When working with elysiaJS, here are reference guides:
+> This rule establishes a unified method for handling types across all features in the `@/features` directory to prevent duplication and ensure consistency.
 
-When working with elysiaJS, here are reference guides:
+"Types Rule Loaded"
 
-## ⚠️ CRITICAL: OpenAPI Response Schemas
+# Features Type Management - Unified Approach
 
-**ALWAYS use status-code keyed objects for response schemas, NOT `t.Union()`.**
+This rule establishes a unified method for handling types across all features in the `@/features` directory to prevent duplication and ensure consistency.
 
-This ensures OpenAPI documentation properly displays all response parameters.
+## Core Principles
 
-### ❌ WRONG - Response won't show in OpenAPI docs:
+### 1. Database Schema as Source of Truth
+- **Always** infer types from the database schema using Drizzle's `$inferSelect` and `$inferInsert`
+- **Never** manually define types that duplicate database schema definitions
+- Reference: [lib/db/schema.ts](mdc:lib/db/schema.ts)
+
+### 2. Feature-Based Type Organization
+Each feature should follow this structure:
+```
+features/
+├── [feature-name]/
+│   ├── types/
+│   │   └── index.ts          # Main types export
+│   ├── hooks/
+│   │   ├── index.ts          # Hooks export
+│   │   └── use[Feature]*.ts  # Individual hooks
+│   ├── api/                  # Server actions (if needed)
+│   └── components/           # Feature components
+```
+
+### 3. Type Definition Patterns
+
+#### Primary Entity Types
 ```typescript
-{
-  response: t.Union([SuccessResponse, ErrorResponse]),
+// features/[feature]/types/index.ts
+import { [tableName] } from '@/lib/db/schema'
+
+// Infer from database schema
+export type [EntityName] = typeof [tableName].$inferSelect
+export type New[EntityName] = typeof [tableName].$inferInsert
+```
+
+#### API/Action Types
+```typescript
+// For server actions and API operations
+export type Create[EntityName]Data = {
+  // Only include fields that can be set by user
+  field1: string
+  field2?: string
+}
+
+export type Update[EntityName]Data = {
+  // All fields optional for updates
+  field1?: string
+  field2?: string
 }
 ```
 
-### ✅ CORRECT - All responses properly documented:
+#### Component Props Types
 ```typescript
-{
-  response: {
-    200: SuccessResponse,        // Success
-    201: CreateResponse,         // Created (for POST)
-    400: ErrorResponse,          // Bad Request
-    401: ErrorResponse,          // Unauthorized
-    403: ErrorResponse,          // Forbidden
-    404: ErrorResponse,          // Not Found
-    409: ErrorResponse,          // Conflict
-    500: ErrorResponse,          // Server Error
-  },
+// For component-specific types
+export type [EntityName]ListProps = {
+  items: [EntityName][]
+  onSelect?: (item: [EntityName]) => void
 }
 ```
 
-### Standard Response Patterns by HTTP Method:
+## Implementation Examples
 
-**GET (single item)**
+### Webhooks Feature (Reference Implementation)
+See [features/webhooks/types/index.ts](mdc:features/webhooks/types/index.ts) for the correct pattern:
+
 ```typescript
-response: {
-  200: ItemResponse,
-  401: ErrorResponse,
-  404: ErrorResponse,
-  500: ErrorResponse,
+import { webhooks } from '@/lib/db/schema'
+
+// Primary types from schema
+export type Webhook = typeof webhooks.$inferSelect
+export type NewWebhook = typeof webhooks.$inferInsert
+
+// Action-specific types
+export type CreateWebhookData = {
+  name: string
+  url: string
+  description?: string
+  headers?: Record<string, string>
+  timeout?: number
+  retryAttempts?: number
+}
+
+export type UpdateWebhookData = {
+  name?: string
+  url?: string
+  description?: string
+  isActive?: boolean
+  headers?: Record<string, string>
+  timeout?: number
+  retryAttempts?: number
 }
 ```
 
-**GET (list)**
+## Anti-Patterns to Avoid
+
+### ❌ Don't Duplicate Database Types
 ```typescript
-response: {
-  200: ListResponse,
-  401: ErrorResponse,
-  500: ErrorResponse,
+// BAD - Duplicating database schema
+interface Webhook {
+  id: string
+  name: string
+  url: string
+  // ... duplicating schema fields
 }
 ```
 
-**POST (create)**
+### ❌ Don't Define Types in Multiple Places
 ```typescript
-response: {
-  201: CreateResponse,
-  400: ErrorResponse,
-  401: ErrorResponse,
-  403: ErrorResponse,
-  409: ErrorResponse,
-  500: ErrorResponse,
+// BAD - Defining same type in component files
+// app/(main)/webhooks/page.tsx
+interface Webhook { ... }
+
+// app/(main)/emails/[id]/page.tsx  
+interface Webhook { ... }
+```
+
+### ❌ Don't Use Inconsistent Naming
+```typescript
+// BAD - Inconsistent naming patterns
+export type WebhookType = ...
+export type WebhookInterface = ...
+export type IWebhook = ...
+```
+
+## Migration Strategy
+
+### For Existing Features
+1. **Audit existing types** - Find all duplicate type definitions
+2. **Create unified types file** - Follow the pattern above
+3. **Update imports** - Replace local interfaces with shared types
+4. **Handle null safety** - Use proper null coalescing for database fields
+
+### For New Features
+1. **Start with schema types** - Always begin with `$inferSelect`
+2. **Add action types** - Create specific types for operations
+3. **Export from index** - Centralize all type exports
+4. **Document deviations** - If you must deviate from patterns, document why
+
+## Type Safety Guidelines
+
+### Handling Nullable Database Fields
+```typescript
+// When displaying data that might be null
+const displayValue = webhook.description || 'No description'
+const count = webhook.totalDeliveries || 0
+
+// In calculations
+const successRate = !webhook.totalDeliveries 
+  ? 0 
+  : Math.round(((webhook.successfulDeliveries || 0) / webhook.totalDeliveries) * 100)
+```
+
+### React Query Integration
+```typescript
+// In hooks, always handle the server action response format
+export const useCreateWebhookMutation = () => {
+  return useMutation({
+    mutationFn: async (data: CreateWebhookData) => {
+      const result = await createWebhook(data)
+      if (!result.success) {
+        throw new Error(result.error)
+      }
+      return result.webhook // This will be of type Webhook
+    }
+  })
 }
 ```
 
-**PATCH/PUT (update)**
-```typescript
-response: {
-  200: UpdateResponse,
-  400: ErrorResponse,
-  401: ErrorResponse,
-  404: ErrorResponse,
-  500: ErrorResponse,
-}
-```
+## Enforcement
 
-**DELETE**
-```typescript
-response: {
-  200: DeleteResponse,
-  401: ErrorResponse,
-  404: ErrorResponse,
-  409: ErrorResponse,
-  500: ErrorResponse,
-}
-```
+### Code Review Checklist
+- [ ] Types are imported from feature's `types/index.ts`
+- [ ] No duplicate type definitions across files
+- [ ] Database types use `$inferSelect`/`$inferInsert`
+- [ ] Action types follow naming conventions
+- [ ] Null safety is properly handled
 
----
+### Automated Checks
+Consider adding ESLint rules to prevent:
+- Duplicate interface/type definitions
+- Direct database type definitions outside schema
+- Inconsistent naming patterns
 
-# Elysia - Ergonomic Framework for Humans
+## Benefits
 
-> Ergonomic Framework for Humans
+1. **Single Source of Truth** - Database schema drives all types
+2. **Reduced Duplication** - No more duplicate interfaces
+3. **Type Safety** - Proper handling of nullable fields
+4. **Maintainability** - Changes to schema automatically propagate
+5. **Consistency** - Uniform patterns across all features
+6. **Developer Experience** - Clear patterns to follow
 
-Ergonomic Framework for Humans. TypeScript framework supercharged by Bun with End - to - End Type Safety, unified type system and outstanding developer experience
+## Related Files
 
-## Table of Contents
-
-### Getting Started
-
-- [At glance - ElysiaJS](https://elysiajs.com/at-glance.md)
-- [Quick Start - ElysiaJS](https://elysiajs.com/quick-start.md)
-- [Key Concept - ElysiaJS](https://elysiajs.com/key-concept.md)
-
-### Essential
-
-- [Route - ElysiaJS](https://elysiajs.com/essential/route.md)
-- [Handler - ElysiaJS](https://elysiajs.com/essential/handler.md)
-- [Validation - ElysiaJS](https://elysiajs.com/essential/validation.md)
-- [Lifecycle - ElysiaJS](https://elysiajs.com/essential/life-cycle.md)
-- [Plugin - ElysiaJS](https://elysiajs.com/essential/plugin.md)
-- [Best Practice - ElysiaJS](https://elysiajs.com/essential/best-practice.md)
-
-### Patterns
-
-- [Config - ElysiaJS](https://elysiajs.com/patterns/configuration.md)
-- [Reactive Cookie - ElysiaJS](https://elysiajs.com/patterns/cookie.md)
-- [Deploy to Production - ElysiaJS](https://elysiajs.com/patterns/deploy.md)
-- [Error Handling - ElysiaJS](https://elysiajs.com/patterns/error-handling.md)
-- [Extends Context - ElysiaJS](https://elysiajs.com/patterns/extends-context.md)
-- [Fullstack Dev Server - ElysiaJS](https://elysiajs.com/patterns/fullstack-dev-server.md)
-- [Macro - ElysiaJS](https://elysiajs.com/patterns/macro.md)
-- [Mount - ElysiaJS](https://elysiajs.com/patterns/mount.md)
-- [OpenAPI - ElysiaJS](https://elysiajs.com/patterns/openapi.md)
-- [OpenTelemetry Plugin - ElysiaJS](https://elysiajs.com/patterns/opentelemetry.md)
-- [Trace - ElysiaJS](https://elysiajs.com/patterns/trace.md)
-- [TypeBox (Elysia.t) - ElysiaJS](https://elysiajs.com/patterns/typebox.md)
-- [TypeScript - ElysiaJS](https://elysiajs.com/patterns/typescript.md)
-- [Testing - ElysiaJS](https://elysiajs.com/patterns/unit-test.md)
-- [WebSocket - ElysiaJS](https://elysiajs.com/patterns/websocket.md)
-
-### Eden
-
-- [End-to-End Type Safety - ElysiaJS](https://elysiajs.com/eden/overview.md)
-- [Eden Installation - ElysiaJS](https://elysiajs.com/eden/installation.md)
-- [Eden Fetch - ElysiaJS](https://elysiajs.com/eden/fetch.md)
-
-#### Eden Treaty
-
-- [Overview - ElysiaJS](https://elysiajs.com/eden/treaty/overview.md)
-- [Eden Treaty Parameters - ElysiaJS](https://elysiajs.com/eden/treaty/parameters.md)
-- [Eden Treaty Response - ElysiaJS](https://elysiajs.com/eden/treaty/response.md)
-- [Eden Treaty Web Socket - ElysiaJS](https://elysiajs.com/eden/treaty/websocket.md)
-- [Eden Treaty Config - ElysiaJS](https://elysiajs.com/eden/treaty/config.md)
-- [Eden Treaty Unit Test - ElysiaJS](https://elysiajs.com/eden/treaty/unit-test.md)
-- [Eden Treaty Legacy - ElysiaJS](https://elysiajs.com/eden/treaty/legacy.md)
-
-### Plugins
-
-- [Plugin Overview - ElysiaJS](https://elysiajs.com/plugins/overview.md)
-- [Bearer Plugin - ElysiaJS](https://elysiajs.com/plugins/bearer.md)
-- [CORS Plugin - ElysiaJS](https://elysiajs.com/plugins/cors.md)
-- [Cron Plugin - ElysiaJS](https://elysiajs.com/plugins/cron.md)
-- [Apollo GraphQL Plugin - ElysiaJS](https://elysiajs.com/plugins/graphql-apollo.md)
-- [GraphQL Yoga Plugin - ElysiaJS](https://elysiajs.com/plugins/graphql-yoga.md)
-- [HTML Plugin - ElysiaJS](https://elysiajs.com/plugins/html.md)
-- [JWT Plugin - ElysiaJS](https://elysiajs.com/plugins/jwt.md)
-- [OpenAPI Plugin - ElysiaJS](https://elysiajs.com/plugins/openapi.md)
-- [OpenTelemetry Plugin - ElysiaJS](https://elysiajs.com/plugins/opentelemetry.md)
-- [Server Timing Plugin - ElysiaJS](https://elysiajs.com/plugins/server-timing.md)
-- [Static Plugin - ElysiaJS](https://elysiajs.com/plugins/static.md)
-
-### Comparison
-
-- [Migrate from Express - ElysiaJS](https://elysiajs.com/migrate/from-express.md)
-- [Migrate from Fastify - ElysiaJS](https://elysiajs.com/migrate/from-fastify.md)
-- [Migrate from Hono - ElysiaJS](https://elysiajs.com/migrate/from-hono.md)
-- [Migrate from tRPC - ElysiaJS](https://elysiajs.com/migrate/from-trpc.md)
-
-### Integration
-
-- [Integration with AI SDK - ElysiaJS](https://elysiajs.com/integrations/ai-sdk.md)
-- [Integration with Astro - ElysiaJS](https://elysiajs.com/integrations/astro.md)
-- [Better Auth - ElysiaJS](https://elysiajs.com/integrations/better-auth.md)
-- [Integration with Cloudflare Worker - ElysiaJS](https://elysiajs.com/integrations/cloudflare-worker.md)
-- [Integration with Deno - ElysiaJS](https://elysiajs.com/integrations/deno.md)
-- [Integration with Drizzle - ElysiaJS](https://elysiajs.com/integrations/drizzle.md)
-- [Integration with Expo - ElysiaJS](https://elysiajs.com/integrations/expo.md)
-- [Integration with Netlify Edge Function - ElysiaJS](https://elysiajs.com/integrations/netlify.md)
-- [Integration with Nextjs - ElysiaJS](https://elysiajs.com/integrations/nextjs.md)
-- [Integration with Node.js - ElysiaJS](https://elysiajs.com/integrations/node.md)
-- [Integration with Nuxt - ElysiaJS](https://elysiajs.com/integrations/nuxt.md)
-- [Integration with Prisma - ElysiaJS](https://elysiajs.com/integrations/prisma.md)
-- [React Email - ElysiaJS](https://elysiajs.com/integrations/react-email.md)
-- [Integration with SvelteKit - ElysiaJS](https://elysiajs.com/integrations/sveltekit.md)
-- [Integration with Tanstack Start - ElysiaJS](https://elysiajs.com/integrations/tanstack-start.md)
-- [Deploy Elysia on Vercel - ElysiaJS](https://elysiajs.com/integrations/vercel.md)
-
-### Other
-
-- [Cheat Sheet (Elysia by example) - ElysiaJS](https://elysiajs.com/integrations/cheat-sheet.md)
-- [Comparison with Other Frameworks](https://elysiajs.com/migrate.md)
-- [Cookie - Elysia Tutorial](https://elysiajs.com/tutorial/patterns/cookie.md)
-- [Eden Test - ElysiaJS](https://elysiajs.com/eden/test.md)
-- [Elysia Blog](https://elysiajs.com/4koma.md)
-- [Encapsulation - Elysia Tutorial](https://elysiajs.com/tutorial/getting-started/encapsulation.md)
-- [End-to-End Type Safety - Elysia Tutorial](https://elysiajs.com/tutorial/features/end-to-end-type-safety.md)
-- [Error Handling - Elysia Tutorial](https://elysiajs.com/tutorial/patterns/error-handling.md)
-- [Extends Context - Elysia Tutorial](https://elysiajs.com/tutorial/patterns/extends-context.md)
-- [Guard - Elysia Tutorial](https://elysiajs.com/tutorial/getting-started/guard.md)
-- [Handler and Context - Elysia Tutorial](https://elysiajs.com/tutorial/getting-started/handler-and-context.md)
-- [Introduction - Elysia Tutorial](https://elysiajs.com/tutorial.md)
-- [Life Cycle - Elysia Tutorial](https://elysiajs.com/tutorial/getting-started/life-cycle.md)
-- [Macro - Elysia Tutorial](https://elysiajs.com/tutorial/patterns/macro.md)
-- [Mount - Elysia Tutorial](https://elysiajs.com/tutorial/features/mount.md)
-- [OpenAPI - Elysia Tutorial](https://elysiajs.com/tutorial/features/openapi.md)
-- [Playground](https://elysiajs.com/playground.md)
-- [Plugin - Elysia Tutorial](https://elysiajs.com/tutorial/getting-started/plugin.md)
-- [Preview](https://elysiajs.com/playground/preview.md)
-- [Standalone Schema - Elysia Tutorial](https://elysiajs.com/tutorial/patterns/standalone-schema.md)
-- [Status and Headers - Elysia Tutorial](https://elysiajs.com/tutorial/getting-started/status-and-headers.md)
-- [Swagger Plugin - ElysiaJS](https://elysiajs.com/plugins/swagger.md)
-- [Unit Test - Elysia Tutorial](https://elysiajs.com/tutorial/features/unit-test.md)
-- [Validation - Elysia Tutorial](https://elysiajs.com/tutorial/getting-started/validation.md)
-- [Validation Error - Elysia Tutorial](https://elysiajs.com/tutorial/patterns/validation-error.md)
-- [What's Next - Elysia Tutorial](https://elysiajs.com/tutorial/whats-next.md)
-- [Your First Route - Elysia Tutorial](https://elysiajs.com/tutorial/getting-started/your-first-route.md)
+- [lib/db/schema.ts](mdc:lib/db/schema.ts) - Database schema definitions
+- [features/webhooks/types/index.ts](mdc:features/webhooks/types/index.ts) - Reference implementation
+- [features/webhooks/hooks/](mdc:features/webhooks/hooks) - Hook implementations using unified types
 
 ---
 > Source: [inboundemail/inbound](https://github.com/inboundemail/inbound) — distributed by [TomeVault](https://tomevault.io).
