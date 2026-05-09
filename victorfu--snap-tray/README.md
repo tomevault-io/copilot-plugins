@@ -7,14 +7,14 @@ SnapTray is a tray-native screenshot and recording tool for macOS and Windows. I
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [victorfu/snap-tray](https://github.com/victorfu/snap-tray).
+Original source: `AGENTS.md` in [victorfu/snap-tray](https://github.com/victorfu/snap-tray).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/victorfu/snap-tray](https://github.com/victorfu/snap-tray)
