@@ -1,0 +1,9 @@
+{
+  "name": "xamgore--obsidian-quiz-blocks",
+  "displayName": "obsidian-quiz-blocks",
+  "description": "Render ```quiz code blocks into interactive multiple-choice quizzes. Pick an answer, check if you\u2019re right, and see explanations right inside your notes.",
+  "version": "1.0.0",
+  "author": "xamgore",
+  "homepage": "https://github.com/xamgore/obsidian-quiz-blocks",
+  "skills": []
+}
