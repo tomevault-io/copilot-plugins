@@ -1,16 +1,17 @@
-## idun-agent-platform
+## engine
 
-> for ANY question about LangGraph, use the langgraph-docs-mcp server to help answer --
+> Rules for working on the idun_agent_engine SDK
 
-for ANY question about LangGraph, use the langgraph-docs-mcp server to help answer --
-+ call list_doc_sources tool to get the available llms.txt file
-+ call fetch_docs tool to read it
-+ reflect on the urls in llms.txt
-+ reflect on the input question
-+ call fetch_docs on any urls relevant to the question
-+ use this to answer the question
+# Idun Agent Engine
+
+Read `libs/idun_agent_engine/CLAUDE.md` before making changes. It contains the full module map, config flow, agent adapter details, and conventions.
+
+- All agent operations are async (`initialize`, `invoke`, `stream`).
+- LangGraph expects an **uncompiled StateGraph** — the engine compiles it with checkpointer/store.
+- Observability config is top-level, not inside `agent.config` (agent-level is deprecated).
+- Dynamic imports for agent loading: file path first, Python module fallback.
+- Schema models come from `idun_agent_schema` — don't duplicate them here.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Idun-Group)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Idun-Group)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [Idun-Group/idun-agent-platform](https://github.com/Idun-Group/idun-agent-platform) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
