@@ -1,0 +1,9 @@
+{
+  "name": "nettee--gemini-cli-proxy",
+  "displayName": "gemini-cli-proxy",
+  "description": "Wrap Gemini CLI as an OpenAI-compatible API service, allowing you to enjoy the free Gemini Pro model through API!",
+  "version": "1.0.0",
+  "author": "nettee",
+  "homepage": "https://github.com/nettee/gemini-cli-proxy",
+  "skills": []
+}
