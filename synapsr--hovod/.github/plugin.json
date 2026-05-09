@@ -1,0 +1,9 @@
+{
+  "name": "synapsr--hovod",
+  "displayName": "Hovod",
+  "description": "Open-source, self-hosted video platform (Mux alternative). Upload, transcode to multi-quality HLS (360p\u20134K), stream via S3-compatible storage. Built-in dashboard, analytics, AI transcription/chapters,",
+  "version": "1.0.0",
+  "author": "Synapsr",
+  "homepage": "https://github.com/Synapsr/Hovod",
+  "skills": []
+}
