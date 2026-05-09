@@ -1,0 +1,9 @@
+{
+  "name": "hacklyc--openmino",
+  "displayName": "openmino",
+  "description": "A ready-to-use workspace template that turns any AI agent into a persistent, evolving companion. No server, no database, no complex setup \u2014 just a folder of files.",
+  "version": "1.0.0",
+  "author": "hAcKlyc",
+  "homepage": "https://github.com/hAcKlyc/openmino",
+  "skills": []
+}
