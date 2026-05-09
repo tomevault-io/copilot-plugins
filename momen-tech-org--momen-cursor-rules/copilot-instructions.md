@@ -1,117 +1,107 @@
-## momen-stripe-payment-rules
+## momen-tpa-gql-api-rules
 
-> How to make credit card payment via Stripe when using Momen.app's backend
+> How to invoke third-party APIs via a Momen.app project's backend
 
+# Third Party APIs
 
-# Overview
-Momen.app supports native Stripe integration so that the end users of projects built on momen can pay for orders using credit card.  
-There are two supported modes of payment, one-time and recurring (subscription). An conceptual order table must be present in the project's database for both modes as an order id must be associated with every payment. This also means that an order must be created before invoking the actual call to stripe. At different stages of the payment process, such as order creation, payment initialiation, payment success or payment failure, HTTP requests will be sent from stripe's server to pre-configured URLs that point to the project built on momen, triggering corresponding actionflows, which are ultimately responsbile for modifying the database (such as updating order status, sending notification).  
-If a project needs stripe integration, stripe's Javascript / Typescript client must be included. For react, use @stripe/react-stripe-js and @stripe/stripe-js, for ES module, use https://js.stripe.com/clover/stripe.js. It must be then initialized using the publishable key which must be provided by the user. refer to @https://docs.stripe.com/sdks/stripejs-react  
-The actual process involves obtaining the one-time client secret for every payment, and then using the the client secret to show a Checkout Form, e.g. 
+## Overview
+A project built on Momen.app can have many third-party HTTP APIs imported. These are separated into two categories: query or mutation, roughly (though not always the case) corresponding to the semantics of HTTP GET vs POST.  
+Each API is stored in the following data structure:
 ```typescript
-  const clientSecret; // obtained via GraphQL API
+type ScalarType = 'string' | 'boolean' | 'number' | 'integer';
+type TypeDefinition =
+  | ScalarType
+  | { [key: string]: TypeDefinition | TypeDefinition[] };
 
-  const options = {
-    clientSecret,
-  };
-
-  return (
-    <Elements stripe={stripePromise} options={options}>
-      <CheckoutForm />
-    </Elements>
-  );
+interface ThirdPartyApiConfig {
+  id: string;
+  name: string;
+  operation: 'query' | 'mutation';
+  inputs: { [key: string]: TypeDefinition };
+  outputs: { [key: string]: TypeDefinition };
+}
 ```
-It might also be helpful to display human readable payment amount and other miscellaneous information around the checkout form for better user experience. 
+N.B. The value of the operation field within ThirdPartyApiConfig determines the root GraphQL field. i.e. query -> query operation_${id}, and mutation -> mutation operation_${id}.
 
-## Order creation
-Each project's conceptual order table has its own structure, and does not need to be called "order", since technically any one table per project can be bound to the project's "order table" setting. Though typically they should contain information about to which account this order belongs to, how much the order's amount is and what item(s) this order is for (usually via 1:n relationships).  
-Orders should be created via actionflows rather than direct insertion on the frontend, as monetary values and items involves might be present and should only be controlled via the backend. 
-
-## One-time payment
-Pre-requisite: order id, payment amount (in the currency’s minor unit, e.g. 109 for 1.09 USD, and 203 for 203 JPY), and currency.  
-Send a mutation to the project's GraphQL API:  
-Query:
+## Invocation process
+Each input should be provided unless the user asks to remove it.  
+e.g. 
+Given TPA configuration as follows:
+```json
+      {
+        "id": "lzb3ownk",
+        "inputs": {
+          "body": {
+            "summary": "string",
+            "location": "string",
+            "description": "string",
+            "start": {
+              "dateTime": "string",
+              "timeZone": "string"
+            },
+            "end": {
+              "dateTime": "string",
+              "timeZone": "string"
+            },
+            "attendees": [
+              "string"
+            ]
+          },
+          "Authorization": "string"
+        },
+        "outputs": {
+          "body": {
+            "kind": "string",
+            "etag": "string",
+            "id": "string",
+            "status": "string",
+            "htmlLink": "string",
+            "created": "string",
+            "updated": "string",
+            "summary": "string",
+            "description": "string",
+            "location": "string",
+            "creator": {
+              "email": "string",
+              "self": "boolean"
+            },
+            "organizer": {
+              "email": "string",
+              "self": "boolean"
+            },
+            "start": {
+              "dateTime": "string",
+              "timeZone": "string"
+            },
+            "end": {
+              "dateTime": "string",
+              "timeZone": "string"
+            },
+            "iCalUID": "string",
+            "sequence": "number",
+            "reminders": {
+              "useDefault": "boolean"
+            },
+            "eventType": "string"
+          }
+        },
+        "operation": "mutation"
+      }
+```
+The corresponding GraphQL query should be
 ```gql
-mutation StripePay(
-  $orderId: Long!
-  $currency: String!
-  $amount: BigDecimal!
-) {
-  stripePayV2(
-    payDetails: {
-      order_id: $orderId
-      currency: $currency
-      amount: $amount
+mutation request_${nonce}($summary: String, $location: String, $description: String, $start_dateTime: String, $start_timeZone: String, $end_dateTime: String, $end_timeZone: String, $attendees:[String], $Authorization: String) {
+  operation_lzb3ownk(fz_body: {}, arg1: $_1, arg2: $_2) {
+    responseCode
+    field_200_json {
+      {subFieldSelections}
     }
-  ) {
-    paymentClientSecret
-    stripeReadableAmount
-  }
+ }
 }
 ```
-Example variables:
-```json
-{
-  "orderId": 167,
-  "amount": 1990,
-  "currency": "USD"
-}
-```
-Example output:
-```json
-{
-  "data": {
-    "stripePayV2": {
-      "paymentClientSecret": "pi_3SMhlmC40c1oUbt11bx7GvW7_secret_23wg0cRL42ZFxXDGQhq8XGx7J",
-      "stripeReadableAmount": "$19.90"
-    }
-  }
-}
-```
+field_200_json is a fixed fields for all third-party API derived GraphQL operation. It means the response that's valid for all 2xx response codes. 
 
-
-## Recurring payment (subscription)
-Pre-requisite: order id, price id (the id for one of the pricings for the stripe product involved). 
-Send a mutaiton to the project's GraphQL API:
-Query:
-```gql
-mutation CreateStripeRecurringPayment($orderId: Long!, $priceId: String!) {
-  createStripeRecurringPayment(orderId: $orderId, priceId: $priceId) {
-    amount
-    clientSecret
-    recurringPaymentId
-    stripeReadableAmountAndCurrency
-    stripeRecurring
-  }
-}
-```
-Example variables:
-```json
-{
-  "orderId": 169,
-  "priceId": "price_1SMhwECO2XREqHNZO9elpYVU"
-}
-```
-Example output
-```json
-{
-  "data": {
-    "createStripeRecurringPayment": {
-      "amount": 2800,
-      "clientSecret": "pi_3SMjaMC7yn20Hek01gHzez7C_secret_CEQ7Zun8fpnvGRoTTs1dnuYeW",
-      "recurringPaymentId": 8100000000000231,
-      "stripeReadableAmountAndCurrency": "$28.00",
-      "stripeRecurring": "1 month"
-    }
-  }
-}
-```
-
-## Webhook handling
-Stripe will send events to Momen project's backend via webhooks, and corresponding actionflows are used to handle those webhook requests. Therefore no especial handling is needed on the frontend to deal with the webhook handler's logic. However, since webhook is an asynchronous process, the frontend should either poll for webhook's effect or use graphql subscription for that. 
-
-## Key handling
-Directly write the Stripe publishable key into the source file, as it is intended to be exposed publicly. DO NOT use environment or other methods to add abstraction. 
+The responseCode subfield should always be checked, in case 5xx or 4xx codes are returned, which means field_200_json would be empty. 
 
 ---
 > Source: [momen-tech-org/momen-cursor-rules](https://github.com/momen-tech-org/momen-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
