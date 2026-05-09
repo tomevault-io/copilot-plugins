@@ -1,465 +1,107 @@
-## mobile-accessibility-standards
+## modal-accessibility
 
-> Mobile accessibility standards per WCAG 2.5.8 Target Size (Minimum), 2.4.1 Bypass Blocks, and 1.3.4 Orientation requirements
+> Modal window accessibility compliance and ARIA Dialog Pattern
 
+# Modal Window Accessibility Standards
 
-# Mobile Accessibility Best Practices
-
-Ensures mobile interfaces follow WCAG compliance and provide proper accessibility for touch interactions, spacing, and orientation flexibility.
+Ensures modal windows follow WCAG compliance and ARIA Dialog Pattern specifications.
 
 <rule>
-name: mobile_accessibility_standards
-description: Enforce mobile accessibility standards per WCAG requirements for touch targets, spacing, and orientation
+name: modal_accessibility_standards
+description: Enforce modal window accessibility standards and ARIA Dialog Pattern compliance
 filters:
   - type: file_extension
-    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts|css|scss|sass|less)$"
+    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
 
 actions:
   - type: enforce
     conditions:
-      # Touch targets smaller than minimum recommended size
-      - pattern: "(width|height):\\s*(?:1[0-9]|2[0-3])\\s*(?:px|rem|em|%)"
-        pattern_negate: "(min-width|min-height|max-width|max-height)"
-        message: "Touch targets should be at least 24x24px (Level AA) or 44x44px (Level AAA) for optimal accessibility. Use CSS padding to increase touch area without affecting visual design."
+      # Dialog role requirement
+      - pattern: "(?i)<(div|section|article)[^>]*(?:modal|dialog)[^>]*>"
+        pattern_negate: "role=\"dialog\""
+        message: "Modal containers must have role='dialog' attribute."
 
-      # Touch targets with insufficient padding
-      - pattern: "padding:\\s*(?:0|1|2|3|4)\\s*(?:px|rem|em)"
-        pattern_negate: "(min-width|min-height|max-width|max-height)"
-        message: "Consider increasing padding to create larger touch targets. Google recommends 48x48px with 8px spacing, Apple recommends 44x44px minimum."
+      # aria-modal requirement
+      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*>"
+        pattern_negate: "aria-modal=\"true\""
+        message: "Dialog elements must have aria-modal='true' attribute."
 
-      # Interactive elements without proper touch target sizing
-      - pattern: "<(button|a|input|select|textarea)[^>]*>"
-        pattern_negate: "(min-width|min-height|width|height|padding)"
-        message: "Interactive elements should have sufficient touch target size. Use CSS min-width/min-height or padding to ensure accessibility compliance."
+      # aria-labelledby or aria-label requirement
+      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*>"
+        pattern_negate: "(aria-labelledby|aria-label)"
+        message: "Dialog elements must have either aria-labelledby or aria-label for accessibility."
 
-      # Touch targets too close together (less than 8px spacing)
-      - pattern: "(margin|gap):\\s*(?:0|1|2|3|4|5|6|7)\\s*(?:px|rem|em)"
-        pattern_negate: "(min-width|min-height|max-width|max-height)"
-        message: "Touch targets should have at least 8px spacing between them to prevent accidental activation. Consider increasing margins or gaps."
+      # Empty aria-label check
+      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*aria-label=\"\"[^>]*>"
+        message: "Dialog aria-label should not be empty; provide a meaningful description."
 
-      # Fixed orientation restrictions
-      - pattern: "orientation:\\s*(portrait|landscape)"
-        message: "Avoid restricting content orientation. Allow users to consume content in any orientation they prefer or require for their computing environment."
+      # Button without proper close functionality
+      - pattern: "(?i)<button[^>]*(?:close|dismiss|cancel)[^>]*>"
+        pattern_negate: "(onClick|onclick|@click|v-on:click)"
+        message: "Modal close buttons should have proper click handlers to close the dialog."
 
-      # Viewport meta tag preventing orientation changes
-      - pattern: "<meta[^>]*name=\"viewport\"[^>]*>"
-        pattern_negate: "(width=device-width|initial-scale)"
-        message: "Viewport meta tag should support responsive design and orientation flexibility. Avoid restrictions that prevent content reflow."
+      # Close button should have aria-label
+      - pattern: "(?i)<button[^>]*(?:close|dismiss|×|&times;)[^>]*>"
+        pattern_negate: "aria-label=\"[^\"]*[Cc]lose[^\"]*\""
+        message: "Modal close buttons should have aria-label='Close' or similar descriptive text for screen readers."
 
-      # CSS that prevents orientation flexibility
-      - pattern: "@media\\s*\\(orientation:\\s*(portrait|landscape)\\)"
-        pattern_negate: "(min-width|max-width|flex-direction|grid-template)"
-        message: "Orientation media queries should enhance layout, not restrict functionality. Ensure content remains accessible in both orientations."
+      # Missing focus trap indicators
+      - pattern: "(?i)(?:showModal|openModal|displayModal)\\s*\\("
+        message: "When opening modals, ensure focus management is implemented (focus should move to an element inside the dialog)."
 
-      # Fixed positioning that may cause issues in different orientations
-      - pattern: "position:\\s*fixed"
-        pattern_negate: "(top|bottom|left|right|transform)"
-        message: "Fixed positioning may cause accessibility issues in different orientations. Consider using relative positioning with responsive adjustments."
-
-      # Touch targets without proper focus indicators
-      - pattern: "<(button|a|input|select|textarea)[^>]*>"
-        pattern_negate: "(:focus|:focus-visible|outline|box-shadow)"
-        message: "Touch targets should have visible focus indicators for keyboard navigation accessibility."
-
-      # Mobile-specific elements without touch-friendly sizing
-      - pattern: "(?i)<(button|a|input|select|textarea)[^>]*class=\"[^\"]*(?:mobile|touch|small)[^\"]*\"[^>]*>"
-        pattern_negate: "(min-width|min-height|width|height|padding)"
-        message: "Mobile-specific interactive elements must have adequate touch target sizes for accessibility compliance."
-
-      # Grid layouts without proper spacing
-      - pattern: "display:\\s*grid"
-        pattern_negate: "(gap|grid-gap|margin|padding)"
-        message: "Grid layouts should include proper spacing between elements to prevent accidental touch activation."
-
-      # Flexbox layouts without proper spacing
-      - pattern: "display:\\s*flex"
-        pattern_negate: "(gap|margin|padding|justify-content|align-items)"
-        message: "Flexbox layouts should include proper spacing and alignment to ensure touch target accessibility."
+      # Modal launcher should have aria-haspopup
+      - pattern: "(?i)<button[^>]*(?:open|show|launch)[^>]*(?:modal|dialog)[^>]*>"
+        pattern_negate: "aria-haspopup=\"dialog\""
+        message: "Buttons that open modals should include aria-haspopup='dialog' to inform users a dialog will open."
 
   - type: suggest
     message: |
-      **WCAG Mobile Accessibility Requirements:**
+      **Modal Window Accessibility Best Practices:**
 
-      **Touch Target Size (WCAG 2.5.8 Target Size Minimum):**
-      - **Level AA (Required):** Minimum 24x24 pixels
-      - **Recommended:** 44x44 pixels or larger for optimal usability
-      - **Industry Standards:** Google (48x48px), Apple (44x44px)
-      - **Spacing:** At least 8 pixels between touch targets
+      **Required ARIA Attributes:**
+      - **role='dialog':** Set on the modal container element
+      - **aria-modal='true':** Indicates the dialog is modal
+      - **aria-labelledby:** Reference to visible dialog title, OR
+      - **aria-label:** Descriptive label if no visible title exists
+      - **aria-haspopup='dialog':** Set on buttons/elements that trigger the modal to inform users a dialog will open
 
-      **Touch Target Implementation:**
+      **Keyboard Interaction Requirements:**
+      - **Initial Focus:** When dialog opens, focus must move to an element inside the dialog
+      - **Tab Cycling:** Tab key should cycle through tabbable elements within the dialog only
+      - **Shift+Tab:** Should cycle backwards through tabbable elements within the dialog
+      - **Escape Key:** Must close the dialog
+      - **Focus Trap:** Focus should be contained within the modal while open
 
-      **1. CSS Padding Approach:**
-      ```css
-      /* Good: Touch target meeting minimum requirements */
-      .touch-button {
-        min-width: 24px;  /* WCAG 2.5.8 AA minimum */
-        min-height: 24px;
-        padding: 12px 16px; /* Padding increases effective touch area */
-        border: none;
-        background: #0056b3;
-        color: white;
-        border-radius: 4px;
-      }
+      **Focus Management:**
+      - Implement focus trapping to prevent tab navigation outside the modal
+      - Return focus to the triggering element when modal closes
+      - Move focus to the close button (first focusable element) when modal opens
+      - Ensure close button is positioned first in DOM order within the dialog
 
-      /* Better: Larger touch target for optimal usability */
-      .touch-button-optimal {
-        min-width: 44px;  /* Recommended size */
-        min-height: 44px;
-        padding: 12px 16px;
-        border: none;
-        background: #0056b3;
-        color: white;
-        border-radius: 4px;
-      }
+      **Structure Requirements:**
+      - All interactive elements must be descendants of the dialog container
+      - Position close button first in DOM order within the dialog container
+      - Use semantic HTML within the modal (headings, buttons, form labels)
+      - Provide clear visual focus indicators
+      - Close buttons should use aria-label="Close" with &times; entity for visual 'x' icon
 
-      /* Good: Icon button with sufficient touch area */
-      .icon-button {
-        width: 24px;
-        height: 24px;
-        padding: 12px; /* Total touch area: 48x48px */
-        border: none;
-        background: transparent;
-      }
-      ```
-
-      **2. Minimum Dimensions:**
-      ```css
-      /* Good: Meets WCAG 2.5.8 AA minimum */
-      .mobile-button {
-        min-width: 24px;
-        min-height: 24px;
-        padding: 8px 16px;
-        font-size: 16px; /* Prevents zoom on iOS */
-      }
-
-      /* Better: Recommended size for optimal usability */
-      .mobile-button-optimal {
-        min-width: 44px;
-        min-height: 44px;
-        padding: 8px 16px;
-        font-size: 16px;
-      }
-
-      /* Good: Responsive touch targets */
-      .responsive-button {
-        min-width: clamp(24px, 8vw, 120px);
-        min-height: clamp(24px, 8vh, 60px);
-        padding: 12px;
-      }
-      ```
-
-      **3. Touch Target Spacing:**
-      ```css
-      /* Good: Proper spacing between touch targets */
-      .button-group {
-        display: flex;
-        gap: 12px; /* 8px minimum, 12px recommended */
-        align-items: center;
-      }
-
-      /* Good: Grid with minimum touch target size */
-      .touch-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(24px, 1fr));
-        gap: 12px;
-        padding: 16px;
-      }
-
-      /* Better: Grid with recommended touch target size */
-      .touch-grid-optimal {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(44px, 1fr));
-        gap: 12px;
-        padding: 16px;
-      }
-      ```
-
-      **Spacing Between Elements (WCAG 2.4.1 Bypass Blocks):**
-
-      **1. White Space for Navigation:**
-      ```css
-      /* Good: Adequate spacing for motor impairment users */
-      .navigation-links {
-        display: flex;
-        gap: 16px; /* Prevents accidental activation */
-        padding: 20px;
-        flex-wrap: wrap;
-      }
-
-      /* Good: Callout action spacing */
-      .callout-actions {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px; /* Generous spacing for accessibility */
-        margin: 24px 0;
-      }
-      ```
-
-      **2. Touch-Friendly Spacing:**
-      ```css
-      /* Good: Touch-friendly button spacing */
-      .touch-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 16px; /* Vertical spacing for thumb navigation */
-      }
-
-      /* Good: Horizontal button spacing */
-      .horizontal-buttons {
-        display: flex;
-        gap: 12px;
-        padding: 0 16px; /* Side padding for edge safety */
-      }
-      ```
-
-      **Orientation Flexibility (WCAG 1.3.4 Orientation):**
-
-      **1. Responsive Design Implementation:**
-      ```css
-      /* Good: Flexible layout that works in any orientation */
-      .responsive-container {
-        display: flex;
-        flex-direction: row;
-        gap: 16px;
-        padding: 20px;
-      }
-
-      /* Responsive adjustments for different orientations */
-      @media (orientation: portrait) {
-        .responsive-container {
-          flex-direction: column;
-          gap: 12px;
-        }
-      }
-
-      @media (orientation: landscape) {
-        .responsive-container {
-          flex-direction: row;
-          gap: 20px;
-        }
-      }
-      ```
-
-      **2. Viewport Meta Tag:**
+      **Example Implementation:**
       ```html
-      <!-- Good: Flexible viewport configuration -->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-      ```
+      <!-- Modal launcher -->
+      <button aria-haspopup="dialog" onclick="openModal()">Open Settings</button>
 
-      **3. CSS Grid for Orientation Flexibility:**
-      ```css
-      /* Good: Grid that adapts to orientation */
-      .adaptive-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        padding: 20px;
-      }
-
-      /* Orientation-specific adjustments */
-      @media (orientation: portrait) {
-        .adaptive-grid {
-          grid-template-columns: 1fr;
-          gap: 16px;
-        }
-      }
-      ```
-
-      **Mobile Accessibility Best Practices:**
-
-      **1. Touch Target Guidelines:**
-      - **Minimum size:** 24x24px per WCAG 2.5.8 AA
-      - **Recommended size:** 44x44px or larger for optimal accessibility
-      - **Spacing:** At least 8px between interactive elements
-      - **Padding:** Use CSS padding to increase touch area
-      - **Visual feedback:** Provide clear touch feedback
-      - **Font size:** Minimum 16px to prevent zoom on iOS
-
-      **2. Spacing and Layout:**
-      - **White space:** Generous spacing prevents accidental activation
-      - **Grid gaps:** Use CSS Grid gap property for consistent spacing
-      - **Flexbox spacing:** Use gap property or margins for flex layouts
-      - **Touch margins:** Add margins around touch targets for safety
-      - **Visual separation:** Clear visual boundaries between interactive elements
-
-      **3. Orientation Support:**
-      - **Responsive design:** Content should reflow in any orientation
-      - **Flexible layouts:** Use CSS Grid and Flexbox for adaptability
-      - **No restrictions:** Avoid forcing specific orientations
-      - **User choice:** Allow users to choose their preferred orientation
-      - **Testing:** Test in both portrait and landscape modes
-
-      **Implementation Examples:**
-
-      **Touch-Friendly Button Component:**
-      ```html
-      <!-- Good: Accessible touch button meeting WCAG 2.5.8 AA -->
-      <button class="touch-button"
-              type="button"
-              aria-label="Submit form">
-        Submit
-      </button>
-
-      <style>
-        .touch-button {
-          min-width: 24px;  /* WCAG 2.5.8 AA minimum */
-          min-height: 24px;
-          padding: 12px 24px; /* Padding creates larger effective size */
-          font-size: 16px;
-          border: 2px solid #0056b3;
-          background: #0056b3;
-          color: white;
-          border-radius: 6px;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .touch-button:hover,
-        .touch-button:focus {
-          background: #004085;
-          border-color: #004085;
-          outline: 3px solid #0056b3;
-          outline-offset: 2px;
-        }
-      </style>
-      ```
-
-      **Responsive Touch Grid:**
-      ```html
-      <!-- Good: Responsive touch-friendly grid -->
-      <div class="touch-grid">
-        <button class="grid-button">Action 1</button>
-        <button class="grid-button">Action 2</button>
-        <button class="grid-button">Action 3</button>
-        <button class="grid-button">Action 4</button>
+      <!-- Modal dialog -->
+      <div role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button type="button" aria-label="Close" onclick="closeModal()">&times;</button>
+        <h2 id="modal-title">Modal Title</h2>
+        <p>Modal content...</p>
       </div>
-
-      <style>
-        .touch-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-          gap: 16px;
-          padding: 20px;
-        }
-
-        .grid-button {
-          min-width: 24px;  /* WCAG 2.5.8 AA minimum */
-          min-height: 24px;
-          padding: 16px; /* Padding creates larger effective size */
-          font-size: 16px;
-          border: 1px solid #ddd;
-          background: white;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-
-        /* Orientation-specific adjustments */
-        @media (orientation: portrait) {
-          .touch-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-          }
-        }
-
-        @media (orientation: landscape) {
-          .touch-grid {
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-          }
-        }
-      </style>
       ```
 
-      **Touch-Friendly Navigation:**
-      ```html
-      <!-- Good: Touch-friendly navigation menu -->
-      <nav class="touch-navigation" role="navigation">
-        <ul class="nav-list">
-          <li><a href="/" class="nav-link">Home</a></li>
-          <li><a href="/about" class="nav-link">About</a></li>
-          <li><a href="/services" class="nav-link">Services</a></li>
-          <li><a href="/contact" class="nav-link">Contact</a></li>
-        </ul>
-      </nav>
-
-      <style>
-        .touch-navigation {
-          padding: 16px;
-        }
-
-        .nav-list {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-          list-style: none;
-          margin: 0;
-          padding: 0;
-        }
-
-        .nav-link {
-          display: block;
-          min-height: 24px;  /* WCAG 2.5.8 AA minimum */
-          padding: 12px 16px; /* Padding creates larger effective size */
-          text-decoration: none;
-          color: #333;
-          background: #f8f9fa;
-          border-radius: 6px;
-          border: 2px solid transparent;
-          transition: all 0.2s ease;
-        }
-
-        .nav-link:hover,
-        .nav-link:focus {
-          background: #e9ecef;
-          border-color: #0056b3;
-          outline: none;
-        }
-
-        /* Landscape orientation adjustment */
-        @media (orientation: landscape) {
-          .nav-list {
-            flex-direction: row;
-            gap: 20px;
-          }
-        }
-      </style>
-      ```
-
-      **Testing and Validation:**
-
-      **Touch Target Testing:**
-      - Use browser dev tools to measure element dimensions
-      - Test with touch devices to verify target sizes
-      - Verify spacing between interactive elements
-      - Check that padding creates adequate touch areas
-      - Test with different screen densities
-
-      **Orientation Testing:**
-      - Test in both portrait and landscape modes
-      - Verify content reflows properly
-      - Check that functionality remains accessible
-      - Test with different device orientations
-      - Verify touch targets remain accessible
-
-      **Accessibility Testing:**
-      - Test with screen readers in different orientations
-      - Verify keyboard navigation works in all orientations
-      - Check that focus indicators remain visible
-      - Test with motor impairment simulators
-      - Validate touch target sizes meet WCAG requirements
-
-      **Common Mistakes to Avoid:**
-      - Touch targets smaller than 24x24px (WCAG 2.5.8 AA minimum)
-      - Not using recommended 44x44px or larger sizes for optimal usability
-      - Insufficient spacing between interactive elements (minimum 8px)
-      - Fixed orientation restrictions
-      - Viewport meta tags preventing orientation changes
-      - CSS that doesn't adapt to different orientations
-      - Touch targets without proper focus indicators
-      - Grid layouts without adequate gaps
-      - Flexbox layouts without proper spacing
-      - Fixed positioning that causes orientation issues
-      - Mobile elements without touch-friendly sizing
+      **JavaScript Considerations:**
+      - Implement proper event listeners for Escape key
+      - Manage body scroll when modal is open
+      - Handle focus restoration on modal close
 
 metadata:
   priority: high
