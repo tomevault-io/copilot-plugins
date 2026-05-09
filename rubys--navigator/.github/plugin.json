@@ -1,0 +1,14 @@
+{
+  "name": "rubys--navigator",
+  "displayName": "navigator",
+  "description": "Lightweight web server for multi-tenant applications with on-demand process management, regional routing, and Vector integration",
+  "version": "1.0.0",
+  "author": "rubys",
+  "homepage": "https://github.com/rubys/navigator",
+  "skills": [
+    {
+      "name": "navigator",
+      "description": ""
+    }
+  ]
+}
