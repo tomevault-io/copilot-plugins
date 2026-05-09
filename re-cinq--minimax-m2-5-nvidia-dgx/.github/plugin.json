@@ -1,0 +1,9 @@
+{
+  "name": "re-cinq--minimax-m2-5-nvidia-dgx",
+  "displayName": "minimax-m2.5-nvidia-dgx",
+  "description": "Running MiniMax-M2.5 on a Nvidia DGX Spark with OpenCode on the remote machine",
+  "version": "1.0.0",
+  "author": "re-cinq",
+  "homepage": "https://github.com/re-cinq/minimax-m2.5-nvidia-dgx",
+  "skills": []
+}
