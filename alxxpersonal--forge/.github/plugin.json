@@ -1,0 +1,9 @@
+{
+  "name": "alxxpersonal--forge",
+  "displayName": "forge",
+  "description": "Research-backed skills, prompts, and configs for LLM agent tools. Built from arxiv papers and reverse engineering top AI products.",
+  "version": "1.0.0",
+  "author": "alxxpersonal",
+  "homepage": "https://github.com/alxxpersonal/forge",
+  "skills": []
+}
