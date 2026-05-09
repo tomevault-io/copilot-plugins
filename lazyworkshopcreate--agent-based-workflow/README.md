@@ -7,11 +7,11 @@ A ready-to-use repository template for **agent-driven software development** usi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LazyWorkshopCreate/agent-based-workflow](https://github.com/LazyWorkshopCreate/agent-based-workflow).
+Original source: `CLAUDE.md` in [LazyWorkshopCreate/agent-based-workflow](https://github.com/LazyWorkshopCreate/agent-based-workflow).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
