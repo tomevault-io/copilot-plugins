@@ -1,0 +1,9 @@
+{
+  "name": "re-cinq--shift-log",
+  "displayName": "shift-log",
+  "description": "Save coding agents' conversations in Git Notes, automatically",
+  "version": "1.0.0",
+  "author": "re-cinq",
+  "homepage": "https://github.com/re-cinq/shift-log",
+  "skills": []
+}
