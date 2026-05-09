@@ -4,7 +4,7 @@
   "repo": "portree",
   "description": "Git Worktree Server Manager - manage multiple dev servers per git worktree with automatic port allocation and subdomain routing",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fairy-pitta/portree",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T13:06:47Z"
+  "distributed_at": "2026-05-09T00:51:21Z"
 }
