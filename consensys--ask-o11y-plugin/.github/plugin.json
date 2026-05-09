@@ -1,7 +1,7 @@
 {
   "name": "consensys--ask-o11y-plugin",
   "displayName": "ask-o11y-plugin",
-  "description": "ask-o11y-plugin",
+  "description": "AI-powered observability assistant for Grafana that helps you query data, investigate issues, and manage dashboards through natural language.",
   "version": "1.0.0",
   "author": "Consensys",
   "homepage": "https://github.com/Consensys/ask-o11y-plugin",
