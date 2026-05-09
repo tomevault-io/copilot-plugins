@@ -1,0 +1,9 @@
+{
+  "name": "ossaimanifesto--manifesto",
+  "displayName": "manifesto",
+  "description": "Principles and guidelines for the responsible use of generative AI in open-source software development.",
+  "version": "1.0.0",
+  "author": "OSSAIManifesto",
+  "homepage": "https://github.com/OSSAIManifesto/manifesto",
+  "skills": []
+}
