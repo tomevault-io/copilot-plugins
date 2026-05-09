@@ -1,189 +1,325 @@
-## project-structure
+## react-typescript
 
-> Project Architecture and File Organization Rules
+> React and TypeScript Development Rules
 
 
-# NameSeeker - Project Architecture Rules
+# React + TypeScript Development Rules
 
-## 🏗️ Project Structure
+## 🎯 Component Development Standards
 
-This is a cross-platform desktop application based on **Tauri 2.x + React 19 + TypeScript** for searching usernames and emails across hundreds of websites.
+### Function Components First
+- Use function components and React Hooks
+- Avoid class components
+- Use PascalCase for component names
 
-### Core Architecture
-- **Frontend**: React 19 + TypeScript + Vite (located in `src/`)
-- **Backend**: Rust + Tauri 2.x (located in `src-tauri/src/`)
-- **Communication**: Tauri event system + command calls
-- **Data Source**: WhatsMyName project (600+ websites)
+```typescript
+// ✅ Correct
+const SearchForm: React.FC<SearchFormProps> = ({ onSubmit, isSearching }) => {
+  // Component logic
+};
 
-### Key Directory Structure
-
-```
-src/                              # React Frontend
-├── components/                   # UI Components
-│   ├── AboutModal.tsx           # About application modal
-│   ├── DisclaimerModal.tsx      # First-launch disclaimer modal
-│   ├── ExportButton.tsx         # Results export functionality
-│   ├── LanguageSwitcher.tsx     # Language switching component
-│   ├── ProgressIndicator.tsx    # Search progress indicator
-│   ├── ResultItem.tsx           # Individual result display component
-│   ├── ResultsDisplay.tsx       # Results display and filtering
-│   ├── ResultsFilter.tsx        # Results filtering component
-│   ├── SearchForm.tsx           # Search input form with history
-│   ├── SearchHistory.tsx        # Search history dropdown
-│   ├── Toast.tsx                # Individual toast notification
-│   ├── ToastContainer.tsx       # Toast notification container
-│   └── index.ts                 # Component exports
-├── hooks/                       # React Hooks
-│   ├── useDisclaimer.ts         # Disclaimer state management
-│   ├── useKeyboardShortcuts.ts  # Keyboard shortcuts handling
-│   ├── useLanguage.ts           # Language switching and i18n management
-│   ├── useSearch.ts             # Search state management
-│   ├── useSearchHistory.ts      # Search history persistence
-│   └── useToast.ts              # Toast notification system
-├── services/                    # Service Layer
-│   └── tauriApi.ts              # Tauri API wrapper with singleton pattern
-├── i18n/                        # Internationalization
-│   ├── index.ts                 # i18n configuration and setup
-│   ├── types.ts                 # Language types and utilities
-│   └── locales/                 # Translation files
-│       ├── en/                  # English translations
-│       │   ├── common.json      # Common UI elements
-│       │   ├── search.json      # Search-related text
-│       │   ├── results.json     # Results display text
-│       │   ├── export.json      # Export functionality text
-│       │   ├── modals.json      # Modal dialog text
-│       │   ├── toast.json       # Toast notification text
-│       │   └── errors.json      # Error messages
-│       └── zh/                  # Chinese translations
-│           ├── common.json      # Common UI elements
-│           ├── search.json      # Search-related text
-│           ├── results.json     # Results display text
-│           ├── export.json      # Export functionality text
-│           ├── modals.json      # Modal dialog text
-│           ├── toast.json       # Toast notification text
-│           └── errors.json      # Error messages
-├── types/                       # TypeScript Definitions
-│   └── index.ts                 # Complete type declarations
-├── App.css                      # Application styles
-├── App.tsx                      # Main application component
-├── main.tsx                     # React application entry point
-└── vite-env.d.ts               # Vite environment types
-
-src-tauri/src/                    # Rust Backend
-├── core/                        # Core Business Logic
-│   ├── config.rs                # Application configuration and persistence
-│   ├── error.rs                 # Comprehensive error handling with context
-│   ├── models.rs                # Data structures and serialization schemas
-│   ├── search.rs                # High-performance search engine with concurrency
-│   ├── sites.rs                 # Website data management and updates
-│   ├── export.rs                # Multi-format export functionality (PDF, CSV, JSON, TXT)
-│   ├── utils.rs                 # HTTP utilities and metadata extraction
-│   └── mod.rs                   # Module organization and public exports
-├── lib.rs                       # Tauri commands, events, and application setup
-└── main.rs                      # Application entry point with logging configuration
-
-src-tauri/data/                   # Data Resources
-├── wmn-data.json               # websites from WhatsMyName project
-├── email-data.json              # Email search configuration and patterns
-├── wmn-metadata.json            # Metadata extraction rules and patterns
-└── useragents.txt              # User agent rotation for anti-detection
+// ❌ Avoid
+class SearchForm extends React.Component<SearchFormProps> {
+  // Class component logic
+}
 ```
 
-## 📋 Development Standards
+### TypeScript Type Definitions
+- All props must have type definitions
+- Use interfaces for complex types
+- Export types for use by other components
 
-### File Naming Conventions
-- **React Components**: PascalCase (e.g., `SearchForm.tsx`)
-- **Hooks**: camelCase starting with `use` (e.g., `useSearch.ts`)
-- **Rust Modules**: snake_case (e.g., `search.rs`)
-- **Type Files**: `index.ts` or `types.ts`
+```typescript
+// ✅ Correct type definitions
+interface SearchFormProps {
+  onSubmit: (query: string, type: SearchType) => void;
+  isSearching: boolean;
+  searchType: SearchType;
+}
 
-### Import Order
-1. React related imports
-2. Third-party library imports
-3. Local component imports
-4. Type imports
-5. Style imports
+// ✅ Use union types
+type SearchType = 'username' | 'email';
+```
 
-### Component Organization
+## 🪝 Hook Development Standards
+
+### Custom Hook Naming
+- Start with `use`
+- Describe the Hook's functionality
+- Return objects instead of arrays (unless it's a state pair)
+
+```typescript
+// ✅ Correct Hook definition
+export const useSearch = () => {
+  const [isSearching, setIsSearching] = useState(false);
+  const [results, setResults] = useState<SearchResult[]>([]);
+  
+  return {
+    isSearching,
+    results,
+    startSearch,
+    stopSearch
+  };
+};
+```
+
+### Hook Dependency Management
+- Use `useCallback` to optimize function references
+- Use `useMemo` to optimize computed values
+- Set dependency arrays correctly
+
+```typescript
+// ✅ Correct dependency management
+const handleSubmit = useCallback((query: string, type: SearchType) => {
+  // Handle logic
+}, [onSubmit, isSearching]);
+
+const filteredResults = useMemo(() => {
+  return results.filter(result => result.status === 'found');
+}, [results]);
+```
+
+## 📦 Component Organization
+
+### Component File Structure
 - One component per file
 - Related components in the same directory
 - Use `index.ts` for unified exports
-- Separate Hook logic from UI components
 
-## 🔧 Technology Stack Requirements
-
-### Frontend Technologies
-- **React 19**: Use function components and Hooks
-- **TypeScript**: Strict type checking
-- **Vite**: Build tool and development server
-- **CSS**: Modern CSS features with responsive design support
-- **ESLint**: Code linting with TypeScript and React support
-- **Prettier**: Code formatting with consistent style rules
-
-### Backend Technologies
-- **Rust**: Async programming using Tokio
-- **Tauri 2.x**: Latest version with event system support
-- **reqwest**: HTTP client
-- **serde**: JSON serialization
-
-## 🎯 Core Feature Modules
-
-### Search Functionality
-- Username search (main feature)
-- Email search (extended feature)
-- Concurrent request control (default 30)
-- Real-time progress feedback
-
-### User Interface
-- Disclaimer modal
-- Search form and validation
-- Real-time results display
-- Export functionality (CSV, JSON, PDF)
-
-### Data Management
-- WhatsMyName data source integration
-- Local caching and updates
-- Search result persistence
-- Search history
-
-## 🚀 Development Workflow
-
-### Development Commands
-```bash
-# Frontend development
-npm run dev
-
-# Full application development (recommended)
-npm run tauri dev
-
-# Code Quality Tools
-npm run type-check      # TypeScript type checking
-npm run lint            # ESLint code linting
-npm run lint:fix         # Auto-fix ESLint issues
-npm run format           # Prettier code formatting
-npm run format:check     # Check code formatting
-npm run ci               # Run all quality checks
-
-# Build production version
-npm run tauri build
+```typescript
+// components/index.ts
+export { default as SearchForm } from './SearchForm';
+export { default as ResultsDisplay } from './ResultsDisplay';
+export { default as ProgressIndicator } from './ProgressIndicator';
 ```
 
-### Code Quality
-- Use TypeScript strict mode
-- Follow ESLint rules for consistent code style
-- Use Prettier for code formatting
-- Follow clippy suggestions for Rust code
-- Use functional programming for components
-- Use async/await for async operations
+### Component Responsibility Separation
+- UI components only handle rendering
+- Business logic in Hooks
+- Data fetching in service layer
 
-## 📁 File Reference Format
+```typescript
+// ✅ Component only handles UI
+const SearchForm: React.FC<SearchFormProps> = ({ onSubmit, isSearching }) => {
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* UI logic */}
+    </form>
+  );
+};
 
-Use the following format to reference project files:
-- [App.tsx](mdc:src/App.tsx) - Main application component
-- [SearchForm.tsx](mdc:src/components/SearchForm.tsx) - Search form
-- [useSearch.ts](mdc:src/hooks/useSearch.ts) - Search Hook
-- [lib.rs](mdc:src-tauri/src/lib.rs) - Tauri main entry
-- [search.rs](mdc:src-tauri/src/core/search.rs) - Search engine
+// ✅ Business logic in Hook
+const useSearch = () => {
+  const startSearch = async (query: string) => {
+    // Business logic
+  };
+  
+  return { startSearch };
+};
+```
+
+## 🎨 Styling and CSS
+
+### CSS Class Naming
+- Use kebab-case
+- Semantic naming
+- Avoid deep nesting
+
+```css
+/* ✅ Correct class naming */
+.search-form {
+  /* styles */
+}
+
+.search-form__input {
+  /* child element styles */
+}
+
+.search-form--loading {
+  /* modifier styles */
+}
+```
+
+### Responsive Design
+- Use CSS variables to define themes
+- Support mobile and desktop
+- Use media queries
+
+```css
+/* ✅ Responsive design */
+.app {
+  --primary-color: #007bff;
+  --spacing: 1rem;
+}
+
+@media (max-width: 768px) {
+  .search-form {
+    padding: var(--spacing);
+  }
+}
+```
+
+## 🔧 State Management
+
+### State Structure Design
+- Use `useState` for local state
+- Use `useReducer` for complex state
+- Avoid excessive state nesting
+
+```typescript
+// ✅ Correct state structure
+interface SearchState {
+  isSearching: boolean;
+  results: SearchResult[];
+  progress: SearchProgress;
+  error: string | null;
+}
+
+const [searchState, setSearchState] = useState<SearchState>({
+  isSearching: false,
+  results: [],
+  progress: { percentage: 0, currentSite: null },
+  error: null
+});
+```
+
+### State Update Patterns
+- Use functional updates
+- Avoid direct state mutation
+- Use spread operator
+
+```typescript
+// ✅ Correct state updates
+setSearchState(prev => ({
+  ...prev,
+  isSearching: true,
+  error: null
+}));
+```
+
+## 🚀 Performance Optimization
+
+### Component Optimization
+- Use `React.memo` to avoid unnecessary re-renders
+- Use `useCallback` and `useMemo` for performance optimization
+- Avoid creating objects in render
+
+```typescript
+// ✅ Performance optimization
+const SearchForm = React.memo<SearchFormProps>(({ onSubmit, isSearching }) => {
+  const handleSubmit = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(query, type);
+  }, [onSubmit, query, type]);
+  
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* Component content */}
+    </form>
+  );
+});
+```
+
+### Async Operations
+- Use `useEffect` to handle side effects
+- Clean up async operations correctly
+- Handle loading and error states
+
+```typescript
+// ✅ Correct async operations
+useEffect(() => {
+  let isCancelled = false;
+  
+  const fetchData = async () => {
+    try {
+      const data = await api.getData();
+      if (!isCancelled) {
+        setData(data);
+      }
+    } catch (error) {
+      if (!isCancelled) {
+        setError(error.message);
+      }
+    }
+  };
+  
+  fetchData();
+  
+  return () => {
+    isCancelled = true;
+  };
+}, []);
+```
+
+## 🧪 Error Handling
+
+### Error Boundaries
+- Use error boundaries to catch component errors
+- Provide friendly error messages
+- Log error information
+
+```typescript
+// ✅ Error handling
+const [error, setError] = useState<string | null>(null);
+
+const handleError = useCallback((error: Error) => {
+  console.error('Search error:', error);
+  setError(error.message);
+}, []);
+```
+
+### Type Safety
+- Use strict TypeScript configuration
+- Avoid using `any` type
+- Use type assertions carefully
+
+```typescript
+// ✅ Type safety
+interface SearchResult {
+  site: string;
+  url: string;
+  status: 'found' | 'not_found' | 'error';
+}
+
+const result: SearchResult = {
+  site: 'example.com',
+  url: 'https://example.com/user',
+  status: 'found'
+};
+```
+
+## 📝 Code Quality
+
+### Code Style and Linting
+- Use Prettier to format code consistently
+- Use ESLint to check code quality and enforce rules
+- Follow TypeScript strict mode guidelines
+- Maintain consistent indentation and naming conventions
+- Run `npm run lint:fix` to auto-fix ESLint issues
+- Run `npm run format` to format code with Prettier
+
+### Development Workflow
+- Run `npm run ci` before committing to ensure code quality
+- Use `npm run type-check` to verify TypeScript types
+- Use `npm run lint` to check for code issues
+- Use `npm run format:check` to verify code formatting
+
+### Comment Standards
+- Add comments for complex logic
+- Use JSDoc comments for functions
+- Avoid obvious comments
+
+```typescript
+/**
+ * Start search operation
+ * @param query Search query
+ * @param type Search type
+ * @returns Promise<void>
+ */
+const startSearch = async (query: string, type: SearchType): Promise<void> => {
+  // Implementation logic
+};
+```
 
 ---
 > Source: [funnyzak/name-seeker](https://github.com/funnyzak/name-seeker) — distributed by [TomeVault](https://tomevault.io).
