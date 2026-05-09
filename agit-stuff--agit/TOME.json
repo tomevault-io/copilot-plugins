@@ -4,7 +4,7 @@
   "repo": "agit",
   "description": "agit - Code Context Management for Git that captures reasoning context alongside code changes, creating a \"Neural Graph\" parallel to Git's commit history. Integrates seamlessly with AI coding assistants via MCP protocol.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agit-stuff/agit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T14:37:39Z"
+  "distributed_at": "2026-05-09T15:30:33Z"
 }
