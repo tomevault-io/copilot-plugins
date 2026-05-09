@@ -1,0 +1,9 @@
+{
+  "name": "ktnyt--cclsp",
+  "displayName": "cclsp",
+  "description": "Claude Code LSP: enhance your Claude Code experience with non-IDE dependent LSP integration.",
+  "version": "1.0.0",
+  "author": "ktnyt",
+  "homepage": "https://github.com/ktnyt/cclsp",
+  "skills": []
+}
