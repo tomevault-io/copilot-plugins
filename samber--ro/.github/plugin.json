@@ -1,0 +1,9 @@
+{
+  "name": "samber--ro",
+  "displayName": "ro",
+  "description": "\ud83c\udfce\ufe0f Streams & Reactive Programming paradigm for Go: declarative and composable API for event-driven applications",
+  "version": "1.0.0",
+  "author": "samber",
+  "homepage": "https://github.com/samber/ro",
+  "skills": []
+}
