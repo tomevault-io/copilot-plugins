@@ -1,0 +1,9 @@
+{
+  "name": "linkalls--jules-mobile-client",
+  "displayName": "jules-mobile-client",
+  "description": "Unofficial client for Google Jules \u2014 browse sessions and chat on iOS/Android/Web (React Native + Expo).",
+  "version": "1.0.0",
+  "author": "linkalls",
+  "homepage": "https://github.com/linkalls/jules-mobile-client",
+  "skills": []
+}
