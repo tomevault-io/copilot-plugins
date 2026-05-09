@@ -1,173 +1,132 @@
-## axum
+## core
 
-> Comprehensive best practices for Axum 0.8+ development with WebSocket support
+> Core STT/TTS abstraction layer documentation
 
-# Axum Best Practices: A Comprehensive Guide (0.8+)
+# Sayna Core Module
 
-This guide provides best practices for developing applications using the Axum framework in Rust, enhanced with WebSocket support for building atomic web services. It covers code organization, common patterns, performance, security, WebSocket specifics, testing, pitfalls, and tooling.
+This Rust Axum project is a unified STT, TTS server that handles real-time WebSocket APIs for STT and TTS providers like Deepgram, ElevenLabs, Google, Microsoft Azure, Cartesia, and others into one unified WebSocket API that abstracts away provider-specific details.
 
-**Note:** This project uses **Axum 0.8.x** (released January 2025). Minimum Rust version: 1.75.
+The main business logic is inside `src/core/`, which uses trait-based abstraction to have unified higher-level implementations of TTS and STT separated into dedicated folders.
 
-## 1. Code Organization and Structure
+## STT Base Abstraction (`src/core/stt/base.rs`)
 
-A clear project layout improves maintainability and scalability. Consider the following structure:
+The `BaseSTT` trait defines the interface for all STT providers:
 
-```
-project_root/
-├── src/
-│   ├── main.rs             # Application entry point (sets up Router + server)
-│   ├── lib.rs              # Shared library for core logic
-│   ├── routes/             # Route definitions
-│   │   ├── mod.rs
-│   │   ├── api.rs          # REST endpoints
-│   │   ├── ws.rs           # WebSocket routes and upgrade handlers
-│   ├── handlers/           # Request handlers and WebSocket message handlers
-│   │   ├── mod.rs
-│   │   ├── api_handlers.rs
-│   │   ├── ws_handlers.rs
-│   ├── services/           # Business logic services
-│   │   ├── mod.rs
-│   │   ├── user_service.rs
-│   │   ├── chat_service.rs # WebSocket message routing
-│   ├── middleware/         # Tower middleware layers
-│   │   ├── mod.rs
-│   │   ├── auth.rs
-│   │   ├── logging.rs
-│   ├── state/              # Shared application state
-│   │   ├── mod.rs          # Defines AppState struct (use `State<AppState>` extractor)
-│   ├── errors/             # Error types and conversion to responses
-│   │   ├── mod.rs
-│   │   ├── app_error.rs    # Implements `IntoResponse`
-│   ├── utils/              # Utility functions (e.g., DB pool setup)
-│   │   ├── mod.rs
-│   │   ├── db.rs
-├── tests/                  # Integration tests
-│   ├── api_tests.rs        # Tests for HTTP endpoints
-│   └── ws_tests.rs         # WebSocket integration tests
-├── Dockerfile              # Containerization
-├── Cargo.toml
-└── .env
+### Required Methods
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `new` | `fn new(config: STTConfig) -> Result<Self, STTError>` | Create a new instance with STT configuration |
+| `connect` | `async fn connect(&mut self) -> Result<(), STTError>` | Initiate connection to STT provider |
+| `disconnect` | `async fn disconnect(&mut self) -> Result<(), STTError>` | Disconnect from provider |
+| `is_ready` | `fn is_ready(&self) -> bool` | Check if connection is ready |
+| `send_audio` | `async fn send_audio(&mut self, audio_data: Vec<u8>) -> Result<(), STTError>` | Send audio bytes for transcription |
+| `on_result` | `async fn on_result(&mut self, callback: STTResultCallback) -> Result<(), STTError>` | Register transcription result callback |
+| `on_error` | `async fn on_error(&mut self, callback: STTErrorCallback) -> Result<(), STTError>` | Register error callback for streaming errors |
+| `get_config` | `fn get_config(&self) -> Option<&STTConfig>` | Get current configuration |
+| `update_config` | `async fn update_config(&mut self, config: STTConfig) -> Result<(), STTError>` | Update configuration while connected |
+| `get_provider_info` | `fn get_provider_info(&self) -> &'static str` | Get provider-specific information |
+
+### STTResult Type
+
+```rust
+pub struct STTResult {
+    pub transcript: String,      // The transcribed text
+    pub is_final: bool,          // Whether this is a final result
+    pub is_speech_final: bool,   // Whether speech segment ended
+    pub confidence: f32,         // Confidence score (0.0 to 1.0)
+}
 ```
 
-### 1.1 Naming Conventions
+### STTConfig Type
 
-* **Modules & Files:** lowercase with underscores (e.g., `ws_handlers.rs`, `user_service.rs`).
-* **Structs & Enums:** CamelCase (e.g., `AppState`, `ChatMessage`).
-* **Functions:** snake\_case reflecting action (e.g., `create_user`, `handle_ws_message`).
+```rust
+pub struct STTConfig {
+    pub provider: String,        // Provider name (e.g., "deepgram")
+    pub api_key: String,         // API key for the provider
+    pub language: String,        // Language code (e.g., "en-US")
+    pub sample_rate: u32,        // Audio sample rate in Hz
+    pub channels: u16,           // Number of audio channels
+    pub punctuation: bool,       // Enable punctuation
+    pub encoding: String,        // Audio encoding (e.g., "linear16")
+    pub model: String,           // Model to use (e.g., "nova-3")
+}
+```
 
-### 1.2 Modular Boundaries
+## TTS Base Abstraction (`src/core/tts/base.rs`)
 
-* **Router vs. Handler:** Keep route declarations (`Router::route`) in `routes/` and logic in `handlers/` or `services/`.
-* **State Management:** Use `State<AppState>` for compile-time checked shared state (DB pools, config, caches). Reserve `Extension` only for per-request data injected by middleware (e.g., authenticated user info).
-* **Separation of Concerns:** Handlers focus on HTTP/WebSocket framing; services manage business logic.
+The `BaseTTS` trait defines the interface for all TTS providers:
 
-### 1.3 State vs Extension (Important)
+### Required Methods
 
-* **Prefer `State<T>`** over `Extension<T>` for application-wide state:
-  - `State` is type-checked at compile time; `Extension` gives runtime errors if type mismatches
-  - `State` is faster than `Extension`
-  - Use `.with_state(app_state)` when building the router
-* **Use `Extension<T>`** only for:
-  - Per-request data set by middleware (e.g., `Extension<AuthenticatedUser>`)
-  - Dynamic data that varies per request
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `new` | `fn new(config: TTSConfig) -> TTSResult<Self>` | Create a new instance with TTS configuration |
+| `connect` | `async fn connect(&mut self) -> TTSResult<()>` | Initiate connection to TTS provider |
+| `disconnect` | `async fn disconnect(&mut self) -> TTSResult<()>` | Disconnect from provider |
+| `is_ready` | `fn is_ready(&self) -> bool` | Check if connection is ready |
+| `speak` | `async fn speak(&mut self, text: &str, flush: bool) -> TTSResult<()>` | Send text for synthesis (flush=true starts immediately) |
+| `clear` | `async fn clear(&mut self) -> TTSResult<()>` | Clear queued text |
+| `flush` | `async fn flush(&self) -> TTSResult<()>` | Force processing of queued text |
+| `on_audio` | `fn on_audio(&mut self, callback: Arc<dyn AudioCallback>) -> TTSResult<()>` | Register audio output callback |
+| `get_connection_state` | `fn get_connection_state(&self) -> ConnectionState` | Get current connection state |
+| `remove_audio_callback` | `fn remove_audio_callback(&mut self) -> TTSResult<()>` | Remove registered callback |
+| `get_provider_info` | `fn get_provider_info(&self) -> serde_json::Value` | Get provider-specific information |
 
-## 2. Common Patterns and Anti-patterns
+### AudioCallback Trait
 
-### 2.1 Axum-Specific Patterns
+```rust
+pub trait AudioCallback: Send + Sync {
+    fn on_audio(&self, audio_data: AudioData) -> Pin<Box<dyn Future<Output = ()> + Send + '_>>;
+    fn on_error(&self, error: TTSError) -> Pin<Box<dyn Future<Output = ()> + Send + '_>>;
+    fn on_complete(&self) -> Pin<Box<dyn Future<Output = ()> + Send + '_>>;
+}
+```
 
-* **Extractors:** Use built‑in extractors (`Path`, `Query`, `Json`, `State`) for typed data parsing.
-* **Tower Middleware:** Leverage `tower-http` layers for CORS, compression, and tracing.
-* **Error Handling:** Define custom error types implementing `IntoResponse` to standardize responses.
-* **State Management:** Use `State<AppState>` extractor. Wrap shared resources in `Arc` within AppState and use `tokio::sync` types (e.g., `RwLock`, `broadcast`) for interior mutability.
+### AudioData Type
 
-### 2.2 Anti-patterns to Avoid
+```rust
+pub struct AudioData {
+    pub data: Vec<u8>,           // Audio bytes
+    pub sample_rate: u32,        // Sample rate in Hz
+    pub format: String,          // Audio format (e.g., "pcm", "wav")
+    pub duration_ms: Option<u32>, // Duration in milliseconds
+}
+```
 
-* **Blocking in Handlers:** Never perform blocking I/O; use `spawn_blocking` or async drivers.
-* **Global Mutable State:** Avoid static mutable variables; prefer injected state.
-* **Large Handlers:** Break complex flows into smaller service functions.
-* **Ignoring WebSocket Backpressure:** Always handle send/receive delays to prevent buffer exhaustion.
+### TTSConfig Type
 
-## 3. Performance Considerations
+```rust
+pub struct TTSConfig {
+    pub provider: String,              // Provider name
+    pub api_key: String,               // API key
+    pub voice_id: Option<String>,      // Voice ID or name
+    pub model: String,                 // Model to use
+    pub speaking_rate: Option<f32>,    // Speaking rate (0.25 to 4.0)
+    pub audio_format: Option<String>,  // Audio format preference
+    pub sample_rate: Option<u32>,      // Sample rate preference
+    pub connection_timeout: Option<u64>, // Connection timeout (seconds)
+    pub request_timeout: Option<u64>,  // Request timeout (seconds)
+    pub pronunciations: Vec<Pronunciation>, // Custom pronunciations
+    pub request_pool_size: Option<usize>,   // HTTP request pool size
+}
+```
 
-* **Asynchronous Ecosystem:** Use async database clients (`sqlx`, `tokio-postgres`).
-* **Connection Pooling:** Configure DB pools for optimal concurrency.
-* **HTTP/2 & Keep-Alive:** Enable keep-alive and HTTP/2 via Hyper configuration in `Server::builder`.
-* **Compression & Caching:** Add `CompressionLayer` and `Cache` middlewares from `tower-http`.
-* **Efficient Serialization:** Use `serde` with `#[serde(crate = "serde")]` and consider `bincode` or `MessagePack` for WS when binary.
+## Supported Providers
 
-## 4. Security Best Practices
+### STT Providers (`src/core/stt/`)
+- **Deepgram** - WebSocket-based streaming STT
+- **Google** - gRPC-based Cloud Speech-to-Text V2
+- **ElevenLabs** - WebSocket-based STT
+- **Microsoft Azure** - WebSocket-based Speech Services
+- **Cartesia** - WebSocket-based STT
 
-* **CORS:** Permit only trusted origins with `CorsLayer`.
-* **TLS:** Terminate TLS at reverse proxy or configure Hyper with `rustls`.
-* **Input Validation:** Rely on extractor types and manual checks for complex data.
-* **Authentication/Authorization:** Use JWT or session-based auth; protect WS upgrades by validating tokens in the handshake.
-* **Rate Limiting:** Apply `RateLimitLayer` to APIs and WS endpoints.
-
-## 5. WebSocket Best Practices
-
-* **Upgrade Endpoint:** Define a route using `get(ws_handler)` and call `WebSocketUpgrade::on_upgrade`.
-* **Message Loop:** Spawn a task handling `ws.on_upgrade`, splitting `WebSocket` into `Sender`/`Receiver`.
-* **Heartbeats:** Implement periodic ping/pong to detect stale connections.
-* **Channel Broadcasting:** Use `tokio::sync::broadcast` or `mpsc` for multi-client message distribution.
-* **Graceful Shutdown:** Listen for shutdown signals and close WS streams properly.
-* **Binary vs. Text:** Choose appropriate frame types and validate payload sizes.
-
-## 6. Testing Approaches
-
-* **Unit Tests:** Test services and error types in isolation.
-* **HTTP Integration:** Import `tower::ServiceExt` and use `.oneshot()` method:
-  ```rust
-  use tower::ServiceExt; // Required for oneshot()
-
-  let app = Router::new()
-      .route("/", get(handler))
-      .with_state(app_state); // MUST call with_state() before oneshot()
-
-  let response = app
-      .oneshot(Request::builder().uri("/").body(Body::empty()).unwrap())
-      .await
-      .unwrap();
-  ```
-  **Note:** `oneshot()` only works on `Router<()>`, so `.with_state()` must be called first for stateful routers.
-* **WebSocket Tests:** Employ `tokio-tungstenite` to open in-memory WS connections and assert message flows.
-* **Property-Based Testing:** Integrate `proptest` for fuzzing JSON payloads.
-* **Test Organization:** Mirror `src/` structure under `tests/` for clarity.
-
-## 7. Common Pitfalls and Gotchas
-
-* **Unhandled Close Frames:** Always handle `Close` messages to avoid panics.
-* **Leaking Tasks:** Ensure spawned tasks are bounded or tied to connection lifetime.
-* **Shared State Locks:** Avoid long-held locks inside async contexts.
-* **Version Mismatches:** Keep Axum, Tower, and Hyper versions compatible.
-* **Middleware Order:** Layer order matters—e.g., CORS before auth.
-
-## 8. Tooling and Environment
-
-* **Cargo & Rustup:** Keep toolchains updated.
-* **Clippy & Rustfmt:** Enforce linting and formatting via pre-commit hooks.
-* **Tokio Console:** Use `tokio-console` for runtime diagnostics.
-* **Tracing:** Integrate `tracing` with `tracing-subscriber` for structured logs.
-* **IDE Support:** Leverage Rust Analyzer in VS Code or IntelliJ Rust.
-
-## 9. Deployment Best Practices
-
-* **Containerization:** Build minimal Docker images with `scratch` or `distroless`.
-* **Reverse Proxy:** Offload TLS and load balancing to Nginx or Traefik.
-* **Auto-Scaling:** Configure pods/instances to handle WS connections gracefully.
-* **Observability:** Export metrics via `tower-http` metrics layer and scrape with Prometheus.
-* **CI/CD:** Automate builds, tests, and docker pushes in GitHub Actions or GitLab CI.
-
-## 10. Axum 0.8.x Breaking Changes
-
-When migrating from older versions or reading older tutorials, note these changes:
-
-* **Path Syntax:** Use `/{param}` and `/{*wildcard}` instead of `/:param` and `/*wildcard`
-* **async_trait:** Import from `async-trait` crate directly, not from axum (for custom extractors)
-* **Option<T> Extractors:** Now requires `OptionalFromRequestParts` or `OptionalFromRequest` trait
-* **WebSocket Messages:** Now use `Bytes` and `Utf8Bytes` instead of `Vec<u8>` and `String`
-* **State over Extension:** `State<T>` is strongly preferred over `Extension<T>` for app state (since 0.6)
-
-By following these Axum-specific guidelines—including WebSocket nuances—you can create atomic, resilient, and maintainable Rust web services tailored to modern requirements.
+### TTS Providers (`src/core/tts/`)
+- **Deepgram** - WebSocket/HTTP-based TTS
+- **ElevenLabs** - WebSocket-based streaming TTS
+- **Google** - HTTP-based Cloud Text-to-Speech
+- **Microsoft Azure** - WebSocket-based Speech Services
+- **Cartesia** - WebSocket-based streaming TTS
 
 ---
 > Source: [SaynaAI/sayna](https://github.com/SaynaAI/sayna) — distributed by [TomeVault](https://tomevault.io).
