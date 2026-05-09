@@ -1,0 +1,9 @@
+{
+  "name": "thallesp--nestjs-better-auth",
+  "displayName": "nestjs-better-auth",
+  "description": "Easily add authentication to your project",
+  "version": "1.0.0",
+  "author": "ThallesP",
+  "homepage": "https://github.com/ThallesP/nestjs-better-auth",
+  "skills": []
+}
