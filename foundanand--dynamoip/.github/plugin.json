@@ -1,0 +1,9 @@
+{
+  "name": "foundanand--dynamoip",
+  "displayName": "dynamoip",
+  "description": "Real domain names and trusted HTTPS for local services \u2014 for developers, home labs, and small teams on the same network",
+  "version": "1.0.0",
+  "author": "foundanand",
+  "homepage": "https://github.com/foundanand/dynamoip",
+  "skills": []
+}
