@@ -1,0 +1,9 @@
+{
+  "name": "suryansh-23--secretty",
+  "displayName": "secretty",
+  "description": "macOS + Linux PTY wrapper that redacts secrets from terminal output",
+  "version": "1.0.0",
+  "author": "Suryansh-23",
+  "homepage": "https://github.com/Suryansh-23/secretty",
+  "skills": []
+}
