@@ -1,0 +1,9 @@
+{
+  "name": "quiknode-labs--arcium-election",
+  "displayName": "arcium-election",
+  "description": "Arcium voting example",
+  "version": "1.0.0",
+  "author": "quiknode-labs",
+  "homepage": "https://github.com/quiknode-labs/arcium-election",
+  "skills": []
+}
