@@ -2,9 +2,13 @@
 
 > > Universal MCP server for AI agents to interact with any* blockchain via natural language and plugins. Supports swaps, bridges, gas, staking, lending, and more across Ethereum, Arbitrum, Base, Polygon, BSC, and testnets.
 
-# universal-crypto-mcp
+# universal-crypto-mcp Development Guidelines
 
 > Universal MCP server for AI agents to interact with any* blockchain via natural language and plugins. Supports swaps, bridges, gas, staking, lending, and more across Ethereum, Arbitrum, Base, Polygon, BSC, and testnets. 
+
+## Project Overview
+
+universal-crypto-mcp is built with TypeScript. See the README for full documentation.
 
 ### Terminal Management
 
@@ -14,7 +18,13 @@
 - In GitHub Codespaces, agent-spawned terminals may be hidden — they still work. Do not assume a terminal is broken if you cannot see it
 - If a terminal appears unresponsive, kill it and create a new one rather than retrying in the same terminal
 
+## Contributing
+
+- Follow the existing code style
+- Test changes before submitting PRs
+- Update documentation when adding features
+- See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines
+
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/nirholas)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/nirholas)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [nirholas/universal-crypto-mcp](https://github.com/nirholas/universal-crypto-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
