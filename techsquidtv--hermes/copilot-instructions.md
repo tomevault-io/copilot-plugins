@@ -1,247 +1,292 @@
-## 20-hermes-api-tests
+## 20-hermes-app-components
 
-> - Test files: `test_*.py`
+> ├── ui/              # shadcn/ui components (styled primitives)
 
 
-# Hermes API - Testing Rules
+# Hermes App - React Components Rules
 
-## Pytest Configuration
-
-### Test Discovery
-- Test files: `test_*.py`
-- Test classes: `Test*`
-- Test functions: `test_*`
-- Location: `packages/hermes-api/tests/`
-
-### Running Tests
-```bash
-pytest                  # All tests
-pytest -v               # Verbose
-pytest -m unit          # Only unit tests
-pytest -m "not slow"    # Exclude slow tests
-pytest tests/test_api/test_auth.py  # Specific file
-```
-
-## Test Organization
+## Component Structure
 
 ```
-tests/
-├── conftest.py           # Shared fixtures
-├── test_api/             # API endpoint tests
-├── test_integration/     # Integration tests
-├── test_services/        # Service layer tests
-└── test_tasks/           # Celery task tests
+components/
+├── ui/              # shadcn/ui components (styled primitives)
+├── layout/          # Layout components
+├── auth/            # Authentication components
+├── download/        # Download-related components
+├── queue/           # Queue view components
+└── settings/        # Settings components
 ```
 
-### Test Markers
-```python
-@pytest.mark.unit
-def test_simple_function():
-    pass
+## Component Definition
 
-@pytest.mark.integration
-async def test_full_workflow():
-    pass
+```typescript
+interface ComponentNameProps {
+  title: string;
+  onAction?: () => void;
+  items?: Item[];
+  className?: string;
+}
 
-@pytest.mark.slow
-async def test_large_download():
-    pass
+export function ComponentName({
+  title,
+  onAction,
+  items = [],
+  className,
+}: ComponentNameProps) {
+  return (
+    <div className={cn("base-classes", className)}>
+      {title}
+    </div>
+  );
+}
 ```
 
-## Async Testing
+### Rules
+- Use functional components with TypeScript
+- Component names use PascalCase
+- File names match component names
+- Export as named export, not default
+- Use hooks for state management
+- Keep components focused and single-purpose
 
-```python
-import pytest
-from httpx import AsyncClient
+## Props and TypeScript
 
-@pytest.mark.asyncio
-async def test_async_endpoint(client: AsyncClient):
-    response = await client.get("/api/v1/health")
-    assert response.status_code == 200
+### Props Definition
+```typescript
+interface ButtonProps {
+  /** The button's display text */
+  label: string;
+  /** Optional click handler */
+  onClick?: () => void;
+  /** Button visual style */
+  variant?: "primary" | "secondary" | "destructive";
+  disabled?: boolean;
+  className?: string;
+}
+
+export function Button({
+  label,
+  onClick,
+  variant = "primary",
+  disabled = false,
+  className,
+}: ButtonProps) {
+  // Implementation
+}
 ```
 
-## Fixtures
+### Event Handlers
+- Prefix with `on`: `onClick`, `onChange`, `onSubmit`
+- Use proper event types: `React.MouseEvent`, `React.ChangeEvent`
 
-### Common Fixtures (conftest.py)
-```python
-@pytest.fixture
-async def client():
-    async with AsyncClient(app=app, base_url="http://test") as ac:
-        yield ac
-
-@pytest.fixture
-async def auth_token(client: AsyncClient, test_user):
-    response = await client.post(
-        "/api/v1/auth/login",
-        json={"username": test_user.username, "password": "password123"}
-    )
-    return response.json()["access_token"]
-
-@pytest.fixture
-async def db_session():
-    async for session in get_database_session():
-        yield session
-        await session.rollback()
+### Children Props
+```typescript
+interface ContainerProps {
+  children: React.ReactNode;
+  className?: string;
+}
 ```
 
-## API Testing
+## shadcn/ui Integration
 
-### Testing Endpoints
-```python
-@pytest.mark.asyncio
-async def test_get_endpoint(client: AsyncClient, auth_token: str):
-    headers = {"Authorization": f"Bearer {auth_token}"}
-    response = await client.get("/api/v1/downloads", headers=headers)
-    
-    assert response.status_code == 200
-    data = response.json()
-    assert isinstance(data, list)
+### Using UI Components
+```typescript
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
-@pytest.mark.asyncio
-async def test_post_endpoint(client: AsyncClient, auth_token: str):
-    headers = {"Authorization": f"Bearer {auth_token}"}
-    payload = {"url": "https://example.com/video", "profile_id": "default"}
-    
-    response = await client.post(
-        "/api/v1/downloads",
-        headers=headers,
-        json=payload
-    )
-    
-    assert response.status_code == 201
-    assert "id" in response.json()
+export function FeatureCard({ title, className }: Props) {
+  return (
+    <Card className={cn("w-full", className)}>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Button>Action</Button>
+      </CardContent>
+    </Card>
+  );
+}
 ```
 
-### Testing Auth
-```python
-@pytest.mark.asyncio
-async def test_protected_without_auth(client: AsyncClient):
-    response = await client.get("/api/v1/downloads")
-    assert response.status_code == 401
+- Import from `@/components/ui/`
+- Don't modify UI component files directly
+- Compose UI components to build features
+- Use `cn()` for className merging
 
-@pytest.mark.asyncio
-async def test_protected_invalid_token(client: AsyncClient):
-    headers = {"Authorization": "Bearer invalid"}
-    response = await client.get("/api/v1/downloads", headers=headers)
-    assert response.status_code == 401
+## Styling with Tailwind CSS
+
+### Class Organization
+```typescript
+<div className={cn(
+  // Layout
+  "flex flex-col md:flex-row gap-4",
+  // Spacing
+  "p-4 m-2",
+  // Typography
+  "text-sm font-medium",
+  // Colors
+  "bg-background text-foreground",
+  // Effects
+  "rounded-lg shadow-md hover:shadow-lg",
+  // Conditional
+  isActive && "bg-accent",
+  className
+)}>
 ```
 
-### Testing Errors
-```python
-@pytest.mark.asyncio
-async def test_not_found(client: AsyncClient, auth_token: str):
-    headers = {"Authorization": f"Bearer {auth_token}"}
-    response = await client.get("/api/v1/downloads/nonexistent", headers=headers)
-    
-    assert response.status_code == 404
-    assert "not found" in response.json()["detail"].lower()
-
-@pytest.mark.asyncio
-async def test_validation_error(client: AsyncClient, auth_token: str):
-    headers = {"Authorization": f"Bearer {auth_token}"}
-    response = await client.post("/api/v1/downloads", headers=headers, json={})
-    
-    assert response.status_code == 422
+### Theme Variables
+Use CSS variables for theme colors (support light/dark):
+```typescript
+<div className="bg-background text-foreground border-border">
+<div className="bg-primary text-primary-foreground">
+<div className="bg-muted text-muted-foreground">
 ```
 
-## Database Testing
-
-```python
-@pytest.mark.asyncio
-async def test_create_user(db_session: AsyncSession):
-    repo = UserRepository(db_session)
-    
-    user_data = {
-        "username": "testuser",
-        "email": "test@example.com",
-        "password_hash": "hashed"
-    }
-    
-    user = await repo.create(user_data)
-    
-    assert user.id is not None
-    assert user.username == "testuser"
+### Responsive Design
+```typescript
+<div className={cn(
+  "grid grid-cols-1",      // Mobile
+  "md:grid-cols-2",        // Tablet
+  "lg:grid-cols-3",        // Desktop
+  "xl:grid-cols-4"         // Large
+)}>
 ```
 
-## Mocking
+## State Management
 
-```python
-@pytest.mark.asyncio
-async def test_with_mock(mocker):
-    mock_yt_dlp = mocker.patch("app.services.yt_dlp_service.YtDlpService.get_info")
-    mock_yt_dlp.return_value = {"title": "Test Video", "duration": 120}
-    
-    result = await some_function()
-    
-    assert result["title"] == "Test Video"
-    mock_yt_dlp.assert_called_once()
+### Local State
+```typescript
+const [count, setCount] = useState<number>(0);
+const [items, setItems] = useState<Item[]>([]);
 
-@pytest.mark.asyncio
-async def test_celery_task(client, auth_token, mocker):
-    mock_task = mocker.patch("app.tasks.download_tasks.process_download.delay")
-    mock_task.return_value.id = "task-123"
-    
-    headers = {"Authorization": f"Bearer {auth_token}"}
-    response = await client.post(
-        "/api/v1/downloads",
-        headers=headers,
-        json={"url": "https://example.com"}
-    )
-    
-    assert response.status_code == 201
-    mock_task.assert_called_once()
+// Functional update
+setCount((prev) => prev + 1);
+setItems((prev) => [...prev, newItem]);
 ```
 
-## Test Best Practices
-
-### Arrange-Act-Assert
-```python
-def test_something():
-    # Arrange
-    user_data = {"username": "test"}
-    
-    # Act
-    result = create_user(user_data)
-    
-    # Assert
-    assert result.username == "test"
+### Effects
+```typescript
+useEffect(() => {
+  const subscription = subscribeToData();
+  return () => subscription.unsubscribe();
+}, [dependency]);
 ```
 
-### Test Names
-```python
-# ✅ Good
-def test_create_download_success()
-def test_get_download_not_found()
-def test_delete_download_unauthorized()
+### Server State (TanStack Query)
+```typescript
+import { useQuery } from "@tanstack/react-query";
 
-# ❌ Bad
-def test_download()
-def test_1()
+export function DownloadList() {
+  const { data: downloads, isLoading, error } = useQuery({
+    queryKey: ["downloads"],
+    queryFn: fetchDownloads,
+  });
+
+  if (isLoading) return <LoadingSpinner />;
+  if (error) return <ErrorDisplay error={error} />;
+
+  return <div>{/* Render downloads */}</div>;
+}
 ```
 
-### Test Independence
-- Each test should be independent
-- Don't rely on execution order
-- Clean up after tests
-- Use fixtures for setup
+## Component Composition
 
-### Assertions
-```python
-assert response.status_code == 200, "Expected successful response"
-assert "id" in data, "Response should include ID"
-assert len(downloads) > 0, "Should return downloads"
+### Container/Presentational Pattern
+```typescript
+// Container - handles data
+export function DownloadListContainer() {
+  const { data, isLoading } = useQuery({
+    queryKey: ["downloads"],
+    queryFn: fetchDownloads,
+  });
+  
+  const handleDelete = (id: string) => { /* ... */ };
+
+  return (
+    <DownloadListPresentation
+      downloads={data}
+      isLoading={isLoading}
+      onDelete={handleDelete}
+    />
+  );
+}
+
+// Presentation - pure rendering
+function DownloadListPresentation({ downloads, isLoading, onDelete }: Props) {
+  // Pure rendering logic
+}
 ```
 
-## Coverage
+## Accessibility
 
-```bash
-pytest --cov=app --cov-report=html
-open htmlcov/index.html
+### Semantic HTML
+- Use appropriate HTML elements
+- Use `<button>` for actions, `<a>` for navigation
+- Don't use `<div>` for interactive elements
+
+### ARIA Attributes
+```typescript
+<button
+  aria-label="Delete download"
+  aria-pressed={isActive}
+  aria-disabled={isDisabled}
+>
+  <TrashIcon />
+</button>
+
+<div role="status" aria-live="polite">
+  {statusMessage}
+</div>
 ```
 
-- Aim for 80%+ coverage on critical code
-- Focus on meaningful coverage
-- Test edge cases and error conditions
+### Keyboard Navigation
+```typescript
+const handleKeyDown = (e: React.KeyboardEvent) => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    onClick();
+  }
+};
+```
+
+## Performance
+
+### Memoization
+```typescript
+import { useMemo, useCallback, memo } from "react";
+
+// Memoize calculations
+const sortedItems = useMemo(
+  () => items.sort((a, b) => a.name.localeCompare(b.name)),
+  [items]
+);
+
+// Memoize callbacks
+const handleClick = useCallback(() => {
+  doSomething(id);
+}, [id]);
+
+// Memoize components
+export const ExpensiveComponent = memo(function ExpensiveComponent({ data }: Props) {
+  return <div>{/* ... */}</div>;
+});
+```
+
+## Loading States
+
+```typescript
+import { Skeleton } from "@/components/ui/skeleton";
+
+if (isLoading) {
+  return <Skeleton className="h-10 w-full" />;
+}
+
+// Conditional rendering
+{isLoading && <LoadingSpinner />}
+{error && <ErrorDisplay error={error} />}
+{data && <DataDisplay data={data} />}
+```
 
 ---
 > Source: [TechSquidTV/Hermes](https://github.com/TechSquidTV/Hermes) — distributed by [TomeVault](https://tomevault.io).
