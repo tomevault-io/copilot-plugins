@@ -1,0 +1,9 @@
+{
+  "name": "vbarsoum1--llm-wiki-compiler",
+  "displayName": "llm-wiki-compiler",
+  "description": "Compile documents into a living Obsidian wiki. Any AI agent. Based on Karpathy's LLM Wiki pattern.",
+  "version": "1.0.0",
+  "author": "vbarsoum1",
+  "homepage": "https://github.com/vbarsoum1/llm-wiki-compiler",
+  "skills": []
+}
