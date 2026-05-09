@@ -1,88 +1,110 @@
-## react-general-guidelines
+## readme
 
-> React general guidelines for Twenty CRM
+> NOWCRM development rules and best practices
 
-# React Guidelines
+# Twenty Development Rules
 
-## Core Rules
-- **Functional components only** (no classes)
-- **Named exports only** (no default exports)
-- **Event handlers over useEffect** for state updates
+This directory contains NOWCRM's development guidelines and best practices in the modern Cursor Rules format (MDC). These rules are automatically applied based on file patterns and provide context-aware guidance to AI assistants.
 
-## Component Structure
-```typescript
-// ✅ Correct
-export const UserProfile = ({ user, onEdit }: UserProfileProps) => {
-  const handleEdit = () => onEdit(user.id);
-  
-  return (
-    <StyledContainer>
-      <h1>{user.name}</h1>
-      <Button onClick={handleEdit}>Edit</Button>
-    </StyledContainer>
-  );
-};
+## Rules Overview
+
+### Core Guidelines
+- **architecture.mdc** - Project overview, technology stack, and infrastructure setup (Always Applied)
+
+### Code Quality
+- **typescript-guidelines.mdc** - TypeScript best practices and conventions (Auto-attached to .ts/.tsx files)
+- **code-style.mdc** - General coding standards and style guide (Auto-attached to code files)
+- **file-structure.mdc** - File and directory organization patterns (Auto-attached to config files)
+
+### React Development
+- **react-general-guidelines.mdc** - Core React development principles (Auto-attached to React files)
+
+### Testing & Quality
+- **testing-guidelines.mdc** - Testing strategies and best practices (Auto-attached to test files)
+
+### Internationalization
+- **translations.mdc** - Translation workflow and i18n setup (Auto-attached to locale files)
+
+## How Rules Work
+
+### Automatic Attachment
+Rules are automatically included in your AI context based on file patterns (globs). When you work on TypeScript files, the TypeScript guidelines are automatically loaded.
+
+### Manual Reference
+You can manually reference any rule using the `@ruleName` syntax:
+- `@react-general-guidelines` - Load React best practices
+- `@testing-guidelines` - Get testing recommendations
+
+### Rule Types Used
+- **Always Applied** - Loaded in every context (architecture.mdc, README.mdc)  
+- **Auto Attached** - Loaded when matching file patterns are referenced
+- **Agent Requested** - Available for AI to include when relevant
+- **Manual** - Only included when explicitly mentioned
+
+## Development Commands
+
+### Frontend Commands
+
+todo:
+
+### Backend Commands
+
+todo:
+
+## Usage Guidelines
+
+### For Developers
+- Rules are automatically applied based on file context
+- Check rule descriptions to understand when they're activated
+- Use manual references (`@ruleName`) for additional context
+- Keep rules updated as the codebase evolves
+
+### For AI Assistants
+- Rules provide consistent guidance across conversations
+- Use rule context to maintain coding standards
+- Reference specific rules when making recommendations
+- Apply rule principles in code suggestions and reviews
+
+## Contributing to Rules
+
+### Adding New Rules
+1. Create a new `.mdc` file in this directory
+2. Include proper metadata headers with description and globs
+3. Write clear, actionable guidelines with examples
+4. Test the rule with relevant file patterns
+5. Update this README if needed
+
+### Updating Existing Rules
+1. Modify the rule content while preserving metadata
+2. Test changes with affected file patterns
+3. Ensure consistency with other rules
+4. Update examples and best practices as needed
+
+## Rule Format Reference
+
+Each rule file uses the MDC format with metadata:
+
+```markdown
+---
+description: Brief description of the rule's purpose
+globs: ["**/*.ts", "**/*.tsx"]  # File patterns for auto-attachment
+alwaysApply: false              # Whether to always include this rule
+---
+
+# Rule Title
+
+Rule content in Markdown format...
 ```
 
-## Props & Event Handlers
-```typescript
-// ✅ Correct - Destructure props
-const Button = ({ onClick, isDisabled, children }: ButtonProps) => (
-  <button onClick={onClick} disabled={isDisabled}>
-    {children}
-  </button>
-);
+## Migration from Legacy Format
 
-// ✅ Correct - Event handlers over useEffect
-const UserForm = ({ onSubmit }: UserFormProps) => {
-  const handleSubmit = async (data: FormData) => {
-    await onSubmit(data);
-    // Direct event handling, not useEffect
-  };
+The rules have been migrated from the legacy `.md` format to the modern `.mdc` format, providing:
+- Better context awareness through file pattern matching
+- Improved organization with metadata headers
+- More flexible rule application strategies
+- Enhanced integration with Cursor's AI features
 
-  return <Form onSubmit={handleSubmit} />;
-};
-```
-
-## Component Design
-- **Small, focused components** - Single responsibility
-- **Composition over inheritance** - Combine simple components
-- **Extract complex logic** into custom hooks
-
-```typescript
-// ✅ Good - Composed from smaller components
-const UserCard = ({ user }: UserCardProps) => (
-  <StyledCard>
-    <UserAvatar user={user} />
-    <UserInfo user={user} />
-    <UserActions user={user} />
-  </StyledCard>
-);
-```
-
-## Performance
-```typescript
-// ✅ Use memo for expensive components only
-const ExpensiveChart = memo(({ data }: ChartProps) => {
-  // Complex rendering logic
-  return <ComplexChart data={data} />;
-});
-
-// ✅ Memoize callbacks when needed
-const UserList = ({ users, onUserSelect }: UserListProps) => {
-  const handleUserSelect = useCallback((user: User) => {
-    onUserSelect(user);
-  }, [onUserSelect]);
-
-  return (
-    <div>
-      {users.map(user => (
-        <UserItem key={user.id} user={user} onSelect={handleUserSelect} />
-      ))}
-    </div>
-  );
-};
-```
+For the most up-to-date version of these guidelines, always refer to the files in this directory.
 
 ---
 > Source: [nowtec/nowCRM](https://github.com/nowtec/nowCRM) — distributed by [TomeVault](https://tomevault.io).
