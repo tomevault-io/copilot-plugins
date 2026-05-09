@@ -1,9 +1,9 @@
 {
   "name": "nowtec--nowcrm",
   "displayName": "nowCRM",
-  "description": "nowCRM",
+  "description": "Open source CRM with multichannel outreach capabilities and efficient data management at scale",
   "version": "1.0.0",
   "author": "nowtec",
-  "homepage": "https://tomevault.io/claim/nowtec",
+  "homepage": "https://github.com/nowtec/nowCRM",
   "skills": []
 }
