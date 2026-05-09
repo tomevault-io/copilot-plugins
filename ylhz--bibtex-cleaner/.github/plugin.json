@@ -1,0 +1,9 @@
+{
+  "name": "ylhz--bibtex-cleaner",
+  "displayName": "bibtex-cleaner",
+  "description": "Make your BibTeX perfect. Auto-clean entries, unify conference names (e.g., CVPR, NeurIPS), and generate citation keys for LaTeX & Word.",
+  "version": "1.0.0",
+  "author": "ylhz",
+  "homepage": "https://github.com/ylhz/bibtex-cleaner",
+  "skills": []
+}
