@@ -1,237 +1,81 @@
-## dexie-db
+## general
 
-> Apply it if you work with dexie library or data hooks which using it API
-
-
-## Database Structure
-
-**Pattern:** One Table = One Folder in `db/models/`
-
-```
-db/
-  ├── models/{modelName}/
-  │   ├── {modelName}.types.ts      # TypeScript interfaces
-  │   ├── {modelName}.schemas.ts    # Zod schemas
-  │   ├── {modelName}.hooks.ts      # useLiveQuery + CRUD
-  │   ├── {modelName}.utils.ts      # Helpers, preload
-  │   ├── {modelName}.initial.ts    # Initial data (optional)
-  │   ├── {modelName}.relations.ts  # Cross-model (optional)
-  │   └── index.ts                  # Exports
-  ├── types/       # Shared types
-  │   ├── base.types.ts             # BaseEntity interface
-  │   ├── range.types.ts            # Range interface
-  │   └── store.types.ts            # Store mappings
-  ├── schemas/     # Shared schemas
-  │   └── base.schemas.ts           # baseEntitySchema
-  ├── utils/       # Shared utilities
-  │   └── entity.utils.ts           # createBaseEntity
-  ├── constants/   # Shared constants
-  │   └── stores.constants.ts       # DBStore enum
-  ├── hooks/       # Generic hooks
-  │   └── useDb.ts                  # Generic DB hook
-  └── services/    # Dexie instance
-      └── db.service.ts             # Database config
-```
-
-**Naming:** `{scope}.{category}.ts` (e.g., `base.types.ts`, `entity.utils.ts`)
-
-**⚠️ Important:** Always use camelCase for file names. Examples:
-- ✅ `entity.utils.ts`, `format.utils.ts`, `stores.constants.ts`
-- ❌ `entity-utils.ts`, `format_utils.ts`, `stores-constants.ts`
-
-## BaseEntity Pattern
-
-User-scoped entities extend BaseEntity (id, userId, createdAt, updatedAt):
-
-```typescript
-// types/base.types.ts
-export interface BaseEntity {
-    id: string
-    userId: string
-    createdAt: Date
-    updatedAt: Date
-}
-
-// schemas/base.schemas.ts
-export const baseEntitySchema = z.object({
-    id: z.string().uuid(),
-    userId: z.string().uuid(),
-    createdAt: z.coerce.date(),
-    updatedAt: z.coerce.date(),
-})
-
-// Usage
-import { createBaseEntity } from '@/db/utils/entity.utils'
-const entity = await createBaseEntity() // Returns full BaseEntity
-```
-
-## Model File Templates
-
-**Types:** Extend BaseEntity with model fields
-```typescript
-export interface BiomarkerRecord extends BaseEntity {
-    biomarkerId?: string
-    value?: number
-    ucumCode: string
-    approved: boolean
-    order?: number
-    documentId?: string
-}
-```
-
-**Schemas:** Extend baseEntitySchema with Zod validation
-```typescript
-export const biomarkerRecordSchema = baseEntitySchema.extend({
-    biomarkerId: z.string().uuid().optional(),
-    value: z.number().optional(),
-    ucumCode: z.string(),
-    approved: z.boolean(),
-    order: z.number().optional(),
-    documentId: z.string().uuid().optional(),
-})
-```
-
-**Hooks:** Use createModelHooks generator (no intermediate variable)
-```typescript
-import { createModelHooks } from '../../hooks/modelHooks.utils'
-import { db } from '../../services/db.service'
-
-export const {
-    useItems: useBiomarkerRecords,
-    useItem: useBiomarkerRecord,
-    addItem: addBiomarkerRecord,
-    updateItem: updateBiomarkerRecord,
-    removeItem: deleteBiomarkerRecord,
-    modifyItem: modifyBiomarkerRecord,
-} = createModelHooks(db.biomarkerRecords, {
-    defaultSort: (a, b) => (a.order ?? Infinity) - (b.order ?? Infinity),
-})
-```
-
-**Utils:** Any helpers 
-
-## Usage Patterns
-
-```typescript
-// Get all items (auto-sorted by defaultSort)
-const { data, loading } = useBiomarkerRecords()
-
-// Get items with filter
-const { data } = useBiomarkerRecords({ filter: (item) => item.approved })
-
-// Get all items with custom sort
-const { data } = useBiomarkerRecords({ 
-    sort: (a, b) => b.createdAt.getTime() - a.createdAt.getTime() 
-})
-
-// Filter + sort
-const { data } = useBiomarkerRecords({ 
-    filter: (item) => item.biomarkerId === id && item.approved,
-    sort: (a, b) => b.createdAt.getTime() - a.createdAt.getTime() 
-})
-
-// Get single item
-const { data: record, loading } = useBiomarkerRecord(id)
-
-// Additional filtering in component if needed
-const approvedRecords = data.filter(item => item.approved)
-
-// CRUD operations
-await addBiomarkerRecord(newRecord)
-await updateBiomarkerRecord(id, { value: 10.5 })
-await deleteBiomarkerRecord(id)
-
-// Modify with callback
-await modifyBiomarkerRecord(id, (record) => {
-    record.value = 10.5
-    record.approved = true
-})
-
-// Bulk operations (use Dexie directly)
-await db.biomarkerRecords.bulkAdd(records)
-await db.biomarkerRecords.bulkPut(records)
-await db.biomarkerRecords.bulkDelete(['id1', 'id2'])
-```
-
-**Built-in features:**
-- Auto userId filtering: `db.service.ts` has reading hook filtering by currentUserId
-- Auto updates: useLiveQuery tracks changes automatically
-- Default sorting: configured per model in `modelHooks.utils.ts`
-
-## Import Patterns
-
-```typescript
-// From model folder
-import { 
-    BiomarkerRecord, 
-    useBiomarkerRecords, 
-    useBiomarkerRecord,
-    addBiomarkerRecord 
-} from '@/db/models/biomarkerRecord'
-
-// From root (re-exported)
-import { BiomarkerRecord, useBiomarkerRecords } from '@/db'
-
-// Shared types and schemas
-import { BaseEntity } from '@/db/types/base.types'
-import { baseEntitySchema } from '@/db/schemas/base.schemas'
-import { DBStore } from '@/db/constants/stores.constants'
-```
-
-## Dexie API Commands
-
-above(key): Collection;
-aboveOrEqual(key): Collection;
-add(item, key?): Promise;
-and(filter: (x) => boolean): Collection;
-anyOf(keys[]): Collection;
-anyOfIgnoreCase(keys: string[]): Collection;
-below(key): Collection;
-belowOrEqual(key): Collection;
-between(lower, upper, includeLower?, includeUpper?): Collection;
-bulkAdd(items: Array): Promise;
-bulkDelete(keys: Array): Promise;
-bulkPut(items: Array): Promise;
-clear(): Promise;
-count(): Promise;
-delete(key): Promise;
-distinct(): Collection;
-each(callback: (obj) => any): Promise;
-eachKey(callback: (key) => any): Promise;
-eachPrimaryKey(callback: (key) => any): Promise;
-eachUniqueKey(callback: (key) => any): Promise;
-equals(key): Collection;
-equalsIgnoreCase(key): Collection;
-filter(fn: (obj) => boolean): Collection;
-first(): Promise;
-get(key): Promise;
-inAnyRange(ranges): Collection;
-keys(): Promise;
-last(): Promise;
-limit(n: number): Collection;
-modify(changeCallback: (obj: T, ctx:{value: T}) => void): Promise;
-modify(changes: { [keyPath: string]: any } ): Promise;
-noneOf(keys: Array): Collection;
-notEqual(key): Collection;
-offset(n: number): Collection;
-or(indexOrPrimayKey: string): WhereClause;
-orderBy(index: string): Collection;
-primaryKeys(): Promise;
-put(item: T, key?: Key): Promise;
-reverse(): Collection;
-sortBy(keyPath: string): Promise;
-startsWith(key: string): Collection;
-startsWithAnyOf(prefixes: string[]): Collection;
-startsWithAnyOfIgnoreCase(prefixes: string[]): Collection;
-startsWithIgnoreCase(key: string): Collection;
-toArray(): Promise;
-toCollection(): Collection;
-uniqueKeys(): Promise;
-until(filter: (value) => boolean, includeStopEntry?: boolean): Collection;
-update(key: Key, changes: { [keyPath: string]: any }): Promise;
+> - don't use any adjectives in names like: "fast", "simple", "quick", "heavy"
 
 
-More info: https://www.npmjs.com/package/dexie
+- don't use any adjectives in names like: "fast", "simple", "quick", "heavy"
+- Do not add fallbacks for legacy logic unless explicitly requested. Mention if backward compatibility is lost.
+- Do not create any example files unless asked.
+- Minimize your updates; make only necessary and important edits.
+- Do not add fallbacks unless explicitly requested.
+- Write all code comments in English, even if I speak in other languages.
+- Do not delete any logs.
+- Do not delete comments; modify only if needed.
+- Do not delete any comments; modify only if required.
+- Always minimize your updates; make only necessary and important edits.
+- Use English only for coding.
+- Do not use the ENV: prefix.
+- Do not create .md files unless asked.
+- Write less code to do less.
+- Try to minimally affect existing logic.
+- Avoid overhead in logs and try/catch.
+- Improve function and constant naming; avoid unnecessary comments.
+- Do not generate code that will not be used unless explicitly requested.
+- Do not use runtime imports unless strictly necessary.
+- Do not add any comments in code or change existing ones unless strictly necessary.
+- Do not write obvious documentation; do not add args, return, etc., when the function is simple. Avoid redundancy.
+- Use clean code principles.
+- Do not create any example files or .md files for new features.
+- Never use a fallback for a getter (`obj.get('field')`).
+- Never wrap imports in try/catch. Imports are always on top of the file.
+- **Always use camelCase for file names** (e.g., `recordKey.ts`, `entity.utils.ts`, not `record-key.ts`, `entity-utils.ts`)
+
+## Import Rules
+- **Always use absolute imports with `@/` alias** instead of relative imports
+- ✅ Good: `import { Button } from '@/components/Button'`
+- ❌ Bad: `import { Button } from '../Button'`
+- ✅ Good: `import { db } from '@/db/services/db.service'`
+- ❌ Bad: `import { db } from '../../services/db.service'`
+- Import order:
+  1. External packages (React, antd, etc.)
+  2. Components (`@/components/...`)
+  3. Database models (`@/db/...`)
+  4. Other imports (`@/utils/...`, `@/constants/...`, etc.)
+  5. Relative imports for local files (only `./ComponentName.types.ts`, `./ComponentName.utils.ts`)
+
+## File Structure Rules
+
+### Global Utilities (src/utils/, src/db/utils/, etc.)
+- **One file = one utility function**
+- Example: `src/utils/formatDate.ts` exports only `formatDate()`
+
+### React Component Utilities
+- **All component utilities in ComponentName.utils.ts**
+- Multiple helper functions allowed in one file
+- Example: `UploadArea/UploadArea.utils.ts` can export `createRecordKey()`, `validateFile()`, etc.
+
+## Colors
+- Always use color constants from `src/constants/colors.ts`
+- Import: `import { COLORS } from '@/constants/colors'`
+- Never use hardcoded color values like `#ff4d4f`, use `COLORS.ERROR` instead
+
+## PostHog Product Metrics
+- **All user actions and key interactions must be tracked with PostHog**
+- Use `usePostHog()` hook from `posthog-js/react` in React components
+- Use `captureEvent(posthog, eventName, properties?)` and `captureException(posthog, error, context?)` from `@/utils`
+- Event naming: `snake_case` (e.g., `document_upload_started`, `biomarker_extraction_failed`)
+- Track: clicks, form submissions, CRUD operations, uploads/downloads, errors, navigation, modal actions
+- Include relevant properties in events
+
+## Enums
+- **Always use enums instead of string literal unions for fixed sets of values**
+- **Global enums**: `src/types/{Name}.types.ts` - for types used across multiple components/modules
+- **Component-local enums**: `{ComponentName}.types.ts` - for types used only within that component
+- Naming: PascalCase ending in `Type`/`Mode` (e.g., `RangeType`, `ViewMode`), values: UPPER_SNAKE_CASE (e.g., `RangeType.NORMAL`)
+- ✅ Good: `outOfRange?: RangeType` | ❌ Bad: `type Status = 'active' | 'inactive'`
+
+## Constants
+- **Never use hardcoded string keys** for localStorage, sessionStorage, IndexedDB keys, API endpoints, etc. **Always define constants** in appropriate constants files 
 
 ---
 > Source: [ashugaev/bloodboy-biomarkers-tracker](https://github.com/ashugaev/bloodboy-biomarkers-tracker) — distributed by [TomeVault](https://tomevault.io).
