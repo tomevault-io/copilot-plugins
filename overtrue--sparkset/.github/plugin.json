@@ -1,0 +1,9 @@
+{
+  "name": "overtrue--sparkset",
+  "displayName": "sparkset",
+  "description": "Sparkset is an AI-powered operational assistant that helps teams interact with databases using natural language.",
+  "version": "1.0.0",
+  "author": "overtrue",
+  "homepage": "https://github.com/overtrue/sparkset",
+  "skills": []
+}
