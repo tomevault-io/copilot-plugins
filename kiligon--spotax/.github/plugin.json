@@ -1,0 +1,9 @@
+{
+  "name": "kiligon--spotax",
+  "displayName": "spotax",
+  "description": "CLI tool for running JAX training on Google Cloud Spot TPUs with automatic preemption recovery and checkpoint resumption",
+  "version": "1.0.0",
+  "author": "kiligon",
+  "homepage": "https://github.com/kiligon/spotax",
+  "skills": []
+}
