@@ -1,0 +1,9 @@
+{
+  "name": "giovantenne--nixos-lab",
+  "displayName": "nixos-lab",
+  "description": "Manages a multi-PC NixOS lab, optimized for network installation (Netboot) with no internet access and a master PC acting as the local controller.",
+  "version": "1.0.0",
+  "author": "giovantenne",
+  "homepage": "https://github.com/giovantenne/nixos-lab",
+  "skills": []
+}
