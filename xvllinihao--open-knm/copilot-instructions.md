@@ -1,86 +1,27 @@
-## open-knm
+## posthog-integration
 
-> **禁止使用渐变色 (No Gradients)**
+> apply when interacting with PostHog/analytics tasks
 
-# Open KNM 项目规范
 
-## 设计规范
+Never hallucinate an API key. Instead, always use the API key populated in the .env file.
 
-### 颜色使用
+# Feature flags
 
-**禁止使用渐变色 (No Gradients)**
-- 本项目不使用 `bg-gradient-to-*` 或任何 CSS 渐变
-- 所有背景、按钮、徽章等应使用纯色
-- 这包括 Tailwind 的 `from-*`、`to-*`、`via-*` 等渐变相关类
+A given feature flag should be used in as few places as possible. Do not increase the risk of undefined behavior by scattering the same feature flag across multiple areas of code. If the same feature flag needs to be introduced at multiple callsites, flag this for the developer to inspect carefully.
 
-**主色调**
-- Primary: `var(--primary)` (橙色，用于主要按钮、强调元素)
-- 背景色: 白色、`slate-50`、`slate-100`
-- 文字色: `slate-900` (标题)、`slate-700` (正文)、`slate-500` (次要文字)
+If a job requires creating new feature flag names, make them as clear and descriptive as possible.
 
-**功能色**
-- Pro/会员相关: `purple-50`、`purple-100`、`purple-700` (紫色系，但使用纯色)
-- 成功: `green-50`、`green-600`
-- 警告/危险: `red-50`、`red-600`
-- 信息: `blue-50`、`blue-600`
+If using TypeScript, use an enum to store flag names. If using JavaScript, store flag names as strings to an object declared as a constant, to simulate an enum. Use a consistent naming convention for this storage. enum/const object members should be written UPPERCASE_WITH_UNDERSCORE.
 
-### 组件样式
+Gate flag-dependent code on a check that verifies the flag's values are valid and expected.
 
-**卡片**
-```css
-bg-white rounded-2xl border border-slate-100 shadow-sm
-```
+# Custom properties
 
-**按钮 - 主要**
-```css
-bg-[var(--primary)] text-white rounded-lg/rounded-full hover:bg-orange-600
-```
+If a custom property for a person or event is at any point referenced in two or more files or two or more callsites in the same file, use an enum or const object, as above in feature flags.
 
-**按钮 - 次要**
-```css
-bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200
-```
+# Naming
 
-**徽章/标签**
-```css
-px-3 py-1 rounded-full text-sm font-bold bg-slate-100 text-slate-600
-/* Pro 徽章使用紫色纯色 */
-bg-purple-100 text-purple-700
-```
-
-### 头像
-
-用户头像使用主色纯色背景 + 白色文字：
-```css
-bg-[var(--primary)] rounded-full text-white font-bold
-```
-
-## 功能开发规范
-
-### Feature Flags
-
-参见 `.cursor/rules/always.mdc` 中的详细规范。
-
-### 国际化
-
-- 所有用户可见文字必须支持中英文
-- 使用 `isZh = locale === "zh"` 判断语言
-- 在组件内定义 `texts` 对象包含所有文本
-
-### 本地存储
-
-学习进度相关的 localStorage key：
-- `knm-read-history`: KNM 文章阅读历史
-- `vocabulary-progress`: 词汇学习进度 (page, percent)
-- `flashcard-today-count`: 今日闪卡使用量
-- `knm-last-slug`: 最后阅读的 KNM 文章
-
-## 代码风格
-
-- 使用 TypeScript
-- 组件使用函数式组件 + hooks
-- 优先使用 Tailwind CSS
-- 避免过度抽象，保持代码简洁直接
+Before creating any new event or property names, consult with the developer for any existing naming convention. Consistency in naming is essential, and additional context may exist outside this project. Similarly, be careful about any changes to existing event and property names, as this may break reporting and distort data for the project.
 
 ---
 > Source: [xvllinihao/open-knm](https://github.com/xvllinihao/open-knm) — distributed by [TomeVault](https://tomevault.io).
