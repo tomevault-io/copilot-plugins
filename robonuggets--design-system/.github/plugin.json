@@ -1,0 +1,9 @@
+{
+  "name": "robonuggets--design-system",
+  "displayName": "design-system",
+  "description": "Give Claude a brand reference, get a full design system page + 1-page A4 brand book PDF.",
+  "version": "1.0.0",
+  "author": "robonuggets",
+  "homepage": "https://github.com/robonuggets/design-system",
+  "skills": []
+}
