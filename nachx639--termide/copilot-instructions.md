@@ -1,4 +1,4 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## termide
 
 > - Use `bun <file>` instead of `node <file>` or `ts-node <file>`
 
