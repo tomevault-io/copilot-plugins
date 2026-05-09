@@ -1,0 +1,44 @@
+{
+  "name": "antigravity_for_loop",
+  "owner": "ImL1s",
+  "repo": "antigravity_for_loop",
+  "description": "\u81ea\u52d5\u8fed\u4ee3\u4fee\u5fa9\u5faa\u74b0\u63d2\u4ef6\uff1a\u8b93 AI \u4ee3\u7406\u6301\u7e8c\u57f7\u884c\u958b\u767c\u4efb\u52d9\u76f4\u5230\u901a\u904e\u6240\u6709\u6e2c\u8a66",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ImL1s/antigravity_for_loop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-09T10:47:34Z"
+}
