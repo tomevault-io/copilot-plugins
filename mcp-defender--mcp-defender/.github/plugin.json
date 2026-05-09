@@ -1,0 +1,9 @@
+{
+  "name": "mcp-defender--mcp-defender",
+  "displayName": "MCP-Defender",
+  "description": "Desktop app that automatically scans and blocks malicious MCP traffic in AI apps like Cursor, Claude, VS Code and Windsurf.",
+  "version": "1.0.0",
+  "author": "MCP-Defender",
+  "homepage": "https://github.com/MCP-Defender/MCP-Defender",
+  "skills": []
+}
