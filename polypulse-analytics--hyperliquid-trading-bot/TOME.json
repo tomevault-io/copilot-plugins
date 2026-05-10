@@ -4,7 +4,7 @@
   "repo": "hyperliquid-trading-bot",
   "description": "hyperliquid trading bot, hyperliquid trading bot, hyperliquid trading bot, hyperliquid trading bot, hyperliquid trading bot, hyperliquid trading bot, hyperliquid trading bot, hyperliquid trading bot, hyperliquid trading bot, hyperliquid trading bot, hyperliquid trading bot, hyperliquid trading bot, ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PolyPulse-Analytics/hyperliquid-trading-bot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T15:34:48Z"
+  "distributed_at": "2026-05-10T04:36:49Z"
 }
