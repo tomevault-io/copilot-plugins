@@ -1,0 +1,44 @@
+{
+  "name": "open-harness",
+  "owner": "ryaneggz",
+  "repo": "open-harness",
+  "description": "\ud83c\udfd7\ufe0f Multi-Layer AI Orchestrator & Sandbox System. BYOH (Bring Your Own Harness)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ryaneggz/open-harness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T02:30:09Z"
+}
