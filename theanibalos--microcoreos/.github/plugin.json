@@ -1,0 +1,9 @@
+{
+  "name": "theanibalos--microcoreos",
+  "displayName": "MicroCoreOS",
+  "description": "Microkernel con dependencias inyectadas para desarrollar de forma segura con la ia",
+  "version": "1.0.0",
+  "author": "theanibalos",
+  "homepage": "https://github.com/theanibalos/MicroCoreOS",
+  "skills": []
+}
