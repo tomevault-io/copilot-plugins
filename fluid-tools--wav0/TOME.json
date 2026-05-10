@@ -4,7 +4,7 @@
   "repo": "wav0",
   "description": "AI-Native Studio for everything audio. Sound Design/Audio Editing/AI Producer/Fast Exports. Built for web, runs anywhere. ",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fluid-tools/wav0",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T15:11:45Z"
+  "distributed_at": "2026-05-10T12:46:38Z"
 }
