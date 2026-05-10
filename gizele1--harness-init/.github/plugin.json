@@ -1,0 +1,9 @@
+{
+  "name": "gizele1--harness-init",
+  "displayName": "harness-init",
+  "description": "OpenAI harness engineering repo initialization scaffold for agent-first development. Works with Claude Code, Codex, Cursor.",
+  "version": "1.0.0",
+  "author": "Gizele1",
+  "homepage": "https://github.com/Gizele1/harness-init",
+  "skills": []
+}
