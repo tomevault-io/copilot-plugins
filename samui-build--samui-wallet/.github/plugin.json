@@ -1,0 +1,9 @@
+{
+  "name": "samui-build--samui-wallet",
+  "displayName": "samui-wallet",
+  "description": "Open Source wallet and toolbox for Solana builders \ud83c\udfdf Cypherpunk Hackathon winner",
+  "version": "1.0.0",
+  "author": "samui-build",
+  "homepage": "https://github.com/samui-build/samui-wallet",
+  "skills": []
+}
