@@ -1,929 +1,3601 @@
-## lc-agent-usd
+## lc-agent
 
-> A high-level overview of the core components in LC Agent USD module, explaining how they work together to create a specialized system for USD development assistance.
+> A high-level overview of the core components in LC Agent, explaining how they work together to create a flexible and powerful system for language model interactions.
 
 
-# LC Agent USD Module Overview
+# LC Agent Overview
 
-## Introduction
+Important: LC Agent is not a framework. It's written on top of langchain.
 
-The `lc_agent_usd` module is a specialized extension of the LC Agent framework designed to provide intelligent assistance for Universal Scene Description (USD) development. It leverages the core LC Agent architecture to create a system that can:
-
-1. Answer knowledge-based questions about USD
-2. Generate and validate USD code snippets
-3. Provide interactive code assistance
-4. Execute and debug USD code
-
-This module demonstrates how LC Agent's flexible architecture can be extended to create domain-specific AI assistants with specialized capabilities.
+LC Agent provides a modular system for building complex language model interactions. Here's a high-level overview of its core components:
 
 ## Core Components
 
-The module is organized into several key components:
+### RunnableNode
+The fundamental building block. A `RunnableNode` represents a single unit of processing that can:
+- Handle message management (system messages, user inputs, model responses)
+- Interact with language models
+- Track execution state and metrics
+- Connect with other nodes to form networks
 
-### Network Nodes
+### RunnableNetwork
+A container and manager for `RunnableNode` instances that:
+- Manages the execution flow between connected nodes
+- Maintains network state and context
+- Enables dynamic modification through modifiers
+- Provides synchronous, asynchronous, and streaming execution options
 
-Network nodes are specialized classes that extend the `NetworkNode` base class from LC Agent. They serve as containers for specific functionality:
+### NetworkNode
+A hybrid class that combines `RunnableNode` and `RunnableNetwork`, allowing it to:
+- Function as both a single node and a self-contained subnetwork
+- Integrate seamlessly with parent networks
+- Inherit properties (like chat model settings) from parent networks
+- Maintain its own execution context
 
-- **USDKnowledgeNetworkNode**: Provides factual information about USD concepts and usage
-- **USDCodeNetworkNode**: Handles general USD code generation and validation
-- **USDCodeGenNetworkNode**: Specializes in generating executable USD code with validation
+### MultiAgentNetworkNode
+A specialized `NetworkNode` that acts as a conversation coordinator by:
+- Routing queries to appropriate specialized "agent" sub-networks
+- Managing complex multi-domain problem solving
+- Coordinating between different specialized nodes
+- Synthesizing responses from multiple agents
 
-### Specialized Nodes
+### NetworkModifier
+A middleware component that provides controlled ways to modify network behavior by:
+- Offering hooks into different stages of network execution
+- Enabling safe network structure modifications
+- Managing state changes during execution
+- Supporting dynamic network evolution
 
-These are the building blocks that implement specific behaviors:
+### NodeFactory
+A centralized registry for node types that:
+- Manages node registration and creation
+- Handles configuration and default arguments
+- Ensures type safety
+- Provides debugging capabilities
 
-- **USDKnowledgeNode**: Processes knowledge-based queries about USD
-- **USDCodeGenNode**: Generates USD code snippets with proper structure
-- **USDCodeInteractiveNode**: Provides interactive code assistance
+## Component Relationships
 
-### Modifiers
+```
+NodeFactory
+    │
+    ├── creates/manages ──► RunnableNode
+    │                          │
+    │                          ├── can be contained in ──► RunnableNetwork
+    │                          │                               │
+    │                          │                               ├── can be modified by ──► NetworkModifier
+    │                          │                               │
+    │                          │                               └── specialized by ──► NetworkNode
+    │                          │                                                         │
+    │                          │                                                         └── extended by ──► MultiAgentNetworkNode
+    │                          │
+    └── creates/manages ──────►┘
+```
 
-Modifiers extend the functionality of nodes by intercepting and modifying their behavior:
+## Key Concepts
 
-- **USDKnowledgeRagModifier**: Enhances knowledge responses with retrieval-augmented generation
-- **USDCodeGenRagModifier**: Enhances code generation with retrieval-augmented generation
-- **CodeInterpreterModifier**: Executes and validates code
-- **CodeExtractorModifier**: Extracts and formats code snippets
-- **USDCodeGenPatcherModifier**: Fixes and improves generated code
+### Message Flow
+1. Messages enter through nodes (typically `RunnableHumanNode`)
+2. Flow through the network based on node connections
+3. Get processed by language models or tools
+4. Generate responses that continue through the network
 
-## System Architecture
+### Execution Lifecycle
+1. Network preparation and context setup
+2. Node execution in topological order
+3. Modifier application at various stages
+4. Result collection and state updates
 
-The module follows a layered architecture:
+### Network Modification
+1. Safe modifications through `NetworkModifier`
+2. Automatic connection handling in `NetworkNode`
+3. Dynamic routing in `MultiAgentNetworkNode`
+4. Centralized management via `NodeFactory`
 
-1. **User Interface Layer**: Receives queries and displays responses
-2. **Network Layer**: Routes queries to appropriate specialized nodes
-3. **Processing Layer**: Generates responses using specialized nodes
-4. **Modifier Layer**: Enhances responses with additional capabilities
-5. **Knowledge Layer**: Retrieves relevant information from knowledge bases
+## Common Use Cases
 
-## Integration with LC Agent Core
+### Simple Chatbot
+```python
+with RunnableNetwork(chat_model_name="gpt-4") as network:
+    RunnableHumanNode("What is Python?")
+    RunnableNode(inputs=[
+        SystemMessage(content="You are a helpful assistant")
+    ])
+```
 
-The `lc_agent_usd` module integrates with the core LC Agent framework by:
+### Multi-Agent System
+```python
+class CustomMultiAgent(MultiAgentNetworkNode):
+    route_nodes = [
+        "CodeExpert",
+        "DocumentationHelper",
+        "ConceptExplainer"
+    ]
+```
 
-1. Extending base classes like `NetworkNode` and `RunnableNode`
-2. Implementing custom modifiers that work with the LC Agent modifier system
-3. Registering custom node types with the node factory
-4. Using the LC Agent message passing system for communication
+### Network Modification
+```python
+class CustomModifier(NetworkModifier):
+    def on_post_invoke(self, network, node):
+        if node.invoked and "tool_call" in node.outputs:
+            self._handle_tool_call(network, node)
+```
 
-## Use Cases
-
-The module is designed to support several key use cases:
-
-1. **USD Knowledge Assistance**: Answering questions about USD concepts, API, and best practices
-2. **Code Generation**: Creating USD code snippets based on user requirements
-3. **Code Validation**: Checking and fixing USD code for correctness
-4. **Interactive Development**: Providing real-time assistance during USD development
+For detailed information about each component, refer to their respective documentation pages.
 
 
-# USDKnowledgeNetworkNode
+# RunnableNode
 
 ## Overview
 
-The `USDKnowledgeNetworkNode` is a specialized network node in the LC Agent USD module that provides knowledge-based assistance for Universal Scene Description (USD). It serves as a comprehensive information source for USD concepts, API usage, best practices, and general questions about USD functionality.
+`RunnableNode` is a core component in the LC Agent framework that represents a single unit of processing in a language model interaction pipeline. It inherits from LangChain's `RunnableSerializable` class and adds network capabilities, enabling the creation of complex processing networks for language model interactions.
 
 ## Purpose
 
-The primary purpose of the `USDKnowledgeNetworkNode` is to:
+The `RunnableNode` solves several key problems in language model interactions:
 
-1. Answer factual questions about USD concepts and terminology
-2. Provide explanations of USD API functions and classes
-3. Offer guidance on USD best practices and workflows
-4. Explain USD file formats and structure
-5. Assist with understanding USD's role in 3D pipelines
+1. **Message Management**: Handles the organization and flow of messages between different parts of a conversation, including system messages, user inputs, and model responses.
 
-This node is designed to be the knowledge foundation of the USD agent system, focusing on providing accurate information rather than generating or executing code.
+2. **Model Interaction**: Provides a standardized interface for working with different language models through LangChain's abstractions.
 
-## Implementation Details
+3. **State Tracking**: Maintains the state of conversations and processing, including execution status and performance metrics.
+
+4. **Network Formation**: Enables the creation of processing networks by connecting nodes in various configurations.
+
+## Core Components
 
 ### Class Definition
 
 ```python
-class USDKnowledgeNetworkNode(NetworkNode):
-    default_node: str = "USDKnowledgeNode"
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.add_modifier(USDKnowledgeRagModifier())
+class RunnableNode(RunnableSerializable[Input, Output], UUIDMixin):
+    parents: List[RunnableNode]     # Parent nodes in the processing network
+    inputs: List[Any]               # Input processing steps
+    outputs: Optional[Union[        # Node execution results
+        List[OutputType], 
+        OutputType
+    ]]
+    metadata: Dict[str, Any]        # Execution data and metrics
+    chat_model_name: Optional[str]  # Language model identifier
+    verbose: bool                   # Debug output control
+    invoked: bool                   # Execution state flag
 ```
 
-The implementation is intentionally simple, leveraging the power of the LC Agent framework to handle most of the complexity. The class:
+### Message Types
 
-1. Extends `NetworkNode` from the core LC Agent framework
-2. Sets `USDKnowledgeNode` as its default node type
-3. Adds a `USDKnowledgeRagModifier` to enhance responses with retrieval-augmented generation
+The node works with several types of messages:
 
-### Default Node
+- `SystemMessage`: Configuration instructions for the language model
+- `HumanMessage`: User inputs
+- `AIMessage`: Model responses
+- `ToolMessage`: Results from tool executions
+- `ChatPromptTemplate`: Templates for dynamic message generation
+- `ChatPromptValue`: Processed message templates
 
-The `USDKnowledgeNode` serves as the default processing node for this network. It:
+## Public Methods
 
-1. Processes queries using a system message to generate appropriate responses
-2. Handles knowledge-based questions about USD
-3. Provides factual information about USD concepts and API
+### Execution Methods
 
-### RAG Modifier
+#### Synchronous Execution
+```python
+def invoke(
+    self,
+    input: Dict[str, Any] = {},
+    config: Optional[RunnableConfig] = None,
+    **kwargs: Any
+) -> Union[List[OutputType], OutputType]
+```
+Executes the node synchronously. The method:
+- Processes parent node outputs
+- Transforms input data
+- Interacts with the language model
+- Returns the model's response
+- Updates node metadata with execution information
 
-The `USDKnowledgeRagModifier` enhances the node's responses by:
+#### Asynchronous Execution
+```python
+async def ainvoke(
+    self,
+    input: Dict[str, Any] = {},
+    config: Optional[RunnableConfig] = None,
+    **kwargs: Any
+) -> Union[List[OutputType], OutputType]
+```
+Provides asynchronous execution with the same functionality as `invoke`.
 
-1. Retrieving relevant information from a knowledge base of USD documentation
-2. Injecting this information into the context before generating responses
-3. Ensuring responses are grounded in accurate USD documentation
-4. Using a specialized retriever designed for USD knowledge
-5. Filtering and ranking retrieved information for relevance
+#### Streaming Execution
+```python
+async def astream(
+    self,
+    input: Input = {},
+    config: Optional[RunnableConfig] = None,
+    **kwargs: Optional[Any]
+) -> AsyncIterator[Output]
+```
+Streams the model's response as it becomes available. Useful for:
+- Real-time response processing
+- Progress indication
+- Memory efficiency with large responses
 
-This modifier is essential for providing accurate and comprehensive information about USD concepts and API.
-
-## Knowledge Sources
-
-The `USDKnowledgeNetworkNode` draws information from several sources through its RAG modifier:
-
-1. **USD Documentation**: Official documentation from Pixar and other USD contributors
-2. **Python API References**: Documentation of the USD Python API
-
-This information is accessed through the RAG system, which retrieves relevant content based on the user's query.
-
-## Integration with Other Components
-
-The `USDKnowledgeNetworkNode` is designed to work seamlessly with other components of the LC Agent USD module:
-
-1. It can be used as a standalone knowledge source
-2. It can be integrated into a multi-agent system alongside code generation nodes
-3. It can provide context for code generation and validation
-
-
-# USDCodeGenNetworkNode
-
-## Overview
-
-The `USDCodeGenNetworkNode` is a specialized network node in the LC Agent USD module that focuses on advanced code generation for Universal Scene Description (USD).
-
-## Purpose
-
-The primary purpose of the `USDCodeGenNetworkNode` is to:
-
-1. Generate high-quality, executable USD code snippets
-2. Provide comprehensive validation and testing of generated code
-3. Fix and improve code through an iterative process
-4. Enhance code generation with retrieval-augmented generation (RAG)
-5. Support complex USD development tasks with specialized modifiers
-
-This node is designed for users who need production-ready USD code that follows best practices and is immediately executable.
-
-## Implementation Details
-
-### Class Definition
+### Network Integration Methods
 
 ```python
-class USDCodeGenNetworkNode(NetworkNode):
-    default_node: str = "USDCodeGenNode"
-    code_interpreter_hide_items: Optional[List[str]] = None
-
-    def __init__(
-        self,
-        show_stdout=True,
-        code_atlas_for_human: bool = False,
-        snippet_verification: bool = False,
-        snippet_language_check: bool = False,
-        use_code_fixer: bool = False,
-        retriever_name="usd_code06262024",
-        enable_code_interpreter=True,
-        enable_code_patcher=True,
-        max_network_length=5,
-        **kwargs
-    ):
-        """
-        Initialize the USDCodeGenNetworkNode.
-
-        Args:
-            show_stdout: Whether to show stdout output.
-            code_atlas_for_human: Whether to use code atlas for human messages.
-            snippet_verification: Whether verification of running of the code
-                                  snippet is needed. When False, all the snippets
-                                  are considered correct.
-            snippet_language_check: Whether to check the language tag of the snippet.
-            use_code_fixer: Whether to use the code fixer that produces diff.
-            retriever_name: Name of the retriever for RAG functionality.
-            enable_code_interpreter: Whether to enable code execution.
-            enable_code_patcher: Whether to enable code patching.
-            max_network_length: Maximum number of nodes in the network.
-        """
-        super().__init__(**kwargs)
-
-        if max_network_length:
-            self.add_modifier(NetworkLengthModifier(max_length=max_network_length))
-        self.add_modifier(
-            CodeExtractorModifier(
-                snippet_verification=snippet_verification, snippet_language_check=snippet_language_check
-            )
-        )
-        if enable_code_patcher:
-            self.add_modifier(USDCodeGenPatcherModifier())
-        # Note: USDCodeGenInterpreterModifier is commented out as it doesn't work in Linux/services
-        # Instead, CodeInterpreterModifier is used when enable_code_interpreter is True
-        if enable_code_interpreter:
-            self.add_modifier(
-                CodeInterpreterModifier(show_stdout=show_stdout, hide_items=self.code_interpreter_hide_items)
-            )
-        if use_code_fixer:
-            self.add_modifier(CodeFixerModifier())
-        if retriever_name:
-            self.add_modifier(USDCodeGenRagModifier(code_atlas_for_human, retriever_name=retriever_name))
+def on_before_node_added(self, network: RunnableNetwork) -> None
+def on_node_added(self, network: RunnableNetwork) -> None
+def on_before_node_removed(self, network: RunnableNetwork) -> None
+def on_node_removed(self, network: RunnableNetwork) -> None
 ```
+These methods are called during node lifecycle events in a network. They allow:
+- Custom initialization when added to a network
+- Cleanup when removed from a network
+- Network modifier registration/unregistration
+- State management in the network context
 
-The implementation:
-
-1. Extends `NetworkNode` from the core LC Agent framework
-2. Sets `USDCodeGenNode` as its default node type
-3. Provides extensive configuration options for code generation and validation
-4. Adds multiple specialized modifiers for different aspects of code generation
-
-### Configuration Options
-
-The `USDCodeGenNetworkNode` accepts numerous configuration options:
-
-1. **show_stdout**: Whether to display standard output from code execution
-2. **code_atlas_for_human**: Whether to use code atlas for human messages
-3. **snippet_verification**: Whether to verify code snippet execution
-4. **snippet_language_check**: Whether to check language tags in snippets
-5. **use_code_fixer**: Whether to use the diff-based code fixer
-6. **retriever_name**: Name of the retriever for RAG functionality
-7. **enable_code_interpreter**: Whether to enable code execution
-8. **enable_code_patcher**: Whether to enable code patching
-9. **max_network_length**: Maximum number of nodes in the network
-
-These options provide fine-grained control over the node's behavior.
-
-### Modifiers
-
-The `USDCodeGenNetworkNode` uses several specialized modifiers:
-
-1. **NetworkLengthModifier**: Controls the maximum length of the network
-2. **CodeExtractorModifier**: Extracts and validates code snippets
-3. **USDCodeGenPatcherModifier**: Patches and improves USD code
-4. **CodeInterpreterModifier**: Executes and validates code
-5. **CodeFixerModifier**: Fixes code issues with diff-based changes
-6. **USDCodeGenRagModifier**: Enhances code generation with RAG
-
-Each modifier addresses a specific aspect of the code generation process.
-
-## Advanced Code Generation Process
-
-The code generation process in `USDCodeGenNetworkNode` follows these steps:
-
-1. **Query Analysis**: The user's query is analyzed to understand requirements
-2. **Knowledge Retrieval**: Relevant USD documentation is retrieved via RAG
-3. **Code Generation**: Initial code is generated based on requirements and retrieved knowledge
-4. **Code Extraction**: Code snippets are extracted and prepared for validation
-5. **Code Validation**: The extracted code is validated for correctness
-6. **Code Execution**: If enabled, the code is executed to verify functionality
-7. **Error Analysis**: Any errors are analyzed to determine their causes
-8. **Code Patching**: Issues are fixed through the patching system
-9. **Iterative Improvement**: Steps 4-8 may repeat until the code is correct
-10. **Response Generation**: A final response is generated with the code and explanations
-
-This comprehensive process ensures high-quality, executable code.
-
-## Code Extraction and Validation
-
-The `CodeExtractorModifier` is a key component that:
-
-1. Identifies code blocks in the generated response
-2. Extracts the code from these blocks
-3. Validates the code structure and syntax
-4. Checks language tags for correctness
-5. Prepares the code for execution or patching
-
-This ensures that only valid code is processed further.
-
-## Code Patching System
-
-The `USDCodeGenPatcherModifier` provides advanced code patching:
-
-1. Analyzes errors in the generated code
-2. Identifies specific issues that need fixing
-3. Generates targeted patches for these issues
-4. Applies the patches to create improved code
-5. Validates the patched code to ensure it resolves the issues
-
-This system allows for iterative improvement of the generated code.
-
-## RAG Integration
-
-The `USDCodeGenRagModifier` enhances code generation with retrieval-augmented generation:
-
-1. Retrieves relevant USD documentation and examples
-2. Injects this information into the context before code generation
-3. Provides error-specific information when issues occur
-4. Ensures generated code follows USD best practices
-5. Improves code quality by grounding it in actual USD documentation
-
-## Integration with Other Components
-
-The `USDCodeGenNetworkNode` integrates with other components:
-
-1. It builds upon the foundation of `USDCodeNetworkNode`
-2. It uses the `USDCodeGenNode` as its default processing node
-3. It can be combined with `USDKnowledgeNetworkNode` for comprehensive assistance
-4. It leverages the RAG system for knowledge retrieval
-
-
-# USDCodeInteractiveNetworkNode
-
-## Overview
-
-The `USDCodeInteractiveNetworkNode` is a specialized network node in the LC Agent USD module that provides real-time interactive code development capabilities for Universal Scene Description (USD). It enables users to modify USD stages in real-time and work with USD assets in an interactive manner, offering a more dynamic and responsive development experience compared to the standard code generation nodes.
-
-## Purpose
-
-The primary purpose of the `USDCodeInteractiveNetworkNode` is to:
-
-1. Enable real-time modification of USD stages
-2. Provide interactive code development with immediate feedback
-3. Support importing and working with USD assets found through other tools
-4. Offer metafunction capabilities for common USD operations
-5. Enhance the development experience with specialized system messages and examples
-
-This node is designed for users who need a more interactive and dynamic approach to USD development, allowing them to iteratively build and modify USD scenes with immediate feedback.
-
-## Implementation Details
-
-### Class Definition
+### Metadata Access
 
 ```python
-class USDCodeInteractiveNetworkNode(NetworkNode):
-    """
-    "USD Code Interactive" node. Use it to modify USD stage in real-time and import assets that was found with another tools.
-    """
-
-    default_node: str = "USDCodeInteractiveNode"
-    code_interpreter_hide_items: Optional[List[str]] = None
-
-    def __init__(
-        self,
-        enable_code_atlas=True,
-        enable_metafunctions=True,
-        retriever_name=None,
-        usdcode_retriever_name=None,
-        **kwargs,
-    ):
-        super().__init__(**kwargs)
-
-        rag_top_k = self.find_metadata("rag_top_k")
-        rag_max_tokens = self.find_metadata("rag_max_tokens")
-
-        if enable_code_atlas or retriever_name:
-            self.add_modifier(
-                USDCodeGenRagModifier(
-                    code_atlas_for_human=enable_code_atlas,
-                    code_atlas_for_errors=enable_code_atlas,
-                    retriever_name=retriever_name,
-                    top_k=rag_top_k,
-                    max_tokens=rag_max_tokens,
-                )
-            )
-
-        # Metafunctions
-        if enable_metafunctions:
-            from ..modifiers.mf_rag_modifier import MFRagModifier
-
-            args = {}
-            if usdcode_retriever_name:
-                args["retriever_name"] = usdcode_retriever_name
-
-            self.add_modifier(
-                MFRagModifier(
-                    top_k=rag_top_k,
-                    max_tokens=rag_max_tokens,
-                    **args,
-                )
-            )
+def find_metadata(self, key: str) -> Any
 ```
+Searches for metadata in the following order:
+1. Node's own metadata
+2. Active network's metadata
+3. Returns `None` if not found
 
-The implementation:
+## Node Connections
 
-1. Extends `NetworkNode` from the core LC Agent framework
-2. Sets `USDCodeInteractiveNode` as its default node type
-3. Provides configuration options for code atlas and metafunctions
-4. Adds specialized modifiers for RAG and metafunction support
-
-### Configuration Options
-
-The `USDCodeInteractiveNetworkNode` accepts several configuration options:
-
-1. **enable_code_atlas**: Whether to enable code atlas for human messages and errors
-2. **enable_metafunctions**: Whether to enable metafunction support
-3. **retriever_name**: Name of the retriever for general RAG functionality
-4. **usdcode_retriever_name**: Name of the retriever for USD code-specific RAG
-
-These options allow customization of the interactive experience based on specific requirements.
-
-### Default Node
-
-The `USDCodeInteractiveNode` serves as the default processing node for this network. It:
-
-1. Extends `USDCodeGenNode` with interactive capabilities
-2. Loads specialized system messages for interactive development
-3. Supports configuration of default prim path, up axis, and selection
-4. Provides access to metafunctions for common USD operations
-
-## Metafunctions
-
-One of the key features of the `USDCodeInteractiveNetworkNode` is its support for metafunctions. These are pre-defined functions that:
-
-1. Provide high-level operations for common USD tasks
-2. Simplify complex USD operations into easy-to-use functions
-3. Enable rapid development without writing boilerplate code
-4. Offer consistent interfaces for USD operations
-
-The metafunctions are extracted from the `usdcode` module and made available to the node through the `MFRagModifier`.
-
-## System Messages
-
-The node uses specialized system messages to guide its behavior:
-
-### Identity
-
-The identity system message establishes the node as an interactive USD coding assistant that can modify USD stages in real-time.
-
-### Code Structure
-
-The code structure message provides guidance on how to structure USD code for interactive development, including:
-
-1. Proper import statements
-2. Stage creation and access
-3. Prim manipulation
-4. Material and shader setup
-5. Animation and transformation
-
-### Selection
-
-The selection message provides information about the current selection in the USD stage, allowing the node to operate on specific prims.
-
-### Examples
-
-The examples message provides comprehensive examples of interactive USD code, demonstrating:
-
-1. Creating and modifying prims
-2. Setting up materials and shaders
-3. Working with transformations
-4. Creating animations
-5. Using metafunctions for common tasks
-
-## RAG Integration
-
-The `USDCodeInteractiveNetworkNode` uses two types of RAG integration:
-
-1. **Code Atlas RAG**: Enhances responses with general USD documentation and examples
-2. **Metafunction RAG**: Provides information about available metafunctions and their usage
-
-This dual RAG approach ensures that the node has access to both general USD knowledge and specific information about metafunctions.
-
-
-# Modifiers in LC Agent USD
-
-## Overview
-
-Modifiers are a critical component of the LC Agent USD module, providing specialized functionality that extends and enhances the capabilities of network nodes. They intercept and modify the behavior of nodes at different stages of execution, enabling features like code execution, validation, patching, and knowledge retrieval.
-
-The LC Agent USD module includes a rich set of modifiers that address different aspects of USD development, from code generation to interactive development. These modifiers work together to create a comprehensive and powerful USD development assistant.
-
-## Core Modifier Types
-
-### RAG Modifiers
-
-Retrieval-Augmented Generation (RAG) modifiers enhance node responses by retrieving relevant information from knowledge bases:
-
-1. **USDKnowledgeRagModifier**: Enhances knowledge responses with USD documentation
-2. **USDCodeGenRagModifier**: Provides code-specific knowledge for code generation
-3. **MFRagModifier**: Retrieves information about metafunctions and their usage
-
-These modifiers ensure that responses are grounded in accurate USD documentation and best practices.
-
-### Code Execution Modifiers
-
-Code execution modifiers handle the execution and validation of generated code:
-
-1. **CodeInterpreterModifier**: Executes code and provides feedback on execution results
-2. **USDCodeGenInterpreterModifier**: Specialized interpreter for USD code execution
-
-These modifiers enable real-time validation of generated code, ensuring it works as expected.
-
-### Code Manipulation Modifiers
-
-Code manipulation modifiers handle the extraction, validation, and improvement of code:
-
-1. **CodeExtractorModifier**: Extracts code snippets from responses
-2. **CodeFixerModifier**: Fixes issues in generated code
-3. **USDCodeGenPatcherModifier**: Applies patches to improve USD code
-4. **CodePatcherModifier**: General-purpose code patching
-
-These modifiers work together to ensure high-quality, executable code.
-
-### Network Management Modifiers
-
-Network management modifiers control the behavior and structure of the network:
-
-1. **NetworkLengthModifier**: Limits the length of the network to prevent excessive iterations
-2. **USDCodeDefaultNodeModifier**: Sets up default nodes for USD code generation
-3. **JudgeModifier**: Evaluates the quality of generated code
-
-These modifiers ensure that the network operates efficiently and effectively.
-
-## Key Modifiers in Detail
-
-### CodeInterpreterModifier
-
-The `CodeInterpreterModifier` is responsible for executing code and providing feedback on the execution results. It:
-
-1. Extracts code snippets from AI responses
-2. Executes the code in a controlled environment
-3. Captures execution output and errors
-4. Creates appropriate response nodes based on execution results
-5. Provides detailed error information when execution fails
+### Connection Syntax
 
 ```python
-class CodeInterpreterModifier(NetworkModifier):
-    def __init__(
-        self,
-        show_stdout=True,
-        error_message: Optional[str] = None,
-        success_message: Optional[str] = None,
-        hide_items: Optional[List[str]] = None,
-        **kwargs,
-    ):
-        # Initialize with configuration options
-        
-    def _fix_before_run(self, code):
-        """Fixes the code before running it."""
-        return code
+# Forward connection
+node1 >> node2  # node2 receives output from node1
 
-    def _run(self, code):
-        """Run the code."""
-        code_interpreter_tool = CodeInterpreterTool(hide_items=self._hide_items)
-        execution_result = code_interpreter_tool._run(code)
-        return execution_result
+# Backward connection
+node2 << node1  # Equivalent to node1 >> node2
 
-    def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
-        # Execute code and handle results
+# Multiple parents
+[node1, node2] >> node3  # node3 receives from both nodes
+
+# Parent removal
+None >> node3  # Removes all parents from node3
+
+# Connection chain
+node1 >> node2 >> node3  # Creates a processing chain
 ```
 
-This modifier is crucial for providing immediate feedback on code quality and functionality.
+### Connection Rules
 
-### CodeExtractorModifier
+1. Only `RunnableNode` instances can be connected
+2. A node can have multiple parents
+3. Circular connections are not allowed
+4. Parent order affects message processing order
 
-The `CodeExtractorModifier` is responsible for extracting and validating code snippets from responses. It:
+## Data Flow
 
-1. Identifies code blocks in AI responses
-2. Extracts the code from these blocks
-3. Validates the code structure and syntax
-4. Checks language tags for correctness
-5. Prepares the code for execution or patching
+### Input Processing
+
+1. Parent Node Processing:
+   - All parent nodes are executed in order
+   - Parent outputs are collected
+   - Results are combined in execution order
+
+2. Input Transformation:
+   ```python
+   node = RunnableNode(inputs=[
+       SystemMessage(content="System instruction"),
+       lambda x: process_input(x),
+       ChatPromptTemplate.from_template("Template {var}")
+   ])
+   ```
+   Each input element is processed sequentially.
+
+3. Message Preparation:
+   - System messages are moved to the front
+   - Consecutive messages of the same type are merged
+   - Tool messages are grouped with their corresponding AI messages
+
+### Output Handling
+
+1. Storage:
+   ```python
+   node.outputs = model_response  # Stores the execution result
+   ```
+
+2. Metadata Recording:
+   ```python
+   node.metadata["token_usage"] = {
+       "total_tokens": count,
+       "prompt_tokens": prompt_count,
+       "completion_tokens": completion_count,
+       "tokens_per_second": rate,
+       "time_to_first_token": ttft
+   }
+   ```
+
+3. Child Node Triggering:
+   - Output becomes available to child nodes
+   - Network triggers child node execution if configured
+
+## Usage Examples
+
+### Basic Usage
 
 ```python
-class CodeExtractorModifier(NetworkModifier):
-    def __init__(
-        self,
-        snippet_verification=False,
-        shippet_language_check=False,
-        **kwargs,
-    ):
-        # Initialize with configuration options
-        
-    def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
-        # Extract and validate code snippets
+from lc_agent import RunnableNode, RunnableNetwork
+from langchain_core.messages import SystemMessage, HumanMessage
+
+# Create a simple conversation node
+with RunnableNetwork(chat_model_name="gpt-4") as network:
+    node = RunnableNode(inputs=[
+        SystemMessage(content="You are a helpful assistant"),
+        HumanMessage(content="What is Python?")
+    ])
+    
+    # Execute synchronously
+    result = node.invoke()
+    print(result.content)
 ```
 
-This modifier ensures that only valid code is processed further in the pipeline.
-
-### USDCodeGenRagModifier
-
-The `USDCodeGenRagModifier` enhances code generation with retrieval-augmented generation. It:
-
-1. Retrieves relevant USD documentation and examples
-2. Injects this information into the context before code generation
-3. Provides error-specific information when issues occur
-4. Ensures generated code follows USD best practices
+### Complex Network
 
 ```python
-class USDCodeGenRagModifier(SystemRagModifier):
-    def __init__(
-        self,
-        code_atlas_for_errors: bool = True,
-        code_atlas_for_human: bool = False,
-        retriever_name="usd_code06262024",
-        **kwargs
-    ):
-        # Initialize with configuration options
-        
-    def _inject_rag(self, network: RunnableNetwork, node: RunnableNode, question: str):
-        # Inject RAG functionality
+# Create a processing network
+with RunnableNetwork(chat_model_name="gpt-4") as network:
+    # Context node
+    context = RunnableNode(inputs=[
+        SystemMessage(content="You are analyzing data.")
+    ])
+    
+    # Data processing node
+    processor = RunnableNode(inputs=[
+        HumanMessage(content="Analyze this data: {data}")
+    ])
+    
+    # Result formatting node
+    formatter = RunnableNode(inputs=[
+        SystemMessage(content="Format the response as JSON")
+    ])
+    
+    # Connect nodes
+    context >> processor >> formatter
+    
+    # Execute the network
+    result = await network.ainvoke({"data": "sample data"})
 ```
 
-This modifier improves code quality by grounding it in actual USD documentation.
+## Metadata System
 
-### USDCodeGenPatcherModifier
-
-The `USDCodeGenPatcherModifier` provides advanced code patching for USD code. It:
-
-1. Analyzes errors in the generated code
-2. Identifies specific issues that need fixing
-3. Generates targeted patches for these issues
-4. Applies the patches to create improved code
-5. Validates the patched code to ensure it resolves the issues
+### Structure
 
 ```python
-class USDCodeGenPatcherModifier(NetworkModifier):
-    def __init__(self, **kwargs):
-        # Initialize the modifier
-        
-    def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
-        # Patch and improve code
+metadata = {
+    # Execution metrics
+    "token_usage": {
+        "total_tokens": int,
+        "prompt_tokens": int,
+        "completion_tokens": int,
+        "tokens_per_second": float,
+        "time_to_first_token": float,
+        "elapsed_time": float
+    },
+    
+    # Execution data
+    "chat_model_input": List[Dict],  # Processed input messages
+    "error": Optional[str],          # Error information
+    "invoke_input": Dict,            # Original input data
+    
+    # Custom data
+    "contribute_to_history": bool,   # History inclusion flag
+    "custom_field": Any             # User-defined metadata
+}
 ```
 
-This modifier enables iterative improvement of generated code, ensuring it meets quality standards.
-
-### MFRagModifier
-
-The `MFRagModifier` provides information about metafunctions for interactive development. It:
-
-1. Retrieves information about available metafunctions
-2. Injects this information into the context
-3. Helps users understand how to use metafunctions
-4. Provides examples of metafunction usage
+### Metadata Usage
 
 ```python
-class MFRagModifier(NetworkModifier):
-    def __init__(
-        self,
-        retriever_name=None,
-        top_k=None,
-        max_tokens=None,
-        **kwargs,
-    ):
-        # Initialize with configuration options
-        
-    def on_pre_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
-        # Inject metafunction information
+# Access metadata after execution
+node = RunnableNode()
+result = node.invoke()
+
+# Get execution metrics
+token_usage = node.metadata["token_usage"]
+print(f"Total tokens: {token_usage['total_tokens']}")
+
+# Check for errors
+if "error" in node.metadata:
+    print(f"Error occurred: {node.metadata['error']}")
+
+# Access network-level metadata
+network_data = node.find_metadata("network_config")
 ```
-
-This modifier is crucial for the interactive development experience, enabling users to leverage pre-defined functions for common tasks.
-
-## Modifier Interactions
-
-The modifiers in the LC Agent USD module work together in a coordinated pipeline:
-
-1. **Pre-Invoke Phase**:
-   - RAG modifiers inject relevant knowledge
-   - MFRagModifier provides metafunction information
-
-2. **Post-Invoke Phase**:
-   - CodeExtractorModifier extracts code snippets
-   - CodeInterpreterModifier executes the code
-   - USDCodeGenPatcherModifier patches issues
-   - NetworkLengthModifier controls iteration count
-
-This pipeline ensures that each aspect of USD development is handled by specialized components working together.
-
-## Customizing Modifiers
-
-Modifiers can be customized in several ways:
-
-1. **Configuration Options**: Most modifiers accept configuration options in their constructors
-2. **Selective Enabling**: Network nodes can selectively enable or disable modifiers
-3. **Custom Implementations**: New modifiers can be created by extending `NetworkModifier`
-4. **Modifier Ordering**: The order of modifiers can be controlled through priority settings
-
-Example of customizing modifiers:
-
-```python
-# Create a network node with custom modifier configuration
-node = USDCodeGenNetworkNode(
-    show_stdout=True,              # Show execution output
-    snippet_verification=True,     # Verify code snippets
-    use_code_fixer=True,           # Use the code fixer
-    retriever_name="custom_retriever"  # Use a custom retriever
-)
-
-# Add a custom modifier with specific priority
-node.add_modifier(CustomModifier(), priority=100)
-```
-
-## Performance Considerations
-
-When working with modifiers, consider:
-
-1. **Modifier Stack**: Each additional modifier increases processing time
-2. **RAG Operations**: Knowledge retrieval adds latency but improves quality
-3. **Code Execution**: Running code validation increases response time
-4. **Error Handling**: Complex error handling in modifiers can impact performance
-
-To optimize performance:
-
-1. Only enable necessary modifiers
-2. Configure RAG modifiers with appropriate token limits
-3. Use network length modifiers to prevent excessive iterations
-4. Consider disabling code execution for simple queries
 
 ## Best Practices
 
-When working with modifiers in the LC Agent USD module:
+1. **Node Design**
+   - Keep nodes focused on single responsibilities
+   - Use appropriate message types
+   - Handle errors through metadata
+   - Document custom behavior
 
-1. **Understand the Pipeline**: Know how modifiers interact in the execution pipeline
-2. **Configure Appropriately**: Set appropriate configuration options for your use case
-3. **Selective Enabling**: Only enable modifiers that are necessary for your task
-4. **Error Handling**: Ensure proper error handling in custom modifiers
-5. **Testing**: Test modifier combinations to ensure they work together effectively
+2. **Network Integration**
+   - Use context managers (`with` statements)
+   - Implement lifecycle hooks when needed
+   - Clean up resources in removal hooks
+   - Maintain clear parent-child relationships
 
-## Example: Complete Modifier Stack
+3. **Performance**
+   - Monitor token usage through metadata
+   - Use streaming for long responses
+   - Implement message culling for long conversations
+   - Track execution metrics
 
-Here's an example of a complete modifier stack for advanced USD code generation:
+4. **Error Handling**
+   - Check metadata for errors
+   - Implement recovery strategies
+   - Use verbose mode for debugging
+   - Maintain error context in metadata
+
+## Execution Process
+
+### Overview
+
+The execution process in `RunnableNode` follows a carefully orchestrated sequence of steps to handle message processing, model interaction, and state management. Both synchronous (`invoke`) and asynchronous (`ainvoke`) methods follow the same core logic with their respective execution patterns.
+
+### Execution Steps
+
+1. **Pre-Invocation Setup**
+   ```python
+   def _pre_invoke(self, input: Dict[str, Any], config: Optional[RunnableConfig], **kwargs):
+       # Prepare node for invocation
+       pass
+   ```
+   - Initializes execution state
+   - Validates input parameters
+   - Sets up execution context
+
+2. **Cached Result Check**
+   ```python
+   if self.invoked or self.outputs is not None:
+       self.invoked = True
+       return self.outputs
+   ```
+   - Checks if node was previously executed
+   - Returns cached results if available
+   - Prevents redundant execution
+
+3. **Token Counter Setup**
+   ```python
+   count_tokens = CountTokensCallbackHandler()
+   config = self._get_config(config, count_tokens)
+   ```
+   - Initializes token counting
+   - Configures callback handlers
+   - Sets up performance tracking
+
+4. **Parent Node Processing**
+   ```python
+   parents_result = self._process_parents(input, config, **kwargs)  # or _aprocess_parents for async
+   ```
+   - Executes parent nodes in sequence
+   - Collects parent outputs
+   - Maintains execution order
+
+5. **Input Combination**
+   ```python
+   chat_model_input = self._combine_inputs(input, config, parents_result, **kwargs)
+   ```
+   - Merges parent results
+   - Processes input transformations
+   - Prepares model input
+
+6. **Chat Model Setup**
+   ```python
+   chat_model_name = self._get_chat_model_name(chat_model_input, input, config)
+   chat_model = self._get_chat_model(chat_model_name, chat_model_input, input, config)
+   ```
+   - Determines model to use
+   - Retrieves model instance
+   - Configures model parameters
+
+7. **Message Sanitization**
+   ```python
+   chat_model_input = self._sanitize_messages_for_chat_model(chat_model_input, chat_model_name, chat_model)
+   ```
+   - Formats messages for model
+   - Handles tool messages
+   - Ensures compatibility
+
+8. **Token Management**
+   ```python
+   max_tokens = get_chat_model_registry().get_max_tokens(chat_model_name)
+   if max_tokens is not None and tokenizer is not None:
+       chat_model_input = _cull_messages(chat_model_input, max_tokens, tokenizer)
+   ```
+   - Checks token limits
+   - Culls messages if needed
+   - Maintains context window
+
+9. **Model Execution**
+   ```python
+   result = self._invoke_chat_model(chat_model, chat_model_input, input, config, **kwargs)
+   # or
+   result = await self._ainvoke_chat_model(chat_model, chat_model_input, input, config, **kwargs)
+   ```
+   - Executes language model
+   - Handles responses
+   - Processes outputs
+
+10. **Metadata Recording**
+    ```python
+    self.metadata["token_usage"] = {
+        "total_tokens": count_tokens.total_tokens,
+        "prompt_tokens": count_tokens.prompt_tokens,
+        "completion_tokens": count_tokens.completion_tokens,
+        "tokens_per_second": count_tokens.tokens_per_second_with_ttf,
+        "time_to_first_token": count_tokens.time_to_first_token,
+        "elapsed_time": count_tokens.elapsed_time
+    }
+    ```
+    - Records performance metrics
+    - Stores token usage
+    - Tracks timing information
+
+11. **State Update**
+    ```python
+    self.outputs = result
+    self.invoked = True
+    ```
+    - Caches execution result
+    - Updates node state
+    - Marks completion
+
+### Execution Methods
+
+#### `invoke` (Synchronous)
+```python
+def invoke(
+    self,
+    input: Dict[str, Any] = {},
+    config: Optional[RunnableConfig] = None,
+    **kwargs: Any,
+) -> Union[List[OutputType], OutputType]
+```
+- Blocks until completion
+- Processes steps sequentially
+- Returns final result
+- Suitable for simple interactions
+
+#### `ainvoke` (Asynchronous)
+```python
+async def ainvoke(
+    self,
+    input: Dict[str, Any] = {},
+    config: Optional[RunnableConfig] = None,
+    **kwargs: Any,
+) -> Union[List[OutputType], OutputType]
+```
+- Non-blocking execution
+- Allows concurrent operations
+- Returns final result asynchronously
+- Better for long-running operations
+
+### Error Handling
+
+1. **Exception Capture**
+   ```python
+   try:
+       # Execution steps
+   except BaseException as e:
+       self.metadata["error"] = str(e)
+       raise
+   ```
+   - Captures all exceptions
+   - Records error in metadata
+   - Preserves stack trace
+
+2. **State Preservation**
+   - Maintains node state on error
+   - Allows error recovery
+   - Enables debugging
+
+### Performance Tracking
+
+1. **Token Usage**
+   - Total tokens used
+   - Prompt vs completion tokens
+   - Token rate metrics
+
+2. **Timing Metrics**
+   - Time to first token
+   - Total execution time
+   - Tokens per second
+
+3. **Model Performance**
+   - Model-specific metrics
+   - Response latency
+   - Throughput statistics
+
+
+# RunnableNetwork
+
+## Overview
+
+`RunnableNetwork` is a core component in the LC Agent framework that manages the execution and interaction of `RunnableNode` instances. It inherits from LangChain's `RunnableSerializable` class and provides a context-managed environment for creating, executing, and modifying networks of nodes.
+
+## Purpose
+
+The `RunnableNetwork` solves several key problems in managing language model interactions:
+
+1. **Network Management**: Provides a structured way to create and manage networks of processing nodes.
+2. **Execution Control**: Manages the execution flow between connected nodes, ensuring proper order and data propagation.
+3. **State Management**: Maintains network state and provides context for node operations.
+4. **Runtime Modification**: Enables dynamic modification of the network during execution through modifiers.
+
+## Core Components
+
+### Class Definition
 
 ```python
-# Create a network node with a comprehensive modifier stack
-node = USDCodeGenNetworkNode()
+class RunnableNetwork(RunnableSerializable[Input, Output], UUIDMixin):
+    nodes: List[RunnableNode]           # List of nodes in the network
+    modifiers: Dict                     # Network behavior modifiers
+    callbacks: Dict                     # Event callbacks
+    default_node: str                   # Default node type for auto-creation
+    chat_model_name: Optional[str]      # Default language model
+    metadata: Dict[str, Any]            # Network-level metadata
+    verbose: bool                       # Debug output control
+```
 
-# Network management
-node.add_modifier(NetworkLengthModifier(max_length=5))
+### Network Events
 
-# Code extraction and validation
-node.add_modifier(CodeExtractorModifier(snippet_verification=True))
+```python
+class Event(enum.Enum):
+    ALL = 0                  # All events
+    NODE_ADDED = 1          # Node added to network
+    NODE_INVOKED = 2        # Node execution completed
+    NODE_REMOVED = 3        # Node removed from network
+    CONNECTION_ADDED = 4    # Connection created between nodes
+    CONNECTION_REMOVED = 5  # Connection removed
+    METADATA_CHANGED = 6    # Metadata updated
+```
 
-# Knowledge enhancement
-node.add_modifier(USDCodeGenRagModifier(code_atlas_for_human=True))
+### Parent Modes
 
-# Code execution and patching
-node.add_modifier(CodeInterpreterModifier(show_stdout=True))
-node.add_modifier(USDCodeGenPatcherModifier())
-node.add_modifier(CodeFixerModifier())
+```python
+class ParentMode(enum.Enum):
+    NONE = 0    # No parent connection
+    LEAF = 1    # Connect to leaf nodes
+```
 
-# Quality evaluation
-node.add_modifier(JudgeModifier())
+## Public Methods
+
+### Network Management
+
+#### Node Addition
+```python
+def add_node(
+    self,
+    node: RunnableNode,
+    parent: Optional[Union[RunnableNode, List[RunnableNode], ParentMode]] = ParentMode.LEAF
+) -> RunnableNode
+```
+Adds a node to the network with optional parent connections:
+- Automatically connects to leaf nodes if no parent specified
+- Supports multiple parent connections
+- Triggers node lifecycle events
+- Returns the added node
+
+#### Node Removal
+```python
+def remove_node(self, node: RunnableNode) -> None
+```
+Removes a node from the network:
+- Reconnects child nodes to the removed node's parents
+- Triggers node lifecycle events
+- Updates network structure
+
+### Node Relationships
+
+#### Parent Access
+```python
+def get_parents(self, node: RunnableNode) -> List[RunnableNode]
+def get_all_parents(self, node: RunnableNode) -> List[RunnableNode]
+```
+Retrieves parent nodes:
+- `get_parents`: Direct parents only
+- `get_all_parents`: All ancestors in the hierarchy
+
+#### Child Access
+```python
+def get_children(self, node: RunnableNode) -> List[RunnableNode]
+def get_all_children(self, node: RunnableNode) -> List[RunnableNode]
+```
+Retrieves child nodes:
+- `get_children`: Direct children only
+- `get_all_children`: All descendants in the hierarchy
+
+#### Network Structure
+```python
+def get_root_nodes(self) -> List[RunnableNode]
+def get_leaf_nodes(self, unevaluated_only: bool = False) -> List[RunnableNode]
+def get_sorted_nodes(self) -> List[RunnableNode]
+```
+Network traversal methods:
+- `get_root_nodes`: Nodes without parents
+- `get_leaf_nodes`: Nodes without children
+- `get_sorted_nodes`: Topologically sorted nodes
+
+### Execution Methods
+
+#### Synchronous Execution
+```python
+def invoke(
+    self,
+    input: Dict[str, Any] = {},
+    config: Optional[RunnableConfig] = None,
+    **kwargs: Any
+) -> Any
+```
+Executes the network synchronously:
+- Processes nodes in topological order
+- Applies modifiers during execution
+- Returns final output
+
+#### Asynchronous Execution
+```python
+async def ainvoke(
+    self,
+    input: Dict[str, Any] = {},
+    config: Optional[RunnableConfig] = None,
+    **kwargs: Any
+) -> Any
+```
+Asynchronous version of `invoke`.
+
+#### Streaming Execution
+```python
+async def astream(
+    self,
+    input: Input = {},
+    config: Optional[RunnableConfig] = None,
+    **kwargs: Optional[Any]
+) -> AsyncIterator[Output]
+```
+Streams network execution results:
+- Yields results as they become available
+- Supports real-time processing
+- Maintains execution order
+
+### Network Modification
+
+#### Modifier Management
+```python
+def add_modifier(
+    self, 
+    modifier: NetworkModifier,
+    once: bool = False,
+    priority: Optional[int] = None
+) -> int
+```
+Adds network behavior modifiers:
+- Returns modifier ID for later reference
+- Optional single instance enforcement
+- Priority-based execution order
+
+```python
+def remove_modifier(self, modifier_id: int) -> None
+```
+Removes a modifier by ID.
+
+#### Event Management
+```python
+def set_event_fn(
+    self,
+    callable: Callable[["Event", "Payload"], None],
+    event: "Event" = Event.ALL,
+    priority: int = 100
+) -> int
+```
+Registers event callbacks:
+- Supports specific or all events
+- Priority-based execution
+- Returns callback ID
+
+```python
+def remove_event_fn(self, event_id: int) -> None
+```
+Removes an event callback by ID.
+
+## Data Flow
+
+### Execution Flow
+
+1. **Network Initialization**:
+   ```python
+   with RunnableNetwork(chat_model_name="model-name") as network:
+       # Network setup
+   ```
+
+2. **Node Processing**:
+   - Nodes are processed in topological order
+   - Each node is executed only once
+   - Results propagate through connections
+
+3. **Modifier Application**:
+   ```python
+   # Execution phases
+   self._modifier_begin_invoke()
+   for node in sorted_nodes:
+       self._modifier_pre_invoke(node)
+       node.invoke()
+       self._modifier_post_invoke(node)
+   self._modifier_end_invoke()
+   ```
+
+### Event Flow
+
+1. **Event Generation**:
+   - Network operations trigger events
+   - Events include relevant payload data
+
+2. **Event Processing**:
+   ```python
+   self._event_callback(RunnableNetwork.Event.NODE_ADDED, {
+       "node": node,
+       "network": self
+   })
+   ```
+
+3. **Callback Execution**:
+   - Callbacks execute in priority order
+   - Event-specific and global handlers
+
+## Execution Process
+
+### Overview
+
+The execution process in `RunnableNetwork` follows a specific sequence to ensure proper message flow and node execution. Whether using `invoke`, `ainvoke`, or `astream`, the core process remains the same, with variations in synchronicity and output handling.
+
+### Execution Steps
+
+1. **Network State Verification**
+   ```python
+   if len(self.nodes) != len(self._node_set):
+       self.__restore_node_set()
+   ```
+   - Verifies network integrity
+   - Restores node set if needed
+   - Ensures all nodes are properly tracked
+
+2. **Context Management**
+   ```python
+   with self:  # or async with self:
+       # Execution happens here
+   ```
+   - Establishes network context
+   - Manages active network stack
+   - Ensures proper cleanup
+
+3. **Node Sorting**
+   ```python
+   nodes = self.get_sorted_nodes()  # Topological sort
+   ```
+   - Orders nodes based on dependencies
+   - Ensures parents execute before children
+   - Maintains proper message flow
+
+4. **Execution Loop**
+   ```python
+   while True:
+       nodes = self.get_sorted_nodes()
+       invoked = False
+       for node in nodes:
+           if node.invoked:
+               continue
+           # Node execution
+           invoked = True
+       if not invoked:
+           break
+   ```
+   - Processes nodes until no more can be executed
+   - Skips already invoked nodes
+   - Handles dynamic node addition
+
+5. **Node Execution Process**
+   - **Pre-invoke Phase**:
+     ```python
+     self._modifier_pre_invoke(node)
+     ```
+     - Applies modifiers before execution
+     - Prepares node state
+     - Handles setup requirements
+
+   - **Execution Phase**:
+     ```python
+     result = node.invoke(input, config, **kwargs)  # or ainvoke/astream
+     ```
+     - Processes node inputs
+     - Interacts with language model
+     - Generates node output
+
+   - **Post-invoke Phase**:
+     ```python
+     self._modifier_post_invoke(node)
+     ```
+     - Applies post-execution modifiers
+     - Updates network state
+     - Handles tool calls or special outputs
+
+### Execution Methods
+
+#### `invoke` (Synchronous)
+```python
+result = network.invoke(input={...})
+```
+- Blocks until complete execution
+- Returns final result
+- Suitable for simple interactions
+- Used when immediate response needed
+
+#### `ainvoke` (Asynchronous)
+```python
+result = await network.ainvoke(input={...})
+```
+- Non-blocking execution
+- Returns final result asynchronously
+- Better for long-running operations
+- Prevents blocking event loop
+
+#### `astream` (Streaming)
+```python
+async for chunk in network.astream(input={...}):
+    print(chunk.content)
+```
+- Streams results as they arrive
+- Yields partial results
+- Ideal for real-time display
+- Supports progressive output
+
+### Modifier Integration
+
+1. **Begin Phase**
+   ```python
+   self._modifier_begin_invoke()
+   ```
+   - Initializes modifier state
+   - Prepares network for execution
+   - Sets up execution context
+
+2. **Node-level Phases**
+   ```python
+   self._modifier_pre_invoke(node)   # Before each node
+   node.invoke()                     # Node execution
+   self._modifier_post_invoke(node)  # After each node
+   ```
+   - Per-node modifier application
+   - Allows node transformation
+   - Handles special cases (e.g., tools)
+
+3. **End Phase**
+   ```python
+   self._modifier_end_invoke()
+   ```
+   - Cleanup operations
+   - Final state updates
+   - Resource management
+
+### Event Generation
+
+During execution, events are generated at key points:
+```python
+self._event_callback(RunnableNetwork.Event.NODE_INVOKED, {
+    "node": node,
+    "network": self
+})
+```
+- Node invocation events
+- Modification events
+- State change events
+
+### Error Handling
+
+1. **Node Errors**
+   - Errors stored in node metadata
+   - Propagated to network level
+   - Available for error recovery
+
+2. **Network Errors**
+   - Context manager ensures cleanup
+   - Modifier errors handled gracefully
+   - Network state preserved
+
+### Performance Considerations
+
+1. **Memory Management**
+   - Nodes retain outputs
+   - Message history accumulates
+   - Consider culling for long conversations
+
+2. **Execution Order**
+   - Topological sorting overhead
+   - Parent-child relationship impact
+   - Modifier execution cost
+
+3. **Streaming Efficiency**
+   - Chunk size considerations
+   - Network latency effects
+   - Buffer management
+
+## Usage Examples
+
+### Important Note About Node Creation
+
+When creating nodes inside a `RunnableNetwork` context (using `with` statement), nodes are automatically connected to the leaf nodes of the network. You DO NOT need to manually connect them using `>>` or `<<` operators. The network handles this automatically.
+
+### Basic Network
+
+```python
+from lc_agent import RunnableNetwork, RunnableNode, RunnableHumanNode
+from langchain_core.messages import SystemMessage, HumanMessage
+
+# Nodes are automatically connected in creation order
+with RunnableNetwork(chat_model_name="gpt-4") as network:
+    # Human message uses dedicated RunnableHumanNode
+    RunnableHumanNode("What is Python?")
+    
+    # System message node is created second
+    RunnableNode(inputs=[
+        SystemMessage(content="You are a helpful assistant")
+    ])
+    
+    # No manual connections needed - they are automatic
+    result = network.invoke()
+```
+
+### System Message Example
+
+```python
+from lc_agent import RunnableNetwork, RunnableHumanNode, RunnableNode
+from langchain_core.messages import SystemMessage
+
+with RunnableNetwork(default_node="RunnableNode", chat_model_name="gpt-4") as network:
+    # Human message comes first
+    RunnableHumanNode("Who are you?")
+    
+    # System message is automatically connected after human message
+    RunnableNode(outputs=SystemMessage(content="You are a dog. Answer like a dog. Woof woof!"))
+```
+
+### Manual Connections
+
+Manual connections using `>>` and `<<` operators should ONLY be used when:
+1. Creating nodes outside the network context
+2. Needing custom connection patterns that differ from the default leaf-node connection
+3. Modifying connections after node creation
+
+```python
+# Manual connections example - ONLY when needed
+network = RunnableNetwork(chat_model_name="gpt-4")
+
+# Nodes created outside network context need manual connection
+node1 = RunnableNode(inputs=[...])
+node2 = RunnableNode(inputs=[...])
+node1 >> node2
+
+network.add_node(node1)
+network.add_node(node2)
 ```
 
 
-# Implementation
 
-## usd_knowledge_network_node.py
+# NetworkModifier
+
+## Overview
+
+`NetworkModifier` is a core component in the LC Agent framework that provides a safe and controlled way to modify network behavior and structure during execution. It acts as a middleware layer that can intercept and modify network execution at specific points in the execution lifecycle.
+
+## Purpose
+
+The `NetworkModifier` solves several key problems in network execution:
+
+1. **Safe Network Modification**: Provides the only valid way to modify network structure and behavior during execution, preventing conflicts and race conditions.
+2. **Execution Lifecycle Hooks**: Offers hooks into different stages of network execution for custom behavior.
+3. **State Management**: Enables tracking and modification of network state in a controlled manner.
+4. **Dynamic Network Evolution**: Allows networks to evolve and adapt based on execution results.
+
+## Core Components
+
+### Class Definition
 
 ```python
-from .modifiers.usd_knowledge_rag_modifier import USDKnowledgeRagModifier
-from lc_agent import NetworkNode
+class NetworkModifier:
+    def on_begin_invoke(self, network: "RunnableNetwork") -> None:
+        """Called at the start of network execution"""
+        pass
+
+    def on_pre_invoke(self, network: "RunnableNetwork", node: "RunnableNode") -> None:
+        """Called before each node execution"""
+        pass
+
+    def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode") -> None:
+        """Called after each node execution"""
+        pass
+
+    def on_end_invoke(self, network: "RunnableNetwork") -> None:
+        """Called at the end of network execution"""
+        pass
+
+    async def on_begin_invoke_async(self, network: "RunnableNetwork") -> None:
+        """Async version of on_begin_invoke"""
+        return self.on_begin_invoke(network)
+
+    async def on_pre_invoke_async(self, network: "RunnableNetwork", node: "RunnableNode") -> None:
+        """Async version of on_pre_invoke"""
+        return self.on_pre_invoke(network, node)
+
+    async def on_post_invoke_async(self, network: "RunnableNetwork", node: "RunnableNode") -> None:
+        """Async version of on_post_invoke"""
+        return self.on_post_invoke(network, node)
+
+    async def on_end_invoke_async(self, network: "RunnableNetwork") -> None:
+        """Async version of on_end_invoke"""
+        return self.on_end_invoke(network)
+```
+
+## Execution Lifecycle
+
+### 1. Begin Invoke
+- Called once at the start of network execution
+- Used for network-wide initialization
+- Can set up initial network state
+- Example: Creating initial nodes in an empty network
+
+```python
+def on_begin_invoke(self, network: "RunnableNetwork"):
+    if not network.nodes:
+        # Initialize empty network with starting nodes
+        with network:
+            RunnableHumanNode("Initial prompt")
+```
+
+### 2. Pre-Invoke
+- Called before each node execution
+- Can modify node before execution
+- Access to node's inputs and configuration
+- Example: Adding RAG content to system prompts
+
+```python
+def on_pre_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+    if isinstance(node, RunnableAINode):
+        # Add retrieval content to system prompt
+        retrieval_results = self._get_relevant_content(node)
+        node.inputs.insert(1, retrieval_results)
+```
+
+### 3. Post-Invoke
+- Called after each node execution
+- Can process node results
+- Can create new nodes based on output
+- Most common point for network modification
+- Example: Processing tool calls from AI output
+
+```python
+def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+    if (node.invoked and 
+        isinstance(node.outputs, AIMessage) and 
+        node.outputs.tool_calls and 
+        not network.get_children(node)):
+        
+        # Create tool nodes for each tool call
+        for tool_call in node.outputs.tool_calls:
+            tool_node = RunnableToolNode(tool_call)
+            node >> tool_node
+```
+
+### 4. End Invoke
+- Called once at the end of network execution
+- Used for cleanup and final processing
+- Can perform network-wide operations
+- Example: Cleaning up temporary resources
+
+```python
+def on_end_invoke(self, network: "RunnableNetwork"):
+    # Cleanup temporary resources
+    self._cleanup_resources()
+    # Reset network state
+    self._reset_state()
+```
+
+## Common Modifier Patterns
+
+### 1. Node Creation and Connection
+```python
+def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+    with network:
+        # Create new node
+        new_node = RunnableNode(...)
+        # Connect to current node
+        node >> new_node
+```
+
+### 2. Branch Creation
+```python
+def create_branch(self, network: "RunnableNetwork", node: "RunnableNode", data):
+    with network:
+        # Create branch starting node
+        branch_start = RunnableHumanNode(data["prompt"])
+        # Connect to parent
+        node >> branch_start
+        # Add branch nodes
+        branch_start >> RunnableNode(data["system_message"])
+```
+
+### 3. Node Metadata Management
+```python
+def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+    # Update node metadata
+    node.metadata["processed"] = True
+    node.metadata["execution_time"] = time.time() - start_time
+```
+
+### 4. Conditional Network Modification
+```python
+def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+    if node.invoked and not network.get_children(node):
+        if "error" in node.metadata:
+            # Create error handling branch
+            self._create_error_branch(network, node)
+        else:
+            # Create success branch
+            self._create_success_branch(network, node)
+```
+
+## Common Use Cases
+
+### 1. Tool Handling
+Used to process tool calls from AI responses and create appropriate tool nodes:
+```python
+class ToolModifier(NetworkModifier):
+    def __init__(self, tools: List[BaseTool]):
+        self.tools = {tool.name: tool for tool in tools}
+
+    def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+        if (node.invoked and 
+            isinstance(node.outputs, AIMessage) and 
+            node.outputs.tool_calls):
+            
+            for tool_call in node.outputs.tool_calls:
+                tool = self.tools.get(tool_call["name"])
+                if tool:
+                    result = tool.invoke(tool_call["args"])
+                    tool_node = RunnableToolNode(result)
+                    node >> tool_node
+```
+
+### 2. RAG Integration
+Adds retrieval-augmented generation content to nodes:
+```python
+class RAGModifier(NetworkModifier):
+    def __init__(self, retriever):
+        self.retriever = retriever
+
+    def on_pre_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+        if isinstance(node, RunnableAINode):
+            # Get relevant content
+            context = self.retriever.get_relevant_docs(node.inputs)
+            # Add to node inputs
+            node.inputs.insert(1, context)
+```
+
+### 3. Code Processing
+Handles code execution and error management:
+```python
+class CodeInterpreterModifier(NetworkModifier):
+    def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+        if node.invoked and isinstance(node.outputs, AIMessage):
+            code = self._extract_code(node.outputs.content)
+            result = self._execute_code(code)
+            
+            if "error" in result:
+                self._create_error_node(network, node, result)
+            else:
+                self._create_success_node(network, node, result)
+```
+
+### 4. Classification and Routing
+Routes messages based on classification results:
+```python
+class ClassificationModifier(NetworkModifier):
+    def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+        if isinstance(node, ClassificationNode) and node.invoked:
+            result = self._parse_classification(node.outputs)
+            if result:
+                self._route_to_appropriate_node(network, node, result)
+```
+
+## Best Practices
+
+1. **Safe Network Modification**
+   - Never modify network outside modifier methods
+   - Keep modifications atomic and self-contained
+
+2. **State Management**
+   - Use node metadata for state tracking
+   - Avoid global state in modifiers
+   - Clean up temporary state in `on_end_invoke`
+
+3. **Error Handling**
+   - Handle errors gracefully in modifiers
+   - Create appropriate error branches
+   - Maintain network stability during errors
+
+4. **Performance**
+   - Minimize expensive operations in modifiers
+   - Cache results when possible
+   - Use async methods for I/O operations
+
+5. **Modifier Design**
+   - Keep modifiers focused on single responsibility
+   - Make modifiers composable
+   - Document modifier behavior and requirements
+
+## Common Pitfalls
+
+1. **Race Conditions**
+   ```python
+   # BAD: Accessing shared state without synchronization
+   self.global_counter += 1
+   
+   # GOOD: Use node metadata
+   node.metadata["counter"] = node.metadata.get("counter", 0) + 1
+   ```
+
+2. **Infinite Loops**
+   ```python
+   # BAD: Creating nodes without termination condition
+   def on_post_invoke(self, network, node):
+       node >> RunnableNode()  # Will create nodes infinitely
+   
+   # GOOD: Check conditions
+   def on_post_invoke(self, network, node):
+       if not network.get_children(node) and some_condition:
+           node >> RunnableNode()
+   ```
+
+## Integration with RunnableNetwork
+
+### Modifier Registration
+
+Modifiers are registered with the network using the `add_modifier` method:
+
+```python
+network.add_modifier(modifier: NetworkModifier, once: bool = False, priority: Optional[int] = None) -> int
+```
+
+- `once`: When True, prevents duplicate modifiers of the same type
+- `priority`: Determines execution order (lower numbers execute first)
+- Returns modifier ID for later removal
+
+Example:
+```python
+# Add a modifier with priority
+network.add_modifier(RAGModifier(retriever), priority=100)
+
+# Add a singleton modifier
+network.add_modifier(CodeInterpreterModifier(), once=True)
+```
+
+### Modifier Execution Order
+
+1. Modifiers are executed in priority order (lower numbers first)
+2. For each execution phase (begin/pre/post/end), all modifiers are called in sequence
+3. New modifiers added during execution are included in subsequent phases
+4. Default modifier (priority -100) is always added to new networks
+
+### Network State Management
+
+1. **Active Network Stack**
+   ```python
+   # Get current active network
+   current = RunnableNetwork.get_active_network()
+   
+   # Get all active networks (most recent first)
+   for network in RunnableNetwork.get_active_networks():
+       # Process network
+   ```
+
+2. **Network Context**
+   ```python
+   # Network context ensures proper modifier execution
+   with network:
+       # Modifiers will be called for nodes created here
+       node = RunnableNode(...)
+   ```
+
+## Modifier Composition
+
+### Chaining Modifiers
+
+Multiple modifiers can work together to create complex behaviors:
+
+```python
+# Add modifiers in desired execution order
+network.add_modifier(RAGModifier(retriever), priority=100)      # Add context first
+network.add_modifier(ToolModifier(tools), priority=200)         # Process tools second
+network.add_modifier(CodeInterpreterModifier(), priority=300)   # Execute code last
+```
+
+### Modifier Communication
+
+Modifiers can communicate through node metadata:
+
+```python
+class FirstModifier(NetworkModifier):
+    def on_post_invoke(self, network, node):
+        node.metadata["processed_by_first"] = True
+        node.metadata["shared_data"] = {"key": "value"}
+
+class SecondModifier(NetworkModifier):
+    def on_post_invoke(self, network, node):
+        if node.metadata.get("processed_by_first"):
+            shared_data = node.metadata.get("shared_data", {})
+            # Use shared data
+```
+
+### Modifier Dependencies
+
+When modifiers depend on each other:
+
+```python
+class DependentModifier(NetworkModifier):
+    def __init__(self, required_modifier_type):
+        self.required_type = required_modifier_type
+
+    def on_begin_invoke(self, network):
+        # Check if required modifier exists
+        modifier_id = network.get_modifier_id(self.required_type)
+        if modifier_id is None:
+            # Add required modifier
+            network.add_modifier(self.required_type(), priority=self._get_priority() - 1)
+```
+
+## Advanced Patterns
+
+### Conditional Execution
+
+```python
+class ConditionalModifier(NetworkModifier):
+    def on_post_invoke(self, network, node):
+        if not self._should_process(node):
+            return
+        
+        # Process node
+        self._process_node(network, node)
+
+    def _should_process(self, node):
+        return (node.invoked and 
+                not node.metadata.get("processed") and
+                isinstance(node.outputs, AIMessage))
+```
+
+**Important:** All modifications to the network's structure and node state must be performed exclusively via `NetworkModifier` implementations. Direct modifications—such as manually changing the contents of `RunnableNetwork.nodes`, altering node connections with operators (e.g. using >>) outside of modifier hooks, or directly updating node metadata from outside modifier methods—are strictly prohibited. This design ensures consistency, prevents race conditions, and avoids unexpected behavior during execution.
+
+## Critical: Preventing Infinite Loops
+
+### Understanding Modifier Execution Cycle
+
+**Important:** Modifiers are called for EVERY node during EACH execution cycle. This means:
+1. Each modifier's hooks are called repeatedly
+2. The same node can be processed multiple times
+3. Without proper conditions, modifiers can create infinite loops
+
+### Node Targeting Conditions
+
+To prevent infinite loops, modifiers must use specific conditions to target exactly when they should act. Common patterns from production modifiers:
+
+```python
+# Basic node targeting pattern
+if (node.invoked and                     # Node has been executed
+    isinstance(node, RunnableAINode) and # Specific node type
+    not network.get_children(node)):     # Node has no children yet
+    # Safe to modify network here
+
+# More complex targeting
+if (node.invoked and 
+    isinstance(node.outputs, AIMessage) and    # Check output type
+    node.outputs.tool_calls and               # Has specific data
+    not network.get_children(node) and        # No children
+    "processed" not in node.metadata):        # Not already processed
+    # Safe to modify network here
+
+# Tool node handling
+if (node.invoked and 
+    isinstance(node, RunnableToolNode) and    # Tool node
+    not network.get_children(node) and        # No children
+    isinstance(network, MultiAgentNetworkNode) and  # Specific network
+    network.multishot):                       # Network feature flag
+    # Safe to handle tool node
+```
+
+### Common Targeting Conditions
+
+1. **Execution State**
+   - `node.invoked`: Node has been executed
+   - `not network.get_children(node)`: Node has no children yet
+
+2. **Node Type**
+   - `isinstance(node, RunnableAINode)`
+   - `isinstance(node, RunnableToolNode)`
+   - `isinstance(node, RunnableHumanNode)`
+
+3. **Output Type**
+   - `isinstance(node.outputs, AIMessage)`
+   - `isinstance(node.outputs, HumanMessage)`
+
+4. **Metadata Checks**
+   - `"processed" not in node.metadata`
+   - `"interpreter_code" not in node.metadata`
+   - `node.metadata.get("contribute_to_history", True)`
+
+5. **Network Type**
+   - `isinstance(network, MultiAgentNetworkNode)`
+   - `isinstance(network, NetworkNode)`
+
+### Real-World Examples
+
+1. **Default Modifier** - Adds default node after human messages:
+```python
+class DefaultModifier(NetworkModifier):
+    def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+        if (node.invoked and 
+            isinstance(node.outputs, HumanMessage) and 
+            not network.get_children(node)):  # Prevent infinite loop
+            
+            default_node = network.default_node
+            if default_node:
+                node >> get_node_factory().create_node(default_node)
+```
+
+2. **Code Interpreter** - Executes code and handles results:
+```python
+class CodeInterpreterModifier(NetworkModifier):
+    def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+        if (node.invoked and 
+            isinstance(node, RunnableAINode) and 
+            not network.get_children(node) and
+            "interpreter_code" not in node.metadata and  # Prevent reprocessing
+            "stop_reason" not in node.metadata):
+            
+            code = self._extract_code(node.outputs.content)
+            # Process code...
+```
+
+3. **Tool Handler** - Processes tool calls:
+```python
+class ToolModifier(NetworkModifier):
+    def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+        if (node.invoked and 
+            isinstance(node.outputs, AIMessage) and 
+            node.outputs.tool_calls and 
+            not network.get_children(node)):  # Prevent infinite loop
+            
+            for tool_call in node.outputs.tool_calls:
+                # Process tool calls...
+```
+
+### Preventing Reprocessing
+
+1. **Using Metadata Flags**
+```python
+def on_post_invoke(self, network, node):
+    if (node.invoked and 
+        not node.metadata.get("processed")):  # Check if already processed
+        
+        # Process node
+        node.metadata["processed"] = True     # Mark as processed
+```
+
+2. **Using Type Checks**
+```python
+def on_post_invoke(self, network, node):
+    if (node.invoked and 
+        isinstance(node, TargetNodeType) and  # Only specific node types
+        not isinstance(node, ProcessedNodeType)):  # Exclude processed types
+        
+        # Process node
+```
+
+3. **Using Network State**
+```python
+def on_post_invoke(self, network, node):
+    if (node.invoked and 
+        network.get_leaf_nodes()[-1] is node):  # Only process leaf nodes
+        
+        # Process node
+```
+
+### Common Mistakes
+
+1. **Missing Node State Check**
+```python
+# BAD: Will create nodes even if not executed
+def on_post_invoke(self, network, node):
+    node >> RunnableNode()  # Creates infinite nodes
+
+# GOOD: Check node state
+def on_post_invoke(self, network, node):
+    if node.invoked and not network.get_children(node):
+        node >> RunnableNode()
+```
+
+2. **Missing Child Check**
+```python
+# BAD: Will keep creating children
+def on_post_invoke(self, network, node):
+    if isinstance(node, TargetType):
+        node >> RunnableNode()  # Infinite loop
+
+# GOOD: Check for existing children
+def on_post_invoke(self, network, node):
+    if isinstance(node, TargetType) and not network.get_children(node):
+        node >> RunnableNode()
+```
+
+3. **Missing Metadata Check**
+```python
+# BAD: Will reprocess same node
+def on_post_invoke(self, network, node):
+    if node.invoked:
+        process_node(node)  # Infinite processing
+
+# GOOD: Track processing state
+def on_post_invoke(self, network, node):
+    if node.invoked and "processed" not in node.metadata:
+        process_node(node)
+        node.metadata["processed"] = True
+```
+
+### Best Practices for Loop Prevention
+
+1. **Always Check Node State**
+   - `node.invoked`: Ensure node has been executed
+   - `not network.get_children(node)`: Ensure no existing children
+
+2. **Use Specific Type Checks**
+   - Check node type: `isinstance(node, TargetType)`
+   - Check output type: `isinstance(node.outputs, MessageType)`
+
+3. **Track Processing State**
+   - Use metadata flags: `node.metadata["processed"] = True`
+   - Check for previous processing: `"processed" not in node.metadata`
+
+4. **Validate Network State**
+   - Check network type: `isinstance(network, NetworkType)`
+   - Verify network features: `network.multishot`
+
+5. **Implement Safety Checks**
+   - Maximum iteration counters
+   - Depth limits
+   - State validation
+
+
+# NodeFactory
+
+## Overview
+
+`NodeFactory` is a core component in the LC Agent framework that provides a centralized registry for node types and handles their instantiation. It implements the Factory pattern to manage the creation and registration of different types of nodes in a type-safe and maintainable way.
+
+## Purpose
+
+The NodeFactory solves several key problems in node management:
+
+1. **Centralized Registration**: Provides a single point of registration for all node types
+2. **Dynamic Node Creation**: Enables creation of nodes by name without direct class references
+3. **Configuration Management**: Handles default arguments and configuration for node types
+4. **Type Safety**: Ensures proper node type creation and validation
+5. **Debug Support**: Provides debugging capabilities for node creation tracking
+
+## Core Components
+
+### Class Definition
+
+```python
+class NodeFactory:
+    def __init__(self):
+        self._registered_nodes = {}  # Registry of node types
+```
+
+### Registration Methods
+
+```python
+def register(self, node_type: Type, *args, **kwargs):
+    """
+    Registers a new node type with optional default arguments.
+    
+    Args:
+        node_type (Type): The class of the node
+        *args: Default positional arguments for node creation
+        **kwargs: Default keyword arguments for node creation
+            - name (str): Optional custom name for the node type
+            - hidden (bool): Whether the node should be hidden from listings
+    """
+
+def unregister(self, node_type: Union[Type, str]):
+    """
+    Removes a node type from the registry.
+    
+    Args:
+        node_type (Union[Type, str]): Node class or name to unregister
+    """
+```
+
+### Node Creation
+
+```python
+def create_node(self, node_name: str, *args, **kwargs) -> "RunnableNode":
+    """
+    Creates a new instance of a registered node type.
+    
+    Args:
+        node_name (str): Name of the node type to create
+        *args: Additional arguments for node creation
+        **kwargs: Additional keyword arguments for node creation
+    
+    Returns:
+        RunnableNode: New instance of the requested node type
+    """
+```
+
+## Usage Examples
+
+### Basic Registration and Creation
+
+```python
 from lc_agent import get_node_factory
 
-from .nodes.usd_knowledge_node import USDKnowledgeNode
-get_node_factory().register(USDKnowledgeNode)
+# Register a node type
+get_node_factory().register(RunnableNode)
 
+# Create an instance
+node = get_node_factory().create_node("RunnableNode")
+```
 
-class USDKnowledgeNetworkNode(NetworkNode):
-    """
-    A specialized knowledge tool focused exclusively on answering questions about OpenUSD (Universal Scene Description) 
-    concepts, terminology, and functionality. This tool provides explanations and information about USD features 
-    and concepts.
+### Custom Named Registration
 
-    IMPORTANT: This tool is strictly limited to USD knowledge questions and cannot:
-    - Generate or explain code (use the code generation tool instead)
-    - Answer questions about Python programming
-    - Provide information about Omniverse
-    - Answer questions about other 3D file formats or graphics systems
+```python
+# Register with custom name
+get_node_factory().register(
+    WeatherKnowledgeNode,
+    name="WeatherKnowledge",
+    hidden=True
+)
 
-    Example appropriate questions:
-    - "What is the difference between a USD Layer and a Stage?"
-    - "Can you explain what USD composition arcs are?"
-    - "What are the different types of USD variants?"
-    - "How does USD handle references vs payloads?"
-    - "What is the purpose of USD schemas?"
-    """
+# Create using custom name
+weather_node = get_node_factory().create_node("WeatherKnowledge")
+```
+
+### Registration with Default Arguments
+
+```python
+# Register with default configuration
+get_node_factory().register(
+    RunnableNode,
+    inputs=[SystemMessage(content="Default system message")],
+    chat_model_name="gpt-4"
+)
+
+# Create with defaults
+node = get_node_factory().create_node("RunnableNode")
+```
+
+### Multiple Node Registration
+
+```python
+# Register multiple node types
+get_node_factory().register(RunnableNode)
+get_node_factory().register(RunnableHumanNode)
+get_node_factory().register(LocationSupervisorNode)
+get_node_factory().register(
+    WeatherKnowledgeNode,
+    name="WeatherKnowledge"
+)
+```
+
+## Node Type Management
+
+### Type Checking and Validation
+
+```python
+# Check if node type is registered
+if get_node_factory().has_registered("RunnableNode"):
+    # Create node
+    node = get_node_factory().create_node("RunnableNode")
+
+# Get registered node type
+node_type = get_node_factory().get_registered_node_type("RunnableNode")
+```
+
+### Node Type Listing
+
+```python
+# Get all registered node names
+all_nodes = get_node_factory().get_registered_node_names()
+
+# Get only visible node names
+visible_nodes = get_node_factory().get_registered_node_names(hidden=False)
+
+# Get base node names for a type
+base_nodes = get_node_factory().get_base_node_names("CustomNode")
+```
+
+## Configuration Management
+
+### Argument Merging
+
+The factory implements smart argument merging when creating nodes:
+
+1. **Positional Arguments**:
+   - Base arguments from registration
+   - Additional arguments from creation call
+   - Combined in order: base + additional
+
+2. **Keyword Arguments**:
+   - Deep merge of dictionaries
+   - Creation arguments take precedence
+   - Nested dictionary merging supported
+
+```python
+# Registration with base metadata
+get_node_factory().register(
+    RunnableNode,
+    metadata={"base": True}
+)
+
+# Creation with additional metadata
+node = get_node_factory().create_node(
+    "RunnableNode",
+    metadata={"custom": True}
+)
+
+# Result:
+# node.metadata == {"base": True, "custom": True}
+```
+
+## Integration Examples
+
+### Network Integration
+
+```python
+# Network setup with factory
+def setup_network():
+    factory = get_node_factory()
     
-    default_node: str = "USDKnowledgeNode"
+    # Register network nodes
+    factory.register(RunnableNode)
+    factory.register(RunnableHumanNode)
+    
+    # Create network with nodes
+    with RunnableNetwork() as network:
+        factory.create_node("RunnableHumanNode")
+        factory.create_node("RunnableNode")
+    
+    return network
+```
+
+
+# NetworkNode
+
+## Overview
+
+`NetworkNode` is a specialized class in the LC-Agent framework that represents a subnetwork. It is designed to combine the capabilities of both `RunnableNode` and `RunnableNetwork` by inheriting from both. This hybrid approach allows a NetworkNode to function as a self-contained subnetwork while still participating in the overarching network’s execution lifecycle.
+
+## Purpose & Role
+
+- **Subnetwork Representation:**  
+  A NetworkNode encapsulates a subnetwork within the overall agent system. This allows parts of a conversation (or different tasks) to be processed in isolation while still being fully integrated into the main network.
+
+- **Parent-Child Integration:**  
+  By inheriting from both `RunnableNode` and `RunnableNetwork`, the NetworkNode facilitates seamless communication between the parent network and its subnetwork. It automatically connects its root nodes to their appropriate parents via its built-in modifier.
+
+- **Modifier-Driven Behavior:**  
+  NetworkNode automatically adds a `NetworkNodeModifier` upon initialization. This modifier helps connect the subnetwork to its parent network by ensuring that root nodes are properly linked, providing automatic fallback and inheritance of properties (such as the chat model).
+
+- **Lifecycle Management:**  
+  It integrates into the network lifecycle by overriding key methods like `_pre_invoke_network` and `_post_invoke_network`. These methods ensure that the subnetwork inherits necessary settings (for example, the chat model name from the active parent network) before processing begins, and they provide a hook for additional post-processing as needed.
+
+## Key Features
+
+- **Dual Inheritance:**  
+  NetworkNode extends both `RunnableNode` and `RunnableNetwork`, thereby merging node-level processing with network-level behaviors. This makes it possible to treat it either as a single processing element or as a full-fledged network.
+
+- **Modifier Integration:**  
+  The class registers an instance of `NetworkNodeModifier` during initialization. This modifier handles the connection between the subnetwork and the parent network:
+  - In the `on_begin_invoke` hook, it creates a default node if the subnetwork is empty.
+  - In the `on_pre_invoke` hook, it connects root nodes to their parent networks when no parents are present.
+
+- **Lifecycle Method Overrides:**  
+  - `_pre_invoke_network`: Called before the network is invoked. If an active parent network exists (via `RunnableNetwork.get_active_network()`), this method inherits the chat model name if not already set.
+  - `_post_invoke_network`: A placeholder for post-processing the subnetwork after execution. It can be customized for additional cleanup.
+  
+- **Delegated Model Invocation:**  
+  NetworkNode provides the following methods to call the chat model:
+  - `_ainvoke_chat_model`: Asynchronously invokes the chat model using the subnetwork context.
+  - `_invoke_chat_model`: Synchronously invokes the chat model.
+  - `_astream_chat_model`: Streams chat model responses.
+  
+  These methods delegate to the underlying `RunnableNetwork` methods after performing pre- and post-invocation tasks.
+
+## Lifecycle & Integration
+
+### Preparation Phase
+
+- **Pre-Invocation:**  
+  The `_pre_invoke_network` method is called before invoking the network. It checks for an active parent network; if one exists and if the network's chat model name isn’t set, it copies the parent model name. This ensures consistency across nested networks.
+
+### Execution Phase
+
+- **Model Invocation Delegation:**  
+  Methods `_invoke_chat_model`, `_ainvoke_chat_model`, and `_astream_chat_model` wrap around the corresponding methods from `RunnableNetwork`. They call `_pre_invoke_network` first, then execute the desired chat model call, and finally call `_post_invoke_network`.
+
+### Post-Execution Phase
+
+- **Post-Invocation:**  
+  The `_post_invoke_network` method is a placeholder intended for additional clean-up or final adjustments after the subnetwork completes its execution. It can be overridden as needed.
+
+### Modifier Usage
+
+NetworkNode adds a `NetworkNodeModifier` automatically. This modifier:
+- Ensures that if the subnetwork is empty, a default child node (as specified by the `default_node` property) is created.
+- Connects nodes that have no parents to the root of the subnetwork, ensuring proper inheritance of properties.
+
+## How to Use NetworkNode
+
+### 1. Registration
+
+Register your NetworkNode (and any specialized subclasses) with the node factory so they can be used within your application. For example, in a multi-agent setting, NetworkNode types might be registered to represent different sub-networks.
+
+```python
+from lc_agent import get_node_factory, NetworkNode
+
+# Register a custom network node
+get_node_factory().register(NetworkNode, name="CustomNetworkNode")
+```
+
+### 2. Instantiation & Configuration
+
+Create an instance of a NetworkNode (or a subclass) and configure its properties:
+
+- Set the `default_node` property to specify the fallback node for the network.
+- Configure any modifiers or additional properties, such as the chat model name.
+
+```python
+from lc_agent import NetworkNode
+
+# Create a subnetwork instance
+network_node = NetworkNode(default_node="RunnableNode", chat_model_name="gpt-4")
+```
+
+### 3. Running in Context
+
+Use a `with` statement to activate a NetworkNode. This provides a context in which the node is considered active, and any nodes created inside the context are tracked by the NetworkNode (and connected automatically via the NetworkNodeModifier).
+
+```python
+from lc_agent import RunnableHumanNode, RunnableNetwork
+
+with network_node:
+    # Create nodes that automatically join this subnetwork
+    RunnableHumanNode("Hello from the subnetwork!")
+```
+
+### 4. Invocation
+
+Invoke the network using the provided methods. The NetworkNode will handle pre-invocation (inheriting settings), execution (via delegated chat model invocation), and post-invocation tasks.
+
+```python
+# Synchronously invoke using the default node settings
+result = network_node.invoke()
+
+# Asynchronously or with streaming:
+async for chunk in network_node.astream():
+    print(chunk.content)
+```
+
+### 5. Integration within Multi-Agent Systems
+
+In multi-agent scenarios (see testing_fc_routing.py for an example), NetworkNode can act as a subnetwork within a larger setup. It may be registered as part of the multi-agent network via the node factory, and its modifiers ensure that its behavior integrates seamlessly with the parent network (e.g., via shared chat models and event callbacks).
+
+## Real-World Example
+
+Consider the `testing_fc_routing.py` example, where multiple node types—including multi-agent network nodes—are registered. In that example:
+
+- The NetworkNode is registered along with other node types.
+- It is used as part of a larger network (`RunnableNetwork`) with a specified default node.
+- When a user query is sent via `RunnableHumanNode`, the NetworkNode (as a subnetwork) activates and uses its modifiers to connect to parent and child nodes, and to propagate the appropriate chat model settings.
+- It utilizes the environment settings (via `register_llama_model`) to ensure that the subnetwork is correctly configured.
+
+## Best Practices
+
+- **Always Use Context Managers:**  
+  Activate NetworkNode using a `with` statement to ensure that all node creations are properly tracked and integrated.
+  
+- **Leverage Modifier Integration:**  
+  Do not attempt to modify network structures directly. Instead, rely on the subclassed `NetworkNodeModifier` to connect subnetworks to their parents. This avoids issues like inconsistent state or infinite loops.
+  
+- **Inherit Chat Model Settings:**  
+  Allow NetworkNode to inherit the chat model name from its parent network when not provided, ensuring consistency across the application.
+  
+- **Override Lifecycle Hooks When Needed:**  
+  If you need specialized behavior before or after network invocation, override `_pre_invoke_network` and `_post_invoke_network` in your subclass.
+  
+- **Keep Modifiers Clean and Focused:**  
+  Use modifiers to connect subnetwork nodes automatically and track node states to prevent unnecessary reprocessing.
+
+
+# MultiAgentNetworkNode
+
+## Overview
+
+MultiAgentNetworkNode is a specialized network node within the LC-Agent framework designed to support a multi-agent conversational system. It extends the basic network functionality by introducing routing and coordination among several specialized "agents" (sub-networks). Unlike a simple network node, it acts as a conversation coordinator that intelligently routes user queries to appropriate specialized agents based on query context and content.
+
+## Motivation & Use Cases
+
+### 1. Complex Domain Problems
+When your application needs to handle queries that span multiple domains or require different types of expertise. For example:
+
+- **Documentation Systems (Doc Atlas)**:
+  - Routing between course content, API documentation, and examples
+  - Handling both high-level concepts and detailed implementation questions
+  - Managing different documentation formats and sources
+
+- **Educational Systems (USD Tutor)**:
+  ```python
+  class USDTutorNetworkNode(MultiAgentNetworkNode):
+      route_nodes: List[str] = [
+          "USDTutor_Course",     # Course content
+          "USDTutor_Code",       # Code examples
+          "USDTutor_Knowledge",  # General knowledge
+      ]
+  ```
+  - Separating course content from code generation
+  - Providing both theoretical knowledge and practical examples
+  - Managing progressive learning paths
+
+### 2. Specialized Processing
+When different types of queries require different processing pipelines:
+
+```python
+# Example from USD Tutor
+def register_usd_tutor_agent():
+    # Register specialized nodes for different tasks
+    get_node_factory().register(
+        USDCourseNetworkNode,    # Handles course content
+        name="USDTutor_Course",
+        hidden=True,
+    )
+    get_node_factory().register(
+        USDCodeGenNetworkNode,   # Handles code generation
+        name="USDTutor_Code",
+        hidden=True,
+    )
+```
+
+### 3. Modular System Design
+When you need to:
+- Add or remove capabilities without affecting the core system
+- Maintain specialized components independently
+- Scale different components based on demand
+
+## Architecture & Components
+
+### 1. Core Properties
+
+```python
+class MultiAgentNetworkNode(NetworkNode):
+    default_node: str = ""              # Fallback node type
+    route_nodes: List[str] = []         # Available specialized agents
+    multishot: bool = True              # Allow multiple interactions
+    function_calling: bool = True       # Use function calling for routing
+    classification_node: bool = True     # Use classification for routing
+    generate_prompt_per_agent: bool = True  # Generate specific prompts
+```
+
+### 2. Identity System
+The multi-agent system requires a clear identity and routing instructions. Example from USD Tutor:
+
+```python
+# Identity setup in usd_tutor_identity.md
+first_routing_instruction = (
+    '(Reminder to respond in one line only. Format: "<tool_name> <question>". '
+    "The only available tools are: USDTutor_Course, USDTutor_Code, USDTutor_Knowledge)"
+)
+
+subsequent_routing_instruction = (
+    '(Reminder: Either respond with "<tool_name> <question>" OR "FINAL <answer>". '
+    'For FINAL response, provide comprehensive explanation including all tool responses.)'
+)
+```
+
+### 3. Specialized Agents
+Each route node represents a specialized agent:
+
+```python
+# Example from USD Course Network Node
+class USDCourseNetworkNode(DocAtlasNetworkNode):
+    """Specialized teaching assistant for OpenUSD curriculum"""
+    default_node = "RunnableNode"
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.add_modifier(USDKnowledgeRagModifier())
-
+        # Configure with specific course materials
+        self.metadata["description"] = "Educational content provider"
 ```
 
-## usd_code_gen_network_node.py
+## Supervisor Node and Message Hierarchy
+
+The MultiAgentNetworkNode implements a hierarchical system where a supervisor node orchestrates the interaction between specialized sub-nodes. This hierarchy is crucial for maintaining coherent conversations and ensuring proper information flow between components.
+
+### Supervisor Node
+
+The supervisor node, specified by the `default_node` property, serves as the central coordinator for the multi-agent system. It has several key responsibilities:
+
+1. **Conversation Management**
+   The supervisor maintains the overall conversation context and makes high-level decisions about routing. It acts as both the entry point for user queries and the final response synthesizer.
+
+   ```python
+   class USDTutorSupervisorNode(RunnableNode):
+       def __init__(self, **kwargs):
+           super().__init__(**kwargs)
+           # Add the supervisor's system message
+           self.inputs.append(RunnableSystemAppend(
+               system_message=identity
+           ))
+   ```
+
+2. **System Message Hierarchy**
+   Each node in the system can maintain its own system message, creating a layered approach to conversation:
+
+   - The supervisor node's system message defines the overall behavior and routing rules
+   - Sub-nodes can have their own specialized system messages for their specific tasks
+   - Messages don't interfere with each other, allowing specialized behavior at each level
+
+   For example, in the USD Tutor system:
+   ```python
+   # Supervisor level - defines routing and integration
+   supervisor_message = """
+   You are a USD tutor coordinator. Route queries to:
+   - Course content (educational materials)
+   - Code examples (implementation details)
+   - Knowledge base (conceptual explanations)
+   """
+
+   # Specialized node level - focuses on specific task
+   course_node_message = """
+   You are a USD course content expert. Provide
+   information specifically from course materials.
+   """
+   ```
+
+3. **Visibility and Scope**
+   The multi-agent system implements a carefully controlled visibility system:
+
+   - **Supervisor Visibility**: The supervisor node has access to all responses from sub-nodes but maintains separation between them. This allows it to:
+     - Synthesize comprehensive responses
+     - Maintain conversation context
+     - Make informed routing decisions
+     - Prevent information leakage between sub-nodes
+
+   - **Sub-node Visibility**: Each specialized node:
+     - Only sees queries routed specifically to it
+     - Has access to its own context and history
+     - Cannot directly access other nodes' states or responses
+     - Maintains focus on its specialized task
+
+### Node Interaction Patterns
+
+The interaction between supervisor and specialized nodes follows specific patterns:
+
+1. **Query Flow**
+   ```
+   User Query → Supervisor Node → Classification → Specialized Node → Response → Supervisor → Final Answer
+   ```
+
+2. **Context Management**
+   - The supervisor maintains the global conversation context
+   - Each sub-node maintains its specialized context
+   - Responses are integrated at the supervisor level
+
+3. **Model Selection**
+   Different nodes can use different language models:
+   ```python
+   class CourseNode(NetworkNode):
+       def __init__(self):
+           super().__init__(chat_model_name="gpt-4")  # Specialized model
+
+   class CodeNode(NetworkNode):
+       def __init__(self):
+           super().__init__(chat_model_name="code-llama")  # Code-specific model
+   ```
+
+### Implementation Example
+
+Here's a complete example showing the hierarchy and interaction:
 
 ```python
-from .modifiers.code_extractor_modifier import CodeExtractorModifier
-from .modifiers.code_fixer_modifier import CodeFixerModifier
-from .modifiers.code_interpreter_modifier import CodeInterpreterModifier
-from .modifiers.network_length_modifier import NetworkLenghtModifier
-from .modifiers.usd_code_gen_interpreter_modifier import USDCodeGenInterpreterModifier
-from .modifiers.usd_code_gen_patcher_modifier import USDCodeGenPatcherModifier
-from .modifiers.usd_code_gen_rag_modifier import USDCodeGenRagModifier
-from .nodes.usd_code_gen_node import USDCodeGenNode
-from lc_agent import NetworkNode
+class TutorSystem(MultiAgentNetworkNode):
+    def __init__(self):
+        super().__init__()
+        
+        # Configure supervisor
+        self.default_node = "SupervisorNode"
+        self.route_nodes = ["Course", "Code", "Knowledge"]
+```
+
+### Best Practices for Node Hierarchy
+
+1. **System Message Design**
+   - Keep supervisor messages focused on routing and integration
+   - Make specialized node messages task-specific
+   - Avoid overlapping responsibilities
+   - Maintain clear boundaries between nodes
+
+2. **Model Selection**
+   - Choose appropriate models for each node's task
+   - Consider computational resources
+   - Balance capability with efficiency
+   - Use consistent models for related tasks
+
+3. **Context Management**
+   - Implement proper context isolation
+   - Maintain clear data flow paths
+   - Handle state transitions carefully
+   - Monitor context size and performance
+
+4. **Response Integration**
+   - Implement clear response synthesis rules
+   - Maintain conversation coherence
+   - Handle conflicts between sub-nodes
+   - Provide clear attribution in responses
+
+## Advanced Features
+
+### 1. Classification-based Routing
+When `classification_node=True`:
+- Uses a dedicated node to classify queries
+- Routes based on semantic understanding
+- Maintains conversation context
+
+### 2. Function Calling Mode
+When `function_calling=True`:
+- Treats routing as function calls
+- Provides structured routing decisions
+- Enables tool-like interaction patterns
+
+### 3. Multishot Processing
+When `multishot=True`:
+- Allows multiple agent interactions
+- Supports follow-up questions
+- Maintains conversation state
+
+## Best Practices
+
+### 1. Agent Design
+- Keep agents focused on specific tasks
+- Provide clear agent descriptions
+- Implement proper metadata handling
+
+### 2. Routing Strategy
+- Use clear routing instructions
+- Implement proper classification
+- Handle edge cases gracefully
+
+### 3. Response Integration
+- Synthesize responses comprehensively
+- Maintain context across agents
+- Provide clear final answers
+
+
+# Examples
+
+## function-calling-commands.py
+
+```python
+"""
+System Command Function Calling Example for LC Agent
+
+This example demonstrates how to implement system command execution using function calling in LC Agent.
+It shows how to:
+1. Define command execution tools for both system and Python commands
+2. Create a network modifier to handle tool calls and responses
+3. Set up a runnable network that uses command execution tools
+4. Process tool calls in an asynchronous conversation flow
+"""
+
+from langchain_core.messages import AIMessage, SystemMessage
+from langchain_core.tools import BaseTool
+from lc_agent import NetworkModifier, NetworkNode
+from lc_agent import RunnableHumanNode
+from lc_agent import RunnableNetwork
+from lc_agent import RunnableNode
+from lc_agent import RunnableToolNode
+from lc_agent import get_chat_model_registry
 from lc_agent import get_node_factory
-from typing import List
-from typing import Optional
+from lc_agent import RunnableSystemAppend
+from lc_agent_chat_models import register_all
+from pydantic import BaseModel, Field
+from typing import List, Type, Optional
+import asyncio
+import subprocess
+import sys
 
-get_node_factory().register(USDCodeGenNode)
+# The model to use for this example
+MODEL = "P-GPT4o"
 
+class RunCommandInput(BaseModel):
+    """Schema for the run command tool input parameters."""
+    command: str = Field(description="the command to execute")
+    shell: bool = Field(description="whether to run in shell mode", default=True)
 
-class USDCodeGenNetworkNode(NetworkNode):
-    """
-    A specialized code generation tool focused exclusively on OpenUSD (Universal Scene Description) 
-    Python programming tasks. This tool assists with generating, modifying, and explaining code that 
-    interacts with USD APIs.
+class RunCommandTool(BaseTool):
+    """Tool for executing system commands."""
+    name: str = "RunCommand"
+    description: str = "Executes a windows(cmd) system command and returns its output."
+    args_schema: Type[BaseModel] = RunCommandInput
 
-    IMPORTANT: This tool is strictly limited to USD-related code generation and cannot:
-    - Answer general Python programming questions
-    - Provide explanations about USD concepts or terminology
-    - Handle Omniverse-related queries
-    - Generate code for other 3D file formats or graphics systems
-
-    Example appropriate questions:
-    - "How do I create a USD file with a sphere primitive?"
-    - "Generate code to read transform values from a USD stage"
-    - "Show me how to set custom attributes on a USD prim"
-    - "Write code to traverse a USD stage hierarchy"
-    """
-
-    default_node: str = "USDCodeGenNode"
-    code_interpreter_hide_items: Optional[List[str]] = None
-
-    def __init__(
-        self,
-        show_stdout=True,
-        code_atlas_for_human: bool = False,
-        snippet_verification: bool = False,
-        shippet_language_check: bool = False,
-        use_code_fixer: bool = False,
-        retriever_name="usd_code06262024",
-        enable_code_interpreter=True,
-        enable_code_patcher=True,
-        max_network_length=5,
-        **kwargs
-    ):
-        """
-        Initialize the USDCodeGenNetworkNode.
+    def _run(self, command: str, shell: bool = True) -> str:
+        """Execute a system command.
 
         Args:
-            show_stdout: Whether to show stdout output.
-            code_atlas_for_human: Whether to use code atlas for human messages.
-            snippet_verification: Whether verification of running of the code
-                                  snippet is needed. When False, all the snippets
-                                  are considered correct.
-            shippet_language_check: Whether to check the language tag of the snippet.
-            use_code_fixer: Whether to use the code fixer that produces diff.
+            command (str): The command to execute
+            shell (bool): Whether to run in shell mode
 
+        Returns:
+            str: Command output or error message
         """
-        super().__init__(**kwargs)
+        try:
+            # Run the command and capture output
+            result = subprocess.run(
+                command,
+                shell=shell,
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            return result.stdout
+        except subprocess.CalledProcessError as e:
+            return f"Error executing command: {str(e)}\nOutput: {e.output}"
+        except Exception as e:
+            return f"Error: {str(e)}"
 
-        if max_network_length:
-            self.add_modifier(NetworkLenghtModifier(max_length=max_network_length))
-        self.add_modifier(
-            CodeExtractorModifier(
-                snippet_verification=snippet_verification, shippet_language_check=shippet_language_check
-            )
+class RunPythonInput(BaseModel):
+    """Schema for the Python command tool input parameters."""
+    code: str = Field(description="the Python code to execute")
+
+class RunPythonTool(BaseTool):
+    """Tool for executing Python code."""
+    name: str = "RunPython"
+    description: str = "Executes Python code and returns its output. The output should be printed to the console to be captured."
+    args_schema: Type[BaseModel] = RunPythonInput
+
+    def _run(self, code: str) -> str:
+        """Execute Python code.
+
+        Args:
+            code (str): The Python code to execute
+
+        Returns:
+            str: Code output or error message
+        """
+        try:
+            # Create a string buffer to capture output
+            import io
+            import sys
+            output_buffer = io.StringIO()
+            sys.stdout = output_buffer
+
+            # Execute the code
+            exec(code, {}, {})
+
+            # Restore stdout and get output
+            sys.stdout = sys.__stdout__
+            return output_buffer.getvalue()
+        except Exception as e:
+            return f"Error executing Python code: {str(e)}"
+
+class CommandToolModifier(NetworkModifier):
+    """A network modifier that handles command tool calls and their responses."""
+    
+    def __init__(self, tools):
+        """Initialize the modifier with command tools.
+
+        Args:
+            tools: List of BaseTool instances for command execution
+        """
+        super().__init__()
+        self.tools = {tool.name.lower(): tool for tool in tools}
+
+    def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+        """Handle node execution results and process any tool calls.
+
+        Args:
+            network: The RunnableNetwork instance
+            node: The node that was just executed
+        """
+        if (
+            node.invoked
+            and isinstance(node.outputs, AIMessage)
+            and node.outputs.tool_calls
+            and not network.get_children(node)
+        ):
+            # Handle tool calls from AI output
+            for tool_call in node.outputs.tool_calls:
+                # Invoke the tool and create a RunnableToolNode with the result
+                selected_tool = self.tools[tool_call["name"].lower()]
+                print(f"Tool name and args: {tool_call['name']} {tool_call['args']}")
+                tool_output = selected_tool.invoke(tool_call["args"])
+                tool_node = RunnableToolNode(tool_output, tool_call["id"])
+
+                # Connect the tool node to the current node
+                node >> tool_node
+                # Since we are in the loop, set this node as the last node
+                node = tool_node
+
+        elif node.invoked and isinstance(node, RunnableToolNode) and not network.get_children(node):
+            # Create a default node after tool invocation to continue the conversation
+            default_node = network.default_node
+            if default_node:
+                node >> get_node_factory().create_node(default_node)
+
+    def on_begin_invoke(self, network: "RunnableNetwork"):
+        """Initialize tool binding with the language model."""
+        # Get the base chat model name
+        model = network._get_chat_model_name(None, None, None)
+
+        # Get the base model and bind the tools
+        fc_model = get_chat_model_registry().get_model(model).bind_tools(
+            tools=[tool for tool in self.tools.values()]
         )
-        if enable_code_patcher:
-            self.add_modifier(USDCodeGenPatcherModifier())
-        # this doesn't work in linux/services
-        # self.add_modifier(USDCodeGenInterpreterModifier(show_stdout=show_stdout))
-        if enable_code_interpreter:
-            self.add_modifier(
-                CodeInterpreterModifier(show_stdout=show_stdout, hide_items=self.code_interpreter_hide_items)
-            )
-        if use_code_fixer:
-            self.add_modifier(CodeFixerModifier())
-        if retriever_name:
-            self.add_modifier(USDCodeGenRagModifier(code_atlas_for_human, retriever_name=retriever_name))
+        # Register the tool-enabled model
+        get_chat_model_registry().register("Command Function Calling Model", fc_model)
+
+class CommandNode(RunnableNode):
+    """Node responsible for command execution operations."""
+
+    chat_model_name = "Command Function Calling Model"
+
+    def __init__(self, **kwargs):
+        super().__init__(
+            inputs=[
+                RunnableSystemAppend(
+                    system_message="""You are a command execution assistant. You can:
+1. Execute system commands using RunCommand
+2. Execute Python code using RunPython
+
+Use the available tools to help users execute commands and code. Be careful with 
+command execution and always verify commands are safe before executing them."""
+                )
+            ],
+            **kwargs,
+        )
+
+class CommandAgent(NetworkNode):
+    """Network node that coordinates command execution operations."""
+
+    default_node = "CommandNode"
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        tools = [RunCommandTool(), RunPythonTool()]
+        self.add_modifier(CommandToolModifier(tools=tools))
+
+async def main():
+    """Main function that sets up and runs the command execution example."""
+
+    # Set up the environment
+    get_node_factory().register(RunnableHumanNode)
+    get_node_factory().register(RunnableNode)
+    get_node_factory().register(CommandNode)
+    get_node_factory().register(CommandAgent)
+    register_all()
+
+    # Create a network with the command agent
+    with RunnableNetwork(default_node="CommandAgent", chat_model_name=MODEL) as network:
+        # Create the initial human node with a query
+        # RunnableHumanNode("List files in the current directory using the dir command.")
+        RunnableHumanNode("What python version is running? Where it's installed?")
+
+    print("[Start]")
+
+    # Stream the conversation results
+    async for c in network.astream():
+        print(c.content, end="")
+
+    print("\n[Done]\n")
+
+if __name__ == "__main__":
+    asyncio.run(main())
 
 ```
 
-## usd_code_network_node.py
+## function-calling-filesystem.py
 
 ```python
-from .modifiers.usd_code_default_node_modifier import USDCodeDefaultNodeModifier
-from lc_agent import NetworkNode
+"""
+Filesystem Function Calling Example for LC Agent
+
+This example demonstrates how to implement filesystem operations using function calling in LC Agent.
+It shows how to:
+1. Define filesystem tools for directory listing, file search, and file reading
+2. Create a network modifier to handle tool calls and responses
+3. Set up a runnable network that uses filesystem tools
+4. Process tool calls in an asynchronous conversation flow
+
+Key Architectural Points:
+1. Separation of Concerns:
+   - FilesystemNode: Handles LLM interactions and system messages
+   - FilesystemAgent: Network node that coordinates tools and modifiers
+   This separation is crucial for proper function calling architecture.
+
+2. System Message Placement:
+   - CORRECT: System message in FilesystemNode (LLM node)
+   - WRONG: System message in FilesystemAgent (Network node)
+   System messages must be in nodes that directly interact with LLMs.
+
+3. Tool Integration:
+   - Tools are registered at the NetworkNode level (FilesystemAgent)
+   - Tool modifier handles the binding of tools to the model
+   This ensures proper tool availability throughout the network.
+"""
+
+from langchain_core.messages import AIMessage, SystemMessage
+from langchain_core.tools import BaseTool
+from lc_agent import NetworkModifier, NetworkNode
+from lc_agent import RunnableHumanNode
+from lc_agent import RunnableNetwork
+from lc_agent import RunnableNode
+from lc_agent import RunnableToolNode
+from lc_agent import get_chat_model_registry
+from lc_agent import get_node_factory
+from lc_agent import RunnableSystemAppend
+from lc_agent_chat_models import register_all
+from pydantic import BaseModel, Field
+from typing import List, Type, Optional
+import asyncio
+import os
+import glob
+
+# The model to use for this example
+MODEL = "P-GPT4o"
+
+
+class ListDirInput(BaseModel):
+    """Schema for the list directory tool input parameters."""
+
+    path: str = Field(description="the directory path to list contents of")
+
+
+class ListDirTool(BaseTool):
+    """Tool for listing directory contents."""
+
+    name: str = "ListDir"
+    description: str = "Lists the contents of a specified directory."
+    args_schema: Type[BaseModel] = ListDirInput
+
+    def _run(self, path: str) -> str:
+        """Execute the directory listing for a given path.
+
+        Args:
+            path (str): The directory path to list
+
+        Returns:
+            str: Directory contents listing, clearly showing files and directories
+        """
+        try:
+            # Get all entries in the directory
+            entries = os.listdir(path)
+
+            # Separate files and directories
+            directories = []
+            files = []
+            for entry in entries:
+                full_path = os.path.join(path, entry)
+                if os.path.isdir(full_path):
+                    directories.append(f"{entry}/")
+                else:
+                    files.append(f"{entry}")
+
+            # Build the output string
+            output = [f"Directory contents of {path}:"]
+            if directories:
+                output.extend(sorted(directories))
+            if files:
+                output.extend(sorted(files))
+
+            return "\n".join(output)
+        except Exception as e:
+            return f"Error listing directory {path}: {str(e)}"
+
+
+class FileSearchInput(BaseModel):
+    """Schema for the file search tool input parameters."""
+
+    pattern: str = Field(description="the pattern to search for files")
+    recursive: bool = Field(description="whether to search recursively in subdirectories", default=True)
+
+
+class FileSearchTool(BaseTool):
+    """Tool for searching files in directories."""
+
+    name: str = "FileSearch"
+    description: str = "Searches for files matching a pattern in directories."
+    args_schema: Type[BaseModel] = FileSearchInput
+
+    def _run(self, pattern: str, recursive: bool = True) -> str:
+        """Execute the file search for a given pattern.
+
+        Args:
+            pattern (str): The pattern to search for
+            recursive (bool): Whether to search recursively
+
+        Returns:
+            str: List of matching files
+        """
+        try:
+            if recursive:
+                matches = glob.glob(pattern, recursive=True)
+            else:
+                matches = glob.glob(pattern)
+
+            if matches:
+                return f"Found files matching {pattern}:\n" + "\n".join(matches)
+            return f"No files found matching {pattern}"
+        except Exception as e:
+            return f"Error searching for files with pattern {pattern}: {str(e)}"
+
+
+class ReadFileInput(BaseModel):
+    """Schema for the file read tool input parameters."""
+
+    path: str = Field(description="the file path to read")
+    max_lines: Optional[int] = Field(description="maximum number of lines to read", default=None)
+
+
+class ReadFileTool(BaseTool):
+    """Tool for reading file contents."""
+
+    name: str = "ReadFile"
+    description: str = "Reads the contents of a specified file."
+    args_schema: Type[BaseModel] = ReadFileInput
+
+    def _run(self, path: str, max_lines: Optional[int] = None) -> str:
+        """Execute the file reading for a given path.
+
+        Args:
+            path (str): The file path to read
+            max_lines (Optional[int]): Maximum number of lines to read
+
+        Returns:
+            str: File contents
+        """
+        try:
+            with open(path, "r") as f:
+                if max_lines:
+                    lines = [next(f) for _ in range(max_lines)]
+                    return f"First {max_lines} lines of {path}:\n" + "".join(lines)
+                else:
+                    return f"Contents of {path}:\n" + f.read()
+        except Exception as e:
+            return f"Error reading file {path}: {str(e)}"
+
+
+class FilesystemToolModifier(NetworkModifier):
+    """A network modifier that handles filesystem tool calls and their responses.
+
+    ARCHITECTURAL NOTE:
+    This modifier demonstrates proper tool integration because:
+    1. It binds tools to the model in on_begin_invoke
+    2. It handles tool calls in on_post_invoke
+    3. It maintains separation between tool handling and LLM interaction
+    """
+
+    def __init__(self, tools):
+        """Initialize the modifier with filesystem tools.
+
+        Args:
+            tools: List of BaseTool instances for filesystem operations
+        """
+        super().__init__()
+        self.tools = {tool.name.lower(): tool for tool in tools}
+
+    def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+        """Handle node execution results and process any tool calls.
+
+        Args:
+            network: The RunnableNetwork instance
+            node: The node that was just executed
+        """
+        if (
+            node.invoked
+            and isinstance(node.outputs, AIMessage)
+            and node.outputs.tool_calls
+            and not network.get_children(node)
+        ):
+            # Handle tool calls from AI output
+            for tool_call in node.outputs.tool_calls:
+                # Invoke the tool and create a RunnableToolNode with the result
+                selected_tool = self.tools[tool_call["name"].lower()]
+                # Call the tool
+                tool_output = selected_tool.invoke(tool_call["args"])
+                tool_node = RunnableToolNode(tool_output, tool_call["id"])
+
+                # Connect the tool node to the current node
+                node >> tool_node
+                # Since we are in the loop, set this node as the last node
+                node = tool_node
+
+        elif node.invoked and isinstance(node, RunnableToolNode) and not network.get_children(node):
+            # Create a default node after tool invocation to continue the conversation
+            default_node = network.default_node
+            if default_node:
+                node >> get_node_factory().create_node(default_node)
+
+    def on_begin_invoke(self, network: "RunnableNetwork"):
+        """Initialize tool binding with the language model.
+
+        ARCHITECTURAL NOTE:
+        This is the correct place to bind tools to the model because:
+        1. It happens before any node execution
+        2. It ensures tools are available throughout the network
+        3. It maintains proper separation of concerns
+        """
+        # Get the base chat model name
+        model = network._get_chat_model_name(None, None, None)
+
+        # Get the base model and bind the tools
+        fc_model = get_chat_model_registry().get_model(model).bind_tools(tools=[tool for tool in self.tools.values()])
+        # Register the tool-enabled model
+        get_chat_model_registry().register("Filesystem Function Calling Model", fc_model)
+
+
+class FilesystemNode(RunnableNode):
+    """LLM Node responsible for filesystem operations.
+
+    ARCHITECTURAL NOTE:
+    This is the correct place for system messages and LLM interactions because:
+    1. RunnableNode is designed to interact directly with language models
+    2. System messages should be attached to nodes that actually process them
+    3. The chat_model_name property here indicates this node handles LLM calls
+
+    In the previous incorrect implementation, these responsibilities were
+    incorrectly placed in the NetworkNode (FilesystemAgent), which should
+    only coordinate the network structure, not handle LLM interactions.
+    """
+
+    chat_model_name = "Filesystem Function Calling Model"
+
+    def __init__(self, **kwargs):
+        # CORRECT: System message is placed here because this node
+        # is responsible for LLM interactions
+        super().__init__(
+            inputs=[
+                RunnableSystemAppend(
+                    system_message="""You are a filesystem operations assistant. You can:
+1. List directory contents
+2. Search for files
+3. Read file contents
+
+Use the available tools to help users with filesystem operations. Be careful with file paths and always 
+verify paths exist before trying to read files."""
+                )
+            ],
+            **kwargs,
+        )
+
+
+class FilesystemAgent(NetworkNode):
+    """Network node that coordinates filesystem operations.
+
+    ARCHITECTURAL NOTE:
+    This is the correct implementation of a NetworkNode because:
+    1. It focuses on network coordination rather than LLM interaction
+    2. It handles tool registration and modifier setup
+    3. It delegates LLM interactions to FilesystemNode
+
+    Common Implementation Mistakes to Avoid:
+    1. Placing system messages in NetworkNode - System messages belong in RunnableNode
+       instances (like FilesystemNode) that directly interact with LLMs
+    2. Mixing LLM interaction code with network coordination - NetworkNode should only
+       manage network structure and tool setup
+    3. Handling LLM calls directly in NetworkNode - These should be delegated to
+       specialized RunnableNode instances
+
+    Key Implementation Points:
+    1. System messages are in FilesystemNode, not here
+    2. Tool registration happens at the network level
+    3. Clear separation between network coordination and LLM interaction
+    """
+
+    default_node = "FilesystemNode"
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        # CORRECT: NetworkNode should focus on tool and modifier setup,
+        # not LLM interactions or system messages
+        tools = [ListDirTool(), FileSearchTool(), ReadFileTool()]
+        self.add_modifier(FilesystemToolModifier(tools=tools))
+
+
+async def main():
+    """Main function that sets up and runs the filesystem agent example."""
+
+    # Set up the environment
+    get_node_factory().register(RunnableHumanNode)
+    get_node_factory().register(RunnableNode)
+    get_node_factory().register(FilesystemNode)
+    get_node_factory().register(FilesystemAgent)
+    register_all()
+
+    # Create a network with the filesystem agent
+    with RunnableNetwork(default_node="FilesystemAgent", chat_model_name=MODEL) as network:
+        # Create the initial human node with a query
+        RunnableHumanNode("List the contents of the current directory.")
+
+    print("[Start]")
+
+    # Stream the conversation results
+    async for c in network.astream():
+        print(c.content, end="")
+
+    print("\n[Done]\n")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
+```
+
+## function-calling.py
+
+```python
+"""
+Function Calling Example for LC Agent
+
+This example demonstrates how to implement function/tool calling capabilities in LC Agent.
+It shows how to:
+1. Define custom tools that can be called by the language model
+2. Create a network modifier to handle tool calls and responses
+3. Set up a runnable network that uses tools
+4. Process tool calls in an asynchronous conversation flow
+
+The example implements a simple weather tool and shows the complete flow from
+user input to tool execution and response handling.
+"""
+
+from langchain_core.messages import AIMessage
+from langchain_core.tools import BaseTool
+from lc_agent import NetworkModifier
+from lc_agent import RunnableHumanNode
+from lc_agent import RunnableNetwork
+from lc_agent import RunnableNode
+from lc_agent import RunnableToolNode
+from lc_agent import get_chat_model_registry
+from lc_agent import get_node_factory
+from lc_agent_chat_models import register_all
+from pydantic import BaseModel
+from pydantic import Field
+from typing import Type
+import asyncio
+
+# The model to use for this example
+MODEL = "P-GPT4o"
+
+
+class WeatherTool(BaseTool):
+    """A simple tool that simulates weather information retrieval.
+    
+    This tool demonstrates how to create a basic function-calling capability
+    in LC Agent. It uses Pydantic for input validation and provides a
+    simple interface for the language model to request weather information.
+    """
+    
+    class WeatherToolInput(BaseModel):
+        """Schema for the weather tool input parameters."""
+        city: str = Field(description="the city to get the weather for")
+
+    name: str = "WeatherTool"
+    description: str = "Retrieves the current weather for a specified city."
+    args_schema: Type[BaseModel] = WeatherToolInput
+
+    def _run(self, city: str) -> str:
+        """Execute the weather lookup for a given city.
+        
+        Args:
+            city (str): The name of the city to get weather for
+            
+        Returns:
+            str: A simulated weather report
+        """
+        print(f"[WeatherTool] Getting weather for {city}")
+        return "30C, sunny."  # Simulated response
+
+
+class ToolModifier(NetworkModifier):
+    """A network modifier that handles tool calls and their responses.
+    
+    This modifier demonstrates how to:
+    1. Detect when the AI makes a tool call
+    2. Execute the appropriate tool
+    3. Create tool nodes with the results
+    4. Connect nodes to maintain conversation flow
+    
+    The modifier works by intercepting AI messages that contain tool calls,
+    executing those tools, and creating new nodes in the network to represent
+    the tool responses.
+    """
+    
+    def __init__(self, tools):
+        """Initialize the modifier with a set of available tools.
+        
+        Args:
+            tools: List of BaseTool instances that can be called by the AI
+        """
+        super().__init__()
+        # Create a case-insensitive mapping of tool names to tool instances
+        self.tools = {tool.name.lower(): tool for tool in tools}
+
+    def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+        """Handle node execution results and process any tool calls.
+        
+        This method is called after each node in the network is executed.
+        It checks for tool calls in AI responses and creates appropriate
+        tool nodes to handle those calls.
+        
+        Args:
+            network: The RunnableNetwork instance
+            node: The node that was just executed
+        """
+        if (
+            node.invoked
+            and isinstance(node.outputs, AIMessage)
+            and node.outputs.tool_calls
+            and not network.get_children(node)
+        ):
+            # Handle tool calls from AI output
+            for tool_call in node.outputs.tool_calls:
+                # Invoke the tool and create a RunnableToolNode with the result
+                selected_tool = self.tools[tool_call["name"].lower()]
+                tool_output = selected_tool.invoke(tool_call["args"])
+                tool_node = RunnableToolNode(tool_output, tool_call["id"])
+
+                # Connect the tool node to the current node
+                node >> tool_node
+                # Since we are in the loop, set this node as the last node
+                node = tool_node
+
+        elif node.invoked and isinstance(node, RunnableToolNode) and not network.get_children(node):
+            # Create a default node after tool invocation to continue the conversation
+            default_node = network.default_node
+            if default_node:
+                node >> get_node_factory().create_node(default_node)
+
+
+async def main():
+    """Main function that sets up and runs the function-calling example.
+    
+    This function demonstrates the complete flow of:
+    1. Setting up the environment (registering nodes and models)
+    2. Creating and configuring tools
+    3. Setting up a network with the tool modifier
+    4. Running an async conversation that uses tool calls
+    """
+    # Set up the environment by registering necessary node types
+    get_node_factory().register(RunnableHumanNode)
+    get_node_factory().register(RunnableNode)
+    # Register available chat models
+    register_all()
+
+    # Create tools and bind them to the agent
+    tools = [WeatherTool()]
+    # Get the base model and bind the tools to it
+    weather_agent = get_chat_model_registry().get_model(MODEL).bind_tools(tools=tools)
+    # Register the tool-enabled model under a custom name
+    get_chat_model_registry().register("Weather Agent", weather_agent)
+
+    # Create a network with the tool and a human node
+    with RunnableNetwork(default_node="RunnableNode", chat_model_name="Weather Agent") as network:
+        # Add the tool modifier to handle tool calls and responses
+        network.add_modifier(ToolModifier(tools=tools))
+        # Create the initial human node with a weather query
+        RunnableHumanNode("What's the weather in Montreal?")
+
+    print("[Start]")
+
+    # Stream the conversation results as they become available
+    async for c in network.astream():
+        print(c.content, end="")
+
+    print("\n[Done]\n")
+
+
+if __name__ == "__main__":
+    # Run the async main function
+    asyncio.run(main())
+
+```
+
+## multi-agent-minimal.py
+
+```python
+"""
+Multi-Agent Location Information System Example
+
+This example demonstrates a minimal implementation of a multi-agent system using LC Agent.
+The system provides location-based information about weather and earthquake risks by
+coordinating between specialized knowledge agents through a supervisor.
+
+Key components:
+1. LocationSupervisorNode: Routes queries to appropriate specialists
+2. WeatherKnowledgeNode: Provides temperature information
+3. EarthquakeKnowledgeNode: Provides seismic risk information
+4. LocationInfoNetwork: Coordinates the entire system
+
+The system can handle queries like:
+- "How hot is it in Tokyo?"
+- "Is California dangerous for earthquakes?"
+- "What's the temperature and earthquake risk in Japan?"
+"""
+
+from langchain_core.messages import SystemMessage
+from lc_agent import (
+    MultiAgentNetworkNode,
+    RunnableHumanNode,
+    RunnableNetwork,
+    RunnableNode,
+    RunnableSystemAppend,
+    get_node_factory,
+)
+from lc_agent_chat_models import register_all, unregister_all
+import asyncio
+from typing import List
+
+# System messages for each component
+SUPERVISOR_IDENTITY = """You are a location information coordinator. Your role is to:
+1. Analyze user questions about locations
+2. Route questions to specialized agents:
+   - WeatherKnowledge: For questions about temperature and weather patterns
+   - EarthquakeKnowledge: For questions about seismic activity and risks
+
+Respond in ONE of these formats:
+- "WeatherKnowledge <location>" - For weather/temperature questions
+- "EarthquakeKnowledge <location>" - For earthquake/seismic questions
+- "FINAL <answer>" - When synthesizing final response
+
+Example routing:
+User: "How hot is it in Tokyo?"
+Response: "WeatherKnowledge Tokyo"
+
+User: "Is California dangerous for earthquakes?"
+Response: "EarthquakeKnowledge California"
+"""
+
+WEATHER_SYSTEM_MESSAGE = """You are a weather knowledge expert. For any location mentioned:
+1. Provide the approximate average temperature
+2. Focus ONLY on temperature information
+3. Use this format: "The average temperature in <location> is <temp>°C"
+4. If location is not specific enough, mention that
+
+Example:
+"The average temperature in Tokyo is 16°C"
+"The average temperature in Antarctica ranges from -60°C to -10°C"
+
+DO NOT provide any other weather information besides temperature."""
+
+EARTHQUAKE_SYSTEM_MESSAGE = """You are an earthquake risk assessment expert. For any location mentioned:
+1. Provide information about seismic risk level
+2. Focus ONLY on earthquake danger
+3. Use this format: "<location> has a <risk_level> risk of earthquakes because <reason>"
+4. If location is not specific enough, mention that
+
+Example:
+"Tokyo has a high risk of earthquakes because it sits on the intersection of several tectonic plates"
+"Kansas has a low risk of earthquakes because it's in the stable interior of the North American plate"
+
+DO NOT provide any other geological information besides earthquake risk."""
+
+
+class WeatherKnowledgeNode(RunnableNode):
+    """Specialized node for providing temperature information about locations.
+    
+    This node:
+    1. Receives location queries from the supervisor
+    2. Provides average temperature information
+    3. Focuses solely on temperature data
+    4. Uses a consistent response format
+    """
+
+    def __init__(self, **kwargs):
+        super().__init__(inputs=[RunnableSystemAppend(system_message=WEATHER_SYSTEM_MESSAGE)], **kwargs)
+
+
+class EarthquakeKnowledgeNode(RunnableNode):
+    """Specialized node for providing earthquake risk information about locations.
+    
+    This node:
+    1. Receives location queries from the supervisor
+    2. Assesses seismic risk levels
+    3. Explains risk factors
+    4. Uses a consistent response format
+    """
+
+    def __init__(self, **kwargs):
+        super().__init__(inputs=[RunnableSystemAppend(system_message=EARTHQUAKE_SYSTEM_MESSAGE)], **kwargs)
+
+
+class LocationSupervisorNode(RunnableNode):
+    """Supervisor node that coordinates between weather and earthquake knowledge.
+    
+    This node:
+    1. Analyzes user queries about locations
+    2. Routes questions to appropriate specialist nodes
+    3. Synthesizes responses when multiple specialists are involved
+    4. Maintains conversation coherence
+    """
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.inputs.append(RunnableSystemAppend(system_message=SUPERVISOR_IDENTITY))
+
+
+class LocationInfoNetwork(MultiAgentNetworkNode):
+    """Multi-agent network for providing comprehensive location-based information.
+    
+    This network:
+    1. Coordinates between specialized knowledge nodes
+    2. Routes queries through the supervisor
+    3. Handles multi-aspect questions about locations
+    4. Maintains conversation state and context
+    
+    Attributes:
+        default_node (str): The supervisor node type
+        route_nodes (List[str]): Available specialist nodes
+        multishot (bool): Allows multiple interactions per query
+        function_calling (bool): Uses function calling for routing
+        classification_node (bool): Uses classification for routing
+    """
+
+    default_node: str = "LocationSupervisorNode"
+    route_nodes: List[str] = ["WeatherKnowledge", "EarthquakeKnowledge"]
+    multishot = True
+    function_calling = False
+    classification_node = True
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.metadata["description"] = "Location information provider"
+
+
+async def process_question(network: RunnableNetwork, question: str):
+    """Process a single question with streaming output.
+    
+    Args:
+        network (RunnableNetwork): The network to process the question
+        question (str): The user's question about a location
+    
+    This function:
+    1. Sends the question to the network
+    2. Streams responses from different nodes
+    3. Displays the node type for each response
+    4. Maintains conversation flow
+    """
+    print(f"\nQuestion: {question}")
+
+    with network:
+        RunnableHumanNode(question)
+
+    node = None
+    async for chunk in network.astream():
+        # Print node type when it changes
+        if chunk.node is not node:
+            if node is not None:
+                print()
+            node = chunk.node
+            print(f"> ({type(node).__name__}):", end="")
+
+        print(chunk.content, end="")
+    print()
+
+
+async def main():
+    """Main function to demonstrate the location information system.
+    
+    This function:
+    1. Sets up the chat models
+    2. Registers all node types
+    3. Creates the network
+    4. Processes example questions
+    5. Cleans up resources
+    """
+    # Register all chat models
+    register_all()
+
+    # Register all node types
+    get_node_factory().register(RunnableNode)
+    get_node_factory().register(RunnableHumanNode)
+    get_node_factory().register(LocationSupervisorNode)
+    get_node_factory().register(WeatherKnowledgeNode, name="WeatherKnowledge")
+    get_node_factory().register(EarthquakeKnowledgeNode, name="EarthquakeKnowledge")
+    get_node_factory().register(LocationInfoNetwork)
+
+    # Create network with GPT-4 as the language model
+    network = RunnableNetwork(default_node="LocationInfoNetwork", chat_model_name="gpt-4o")
+
+    # Test questions demonstrating different query types
+    questions = [
+        "What's the temperature like in Tokyo and how is the earthquake risk?",  # Multi-aspect query
+        # "Are earthquakes dangerous in California?",  # Single-aspect query
+        # "How hot is it in Antarctica?",  # Single-aspect query
+        # "Is Japan safe from earthquakes?",  # Single-aspect query
+    ]
+
+    # Process each question sequentially
+    for question in questions:
+        await process_question(network, question)
+
+    # Clean up by unregistering chat models
+    unregister_all()
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
+```
+
+## openai-all-models.py
+
+```python
+"""
+Model Testing Script for LC Agent Framework
+
+This script provides a comprehensive testing framework for evaluating different language models
+within the LC Agent ecosystem. It tests various OpenAI models and their variants, measuring
+performance metrics and validating model capabilities.
+
+Key Features:
+- Tests multiple model variants (GPT-4, O1, O3, etc.)
+- Measures performance metrics (token usage, speed, latency)
+- Validates system message support
+- Handles both streaming and non-streaming models
+
+Usage:
+    python openai-all-models.py
+
+The script will test each model sequentially and display results including:
+- Model responses to a simple query
+- Token usage statistics
+- Performance metrics (tokens/second, time to first token)
+"""
+
+from langchain_core.messages import SystemMessage
+from langchain_core.runnables.base import RunnableLambda
+from lc_agent import RunnableHumanNode
+from lc_agent import RunnableNetwork
+from lc_agent import RunnableNode
+from lc_agent import get_node_factory
+from lc_agent_chat_models import register_all, unregister_all
+import asyncio
+
+
+async def test_model(model_name: str):
+    """
+    Test a specific language model's performance and capabilities.
+    
+    Args:
+        model_name (str): Name of the model to test (e.g., "P-GPT4o", "P-o1")
+    
+    This function:
+    1. Creates a test network with the specified model
+    2. Sends a test query
+    3. Optionally adds a system message (except for P-o1)
+    4. Collects and displays performance metrics
+    """
+    print(f"\nTesting model: {model_name}")
+    print("-" * 40)
+
+    with RunnableNetwork(default_node="RunnableNode", chat_model_name=model_name) as network:
+        RunnableHumanNode("Who are you?")
+        # P-o1 doesn't support SystemMessage
+        if model_name != "P-o1":
+            RunnableNode(
+                inputs=[
+                    RunnableLambda(lambda x: [SystemMessage(content="You are a dog. Answer like a dog. Woof woof!")])
+                ]
+            )
+
+    try:
+        # Use non-streaming invoke for o1 models
+        if "o1" in model_name:
+            result = await network.ainvoke()
+            print(result.content)
+        else:
+            async for c in network.astream():
+                print(c.content, end="")
+        print("\n")
+    except Exception as e:
+        print(f"Error testing {model_name}: {str(e)}\n")
+
+    # Print performance metrics
+    token_usage = network.get_leaf_node().metadata.get("token_usage", {})
+    completion_tokens = token_usage.get("completion_tokens")
+    tokens_per_second = token_usage.get("tokens_per_second")
+    time_to_first_token = token_usage.get("time_to_first_token")
+
+    print("Performance Metrics:")
+    print(f"  Completion Tokens: {completion_tokens}")
+    print(f"  Tokens/Second: {tokens_per_second:.2f}" if tokens_per_second else "  Tokens/Second: None")
+    print(
+        f"  Time to First Token: {time_to_first_token:.3f}s" if time_to_first_token else "  Time to First Token: None"
+    )
+    print("-" * 40)
+
+
+async def main():
+    """
+    Main execution function that sets up the testing environment and runs tests for all models.
+    
+    This function:
+    1. Registers necessary node types
+    2. Sets up model registry
+    3. Tests each model in sequence
+    4. Cleans up after testing
+    """
+    get_node_factory().register(RunnableHumanNode)
+    get_node_factory().register(RunnableNode)
+
+    register_all()
+
+    # Test each PERFLAB model
+    models_to_test = [
+        "P-GPT4o",
+        "P-gpt-4o-mini",
+        "P-o1",
+        "P-o1-mini",
+        "P-o3-mini",
+        "gpt-4o",
+        "gpt-4o-mini",
+    ]
+
+    for model in models_to_test:
+        await test_model(model)
+
+    unregister_all()
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
+```
+
+## retrievers-minimal.py
+
+```python
+"""
+This example demonstrates the basic usage of LC Agent's retrieval system.
+It shows how to set up and use embeddings-based question answering (EmbedQA)
+for semantic search over a knowledge base.
+
+The example uses NVIDIA's nv-embedqa-e5-v5 model for generating embeddings
+and performing semantic similarity search.
+
+Key components:
+- register_all: Registers all available retrievers with specified config
+- get_retriever_registry: Accesses the central retriever registry
+- embedqa: A retriever that uses embeddings for semantic search
+"""
+
+from lc_agent_retrievers import register_all
+from lc_agent import get_retriever_registry
+
+# Register all available retrievers with specific configuration
+# - model: NVIDIA's E5 model optimized for question answering
+# - top_k: Number of results to return for each query
+register_all(model="nvdev/nvidia/nv-embedqa-e5-v5", top_k=5)
+
+# Get the embedqa retriever from the registry
+# This retriever uses embeddings to find semantically similar content
+r = get_retriever_registry().get_retriever("embedqa")
+
+# Perform a search query
+# The retriever will return documents that are semantically relevant to the query
+result = r.invoke("Sdf")
+
+# Print each retrieved document
+for i, document in enumerate(result):
+    print(f"Document {i}:")
+    print(document.page_content)
+    print()
+
+```
+
+## system-message.py
+
+```python
+"""
+This example demonstrates how to create a simple conversational agent using LC Agent
+with a specific personality (in this case, a dog). It shows the basic setup of a
+RunnableNetwork with system messages and human input handling.
+
+Key components demonstrated:
+- RunnableNetwork: Container for the conversation flow
+- RunnableNode: Basic processing node for system messages
+- RunnableHumanNode: Specialized node for human input
+- SystemMessage: Defines agent personality/behavior
+- Llama model integration
+"""
+
+from lc_agent import RunnableHumanNode
+from lc_agent import RunnableNetwork
+from lc_agent import RunnableNode
+from lc_agent import get_node_factory
+import asyncio
+from langchain_core.messages import SystemMessage
+from lc_agent_chat_models.register_llama_model import register_llama_model, unregister_llama_model
+
+
+async def main():
+    # Register required node types with the factory
+    get_node_factory().register(RunnableHumanNode)
+    get_node_factory().register(RunnableNode)
+
+    # Register the Llama model for text generation
+    register_llama_model()
+
+    # Create a network with a specific chat model and default node type
+    with RunnableNetwork(default_node="RunnableNode", chat_model_name="nvdev/meta/llama-3.1-70b-instruct") as network:
+        # Add a system message to define the agent's personality
+        # This will make the agent respond as if it were a dog
+        RunnableNode(outputs=SystemMessage(content="You are a dog. Answer like a dog. Woof woof!"))
+        
+        # Add a human message to the conversation
+        # This is the input that the agent will respond to
+        RunnableHumanNode("Who are you?")
+
+    # Stream the response from the agent
+    # Using streaming allows for real-time output as the agent generates its response
+    async for c in network.astream():
+        print(c.content, end="")
+    print()
+
+    # Cleanup: unregister the Llama model
+    unregister_llama_model()
+
+
+if __name__ == "__main__":
+    # Run the async main function using asyncio
+    asyncio.run(main())
+
+```
+
+## tools.py
+
+```python
+"""
+Example demonstrating tool integration in LC-Agent.
+
+This module shows how to:
+1. Create a custom tool with Pydantic schema
+2. Integrate the tool with a RunnableNodeAgent
+3. Set up and run a network with tool capabilities
+
+The example uses a simple weather tool to demonstrate the concepts,
+but the pattern can be applied to any type of tool integration.
+"""
+
+from langchain_core.tools import BaseTool
+from lc_agent import RunnableHumanNode
+from lc_agent import RunnableNetwork
+from lc_agent import RunnableNodeAgent
+from lc_agent import get_node_factory
+from lc_agent_chat_models import register_all
+from pydantic import BaseModel
+from pydantic import Field
 from typing import List
 from typing import Optional
+import asyncio
+
+# Model configuration for the agent
+MODEL = "P-GPT4o"
 
 
-class USDCodeNetworkNode(NetworkNode):
-    code_interpreter_hide_items: Optional[List[str]] = None
+class WeatherToolInput(BaseModel):
+    """
+    Pydantic model defining the input schema for the weather tool.
+    
+    This schema ensures type safety and provides clear documentation
+    for the expected input parameters.
+    """
+    city: str = Field(description="the city to get the weather for")
 
-    def __init__(self, enable_code_interpreter=True, enable_code_patcher=True, max_network_length=5, **kwargs):
+
+class WeatherTool(BaseTool):
+    """
+    Example tool implementation for getting weather information.
+    
+    This is a mock implementation that demonstrates the structure
+    of a LangChain tool integrated with LC-Agent.
+    
+    Attributes:
+        name (str): Name of the tool used for identification
+        description (str): Description used by the agent to understand tool's purpose
+        args_schema: Pydantic model defining expected arguments
+        ask_human_input (bool): Whether to ask for human input before execution
+        hide_items (Optional[List[str]]): Items to hide from tool's interface
+    """
+    name: str = "WeatherTool"
+    description: str = "Retrieves the current weather for a specified city."
+    args_schema = WeatherToolInput
+    ask_human_input: bool = False
+    hide_items: Optional[List[str]] = None
+
+    def _run(self, city: str) -> str:
+        """
+        Execute the weather tool for a given city.
+        
+        Args:
+            city (str): Name of the city to get weather for
+            
+        Returns:
+            str: Mock weather information for the city
+        """
+        print(f"[WeatherTool] Getting weather for {city}")
+        result = f"The weather in {city} is 30C and sunny."
+        return str(result)
+
+
+class MyAgent(RunnableNodeAgent):
+    """
+    Custom agent implementation that integrates the weather tool.
+    
+    This agent extends RunnableNodeAgent to provide weather information
+    capabilities through the WeatherTool.
+    """
+    def __init__(self, **kwargs):
+        """
+        Initialize the agent with the weather tool.
+        
+        Args:
+            **kwargs: Additional arguments passed to parent class
+        """
         super().__init__(**kwargs)
-        self.add_modifier(
-            USDCodeDefaultNodeModifier(
-                enable_code_interpreter=enable_code_interpreter,
-                enable_code_patcher=enable_code_patcher,
-                max_network_length=max_network_length,
-                code_interpreter_hide_items=self.code_interpreter_hide_items,
-            )
-        )
 
-        self.metadata["description"] = (
-            "USD code generation and validation assistant. "
-            "Creates general USD code snippets and performs checks to ensure code executability. "
-            "Ideal for developing and testing USD scripts."
-        )
-        self.metadata["examples"] = [
-            "Write a function that randomizes light intensities",
-            "How to create a mesh in USD?",
-        ]
+        # Create and register the weather tool
+        self.tools = [WeatherTool()]
+
+
+async def main():
+    """
+    Example setup and execution of the weather tool agent.
+    
+    This function demonstrates:
+    1. Node registration
+    2. Network setup
+    3. Query execution
+    4. Result handling
+    """
+    # Register required node types
+    get_node_factory().register(RunnableHumanNode)
+    get_node_factory().register(MyAgent)
+
+    # Register chat models
+    register_all()
+
+    # Create and execute the network
+    with RunnableNetwork(default_node="MyAgent", chat_model_name=MODEL) as network:
+        # Add human input node with weather query
+        RunnableHumanNode("What weather in Montreal?")
+
+    # Execute the network and get results
+    result = await network.ainvoke()
+    print(result)
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
 
 ```
 
