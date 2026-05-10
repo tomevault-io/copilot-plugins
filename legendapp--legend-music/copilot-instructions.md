@@ -1,24 +1,40 @@
-## general
+## package-manager
 
-> - Prefer named exports rather than default exports
+> Installing packages
 
-# General app structure
+# This is a macOS project
 
-- Prefer named exports rather than default exports
-- Prefer Legend State useObservable and useValue rather than useState
-- Variables created with useObservable should be suffixed with $
-- To get the value of an observable within a React component we need to useValue(it), and that should be done below the useObservable or at the top of the component.
+If you install pods, do it as `cd macos && pod install`
 
-# Rules for you
+# Use Bun for package management
 
-- This is a React Native app, specifically a react-native-macOS app.
-- If I ask to make a component, put it in its own file unless I specify otherwise
-- This is a macOS app. Do not do anything Android, iOS, or web specific. It does not need fallbacks for if it's not a macos app.
-- ONLY do what I ask you, nothing else. Do not do anything extra that I did not ask for.
-- If I made changes after you, respect my changes and do not undo them.
-- Use tailwind/nativewind classes rather than stylesheets.
-- The command to run the project is `bun run mac`
-- Use Motion components only if a style is being animated.
+Always use Bun instead of npm or yarn for package management in this project.
+
+## Rules
+
+- Use `bun install` instead of `npm install` or `yarn install`
+- Use `bun add` instead of `npm i`, `npm add`, or `yarn add`
+- Use `bun remove` instead of `npm uninstall`, `npm remove`, or `yarn remove`
+- Use `bun run` instead of `npm run` or `yarn run`
+
+## Examples
+
+```bash
+# Installing dependencies
+bun install
+
+# Adding a package
+bun add react-native-reanimated
+
+# Adding a dev dependency
+bun add -d @types/react
+
+# Removing a package
+bun remove unused-package
+
+# Running scripts
+bun run mac
+```
 
 ---
 > Source: [LegendApp/legend-music](https://github.com/LegendApp/legend-music) — distributed by [TomeVault](https://tomevault.io).
