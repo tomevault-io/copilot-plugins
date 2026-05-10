@@ -1,0 +1,9 @@
+{
+  "name": "coldsurfers--kopis-cli",
+  "displayName": "kopis-cli",
+  "description": "KOPIS \uacf5\uc5f0\uc608\uc220 \uc815\ubcf4 CLI \ubc0f typescript SDK",
+  "version": "1.0.0",
+  "author": "coldsurfers",
+  "homepage": "https://github.com/coldsurfers/kopis-cli",
+  "skills": []
+}
