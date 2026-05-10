@@ -1,0 +1,634 @@
+## widgets-grist
+
+> Guide de développement pour le repository de widgets Grist.
+
+# CLAUDE.md
+
+Guide de développement pour le repository de widgets Grist.
+
+---
+
+## Instructions pour agents IA
+
+**Ce repo suit une séparation stricte développement / production.**
+
+### Règles essentielles
+
+1. **Ne jamais modifier `published/`** sauf demande explicite de publication
+2. **Développer dans `projects/`** — tous les projets sont dans ce dossier
+3. **Chaque projet a son propre CLAUDE.md** — le lire avant toute intervention
+4. **Le manifest.json est auto-généré** — ne jamais l'éditer manuellement
+5. **Consulter `skills/`** — patterns de code réutilisables pour Grist
+
+### Checklist avant de coder
+
+```
+□ Lire le CLAUDE.md du projet concerné
+□ Consulter skills/ pour les patterns standards
+□ Comprendre l'architecture existante
+□ Identifier les fonctions/patterns déjà présents
+□ Ne pas dupliquer ce qui existe
+```
+
+### Workflow de travail
+
+```
+DÉVELOPPEMENT                         PUBLICATION
+─────────────────────────────────────────────────────────
+projects/mon-widget/     ──promote──►  published/mon-widget/
+    ├── fichiers.html                      ├── package.json (obligatoire)
+    └── CLAUDE.md                          └── index.html
+```
+
+### Avant de coder sur un projet
+
+1. Lire le `CLAUDE.md` du projet (ex: `projects/tasks_app/CLAUDE.md`)
+2. Comprendre l'architecture existante
+3. Ne pas publier sans demande explicite
+
+### Quand l'utilisateur demande de "publier"
+
+1. Créer `published/nom-widget/package.json` avec la section `grist`
+2. Copier les fichiers finaux vers `published/nom-widget/`
+3. Exécuter `npm run manifest` pour régénérer le catalogue
+4. Commit avec message descriptif
+
+### Conventions de code
+
+- **Widgets statiques** : HTML autonome avec `<script src="grist-plugin-api.js">`
+- **Français** pour les commentaires et messages utilisateur
+- **Pas de frameworks** sauf si le projet le spécifie
+- **grist.ready()** obligatoire avec `requiredAccess` approprié
+
+---
+
+## Vue d'ensemble
+
+Ce repository contient des widgets personnalisés pour [Grist](https://www.getgrist.com/). Il est structuré pour supporter :
+- Le **développement** de widgets (zone de travail)
+- La **publication** de widgets stables (zone déployée sur GitHub Pages)
+- Les deux types de widgets Grist : **statiques** (HTML pur) et **build** (npm/React)
+
+## Structure du repository
+
+```
+Widgets-Grist/
+├── .github/
+│   └── workflows/
+│       └── publish.yml           # CI/CD : build + deploy sur GitHub Pages
+│
+├── .nojekyll                     # Désactive Jekyll sur GitHub Pages
+├── .gitignore
+├── package.json                  # Config npm workspaces
+├── CLAUDE.md                     # Ce fichier
+├── README.md                     # Documentation publique
+│
+├── projects/                     # ZONE DE DÉVELOPPEMENT
+│   ├── tasks_app/               # TaskFlow (kanban, gantt, calendar)
+│   │   ├── CLAUDE.md
+│   │   ├── kanban.html
+│   │   ├── gantt.html
+│   │   ├── calendar.html
+│   │   └── ...
+│   │
+│   └── widget_app/              # Artefactory (IDE no-code)
+│       ├── CLAUDE.md
+│       ├── app.html
+│       ├── app_runtime.html
+│       └── templates/
+│
+├── published/                    # ZONE PUBLIÉE (déployée sur gh-pages)
+│   ├── manifest.json            # Catalogue des widgets (auto-généré)
+│   │
+│   ├── taskflow/                # Widgets TaskFlow publiés
+│   │   ├── package.json
+│   │   ├── kanban/
+│   │   │   └── index.html
+│   │   ├── gantt/
+│   │   │   └── index.html
+│   │   └── calendar/
+│   │       └── index.html
+│   │
+│   ├── artefactory/             # Widgets Artefactory publiés
+│   │   ├── package.json
+│   │   ├── admin/
+│   │   │   └── index.html
+│   │   ├── runtime/
+│   │   │   └── index.html
+│   │   ├── registry.json
+│   │   └── components/
+│   │       └── ...
+│   │
+│   └── [autres-widgets]/
+│
+├── packages/                     # WIDGETS AVEC BUILD (optionnel)
+│   └── [widget-react]/
+│       ├── package.json
+│       ├── src/
+│       └── dist/                # Output → copié dans published/
+│
+├── skills/                       # PATTERNS DE CODE RÉUTILISABLES
+│   ├── README.md                # Index des skills
+│   ├── schema.md                # ⭐ Création schéma (tables, colonnes, refs, labels)
+│   ├── grist-api.md             # API Grist CRUD
+│   ├── data-conversion.md       # Conversion colonaire, dates, RefList
+│   ├── inter-widget.md          # Communication entre widgets
+│   ├── bridge.md                # GristBridge pour iframes
+│   └── patterns.md              # Modales, filtres, UI patterns
+│
+└── scripts/
+    ├── generate-manifest.js     # Génère manifest.json depuis published/
+    └── promote.js               # Copie de projects/ vers published/
+```
+
+## Zones du repository
+
+### `projects/` — Développement
+
+Zone de travail pour les widgets en cours de développement. **Non déployée** sur GitHub Pages.
+
+- Chaque projet a son propre `CLAUDE.md` avec les spécificités
+- Les fichiers peuvent être testés localement (mode démo) ou via URL raw GitHub
+- Pas de contrainte de structure stricte
+
+### `published/` — Production
+
+Zone des widgets stables publiés. **Déployée sur GitHub Pages** via CI/CD.
+
+- Chaque widget a un `package.json` avec la section `grist` (métadonnées)
+- Structure requise : `widget-name/index.html` (ou `widget-name.html`)
+- Le `manifest.json` est auto-généré par le script
+
+### `packages/` — Widgets avec build
+
+Pour les widgets nécessitant compilation (React, Vue, TypeScript...).
+
+- Chaque package a son `package.json` avec scripts de build
+- Le build output va dans `published/` via le script de build
+- Utilise npm workspaces pour la gestion des dépendances
+
+## Workflow de développement
+
+### 1. Développer un widget
+
+```bash
+# Travailler dans projects/
+cd projects/mon-widget/
+
+# Tester localement (ouvrir dans navigateur = mode démo)
+# Ou tester avec Grist via URL raw GitHub
+```
+
+### 2. Promouvoir vers published/
+
+```bash
+# Quand le widget est prêt
+npm run promote -- mon-widget
+
+# Ou manuellement : copier les fichiers vers published/
+```
+
+### 3. Publier
+
+```bash
+# Générer le manifest
+npm run manifest
+
+# Commit et push sur main
+git add .
+git commit -m "Publish mon-widget v1.0"
+git push
+
+# GitHub Actions déploie automatiquement sur gh-pages
+```
+
+## Configuration Grist
+
+### URL des widgets publiés
+
+```
+https://[USER].github.io/Widgets-Grist/taskflow/kanban/
+https://[USER].github.io/Widgets-Grist/artefactory/runtime/
+```
+
+### Configurer comme source de widgets
+
+Pour une instance Grist self-hosted, définir la variable d'environnement :
+
+```bash
+GRIST_WIDGET_LIST_URL=https://[USER].github.io/Widgets-Grist/manifest.json
+```
+
+Les widgets apparaîtront dans le sélecteur "Custom Widget" de Grist.
+
+## Structure d'un widget
+
+### Widget statique (sans build)
+
+```
+published/mon-widget/
+├── package.json      # Métadonnées obligatoires
+├── index.html        # Point d'entrée
+├── style.css         # Optionnel
+└── script.js         # Optionnel
+```
+
+**package.json minimal :**
+
+```json
+{
+  "name": "@org/widget-mon-widget",
+  "version": "1.0.0",
+  "grist": {
+    "widgetId": "@org/widget-mon-widget",
+    "name": "Mon Widget",
+    "url": "https://[USER].github.io/Widgets-Grist/mon-widget/",
+    "accessLevel": "full",
+    "description": "Description du widget"
+  }
+}
+```
+
+### Widget avec build (npm/React)
+
+```
+packages/mon-widget-react/
+├── package.json
+├── src/
+│   ├── App.tsx
+│   └── index.tsx
+├── vite.config.ts
+└── dist/             # → copié vers published/mon-widget-react/
+```
+
+**package.json :**
+
+```json
+{
+  "name": "@org/widget-mon-widget-react",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build --outDir ../../published/mon-widget-react"
+  },
+  "grist": {
+    "widgetId": "@org/widget-mon-widget-react",
+    "name": "Mon Widget React",
+    "url": "https://[USER].github.io/Widgets-Grist/mon-widget-react/",
+    "accessLevel": "full"
+  }
+}
+```
+
+## Champs `grist` dans package.json
+
+| Champ | Obligatoire | Description |
+|-------|-------------|-------------|
+| `widgetId` | Oui | Identifiant unique (format: `@org/widget-name`) |
+| `name` | Oui | Nom affiché dans le sélecteur Grist |
+| `url` | Oui | URL complète vers le widget |
+| `accessLevel` | Non | `"none"`, `"read table"`, ou `"full"` |
+| `description` | Non | Description courte (~125 caractères) |
+| `renderAfterReady` | Non | Optimisation de rendu (défaut: true) |
+| `authors` | Non | `[{ "name": "...", "url": "..." }]` |
+
+## Commandes npm
+
+```bash
+# Installer les dépendances (workspaces)
+npm install
+
+# Générer le manifest.json
+npm run manifest
+
+# Promouvoir un widget de projects/ vers published/
+npm run promote -- nom-du-projet
+
+# Build tous les widgets (packages/)
+npm run build
+
+# Tout en un : build + manifest
+npm run deploy
+```
+
+## CI/CD avec GitHub Actions
+
+Le workflow `.github/workflows/publish.yml` :
+
+1. Se déclenche sur push vers `main` (si `published/` ou `packages/` modifiés)
+2. Installe les dépendances
+3. Build les widgets (packages/)
+4. Génère le manifest.json
+5. Déploie `published/` vers la branche `gh-pages`
+
+### Configuration GitHub Pages
+
+1. Settings → Pages
+2. Source : Deploy from a branch
+3. Branch : `gh-pages` / `/ (root)`
+
+## Conventions
+
+### Nommage
+
+- **Projets en dev** : `nom-projet/` ou `nom-projet-vX/` (avec version)
+- **Widgets publiés** : `nom-widget/` (sans version, la version est dans package.json)
+- **Widget IDs** : `@org/widget-nom-widget`
+
+### Versioning
+
+- Utiliser semver dans les `package.json`
+- Tag git pour les releases : `v1.0.0`
+- Le manifest inclut `lastUpdatedAt` automatiquement
+
+### Commits
+
+```
+feat(taskflow): add drag-drop to kanban
+fix(artefactory): bridge timeout issue
+docs: update CLAUDE.md
+chore: bump versions
+```
+
+## Projets actuels
+
+### TaskFlow (`projects/tasks_app/`)
+
+Suite de 3 widgets Grist pour la gestion de projet :
+- **Kanban** : Vue tableau avec drag & drop
+- **Gantt** : Diagramme avec dépendances
+- **Calendar** : Vue calendrier mensuel/hebdo
+
+Voir `projects/tasks_app/CLAUDE.md` pour les détails.
+
+### Artefactory (`projects/widget_app/`)
+
+IDE no-code pour composer des applications Grist :
+- **Admin** : Configurateur de manifest (à créer)
+- **Runtime** : Exécuteur d'applications
+
+Voir `projects/widget_app/CLAUDE.md` pour les détails.
+
+## Guide de publication
+
+### Étape par étape
+
+#### 1. Préparer le widget
+
+Le widget doit être fonctionnel et testé. Vérifier :
+- [ ] Mode démo fonctionnel (ouverture locale)
+- [ ] Intégration Grist fonctionnelle
+- [ ] Pas d'erreurs console
+- [ ] Responsive / utilisable
+
+#### 2. Créer la structure dans published/
+
+```bash
+# Créer le dossier
+mkdir -p published/mon-widget
+
+# Créer le package.json (obligatoire)
+```
+
+**published/mon-widget/package.json :**
+```json
+{
+  "name": "mon-widget",
+  "version": "1.0.0",
+  "description": "Description courte du widget",
+  "grist": {
+    "widgetId": "mon-widget",
+    "name": "Mon Widget",
+    "accessLevel": "full",
+    "description": "Description affichée dans Grist"
+  }
+}
+```
+
+#### 3. Copier les fichiers
+
+```bash
+# Copier le HTML principal
+cp projects/mon-widget/widget.html published/mon-widget/index.html
+
+# Ou utiliser le script
+npm run promote -- projects/mon-widget/widget.html mon-widget
+```
+
+#### 4. Générer le manifest
+
+```bash
+npm run manifest
+```
+
+Vérifie que le widget apparaît dans `published/manifest.json`.
+
+#### 5. Commit et push
+
+```bash
+git add published/
+git commit -m "feat: publish mon-widget v1.0.0"
+git push
+```
+
+Le workflow GitHub Actions déploie automatiquement.
+
+### Widgets multiples dans un package
+
+Un seul `package.json` peut déclarer plusieurs widgets :
+
+```json
+{
+  "name": "taskflow",
+  "grist": [
+    {
+      "widgetId": "taskflow-kanban",
+      "name": "TaskFlow Kanban",
+      "url": "kanban/index.html",
+      "accessLevel": "full"
+    },
+    {
+      "widgetId": "taskflow-gantt",
+      "name": "TaskFlow Gantt",
+      "url": "gantt/index.html",
+      "accessLevel": "full"
+    }
+  ]
+}
+```
+
+### Mise à jour d'un widget
+
+1. Modifier les fichiers dans `published/`
+2. Incrémenter la version dans `package.json`
+3. `npm run manifest` + commit + push
+
+---
+
+## Structure des CLAUDE.md par projet
+
+Chaque projet dans `projects/` doit avoir son propre `CLAUDE.md` qui documente :
+
+```markdown
+# Projet: Nom du projet
+
+## Contexte
+[Objectif et cas d'usage]
+
+## Architecture
+[Structure des fichiers et leur rôle]
+
+## Conventions spécifiques
+[Règles propres au projet]
+
+## État actuel
+[Ce qui fonctionne, ce qui reste à faire]
+
+## Points d'attention
+[Pièges, bugs connus, décisions techniques]
+```
+
+Cela permet aux agents IA de comprendre rapidement le contexte sans avoir à explorer tout le code.
+
+---
+
+## Skills — Patterns de code
+
+Le dossier `skills/` contient les patterns de code standard pour le développement Grist.
+
+### Utilisation
+
+**Avant de coder**, consulter le fichier approprié :
+
+| Besoin | Fichier |
+|--------|---------|
+| **Créer tables/colonnes/refs** | `skills/schema.md` ⭐ |
+| Lire/écrire des données Grist | `skills/grist-api.md` |
+| Convertir les données colonaires | `skills/data-conversion.md` |
+| Synchroniser plusieurs widgets | `skills/inter-widget.md` |
+| Widget avec sous-iframes | `skills/bridge.md` |
+| Modales, filtres, toasts | `skills/patterns.md` |
+
+### Principes
+
+1. **Réutiliser** les patterns existants plutôt que réinventer
+2. **Cohérence** — même style de code dans tout le repo
+3. **Documenter** les nouveaux patterns dans skills/
+
+---
+
+## Collaboration multi-agents / multi-sessions
+
+Ce repo est conçu pour supporter le travail de **plusieurs agents IA** et **plusieurs utilisateurs** de manière cohérente.
+
+### Architecture de documentation
+
+```
+CLAUDE.md (racine)           ← Règles globales, structure, workflow
+    │
+    ├── projects/*/CLAUDE.md ← Règles spécifiques par projet
+    │
+    └── skills/*.md          ← Patterns de code réutilisables
+```
+
+### Protocole pour un nouvel agent/session
+
+1. **Lire ce fichier** (CLAUDE.md racine) en premier
+2. **Identifier le projet** concerné par la demande
+3. **Lire le CLAUDE.md du projet** avant toute intervention
+4. **Consulter skills/** pour les patterns à utiliser
+5. **Ne pas modifier** ce qui fonctionne sans raison explicite
+
+### Règles de cohérence
+
+#### Code
+- Utiliser les **mêmes noms de fonctions** que dans les projets existants
+- Respecter les **conventions de nommage** du projet
+- Garder le **style de code** cohérent (indentation, commentaires, etc.)
+- **Français** pour les messages utilisateur et commentaires
+
+#### Patterns obligatoires pour widgets Grist
+```javascript
+// Initialisation standard
+grist.ready({ requiredAccess: 'full' | 'read table' | 'none' });
+
+// Conversion colonaire → objets (voir skills/data-conversion.md)
+function convertToRows(data) { ... }
+
+// Mode démo (fallback sans Grist)
+try { grist.ready(...); } catch { isDemo = true; loadDemoData(); }
+
+// Sélection inter-widgets (voir skills/inter-widget.md)
+grist.setSelectedRows([id]);
+grist.onRecord((record) => { ... });
+```
+
+#### Structure HTML standard
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
+    <style>/* CSS variables, styles */</style>
+</head>
+<body>
+    <div id="app">Chargement...</div>
+    <script>/* Code organisé en sections */</script>
+</body>
+</html>
+```
+
+### Communication entre sessions
+
+Les sessions ne communiquent pas directement. La cohérence est assurée par :
+
+1. **Documentation** — tout est documenté dans les CLAUDE.md
+2. **Patterns** — utiliser les patterns de skills/
+3. **Git** — les commits documentent les changements
+4. **État actuel** — chaque CLAUDE.md de projet indique l'état
+
+### Mise à jour de la documentation
+
+Quand un agent fait un changement significatif :
+
+1. **Mettre à jour le CLAUDE.md du projet** si l'architecture change
+2. **Ajouter un pattern à skills/** si un nouveau pattern réutilisable est créé
+3. **Documenter dans le commit** ce qui a été fait et pourquoi
+
+### Anti-patterns à éviter
+
+| Ne pas faire | Faire à la place |
+|--------------|------------------|
+| Modifier `published/` sans demande | Travailler dans `projects/` |
+| Créer un nouveau pattern sans vérifier skills/ | Réutiliser les patterns existants |
+| Changer l'architecture sans documenter | Mettre à jour le CLAUDE.md |
+| Ignorer le CLAUDE.md du projet | Le lire en premier |
+| Deviner le contexte | Lire le code et la doc existante |
+| Dupliquer du code | Factoriser ou référencer |
+
+---
+
+## Repos de référence
+
+Patterns additionnels disponibles dans les repos GitHub de nic01asfr :
+
+| Repo | Contenu utile |
+|------|---------------|
+| [grist-widgets](https://github.com/nic01asfr/grist-widgets) | Geo-map, Cluster Quest, build React |
+| [grist-navigation-widgets](https://github.com/nic01asfr/grist-navigation-widgets) | Navigation multi-widgets, setCursorPos |
+| [Grist-App-Nest](https://github.com/nic01asfr/Grist-App-Nest) | Dashboard dynamique, React dans Grist |
+| [mcp-server-grist](https://github.com/nic01asfr/mcp-server-grist) | MCP Server pour Grist |
+
+---
+
+## Ressources
+
+- [Documentation Grist Custom Widgets](https://support.getgrist.com/widget-custom/)
+- [Grist Plugin API](https://support.getgrist.com/code/modules/grist_plugin_api/)
+- [gristlabs/grist-widget](https://github.com/gristlabs/grist-widget) (repo officiel)
+- [GitHub Pages Documentation](https://docs.github.com/en/pages)
+
+---
+> Source: [nic01asFr/Widgets-Grist](https://github.com/nic01asFr/Widgets-Grist) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-30 -->
