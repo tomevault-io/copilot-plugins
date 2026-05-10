@@ -1,0 +1,9 @@
+{
+  "name": "aptdnfapt--qwen-code-oai-proxy",
+  "displayName": "qwen-code-oai-proxy",
+  "description": "qwen proxy . qwen code oauth file in use for a proxy server so you can use qwen coder model any tool that uses openai api and base url .  and also the websearch api proxy",
+  "version": "1.0.0",
+  "author": "aptdnfapt",
+  "homepage": "https://github.com/aptdnfapt/qwen-code-oai-proxy",
+  "skills": []
+}
