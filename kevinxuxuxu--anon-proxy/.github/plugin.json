@@ -1,0 +1,9 @@
+{
+  "name": "kevinxuxuxu--anon-proxy",
+  "displayName": "anon_proxy",
+  "description": "Anonymization proxy between your local environment and LLM providers",
+  "version": "1.0.0",
+  "author": "KevinXuxuxu",
+  "homepage": "https://github.com/KevinXuxuxu/anon_proxy",
+  "skills": []
+}
