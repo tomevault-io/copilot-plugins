@@ -1,0 +1,9 @@
+{
+  "name": "flingyp--vitepress-plugin-legend",
+  "displayName": "vitepress-plugin-legend",
+  "description": "A plugin for displaying Markmap\u3001Mermaid and Infographic diagrams in VitePress",
+  "version": "1.0.0",
+  "author": "flingyp",
+  "homepage": "https://github.com/flingyp/vitepress-plugin-legend",
+  "skills": []
+}
