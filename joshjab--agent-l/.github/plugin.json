@@ -1,0 +1,9 @@
+{
+  "name": "joshjab--agent-l",
+  "displayName": "Agent_L",
+  "description": "Rust Agent framework for Ollama Models",
+  "version": "1.0.0",
+  "author": "joshjab",
+  "homepage": "https://github.com/joshjab/Agent_L",
+  "skills": []
+}
