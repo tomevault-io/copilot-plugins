@@ -1,1264 +1,643 @@
-## 131-java-refactoring-with-modern-features
+## 132-java-functional-programming
 
-> Modern Java Development Guidelines (Java 8+)
+> Java Functional Programming rules
 
-# Modern Java Development Guidelines (Java 8+)
+# Java Functional Programming rules
 
-Modern Java development (Java 8+) emphasizes leveraging lambda expressions and functional interfaces over anonymous classes, and using the Stream API for declarative collection processing. The `Optional` API should be used for handling potentially absent values gracefully, and the `java.time` API for all date/time operations. Default methods allow non-breaking interface evolution. Local Variable Type Inference (`var`) can improve readability when used judiciously. Unmodifiable collection factory methods (`List.of()`, etc.) provide concise immutable collections. `CompletableFuture` facilitates composable asynchronous programming. The Java Platform Module System (JPMS, Java 9+) enables strong encapsulation. Performance implications of new features should be considered and profiled. Testing strategies need to adapt to these modern features, and text blocks (Java 15+) offer improved readability for multi-line strings.
+Java functional programming revolves around immutable objects and state transformations, ensuring functions are pure (no side effects, depend only on inputs). It leverages functional interfaces, concise lambda expressions, and the Stream API for collection processing. Core paradigms include function composition, `Optional` for null safety, and higher-order functions. Modern Java features like Records enhance immutable data transfer, while pattern matching (for `instanceof` and `switch`) and switch expressions improve conditional logic. Sealed classes and interfaces enable controlled, exhaustive hierarchies, and upcoming Stream Gatherers will offer advanced custom stream operations.
 
 ## Implementing These Principles
 
 These guidelines are built upon the following core principles:
 
-1.  **Conciseness and Readability**: Leverage modern Java features (like lambdas, streams, `var`, text blocks) to write code that is more concise and easier to read and understand, reducing boilerplate and focusing on intent.
-2.  **Immutability and Safety**: Embrace features like `Optional`, unmodifiable collection factories, and the `java.time` API to create more robust, null-safe, and thread-safe code by default, reducing common sources of bugs.
-3.  **Expressive Power**: Utilize functional constructs like streams and `CompletableFuture` to express complex data manipulations and asynchronous workflows in a more declarative and composable manner.
-4.  **Asynchronous and Modular Design**: Employ `CompletableFuture` for efficient asynchronous programming and the Java Platform Module System (JPMS) for building maintainable, strongly encapsulated applications with clear dependencies.
-5.  **Performance Awareness**: While modern features offer syntactic improvements, remain mindful of their potential performance implications. Profile critical sections and make informed decisions, especially with streams and asynchronous operations.
+1.  **Immutability**: Prioritize immutable data structures (e.g., Records, `List.of()`) and state transformations that produce new instances rather than modifying existing ones. This reduces side effects and simplifies reasoning about state.
+2.  **Purity and Side-Effect Management**: Strive to write pure functions—functions whose output depends only on their input and which have no observable side effects. Isolate and control side effects when they are necessary.
+3.  **Expressiveness and Conciseness**: Leverage lambda expressions, method references, and the Stream API to write code that is declarative, concise, and clearly expresses the intent of data transformations and operations.
+4.  **Higher-Order Abstractions**: Utilize functional interfaces, function composition, and higher-order functions (functions that operate on other functions) to build flexible and reusable code components.
+5.  **Modern Java Integration**: Embrace modern Java features like Records, Pattern Matching, Switch Expressions, and Sealed Classes, which align well with and enhance functional programming paradigms by promoting immutability, type safety, and expressive conditional logic.
 
 ## Table of contents
 
-- Rule 1: Lambda Expressions and Functional Interfaces
-- Rule 2: Stream API
-- Rule 3: Optional API
-- Rule 4: Date/Time API (java.time)
-- Rule 5: Default Methods in Interfaces
-- Rule 6: Local Variable Type Inference (var)
-- Rule 7: Collection Factory Methods
-- Rule 8: CompletableFuture for Asynchronous Programming
-- Rule 9: Module System (Java 9+)
-- Rule 10: Performance Considerations with Modern Features
-- Rule 11: Testing Modern Java Code
-- Rule 12: Use Text Blocks for Readable Multi-line Strings
+- Rule 1: Immutable Objects
+- Rule 2: State Immutability
+- Rule 3: Pure Functions
+- Rule 4: Functional Interfaces
+- Rule 5: Lambda Expressions
+- Rule 6: Streams
+- Rule 7: Functional Programming Paradigms
+- Rule 8: Leverage Records for Immutable Data Transfer
+- Rule 9: Employ Pattern Matching for `instanceof` and `switch`
+- Rule 10: Use Switch Expressions for Concise Multi-way Conditionals
+- Rule 11: Leverage Sealed Classes and Interfaces for Controlled Hierarchies
+- Rule 12: Explore Stream Gatherers for Custom Stream Operations
 
-## Rule 1: Lambda Expressions and Functional Interfaces
+## Rule 1: Immutable Objects
 
-Title: Effectively Use Lambda Expressions and Functional Interfaces
+Title: Ensure Objects are Immutable
 Description:
-- Prefer lambda expressions over anonymous inner classes for concise implementation of functional interfaces.
-- Keep lambda expressions short, readable, and focused on a single piece of logic.
-- Use method references (e.g., `System.out::println`, `String::isEmpty`) when they are clearer and more direct than an equivalent lambda.
-- Leverage the rich set of built-in functional interfaces from the `java.util.function` package (e.g., `Predicate`, `Function`, `Consumer`, `Supplier`).
-- Create custom functional interfaces only when a specific signature is needed that isn't covered by built-in ones.
-- Always annotate custom functional interfaces with `@FunctionalInterface` to ensure they meet the criteria (a single abstract method) and to clearly communicate their purpose.
+- Use `final` classes and fields.
+- Initialize all fields in the constructor.
+- Do not provide setter methods.
+- Return defensive copies of mutable fields (e.g., collections, dates) when exposing them via getters.
 
 **Good example:**
+
+```java
+import java.util.List;
+import java.util.ArrayList;
+
+public final class Person {
+    private final String name;
+    private final int age;
+    private final List<String> hobbies; // Make it List, not ArrayList
+
+    public Person(String name, int age, List<String> hobbies) {
+        this.name = name;
+        this.age = age;
+        // Ensure the incoming list is defensively copied to an immutable list
+        this.hobbies = List.copyOf(hobbies); 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    // Return an immutable view or a defensive copy
+    public List<String> getHobbies() {
+        return this.hobbies; // List.copyOf already returns an unmodifiable list
+    }
+}
+```
+
+**Bad Example:**
+
+```java
+// Bad example to be added
+// e.g., a mutable class with setters, or returning internal mutable collections directly.
+```
+
+## Rule 2: State Immutability
+
+Title: Prefer Immutable State Transformations
+Description:
+- Instead of modifying existing objects, return new objects representing the new state.
+- Utilize collectors that produce immutable collections (e.g., `Collectors.toUnmodifiableList()`).
+- Leverage immutable collection types provided by libraries or Java itself.
+
+**Good example:**
+
 ```java
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.Arrays;
+
+public class PriceCalculator {
+    public static List<Double> applyDiscount(List<Double> prices, double discount) {
+        return prices.stream()
+            .map(price -> price * (1 - discount))
+            .collect(Collectors.toUnmodifiableList()); // Ensures the returned list is immutable
+    }
+}
+```
+
+**Bad Example:**
+
+```java
+// Bad example to be added
+// e.g., a method that modifies the input list directly.
+```
+
+## Rule 3: Pure Functions
+
+Title: Write Pure Functions
+Description:
+- Functions should depend only on their input parameters and not on any external or hidden state.
+- They should not cause any side effects (e.g., modifying external variables, I/O operations).
+- Given the same input, a pure function must always return the same output.
+- Avoid modifying external state or relying on it.
+
+**Good example:**
+
+```java
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class MathOperations {
+    // Pure function: depends only on input, no side effects
+    public static int add(int a, int b) {
+        return a + b;
+    }
+
+    // Pure function: transforms input list to a new list without modifying the original
+    public static List<Integer> doubleNumbers(List<Integer> numbers) {
+        return numbers.stream()
+            .map(n -> n * 2)
+            .collect(Collectors.toList()); // Could also be toUnmodifiableList()
+    }
+}
+```
+
+**Bad Example:**
+
+```java
+// Bad example to be added
+// e.g., a function that modifies a global variable or its input parameters.
+```
+
+## Rule 4: Functional Interfaces
+
+Title: Utilize Functional Interfaces Effectively
+Description:
+- Prefer built-in functional interfaces from `java.util.function` (e.g., `Function`, `Predicate`, `Consumer`, `Supplier`, `UnaryOperator`) when they suit the need.
+- Create custom functional interfaces (annotated with `@FunctionalInterface`) for specific, clearly defined single abstract methods.
+- Keep functional interfaces focused on a single responsibility.
+
+**Good example:**
+
+```java
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.time.LocalDateTime;
+
+// Built-in functional interfaces
+class FunctionalInterfaceExamples {
+    Function<String, Integer> stringToLength = String::length;
+    Predicate<Integer> isEven = n -> n % 2 == 0;
+    Consumer<String> printer = System.out::println;
+    Supplier<LocalDateTime> now = LocalDateTime::now;
+}
 
 // Custom functional interface
 @FunctionalInterface
-interface DataProcessor<T, R> {
-    R process(T data);
+interface Validator<T> {
+    boolean validate(T value);
 }
+```
 
-public class LambdaExample {
+**Bad Example:**
+
+```java
+// Bad example to be added
+// e.g., a functional interface with multiple abstract methods, or not using @FunctionalInterface.
+```
+
+## Rule 5: Lambda Expressions
+
+Title: Employ Lambda Expressions Clearly and Concisely
+Description:
+- Use method references (e.g., `String::length`, `System.out::println`) when they are clearer and more concise than an equivalent lambda expression.
+- Keep lambda expressions short and focused on a single piece of logic to maintain readability.
+- Extract complex or multi-line lambda logic into separate, well-named private methods.
+
+**Good example:**
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class LambdaExamples {
     public static void main(String args) {
         List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David", "Eve");
-
-        // Good: Using method reference
-        System.out.println("Printing names using method reference:");
+        
+        // Method reference for conciseness
         names.forEach(System.out::println);
-
-        // Good: Simple lambda for filtering
+        
+        // Simple, readable lambda
         List<String> longNames = names.stream()
-            .filter(str -> str.length() > 4) // Lambda expression
+            .filter(name -> name.length() > 4)
             .collect(Collectors.toList());
-        System.out.println("\nLong names (length > 4): " + longNames);
-
-        // Good: Using a built-in functional interface (Predicate)
-        Predicate<String> startsWithA = s -> s.startsWith("A");
-        List<String> namesStartingWithA = names.stream()
-            .filter(startsWithA)
+            
+        // Complex logic extracted to a private helper method
+        List<String> validNames = names.stream()
+            .filter(LambdaExamples::isValidName)
             .collect(Collectors.toList());
-        System.out.println("Names starting with 'A': " + namesStartingWithA);
-
-        // Good: Using a custom functional interface
-        DataProcessor<String, Integer> nameLengthProcessor = (String name) -> name.length();
-        int lengthOfAlice = nameLengthProcessor.process("Alice");
-        System.out.println("Length of 'Alice' using custom processor: " + lengthOfAlice);
-    }
-}
-```
-
-**Bad Example:**
-```java
-import java.util.List;
-import java.util.Arrays;
-import java.util.function.Consumer;
-
-public class OldStyleAnonymousClass {
-    public static void main(String args) {
-        List<String> names = Arrays.asList("Alice", "Bob");
-
-        // Bad: Using an anonymous inner class where a lambda would be more concise
-        names.forEach(new Consumer<String>() {
-            @Override
-            public void accept(String s) {
-                System.out.println("Processing: " + s);
-            }
-        });
-
-        // Bad: Overly complex lambda that should be a separate method
-        names.stream().filter(s -> {
-            System.out.println("Checking name: " + s); // Side effect in filter
-            boolean isLong = s.length() > 3;
-            boolean startsWithVowel = "AEIOUaeiou".indexOf(s.charAt(0)) != -1;
-            return isLong && startsWithVowel; // Multiple conditions
-        }).forEach(System.out::println);
-    }
-}
-// Custom functional interface without @FunctionalInterface (though compiler might allow if valid)
-// interface MyOldProcessor { String process(String data); }
-```
-
-## Rule 2: Stream API
-
-Title: Leverage the Stream API for Collection Processing
-Description:
-- Use streams for processing sequences of elements from collections or other sources in a functional style.
-- Prefer a declarative approach (what to do) over an imperative one (how to do it) for stream operations.
-- Chain stream operations (e.g., `filter`, `map`, `sorted`) effectively to create a readable processing pipeline.
-- Use appropriate terminal operations (e.g., `collect`, `forEach`, `reduce`, `findFirst`, `anyMatch`) to produce a result or side-effect.
-- Be mindful of performance implications, especially with large datasets or complex operations. Not all loops should be replaced by streams.
-- Use parallel streams (`parallelStream()`) judiciously, only for CPU-bound tasks on large datasets where the overhead of parallelization is offset by performance gains. Measure to confirm benefits.
-
-**Good example:**
-```java
-import java.util.List;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-class DataRecord { // Simple class for example
-    String value;
-    public DataRecord(String v) { this.value = v; }
-    public String getValue() { return value; }
-    public boolean isComplex() { 
-        try { Thread.sleep(1); } catch (InterruptedException e) {} // Simulate work
-        return value != null && value.length() > 5; 
-    }
-    @Override public String toString() { return "DataRecord{" + value + "}"; }
-}
-
-public class StreamApiExample {
-    public static void main(String args) {
-        List<String> data = Arrays.asList(" apple ", null, " BANANA ", " cherry ", "apple", "  ");
-
-        // Good: Effective stream usage for cleaning and processing data
-        List<String> processedData = data.stream()
-            .filter(Objects::nonNull)          // Remove nulls
-            .map(String::trim)                 // Trim whitespace
-            .filter(s -> !s.isEmpty())       // Remove empty strings
-            .map(String::toLowerCase)          // Convert to lower case
-            .distinct()                        // Keep unique elements
-            .sorted()                          // Sort alphabetically
-            .collect(Collectors.toList());
-        System.out.println("Processed and sorted data: " + processedData);
-
-        // Example for parallel stream (use with caution)
-        List<DataRecord> hugeList = Arrays.asList(
-            new DataRecord("record1"), new DataRecord("longrecord2"), 
-            new DataRecord("rec3"), new DataRecord("anotherlongrecord4")
-            // Imagine this list is much larger
-        );
-
-        // Good: Parallel stream potentially for CPU-intensive tasks on large list
-        // (Ensure complexOperation is thread-safe and truly CPU-bound)
-        System.out.println("Simulating parallel stream for complex operations:");
-        long count = hugeList.parallelStream()
-            .filter(DataRecord::isComplex) // complexOperation simulated in isComplex()
-            .count();
-        System.out.println("Number of complex records (parallel): " + count);
         
-        long countSequential = hugeList.stream()
-            .filter(DataRecord::isComplex)
-            .count();
-        System.out.println("Number of complex records (sequential): " + countSequential);
-    }
-}
-```
-
-**Bad Example:**
-```java
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-public class StreamAntiPattern {
-    public static void main(String args) {
-        List<String> data = Arrays.asList("a", "b", "c");
-        List<String> result = new ArrayList<>();
-
-        // Bad: Using stream for a simple loop where a foreach loop is clearer
-        // and potentially more performant for simple side effects on small lists.
-        // data.stream().forEach(s -> result.add(s.toUpperCase())); // Modifying external list - side effect!
-
-        // Better (imperative but clear for this simple case, or use map().collect()):
-        for (String s : data) {
-            result.add(s.toUpperCase());
-        }
-        System.out.println("Uppercase (imperative): " + result);
-
-        // Bad: Overusing parallel streams for simple operations on small collections
-        // The overhead of parallelization can outweigh benefits.
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
-        int sum = numbers.parallelStream() // Unnecessary parallelization for small sum
-                         .reduce(0, Integer::sum);
-        System.out.println("Sum (parallel, overkill): " + sum);
-    }
-}
-```
-
-## Rule 3: Optional API
-
-Title: Handle Potentially Absent Values Gracefully with Optional
-Description:
-- Use `Optional<T>` to explicitly represent values that may be absent, making your API clearer about nullability.
-- Avoid calling `Optional.get()` directly without first checking `isPresent()`. Prefer functional alternatives.
-- Leverage `Optional`'s functional-style methods like `map()`, `flatMap()`, `filter()`, `orElse()`, `orElseGet()`, `orElseThrow()` to handle absent values in a fluent and safe manner.
-- Generally, do not use `Optional` as a parameter type for methods or constructors. Method overloading or clear Javadoc is often better for optional parameters.
-- Avoid using `Optional` for fields in a class. Nullable fields are a common pattern; `Optional` is more for return types.
-- Use `orElse()` to provide a default value when the `Optional` is empty, and `orElseGet()` with a `Supplier` if creating the default value is computationally expensive.
-
-**Good example:**
-```java
-import java.util.Optional;
-import java.util.Map;
-
-// Dummy classes for a more complex example
-class User {
-    Address address;
-    String name;
-    public User(String name, Address address) { this.name = name; this.address = address; }
-    public Optional<Address> getAddress() { return Optional.ofNullable(address); }
-    public String getName() { return name; }
-}
-class Address { 
-    Country country; 
-    public Address(Country c) { this.country = c; }
-    public Optional<Country> getCountry() { return Optional.ofNullable(country); }
-}
-class Country { 
-    String code; 
-    public Country(String code) { this.code = code; }
-    public String getCode() { return code; }
-}
-
-public class OptionalExample {
-    private static Map<String, User> userRepository = Map.of(
-        "user1", new User("Alice", new Address(new Country("US"))),
-        "user2", new User("Bob", new Address(null)), // User with address, but no country
-        "user3", new User("Charlie", null) // User with no address
-    );
-
-    public static String findUserCountryCode(String userId) {
-        // Good: Complex Optional chain to safely navigate potentially null properties
-        return Optional.ofNullable(userRepository.get(userId)) // Optional<User>
-            .flatMap(User::getAddress)                         // Optional<Address>
-            .flatMap(Address::getCountry)                      // Optional<Country>
-            .map(Country::getCode)                             // Optional<String> (country code)
-            .orElse("UNKNOWN_COUNTRY");                          // Default if any step results in empty
-    }
-
-    public static String processValue(String value) {
-        // Good: Optional usage for simple processing
-        return Optional.ofNullable(value)
-            .map(String::trim)
-            .filter(s -> !s.isEmpty())
-            .map(String::toUpperCase)
-            .orElse("DEFAULT_VALUE");
-    }
-
-    public static void main(String args) {
-        System.out.println("User1 Country: " + findUserCountryCode("user1")); // US
-        System.out.println("User2 Country: " + findUserCountryCode("user2")); // UNKNOWN_COUNTRY (Address present, Country null)
-        System.out.println("User3 Country: " + findUserCountryCode("user3")); // UNKNOWN_COUNTRY (Address null)
-        System.out.println("User4 Country: " + findUserCountryCode("user4")); // UNKNOWN_COUNTRY (User not found)
-
-        System.out.println("Processed ' test ': " + processValue(" test ")); // TEST
-        System.out.println("Processed null: " + processValue(null));          // DEFAULT_VALUE
-        System.out.println("Processed '  ': " + processValue("  "));          // DEFAULT_VALUE (empty after trim)
-    }
-}
-```
-
-**Bad Example:**
-```java
-import java.util.Optional;
-
-public class OptionalAntiPattern {
-
-    public String getValueUnsafe(Optional<String> optValue) { // Parameter is Optional - not ideal
-        // Bad: Calling .get() without isPresent() check - can throw NoSuchElementException
-        if (optValue.isPresent()) { // This check is good, but often people forget it
-           return optValue.get();
-        }
-        return "default"; // Or one might just call optValue.get() directly
-    }
-
-    public void process(String value) {
-        Optional<String> optionalValue = Optional.ofNullable(value);
-        // Bad: Using isPresent() and get() where orElse/map could be used
-        if (optionalValue.isPresent()) {
-            String s = optionalValue.get();
-            System.out.println("Value is: " + s.toUpperCase());
-        } else {
-            System.out.println("Value is: DEFAULT");
-        }
+        System.out.println("Long names: " + longNames);
+        System.out.println("Valid names: " + validNames);
     }
     
-    // Optional field - generally not recommended
-    private Optional<String> configuration = Optional.empty();
-    public void setConfiguration(String config) { this.configuration = Optional.ofNullable(config); }
-
-    public static void main(String args) {
-        OptionalAntiPattern anti = new OptionalAntiPattern();
-        
-        // Demonstrating unsafe get()
-        Optional<String> emptyOpt = Optional.empty();
-        try {
-            System.out.println(emptyOpt.get()); // Throws NoSuchElementException
-        } catch (Exception e) {
-            System.err.println("Error calling get() on empty Optional: " + e.getClass().getName());
-        }
-
-        anti.process("hello");
-        anti.process(null);
-    }
-}
-```
-
-## Rule 4: Date/Time API (java.time)
-
-Title: Utilize the Modern java.time API for Dates and Times
-Description:
-- Replace legacy `java.util.Date`, `java.util.Calendar`, and `java.text.SimpleDateFormat` with the classes from the `java.time` package (introduced in Java 8).
-- Choose the appropriate `java.time` class for your specific needs:
-    - `Instant`: Represents a point in time on the UTC timeline (machine time), useful for timestamps.
-    - `LocalDate`: Represents a date without time-of-day and time-zone (e.g., birth date).
-    - `LocalTime`: Represents a time-of-day without a date and time-zone (e.g., opening hours).
-    - `LocalDateTime`: Represents a date-time without a time-zone (e.g., event start time in a local context).
-    - `ZonedDateTime`: Represents a date-time with a specific time-zone, handling DST changes correctly.
-    - `Duration`: Represents a time-based amount of time (seconds, nanoseconds).
-    - `Period`: Represents a date-based amount of time (years, months, days).
-- Format and parse dates and times using `DateTimeFormatter` for better thread-safety and control.
-
-**Good example:**
-```java
-import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-
-public class DateTimeApiExample {
-    public static void main(String args) {
-        // Current date and time
-        LocalDateTime now = LocalDateTime.now();
-        System.out.println("Current LocalDateTime: " + now);
-
-        // Date-specific operations
-        LocalDate today = LocalDate.now();
-        LocalDate tomorrow = today.plusDays(1);
-        System.out.println("Today: " + today + ", Tomorrow: " + tomorrow);
-        Period period = Period.between(today, today.plusMonths(2).plusDays(5));
-        System.out.println("Period of 2 months and 5 days: " + period);
-
-        // Time-specific operations with time zones
-        ZonedDateTime zonedNowUTC = ZonedDateTime.now(ZoneId.of("UTC"));
-        ZonedDateTime zonedNowParis = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
-        System.out.println("Current time in UTC: " + zonedNowUTC);
-        System.out.println("Current time in Paris: " + zonedNowParis);
-
-        // Machine time (timestamp)
-        Instant timestamp = Instant.now();
-        System.out.println("Current Instant (UTC): " + timestamp);
-
-        // Duration between two points in time
-        Instant start = Instant.now();
-        try { Thread.sleep(100); } catch (InterruptedException e) { /* ignore */ }
-        Instant end = Instant.now();
-        Duration duration = Duration.between(start, end);
-        System.out.println("Duration of operation: " + duration.toMillis() + " ms");
-
-        // Formatting and Parsing
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedNow = now.format(formatter);
-        System.out.println("Formatted LocalDateTime: " + formattedNow);
-        LocalDateTime parsedDateTime = LocalDateTime.parse("2023-01-15 10:30:00", formatter);
-        System.out.println("Parsed LocalDateTime: " + parsedDateTime);
+    // Helper method for more complex lambda logic
+    private static boolean isValidName(String name) {
+        return name.length() > 3 && Character.isUpperCase(name.charAt(0));
     }
 }
 ```
 
 **Bad Example:**
+
 ```java
-import java.util.Date;
-import java.util.Calendar;
-import java.text.SimpleDateFormat;
-
-public class LegacyDateTime {
-    public static void main(String args) {
-        // Bad: Using legacy java.util.Date (mutable and confusing)
-        Date oldDate = new Date(); 
-        System.out.println("Legacy Date: " + oldDate);
-        // oldDate.setMonth(5); // Deprecated and error-prone
-
-        // Bad: Using java.util.Calendar (mutable and cumbersome API)
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
-        Date tomorrowOld = calendar.getTime();
-        System.out.println("Legacy Calendar for tomorrow: " + tomorrowOld);
-
-        // Bad: SimpleDateFormat is not thread-safe
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        String formattedOldDate = sdf.format(oldDate);
-        System.out.println("Legacy formatted date: " + formattedOldDate);
-        // If sdf were shared among threads, it could lead to incorrect parsing/formatting.
-    }
-}
+// Bad example to be added
+// e.g., an overly long or complex lambda, or not using a method reference where applicable.
 ```
 
-## Rule 5: Default Methods in Interfaces
+## Rule 6: Streams
 
-Title: Enhance Interfaces with Default Methods for Non-Breaking Evolution
+Title: Leverage Streams for Collection Processing
 Description:
-- Use default methods to add new functionality to existing interfaces without breaking implementing classes.
-- Keep default method implementations simple and focused. Complex logic might be better suited for helper classes or abstract base classes.
-- Clearly document the behavior of default methods, including any assumptions they make about the interface's contract.
-- Avoid introducing state (fields) into interfaces, as default methods cannot access instance fields directly (only static final constants).
-- Consider backwards compatibility carefully. While default methods provide a default implementation, ensure it's a sensible one for all existing implementers.
+- Use the Stream API for processing sequences of elements from collections or other sources.
+- Chain stream operations (intermediate operations like `filter`, `map`, `sorted`) to create a pipeline for complex transformations.
+- Consider using parallel streams (`collection.parallelStream()`) for potentially improved performance on large datasets, but be mindful of the overhead and suitability for the task.
+- Choose appropriate terminal operations (e.g., `collect`, `forEach`, `reduce`, `findFirst`, `anyMatch`) to produce a result or side-effect.
 
 **Good example:**
+
 ```java
-interface DataProcessorInterface {
-    String process(String data);
-
-    // Good: Default method providing optional, additive behavior
-    default String processWithLogging(String data) {
-        String threadName = Thread.currentThread().getName();
-        System.out.println("" + threadName + " Default Log: Starting to process data - " + data.substring(0, Math.min(10, data.length())) + "...");
-        String result = process(data); // Calls the abstract method
-        System.out.println("" + threadName + " Default Log: Finished processing. Result - " + result.substring(0, Math.min(10, result.length())) + "...");
-        return result;
-    }
-
-    // Another default method
-    default boolean isValid(String data) {
-        return data != null && !data.trim().isEmpty();
-    }
-}
-
-class SimpleDataProcessor implements DataProcessorInterface {
-    @Override
-    public String process(String data) {
-        return "PROCESSED:" + data.toUpperCase();
-    }
-}
-
-class AdvancedDataProcessor implements DataProcessorInterface {
-    @Override
-    public String process(String data) {
-        return "ADVANCED_PROCESSED:" + new StringBuilder(data).reverse().toString();
-    }
-
-    // Optionally override the default method
-    @Override
-    public String processWithLogging(String data) {
-        System.out.println("Advanced Log: Pre-processing " + data);
-        String result = process(data);
-        System.out.println("Advanced Log: Post-processing done.");
-        return result;
-    }
-}
-
-public class DefaultMethodExample {
-    public static void main(String args) {
-        DataProcessorInterface simple = new SimpleDataProcessor();
-        DataProcessorInterface advanced = new AdvancedDataProcessor();
-
-        System.out.println("Simple processing (using default logging):");
-        System.out.println("Final Result: " + simple.processWithLogging("hello"));
-        System.out.println("Simple is valid: " + simple.isValid("hello"));
-
-        System.out.println("\nAdvanced processing (using overridden logging):");
-        System.out.println("Final Result: " + advanced.processWithLogging("world"));
-    }
-}
-```
-
-**Bad Example:**
-```java
-interface BadInterface {
-    void coreAction();
-
-    // Bad: Default method with overly complex logic or many dependencies
-    // that should ideally be in a separate class or abstract class.
-    default void complexDefaultOperation(String config) {
-        if (Objects.isNull(config)) {
-            // ... handle complex setup A ...
-            System.out.println("Complex default with null config");
-        } else {
-            // ... handle complex setup B based on config ...
-             System.out.println("Complex default with config: " + config);
-        }
-        // ... more logic ...
-        coreAction(); // Assumes coreAction() fits this complex flow
-    }
-
-    // Bad: Default method that significantly changes the expected contract
-    // for existing implementers in a non-obvious way.
-    default int getStatus() {
-        return -1; // What if implementers expected 0 for success?
-    }
-}
-
-class MyBadImplementer implements BadInterface {
-    @Override public void coreAction() { System.out.println("Core action from MyBadImplementer"); }
-}
-
-public class BadDefaultMethod {
-    public static void main(String args) {
-        BadInterface bad = new MyBadImplementer();
-        bad.complexDefaultOperation("test_config"); 
-        // This default method might be too opinionated or bulky for a simple interface.
-    }
-}
-```
-
-## Rule 6: Local Variable Type Inference (var)
-
-Title: Use Local Variable Type Inference (var) Judiciously for Readability
-Description:
-- Use `var` for local variable declarations (Java 10+) when the type of the variable is clear and obvious from the initializer on the right-hand side.
-- Avoid using `var` when the assigned type is not immediately apparent from the context, as this can reduce code readability and make it harder to understand the variable's type without IDE assistance.
-- Always use explicit types for method return types, method parameters, and class fields. `var` is only for local variables.
-- The primary goal of using `var` should be to improve code readability by reducing boilerplate, not to obscure types.
-
-**Good example:**
-```java
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.io.FileInputStream;
-import java.io.IOException;
-
-class User {}
-
-public class VarExample {
-    public static void main(String args) {
-        // Good: Type is clear from the constructor
-        var userList = new ArrayList<User>();
-        var userMap = Map.of("id1", new User());
-        var greeting = "Hello, World!"; // Type String is obvious
-
-        // Good: Type is clear from a static factory method with explicit type arguments
-        var entry = Map.entry("key", "value"); // Infers Map.Entry<String, String>
-
-        // Good: In try-with-resources if type is clear
-        try (var inputStream = new FileInputStream("file.txt")) {
-            System.out.println("Opened stream: " + inputStream.getClass().getName());
-            // ... use inputStream ...
-        } catch (IOException e) {
-            // var e = new IOException(); // Not allowed for catch formal parameters
-            System.err.println("Error with file: " + e.getMessage());
-        }
-
-        // Good: When iterating if the element type is clear
-        List<String> names = List.of("Alice", "Bob");
-        for (var name : names) {
-            System.out.println("Name: " + name.toUpperCase());
-        }
-    }
-
-    // Still need explicit types for method parameters and return types
-    public List<String> processNames(List<User> users) {
-        var processed = new ArrayList<String>();
-        for (var user : users) {
-            // processed.add(user.getName()); // Assuming User has getName()
-        }
-        return processed;
-    }
-}
-```
-
-**Bad Example:**
-```java
-// Assume this class and method exist elsewhere
-// class SomeService { public static Object getResult() { return "SomeString"; /* or new ArrayList<Integer>(); */ } }
-
-public class VarAntiPattern {
-    // This method is defined elsewhere and its return type might not be immediately obvious
-    private static Object getPotentiallyAmbiguousResult() {
-        if (Math.random() > 0.5) return "A String Result";
-        return List.of(1,2,3);
-    }
-
-    public static void main(String args) {
-        // Bad: Type is not obvious without inspecting the method or relying on IDE
-        // var result = SomeService.getResult(); 
-        var ambiguousResult = getPotentiallyAmbiguousResult(); 
-        // What is ambiguousResult? String? List? Object? Hard to tell without execution or IDE.
-        // This hinders readability.
-        // System.out.println(ambiguousResult.length()); // Compile error if it's a List
-        // System.out.println(ambiguousResult.size());   // Compile error if it's a String
-        System.out.println("Ambiguous result type: " + ambiguousResult.getClass().getName());
-
-        // Bad: Using var with diamond operator if it makes type less clear (though often fine)
-        // var map = new HashMap<>(); // Infers HashMap<Object, Object> - might be too generic if specific types intended
-        // Better: var map = new HashMap<String, Integer>(); OR Map<String, Integer> map = new HashMap<>();
-        
-        // Bad: When chain involves generics and var makes it hard to follow the final type
-        // var complexResult = someStream().map(Foo::bar).collect(Collectors.groupingBy(...));
-        // The explicit type of complexResult might be very verbose but more informative than var here.
-    }
-}
-```
-
-## Rule 7: Collection Factory Methods
-
-Title: Utilize Unmodifiable Collection Factory Methods
-Description:
-- Use the static factory methods `List.of()`, `Set.of()`, and `Map.of()` (Java 9+) to create compact, unmodifiable (immutable) collections when the elements are known at compile time.
-- For creating mutable collections, continue to use traditional constructors (e.g., `new ArrayList<>()`) or Stream API collectors (e.g., `Collectors.toList()`, `Collectors.toSet()`).
-- Be aware of the characteristics of these factory methods:
-    - They create unmodifiable collections; attempting to add or remove elements will result in `UnsupportedOperationException`.
-    - `List.of()` and `Set.of()` do not permit `null` elements.
-    - `Map.of()` does not permit `null` keys or `null` values.
-    - `Map.of()` does not permit duplicate keys.
-- Choose the appropriate overloaded version (e.g., `Map.of("k", "v")` vs `Map.ofEntries(...)`) based on the number of elements.
-
-**Good example:**
-```java
-import java.util.List;
-import java.util.Set;
-import java.util.Map;
-import java.util.stream.Stream;
 import java.util.stream.Collectors;
-import java.util.ArrayList; // For mutable list comparison
 
-public class CollectionFactoryExample {
+public class StreamExamples {
     public static void main(String args) {
-        // Good: Creating unmodifiable (immutable) collections
-        List<String> unmodifiableList = List.of("alpha", "beta", "gamma");
-        System.out.println("Unmodifiable List: " + unmodifiableList);
-        try {
-            unmodifiableList.add("delta"); // Throws UnsupportedOperationException
-        } catch (UnsupportedOperationException e) {
-            System.out.println("Error adding to unmodifiableList: " + e.getMessage());
-        }
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
-        Set<Integer> unmodifiableSet = Set.of(10, 20, 30, 20); // Duplicate 20 is ignored for Set
-        System.out.println("Unmodifiable Set: " + unmodifiableSet);
+        // Basic stream operations: filter even numbers and square them
+        List<Integer> evenSquares = numbers.stream()
+            .filter(n -> n % 2 == 0)
+            .map(n -> n * n)
+            .collect(Collectors.toList());
+        System.out.println("Even squares: " + evenSquares);
 
-        Map<String, Integer> unmodifiableMap = Map.of(
-            "one", 1,
-            "two", 2,
-            "three", 3
-        );
-        System.out.println("Unmodifiable Map: " + unmodifiableMap);
+        // Advanced stream operations: partitioning numbers
+        Map<Boolean, List<Integer>> partitionedByGreaterThanFive = numbers.stream()
+            .collect(Collectors.partitioningBy(n -> n > 5));
+        System.out.println("Partitioned by > 5: " + partitionedByGreaterThanFive);
 
-        // Good: Creating mutable collections using traditional methods or collectors
-        List<String> mutableListFromStream = Stream.of("x", "y", "z")
-            .filter(s -> s.length() == 1)
-            .collect(Collectors.toList()); // Creates a mutable ArrayList by default
-        mutableListFromStream.add("a");
-        System.out.println("Mutable list from stream: " + mutableListFromStream);
-
-        List<String> anotherMutableList = new ArrayList<>(List.of("initial")); // Initialize mutable from unmodifiable
-        anotherMutableList.add("added");
-        System.out.println("Mutable list initialized from List.of: " + anotherMutableList);
+        // Parallel stream for calculating average (use with caution, consider dataset size)
+        double average = numbers.parallelStream()
+            .mapToDouble(Integer::doubleValue)
+            .average()
+            .orElse(0.0);
+        System.out.println("Average: " + average);
     }
 }
 ```
 
 **Bad Example:**
+
 ```java
-import java.util.List;
-import java.util.Set;
+// Bad example to be added
+// e.g., using traditional loops where streams would be more concise and expressive,
+// or misusing parallel streams.
+```
+
+## Rule 7: Functional Programming Paradigms
+
+Title: Apply Core Functional Programming Paradigms
+Description:
+- **Function Composition**: Combine simpler functions to create more complex ones. Use `Function.compose()` and `Function.andThen()`.
+- **Optional for Null Safety**: Use `Optional<T>` to represent values that may be absent, avoiding `NullPointerExceptions` and clearly signaling optionality.
+- **Recursion**: Implement algorithms using recursion where it naturally fits the problem (e.g., tree traversal), especially tail recursion if supported or optimized by the JVM.
+- **Higher-Order Functions**: Utilize functions that accept other functions as arguments or return them as results (e.g., `Stream.map`, `Stream.filter`).
+
+**Good example:**
+
+```java
 import java.util.Map;
-
-public class CollectionFactoryAntiPattern {
-    public static void main(String args) {
-        // Bad: Attempting to use List.of() when null elements are needed (will throw NullPointerException)
-        try {
-            List<String> listWithNull = List.of("apple", null, "banana");
-            System.out.println(listWithNull);
-        } catch (NullPointerException e) {
-            System.err.println("Error: List.of() does not accept null elements. " + e.getMessage());
-        }
-
-        // Bad: Attempting to use Map.of() with duplicate keys (will throw IllegalArgumentException)
-        try {
-            Map<String, Integer> mapWithDuplicateKeys = Map.of("a", 1, "b", 2, "a", 3);
-            System.out.println(mapWithDuplicateKeys);
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error: Map.of() does not accept duplicate keys. " + e.getMessage());
-        }
-
-        // Misunderstanding: Thinking List.of() returns a general-purpose mutable list
-        List<String> myList = List.of("one", "two");
-        // myList.add("three"); // This would throw UnsupportedOperationException at runtime
-        // If mutability is needed, ArrayList should be used:
-        // List<String> mutableMyList = new ArrayList<>(List.of("one", "two"));
-        // mutableMyList.add("three"); 
-    }
-}
-```
-
-## Rule 8: CompletableFuture for Asynchronous Programming
-
-Title: Employ CompletableFuture for Composable Asynchronous Operations
-Description:
-- Use `CompletableFuture` (Java 8+) for managing sequences of asynchronous operations, avoiding callback hell and enabling a more functional, composable style.
-- Chain asynchronous tasks using methods like `thenApplyAsync()`, `thenComposeAsync()`, `thenAcceptAsync()`, `thenRunAsync()`.
-- Combine results from multiple `CompletableFuture` instances using `allOf()` (wait for all to complete) or `anyOf()` (wait for any one to complete).
-- Handle exceptions gracefully within the asynchronous pipeline using `exceptionally()` or `handle()`.
-- Be mindful of the `Executor` used for each stage. By default, `xxxAsync` methods without an executor argument often use the common `ForkJoinPool.commonPool()`. Provide a custom executor if specific thread management or resource allocation is needed.
-- Consider timeout handling for asynchronous operations using methods like `orTimeout()` (Java 9+) or by composing with a separately scheduled timeout future.
-
-**Good example:**
-```java
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
-public class CompletableFutureExample {
-
-    private static final ExecutorService customExecutor = Executors.newFixedThreadPool(4);
-
-    // Simulate fetching data asynchronously
-    private static String fetchData(String query) {
-        System.out.println("" + Thread.currentThread().getName() + " Fetching data for: " + query);
-        try { Thread.sleep(1000); } catch (InterruptedException e) { Thread.currentThread().interrupt(); return "ERROR_FETCH";}
-        if (query.equals("fail_fetch")) throw new RuntimeException("Simulated fetch failure");
-        return "Data_for_" + query;
-    }
-
-    // Simulate processing data
-    private static String processData(String rawData) {
-        System.out.println("" + Thread.currentThread().getName() + " Processing data: " + rawData);
-        try { Thread.sleep(500); } catch (InterruptedException e) { Thread.currentThread().interrupt(); return "ERROR_PROCESS";}
-        if (rawData.contains("fail_process")) throw new RuntimeException("Simulated process failure");
-        return "Processed_" + rawData;
-    }
-
-    // Simulate saving data
-    private static void saveData(String processedData) {
-        System.out.println("" + Thread.currentThread().getName() + " Saving data: " + processedData);
-        try { Thread.sleep(200); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
-        System.out.println("" + Thread.currentThread().getName() + " Save complete for: " + processedData);
-    }
-
-    public static void main(String args) {
-        System.out.println("Starting asynchronous operations...");
-
-        CompletableFuture<Void> futureSuccess = CompletableFuture
-            .supplyAsync(() -> fetchData("query1"), customExecutor)      // Stage 1 on custom executor
-            .thenApplyAsync(data -> processData(data), customExecutor) // Stage 2 on custom executor
-            .thenAcceptAsync(result -> saveData(result), customExecutor) // Stage 3 on custom executor
-            .exceptionally(ex -> { // Handle exceptions from any preceding stage
-                System.err.println("" + Thread.currentThread().getName() + " Error in chain: " + ex.getMessage());
-                return null; // Must return Void (or a compatible type for thenAccept)
-            });
-        
-        CompletableFuture<Void> futureFetchFail = CompletableFuture
-            .supplyAsync(() -> fetchData("fail_fetch"), customExecutor)
-            .thenApplyAsync(data -> processData(data), customExecutor)
-            .thenAcceptAsync(result -> saveData(result), customExecutor)
-            .exceptionally(ex -> {
-                System.err.println("" + Thread.currentThread().getName() + " Error in fetch_fail chain: " + ex.getMessage());
-                return null;
-            });
-
-        System.out.println("Futures submitted. Main thread continues...");
-
-        // Wait for futures to complete for demonstration purposes
-        futureSuccess.join(); 
-        futureFetchFail.join();
-
-        customExecutor.shutdown();
-        try {
-            if (!customExecutor.awaitTermination(5, TimeUnit.SECONDS)) {
-                customExecutor.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            customExecutor.shutdownNow();
-        }
-        System.out.println("All operations finished.");
-    }
-}
-```
-
-**Bad Example:**
-```java
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
-public class CompletableFutureAntiPattern {
-    public static void main(String args) {
-        // Bad: Blocking directly on future.get() without timeout in main/request threads
-        // This negates the benefits of asynchronous programming if not handled carefully.
-        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
-            try { Thread.sleep(2000); } catch (InterruptedException e) {}
-            return "Slow result";
-        });
-
-        String result = null;
-        try {
-            System.out.println("Blocking to get future result...");
-            result = future.get(); // Blocking call - can make application unresponsive
-            System.out.println("Got result: " + result);
-        } catch (InterruptedException | ExecutionException e) {
-            System.err.println("Error getting future result: " + e.getMessage());
-        }
-
-        // Bad: Forgetting to handle exceptions within the CompletableFuture chain
-        CompletableFuture<String> errorFuture = CompletableFuture.supplyAsync(() -> {
-            if (true) throw new RuntimeException("Simulated async error!");
-            return "Won't reach here";
-        }).thenApply(s -> s.toUpperCase()); // This stage might not run, or exception propagates
-        
-        try {
-            errorFuture.join(); // Will throw CompletionException here if not handled by .exceptionally()
-        } catch (Exception e) {
-            // assertThat(e.getCause()).isInstanceOf(RuntimeException.class).hasMessage("Processing failed");
-            System.out.println("Error from errorFuture: " + e.getClass().getName() + ": "+ e.getCause().getMessage());
-        }
-        // An .exceptionally() or .handle() should be used in the chain.
-    }
-}
-```
-
-## Rule 9: Module System (Java 9+)
-
-Title: Leverage the Java Platform Module System (JPMS) for Strong Encapsulation
-Description:
-- For applications built on Java 9 or later, consider designing them as modules to achieve strong encapsulation and reliable configuration.
-- Create a `module-info.java` file at the root of your source code to declare your module.
-- Use `requires` clauses to specify dependencies on other modules (e.g., `requires java.sql;`, `requires com.fasterxml.jackson.databind;`).
-- Use `exports` clauses to make specific packages publicly available to other modules that depend on yours.
-- Use `opens` clauses if a package needs to be accessible via reflection for frameworks.
-- Use `provides ... with ...` for service discovery using `ServiceLoader`.
-- Carefully consider which packages to export to maintain good encapsulation and avoid exposing internal implementation details.
-
-**Good example:**
-(Conceptual `module-info.java` files)
-```java
-// In src/com.example.application/module-info.java
-/*
-module com.example.application {
-    // Depends on the standard java.base and java.logging modules
-    requires java.base; // Usually implicit but good to be explicit
-    requires java.logging;
-
-    // Depends on an external library module (assuming it's modularized)
-    // requires org.example.somelibrary;
-
-    // Exports its API package for other modules to use
-    exports com.example.application.api;
-
-    // If it uses a service defined in another module
-    // uses com.example.spi.SomeService;
-
-    // If it provides an implementation of a service
-    // provides com.example.spi.AnotherService with com.example.application.internal.AnotherServiceImpl;
-}
-*/
-
-// In src/com.example.library/module-info.java (A hypothetical library)
-/*
-module com.example.library {
-    requires java.base;
-    exports com.example.library.utils;
-}
-*/
-
-// Example Java class within com.example.application.api
-// package com.example.application.api;
-// public class AppService { public String getGreeting() { return "Hello from AppService"; } }
-
-public class ModuleSystemExample {
-    public static void main(String args) {
-        System.out.println("This example primarily shows conceptual module-info.java files.");
-        System.out.println("To run a modular application, compile with module path and run with --module-path and --module.");
-        // AppService app = new AppService();
-        // System.out.println(app.getGreeting());
-    }
-}
-
-```
-
-**Bad Example:**
-(Conceptual `module-info.java`)
-```java
-// In module-info.java
-/*
-module com.example.badmodule {
-    // Bad: Exporting too many internal packages, breaking encapsulation
-    exports com.example.badmodule.internal.utils;
-    exports com.example.badmodule.internal.anotherpackage;
-    exports com.example.badmodule.api; // This one might be okay
-
-    // Bad: Requiring transitive on everything by default, can lead to a less stable module graph
-    // requires transitive java.sql; 
-    // requires transitive com.another.library;
-    // (Use 'requires transitive' only when your module's API exposes types from the transitive module)
-}
-*/
-public class BadModuleExample {
-    public static void main(String args) {
-        System.out.println("Illustrates bad practices in module-info.java like over-exporting internals.");
-    }
-}
-```
-
-## Rule 10: Performance Considerations with Modern Features
-
-Title: Be Mindful of Performance Implications of Modern Java Features
-Description:
-- Always profile your application before attempting optimizations. Avoid premature optimization.
-- Choose appropriate data structures for the task. Modern features don't change fundamental data structure performance characteristics.
-- Streams can sometimes have overhead compared to simple loops for very small collections or very simple operations. Measure if performance is critical.
-- Parallel streams can improve performance for CPU-bound tasks on large datasets but can degrade performance if misused (e.g., for I/O-bound tasks, small datasets, or tasks with heavy synchronization). The overhead of splitting/merging work and context switching can be significant.
-- `Optional` can add a small object allocation overhead. In highly performance-sensitive code paths with many optional values, consider alternatives if profiling shows it's an issue (though this is rare).
-- Lazy initialization (e.g., for expensive objects) should be implemented correctly (e.g., using double-checked locking with `volatile` or `java.util.function.Supplier` with memoization).
-
-**Good example:**
-```java
-import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 import java.util.stream.IntStream;
-import java.util.ArrayList;
-import java.util.Objects;
 
-// Simulate an expensive object to initialize
-class ExpensiveObject {
-    public ExpensiveObject() {
-        System.out.println("ExpensiveObject created!");
-        try { Thread.sleep(100); } catch (InterruptedException e) {} // Simulate costly creation
+public class FunctionalParadigms {
+
+    // Function composition
+    public static void demonstrateComposition() {
+        Function<Integer, String> intToString = Object::toString;
+        Function<String, Integer> stringLength = String::length;
+        // Executes intToString first, then stringLength
+        Function<Integer, Integer> composedLengthAfterToString = stringLength.compose(intToString);
+        System.out.println("Composed (123 -> length): " + composedLengthAfterToString.apply(123)); // Output: 3
     }
-    public void use() { System.out.println("ExpensiveObject used."); }
-}
 
-public class PerformanceConsiderations {
-    // Good: Lazy initialization using double-checked locking for a singleton-like expensive resource
-    private volatile ExpensiveObject instance;
-
-    public ExpensiveObject getLazyInitializedInstance() {
-        ExpensiveObject result = instance; // Read volatile field once
-        if (Objects.isNull(result)) {
-            synchronized (this) { // Synchronize only if instance is null
-                result = instance; // Double-check
-                if (Objects.isNull(result)) {
-                    instance = result = new ExpensiveObject();
-                }
-            }
+    // Optional usage for safe division
+    public static Optional<Double> divideNumbers(Double numerator, Double denominator) {
+        if (Objects.isNull(denominator) || denominator == 0) {
+            return Optional.empty();
         }
-        return result;
+        return Optional.of(numerator / denominator);
     }
 
-    public static void main(String args) {
-        PerformanceConsiderations pc = new PerformanceConsiderations();
-        System.out.println("Getting instance first time:");
-        ExpensiveObject obj1 = pc.getLazyInitializedInstance();
-        obj1.use();
-        
-        System.out.println("\nGetting instance second time (should be cached):");
-        ExpensiveObject obj2 = pc.getLazyInitializedInstance();
-        obj2.use();
-        System.out.println("obj1 == obj2: " + (obj1 == obj2));
-
-        // Regarding streams: For very large collections and CPU-bound tasks, parallel streams can help.
-        // But always measure. Example:
-        final int LIST_SIZE = 1_000_000;
-        List<Integer> numbers = new ArrayList<>(LIST_SIZE);
-        for(int i=0; i<LIST_SIZE; i++) numbers.add(i);
-
-        long startTime = System.nanoTime();
-        long sumSequential = numbers.stream().mapToLong(i -> (long)i*i).sum(); // Squaring, CPU intensive
-        long endTime = System.nanoTime();
-        System.out.println("\nSequential sum of squares: " + sumSequential + " in " + (endTime-startTime)/1_000_000 + "ms");
-
-        startTime = System.nanoTime();
-        long sumParallel = numbers.parallelStream().mapToLong(i -> (long)i*i).sum();
-        endTime = System.nanoTime();
-        System.out.println("Parallel sum of squares:   " + sumParallel + " in " + (endTime-startTime)/1_000_000 + "ms");
-        // On multi-core machines, parallel *may* be faster here.
-    }
-}
-```
-
-**Bad Example:**
-```java
-import java.util.List;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
-
-public class PerformanceAntiPattern {
-    private ExpensiveObject costlyObject; // Eagerly initialized, even if not used
-
-    public PerformanceAntiPattern() {
-        // Bad: Eagerly initializing a very expensive object that might not be needed.
-        // this.costlyObject = new ExpensiveObject(); 
-        // System.out.println("Costly object created in constructor regardless of use.");
-    }
-
-    public void sometimesUseCostlyObject() {
-        // If costlyObject was initialized eagerly, its cost is paid even if this method isn't called often.
-        // if (costlyObject != null && Math.random() > 0.8) costlyObject.use();
-        System.out.println("Costly object would have been initialized in constructor if uncommented.");
-    }
-
-    public static void main(String args) {
-        PerformanceAntiPattern pap = new PerformanceAntiPattern();
-        pap.sometimesUseCostlyObject();
-
-        List<Integer> smallList = List.of(1, 2, 3, 4, 5);
-        // Bad: Using parallel stream for a tiny list and simple operation.
-        // Overhead of parallelization likely exceeds any benefit.
-        System.out.println("\nCalculating sum of small list (parallel, likely inefficient):");
-        long sum = smallList.parallelStream().mapToInt(Integer::intValue).sum();
-        System.out.println("Sum: " + sum);
-    }
-}
-```
-
-## Rule 11: Testing Modern Java Code
-
-Title: Adapt Testing Strategies for Modern Java Features
-Description:
-- **Lambda Expressions**: Test the behavior of methods that accept lambdas by passing various lambda implementations (including edge cases). Direct testing of complex lambdas might indicate they should be extracted into separate, testable methods.
-- **Optional**: Use assertion libraries that have good support for `Optional` (e.g., AssertJ's `isPresent()`, `isEmpty()`, `hasValue()`). Test paths where `Optional` is empty and paths where it's present.
-- **Streams**: Test methods that use streams by verifying their output (e.g., collected results) or side effects based on various input collections. Focus on the overall behavior rather than testing each intermediate stream operation in isolation unless the logic is very complex.
-- **CompletableFuture**: Testing asynchronous code can be challenging. Use tools like Awaitility to wait for asynchronous operations to complete before making assertions. Test for successful completion, exceptional completion, and timeouts.
-- **Default Methods**: Test default methods as part of the interface's contract. If a class overrides a default method, test the overridden behavior.
-- Utilize modern testing frameworks (JUnit 5, TestNG) and assertion libraries (AssertJ, Hamcrest) that integrate well with modern Java features.
-- Always ensure thorough testing of edge cases, especially with functional constructs and asynchronous operations.
-
-**Good example:**
-```java
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
-// For actual tests, use JUnit, TestNG, AssertJ etc.
-// import org.junit.jupiter.api.Test;
-// import static org.assertj.core.api.Assertions.assertThat;
-// import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-class ModernFeaturesService {
-    public List<String> filterAndToUpper(List<String> input, String startsWith) {
-        if (Objects.isNull(input)) return List.of();
-        return input.stream()
-            .filter(s -> s != null && s.startsWith(startsWith))
-            .map(String::toUpperCase)
-            .collect(Collectors.toList());
-    }
-
-    public Optional<String> findFirstLongString(List<String> input, int minLength) {
-        if (Objects.isNull(input)) return Optional.empty();
-        return input.stream()
-            .filter(s -> s != null && s.length() >= minLength)
-            .findFirst();
-    }
-
-    public CompletableFuture<String> processDataAsync(String data) {
-        return CompletableFuture.supplyAsync(() -> {
-            try { Thread.sleep(100); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
-            if (data.equals("fail")) throw new RuntimeException("Processing failed");
-            return "PROCESSED:" + data;
-        });
-    }
-}
-
-// Conceptual Tests (using System.out for assertions for simplicity here)
-public class TestingModernCodeExample {
-
-    // @Test // Example with AssertJ style (if library was present)
-    void testFilterAndToUpper_withAssertJ() {
-        ModernFeaturesService service = new ModernFeaturesService();
-        List<String> input = List.of("apple", "apricot", "banana", "avocado");
-        List<String> result = service.filterAndToUpper(input, "ap");
-        // assertThat(result).containsExactlyInAnyOrder("APPLE", "APRICOT");
-        System.out.println("testFilterAndToUpper: " + result); // Expected: APPLE, APRICOT
+    // Recursion example: factorial (iterative version often preferred for stack safety in Java)
+    // Note: Streams provide a more functional way for such operations in many cases.
+    public static long factorialRecursive(int n) {
+        if (n < 0) throw new IllegalArgumentException("Factorial not defined for negative numbers");
+        if (n == 0 || n == 1) return 1;
+        return n * factorialRecursive(n - 1);
     }
     
-    // @Test
-    void testFindFirstLongString_found_withAssertJ() {
-        ModernFeaturesService service = new ModernFeaturesService();
-        List<String> input = List.of("short", "verylongstring", "medium");
-        Optional<String> result = service.findFirstLongString(input, 10);
-        // assertThat(result).isPresent().hasValue("verylongstring");
-        System.out.println("testFindFirstLongString (found): " + result); // Expected: Optionalverylongstring
+    // Factorial using IntStream (more functional and often safer for large n)
+    public static long factorialFunctional(int n) {
+        if (n < 0) throw new IllegalArgumentException("Factorial not defined for negative numbers");
+        return IntStream.rangeClosed(1, n)
+                .asLongStream() // Ensure long for intermediate products
+                .reduce(1L, (a, b) -> a * b);
     }
 
-    // @Test
-    void testFindFirstLongString_notFound_withAssertJ() {
-        ModernFeaturesService service = new ModernFeaturesService();
-        List<String> input = List.of("short", "medium");
-        Optional<String> result = service.findFirstLongString(input, 10);
-        // assertThat(result).isEmpty();
-        System.out.println("testFindFirstLongString (not found): " + result); // Expected: Optional.empty
-    }
-    
-    // @Test
-    void testProcessDataAsync_success() {
-        ModernFeaturesService service = new ModernFeaturesService();
-        CompletableFuture<String> future = service.processDataAsync("test");
-        // In a real test, use Awaitility or future.join() with try-catch for CompletionException
-        try {
-            String result = future.get(); // Blocking for example, use non-blocking in real tests
-            // assertThat(result).isEqualTo("PROCESSED:test");
-             System.out.println("testProcessDataAsync (success): " + result); // Expected: PROCESSED:test
-        } catch (Exception e) { e.printStackTrace(); }
-    }
-
-    // @Test
-    void testProcessDataAsync_failure() {
-        ModernFeaturesService service = new ModernFeaturesService();
-        CompletableFuture<String> future = service.processDataAsync("fail");
-        // assertThatThrownBy(future::join).isInstanceOf(CompletionException.class);
-        try {
-            future.join(); // This will throw CompletionException
-        } catch (Exception e) {
-            // assertThat(e.getCause()).isInstanceOf(RuntimeException.class).hasMessage("Processing failed");
-            System.out.println("testProcessDataAsync (failure expected): " + e.getClass().getName() + " -> " + e.getCause().getMessage());
-        }
+    // Higher-order function: memoization
+    public static <T, R> Function<T, R> memoize(Function<T, R> function) {
+        Map<T, R> cache = new ConcurrentHashMap<>();
+        // The returned function closes over the cache
+        return input -> cache.computeIfAbsent(input, function);
     }
 
     public static void main(String args) {
-        System.out.println("These are conceptual tests. Use a testing framework for real scenarios.");
-        TestingModernCodeExample tests = new TestingModernCodeExample();
-        tests.testFilterAndToUpper_withAssertJ();
-        tests.testFindFirstLongString_found_withAssertJ();
-        tests.testFindFirstLongString_notFound_withAssertJ();
-        tests.testProcessDataAsync_success();
-        tests.testProcessDataAsync_failure();
+        demonstrateComposition();
+        
+        System.out.println("Divide 10 by 2: " + divideNumbers(10.0, 2.0).orElse(Double.NaN));
+        System.out.println("Divide 10 by 0: " + divideNumbers(10.0, 0.0).orElse(Double.NaN));
+        
+        System.out.println("Factorial recursive (5): " + factorialRecursive(5));
+        System.out.println("Factorial functional (5): " + factorialFunctional(5));
+
+        Function<Integer, Integer> expensiveOperation = x -> {
+            System.out.println("Computing for " + x);
+            try { Thread.sleep(1000); } catch (InterruptedException e) {}
+            return x * x;
+        };
+        
+        Function<Integer, Integer> memoizedOp = memoize(expensiveOperation);
+        System.out.println("Memoized (4): " + memoizedOp.apply(4)); // Computes
+        System.out.println("Memoized (4): " + memoizedOp.apply(4)); // Returns from cache
+        System.out.println("Memoized (5): " + memoizedOp.apply(5)); // Computes
     }
 }
 ```
 
 **Bad Example:**
+
+```java
+// Bad example to be added
+// e.g., not using Optional and leading to NPEs, overly complex imperative logic instead of composition.
+```
+
+## Rule 8: Leverage Records for Immutable Data Transfer
+
+Title: Leverage Records for Immutable Data Transfer
+Description:
+- Use Records (JEP 395, standardized in Java 16) as the primary way to model simple, immutable data aggregates.
+- Records automatically provide constructors, getters (accessor methods with the same name as the field), `equals()`, `hashCode()`, and `toString()` methods, reducing boilerplate.
+- This aligns perfectly with the functional paradigm's preference for immutability and conciseness.
+
+**Bad Practice (Traditional Class as DTO):**
+
+```java
+public final class PointClass {
+    private final int x;
+    private final int y;
+
+    public PointClass(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (Objects.isNull(o) || getClass() != o.getClass()) return false;
+        PointClass that = (PointClass) o;
+        return x == that.x && y == that.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(x, y);
+    }
+
+    @Override
+    public String toString() {
+        return "PointClass[" +
+               "x=" + x + ", " +
+               "y=" + y + ']';
+    }
+}
+```
+
+**Good Practice (Using Records):**
+
+```java
+public record PointRecord(int x, int y) {
+    // Optional: add custom compact constructors, static factory methods, or instance methods.
+    // By default, all fields are final, and public accessor methods (e.g., x(), y()) are generated.
+}
+
+// Usage:
+// PointRecord p = new PointRecord(10, 20);
+// int xVal = p.x(); // Accessor method
+// int yVal = p.y(); // Accessor method
+```
+
+## Rule 9: Employ Pattern Matching for `instanceof` and `switch`
+
+Title: Employ Pattern Matching for Type-Safe Conditional Logic
+Description:
+- Utilize Pattern Matching for `instanceof` to simplify type checks and casts in a single step.
+- Employ Pattern Matching for `switch` for more expressive and robust conditional logic, especially with sealed types and records.
+- This reduces boilerplate, improves readability, and enhances type safety.
+
+**Bad Practice (Old `instanceof` and cast):**
+
+```java
+public String processShapeLegacy(Object shape) {
+    if (shape instanceof Circle) {
+        Circle c = (Circle) shape;
+        return "Circle with radius " + c.getRadius();
+    } else if (shape instanceof Rectangle) {
+        Rectangle r = (Rectangle) shape;
+        return "Rectangle with width " + r.getWidth() + " and height " + r.getHeight();
+    }
+    return "Unknown shape";
+}
+
+// Assume Circle and Rectangle classes exist for this example
+// class Circle { public double getRadius() { return 0; } }
+// class Rectangle { public double getWidth() { return 0; } public double getHeight() { return 0; } }
+```
+
+**Good Practice (Pattern Matching for `instanceof`):**
+
+```java
+public String processShapeWithPatternInstanceof(Object shape) {
+    if (shape instanceof Circle c) { // Type test and binding in one
+        return "Circle with radius " + c.getRadius();
+    } else if (shape instanceof Rectangle r) {
+        return "Rectangle with width " + r.getWidth() + " and height " + r.getHeight();
+    }
+    return "Unknown shape";
+}
+```
+
+**Good Practice (Pattern Matching for `switch` with Records and Sealed Interfaces:**
+
+```java
+sealed interface Shape permits CircleRecord, RectangleRecord, SquareRecord {}
+record CircleRecord(double radius) implements Shape {}
+record RectangleRecord(double length, double width) implements Shape {}
+record SquareRecord(double side) implements Shape {} // Could also be a RectangleRecord
+
+public String processShapeWithPatternSwitch(Shape shape) {
+    return switch (shape) {
+        case CircleRecord c -> "Circle with radius " + c.radius();
+        case RectangleRecord r -> "Rectangle with length " + r.length() + " and width " + r.width();
+        case SquareRecord s -> "Square with side " + s.side();
+        // No default needed if all permitted types of the sealed interface are covered
+    };
+}
+```
+
+## Rule 10: Use Switch Expressions for Concise Multi-way Conditionals
+
+Title: Use Switch Expressions for Concise and Safe Multi-way Conditionals
+Description:
+- Prefer Switch Expressions (JEP 361, Java 14) over traditional switch statements for assigning the result of a multi-way conditional to a variable.
+- Switch expressions are more concise, less error-prone (e.g., no fall-through by default, compiler checks for exhaustiveness with enums/sealed types).
+- They fit well with functional programming's emphasis on expressions over statements.
+
+**Bad Practice (Traditional Switch Statement for Assignment):**
+
+```java
+public String getDayTypeLegacy(String day) {
+    String type;
+    switch (day) {
+        case "MONDAY":
+        case "TUESDAY":
+        case "WEDNESDAY":
+        case "THURSDAY":
+        case "FRIDAY":
+            type = "Weekday";
+            break;
+        case "SATURDAY":
+        case "SUNDAY":
+            type = "Weekend";
+            break;
+        default:
+            throw new IllegalArgumentException("Invalid day: " + day);
+    }
+    return type;
+}
+```
+
+**Good Practice (Switch Expression):**
+
+```java
+public String getDayTypeWithSwitchExpr(String day) {
+    return switch (day) {
+        case "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY" -> "Weekday";
+        case "SATURDAY", "SUNDAY" -> "Weekend";
+        default -> throw new IllegalArgumentException("Invalid day: " + day);
+    };
+}
+
+// Example with enum for exhaustive switch
+enum Day { MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY }
+
+public String getDayCategory(Day day) {
+    return switch (day) {
+        case MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY -> "Weekday";
+        case SATURDAY, SUNDAY -> "Weekend";
+        // No default needed if all enum constants are covered
+    };
+}
+```
+
+## Rule 11: Leverage Sealed Classes and Interfaces for Controlled Hierarchies
+
+Title: Leverage Sealed Classes and Interfaces for Precise Domain Modeling
+Description:
+- Use Sealed Classes and Interfaces (JEP 409, Java 17) to define class/interface hierarchies where all direct subtypes are known, finite, and explicitly listed.
+- This enables more robust domain modeling and allows the compiler to perform exhaustive checks in pattern matching (e.g., with `switch` expressions), eliminating the need for a default case in many scenarios.
+- Particularly useful for creating sum types (algebraic data types) which are common in functional programming.
+
+**Example (Context for Algebraic Data Types and Exhaustive Matching):**
+
+```java
+// Define a sealed interface for different types of events
+public sealed interface Event permits LoginEvent, LogoutEvent, FileUploadEvent {
+    long getTimestamp();
+}
+
+// Define permitted implementations (often records for immutability)
+public record LoginEvent(String userId, long timestamp) implements Event {
+    @Override public long getTimestamp() { return timestamp; }
+}
+
+public record LogoutEvent(String userId, long timestamp) implements Event {
+    @Override public long getTimestamp() { return timestamp; }
+}
+
+public record FileUploadEvent(String userId, String fileName, long fileSize, long timestamp) implements Event {
+    @Override public long getTimestamp() { return timestamp; }
+}
+
+// A function processing the sealed hierarchy can be made exhaustive
+public class EventProcessor {
+    public String processEvent(Event event) {
+        return switch (event) {
+            case LoginEvent le -> "User " + le.userId() + " logged in at " + le.getTimestamp();
+            case LogoutEvent loe -> "User " + loe.userId() + " logged out at " + loe.getTimestamp();
+            case FileUploadEvent fue -> "User " + fue.userId() + " uploaded " + fue.fileName() + " at " + fue.getTimestamp();
+            // No default case is necessary if the switch is exhaustive for all permitted types of Event.
+            // The compiler will warn if a permitted type is not handled.
+        };
+    }
+}
+```
+
+## Rule 12: Explore Stream Gatherers for Custom Stream Operations
+
+Title: Explore Stream Gatherers for Advanced Custom Stream Operations
+Description:
+- For complex or highly custom stream processing tasks that are not easily achieved with standard terminal operations or collectors, investigate Stream Gatherers (JEP 461).
+- Gatherers (`java.util.stream.Gatherer`) allow defining custom intermediate operations, offering more flexibility and power for sophisticated data transformations within functional pipelines.
+- This feature is aimed at more advanced use cases where reusability and composition of stream operations are key.
+
+**Conceptual Example (API and usage might evolve):**
+*(Note: Practical examples will become clearer as the feature matures. This rule encourages awareness and exploration for advanced scenarios.)*
 ```java
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Stream;
+// import java.util.stream.Gatherers; // Assuming this is where predefined gatherers might reside
 
-// Bad: Not testing edge cases or different lambda behaviors
-public class InsufficientTesting {
+public class StreamGathererExample {
 
-    public Optional<String> processList(List<String> data) {
-        // Complex logic that should be thoroughly tested
-        return data.stream()
-                   .filter(s -> s.length() > 5)
-                   .map(s -> s.substring(0, 5))
-                   .findFirst();
-    }
+    // Hypothetical: A custom gatherer that creates sliding windows of elements.
+    // The actual implementation of such a gatherer would be more involved.
+    // static <T> Gatherer<T, ?, List<T>> windowed(int size) {
+    //     // ... implementation details ...
+    //     return null; // Placeholder
+    // }
 
-    public static void main(String args) {
-        InsufficientTesting it = new InsufficientTesting();
-        // Only testing the "happy path"
-        Optional<String> result = it.processList(List.of("longstring", "another"));
-        System.out.println("Result (happy path only): " + result.orElse("NOTHING")); 
-        
-        // Not tested:
-        // - Empty list input
-        // - List with no strings matching filter
-        // - List with nulls (if stream pipeline doesn't handle them)
-        // - Performance with very large lists
-        // This lack of thorough testing can lead to bugs in production.
-    }
-}
-```
-
-## Rule 12: Use Text Blocks for Readable Multi-line Strings
-
-Title: Employ Text Blocks for Clear and Maintainable Multi-line String Literals
-Description:
-- Utilize text blocks (`"""..."""`) to represent multi-line string literals in a way that preserves indentation and formatting, making them easier to read and write, especially for embedded code snippets like JSON, XML, SQL, or HTML.
-- Text blocks automatically handle the newline characters and manage indentation. The content of a text block begins at the first non-whitespace character on the first line after the opening `"""` or on the next line if the opening `"""` is followed by a newline.
-- Incidental leading white space is automatically stripped from each line of the text block. The algorithm determines the common white space prefix among all non-blank lines and removes it.
-- You can control trailing white space; by default, it's removed, but you can use `\` at the end of a line to preserve it or `\s` to represent a single space explicitly.
-- Escape sequences like `\n`, `\t`, `\\`, `\"` work as expected. Use `\"""` (escaped quote) to represent three consecutive quote characters within a text block if needed, but often it's not necessary if the content doesn't align with the closing delimiter.
-- Text blocks improve the readability of code that works with formatted text.
-
-**Good example:**
-
-```java
-public class TextBlockExample {
     public static void main(String[] args) {
-        // Good: HTML snippet using a text block
-        String html = """
-            <html>
-                <body>
-                    <p>Hello, Java Text Blocks!</p>
-                </body>
-            </html>
-            """;
-        System.out.println("HTML:\n" + html);
+        // List<List<Integer>> windows = Stream.of(1, 2, 3, 4, 5, 6, 7)
+        //        .gather(windowed(3)) // Using a hypothetical custom 'windowed' gatherer
+        //        .toList();
+        // 
+        // // Expected output might be: [[1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, 6], [5, 6, 7]]
+        // System.out.println(windows);
 
-        // Good: JSON snippet with preserved indentation
-        String json = """
-            {
-                "name": "Java Text Block",
-                "feature": "Multi-line strings",
-                "since": 15
-            }
-            """;
-        System.out.println("JSON:\n" + json);
-
-        // Good: SQL query
-        String query = """
-            SELECT id, name, email
-            FROM users
-            WHERE department = 'Engineering'
-            ORDER BY name;
-            """;
-        System.out.println("SQL Query:\n" + query);
-
-        // Good: Controlling indentation - the content's indentation relative
-        // to the closing """ is preserved.
-        String indented = """
-                Line 1
-                  Line 2 (more indented)
-            Line 3 (less indented than line 2, but aligned with Line 1 relative to closing quotes)
-            """;
-        System.out.println("Indented Example:\n" + indented);
+        System.out.println("Stream Gatherers are a new feature. Refer to official Java documentation for concrete examples and API details as they become available.");
     }
 }
-```
 
-**Bad Example:**
-
-```java
-public class OldMultiLineStringExample {
-    public static void main(String[] args) {
-        // Bad: Using traditional string concatenation for multi-line text
-        String htmlOld = "<html>\n" +
-                         "    <body>\n" +
-                         "        <p>Hello, old Java strings!</p>\n" +
-                         "    </body>\n" +
-                         "</html>\n";
-        System.out.println("Old HTML:\n" + htmlOld);
-
-        // Bad: Hard to read and maintain SQL query
-        String queryOld = "SELECT id, name, email\n" +
-                          "FROM users\n" +
-                          "WHERE department = 'Engineering'\n" +
-                          "ORDER BY name;\n";
-        System.out.println("Old SQL Query:\n" + queryOld);
-
-        // Bad: Incorrectly trying to manage indentation within a text block
-        // by having significant content on the same line as opening """
-        // (This can work, but it's less clear than starting content on new line)
-        String mixedStyle = """   This is the first line.
-                                     This is the second line.
-                             """; // The indentation is determined by the least indented line or the closing """
-        System.out.println("Mixed Style (potentially confusing indentation):\n" + mixedStyle);
-    }
-}
+// Rule of Thumb:
+// Before implementing very complex custom collectors or resorting to imperative loops for intricate stream transformations,
+// evaluate if a Stream Gatherer could offer a more declarative, reusable, and composable solution.
+// This is for advanced stream users looking to build sophisticated data processing pipelines.
 ```
 
 ---
