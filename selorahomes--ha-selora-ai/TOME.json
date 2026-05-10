@@ -2,9 +2,9 @@
   "name": "ha-selora-ai",
   "owner": "SeloraHomes",
   "repo": "ha-selora-ai",
-  "description": "",
+  "description": "Your smart assistant to manage and maintain your home.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SeloraHomes/ha-selora-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T17:49:51Z"
+  "distributed_at": "2026-05-10T09:38:58Z"
 }
