@@ -1,0 +1,9 @@
+{
+  "name": "threefish-ai--coding-proxy",
+  "displayName": "coding-proxy",
+  "description": "A High-Availability, Transparent, and Smart Multi-Vendor Proxy for Claude Code. Support Claude Plans, GitHub Copilot, Google Antigravity, ZAI/GLM, MiniMax, Qwen, Xiaomi, Kimi, Doubao...",
+  "version": "1.0.0",
+  "author": "ThreeFish-AI",
+  "homepage": "https://github.com/ThreeFish-AI/coding-proxy",
+  "skills": []
+}
