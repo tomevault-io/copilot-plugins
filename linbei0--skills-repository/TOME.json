@@ -1,0 +1,44 @@
+{
+  "name": "skills-repository",
+  "owner": "linbei0",
+  "repo": "skills-repository",
+  "description": "\u4e00\u4e2a\u7528\u4e8e\u7edf\u4e00\u7ba1\u7406 Agent skills \u8d44\u4ea7\u7684\u684c\u9762\u5e94\u7528",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/linbei0/skills-repository",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T10:04:17Z"
+}
