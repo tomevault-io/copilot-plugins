@@ -1,0 +1,9 @@
+{
+  "name": "steven-ahfu--suno-to-ableton",
+  "displayName": "suno-to-ableton",
+  "description": "Turn your Suno AI songs into production-ready Ableton Live sessions. Generates an .als file with grid-aligned, tempo-matched, cleaned up tracks that are ready to remix.",
+  "version": "1.0.0",
+  "author": "steven-ahfu",
+  "homepage": "https://github.com/steven-ahfu/suno-to-ableton",
+  "skills": []
+}
