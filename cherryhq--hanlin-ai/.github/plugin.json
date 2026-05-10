@@ -1,0 +1,9 @@
+{
+  "name": "cherryhq--hanlin-ai",
+  "displayName": "hanlin-ai",
+  "description": "A SwiftUI-based Chat App for LLMs on iOS",
+  "version": "1.0.0",
+  "author": "CherryHQ",
+  "homepage": "https://github.com/CherryHQ/hanlin-ai",
+  "skills": []
+}
