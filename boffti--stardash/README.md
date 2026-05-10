@@ -7,11 +7,11 @@ AI-powered workspace to discover, organize, and contribute to your starred GitHu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [boffti/stardash](https://github.com/boffti/stardash).
+Original source: `CLAUDE.md` in [boffti/stardash](https://github.com/boffti/stardash).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
