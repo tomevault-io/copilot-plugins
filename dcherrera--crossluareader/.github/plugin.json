@@ -1,0 +1,9 @@
+{
+  "name": "dcherrera--crossluareader",
+  "displayName": "CrossLuaReader",
+  "description": "Lua-powered e-reader runtime for the Xteink X4. C runtime + Lua plugin architecture.",
+  "version": "1.0.0",
+  "author": "dcherrera",
+  "homepage": "https://github.com/dcherrera/CrossLuaReader",
+  "skills": []
+}
