@@ -1,136 +1,278 @@
-## design
+## forms
 
-> Design system, accessibility standards, and industry-specific styling guidelines
+> Form handling patterns with React Hook Form and Zod validation
 
 
-# Design System Rules
+# Form Handling Rules
 
-## CRITICAL DESIGN REQUIREMENTS
+## React Hook Form + Zod Pattern
 
-### Accessibility Standards (WCAG 2.1 AA)
-- **TEXT CONTRAST**: Minimum 4.5:1 ratio for normal text
-- **LARGE TEXT**: Minimum 3:1 ratio for 18pt+ text
-- **FOCUS STATES**: All interactive elements must have visible focus indicators
-- **COLOR INFORMATION**: Never rely solely on color to convey information
-
-### Safe High-Contrast Combinations
+### Basic Form Setup
 ```tsx
-// Light backgrounds
-bg-white text-slate-900          // 21:1 ratio
-bg-slate-50 text-slate-800       // 16.7:1 ratio
-bg-blue-50 text-blue-900         // 14.2:1 ratio
+// components/forms/UserForm.tsx
+interface UserFormProps {
+  onSubmit: (data: UserFormData) => void
+  initialData?: Partial<User>
+  isLoading?: boolean
+}
 
-// Dark backgrounds  
-bg-slate-900 text-white          // 21:1 ratio
-bg-slate-800 text-slate-100      // 15.8:1 ratio
-bg-blue-900 text-blue-50         // 18.1:1 ratio
+export const UserForm = ({ onSubmit, initialData, isLoading }: UserFormProps) => {
+  const form = useForm<UserFormData>({
+    resolver: zodResolver(userSchema),
+    defaultValues: {
+      name: initialData?.name || '',
+      email: initialData?.email || '',
+      phone: initialData?.phone || '',
+    }
+  })
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Full Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter full name" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input type="email" placeholder="Enter email" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
+        <Button type="submit" disabled={isLoading} className="w-full">
+          {isLoading ? 'Saving...' : 'Save User'}
+        </Button>
+      </form>
+    </Form>
+  )
+}
 ```
 
-### NEVER USE These Low-Contrast Combinations
+### Form Hook Pattern
 ```tsx
-bg-slate-400 text-white          // Only 3.1:1 ratio
-text-slate-400 on bg-white       // Common mistake
-text-slate-500 on bg-slate-100   // Poor secondary text
-border-slate-400 text-slate-400  // Poor outline buttons
+// hooks/useUserForm.ts
+export const useUserForm = (userId?: string) => {
+  const { data: user } = useUser(userId)
+  const createUser = useCreateUser()
+  const updateUser = useUpdateUser()
+  
+  const form = useForm<UserFormData>({
+    resolver: zodResolver(userSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+    }
+  })
+  
+  // Reset form when user data loads
+  useEffect(() => {
+    if (user) {
+      form.reset({
+        name: user.name,
+        email: user.email,
+        phone: user.phone || '',
+      })
+    }
+  }, [user, form])
+  
+  const handleSubmit = (data: UserFormData) => {
+    if (userId) {
+      updateUser.mutate({ id: userId, data })
+    } else {
+      createUser.mutate(data)
+    }
+  }
+  
+  const isLoading = createUser.isPending || updateUser.isPending
+  
+  return {
+    form,
+    handleSubmit,
+    isLoading,
+    reset: form.reset,
+  }
+}
 ```
 
-## Industry-Specific Design Psychology
+### Advanced Form Patterns
 
-### Technology & SaaS
-- **Color Psychology**: Modern, innovative, forward-thinking palettes with high-tech feeling
-- **Typography**: Clean geometric sans-serif with futuristic character
-- **Visual Style**: Minimal, data-driven, sophisticated gradients and depth
-- **Animation**: Smooth, precise micro-interactions that feel cutting-edge
-- **Emotional Tone**: Innovation, efficiency, technological advancement
-
-### Finance & Banking
-- **Color Psychology**: Trustworthy, stable, premium tones that convey security
-- **Typography**: Professional typography mixing authority with approachability
-- **Visual Style**: Clean, sophisticated, confidence-building with subtle luxury
-- **Animation**: Subtle, professional interactions that reinforce reliability
-- **Emotional Tone**: Trust, stability, professional competence
-
-### Healthcare & Medical
-- **Color Psychology**: Calming, clean, trustworthy palette promoting wellness
-- **Typography**: Highly readable, accessible fonts prioritizing clarity
-- **Visual Style**: Clean, sterile-feeling but warm, emphasizing care and precision
-- **Animation**: Gentle, non-distracting transitions that don't overwhelm
-- **Emotional Tone**: Care, trust, healing, accessibility
-
-### Creative & Design
-- **Color Psychology**: Bold, artistic, expressive palettes showcasing creativity
-- **Typography**: Creative font combinations demonstrating design expertise
-- **Visual Style**: Portfolio-focused, visually striking, artistic expression
-- **Animation**: Playful, engaging interactions that showcase creativity
-- **Emotional Tone**: Inspiration, creativity, artistic vision
-
-## Premium Component Patterns
-
-### Button System
+#### Multi-Step Form
 ```tsx
-// Primary CTA - High contrast required
-<Button className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-  <span className="flex items-center gap-2">
-    Get Started
-    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
-  </span>
-</Button>
-
-// Secondary - Outline with hover fill
-<Button variant="outline" className="group border-2 border-slate-900 text-slate-900 hover:text-white px-8 py-4 rounded-2xl font-semibold transition-all duration-300 overflow-hidden">
-  <span className="absolute inset-0 bg-slate-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-  <span className="relative z-10">Learn More</span>
-</Button>
+// hooks/useMultiStepForm.ts
+export const useMultiStepForm = <T extends Record<string, any>>(
+  steps: Array<{ key: string; schema: ZodSchema<any> }>,
+  onComplete: (data: T) => void
+) => {
+  const [currentStep, setCurrentStep] = useState(0)
+  const [formData, setFormData] = useState<Partial<T>>({})
+  
+  const currentStepConfig = steps[currentStep]
+  
+  const form = useForm({
+    resolver: zodResolver(currentStepConfig.schema),
+    defaultValues: formData[currentStepConfig.key] || {}
+  })
+  
+  const nextStep = (data: any) => {
+    setFormData(prev => ({ ...prev, [currentStepConfig.key]: data }))
+    
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(prev => prev + 1)
+    } else {
+      onComplete({ ...formData, [currentStepConfig.key]: data } as T)
+    }
+  }
+  
+  const prevStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(prev => prev - 1)
+    }
+  }
+  
+  return {
+    form,
+    currentStep,
+    totalSteps: steps.length,
+    isFirstStep: currentStep === 0,
+    isLastStep: currentStep === steps.length - 1,
+    nextStep,
+    prevStep,
+    handleSubmit: form.handleSubmit(nextStep)
+  }
+}
 ```
 
-### Feature Cards
+#### Dynamic Form Fields
 ```tsx
-<div className="group relative bg-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/10 hover:border-white/20 transition-all duration-500 hover:scale-105 hover:-translate-y-2">
-  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-  <div className="relative z-10">
-    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300">
-      <Icon className="w-8 h-8 text-white" />
+// components/forms/DynamicFieldArray.tsx
+export const DynamicFieldArray = ({ name, control }: DynamicFieldArrayProps) => {
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name,
+  })
+
+  return (
+    <div className="space-y-4">
+      {fields.map((field, index) => (
+        <div key={field.id} className="flex gap-2 items-end">
+          <FormField
+            control={control}
+            name={`${name}.${index}.value`}
+            render={({ field }) => (
+              <FormItem className="flex-1">
+                <FormLabel>Item {index + 1}</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            onClick={() => remove(index)}
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+      ))}
+      
+      <Button
+        type="button"
+        variant="outline"
+        onClick={() => append({ value: '' })}
+      >
+        <Plus className="h-4 w-4 mr-2" />
+        Add Item
+      </Button>
     </div>
-    <h3 className="text-2xl font-bold text-white mb-4">{title}</h3>
-    <p className="text-slate-300 leading-relaxed text-lg">{description}</p>
-  </div>
-</div>
+  )
+}
 ```
 
-## Responsive Design
+### Form Validation Rules
 
-### Mobile-First Approach
+#### Complex Validation Schema
 ```tsx
-<div className="
-  px-4 py-8
-  sm:px-6 sm:py-12  
-  md:px-8 md:py-16
-  lg:px-12 lg:py-20
-">
-
-<h1 className="
-  text-3xl font-bold
-  sm:text-4xl
-  md:text-5xl  
-  lg:text-6xl
-  leading-tight
-">
+// lib/validations/userProfile.ts
+export const userProfileSchema = z.object({
+  personal: z.object({
+    firstName: z.string().min(2, 'First name required'),
+    lastName: z.string().min(2, 'Last name required'),
+    email: emailSchema,
+    phone: phoneSchema.optional(),
+    dateOfBirth: z.string().optional(),
+  }),
+  address: z.object({
+    street: z.string().min(5, 'Street address required'),
+    city: z.string().min(2, 'City required'),
+    state: z.string().min(2, 'State required'),
+    zipCode: z.string().regex(/^\d{5}(-\d{4})?$/, 'Invalid zip code'),
+    country: z.string().min(2, 'Country required'),
+  }),
+  preferences: z.object({
+    newsletter: z.boolean().default(false),
+    notifications: z.boolean().default(true),
+    theme: z.enum(['light', 'dark', 'system']).default('system'),
+  })
+})
 ```
 
-## NEVER CREATE
-- Generic designs that look template-like
-- Poor accessibility (contrast violations)
-- Static interfaces without micro-interactions
-- Overuse of default grays without intention
-- Color choices without consideration for brand or industry context
+#### Conditional Validation
+```tsx
+export const conditionalSchema = z.object({
+  userType: z.enum(['individual', 'business']),
+  email: emailSchema,
+  companyName: z.string().optional(),
+  taxId: z.string().optional(),
+}).refine(
+  (data) => {
+    if (data.userType === 'business') {
+      return data.companyName && data.taxId
+    }
+    return true
+  },
+  {
+    message: "Company name and tax ID required for business accounts",
+    path: ["companyName"],
+  }
+)
+```
 
-## ALWAYS CREATE
-- Industry-appropriate visual identity and emotional tone
-- Premium visual hierarchy with scale and contrast
-- Accessible interfaces with proper contrast (4.5:1 minimum)
-- Purposeful animations that enhance usability
-- Color schemes that enhance user experience and brand message
-- Unique, custom-crafted interfaces that feel premium
+## Form Anti-Patterns
+- Manual form state management
+- Inline validation logic
+- No error handling
+- Uncontrolled components mixing with controlled
+- No loading states during submission
+
+## Form Best Practices
+- Always use React Hook Form + Zod
+- Extract form logic to custom hooks
+- Provide loading states during submission
+- Reset forms after successful submission
+- Handle both client and server validation errors
 
 ---
 > Source: [chihebnabil/lovable-boilerplate](https://github.com/chihebnabil/lovable-boilerplate) — distributed by [TomeVault](https://tomevault.io).
