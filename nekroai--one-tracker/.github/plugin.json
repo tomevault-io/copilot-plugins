@@ -1,0 +1,9 @@
+{
+  "name": "nekroai--one-tracker",
+  "displayName": "one-tracker",
+  "description": "One Tracker \u00b7 AI \u6a21\u578b\u4ef7\u683c\u6bd4\u8f83/\u8ffd\u8e2a | Aggregates OneHub/NewAPI/OneAPI, token normalization, auto best vendor; filters/sort/analytics \u00b7 Cloudflare/Hono/React/D1/Drizzle",
+  "version": "1.0.0",
+  "author": "NekroAI",
+  "homepage": "https://github.com/NekroAI/one-tracker",
+  "skills": []
+}
