@@ -1,0 +1,9 @@
+{
+  "name": "spinningfactory--kloak",
+  "displayName": "kloak",
+  "description": "Cloud native zero trust security for AI agents run environments",
+  "version": "1.0.0",
+  "author": "spinningfactory",
+  "homepage": "https://github.com/spinningfactory/kloak",
+  "skills": []
+}
