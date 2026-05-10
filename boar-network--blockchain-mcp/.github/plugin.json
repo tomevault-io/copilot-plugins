@@ -1,0 +1,9 @@
+{
+  "name": "boar-network--blockchain-mcp",
+  "displayName": "blockchain-mcp",
+  "description": "Free blockchain MCP provided by Boar infrastructure - setup, guides and configuration",
+  "version": "1.0.0",
+  "author": "boar-network",
+  "homepage": "https://github.com/boar-network/blockchain-mcp",
+  "skills": []
+}
