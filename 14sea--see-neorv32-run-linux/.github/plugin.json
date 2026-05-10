@@ -1,0 +1,9 @@
+{
+  "name": "14sea--see-neorv32-run-linux",
+  "displayName": "see_neorv32_run_linux",
+  "description": "Booting nommu Linux (kernel 6.6.83) on a NEORV32 RV32IMC soft-core FPGA",
+  "version": "1.0.0",
+  "author": "14sea",
+  "homepage": "https://github.com/14sea/see_neorv32_run_linux",
+  "skills": []
+}
