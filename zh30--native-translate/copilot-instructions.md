@@ -1,34 +1,35 @@
-## 40-extension-build-and-contracts
+## 50-scripts-and-pnpm
 
-> 浏览器扩展构建（Rspack）与 Manifest 合约
+> 脚本命令与 pnpm 约定
 
-# 扩展构建与 Manifest 合约
+# 脚本命令与 pnpm 约定
 
-- 使用 Rspack 打包，入口与产物文件名必须与 [src/manifest.json](mdc:src/manifest.json) 中声明一致：
-  - `background.service_worker` → `background.js`
-  - `content_scripts[].js` → `contentScript.js`
-  - `action.default_popup` → `popup.html`
-  - `side_panel.default_path` → `sidePanel.html`
-- 开发模式不生成 zip 包；仅在 `pnpm run build` 时打包最终产物（遵循工作流与发布约定）。
-- 统一从 [rspack.config.js](mdc:rspack.config.js) 管理多入口与输出，改名时同步更新 `manifest.json`，保持一一对应。
-- 静态资源（图标等）放在 `public/`，参考 [public/icon.png](mdc:public/icon.png)。
+- **包管理器**：本项目使用 pnpm（见 `packageManager` 字段）。
+- **常用脚本**（来自 [package.json](mdc:package.json) 与 [README.md](mdc:README.md)）：
+  - `pnpm dev` — 监听构建（`rspack build --watch`），并启动开发时热重载服务。
+  - `pnpm build` — 生产构建（`rspack build --mode production`）。
+  - `pnpm tsc` — TypeScript 类型检查。
+  - `pnpm lint` / `pnpm lint:fix` — 使用 Biome 进行检查与修复。
+- **开发产物**：本地开发不应生成 zip 包；发布或生产构建时产物在 `dist/` 目录。
+- **Node/Chrome 要求**：Chrome 138+，pnpm 9+；首次运行可能触发模型下载。
 
 ---
-description: 浏览器扩展构建（Rspack）与 Manifest 合约
+alwaysApply: false
+description: 脚本命令与 pnpm 约定
 ---
-## 构建与清单合约
+## 命令
 
-- **入口声明**：构建入口在 [rspack.config.js](mdc:rspack.config.js) 中：`popup`, `sidePanel`, `background`, `contentScript`。产物文件名固定为 `[name].js` 与 `[name].css`，禁止 runtimeChunk 与 splitChunks，以便与清单严格对应。
-- **拷贝与产物**：通过 Copy 插件复制 `public/`、`src/manifest.json` 与 `_locales/`。保持路径一致。
-- **Zip 打包**：构建完成后自动压缩为 `Native-translate.zip`。如需关闭，临时移除 Zip 插件注册。
-- **Manifest 对齐**：
-  - `background.service_worker`: `background.js`
-  - `content_scripts[].js`: `contentScript.js`
-  - `action.default_popup`: `popup.html`
-  - `side_panel.default_path`: `sidePanel.html`
-  - 如改名，需同步修改入口与清单。
-- **资源类型**：图片与字体使用 `asset/resource`，保持输出目录：`assets/` 与 `assets/fonts/`。
-- **最高层隐藏**：在覆盖页面 UI（尤其内容脚本）中，悬浮层使用 `z-[2147483647]` 避免被站点样式覆盖。
+- 安装依赖：`pnpm i`
+- 开发构建（监听）：`pnpm dev`（Rspack watch 输出到 `dist/`）
+- 生产构建：`pnpm build`（生成 `dist/` 与 `Native-translate.zip`）
+- 类型检查：`pnpm tsc`
+- 代码质量：`pnpm lint` / `pnpm lint:fix`
+
+## 说明
+
+- 使用 pnpm（见 `packageManager` 字段），不要混用 npm/yarn。
+- 若新增依赖：`pnpm add <pkg>`；开发依赖：`pnpm add -D <pkg>`。
+- Biome 负责格式化与 Lint，遵守 [biome.json](mdc:biome.json) 的规则（2 空格、单引号、JSX 双引号、最大行宽 100）。
 
 ---
 > Source: [zh30/native-translate](https://github.com/zh30/native-translate) — distributed by [TomeVault](https://tomevault.io).
