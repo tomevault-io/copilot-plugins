@@ -4,7 +4,7 @@
   "repo": "Clawdis-OS",
   "description": "Always on. Always local. Always listening. A personal AI assistant that lives on your devices and meets you on every surface you already use.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ClawdisAI/Clawdis-OS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T01:37:38Z"
+  "distributed_at": "2026-05-10T11:52:30Z"
 }
