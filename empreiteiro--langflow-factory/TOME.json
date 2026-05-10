@@ -2,7 +2,7 @@
   "name": "langflow-factory",
   "owner": "Empreiteiro",
   "repo": "langflow-factory",
-  "description": "",
+  "description": "Langflow Factory is a comprehensive collection of custom components designed to extend Langflow's capabilities with powerful integrations, data processing tools, and AI-powered generators.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/Empreiteiro",
+  "source_url": "https://github.com/Empreiteiro/langflow-factory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T12:40:32Z"
+  "distributed_at": "2026-05-10T15:00:04Z"
 }
