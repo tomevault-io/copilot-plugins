@@ -1,70 +1,69 @@
-## go
+## rs
 
-> The project follows a standard and clean structure for a Go library.
+> These guidelines are designed to maintain the existing quality, style, and architectural patterns of the codebase.
 
-# Go Coding Rules for LLML Project
+# Rust Coding Rules for LLML Project
 
-## Project Structure
+These guidelines are designed to maintain the existing quality, style, and architectural patterns of the codebase.
 
-The project follows a standard and clean structure for a Go library.
+## Project Structure & Modules
 
-- **`go.mod`, `go.sum`**: Reside at the root of the Go project (`go/`). All dependency management should be handled here.
-- **`pkg/`**: Contains the core library code. The main package is `llml` (`go/pkg/llml/`). Any new library code should be placed within the `pkg/` directory.
-- **`tests/`**: Contains the integration and unit tests. Tests are in a separate `_test` package (e.g., `llml_test`), which is a best practice for testing only the exported API of a package.
-- **`README.md`**: A dedicated README for the Go implementation exists and should be updated with any new features, API changes, or usage instructions.
+- **Public API (`src/lib.rs`):** The `src/lib.rs` file is the public face of the library. It should only contain the public API (`llml`, `llml_with_options`, `Options` struct) and its associated documentation and unit tests.
+- **Core Logic (`src/formatters.rs`):** All internal formatting logic should reside in the `src/formatters.rs` module. Functions within this module should remain private to the crate (i.e., not marked with `pub`).
+- **Tests:**
+  - **Unit Tests:** Place unit tests within the module they are testing, using a `#[cfg(test)] mod tests { ... }` block.
+  - **Integration Tests:** Place integration tests in the `tests/` directory. These tests should only call the public API from `lib.rs`.
+- **Examples:** Add new usage examples to the `examples/` directory.
 
-## Dependencies
+## Coding Style & Formatting
 
-- **Main Library**: The core library in `pkg/` has **zero external dependencies** and relies only on the Go standard library. This should be maintained to keep the library lightweight and easy to integrate.
-- **Testing**: Tests use `github.com/stretchr/testify/assert` for assertions. This is the only development dependency and should be used for all new tests to maintain consistency.
+- **Formatting:** All code must be formatted with `rustfmt` using the default settings.
+- **Naming Conventions:**
+  - **Functions & Variables:** Use `snake_case` (e.g., `format_value`, `kebab_key`).
+  - **Types (Structs, Enums):** Use `PascalCase` (e.g., `Options`).
+  - **Constants & Statics:** Use `SCREAMING_SNAKE_CASE` (e.g., `MULTI_HYPHEN_RE`).
+- **Clarity:** Prioritize clear, readable code. Use descriptive variable names.
 
-## Coding Style and Conventions
+## API Design & Patterns
 
-- **Formatting**: All code must be formatted with `gofmt`.
-- **Naming**:
-  - Packages should be named in lowercase (e.g., `llml`).
-  - Exported identifiers (functions, types, variables) must start with a capital letter (e.g., `LLML`, `Options`).
-  - Internal (private) identifiers must start with a lowercase letter (e.g., `formatMap`, `toKebabCase`).
-  - Variable names should use `camelCase` (e.g., `kebabKey`, `anyMap`).
-- **Comments**:
-  - All exported functions and types must have a doc comment explaining their purpose, parameters, and return values.
-  - Use comments to explain complex or non-obvious logic. Avoid comments that just restate what the code does.
-- **Imports**: Imports should be organized into two blocks: standard library packages first, followed by third-party packages.
+- **Public Functions:** The primary public functions are `llml` (for default options) and `llml_with_options` (for custom formatting). Maintain this clear separation.
+- **Configuration:** All configuration should be passed via the `Options` struct. When adding new configuration, extend this struct.
+- **Optional Configuration:** Use `Option<Options>` for the `llml_with_options` function signature. Use `options.unwrap_or_default()` to handle the `None` case.
+- **Immutability:** Prefer immutable variables (`let`) over mutable ones (`let mut`) unless mutability is strictly necessary (e.g., for builders or accumulators).
+- **Performance:**
+  - Pass complex types like `Value` and `Options` by reference (`&`) to avoid unnecessary clones.
+  - For expensive initializations that can be shared (like `Regex`), use `std::sync::OnceLock`.
 
-## Patterns and Idioms
+## Type Usage & Data Handling
 
-- **Functional Options**: The `LLML` function accepts optional configuration via `opts ...Options`. This is a clean pattern for optional parameters and should be used if new configuration options are added.
-- **Recursion for Data Structures**: The core logic uses recursion to traverse nested maps and slices. This pattern should be continued for handling nested data.
-- **Type Handling**:
-  - The public API uses `interface{}` (or its modern alias `any`) to accept arbitrary data structures. This provides flexibility for the user.
-  - Internally, the code uses type assertions (e.g., `data.(map[string]any)`) and type switches to handle different data types. This is the established pattern for working with the `any` type.
-- **Deterministic Output**: To ensure consistent output, map keys are sorted before processing. This is a critical feature and must be maintained. Any processing of maps must be done in a deterministic order.
-- **Helper Functions**: The logic is cleanly separated into smaller, private helper functions with specific responsibilities (e.g., `formatMap`, `formatKeyValue`, `toKebabCase`). Complex logic should continue to be broken down this way.
-
-## Type System Usage
-
-- **Public API**: Continue to use `any` (`interface{}`) for the main `data` parameter to maintain flexibility.
-- **Internal Types**: Use concrete types (`string`, `int`, `bool`, `map[string]any`, `[]any`) internally after type assertion.
-- **Numeric Types**: The implementation correctly handles a wide range of specific integer and float types. Any new numeric handling should also be comprehensive.
-- **Structs**: The `Options` struct is a good example of how to group related configuration parameters.
+- **Primary Data Type:** The library's core data input is `&serde_json::Value`. This ensures compatibility with any data that can be serialized to JSON.
+- **String Handling:**
+  - Use `format!` for constructing simple strings.
+  - For building strings from multiple parts in a loop, collect parts into a `Vec<String>` and then use `parts.join("")` for efficiency.
+  - Use `&str` as function arguments for string slices instead of `String` where possible.
+- **Recursion:** The core formatting logic is recursive. New formatting rules should be integrated into the existing recursive `format_value` and `format_key_value` functions.
 
 ## Error Handling
 
-The library currently does not return errors. For unsupported types, it falls back to a default string representation using `fmt.Sprintf("%v", data)`.
-
-- **Guideline**: This approach is acceptable for a formatting library where the goal is to always produce a string. Avoid introducing `error` return values unless a new feature can fail in a way that the caller must handle (e.g., I/O operations, invalid configuration that cannot be defaulted).
+- **No `Result` Types:** The library's public API returns a `String`. It does not return a `Result` as it's designed to format already-validated data structures. This convention should be maintained.
+- **Panics:** Avoid panics in the library code. The only acceptable use is for a one-time initialization failure in `OnceLock` where a hardcoded value (like a regex pattern) is invalid, as this indicates a critical programmer error.
 
 ## Testing
 
-- **Framework**: All tests must use the standard `testing` package and `github.com/stretchr/testify/assert`.
-- **Test Naming**: Test functions must follow the `Test<Name>` convention.
-- **Test Structure**:
-  - Each test function should focus on a specific feature or edge case.
-  - For testing multiple variations of a feature, prefer creating separate, descriptively named tests (e.g., `TestEmptySlice`, `TestSimpleListWithWrapper`) as is the current convention. Table-driven tests are also an acceptable alternative for very similar inputs.
-- **Assertions**:
-  - Use functions from `assert` (e.g., `assert.Equal`, `assert.Contains`) for readable and expressive tests.
-  - Since map keys are sorted, tests for map-based inputs should be deterministic. Use `assert.Equal` with the expected, correctly ordered string output. Avoid `assert.Contains` unless specifically testing for the presence of a substring in a larger, complex output.
-- **Coverage**: All new code and features must be accompanied by comprehensive tests covering functionality, edge cases (e.g., `nil`, empty strings, zero values), and different data types.
+- **Comprehensive Coverage:** Every new feature or bug fix must be accompanied by tests.
+- **Unit Tests:** Test internal logic, such as individual formatting helpers (e.g., `to_kebab_case`), in the module's test block.
+- **Integration Tests:** Test the public API from a user's perspective in `tests/integration_test.rs`. Cover a wide range of inputs, including edge cases (empty strings, empty collections, `null`, `false`, `0`).
+- **Test Data:** Use the `serde_json::json!` macro to create `Value` instances for tests, as it is concise and readable.
+- **Assertions:**
+  - Use `assert_eq!` for exact string matches.
+  - When testing the output of a `serde_json::Map` where key order is not guaranteed, use multiple `assert!(result.contains(...))` calls to verify that all expected parts are present in the output string.
+
+## Documentation
+
+- **Public API:** All public items (`lib.rs`) must have clear, comprehensive doc comments (`///`). Explain what the function does, its parameters, and provide a simple usage example in a `rustdoc` code block.
+- **Module-Level Docs:** Use `/*! ... */` for module-level documentation that explains the purpose of the module.
+- **Internal Comments:** Use comments (`//`) sparingly to explain the *why* behind complex or non-obvious code, not the *what*.
+- **README:** Keep `rs/README.md` updated with any new features or API changes.
 
 ---
 > Source: [zenbase-ai/llml](https://github.com/zenbase-ai/llml) — distributed by [TomeVault](https://tomevault.io).
