@@ -1,0 +1,9 @@
+{
+  "name": "niklasfrick--spark-dashboard",
+  "displayName": "spark-dashboard",
+  "description": "Real-time hardware and LLM inference monitoring \u2014 GPU, CPU, memory, and vLLM metrics streamed to a dashboard.",
+  "version": "1.0.0",
+  "author": "niklasfrick",
+  "homepage": "https://github.com/niklasfrick/spark-dashboard",
+  "skills": []
+}
