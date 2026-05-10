@@ -1,0 +1,9 @@
+{
+  "name": "zerosettle--zerosettlekit",
+  "displayName": "ZeroSettleKit",
+  "description": "The official iOS SDK for ZeroSettle",
+  "version": "1.0.0",
+  "author": "zerosettle",
+  "homepage": "https://github.com/zerosettle/ZeroSettleKit",
+  "skills": []
+}
