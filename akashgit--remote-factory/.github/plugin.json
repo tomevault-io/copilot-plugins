@@ -1,0 +1,9 @@
+{
+  "name": "akashgit--remote-factory",
+  "displayName": "remote-factory",
+  "description": "Domain-agnostic multi-agent software design and evolution harness",
+  "version": "1.0.0",
+  "author": "akashgit",
+  "homepage": "https://github.com/akashgit/remote-factory",
+  "skills": []
+}
