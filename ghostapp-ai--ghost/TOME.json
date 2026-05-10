@@ -1,0 +1,44 @@
+{
+  "name": "ghost",
+  "owner": "ghostapp-ai",
+  "repo": "ghost",
+  "description": "The Private Agent OS \u2014 search files, run AI agents, connect to 10,000+ tools via the complete protocol stack (MCP, AG-UI, A2UI, A2A). Zero cloud. Zero telemetry. On-device inference.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ghostapp-ai/ghost",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T12:38:08Z"
+}
