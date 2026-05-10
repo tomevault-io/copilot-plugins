@@ -1,105 +1,130 @@
-## fixing-github-actions-builds
+## git-commit-message
 
-> When the Github Actions build is broken
+> When running git commit
 
 
-# Fixing Broken GitHub Actions Builds
+# Git Commit Message Guidelines
 
-## Purpose
+We write commit messages to communicate with our future selves and teammates. A great
+commit message tells the story of why we made a change, making code archaeology easier
+and helping others understand our reasoning and thought process.
 
-This guide documents the process for diagnosing and fixing broken GitHub Actions builds
-using the `gh` CLI.
+## Core Principles
 
-## Prerequisites
+- Reflect on the full change before writing the message
+- Focus on motivation and reasoning, not just what changed (the diff shows that)
+- Scale message length to change importance and size - simple changes get one line,
+  major architectural changes deserve 2-3 paragraphs
+- Use imperative mood ("Add feature" not "Added feature")
+- Summary line under 72 characters, no period at the end
+- Capitalize the first word after any emoji
 
-### Check if gh is installed
+## No-Deploy Marker
 
-First, verify the GitHub CLI is installed:
+For changes that should not trigger deployment (documentation, tests, CI config, etc.),
+include `[no-deploy]` in the commit message. This signals both humans and CI/CD
+automation that deployment is unnecessary.
 
-```bash
-gh --version
+Place the marker either:
+
+- At the end of the summary line if it fits:
+  `Update README with installation steps [no-deploy]`
+- On its own line after the summary for longer messages
+
+## Emoji Usage
+
+You have complete freedom to choose ANY emoji that adds value. Start with gitmoji as
+your reference - if there's a clear gitmoji match, use it. But feel free to get creative
+and use any emoji that genuinely enhances meaning or clarity.
+
+Include an emoji when it:
+
+- Makes commit history more scannable at a glance
+- Provides instant visual categorization of the change type
+- Creates useful visual anchors in git log
+- Adds personality or context that words alone miss
+
+Skip the emoji entirely when it would feel forced or add no real value. Many excellent
+commit messages need no emoji at all.
+
+Trust your judgment on which emoji fits best, or whether to use one at all.
+
+## Structure
+
+```
+[optional emoji] Summary line under 72 characters
+
+[Optional body when context is needed]
 ```
 
-### If gh is not installed
+Body is optional. Include when explaining why adds value beyond the summary and diff.
+When included: explain motivation, problem being solved, impact, trade-offs, or
+alternatives considered. Wrap at 72 characters. For large/important changes, write 2-3
+paragraphs if needed.
 
-Politely stop and guide the developer:
+## Examples
 
-> The GitHub CLI (`gh`) is not installed. Let's get that set up first!
->
-> Installation (macOS):
->
-> ```bash
-> brew install gh
-> gh auth login
-> ```
->
-> Follow the prompts to authenticate with GitHub. Once complete, we can proceed with
-> debugging the build!
+Simple change (no body needed):
 
-## Diagnostic Workflow
-
-### Step 1: List Recent Workflow Runs
-
-```bash
-gh run list --limit 5
+```
+🐛 Handle null values in user preferences
 ```
 
-Identify the failed run (marked with `X` or `failure` status). Note the run ID.
+Simple documentation change (no deploy):
 
-### Step 2: Get Failed Logs
-
-```bash
-gh run view <run-id> --log-failed | cat
+```
+Fix typo in API documentation [no-deploy]
 ```
 
-This shows ONLY the logs from failed steps. Analyze these logs to identify the root
-cause.
+Medium change with context:
 
-### Step 3: Reproduce Locally
+```
+♻️ Extract validation logic into shared module
 
-Based on the error in the logs, reproduce the failure locally to verify the fix.
+Validation was duplicated across registration, profile updates, and
+admin tools with slight variations causing inconsistent behavior.
+Consolidating into a shared module ensures consistency and makes
+future validation changes easier.
+```
 
-### Step 4: Make the Fix
+Documentation with body (no deploy on separate line):
 
-Edit the relevant files to fix the issue identified in the logs.
+```
+📝 Update deployment guide with environment variables
+[no-deploy]
 
-### Step 5: Verify Locally
+Added missing DATABASE_POOL_SIZE and CACHE_TTL variables that were
+causing confusion during staging deployments. Also clarified the
+difference between development and production configurations.
+```
 
-Test the fix thoroughly to ensure it resolves the issue.
+Large architectural change (2-3 paragraphs for major changes):
 
-### Step 6: Report to Developer
+```
+🏗️ Migrate from REST to event-driven architecture
 
-DO NOT commit or push changes!
+Replace synchronous REST endpoints with event-driven processing to
+support real-time features and improve system resilience...
 
-Report to the developer:
+Previous architecture required services to block waiting for responses,
+creating cascading failures and poor user experience during high load.
+Events allow asynchronous processing and natural retry mechanisms...
 
-> Build issue fixed!
->
-> Changes made:
->
-> - `path/to/file`: Description of change
->
-> Next steps:
->
-> 1. Review the changes with `git status` and `git diff`
-> 2. Test locally if desired
-> 3. Commit and push when ready
-> 4. Monitor the new build with `gh run watch`
+This change affects order processing, notification system, and analytics
+pipeline. Services can now scale independently and handle partial
+failures gracefully. Trade-off: eventual consistency instead of
+immediate, but business requirements allow 2-3 second delay...
+```
 
-## Integration with Cursor
+## Guidelines
 
-When a developer says "the build is broken" or "fix the GitHub Actions build":
+Write messages that future developers will thank you for. Use present tense imperative
+mood. Skip conventional commit prefixes like feat: or fix: (gitmoji serves this purpose
+when needed). Include body text only when it adds meaningful context. Write clearly and
+directly for human readers.
 
-1. Run `gh --version` to verify installation (stop if not installed)
-2. Run `gh run list --limit 5` to see recent runs
-3. Identify the failed run ID
-4. Run `gh run view <run-id> --log-failed | cat` to get error details
-5. Analyze the logs and identify root cause
-6. Fix the issue locally
-7. Verify the fix works
-8. Report back to developer with changes and next steps
-
-Remember: We diagnose and fix, the developer commits and pushes!
+The goal is clarity and kindness to our future selves and teammates. Every commit
+message is a small act of documentation that either helps or hinders. We choose to help.
 
 ---
 > Source: [TechNickAI/ai-coding-config](https://github.com/TechNickAI/ai-coding-config) — distributed by [TomeVault](https://tomevault.io).
