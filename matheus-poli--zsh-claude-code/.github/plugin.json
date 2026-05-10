@@ -1,0 +1,9 @@
+{
+  "name": "matheus-poli--zsh-claude-code",
+  "displayName": "zsh-claude-code",
+  "description": "Claude in your zsh prompt: ask, explain, and Ctrl+X / Alt+E widgets that turn natural language into shell commands. Wraps the Claude Code CLI, no extra deps.",
+  "version": "1.0.0",
+  "author": "matheus-poli",
+  "homepage": "https://github.com/matheus-poli/zsh-claude-code",
+  "skills": []
+}
