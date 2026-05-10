@@ -1,12 +1,19 @@
-## 001-building-roswell-scripts
+## 002-building-the-docs
 
-> After you change roswell script, build a binary using command like this:
+> AWAYS, when you change docstrings in the exported lisp functions or classes or any lisp file inside `docs/` folder, build the documentation and ensure there is no warnings.
 
-After you change roswell script, build a binary using command like this:
+AWAYS, when you change docstrings in the exported lisp functions or classes or any lisp file inside `docs/` folder, build the documentation and ensure there is no warnings.
 
-```
-qlot exec ros build examples/lisp-dev-mcp.ros
-```
+# How to build documentation
+
+1. Ensure there is `DOCS-BUILDER` lisp package available. If not, then install `docs-builder` using quicklisp.
+2. Build documentation using a command like this `(docs-builder:build "a-system-name-docs" :local t)` where `a-system-name-docs` should correspond a name of the file in the project root - ie, in this example there should be a file `a-system-name-docs.asd` in the root folder.
+3. If there are some errors or warnings in the build log, show them to me and ask how to fix them.
+4. Remember how we fix typical errors in the documentation in your persistent memory, and use this knowledge to fix similar problems automatically in future.
+
+# Updating the documentation
+
+**Important rule**: When you change any lisp file, do load the lisp library again before building the documentation.
 
 ---
 > Source: [40ants/mcp](https://github.com/40ants/mcp) — distributed by [TomeVault](https://tomevault.io).
