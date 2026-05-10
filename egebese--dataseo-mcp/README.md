@@ -7,11 +7,11 @@ A free SEO research tool using Model Context Protocol (MCP) powered by Ahrefs da
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [egebese/dataseo-mcp](https://github.com/egebese/dataseo-mcp).
+Original source: `CLAUDE.md` in [egebese/dataseo-mcp](https://github.com/egebese/dataseo-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
