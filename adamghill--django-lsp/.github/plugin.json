@@ -1,0 +1,9 @@
+{
+  "name": "adamghill--django-lsp",
+  "displayName": "django-lsp",
+  "description": "Django Language Server Protocol library to provide smart autocomplete functionality for Django projects.",
+  "version": "1.0.0",
+  "author": "adamghill",
+  "homepage": "https://github.com/adamghill/django-lsp",
+  "skills": []
+}
