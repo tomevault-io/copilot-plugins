@@ -1,37 +1,21 @@
-## important
+## jeju
 
-> EXTERMELY IMPORTANT CODING STYLE RULES
+> We are building "DWS", which is decentralized web services on our own Jeju Network.
 
 
-# IMPORTANT CODE STYLE RULES
+We are building "DWS", which is decentralized web services on our own Jeju Network.
 
-Do not use try { } catch { } blocks unless they are absolutely necessary or handling user supplied data. Avoid defensive programming and implement clean code with fail-fast patterns.
+The network itself is deployed onto AWS. But as a decentralized network, IT IS VERY IMPORTANT that all apps and resources deploy through Jeju CLI and using Jeju DWS tooling so it is completely abstracted.
 
-IMPORTANT: After you have finished a task, go through again and review for slop, unnecessary comments, fallbacks and overly complex state management
+We use SQLit (our own distributed sqlite) in packages/sqlit -- it may have bugs. Fix the bugs, don't just skip over or ignore or go to a fallback.
 
-It is very important that you ALWAYS review your work after you've completed it to make sure that it is as clean, tight, compact as possible, with strong types and fail fast where it makes sense
+NO FALLBACKS. NO EASY WAY. Do it the RIGHT way.
 
-If you are expecting something, you can use an expect/throw pattern. Always aim to catch errors and throw instead of hiding errors and falling back.
+Frontend build deploys to DWS storage built on IPFS, backend workers deploy to DWS Workers which is workerd like Cloudflare, cache uses DWS Cache, DB uses DWS SQLit. Our routing is done with JNS by contract and registry.
 
-### CODE DETAILS
+Make sure the deployment is right, working correctly and as we expect, NOT using ECR or any AWS resources for deployment. We should avoid deploying Docker containers for frontend or backend and instead do static bundle deployments, like Cloudflare etc.
 
-- Always research for strong types and avoid as unknown as and other weak casts
-- Avoid 'as' in general and try to make the type strong and work from upstream first
-- Especially avoid inline typecasts (as { }) and fix them as you work
-- Avoid defaults or null coallescence if the value should never be undefined, always validate input and output from external sources
-- Make sure types are only optional if they are ACTUALLY optional
-- Always delete dead code and unused private variables
-- Always search for existing utilities becaues making new ones, try to consolidate and put sharable code into shared package
-- Ditto for types -- always search for existing types before making new ones
-- Prefer configuration files over environment variables for public, rarely reset information
-- Parse JSON with Zod validation, always validate all external inputs and outputs
-
-# VERY IMPORTANT
-
-- avoid all use of unknown, optional chaining, null coallescing, any kind of default type if the data is null or undefined, anything that could be a strong type
-- use shared types and avoid any local types that could be or should be shared or might already have a shared type to borrow
-- avoid any re-exports, just directly import from the actual file
-- avoid any use of 'as' that could just be stronger upstream types
+Identify any part of our deployment that is NOT currently decentralized, or is larping, or is taking shortcut and using AWS infrastructure, and instead switch to use DWS and decentralized deployment onto Jeju Network.
 
 ---
 > Source: [JejuNetwork/jeju](https://github.com/JejuNetwork/jeju) — distributed by [TomeVault](https://tomevault.io).
