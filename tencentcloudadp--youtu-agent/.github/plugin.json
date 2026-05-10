@@ -1,0 +1,9 @@
+{
+  "name": "tencentcloudadp--youtu-agent",
+  "displayName": "youtu-agent",
+  "description": "A simple yet powerful agent framework that delivers with open-source models",
+  "version": "1.0.0",
+  "author": "TencentCloudADP",
+  "homepage": "https://github.com/TencentCloudADP/youtu-agent",
+  "skills": []
+}
