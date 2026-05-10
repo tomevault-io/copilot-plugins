@@ -1,0 +1,23 @@
+## real2sam3d-handoff
+
+> SAM3D integration — read handoff for status and next steps
+
+
+# real2sam3d / SAM3D integration
+
+When working on the real2sam3d package or SAM3D integration:
+
+1. **Read the handoff first** for current status and what to do next:
+   - **Path:** `humble_ws/src_Real2USD/real2sam3d/config/AGENT_HANDOFF.md`
+   - It summarizes: what’s done (Phases 0–2, dedup, tests), what’s next (Phases 3–6), key files, and how to run tests and launch.
+
+2. **Edits:** Only change code in **real2sam3d** and **custom_message**. Treat **real2usd** as reference only.
+
+3. **Tests:** Run inside the project Docker container after `colcon build` and `source install/setup.bash`:
+   - `python3 -m pytest src_Real2USD/real2sam3d/test/test_sam3d_*.py -v`
+
+4. **Pipeline:** Main run is `ros2 launch real2sam3d real2sam3d.launch.py` (see USER_NEXT_STEPS.md and context_sam3d_integration.txt for options).
+
+---
+> Source: [grasp-lyrl/Real2USD](https://github.com/grasp-lyrl/Real2USD) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
