@@ -1,0 +1,9 @@
+{
+  "name": "pingooio--pingoo",
+  "displayName": "pingoo",
+  "description": "The fast and secure Load Balancer / API Gateway / Reverse Proxy with built-in service discovery, GeoIP, WAF, bot protection and much more - https://pingoo.io",
+  "version": "1.0.0",
+  "author": "pingooio",
+  "homepage": "https://github.com/pingooio/pingoo",
+  "skills": []
+}
