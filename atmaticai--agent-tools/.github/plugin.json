@@ -1,0 +1,9 @@
+{
+  "name": "atmaticai--agent-tools",
+  "displayName": "agent-tools",
+  "description": "agent-tools is an agent-driven data utility platform that provides deterministic tools for transforming, formatting, and inspecting structured data. Designed for MCP and A2A systems, Actiform ensures ",
+  "version": "1.0.0",
+  "author": "AtmaticAI",
+  "homepage": "https://github.com/AtmaticAI/agent-tools",
+  "skills": []
+}
