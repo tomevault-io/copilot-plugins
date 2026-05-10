@@ -1,0 +1,9 @@
+{
+  "name": "juanibiapina--pi-extension-settings",
+  "displayName": "pi-extension-settings",
+  "description": "Shared utilities and extensions for pi coding agent",
+  "version": "1.0.0",
+  "author": "juanibiapina",
+  "homepage": "https://github.com/juanibiapina/pi-extension-settings",
+  "skills": []
+}
