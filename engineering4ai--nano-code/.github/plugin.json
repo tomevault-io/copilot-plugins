@@ -1,0 +1,9 @@
+{
+  "name": "engineering4ai--nano-code",
+  "displayName": "nano-code",
+  "description": "The smallest possible coding agent in Rust.",
+  "version": "1.0.0",
+  "author": "Engineering4AI",
+  "homepage": "https://github.com/Engineering4AI/nano-code",
+  "skills": []
+}
