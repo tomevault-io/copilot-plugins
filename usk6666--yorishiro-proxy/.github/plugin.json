@@ -1,0 +1,9 @@
+{
+  "name": "usk6666--yorishiro-proxy",
+  "displayName": "yorishiro-proxy",
+  "description": "AI-native MITM proxy \u2014 MCP server for traffic interception, recording & replay",
+  "version": "1.0.0",
+  "author": "usk6666",
+  "homepage": "https://github.com/usk6666/yorishiro-proxy",
+  "skills": []
+}
