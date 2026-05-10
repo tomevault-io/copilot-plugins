@@ -1,0 +1,9 @@
+{
+  "name": "hallyaus--ovo-aus-api",
+  "displayName": "OVO_Aus_api",
+  "description": "Home Assistant custom integration for OVO Energy Australia - solar, grid, export, rate breakdowns, and analytics",
+  "version": "1.0.0",
+  "author": "HallyAus",
+  "homepage": "https://github.com/HallyAus/OVO_Aus_api",
+  "skills": []
+}
