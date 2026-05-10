@@ -1,37 +1,46 @@
-## project-context
+## swift-guidelines
 
-> This is **BongoCat-mac**, a native macOS application built in Swift that displays an animated cat overlay that responds to keyboard and mouse input, popular among streamers and content creators.
+> - Use **4 spaces** for indentation (never tabs)
 
 
-# BongoCat macOS Project Context
+# Swift Development Guidelines for BongoCat
 
-This is **BongoCat-mac**, a native macOS application built in Swift that displays an animated cat overlay that responds to keyboard and mouse input, popular among streamers and content creators.
+## Code Style
+- Use **4 spaces** for indentation (never tabs)
+- Follow **SwiftUI** best practices for UI components
+- Use **proper access control** (private, internal, public)
+- Prefer **computed properties** over methods where appropriate
+- Use **meaningful variable and function names**
 
-## Project Structure
-- **Main entry point**: [main.swift](mdc:Sources/BongoCat/main.swift) and [BongoCatApp.swift](mdc:Sources/BongoCat/BongoCatApp.swift)
-- **Core components**: [CatView.swift](mdc:Sources/BongoCat/CatView.swift), [InputMonitor.swift](mdc:Sources/BongoCat/InputMonitor.swift), [OverlayWindow.swift](mdc:Sources/BongoCat/OverlayWindow.swift)
-- **Project config**: [Package.swift](mdc:Package.swift) and [Info.plist](mdc:Info.plist)
-- **Build scripts**: Located in [Scripts/](mdc:Scripts/) directory
-- **Assets**: Cat sprites in [Sources/BongoCat/Resources/Images/](mdc:Sources/BongoCat/Resources/Images/)
+## Architecture Patterns
+- Follow **MVVM pattern** for SwiftUI views
+- Use **@StateObject** for owned objects, **@ObservedObject** for passed objects
+- Implement **proper error handling** with Result types or throwing functions
+- Keep **view models separate** from views for testability
 
-## Key Features
-- **Per-app positioning**: Remembers cat position for each application
-- **Keyboard layout-based paw mapping**: Intelligent left/right paw assignment
-- **Visual customization**: Scaling, rotation, flip options
-- **Stroke counter**: Tracks keystrokes and mouse clicks
-- **Menu integration**: Status bar and right-click context menus
+## BongoCat-Specific Guidelines
+- **Input monitoring** should be handled in [InputMonitor.swift](mdc:Sources/BongoCat/InputMonitor.swift)
+- **Animation logic** belongs in [CatView.swift](mdc:Sources/BongoCat/CatView.swift)
+- **Window management** should stay in [OverlayWindow.swift](mdc:Sources/BongoCat/OverlayWindow.swift)
+- **Settings persistence** should use UserDefaults with proper key naming
 
-## Development Guidelines
-- Target macOS 13.0+ (Ventura)
-- Use SwiftUI for UI components
-- Follow Apple's Human Interface Guidelines
-- Maintain accessibility compliance
-- Keep the app lightweight and performant
+## Performance Considerations
+- Minimize **view updates** by using proper state management
+- **Debounce rapid input events** to prevent excessive animations
+- Use **lazy loading** for images and resources
+- Keep the **main thread free** for UI updates
 
-## Build System
-- Uses Swift Package Manager
-- Automated build scripts in `Scripts/` directory
-- Version managed through [Info.plist](mdc:Info.plist) and build scripts
+## Accessibility
+- Ensure all UI elements have proper **accessibility labels**
+- Handle **VoiceOver** navigation appropriately
+- Respect **reduced motion** system preferences
+- Provide **keyboard navigation** alternatives where needed
+
+## Testing
+- Write **unit tests** for business logic in [Tests/BongoCatTests/](mdc:Tests/BongoCatTests/)
+- Mock **system dependencies** like input monitoring
+- Test **state transitions** and **error conditions**
+- Verify **settings persistence** and **restoration**
 
 ---
 > Source: [Gamma-Software/BongoCat-mac](https://github.com/Gamma-Software/BongoCat-mac) — distributed by [TomeVault](https://tomevault.io).
