@@ -1,63 +1,72 @@
-## fastify
+## language
 
-> Fastify usage, plugins, and security for auth-server and libs/fastify
+> - **Default Language**: English
 
 
-# Fastify (QAuth)
+# QAuth - Language Rules
 
-## Production
+## Language
 
-- **Use a reverse proxy** (e.g. Nginx, HAProxy). Do not expose the Fastify app directly to the internet. Handle TLS, HTTP→HTTPS redirects, and static assets at the proxy.
-- **Listen on `0.0.0.0`** when running in containers/Kubernetes so readiness/liveness probes can reach the app (default `127.0.0.1` is unreachable from the pod network).
-- **Trust proxy**: If behind a reverse proxy, configure `trustProxy` so `request.ip` and `X-Forwarded-*` headers are correct.
+- **Default Language**: English
+  - All code (variables, functions, classes, comments) must be in English
+  - All documentation (README, inline comments, JSDoc) must be in English
+  - All commit messages must be in English
+  - All issues, PRs, and discussions must be in English
+  - Exception: User-facing content can be localized (i18n)
 
-## Plugins
+## Code Standards
 
-- **Shared decorators**: Wrap with `fastify-plugin` and pass `{ name: '@qauth-labs/fastify-plugin-<feature>' }` so decorators are visible to the parent app. Without `fp`, decorators are encapsulated.
-- **Lifecycle**: Use `onReady` for post-boot checks and `onClose` for cleanup (e.g. DB/Redis). Decorate only after async setup completes.
-- **TypeScript**: Extend `FastifyInstance` via `declare module 'fastify'` in the plugin file so routes get correct types.
+- **TypeScript**: Use strict mode, prefer type safety over `any`
+- **Naming Conventions**:
+  - camelCase for variables and functions
+  - PascalCase for classes, interfaces, and types
+  - UPPER_SNAKE_CASE for constants
+  - kebab-case for file names
+- **Comments**: Write clear, concise comments in English for complex logic
+- **Documentation**: Use JSDoc/TSDoc for public APIs
 
-## Routes and validation
+## Architecture
 
-- **Schema**: Register `schema.body`, `schema.querystring`, `schema.params`, and `schema.response` (e.g. `response: { 200: responseSchema }`). Fastify v5 expects schemas for validation and types.
-- **Type provider**: Use `fastify.withTypeProvider<ZodTypeProvider>()` before defining routes when using Zod schemas.
+- **Federation First**: QAuth is a federated identity hub — upstream identity sources (passwords, VC wallets, OIDC providers) plug in through the `CredentialProvider` interface; downstream apps see only standard OAuth 2.1 / OIDC tokens
+- **Modular First**: Phase 1 is a modular monolith; libs are designed for microservice extraction (Phase 3+)
+- **API First**: Design APIs before implementation
+- **Security First**: Always consider security implications (OAuth 2.1, PKCE mandatory, Argon2id, timing-safe)
+- **Performance**: Consider performance, but don't over-optimize prematurely
 
-## Security and dependencies
+## Git Commit Messages
 
-- **Fastify version**: Keep Fastify **≥ 5.3.2** to avoid CVE-2025-32442 (content-type parsing bypass in 5.0.0–5.3.0). Do not rely on content-type-specific validation without normalizing the header.
-- **Audit**: Run `pnpm audit` regularly; fix or document high/critical vulnerabilities.
-- **Node**: Fastify v5 requires Node.js v20+; this project uses `>=24.7.0`.
+Follow Conventional Commits:
 
-## Example (route with schema)
+- `feat:` new feature
+- `fix:` bug fix
+- `docs:` documentation changes
+- `style:` formatting, missing semicolons, etc.
+- `refactor:` code restructuring
+- `perf:` performance improvements
+- `test:` adding tests
+- `chore:` maintenance tasks
 
-```typescript
-fastify.withTypeProvider<ZodTypeProvider>().post(
-  '/login',
-  {
-    schema: {
-      body: loginSchema,
-      response: { 200: loginResponseSchema },
-    },
-    config: { rateLimit: { max: env.LOGIN_RATE_LIMIT, timeWindow: env.LOGIN_RATE_WINDOW * 1000 } },
-  },
-  async (request, reply) => {
-    /* ... */
-  }
-);
-```
+Example: `feat(auth): implement OAuth 2.1 authorization code flow`
 
-## Example (plugin with fp)
+## Dependencies
 
-```typescript
-import fp from 'fastify-plugin';
+- Prefer well-maintained, popular libraries
+- Check security advisories before adding dependencies
+- Keep dependencies up to date
+- Document why a dependency is needed
 
-export const myPlugin = fp(
-  async (fastify, options) => {
-    fastify.decorate('myUtil', createUtil(options));
-  },
-  { name: '@qauth-labs/fastify-plugin-myfeature' }
-);
-```
+## Testing
+
+- Write tests for business logic
+- Write tests for public APIs
+- Aim for meaningful coverage, not just high percentage
+
+## Pull Requests
+
+- Keep PRs small and focused
+- Write clear PR descriptions in English
+- Link related issues
+- Ensure CI passes before requesting review
 
 ---
 > Source: [qauth-labs/qauth](https://github.com/qauth-labs/qauth) — distributed by [TomeVault](https://tomevault.io).
