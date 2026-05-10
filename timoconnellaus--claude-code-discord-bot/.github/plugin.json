@@ -1,0 +1,9 @@
+{
+  "name": "timoconnellaus--claude-code-discord-bot",
+  "displayName": "claude-code-discord-bot",
+  "description": "A discord bot to interact with claude code on your personal projects",
+  "version": "1.0.0",
+  "author": "timoconnellaus",
+  "homepage": "https://github.com/timoconnellaus/claude-code-discord-bot",
+  "skills": []
+}
