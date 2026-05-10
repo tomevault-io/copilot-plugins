@@ -1,129 +1,81 @@
-## tailwind-design-system
+## transparency-campaign
 
-> Philippine flag-inspired design system and TailwindCSS conventions
+> Transparency campaign integration and messaging guidelines
 
 
-# SALN Tracker Philippines Design System
+# Transparency Campaign Integration
 
-## Color Palette
-Based on the Philippine flag colors defined in [tailwind.config.ts](mdc:tailwind.config.ts):
+## Core Mission
+SALN Tracker Philippines promotes government transparency through the **#OpenSALN #PublicSALNNow** campaign.
 
-### Primary Colors (Philippine Flag)
+## Campaign Hashtags
+Always include these transparency hashtags:
+- **#OpenSALN** - Advocacy for open SALN records
+- **#PublicSALNNow** - Call for immediate public access
+
+## Implementation Locations
+
+### Required Placements
+1. **Header** - [app/components/layout/Header.tsx](mdc:app/components/layout/Header.tsx)
+2. **Footer** - [app/components/layout/Footer.tsx](mdc:app/components/layout/Footer.tsx)  
+3. **Homepage Hero** - [app/routes/home.tsx](mdc:app/routes/home.tsx)
+4. **About Page** - [app/routes/about.tsx](mdc:app/routes/about.tsx)
+5. **No Data States** - [app/components/SALNRecordsView.tsx](mdc:app/components/SALNRecordsView.tsx)
+6. **404 Page** - [app/routes/$.tsx](mdc:app/routes/$.tsx)
+
+### Hashtags Component
+Use the reusable [Hashtags component](mdc:app/components/ui/Hashtags.tsx):
+
 ```tsx
-// Red - President, danger states
-className="bg-ph-red text-white"        // #F70000
-className="text-ph-red-600"
+import { Hashtags } from '../ui/Hashtags';
 
-// Blue - Vice President, primary actions
-className="bg-ph-blue text-white"       // #0038A8
-className="text-ph-blue-600"
+// Standard usage
+<Hashtags size="md" />
 
-// Yellow - Senators, warning states
-className="bg-ph-yellow text-gray-900"  // #FCD116
-className="text-ph-yellow-600"
+// With subtext for emphasis
+<Hashtags size="lg" showSubtext={true} />
+
+// Glass effect variant
+<Hashtags variant="glass" size="lg" />
+
+// Responsive sizing
+<Hashtags size="md" className="sm:hidden" />
+<Hashtags size="lg" className="hidden sm:inline-block" />
 ```
 
-### Extended Color System
+## Messaging Guidelines
+
+### Transparency Messaging
+- **Data Disclaimer**: "All SALN data sourced exclusively from official government channels"
+- **Platform Role**: "We are a data aggregator, not the original source"
+- **Verification**: "For official verification, refer to appropriate government agencies"
+
+### No Data State Messaging
+When SALN records are not available:
 ```tsx
-// Primary (Blue-based)
-className="bg-primary-500 text-white"   // Main brand color
-className="bg-primary-50 border-primary-200"  // Light backgrounds
-
-// Accent (Gold-based)
-className="bg-accent-500 text-white"    // Secondary actions
-className="bg-accent-50 text-accent-800"      // Highlighted content
-
-// Danger (Red-based)
-className="bg-danger-500 text-white"    // Error states
-className="bg-danger-50 text-danger-800"      // Error backgrounds
+<h3>No SALN Data Yet</h3>
+<p>SALN records for {official.name} have not been uploaded to this system yet.</p>
+<Hashtags size="lg" showSubtext={true} />
 ```
 
-## Typography Scale
-```tsx
-// Display headings
-className="text-2xl sm:text-4xl font-bold tracking-tight"
+### Legal Framework References
+- 1987 Constitution Article XI, Section 17
+- Republic Act 6713 (Code of Conduct and Ethical Standards)
+- Republic Act 3019 (Anti-Graft and Corrupt Practices Act)
+- Freedom of Information Executive Order
 
-// Section headings
-className="text-xl sm:text-2xl font-bold text-gray-900"
+## Content Guidelines
+1. **Maintain neutral tone** - Factual, not political
+2. **Emphasize transparency** - Focus on public right to information
+3. **Include legal basis** - Reference Philippine laws supporting SALN disclosure
+4. **Promote civic engagement** - Encourage informed citizen participation
+5. **Support accountability** - Frame as good governance initiative
 
-// Card titles
-className="text-lg font-semibold text-gray-900"
-
-// Body text
-className="text-sm sm:text-base text-gray-700 leading-relaxed"
-
-// Small text
-className="text-xs sm:text-sm text-gray-600"
-```
-
-## Component Patterns
-
-### Cards
-```tsx
-// Standard card
-<Card hoverable className="h-full">
-  <CardHeader className="pb-3">
-    <CardTitle className="text-base sm:text-lg">Title</CardTitle>
-  </CardHeader>
-  <CardContent className="pt-0">
-    {/* Content */}
-  </CardContent>
-</Card>
-
-// Highlighted card
-<Card className="border-2 border-primary-200 bg-primary-50">
-```
-
-### Buttons
-```tsx
-// Primary action
-<Button variant="primary" size="sm" className="w-full">
-
-// Secondary action
-<Button variant="ghost" className="text-sm">
-
-// Badge variants
-<Badge variant="ph-red" size="lg">PRESIDENT</Badge>
-<Badge variant="ph-blue" size="lg">VICE PRESIDENT</Badge>
-<Badge variant="ph-yellow" size="lg">SENATOR</Badge>
-```
-
-### Gradients
-```tsx
-// Flag gradient (red to blue)
-className="bg-flag-gradient"
-
-// Primary gradient
-className="bg-gradient-to-r from-primary-500 to-primary-600"
-
-// Accent gradient  
-className="bg-gradient-to-r from-accent-400 to-accent-500"
-```
-
-### Glass Effects
-```tsx
-// Backdrop blur glass effect
-className="bg-white/95 backdrop-blur-sm"
-className="bg-white/10 backdrop-blur-sm border border-white/20"
-```
-
-## Layout Conventions
-```tsx
-// Page containers
-className="container mx-auto px-3 sm:px-4 lg:px-8"
-
-// Section spacing
-className="space-y-6 sm:space-y-8"
-
-// Grid layouts
-className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
-```
-
-## Accessibility
-- Use semantic HTML elements
-- Ensure sufficient color contrast
-- Provide proper focus states with `focus:` variants
-- Use `sr-only` for screen reader content when needed
+## Visual Integration
+- Use Philippine flag colors for campaign elements
+- Apply glass effects for hashtag displays
+- Ensure mobile responsiveness for all campaign messaging
+- Maintain consistent typography and spacing
 
 ---
 > Source: [JHNLWHD/saln-tracker-ph](https://github.com/JHNLWHD/saln-tracker-ph) — distributed by [TomeVault](https://tomevault.io).
