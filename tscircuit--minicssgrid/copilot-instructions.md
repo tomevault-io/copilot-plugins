@@ -1,0 +1,89 @@
+## use-bun-instead-of-node-vite-npm-pnpm
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Commands
+
+### Testing
+
+- `bun test` - Run all tests
+- `bun test <pattern>` - Run tests matching pattern
+- `bun test path/to/test` - Run specific test
+
+### Formatting & Linting
+
+- `bun run format` - Format code with Biome
+- `bun run format:check` - Check formatting without making changes
+
+### Package Management
+
+Use `bun` instead of npm/yarn/pnpm for all package management operations:
+
+- `bun install` - Install dependencies
+- `bun add <package>` - Add dependency
+- `bun remove <package>` - Remove dependency
+
+## Architecture
+
+This is a TypeScript library (`@tscircuit/minigrid`) that implements a CSS Grid layout engine.
+
+### Core Structure
+
+- `lib/CssGrid.ts` - Main CssGrid class with layout computation and HTML conversion
+- `lib/types.ts` - TypeScript interfaces and type definitions for grid configuration
+- `lib/index.ts` - Main export file
+
+### Key Classes & Types
+
+- `CssGrid` class - Core grid implementation with `layout()`, `convertToHtml()`, and `visualize()` methods
+- `CssGridOptions` interface - Configuration for grid container and items
+- `GridItem` interface - Individual grid item configuration with positioning
+- `GridCell` interface - Final computed position of grid items
+
+### Testing Structure
+
+- Test files use Bun's built-in test runner
+- Tests are in `tests/` directory with corresponding testcases in `testcases/`
+- Import pattern: `import { expect, test } from "bun:test"`
+
+### Configuration
+
+- Uses Biome for formatting and linting (configured in `biome.json`)
+- TypeScript configuration in `tsconfig.json` with strict mode enabled
+- Path aliases configured: `lib/*`, `tests/*`, `testcases/*`
+
+## Introducing Test Cases
+
+1. Create a test case in `testcases/levelXX.ts`
+2. Generate the browser result by running `bun run generate-browser-results`
+3. Create a test in `tests/levelXX.test.ts` with the following structure:
+4. Run `bun test tests/levelXX.test.ts -u` to see the test results and update the snapshots
+
+```tsx
+import { expect, test } from "bun:test"
+import levelXX from "testcases/levelXX"
+import browserResult from "testcases/levelXX.browser-result.json"
+import { testGrid } from "./fixtures/testGrid"
+
+test("levelXX", () => {
+  const { laidOutResult, outputViz, layout } = testGrid(levelXX, browserResult)
+
+  expect(browserResult).toMatchInlineSnapshot()
+  expect(laidOutResult).toMatchInlineSnapshot()
+
+  expect(layout).toMatchInlineSnapshot()
+  expect(outputViz).toMatchSvgSnapshot(import.meta.path)
+
+  if (!process.env.BUN_UPDATE_SNAPSHOTS) {
+    expect(laidOutResult).toEqual(browserResult)
+  }
+})
+```
+
+---
+> Source: [tscircuit/minicssgrid](https://github.com/tscircuit/minicssgrid) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
