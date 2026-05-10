@@ -1,94 +1,80 @@
-## 2000-react
+## 2001-nextjs
 
-> Use React rules when building UI to produce maintainable components
+> Use these rules when building Next.js projects
 
 
-# React Rules
+# Next.js Rules
 
 <version>1.0.0</version>
 
 ## Context
 
-- For developing React components within Next.js using React 19
-- Emphasizes modern patterns, performance, and maintainability
-- Ensures proper component architecture and state management
+- For building Next.js v15 (App Router) projects with React 19
+- Guides server vs. client component usage and modern patterns
+- Ensures optimal performance and developer experience
 
 ## Requirements
 
-### Component Architecture
+### Architecture Patterns
 
-- Use explicit imports instead of `import * as React from "react"`
-- Implement proper component composition and separation of concerns
-- Extract reusable logic into custom hooks
-- Set `displayName` on complex components and contexts for better debugging
+- Use App Router with proper file-system based routing
+- Default `layout.tsx` and `page.tsx` to server components
+- Place client components strategically for interactivity only
+- Implement proper data fetching patterns with server actions
 
-### React 19 Patterns
+### Component Strategy
 
-- Client components must start with `"use client"` directive at the top
-- Server components require no directive; use `"use server"` for server actions
-- Pass `ref` as standard prop in React 19; `forwardRef` is deprecated
-- Use modern patterns for better performance and developer experience
+- Use client components only for local state, interactivity, or browser APIs
+- Prefer server components for data fetching and static content
+- Implement proper loading states with `loading.tsx` and `<Suspense>`
+- Use Shadcn UI `Skeleton` components for consistent loading UX
 
-### JSX and Rendering
+### Navigation and Routing
 
-- Use `{condition ? <Element /> : null}` for conditional rendering; avoid `&&`
-- Destructure props and state for improved readability
-- Use proper boolean props syntax (e.g., `<Button disabled />`)
-- Avoid using array index as key; prefer stable, unique identifiers
+- Use `<Link>` component for navigation instead of `<a>` tags
+- Use `useRouter` only when programmatic navigation is essential
+- Implement proper route protection with middleware
+- Use typed routes for better TypeScript integration
 
-### State Management
+### Data Management
 
-- Keep `useState` naming consistent (e.g., `[count, setCount]`)
-- Use lazy initialization for expensive initial state computations
-- Avoid calling state setters in `useEffect` without proper guards
-- Implement functional updates for state that depends on previous state
+- Prefer server actions over client-side API calls for mutations
+- Implement proper error handling with error boundaries
+- Use React 19's `useActionState` instead of deprecated `useFormState`
+- Configure proper caching strategies for fetch requests
 
 ### Performance Optimization
 
-- Use `useCallback`/`React.memo`/`useMemo` only when performance benefits are measured
-- Define default props as constants outside component to prevent re-renders
-- Avoid inline object/array literals as default props
-- Extract nested components to prevent unnecessary re-renders
+- Maintain Edge Runtime compatibility in middleware (no Node.js APIs)
+- Implement proper image optimization with Next.js Image component
+- Use streaming and progressive enhancement patterns
+- Configure proper headers for security and performance
 
-### Side Effects and Cleanup
+### Migration Notes (Next.js 15)
 
-- Clean up side effects in `useEffect` (timers, listeners, subscriptions)
-- Provide proper dependency arrays for hooks
-- Handle component unmounting gracefully
-- Use `useCallback` with stable dependencies for event handlers
+- React 19 is required for Next.js 15
+- `ImageResponse` moved from `next/server` to `next/og`
+- Async APIs (`cookies`, `headers`, `draftMode`, `params`) return Promises
+- Fetch requests aren't cached by default; use `cache: "force-cache"` if needed
+- Geo/IP removed from `NextRequest`; use `@vercel/functions`
+- Route Handlers require explicit caching configuration
 
-### Security and Best Practices
-
-- Avoid direct DOM manipulation (`findDOMNode`, direct element access)
-- Never use `dangerouslySetInnerHTML` unless absolutely necessary
-- Use `rel="noreferrer noopener"` with `target="_blank"` links
-- Implement proper error boundaries for component trees
-
-### Custom Hooks
-
-- Custom hooks must call at least one React hook
-- Follow naming convention with `use` prefix
-- Encapsulate related state logic and side effects
-- Return consistent interfaces from custom hooks
+## Examples
 
 <example>
-  import { useCallback } from "react";
-
-function ProductPage({ productId }) {
-const handleSubmit = useCallback(() => {
-post("/product/" + productId + "/buy");
-}, [productId]);
-
-    return <ShippingForm onSubmit={handleSubmit} />;
-
-}
+  // server component
+  export default async function Page() {
+    const data = await getData(); // server action
+    return <div>{data}</div>;
+  }
 </example>
 
 <example type="invalid">
-  // Missing dependencies => new function on every render
-  const handleClick = useCallback(() => {
-    // ...
-  });
+  "use client";
+  export default async function Page() {
+    const data = await getData();
+    return <div>{data}</div>;
+  }
 </example>
 
 ---
