@@ -1,0 +1,9 @@
+{
+  "name": "a3tai--openclaw-go",
+  "displayName": "openclaw-go",
+  "description": "Go port of OpenClaw APIs",
+  "version": "1.0.0",
+  "author": "a3tai",
+  "homepage": "https://github.com/a3tai/openclaw-go",
+  "skills": []
+}
