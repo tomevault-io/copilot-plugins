@@ -1,0 +1,9 @@
+{
+  "name": "tomtom-international--maps-sdk-js",
+  "displayName": "maps-sdk-js",
+  "description": "A JavaScript/TypeScript library for building applications using TomTom map display and geolocation APIs",
+  "version": "1.0.0",
+  "author": "tomtom-international",
+  "homepage": "https://github.com/tomtom-international/maps-sdk-js",
+  "skills": []
+}
