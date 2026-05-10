@@ -4,7 +4,7 @@
   "repo": "get-md",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/owayo/get-md",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T13:55:39Z"
+  "distributed_at": "2026-05-10T18:45:11Z"
 }
