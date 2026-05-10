@@ -1,0 +1,9 @@
+{
+  "name": "dinakar-s--prompt-kitcha",
+  "displayName": "Prompt-Kitcha",
+  "description": "PromptKitcha transforms rough text into powerful AI prompts with a single keystroke. Select text in any app, press Ctrl+Shift+Space, and watch it become a well-structured prompt ready for any LLM.",
+  "version": "1.0.0",
+  "author": "DINAKAR-S",
+  "homepage": "https://github.com/DINAKAR-S/Prompt-Kitcha",
+  "skills": []
+}
