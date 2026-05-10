@@ -1,1310 +1,1076 @@
-## mcp
+## zod
 
-> TITLE: Implement Transport Error Handling in TypeScript and Python
+> TITLE: Overwrite Transformations Retaining Schema Type in Zod 4
 
-TITLE: Implement Transport Error Handling in TypeScript and Python
-DESCRIPTION: This code snippet illustrates how to incorporate comprehensive error handling within transport implementations. It demonstrates catching exceptions during connection establishment and message transmission, logging errors, and ensuring proper resource cleanup using `try-catch` blocks and context managers.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/docs/concepts/transports.mdx#_snippet_4
+TITLE: Overwrite Transformations Retaining Schema Type in Zod 4
+DESCRIPTION: Introduces the new `.overwrite()` method in Zod v4, designed for transformations that do not change the inferred type. This method returns an instance of the original schema class, allowing continued method chaining and retaining introspectability.
+SOURCE: https://zod.dev/v4/v4
 
 LANGUAGE: TypeScript
 CODE:
 ```
-class ExampleTransport implements Transport {
-  async start() {
-    try {
-      // Connection logic
-    } catch (error) {
-      this.onerror?.(new Error(`Failed to connect: ${error}`));
-      throw error;
-    }
-  }
-
-  async send(message: JSONRPCMessage) {
-    try {
-      // Sending logic
-    } catch (error) {
-      this.onerror?.(new Error(`Failed to send message: ${error}`));
-      throw error;
-    }
-  }
-}
-```
-
-LANGUAGE: Python
-CODE:
-```
-@contextmanager
-async def example_transport(scope: Scope, receive: Receive, send: Send):
-    try:
-        # Create streams for bidirectional communication
-        read_stream_writer, read_stream = anyio.create_memory_object_stream(0)
-        write_stream, write_stream_reader = anyio.create_memory_object_stream(0)
-
-        async def message_handler():
-            try:
-                async with read_stream_writer:
-                    # Message handling logic
-                    pass
-            except Exception as exc:
-                logger.error(f"Failed to handle message: {exc}")
-                raise exc
-
-        async with anyio.create_task_group() as tg:
-            tg.start_soon(message_handler)
-            try:
-                # Yield streams for communication
-                yield read_stream, write_stream
-            except Exception as exc:
-                logger.error(f"Transport error: {exc}")
-                raise exc
-            finally:
-                tg.cancel_scope.cancel()
-                await write_stream.aclose()
-                await read_stream.aclose()
-    except Exception as exc:
-        logger.error(f"Failed to initialize transport: {exc}")
-        raise exc
+z.number().overwrite(val => val ** 2).max(100);
+// => ZodNumber
 ```
 
 ----------------------------------------
 
-TITLE: Implement Tool Execution Handler with Weather API Tools (Kotlin)
-DESCRIPTION: This snippet demonstrates how to set up an HTTP client using Ktor for making requests to the weather.gov API and how to register two tools (`get_alerts` and `get_forecast`) with an MCP server. The `get_alerts` tool fetches weather alerts by state, validating the 'state' parameter. The `get_forecast` tool retrieves weather forecasts by latitude and longitude, validating both parameters. Both tools handle input validation and return `CallToolResult` with `TextContent`.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/server.mdx#_snippet_33
+TITLE: Compose Discriminated Unions in Zod 4
+DESCRIPTION: Demonstrates the new ability in Zod v4 to use one discriminated union schema (`MyErrors`) as a member within another discriminated union (`MyResult`), enabling powerful schema composition patterns.
+SOURCE: https://zod.dev/v4/v4
 
-LANGUAGE: kotlin
+LANGUAGE: TypeScript
 CODE:
 ```
-// Create an HTTP client with a default request configuration and JSON content negotiation
-val httpClient = HttpClient {
-    defaultRequest {
-        url("https://api.weather.gov")
-        headers {
-            append("Accept", "application/geo+json")
-            append("User-Agent", "WeatherApiClient/1.0")
-        }
-        contentType(ContentType.Application.Json)
-    }
-    // Install content negotiation plugin for JSON serialization/deserialization
-    install(ContentNegotiation) { json(Json { ignoreUnknownKeys = true }) }
-}
+const BaseError = z.object({ status: z.literal("failed"), message: z.string() });
+const MyErrors = z.discriminatedUnion("code", [
+  BaseError.extend({ code: z.literal(400) }),
+  BaseError.extend({ code: z.literal(401) }),
+  BaseError.extend({ code: z.literal(500) })
+]);
 
-// Register a tool to fetch weather alerts by state
-server.addTool(
-    name = "get_alerts",
-    description = """
-        Get weather alerts for a US state. Input is Two-letter US state code (e.g. CA, NY)
-    """.trimIndent(),
-    inputSchema = Tool.Input(
-        properties = buildJsonObject {
-            putJsonObject("state") {
-                put("type", "string")
-                put("description", "Two-letter US state code (e.g. CA, NY)")
-            }
-        },
-        required = listOf("state")
-    )
-) { request ->
-    val state = request.arguments["state"]?.jsonPrimitive?.content
-    if (state == null) {
-        return@addTool CallToolResult(
-            content = listOf(TextContent("The 'state' parameter is required."))
-        )
-    }
-
-    val alerts = httpClient.getAlerts(state)
-
-    CallToolResult(content = alerts.map { TextContent(it) })
-}
-
-// Register a tool to fetch weather forecast by latitude and longitude
-server.addTool(
-    name = "get_forecast",
-    description = """
-        Get weather forecast for a specific latitude/longitude
-    """.trimIndent(),
-    inputSchema = Tool.Input(
-        properties = buildJsonObject {
-            putJsonObject("latitude") { put("type", "number") }
-            putJsonObject("longitude") { put("type", "number") }
-        },
-        required = listOf("latitude", "longitude")
-    )
-) { request ->
-    val latitude = request.arguments["latitude"]?.jsonPrimitive?.doubleOrNull
-    val longitude = request.arguments["longitude"]?.jsonPrimitive?.doubleOrNull
-    if (latitude == null || longitude == null) {
-        return@addTool CallToolResult(
-            content = listOf(TextContent("The 'latitude' and 'longitude' parameters are required."))
-        )
-    }
-
-    val forecast = httpClient.getForecast(latitude, longitude)
-
-    CallToolResult(content = forecast.map { TextContent(it) })
+const MyResult = z.discriminatedUnion("status", [
+  z.object({ status: z.literal("success"), data: z.string() }),
+  MyErrors
+]);
 ```
 
 ----------------------------------------
 
-TITLE: Add Core MCP SDK Dependency
-DESCRIPTION: Add the main Model Context Protocol (MCP) SDK dependency to your project. This core module provides base functionality and APIs, including default STDIO and SSE transport implementations, without requiring external web frameworks.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/sdk/java/mcp-overview.mdx#_snippet_0
+TITLE: Defining Synchronous Zod-Validated Functions in Zod v4
+DESCRIPTION: Demonstrates the new API for defining Zod-validated functions using `z.function()` in Zod v4. It shows how to define input and output schemas upfront and implement the function logic synchronously using `.implement()`.
+SOURCE: https://zod.dev/v4/v4/changelog
 
-LANGUAGE: Maven
+LANGUAGE: TypeScript
 CODE:
 ```
-<dependency>
-    <groupId>io.modelcontextprotocol.sdk</groupId>
-    <artifactId>mcp</artifactId>
-</dependency>
-```
+const myFunction = z.function({
+  input: [z.object({
+    name: z.string(),
+    age: z.number().int(),
+  })],
+  output: z.string(),
+});
 
-LANGUAGE: Gradle
-CODE:
-```
-dependencies {
-  implementation platform("io.modelcontextprotocol.sdk:mcp")
-  //...
-}
+myFunction.implement((input) => {
+  return `Hello ${input.name}, you are ${input.age} years old.`;
+});
 ```
 
 ----------------------------------------
 
-TITLE: Client `initialize` Request Example
-DESCRIPTION: Example JSON-RPC request sent by the client to initiate the Model Context Protocol session. This request includes the client's supported protocol version, its capabilities, and identifying client information.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2024-11-05/basic/lifecycle.mdx#_snippet_1
+TITLE: Use Top-Level String Format Functions - Zod v4 - JavaScript
+DESCRIPTION: Lists the various string format validation functions (like email, uuid, url, etc.) that are now available directly as top-level methods on the `z` module in Zod v4. This change makes them more concise to use and improves tree-shaking.
+SOURCE: https://zod.dev/v4/v4
 
-LANGUAGE: json
+LANGUAGE: JavaScript
 CODE:
 ```
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "method": "initialize",
-  "params": {
-    "protocolVersion": "2024-11-05",
-    "capabilities": {
-      "roots": {
-        "listChanged": true
-      },
-      "sampling": {}
-    },
-    "clientInfo": {
-      "name": "ExampleClient",
-      "version": "1.0.0"
-    }
-  }
-}
+z.email();\nz.uuidv4();\nz.uuidv7();\nz.uuidv8();\nz.ipv4();\nz.ipv6();\nz.cidrv4();\nz.cidrv6();\nz.url();\nz.e164();\nz.base64();\nz.base64url();\nz.jwt();\nz.ascii();\nz.utf8();\nz.lowercase();\nz.iso.date();\nz.iso.datetime();\nz.iso.duration();\nz.iso.time();
 ```
 
 ----------------------------------------
 
-TITLE: Configure Anthropic API Key
-DESCRIPTION: Instructions for securely storing the Anthropic API key in a `.env` file and adding `.env` to your `.gitignore` to prevent accidental commits of sensitive information.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/client.mdx#_snippet_12
+TITLE: Zod 4: Using .check() in zod/v4-mini
+DESCRIPTION: Illustrates the use of the new `.check()` method available in `zod/v4-mini`, which allows composing multiple validations and transforms (referred to as 'checks') on a schema.
+SOURCE: https://zod.dev/v4/v4/changelog
 
-LANGUAGE: bash
+LANGUAGE: TypeScript
 CODE:
 ```
-echo "ANTHROPIC_API_KEY=<your key here>" > .env
-```
+import { z } from "zod/v4-mini";
 
-LANGUAGE: bash
-CODE:
-```
-echo ".env" >> .gitignore
+z.string().check(
+  z.minLength(10),
+  z.maxLength(100),
+  z.toLowerCase(),
+  z.trim(),
+);
 ```
 
 ----------------------------------------
 
-TITLE: Process User Queries and Handle Tool Calls (TypeScript)
-DESCRIPTION: Implements the `processQuery` method responsible for interacting with an AI model (Anthropic's Claude) to handle user queries. It initializes messages, retrieves available tools, executes tool calls based on the model's response, and manages the conversation flow until a final text response is generated.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/tutorials/building-a-client-node.mdx#_snippet_6
+TITLE: Customize Required and Invalid Type Errors with Zod 4
+DESCRIPTION: Shows how Zod v4 replaces the separate `required_error` and `invalid_type_error` parameters with a single `error` function that receives an issue object, allowing conditional error messages based on the issue type (e.g., `invalid_type` or `required`).
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: TypeScript
+CODE:
+```
+// Zod 3
+- z.string({
+-   required_error: "This field is required"
+-   invalid_type_error: "Not a string",
+- });
+```
+
+LANGUAGE: TypeScript
+CODE:
+```
+// Zod 4
++ z.string({ error: (issue) => issue.input === undefined ?
++  "This field is required" :
++  "Not a string"
++ });
+```
+
+----------------------------------------
+
+TITLE: Customize Errors with Function Syntax in Zod 4
+DESCRIPTION: Illustrates how Zod v4 replaces the `errorMap` function with the unified `error` function for more complex error customization, allowing access to the issue details to return specific messages based on validation failures like `too_small`.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: TypeScript
+CODE:
+```
+// Zod 3
+- z.string({
+-   errorMap: (issue, ctx) => {
+-     if (issue.code === "too_small") {
+-       return { message: `Value must be >${issue.minimum}` };
+-     }
+-     return { message: ctx.defaultError };
+-   },
+- });
+```
+
+LANGUAGE: TypeScript
+CODE:
+```
+// Zod 4
++ z.string({
++   error: (issue) => {
++     if (issue.code === "too_small") {
++       return `Value must be >${issue.minimum}`
++     }
++   },
++ });
+```
+
+----------------------------------------
+
+TITLE: Adding Issues Directly to ZodError (JavaScript)
+DESCRIPTION: Shows the recommended way to add new issues to a `ZodError` instance in Zod v4 by directly pushing to the `issues` array, replacing the deprecated `.addIssue()` methods.
+SOURCE: https://zod.dev/v4/v4/changelog
+
+LANGUAGE: JavaScript
+CODE:
+```
+myError.issues.push({
+  // new issue
+});
+```
+
+----------------------------------------
+
+TITLE: Configure Zod Error Message Locale - Zod v4 - JavaScript
+DESCRIPTION: Shows how to configure the locale for Zod error messages using the new `z.locales` API. Demonstrates setting the English locale using `z.config(z.locales.en())`. This allows for internationalization of validation errors.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: JavaScript
+CODE:
+```
+import { z } from "zod/v4";\n\n// configure English locale (default)\nz.config(z.locales.en());
+```
+
+----------------------------------------
+
+TITLE: Migrating from ZodObject Methods to Top-Level Functions (Zod 4)
+DESCRIPTION: Shows how to replace the deprecated `.strict()` and `.passthrough()` methods on `ZodObject` with the new top-level `z.strictObject()` and `z.looseObject()` functions in Zod 4.
+SOURCE: https://zod.dev/v4/v4/changelog
+
+LANGUAGE: javascript
+CODE:
+```
+// Zod 3
+z.object({ name: z.string() }).strict();
+z.object({ name: z.string() }).passthrough();
+
+// Zod 4
+z.strictObject({ name: z.string() });
+z.looseObject({ name: z.string() });
+```
+
+----------------------------------------
+
+TITLE: Chain Zod Object Schema Operations (Extend/Omit)
+DESCRIPTION: Demonstrates repeatedly chaining `.extend()` and `.omit()` operations on a Zod object schema, highlighting performance improvements in Zod v4 for complex type manipulations and avoiding compiler issues.
+SOURCE: https://zod.dev/v4/v4
 
 LANGUAGE: typescript
 CODE:
 ```
-  async processQuery(query: string): Promise<string> {
-    if (!this.client) {
-      throw new Error("Client not connected");
-    }
+import { z } from "zod/v4";
 
-    // Initialize messages array with user query
-    let messages: Anthropic.MessageParam[] = [
-      {
-        role: "user",
-        content: query,
-      },
-    ];
+export const a = z.object({
+  a: z.string(),
+  b: z.string(),
+  c: z.string(),
+});
 
-    // Get available tools
-    const toolsResponse = await this.client.request(
-      { method: "tools/list" },
-      ListToolsResultSchema
-    );
+export const b = a.omit({
+  a: true,
+  b: true,
+  c: true,
+});
 
-    const availableTools = toolsResponse.tools.map((tool: any) => ({
-      name: tool.name,
-      description: tool.description,
-      input_schema: tool.inputSchema,
-    }));
+export const c = b.extend({
+  a: z.string(),
+  b: z.string(),
+  c: z.string(),
+});
 
-    const finalText: string[] = [];
-    let currentResponse = await this.anthropic.messages.create({
-      model: "claude-3-5-sonnet-20241022",
-      max_tokens: 1000,
-      messages,
-      tools: availableTools,
-    });
+export const d = c.omit({
+  a: true,
+  b: true,
+  c: true,
+});
 
-    // Process the response and any tool calls
-    while (true) {
-      // Add Claude's response to final text and messages
-      for (const content of currentResponse.content) {
-        if (content.type === "text") {
-          finalText.push(content.text);
-        } else if (content.type === "tool_use") {
-          const toolName = content.name;
-          const toolArgs = content.input;
+export const e = d.extend({
+  a: z.string(),
+  b: z.string(),
+  c: z.string(),
+});
 
-          // Execute tool call
-          const result = await this.client.request(
-            {
-              method: "tools/call",
-              params: {
-                name: toolName,
-                arguments: toolArgs,
-              },
-            },
-            CallToolResultSchema
-          );
+export const f = e.omit({
+  a: true,
+  b: true,
+  c: true,
+});
 
-          finalText.push(
-            `[Calling tool ${toolName} with args ${JSON.stringify(toolArgs)}]`
-          );
+export const g = f.extend({
+  a: z.string(),
+  b: z.string(),
+  c: z.string(),
+});
 
-          // Add Claude's response (including tool use) to messages
-          messages.push({
-            role: "assistant",
-            content: currentResponse.content,
-          });
+export const h = g.omit({
+  a: true,
+  b: true,
+  c: true,
+});
 
-          // Add tool result to messages
-          messages.push({
-            role: "user",
-            content: [
-              {
-                type: "tool_result",
-                tool_use_id: content.id,
-                content: [
-                  { type: "text", text: JSON.stringify(result.content) },
-                ],
-              },
-            ],
-          });
+export const i = h.extend({
+  a: z.string(),
+  b: z.string(),
+  c: z.string(),
+});
 
-          // Get next response from Claude with tool results
-          currentResponse = await this.anthropic.messages.create({
-            model: "claude-3-5-sonnet-20241022",
-            max_tokens: 1000,
-            messages,
-            tools: availableTools,
-          });
+export const j = i.omit({
+  a: true,
+  b: true,
+  c: true,
+});
 
-          // Add Claude's interpretation of the tool results to final text
-          if (currentResponse.content[0]?.type === "text") {
-            finalText.push(currentResponse.content[0].text);
-          }
+export const k = j.extend({
+  a: z.string(),
+  b: z.string(),
+  c: z.string(),
+});
 
-          // Continue the loop to process any additional tool calls
-          continue;
-        }
-      }
+export const l = k.omit({
+  a: true,
+  b: true,
+  c: true,
+});
 
-      // If we reach here, there were no tool calls in the response
-      break;
-    }
+export const m = l.extend({
+  a: z.string(),
+  b: z.string(),
+  c: z.string(),
+});
 
-    return finalText.join("\n");
-  }
+export const n = m.omit({
+  a: true,
+  b: true,
+  c: true,
+});
+
+export const o = n.extend({
+  a: z.string(),
+  b: z.string(),
+  c: z.string(),
+});
+
+export const p = o.omit({
+  a: true,
+  b: true,
+  c: true,
+});
+
+export const q = p.extend({
+  a: z.string(),
+  b: z.string(),
+  c: z.string(),
+});
 ```
 
 ----------------------------------------
 
-TITLE: Model Context Protocol: Data Types and URI Schemes Reference
-DESCRIPTION: This section provides a detailed reference for the core data types and standard URI schemes defined in the Model Context Protocol. It outlines the properties of a 'Resource', describes how 'Resource Contents' are structured for both text and binary data, and explains the purpose and usage guidelines for 'https://', 'file://', and 'git://' URI schemes.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/draft/server/resources.mdx#_snippet_17
-
-LANGUAGE: APIDOC
-CODE:
-```
-Data Types:
-  Resource:
-    uri: string - Unique identifier for the resource
-    name: string - Human-readable name
-    description: string (optional) - Optional description
-    mimeType: string (optional) - Optional MIME type
-    size: number (optional) - Optional size in bytes
-
-  Resource Contents:
-    Description: Resources can contain either text or binary data.
-    Text Content:
-      uri: string
-      mimeType: string - "text/plain"
-      text: string - Resource content
-    Binary Content:
-      uri: string
-      mimeType: string - e.g., "image/png"
-      blob: string - base64-encoded-data
-
-Common URI Schemes:
-  https://:
-    Description: Used to represent a resource available on the web. Servers SHOULD use this scheme only when the client is able to fetch and load the resource directly from the web on its own.
-  file://:
-    Description: Used to identify resources that behave like a filesystem. Resources do not need to map to an actual physical filesystem. MCP servers MAY identify file:// resources with an XDG MIME type.
-  git://:
-    Description: Git version control integration.
-```
-
-----------------------------------------
-
-TITLE: Model Context Protocol (MCP) Architecture Diagram
-DESCRIPTION: This Mermaid diagram illustrates the client-host-server architecture of the Model Context Protocol (MCP). It shows how a single 'Application Host Process' manages multiple 'Clients', which in turn connect to various 'Servers' (local or remote) to access different resources. The diagram highlights the isolation between clients and servers and the flow of interaction.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-03-26/architecture/index.mdx#_snippet_0
-
-LANGUAGE: Mermaid
-CODE:
-```
-graph LR
-    subgraph "Application Host Process"
-        H[Host]
-        C1[Client 1]
-        C2[Client 2]
-        C3[Client 3]
-        H --> C1
-        H --> C2
-        H --> C3
-    end
-
-    subgraph "Local machine"
-        S1[Server 1<br>Files & Git]
-        S2[Server 2<br>Database]
-        R1[("Local<br>Resource A")]
-        R2[("Local<br>Resource B")]
-
-        C1 --> S1
-        C2 --> S2
-        S1 <--> R1
-        S2 <--> R2
-    end
-
-    subgraph "Internet"
-        S3[Server 3<br>External APIs]
-        R3[("Remote<br>Resource C")]
-
-        C3 --> S3
-        S3 <--> R3
-    end
-```
-
-----------------------------------------
-
-TITLE: Request LLM Generation: sampling/createMessage
-DESCRIPTION: Servers use this JSON-RPC method to request a language model generation. It includes an array of messages, optional model preferences, a system prompt, and a maximum token limit for the response.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-03-26/client/sampling.mdx#_snippet_1
-
-LANGUAGE: json
-CODE:
-```
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "method": "sampling/createMessage",
-  "params": {
-    "messages": [
-      {
-        "role": "user",
-        "content": {
-          "type": "text",
-          "text": "What is the capital of France?"
-        }
-      }
-    ],
-    "modelPreferences": {
-      "hints": [
-        {
-          "name": "claude-3-sonnet"
-        }
-      ],
-      "intelligencePriority": 0.8,
-      "speedPriority": 0.5
-    },
-    "systemPrompt": "You are a helpful assistant.",
-    "maxTokens": 100
-  }
-}
-```
-
-----------------------------------------
-
-TITLE: Defining JSON-RPC Request Structure in TypeScript
-DESCRIPTION: This snippet defines the TypeScript interface for a JSON-RPC 2.0 request message. It specifies that requests must include a 'jsonrpc' version, a unique 'id' (string or number, but not null), a 'method' name, and an optional 'params' object for arguments. The 'id' must not have been previously used by the requestor within the same session.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-03-26/basic/index.mdx#_snippet_0
+TITLE: Defining Asynchronous Zod-Validated Functions in Zod v4
+DESCRIPTION: Shows how to define an asynchronous Zod-validated function in Zod v4 using the new `.implementAsync()` method on the function factory returned by `z.function()`.
+SOURCE: https://zod.dev/v4/v4/changelog
 
 LANGUAGE: TypeScript
 CODE:
 ```
-{
-  jsonrpc: "2.0";
-  id: string | number;
-  method: string;
-  params?: {
-    [key: string]: unknown;
-  };
-}
+myFunction.implementAsync(async (input) => {
+  return `Hello ${input.name}, you are ${input.age} years old.`;
+});
 ```
 
 ----------------------------------------
 
-TITLE: Model Context Protocol Lifecycle Diagram
-DESCRIPTION: Illustrates the three main phases of the Model Context Protocol (MCP) connection lifecycle: Initialization, Operation, and Shutdown, showing the sequence of interactions between the client and server.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2024-11-05/basic/lifecycle.mdx#_snippet_0
-
-LANGUAGE: mermaid
-CODE:
-```
-sequenceDiagram
-    participant Client
-    participant Server
-
-    Note over Client,Server: Initialization Phase
-    activate Client
-    Client->>+Server: initialize request
-    Server-->>Client: initialize response
-    Client--)Server: initialized notification
-
-    Note over Client,Server: Operation Phase
-    rect rgb(200, 220, 250)
-        note over Client,Server: Normal protocol operations
-    end
-
-    Note over Client,Server: Shutdown
-    Client--)-Server: Disconnect
-    deactivate Server
-    Note over Client,Server: Connection closed
-```
-
-----------------------------------------
-
-TITLE: Model Context Protocol (MCP) Core Concepts and Structure
-DESCRIPTION: Defines the fundamental components and communication mechanisms of the Model Context Protocol, including its JSON-RPC 2.0 foundation, roles of participants (Hosts, Clients, Servers), and primary features offered for context sharing and capability exposure.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2024-11-05/index.mdx#_snippet_0
-
-LANGUAGE: APIDOC
-CODE:
-```
-Model Context Protocol (MCP) Specification:
-  Protocol: JSON-RPC 2.0
-  Communication Roles:
-    Host: LLM applications initiating connections
-    Client: Connectors within the host application
-    Server: Services providing context and capabilities
-
-  Base Protocol Details:
-    - JSON-RPC message format
-    - Stateful connections
-    - Server and client capability negotiation
-
-  Features (Server offers to Client):
-    - Resources: Context and data, for the user or the AI model to use
-    - Prompts: Templated messages and workflows for users
-    - Tools: Functions for the AI model to execute
-
-  Features (Client offers to Server):
-    - Sampling: Server-initiated agentic behaviors and recursive LLM interactions
-
-  Additional Utilities:
-    - Configuration
-    - Progress tracking
-    - Cancellation
-    - Error reporting
-    - Logging
-```
-
-----------------------------------------
-
-TITLE: OAuth 2.1 Authorization Code Grant Flow (PKCE) with MCP Server
-DESCRIPTION: This sequence diagram illustrates the OAuth 2.1 Authorization Code Grant flow, specifically for public clients using PKCE, within the context of an MCP server. It details the steps from an initial unauthorized MCP request to obtaining and using an access token, involving a User-Agent (browser), the Client, and the MCP Server acting as the authorization server.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-03-26/basic/authorization.mdx#_snippet_0
-
-LANGUAGE: mermaid
-CODE:
-```
-sequenceDiagram
-    participant B as User-Agent (Browser)
-    participant C as Client
-    participant M as MCP Server
-
-    C->>M: MCP Request
-    M->>C: HTTP 401 Unauthorized
-    Note over C: Generate code_verifier and code_challenge
-    C->>B: Open browser with authorization URL + code_challenge
-    B->>M: GET /authorize
-    Note over M: User logs in and authorizes
-    M->>B: Redirect to callback URL with auth code
-    B->>C: Callback with authorization code
-    C->>M: Token Request with code + code_verifier
-    M->>C: Access Token (+ Refresh Token)
-    C->>M: MCP Request with Access Token
-    Note over C,M: Begin standard MCP message exchange
-```
-
-----------------------------------------
-
-TITLE: OAuth 2.1 Bearer Token Authorization Header
-DESCRIPTION: This snippet demonstrates the required format for including an access token in HTTP requests to MCP servers, conforming to OAuth 2.1 Section 5.1.1. The access token must be sent in the 'Authorization' header using the 'Bearer' scheme.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/draft/basic/authorization.mdx#_snippet_2
-
-LANGUAGE: http
-CODE:
-```
-Authorization: Bearer <access-token>
-```
-
-----------------------------------------
-
-TITLE: Define Main Execution Logic (Python)
-DESCRIPTION: This asynchronous `main` function serves as the application's entry point. It handles command-line arguments for server connection, initializes the `MCPClient`, connects to the specified server, runs the interactive chat loop, and ensures proper resource cleanup using a `finally` block, even in case of errors. The `if __name__ == "__main__"` block ensures `main` is executed when the script runs.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/client.mdx#_snippet_6
-
-LANGUAGE: python
-CODE:
-```
-async def main():
-    if len(sys.argv) < 2:
-        print("Usage: python client.py <path_to_server_script>")
-        sys.exit(1)
-
-    client = MCPClient()
-    try:
-        await client.connect_to_server(sys.argv[1])
-        await client.chat_loop()
-    finally:
-        await client.cleanup()
-
-if __name__ == "__main__":
-    import sys
-    import asyncio
-    asyncio.run(main())
-```
-
-----------------------------------------
-
-TITLE: Process User Queries with Anthropic and MCP Tools
-DESCRIPTION: Adds the `processQuery` method to the `MCPClient`, which handles user input by sending it to the Anthropic API. It processes the AI's response, identifying and executing tool calls suggested by Anthropic using the MCP client, and then integrates the tool results back into the conversation flow to generate a final response.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/client.mdx#_snippet_15
+TITLE: Define Zod Object Schemas with Extend
+DESCRIPTION: Defines two Zod object schemas, where the second schema `B` extends the first schema `A`, demonstrating schema composition and its impact on TypeScript compiler performance in Zod v4.
+SOURCE: https://zod.dev/v4/v4
 
 LANGUAGE: typescript
 CODE:
 ```
-async processQuery(query: string) {
-  const messages: MessageParam[] = [
-    {
-      role: "user",
-      content: query,
-    },
-  ];
+import { z } from "zod/v4";
 
-  const response = await this.anthropic.messages.create({
-    model: "claude-3-5-sonnet-20241022",
-    max_tokens: 1000,
-    messages,
-    tools: this.tools,
-  });
+export const A = z.object({
+  a: z.string(),
+  b: z.string(),
+  c: z.string(),
+  d: z.string(),
+  e: z.string(),
+});
 
-  const finalText = [];
-  const toolResults = [];
-
-  for (const content of response.content) {
-    if (content.type === "text") {
-      finalText.push(content.text);
-    } else if (content.type === "tool_use") {
-      const toolName = content.name;
-      const toolArgs = content.input as { [x: string]: unknown } | undefined;
-
-      const result = await this.mcp.callTool({
-        name: toolName,
-        arguments: toolArgs,
-      });
-      toolResults.push(result);
-      finalText.push(
-        `[Calling tool ${toolName} with args ${JSON.stringify(toolArgs)}]`
-      );
-
-      messages.push({
-        role: "user",
-        content: result.content as string,
-      });
-
-      const response = await this.anthropic.messages.create({
-        model: "claude-3-5-sonnet-20241022",
-        max_tokens: 1000,
-        messages,
-      });
-
-      finalText.push(
-        response.content[0].type === "text" ? response.content[0].text : ""
-      );
-    }
-  }
-
-  return finalText.join("\n");
-}
+export const B = A.extend({
+  f: z.string(),
+  g: z.string(),
+  h: z.string(),
+});
 ```
 
 ----------------------------------------
 
-TITLE: Spring AI ChatClient Implementation with MCP Tool Integration
-DESCRIPTION: Java code snippet demonstrating how to build a Spring AI ChatClient. It configures a default system message, registers MCP tool callbacks using `mcpToolAdapter.toolCallbacks()`, and integrates an `InMemoryChatMemory` for conversation context.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/client.mdx#_snippet_24
-
-LANGUAGE: Java
-CODE:
-```
-var chatClient = chatClientBuilder
-    .defaultSystem("You are useful assistant, expert in AI and Java.")
-    .defaultToolCallbacks((Object[]) mcpToolAdapter.toolCallbacks())
-    .defaultAdvisors(new MessageChatMemoryAdvisor(new InMemoryChatMemory()))
-    .build();
-```
-
-----------------------------------------
-
-TITLE: Define Basic MCP Client Class in Python
-DESCRIPTION: This Python snippet outlines the initial structure of the `MCPClient` class. It imports necessary modules for asynchronous operations, MCP client functionalities, Anthropic API interaction, and environment variable loading. The `__init__` method initializes session, exit stack, and Anthropic client objects.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/client.mdx#_snippet_2
-
-LANGUAGE: python
-CODE:
-```
-import asyncio
-from typing import Optional
-from contextlib import AsyncExitStack
-
-from mcp import ClientSession, StdioServerParameters
-from mcp.client.stdio import stdio_client
-
-from anthropic import Anthropic
-from dotenv import load_dotenv
-
-load_dotenv()  # load environment variables from .env
-
-class MCPClient:
-    def __init__(self):
-        # Initialize session and client objects
-        self.session: Optional[ClientSession] = None
-        self.exit_stack = AsyncExitStack()
-        self.anthropic = Anthropic()
-    # methods will go here
-```
-
-----------------------------------------
-
-TITLE: Defining JSON-RPC 2.0 Response Structure (TypeScript)
-DESCRIPTION: This snippet outlines the structure for a JSON-RPC 2.0 response in the Model Context Protocol (MCP). Responses must carry the same ID as their corresponding request and must contain either a `result` or an `error` field, but never both. Error codes are required to be integers.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2024-11-05/basic/messages.mdx#_snippet_1
+TITLE: Refinements Allowing Method Chaining in Zod 4
+DESCRIPTION: Demonstrates the improvement in Zod v4 where refinements are stored internally within the original schema type, allowing seamless chaining of other schema methods like `.min()` after applying `.refine()`, as expected.
+SOURCE: https://zod.dev/v4/v4
 
 LANGUAGE: TypeScript
 CODE:
 ```
-{
-  jsonrpc: "2.0";
-  id: string | number;
-  result?: {
-    [key: string]: unknown;
-  }
-  error?: {
-    code: number;
-    message: string;
-    data?: unknown;
-  }
-}
+z.string()
+  .refine(val => val.includes("@"))
+  .min(5); // ✅
 ```
 
 ----------------------------------------
 
-TITLE: Kotlin: Implement Query Processing with Tool Calls
-DESCRIPTION: This snippet defines the core functionality for processing user queries within the MCP client. It demonstrates how to build messages for the Anthropic API, handle responses, and specifically manage tool calls by invoking the MCP client's `callTool` method and integrating tool results back into the conversation flow.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/client.mdx#_snippet_35
-
-LANGUAGE: kotlin
-CODE:
-```
-private val messageParamsBuilder: MessageCreateParams.Builder = MessageCreateParams.builder()
-    .model(Model.CLAUDE_3_5_SONNET_20241022)
-    .maxTokens(1024)
-
-suspend fun processQuery(query: String): String {
-    val messages = mutableListOf(
-        MessageParam.builder()
-            .role(MessageParam.Role.USER)
-            .content(query)
-            .build()
-    )
-
-    val response = anthropic.messages().create(
-        messageParamsBuilder
-            .messages(messages)
-            .tools(tools)
-            .build()
-    )
-
-    val finalText = mutableListOf<String>()
-    response.content().forEach { content ->
-        when {
-            content.isText() -> finalText.add(content.text().getOrNull()?.text() ?: "")
-
-            content.isToolUse() -> {
-                val toolName = content.toolUse().get().name()
-                val toolArgs =
-                    content.toolUse().get()._input().convert(object : TypeReference<Map<String, JsonValue>>() {})
-
-                val result = mcp.callTool(
-                    name = toolName,
-                    arguments = toolArgs ?: emptyMap()
-                )
-                finalText.add("[Calling tool $toolName with args $toolArgs]")
-
-                messages.add(
-                    MessageParam.builder()
-                        .role(MessageParam.Role.USER)
-                        .content(
-                            """
-                                "type": "tool_result",
-                                "tool_name": $toolName,
-                                "result": ${result?.content?.joinToString("\n") { (it as TextContent).text ?: "" }}
-                            """.trimIndent()
-                        )
-                        .build()
-                )
-
-                val aiResponse = anthropic.messages().create(
-                    messageParamsBuilder
-                        .messages(messages)
-                        .build()
-                )
-
-                finalText.add(aiResponse.content().first().text().getOrNull()?.text() ?: "")
-            }
-        }
-    }
-
-    return finalText.joinToString("\n", prefix = "", postfix = "")
-}
-```
-
-----------------------------------------
-
-TITLE: Illustrating Complete Authorization Flow (Mermaid)
-DESCRIPTION: This sequence diagram outlines the complete authorization flow for MCP, including server metadata discovery, optional dynamic client registration, PKCE parameter generation, user authorization via browser, and the final token exchange and API requests using the obtained access token.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-03-26/basic/authorization.mdx#_snippet_2
-
-LANGUAGE: mermaid
-CODE:
-```
-sequenceDiagram
-    participant B as User-Agent (Browser)
-    participant C as Client
-    participant M as MCP Server
-
-    C->>M: GET /.well-known/oauth-authorization-server
-    alt Server Supports Discovery
-        M->>C: Authorization Server Metadata
-    else No Discovery
-        M->>C: 404 (Use default endpoints)
-    end
-
-    alt Dynamic Client Registration
-        C->>M: POST /register
-        M->>C: Client Credentials
-    end
-
-    Note over C: Generate PKCE Parameters
-    C->>B: Open browser with authorization URL + code_challenge
-    B->>M: Authorization Request
-    Note over M: User /authorizes
-    M->>B: Redirect to callback with authorization code
-    B->>C: Authorization code callback
-    C->>M: Token Request + code_verifier
-    M->>C: Access Token (+ Refresh Token)
-    C->>M: API Requests with Access Token
-```
-
-----------------------------------------
-
-TITLE: MCP Tool Data Type Definition
-DESCRIPTION: Defines the structure of a tool within the Model Context Protocol, including its unique name, human-readable description, and JSON schemas for expected input and optional output parameters. Annotations provide additional behavioral details.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/draft/server/tools.mdx#_snippet_6
-
-LANGUAGE: APIDOC
-CODE:
-```
-Tool:
-  name: string - Unique identifier for the tool
-  description: string - Human-readable description of functionality
-  inputSchema: JSON Schema - Defines expected parameters
-  outputSchema: JSON Schema (optional) - Defines expected output structure
-  annotations: object (optional) - Properties describing tool behavior
-```
-
-----------------------------------------
-
-TITLE: Illustrating Cancellation Race Conditions (Mermaid)
-DESCRIPTION: This Mermaid sequence diagram visualizes the timing considerations and potential race conditions when a cancellation notification is sent. It shows a client sending a request, followed by a cancellation, and highlights that the server's processing might complete before the cancellation arrives, or it might stop processing if the cancellation arrives in time.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/draft/basic/utilities/cancellation.mdx#_snippet_1
-
-LANGUAGE: mermaid
-CODE:
-```
-sequenceDiagram
-   participant Client
-   participant Server
-
-   Client->>Server: Request (ID: 123)
-   Note over Server: Processing starts
-   Client--)Server: notifications/cancelled (ID: 123)
-   alt
-      Note over Server: Processing may have<br/>completed before<br/>cancellation arrives
-   else If not completed
-      Note over Server: Stop processing
-   end
-```
-
-----------------------------------------
-
-TITLE: Defining JSON-RPC 2.0 Notification Structure (TypeScript)
-DESCRIPTION: This snippet defines the structure for a JSON-RPC 2.0 notification within the Model Context Protocol (MCP). Notifications are distinct as they do not anticipate a response and, consequently, must not include an `id` field. They specify the `jsonrpc` version, a `method` name, and optional `params`.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2024-11-05/basic/messages.mdx#_snippet_2
+TITLE: Apply Refinements with Zod Mini .check()
+DESCRIPTION: Illustrates the use of the general-purpose .check() method in 'zod/v4-mini' to apply multiple refinements, such as minLength, maxLength, and custom logic via z.refine(), to a schema.
+SOURCE: https://zod.dev/v4/v4
 
 LANGUAGE: TypeScript
 CODE:
 ```
-{
-  jsonrpc: "2.0";
-  method: string;
-  params?: {
-    [key: string]: unknown;
-  };
-}
+import { z } from "zod/v4-mini";
+
+z.array(z.number()).check(
+  z.minLength(5),
+  z.maxLength(10),
+  z.refine(arr => arr.includes(5))
+);
 ```
 
 ----------------------------------------
 
-TITLE: MCP Session Management: Mcp-Session-Id Header and Lifecycle
-DESCRIPTION: Describes the mechanism for establishing and managing stateful sessions in the Model Context Protocol (MCP) using the `Mcp-Session-Id` HTTP header. It covers session assignment during initialization, client usage in subsequent requests, server termination, client re-initialization on 404, and optional client-initiated session termination.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-03-26/basic/transports.mdx#_snippet_5
-
-LANGUAGE: APIDOC
-CODE:
-```
-HTTP Header: Mcp-Session-Id
-  Description: Assigned by server during initialization (InitializeResult) to establish a session.
-  Format: Globally unique, cryptographically secure (e.g., UUID, JWT), visible ASCII characters (0x21-0x7E).
-  Client Usage: MUST be included in all subsequent HTTP requests if returned by server.
-  Server Behavior:
-    - SHOULD respond with HTTP 400 Bad Request if required session ID is missing (except initialization).
-    - MAY terminate session at any time; MUST respond with HTTP 404 Not Found for requests with terminated ID.
-    - MAY respond with HTTP 405 Method Not Allowed for client-initiated DELETE requests.
-
-Session Lifecycle:
-  Initialization: Client POSTs InitializeRequest; Server responds with InitializeResponse and optional Mcp-Session-Id.
-  Ongoing Interaction: Client includes Mcp-Session-Id in all subsequent requests (POST, GET, DELETE).
-  Server Termination: Server responds with HTTP 404 for requests with terminated session ID.
-  Client Re-initialization: On receiving HTTP 404, client MUST start new session (new InitializeRequest without session ID).
-  Client Termination (Optional): Client SHOULD send HTTP DELETE with Mcp-Session-Id to explicitly terminate.
-```
-
-----------------------------------------
-
-TITLE: Define Weather Tool Functions for MCP Server
-DESCRIPTION: This Python code defines two asynchronous tool functions, `get_alerts` and `get_forecast`, using the `@mcp.tool()` decorator. `get_alerts` fetches weather alerts for a given US state, while `get_forecast` retrieves a detailed weather forecast for specified latitude and longitude. Both functions interact with an external NWS API and return formatted string results.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/server.mdx#_snippet_4
-
-LANGUAGE: python
-CODE:
-```
-@mcp.tool()
-async def get_alerts(state: str) -> str:
-    """Get weather alerts for a US state.
-
-    Args:
-        state: Two-letter US state code (e.g. CA, NY)
-    """
-    url = f"{NWS_API_BASE}/alerts/active/area/{state}"
-    data = await make_nws_request(url)
-
-    if not data or "features" not in data:
-        return "Unable to fetch alerts or no alerts found."
-
-    if not data["features"]:
-        return "No active alerts for this state."
-
-    alerts = [format_alert(feature) for feature in data["features"]]
-    return "\n---\n".join(alerts)
-
-@mcp.tool()
-async def get_forecast(latitude: float, longitude: float) -> str:
-    """Get weather forecast for a location.
-
-    Args:
-        latitude: Latitude of the location
-        longitude: Longitude of the location
-    """
-    # First get the forecast grid endpoint
-    points_url = f"{NWS_API_BASE}/points/{latitude},{longitude}"
-    points_data = await make_nws_request(points_url)
-
-    if not points_data:
-        return "Unable to fetch forecast data for this location."
-
-    # Get the forecast URL from the points response
-    forecast_url = points_data["properties"]["forecast"]
-    forecast_data = await make_nws_request(forecast_url)
-
-    if not forecast_data:
-        return "Unable to fetch detailed forecast."
-
-    # Format the periods into a readable forecast
-    periods = forecast_data["properties"]["periods"]
-    forecasts = []
-    for period in periods[:5]:  # Only show next 5 periods
-        forecast = f"""
-{period['name']}:
-Temperature: {period['temperature']}°{period['temperatureUnit']}
-Wind: {period['windSpeed']} {period['windDirection']}
-Forecast: {period['detailedForecast']}
-"""
-        forecasts.append(forecast)
-
-    return "\n---\n".join(forecasts)
-```
-
-----------------------------------------
-
-TITLE: Initialize and Configure MCP Server (Sync and Async APIs) in Java
-DESCRIPTION: These examples demonstrate how to create and configure both synchronous and asynchronous Model Context Protocol (MCP) servers in Java. They show how to define server capabilities (e.g., resources, tools, prompts, logging, completions) and register various specifications. The synchronous example uses direct method calls, while the asynchronous example utilizes reactive streams for registration and server closure, with success callbacks.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/sdk/java/mcp-server.mdx#_snippet_0
-
-LANGUAGE: Java
-CODE:
-```
-// Create a server with custom configuration
-McpSyncServer syncServer = McpServer.sync(transportProvider)
-    .serverInfo("my-server", "1.0.0")
-    .capabilities(ServerCapabilities.builder()
-        .resources(true)     // Enable resource support
-        .tools(true)         // Enable tool support
-        .prompts(true)       // Enable prompt support
-        .logging()           // Enable logging support
-        .completions()      // Enable completions support
-        .build())
-    .build();
-
-// Register tools, resources, and prompts
-syncServer.addTool(syncToolSpecification);
-syncServer.addResource(syncResourceSpecification);
-syncServer.addPrompt(syncPromptSpecification);
-
-// Close the server when done
-syncServer.close();
-```
-
-LANGUAGE: Java
-CODE:
-```
-// Create an async server with custom configuration
-McpAsyncServer asyncServer = McpServer.async(transportProvider)
-    .serverInfo("my-server", "1.0.0")
-    .capabilities(ServerCapabilities.builder()
-        .resources(true)     // Enable resource support
-        .tools(true)         // Enable tool support
-        .prompts(true)       // Enable prompt support
-        .logging()           // Enable logging support
-        .build())
-    .build();
-
-// Register tools, resources, and prompts
-asyncServer.addTool(asyncToolSpecification)
-    .doOnSuccess(v -> logger.info("Tool registered"))
-    .subscribe();
-
-asyncServer.addResource(asyncResourceSpecification)
-    .doOnSuccess(v -> logger.info("Resource registered"))
-    .subscribe();
-
-asyncServer.addPrompt(asyncPromptSpecification)
-    .doOnSuccess(v -> logger.info("Prompt registered"))
-    .subscribe();
-
-// Close the server when done
-asyncServer.close()
-    .doOnSuccess(v -> logger.info("Server closed"))
-    .subscribe();
-```
-
-----------------------------------------
-
-TITLE: Implement MCP Server Connection Method in Python
-DESCRIPTION: This Python method, `connect_to_server`, handles establishing a connection to an MCP server. It determines the server's language (.py or .js) to set the correct command (`python` or `node`), configures `StdioServerParameters`, and initializes a `ClientSession`. After connection, it lists and prints the tools available from the server.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/client.mdx#_snippet_3
-
-LANGUAGE: python
-CODE:
-```
-async def connect_to_server(self, server_script_path: str):
-    """Connect to an MCP server
-
-    Args:
-        server_script_path: Path to the server script (.py or .js)
-    """
-    is_python = server_script_path.endswith('.py')
-    is_js = server_script_path.endswith('.js')
-    if not (is_python or is_js):
-        raise ValueError("Server script must be a .py or .js file")
-
-    command = "python" if is_python else "node"
-    server_params = StdioServerParameters(
-        command=command,
-        args=[server_script_path],
-        env=None
-    )
-
-    stdio_transport = await self.exit_stack.enter_async_context(stdio_client(server_params))
-    self.stdio, self.write = stdio_transport
-    self.session = await self.exit_stack.enter_async_context(ClientSession(self.stdio, self.write))
-
-    await self.session.initialize()
-
-    # List available tools
-    response = await self.session.list_tools()
-    tools = response.tools
-    print("\nConnected to server with tools:", [tool.name for tool in tools])
-```
-
-----------------------------------------
-
-TITLE: MCP Client-Server Architecture Overview
-DESCRIPTION: Illustrates the Model Context Protocol's client-server architecture, showing how multiple clients within a host connect to separate server processes via a transport layer. This visualizes the 1:1 connection model between clients and servers.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/docs/concepts/architecture.mdx#_snippet_0
-
-LANGUAGE: mermaid
-CODE:
-```
-flowchart LR
-    subgraph "Host"
-        client1[MCP Client]
-        client2[MCP Client]
-    end
-    subgraph "Server Process"
-        server1[MCP Server]
-    end
-    subgraph "Server Process"
-        server2[MCP Server]
-    end
-
-    client1 <-->|Transport Layer| server1
-    client2 <-->|Transport Layer| server2
-```
-
-----------------------------------------
-
-TITLE: Request LLM Generation (sampling/createMessage)
-DESCRIPTION: Servers send a 'sampling/createMessage' request to initiate a language model generation. This example demonstrates a text-based user message, along with model preferences for intelligence and speed, and a system prompt.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2024-11-05/client/sampling.mdx#_snippet_1
-
-LANGUAGE: json
-CODE:
-```
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "method": "sampling/createMessage",
-  "params": {
-    "messages": [
-      {
-        "role": "user",
-        "content": {
-          "type": "text",
-          "text": "What is the capital of France?"
-        }
-      }
-    ],
-    "modelPreferences": {
-      "hints": [
-        {
-          "name": "claude-3-sonnet"
-        }
-      ],
-      "intelligencePriority": 0.8,
-      "speedPriority": 0.5
-    },
-    "systemPrompt": "You are a helpful assistant.",
-    "maxTokens": 100
-  }
-}
-```
-
-----------------------------------------
-
-TITLE: Client `initialize` Request Example (JSON)
-DESCRIPTION: JSON-RPC request sent by the client to initiate the Model Context Protocol connection. It includes the supported protocol version, client capabilities, and client implementation details, marking the start of the Initialization phase.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-03-26/basic/lifecycle.mdx#_snippet_1
-
-LANGUAGE: json
-CODE:
-```
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "method": "initialize",
-  "params": {
-    "protocolVersion": "2025-03-26",
-    "capabilities": {
-      "roots": {
-        "listChanged": true
-      },
-      "sampling": {}
-    },
-    "clientInfo": {
-      "name": "ExampleClient",
-      "version": "1.0.0"
-    }
-  }
-}
-```
-
-----------------------------------------
-
-TITLE: Example MCP Sampling Request
-DESCRIPTION: Illustrates a JSON request to the client for an LLM completion, including a user message, system prompt, and context inclusion from the current server.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/docs/concepts/sampling.mdx#_snippet_2
-
-LANGUAGE: json
-CODE:
-```
-{
-  "method": "sampling/createMessage",
-  "params": {
-    "messages": [
-      {
-        "role": "user",
-        "content": {
-          "type": "text",
-          "text": "What files are in the current directory?"
-        }
-      }
-    ],
-    "systemPrompt": "You are a helpful file system assistant.",
-    "includeContext": "thisServer",
-    "maxTokens": 100
-  }
-}
-```
-
-----------------------------------------
-
-TITLE: Structure JSON-RPC Error Responses (JSON)
-DESCRIPTION: This example illustrates a standard JSON-RPC error response structure. It includes the 'jsonrpc' version, an 'id' for the request, and an 'error' object containing a numeric 'code' and a human-readable 'message' to describe the failure. Clients should return such errors for common failure cases.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-03-26/client/sampling.mdx#_snippet_9
-
-LANGUAGE: json
-CODE:
-```
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "error": {
-    "code": -1,
-    "message": "User rejected sampling request"
-  }
-}
-```
-
-----------------------------------------
-
-TITLE: MCP Sampling Response Format
-DESCRIPTION: Defines the structure of the LLM completion result returned by the client after processing a sampling request.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/docs/concepts/sampling.mdx#_snippet_1
-
-LANGUAGE: APIDOC
-CODE:
-```
-MCP Sampling Response:
-  model: string (required)
-    description: Name of the model used for completion.
-  stopReason: string ("endTurn" | "stopSequence" | "maxTokens" | custom) (optional)
-    description: Reason for stopping generation.
-  role: string ("user" | "assistant") (required)
-    description: The role of the message sender (e.g., "assistant" for the LLM's response).
-  content: object (required)
-    description: The completion content.
-    type: string ("text" | "image") (required)
-      description: The type of content.
-    text: string (optional)
-      description: For text content.
-    data: string (optional)
-      description: Base64 encoded data for images.
-    mimeType: string (optional)
-      description: MIME type for images.
-```
-
-LANGUAGE: typescript
-CODE:
-```
-{
-  model: string,  // Name of the model used
-  stopReason?: "endTurn" | "stopSequence" | "maxTokens" | string,
-  role: "user" | "assistant",
-  content: {
-    type: "text" | "image",
-    text?: string,
-    data?: string,
-    mimeType?: string
-  }
-}
-```
-
-----------------------------------------
-
-TITLE: Implementation Guidelines for Model Context Protocol
-DESCRIPTION: These guidelines outline key considerations for implementing the Model Context Protocol. They emphasize the importance of server-side validation of prompt arguments, client-side handling of pagination for large lists, and mutual respect for capability negotiation between parties.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/draft/server/prompts.mdx#_snippet_13
-
-LANGUAGE: APIDOC
-CODE:
-```
-Implementation Considerations:
-  Servers SHOULD validate prompt arguments before processing
-  Clients SHOULD handle pagination for large prompt lists
-  Both parties SHOULD respect capability negotiation
-```
-
-----------------------------------------
-
-TITLE: Defining JSON-RPC Notification Message - TypeScript
-DESCRIPTION: This snippet defines the structure for a Model Context Protocol (MCP) notification message in TypeScript. Notifications are one-way messages that do not expect a response and, consequently, must not include an `id` field. They are used for sending information without requiring an acknowledgment.
-SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/draft/basic/index.mdx#_snippet_2
+TITLE: Using z.enum with Native Enum in Zod v4
+DESCRIPTION: Demonstrates the new usage of `z.enum()` in Zod v4, which now directly accepts a TypeScript native enum as input, replacing the deprecated `z.nativeEnum()`.
+SOURCE: https://zod.dev/v4/v4/changelog
 
 LANGUAGE: TypeScript
 CODE:
 ```
-{
-  jsonrpc: "2.0";
-  method: string;
-  params?: {
-    [key: string]: unknown;
-  };
+enum Color {
+  Red = "red",
+  Green = "green",
+  Blue = "blue",
 }
+
+const ColorSchema = z.enum(Color); // ✅
+```
+
+----------------------------------------
+
+TITLE: Using Top-Level String Format Validators (Zod 4)
+DESCRIPTION: Demonstrates the new top-level API for string format validation in Zod 4, replacing method-based validation for various formats like email, uuid, url, etc.
+SOURCE: https://zod.dev/v4/v4/changelog
+
+LANGUAGE: javascript
+CODE:
+```
+z.email();
+z.uuid();
+z.url();
+z.emoji();         // validates a single emoji character
+z.base64();
+z.base64url();
+z.nanoid();
+z.cuid();
+z.cuid2();
+z.ulid();
+z.ipv4();
+z.ipv6();
+z.cidrv4();          // ip range
+z.cidrv6();          // ip range
+z.iso.date();
+z.iso.time();
+z.iso.datetime();
+z.iso.duration();
+```
+
+----------------------------------------
+
+TITLE: Transformations Changing Schema Type in Zod 3/4
+DESCRIPTION: Illustrates how the `.transform()` method in Zod changes the schema's inferred type to `ZodPipe`, indicating that the output type is determined by the transform function and is not introspectable as the original schema type at runtime.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: TypeScript
+CODE:
+```
+const Squared = z.number().transform(val => val ** 2);
+// => ZodPipe<ZodNumber, ZodTransform>
+```
+
+----------------------------------------
+
+TITLE: Pretty-Print Zod Error - Zod v4 - JavaScript
+DESCRIPTION: Demonstrates the usage of the new top-level `z.prettifyError` function to convert a `ZodError` instance into a human-readable, multi-line string format. Shows how to create a sample `ZodError` with multiple validation issues and then prettify it for easier debugging or user display.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: JavaScript
+CODE:
+```
+const myError = new z.ZodError([\n  {\n    code: 'unrecognized_keys',\n    keys: [ 'extraField' ],\n    path: [],\n    message: 'Unrecognized key: "extraField"'\n  },\n  {\n    expected: 'string',\n    code: 'invalid_type',\n    path: [ 'username' ],\n    message: 'Invalid input: expected string, received number'\n  },\n  {\n    origin: 'number',\n    code: 'too_small',\n    minimum: 0,\n    inclusive: true,\n    path: [ 'favoriteNumbers', 1 ],\n    message: 'Too small: expected number to be >=0'\n  }\n]);\n\nz.prettifyError(myError);
+```
+
+----------------------------------------
+
+TITLE: Validate File Instances - Zod v4 - JavaScript
+DESCRIPTION: Demonstrates how to create a Zod schema specifically for validating `File` instances using `z.file()`. Shows how to apply constraints on file size using `min()` and `max()` and validate the MIME type using `type()`. Requires a `File` object as input.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: JavaScript
+CODE:
+```
+const fileSchema = z.file();\n\nfileSchema.min(10_000); // minimum .size (bytes)\nfileSchema.max(1_000_000); // maximum .size (bytes)\nfileSchema.type("image/png"); // MIME type
+```
+
+----------------------------------------
+
+TITLE: Define Literals with Multiple Values in Zod 4
+DESCRIPTION: Explains the new feature in Zod v4 where `z.literal()` can accept an array of values, providing a more concise way to define schemas that match one of several literal values compared to the Zod 3 approach using `z.union` with multiple `z.literal` calls.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: TypeScript
+CODE:
+```
+const httpCodes = z.literal([ 200, 201, 202, 204, 206, 207, 208, 226 ]);
+```
+
+LANGUAGE: TypeScript
+CODE:
+```
+// previously in Zod 3:
+const httpCodes = z.union([
+  z.literal(200),
+  z.literal(201),
+  z.literal(202),
+  z.literal(204),
+  z.literal(206),
+  z.literal(207),
+  z.literal(208),
+  z.literal(226)
+]);
+```
+
+----------------------------------------
+
+TITLE: Available Top-Level Refinements in Zod Mini
+DESCRIPTION: Lists the various top-level refinement functions provided by 'zod/v4-mini', covering custom checks, standard validation checks for different data types, and value transformation functions.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { z } from "zod/v4-mini";
+
+// custom checks
+z.refine();
+
+// first-class checks
+z.lt(value);
+z.lte(value); // alias: z.maximum()
+z.gt(value);
+z.gte(value); // alias: z.minimum()
+z.positive();
+z.negative();
+z.nonpositive();
+z.nonnegative();
+z.multipleOf(value);
+z.maxSize(value);
+z.minSize(value);
+z.size(value);
+z.maxLength(value);
+z.minLength(value);
+z.length(value);
+z.regex(regex);
+z.lowercase();
+z.uppercase();
+z.includes(value);
+z.startsWith(value);
+z.endsWith(value);
+z.property(key, schema); // for object schemas; check `input[key]` against `schema`
+z.mime(value); // for file schemas (see below)
+
+// overwrites (these *do not* change the inferred type!)
+z.overwrite(value => newValue);
+z.normalize();
+z.trim();
+z.toLowerCase();
+z.toUpperCase();
+```
+
+----------------------------------------
+
+TITLE: Define Recursive Object Type - Zod v4 - JavaScript
+DESCRIPTION: Demonstrates the new Zod v4 pattern for defining recursive object types using a getter for the recursive property. Shows how to infer the TypeScript type from the schema. This approach eliminates the need for type casting used in previous versions.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: JavaScript
+CODE:
+```
+const Category = z.object({\n  name: z.string(),\n  get subcategories(){\n    return z.array(Category)\n  }\n});\n\ntype Category = z.infer<typeof Category>;\n// { name: string; subcategories: Category[] }
+```
+
+----------------------------------------
+
+TITLE: Customize Simple String Errors with Zod 4
+DESCRIPTION: Demonstrates the change from using the deprecated `message` parameter to the new unified `error` parameter for providing simple string error messages directly within validation options in Zod v4.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: TypeScript
+CODE:
+```
+- z.string().min(5, { message: "Too short." });
+```
+
+LANGUAGE: TypeScript
+CODE:
+```
++ z.string().min(5, { error: "Too short." });
+```
+
+----------------------------------------
+
+TITLE: Use Standard Zod Methods on Recursive Schemas - Zod v4 - JavaScript
+DESCRIPTION: Illustrates that recursive Zod schemas created with the new v4 pattern are regular `ZodObject` instances and fully support standard methods like `pick()`, `partial()`, and `extend()` for schema manipulation.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: JavaScript
+CODE:
+```
+Post.pick({ title: true })\nPost.partial();\nPost.extend({ publishDate: z.date() });
+```
+
+----------------------------------------
+
+TITLE: Add Metadata to Global Registry using .meta()
+DESCRIPTION: Shows the preferred and most convenient way to add metadata to the z.globalRegistry by using the .meta() method directly on a schema object, passing the metadata object as an argument.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: TypeScript
+CODE:
+```
+z.string().meta({
+  id: "email_address",
+  title: "Email address",
+  description: "Provide your email",
+  examples: ["naomie@example.com"],
+  // ...
+});
+```
+
+----------------------------------------
+
+TITLE: Accessing Enum Values in Zod v4
+DESCRIPTION: Shows the canonical way to access enum values from a Zod enum schema (`.enum`) in Zod v4 and highlights the removal of deprecated access methods (`.Enum`, `.Values`).
+SOURCE: https://zod.dev/v4/v4/changelog
+
+LANGUAGE: TypeScript
+CODE:
+```
+ColorSchema.enum.Red; // ✅ => "Red" (canonical API)
+ColorSchema.Enum.Red; // ❌ removed
+ColorSchema.Values.Red; // ❌ removed
+```
+
+----------------------------------------
+
+TITLE: Include Metadata in Zod to JSON Schema Conversion - Zod v4 - JavaScript
+DESCRIPTION: Illustrates how Zod metadata added via `.describe()` or `.meta()` is automatically incorporated into the generated JSON Schema when using `z.toJSONSchema()`. Shows an example with description, title, and examples metadata included in the output.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: JavaScript
+CODE:
+```
+const mySchema = z.object({\n  firstName: z.string().describe("Your first name"),\n  lastName: z.string().meta({ title: "last_name" }),\n  age: z.number().meta({ examples: [12, 99] }),\n});\n\nz.toJSONSchema(mySchema);\n// => {\n//   type: 'object',\n//   properties: {\n//     firstName: { type: 'string', description: 'Your first name' },\n//     lastName: { type: 'string', title: 'last_name' },\n//     age: { type: 'number', examples: [ 12, 99 ] }\n//   },\n//   required: [ 'firstName', 'lastName', 'age' ]\n// }
+```
+
+----------------------------------------
+
+TITLE: Define Discriminated Unions with Complex Discriminators in Zod 4
+DESCRIPTION: Shows the enhanced `z.discriminatedUnion` in Zod v4, demonstrating its new capability to handle discriminator properties defined using more complex schema types like unions (`z.union`) or nested objects, in addition to simple literals.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: TypeScript
+CODE:
+```
+const MyResult = z.discriminatedUnion("status", [
+  // simple literal
+  z.object({ status: z.literal("aaa"), data: z.string() }),
+  // union discriminator
+  z.object({ status: z.union([z.literal("bbb"), z.literal("ccc")]) }),
+  // pipe discriminator
+  z.object({ status: z.object({ value: z.literal("fail") }) }),
+]);
+```
+
+----------------------------------------
+
+TITLE: Demonstrating Zod v4 Error Map Precedence (JavaScript)
+DESCRIPTION: Illustrates the change in error map precedence in Zod v4, showing that schema-level error maps now override contextual error maps passed to `.parse()`.
+SOURCE: https://zod.dev/v4/v4/changelog
+
+LANGUAGE: JavaScript
+CODE:
+```
+const mySchema = z.string({ error: () => "Schema-level error" });
+
+// in Zod 3
+mySchema.parse(12, { error: () => "Contextual error" }); // => "Contextual error"
+
+// in Zod 4
+mySchema.parse(12, { error: () => "Contextual error" }); // => "Schema-level error"
+```
+
+----------------------------------------
+
+TITLE: Configuring Custom Email Regex in Zod (JavaScript)
+DESCRIPTION: Demonstrates how to use the z.email() schema with different predefined regex patterns provided by Zod, such as the default, HTML5, RFC 5322, and Unicode email regexes. This allows for varying levels of email validation strictness.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: JavaScript
+CODE:
+```
+// Zod's default email regex (Gmail rules)
+// see colinhacks.com/essays/reasonable-email-regex
+z.email(); // z.regexes.email
+
+// the regex used by browsers to validate input[type=email] fields
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email
+z.email({ pattern: z.regexes.html5Email });
+
+// the classic emailregex.com regex (RFC 5322)
+z.email({ pattern: z.regexes.rfc5322Email });
+
+// a loose regex that allows Unicode (good for intl emails)
+z.email({ pattern: z.regexes.unicodeEmail });
+```
+
+----------------------------------------
+
+TITLE: Coercing Strings to Booleans with z.stringbool (JavaScript)
+DESCRIPTION: Explains and demonstrates the basic usage of the z.stringbool() schema for coercing specific string values ("true", "1", "yes", etc.) into boolean true or false. It shows examples of successful parsing for various truthy and falsy string inputs.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: JavaScript
+CODE:
+```
+const strbool = z.stringbool();
+
+strbool.parse("true")         // => true
+strbool.parse("1")            // => true
+strbool.parse("yes")          // => true
+strbool.parse("on")           // => true
+strbool.parse("y")            // => true
+strbool.parse("enable")       // => true
+
+strbool.parse("false");       // => false
+strbool.parse("0");            // => false
+strbool.parse("no");           // => false
+strbool.parse("off");          // => false
+strbool.parse("n");            // => false
+strbool.parse("disabled");     // => false
+
+strbool.parse(/* anything else */); // ZodError<[{ code: "invalid_value" }]>
+```
+
+----------------------------------------
+
+TITLE: Comparing Zod 3 Method vs Zod 4 Top-Level String Validation
+DESCRIPTION: Shows the deprecated method-based string format validation from Zod 3 compared to the recommended top-level API in Zod 4 for formats like email.
+SOURCE: https://zod.dev/v4/v4/changelog
+
+LANGUAGE: javascript
+CODE:
+```
+z.string().email(); // ❌ deprecated
+z.email(); // ✅
+```
+
+----------------------------------------
+
+TITLE: Convert Zod Object Schema to JSON Schema - Zod v4 - JavaScript
+DESCRIPTION: Demonstrates how to use the new `z.toJSONSchema()` function to convert a basic Zod object schema into its corresponding JSON Schema representation. Requires importing `z` from "zod/v4". The output shows the structure of the generated JSON Schema.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: JavaScript
+CODE:
+```
+import { z } from "zod/v4";\n\nconst mySchema = z.object({name: z.string(), points: z.number()});\n\nz.toJSONSchema(mySchema);\n// => {\n//   type: "object",\n//   properties: {\n//     name: {type: "string"},\n//     points: {type: "number"},\n//   },\n//   required: ["name", "points"],\n// }
+```
+
+----------------------------------------
+
+TITLE: Defining Zod Issue Base Interface (TypeScript)
+DESCRIPTION: Defines the base interface `$ZodIssueBase` that all Zod issues conform to, specifying common properties like `code`, `input`, `path`, and `message`.
+SOURCE: https://zod.dev/v4/v4/changelog
+
+LANGUAGE: TypeScript
+CODE:
+```
+export interface $ZodIssueBase {
+  readonly code?: string;
+  readonly input?: unknown;
+  readonly path: PropertyKey[];
+  readonly message: string;
+}
+```
+
+----------------------------------------
+
+TITLE: Defining Template Literal Schemas with Zod (JavaScript)
+DESCRIPTION: Illustrates the use of z.templateLiteral() to create schemas that validate strings matching a template pattern. It shows how to combine literal strings with other Zod schemas (like z.string(), z.number(), and z.enum()) within the template structure.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: JavaScript
+CODE:
+```
+const hello = z.templateLiteral(["hello, ", z.string()]);
+// `hello, ${string}`
+
+const cssUnits = z.enum(["px", "em", "rem", "%"]);
+const css = z.templateLiteral([z.number(), cssUnits]);
+// `${number}px` | `${number}em` | `${number}rem` | `${number}%`
+
+const email = z.templateLiteral([
+  z.string().min(1),
+  "@",
+  z.string().max(64),
+]);
+// `${string}@${string}` (the min/max refinements are enforced!)
+```
+
+----------------------------------------
+
+TITLE: Replacing Deprecated z.string().ip() with Separate Methods (Zod)
+DESCRIPTION: Illustrates the replacement of the deprecated `z.string().ip()` method with the new `z.ipv4()` and `z.ipv6()` top-level functions in Zod 4.
+SOURCE: https://zod.dev/v4/v4/changelog
+
+LANGUAGE: javascript
+CODE:
+```
+z.string().ip() // ❌
+z.ipv4() // ✅
+z.ipv6() // ✅
+```
+
+----------------------------------------
+
+TITLE: Compare .describe() and .meta() for Metadata
+DESCRIPTION: Compares the older .describe() method, retained for Zod 3 compatibility, with the new .meta() method, demonstrating that .meta() is the modern and preferred way to add description metadata to the global registry.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: TypeScript
+CODE:
+```
+z.string().describe("An email address");
+
+// equivalent to
+z.string().meta({ description: "An email address" });
+```
+
+----------------------------------------
+
+TITLE: Define Mutually Recursive Object Types - Zod v4 - JavaScript
+DESCRIPTION: Shows how to define mutually recursive Zod object types, where one schema references another and vice versa, using getters for the recursive properties. This allows for complex, interconnected data structures.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: JavaScript
+CODE:
+```
+const User = z.object({\n  email: z.email(),\n  get posts(){\n    return z.array(Post)\n  }\n});\n\nconst Post = z.object({\n  title: z.string(),\n  get author(){\n    return User\n  }\n});
+```
+
+----------------------------------------
+
+TITLE: Parse Data using Zod Mini
+DESCRIPTION: Shows that parsing methods like .parse(), .safeParse(), .parseAsync(), and .safeParseAsync() are still available as methods on schemas in 'zod/v4-mini', functioning identically to the standard Zod API.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { z } from "zod/v4-mini";
+
+z.string().parse("asdf");
+z.string().safeParse("asdf");
+await z.string().parseAsync("asdf");
+await z.string().safeParseAsync("asdf");
+```
+
+----------------------------------------
+
+TITLE: Add Metadata to Zod Global Registry
+DESCRIPTION: Illustrates adding metadata to Zod's built-in global registry (z.globalRegistry), which is designed to store common JSON Schema-compatible properties like id, title, description, and examples.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: TypeScript
+CODE:
+```
+z.globalRegistry.add(z.string(), {
+  id: "email_address",
+  title: "Email address",
+  description: "Provide your email",
+  examples: ["naomie@example.com"],
+  extraKey: "Additional properties are also allowed"
+});
+```
+
+----------------------------------------
+
+TITLE: Zod 4: ZodType Generic Inference Example
+DESCRIPTION: Provides an example demonstrating how the updated `ZodType` generic structure in Zod 4 allows generic functions involving `z.ZodType` to infer types more intuitively.
+SOURCE: https://zod.dev/v4/v4/changelog
+
+LANGUAGE: TypeScript
+CODE:
+```
+function inferSchema<T extends z.ZodType>(schema: T): T {
+  return schema;
+};
+
+inferSchema(z.string()); // z.ZodString
+```
+
+----------------------------------------
+
+TITLE: Using Fixed-Width Number Formats in Zod (JavaScript)
+DESCRIPTION: Shows how to use Zod's new numeric format methods (z.int, z.float32, z.float64, z.int32, z.uint32) to define schemas for fixed-width integer and float types. These methods automatically apply appropriate minimum and maximum constraints.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: JavaScript
+CODE:
+```
+z.int();      // [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
+z.float32();  // [-3.4028234663852886e38, 3.4028234663852886e38]
+z.float64();  // [-1.7976931348623157e308, 1.7976931348623157e308]
+z.int32();    // [-2147483648, 2147483647]
+z.uint32();   // [0, 4294967295]
+```
+
+----------------------------------------
+
+TITLE: Define Schemas with Zod Mini Functional API
+DESCRIPTION: Demonstrates the functional API of 'zod/v4-mini' using wrapper functions like z.optional(), z.union(), and z.extend() to define schema structures, which aids in tree-shaking.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { z } from "zod/v4-mini";
+
+z.optional(z.string());
+
+z.union([z.string(), z.number()]);
+
+z.extend(z.object({ /* ... */ }), { age: z.number() });
+```
+
+----------------------------------------
+
+TITLE: Using BigInt Number Formats in Zod (JavaScript)
+DESCRIPTION: Demonstrates the use of Zod's bigint format methods (z.int64, z.uint64) for defining schemas that handle integer types exceeding JavaScript's safe number range. These methods return ZodBigInt instances with predefined min/max constraints.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: JavaScript
+CODE:
+```
+z.int64();    // [-9223372036854775808n, 9223372036854775807n]
+z.uint64();   // [0n, 18446744073709551615n]
+```
+
+----------------------------------------
+
+TITLE: Defining Zod v4 Issue Formats Type (TypeScript)
+DESCRIPTION: Defines the union type `IssueFormats` using Zod v4's streamlined issue types, including new types for `z.record`, `z.map`, and `z.set`.
+SOURCE: https://zod.dev/v4/v4/changelog
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { z } from "zod/v4"; // v4
+
+type IssueFormats =
+  | z.core.$ZodIssueInvalidType
+  | z.core.$ZodIssueTooBig
+  | z.core.$ZodIssueTooSmall
+  | z.core.$ZodIssueInvalidStringFormat
+  | z.core.$ZodIssueNotMultipleOf
+  | z.core.$ZodIssueUnrecognizedKeys
+  | z.core.$ZodIssueInvalidValue
+  | z.core.$ZodIssueInvalidUnion
+  | z.core.$ZodIssueInvalidKey // new: used for z.record/z.map
+  | z.core.$ZodIssueInvalidElement // new: used for z.map/z.set
+  | z.core.$ZodIssueCustom;
+```
+
+----------------------------------------
+
+TITLE: Zod 4: Defining Standalone Transforms with z.transform()
+DESCRIPTION: Shows how to create a standalone transformation schema using the new `z.transform()` function, which can be used independently to parse and transform input values.
+SOURCE: https://zod.dev/v4/v4/changelog
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { z } from "zod/v4";
+
+const schema = z.transform(input => String(input));
+
+schema.parse(12); // => "12"
+```
+
+----------------------------------------
+
+TITLE: Refinements Breaking Method Chaining in Zod 3
+DESCRIPTION: Shows a limitation in Zod 3 where applying `.refine()` returned a `ZodEffects` type, which did not have the methods of the original schema (like `.min()`), thus preventing subsequent chaining of those methods.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: TypeScript
+CODE:
+```
+z.string()
+  .refine(val => val.includes("@"))
+  .min(5);
+// ^ ❌ Property 'min' does not exist on type ZodEffects<ZodString, string, string>
+```
+
+----------------------------------------
+
+TITLE: Basic Schema Definition and Parsing with Zod Mini
+DESCRIPTION: A simple example demonstrating how to define a boolean schema and parse a value using 'zod/v4-mini', used to highlight the reduced bundle size achieved with this variant.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: TypeScript
+CODE:
+```
+import { z } from "zod/v4-mini";
+
+const schema = z.boolean();
+schema.parse(false);
+```
+
+----------------------------------------
+
+TITLE: Zod 4: Record with Enum Keys (Exact Type)
+DESCRIPTION: Shows the updated behavior of `z.record()` with an enum key schema in Zod version 4. The inferred type is an exact object, and Zod enforces exhaustiveness during parsing.
+SOURCE: https://zod.dev/v4/v4/changelog
+
+LANGUAGE: TypeScript
+CODE:
+```
+const myRecord = z.record(z.enum(["a", "b", "c"]), z.number());
+// { a: number; b: number; c: number; }
+```
+
+----------------------------------------
+
+TITLE: z.record() Requires Two Arguments in Zod v4
+DESCRIPTION: Illustrates the change in `z.record()` usage in Zod v4, which now requires both key and value schemas as arguments, unlike Zod 3 where a single argument for the value schema was accepted.
+SOURCE: https://zod.dev/v4/v4/changelog
+
+LANGUAGE: TypeScript
+CODE:
+```
+// Zod 3
+z.record(z.string()); // ✅
+
+// Zod 4
+z.record(z.string()); // ❌
+z.record(z.string(), z.string()); // ✅
+```
+
+----------------------------------------
+
+TITLE: Register Schema with Metadata using .register()
+DESCRIPTION: Presents a convenient alternative to the add method, showing how to use the .register() method directly on a schema object to add it along with its metadata to a specified registry.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: TypeScript
+CODE:
+```
+emailSchema.register(myRegistry, { title: "Email address", description: "..." })
+// => returns emailSchema
+```
+
+----------------------------------------
+
+TITLE: Representing Non-Empty Arrays with z.tuple() in Zod v4
+DESCRIPTION: Shows how to use `z.tuple()` with a rest argument in Zod v4 to achieve the type inference `[string, ...string[]]`, which was previously associated with `z.array().nonempty()` in Zod 3.
+SOURCE: https://zod.dev/v4/v4/changelog
+
+LANGUAGE: TypeScript
+CODE:
+```
+z.tuple([z.string()], z.string());
+// => [string, ...string[]]
+```
+
+----------------------------------------
+
+TITLE: Replacing Deprecated z.string().cidr() with Separate Methods (Zod)
+DESCRIPTION: Illustrates the replacement of the deprecated `z.string().cidr()` method with the new `z.cidrv4()` and `z.cidrv6()` top-level functions in Zod 4.
+SOURCE: https://zod.dev/v4/v4/changelog
+
+LANGUAGE: javascript
+CODE:
+```
+z.string().cidr() // ❌
+z.cidrv4() // ✅
+z.cidrv6() // ✅
+```
+
+----------------------------------------
+
+TITLE: Add and Get Metadata from Custom Zod Registry
+DESCRIPTION: Demonstrates adding a schema and its corresponding metadata object to a custom registry using the add method and subsequently retrieving that metadata using the get method.
+SOURCE: https://zod.dev/v4/v4
+
+LANGUAGE: TypeScript
+CODE:
+```
+const emailSchema = z.string().email();
+
+myRegistry.add(emailSchema, { title: "Email address", description: "..." });
+myRegistry.get(emailSchema);
+// => { title: "Email address", ... }
 ```
 
 ---
