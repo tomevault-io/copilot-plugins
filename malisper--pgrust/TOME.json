@@ -4,7 +4,7 @@
   "repo": "pgrust",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/malisper/pgrust",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T15:37:15Z"
+  "distributed_at": "2026-05-10T04:43:04Z"
 }
