@@ -1,0 +1,9 @@
+{
+  "name": "openhims2--openhims2-core",
+  "displayName": "OpenHIMS2-core",
+  "description": "OpenHIMS2 API and web application code - A free, open-source Health Information Management System built with Laravel 10 and MySQL. Designed for multi-clinic hospital networks, it supports patient regi",
+  "version": "1.0.0",
+  "author": "OpenHIMS2",
+  "homepage": "https://github.com/OpenHIMS2/OpenHIMS2-core",
+  "skills": []
+}
