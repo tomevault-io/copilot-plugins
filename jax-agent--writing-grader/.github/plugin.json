@@ -1,0 +1,9 @@
+{
+  "name": "jax-agent--writing-grader",
+  "displayName": "writing-grader",
+  "description": "Writing clarity grader. Free alternative to Hemingway App",
+  "version": "1.0.0",
+  "author": "jax-agent",
+  "homepage": "https://github.com/jax-agent/writing-grader",
+  "skills": []
+}
