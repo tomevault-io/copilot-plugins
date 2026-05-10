@@ -7,15 +7,15 @@ Secure Retrieval-Augmented Generation (RAG) with role-based access control using
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [ssdeanx/secure-rag-multi-agent](https://github.com/ssdeanx/secure-rag-multi-agent).
+Original source: `.cursor/rules/*.mdc` in [ssdeanx/secure-rag-multi-agent](https://github.com/ssdeanx/secure-rag-multi-agent).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 From [ssdeanx/secure-rag-multi-agent](https://github.com/ssdeanx/secure-rag-multi-agent) — a repo with 17+ stars on GitHub.
 
