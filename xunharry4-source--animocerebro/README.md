@@ -7,11 +7,11 @@ Universal cognitive engine for AI. Features autonomy, self-reflection, and conti
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [xunharry4-source/AnimoCerebro](https://github.com/xunharry4-source/AnimoCerebro).
+Original source: `CLAUDE.md` in [xunharry4-source/AnimoCerebro](https://github.com/xunharry4-source/AnimoCerebro).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
