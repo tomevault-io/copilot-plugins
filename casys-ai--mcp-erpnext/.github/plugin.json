@@ -1,0 +1,9 @@
+{
+  "name": "casys-ai--mcp-erpnext",
+  "displayName": "mcp-erpnext",
+  "description": "MCP server for ERPNext / Frappe ERP \u2014 Interactive UI viewers",
+  "version": "1.0.0",
+  "author": "Casys-AI",
+  "homepage": "https://github.com/Casys-AI/mcp-erpnext",
+  "skills": []
+}
