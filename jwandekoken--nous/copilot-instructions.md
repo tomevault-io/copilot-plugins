@@ -1,76 +1,70 @@
-## python-fastapi
+## python-uv
 
-> You are an expert in Python, FastAPI, and scalable API development.
+> this rule must be applied when managing the project, installing or removing dependencies and when running the project in development mode
 
 
-You are an expert in Python, FastAPI, and scalable API development.
+# Package Management with `uv`
 
-Key Principles
+These rules define strict guidelines for managing Python dependencies in this project using the `uv` dependency manager.
 
-- Write concise, technical responses with accurate Python examples.
-- Use functional, declarative programming; avoid classes where possible.
-- Prefer iteration and modularization over code duplication.
-- Use descriptive variable names with auxiliary verbs (e.g., is_active, has_permission).
-- Use lowercase with underscores for directories and files (e.g., routers/user_routes.py).
-- Favor named exports for routes and utility functions.
-- Use the Receive an Object, Return an Object (RORO) pattern.
+**✅ Use `uv` exclusively**
 
-Python/FastAPI
+- All Python dependencies **must be installed, synchronized, and locked** using `uv`.
+- Never use `pip`, `pip-tools`, or `poetry` directly for dependency management.
 
-- Use def for pure functions and async def for asynchronous operations.
-- Use type hints for all function signatures. Prefer Pydantic models over raw dictionaries for input validation.
-- File structure: exported router, sub-routes, utilities, static content, types (models, schemas).
-- Avoid unnecessary curly braces in conditional statements.
-- For single-line statements in conditionals, omit curly braces.
-- Use concise, one-line syntax for simple conditional statements (e.g., if condition: do_something()).
+**🔁 Managing Dependencies**
 
-Error Handling and Validation
+Always use these commands:
 
-- Prioritize error handling and edge cases:
-  - Handle errors and edge cases at the beginning of functions.
-  - Use early returns for error conditions to avoid deeply nested if statements.
-  - Place the happy path last in the function for improved readability.
-  - Avoid unnecessary else statements; use the if-return pattern instead.
-  - Use guard clauses to handle preconditions and invalid states early.
-  - Implement proper error logging and user-friendly error messages.
-  - Use custom error types or error factories for consistent error handling.
+```bash
+# Add or upgrade dependencies
+uv add <package>
 
-Dependencies
+# Remove dependencies
+uv remove <package>
 
-- FastAPI
-- Pydantic v2
-- Async database libraries like asyncpg or aiomysql
-- SQLAlchemy 2.0 (if using ORM features)
+# Reinstall all dependencies from lock file
+uv sync
+```
 
-FastAPI-Specific Guidelines
+**🔁 Scripts**
 
-- Use functional components (plain functions) and Pydantic models for input validation and response schemas.
-- Use declarative route definitions with clear return type annotations.
-- Use def for synchronous operations and async def for asynchronous ones.
-- Minimize @app.on_event("startup") and @app.on_event("shutdown"); prefer lifespan context managers for managing startup and shutdown events.
-- Use middleware for logging, error monitoring, and performance optimization.
-- Optimize for performance using async functions for I/O-bound tasks, caching strategies, and lazy loading.
-- Use HTTPException for expected errors and model them as specific HTTP responses.
-- Use middleware for handling unexpected errors, logging, and error monitoring.
-- Use Pydantic's BaseModel for consistent input/output validation and response schemas.
+```bash
+# Run script with proper dependencies
+uv run script.py
+```
 
-Performance Optimization
+You can edit inline-metadata manually:
 
-- Minimize blocking I/O operations; use asynchronous operations for all database calls and external API requests.
-- Implement caching for static and frequently accessed data using tools like Redis or in-memory stores.
-- Optimize data serialization and deserialization with Pydantic.
-- Use lazy loading techniques for large datasets and substantial API responses.
+```python
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "torch",
+#     "torchvision",
+#     "opencv-python",
+#     "numpy",
+#     "matplotlib",
+#     "Pillow",
+#     "timm",
+# ]
+# ///
 
-Key Conventions
+print("some python code")
+```
 
-1. Rely on FastAPI’s dependency injection system for managing state and shared resources.
-2. Prioritize API performance metrics (response time, latency, throughput).
-3. Limit blocking operations in routes:
-   - Favor asynchronous and non-blocking flows.
-   - Use dedicated async functions for database and external API operations.
-   - Structure routes and dependencies clearly to optimize readability and maintainability.
+Or using uv cli:
 
-Refer to FastAPI documentation for Data Models, Path Operations, and Middleware for best practices.
+```bash
+# Add or upgrade script dependencies
+uv add package-name --script script.py
+
+# Remove script dependencies
+uv remove package-name --script script.py
+
+# Reinstall all script dependencies from lock file
+uv sync --script script.py
+```
 
 ---
 > Source: [jwandekoken/nous](https://github.com/jwandekoken/nous) — distributed by [TomeVault](https://tomevault.io).
