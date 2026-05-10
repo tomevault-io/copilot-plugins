@@ -1,0 +1,9 @@
+{
+  "name": "actionbook--postagent",
+  "displayName": "postagent",
+  "description": "Let your AI agent call thousands of APIs \u2014 correctly.",
+  "version": "1.0.0",
+  "author": "actionbook",
+  "homepage": "https://github.com/actionbook/postagent",
+  "skills": []
+}
