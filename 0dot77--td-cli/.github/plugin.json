@@ -1,0 +1,9 @@
+{
+  "name": "0dot77--td-cli",
+  "displayName": "td-cli",
+  "description": "TouchDesigner CLI for Claude Code \u2014 control TouchDesigner with natural language",
+  "version": "1.0.0",
+  "author": "0dot77",
+  "homepage": "https://github.com/0dot77/td-cli",
+  "skills": []
+}
