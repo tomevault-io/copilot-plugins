@@ -1,0 +1,9 @@
+{
+  "name": "duneal--dokistry",
+  "displayName": "dokistry",
+  "description": "\ud83d\udc0b Dokistry allows you to preview and manage Docker registries, images, and users from a single modern interface.",
+  "version": "1.0.0",
+  "author": "duneal",
+  "homepage": "https://github.com/duneal/dokistry",
+  "skills": []
+}
