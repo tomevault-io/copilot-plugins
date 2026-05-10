@@ -1,0 +1,9 @@
+{
+  "name": "chengzhongwei--prompt-sensei",
+  "displayName": "Prompt-sensei",
+  "description": "Local-first prompt coach for Claude Code and Codex that improves prompts, observes prompting habits, and analyzes local history with explicit consent.",
+  "version": "1.0.0",
+  "author": "chengzhongwei",
+  "homepage": "https://github.com/chengzhongwei/Prompt-sensei",
+  "skills": []
+}
