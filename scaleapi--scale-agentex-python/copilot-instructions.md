@@ -1,20 +1,32 @@
-## 05-permissions-and-tools
+## 10-architecture
 
-> Cursor agent permissions and allowed tools aligned with Claude settings
+> Repository architecture overview and code navigation hints
 
 
-When invoking external tools or the terminal, follow these constraints:
+Code structure expectations:
 
-- Web search is allowed when needed for docs and references
-- Prefer fetching docs from `docs.temporal.io` when researching Temporal topics
-- Allowed bash commands should go through Rye workflows:
-  - `rye run pytest:*`
-  - `rye run lint:*`
-  - `rye run typecheck:*`
-  - `rye run sync:*`
-  - `rye run build:*`
+- `src/agentex/` contains the core SDK and generated API client code
+- `src/agentex/lib/` contains manually maintained code that should not be overwritten by the code generator
+  - `cli/` Typer-based CLI implementation
+  - `core/` Core services, adapters, and Temporal workflows
+  - `sdk/` SDK utilities and FastACP implementation
+  - `types/` Custom type definitions
+  - `utils/` Utility functions
+- `examples/` provides example implementations and tutorials
+- `tests/` contains the test suites
 
-Default to Rye; only use other tools when explicitly required by the codebase.
+Key components quick reference:
+
+- Client Layer: HTTP client for AgentEx API in `_client.py` and `resources/`
+- CLI Layer: Typer-based commands under `lib/cli/`
+- Core Services: Temporal workflows and services under `lib/core/`
+- FastACP: Protocol implementation in `lib/sdk/fastacp/`
+- State Machine: Workflow state management in `lib/sdk/state_machine/`
+
+Generated vs manual code:
+
+- Treat `src/agentex/lib/**` as manual code; avoid edits in generated areas unless regenerating consistently
+- Expect merge conflicts between generator outputs and manual patches; keep custom logic in `lib/`
 
 ---
 > Source: [scaleapi/scale-agentex-python](https://github.com/scaleapi/scale-agentex-python) — distributed by [TomeVault](https://tomevault.io).
