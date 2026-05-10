@@ -1,24 +1,42 @@
-## comments
+## interfaces
 
-> Minimize unnecessary comments. Only add comments for complex code or very specific cases.
+> - All `interface` and `type` definitions must be stored in:
 
+# Guidelines for Interfaces & Types
 
-# Guidelines
-- Avoid comments that just repeat what the code does.
-  - ❌ `// increment i by 1` → `i++`
-- Only add comments for:
-  - Complex algorithms, tricky logic, or non-obvious behavior.
-  - Backend-oriented or domain-specific processes where the intent isn’t clear from code.
-  - Special cases or workarounds (why something is done in a specific way).
+1. **Location**
+   - All `interface` and `type` definitions must be stored in:  
+     ```
+     src/utils/types/
+     ```
 
-- For front-end primitives, utilities, or simple functions:
-  - Prefer **self-explanatory names** and clean code instead of comments.
-  - Cursor should **not generate comments automatically** unless explicitly asked.
+2. **Naming convention**
+   - Files must use **kebab-case** and end with `.interface.ts`.  
+   - Examples:  
+     ✅ `registry.interface.ts`  
+     ✅ `better-auth.interface.ts`  
+     ❌ `User.ts`  
+     ❌ `types.ts`
+
+3. **Separation of concerns**
+   - Each file should group only **related** interfaces/types.  
+   - Do not mix unrelated domains into the same file.  
+   - Example:  
+     - `registry.interface.ts` → Registry-related types  
+     - `better-auth.interface.ts` → BetterAuth-related types
+
+4. **Cursor enforcement**
+   - When generating or refactoring code, **always create or update interfaces in `src/utils/types/`**.  
+   - Never place `interface` or `type` definitions inline inside components or other modules.  
+   - Always follow the `<domain>.interface.ts` convention.
 
 # Examples
-✅ `const isSold = property.status === "sold";`   // no comment needed
-✅ `// Special case: fallback when API returns empty array`  // allowed
-❌ `// set isSold to true if property is sold`       // unnecessary
+✅ `src/utils/types/registry.interface.ts`  
+✅ `src/utils/types/directus.interface.ts`  
+✅ `src/utils/types/better-auth.interface.ts`  
+❌ `src/types.ts`  
+❌ `interfaces.ts`  
+❌ `User.ts`  
 
 ---
 > Source: [duneal/dokistry](https://github.com/duneal/dokistry) — distributed by [TomeVault](https://tomevault.io).
