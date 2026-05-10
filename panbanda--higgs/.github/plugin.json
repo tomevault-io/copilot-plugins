@@ -1,0 +1,9 @@
+{
+  "name": "panbanda--higgs",
+  "displayName": "higgs",
+  "description": "A rust mlx server and model router for fast, dependency free inference on apple architecture",
+  "version": "1.0.0",
+  "author": "panbanda",
+  "homepage": "https://github.com/panbanda/higgs",
+  "skills": []
+}
