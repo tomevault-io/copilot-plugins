@@ -7,14 +7,14 @@ A complete open source self-hosted music stack
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [thecrateapp/crate](https://github.com/thecrateapp/crate).
+Original source: `GEMINI.md` in [thecrateapp/crate](https://github.com/thecrateapp/crate).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 From [thecrateapp/crate](https://github.com/thecrateapp/crate) — a repo with 19+ stars on GitHub.
