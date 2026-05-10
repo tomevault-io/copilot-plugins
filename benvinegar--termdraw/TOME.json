@@ -4,7 +4,7 @@
   "repo": "termdraw",
   "description": "Agent-friendly ASCII illustrator for the terminal",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/benvinegar/termdraw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T15:38:29Z"
+  "distributed_at": "2026-05-10T04:44:18Z"
 }
