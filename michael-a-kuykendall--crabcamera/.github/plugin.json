@@ -1,0 +1,9 @@
+{
+  "name": "michael-a-kuykendall--crabcamera",
+  "displayName": "crabcamera",
+  "description": "Professional desktop camera plugin for Tauri with WebRTC live preview, automated quality validation, and advanced hardware controls. Zero-config cross-platform solution for photography apps,   surveil",
+  "version": "1.0.0",
+  "author": "Michael-A-Kuykendall",
+  "homepage": "https://github.com/Michael-A-Kuykendall/crabcamera",
+  "skills": []
+}
