@@ -1,0 +1,44 @@
+{
+  "name": "V0-Lovable-OpenAI",
+  "owner": "tomash-dev",
+  "repo": "V0-Lovable-OpenAI",
+  "description": "Open-source AI app builder | v0 / lovable / Bolt alternative | \ud83c\udf1f Star if you like it!",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tomash-dev/V0-Lovable-OpenAI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T16:32:17Z"
+}
