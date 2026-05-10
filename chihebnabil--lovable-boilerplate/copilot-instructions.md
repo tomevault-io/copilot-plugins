@@ -1,76 +1,136 @@
-## core
+## design
 
-> Core architecture and quality rules for React + Vite + shadcn/ui template
+> Design system, accessibility standards, and industry-specific styling guidelines
 
 
-# React + Vite + shadcn/ui Template - Core Rules
+# Design System Rules
 
-## CRITICAL ARCHITECTURE RULES
+## CRITICAL DESIGN REQUIREMENTS
 
-### Component Size & Organization
-- **NEVER** create components over 300 lines
-- **ALWAYS** break down complex components into smaller, focused pieces (20-100 lines)
-- **EXTRACT** reusable logic to custom hooks, not copy-paste
-- **USE** composition patterns - build complex UI from smaller components
+### Accessibility Standards (WCAG 2.1 AA)
+- **TEXT CONTRAST**: Minimum 4.5:1 ratio for normal text
+- **LARGE TEXT**: Minimum 3:1 ratio for 18pt+ text
+- **FOCUS STATES**: All interactive elements must have visible focus indicators
+- **COLOR INFORMATION**: Never rely solely on color to convey information
 
-### File Structure Requirements
-```
-src/
-├── components/
-│   ├── ui/              # shadcn/ui components (READ-ONLY)
-│   ├── common/          # Reusable components
-│   ├── forms/           # Form components
-│   └── features/        # Feature-specific components
-├── hooks/               # Custom React hooks
-├── lib/
-│   ├── utils.ts         # Utilities (includes cn function)
-│   ├── types.ts         # Shared TypeScript types
-│   ├── constants.ts     # App constants
-│   └── validations/     # Zod schemas
-├── pages/               # Route components (composition only)
-├── services/            # API calls
-└── context/             # React context providers
-```
-
-### Import Organization
+### Safe High-Contrast Combinations
 ```tsx
-// 1. React imports
-import React, { useState, useEffect } from 'react'
+// Light backgrounds
+bg-white text-slate-900          // 21:1 ratio
+bg-slate-50 text-slate-800       // 16.7:1 ratio
+bg-blue-50 text-blue-900         // 14.2:1 ratio
 
-// 2. Third-party libraries
-import { useQuery } from '@tanstack/react-query'
-import { zodResolver } from '@hookform/resolvers/zod'
-
-// 3. UI components
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-
-// 4. Local components
-import { UserCard } from '@/components/common/UserCard'
-
-// 5. Hooks and utilities
-import { useDisclosure } from '@/hooks/useDisclosure'
-import { cn } from '@/lib/utils'
-
-// 6. Types and constants
-import type { User } from '@/lib/types'
-import { API_ENDPOINTS } from '@/lib/constants'
+// Dark backgrounds  
+bg-slate-900 text-white          // 21:1 ratio
+bg-slate-800 text-slate-100      // 15.8:1 ratio
+bg-blue-900 text-blue-50         // 18.1:1 ratio
 ```
 
-### Essential Commands
-```bash
-npm run dev          # Start development server (port 8080)
-npm run build        # Production build  
-npm run lint         # Run ESLint - MUST pass before shipping
+### NEVER USE These Low-Contrast Combinations
+```tsx
+bg-slate-400 text-white          // Only 3.1:1 ratio
+text-slate-400 on bg-white       // Common mistake
+text-slate-500 on bg-slate-100   // Poor secondary text
+border-slate-400 text-slate-400  // Poor outline buttons
 ```
 
-### Quality Gates
-- **BEFORE SHIPPING**: Run `npm run lint` and fix all issues
-- **ACCESSIBILITY**: Maintain WCAG 2.1 AA contrast (4.5:1 minimum)
-- **NO CONSOLE ERRORS**: Zero warnings in browser console
-- **RESPONSIVE**: Test on mobile and desktop
-- **DESIGN QUALITY**: Industry-appropriate visual identity with purposeful color psychology
-- **CUSTOM DESIGN**: Interfaces should feel premium and custom-crafted, not template-like
+## Industry-Specific Design Psychology
+
+### Technology & SaaS
+- **Color Psychology**: Modern, innovative, forward-thinking palettes with high-tech feeling
+- **Typography**: Clean geometric sans-serif with futuristic character
+- **Visual Style**: Minimal, data-driven, sophisticated gradients and depth
+- **Animation**: Smooth, precise micro-interactions that feel cutting-edge
+- **Emotional Tone**: Innovation, efficiency, technological advancement
+
+### Finance & Banking
+- **Color Psychology**: Trustworthy, stable, premium tones that convey security
+- **Typography**: Professional typography mixing authority with approachability
+- **Visual Style**: Clean, sophisticated, confidence-building with subtle luxury
+- **Animation**: Subtle, professional interactions that reinforce reliability
+- **Emotional Tone**: Trust, stability, professional competence
+
+### Healthcare & Medical
+- **Color Psychology**: Calming, clean, trustworthy palette promoting wellness
+- **Typography**: Highly readable, accessible fonts prioritizing clarity
+- **Visual Style**: Clean, sterile-feeling but warm, emphasizing care and precision
+- **Animation**: Gentle, non-distracting transitions that don't overwhelm
+- **Emotional Tone**: Care, trust, healing, accessibility
+
+### Creative & Design
+- **Color Psychology**: Bold, artistic, expressive palettes showcasing creativity
+- **Typography**: Creative font combinations demonstrating design expertise
+- **Visual Style**: Portfolio-focused, visually striking, artistic expression
+- **Animation**: Playful, engaging interactions that showcase creativity
+- **Emotional Tone**: Inspiration, creativity, artistic vision
+
+## Premium Component Patterns
+
+### Button System
+```tsx
+// Primary CTA - High contrast required
+<Button className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+  <span className="flex items-center gap-2">
+    Get Started
+    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+  </span>
+</Button>
+
+// Secondary - Outline with hover fill
+<Button variant="outline" className="group border-2 border-slate-900 text-slate-900 hover:text-white px-8 py-4 rounded-2xl font-semibold transition-all duration-300 overflow-hidden">
+  <span className="absolute inset-0 bg-slate-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+  <span className="relative z-10">Learn More</span>
+</Button>
+```
+
+### Feature Cards
+```tsx
+<div className="group relative bg-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/10 hover:border-white/20 transition-all duration-500 hover:scale-105 hover:-translate-y-2">
+  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+  <div className="relative z-10">
+    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300">
+      <Icon className="w-8 h-8 text-white" />
+    </div>
+    <h3 className="text-2xl font-bold text-white mb-4">{title}</h3>
+    <p className="text-slate-300 leading-relaxed text-lg">{description}</p>
+  </div>
+</div>
+```
+
+## Responsive Design
+
+### Mobile-First Approach
+```tsx
+<div className="
+  px-4 py-8
+  sm:px-6 sm:py-12  
+  md:px-8 md:py-16
+  lg:px-12 lg:py-20
+">
+
+<h1 className="
+  text-3xl font-bold
+  sm:text-4xl
+  md:text-5xl  
+  lg:text-6xl
+  leading-tight
+">
+```
+
+## NEVER CREATE
+- Generic designs that look template-like
+- Poor accessibility (contrast violations)
+- Static interfaces without micro-interactions
+- Overuse of default grays without intention
+- Color choices without consideration for brand or industry context
+
+## ALWAYS CREATE
+- Industry-appropriate visual identity and emotional tone
+- Premium visual hierarchy with scale and contrast
+- Accessible interfaces with proper contrast (4.5:1 minimum)
+- Purposeful animations that enhance usability
+- Color schemes that enhance user experience and brand message
+- Unique, custom-crafted interfaces that feel premium
 
 ---
 > Source: [chihebnabil/lovable-boilerplate](https://github.com/chihebnabil/lovable-boilerplate) — distributed by [TomeVault](https://tomevault.io).
