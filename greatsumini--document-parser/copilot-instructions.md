@@ -1,57 +1,163 @@
-## cursor-rules
+## database
 
-> - **Required Rule Structure:**
+> This revised architecture focuses on rapid launch and core value validation by incorporating the feedback above.
 
+## A Minimal Viable Product (MVP) Data Flow and Schema
 
-- **Required Rule Structure:**
-  ```markdown
-  ---
-  description: Clear, one-line description of what the rule enforces
-  globs: path/to/files/*.ext, other/path/**/*
-  alwaysApply: boolean
-  ---
+This revised architecture focuses on rapid launch and core value validation by incorporating the feedback above.
 
-  - **Main Points in Bold**
-    - Sub-points with details
-    - Examples and explanations
-  ```
+### 1. MVP Data Flow
 
-- **File References:**
-  - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
-  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
-  - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
+The flow is simplified by merging complex phases and removing non-essential components, leaving only the core process.
 
-- **Code Examples:**
-  - Use language-specific code blocks
-  ```typescript
-  // ✅ DO: Show good examples
-  const goodExample = true;
-  
-  // ❌ DON'T: Show anti-patterns
-  const badExample = false;
-  ```
+#### 1.1 Simplified Overall Architecture
 
-- **Rule Content Guidelines:**
-  - Write in english
-  - Use prompt engineering techniques
-  - Start with high-level overview
-  - Include specific, actionable requirements
-  - Show examples of correct implementation
-  - Reference existing code when possible
-  - Keep rules DRY by referencing other rules
+```mermaid
+graph TD
+    subgraph "User"
+        U[Users]
+    end
 
-- **Rule Maintenance:**
-  - Update rules when new patterns emerge
-  - Add examples from actual codebase
-  - Remove outdated patterns
-  - Cross-reference related rules
+    subgraph "Template"
+        T[Templates]
+        TF[Template Fields]
+    end
 
-- **Best Practices:**
-  - Use bullet points for clarity
-  - Keep descriptions concise
-  - Include both DO and DON'T examples
-  - Reference actual code over theoretical examples
-  - Use consistent formatting across rules 
+    subgraph "Document"
+        D[Documents]
+    end
+
+    subgraph "System"
+        J[Jobs]
+    end
+
+    U -- Creates --> T
+    TF -- Belongs to --> T
+    D -- Created from --> T
+    D -- Created by --> U
+    J -- Tracks progress for --> D
+```
+
+#### 1.2 Core Data Flow
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant API
+    participant Storage
+    participant DB
+    participant Worker
+
+    Client->>API: Upload request with file and templateId
+    API->>API: Basic validation (auth, file size)
+    API->>Storage: Upload file
+    Storage-->>API: Success response with file_path
+
+    API->>DB: Create documents record (status: 'processing')
+    API->>Worker: Request job processing (documentId, filePath)
+    API-->>Client: Acknowledgment with documentId
+
+    Worker->>DB: Update Document status to 'processing'
+    Worker->>Worker: Parse file (PDF, Excel, etc.)
+    Worker->>LLM: (No cache) Request field mapping and Markdown generation
+    LLM-->>Worker: Return generated Markdown and extracted data
+
+    Worker->>DB: Update documents record <br> (content, mapped_data, status: 'completed')
+    Worker->>Client: (Optional) Notify completion via SSE/Webhook
+```
+
+-----
+
+### 2. MVP Database Schema
+
+The number of tables has been drastically reduced to focus on core entities.
+
+```sql
+-- User role ENUM type definition
+CREATE TYPE user_role AS ENUM ('admin', 'member');
+
+-- Users
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    name VARCHAR(255),
+    auth_provider VARCHAR(50),
+    role user_role DEFAULT 'member',
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Field type ENUM
+CREATE TYPE field_type AS ENUM ('text', 'number', 'date', 'boolean', 'select', 'multiselect');
+
+-- Templates
+CREATE TABLE templates (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    content TEXT NOT NULL, -- The Markdown body of the template
+    created_by UUID REFERENCES users(id) ON DELETE SET NULL,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Template Fields
+CREATE TABLE template_fields (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    template_id UUID NOT NULL REFERENCES templates(id) ON DELETE CASCADE,
+    field_key VARCHAR(255) NOT NULL, -- e.g., {{customer_name}}
+    field_name VARCHAR(255) NOT NULL, -- e.g., "Customer Name"
+    field_type field_type NOT NULL DEFAULT 'text',
+    mapping_hints TEXT[], -- Hints for LLM mapping
+    is_required BOOLEAN DEFAULT false,
+    default_value TEXT,
+    validation_rules JSONB,
+    display_order INTEGER DEFAULT 0,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    UNIQUE(template_id, field_key)
+);
+
+-- Document status ENUM type definition
+CREATE TYPE document_status AS ENUM ('processing', 'completed', 'failed');
+
+-- Documents (Core consolidated table)
+CREATE TABLE documents (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    template_id UUID NOT NULL REFERENCES templates(id),
+
+    -- Source file info
+    source_file_name VARCHAR(255) NOT NULL,
+    source_storage_path TEXT NOT NULL,
+    source_file_type VARCHAR(50),
+    source_file_size INTEGER,
+
+    -- Processing status and results
+    status document_status DEFAULT 'processing',
+    title VARCHAR(255),
+    content TEXT, -- The final generated Markdown
+    mapped_data JSONB, -- Data extracted and mapped by the LLM
+    error_message TEXT, -- Error message on failure
+    processing_started_at TIMESTAMPTZ,
+    processing_completed_at TIMESTAMPTZ,
+
+    -- Creation info
+    created_by UUID REFERENCES users(id) ON DELETE SET NULL,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Indexes (Only basic FK and query indexes)
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_templates_created_by ON templates(created_by);
+CREATE INDEX idx_templates_active ON templates(is_active);
+CREATE INDEX idx_template_fields_template ON template_fields(template_id);
+CREATE INDEX idx_documents_template ON documents(template_id);
+CREATE INDEX idx_documents_status ON documents(status);
+CREATE INDEX idx_documents_created_by ON documents(created_by);
+CREATE INDEX idx_documents_status_created_at ON documents(status, created_at);
+```
 
 ---
 > Source: [greatSumini/document-parser](https://github.com/greatSumini/document-parser) — distributed by [TomeVault](https://tomevault.io).
