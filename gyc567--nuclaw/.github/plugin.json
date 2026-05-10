@@ -1,0 +1,9 @@
+{
+  "name": "gyc567--nuclaw",
+  "displayName": "nuclaw",
+  "description": "A Rust implementation of OpenClaw - a personal AI assistant that runs securely in isolated containers.",
+  "version": "1.0.0",
+  "author": "gyc567",
+  "homepage": "https://github.com/gyc567/nuclaw",
+  "skills": []
+}
