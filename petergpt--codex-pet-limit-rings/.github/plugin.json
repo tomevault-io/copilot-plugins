@@ -1,0 +1,9 @@
+{
+  "name": "petergpt--codex-pet-limit-rings",
+  "displayName": "codex-pet-limit-rings",
+  "description": "Usage-limit rings for Codex pets.",
+  "version": "1.0.0",
+  "author": "petergpt",
+  "homepage": "https://github.com/petergpt/codex-pet-limit-rings",
+  "skills": []
+}
