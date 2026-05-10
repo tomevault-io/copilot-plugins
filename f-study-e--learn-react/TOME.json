@@ -1,0 +1,44 @@
+{
+  "name": "LEARN-REACT",
+  "owner": "F-Study-E",
+  "repo": "LEARN-REACT",
+  "description": "\ub9ac\uc561\ud2b8 \uacf5\uc2dd \ubb38\uc11c \ucc4c\ub9b0\uc9c0 \ud480\uc5b4\ubcf4\uc790",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/F-Study-E/LEARN-REACT",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T16:56:02Z"
+}
