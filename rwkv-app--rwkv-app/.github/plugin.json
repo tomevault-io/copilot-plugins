@@ -1,0 +1,9 @@
+{
+  "name": "rwkv-app--rwkv-app",
+  "displayName": "RWKV_APP",
+  "description": "A fast, lightweight, and extensible RWKV chat UI powered by Flutter. Offline-ready, multi-backend support, ideal for local RWKV inference.",
+  "version": "1.0.0",
+  "author": "RWKV-APP",
+  "homepage": "https://github.com/RWKV-APP/RWKV_APP",
+  "skills": []
+}
