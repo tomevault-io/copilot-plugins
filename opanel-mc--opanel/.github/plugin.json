@@ -1,0 +1,9 @@
+{
+  "name": "opanel-mc--opanel",
+  "displayName": "opanel",
+  "description": "A Minecraft server management panel for Bukkit / Spigot / Paper / Folia / Leaves / Fabric / Forge / NeoForge servers",
+  "version": "1.0.0",
+  "author": "opanel-mc",
+  "homepage": "https://github.com/opanel-mc/opanel",
+  "skills": []
+}
