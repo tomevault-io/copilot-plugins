@@ -1,0 +1,9 @@
+{
+  "name": "plutarch01--opencode-lcm",
+  "displayName": "opencode-lcm",
+  "description": "Long-memory plugin for OpenCode with context-mode interop",
+  "version": "1.0.0",
+  "author": "Plutarch01",
+  "homepage": "https://github.com/Plutarch01/opencode-lcm",
+  "skills": []
+}
