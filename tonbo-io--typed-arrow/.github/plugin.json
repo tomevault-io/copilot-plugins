@@ -1,0 +1,9 @@
+{
+  "name": "tonbo-io--typed-arrow",
+  "displayName": "typed-arrow",
+  "description": "First-class compile\u2011time Arrow schemas for Rust.",
+  "version": "1.0.0",
+  "author": "tonbo-io",
+  "homepage": "https://github.com/tonbo-io/typed-arrow",
+  "skills": []
+}
