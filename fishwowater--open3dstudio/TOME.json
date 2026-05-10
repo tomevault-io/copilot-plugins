@@ -1,0 +1,44 @@
+{
+  "name": "Open3DStudio",
+  "owner": "FishWoWater",
+  "repo": "Open3DStudio",
+  "description": "A self-hosted cross-platform 3DAIGC software. Working with 3DAIGC algorithms completely deployed locally. Supported 3D workflows include MeshGen, Mesh Retopology, UV Unwrapping, TexGen, MeshSeg, AutoRig, Mesh Editing etc.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/FishWoWater/Open3DStudio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T16:47:39Z"
+}
