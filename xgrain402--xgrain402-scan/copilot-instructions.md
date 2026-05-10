@@ -1,279 +1,124 @@
-## trigger-realtime
+## trigger-scheduled-tasks
 
-> How to use realtime in your Trigger.dev tasks and your frontend
+> How to write and use scheduled Trigger.dev tasks
 
-# Trigger.dev Realtime (v4)
+# Scheduled tasks (cron)
 
-**Real-time monitoring and updates for runs**
+Recurring tasks using cron. For one-off future runs, use the **delay** option.
 
-## Core Concepts
-
-Realtime allows you to:
-
-- Subscribe to run status changes, metadata updates, and streams
-- Build real-time dashboards and UI updates
-- Monitor task progress from frontend and backend
-
-## Authentication
-
-### Public Access Tokens
+## Define a scheduled task
 
 ```ts
-import { auth } from "@trigger.dev/sdk";
+import { schedules } from "@trigger.dev/sdk";
 
-// Read-only token for specific runs
-const publicToken = await auth.createPublicToken({
-  scopes: {
-    read: {
-      runs: ["run_123", "run_456"],
-      tasks: ["my-task-1", "my-task-2"],
-    },
-  },
-  expirationTime: "1h", // Default: 15 minutes
-});
-```
-
-### Trigger Tokens (Frontend only)
-
-```ts
-// Single-use token for triggering tasks
-const triggerToken = await auth.createTriggerPublicToken("my-task", {
-  expirationTime: "30m",
-});
-```
-
-## Backend Usage
-
-### Subscribe to Runs
-
-```ts
-import { runs, tasks } from "@trigger.dev/sdk";
-
-// Trigger and subscribe
-const handle = await tasks.trigger("my-task", { data: "value" });
-
-// Subscribe to specific run
-for await (const run of runs.subscribeToRun<typeof myTask>(handle.id)) {
-  console.log(`Status: ${run.status}, Progress: ${run.metadata?.progress}`);
-  if (run.status === "COMPLETED") break;
-}
-
-// Subscribe to runs with tag
-for await (const run of runs.subscribeToRunsWithTag("user-123")) {
-  console.log(`Tagged run ${run.id}: ${run.status}`);
-}
-
-// Subscribe to batch
-for await (const run of runs.subscribeToBatch(batchId)) {
-  console.log(`Batch run ${run.id}: ${run.status}`);
-}
-```
-
-### Streams
-
-```ts
-import { task, metadata } from "@trigger.dev/sdk";
-
-// Task that streams data
-export type STREAMS = {
-  openai: OpenAI.ChatCompletionChunk;
-};
-
-export const streamingTask = task({
-  id: "streaming-task",
+export const task = schedules.task({
+  id: "first-scheduled-task",
   run: async (payload) => {
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [{ role: "user", content: payload.prompt }],
-      stream: true,
-    });
+    payload.timestamp; // Date (scheduled time, UTC)
+    payload.lastTimestamp; // Date | undefined
+    payload.timezone; // IANA, e.g. "America/New_York" (default "UTC")
+    payload.scheduleId; // string
+    payload.externalId; // string | undefined
+    payload.upcoming; // Date[]
 
-    // Register stream
-    const stream = await metadata.stream("openai", completion);
-
-    let text = "";
-    for await (const chunk of stream) {
-      text += chunk.choices[0]?.delta?.content || "";
-    }
-
-    return { text };
+    payload.timestamp.toLocaleString("en-US", { timeZone: payload.timezone });
   },
 });
-
-// Subscribe to streams
-for await (const part of runs.subscribeToRun(runId).withStreams<STREAMS>()) {
-  switch (part.type) {
-    case "run":
-      console.log("Run update:", part.run.status);
-      break;
-    case "openai":
-      console.log("Stream chunk:", part.chunk);
-      break;
-  }
-}
 ```
 
-## React Frontend Usage
+> Scheduled tasks need at least one schedule attached to run.
 
-### Installation
+## Attach schedules
 
-```bash
-npm add @trigger.dev/react-hooks
+**Declarative (sync on dev/deploy):**
+
+```ts
+schedules.task({
+  id: "every-2h",
+  cron: "0 */2 * * *", // UTC
+  run: async () => {},
+});
+
+schedules.task({
+  id: "tokyo-5am",
+  cron: { pattern: "0 5 * * *", timezone: "Asia/Tokyo", environments: ["PRODUCTION", "STAGING"] },
+  run: async () => {},
+});
 ```
 
-### Triggering Tasks
+**Imperative (SDK or dashboard):**
 
-```tsx
-"use client";
-import { useTaskTrigger, useRealtimeTaskTrigger } from "@trigger.dev/react-hooks";
-import type { myTask } from "../trigger/tasks";
+```ts
+await schedules.create({
+  task: task.id,
+  cron: "0 0 * * *",
+  timezone: "America/New_York", // DST-aware
+  externalId: "user_123",
+  deduplicationKey: "user_123-daily", // updates if reused
+});
+```
 
-function TriggerComponent({ accessToken }: { accessToken: string }) {
-  // Basic trigger
-  const { submit, handle, isLoading } = useTaskTrigger<typeof myTask>("my-task", {
-    accessToken,
-  });
+### Dynamic / multi-tenant example
 
-  // Trigger with realtime updates
-  const {
-    submit: realtimeSubmit,
-    run,
-    isLoading: isRealtimeLoading,
-  } = useRealtimeTaskTrigger<typeof myTask>("my-task", { accessToken });
+```ts
+// /trigger/reminder.ts
+export const reminderTask = schedules.task({
+  id: "todo-reminder",
+  run: async (p) => {
+    if (!p.externalId) throw new Error("externalId is required");
+    const user = await db.getUser(p.externalId);
+    await sendReminderEmail(user);
+  },
+});
+```
 
-  return (
-    <div>
-      <button onClick={() => submit({ data: "value" })} disabled={isLoading}>
-        Trigger Task
-      </button>
-
-      <button onClick={() => realtimeSubmit({ data: "realtime" })} disabled={isRealtimeLoading}>
-        Trigger with Realtime
-      </button>
-
-      {run && <div>Status: {run.status}</div>}
-    </div>
+```ts
+// app/reminders/route.ts
+export async function POST(req: Request) {
+  const data = await req.json();
+  return Response.json(
+    await schedules.create({
+      task: reminderTask.id,
+      cron: "0 8 * * *",
+      timezone: data.timezone,
+      externalId: data.userId,
+      deduplicationKey: `${data.userId}-reminder`,
+    })
   );
 }
 ```
 
-### Subscribing to Runs
+## Cron syntax (no seconds)
 
-```tsx
-"use client";
-import { useRealtimeRun, useRealtimeRunsWithTag } from "@trigger.dev/react-hooks";
-import type { myTask } from "../trigger/tasks";
-
-function SubscribeComponent({ runId, accessToken }: { runId: string; accessToken: string }) {
-  // Subscribe to specific run
-  const { run, error } = useRealtimeRun<typeof myTask>(runId, {
-    accessToken,
-    onComplete: (run) => {
-      console.log("Task completed:", run.output);
-    },
-  });
-
-  // Subscribe to tagged runs
-  const { runs } = useRealtimeRunsWithTag("user-123", { accessToken });
-
-  if (error) return <div>Error: {error.message}</div>;
-  if (!run) return <div>Loading...</div>;
-
-  return (
-    <div>
-      <div>Status: {run.status}</div>
-      <div>Progress: {run.metadata?.progress || 0}%</div>
-      {run.output && <div>Result: {JSON.stringify(run.output)}</div>}
-
-      <h3>Tagged Runs:</h3>
-      {runs.map((r) => (
-        <div key={r.id}>
-          {r.id}: {r.status}
-        </div>
-      ))}
-    </div>
-  );
-}
+```
+* * * * *
+| | | | └ day of week (0–7 or 1L–7L; 0/7=Sun; L=last)
+| | | └── month (1–12)
+| | └──── day of month (1–31 or L)
+| └────── hour (0–23)
+└──────── minute (0–59)
 ```
 
-### Streams with React
+## When schedules won't trigger
 
-```tsx
-"use client";
-import { useRealtimeRunWithStreams } from "@trigger.dev/react-hooks";
-import type { streamingTask, STREAMS } from "../trigger/tasks";
+- **Dev:** only when the dev CLI is running.
+- **Staging/Production:** only for tasks in the **latest deployment**.
 
-function StreamComponent({ runId, accessToken }: { runId: string; accessToken: string }) {
-  const { run, streams } = useRealtimeRunWithStreams<typeof streamingTask, STREAMS>(runId, {
-    accessToken,
-  });
+## SDK management (quick refs)
 
-  const text = streams.openai
-    .filter((chunk) => chunk.choices[0]?.delta?.content)
-    .map((chunk) => chunk.choices[0].delta.content)
-    .join("");
-
-  return (
-    <div>
-      <div>Status: {run?.status}</div>
-      <div>Streamed Text: {text}</div>
-    </div>
-  );
-}
+```ts
+await schedules.retrieve(id);
+await schedules.list();
+await schedules.update(id, { cron: "0 0 1 * *", externalId: "ext", deduplicationKey: "key" });
+await schedules.deactivate(id);
+await schedules.activate(id);
+await schedules.del(id);
+await schedules.timezones(); // list of IANA timezones
 ```
 
-### Wait Tokens
+## Dashboard
 
-```tsx
-"use client";
-import { useWaitToken } from "@trigger.dev/react-hooks";
-
-function WaitTokenComponent({ tokenId, accessToken }: { tokenId: string; accessToken: string }) {
-  const { complete } = useWaitToken(tokenId, { accessToken });
-
-  return <button onClick={() => complete({ approved: true })}>Approve Task</button>;
-}
-```
-
-### SWR Hooks (Fetch Once)
-
-```tsx
-"use client";
-import { useRun } from "@trigger.dev/react-hooks";
-import type { myTask } from "../trigger/tasks";
-
-function SWRComponent({ runId, accessToken }: { runId: string; accessToken: string }) {
-  const { run, error, isLoading } = useRun<typeof myTask>(runId, {
-    accessToken,
-    refreshInterval: 0, // Disable polling (recommended)
-  });
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
-  return <div>Run: {run?.status}</div>;
-}
-```
-
-## Run Object Properties
-
-Key properties available in run subscriptions:
-
-- `id`: Unique run identifier
-- `status`: `QUEUED`, `EXECUTING`, `COMPLETED`, `FAILED`, `CANCELED`, etc.
-- `payload`: Task input data (typed)
-- `output`: Task result (typed, when completed)
-- `metadata`: Real-time updatable data
-- `createdAt`, `updatedAt`: Timestamps
-- `costInCents`: Execution cost
-
-## Best Practices
-
-- **Use Realtime over SWR**: Recommended for most use cases due to rate limits
-- **Scope tokens properly**: Only grant necessary read/trigger permissions
-- **Handle errors**: Always check for errors in hooks and subscriptions
-- **Type safety**: Use task types for proper payload/output typing
-- **Cleanup subscriptions**: Backend subscriptions auto-complete, frontend hooks auto-cleanup
+Create/attach schedules visually (Task, Cron pattern, Timezone, Optional: External ID, Dedup key, Environments). Test scheduled tasks from the **Test** page.
 
 ---
 > Source: [xgrain402/xgrain402-scan](https://github.com/xgrain402/xgrain402-scan) — distributed by [TomeVault](https://tomevault.io).
