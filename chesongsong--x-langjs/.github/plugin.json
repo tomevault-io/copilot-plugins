@@ -1,0 +1,9 @@
+{
+  "name": "chesongsong--x-langjs",
+  "displayName": "x-langjs",
+  "description": "An ANTLR4-based domain-specific language that supports embedding x-lang code blocks in Markdown. After parsing and execution, the code is displayed as custom components by a pluggable rendering engine",
+  "version": "1.0.0",
+  "author": "chesongsong",
+  "homepage": "https://github.com/chesongsong/x-langjs",
+  "skills": []
+}
