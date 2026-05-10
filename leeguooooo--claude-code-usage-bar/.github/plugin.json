@@ -1,0 +1,9 @@
+{
+  "name": "leeguooooo--claude-code-usage-bar",
+  "displayName": "claude-code-usage-bar",
+  "description": "Real\u2011time statusline for Claude Code: token usage, remaining budget, burn rate, and depletion time",
+  "version": "1.0.0",
+  "author": "leeguooooo",
+  "homepage": "https://github.com/leeguooooo/claude-code-usage-bar",
+  "skills": []
+}
