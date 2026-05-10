@@ -1,12 +1,22 @@
-## pnpm-install
+## skill-maintenance
 
-> - Never run `pnpm install` or `pnpm i` in the sandbox.
+> When changing deps, scripts, e2e, release, or issue format, update the matching project skills and note it in the response
 
 
-# pnpm install
+# Skill maintenance
 
-- Never run `pnpm install` or `pnpm i` in the sandbox.
-- When dependencies need installing or updating, **prompt the user** to run `pnpm install` (or the exact `pnpm` command) locally instead of running it here.
+When you change any of the following, update the corresponding skill(s) in `.cursor/skills/` and briefly mention in your response that skills were updated.
+
+| Change | Update these skills |
+|--------|----------------------|
+| Key dependencies (WXT, Svelte, Playwright, changesets, oxlint, dprint) or build/config (wxt.config.ts, .oxlintrc.json) | wxt-svelte-extension (SKILL.md; reference.md if a new known issue) |
+| package.json scripts (dev/build/zip) or new build targets | wxt-svelte-extension, releases-changesets if release steps change |
+| E2E layout (e2e/tests, e2e/pages, fixture file path or name) | e2e-playwright-extension |
+| Release workflow (.changeset/, release steps, workflow_dispatch) | releases-changesets |
+| Issue refinement format or label set (issue-refinement-triage template) | issue-refinement-triage |
+| New recurring “known issue” that should guide extension code | wxt-svelte-extension/reference.md |
+
+Read the current skill file before editing so the update stays consistent with existing structure and wording.
 
 ---
 > Source: [sm17p/amfig](https://github.com/sm17p/amfig) — distributed by [TomeVault](https://tomevault.io).
