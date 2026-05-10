@@ -1,75 +1,37 @@
-## changelog-management
+## project-context
 
-> changelog management and updates
+> This is **BongoCat-mac**, a native macOS application built in Swift that displays an animated cat overlay that responds to keyboard and mouse input, popular among streamers and content creators.
 
 
-# Changelog Management Rule
+# BongoCat macOS Project Context
 
-**IMPORTANT**: At the end of every development session or when completing features/fixes, you MUST update the [CHANGELOG.md](mdc:CHANGELOG.md) file.
+This is **BongoCat-mac**, a native macOS application built in Swift that displays an animated cat overlay that responds to keyboard and mouse input, popular among streamers and content creators.
 
-## Changelog Format
-The project follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format with these sections:
+## Project Structure
+- **Main entry point**: [main.swift](mdc:Sources/BongoCat/main.swift) and [BongoCatApp.swift](mdc:Sources/BongoCat/BongoCatApp.swift)
+- **Core components**: [CatView.swift](mdc:Sources/BongoCat/CatView.swift), [InputMonitor.swift](mdc:Sources/BongoCat/InputMonitor.swift), [OverlayWindow.swift](mdc:Sources/BongoCat/OverlayWindow.swift)
+- **Project config**: [Package.swift](mdc:Package.swift) and [Info.plist](mdc:Info.plist)
+- **Build scripts**: Located in [Scripts/](mdc:Scripts/) directory
+- **Assets**: Cat sprites in [Sources/BongoCat/Resources/Images/](mdc:Sources/BongoCat/Resources/Images/)
 
-### Required Sections
-- **Added** - for new features
-- **Changed** - for changes in existing functionality
-- **Deprecated** - for soon-to-be removed features
-- **Removed** - for now removed features
-- **Fixed** - for any bug fixes
-- **Security** - in case of vulnerabilities
+## Key Features
+- **Per-app positioning**: Remembers cat position for each application
+- **Keyboard layout-based paw mapping**: Intelligent left/right paw assignment
+- **Visual customization**: Scaling, rotation, flip options
+- **Stroke counter**: Tracks keystrokes and mouse clicks
+- **Menu integration**: Status bar and right-click context menus
 
-## Update Process
+## Development Guidelines
+- Target macOS 13.0+ (Ventura)
+- Use SwiftUI for UI components
+- Follow Apple's Human Interface Guidelines
+- Maintain accessibility compliance
+- Keep the app lightweight and performant
 
-### 1. For Active Development
-Add changes to the `[unreleased]` section at the top of the changelog:
-
-```markdown
-## [unreleased] - YYYY-MM-DD
-
-### Added
-- New feature description
-
-### Fixed
-- Bug fix description
-
-### Changed
-- Modified functionality description
-```
-
-### 2. For Version Releases
-- Move unreleased changes to a new version section
-- Update version number following [Semantic Versioning](https://semver.org/)
-- Add release date
-- Create new empty `[unreleased]` section
-
-## Entry Guidelines
-- Use **clear, descriptive language** that users can understand
-- Start entries with **action verbs** (Added, Fixed, Changed, etc.)
-- Include **emojis** to match the existing style (🎯, 🐛, 📱, etc.)
-- Group related changes together
-- **Bold important keywords** or feature names
-- Reference relevant files using `[filename](mdc:filepath)` format when helpful
-
-## Examples
-```markdown
-### Added
-- **🎯 Smart Paw Detection** - Intelligent left/right paw assignment based on keyboard layout in [InputMonitor.swift](mdc:Sources/BongoCat/InputMonitor.swift)
-
-### Fixed
-- **🐛 Window Positioning** - Fixed cat position not saving correctly across app restarts in [OverlayWindow.swift](mdc:Sources/BongoCat/OverlayWindow.swift)
-
-### Changed
-- **⚡ Performance** - Optimized animation rendering for better CPU usage in [CatView.swift](mdc:Sources/BongoCat/CatView.swift)
-```
-
-## When to Update
-- **After implementing new features**
-- **After fixing bugs**
-- **After refactoring major components**
-- **Before committing significant changes**
-- **At the end of development sessions**
-
-Remember: The changelog is crucial for users to understand what's new, what's fixed, and what's changed in each version of BongoCat!
+## Build System
+- Uses Swift Package Manager
+- Automated build scripts in `Scripts/` directory
+- Version managed through [Info.plist](mdc:Info.plist) and build scripts
 
 ---
 > Source: [Gamma-Software/BongoCat-mac](https://github.com/Gamma-Software/BongoCat-mac) — distributed by [TomeVault](https://tomevault.io).
