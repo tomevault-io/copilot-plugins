@@ -1,0 +1,9 @@
+{
+  "name": "qoli--threadbridge",
+  "displayName": "threadBridge",
+  "description": "Telegram bot that binds Telegram threads to existing Codex sessions",
+  "version": "1.0.0",
+  "author": "qoli",
+  "homepage": "https://github.com/qoli/threadBridge",
+  "skills": []
+}
