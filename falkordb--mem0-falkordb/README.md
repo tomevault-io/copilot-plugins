@@ -7,11 +7,11 @@ FalkorDB graph store plugin for Mem0
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [FalkorDB/mem0-falkordb](https://github.com/FalkorDB/mem0-falkordb).
+Original source: `CLAUDE.md` in [FalkorDB/mem0-falkordb](https://github.com/FalkorDB/mem0-falkordb).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
