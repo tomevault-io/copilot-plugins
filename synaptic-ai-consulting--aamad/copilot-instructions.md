@@ -1,38 +1,23 @@
-## development-workflow
+## epics-index
 
-> AAMAD modular development workflow for context-aware agent coordination
+> Mapping of AAMAD epics to agent personas, actions, and output artifacts for modular rule-based AI execution.
 
 
-# AAMAD Modular Development Workflow
+# AAMAD Phase 2 Epics Index Rule
 
-## Development Module Structure
-Execute development in separate modules with fresh context:
+| Epic         | Persona        | Primary Output Artifact | PRD/SAD Section Reference      | Invocation        |
+|--------------|---------------|------------------------|-------------------------------|-------------------|
+| Setup        | @project.mgr   | setup.md               | SAD: Environment, PRD: Setup   | *setup-project    |
+| Frontend     | @frontend.eng  | frontend.md            | SAD: MVP UI, PRD: UI Scope     | *develop-fe       |
+| Backend      | @backend.eng   | backend.md             | SAD: Crew Spec, PRD: Agent Def | *develop-be       |
+| Integration  | @integration.eng | integration.md       | SAD: API & Flows, PRD: Int Req | *integrate-api    |
+| QA           | @qa.eng        | qa.md                  | SAD: Testing, PRD: QA Plan     | *qa               |
 
-1. **Module 1: Core Configuration** - Agent and task definitions only
-2. **Module 2: API Integration** - Backend connectivity only  
-3. **Module 3: Frontend Integration** - UI and user experience only
-4. **Module 4: Validation** - End-to-end testing only
-
-## Context Management Rules
-- Start each module in fresh Cursor session (Cmd+Shift+P → "New Chat")
-- Reference specific files from previous modules using @filename
-- NEVER attempt end-to-end development in single session
-- Keep module scope strictly defined - no feature creep
-
-## Module Success Criteria
-Each module must be fully functional and testable independently:
-- Module 1: CrewAI crew.kickoff() executes successfully
-- Module 2: API endpoints return valid responses  
-- Module 3: Frontend displays and interacts correctly
-- Module 4: Complete workflow functions end-to-end
-
-## Development Flow Control
-- Complete each module fully before proceeding to next
-- Validate module functionality before context switch
-- Document module outputs for next module reference
-- Never backtrack to previous modules within same session
-
-> For detailed agent/epic/action mapping, see `.cursor/rules/epics-index.mdc`.
+## Execution Notes
+- Each persona works independently referencing PRD.md and SAD.md.
+- Output artifact for each epic lives in docs/ as [epic].md.
+- Mark “future work” visibly in UI and docs as needed.
+- Update this index as epics progress or new ones are added.
 
 ---
 > Source: [synaptic-ai-consulting/AAMAD](https://github.com/synaptic-ai-consulting/AAMAD) — distributed by [TomeVault](https://tomevault.io).
