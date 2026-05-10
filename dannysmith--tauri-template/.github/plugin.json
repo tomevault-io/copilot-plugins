@@ -1,0 +1,9 @@
+{
+  "name": "dannysmith--tauri-template",
+  "displayName": "tauri-template",
+  "description": "A production-ready template for building modern desktop applications with Tauri v2, React 19, and TypeScript. This template provides a solid foundation with best practices, comprehensive documentation",
+  "version": "1.0.0",
+  "author": "dannysmith",
+  "homepage": "https://github.com/dannysmith/tauri-template",
+  "skills": []
+}
