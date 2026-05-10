@@ -4,7 +4,7 @@
   "repo": "sitebuilder-webapp",
   "description": "SiteBuilder lets non-technical teams edit web content through chat while engineers keep Git workflows and code quality.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dx-tooling/sitebuilder-webapp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T18:12:15Z"
+  "distributed_at": "2026-05-10T00:38:26Z"
 }
