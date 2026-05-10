@@ -2,9 +2,9 @@
   "name": "sadayana-masjid-tv",
   "owner": "GulajavaMinistudio",
   "repo": "sadayana-masjid-tv",
-  "description": "",
+  "description": "Aplikasi untuk TV Masjid yang menampilkan jadwal shalat dan informasi masjid",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/GulajavaMinistudio",
+  "source_url": "https://github.com/GulajavaMinistudio/sadayana-masjid-tv",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T15:11:56Z"
+  "distributed_at": "2026-05-10T17:33:57Z"
 }
