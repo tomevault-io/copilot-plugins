@@ -4,7 +4,7 @@
   "repo": "angular-material-ai-rules",
   "description": "This repo contains rules, instructions and guidelines for various AI based code editors to work with Angular Material",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Angular-Material-Dev/angular-material-ai-rules",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T02:47:18Z"
+  "distributed_at": "2026-05-10T07:04:41Z"
 }
