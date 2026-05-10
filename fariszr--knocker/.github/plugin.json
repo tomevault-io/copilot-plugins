@@ -1,0 +1,9 @@
+{
+  "name": "fariszr--knocker",
+  "displayName": "knocker",
+  "description": "Knocker, a knock based access control service for your homelab",
+  "version": "1.0.0",
+  "author": "FarisZR",
+  "homepage": "https://github.com/FarisZR/knocker",
+  "skills": []
+}
