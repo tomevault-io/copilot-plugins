@@ -1,79 +1,121 @@
-## autonomous-development-workflow
+## code-style-and-zen-of-python
 
-> When completing tasks autonomously without human supervision
+> When writing code
 
 
-# Autonomous Development Workflow
+# Code Style and Zen of Python
 
-For AI agents completing tasks without human supervision. The goal: deliver a clean pull
-request that passes all checks and gets merged without back-and-forth.
+## Line Length
 
-## Before Implementation
+- Max 88 chars (per Ruff config)
 
-Read all cursor rules in `.cursor/rules/`. These define the project's standards. Every
-applicable rule must be followed.
+## Comments
 
-If `CLAUDE.md` or `AGENTS.md` exist in the project root, read those for additional
-context.
+### File-Level Comments
 
-## Implementation
+Be THOROUGH at the top of files. Explain what the file does, why it exists, and how it
+fits into the larger system. This helps both humans and AI understand context quickly.
 
-Write code following all cursor rules. Reference specific rules by reading the files
-directly.
+```python
+"""User authentication and session management.
 
-## Validation - Use the Tooling
-
-The project has tooling configured. We use it instead of manually trying to comply.
-
-Check for pre-commit and run if exists:
-
-```bash
-[ -f .pre-commit-config.yaml ] && pre-commit run --all-files
+Handles user login, logout, token generation, and session validation.
+Integrates with external OAuth providers (Google, GitHub) and maintains
+local session state in Redis for performance. Session tokens expire after
+24 hours but can be refreshed up to 7 days from initial login.
+"""
 ```
 
-Read `.github/workflows/build.yml` (or ci.yml, test.yml) and replicate those validation
-steps locally, for example:
+### Function Comments
 
-```bash
-ruff check --fix .    # Auto-fix linting
-ruff format .         # Auto-format code
-pytest                # Run tests
+Keep function docstrings USEFUL without redundant fluff. Type hints already document
+parameters and return types, so focus the docstring on what the function does and why.
+
+```python
+# Standard pattern for complex functions - explain the what and why
+def create_agent_from_task(self, task_id: str) -> dict:
+    """Create a new agent from a ClickUp task description.
+
+    Parses task description for agent requirements, generates the .agent
+    file with system/user prompts, creates PR with the new file, and
+    returns PR URL for review.
+    """
+
+# Simple functions need just one clear line
+def validate_email(email: str) -> bool:
+    """Check if email format is valid and domain is not blacklisted."""
+
+def process_payment(order_id: str, amount: Decimal) -> Payment:
+    """Charge the customer via Stripe and update order status to paid."""
+
+def send_welcome_email(user: User) -> None:
+    """Send onboarding email with account setup instructions."""
+
+def calculate_shipping_cost(weight: Decimal, destination: str) -> Decimal:
+    """Calculate shipping based on weight and zone rates from ShipStation."""
 ```
 
-If we added functionality, we add tests following project patterns. Aim for 95%
-coverage - solid testing without obsessing over every edge case.
+Avoid restating type hints in Args/Returns sections - they add no value since types are
+already declared.
 
-Only commit and push when all validation passes. Green checks make for happy merges! ✅
+### Inline Comments
 
-## Self-Review
+Be SPARSE with inline comments. Only add them when the code is doing something
+non-obvious or when explaining business logic that isn't clear from the code itself.
 
-Run `git diff` and review every change, as a senior developer would.
+```python
+# When to use inline comments - explains non-obvious business rule
+user = User.objects.get(id=user_id)
+if user.last_login < cutoff_date:
+    # Inactive users over 90 days require re-verification per security policy
+    send_verification_email(user)
 
-Read through ALL cursor rules again and verify our code follows each applicable
-guideline.
+# Section dividers for organization
+# ============================================================================
+# Order Processing
+# ============================================================================
 
-Would we approve this in code review? If not, keep iterating until it's something we're
-pleased with.
+# Explaining why something unusual is done
+cache_timeout = 300  # 5 minutes - balance between freshness and API rate limits
 
-## Submission
+# Complex calculations benefit from step comments
+total = base_price
+total += base_price * tax_rate  # Add sales tax
+total -= discount_amount  # Apply promotional discount
+total += shipping_cost  # Shipping calculated by weight and zone
+```
 
-Generate commit message following git-commit-message.mdc (if present).
+Skip obvious comments (like "Get the user" on a line that gets a user). Let the code
+speak for itself.
 
-Use `gh pr create` to submit a high-quality pull request with clear description of what
-changed and why.
+### General Guidelines
 
-## Boundaries
+We explain the "why", not the "what". We don't state the obvious - we prefer
+self-documenting code. Emojis when they add clarity; tasteful humor welcome! We write
+for humans AND AI - good comments help both understand context.
 
-Proceed autonomously: using existing tooling, following established patterns, changes
-within task scope.
+## Zen of Python
 
-Ask first: major architectural changes, changes that would result in data loss, etc.
+1. Readability is the number 1 code quality metric
+2. Beautiful is better than ugly
+3. Explicit is better than implicit
+4. Simple is better than complex
+5. Complex is better than complicated
+6. Flat is better than nested
+7. Sparse is better than dense
+8. Special cases aren't special enough to break the rules
+   - Although practicality beats purity
+9. Errors should never pass silently
+   - Unless explicitly silenced
+10. In the face of ambiguity, refuse the temptation to guess
+11. There should be one -- and preferably only one -- obvious way to do it
+12. Now is better than never
 
-## Success
+## Language
 
-A successful autonomous PR means: all automated checks pass, code follows all cursor
-rules, tests are green, and the developer merges it without requesting changes. Use the
-tooling to get there - it's our friend! 🎉
+We avoid hyperbolic language like "CRITICAL" unless something genuinely dies without it.
+We use the appropriate level of language for what's needed. (Yes, AIs, this means you -
+dial back the drama!)
 
 ---
 > Source: [TechNickAI/claude_telemetry](https://github.com/TechNickAI/claude_telemetry) — distributed by [TomeVault](https://tomevault.io).
