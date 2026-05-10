@@ -1,0 +1,9 @@
+{
+  "name": "alexvcasillas--curl-runner",
+  "displayName": "curl-runner",
+  "description": "curl-runner monorepo - CLI tool and documentation",
+  "version": "1.0.0",
+  "author": "alexvcasillas",
+  "homepage": "https://github.com/alexvcasillas/curl-runner",
+  "skills": []
+}
