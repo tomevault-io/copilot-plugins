@@ -1,0 +1,9 @@
+{
+  "name": "nicotsx--zerobyte",
+  "displayName": "zerobyte",
+  "description": "Backup automation for self-hosters. Built on top of restic",
+  "version": "1.0.0",
+  "author": "nicotsx",
+  "homepage": "https://github.com/nicotsx/zerobyte",
+  "skills": []
+}
