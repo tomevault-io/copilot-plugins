@@ -1,0 +1,9 @@
+{
+  "name": "simonepri--ifttt-lint",
+  "displayName": "ifttt-lint",
+  "description": "\ud83d\udd17 Stop cross-file drift with Google's IfChange/ThenChange comments",
+  "version": "1.0.0",
+  "author": "simonepri",
+  "homepage": "https://github.com/simonepri/ifttt-lint",
+  "skills": []
+}
