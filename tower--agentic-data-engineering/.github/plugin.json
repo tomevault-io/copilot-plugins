@@ -1,0 +1,9 @@
+{
+  "name": "tower--agentic-data-engineering",
+  "displayName": "agentic-data-engineering",
+  "description": "Repository with a skills boilerplate for agentic data engineering workflows",
+  "version": "1.0.0",
+  "author": "tower",
+  "homepage": "https://github.com/tower/agentic-data-engineering",
+  "skills": []
+}
