@@ -1,47 +1,52 @@
-## aamad-core
+## adapter-claude-agent-sdk
 
-> Core, framework-agnostic rules and contracts for AAMAD; applies to all personas, tasks, and artifacts across the repository.
+> Runtime adapter guidance for building AAMAD-generated MVPs on the Claude Agent SDK.
 
+
+# Claude Agent SDK Adapter Rules
 
 ## Purpose
-- Define universal principles, contracts, and invariants for AI-assisted, multi-agent development, independent of any specific execution framework.
+- Define runtime-specific guidance when `AAMAD_TARGET_RUNTIME=claude-agent-sdk`.
+- This adapter governs implementation patterns for generated MVP backends that use the Claude Agent SDK.
 
-## Principles
-- **Single responsibility personas:** each persona owns a defined epic with explicit inputs, outputs, and prohibited actions.
-- **Context-first engineering:** all outputs must trace to PRD, SAD, SFS, or user stories; do not invent requirements.
-- **Reproducibility and provenance:** every artifact includes Sources, Assumptions, and Open Questions sections.
-- **Deterministic execution:** actions are idempotent; perform temp-write-then-atomic-replace for file outputs.
-- **Minimal viable architecture first:** implement MVP scope before expanding; document deferrals with rationale.
+## Setup
+- Install SDK dependencies for the selected language runtime:
+    - Python: `pip install claude-agent-sdk`
+    - TypeScript: install the Claude Agent SDK package used by your org standard.
+- Configure required runtime environment variables (`ANTHROPIC_API_KEY` and any org-specific gateway/base URL settings).
+- Record SDK version, resolved model, temperature, and token controls in artifact Audit.
 
-## Agent Contract
-- Personas declare: id, role, instructions, actions, inputs, outputs, prohibited-actions. Agents MUST read only declared inputs and write only to declared outputs.
-- On missing/ambiguous inputs, write Assumptions and Open Questions; do not fabricate content.
-- All actions must append an Audit block with timestamp, persona id, and action name to the artifact.
+## Mapping
+- Represent specialized runtime agents as `AgentDefinition` entries in `ClaudeAgentOptions.agents`.
+- Use the main runtime agent as coordinator and invoke specialized agents via the `Agent` tool.
+- For cloud-managed multi-agent orchestration, use callable-agent patterns where appropriate and document delegation boundaries in SAD/backend.md.
 
-## Task Contract
-- Each task defines: description, expected_output (exact target file path and required headings), acceptance_criteria, traceability to PRD/SAD/SFS anchors.
-- Tasks include a self-check verifying required headings; if missing, write Diagnostic and halt.
+## Execution
+- Set explicit per-task turn and token budgets; do not rely on implicit defaults.
+- Use `ClaudeSDKClient` for bidirectional interactive flows and streaming workflows.
+- Define retry and idempotency behavior for runtime actions that may be replayed.
+- Use session resume/fork only when required, and document rationale and retention scope in Audit.
 
-## Tooling Rules
-- Use only approved file and validation tools provided by the active runtime adapter for the generated application; no direct shell or network unless explicitly authorized by persona.
-- Log tool usage in the artifact, including model, temperature, max_tokens, and any material runtime controls impacting determinism.
+## Tools
+- Default to least-privilege `allowed_tools` lists per runtime task.
+- Use built-in tools (`Read`, `Write`, `Edit`, `Bash`, `Glob`, `Grep`, `WebSearch`, `WebFetch`) only where required by scope.
+- Prefer in-process MCP servers for custom internal tools; use external MCP servers when process boundaries are required.
+- Validate MCP server availability and auth before execution; fail fast with Diagnostic on missing dependencies.
 
-## State and Output
-- Outputs follow template headings exactly (.cursor/templates). Do not wrap machine-parsed blocks in code fences if templates require raw content.
-- Artifacts end with sections: Sources, Assumptions, Open Questions, Audit.
-- Prompt Trace must be captured for high-risk or production-facing outputs; if omitted, the Audit must state why.
+## Logging
+- Capture Prompt Trace prior to execution and append to artifacts or trace logs per persona output rules.
+- Use hooks (`PreToolUse`, `PostToolUse`, `SubagentStart`, `SubagentStop`) to log lifecycle events and enforce guardrails.
+- Persist runtime trace logs under `project-context/2.build/logs` and redact sensitive values.
 
-## Adapter Abstraction
-- AAMAD's IDE-time crew workflow is adapter-neutral. Personas and phase sequencing are governed by rules and persona contracts, not by runtime adapters.
-- The active runtime adapter (selected via `AAMAD_TARGET_RUNTIME`) defines conventions for the generated multi-agent application in Phase 2: runtime setup, agent declaration style, tool/MCP binding, observability, and execution controls.
-- Runtime adapters do not orchestrate AAMAD's own phases; they constrain how the implementation personas scaffold and validate the target runtime.
+## Quality Gates
+- Enforce structured output contracts using output schema validation or post-write validators.
+- Require citation and numeric grounding checks for analytical outputs when applicable.
+- Keep artifact-generation tasks deterministic (low temperature unless justified in Audit).
+- Validate required headings and machine-ingested formatting before final write.
 
 ## Failure Policy
-- On iteration/time limits or missing prerequisites, write a Halt and Report section with blockers; do not continue.
-
-## Security and Compliance
-- Never embed secrets in artifacts; use environment variables in runtime code only. Record third-party content in NOTICES as needed
-- Provide `.env.example` entries for required runtime secrets and keep secret values out of Prompt Trace and diagnostics.
+- Halt with Diagnostic when schema validation, guardrails, tool authorization, or runtime prerequisites fail.
+- On budget/context overrun, stop execution and write remediation notes in the artifact.
 
 ---
 > Source: [synaptic-ai-consulting/AAMAD](https://github.com/synaptic-ai-consulting/AAMAD) — distributed by [TomeVault](https://tomevault.io).
