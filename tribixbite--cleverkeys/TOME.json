@@ -2,9 +2,9 @@
   "name": "CleverKeys",
   "owner": "tribixbite",
   "repo": "CleverKeys",
-  "description": "",
+  "description": "Privacy-first neural Android keyboard with advanced swipe prediction",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/tribixbite",
+  "source_url": "https://github.com/tribixbite/CleverKeys",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T20:57:12Z"
+  "distributed_at": "2026-05-10T12:02:13Z"
 }
