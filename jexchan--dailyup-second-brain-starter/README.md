@@ -7,11 +7,11 @@ An opinionated Obsidian second-brain template, built for long-term human-AI coll
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jexchan/dailyup-second-brain-starter](https://github.com/jexchan/dailyup-second-brain-starter).
+Original source: `CLAUDE.md` in [jexchan/dailyup-second-brain-starter](https://github.com/jexchan/dailyup-second-brain-starter).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
