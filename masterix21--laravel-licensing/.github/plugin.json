@@ -1,7 +1,7 @@
 {
   "name": "masterix21--laravel-licensing",
   "displayName": "laravel-licensing",
-  "description": "laravel-licensing",
+  "description": "A licensing package for Laravel with offline verification, seat management, cryptographic key rotation, and multi-product support.",
   "version": "1.0.0",
   "author": "masterix21",
   "homepage": "https://github.com/masterix21/laravel-licensing",
