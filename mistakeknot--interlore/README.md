@@ -7,11 +7,11 @@ Philosophy observer — detects latent design patterns and proposes PHILOSOPHY.m
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mistakeknot/interlore](https://github.com/mistakeknot/interlore).
+Original source: `CLAUDE.md` in [mistakeknot/interlore](https://github.com/mistakeknot/interlore).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
