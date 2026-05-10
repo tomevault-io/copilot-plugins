@@ -1,0 +1,9 @@
+{
+  "name": "yudalang3--resolves",
+  "displayName": "resolveS",
+  "description": "A super-fast, memory-efficient tool for automatically determining RNA-Seq strand specificity. Designed for seamless integration into QC pipelines, it ensures accurate parameter configuration for downs",
+  "version": "1.0.0",
+  "author": "yudalang3",
+  "homepage": "https://github.com/yudalang3/resolveS",
+  "skills": []
+}
