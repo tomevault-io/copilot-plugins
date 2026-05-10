@@ -1,0 +1,9 @@
+{
+  "name": "cloud-ru-tech--mcp-server-mattermost",
+  "displayName": "mcp-server-mattermost",
+  "description": "MCP server for Mattermost \u2014 let Claude, Cursor, and other AI assistants work with channels, messages, and files",
+  "version": "1.0.0",
+  "author": "cloud-ru-tech",
+  "homepage": "https://github.com/cloud-ru-tech/mcp-server-mattermost",
+  "skills": []
+}
