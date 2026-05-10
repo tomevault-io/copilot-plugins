@@ -1,0 +1,9 @@
+{
+  "name": "5kahoisaac--opencode-configs",
+  "displayName": "opencode-configs",
+  "description": "Personal configs of OpenCode, including agents, skills, commands and plugins",
+  "version": "1.0.0",
+  "author": "5kahoisaac",
+  "homepage": "https://github.com/5kahoisaac/opencode-configs",
+  "skills": []
+}
