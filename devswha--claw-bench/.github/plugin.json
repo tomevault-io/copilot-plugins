@@ -1,0 +1,9 @@
+{
+  "name": "devswha--claw-bench",
+  "displayName": "claw-bench",
+  "description": "Benchmark suite: Claw Code (Rust) vs Claude Code (Node.js)",
+  "version": "1.0.0",
+  "author": "devswha",
+  "homepage": "https://github.com/devswha/claw-bench",
+  "skills": []
+}
