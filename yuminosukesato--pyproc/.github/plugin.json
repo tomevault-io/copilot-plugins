@@ -1,0 +1,9 @@
+{
+  "name": "yuminosukesato--pyproc",
+  "displayName": "pyproc",
+  "description": "Call Python from Go without CGO or microservices - Unix domain socket based IPC for ML inference and data processin",
+  "version": "1.0.0",
+  "author": "YuminosukeSato",
+  "homepage": "https://github.com/YuminosukeSato/pyproc",
+  "skills": []
+}
