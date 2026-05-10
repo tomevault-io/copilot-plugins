@@ -1,0 +1,9 @@
+{
+  "name": "dotdevdotdev--agentwire-dev",
+  "displayName": "agentwire-dev",
+  "description": "Voice-controlled multi-agent framework. Spawn workers, orchestrate across machines, talk to your agents over SSH. CLI + SDK + Telegram.",
+  "version": "1.0.0",
+  "author": "dotdevdotdev",
+  "homepage": "https://github.com/dotdevdotdev/agentwire-dev",
+  "skills": []
+}
