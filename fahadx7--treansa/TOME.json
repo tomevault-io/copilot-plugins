@@ -1,0 +1,44 @@
+{
+  "name": "treansa",
+  "owner": "Fahadx7",
+  "repo": "treansa",
+  "description": "\u0645\u0646\u0635\u0629 \u0627\u0644\u062a\u062f\u0627\u0648\u0644 \u0627\u0644>\u0643\u064a\u0629 ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Fahadx7/treansa",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T16:39:29Z"
+}
