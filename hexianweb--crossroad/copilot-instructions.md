@@ -1,20 +1,29 @@
-## coding-best-practices
+## mcp-tool-usage
 
-> - **Do not modify code or UI elements that already work**, unless explicitly instructed.
+> - Use **Sequential Thinking MCP** for debugging, troubleshooting, complex problem-solving, and detailed project planning.
 
-## Coding Best Practices
+## Sequential Thinking
 
-- **Do not modify code or UI elements that already work**, unless explicitly instructed.
-- Avoid duplicating existing functionality; reuse working components whenever possible.
-- Write comprehensive tests for all new or modified functionality.
-- **Never unintentionally delete data or code**; confirm explicitly before destructive actions.
-- Commit frequently to maintain a reliable project history.
-- Always ask clarifying questions if tasks or requirements are unclear.
+- Use **Sequential Thinking MCP** for debugging, troubleshooting, complex problem-solving, and detailed project planning.
+- Avoid excessive recursive calls; trigger intelligently only when new progress or significant information is possible.
 
-## User Interface (UI)
+## Information Gathering (tavily-mcp)
 
-- **Never change or affect the UI unintentionally.** Only alter UI components if explicitly instructed or clearly part of the assigned task.
-- Always ensure UI changes are fully tested and validated.
+- Use **tavily-mcp** when troubleshooting, searching documentation, or exploring similar user issues.
+- Combine effectively with **Sequential Thinking MCP** to refine solutions and acquire up-to-date information.
+- Prioritize reliable and concise sources.
+
+## Browser Tools
+
+- **Browser Tools MCP** requires user confirmation. Always recommend the user explicitly start the server and ensure a Chromium browser is running before using Browser Tools MCP.
+- Let the user explicitly instruct Cursor when Browser Tools should be used.
+- Remind user to disable puppeteer before attempting to use
+
+## GitHub MCP
+
+- Commit and push code changes to GitHub using the **GitHub MCP server** after every successful test.
+- Ensure commits are clear, descriptive, and incremental.
+- Never overwrite or unintentionally alter files like README.md or other critical documentation without explicit user approval.
 
 ---
 > Source: [hexianWeb/CrossRoad](https://github.com/hexianWeb/CrossRoad) — distributed by [TomeVault](https://tomevault.io).
