@@ -1,0 +1,9 @@
+{
+  "name": "danielpetrovic--ha-ducobox",
+  "displayName": "ha-ducobox",
+  "description": "A Home Assistant integration for DucoBox ventilation systems using the Communication Print (0000-4251) local API.",
+  "version": "1.0.0",
+  "author": "danielpetrovic",
+  "homepage": "https://github.com/danielpetrovic/ha-ducobox",
+  "skills": []
+}
