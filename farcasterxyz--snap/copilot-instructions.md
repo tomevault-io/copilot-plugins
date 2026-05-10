@@ -1,0 +1,57 @@
+## snap
+
+> - The public starting point for Snaps should be the docs-site homepage, not the repo. It should be a stable, friendly URL that humans and agents can both begin from.
+
+# snaps
+
+## Philosophy and Design Principles
+
+- The public starting point for Snaps should be the docs-site homepage, not the repo. It should be a stable, friendly URL that humans and agents can both begin from.
+- The docs site should be creator-first by default: optimize the homepage and primary navigation for people who are curious about Snaps or want to create one, while still making technical integration and agent paths easy to discover.
+- Repo-native docs should be integrator-first: assume the reader is a developer working on the spec/code itself, building on top of it, or integrating Snaps into their own product.
+- The audience split should be visible in the information architecture. Do not hide major distinctions like learn, create, integrate, and agents purely in folder layout or internal structure.
+- Prefer progressive disclosure over dumping everything in one place. Top-level entrypoints should orient and route; deeper pages should hold the detail.
+- Every important fact should have one primary home. Other surfaces should point to that home instead of restating the same information in slightly different words.
+- Treat documentation as a set of surfaces, not just files: docs-site pages, repo markdown, skills, code comments, GitHub rendering, machine-readable exports, and npm package pages all shape how people and agents understand the system.
+- Code and schemas are canonical for protocol behavior. Prose documentation should explain, organize, and point back to the implementation truth in `pkgs/snap`, not compete with it.
+- Documentation work should not change the meaning of the system. Reorganize, split, move, and clarify docs freely, but do not silently change protocol semantics, validation behavior, or implementation behavior.
+- If docs are inconsistent, preserve the canonical behavior and call out the discrepancy explicitly rather than “fixing” it by changing meaning in prose.
+- Keep workflow docs and reference docs distinct. Skills and README files should mainly help people and agents find the right path and execute tasks; they should not become shadow specs.
+- Use `AGENTS.md` to capture intent, philosophy, and high-level design direction so agents can understand where the project is going, not just how it works today.
+
+## Operational handbook
+
+Ports, env vars, package behaviors, build quirks, and other workspace-specific facts live in [`WORKSPACE.md`](./WORKSPACE.md). Read that file when you need a specific operational detail.
+
+## Learned User Preferences
+
+- **Deep modules principle:** Each workspace package under `pkgs/` keeps a single public surface: `src/index.ts` must list that module’s exports. **All imports from outside the module go through that entry only** (package name such as `@farcaster/snap`, which resolve to `index.ts`). Do not import another package by reaching into its implementation paths (for example `…/snap/src/server/hubs` via relative file paths from a different package). Inside the same package, implementation files import each other with relative paths; do not re-export through random barrels—only `index.ts` aggregates what other packages may use. Do not use `export { … } from "./other"` or `export * from "./other"` in non-`index` implementation files as a shortcut for external consumers; add exports to `index.ts` instead.
+- Do not use the `any` type in `pkgs/snap/src/schemas.ts` or `pkgs/snap/src/validator.ts`. Avoid `unknown` there except where required for external or untyped input (for example the top-level value passed into validation entrypoints). Prefer concrete types everywhere else.
+- Prefer exporting shared string and enum values as constants from `pkgs/snap/src/schemas.ts` when they are used in schemas or validation logic.
+- Validation errors use Zod’s issue `code` and `message` (plus `path`); there is no separate FC error-code layer or `errors.ts` barrel.
+- Keep normative snap spec text in the docs app MDX under `apps/docs/src/app/(docs)/` — home entrypoints (`(home)/page.mdx`, `(home)/agents/page.mdx`), learn guides (`(learn)/*/page.mdx`), and snap spec pages (`(spec)/*/page.mdx`) — instead of maintaining a separate spec tree.
+- **Skill docs:** Prefer linking to the docs site (or [docs.farcaster.xyz/snap](https://docs.farcaster.xyz/snap)) instead of restating spec rules. Keep the snap skill deployment-first and template-driven (point to `template/` as source of truth). The primary “create a snap from a prompt” skill is inlined in `apps/docs/src/app/SKILL.md/route.ts`, served at https://docs.farcaster.xyz/snap/SKILL.md.
+- For server-generated snap previews (for example Open Graph images in `@farcaster/snap-hono`), prefer font files shipped with the app (for example under the deployment template’s static assets) and paths passed through handler options over relying only on runtime CDN font fetches, so Vercel and edge deploys stay predictable. **Satori** (used for OG PNG generation in that path) loads **TTF, OTF, or WOFF (v1)** only; **WOFF2 is not supported**—use **WOFF or TTF** font files when embedding fonts for OG.
+- Prefer minimal public APIs: do not re-export types or helpers from adapter packages unless explicitly required; only export symbols that are externally consumed.
+- **Adapter package surface (`@farcaster/snap-hono` and similar):** Export only the integration entrypoints consumers need (for example `registerSnapHandler` and its options types). Do **not** re-export internal helpers from `src/index.ts` (for example `payloadToResponse`) even if they are useful for tests—tests may import implementation files directly within the same package; external callers should use the supported API or compose `@farcaster/snap` primitives themselves.
+- Prefer explicit, predictable APIs over hidden convenience "magic" in wrappers; ergonomics should not obscure routing or behavior.
+- `parseRequest` (from `@farcaster/snap/server`) and related helpers use a `success` discriminant (`success: true` / `success: false`), not `ok`, when reporting parse outcomes; keep tests and callers aligned with that shape.
+- **Changesets:** Never create or edit `.changeset/*.md` files. Release notes and version bumps use the Changesets CLI only; maintainers run `pnpm exec changeset` from the repo root when they want a changeset.
+
+## Learned Workspace Facts
+
+- Use pnpm for package management in this repository; do not use npm.
+- The json-render catalog for snaps lives in `pkgs/snap/src/ui/`; it is exported as `@farcaster/snap/ui` and per-component sub-paths (e.g., `@farcaster/snap/ui/button`). The emulator imports `snapJsonRenderCatalog` from `@farcaster/snap/ui`.
+- Local dev ports: emulator on 3000, `snap-template` on 3003; the `template/` app’s Hono + `registerSnapHandler` code lives in `template/src/index.ts` (not a separate `app.ts`). This repo sets `link-workspace-packages=false` in `.npmrc`, so plain semver ranges resolve from npm; use **`workspace:*`** only when you intentionally want the in-repo package. For apps installed or copied **outside** this monorepo, prefer **published semver** ranges for `@farcaster/snap` and `@farcaster/snap-hono` on npm. Example apps under `examples/` use ports 3010 and higher with a distinct port per app.
+- For snap HTTP GET, send `Accept: application/vnd.farcaster.snap+json`; example servers typically expose JSON on `/snap`, not on bare `/`.
+- Local `registerSnapHandler` skips JFS **signature** verification when `NODE_ENV` is not `production`, but POST bodies must still be a JFS envelope — either JSON `{ header, payload, signature }` or the same compact dot-separated string form (`BASE64URL(header).BASE64URL(payload).BASE64URL(signature)`) — including from `apps/emulator`. Set `SKIP_JFS_VERIFICATION=no` to require verification anyway, or `=yes` / `=1` to force bypass in production (dev-only). The handler option is `skipJFSVerification` (exact property name). `parseRequest` (`@farcaster/snap/server`) accepts optional `maxSkewSeconds` for POST time skew; `@farcaster/snap-hono` only passes `skipJFSVerification` into `parseRequest` and does not expose skew tuning on `registerSnapHandler` options.
+- Hub connectivity: set `FARCASTER_HUB_URL` with the port (e.g. `https://rho.farcaster.xyz:3381`). Snap hub verification uses the Hubble **HTTP** API only (no gRPC); URL helpers accept `http`/`https` with an explicit port or bare `host:port`; `grpc:`/`grpcs:` are invalid. Set `SNAP_PUBLIC_BASE_URL` to the canonical HTTPS origin (no trailing slash) so button `submit` action target URLs resolve correctly.
+- In `apps/emulator`, **link** buttons first GET `/api/snap?url=…` for the resolved target; if the response is valid snap JSON, the emulator replaces the preview and syncs the Snap URL field, otherwise it opens the link in a new tab. For local dev on Next.js 16+, use `next dev -p 3000 --webpack` when forcing the Webpack dev server (supported flag). Do not use undocumented flags such as `--no-turbopack`.
+- Persistent key-value storage is opt-in via `@farcaster/snap-turso`: `DataStore`, `DataStoreValue`, `createInMemoryDataStore()`, `createTursoDataStore(url, token)`. On Vercel with Turso env vars it uses Turso; otherwise it uses an in-memory store (with warnings when not production-persistent).
+- Snap POST authentication uses JFS request-body verification (`verifyJFSRequestBody` from `@farcaster/snap/server`) as the single verification path; legacy header/signing verification flows were removed. Hub/Node-dependent code lives under `pkgs/snap/src/server/`; the main `@farcaster/snap` entry does not depend on `@farcaster/hub-nodejs` (safe for browser bundles that only need schemas / validation). `@farcaster/snap-hono` uses an internal `payloadToResponse` helper when building `Response`s from `registerSnapHandler`; it is not part of the package’s public exports.
+- `parseRequest` (`@farcaster/snap/server`) decodes the JFS payload and validates it with `payloadSchema` (Zod); no manual coercion is applied — fields that don't match the schema are rejected (coverage in `pkgs/snap/tests/parseRequest.test.ts`).
+- `pkgs/snap` uses a post-build ESM import rewrite (`tsc-alias --resolve-full-paths --resolve-full-extension .js`) so Node ESM consumers can resolve `dist/*` imports (revisit: NodeNext + explicit `.js` sources). Turbo wires `dependsOn: ["^build"]` on `test`, `typecheck`, and `dev` so workspace packages build before dependents; `apps/emulator` runs `build:workspace-deps` in `predev` and `prebuild` for `@farcaster/snap`.
+
+---
+> Source: [farcasterxyz/snap](https://github.com/farcasterxyz/snap) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
