@@ -1,48 +1,34 @@
-## backend-fastapi
+## db-duckdb
 
-> 后端 FastAPI 结构与约定（路由/模型/异常/生命周期）
+> DuckDB 与仓储层约定（表结构、迁移、读写与回退）
 
 
-# 后端 FastAPI 规则
+# DuckDB 与仓储层规则
 
-结构约定：
-- 应用入口：`backend/app/main.py`
-  - `@app.on_event("startup")` 中：
-    - `quote_stream_manager.attach_loop(loop)`
-    - `quote_stream_manager.ensure_started()`
-    - `get_position_monitor().start_monitoring()`
-  - `@app.on_event("shutdown")` 中：
-    - `await quote_stream_manager.stop()`
-    - `await get_position_monitor().stop_monitoring()`
-  - WebSocket：`/ws/quotes` 按 JSON 文本推送；`datetime` 等通过自定义 `default` 序列化
+连接与迁移：
+- 使用 `db.get_connection()` 获取连接；函数内部会：
+  - 调用 `get_settings().ensure_dirs()` 保证目录存在
+  - 连接到 `settings.duckdb_path`
+  - 执行 `_run_migrations()`，确保以下表存在：`settings/symbols/ohlc/ticks/signals/orders/positions`
+  - 通过 `_ensure_column()` 进行列级补丁（如 `ticks.sequence/turnover/current_*`）
 
-- 路由放置在 `backend/app/routers/`：
-  - `settings.py`：凭据/符号 GET/PUT 与 `/verify`
-  - `quotes.py`：`/history/sync`、`/history`、`/ticks`、`/stream/status`
-  - `portfolio.py`：`/positions`、`/overview`
+读写约定：
+- 历史 K 线落库：`repositories.store_candlesticks(symbol, list)` → 表 `ohlc`
+- 最新价与 tick：`repositories.store_tick_event(symbol, event)` → 表 `ticks`（并可被组合页读取）
+- 读取最新价：`repositories.fetch_latest_prices(symbols)`，用于组合估值
+- 读取 ticks：`repositories.fetch_ticks(symbol, limit)`，用于前端明细
 
-- Pydantic 模型集中在 `backend/app/models.py`，优先在此新增/复用
+回退策略：
+- 当 `repositories.fetch_candlesticks` 不存在时，`services.get_cached_candlesticks` 会退回到直接查询 DuckDB（`_fetch_candlesticks_from_db`）
 
-异常与依赖：
-- 未安装 longport SDK 时抛出 `LongbridgeDependencyMissing`，路由层统一映射为 503
-- 上游 API 错误抛出 `LongbridgeAPIError`，路由层统一映射为 502
-- 参数校验失败抛 `ValueError` 或 FastAPI 自带校验，映射为 400
-
-通用实践：
-- 与 longport 交互，请使用 `services._quote_context()` 以确保资源回收
-- DB 访问通过 `db.get_connection()` with 上下文；避免在路由中直接拼接 SQL
-- 新接口：
-  1) 在 `models.py` 定义请求/响应模型
-  2) 在 `services.py` 实现业务逻辑
-  3) 在 `routers/*` 暴露 API，捕获并转换异常
+扩展建议：
+- 新增字段优先采用 `_ensure_column()` 以避免破坏性迁移
+- 写入路径要幂等/可重复执行（主键或唯一索引：如 `ohlc(symbol, ts)`）
 
 参考：
-- [backend/app/main.py](mdc:backend/app/main.py)
-- [backend/app/routers/settings.py](mdc:backend/app/routers/settings.py)
-- [backend/app/routers/quotes.py](mdc:backend/app/routers/quotes.py)
-- [backend/app/routers/portfolio.py](mdc:backend/app/routers/portfolio.py)
-- [backend/app/models.py](mdc:backend/app/models.py)
+- [backend/app/db.py](mdc:backend/app/db.py)
 - [backend/app/services.py](mdc:backend/app/services.py)
+- [backend/app/repositories.py](mdc:backend/app/repositories.py)
 
 ---
 > Source: [majiajue/longbridge](https://github.com/majiajue/longbridge) — distributed by [TomeVault](https://tomevault.io).
