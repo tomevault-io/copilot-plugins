@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Gabriel4C3/four-card-feature-section-master](https://github.com/Gabriel4C3/four-card-feature-section-master).
+Original source: `CLAUDE.md` in [Gabriel4C3/four-card-feature-section-master](https://github.com/Gabriel4C3/four-card-feature-section-master).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
