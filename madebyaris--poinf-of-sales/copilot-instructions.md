@@ -1,855 +1,238 @@
-## react-native-mobile-patterns
+## role-based-access-patterns
 
-> React Native mobile development patterns for POS System kitchen and server applications
+> Role-based access control (RBAC) patterns and implementations for POS System
 
 
-# 📱 React Native Mobile Development Patterns
+# Role-Based Access Control (RBAC) Patterns
 
-## 🎯 Project Overview - Mobile POS Applications
+## Role Definitions
 
-### GitHub Milestones Integration
-Based on [GitHub Milestones](https://github.com/madebyaris/poinf-of-sales/milestones), we're developing:
-
-1. **Kitchen Staff Mobile App (iOS & Android)** - Tablet and TV display optimization
-2. **Server Group Mobile App (iOS & Android)** - Smartphone and tablet flexibility
-
-## 🏗️ Cross-Platform Architecture
-
-### Project Structure for React Native Apps
-```
-mobile/
-├── kitchen-app/                 # Kitchen Staff Mobile App
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── kitchen/         # Kitchen-specific components
-│   │   │   ├── ui/              # Shared UI components
-│   │   │   └── common/          # Cross-app components
-│   │   ├── screens/
-│   │   │   ├── KitchenDisplay/  # Main kitchen interface
-│   │   │   ├── OrderDetails/    # Individual order management
-│   │   │   └── Settings/        # App configuration
-│   │   ├── services/
-│   │   │   ├── api/             # API integration
-│   │   │   ├── sync/            # Real-time synchronization
-│   │   │   └── offline/         # Offline mode handling
-│   │   └── utils/
-│   ├── android/                 # Android-specific code
-│   ├── ios/                     # iOS-specific code
-│   └── package.json
-├── server-app/                  # Server Group Mobile App
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── pos/             # POS interface components
-│   │   │   ├── payment/         # Mobile payment processing
-│   │   │   └── tables/          # Table management
-│   │   ├── screens/
-│   │   │   ├── OrderEntry/      # Mobile order creation
-│   │   │   ├── TableView/       # Table management interface
-│   │   │   └── PaymentFlow/     # Mobile payment processing
-│   │   └── services/
-│   └── package.json
-└── shared/                      # Shared code between apps
-    ├── components/              # Reusable UI components
-    ├── types/                   # TypeScript definitions
-    ├── api/                     # API client
-    └── utils/                   # Utility functions
-```
-
-## 🍳 Kitchen Staff Mobile App Patterns
-
-### Tablet & TV Display Optimization
+### Available Roles
 ```typescript
-// Kitchen app main component with device optimization
-import React, { useEffect, useState } from 'react'
-import { Dimensions, Platform } from 'react-native'
-import DeviceInfo from 'react-native-device-info'
-import Orientation from 'react-native-orientation-locker'
+type UserRole = 'admin' | 'manager' | 'server' | 'counter' | 'kitchen'
+```
 
-interface DeviceConfig {
-  type: 'smartphone' | 'tablet' | 'tv'
-  screenSize: 'small' | 'medium' | 'large' | 'extra-large'
-  touchTargetSize: number
-  fontSize: number
-  spacing: number
-}
+### Role Capabilities
+- **admin**: Full system access, can switch to any interface
+- **manager**: Business operations, reports, staff oversight
+- **server**: Dine-in order creation only
+- **counter**: All order types + payment processing
+- **kitchen**: Order preparation and status updates
 
-export const KitchenApp: React.FC = () => {
-  const [deviceConfig, setDeviceConfig] = useState<DeviceConfig>()
-  const [orders, setOrders] = useState<KitchenOrder[]>([])
+## Frontend Role Routing
 
-  useEffect(() => {
-    initializeDeviceOptimization()
-    setupRealTimeSync()
-    enableOfflineMode()
-  }, [])
-
-  // ✅ CORRECT: Device-specific optimization
-  const initializeDeviceOptimization = async () => {
-    const { width, height } = Dimensions.get('window')
-    const isTablet = await DeviceInfo.isTablet()
-    const deviceType = await DeviceInfo.getDeviceType()
-
-    // Determine device configuration
-    let config: DeviceConfig
-
-    if (deviceType === 'tv' || width > 1200) {
-      // Large screen TV display
-      config = {
-        type: 'tv',
-        screenSize: 'extra-large',
-        touchTargetSize: 60, // Extra large for wall-mounted displays
-        fontSize: 24,
-        spacing: 32
-      }
-      
-      // TV-specific optimizations
-      Orientation.lockToLandscape()
-      await setupTVDisplayMode()
-      
-    } else if (isTablet || width > 768) {
-      // Tablet optimization
-      config = {
-        type: 'tablet',
-        screenSize: 'large',
-        touchTargetSize: 50, // Standard tablet touch targets
-        fontSize: 18,
-        spacing: 24
-      }
-      
-      // Tablet-specific optimizations
-      Orientation.lockToLandscape()
-      await setupTabletMode()
-      
-    } else {
-      // Smartphone fallback (not primary use case for kitchen)
-      config = {
-        type: 'smartphone',
-        screenSize: 'medium',
-        touchTargetSize: 44,
-        fontSize: 16,
-        spacing: 16
-      }
-    }
-
-    setDeviceConfig(config)
+### Main Router Pattern
+```typescript
+// RoleBasedLayout.tsx
+export function RoleBasedLayout({ user }: { user: User }) {
+  // Admin gets AdminLayout with all interfaces
+  if (user.role === 'admin') {
+    return <AdminLayout user={user} />
   }
-
-  // TV display mode configuration
-  const setupTVDisplayMode = async () => {
-    // Enable full-screen mode
-    if (Platform.OS === 'android') {
-      // Hide navigation bar for TV displays
-      await DeviceInfo.getSystemName() // Android TV detection
-    }
-    
-    // High contrast mode for distance viewing
-    const tvSettings = {
-      contrast: 'high',
-      colorScheme: 'high-visibility',
-      animations: 'reduced', // Minimize distractions
-      autoRefresh: 3000 // 3-second refresh for TV displays
-    }
-    
-    await applyDisplaySettings(tvSettings)
+  
+  // Other roles get specific interfaces
+  switch (user.role) {
+    case 'server': return <ServerInterface />
+    case 'counter': return <CounterInterface />
+    case 'kitchen': return <KitchenLayout user={user} />
+    default: return <POSLayout user={user} />
   }
-
-  // Tablet mode configuration
-  const setupTabletMode = async () => {
-    // Enable gesture navigation
-    const tabletSettings = {
-      swipeGestures: true,
-      hapticFeedback: true,
-      multiTouch: false, // Prevent accidental gestures
-      autoRefresh: 5000 // 5-second refresh for tablets
-    }
-    
-    await applyDisplaySettings(tabletSettings)
-  }
-
-  return (
-    <KitchenDisplayLayout 
-      deviceConfig={deviceConfig}
-      orders={orders}
-      onOrderUpdate={handleOrderUpdate}
-    />
-  )
 }
 ```
 
-### Real-Time Order Synchronization
+### Navigation Access Control
 ```typescript
-// Real-time sync service for kitchen app
-import { io, Socket } from 'socket.io-client'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import NetInfo from '@react-native-netinfo/netinfo'
+// AdminLayout.tsx - Admin can access all interfaces
+const adminSections = [
+  { id: 'dashboard', label: 'Dashboard' },
+  { id: 'pos', label: 'General POS' },        // Full POS access
+  { id: 'server', label: 'Server Interface' }, // Server view
+  { id: 'counter', label: 'Counter/Checkout' }, // Counter view
+  { id: 'kitchen', label: 'Kitchen Display' }   // Kitchen view
+  // + admin-only sections
+]
+```
 
-class KitchenSyncService {
-  private socket: Socket | null = null
-  private offlineQueue: OfflineOperation[] = []
-  private isOnline: boolean = true
+## Backend API Role Restrictions
 
-  async initialize(): Promise<void> {
-    // Monitor network connectivity
-    NetInfo.addEventListener(state => {
-      this.isOnline = state.isConnected ?? false
-      
-      if (this.isOnline && this.offlineQueue.length > 0) {
-        this.processOfflineQueue()
-      }
-    })
+### Route Groups by Role
+```go
+// routes.go pattern
+func setupRoutes(router *gin.Engine) {
+    api := router.Group("/api/v1")
+    
+    // Public routes
+    api.POST("/auth/login", handlers.Login)
+    
+    // Protected routes
+    protected := api.Group("", middleware.RequireAuth)
+    
+    // Admin only
+    admin := protected.Group("/admin", middleware.RequireRole("admin"))
+    admin.GET("/users", handlers.GetUsers)
+    admin.POST("/users", handlers.CreateUser)
+    
+    // Server only
+    server := protected.Group("/server", middleware.RequireRole("server"))
+    server.POST("/orders", handlers.CreateDineInOrder) // Restricted to dine_in
+    
+    // Counter access
+    counter := protected.Group("/counter", middleware.RequireRoles("counter", "admin"))
+    counter.POST("/orders", handlers.CreateCounterOrder) // All order types
+    counter.POST("/orders/:id/payments", handlers.ProcessPayment)
+}
+```
 
-    // Initialize WebSocket connection
-    await this.connectWebSocket()
+### Role-Specific Endpoints
+```typescript
+// API Client role-specific methods
+class APIClient {
+  // Admin-only endpoints
+  async getUsers(): Promise<APIResponse<User[]>> {
+    return this.request({ method: 'GET', url: '/admin/users' });
   }
-
-  // ✅ CORRECT: WebSocket connection with reconnection logic
-  private async connectWebSocket(): Promise<void> {
-    const token = await AsyncStorage.getItem('auth_token')
-    
-    this.socket = io('ws://localhost:8080', {
-      auth: { token },
-      transports: ['websocket'],
-      reconnection: true,
-      reconnectionAttempts: 5,
-      reconnectionDelay: 1000,
-    })
-
-    // Kitchen-specific event listeners
-    this.socket.on('order-created', this.handleNewOrder)
-    this.socket.on('order-updated', this.handleOrderUpdate)
-    this.socket.on('item-status-changed', this.handleItemStatusChange)
-    
-    // Connection management
-    this.socket.on('connect', () => {
-      console.log('✅ Kitchen app connected to server')
-      this.processOfflineQueue()
-    })
-    
-    this.socket.on('disconnect', () => {
-      console.log('❌ Kitchen app disconnected from server')
-    })
+  
+  // Server-specific (dine-in only)
+  async createServerOrder(order: CreateOrderRequest): Promise<APIResponse<Order>> {
+    return this.request({ method: 'POST', url: '/server/orders', data: order });
   }
-
-  // Handle new orders with sound notifications
-  private handleNewOrder = (order: KitchenOrder) => {
-    // Play new order sound (800Hz beep)
-    this.soundService.playNewOrderSound()
-    
-    // Add to kitchen display
-    this.orderManager.addOrder(order)
-    
-    // Show notification
-    this.notificationService.showNewOrderNotification(order)
+  
+  // Counter-specific (all order types + payments)
+  async createCounterOrder(order: CreateOrderRequest): Promise<APIResponse<Order>> {
+    return this.request({ method: 'POST', url: '/counter/orders', data: order });
   }
+  
+  async processCounterPayment(orderId: string, payment: ProcessPaymentRequest): Promise<APIResponse<Payment>> {
+    return this.request({ method: 'POST', url: `/counter/orders/${orderId}/payments`, data: payment });
+  }
+}
+```
 
-  // Update item status with optimistic updates
-  async updateItemStatus(orderId: string, itemId: string, status: ItemStatus): Promise<void> {
-    // Optimistic update for immediate UI feedback
-    this.orderManager.updateItemStatusOptimistic(orderId, itemId, status)
-    
-    if (this.isOnline) {
-      try {
-        await this.apiClient.updateItemStatus(orderId, itemId, status)
-        
-        // Play status change sound
-        if (status === 'ready') {
-          this.soundService.playItemReadySound() // 1200Hz
-        } else if (status === 'served') {
-          this.soundService.playItemServedSound() // 1400Hz
-        }
-        
-      } catch (error) {
-        // Revert optimistic update on error
-        this.orderManager.revertItemStatusUpdate(orderId, itemId)
-        
-        // Queue for offline processing
-        this.queueOfflineOperation({
-          type: 'update-item-status',
-          orderId,
-          itemId,
-          status,
-          timestamp: Date.now()
-        })
-      }
-    } else {
-      // Queue for offline processing
-      this.queueOfflineOperation({
-        type: 'update-item-status',
-        orderId,
-        itemId,
-        status,
-        timestamp: Date.now()
+## Component-Level Access Control
+
+### Conditional Rendering by Role
+```typescript
+// Show admin-only features
+{user.role === 'admin' && (
+  <Button onClick={() => navigate('/admin')}>
+    Admin Dashboard
+  </Button>
+)}
+
+// Show based on multiple roles
+{['admin', 'manager'].includes(user.role) && (
+  <ReportsSection />
+)}
+```
+
+### Form Restrictions
+```typescript
+// ServerInterface.tsx - Only dine-in orders
+const ServerInterface = () => {
+  const createOrderMutation = useMutation({
+    mutationFn: (order: CreateOrderRequest) => {
+      // Force dine_in type for servers
+      return apiClient.createServerOrder({
+        ...order,
+        order_type: 'dine_in'
       })
     }
-  }
-
-  // Offline operation queuing
-  private queueOfflineOperation(operation: OfflineOperation): void {
-    this.offlineQueue.push(operation)
-    AsyncStorage.setItem('offline_queue', JSON.stringify(this.offlineQueue))
-  }
-
-  // Process queued operations when back online
-  private async processOfflineQueue(): Promise<void> {
-    if (this.offlineQueue.length === 0) return
-
-    console.log(`📤 Processing ${this.offlineQueue.length} offline operations`)
-
-    for (const operation of this.offlineQueue) {
-      try {
-        await this.executeOfflineOperation(operation)
-      } catch (error) {
-        console.error('Failed to process offline operation:', error)
-      }
-    }
-
-    // Clear processed queue
-    this.offlineQueue = []
-    await AsyncStorage.removeItem('offline_queue')
-  }
+  })
+  
+  // Hide takeout/delivery options in UI
+  const availableOrderTypes = ['dine_in'] // Only option for servers
 }
 ```
 
-## 👨‍💼 Server Group Mobile App Patterns
+## Database Role Validation
 
-### Adaptive UI for Smartphones & Tablets
-```typescript
-// Server app with adaptive UI based on device size
-import React, { useEffect, useState } from 'react'
-import { useDeviceOrientation } from '@react-native-community/hooks'
+### User Schema
+```sql
+-- users table with role enum
+CREATE TYPE user_role AS ENUM ('admin', 'manager', 'server', 'counter', 'kitchen');
 
-export const ServerApp: React.FC = () => {
-  const [layoutMode, setLayoutMode] = useState<'smartphone' | 'tablet'>()
-  const orientation = useDeviceOrientation()
-
-  useEffect(() => {
-    determineLayoutMode()
-  }, [orientation])
-
-  // ✅ CORRECT: Adaptive layout based on device capabilities
-  const determineLayoutMode = async () => {
-    const { width, height } = Dimensions.get('window')
-    const isTablet = await DeviceInfo.isTablet()
-    
-    // Determine layout mode
-    if (isTablet || width > 768) {
-      setLayoutMode('tablet')
-      await setupTabletLayout()
-    } else {
-      setLayoutMode('smartphone')
-      await setupSmartphoneLayout()
-    }
-  }
-
-  // Tablet layout: Multi-column with side navigation
-  const setupTabletLayout = async () => {
-    const tabletConfig = {
-      layout: 'multi-column',
-      navigation: 'side',
-      touchTargets: 50,
-      splitView: true, // Menu + cart simultaneously
-      gestures: {
-        swipe: true,
-        pinch: false,
-        longPress: true
-      }
-    }
-    
-    await applyLayoutConfig(tabletConfig)
-  }
-
-  // Smartphone layout: Single column with bottom navigation
-  const setupSmartphoneLayout = async () => {
-    const smartphoneConfig = {
-      layout: 'single-column',
-      navigation: 'bottom',
-      touchTargets: 44,
-      reachability: true, // One-handed operation
-      gestures: {
-        swipe: true,
-        pullToRefresh: true,
-        quickActions: ['add-item', 'view-cart', 'checkout']
-      }
-    }
-    
-    await applyLayoutConfig(smartphoneConfig)
-  }
-
-  return (
-    <ServerLayout 
-      mode={layoutMode}
-      orientation={orientation}
-    />
-  )
-}
+ALTER TABLE users ADD COLUMN role user_role NOT NULL DEFAULT 'server';
 ```
 
-### Mobile Payment Integration
-```typescript
-// Mobile payment processing with card reader integration
-import { StripeTerminal } from '@stripe/stripe-terminal-react-native'
-import { NfcManager, NfcTech } from 'react-native-nfc-manager'
-
-class MobilePaymentProcessor {
-  private stripeTerminal: StripeTerminal
-  private cardReaderConnected: boolean = false
-
-  async initialize(): Promise<void> {
-    // Initialize Stripe Terminal for card readers
-    await this.stripeTerminal.initialize({
-      fetchConnectionToken: this.fetchConnectionToken
-    })
-
-    // Initialize NFC for contactless payments
-    await NfcManager.start()
-    
-    // Discover and connect to card readers
-    await this.discoverCardReaders()
-  }
-
-  // ✅ CORRECT: Card reader integration
-  async processCardPayment(amount: number): Promise<PaymentResult> {
-    if (!this.cardReaderConnected) {
-      throw new Error('Card reader not connected')
-    }
-
-    try {
-      // Create payment intent
-      const paymentIntent = await this.createPaymentIntent(amount)
-      
-      // Collect payment method
-      const result = await this.stripeTerminal.collectPaymentMethod(paymentIntent)
-      
-      // Process payment
-      const confirmation = await this.stripeTerminal.processPayment(result.paymentIntent)
-      
-      return {
-        success: true,
-        transactionId: confirmation.paymentIntent.id,
-        amount,
-        method: 'card',
-        timestamp: new Date().toISOString()
-      }
-      
-    } catch (error) {
-      return {
-        success: false,
-        error: error.message,
-        amount,
-        method: 'card'
-      }
-    }
-  }
-
-  // NFC/Contactless payment processing
-  async processContactlessPayment(amount: number): Promise<PaymentResult> {
-    try {
-      // Request NFC technology
-      await NfcManager.requestTechnology(NfcTech.Ndef)
-      
-      // Read NFC tag/card
-      const tag = await NfcManager.getTag()
-      
-      // Process contactless payment
-      const result = await this.processNfcPayment(tag, amount)
-      
-      return result
-      
-    } catch (error) {
-      return {
-        success: false,
-        error: 'Contactless payment failed',
-        amount,
-        method: 'contactless'
-      }
-    } finally {
-      NfcManager.cancelTechnologyRequest()
-    }
-  }
-
-  // Mobile wallet integration (Apple Pay, Google Pay)
-  async processMobileWallet(amount: number): Promise<PaymentResult> {
-    const { ApplePay, GooglePay } = await import('react-native-payments')
-    
-    const paymentRequest = {
-      id: 'pos-payment',
-      displayItems: [{
-        label: 'Order Total',
-        amount: { currency: 'USD', value: amount.toString() }
-      }],
-      total: {
-        label: 'Total',
-        amount: { currency: 'USD', value: amount.toString() }
-      },
-      methodData: [{
-        supportedMethods: ['apple-pay', 'google-pay'],
-        data: {
-          merchantIdentifier: 'merchant.pos.system',
-          supportedNetworks: ['visa', 'mastercard', 'amex']
-        }
-      }]
-    }
-
-    try {
-      const paymentResponse = Platform.OS === 'ios' 
-        ? await ApplePay.show(paymentRequest)
-        : await GooglePay.show(paymentRequest)
-      
-      return {
-        success: true,
-        transactionId: paymentResponse.transactionIdentifier,
-        amount,
-        method: 'mobile_wallet',
-        timestamp: new Date().toISOString()
-      }
-      
-    } catch (error) {
-      return {
-        success: false,
-        error: 'Mobile wallet payment cancelled',
-        amount,
-        method: 'mobile_wallet'
-      }
-    }
-  }
-}
+### Sample Role Data
+```sql
+-- Seed data with all roles
+INSERT INTO users (username, email, password_hash, first_name, last_name, role) VALUES
+('admin', 'admin@pos.com', '$2b$10$...', 'Admin', 'User', 'admin'),
+('server1', 'server1@pos.com', '$2b$10$...', 'Sarah', 'Smith', 'server'),
+('counter1', 'counter1@pos.com', '$2b$10$...', 'Lisa', 'Davis', 'counter'),
+('kitchen1', 'kitchen@pos.com', '$2b$10$...', 'Chef', 'Williams', 'kitchen');
 ```
 
-## 🔄 Cross-Platform Synchronization
+## Authentication Flow
 
-### Shared State Management
+### Login Process
 ```typescript
-// Shared state management between web and mobile
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-
-interface PosState {
-  orders: Order[]
-  currentUser: User | null
-  isOnline: boolean
-  lastSync: number
-  
-  // Actions
-  addOrder: (order: Order) => void
-  updateOrder: (orderId: string, updates: Partial<Order>) => void
-  syncWithServer: () => Promise<void>
-  setOnlineStatus: (status: boolean) => void
-}
-
-// ✅ CORRECT: Zustand store with persistence
-export const usePosStore = create<PosState>()(
-  persist(
-    (set, get) => ({
-      orders: [],
-      currentUser: null,
-      isOnline: true,
-      lastSync: 0,
-
-      addOrder: (order) => 
-        set((state) => ({ 
-          orders: [...state.orders, order] 
-        })),
-
-      updateOrder: (orderId, updates) =>
-        set((state) => ({
-          orders: state.orders.map(order =>
-            order.id === orderId ? { ...order, ...updates } : order
-          )
-        })),
-
-      syncWithServer: async () => {
-        const { orders, lastSync } = get()
-        
-        try {
-          // Sync orders modified since last sync
-          const modifiedOrders = orders.filter(order => 
-            order.updated_at > lastSync
-          )
-          
-          if (modifiedOrders.length > 0) {
-            await apiClient.syncOrders(modifiedOrders)
-          }
-          
-          // Fetch server updates
-          const serverUpdates = await apiClient.getOrderUpdates(lastSync)
-          
-          set({
-            orders: mergeOrderUpdates(orders, serverUpdates),
-            lastSync: Date.now()
-          })
-          
-        } catch (error) {
-          console.error('Sync failed:', error)
-        }
-      },
-
-      setOnlineStatus: (status) => 
-        set({ isOnline: status })
-    }),
-    {
-      name: 'pos-storage',
-      storage: {
-        getItem: (name) => AsyncStorage.getItem(name),
-        setItem: (name, value) => AsyncStorage.setItem(name, value),
-        removeItem: (name) => AsyncStorage.removeItem(name)
-      }
+// login.tsx
+const loginMutation = useMutation({
+  mutationFn: async (credentials: LoginRequest) => {
+    const response = await apiClient.login(credentials)
+    return response
+  },
+  onSuccess: (data) => {
+    if (data.success && data.data) {
+      // Store user info with role
+      apiClient.setAuthToken(data.data.token)
+      localStorage.setItem('pos_user', JSON.stringify(data.data.user))
+      router.navigate({ to: '/' })
     }
-  )
-)
-```
-
-## 🎨 UI Component Patterns
-
-### Touch-Optimized Components
-```typescript
-// Touch-optimized button component for mobile
-import React from 'react'
-import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native'
-import { useHapticFeedback } from 'react-native-haptic-feedback'
-
-interface TouchButtonProps {
-  title: string
-  onPress: () => void
-  variant?: 'primary' | 'secondary' | 'danger'
-  size?: 'small' | 'medium' | 'large'
-  disabled?: boolean
-  hapticFeedback?: boolean
-}
-
-// ✅ CORRECT: Touch-optimized component with haptic feedback
-export const TouchButton: React.FC<TouchButtonProps> = ({
-  title,
-  onPress,
-  variant = 'primary',
-  size = 'medium',
-  disabled = false,
-  hapticFeedback = true
-}) => {
-  const triggerHaptic = useHapticFeedback()
-
-  const handlePress = () => {
-    if (hapticFeedback) {
-      triggerHaptic('impactLight')
-    }
-    onPress()
   }
-
-  const buttonStyle: ViewStyle = {
-    ...styles.base,
-    ...styles[variant],
-    ...styles[size],
-    opacity: disabled ? 0.6 : 1
-  }
-
-  return (
-    <TouchableOpacity
-      style={buttonStyle}
-      onPress={handlePress}
-      disabled={disabled}
-      activeOpacity={0.7}
-      hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} // Larger touch area
-    >
-      <Text style={[styles.text, styles[`${variant}Text`]]}>{title}</Text>
-    </TouchableOpacity>
-  )
-}
-
-const styles = StyleSheet.create({
-  base: {
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: 44, // iOS minimum touch target
-  },
-  
-  // Size variants
-  small: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    minHeight: 44,
-  },
-  medium: {
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    minHeight: 50, // Tablet-optimized
-  },
-  large: {
-    paddingHorizontal: 32,
-    paddingVertical: 16,
-    minHeight: 60, // TV display optimized
-  },
-  
-  // Variant styles
-  primary: {
-    backgroundColor: '#007AFF',
-  },
-  secondary: {
-    backgroundColor: '#F2F2F7',
-    borderWidth: 1,
-    borderColor: '#C7C7CC',
-  },
-  danger: {
-    backgroundColor: '#FF3B30',
-  },
-  
-  // Text styles
-  text: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  primaryText: {
-    color: '#FFFFFF',
-  },
-  secondaryText: {
-    color: '#007AFF',
-  },
-  dangerText: {
-    color: '#FFFFFF',
-  },
 })
 ```
 
-## 🚀 Performance Optimization
-
-### Memory Management for Long-Running Apps
+### Route Protection
 ```typescript
-// Memory optimization for kitchen displays that run 24/7
-class MobilePerformanceManager {
-  private memoryWarningListener: any
-  private backgroundTimer: NodeJS.Timeout | null = null
-
-  initialize(): void {
-    // Monitor memory warnings
-    this.memoryWarningListener = DeviceEventEmitter.addListener(
-      'memoryWarning',
-      this.handleMemoryWarning
-    )
-
-    // Setup background optimization
-    AppState.addEventListener('change', this.handleAppStateChange)
-  }
-
-  // ✅ CORRECT: Memory management for long-running apps
-  private handleMemoryWarning = (): void => {
-    console.log('⚠️ Memory warning received - optimizing...')
-    
-    // Clear non-essential caches
-    ImageCache.clear()
-    
-    // Limit order history in memory
-    OrderManager.limitHistoryItems(25)
-    
-    // Force garbage collection (if available)
-    if (global.gc) {
-      global.gc()
+// index.tsx
+function HomePage() {
+  const [user, setUser] = useState<User | null>(null)
+  
+  useEffect(() => {
+    const storedUser = localStorage.getItem('pos_user')
+    if (storedUser) {
+      setUser(JSON.parse(storedUser))
     }
-    
-    // Reduce image quality temporarily
-    ImageManager.setQuality('low')
+  }, [])
+  
+  // Redirect if not authenticated
+  if (!apiClient.isAuthenticated() || !user) {
+    return <Navigate to="/login" />
   }
-
-  private handleAppStateChange = (nextAppState: string): void => {
-    if (nextAppState === 'background') {
-      // Reduce background activity
-      this.enablePowerSaveMode()
-    } else if (nextAppState === 'active') {
-      // Resume normal operation
-      this.disablePowerSaveMode()
-    }
-  }
-
-  private enablePowerSaveMode(): void {
-    // Reduce polling frequency
-    SyncManager.setPollingInterval(30000) // 30s instead of 5s
-    
-    // Pause animations
-    AnimationManager.pauseNonCriticalAnimations()
-    
-    // Reduce network activity
-    NetworkManager.enableBatchMode()
-  }
-
-  private disablePowerSaveMode(): void {
-    // Resume normal polling
-    SyncManager.setPollingInterval(5000)
-    
-    // Resume animations
-    AnimationManager.resumeAnimations()
-    
-    // Resume normal network activity
-    NetworkManager.disableBatchMode()
-  }
-
-  cleanup(): void {
-    if (this.memoryWarningListener) {
-      this.memoryWarningListener.remove()
-    }
-    
-    if (this.backgroundTimer) {
-      clearInterval(this.backgroundTimer)
-    }
-  }
+  
+  // Role-based routing
+  return <RoleBasedLayout user={user} />
 }
 ```
 
-## 📱 Development & Deployment
+## Security Best Practices
 
-### Build Configuration
-```javascript
-// metro.config.js - Optimized for POS mobile apps
-const { getDefaultConfig } = require('expo/metro-config')
+### Frontend Security
+- Never trust frontend role checks alone
+- Always validate roles on backend
+- Store minimal user data in localStorage
+- Clear auth on logout
 
-const config = getDefaultConfig(__dirname)
+### Backend Security
+- Use middleware for role validation
+- Check roles on every protected endpoint
+- Log access attempts for audit
+- Implement proper session management
 
-// Optimize for POS system requirements
-config.resolver.platforms = ['native', 'ios', 'android', 'web']
-
-// Enable shared code between kitchen and server apps
-config.resolver.alias = {
-  '@shared': './shared',
-  '@kitchen': './kitchen-app/src',
-  '@server': './server-app/src'
-}
-
-// Optimize bundle size for tablet deployment
-config.transformer.minifierConfig = {
-  keep_fnames: true, // Keep function names for debugging
-  mangle: {
-    keep_fnames: true
+### Error Handling
+```typescript
+// Handle role access errors gracefully
+onError: (error: any) => {
+  if (error.status === 403) {
+    alert('Access denied: Insufficient permissions')
+  } else {
+    alert(`Error: ${error.message}`)
   }
 }
-
-module.exports = config
 ```
-
-### Deployment Scripts
-```bash
-#!/bin/bash
-# deploy-mobile-apps.sh - Deploy both kitchen and server apps
-
-echo "🚀 Deploying POS Mobile Applications..."
-
-# Build kitchen app
-echo "📱 Building Kitchen Staff App..."
-cd kitchen-app
-npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle
-npx react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle
-
-# Build server app  
-echo "👨‍💼 Building Server Group App..."
-cd ../server-app
-npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle
-npx react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle
-
-echo "✅ Mobile apps built successfully!"
-echo "📋 Next steps:"
-echo "  1. Test on target devices (tablets for kitchen, phones/tablets for servers)"
-echo "  2. Deploy to app stores or internal distribution"
-echo "  3. Configure device management for restaurant deployment"
-```
-
-This comprehensive React Native pattern guide ensures your mobile POS applications are optimized for restaurant environments, with proper device-specific optimizations, offline capabilities, and seamless integration with the existing web-based POS system.
 
 ---
 > Source: [madebyaris/poinf-of-sales](https://github.com/madebyaris/poinf-of-sales) — distributed by [TomeVault](https://tomevault.io).
