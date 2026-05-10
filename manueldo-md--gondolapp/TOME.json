@@ -4,7 +4,7 @@
   "repo": "gondolapp",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/manueldo-md/gondolapp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T03:35:25Z"
+  "distributed_at": "2026-05-10T22:49:40Z"
 }
