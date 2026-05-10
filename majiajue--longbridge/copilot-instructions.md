@@ -1,63 +1,35 @@
-## project-structure
+## quotes-history
 
-> 本项目为本地量化系统（Longbridge_OpenAPI）示例，后端使用 FastAPI + DuckDB，前端使用 React + Vite。
+> 行情与历史数据接口（同步、缓存、ticks、流状态）
 
 
-# 项目结构指南
+# 行情与历史数据规则
 
-本项目为本地量化系统（Longbridge_OpenAPI）示例，后端使用 FastAPI + DuckDB，前端使用 React + Vite。
+API 约定：
+- `POST /quotes/history/sync`：按 `symbols/period/adjust_type/count` 拉取历史 K 线并落库 `ohlc`
+- `GET /quotes/history`：从缓存（DuckDB 或 repositories）读取最近 N 条 K 线
+- `GET /quotes/ticks`：读取最近 N 条逐笔明细（表 `ticks`）
+- `GET /quotes/stream/status`：返回 `QuoteStreamManager.snapshot()`
 
-- 后端入口与应用：`backend/app/main.py`
-  - 注册 FastAPI、CORS、中间件与路由（`routers/*`）
-  - 启动事件中挂载行情流循环与持仓监控
-  - 关闭事件中停止相关线程
+服务层细节（`services.py`）：
+- `sync_history_candlesticks()`：
+  - period/adjust 使用映射 `_PERIOD_NAME_MAP/_ADJUST_NAME_MAP`
+  - 优先用 `ctx.candlesticks()`，无数据则回退 `history_candlesticks_by_offset()`
+  - 使用 `repositories.store_candlesticks()` 落库
+- `get_cached_candlesticks()`：如无 `repositories.fetch_candlesticks`，回退直查 DuckDB
 
-- 配置与数据库：
-  - 配置：`backend/app/config.py`，通过 `get_settings()` 提供路径等，并在 `ensure_dirs()` 创建目录
-  - DuckDB 连接与迁移：`backend/app/db.py`，内置建表 SQL 与 `_run_migrations()`
+实时推送：
+- `streaming._normalize_quote()` 统一生成前端友好字段（含 `timestamp` unix、`change_value/%`）
+- 推送到监听队列；策略引擎与监控通过 `_process_strategy_quote()` 异步处理
 
-- 领域模型：`backend/app/models.py`
-  - Pydantic 模型覆盖凭据、符号列表、K 线与 tick、持仓与资金、监控配置等
+错误与边界：
+- 参数非法 → 400；SDK 缺失 → 503；上游错误 → 502
+- `limit` 最高 1000；`count` 最高 1000
 
-- 服务层：`backend/app/services.py`
-  - 长桥 SDK 上下文创建、历史 K 线同步、持仓与账户资金读取、组合概览
-  - 读缓存（DuckDB）优先，必要时调用实时接口补全
-
-- 行情流：`backend/app/streaming.py`
-  - `QuoteStreamManager` 负责：
-    - 维护订阅线程、监听队列、状态广播
-    - 与 Longbridge QuoteContext 交互、订阅/更新/反订阅
-    - 向策略引擎与持仓监控派发归一化 quote 数据
-  - WebSocket：由 `main.py` 暴露 `/ws/quotes`，推送 JSON 文本
-
-- 路由：`backend/app/routers/`
-  - `settings.py`：凭据与符号配置、校验；变更后触发流重启/重载
-  - `quotes.py`：历史同步、历史查询、ticks、流状态
-  - `portfolio.py`：持仓列表与组合概览
-  - （扩展）`strategies.py`、`monitoring.py`
-
-- 前端：`frontend/`
-  - API 客户端：`src/api/client.ts`（`VITE_API_BASE`、错误解析、WS 地址推导）
-  - 应用与页面：`src/App.tsx` 与 `src/pages/*`
-  - 产物：`dist/`（Vite 构建）
-
-开发约定：
-- 新增后端接口优先放入 `routers/*`，请求/响应模型放在 `models.py`
-- 写库前通过 `db.get_connection()`，必要时补充 `_ensure_column()`
-- 行情相关实时推送统一通过 `QuoteStreamManager._broadcast()`
-- 前端请求使用 `client.ts`；WebSocket 使用 `resolveWsUrl()`
-
-参考文件：
-- [backend/app/main.py](mdc:backend/app/main.py)
-- [backend/app/db.py](mdc:backend/app/db.py)
-- [backend/app/models.py](mdc:backend/app/models.py)
+参考：
+- [backend/app/routers/quotes.py](mdc:backend/app/routers/quotes.py)
 - [backend/app/services.py](mdc:backend/app/services.py)
 - [backend/app/streaming.py](mdc:backend/app/streaming.py)
-- [backend/app/routers/settings.py](mdc:backend/app/routers/settings.py)
-- [backend/app/routers/quotes.py](mdc:backend/app/routers/quotes.py)
-- [backend/app/routers/portfolio.py](mdc:backend/app/routers/portfolio.py)
-- [frontend/src/api/client.ts](mdc:frontend/src/api/client.ts)
-- [frontend/src/App.tsx](mdc:frontend/src/App.tsx)
 
 ---
 > Source: [majiajue/longbridge](https://github.com/majiajue/longbridge) — distributed by [TomeVault](https://tomevault.io).
