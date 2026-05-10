@@ -1,0 +1,9 @@
+{
+  "name": "digitalhumanitiescraft--co-ocr-htr",
+  "displayName": "co-ocr-htr",
+  "description": "coOCR/HTR is a browser-based experimentation environment for integrating domain experts into OCR and HTR pipelines. It combines vision-language models with hybrid validation (deterministic rules + LLM",
+  "version": "1.0.0",
+  "author": "DigitalHumanitiesCraft",
+  "homepage": "https://github.com/DigitalHumanitiesCraft/co-ocr-htr",
+  "skills": []
+}
