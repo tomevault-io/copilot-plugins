@@ -2,9 +2,9 @@
   "name": "github-symphony",
   "owner": "hojinzs",
   "repo": "github-symphony",
-  "description": "",
+  "description": "Implementation of openai symphony used github project and multi-workspace",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/hojinzs",
+  "source_url": "https://github.com/hojinzs/github-symphony",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T03:40:31Z"
+  "distributed_at": "2026-05-10T16:50:56Z"
 }
