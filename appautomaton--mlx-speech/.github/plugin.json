@@ -1,0 +1,9 @@
+{
+  "name": "appautomaton--mlx-speech",
+  "displayName": "mlx-speech",
+  "description": "Local speech synthesis for Apple Silicon \u2014 TTS, voice cloning, dialogue, and sound effects, all running pure MLX.",
+  "version": "1.0.0",
+  "author": "appautomaton",
+  "homepage": "https://github.com/appautomaton/mlx-speech",
+  "skills": []
+}
