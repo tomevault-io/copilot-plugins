@@ -1,0 +1,9 @@
+{
+  "name": "verygoodplugins--automem",
+  "displayName": "automem",
+  "description": "AutoMem is a graph-vector memory service that gives AI assistants durable, relational memory:",
+  "version": "1.0.0",
+  "author": "verygoodplugins",
+  "homepage": "https://github.com/verygoodplugins/automem",
+  "skills": []
+}
