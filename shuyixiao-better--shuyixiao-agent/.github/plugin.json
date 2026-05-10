@@ -1,0 +1,9 @@
+{
+  "name": "shuyixiao-better--shuyixiao-agent",
+  "displayName": "shuyixiao-agent",
+  "description": "shuyixiao-agent \u662f\u4e00\u4e2a\u57fa\u4e8e\u73b0\u4ee3 AI Agent \u6846\u67b6 LangGraph \u548c\u7801\u4e91 AI \u7684\u667a\u80fd Agent \u9879\u76ee\u3002\u672c\u9879\u76ee\u63d0\u4f9b\u6e05\u6670\u7684\u4ee3\u7801\u7ed3\u6784\u3001\u8be6\u7ec6\u7684\u6587\u6863\u548c\u4e30\u5bcc\u7684\u793a\u4f8b\uff0c\u9002\u5408\u5b66\u4e60\u548c\u53c2\u8003\u3002",
+  "version": "1.0.0",
+  "author": "shuyixiao-better",
+  "homepage": "https://github.com/shuyixiao-better/shuyixiao-agent",
+  "skills": []
+}
