@@ -7,11 +7,11 @@ A Rust-based AI agent orchestrator with Neo4j knowledge graph, Meilisearch seman
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [this-rs/project-orchestrator](https://github.com/this-rs/project-orchestrator).
+Original source: `CLAUDE.md` in [this-rs/project-orchestrator](https://github.com/this-rs/project-orchestrator).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
