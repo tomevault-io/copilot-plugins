@@ -1,16 +1,24 @@
-## biome
+## general
 
-> This project uses [Biome](https://biomejs.dev) for code formatting and linting.
+> - Prefer named exports rather than default exports
 
-# Use Biome for formatting and linting
+# General app structure
 
-This project uses [Biome](https://biomejs.dev) for code formatting and linting.
+- Prefer named exports rather than default exports
+- Prefer Legend State useObservable and useValue rather than useState
+- Variables created with useObservable should be suffixed with $
+- To get the value of an observable within a React component we need to useValue(it), and that should be done below the useObservable or at the top of the component.
 
-## Commands
+# Rules for you
 
-- Format code: `bun run format`
-- Lint code: `bun run lint`
-- Check and fix code: `bun run check`
+- This is a React Native app, specifically a react-native-macOS app.
+- If I ask to make a component, put it in its own file unless I specify otherwise
+- This is a macOS app. Do not do anything Android, iOS, or web specific. It does not need fallbacks for if it's not a macos app.
+- ONLY do what I ask you, nothing else. Do not do anything extra that I did not ask for.
+- If I made changes after you, respect my changes and do not undo them.
+- Use tailwind/nativewind classes rather than stylesheets.
+- The command to run the project is `bun run mac`
+- Use Motion components only if a style is being animated.
 
 ---
 > Source: [LegendApp/legend-music](https://github.com/LegendApp/legend-music) — distributed by [TomeVault](https://tomevault.io).
