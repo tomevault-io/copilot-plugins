@@ -1,0 +1,9 @@
+{
+  "name": "humblemonk--shurectl",
+  "displayName": "shurectl",
+  "description": "A terminal UI configurator for Shure audio interfaces and mics. Replaces the Windows/Mac-only ShurePlus MOTIV Desktop app",
+  "version": "1.0.0",
+  "author": "Humblemonk",
+  "homepage": "https://github.com/Humblemonk/shurectl",
+  "skills": []
+}
