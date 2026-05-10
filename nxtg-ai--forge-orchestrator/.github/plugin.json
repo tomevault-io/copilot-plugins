@@ -1,0 +1,9 @@
+{
+  "name": "nxtg-ai--forge-orchestrator",
+  "displayName": "forge-orchestrator",
+  "description": "Forge Orchestrator: Multi-AI task orchestration. File locking, knowledge capture, drift detection. Rust.",
+  "version": "1.0.0",
+  "author": "nxtg-ai",
+  "homepage": "https://github.com/nxtg-ai/forge-orchestrator",
+  "skills": []
+}
