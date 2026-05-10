@@ -1,34 +1,40 @@
-## processing-performance
+## test-first
 
-> Performance patterns and anti-patterns for dbxmetagen data processing modules
+> Test-first development rules for dbxmetagen
 
 
-# Processing Performance Rules
+# Test-First Development Rules
 
-## Anti-Patterns (do not introduce)
+## When to write tests FIRST
 
-1. **`.collect()` in loops** -- materializes entire DataFrame to driver memory, then iterates in Python. Prefer Spark-native operations or SQL.
-2. **Sequential `DESCRIBE EXTENDED`** -- O(T) driver round-trips. Use `information_schema.columns` in a single SQL query instead.
-3. **Single-row Delta writes** -- `df.write.mode("append")` with one row per call fragments the Delta log. Batch rows into a single write.
-4. **Cross-join similarity** -- `O(N^2)` shuffle. Use Vector Search ANN (Databricks endpoint) instead.
-5. **Serial Python LLM calls** -- `for row in rows: client.invoke()` is O(N) sequential. Use SQL `AI_QUERY` (Spark-parallel) or `ThreadPoolExecutor` / `asyncio`.
+- **Behavioral changes:** When modifying a function's observable output (not just renaming/reformatting), write or update the test BEFORE changing the function. Run it to confirm it captures the current behavior, then make the change and verify the test reflects the new behavior.
+- **New code paths:** When adding a new if-branch, handler, or edge case, add a test that exercises it alongside the change.
+- **Bug fixes:** Write a failing test that reproduces the bug, then fix the code so it passes.
 
-## Preferred Patterns
+## Pure logic gate
 
-- **Batch SQL**: combine multiple `DESCRIBE` / `ALTER TABLE` / `SET TAGS` into single multi-statement operations or `information_schema` queries.
-- **Spark-parallel AI**: use `AI_QUERY` in SQL for classification / judgment calls (already used for FK AI judge and embeddings).
-- **Incremental processing**: filter by control table status, `updated_at`, or `bundle_version` before expensive operations.
-- **`columns_per_call`**: default is 5; for wide tables (1000+ cols), consider tuning upward to reduce LLM call count (`ceil(C/K)` calls per table).
+After any edit to `src/dbxmetagen/`, run:
 
-## Scale Reference
+```bash
+uv run pytest tests/test_pure_logic.py -x -q
+```
 
-At 50K tables, 25 cols/table:
-- Comment mode: ~550K LLM calls
-- Column classification (serial): up to 1.25M calls -- batch to O(N) via SQL AI_QUERY
-- FK AI judgment: ~100K calls (Spark-parallel, bounded by `max_edges_per_node`)
-- Embeddings: 1.3M calls (cheap BGE model, already parallelized)
+This file tests ~20 critical pure-Python functions with real imports (no mocks) and runs in <2 seconds. It is the highest-signal regression check.
 
-See the project's scaling analysis docs for full details.
+## Where to put new tests
+
+- **Pure logic** (no Spark, no network, no mocks): `tests/test_pure_logic.py`
+- **Ontology pipeline**: `tests/test_ontology.py` or `tests/test_build_ontology_indexes.py`
+- **Pydantic validators / LLM response parsing**: `tests/test_truncation.py`
+- **FK prediction**: `tests/test_fk_prediction.py`
+- **Domain classification**: `tests/test_domain_classifier.py`
+- **DDL regenerator** (separate process): `tests/test_ddl_regenerator.py`
+
+## What NOT to do
+
+- Do not write tests that only exercise mocks. If the test would pass even if the real function were deleted, it is not testing anything.
+- Do not add `@pytest.mark.skip` for known bugs -- use `@pytest.mark.xfail(reason="...")` and remove it when fixed.
+- Do not run `pytest tests/` directly -- use `./run_tests.sh` or `uv run pytest tests/test_<specific>.py`.
 
 ---
 > Source: [databricks-industry-solutions/dbxmetagen](https://github.com/databricks-industry-solutions/dbxmetagen) — distributed by [TomeVault](https://tomevault.io).
