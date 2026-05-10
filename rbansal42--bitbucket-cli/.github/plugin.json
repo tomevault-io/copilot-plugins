@@ -1,0 +1,9 @@
+{
+  "name": "rbansal42--bitbucket-cli",
+  "displayName": "bitbucket-cli",
+  "description": "Unofficial CLI for Bitbucket Cloud - like gh but for Bitbucket",
+  "version": "1.0.0",
+  "author": "rbansal42",
+  "homepage": "https://github.com/rbansal42/bitbucket-cli",
+  "skills": []
+}
