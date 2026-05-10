@@ -1,13 +1,25 @@
-## documentation
+## testing
 
-> Documentation standards and practices
+> Testing standards and practices
 
 
-# Documentation Standards
+# Testing Standards
 
-- Use pydoc (docstrings) for documentation, not README.md files
-- Module-level docstrings may include code examples if they add clarity
-- No standalone example files - examples belong in docstrings only
+- Tests should be in a package structure matching the code (e.g., tests/validator/ for src/mxcp/validator/). Test data should go under tests/fixtures/validator/
+- Use descriptive test names that match the functionality being tested
+- NO example usage files - all code should be either tests or production code
+- Use `uv run pytest` to run tests (not just `pytest`)
+- Don't always create new test suites; check first if the new tests should be added to existing test suites
+
+## Test File Naming Conventions
+
+Test files should follow clear, self-documenting naming patterns:
+- For module tests: `test_<module_name>.py` (e.g., `test_validation.py`)
+- For CLI command tests: `test_cli_<command>.py` (e.g., `test_cli_audit_cleanup.py`, `test_cli_init.py`)
+- For feature/functionality tests: `test_<feature>_<specific_part>.py` (e.g., `test_audit_exporters.py`, `test_drift_check.py`)
+- For integration tests: `test_<component>_integration.py` (e.g., `test_vault_integration.py`)
+
+Avoid vague names like `test_exporters.py` - instead use specific names like `test_audit_exporters.py` that clearly indicate what functionality is being tested.
 
 ---
 > Source: [raw-labs/mxcp](https://github.com/raw-labs/mxcp) — distributed by [TomeVault](https://tomevault.io).
