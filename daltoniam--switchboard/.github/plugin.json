@@ -1,0 +1,9 @@
+{
+  "name": "daltoniam--switchboard",
+  "displayName": "switchboard",
+  "description": "One MCP server to rule them all. Aggregates GitHub, Datadog, Linear, Sentry, Slack, and Metabase behind a single search/execute interface.",
+  "version": "1.0.0",
+  "author": "daltoniam",
+  "homepage": "https://github.com/daltoniam/switchboard",
+  "skills": []
+}
