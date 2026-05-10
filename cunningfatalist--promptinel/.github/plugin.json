@@ -1,0 +1,9 @@
+{
+  "name": "cunningfatalist--promptinel",
+  "displayName": "promptinel",
+  "description": "\ud83d\udee1\ufe0f Promptinel is a deterministic security scanner for machine-interpreted natural language that treats prompts as executable artifacts.",
+  "version": "1.0.0",
+  "author": "CunningFatalist",
+  "homepage": "https://github.com/CunningFatalist/promptinel",
+  "skills": []
+}
