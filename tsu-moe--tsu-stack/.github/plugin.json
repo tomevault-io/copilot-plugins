@@ -1,0 +1,9 @@
+{
+  "name": "tsu-moe--tsu-stack",
+  "displayName": "tsu-stack",
+  "description": "Vite Plus (Vite+) TanStack Start monorepo with Paraglide.js (i18n), Hono, oRPC, drizzle-orm, better-auth, Feature-Sliced Design (FSD), and more. Dockerized and opinionated.",
+  "version": "1.0.0",
+  "author": "tsu-moe",
+  "homepage": "https://github.com/tsu-moe/tsu-stack",
+  "skills": []
+}
