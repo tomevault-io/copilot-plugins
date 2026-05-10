@@ -1,0 +1,9 @@
+{
+  "name": "artifact-keeper--artifact-keeper-web",
+  "displayName": "artifact-keeper-web",
+  "description": "Artifact Keeper web frontend \u2014 Next.js 15, Tailwind CSS, shadcn/ui",
+  "version": "1.0.0",
+  "author": "artifact-keeper",
+  "homepage": "https://github.com/artifact-keeper/artifact-keeper-web",
+  "skills": []
+}
