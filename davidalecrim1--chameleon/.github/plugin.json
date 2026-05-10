@@ -1,0 +1,9 @@
+{
+  "name": "davidalecrim1--chameleon",
+  "displayName": "chameleon",
+  "description": "Claude Code skill that tailors a master resume YAML to a specific job posting and renders it to PDF.",
+  "version": "1.0.0",
+  "author": "davidalecrim1",
+  "homepage": "https://github.com/davidalecrim1/chameleon",
+  "skills": []
+}
