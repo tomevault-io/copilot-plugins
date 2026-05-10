@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--franken-node",
+  "displayName": "franken_node",
+  "description": "Trust-native JavaScript/TypeScript runtime platform built on franken_engine with deterministic compatibility, migration autopilot, extension trust controls, and incident replay.",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/franken_node",
+  "skills": []
+}
