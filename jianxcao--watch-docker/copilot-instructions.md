@@ -1,494 +1,387 @@
-## frontend-css-standards
+## frontend-vue-standards
 
-> 前端 CSS 样式规范和最佳实践
+> Vue3/TypeScript 前端编码规范和最佳实践
 
 
-# CSS 样式规范
+# Vue3/TypeScript 前端编码规范
 
-## 基本规范
+## 代码风格
 
-### 格式化
+### 基本规范
 
-```css
-/* ✅ 使用 2 空格缩进 */
-.container {
-  padding: 16px;
-  margin: 0 auto;
+- 使用 2 空格缩进
+- 使用单引号（字符串）
+- 每行代码不超过 100 字符
+- 使用分号结尾
+- 使用 Prettier 格式化代码
+
+### 文件命名
+
+```bash
+# ✅ Vue 组件：使用大驼峰（PascalCase）
+ContainerCard.vue
+ComposeCreateView.vue
+NetworkDetailView.vue
+
+# ✅ TypeScript 文件：使用小驼峰（camelCase）
+useContainer.ts
+containerStats.ts
+axiosConfig.ts
+
+# ✅ 类型定义文件
+types.ts
+vite-env.d.ts
+auto-imports.d.ts
+
+# ❌ 避免：使用连字符或下划线
+container-card.vue
+compose_create_view.vue
+```
+
+## TypeScript 规范
+
+### 类型定义
+
+```typescript
+// ✅ 使用 interface 定义对象类型
+interface ContainerStatus {
+  id: string
+  name: string
+  running: boolean
+  status: 'UpdateAvailable' | 'UpToDate' | 'Error'
 }
 
-/* ✅ 每个属性独占一行 */
-.card {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+// ✅ 使用 type 定义联合类型和函数类型
+type DeviceType = 'desktop' | 'tablet' | 'mobile'
+type ErrorHandler = (error: Error) => void
+
+// ✅ 明确指定函数返回类型
+const fetchContainers = async (useCache = true): Promise<void> => {
+  // ...
 }
 
-/* ❌ 避免：所有属性在一行 */
-.card { display: flex; flex-direction: column; gap: 12px; }
-
-/* ✅ 属性值后加分号 */
-.box {
-  width: 100%;
-  height: auto;
-}
-
-/* ✅ 颜色值使用小写 */
-.primary {
-  color: #1890ff;
-  background: rgba(24, 144, 255, 0.1);
+// ✅ 使用泛型
+const formatResponse = <T>(data: T): ApiResponse<T> => {
+  return { code: 0, data, msg: 'success' }
 }
 ```
 
-### 命名规范
+### 类型导入
 
-```css
-/* ✅ 使用 kebab-case（连字符） */
-.container-card { }
-.user-profile-header { }
-.btn-primary { }
+```typescript
+// ✅ 使用 type 关键字导入类型
+import type { ContainerStatus, BatchUpdateResult } from '@/common/types'
+import type { IconProps, MessageApi } from 'naive-ui'
 
-/* ❌ 避免使用 camelCase 或 snake_case */
-.containerCard { }
-.user_profile_header { }
-
-/* ✅ 使用有意义的类名 */
-.container-list { }
-.status-badge { }
-.loading-spinner { }
-
-/* ❌ 避免缩写和无意义的名称 */
-.cl { }
-.sb { }
-.item1 { }
+// ✅ 混合导入
+import { ref, computed, type Ref } from 'vue'
 ```
 
-### BEM 命名法（可选）
+### 避免使用 any
 
-```css
-/* Block（块） */
-.card { }
+```typescript
+// ❌ 避免使用 any
+const handleError = (error: any) => {
+  console.error(error)
+}
 
-/* Element（元素）：使用双下划线 */
-.card__header { }
-.card__body { }
-.card__footer { }
+// ✅ 使用 unknown 或具体类型
+const handleError = (error: unknown) => {
+  if (error instanceof Error) {
+    console.error(error.message)
+  }
+}
 
-/* Modifier（修饰符）：使用双连字符 */
-.card--primary { }
-.card--disabled { }
-.card__title--large { }
+// ✅ 或定义具体类型
+interface ApiError {
+  code: number
+  message: string
+}
 
-/* 示例 */
-.container-card { }
-.container-card__header { }
-.container-card__title { }
-.container-card--running { }
-.container-card--stopped { }
+const handleError = (error: ApiError) => {
+  console.error(error.message)
+}
 ```
 
-## Vue Scoped 样式
+## Vue 3 Composition API
+
+### Setup 语法
+
+```vue
+<script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
+import type { ContainerStatus } from '@/common/types'
+
+// ✅ 使用 ref 和 reactive
+const loading = ref(false)
+const containers = ref<ContainerStatus[]>([])
+
+// ✅ 使用 computed
+const runningCount = computed(() => 
+  containers.value.filter(c => c.running).length
+)
+
+// ✅ 生命周期钩子
+onMounted(async () => {
+  await fetchData()
+})
+
+// ✅ 定义函数
+const fetchData = async (): Promise<void> => {
+  loading.value = true
+  try {
+    // 获取数据
+  } catch (error) {
+    console.error('获取数据失败:', error)
+  } finally {
+    loading.value = false
+  }
+}
+</script>
+```
+
+### 组件通信
+
+```vue
+<script setup lang="ts">
+// ✅ Props 定义（使用 TypeScript）
+interface Props {
+  containerId: string
+  showActions?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  showActions: true
+})
+
+// ✅ Emits 定义
+interface Emits {
+  (e: 'update', id: string): void
+  (e: 'delete', id: string): void
+}
+
+const emit = defineEmits<Emits>()
+
+const handleUpdate = () => {
+  emit('update', props.containerId)
+}
+</script>
+```
+
+## Pinia Store 规范
+
+```typescript
+// ✅ 使用 Composition API 风格的 Store
+import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
+
+export const useContainerStore = defineStore('container', () => {
+  // ✅ 状态定义（使用 ref）
+  const containers = ref<ContainerStatus[]>([])
+  const loading = ref(false)
+  
+  // ✅ 计算属性
+  const runningContainers = computed(() => 
+    containers.value.filter(c => c.running)
+  )
+  
+  // ✅ Actions（异步函数）
+  const fetchContainers = async (): Promise<void> => {
+    loading.value = true
+    try {
+      const data = await containerApi.getContainers()
+      if (data.code === 0) {
+        containers.value = data.data.containers
+      } else {
+        throw new Error(data.msg)
+      }
+    } catch (error) {
+      console.error('获取容器列表失败:', error)
+      throw error
+    } finally {
+      loading.value = false
+    }
+  }
+  
+  // ✅ 返回所有需要暴露的状态和方法
+  return {
+    // 状态
+    containers,
+    loading,
+    
+    // 计算属性
+    runningContainers,
+    
+    // 方法
+    fetchContainers,
+  }
+})
+```
+
+## 错误处理
+
+```typescript
+// ✅ 统一的错误处理模式
+const handleAction = async (): Promise<boolean> => {
+  try {
+    const data = await api.performAction()
+    if (data.code === 0) {
+      message.success('操作成功')
+      return true
+    } else {
+      throw new Error(data.msg)
+    }
+  } catch (error) {
+    console.error('操作失败:', error)
+    const errorMsg = error instanceof Error ? error.message : '未知错误'
+    message.error(errorMsg)
+    throw error
+  }
+}
+
+// ✅ 使用自定义工具函数处理换行错误
+import { showErrorWithNewlines } from '@/common/utils'
+
+try {
+  await someAction()
+} catch (error: any) {
+  showErrorWithNewlines(message, error.message)
+}
+```
+
+## Vue 模板规范
+
+```vue
+<template>
+  <!-- ✅ 使用 v-if 和 v-else-if -->
+  <div v-if="loading">加载中...</div>
+  <div v-else-if="error">{{ error }}</div>
+  <div v-else>
+    <!-- ✅ 使用 v-for 时必须提供 key -->
+    <div
+      v-for="container in containers"
+      :key="container.id"
+      class="container-item"
+    >
+      {{ container.name }}
+    </div>
+  </div>
+  
+  <!-- ✅ 事件处理使用箭头函数或方法引用 -->
+  <n-button @click="handleClick">点击</n-button>
+  <n-button @click="() => handleUpdate(id)">更新</n-button>
+  
+  <!-- ✅ 属性换行对齐 -->
+  <n-input
+    v-model:value="formData.name"
+    placeholder="请输入名称"
+    :disabled="loading"
+    @update:value="handleChange"
+  />
+</template>
+```
+
+## 样式规范
 
 ```vue
 <style scoped>
-/* ✅ 使用 scoped 避免全局污染 */
-.container {
-  padding: 20px;
-}
-
-/* ✅ 使用深度选择器修改子组件样式 */
-:deep(.n-button) {
+/* ✅ 使用 scoped 避免样式污染 */
+.container-card {
+  padding: 16px;
   border-radius: 8px;
+  background: var(--n-color);
 }
 
-/* ✅ 使用 :slotted 为插槽内容添加样式 */
-:slotted(.custom-content) {
-  margin: 10px;
+/* ✅ 使用 CSS 变量（Naive UI 主题变量） */
+.title {
+  color: var(--n-text-color);
+  font-size: var(--n-font-size);
 }
 
-/* ✅ 使用 :global 定义全局样式（谨慎使用） */
-:global(.global-utility) {
-  display: flex;
+/* ✅ 使用嵌套（如果使用 SCSS） */
+.container-item {
+  padding: 12px;
+  
+  &:hover {
+    background: var(--n-color-hover);
+  }
+  
+  .title {
+    font-weight: 600;
+  }
+}
+
+/* ❌ 避免使用 !important */
+.override {
+  color: red !important; /* 不推荐 */
 }
 </style>
 ```
 
-## CSS 变量（主题系统）
+## 导入顺序
 
-```css
-/* ✅ 使用 Naive UI 的主题变量 */
-.card {
-  background: var(--n-color);
-  color: var(--n-text-color);
-  border: 1px solid var(--n-border-color);
-}
+```typescript
+// 1. Vue 相关
+import { ref, computed, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
-.title {
-  color: var(--n-text-color);
-  font-size: var(--n-font-size);
-  font-weight: var(--n-font-weight-strong);
-}
+// 2. 第三方库
+import { useMessage } from 'naive-ui'
+import { defineStore } from 'pinia'
+import dayjs from 'dayjs'
 
-.button {
-  background: var(--n-color-primary);
-  color: var(--n-text-color-primary);
-}
+// 3. 项目内部模块（按字母顺序）
+import { containerApi } from '@/common/api'
+import type { ContainerStatus } from '@/common/types'
+import { formatBytes, formatTime } from '@/common/utils'
+import { useContainerStore } from '@/store/container'
 
-/* ✅ 定义自定义 CSS 变量 */
-:root {
-  --app-header-height: 64px;
-  --app-sidebar-width: 240px;
-  --app-spacing: 16px;
-}
-
-.layout {
-  padding: var(--app-spacing);
-}
+// 4. 组件
+import ContainerCard from '@/components/ContainerCard.vue'
 ```
 
-## Flexbox 布局
+## 注释规范
 
-```css
-/* ✅ 使用 Flexbox 进行布局 */
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+```typescript
+/**
+ * 格式化字节数
+ * @param bytes 字节数
+ * @returns 格式化后的字符串（如 "1.5 MB"）
+ */
+export const formatBytes = (bytes: number): string => {
+  if (bytes === 0) return '0 B'
+  const k = 1024
+  const sizes = ['B', 'KB', 'MB', 'GB', 'TB']
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+  return `${(bytes / Math.pow(k, i)).toFixed(2)} ${sizes[i]}`
 }
 
-.row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
+// ✅ 单行注释：解释为什么这样做
+// 使用 Map 提高查找性能
+const containersMap = new Map(containers.map(c => [c.id, c]))
 
-/* ✅ 使用 flex 简写 */
-.sidebar {
-  flex: 0 0 240px; /* flex-grow flex-shrink flex-basis */
-}
-
-.content {
-  flex: 1; /* 占据剩余空间 */
-}
-
-/* ✅ 使用 gap 替代 margin */
-.list {
-  display: flex;
-  gap: 8px; /* ✅ 推荐 */
-}
-
-/* ❌ 避免使用 margin 处理间距 */
-.list-item {
-  margin-right: 8px;
-}
-.list-item:last-child {
-  margin-right: 0;
-}
-```
-
-## Grid 布局
-
-```css
-/* ✅ 使用 Grid 进行复杂布局 */
-.dashboard {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.layout {
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "sidebar content"
-    "footer footer";
-  grid-template-columns: 240px 1fr;
-  grid-template-rows: auto 1fr auto;
-  gap: 0;
-}
-
-.header { grid-area: header; }
-.sidebar { grid-area: sidebar; }
-.content { grid-area: content; }
-.footer { grid-area: footer; }
-```
-
-## 响应式设计
-
-```css
-/* ✅ 移动优先（Mobile First） */
-.container {
-  padding: 12px;
-  font-size: 14px;
-}
-
-/* 平板 */
-@media (min-width: 768px) {
-  .container {
-    padding: 16px;
-    font-size: 16px;
-  }
-}
-
-/* 桌面 */
-@media (min-width: 1024px) {
-  .container {
-    padding: 24px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-}
-
-/* ✅ 使用统一的断点 */
-/* 手机：< 768px */
-/* 平板：768px - 1024px */
-/* 桌面：> 1024px */
-
-/* ✅ 使用容器查询（如果支持） */
-@container (min-width: 400px) {
-  .card {
-    flex-direction: row;
-  }
-}
-```
-
-## 常用样式模式
-
-### 卡片样式
-
-```css
-.card {
-  padding: 16px;
-  border-radius: 8px;
-  background: var(--n-color);
-  border: 1px solid var(--n-border-color);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-}
-
-.card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  transform: translateY(-2px);
-}
-```
-
-### 文本省略
-
-```css
-/* ✅ 单行省略 */
-.text-ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* ✅ 多行省略 */
-.text-ellipsis-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-```
-
-### 居中对齐
-
-```css
-/* ✅ Flexbox 居中 */
-.center-flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ✅ Grid 居中 */
-.center-grid {
-  display: grid;
-  place-items: center;
-}
-
-/* ✅ 绝对定位居中 */
-.center-absolute {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-```
-
-### 过渡和动画
-
-```css
-/* ✅ 使用 transition 实现平滑过渡 */
-.button {
-  background: var(--n-color-primary);
-  transition: all 0.3s ease;
-}
-
-.button:hover {
-  background: var(--n-color-primary-hover);
-  transform: scale(1.05);
-}
-
-/* ✅ 使用 @keyframes 定义动画 */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.fade-in {
-  animation: fadeIn 0.3s ease-out;
-}
-
-/* ✅ 性能优化：只动画 transform 和 opacity */
-.smooth-transition {
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
+// ✅ TODO 注释
+// TODO: 添加批量删除功能
+// FIXME: 修复内存泄漏问题
 ```
 
 ## 性能优化
 
-```css
-/* ✅ 使用 will-change 提示浏览器优化 */
-.animated-element {
-  will-change: transform, opacity;
-}
+```typescript
+// ✅ 使用 computed 缓存计算结果
+const expensiveValue = computed(() => {
+  return containers.value.reduce((sum, c) => sum + c.memoryUsage, 0)
+})
 
-/* ✅ 动画完成后移除 will-change */
-.animated-element.animation-done {
-  will-change: auto;
-}
+// ✅ 使用 ref 而不是 reactive（性能更好）
+const state = ref({ count: 0 })  // ✅
+const state = reactive({ count: 0 })  // 可以，但 ref 更优
 
-/* ✅ 避免使用昂贵的属性 */
-/* 好：使用 transform */
-.move {
-  transform: translateX(100px);
-}
-
-/* 不好：使用 left/top */
-.move {
-  position: relative;
-  left: 100px;
-}
-
-/* ✅ 使用 contain 优化渲染 */
-.card {
-  contain: layout style paint;
-}
-```
-
-## 避免的做法
-
-```css
-/* ❌ 避免使用 !important */
-.override {
-  color: red !important;
-}
-
-/* ✅ 使用更高的特异性 */
-.parent .child {
-  color: red;
-}
-
-/* ❌ 避免使用内联样式 */
-<div style="color: red; font-size: 14px;">...</div>
-
-/* ✅ 使用 class */
-<div class="text-primary">...</div>
-
-/* ❌ 避免使用 ID 选择器 */
-#header {
-  height: 64px;
-}
-
-/* ✅ 使用 class */
-.header {
-  height: 64px;
-}
-
-/* ❌ 避免过度嵌套 */
-.parent .child .grandchild .great-grandchild {
-  color: red;
-}
-
-/* ✅ 保持简单 */
-.great-grandchild {
-  color: red;
-}
-```
-
-## UnoCSS / Tailwind 实用类（如使用）
-
-```vue
-<template>
-  <!-- ✅ 使用实用类快速构建 UI -->
-  <div class="flex items-center justify-between p-4 rounded-lg bg-white shadow">
-    <span class="text-lg font-semibold">标题</span>
-    <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-      点击
-    </button>
-  </div>
-  
-  <!-- ✅ 复杂样式使用自定义 class -->
-  <div class="custom-card">
-    <!-- 内容 -->
-  </div>
-</template>
-
-<style scoped>
-.custom-card {
-  /* 复杂的自定义样式 */
-}
-</style>
-```
-
-## 样式组织
-
-```css
-/* ✅ 按功能分组样式 */
-
-/* 布局 */
-.container {
-  display: flex;
-  flex-direction: column;
-}
-
-/* 尺寸 */
-.box {
-  width: 100%;
-  height: auto;
-  padding: 16px;
-  margin: 0 auto;
-}
-
-/* 外观 */
-.card {
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* 文本 */
-.title {
-  color: #333;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-/* 交互 */
-.button:hover {
-  background: #0056b3;
-  cursor: pointer;
-}
+// ✅ 及时清理监听器和定时器
+onUnmounted(() => {
+  clearInterval(timer)
+  unsubscribe()
+})
 ```
 
 ---
