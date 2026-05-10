@@ -1,0 +1,9 @@
+{
+  "name": "tyrchen--grpc-client",
+  "displayName": "grpc-client",
+  "description": "GRPC client CLI, like grpcurl, but in Rust; GRPC Client UI, like postman, but in Rust",
+  "version": "1.0.0",
+  "author": "tyrchen",
+  "homepage": "https://github.com/tyrchen/grpc-client",
+  "skills": []
+}
