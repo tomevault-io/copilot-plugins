@@ -1,0 +1,44 @@
+{
+  "name": "CrossRoad",
+  "owner": "hexianWeb",
+  "repo": "CrossRoad",
+  "description": "Threejs version \ud83d\udc14 Chicken Crossing the Road \ud83d\udea6 \uff083D \u98ce\u683c\u5c0f\u9e21\u8fc7\u9a6c\u8def\uff09",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hexianWeb/CrossRoad",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T22:45:08Z"
+}
