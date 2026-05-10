@@ -1,15 +1,20 @@
-## docs-examples-guidelines
+## integration-tests-guidelines
 
-> Documentation and examples update rules
+> Integration test conventions for Vitest suite
 
 
-# Docs and Examples Guidelines
+# Integration Test Guidelines
 
-- Keep command snippets copy-paste ready and consistent with `package.json` scripts.
-- When changing tool behavior, update matching files in `docs/usages/examples/` in the same change.
-- Do not include real tokens, private URLs, or sensitive project identifiers in docs.
-- Prefer short, task-oriented examples with expected input context.
-- Keep README sections aligned with actual capabilities and current tool coverage.
+- Keep tests deterministic and independent; avoid hidden cross-test state.
+- Reuse `tests/integration/setup.ts` helpers and fixtures for authentication/project setup.
+- Prefer assertions that verify behavior and contract shape, not implementation details.
+- Name test cases by API behavior (list, get, create, update, delete, search) for scanability.
+- When adding tests, cover happy path and at least one failure/validation scenario.
+
+## Running Tests
+
+- Run targeted tests first: `npm run test -- tests/integration/<file>.test.ts`.
+- Run full suite before finalizing: `npm run test`.
 
 ---
 > Source: [armanayvazyan/allure-testops-mcp](https://github.com/armanayvazyan/allure-testops-mcp) — distributed by [TomeVault](https://tomevault.io).
