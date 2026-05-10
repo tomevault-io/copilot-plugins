@@ -1,354 +1,181 @@
-## vscode-mcp-development-guide
+## vscode-mcp-project-architecture
 
-> VSCode MCP 工具开发指南，包含开发流程、架构、步骤、质量标准和最佳实践
+> VSCode MCP Bridge 项目架构说明，包含项目背景、核心使命、架构设计和通信协议
 
 
-# VSCode MCP 工具开发指南
+# VSCode MCP Bridge 项目架构
 
-本指南总结了在 VSCode MCP Bridge 项目中开发和维护工具的完整流程，包括从基础实现到质量优化的全套最佳实践。
+## 项目背景
 
-## 开发流程
+**VSCode MCP Bridge** 是一个 monorepo 项目，提供了连接 VSCode 与 MCP (Model Context Protocol) 的完整解决方案，使 MCP 客户端能够访问丰富的 VSCode 上下文信息。
 
-### 核心原则
+## 核心使命
 
-**开发顺序**：
+**VSCode MCP Bridge 主要服务于 AI IDEs（如 Cursor）和 AI 编码助手**，帮助他们更高效地开发和分析代码。
 
-```plaintext
-接口定义 (IPC) → 实现层 (Extension) → 工具层 (MCP Server) → 质量优化
-```
+### 设计动机
 
-**为什么要按这个顺序？**
+传统的 AI 编码助手在验证代码修改时经常需要执行耗时的命令：
 
-- IPC 层定义了类型契约，必须最先完成
-- Extension 层依赖 IPC 的类型定义
-- MCP Server 层调用 Extension 的服务
-- 质量优化确保符合 MCP 官方标准
+- `tsc --noEmit` - TypeScript 类型检查
+- `eslint .` - 代码风格检查
+- `npm run build` - 项目构建
 
-**重要提醒**: 每个开发阶段完成后，都必须进行 **编译和构建验证**，确保代码质量和依赖关系正确。
+这些命令在大项目中运行缓慢，严重影响 AI 开发效率。VSCode MCP Bridge 提供实时 LSP (Language Server Protocol) 信息，让 AI 助手能够：
 
-## 工具架构
+- **快速获取诊断** (`get-diagnostics`) - 替代耗时的类型检查和 lint 命令
+- **访问实时类型信息** (`get-hover`) - 获取准确的类型定义，无需编译
+- **高效代码导航** (`get-definition`, `get-references`) - 理解代码结构和依赖关系
+- **智能文件操作** (`open-files`, `open-diff`) - 高效的代码审查和比较
 
-### 三层架构
+### 核心优势
+
+1. **实时性**: 利用 VSCode 的 LSP 获取实时代码状态，无需执行缓慢命令
+2. **准确性**: 基于语言服务器的精确分析，比静态分析更可靠
+3. **效率**: 显著减少 AI 编码助手的等待时间
+4. **集成性**: 与 VSCode 生态系统深度集成，支持多种语言和扩展
+
+## Monorepo 架构
 
 ```plaintext
 MCP Client ↔ MCP Server ↔ IPC Layer ↔ VSCode Extension ↔ VSCode API
+   stdio      Unix Socket    Types     Extension API
 ```
 
-**职责分工**：
+### 组件职责
 
-- **IPC Layer**: 定义类型契约和通信协议
-- **Extension Layer**: 实现具体的 VSCode 操作逻辑
-- **MCP Server Layer**: 提供标准化的 MCP 工具接口
+**1. vscode-mcp-ipc** (IPC 通信层):
 
-## 开发步骤
+- **事件定义**: 使用 Zod 定义所有事件类型和 Schema 验证
+- **类型安全**: 导出类型安全的 EventMap, EventParams, EventResult 类型
+- **通信**: 提供 EventDispatcher 用于 Unix Socket 通信，支持超时处理
+- **Socket 管理**: 基于工作区 hash 生成跨平台 socket 路径
+- **Schema 验证**: 所有事件的集中化输入/输出验证 Schema
+- **跨平台支持**: 处理 Windows 命名管道和 Unix socket
 
-### 1. IPC 层：定义接口
+**2. vscode-mcp-bridge** (VSCode 扩展):
 
-#### 1.1 创建事件定义文件
+- **Socket 服务器**: SocketServer 类，支持服务注册和 Schema 验证
+- **服务注册**: 模块化服务架构，支持类型安全的处理器
+- **请求路由**: 将传入请求路由到相应的服务处理器
+- **Schema 验证**: 验证请求负载和响应结果
+- **错误处理**: 全面的错误处理和详细错误信息
+- **生命周期管理**: 扩展激活/停用和资源清理
+- **日志记录**: 结构化日志记录，用于调试和监控服务调用
 
-在 [packages/vscode-mcp-ipc/src/events/](mdc:packages/vscode-mcp-ipc/src/events/) 目录中创建事件定义文件：
+**3. vscode-mcp-server** (MCP 服务器):
+
+- **MCP 协议**: 实现标准 MCP 协议，使用 stdio 传输
+- **工具注册**: 注册所有可用工具并定义适当的 Schema
+- **请求转换**: 将 MCP 工具调用转换为 VSCode 扩展请求
+- **Schema 复用**: 使用 `...InputSchema.shape` 模式复用 IPC Schema
+- **错误处理**: 优雅的错误处理和用户友好的错误信息
+- **输出格式化**: 使用状态图标和结构化输出格式化响应
+
+### 通信协议
+
+- **MCP Client ↔ MCP Server**: stdio + JSON-RPC 2.0
+- **MCP Server ↔ IPC Layer**: TypeScript 导入和函数调用
+- **IPC Layer ↔ VSCode Extension**: Unix Domain Sockets + JSON (无认证)
+
+## 多窗口支持
+
+### Socket 路径生成
+
+Socket 路径在 IPC 层和 Extension 之间一致生成：
 
 ```typescript
-// packages/vscode-mcp-ipc/src/events/your-tool.ts
-import { z } from 'zod';
-
-export const YourToolInputSchema = z
-  .object({
-    param1: z.string().describe('参数描述'),
-    param2: z.boolean().optional().default(true).describe('可选参数'),
-  })
-  .strict();
-
-export const YourToolOutputSchema = z
-  .object({
-    result: z.string().describe('结果描述'),
-  })
-  .strict();
-
-export type YourToolPayload = z.infer<typeof YourToolInputSchema>;
-export type YourToolResult = z.infer<typeof YourToolOutputSchema>;
-```
-
-#### 1.2 注册到事件映射
-
-更新 [packages/vscode-mcp-ipc/src/events/index.ts](mdc:packages/vscode-mcp-ipc/src/events/index.ts)：
-
-```typescript
-import type { YourToolPayload, YourToolResult } from './your-tool.js';
-
-export * from './your-tool.js';
-
-export interface EventMap {
-  yourTool: {
-    params: YourToolPayload;
-    result: YourToolResult;
-  };
+// IPC 层：packages/vscode-mcp-ipc/src/dispatch.ts
+export function getSocketPath(workspacePath: string): string {
+  const hash = createHash('md5').update(workspacePath).digest('hex').slice(0, 8);
+  return process.platform === 'win32'
+    ? `\\\\.\\pipe\\vscode-mcp-${hash}`
+    : join(tmpdir(), `vscode-mcp-${hash}.sock`);
 }
 ```
 
-#### 1.3 构建 IPC 包
+**示例**:
 
-```bash
-cd packages/vscode-mcp-ipc && npm run build
-```
+- `/Users/user/frontend` → `/tmp/vscode-mcp-a1b2c3d4.sock`
+- `/Users/user/backend` → `/tmp/vscode-mcp-e5f6g7h8.sock`
 
-### 2. Extension 层：实现服务
+### 工作区定位
 
-#### 2.1 创建服务实现
+所有 MCP 工具都需要 `workspace_path` 参数来定位特定的 VSCode 实例。
 
-在 [packages/vscode-mcp-bridge/src/services/](mdc:packages/vscode-mcp-bridge/src/services/) 目录中实现服务：
+## 开发工作流程
 
-```typescript
-// packages/vscode-mcp-bridge/src/services/your-tool.ts
-import type { EventParams, EventResult } from '@vscode-mcp/vscode-mcp-ipc';
+### 开发顺序（关键）
 
-export const yourTool = async (
-  payload: EventParams<'yourTool'>,
-): Promise<EventResult<'yourTool'>> => {
-  try {
-    const result = await someVSCodeOperation(payload.param1);
-    return { result };
-  } catch (error) {
-    throw new Error(`操作失败: ${error}`);
-  }
-};
-```
+添加/修改工具时，必须按照以下顺序：
 
-#### 2.2 注册服务
+1. **IPC 层** ([packages/vscode-mcp-ipc/](mdc:packages/vscode-mcp-ipc/))
+   - 定义 Schema 和类型
+   - 更新 EventMap
+   - 构建包: `npm run build`
 
-更新 [packages/vscode-mcp-bridge/src/extension.ts](mdc:packages/vscode-mcp-bridge/src/extension.ts)：
+2. **Extension 层** ([packages/vscode-mcp-bridge/](mdc:packages/vscode-mcp-bridge/))
+   - 实现服务逻辑
+   - 注册并验证
+   - 类型检查: `npx tsc --noEmit --project src/tsconfig.json`
 
-```typescript
-import { YourToolInputSchema, YourToolOutputSchema } from '@vscode-mcp/vscode-mcp-ipc';
-import { yourTool } from './services';
+3. **MCP Server 层** ([packages/vscode-mcp-server/](mdc:packages/vscode-mcp-server/))
+   - 实现工具并复用 Schema
+   - 在服务器中注册
+   - 类型检查: `npx tsc --noEmit --project tsconfig.json`
 
-socketServer.register('yourTool', {
-  handler: yourTool,
-  payloadSchema: YourToolInputSchema,
-  resultSchema: YourToolOutputSchema,
-});
-```
+## 安全考虑
 
-### 3. MCP Server 层：创建工具
+- **本地通信**: Unix socket 本地设计，仅限本地使用
+- **文件权限**: Socket 文件仅限当前用户访问
+- **无认证**: 简化的本地开发设计，无需认证
+- **进程隔离**: 每个 VSCode 窗口创建自己的 socket
+- **Schema 验证**: 输入/输出验证防止注入攻击
 
-#### 3.1 创建工具文件
+## 使用示例
 
-在 [packages/vscode-mcp-server/src/tools/](mdc:packages/vscode-mcp-server/src/tools/) 目录中实现工具：
+### 基本工具使用
 
-```typescript
-// packages/vscode-mcp-server/src/tools/your-tool.ts
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { createDispatcher, YourToolInputSchema } from '@vscode-mcp/vscode-mcp-ipc';
-import { z } from 'zod';
-import { formatToolCallError } from './utils.js';
-
-const inputSchema = {
-  workspace_path: z.string().describe('VSCode workspace path to target'),
-  ...YourToolInputSchema.shape,
-};
-
-export function registerYourTool(server: McpServer) {
-  server.registerTool(
-    'your_tool',
-    {
-      title: 'Your Tool Title',
-      description: 'Detailed description with usage scenarios and examples',
-      inputSchema,
-      annotations: {
-        title: 'Your Tool Title',
-        readOnlyHint: true,
-        destructiveHint: false,
-        idempotentHint: true,
-        openWorldHint: false,
-      },
-    },
-    async ({ workspace_path, param1, param2 }) => {
-      try {
-        const dispatcher = createDispatcher(workspace_path);
-        const result = await dispatcher.dispatch('yourTool', { param1, param2 });
-
-        return {
-          content: [
-            {
-              type: 'text' as const,
-              text: `✅ 操作成功: ${result.result}`,
-            },
-          ],
-        };
-      } catch (error) {
-        return formatToolCallError('Your Tool Title', error);
-      }
-    },
-  );
+```json
+{
+  "workspace_path": "/path/to/workspace",
+  "uri": "file:///path/to/file.ts",
+  "line": 10,
+  "character": 5
 }
 ```
 
-## 质量标准
+### 错误处理
 
-### 错误处理标准
+工具提供详细的错误信息：
 
-遵循 MCP 官方错误处理规范，使用统一的错误处理函数：
+- **连接错误**: Socket 连接失败
+- **验证错误**: Schema 验证失败，包含字段详情
+- **VSCode 错误**: 扩展操作失败
+- **超时错误**: 请求超时处理
 
-```typescript
-// packages/vscode-mcp-server/src/tools/utils.ts
-export function formatToolCallError(toolName: string, error: unknown) {
-  return {
-    isError: true, // MCP 官方要求
-    content: [
-      {
-        type: 'text' as const,
-        text: `❌ ${toolName} failed: ${String(error)}`,
-      },
-    ],
-  };
-}
-```
+## 性能考虑
 
-### Tool Annotations 标准
+- **批量操作**: 大部分工具支持批量处理
+- **连接复用**: EventDispatcher 高效管理 socket 连接
+- **后台加载**: 文件可以在不显示编辑器的情况下加载
+- **Schema 验证**: 快速 Zod 验证确保类型安全
+- **工作区定位**: 高效的多窗口支持
 
-根据 MCP 官方规范配置：
+## 故障排除
 
-| Annotation        | 类型    | 默认值 | 描述               |
-| ----------------- | ------- | ------ | ------------------ |
-| `title`           | string  | -      | 人性化标题         |
-| `readOnlyHint`    | boolean | false  | 是否只读操作       |
-| `destructiveHint` | boolean | true   | 是否可能破坏性操作 |
-| `idempotentHint`  | boolean | false  | 是否幂等操作       |
-| `openWorldHint`   | boolean | true   | 是否与外部世界交互 |
+### 常见问题
 
-## 最佳实践
+1. **类型错误**: 确保在 Schema 变更后构建 IPC 包
+2. **未知方法**: 检查服务在所有层中的注册情况
+3. **连接失败**: 验证工作区路径和 socket 权限
+4. **Schema 验证**: 检查参数类型是否符合 Schema 定义
 
-### 1. 命名规范
+### 调试信息
 
-- **事件名**: camelCase (`getDiagnostics`, `openFiles`)
-- **工具名**: snake_case (`get_diagnostics`, `open_files`)
-- **文件名**: kebab-case (`get-diagnostics.ts`, `open-files.ts`)
-
-### 2. 错误处理
-
-- 统一使用 `formatToolCallError` 函数
-- 必须设置 `isError: true`
-- 提供有意义的错误信息
-
-### 3. Schema 设计
-
-- 使用 `.describe()` 为所有参数添加描述
-- 设置合理的默认值
-- 使用 `.strict()` 确保类型安全
-- MCP 工具层必须复用 IPC 层的 Schema
-
-### 4. 构建验证
-
-每个开发阶段完成后必须进行验证：
-
-```bash
-# IPC 层
-cd packages/vscode-mcp-ipc && npm run build
-
-# Extension 层
-cd packages/vscode-mcp-bridge && npm run compile:test
-
-# MCP Server 层
-cd packages/vscode-mcp-server && npm run build
-```
-
-## 开发检查清单
-
-### 新工具开发
-
-**基础实现:**
-
-- [ ] 在 IPC 层定义 Schema 和类型
-- [ ] 添加到 EventMap 并导出
-- [ ] 构建 IPC 包
-- [ ] 实现 Extension 服务逻辑
-- [ ] 在 Extension 中注册服务
-- [ ] Extension 层编译验证
-- [ ] 创建 MCP 工具实现（正确复用 IPC Schema）
-- [ ] 导出并注册 MCP 工具
-- [ ] MCP Server 层构建
-
-**质量优化:**
-
-- [ ] 添加统一错误处理
-- [ ] 配置合适的 Tool Annotations
-- [ ] 优化 Description
-- [ ] 验证符合 MCP 官方标准
-
-**验证测试:**
-
-- [ ] 编译检查所有包
-- [ ] 功能测试验证
-- [ ] 错误处理测试
-- [ ] LLM 使用效果验证
-
-## 常见问题解决
-
-### 问题 1: 类型错误
-
-**症状**: `Property 'xxx' does not exist on type`
-
-**解决方案**:
-
-1. 确保已构建 IPC 包: `cd packages/vscode-mcp-ipc && npm run build`
-2. 检查事件是否已添加到 `EventMap`
-3. 确保导入了正确的类型
-
-### 问题 2: Schema 重复定义
-
-**症状**: MCP 工具层重新定义了 IPC 层已有的参数
-
-**解决方案**: 正确复用 IPC 层的 Schema
-
-```typescript
-// ❌ 错误：重新定义参数
-const inputSchema = {
-  workspace_path: z.string(),
-  uri: z.string(),
-  line: z.number(),
-};
-
-// ✅ 正确：复用 IPC 层的 Schema
-import { GetDefinitionInputSchema } from '@vscode-mcp/vscode-mcp-ipc';
-
-const inputSchema = {
-  workspace_path: z.string().describe('VSCode workspace path to target'),
-  ...GetDefinitionInputSchema.shape,
-};
-```
-
-### 问题 3: 带验证的 Schema 无法复用
-
-**症状**: 使用 `.refine()` 的 Schema 变成 `ZodEffects` 类型，没有 `.shape` 属性
-
-**解决方案**: 分离基础 Schema 和验证 Schema
-
-```typescript
-// IPC 层：分离基础 Schema 和验证 Schema
-export const YourToolBaseInputSchema = z
-  .object({
-    param1: z.string().describe('参数1'),
-    param2: z.string().optional().describe('参数2'),
-  })
-  .strict();
-
-export const YourToolInputSchema = YourToolBaseInputSchema.refine(
-  (data) => {
-    return data.param1 && data.param2;
-  },
-  { message: '验证失败' },
-);
-
-// MCP Server 层：复用基础 Schema
-import { YourToolBaseInputSchema } from '@vscode-mcp/vscode-mcp-ipc';
-
-const inputSchema = {
-  workspace_path: z.string().describe('VSCode workspace path to target'),
-  ...YourToolBaseInputSchema.shape,
-};
-```
-
-遵循这个指南可以确保工具开发的一致性、可维护性和符合 MCP 官方标准。
+- **扩展日志**: VSCode 输出面板 → "VSCode MCP Bridge"
+- **Socket 路径**: 检查每个工作区生成的 socket 路径
+- **服务注册**: 验证所有服务是否正确注册
 
 ---
 > Source: [tjx666/vscode-mcp](https://github.com/tjx666/vscode-mcp) — distributed by [TomeVault](https://tomevault.io).
