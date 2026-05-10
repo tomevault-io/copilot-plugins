@@ -4,7 +4,7 @@
   "repo": "dac",
   "description": "dac is a dashboard-as-code tool. Build interactive dashboards using YAML and JSX. Built-in semantic layer. Get your agents to build standardized, reviewable dashboards.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bruin-data/dac",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T01:06:03Z"
+  "distributed_at": "2026-05-10T22:03:44Z"
 }
