@@ -1,23 +1,19 @@
-## event-bus-and-communication
+## i18n-guidelines
 
-> Event bus usage for cross-module communication
+> i18n usage with WXT and consistency checks
 
-# Event Bus and Communication
+# i18n Guidelines
 
-- Use the global `eventBus` from [`src/utils/eventbus.ts`](mdc:src/utils/eventbus.ts) for cross-module messaging
-- Define event names and types in [`src/common/event.ts`](mdc:src/common/event.ts)
-- Prefer `eventBus.on/once` for subscriptions and `eventBus.emit` for async fan-out
-- Keep listener counts reasonable; `EventBus` warns when exceeding `maxListeners`
-- Remove listeners when appropriate for long-lived modules
-
-Example pattern:
-```ts
-import { eventBus } from '@/utils/eventbus'
-
-eventBus.on('settings:open', (payload) => {
-  // handle open
-})
+- Use the helper in [`src/utils/i18n.ts`](mdc:src/utils/i18n.ts): `t(id, substitutions?)`
+  - Delegates to WXT i18n when available, falls back to `browser.i18n`
+  - Supports string, array, and number substitutions
+- Store translation keys in [`src/locales/*.json`](mdc:src/locales)
+- Consider English (`en.json`) the base; keep keys in other locales aligned
+- Validate locale coverage with:
+```bash
+pnpm run check:i18n
 ```
+- Avoid hardcoded user-facing strings; prefer `t('key.path')`
 
 ---
 > Source: [RonkTsang/gemini-chat-extension](https://github.com/RonkTsang/gemini-chat-extension) — distributed by [TomeVault](https://tomevault.io).
