@@ -7,11 +7,11 @@ An alternative take on permissions for claude code.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mariusvniekerk/claude-bash-approve](https://github.com/mariusvniekerk/claude-bash-approve).
+Original source: `CLAUDE.md` in [mariusvniekerk/claude-bash-approve](https://github.com/mariusvniekerk/claude-bash-approve).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
