@@ -1,0 +1,9 @@
+{
+  "name": "trapplab--update-checker",
+  "displayName": "update-checker",
+  "description": "Based on your phones model you can check until when it receives security updates. After this date its recommended to not use it online, so better check out alternatives early.",
+  "version": "1.0.0",
+  "author": "trapplab",
+  "homepage": "https://github.com/trapplab/update-checker",
+  "skills": []
+}
