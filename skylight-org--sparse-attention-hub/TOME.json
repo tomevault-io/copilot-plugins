@@ -2,7 +2,7 @@
   "name": "sparse-attention-hub",
   "owner": "skylight-org",
   "repo": "sparse-attention-hub",
-  "description": "",
+  "description": "Advancing the frontier of efficient AI",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/skylight-org",
+  "source_url": "https://github.com/skylight-org/sparse-attention-hub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T03:55:54Z"
+  "distributed_at": "2026-05-10T18:57:11Z"
 }
