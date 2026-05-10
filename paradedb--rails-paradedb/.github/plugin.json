@@ -1,0 +1,9 @@
+{
+  "name": "paradedb--rails-paradedb",
+  "displayName": "rails-paradedb",
+  "description": "Official Rails Gem to extend ActiveRecord for ParadeDB",
+  "version": "1.0.0",
+  "author": "paradedb",
+  "homepage": "https://github.com/paradedb/rails-paradedb",
+  "skills": []
+}
