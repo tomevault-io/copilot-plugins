@@ -1,145 +1,221 @@
-## 1001-markdown
+## 101-configuration
 
-> Always use for writing or updating Markdown files to ensure consistent formatting and readability across documentation
+> Apply configuration guidelines when setting up projects to ensure consistent tooling, build processes, and development environments
 
 
-# Markdown Documentation Standards
+# Configuration Guidelines
+
+<version>1.0.0</version>
 
 ## Context
 
-- Applies to all `.md` and `.mdx` files.
-- Ensures clear, structured, and consistent formatting.
+- Applies to project setup, build configuration, and development tooling
+- Ensures consistent development experience across team members
+- Optimizes build performance and deployment processes
 
 ## Requirements
 
-- Follow the [Markdown Guide](mdc:https:/www.markdownguide.org) for syntax.
-- Maintain logical document structure and readability.
-- Use minimal, structured YAML front matter when needed.
-- Leverage Mermaid diagrams for complex visual documentation.
+### Project Structure
 
-## Markdown Formatting Rules
+- Use `src/` directory for all source code
+- Separate concerns with clear folder organization (`components/`, `hooks/`, `lib/`, `styles/`)
+- Place configuration files in project root
+- Use `public/` for static assets only
 
-- Use ATX-style headings (`# Heading`), maintaining a proper hierarchy (max depth: 4).
-- Add a blank line before and after headings.
-- Indent XML tag content by 2 spaces; close tags on a new line.
-- Use blockquotes with emoji for callouts (Warning, Tip, Note).
+### Package Management
 
-<example>
+- Use pnpm for dependency management and workspace support
+- Pin exact versions for critical dependencies
+- Separate devDependencies from production dependencies
+- Regular security audits with `pnpm audit`
 
-> 🚨 **Warning:** Critical information.
-> 💡 **Tip:** Helpful suggestion.
-> 📝 **Note:** Additional context.
+### TypeScript Configuration
 
-</example>
+- Enable strict mode with `"strict": true`
+- Use path mapping for clean imports (`@/` prefix)
+- Configure proper module resolution for Next.js
+- Enable incremental compilation for faster builds
 
-## Code Blocks
+### Build and Development
 
-- Use triple backticks and specify language.
-- Indent properly within blocks.
-- Add a blank line before and after the block.
-- Use inline code for short references.
+- Configure Next.js with App Router for modern routing
+- Use environment variables for configuration (`NEXT_PUBLIC_` prefix for client-side)
+- Implement proper error boundaries and logging
+- Configure bundle analysis for performance monitoring
 
-<example>
+### Code Quality Tools
 
-```typescript
-function example(): void {
-  console.log('Hello, Reliverse!');
-}
-```
+- ESLint with TypeScript and React rules
+- Prettier for consistent code formatting
+- Husky for git hooks and pre-commit checks
+- Lint-staged for efficient pre-commit linting
 
-Use `example()` inline.
+### Testing Setup
 
-</example>
-
-## Tables
-
-- Use alignment indicators (`:---`, `:---:`, `---:`).
-- Include a header row and separator.
-- Keep tables simple, with blank lines before and after.
-
-<example>
-
-| Name |  Type  | Description |
-| :--- | :----: | ----------: |
-| id   | number | Primary key |
-| name | string | User's name |
-
-</example>
-
-## Special Elements
-
-### Callouts
-
-Use blockquotes with emoji:
-
-<example>
-
-> 🚨 **Warning:** Critical information.
-> 💡 **Tip:** Helpful suggestion.
-> 📝 **Note:** Additional context.
-
-</example>
-
-### Mermaid Diagrams
-
-Use Mermaid for architecture flows, decision trees, state machines, and AI agent rule flows.
-
-#### Diagram Best Practices
-
-1. Add a title (`--- title: Example ---`).
-2. Use descriptive node labels.
-3. Comment complex flows.
-4. Group related components in subgraphs.
-5. Maintain consistent layout (`TD`, `LR`, `TB`).
-6. Keep diagrams focused.
-
-<example>
-
-```mermaid
----
-title: Example Workflow
----
-graph TD
-  A[Start] --> B{Decision}
-  B -->|Yes| C[Process 1]
-  B -->|No| D[Process 2]
-  C --> E[End]
-  D --> E
-```
-
-</example>
-
-<example type="invalid">
-
-```mermaid
-graph TD
-A-->B
-B-->C
-```
-
-❌ No title, unclear labels, no context.
-
-</example>
+- Jest for unit and integration testing
+- React Testing Library for component testing
+- Playwright for end-to-end testing
+- Coverage reporting with minimum thresholds
 
 ## Examples
 
 <example>
+  // tsconfig.json - Proper TypeScript configuration
+  {
+    "compilerOptions": {
+      "target": "ES2017",
+      "lib": ["dom", "dom.iterable", "es6"],
+      "allowJs": true,
+      "skipLibCheck": true,
+      "strict": true,
+      "noEmit": true,
+      "esModuleInterop": true,
+      "module": "esnext",
+      "moduleResolution": "bundler",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "jsx": "preserve",
+      "incremental": true,
+      "plugins": [
+        {
+          "name": "next"
+        }
+      ],
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["./src/*"],
+        "@/components/*": ["./src/components/*"],
+        "@/lib/*": ["./src/lib/*"],
+        "@/hooks/*": ["./src/hooks/*"]
+      }
+    },
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+    "exclude": ["node_modules"]
+  }
 
-```md
-# Heading
+// next.config.js - Optimized Next.js configuration
+/\*_ @type {import('next').NextConfig} _/
+const nextConfig = {
+experimental: {
+typedRoutes: true,
+},
+images: {
+formats: ['image/webp', 'image/avif'],
+deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+},
+compress: true,
+poweredByHeader: false,
+reactStrictMode: true,
+swcMinify: true,
+env: {
+CUSTOM_KEY: process.env.CUSTOM_KEY,
+},
+async headers() {
+return [
+{
+source: '/(.\*)',
+headers: [
+{
+key: 'X-Frame-Options',
+value: 'DENY',
+},
+{
+key: 'X-Content-Type-Options',
+value: 'nosniff',
+},
+],
+},
+]
+},
+}
 
-> 🚨 **Warning:** Important detail.
-```
+module.exports = nextConfig
 
-✅ Proper headings, callouts, and spacing.
+// package.json - Proper scripts and dependencies structure
+{
+"name": "my-app",
+"version": "1.0.0",
+"private": true,
+"scripts": {
+"dev": "next dev",
+"build": "next build",
+"start": "next start",
+"lint": "next lint",
+"lint:fix": "next lint --fix",
+"type-check": "tsc --noEmit",
+"test": "jest",
+"test:watch": "jest --watch",
+"test:coverage": "jest --coverage",
+"e2e": "playwright test",
+"analyze": "ANALYZE=true next build",
+"clean": "rm -rf .next out node_modules/.cache"
+},
+"dependencies": {
+"next": "^15.0.0",
+"react": "^19.0.0",
+"react-dom": "^19.0.0"
+},
+"devDependencies": {
+"@types/node": "^20.0.0",
+"@types/react": "^19.0.0",
+"@types/react-dom": "^19.0.0",
+"eslint": "^8.57.0",
+"eslint-config-next": "^15.0.0",
+"typescript": "^5.0.0"
+},
+"engines": {
+"node": ">=18.0.0",
+"pnpm": ">=8.0.0"
+},
+"packageManager": "pnpm@8.15.0"
+}
 
+// .eslintrc.json - Comprehensive linting configuration
+{
+"extends": [
+"next/core-web-vitals",
+"@typescript-eslint/recommended",
+"prettier"
+],
+"parser": "@typescript-eslint/parser",
+"plugins": ["@typescript-eslint"],
+"rules": {
+"@typescript-eslint/no-unused-vars": "error",
+"@typescript-eslint/no-explicit-any": "warn",
+"@typescript-eslint/consistent-type-imports": "error",
+"prefer-const": "error",
+"no-var": "error"
+},
+"parserOptions": {
+"ecmaVersion": "latest",
+"sourceType": "module"
+}
+}
+
+// Environment variables structure
+// .env.local
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_API_URL=https://api.example.com
+DATABASE_URL=postgresql://user:pass@localhost:5432/db
+JWT_SECRET=your-secret-key
 </example>
 
 <example type="invalid">
+  // Poor configuration without proper structure
+  {
+    "compilerOptions": {
+      "strict": false, // Disabling strict mode
+      // Missing path mapping and proper module resolution
+    }
+  }
 
-❌ No headings.
-❌ Inline code block missing triple backticks.
-
+// Unsafe Next.js configuration
+const nextConfig = {
+// No security headers
+// No image optimization
+// No proper environment variable handling
+}
 </example>
 
 ---
