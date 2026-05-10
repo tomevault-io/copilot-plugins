@@ -1,0 +1,9 @@
+{
+  "name": "nullying--printer-ai-mcp",
+  "displayName": "Printer-AI-MCP",
+  "description": "A cross-platform printer AI MCP server that supports Windows, macOS, and Linux systems, providing printer management, status queries, and file printing capabilities.",
+  "version": "1.0.0",
+  "author": "NullYing",
+  "homepage": "https://github.com/NullYing/Printer-AI-MCP",
+  "skills": []
+}
