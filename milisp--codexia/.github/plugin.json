@@ -1,0 +1,9 @@
+{
+  "name": "milisp--codexia",
+  "displayName": "codexia",
+  "description": "Agent Workstation for Codex CLI + Claude Code \u2014 with task scheduler, git worktree & remote control, skills management",
+  "version": "1.0.0",
+  "author": "milisp",
+  "homepage": "https://github.com/milisp/codexia",
+  "skills": []
+}
