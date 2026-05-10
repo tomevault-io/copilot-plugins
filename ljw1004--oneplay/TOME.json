@@ -4,7 +4,7 @@
   "repo": "oneplay",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ljw1004/oneplay",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T03:54:46Z"
+  "distributed_at": "2026-05-10T12:42:01Z"
 }
