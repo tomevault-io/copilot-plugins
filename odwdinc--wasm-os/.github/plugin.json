@@ -1,0 +1,9 @@
+{
+  "name": "odwdinc--wasm-os",
+  "displayName": "wasm-os",
+  "description": "A research operating system that runs WebAssembly as the primary execution environment on bare metal",
+  "version": "1.0.0",
+  "author": "odwdinc",
+  "homepage": "https://github.com/odwdinc/wasm-os",
+  "skills": []
+}
