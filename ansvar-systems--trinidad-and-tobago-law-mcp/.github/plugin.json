@@ -1,0 +1,9 @@
+{
+  "name": "ansvar-systems--trinidad-and-tobago-law-mcp",
+  "displayName": "Trinidad-and-Tobago-law-mcp",
+  "description": "MCP server for Trinidad and Tobago legislation. Full-text search, provision retrieval, citation validation. Golden standard.",
+  "version": "1.0.0",
+  "author": "Ansvar-Systems",
+  "homepage": "https://github.com/Ansvar-Systems/Trinidad-and-Tobago-law-mcp",
+  "skills": []
+}
