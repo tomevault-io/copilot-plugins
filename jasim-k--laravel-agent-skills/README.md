@@ -7,11 +7,11 @@ A curated library of AI Agent skills for modern Laravel development. Standardizi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jasim-k/laravel-agent-skills](https://github.com/jasim-k/laravel-agent-skills).
+Original source: `CLAUDE.md` in [jasim-k/laravel-agent-skills](https://github.com/jasim-k/laravel-agent-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
