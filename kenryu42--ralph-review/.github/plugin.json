@@ -1,0 +1,9 @@
+{
+  "name": "kenryu42--ralph-review",
+  "displayName": "ralph-review",
+  "description": "Orchestrating coding agents for code review, verification and fixing via the ralph loop.",
+  "version": "1.0.0",
+  "author": "kenryu42",
+  "homepage": "https://github.com/kenryu42/ralph-review",
+  "skills": []
+}
