@@ -1,0 +1,44 @@
+{
+  "name": "vscode-copilot-bridge",
+  "owner": "larsbaunwall",
+  "repo": "vscode-copilot-bridge",
+  "description": "A local interface for GitHub Copilot built on the official VS Code Language Models API",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/larsbaunwall/vscode-copilot-bridge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T19:35:12Z"
+}
