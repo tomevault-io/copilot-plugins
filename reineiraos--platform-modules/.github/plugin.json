@@ -1,0 +1,9 @@
+{
+  "name": "reineiraos--platform-modules",
+  "displayName": "platform-modules",
+  "description": "Plug-and-play application starters for ReineiraOS ventures. Backend, platform app, payment link",
+  "version": "1.0.0",
+  "author": "ReineiraOS",
+  "homepage": "https://github.com/ReineiraOS/platform-modules",
+  "skills": []
+}
