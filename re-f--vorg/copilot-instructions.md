@@ -1,274 +1,172 @@
-## feature-development-guide
+## release
 
-> 当为 VOrg 扩展添加新功能时，请按照以下清单确保所有相关文件都得到正确更新。
+> VOrg 项目版本发布流程规则
 
-# VOrg 功能开发指南
 
-## 功能开发完整清单
+# VOrg 版本发布规则
 
-当为 VOrg 扩展添加新功能时，请按照以下清单确保所有相关文件都得到正确更新。
+## 发布新版本的标准流程
 
-## 🏗️ 核心代码开发
+当用户要求发布新版本时，必须按以下步骤执行：
 
-### 1. 实现核心功能
-- **新功能模块**：在 `src/` 下创建或修改相应的功能文件
-- **提供者（Providers）**：如果是 VS Code API 功能，在相应目录创建提供者类
-  - [src/outline/](mdc:src/outline) - 大纲相关功能
-  - [src/links/](mdc:src/links) - 链接相关功能
-  - [src/folding/](mdc:src/folding) - 折叠相关功能
-  - [src/preview/](mdc:src/preview) - 预览相关功能
+### 1. 确定版本号
+- 使用语义化版本控制 (SemVer): `MAJOR.MINOR.PATCH`
+  - `MAJOR`: 不兼容的 API 变更
+  - `MINOR`: 向后兼容的功能新增
+  - `PATCH`: 向后兼容的 Bug 修复
+- 当前版本号在 `package.json` 的 `version` 字段中
 
-### 2. 命令注册
-- **命令实现**：在 [src/commands/](mdc:src/commands) 目录添加命令实现
-- **命令注册**：在 [src/commands/index.ts](mdc:src/commands/index.ts) 注册新命令
-- **扩展激活**：在 [src/extension.ts](mdc:src/extension.ts) 中注册提供者和命令
+### 2. 更新版本号
+- 更新 `package.json` 中的 `version` 字段
+- 使用 `search_replace` 工具精确替换版本号字符串
 
-### 3. 扩展清单更新
-必须更新 [package.json](mdc:package.json) 的以下部分：
+### 3. 更新 CHANGELOG.md
+- 在 CHANGELOG.md 顶部添加新版本条目
+- 格式：`## [版本号] - YYYY-MM-DD`
+- 使用 `date +%Y-%m-%d` 获取当前日期
+- 按以下类别组织变更：
+  - `🐛 Bug 修复`
+  - `✨ 新增功能`
+  - `🔧 改进优化`
+  - `⚡ 性能提升`
+  - `🎨 样式更新`
+  - `♻️ 代码重构`
+- **重要规则**：
+  - **功能描述必须包含使用方法**：对于新增功能，特别是用户交互功能（如工作区符号搜索），必须说明如何使用（快捷键、操作步骤等）
+  - **不要写实现细节**：禁止在 CHANGELOG 中写内部实现细节，如"自动重算层级"、"保留 TODO 关键字"、"索引更新"等。只写用户能直接感受到的功能效果。
+  - **不要写文档更新**：CHANGELOG 中不要包含 `📝 文档更新` 类别，文档更新不应作为版本发布内容
+  - **分类要准确**：outline path 显示、文件路径显示等 UI 增强应归为 `🔧 改进优化`，而不是 `✨ 新增功能`
+- 从 git 历史中提取变更信息：
+  ```bash
+  git log --oneline --since="上次发布版本日期"
+  git log 上次发布版本commit..HEAD --name-status
+  git log 上次发布版本commit..HEAD --pretty=format:"%h - %s (%an, %ar)" --name-status
+  ```
 
-#### 激活事件
-```json
-"activationEvents": [
-  "onCommand:vorg.yourNewCommand",
-  "onLanguage:org"
-]
+### 3.1. 更新 release.md
+- **必须更新 release.md 文件**：每次发布新版本时都要更新 `release.md`
+- **只写用户感受到的功能**：
+  - 只包含用户可以直接体验到的功能特性
+  - 不要包含技术实现细节（如"引入符号索引服务"、"统一日志系统"等）
+  - 不要包含内部优化和重构内容
+  - 专注于用户可见的功能改进和 Bug 修复
+- 格式参考：
+  ```markdown
+  # X.Y.Z 版本变更
+  ## 新增功能
+  - **功能名称**：简要描述和使用方法
+
+  ## Bug 修复
+  - **修复内容**：简要描述
+  ```
+
+### 3.2. 更新 src/changelogPanel.ts
+- **必须更新 src/changelogPanel.ts 中的 CHANGELOG 数据**：每次发布新版本时都要同步更新
+- `src/changelogPanel.ts` 中的 `CHANGELOG` 常量是扩展内嵌更新日志 UI 的数据来源
+- 更新规则与 CHANGELOG.md 保持一致：
+  - 只写用户可见的功能，不写实现细节
+  - 分类准确：`✨` 用于新功能，`🔧` 用于改进优化，`🐛` 用于 Bug 修复
+  - 每条内容尽量精简，控制在 50 字以内
+- 示例格式：
+  ```typescript
+  const CHANGELOG: Record<string, ChangelogEntry> = {
+    '1.2.0': {
+      title: '版本主题',
+      items: [
+        { tag: '✨', tagColor: '#3fb950', text: '新功能：描述，使用方法' },
+        { tag: '🔧', tagColor: '#79c0ff', text: '改进描述' },
+        { tag: '🐛', tagColor: '#58a6ff', text: '修复描述' },
+      ],
+    },
+  };
+  ```
+
+### 4. 构建和打包
+- 运行 `pnpm run package` 命令
+- 这会执行：
+  - Webpack 生产构建
+  - 生成 VSIX 包文件
+- 输出文件：`vorg-版本号.vsix`
+
+### 5. 验证清单
+发布前检查：
+- [ ] 版本号已更新
+- [ ] CHANGELOG.md 已更新（包含功能使用方法，不包含文档更新）
+- [ ] release.md 已更新（只包含用户可见功能）
+- [ ] src/changelogPanel.ts 中的 CHANGELOG 数据已同步更新
+- [ ] 构建成功无错误
+- [ ] VSIX 文件已生成
+- [ ] Git 提交已创建
+- [ ] Git 标签已创建并推送
+
+### 6. Git 提交和标签
+- 提交版本变更到 Git：
+  - Commit 信息格式：`release 版本号` 或 `chore: release 版本号`
+  - 示例：`git commit -am "chore: release 0.0.5"`
+- 创建 Git 标签：
+  - 标签格式：`v版本号`（例如：`v0.0.5`）
+  - 创建带注释的标签：`git tag -a v版本号 -m "Release 版本号"`
+  - 示例：`git tag -a v0.0.5 -m "Release 0.0.5"`
+  - 推送标签到远程：`git push origin v版本号` 或 `git push --tags`
+
+## 示例发布命令响应
+
+当用户说"发布新版本 X.Y.Z"时，应该：
+1. 更新 `package.json` 版本号
+2. 更新 `CHANGELOG.md`（从 git 历史提取变更，包含功能使用方法，不包含文档更新）
+3. 更新 `release.md`（只包含用户可见功能，不包含技术实现细节）
+4. 运行 `pnpm run package`
+5. 确认生成的文件
+6. 创建 Git commit
+7. 创建 Git tag（格式：`vX.Y.Z`）
+8. 推送 commit 和 tag 到远程仓库
+
+## 代码编辑规范
+
+- 使用 `search_replace` 工具进行精确替换
+- 读取文件时使用 `read_file` 工具
+- 执行命令时使用 `run_terminal_cmd` 工具
+- 所有响应使用中文
+
+## 文件路径规范
+
+- 使用绝对路径：`/Users/Ref/Library/CloudStorage/OneDrive-Personal/codes/vorg/`
+- 或者相对于工作区根目录的路径
+
+## CHANGELOG 格式示例
+
+```markdown
+## [0.0.5] - 2025-11-05
+
+### 🐛 Bug 修复
+
+- **修复标题**：详细描述
+
+### 🔧 改进优化
+
+- **优化标题**：详细描述
+  - 子项说明
+  - 子项说明
 ```
 
-#### 命令定义
-```json
-"commands": [
-  {
-    "command": "vorg.yourNewCommand",
-    "title": "VOrg: Your New Feature",
-    "icon": "$(your-icon)"
-  }
-]
-```
+**注意**：`📝 文档更新` 不应出现在 CHANGELOG 中。
 
-#### 快捷键绑定
-```json
-"keybindings": [
-  {
-    "command": "vorg.yourNewCommand",
-    "key": "ctrl+alt+n",
-    "mac": "cmd+alt+n",
-    "when": "editorLangId == org"
-  }
-]
-```
+**正确示例**：
+- ✨ `Org Refile：支持将子树移动到同一文件或跨文件的指定目标标题下。使用方法：Ctrl+C Ctrl+W`
+- 🔧 `跨文件目标在 Quick Pick 描述中显示文件路径，便于区分同名标题`
 
-#### 菜单项
-```json
-"menus": {
-  "editor/title": [
-    {
-      "when": "editorLangId == org",
-      "command": "vorg.yourNewCommand",
-      "group": "navigation"
-    }
-  ]
-}
-```
+**错误示例（不要这样写）**：
+- ✨ `移动后自动重算层级，保留 TODO 关键字、优先级、标签、内容结构` — 这是实现细节，用户不关心
+- ✨ `显示完整 outline path（如 H1 > H2）进行区分` — 应归为改进优化，不是新功能
 
-## 🧪 测试开发
+## Git 历史分析
 
-### 1. 单元测试
-在 [src/test/unit/](mdc:src/test/unit) 创建或扩展单元测试：
-
-#### Mock 设置
-- 使用 [src/test/unit/vscode-mock.ts](mdc:src/test/unit/vscode-mock.ts) 中的 VS Code API Mock
-- 如需新的 Mock 类型，在 Mock 文件中添加
-
-#### 测试文件命名
-- 文件名格式：`yourFeature.unit.test.ts`
-- 测试类名格式：`YourFeature Unit Tests`
-
-#### 测试结构示例
-```typescript
-suite('Your Feature Unit Tests', () => {
-  let provider: YourFeatureProvider;
-  
-  setup(() => {
-    provider = new YourFeatureProvider();
-  });
-  
-  test('应该正确处理基本用例', () => {
-    // 测试实现
-    assert.ok(result);
-    assert.strictEqual(actual, expected);
-  });
-});
-```
-
-### 2. 集成测试
-在 [src/test/suite/](mdc:src/test/suite) 创建或扩展集成测试：
-
-#### 测试文件命名
-- 文件名格式：`yourFeature.test.ts`
-- 使用真实的 VS Code API 进行测试
-
-#### 集成测试示例
-```typescript
-import * as vscode from 'vscode';
-import { YourFeatureProvider } from '../../yourFeature/yourFeatureProvider';
-
-suite('YourFeature Integration Tests', () => {
-  test('应该在真实VS Code环境中正常工作', async () => {
-    const doc = await vscode.workspace.openTextDocument({
-      content: '* Test Content',
-      language: 'org'
-    });
-    
-    // 测试实现
-  });
-});
-```
-
-### 3. 测试数据更新
-根据新功能需求更新 [test-data/](mdc:test-data) 中的测试文件：
-
-#### 主测试文件
-- [test-data/main.org](mdc:test-data/main.org) - 添加新功能的测试用例
-
-#### 专用测试文件
-- [test-data/projects.org](mdc:test-data/projects.org) - 项目相关测试
-- [test-data/notes.org](mdc:test-data/notes.org) - 笔记相关测试
-- [test-data/subdir/deep.org](mdc:test-data/subdir/deep.org) - 深层目录测试
-
-#### 测试数据格式
-```org
-** 🔧 Your New Feature Test
-
-*** 基本功能测试
-测试内容描述
-
-*** 边界情况测试
-边界情况的测试内容
-
-*** ID链接测试
-:PROPERTIES:
-:ID: YOUR-FEATURE-UUID-1234-5678-9ABC-DEF012345678
-:END:
-
-用于测试ID链接功能的内容
-```
-
-### 4. 测试运行
-确保所有测试命令都能正常运行：
-
-```bash
-# 编译代码
-npm run compile
-
-# 运行集成测试
-npm test
-
-# 运行单元测试
-npm run test:unit
-
-# 监听模式
-npm run watch
-```
-
-## 📚 文档更新
-
-### 1. 功能文档
-在 [docs/](mdc:docs) 目录更新相关文档：
-
-#### 功能特性文档
-- [docs/FEATURES.md](mdc:docs/FEATURES.md) - 添加新功能的详细描述
-
-#### 用户指南
-- [docs/USER_GUIDE.md](mdc:docs/USER_GUIDE.md) - 添加使用教程和示例
-
-#### 技术文档
-- [docs/TECHNICAL.md](mdc:docs/TECHNICAL.md) - 添加技术实现细节
-
-#### 语法高亮文档（如适用）
-- [docs/SYNTAX_HIGHLIGHTING.md](mdc:docs/SYNTAX_HIGHLIGHTING.md) - 新增语法支持说明
-
-### 2. 主文档更新
-更新项目根目录的主要文档：
-
-#### README 更新
-- [README.md](mdc:README.md) - 在功能特点、使用方法和功能对比部分添加新功能
-
-#### 示例文件
-- [example.org](mdc:example.org) - 添加新功能的使用示例
-
-## 🎨 语法和配置
-
-### 1. 语法高亮
-如果新功能涉及新的语法元素：
-
-#### TextMate 语法
-- [syntaxes/org.tmLanguage.json](mdc:syntaxes/org.tmLanguage.json) - 添加新的语法规则
-
-#### 语言配置
-- [language-configuration.json](mdc:language-configuration.json) - 更新语言特性配置
-
-#### 语法高亮增强
-- [src/syntaxHighlighter.ts](mdc:src/syntaxHighlighter.ts) - 添加装饰器高亮支持
-
-### 2. TypeScript 配置
-确保新文件包含在编译范围内：
-- [tsconfig.json](mdc:tsconfig.json) - 检查编译配置
-- 新建目录需要确保不在 `exclude` 列表中
-
-## 🚀 开发和测试流程
-
-### 1. 开发环境设置
-```bash
-# 安装依赖
-npm install
-
-# 编译并监听
-npm run watch
-
-# 在VS Code中按F5启动扩展开发主机
-```
-
-### 2. 测试流程
-1. **单元测试优先**：先编写单元测试确保核心逻辑正确
-2. **集成测试验证**：在真实VS Code环境中测试完整功能
-3. **手动测试**：使用测试数据文件进行手动验证
-4. **回归测试**：确保现有功能未受影响
-
-### 3. 代码质量检查
-```bash
-# 代码检查
-npm run lint
-
-# 编译检查
-npm run compile
-
-# 完整测试
-npm run pretest
-```
-
-## ✅ 发布前检查清单
-
-- [ ] **核心功能**：新功能实现完整且正确
-- [ ] **命令注册**：package.json 中正确注册命令、快捷键和菜单
-- [ ] **扩展激活**：extension.ts 中正确注册提供者
-- [ ] **单元测试**：覆盖核心逻辑的单元测试
-- [ ] **集成测试**：VS Code 环境中的集成测试
-- [ ] **测试数据**：更新 test-data 中的测试用例
-- [ ] **文档更新**：README、用户指南、技术文档
-- [ ] **语法支持**：新语法的 TextMate 规则和高亮
-- [ ] **代码质量**：通过 lint 和 compile 检查
-
-## 🔄 迭代开发建议
-
-1. **小步迭代**：将大功能拆分为小的可测试单元
-2. **测试驱动**：先写测试再实现功能
-3. **文档同步**：代码和文档同步更新
-4. **持续集成**：每次提交都运行完整测试套件
-5. **用户反馈**：使用测试数据模拟真实用户场景
-
----
-
-*遵循此指南可确保新功能的高质量交付和项目的长期可维护性。*
+当需要更新 CHANGELOG 时：
+1. 查看最近的提交：`git log --oneline -20`
+2. 查看详细变更：`git log --stat -10`
+3. 查看特定版本后的变更：`git log 上次版本commit..HEAD --pretty=format:"%h - %s (%an, %ar)" --name-status`
+4. 提取变更类型和描述
+5. 按类别组织到 CHANGELOG 中
 
 ---
 > Source: [re-f/vorg](https://github.com/re-f/vorg) — distributed by [TomeVault](https://tomevault.io).
