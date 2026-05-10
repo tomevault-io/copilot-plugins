@@ -1,0 +1,9 @@
+{
+  "name": "geiserx--pumperly",
+  "displayName": "Pumperly",
+  "description": "Open-source fuel & EV route planner. Real-time prices across enabled countries. Self-hostable.",
+  "version": "1.0.0",
+  "author": "GeiserX",
+  "homepage": "https://github.com/GeiserX/Pumperly",
+  "skills": []
+}
