@@ -1,160 +1,89 @@
-## database-operations
+## deployment
 
-> This document gives a quick rundown on how Wasp interacts with the database using Prisma, defines Wasp Entities, and explains the rules for creating and using Wasp Operations (Queries and Actions).
+> Deploying full-stack wasp apps via the CLI
 
-# 3. Database, Entities, and Operations
+# 7. Deployment (Fly.io via Wasp CLI)
 
-This document gives a quick rundown on how Wasp interacts with the database using Prisma, defines Wasp Entities, and explains the rules for creating and using Wasp Operations (Queries and Actions).
+This document outlines the steps to deploy the Wasp application using the Wasp CLI, targeting the Fly.io hosting provider.
 
-See the Wasp Data Model docs for more info [wasp-overview.mdc](mdc:template/app/.cursor/rules/wasp-overview.mdc)
+For more info on deployments, see the Wasp deployment docs as mentioned in [wasp-overview.mdc](mdc:template/app/.cursor/rules/wasp-overview.mdc) 
 
-## Wasp Database and Entities
+## 1. Prerequisites
 
-- Wasp uses Prisma for database access, with models defined in [schema.prisma](mdc:schema.prisma).
-- Prisma models defined in [schema.prisma](mdc:schema.prisma) automatically become Wasp Entities that can be used in operations.
-- Wasp reads the [schema.prisma](mdc:schema.prisma) file to understand your data model and generate appropriate code (e.g., types in `wasp/entities`).
-- Example Prisma model in [schema.prisma](mdc:schema.prisma) :
-  ```prisma
-  model Task {
-    id          Int      @id @default(autoincrement())
-    description String
-    isDone      Boolean  @default(false)
-    user        User     @relation(fields: [userId], references: [id])
-    userId      Int
-  }
-  ```
+Before deploying, ensure the following prerequisites are met:
 
-## Wasp DB Schema Rules (@schema.prisma)
+*   **Fly.io Account:** You need an account with Fly.io (https://fly.io/docs/).
+*   **Billing Information:** Fly.io requires credit card information to be added to your account before you can deploy apps, even if you plan to stay within the free tier limits. Add this via your Fly.io account's billing page.
+*   **Install `flyctl` CLI:** The Fly.io command-line interface (`flyctl`) must be installed on your local machine. Follow the installation instructions here: https://fly.io/docs/flyctl/install/
+*   **Login to `flyctl`:** Authenticate the CLI with your Fly.io account by running:
+    ```bash
+    fly auth login
+    ```
 
-- Add database models directly to the [schema.prisma](mdc:schema.prisma) file, NOT to [main.wasp](mdc:main.wasp) as entities.
-- Generally avoid adding `db.system` or `db.prisma` properties to the [main.wasp](mdc:main.wasp) config file; configure the database provider within [schema.prisma](mdc:schema.prisma) instead.
-  ```prisma
-  // Example in schema.prisma
-  datasource db {
-    provider = "postgresql" // or "sqlite"
-    url      = env("DATABASE_URL")
-  }
-  ```
-- Keep the [schema.prisma](mdc:schema.prisma) file in the root of the project.
-- **Applying Changes:** After updating [schema.prisma](mdc:schema.prisma), run `wasp db migrate-dev` in the terminal to generate and apply SQL migrations.
-- **Database Choice:** While 'sqlite' is the default, it lacks support for features like Prisma enums or PgBoss scheduled jobs. Use 'postgresql' for such cases. If using PostgreSQL locally, ensure it's running (e.g., via `wasp db start` if using Wasp's built-in Docker setup, or ensure your own instance is running).
-- Define all model relationships (`@relation`) within [schema.prisma](mdc:schema.prisma).
+## 2. Deployment Steps
 
-## Wasp Operations (Queries & Actions)
+The Wasp CLI simplifies deployment to a single command.
 
-- Operations are how Wasp handles client-server communication, defined in [main.wasp](mdc:main.wasp).
-- **Queries:** Read operations (fetch data).
-- **Actions:** Write operations (create, update, delete data).
-- Operations automatically handle data fetching, caching (for queries), and updates.
-- Operations reference Entities (defined in [schema.prisma](mdc:schema.prisma) ) to establish proper data access patterns and dependencies.
-- Example definitions in [main.wasp](mdc:main.wasp):
-  ```wasp
-  query getTasks {
-    // Points to the implementation function
-    fn: import { getTasks } from "@src/features/tasks/operations.ts", // Convention: operations.ts
-    // Grants access to the Task entity within the operation's context
-    entities: [Task]
-  }
+1.  **Choose App Name and Region:**
+    *   Decide on a **unique base name** for your application (e.g., `my-budget-app`). This name must be unique across all Fly.io applications.
+    *   Select a Fly.io **region** for deployment (e.g., `mia` for Miami, `ams` for Amsterdam). See Fly.io's regions for a list of available regions.
 
-  action createTask {
-    fn: import { createTask } from "@src/features/tasks/operations.ts",
-    entities: [Task] // Needs access to Task to create one
-  }
-  ```
+2.  **Run the Deployment Command:**
+    *   Open your terminal in the root directory of your Wasp project.
+    *   Execute the `wasp deploy fly launch` command, replacing `<your-app-name>` and `<chosen-region>` with your choices:
+        ```bash
+        wasp deploy fly launch <your-app-name> <chosen-region>
+        ```
+        *Example:*
+        ```bash
+        wasp deploy fly launch my-budget-app mia
+        ```
+    *   **Important:** Do **NOT** interrupt (e.g., Ctrl+C) the process while the command is running. It performs multiple steps: setting up the Fly app configuration, creating the database, building the project, and deploying the client and server components.
 
-## Wasp Operations Rules & Implementation
+3.  **Specify Fly.io Organization (If Necessary):**
+    *   If your Fly.io account belongs to multiple organizations, you must specify which one to use by adding the `--org <org-slug>` flag to the command.
+    *   Find your organization slugs by running: `fly orgs list`
+    *   *Example with organization:*
+        ```bash
+        wasp deploy fly launch my-budget-app mia --org my-fly-org-slug
+        ```
 
-- **Operation File:** Implement query and action functions together in a single `operations.ts` file within the relevant feature directory (e.g., `src/features/tasks/operations.ts`).
-- **Generated Types:** Wasp auto-generates TypeScript types for your operations based on their definitions in [main.wasp](mdc:main.wasp) and the functions' signatures.
-  - Import operation types using `import type { MyQuery, MyAction } from 'wasp/server/operations';`
-  - If types aren't updated after changing [main.wasp](mdc:main.wasp) or the function signature, restart the Wasp dev server (`wasp start`).
-- **Entity Types:** Wasp generates types for your Prisma models from [schema.prisma](mdc:schema.prisma).
-  - Import entity types using `import type { MyModel } from 'wasp/entities';`
-- **Entity Access:** Ensure all Entities needed within an operation's logic are listed in its `entities: [...]` definition in [main.wasp](mdc:main.wasp). This makes `context.entities.YourModel` available.
-- **Internal Communication:** Prioritize Wasp operations for client-server communication within the app. Use Custom HTTP API Endpoints (see [advanced-troubleshooting.mdc](mdc:template/app/.cursor/rules/advanced-troubleshooting.mdc)) primarily for external integrations (webhooks, etc.).
-- **Client-Side Query Usage:** Use Wasp's `useQuery` hook from `wasp/client/operations` to fetch data.
-  - `import { useQuery } from 'wasp/client/operations';`
-  - `const { data, isLoading, error } = useQuery(getQueryName, { queryArgs });`
-- **Client-Side Action Usage:** Call actions *directly* using `async`/`await`. **DO NOT USE** the `useAction` hook unless you specifically need optimistic UI updates (see [advanced-troubleshooting.mdc](mdc:template/app/.cursor/rules/advanced-troubleshooting.mdc)).
-  - `import { myAction } from 'wasp/client/operations';`
-  - `const result = await myAction({ actionArgs });`
-- **Example Operation Implementation (`src/features/tasks/operations.ts`):
-  ```typescript
-  import { HttpError } from 'wasp/server'
-  import type { GetTasks, CreateTask } from 'wasp/server/operations'
-  import type { Task } from 'wasp/entities'
+## 3. Post-Deployment
 
-  // Type annotations come from Wasp based on main.wasp definitions
-  export const getTasks: GetTasks<void, Task[]> = async (_args, context) => {
-    if (!context.user) {
-      throw new HttpError(401, 'Not authorized');
-    }
-    // Access entities via context
-    return context.entities.Task.findMany({
-      where: { userId: context.user.id }
-    });
-  }
+*   **Generated Files:** The deployment command creates two configuration files in your project root:
+    *   `fly-server.toml`
+    *   `fly-client.toml`
+    *   **Commit these files** to your version control system (e.g., Git). They contain the deployment configuration and are needed for future updates.
+*   **Accessing Your App:** Once deployment is complete, the CLI will output the URLs for your deployed client and server. The client URL is your main application entry point.
+*   **Updating Your App:** To redeploy changes after committing the `.toml` files, you can simply run:
+    ```bash
+    wasp deploy fly deploy
+    ```
 
-  type CreateTaskInput = Pick<Task, 'description'>
-  export const createTask: CreateTask<CreateTaskInput, Task> = async (args, context) => {
-    if (!context.user) {
-      throw new HttpError(401, 'Not authorized');
-    }
+*   **Setting Environment Variables (Secrets):**
+    *   If your application requires environment variables beyond the ones Wasp/Fly set automatically (like `DATABASE_URL`), such as API keys or third-party service credentials (e.g., `SENDGRID_API_KEY`, OAuth client secrets), you need to set them as secrets on Fly.io.
+    *   Use the `wasp deploy fly cmd` command to interact with the `flyctl` CLI in the context of your deployed server app.
+    *   **Command:**
+        ```bash
+        wasp deploy fly cmd --context server secrets set VARIABLE_NAME="VALUE"
+        ```
+        *Replace `VARIABLE_NAME` with the name of your environment variable and `VALUE` with its value. Use quotes around the value if it contains special characters.*
+    *   **Example:**
+        ```bash
+        wasp deploy fly cmd --context server secrets set SENDGRID_API_KEY="SG.your_actual_api_key"
+        ```
+    *   You can list currently set secrets (values will be masked) using:
+        ```bash
+        wasp deploy fly cmd --context server secrets list
+        ```
+    *   **Important:** Set these secrets *after* the initial `launch` command completes but *before* your application fully relies on them. If you add new variables later, you might need to redeploy the server for it to pick them up (`wasp deploy fly deploy`).
 
-    return context.entities.Task.create({
-      data: {
-        description: args.description,
-        userId: context.user.id,
-      }
-    });
-  }
-  ```
+## 4. Troubleshooting
 
-## Prisma Enum Value Imports
-
-- **Rule:** When you need to use Prisma enum members as *values* (e.g., `MyEnum.VALUE` in logic or comparisons) in your server or client code, import the enum directly from `@prisma/client`, not from `wasp/entities`.
-  - ✅ `import { TransactionType } from '@prisma/client';` (Use as `TransactionType.EXPENSE`)
-  - ❌ `import { TransactionType } from 'wasp/entities';` (This only imports the *type* for annotations, not the runtime *value*)
-
-## Server-Side Error Handling
-
-- Throw `HttpError` from `wasp/server` for expected errors (e.g., unauthorized, not found, bad input) to send structured responses to the client.
-- Log unexpected errors for debugging.
-- Example:
-  ```typescript
-  import { HttpError } from 'wasp/server'
-  import type { UpdateTask } from 'wasp/server/operations'
-  import type { Task } from 'wasp/entities'
-
-  export const updateTask: UpdateTask<{ id: number; data: Partial<Task> }, Task> = async (args, context) => {
-    if (!context.user) {
-      throw new HttpError(401, 'Not authorized');
-    }
-
-    try {
-      const task = await context.entities.Task.findFirst({
-        where: { id: args.id, userId: context.user.id },
-      });
-
-      if (!task) {
-        throw new HttpError(404, 'Task not found');
-      }
-
-      return context.entities.Task.update({
-        where: { id: args.id },
-        data: args.data,
-      });
-    } catch (error) {
-      if (error instanceof HttpError) {
-        throw error; // Re-throw known HttpErrors
-      }
-      // Log unexpected errors
-      console.error('Failed to update task:', error);
-      // Throw a generic server error for unexpected issues
-      throw new HttpError(500, 'Failed to update task due to an internal error.');
-    }
-  }
-  ```
+*   **Unique Name Error:** If deployment fails due to a non-unique name, choose a different `<your-app-name>` and run the `launch` command again.
+*   **Billing Error:** Ensure you have added valid billing information to your Fly.io account.
+*   **Build Failures:** Check the output logs from the `wasp deploy` command for any build errors in your Wasp project code. Fix the errors and attempt deployment again.
+*   **Check Fly.io Dashboard:** Monitor the status and logs of your applications (`<your-app-name>-client`, `<your-app-name>-server`, `<your-app-name>-db`) directly in the Fly.io dashboard. 
 
 ---
 > Source: [wasp-lang/recipe-agent-saas-with-mastra](https://github.com/wasp-lang/recipe-agent-saas-with-mastra) — distributed by [TomeVault](https://tomevault.io).
