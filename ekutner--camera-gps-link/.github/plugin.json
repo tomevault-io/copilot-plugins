@@ -1,0 +1,9 @@
+{
+  "name": "ekutner--camera-gps-link",
+  "displayName": "camera-gps-link",
+  "description": "Android app for GPS and Time sync to Sony cameras",
+  "version": "1.0.0",
+  "author": "ekutner",
+  "homepage": "https://github.com/ekutner/camera-gps-link",
+  "skills": []
+}
