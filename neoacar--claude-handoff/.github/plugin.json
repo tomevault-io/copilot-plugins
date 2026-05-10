@@ -1,0 +1,9 @@
+{
+  "name": "neoacar--claude-handoff",
+  "displayName": "claude-handoff",
+  "description": "Make Claude Code session context portable between machines via git",
+  "version": "1.0.0",
+  "author": "NeoAcar",
+  "homepage": "https://github.com/NeoAcar/claude-handoff",
+  "skills": []
+}
