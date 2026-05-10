@@ -1,0 +1,9 @@
+{
+  "name": "wesm--kata",
+  "displayName": "kata",
+  "description": "Local-first issue tracking for AI-assisted software work, with an agent-friendly CLI and human-facing TUI",
+  "version": "1.0.0",
+  "author": "wesm",
+  "homepage": "https://github.com/wesm/kata",
+  "skills": []
+}
