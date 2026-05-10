@@ -1,0 +1,9 @@
+{
+  "name": "go-mixed--go-taichi",
+  "displayName": "go-taichi",
+  "description": "Pure go bindings for Taichi C API",
+  "version": "1.0.0",
+  "author": "go-mixed",
+  "homepage": "https://github.com/go-mixed/go-taichi",
+  "skills": []
+}
