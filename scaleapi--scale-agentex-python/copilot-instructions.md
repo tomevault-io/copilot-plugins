@@ -1,32 +1,13 @@
-## 10-architecture
+## 20-codegen-boundaries
 
-> Repository architecture overview and code navigation hints
+> Keep manual code separate from generated SDK code
 
 
-Code structure expectations:
+Guideline:
 
-- `src/agentex/` contains the core SDK and generated API client code
-- `src/agentex/lib/` contains manually maintained code that should not be overwritten by the code generator
-  - `cli/` Typer-based CLI implementation
-  - `core/` Core services, adapters, and Temporal workflows
-  - `sdk/` SDK utilities and FastACP implementation
-  - `types/` Custom type definitions
-  - `utils/` Utility functions
-- `examples/` provides example implementations and tutorials
-- `tests/` contains the test suites
-
-Key components quick reference:
-
-- Client Layer: HTTP client for AgentEx API in `_client.py` and `resources/`
-- CLI Layer: Typer-based commands under `lib/cli/`
-- Core Services: Temporal workflows and services under `lib/core/`
-- FastACP: Protocol implementation in `lib/sdk/fastacp/`
-- State Machine: Workflow state management in `lib/sdk/state_machine/`
-
-Generated vs manual code:
-
-- Treat `src/agentex/lib/**` as manual code; avoid edits in generated areas unless regenerating consistently
-- Expect merge conflicts between generator outputs and manual patches; keep custom logic in `lib/`
+- Avoid modifying auto-generated files in `src/agentex/` except where explicitly intended. Place custom logic, extensions, and higher-level abstractions in `src/agentex/lib/`.
+- When adding features, prefer adding new modules under `src/agentex/lib/**` rather than changing generated files directly.
+- If a change to generated code is required, document the reason and ensure the generator configuration or upstream schema is updated to make the change reproducible.
 
 ---
 > Source: [scaleapi/scale-agentex-python](https://github.com/scaleapi/scale-agentex-python) — distributed by [TomeVault](https://tomevault.io).
