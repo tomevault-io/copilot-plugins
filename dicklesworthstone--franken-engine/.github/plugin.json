@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--franken-engine",
+  "displayName": "franken_engine",
+  "description": "Native Rust runtime for adversarial extension workloads with deterministic replay, cryptographic decision receipts, and fleet-scale containment.",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/franken_engine",
+  "skills": []
+}
