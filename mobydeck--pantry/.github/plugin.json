@@ -1,0 +1,9 @@
+{
+  "name": "mobydeck--pantry",
+  "displayName": "pantry",
+  "description": "Local note storage for coding agents",
+  "version": "1.0.0",
+  "author": "mobydeck",
+  "homepage": "https://github.com/mobydeck/pantry",
+  "skills": []
+}
