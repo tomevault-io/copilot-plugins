@@ -1,68 +1,101 @@
-## react-typescript-patterns
+## routing-navigation
 
-> Follow this consistent pattern for React components:
+> React Router 7 patterns and navigation best practices
 
 
-# React TypeScript Development Patterns
+# React Router 7 Navigation Patterns
 
-## Component Structure
-Follow this consistent pattern for React components:
+## Route Structure
+Follow the file-based routing convention defined in [app/routes.ts](mdc:app/routes.ts):
 
-```tsx
-import type { ComponentProps } from './types';
-import { ComponentUI } from './ui/ComponentName';
-
-interface ComponentNameProps {
-  // Define props with clear types
-  data: DataType;
-  onAction?: (param: ParamType) => void;
-  className?: string;
-}
-
-export function ComponentName({ data, onAction, className = '' }: ComponentNameProps) {
-  // Component logic here
-  return (
-    <div className={`base-classes ${className}`}>
-      {/* JSX content */}
-    </div>
-  );
-}
+```
+/                    → app/routes/home.tsx
+/about              → app/routes/about.tsx  
+/official/:slug     → app/routes/official.$slug.tsx
+/*                  → app/routes/$.tsx (404 catch-all)
 ```
 
-## TypeScript Guidelines
-- **Always use explicit return types** for functions that return JSX
-- **Define interfaces** for all component props, even simple ones
-- **Use type imports** with `import type` for type-only imports
-- **Avoid `any` type** - use proper TypeScript interfaces
-- **Export types** from data files for reuse across components
-
-## Component Guidelines
-- **Single Responsibility**: Each component should have one clear purpose
-- **Reusable UI Components**: Place in `app/components/ui/` directory
-- **Layout Components**: Place in `app/components/layout/` directory
-- **Feature Components**: Place in `app/components/` root directory
-
-## Props Patterns
-- **Always destructure props** in function parameters
-- **Provide default values** for optional props using `= defaultValue`
-- **Use optional chaining** (`?.`) for potentially undefined values
-- **Pass className prop** for styling flexibility
-
-## Import Organization
+## URL Slug Pattern
+Use SEO-friendly slugs for official pages:
 ```tsx
-// 1. React and external libraries
+// Slug format: position-name
+// Examples:
+// /official/president-ferdinand-marcos-jr
+// /official/vice-president-sara-duterte
+// /official/senator-alan-peter-cayetano
+
+// Generate slugs using utility function
+import { generateSlug } from '../data/officials';
+const slug = generateSlug(official);
+```
+
+## Navigation Components
+Always use React Router's `Link` component for client-side navigation:
+
+```tsx
 import { Link } from 'react-router';
 
-// 2. Type imports
+// Internal navigation
+<Link to="/" className="hover:text-primary-600 transition-colors">
+  Home
+</Link>
+
+// Dynamic routes
+<Link to={`/official/${generateSlug(official)}`}>
+  View SALN Records
+</Link>
+
+// Button-style links
+<Link to="/about">
+  <Button variant="primary">Learn More</Button>
+</Link>
+```
+
+## Route Components Pattern
+```tsx
 import type { Route } from "./+types/route-name";
 
-// 3. Internal components
-import { Header } from "../components/layout/Header";
-import { Button } from "../components/ui/Button";
+// Meta function for SEO
+export function meta({ params }: Route.MetaArgs) {
+  return [
+    { title: "Page Title - SALN Tracker Philippines" },
+    { name: "description", content: "Page description for SEO" },
+  ];
+}
 
-// 4. Data and utilities
-import { getData } from "../data/officials";
+// Main component
+export default function RouteComponent({ params }: Route.ComponentProps) {
+  // Route logic here
+  return <div>{/* Page content */}</div>;
+}
 ```
+
+## Error Handling
+- **404 Pages**: Use [app/routes/$.tsx](mdc:app/routes/$.tsx) for catch-all routing
+- **Not Found States**: Check for data existence and show appropriate messages
+- **Navigation Fallbacks**: Always provide "Back to Home" links
+
+## Data Loading Patterns
+```tsx
+// Load data in component
+const official = findOfficialBySlug(params.slug);
+
+// Handle not found
+if (!official) {
+  return <NotFoundComponent />;
+}
+
+// Use computed data
+const officialWithSALN = getOfficialWithSALNData(official);
+```
+
+## Best Practices
+1. **Always use `Link`** for internal navigation (never `<a>` tags)
+2. **Include transition classes** for smooth hover effects
+3. **Provide clear navigation paths** - users should always know where they are
+4. **Use semantic slugs** that are readable and SEO-friendly
+5. **Include breadcrumbs** or "back" buttons for deep pages
+6. **Handle loading states** appropriately during navigation
 
 ---
 > Source: [JHNLWHD/saln-tracker-ph](https://github.com/JHNLWHD/saln-tracker-ph) — distributed by [TomeVault](https://tomevault.io).
