@@ -1,0 +1,9 @@
+{
+  "name": "nikuscs--glooit",
+  "displayName": "glooit",
+  "description": "\ud83e\uddf4glooit keeps your AI agent rules, MCP, Skills & Commands configurations in perfect sync across Claude Code, Cursor, Roo Code, and other AI development tools.",
+  "version": "1.0.0",
+  "author": "nikuscs",
+  "homepage": "https://github.com/nikuscs/glooit",
+  "skills": []
+}
