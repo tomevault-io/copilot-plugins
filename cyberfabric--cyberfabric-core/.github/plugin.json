@@ -1,9 +1,9 @@
 {
   "name": "cyberfabric--cyberfabric-core",
   "displayName": "cyberfabric-core",
-  "description": "cyberfabric-core",
+  "description": "All-in-one open-source platform for enterprise-grade multi-tenant and multi-tier SaaS Services development",
   "version": "1.0.0",
   "author": "cyberfabric",
-  "homepage": "https://tomevault.io/claim/cyberfabric",
+  "homepage": "https://github.com/cyberfabric/cyberfabric-core",
   "skills": []
 }
