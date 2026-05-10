@@ -1,40 +1,18 @@
-## cli-stability
+## code-organization
 
-> CLI command stability and interface preservation
+> Code and file organization standards
 
 
-# CLI Command Stability
+# Code Organization
 
-## Command Names and Structure
-- NEVER change the names of existing CLI commands unless explicitly asked
-- NEVER rename CLI subcommands without explicit user request
-- NEVER restructure the command hierarchy (e.g., moving from `mxcp log` to `mxcp audit log`) without explicit approval
-- If suggesting CLI improvements, always present them as proposals, not implementations
+- Avoid code duplication - use inheritance or composition when classes share common fields
+- Keep related functionality together in modules
 
-## Command Output
-- NEVER change the output format of existing CLI commands unless specifically requested
-- Preserve existing formatting, column structure, and data presentation
-- JSON output structures must remain backward compatible
-- Exit codes must remain consistent
+# File Organization
 
-## Command Parameters
-- NEVER remove existing command-line options or flags
-- New options can be added but must not change the behavior of existing options
-- Default values for existing parameters must not change
-- Parameter types (string, int, bool) must remain consistent
-
-## Examples of What NOT to Do
-- Don't change `mxcp log` to `mxcp audit log`
-- Don't change `mxcp log-cleanup` to `mxcp audit cleanup`
-- Don't modify table formatting in CLI output
-- Don't change JSON response structures
-- Don't alter the order or presence of output fields
-
-## When Making CLI Changes
-- Always ask for confirmation before changing command names
-- Document any breaking changes explicitly
-- Preserve backward compatibility where possible
-- Consider adding aliases rather than renaming commands
+- JSON schema files should be kept in a schemas/ subdirectory within the module
+- Configuration files should use YAML format
+- NO example files anywhere - not in tests, not in fixtures, nowhere
 
 ---
 > Source: [raw-labs/mxcp](https://github.com/raw-labs/mxcp) — distributed by [TomeVault](https://tomevault.io).
