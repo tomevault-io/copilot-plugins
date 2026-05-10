@@ -1,0 +1,9 @@
+{
+  "name": "use-drzl--drzl",
+  "displayName": "drzl",
+  "description": "Zero\u2011friction codegen for Drizzle ORM. Analyze your schema. Generate validation, services, and routers \u2014 fast.",
+  "version": "1.0.0",
+  "author": "use-drzl",
+  "homepage": "https://github.com/use-drzl/drzl",
+  "skills": []
+}
