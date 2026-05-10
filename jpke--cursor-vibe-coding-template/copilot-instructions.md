@@ -1,67 +1,83 @@
-## template-setup
+## workflow
 
-> Detailed steps for template setup workflow when initializing a project
+> Rules for project workflows including Git, Taskmaster, Memory MCP, and Context7 MCP.
 
 
-# Template Setup Workflow
+## Template Setup Workflow
+For detailed steps on template setup when initializing a project, see [template_setup.mdc](mdc:.cursor/rules/template_setup.mdc).
 
-## Agent-Driven Initialization
-When a user prompts "initialize this project as <my project name>", I will **ONLY** handle template setup (do NOT include TaskMaster or PRD work):
+**IMPORTANT**: Template initialization is ONLY about setting up project structure and configuration. TaskMaster, PRD creation, and git setup are separate workflows that require explicit user requests.
 
-1. **Copy `.cursor/.mcp.json.example` to `.cursor/mcp.json`** and prompt user for their API keys
-2. **Remove template-specific content** and customize for their project:
-   - **Move `README.md` to `docs/how_to_use_this_template.md`** to preserve template documentation
-   - **Copy `.cursor/templates/project_readme.md` to the project root as `README.md`** to create the new project-specific README
-   - **Update the new `README.md`** by replacing `[Project Name]` placeholder with user-provided name or "My Project"
-   - Update `SECURITY.md` to remove template references
-   - Remove or update any hardcoded paths in configuration files
+## MCP Server Workflows
 
-   **Environment File Distinction:**
-   - **Template `.env.example`**: Contains TaskMaster CLI configuration (ANTHROPIC_API_KEY, PERPLEXITY_API_KEY, etc.)
-   - **Project `.env`**: Will contain application-specific configuration (database URLs, app API keys, etc.)
-   - **Never mix these**: TaskMaster configuration is separate from project application configuration
-3. **Enable Issues** (if GitHub repository):
-   ```bash
-   gh api repos/OWNER/REPO --method PATCH --field has_issues=true
-   ```
-4. **Set Branch Protection Rules** (if GitHub repository):
-   ```bash
-   gh api repos/OWNER/REPO/branches/main/protection \
-     --method PUT \
-     --field required_status_checks='{"strict":true,"contexts":[],"checks":[]}' \
-     --field required_pull_request_reviews='{"dismiss_stale_reviews":false,"require_code_owner_reviews":false,"require_last_push_approval":false,"required_approving_review_count":1}' \
-     --field required_signatures='{"enabled":false}' \
-     --field enforce_admins='{"enabled":false}' \
-     --field required_linear_history='{"enabled":false}' \
-     --field allow_force_pushes='{"enabled":true}' \
-     --field allow_deletions='{"enabled":false}' \
-     --field block_creations='{"enabled":false}' \
-     --field required_conversation_resolution='{"enabled":false}' \
-     --field lock_branch='{"enabled":false}' \
-     --field allow_fork_syncing='{"enabled":false}'
-   ```
+### Memory MCP
+- **User Confirmation Required**: Before creating, updating, or deleting any entities or relationships in the Memory MCP's knowledge graph, I must first explain what I intend to do and ask for your explicit confirmation.
 
-   **Branch Protection Rules Summary:**
-   - **Pull Request Reviews**: 1 approval required
-   - **Status Checks**: Strict mode enabled
-   - **Force Pushes**: Allowed
-   - **Branch Deletions**: Disabled
-   - **Admin Enforcement**: Disabled (admins can bypass)
+### Context7 MCP
+- **Purpose**: Use Context7 MCP to fetch current, accurate library documentation and implementation examples during development tasks.
+- **When to Use**: Before implementing features with specific libraries, when encountering library-specific errors, for version-specific guidance, when user asks about library features, during code reviews, for implementation examples
+- **Required Two-Step Process**:
+  1. **First**: Use `mcp_context7_resolve-library-id` to convert library name (e.g., "react", "nextjs") to Context7-compatible ID
+  2. **Then**: Use `mcp_context7_get-library-docs` with the resolved ID to fetch documentation
+- **Best Practices**:
+  - Always resolve library ID first - never skip this step
+  - Use `topic` parameter to focus on specific areas (e.g., "hooks", "routing", "authentication")
+  - Adjust `tokens` parameter based on complexity (default 10000, increase for comprehensive docs)
+  - Combine with `research` tool when Context7 doesn't have the specific library
 
-   **Manual Setup Alternative:**
-   If CLI commands fail, manually configure in GitHub:
-   1. Go to repository Settings → Branches
-   2. Add rule for `main` branch
-   3. Enable "Require a pull request before merging" (1 approval)
-   4. Enable "Require status checks to pass before merging" (strict mode)
-5. **Remove from Context Window** - Change `alwaysApply: true` to `alwaysApply: false` in the frontmatter of `.cursor/rules/template_setup.mdc`
+### Taskmaster Workflow
+- **PRD as GitHub Issue**:
+  1. After generating a Product Requirements Document (PRD), I will work with you to validate its contents.
+  2. Once you accept the PRD, I will create a GitHub Issue in the project's repository containing the full text of the PRD.
+  3. This GitHub Issue will serve as the single source of truth for the project's requirements.
+  4. **DELETE the local PRD file** (`.taskmaster/docs/*.md`) immediately after creating the GitHub Issue to prevent confusion and ensure the GitHub Issue remains the authoritative version.
+- **Task Generation Trigger**: I will only generate tasks from the PRD Issue after you explicitly tell me to "start working on the PRD" or give a similar instruction.
+- **Task Confirmation**: After Taskmaster generates tasks, I must confirm with you which task to begin work on *before* executing any of them.
 
-## What NOT to Include in Template Initialization
-- **Do NOT set up TaskMaster** - This is a separate workflow that requires explicit user request
-- **Do NOT create PRDs** - Project Requirements Documents are separate from template setup
-- **Do NOT copy `.env.example` to `.env`** - Only do this if user specifically requests TaskMaster CLI setup
-- **Do NOT initialize git repository** - Template initialization is separate from git setup
-- **Do NOT create tasks or project management files** - Focus only on template structure
+## Git Workflow
+
+### Repository Initialization
+For detailed steps on initializing a git repository when cloning the template directly, see [repository_initialization.mdc](mdc:.cursor/rules/repository_initialization.mdc).
+
+### Branch Protection Workflow
+- **NEVER commit directly to main branch** - All changes must go through pull request process
+- **Required Workflow for All Changes**:
+  1. **Create Feature Branch**: `git checkout -b feature/descriptive-name` or `git checkout -b fix/issue-description`
+  2. **Make Changes**: Implement your changes on the feature branch
+  3. **Commit Changes**: `git add .` and `git commit -m "descriptive message"`
+  4. **Push Branch**: `git push -u origin feature/descriptive-name`
+  5. **🚨 CRITICAL: Open Pull Request**: `gh pr create --title "Title" --body "Description"` or use GitHub web interface - **THIS STEP IS MANDATORY**
+  6. **Return to Main**: `git checkout main && git pull origin main` - **ALWAYS do this after creating PR to prepare for next task**
+  7. **Merge via PR**: Never use `git push origin main` directly
+- **Branch Naming Conventions**:
+  - `feature/feature-name` for new features
+  - `fix/bug-description` for bug fixes
+  - `docs/documentation-update` for documentation changes
+  - `refactor/component-name` for refactoring work
+  - `chore/maintenance-task` for maintenance tasks
+- **Before Starting Work**:
+  ```bash
+  # CRITICAL: Prevent interactive paging first
+  export PAGER=""
+
+  git checkout main
+  git pull origin main
+  git checkout -b feature/your-feature-name
+  ```
+- **Emergency Exception**: Only in true emergencies (production down, security fix) may direct commits to main be considered, and they must be followed immediately by a retroactive PR for review
+- **Pull Request Requirements**:
+  - Descriptive title and body explaining the changes
+  - Link to related issues when applicable
+  - Ensure all CI checks pass before merging
+  - Request review from team members when working in team environments
+
+### CLI Best Practices
+- **Always use SSH format for git remotes** (`git@github.com:user/repo.git`) rather than HTTPS format to leverage SSH key authentication instead of token-based authentication
+- **🚨 CRITICAL: Prevent interactive paging** - Always set this environment variable at the start of each terminal session:
+  ```bash
+  export PAGER=""
+  ```
+  This prevents commands like `git log`, `git show`, `git diff`, `gh pr view`, `gh pr list`, and `gh issue view` from opening interactive pagers that can block automation.
 
 ---
 > Source: [jpke/cursor-vibe-coding-template](https://github.com/jpke/cursor-vibe-coding-template) — distributed by [TomeVault](https://tomevault.io).
