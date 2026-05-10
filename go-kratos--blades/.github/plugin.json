@@ -1,0 +1,9 @@
+{
+  "name": "go-kratos--blades",
+  "displayName": "blades",
+  "description": "Blades is a Go-based multimodal AI Agent framework.",
+  "version": "1.0.0",
+  "author": "go-kratos",
+  "homepage": "https://github.com/go-kratos/blades",
+  "skills": []
+}
