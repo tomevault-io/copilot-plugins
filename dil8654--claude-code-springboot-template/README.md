@@ -7,11 +7,11 @@ Spring Boot Gradle template with Claude agents, reusable AI skills, and cross-to
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [DIL8654/claude-code-springboot-template](https://github.com/DIL8654/claude-code-springboot-template).
+Original source: `CLAUDE.md` in [DIL8654/claude-code-springboot-template](https://github.com/DIL8654/claude-code-springboot-template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
