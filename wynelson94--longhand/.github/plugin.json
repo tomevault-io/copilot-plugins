@@ -1,0 +1,9 @@
+{
+  "name": "wynelson94--longhand",
+  "displayName": "longhand",
+  "description": "Lossless local memory for Claude Code. The full, unabbreviated version. Every tool call, every file edit, every thinking block \u2014 stored verbatim on your machine. Persistent memory without tokens.",
+  "version": "1.0.0",
+  "author": "Wynelson94",
+  "homepage": "https://github.com/Wynelson94/longhand",
+  "skills": []
+}
