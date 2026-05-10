@@ -1,0 +1,9 @@
+{
+  "name": "xeb--auntie",
+  "displayName": "auntie",
+  "description": "Chrome browser automation CLI using DevTools Protocol",
+  "version": "1.0.0",
+  "author": "xeb",
+  "homepage": "https://github.com/xeb/auntie",
+  "skills": []
+}
