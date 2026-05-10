@@ -1,0 +1,9 @@
+{
+  "name": "re-f--vorg",
+  "displayName": "vorg",
+  "description": "VOrg \u662f\u4e00\u4e2a\u7b80\u5355 VS Code \u6269\u5c55\uff0c\u4e3a Org-mode \u6587\u6863\u63d0\u4f9b\u5b8c\u6574\u7684\u7f16\u8f91\u548c\u9884\u89c8\u4f53\u9a8c\uff0c\u501f\u52a9 VS Code \u63d0\u5347 org-mode \u7684\u7f16\u8f91\u4f53\u9a8c",
+  "version": "1.0.0",
+  "author": "re-f",
+  "homepage": "https://github.com/re-f/vorg",
+  "skills": []
+}
