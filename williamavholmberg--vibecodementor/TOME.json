@@ -1,0 +1,44 @@
+{
+  "name": "vibecodementor",
+  "owner": "WilliamAvHolmberg",
+  "repo": "vibecodementor",
+  "description": "\ud83e\udd16 AI-driven development platform with .NET 9 + Next.js 15. Features vertical slice architecture, real-time SignalR, type-safe APIs, and one-command Docker deployment. Perfect for AI prototypes, chat apps, and real-time dashboards.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/WilliamAvHolmberg/vibecodementor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T18:48:17Z"
+}
