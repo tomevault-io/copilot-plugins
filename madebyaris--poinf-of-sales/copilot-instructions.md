@@ -1,219 +1,855 @@
-## project-architecture
+## react-native-mobile-patterns
 
-> This is a **modern, enterprise-grade Point of Sale system** built with cutting-edge technologies:
+> React Native mobile development patterns for POS System kitchen and server applications
 
 
-# 🍽️ POS System - Complete Architecture Guide
+# 📱 React Native Mobile Development Patterns
 
-## 🎯 Project Overview
+## 🎯 Project Overview - Mobile POS Applications
 
-This is a **modern, enterprise-grade Point of Sale system** built with cutting-edge technologies:
+### GitHub Milestones Integration
+Based on [GitHub Milestones](https://github.com/madebyaris/poinf-of-sales/milestones), we're developing:
 
-### 🏗️ Technology Stack
-- **Backend:** Golang 1.21+ + Gin framework + PostgreSQL with optimized raw SQL
-- **Frontend:** React 18.3+ + TanStack Start + TypeScript 5.6+ + Tailwind CSS + shadcn/ui
-- **Database:** PostgreSQL 15 with comprehensive schema, indexes, and constraints
-- **Infrastructure:** Docker containers with multi-stage builds and Docker Compose orchestration
-- **Authentication:** JWT-based auth with role-based access control (RBAC)
+1. **Kitchen Staff Mobile App (iOS & Android)** - Tablet and TV display optimization
+2. **Server Group Mobile App (iOS & Android)** - Smartphone and tablet flexibility
 
-### 🚀 Core Business Features
-- **Multi-Role Support:** Admin, Manager, Server, Counter, Kitchen interfaces
-- **Complete Order Lifecycle:** Creation → Kitchen → Payment → Completion
-- **Real-time Updates:** WebSocket-like updates across all interfaces
-- **Advanced Admin Tables:** Professional data tables with sorting, filtering, pagination
-- **Payment Processing:** Multi-step payment flow with receipt generation
-- **Kitchen Display System:** Real-time order preparation workflow
-- **Table Management:** Advanced seating and table assignment system
+## 🏗️ Cross-Platform Architecture
 
-## 📁 Project Structure
-
-### 🏠 Root Level Files
-- [Makefile](mdc:Makefile) - **PRIMARY DEV TOOL** - All development commands (`make dev`, `make backup`, etc.)
-- [docker-compose.dev.yml](mdc:docker-compose.dev.yml) - Development environment with hot reloading
-- [docker-compose.yml](mdc:docker-compose.yml) - Production orchestration
-- [README.md](mdc:README.md) - Complete project documentation with screenshots
-- [ROLE_BASED_IMPLEMENTATION.md](mdc:ROLE_BASED_IMPLEMENTATION.md) - Role system implementation guide
-
-### 🔧 Backend Structure (`backend/`)
-- [main.go](mdc:backend/main.go) - Application entry point, CORS, middleware setup
-- [go.mod](mdc:backend/go.mod) - Go 1.21+ dependencies (Gin, PostgreSQL driver, JWT)
-- [Dockerfile](mdc:backend/Dockerfile) + [Dockerfile.dev](mdc:backend/Dockerfile.dev) - Multi-stage container builds
-- **`internal/`** - Clean Go architecture following best practices:
-  - **[api/routes.go](mdc:backend/internal/api/routes.go)** - RESTful API route definitions with role-based grouping
-  - **[models/models.go](mdc:backend/internal/models/models.go)** - Complete data models, DTOs, and API response structures
-  - **[database/connection.go](mdc:backend/internal/database/connection.go)** - PostgreSQL connection with pooling
-  - **[middleware/auth.go](mdc:backend/internal/middleware/auth.go)** - JWT authentication + RBAC middleware
-  - **`handlers/`** - Domain-specific HTTP handlers:
-    - [auth.go](mdc:backend/internal/handlers/auth.go) - Login, logout, user management
-    - [orders.go](mdc:backend/internal/handlers/orders.go) - Complete order lifecycle management
-    - [products.go](mdc:backend/internal/handlers/products.go) - Menu and category management
-    - [tables.go](mdc:backend/internal/handlers/tables.go) - Table and seating management
-    - [payments.go](mdc:backend/internal/handlers/payments.go) - Payment processing and history
-
-### ⚛️ Frontend Structure (`frontend/`)
-- [package.json](mdc:frontend/package.json) - React 18.3+, TypeScript 5.6+, TanStack ecosystem
-- [vite.config.ts](mdc:frontend/vite.config.ts) - Vite + TanStack Start configuration
-- [tailwind.config.js](mdc:frontend/tailwind.config.js) - Tailwind CSS + shadcn/ui theme configuration
-- [Dockerfile](mdc:frontend/Dockerfile) + [Dockerfile.dev](mdc:frontend/Dockerfile.dev) - Nginx + Node.js containers
-- **`src/`** - Modern React application structure:
-  - **[main.tsx](mdc:frontend/src/main.tsx)** - React 18 entry point with StrictMode
-  - **[index.css](mdc:frontend/src/index.css)** - Global styles and CSS variables
-  - **Core Architecture:**
-    - **[types/index.ts](mdc:frontend/src/types/index.ts)** - Comprehensive TypeScript definitions
-    - **[api/client.ts](mdc:frontend/src/api/client.ts)** - Axios-based API client with interceptors
-    - **[lib/utils.ts](mdc:frontend/src/lib/utils.ts)** - Utility functions (cn, date formatters, etc.)
-    - **[lib/form-schemas.ts](mdc:frontend/src/lib/form-schemas.ts)** - Zod validation schemas
-  - **UI Components:**
-    - **[components/ui/](mdc:frontend/src/components/ui/)** - shadcn/ui base components (Button, Card, Table, etc.)
-    - **[components/forms/](mdc:frontend/src/components/forms/)** - Reusable form components with validation
-  - **Business Components:**
-    - **[components/admin/](mdc:frontend/src/components/admin/)** - Admin dashboard and management interfaces
-    - **[components/pos/](mdc:frontend/src/components/pos/)** - POS interface components (cart, product grid, etc.)
-    - **[components/kitchen/](mdc:frontend/src/components/kitchen/)** - Kitchen display system components
-    - **[components/server/](mdc:frontend/src/components/server/)** - Server-specific interface components
-    - **[components/counter/](mdc:frontend/src/components/counter/)** - Counter/checkout interface components
-  - **Routing:**
-    - **[routes/](mdc:frontend/src/routes/)** - TanStack Start file-based routing
-    - **[routeTree.gen.ts](mdc:frontend/src/routeTree.gen.ts)** - Auto-generated route tree
-  - **Hooks & State:**
-    - **[hooks/](mdc:frontend/src/hooks/)** - Custom React hooks (pagination, toasts, keyboard shortcuts)
-
-### 🗄️ Database Structure (`database/`)
-- **[init/01_schema.sql](mdc:database/init/01_schema.sql)** - Complete PostgreSQL schema:
-  - Users with role-based access (admin, manager, server, counter, kitchen)
-  - Products and categories with inventory tracking
-  - Orders with full lifecycle management
-  - Dining tables with occupancy status
-  - Payments with multiple payment methods
-  - Order status history for audit trails
-  - Optimized indexes for performance
-- **[init/02_seed_data.sql](mdc:database/init/02_seed_data.sql)** - Demo data for all roles and complete workflows
-
-### 🛠️ Scripts & Automation (`scripts/`)
-- **[create-admin.sh](mdc:scripts/create-admin.sh)** - Interactive super admin creation with validation
-- **[backup.sh](mdc:scripts/backup.sh)** - Production-grade system backup (database + files)
-- **[restore.sh](mdc:scripts/restore.sh)** - Interactive backup restoration with safety checks
-- **[db-reset.sh](mdc:scripts/db-reset.sh)** - Safe database reset with fresh schema and seed data
-- **[remove-data.sh](mdc:scripts/remove-data.sh)** - Destructive data removal with multiple confirmations
-
-### 📚 Documentation (`docs/`)
-- **[PRD.md](mdc:docs/PRD.md)** - Complete Product Requirements Document with feature specifications
-- **[TODO.md](mdc:docs/TODO.md)** - Detailed project roadmap and development phases
-- **[README.md](mdc:README.md)** - Beautiful project documentation with screenshots and quick start
-
-### ⚙️ Development Infrastructure
-- **[Makefile](mdc:Makefile)** - **ESSENTIAL** - All development operations (`make help` for full list)
-- **[.gitignore](mdc:.gitignore)** - Comprehensive ignore patterns for all environments
-- **Docker Configuration:**
-  - Development: [docker-compose.dev.yml](mdc:docker-compose.dev.yml) with hot reloading
-  - Production: [docker-compose.yml](mdc:docker-compose.yml) with optimized builds
-
-## 🎯 Core Architectural Principles
-
-### 1. 🚀 API-First Design
-- **RESTful APIs** - All business logic exposed through clean REST endpoints
-- **Client-Server Separation** - Frontend consumes APIs, backend serves data
-- **Consistent Response Format** - Standardized JSON responses with success/error patterns
-- **Versioned APIs** - `/api/v1/` prefix for future-proofing
-
-### 2. 🔒 Type Safety & Data Integrity
-- **End-to-End TypeScript** - Frontend to backend interface consistency
-- **Database Constraints** - PostgreSQL constraints, foreign keys, check constraints
-- **Zod Validation** - Runtime validation for forms and API requests
-- **Strongly-Typed Models** - Matching data structures across all layers
-
-### 3. 🛡️ Security-First Architecture
-- **JWT Authentication** - Stateless authentication with proper expiration
-- **Role-Based Access Control (RBAC)** - Granular permissions per user role
-- **SQL Injection Prevention** - Parameterized queries throughout
-- **CORS Configuration** - Proper cross-origin resource sharing
-- **Input Validation** - Multi-layer validation (frontend + backend + database)
-
-### 4. ⚡ Performance & Scalability
-- **Database Optimization:**
-  - Strategic indexes on frequently queried columns
-  - Connection pooling for efficient resource usage
-  - Proper query optimization to prevent N+1 problems
-- **Frontend Optimization:**
-  - React.memo and useCallback for expensive components
-  - Code splitting and lazy loading
-  - Optimized bundle sizes with Vite
-- **Caching Strategy:**
-  - HTTP caching headers for static resources
-  - React Query for client-side caching
-
-### 5. 👥 Role-Based Architecture
-- **Multi-Role Support:** Admin, Manager, Server, Counter, Kitchen
-- **Role-Specific Interfaces:** Tailored UX for each role's responsibilities
-- **Permission Boundaries:** API endpoints restricted by role
-- **Interface Switching:** Admin can access all role interfaces
-
-### 6. 🔄 Real-Time Updates
-- **State Synchronization** - Orders sync across all connected interfaces
-- **Kitchen Display System** - Real-time order status updates
-- **Payment Flow** - Live payment status across POS interfaces
-
-### 7. 🛠️ Developer Experience Excellence
-- **🎯 Primary Development Workflow:**
-  ```bash
-  make dev     # Start everything with hot reloading
-  make backup  # Create system backups before major changes
-  make status  # Check system health
-  make help    # See all available commands
-  ```
-- **🔐 Safety Features:**
-  - Interactive scripts with confirmation prompts
-  - Automatic emergency backups before destructive operations
-  - Comprehensive error messages with resolution suggestions
-- **🐳 Container-First Development:**
-  - Consistent environments across development/production
-  - Hot reloading in development containers
-  - Multi-stage production builds for optimization
-- **📊 Monitoring & Debugging:**
-  - Comprehensive logging with structured output
-  - Real-time log monitoring (`make logs`)
-  - Health check endpoints for all services
-
-### 8. 🏗️ Clean Architecture Patterns
-- **Backend:** Standard Go project layout with internal packages
-- **Frontend:** Feature-based component organization
-- **Database:** Normalized schema with proper relationships
-- **Infrastructure:** Infrastructure as Code with Docker Compose
-
-## 🚀 Quick Development Commands
-
-Essential commands for daily development (all via Makefile):
-
-```bash
-# 🏁 Getting Started
-make dev          # Start development environment
-make status       # Check system status
-make help         # Show all available commands
-
-# 🗄️ Database Management
-make create-admin # Create admin user interactively
-make db-reset     # Reset to fresh database with seed data
-make backup       # Create complete system backup
-make restore      # Restore from backup (interactive)
-
-# 📊 Monitoring & Debugging
-make logs         # View all service logs
-make logs-backend # View backend logs only
-make logs-frontend# View frontend logs only
-
-# 🧹 Maintenance
-make down         # Stop all services
-make clean        # Clean up Docker resources (with confirmations)
+### Project Structure for React Native Apps
+```
+mobile/
+├── kitchen-app/                 # Kitchen Staff Mobile App
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── kitchen/         # Kitchen-specific components
+│   │   │   ├── ui/              # Shared UI components
+│   │   │   └── common/          # Cross-app components
+│   │   ├── screens/
+│   │   │   ├── KitchenDisplay/  # Main kitchen interface
+│   │   │   ├── OrderDetails/    # Individual order management
+│   │   │   └── Settings/        # App configuration
+│   │   ├── services/
+│   │   │   ├── api/             # API integration
+│   │   │   ├── sync/            # Real-time synchronization
+│   │   │   └── offline/         # Offline mode handling
+│   │   └── utils/
+│   ├── android/                 # Android-specific code
+│   ├── ios/                     # iOS-specific code
+│   └── package.json
+├── server-app/                  # Server Group Mobile App
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── pos/             # POS interface components
+│   │   │   ├── payment/         # Mobile payment processing
+│   │   │   └── tables/          # Table management
+│   │   ├── screens/
+│   │   │   ├── OrderEntry/      # Mobile order creation
+│   │   │   ├── TableView/       # Table management interface
+│   │   │   └── PaymentFlow/     # Mobile payment processing
+│   │   └── services/
+│   └── package.json
+└── shared/                      # Shared code between apps
+    ├── components/              # Reusable UI components
+    ├── types/                   # TypeScript definitions
+    ├── api/                     # API client
+    └── utils/                   # Utility functions
 ```
 
-## 🎭 Demo Accounts for Testing
+## 🍳 Kitchen Staff Mobile App Patterns
 
-| Role | Username | Password | Access Level |
-|------|----------|----------|-------------|
-| **👑 Admin** | `admin` | `admin123` | Full system access + beautiful admin dashboard |
-| **🍽️ Server** | `server1` | `server123` | Dine-in orders only |
-| **💰 Counter** | `counter1` | `counter123` | All order types + payments |
-| **👨‍🍳 Kitchen** | `kitchen1` | `kitchen123` | Order preparation workflow |
+### Tablet & TV Display Optimization
+```typescript
+// Kitchen app main component with device optimization
+import React, { useEffect, useState } from 'react'
+import { Dimensions, Platform } from 'react-native'
+import DeviceInfo from 'react-native-device-info'
+import Orientation from 'react-native-orientation-locker'
+
+interface DeviceConfig {
+  type: 'smartphone' | 'tablet' | 'tv'
+  screenSize: 'small' | 'medium' | 'large' | 'extra-large'
+  touchTargetSize: number
+  fontSize: number
+  spacing: number
+}
+
+export const KitchenApp: React.FC = () => {
+  const [deviceConfig, setDeviceConfig] = useState<DeviceConfig>()
+  const [orders, setOrders] = useState<KitchenOrder[]>([])
+
+  useEffect(() => {
+    initializeDeviceOptimization()
+    setupRealTimeSync()
+    enableOfflineMode()
+  }, [])
+
+  // ✅ CORRECT: Device-specific optimization
+  const initializeDeviceOptimization = async () => {
+    const { width, height } = Dimensions.get('window')
+    const isTablet = await DeviceInfo.isTablet()
+    const deviceType = await DeviceInfo.getDeviceType()
+
+    // Determine device configuration
+    let config: DeviceConfig
+
+    if (deviceType === 'tv' || width > 1200) {
+      // Large screen TV display
+      config = {
+        type: 'tv',
+        screenSize: 'extra-large',
+        touchTargetSize: 60, // Extra large for wall-mounted displays
+        fontSize: 24,
+        spacing: 32
+      }
+      
+      // TV-specific optimizations
+      Orientation.lockToLandscape()
+      await setupTVDisplayMode()
+      
+    } else if (isTablet || width > 768) {
+      // Tablet optimization
+      config = {
+        type: 'tablet',
+        screenSize: 'large',
+        touchTargetSize: 50, // Standard tablet touch targets
+        fontSize: 18,
+        spacing: 24
+      }
+      
+      // Tablet-specific optimizations
+      Orientation.lockToLandscape()
+      await setupTabletMode()
+      
+    } else {
+      // Smartphone fallback (not primary use case for kitchen)
+      config = {
+        type: 'smartphone',
+        screenSize: 'medium',
+        touchTargetSize: 44,
+        fontSize: 16,
+        spacing: 16
+      }
+    }
+
+    setDeviceConfig(config)
+  }
+
+  // TV display mode configuration
+  const setupTVDisplayMode = async () => {
+    // Enable full-screen mode
+    if (Platform.OS === 'android') {
+      // Hide navigation bar for TV displays
+      await DeviceInfo.getSystemName() // Android TV detection
+    }
+    
+    // High contrast mode for distance viewing
+    const tvSettings = {
+      contrast: 'high',
+      colorScheme: 'high-visibility',
+      animations: 'reduced', // Minimize distractions
+      autoRefresh: 3000 // 3-second refresh for TV displays
+    }
+    
+    await applyDisplaySettings(tvSettings)
+  }
+
+  // Tablet mode configuration
+  const setupTabletMode = async () => {
+    // Enable gesture navigation
+    const tabletSettings = {
+      swipeGestures: true,
+      hapticFeedback: true,
+      multiTouch: false, // Prevent accidental gestures
+      autoRefresh: 5000 // 5-second refresh for tablets
+    }
+    
+    await applyDisplaySettings(tabletSettings)
+  }
+
+  return (
+    <KitchenDisplayLayout 
+      deviceConfig={deviceConfig}
+      orders={orders}
+      onOrderUpdate={handleOrderUpdate}
+    />
+  )
+}
+```
+
+### Real-Time Order Synchronization
+```typescript
+// Real-time sync service for kitchen app
+import { io, Socket } from 'socket.io-client'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import NetInfo from '@react-native-netinfo/netinfo'
+
+class KitchenSyncService {
+  private socket: Socket | null = null
+  private offlineQueue: OfflineOperation[] = []
+  private isOnline: boolean = true
+
+  async initialize(): Promise<void> {
+    // Monitor network connectivity
+    NetInfo.addEventListener(state => {
+      this.isOnline = state.isConnected ?? false
+      
+      if (this.isOnline && this.offlineQueue.length > 0) {
+        this.processOfflineQueue()
+      }
+    })
+
+    // Initialize WebSocket connection
+    await this.connectWebSocket()
+  }
+
+  // ✅ CORRECT: WebSocket connection with reconnection logic
+  private async connectWebSocket(): Promise<void> {
+    const token = await AsyncStorage.getItem('auth_token')
+    
+    this.socket = io('ws://localhost:8080', {
+      auth: { token },
+      transports: ['websocket'],
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
+    })
+
+    // Kitchen-specific event listeners
+    this.socket.on('order-created', this.handleNewOrder)
+    this.socket.on('order-updated', this.handleOrderUpdate)
+    this.socket.on('item-status-changed', this.handleItemStatusChange)
+    
+    // Connection management
+    this.socket.on('connect', () => {
+      console.log('✅ Kitchen app connected to server')
+      this.processOfflineQueue()
+    })
+    
+    this.socket.on('disconnect', () => {
+      console.log('❌ Kitchen app disconnected from server')
+    })
+  }
+
+  // Handle new orders with sound notifications
+  private handleNewOrder = (order: KitchenOrder) => {
+    // Play new order sound (800Hz beep)
+    this.soundService.playNewOrderSound()
+    
+    // Add to kitchen display
+    this.orderManager.addOrder(order)
+    
+    // Show notification
+    this.notificationService.showNewOrderNotification(order)
+  }
+
+  // Update item status with optimistic updates
+  async updateItemStatus(orderId: string, itemId: string, status: ItemStatus): Promise<void> {
+    // Optimistic update for immediate UI feedback
+    this.orderManager.updateItemStatusOptimistic(orderId, itemId, status)
+    
+    if (this.isOnline) {
+      try {
+        await this.apiClient.updateItemStatus(orderId, itemId, status)
+        
+        // Play status change sound
+        if (status === 'ready') {
+          this.soundService.playItemReadySound() // 1200Hz
+        } else if (status === 'served') {
+          this.soundService.playItemServedSound() // 1400Hz
+        }
+        
+      } catch (error) {
+        // Revert optimistic update on error
+        this.orderManager.revertItemStatusUpdate(orderId, itemId)
+        
+        // Queue for offline processing
+        this.queueOfflineOperation({
+          type: 'update-item-status',
+          orderId,
+          itemId,
+          status,
+          timestamp: Date.now()
+        })
+      }
+    } else {
+      // Queue for offline processing
+      this.queueOfflineOperation({
+        type: 'update-item-status',
+        orderId,
+        itemId,
+        status,
+        timestamp: Date.now()
+      })
+    }
+  }
+
+  // Offline operation queuing
+  private queueOfflineOperation(operation: OfflineOperation): void {
+    this.offlineQueue.push(operation)
+    AsyncStorage.setItem('offline_queue', JSON.stringify(this.offlineQueue))
+  }
+
+  // Process queued operations when back online
+  private async processOfflineQueue(): Promise<void> {
+    if (this.offlineQueue.length === 0) return
+
+    console.log(`📤 Processing ${this.offlineQueue.length} offline operations`)
+
+    for (const operation of this.offlineQueue) {
+      try {
+        await this.executeOfflineOperation(operation)
+      } catch (error) {
+        console.error('Failed to process offline operation:', error)
+      }
+    }
+
+    // Clear processed queue
+    this.offlineQueue = []
+    await AsyncStorage.removeItem('offline_queue')
+  }
+}
+```
+
+## 👨‍💼 Server Group Mobile App Patterns
+
+### Adaptive UI for Smartphones & Tablets
+```typescript
+// Server app with adaptive UI based on device size
+import React, { useEffect, useState } from 'react'
+import { useDeviceOrientation } from '@react-native-community/hooks'
+
+export const ServerApp: React.FC = () => {
+  const [layoutMode, setLayoutMode] = useState<'smartphone' | 'tablet'>()
+  const orientation = useDeviceOrientation()
+
+  useEffect(() => {
+    determineLayoutMode()
+  }, [orientation])
+
+  // ✅ CORRECT: Adaptive layout based on device capabilities
+  const determineLayoutMode = async () => {
+    const { width, height } = Dimensions.get('window')
+    const isTablet = await DeviceInfo.isTablet()
+    
+    // Determine layout mode
+    if (isTablet || width > 768) {
+      setLayoutMode('tablet')
+      await setupTabletLayout()
+    } else {
+      setLayoutMode('smartphone')
+      await setupSmartphoneLayout()
+    }
+  }
+
+  // Tablet layout: Multi-column with side navigation
+  const setupTabletLayout = async () => {
+    const tabletConfig = {
+      layout: 'multi-column',
+      navigation: 'side',
+      touchTargets: 50,
+      splitView: true, // Menu + cart simultaneously
+      gestures: {
+        swipe: true,
+        pinch: false,
+        longPress: true
+      }
+    }
+    
+    await applyLayoutConfig(tabletConfig)
+  }
+
+  // Smartphone layout: Single column with bottom navigation
+  const setupSmartphoneLayout = async () => {
+    const smartphoneConfig = {
+      layout: 'single-column',
+      navigation: 'bottom',
+      touchTargets: 44,
+      reachability: true, // One-handed operation
+      gestures: {
+        swipe: true,
+        pullToRefresh: true,
+        quickActions: ['add-item', 'view-cart', 'checkout']
+      }
+    }
+    
+    await applyLayoutConfig(smartphoneConfig)
+  }
+
+  return (
+    <ServerLayout 
+      mode={layoutMode}
+      orientation={orientation}
+    />
+  )
+}
+```
+
+### Mobile Payment Integration
+```typescript
+// Mobile payment processing with card reader integration
+import { StripeTerminal } from '@stripe/stripe-terminal-react-native'
+import { NfcManager, NfcTech } from 'react-native-nfc-manager'
+
+class MobilePaymentProcessor {
+  private stripeTerminal: StripeTerminal
+  private cardReaderConnected: boolean = false
+
+  async initialize(): Promise<void> {
+    // Initialize Stripe Terminal for card readers
+    await this.stripeTerminal.initialize({
+      fetchConnectionToken: this.fetchConnectionToken
+    })
+
+    // Initialize NFC for contactless payments
+    await NfcManager.start()
+    
+    // Discover and connect to card readers
+    await this.discoverCardReaders()
+  }
+
+  // ✅ CORRECT: Card reader integration
+  async processCardPayment(amount: number): Promise<PaymentResult> {
+    if (!this.cardReaderConnected) {
+      throw new Error('Card reader not connected')
+    }
+
+    try {
+      // Create payment intent
+      const paymentIntent = await this.createPaymentIntent(amount)
+      
+      // Collect payment method
+      const result = await this.stripeTerminal.collectPaymentMethod(paymentIntent)
+      
+      // Process payment
+      const confirmation = await this.stripeTerminal.processPayment(result.paymentIntent)
+      
+      return {
+        success: true,
+        transactionId: confirmation.paymentIntent.id,
+        amount,
+        method: 'card',
+        timestamp: new Date().toISOString()
+      }
+      
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message,
+        amount,
+        method: 'card'
+      }
+    }
+  }
+
+  // NFC/Contactless payment processing
+  async processContactlessPayment(amount: number): Promise<PaymentResult> {
+    try {
+      // Request NFC technology
+      await NfcManager.requestTechnology(NfcTech.Ndef)
+      
+      // Read NFC tag/card
+      const tag = await NfcManager.getTag()
+      
+      // Process contactless payment
+      const result = await this.processNfcPayment(tag, amount)
+      
+      return result
+      
+    } catch (error) {
+      return {
+        success: false,
+        error: 'Contactless payment failed',
+        amount,
+        method: 'contactless'
+      }
+    } finally {
+      NfcManager.cancelTechnologyRequest()
+    }
+  }
+
+  // Mobile wallet integration (Apple Pay, Google Pay)
+  async processMobileWallet(amount: number): Promise<PaymentResult> {
+    const { ApplePay, GooglePay } = await import('react-native-payments')
+    
+    const paymentRequest = {
+      id: 'pos-payment',
+      displayItems: [{
+        label: 'Order Total',
+        amount: { currency: 'USD', value: amount.toString() }
+      }],
+      total: {
+        label: 'Total',
+        amount: { currency: 'USD', value: amount.toString() }
+      },
+      methodData: [{
+        supportedMethods: ['apple-pay', 'google-pay'],
+        data: {
+          merchantIdentifier: 'merchant.pos.system',
+          supportedNetworks: ['visa', 'mastercard', 'amex']
+        }
+      }]
+    }
+
+    try {
+      const paymentResponse = Platform.OS === 'ios' 
+        ? await ApplePay.show(paymentRequest)
+        : await GooglePay.show(paymentRequest)
+      
+      return {
+        success: true,
+        transactionId: paymentResponse.transactionIdentifier,
+        amount,
+        method: 'mobile_wallet',
+        timestamp: new Date().toISOString()
+      }
+      
+    } catch (error) {
+      return {
+        success: false,
+        error: 'Mobile wallet payment cancelled',
+        amount,
+        method: 'mobile_wallet'
+      }
+    }
+  }
+}
+```
+
+## 🔄 Cross-Platform Synchronization
+
+### Shared State Management
+```typescript
+// Shared state management between web and mobile
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+interface PosState {
+  orders: Order[]
+  currentUser: User | null
+  isOnline: boolean
+  lastSync: number
+  
+  // Actions
+  addOrder: (order: Order) => void
+  updateOrder: (orderId: string, updates: Partial<Order>) => void
+  syncWithServer: () => Promise<void>
+  setOnlineStatus: (status: boolean) => void
+}
+
+// ✅ CORRECT: Zustand store with persistence
+export const usePosStore = create<PosState>()(
+  persist(
+    (set, get) => ({
+      orders: [],
+      currentUser: null,
+      isOnline: true,
+      lastSync: 0,
+
+      addOrder: (order) => 
+        set((state) => ({ 
+          orders: [...state.orders, order] 
+        })),
+
+      updateOrder: (orderId, updates) =>
+        set((state) => ({
+          orders: state.orders.map(order =>
+            order.id === orderId ? { ...order, ...updates } : order
+          )
+        })),
+
+      syncWithServer: async () => {
+        const { orders, lastSync } = get()
+        
+        try {
+          // Sync orders modified since last sync
+          const modifiedOrders = orders.filter(order => 
+            order.updated_at > lastSync
+          )
+          
+          if (modifiedOrders.length > 0) {
+            await apiClient.syncOrders(modifiedOrders)
+          }
+          
+          // Fetch server updates
+          const serverUpdates = await apiClient.getOrderUpdates(lastSync)
+          
+          set({
+            orders: mergeOrderUpdates(orders, serverUpdates),
+            lastSync: Date.now()
+          })
+          
+        } catch (error) {
+          console.error('Sync failed:', error)
+        }
+      },
+
+      setOnlineStatus: (status) => 
+        set({ isOnline: status })
+    }),
+    {
+      name: 'pos-storage',
+      storage: {
+        getItem: (name) => AsyncStorage.getItem(name),
+        setItem: (name, value) => AsyncStorage.setItem(name, value),
+        removeItem: (name) => AsyncStorage.removeItem(name)
+      }
+    }
+  )
+)
+```
+
+## 🎨 UI Component Patterns
+
+### Touch-Optimized Components
+```typescript
+// Touch-optimized button component for mobile
+import React from 'react'
+import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native'
+import { useHapticFeedback } from 'react-native-haptic-feedback'
+
+interface TouchButtonProps {
+  title: string
+  onPress: () => void
+  variant?: 'primary' | 'secondary' | 'danger'
+  size?: 'small' | 'medium' | 'large'
+  disabled?: boolean
+  hapticFeedback?: boolean
+}
+
+// ✅ CORRECT: Touch-optimized component with haptic feedback
+export const TouchButton: React.FC<TouchButtonProps> = ({
+  title,
+  onPress,
+  variant = 'primary',
+  size = 'medium',
+  disabled = false,
+  hapticFeedback = true
+}) => {
+  const triggerHaptic = useHapticFeedback()
+
+  const handlePress = () => {
+    if (hapticFeedback) {
+      triggerHaptic('impactLight')
+    }
+    onPress()
+  }
+
+  const buttonStyle: ViewStyle = {
+    ...styles.base,
+    ...styles[variant],
+    ...styles[size],
+    opacity: disabled ? 0.6 : 1
+  }
+
+  return (
+    <TouchableOpacity
+      style={buttonStyle}
+      onPress={handlePress}
+      disabled={disabled}
+      activeOpacity={0.7}
+      hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} // Larger touch area
+    >
+      <Text style={[styles.text, styles[`${variant}Text`]]}>{title}</Text>
+    </TouchableOpacity>
+  )
+}
+
+const styles = StyleSheet.create({
+  base: {
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: 44, // iOS minimum touch target
+  },
+  
+  // Size variants
+  small: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    minHeight: 44,
+  },
+  medium: {
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    minHeight: 50, // Tablet-optimized
+  },
+  large: {
+    paddingHorizontal: 32,
+    paddingVertical: 16,
+    minHeight: 60, // TV display optimized
+  },
+  
+  // Variant styles
+  primary: {
+    backgroundColor: '#007AFF',
+  },
+  secondary: {
+    backgroundColor: '#F2F2F7',
+    borderWidth: 1,
+    borderColor: '#C7C7CC',
+  },
+  danger: {
+    backgroundColor: '#FF3B30',
+  },
+  
+  // Text styles
+  text: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  primaryText: {
+    color: '#FFFFFF',
+  },
+  secondaryText: {
+    color: '#007AFF',
+  },
+  dangerText: {
+    color: '#FFFFFF',
+  },
+})
+```
+
+## 🚀 Performance Optimization
+
+### Memory Management for Long-Running Apps
+```typescript
+// Memory optimization for kitchen displays that run 24/7
+class MobilePerformanceManager {
+  private memoryWarningListener: any
+  private backgroundTimer: NodeJS.Timeout | null = null
+
+  initialize(): void {
+    // Monitor memory warnings
+    this.memoryWarningListener = DeviceEventEmitter.addListener(
+      'memoryWarning',
+      this.handleMemoryWarning
+    )
+
+    // Setup background optimization
+    AppState.addEventListener('change', this.handleAppStateChange)
+  }
+
+  // ✅ CORRECT: Memory management for long-running apps
+  private handleMemoryWarning = (): void => {
+    console.log('⚠️ Memory warning received - optimizing...')
+    
+    // Clear non-essential caches
+    ImageCache.clear()
+    
+    // Limit order history in memory
+    OrderManager.limitHistoryItems(25)
+    
+    // Force garbage collection (if available)
+    if (global.gc) {
+      global.gc()
+    }
+    
+    // Reduce image quality temporarily
+    ImageManager.setQuality('low')
+  }
+
+  private handleAppStateChange = (nextAppState: string): void => {
+    if (nextAppState === 'background') {
+      // Reduce background activity
+      this.enablePowerSaveMode()
+    } else if (nextAppState === 'active') {
+      // Resume normal operation
+      this.disablePowerSaveMode()
+    }
+  }
+
+  private enablePowerSaveMode(): void {
+    // Reduce polling frequency
+    SyncManager.setPollingInterval(30000) // 30s instead of 5s
+    
+    // Pause animations
+    AnimationManager.pauseNonCriticalAnimations()
+    
+    // Reduce network activity
+    NetworkManager.enableBatchMode()
+  }
+
+  private disablePowerSaveMode(): void {
+    // Resume normal polling
+    SyncManager.setPollingInterval(5000)
+    
+    // Resume animations
+    AnimationManager.resumeAnimations()
+    
+    // Resume normal network activity
+    NetworkManager.disableBatchMode()
+  }
+
+  cleanup(): void {
+    if (this.memoryWarningListener) {
+      this.memoryWarningListener.remove()
+    }
+    
+    if (this.backgroundTimer) {
+      clearInterval(this.backgroundTimer)
+    }
+  }
+}
+```
+
+## 📱 Development & Deployment
+
+### Build Configuration
+```javascript
+// metro.config.js - Optimized for POS mobile apps
+const { getDefaultConfig } = require('expo/metro-config')
+
+const config = getDefaultConfig(__dirname)
+
+// Optimize for POS system requirements
+config.resolver.platforms = ['native', 'ios', 'android', 'web']
+
+// Enable shared code between kitchen and server apps
+config.resolver.alias = {
+  '@shared': './shared',
+  '@kitchen': './kitchen-app/src',
+  '@server': './server-app/src'
+}
+
+// Optimize bundle size for tablet deployment
+config.transformer.minifierConfig = {
+  keep_fnames: true, // Keep function names for debugging
+  mangle: {
+    keep_fnames: true
+  }
+}
+
+module.exports = config
+```
+
+### Deployment Scripts
+```bash
+#!/bin/bash
+# deploy-mobile-apps.sh - Deploy both kitchen and server apps
+
+echo "🚀 Deploying POS Mobile Applications..."
+
+# Build kitchen app
+echo "📱 Building Kitchen Staff App..."
+cd kitchen-app
+npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle
+npx react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle
+
+# Build server app  
+echo "👨‍💼 Building Server Group App..."
+cd ../server-app
+npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle
+npx react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle
+
+echo "✅ Mobile apps built successfully!"
+echo "📋 Next steps:"
+echo "  1. Test on target devices (tablets for kitchen, phones/tablets for servers)"
+echo "  2. Deploy to app stores or internal distribution"
+echo "  3. Configure device management for restaurant deployment"
+```
+
+This comprehensive React Native pattern guide ensures your mobile POS applications are optimized for restaurant environments, with proper device-specific optimizations, offline capabilities, and seamless integration with the existing web-based POS system.
 
 ---
 > Source: [madebyaris/poinf-of-sales](https://github.com/madebyaris/poinf-of-sales) — distributed by [TomeVault](https://tomevault.io).
