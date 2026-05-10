@@ -1,76 +1,63 @@
-## errors
+## fastify
 
-> Error handling patterns, domain errors, and security for QAuth
+> Fastify usage, plugins, and security for auth-server and libs/fastify
 
 
-# Error Handling (QAuth)
+# Fastify (QAuth)
 
-## Use Domain Errors
+## Production
 
-Throw domain-specific errors from `@qauth-labs/shared-errors`:
+- **Use a reverse proxy** (e.g. Nginx, HAProxy). Do not expose the Fastify app directly to the internet. Handle TLS, HTTP→HTTPS redirects, and static assets at the proxy.
+- **Listen on `0.0.0.0`** when running in containers/Kubernetes so readiness/liveness probes can reach the app (default `127.0.0.1` is unreachable from the pod network).
+- **Trust proxy**: If behind a reverse proxy, configure `trustProxy` so `request.ip` and `X-Forwarded-*` headers are correct.
 
-```typescript
-// ✅ GOOD: Domain error with statusCode
-import { NotFoundError, InvalidCredentialsError } from '@qauth-labs/shared-errors';
+## Plugins
 
-if (!user) {
-  throw new NotFoundError('User', userId);
-}
+- **Shared decorators**: Wrap with `fastify-plugin` and pass `{ name: '@qauth-labs/fastify-plugin-<feature>' }` so decorators are visible to the parent app. Without `fp`, decorators are encapsulated.
+- **Lifecycle**: Use `onReady` for post-boot checks and `onClose` for cleanup (e.g. DB/Redis). Decorate only after async setup completes.
+- **TypeScript**: Extend `FastifyInstance` via `declare module 'fastify'` in the plugin file so routes get correct types.
 
-if (!passwordValid) {
-  throw new InvalidCredentialsError(); // Generic message prevents enumeration
-}
+## Routes and validation
 
-// ❌ BAD: Generic Error or ad-hoc status codes
-throw new Error('User not found');
-reply.code(404).send({ error: 'Not found' });
-```
+- **Schema**: Register `schema.body`, `schema.querystring`, `schema.params`, and `schema.response` (e.g. `response: { 200: responseSchema }`). Fastify v5 expects schemas for validation and types.
+- **Type provider**: Use `fastify.withTypeProvider<ZodTypeProvider>()` before defining routes when using Zod schemas.
 
-## Error Response Shape
+## Security and dependencies
 
-All errors return consistent JSON (handled by global error handler):
+- **Fastify version**: Keep Fastify **≥ 5.3.2** to avoid CVE-2025-32442 (content-type parsing bypass in 5.0.0–5.3.0). Do not rely on content-type-specific validation without normalizing the header.
+- **Audit**: Run `pnpm audit` regularly; fix or document high/critical vulnerabilities.
+- **Node**: Fastify v5 requires Node.js v20+; this project uses `>=24.7.0`.
 
-- **Required**: `error` (string), `statusCode` (number)
-- **Optional**: `code` (e.g. `INVALID_CREDENTIALS`), `feedback` (password rules), `constraint` (DB constraint), `retryAfter` (429), `details` (validation errors)
-
-## Security
-
-- **No sensitive data**: Never expose passwords, tokens, secrets, or internal paths in error messages.
-- **Generic auth errors**: Use `InvalidCredentialsError` with the same message for "user not found" and "wrong password" to prevent user enumeration.
-- **Stack traces**: Only in development (`NODE_ENV !== 'production'`); never in production responses.
-- **Logging**: Log full error details server-side; sanitize client responses.
-
-## Error Class Pattern
+## Example (route with schema)
 
 ```typescript
-export class NotFoundError extends Error {
-  readonly statusCode = 404;
-
-  constructor(entity: string, id: string) {
-    super(`${entity} with id ${id} not found`);
-    this.name = 'NotFoundError';
-    Object.setPrototypeOf(this, NotFoundError.prototype);
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, NotFoundError);
-    }
+fastify.withTypeProvider<ZodTypeProvider>().post(
+  '/login',
+  {
+    schema: {
+      body: loginSchema,
+      response: { 200: loginResponseSchema },
+    },
+    config: { rateLimit: { max: env.LOGIN_RATE_LIMIT, timeWindow: env.LOGIN_RATE_WINDOW * 1000 } },
+  },
+  async (request, reply) => {
+    /* ... */
   }
-}
+);
 ```
 
-## Global Error Handler
+## Example (plugin with fp)
 
-Errors are caught by `apps/auth-server/src/app/plugins/error-handler.ts`:
+```typescript
+import fp from 'fastify-plugin';
 
-- Maps domain errors to HTTP responses
-- Handles Fastify validation errors (400 with `details`)
-- Logs errors server-side
-- Returns sanitized responses (no stack traces in production)
-
-## Best Practices
-
-- **Preserve cause**: Use `cause` parameter when wrapping errors (e.g. `UniqueConstraintError(constraint, originalError)`).
-- **Type safety**: Use `instanceof` checks or helper functions (e.g. `isUniqueConstraintError()`).
-- **Don't catch and ignore**: Always handle or re-throw; let global handler catch unhandled errors.
+export const myPlugin = fp(
+  async (fastify, options) => {
+    fastify.decorate('myUtil', createUtil(options));
+  },
+  { name: '@qauth-labs/fastify-plugin-myfeature' }
+);
+```
 
 ---
 > Source: [qauth-labs/qauth](https://github.com/qauth-labs/qauth) — distributed by [TomeVault](https://tomevault.io).
