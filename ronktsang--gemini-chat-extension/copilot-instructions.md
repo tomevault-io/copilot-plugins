@@ -1,22 +1,23 @@
-## data-layer-and-repositories
+## event-bus-and-communication
 
-> Data layer conventions with Dexie, repositories, and domain mapping
+> Event bus usage for cross-module communication
 
-# Data Layer and Repositories
+# Event Bus and Communication
 
-- IndexedDB via Dexie is initialized in [`src/data/db.ts`](mdc:src/data/db.ts)
-  - Database name: `gemini_extension`
-  - Tables are versioned; update `version(...).stores({...})` as schemas evolve
-- Access data via repositories in [`src/data/repositories`](mdc:src/data/repositories)
-  - Example: [`chainPromptRepository`](mdc:src/data/repositories/chainPromptRepository.ts)
-  - Responsibilities: ID generation (`nanoid`), timestamps, zod validation, Row↔Domain mapping
-- Data sources live under [`src/data/sources`](mdc:src/data/sources)
+- Use the global `eventBus` from [`src/utils/eventbus.ts`](mdc:src/utils/eventbus.ts) for cross-module messaging
+- Define event names and types in [`src/common/event.ts`](mdc:src/common/event.ts)
+- Prefer `eventBus.on/once` for subscriptions and `eventBus.emit` for async fan-out
+- Keep listener counts reasonable; `EventBus` warns when exceeding `maxListeners`
+- Remove listeners when appropriate for long-lived modules
 
-## Guidelines
-- Validate inputs with zod schemas at repository boundaries
-- Keep domain types in [`src/domain`](mdc:src/domain)
-- Sort/paginate/filter in repositories, not UI components
-- Prefer immutable updates and explicit timestamps (`createdAt`, `updatedAt`)
+Example pattern:
+```ts
+import { eventBus } from '@/utils/eventbus'
+
+eventBus.on('settings:open', (payload) => {
+  // handle open
+})
+```
 
 ---
 > Source: [RonkTsang/gemini-chat-extension](https://github.com/RonkTsang/gemini-chat-extension) — distributed by [TomeVault](https://tomevault.io).
