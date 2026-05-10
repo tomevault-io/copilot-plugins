@@ -1,0 +1,44 @@
+{
+  "name": "openclaw-mem0",
+  "owner": "iqvpi1024",
+  "repo": "openclaw-mem0",
+  "description": "openclaw\u5f3a\u5236\u4f7f\u7528mem0",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/iqvpi1024/openclaw-mem0",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T11:02:15Z"
+}
