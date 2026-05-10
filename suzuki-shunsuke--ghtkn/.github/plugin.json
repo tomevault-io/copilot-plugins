@@ -1,0 +1,9 @@
+{
+  "name": "suzuki-shunsuke--ghtkn",
+  "displayName": "ghtkn",
+  "description": "A CLI to create short-lived (8 hours) GitHub App User Access Token for secure local development",
+  "version": "1.0.0",
+  "author": "suzuki-shunsuke",
+  "homepage": "https://github.com/suzuki-shunsuke/ghtkn",
+  "skills": []
+}
