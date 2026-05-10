@@ -1,26 +1,20 @@
-## 00-repo-tooling
+## 05-permissions-and-tools
 
-> Project-wide tooling, env, and command conventions
+> Cursor agent permissions and allowed tools aligned with Claude settings
 
 
-Use Rye for Python dependency management and workflows. Prefer these commands:
+When invoking external tools or the terminal, follow these constraints:
 
-- Setup env: `./scripts/bootstrap` or `rye sync --all-features` [[Use Rye in this repo]]
-- Run tests: `rye run pytest` or `./scripts/test`
-- Run a specific test: `rye run pytest path/to/test_file.py::TestClass::test_method -v`
-- Format: `rye run format` or `./scripts/format`
-- Lint: `rye run lint` or `./scripts/lint`
-- Type check: `rye run typecheck` (runs pyright and mypy)
-- Build: `rye build`
+- Web search is allowed when needed for docs and references
+- Prefer fetching docs from `docs.temporal.io` when researching Temporal topics
+- Allowed bash commands should go through Rye workflows:
+  - `rye run pytest:*`
+  - `rye run lint:*`
+  - `rye run typecheck:*`
+  - `rye run sync:*`
+  - `rye run build:*`
 
-Environment requirements:
-
-- Python 3.12+ is required
-- A mock server auto-starts for tests on port 4010
-
-Notes:
-
-- Only use `uv` inside of tutorial folders which have their own virtualenv (managed by a tutorial specific pyproject.toml inside the relevant tutorial folder). Otherwise use rye at the top level.
+Default to Rye; only use other tools when explicitly required by the codebase.
 
 ---
 > Source: [scaleapi/scale-agentex-python](https://github.com/scaleapi/scale-agentex-python) — distributed by [TomeVault](https://tomevault.io).
