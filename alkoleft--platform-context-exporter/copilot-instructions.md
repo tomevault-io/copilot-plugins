@@ -1,162 +1,525 @@
-## 114-java-secure-coding
+## 115-java-concurrency
 
-> Java Secure coding guidelines
+> Java rules for Concurrency objects
 
-# Java Secure coding guidelines
+# Java rules for Concurrency objects
 
-This document provides essential Java secure coding guidelines, focusing on five key areas: validating all untrusted inputs to prevent attacks like injection and path traversal; protecting against injection attacks (e.g., SQL injection) by using parameterized queries or prepared statements; minimizing the attack surface by adhering to the principle of least privilege and reducing exposure; employing strong, current cryptographic algorithms for hashing, encryption, and digital signatures while avoiding deprecated ones; and handling exceptions securely by avoiding the exposure of sensitive information in error messages to users and logging detailed, non-sensitive diagnostic information for developers.
+Effective Java concurrency relies on understanding thread safety fundamentals, using `java.util.concurrent` utilities, and managing thread pools with `ExecutorService`. Key practices include implementing concurrent design patterns like Producer-Consumer, leveraging `CompletableFuture` for asynchronous tasks, and ensuring thread safety through immutability and safe publication. Performance aspects like lock contention and memory consistency must be considered. Thorough testing, including stress tests and thread dump analysis, is crucial. Modern Java offers virtual threads for enhanced scalability, structured concurrency for simplified task management, and scoped values for safer thread-shared data as alternatives to thread-locals.
 
 ## Implementing These Principles
 
 These guidelines are built upon the following core principles:
 
-1.  **Comprehensive Input Validation**: Treat all external input as untrusted. Rigorously validate and sanitize data for type, length, format, and range before processing to prevent common vulnerabilities like injection attacks, path traversal, and buffer overflows.
-2.  **Defense Against Injection**: Actively protect against all forms of injection attacks (e.g., SQL, OS Command, LDAP, XPath). Primarily achieve this by using safe APIs like parameterized queries (e.g., `PreparedStatement` in JDBC) or dedicated libraries that correctly handle data escaping, and by never directly concatenating untrusted input into executable commands or queries.
-3.  **Attack Surface Minimization**: Adhere to the principle of least privilege for users, processes, and code. Reduce the exposure of system components by running with minimal necessary permissions, exposing only essential functionalities and network ports, and regularly reviewing and removing unused features, libraries, and accounts.
-4.  **Strong Cryptographic Practices**: Employ current, robust, and industry-standard cryptographic algorithms and libraries for all sensitive operations, including hashing (especially for passwords), encryption, and digital signatures. Avoid deprecated or weak algorithms. Ensure cryptographic keys are generated securely, stored safely, and managed properly throughout their lifecycle.
-5.  **Secure Exception Handling**: Manage exceptions in a way that does not expose sensitive information to users or attackers. Log detailed, non-sensitive diagnostic information for developers to aid in debugging, but provide generic, non-revealing error messages to clients. Avoid direct exposure of stack traces or internal system details in error outputs.
+1.  **Master Thread Safety Fundamentals**: Understand and correctly apply core concepts such as synchronization (locks, conditions), atomic operations (`java.util.concurrent.atomic`), thread-safe collections (`java.util.concurrent`), immutability, and the Java Memory Model to ensure data integrity and prevent race conditions or deadlocks.
+2.  **Efficient Thread Pool Management**: Utilize `ExecutorService` for robust thread management. Choose appropriate thread pool implementations and configure them with suitable sizing, keep-alive times, queue capacities, and rejection policies based on the application's workload. Implement graceful shutdown procedures.
+3.  **Leverage Concurrent Design Patterns**: Implement established patterns like Producer-Consumer (using `BlockingQueue`) and Publish-Subscribe to structure concurrent applications effectively, promoting decoupling, scalability, and maintainability.
+4.  **Embrace Asynchronous Programming with `CompletableFuture`**: Employ `CompletableFuture` to compose and manage asynchronous computations in a non-blocking way. Chain dependent tasks, combine results from multiple futures, and handle exceptions gracefully to build responsive and efficient applications.
+5.  **Prioritize Immutability and Safe Publication**: Design classes to be immutable whenever feasible to inherently achieve thread safety. Ensure that shared mutable objects are safely published (e.g., via `volatile`, static initializers, or proper synchronization) so that their state is consistently visible to all threads.
+6.  **Optimize for Performance, Considering Concurrency overheads**: Be mindful of performance implications such as lock contention (minimize scope, use finer-grained locks), memory consistency (understand happens-before, use `volatile` where appropriate), context switching overhead (size thread pools carefully), and potential issues like false sharing.
+7.  **Thorough Testing and Debugging**: Rigorously test concurrent code. This includes unit tests for thread-safe components, integration tests for interactions, and stress tests to reveal race conditions or deadlocks. Utilize thread dump analysis, proper logging, and concurrency testing tools.
+8.  **Adopt Modern Java Concurrency Features for Enhanced Development**: 
+    *   **Virtual Threads (Project Loom)**: Embrace virtual threads via `Executors.newVirtualThreadPerTaskExecutor()` for I/O-bound tasks to dramatically increase scalability with minimal resource overhead. Avoid pooling virtual threads.
+    *   **Structured Concurrency**: Use `StructuredTaskScope` to simplify the management of multiple related concurrent tasks as a single unit of work, improving error handling, cancellation, and resource management.
+    *   **Scoped Values**: Prefer `ScopedValue` over `ThreadLocal` for sharing immutable data robustly and efficiently across tasks within a dynamically bounded scope, especially when working with virtual threads.
 
 ## Table of contents
 
-- Rule 1: Input Validation
-- Rule 2: Protect Against Injection Attacks
-- Rule 3: Minimize Attack Surface
-- Rule 4: Use Strong Cryptography
-- Rule 5: Handle Exceptions Securely
+- Rule 1: Thread Safety Fundamentals
+- Rule 2: Thread Pool Management
+- Rule 3: Concurrent Design Patterns
+- Rule 4: Asynchronous Programming with CompletableFuture
+- Rule 5: Thread Safety Guidelines (Immutability & Safe Publication)
+- Rule 6: Performance Considerations in Concurrency
+- Rule 7: Testing and Debugging Concurrent Code
+- Rule 8: Embrace Virtual Threads for Enhanced Scalability
+- Rule 9: Simplify Concurrent Code with Structured Concurrency
+- Rule 10: Manage Thread-Shared Data with Scoped Values
 
-## Rule 1: Input Validation
+## Rule 1: Thread Safety Fundamentals
 
-Title: Validate All Untrusted Inputs
-Description: Always validate and sanitize data received from untrusted sources (users, network, files, etc.) before processing. This helps prevent various attacks like injection, path traversal, and buffer overflows. Validation should check for type, length, format, and range.
+Title: Understand and Apply Core Thread Safety Concepts
+Description: Ensure data integrity and correct behavior in multi-threaded environments by using thread-safe data structures and appropriate synchronization mechanisms.
+- Prefer `java.util.concurrent` collections over older synchronized wrappers.
+- Utilize immutable objects to eliminate risks of concurrent modification.
+- Employ thread-local variables for state confined to a single thread.
+- Use atomic classes (`java.util.concurrent.atomic`) for lock-free operations on single variables.
+- Choose flexible locking with `ReentrantLock` or `ReadWriteLock` for more complex scenarios.
+- Favor `java.util.concurrent` utilities over manual `wait()/notify()`.
 
 **Good example:**
 
 ```java
-import java.util.Objects;
-public void processUserData(String username, String ageString) {
-    if (Objects.isNull(username) || !username.matches("^[a-zA-Z0-9_]{3,16}$")) {
-        throw new IllegalArgumentException("Invalid username format.");
+import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+// Dummy classes for context
+class Task {}
+class Event {}
+class State {
+    public State(String initialState) {} // Constructor for initial state
+} 
+class UserContext {}
+class Item {}
+
+class ThreadSafetyExamples {
+    // Preferred concurrent collections
+    Map<String, String> concurrentMap = new ConcurrentHashMap<>();
+    Queue<Task> taskQueue = new ConcurrentLinkedQueue<>();
+    BlockingQueue<Event> eventQueue = new LinkedBlockingQueue<>();
+
+    // Atomic variables
+    AtomicInteger counter = new AtomicInteger(0);
+    AtomicReference<State> stateRef = new AtomicReference<>(new State("initial"));
+
+    // Thread-local storage
+    private static final ThreadLocal<UserContext> userContext =
+        ThreadLocal.withInitial(UserContext::new);
+
+    // Using ReentrantLock
+    private final ReentrantLock lock = new ReentrantLock();
+    private final Condition notFull = lock.newCondition(); // Example condition
+    private int itemCount = 0; // Example shared resource
+    private final int MAX_ITEMS = 10; // Example capacity
+
+    private boolean isFull() {
+        return itemCount >= MAX_ITEMS;
+    }
+     private boolean isEmpty() { // Example helper
+        return itemCount <= 0;
     }
 
-    int age;
-    try {
-        age = Integer.parseInt(ageString);
-        if (age < 0 || age > 120) {
-            throw new IllegalArgumentException("Age out of valid range.");
+
+    public void addItem(Item item) throws InterruptedException { // Added throws for await
+        lock.lock();
+        try {
+            while (isFull()) {
+                System.out.println("Queue is full, waiting to add item...");
+                notFull.await(); // Wait if queue is full
+            }
+            // Add item logic here
+            itemCount++;
+            System.out.println("Item added. Count: " + itemCount);
+            // Potentially signal other conditions (e.g., notEmpty.signalAll())
+        } finally {
+            lock.unlock();
         }
-    } catch (NumberFormatException e) {
-        throw new IllegalArgumentException("Invalid age format.");
     }
 
-    // Proceed with validated username and age
-    System.out.println("Processing user: " + username + ", age: " + age);
+    // Using ReadWriteLock
+    private final ReadWriteLock rwLock = new ReentrantReadWriteLock();
+    private final Lock readLock = rwLock.readLock();
+    private final Lock writeLock = rwLock.writeLock();
+    private String sharedData = "Initial Data";
+
+    public String readData() {
+        readLock.lock();
+        try {
+            return sharedData;
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    public void writeData(String data) {
+        writeLock.lock();
+        try {
+            sharedData = data;
+            System.out.println("Data written: " + data);
+        } finally {
+            writeLock.unlock();
+        }
+    }
 }
 ```
 
 **Bad Example:**
 
 ```java
-public void processUserData(String username, String ageString) {
-    // Directly using input without validation
-    int age = Integer.parseInt(ageString); // Potential NumberFormatException if ageString is not a number
-                                         // No checks for malicious username strings
-
-    System.out.println("Processing user: " + username + ", age: " + age);
-    // This could lead to issues if username is e.g. a script or ageString is not an integer
-}
+// Bad example to be added
+// e.g., using Collections.synchronizedMap without careful iteration synchronization,
+// or incorrect use of wait/notify.
 ```
 
-## Rule 2: Protect Against Injection Attacks
+## Rule 2: Thread Pool Management
 
-Title: Use Parameterized Queries or Prepared Statements for Database Access
-Description: To prevent SQL Injection, always use parameterized queries (PreparedStatements in JDBC) or an ORM that handles this automatically. Never concatenate user input directly into SQL queries. Similar principles apply to other types of injection (OS command, LDAP, XPath, etc.).
+Title: Manage Thread Pools Effectively with ExecutorService
+Description:
+Utilize `ExecutorService` for robust thread management.
+- Choose appropriate thread pool implementations (`FixedThreadPool`, `CachedThreadPool`, `ScheduledThreadPool`, custom `ThreadPoolExecutor`) based on workload.
+- Configure thread pools with appropriate sizing (core, maximum, keep-alive times, queue capacity).
+- Implement graceful shutdown procedures (`shutdown()`, `shutdownNow()`, `awaitTermination()`).
+- Define and handle rejected execution policies (`RejectedExecutionHandler`).
+- Monitor thread pool health and performance.
 
 **Good example:**
 
 ```java
-// Using PreparedStatement to prevent SQL Injection
-String customerId = request.getParameter("customerId");
-String query = "SELECT * FROM orders WHERE customer_id = ?";
-try (Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
-     PreparedStatement pstmt = con.prepareStatement(query)) {
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
-    pstmt.setString(1, customerId);
-    ResultSet rs = pstmt.executeQuery();
-    // Process results
-} catch (SQLException e) {
-    // Handle exception
+// Example ThreadFactoryBuilder (simplified, real one might be from Guava or similar)
+class ThreadFactoryBuilder {
+    private String nameFormat;
+    private final AtomicInteger threadNumber = new AtomicInteger(1);
+
+    public ThreadFactoryBuilder setNameFormat(String nameFormat) {
+        this.nameFormat = nameFormat;
+        return this;
+    }
+    public ThreadFactory build() {
+        return (r) -> new Thread(r, String.format(nameFormat, threadNumber.getAndIncrement()));
+    }
+}
+
+class ThreadPoolManagementExample {
+    public static void main(String args) throws InterruptedException {
+        // Fixed thread pool with named threads
+        ExecutorService fixedExecutor = Executors.newFixedThreadPool(
+            Runtime.getRuntime().availableProcessors(),
+            new ThreadFactoryBuilder()
+                .setNameFormat("worker-thread-%d")
+                .build()
+        );
+        fixedExecutor.submit(() -> System.out.println("Task running in fixed pool: " + Thread.currentThread().getName()));
+
+        // Scheduled thread pool for periodic tasks
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(
+            1,
+            new ThreadFactoryBuilder()
+                .setNameFormat("scheduler-thread-%d")
+                .build()
+        );
+        scheduler.scheduleAtFixedRate(() -> System.out.println("Scheduled task running: " + Thread.currentThread().getName()), 0, 5, TimeUnit.SECONDS);
+
+        // Custom thread pool configuration
+        int corePoolSize = 2;
+        int maximumPoolSize = 4;
+        long keepAliveTime = 60L;
+        int queueCapacity = 100;
+        ThreadPoolExecutor customPool = new ThreadPoolExecutor(
+            corePoolSize,
+            maximumPoolSize,
+            keepAliveTime,
+            TimeUnit.SECONDS,
+            new LinkedBlockingQueue<>(queueCapacity),
+            new ThreadFactoryBuilder().setNameFormat("custom-pool-thread-%d").build(),
+            new ThreadPoolExecutor.CallerRunsPolicy() // Example rejection policy
+        );
+        customPool.submit(() -> System.out.println("Task running in custom pool: " + Thread.currentThread().getName()));
+
+        // Shutdown procedures
+        shutdownExecutorService(fixedExecutor, "FixedExecutor");
+        shutdownExecutorService(customPool, "CustomPool");
+        // Scheduler needs a slightly different shutdown if tasks should not be interrupted
+        try {
+            if (!scheduler.awaitTermination(10, TimeUnit.SECONDS)) {
+                scheduler.shutdownNow();
+                if (!scheduler.awaitTermination(5, TimeUnit.SECONDS))
+                    System.err.println("Scheduler did not terminate");
+            }
+        } catch (InterruptedException ie) {
+            scheduler.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
+        System.out.println("All pools shut down.");
+    }
+
+    public static void shutdownExecutorService(ExecutorService executor, String name) {
+        executor.shutdown(); // Disable new tasks from being submitted
+        try {
+            // Wait a while for existing tasks to terminate
+            if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+                executor.shutdownNow(); // Cancel currently executing tasks
+                // Wait a while for tasks to respond to being cancelled
+                if (!executor.awaitTermination(60, TimeUnit.SECONDS))
+                    System.err.println("Pool " + name + " did not terminate");
+            }
+        } catch (InterruptedException ie) {
+            // (Re-)Cancel if current thread also interrupted
+            executor.shutdownNow();
+            // Preserve interrupt status
+            Thread.currentThread().interrupt();
+        }
+    }
 }
 ```
 
 **Bad Example:**
 
 ```java
-// Vulnerable to SQL Injection
-String customerId = request.getParameter("customerId");
-String query = "SELECT * FROM orders WHERE customer_id = '" + customerId + "'"; // User input directly in query
-try (Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
-     Statement stmt = con.createStatement()) {
-
-    ResultSet rs = stmt.executeQuery(query);
-    // Process results
-} catch (SQLException e) {
-    // Handle exception
-}
+// Bad example to be added
+// e.g., using Executors.newSingleThreadExecutor() without considering its unbounded queue,
+// or not shutting down executors.
 ```
 
-## Rule 3: Minimize Attack Surface
+## Rule 3: Concurrent Design Patterns
 
-Title: Adhere to the Principle of Least Privilege and Minimize Exposure
-Description: Grant only necessary permissions to code and users. Avoid running processes with excessive privileges. Expose only essential functionality and network ports. Regularly review and remove unused features, libraries, and accounts.
+Title: Implement Common Concurrent Design Patterns
+Description:
+Leverage established patterns to structure concurrent applications effectively.
+- **Producer-Consumer**: Decouple task submission (producer) from task execution (consumer) using a shared buffer, typically a `BlockingQueue`.
+- **Publish-Subscribe**: Allow multiple subscribers to react to events published on specific topics, often using a central event bus or dispatcher.
 
 **Good example:**
 
 ```java
-// A dedicated, less privileged user for a specific task
-// File operations restricted to a specific directory
+import java.util.Set;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.LinkedBlockingQueue;
 
-// In a web application, ensure sensitive endpoints are protected by strong authentication and authorization.
-// For example, an admin panel should only be accessible to admin users.
+// Dummy classes for context
+class Task {
+    private final String data;
+    public Task(String data) { this.data = data; }
+    @Override public String toString() { return "Task" + data + ""; }
+}
+class Event {
+    private final String content;
+    public Event(String content) { this.content = content; }
+    @Override public String toString() { return "Event" + content + ""; }
+}
+interface EventListener {
+    void onEvent(Event event);
+}
 
-// Don't run your application server as root.
+class ProducerConsumerExample {
+    private final BlockingQueue<Task> queue = new LinkedBlockingQueue<>(10); // Bounded queue
+
+    public void produce(Task task) throws InterruptedException {
+        System.out.println("Producing: " + task);
+        queue.put(task);  // Blocks if queue is full
+    }
+
+    public Task consume() throws InterruptedException {
+        Task task = queue.take();  // Blocks if queue is empty
+        System.out.println("Consuming: " + task);
+        return task;
+    }
+
+    public static void main(String args) {
+        ProducerConsumerExample pc = new ProducerConsumerExample();
+        Thread producerThread = new Thread(() -> {
+            try {
+                for (int i = 0; i < 5; i++) {
+                    pc.produce(new Task("Data-" + i));
+                    Thread.sleep(100);
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+
+        Thread consumerThread = new Thread(() -> {
+            try {
+                for (int i = 0; i < 5; i++) {
+                    pc.consume();
+                    Thread.sleep(200);
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+        producerThread.start();
+        consumerThread.start();
+    }
+}
+
+class EventBus {
+    private final ConcurrentMap<String, Set<EventListener>> listeners =
+        new ConcurrentHashMap<>();
+
+    public void subscribe(String topic, EventListener listener) {
+        listeners.computeIfAbsent(topic,
+            k -> ConcurrentHashMap.newKeySet()).add(listener);
+        System.out.println("Listener subscribed to topic: " + topic);
+    }
+
+    public void publish(String topic, Event event) {
+        Set<EventListener> topicListeners = listeners.get(topic);
+        if (topicListeners != null) {
+            System.out.println("Publishing event to topic " + topic + ": " + event);
+            topicListeners.forEach(listener ->
+                CompletableFuture.runAsync(() -> { // Execute listener asynchronously
+                    System.out.println("Listener " + listener + " processing event: " + event + " on thread " + Thread.currentThread().getName());
+                    listener.onEvent(event);
+                }));
+        } else {
+            System.out.println("No listeners for topic: " + topic);
+        }
+    }
+    public static void main(String args) {
+        EventBus eventBus = new EventBus();
+        EventListener listener1 = event -> System.out.println("Listener 1 received: " + event);
+        EventListener listener2 = event -> System.out.println("Listener 2 received: " + event);
+
+        eventBus.subscribe("news", listener1);
+        eventBus.subscribe("news", listener2);
+        eventBus.subscribe("sports", listener1);
+
+        eventBus.publish("news", new Event("Breaking News!"));
+        eventBus.publish("sports", new Event("Goal Scored!"));
+        eventBus.publish("weather", new Event("Sunny day")); // No listener
+    }
+}
 ```
 
 **Bad Example:**
 
 ```java
-// Running a web application with root/administrator privileges.
-// Making all methods in a class public by default, even helper methods.
-// Using a database account with DBA privileges for simple read operations.
-// Leaving debug endpoints or development tools enabled in production.
+// Bad example to be added
+// e.g., a producer-consumer with a non-thread-safe collection and race conditions.
 ```
 
-## Rule 4: Use Strong Cryptography
+## Rule 4: Asynchronous Programming with CompletableFuture
 
-Title: Employ Current and Robust Cryptographic Algorithms
-Description: Use well-vetted, industry-standard cryptographic libraries and algorithms for hashing, encryption, and digital signatures. Avoid deprecated or weak algorithms (e.g., MD5, SHA1 for hashing passwords, DES). Keep cryptographic keys secure and manage them properly.
+Title: Utilize CompletableFuture for Asynchronous Operations
+Description:
+Employ `CompletableFuture` to compose and manage asynchronous computations in a non-blocking way.
+- Chain dependent asynchronous tasks using methods like `thenApplyAsync()`, `thenComposeAsync()`, `thenAcceptAsync()`.
+- Combine results from multiple `CompletableFuture` instances using `allOf()` or `anyOf()`.
+- Handle exceptions gracefully using `exceptionally()` or `handle()`.
+- Specify `Executor` instances for different stages if fine-grained thread control is needed.
 
 **Good example:**
 
 ```java
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import java.security.SecureRandom;
-import org.mindrot.jbcrypt.BCrypt; // Example for password hashing
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
+import java.util.concurrent.TimeUnit;
 
-public class CryptoUtils {
-    public static SecretKey generateAESKey() throws Exception {
-        KeyGenerator keyGen = KeyGenerator.getInstance("AES");
-        keyGen.init(256, new SecureRandom()); // Use AES-256
-        return keyGen.generateKey();
+
+// Dummy classes for context
+class Request {
+    final String data;
+    public Request(String data) { this.data = data; }
+    @Override public String toString() { return "Request" + data + ""; }
+}
+class ValidatedRequest {
+    final String data;
+    public ValidatedRequest(String data) { this.data = data; }
+     @Override public String toString() { return "ValidatedRequest" + data + ""; }
+}
+class ProcessedRequest {
+    final String data;
+    public ProcessedRequest(String data) { this.data = data; }
+     @Override public String toString() { return "ProcessedRequest" + data + ""; }
+}
+class Result {
+    final String data;
+    public Result(String data) { this.data = data; }
+    @Override public String toString() { return "Result" + data + ""; }
+}
+
+
+class AsyncService {
+    private final ExecutorService customExecutor = Executors.newFixedThreadPool(4);
+
+    // Simulate validation
+    private ValidatedRequest validateRequest(Request request) {
+        System.out.println("Validating " + request + " on " + Thread.currentThread().getName());
+        try { Thread.sleep(100); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+        if (request.data.equals("invalid")) throw new IllegalArgumentException("Invalid request data: " + request.data);
+        return new ValidatedRequest("validated-" + request.data);
     }
 
-    public static String hashPassword(String plainTextPassword) {
-        return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+    // Simulate processing
+    private ProcessedRequest processRequest(ValidatedRequest validatedRequest) {
+        System.out.println("Processing " + validatedRequest + " on " + Thread.currentThread().getName());
+        try { Thread.sleep(100); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+        return new ProcessedRequest("processed-" + validatedRequest.data);
     }
 
-    public static boolean checkPassword(String plainTextPassword, String hashedPassword) {
-        return BCrypt.checkpw(plainTextPassword, hashedPassword);
+    // Simulate formatting
+    private Result formatResult(ProcessedRequest processedRequest) {
+        System.out.println("Formatting " + processedRequest + " on " + Thread.currentThread().getName());
+        try { Thread.sleep(50); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+        return new Result("formatted-" + processedRequest.data);
+    }
+
+    // Simulate error handling
+    private Result handleError(Throwable throwable) {
+        System.err.println("Error occurred: " + throwable.getMessage() + " on " + Thread.currentThread().getName());
+        return new Result("error-" + throwable.getClass().getSimpleName());
+    }
+
+    public CompletableFuture<Result> processSingleAsync(Request request) {
+        return CompletableFuture
+            .supplyAsync(() -> validateRequest(request), customExecutor) // Use a specific executor
+            .thenApplyAsync(this::processRequest, customExecutor)       // And for subsequent stages
+            .thenApply(this::formatResult) // Can run in previous stage's thread or ForkJoinPool.commonPool() if not specified
+            .exceptionally(this::handleError);
+    }
+
+    public CompletableFuture<List<Result>> processAllAsync(List<Request> requests) {
+        List<CompletableFuture<Result>> futures = requests.stream()
+            .map(this::processSingleAsync)
+            .collect(Collectors.toList());
+
+        return CompletableFuture.allOf(futures.toArray(new CompletableFuture0))
+            .thenApply(v -> futures.stream()
+                .map(CompletableFuture::join) // .join() can throw unchecked exceptions
+                .collect(Collectors.toList()))
+            .exceptionally(ex -> {
+                System.err.println("Error processing batch: " + ex.getMessage());
+                return List.of(new Result("batch-error"));
+            });
+    }
+    
+    public void shutdown() {
+        customExecutor.shutdown();
+        try {
+            if (!customExecutor.awaitTermination(5, TimeUnit.SECONDS)) {
+                customExecutor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            customExecutor.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
+        System.out.println("AsyncService custom executor shut down.");
+    }
+
+    public static void main(String args) {
+        AsyncService service = new AsyncService();
+        Request validRequest = new Request("data1");
+        Request invalidRequest = new Request("invalid");
+
+        service.processSingleAsync(validRequest)
+               .thenAccept(result -> System.out.println("Single valid result: " + result))
+               .join(); // Wait for completion for demo
+
+        service.processSingleAsync(invalidRequest)
+               .thenAccept(result -> System.out.println("Single invalid result: " + result))
+               .join(); // Wait for completion for demo
+
+        List<Request> batch = List.of(new Request("batch1"), new Request("batch2"), new Request("invalid_batch"));
+        service.processAllAsync(batch)
+               .thenAccept(results -> System.out.println("Batch results: " + results))
+               .join(); // Wait for completion for demo
+        
+        service.shutdown();
     }
 }
 ```
@@ -164,40 +527,120 @@ public class CryptoUtils {
 **Bad Example:**
 
 ```java
-import java.security.MessageDigest;
-
-// Using outdated hashing algorithm like MD5 for passwords
-public class WeakCrypto {
-    public static byte[] hashPasswordMD5(String password) throws Exception {
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(password.getBytes());
-        return md.digest();
-    }
-    // Storing passwords using MD5 is insecure due to vulnerabilities like collision attacks.
-}
+// Bad example to be added
+// e.g., blocking inside a CompletableFuture stage that runs on the common ForkJoinPool,
+// or forgetting to handle exceptions.
 ```
 
-## Rule 5: Handle Exceptions Securely
+## Rule 5: Thread Safety Guidelines (Immutability & Safe Publication)
 
-Title: Avoid Exposing Sensitive Information in Error Messages
-Description: Catch exceptions appropriately, but do not reveal sensitive system details or stack traces to users in production. Log detailed error informationサーバーサイド (server-side) for debugging, but provide generic error messages to the client.
+Title: Ensure Thread Safety through Immutability and Safe Publication
+Description:
+Minimize concurrency risks by designing classes to be immutable and ensuring shared objects are safely published.
+- **Immutability**:
+    - Make fields `final` whenever possible.
+    - Ensure all fields are initialized during construction.
+    - Do not provide setters for mutable state.
+    - Use defensive copying for mutable components (like `List` or `Date`) passed into constructors or returned from getters, or use unmodifiable collections.
+    - Consider using the builder pattern for complex immutable objects.
+- **Safe Publication**:
+    - Ensure that shared objects are correctly published to other threads (e.g., by initializing them in static initializers, storing them in `volatile` fields, or using proper synchronization).
+    - `java.util.concurrent` collections and atomics handle safe publication internally for their state.
 
 **Good example:**
 
 ```java
-public void sensitiveOperation() {
-    try {
-        // Perform some operation that might throw an exception
-        // e.g., database access, file operation
-        performAction();
-    } catch (SpecificException e) {
-        // Log detailed error for developers
-        LOGGER.error("Error during sensitive operation for user X: " + e.getMessage(), e);
-        // Provide a generic error message to the user
-        throw new UserFacingException("An unexpected error occurred. Please try again later.");
-    } catch (Exception e) {
-        LOGGER.error("Unexpected critical error: " + e.getMessage(), e);
-        throw new UserFacingException("A critical error occurred. Please contact support.");
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList; // For mutable list example
+import java.util.Collections; // For unmodifiable list
+import java.util.concurrent.ConcurrentHashMap;
+
+// Dummy class
+class Data {
+    String id;
+    public Data(String id) { this.id = id; }
+    @Override public String toString() { return "Data"+id+""; }
+}
+
+// Immutability Example
+public final class ImmutableValue { // Class is final
+    private final int value;         // Field is final
+    private final List<String> items;  // Field is final
+
+    public ImmutableValue(int value, List<String> items) {
+        this.value = value;
+        // Defensive copy to ensure the internal list cannot be modified externally
+        // and to ensure the list itself is immutable if List.copyOf is used.
+        this.items = List.copyOf(items); // Creates an unmodifiable list
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public List<String> getItems() {
+        // List.copyOf already returned an unmodifiable list, so no need to copy again.
+        // If 'items' were a mutable list internally, you'd return a new copy or unmodifiable view:
+        // return Collections.unmodifiableList(new ArrayList<>(items));
+        return items;
+    }
+
+    public static void main(String args) {
+        List<String> initialItems = new ArrayList<>();
+        initialItems.add("one");
+        initialItems.add("two");
+        
+        ImmutableValue iv = new ImmutableValue(100, initialItems);
+        System.out.println("Value: " + iv.getValue());
+        System.out.println("Items: " + iv.getItems());
+        
+        initialItems.add("three"); // Modify original list
+        System.out.println("Original list modified. ImmutableValue items: " + iv.getItems()); // iv.items remains unchanged
+        
+        try {
+            iv.getItems().add("four"); // This will throw UnsupportedOperationException
+        } catch (UnsupportedOperationException e) {
+            System.out.println("Attempted to modify items from ImmutableValue: " + e.getMessage());
+        }
+    }
+}
+
+// Safe Publication Example
+class SafePublicationExample {
+    // Using ConcurrentHashMap ensures that both the map reference and its contents
+    // are safely published. computeIfAbsent is an atomic operation.
+    private static final Map<String, Data> cache = new ConcurrentHashMap<>();
+
+    public static Data getData(String key) {
+        // computeIfAbsent ensures that the Data object is created and published safely
+        // even if multiple threads call this method concurrently for the same key.
+        return cache.computeIfAbsent(key, k -> {
+            System.out.println("Creating Data for key: " + k);
+            return new Data(k); // The Data object is constructed and then put into the map
+        });
+    }
+
+    public static void main(String args) throws InterruptedException {
+        Runnable task = () -> {
+            Data d1 = SafePublicationExample.getData("A");
+            System.out.println(Thread.currentThread().getName() + " got " + d1);
+            Data d2 = SafePublicationExample.getData("B");
+            System.out.println(Thread.currentThread().getName() + " got " + d2);
+            Data d3 = SafePublicationExample.getData("A"); // Should retrieve from cache
+            System.out.println(Thread.currentThread().getName() + " got " + d3 + " (from cache)");
+        };
+
+        Thread t1 = new Thread(task, "Thread-1");
+        Thread t2 = new Thread(task, "Thread-2");
+
+        t1.start();
+        t2.start();
+
+        t1.join();
+        t2.join();
+        
+        System.out.println("Cache content: " + cache);
     }
 }
 ```
@@ -205,16 +648,120 @@ public void sensitiveOperation() {
 **Bad Example:**
 
 ```java
-public void sensitiveOperation(HttpServletResponse response) throws IOException {
-    try {
-        // Perform some operation
-        performAction();
-    } catch (SQLException e) {
-        // Exposing stack trace or detailed SQL error to the client is a security risk
-        response.getWriter().println("Database Error: " + e.toString()); // Leaks sensitive info
-        e.printStackTrace(response.getWriter()); // Even worse
+// Bad example to be added
+// e.g., a "supposedly" immutable object that returns references to internal mutable arrays/collections,
+// or unsafe publication of a shared object reference.
+```
+
+## Rule 6: Performance Considerations in Concurrency
+
+Title: Optimize Concurrent Code for Performance
+Description:
+Be mindful of performance implications in concurrent applications.
+- **Lock Contention**: Reduce contention by narrowing lock scopes, using finer-grained locks (lock striping), or exploring optimistic locking or lock-free data structures.
+- **Memory Consistency**: Understand the Java Memory Model (JMM). Use `volatile` for visibility of single variables across threads. Be aware of happens-before relationships established by synchronization.
+- **Context Switching**: Excessive threads can lead to high context-switching overhead. Size thread pools appropriately.
+- **False Sharing**: Be aware of false sharing when mutable fields accessed by different threads reside on the same cache line (less common to manually address but good to know).
+
+**Good example:**
+
+```java
+import java.util.ArrayList;
+import java.util.HashMap; // For a simple non-thread-safe map
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+// Lock Striping Example (Conceptual)
+class StripedMap<K, V> {
+    private static final int STRIPE_COUNT = 16; // Number of stripes (locks)
+    private final List<Lock> stripes;
+    private final List<Map<K, V>> buckets;
+
+    @SuppressWarnings("unchecked")
+    public StripedMap() {
+        stripes = new ArrayList<>(STRIPE_COUNT);
+        buckets = new ArrayList<>(STRIPE_COUNT);
+        for (int i = 0; i < STRIPE_COUNT; i++) {
+            stripes.add(new ReentrantLock());
+            buckets.add(new HashMap<>()); // Each bucket is a standard HashMap
+        }
+    }
+
+    private int getStripeIndex(K key) {
+        return Math.abs(key.hashCode() % STRIPE_COUNT);
+    }
+
+    public V get(K key) {
+        int index = getStripeIndex(key);
+        Lock lock = stripes.get(index);
+        lock.lock();
+        try {
+            return buckets.get(index).get(key);
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public V put(K key, V value) {
+        int index = getStripeIndex(key);
+        Lock lock = stripes.get(index);
+        lock.lock();
+        try {
+            return buckets.get(index).put(key, value);
+        } finally {
+            lock.unlock();
+        }
+    }
+    // Other methods like remove, size etc. would also need to use striping.
+    // size() would be more complex, requiring locking all stripes or summing sizes carefully.
+}
+
+// Memory Consistency with volatile
+class MemoryConsistencyExample {
+    private volatile boolean flag = false; // volatile ensures visibility
+    private int data = 0; // non-volatile data
+
+    public void writer() {
+        System.out.println(Thread.currentThread().getName() + " writing data...");
+        data = 42; // Write to non-volatile
+        flag = true; // Write to volatile, establishes happens-before
+        System.out.println(Thread.currentThread().getName() + " finished writing.");
+    }
+
+    public void reader() {
+        System.out.println(Thread.currentThread().getName() + " waiting for flag...");
+        while (!flag) {
+            // Spin or Thread.yield() or park etc.
+            // Busy-waiting is generally bad, this is for demonstration of volatile.
+        }
+        // Because flag is volatile and was written after data,
+        // the JMM guarantees that the reader thread will see data = 42.
+        System.out.println(Thread.currentThread().getName() + " read data: " + data);
+    }
+
+    public static void main(String args) throws InterruptedException {
+        MemoryConsistencyExample ex = new MemoryConsistencyExample();
+        Thread writerThread = new Thread(ex::writer, "WriterThread");
+        Thread readerThread = new Thread(ex::reader, "ReaderThread");
+
+        readerThread.start(); // Start reader first
+        Thread.sleep(100); // Give reader a chance to spin
+        writerThread.start();
+
+        writerThread.join();
+        readerThread.join();
+        System.out.println("Main: Both threads finished.");
     }
 }
+```
+
+**Bad Example:**
+
+```java
+// Bad example to be added
+// e.g., holding a lock for too long, or a reader thread not seeing updates due to missing volatile/synchronization.
 ```
 
 ---
