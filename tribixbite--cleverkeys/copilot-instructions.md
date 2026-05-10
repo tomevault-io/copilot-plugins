@@ -1,118 +1,67 @@
 ## cleverkeys
 
-> **BEFORE STARTING ANY SESSION:**
+> This document serves as a high-level guide for AI agents and developers working on the CleverKeys project. It synthesizes the project's infrastructure, build system, and key architectural patterns.
 
-# CLAUDE.md - CleverKeys Development Context
+# CleverKeys Agent & Developer Handbook
 
-## 🚨 **SESSION STARTUP PROTOCOL - ALWAYS CHECK FIRST!**
+This document serves as a high-level guide for AI agents and developers working on the CleverKeys project. It synthesizes the project's infrastructure, build system, and key architectural patterns.
 
-**BEFORE STARTING ANY SESSION:**
-1.  **CHECK `README.md`** - Production status and overview.
-2.  **CHECK `memory/todo.md`** - **Active Task List** (The single source of truth).
-3.  **CHECK `docs/TABLE_OF_CONTENTS.md`** - Master navigation for project docs.
-4.  **CHECK `docs/specs/`** - Feature specifications for the area you are working on.
+## 1. Project Overview
+**CleverKeys** is a privacy-focused, lightweight Android virtual keyboard featuring a neural network-based swipe prediction engine (ONNX). It prioritizes local processing (no network permissions), minimal dependencies, and high performance. It was originally designed for Termux users but has evolved into a general-purpose keyboard.
 
-**CURRENT STATUS (2025-12-11):**
-- ✅ Development 100% complete.
-- ✅ Production Ready (Grade A).
-- ✅ **New Features**: Short Swipe Customization, Profile System (Layout Import/Export).
-- ✅ Documentation updated and consolidated.
+## 2. Build Infrastructure
 
-**SPEC-DRIVEN DEVELOPMENT WORKFLOW:**
-1. **Check Spec**: Is there a spec in `docs/specs/` for this feature?
-2. **Create Spec**: If missing, create from `docs/specs/SPEC_TEMPLATE.md`
-3. **Implement**: Follow spec's implementation plan.
-4. **Test**: Use spec's testing strategy.
-5. **Update**: Mark TODOs complete in `memory/todo.md`.
+### Local Build (Termux Optimized)
+The project is optimized for building directly on an Android device via Termux.
+-   **Script:** `./build-on-termux.sh [debug|release]`
+-   **Quirks:**
+    -   **AAPT2 Override:** Uses a custom `aapt2` binary (`tools/aapt2-arm64/aapt2`) because the standard SDK version is incompatible with Termux environment. This is injected via `-Pandroid.aapt2FromMavenOverride`.
+    -   **Memory:** JVM args are tuned (`-Xmx2048m`) for limited resource environments.
+    -   **Layout Resources:** Keyboard layouts (`src/main/layouts/*.xml`) are processed and copied to `build/generated-resources/raw` via a custom Gradle `Copy` task (`copyLayoutDefinitions`) to ensure they are available as `raw` resources for the `LayoutManager`.
 
----
+### Gradle Configuration (`build.gradle`)
+-   **Single Source of Truth (SSoT):** Versioning is controlled by `ext.VERSION_MAJOR`, `MINOR`, and `PATCH` at the top of `build.gradle`. `versionCode` and `versionName` are derived from these.
+-   **ABI Splits:** The build produces separate APKs for `armeabi-v7a`, `arm64-v8a`, and `x86_64` to reduce size.
+    -   **Version Code Schema:** `baseVersionCode * 10 + abiCode` (1=armv7, 2=arm64, 3=x86).
+-   **Signing:**
+    -   **Debug:** Uses a committed `debug.keystore`.
+    -   **Release:** Requires environment variables (`RELEASE_KEYSTORE`, `RELEASE_KEY_PASSWORD`, etc.) or falls back to debug signing for local testing.
 
-## 🎯 **PROJECT OVERVIEW**
+### GitHub Actions CI/CD (`.github/workflows/`)
+-   **Release Workflow (`release.yml`):**
+    -   Triggered by tags matching `v*`.
+    -   Verifies that the git tag matches the version in `build.gradle`.
+    -   Builds signed release APKs.
+    -   Renames APKs to `CleverKeys-vX.Y.Z-<abi>.apk`.
+    -   Generates a changelog from commit messages.
+    -   Creates a GitHub Release and uploads assets.
 
-CleverKeys is a **complete Kotlin rewrite** of `Julow/Unexpected-Keyboard` featuring:
-- **Pure ONNX neural prediction** (NO CGR, NO fallbacks).
-- **Advanced gesture recognition** with sophisticated algorithms.
-- **Modern Kotlin architecture** with significant code reduction.
-- **Reactive programming** with coroutines and Flow streams.
-- **Enterprise-grade** error handling and validation.
+## 3. Key Architectural Patterns
 
----
+### Window Management & UI
+-   **Edge-to-Edge:** The keyboard window uses `WRAP_CONTENT` height (fixed in `WindowLayoutUtils.kt`) to avoid "white bar" artifacts during animation.
+-   **Transparency:** A custom theme `CleverKeysIMETheme` (in `styles.xml`) enforces transparency (`windowIsTranslucent`, `windowBackground=@null`) to ensure the system background doesn't bleed through.
+-   **Layout Loading:** `LayoutManager` loads keyboard layouts from raw resources. Layouts must be present in `src/main/layouts/` and are copied to the build directory during compilation.
 
-## 📋 **NAVIGATION GUIDE**
+### Neural Prediction
+-   **ONNX Runtime:** Swipe prediction is handled by `com.microsoft.onnxruntime:onnxruntime-android`.
+-   **Models:** Models (encoder/decoder) are loaded from assets or external storage.
+-   **Privacy:** All inference happens strictly on-device.
 
-### Essential Files
-1. **`memory/todo.md`** - **Current pending tasks and verified working features.**
-2. **`docs/TABLE_OF_CONTENTS.md`** - Index of all documentation.
-3. **`docs/history/session_log_dec_2025.md`** - Recent completed work log.
+## 4. Developer Quirks & Gotchas
+-   **"White Bar" Artifact:** If the keyboard animation shows a white bar at the top, ensure `WindowLayoutUtils` sets height to `WRAP_CONTENT` and the Service theme is fully transparent.
+-   **Resource Duplication:** **DO NOT** manually copy XML files to `res/raw`. The Gradle build task handles this. Manual copying causes "Duplicate resource" errors.
+-   **F-Droid Compatibility:** The version code logic and split APK structure are designed to be compatible with F-Droid's build expectations.
+-   **Termux Environment:** When running shell commands, always prefer `./build-on-termux.sh` over direct `./gradlew` calls to ensure the correct environment variables and AAPT2 overrides are applied.
 
-### Feature Specifications
-*Located in `docs/specs/`*
-- `short-swipe-customization.md`: Per-key gesture customization.
-- `profile_system_restoration.md`: Layout import/export with gestures.
-- `neural-prediction.md`: ONNX AI model architecture.
-- `core-keyboard-system.md`: Main keyboard logic.
+## 5. Documentation Map
+-   `docs/ARCHITECTURE_MASTER.md`: High-level system design.
+-   `docs/ONNX_DECODE_PIPELINE.md`: Deep dive into the neural swipe engine.
+-   `docs/VERSIONING.md`: Explanation of the versioning scheme.
+-   `memory/`: Context files for AI agents.
 
----
-
-## 🚨 **CRITICAL DEVELOPMENT PRINCIPLES**
-
-**IMPLEMENTATION STANDARDS:**
-- **NEVER** use stubs, placeholders, or mock implementations.
-- **NEVER** simplify functionality to make code compile.
-- **ALWAYS** implement features properly and completely.
-- **ALWAYS** do things the right way, not the expedient way.
-
----
-
-## 📁 **ARCHITECTURE OVERVIEW**
-
-```
-src/main/kotlin/tribixbite/keyboard2/
-├── core/                           # Core keyboard functionality
-├── neural/                         # ONNX neural prediction (NO CGR)
-├── data/                           # Data models
-├── config/                         # Configuration system
-├── ui/                             # User interfaces
-├── customization/                  # Customization logic (Short Swipes, Profiles)
-├── utils/                          # Utilities
-└── testing/                        # Quality assurance
-```
+This file should be updated when significant infrastructure changes occur.
 
 ---
-
-## 🚀 **DEVELOPMENT COMMANDS**
-
-### **BUILD:**
-```bash
-# Test compilation
-./gradlew compileDebugKotlin
-
-# Full build & install (ALWAYS use this for testing)
-./build-on-termux.sh
-
-# Run tests
-./gradlew test
-```
-
-### **IMPORTANT: Always Install RELEASE APK**
-**NEVER install debug APK for testing.** Always use release builds:
-- `build/outputs/apk/release/CleverKeys-v*.apk` ✅
-- `build/outputs/apk/debug/CleverKeys-v*.apk` ❌
-
-Debug logging is controlled by `BuildConfig.ENABLE_VERBOSE_LOGGING` which is set
-in build.gradle - release builds can have debug logging enabled when needed.
-This gives best of both worlds: release performance + debug visibility.
-
-### **DEBUGGING:**
-```bash
-# Check for compilation errors
-./gradlew compileDebugKotlin --continue
-
-# Tail logs for debugging
-logcat -s "CleverKeys" "System.err" "AndroidRuntime"
-```
-
----
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/tribixbite)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/tribixbite)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [tribixbite/CleverKeys](https://github.com/tribixbite/CleverKeys) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
