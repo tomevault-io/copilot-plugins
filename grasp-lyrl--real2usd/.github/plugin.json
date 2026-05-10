@@ -1,0 +1,9 @@
+{
+  "name": "grasp-lyrl--real2usd",
+  "displayName": "Real2USD",
+  "description": "From sensor measurements to Universal Scene Description (USD)",
+  "version": "1.0.0",
+  "author": "grasp-lyrl",
+  "homepage": "https://github.com/grasp-lyrl/Real2USD",
+  "skills": []
+}
