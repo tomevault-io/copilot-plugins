@@ -1,0 +1,9 @@
+{
+  "name": "tyxben--roboot",
+  "displayName": "roboot",
+  "description": "Personal AI agent hub on macOS \u2014 iTerm2 sessions, voice, web console, Telegram, Cloudflare Worker relay with E2EE",
+  "version": "1.0.0",
+  "author": "tyxben",
+  "homepage": "https://github.com/tyxben/roboot",
+  "skills": []
+}
