@@ -1,0 +1,44 @@
+{
+  "name": "Corvus",
+  "owner": "YS0meone",
+  "repo": "Corvus",
+  "description": "Multi-agent AI research system \u2014 finds academic papers via semantic search & citation snowballing, then answers questions over them using agentic RAG with self-reflection. Built with LangGraph, FastAPI, Celery, and Qdrant.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/YS0meone/Corvus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T01:00:06Z"
+}
