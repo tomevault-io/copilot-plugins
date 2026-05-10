@@ -1,0 +1,9 @@
+{
+  "name": "buildoak--fieldwork-skills",
+  "displayName": "fieldwork-skills",
+  "description": "Battle-tested skills for AI agents that do real work",
+  "version": "1.0.0",
+  "author": "buildoak",
+  "homepage": "https://github.com/buildoak/fieldwork-skills",
+  "skills": []
+}
