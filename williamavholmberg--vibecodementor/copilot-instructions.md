@@ -1,185 +1,164 @@
-## blog-article
+## frontend
 
-> - **Keep the authentic, passionate voice** - don't sanitize the personality
+> - **Speed over purity** - Ship features fast, refactor later
 
-```markdown
-# Blog Writing Guidelines for VibeCodeMentor
+# Frontend Architecture - Vertical Slices
 
-## 🎯 Philosophy: Authentic Voice + Professional Polish
-- **Keep the authentic, passionate voice** - don't sanitize the personality
-- **Professional but not corporate** - we're building in public, not selling enterprise
-- **Opinionated content is good** - strong takes generate engagement
-- **Focus on practical insights** - what can readers actually learn/apply?
+## 🎯 Philosophy: PRAGMATIC OVER PERFECT
+- **Speed over purity** - Ship features fast, refactor later
+- **Simple patterns** - Avoid over-engineering 
+- **Consistency** - Follow established patterns for AI predictability
 
-## 📁 File Structure & Setup
-
-### 1. Create New Blog Post
+## 📁 Structure
 ```
-frontend/src/app/blog/[slug]/page.tsx
+src/
+├── features/          # Self-contained feature slices
+├── shared/           # Reusable components/hooks
+├── api/              # 🤖 ORVAL GENERATED (DO NOT EDIT)
+└── app/              # Next.js App Router
 ```
-- Use kebab-case for slugs (e.g., `amazing-time-to-be-alive`)
-- Each blog post is a separate Next.js page (rawdog approach, not generic)
 
-### 2. Metadata Template
+## 🏗️ Feature Slice Pattern
+```
+features/feature-name/
+├── index.ts          # Exports (import { X } from '@/features/auth')
+├── components/       # Feature components
+├── hooks/           # Wraps api/hooks with business logic
+└── [name]-context.tsx # Feature state (if needed)
+```
+
+## 🤖 Orval Integration - CRITICAL
+- **Generated**: `api/hooks/` (React Query) + `api/models/` (DTOs)
+- **Regenerate**: `npm run api:generate` after backend changes
+- **Pattern**: Features wrap generated hooks, add business logic
+- **🚨 NEVER EDIT**: Generated files will be overwritten
+
+## 🔧 Tech Stack
+- **Next.js 15** + **React 19** + **TypeScript 5**
+- **React Query** + **shadcn/ui** + **Tailwind CSS**
+- **Axios** (JWT auth) + **SignalR** (real-time)
+
+## 📋 Patterns
+
+### Imports
 ```typescript
-export const metadata: Metadata = {
-  title: '[Blog Title] | VibeCodeMentor',
-  description: 'Compelling 1-2 sentence description under 160 chars',
-  openGraph: {
-    title: '[Blog Title]',
-    description: 'Same as above description',
-    type: 'article',
-    publishedTime: '2024-01-XX', // Use actual date
-    authors: ['William Holmberg'],
-  },
-};
+// External first
+import { useState } from 'react';
+// Internal with aliases
+import { Button } from '@/shared/components/ui/button';
+import { useAuth } from '@/features/auth';
+import { useUsers } from '@/features/users'; // ✅ Cross-feature OK
 ```
 
-### 3. Component Structure
+### Components
 ```typescript
-export default function [BlogName]BlogPost() {
+export function Component({ prop }: Props) {
+  // Hooks first - use namespaced, not destructured
+  const data = useData();
+  const form = useForm();
+  
+  // Event handlers
+  const handleClick = () => data.refresh();
+  
+  // Render
+  return <div>{content}</div>;
+}
+```
+
+### Hook Usage - CRITICAL PATTERN
+**Use namespaced hooks, NOT destructuring for cleaner code:**
+
+```typescript
+// ❌ BAD: Destructuring chaos
+const { data, isLoading, error, hasData, create, update, delete: deleteItem, isCreating, isUpdating, isDeleting } = useItems();
+const { name, setName, description, setDescription, isVisible, open, close, submit } = useForm();
+
+// ✅ GOOD: Clean namespaced
+const items = useItems();
+const form = useForm();
+
+// Usage becomes crystal clear:
+<button onClick={items.create} disabled={items.isCreating}>
+  {items.isCreating ? 'Creating...' : 'Create'}
+</button>
+<input value={form.name} onChange={form.setName} />
+```
+
+**Benefits:**
+- **5 lines instead of 20+** - massive reduction in component noise
+- **Clear origins** - `items.create()` vs mystery `create()` function
+- **Better IntelliSense** - type `items.` to see all available methods
+- **No naming conflicts** - multiple hooks can have `isLoading`
+- **Easier refactoring** - hook API changes don't break destructuring
+
+### Code as Poetry
+**Write code that reads like poetry - simple, clear, purposeful:**
+
+```typescript
+function MyComponent() {
+  // Clean setup - like verses in a poem
+  const data = useData();
+  const form = useForm();
+  const animations = useAnimations();
+
+  // Guard clauses - clear and direct
+  if (data.isLoading) return <Loading />;
+  if (data.error) return <Error />;
+
+  // Pure composition - every line has purpose
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
-      {/* Header Section */}
-      {/* Main Content */}
+    <div>
+      <Header />
+      <CreateForm data={data} form={form} />
+      <ItemsList data={data} animations={animations} />
     </div>
   );
 }
 ```
 
-## 🎨 Design Standards
+**Poetry Principles:**
+- **Rhythm** - Setup → Guard → Compose (natural flow)
+- **Clarity** - Every variable name tells its story
+- **Purpose** - No line exists without reason
+- **Simplicity** - Complex is the enemy of readable
 
-### Header Section (Always Include)
-- Back navigation: `← Back to VibeCodeMentor`
-- Date meta (format: "July 4, 2025")
-- Large, clean title (3xl on mobile, 5xl on desktop)
-- Compelling subtitle/description
-- No hero images - keep it text-focused
-
-### Content Styling
-- Use `prose prose-lg dark:prose-invert max-w-none` for article wrapper
-- Consistent heading hierarchy (h2 for main sections)
-- Proper spacing: `mb-6` between paragraphs, `mt-12` before new sections
-- Blockquotes for key quotes/insights
-- Lists for actionable items or key points
-
-### Call-to-Action Footer
-- Always end with engaging CTA section
-- Two buttons: primary (GitHub/template), secondary (homepage)
-- Inspiring closing message with emoji
-
-## 📝 Content Guidelines
-
-### Opening Hook
-- Start with a strong, opinionated statement
-- Make it personal - "I think...", "I've seen..."
-- Set the stage for what you're going to argue/explain
-
-### Structure That Works
-1. **Hook** - grab attention immediately
-2. **Problem/Context** - what's the current situation?
-3. **Your Take** - why is this important/different?
-4. **Evidence/Examples** - back up your claims
-5. **Future Vision** - where is this heading?
-6. **Action Items** - what should readers do?
-
-### Voice & Tone
-- ✅ **Passionate**: "fucking fantastic", "beyond me"
-- ✅ **Confident**: Strong statements, clear positions
-- ✅ **Personal**: Share experiences, use "I"
-- ✅ **Practical**: Focus on what people can actually do
-- ❌ **Corporate speak**: Avoid buzzwords and safe language
-- ❌ **Wishy-washy**: Don't hedge every statement
-
-### Technical Content
-- Explain context for non-technical readers
-- Use concrete examples over abstract concepts
-- Link to relevant tools/resources
-- Balance technical depth with accessibility
-
-## 🧭 Navigation Integration
-
-### Adding to Header Menu
-1. Open `frontend/src/shared/components/app-header.tsx`
-2. Find the Articles dropdown section
-3. Add new link at the TOP (newest first):
-
+### API Hook Wrapping
 ```typescript
-<a
-  href="/blog/your-new-slug"
-  className="flex items-center w-full px-3 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:from-purple-900/20 dark:hover:to-blue-900/20 rounded-xl transition-all duration-200 cursor-pointer leading-relaxed block"
->
-  Your Blog Title
-</a>
+// features/users/hooks/use-users.ts
+import { useGetUsers } from '@/api/hooks'; // Generated
+
+export function useUsers() {
+  const query = useGetUsers();
+  
+  // Add business logic here
+  return {
+    ...query,
+    displayUsers: query.data?.map(u => ({
+      ...u,
+      fullName: `${u.firstName} ${u.lastName}`
+    }))
+  };
+}
 ```
 
-4. Adjust dropdown width if needed (`w-72`, `w-80`, etc.)
+## 🎯 Key Rules
+- ✅ Never edit `api/hooks/` or `api/models/`
+- ✅ Features CAN import from other features (be pragmatic)
+- ✅ Use Server Components by default, 'use client' when needed
+- ✅ JWT from localStorage, axios interceptors for auth
+- ✅ Wrap generated hooks in feature-specific hooks
+- ✅ Keep it simple - avoid over-engineering
+- ✅ Consistency over cleverness
+- ✅ keep the design clear, do not overuse emojis, make it feel real, and clean
 
-## 🎯 Content Ideas That Work
 
-### Technical Takes
-- AI/development workflow insights
-- Stack decisions and reasoning
-- Building in public experiences
-- Tool comparisons and opinions
 
-### Industry Commentary
-- Software engineering trends
-- Team dynamics and scaling
-- Developer productivity
-- Future predictions
-
-### Personal Journey
-- Lessons learned from projects
-- Mistakes and recoveries
-- Process improvements
-- Community insights
-
-## ✅ Quality Checklist
-
-### Before Publishing
-- [ ] Metadata properly filled out
-- [ ] Back navigation works
-- [ ] Title is compelling and clear
-- [ ] Content has clear structure with h2 headings
-- [ ] Voice feels authentic and passionate
-- [ ] Includes practical takeaways
-- [ ] CTA section is engaging
-- [ ] Links work and open appropriately
-- [ ] Added to navigation dropdown
-- [ ] Mobile responsive (test on phone)
-
-### Content Review
-- [ ] Does this provide value to readers?
-- [ ] Is the take opinionated enough to be interesting?
-- [ ] Are there concrete examples/evidence?
-- [ ] Does it fit with the VibeCodeMentor brand?
-- [ ] Would I share this with other developers?
-
-## 🚨 Common Mistakes to Avoid
-
-- **Generic titles** - be specific and opinionated
-- **Buried lede** - get to the point quickly
-- **Too much hedging** - commit to your positions
-- **No clear takeaway** - what should readers do?
-- **Corporate tone** - keep it human and passionate
-- **Wall of text** - break up with headings, lists, quotes
-- **Weak endings** - finish strong with clear CTAs
-
-## 🎨 Styling Reference
-
-### Key Classes
-- Article wrapper: `prose prose-lg dark:prose-invert max-w-none`
-- Main heading: `text-2xl font-semibold text-gray-900 dark:text-white mb-6 mt-12`
-- Body text: `text-gray-700 dark:text-gray-300 leading-relaxed mb-6`
-- Blockquote: `border-l-4 border-blue-500 pl-6 italic text-gray-600 dark:text-gray-400 my-8`
-- Lists: `space-y-2` for proper spacing
-
-### Responsive Considerations
-- Test on mobile - long titles should wrap nicely
-- Ensure proper spacing on all screen sizes
-- CTAs should stack on mobile, inline on desktop
-```
+## 🚨 Critical Gotchas
+- **Orval regeneration** wipes `api/` folder - never edit directly
+- **'use client'** needed for hooks, state, event handlers
+- **SignalR connections** need cleanup in useEffect
+- **JWT expiry** - handle 401s gracefully
+- **Loading states** - always handle isLoading/error from React Query
 
 ---
 > Source: [WilliamAvHolmberg/vibecodementor](https://github.com/WilliamAvHolmberg/vibecodementor) — distributed by [TomeVault](https://tomevault.io).
