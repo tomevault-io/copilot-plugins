@@ -7,11 +7,11 @@ Standalone C++ inference project for VoxCPM models built on top of ggml.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bluryar/VoxCPM.cpp](https://github.com/bluryar/VoxCPM.cpp).
+Original source: `CLAUDE.md` in [bluryar/VoxCPM.cpp](https://github.com/bluryar/VoxCPM.cpp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
