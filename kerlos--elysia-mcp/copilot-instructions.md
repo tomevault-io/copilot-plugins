@@ -1,1387 +1,1406 @@
-## elysia
-
-> TITLE: Elysia Supported Schema Validation Types
-
-TITLE: Elysia Supported Schema Validation Types
-DESCRIPTION: Elysia provides declarative schema support for various parts of an HTTP request and response, enabling robust validation and automatic OpenAPI generation.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/essential/validation.md#_snippet_3
-
-LANGUAGE: APIDOC
-CODE:
-```
-Schema Types:
-  Body: Validate an incoming HTTP Message
-  Query: Query string or URL parameter
-  Params: Path parameters
-  Headers: Headers of the request
-  Cookie: Cookie of the request
-  Response: Response of the request
-```
-
-----------------------------------------
-
-TITLE: Elysia.js User Authentication and Session Management Service
-DESCRIPTION: Provides a comprehensive user authentication service built with Elysia.js. It defines in-memory state for users and sessions, models for sign-in credentials and cookies, a custom macro for authentication checks, and routes for user sign-up, sign-in, and sign-out, including password hashing and session token management.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/tutorial.md#_snippet_41
-
-LANGUAGE: typescript
-CODE:
-```
-// @errors: 2538
-import { Elysia, t } from 'elysia'
-
-export const userService = new Elysia({ name: 'user/service' })
-    .state({
-        user: {} as Record<string, string>,
-        session: {} as Record<number, string>
-    })
-    .model({
-        signIn: t.Object({
-            username: t.String({ minLength: 1 }),
-            password: t.String({ minLength: 8 })
-        }),
-        session: t.Cookie(
-            {
-                token: t.Number()
-            },
-            {
-                secrets: 'seia'
-            }
-        ),
-        optionalSession: t.Cookie(
-            {
-                token: t.Optional(t.Number())
-            },
-            {
-                secrets: 'seia'
-            }
-        )
-    })
-    .macro({
-        isSignIn(enabled: boolean) {
-            if (!enabled) return
-
-            return {
-                beforeHandle({
-                    status,
-                    cookie: { token },
-                    store: { session }
-                }) {
-                    if (!token.value)
-                        return status(401, {
-                            success: false,
-                            message: 'Unauthorized'
-                        })
-
-                    const username = session[token.value as unknown as number]
-
-                    if (!username)
-                        return status(401, {
-                            success: false,
-                            message: 'Unauthorized'
-                        })
-                }
-            }
-        }
-    })
-
-export const getUserId = new Elysia()
-    .use(userService)
-    .guard({
-        isSignIn: true,
-        cookie: 'session'
-    })
-    .resolve(({ store: { session }, cookie: { token } }) => ({
-        username: session[token.value]
-    }))
-    .as('scoped')
-
-export const user = new Elysia({ prefix: '/user' })
-    .use(userService)
-    .put(
-        '/sign-up',
-        async ({ body: { username, password }, store, status }) => {
-            if (store.user[username])
-                return status(400, {
-                    success: false,
-                    message: 'User already exists'
-                })
-
-            store.user[username] = await Bun.password.hash(password)
-
-            return {
-                success: true,
-                message: 'User created'
-            }
-        },
-        {
-            body: 'signIn'
-        }
-    )
-    .post(
-        '/sign-in',
-        async ({
-            store: { user, session },
-            status,
-            body: { username, password },
-            cookie: { token }
-        }) => {
-            if (
-                !user[username] ||
-                !(await Bun.password.verify(password, user[username]))
-            )
-                return status(400, {
-                    success: false,
-                    message: 'Invalid username or password'
-                })
-
-            const key = crypto.getRandomValues(new Uint32Array(1))[0]
-            session[key] = username
-            token.value = key
-
-            return {
-                success: true,
-                message: `Signed in as ${username}`
-            }
-        },
-        {
-            body: 'signIn',
-            cookie: 'optionalSession'
-        }
-    )
-    .get(
-        '/sign-out',
-        ({ cookie: { token } }) => {
-            token.remove()
-
-            return {
-                success: true,
-                message: 'Signed out'
-            }
-        },
-        {
-            cookie: 'optionalSession'
-        }
-    )
-    .use(getUserId)
-    .get('/profile', ({ username }) => ({
-        success: true,
-
-```
-
-----------------------------------------
-
-TITLE: Basic Elysia Server with Routes, Files, Streams, and WebSockets
-DESCRIPTION: This snippet sets up a basic Elysia server demonstrating various functionalities: a simple 'Hello World' GET route, serving a static file, streaming responses, and a WebSocket endpoint for real-time communication. The server listens on port 3000.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/index.md#_snippet_4
-
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia, file } from 'elysia'
-
-new Elysia()
-	.get('/', 'Hello World')
-	.get('/image', file('mika.webp'))
-	.get('/stream', function* () {
-		yield 'Hello'
-		yield 'World'
-	})
-	.ws('/realtime', {
-		message(ws, message) {
-			ws.send('got:' + message)
-		}
-	})
-	.listen(3000)
-```
-
-----------------------------------------
-
-TITLE: Configure Cookie Plugin for User Session Storage in ElysiaJS
-DESCRIPTION: This snippet shows how to integrate the `@elysiajs/cookie` plugin into an ElysiaJS application to manage user sessions. It configures `httpOnly` for security and provides commented-out options for `secure`, `sameSite`, and `signed` cookies, which are crucial for storing `access_token` and `refresh_token` from Supabase.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/blog/elysia-supabase.md#_snippet_10
-
-LANGUAGE: TypeScript
-CODE:
-```
-// src/modules/authen.ts
-import { Elysia, t } from 'elysia'
-import { cookie } from '@elysiajs/cookie'
-
-import { supabase } from '../../libs'
-
-const authen = (app: Elysia) =>
-    app.group('/auth', (app) =>
-        app
-            .use(
-                cookie({
-                    httpOnly: true,
-                    // If you need cookie to deliver via https only
-                    // secure: true,
-                    //
-                    // If you need a cookie to be available for same-site only
-                    // sameSite: "strict",
-                    //
-                    // If you want to encrypt a cookie
-                    // signed: true,
-                    // secret: process.env.COOKIE_SECRET,
-                })
-            )
-            .setModel({
-                sign: t.Object({
-                    email: t.String({
-                        format: 'email'
-                    }),
-                    password: t.String({
-                        minLength: 8
-                    })
-                })
-            })
-            // rest of the code
-    )
-```
-
-----------------------------------------
-
-TITLE: Define GET and POST Routes in ElysiaJS
-DESCRIPTION: Illustrates how to define routes for different HTTP methods (GET and POST) on distinct paths, showing method-specific routing for a playground environment.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/essential/route.md#_snippet_2
-
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia } from 'elysia'
-
-const demo2 = new Elysia()
-    .get('/', () => 'hello')
-    .post('/hi', () => 'hi')
-```
-
-----------------------------------------
-
-TITLE: Create a basic Elysia.js application in TypeScript
-DESCRIPTION: Example code for `src/index.ts` demonstrating a simple Elysia.js server that listens on port 3000 and responds with 'Hello Elysia' to GET requests on the root path. It uses the `@elysiajs/node` adapter.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/quick-start.md#_snippet_8
-
-LANGUAGE: TypeScript
-CODE:
-```
-import { Elysia } from 'elysia'
-import { node } from '@elysiajs/node'
-
-const app = new Elysia({ adapter: node() })
-	.get('/', () => 'Hello Elysia')
-	.listen(3000, ({ hostname, port }) => {
-		console.log(
-			`🦊 Elysia is running at ${hostname}:${port}`
-		)
-	})
-```
-
-----------------------------------------
-
-TITLE: Create a basic Elysia.js application in JavaScript
-DESCRIPTION: Example code for `src/index.js` demonstrating a simple Elysia.js server that listens on port 3000 and responds with 'Hello Elysia' to GET requests on the root path. It uses the `@elysiajs/node` adapter.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/quick-start.md#_snippet_13
-
-LANGUAGE: JavaScript
-CODE:
-```
-import { Elysia } from 'elysia'
-import { node } from '@elysiajs/node'
-
-const app = new Elysia({ adapter: node() })
-	.get('/', () => 'Hello Elysia')
-	.listen(3000, ({ hostname, port }) => {
-		console.log(
-			`🦊 Elysia is running at ${hostname}:${port}`
-		)
-	})
-```
-
-----------------------------------------
-
-TITLE: Create a Basic ElysiaJS Server with Multiple Routes
-DESCRIPTION: This snippet illustrates how to initialize an ElysiaJS application and define various HTTP routes. It includes a root GET endpoint, a GET endpoint with a dynamic path parameter, and a POST endpoint for handling request bodies. The server is configured to listen on port 3000.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/at-glance.md#_snippet_0
-
-LANGUAGE: TypeScript
-CODE:
-```
-import { Elysia } from 'elysia'
-
-new Elysia()
-    .get('/', 'Hello Elysia')
-    .get('/user/:id', ({ params: { id }}) => id)
-    .post('/form', ({ body }) => body)
-    .listen(3000)
-```
-
-----------------------------------------
-
-TITLE: Basic Elysia Server Setup and Routes
-DESCRIPTION: Demonstrates how to initialize an Elysia server and define basic GET routes for returning plain text, JSON objects, and dynamic path parameters.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/midori.md#_snippet_0
-
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia } from 'elysia'
-
-new Elysia()
-    .get('/', 'Hello World')
-    .get('/json', {
-        hello: 'world'
-    })
-    .get('/id/:id', ({ params: { id } }) => id)
-    .listen(3000)
-```
-
-----------------------------------------
-
-TITLE: Dockerize ElysiaJS Application with Multi-Stage Binary Build
-DESCRIPTION: This Dockerfile provides a robust multi-stage build process for deploying an ElysiaJS application. It first compiles the application into a standalone binary using Bun, then copies this binary to a minimal `gcr.io/distroless/base` image, significantly reducing the final Docker image size and attack surface for production.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/patterns/deploy.md#_snippet_6
-
-LANGUAGE: dockerfile
-CODE:
-```
-FROM oven/bun AS build
-
-WORKDIR /app
-
-# Cache packages installation
-COPY package.json package.json
-COPY bun.lock bun.lock
-
-RUN bun install
-
-COPY ./src ./src
-
-ENV NODE_ENV=production
-
-RUN bun build \
-	--compile \
-	--minify-whitespace \
-	--minify-syntax \
-	--target bun \
-	--outfile server \
-	./src/index.ts
-
-FROM gcr.io/distroless/base
-
-WORKDIR /app
-
-COPY --from=build /app/server server
-
-ENV NODE_ENV=production
-
-CMD ["./server"]
-
-EXPOSE 3000
-```
-
-----------------------------------------
-
-TITLE: Create Elysia User Sign-up Endpoint with Prisma
-DESCRIPTION: TypeScript code for an Elysia server that defines a `/sign-up` POST endpoint, using Prisma Client to create new user entries in the database.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/blog/with-prisma.md#_snippet_7
-
-LANGUAGE: ts
-CODE:
-```
-import { Elysia } from 'elysia'
-import { PrismaClient } from '@prisma/client'
-
-const db = new PrismaClient()
-
-const app = new Elysia()
-    .post(
-        '/sign-up',
-        async ({ body }) => db.user.create({
-            data: body
-        })
-    )
-    .listen(3000)
-
-console.log(
-    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
-)
-```
-
-----------------------------------------
-
-TITLE: Achieve End-to-End Type Safety with Elysia and Eden
-DESCRIPTION: This snippet demonstrates how Elysia, combined with `@elysiajs/eden` (treaty), provides end-to-end type safety from server to client. It defines a server-side PATCH endpoint with body validation and shows how the client automatically infers types for requests and responses.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/index.md#_snippet_6
-
-LANGUAGE: typescript
-CODE:
-```
-// @noErrors
-// @filename: server.ts
-import { Elysia, t } from 'elysia'
-
-const app = new Elysia()
-    .patch(
-        '/profile',
-        ({ body, status }) => {
-            if(body.age < 18)
-                return status(400, "Oh no")
-
-            return body
-        },
-        {
-            body: t.Object({
-                age: t.Number()
-            })
-        }
-    )
-    .listen(80)
-
-export type App = typeof app
-
-// @filename: client.ts
-// ---cut---
-import { treaty } from '@elysiajs/eden'
-import type { App } from './server'
-
-const api = treaty<App>('api.elysiajs.com')
-
-const { data } = await api.profile.patch({
-      // ^?
-    age: 21
-})
-```
-
-----------------------------------------
-
-TITLE: Integrate User Service for Authorization in Elysia Controller
-DESCRIPTION: This snippet demonstrates how to import `getUserId` and `userService` from a separate user module. It then integrates `userService` as a plugin and `getUserId` as a hook into the Elysia `note` controller, enabling user authentication and authorization for routes by providing the `username` context.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/tutorial.md#_snippet_31
-
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia, t } from 'elysia'
-import { getUserId, userService } from './user'
-
-const memo = t.Object({
-    data: t.String(),
-    author: t.String()
-})
-
-type Memo = typeof memo.static
-
-class Note {
-    constructor(
-        public data: Memo[] = [
-            {
-                data: 'Moonhalo',
-                author: 'saltyaom'
-            }
-        ]
-    ) {}
-
-    add(note: Memo) {
-        this.data.push(note)
-
-        return this.data
-    }
-
-    remove(index: number) {
-        return this.data.splice(index, 1)
-    }
-
-    update(index: number, note: Partial<Memo>) {
-        return (this.data[index] = { ...this.data[index], ...note })
-    }
+## json-rpc
+
+> import { z, ZodTypeAny } from "zod";
+
+import { z, ZodTypeAny } from "zod";
+
+export const LATEST_PROTOCOL_VERSION = "2025-03-26";
+export const SUPPORTED_PROTOCOL_VERSIONS = [
+  LATEST_PROTOCOL_VERSION,
+  "2024-11-05",
+  "2024-10-07",
+];
+
+/* JSON-RPC types */
+export const JSONRPC_VERSION = "2.0";
+
+/**
+ * A progress token, used to associate progress notifications with the original request.
+ */
+export const ProgressTokenSchema = z.union([z.string(), z.number().int()]);
+
+/**
+ * An opaque token used to represent a cursor for pagination.
+ */
+export const CursorSchema = z.string();
+
+const RequestMetaSchema = z
+  .object({
+    /**
+     * If specified, the caller is requesting out-of-band progress notifications for this request (as represented by notifications/progress). The value of this parameter is an opaque token that will be attached to any subsequent notifications. The receiver is not obligated to provide these notifications.
+     */
+    progressToken: z.optional(ProgressTokenSchema),
+  })
+  .passthrough();
+
+const BaseRequestParamsSchema = z
+  .object({
+    _meta: z.optional(RequestMetaSchema),
+  })
+  .passthrough();
+
+export const RequestSchema = z.object({
+  method: z.string(),
+  params: z.optional(BaseRequestParamsSchema),
+});
+
+const BaseNotificationParamsSchema = z
+  .object({
+    /**
+     * This parameter name is reserved by MCP to allow clients and servers to attach additional metadata to their notifications.
+     */
+    _meta: z.optional(z.object({}).passthrough()),
+  })
+  .passthrough();
+
+export const NotificationSchema = z.object({
+  method: z.string(),
+  params: z.optional(BaseNotificationParamsSchema),
+});
+
+export const ResultSchema = z
+  .object({
+    /**
+     * This result property is reserved by the protocol to allow clients and servers to attach additional metadata to their responses.
+     */
+    _meta: z.optional(z.object({}).passthrough()),
+  })
+  .passthrough();
+
+/**
+ * A uniquely identifying ID for a request in JSON-RPC.
+ */
+export const RequestIdSchema = z.union([z.string(), z.number().int()]);
+
+/**
+ * A request that expects a response.
+ */
+export const JSONRPCRequestSchema = z
+  .object({
+    jsonrpc: z.literal(JSONRPC_VERSION),
+    id: RequestIdSchema,
+  })
+  .merge(RequestSchema)
+  .strict();
+
+export const isJSONRPCRequest = (value: unknown): value is JSONRPCRequest =>
+  JSONRPCRequestSchema.safeParse(value).success;
+
+/**
+ * A notification which does not expect a response.
+ */
+export const JSONRPCNotificationSchema = z
+  .object({
+    jsonrpc: z.literal(JSONRPC_VERSION),
+  })
+  .merge(NotificationSchema)
+  .strict();
+
+export const isJSONRPCNotification = (
+  value: unknown
+): value is JSONRPCNotification =>
+  JSONRPCNotificationSchema.safeParse(value).success;
+
+/**
+ * A successful (non-error) response to a request.
+ */
+export const JSONRPCResponseSchema = z
+  .object({
+    jsonrpc: z.literal(JSONRPC_VERSION),
+    id: RequestIdSchema,
+    result: ResultSchema,
+  })
+  .strict();
+
+export const isJSONRPCResponse = (value: unknown): value is JSONRPCResponse =>
+  JSONRPCResponseSchema.safeParse(value).success;
+
+/**
+ * Error codes defined by the JSON-RPC specification.
+ */
+export enum ErrorCode {
+  // SDK error codes
+  ConnectionClosed = -32000,
+  RequestTimeout = -32001,
+
+  // Standard JSON-RPC error codes
+  ParseError = -32700,
+  InvalidRequest = -32600,
+  MethodNotFound = -32601,
+  InvalidParams = -32602,
+  InternalError = -32603,
 }
 
-export const note = new Elysia({ prefix: '/note' })
-    .use(userService)
-    .decorate('note', new Note())
-    .model({
-        memo: t.Omit(memo, ['author'])
-    })
-    .onTransform(function log({ body, params, path, request: { method } }) {
-        console.log(`${method} ${path}`, {
-            body,
-            params
-        })
-    })
-    .get('/', ({ note }) => note.data)
-    .use(getUserId)
-    .put(
-        '/',
-        ({ note, body: { data }, username }) =>
-            note.add({ data, author: username }),
-        {
-            body: 'memo'
-        }
-    )
-    .get(
-        '/:index',
-        ({ note, params: { index }, status }) => {
-            return note.data[index] ?? status(404, 'Not Found :(')
-        },
-        {
-            params: t.Object({
-                index: t.Number()
-            })
-        }
-    )
-    .guard({
-        params: t.Object({
-            index: t.Number()
-        })
-    })
-    .delete('/:index', ({ note, params: { index }, status }) => {
-```
-
-----------------------------------------
-
-TITLE: Migrating from `error` to `status` in Elysia
-DESCRIPTION: Elysia 1.3 deprecates the `error` function in favor of `status` for setting HTTP response codes. While `error` remains functional for a transition period (approximately 6 months), refactoring to `status` is recommended for future compatibility and adherence to the new API design.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/blog/elysia-13.md#_snippet_4
-
-LANGUAGE: TypeScript
-CODE:
-```
-import { Elysia } from 'elysia';
-
-const app = new Elysia();
-
-// Old way: Using the deprecated 'error' function
-app.get('/old-error-route', ({ error }) => {
-  // This will still work for a transition period
-  return error(400, 'Bad Request: Invalid parameters');
-});
-
-// New way: Using the recommended 'status' function
-app.get('/new-status-route', ({ status }) => {
-  // Recommended for setting HTTP status codes
-  return status(400, 'Bad Request: Invalid parameters');
-});
-```
-
-----------------------------------------
-
-TITLE: Integrate ElysiaJS with SvelteKit Server Routes
-DESCRIPTION: This snippet demonstrates how to create an Elysia server within a SvelteKit server route file (`src/routes/[...slugs]/+server.ts`). It sets up basic GET and POST endpoints, including type validation for the POST request body, and exports handlers for SvelteKit to process incoming requests.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/integrations/sveltekit.md#_snippet_0
-
-LANGUAGE: typescript
-CODE:
-```
-// src/routes/[...slugs]/+server.ts
-import { Elysia, t } from 'elysia';
-
-const app = new Elysia()
-    .get('/', () => 'hello SvelteKit')
-    .post('/', ({ body }) => body, {
-        body: t.Object({
-            name: t.String()
-        })
-    })
-
-type RequestHandler = (v: { request: Request }) => Response | Promise<Response>
-
-export const GET: RequestHandler = ({ request }) => app.handle(request)
-export const POST: RequestHandler = ({ request }) => app.handle(request)
-```
-
-----------------------------------------
-
-TITLE: Integrate Swagger Documentation with Elysia
-DESCRIPTION: This example shows how to integrate Swagger (OpenAPI) documentation into an Elysia application using the `@elysiajs/swagger` plugin. It also demonstrates chaining multiple plugins like `character` and `auth`.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/index.md#_snippet_5
-
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia } from 'elysia'
-import swagger from '@elysiajs/swagger'
-
-new Elysia()
-	.use(swagger())
-	.use(character)
-	.use(auth)
-	.listen(3000)
-```
-
-----------------------------------------
-
-TITLE: Basic Elysia Swagger Plugin Usage
-DESCRIPTION: Demonstrates how to initialize an Elysia server and integrate the Swagger plugin with default settings. This setup automatically generates API documentation for defined routes, accessible via a Scalar UI at `/swagger` and the raw OpenAPI specification at `/swagger/json`.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/plugins/swagger.md#_snippet_1
-
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
-
-new Elysia()
-    .use(swagger())
-    .get('/', () => 'hi')
-    .post('/hello', () => 'world')
-    .listen(3000)
-```
-
-----------------------------------------
-
-TITLE: Returning Status Code with `status` Function in ElysiaJS
-DESCRIPTION: Demonstrates the recommended way to return a specific HTTP status code along with a response body using the dedicated `status` function in ElysiaJS.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/essential/handler.md#_snippet_11
-
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia } from 'elysia'
-
-new Elysia()
-    .get('/', ({ status }) => status(418, "Kirifuji Nagisa"))
-    .listen(3000)
-```
-
-----------------------------------------
-
-TITLE: Basic Elysia Handler Definition
-DESCRIPTION: Demonstrates the fundamental way to define a handler in ElysiaJS using a GET request, returning a simple 'hello world' string.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/essential/handler.md#_snippet_0
-
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia } from 'elysia'
-
-new Elysia()
-    // the function `() => 'hello world'` is a handler
-    .get('/', () => 'hello world')
-    .listen(3000)
-```
-
-----------------------------------------
-
-TITLE: Elysia Type Strictness with t.Object
-DESCRIPTION: Illustrates how to enforce type strictness for request bodies in Elysia using t.Object from elysia/t for a POST route, ensuring incoming data conforms to a defined schema.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/midori.md#_snippet_1
-
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia, t } from 'elysia'
-
-new Elysia()
-    .post(
-        '/profile',
-        // ↓ hover me ↓
-        ({ body }) => body,
-        {
-            body: t.Object({
-                username: t.String()
-            })
-        }
-    )
-    .listen(3000)
-```
-
-----------------------------------------
-
-TITLE: Define Authentication Schema and Routes with ElysiaJS and Supabase
-DESCRIPTION: This snippet demonstrates how to define a reusable schema for email and password using Elysia's `t.Object` and apply it to `/sign-up` and `/sign-in` routes. It integrates with Supabase for user authentication, handling both successful sign-up/sign-in and errors, and shows how to reference a defined schema in route bodies.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/blog/elysia-supabase.md#_snippet_9
-
-LANGUAGE: TypeScript
-CODE:
-```
-sign: t.Object({
-    email: t.String({
-        format: 'email'
+/**
+ * A response to a request that indicates an error occurred.
+ */
+export const JSONRPCErrorSchema = z
+  .object({
+    jsonrpc: z.literal(JSONRPC_VERSION),
+    id: RequestIdSchema,
+    error: z.object({
+      /**
+       * The error type that occurred.
+       */
+      code: z.number().int(),
+      /**
+       * A short description of the error. The message SHOULD be limited to a concise single sentence.
+       */
+      message: z.string(),
+      /**
+       * Additional information about the error. The value of this member is defined by the sender (e.g. detailed error information, nested errors etc.).
+       */
+      data: z.optional(z.unknown()),
     }),
-    password: t.String({
-        minLength: 8
-    })
-})
-            })
-            .post(
-                '/sign-up',
-                async ({ body }) => {
-                    const { data, error } = await supabase.auth.signUp(body)
+  })
+  .strict();
 
-                    if (error) return error
-                    return data.user
-                },
-                {
-                    schema: {
-                        body: 'sign'
-                    }
-                }
-            )
-            .post(
-                '/sign-in',
-                async ({ body }) => {
-                    const { data, error } =
-                        await supabase.auth.signInWithPassword(body)
+export const isJSONRPCError = (value: unknown): value is JSONRPCError =>
+  JSONRPCErrorSchema.safeParse(value).success;
 
-                    if (error) return error
+export const JSONRPCMessageSchema = z.union([
+  JSONRPCRequestSchema,
+  JSONRPCNotificationSchema,
+  JSONRPCResponseSchema,
+  JSONRPCErrorSchema,
+]);
 
-                    return data.user
-                },
-                {
-                    schema: {
-                        body: 'sign'
-                    }
-                }
-            )
-    )
-```
+/* Empty result */
+/**
+ * A response that indicates success but carries no data.
+ */
+export const EmptyResultSchema = ResultSchema.strict();
 
-----------------------------------------
+/* Cancellation */
+/**
+ * This notification can be sent by either side to indicate that it is cancelling a previously-issued request.
+ *
+ * The request SHOULD still be in-flight, but due to communication latency, it is always possible that this notification MAY arrive after the request has already finished.
+ *
+ * This notification indicates that the result will be unused, so any associated processing SHOULD cease.
+ *
+ * A client MUST NOT attempt to cancel its `initialize` request.
+ */
+export const CancelledNotificationSchema = NotificationSchema.extend({
+  method: z.literal("notifications/cancelled"),
+  params: BaseNotificationParamsSchema.extend({
+    /**
+     * The ID of the request to cancel.
+     *
+     * This MUST correspond to the ID of a request previously issued in the same direction.
+     */
+    requestId: RequestIdSchema,
 
-TITLE: Elysia Simplified Authentication with Hook Types
-DESCRIPTION: Demonstrates how the new hook types eliminate the need for nested `guard` blocks. Authentication hooks can now be applied directly to an instance with a specified hook type (e.g., `local`), simplifying code and reducing boilerplate while maintaining controlled inheritance.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/blog/elysia-10.md#_snippet_7
+    /**
+     * An optional string describing the reason for the cancellation. This MAY be logged or presented to the user.
+     */
+    reason: z.string().optional(),
+  }),
+});
 
-LANGUAGE: TypeScript
-CODE:
-```
-const plugin = new Elysia()
-    .onBeforeHandle({ as: 'local' }, checkAuthSomehow)
-    .get('/profile', () => 'log hi')
-```
+/* Initialization */
+/**
+ * Describes the name and version of an MCP implementation.
+ */
+export const ImplementationSchema = z
+  .object({
+    name: z.string(),
+    version: z.string(),
+  })
+  .passthrough();
 
-----------------------------------------
-
-TITLE: Defining and Reusing Data Models in Elysia.js
-DESCRIPTION: This TypeScript code demonstrates how to define reusable data models for user authentication (e.g., `signIn` for username/password, `session` for cookies) using Elysia's `.model` method. These models are then referenced by name in the `body` and `cookie` schema options of `/sign-up` and `/sign-in` routes, ensuring consistent validation and type inference without duplicating schema definitions.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/tutorial.md#_snippet_20
-
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia, t } from 'elysia'
-
-export const user = new Elysia({ prefix: '/user' })
-    .state({
-        user: {} as Record<string, string>,
-        session: {} as Record<number, string>
-    })
-    .model({
-        signIn: t.Object({
-            username: t.String({ minLength: 1 }),
-            password: t.String({ minLength: 8 })
-        }),
-        session: t.Cookie(
-            {
-                token: t.Number()
-            },
-            {
-                secrets: 'seia'
-            }
-        ),
-        optionalSession: t.Cookie(
-            {
-                token: t.Optional(t.Number())
-            },
-            {
-                secrets: 'seia'
-            }
-        )
-    })
-    .put(
-        '/sign-up',
-        async ({ body: { username, password }, store, status }) => {
-            if (store.user[username])
-                return status(400, {
-                    success: false,
-                    message: 'User already exists'
-                })
-            store.user[username] = await Bun.password.hash(password)
-
-            return {
-                success: true,
-                message: 'User created'
-            }
-        },
-        {
-            body: 'signIn'
-        }
-    )
-    .post(
-        '/sign-in',
-        async ({
-            store: { user, session },
-            status,
-            body: { username, password },
-            cookie: { token }
-        }) => {
-            if (
-                !user[username] ||
-                !(await Bun.password.verify(password, user[username]))
-            )
-                return status(400, {
-                    success: false,
-                    message: 'Invalid username or password'
-                })
-
-            const key = crypto.getRandomValues(new Uint32Array(1))[0]
-            session[key] = username
-            token.value = key
-
-            return {
-                success: true,
-                message: `Signed in as ${username}`
-            }
-        },
-        {
-            body: 'signIn',
-            cookie: 'session'
-        }
-    )
-```
-
-----------------------------------------
-
-TITLE: Achieving End-to-End Type Safety in Elysia with Eden
-DESCRIPTION: This snippet illustrates Elysia's built-in end-to-end type safety feature using the Eden library. It demonstrates how to define a typed request body and interact with the API, ensuring type safety for both request and response data without requiring code generation.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/migrate/from-fastify.md#_snippet_18
-
-LANGUAGE: ts
-CODE:
-```
-import { Elysia, t } from 'elysia'
-import { treaty } from '@elysiajs/eden'
-
-const app = new Elysia()
-	.post('/mirror', ({ body }) => body, {
-		body: t.Object({
-			message: t.String()
-		})
-	})
-
-const api = treaty(app)
-
-const { data, error } = await api.mirror.post({
-	message: 'Hello World'
-})
-
-if(error)
-	throw error
-	//     ^?
-
-
-
-
-
-
-
-
-
-
-
-console.log(data)
-//          ^?
-
-
-
-// ---cut-after---
-console.log('ok')
-```
-
-----------------------------------------
-
-TITLE: Define an ElysiaJS Macro for Authentication
-DESCRIPTION: This snippet demonstrates how to define a custom `isSignIn` macro in ElysiaJS using `.macro`. It includes state management, model definitions for sign-in and session cookies, and implements an `beforeHandle` hook to check for user authentication based on a session token, returning a 401 status if unauthorized.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/tutorial.md#_snippet_23
-
-LANGUAGE: TypeScript
-CODE:
-```
-import { Elysia, t } from 'elysia'
-
-export const userService = new Elysia({ name: 'user/service' })
-    .state({
-        user: {} as Record<string, string>,
-        session: {} as Record<number, string>
-    })
-    .model({
-        signIn: t.Object({
-            username: t.String({ minLength: 1 }),
-            password: t.String({ minLength: 8 })
-        }),
-        session: t.Cookie(
-            {
-                token: t.Number()
-            },
-            {
-                secrets: 'seia'
-            }
-        ),
-        optionalSession: t.Cookie(
-            {
-                token: t.Optional(t.Number())
-            },
-            {
-                secrets: 'seia'
-            }
-        )
-    })
-    .macro({
-        isSignIn(enabled: boolean) {
-            if (!enabled) return
-
-            return {
-                beforeHandle({
-                    status,
-                    cookie: { token },
-                    store: { session }
-                }) {
-                    if (!token.value)
-                        return status(401, {
-                            success: false,
-                            message: 'Unauthorized'
-                        })
-
-                    const username = session[token.value as unknown as number]
-
-                    if (!username)
-                        return status(401, {
-                            success: false,
-                            message: 'Unauthorized'
-                        })
-                }
-            }
-        }
-    })
-```
-
-----------------------------------------
-
-TITLE: Export Elysia App Type for End-to-End Type Safety
-DESCRIPTION: This snippet demonstrates how to export the type of an Elysia application. By exporting `typeof app`, developers can leverage this type definition on the client-side using Elysia's Eden library, enabling seamless end-to-end type synchronization without manual code generation.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/at-glance.md#_snippet_4
-
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia, t } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
-
-const app = new Elysia()
-    .use(swagger())
-    .get('/user/:id', ({ params: { id } }) => id, {
-        params: t.Object({
-            id: t.Number()
+/**
+ * Capabilities a client may support. Known capabilities are defined here, in this schema, but this is not a closed set: any client can define its own, additional capabilities.
+ */
+export const ClientCapabilitiesSchema = z
+  .object({
+    /**
+     * Experimental, non-standard capabilities that the client supports.
+     */
+    experimental: z.optional(z.object({}).passthrough()),
+    /**
+     * Present if the client supports sampling from an LLM.
+     */
+    sampling: z.optional(z.object({}).passthrough()),
+    /**
+     * Present if the client supports listing roots.
+     */
+    roots: z.optional(
+      z
+        .object({
+          /**
+           * Whether the client supports issuing notifications for changes to the roots list.
+           */
+          listChanged: z.optional(z.boolean()),
         })
-    })
-    .listen(3000)
+        .passthrough(),
+    ),
+  })
+  .passthrough();
 
-export type App = typeof app
-```
+/**
+ * This request is sent from the client to the server when it first connects, asking it to begin initialization.
+ */
+export const InitializeRequestSchema = RequestSchema.extend({
+  method: z.literal("initialize"),
+  params: BaseRequestParamsSchema.extend({
+    /**
+     * The latest version of the Model Context Protocol that the client supports. The client MAY decide to support older versions as well.
+     */
+    protocolVersion: z.string(),
+    capabilities: ClientCapabilitiesSchema,
+    clientInfo: ImplementationSchema,
+  }),
+});
 
-----------------------------------------
+export const isInitializeRequest = (value: unknown): value is InitializeRequest =>
+  InitializeRequestSchema.safeParse(value).success;
 
-TITLE: Elysia.js Note Service CRUD Operations
-DESCRIPTION: Defines various routes for managing notes within an Elysia.js application. This snippet demonstrates GET, DELETE, and PATCH operations for notes, including parameter validation, error handling for 'Not Found' cases, and integration with a 'memo' body schema and 'isSignIn' guard for authenticated updates.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/tutorial.md#_snippet_39
 
-LANGUAGE: typescript
-CODE:
-```
-            body: 'memo'
-        }
-    )
-    .get(
-        '/:index',
-        ({ note, params: { index }, status }) => {
-            return note.data[index] ?? status(404, 'Not Found :(')
-        },
-        {
-            params: t.Object({
-                index: t.Number()
-            })
-        }
-    )
-    .guard({
-        params: t.Object({
-            index: t.Number()
+/**
+ * Capabilities that a server may support. Known capabilities are defined here, in this schema, but this is not a closed set: any server can define its own, additional capabilities.
+ */
+export const ServerCapabilitiesSchema = z
+  .object({
+    /**
+     * Experimental, non-standard capabilities that the server supports.
+     */
+    experimental: z.optional(z.object({}).passthrough()),
+    /**
+     * Present if the server supports sending log messages to the client.
+     */
+    logging: z.optional(z.object({}).passthrough()),
+    /**
+     * Present if the server supports sending completions to the client.
+     */
+    completions: z.optional(z.object({}).passthrough()),
+    /**
+     * Present if the server offers any prompt templates.
+     */
+    prompts: z.optional(
+      z
+        .object({
+          /**
+           * Whether this server supports issuing notifications for changes to the prompt list.
+           */
+          listChanged: z.optional(z.boolean()),
         })
-    })
-    .delete('/:index', ({ note, params: { index }, status }) => {
-        if (index in note.data) return note.remove(index)
+        .passthrough(),
+    ),
+    /**
+     * Present if the server offers any resources to read.
+     */
+    resources: z.optional(
+      z
+        .object({
+          /**
+           * Whether this server supports clients subscribing to resource updates.
+           */
+          subscribe: z.optional(z.boolean()),
 
-        return status(422)
-    })
-    .patch(
-        '/:index',
-        ({ note, params: { index }, body: { data }, status, username }) => {
-            if (index in note.data)
-                return note.update(index, { data, author: username })
-
-            return status(422)
-        },
-        {
-            isSignIn: true,
-            body: 'memo'
-        }
-    )
-```
-
-----------------------------------------
-
-TITLE: Infer TypeScript Types from TypeBox Schemas
-DESCRIPTION: Shows how to extract a TypeScript type definition from an Elysia/TypeBox schema using the `.static` property. This allows for compile-time type safety based on runtime validation schemas, reducing the need for duplicate type declarations.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/essential/validation.md#_snippet_2
-
-LANGUAGE: typescript
-CODE:
-```
-import { t } from 'elysia'
-
-const MyType = t.Object({
-	hello: t.Literal('Elysia')
-})
-
-type MyType = typeof MyType.static
-```
-
-----------------------------------------
-
-TITLE: ElysiaJS Incorrect Usage: Lack of Type Inference Without Chaining
-DESCRIPTION: This example illustrates the negative impact of not using method chaining in ElysiaJS. When methods are called separately, Elysia's type system cannot preserve new type references, leading to a complete loss of type inference. This results in potential type errors, as indicated by the `@errors: 2339` annotation.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/key-concept.md#_snippet_2
-
-LANGUAGE: typescript
-CODE:
-```
-// @errors: 2339
-import { Elysia } from 'elysia'
-
-const app = new Elysia()
-
-app.state('build', 1)
-
-app.get('/', ({ store: { build } }) => build)
-
-app.listen(3000)
-```
-
-----------------------------------------
-
-TITLE: Implement User Authentication with Elysia.js
-DESCRIPTION: This TypeScript code defines an Elysia.js plugin for user authentication, including `/sign-up` and `/sign-in` routes. It uses an in-memory store for user credentials (hashed passwords) and session management. The `/sign-up` route hashes and stores new user passwords, while `/sign-in` verifies credentials, generates a session key, and sets a secure cookie. Body validation is enforced using `t.Object`.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/tutorial.md#_snippet_19
-
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia, t } from 'elysia'
-
-export const user = new Elysia({ prefix: '/user' })
-    .state({
-        user: {} as Record<string, string>,
-        session: {} as Record<number, string>
-    })
-    .put(
-        '/sign-up',
-        async ({ body: { username, password }, store, status }) => {
-            if (store.user[username])
-                return status(400, {
-                    success: false,
-                    message: 'User already exists'
-                })
-            store.user[username] = await Bun.password.hash(password)
-
-            return {
-                success: true,
-                message: 'User created'
-            }
-        },
-        {
-            body: t.Object({
-                username: t.String({ minLength: 1 }),
-                password: t.String({ minLength: 8 })
-            })
-        }
-    )
-    .post(
-        '/sign-in',
-        async ({
-            store: { user, session },
-            status,
-            body: { username, password },
-            cookie: { token }
-        }) => {
-            if (
-                !user[username] ||
-                !(await Bun.password.verify(password, user[username]))
-            )
-                return status(400, {
-                    success: false,
-                    message: 'Invalid username or password'
-                })
-
-            const key = crypto.getRandomValues(new Uint32Array(1))[0]
-            session[key] = username
-            token.value = key
-
-            return {
-                success: true,
-                message: `Signed in as ${username}`
-            }
-        },
-        {
-            body: t.Object({
-                username: t.String({ minLength: 1 }),
-                password: t.String({ minLength: 8 })
-            }),
-            cookie: t.Cookie(
-                {
-                    token: t.Number()
-                },
-                {
-                    secrets: 'seia'
-                }
-            )
-        }
-    )
-```
-
-----------------------------------------
-
-TITLE: Injecting ElysiaJS Models with Reference
-DESCRIPTION: Demonstrates how to define and inject a custom body schema as a named model in ElysiaJS using its reference model feature. This method allows for better organization, auto-completion, and integration with OpenAPI clients like Swagger, while also improving TypeScript inference speed.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/essential/structure.md#_snippet_13
-
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia, t } from 'elysia'
-
-const customBody = t.Object({
-	username: t.String(),
-	password: t.String()
-})
-
-const AuthModel = new Elysia()
-    .model({
-        'auth.sign': customBody
-    })
-
-const UserController = new Elysia({ prefix: '/auth' })
-    .use(AuthModel)
-    .post('/sign-in', async ({ body, cookie: { session } }) => {
-                             // ^?
-
-        return true
-    }, {
-        body: 'auth.sign'
-    })
-```
-
-----------------------------------------
-
-TITLE: Recommended: Using Elysia Instance as a Service
-DESCRIPTION: This example illustrates the recommended approach for creating request-dependent services by instantiating a new Elysia instance. This method ensures type integrity and proper inference, allowing for dependency injection-like patterns and the declaration of service methods using `macro`.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/essential/structure.md#_snippet_6
-
-LANGUAGE: TypeScript
-CODE:
-```
-import { Elysia } from 'elysia'
-
-// ✅ Do
-const AuthService = new Elysia({ name: 'Service.Auth' })
-    .derive({ as: 'scoped' }, ({ cookie: { session } }) => ({
-    	// This is equivalent to dependency injection
-        Auth: {
-            user: session.value
-        }
-    }))
-    .macro(({ onBeforeHandle }) => ({
-     	// This is declaring a service method
-        isSignIn(value: boolean) {
-            onBeforeHandle(({ Auth, status }) => {
-                if (!Auth?.user || !Auth.user) return status(401)
-            })
-        }
-    }))
-
-const UserController = new Elysia()
-    .use(AuthService)
-    .get('/profile', ({ Auth: { user } }) => user, {
-    	isSignIn: true
-    })
-```
-
-----------------------------------------
-
-TITLE: ElysiaJS Automatic Type Inference for Path Parameters
-DESCRIPTION: This example demonstrates ElysiaJS's powerful type inference system. It shows how the framework automatically infers the type of a dynamic path parameter (`:id`) within the `params` object, providing compile-time and runtime type safety without requiring explicit TypeScript declarations.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/at-glance.md#_snippet_1
-
-LANGUAGE: TypeScript
-CODE:
-```
-import { Elysia } from 'elysia'
-
-new Elysia()
-    .get('/user/:id', ({ params: { id } }) => id)
-    .listen(3000)
-```
-
-----------------------------------------
-
-TITLE: ElysiaJS: Check User Sign-in with beforeHandle
-DESCRIPTION: This example demonstrates using the `beforeHandle` hook in ElysiaJS to validate a user's session before processing a GET request. If the session is invalid, it sets the status to 401 Unauthorized, preventing access to the route handler.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/essential/life-cycle.md#_snippet_20
-
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia } from 'elysia'
-import { validateSession } from './user'
-
-new Elysia()
-    .get('/', () => 'hi', {
-        beforeHandle({ set, cookie: { session }, status }) {
-            if (!validateSession(session.value)) return status(401)
-        }
-    })
-    .listen(3000)
-```
-
-----------------------------------------
-
-TITLE: Handle Dynamic Path Parameters in ElysiaJS
-DESCRIPTION: Demonstrates how to define dynamic routes with parameters (`:id`) and access them from the `params` object. Also shows a static path for the same base route, for a playground environment.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/essential/route.md#_snippet_3
-
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia } from 'elysia'
-
-const demo3 = new Elysia()
-	  .get('/id', () => `id: undefined`)
-    .get('/id/:id', ({ params: { id } }) => `id: ${id}`)
-```
-
-----------------------------------------
-
-TITLE: Handling Type-Safe Errors by Status Code with Elysia.js and Eden
-DESCRIPTION: Demonstrates how to define and narrow down error types based on HTTP status codes in Elysia.js on the server and handle them type-safely on the client using Eden Treaty. This ensures robust error handling and improved developer experience.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/eden/treaty/legacy.md#_snippet_6
-
-LANGUAGE: typescript
-CODE:
-```
-// server.ts
-import { Elysia, t } from 'elysia'
-
-const app = new Elysia()
-    .model({
-        nendoroid: t.Object({
-            id: t.Number(),
-            name: t.String()
-        }),
-        error: t.Object({
-            message: t.String()
+          /**
+           * Whether this server supports issuing notifications for changes to the resource list.
+           */
+          listChanged: z.optional(z.boolean()),
         })
+        .passthrough(),
+    ),
+    /**
+     * Present if the server offers any tools to call.
+     */
+    tools: z.optional(
+      z
+        .object({
+          /**
+           * Whether this server supports issuing notifications for changes to the tool list.
+           */
+          listChanged: z.optional(z.boolean()),
+        })
+        .passthrough(),
+    ),
+  })
+  .passthrough();
+
+/**
+ * After receiving an initialize request from the client, the server sends this response.
+ */
+export const InitializeResultSchema = ResultSchema.extend({
+  /**
+   * The version of the Model Context Protocol that the server wants to use. This may not match the version that the client requested. If the client cannot support this version, it MUST disconnect.
+   */
+  protocolVersion: z.string(),
+  capabilities: ServerCapabilitiesSchema,
+  serverInfo: ImplementationSchema,
+  /**
+   * Instructions describing how to use the server and its features.
+   *
+   * This can be used by clients to improve the LLM's understanding of available tools, resources, etc. It can be thought of like a "hint" to the model. For example, this information MAY be added to the system prompt.
+   */
+  instructions: z.optional(z.string()),
+});
+
+/**
+ * This notification is sent from the client to the server after initialization has finished.
+ */
+export const InitializedNotificationSchema = NotificationSchema.extend({
+  method: z.literal("notifications/initialized"),
+});
+
+export const isInitializedNotification = (value: unknown): value is InitializedNotification =>
+  InitializedNotificationSchema.safeParse(value).success;
+
+/* Ping */
+/**
+ * A ping, issued by either the server or the client, to check that the other party is still alive. The receiver must promptly respond, or else may be disconnected.
+ */
+export const PingRequestSchema = RequestSchema.extend({
+  method: z.literal("ping"),
+});
+
+/* Progress notifications */
+export const ProgressSchema = z
+  .object({
+    /**
+     * The progress thus far. This should increase every time progress is made, even if the total is unknown.
+     */
+    progress: z.number(),
+    /**
+     * Total number of items to process (or total progress required), if known.
+     */
+    total: z.optional(z.number()),
+    /**
+     * An optional message describing the current progress.
+     */
+    message: z.optional(z.string()),
+  })
+  .passthrough();
+
+/**
+ * An out-of-band notification used to inform the receiver of a progress update for a long-running request.
+ */
+export const ProgressNotificationSchema = NotificationSchema.extend({
+  method: z.literal("notifications/progress"),
+  params: BaseNotificationParamsSchema.merge(ProgressSchema).extend({
+    /**
+     * The progress token which was given in the initial request, used to associate this notification with the request that is proceeding.
+     */
+    progressToken: ProgressTokenSchema,
+  }),
+});
+
+/* Pagination */
+export const PaginatedRequestSchema = RequestSchema.extend({
+  params: BaseRequestParamsSchema.extend({
+    /**
+     * An opaque token representing the current pagination position.
+     * If provided, the server should return results starting after this cursor.
+     */
+    cursor: z.optional(CursorSchema),
+  }).optional(),
+});
+
+export const PaginatedResultSchema = ResultSchema.extend({
+  /**
+   * An opaque token representing the pagination position after the last returned result.
+   * If present, there may be more results available.
+   */
+  nextCursor: z.optional(CursorSchema),
+});
+
+/* Resources */
+/**
+ * The contents of a specific resource or sub-resource.
+ */
+export const ResourceContentsSchema = z
+  .object({
+    /**
+     * The URI of this resource.
+     */
+    uri: z.string(),
+    /**
+     * The MIME type of this resource, if known.
+     */
+    mimeType: z.optional(z.string()),
+  })
+  .passthrough();
+
+export const TextResourceContentsSchema = ResourceContentsSchema.extend({
+  /**
+   * The text of the item. This must only be set if the item can actually be represented as text (not binary data).
+   */
+  text: z.string(),
+});
+
+export const BlobResourceContentsSchema = ResourceContentsSchema.extend({
+  /**
+   * A base64-encoded string representing the binary data of the item.
+   */
+  blob: z.string().base64(),
+});
+
+/**
+ * A known resource that the server is capable of reading.
+ */
+export const ResourceSchema = z
+  .object({
+    /**
+     * The URI of this resource.
+     */
+    uri: z.string(),
+
+    /**
+     * A human-readable name for this resource.
+     *
+     * This can be used by clients to populate UI elements.
+     */
+    name: z.string(),
+
+    /**
+     * A description of what this resource represents.
+     *
+     * This can be used by clients to improve the LLM's understanding of available resources. It can be thought of like a "hint" to the model.
+     */
+    description: z.optional(z.string()),
+
+    /**
+     * The MIME type of this resource, if known.
+     */
+    mimeType: z.optional(z.string()),
+  })
+  .passthrough();
+
+/**
+ * A template description for resources available on the server.
+ */
+export const ResourceTemplateSchema = z
+  .object({
+    /**
+     * A URI template (according to RFC 6570) that can be used to construct resource URIs.
+     */
+    uriTemplate: z.string(),
+
+    /**
+     * A human-readable name for the type of resource this template refers to.
+     *
+     * This can be used by clients to populate UI elements.
+     */
+    name: z.string(),
+
+    /**
+     * A description of what this template is for.
+     *
+     * This can be used by clients to improve the LLM's understanding of available resources. It can be thought of like a "hint" to the model.
+     */
+    description: z.optional(z.string()),
+
+    /**
+     * The MIME type for all resources that match this template. This should only be included if all resources matching this template have the same type.
+     */
+    mimeType: z.optional(z.string()),
+  })
+  .passthrough();
+
+/**
+ * Sent from the client to request a list of resources the server has.
+ */
+export const ListResourcesRequestSchema = PaginatedRequestSchema.extend({
+  method: z.literal("resources/list"),
+});
+
+/**
+ * The server's response to a resources/list request from the client.
+ */
+export const ListResourcesResultSchema = PaginatedResultSchema.extend({
+  resources: z.array(ResourceSchema),
+});
+
+/**
+ * Sent from the client to request a list of resource templates the server has.
+ */
+export const ListResourceTemplatesRequestSchema = PaginatedRequestSchema.extend(
+  {
+    method: z.literal("resources/templates/list"),
+  },
+);
+
+/**
+ * The server's response to a resources/templates/list request from the client.
+ */
+export const ListResourceTemplatesResultSchema = PaginatedResultSchema.extend({
+  resourceTemplates: z.array(ResourceTemplateSchema),
+});
+
+/**
+ * Sent from the client to the server, to read a specific resource URI.
+ */
+export const ReadResourceRequestSchema = RequestSchema.extend({
+  method: z.literal("resources/read"),
+  params: BaseRequestParamsSchema.extend({
+    /**
+     * The URI of the resource to read. The URI can use any protocol; it is up to the server how to interpret it.
+     */
+    uri: z.string(),
+  }),
+});
+
+/**
+ * The server's response to a resources/read request from the client.
+ */
+export const ReadResourceResultSchema = ResultSchema.extend({
+  contents: z.array(
+    z.union([TextResourceContentsSchema, BlobResourceContentsSchema]),
+  ),
+});
+
+/**
+ * An optional notification from the server to the client, informing it that the list of resources it can read from has changed. This may be issued by servers without any previous subscription from the client.
+ */
+export const ResourceListChangedNotificationSchema = NotificationSchema.extend({
+  method: z.literal("notifications/resources/list_changed"),
+});
+
+/**
+ * Sent from the client to request resources/updated notifications from the server whenever a particular resource changes.
+ */
+export const SubscribeRequestSchema = RequestSchema.extend({
+  method: z.literal("resources/subscribe"),
+  params: BaseRequestParamsSchema.extend({
+    /**
+     * The URI of the resource to subscribe to. The URI can use any protocol; it is up to the server how to interpret it.
+     */
+    uri: z.string(),
+  }),
+});
+
+/**
+ * Sent from the client to request cancellation of resources/updated notifications from the server. This should follow a previous resources/subscribe request.
+ */
+export const UnsubscribeRequestSchema = RequestSchema.extend({
+  method: z.literal("resources/unsubscribe"),
+  params: BaseRequestParamsSchema.extend({
+    /**
+     * The URI of the resource to unsubscribe from.
+     */
+    uri: z.string(),
+  }),
+});
+
+/**
+ * A notification from the server to the client, informing it that a resource has changed and may need to be read again. This should only be sent if the client previously sent a resources/subscribe request.
+ */
+export const ResourceUpdatedNotificationSchema = NotificationSchema.extend({
+  method: z.literal("notifications/resources/updated"),
+  params: BaseNotificationParamsSchema.extend({
+    /**
+     * The URI of the resource that has been updated. This might be a sub-resource of the one that the client actually subscribed to.
+     */
+    uri: z.string(),
+  }),
+});
+
+/* Prompts */
+/**
+ * Describes an argument that a prompt can accept.
+ */
+export const PromptArgumentSchema = z
+  .object({
+    /**
+     * The name of the argument.
+     */
+    name: z.string(),
+    /**
+     * A human-readable description of the argument.
+     */
+    description: z.optional(z.string()),
+    /**
+     * Whether this argument must be provided.
+     */
+    required: z.optional(z.boolean()),
+  })
+  .passthrough();
+
+/**
+ * A prompt or prompt template that the server offers.
+ */
+export const PromptSchema = z
+  .object({
+    /**
+     * The name of the prompt or prompt template.
+     */
+    name: z.string(),
+    /**
+     * An optional description of what this prompt provides
+     */
+    description: z.optional(z.string()),
+    /**
+     * A list of arguments to use for templating the prompt.
+     */
+    arguments: z.optional(z.array(PromptArgumentSchema)),
+  })
+  .passthrough();
+
+/**
+ * Sent from the client to request a list of prompts and prompt templates the server has.
+ */
+export const ListPromptsRequestSchema = PaginatedRequestSchema.extend({
+  method: z.literal("prompts/list"),
+});
+
+/**
+ * The server's response to a prompts/list request from the client.
+ */
+export const ListPromptsResultSchema = PaginatedResultSchema.extend({
+  prompts: z.array(PromptSchema),
+});
+
+/**
+ * Used by the client to get a prompt provided by the server.
+ */
+export const GetPromptRequestSchema = RequestSchema.extend({
+  method: z.literal("prompts/get"),
+  params: BaseRequestParamsSchema.extend({
+    /**
+     * The name of the prompt or prompt template.
+     */
+    name: z.string(),
+    /**
+     * Arguments to use for templating the prompt.
+     */
+    arguments: z.optional(z.record(z.string())),
+  }),
+});
+
+/**
+ * Text provided to or from an LLM.
+ */
+export const TextContentSchema = z
+  .object({
+    type: z.literal("text"),
+    /**
+     * The text content of the message.
+     */
+    text: z.string(),
+  })
+  .passthrough();
+
+/**
+ * An image provided to or from an LLM.
+ */
+export const ImageContentSchema = z
+  .object({
+    type: z.literal("image"),
+    /**
+     * The base64-encoded image data.
+     */
+    data: z.string().base64(),
+    /**
+     * The MIME type of the image. Different providers may support different image types.
+     */
+    mimeType: z.string(),
+  })
+  .passthrough();
+
+/**
+ * An Audio provided to or from an LLM.
+ */
+export const AudioContentSchema = z
+  .object({
+    type: z.literal("audio"),
+    /**
+     * The base64-encoded audio data.
+     */
+    data: z.string().base64(),
+    /**
+     * The MIME type of the audio. Different providers may support different audio types.
+     */
+    mimeType: z.string(),
+  })
+  .passthrough();
+
+/**
+ * The contents of a resource, embedded into a prompt or tool call result.
+ */
+export const EmbeddedResourceSchema = z
+  .object({
+    type: z.literal("resource"),
+    resource: z.union([TextResourceContentsSchema, BlobResourceContentsSchema]),
+  })
+  .passthrough();
+
+/**
+ * Describes a message returned as part of a prompt.
+ */
+export const PromptMessageSchema = z
+  .object({
+    role: z.enum(["user", "assistant"]),
+    content: z.union([
+      TextContentSchema,
+      ImageContentSchema,
+      AudioContentSchema,
+      EmbeddedResourceSchema,
+    ]),
+  })
+  .passthrough();
+
+/**
+ * The server's response to a prompts/get request from the client.
+ */
+export const GetPromptResultSchema = ResultSchema.extend({
+  /**
+   * An optional description for the prompt.
+   */
+  description: z.optional(z.string()),
+  messages: z.array(PromptMessageSchema),
+});
+
+/**
+ * An optional notification from the server to the client, informing it that the list of prompts it offers has changed. This may be issued by servers without any previous subscription from the client.
+ */
+export const PromptListChangedNotificationSchema = NotificationSchema.extend({
+  method: z.literal("notifications/prompts/list_changed"),
+});
+
+/* Tools */
+/**
+ * Additional properties describing a Tool to clients.
+ *
+ * NOTE: all properties in ToolAnnotations are **hints**.
+ * They are not guaranteed to provide a faithful description of
+ * tool behavior (including descriptive properties like `title`).
+ *
+ * Clients should never make tool use decisions based on ToolAnnotations
+ * received from untrusted servers.
+ */
+export const ToolAnnotationsSchema = z
+  .object({
+    /**
+     * A human-readable title for the tool.
+     */
+    title: z.optional(z.string()),
+
+    /**
+     * If true, the tool does not modify its environment.
+     *
+     * Default: false
+     */
+    readOnlyHint: z.optional(z.boolean()),
+
+    /**
+     * If true, the tool may perform destructive updates to its environment.
+     * If false, the tool performs only additive updates.
+     *
+     * (This property is meaningful only when `readOnlyHint == false`)
+     *
+     * Default: true
+     */
+    destructiveHint: z.optional(z.boolean()),
+
+    /**
+     * If true, calling the tool repeatedly with the same arguments
+     * will have no additional effect on the its environment.
+     *
+     * (This property is meaningful only when `readOnlyHint == false`)
+     *
+     * Default: false
+     */
+    idempotentHint: z.optional(z.boolean()),
+
+    /**
+     * If true, this tool may interact with an "open world" of external
+     * entities. If false, the tool's domain of interaction is closed.
+     * For example, the world of a web search tool is open, whereas that
+     * of a memory tool is not.
+     *
+     * Default: true
+     */
+    openWorldHint: z.optional(z.boolean()),
+  })
+  .passthrough();
+
+/**
+ * Definition for a tool the client can call.
+ */
+export const ToolSchema = z
+  .object({
+    /**
+     * The name of the tool.
+     */
+    name: z.string(),
+    /**
+     * A human-readable description of the tool.
+     */
+    description: z.optional(z.string()),
+    /**
+     * A JSON Schema object defining the expected parameters for the tool.
+     */
+    inputSchema: z
+      .object({
+        type: z.literal("object"),
+        properties: z.optional(z.object({}).passthrough()),
+        required: z.optional(z.array(z.string())),
+      })
+      .passthrough(),
+    /**
+     * An optional JSON Schema object defining the structure of the tool's output returned in 
+     * the structuredContent field of a CallToolResult.
+     */
+    outputSchema: z.optional(
+      z.object({
+        type: z.literal("object"),
+        properties: z.optional(z.object({}).passthrough()),
+        required: z.optional(z.array(z.string())),
+      })
+      .passthrough()
+    ),
+    /**
+     * Optional additional tool information.
+     */
+    annotations: z.optional(ToolAnnotationsSchema),
+  })
+  .passthrough();
+
+/**
+ * Sent from the client to request a list of tools the server has.
+ */
+export const ListToolsRequestSchema = PaginatedRequestSchema.extend({
+  method: z.literal("tools/list"),
+});
+
+/**
+ * The server's response to a tools/list request from the client.
+ */
+export const ListToolsResultSchema = PaginatedResultSchema.extend({
+  tools: z.array(ToolSchema),
+});
+
+/**
+ * The server's response to a tool call.
+ */
+export const CallToolResultSchema = ResultSchema.extend({
+  /**
+   * A list of content objects that represent the result of the tool call.
+   *
+   * If the Tool does not define an outputSchema, this field MUST be present in the result.
+   * For backwards compatibility, this field is always present, but it may be empty.
+   */
+  content: z.array(
+    z.union([
+      TextContentSchema,
+      ImageContentSchema,
+      AudioContentSchema,
+      EmbeddedResourceSchema,
+    ])).default([]),
+
+  /**
+   * An object containing structured tool output.
+   *
+   * If the Tool defines an outputSchema, this field MUST be present in the result, and contain a JSON object that matches the schema.
+   */
+  structuredContent: z.object({}).passthrough().optional(),
+
+  /**
+   * Whether the tool call ended in an error.
+   *
+   * If not set, this is assumed to be false (the call was successful).
+   *
+   * Any errors that originate from the tool SHOULD be reported inside the result
+   * object, with `isError` set to true, _not_ as an MCP protocol-level error
+   * response. Otherwise, the LLM would not be able to see that an error occurred
+   * and self-correct.
+   *
+   * However, any errors in _finding_ the tool, an error indicating that the
+   * server does not support tool calls, or any other exceptional conditions,
+   * should be reported as an MCP error response.
+   */
+  isError: z.optional(z.boolean()),
+});
+
+/**
+ * CallToolResultSchema extended with backwards compatibility to protocol version 2024-10-07.
+ */
+export const CompatibilityCallToolResultSchema = CallToolResultSchema.or(
+  ResultSchema.extend({
+    toolResult: z.unknown(),
+  }),
+);
+
+/**
+ * Used by the client to invoke a tool provided by the server.
+ */
+export const CallToolRequestSchema = RequestSchema.extend({
+  method: z.literal("tools/call"),
+  params: BaseRequestParamsSchema.extend({
+    name: z.string(),
+    arguments: z.optional(z.record(z.unknown())),
+  }),
+});
+
+/**
+ * An optional notification from the server to the client, informing it that the list of tools it offers has changed. This may be issued by servers without any previous subscription from the client.
+ */
+export const ToolListChangedNotificationSchema = NotificationSchema.extend({
+  method: z.literal("notifications/tools/list_changed"),
+});
+
+/* Logging */
+/**
+ * The severity of a log message.
+ */
+export const LoggingLevelSchema = z.enum([
+  "debug",
+  "info",
+  "notice",
+  "warning",
+  "error",
+  "critical",
+  "alert",
+  "emergency",
+]);
+
+/**
+ * A request from the client to the server, to enable or adjust logging.
+ */
+export const SetLevelRequestSchema = RequestSchema.extend({
+  method: z.literal("logging/setLevel"),
+  params: BaseRequestParamsSchema.extend({
+    /**
+     * The level of logging that the client wants to receive from the server. The server should send all logs at this level and higher (i.e., more severe) to the client as notifications/logging/message.
+     */
+    level: LoggingLevelSchema,
+  }),
+});
+
+/**
+ * Notification of a log message passed from server to client. If no logging/setLevel request has been sent from the client, the server MAY decide which messages to send automatically.
+ */
+export const LoggingMessageNotificationSchema = NotificationSchema.extend({
+  method: z.literal("notifications/message"),
+  params: BaseNotificationParamsSchema.extend({
+    /**
+     * The severity of this log message.
+     */
+    level: LoggingLevelSchema,
+    /**
+     * An optional name of the logger issuing this message.
+     */
+    logger: z.optional(z.string()),
+    /**
+     * The data to be logged, such as a string message or an object. Any JSON serializable type is allowed here.
+     */
+    data: z.unknown(),
+  }),
+});
+
+/* Sampling */
+/**
+ * Hints to use for model selection.
+ */
+export const ModelHintSchema = z
+  .object({
+    /**
+     * A hint for a model name.
+     */
+    name: z.string().optional(),
+  })
+  .passthrough();
+
+/**
+ * The server's preferences for model selection, requested of the client during sampling.
+ */
+export const ModelPreferencesSchema = z
+  .object({
+    /**
+     * Optional hints to use for model selection.
+     */
+    hints: z.optional(z.array(ModelHintSchema)),
+    /**
+     * How much to prioritize cost when selecting a model.
+     */
+    costPriority: z.optional(z.number().min(0).max(1)),
+    /**
+     * How much to prioritize sampling speed (latency) when selecting a model.
+     */
+    speedPriority: z.optional(z.number().min(0).max(1)),
+    /**
+     * How much to prioritize intelligence and capabilities when selecting a model.
+     */
+    intelligencePriority: z.optional(z.number().min(0).max(1)),
+  })
+  .passthrough();
+
+/**
+ * Describes a message issued to or received from an LLM API.
+ */
+export const SamplingMessageSchema = z
+  .object({
+    role: z.enum(["user", "assistant"]),
+    content: z.union([TextContentSchema, ImageContentSchema, AudioContentSchema]),
+  })
+  .passthrough();
+
+/**
+ * A request from the server to sample an LLM via the client. The client has full discretion over which model to select. The client should also inform the user before beginning sampling, to allow them to inspect the request (human in the loop) and decide whether to approve it.
+ */
+export const CreateMessageRequestSchema = RequestSchema.extend({
+  method: z.literal("sampling/createMessage"),
+  params: BaseRequestParamsSchema.extend({
+    messages: z.array(SamplingMessageSchema),
+    /**
+     * An optional system prompt the server wants to use for sampling. The client MAY modify or omit this prompt.
+     */
+    systemPrompt: z.optional(z.string()),
+    /**
+     * A request to include context from one or more MCP servers (including the caller), to be attached to the prompt. The client MAY ignore this request.
+     */
+    includeContext: z.optional(z.enum(["none", "thisServer", "allServers"])),
+    temperature: z.optional(z.number()),
+    /**
+     * The maximum number of tokens to sample, as requested by the server. The client MAY choose to sample fewer tokens than requested.
+     */
+    maxTokens: z.number().int(),
+    stopSequences: z.optional(z.array(z.string())),
+    /**
+     * Optional metadata to pass through to the LLM provider. The format of this metadata is provider-specific.
+     */
+    metadata: z.optional(z.object({}).passthrough()),
+    /**
+     * The server's preferences for which model to select.
+     */
+    modelPreferences: z.optional(ModelPreferencesSchema),
+  }),
+});
+
+/**
+ * The client's response to a sampling/create_message request from the server. The client should inform the user before returning the sampled message, to allow them to inspect the response (human in the loop) and decide whether to allow the server to see it.
+ */
+export const CreateMessageResultSchema = ResultSchema.extend({
+  /**
+   * The name of the model that generated the message.
+   */
+  model: z.string(),
+  /**
+   * The reason why sampling stopped.
+   */
+  stopReason: z.optional(
+    z.enum(["endTurn", "stopSequence", "maxTokens"]).or(z.string()),
+  ),
+  role: z.enum(["user", "assistant"]),
+  content: z.discriminatedUnion("type", [
+    TextContentSchema,
+    ImageContentSchema,
+    AudioContentSchema
+  ]),
+});
+
+/* Autocomplete */
+/**
+ * A reference to a resource or resource template definition.
+ */
+export const ResourceReferenceSchema = z
+  .object({
+    type: z.literal("ref/resource"),
+    /**
+     * The URI or URI template of the resource.
+     */
+    uri: z.string(),
+  })
+  .passthrough();
+
+/**
+ * Identifies a prompt.
+ */
+export const PromptReferenceSchema = z
+  .object({
+    type: z.literal("ref/prompt"),
+    /**
+     * The name of the prompt or prompt template
+     */
+    name: z.string(),
+  })
+  .passthrough();
+
+/**
+ * A request from the client to the server, to ask for completion options.
+ */
+export const CompleteRequestSchema = RequestSchema.extend({
+  method: z.literal("completion/complete"),
+  params: BaseRequestParamsSchema.extend({
+    ref: z.union([PromptReferenceSchema, ResourceReferenceSchema]),
+    /**
+     * The argument's information
+     */
+    argument: z
+      .object({
+        /**
+         * The name of the argument
+         */
+        name: z.string(),
+        /**
+         * The value of the argument to use for completion matching.
+         */
+        value: z.string(),
+      })
+      .passthrough(),
+  }),
+});
+
+/**
+ * The server's response to a completion/complete request
+ */
+export const CompleteResultSchema = ResultSchema.extend({
+  completion: z
+    .object({
+      /**
+       * An array of completion values. Must not exceed 100 items.
+       */
+      values: z.array(z.string()).max(100),
+      /**
+       * The total number of completion options available. This can exceed the number of values actually sent in the response.
+       */
+      total: z.optional(z.number().int()),
+      /**
+       * Indicates whether there are additional completion options beyond those provided in the current response, even if the exact total is unknown.
+       */
+      hasMore: z.optional(z.boolean()),
     })
-    .get('/', () => 'Hi Elysia')
-    .get('/id/:id', ({ params: { id } }) => id)
-    .post('/mirror', ({ body }) => body, {
-        body: 'nendoroid',
-        response: {
-            200: 'nendoroid',
-            400: 'error',
-            401: 'error'
-        }
-    })
-    .listen(3000)
+    .passthrough(),
+});
 
-export type App = typeof app
-```
+/* Roots */
+/**
+ * Represents a root directory or file that the server can operate on.
+ */
+export const RootSchema = z
+  .object({
+    /**
+     * The URI identifying the root. This *must* start with file:// for now.
+     */
+    uri: z.string().startsWith("file://"),
+    /**
+     * An optional name for the root.
+     */
+    name: z.optional(z.string()),
+  })
+  .passthrough();
 
-LANGUAGE: typescript
-CODE:
-```
-const { data: nendoroid, error } = app.mirror.post({
-    id: 1895,
-    name: 'Skadi'
-})
+/**
+ * Sent from the server to request a list of root URIs from the client.
+ */
+export const ListRootsRequestSchema = RequestSchema.extend({
+  method: z.literal("roots/list"),
+});
 
-if(error) {
-    switch(error.status) {
-        case 400:
-        case 401:
-            // narrow down to type 'error' described in the server
-            warnUser(error.value)
-            break
+/**
+ * The client's response to a roots/list request from the server.
+ */
+export const ListRootsResultSchema = ResultSchema.extend({
+  roots: z.array(RootSchema),
+});
 
-        default:
-            // typed as unknown
-            reportError(error.value)
-            break
-    }
+/**
+ * A notification from the client to the server, informing it that the list of roots has changed.
+ */
+export const RootsListChangedNotificationSchema = NotificationSchema.extend({
+  method: z.literal("notifications/roots/list_changed"),
+});
 
-    throw error
+/* Client messages */
+export const ClientRequestSchema = z.union([
+  PingRequestSchema,
+  InitializeRequestSchema,
+  CompleteRequestSchema,
+  SetLevelRequestSchema,
+  GetPromptRequestSchema,
+  ListPromptsRequestSchema,
+  ListResourcesRequestSchema,
+  ListResourceTemplatesRequestSchema,
+  ReadResourceRequestSchema,
+  SubscribeRequestSchema,
+  UnsubscribeRequestSchema,
+  CallToolRequestSchema,
+  ListToolsRequestSchema,
+]);
+
+export const ClientNotificationSchema = z.union([
+  CancelledNotificationSchema,
+  ProgressNotificationSchema,
+  InitializedNotificationSchema,
+  RootsListChangedNotificationSchema,
+]);
+
+export const ClientResultSchema = z.union([
+  EmptyResultSchema,
+  CreateMessageResultSchema,
+  ListRootsResultSchema,
+]);
+
+/* Server messages */
+export const ServerRequestSchema = z.union([
+  PingRequestSchema,
+  CreateMessageRequestSchema,
+  ListRootsRequestSchema,
+]);
+
+export const ServerNotificationSchema = z.union([
+  CancelledNotificationSchema,
+  ProgressNotificationSchema,
+  LoggingMessageNotificationSchema,
+  ResourceUpdatedNotificationSchema,
+  ResourceListChangedNotificationSchema,
+  ToolListChangedNotificationSchema,
+  PromptListChangedNotificationSchema,
+]);
+
+export const ServerResultSchema = z.union([
+  EmptyResultSchema,
+  InitializeResultSchema,
+  CompleteResultSchema,
+  GetPromptResultSchema,
+  ListPromptsResultSchema,
+  ListResourcesResultSchema,
+  ListResourceTemplatesResultSchema,
+  ReadResourceResultSchema,
+  CallToolResultSchema,
+  ListToolsResultSchema,
+]);
+
+export class McpError extends Error {
+  constructor(
+    public readonly code: number,
+    message: string,
+    public readonly data?: unknown,
+  ) {
+    super(`MCP error ${code}: ${message}`);
+    this.name = "McpError";
+  }
 }
-```
 
-----------------------------------------
+type Primitive = string | number | boolean | bigint | null | undefined;
+type Flatten<T> = T extends Primitive
+  ? T
+  : T extends Array<infer U>
+  ? Array<Flatten<U>>
+  : T extends Set<infer U>
+  ? Set<Flatten<U>>
+  : T extends Map<infer K, infer V>
+  ? Map<Flatten<K>, Flatten<V>>
+  : T extends object
+  ? { [K in keyof T]: Flatten<T[K]> }
+  : T;
 
-TITLE: Accessing Context in ElysiaJS Route Handler
-DESCRIPTION: Demonstrates how to access the `context` object within an ElysiaJS route handler to retrieve request-specific information like the `path`.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/essential/handler.md#_snippet_6
+type Infer<Schema extends ZodTypeAny> = Flatten<z.infer<Schema>>;
 
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia } from 'elysia'
+/* JSON-RPC types */
+export type ProgressToken = Infer<typeof ProgressTokenSchema>;
+export type Cursor = Infer<typeof CursorSchema>;
+export type Request = Infer<typeof RequestSchema>;
+export type RequestMeta = Infer<typeof RequestMetaSchema>;
+export type Notification = Infer<typeof NotificationSchema>;
+export type Result = Infer<typeof ResultSchema>;
+export type RequestId = Infer<typeof RequestIdSchema>;
+export type JSONRPCRequest = Infer<typeof JSONRPCRequestSchema>;
+export type JSONRPCNotification = Infer<typeof JSONRPCNotificationSchema>;
+export type JSONRPCResponse = Infer<typeof JSONRPCResponseSchema>;
+export type JSONRPCError = Infer<typeof JSONRPCErrorSchema>;
+export type JSONRPCMessage = Infer<typeof JSONRPCMessageSchema>;
 
-new Elysia()
-	.get('/', (context) => context.path)
-```
+/* Empty result */
+export type EmptyResult = Infer<typeof EmptyResultSchema>;
 
-----------------------------------------
+/* Cancellation */
+export type CancelledNotification = Infer<typeof CancelledNotificationSchema>;
 
-TITLE: Create Basic Elysia App (src/index.ts)
-DESCRIPTION: Example TypeScript code for a minimal Elysia application that serves 'Hello Elysia' on the root path and listens on port 3000.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/quick-start.md#_snippet_3
+/* Initialization */
+export type Implementation = Infer<typeof ImplementationSchema>;
+export type ClientCapabilities = Infer<typeof ClientCapabilitiesSchema>;
+export type InitializeRequest = Infer<typeof InitializeRequestSchema>;
+export type ServerCapabilities = Infer<typeof ServerCapabilitiesSchema>;
+export type InitializeResult = Infer<typeof InitializeResultSchema>;
+export type InitializedNotification = Infer<typeof InitializedNotificationSchema>;
 
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia } from 'elysia'
+/* Ping */
+export type PingRequest = Infer<typeof PingRequestSchema>;
 
-const app = new Elysia()
-	.get('/', () => 'Hello Elysia')
-	.listen(3000)
+/* Progress notifications */
+export type Progress = Infer<typeof ProgressSchema>;
+export type ProgressNotification = Infer<typeof ProgressNotificationSchema>;
 
-console.log(
-	`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
-)
-```
+/* Pagination */
+export type PaginatedRequest = Infer<typeof PaginatedRequestSchema>;
+export type PaginatedResult = Infer<typeof PaginatedResultSchema>;
 
-----------------------------------------
+/* Resources */
+export type ResourceContents = Infer<typeof ResourceContentsSchema>;
+export type TextResourceContents = Infer<typeof TextResourceContentsSchema>;
+export type BlobResourceContents = Infer<typeof BlobResourceContentsSchema>;
+export type Resource = Infer<typeof ResourceSchema>;
+export type ResourceTemplate = Infer<typeof ResourceTemplateSchema>;
+export type ListResourcesRequest = Infer<typeof ListResourcesRequestSchema>;
+export type ListResourcesResult = Infer<typeof ListResourcesResultSchema>;
+export type ListResourceTemplatesRequest = Infer<typeof ListResourceTemplatesRequestSchema>;
+export type ListResourceTemplatesResult = Infer<typeof ListResourceTemplatesResultSchema>;
+export type ReadResourceRequest = Infer<typeof ReadResourceRequestSchema>;
+export type ReadResourceResult = Infer<typeof ReadResourceResultSchema>;
+export type ResourceListChangedNotification = Infer<typeof ResourceListChangedNotificationSchema>;
+export type SubscribeRequest = Infer<typeof SubscribeRequestSchema>;
+export type UnsubscribeRequest = Infer<typeof UnsubscribeRequestSchema>;
+export type ResourceUpdatedNotification = Infer<typeof ResourceUpdatedNotificationSchema>;
 
-TITLE: Hello World with ElysiaJS
-DESCRIPTION: A simple 'Hello World' example demonstrating the basic setup of an ElysiaJS application, defining a GET route and listening on a port.
-SOURCE: https://github.com/elysiajs/documentation/blob/main/docs/integrations/cheat-sheet.md#_snippet_0
+/* Prompts */
+export type PromptArgument = Infer<typeof PromptArgumentSchema>;
+export type Prompt = Infer<typeof PromptSchema>;
+export type ListPromptsRequest = Infer<typeof ListPromptsRequestSchema>;
+export type ListPromptsResult = Infer<typeof ListPromptsResultSchema>;
+export type GetPromptRequest = Infer<typeof GetPromptRequestSchema>;
+export type TextContent = Infer<typeof TextContentSchema>;
+export type ImageContent = Infer<typeof ImageContentSchema>;
+export type AudioContent = Infer<typeof AudioContentSchema>;
+export type EmbeddedResource = Infer<typeof EmbeddedResourceSchema>;
+export type PromptMessage = Infer<typeof PromptMessageSchema>;
+export type GetPromptResult = Infer<typeof GetPromptResultSchema>;
+export type PromptListChangedNotification = Infer<typeof PromptListChangedNotificationSchema>;
 
-LANGUAGE: typescript
-CODE:
-```
-import { Elysia } from 'elysia'
+/* Tools */
+export type ToolAnnotations = Infer<typeof ToolAnnotationsSchema>;
+export type Tool = Infer<typeof ToolSchema>;
+export type ListToolsRequest = Infer<typeof ListToolsRequestSchema>;
+export type ListToolsResult = Infer<typeof ListToolsResultSchema>;
+export type CallToolResult = Infer<typeof CallToolResultSchema>;
+export type CompatibilityCallToolResult = Infer<typeof CompatibilityCallToolResultSchema>;
+export type CallToolRequest = Infer<typeof CallToolRequestSchema>;
+export type ToolListChangedNotification = Infer<typeof ToolListChangedNotificationSchema>;
 
-new Elysia()
-    .get('/', () => 'Hello World')
-    .listen(3000)
-```
+/* Logging */
+export type LoggingLevel = Infer<typeof LoggingLevelSchema>;
+export type SetLevelRequest = Infer<typeof SetLevelRequestSchema>;
+export type LoggingMessageNotification = Infer<typeof LoggingMessageNotificationSchema>;
+
+/* Sampling */
+export type SamplingMessage = Infer<typeof SamplingMessageSchema>;
+export type CreateMessageRequest = Infer<typeof CreateMessageRequestSchema>;
+export type CreateMessageResult = Infer<typeof CreateMessageResultSchema>;
+
+/* Autocomplete */
+export type ResourceReference = Infer<typeof ResourceReferenceSchema>;
+export type PromptReference = Infer<typeof PromptReferenceSchema>;
+export type CompleteRequest = Infer<typeof CompleteRequestSchema>;
+export type CompleteResult = Infer<typeof CompleteResultSchema>;
+
+/* Roots */
+export type Root = Infer<typeof RootSchema>;
+export type ListRootsRequest = Infer<typeof ListRootsRequestSchema>;
+export type ListRootsResult = Infer<typeof ListRootsResultSchema>;
+export type RootsListChangedNotification = Infer<typeof RootsListChangedNotificationSchema>;
+
+/* Client messages */
+export type ClientRequest = Infer<typeof ClientRequestSchema>;
+export type ClientNotification = Infer<typeof ClientNotificationSchema>;
+export type ClientResult = Infer<typeof ClientResultSchema>;
+
+/* Server messages */
+export type ServerRequest = Infer<typeof ServerRequestSchema>;
+export type ServerNotification = Infer<typeof ServerNotificationSchema>;
+export type ServerResult = Infer<typeof ServerResultSchema>;
 
 ---
 > Source: [kerlos/elysia-mcp](https://github.com/kerlos/elysia-mcp) — distributed by [TomeVault](https://tomevault.io).
