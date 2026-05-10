@@ -1,121 +1,37 @@
-## e2e-testing
+## important
 
-> E2E Testing with AI Visual Verification
+> EXTERMELY IMPORTANT CODING STYLE RULES
 
 
-# E2E Testing Guide
+# IMPORTANT CODE STYLE RULES
 
-## Current Status (82 tests passing)
+Do not use try { } catch { } blocks unless they are absolutely necessary or handling user supplied data. Avoid defensive programming and implement clean code with fail-fast patterns.
 
-| App | Tests | Coverage |
-|-----|-------|----------|
-| DWS | 39 | ✅ 31 pages, navigation, mobile, 5 API endpoints |
-| Autocrat | 20 | ✅ DAO list, create wizard (5 steps), form validation, mobile |
-| Crucible | 23 | ✅ Agents, chat, rooms, header, footer, mobile |
-| Bazaar | - | ⏳ Needs dependencies |
-| Gateway | 15+ | ⏳ Needs SQLit (10 tabs ready) |
-| Factory | - | ⏳ Needs setup |
-| Monitoring | - | ⏳ Needs setup |
-| Node | - | ⏳ Needs Tauri |
-| Wallet | - | ⏳ Needs setup |
+IMPORTANT: After you have finished a task, go through again and review for slop, unnecessary comments, fallbacks and overly complex state management
 
-## Running E2E Tests
+It is very important that you ALWAYS review your work after you've completed it to make sure that it is as clean, tight, compact as possible, with strong types and fail fast where it makes sense
 
-```bash
-# Run E2E tests for a specific app (app must be running first)
-cd apps/<app-name>
-SKIP_WEBSERVER=1 ANTHROPIC_API_KEY=$(grep ANTHROPIC_API_KEY ../../.env | cut -d= -f2) bunx playwright test tests/e2e/
+If you are expecting something, you can use an expect/throw pattern. Always aim to catch errors and throw instead of hiding errors and falling back.
 
-# Start app first (in another terminal)
-cd apps/<app-name> && bun run dev
+### CODE DETAILS
 
-# Or run all tests via jeju CLI
-bun run jeju test --mode e2e --app <app-name>
-```
+- Always research for strong types and avoid as unknown as and other weak casts
+- Avoid 'as' in general and try to make the type strong and work from upstream first
+- Especially avoid inline typecasts (as { }) and fix them as you work
+- Avoid defaults or null coallescence if the value should never be undefined, always validate input and output from external sources
+- Make sure types are only optional if they are ACTUALLY optional
+- Always delete dead code and unused private variables
+- Always search for existing utilities becaues making new ones, try to consolidate and put sharable code into shared package
+- Ditto for types -- always search for existing types before making new ones
+- Prefer configuration files over environment variables for public, rarely reset information
+- Parse JSON with Zod validation, always validate all external inputs and outputs
 
-## E2E Test Structure
+# VERY IMPORTANT
 
-Every app with a frontend should have:
-
-```
-apps/<app-name>/
-├── tests/
-│   └── e2e/
-│       └── comprehensive.spec.ts  # Tests ALL routes with AI verification
-├── playwright.config.ts
-└── test-results/
-    ├── screenshots/              # Page screenshots
-    └── ai-verification-cache.json # Cached AI results
-```
-
-## Creating Comprehensive E2E Tests
-
-1. **Extract all routes from App.tsx** - Every route must be tested
-2. **Define expected content** - What text should appear on each page
-3. **Add descriptions for AI** - What the page should look like
-4. **Use AI visual verification** - Claude/OpenAI verifies screenshots
-
-## Key Patterns
-
-### Fail-Fast on Errors
-```typescript
-// Capture ALL console errors - crash immediately
-page.on('console', (msg) => {
-  if (msg.type() === 'error') {
-    errors.push(msg.text())
-  }
-})
-
-if (errors.length > 0) {
-  throw new Error(`Page has errors: ${errors.join(', ')}`)
-}
-```
-
-### AI Visual Verification with Caching
-```typescript
-const imageHash = hashImage(screenshotPath)
-const cached = verificationCache[imageHash]
-
-if (cached) {
-  verification = cached.result // Use cached
-} else {
-  verification = await verifyImage(screenshotPath, description)
-  verificationCache[imageHash] = { result: verification, ... }
-  saveCache()
-}
-```
-
-### Quality Checks
-- `excellent` (95%+) - Perfect
-- `good` (85-94%) - Minor issues
-- `acceptable` (70-84%) - Needs improvement  
-- `poor` (50-69%) - Significant issues
-- `broken` (<50%) - FAIL the test
-
-## Environment Variables
-
-Required in `.env`:
-```
-ANTHROPIC_API_KEY=sk-ant-...  # For Claude AI verification
-# OR
-OPENAI_API_KEY=sk-...         # For GPT-4 verification
-```
-
-## Commands
-
-```bash
-# Full E2E with AI verification
-ANTHROPIC_API_KEY=... bunx playwright test tests/e2e/
-
-# Skip AI verification (faster, no API key needed)
-bunx playwright test tests/e2e/
-
-# Run specific test
-bunx playwright test tests/e2e/comprehensive.spec.ts --grep "Dashboard"
-
-# Show browser (not headless)
-bunx playwright test tests/e2e/ --headed
-```
+- avoid all use of unknown, optional chaining, null coallescing, any kind of default type if the data is null or undefined, anything that could be a strong type
+- use shared types and avoid any local types that could be or should be shared or might already have a shared type to borrow
+- avoid any re-exports, just directly import from the actual file
+- avoid any use of 'as' that could just be stronger upstream types
 
 ---
 > Source: [JejuNetwork/jeju](https://github.com/JejuNetwork/jeju) — distributed by [TomeVault](https://tomevault.io).
