@@ -1,0 +1,9 @@
+{
+  "name": "cced3000--mcp-image-downloader",
+  "displayName": "mcp-image-downloader",
+  "description": "MCP server for downloading and processing images from URLs",
+  "version": "1.0.0",
+  "author": "cced3000",
+  "homepage": "https://github.com/cced3000/mcp-image-downloader",
+  "skills": []
+}
