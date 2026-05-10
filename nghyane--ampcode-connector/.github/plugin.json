@@ -1,0 +1,9 @@
+{
+  "name": "nghyane--ampcode-connector",
+  "displayName": "ampcode-connector",
+  "description": "Lightweight proxy that routes AmpCode requests through local OAuth credentials (Claude Code, Codex CLI, Gemini CLI, Antigravity)",
+  "version": "1.0.0",
+  "author": "nghyane",
+  "homepage": "https://github.com/nghyane/ampcode-connector",
+  "skills": []
+}
