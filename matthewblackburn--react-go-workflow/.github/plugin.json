@@ -1,0 +1,9 @@
+{
+  "name": "matthewblackburn--react-go-workflow",
+  "displayName": "react-go-workflow",
+  "description": "Visual workflow builder for designing, scheduling, and monitoring automated workflows with a drag-and-drop canvas. Built with React, Go, and PostgreSQL.",
+  "version": "1.0.0",
+  "author": "matthewblackburn",
+  "homepage": "https://github.com/matthewblackburn/react-go-workflow",
+  "skills": []
+}
