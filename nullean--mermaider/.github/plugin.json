@@ -1,0 +1,9 @@
+{
+  "name": "nullean--mermaider",
+  "displayName": "mermaider",
+  "description": "A pure dotnet mermaid parser, layout engine AND renderer, no js runtime, AOT ready.",
+  "version": "1.0.0",
+  "author": "nullean",
+  "homepage": "https://github.com/nullean/mermaider",
+  "skills": []
+}
