@@ -4,7 +4,7 @@
   "repo": "input",
   "description": "Markdown document editor and AI interface",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/inputmd/input",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T19:21:22Z"
+  "distributed_at": "2026-05-10T18:00:41Z"
 }
