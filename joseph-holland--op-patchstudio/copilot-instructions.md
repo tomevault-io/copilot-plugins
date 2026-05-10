@@ -1,42 +1,60 @@
-## midi
+## version-management
 
-> rules for midi note mapping
+> rules for changelog and version management
 
 
-# MIDI Note Number Mapping (C3 = 60)
+# Version Management
 
-**This project uses the 'C3 = 60' convention (Yamaha/OP-1/OP-Z style), not the General MIDI standard.**
-- C3 = 60
-- C4 = 72
-- C5 = 84
-- Octave numbers are offset by +1 compared to General MIDI (where C4 = 60).
-- Use this table for all conversions and test expectations in this codebase.
+## Version Number Updates
+- Follow semantic versioning (MAJOR.MINOR.PATCH)
+- For bug fixes: increment PATCH version (x.x.here)
+- For new features: increment MINOR version (x.here.x)
+- For breaking changes: increment MAJOR version (here.x.x) - only update by maintainer
 
-| Note |-2  | -1 | 0  | 1  | 2  | 3  | 4  | 5  | 6  | 7   | 8   |
-|------|----|----|----|----|----|----|----|----|----|-----|-----|
-| C    | 0  | 12 | 24 | 36 | 48 | 60 | 72 | 84 | 96 | 108 | 120 |
-| C#   | 1  | 13 | 25 | 37 | 49 | 61 | 73 | 85 | 97 | 109 | 121 |
-| D    | 2  | 14 | 26 | 38 | 50 | 62 | 74 | 86 | 98 | 110 | 122 |
-| D#   | 3  | 15 | 27 | 39 | 51 | 63 | 75 | 87 | 99 | 111 | 123 |
-| E    | 4  | 16 | 28 | 40 | 52 | 64 | 76 | 88 | 100| 112 | 124 |
-| F    | 5  | 17 | 29 | 41 | 53 | 65 | 77 | 89 | 101| 113 | 125 |
-| F#   | 6  | 18 | 30 | 42 | 54 | 66 | 78 | 90 | 102| 114 | 126 |
-| G    | 7  | 19 | 31 | 43 | 55 | 67 | 79 | 91 | 103| 115 | 127 |
-| G#   | 8  | 20 | 32 | 44 | 56 | 68 | 80 | 92 | 104| 116 |     |
-| A    | 9  | 21 | 33 | 45 | 57 | 69 | 81 | 93 | 105| 117 |     |
-| A#   | 10 | 22 | 34 | 46 | 58 | 70 | 82 | 94 | 106| 118 |     |
-| B    | 11 | 23 | 35 | 47 | 59 | 71 | 83 | 95 | 107| 119 |     |
+## Required Updates When Making Changes
+1. **Update version using script** - `npm run update-version -- [patch|minor|major]`
+   - This automatically updates both `package.json` and `public/manifest.json`
+2. **Update `CHANGELOG.md`** - add entry under [Unreleased] section with:
+   - Description of changes under appropriate category (Added/Changed/Fixed)
+   - Move [Unreleased] to new version section when releasing
+   - **Always include today's date** when creating new version entries (YYYY-MM-DD format)
+3. **Copy CHANGELOG.md to public directory** - `cp CHANGELOG.md public/CHANGELOG.md`
 
-- C3 is MIDI note 60
-- C4 is MIDI note 72
-- C5 is MIDI note 84
-- Octave numbers follow the Yamaha/OP-1/OP-Z convention
-- Use this table for all conversions and test expectations
+## Version Display
+- Version is automatically loaded from manifest.json and displayed in footer
+- Footer shows: "github repo | v{version}" where version links to CHANGELOG.md
+- Version utility: `src/utils/version.ts` handles loading from manifest
 
-description:
-globs:
-alwaysApply: false
----
+## Version Update Script
+- Use `npm run update-version -- patch` for bug fixes (0.7.0 → 0.7.1)
+- Use `npm run update-version -- minor` for new features (0.7.0 → 0.8.0)
+- Use `npm run update-version -- major` for breaking changes (0.7.0 → 1.0.0)
+- Script automatically updates both package.json and manifest.json
+
+## Example CHANGELOG Entry
+```markdown
+## [Unreleased]
+
+### Added
+- New feature description
+
+### Changed
+- Changed behavior description
+
+### Fixed
+- Bug fix description
+
+## [0.8.0] - 2024-12-19
+
+### Added
+- New feature description
+
+### Changed
+- Changed behavior description
+
+### Fixed
+- Bug fix description
+``` 
 
 ---
 > Source: [joseph-holland/op-patchstudio](https://github.com/joseph-holland/op-patchstudio) — distributed by [TomeVault](https://tomevault.io).
