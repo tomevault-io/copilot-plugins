@@ -1,0 +1,9 @@
+{
+  "name": "spacelift-io--spacelift-intent",
+  "displayName": "spacelift-intent",
+  "description": "Intent lets you provision and manage cloud infrastructure using natural language",
+  "version": "1.0.0",
+  "author": "spacelift-io",
+  "homepage": "https://github.com/spacelift-io/spacelift-intent",
+  "skills": []
+}
