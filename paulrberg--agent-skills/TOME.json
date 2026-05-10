@@ -4,7 +4,7 @@
   "repo": "agent-skills",
   "description": "PRB's collection of agent skills",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PaulRBerg/agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T13:07:01Z"
+  "distributed_at": "2026-05-10T18:03:44Z"
 }
