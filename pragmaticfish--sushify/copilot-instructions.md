@@ -1,0 +1,30 @@
+## general
+
+> - Remember to run `nvm use` in your terminal to avoid node version errors
+
+## Terminal
+- Remember to run `nvm use` in your terminal to avoid node version errors
+
+## Test and temporary files
+- Place temporary files such as ad hoc tests under .local-files whenever possible. Make a subfolder for them when needed (e.g. scripts). This folder is git ignored.
+
+## Typescript
+- Never use explicit or implicit 'any'.
+- Prefer types over interfaces.
+- Don't create duplicate type definitions. Instead create in a proper, shared file (e.g types.ts).
+- Always use named exports, never default exports (the only exception Svelte components - they auto export as default)
+- Always use static imports and not dynamic unless we explicitly agree on a dynamic import in a specific case - in chat.
+
+
+## Svelte
+- Always include a key in each blocks
+
+## General
+- Check for typescript/lint/svelte errors when you've completed a change and fix all of them.
+- Review all the changes you made with fresh eyes before returning to the user.
+- If unsure about why something in the system is the way it is, consult with the user before deleting or drastically altering it
+- CRITICAL: Never commit for me. Only I commit code.
+
+---
+> Source: [pragmaticfish/sushify](https://github.com/pragmaticfish/sushify) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
