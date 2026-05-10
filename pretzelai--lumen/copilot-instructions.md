@@ -1,18 +1,33 @@
-## claude-md-rule
+## no-whitespace-in-edit
 
-> This project has a file [CLAUDE.md](mdc:CLAUDE.md) at the project root. This file contains:
+> description: Prevent AI from altering code formatting during edits or suggestions
 
-# Your rule content
+---
+description: Prevent AI from altering code formatting during edits or suggestions
+globs: '**/*.{js,jsx,ts,tsx,py,java,cs,cpp}'
+tags: [formatting, code-style]
+priority: 1
+version: 1.0.0
+---
 
-This project has a file [CLAUDE.md](mdc:CLAUDE.md) at the project root. This file contains:
-- Description of the project
-- Explanation of the components of the project and how they work
-- Existing functionlity of the project
-- Things we want to build next
+# Preserve Existing Code Formatting
 
-When in doubt about how the project works or general questions related to the project, you will refer to this file. If you still do not have a clear solution to your question, you MUST ask me.
+## Context
+- Applies to all code files in the project.
+- The project utilizes an automatic formatting tool that formats code upon saving.
 
-When there have been a large change to the code, you should update CLUADE.md with any updates you deem fit for this file. Only make concrete changes to the text. DO NOT MAKE cosmetic changes.
+## Requirements
+- The AI **MUST NOT** make any formatting changes to existing code.
+- The AI **SHOULD** focus solely on the logic and functionality of the code when providing edits or suggestions.
+
+## Examples
+<example>
+**Good:** AI suggests a new function without altering the existing code's indentation or spacing.
+</example>
+
+<example type="invalid">
+**Bad:** AI reformats existing code by changing indentation levels or adding/removing spaces.
+</example>
 
 ---
 > Source: [pretzelai/lumen](https://github.com/pretzelai/lumen) — distributed by [TomeVault](https://tomevault.io).
