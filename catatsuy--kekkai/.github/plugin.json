@@ -1,0 +1,9 @@
+{
+  "name": "catatsuy--kekkai",
+  "displayName": "kekkai",
+  "description": "A lightweight Go tool for detecting file tampering by comparing content-based hashes stored securely in S3.",
+  "version": "1.0.0",
+  "author": "catatsuy",
+  "homepage": "https://github.com/catatsuy/kekkai",
+  "skills": []
+}
