@@ -1,109 +1,204 @@
-## ai-integration
+## database
 
-> This file defines rules and guidelines for AI integration within the Code-Index-MCP project, including embedding services, language models, and semantic search capabilities.
+> This file defines database design patterns, query optimization strategies, and data management rules for the Code-Index-MCP project.
 
-# AI Integration Rules for Code-Index-MCP
+# Database Rules for Code-Index-MCP
 
 ## Overview
-This file defines rules and guidelines for AI integration within the Code-Index-MCP project, including embedding services, language models, and semantic search capabilities.
+This file defines database design patterns, query optimization strategies, and data management rules for the Code-Index-MCP project.
 
-## Embedding Services
+## Storage Architecture
 
-### Voyage AI Integration
-- **Purpose**: Generate code embeddings for semantic search
-- **Configuration**: API key required in environment variables
-- **Fallback**: Local embedding generation if API unavailable
-- **Caching**: Embeddings should be cached locally to reduce API calls
+### Local-First Design
+- **Primary Storage**: SQLite with FTS5 for full-text search
+- **Index Format**: Structured JSON with normalized tables
+- **File-Based**: Each project has its own database file
+- **Portability**: Database files can be copied/moved
 
-### Implementation Guidelines
-```python
-# Use the semantic_indexer utility
-from mcp_server.utils.semantic_indexer import SemanticIndexer
+### Schema Design
+```sql
+-- Core tables structure
+CREATE TABLE files (
+    id INTEGER PRIMARY KEY,
+    path TEXT UNIQUE NOT NULL,
+    content TEXT,
+    language TEXT,
+    last_modified INTEGER,
+    hash TEXT
+);
 
-# Initialize with API key
-indexer = SemanticIndexer(api_key=os.getenv("VOYAGE_AI_API_KEY"))
+CREATE TABLE symbols (
+    id INTEGER PRIMARY KEY,
+    file_id INTEGER REFERENCES files(id),
+    name TEXT NOT NULL,
+    type TEXT, -- function, class, variable, etc.
+    line_start INTEGER,
+    line_end INTEGER,
+    column_start INTEGER,
+    column_end INTEGER,
+    parent_id INTEGER REFERENCES symbols(id)
+);
 
-# Generate embeddings with caching
-embeddings = indexer.get_embeddings(code_snippet, use_cache=True)
+CREATE TABLE imports (
+    id INTEGER PRIMARY KEY,
+    file_id INTEGER REFERENCES files(id),
+    module_name TEXT,
+    alias TEXT,
+    line_number INTEGER
+);
+
+-- Full-text search tables
+CREATE VIRTUAL TABLE files_fts USING fts5(
+    path, content, tokenize='porter unicode61'
+);
+
+CREATE VIRTUAL TABLE symbols_fts USING fts5(
+    name, type, tokenize='porter unicode61'
+);
 ```
 
-## Language Model Integration
+## Query Optimization
 
-### MCP Protocol
-- **Purpose**: Provide code intelligence to Claude and other LLMs
-- **Tools**: Symbol lookup, code search, definition finding
-- **Response Format**: Structured JSON with location references
-
-### Best Practices
-1. **Batch Processing**: Group embedding requests to minimize API calls
-2. **Error Handling**: Gracefully fall back to fuzzy search on API failures
-3. **Rate Limiting**: Respect API rate limits with exponential backoff
-4. **Security**: Never log or expose API keys
-
-## Semantic Search
-
-### Hybrid Approach
-- Combine lexical search (fuzzy matching) with semantic search
-- Weight results based on confidence scores
-- Provide context-aware code suggestions
-
-### Query Processing
-```python
-# Example hybrid search implementation
-def hybrid_search(query: str, weights: Dict[str, float] = None):
-    weights = weights or {"lexical": 0.4, "semantic": 0.6}
-    
-    # Lexical search using fuzzy indexer
-    lexical_results = fuzzy_indexer.search(query)
-    
-    # Semantic search using embeddings
-    semantic_results = semantic_indexer.search(query)
-    
-    # Combine and rank results
-    return combine_results(lexical_results, semantic_results, weights)
+### Indexing Strategy
+```sql
+-- Performance indexes
+CREATE INDEX idx_symbols_file ON symbols(file_id);
+CREATE INDEX idx_symbols_name ON symbols(name);
+CREATE INDEX idx_symbols_type ON symbols(type);
+CREATE INDEX idx_imports_file ON imports(file_id);
+CREATE INDEX idx_files_language ON files(language);
 ```
 
-## Future AI Integrations
+### Query Patterns
+```python
+# Efficient symbol lookup
+def find_symbol(name: str, file_path: str = None):
+    query = """
+    SELECT s.*, f.path 
+    FROM symbols s
+    JOIN files f ON s.file_id = f.id
+    WHERE s.name = ?
+    """
+    params = [name]
+    
+    if file_path:
+        query += " AND f.path = ?"
+        params.append(file_path)
+    
+    return db.execute(query, params)
 
-### Planned Features
-1. **Code Completion**: Context-aware suggestions
-2. **Code Review**: Automated quality checks
-3. **Documentation Generation**: AI-powered docs
-4. **Refactoring Suggestions**: Intelligent code improvements
+# Full-text search with ranking
+def search_code(query: str):
+    return db.execute("""
+    SELECT path, snippet(files_fts, 1, '<b>', '</b>', '...', 32) as snippet,
+           rank
+    FROM files_fts
+    WHERE files_fts MATCH ?
+    ORDER BY rank
+    LIMIT 50
+    """, [query])
+```
 
-### Integration Points
-- Plugin system for AI providers
-- Standardized API for different models
-- Configurable model selection
-- Local model support (future)
+## Data Management
 
-## Security Considerations
+### Transaction Handling
+```python
+# Batch insertions with transactions
+def batch_insert_symbols(symbols: List[Dict]):
+    with db.transaction():
+        for symbol in symbols:
+            db.execute(
+                "INSERT INTO symbols (file_id, name, type, line_start) VALUES (?, ?, ?, ?)",
+                [symbol['file_id'], symbol['name'], symbol['type'], symbol['line_start']]
+            )
+```
 
-### API Key Management
-- Store keys in environment variables
-- Use secure key rotation
-- Implement key encryption at rest
-- Monitor API usage for anomalies
+### Migration System
+```python
+# Version-based migrations
+migrations = {
+    1: "CREATE TABLE schema_version (version INTEGER)",
+    2: "ALTER TABLE files ADD COLUMN encoding TEXT DEFAULT 'utf-8'",
+    3: "CREATE INDEX idx_files_hash ON files(hash)"
+}
 
-### Data Privacy
-- Option to disable cloud features
-- Local-only mode for sensitive code
-- Data retention policies
-- Audit logging for API calls
+def run_migrations():
+    current_version = get_schema_version()
+    for version, sql in migrations.items():
+        if version > current_version:
+            db.execute(sql)
+            update_schema_version(version)
+```
 
 ## Performance Guidelines
 
-### Optimization Strategies
-1. **Caching**: Cache embeddings and results
-2. **Batching**: Process multiple files together
-3. **Async Processing**: Non-blocking API calls
-4. **Resource Limits**: Cap memory and CPU usage
+### Memory Management
+- Use WAL mode for better concurrency
+- Configure page cache size appropriately
+- Implement connection pooling
+- Close connections promptly
 
-### Monitoring
-- Track API response times
-- Monitor embedding quality
-- Log cache hit rates
-- Alert on degraded performance
+### Optimization Techniques
+1. **Prepared Statements**: Reuse compiled queries
+2. **Batch Operations**: Group similar operations
+3. **Lazy Loading**: Load data on demand
+4. **Partitioning**: Split large tables by project/language
+
+## Backup and Recovery
+
+### Backup Strategy
+```bash
+# Automated backup script
+#!/bin/bash
+sqlite3 project.db ".backup backup_$(date +%Y%m%d_%H%M%S).db"
+
+# Incremental backup using WAL
+sqlite3 project.db "PRAGMA wal_checkpoint(TRUNCATE)"
+```
+
+### Data Integrity
+- Regular VACUUM operations
+- Integrity checks on startup
+- Automatic corruption recovery
+- Transaction rollback on errors
+
+## Cloud Sync Considerations
+
+### Sync Protocol
+- Track change timestamps
+- Implement conflict resolution
+- Use merkle trees for efficient diff
+- Support partial syncs
+
+### Data Format
+```json
+{
+    "sync_version": "1.0",
+    "project_id": "uuid",
+    "timestamp": 1234567890,
+    "changes": [
+        {
+            "operation": "insert",
+            "table": "symbols",
+            "data": {...}
+        }
+    ]
+}
+```
+
+## Security Rules
+
+### Access Control
+- Read-only mode for untrusted projects
+- Sanitize all inputs
+- Parameterized queries only
+- No dynamic SQL generation
+
+### Sensitive Data
+- Exclude files matching .gitignore
+- Redact detected secrets
+- Encrypt database at rest (optional)
+- Audit log for all modifications
 
 ---
 > Source: [ViperJuice/Code-Index-MCP](https://github.com/ViperJuice/Code-Index-MCP) — distributed by [TomeVault](https://tomevault.io).
