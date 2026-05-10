@@ -1,0 +1,9 @@
+{
+  "name": "thecrateapp--crate",
+  "displayName": "crate",
+  "description": "A complete open source self-hosted music stack",
+  "version": "1.0.0",
+  "author": "thecrateapp",
+  "homepage": "https://github.com/thecrateapp/crate",
+  "skills": []
+}
