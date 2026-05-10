@@ -1,353 +1,279 @@
-## trigger-config
+## trigger-realtime
 
-> Configure your Trigger.dev project with a trigger.config.ts file
+> How to use realtime in your Trigger.dev tasks and your frontend
 
-# Trigger.dev Configuration (v4)
+# Trigger.dev Realtime (v4)
 
-**Complete guide to configuring `trigger.config.ts` with build extensions**
+**Real-time monitoring and updates for runs**
 
-## Basic Configuration
+## Core Concepts
+
+Realtime allows you to:
+
+- Subscribe to run status changes, metadata updates, and streams
+- Build real-time dashboards and UI updates
+- Monitor task progress from frontend and backend
+
+## Authentication
+
+### Public Access Tokens
 
 ```ts
-import { defineConfig } from "@trigger.dev/sdk";
+import { auth } from "@trigger.dev/sdk";
 
-export default defineConfig({
-  project: "<project-ref>", // Required: Your project reference
-  dirs: ["./trigger"], // Task directories
-  runtime: "node", // "node", "node-22", or "bun"
-  logLevel: "info", // "debug", "info", "warn", "error"
-
-  // Default retry settings
-  retries: {
-    enabledInDev: false,
-    default: {
-      maxAttempts: 3,
-      minTimeoutInMs: 1000,
-      maxTimeoutInMs: 10000,
-      factor: 2,
-      randomize: true,
+// Read-only token for specific runs
+const publicToken = await auth.createPublicToken({
+  scopes: {
+    read: {
+      runs: ["run_123", "run_456"],
+      tasks: ["my-task-1", "my-task-2"],
     },
   },
-
-  // Build configuration
-  build: {
-    autoDetectExternal: true,
-    keepNames: true,
-    minify: false,
-    extensions: [], // Build extensions go here
-  },
-
-  // Global lifecycle hooks
-  onStart: async ({ payload, ctx }) => {
-    console.log("Global task start");
-  },
-  onSuccess: async ({ payload, output, ctx }) => {
-    console.log("Global task success");
-  },
-  onFailure: async ({ payload, error, ctx }) => {
-    console.log("Global task failure");
-  },
+  expirationTime: "1h", // Default: 15 minutes
 });
 ```
 
-## Build Extensions
-
-### Database & ORM
-
-#### Prisma
+### Trigger Tokens (Frontend only)
 
 ```ts
-import { prismaExtension } from "@trigger.dev/build/extensions/prisma";
-
-extensions: [
-  prismaExtension({
-    schema: "prisma/schema.prisma",
-    version: "5.19.0", // Optional: specify version
-    migrate: true, // Run migrations during build
-    directUrlEnvVarName: "DIRECT_DATABASE_URL",
-    typedSql: true, // Enable TypedSQL support
-  }),
-];
+// Single-use token for triggering tasks
+const triggerToken = await auth.createTriggerPublicToken("my-task", {
+  expirationTime: "30m",
+});
 ```
 
-#### TypeScript Decorators (for TypeORM)
+## Backend Usage
+
+### Subscribe to Runs
 
 ```ts
-import { emitDecoratorMetadata } from "@trigger.dev/build/extensions/typescript";
+import { runs, tasks } from "@trigger.dev/sdk";
 
-extensions: [
-  emitDecoratorMetadata(), // Enables decorator metadata
-];
+// Trigger and subscribe
+const handle = await tasks.trigger("my-task", { data: "value" });
+
+// Subscribe to specific run
+for await (const run of runs.subscribeToRun<typeof myTask>(handle.id)) {
+  console.log(`Status: ${run.status}, Progress: ${run.metadata?.progress}`);
+  if (run.status === "COMPLETED") break;
+}
+
+// Subscribe to runs with tag
+for await (const run of runs.subscribeToRunsWithTag("user-123")) {
+  console.log(`Tagged run ${run.id}: ${run.status}`);
+}
+
+// Subscribe to batch
+for await (const run of runs.subscribeToBatch(batchId)) {
+  console.log(`Batch run ${run.id}: ${run.status}`);
+}
 ```
 
-### Scripting Languages
-
-#### Python
+### Streams
 
 ```ts
-import { pythonExtension } from "@trigger.dev/build/extensions/python";
+import { task, metadata } from "@trigger.dev/sdk";
 
-extensions: [
-  pythonExtension({
-    scripts: ["./python/**/*.py"], // Copy Python files
-    requirementsFile: "./requirements.txt", // Install packages
-    devPythonBinaryPath: ".venv/bin/python", // Dev mode binary
-  }),
-];
-
-// Usage in tasks
-const result = await python.runInline(`print("Hello, world!")`);
-const output = await python.runScript("./python/script.py", ["arg1"]);
-```
-
-### Browser Automation
-
-#### Playwright
-
-```ts
-import { playwright } from "@trigger.dev/build/extensions/playwright";
-
-extensions: [
-  playwright({
-    browsers: ["chromium", "firefox", "webkit"], // Default: ["chromium"]
-    headless: true, // Default: true
-  }),
-];
-```
-
-#### Puppeteer
-
-```ts
-import { puppeteer } from "@trigger.dev/build/extensions/puppeteer";
-
-extensions: [puppeteer()];
-
-// Environment variable needed:
-// PUPPETEER_EXECUTABLE_PATH: "/usr/bin/google-chrome-stable"
-```
-
-#### Lightpanda
-
-```ts
-import { lightpanda } from "@trigger.dev/build/extensions/lightpanda";
-
-extensions: [
-  lightpanda({
-    version: "latest", // or "nightly"
-    disableTelemetry: false,
-  }),
-];
-```
-
-### Media Processing
-
-#### FFmpeg
-
-```ts
-import { ffmpeg } from "@trigger.dev/build/extensions/core";
-
-extensions: [
-  ffmpeg({ version: "7" }), // Static build, or omit for Debian version
-];
-
-// Automatically sets FFMPEG_PATH and FFPROBE_PATH
-// Add fluent-ffmpeg to external packages if using
-```
-
-#### Audio Waveform
-
-```ts
-import { audioWaveform } from "@trigger.dev/build/extensions/audioWaveform";
-
-extensions: [
-  audioWaveform(), // Installs Audio Waveform 1.1.0
-];
-```
-
-### System & Package Management
-
-#### System Packages (apt-get)
-
-```ts
-import { aptGet } from "@trigger.dev/build/extensions/core";
-
-extensions: [
-  aptGet({
-    packages: ["ffmpeg", "imagemagick", "curl=7.68.0-1"], // Can specify versions
-  }),
-];
-```
-
-#### Additional NPM Packages
-
-Only use this for installing CLI tools, NOT packages you import in your code.
-
-```ts
-import { additionalPackages } from "@trigger.dev/build/extensions/core";
-
-extensions: [
-  additionalPackages({
-    packages: ["wrangler"], // CLI tools and specific versions
-  }),
-];
-```
-
-#### Additional Files
-
-```ts
-import { additionalFiles } from "@trigger.dev/build/extensions/core";
-
-extensions: [
-  additionalFiles({
-    files: ["wrangler.toml", "./assets/**", "./fonts/**"], // Glob patterns supported
-  }),
-];
-```
-
-### Environment & Build Tools
-
-#### Environment Variable Sync
-
-```ts
-import { syncEnvVars } from "@trigger.dev/build/extensions/core";
-
-extensions: [
-  syncEnvVars(async (ctx) => {
-    // ctx contains: environment, projectRef, env
-    return [
-      { name: "SECRET_KEY", value: await getSecret(ctx.environment) },
-      { name: "API_URL", value: ctx.environment === "prod" ? "api.prod.com" : "api.dev.com" },
-    ];
-  }),
-];
-```
-
-#### ESBuild Plugins
-
-```ts
-import { esbuildPlugin } from "@trigger.dev/build/extensions";
-import { sentryEsbuildPlugin } from "@sentry/esbuild-plugin";
-
-extensions: [
-  esbuildPlugin(
-    sentryEsbuildPlugin({
-      org: process.env.SENTRY_ORG,
-      project: process.env.SENTRY_PROJECT,
-      authToken: process.env.SENTRY_AUTH_TOKEN,
-    }),
-    { placement: "last", target: "deploy" } // Optional config
-  ),
-];
-```
-
-## Custom Build Extensions
-
-```ts
-import { defineConfig } from "@trigger.dev/sdk";
-
-const customExtension = {
-  name: "my-custom-extension",
-
-  externalsForTarget: (target) => {
-    return ["some-native-module"]; // Add external dependencies
-  },
-
-  onBuildStart: async (context) => {
-    console.log(`Build starting for ${context.target}`);
-    // Register esbuild plugins, modify build context
-  },
-
-  onBuildComplete: async (context, manifest) => {
-    console.log("Build complete, adding layers");
-    // Add build layers, modify deployment
-    context.addLayer({
-      id: "my-layer",
-      files: [{ source: "./custom-file", destination: "/app/custom" }],
-      commands: ["chmod +x /app/custom"],
-    });
-  },
+// Task that streams data
+export type STREAMS = {
+  openai: OpenAI.ChatCompletionChunk;
 };
 
-export default defineConfig({
-  project: "my-project",
-  build: {
-    extensions: [customExtension],
+export const streamingTask = task({
+  id: "streaming-task",
+  run: async (payload) => {
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4",
+      messages: [{ role: "user", content: payload.prompt }],
+      stream: true,
+    });
+
+    // Register stream
+    const stream = await metadata.stream("openai", completion);
+
+    let text = "";
+    for await (const chunk of stream) {
+      text += chunk.choices[0]?.delta?.content || "";
+    }
+
+    return { text };
   },
 });
+
+// Subscribe to streams
+for await (const part of runs.subscribeToRun(runId).withStreams<STREAMS>()) {
+  switch (part.type) {
+    case "run":
+      console.log("Run update:", part.run.status);
+      break;
+    case "openai":
+      console.log("Stream chunk:", part.chunk);
+      break;
+  }
+}
 ```
 
-## Advanced Configuration
+## React Frontend Usage
 
-### Telemetry
+### Installation
 
-```ts
-import { PrismaInstrumentation } from "@prisma/instrumentation";
-import { OpenAIInstrumentation } from "@langfuse/openai";
-
-export default defineConfig({
-  // ... other config
-  telemetry: {
-    instrumentations: [new PrismaInstrumentation(), new OpenAIInstrumentation()],
-    exporters: [customExporter], // Optional custom exporters
-  },
-});
+```bash
+npm add @trigger.dev/react-hooks
 ```
 
-### Machine & Performance
+### Triggering Tasks
 
-```ts
-export default defineConfig({
-  // ... other config
-  defaultMachine: "large-1x", // Default machine for all tasks
-  maxDuration: 300, // Default max duration (seconds)
-  enableConsoleLogging: true, // Console logging in development
-});
+```tsx
+"use client";
+import { useTaskTrigger, useRealtimeTaskTrigger } from "@trigger.dev/react-hooks";
+import type { myTask } from "../trigger/tasks";
+
+function TriggerComponent({ accessToken }: { accessToken: string }) {
+  // Basic trigger
+  const { submit, handle, isLoading } = useTaskTrigger<typeof myTask>("my-task", {
+    accessToken,
+  });
+
+  // Trigger with realtime updates
+  const {
+    submit: realtimeSubmit,
+    run,
+    isLoading: isRealtimeLoading,
+  } = useRealtimeTaskTrigger<typeof myTask>("my-task", { accessToken });
+
+  return (
+    <div>
+      <button onClick={() => submit({ data: "value" })} disabled={isLoading}>
+        Trigger Task
+      </button>
+
+      <button onClick={() => realtimeSubmit({ data: "realtime" })} disabled={isRealtimeLoading}>
+        Trigger with Realtime
+      </button>
+
+      {run && <div>Status: {run.status}</div>}
+    </div>
+  );
+}
 ```
 
-## Common Extension Combinations
+### Subscribing to Runs
 
-### Full-Stack Web App
+```tsx
+"use client";
+import { useRealtimeRun, useRealtimeRunsWithTag } from "@trigger.dev/react-hooks";
+import type { myTask } from "../trigger/tasks";
 
-```ts
-extensions: [
-  prismaExtension({ schema: "prisma/schema.prisma", migrate: true }),
-  additionalFiles({ files: ["./public/**", "./assets/**"] }),
-  syncEnvVars(async (ctx) => [...envVars]),
-];
+function SubscribeComponent({ runId, accessToken }: { runId: string; accessToken: string }) {
+  // Subscribe to specific run
+  const { run, error } = useRealtimeRun<typeof myTask>(runId, {
+    accessToken,
+    onComplete: (run) => {
+      console.log("Task completed:", run.output);
+    },
+  });
+
+  // Subscribe to tagged runs
+  const { runs } = useRealtimeRunsWithTag("user-123", { accessToken });
+
+  if (error) return <div>Error: {error.message}</div>;
+  if (!run) return <div>Loading...</div>;
+
+  return (
+    <div>
+      <div>Status: {run.status}</div>
+      <div>Progress: {run.metadata?.progress || 0}%</div>
+      {run.output && <div>Result: {JSON.stringify(run.output)}</div>}
+
+      <h3>Tagged Runs:</h3>
+      {runs.map((r) => (
+        <div key={r.id}>
+          {r.id}: {r.status}
+        </div>
+      ))}
+    </div>
+  );
+}
 ```
 
-### AI/ML Processing
+### Streams with React
 
-```ts
-extensions: [
-  pythonExtension({
-    scripts: ["./ai/**/*.py"],
-    requirementsFile: "./requirements.txt",
-  }),
-  ffmpeg({ version: "7" }),
-  additionalPackages({ packages: ["wrangler"] }),
-];
+```tsx
+"use client";
+import { useRealtimeRunWithStreams } from "@trigger.dev/react-hooks";
+import type { streamingTask, STREAMS } from "../trigger/tasks";
+
+function StreamComponent({ runId, accessToken }: { runId: string; accessToken: string }) {
+  const { run, streams } = useRealtimeRunWithStreams<typeof streamingTask, STREAMS>(runId, {
+    accessToken,
+  });
+
+  const text = streams.openai
+    .filter((chunk) => chunk.choices[0]?.delta?.content)
+    .map((chunk) => chunk.choices[0].delta.content)
+    .join("");
+
+  return (
+    <div>
+      <div>Status: {run?.status}</div>
+      <div>Streamed Text: {text}</div>
+    </div>
+  );
+}
 ```
 
-### Web Scraping
+### Wait Tokens
 
-```ts
-extensions: [
-  playwright({ browsers: ["chromium"] }),
-  puppeteer(),
-  additionalFiles({ files: ["./selectors.json", "./proxies.txt"] }),
-];
+```tsx
+"use client";
+import { useWaitToken } from "@trigger.dev/react-hooks";
+
+function WaitTokenComponent({ tokenId, accessToken }: { tokenId: string; accessToken: string }) {
+  const { complete } = useWaitToken(tokenId, { accessToken });
+
+  return <button onClick={() => complete({ approved: true })}>Approve Task</button>;
+}
 ```
+
+### SWR Hooks (Fetch Once)
+
+```tsx
+"use client";
+import { useRun } from "@trigger.dev/react-hooks";
+import type { myTask } from "../trigger/tasks";
+
+function SWRComponent({ runId, accessToken }: { runId: string; accessToken: string }) {
+  const { run, error, isLoading } = useRun<typeof myTask>(runId, {
+    accessToken,
+    refreshInterval: 0, // Disable polling (recommended)
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return <div>Run: {run?.status}</div>;
+}
+```
+
+## Run Object Properties
+
+Key properties available in run subscriptions:
+
+- `id`: Unique run identifier
+- `status`: `QUEUED`, `EXECUTING`, `COMPLETED`, `FAILED`, `CANCELED`, etc.
+- `payload`: Task input data (typed)
+- `output`: Task result (typed, when completed)
+- `metadata`: Real-time updatable data
+- `createdAt`, `updatedAt`: Timestamps
+- `costInCents`: Execution cost
 
 ## Best Practices
 
-- **Use specific versions**: Pin extension versions for reproducible builds
-- **External packages**: Add modules with native addons to the `build.external` array
-- **Environment sync**: Use `syncEnvVars` for dynamic secrets
-- **File paths**: Use glob patterns for flexible file inclusion
-- **Debug builds**: Use `--log-level debug --dry-run` for troubleshooting
-
-Extensions only affect deployment, not local development. Use `external` array for packages that shouldn't be bundled.
+- **Use Realtime over SWR**: Recommended for most use cases due to rate limits
+- **Scope tokens properly**: Only grant necessary read/trigger permissions
+- **Handle errors**: Always check for errors in hooks and subscriptions
+- **Type safety**: Use task types for proper payload/output typing
+- **Cleanup subscriptions**: Backend subscriptions auto-complete, frontend hooks auto-cleanup
 
 ---
 > Source: [xgrain402/xgrain402-scan](https://github.com/xgrain402/xgrain402-scan) — distributed by [TomeVault](https://tomevault.io).
