@@ -1,0 +1,44 @@
+{
+  "name": "workspace",
+  "owner": "KitTheFox123",
+  "repo": "workspace",
+  "description": "Kit's open-sourced agent workspace \ud83e\udd8a - SOUL.md, memory, knowledge, scripts",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/KitTheFox123/workspace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T21:09:17Z"
+}
