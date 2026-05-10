@@ -1,0 +1,9 @@
+{
+  "name": "polardb--duckdb-paimon",
+  "displayName": "duckdb-paimon",
+  "description": "DuckDB extension for accessing Apache Paimon. \ud83e\udd86",
+  "version": "1.0.0",
+  "author": "polardb",
+  "homepage": "https://github.com/polardb/duckdb-paimon",
+  "skills": []
+}
