@@ -1,0 +1,9 @@
+{
+  "name": "manudinicolacorilus--agent-deck",
+  "displayName": "agent-deck",
+  "description": "A multi-pane terminal dashboard for spawning, monitoring, and interacting with AI coding agents in parallel. Built for Windows, powered by ConPTY.",
+  "version": "1.0.0",
+  "author": "manudinicolacorilus",
+  "homepage": "https://github.com/manudinicolacorilus/agent-deck",
+  "skills": []
+}
