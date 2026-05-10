@@ -1,43 +1,53 @@
-## style
+## system-overview
 
-> - Conventions: small files, single-responsibility, testable interfaces, providers+hooks for state, one component per file, '@/' imports, zod for parsing/validation, no any.
+> - **What this is**: OpenChat is a Tauri desktop app that chats with a local MLX model server. Frontend is React + TypeScript; data persisted in SQLite; backend is Rust/Tauri.
 
 
-Context:
+## OpenChat system overview
 
-- Conventions: small files, single-responsibility, testable interfaces, providers+hooks for state, one component per file, '@/' imports, zod for parsing/validation, no any.
-- Events: define event name constants; payloads are discriminated unions; normalize snake_case (Rust) → camelCase (TS).
-- Rust: offload blocking work with spawn_blocking; emit structured serde-tagged payloads; keep interfaces minimal.
-- Quality gates: Propose a plan first; after edits run cargo check, pnpm typecheck, pnpm lint; fix issues; ensure hooks rules respected.
+- **What this is**: OpenChat is a Tauri desktop app that chats with a local MLX model server. Frontend is React + TypeScript; data persisted in SQLite; backend is Rust/Tauri.
 
-Do this:
+- **Frontend (src/)**
+  - **Providers**: `MLXServerProvider` (MLX status + restart via Tauri invokes/events), `ConversationProvider` (current selection).
+  - **Shell**: `AppHeader` (MLX status), `Sidebar` (shadcn/Radix; search + conversations), `ChatWindow` (messages + input).
+  - **Chat flow**: If none selected, create conversation → insert user message → stream assistant (and optional reasoning) → update DB per chunk → React Query invalidations refresh UI → set conversation title after completion.
+  - **Markdown**: ReactMarkdown + GFM + Math/KaTeX; Shiki code highlighting; image modal viewer; custom elements (`email-artifact`, `quick-reply`).
+  - **UX**: Enter to send (Shift+Enter newline); `mod+n` new chat; `mod+b` toggle sidebar. Chat input is disabled unless MLX is running and ready.
 
-1. Propose a concise plan (files to add/edit, public APIs, event names, schemas).
-2. After approval, implement:
-   - Keep modules small and composable.
-   - Add zod schemas for all incoming data; normalize to camelCase once in a bridge layer.
-   - Use discriminated unions and type guards; export helper predicates (e.g., isTerminalEvent).
-   - Centralize constants (event names, keys) in a types or constants file.
-   - In React, create a provider and a small hook for state; avoid conditional hooks.
-   - In Rust, use spawn_blocking for blocking ops; include identifiers like repo_id in every event.
-3. After coding, run:
-   - cargo check
-   - pnpm typecheck
-   - pnpm lint
-     Fix issues immediately.
-4. Summarize the changes succinctly and note any follow-up suggestions.
+- **Backend (src-tauri/)**
+  - **MLX process manager**: `MLXServerManager` spawns `binaries/openchat-mlx-server`, finds port, health-checks `/health`, tracks `is_running/is_ready/port/pid/model_path`, emits `mlx-status-changed` events.
+  - **Commands**: `mlx_get_status`, `mlx_restart`, `mlx_health_check`; port utilities for diagnostics.
+  - **DB**: SQLite via `tauri-plugin-sql`; migrations create `conversations` and `messages` (with `reasoning` and `status: pending|complete|error`). Index on `messages.conversation_id`.
 
-Non-negotiables:
+- **Integration points**
+  - Frontend listens to `mlx-status-changed` and converts snake_case → camelCase. Invokes Tauri commands with `@tauri-apps/api/core`.
+  - Streaming parser consumes SSE `data:` lines and `[DONE]` sentinel.
 
-- No any. Use zod for runtime validation.
-- Normalize casing at boundaries; TS types are camelCase.
-- Small, testable modules; clear public APIs.
-- Don’t call hooks conditionally.
-- Prefer to split out logic into smaller files.
-- Never use `any` or `as any` in Typescript.
-- Never use single character variable names.
-- Always write documentation for all public APIs.
-- Always run build/typecheck/lint before declaring done.
+- **Conventions**
+  - Use `@/…` imports, shadcn UI/Radix + Tailwind, TanStack Query for server state, one component per file, clear naming, no unnecessary comments.
+
+## OpenChat system overview (always-on)
+
+- **What this is**: OpenChat is a Tauri desktop app that chats with a local MLX model server. Frontend is React + TypeScript; data persisted in SQLite; backend is Rust/Tauri.
+
+- **Frontend (src/)**
+  - **Providers**: `MLXServerProvider` (MLX status + restart via Tauri invokes/events), `ConversationProvider` (current selection).
+  - **Shell**: `AppHeader` (MLX status), `Sidebar` (shadcn/Radix; search + conversations), `ChatWindow` (messages + input).
+  - **Chat flow**: If none selected, create conversation → insert user message → stream assistant (and optional reasoning) → update DB per chunk → React Query invalidations refresh UI → set conversation title after completion.
+  - **Markdown**: ReactMarkdown + GFM + Math/KaTeX; Shiki code highlighting; image modal viewer; custom elements (`email-artifact`, `quick-reply`).
+  - **UX**: Enter to send (Shift+Enter newline); `mod+n` new chat; `mod+b` toggle sidebar. Chat input is disabled unless MLX is running and ready.
+
+- **Backend (src-tauri/)**
+  - **MLX process manager**: `MLXServerManager` spawns `binaries/openchat-mlx-server`, finds port, health-checks `/health`, tracks `is_running/is_ready/port/pid/model_path`, emits `mlx-status-changed` events.
+  - **Commands**: `mlx_get_status`, `mlx_restart`, `mlx_health_check`; port utilities for diagnostics.
+  - **DB**: SQLite via `tauri-plugin-sql`; migrations create `conversations` and `messages` (with `reasoning` and `status: pending|complete|error`). Index on `messages.conversation_id`.
+
+- **Integration points**
+  - Frontend listens to `mlx-status-changed` and converts snake_case → camelCase. Invokes Tauri commands with `@tauri-apps/api/core`.
+  - Streaming parser consumes SSE `data:` lines and `[DONE]` sentinel.
+
+- **Conventions**
+  - Use `@/…` imports, shadcn UI/Radix + Tailwind, TanStack Query for server state, one component per file, clear naming, no unnecessary comments.
 
 ---
 > Source: [team-forge-ai/openchat](https://github.com/team-forge-ai/openchat) — distributed by [TomeVault](https://tomevault.io).
