@@ -1,0 +1,9 @@
+{
+  "name": "aliou--pi-ts-aperture",
+  "displayName": "pi-ts-aperture",
+  "description": "Route Pi LLM providers through Tailscale Aperture",
+  "version": "1.0.0",
+  "author": "aliou",
+  "homepage": "https://github.com/aliou/pi-ts-aperture",
+  "skills": []
+}
