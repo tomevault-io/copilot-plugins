@@ -1,0 +1,9 @@
+{
+  "name": "appergb--openless",
+  "displayName": "openless",
+  "description": "Open-source macOS voice input for the AI era. Press a hotkey, speak, get a polished AI prompt at your cursor. Open alternative to Typeless, Wispr Flow, Lazy, and Superwhisper.",
+  "version": "1.0.0",
+  "author": "appergb",
+  "homepage": "https://github.com/appergb/openless",
+  "skills": []
+}
