@@ -1,0 +1,9 @@
+{
+  "name": "ebbe-method--airtable-skills",
+  "displayName": "airtable-skills",
+  "description": "Claude Code plugin for Airtable - comprehensive assistant for schema design, API, scripting, interfaces, and automations",
+  "version": "1.0.0",
+  "author": "Ebbe-Method",
+  "homepage": "https://github.com/Ebbe-Method/airtable-skills",
+  "skills": []
+}
