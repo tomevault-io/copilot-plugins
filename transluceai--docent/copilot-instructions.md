@@ -1,55 +1,9 @@
-## frontend
+## local-setup
 
-> - Use Redux slices in `app/store` to store frontend state
+> See docs/self_hosting/self_host_docent.md for instructions on how to start the complete application. Use the **manual installation**, in which you can use Docker compose to start databases, but you must manually start each service. Use autoreload for the frontend. For the api server and worker, do **not** use autoreload; manually interrupt + restart the process after making a change.
 
-# State management
 
-- Use Redux slices in `app/store` to store frontend state
-- Use RTK queries in `app/api` to access the backend through APIs.
-    - We're still migrating API calls from thunks to RTK queries. Do not change any existing thunks unless the user explicitly tells you to do a refactor. However, any new functionality should be implemented using the RTK pattern.
-
-# Styling
-
-## Padding, spacing, and height
-- For div containers, set padding and spacing to `3`, e.g., `p-3 space-y-3`
-
-## Color System
-
-**Base Layout Colors:**
-- `bg-background` - Main page/app background
-- `bg-secondary` - Secondary surfaces, sidebars, toolbars, panels
-- `border-border` - Standard borders and dividers
-
-**Text Colors:**
-- `text-primary` - Headings, emphasis, important text
-- `text-muted-foreground` - Subheadings, captions, softer text
-- Prefer `text-muted-foreground` against `bg-background`, `text-primary` against colored surfaces
-
-**Semantic Colors (use instead of generic destructive/success classes):**
-- **Blue**: `bg-blue-bg`, `border-blue-border`, `text-blue-text`, `bg-blue-muted` (hover states)
-- **Indigo**: `bg-indigo-bg`, `border-indigo-border`, `text-indigo-text`, `bg-indigo-muted` (search results, highlights)
-- **Green**: `bg-green-bg`, `border-green-border`, `text-green-text`, `bg-green-muted` (success, play buttons)
-- **Red**: `bg-red-bg`, `border-red-border`, `text-red-text`, `bg-red-muted` (errors, delete actions)
-- **Orange**: `bg-orange-bg`, `border-orange-border`, `text-orange-text` (warnings)
-- **Yellow**: `bg-yellow-bg`, `border-yellow-border`, `text-yellow-text`, `bg-yellow-muted`
-- **Purple**: `bg-purple-bg`, `border-purple-border`, `text-purple-text`
-
-**Border Usage:**
-- Default borders use `--border` variable automatically
-- For contrasting borders, use `border-primary/20` or semantic colors
-- Focus rings: rarely used, `ring-ring` available if needed
-
-**Hover States:**
-- Use `-muted` variants for subtle hover effects
-- For bright hover states, use low opacity `-text` variants (e.g., `hover:bg-red-text/10`)
-
-## Color System Rules
-
-1. **Never use arbitrary color values** - always use the defined color system
-2. **Use semantic colors over generic ones** - `text-red-text` not `text-destructive`
-3. **Maintain contrast** - `text-primary` on colored backgrounds, `text-muted-foreground` on neutral backgrounds
-4. **Follow the naming convention** - `bg-[color]-bg`, `border-[color]-border`, `text-[color]-text`
-5. **Check both light and dark modes** - all colors are defined for both themes in `globals.css`
+See docs/self_hosting/self_host_docent.md for instructions on how to start the complete application. Use the **manual installation**, in which you can use Docker compose to start databases, but you must manually start each service. Use autoreload for the frontend. For the api server and worker, do **not** use autoreload; manually interrupt + restart the process after making a change.
 
 ---
 > Source: [TransluceAI/docent](https://github.com/TransluceAI/docent) — distributed by [TomeVault](https://tomevault.io).
