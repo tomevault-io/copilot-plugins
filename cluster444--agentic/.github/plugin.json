@@ -1,0 +1,9 @@
+{
+  "name": "cluster444--agentic",
+  "displayName": "agentic",
+  "description": "An agentic workflow tool that provides context engineering support for opencode",
+  "version": "1.0.0",
+  "author": "Cluster444",
+  "homepage": "https://github.com/Cluster444/agentic",
+  "skills": []
+}
