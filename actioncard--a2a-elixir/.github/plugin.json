@@ -1,0 +1,9 @@
+{
+  "name": "actioncard--a2a-elixir",
+  "displayName": "a2a-elixir",
+  "description": "Elixir implementation of the Agent-to-Agent (A2A) protocol (https://a2a-protocol.org).",
+  "version": "1.0.0",
+  "author": "actioncard",
+  "homepage": "https://github.com/actioncard/a2a-elixir",
+  "skills": []
+}
