@@ -4,7 +4,7 @@
   "repo": "reineira-code",
   "description": "AI-assisted plugin development for ReineiraOS",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ReineiraOS/reineira-code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T03:25:13Z"
+  "distributed_at": "2026-05-10T16:53:29Z"
 }
