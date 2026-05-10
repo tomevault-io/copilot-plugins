@@ -4,7 +4,7 @@
   "repo": "antdv-next-admin",
   "description": "vue admin,vue3 admin,antdv-next,vue\u540e\u53f0\u7ba1\u7406,vue-admin,antdv,ant-design-vue",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yelog/antdv-next-admin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T03:47:09Z"
+  "distributed_at": "2026-05-10T22:53:28Z"
 }
