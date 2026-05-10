@@ -1,0 +1,9 @@
+{
+  "name": "rocky-data--rocky",
+  "displayName": "rocky",
+  "description": "The trust system for your data. Rust-based control plane for warehouse pipelines \u2014 branches, replay, column-level lineage, compile-time safety, per-model cost attribution. Keep Databricks or Snowflake",
+  "version": "1.0.0",
+  "author": "rocky-data",
+  "homepage": "https://github.com/rocky-data/rocky",
+  "skills": []
+}
