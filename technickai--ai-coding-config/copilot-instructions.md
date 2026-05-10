@@ -1,0 +1,92 @@
+## autonomous-development-workflow
+
+> When completing tasks autonomously without human supervision
+
+
+# Autonomous Development Workflow
+
+For AI agents completing tasks without human supervision. The goal: deliver a clean pull
+request that passes all checks and gets merged without back-and-forth.
+
+## Spec Quality Is the Bottleneck
+
+Invest more time understanding the problem than writing the implementation. A precise
+understanding of the problem produces better code than any amount of iteration on an
+ambiguous one. If the task description is ambiguous, clarify before implementing. Quick,
+localized changes with no behavioral impact may proceed directly.
+
+## Before Implementation
+
+Assess whether you have enough clarity to implement correctly. Can you articulate the
+problem being solved, what "done" looks like, the edge cases, and the assumptions you're
+making? If not, ask before proceeding.
+
+Load project standards via `/load-rules`. If that's not available, fall back to reading
+applicable rules directly. Every applicable rule must be followed.
+
+If `CLAUDE.md` or `AGENTS.md` exist in the project root, read those for additional
+context.
+
+## Implementation
+
+Write code following all cursor rules. Reference specific rules by reading the files
+directly.
+
+## Validation - Use the Tooling
+
+The project has tooling configured. We use it instead of manually trying to comply.
+
+Check for pre-commit and run if exists:
+
+```bash
+[ -f .pre-commit-config.yaml ] && pre-commit run --all-files
+```
+
+Read `.github/workflows/build.yml` (or ci.yml, test.yml) and replicate those validation
+steps locally, for example:
+
+```bash
+ruff check --fix .    # Auto-fix linting
+ruff format .         # Auto-format code
+pytest                # Run tests
+```
+
+If we added functionality, we add tests following project patterns. Aim for 95% coverage
+-- solid testing without obsessing over every edge case.
+
+Only commit and push when all validation passes.
+
+## Evaluate Outcomes
+
+Run `git diff` and review the changes at the feature level. The question isn't "is every
+line correct" -- it's "does this changeset solve the problem cleanly?"
+
+Verify the implementation delivers what was asked for -- not just technically correct, but
+useful. Check that no unnecessary complexity was introduced.
+
+Read through applicable rules and verify compliance. Document any assumptions or
+non-obvious choices in the PR description so reviewers understand the decisions made.
+
+## Submission
+
+Generate commit message following git-commit-message.mdc (if present).
+
+Use `gh pr create` to submit a high-quality pull request with clear description of what
+changed and why.
+
+## Boundaries
+
+Proceed autonomously: using existing tooling, following established patterns, changes
+within task scope.
+
+Ask first: major architectural changes, changes that would result in data loss, etc.
+
+## Success
+
+A successful autonomous PR means: the implementation solves the stated problem, all
+automated checks pass, code follows project standards, and the developer merges it
+without requesting changes.
+
+---
+> Source: [TechNickAI/ai-coding-config](https://github.com/TechNickAI/ai-coding-config) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
