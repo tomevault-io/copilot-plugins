@@ -1,0 +1,44 @@
+{
+  "name": "role_radar_public",
+  "owner": "pony-maggie",
+  "repo": "role_radar_public",
+  "description": "\u804c\u4e1a\u96f7\u8fbe\uff0c\u770b\u770b\u5c97\u4f4d\u88abAI\u7684\u66ff\u4ee3\u7387",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pony-maggie/role_radar_public",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T19:50:38Z"
+}
