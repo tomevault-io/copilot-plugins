@@ -1,387 +1,931 @@
-## extending-chat-usd
+## lc-agent-usd
 
-> A high-level overview of how to extend Chat USD with custom agents, using the Navigation Agent as a reference implementation.
+> A high-level overview of the core components in LC Agent USD module, explaining how they work together to create a specialized system for USD development assistance.
 
 
-# Extending Chat USD with Custom Agents
-
-This guide explains how to extend Chat USD with custom agents, using the Navigation Agent (`@omni.ai.langchain.agent.navigation`) as a reference implementation.
-
-## Table of Contents
-
-1. [Introduction](#introduction)
-2. [Architecture Overview](#architecture-overview)
-3. [Component Relationships](#component-relationships)
-4. [Creating a Custom Agent](#creating-a-custom-agent)
-   - [Extension Structure](#extension-structure)
-   - [Node Implementation](#node-implementation)
-   - [Modifier Implementation](#modifier-implementation)
-   - [System Messages](#system-messages)
-5. [Integration with Chat USD](#integration-with-chat-usd)
-6. [Example: Navigation Agent](#example-navigation-agent)
-7. [Best Practices](#best-practices)
+# LC Agent USD Module Overview
 
 ## Introduction
 
-Chat USD is a powerful AI assistant for Universal Scene Description (USD) development that can be extended with custom agents to add new capabilities. Custom agents allow Chat USD to perform specialized tasks, such as scene navigation, asset search, or custom operations on USD scenes.
+The `lc_agent_usd` module is a specialized extension of the LC Agent framework designed to provide intelligent assistance for Universal Scene Description (USD) development. It leverages the core LC Agent architecture to create a system that can:
 
-This document explains how to create and integrate custom agents into the Chat USD framework, using the Navigation Agent as a reference implementation.
+1. Answer knowledge-based questions about USD
+2. Generate and validate USD code snippets
+3. Provide interactive code assistance
+4. Execute and debug USD code
 
-## Architecture Overview
+This module demonstrates how LC Agent's flexible architecture can be extended to create domain-specific AI assistants with specialized capabilities.
 
-Chat USD uses a modular architecture based on the Language Chain (LC) Agent framework. The key components for extending Chat USD with custom agents are:
+## Core Components
 
-1. **Extension**: Registers the agent with the system and manages its lifecycle.
-2. **Nodes**: Implement the agent's functionality and define how it processes inputs and generates outputs.
-3. **Modifiers**: Intercept and modify the behavior of nodes, allowing for custom processing of commands.
-4. **System Messages**: Define the agent's capabilities, identity, and how it should respond to user queries.
+The module is organized into several key components:
 
-## Component Relationships
+### Network Nodes
 
-Understanding the inheritance hierarchy and relationships between components is crucial for implementing a custom agent:
+Network nodes are specialized classes that extend the `NetworkNode` base class from LC Agent. They serve as containers for specific functionality:
 
-### Inheritance Hierarchy
+- **USDKnowledgeNetworkNode**: Provides factual information about USD concepts and usage
+- **USDCodeNetworkNode**: Handles general USD code generation and validation
+- **USDCodeGenNetworkNode**: Specializes in generating executable USD code with validation
 
-1. **ChatUSDNavigationNetworkNode**: The main entry point for user interactions.
-   - Derives from `ChatUSDNetworkNode` and `MultiAgentNetworkNode`, which handles routing between agents
-   - Ultimately derives from `NetworkNode`, which is a container for subnodes
-   - Does not interact with LLMs directly
-   - Acts as a coordinator for the conversation between agents and supervisor
-   - Registered with the user-friendly name "ChatUSD with navigation"
+### Specialized Nodes
 
-2. **ChatUSDNavigationSupervisorNode**: The orchestrator for agent interactions.
-   - Derives from `ChatUSDSupervisorNode`
-   - Interacts with LLMs to determine which agent to call based on the user query
-   - Can transform user queries to match agent capabilities
-   - Uses system messages to understand agent capabilities and make routing decisions
-   - Combines the base ChatUSDSupervisorNode system message with additional navigation-specific instructions
+These are the building blocks that implement specific behaviors:
 
-3. **NavigationNetworkNode**: The navigation agent implementation.
-   - Derives from `NetworkNode`
-   - Does not interact with LLMs directly but contains nodes that do
-   - Registered as "ChatUSD_Navigation" and referenced in the route_nodes list of ChatUSDNavigationNetworkNode
-   - Provides its docstring to the supervisor to explain its capabilities
-   - Contains modifiers that process command outputs
+- **USDKnowledgeNode**: Processes knowledge-based queries about USD
+- **USDCodeGenNode**: Generates USD code snippets with proper structure
+- **USDCodeInteractiveNode**: Provides interactive code assistance
 
-4. **NavigationGenNode**: The component that generates navigation commands.
-   - Derives from `RunnableNode`
-   - Directly interacts with LLMs to generate navigation commands
-   - Uses a specific system message that instructs the LLM to output specific command formats
-   - Its outputs are intercepted by NavigationModifier
-   - Its outputs are not directly visible to the supervisor, only the final result is
+### Modifiers
 
-### Modifier's Role in Command Execution
+Modifiers extend the functionality of nodes by intercepting and modifying their behavior:
 
-The NavigationModifier plays a critical role in the execution of navigation commands:
+- **USDKnowledgeRagModifier**: Enhances knowledge responses with retrieval-augmented generation
+- **USDCodeGenRagModifier**: Enhances code generation with retrieval-augmented generation
+- **CodeInterpreterModifier**: Executes and validates code
+- **CodeExtractorModifier**: Extracts and formats code snippets
+- **USDCodeGenPatcherModifier**: Fixes and improves generated code
 
-1. **Command Interception**: The modifier's `on_post_invoke_async` method is called after each node in the network is invoked. It carefully checks conditions to prevent infinite loops:
-   ```python
-   if (
-       node.invoked
-       and isinstance(node.outputs, AIMessage)
-       and node.outputs.content
-       and not network.get_children(node)
-   ):
-   ```
+## System Architecture
 
-2. **Command Processing**: When NavigationGenNode generates a command like "LIST", "NAVIGATE", or "SAVE", the modifier intercepts it and executes the corresponding action.
+The module follows a layered architecture:
 
-3. **Result Injection**: After processing a command, the modifier creates a new `RunnableHumanNode` with the result:
-   ```python
-   with network:
-       RunnableHumanNode(f"Assistant: {result}")
-   ```
+1. **User Interface Layer**: Receives queries and displays responses
+2. **Network Layer**: Routes queries to appropriate specialized nodes
+3. **Processing Layer**: Generates responses using specialized nodes
+4. **Modifier Layer**: Enhances responses with additional capabilities
+5. **Knowledge Layer**: Retrieves relevant information from knowledge bases
 
-4. **Continued Execution**: Creating this new node continues invoking the network. The default modifier for NavigationNetworkNode automatically creates the default node (NavigationGenNode) after the RunnableHumanNode.
+## Integration with LC Agent Core
 
-5. **Command Execution in USD Stage**: The modifier executes navigation commands directly in the current USD stage. For example:
-   - LIST command retrieves points of interest from the stage metadata
-   - NAVIGATE command sets the camera transform to a specific position
-   - SAVE command stores the current camera position in the stage metadata
+The `lc_agent_usd` module integrates with the core LC Agent framework by:
 
-This execution chain is what enables the navigation commands to be processed and executed, allowing the agent to perform real actions in the USD scene. Without the modifier, the commands would be meaningless text that couldn't affect the scene.
+1. Extending base classes like `NetworkNode` and `RunnableNode`
+2. Implementing custom modifiers that work with the LC Agent modifier system
+3. Registering custom node types with the node factory
+4. Using the LC Agent message passing system for communication
 
-The modifier is the bridge between the language model's text output and actual functionality in the application, making it one of the most critical components when extending Chat USD with custom capabilities.
+## Use Cases
 
-## Creating a Custom Agent
+The module is designed to support several key use cases:
 
-### Extension Structure
+1. **USD Knowledge Assistance**: Answering questions about USD concepts, API, and best practices
+2. **Code Generation**: Creating USD code snippets based on user requirements
+3. **Code Validation**: Checking and fixing USD code for correctness
+4. **Interactive Development**: Providing real-time assistance during USD development
 
-A typical custom agent extension follows this structure:
 
-```
-omni.ai.langchain.agent.custom/
-├── docs/                      # Documentation
-├── examples/                  # Example usage
-├── omni/
-│   └── ai/
-│       └── langchain/
-│           └── agent/
-│               └── custom/    # Your agent name
-│                   ├── __init__.py
-│                   ├── extension.py
-│                   ├── nodes/
-│                   │   ├── __init__.py
-│                   │   ├── custom_node.py
-│                   │   └── systems/
-│                   │       └── custom_system.md
-│                   └── modifiers/
-│                       ├── __init__.py
-│                       └── custom_modifier.py
-└── premake5.lua              # Build configuration
-```
+# USDKnowledgeNetworkNode
 
-### Node Implementation
+## Overview
 
-Nodes are the core components that implement the agent's functionality. For a custom agent, you typically need to create:
+The `USDKnowledgeNetworkNode` is a specialized network node in the LC Agent USD module that provides knowledge-based assistance for Universal Scene Description (USD). It serves as a comprehensive information source for USD concepts, API usage, best practices, and general questions about USD functionality.
 
-1. **GenNode**: Handles the generation of responses based on user input.
-2. **NetworkNode**: Provides the interface for the agent to be used in a network.
-3. **SupervisorNode**: Extends the ChatUSDSupervisorNode to add your agent's capabilities.
-4. **NetworkNode for Chat USD**: Extends the ChatUSDNetworkNode to integrate your agent.
+## Purpose
 
-Here's how the Navigation Agent implements these nodes:
+The primary purpose of the `USDKnowledgeNetworkNode` is to:
+
+1. Answer factual questions about USD concepts and terminology
+2. Provide explanations of USD API functions and classes
+3. Offer guidance on USD best practices and workflows
+4. Explain USD file formats and structure
+5. Assist with understanding USD's role in 3D pipelines
+
+This node is designed to be the knowledge foundation of the USD agent system, focusing on providing accurate information rather than generating or executing code.
+
+## Implementation Details
+
+### Class Definition
 
 ```python
-# 1. GenNode - Responsible for generating navigation commands
-class NavigationGenNode(RunnableNode):
-    """Node responsible for scene navigation operations."""
+class USDKnowledgeNetworkNode(NetworkNode):
+    default_node: str = "USDKnowledgeNode"
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-        # Add system message that defines how to respond to navigation queries
-        self.inputs.append(RunnableSystemAppend(system_message=NAVIGATION_GEN_SYSTEM))
-
-# 2. NetworkNode - Provides the interface for the navigation agent
-class NavigationNetworkNode(NetworkNode):
-    """Tool for scene navigation in USD scenes."""
-
-    # Specifies which node class to use for generation
-    default_node: str = "NavigationGenNode"
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-        # Add the modifier that will process navigation commands
-        self.add_modifier(NavigationModifier())
-
-        # Metadata for the node
-        self.metadata["description"] = "Scene navigation operations for USD scenes."
-        self.metadata["examples"] = [
-            "List all points of interest",
-            "Navigate to the kitchen",
-            "Save this view as 'front entrance'",
-        ]
-
-# 3. SupervisorNode - Extends ChatUSDSupervisorNode with navigation capabilities
-class ChatUSDNavigationSupervisorNode(ChatUSDSupervisorNode):
-    """Supervisor node that combines USD capabilities with scene navigation."""
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-        # Add system message that helps determine when to use navigation
-        self.inputs.append(RunnableSystemAppend(system_message=NAVIGATION_SUPERVISOR_IDENTITY))
-
-# 4. NetworkNode for Chat USD - Integrates navigation with Chat USD
-class ChatUSDNavigationNetworkNode(ChatUSDNetworkNode):
-    """Specialized network node that extends ChatUSDNetworkNode with navigation."""
-
-    # Specifies which supervisor node to use
-    default_node: str = "ChatUSDNavigationSupervisorNode"
-
-    # Specifies which tools/agents are available
-    route_nodes: List[str] = [
-        "ChatUSD_USDCodeInteractive",
-        "ChatUSD_USDSearch",
-        "ChatUSD_SceneInfo",
-        "ChatUSD_Navigation",  # This is the NavigationNetworkNode
-    ]
-
-    function_calling = False
-    generate_prompt_per_agent = True
-    multishot = True
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-        # Add navigation-specific examples
-        self.metadata["examples"].append("Show me all the viewpoints in this scene")
+        self.add_modifier(USDKnowledgeRagModifier())
 ```
 
-### Modifier Implementation
+The implementation is intentionally simple, leveraging the power of the LC Agent framework to handle most of the complexity. The class:
 
-Modifiers intercept and process the output of nodes, allowing for custom behavior. The most critical aspect of a modifier is the `on_post_invoke_async` method, which prevents infinite loops by carefully checking conditions before processing commands.
+1. Extends `NetworkNode` from the core LC Agent framework
+2. Sets `USDKnowledgeNode` as its default node type
+3. Adds a `USDKnowledgeRagModifier` to enhance responses with retrieval-augmented generation
 
-Here's the NavigationModifier implementation:
+### Default Node
+
+The `USDKnowledgeNode` serves as the default processing node for this network. It:
+
+1. Processes queries using a system message to generate appropriate responses
+2. Handles knowledge-based questions about USD
+3. Provides factual information about USD concepts and API
+
+### RAG Modifier
+
+The `USDKnowledgeRagModifier` enhances the node's responses by:
+
+1. Retrieving relevant information from a knowledge base of USD documentation
+2. Injecting this information into the context before generating responses
+3. Ensuring responses are grounded in accurate USD documentation
+4. Using a specialized retriever designed for USD knowledge
+5. Filtering and ranking retrieved information for relevance
+
+This modifier is essential for providing accurate and comprehensive information about USD concepts and API.
+
+## Knowledge Sources
+
+The `USDKnowledgeNetworkNode` draws information from several sources through its RAG modifier:
+
+1. **USD Documentation**: Official documentation from Pixar and other USD contributors
+2. **Python API References**: Documentation of the USD Python API
+
+This information is accessed through the RAG system, which retrieves relevant content based on the user's query.
+
+## Integration with Other Components
+
+The `USDKnowledgeNetworkNode` is designed to work seamlessly with other components of the LC Agent USD module:
+
+1. It can be used as a standalone knowledge source
+2. It can be integrated into a multi-agent system alongside code generation nodes
+3. It can provide context for code generation and validation
+
+
+# USDCodeGenNetworkNode
+
+## Overview
+
+The `USDCodeGenNetworkNode` is a specialized network node in the LC Agent USD module that focuses on advanced code generation for Universal Scene Description (USD).
+
+## Purpose
+
+The primary purpose of the `USDCodeGenNetworkNode` is to:
+
+1. Generate high-quality, executable USD code snippets
+2. Provide comprehensive validation and testing of generated code
+3. Fix and improve code through an iterative process
+4. Enhance code generation with retrieval-augmented generation (RAG)
+5. Support complex USD development tasks with specialized modifiers
+
+This node is designed for users who need production-ready USD code that follows best practices and is immediately executable.
+
+## Implementation Details
+
+### Class Definition
 
 ```python
-class NavigationModifier(NetworkModifier):
-    """Modifier that handles navigation commands from the NavigationGenNode."""
+class USDCodeGenNetworkNode(NetworkNode):
+    default_node: str = "USDCodeGenNode"
+    code_interpreter_hide_items: Optional[List[str]] = None
 
-    # Command patterns
-    LIST_COMMAND = "LIST"
-    NAVIGATE_PATTERN = r"NAVIGATE\s+(.+)"
-    SAVE_PATTERN = r"SAVE\s+(.+)"
-    DONE_COMMAND = "DONE"
-
-    async def on_post_invoke_async(self, network, node):
+    def __init__(
+        self,
+        show_stdout=True,
+        code_atlas_for_human: bool = False,
+        snippet_verification: bool = False,
+        snippet_language_check: bool = False,
+        use_code_fixer: bool = False,
+        retriever_name="usd_code06262024",
+        enable_code_interpreter=True,
+        enable_code_patcher=True,
+        max_network_length=5,
+        **kwargs
+    ):
         """
-        Post-invoke hook that processes navigation commands.
+        Initialize the USDCodeGenNetworkNode.
 
-        This method is called for every node in the network after it's invoked.
-        The critical if condition prevents infinite loops by ensuring:
-        1. The node has been invoked (has output)
-        2. The output is an AIMessage (contains content)
-        3. The content is not empty
-        4. The node has no children (is the end of the chain)
-
-        Without these checks, the modifier would create new nodes in an infinite loop.
+        Args:
+            show_stdout: Whether to show stdout output.
+            code_atlas_for_human: Whether to use code atlas for human messages.
+            snippet_verification: Whether verification of running of the code
+                                  snippet is needed. When False, all the snippets
+                                  are considered correct.
+            snippet_language_check: Whether to check the language tag of the snippet.
+            use_code_fixer: Whether to use the code fixer that produces diff.
+            retriever_name: Name of the retriever for RAG functionality.
+            enable_code_interpreter: Whether to enable code execution.
+            enable_code_patcher: Whether to enable code patching.
+            max_network_length: Maximum number of nodes in the network.
         """
-        if (
-            node.invoked
-            and isinstance(node.outputs, AIMessage)
-            and node.outputs.content
-            and not network.get_children(node)
-        ):
-            # Extract the command from the node output
-            command = node.outputs.content.strip()
-            result = await self.process_command(command)
-            if result:
-                # Add a new node to the network with the result
-                # This is safe because we've verified this is the end of the chain
-                with network:
-                    RunnableHumanNode(f"Assistant: {result}")
+        super().__init__(**kwargs)
 
-    async def process_command(self, command):
-        """Process navigation commands and return appropriate responses."""
-        # Process LIST command
-        if command == self.LIST_COMMAND:
-            return self._handle_list_command()
-
-        # Process NAVIGATE command
-        navigate_match = re.match(self.NAVIGATE_PATTERN, command)
-        if navigate_match:
-            poi_name = navigate_match.group(1).strip()
-            return self._handle_navigate_command(poi_name)
-
-        # Process SAVE command
-        save_match = re.match(self.SAVE_PATTERN, command)
-        if save_match:
-            poi_name = save_match.group(1).strip()
-            return await self._handle_save_command(poi_name)
-
-        # If command is DONE, do nothing
-        if command == self.DONE_COMMAND:
-            return None
-
-        # If command is not recognized, provide a helpful message
-        return self._handle_unrecognized_command(command)
-```
-
-### System Messages
-
-System messages define the agent's capabilities, identity, and how it should respond to user queries. These are typically stored as markdown files in the `nodes/systems/` directory.
-
-The Navigation Agent uses two system messages:
-
-1. **navigation_gen_system.md**: Instructs the NavigationGenNode how to respond to navigation queries with specific commands (LIST, NAVIGATE, SAVE, DONE).
-
-2. **chat_usd_navigation_supervisor_identity.md**: Helps the supervisor node determine when to route queries to the navigation agent.
-
-Example from the Navigation Agent's supervisor identity:
-
-```markdown
-# ChatUSD_Navigation Function
-
-## Use Case: Scene Navigation
-
-The ChatUSD_Navigation function enables natural language navigation within USD scenes.
-
-## When to Call ChatUSD_Navigation:
-
-Call this function when the user request involves:
-1. Navigating to a specific location or viewpoint in the scene
-2. Listing available points of interest in the scene
-3. Saving the current camera position as a point of interest
-4. Requesting information about scene navigation capabilities
-
-## When NOT to Call ChatUSD_Navigation:
-
-1. When the exact same navigation request was just processed in the previous turn
-2. When a navigation operation has already been completed successfully
-3. When the user is asking about the current view or location (use ChatUSD_SceneInfo instead)
-```
-
-## Integration with Chat USD
-
-To integrate your custom agent with Chat USD, you need to register your nodes with the node factory in your extension's `on_startup` method:
-
-```python
-class NavigationExtension(omni.ext.IExt):
-    """Extension for Scene Navigation Agent."""
-
-    def on_startup(self, ext_id):
-        """Called when the extension is started."""
-        self._ext_id = ext_id
-        self._register_navigation_agent()
-
-    def on_shutdown(self):
-        """Called when the extension is shut down."""
-        self._unregister_navigation_agent()
-
-    def _register_navigation_agent(self):
-        """Register the navigation agent components."""
-        # Register the GenNode (hidden from direct use)
-        get_node_factory().register(NavigationGenNode, name="NavigationGenNode", hidden=True)
-
-        # Register the NetworkNode (available as ChatUSD_Navigation)
-        get_node_factory().register(NavigationNetworkNode, name="ChatUSD_Navigation", hidden=True)
-
-        # Register the SupervisorNode (hidden from direct use)
-        get_node_factory().register(
-            ChatUSDNavigationSupervisorNode, name="ChatUSDNavigationSupervisorNode", hidden=True
+        if max_network_length:
+            self.add_modifier(NetworkLengthModifier(max_length=max_network_length))
+        self.add_modifier(
+            CodeExtractorModifier(
+                snippet_verification=snippet_verification, snippet_language_check=snippet_language_check
+            )
         )
-
-        # Register the ChatUSD NetworkNode (available as "ChatUSD with navigation")
-        get_node_factory().register(ChatUSDNavigationNetworkNode, name="ChatUSD with navigation")
-
-    def _unregister_navigation_agent(self):
-        """Unregister the navigation agent components."""
-        get_node_factory().unregister(NavigationGenNode)
-        get_node_factory().unregister(NavigationNetworkNode)
-        get_node_factory().unregister(ChatUSDNavigationSupervisorNode)
-        get_node_factory().unregister(ChatUSDNavigationNetworkNode)
+        if enable_code_patcher:
+            self.add_modifier(USDCodeGenPatcherModifier())
+        # Note: USDCodeGenInterpreterModifier is commented out as it doesn't work in Linux/services
+        # Instead, CodeInterpreterModifier is used when enable_code_interpreter is True
+        if enable_code_interpreter:
+            self.add_modifier(
+                CodeInterpreterModifier(show_stdout=show_stdout, hide_items=self.code_interpreter_hide_items)
+            )
+        if use_code_fixer:
+            self.add_modifier(CodeFixerModifier())
+        if retriever_name:
+            self.add_modifier(USDCodeGenRagModifier(code_atlas_for_human, retriever_name=retriever_name))
 ```
 
-Note that:
-- The GenNode, NetworkNode, and SupervisorNode are registered with `hidden=True` because they are not meant to be used directly by users.
-- The ChatUSDNavigationNetworkNode is registered with a user-friendly name ("ChatUSD with navigation") because it's the entry point for users.
+The implementation:
 
-## Example: Navigation Agent
+1. Extends `NetworkNode` from the core LC Agent framework
+2. Sets `USDCodeGenNode` as its default node type
+3. Provides extensive configuration options for code generation and validation
+4. Adds multiple specialized modifiers for different aspects of code generation
 
-The Navigation Agent (`omni.ai.langchain.agent.navigation`) is a reference implementation that demonstrates how to extend Chat USD with custom capabilities. It provides the following features:
+### Configuration Options
 
-- Listing points of interest (POIs) in a USD scene
-- Navigating to specific POIs
-- Saving camera positions as new POIs
+The `USDCodeGenNetworkNode` accepts numerous configuration options:
+
+1. **show_stdout**: Whether to display standard output from code execution
+2. **code_atlas_for_human**: Whether to use code atlas for human messages
+3. **snippet_verification**: Whether to verify code snippet execution
+4. **snippet_language_check**: Whether to check language tags in snippets
+5. **use_code_fixer**: Whether to use the diff-based code fixer
+6. **retriever_name**: Name of the retriever for RAG functionality
+7. **enable_code_interpreter**: Whether to enable code execution
+8. **enable_code_patcher**: Whether to enable code patching
+9. **max_network_length**: Maximum number of nodes in the network
+
+These options provide fine-grained control over the node's behavior.
+
+### Modifiers
+
+The `USDCodeGenNetworkNode` uses several specialized modifiers:
+
+1. **NetworkLengthModifier**: Controls the maximum length of the network
+2. **CodeExtractorModifier**: Extracts and validates code snippets
+3. **USDCodeGenPatcherModifier**: Patches and improves USD code
+4. **CodeInterpreterModifier**: Executes and validates code
+5. **CodeFixerModifier**: Fixes code issues with diff-based changes
+6. **USDCodeGenRagModifier**: Enhances code generation with RAG
+
+Each modifier addresses a specific aspect of the code generation process.
+
+## Advanced Code Generation Process
+
+The code generation process in `USDCodeGenNetworkNode` follows these steps:
+
+1. **Query Analysis**: The user's query is analyzed to understand requirements
+2. **Knowledge Retrieval**: Relevant USD documentation is retrieved via RAG
+3. **Code Generation**: Initial code is generated based on requirements and retrieved knowledge
+4. **Code Extraction**: Code snippets are extracted and prepared for validation
+5. **Code Validation**: The extracted code is validated for correctness
+6. **Code Execution**: If enabled, the code is executed to verify functionality
+7. **Error Analysis**: Any errors are analyzed to determine their causes
+8. **Code Patching**: Issues are fixed through the patching system
+9. **Iterative Improvement**: Steps 4-8 may repeat until the code is correct
+10. **Response Generation**: A final response is generated with the code and explanations
+
+This comprehensive process ensures high-quality, executable code.
+
+## Code Extraction and Validation
+
+The `CodeExtractorModifier` is a key component that:
+
+1. Identifies code blocks in the generated response
+2. Extracts the code from these blocks
+3. Validates the code structure and syntax
+4. Checks language tags for correctness
+5. Prepares the code for execution or patching
+
+This ensures that only valid code is processed further.
+
+## Code Patching System
+
+The `USDCodeGenPatcherModifier` provides advanced code patching:
+
+1. Analyzes errors in the generated code
+2. Identifies specific issues that need fixing
+3. Generates targeted patches for these issues
+4. Applies the patches to create improved code
+5. Validates the patched code to ensure it resolves the issues
+
+This system allows for iterative improvement of the generated code.
+
+## RAG Integration
+
+The `USDCodeGenRagModifier` enhances code generation with retrieval-augmented generation:
+
+1. Retrieves relevant USD documentation and examples
+2. Injects this information into the context before code generation
+3. Provides error-specific information when issues occur
+4. Ensures generated code follows USD best practices
+5. Improves code quality by grounding it in actual USD documentation
+
+## Integration with Other Components
+
+The `USDCodeGenNetworkNode` integrates with other components:
+
+1. It builds upon the foundation of `USDCodeNetworkNode`
+2. It uses the `USDCodeGenNode` as its default processing node
+3. It can be combined with `USDKnowledgeNetworkNode` for comprehensive assistance
+4. It leverages the RAG system for knowledge retrieval
+
+
+# USDCodeInteractiveNetworkNode
+
+## Overview
+
+The `USDCodeInteractiveNetworkNode` is a specialized network node in the LC Agent USD module that provides real-time interactive code development capabilities for Universal Scene Description (USD). It enables users to modify USD stages in real-time and work with USD assets in an interactive manner, offering a more dynamic and responsive development experience compared to the standard code generation nodes.
+
+## Purpose
+
+The primary purpose of the `USDCodeInteractiveNetworkNode` is to:
+
+1. Enable real-time modification of USD stages
+2. Provide interactive code development with immediate feedback
+3. Support importing and working with USD assets found through other tools
+4. Offer metafunction capabilities for common USD operations
+5. Enhance the development experience with specialized system messages and examples
+
+This node is designed for users who need a more interactive and dynamic approach to USD development, allowing them to iteratively build and modify USD scenes with immediate feedback.
+
+## Implementation Details
+
+### Class Definition
+
+```python
+class USDCodeInteractiveNetworkNode(NetworkNode):
+    """
+    "USD Code Interactive" node. Use it to modify USD stage in real-time and import assets that was found with another tools.
+    """
+
+    default_node: str = "USDCodeInteractiveNode"
+    code_interpreter_hide_items: Optional[List[str]] = None
+
+    def __init__(
+        self,
+        enable_code_atlas=True,
+        enable_metafunctions=True,
+        retriever_name=None,
+        usdcode_retriever_name=None,
+        **kwargs,
+    ):
+        super().__init__(**kwargs)
+
+        rag_top_k = self.find_metadata("rag_top_k")
+        rag_max_tokens = self.find_metadata("rag_max_tokens")
+
+        if enable_code_atlas or retriever_name:
+            self.add_modifier(
+                USDCodeGenRagModifier(
+                    code_atlas_for_human=enable_code_atlas,
+                    code_atlas_for_errors=enable_code_atlas,
+                    retriever_name=retriever_name,
+                    top_k=rag_top_k,
+                    max_tokens=rag_max_tokens,
+                )
+            )
+
+        # Metafunctions
+        if enable_metafunctions:
+            from ..modifiers.mf_rag_modifier import MFRagModifier
+
+            args = {}
+            if usdcode_retriever_name:
+                args["retriever_name"] = usdcode_retriever_name
+
+            self.add_modifier(
+                MFRagModifier(
+                    top_k=rag_top_k,
+                    max_tokens=rag_max_tokens,
+                    **args,
+                )
+            )
+```
+
+The implementation:
+
+1. Extends `NetworkNode` from the core LC Agent framework
+2. Sets `USDCodeInteractiveNode` as its default node type
+3. Provides configuration options for code atlas and metafunctions
+4. Adds specialized modifiers for RAG and metafunction support
+
+### Configuration Options
+
+The `USDCodeInteractiveNetworkNode` accepts several configuration options:
+
+1. **enable_code_atlas**: Whether to enable code atlas for human messages and errors
+2. **enable_metafunctions**: Whether to enable metafunction support
+3. **retriever_name**: Name of the retriever for general RAG functionality
+4. **usdcode_retriever_name**: Name of the retriever for USD code-specific RAG
+
+These options allow customization of the interactive experience based on specific requirements.
+
+### Default Node
+
+The `USDCodeInteractiveNode` serves as the default processing node for this network. It:
+
+1. Extends `USDCodeGenNode` with interactive capabilities
+2. Loads specialized system messages for interactive development
+3. Supports configuration of default prim path, up axis, and selection
+4. Provides access to metafunctions for common USD operations
+
+## Metafunctions
+
+One of the key features of the `USDCodeInteractiveNetworkNode` is its support for metafunctions. These are pre-defined functions that:
+
+1. Provide high-level operations for common USD tasks
+2. Simplify complex USD operations into easy-to-use functions
+3. Enable rapid development without writing boilerplate code
+4. Offer consistent interfaces for USD operations
+
+The metafunctions are extracted from the `usdcode` module and made available to the node through the `MFRagModifier`.
+
+## System Messages
+
+The node uses specialized system messages to guide its behavior:
+
+### Identity
+
+The identity system message establishes the node as an interactive USD coding assistant that can modify USD stages in real-time.
+
+### Code Structure
+
+The code structure message provides guidance on how to structure USD code for interactive development, including:
+
+1. Proper import statements
+2. Stage creation and access
+3. Prim manipulation
+4. Material and shader setup
+5. Animation and transformation
+
+### Selection
+
+The selection message provides information about the current selection in the USD stage, allowing the node to operate on specific prims.
+
+### Examples
+
+The examples message provides comprehensive examples of interactive USD code, demonstrating:
+
+1. Creating and modifying prims
+2. Setting up materials and shaders
+3. Working with transformations
+4. Creating animations
+5. Using metafunctions for common tasks
+
+## RAG Integration
+
+The `USDCodeInteractiveNetworkNode` uses two types of RAG integration:
+
+1. **Code Atlas RAG**: Enhances responses with general USD documentation and examples
+2. **Metafunction RAG**: Provides information about available metafunctions and their usage
+
+This dual RAG approach ensures that the node has access to both general USD knowledge and specific information about metafunctions.
+
+
+# Modifiers in LC Agent USD
+
+## Overview
+
+Modifiers are a critical component of the LC Agent USD module, providing specialized functionality that extends and enhances the capabilities of network nodes. They intercept and modify the behavior of nodes at different stages of execution, enabling features like code execution, validation, patching, and knowledge retrieval.
+
+The LC Agent USD module includes a rich set of modifiers that address different aspects of USD development, from code generation to interactive development. These modifiers work together to create a comprehensive and powerful USD development assistant.
+
+## Core Modifier Types
+
+### RAG Modifiers
+
+Retrieval-Augmented Generation (RAG) modifiers enhance node responses by retrieving relevant information from knowledge bases:
+
+1. **USDKnowledgeRagModifier**: Enhances knowledge responses with USD documentation
+2. **USDCodeGenRagModifier**: Provides code-specific knowledge for code generation
+3. **MFRagModifier**: Retrieves information about metafunctions and their usage
+
+These modifiers ensure that responses are grounded in accurate USD documentation and best practices.
+
+### Code Execution Modifiers
+
+Code execution modifiers handle the execution and validation of generated code:
+
+1. **CodeInterpreterModifier**: Executes code and provides feedback on execution results
+2. **USDCodeGenInterpreterModifier**: Specialized interpreter for USD code execution
+
+These modifiers enable real-time validation of generated code, ensuring it works as expected.
+
+### Code Manipulation Modifiers
+
+Code manipulation modifiers handle the extraction, validation, and improvement of code:
+
+1. **CodeExtractorModifier**: Extracts code snippets from responses
+2. **CodeFixerModifier**: Fixes issues in generated code
+3. **USDCodeGenPatcherModifier**: Applies patches to improve USD code
+4. **CodePatcherModifier**: General-purpose code patching
+
+These modifiers work together to ensure high-quality, executable code.
+
+### Network Management Modifiers
+
+Network management modifiers control the behavior and structure of the network:
+
+1. **NetworkLengthModifier**: Limits the length of the network to prevent excessive iterations
+2. **USDCodeDefaultNodeModifier**: Sets up default nodes for USD code generation
+3. **JudgeModifier**: Evaluates the quality of generated code
+
+These modifiers ensure that the network operates efficiently and effectively.
+
+## Key Modifiers in Detail
+
+### CodeInterpreterModifier
+
+The `CodeInterpreterModifier` is responsible for executing code and providing feedback on the execution results. It:
+
+1. Extracts code snippets from AI responses
+2. Executes the code in a controlled environment
+3. Captures execution output and errors
+4. Creates appropriate response nodes based on execution results
+5. Provides detailed error information when execution fails
+
+```python
+class CodeInterpreterModifier(NetworkModifier):
+    def __init__(
+        self,
+        show_stdout=True,
+        error_message: Optional[str] = None,
+        success_message: Optional[str] = None,
+        hide_items: Optional[List[str]] = None,
+        **kwargs,
+    ):
+        # Initialize with configuration options
+        
+    def _fix_before_run(self, code):
+        """Fixes the code before running it."""
+        return code
+
+    def _run(self, code):
+        """Run the code."""
+        code_interpreter_tool = CodeInterpreterTool(hide_items=self._hide_items)
+        execution_result = code_interpreter_tool._run(code)
+        return execution_result
+
+    def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+        # Execute code and handle results
+```
+
+This modifier is crucial for providing immediate feedback on code quality and functionality.
+
+### CodeExtractorModifier
+
+The `CodeExtractorModifier` is responsible for extracting and validating code snippets from responses. It:
+
+1. Identifies code blocks in AI responses
+2. Extracts the code from these blocks
+3. Validates the code structure and syntax
+4. Checks language tags for correctness
+5. Prepares the code for execution or patching
+
+```python
+class CodeExtractorModifier(NetworkModifier):
+    def __init__(
+        self,
+        snippet_verification=False,
+        shippet_language_check=False,
+        **kwargs,
+    ):
+        # Initialize with configuration options
+        
+    def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+        # Extract and validate code snippets
+```
+
+This modifier ensures that only valid code is processed further in the pipeline.
+
+### USDCodeGenRagModifier
+
+The `USDCodeGenRagModifier` enhances code generation with retrieval-augmented generation. It:
+
+1. Retrieves relevant USD documentation and examples
+2. Injects this information into the context before code generation
+3. Provides error-specific information when issues occur
+4. Ensures generated code follows USD best practices
+
+```python
+class USDCodeGenRagModifier(SystemRagModifier):
+    def __init__(
+        self,
+        code_atlas_for_errors: bool = True,
+        code_atlas_for_human: bool = False,
+        retriever_name="usd_code06262024",
+        **kwargs
+    ):
+        # Initialize with configuration options
+        
+    def _inject_rag(self, network: RunnableNetwork, node: RunnableNode, question: str):
+        # Inject RAG functionality
+```
+
+This modifier improves code quality by grounding it in actual USD documentation.
+
+### USDCodeGenPatcherModifier
+
+The `USDCodeGenPatcherModifier` provides advanced code patching for USD code. It:
+
+1. Analyzes errors in the generated code
+2. Identifies specific issues that need fixing
+3. Generates targeted patches for these issues
+4. Applies the patches to create improved code
+5. Validates the patched code to ensure it resolves the issues
+
+```python
+class USDCodeGenPatcherModifier(NetworkModifier):
+    def __init__(self, **kwargs):
+        # Initialize the modifier
+        
+    def on_post_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+        # Patch and improve code
+```
+
+This modifier enables iterative improvement of generated code, ensuring it meets quality standards.
+
+### MFRagModifier
+
+The `MFRagModifier` provides information about metafunctions for interactive development. It:
+
+1. Retrieves information about available metafunctions
+2. Injects this information into the context
+3. Helps users understand how to use metafunctions
+4. Provides examples of metafunction usage
+
+```python
+class MFRagModifier(NetworkModifier):
+    def __init__(
+        self,
+        retriever_name=None,
+        top_k=None,
+        max_tokens=None,
+        **kwargs,
+    ):
+        # Initialize with configuration options
+        
+    def on_pre_invoke(self, network: "RunnableNetwork", node: "RunnableNode"):
+        # Inject metafunction information
+```
+
+This modifier is crucial for the interactive development experience, enabling users to leverage pre-defined functions for common tasks.
+
+## Modifier Interactions
+
+The modifiers in the LC Agent USD module work together in a coordinated pipeline:
+
+1. **Pre-Invoke Phase**:
+   - RAG modifiers inject relevant knowledge
+   - MFRagModifier provides metafunction information
+
+2. **Post-Invoke Phase**:
+   - CodeExtractorModifier extracts code snippets
+   - CodeInterpreterModifier executes the code
+   - USDCodeGenPatcherModifier patches issues
+   - NetworkLengthModifier controls iteration count
+
+This pipeline ensures that each aspect of USD development is handled by specialized components working together.
+
+## Customizing Modifiers
+
+Modifiers can be customized in several ways:
+
+1. **Configuration Options**: Most modifiers accept configuration options in their constructors
+2. **Selective Enabling**: Network nodes can selectively enable or disable modifiers
+3. **Custom Implementations**: New modifiers can be created by extending `NetworkModifier`
+4. **Modifier Ordering**: The order of modifiers can be controlled through priority settings
+
+Example of customizing modifiers:
+
+```python
+# Create a network node with custom modifier configuration
+node = USDCodeGenNetworkNode(
+    show_stdout=True,              # Show execution output
+    snippet_verification=True,     # Verify code snippets
+    use_code_fixer=True,           # Use the code fixer
+    retriever_name="custom_retriever"  # Use a custom retriever
+)
+
+# Add a custom modifier with specific priority
+node.add_modifier(CustomModifier(), priority=100)
+```
+
+## Performance Considerations
+
+When working with modifiers, consider:
+
+1. **Modifier Stack**: Each additional modifier increases processing time
+2. **RAG Operations**: Knowledge retrieval adds latency but improves quality
+3. **Code Execution**: Running code validation increases response time
+4. **Error Handling**: Complex error handling in modifiers can impact performance
+
+To optimize performance:
+
+1. Only enable necessary modifiers
+2. Configure RAG modifiers with appropriate token limits
+3. Use network length modifiers to prevent excessive iterations
+4. Consider disabling code execution for simple queries
 
 ## Best Practices
 
-When creating custom agents for Chat USD, follow these best practices:
+When working with modifiers in the LC Agent USD module:
 
-1. **Prevent infinite loops**: Carefully implement the `on_post_invoke_async` method in your modifier to check all necessary conditions before processing commands.
+1. **Understand the Pipeline**: Know how modifiers interact in the execution pipeline
+2. **Configure Appropriately**: Set appropriate configuration options for your use case
+3. **Selective Enabling**: Only enable modifiers that are necessary for your task
+4. **Error Handling**: Ensure proper error handling in custom modifiers
+5. **Testing**: Test modifier combinations to ensure they work together effectively
 
-2. **Clear component relationships**: Understand how your nodes relate to each other and to the Chat USD framework.
+## Example: Complete Modifier Stack
 
-3. **Descriptive system messages**: Clearly define when your agent should be used and what it can do.
+Here's an example of a complete modifier stack for advanced USD code generation:
 
-4. **Error handling**: Provide helpful error messages when commands cannot be executed.
+```python
+# Create a network node with a comprehensive modifier stack
+node = USDCodeGenNetworkNode()
 
-5. **Documentation**: Document your agent's capabilities and provide examples.
+# Network management
+node.add_modifier(NetworkLengthModifier(max_length=5))
 
-By following this guide, you can create custom agents that extend Chat USD with new capabilities, enhancing its usefulness for USD development and scene manipulation.
+# Code extraction and validation
+node.add_modifier(CodeExtractorModifier(snippet_verification=True))
+
+# Knowledge enhancement
+node.add_modifier(USDCodeGenRagModifier(code_atlas_for_human=True))
+
+# Code execution and patching
+node.add_modifier(CodeInterpreterModifier(show_stdout=True))
+node.add_modifier(USDCodeGenPatcherModifier())
+node.add_modifier(CodeFixerModifier())
+
+# Quality evaluation
+node.add_modifier(JudgeModifier())
+```
+
+
+# Implementation
+
+## usd_knowledge_network_node.py
+
+```python
+from .modifiers.usd_knowledge_rag_modifier import USDKnowledgeRagModifier
+from lc_agent import NetworkNode
+from lc_agent import get_node_factory
+
+from .nodes.usd_knowledge_node import USDKnowledgeNode
+get_node_factory().register(USDKnowledgeNode)
+
+
+class USDKnowledgeNetworkNode(NetworkNode):
+    """
+    A specialized knowledge tool focused exclusively on answering questions about OpenUSD (Universal Scene Description) 
+    concepts, terminology, and functionality. This tool provides explanations and information about USD features 
+    and concepts.
+
+    IMPORTANT: This tool is strictly limited to USD knowledge questions and cannot:
+    - Generate or explain code (use the code generation tool instead)
+    - Answer questions about Python programming
+    - Provide information about Omniverse
+    - Answer questions about other 3D file formats or graphics systems
+
+    Example appropriate questions:
+    - "What is the difference between a USD Layer and a Stage?"
+    - "Can you explain what USD composition arcs are?"
+    - "What are the different types of USD variants?"
+    - "How does USD handle references vs payloads?"
+    - "What is the purpose of USD schemas?"
+    """
+    
+    default_node: str = "USDKnowledgeNode"
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.add_modifier(USDKnowledgeRagModifier())
+
+```
+
+## usd_code_gen_network_node.py
+
+```python
+from .modifiers.code_extractor_modifier import CodeExtractorModifier
+from .modifiers.code_fixer_modifier import CodeFixerModifier
+from .modifiers.code_interpreter_modifier import CodeInterpreterModifier
+from .modifiers.network_length_modifier import NetworkLenghtModifier
+from .modifiers.usd_code_gen_interpreter_modifier import USDCodeGenInterpreterModifier
+from .modifiers.usd_code_gen_patcher_modifier import USDCodeGenPatcherModifier
+from .modifiers.usd_code_gen_rag_modifier import USDCodeGenRagModifier
+from .nodes.usd_code_gen_node import USDCodeGenNode
+from lc_agent import NetworkNode
+from lc_agent import get_node_factory
+from typing import List
+from typing import Optional
+
+get_node_factory().register(USDCodeGenNode)
+
+
+class USDCodeGenNetworkNode(NetworkNode):
+    """
+    A specialized code generation tool focused exclusively on OpenUSD (Universal Scene Description) 
+    Python programming tasks. This tool assists with generating, modifying, and explaining code that 
+    interacts with USD APIs.
+
+    IMPORTANT: This tool is strictly limited to USD-related code generation and cannot:
+    - Answer general Python programming questions
+    - Provide explanations about USD concepts or terminology
+    - Handle Omniverse-related queries
+    - Generate code for other 3D file formats or graphics systems
+
+    Example appropriate questions:
+    - "How do I create a USD file with a sphere primitive?"
+    - "Generate code to read transform values from a USD stage"
+    - "Show me how to set custom attributes on a USD prim"
+    - "Write code to traverse a USD stage hierarchy"
+    """
+
+    default_node: str = "USDCodeGenNode"
+    code_interpreter_hide_items: Optional[List[str]] = None
+
+    def __init__(
+        self,
+        show_stdout=True,
+        code_atlas_for_human: bool = False,
+        snippet_verification: bool = False,
+        shippet_language_check: bool = False,
+        use_code_fixer: bool = False,
+        retriever_name="usd_code06262024",
+        enable_code_interpreter=True,
+        enable_code_patcher=True,
+        max_network_length=5,
+        **kwargs
+    ):
+        """
+        Initialize the USDCodeGenNetworkNode.
+
+        Args:
+            show_stdout: Whether to show stdout output.
+            code_atlas_for_human: Whether to use code atlas for human messages.
+            snippet_verification: Whether verification of running of the code
+                                  snippet is needed. When False, all the snippets
+                                  are considered correct.
+            shippet_language_check: Whether to check the language tag of the snippet.
+            use_code_fixer: Whether to use the code fixer that produces diff.
+
+        """
+        super().__init__(**kwargs)
+
+        if max_network_length:
+            self.add_modifier(NetworkLenghtModifier(max_length=max_network_length))
+        self.add_modifier(
+            CodeExtractorModifier(
+                snippet_verification=snippet_verification, shippet_language_check=shippet_language_check
+            )
+        )
+        if enable_code_patcher:
+            self.add_modifier(USDCodeGenPatcherModifier())
+        # this doesn't work in linux/services
+        # self.add_modifier(USDCodeGenInterpreterModifier(show_stdout=show_stdout))
+        if enable_code_interpreter:
+            self.add_modifier(
+                CodeInterpreterModifier(show_stdout=show_stdout, hide_items=self.code_interpreter_hide_items)
+            )
+        if use_code_fixer:
+            self.add_modifier(CodeFixerModifier())
+        if retriever_name:
+            self.add_modifier(USDCodeGenRagModifier(code_atlas_for_human, retriever_name=retriever_name))
+
+```
+
+## usd_code_network_node.py
+
+```python
+from .modifiers.usd_code_default_node_modifier import USDCodeDefaultNodeModifier
+from lc_agent import NetworkNode
+from typing import List
+from typing import Optional
+
+
+class USDCodeNetworkNode(NetworkNode):
+    code_interpreter_hide_items: Optional[List[str]] = None
+
+    def __init__(self, enable_code_interpreter=True, enable_code_patcher=True, max_network_length=5, **kwargs):
+        super().__init__(**kwargs)
+        self.add_modifier(
+            USDCodeDefaultNodeModifier(
+                enable_code_interpreter=enable_code_interpreter,
+                enable_code_patcher=enable_code_patcher,
+                max_network_length=max_network_length,
+                code_interpreter_hide_items=self.code_interpreter_hide_items,
+            )
+        )
+
+        self.metadata["description"] = (
+            "USD code generation and validation assistant. "
+            "Creates general USD code snippets and performs checks to ensure code executability. "
+            "Ideal for developing and testing USD scripts."
+        )
+        self.metadata["examples"] = [
+            "Write a function that randomizes light intensities",
+            "How to create a mesh in USD?",
+        ]
+
+```
 
 ---
 > Source: [NVIDIA-Omniverse/kit-usd-agents](https://github.com/NVIDIA-Omniverse/kit-usd-agents) — distributed by [TomeVault](https://tomevault.io).
