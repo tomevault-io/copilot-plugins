@@ -1,0 +1,9 @@
+{
+  "name": "lilacmohr--ai-engineering-playbook",
+  "displayName": "ai-engineering-playbook",
+  "description": "Multi-agent code review prompts and personas for engineering teams, with a lightweight Python layer for composing and invoking reviews from PR number and template. Part of the MOHR AI Enablement Frame",
+  "version": "1.0.0",
+  "author": "lilacmohr",
+  "homepage": "https://github.com/lilacmohr/ai-engineering-playbook",
+  "skills": []
+}
