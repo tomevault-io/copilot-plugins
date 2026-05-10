@@ -1,24 +1,123 @@
 ## cutlet
 
-> You are running inside a Docker container. The host machine is not accessible.
+> Cutlet is a dynamic programming language built entirely using coding agents.
 
-# Container environment
+# AGENTS.md for Cutlet
 
-You are running inside a Docker container. The host machine is not accessible.
+Cutlet is a dynamic programming language built entirely using coding agents.
 
-- **Workspace**: `/workspace` — a git clone of the host repo. All work happens here.
-- **Branch**: The container was started on a specific branch. Check `git branch` to see which one.
-- **Git remote**: `origin` points to the host repo's `.git` directory (mounted at `/host-repo.git`). Push your branch with `git push origin <branch>` when work is ready for merging.
-- **Permissions**: You are running with `--dangerously-skip-permissions` in full isolation. The container cannot affect the host beyond the mounted `.git` directory. You have full internet access, passwordless `sudo`, and all permissions. Install packages, download tools, do whatever you need.
-- **Toolchain**: gcc-14, clang-format-18, clang-tidy-18, bear, python3, universal-ctags, cscope, make, git, tmux. Install anything else you need with `apt-get`.
+Cutlet is a dynamic programming language whose long-term goal is to replace Bash for anything beyond trivial one-liners. It aims to provide the expressiveness of languages like Python, Ruby, Lua, and JavaScript while making it dead simple to run subprocesses, build pipelines, handle exit codes, and script your system. Eventually it will excel at parsing text, navigating files and directories, inter-process communication, job control, and quickly building simple user interfaces for one-off tasks — a glue language that can bring together and orchestrate disparate programs. It's optimized for REPL-driven programming, similar to how it's done in Common Lisp or Clojure.
 
-## Workflow
+Cutlet is written in C. It's designed to run on Linux and macOS.
 
-1. Use `/cutlet-execute <plan-name>` to implement a plan step-by-step, or `/cutlet-execute-autopilot <plan-name>` to run all steps unattended.
-2. After completing work, push the branch: `git push origin <branch>`.
-3. The user will merge on the host with `/cutlet-merge-agent <branch>`.
+## Dependency policy
+
+- **Build requirements**: C23 compiler and POSIX `make`. These are the only hard requirements for building the `cutlet` binary.
+- **Libraries (linked into the binary)**: Prefer few, high-impact dependencies. Vendor them in `vendor/` whenever possible (e.g., isocline for line editing). Never shy away from libraries guaranteed to be available everywhere (sqlite, curl, etc.).
+- **Dev tooling**: Freely use standard developer tools. The project already uses `clang-format`, `clang-tidy`, and sanitizers. Analysis scripts use `ctags`, `cscope`, and Python 3. These are not required to build or run cutlet — only to develop it.
+- **System libraries**: POSIX and platform libraries (pthreads, sockets, etc.) are always fine.
+
+## Limitations of the author
+
+The author of this project is an experienced developer of 20 years. But they don't have experience building and designing programming languages outside of college-level theoretical texts. They also don't have experience with C, primarily being a Rust developer. The author will often need guidance on how best to proceed with the implementation of this language. They will also need an explanation of what the C code is doing.
+
+## Plans and tasks
+
+See `plans/README.md` for project status, key files, and what exists today. Tasks to work on are in `plans/doing/`. Completed work is archived in `plans/done/`. Use `scripts/plan-create <name>` to create a new plan and `scripts/plan-done <name>` to move a completed plan to `done/` with a fresh timestamp.
+
+## Concurrent agent safety
+
+Multiple agents may work on different tasks at the same time. To avoid stale references:
+
+- **Never trust line numbers from plans.** Always search for the target symbol (`grep`, `make symbol-index`, or `Read`) before editing. Plans reference symbols and file paths, not line numbers.
+- **Re-orient before each step.** Before starting a plan step, read the relevant files to discover the current state of the code. Another agent may have changed it since the plan was written.
+- **Check `make test && make check` after every source code change.** This catches conflicts early — if another agent's edits broke an assumption, tests will surface it. Skip this for non-source changes (documentation, plans, agent config, READMEs, etc.).
+
+## Implementing plans
+
+Plans are implemented inside Docker containers. Each container has the full Cutlet toolchain, Claude Code with `--dangerously-skip-permissions`, and a tmux session. Claude Code inside the container automatically loads `container-claude.md` (copied into the image as `~/.claude/CLAUDE.md` at build time) for container-specific context. Update that file if the container environment or workflow changes.
+
+```
+scripts/agent-build                    # build the image (once, or after Dockerfile changes)
+scripts/agent-start <branch>           # start a container, attach to tmux
+  # inside the container: /cutlet-execute <plan-name>
+  # detach with Ctrl+B, D — container keeps running
+scripts/agent-connect <branch>         # reattach to a running container
+scripts/agent-pause <branch>           # freeze a container when not in use
+scripts/agent-list                     # show all containers and their status
+  # when done: push the branch from inside the container
+scripts/agent-delete <branch>          # remove the container
+  # on the host: /cutlet-merge-agent <branch>
+```
+
+## Important instructions
+
+- Always write tests first. Include a testing strategy in all plans. All code must be exhaustively tested.
+- Before implementing any new code, run `make test` and `make check` to prove that your tests are failing. Pause after test failures and require user confirmation to proceed with implementation. (This only applies when writing source code, not documentation.)
+- After editing any C source or header file, run `make format` to auto-format them before running any other checks. This prevents formatting-only failures from `make check`.
+- Run `make test` and `make check` after every source code change (C files, headers, Makefiles, test files). Skip for documentation-only changes (plans, READMEs, AGENTS.md, TUTORIAL.md, etc.). **Note:** output from these commands may exceed the tool output limit. Be prepared to pipe through `tail` or `grep` to see the results summary rather than re-running the full command.
+- **Final gate before completing a plan:** After all implementation and tests pass, run `make test-sanitize` (ASan + UBSan + LSan) and `make test-gc-stress` as a final check. Do not mark a plan as done until both pass.
+- Never remove, change, or disable any tests without user confirmation.
+- Never disable any linter errors without user confirmation.
+- Comment your code to include guidance and context for future coding agents.
+- Update README if command line flags change. Also update README if build flags change, the dependencies change, or if we change the behavior of the REPL.
+- We don't care about backward compatibility. Feel free to change anything across the codebase if it leads to better design, better UX, cleaner code.
+
+## Language feature checklist
+
+When a new language feature is added, remind the user to:
+
+- Update `TUTORIAL.md` to cover the new feature.
+- Add an example program in `examples/` exercising the new feature (one `.cutlet` file, small and readable, uses `say()` to show output).
+
+The agent should NOT make these updates itself — just remind the user at the end of the implementation step.
+
+## Example expected-output files
+
+Each `examples/*.cutlet` file has a corresponding `examples/*.expected` file containing its exact expected stdout. The test harness (`tests/test_examples.sh`, run via `make test-examples`) diffs actual output against these files.
+
+- **New examples**: When adding a new `.cutlet` example, generate its `.expected` file by running `./build/cutlet run examples/foo.cutlet > examples/foo.expected`.
+- **Never modify `.expected` files for existing examples without user confirmation.** A change to expected output means the language's observable behavior changed — the user must approve that.
+
+## Codebase understanding tools
+
+Three Python analysis scripts in `scripts/` help you orient yourself in the codebase. They use Universal Ctags and cscope for accurate C symbol indexing and call graph analysis. Run `make understand` to generate all three, or run them individually:
+
+- **`make symbol-index`** — Uses ctags to list every public function and type from `src/*.h` with signatures and line numbers. Use this to find where something is defined without grepping.
+- **`make call-graph`** — Uses cscope to show, for each public function, who calls it and what it calls. Use this to understand the impact of changing a function.
+- **`make pipeline-trace`** — Runs every `examples/*.cutlet` program through the interpreter with `--tokens`, `--ast`, and `--bytecode` flags, then maps the output back to source locations in the tokenizer, parser, compiler, and VM. **Use this when adding a new language feature** — find the trace for a similar existing feature to see exactly which files and functions to touch.
+
+Requires: `python3`, `ctags` (Universal Ctags), `cscope`. Install with `brew install universal-ctags cscope` or `apt install universal-ctags cscope`.
+
+Output goes to stdout (not committed to git). Pipe to a file if you want to reference it:
+```
+make pipeline-trace > /tmp/traces.md
+```
+
+The `examples/` directory contains small `.cutlet` programs, one per language feature. These serve three purposes: documentation for users, input to the pipeline tracer, and a lightweight test suite (each exercises one feature in isolation).
+
+## REPL debug flags
+
+The REPL supports three debug flags that can be combined:
+
+- `--tokens` — shows tokenizer output (`TOKENS [TYPE value] ...`) before the evaluated result
+- `--ast` — shows AST output (`AST [TYPE ...]`) before the evaluated result
+- `--bytecode` — shows bytecode disassembly (`BYTECODE\n== bytecode ==\n...`) before the evaluated result
+
+In local REPL mode (the default), flags work directly:
+```
+cutlet repl --tokens --ast --bytecode   # local REPL with all debug flags
+```
+
+In TCP mode, both server and client must use the same flags for debug output to appear. The server only produces debug output when started with the flag, and the client only prints it when started with the flag. If the server sends debug fields the client didn't request, the client warns once on stderr.
+
+Examples:
+```
+cutlet repl --listen --tokens --ast --bytecode  # start server with all debug flags
+cutlet repl --tokens --connect                  # connect with token debug output
+cutlet repl --tokens --ast --connect            # connect with token + AST debug output
+```
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/s3thi)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/s3thi)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [s3thi/cutlet](https://github.com/s3thi/cutlet) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
