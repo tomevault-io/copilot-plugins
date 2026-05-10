@@ -1,38 +1,33 @@
-## 10-typescript-and-alias
+## 20-ui-and-tailwind
 
-> TypeScript 严格模式、路径别名与 React 19 约定
+> UI 组件与 Tailwind 使用规范
 
-# TypeScript 严格模式与路径别名
+# UI 组件与 Tailwind 规范
 
-- **严格模式**：默认在 `tsconfig.json` 启用 `strict`。新增类型需完整声明，避免使用 `any`，优先 `unknown` 或范型。
-- **显式导出类型**：公共 API 必须显式注解函数签名与返回类型；避免隐式导出推断。
-- **路径别名**：使用 `@/*` 指向 `src/*`。示例：
-  - `import { cn } from '@/utils/cn'`
-  - `import { Button } from '@/components/ui/button'`
-- **React 19 相关**：
-  - 优先函数组件与 Hooks；组件 props、局部 state、上下文值均需类型。
-  - 合理使用 Actions、`useOptimistic`、`useFormStatus`、`use` 等能力，注意定义请求与响应类型。
-- **导入顺序**：React → 第三方 → 本地（类型、组件、工具）。
+- **组件来源**：优先使用项目内 `src/components/ui/*` 组件：
+  - [src/components/ui/button.tsx](mdc:src/components/ui/button.tsx)
+  - [src/components/ui/select.tsx](mdc:src/components/ui/select.tsx)
+  - [src/components/ui/label.tsx](mdc:src/components/ui/label.tsx)
+- **样式入口**：全局样式在 [src/styles/tailwind.css](mdc:src/styles/tailwind.css)。
+- **Tailwind 用法**：
+  - 直接在 JSX 中组合 utility class，避免过度使用 `@apply`。
+  - 使用 `cn()` 合并 className：[src/utils/cn.ts](mdc:src/utils/cn.ts)。
+  - 响应式前缀：`sm:`、`md:`、`lg:`，尽量保持类名字符串可读。
+  - 仅在必要时使用 JIT 任意值，例如 `w-[300px]`。
+- **无障碍与语义**：优先使用语义标签与可访问属性，表单元素配合 `Label`。
 
 ---
-globs: *.ts,*.tsx
-description: TypeScript 严格模式、路径别名与 React 19 约定
+globs: *.tsx
+description: UI 组件与 Tailwind 使用规范
 ---
-## TypeScript 与路径别名
+## Tailwind 与 UI 规范
 
-- **严格模式**：`tsconfig.json` 已启用 `strict: true`。新增类型时避免使用 `any`，优先 `unknown`、字面量类型、联合类型、枚举或对象字面量。
-- **目标与库**：保持 `target` 为 `ES2020`，`lib` 包含 `DOM`, `DOM.Iterable`, `ES2020`，以兼容扩展运行时与异步迭代。
-- **路径别名**：使用 `@/*` 指向 `src/*`，在 TS 与 Rspack 均已配置。新增文件请使用绝对导入。
-- **React 19**：采用自动 JSX 运行时与函数式组件。Props 与返回值必须显式声明：
-
-```ts
-interface MyComponentProps { title: string; count?: number }
-export const MyComponent: React.FC<MyComponentProps> = ({ title, count }) => (
-  <h1>{title} {count ?? 0}</h1>
-);
-```
-
-- **工具函数**：遵循 `src/utils/` 下的命名与导出风格。例如 `cn` 返回 `string`，不可返回 `unknown`。
+- **Tailwind 入口**：通过 [src/styles/tailwind.css](mdc:src/styles/tailwind.css) 导入。页面入口需首先 `import '../styles/tailwind.css'`。
+- **类合并**：使用 `cn`（clsx + tailwind-merge）合并类名，避免冲突：`className={cn('p-2', conditional && 'text-blue-600')}`。
+- **组件变体**：优先使用 `class-variance-authority` 定义变体，如 [src/components/ui/button.tsx](mdc:src/components/ui/button.tsx)。新增组件参照此模式定义 `variants` 与 `defaultVariants`。
+- **选择器组件**：参照 [src/components/ui/select.tsx](mdc:src/components/ui/select.tsx) 的 Radix Select 封装。Layer 保持 `z-[2147483647]`，避免在内容脚本覆盖页面被遮挡。
+- **暗色模式**：使用 `dark:` 前缀支持深色主题，尽量避免自定义 CSS；若确需自定义，集中于 `tailwind.css`。
+- **排版密度**：默认 `text-sm` 与紧凑间距，延续现有设计语言。
 
 ---
 > Source: [zh30/native-translate](https://github.com/zh30/native-translate) — distributed by [TomeVault](https://tomevault.io).
