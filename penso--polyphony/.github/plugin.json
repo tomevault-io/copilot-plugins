@@ -1,0 +1,9 @@
+{
+  "name": "penso--polyphony",
+  "displayName": "polyphony",
+  "description": "Repo-native AI orchestration engine \u2014 connects issue trackers (GitHub, GitLab, Linear, webhooks) to coding agents (Claude, Codex, Copilot, Pi) with isolated workspaces and a live TUI.",
+  "version": "1.0.0",
+  "author": "penso",
+  "homepage": "https://github.com/penso/polyphony",
+  "skills": []
+}
