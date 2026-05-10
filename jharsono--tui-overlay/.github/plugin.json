@@ -1,0 +1,9 @@
+{
+  "name": "jharsono--tui-overlay",
+  "displayName": "tui-overlay",
+  "description": "A composable overlay widget for Ratatui with drawers, modals, popovers, and toasts from a single configurable primitive.",
+  "version": "1.0.0",
+  "author": "jharsono",
+  "homepage": "https://github.com/jharsono/tui-overlay",
+  "skills": []
+}
