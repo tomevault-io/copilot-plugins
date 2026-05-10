@@ -7,11 +7,11 @@ OpenLPT: An open-source Lagrangian Particle Tracking (LPT) GUI for 3D fluid flow
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [JHU-NI-LAB/OpenLPT_GUI](https://github.com/JHU-NI-LAB/OpenLPT_GUI).
+Original source: `CLAUDE.md` in [JHU-NI-LAB/OpenLPT_GUI](https://github.com/JHU-NI-LAB/OpenLPT_GUI).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
