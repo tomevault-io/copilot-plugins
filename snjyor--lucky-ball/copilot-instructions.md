@@ -1,58 +1,49 @@
-## github-actions
+## project-overview
 
-> 项目使用GitHub Actions实现数据的自动采集和分析，确保数据始终保持最新状态。
+> 这是一个基于Python的彩票数据分析系统，支持双色球和大乐透两种彩票的数据采集、统计分析和智能推荐。
 
-# GitHub Actions 自动化工作流
+# 彩票数据分析项目概览
 
-## 工作流概述
-项目使用GitHub Actions实现数据的自动采集和分析，确保数据始终保持最新状态。
+## 项目简介
+这是一个基于Python的彩票数据分析系统，支持双色球和大乐透两种彩票的数据采集、统计分析和智能推荐。
 
-## 双色球工作流
-[.github/workflows/update-lottery-data.yml](mdc:.github/workflows/update-lottery-data.yml) 负责双色球数据的自动更新：
+## ⚠️ 重要免责声明
+- 本项目仅用于技术学习和数据分析研究
+- 彩票开奖完全随机，历史数据无法预测未来
+- 不构成任何投注建议，请理性购彩
 
-### 触发条件
-- **定时触发**: 每天晚上23:00 (UTC+8) 自动运行
-- **手动触发**: 支持workflow_dispatch手动执行
-- **代码推送**: 推送到main分支时触发
-- **PR合并**: Pull Request合并时触发
+## 项目结构
 
-### 执行流程
-1. 检出代码并设置Python环境
-2. 安装项目依赖包
-3. 运行双色球分析脚本
-4. 检查数据文件是否有变更
-5. 如有变更，提交更新并创建release
+### 核心文件
+- [README.md](mdc:README.md) - 项目主要说明文档
+- [requirements.txt](mdc:requirements.txt) - Python依赖包列表
+- [setup_repo.sh](mdc:setup_repo.sh) - 项目初始化脚本
+- [.gitignore](mdc:.gitignore) - Git忽略文件配置
 
-## 大乐透工作流
-[.github/workflows/update-super-lotto-data.yml](mdc:.github/workflows/update-super-lotto-data.yml) 负责大乐透数据的自动更新：
+### 自动化工作流
+- [.github/workflows/update-lottery-data.yml](mdc:.github/workflows/update-lottery-data.yml) - 双色球数据自动更新
+- [.github/workflows/update-super-lotto-data.yml](mdc:.github/workflows/update-super-lotto-data.yml) - 大乐透数据自动更新
 
-### 关键特性
-- 与双色球工作流结构相同
-- 独立的数据文件和分析报告
-- 相同的时区处理 (UTC+8)
-- 完整的错误处理和日志
+### 目录结构
+- `data/` - 存储原始数据文件
+- `reports/` - 存储生成的分析报告
+- `scripts/` - 存储辅助脚本
+- `test/` - 存储测试文件
+- `pics/` - 存储图片和图表文件
 
-### 生成文件
-- `super_lotto_data.json` - 大乐透开奖数据
-- `super_lotto_analysis_report.md` - 分析报告
-- `super_lotto_frequency_analysis.png` - 频率分析图表
+## 技术栈
+- **Python 3.9+** - 主要开发语言
+- **pandas, numpy** - 数据处理和分析
+- **matplotlib, seaborn** - 数据可视化
+- **requests** - HTTP请求处理
+- **GitHub Actions** - 自动化CI/CD
 
-## 时区处理
-所有工作流都使用UTC+8时区：
-```yaml
-# 每天晚上23:00 (UTC+8) 运行，对应 15:00 UTC
-- cron: '0 15 * * *'
-```
-
-## 权限配置
-- 使用内置的 `GITHUB_TOKEN`
-- 无需额外配置secrets
-- 自动处理代码提交和release创建
-
-## 监控和调试
-- 查看Actions页面了解执行状态
-- 检查日志排查问题
-- 支持手动触发进行测试
+## 开发流程
+1. 数据采集：通过官方API获取最新开奖数据
+2. 数据分析：进行频率、规律、走势等统计分析
+3. 智能推荐：基于历史数据生成推荐号码组合
+4. 报告生成：输出Markdown格式的分析报告
+5. 自动化：通过GitHub Actions定时更新数据
 
 ---
 > Source: [snjyor/lucky_ball](https://github.com/snjyor/lucky_ball) — distributed by [TomeVault](https://tomevault.io).
