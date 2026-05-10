@@ -1,0 +1,9 @@
+{
+  "name": "panewslab--skills",
+  "displayName": "skills",
+  "description": "PANews Agent Toolkit is PANews's official agent package for cryptocurrency and blockchain news discovery, creator workflows, and PANews web-page reading.",
+  "version": "1.0.0",
+  "author": "panewslab",
+  "homepage": "https://github.com/panewslab/skills",
+  "skills": []
+}
