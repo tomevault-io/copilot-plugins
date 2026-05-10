@@ -1,19 +1,12 @@
-## i18n-guidelines
+## legacy-files-note
 
-> i18n usage with WXT and consistency checks
+> - The root [`manifest.json`](mdc:manifest.json) and parts of [`docs/tech.md`](mdc:docs/tech.md) describe an older, Rollup-based DOM-injection architecture with vendored assets.
 
-# i18n Guidelines
+# Legacy Files and Outdated Docs
 
-- Use the helper in [`src/utils/i18n.ts`](mdc:src/utils/i18n.ts): `t(id, substitutions?)`
-  - Delegates to WXT i18n when available, falls back to `browser.i18n`
-  - Supports string, array, and number substitutions
-- Store translation keys in [`src/locales/*.json`](mdc:src/locales)
-- Consider English (`en.json`) the base; keep keys in other locales aligned
-- Validate locale coverage with:
-```bash
-pnpm run check:i18n
-```
-- Avoid hardcoded user-facing strings; prefer `t('key.path')`
+- The root [`manifest.json`](mdc:manifest.json) and parts of [`docs/tech.md`](mdc:docs/tech.md) describe an older, Rollup-based DOM-injection architecture with vendored assets.
+- Current builds use WXT with React and Chakra UI; the manifest is generated from [`wxt.config.ts`](mdc:wxt.config.ts).
+- Treat `manifest.json` and the Rollup/`vendor/` references in `docs/tech.md` as historical context. Prefer the WXT configuration and the TypeScript/React sources in [`src/`](mdc:src/).
 
 ---
 > Source: [RonkTsang/gemini-chat-extension](https://github.com/RonkTsang/gemini-chat-extension) — distributed by [TomeVault](https://tomevault.io).
