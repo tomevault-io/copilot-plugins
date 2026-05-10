@@ -1,8 +1,8 @@
-## 00-project-structure-and-entries
+## 00-project-structure
 
 > - [rspack.config.js](mdc:rspack.config.js)
 
-# 项目结构与入口映射
+## 项目结构与入口映射
 
 - **核心配置**
   - [rspack.config.js](mdc:rspack.config.js)
