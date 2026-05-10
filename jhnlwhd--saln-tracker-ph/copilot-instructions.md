@@ -1,106 +1,86 @@
-## data-management
+## mobile-responsive-design
 
-> Data structure patterns and management for SALN records
+> Mobile-first responsive design patterns and best practices
 
 
-# Data Management Patterns
+# Mobile-First Responsive Design Rules
 
-## Core Data Structure
-All data management is centralized in [app/data/officials.ts](mdc:app/data/officials.ts):
+## Core Principles
+- **Mobile-First**: Always design for mobile, then enhance for larger screens
+- **Readable Text**: Ensure all text is readable on mobile devices (minimum 12px)
+- **Touch-Friendly**: Buttons and interactive elements should be easily tappable
+- **Flexible Layouts**: Use responsive grid systems and flexible containers
 
-### TypeScript Interfaces
-```typescript
-interface Official {
-  id: string;
-  name: string;
-  position: 'PRESIDENT' | 'VICE PRESIDENT' | 'SENATOR';
-}
+## Responsive Breakpoints
+Use Tailwind's responsive prefixes consistently:
+- **Default**: Mobile (up to 640px)
+- **sm**: Small tablets (640px+)
+- **md**: Tablets (768px+)
+- **lg**: Laptops (1024px+)
+- **xl**: Desktops (1280px+)
 
-interface SALNRecord {
-  id: string;
-  official_id: string;
-  year: number;
-  date_filed: string;
-  status: 'submitted' | 'verified' | 'under_review' | 'flagged';
-  net_worth: number;
-  total_assets: number;
-  total_liabilities: number;
-  assets: Asset[];
-  liabilities: Liability[];
-}
+## Text Sizing Patterns
+```tsx
+// Headings - responsive sizing
+<h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">
+<h2 className="text-lg sm:text-xl lg:text-2xl font-semibold">
 
-interface Asset {
-  description: string;
-  category: string;
-  value: number;
-}
+// Body text - readable on all devices
+<p className="text-sm sm:text-base leading-relaxed">
 
-interface Liability {
-  nature: string;
-  creditor: string;
-  balance: number;
-}
+// Small text - ensure readability
+<p className="text-xs sm:text-sm text-gray-600">
 ```
 
-## Data Access Patterns
+## Spacing Patterns
+```tsx
+// Container padding - tighter on mobile
+<div className="px-3 sm:px-4 lg:px-8">
 
-### Officials Data
-```typescript
-// Get all officials with computed SALN data
-const officials = getOfficialsWithSALNData();
+// Section spacing - reduced on mobile
+<div className="space-y-4 sm:space-y-6 lg:space-y-8">
 
-// Find official by slug
-const official = findOfficialBySlug('president-ferdinand-marcos-jr');
-
-// Get official with SALN metadata
-const officialWithSALN = getOfficialWithSALNData(official);
+// Internal padding - adaptive
+<div className="p-3 sm:p-4 lg:p-6">
 ```
 
-### SALN Records
-```typescript
-// Get SALN records for specific official
-const records = getSALNRecordsForOfficial(official.id);
+## Layout Patterns
+```tsx
+// Responsive grids
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
 
-// Get computed SALN statistics
-const count = getSALNRecordCount(official.id);
-const latestYear = getLatestSALNYear(official.id);
+// Flexible containers
+<div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+
+// Conditional visibility
+<div className="hidden sm:block">Desktop content</div>
+<div className="sm:hidden">Mobile content</div>
 ```
 
-### Utility Functions
-```typescript
-// Generate SEO-friendly slug
-const slug = generateSlug(official);
-// Result: "president-ferdinand-marcos-jr"
+## Component Sizing
+```tsx
+// Icons and logos - scale down on mobile
+<div className="h-7 w-7 sm:h-8 sm:w-8">
 
-// Find official by slug (reverse lookup)
-const official = findOfficialBySlug(slug);
+// Cards - full width on mobile, constrained on desktop
+<Card className="w-full max-w-md mx-auto sm:max-w-none">
 ```
 
-## Data State Management
-- **No External State Library**: Use React's built-in state management
-- **Computed Properties**: Calculate SALN counts and latest years on-demand
-- **Centralized Data**: All data operations go through [officials.ts](mdc:app/data/officials.ts)
-- **Type Safety**: Always use TypeScript interfaces for data structures
+## Interactive Elements
+```tsx
+// Buttons - appropriate sizing for touch
+<Button className="w-full sm:w-auto text-sm">
 
-## Current Data Status
-- **Officials**: Current 2025 Philippine government officials (President, VP, Senators)
-- **SALN Records**: Empty array - displays "No data yet" state with transparency hashtags
-- **Data Sources**: Designed to aggregate from official government channels only
-
-## Future Data Integration
-When implementing real data sources:
-1. **Maintain interface compatibility** - don't break existing components
-2. **Add data validation** - ensure data integrity from external sources
-3. **Implement caching** - for performance with large datasets
-4. **Add data loading states** - for better user experience
-5. **Include data timestamps** - for freshness indicators
+// Links - adequate touch targets
+<Link className="block py-2 px-3 sm:inline sm:p-0">
+```
 
 ## Best Practices
-1. **Always export types** from data files for component use
-2. **Use computed properties** instead of storing redundant data
-3. **Validate data shape** when adding new sources
-4. **Keep functions pure** - no side effects in data utilities
-5. **Document data sources** - maintain transparency about data origins
+1. **Test on real devices** - Simulator testing isn't enough
+2. **Use `leading-tight`** for large text on mobile to prevent line height issues
+3. **Implement `truncate`** for long text that might overflow
+4. **Use `flex-shrink-0`** for elements that shouldn't shrink
+5. **Apply `min-w-0`** to flex containers to allow text truncation
 
 ---
 > Source: [JHNLWHD/saln-tracker-ph](https://github.com/JHNLWHD/saln-tracker-ph) — distributed by [TomeVault](https://tomevault.io).
