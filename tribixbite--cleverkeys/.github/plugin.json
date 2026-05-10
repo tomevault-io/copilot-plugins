@@ -1,9 +1,9 @@
 {
   "name": "tribixbite--cleverkeys",
   "displayName": "CleverKeys",
-  "description": "CleverKeys",
+  "description": "Privacy-first neural Android keyboard with advanced swipe prediction",
   "version": "1.0.0",
   "author": "tribixbite",
-  "homepage": "https://tomevault.io/claim/tribixbite",
+  "homepage": "https://github.com/tribixbite/CleverKeys",
   "skills": []
 }
