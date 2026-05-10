@@ -7,11 +7,11 @@ Review markdown docs in a nice interface that lets you leave comments
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Lex-Inc/roughdraft](https://github.com/Lex-Inc/roughdraft).
+Original source: `CLAUDE.md` in [Lex-Inc/roughdraft](https://github.com/Lex-Inc/roughdraft).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
