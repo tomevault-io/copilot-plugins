@@ -1,0 +1,9 @@
+{
+  "name": "wonderstown--wikisurfing",
+  "displayName": "WikiSurfing",
+  "description": "WikiSurfing is an endless wiki that creates new articles using AI.",
+  "version": "1.0.0",
+  "author": "WondersTown",
+  "homepage": "https://github.com/WondersTown/WikiSurfing",
+  "skills": []
+}
