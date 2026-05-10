@@ -1,86 +1,44 @@
-## project-conventions
+## ui-components
 
-> This document outlines the specific conventions, file structures, and general rules for this Wasp project.
+> Describes where the ui components built on top with Shadcn UI exist, how they are customized, and Wasp specific rules concerning how new ShadCN UI components should be installed
 
-# 2. Project Conventions and Rules
+Only ShadCN UI version 2.3.0 should be used with Wasp at the moment. Due to dependency conflicts Wasp cannot be used with Tailwindcss v4, which the newer version of Shadcn depends on. 
 
-This document outlines the specific conventions, file structures, and general rules for this Wasp project.
+Shadcn has already been setup with this project template, so there is no need to install it. All the ShadCN specific components exist in [src/components/ui](../../src/components/ui/)
 
-## Quick Reference
+## Adding a new ShadCN component
+### 1. Add a new component
 
-### Common Patterns
+```bash
+npx shadcn@2.3.0 add button
+```
 
-- Define app structure in the Wasp config file: [main.wasp](mdc:main.wasp) or `main.wasp.ts`.
-- Define data models ("entities") in [schema.prisma](mdc:schema.prisma).
-- Group feature code in `src/{featureName}` directories.
-- Group feature config definitions (e.g. routes, pages, operations, etc.) into sections within the Wasp config file ([main.wasp](mdc:main.wasp)) using the `//#region` directive:
-  ```wasp
-  // Example in @main.wasp
-  // #region {FeatureName}
-  // ... feature-specific declarations ...
-  // #endregion
-  ```
-- Use Wasp operations (queries/actions) for client-server communication (See [database-operations.mdc](mdc:template/app/.cursor/rules/database-operations.mdc)).
-- **Wasp Imports:** Import from `wasp/...` not `@wasp/...` in `.ts`/`.tsx` files.
+### 2. Adjust the `utils` import in `button.tsx` (for each component you add)
 
-### Common Issues & Import Rules
+There will be a brand new `button.tsx` file in `src/components/ui`. We need to fix some import issues:
+```diff
+import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { cva, type VariantProps } from "class-variance-authority"
 
-- **Wasp Imports in `.ts`/`.tsx`:** Always use the `wasp/...` prefix.
-  - ✅ `import { Task } from 'wasp/entities'`
-  - ✅ `import type { GetTasks } from 'wasp/server/operations'`
-  - ✅ `import { getTasks, useQuery } from 'wasp/client/operations'`
-  - ❌ `import { ... } from '@wasp/...'`
-  - ❌ `import { ... } from '@src/featureName/...'` (Use relative paths for non-Wasp imports within `src`)
-  - If you see "Cannot find module 'wasp/...'": Double-check the import path prefix.
-- **Wasp Config Imports in [main.wasp](mdc:main.wasp) :** Imports of your code *must* start with `@src/`.
-  - ✅ `component: import { LoginPage } from "@src/auth/LoginPage.tsx"`
-  - ❌ `component: import { LoginPage } from "../src/auth/LoginPage.tsx"`
-  - ❌ `component: import { LoginPage } from "client/pages/auth/LoginPage.tsx"`
-- **General Imports in `.ts`/`.tsx`:** Use relative paths for imports within the `src/` directory. Avoid using the `@src/` alias directly in `.ts`/`.tsx` files.
-  - If you see "Cannot find module '@src/...'": Use a relative path instead.
-- **Prisma Enum *Value* Imports:** Import directly from `@prisma/client`. See [database-operations.mdc](mdc:template/app/.cursor/rules/database-operations.mdc).
-- **Wasp Actions Client-Side:** Call actions directly using `async/await`. DO NOT USE the `useAction` hook unless optimistic updates are needed. See [database-operations.mdc](mdc:template/app/.cursor/rules/database-operations.mdc).
-  - ✅ `import { deleteTask } from 'wasp/client/operations'; await deleteTask({ taskId });`
-- Root Component (`src/App.tsx` or similar):
-  - Ensure the root component defined in @main.wasp (usually via `app.client.rootComponent`) renders the `<Outlet />` component from `react-router-dom` to display nested page content.
-    ```tsx
-    // Example Root Component
-    import React from 'react';
-    import { Outlet } from 'react-router-dom';
-    import Header from './Header'; // Example shared component
+-import { cn } from "s/lib/utils"
++import { cn } from "../../lib/utils"
+```
 
-    function App() {
-      return (
-        <div className="min-h-screen bg-gray-100">
-          <Header />
-          <main className="container mx-auto p-4">
-            {/* Outlet renders the content of the matched route/page */}
-            <Outlet />
-          </main>
-        </div>
-      );
-    }
-    export default App;
-    ```
+### 3. Use the `Button` component
+Now you are ready to use the `Button` component. That's it!
+```jsx
+import './Main.css'
 
-## Rules
+import { Button } from './components/ui/button'
 
-### General Rules
-
-- Always reference the Wasp config file ([main.wasp](mdc:main.wasp) or `main.wasp.ts`) as your source of truth for the app's configuration and structure.
-- Group feature config definitions in the Wasp config file using `//#region` (as noted above).
-- Group feature code into feature directories (e.g. `src/transactions`).
-- Use the latest Wasp version, as defined in the Wasp configl file.
-- Combine Wasp operations (queries and actions) into an `operations.ts` file within the feature directory (e.g., `src/transactions/operations.ts`).
-- Always use TypeScript for Wasp code (`.ts`/`.tsx`).
-
-### Wasp Dependencies
-
-- Avoid adding dependencies directly to the [main.wasp](mdc:main.wasp) config file.
-- Install dependencies via `npm install` instead. This updates [package.json](mdc:package.json) and [package-lock.json](mdc:package-lock.json)
-
-### Referencing Documentation
-- Make sure the user has added the applicable LLM-optimized docs, available in  [wasp-overview.mdc](mdc:template/app/.cursor/rules/wasp-overview.mdc), in the chat context or settings when using AI-assisted coding tools. 
+export const MainPage = () => {
+  return (
+    <div className="container">
+      <Button>This works</Button>
+    </div>
+  )
+}
 
 ---
 > Source: [wasp-lang/recipe-agent-saas-with-mastra](https://github.com/wasp-lang/recipe-agent-saas-with-mastra) — distributed by [TomeVault](https://tomevault.io).
