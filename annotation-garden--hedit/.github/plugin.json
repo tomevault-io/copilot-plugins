@@ -1,0 +1,9 @@
+{
+  "name": "annotation-garden--hedit",
+  "displayName": "HEDit",
+  "description": "Multi-Agent System for HED Annotation Generation",
+  "version": "1.0.0",
+  "author": "Annotation-Garden",
+  "homepage": "https://github.com/Annotation-Garden/HEDit",
+  "skills": []
+}
