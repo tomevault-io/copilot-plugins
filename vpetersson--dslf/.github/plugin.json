@@ -1,0 +1,9 @@
+{
+  "name": "vpetersson--dslf",
+  "displayName": "dslf",
+  "description": "A small link forwarder written in Rust.",
+  "version": "1.0.0",
+  "author": "vpetersson",
+  "homepage": "https://github.com/vpetersson/dslf",
+  "skills": []
+}
