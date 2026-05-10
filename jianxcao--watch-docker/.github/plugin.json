@@ -1,0 +1,9 @@
+{
+  "name": "jianxcao--watch-docker",
+  "displayName": "watch-docker",
+  "description": "self-hosted docker compose.yaml & docker update",
+  "version": "1.0.0",
+  "author": "jianxcao",
+  "homepage": "https://github.com/jianxcao/watch-docker",
+  "skills": []
+}
