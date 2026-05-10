@@ -1,31 +1,44 @@
-## git-conventional-commits
+## node-pnpm
 
-> apply this rule when using git
+> Use this rule for all node.js package management operations
 
 
-# Git Conventional Commits
+# Node Package Manager: pnpm
 
-When using git, always use conventional commits following the format: `type(scope): description`
+All Node.js package management operations **must** use `pnpm` instead of `npm` or `yarn`.
 
-Common types: feat, fix, docs, style, refactor, test, chore
+## ✅ Always use `pnpm`
 
-Examples:
+- Never use `npm install`, `npm run`, or other npm commands directly
+- Never use `yarn add`, `yarn install`, or other yarn commands
+- Always prefix commands with `pnpm`
 
-- `feat(auth): add login functionality`
-- `fix(api): resolve null pointer exception`
-- `docs(readme): update installation instructions`
+## 🔁 Correct usage
 
-# Git Conventional Commits
+```bash
+# Instead of: npm install
+pnpm install
 
-When using git, always use conventional commits following the format: `type(scope): description`
+# Instead of: npm run build
+pnpm build
 
-Common types: feat, fix, docs, style, refactor, test, chore
+# Instead of: npm run dev
+pnpm dev
 
-Examples:
+# Instead of: yarn add vue-router
+pnpm add vue-router
+```
 
-- `feat(auth): add login functionality`
-- `fix(api): resolve null pointer exception`
-- `docs(readme): update installation instructions`
+## ❌ Incorrect usage
+
+```bash
+# Don't do this:
+npm install
+yarn add lodash
+npm run build
+```
+
+This ensures consistency across the project and leverages pnpm's superior performance and disk efficiency.
 
 ---
 > Source: [jwandekoken/nous](https://github.com/jwandekoken/nous) — distributed by [TomeVault](https://tomevault.io).
