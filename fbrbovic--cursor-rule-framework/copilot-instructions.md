@@ -1,181 +1,331 @@
-## cursor-rules-management
+## epics
 
-> Comprehensive cursor rules management including location policy and metadata preservation. Used anytime new cursor AI rule is to be generated or if existing one is updated.
+> Used when referred by @@EPIC or @@EPICS or when writing or completing any epic level of work or epic level of capabilities.
 
-# 🚨 CRITICAL: Cursor Rules Management Policy 🚨
+**Epic Planning & Tracking System**
+<!-- AI INSTRUCTIONS: Always follow these rules. Never modify this section. -->
 
-This rule ensures proper location, format, and handling of all Cursor MDC rule files.
+**Purpose**: Plan and track large initiatives using the hierarchy: EPIC GROUP → EPIC → PHASE → STEPS
 
-## PART 1: MANDATORY LOCATION POLICY
+**Hierarchy Definitions**:
+- **EPIC GROUP**: Optional grouping of related epics
+- **EPIC**: Large collection of features/capabilities  
+- **PHASE**: Major milestone within an epic
+- **STEP**: Individual feature within a phase
 
-### All Cursor Rules Must Live in `.cursor/rules/`
+**AI Usage Rules**:
+1. **Epic Creation**: When user requests epic planning, create comprehensive plans here
+2. **Architecture Integration**: Always consider architecture.mdc when planning epics and include architectural impact in epic steps
+3. **No Execution**: Never execute epic work - that happens in workflow_state.mdc  
+4. **Natural Language Processing**: Translate user requests into epic context for workflow integration
+5. **Progress Updates**: Update epic status when user reports progress or workflow completes
+6. **Epic Search**: Search existing epics when user mentions epic work to set proper workflow context
 
-**This is the ONLY acceptable location for cursor rules files (.mdc).**
+**Context Limits**: Maximum 3 active epics to maintain AI effectiveness
 
-#### ✅ Correct Locations
-- ✅ `.cursor/rules/rules.mdc`
-- ✅ `.cursor/rules/architecture.mdc`
-- ✅ `.cursor/rules/any-other-rule.mdc`
+**EPICS PLANS**
+<!-- Stores and tracks the EPIC GROUP, EPIC, PHASE and STEP type of plans.  Only to be modified and used by an AI -->
 
-#### ❌ INCORRECT Locations (NEVER USE)
-- ❌ `rules.mdc` (root level)
-- ❌ `migration.mdc` (root level)
-- ❌ `backend-encore/rules.mdc`
-- ❌ Any other location outside `.cursor/rules/`
+## EPIC PORTFOLIO STATUS
 
-#### Why Location Matters
-1. **Cursor IDE Integration**: Cursor only recognizes rules in `.cursor/rules/`
-2. **Team Consistency**: All team members expect rules in standard location
-3. **Version Control**: Proper .gitignore handling for cursor-specific files
-4. **Tool Compatibility**: Other cursor-compatible tools expect this structure
+### Current Portfolio Summary
+- **Total Active Epics**: 0 (Max: 3)
+- **Completed Epics**: 0
+- **Blocked Epics**: 0
+- **Last Updated**: [Date when portfolio was last updated]
 
-## PART 2: MANDATORY MDC METADATA FORMAT
+### Portfolio Limits
+**Max Active Epics**: 3 (to maintain AI context effectiveness)
+**Auto-Archive**: Completed epics older than 6 months
 
-### What is MDC Metadata?
-Every `.mdc` file in the `.cursor/rules/` directory must have metadata at the top in this format:
+### Epic Status Legend
+- ✅ **COMPLETED**: All phases and steps finished
+- 🔄 **IN_PROGRESS**: Currently being worked on
+- ⏳ **PLANNED**: Planned but not yet started
+- 🚫 **BLOCKED**: Stopped due to dependencies or issues
+- ⏸️ **PAUSED**: Temporarily suspended
+- ❌ **CANCELLED**: No longer needed
+- 📦 **ARCHIVED**: Completed and archived for reference
 
+---
+
+## ACTIVE EPICS
+
+<!-- Active epics will be listed here with progress tracking -->
+
+*No active epics currently planned. Use @EPIC or @EPICS to create new epic plans.*
+
+---
+
+## EPIC PROGRESS TRACKING
+
+<!-- This section tracks progress for each epic with detailed status -->
+
+### Simplified Epic Template
 ```
----
-description: Brief description of what this rule does
-globs: file/pattern/to/match/**/*.*
-alwaysApply: true/false
----
+### EPIC: [Epic Name]
+**Status**: [PLANNED/IN_PROGRESS/BLOCKED/COMPLETED]
+**Priority**: [High/Medium/Low]
+**Started**: [Start date]
+**Target Completion**: [Target date]
 
-# Rule content starts here
+#### Goal
+[Clear business objective and user value]
+
+#### Success Criteria
+- [ ] [Measurable outcome 1]
+- [ ] [Measurable outcome 2]
+- [ ] [Measurable outcome 3]
+
+#### Dependencies & Blockers
+- [Current dependencies or blocking issues]
+
+#### PHASE 1: [Phase Name] - [STATUS_ICON] [STATUS]
+**Goal**: [Phase objective and deliverables]
+
+**Steps:**
+1. **[Step Name]**: [What needs to be built/implemented] - [STATUS_ICON] [COMPLETION_%]
+   - Key requirements: [2-3 critical requirements]
+   - Acceptance criteria: [What defines "done"]
+   - Architecture impact: [How this affects current architecture or introduces new patterns]
+   - AI considerations: [Important context for AI execution]
+   - Status: [PLANNED/IN_PROGRESS/COMPLETED] ([completion_%])
+   - Started: [Date when work began]
+   - Last Updated: [Date of last progress]
+   - Completed: [Date when step finished]
+   - Notes: [Progress notes, decisions, blockers]
+
+2. **[Step Name]**: [What needs to be built/implemented] - [STATUS_ICON] [COMPLETION_%]
+   - Key requirements: [2-3 critical requirements]
+   - Acceptance criteria: [What defines "done"]
+   - AI considerations: [Important context for AI execution]
+   - Status: [PLANNED/IN_PROGRESS/COMPLETED] ([completion_%])
+   - Started: [Date when work began]
+   - Last Updated: [Date of last progress]
+   - Completed: [Date when step finished]
+   - Notes: [Progress notes, decisions, blockers]
+
+3. **[Step Name]**: [What needs to be built/implemented] - [STATUS_ICON] [COMPLETION_%]
+   - Key requirements: [2-3 critical requirements]
+   - Acceptance criteria: [What defines "done"]
+   - AI considerations: [Important context for AI execution]
+   - Status: [PLANNED/IN_PROGRESS/COMPLETED] ([completion_%])
+   - Started: [Date when work began]
+   - Last Updated: [Date of last progress]
+   - Completed: [Date when step finished]
+   - Notes: [Progress notes, decisions, blockers]
+
+#### PHASE 2: [Phase Name] - [STATUS_ICON] [STATUS]
+**Goal**: [Phase objective and deliverables]
+
+**Steps:**
+1. **[Step Name]**: [What needs to be built/implemented]
+   - Key requirements: [2-3 critical requirements]
+   - Acceptance criteria: [What defines "done"]
+   - AI considerations: [Important context for AI execution]
+
+2. **[Step Name]**: [What needs to be built/implemented]
+   - Key requirements: [2-3 critical requirements]
+   - Acceptance criteria: [What defines "done"]
+   - AI considerations: [Important context for AI execution]
+
+#### PHASE 3: [Phase Name] - [STATUS_ICON] [STATUS]
+**Goal**: [Phase objective and deliverables]
+
+**Steps:**
+1. **[Step Name]**: [What needs to be built/implemented]
+   - Key requirements: [2-3 critical requirements]
+   - Acceptance criteria: [What defines "done"]
+   - AI considerations: [Important context for AI execution]
+
+#### Notes
+- [Key decisions, scope changes, or important context]
 ```
 
-### ABSOLUTE REQUIREMENTS
-
-#### 1. Never Remove or Modify Delimiters
-- The `---` lines at the beginning and end of metadata are CRITICAL
-- Removing these breaks the MDC format and disables the rule
-- Always preserve exactly three dashes on each line
-
-#### 2. Always Preserve Existing Fields
-When updating an MDC file, you MUST preserve:
-- `description`: Brief description of the rule's purpose
-- `globs`: File patterns that trigger this rule
-- `alwaysApply`: Whether rule applies to all contexts (true/false)
-
-#### 3. Only Update Content Below Metadata
-- Only modify content below the second `---` line
-- Never modify anything between the first and second `---` lines
-- If you need to change metadata fields, do so carefully and preserve the format
-
-## PART 3: AI ASSISTANT WORKFLOW
-
-### Before Creating/Editing Rules
-1. **ALWAYS** check if `.cursor/rules/` directory exists
-2. If it doesn't exist, create it first
-3. **ALWAYS** create rules in `.cursor/rules/filename.mdc`
-4. **ALWAYS** start with proper MDC metadata
-5. Choose appropriate `globs` pattern for the rule's scope
-6. Use `alwaysApply: true` only for workspace-wide rules
-
-### Before Deleting Root-Level Rules
-1. **ALWAYS** compare root-level rules with `.cursor/rules/` versions
-2. Merge any new content from root-level to `.cursor/rules/`
-3. Only delete root-level after confirming merge is complete
-
-### When Updating Existing Rules
-1. Read the entire file first to understand current metadata
-2. Preserve existing metadata exactly as-is
-3. Only modify content below the second `---` line
-4. Test the rule still works after updating
-
-## PART 4: COMMON MDC FILE TYPES AND METADATA
-
-### Architecture Rules
+### **Example: User Management Epic with Workflow Integration**
 ```
----
-description: Backend architecture guidelines and service structure
-globs: backend-encore/**/*.*
-alwaysApply: true
----
-```
+### EPIC: USER_MGMT_EPIC
+**Status**: IN_PROGRESS
+**Priority**: High
+**Started**: 2025-01-16
+**Target Completion**: 2025-02-28
 
-### Service-Specific Rules
-```
----
-description: Rules for specific service or integration
-globs: backend-encore/service-name/**/*.*
-alwaysApply: false
----
-```
+#### Goal
+Create comprehensive user management system with authentication and profiles
 
-### Testing Rules
-```
----
-description: Testing patterns and requirements
-globs: **/*.test.ts, **/*.spec.ts
-alwaysApply: false
----
+#### Success Criteria
+- [ ] Users can register and authenticate securely
+- [ ] User profile management with real-time updates
+- [ ] Admin dashboard for user administration
+
+#### Dependencies & Blockers
+- Database schema completed ✅
+- Authentication service selected (Clerk) ✅
+
+#### PHASE 1: AUTHENTICATION_PHASE - 🔄 IN_PROGRESS
+**Goal**: Implement secure user authentication system
+
+**Steps:**
+1. **REGISTRATION_COMPONENT_STEP**: Build user registration form - ✅ 100%
+   - Key requirements: Email validation, password strength, GDPR compliance
+   - Acceptance criteria: Form validates inputs, stores user securely, sends confirmation
+   - Architecture impact: Establishes form validation patterns and authentication service integration
+   - AI considerations: Use existing form patterns, integrate with Clerk
+   - Status: COMPLETED (100%)
+   - Started: 2025-01-16
+   - Last Updated: 2025-01-18
+   - Completed: 2025-01-18
+   - Notes: Successfully integrated with Clerk, added custom validation rules
+
+2. **LOGIN_COMPONENT_STEP**: Implement secure login system - 🔄 75%
+   - Key requirements: Session management, rate limiting, remember me
+   - Acceptance criteria: Users can login/logout, sessions persist, security headers
+   - Architecture impact: Establishes session management patterns and security middleware
+   - AI considerations: Follow OAuth patterns, secure cookie handling
+   - Status: IN_PROGRESS (75%)
+   - Started: 2025-01-18
+   - Last Updated: 2025-01-20
+   - Completed: [Not completed]
+   - Notes: Core login working, implementing remember me functionality
+
+3. **PASSWORD_RESET_STEP**: Build password reset flow - ⏳ 0%
+   - Key requirements: Email verification, secure tokens, 1-hour expiration
+   - Acceptance criteria: Users can reset via email, tokens expire properly
+   - Architecture impact: Introduces email service integration and token management patterns
+   - AI considerations: Use email service, implement secure token generation
+   - Status: PLANNED (0%)
+   - Started: [Not started]
+   - Last Updated: [Not started]
+   - Completed: [Not completed]
+   - Notes: Waiting for login completion
+
+#### Notes
+- 2025-01-20: Login component 75% complete via workflow
+- 2025-01-18: Registration completed successfully, all tests passing
+- 2025-01-16: Epic created, authentication phase started
 ```
 
-### Global Workspace Rules
+*Other progress tracking entries will appear here as epics are created and executed.*
+
+---
+
+## EPIC COMPLETION HISTORY
+
+<!-- Recently completed epics (last 6 months) for reference -->
+<!-- Epics older than 6 months should be removed to maintain context size -->
+
+*No completed epics yet. Completed epics will be listed here with completion date and key outcomes.*
+
+---
+
+## EPIC REPORTING AND RETROSPECTIVES
+
+### Epic Status Summary (Manual Count)
+*Updated manually when reviewing epic portfolio*
+- **Current Active Epics**: [Count from Active Epics section]
+- **Total Completed Epics**: [Count from Completion History]
+- **Last Portfolio Review**: [Date of last manual review]
+
+### Epic Retrospective Template
+*Used when completing epics to capture learnings*
 ```
----
-description: Rules applying to entire workspace
-globs: **/*.*
-alwaysApply: true
----
+## Epic Retrospective: [Epic Name]
+
+### Epic Summary
+- **Final Status**: [Completed/Cancelled with reason]
+- **Key Phases Completed**: [List major phases finished]
+- **Original vs Actual Scope**: [Any scope changes made]
+
+### What Went Well
+- [Positive aspects of the epic execution]
+
+### What Could Be Improved
+- [Areas for improvement in future epics]
+
+### Lessons Learned
+- [Key learnings to apply to future epics]
+
+### Recommendations
+- [Specific recommendations for future epic planning/execution]
 ```
 
-## PART 5: ERROR DETECTION AND RECOVERY
-
-### Symptoms of Broken MDC Files
-- Rule doesn't appear in Cursor's rule picker
-- Rule doesn't automatically apply when expected
-- File patterns don't match correctly
-- Rule appears as "invalid" in Cursor settings
-
-### Recovery Process
-1. Check for missing or malformed `---` delimiters
-2. Verify all required fields are present
-3. Ensure proper YAML format in metadata section
-4. Verify file is in `.cursor/rules/` directory
-5. Test rule functionality after fixing
-
-## PART 6: VALIDATION CHECKLIST
-
-Before saving any MDC file, verify:
-- [ ] File is saved in `.cursor/rules/` directory
-- [ ] Metadata section starts and ends with `---`
-- [ ] All required fields are present and properly formatted
-- [ ] `globs` pattern matches intended files
-- [ ] `alwaysApply` setting is appropriate
-- [ ] Content below metadata follows proper markdown format
-- [ ] No duplicate rules files in root or other locations
-
-## PART 7: COMMON MISTAKES TO AVOID
-
-### Location Mistakes
-- Placing MDC files outside `.cursor/rules/` directory
-- Creating duplicate rules in multiple locations
-- Not checking for existing `.cursor/rules/` directory
-
-### Format Mistakes  
-- Removing metadata when updating content
-- Changing `globs` patterns without understanding implications
-- Using incorrect YAML syntax in metadata
-- Mixing content with metadata section
-
-### Memory Reminder for AI Assistant
-- **Never** create rules files outside `.cursor/rules/`
-- **Always** use the full path: `.cursor/rules/filename.mdc`
-- **Always** preserve existing metadata exactly
-- **Always** check for content differences before deleting duplicates
-
-## PART 8: DEBUGGING TIPS
-
-- Use Cursor's rule management interface to validate MDC files
-- Check Cursor settings to see if rules are properly loaded
-- Test rule application by matching against expected file patterns
-- Verify rule behavior in different contexts (auto-apply vs manual)
+### Epic Maintenance Checklist
+*For occasional portfolio cleanup*
+- [ ] Review active epic statuses and update if needed
+- [ ] Check for epics that should be completed or cancelled
+- [ ] Archive completed epics older than 6 months
+- [ ] Ensure no more than 3 active epics
+- [ ] Update portfolio summary counts
 
 ---
 
-**This rule was created to prevent repeated mistakes with cursor rules location and format. All requirements must be followed exactly.**
+## EPIC MANAGEMENT GUIDELINES
+
+### Epic State Management
+**State Transitions**:
+```
+PLANNED → IN_PROGRESS → COMPLETED
+    ↓         ↓            ↑
+ CANCELLED ← BLOCKED ← ─ ─ ┘
+    ↓         ↓
+ ARCHIVED ← PAUSED
+```
+
+### Update Guidelines
+- **Automatic Updates**: Epic steps are updated automatically when workflow completes with epic reference
+- **Manual Updates**: Can manually update step progress and notes during development
+- **Phase Completion**: Phases automatically marked complete when all steps reach 100%
+- **Epic Completion**: Move completed epics to history section
+- **Context Management**: Archive epics older than 6 months
+
+### Step Status Tracking
+- **Status Icons**: ⏳ PLANNED, 🔄 IN_PROGRESS, ✅ COMPLETED, 🚫 BLOCKED
+- **Completion Percentage**: 0% (planned) → 25%, 50%, 75% → 100% (completed)
+- **Progress Dates**: Track started, last updated, and completed dates
+- **Progress Notes**: Document decisions, blockers, and key developments
+
+### Portfolio Management
+- **Max Active Epics**: Keep only 2-3 active epics to maintain AI context effectiveness
+- **New Epic Planning**: If at limit, complete or pause existing epics before adding new ones
+- **Epic Focus**: Use workflow-state.mdc for detailed step execution, epics.mdc for high-level tracking
+
+### AI Epic Management Patterns
+
+#### **When User Requests Epic Work**
+1. **Search existing epics**: Look for matching epic names or features
+2. **Identify step context**: Find specific phase and step user is referencing
+3. **Set workflow context**: Configure workflow state with epic reference
+4. **Provide epic context**: Include step requirements during blueprint phase
+
+#### **When User Reports Progress**  
+1. **Find current work**: Identify which epic step user is working on
+2. **Update step status**: Modify completion percentage and notes
+3. **Update dates**: Set last updated timestamp
+4. **Check phase completion**: Update phase status if all steps complete
+
+#### **When User Requests Epic Planning**
+1. **Create new epic**: Use simplified template in ACTIVE EPICS section
+2. **Structure phases**: Break down epic into 2-4 phases
+3. **Detail steps**: Add 2-5 steps per phase with requirements and acceptance criteria
+4. **Set realistic scope**: Ensure epic fits within 3-epic portfolio limit
+
+### Realistic Expectations
+- Epic updates happen through AI interactions based on user prompts
+- AI manages epic file updates, users provide natural language instructions
+- Epic planning serves as AI memory and workflow integration context
+- Focus on AI-driven epic management rather than manual file editing
+
+---
+
+## EPIC PLANNING WORKSPACE
+
+<!-- Temporary workspace for drafting new epics before they become active -->
+
+*This section can be used for drafting and refining epic plans before moving them to the active section.*
+
+---
+
+<!-- END OF EPIC TRACKING STRUCTURE -->
 
 ---
 > Source: [fbrbovic/cursor-rule-framework](https://github.com/fbrbovic/cursor-rule-framework) — distributed by [TomeVault](https://tomevault.io).
