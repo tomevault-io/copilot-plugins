@@ -1,0 +1,9 @@
+{
+  "name": "zpix1--windisplay",
+  "displayName": "windisplay",
+  "description": "Like BetterDisplay, but for Windows. Change resolution and refresh rate of your monitors from your system tray.",
+  "version": "1.0.0",
+  "author": "zpix1",
+  "homepage": "https://github.com/zpix1/windisplay",
+  "skills": []
+}
