@@ -1,0 +1,9 @@
+{
+  "name": "steipete--poltergeist",
+  "displayName": "poltergeist",
+  "description": "The ghost that keeps your builds fresh - Universal hot reload, file watcher and build automation for any language.",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/poltergeist",
+  "skills": []
+}
