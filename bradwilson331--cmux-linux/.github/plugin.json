@@ -1,0 +1,9 @@
+{
+  "name": "bradwilson331--cmux-linux",
+  "displayName": "cmux-linux",
+  "description": "Linux port of cmux, A Ghostty-based macOS terminal with vertical tabs and notifications for AI coding agents",
+  "version": "1.0.0",
+  "author": "bradwilson331",
+  "homepage": "https://github.com/bradwilson331/cmux-linux",
+  "skills": []
+}
