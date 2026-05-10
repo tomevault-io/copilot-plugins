@@ -1,0 +1,9 @@
+{
+  "name": "blindndangerous--discord-messages-reader",
+  "displayName": "discord-messages-reader",
+  "description": "NVDA add-on that announces incoming Discord chat messages automatically via UIA polling.",
+  "version": "1.0.0",
+  "author": "blindndangerous",
+  "homepage": "https://github.com/blindndangerous/discord-messages-reader",
+  "skills": []
+}
