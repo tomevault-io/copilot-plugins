@@ -1,0 +1,9 @@
+{
+  "name": "kerlos--elysia-mcp",
+  "displayName": "elysia-mcp",
+  "description": "ElysiaJS plugin for Model Context Protocol with HTTP transport",
+  "version": "1.0.0",
+  "author": "kerlos",
+  "homepage": "https://github.com/kerlos/elysia-mcp",
+  "skills": []
+}
