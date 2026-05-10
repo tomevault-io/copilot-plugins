@@ -1,10 +1,19 @@
-## do-not-create-testing-files
+## git-push-and-npm-publish
 
-> Do not create unnecessary MD files to explain fixes. Just waste of tokens.
+> When the user says git push and publish, perform the following actions in order:
 
-When I ask you to fix something, after fixing it, your provide me summary of it in chat, which is good.
-However, Please do not create .MD file to document the change. That is just unncessary use of tokens for me.
-Strictly prohibited unless i instruct you otherwise.
+When the user says git push and publish, perform the following actions in order:
+	1.	Commit any pending changes and push to the main branch.
+	2.	Increment the patch version in package.json using npm version patch.
+	3.	Push commits and tags to Git: git push && git push --tags.
+
+Note: The GitHub Actions workflow (.github/workflows/release.yml) will automatically:
+	- Run linter (npm run lint)
+	- Build the project (npm run build)
+	- Create a GitHub Release with auto-generated release notes
+	- Publish the package to npm
+
+The manual steps of linting, building, and publishing to npm are no longer required as they are handled by the CI/CD pipeline.
 
 ---
 > Source: [arpit-patel1/n8n-nodes-netdevices](https://github.com/arpit-patel1/n8n-nodes-netdevices) — distributed by [TomeVault](https://tomevault.io).
