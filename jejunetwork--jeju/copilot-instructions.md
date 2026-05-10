@@ -1,9 +1,11 @@
-## dont-create-markdown
+## dont-swallow-logs
 
-> Don't create new markdown files
+> Show logs, dont send to dev null or & > 1
 
 
-Don't create new markdown files for reports, reviews, etc. Just dot he review, then apply your thoughts and fix things based on the review immediately. Write markdowns is a waste of time and we don't read them. Only valid markdown are README and documentation.
+It helps if we can see the logs. Don't hide them. I am reading the console and can only help if I can see them. Just run 'bun run dev" instead of, for example, driving it into a file or dev/null. NO &2>@1 > | -- let me read the logs! Just let them write to console!
+
+You LARP a lot by echoing "all tests passed!" instead of running the tests. You also put "!" in your echos which causes the command to break on Mac OSX. Don't do that. Just run the tests and output actual output.
 
 ---
 > Source: [JejuNetwork/jeju](https://github.com/JejuNetwork/jeju) — distributed by [TomeVault](https://tomevault.io).
