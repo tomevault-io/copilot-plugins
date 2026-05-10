@@ -1,14 +1,63 @@
-## app-info
+## bug-check
 
-> general info on OP-PatchStudio app
+> rules for bug hunting
 
-- app name: OP-XY drum & multisample tool
-- purpose: load wav samples, edit settingsand generate `.preset.zip` files compatible with teenage engineering OP-1 field/OP-Z (OP-XY firmware)
-- two main modes: `drum` (24 slots) and `multisample` (up to 24 zones)
-- output must follow OP-XY json schema (see `baseDrumJson.ts` and `baseMultisampleJson.ts`)
-- target users: musicians wanting quick desktop workflow to prepare patches for hardware
-- priority: accuracy of exported preset files, fast drag-&-drop ui, faithful visual mimic of op-xy hardware
-- OP-XY, OP-1 and OP-Z are always CAPS
+
+# Bug Hunting
+
+## Bug Hunt
+
+The assistant will perform the below tasks when ask to 'bughunt' || 'bug hunt'
+
+Analyze the changes made in the current branch compared to the last commit on the main branch.
+
+DO NOT attempt to fix any code.  Run tests and build and report on errors too.
+
+For each file that has changed, inspect the diffs for items int eh bug checklist
+
+Only include code that has changed from the last commit on main.
+
+## Detailed Bug Hunt
+
+The assistant will perform the below tasks when ask to 'detailedbughunt' || 'detailed bug hunt'
+
+DO NOT attempt to fix any code.  Run tests and build and report on errors too.
+
+Inspect the code for items in the bug checklist
+
+Then, generate a concise report listing each issue you find using the following format:
+
+[Short description of the issue]
+[Short explaination of reasoning for highlighting as issue] 
+FileName.ext:L12-42  
+
+Start with the most important functions in the program and work outward.  We can run the report multiple times.
+
+## Report format
+
+Then, generate a concise report listing each issue you find using the following format. Make sure to only return text.
+
+```
+fix this bug
+[Short description of the issue]
+[Short explaination of reasoning for highlighting as issue] 
+FileName.ext:L12-42  
+```
+
+Keep the report focused, accurate and under 500 words if possible. Do not repeat the same issue multiple times. Skip cosmetic or stylistic concerns unless they directly introduce a bug.
+
+## Bug checklist
+Logic errors
+
+    Potential bugs
+
+    Insecure or unsafe patterns
+
+    Misuse of APIs or libraries
+
+    Bad practices or anti-patterns
+
+    Unintended consequences from recent changes
 
 ---
 > Source: [joseph-holland/op-patchstudio](https://github.com/joseph-holland/op-patchstudio) — distributed by [TomeVault](https://tomevault.io).
