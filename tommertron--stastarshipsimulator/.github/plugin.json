@@ -1,0 +1,9 @@
+{
+  "name": "tommertron--stastarshipsimulator",
+  "displayName": "staStarShipSimulator",
+  "description": "a web app for letting multiple players manage a starship encounter in star trek adventures",
+  "version": "1.0.0",
+  "author": "tommertron",
+  "homepage": "https://github.com/tommertron/staStarShipSimulator",
+  "skills": []
+}
