@@ -1,40 +1,38 @@
-## 00-project-structure
+## 10-typescript-and-alias
 
-> - [rspack.config.js](mdc:rspack.config.js)
+> TypeScript 严格模式、路径别名与 React 19 约定
 
-## 项目结构与入口映射
+# TypeScript 严格模式与路径别名
 
-- **核心配置**
-  - [rspack.config.js](mdc:rspack.config.js)
-  - [tsconfig.json](mdc:tsconfig.json)
-  - [biome.json](mdc:biome.json)
-  - [package.json](mdc:package.json)
+- **严格模式**：默认在 `tsconfig.json` 启用 `strict`。新增类型需完整声明，避免使用 `any`，优先 `unknown` 或范型。
+- **显式导出类型**：公共 API 必须显式注解函数签名与返回类型；避免隐式导出推断。
+- **路径别名**：使用 `@/*` 指向 `src/*`。示例：
+  - `import { cn } from '@/utils/cn'`
+  - `import { Button } from '@/components/ui/button'`
+- **React 19 相关**：
+  - 优先函数组件与 Hooks；组件 props、局部 state、上下文值均需类型。
+  - 合理使用 Actions、`useOptimistic`、`useFormStatus`、`use` 等能力，注意定义请求与响应类型。
+- **导入顺序**：React → 第三方 → 本地（类型、组件、工具）。
 
-- **浏览器扩展清单**
-  - [src/manifest.json](mdc:src/manifest.json)
-  - 保持输出文件名与清单一致：
-    - `background.service_worker` → `background.js`
-    - `content_scripts[].js` → `contentScript.js`
-    - `action.default_popup` → `popup.html`
-    - `side_panel.default_path` → `sidePanel.html`
+---
+globs: *.ts,*.tsx
+description: TypeScript 严格模式、路径别名与 React 19 约定
+---
+## TypeScript 与路径别名
 
-- **入口与产物（保持名称一一对应）**
-  - Popup 页面： [src/popup/popup.tsx](mdc:src/popup/popup.tsx) → [src/popup/popup.html](mdc:src/popup/popup.html)
-  - Side Panel： [src/sidePanel/sidePanel.tsx](mdc:src/sidePanel/sidePanel.tsx) → [src/sidePanel/sidePanel.html](mdc:src/sidePanel/sidePanel.html)
-  - 后台 SW： [src/scripts/background.ts](mdc:src/scripts/background.ts) → `background.js`
-  - 内容脚本： [src/scripts/contentScript.ts](mdc:src/scripts/contentScript.ts) → `contentScript.js`
+- **严格模式**：`tsconfig.json` 已启用 `strict: true`。新增类型时避免使用 `any`，优先 `unknown`、字面量类型、联合类型、枚举或对象字面量。
+- **目标与库**：保持 `target` 为 `ES2020`，`lib` 包含 `DOM`, `DOM.Iterable`, `ES2020`，以兼容扩展运行时与异步迭代。
+- **路径别名**：使用 `@/*` 指向 `src/*`，在 TS 与 Rspack 均已配置。新增文件请使用绝对导入。
+- **React 19**：采用自动 JSX 运行时与函数式组件。Props 与返回值必须显式声明：
 
-- **样式与静态资源**
-  - Tailwind 入口： [src/styles/tailwind.css](mdc:src/styles/tailwind.css)
-  - 公共图标示例： [public/icon.png](mdc:public/icon.png)
-  - 多语言示例： [_locales/en/messages.json](mdc:_locales/en/messages.json)
+```ts
+interface MyComponentProps { title: string; count?: number }
+export const MyComponent: React.FC<MyComponentProps> = ({ title, count }) => (
+  <h1>{title} {count ?? 0}</h1>
+);
+```
 
-- **UI 与工具**
-  - 公共组件： [src/components/ui/button.tsx](mdc:src/components/ui/button.tsx), [src/components/ui/select.tsx](mdc:src/components/ui/select.tsx), [src/components/ui/label.tsx](mdc:src/components/ui/label.tsx)
-  - 工具函数： [src/utils/cn.ts](mdc:src/utils/cn.ts), [src/utils/i18n.ts](mdc:src/utils/i18n.ts), [src/utils/rtl.ts](mdc:src/utils/rtl.ts)
-
-- **路径别名**
-  - 通过 bundler 与 TS 配置将 `@/*` 指向 `src/*`，优先使用绝对导入：例如 `import { cn } from '@/utils/cn'`。
+- **工具函数**：遵循 `src/utils/` 下的命名与导出风格。例如 `cn` 返回 `string`，不可返回 `unknown`。
 
 ---
 > Source: [zh30/native-translate](https://github.com/zh30/native-translate) — distributed by [TomeVault](https://tomevault.io).
