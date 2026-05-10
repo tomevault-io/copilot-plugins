@@ -1,45 +1,48 @@
-## geovibes
+## geovibes-module
 
-> Configuration files and project documentation standards
+> - Follow the existing structure in [geovibes/](mdc:geovibes/) directory
 
 
-# Configuration and Documentation Standards
+# Geovibes Module Development Standards
 
-## Project Configuration
-- Use [pyproject.toml](mdc:pyproject.toml) for Python project configuration
-- Environment settings should be in [config.yaml](mdc:config.yaml)
-- Modal inference configurations are in [config/](mdc:config/) directory
-- Reference existing patterns in [config/inference/](mdc:config/inference/) for ML model configs
+## Module Architecture
+- Follow the existing structure in [geovibes/](mdc:geovibes/) directory
+- Core tiling functionality is in [tiling.py](mdc:geovibes/tiling.py)
+- Geospatial utilities are in [geotiff/](mdc:geovibes/geotiff/) subdirectory
+- Google Earth Engine tools are in [google/](mdc:geovibes/google/) subdirectory
 
-## Documentation Approach
-- Keep documentation minimal and focused
-- All documentation should be in code docstrings, not separate markdown files
-- [README.md](mdc:README.md) should only contain essential project information
-- DO NOT create additional documentation files unless explicitly requested
+## MGRS and Tiling Operations
+- Use existing classes: `MGRSTileId`, `MGRSTileGrid` from [tiling.py](mdc:geovibes/tiling.py)
+- Leverage `get_mgrs_tile_ids_for_roi()` and `get_mgrs_tile_ids_for_roi_from_roi_file()`
+- Follow the pattern established in `chip_mgrs_tile()` function
+- Always use proper CRS handling with pyproj
 
-## Build and Deployment
-- Use [Makefile](mdc:Makefile) for common development tasks
-- Follow patterns established in [run.py](mdc:run.py) for application entry points
-- Ensure compatibility with conda environment 'geovibes'
+## Database Integration
+- Reference [database.py](mdc:geovibes/database.py) for database operations
+- Use DuckDB for spatial queries when appropriate
+- Follow established patterns for spatial indexing
 
-## Version Control and Ignores
-- Follow patterns in [.gitignore](mdc:.gitignore) for what to exclude
-- Be mindful of large data files and model artifacts
-- Use appropriate patterns for Jupyter notebook outputs
+## Geospatial Data Processing
+- Use GeoPandas for vector data operations
+- Ensure proper CRS transformations between datasets
+- Leverage existing utilities in [utils.py](mdc:geovibes/utils.py)
 
-## Development Guidelines
-- Configuration should be environment-aware (local vs cloud)
-- Use type hints in configuration parsing code
-- Validate configuration inputs at startup
-- Keep secrets and credentials out of version control
+## UI and Configuration
+- UI components should reference [ui.py](mdc:geovibes/ui.py)
+- Configuration settings should use [ui_config/](mdc:geovibes/ui_config/) modules
+- Follow the pattern in [ui_config/settings.py](mdc:geovibes/ui_config/settings.py)
 
-## Project Structure Reference
-- Main application entry: [run.py](mdc:run.py)
-- Core modules: [geovibes/](mdc:geovibes/) directory
-- Notebooks for analysis: [notebooks/](mdc:notebooks/) directory
-- Data storage: [embeddings/](mdc:embeddings/), [geometries/](mdc:geometries/), [databases/](mdc:databases/)
-- Build artifacts: excluded via [.gitignore](mdc:.gitignore)
+## Module Dependencies
+- Keep dependencies minimal and well-defined
+- Use type hints consistently across all modules
+- Maintain compatibility with existing function signatures
+- Document all public APIs with comprehensive docstrings
+
+## Testing and Validation
+- Reference existing test patterns in [tests/](mdc:geovibes/tests/) directory
+- Validate MGRS tile operations against known test cases
+- Ensure coordinate system transformations are accurate
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/cr458) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [cr458/geovibes](https://github.com/cr458/geovibes) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
