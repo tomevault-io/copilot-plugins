@@ -4,7 +4,7 @@
   "repo": "PreviewOps",
   "description": "Prompt-to-production infrastructure. Every PR gets a full-stack preview. No config, no YAML, no waiting.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/neilhtennek/PreviewOps",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T16:12:52Z"
+  "distributed_at": "2026-05-10T06:47:48Z"
 }
