@@ -1,9 +1,9 @@
 {
   "name": "mtunique--vibehub",
   "displayName": "VibeHub",
-  "description": "VibeHub",
+  "description": "A macOS app that brings a Dynamic Island-style overlay for monitoring Claude Code and OpenCode CLI sessions. A claude island fork",
   "version": "1.0.0",
   "author": "mtunique",
-  "homepage": "https://tomevault.io/claim/mtunique",
+  "homepage": "https://github.com/mtunique/VibeHub",
   "skills": []
 }
