@@ -1,0 +1,9 @@
+{
+  "name": "fullstackcrew-alpha--privacy-mask",
+  "displayName": "privacy-mask",
+  "description": "Automatically redacts sensitive data in screenshots before sending to AI agents",
+  "version": "1.0.0",
+  "author": "fullstackcrew-alpha",
+  "homepage": "https://github.com/fullstackcrew-alpha/privacy-mask",
+  "skills": []
+}
