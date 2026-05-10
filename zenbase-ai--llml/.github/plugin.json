@@ -1,7 +1,7 @@
 {
   "name": "zenbase-ai--llml",
   "displayName": "llml",
-  "description": "llml",
+  "description": "Compose data structures, serialize them to prompts.",
   "version": "1.0.0",
   "author": "zenbase-ai",
   "homepage": "https://github.com/zenbase-ai/llml",
