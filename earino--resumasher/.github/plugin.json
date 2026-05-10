@@ -1,0 +1,9 @@
+{
+  "name": "earino--resumasher",
+  "displayName": "resumasher",
+  "description": "Agentic skill that tailors resumes + writes cover letters + builds interview prep bundles for specific jobs, by mining evidence from your actual project folder. Built for my students, usable for every",
+  "version": "1.0.0",
+  "author": "earino",
+  "homepage": "https://github.com/earino/resumasher",
+  "skills": []
+}
