@@ -1,22 +1,27 @@
-## skill-maintenance
+## svelte-wxt-standards
 
-> When changing deps, scripts, e2e, release, or issue format, update the matching project skills and note it in the response
+> Svelte 5 + WXT + Tailwind v4 coding standards; runes-only, no comments, readability first
 
 
-# Skill maintenance
+# Svelte WXT standards
 
-When you change any of the following, update the corresponding skill(s) in `.cursor/skills/` and briefly mention in your response that skills were updated.
+## Svelte / WXT / stack
 
-| Change | Update these skills |
-|--------|----------------------|
-| Key dependencies (WXT, Svelte, Playwright, changesets, oxlint, dprint) or build/config (wxt.config.ts, .oxlintrc.json) | wxt-svelte-extension (SKILL.md; reference.md if a new known issue) |
-| package.json scripts (dev/build/zip) or new build targets | wxt-svelte-extension, releases-changesets if release steps change |
-| E2E layout (e2e/tests, e2e/pages, fixture file path or name) | e2e-playwright-extension |
-| Release workflow (.changeset/, release steps, workflow_dispatch) | releases-changesets |
-| Issue refinement format or label set (issue-refinement-triage template) | issue-refinement-triage |
-| New recurring “known issue” that should guide extension code | wxt-svelte-extension/reference.md |
+- Use PascalCase for component file names (e.g. MyComponent.svelte).
+- Use semantic HTML where possible.
+- Use Svelte stores for global state; TypeScript for type safety.
+- Svelte 5 runes only: never use legacy reactive statements ($:) or reactive `let`.
+- Use $state() for reactive local state, $derived() for computed values, $effect() for side effects, $props() for component props.
+- No comments; rely on clear naming and structure.
+- Use Tailwind v4 classes instead of custom styles.
 
-Read the current skill file before editing so the update stays consistent with existing structure and wording.
+## General
+
+- Follow the user's requirements carefully and fully.
+- Prefer readable, correct, and complete code; avoid todos and placeholders.
+- Reference file names; be concise; follow project structure and formatting.
+- If the answer is uncertain or unknown, say so instead of guessing.
+- When asked, produce or update architecture diagrams from project structure and requirements.
 
 ---
 > Source: [sm17p/amfig](https://github.com/sm17p/amfig) — distributed by [TomeVault](https://tomevault.io).
