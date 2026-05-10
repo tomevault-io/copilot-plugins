@@ -1,0 +1,9 @@
+{
+  "name": "pedrol-cmd--brain-drin",
+  "displayName": "brain-drin",
+  "description": "Brain Drin (60+ Agents, 100+ Skills) \u2014 The ultimate tactical suite for Claude Code. Fusing best practices from Anthropics, wshobson, qdhenry, and BMAD into a high-performance force. Optimizing every t",
+  "version": "1.0.0",
+  "author": "pedrol-cmd",
+  "homepage": "https://github.com/pedrol-cmd/brain-drin",
+  "skills": []
+}
