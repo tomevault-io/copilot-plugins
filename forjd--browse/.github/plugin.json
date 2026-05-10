@@ -1,0 +1,9 @@
+{
+  "name": "forjd--browse",
+  "displayName": "browse",
+  "description": "Fast CLI for browser automation \u2014 Playwright + stealth behind a persistent daemon",
+  "version": "1.0.0",
+  "author": "forjd",
+  "homepage": "https://github.com/forjd/browse",
+  "skills": []
+}
