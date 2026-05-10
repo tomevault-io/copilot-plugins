@@ -1,0 +1,9 @@
+{
+  "name": "qauth-labs--qauth",
+  "displayName": "qauth",
+  "description": "Post-quantum ready, headless-first identity platform. A developer-friendly alternative to Keycloak.",
+  "version": "1.0.0",
+  "author": "qauth-labs",
+  "homepage": "https://github.com/qauth-labs/qauth",
+  "skills": []
+}
