@@ -4,7 +4,7 @@
   "repo": "ZeroComp",
   "description": "A professional zero-latency broadcast-oriented compressor plugin. for VST/AU/AAX/LV2/CLAP",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Jun-Murakami/ZeroComp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T08:09:49Z"
+  "distributed_at": "2026-05-10T15:47:08Z"
 }
