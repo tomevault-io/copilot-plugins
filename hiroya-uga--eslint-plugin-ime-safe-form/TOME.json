@@ -1,0 +1,44 @@
+{
+  "name": "eslint-plugin-ime-safe-form",
+  "owner": "hiroya-uga",
+  "repo": "eslint-plugin-ime-safe-form",
+  "description": "ESLint plugin to enforce using form submit event instead of keydown Enter (IME-friendly)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hiroya-uga/eslint-plugin-ime-safe-form",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T10:43:30Z"
+}
