@@ -1,68 +1,85 @@
-## security
+## testing-advanced
 
-> Security guidelines and API key management best practices
+> Advanced testing patterns for AI applications including mocking, integration tests, and performance monitoring
 
 
-# Security & API Key Management
+# Advanced AI Testing Patterns
 
-Critical security guidelines for AI development in this repository.
+Comprehensive testing strategies for AI-powered applications.
 
-## Core Security Principles
+## AI-Specific Testing Approaches
 
-### 1. API Key and Credential Management
-- **NEVER** commit API keys, secrets, or credentials to version control
-- Always use environment variables for sensitive data
-- Create `.env.example` files to document required environment variables
-- Implement proper API key rotation and management patterns
-- Use secure storage solutions for production deployments
+### 1. AI Service Mocking
+```typescript
+// Mock AI service responses for consistent testing
+const mockAIService = {
+  complete: jest.fn(),
+  stream: jest.fn(),
+  embed: jest.fn()
+};
 
-### 2. Environment Variable Patterns
-Create `.env.local` with these patterns:
-```env
-# AI Service Keys
-OPENAI_API_KEY=your_openai_key_here
-ANTHROPIC_API_KEY=your_anthropic_key_here
-
-# Application Settings
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-NODE_ENV=development
-
-# Database (if needed)
-DATABASE_URL=your_database_url_here
+beforeEach(() => {
+  mockAIService.complete.mockResolvedValue({
+    content: 'Mocked AI response',
+    usage: { prompt_tokens: 10, completion_tokens: 20 }
+  });
+});
 ```
 
-### 3. Data Privacy Guidelines
-- Avoid sending sensitive user data to AI services
-- Implement data anonymization where possible
-- Follow GDPR and privacy regulations
-- Document data usage and retention policies
-
-### 4. API Security Best Practices
-- Validate all inputs before sending to AI services
-- Implement proper CORS settings
-- Use HTTPS for all AI API communications
-- Regularly rotate API keys and secrets
-
-### 5. Error Handling Security
-```javascript
-// Secure error handling - don't expose sensitive details
-try {
-  const response = await aiClient.complete(prompt);
-  return response;
-} catch (error) {
-  // Log detailed error internally
-  logger.error('AI service error', { error, userId: user.id });
+### 2. Integration Testing Patterns
+```typescript
+describe('AI Integration Tests', () => {
+  it('handles real AI service responses', async () => {
+    // Use test API keys for integration tests
+    // Test with actual AI services in staging
+    // Validate response formats and data
+    // Handle rate limiting and timeouts
+  });
   
-  // Return generic error to client
-  throw new Error('AI service temporarily unavailable');
-}
+  it('gracefully handles AI service outages', async () => {
+    // Test failure scenarios
+    // Validate fallback behaviors
+    // Ensure user experience remains smooth
+  });
+});
 ```
 
-### 6. Rate Limiting and Monitoring
-- Implement proper rate limiting for AI API endpoints
-- Monitor API usage and costs
-- Track unusual usage patterns
-- Implement health checks for AI services
+### 3. Performance Testing
+- Monitor AI response times
+- Test under concurrent load
+- Measure token usage and costs
+- Validate memory usage patterns
+
+### 4. End-to-End Testing
+```typescript
+// Test complete AI workflows
+describe('AI Chat Flow', () => {
+  it('completes full conversation cycle', async () => {
+    // Send user message
+    // Receive AI response
+    // Validate UI updates
+    // Test conversation history
+  });
+});
+```
+
+### 5. Error Scenario Testing
+- Test API rate limit handling
+- Validate quota exceeded scenarios
+- Test network failure recovery
+- Verify error message display
+
+### 6. Data Quality Testing
+- Validate AI response formats
+- Test prompt injection prevention
+- Verify content filtering
+- Check for appropriate responses
+
+### 7. Accessibility Testing
+- Test screen reader compatibility
+- Validate keyboard navigation
+- Check color contrast compliance
+- Test with assistive technologies
 
 ---
 > Source: [HerringtonDarkholme/megarepo](https://github.com/HerringtonDarkholme/megarepo) — distributed by [TomeVault](https://tomevault.io).
