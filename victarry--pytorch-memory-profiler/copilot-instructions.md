@@ -1,69 +1,83 @@
-## testing-guidelines
+## troubleshooting
 
-> - Use pytest as the testing framework
+> Common issues and debugging strategies for memory profiling
 
-# Testing Guidelines for Memory Profiler
+# Troubleshooting Guide
 
-## Test Structure
-- Use pytest as the testing framework
-- Organize tests by component (core/, plugins/, etc.)
-- Name test files as test_<module>.py
-- Use descriptive test function names: test_<functionality>_<scenario>
+## Common Issues
 
-## Mocking Strategy
+### FakeTensor Errors
+**Problem**: "FakeTensor doesn't support data-dependent operations"
+**Solution**: 
+- Identify the problematic operation in the stack trace
+- Add custom handling in the appropriate plugin
+- Use `ProblematicOpsDispatchMode` to identify issues
+
+### Memory Estimation Inaccuracy
+**Problem**: Estimated memory differs significantly from actual
+**Causes**:
+1. Missing operation coverage
+2. Incorrect storage size calculation
+3. External library allocations not tracked
+
+**Debugging**:
 ```python
-# Mock CUDA availability
-@pytest.fixture
-def mock_cuda():
-    with patch('torch.cuda.is_available', return_value=True):
-        with patch('torch.cuda.memory_allocated', return_value=1024):
-            yield
+# Enable detailed logging
+import logging
+from memory_profiler.core.logger import configure_logging
+configure_logging(level=logging.DEBUG)
 
-# Mock distributed environment
-@pytest.fixture
-def mock_distributed():
-    with patch.dict(os.environ, {'WORLD_SIZE': '4', 'RANK': '0'}):
-        yield
+# Compare with actual execution
+tracer.compare_with_actual = True
 ```
 
-## Test Categories
+### Plugin Loading Issues
+**Problem**: Plugin not being applied
+**Check**:
+1. Library is installed: `import library_name`
+2. Plugin is registered: Check tracer.plugins list
+3. Patches are applied: Verify in debug logs
 
-### Unit Tests
-- Test individual components in isolation
-- Mock all external dependencies
-- Focus on logic correctness
-- Fast execution (< 1 second per test)
+### Distributed Training Issues
+**Problem**: Incorrect memory estimation for multi-GPU
+**Verify**:
+- Environment variables: WORLD_SIZE, RANK
+- Tensor sharding is correctly simulated
+- Communication ops are properly mocked
 
-### Integration Tests
-- Test component interactions
-- Use fake tensors for GPU operations
-- Verify plugin loading and patching
-- Test complete workflows
+## Debugging Tools
 
-### Memory Calculation Tests
-- Verify memory estimation accuracy
-- Compare with actual GPU measurements when possible
-- Test edge cases (empty tensors, views, etc.)
-- Validate peak vs current memory tracking
-
-## Markers
+### Memory Snapshot Analysis
 ```python
-@pytest.mark.slow  # Tests taking > 5 seconds
-@pytest.mark.gpu   # Tests requiring actual GPU
-@pytest.mark.distributed  # Tests for distributed scenarios
+# Save detailed snapshot
+tracer.save_memory_snapshot("debug_snapshot.json", include_stack_trace=True)
+
+# Analyze with visualizer
+# streamlit run tools/visualizer.py -- --file debug_snapshot.json
 ```
 
-## Coverage Requirements
-- Maintain > 80% code coverage
-- Focus on critical paths
-- Test error handling and edge cases
-- Include both positive and negative tests
+### Operation Tracking
+```python
+# Track specific operations
+tracer.memory_dispatch_mode.track_ops = ["aten::linear", "aten::matmul"]
 
-## Performance Testing
-- Profile memory tracer overhead
-- Ensure minimal impact on training speed
-- Test with various model sizes
-- Benchmark against actual GPU execution
+# Log all operations
+tracer.memory_dispatch_mode.log_all_ops = True
+```
+
+### Module Attribution
+```python
+# Get per-module memory usage
+module_memory = tracer.mod_tracker.get_module_memory_summary()
+for name, memory in module_memory.items():
+    print(f"{name}: {memory / 1024**2:.2f} MB")
+```
+
+## Performance Optimization
+- Disable stack trace collection for faster execution
+- Use batch processing for multiple models
+- Cache fake tensor creation for repeated shapes
+- Minimize hook overhead with selective registration
 
 ---
 > Source: [Victarry/PyTorch-Memory-Profiler](https://github.com/Victarry/PyTorch-Memory-Profiler) — distributed by [TomeVault](https://tomevault.io).
