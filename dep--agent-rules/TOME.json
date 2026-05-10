@@ -4,7 +4,7 @@
   "repo": "agent-rules",
   "description": "Centralize your agent instructions, commands, skills, and handle symlinking.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dep/agent-rules",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T03:53:37Z"
+  "distributed_at": "2026-05-10T12:35:35Z"
 }
