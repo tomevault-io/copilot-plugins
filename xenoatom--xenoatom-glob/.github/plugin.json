@@ -1,0 +1,9 @@
+{
+  "name": "xenoatom--xenoatom-glob",
+  "displayName": "XenoAtom.Glob",
+  "description": "A high-performance .NET glob library with gitignore compatibility.",
+  "version": "1.0.0",
+  "author": "XenoAtom",
+  "homepage": "https://github.com/XenoAtom/XenoAtom.Glob",
+  "skills": []
+}
