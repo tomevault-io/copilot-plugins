@@ -1,20 +1,26 @@
-## mcp-tools-guidelines
+## project-general
 
-> Conventions for MCP tool implementation under src/tools
+> Repository-wide Cursor guidance for Allure TestOps MCP
 
 
-# MCP Tool Guidelines
+# Allure TestOps MCP - General Rules
 
-- Keep tool schema descriptions precise and user-focused; update docs/examples when behavior changes.
-- Maintain backward compatibility for tool parameters unless a breaking change is explicitly requested.
-- Validate required project context (`projectId` or `projectName`) consistently with existing tool patterns.
-- Return actionable, structured errors; avoid vague failure messages.
-- Prefer shared API/auth helpers instead of duplicating request logic in each tool file.
+- Use TypeScript ESM patterns (`import`/`export`) and keep changes aligned with existing code style.
+- Preserve public tool contracts; do not rename tool names or change input/output shapes unless explicitly requested.
+- Prefer small, focused edits in `src/tools/` and shared helpers over duplicate logic.
+- Keep auth behavior stable: this project exchanges API token to JWT and reuses cached JWT until near expiry.
+- Avoid introducing new dependencies unless required; prefer existing utilities and standard library first.
 
-## Verification
+## Validate Before Finishing
 
-- For tool behavior changes, run relevant integration tests in `tests/integration`.
-- Confirm no regressions in tool registration and names.
+- Run `npm run build` after meaningful TypeScript changes.
+- Run `npm run lint` and fix issues in touched files.
+- Run `npm run test` (or targeted integration tests) for behavior changes.
+
+## Safety
+
+- Never commit secrets (`.env`, real tokens, URLs with credentials).
+- Keep example docs generic and safe for public repository use.
 
 ---
 > Source: [armanayvazyan/allure-testops-mcp](https://github.com/armanayvazyan/allure-testops-mcp) — distributed by [TomeVault](https://tomevault.io).
