@@ -1,341 +1,64 @@
-## create-slidev-slides
-
-> Slidev is a web-based slides maker and presenter designed for developers. It allows you to create presentations by writing content in Markdown. The main content file is `[slides.md](mdc:slides.md)`.
-
-# Creating Slides with Slidev
-
-Slidev is a web-based slides maker and presenter designed for developers. It allows you to create presentations by writing content in Markdown. The main content file is `[slides.md](mdc:slides.md)`.
+## cursor-brand-guidelines
 
-## Slide Separators
+> | Role                             | HEX       | Opacity Notes                          |
 
-Use `---` padded with a new line to separate your slides.
+## **Cursor – Monochrome Branding Guidelines**
 
-```markdown
-# Slide 1 Title
-
-Content for slide 1.
+### 1. Palette
 
----
+| Role                             | HEX       | Opacity Notes                          |
+| -------------------------------- | --------- | -------------------------------------- |
+| **Primary bg**                   | `#0F0F0F` | 100 %                                  |
+| Alt bg / Card                    | `#171717` | 100 %                                  |
+| Divider / Border                 | `#252525` | 100 %                                  |
+| Body text                        | `#FFFFFF` | 80 % opacity (`rgba(255,255,255,0.8)`) |
+| Headlines / Logotype / CTA label | `#FFFFFF` | 100 %                                  |
+| Accent grey (cube facets, icons) | `#6E6E6E` | 100 %                                  |
 
-# Slide 2 Title
+### 2. Typography
 
-Content for slide 2.
-```
+| Usage                | Font                     | Weight                     | Tracking        |
+| -------------------- | ------------------------ | -------------------------- | --------------- |
+| H1 / H2              | Inter (or Space Grotesk) | ExtraBold (900)            | –2 %            |
+| H3 / H4              | Inter                    | SemiBold (600)             | 0               |
+| Body                 | Inter                    | Regular / Medium (400–500) | 0               |
+| Overline / Microcopy | Inter                    | Medium (500)               | +5 % (all-caps) |
 
-## Frontmatter
+### 3. Logo
 
-Each slide (and the presentation itself) can be configured using YAML frontmatter, placed either at the very beginning of `[slides.md](mdc:slides.md)` for global settings or between slide separators for slide-specific settings.
+* Approved assets: **Cube + Logotype** horizontal & vertical, in the following variants
 
-Common frontmatter options:
+  * *Flat greyscale* (`cursor-…-flat-color.png`)
+  * *Wireframe one-color* (`cursor-…-one-color.png`)
+* **Minimum height**: 48 px (print 12 mm).
+* **Clear space**: ≥ ½ cube height on all sides.
+* **Colour usage**: cube facets in #6E6E6E / #A0A0A0 / #FFFFFF; logotype pure white. No other colours or gradients.
 
-*   `title`: Title of the presentation or a specific slide.
-*   `info`: Additional information about the presentation (Markdown enabled).
-*   `theme`: Specifies the theme (e.g., `seriph`, `default`).
-*   `background`: Sets the background image or color for a slide.
-    *   Example: `background: https://source.unsplash.com/collection/94734566/1920x1080`
-*   `class`: Applies UnoCSS utility classes to the slide.
-    *   Example: `class: text-center`
-*   `layout`: Defines the layout for the slide (e.g., `two-cols`, `image-right`, `center`).
-    *   Example: `layout: two-cols`
-*   `layoutClass`: Applies classes to the layout container.
-    *   Example: `layoutClass: gap-16` (used with `two-cols`)
-*   `transition`: Specifies the slide transition effect (e.g., `slide-left`, `fade-out`, `slide-up`).
-    *   Example: `transition: slide-left`
-*   `level`: Sets the heading level for the slide title in a Table of Contents.
-    *   Example: `level: 2`
-*   `drawings`: Configures drawing features.
-    *   Example: `drawings: persist: false`
-*   `mdc`: Enables MDC (Markdown Components) syntax, a powerful way to use Vue components and apply styles/classes directly in Markdown. See dedicated section below.
-    *   Example: `mdc: true`
-*   `src`: Imports content from another Markdown file.
-    *   Example: `src: ./pages/another-part.md`
-*   `hide`: Hides a slide from the presentation.
-    *   Example: `hide: true`
-*   Other custom frontmatter can be defined by themes or for specific needs (e.g., `image` for image layouts, `dragPos` for draggable elements).
+### 4. Components
 
-Example of global frontmatter:
-```yaml
----
-title: My Awesome Presentation
-theme: seriph
-info: |
-  More details about this presentation.
----
+| Element              | Spec                                                                               |
+| -------------------- | ---------------------------------------------------------------------------------- |
+| **Card**             | Fill `#171717`; 1 px border `#252525`; 4 px radius; 24 px inner padding            |
+| **Button (primary)** | Transparent fill; 1 px white stroke; 8 px radius; 14 px/20 pt label in 100 % white |
+| **Icon style**       | Line weight 1.5 px; stroke colour `#6E6E6E`; use cube motifs where possible        |
+| **Divider**          | 1 px `#252525`, 100 % width                                                        |
 
-# First Slide
-...
-```
+### 5. Imagery & Illustrations
 
-Example of slide-specific frontmatter:
-```markdown
----
-layout: image-right
-image: https://example.com/image.jpg
-transition: fade-out
----
+* Use **isometric cubes** in flat greys (#6E6E6E–#FFFFFF).
+* No colour, glow, or gradient.
+* Shadows: 0 px 2 px 4 px rgba(0,0,0,0.6).
 
-# Slide with Image Right
+### 6. Do / Don’t
 
-This slide has a specific layout and background.
-```
+| ✅ Do                              | ❌ Don’t                                      |
+| --------------------------------- | -------------------------------------------- |
+| Maintain contrast ratio ≥ 4.5 : 1 | Add colour or tinted gradients               |
+| Use flat or wireframe cube only   | Alter cube proportions or orientation        |
+| Keep backgrounds solid charcoal   | Use mid-grey backgrounds that lower contrast |
+| Respect clear space around logo   | Overlay text or graphics on the cube         |
 
-## MDC (Markdown Components) Syntax
-
-When `mdc: true` is enabled in your frontmatter (globally or per slide), you can use MDC syntax. This allows for a more concise and powerful way to embed Vue components and apply attributes or classes directly to Markdown elements or components.
-
-It's often considered the easiest way to apply styles and classes.
-
-Example:
-```markdown
-<!-- Standard Markdown link -->
-[Slidev](mdc:https:/sli.dev)
-
-<!-- MDC equivalent, allowing classes or other attributes -->
-#title[My Title with MDC]
-Regular text.
-::div{.p-4 .bg-red-100}
-This is a div with padding and a red background, using MDC.
-::
-
-<!-- Using a component with MDC -->
-::Counter{count=5 initial=2}
-::
-```
-Consult the official [MDC Syntax documentation](mdc:https:/sli.dev/features/mdc) for more details on its capabilities.
-
-## Markdown and HTML
-
-Standard Markdown syntax is fully supported. You can also use HTML directly within your slides for more complex structures or styling.
-
-```html
-<div class="mt-4 p-2 bg-gray-100 rounded">
-  This is an HTML div with some classes.
-</div>
-```
-
-## Vue Components
-
-Embed Vue components directly in your Markdown for interactivity. Slidev provides built-in components (e.g., `<Tweet id="..."/>`, `<Youtube id="..."/>`) and you can create your own in the `components/` directory.
-
-```html
-<!-- Using a built-in component -->
-<Tweet id="1390115482657726468" />
-
-<!-- Using a custom component (e.g., ./components/Counter.vue) -->
-<Counter :count="10" />
-```
-
-## Code Blocks
-
-Display code snippets with syntax highlighting.
-
-```typescript
-function greet(name: string) {
-  console.log(`Hello, ${name}!`);
-}
-```
-
-### Line Highlighting & TwoSlash
-
-Specify line highlights, diffs, or enable TypeScript hover information with TwoSlash.
-
-```typescript {all|1|2-3} twoslash
-// TwoSlash enables TypeScript hover information
-import { ref } from 'vue'
-const count = ref(0) // This line will be highlighted
-```
-
-### Shiki Magic Move
-
-Animate changes between multiple code snippets by wrapping them with ` `````md magic-move ```` ` (four backticks).
-
-````markdown
-````md magic-move
-```ts
-// Step 1
-let a = 1;
-```
-
-```ts
-// Step 2
-let a = 1;
-let b = 2; // Added this line
-```
-````
-````
-
-### Monaco Editor
-
-Embed a fully functional Monaco editor.
-
-*   `{monaco}`: Turns a code block into an editor.
-*   `{monaco-run}`: Creates an editor that can execute the code.
-
-```typescript {monaco-run}
-console.log("Hello from Monaco Editor in Slidev!");
-```
-
-## Animations
-
-### Click Animations
-
-Use the `v-click` directive to reveal elements sequentially on clicks.
-The `v-mark` directive can be used for inline highlighting effects.
-
-```html
-<div v-click>Appears on first click.</div>
-<div v-click>Appears on second click.</div>
-
-<p>
-  This is <span v-mark.underline.blue>important</span> information.
-</p>
-```
-
-### Motion Animations
-
-Use the `v-motion` directive (from `@vueuse/motion`) for more complex animations.
-
-```html
-<div
-  v-motion
-  :initial="{ opacity: 0, y: 100 }"
-  :enter="{ opacity: 1, y: 0, transition: { delay: 500 } }"
->
-  Animated text
-</div>
-```
-You can define reusable animation presets in a `<script setup>` block on the slide.
-
-## LaTeX
-
-Embed mathematical formulas using KaTeX.
-
-Inline: `$\\sqrt{3x-1}+(1+x)^2$`
-
-Block:
-```latex
-$$
-\begin{aligned}
-\nabla \cdot \vec{E} &= \frac{\rho}{\varepsilon_0} \\
-\nabla \cdot \vec{B} &= 0
-\end{aligned}
-$$
-```
-
-## Diagrams
-
-Create diagrams from textual descriptions.
-
-### Mermaid
-
-```mermaid
-graph TD
-    A[Start] --> B{Decision};
-    B -- Yes --> C[Outcome 1];
-    B -- No --> D[Outcome 2];
-```
-You can specify scale and theme: ` ```mermaid {scale: 0.8, theme: 'neutral'} ... ``` `
-
-### PlantUML
-
-```plantuml
-@startuml
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
-@enduml
-```
-
-## Slide Notes
-
-Comments at the end of a slide (the last comment block) are treated as presenter notes. These are visible in Presenter Mode. HTML can be used in notes.
-
-```markdown
-Content of the slide.
-
-<!--
-This is a presenter note.
-**Markdown** and <html> work here too!
-[click] Notes can also be synced with `v-click` animations.
--->
-```
-
-## Table of Contents (TOC)
-
-Use the `<Toc />` component to generate a table of contents.
-
-```html
-<Toc minDepth="1" maxDepth="2" />
-```
-Slide titles are inferred, or can be set via `title` and `level` in frontmatter.
-
-## Embedding External Files
-
-You can include content from external files to better organize your presentation.
-
-### Importing Entire Slides
-Use the `src` frontmatter property to import an entire Markdown file as a single slide or a sequence of slides. This is excellent for reusability and organization.
-
-```markdown
----
-# This slide will be content from another-section.md
-src: ./sections/another-section.md
----
-```
-
-### Embedding Code Snippets
-To embed specific code snippets from external files (not entire slides):
-```markdown
-<!-- Embed a code snippet -->
-<<< @/snippets/my-code.ts#snippet-name
-```
-
-## Styling
-
-### Inline Styles, Style Tags, and UnoCSS
-
-You can apply inline styles, use `<style>` tags for CSS, and leverage [UnoCSS](mdc:https:/unocss.dev) (if configured in your project) for utility-first styling.
-
-```html
-<p style="color: blue;">Blue text with inline style.</p>
-<p class="text-green-500">Green text with UnoCSS class.</p>
-```
-
-### Slide Scope Styles
-
-By default, `<style>` tags within a slide's Markdown content are **scoped to that specific slide**. This means the styles you define will only affect the current slide, preventing unintended styling on other slides.
-
-```html
-<style>
-/* These styles only apply to the current slide */
-h1 {
-  color: steelblue;
-  font-size: 2.5em;
-}
-.my-custom-class-for-this-slide {
-  font-weight: bold;
-  border: 1px solid green;
-}
-</style>
-```
-
-This is a key feature for maintaining clean and predictable styling across your presentation.
-
-## Draggable Elements
-Use `v-drag` directive or `<v-drag>` component for draggable elements.
-Use `<v-drag-arrow>` for draggable arrows. Position can be stored in frontmatter (e.g., `dragPos`).
-
-```html
-<img v-drag="'logo'" src="/logo.png" />
-
-<v-drag :pos="{x: 100, y: 100}">
-  Draggable text
-</v-drag>
-```
-
-## Further Information
-
-For more comprehensive details and advanced features, refer to the [official Slidev Syntax Guide](mdc:https:/sli.dev/guide/syntax), the [MDC Syntax Guide](mdc:https:/sli.dev/features/mdc), and other sections of the [Slidev Documentation](mdc:https:/sli.dev/guide).
-The `[slides.md](mdc:slides.md)` file in a new Slidev project also contains many examples.
+*End of guidelines.*
 
 ---
 > Source: [sanjeed5/cursor-slidev](https://github.com/sanjeed5/cursor-slidev) — distributed by [TomeVault](https://tomevault.io).
