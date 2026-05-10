@@ -1,0 +1,9 @@
+{
+  "name": "togethercomputer--skills",
+  "displayName": "skills",
+  "description": "Skills to help your coding agents use Together AI products.",
+  "version": "1.0.0",
+  "author": "togethercomputer",
+  "homepage": "https://github.com/togethercomputer/skills",
+  "skills": []
+}
