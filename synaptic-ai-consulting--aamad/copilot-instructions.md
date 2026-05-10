@@ -1,51 +1,50 @@
-## adapter-cursor-sdk
+## adapter-registry
 
-> Runtime adapter guidance for building AAMAD-generated MVPs on the Cursor SDK.
+> description: Registry and selection rules for choosing the runtime adapter used by AAMAD-generated multi-agent applications.
 
+description: Registry and selection rules for choosing the runtime adapter used by AAMAD-generated multi-agent applications.
+globs:
+alwaysApply: true
+---
 
-# Cursor SDK Adapter Rules
+# Adapter Registry Rules
 
 ## Purpose
-- Define runtime-specific guidance when `AAMAD_TARGET_RUNTIME=cursor-sdk`.
-- This adapter governs implementation patterns for generated MVP backends that use Cursor SDK runtime primitives.
+- Select the runtime target for the generated multi-agent application without changing AAMAD's core crew workflow.
 
-## Setup
-- Build the runtime with TypeScript and Node.js LTS (pin versions in setup docs for reproducibility).
-- Install and lock Cursor SDK dependencies in the generated backend project.
-- Configure required runtime environment variables (model/provider keys, gateway/base URL values, and runtime flags used by your organization).
-- Record resolved SDK/runtime version, model, temperature, and token or budget controls in artifact Audit sections.
+## Selection Mechanism
+- Use environment variable `AAMAD_TARGET_RUNTIME` with values:
+    - `crewai` (default)
+    - `claude-agent-sdk`
+    - `cursor-sdk`
+- Runtime adapter rules are loaded from `.cursor/rules/adapter-<name>.mdc`; selected runtime should have a matching adapter file.
+- If unset or unknown, default to `crewai` and record the resolved value plus warning in the artifact Audit.
 
-## Mapping
-- Model the generated multi-agent backend around explicit runtime roles (coordinator + specialized agents) and document boundaries in SAD/backend.md.
-- Keep runtime behaviors contract-first: request schema, response schema, and streaming/event envelopes must be defined before implementation.
-- Define tool and subagent surfaces as explicit contracts, including allowed operations and expected return shapes.
+## Adapter Contract
+- Each adapter must define:
+    - Setup requirements (dependencies, env vars, and runtime prerequisites).
+    - Agent declaration pattern for the generated application (how runtime agents/subagents are represented).
+    - Tool and MCP binding policy, including validation and least-privilege guidance.
+    - Execution controls (iteration/time/budget caps, retries, and cancellation behavior).
+    - Logging hooks for Prompt Trace, Diagnostic, and Audit sections.
+    - Memory/session handling and reproducibility constraints.
+    - Output contract conventions (structured I/O, schema checks, citation/grounding rules when applicable).
 
-## Execution
-- Set explicit limits for iteration/turns, tokens, and execution time; avoid implicit defaults.
-- Define deterministic retry and idempotency strategy for operations that can be replayed.
-- Document cancellation, timeout, and fallback behavior for each runtime-critical path.
-- Use runtime sessions/resume only where justified in SAD, and record retention scope in Audit.
+## Runtime Hooks
+- Preflight: verify PRD/SAD/SFS presence per persona, validate runtime/tool config, resolve runtime value, then proceed or Halt and Report.
+- Postflight: validate artifact against template schema, append Prompt Trace + Audit, ensure deterministic write.
 
-## Tools
-- Apply least-privilege tool policy per runtime role; do not expose broad tool sets by default.
-- Validate MCP server availability/auth before execution; halt with Diagnostic when required servers are unavailable.
-- Keep tool input/output contracts JSON-serializable and versioned when consumed across components.
-- Restrict high-risk tools (network, shell, write-capable operations) to tasks that explicitly require them.
+## Extensibility
+- New adapters must keep the same section taxonomy: Purpose, Setup, Mapping, Execution, Tools, Logging, Quality Gates, Failure Policy.
+- Adapters may add capabilities (e.g., graph supervision) but cannot change AAMAD Core contracts.
 
-## Logging
-- Capture Prompt Trace and execution diagnostics for runtime actions and tool calls.
-- Persist lifecycle logs (tool invocation results, retries, cancellations, errors) under `project-context/2.build/logs`.
-- Redact secrets and credentials from trace output and artifact logs.
+## Selection Criteria
+- `crewai`: best when you want declarative task orchestration with YAML-first config and explicit task graph controls.
+- `claude-agent-sdk`: best when you want an agentic runtime harness with hooks, custom tools/MCP integration, and session-level control.
+- `cursor-sdk`: best when you want TypeScript-first runtime integration with Cursor-native harness capabilities and explicit tool/runtime contracts.
 
-## Quality Gates
-- Enforce schema validation for runtime inputs/outputs before accepting results.
-- Validate required artifact headings and output formatting before final write.
-- Require citation and grounding checks for analytical outputs when applicable.
-- Keep artifact-generation behavior deterministic (low temperature unless justified in Audit).
-
-## Failure Policy
-- Halt and write Diagnostic on missing prerequisites, validation failures, unauthorized tools, or unresolved runtime dependencies.
-- On budget/context/time overrun, stop execution and document remediation steps and safe retry procedure.
+## Usage
+- Operators set `AAMAD_TARGET_RUNTIME` before Build-phase implementation work; personas align generated runtime code and docs to `.cursor/rules/adapter-${AAMAD_TARGET_RUNTIME}.mdc`.
 
 ---
 > Source: [synaptic-ai-consulting/AAMAD](https://github.com/synaptic-ai-consulting/AAMAD) — distributed by [TomeVault](https://tomevault.io).
