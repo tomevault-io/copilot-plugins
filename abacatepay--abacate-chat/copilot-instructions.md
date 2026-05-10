@@ -1,123 +1,81 @@
-## 000-cursor-rules
+## 001-accessibility
 
-> Use when creating or updating a rule or when learning a lesson to retain as a Cursor rule.
+> Enforce accessibility guidelines when building or reviewing UI to ensure inclusive user experiences
 
 
-# Cursor Rules Format
+# Accessibility (A11y) Standards
 
-## Core Structure
-
-Write rules in this format:
-
-```mdc
----
-description: ACTION when TRIGGER to OUTCOME
-globs: src/**/*.{ts,tsx}
-alwaysApply: false
----
-
-# Rule Title
+<version>1.0.0</version>
 
 ## Context
 
-- When to apply.
-- Prerequisites or conditions.
+- Ensures all user-facing pages and components meet WCAG 2.1 AA standards
+- Applies to interactions, visual elements, markup structure, and user experience
+- Promotes inclusive design for users with diverse abilities and assistive technologies
 
 ## Requirements
 
-- Concise, testable, actionable items.
+### Keyboard Navigation
+
+- Provide full keyboard navigation support for all interactive elements
+- Implement visible focus indicators with sufficient contrast (3:1 minimum)
+- Ensure logical tab order that matches visual layout
+- Support standard keyboard shortcuts and escape mechanisms
+- Handle focus management in modals and dynamic content
+
+### Semantic HTML
+
+- Use proper heading hierarchy (h1-h6) for content structure
+- Implement semantic landmarks (nav, main, aside, footer)
+- Use appropriate list elements (ul, ol, dl) for grouped content
+- Apply correct input types and form element associations
+- Utilize semantic HTML5 elements over generic divs when possible
+
+### ARIA Implementation
+
+- Include ARIA attributes when semantic HTML is insufficient
+- Use ARIA labels for complex interactive components
+- Implement ARIA live regions for dynamic content updates
+- Apply proper ARIA roles for custom components
+- Ensure ARIA attributes are correctly associated and functional
+
+### Visual Accessibility
+
+- Maintain WCAG 2.1 AA color contrast ratios (4.5:1 for normal text, 3:1 for large text)
+- Ensure information is not conveyed by color alone
+- Support user preferences for reduced motion and high contrast
+- Implement scalable text that works up to 200% zoom
+- Provide alternative text for all meaningful images
+
+### Form Accessibility
+
+- Associate all form fields with descriptive labels or aria-label
+- Group related form fields with fieldset and legend elements
+- Provide clear error messages and validation feedback
+- Implement proper form submission and error handling
+- Support form auto-completion where appropriate
+
+### Content Structure
+
+- Use consistent navigation patterns and skip links
+- Implement clear page titles and headings
+- Provide alternative formats for complex content (tables, charts)
+- Ensure content is readable and understandable
+- Support multiple input methods and assistive technologies
 
 ## Examples
 
 <example>
-  Valid example with a brief explanation.
+  <!-- Properly labeled input with helper text -->
+  <label for="email">Email</label>
+  <input type="email" id="email" aria-describedby="email-helper"/>
+  <p id="email-helper">We'll never share your email address.</p>
 </example>
 
 <example type="invalid">
-  Invalid example with a short explanation.
+  <!-- Missing label and no ARIA attributes -->
+  <input type="text"/>
 </example>
-```
-
-## File Organization
-
-### Location
-
-- Store rules in `.cursor/rules/` as `.mdc` files.
-
-### Naming Convention
-
-Use `PREFIX-name.mdc`, where PREFIX is:
-
-- `0XX`: Core standards
-- `1XX`: Tool configs
-- `3XX`: Testing standards
-- `8XX`: Workflows
-- `9XX`: Templates
-- `1XXX`: Language rules
-- `2XXX`: Framework rules
-- `_name.mdc`: Private rules
-
-### Glob Patterns
-
-Use standard glob patterns:
-
-- Core: `.cursor/rules/*.mdc`
-- Language: `src/**/*.{js,ts}`
-- Testing: `**/*.test.{js,ts}`
-- React Components: `src/ui/components/**/*.tsx`
-- Docs: `docs/**/*.md`
-- Configs: `*.config.{ts,js,json}`
-- Build Artifacts: `dist/**/*`
-- Multiple Extensions: `src/**/*.{js,jsx,ts,tsx}`
-- Multiple Files: `dist/**/*, docs/**/*.md`
-
-## Required Fields
-
-### Frontmatter
-
-- `description`: ACTION TRIGGER OUTCOME format, under 120 characters.
-- `globs`: Standard glob pattern (no quotes).
-- `alwaysApply`: Boolean (usually false).
-
-### Body
-
-- `<version>X.Y.Z</version>`
-- Context: Define usage conditions.
-- Requirements: List actionable, testable items.
-- Examples: Show concise valid and invalid rule examples.
-
-## Formatting Guidelines
-
-- Keep rules short and precise.
-- Use inline backticks and code blocks; no excess markdown.
-- Allowed XML tags: `<version>`, `<danger>`, `<required>`, `<rules>`, `<rule>`, `<critical>`, `<example>`, `<example type="invalid">`.
-- Indent XML tag content by 2 spaces.
-- Use Mermaid syntax to simplify complex rules.
-- Use emojis if they improve clarity.
-- Write instructions for LLM processing, not human discussion.
-
-## AI Optimization
-
-- Use imperative language.
-- No intro to list points.
-- Write precise, deterministic ACTION TRIGGER OUTCOME descriptions.
-- Provide minimal valid/invalid examples.
-- Optimize for AI context window efficiency: remove redundancy.
-- Use standard glob patterns without quotes (`*.js`, `src/**/*.ts`).
-
-## AI Context Efficiency
-
-- Keep frontmatter concise.
-- Limit examples to essential patterns.
-- Use clear hierarchy.
-- Remove redundancy.
-- Focus on machine-actionable instructions.
-
-<critical>
-  - NEVER include verbose explanations or redundant context.
-  - Keep the file as short as possible without sacrificing rule impact.
-  - Frontmatter must only include `description`, `globs`, and `alwaysApply`.
-</critical>
 
 ---
 > Source: [AbacatePay/abacate-chat](https://github.com/AbacatePay/abacate-chat) — distributed by [TomeVault](https://tomevault.io).
