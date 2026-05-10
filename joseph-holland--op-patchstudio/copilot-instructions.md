@@ -1,63 +1,10 @@
-## bug-check
+## context
 
-> rules for bug hunting
+> info on managing state
 
-
-# Bug Hunting
-
-## Bug Hunt
-
-The assistant will perform the below tasks when ask to 'bughunt' || 'bug hunt'
-
-Analyze the changes made in the current branch compared to the last commit on the main branch.
-
-DO NOT attempt to fix any code.  Run tests and build and report on errors too.
-
-For each file that has changed, inspect the diffs for items int eh bug checklist
-
-Only include code that has changed from the last commit on main.
-
-## Detailed Bug Hunt
-
-The assistant will perform the below tasks when ask to 'detailedbughunt' || 'detailed bug hunt'
-
-DO NOT attempt to fix any code.  Run tests and build and report on errors too.
-
-Inspect the code for items in the bug checklist
-
-Then, generate a concise report listing each issue you find using the following format:
-
-[Short description of the issue]
-[Short explaination of reasoning for highlighting as issue] 
-FileName.ext:L12-42  
-
-Start with the most important functions in the program and work outward.  We can run the report multiple times.
-
-## Report format
-
-Then, generate a concise report listing each issue you find using the following format. Make sure to only return text.
-
-```
-fix this bug
-[Short description of the issue]
-[Short explaination of reasoning for highlighting as issue] 
-FileName.ext:L12-42  
-```
-
-Keep the report focused, accurate and under 500 words if possible. Do not repeat the same issue multiple times. Skip cosmetic or stylistic concerns unless they directly introduce a bug.
-
-## Bug checklist
-Logic errors
-
-    Potential bugs
-
-    Insecure or unsafe patterns
-
-    Misuse of APIs or libraries
-
-    Bad practices or anti-patterns
-
-    Unintended consequences from recent changes
+- global state lives exclusively in `AppContext` (React context + reducer) – do not introduce other global state libraries (redux, recoil, zustand, etc.)
+- interact with global state via `useAppContext()` and dispatch predefined action types in `AppContext.tsx`
+- for transient ui state (modals, tooltips) use local `useState` in the component
 
 ---
 > Source: [joseph-holland/op-patchstudio](https://github.com/joseph-holland/op-patchstudio) — distributed by [TomeVault](https://tomevault.io).
