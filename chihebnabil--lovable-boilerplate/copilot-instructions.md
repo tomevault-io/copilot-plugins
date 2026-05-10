@@ -1,68 +1,15 @@
-## services
+## typescript
 
-> Service layer architecture, API patterns, and data management with TanStack Query
+> TypeScript type definitions and utility patterns for the application
 
 
-# Service Layer & Data Management Rules
+# TypeScript & Utilities Rules
 
-## Service Layer Organization
+## Shared Type Definitions
 
-### File Structure
-```
-src/lib/
-├── utils.ts          # General utilities (keep cn function)
-├── types.ts          # Shared TypeScript interfaces
-├── constants.ts      # App-wide constants
-├── validations/      # Zod schemas
-│   ├── user.ts
-│   ├── product.ts
-│   └── common.ts
-└── services/         # API service layer
-    ├── api.ts        # Base API client
-    ├── userService.ts
-    └── productService.ts
-```
-
-### Service Layer Pattern
+### Core Application Types
 ```tsx
-// services/userService.ts
-export const userService = {
-  async getAll(): Promise<User[]> {
-    const response = await fetch('/api/users')
-    if (!response.ok) throw new Error('Failed to fetch users')
-    return response.json()
-  },
-  
-  async getById(id: string): Promise<User> {
-    const response = await fetch(`/api/users/${id}`)
-    if (!response.ok) throw new Error('Failed to fetch user')
-    return response.json()
-  },
-  
-  async create(data: CreateUserData): Promise<User> {
-    const response = await fetch('/api/users', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    })
-    if (!response.ok) throw new Error('Failed to create user')
-    return response.json()
-  },
-  
-  async update(id: string, data: Partial<User>): Promise<User> {
-    const response = await fetch(`/api/users/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    })
-    if (!response.ok) throw new Error('Failed to update user')
-    return response.json()
-  }
-}
-```
-
-### Shared Types (lib/types.ts)
-```tsx
+// lib/types.ts - Always define shared types here
 export interface User {
   id: string
   email: string
@@ -89,8 +36,65 @@ export type Theme = 'light' | 'dark' | 'system'
 export type LoadingState = 'idle' | 'loading' | 'success' | 'error'
 ```
 
-### Constants (lib/constants.ts)
+### Form Type Patterns
 ```tsx
+// Derive form types from Zod schemas
+export type UserFormData = z.infer<typeof userSchema>
+export type CreateUserData = z.infer<typeof createUserSchema>
+export type UpdateUserData = z.infer<typeof updateUserSchema>
+
+// Component prop types
+export interface UserCardProps {
+  user: User
+  onEdit: (id: string) => void
+  onDelete: (id: string) => void
+  className?: string
+}
+```
+
+## Utility Functions
+
+### Keep Existing cn Function
+```tsx
+// lib/utils.ts - NEVER modify this function
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+```
+
+### Common Utility Patterns
+```tsx
+// Date formatting
+export function formatDate(date: Date | string, format?: string): string {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    ...format
+  }).format(new Date(date))
+}
+
+// Debounce utility
+export function debounce<T extends (...args: any[]) => any>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
+  let timeout: NodeJS.Timeout
+  return (...args: Parameters<T>) => {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => func(...args), wait)
+  }
+}
+
+// Sleep utility for demos/testing
+export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+```
+
+## Constants Organization
+
+### API and Route Constants
+```tsx
+// lib/constants.ts
 export const API_ENDPOINTS = {
   USERS: '/api/users',
   PRODUCTS: '/api/products',
@@ -111,80 +115,73 @@ export const ROUTES = {
 } as const
 ```
 
-### Validation Schemas
+### Configuration Constants
 ```tsx
-// lib/validations/common.ts
-export const emailSchema = z.string().email('Invalid email address')
-export const phoneSchema = z.string().regex(/^\+?[\d\s-()]+$/, 'Invalid phone number')
+export const APP_CONFIG = {
+  APP_NAME: 'My App',
+  API_BASE_URL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
+  ITEMS_PER_PAGE: 10,
+  MAX_FILE_SIZE: 5 * 1024 * 1024, // 5MB
+} as const
 
-// lib/validations/user.ts
-export const userSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: emailSchema,
-  phone: phoneSchema.optional(),
-  role: z.enum(['admin', 'user', 'guest'])
-})
-
-export const createUserSchema = userSchema.omit({ role: true })
-export const updateUserSchema = userSchema.partial()
-
-export type UserFormData = z.infer<typeof userSchema>
-export type CreateUserData = z.infer<typeof createUserSchema>
-export type UpdateUserData = z.infer<typeof updateUserSchema>
+export const BREAKPOINTS = {
+  sm: '640px',
+  md: '768px',
+  lg: '1024px',
+  xl: '1280px',
+  '2xl': '1536px',
+} as const
 ```
 
-## TanStack Query Integration
+## TypeScript Best Practices
 
-### Query Hooks Pattern
+### Generic Patterns
 ```tsx
-// hooks/useUsers.ts
-export const useUsers = (params?: UserQueryParams) => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.USERS, params],
-    queryFn: () => userService.getAll(params),
-    staleTime: 5 * 60 * 1000, // 5 minutes
-  })
+// API response wrapper
+export interface PaginatedResponse<T> {
+  data: T[]
+  meta: {
+    total: number
+    page: number
+    limit: number
+    totalPages: number
+  }
 }
 
-export const useUser = (id: string) => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.USERS, id],
-    queryFn: () => userService.getById(id),
-    enabled: !!id,
-  })
+// Generic hook return type
+export interface UseQueryResult<T> {
+  data: T | undefined
+  isLoading: boolean
+  error: Error | null
+  refetch: () => void
 }
 ```
 
-### Mutation Hooks Pattern
+### Environment Variables Typing
 ```tsx
-// hooks/useUserMutations.ts
-export const useCreateUser = () => {
-  const queryClient = useQueryClient()
-  
-  return useMutation({
-    mutationFn: userService.create,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USERS] })
-      toast.success('User created successfully')
-    },
-    onError: (error) => {
-      toast.error(error.message)
-    }
-  })
+// vite-env.d.ts additions
+interface ImportMetaEnv {
+  readonly VITE_API_URL: string
+  readonly VITE_APP_NAME: string
+  // Add more environment variables as needed
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
 }
 ```
 
-## NEVER in Components
-- Direct API calls (`fetch`, `axios` inline)
-- Business logic mixed with UI
-- Hardcoded API URLs
-- Duplicate validation schemas
+## Type Anti-Patterns
+- Using `any` type
+- Inline interface definitions in components
+- Not leveraging Zod for runtime validation
+- Duplicate type definitions across files
 
-## ALWAYS Use
-- Service layer for all API calls
-- Shared types for consistent interfaces
-- Custom hooks for data fetching
-- Centralized constants for URLs and keys
+## Type Best Practices
+- Define shared types in `lib/types.ts`
+- Use Zod schemas for validation and type inference
+- Leverage TypeScript strict mode
+- Use proper generic constraints
 
 ---
 > Source: [chihebnabil/lovable-boilerplate](https://github.com/chihebnabil/lovable-boilerplate) — distributed by [TomeVault](https://tomevault.io).
