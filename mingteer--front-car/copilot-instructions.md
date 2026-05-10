@@ -1,87 +1,24 @@
-## new-header-inclusion-rule
+## no-unsolicited-comments-rule
 
-> This rule applies whenever a new header file (e.g., `new_module.h`) is created within the project.
+> This rule applies when existing code is being modified or new code is being written as part of an edit.
 
-# Rule: New Header File Setup
+# Rule: Commenting on Code Modifications
 
 ## Context
-This rule applies whenever a new header file (e.g., `new_module.h`) is created within the project.
+This rule applies when existing code is being modified or new code is being written as part of an edit.
 
 ## Instructions
 
-When a new header file is created, perform the following steps:
+1.  **No Unsolicited Comments**: When modifying code, do not add any new comments (block comments, inline comments, Doxygen-style comments, etc.) unless the user explicitly requests comments to be added or to explain a particularly complex or non-obvious section of the new/modified code.
 
-1.  **Modify `[zf_common_headfile.h](mdc:libraries/zf_common/zf_common_headfile.h)`:**
-    *   Add an `#include` directive for the newly created header file.
-    *   This directive should be placed in an appropriate section. Based on the existing structure of `[zf_common_headfile.h](mdc:libraries/zf_common/zf_common_headfile.h)`, user-created headers are typically added under the `//=====================================================用户层======================================================` comment.
-    *   Example: If `my_feature.h` is created, add `#include "my_feature.h"` in that section.
+2.  **Preserve Existing Comments**: Existing comments in the codebase should generally be preserved unless the code they refer to is being removed or significantly changed in a way that renders the comment obsolete or misleading. If a comment becomes obsolete due to a code change, it should be removed or updated to accurately reflect the new code, but new explanatory comments should not be added without a user request.
 
-2.  **Modify the Newly Created Header File (e.g., `new_module.h`):**
-    *   **Include Guards:** Ensure the new header file has standard include guards to prevent multiple inclusions.
-        ```c
-        #ifndef __NEW_MODULE_H__ // Or a project-specific naming convention for guards, e.g., _NEW_MODULE_H_
-        #define __NEW_MODULE_H__
+3.  **Focus on Clarity of Code**: Prioritize writing clear, self-documenting code that minimizes the need for explanatory comments. If the code is difficult to understand without comments, consider if the code itself can be refactored for better clarity before resorting to adding comments (unless requested).
 
-        // Header content will go here
+4.  **User Request is Key**: If the user asks for comments, then provide them as requested. The primary driver for adding comments during a modification task is a direct instruction from the user.
 
-        #endif /* __NEW_MODULE_H__ */
-        ```
-    *   **Include `zf_common_headfile.h`:** Add an `#include` directive for `[zf_common_headfile.h](mdc:libraries/zf_common/zf_common_headfile.h)`. This is often one of the first includes.
-        ```c
-        #ifndef __NEW_MODULE_H__
-        #define __NEW_MODULE_H__
-
-        #include "zf_common_headfile.h" // Include the common header
-
-        // Other specific includes for this module, if any
-        // Declarations and definitions for new_module
-
-        #endif /* __NEW_MODULE_H__ */
-        ```
-
-## Include Order Considerations:
-
-*   **In `[zf_common_headfile.h](mdc:libraries/zf_common/zf_common_headfile.h)`:**
-    *   Respect the existing grouping of headers (e.g., C standard libraries, SDK, common library, drivers, devices, user layer).
-    *   Add the new header to its logical group, most likely the "User Layer" (用户层) for custom application code.
-
-*   **In the New Header File:**
-    *   `#include "zf_common_headfile.h"` should generally be included early, as it provides common types, configurations, and potentially other foundational includes.
-    *   Any includes specific to the new module that are *not* already covered by `zf_common_headfile.h` can follow.
-
-## Example Scenario:
-
-Suppose a new header file `user_utils.h` is created, intended for general user-level utilities.
-
-1.  **Changes to `[zf_common_headfile.h](mdc:libraries/zf_common/zf_common_headfile.h)**:
-    ```c
-    // ... other includes ...
-
-    //=====================================================用户层======================================================
-    #include "image_deal.h"
-    #include "PID.h"
-    // ... other existing user includes ...
-    #include "user_utils.h" // <-- New include added here
-    //=====================================================用户层======================================================
-
-    // ... rest of the file ...
-    #endif
-    ```
-
-2.  **Content of the new `user_utils.h` (e.g., if placed in a `user/` directory):**
-    ```c
-    #ifndef __USER_UTILS_H__
-    #define __USER_UTILS_H__
-
-    #include "zf_common_headfile.h" // Essential common includes
-
-    // Function prototypes, type definitions, etc., for user_utils
-    // For example:
-    // void util_initialize_system(void);
-    // int util_calculate_crc(const char* data, int length);
-
-    #endif /* __USER_UTILS_H__ */
-    ```
+## Rationale
+This rule ensures that the AI assistant does not clutter the code with unnecessary comments, especially when interacting with users who may prefer a cleaner codebase or have their own commenting conventions. It respects the user's preference for when and where comments should be added.
 
 ---
 > Source: [MingTeer/Front_Car](https://github.com/MingTeer/Front_Car) — distributed by [TomeVault](https://tomevault.io).
