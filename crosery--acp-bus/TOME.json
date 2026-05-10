@@ -4,7 +4,7 @@
   "repo": "acp-bus",
   "description": "\u591a AI Agent \u534f\u4f5c\u603b\u7ebf \u2014 \u8ba9 AI \u7ec4\u56e2\u5e72\u6d3b | Multi-Agent Collaboration Bus",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Crosery/acp-bus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T16:34:28Z"
+  "distributed_at": "2026-05-10T06:56:33Z"
 }
