@@ -1,8 +1,8 @@
-## docs-modifications
+## test
 
-> 不要编辑额外的多余的项目文档，能直接在对话说明的问题直接在对话说明，如果一定需要创建文档内容，直接编辑项目文档README.md。
+> 测试新样式或验证修改的样式效果，请使用example.md文件或编辑该文件并添加新样式后编译运行。
 
-不要编辑额外的多余的项目文档，能直接在对话说明的问题直接在对话说明，如果一定需要创建文档内容，直接编辑项目文档README.md。
+测试新样式或验证修改的样式效果，请使用example.md文件或编辑该文件并添加新样式后编译运行。
 
 ---
 > Source: [MurphyLo/md2juya](https://github.com/MurphyLo/md2juya) — distributed by [TomeVault](https://tomevault.io).
