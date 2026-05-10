@@ -1,0 +1,9 @@
+{
+  "name": "jmvbambico--geminitro",
+  "displayName": "geminitro",
+  "description": "Lightweight Gemini API proxy with key pooling, automatic rotation, and a live web dashboard.",
+  "version": "1.0.0",
+  "author": "jmvbambico",
+  "homepage": "https://github.com/jmvbambico/geminitro",
+  "skills": []
+}
