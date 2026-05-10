@@ -1,0 +1,9 @@
+{
+  "name": "nisten--prism-ml-biturbo",
+  "displayName": "prism-ml-biturbo",
+  "description": "1bit llama.cpp gguf weights paired with turboquant 4 bit kv cache",
+  "version": "1.0.0",
+  "author": "nisten",
+  "homepage": "https://github.com/nisten/prism-ml-biturbo",
+  "skills": []
+}
