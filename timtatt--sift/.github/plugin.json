@@ -1,0 +1,9 @@
+{
+  "name": "timtatt--sift",
+  "displayName": "sift",
+  "description": "A lightweight terminal UI for traversing Go tests",
+  "version": "1.0.0",
+  "author": "timtatt",
+  "homepage": "https://github.com/timtatt/sift",
+  "skills": []
+}
