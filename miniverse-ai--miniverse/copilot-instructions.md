@@ -1,15 +1,14 @@
-## data-modeling
+## documentation
 
-> - **Pydantic BaseModel** - Use for all serializable data structures, API schemas, and persistence models
+> - **Every module, class, and public function needs a docstring** - Explain what it does, why it exists, and key design decisions
 
+# Documentation Standards
 
-# Data Modeling and Architecture
-
-- **Pydantic BaseModel** - Use for all serializable data structures, API schemas, and persistence models
-- **@dataclass** - Use for lightweight, performance-critical structures (environment tiles, graph nodes)
-- **Protocol** - Use for interfaces and abstract contracts
-- **Field validation** - Use Pydantic `Field()` for constraints, descriptions, and metadata
-- **Type unions** - Use `str | None` syntax for optional fields, not `Optional[str]`
+- **Every module, class, and public function needs a docstring** - Explain what it does, why it exists, and key design decisions
+- **Explain WHY, not WHAT** - Code shows what it does; comments explain rationale, design decisions, and non-obvious logic
+- **Use Field descriptions** - All Pydantic fields must have `description=` parameter
+- **Update docs with code changes** - When changing features, update README.md, CLAUDE.md, and docs/ as needed
+- **No redundant or stale comments** - Delete outdated comments and don't repeat what code obviously does
 
 ---
 > Source: [miniverse-ai/miniverse](https://github.com/miniverse-ai/miniverse) — distributed by [TomeVault](https://tomevault.io).
