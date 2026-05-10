@@ -1,0 +1,9 @@
+{
+  "name": "coralogix--canopy",
+  "displayName": "canopy",
+  "description": "Canopy - the open-source agent workspace runtime",
+  "version": "1.0.0",
+  "author": "coralogix",
+  "homepage": "https://github.com/coralogix/canopy",
+  "skills": []
+}
