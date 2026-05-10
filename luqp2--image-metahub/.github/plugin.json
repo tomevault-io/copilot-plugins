@@ -1,0 +1,9 @@
+{
+  "name": "luqp2--image-metahub",
+  "displayName": "Image-MetaHub",
+  "description": "A desktop application for browsing, searching, and organizing AI-generated images locally. Designed for performance with large collections, focusing on powerful metadata filtering and complete privacy",
+  "version": "1.0.0",
+  "author": "LuqP2",
+  "homepage": "https://github.com/LuqP2/Image-MetaHub",
+  "skills": []
+}
