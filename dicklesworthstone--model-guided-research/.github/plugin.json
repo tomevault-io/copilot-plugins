@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--model-guided-research",
+  "displayName": "model_guided_research",
+  "description": "Systematic investigation of 11 exotic math frameworks (Lie groups, tropical algebra, p-adic numbers, etc.) applied to deep learning, with dual JAX and PyTorch implementations",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/model_guided_research",
+  "skills": []
+}
