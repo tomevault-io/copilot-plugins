@@ -1,0 +1,9 @@
+{
+  "name": "amrrs--cinematic-webscroll-frontend-skill",
+  "displayName": "cinematic-webscroll-frontend-skill",
+  "description": "Reusable cross-tool skill package for planning and prompting cinematic websites with GSAP, three js, fal.ai",
+  "version": "1.0.0",
+  "author": "amrrs",
+  "homepage": "https://github.com/amrrs/cinematic-webscroll-frontend-skill",
+  "skills": []
+}
