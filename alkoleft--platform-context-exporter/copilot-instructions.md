@@ -1,572 +1,273 @@
-## 112-java-type-design
+## 113-java-general-guidelines
 
-> Type Design Thinking in Java
+> Java General Guidelines
 
-# Type Design Thinking in Java
+# Java General Guidelines
 
-Type design thinking in Java applies typography principles to code structure and organization. Just as typography creates readable, accessible text, thoughtful type design in Java produces maintainable, comprehensible code.
+This document outlines general Java coding guidelines covering fundamental aspects such as naming conventions for packages, classes, methods, variables, and constants; code formatting rules including indentation, line length, brace style, and whitespace usage; standards for organizing import statements; best practices for Javadoc documentation; and comprehensive error and exception handling with a strong focus on security, including avoiding sensitive information exposure, catching specific exceptions, and secure resource management.
 
 ## Implementing These Principles
 
-1.  **Start with domain modeling**: Sketch your type system before coding.
-2.  **Create a type style guide**: Document naming conventions and patterns.
-3.  **Review for type consistency**: Periodically check for style adherence.
-4.  **Refactor toward clearer type expressions**: Improve existing code.
-5.  **Use tools to enforce style**: Configure linters and static analyzers.
+These guidelines are built upon the following core principles:
 
-Remember, good type design in Java is about communication - making your code's intent clear both to the compiler and to other developers.
+1.  **Clarity and Consistency in Naming**: Adhere to standard Java naming conventions for all code elements (packages, classes, methods, variables, constants). This promotes code that is intuitive, predictable, and easier for developers to understand and navigate.
+2.  **Readability through Formatting**: Consistently apply formatting rules for indentation, line length, brace style, and whitespace. Well-formatted code is significantly easier to read, debug, and maintain.
+3.  **Organized Import Statements**: Structure import statements logically by grouping related packages and alphabetizing within those groups. Avoid wildcard imports to ensure clarity about class origins and prevent namespace conflicts.
+4.  **Effective Documentation**: Strive for self-documenting code. For public APIs, complex algorithms, non-obvious business logic, or any part of the code that isn't immediately clear, provide comprehensive Javadoc. Good documentation aids understanding, usage, and maintenance.
+5.  **Robust and Secure Error Handling**: Implement thorough error and exception handling with a strong focus on security. This includes using specific exceptions, managing resources diligently (preferably with try-with-resources), preventing the leakage of sensitive information in logs or error messages, and never "swallowing" exceptions without proper handling or justification. Resilient and secure applications depend on robust error management.
 
 ## Table of contents
 
-- Rule 1: Establish a Clear Type Hierarchy
-- Rule 2: Use Consistent Naming Conventions (Your Type's "Font Family")
-- Rule 3: Embrace Whitespace (Kerning and Leading)
-- Rule 4: Create Type-Safe Wrappers (Type as Communication)
-- Rule 5: Leverage Generic Type Parameters (Responsive Typography)
-- Rule 6: Create Domain-Specific Languages (Typography with Character)
-- Rule 7: Use Consistent Type "Weights" (Bold, Regular, Light)
-- Rule 8: Apply Type Contrast Through Interfaces
-- Rule 9: Create Type Alignment Through Method Signatures
-- Rule 10: Design for Clear Type Readability and Comprehension
-- Rule 11: Use BigDecimal for Precision-Sensitive Calculations
-- Rule 12: Strategic Type Selection for Methods and Algorithms
-
-## Rule 1: Establish a Clear Type Hierarchy
-
-Title: Establish a Clear Type Hierarchy
-Description: This rule focuses on organizing classes and interfaces into a logical structure using inheritance and composition. A clear hierarchy makes the relationships between types explicit, improving code navigation and understanding. It often involves using nested static classes for closely related types.
-
-**Good example:**
-
-```java
-// GOOD: Clear type hierarchy with descriptive names
-public class OrderManagement {
-    public static class Order {
-        private List<OrderItem> items;
-        private Customer customer;
-        // ...
-    }
-
-    public static class OrderItem {
-        private Product product;
-        private int quantity;
-        // ...
-    }
-}
-```
-
-**Bad Example:**
-
-```java
-// AVOID: Flat structure with ambiguous names
-public class Order {
-    private List<Item> items;
-    private User user;
-    // ...
-}
-```
-
-## Rule 2: Use Consistent Naming Conventions (Your Type's "Font Family")
-
-Title: Use Consistent Naming Conventions (Your Type's "Font Family")
-Description: This rule emphasizes using uniform patterns for naming classes, interfaces, methods, and variables. Consistency in naming acts like a consistent font family in typography, making the code easier to read, predict, and maintain across the entire project.
-
-**Good example:**
-
-```java
-// GOOD: Consistent naming patterns
-interface PaymentProcessor { void process(Payment payment); }
-interface ShippingCalculator { BigDecimal calculate(Order order); }
-interface TaxProvider { Tax getTaxFor(Address address); }
-```
-
-**Bad Example:**
-
-```java
-// AVOID: Inconsistent naming patterns
-interface PaymentProcessor { void handlePayment(Payment p); }
-interface ShipCalc { BigDecimal getShippingCost(Order o); }
-interface TaxSystem { Tax lookupTaxRate(Address addr); }
-```
-
-## Rule 3: Embrace Whitespace (Kerning and Leading)
-
-Title: Embrace Whitespace (Kerning and Leading)
-Description: This rule advocates for the strategic use of blank lines and spacing within code, analogous to kerning and leading in typography. Proper whitespace improves readability by visually separating logical blocks of code, making it easier to scan and comprehend.
-
-**Good example:**
-
-```java
-// GOOD: Proper spacing for readability
-public Order processOrder(Cart cart, Customer customer) {
-    // Validate inputs
-    validateCart(cart);
-    validateCustomer(customer);
-
-    // Create order
-    Order order = new Order(customer);
-    cart.getItems().forEach(item ->
-        order.addItem(item.getProduct(), item.getQuantity())
-    );
-
-    // Calculate totals
-    order.calculateSubtotal();
-    order.calculateTax();
-
-    return order;
-}
-```
-
-**Bad Example:**
-
-```java
-// AVOID: Dense, difficult to parse code
-public Order processOrder(Cart cart,Customer customer){
-    validateCart(cart);validateCustomer(customer);
-    Order order=new Order(customer);
-    cart.getItems().forEach(item->order.addItem(item.getProduct(),item.getQuantity()));
-    order.calculateSubtotal();order.calculateTax();
-    return order;
-}
-```
-
-## Rule 4: Create Type-Safe Wrappers (Type as Communication)
-
-Title: Create Type-Safe Wrappers (Type as Communication)
-Description: This rule encourages wrapping primitive types or general-purpose types (like String) in domain-specific types. These wrapper types enhance type safety by enforcing invariants at compile-time and clearly communicate the intended meaning and constraints of data.
-
-**Good example:**
-
-```java
-// GOOD: Type-safe wrappers communicate intent
-public class EmailAddress {
-    private final String value;
-
-    public EmailAddress(String email) {
-        if (!isValid(email)) {
-            throw new IllegalArgumentException("Invalid email format");
-        }
-        this.value = email;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    private boolean isValid(String email) {
-        // Validation logic
-        return email != null && email.matches("^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
-    }
-}
-
-// Usage
-void sendWelcomeMessage(EmailAddress email) {
-    // We know email is valid
-    emailService.send(email.getValue(), "Welcome!");
-}
-```
-
-**Bad Example:**
-
-```java
-// AVOID: Primitive obsession
-void sendWelcomeMessage(String email) {
-    // Need to validate every time
-    if (email != null && email.matches("^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$")) {
-        emailService.send(email, "Welcome!");
-    } else {
-        throw new IllegalArgumentException("Invalid email");
-    }
-}
-```
-
-## Rule 5: Leverage Generic Type Parameters (Responsive Typography)
-
-Title: Leverage Generic Type Parameters (Responsive Typography)
-Description: This rule promotes the use of generics to create flexible and reusable types and methods that can operate on objects of various types while maintaining type safety. This is akin to responsive typography that adapts to different screen sizes, as generics adapt to different data types.
-
-**Good example:**
-
-```java
-// GOOD: Generic types adapt to different contexts
-public class Repository<T extends Entity> {
-    public Optional<T> findById(Long id) {
-        // Implementation
-    }
-
-    public List<T> findAll() {
-        // Implementation
-    }
-
-    public void save(T entity) {
-        // Implementation
-    }
-}
-
-// Usage for different entity types
-Repository<Customer> customerRepo = new Repository<>();
-Repository<Product> productRepo = new Repository<>();
-```
-
-**Bad Example:**
-
-```java
-// AVOID: Multiple similar classes with duplicated logic
-public class CustomerRepository {
-    public Optional<Customer> findById(Long id) { /* ... */ }
-    public List<Customer> findAll() { /* ... */ }
-    public void save(Customer customer) { /* ... */ }
-}
-
-public class ProductRepository {
-    public Optional<Product> findById(Long id) { /* ... */ }
-    public List<Product> findAll() { /* ... */ }
-    public void save(Product product) { /* ... */ }
-}
-```
-
-## Rule 6: Create Domain-Specific Languages (Typography with Character)
-
-Title: Create Domain-Specific Languages (Typography with Character)
-Description: This rule suggests designing fluent interfaces or using builder patterns to create mini "languages" specific to a domain. This makes code more expressive and readable, similar to how typography with distinct character adds personality and clarity to text.
-
-**Good example:**
-
-```java
-// GOOD: Fluent interfaces that read like natural language
-Order order = new OrderBuilder()
-    .forCustomer(customer)
-    .withItems(items)
-    .withShippingAddress(address)
-    .withPaymentMethod(paymentMethod)
-    .deliverBy(LocalDate.now().plusDays(3))
-    .build();
-```
-
-**Bad Example:**
-
-```java
-// AVOID: Complex constructor calls or setters
-Order order = new Order();
-order.setCustomer(customer);
-order.setItems(items);
-order.setShippingAddress(address);
-order.setPaymentMethod(paymentMethod);
-order.setDeliveryDate(LocalDate.now().plusDays(3));
-```
-
-## Rule 7: Use Consistent Type "Weights" (Bold, Regular, Light)
-
-Title: Use Consistent Type "Weights" (Bold, Regular, Light)
-Description: This rule advises assigning conceptual "weights" (like bold, regular, light in typography) to types based on their importance or role in the domain. Core domain objects might be "bold," supporting types "regular," and utility classes "light," helping to convey the architecture.
-
-**Good example:**
-
-```java
-// GOOD: Types with appropriate "weight" based on importance
-// "Bold" - Core domain objects
-public class Customer { /* ... */ }
-public class Order { /* ... */ }
-public class Product { /* ... */ }
-
-// "Regular" - Supporting types
-public class Address { /* ... */ }
-public class PaymentDetails { /* ... */ }
-
-// "Light" - Helper/utility classes
-public class CustomerFormatter { /* ... */ }
-public class OrderValidator { /* ... */ }
-```
-
-**Bad Example:**
-
-```java
-// AVOID: Inconsistent importance signals
-public class CustomerStuff { /* ... */ }
-public class TheOrderClass { /* ... */ }
-public class ProductManager { /* ... */ }
-```
-
-## Rule 8: Apply Type Contrast Through Interfaces
-
-Title: Apply Type Contrast Through Interfaces
-Description: This rule emphasizes defining clear contracts using interfaces and then providing concrete implementations. This creates "contrast" by separating the "what" (interface) from the "how" (implementation), promoting loose coupling and easier testing and maintenance.
-
-**Good example:**
-
-```java
-// GOOD: Clear interface/implementation contrast
-public interface PaymentGateway {
-    PaymentResult processPayment(Payment payment);
-    RefundResult processRefund(Refund refund);
-}
-
-public class StripePaymentGateway implements PaymentGateway {
-    @Override
-    public PaymentResult processPayment(Payment payment) {
-        // Stripe-specific implementation
-    }
-
-    @Override
-    public RefundResult processRefund(Refund refund) {
-        // Stripe-specific implementation
-    }
-}
-
-public class PayPalPaymentGateway implements PaymentGateway {
-    @Override
-    public PaymentResult processPayment(Payment payment) {
-        // PayPal-specific implementation
-    }
-
-    @Override
-    public RefundResult processRefund(Refund refund) {
-        // PayPal-specific implementation
-    }
-}
-```
-
-**Bad Example:**
-
-```java
-// AVOID: Direct dependencies on implementations
-public class StripePaymentProcessor {
-    public StripePaymentResult processStripePayment(StripePayment payment) {
-        // Stripe-specific implementation
-    }
-
-    public StripeRefundResult processStripeRefund(StripeRefund refund) {
-        // Stripe-specific implementation
-    }
-}
-```
-
-## Rule 9: Create Type Alignment Through Method Signatures
-
-Title: Create Type Alignment Through Method Signatures
-Description: This rule advocates for consistency in method signatures (names, parameter types, return types) across related classes or interfaces. Aligned signatures, like aligned text in typography, create a sense of order and predictability, making APIs easier to learn and use.
-
-**Good example:**
-
-```java
-// GOOD: Aligned method signatures across related classes
-public interface NotificationChannel {
-    void send(Notification notification, Recipient recipient);
-    boolean canDeliver(NotificationType type);
-    DeliveryStatus checkStatus(String notificationId);
-}
-
-public class EmailNotificationChannel implements NotificationChannel {
-    @Override
-    public void send(Notification notification, Recipient recipient) { /* ... */ }
-
-    @Override
-    public boolean canDeliver(NotificationType type) { /* ... */ }
-
-    @Override
-    public DeliveryStatus checkStatus(String notificationId) { /* ... */ }
-}
-
-public class SmsNotificationChannel implements NotificationChannel {
-    @Override
-    public void send(Notification notification, Recipient recipient) { /* ... */ }
-
-    @Override
-    public boolean canDeliver(NotificationType type) { /* ... */ }
-
-    @Override
-    public DeliveryStatus checkStatus(String notificationId) { /* ... */ }
-}
-```
-
-**Bad Example:**
-
-```java
-// AVOID: Misaligned method signatures
-public class EmailSender {
-    public void sendEmail(Email email, String recipientAddress) { /* ... */ }
-    public boolean supportsEmailType(EmailType type) { /* ... */ }
-    public String getEmailDeliveryStatus(UUID emailId) { /* ... */ }
-}
-
-public class SmsSender {
-    public void send(SmsMessage message, PhoneNumber recipient) { /* ... */ }
-    public boolean canSendTo(PhoneNumber number) { /* ... */ }
-    public void checkIfDelivered(String messageId) { /* ... */ }
-}
-```
-
-## Rule 10: Design for Clear Type Readability and Comprehension
-
-Title: Design for Clear Type Readability and Comprehension
-Description: This overarching rule encourages writing self-documenting code with clear, descriptive names for types, methods, and variables. The goal is to make the code's intent immediately obvious, minimizing the need for extensive comments or external documentation.
-
-**Good example:**
-
-```java
-// GOOD: Self-documenting code with clear intent
-public class OrderService {
-    public Order createOrder(Customer customer, List<CartItem> items) {
-        if (items.isEmpty()) {
-            throw new EmptyCartException("Cannot create order with empty cart");
+- Rule 1: Naming Conventions
+- Rule 2: Formatting
+- Rule 3: Import Statements
+- Rule 4: Documentation Standards
+- Rule 5: Comprehensive Error and Exception Handling (Including Security Best Practices)
+
+## Rule 1: Naming Conventions
+
+-   **Packages:** Lowercase, using reverse domain name notation (e.g., `com.example.project.module`). Avoid underscores.
+-   **Classes and Interfaces:** PascalCase (e.g., `UserProfile`, `DataAccessService`). Names should be descriptive nouns or noun phrases.
+-   **Methods:** camelCase (e.g., `getUserName`, `calculateTotalAmount`). Names should be verbs or verb phrases.
+-   **Variables:** camelCase (e.g., `userName`, `currentIndex`). Strive for short yet meaningful names. Avoid single-character names except for temporary loop counters (like `i`, `j`, `k`) or lambda parameters where context is clear.
+-   **Constants:** `ALL_CAPS_SNAKE_CASE` (e.g., `MAX_LOGIN_ATTEMPTS`, `DEFAULT_TIMEOUT_MS`).
+-   **Type Parameters:** Single uppercase letter (e.g., `T`, `E`, `K`, `V`) or a descriptive name in PascalCase if more complex.
+
+## Rule 2: Formatting
+
+-   **Indentation:** Use 4 spaces for indentation. Some style guides (like Google's) recommend 2 spaces; consistency within a project is key. Do not use tabs.
+-   **Line Length:** Aim for a maximum line length of 120 characters. Some guides suggest 100 characters (Google) or even 80 (older Oracle). This helps readability, especially with side-by-side diffs.
+-   **Braces (Curly Braces):**
+    -   Use K&R style ("Egyptian brackets"): the opening brace is at the end of the line that begins the block; the closing brace is on its own line, aligned with the start of the construct.
+    -   Always use braces for `if`, `else`, `for`, `do`, `while` statements, even if the body is a single line or empty. This prevents ambiguity and errors when adding statements later.
+        ```java
+        // Good
+        if (condition) {
+            doSomething();
         }
 
-        if (!customer.hasValidPaymentMethod()) {
-            throw new InvalidPaymentException("Customer has no valid payment method");
-        }
+        // Avoid (even if allowed by some relaxed styles for single lines)
+        // if (condition) doSomething();
+        // if (condition)
+        //     doSomething();
+        ```
+-   **Whitespace:**
+    -   **Vertical:**
+        -   Use a single blank line to separate methods.
+        -   Use blank lines within methods to separate logical blocks of code.
+        -   Avoid excessive blank lines.
+    -   **Horizontal:**
+        -   Use a single space around binary operators (`+`, `-`, `*`, `/`, `=`, `==`, `!=`, `&&`, `||`, etc.).
+        -   Use a single space after commas in argument lists and after semicolons in `for` statements.
+        -   Use a single space after keywords like `if`, `for`, `while`, `catch` and before the opening parenthesis `(`.
+        -   No trailing whitespace on any line.
+-   **`var` Keyword (Java 10+):**
+    -   Use `var` for local variable type inference when it improves readability and the type of the variable is clear from the initializer or context.
+    -   Good: `var userList = new ArrayList<User>();`, `var stream = Files.lines(path);`
+    -   Avoid: `var result = getComplexObject();` (if `getComplexObject()` return type isn't immediately obvious).
+-   **Annotations:**
+    -   Apply annotations on separate lines immediately preceding the code they annotate, unless the annotation is very short and applies to a parameter.
+    -   Standard annotations like `@Override` and `@Deprecated` should be used consistently.
+    -   Nullability annotations (e.g., `@Nullable`, `@NonNull` from JetBrains, JSpecify, or similar frameworks) should be used consistently if the project adopts them. Follow project-specific guidelines for their setup and usage.
 
-        Order order = new Order(customer);
-        items.forEach(order::addItem);
+## Rule 3: Import Statements
 
-        orderRepository.save(order);
-        eventPublisher.publish(new OrderCreatedEvent(order));
+-   **Order:**
+    1.  Static imports (all static imports grouped together).
+    2.  `java.*` packages.
+    3.  `jakarta.*` packages.
+    4.  Third-party library packages (e.g., `org.*`, `com.*`, excluding project's own).
+    5.  Project's own packages (e.g., `com.example.project.*`).
+-   Group imports by top-level package, with a blank line separating each group.
+-   Within each group, imports should be alphabetized.
+-   Do not use wildcard imports (e.g., `import java.util.*;`), except for static imports of enum constants if truly necessary and it improves readability. Prefer importing specific classes.
 
-        return order;
-    }
-}
-```
-
-**Bad Example:**
-
-```java
-// AVOID: Cryptic code that's hard to follow
-public class OS {
-    public O proc(C c, List<I> i) {
-        if (i.size() < 1) throw new Ex1("e1");
-        if (!c.hvm()) throw new Ex2("e2");
-
-        O o = new O(c);
-        for (I item : i) o.ai(item);
-
-        r.s(o);
-        p.p(new E(o));
-
-        return o;
-    }
-}
-```
-
-## Rule 11: Use BigDecimal for Precision-Sensitive Calculations
-
-Title: Use BigDecimal for Precision-Sensitive Calculations
-Description: This rule emphasizes using `java.math.BigDecimal` for calculations requiring high precision, especially with monetary values or any domain where rounding errors from binary floating-point arithmetic (like `float` or `double`) are unacceptable. Primitives like `double` can be used for scientific computations or when performance is critical and the implications of floating-point inaccuracies are understood and managed.
-
-**Good example:**
+**Example Illustrating Style Points:**
 
 ```java
-// GOOD: Using BigDecimal for financial calculations
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+package com.example.myapp.services; // Package naming
 
-public class FinancialCalculator {
-    public static BigDecimal calculateTotalPrice(BigDecimal itemPrice, BigDecimal taxRate, int quantity) {
-        if (itemPrice == null || itemPrice.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Item price must be non-negative.");
-        }
-        if (taxRate == null || taxRate.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Tax rate must be non-negative.");
-        }
-        if (quantity <= 0) {
-            throw new IllegalArgumentException("Quantity must be positive.");
-        }
-
-        BigDecimal subtotal = itemPrice.multiply(new BigDecimal(quantity));
-        BigDecimal taxAmount = subtotal.multiply(taxRate).setScale(2, RoundingMode.HALF_UP);
-        return subtotal.add(taxAmount);
-    }
-
-    public static void main(String[] args) {
-        BigDecimal price = new BigDecimal("19.99");
-        BigDecimal rate = new BigDecimal("0.075"); // 7.5% tax
-        int qty = 3;
-        BigDecimal total = calculateTotalPrice(price, rate, qty);
-        // Expected: 19.99 * 3 = 59.97. Tax = 59.97 * 0.075 = 4.49775 -> 4.50. Total = 59.97 + 4.50 = 64.47
-        System.out.println("Total price: $" + total);
-    }
-}
-```
-
-**Bad Example:**
-
-```java
-// AVOID: Using double for financial calculations leading to precision issues
-public class InaccurateFinancialCalculator {
-    public static double calculateTotalPrice(double itemPrice, double taxRate, int quantity) {
-        if (itemPrice < 0) {
-            throw new IllegalArgumentException("Item price must be non-negative.");
-        }
-        if (taxRate < 0) {
-            throw new IllegalArgumentException("Tax rate must be non-negative.");
-        }
-        if (quantity <= 0) {
-            throw new IllegalArgumentException("Quantity must be positive.");
-        }
-        // Prone to floating point inaccuracies
-        double subtotal = itemPrice * quantity;
-        double taxAmount = subtotal * taxRate;
-        // Manual rounding might still be inaccurate or inconsistent
-        return subtotal + taxAmount; 
-    }
-
-    public static void main(String[] args) {
-        double price = 19.99;
-        double rate = 0.075;
-        int qty = 3;
-        double total = calculateTotalPrice(price, rate, qty);
-        // Output might be something like 64.46775000000001 instead of 64.47
-        System.out.println("Total price (using double): $" + total); 
-    }
-}
-```
-
-## Rule 12: Strategic Type Selection for Methods and Algorithms
-
-Title: Strategic Type Selection for Methods and Algorithms
-Description: This rule emphasizes choosing the most appropriate Java types for method parameters, return values, and internal algorithm variables. Considerations include specificity (preferring the most precise type that still allows necessary flexibility), using interfaces over concrete classes for parameters and return types where appropriate, selecting suitable collection types (`List`, `Set`, `Map`, etc.) based on requirements (e.g., ordering, uniqueness, access patterns, performance characteristics), and leveraging types like `Optional` for results that may be absent. It also covers the deliberate choice between primitive types and their wrapper counterparts, especially concerning nullability and collection usage.
-
-**Good example:**
-
-```java
+import java.util.ArrayList;          // Import grouping and order
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
-// Define specific domain types (can be records or classes)
-record ProductId(String id) {}
-record Product(ProductId productId, String name, java.math.BigDecimal price) {}
-record CustomerId(String id) {}
+import static com.example.myapp.utils.ValidationConstants.MAX_NAME_LENGTH; // Static import
 
-interface ProductRepository {
-    Optional<Product> findById(ProductId productId);
-    Set<Product> findByCategory(String category); // Using Set if products in a category are unique and order doesn't matter
+import com.example.myapp.dto.UserDTO; // Project-specific import
+import com.example.myapp.exceptions.InvalidUserDataException;
+
+/**
+ * Service class for managing user profiles.
+ * Uses PascalCase for class names.
+ * Annotations on separate lines.
+ */
+@Service // Example annotation
+public class UserProfileService {
+
+    public static final int DEFAULT_PAGE_SIZE = 20; // Constant naming
+
+    private final UserRepository userRepository; // camelCase for variables
+
+    /**
+     * Constructs a UserProfileService with a UserRepository.
+     *
+     * @param userRepository The repository for user data access.
+     */
+    public UserProfileService(UserRepository userRepository) { // camelCase for parameters
+        this.userRepository = Objects.requireNonNull(userRepository, "userRepository must not be null");
+    }
+
+    /**
+     * Retrieves a user by their username.
+     * Uses camelCase for method names.
+     *
+     * @param username The username to search for.
+     * @return The UserDTO if found.
+     * @throws InvalidUserDataException if the username is invalid or user not found.
+     */
+    public UserDTO getUserByUsername(String username) throws InvalidUserDataException {
+        if (Objects.isNull(username) || username.trim().isEmpty() || username.length() > MAX_NAME_LENGTH) { // Brace usage
+            throw new InvalidUserDataException("Username is invalid.");
+        }
+
+        var userEntity = userRepository.findByUsername(username); // 'var' for clear type
+
+        if (Objects.isNull(userEntity)) {
+            // Log error or handle as per application requirements before throwing
+            throw new InvalidUserDataException("User not found: " + username);
+        }
+
+        return convertToDTO(userEntity); // Logical separation within method
+    }
+
+    private UserDTO convertToDTO(UserEntity userEntity) {
+        UserDTO dto = new UserDTO();
+        dto.setUsername(userEntity.getUsername());
+        dto.setEmail(userEntity.getEmail());
+        // ... other conversions
+        return dto;
+    }
+
+    // Dummy inner classes/interfaces for example context
+    interface UserRepository { UserEntity findByUsername(String username); }
+    static class UserEntity {
+        private String username;
+        private String email;
+        public String getUsername() { return username; }
+        public String getEmail() { return email; }
+        // ... getters and setters
+    }
+    @interface Service {} // Dummy annotation
+
+    // Assume UserDTO is defined elsewhere e.g. com.example.myapp.dto.UserDTO
+    // Assume InvalidUserDataException is defined elsewhere e.g. com.example.myapp.exceptions.InvalidUserDataException
 }
 
-class ProductService {
-    private final ProductRepository productRepository;
+// Constants can be in a separate class/interface if widely used
+// Example:
+// package com.example.myapp.utils;
+//
+// public final class ValidationConstants {
+//     private ValidationConstants() {} // Private constructor for utility class
+//     public static final int MAX_NAME_LENGTH = 50;
+// }
+```
 
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+**Bad Example (Revised to highlight new points):**
+
+```java
+// Package name does not follow reverse domain, uses underscore
+package my_app_services;
+
+// Wildcard imports, no order, no static grouping
+import java.util.*;
+import java.util.Objects;
+import com.example.myapp.dto.UserDTO;
+import com.example.myapp.exceptions.InvalidUserDataException; // Should be after java.util
+import static com.example.myapp.utils.ValidationConstants.MAX_NAME_LENGTH; // Static not first
+
+// Class name not PascalCase
+class userProfileSvc {
+    // Constant not ALL_CAPS_SNAKE_CASE
+    public static final int defaultpagesize = 20;
+    // Variable not camelCase, Hungarian notation (avoid)
+    private UserRepository mUserRepository;
+
+    // No Javadoc, poor parameter naming
+    public userProfileSvc(UserRepository repo) {
+        this.mUserRepository = repo;
     }
 
-    // Using specific types for parameters and Optional for return type
-    public Optional<Product> getProductDetails(ProductId productId) {
-        if (productId == null || productId.id().trim().isEmpty()) {
-            // Consider throwing IllegalArgumentException or returning Optional.empty() based on contract
-            return Optional.empty();
+    // Method not camelCase, poor parameter name
+    public UserDTO GetUser(String Username) throws InvalidUserDataException {
+        // No braces for single line if, inconsistent indentation
+        if (Objects.isNull(Username) || Username.trim().isEmpty())
+          throw new InvalidUserDataException("Username is invalid.");
+
+        // 'var' used where type might not be immediately obvious if findByUsername was complex
+        // and not shown in context
+        var user_Entity = mUserRepository.findByUsername(Username); // variable not camelCase
+
+        if (Objects.isNull(user_Entity)) {
+            throw new InvalidUserDataException("User not found: " + Username); } // Brace on same line as if, inconsistent
+        else { // else on new line
+            return convertToDTO(user_Entity);
         }
-        return productRepository.findById(productId);
     }
 
-    // Using Interface for parameter type (Collection) and specific List for return (if order is important)
-    public List<Product> getProductsWithMinimumPrice(Set<ProductId> productIds, java.math.BigDecimal minPrice) {
-        return productIds.stream()
-            .map(productRepository::findById)
-            .filter(Optional::isPresent)
-            .map(Optional::get)
-            .filter(product -> product.price().compareTo(minPrice) >= 0)
-            .collect(Collectors.toList()); // Collecting to List, implies order might matter or is at least acceptable
+    UserDTO convertToDTO(UserEntity ue) { // No visibility modifier, inconsistent naming
+        UserDTO d = new UserDTO();
+        d.setUsername(ue.getUsername());
+        d.setEmail(ue.getEmail());
+        return d;
+    }
+
+    // Dummy inner classes/interfaces for example context
+    interface UserRepository { UserEntity findByUsername(String username); }
+    static class UserEntity {
+        private String username;
+        private String email;
+        public String getUsername() { return username; }
+        public String getEmail() { return email; }
+    }
+    // Assume UserDTO and InvalidUserDataException are defined elsewhere
+    // Assume ValidationConstants and MAX_NAME_LENGTH are defined elsewhere
+}
+``` 
+
+## Rule 4: Documentation Standards
+
+Title: Maintain Clear Documentation
+Description: Write self-documenting code and comment on complex algorithms, business rules, and public APIs. Use Javadoc with required elements like @param, @return, @throws, and @since. Javadoc style should be clear, concise, use complete sentences, and proper grammar.
+
+**Good example:**
+
+```java
+/**
+ * Utility class for string manipulations.
+ * @since 1.0
+ */
+public class StringUtil {
+
+    /**
+     * Checks if a string is null or empty.
+     *
+     * @param str The string to check.
+     * @return {@code true} if the string is null or empty, {@code false} otherwise.
+     * @throws IllegalArgumentException if the input string is "error" (for demo purposes).
+     */
+    public boolean isNullOrEmpty(String str) throws IllegalArgumentException {
+        if ("error".equals(str)) {
+            throw new IllegalArgumentException("Input cannot be 'error'");
+        }
+        return Objects.isNull(str) || str.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        StringUtil util = new StringUtil();
+        System.out.println("Is null empty? " + util.isNullOrEmpty(null));
+        System.out.println("Is '' empty? " + util.isNullOrEmpty(""));
+        System.out.println("Is 'hello' empty? " + util.isNullOrEmpty("hello"));
     }
 }
 ```
@@ -574,40 +275,273 @@ class ProductService {
 **Bad Example:**
 
 ```java
-import java.util.ArrayList;
-import java.util.HashMap;
+// Poor or missing Javadoc
+public class StringHelper {
 
-// Using generic Object or overly broad types
-class BadProductService {
-    private HashMap<String, Object> productCache; // Using HashMap directly, and Object for product
-
-    public BadProductService() {
-        this.productCache = new HashMap<>();
+    // No explanation of what it does or parameters
+    public boolean check(String s) {
+        return Objects.isNull(s) || s.length() == 0; // "length == 0" is less clear than "isEmpty()"
     }
 
-    // Returning Object, forcing caller to cast and check type. Parameter is just String, not a specific ID type.
-    public Object getProduct(String productId) {
-        // Potentially returns null if not found, forcing null checks on caller side
-        return productCache.get(productId);
+    public static void main(String[] args) {
+        StringHelper h = new StringHelper();
+        // Code is not self-documenting regarding purpose
+        System.out.println(h.check("test"));
+    }
+}
+```
+
+
+## Rule 5: Comprehensive Error and Exception Handling (Including Security Best Practices)
+
+Title: Implement Comprehensive Error Handling with Security Focus
+Description: Implement robust error handling using specific exceptions, managing them at appropriate levels. Provide meaningful error messages and log errors with necessary context while rigorously preventing information leakage and other security vulnerabilities. Do not swallow exceptions, ensure resources are cleaned up (preferably using try-with-resources), and implement proper fallback mechanisms. This rule outlines practices for creating resilient and secure applications.
+
+**Good example:**
+
+```java
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class ErrorHandlingGood {
+
+    public String readFile(String filePath) {
+        StringBuilder content = new StringBuilder();
+        // try-with-resources ensures the reader is closed automatically
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append(System.lineSeparator());
+            }
+        } catch (IOException e) { // Specific exception
+            // Log error with context and provide meaningful message
+            System.err.println("Error reading file '" + filePath + "': " + e.getMessage());
+            // Optionally, rethrow as a custom application exception or return a default
+            return "Error: Could not read file.";
+        }
+        return content.toString();
     }
 
-    // Using ArrayList (concrete type) as parameter, List of Object for products.
-    // What if the algorithm internally needs set-like properties?
-    public ArrayList<Object> findAvailableProducts(ArrayList<Object> allProducts, double minimumPrice) {
-        ArrayList<Object> available = new ArrayList<>();
-        for (Object p : allProducts) {
-            // Requires instanceof checks and casting, error-prone
-            if (p instanceof HashMap) { // Assuming product is a HashMap - very bad practice
-                HashMap<String, Object> productMap = (HashMap<String, Object>) p;
-                if (productMap.containsKey("price") && (Double)productMap.get("price") >= minimumPrice) {
-                    available.add(p);
+    public static void main(String[] args) {
+        ErrorHandlingGood ehg = new ErrorHandlingGood();
+        // Create a dummy file for testing, or use an existing one
+        // try { new java.io.File("test.txt").createNewFile(); } catch (IOException e) {}
+        System.out.println(ehg.readFile("non_existent_file.txt"));
+        // System.out.println(ehg.readFile("test.txt"));
+    }
+}
+```
+
+**Bad Example:**
+
+```java
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class ErrorHandlingBad {
+
+    public String readFile(String filePath) {
+        StringBuilder content = new StringBuilder();
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(filePath));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            // Swallowing exception: Bad practice!
+            // No logging, no user feedback, just an empty string returned.
+        } finally {
+            // Resource cleanup is manual and error-prone if not done carefully
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    // Another swallowed exception or poor handling
+                    System.err.println("Failed to close reader.");
                 }
             }
         }
-        return available; // Returning concrete ArrayList, less flexible
+        return content.toString(); // Returns empty on error, hiding the problem
+    }
+
+    public static void main(String[] args) {
+        ErrorHandlingBad ehb = new ErrorHandlingBad();
+        // The error is silent
+        String result = ehb.readFile("another_non_existent_file.txt");
+        if (result.isEmpty()){
+            System.out.println("File read failed silently (Bad Practice).");
+        }
     }
 }
-``` 
+```
+
+### Further Secure Exception Handling Practices:
+
+### 5.1 Avoid Exposing Sensitive Information
+
+-   **Rationale:** Exception messages and stack traces can inadvertently reveal sensitive system details, internal logic, library versions, or user data, which can be exploited by attackers.
+-   **Guideline:**
+    -   Never include sensitive information (e.g., passwords, PII, secret keys, internal system paths, full SQL queries) directly in exception messages that might be logged or shown to users.
+    -   Sanitize or generalize error messages intended for users. Provide generic error messages (e.g., "An internal error occurred. Please try again later.") and log detailed, non-sensitive diagnostic information for developers.
+    -   Be cautious with `toString()` methods of objects involved in exceptions, as they might serialize sensitive data.
+
+**Good Example (Logging):**
+
+```java
+try {
+    // Risky operation that might expose data
+    performSensitiveOperation(userData);
+} catch (SpecificSecurityException e) {
+    // Log a generic message for security audit, and specific non-sensitive details for debugging
+    logger.error("Security validation failed for user: {}. Details: {}", sanitizeForLogging(userData.getUsername()), e.getErrorCode());
+    // For user:
+    throw new UserFacingException("Operation failed due to a validation error. Please check your input.");
+} catch (Exception e) {
+    logger.error("An unexpected error occurred during sensitive operation for user: {}", sanitizeForLogging(userData.getUsername()), e); // Log the exception for internal review
+    throw new UserFacingException("An unexpected error occurred. Please contact support.");
+}
+```
+
+**Bad Example:**
+
+```java
+try {
+    // ...
+    if (!isValid(creditCardNumber)) {
+        throw new IllegalArgumentException("Invalid credit card number: " + creditCardNumber); // Leaks credit card number
+    }
+} catch (Exception e) {
+    logger.error("Error processing payment: " + e.getMessage(), e); // Potentially logs sensitive data from exception message
+    // Displaying e.getMessage() directly to the user can also be risky
+}
+```
+
+### 5.2 Catch Specific Exceptions
+
+-   **Rationale:** Catching overly broad exceptions like `java.lang.Exception` or `java.lang.Throwable` can mask underlying issues, lead to incorrect error handling, and make the code harder to understand and maintain. It can also inadvertently catch security-critical exceptions that should be handled differently or allowed to propagate.
+-   **Guideline:**
+    -   Catch the most specific exception classes relevant to the operation being performed.
+    -   Handle each specific exception appropriately based on its meaning.
+    -   If you must catch a general exception (e.g., in a top-level error handler), log it thoroughly and consider if it can be re-thrown as a more specific, application-defined exception.
+
+**Good Example:**
+
+```java
+try {
+    File configFile = new File("app.config");
+    FileInputStream fis = new FileInputStream(configFile);
+    // ... process file
+} catch (FileNotFoundException e) {
+    logger.warn("Configuration file not found: app.config", e);
+    // Handle missing configuration file (e.g., use defaults)
+} catch (IOException e) {
+    logger.error("Error reading configuration file: app.config", e);
+    // Handle general I/O errors
+}
+```
+
+**Bad Example:**
+
+```java
+try {
+    // ...
+} catch (Exception e) { // Too broad
+    logger.error("Something went wrong: ", e);
+    // How to recover? What was the actual problem?
+}
+```
+
+### 5.3 Do Not Ignore or "Swallow" Exceptions
+
+-   **Rationale:** Ignoring exceptions by catching them and doing nothing (or just logging without further action if action is needed) can leave the application in an inconsistent or insecure state. It hides problems that could be critical.
+-   **Guideline:**
+    -   Every `catch` block should handle the exception appropriately or explicitly document why no action is taken (which should be rare).
+    -   Handling might involve logging, cleaning up resources, attempting recovery, re-throwing the exception (possibly wrapped in a custom exception), or notifying the user.
+    -   Avoid empty `catch` blocks. If an exception is truly expected and ignorable, comment explaining why.
+
+**Good Example:**
+
+```java
+try {
+    // ... operation that might fail ...
+} catch (SpecificRecoverableException e) {
+    logger.warn("Recoverable error occurred: {}. Attempting recovery.", e.getMessage());
+    attemptRecovery();
+} catch (UnrecoverableException e) {
+    logger.error("Unrecoverable error: {}. Propagating.", e.getMessage(), e);
+    throw new ApplicationCriticalException("Critical operation failed.", e);
+}
+```
+
+**Bad Example:**
+
+```java
+try {
+    // ...
+} catch (IOException e) {
+    // Swallowed exception - problem is hidden!
+}
+
+try {
+    // ...
+} catch (NullPointerException e) {
+    e.printStackTrace(); // Not sufficient for production code; use a logger and proper handling.
+}
+```
+
+### 5.4 Centralize and Standardize Exception Handling (Where Appropriate)
+
+-   **Rationale:** Consistent handling of common exceptions across the application improves maintainability and reduces the risk of introducing security vulnerabilities through ad-hoc error handling.
+-   **Guideline:**
+    -   Consider using framework-specific mechanisms (e.g., `@ControllerAdvice` in Spring) or custom handlers for cross-cutting concerns like security exceptions, validation exceptions, etc.
+    -   Define application-specific exception hierarchies to provide clear, contextual error information.
+
+### 5.5 Secure Use of `finally` Blocks and Try-With-Resources
+
+-   **Rationale:** `finally` blocks are crucial for releasing resources (files, network connections, locks) to prevent resource leaks, which can lead to DoS. However, code in `finally` blocks can also throw exceptions, potentially masking the original exception.
+-   **Guideline:**
+    -   Prefer `try-with-resources` for managing resources that implement `AutoCloseable`, as it handles resource closing automatically and correctly suppresses exceptions thrown during close if an original exception is pending.
+    -   If using `finally` for resource cleanup, ensure the cleanup code itself does not throw new exceptions that would hide the original issue. If cleanup can fail, log those failures separately.
+
+**Good Example (try-with-resources):**
+
+```java
+try (FileInputStream fis = new FileInputStream("file.txt");
+     BufferedInputStream bis = new BufferedInputStream(fis)) {
+    // work with bis
+} catch (IOException e) {
+    logger.error("Failed to process file.txt", e);
+    // Handle I/O error
+}
+```
+
+**Good Example (careful finally):**
+
+```java
+Lock lock = new ReentrantLock();
+lock.lock();
+try {
+    // critical section
+} finally {
+    lock.unlock(); // Simple, unlikely to throw an exception here
+}
+```
+
+### 5.6 Be Cautious with Exception Chaining
+
+-   **Rationale:** While exception chaining (`new MyException("...", cause)`) is good for preserving context, ensure that the "cause" exception does not inadvertently carry sensitive information that then gets logged or propagated where it shouldn't.
+-   **Guideline:**
+    -   When wrapping exceptions, consider if the original exception (`cause`) contains sensitive data. If so, log the original securely and throw a new, sanitized exception without wrapping the sensitive one, or wrap a sanitized version of it.
+
+### 5.7 Validate Data from Exceptions
+
+-   **Rationale:** If data from an exception object (e.g., from a third-party library or a deserialized object) is used in responses or further processing, it must be treated as untrusted input and validated/sanitized to prevent injection attacks or other security issues.
+-   **Guideline:**
+    -   Do not directly embed arbitrary strings from exception objects (especially from external sources) into HTML/JSON responses or SQL queries without proper sanitization or escaping. 
 
 ---
 > Source: [alkoleft/platform-context-exporter](https://github.com/alkoleft/platform-context-exporter) — distributed by [TomeVault](https://tomevault.io).
