@@ -4,7 +4,7 @@
   "repo": "adipo",
   "description": "adipo - Architecture-Aware Fat Binaries",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DataDog/adipo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T12:20:47Z"
+  "distributed_at": "2026-05-10T00:43:24Z"
 }
