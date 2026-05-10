@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--dev3000",
+  "displayName": "dev3000",
+  "description": "Captures your web app's complete development timeline - server logs, browser events, console messages, network requests, and automatic screenshots - in a unified, timestamped feed for AI debugging.",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/dev3000",
+  "skills": []
+}
