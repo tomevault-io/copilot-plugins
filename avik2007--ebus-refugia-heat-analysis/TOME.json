@@ -1,0 +1,44 @@
+{
+  "name": "EBUS-Refugia-Heat-Analysis",
+  "owner": "avik2007",
+  "repo": "EBUS-Refugia-Heat-Analysis",
+  "description": "Personal project using Argo Floats to study the local warming of Eastern Boundary Current systems (CCS, Benguela)",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/avik2007/EBUS-Refugia-Heat-Analysis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T22:32:06Z"
+}
