@@ -1,0 +1,9 @@
+{
+  "name": "joined--esptransit",
+  "displayName": "ESPTransit",
+  "description": "ESP32-P4 public transit departures display open firmware",
+  "version": "1.0.0",
+  "author": "joined",
+  "homepage": "https://github.com/joined/ESPTransit",
+  "skills": []
+}
