@@ -1,95 +1,85 @@
-## vorg-project-guide-zh
+## vorg-project-guide
 
-> VOrg 是一个 VS Code 扩展，为 Org-mode 文档提供功能，类似于 Markdown Preview Enhanced。它包括语法高亮、文档大纲、链接导航和主题适配等功能。
+> VOrg is a VS Code extension that provides real-time preview functionality for Org-mode documents, similar to Markdown Preview Enhanced. It includes syntax highlighting, document outline, link navigation, and theme adaptation.
 
-# VOrg 项目指南
+# VOrg Project Guide
 
-## 项目概述
-VOrg 是一个 VS Code 扩展，为 Org-mode 文档提供功能，类似于 Markdown Preview Enhanced。它包括语法高亮、文档大纲、链接导航和主题适配等功能。
+## Project Overview
+VOrg is a VS Code extension that provides real-time preview functionality for Org-mode documents, similar to Markdown Preview Enhanced. It includes syntax highlighting, document outline, link navigation, and theme adaptation.
 
-## 架构与入口点
+## Architecture & Entry Points
 
-### 主扩展入口
-- [src/extension.ts](mdc:src/extension.ts) - 主扩展激活点，注册所有提供者和命令
-- [package.json](mdc:package.json) - 扩展清单文件，包含命令、快捷键和贡献点
+### Main Extension Entry
+- [src/extension.ts](mdc:src/extension.ts) - Main extension activation point, registers all providers and commands
+- [package.json](mdc:package.json) - Extension manifest with commands, keybindings, and contribution points
 
-### 核心功能模块
+### Core Feature Modules
 
-#### 预览系统
-- [src/preview/index.ts](mdc:src/preview/index.ts) - 预览系统入口点
-- [src/preview/previewManager.ts](mdc:src/preview/previewManager.ts) - 管理预览生命周期和 webview 面板
-- [src/preview/htmlGenerator.ts](mdc:src/preview/htmlGenerator.ts) - 使用 unified/uniorg 管道将 Org-mode AST 转换为 HTML
-- [src/preview/scrollSync.ts](mdc:src/preview/scrollSync.ts) - 编辑器与预览之间的滚动同步
+#### Preview System
+- [src/preview/index.ts](mdc:src/preview/index.ts) - Preview system entry point
+- [src/preview/previewManager.ts](mdc:src/preview/previewManager.ts) - Manages preview lifecycle and webview panels
+- [src/preview/htmlGenerator.ts](mdc:src/preview/htmlGenerator.ts) - Converts Org-mode AST to HTML using unified/uniorg pipeline
+- [src/preview/scrollSync.ts](mdc:src/preview/scrollSync.ts) - Synchronizes scrolling between editor and preview
 
-#### 导航与结构
-- [src/outline/orgOutlineProvider.ts](mdc:src/outline/orgOutlineProvider.ts) - VS Code 大纲提供者，用于文档结构导航
-- [src/links/orgLinkProvider.ts](mdc:src/links/orgLinkProvider.ts) - 处理链接检测、导航和插入
-- [src/folding/orgFoldingProvider.ts](mdc:src/folding/orgFoldingProvider.ts) - Org-mode 标题的代码折叠支持
+#### Navigation & Structure
+- [src/outline/orgOutlineProvider.ts](mdc:src/outline/orgOutlineProvider.ts) - VS Code Outline provider for document structure navigation
+- [src/links/orgLinkProvider.ts](mdc:src/links/orgLinkProvider.ts) - Handles link detection, navigation, and insertion
+- [src/folding/orgFoldingProvider.ts](mdc:src/folding/orgFoldingProvider.ts) - Code folding support for Org-mode headings
 
-#### 命令与操作
-- [src/commands/index.ts](mdc:src/commands/index.ts) - 命令注册和管理
-- [src/commands/previewCommands.ts](mdc:src/commands/previewCommands.ts) - 预览相关命令（打开、切换、刷新）
-- [src/commands/linkCommands.ts](mdc:src/commands/linkCommands.ts) - 链接导航和插入命令
+#### Commands & Actions
+- [src/commands/index.ts](mdc:src/commands/index.ts) - Command registration and management
+- [src/commands/previewCommands.ts](mdc:src/commands/previewCommands.ts) - Preview-related commands (open, toggle, refresh)
+- [src/commands/linkCommands.ts](mdc:src/commands/linkCommands.ts) - Link navigation and insertion commands
 
-#### 语法与语言支持
-- [src/syntaxHighlighter.ts](mdc:src/syntaxHighlighter.ts) - 增强的语法高亮与装饰器
-- [syntaxes/org.tmLanguage.json](mdc:syntaxes/org.tmLanguage.json) - Org-mode 的 TextMate 语法定义
-- [language-configuration.json](mdc:language-configuration.json) - 语言配置（括号、注释等）
+#### Syntax & Language Support
+- [src/syntaxHighlighter.ts](mdc:src/syntaxHighlighter.ts) - Enhanced syntax highlighting with decorations
+- [syntaxes/org.tmLanguage.json](mdc:syntaxes/org.tmLanguage.json) - TextMate grammar definition for Org-mode
+- [language-configuration.json](mdc:language-configuration.json) - Language configuration (brackets, comments, etc.)
 
-### 工具类与类型
-- [src/types/index.ts](mdc:src/types/index.ts) - TypeScript 类型定义
-- [src/utils/constants.ts](mdc:src/utils/constants.ts) - 项目常量和配置
+### Utilities & Types
+- [src/types/index.ts](mdc:src/types/index.ts) - TypeScript type definitions
+- [src/utils/constants.ts](mdc:src/utils/constants.ts) - Project constants and configuration
 
-## 开发流程
+## Development Workflow
 
-### 构建与测试
-- `npm run compile` - TypeScript 编译
-- `npm test` - 运行测试套件
-- `npx vsce package` - 打包
-- 在 VS Code 中按 F5 启动扩展开发主机
+### Build & Test
+- `npm run compile` - TypeScript compilation
+- `npm run watch` - Watch mode compilation
+- `npm test` - Run test suite
+- Press F5 in VS Code to launch Extension Development Host
 
-### 测试结构
-- [src/test/runTest.ts](mdc:src/test/runTest.ts) - 测试运行器入口点
-- [src/test/suite/](mdc:src/test/suite) - 集成测试
-- [src/test/unit/](mdc:src/test/unit) - 单元测试（带 VS Code 模拟）
+### Testing Structure
+- [src/test/runTest.ts](mdc:src/test/runTest.ts) - Test runner entry point
+- [src/test/suite/](mdc:src/test/suite/) - Integration tests
+- [src/test/unit/](mdc:src/test/unit/) - Unit tests with VS Code mocking
 
-### 测试数据
-- [test-data/](mdc:test-data) - 用于测试的示例 Org-mode 文件
-- [example.org](mdc:example.org) - 开发用的主要示例文件
+### Test Data
+- [test-data/](mdc:test-data/) - Sample Org-mode files for testing
+- [example.org](mdc:example.org) - Main example file for development
 
-## 文档结构
-- [docs/FEATURES.md](mdc:docs/FEATURES.md) - 详细功能描述
-- [docs/USER_GUIDE.md](mdc:docs/USER_GUIDE.md) - 完整使用教程
-- [docs/TECHNICAL.md](mdc:docs/TECHNICAL.md) - 架构和实现细节
-- [docs/SYNTAX_HIGHLIGHTING.md](mdc:docs/SYNTAX_HIGHLIGHTING.md) - 语法高亮文档
+## Documentation Structure
+- [docs/FEATURES.md](mdc:docs/FEATURES.md) - Detailed feature descriptions
+- [docs/USER_GUIDE.md](mdc:docs/USER_GUIDE.md) - Complete usage tutorial
+- [docs/TECHNICAL.md](mdc:docs/TECHNICAL.md) - Architecture and implementation details
+- [docs/SYNTAX_HIGHLIGHTING.md](mdc:docs/SYNTAX_HIGHLIGHTING.md) - Syntax highlighting documentation
 
-## 关键技术
-- **unified/uniorg** - Org-mode 解析和 HTML 生成管道
-- **VS Code Extension API** - 扩展开发框架
-- **TextMate 语法** - 语法高亮
-- **TypeScript** - 主要开发语言
+## Key Technologies
+- **unified/uniorg** - Org-mode parsing and HTML generation pipeline
+- **VS Code Extension API** - Extension framework
+- **TextMate Grammars** - Syntax highlighting
+- **TypeScript** - Primary development language
 
-## 常见开发模式
-1. **提供者模式** - 大纲、链接和折叠提供者实现 VS Code 接口
-2. **命令注册** - 命令在 package.json 中定义，在命令模块中实现
-3. **Webview 通信** - 预览使用扩展和 webview 之间的消息传递
-4. **事件驱动更新** - 文件更改触发预览更新和语法重新高亮
+## Common Development Patterns
+1. **Provider Pattern** - Outline, Link, and Folding providers implement VS Code interfaces
+2. **Command Registration** - Commands are defined in package.json and implemented in command modules  
+3. **Webview Communication** - Preview uses message passing between extension and webview
+4. **Event-Driven Updates** - File changes trigger preview updates and syntax re-highlighting
 
-## 调试技巧
-- 使用 VS Code 的扩展开发主机进行测试
-- 预览 webview 可以使用开发者工具检查
-- 检查输出面板查看扩展日志
-- 使用 test-data 目录中的各种 Org-mode 文件进行测试
-
-## 支持的链接类型
-VOrg 支持完整的 Org-mode 链接跳转功能：
-
-1. **[[link][description]]** - 带描述的链接
-2. **[[link]]** - 简单链接  
-3. **file:path/to/file** - 文件链接
-4. **http://example.com** - 网页链接
-5. **[[*heading]]** - 内部链接到同文件的标题（org-mode标准格式）
-6. **[[id:XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX][description]]** - 全局ID跳转（支持跨文件）
+## Debugging Tips
+- Use VS Code's Extension Development Host for testing
+- Preview webview can be inspected using Developer Tools
+- Check Output panel for extension logs
+- Test with various Org-mode files in test-data directory
 
 ---
 > Source: [re-f/vorg](https://github.com/re-f/vorg) — distributed by [TomeVault](https://tomevault.io).
