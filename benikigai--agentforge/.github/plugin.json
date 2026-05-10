@@ -1,0 +1,9 @@
+{
+  "name": "benikigai--agentforge",
+  "displayName": "AgentForge",
+  "description": "Self-improving agent harness builder with quality backpressure. Ralph Loop with teeth.",
+  "version": "1.0.0",
+  "author": "benikigai",
+  "homepage": "https://github.com/benikigai/AgentForge",
+  "skills": []
+}
