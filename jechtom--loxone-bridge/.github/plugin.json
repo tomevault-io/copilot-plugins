@@ -1,0 +1,9 @@
+{
+  "name": "jechtom--loxone-bridge",
+  "displayName": "loxone-bridge",
+  "description": "A lightweight, stateless HTTP proxy service that extends the networking capabilities of Loxone Miniserver.",
+  "version": "1.0.0",
+  "author": "jechtom",
+  "homepage": "https://github.com/jechtom/loxone-bridge",
+  "skills": []
+}
