@@ -7,14 +7,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [SurpassHR/fund-manager](https://github.com/SurpassHR/fund-manager).
+Original source: `AGENTS.md` in [SurpassHR/fund-manager](https://github.com/SurpassHR/fund-manager).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/SurpassHR/fund-manager](https://github.com/SurpassHR/fund-manager)
