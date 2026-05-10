@@ -1,0 +1,9 @@
+{
+  "name": "denysosadchyi--ux-auditor",
+  "displayName": "ux-auditor",
+  "description": "Repeatable UX-audit toolkit: bilingual playbook, Claude Code skills, Playwright-driven capture, DOM-accurate annotation.",
+  "version": "1.0.0",
+  "author": "denysosadchyi",
+  "homepage": "https://github.com/denysosadchyi/ux-auditor",
+  "skills": []
+}
