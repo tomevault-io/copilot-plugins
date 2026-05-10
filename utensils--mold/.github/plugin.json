@@ -1,0 +1,9 @@
+{
+  "name": "utensils--mold",
+  "displayName": "mold",
+  "description": "Local AI image generation CLI \u2014 FLUX, SD 1.5, SDXL & Z-Image diffusion models on your GPU",
+  "version": "1.0.0",
+  "author": "utensils",
+  "homepage": "https://github.com/utensils/mold",
+  "skills": []
+}
