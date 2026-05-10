@@ -1,0 +1,9 @@
+{
+  "name": "filiksyos--mcptoskill",
+  "displayName": "mcptoskill",
+  "description": "Turn any MCP server into a skill",
+  "version": "1.0.0",
+  "author": "filiksyos",
+  "homepage": "https://github.com/filiksyos/mcptoskill",
+  "skills": []
+}
