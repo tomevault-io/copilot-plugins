@@ -1,0 +1,9 @@
+{
+  "name": "log-z--copaw-docker",
+  "displayName": "copaw-docker",
+  "description": "QwenPaw\uff08\u539f CoPaw \u9879\u76ee\uff09\u7684 Docker \u90e8\u7f72\u65b9\u6848\uff0c\u652f\u6301\u4e00\u952e\u6784\u5efa\u548c\u8fd0\u884c\uff0c\u76f8\u6bd4\u5b98\u65b9\u955c\u50cf\u66f4\u5c0f\u3002",
+  "version": "1.0.0",
+  "author": "log-z",
+  "homepage": "https://github.com/log-z/copaw-docker",
+  "skills": []
+}
