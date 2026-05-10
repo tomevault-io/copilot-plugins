@@ -1,0 +1,9 @@
+{
+  "name": "meridianlabs-ai--inspect-petri",
+  "displayName": "inspect_petri",
+  "description": "An alignment auditing agent capable of quickly exploring alignment hypothesis",
+  "version": "1.0.0",
+  "author": "meridianlabs-ai",
+  "homepage": "https://github.com/meridianlabs-ai/inspect_petri",
+  "skills": []
+}
