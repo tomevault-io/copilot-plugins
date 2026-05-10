@@ -1,0 +1,9 @@
+{
+  "name": "artdaw--kndl",
+  "displayName": "KNDL",
+  "description": "KNDL \u2014 Knowledge Node Data Link. Anthropic just shipped Memory for agents \u2014 a filesystem. But filesystems are dumb about confidence, time, and source. Agents fill them with markdown that can't be quer",
+  "version": "1.0.0",
+  "author": "artdaw",
+  "homepage": "https://github.com/artdaw/KNDL",
+  "skills": []
+}
