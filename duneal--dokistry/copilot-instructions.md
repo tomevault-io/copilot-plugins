@@ -1,42 +1,49 @@
-## interfaces
+## naming-conventions
 
-> - All `interface` and `type` definitions must be stored in:
+> Enforce kebab-case for regular SCSS, PascalCase/camelCase for SCSS modules, PascalCase for components, and camelCase for functions/variables.
 
-# Guidelines for Interfaces & Types
 
-1. **Location**
-   - All `interface` and `type` definitions must be stored in:  
-     ```
-     src/utils/types/
-     ```
+# SCSS / CSS Rules
 
-2. **Naming convention**
-   - Files must use **kebab-case** and end with `.interface.ts`.  
-   - Examples:  
-     ✅ `registry.interface.ts`  
-     ✅ `better-auth.interface.ts`  
-     ❌ `User.ts`  
-     ❌ `types.ts`
+## Regular SCSS files (`.scss` only)
+- File names must be **kebab-case** (`button.scss`, `card-header.scss`).
+- All **variables** (e.g., `$spacing-unit`) must be **kebab-case**.
+- All **class names** must be **kebab-case**.
+- **Prohibited:** camelCase, PascalCase, or snake_case inside `.scss`.
 
-3. **Separation of concerns**
-   - Each file should group only **related** interfaces/types.  
-   - Do not mix unrelated domains into the same file.  
-   - Example:  
-     - `registry.interface.ts` → Registry-related types  
-     - `better-auth.interface.ts` → BetterAuth-related types
+## SCSS module files (`.module.scss`)
+- File names must match the **component name** in **PascalCase** or **camelCase** (`Button.module.scss`, `button.module.scss`).
+- Inside module files:
+  - **Class names** must match **PascalCase** or **camelCase** style for component usage.
+  - Variables can use **camelCase** or **kebab-case**, depending on project conventions.
 
-4. **Cursor enforcement**
-   - When generating or refactoring code, **always create or update interfaces in `src/utils/types/`**.  
-   - Never place `interface` or `type` definitions inline inside components or other modules.  
-   - Always follow the `<domain>.interface.ts` convention.
+# TypeScript / TSX Rules
+
+- **Component files** (`.tsx`) must be named in **PascalCase**.
+- Components must be exported with **PascalCase** names (`Button`, `Card`).
+- **Functions, hooks, and variables** must use **camelCase**.
+- **Prohibited:** snake_case or kebab-case in TS/TSX.
 
 # Examples
-✅ `src/utils/types/registry.interface.ts`  
-✅ `src/utils/types/directus.interface.ts`  
-✅ `src/utils/types/better-auth.interface.ts`  
-❌ `src/types.ts`  
-❌ `interfaces.ts`  
-❌ `User.ts`  
+
+## Regular SCSS (`.scss`)
+✅ `$c-primary: #fff;`  
+✅ `.button--primary { ... }`  
+❌ `$PrimaryColor: #fff;`  
+❌ `.ButtonPrimary { ... }`  
+❌ File name: `Button.scss`
+
+## SCSS Module (`.module.scss`)
+✅ `.buttonPrimary { ... }`  
+✅ `.ButtonPrimary { ... }`  
+✅ File name: `Button.module.scss` or `button.module.scss`  
+❌ `.button-primary { ... }` (only for regular SCSS)  
+
+## TS / TSX
+✅ `const fetchData = () => { ... }`  
+✅ `export function Button() { ... }`  
+❌ `const Fetch_Data = () => { ... }`  
+❌ `export function button() { ... }`  
 
 ---
 > Source: [duneal/dokistry](https://github.com/duneal/dokistry) — distributed by [TomeVault](https://tomevault.io).
