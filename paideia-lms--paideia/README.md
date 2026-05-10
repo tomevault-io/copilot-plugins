@@ -1,6 +1,8 @@
-# Paideia — distributed by TomeVault
+# Paideia
 
-> Originally from [paideia-lms/Paideia](https://github.com/paideia-lms/Paideia). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [paideia-lms/Paideia](https://github.com/paideia-lms/Paideia) — distributed by [TomeVault](https://tomevault.io)
+
+Next generation LMS focused on simplicity. Moodle and Canvas alternative in a single binary.
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [paideia-lms/Paideia](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/paideia-lms#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/paideia-lms/Paideia](https://github.com/paideia-lms/Paideia)
 
 ---
 
