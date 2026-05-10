@@ -1,0 +1,9 @@
+{
+  "name": "technickai--claude-telemetry",
+  "displayName": "claude_telemetry",
+  "description": "OpenTelemetry wrapper for Claude Code CLI that logs tool calls, token usage, costs, and execution traces to Logfire, Sentry, Honeycomb, or Datadog. Drop-in replacement that swaps 'claude' command for ",
+  "version": "1.0.0",
+  "author": "TechNickAI",
+  "homepage": "https://github.com/TechNickAI/claude_telemetry",
+  "skills": []
+}
