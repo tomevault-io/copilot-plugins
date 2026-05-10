@@ -1,0 +1,9 @@
+{
+  "name": "rifkybujana--sam3-c",
+  "displayName": "sam3.c",
+  "description": "Efficient SAM3 (Segment Anything Model 3) inference from scratch in pure C \u2014 Metal GPU + multithreaded CPU, no Python dependencies",
+  "version": "1.0.0",
+  "author": "rifkybujana",
+  "homepage": "https://github.com/rifkybujana/sam3.c",
+  "skills": []
+}
