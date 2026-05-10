@@ -1,0 +1,9 @@
+{
+  "name": "jaredpalmer--agentik",
+  "displayName": "agentik",
+  "description": "Composable AI agent runtime",
+  "version": "1.0.0",
+  "author": "jaredpalmer",
+  "homepage": "https://github.com/jaredpalmer/agentik",
+  "skills": []
+}
