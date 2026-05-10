@@ -4,7 +4,7 @@
   "repo": "workshop-crm",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/beerandcodeteam/workshop-crm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T07:50:22Z"
+  "distributed_at": "2026-05-10T13:00:40Z"
 }
