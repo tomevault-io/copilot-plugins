@@ -1,0 +1,9 @@
+{
+  "name": "rhettbull--gittwig",
+  "displayName": "gittwig",
+  "description": "TUI CLI app for viewing and switching git branches",
+  "version": "1.0.0",
+  "author": "RhetTbull",
+  "homepage": "https://github.com/RhetTbull/gittwig",
+  "skills": []
+}
