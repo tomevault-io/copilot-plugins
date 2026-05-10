@@ -1,0 +1,44 @@
+{
+  "name": "claw-chain",
+  "owner": "clawinfra",
+  "repo": "claw-chain",
+  "description": "\ud83e\udd9e\u26d3\ufe0f Layer 1 blockchain for autonomous agents - zero-gas, community-driven, built by collective intelligence",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/clawinfra/claw-chain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T20:36:41Z"
+}
