@@ -1,0 +1,44 @@
+{
+  "name": "qmediasync",
+  "owner": "qicfan",
+  "repo": "qmediasync",
+  "description": "\u57fa\u4e8e \u7f51\u76d8 \u5f00\u653e\u5e73\u53f0\u63a5\u53e3\u6765\u540c\u6b65\u751f\u6210 STRM\u3001\u5143\u6570\u636e\u4e0b\u8f7d\u3001\u5143\u6570\u636e\u4e0a\u4f20\uff0c\u76f4\u94fe\u89e3\u6790\u64ad\u653e\u548c\u5916\u7f51302\u64ad\u653e\uff0cEmby\u8054\u52a8\u5220\u9664\u7f51\u76d8\u6587\u4ef6\u3001\u5237\u65b0\u5a92\u4f53\u5e93\u3001\u5165\u5e93\u901a\u77e5\u7b49",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qicfan/qmediasync",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T14:34:50Z"
+}
