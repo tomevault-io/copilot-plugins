@@ -1,0 +1,44 @@
+{
+  "name": "ru-normalizr",
+  "owner": "NickZaitsev",
+  "repo": "ru-normalizr",
+  "description": "ru-normalizr \u2014 \u043b\u0443\u0447\u0448\u0438\u0439 open-source \u043d\u043e\u0440\u043c\u0430\u043b\u0438\u0437\u0430\u0442\u043e\u0440 \u0440\u0443\u0441\u0441\u043a\u043e\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430. \u041f\u0440\u0438\u0432\u043e\u0434\u0438\u0442 \u0447\u0438\u0441\u043b\u0430, \u0434\u0430\u0442\u044b, \u0432\u0440\u0435\u043c\u044f, \u0441\u043e\u043a\u0440\u0430\u0449\u0435\u043d\u0438\u044f, \u0440\u0438\u043c\u0441\u043a\u0438\u0435 \u0446\u0438\u0444\u0440\u044b, \u0441\u0438\u043c\u0432\u043e\u043b\u044b \u0438 \u043b\u0430\u0442\u0438\u043d\u0438\u0446\u0443 \u0432 \u0440\u0443\u0441\u0441\u043a\u0438\u0435 \u0431\u0443\u043a\u0432\u044b \u0434\u043b\u044f \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u044f \u0432 TTS \u0438 NLP.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NickZaitsev/ru-normalizr",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T09:44:01Z"
+}
