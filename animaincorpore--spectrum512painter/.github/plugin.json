@@ -1,0 +1,9 @@
+{
+  "name": "animaincorpore--spectrum512painter",
+  "displayName": "Spectrum512Painter",
+  "description": "A classic GEM-style paint program for Atari ST workflows, implemented with HTML5 Canvas/WebGL and ES modules.",
+  "version": "1.0.0",
+  "author": "AnimaInCorpore",
+  "homepage": "https://github.com/AnimaInCorpore/Spectrum512Painter",
+  "skills": []
+}
