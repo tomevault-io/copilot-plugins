@@ -1,0 +1,9 @@
+{
+  "name": "vouch-sh--demo",
+  "displayName": "demo",
+  "description": "Demonstration resources for Vouch",
+  "version": "1.0.0",
+  "author": "vouch-sh",
+  "homepage": "https://github.com/vouch-sh/demo",
+  "skills": []
+}
