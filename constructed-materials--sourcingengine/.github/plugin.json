@@ -1,0 +1,9 @@
+{
+  "name": "constructed-materials--sourcingengine",
+  "displayName": "SourcingEngine",
+  "description": "Sourcing Engine - A .NET solution for product sourcing and material family management",
+  "version": "1.0.0",
+  "author": "Constructed-Materials",
+  "homepage": "https://github.com/Constructed-Materials/SourcingEngine",
+  "skills": []
+}
