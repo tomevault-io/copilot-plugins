@@ -1,0 +1,9 @@
+{
+  "name": "40ants--mcp",
+  "displayName": "mcp",
+  "description": "40ANTS-MCP is a framework for building Model Context Protocol servers in Common Lisp",
+  "version": "1.0.0",
+  "author": "40ants",
+  "homepage": "https://github.com/40ants/mcp",
+  "skills": []
+}
