@@ -1,0 +1,9 @@
+{
+  "name": "recost-dev--extension",
+  "displayName": "extension",
+  "description": "VS Code extension that parses your codebase for API usage patterns and surfaces cost and optimization insights in your editor.",
+  "version": "1.0.0",
+  "author": "recost-dev",
+  "homepage": "https://github.com/recost-dev/extension",
+  "skills": []
+}
