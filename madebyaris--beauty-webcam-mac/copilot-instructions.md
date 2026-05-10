@@ -1,575 +1,404 @@
-## coremediaio-virtualcam
+## metal-shaders
 
-> CoreMediaIO virtual camera implementation guidelines and best practices
+> Metal shader coding standards and optimization guidelines for BeautyWebcam
 
 
-# CoreMediaIO Virtual Camera Guidelines
+# Metal Shader Guidelines
 
-## Overview
-CoreMediaIO is the framework for creating virtual camera devices on macOS. This guide covers best practices for implementing a virtual camera that appears as a standard webcam to all applications.
+## Shader Architecture
 
-## Plugin Architecture
+### File Organization
+```metal
+// BeautyWebcam_Shaders.metal
+#include <metal_stdlib>
+using namespace metal;
 
-### Basic Plugin Structure
-```objc
-// BWVirtualCameraPlugin.h
-@interface BWVirtualCameraPlugin : NSObject
+// Constants
+constant float kSkinSmoothingRadius = 2.0;
+constant float kColorEnhancementStrength = 0.3;
 
-@property (nonatomic, strong, readonly) NSUUID *pluginUUID;
-@property (nonatomic, strong, readonly) NSString *pluginName;
+// Shared utility functions
+float luminance(float3 color);
+float3 rgb2yuv(float3 rgb);
+float3 yuv2rgb(float3 yuv);
 
-+ (instancetype)sharedInstance;
-- (BOOL)initializePluginWithError:(NSError **)error;
-- (void)teardownPlugin;
-
-@end
-
-// Plugin registration
-- (BOOL)initializePluginWithError:(NSError **)error {
-    // Register with CoreMediaIO
-    CMIOObjectPropertyAddress propertyAddress = {
-        kCMIOHardwarePropertyAllowScreenCaptureDevices,
-        kCMIOObjectPropertyScopeGlobal,
-        kCMIOObjectPropertyElementMaster
-    };
-    
-    UInt32 allow = 1;
-    OSStatus status = CMIOObjectSetPropertyData(kCMIOObjectSystemObject,
-                                               &propertyAddress,
-                                               0, NULL,
-                                               sizeof(allow), &allow);
-    
-    return status == noErr;
-}
+// Main processing kernels
+kernel void skinSmoothingKernel(...);
+kernel void colorEnhancementKernel(...);
+kernel void noiseReductionKernel(...);
 ```
 
-### Device Implementation
-```objc
-// BWVirtualCameraDevice.h
-@interface BWVirtualCameraDevice : NSObject
-
-@property (nonatomic, strong, readonly) NSString *deviceName;
-@property (nonatomic, strong, readonly) NSString *deviceID;
-@property (nonatomic, assign, readonly) CMIODeviceID deviceID;
-@property (nonatomic, assign, getter=isRunning) BOOL running;
-
-- (BOOL)createDeviceWithError:(NSError **)error;
-- (BOOL)startStreamingWithError:(NSError **)error;
-- (void)stopStreaming;
-- (void)destroyDevice;
-
-- (void)sendVideoFrame:(CVPixelBufferRef)pixelBuffer
-             timestamp:(CMTime)timestamp;
-
-@end
-```
-
-### Stream Management
-```objc
-// BWVirtualCameraStream.m
-@implementation BWVirtualCameraStream
-
-- (BOOL)startStreamingWithFormat:(CMVideoFormatDescriptionRef)formatDescription
-                           error:(NSError **)error {
-    
-    // Validate format
-    if (!formatDescription) {
-        if (error) {
-            *error = [NSError errorWithDomain:BWErrorDomain
-                                         code:BWErrorInvalidFormat
-                                     userInfo:@{NSLocalizedDescriptionKey: @"Invalid format description"}];
-        }
-        return NO;
-    }
-    
-    // Set up timing information
-    self.frameRate = 30; // Default to 30fps
-    self.frameDuration = CMTimeMake(1, self.frameRate);
-    
-    // Initialize stream state
-    self.isStreaming = YES;
-    self.frameCount = 0;
-    
-    return YES;
-}
-
-- (void)sendFrame:(CVPixelBufferRef)pixelBuffer {
-    if (!self.isStreaming) return;
-    
-    // Calculate timestamp
-    CMTime timestamp = CMTimeMultiply(self.frameDuration, self.frameCount);
-    
-    // Create sample buffer
-    CMSampleBufferRef sampleBuffer = NULL;
-    OSStatus status = CMSampleBufferCreateForImageBuffer(
-        kCFAllocatorDefault,
-        pixelBuffer,
-        true, NULL, NULL,
-        self.formatDescription,
-        &self.sampleTiming,
-        &sampleBuffer
-    );
-    
-    if (status == noErr && sampleBuffer) {
-        // Send to CoreMediaIO
-        [self enqueueSampleBuffer:sampleBuffer];
-        CFRelease(sampleBuffer);
-    }
-    
-    self.frameCount++;
-}
-
-@end
-```
-
-## Property Management
-
-### Device Properties
-```objc
-// Essential device properties
-static const CMIOObjectPropertyAddress kDevicePropertyName = {
-    kCMIOObjectPropertyName,
-    kCMIOObjectPropertyScopeGlobal,
-    kCMIOObjectPropertyElementMaster
-};
-
-static const CMIOObjectPropertyAddress kDevicePropertyUID = {
-    kCMIODevicePropertyDeviceUID,
-    kCMIOObjectPropertyScopeGlobal,
-    kCMIOObjectPropertyElementMaster
-};
-
-// Property getter implementation
-- (OSStatus)getPropertyWithAddress:(const CMIOObjectPropertyAddress *)address
-                         dataSize:(UInt32)dataSize
-                         dataUsed:(UInt32 *)dataUsed
-                             data:(void *)data {
-    
-    OSStatus result = kCMIOHardwareNoError;
-    
-    switch (address->mSelector) {
-        case kCMIOObjectPropertyName:
-            *dataUsed = [self copyStringProperty:@"BeautyWebcam Virtual Camera"
-                                          toData:data
-                                        dataSize:dataSize];
-            break;
-            
-        case kCMIODevicePropertyDeviceUID:
-            *dataUsed = [self copyStringProperty:self.deviceUID
-                                          toData:data
-                                        dataSize:dataSize];
-            break;
-            
-        case kCMIODevicePropertyStreams:
-            *dataUsed = [self copyStreamsProperty:data dataSize:dataSize];
-            break;
-            
-        default:
-            result = kCMIOHardwareUnknownPropertyError;
-            break;
-    }
-    
-    return result;
-}
-```
-
-### Stream Properties
-```objc
-// Stream format management
-- (OSStatus)setFormatDescription:(CMVideoFormatDescriptionRef)formatDescription {
-    // Validate format
-    CMVideoDimensions dimensions = CMVideoFormatDescriptionGetDimensions(formatDescription);
-    FourCharCode codec = CMFormatDescriptionGetMediaSubType(formatDescription);
-    
-    // Support common formats
-    switch (codec) {
-        case kCVPixelFormatType_32BGRA:
-        case kCVPixelFormatType_32ARGB:
-        case kCVPixelFormatType_24RGB:
-        case kCVPixelFormatType_420YpCbCr8Planar:
-            break;
-        default:
-            return kCMIOHardwareUnsupportedOperationError;
-    }
-    
-    // Update format
-    if (self.formatDescription) {
-        CFRelease(self.formatDescription);
-    }
-    self.formatDescription = formatDescription;
-    CFRetain(self.formatDescription);
-    
-    return kCMIOHardwareNoError;
-}
-```
-
-## Frame Delivery
-
-### Efficient Frame Handling
-```objc
-// BWFrameDelivery.m
-@implementation BWFrameDelivery
-
-- (void)deliverFrame:(CVPixelBufferRef)pixelBuffer
-           timestamp:(CMTime)timestamp {
-    
-    // Validate inputs
-    if (!pixelBuffer || !self.isActive) return;
-    
-    @autoreleasepool {
-        // Create sample timing
-        CMSampleTimingInfo timing = {
-            .duration = self.frameDuration,
-            .presentationTimeStamp = timestamp,
-            .decodeTimeStamp = kCMTimeInvalid
-        };
-        
-        // Create sample buffer
-        CMSampleBufferRef sampleBuffer;
-        OSStatus status = CMSampleBufferCreateReadyWithImageBuffer(
-            kCFAllocatorDefault,
-            pixelBuffer,
-            self.formatDescription,
-            &timing,
-            &sampleBuffer
-        );
-        
-        if (status == noErr) {
-            // Deliver to all connected clients
-            [self deliverSampleBuffer:sampleBuffer];
-            CFRelease(sampleBuffer);
-        } else {
-            NSLog(@"Failed to create sample buffer: %d", (int)status);
-        }
-    }
-}
-
-- (void)deliverSampleBuffer:(CMSampleBufferRef)sampleBuffer {
-    // Thread-safe delivery to multiple consumers
-    dispatch_sync(self.deliveryQueue, ^{
-        for (BWStreamConsumer *consumer in self.consumers) {
-            if (consumer.isActive) {
-                [consumer receiveSampleBuffer:sampleBuffer];
-            }
-        }
-    });
-}
-
-@end
-```
-
-### Frame Rate Management
-```objc
-// Adaptive frame rate based on system performance
-@interface BWFrameRateController : NSObject
-
-@property (nonatomic, assign) NSInteger targetFrameRate;
-@property (nonatomic, assign) NSInteger currentFrameRate;
-@property (nonatomic, assign) NSTimeInterval lastFrameTime;
-
-- (BOOL)shouldDeliverFrameAtTime:(NSTimeInterval)currentTime;
-- (void)adjustFrameRateForPerformance:(double)processingTime;
-
-@end
-
-@implementation BWFrameRateController
-
-- (BOOL)shouldDeliverFrameAtTime:(NSTimeInterval)currentTime {
-    NSTimeInterval targetInterval = 1.0 / self.targetFrameRate;
-    NSTimeInterval elapsed = currentTime - self.lastFrameTime;
-    
-    if (elapsed >= targetInterval) {
-        self.lastFrameTime = currentTime;
-        return YES;
-    }
-    
-    return NO;
-}
-
-- (void)adjustFrameRateForPerformance:(double)processingTime {
-    // Reduce frame rate if processing takes too long
-    NSTimeInterval targetFrameTime = 1.0 / self.targetFrameRate;
-    
-    if (processingTime > targetFrameTime * 0.8) {
-        // Processing is taking 80%+ of frame time, reduce frame rate
-        self.currentFrameRate = MAX(15, self.currentFrameRate - 5);
-    } else if (processingTime < targetFrameTime * 0.5) {
-        // Processing is fast, we can increase frame rate
-        self.currentFrameRate = MIN(self.targetFrameRate, self.currentFrameRate + 2);
-    }
-}
-
-@end
-```
-
-## Error Handling
-
-### Robust Error Management
-```objc
-// BWVirtualCameraError.h
-typedef NS_ENUM(NSInteger, BWVirtualCameraError) {
-    BWVirtualCameraErrorNone = 0,
-    BWVirtualCameraErrorInitialization,
-    BWVirtualCameraErrorDeviceCreation,
-    BWVirtualCameraErrorStreamConfiguration,
-    BWVirtualCameraErrorFrameDelivery,
-    BWVirtualCameraErrorSystemPermissions
-};
-
-extern NSString *const BWVirtualCameraErrorDomain;
-
-@interface BWVirtualCameraErrorHandler : NSObject
-
-+ (NSError *)errorWithCode:(BWVirtualCameraError)code
-           underlyingError:(NSError *)underlyingError
-               description:(NSString *)description;
-
-+ (void)handleCriticalError:(NSError *)error
-                   recovery:(void(^)(void))recoveryBlock;
-
-@end
-
-// Error recovery implementation
-- (void)handleStreamError:(OSStatus)status {
-    NSError *error = [BWVirtualCameraErrorHandler 
-        errorWithCode:BWVirtualCameraErrorFrameDelivery
-      underlyingError:nil
-          description:[NSString stringWithFormat:@"Stream error: %d", (int)status]];
-    
-    // Attempt recovery
-    [BWVirtualCameraErrorHandler handleCriticalError:error recovery:^{
-        // Stop and restart stream
-        [self stopStreaming];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), 
-                      dispatch_get_main_queue(), ^{
-            NSError *restartError;
-            if (![self startStreamingWithError:&restartError]) {
-                NSLog(@"Failed to restart stream: %@", restartError);
-            }
-        });
-    }];
-}
-```
-
-## System Integration
-
-### Application Compatibility
-```objc
-// BWCompatibilityManager.m
-@implementation BWCompatibilityManager
-
-+ (NSArray<NSString *> *)knownCompatibleApplications {
-    return @[
-        @"com.apple.FaceTime",
-        @"us.zoom.xos",
-        @"com.microsoft.teams",
-        @"com.discord.discord",
-        @"com.skype.skype",
-        @"com.google.Chrome", // Google Meet
-        @"com.apple.Safari",  // WebRTC apps
-        @"com.reincubate.camo",
-        @"com.obsproject.obs-studio"
-    ];
-}
-
-- (void)testCompatibilityWithApplication:(NSString *)bundleID
-                              completion:(void(^)(BOOL compatible, NSError *error))completion {
-    
-    // Create test virtual camera
-    BWVirtualCameraDevice *testDevice = [[BWVirtualCameraDevice alloc] init];
-    
-    NSError *error;
-    if (![testDevice createDeviceWithError:&error]) {
-        completion(NO, error);
-        return;
-    }
-    
-    // Test if application can discover the device
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), 
-                  dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
-        
-        BOOL found = [self isDeviceVisibleToApplication:bundleID
-                                               deviceID:testDevice.deviceID];
-        
-        [testDevice destroyDevice];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            completion(found, nil);
-        });
-    });
-}
-
-@end
-```
-
-### Permission Management
-```objc
-// Camera access permissions
-- (void)requestCameraPermissionWithCompletion:(void(^)(BOOL granted))completion {
-    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    
-    switch (status) {
-        case AVAuthorizationStatusAuthorized:
-            completion(YES);
-            break;
-            
-        case AVAuthorizationStatusNotDetermined:
-            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo
-                                     completionHandler:^(BOOL granted) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(granted);
-                });
-            }];
-            break;
-            
-        case AVAuthorizationStatusDenied:
-        case AVAuthorizationStatusRestricted:
-            // Guide user to System Preferences
-            [self showCameraPermissionAlert];
-            completion(NO);
-            break;
-    }
-}
-```
+### Naming Conventions
+- **Kernels**: Use descriptive names ending with "Kernel" - e.g., `skinSmoothingKernel`
+- **Constants**: Use `k` prefix with camelCase - e.g., `kBilateralSigmaD`
+- **Structs**: Use `BW` prefix - e.g., `BWProcessingParams`
+- **Functions**: Use camelCase - e.g., `calculateBilateralWeight`
 
 ## Performance Optimization
 
-### Memory Management
-```objc
-// Efficient pixel buffer handling
-@interface BWPixelBufferPool : NSObject
-
-@property (nonatomic, assign) CVPixelBufferPoolRef bufferPool;
-
-- (instancetype)initWithWidth:(size_t)width
-                       height:(size_t)height
-                  pixelFormat:(OSType)pixelFormat;
-
-- (CVPixelBufferRef)createPixelBuffer;
-- (void)returnPixelBuffer:(CVPixelBufferRef)pixelBuffer;
-
-@end
-
-@implementation BWPixelBufferPool
-
-- (instancetype)initWithWidth:(size_t)width
-                       height:(size_t)height
-                  pixelFormat:(OSType)pixelFormat {
-    if (self = [super init]) {
-        NSDictionary *attributes = @{
-            (NSString *)kCVPixelBufferPixelFormatTypeKey: @(pixelFormat),
-            (NSString *)kCVPixelBufferWidthKey: @(width),
-            (NSString *)kCVPixelBufferHeightKey: @(height),
-            (NSString *)kCVPixelBufferMetalCompatibilityKey: @YES,
-            (NSString *)kCVPixelBufferIOSurfacePropertiesKey: @{}
-        };
-        
-        CVPixelBufferPoolCreate(kCFAllocatorDefault, NULL,
-                               (__bridge CFDictionaryRef)attributes,
-                               &_bufferPool);
-    }
-    return self;
+### Thread Group Sizing
+```metal
+// Optimal thread group sizes for different operations
+// 16x16 for 2D image processing (256 threads per group)
+kernel void imageProcessingKernel(texture2d<float, access::read> inputTexture [[texture(0)]],
+                                 texture2d<float, access::write> outputTexture [[texture(1)]],
+                                 uint2 gid [[thread_position_in_grid]]) {
+    // Process pixel at gid
 }
 
-- (CVPixelBufferRef)createPixelBuffer {
-    CVPixelBufferRef pixelBuffer;
-    CVReturn status = CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault,
-                                                        self.bufferPool,
-                                                        &pixelBuffer);
-    return (status == kCVReturnSuccess) ? pixelBuffer : NULL;
-}
-
-@end
+// Use from Objective-C:
+// MTLSize threadgroupSize = MTLSizeMake(16, 16, 1);
+// MTLSize threadgroupCount = MTLSizeMake((width + 15) / 16, (height + 15) / 16, 1);
 ```
 
-## Testing and Validation
-
-### Virtual Camera Testing
-```objc
-// BWVirtualCameraTests.m
-@interface BWVirtualCameraTests : XCTestCase
-
-@property (nonatomic, strong) BWVirtualCameraDevice *testDevice;
-
-@end
-
-@implementation BWVirtualCameraTests
-
-- (void)testDeviceCreation {
-    NSError *error;
-    BOOL success = [self.testDevice createDeviceWithError:&error];
+### Memory Access Patterns
+```metal
+// Prefer coalesced memory access
+kernel void efficientKernel(texture2d<float, access::read> input [[texture(0)]],
+                           texture2d<float, access::write> output [[texture(1)]],
+                           uint2 gid [[thread_position_in_grid]]) {
+    if (gid.x >= input.get_width() || gid.y >= input.get_height()) return;
     
-    XCTAssertTrue(success, @"Device creation failed: %@", error);
-    XCTAssertNotNil(self.testDevice.deviceID, @"Device ID should not be nil");
-}
-
-- (void)testFrameDelivery {
-    // Create test pixel buffer
-    CVPixelBufferRef pixelBuffer = [self createTestPixelBuffer];
+    // Good: Access neighboring pixels in a pattern that maximizes cache hits
+    float4 center = input.read(gid);
+    float4 right = input.read(gid + uint2(1, 0));
+    float4 down = input.read(gid + uint2(0, 1));
     
-    // Start streaming
-    NSError *error;
-    BOOL started = [self.testDevice startStreamingWithError:&error];
-    XCTAssertTrue(started, @"Failed to start streaming: %@", error);
-    
-    // Send frame
-    CMTime timestamp = CMTimeMake(0, 30);
-    [self.testDevice sendVideoFrame:pixelBuffer timestamp:timestamp];
-    
-    // Verify frame was delivered
-    XCTestExpectation *frameExpectation = [self expectationWithDescription:@"Frame delivered"];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC),
-                  dispatch_get_main_queue(), ^{
-        [frameExpectation fulfill];
-    });
-    
-    [self waitForExpectationsWithTimeout:1.0 handler:nil];
-    
-    CVPixelBufferRelease(pixelBuffer);
-}
-
-@end
-```
-
-## Security Considerations
-
-### Secure Device Management
-```objc
-// Prevent unauthorized access
-- (BOOL)validateClientAccess:(pid_t)clientPID {
-    // Get client process information
-    NSRunningApplication *client = [NSRunningApplication runningApplicationWithProcessIdentifier:clientPID];
-    
-    // Check if client is a known safe application
-    if ([self.trustedApplications containsObject:client.bundleIdentifier]) {
-        return YES;
-    }
-    
-    // Check code signature
-    SecCodeRef codeRef;
-    OSStatus status = SecCodeCreateWithPID(clientPID, kSecCSDefaultFlags, &codeRef);
-    if (status != errSecSuccess) {
-        return NO;
-    }
-    
-    // Verify signature
-    status = SecCodeCheckValidity(codeRef, kSecCSDefaultFlags, NULL);
-    CFRelease(codeRef);
-    
-    return status == errSecSuccess;
+    // Process and write result
+    output.write(processPixels(center, right, down), gid);
 }
 ```
 
-## Best Practices Summary
+### Threadgroup Memory Usage
+```metal
+// Use threadgroup memory for shared computations
+kernel void bilateralFilterKernel(texture2d<float, access::read> input [[texture(0)]],
+                                 texture2d<float, access::write> output [[texture(1)]],
+                                 uint2 gid [[thread_position_in_grid]],
+                                 uint2 tid [[thread_position_in_threadgroup]],
+                                 threadgroup float4 *sharedMemory [[threadgroup(0)]]) {
+    
+    // Load data into shared memory with border handling
+    uint sharedIndex = tid.y * 18 + tid.x; // 18x18 for 16x16 + 1-pixel border
+    if (tid.x < 18 && tid.y < 18) {
+        uint2 loadPos = gid + tid - uint2(1, 1); // Offset for border
+        sharedMemory[sharedIndex] = input.read(loadPos);
+    }
+    
+    threadgroup_barrier(mem_flags::mem_threadgroup);
+    
+    // Use shared data for filtering
+    if (tid.x < 16 && tid.y < 16) {
+        float4 result = bilateralFilter(sharedMemory, tid);
+        output.write(result, gid);
+    }
+}
+```
 
-1. **Always validate inputs** - Check pixel buffers, format descriptions, and parameters
-2. **Use autoreleasepool** for frame processing to manage memory pressure
-3. **Implement proper error recovery** - Virtual cameras should be resilient
-4. **Test with real applications** - Zoom, Teams, Discord, etc.
-5. **Monitor performance** - Frame drops affect user experience
-6. **Handle system sleep/wake** - Restart streams after system events
-7. **Respect privacy** - Only capture when explicitly requested
+## Image Processing Algorithms
+
+### Bilateral Filter Implementation
+```metal
+// Optimized bilateral filter for skin smoothing
+float bilateralWeight(float2 spatialDistance, float colorDistance, 
+                     float sigmaD, float sigmaR) {
+    float spatialWeight = exp(-dot(spatialDistance, spatialDistance) / (2.0 * sigmaD * sigmaD));
+    float colorWeight = exp(-(colorDistance * colorDistance) / (2.0 * sigmaR * sigmaR));
+    return spatialWeight * colorWeight;
+}
+
+kernel void skinSmoothingKernel(texture2d<float, access::read> input [[texture(0)]],
+                               texture2d<float, access::write> output [[texture(1)]],
+                               constant BWProcessingParams &params [[buffer(0)]],
+                               uint2 gid [[thread_position_in_grid]]) {
+    
+    if (gid.x >= input.get_width() || gid.y >= input.get_height()) return;
+    
+    float4 centerPixel = input.read(gid);
+    float3 centerColor = centerPixel.rgb;
+    
+    float3 filteredColor = float3(0.0);
+    float totalWeight = 0.0;
+    
+    // Sample in kernel radius
+    int radius = int(params.smoothingRadius);
+    for (int dy = -radius; dy <= radius; dy++) {
+        for (int dx = -radius; dx <= radius; dx++) {
+            uint2 samplePos = uint2(max(0, min(int(input.get_width()) - 1, int(gid.x) + dx)),
+                                   max(0, min(int(input.get_height()) - 1, int(gid.y) + dy)));
+            
+            float4 samplePixel = input.read(samplePos);
+            float3 sampleColor = samplePixel.rgb;
+            
+            float colorDist = distance(centerColor, sampleColor);
+            float2 spatialDist = float2(dx, dy);
+            
+            float weight = bilateralWeight(spatialDist, colorDist, 
+                                         params.sigmaD, params.sigmaR);
+            
+            filteredColor += weight * sampleColor;
+            totalWeight += weight;
+        }
+    }
+    
+    filteredColor /= totalWeight;
+    
+    // Blend with original based on intensity
+    float3 finalColor = mix(centerColor, filteredColor, params.smoothingIntensity);
+    
+    output.write(float4(finalColor, centerPixel.a), gid);
+}
+```
+
+### Color Enhancement
+```metal
+// HSV color space manipulation for natural color enhancement
+float3 rgb2hsv(float3 rgb) {
+    float maxVal = max(max(rgb.r, rgb.g), rgb.b);
+    float minVal = min(min(rgb.r, rgb.g), rgb.b);
+    float delta = maxVal - minVal;
+    
+    float3 hsv;
+    hsv.z = maxVal; // Value
+    hsv.y = (maxVal > 0.0) ? (delta / maxVal) : 0.0; // Saturation
+    
+    // Hue calculation
+    if (delta > 0.0) {
+        if (maxVal == rgb.r) {
+            hsv.x = (rgb.g - rgb.b) / delta;
+        } else if (maxVal == rgb.g) {
+            hsv.x = 2.0 + (rgb.b - rgb.r) / delta;
+        } else {
+            hsv.x = 4.0 + (rgb.r - rgb.g) / delta;
+        }
+        hsv.x /= 6.0;
+        if (hsv.x < 0.0) hsv.x += 1.0;
+    } else {
+        hsv.x = 0.0;
+    }
+    
+    return hsv;
+}
+
+float3 hsv2rgb(float3 hsv) {
+    float h = hsv.x * 6.0;
+    float s = hsv.y;
+    float v = hsv.z;
+    
+    int i = int(floor(h));
+    float f = h - float(i);
+    float p = v * (1.0 - s);
+    float q = v * (1.0 - s * f);
+    float t = v * (1.0 - s * (1.0 - f));
+    
+    switch (i % 6) {
+        case 0: return float3(v, t, p);
+        case 1: return float3(q, v, p);
+        case 2: return float3(p, v, t);
+        case 3: return float3(p, q, v);
+        case 4: return float3(t, p, v);
+        case 5: return float3(v, p, q);
+        default: return float3(v, v, v);
+    }
+}
+
+kernel void colorEnhancementKernel(texture2d<float, access::read> input [[texture(0)]],
+                                  texture2d<float, access::write> output [[texture(1)]],
+                                  constant BWColorParams &params [[buffer(0)]],
+                                  uint2 gid [[thread_position_in_grid]]) {
+    
+    if (gid.x >= input.get_width() || gid.y >= input.get_height()) return;
+    
+    float4 pixel = input.read(gid);
+    float3 hsv = rgb2hsv(pixel.rgb);
+    
+    // Enhance saturation
+    hsv.y = saturate(hsv.y * params.saturationMultiplier);
+    
+    // Adjust brightness
+    hsv.z = saturate(hsv.z * params.brightnessMultiplier);
+    
+    // Convert back to RGB
+    float3 enhancedRGB = hsv2rgb(hsv);
+    
+    // Apply warmth adjustment
+    enhancedRGB.r = saturate(enhancedRGB.r * params.warmth);
+    enhancedRGB.b = saturate(enhancedRGB.b / params.warmth);
+    
+    output.write(float4(enhancedRGB, pixel.a), gid);
+}
+```
+
+### Noise Reduction
+```metal
+// Edge-preserving noise reduction
+float edgeStrength(texture2d<float, access::read> input, uint2 pos) {
+    float4 center = input.read(pos);
+    float4 right = input.read(pos + uint2(1, 0));
+    float4 down = input.read(pos + uint2(0, 1));
+    
+    float dx = length(center.rgb - right.rgb);
+    float dy = length(center.rgb - down.rgb);
+    
+    return sqrt(dx * dx + dy * dy);
+}
+
+kernel void noiseReductionKernel(texture2d<float, access::read> input [[texture(0)]],
+                                texture2d<float, access::write> output [[texture(1)]],
+                                constant BWNoiseParams &params [[buffer(0)]],
+                                uint2 gid [[thread_position_in_grid]]) {
+    
+    if (gid.x >= input.get_width() || gid.y >= input.get_height()) return;
+    
+    float4 centerPixel = input.read(gid);
+    float edge = edgeStrength(input, gid);
+    
+    // Reduce noise reduction near edges
+    float adaptiveStrength = params.noiseReductionStrength * (1.0 - edge);
+    
+    // Simple box filter for noise reduction
+    float3 filteredColor = float3(0.0);
+    int kernelSize = 3;
+    int count = 0;
+    
+    for (int dy = -kernelSize/2; dy <= kernelSize/2; dy++) {
+        for (int dx = -kernelSize/2; dx <= kernelSize/2; dx++) {
+            uint2 samplePos = uint2(max(0, min(int(input.get_width()) - 1, int(gid.x) + dx)),
+                                   max(0, min(int(input.get_height()) - 1, int(gid.y) + dy)));
+            
+            filteredColor += input.read(samplePos).rgb;
+            count++;
+        }
+    }
+    
+    filteredColor /= float(count);
+    
+    // Blend based on adaptive strength
+    float3 finalColor = mix(centerPixel.rgb, filteredColor, adaptiveStrength);
+    
+    output.write(float4(finalColor, centerPixel.a), gid);
+}
+```
+
+## Utility Functions
+
+### Common Image Processing Utilities
+```metal
+// Luminance calculation
+float luminance(float3 color) {
+    return dot(color, float3(0.299, 0.587, 0.114));
+}
+
+// Gaussian weight calculation
+float gaussian(float x, float sigma) {
+    return exp(-(x * x) / (2.0 * sigma * sigma));
+}
+
+// Safe texture sampling with bounds checking
+float4 sampleTextureSafe(texture2d<float, access::read> tex, int2 coord) {
+    coord = clamp(coord, int2(0), int2(tex.get_width() - 1, tex.get_height() - 1));
+    return tex.read(uint2(coord));
+}
+
+// Bilinear interpolation
+float4 sampleBilinear(texture2d<float, access::read> tex, float2 uv) {
+    float2 texSize = float2(tex.get_width(), tex.get_height());
+    float2 coord = uv * texSize - 0.5;
+    int2 coordInt = int2(floor(coord));
+    float2 f = coord - float2(coordInt);
+    
+    float4 a = sampleTextureSafe(tex, coordInt);
+    float4 b = sampleTextureSafe(tex, coordInt + int2(1, 0));
+    float4 c = sampleTextureSafe(tex, coordInt + int2(0, 1));
+    float4 d = sampleTextureSafe(tex, coordInt + int2(1, 1));
+    
+    return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+}
+```
+
+## Parameter Structures
+
+### Consistent Parameter Passing
+```metal
+// Processing parameters structure
+struct BWProcessingParams {
+    float smoothingRadius;
+    float smoothingIntensity;
+    float sigmaD;
+    float sigmaR;
+};
+
+struct BWColorParams {
+    float saturationMultiplier;
+    float brightnessMultiplier;
+    float warmth;
+    float contrast;
+};
+
+struct BWNoiseParams {
+    float noiseReductionStrength;
+    float edgeThreshold;
+    int kernelSize;
+};
+```
+
+## Error Handling and Validation
+
+### Bounds Checking
+```metal
+// Always validate thread position
+kernel void safeKernel(texture2d<float, access::read> input [[texture(0)]],
+                      texture2d<float, access::write> output [[texture(1)]],
+                      uint2 gid [[thread_position_in_grid]]) {
+    
+    // Early exit for out-of-bounds threads
+    if (gid.x >= input.get_width() || gid.y >= input.get_height()) {
+        return;
+    }
+    
+    // Safe to proceed with processing
+    float4 pixel = input.read(gid);
+    // ... process pixel ...
+    output.write(pixel, gid);
+}
+```
+
+### Parameter Validation
+```metal
+// Validate and clamp parameters
+kernel void parameterValidatedKernel(texture2d<float, access::read> input [[texture(0)]],
+                                    texture2d<float, access::write> output [[texture(1)]],
+                                    constant BWProcessingParams &params [[buffer(0)]],
+                                    uint2 gid [[thread_position_in_grid]]) {
+    
+    if (gid.x >= input.get_width() || gid.y >= input.get_height()) return;
+    
+    // Validate and clamp parameters
+    float intensity = clamp(params.smoothingIntensity, 0.0, 1.0);
+    float radius = clamp(params.smoothingRadius, 1.0, 10.0);
+    
+    // Use validated parameters
+    float4 result = processWithParams(input.read(gid), intensity, radius);
+    output.write(result, gid);
+}
+```
+
+## Performance Testing
+
+### Profiling Considerations
+1. **Use GPU frame capture** in Xcode for detailed analysis
+2. **Monitor memory bandwidth** - texture reads/writes are often the bottleneck
+3. **Test threadgroup occupancy** - aim for high GPU utilization
+4. **Profile on target hardware** - different GPUs have different characteristics
+5. **Measure end-to-end latency** including CPU-GPU synchronization
+
+### Optimization Checklist
+- [ ] Minimize texture reads per thread
+- [ ] Use appropriate data types (half vs float)
+- [ ] Optimize threadgroup sizes for target hardware
+- [ ] Minimize divergent branches
+- [ ] Use shared memory for repeated data access
+- [ ] Profile memory access patterns
 
 ---
 > Source: [madebyaris/beauty-webcam-mac](https://github.com/madebyaris/beauty-webcam-mac) — distributed by [TomeVault](https://tomevault.io).
