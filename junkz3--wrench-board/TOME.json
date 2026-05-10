@@ -1,0 +1,44 @@
+{
+  "name": "wrench-board",
+  "owner": "Junkz3",
+  "repo": "wrench-board",
+  "description": "A senior microsoldering technician, available to every repair shop \u2014 from the seasoned pro to the apprentice. Powered by Claude Opus 4.7.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Junkz3/wrench-board",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T21:09:46Z"
+}
