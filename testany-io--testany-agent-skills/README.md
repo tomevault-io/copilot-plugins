@@ -7,11 +7,11 @@ Testany 公司的 Agent Skills 集合，提供产品研发流程中的各类专�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [TestAny-io/testany-agent-skills](https://github.com/TestAny-io/testany-agent-skills).
+Original source: `CLAUDE.md` in [TestAny-io/testany-agent-skills](https://github.com/TestAny-io/testany-agent-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
