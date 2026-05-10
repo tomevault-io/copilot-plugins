@@ -4,7 +4,7 @@
   "repo": "codex-trace",
   "description": "Real-time viewer for Codex session logs \u2014 desktop app, web",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PixelPaw-Labs/codex-trace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T03:56:06Z"
+  "distributed_at": "2026-05-10T22:59:51Z"
 }
