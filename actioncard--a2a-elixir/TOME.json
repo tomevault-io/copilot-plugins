@@ -1,0 +1,44 @@
+{
+  "name": "a2a-elixir",
+  "owner": "actioncard",
+  "repo": "a2a-elixir",
+  "description": "Elixir implementation of the Agent-to-Agent (A2A) protocol (https://a2a-protocol.org).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/actioncard/a2a-elixir",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T13:13:51Z"
+}
