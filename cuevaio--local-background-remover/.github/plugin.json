@@ -1,0 +1,9 @@
+{
+  "name": "cuevaio--local-background-remover",
+  "displayName": "local-background-remover",
+  "description": "Local Background Remover monorepo",
+  "version": "1.0.0",
+  "author": "cuevaio",
+  "homepage": "https://github.com/cuevaio/local-background-remover",
+  "skills": []
+}
