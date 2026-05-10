@@ -1,0 +1,9 @@
+{
+  "name": "angularcafe--ngxpress",
+  "displayName": "ngXpress",
+  "description": "Build production-ready Angular apps with ngXpress \u2014 a full-stack starter kit powered by Angular 20 +  SSR, Express 5, Prisma, Tailwind CSS, and Better Auth for seamless authentication.",
+  "version": "1.0.0",
+  "author": "angularcafe",
+  "homepage": "https://github.com/angularcafe/ngXpress",
+  "skills": []
+}
