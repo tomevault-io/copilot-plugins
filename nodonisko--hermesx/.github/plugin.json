@@ -1,0 +1,9 @@
+{
+  "name": "nodonisko--hermesx",
+  "displayName": "hermesx",
+  "description": "Quickly run Typescript scripts in Hermes engine environment (`tsx` alternative for Hermes)",
+  "version": "1.0.0",
+  "author": "Nodonisko",
+  "homepage": "https://github.com/Nodonisko/hermesx",
+  "skills": []
+}
