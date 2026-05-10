@@ -1,0 +1,9 @@
+{
+  "name": "mortise-org--mortise",
+  "displayName": "mortise",
+  "description": "Self-hosted Railway for Kubernetes",
+  "version": "1.0.0",
+  "author": "mortise-org",
+  "homepage": "https://github.com/mortise-org/mortise",
+  "skills": []
+}
