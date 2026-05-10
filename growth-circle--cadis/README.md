@@ -7,11 +7,11 @@ Rust-first, local-first multi-agent runtime with a desktop HUD, policy-gated too
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Growth-Circle/cadis](https://github.com/Growth-Circle/cadis).
+Original source: `CLAUDE.md` in [Growth-Circle/cadis](https://github.com/Growth-Circle/cadis).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
