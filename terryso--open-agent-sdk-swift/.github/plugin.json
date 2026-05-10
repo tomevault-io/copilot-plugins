@@ -1,0 +1,9 @@
+{
+  "name": "terryso--open-agent-sdk-swift",
+  "displayName": "open-agent-sdk-swift",
+  "description": "Agent-SDK without CLI dependencies, as an alternative to claude-agent-sdk, completely open source",
+  "version": "1.0.0",
+  "author": "terryso",
+  "homepage": "https://github.com/terryso/open-agent-sdk-swift",
+  "skills": []
+}
