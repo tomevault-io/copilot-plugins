@@ -4,7 +4,7 @@
   "repo": "lifemanager",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cybermonkjbot/lifemanager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T19:01:35Z"
+  "distributed_at": "2026-05-10T08:55:20Z"
 }
