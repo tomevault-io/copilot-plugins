@@ -1,0 +1,9 @@
+{
+  "name": "isaac-sim--isaaclab-arena",
+  "displayName": "IsaacLab-Arena",
+  "description": "Isaac Lab - Arena is a robotics simulation framework that enhances NVIDIA Isaac Lab by providing a composable, scalable system for creating diverse simulation environments and evaluating robot learnin",
+  "version": "1.0.0",
+  "author": "isaac-sim",
+  "homepage": "https://github.com/isaac-sim/IsaacLab-Arena",
+  "skills": []
+}
