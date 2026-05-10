@@ -7,11 +7,11 @@ your ai agent keeps making the same mistakes. sheal fixes that.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [liwala/sheal](https://github.com/liwala/sheal).
+Original source: `CLAUDE.md` in [liwala/sheal](https://github.com/liwala/sheal).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
