@@ -1,0 +1,9 @@
+{
+  "name": "roomkit-live--roomkit",
+  "displayName": "roomkit",
+  "description": "Pure async Python framework for multi-channel conversations",
+  "version": "1.0.0",
+  "author": "roomkit-live",
+  "homepage": "https://github.com/roomkit-live/roomkit",
+  "skills": []
+}
