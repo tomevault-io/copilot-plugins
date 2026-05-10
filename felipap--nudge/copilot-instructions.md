@@ -1,0 +1,24 @@
+## everything
+
+> - Try-catch blocks should be small and targeted at a particular thing that could fail.
+
+
+# Your rule content
+
+- Try-catch blocks should be small and targeted at a particular thing that could fail.
+
+## Frontend
+
+- Always use braces. Ie. don't do "if (x) return y;"
+- In the frontend, calls to the API should be put into separate functions. Perhaps in the same file as the component that uses it. Perhaps not.
+- Don't just put SVGs straight into a bigger component. Break it out into a separate component.
+- No default exports except for the page.tsx files.
+- Pages default exports should just be called function Page().
+
+## Backend
+
+- Don't worry about migrating the database. I will always do it for you.
+
+---
+> Source: [felipap/nudge](https://github.com/felipap/nudge) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
