@@ -1,0 +1,9 @@
+{
+  "name": "unitaryai--osmia",
+  "displayName": "osmia",
+  "description": "Enterprise-grade kubernetes native agent orchestrator",
+  "version": "1.0.0",
+  "author": "unitaryai",
+  "homepage": "https://github.com/unitaryai/osmia",
+  "skills": []
+}
