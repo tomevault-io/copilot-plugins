@@ -1,0 +1,44 @@
+{
+  "name": "agent-passport-system",
+  "owner": "aeoess",
+  "repo": "agent-passport-system",
+  "description": "Cryptographic identity, delegation, governance, and commerce protocol for AI agents. Ed25519 signatures, 127 protocol modules, 2546 tests. npm install agent-passport-system",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aeoess/agent-passport-system",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T17:42:53Z"
+}
