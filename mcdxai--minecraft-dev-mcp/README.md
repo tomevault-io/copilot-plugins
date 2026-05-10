@@ -7,11 +7,11 @@ Model Context Protocol server for Minecraft Development
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [MCDxAI/minecraft-dev-mcp](https://github.com/MCDxAI/minecraft-dev-mcp).
+Original source: `CLAUDE.md` in [MCDxAI/minecraft-dev-mcp](https://github.com/MCDxAI/minecraft-dev-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
