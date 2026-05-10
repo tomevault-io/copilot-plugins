@@ -1,0 +1,9 @@
+{
+  "name": "stripe--link-cli",
+  "displayName": "link-cli",
+  "description": "link-cli",
+  "version": "1.0.0",
+  "author": "stripe",
+  "homepage": "https://github.com/stripe/link-cli",
+  "skills": []
+}
