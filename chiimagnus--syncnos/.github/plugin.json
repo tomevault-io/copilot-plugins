@@ -1,0 +1,9 @@
+{
+  "name": "chiimagnus--syncnos",
+  "displayName": "SyncNos",
+  "description": "SyncNos is an open-source web clipper that saves AI chats, web articles, and video transcripts into Notion or Obsidian.",
+  "version": "1.0.0",
+  "author": "chiimagnus",
+  "homepage": "https://github.com/chiimagnus/SyncNos",
+  "skills": []
+}
