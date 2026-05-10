@@ -1,0 +1,9 @@
+{
+  "name": "shakecodeslikecray--whiterose",
+  "displayName": "whiterose",
+  "description": "AI-powered bug hunter that piggybacks on existing LLM subscriptions (Claude Code, Cursor, Aider)",
+  "version": "1.0.0",
+  "author": "shakecodeslikecray",
+  "homepage": "https://github.com/shakecodeslikecray/whiterose",
+  "skills": []
+}
