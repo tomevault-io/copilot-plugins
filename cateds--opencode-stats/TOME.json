@@ -1,0 +1,44 @@
+{
+  "name": "opencode-stats",
+  "owner": "Cateds",
+  "repo": "opencode-stats",
+  "description": "A terminal dashboard for tracking your OpenCode usage statistics - tokens, costs, models, and activity heatmap.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Cateds/opencode-stats",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T10:50:42Z"
+}
