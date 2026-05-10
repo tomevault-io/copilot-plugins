@@ -1,0 +1,9 @@
+{
+  "name": "viteval--viteval",
+  "displayName": "viteval",
+  "description": "Next generation LLM evaluation framework powered by Vitest.",
+  "version": "1.0.0",
+  "author": "viteval",
+  "homepage": "https://github.com/viteval/viteval",
+  "skills": []
+}
