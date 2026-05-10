@@ -1,0 +1,44 @@
+{
+  "name": "pi-hashline-readmap",
+  "owner": "coctostan",
+  "repo": "pi-hashline-readmap",
+  "description": "A unified pi-coding-agent extension combining hash-anchored file editing with structural code maps",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/coctostan/pi-hashline-readmap",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T13:54:19Z"
+}
