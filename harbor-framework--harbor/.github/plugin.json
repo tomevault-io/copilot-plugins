@@ -1,0 +1,9 @@
+{
+  "name": "harbor-framework--harbor",
+  "displayName": "harbor",
+  "description": "Harbor is a framework for running agent evaluations and creating and using RL environments.",
+  "version": "1.0.0",
+  "author": "harbor-framework",
+  "homepage": "https://github.com/harbor-framework/harbor",
+  "skills": []
+}
