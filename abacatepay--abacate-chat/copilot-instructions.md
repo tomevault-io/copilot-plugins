@@ -1,105 +1,84 @@
-## 100-design-engineering
+## 1000-typescript
 
-> Apply design engineering practices when building UI components to ensure scalable, accessible, and maintainable design systems
+> Enforce strict typing when coding to ensure reliable TypeScript usage
 
 
-# Design Engineering Practices
+# TypeScript Rules
 
 <version>1.0.0</version>
 
 ## Context
 
-- Applies to UI component development and design system implementation
-- Ensures consistent, accessible, and scalable user interfaces
-- Bridges design and engineering through systematic approaches
+- Applies to TypeScript and JavaScript in modern development
+- Ensures type safety, code quality, and maintainable codebases
+- Promotes functional programming patterns and strict typing
 
 ## Requirements
 
-### Design System Foundation
+### Type Safety
 
-- Follow 8-point grid system for all spacing (multiples of 8px: 8, 16, 24, 32px)
-- Maintain consistent color palette using CSS custom properties
-- Use semantic design tokens for colors, typography, and spacing
-- Create reusable component variants with consistent APIs
+- Avoid `any` type; use `unknown`, generics, or precise types instead
+- Use `as const` for exact object types and literal type inference
+- Mark immutable component props and data structures as `readonly`
+- Implement proper type guards for runtime type checking
+- Use discriminated unions for complex state management
 
-### Component Architecture
+### Modern JavaScript/TypeScript
 
-- Design components with composition over configuration
-- Implement proper prop interfaces with TypeScript
-- Use compound components for complex UI patterns
-- Provide sensible defaults while maintaining flexibility
+- Prefer ESM (`import`/`export`) over CommonJS (`require`/`module.exports`)
+- Use nullish coalescing (`??`) over logical OR (`||`) for null/undefined checks
+- Handle promises properly with `await` or `.then()` - avoid promise anti-patterns
+- Use optional chaining (`?.`) to prevent runtime errors safely
+- Prefer template literals over string concatenation
 
-### Accessibility Standards
+### Error Handling
 
-- Include ARIA attributes and semantic HTML by default
-- Support keyboard navigation and focus management
-- Maintain WCAG 2.1 AA compliance for color contrast
-- Test components with screen readers
+- Throw `Error` instances with meaningful messages, not strings or objects
+- Implement proper error boundaries and error handling patterns
+- Use Result/Either types for predictable error handling when appropriate
+- Avoid swallowing errors silently
 
-### Responsive Design
+### Code Quality
 
-- Implement mobile-first responsive design patterns
-- Use container queries for component-level responsiveness
-- Ensure touch targets meet minimum size requirements (44px)
-- Test across different viewport sizes and devices
+- Remove unused variables, imports, and expressions
+- Avoid non-null assertions (`!`) unless absolutely necessary
+- Never use `eval()` or dynamic code execution for security
+- Add explanatory comments for `@ts-ignore` or `@ts-expect-error` usage
 
-### Performance Optimization
+### Functional Programming
 
-- Implement lazy loading for non-critical components
-- Use React.memo strategically for expensive renders
-- Optimize bundle size with tree-shaking friendly exports
-- Implement proper image optimization with Next.js Image
+- Favor functional programming patterns over OOP (except for custom errors)
+- Use immutable data patterns and pure functions when possible
+- Prefer composition over inheritance
+- Use higher-order functions and function composition
+
+### Type Definitions
+
+- Ensure type compatibility for operations (both operands of `+` same type)
+- Use namespaces only for declaration merging; avoid `module` keyword
+- Avoid redundant type annotations where TypeScript can infer types
+- Prefer array literal syntax `[]` over generic array constructors
+- Prevent duplicate values in enums and union types
+
+### Interface Design
+
+- Design clear, composable interfaces with proper generic constraints
+- Use utility types (`Partial`, `Pick`, `Omit`) for type transformations
+- Implement proper branded types for domain-specific values
+- Create discriminated unions for complex state representations
 
 ## Examples
 
 <example>
-  // Design system component with proper structure
-  interface ButtonProps {
-    variant?: 'primary' | 'secondary' | 'ghost'
-    size?: 'sm' | 'md' | 'lg'
-    disabled?: boolean
-    children: React.ReactNode
+  function parseData(data: unknown): string | null {
+    if (typeof data === "string") return data;
+    return null;
   }
-
-export function Button({
-variant = 'primary',
-size = 'md',
-disabled = false,
-...props
-}: ButtonProps) {
-return (
-<button
-className={cn(
-// Base styles following 8-point grid
-'inline-flex items-center justify-center rounded-lg font-medium transition-colors',
-'focus:outline-none focus:ring-2 focus:ring-offset-2',
-// Size variants (8-point grid: 32px, 40px, 48px)
-size === 'sm' && 'h-8 px-3 text-sm',
-size === 'md' && 'h-10 px-4 text-base',
-size === 'lg' && 'h-12 px-6 text-lg',
-// Variant styles
-variant === 'primary' && 'bg-primary text-primary-foreground hover:bg-primary/90',
-variant === 'secondary' && 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-disabled && 'opacity-50 cursor-not-allowed'
-)}
-disabled={disabled}
-{...props}
-/>
-)
-}
 </example>
 
 <example type="invalid">
-  // Poor component design - no design system adherence
-  function Button({ color, padding, onClick }) {
-    return (
-      <button
-        style={{ backgroundColor: color, padding: padding }}
-        onClick={onClick}
-      >
-        Click me
-      </button>
-    )
+  function parseData(data: any): any {
+    return data;
   }
 </example>
 
