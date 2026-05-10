@@ -1,68 +1,24 @@
-## project-architecture
+## swift-guidelines
 
-> This project contains a SwiftUI iOS app and a Safari Web Extension that injects an EIP-1193 provider with EIP-6963 discovery.
+> Swift coding and app/extension conventions
 
 
-# Project Architecture and Data Flow
+# Swift Guidelines
 
-This project contains a SwiftUI iOS app and a Safari Web Extension that injects an EIP-1193 provider with EIP-6963 discovery.
+- Prefer clear, descriptive naming; explicit types on public APIs.
+- Use guard clauses and early returns; avoid deep nesting.
+- Keep UI state in `@StateObject`/`@Published` and drive views from state.
+- Bridge PromiseKit to async/await using a small extension when needed.
+- Store selected address in `UserDefaults(suiteName: <AppGroup>)` key `walletAddress`.
+- The native extension handler should:
+  - Read the address from the shared App Group.
+  - Implement `eth_requestAccounts` and `eth_accounts` returning `[address]` or `[]`.
+  - Log minimally and never include sensitive data.
 
-Key files:
+Security & Key Management:
 
-- App UI and balances: [ios-wallet/ContentView.swift](mdc:ios-wallet/ContentView.swift)
-- Extension native handler: [safari/SafariWebExtensionHandler.swift](mdc:safari/SafariWebExtensionHandler.swift)
-- Injected provider (MAIN world): [safari/Resources/inject.js](mdc:safari/Resources/inject.js)
-- Content script bridge (isolated world): built bundle at [safari/Resources/dist/content.iife.js](mdc:safari/Resources/dist/content.iife.js) (source: `web-ui/src/content.tsx`)
-- Background service worker: [safari/Resources/background.js](mdc:safari/Resources/background.js)
-- MV3 manifest: [safari/Resources/manifest.json](mdc:safari/Resources/manifest.json)
-
-Data flow:
-
-1. DApp calls `window.ethereum.request({ method, params })`.
-2. Injected provider posts a message to the window (source: `stupid-wallet-inject`).
-3. Content script relays to background via `browser.runtime.sendMessage`.
-4. Background extracts site metadata (domain, URI, scheme) from sender and includes in request.
-5. Background queries native handler or shared storage and responds.
-6. Content script posts the response back (source: `stupid-wallet-content`).
-
-Request tracking:
-
-- Fast methods: Direct execution via native handler
-- Confirmation methods: Background stores site metadata with requestId, returns `{ pending: true }`, then handles `WALLET_CONFIRM` after user approval with stored metadata
-
-Provider discovery (EIP‑6963):
-
-- Injected provider dispatches `eip6963:announceProvider` with `Object.freeze({ info, provider })`.
-- Listens to `eip6963:requestProvider` and re-announces.
-
-Shared storage and app groups:
-
-- The app persists the selected address in `UserDefaults(suiteName: <AppGroup>)` under key `walletAddress`.
-- The current chain id is stored under key `chainId` (hex string, e.g. `0x1`).
-- Custom chains metadata may be stored under key `customChains` keyed by hex chainId.
-- The extension native handler reads these values to serve `eth_requestAccounts`/`eth_accounts` and network methods.
-
-Networking:
-
-- Balances fetched via Web3.swift using public RPCs (Ethereum, Base, Arbitrum One, Optimism).
-
-Supported provider methods (end-to-end):
-
-- `eth_requestAccounts` (pending → confirm flow)
-- `eth_accounts` (fast method)
-- `eth_chainId` (fast method)
-- `eth_blockNumber` (fast method)
-- `wallet_addEthereumChain` (fast method)
-- `wallet_switchEthereumChain` (fast method)
-- `wallet_connect` (pending → confirm flow with SIWE capability)
-- `wallet_disconnect` (fast method)
-- `personal_sign` (pending → confirm flow)
-- `eth_signTypedData_v4` (pending → confirm flow)
-- `eth_sendTransaction` (pending → confirm flow)
-
-Capabilities:
-
-- SIWE (Sign In With Ethereum): Automatic domain/URI extraction, EIP-191 signing, chain ID validation per wallet_connect spec
+- Use Dawn Key Management to encrypt and store private keys. Never expose raw keys to JS.
+- Implement consent flows before signing; do not auto-approve.
 
 ---
 > Source: [stephancill/stupid-wallet](https://github.com/stephancill/stupid-wallet) — distributed by [TomeVault](https://tomevault.io).
