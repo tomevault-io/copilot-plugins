@@ -1,39 +1,35 @@
-## dbxmetagen-testing
+## frontend-patterns
 
-> Testing conventions for dbxmetagen unit tests
+> Frontend conventions for the dbxmetagen React dashboard
 
 
-# dbxmetagen Test Conventions
+# Frontend Patterns
 
-## Running Tests
+## Stack
 
-- Always use `uv run pytest` or `./run_tests.sh` -- never bare `pytest`.
-- `run_tests.sh` handles running DDL regenerator and binary/variant tests in
-  separate processes to avoid import conflicts.
-- Use `run_tests.sh -q` for a quick core-only run.
+React 19 + Vite + Tailwind CSS. JSX (not TSX). Entry point: `main.jsx`.
 
-## Writing Tests
+## Build Requirement
 
-- Use `MetadataConfig(skip_yaml_loading=True, ...)` to avoid reading YAML files.
-- `conftest.py` auto-stubs heavy deps (pyspark, mlflow, databricks SDK, etc.).
-  Key fixtures: `mock_spark`, `test_config`, `sample_table_rows`.
-- Any `pd.read_csv` call on TSV files MUST include:
-  ```python
-  pd.read_csv(path, sep="\t", keep_default_na=False, na_values=[])
-  ```
-  Without this, literal `"None"` values become NaN and break downstream logic.
+`dist/` is committed to the repo and synced to Databricks via DAB. After any frontend change:
 
-## Marking Known Bugs
+```bash
+cd apps/dbxmetagen-app/app/src
+npm run build
+```
 
-- Use `@pytest.mark.xfail(reason="<brief description>")` for pre-existing bugs
-  you've confirmed but aren't fixing in the current change. Never `@pytest.mark.skip`.
-- Remove `xfail` once the underlying bug is fixed and the test passes.
+Forgetting this means the deployed app won't reflect your changes.
 
-## DDL Regenerator Tests
+## API Layer
 
-- Tests in `tests/test_ddl_regenerator.py` must run in a separate pytest process
-  due to mlflow import conflicts. `run_tests.sh` handles this automatically.
-- If running manually: `uv run pytest tests/test_ddl_regenerator.py -v`
+All backend calls go through `apiCache.js`, which handles fetch + caching. Add new API calls there rather than using raw `fetch` in components.
+
+## Structure
+
+- `components/` -- reusable UI components
+- `hooks/` -- custom React hooks
+- `utils/` -- helper functions
+- `public/` -- static assets
 
 ---
 > Source: [databricks-industry-solutions/dbxmetagen](https://github.com/databricks-industry-solutions/dbxmetagen) — distributed by [TomeVault](https://tomevault.io).
