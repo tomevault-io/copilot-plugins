@@ -1,41 +1,70 @@
-## genie-patterns
+## ontology-patterns
 
-> Genie space generation pipeline invariants and patterns
+> Ontology system patterns and invariants for dbxmetagen
 
 
-# Genie Pipeline Patterns
+# Ontology Patterns
 
-## Architecture
+## Property Role Vocabulary (closed set)
 
-Three-phase LLM pipeline in `agent.py`:
-1. **Phase 1 (Core):** description, text_instructions, sample_questions, join_specs
-2. **Phase 2 (SQL):** example_sql pairs
-3. **Phase 3 (Snippets):** sql_snippets (measures, filters, expressions)
+`_heuristic_classify` returns one of exactly these roles:
+`object_property`, `primary_key`, `pii`, `dimension`, `geographic`, `audit`, `temporal`, `label`, `measure`
 
-Post-processing merges pre-built joins, validates SQL, and builds the serialized space via `schema.py`.
+**Never `link`.** The `link` role was removed. If you see it in SQL filters, remove it.
 
-## Join Reliability
+## Discovery Method Vocabulary
 
-- During context assembly (`context.py`), extract metric view joins into `join_specs` so the agent has them as input.
-- After the agent runs, force-merge any pre-built `join_specs` into the output -- never rely solely on the LLM to reproduce them.
-- The agent prompt must tell the LLM that pre-built joins will be auto-merged, so it should focus on additional joins only.
-- If `join_specs` is empty and there are multiple data sources, emit a warning log.
+- Entity-level: `keyword`, `ai_batch`, `ai_batch_secondary`, `three_pass_N`, `ai`, `ai_secondary`, `ai_fallback`, `column_keyword`
+- Column-property-level: `bundle_match` (confidence 0.95), `heuristic_strong`, `heuristic_weak`, `fallback`
 
-## SQL Conventions
+## Classification Priority
 
-- Table references must be fully qualified: `catalog.schema.table`.
-- Column references in snippets use `table.column` format.
-- Date functions: `TIMESTAMPADD`/`TIMESTAMPDIFF` use bare singular units (no quotes, no plurals). `DATE_TRUNC` uses single-quoted interval.
-- Join SQL is simplified to `table.column` via `_simplify_join_sql` and backtick-quoted via `_backtick_join_sql` in `schema.py`.
-- Date unit fixing (`_fix_date_func_units`) runs on all generated SQL.
+1. **Bundle match** via `_build_bundle_property_index(entity_type)` -- maps lowercased column names from `typical_attributes` to `(role, property_name, edge, target_entity)`. Confidence 0.95.
+2. **Heuristic fallback** via `_heuristic_classify` -- regex/type-based cascade. Confidence 0.40-0.85.
 
-## Safety
+Never skip tier 1 -- always check the bundle index before falling back to heuristics.
 
-All phases include `SAFETY_PROMPT_BLOCK`. Never generate PII/PHI in descriptions, instructions, sample questions, or example SQL. Avoid ephemeral statistics (row counts, date ranges). Structural patterns are fine.
+## Edge Direction
 
-## Serialized Space (`schema.py`)
+Edges flow `domain -> range` via `EdgeCatalog`. An edge is valid iff `entry.matches_domain(src)` and `entry.matches_range(dst)`. `None` or `"Any"` constraints are wildcards.
 
-`build_serialized_space()` coerces raw LLM output into the Genie API payload. Pydantic models act as a whitelist -- only defined fields survive serialization. Do not add fields to the Pydantic models without verifying they exist in the Genie proto schema.
+## Incremental Mode
+
+The `last_bundle_version` check is enforced in the incremental SQL. Both `EntityDiscoverer._get_bundle_version()` and `OntologyBuilder._get_bundle_version()` return the same `"{bundle}:{ver}"` format so that the stored column and the comparison target match.
+
+The SQL WHERE clause for incremental entity discovery is:
+```sql
+WHERE oe.last_classified IS NULL
+   OR kb.updated_at > oe.last_classified
+   OR COALESCE(oe.last_bundle_version, '') != '{current_bv}'
+```
+
+## Bundle Switch Safety
+
+`run()` checks `DISTINCT ontology_bundle` in `ontology_entities` at startup and emits a `logger.warning` if entities from a different bundle exist. `_purge_stale_bundle_entities` then deletes unvalidated auto-discovered entities from previous bundles; validated entities are preserved. Use `incremental=false` for a clean rebuild when intentionally switching bundles.
+
+## Column Properties Table
+
+Written with `mode("overwrite").saveAsTable(cp_table)` -- full reclassification every run, not incremental. This is intentional.
+
+## Architecture Invariants
+
+- **Build-time vs. runtime split**: The ontology pipeline materializes to UC Delta tables at build time. Runtime consumers (deep analysis agent, embeddings) read from UC tables, not from bundle YAML or tier files. The one exception is `GenieContextAssembler`, which also loads the active bundle YAML for join_spec extraction via `_get_ontology_join_specs`.
+- **Discovery-gated edge emission**: `emit_bundle_edges` intentionally only emits edges between entity types that were actually discovered in data. This prevents dangling references in the knowledge graph.
+- **Discovery-driven entities, not pre-seeded**: Entity types from the bundle YAML are classification candidates, not a pre-materialized catalog. Only entities matched to real tables/columns appear in `ontology_entities`. `validate_ontology_completeness` reports unmatched types -- this is expected.
+- **Tier files are for build-time LLM grounding**: `OntologyIndexLoader` loads tier files to feed three-pass entity classification prompts. They are not loaded by the agent or Genie at runtime.
+
+## Default Values Inventory
+
+| Location | Parameter | Default |
+|----------|-----------|---------|
+| `variables.yml` | `ontology_bundle` | `"general"` |
+| `variables.yml` | `ontology_config_path` | `"configurations/ontology_config.yaml"` (auto-derived from bundle when at default) |
+| `OntologyConfig` dataclass | `ontology_bundle` | `""` (empty; callers must pass explicitly) |
+| `_get_index_loader` fallback | bundle | `"general"` (when `ontology_bundle` is empty) |
+| `GenieContextAssembler` | `ontology_bundle` | `"general"` (when no env var set) |
+| `api_server` quality-summary | active bundle | `"general"` (when no env var set) |
+| `full_analytics_pipeline.job.yml` | `ontology_bundle` | `"healthcare"` (job parameter) |
 
 ---
 > Source: [databricks-industry-solutions/dbxmetagen](https://github.com/databricks-industry-solutions/dbxmetagen) — distributed by [TomeVault](https://tomevault.io).
