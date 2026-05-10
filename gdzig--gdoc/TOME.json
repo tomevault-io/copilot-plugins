@@ -4,7 +4,7 @@
   "repo": "gdoc",
   "description": "CLI documentation viewer for Godot API docs \u2014 parses XML class references and displays them as formatted Markdown in the terminal",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gdzig/gdoc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T15:30:11Z"
+  "distributed_at": "2026-05-10T04:35:34Z"
 }
