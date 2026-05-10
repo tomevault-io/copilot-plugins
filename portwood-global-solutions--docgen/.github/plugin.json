@@ -1,0 +1,9 @@
+{
+  "name": "portwood-global-solutions--docgen",
+  "displayName": "DocGen",
+  "description": "Free, native document generation for Salesforce. PDF, DOCX, XLSX, PPTX \u2014 merge tags, images, barcodes, QR codes, bulk generation, Flow actions. 100% Apex + LWC, zero external dependencies.",
+  "version": "1.0.0",
+  "author": "Portwood-Global-Solutions",
+  "homepage": "https://github.com/Portwood-Global-Solutions/DocGen",
+  "skills": []
+}
