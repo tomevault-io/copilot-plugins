@@ -4,7 +4,7 @@
   "repo": "gobii-platform",
   "description": "Your easy to use, always-on AI workforce \ud83d\udc7e",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gobii-ai/gobii-platform",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T08:05:02Z"
+  "distributed_at": "2026-05-10T14:39:58Z"
 }
