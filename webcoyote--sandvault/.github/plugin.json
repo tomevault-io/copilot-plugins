@@ -1,0 +1,9 @@
+{
+  "name": "webcoyote--sandvault",
+  "displayName": "sandvault",
+  "description": "Run AI agents isolated in a macOS user account and sandbox-exec. Configured to run Claude Code, OpenAI Codex, Cursor Agent, Google Gemini.",
+  "version": "1.0.0",
+  "author": "webcoyote",
+  "homepage": "https://github.com/webcoyote/sandvault",
+  "skills": []
+}
