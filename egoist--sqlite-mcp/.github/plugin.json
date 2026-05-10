@@ -1,0 +1,9 @@
+{
+  "name": "egoist--sqlite-mcp",
+  "displayName": "sqlite-mcp",
+  "description": "MCP server for SQLite",
+  "version": "1.0.0",
+  "author": "egoist",
+  "homepage": "https://github.com/egoist/sqlite-mcp",
+  "skills": []
+}
