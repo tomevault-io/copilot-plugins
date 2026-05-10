@@ -1,0 +1,9 @@
+{
+  "name": "jpke--cursor-vibe-coding-template",
+  "displayName": "cursor-vibe-coding-template",
+  "description": "A comprehensive project template for vibe coding in Cursor with pre-configured AI tooling, MCP servers, and intelligent development workflows",
+  "version": "1.0.0",
+  "author": "jpke",
+  "homepage": "https://github.com/jpke/cursor-vibe-coding-template",
+  "skills": []
+}
