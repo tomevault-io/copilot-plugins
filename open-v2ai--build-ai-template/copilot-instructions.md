@@ -1,120 +1,68 @@
-## markdown-rules
+## project-structure
 
-> - **兼容性**: 支持各种 Markdown 渲染器。
+> Build AI Template 项目结构和技术栈指南
 
 
-# Markdown 编写规范
+# Build AI Template - 项目结构指南
 
-## 核心原则
+## 项目概述
 
-- **一致性**: 统一的格式和风格。
-- **可读性**: 清晰的结构和排版。
-- **可维护性**: 易于编辑和更新。
-- **兼容性**: 支持各种 Markdown 渲染器。
+这是一个用于快速构建 AI 应用的开源模板项目，核心功能是与智能代理（Agent）进行对话。
 
-## 自动化工具
+## 技术栈
 
-项目已集成 `Markdownlint` 和 `Prettier` 以保证规范的执行。
+- **前端**: Next.js 15.3 + TypeScript + Tailwind CSS + Shadcn UI + React 19
+- **后端**: FastAPI + Python 3.12 + SQLModel + PostgreSQL + Redis
+- **AI**: OpenAI API + 自定义 Agent 框架
+- **部署**: Docker + Docker Compose
+- **包管理**: 前端 `pnpm`，后端 `uv`
 
-- **实时检查**: VS Code 扩展 `davidanson.vscode-markdownlint` 提供实时错误提示。
-- **自动格式化**: 保存时将自动格式化 Markdown 文件。
-- **命令行工具**:
-  - `pnpm run lint:md`: 检查所有 Markdown 文件。
-  - `pnpm run lint:md:fix`: 自动修复可修复的问题。
+## 核心目录结构
 
-## 关键格式规范
+### 后端 (`api/`)
 
-### 标题
+- **`api/app/main.py`**: FastAPI 应用入口
+- **`api/app/core/`**: 核心配置 (安全, i18n)
+- **`api/app/models/`**: SQLModel 数据模型
+- **`api/app/schemas/`**: Pydantic 验证模式
+- **`api/app/routers/`**: API 路由定义
+- **`api/app/crud/`**: 数据库 CRUD 操作
+- **`api/app/services/`**: 业务逻辑服务
+- **`api/pyproject.toml`**: Python 依赖配置
 
-- **层级**: 每个文档只应有一个一级标题 (`# H1`)。
-- **格式**: 必须在 `#` 后跟一个空格，且标题前后应有空行。
-- **内容**: 标题应简洁明了，不以标点符号结尾。
+### 前端 (`web/`)
 
-```markdown
-# 文档主标题
+- **`web/app/`**: Next.js App Router 页面
+- **`web/components/`**: React 组件 (包括 `ui/` 和 `admin/`)
+- **`web/i18n/`**: 国际化配置
+- **`web/util/`**: 工具函数
+- **`web/package.json`**: 前端依赖配置
 
-## 章节标题
+## 关键配置文件
 
-### 子章节标题
-```
+- **`deploy/docker-compose.yaml`**: 生产环境部署
+- **`deploy-test/docker-compose.yaml`**: 测试环境部署
 
-### 列表
+## 开发流程
 
-- **无序列表**: 使用 `-`，并保持 `2` 个空格的缩进。
-- **有序列表**: 使用 `1.`、`2.` 的格式。
-- **任务列表**: 使用 `- [ ]` (未完成) 和 `- [x]` (已完成)。
+1. **后端优先**: 在 `api/` 中实现模型、路由和业务逻辑。
+2. **前端实现**: 在 `web/` 中创建对应的组件和页面。
+3. **样式开发**: 使用 Tailwind CSS 和 Shadcn UI。
+4. **国际化**: 添加翻译到 `web/app/messages/`。
+5. **类型定义**: 确保前后端类型一致。
 
-```markdown
-- 无序列表项
-  - 嵌套项
+## 开发规范
 
-1. 有序列表项
-   1. 嵌套项
+- **代码注释**: 必须为所有代码添加详细的中文注释。
+- **代码优先**: 专注于功能实现，让代码本身成为最好的文档。
+- **注释维护**: 代码修改时必须同步更新相关注释。
 
-- [x] 已完成任务
-```
+## 核心功能模块
 
-### 代码
-
-- **行内代码**: 使用反引号 `` ` `` 包裹代码片段，如 `const a = 1;`。
-- **代码块**: 使用三个反引号 ``` 并**必须**指定语言标识符。
-
-````markdown
-```typescript
-function greet(): string {
-  return 'Hello, World!'
-}
-```
-````
-
-### 链接和图片
-
-- **链接**: 优先使用 `./` 或 `../` 的相对路径。
-- **图片**: 必须提供有意义的 `alt` 文本。
-
-```markdown
-[贡献指南](./CONTRIBUTING.md)
-
-![Logo Alt Text](./images/logo.png)
-```
-
-### 表格
-
-- **格式**: 表头和内容应对齐，以增强可读性。
-
-```markdown
-| 参数   | 类型   | 说明           |
-| ------ | ------ | -------------- |
-| `id`   | number | 用户唯一标识符 |
-| `name` | string | 用户名         |
-```
-
-### 引用和强调
-
-- **引用**: 使用 `>`，并在符号后跟一个空格。
-- **强调**:
-  - **粗体**: `**粗体**`
-  - _斜体_: `*斜体*`
-  - ~~删除线~~: `~~删除线~~`
-
-## 特殊内容
-
-- **提示/警告**: 使用块引用和 emoji 来突出显示。
-
-  > ⚠️ **警告**: 此操作不可逆转。
-  > 💡 **提示**: 这是一个有用的提示。
-
-- **快捷键**: 使用 `<kbd>` 标签。
-  > <kbd>Ctrl</kbd> + <kbd>C</kbd>
-
-## 文档审查清单
-
-- [ ] 标题层级和格式正确。
-- [ ] 列表格式统一且缩进正确。
-- [ ] 所有代码块都指定了语言。
-- [ ] 链接和图片路径有效，图片有 `alt` 文本。
-- [ ] 表格格式清晰。
-- [ ] 文档结构逻辑清晰，易于导航。
+- **用户管理**: 邮箱验证码登录、权限管理
+- **对话系统**: AI Agent 对话、流式响应
+- **管理后台**: 用户、对话、Agent 管理
+- **任务系统**: Agent 任务识别与执行
 
 ---
 > Source: [open-v2ai/build-ai-template](https://github.com/open-v2ai/build-ai-template) — distributed by [TomeVault](https://tomevault.io).
