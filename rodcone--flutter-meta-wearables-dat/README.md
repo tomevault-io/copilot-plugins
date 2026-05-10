@@ -7,11 +7,11 @@ A Flutter plugin that provides a bridge to Meta's Wearables Device Access Toolki
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rodcone/flutter_meta_wearables_dat](https://github.com/rodcone/flutter_meta_wearables_dat).
+Original source: `CLAUDE.md` in [rodcone/flutter_meta_wearables_dat](https://github.com/rodcone/flutter_meta_wearables_dat).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
