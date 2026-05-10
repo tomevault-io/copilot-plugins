@@ -1,0 +1,9 @@
+{
+  "name": "ypodim--deer-stop",
+  "displayName": "deer_stop",
+  "description": "CV using yolov11m, running on Hailo8L pipeline, entirely developed on Opus 4.5",
+  "version": "1.0.0",
+  "author": "ypodim",
+  "homepage": "https://github.com/ypodim/deer_stop",
+  "skills": []
+}
