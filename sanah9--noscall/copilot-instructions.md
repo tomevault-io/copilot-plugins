@@ -1,28 +1,12 @@
-## singleton-naming
+## test-conventions
 
-> Singleton accessor naming convention for Dart/Flutter
+> Unit test requirement for every service
 
 
-# Singleton Naming
+# Test Conventions
 
-## Convention for new code
-
-Use **one** consistent style for singleton/shared-instance accessors across the codebase:
-
-- **Recommended: `.instance`** — e.g. `CallKitManager.instance`, `VoiceCacheManager.instance`
-- **Alternative: `.shared`** — e.g. `ICEServerManager.shared`, `Connect.sharedInstance` (if standardizing on `.shared`, prefer the shorter name)
-
-Do **not** introduce new mix of `.instance`, `.shared`, and `.sharedInstance` in new code.
-
-## Legacy code
-
-Existing code may still use `.sharedInstance`, `.shared`, or `.instance`. When you **touch a file** that uses a different style, consider aligning it to the chosen convention for that module or file. No need to do a one-time global rename—opportunistic updates reduce regression risk.
-
-## Reference (current codebase mix, for context)
-
-- `.instance`: `CallKitManager.instance`, `VoiceCacheManager.instance`
-- `.shared`: `ICEServerManager.shared`
-- `.sharedInstance`: `Connect.sharedInstance`, `Account.sharedInstance`, `Contacts.sharedInstance`, `Relays.sharedInstance`, `ThreadPoolManager.sharedInstance`
+- **Every service** must have **unit tests**.
+- When adding or changing a service, add or update the corresponding unit tests in the test suite.
 
 ---
 > Source: [sanah9/noscall](https://github.com/sanah9/noscall) — distributed by [TomeVault](https://tomevault.io).
