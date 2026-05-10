@@ -1,442 +1,204 @@
-## chat-usd
+## extending-chat-usd
 
-> Comprehensive documentation for Chat USD, a specialized AI assistant for Universal Scene Description (USD) development.
+> A high-level overview of how to extend Chat USD with custom agents, using the Navigation Agent as a reference implementation.
 
 
-# Chat USD Documentation
+# Extending Chat USD with Custom Agents
 
-This document contains the complete documentation for Chat USD, a specialized AI assistant for Universal Scene Description (USD) development.
+This guide explains how to extend Chat USD with custom agents, using the Navigation Agent (`@omni.ai.langchain.agent.navigation`) as a reference implementation.
 
 ## Table of Contents
 
-- [Introduction](#README.md)
-- [Overview](#Overview.md)
-- [Architecture](#architecture\README.md)
-- [Multi Agent Architecture](#architecture\multi-agent-architecture.md)
-- [Component Interactions](#architecture\component-interactions.md)
-- [Message Flow](#architecture\message-flow.md)
-- [Extension Integration](#architecture\extension-integration.md)
-- [Components](#components\README.md)
-- [Chat Usd Network Node](#components\chat-usd-network-node.md)
-- [Chat Usd Supervisor Node](#components\chat-usd-supervisor-node.md)
-- [Usd Code Interactive Network Node](#components\usd-code-interactive-network-node.md)
-- [Usd Search Network Node](#components\usd-search-network-node.md)
-- [Scene Info Network Node](#components\scene-info-network-node.md)
-- [Modifiers](#components\modifiers.md)
-- [Extending](#advanced\extending.md)
-
----
-
-<a id='README.md'></a>
-
-# Introduction
-
-# Chat USD Documentation
-
-This documentation provides a comprehensive guide to understanding and creating agents like Chat USD, a specialized AI assistant for Universal Scene Description (USD) development.
-
-## About Chat USD
-
-Chat USD is a specialized AI assistant for Universal Scene Description (USD) development. It leverages the LC Agent framework to provide a multi-agent system capable of:
-
-1. Answering knowledge-based questions about USD
-2. Searching for USD assets
-3. Generating and executing USD code
-4. Providing scene information
-5. Creating interactive UI elements with omni.ui
-
----
-
-<a id='Overview.md'></a>
-
-# Overview
-
-# Chat USD Overview
+1. [Introduction](#introduction)
+2. [Architecture Overview](#architecture-overview)
+3. [Component Relationships](#component-relationships)
+4. [Creating a Custom Agent](#creating-a-custom-agent)
+   - [Extension Structure](#extension-structure)
+   - [Node Implementation](#node-implementation)
+   - [Modifier Implementation](#modifier-implementation)
+   - [System Messages](#system-messages)
+5. [Integration with Chat USD](#integration-with-chat-usd)
+6. [Example: Navigation Agent](#example-navigation-agent)
+7. [Best Practices](#best-practices)
 
 ## Introduction
 
-Chat USD is a specialized AI assistant designed to facilitate Universal Scene Description (USD) development through natural language interaction. Built on the LC Agent framework, Chat USD provides a multi-agent system that enables users to interact with USD scenes, generate code, search for assets, and obtain information about scene elements using conversational language.
+Chat USD is a powerful AI assistant for Universal Scene Description (USD) development that can be extended with custom agents to add new capabilities. Custom agents allow Chat USD to perform specialized tasks, such as scene navigation, asset search, or custom operations on USD scenes.
 
-## Core Capabilities
-
-Chat USD offers several key capabilities:
-
-1. **USD Code Generation**: Creates and executes USD code based on natural language descriptions
-2. **USD Asset Search**: Searches for USD assets based on natural language queries
-3. **Scene Information Retrieval**: Analyzes and provides information about the current USD scene
-4. **Interactive Development**: Enables real-time modification of USD scenes through conversation
-5. **UI Integration**: Creates interactive UI elements with omni.ui (in the omni.ui variant)
+This document explains how to create and integrate custom agents into the Chat USD framework, using the Navigation Agent as a reference implementation.
 
 ## Architecture Overview
 
-Chat USD is built on a multi-agent architecture that routes user queries to specialized agents based on the query's intent:
+Chat USD uses a modular architecture based on the Language Chain (LC) Agent framework. The key components for extending Chat USD with custom agents are:
+
+1. **Extension**: Registers the agent with the system and manages its lifecycle.
+2. **Nodes**: Implement the agent's functionality and define how it processes inputs and generates outputs.
+3. **Modifiers**: Intercept and modify the behavior of nodes, allowing for custom processing of commands.
+4. **System Messages**: Define the agent's capabilities, identity, and how it should respond to user queries.
+
+## Component Relationships
+
+Understanding the inheritance hierarchy and relationships between components is crucial for implementing a custom agent:
+
+### Inheritance Hierarchy
+
+1. **ChatUSDNavigationNetworkNode**: The main entry point for user interactions.
+   - Derives from `ChatUSDNetworkNode` and `MultiAgentNetworkNode`, which handles routing between agents
+   - Ultimately derives from `NetworkNode`, which is a container for subnodes
+   - Does not interact with LLMs directly
+   - Acts as a coordinator for the conversation between agents and supervisor
+   - Registered with the user-friendly name "ChatUSD with navigation"
+
+2. **ChatUSDNavigationSupervisorNode**: The orchestrator for agent interactions.
+   - Derives from `ChatUSDSupervisorNode`
+   - Interacts with LLMs to determine which agent to call based on the user query
+   - Can transform user queries to match agent capabilities
+   - Uses system messages to understand agent capabilities and make routing decisions
+   - Combines the base ChatUSDSupervisorNode system message with additional navigation-specific instructions
+
+3. **NavigationNetworkNode**: The navigation agent implementation.
+   - Derives from `NetworkNode`
+   - Does not interact with LLMs directly but contains nodes that do
+   - Registered as "ChatUSD_Navigation" and referenced in the route_nodes list of ChatUSDNavigationNetworkNode
+   - Provides its docstring to the supervisor to explain its capabilities
+   - Contains modifiers that process command outputs
+
+4. **NavigationGenNode**: The component that generates navigation commands.
+   - Derives from `RunnableNode`
+   - Directly interacts with LLMs to generate navigation commands
+   - Uses a specific system message that instructs the LLM to output specific command formats
+   - Its outputs are intercepted by NavigationModifier
+   - Its outputs are not directly visible to the supervisor, only the final result is
+
+### Modifier's Role in Command Execution
+
+The NavigationModifier plays a critical role in the execution of navigation commands:
+
+1. **Command Interception**: The modifier's `on_post_invoke_async` method is called after each node in the network is invoked. It carefully checks conditions to prevent infinite loops:
+   ```python
+   if (
+       node.invoked
+       and isinstance(node.outputs, AIMessage)
+       and node.outputs.content
+       and not network.get_children(node)
+   ):
+   ```
+
+2. **Command Processing**: When NavigationGenNode generates a command like "LIST", "NAVIGATE", or "SAVE", the modifier intercepts it and executes the corresponding action.
+
+3. **Result Injection**: After processing a command, the modifier creates a new `RunnableHumanNode` with the result:
+   ```python
+   with network:
+       RunnableHumanNode(f"Assistant: {result}")
+   ```
+
+4. **Continued Execution**: Creating this new node continues invoking the network. The default modifier for NavigationNetworkNode automatically creates the default node (NavigationGenNode) after the RunnableHumanNode.
+
+5. **Command Execution in USD Stage**: The modifier executes navigation commands directly in the current USD stage. For example:
+   - LIST command retrieves points of interest from the stage metadata
+   - NAVIGATE command sets the camera transform to a specific position
+   - SAVE command stores the current camera position in the stage metadata
+
+This execution chain is what enables the navigation commands to be processed and executed, allowing the agent to perform real actions in the USD scene. Without the modifier, the commands would be meaningless text that couldn't affect the scene.
+
+The modifier is the bridge between the language model's text output and actual functionality in the application, making it one of the most critical components when extending Chat USD with custom capabilities.
+
+## Creating a Custom Agent
+
+### Extension Structure
+
+A typical custom agent extension follows this structure:
 
 ```
-                  ┌─────────────────────┐
-                  │                     │
-                  │  ChatUSDNetworkNode │
-                  │                     │
-                  └──────────┬──────────┘
-                             │
-                             ▼
-                  ┌─────────────────────┐
-                  │                     │
-                  │ChatUSDSupervisorNode│
-                  │                     │
-                  └──────────┬──────────┘
-                             │
-                             ▼
-         ┌───────────────────┼───────────────────┐
-         │                   │                   │
-┌────────▼─────────┐ ┌───────▼────────┐ ┌────────▼─────────┐
-│                  │ │                │ │                  │
-│USDCodeInteractive│ │   USDSearch    │ │    SceneInfo     │
-│     NetworkNode  │ │  NetworkNode   │ │   NetworkNode    │
-│                  │ │                │ │                  │
-└──────────────────┘ └────────────────┘ └──────────────────┘
-```
-
-## Key Components
-
-### ChatUSDNetworkNode
-- Main entry point for user interactions
-- Routes queries to appropriate specialized agents
-- Coordinates responses from multiple agents
-- Presents final results to the user
-
-### ChatUSDSupervisorNode
-- Orchestrates the multi-agent system
-- Determines which specialized agent should handle a query
-- Formulates appropriate sub-queries for each agent
-- Integrates responses from multiple agents
-
-### USDCodeInteractiveNetworkNode
-- Generates USD code based on natural language descriptions
-- Executes code to modify the USD scene
-- Validates and fixes code issues
-- Provides feedback on code execution
-
-### USDSearchNetworkNode
-- Interprets natural language search queries
-- Searches for relevant USD assets
-- Presents search results with previews
-- Facilitates asset import into the scene
-
-### SceneInfoNetworkNode
-- Analyzes the current USD scene
-- Extracts relevant information about scene elements
-- Provides context for other agents
-- Answers queries about scene structure and properties
-
----
-
-<a id='architecture\README.md'></a>
-
-# Architecture
-
-# Chat USD Architecture
-
-This section provides a detailed overview of the Chat USD architecture, explaining how the different components work together to create a powerful USD development assistant.
-
-## Architecture Overview
-
-Chat USD is built on a multi-agent architecture that routes user queries to specialized agents based on the query's intent. The system consists of several key components:
-
-1. **ChatUSDNetworkNode**: The main entry point for user interactions
-2. **ChatUSDSupervisorNode**: The orchestrator of the multi-agent system
-3. **Specialized Agents**:
-   - **USDCodeInteractiveNetworkNode**: For USD code generation and execution
-   - **USDSearchNetworkNode**: For USD asset search
-   - **SceneInfoNetworkNode**: For scene information retrieval
-
-## Key Architectural Principles
-
-1. **Separation of Concerns**: Each component has a specific responsibility
-2. **Message-Based Communication**: Components communicate through well-defined message interfaces
-3. **Extensibility**: The architecture is designed to be easily extended with new capabilities
-4. **Modularity**: Components can be replaced or modified without affecting the rest of the system
-
-## Integration with LC Agent Framework
-
-Chat USD is built on the LC Agent framework, which provides the foundation for the multi-agent architecture. The framework provides several key components:
-
-1. **RunnableNode**: Basic processing units for handling messages
-2. **NetworkNode**: Container for specialized functionality
-3. **MultiAgentNetworkNode**: Coordinator for multiple specialized agents
-4. **NetworkModifier**: Middleware for extending node functionality
-
----
-
-<a id='architecture\multi-agent-architecture.md'></a>
-
-# Multi Agent Architecture
-
-# Multi-Agent Architecture
-
-The Chat USD system is built on a multi-agent architecture that enables it to handle a wide range of USD-related tasks by routing queries to specialized agents.
-
-## Query Routing Process
-
-The query routing process in Chat USD follows these steps:
-
-1. **User Query Analysis**: The `ChatUSDSupervisorNode` analyzes the user's query to determine its intent
-2. **Agent Selection**: Based on the intent, the supervisor selects the appropriate specialized agent
-3. **Query Reformulation**: The supervisor reformulates the query for the selected agent
-4. **Agent Execution**: The selected agent processes the reformulated query
-5. **Response Integration**: The supervisor integrates the agent's response into a coherent reply
-6. **Iterative Refinement**: If needed, the supervisor may route follow-up queries to other agents
-
-## System Message Design
-
-The system message for the `ChatUSDSupervisorNode` is a critical component of the multi-agent architecture. It provides detailed instructions on:
-
-1. **Available Expert Functions**: Describes the capabilities of each specialized agent
-2. **Function Calling Guidelines**: Explains how to call each function effectively
-3. **Scene Operation Guidelines**: Provides guidance on scene-related operations
-4. **Information Gathering Guidelines**: Explains how to gather scene information
-5. **Code Integration Guidelines**: Describes how to integrate code from different agents
-
----
-
-<a id='architecture\component-interactions.md'></a>
-
-# Component Interactions
-
-# Component Interactions
-
-This document explains how the different components of Chat USD interact with each other to provide a comprehensive USD development assistant.
-
-## Interaction Flow
-
-The interaction flow in Chat USD follows these steps:
-
-1. **User Input**: The user provides a query through the chat interface
-2. **ChatUSDNetworkNode Processing**: The query is processed by the ChatUSDNetworkNode
-3. **Supervisor Analysis**: The ChatUSDSupervisorNode analyzes the query to determine its intent
-4. **Agent Selection**: The supervisor selects the appropriate specialized agent
-5. **Agent Processing**: The selected agent processes the query
-6. **Response Integration**: The supervisor integrates the agent's response
-7. **Final Response**: The integrated response is returned to the user
-
-## Message Passing
-
-Components in Chat USD interact through message passing, using the message types defined in the LC Agent framework:
-
-1. **HumanMessage**: Represents user input
-2. **AIMessage**: Represents AI-generated responses
-3. **SystemMessage**: Provides instructions to the AI
-4. **ToolMessage**: Represents the output of tool calls
-
-Messages flow through the system as follows:
-
-```
-User Input (HumanMessage)
-       ↓
-ChatUSDNetworkNode
-       ↓
-ChatUSDSupervisorNode (SystemMessage + HumanMessage)
-       ↓
-Specialized Agent (SystemMessage + HumanMessage)
-       ↓
-Agent Response (AIMessage)
-       ↓
-ChatUSDSupervisorNode (AIMessage)
-       ↓
-Final Response (AIMessage)
-```
-
-## Supervisor-Agent Interactions
-
-The interaction between the supervisor and specialized agents is a key aspect of Chat USD. The supervisor:
-
-1. **Analyzes Queries**: Determines the intent of user queries
-2. **Selects Agents**: Chooses the appropriate agent for each query
-3. **Reformulates Queries**: Adapts queries for the selected agent
-4. **Integrates Responses**: Combines responses from multiple agents
-
-## Agent-Agent Interactions
-
-In some cases, agents may need to interact with each other to provide a comprehensive response. For example:
-
-1. **SceneInfo → USDCodeInteractive**: The SceneInfo agent provides scene information that the USDCodeInteractive agent uses to generate code
-2. **USDSearch → USDCodeInteractive**: The USDSearch agent provides asset information that the USDCodeInteractive agent uses to import assets
-
-These interactions are coordinated by the supervisor, which routes queries and responses between agents as needed.
-
-## Modifier Interactions
-
-Modifiers play a crucial role in extending the functionality of Chat USD components. They interact with components by:
-
-1. **Intercepting Messages**: Modifiers can intercept messages before they are processed by a component
-2. **Modifying Behavior**: Modifiers can change how a component processes messages
-3. **Enhancing Responses**: Modifiers can add information to component responses
-
----
-
-<a id='architecture\message-flow.md'></a>
-
-# Message Flow
-
-# Message Flow
-
-This document explains how messages flow through the Chat USD system, from user input to final response.
-
-## Message Types
-
-Chat USD uses several types of messages, defined in the LC Agent framework:
-
-1. **HumanMessage**: Represents user input
-2. **AIMessage**: Represents AI-generated responses
-3. **SystemMessage**: Provides instructions to the AI
-4. **ToolMessage**: Represents the output of tool calls
-
-## Basic Message Flow
-
-The basic message flow in Chat USD follows these steps:
-
-1. **User Input**: The user provides a query through the chat interface, which is converted to a `HumanMessage`
-2. **ChatUSDNetworkNode**: The message is received by the `ChatUSDNetworkNode`, which is the main entry point for the system
-3. **ChatUSDSupervisorNode**: The message is passed to the `ChatUSDSupervisorNode`, which analyzes it to determine its intent
-4. **Specialized Agent**: The message is routed to the appropriate specialized agent based on its intent
-5. **Agent Processing**: The agent processes the message and generates a response as an `AIMessage`
-6. **Response Integration**: The response is passed back to the `ChatUSDSupervisorNode`, which integrates it into a coherent reply
-7. **Final Response**: The integrated response is returned to the user
-
----
-
-<a id='architecture\extension-integration.md'></a>
-
-# Extension Integration
-
-# Extension Integration
-
-This document explains how Chat USD integrates with Omniverse Kit as an extension.
-
-## Extension Structure
-
-The Chat USD extension follows the standard Omniverse Kit extension structure:
-
-```
-omni.ai.chat_usd.bundle/
-├── config/
-│   └── extension.toml
-├── docs/
-│   └── ...
+omni.ai.langchain.agent.custom/
+├── docs/                      # Documentation
+├── examples/                  # Example usage
 ├── omni/
 │   └── ai/
-│       └── chat_usd/
-│           └── bundle/
-│               ├── __init__.py
-│               ├── extension.py
-│               ├── register_chat_model.py
-│               ├── tokenizer.py
-│               ├── chat/
-│               │   └── ...
-│               ├── search/
-│               │   └── ...
-│               └── ...
-└── ...
+│       └── langchain/
+│           └── agent/
+│               └── custom/    # Your agent name
+│                   ├── __init__.py
+│                   ├── extension.py
+│                   ├── nodes/
+│                   │   ├── __init__.py
+│                   │   ├── custom_node.py
+│                   │   └── systems/
+│                   │       └── custom_system.md
+│                   └── modifiers/
+│                       ├── __init__.py
+│                       └── custom_modifier.py
+└── premake5.lua              # Build configuration
 ```
 
-## Extension Lifecycle
+### Node Implementation
 
-The `ChatUSDBundleExtension` class implements the extension lifecycle methods:
+Nodes are the core components that implement the agent's functionality. For a custom agent, you typically need to create:
 
-```python
-class ChatUSDBundleExtension(omni.ext.IExt):
-    def on_startup(self, ext_id):
-        # Initialization code
-        register_chat_model(
-            register_all_lc_agent_models=carb.settings.get_settings().get(REGISTER_ALL_CHAT_MODELS_SETTING)
-        )
+1. **GenNode**: Handles the generation of responses based on user input.
+2. **NetworkNode**: Provides the interface for the agent to be used in a network.
+3. **SupervisorNode**: Extends the ChatUSDSupervisorNode to add your agent's capabilities.
+4. **NetworkNode for Chat USD**: Extends the ChatUSDNetworkNode to integrate your agent.
 
-        # Register components
-        get_node_factory().register(USDSearchNetworkNode, name="USD Search")
-        # More initialization code...
-
-    def on_shutdown(self):
-        # Cleanup code
-        unregister_chat_model(
-            unregister_all_lc_agent_models=carb.settings.get_settings().get(REGISTER_ALL_CHAT_MODELS_SETTING)
-        )
-
-        # Unregister components
-        # More cleanup code...
-```
-
-## Component Registration
-
-During startup, the extension registers its components with the node factory:
+Here's how the Navigation Agent implements these nodes:
 
 ```python
-# Register Chat USD Network Node only if the setting is on, it is Off by default
-register_chat_usd_agent = carb.settings.get_settings().get(REGISTER_CHAT_USD_SETTING)
-if register_chat_usd_agent:
-    from .chat.chat_usd_network_node import ChatUSDNetworkNode, ChatUSDSupervisorNode
+# 1. GenNode - Responsible for generating navigation commands
+class NavigationGenNode(RunnableNode):
+    """Node responsible for scene navigation operations."""
 
-    get_node_factory().register(ChatUSDSupervisorNode, hidden=True)
-    get_node_factory().register(ChatUSDNetworkNode, name="Chat USD", multishot=chat_usd_multishot)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
-    # Register Chat USD tools
-    get_node_factory().register(
-        USDCodeInteractiveNetworkNode,
-        name="ChatUSD_USDCodeInteractive",
-        scene_info=False,
-        enable_code_interpreter=enable_code_interpreter,
-        code_interpreter_hide_items=code_interpreter_hide_items,
-        enable_code_atlas=need_rags,
-        enable_metafunctions=need_rags,
-        enable_interpreter_undo_stack=True,
-        max_retries=1,
-        enable_code_promoting=True,
-        hidden=True,
-    )
-```
+        # Add system message that defines how to respond to navigation queries
+        self.inputs.append(RunnableSystemAppend(system_message=NAVIGATION_GEN_SYSTEM))
 
----
+# 2. NetworkNode - Provides the interface for the navigation agent
+class NavigationNetworkNode(NetworkNode):
+    """Tool for scene navigation in USD scenes."""
 
-<a id='components\README.md'></a>
+    # Specifies which node class to use for generation
+    default_node: str = "NavigationGenNode"
 
-# Components
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
-# Chat USD Components
+        # Add the modifier that will process navigation commands
+        self.add_modifier(NavigationModifier())
 
-This section provides a detailed overview of the core components that make up the Chat USD system.
+        # Metadata for the node
+        self.metadata["description"] = "Scene navigation operations for USD scenes."
+        self.metadata["examples"] = [
+            "List all points of interest",
+            "Navigate to the kitchen",
+            "Save this view as 'front entrance'",
+        ]
 
-## Table of Contents
+# 3. SupervisorNode - Extends ChatUSDSupervisorNode with navigation capabilities
+class ChatUSDNavigationSupervisorNode(ChatUSDSupervisorNode):
+    """Supervisor node that combines USD capabilities with scene navigation."""
 
-- [ChatUSDNetworkNode](#components\chat-usd-network-node.md) - The main entry point for user interactions
-- [ChatUSDSupervisorNode](#components\chat-usd-supervisor-node.md) - The orchestrator of the multi-agent system
-- [USDCodeInteractiveNetworkNode](#components\usd-code-interactive-network-node.md) - For USD code generation and execution
-- [USDSearchNetworkNode](#components\usd-search-network-node.md) - For USD asset search
-- [SceneInfoNetworkNode](#components\scene-info-network-node.md) - For scene information retrieval
-- [Modifiers](#components\modifiers.md) - Middleware components that extend node functionality
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
----
+        # Add system message that helps determine when to use navigation
+        self.inputs.append(RunnableSystemAppend(system_message=NAVIGATION_SUPERVISOR_IDENTITY))
 
-<a id='components\chat-usd-network-node.md'></a>
+# 4. NetworkNode for Chat USD - Integrates navigation with Chat USD
+class ChatUSDNavigationNetworkNode(ChatUSDNetworkNode):
+    """Specialized network node that extends ChatUSDNetworkNode with navigation."""
 
-# Chat Usd Network Node
+    # Specifies which supervisor node to use
+    default_node: str = "ChatUSDNavigationSupervisorNode"
 
-# ChatUSDNetworkNode
-
-The `ChatUSDNetworkNode` is the main entry point for user interactions in the Chat USD system. It extends the `MultiAgentNetworkNode` class from the LC Agent framework and is responsible for routing user queries to specialized agents based on their intent.
-
-## Implementation
-
-```python
-class ChatUSDNetworkNode(MultiAgentNetworkNode):
-    """
-    ChatUSDNetworkNode is a specialized network node designed to handle conversations related to USD (Universal Scene Description).
-    It utilizes the ChatUSDNodeModifier to dynamically modify the scene or search for USD assets based on the conversation's context.
-    """
-
-    default_node: str = "ChatUSDSupervisorNode"
+    # Specifies which tools/agents are available
     route_nodes: List[str] = [
         "ChatUSD_USDCodeInteractive",
         "ChatUSD_USDSearch",
         "ChatUSD_SceneInfo",
+        "ChatUSD_Navigation",  # This is the NavigationNetworkNode
     ]
+
     function_calling = False
     generate_prompt_per_agent = True
     multishot = True
@@ -444,501 +206,182 @@ class ChatUSDNetworkNode(MultiAgentNetworkNode):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.metadata["description"] = "Multi-agents to modify the scene and search USD assets."
-        self.metadata["examples"] = [
-            "Find me a traffic cone",
-            "Create a sphere with a red material",
-            "Find an orange and import it to the scene",
-        ]
+        # Add navigation-specific examples
+        self.metadata["examples"].append("Show me all the viewpoints in this scene")
 ```
 
-## Routing Process
+### Modifier Implementation
 
-The routing process in `ChatUSDNetworkNode` follows these steps:
+Modifiers intercept and process the output of nodes, allowing for custom behavior. The most critical aspect of a modifier is the `on_post_invoke_async` method, which prevents infinite loops by carefully checking conditions before processing commands.
 
-1. **User Query Analysis**: The `ChatUSDSupervisorNode` analyzes the user's query to determine its intent
-2. **Agent Selection**: Based on the intent, the supervisor selects the appropriate specialized agent
-3. **Query Reformulation**: The supervisor reformulates the query for the selected agent
-4. **Agent Execution**: The selected agent processes the reformulated query
-5. **Response Integration**: The supervisor integrates the agent's response into a coherent reply
-6. **Final Response**: The integrated response is returned to the user
-
-## Extension: ChatUSDWithOmniUINetworkNode
-
-The `ChatUSDWithOmniUINetworkNode` extends `ChatUSDNetworkNode` to add UI generation capabilities:
+Here's the NavigationModifier implementation:
 
 ```python
-class ChatUSDWithOmniUINetworkNode(ChatUSDNetworkNode):
-    default_node: str = "ChatUSDWithOmniUISupervisorNode"
-    route_nodes: List[str] = [
-        "ChatUSD_USDCode",
-        "ChatUSD_USDSearch",
-        "ChatUSD_SceneInfo",
-        "OmniUI_Code",
-    ]
+class NavigationModifier(NetworkModifier):
+    """Modifier that handles navigation commands from the NavigationGenNode."""
+
+    # Command patterns
+    LIST_COMMAND = "LIST"
+    NAVIGATE_PATTERN = r"NAVIGATE\s+(.+)"
+    SAVE_PATTERN = r"SAVE\s+(.+)"
+    DONE_COMMAND = "DONE"
+
+    async def on_post_invoke_async(self, network, node):
+        """
+        Post-invoke hook that processes navigation commands.
+
+        This method is called for every node in the network after it's invoked.
+        The critical if condition prevents infinite loops by ensuring:
+        1. The node has been invoked (has output)
+        2. The output is an AIMessage (contains content)
+        3. The content is not empty
+        4. The node has no children (is the end of the chain)
+
+        Without these checks, the modifier would create new nodes in an infinite loop.
+        """
+        if (
+            node.invoked
+            and isinstance(node.outputs, AIMessage)
+            and node.outputs.content
+            and not network.get_children(node)
+        ):
+            # Extract the command from the node output
+            command = node.outputs.content.strip()
+            result = await self.process_command(command)
+            if result:
+                # Add a new node to the network with the result
+                # This is safe because we've verified this is the end of the chain
+                with network:
+                    RunnableHumanNode(f"Assistant: {result}")
+
+    async def process_command(self, command):
+        """Process navigation commands and return appropriate responses."""
+        # Process LIST command
+        if command == self.LIST_COMMAND:
+            return self._handle_list_command()
+
+        # Process NAVIGATE command
+        navigate_match = re.match(self.NAVIGATE_PATTERN, command)
+        if navigate_match:
+            poi_name = navigate_match.group(1).strip()
+            return self._handle_navigate_command(poi_name)
+
+        # Process SAVE command
+        save_match = re.match(self.SAVE_PATTERN, command)
+        if save_match:
+            poi_name = save_match.group(1).strip()
+            return await self._handle_save_command(poi_name)
+
+        # If command is DONE, do nothing
+        if command == self.DONE_COMMAND:
+            return None
+
+        # If command is not recognized, provide a helpful message
+        return self._handle_unrecognized_command(command)
 ```
 
----
+### System Messages
 
-<a id='components\chat-usd-supervisor-node.md'></a>
+System messages define the agent's capabilities, identity, and how it should respond to user queries. These are typically stored as markdown files in the `nodes/systems/` directory.
 
-# Chat Usd Supervisor Node
+The Navigation Agent uses two system messages:
 
-# ChatUSDSupervisorNode
+1. **navigation_gen_system.md**: Instructs the NavigationGenNode how to respond to navigation queries with specific commands (LIST, NAVIGATE, SAVE, DONE).
 
-The `ChatUSDSupervisorNode` is the orchestrator of the multi-agent system in Chat USD. It extends the `RunnableNode` class from the LC Agent framework and is responsible for analyzing user queries and routing them to the appropriate specialized agent.
+2. **chat_usd_navigation_supervisor_identity.md**: Helps the supervisor node determine when to route queries to the navigation agent.
 
-## Implementation
-
-```python
-class ChatUSDSupervisorNode(RunnableNode):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.inputs.append(RunnableSystemAppend(system_message=identity))
-
-    def _sanitize_messages_for_chat_model(self, messages, chat_model_name, chat_model):
-        """Sanitizes messages and adds metafunction expert type for USD operations."""
-        messages = super()._sanitize_messages_for_chat_model(messages, chat_model_name, chat_model)
-        return sanitize_messages_with_expert_type(messages, "knowledge", rag_max_tokens=0, rag_top_k=0)
-```
-
-## System Message
-
-The system message (`identity`) is a critical component of the `ChatUSDSupervisorNode`. It provides detailed instructions on:
-
-1. **Available Expert Functions**: Describes the capabilities of each specialized agent
-2. **Function Calling Guidelines**: Explains how to call each function effectively
-3. **Scene Operation Guidelines**: Provides guidance on scene-related operations
-4. **Information Gathering Guidelines**: Explains how to gather scene information
-5. **Code Integration Guidelines**: Describes how to integrate code from different agents
-
-Here's an excerpt from the system message:
+Example from the Navigation Agent's supervisor identity:
 
 ```markdown
-You are an expert code orchestrator, specialized in coordinating multiple AI functions to create comprehensive software solutions. Your role is to break down user requests into specific tasks and delegate them to specialized functions, each with their distinct expertise:
+# ChatUSD_Navigation Function
 
-# Available Expert Functions:
+## Use Case: Scene Navigation
 
-1. ChatUSD_USDCodeInteractive
-   - Expert in USD (Universal Scene Description) implementation
-   - Generates USD-specific code
+The ChatUSD_Navigation function enables natural language navigation within USD scenes.
 
-2. ChatUSD_USDSearch
-   - Specialized in searching and querying USD data
-   - Provides USD-related information
-   - Does not generate implementation code
+## When to Call ChatUSD_Navigation:
 
-3. ChatUSD_SceneInfo [CRITICAL FOR SCENE OPERATIONS]
-   - Maintains current scene state knowledge
-   - Must be consulted FIRST for any scene manipulation tasks
-   - Required for:
-     * Any operation where prim name is not explicitly provided
-     * Any attribute manipulation without explicit values
-     * Operations requiring knowledge of scene structure
-   - Provides scene context for other functions
-   - Should be used before USD code generation for scene operations
+Call this function when the user request involves:
+1. Navigating to a specific location or viewpoint in the scene
+2. Listing available points of interest in the scene
+3. Saving the current camera position as a point of interest
+4. Requesting information about scene navigation capabilities
+
+## When NOT to Call ChatUSD_Navigation:
+
+1. When the exact same navigation request was just processed in the previous turn
+2. When a navigation operation has already been completed successfully
+3. When the user is asking about the current view or location (use ChatUSD_SceneInfo instead)
 ```
 
----
+## Integration with Chat USD
 
-<a id='components\usd-code-interactive-network-node.md'></a>
-
-# Usd Code Interactive Network Node
-
-# USDCodeInteractiveNetworkNode
-
-The `USDCodeInteractiveNetworkNode` is a specialized agent in the Chat USD system that handles USD code generation and execution. It extends the `USDCodeInteractiveNetworkNodeBase` class from the LC Agent USD module.
-
-## Implementation
+To integrate your custom agent with Chat USD, you need to register your nodes with the node factory in your extension's `on_startup` method:
 
 ```python
-class USDCodeInteractiveNetworkNode(USDCodeInteractiveNetworkNodeBase):
-    """
-    "USD Code Interactive" node. Use it to modify USD stage in real-time and import assets that was found with another tools.
+class NavigationExtension(omni.ext.IExt):
+    """Extension for Scene Navigation Agent."""
 
-    Important:
-    - Never use `stage = omni.usd.get_context().get_stage()` in the code. The global variable `stage` is already defined.
-    """
+    def on_startup(self, ext_id):
+        """Called when the extension is started."""
+        self._ext_id = ext_id
+        self._register_navigation_agent()
 
-    def __init__(
-        self,
-        snippet_verification=False,
-        scene_info=True,
-        max_retries: Optional[int] = None,
-        enable_code_interpreter=True,
-        enable_code_atlas=True,
-        enable_metafunctions=True,
-        enable_interpreter_undo_stack=True,
-        enable_code_promoting=False,
-        double_run_first=True,
-        double_run_second=True,
-        **kwargs,
-    ):
-        super().__init__(enable_code_atlas=enable_code_atlas, enable_metafunctions=enable_metafunctions, **kwargs)
+    def on_shutdown(self):
+        """Called when the extension is shut down."""
+        self._unregister_navigation_agent()
 
-        # Add modifiers
-        if scene_info and enable_code_interpreter:
-            self.add_modifier(
-                SceneInfoModifier(
-                    code_interpreter_hide_items=self.code_interpreter_hide_items,
-                    enable_interpreter_undo_stack=enable_interpreter_undo_stack,
-                    enable_rag=enable_code_atlas,
-                    max_retries=max_retries,
-                ),
-                priority=-100,
-            )
+    def _register_navigation_agent(self):
+        """Register the navigation agent components."""
+        # Register the GenNode (hidden from direct use)
+        get_node_factory().register(NavigationGenNode, name="NavigationGenNode", hidden=True)
 
-        if enable_code_promoting:
-            self.add_modifier(SceneInfoPromoteLastNodeModifier())
-        self.add_modifier(NetworkLenghtModifier(max_length=max_retries))
-        self.add_modifier(CodeExtractorModifier(snippet_verification=snippet_verification))
-        if enable_code_interpreter:
-            self.add_modifier(
-                DoubleRunUSDCodeGenInterpreterModifier(
-                    hide_items=self.code_interpreter_hide_items,
-                    undo_stack=enable_interpreter_undo_stack,
-                    first_run=double_run_first,
-                    second_run=double_run_second,
-                )
-            )
-```
+        # Register the NetworkNode (available as ChatUSD_Navigation)
+        get_node_factory().register(NavigationNetworkNode, name="ChatUSD_Navigation", hidden=True)
 
-## Modifiers
-
-The `USDCodeInteractiveNetworkNode` uses several modifiers to extend its functionality:
-
-1. **SceneInfoModifier**: Provides scene information for code generation
-2. **SceneInfoPromoteLastNodeModifier**: Promotes code and error messages from subnetworks
-3. **NetworkLenghtModifier**: Controls the maximum length of the network
-4. **CodeExtractorModifier**: Extracts code snippets from responses
-5. **DoubleRunUSDCodeGenInterpreterModifier**: Executes code snippets and handles errors
-
-## Code Generation Process
-
-The code generation process in `USDCodeInteractiveNetworkNode` follows these steps:
-
-1. **Query Analysis**: The user's query is analyzed to understand the requirements
-2. **Scene Information Retrieval**: If enabled, scene information is retrieved to provide context
-3. **Code Generation**: Code is generated based on the query and scene information
-4. **Code Extraction**: Code snippets are extracted from the generated response
-5. **Code Execution**: If enabled, the code is executed to modify the USD stage
-6. **Error Handling**: If errors occur, they are handled and the code is fixed if possible
-7. **Response Generation**: A response is generated with the code and execution results
-
----
-
-<a id='components\usd-search-network-node.md'></a>
-
-# Usd Search Network Node
-
-# USDSearchNetworkNode
-
-The `USDSearchNetworkNode` is a specialized agent in the Chat USD system that handles USD asset search. It extends the `NetworkNode` class from the LC Agent framework.
-
-## Implementation
-
-```python
-class USDSearchNetworkNode(NetworkNode):
-    """
-    Use this node to search any asset in Deep Search. It can search, to import call another tool after this one.
-    """
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-        # Add the USDSearchModifier to the network
-        self.add_modifier(USDSearchModifier())
-
-        # Set the default node to USDSearchNode
-        self.default_node = "USDSearchNode"
-
-        self.metadata[
-            "description"
-        ] = """Agent to search and Import Assets.
-Connect to the USD Search NIM to find USD assets base on the natural language query.
-Drag and drop discovered assets directly into your scene for seamless integration"""
-
-        self.metadata["examples"] = [
-            "What can you do?",
-            "Find 3 traffic cones and 2 Boxes",
-            "I need 3 office chairs",
-            "10 warehouse shelves",
-        ]
-```
-
-## USDSearchModifier
-
-The `USDSearchModifier` is a key component of the `USDSearchNetworkNode`. It extends `NetworkModifier` and is responsible for intercepting search queries, calling the USD Search API, and processing the results:
-
-```python
-class USDSearchModifier(NetworkModifier):
-    """USDSearch API Command:
-    @USDSearch(query: str, metadata: bool, limit: int)@
-    """
-
-    def __init__(self):
-        self._settings = carb.settings.get_settings()
-        self._service_url = self._settings.get("exts/omni.ai.chat_usd.bundle/usd_search_host_url")
-        self._api_key = get_api_key()
-
-    def on_post_invoke(self, network: "RunnableNetwork", node: RunnableNode):
-        output = node.outputs.content if node.outputs else ""
-        matches = re.findall(r'@USDSearch\("(.*?)", (.*?), (\d+)\)@', output)
-
-        search_results = {}
-        for query, metadata, limit in matches:
-            # Cast to proper Python types
-            metadata = metadata.lower() == "true"
-            limit = int(limit)
-
-            # Call the actual USD Search API
-            api_response = self.usd_search_post(query, metadata, limit)
-            search_results[query] = api_response
-```
-
-## Search Process
-
-The search process in `USDSearchNetworkNode` follows these steps:
-
-1. **Query Generation**: The `USDSearchNode` generates a search query based on the user's natural language description
-2. **Query Interception**: The `USDSearchModifier` intercepts the search query
-3. **API Call**: The modifier calls the USD Search API with the query
-4. **Result Processing**: The modifier processes the API response
-5. **Result Presentation**: The results are presented to the user
-
----
-
-<a id='components\scene-info-network-node.md'></a>
-
-# Scene Info Network Node
-
-# SceneInfoNetworkNode
-
-The `SceneInfoNetworkNode` is a specialized agent in the Chat USD system that handles scene information retrieval. It extends the `NetworkNode` class from the LC Agent framework.
-
-## Implementation
-
-```python
-class SceneInfoNetworkNode(NetworkNode):
-    """
-    Use this function to get any information about the scene.
-
-    Use it only in the case if the user wants to write ascript and you need information about the scene.
-
-    For example use it if you need the scene hirarchy or the position of objects.
-
-    Always use it if the user asked for an object in the scene and didn't provide the exact name.
-
-    Never use USDCodeInteractiveNetworkNode if the exact name is not known.
-    Use SceneInfoNetworkNode to get the name first and use USDCodeInteractiveNetworkNode when the name is known.
-
-    Use this function to get any size or position of the object.
-    """
-
-    default_node: str = "SceneInfoGenNode"
-    code_interpreter_hide_items: Optional[List[str]] = None
-
-    def __init__(
-        self,
-        question: Optional[str] = None,
-        enable_interpreter_undo_stack=True,
-        enable_rag=True,
-        max_retries: Optional[int] = None,
-        **kwargs,
-    ):
-        super().__init__(**kwargs)
-
-        if max_retries is None:
-            max_retries = 15
-
-        self.add_modifier(SceneInfoPromoteLastNodeModifier())
-        self.add_modifier(NetworkLenghtModifier(max_length=max_retries))
-        self.add_modifier(CodeExtractorModifier())
-        self.add_modifier(
-            DoubleRunUSDCodeGenInterpreterModifier(
-                success_message="This is some scene information:\n",
-                hide_items=self.code_interpreter_hide_items,
-                undo_stack=enable_interpreter_undo_stack,
-                first_run=False,
-            )
+        # Register the SupervisorNode (hidden from direct use)
+        get_node_factory().register(
+            ChatUSDNavigationSupervisorNode, name="ChatUSDNavigationSupervisorNode", hidden=True
         )
-        if enable_rag:
-            self.add_modifier(USDCodeGenRagModifier())
 
-        if question:
-            with self:
-                RunnableHumanNode(human_message=human_message.format(question=question))
+        # Register the ChatUSD NetworkNode (available as "ChatUSD with navigation")
+        get_node_factory().register(ChatUSDNavigationNetworkNode, name="ChatUSD with navigation")
+
+    def _unregister_navigation_agent(self):
+        """Unregister the navigation agent components."""
+        get_node_factory().unregister(NavigationGenNode)
+        get_node_factory().unregister(NavigationNetworkNode)
+        get_node_factory().unregister(ChatUSDNavigationSupervisorNode)
+        get_node_factory().unregister(ChatUSDNavigationNetworkNode)
 ```
 
-## Scene Information Retrieval Process
+Note that:
+- The GenNode, NetworkNode, and SupervisorNode are registered with `hidden=True` because they are not meant to be used directly by users.
+- The ChatUSDNavigationNetworkNode is registered with a user-friendly name ("ChatUSD with navigation") because it's the entry point for users.
 
-The scene information retrieval process in `SceneInfoNetworkNode` follows these steps:
+## Example: Navigation Agent
 
-1. **Query Analysis**: The user's query is analyzed to understand what information is needed
-2. **Script Generation**: A script is generated to retrieve the necessary information
-3. **Script Execution**: The script is executed to retrieve the information
-4. **Information Formatting**: The retrieved information is formatted for presentation
-5. **Response Generation**: A response is generated with the formatted information
+The Navigation Agent (`omni.ai.langchain.agent.navigation`) is a reference implementation that demonstrates how to extend Chat USD with custom capabilities. It provides the following features:
 
-## Importance in the Chat USD System
+- Listing points of interest (POIs) in a USD scene
+- Navigating to specific POIs
+- Saving camera positions as new POIs
 
-The `SceneInfoNetworkNode` plays a critical role in the Chat USD system, as it provides the foundation for accurate and effective code generation. By retrieving information about the current state of the scene, it enables the system to generate code that is tailored to the specific scene, rather than generic code that may not work correctly.
+## Best Practices
 
----
+When creating custom agents for Chat USD, follow these best practices:
 
-<a id='components\modifiers.md'></a>
+1. **Prevent infinite loops**: Carefully implement the `on_post_invoke_async` method in your modifier to check all necessary conditions before processing commands.
 
-# Modifiers
+2. **Clear component relationships**: Understand how your nodes relate to each other and to the Chat USD framework.
 
-# Chat USD Modifiers
+3. **Descriptive system messages**: Clearly define when your agent should be used and what it can do.
 
-Modifiers are a key architectural component in the Chat USD system that extend the functionality of network nodes. They intercept and modify messages, execute code, process results, and enhance the overall capabilities of the system.
+4. **Error handling**: Provide helpful error messages when commands cannot be executed.
 
-## Core Modifier Types
+5. **Documentation**: Document your agent's capabilities and provide examples.
 
-### Code Execution Modifiers
-
-#### DoubleRunUSDCodeGenInterpreterModifier
-
-The `DoubleRunUSDCodeGenInterpreterModifier` executes code snippets and handles errors. It is used by both the `USDCodeInteractiveNetworkNode` and the `SceneInfoNetworkNode`.
-
-This modifier executes code snippets in two phases:
-1. First run: Check for errors
-2. Second run: Execute the code
-
-#### CodeExtractorModifier
-
-The `CodeExtractorModifier` extracts code snippets from responses. It identifies code blocks in the response and extracts them for execution.
-
-### Scene Information Modifiers
-
-#### SceneInfoModifier
-
-The `SceneInfoModifier` is a specialized modifier used by the `USDCodeInteractiveNetworkNode` to retrieve scene information before generating code. It calls the `SceneInfoNetworkNode` to retrieve information about the current USD scene.
-
-This modifier ensures that the `USDCodeInteractiveNetworkNode` has access to information about the current USD scene before generating code, leading to more accurate and effective code generation.
-
-#### USDCodeGenRagModifier
-
-The `USDCodeGenRagModifier` enhances scene information retrieval with Retrieval-Augmented Generation (RAG). It retrieves relevant information from a knowledge base to improve the quality of the generated code.
-
-### Search Modifiers
-
-#### USDSearchModifier
-
-The `USDSearchModifier` is a key modifier in the Chat USD system that handles USD asset searches. It intercepts search queries, calls the USD Search API, and processes the results.
-
-This modifier ensures that search queries are properly processed and the results are presented to the user in a useful format.
-
-### Network Management Modifiers
-
-#### NetworkLenghtModifier
-
-The `NetworkLenghtModifier` controls the maximum length of the network. It is used by both the `USDCodeInteractiveNetworkNode` and the `SceneInfoNetworkNode` to prevent the network from growing too large.
-
----
-
-<a id='advanced\extending.md'></a>
-
-# Extending
-
-# Extending the Chat USD System
-
-This document provides guidance on how to extend the Chat USD system to add new functionality, customize existing components, or integrate with other systems.
-
-## Overview
-
-The Chat USD system is designed to be extensible, allowing developers to add new functionality, customize existing components, or integrate with other systems. This extensibility is achieved through a modular architecture that separates concerns and provides clear extension points.
-
-The main extension points in the Chat USD system include:
-
-1. **Adding New Network Nodes**: Create specialized agents for specific tasks
-2. **Adding New Modifiers**: Extend the functionality of network nodes
-3. **Customizing System Messages**: Modify the behavior of existing nodes
-4. **Integrating with Other Systems**: Connect the Chat USD system with other systems
-5. **Customizing the UI**: Modify the user interface to suit specific needs
-
-## Adding New Network Nodes
-
-To add a new network node, follow these steps:
-
-1. **Create a New Node Class**: Create a new Python class that extends the `NetworkNode` class from the LC Agent framework.
-
-```python
-from lc_agent import NetworkNode
-
-class MyCustomNetworkNode(NetworkNode):
-    """My Custom Network Node"""
-
-    default_node: str = "MyCustomNode"
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        # Add modifiers or other initialization code here
-```
-
-2. **Register the Node**: Register the node with the node factory in the extension's initialization code.
-
-```python
-def _register_nodes(self):
-    """Register the nodes with the node factory"""
-    # Get the node factory
-    node_factory = get_node_factory()
-
-    # Register the custom node
-    node_factory.register(
-        MyCustomNetworkNode,
-        name="ChatUSD_MyCustom",
-        custom_param=True,
-        hidden=True,
-    )
-```
-
-3. **Update the Route Nodes**: Update the `route_nodes` dictionary in the `ChatUSDNetworkNode` class to include the new node.
-
-4. **Update the System Message**: Update the system message of the `ChatUSDSupervisorNode` to include instructions for the new node.
-
-## Adding New Modifiers
-
-To add a new modifier, follow these steps:
-
-1. **Create a New Modifier Class**: Create a new Python class that extends the `NetworkModifier` class from the LC Agent framework.
-
-```python
-from lc_agent import NetworkModifier
-
-class MyCustomModifier(NetworkModifier):
-    """My Custom Modifier"""
-
-    def __init__(self, custom_param=True):
-        self.custom_param = custom_param
-
-    def on_pre_invoke(self, network, inputs):
-        """Called before the network is invoked"""
-        # Modify the node before they are processed by the network
-
-    def on_post_invoke(self, network, result):
-        """Called after the network is invoked"""
-        # Modify the result after it is processed by the network
-```
-
-2. **Add the Modifier to a Node**: Add the modifier to a node in the node's initialization code.
-
-```python
-def __init__(self, **kwargs):
-    super().__init__(**kwargs)
-
-    # Add the custom modifier
-    self.add_modifier(MyCustomModifier(custom_param=True))
-```
-
-## Customizing System Messages
-
-To customize a system message, follow these steps:
-
-1. **Identify the System Message**: Identify the system message you want to customize. System messages are typically defined as constants in the node's module.
-
-2. **Modify the System Message**: Modify the system message to suit your needs. Be careful to maintain the overall structure and intent of the message.
+By following this guide, you can create custom agents that extend Chat USD with new capabilities, enhancing its usefulness for USD development and scene manipulation.
 
 ---
 > Source: [NVIDIA-Omniverse/kit-usd-agents](https://github.com/NVIDIA-Omniverse/kit-usd-agents) — distributed by [TomeVault](https://tomevault.io).
