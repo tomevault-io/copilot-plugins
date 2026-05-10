@@ -4,7 +4,7 @@
   "repo": "gpuRoi",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lsa2127291/gpuRoi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T19:35:18Z"
+  "distributed_at": "2026-05-10T09:07:44Z"
 }
