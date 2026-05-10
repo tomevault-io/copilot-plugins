@@ -4,7 +4,7 @@
   "repo": "SharpClawCode",
   "description": "C# coding-agent harness (.NET 10, Microsoft Agent Framework) \u2014 sessions, tools, permissions, providers, MCP, plugins",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clawdotnet/SharpClawCode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T06:26:26Z"
+  "distributed_at": "2026-05-10T14:42:56Z"
 }
