@@ -1,0 +1,9 @@
+{
+  "name": "imphillip--gbrain-openclaw",
+  "displayName": "gbrain-openclaw",
+  "description": "Personal knowledge brain for OpenClaw \u2014 SQLite + FTS5 + vector embeddings, MCP-native.",
+  "version": "1.0.0",
+  "author": "imphillip",
+  "homepage": "https://github.com/imphillip/gbrain-openclaw",
+  "skills": []
+}
