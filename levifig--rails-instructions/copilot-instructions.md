@@ -1,168 +1,134 @@
-## rails-instructions
+## guidelines
 
-> Rails Service Objects Guide
+> Code Patterns & Guidelines
 
 
-# Rails Service Objects Guide
+# Cursor AI Assistant Rules
 
-## Core Philosophy
-- Service objects encapsulate complex business operations
-- Keep services focused on single responsibilities
-- Make services easy to test and understand
-- Use services to keep models and controllers thin
-- Design for reusability and composability
+## Assistant Behavior
 
-## When to Use Service Objects
-- Complex operations spanning multiple models
-- External API integrations
-- Multi-step processes with transactions
-- Business logic that doesn't fit naturally in models
-- Operations requiring detailed error handling
-- Background job processing logic
+- Be terse and direct in responses
+- Ask clarifying questions before implementing complex features
+- Anticipate needs and suggest improvements proactively
+- Focus on high-quality, production-ready code
+- Use analogies when explaining complex concepts
 
-## Service Design Principles
-- One service, one responsibility
-- Clear, descriptive naming that explains the operation
-- Consistent interface across services
-- Explicit dependencies and parameters
-- Predictable return values and error handling
+## Code Generation Principles
 
-## Naming Conventions
-- Use verb-based names that describe the action
-- Include the domain context in the name
-- Examples: `UserRegistrationService`, `PaymentProcessor`, `OrderFulfillment`
-- Keep names specific and intention-revealing
-- Avoid generic names like `UserService`
+### Quality Standards
+- Generate code that could ship to production
+- Follow established patterns in the codebase
+- Maintain consistency with existing architecture
+- Every piece of code should be testable
+- Documentation is not optional
 
-## Service Structure
-- Include ActiveModel modules for validations when needed
-- Define clear public interface
-- Keep implementation details private
-- Use dependency injection for testability
-- Document complex logic thoroughly
+### Style Guidelines
+- Respect .prettierrc and linting configurations
+- Prefer clarity over cleverness
+- Use descriptive names that reveal intent
+- Keep line lengths reasonable
+- Consistent indentation and formatting
 
-## Input Handling
-- Validate inputs early and clearly
-- Use ActiveModel::Attributes for parameter handling
-- Define explicit attribute types
-- Provide meaningful validation messages
-- Handle optional parameters gracefully
-
-## Return Values
-- Return consistent, predictable results
-- Use success/failure pattern for operations
-- Include relevant data in responses
-- Provide clear error information
-- Consider using Result objects for complex returns
-
-## Error Handling
-- Anticipate and handle expected failures
-- Use exceptions for unexpected errors
-- Provide actionable error messages
-- Log errors with appropriate context
-- Design for graceful degradation
-
-## Transaction Management
-- Wrap related database changes in transactions
-- Handle rollbacks appropriately
-- Keep transactions as short as possible
-- Document transaction boundaries
-- Test rollback scenarios
-
-## Testing Service Objects
-- Test services in isolation
-- Mock external dependencies
-- Verify success and failure paths
-- Test edge cases thoroughly
-- Ensure idempotency where appropriate
-
-## Dependency Injection
-- Inject dependencies through initialization
-- Avoid hard-coded dependencies
-- Use interfaces for external services
-- Keep services loosely coupled
-- Document required dependencies
-
-## Service Composition
-- Build complex operations from simple services
-- Keep services composable and reusable
-- Avoid service objects calling other services directly
-- Use orchestrator services for complex workflows
-- Maintain clear boundaries between services
-
-## Background Job Integration
-- Design services to work synchronously and asynchronously
-- Keep job classes thin, delegate to services
-- Handle job failures gracefully
-- Make services idempotent for retries
-- Log job execution appropriately
-
-## External API Integration
-- Isolate API logic in dedicated services
-- Handle API failures gracefully
-- Implement appropriate retry logic
-- Cache API responses when sensible
-- Monitor API usage and errors
-
-## Performance Considerations
-- Profile service execution time
-- Optimize database queries
-- Consider caching expensive operations
-- Batch operations when possible
-- Monitor resource usage
-
-## Service Organization
-- Group related services in modules
-- Keep service files in app/services
-- Organize by domain or feature
-- Maintain consistent file structure
-- Document service relationships
-
-## Common Patterns
-- Form objects for complex input handling
-- Query objects for complex database queries
-- Presenter objects for view logic
-- Policy objects for authorization rules
-- Workflow objects for multi-step processes
-
-## Anti-Patterns to Avoid
-- God services that do too much
-- Services that mirror controller actions
-- Anemic services with no real logic
-- Services tightly coupled to specific views
-- Services that bypass model validations
-
-## Refactoring to Services
-- Extract complex model methods
-- Move controller logic to services
-- Consolidate scattered business logic
-- Simplify fat models
-- Improve testability
-
-## Documentation Standards
-- Document service purpose clearly
-- Explain complex business rules
-- Provide usage examples
-- Note performance considerations
-- Include error handling details
-
-## Integration Guidelines
-- Call services from controllers
-- Use services in background jobs
-- Compose services for complex operations
-- Keep services framework-agnostic when possible
-- Design for future API exposure
-
-## Best Practices Summary
-- Keep services focused and single-purpose
+### Architecture Focus
+- Think in systems, not just functions
+- Consider scalability implications
+- Design for maintainability
+- Separate concerns appropriately
 - Make dependencies explicit
-- Handle errors gracefully
-- Write comprehensive tests
-- Design for reusability
 
-Remember: Service objects are about organizing complex business logic. Keep them focused, testable, and easy to understand.
+## Project Awareness
+
+### Context Loading
+Always check for `.cursor/PROJECT_CONTEXT.md` which contains:
+- Current architectural patterns
+- Technology stack decisions
+- Team conventions and preferences
+- Recent design decisions
+- Performance considerations
+- Known technical debt
+
+### File Organization
+- Follow existing project structure
+- Keep related code together
+- Use standard naming conventions
+- Maintain clear module boundaries
+
+## Code Patterns
+
+### Error Handling
+- Fail fast with clear messages
+- Use appropriate error types
+- Handle errors at the right level
+- Provide actionable error messages
+- Log errors appropriately
+
+### Testing Approach
+- Write tests alongside implementation
+- Test edge cases explicitly
+- Use descriptive test names
+- Keep tests simple and focused
+- Mock external dependencies
+
+### Documentation
+- Document why, not what
+- Include examples for complex APIs
+- Keep docs in sync with code
+- Use consistent documentation format
+- Document assumptions and constraints
+
+## Language-Specific Rules
+
+### Ruby on Rails
+Refer to `rails-rules.md` for:
+- Rails conventions and patterns
+- ActiveRecord best practices
+- Testing with RSpec
+- API design guidelines
+
+
+## Performance & Security
+
+### Performance
+- Consider algorithmic complexity
+- Profile before optimizing
+- Cache strategically
+- Use appropriate data structures
+- Avoid premature optimization
+
+### Security
+- Sanitize all inputs
+- Use secure defaults
+- Follow OWASP guidelines
+- Never expose sensitive data
+- Keep dependencies updated
+
+## AI Assistant Guidelines
+
+### When Generating Code
+1. Check `PROJECT_CONTEXT.md` first
+2. Follow existing patterns in codebase
+3. Include appropriate tests
+4. Add necessary documentation
+5. Consider edge cases
+
+### When Explaining Concepts
+- Use clear analogies
+- Provide concrete examples
+- Link to authoritative sources
+- Keep explanations concise
+- Focus on practical application
+
+### When Suggesting Improvements
+- Consider the bigger picture
+- Propose incremental changes
+- Explain trade-offs clearly
+- Respect existing constraints
+- Suggest best-in-class solutions
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/levifig)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/levifig)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+
+*Note: Language-specific and PROJECT_CONTEXT rules override these defaults.*
+
+---
+> Source: [levifig/rails-instructions](https://github.com/levifig/rails-instructions) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
