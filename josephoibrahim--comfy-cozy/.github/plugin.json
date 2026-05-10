@@ -1,0 +1,9 @@
+{
+  "name": "josephoibrahim--comfy-cozy",
+  "displayName": "Comfy-Cozy",
+  "description": "AI co-pilot for ComfyUI \u2014 113 tools, autonomous pipeline with auto-retry + vision evaluation + experience learning. Multi-provider (Claude, GPT-4o, Gemini, Ollama). 3902 tests. Ships as MCP server, CL",
+  "version": "1.0.0",
+  "author": "JosephOIbrahim",
+  "homepage": "https://github.com/JosephOIbrahim/Comfy-Cozy",
+  "skills": []
+}
