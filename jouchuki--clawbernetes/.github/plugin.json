@@ -1,0 +1,9 @@
+{
+  "name": "jouchuki--clawbernetes",
+  "displayName": "clawbernetes",
+  "description": "Kubernetes-native AI fleet orchestration",
+  "version": "1.0.0",
+  "author": "jouchuki",
+  "homepage": "https://github.com/jouchuki/clawbernetes",
+  "skills": []
+}
