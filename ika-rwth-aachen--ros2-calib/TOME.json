@@ -4,7 +4,7 @@
   "repo": "ros2_calib",
   "description": "Make your calibration dreams come true. ros2_calib is a Multi-Sensor Calibration Tool using ROS2 mcap recordings with direct URDF export.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ika-rwth-aachen/ros2_calib",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T11:14:03Z"
+  "distributed_at": "2026-05-10T19:06:51Z"
 }
