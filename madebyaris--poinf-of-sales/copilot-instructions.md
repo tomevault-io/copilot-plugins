@@ -1,1227 +1,219 @@
-## performance-optimization-patterns
+## project-architecture
+
+> This is a **modern, enterprise-grade Point of Sale system** built with cutting-edge technologies:
+
+
+# 🍽️ POS System - Complete Architecture Guide
+
+## 🎯 Project Overview
+
+This is a **modern, enterprise-grade Point of Sale system** built with cutting-edge technologies:
+
+### 🏗️ Technology Stack
+- **Backend:** Golang 1.21+ + Gin framework + PostgreSQL with optimized raw SQL
+- **Frontend:** React 18.3+ + TanStack Start + TypeScript 5.6+ + Tailwind CSS + shadcn/ui
+- **Database:** PostgreSQL 15 with comprehensive schema, indexes, and constraints
+- **Infrastructure:** Docker containers with multi-stage builds and Docker Compose orchestration
+- **Authentication:** JWT-based auth with role-based access control (RBAC)
+
+### 🚀 Core Business Features
+- **Multi-Role Support:** Admin, Manager, Server, Counter, Kitchen interfaces
+- **Complete Order Lifecycle:** Creation → Kitchen → Payment → Completion
+- **Real-time Updates:** WebSocket-like updates across all interfaces
+- **Advanced Admin Tables:** Professional data tables with sorting, filtering, pagination
+- **Payment Processing:** Multi-step payment flow with receipt generation
+- **Kitchen Display System:** Real-time order preparation workflow
+- **Table Management:** Advanced seating and table assignment system
+
+## 📁 Project Structure
+
+### 🏠 Root Level Files
+- [Makefile](mdc:Makefile) - **PRIMARY DEV TOOL** - All development commands (`make dev`, `make backup`, etc.)
+- [docker-compose.dev.yml](mdc:docker-compose.dev.yml) - Development environment with hot reloading
+- [docker-compose.yml](mdc:docker-compose.yml) - Production orchestration
+- [README.md](mdc:README.md) - Complete project documentation with screenshots
+- [ROLE_BASED_IMPLEMENTATION.md](mdc:ROLE_BASED_IMPLEMENTATION.md) - Role system implementation guide
+
+### 🔧 Backend Structure (`backend/`)
+- [main.go](mdc:backend/main.go) - Application entry point, CORS, middleware setup
+- [go.mod](mdc:backend/go.mod) - Go 1.21+ dependencies (Gin, PostgreSQL driver, JWT)
+- [Dockerfile](mdc:backend/Dockerfile) + [Dockerfile.dev](mdc:backend/Dockerfile.dev) - Multi-stage container builds
+- **`internal/`** - Clean Go architecture following best practices:
+  - **[api/routes.go](mdc:backend/internal/api/routes.go)** - RESTful API route definitions with role-based grouping
+  - **[models/models.go](mdc:backend/internal/models/models.go)** - Complete data models, DTOs, and API response structures
+  - **[database/connection.go](mdc:backend/internal/database/connection.go)** - PostgreSQL connection with pooling
+  - **[middleware/auth.go](mdc:backend/internal/middleware/auth.go)** - JWT authentication + RBAC middleware
+  - **`handlers/`** - Domain-specific HTTP handlers:
+    - [auth.go](mdc:backend/internal/handlers/auth.go) - Login, logout, user management
+    - [orders.go](mdc:backend/internal/handlers/orders.go) - Complete order lifecycle management
+    - [products.go](mdc:backend/internal/handlers/products.go) - Menu and category management
+    - [tables.go](mdc:backend/internal/handlers/tables.go) - Table and seating management
+    - [payments.go](mdc:backend/internal/handlers/payments.go) - Payment processing and history
+
+### ⚛️ Frontend Structure (`frontend/`)
+- [package.json](mdc:frontend/package.json) - React 18.3+, TypeScript 5.6+, TanStack ecosystem
+- [vite.config.ts](mdc:frontend/vite.config.ts) - Vite + TanStack Start configuration
+- [tailwind.config.js](mdc:frontend/tailwind.config.js) - Tailwind CSS + shadcn/ui theme configuration
+- [Dockerfile](mdc:frontend/Dockerfile) + [Dockerfile.dev](mdc:frontend/Dockerfile.dev) - Nginx + Node.js containers
+- **`src/`** - Modern React application structure:
+  - **[main.tsx](mdc:frontend/src/main.tsx)** - React 18 entry point with StrictMode
+  - **[index.css](mdc:frontend/src/index.css)** - Global styles and CSS variables
+  - **Core Architecture:**
+    - **[types/index.ts](mdc:frontend/src/types/index.ts)** - Comprehensive TypeScript definitions
+    - **[api/client.ts](mdc:frontend/src/api/client.ts)** - Axios-based API client with interceptors
+    - **[lib/utils.ts](mdc:frontend/src/lib/utils.ts)** - Utility functions (cn, date formatters, etc.)
+    - **[lib/form-schemas.ts](mdc:frontend/src/lib/form-schemas.ts)** - Zod validation schemas
+  - **UI Components:**
+    - **[components/ui/](mdc:frontend/src/components/ui/)** - shadcn/ui base components (Button, Card, Table, etc.)
+    - **[components/forms/](mdc:frontend/src/components/forms/)** - Reusable form components with validation
+  - **Business Components:**
+    - **[components/admin/](mdc:frontend/src/components/admin/)** - Admin dashboard and management interfaces
+    - **[components/pos/](mdc:frontend/src/components/pos/)** - POS interface components (cart, product grid, etc.)
+    - **[components/kitchen/](mdc:frontend/src/components/kitchen/)** - Kitchen display system components
+    - **[components/server/](mdc:frontend/src/components/server/)** - Server-specific interface components
+    - **[components/counter/](mdc:frontend/src/components/counter/)** - Counter/checkout interface components
+  - **Routing:**
+    - **[routes/](mdc:frontend/src/routes/)** - TanStack Start file-based routing
+    - **[routeTree.gen.ts](mdc:frontend/src/routeTree.gen.ts)** - Auto-generated route tree
+  - **Hooks & State:**
+    - **[hooks/](mdc:frontend/src/hooks/)** - Custom React hooks (pagination, toasts, keyboard shortcuts)
+
+### 🗄️ Database Structure (`database/`)
+- **[init/01_schema.sql](mdc:database/init/01_schema.sql)** - Complete PostgreSQL schema:
+  - Users with role-based access (admin, manager, server, counter, kitchen)
+  - Products and categories with inventory tracking
+  - Orders with full lifecycle management
+  - Dining tables with occupancy status
+  - Payments with multiple payment methods
+  - Order status history for audit trails
+  - Optimized indexes for performance
+- **[init/02_seed_data.sql](mdc:database/init/02_seed_data.sql)** - Demo data for all roles and complete workflows
+
+### 🛠️ Scripts & Automation (`scripts/`)
+- **[create-admin.sh](mdc:scripts/create-admin.sh)** - Interactive super admin creation with validation
+- **[backup.sh](mdc:scripts/backup.sh)** - Production-grade system backup (database + files)
+- **[restore.sh](mdc:scripts/restore.sh)** - Interactive backup restoration with safety checks
+- **[db-reset.sh](mdc:scripts/db-reset.sh)** - Safe database reset with fresh schema and seed data
+- **[remove-data.sh](mdc:scripts/remove-data.sh)** - Destructive data removal with multiple confirmations
+
+### 📚 Documentation (`docs/`)
+- **[PRD.md](mdc:docs/PRD.md)** - Complete Product Requirements Document with feature specifications
+- **[TODO.md](mdc:docs/TODO.md)** - Detailed project roadmap and development phases
+- **[README.md](mdc:README.md)** - Beautiful project documentation with screenshots and quick start
+
+### ⚙️ Development Infrastructure
+- **[Makefile](mdc:Makefile)** - **ESSENTIAL** - All development operations (`make help` for full list)
+- **[.gitignore](mdc:.gitignore)** - Comprehensive ignore patterns for all environments
+- **Docker Configuration:**
+  - Development: [docker-compose.dev.yml](mdc:docker-compose.dev.yml) with hot reloading
+  - Production: [docker-compose.yml](mdc:docker-compose.yml) with optimized builds
+
+## 🎯 Core Architectural Principles
+
+### 1. 🚀 API-First Design
+- **RESTful APIs** - All business logic exposed through clean REST endpoints
+- **Client-Server Separation** - Frontend consumes APIs, backend serves data
+- **Consistent Response Format** - Standardized JSON responses with success/error patterns
+- **Versioned APIs** - `/api/v1/` prefix for future-proofing
+
+### 2. 🔒 Type Safety & Data Integrity
+- **End-to-End TypeScript** - Frontend to backend interface consistency
+- **Database Constraints** - PostgreSQL constraints, foreign keys, check constraints
+- **Zod Validation** - Runtime validation for forms and API requests
+- **Strongly-Typed Models** - Matching data structures across all layers
+
+### 3. 🛡️ Security-First Architecture
+- **JWT Authentication** - Stateless authentication with proper expiration
+- **Role-Based Access Control (RBAC)** - Granular permissions per user role
+- **SQL Injection Prevention** - Parameterized queries throughout
+- **CORS Configuration** - Proper cross-origin resource sharing
+- **Input Validation** - Multi-layer validation (frontend + backend + database)
+
+### 4. ⚡ Performance & Scalability
+- **Database Optimization:**
+  - Strategic indexes on frequently queried columns
+  - Connection pooling for efficient resource usage
+  - Proper query optimization to prevent N+1 problems
+- **Frontend Optimization:**
+  - React.memo and useCallback for expensive components
+  - Code splitting and lazy loading
+  - Optimized bundle sizes with Vite
+- **Caching Strategy:**
+  - HTTP caching headers for static resources
+  - React Query for client-side caching
+
+### 5. 👥 Role-Based Architecture
+- **Multi-Role Support:** Admin, Manager, Server, Counter, Kitchen
+- **Role-Specific Interfaces:** Tailored UX for each role's responsibilities
+- **Permission Boundaries:** API endpoints restricted by role
+- **Interface Switching:** Admin can access all role interfaces
+
+### 6. 🔄 Real-Time Updates
+- **State Synchronization** - Orders sync across all connected interfaces
+- **Kitchen Display System** - Real-time order status updates
+- **Payment Flow** - Live payment status across POS interfaces
+
+### 7. 🛠️ Developer Experience Excellence
+- **🎯 Primary Development Workflow:**
+  ```bash
+  make dev     # Start everything with hot reloading
+  make backup  # Create system backups before major changes
+  make status  # Check system health
+  make help    # See all available commands
+  ```
+- **🔐 Safety Features:**
+  - Interactive scripts with confirmation prompts
+  - Automatic emergency backups before destructive operations
+  - Comprehensive error messages with resolution suggestions
+- **🐳 Container-First Development:**
+  - Consistent environments across development/production
+  - Hot reloading in development containers
+  - Multi-stage production builds for optimization
+- **📊 Monitoring & Debugging:**
+  - Comprehensive logging with structured output
+  - Real-time log monitoring (`make logs`)
+  - Health check endpoints for all services
+
+### 8. 🏗️ Clean Architecture Patterns
+- **Backend:** Standard Go project layout with internal packages
+- **Frontend:** Feature-based component organization
+- **Database:** Normalized schema with proper relationships
+- **Infrastructure:** Infrastructure as Code with Docker Compose
+
+## 🚀 Quick Development Commands
+
+Essential commands for daily development (all via Makefile):
 
-> Performance optimization patterns for database queries, React components, and API efficiency in POS System
-
-
-# ⚡ Performance Optimization Patterns
-
-## 🎯 Performance Philosophy for POS Systems
-
-### Critical Performance Metrics
-- **Order Creation:** < 500ms from click to confirmation
-- **Payment Processing:** < 2s for complete transaction
-- **Kitchen Updates:** Real-time (< 100ms propagation)
-- **Product Search:** < 200ms for instant results
-- **Database Queries:** < 100ms for typical CRUD operations
-
-### Performance Monitoring Strategy
-```typescript
-// Performance monitoring utilities
-class PerformanceMonitor {
-  static timeOperation<T>(name: string, operation: () => Promise<T>): Promise<T> {
-    console.time(name);
-    return operation().finally(() => console.timeEnd(name));
-  }
-
-  static measureRender(componentName: string) {
-    return (Component: React.ComponentType<any>) => {
-      return React.memo(Component, (prevProps, nextProps) => {
-        const start = performance.now();
-        const shouldUpdate = !Object.is(prevProps, nextProps);
-        const end = performance.now();
-        
-        if (end - start > 1) {
-          console.warn(`${componentName} render check took ${end - start}ms`);
-        }
-        
-        return !shouldUpdate;
-      });
-    };
-  }
-}
-```
-
-## 🗄️ Database Performance Patterns
-
-### Optimized Query Patterns
-```go
-// ✅ CORRECT: Efficient query with proper indexing
-func (h *OrderHandler) GetOrdersWithPagination(c *gin.Context) {
-    page := getIntParam(c, "page", 1)
-    perPage := getIntParam(c, "per_page", 20)
-    status := c.Query("status")
-    
-    // Use indexed columns in WHERE clause
-    query := `
-        SELECT 
-            o.id, o.order_number, o.status, o.total_amount, o.created_at,
-            u.username, t.table_number,
-            COUNT(*) OVER() as total_count
-        FROM orders o
-        LEFT JOIN users u ON o.user_id = u.id
-        LEFT JOIN dining_tables t ON o.table_id = t.id
-        WHERE ($1 = '' OR o.status = $1)
-            AND o.created_at >= CURRENT_DATE - INTERVAL '7 days'
-        ORDER BY o.created_at DESC
-        LIMIT $2 OFFSET $3
-    `
-    
-    offset := (page - 1) * perPage
-    rows, err := h.db.Query(query, status, perPage, offset)
-    // ... handle results
-}
-
-// ✅ CORRECT: Batch insert for order items
-func (h *OrderHandler) CreateOrderWithItems(c *gin.Context) {
-    tx, err := h.db.Begin()
-    if err != nil {
-        // handle error
-        return
-    }
-    defer tx.Rollback()
-
-    // Create order
-    var orderID string
-    err = tx.QueryRow(`
-        INSERT INTO orders (customer_name, order_type, status, total_amount)
-        VALUES ($1, $2, $3, $4)
-        RETURNING id
-    `, req.CustomerName, req.OrderType, "pending", req.TotalAmount).Scan(&orderID)
-
-    // Batch insert order items (much faster than individual inserts)
-    if len(req.Items) > 0 {
-        valueStrings := make([]string, 0, len(req.Items))
-        valueArgs := make([]interface{}, 0, len(req.Items)*4)
-        
-        for i, item := range req.Items {
-            valueStrings = append(valueStrings, fmt.Sprintf("($%d, $%d, $%d, $%d)", 
-                i*4+1, i*4+2, i*4+3, i*4+4))
-            valueArgs = append(valueArgs, orderID, item.ProductID, item.Quantity, item.Price)
-        }
-
-        stmt := fmt.Sprintf(`
-            INSERT INTO order_items (order_id, product_id, quantity, price)
-            VALUES %s
-        `, strings.Join(valueStrings, ","))
-
-        _, err = tx.Exec(stmt, valueArgs...)
-        if err != nil {
-            return // Rollback automatically called
-        }
-    }
-
-    err = tx.Commit()
-    // ... handle success
-}
-```
-
-### Database Connection Optimization
-```go
-// ✅ CORRECT: Optimized connection pool
-func SetupDatabase() *sql.DB {
-    db, err := sql.Open("postgres", dsn)
-    if err != nil {
-        log.Fatal("Failed to connect to database:", err)
-    }
-
-    // Performance tuning for POS workload
-    db.SetMaxOpenConns(25)        // Limit concurrent connections
-    db.SetMaxIdleConns(10)        // Keep connections alive
-    db.SetConnMaxLifetime(5 * time.Minute) // Rotate connections
-    db.SetConnMaxIdleTime(2 * time.Minute) // Close idle connections
-
-    return db
-}
-
-// ✅ CORRECT: Connection health monitoring
-func (h *Handler) healthCheck(c *gin.Context) {
-    ctx, cancel := context.WithTimeout(c.Request.Context(), 2*time.Second)
-    defer cancel()
-
-    if err := h.db.PingContext(ctx); err != nil {
-        c.JSON(http.StatusServiceUnavailable, gin.H{
-            "status": "unhealthy",
-            "database": "disconnected",
-        })
-        return
-    }
-
-    c.JSON(http.StatusOK, gin.H{
-        "status": "healthy",
-        "database": "connected",
-    })
-}
-```
-
-### Query Optimization Patterns
-```sql
--- ✅ CORRECT: Strategic indexes for POS workload
--- Covering index for order listing (includes all needed columns)
-CREATE INDEX CONCURRENTLY idx_orders_status_created_covering 
-ON orders (status, created_at DESC) 
-INCLUDE (id, order_number, total_amount, customer_name);
-
--- Partial index for active orders only
-CREATE INDEX CONCURRENTLY idx_orders_active 
-ON orders (created_at DESC) 
-WHERE status IN ('pending', 'confirmed', 'preparing', 'ready');
-
--- Composite index for order items lookup
-CREATE INDEX CONCURRENTLY idx_order_items_order_product 
-ON order_items (order_id, product_id);
-
--- ✅ CORRECT: Efficient aggregation queries
--- Get daily sales summary with single query
-SELECT 
-    DATE(created_at) as sales_date,
-    COUNT(*) as order_count,
-    SUM(total_amount) as total_sales,
-    AVG(total_amount) as avg_order_value,
-    COUNT(DISTINCT table_id) as tables_served
-FROM orders 
-WHERE status = 'completed'
-    AND created_at >= CURRENT_DATE - INTERVAL '30 days'
-GROUP BY DATE(created_at)
-ORDER BY sales_date DESC;
-```
-
-## ⚛️ React Performance Optimization
-
-### Component Optimization Patterns
-```typescript
-// ✅ CORRECT: Optimized product grid with memoization
-import React, { memo, useMemo, useCallback } from 'react'
-import { FixedSizeGrid } from 'react-window'
-
-interface ProductGridProps {
-  products: Product[]
-  onProductSelect: (product: Product) => void
-  selectedProducts: string[]
-  searchTerm: string
-}
-
-export const ProductGrid = memo<ProductGridProps>(({
-  products,
-  onProductSelect,
-  selectedProducts,
-  searchTerm
-}) => {
-  // ✅ CORRECT: Memoize filtered products
-  const filteredProducts = useMemo(() => {
-    if (!searchTerm) return products
-    
-    return products.filter(product =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.description?.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  }, [products, searchTerm])
-
-  // ✅ CORRECT: Memoize selected set for O(1) lookup
-  const selectedSet = useMemo(() => 
-    new Set(selectedProducts), [selectedProducts]
-  )
-
-  // ✅ CORRECT: Stable callback reference
-  const handleProductSelect = useCallback((product: Product) => {
-    onProductSelect(product)
-  }, [onProductSelect])
-
-  // ✅ CORRECT: Virtual scrolling for large product catalogs
-  const Cell = useCallback(({ columnIndex, rowIndex, style }) => {
-    const index = rowIndex * 3 + columnIndex
-    const product = filteredProducts[index]
-    
-    if (!product) return <div style={style} />
-
-    return (
-      <div style={style}>
-        <ProductCard
-          product={product}
-          isSelected={selectedSet.has(product.id)}
-          onSelect={handleProductSelect}
-        />
-      </div>
-    )
-  }, [filteredProducts, selectedSet, handleProductSelect])
-
-  return (
-    <FixedSizeGrid
-      columnCount={3}
-      rowCount={Math.ceil(filteredProducts.length / 3)}
-      columnWidth={300}
-      rowHeight={200}
-      height={600}
-      width={920}
-    >
-      {Cell}
-    </FixedSizeGrid>
-  )
-}, (prevProps, nextProps) => {
-  // ✅ CORRECT: Custom comparison for performance
-  return (
-    prevProps.products === nextProps.products &&
-    prevProps.selectedProducts.length === nextProps.selectedProducts.length &&
-    prevProps.searchTerm === nextProps.searchTerm
-  )
-})
-```
-
-### State Management Optimization
-```typescript
-// ✅ CORRECT: Optimized cart state with reducer
-import { useReducer, useCallback, useMemo } from 'react'
-
-interface CartState {
-  items: Map<string, CartItem>
-  lastUpdated: number
-}
-
-type CartAction =
-  | { type: 'ADD_ITEM'; product: Product; quantity: number }
-  | { type: 'UPDATE_QUANTITY'; productId: string; quantity: number }
-  | { type: 'REMOVE_ITEM'; productId: string }
-  | { type: 'CLEAR' }
-
-// ✅ CORRECT: Reducer for predictable state updates
-const cartReducer = (state: CartState, action: CartAction): CartState => {
-  const newItems = new Map(state.items)
-  
-  switch (action.type) {
-    case 'ADD_ITEM':
-      const existingItem = newItems.get(action.product.id)
-      newItems.set(action.product.id, {
-        product: action.product,
-        quantity: existingItem ? existingItem.quantity + action.quantity : action.quantity,
-        subtotal: action.product.price * (existingItem ? existingItem.quantity + action.quantity : action.quantity)
-      })
-      break
-      
-    case 'UPDATE_QUANTITY':
-      if (action.quantity <= 0) {
-        newItems.delete(action.productId)
-      } else {
-        const item = newItems.get(action.productId)
-        if (item) {
-          newItems.set(action.productId, {
-            ...item,
-            quantity: action.quantity,
-            subtotal: item.product.price * action.quantity
-          })
-        }
-      }
-      break
-      
-    case 'REMOVE_ITEM':
-      newItems.delete(action.productId)
-      break
-      
-    case 'CLEAR':
-      newItems.clear()
-      break
-      
-    default:
-      return state
-  }
-  
-  return {
-    items: newItems,
-    lastUpdated: Date.now()
-  }
-}
-
-export const useOptimizedCart = () => {
-  const [state, dispatch] = useReducer(cartReducer, {
-    items: new Map(),
-    lastUpdated: 0
-  })
-
-  // ✅ CORRECT: Memoized calculations only when items change
-  const calculations = useMemo(() => {
-    const itemsArray = Array.from(state.items.values())
-    return {
-      total: itemsArray.reduce((sum, item) => sum + item.subtotal, 0),
-      itemCount: itemsArray.reduce((count, item) => count + item.quantity, 0),
-      isEmpty: state.items.size === 0,
-      items: itemsArray
-    }
-  }, [state.lastUpdated]) // Only recalculate when cart actually changes
-
-  // ✅ CORRECT: Stable action creators
-  const actions = useMemo(() => ({
-    addItem: (product: Product, quantity = 1) => 
-      dispatch({ type: 'ADD_ITEM', product, quantity }),
-    updateQuantity: (productId: string, quantity: number) =>
-      dispatch({ type: 'UPDATE_QUANTITY', productId, quantity }),
-    removeItem: (productId: string) =>
-      dispatch({ type: 'REMOVE_ITEM', productId }),
-    clear: () => dispatch({ type: 'CLEAR' })
-  }), [])
-
-  return { ...calculations, ...actions }
-}
-```
-
-### Query Optimization with TanStack Query
-```typescript
-// ✅ CORRECT: Optimized API queries with caching strategy
-import { useQuery, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-
-// Smart caching for products (rarely change)
-export const useProducts = (categoryId?: string) => {
-  return useQuery({
-    queryKey: ['products', categoryId],
-    queryFn: () => apiClient.getProducts({ category_id: categoryId }),
-    staleTime: 10 * 60 * 1000, // 10 minutes
-    gcTime: 30 * 60 * 1000,    // 30 minutes
-    select: (data) => data.data || [],
-    placeholderData: (previousData) => previousData, // Keep UI stable
-  })
-}
-
-// Aggressive caching for categories (change infrequently)
-export const useCategories = () => {
-  return useQuery({
-    queryKey: ['categories'],
-    queryFn: () => apiClient.getCategories(),
-    staleTime: 60 * 60 * 1000, // 1 hour
-    gcTime: 24 * 60 * 60 * 1000, // 24 hours
-  })
-}
-
-// Real-time polling for kitchen orders
-export const useKitchenOrders = () => {
-  return useQuery({
-    queryKey: ['kitchen-orders'],
-    queryFn: () => apiClient.getKitchenOrders(),
-    refetchInterval: 5000, // 5 seconds
-    staleTime: 0, // Always consider stale for real-time updates
-  })
-}
-
-// ✅ CORRECT: Infinite scrolling for order history
-export const useOrderHistory = () => {
-  return useInfiniteQuery({
-    queryKey: ['order-history'],
-    queryFn: ({ pageParam = 1 }) => 
-      apiClient.getOrders({ page: pageParam, per_page: 50 }),
-    getNextPageParam: (lastPage, allPages) => {
-      const hasMore = lastPage.data.length === 50
-      return hasMore ? allPages.length + 1 : undefined
-    },
-    staleTime: 2 * 60 * 1000, // 2 minutes
-  })
-}
-
-// ✅ CORRECT: Optimistic mutations with rollback
-export const useUpdateOrderStatus = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: ({ orderId, status }: { orderId: string; status: string }) =>
-      apiClient.updateOrderStatus(orderId, status),
-      
-    onMutate: async ({ orderId, status }) => {
-      // Cancel outgoing refetches
-      await queryClient.cancelQueries({ queryKey: ['kitchen-orders'] })
-      
-      // Snapshot previous value
-      const previousOrders = queryClient.getQueryData(['kitchen-orders'])
-      
-      // Optimistically update
-      queryClient.setQueryData(['kitchen-orders'], (old: any) => ({
-        ...old,
-        data: old?.data?.map((order: any) =>
-          order.id === orderId ? { ...order, status } : order
-        )
-      }))
-      
-      return { previousOrders, orderId, status }
-    },
-    
-    onError: (err, variables, context) => {
-      // Rollback on error
-      if (context?.previousOrders) {
-        queryClient.setQueryData(['kitchen-orders'], context.previousOrders)
-      }
-    },
-    
-    onSettled: () => {
-      // Ensure consistency
-      queryClient.invalidateQueries({ queryKey: ['kitchen-orders'] })
-    },
-  })
-}
-```
-
-## 🌐 API Performance Patterns
-
-### Response Optimization
-```go
-// ✅ CORRECT: Efficient response handling
-type APIResponse struct {
-    Success bool        `json:"success"`
-    Message string      `json:"message"`
-    Data    interface{} `json:"data,omitempty"`
-    Meta    *MetaInfo   `json:"meta,omitempty"`
-    Error   *string     `json:"error,omitempty"`
-}
-
-type MetaInfo struct {
-    CurrentPage int `json:"current_page,omitempty"`
-    PerPage     int `json:"per_page,omitempty"`
-    Total       int `json:"total,omitempty"`
-    TotalPages  int `json:"total_pages,omitempty"`
-}
-
-// Compressed response middleware
-func CompressionMiddleware() gin.HandlerFunc {
-    return gin.HandlerFunc(func(c *gin.Context) {
-        // Enable gzip compression for responses > 1KB
-        c.Header("Content-Encoding", "gzip")
-        c.Next()
-    })
-}
-
-// ✅ CORRECT: Response caching for static data
-func CacheMiddleware(duration time.Duration) gin.HandlerFunc {
-    return gin.HandlerFunc(func(c *gin.Context) {
-        // Cache headers for categories, products
-        if c.Request.Method == "GET" {
-            c.Header("Cache-Control", fmt.Sprintf("max-age=%d", int(duration.Seconds())))
-        }
-        c.Next()
-    })
-}
-```
-
-### Concurrent Request Handling
-```go
-// ✅ CORRECT: Concurrent data fetching
-func (h *OrderHandler) GetOrderWithDetails(c *gin.Context) {
-    orderID := c.Param("id")
-    
-    // Use goroutines for parallel data fetching
-    var (
-        order     *models.Order
-        items     []models.OrderItem
-        payments  []models.Payment
-        orderErr  error
-        itemsErr  error
-        payErr    error
-        wg        sync.WaitGroup
-    )
-    
-    // Fetch order details concurrently
-    wg.Add(3)
-    
-    go func() {
-        defer wg.Done()
-        order, orderErr = h.getOrderByID(orderID)
-    }()
-    
-    go func() {
-        defer wg.Done()
-        items, itemsErr = h.getOrderItems(orderID)
-    }()
-    
-    go func() {
-        defer wg.Done()
-        payments, payErr = h.getOrderPayments(orderID)
-    }()
-    
-    wg.Wait()
-    
-    // Check for errors
-    if orderErr != nil || itemsErr != nil || payErr != nil {
-        c.JSON(http.StatusInternalServerError, models.APIResponse{
-            Success: false,
-            Message: "Failed to fetch order details",
-        })
-        return
-    }
-    
-    // Combine results
-    orderWithDetails := models.OrderWithDetails{
-        Order:    order,
-        Items:    items,
-        Payments: payments,
-    }
-    
-    c.JSON(http.StatusOK, models.APIResponse{
-        Success: true,
-        Data:    orderWithDetails,
-    })
-}
-```
-
-### Request Rate Limiting
-```go
-// ✅ CORRECT: Rate limiting to prevent abuse
-import "golang.org/x/time/rate"
-
-type RateLimiter struct {
-    visitors map[string]*rate.Limiter
-    mu       sync.RWMutex
-    rate     rate.Limit
-    burst    int
-}
-
-func NewRateLimiter(r rate.Limit, b int) *RateLimiter {
-    return &RateLimiter{
-        visitors: make(map[string]*rate.Limiter),
-        rate:     r,
-        burst:    b,
-    }
-}
-
-func (rl *RateLimiter) getLimiter(ip string) *rate.Limiter {
-    rl.mu.Lock()
-    defer rl.mu.Unlock()
-    
-    limiter, exists := rl.visitors[ip]
-    if !exists {
-        limiter = rate.NewLimiter(rl.rate, rl.burst)
-        rl.visitors[ip] = limiter
-    }
-    
-    return limiter
-}
-
-func (rl *RateLimiter) RateLimitMiddleware() gin.HandlerFunc {
-    return func(c *gin.Context) {
-        limiter := rl.getLimiter(c.ClientIP())
-        
-        if !limiter.Allow() {
-            c.JSON(http.StatusTooManyRequests, models.APIResponse{
-                Success: false,
-                Message: "Rate limit exceeded",
-                Error:   stringPtr("rate_limit_exceeded"),
-            })
-            c.Abort()
-            return
-        }
-        
-        c.Next()
-    }
-}
-```
-
-## 📊 Performance Monitoring & Profiling
-
-### Frontend Performance Monitoring
-```typescript
-// ✅ CORRECT: Performance monitoring utilities
-class POSPerformanceMonitor {
-  private static metrics: Map<string, number[]> = new Map()
-
-  // Measure API response times
-  static async measureAPI<T>(
-    operation: string, 
-    apiCall: () => Promise<T>
-  ): Promise<T> {
-    const start = performance.now()
-    
-    try {
-      const result = await apiCall()
-      const duration = performance.now() - start
-      
-      this.recordMetric(operation, duration)
-      
-      if (duration > 1000) {
-        console.warn(`Slow API call: ${operation} took ${duration.toFixed(2)}ms`)
-      }
-      
-      return result
-    } catch (error) {
-      const duration = performance.now() - start
-      console.error(`Failed API call: ${operation} failed after ${duration.toFixed(2)}ms`)
-      throw error
-    }
-  }
-
-  // Monitor component render times
-  static measureRender(componentName: string) {
-    return function<T extends Record<string, any>>(
-      Component: React.ComponentType<T>
-    ): React.ComponentType<T> {
-      return React.memo(Component, (prevProps, nextProps) => {
-        const start = performance.now()
-        const shouldUpdate = !shallowEqual(prevProps, nextProps)
-        const end = performance.now()
-        
-        POSPerformanceMonitor.recordMetric(`${componentName}_render_check`, end - start)
-        
-        return !shouldUpdate
-      })
-    }
-  }
-
-  private static recordMetric(name: string, value: number) {
-    const existing = this.metrics.get(name) || []
-    existing.push(value)
-    
-    // Keep only last 100 measurements
-    if (existing.length > 100) {
-      existing.shift()
-    }
-    
-    this.metrics.set(name, existing)
-  }
-
-  // Get performance summary
-  static getPerformanceSummary() {
-    const summary: Record<string, any> = {}
-    
-    this.metrics.forEach((values, name) => {
-      const avg = values.reduce((sum, val) => sum + val, 0) / values.length
-      const max = Math.max(...values)
-      const min = Math.min(...values)
-      
-      summary[name] = { avg, max, min, count: values.length }
-    })
-    
-    return summary
-  }
-}
-
-// Usage in components
-export const ProductCard = POSPerformanceMonitor.measureRender('ProductCard')(
-  ({ product, onSelect }) => {
-    // Component implementation
-  }
-)
-```
-
-### Backend Performance Profiling
-```go
-// ✅ CORRECT: Request timing middleware
-func TimingMiddleware() gin.HandlerFunc {
-    return gin.HandlerFunc(func(c *gin.Context) {
-        start := time.Now()
-        
-        // Process request
-        c.Next()
-        
-        // Calculate duration
-        duration := time.Since(start)
-        
-        // Log slow requests
-        if duration > 500*time.Millisecond {
-            log.Printf("SLOW REQUEST: %s %s took %v", 
-                c.Request.Method, c.Request.URL.Path, duration)
-        }
-        
-        // Add timing header
-        c.Header("X-Response-Time", duration.String())
-        
-        // Metrics collection (integrate with your monitoring system)
-        collectMetric(fmt.Sprintf("request_duration_%s", c.Request.URL.Path), duration)
-    })
-}
-
-// Database query profiling
-func (h *Handler) profileQuery(query string, args ...interface{}) (*sql.Rows, error) {
-    start := time.Now()
-    rows, err := h.db.Query(query, args...)
-    duration := time.Since(start)
-    
-    if duration > 100*time.Millisecond {
-        log.Printf("SLOW QUERY: %s took %v", query, duration)
-    }
-    
-    return rows, err
-}
-```
-
-## 🎯 Performance Optimization Checklist
-
-### Database Optimization
-- [ ] **Indexes Created:** All frequently queried columns have appropriate indexes
-- [ ] **Query Analysis:** EXPLAIN ANALYZE used to verify query performance
-- [ ] **Connection Pooling:** Properly configured pool sizes and timeouts
-- [ ] **Batch Operations:** Multiple inserts/updates use batch processing
-- [ ] **Pagination:** Large result sets use LIMIT/OFFSET or cursor pagination
-
-### React Optimization  
-- [ ] **Component Memoization:** Heavy components use React.memo with custom comparison
-- [ ] **State Structure:** State is normalized and minimizes re-renders
-- [ ] **List Rendering:** Large lists use virtualization or pagination
-- [ ] **Bundle Size:** Code splitting implemented for large components
-- [ ] **Image Optimization:** Images are properly sized and compressed
-
-### API Optimization
-- [ ] **Response Caching:** Static data has appropriate cache headers
-- [ ] **Compression:** Responses are gzipped for large payloads
-- [ ] **Rate Limiting:** API endpoints protected from abuse
-- [ ] **Concurrent Processing:** I/O operations are handled concurrently
-- [ ] **Error Handling:** Timeouts and circuit breakers implemented
-
-### Development Tools
 ```bash
-# Performance testing commands
-npm run build:analyze    # Bundle size analysis
-npm run lighthouse      # Web performance audit
-go tool pprof           # Go profiling
+# 🏁 Getting Started
+make dev          # Start development environment
+make status       # Check system status
+make help         # Show all available commands
+
+# 🗄️ Database Management
+make create-admin # Create admin user interactively
+make db-reset     # Reset to fresh database with seed data
+make backup       # Create complete system backup
+make restore      # Restore from backup (interactive)
+
+# 📊 Monitoring & Debugging
+make logs         # View all service logs
+make logs-backend # View backend logs only
+make logs-frontend# View frontend logs only
+
+# 🧹 Maintenance
+make down         # Stop all services
+make clean        # Clean up Docker resources (with confirmations)
 ```
 
-### Production Monitoring
-- **APM Integration:** Use tools like New Relic, DataDog, or Sentry
-- **Database Monitoring:** Track slow queries and connection pool usage
-- **Real User Monitoring:** Track actual user experience metrics
-- **Alert Thresholds:** Set up alerts for performance degradation
+## 🎭 Demo Accounts for Testing
 
-## 🚀 Performance-First Development Mindset
-
-### 1. Performance-Driven Architecture Decisions
-```typescript
-// ✅ PERFORMANCE-FIRST: Architecture decisions with performance implications
-class PerformanceFirstArchitecture {
-  // Performance-aware component design
-  static createPerformantComponent<TProps>(
-    config: PerformanceComponentConfig<TProps>
-  ): React.FC<TProps> {
-    // Intelligent memoization based on performance profile
-    const memoStrategy = config.performance_profile === 'high_frequency' 
-      ? 'shallow_comparison'  // Fast for frequent updates
-      : config.performance_profile === 'complex_data'
-      ? 'deep_comparison'     // Thorough for complex objects
-      : 'custom_comparison'   // Custom logic for specific needs
-
-    return React.memo((props: TProps) => {
-      // Performance monitoring built-in
-      const renderStart = performance.now()
-      
-      // Lazy load heavy dependencies
-      const HeavyComponent = useMemo(() => {
-        if (config.requires_heavy_component) {
-          return React.lazy(() => import(config.heavy_component_path))
-        }
-        return null
-      }, [])
-
-      // Efficient state management
-      const optimizedState = usePerformantState(config.state_config)
-      
-      // Performance budgets enforcement
-      const result = config.render(props, optimizedState)
-      
-      const renderTime = performance.now() - renderStart
-      if (renderTime > config.performance_budget) {
-        console.warn(`Component ${config.name} exceeded performance budget: ${renderTime}ms > ${config.performance_budget}ms`)
-        PerformanceMonitor.recordSlowRender(config.name, renderTime, props)
-      }
-      
-      return result
-    }, this.createMemoComparison(memoStrategy))
-  }
-
-  // Performance-aware API design
-  static createPerformantAPI<TRequest, TResponse>(
-    config: PerformanceAPIConfig<TRequest, TResponse>
-  ): PerformantAPI<TRequest, TResponse> {
-    return {
-      execute: async (request: TRequest): Promise<TResponse> => {
-        const executionStart = performance.now()
-        
-        // Request optimization
-        const optimizedRequest = await this.optimizeRequest(request, config)
-        
-        // Concurrent execution for independent operations
-        const [
-          validationResult,
-          cacheResult,
-          authResult
-        ] = await Promise.all([
-          config.validate ? this.validateRequest(optimizedRequest) : Promise.resolve(true),
-          config.cacheable ? this.checkCache(optimizedRequest) : Promise.resolve(null),
-          config.requires_auth ? this.validateAuth(optimizedRequest) : Promise.resolve(true)
-        ])
-
-        if (cacheResult) {
-          return cacheResult // Early return from cache
-        }
-
-        // Execute business logic with timeout
-        const result = await Promise.race([
-          config.execute(optimizedRequest),
-          this.createTimeout(config.timeout || 5000)
-        ])
-
-        const executionTime = performance.now() - executionStart
-        
-        // Performance analysis and alerting
-        if (executionTime > config.performance_threshold) {
-          PerformanceMonitor.recordSlowAPI(config.endpoint, executionTime, {
-            request_size: JSON.stringify(request).length,
-            response_size: JSON.stringify(result).length,
-            cache_hit: false
-          })
-        }
-
-        return result
-      }
-    }
-  }
-}
-```
-
-### 2. Real-Time Performance Monitoring
-```typescript
-// ✅ REAL-TIME: Advanced performance monitoring with business intelligence
-class BusinessPerformanceMonitor {
-  // Real-time performance dashboard
-  static createRealtimeMonitor(): RealtimePerformanceMonitor {
-    return {
-      // Business-critical performance metrics
-      trackBusinessMetrics: () => {
-        return {
-          order_creation_speed: this.measureOrderCreationSpeed(),
-          payment_processing_speed: this.measurePaymentSpeed(),
-          kitchen_efficiency: this.measureKitchenThroughput(),
-          customer_wait_times: this.measureCustomerExperience(),
-          
-          // Advanced metrics
-          revenue_per_second: this.calculateRevenueVelocity(),
-          table_turnover_rate: this.calculateTableEfficiency(),
-          staff_productivity: this.calculateStaffEfficiency(),
-          system_reliability: this.calculateUptimeScore()
-        }
-      },
-
-      // Predictive performance analysis
-      predictPerformanceIssues: async (): Promise<PredictiveAlert[]> => {
-        const currentMetrics = await this.gatherCurrentMetrics()
-        const historicalPatterns = await this.getHistoricalPatterns()
-        
-        const predictions: PredictiveAlert[] = []
-
-        // Database performance prediction
-        if (currentMetrics.database.connection_count > historicalPatterns.database.avg_connections * 0.8) {
-          predictions.push({
-            type: 'database_capacity',
-            severity: 'warning',
-            predicted_impact: 'Order processing may slow down in 15-30 minutes',
-            recommendation: 'Scale database connections or implement connection pooling',
-            confidence: this.calculatePredictionConfidence(currentMetrics.database),
-            business_impact: await this.calculateBusinessImpact('database_slowdown')
-          })
-        }
-
-        // Kitchen bottleneck prediction
-        const kitchenLoad = await this.calculateKitchenLoad()
-        if (kitchenLoad.projected_queue_time > 20) { // minutes
-          predictions.push({
-            type: 'kitchen_bottleneck',
-            severity: 'high',
-            predicted_impact: 'Customer complaints likely in next 30 minutes',
-            recommendation: 'Alert kitchen manager to optimize workflow or add staff',
-            confidence: this.calculateKitchenLoadPrediction(kitchenLoad),
-            business_impact: await this.calculateBusinessImpact('customer_satisfaction_drop')
-          })
-        }
-
-        return predictions
-      },
-
-      // Performance optimization recommendations
-      generateOptimizationRecommendations: async (): Promise<OptimizationRecommendation[]> => {
-        const performanceAnalysis = await this.analyzeSystemPerformance()
-        const recommendations: OptimizationRecommendation[] = []
-
-        // Database optimization opportunities
-        if (performanceAnalysis.database.slow_queries.length > 0) {
-          recommendations.push({
-            category: 'database',
-            priority: 'high',
-            title: 'Optimize Slow Database Queries',
-            description: `${performanceAnalysis.database.slow_queries.length} queries taking > 100ms`,
-            implementation: {
-              effort: 'medium',
-              estimated_time: '2-4 hours',
-              expected_improvement: '20-40% faster order processing',
-              breaking_changes: false
-            },
-            specific_actions: [
-              'Add index on orders(created_at, status)',
-              'Optimize JOIN query in getOrdersWithItems',
-              'Implement query result caching for product catalog'
-            ]
-          })
-        }
-
-        // Frontend performance opportunities
-        if (performanceAnalysis.frontend.bundle_size > 2048) { // KB
-          recommendations.push({
-            category: 'frontend',
-            priority: 'medium',
-            title: 'Reduce Bundle Size',
-            description: `Bundle size is ${performanceAnalysis.frontend.bundle_size}KB, affecting load times`,
-            implementation: {
-              effort: 'medium',
-              estimated_time: '4-6 hours',
-              expected_improvement: '30% faster initial page load',
-              breaking_changes: false
-            },
-            specific_actions: [
-              'Implement code splitting for role-specific interfaces',
-              'Lazy load non-critical components',
-              'Tree shake unused dependencies',
-              'Optimize images and assets'
-            ]
-          })
-        }
-
-        return recommendations
-      }
-    }
-  }
-
-  // Performance regression detection
-  static createRegressionDetector(): PerformanceRegressionDetector {
-    return {
-      detectRegressions: async (deployment: DeploymentMetrics): Promise<RegressionAnalysis> => {
-        const baselineMetrics = await this.getBaselineMetrics()
-        const regressions: PerformanceRegression[] = []
-
-        // Response time regression
-        const responseTimeIncrease = (deployment.avg_response_time - baselineMetrics.avg_response_time) / baselineMetrics.avg_response_time
-        if (responseTimeIncrease > 0.1) { // 10% increase
-          regressions.push({
-            metric: 'response_time',
-            current_value: deployment.avg_response_time,
-            baseline_value: baselineMetrics.avg_response_time,
-            regression_percentage: responseTimeIncrease * 100,
-            business_impact: await this.calculateResponseTimeImpact(responseTimeIncrease),
-            severity: responseTimeIncrease > 0.25 ? 'critical' : 'warning'
-          })
-        }
-
-        // Database query performance regression
-        const queryPerformanceRegression = this.analyzeQueryRegression(deployment.database_metrics, baselineMetrics.database_metrics)
-        if (queryPerformanceRegression.has_regression) {
-          regressions.push({
-            metric: 'database_performance',
-            current_value: queryPerformanceRegression.current_avg_time,
-            baseline_value: queryPerformanceRegression.baseline_avg_time,
-            regression_percentage: queryPerformanceRegression.percentage_increase,
-            affected_queries: queryPerformanceRegression.affected_queries,
-            business_impact: await this.calculateDatabaseImpact(queryPerformanceRegression),
-            severity: queryPerformanceRegression.percentage_increase > 50 ? 'critical' : 'warning'
-          })
-        }
-
-        return {
-          has_regressions: regressions.length > 0,
-          regressions,
-          overall_performance_score: this.calculatePerformanceScore(deployment),
-          recommendation: this.generateRegressionRecommendation(regressions)
-        }
-      },
-
-      // Automatic rollback triggers
-      shouldTriggerRollback: (regressions: PerformanceRegression[]): RollbackDecision => {
-        const criticalRegressions = regressions.filter(r => r.severity === 'critical')
-        const highBusinessImpact = regressions.some(r => r.business_impact.revenue_impact > 1000) // $1000+ impact
-        
-        return {
-          should_rollback: criticalRegressions.length > 0 || highBusinessImpact,
-          reason: criticalRegressions.length > 0 
-            ? 'Critical performance regression detected'
-            : highBusinessImpact 
-            ? 'High business impact performance regression'
-            : 'Performance within acceptable bounds',
-          confidence: this.calculateRollbackConfidence(regressions),
-          estimated_impact_if_not_rolled_back: this.estimateOngoingImpact(regressions)
-        }
-      }
-    }
-  }
-}
-```
-
-### 3. Automated Performance Optimization
-```typescript
-// ✅ AUTOMATION: Self-optimizing system with ML-powered insights
-class AutomatedPerformanceOptimizer {
-  // Machine learning performance optimizer
-  static createMLOptimizer(): MLPerformanceOptimizer {
-    return {
-      // Intelligent caching decisions
-      optimizeCachingStrategy: async (): Promise<CacheOptimization> => {
-        const accessPatterns = await this.analyzeAccessPatterns()
-        const cachePerformance = await this.analyzeCacheHitRates()
-        
-        return {
-          recommended_cache_sizes: {
-            products: this.calculateOptimalCacheSize(accessPatterns.products),
-            orders: this.calculateOptimalCacheSize(accessPatterns.orders),
-            users: this.calculateOptimalCacheSize(accessPatterns.users)
-          },
-          
-          cache_eviction_policies: {
-            products: 'LRU', // Least recently used for menu items
-            orders: 'TTL',   // Time-based for order data
-            users: 'LFU'     // Least frequently used for user profiles
-          },
-          
-          dynamic_ttl_recommendations: {
-            products: this.calculateDynamicTTL(accessPatterns.products),
-            categories: this.calculateDynamicTTL(accessPatterns.categories),
-            settings: this.calculateDynamicTTL(accessPatterns.settings)
-          }
-        }
-      },
-
-      // Database query optimization
-      optimizeDatabaseQueries: async (): Promise<QueryOptimization> => {
-        const queryPatterns = await this.analyzeQueryPatterns()
-        const indexUsage = await this.analyzeIndexUsage()
-        
-        return {
-          recommended_indexes: [
-            ...this.findMissingIndexes(queryPatterns),
-            ...this.optimizeExistingIndexes(indexUsage)
-          ],
-          
-          query_rewrites: [
-            ...this.identifySuboptimalQueries(queryPatterns),
-            ...this.suggestJoinOptimizations(queryPatterns)
-          ],
-          
-          partitioning_recommendations: this.analyzePartitioningOpportunities(queryPatterns),
-          
-          connection_pool_optimization: {
-            optimal_pool_size: this.calculateOptimalPoolSize(queryPatterns),
-            connection_timeout: this.calculateOptimalTimeout(queryPatterns),
-            idle_timeout: this.calculateOptimalIdleTimeout(queryPatterns)
-          }
-        }
-      },
-
-      // Frontend performance optimization
-      optimizeFrontendPerformance: async (): Promise<FrontendOptimization> => {
-        const userInteractions = await this.analyzeUserInteractions()
-        const componentUsage = await this.analyzeComponentUsage()
-        
-        return {
-          code_splitting_recommendations: {
-            route_based: this.recommendRouteSplitting(userInteractions),
-            component_based: this.recommendComponentSplitting(componentUsage),
-            vendor_splitting: this.recommendVendorSplitting()
-          },
-          
-          lazy_loading_opportunities: [
-            ...this.identifyLazyLoadComponents(componentUsage),
-            ...this.identifyLazyLoadImages(userInteractions),
-            ...this.identifyLazyLoadData(userInteractions)
-          ],
-          
-          preloading_strategy: {
-            critical_resources: this.identifyCriticalResources(userInteractions),
-            prefetch_candidates: this.identifyPrefetchCandidates(userInteractions),
-            preconnect_domains: this.identifyPreconnectDomains()
-          }
-        }
-      }
-    }
-  }
-
-  // Continuous performance improvement
-  static createContinuousImprovement(): ContinuousPerformanceImprovement {
-    return {
-      // Weekly performance reviews
-      weeklyPerformanceReview: async (): Promise<WeeklyPerformanceReport> => {
-        const weeklyMetrics = await this.gatherWeeklyMetrics()
-        const improvements = await this.identifyImprovements()
-        const regressions = await this.identifyRegressions()
-        
-        return {
-          overall_trend: this.calculatePerformanceTrend(weeklyMetrics),
-          key_improvements: improvements,
-          performance_regressions: regressions,
-          business_impact: {
-            revenue_impact: this.calculateRevenueImpact(weeklyMetrics),
-            customer_satisfaction: this.calculateSatisfactionImpact(weeklyMetrics),
-            operational_efficiency: this.calculateEfficiencyImpact(weeklyMetrics)
-          },
-          recommended_actions: this.generateWeeklyRecommendations(weeklyMetrics)
-        }
-      },
-
-      // Performance goal setting and tracking
-      setPerformanceGoals: (goals: PerformanceGoals): PerformanceTracker => {
-        return {
-          trackProgress: async (): Promise<GoalProgress> => {
-            const currentMetrics = await this.getCurrentMetrics()
-            
-            return {
-              response_time: {
-                goal: goals.response_time,
-                current: currentMetrics.avg_response_time,
-                progress: this.calculateProgress(goals.response_time, currentMetrics.avg_response_time),
-                trend: this.calculateTrend(currentMetrics.response_time_history)
-              },
-              
-              throughput: {
-                goal: goals.throughput,
-                current: currentMetrics.requests_per_second,
-                progress: this.calculateProgress(goals.throughput, currentMetrics.requests_per_second),
-                trend: this.calculateTrend(currentMetrics.throughput_history)
-              },
-              
-              error_rate: {
-                goal: goals.error_rate,
-                current: currentMetrics.error_rate,
-                progress: this.calculateProgress(goals.error_rate, currentMetrics.error_rate),
-                trend: this.calculateTrend(currentMetrics.error_rate_history)
-              }
-            }
-          },
-
-          generateImprovementPlan: async (): Promise<ImprovementPlan> => {
-            const progress = await this.trackProgress()
-            const gaps = this.identifyPerformanceGaps(progress)
-            
-            return {
-              priority_actions: this.prioritizeImprovements(gaps),
-              timeline: this.createImprovementTimeline(gaps),
-              resource_requirements: this.calculateResourceNeeds(gaps),
-              expected_outcomes: this.predictImprovementOutcomes(gaps)
-            }
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-### Advanced Performance Development Commands
-```bash
-# Performance monitoring
-npm run perf:monitor           # Real-time performance monitoring
-npm run perf:analyze          # Comprehensive performance analysis
-npm run perf:regression       # Check for performance regressions
-npm run perf:optimize         # Run automated optimizations
-
-# Performance testing
-npm run perf:load-test        # Load testing with realistic scenarios
-npm run perf:stress-test      # Stress testing to find breaking points
-npm run perf:benchmark        # Benchmark critical operations
-npm run perf:profile          # Profile CPU and memory usage
-
-# Performance budgets
-npm run perf:budget-check     # Validate performance budgets
-npm run perf:bundle-analyze   # Analyze bundle size and composition
-npm run perf:lighthouse       # Run Lighthouse performance audit
-npm run perf:vitals           # Check Core Web Vitals
-
-# Backend performance
-go run perf:database          # Database performance analysis
-go run perf:api               # API endpoint performance testing
-go run perf:memory            # Memory usage profiling
-go run perf:cpu               # CPU usage profiling
-```
+| Role | Username | Password | Access Level |
+|------|----------|----------|-------------|
+| **👑 Admin** | `admin` | `admin123` | Full system access + beautiful admin dashboard |
+| **🍽️ Server** | `server1` | `server123` | Dine-in orders only |
+| **💰 Counter** | `counter1` | `counter123` | All order types + payments |
+| **👨‍🍳 Kitchen** | `kitchen1` | `kitchen123` | Order preparation workflow |
 
 ---
 > Source: [madebyaris/poinf-of-sales](https://github.com/madebyaris/poinf-of-sales) — distributed by [TomeVault](https://tomevault.io).
