@@ -7,11 +7,11 @@ A third-party client based on hotmanga. 一个热辣漫画的第三方客户端
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [caolib/kira](https://github.com/caolib/kira).
+Original source: `CLAUDE.md` in [caolib/kira](https://github.com/caolib/kira).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
