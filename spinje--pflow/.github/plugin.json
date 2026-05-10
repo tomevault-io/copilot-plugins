@@ -1,0 +1,9 @@
+{
+  "name": "spinje--pflow",
+  "displayName": "pflow",
+  "description": "CLI tool for AI agents to build and discover automations. Multi-step tasks \u2192 reusable commands using LLM, shell, Code, HTTP, MCP, Agent nodes.",
+  "version": "1.0.0",
+  "author": "spinje",
+  "homepage": "https://github.com/spinje/pflow",
+  "skills": []
+}
