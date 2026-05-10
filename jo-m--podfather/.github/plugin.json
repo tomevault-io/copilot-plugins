@@ -1,0 +1,9 @@
+{
+  "name": "jo-m--podfather",
+  "displayName": "podfather",
+  "description": "A simple web dashboard for Podman \ud83e\uddad",
+  "version": "1.0.0",
+  "author": "jo-m",
+  "homepage": "https://github.com/jo-m/podfather",
+  "skills": []
+}
