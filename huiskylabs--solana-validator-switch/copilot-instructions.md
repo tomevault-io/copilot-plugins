@@ -1,355 +1,382 @@
-## general-rules
+## svs-rules
 
-> You are a disciplined software engineer focused on writing clean, maintainable, and reliable code. Always prioritize simplicity over cleverness, readability over brevity, and proven patterns over experimental approaches.
+> You are building a professional-grade TypeScript CLI application for Solana validator switching. This is a critical infrastructure tool for validator operators that requires ultra-fast switching (~300ms), zero credential storage, and SSH key-based authentication.
 
-# General Software Development - Cursor Rules
+# Solana Validator Switch CLI - Cursor Rules
 
-## Core Development Philosophy
-You are a disciplined software engineer focused on writing clean, maintainable, and reliable code. Always prioritize simplicity over cleverness, readability over brevity, and proven patterns over experimental approaches.
+## Project Context
+You are building a professional-grade TypeScript CLI application for Solana validator switching. This is a critical infrastructure tool for validator operators that requires ultra-fast switching (~300ms), zero credential storage, and SSH key-based authentication.
 
-## Cardinal Rules
-### 0. Never include `claude` inside commit message
+## Technology Stack
+- **Language**: TypeScript (strict mode)
+- **Runtime**: Node.js
+- **CLI Framework**: Commander.js
+- **SSH**: openssh-rs
+- **UI**: Inquirer, blessed, ora, chalk, cli-table3
+- **Testing**: Jest with ts-jest
+- **Build**: TypeScript compiler
 
-### 1. KISS (Keep It Simple, Stupid)
-- Choose the simplest solution that works
-- Avoid over-engineering and premature optimization
-- If you can't explain it simply, you don't understand it well enough
-- Prefer explicit over implicit
-- One function should do one thing well
+## Core Architecture Principles
+- **Type Safety First**: All functions, classes, and data structures must be strongly typed
+- **Zero Credential Storage**: Never store SSH keys, passwords, or private keys
+- **Error Handling**: Comprehensive error types and graceful degradation
+- **Performance**: Optimize for ultra-fast switching operations
+- **Security**: SSH key-based authentication only, input validation
+- **Professional UX**: Clean CLI interface with proper error messages
 
-### 2. YAGNI (You Aren't Gonna Need It)
-- Don't implement features until they're actually needed
-- Don't add abstractions until you have at least 3 use cases
-- Avoid speculative generality
-- Build for today's requirements, not imagined future ones
+## TypeScript Configuration
+- Use strict TypeScript configuration with all strict checks enabled
+- Define interfaces for all data structures before implementation
+- Use proper error types (never throw strings, always Error objects)
+- Prefer readonly properties where applicable
+- Use branded types for sensitive data (SSH keys, file paths)
+- Export types separately from implementations
 
-### 3. DRY (Don't Repeat Yourself) - But Don't Overdo It
-- Eliminate obvious duplication
-- But don't abstract too early - duplication is better than wrong abstraction
-- Consider the rule of three: first occurrence, second occurrence, third occurrence = refactor
+## Code Style Guidelines
 
-## Code Quality Standards
+### File Naming
+- Use kebab-case for file names: `ssh-manager.ts`, `config-manager.ts`
+- Use PascalCase for class names: `SSHManager`, `ConfigManager`
+- Use camelCase for variables and functions: `switchValidator`, `getConfig`
+- Use UPPER_CASE for constants: `DEFAULT_SSH_TIMEOUT`, `MAX_RETRIES`
 
-### Function and Class Design
-- Functions should be small (ideally < 20 lines)
-- Functions should have a single responsibility
-- Use descriptive names that explain what, not how
-- Prefer pure functions when possible (no side effects)
-- Limit function parameters (max 3-4, use objects for more)
-- Return early to reduce nesting
-
-### Variable and Naming
-- Use intention-revealing names
-- Avoid mental mapping (i, j, k only for simple loops)
-- Use pronounceable names
-- Use searchable names for important concepts
-- Avoid disinformation and misleading names
-- Be consistent with naming conventions
-
-### Comments and Documentation
-- Code should be self-documenting
-- Comments should explain WHY, not WHAT
-- Avoid redundant comments
-- Update comments when code changes
-- Use JSDoc for public APIs
-- Document complex business logic and algorithms
-
-## Error Handling
-
-### Error Management
-- Fail fast and fail clearly
-- Use proper error types, not strings
-- Handle errors at the appropriate level
-- Don't ignore errors or catch and ignore
-- Log errors with context
-- Provide meaningful error messages to users
-
-### Exception Handling Pattern
+### Import Organization
 ```typescript
-// Good: Specific error handling
-try {
-  const result = await riskyOperation();
-  return result;
-} catch (error) {
-  logger.error('Operation failed', { context: 'specific-operation', error: error.message });
-  throw new OperationError('Failed to complete operation', { cause: error });
+// 1. Node.js built-in modules
+import { promises as fs } from 'fs';
+import { join } from 'path';
+
+// 2. Third-party modules
+import { Command } from 'commander';
+import inquirer from 'inquirer';
+
+// 3. Local modules (absolute imports preferred)
+import { Config, NodeConfig } from '../types/config';
+import { SSHManager } from '../lib/ssh-manager';
+import { Logger } from '../utils/logger';
+```
+
+### Error Handling Pattern
+```typescript
+// Always use custom error classes
+export class ValidatorSwitchError extends Error {
+  constructor(
+    message: string,
+    public readonly code: string,
+    public readonly cause?: Error
+  ) {
+    super(message);
+    this.name = 'ValidatorSwitchError';
+  }
 }
 
-// Bad: Generic catch-all
-try {
-  // ... code
-} catch (error) {
-  console.log('Something went wrong');
+// Use Result pattern for operations that can fail
+export type Result<T, E = Error> = 
+  | { success: true; data: T }
+  | { success: false; error: E };
+```
+
+### Async/Await Pattern
+- Always use async/await instead of Promises
+- Handle errors with try/catch blocks
+- Use proper error propagation
+- Add timeout handling for SSH operations
+
+## Directory Structure Rules
+```
+src/
+├── index.ts                    # Main entry point
+├── types/                      # TypeScript interfaces only
+│   ├── config.ts              # Configuration types
+│   ├── ssh.ts                 # SSH-related types
+│   ├── validator.ts           # Validator types
+│   └── index.ts               # Re-export all types
+├── commands/                   # CLI command handlers
+│   ├── setup.ts               # Setup command
+│   ├── config.ts              # Config management
+│   ├── monitor.ts             # Monitoring dashboard
+│   ├── switch.ts              # Switching logic
+│   └── status.ts              # Status queries
+├── lib/                        # Core business logic
+│   ├── ssh-manager.ts         # SSH connection management
+│   ├── switch-manager.ts      # Validator switching
+│   ├── tower-manager.ts       # Tower file operations
+│   ├── health-checker.ts      # Health monitoring
+│   └── solana-rpc.ts          # Solana RPC client
+├── utils/                      # Utility functions
+│   ├── config-manager.ts      # Configuration utilities
+│   ├── logger.ts              # Logging system
+│   ├── validator.ts           # Input validation
+│   └── error-handler.ts       # Error handling
+├── ui/                         # Terminal UI components
+│   ├── dashboard.ts           # Interactive dashboard
+│   ├── components.ts          # Reusable UI components
+│   └── prompts.ts             # Interactive prompts
+└── constants/                  # Application constants
+    ├── defaults.ts            # Default values
+    ├── errors.ts              # Error messages
+    └── commands.ts            # Command definitions
+```
+
+## CLI Development Patterns
+
+### Command Structure
+```typescript
+// Use this pattern for all CLI commands
+import { Command } from 'commander';
+import { Config } from '../types/config';
+
+interface CommandOptions {
+  config?: string;
+  verbose?: boolean;
+  dryRun?: boolean;
+}
+
+export function createSetupCommand(): Command {
+  return new Command('setup')
+    .description('Interactive setup wizard')
+    .option('-c, --config <path>', 'custom config file')
+    .option('-v, --verbose', 'verbose output')
+    .action(async (options: CommandOptions) => {
+      // Implementation
+    });
 }
 ```
 
-## Testing Requirements
-
-### Test Coverage
-- Write tests for all public APIs
-- Test edge cases and error conditions
-- Aim for 80%+ test coverage
-- Tests should be fast and isolated
-- One assertion per test when possible
-
-### Test Structure
+### Progress Indication
 ```typescript
-// Good: Clear test structure
-describe('UserService', () => {
-  describe('createUser', () => {
-    it('should create user with valid data', async () => {
-      // Arrange
-      const userData = { name: 'John', email: 'john@example.com' };
-      
-      // Act
-      const result = await userService.createUser(userData);
-      
-      // Assert
-      expect(result.id).toBeDefined();
-      expect(result.name).toBe(userData.name);
+// Use ora for progress indicators
+import ora from 'ora';
+
+const spinner = ora('Connecting to validator nodes...').start();
+try {
+  await connectToNodes();
+  spinner.succeed('Connected to all nodes');
+} catch (error) {
+  spinner.fail('Connection failed');
+  throw error;
+}
+```
+
+### User Input Validation
+```typescript
+// Always validate user inputs
+import { z } from 'zod';
+
+const NodeConfigSchema = z.object({
+  host: z.string().ip().or(z.string().min(1)),
+  port: z.number().min(1).max(65535),
+  user: z.string().min(1),
+  keyPath: z.string().min(1),
+});
+
+type NodeConfig = z.infer<typeof NodeConfigSchema>;
+```
+
+## SSH and Security Rules
+
+### SSH Operations
+- Use ssh2 + node-ssh for direct command execution (NOT autossh)
+- Never store SSH keys in memory longer than necessary
+- Always use connection pooling with keep-alive for rapid commands
+- Set appropriate timeouts (30s default, 5s for rapid commands)
+- Handle connection drops gracefully with exponential backoff retry logic
+- Use SSH agent when available
+- Implement custom connection health monitoring
+
+### SSH Connection Pattern
+```typescript
+// Optimal pattern for validator switching
+class SSHManager {
+  private connections = new Map<string, NodeSSH>();
+  private connectionHealth = new Map<string, boolean>();
+  private reconnectAttempts = new Map<string, number>();
+  
+  async executeCommand(nodeId: string, command: string, timeout = 30000): Promise<string> {
+    const ssh = await this.getConnection(nodeId);
+    const result = await ssh.execCommand(command, {
+      execOptions: { timeout },
+      stream: 'both'
+    });
+    return result.stdout;
+  }
+  
+  private async getConnection(nodeId: string): Promise<NodeSSH> {
+    let ssh = this.connections.get(nodeId);
+    if (!ssh || !this.connectionHealth.get(nodeId)) {
+      ssh = await this.establishConnection(nodeId);
+      this.connections.set(nodeId, ssh);
+      this.connectionHealth.set(nodeId, true);
+    }
+    return ssh;
+  }
+  
+  private async establishConnection(nodeId: string): Promise<NodeSSH> {
+    const ssh = new NodeSSH();
+    await ssh.connect({
+      host: config.host,
+      username: config.user,
+      privateKeyPath: config.keyPath,
+      keepaliveInterval: 5000,      // 5s keep-alive
+      keepaliveCountMax: 3,         // 3 failed pings = disconnect
+      readyTimeout: 30000,          // 30s connection timeout
+      algorithms: {
+        serverHostKey: ['ssh-rsa', 'ecdsa-sha2-nistp256'],
+        kex: ['ecdh-sha2-nistp256', 'diffie-hellman-group14-sha256'],
+        cipher: ['aes128-ctr', 'aes192-ctr', 'aes256-ctr'],
+        hmac: ['hmac-sha2-256', 'hmac-sha2-512']
+      }
+    });
+    return ssh;
+  }
+}
+```
+
+### File Operations
+- Always validate file paths before operations
+- Use proper file permissions (600 for config, 700 for directories)
+- Handle file system errors gracefully
+- Never write sensitive data to temporary files
+
+### Input Validation
+- Validate all external inputs (CLI args, config files, environment variables)
+- Sanitize file paths to prevent directory traversal
+- Validate SSH connection parameters
+- Check IP addresses and ports for validity
+
+## Testing Patterns
+
+### Unit Test Structure
+```typescript
+// tests/unit/ssh-manager.test.ts
+import { SSHManager } from '../../src/lib/ssh-manager';
+import { NodeConfig } from '../../src/types/config';
+
+describe('SSHManager', () => {
+  let sshManager: SSHManager;
+  let mockConfig: NodeConfig;
+
+  beforeEach(() => {
+    mockConfig = {
+      host: '192.168.1.10',
+      port: 22,
+      user: 'solana',
+      keyPath: '/path/to/key',
+    };
+    sshManager = new SSHManager();
+  });
+
+  describe('connect', () => {
+    it('should establish SSH connection', async () => {
+      // Test implementation
     });
   });
 });
 ```
 
-## Security Guidelines
+### Mock Patterns
+```typescript
+// Use jest mocks for external dependencies
+jest.mock('ssh2');
+jest.mock('fs/promises');
 
-### Input Validation
-- Validate all inputs at boundaries
-- Sanitize user inputs
-- Use parameterized queries
-- Avoid eval() and similar dangerous functions
-- Validate file uploads and paths
+// Create typed mocks
+const mockSSH = {
+  connect: jest.fn(),
+  exec: jest.fn(),
+  end: jest.fn(),
+} as jest.Mocked<SSH>;
+```
 
-### Data Handling
-- Never log sensitive information
-- Use secure random for security-critical operations
-- Implement proper authentication and authorization
-- Use HTTPS for all external communications
-- Handle secrets securely (environment variables, not code)
+## Performance Optimization
 
-## Performance Guidelines
+### SSH Connection Management
+- Maintain persistent connections with keep-alive
+- Use connection pooling for multiple operations
+- Implement exponential backoff for retries
+- Cache SSH connection states
 
-### Optimization Rules
-- Measure before optimizing
-- Optimize the bottleneck, not random code
-- Consider Big O complexity for algorithms
-- Use appropriate data structures
-- Avoid premature optimization
-- Profile in production-like environments
-
-### Resource Management
-- Close resources properly (files, connections, streams)
-- Use connection pooling for databases
+### Memory Management
+- Dispose of resources properly (SSH connections, file handles)
+- Use streaming for large file operations
 - Implement proper cleanup in error scenarios
-- Monitor memory usage
-- Use lazy loading when appropriate
+- Monitor memory usage in long-running operations
 
-## Code Organization
+## Logging and Debugging
 
-### File Structure
-- Organize by feature, not by file type
-- Keep related code together
-- Use consistent file naming
-- Limit file size (< 300 lines typically)
-- Separate concerns clearly
+### Logging Pattern
+```typescript
+// Use structured logging
+import { logger } from '../utils/logger';
 
-### Dependencies
-- Minimize external dependencies
-- Keep dependencies up to date
-- Audit dependencies for security
-- Use exact versions in production
-- Avoid dependencies for simple operations
+logger.info('Starting validator switch', {
+  from: 'primary',
+  to: 'backup',
+  timestamp: new Date().toISOString(),
+});
 
-## Git and Version Control
+logger.error('SSH connection failed', {
+  host: config.host,
+  port: config.port,
+  error: error.message,
+});
+```
 
-### Commit Guidelines
-- Make atomic commits (one logical change)
-- Write clear commit messages
-- Use imperative mood ("Add feature" not "Added feature")
-- Reference issues in commits
-- Keep commits focused and small
+### Debug Information
+- Log all SSH command executions (without sensitive data)
+- Track switch operation states
+- Monitor connection health
+- Record performance metrics
 
-### Branch Strategy
-- Use feature branches for new work
-- Keep branches short-lived
-- Rebase before merging to keep history clean
-- Delete merged branches
-- Use meaningful branch names
+## Environment Variables
+- Use SVS_ prefix for all environment variables
+- Validate environment variables with schemas
+- Provide sensible defaults
+- Document all environment variables
 
-## Code Review Standards
+## Configuration Management
+- Store config in ~/.solana-validator-switch/config.json
+- Use JSON schema validation
+- Support config file migration
+- Never store sensitive data in config files
 
-### Review Checklist
-- Code follows established patterns
-- Tests are included and pass
-- Documentation is updated
-- No obvious bugs or security issues
-- Code is readable and maintainable
-- Performance considerations addressed
+## CLI UX Guidelines
+- Use consistent color coding (green=success, red=error, yellow=warning)
+- Provide clear progress indicators
+- Show helpful error messages with suggestions
+- Support both --help and contextual help
+- Handle Ctrl+C gracefully
 
-### Review Communication
-- Be constructive, not destructive
-- Explain the "why" behind suggestions
-- Praise good code
-- Focus on the code, not the person
-- Provide specific, actionable feedback
+## Code Generation Guidelines
 
-## Anti-Patterns to Avoid
+When generating code for this project:
+1. Always include proper TypeScript types
+2. Add JSDoc comments for public APIs
+3. Include error handling with proper error types
+4. Use the established patterns and conventions
+5. Add unit tests for new functionality
+6. Follow the security guidelines strictly
+7. Optimize for performance and memory usage
+8. Include logging for debugging
+9. Handle edge cases and error scenarios
+10. Use the project's established file structure
 
-### Design Anti-Patterns
-- God objects (classes that do too much)
-- Spaghetti code (unstructured flow)
-- Copy-paste programming
-- Magic numbers and strings
-- Tight coupling between components
+## Security Considerations
+- Never log sensitive information (SSH keys, passwords)
+- Validate all file paths to prevent directory traversal
+- Use secure file permissions
+- Implement proper input sanitization
+- Handle SSH agent integration securely
+- Clear sensitive data from memory when possible
 
-### Performance Anti-Patterns
-- N+1 queries
-- Premature optimization
-- Memory leaks
-- Blocking operations in loops
-- Large objects in memory
+## Performance Targets
+- SSH connection establishment: < 2 seconds
+- Validator switch operation: < 60 seconds
+- Status query response: < 1 second
+- Memory usage: < 50MB during normal operation
+- File operations: Use streaming for files > 10MB
 
-### Security Anti-Patterns
-- SQL injection vulnerabilities
-- XSS vulnerabilities
-- Hardcoded secrets
-- Insufficient input validation
-- Weak authentication mechanisms
-
-## Refactoring Guidelines
-
-### When to Refactor
-- Code smells are present
-- Adding new features is difficult
-- Bug fixes are complex
-- Performance issues arise
-- Code is hard to understand
-
-### Refactoring Rules
-- Refactor in small steps
-- Run tests after each change
-- Don't change behavior during refactoring
-- Commit refactoring separately from features
-- Use IDE refactoring tools when possible
-
-## Documentation Standards
-
-### Code Documentation
-- Document public APIs
-- Explain complex algorithms
-- Document configuration options
-- Provide usage examples
-- Keep documentation up to date
-
-### README Requirements
-- Clear project description
-- Installation instructions
-- Usage examples
-- Development setup
-- Contributing guidelines
-
-## Communication Guidelines
-
-### Code Communication
-- Code should tell a story
-- Use meaningful variable names
-- Structure code logically
-- Avoid clever tricks
-- Write code for humans, not computers
-
-### Team Communication
-- Ask questions when unclear
-- Share knowledge proactively
-- Document decisions
-- Communicate changes that affect others
-- Be responsive to feedback
-
-## Development Workflow
-
-### Before Starting
-- Understand the requirements
-- Break down the problem
-- Design before coding
-- Consider edge cases
-- Plan for testing
-
-### During Development
-- Write tests first (TDD when appropriate)
-- Commit early and often
-- Refactor continuously
-- Handle errors properly
-- Document as you go
-
-### Before Finishing
-- Test thoroughly
-- Review your own code
-- Update documentation
-- Consider performance implications
-- Clean up temporary code
-
-## Language-Specific Guidelines
-
-### TypeScript/JavaScript
-- Use TypeScript for better type safety
-- Prefer const over let, let over var
-- Use async/await over promises
-- Avoid any type when possible
-- Use proper error handling
-
-### General Programming
-- Follow language conventions
-- Use standard library when possible
-- Understand the language's idioms
-- Keep up with language updates
-- Use appropriate design patterns
-
-## Quality Metrics
-
-### Code Quality Indicators
-- Cyclomatic complexity < 10
-- Function length < 20 lines
-- Class size < 300 lines
-- Test coverage > 80%
-- No code duplication > 5%
-
-### Performance Metrics
-- Response time < 200ms for UI
-- Memory usage growth < 5% per hour
-- CPU usage < 70% under normal load
-- Database queries < 100ms
-- File operations < 50ms
-
-## Continuous Improvement
-
-### Learning and Growth
-- Read code regularly
-- Learn from mistakes
-- Study best practices
-- Experiment with new techniques
-- Share knowledge with team
-
-### Code Evolution
-- Regularly review and improve code
-- Update dependencies
-- Refactor legacy code
-- Optimize bottlenecks
-- Remove dead code
-
-## Final Reminders
-
-1. **Simple is better than complex**
-2. **Readable is better than clever**
-3. **Explicit is better than implicit**
-4. **Test everything that can break**
-5. **Document what isn't obvious**
-6. **Secure by default**
-7. **Fail fast and clearly**
-8. **Optimize only when necessary**
-9. **Refactor continuously**
-10. **Communicate clearly**
-
-Remember: The goal is to write code that works correctly, is easy to understand, and can be maintained by others (including your future self). When in doubt, choose the simpler, more explicit approach.
+This configuration will help Cursor provide optimal assistance for building a professional, secure, and performant TypeScript CLI application.
 
 ---
 > Source: [huiskylabs/solana-validator-switch](https://github.com/huiskylabs/solana-validator-switch) — distributed by [TomeVault](https://tomevault.io).
