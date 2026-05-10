@@ -1,0 +1,9 @@
+{
+  "name": "stewartjarod--baseline",
+  "displayName": "baseline",
+  "description": "Enforce architectural decisions AI coding tools keep ignoring \u2014 bans, ratchets, and design system rules in a single Rust binary",
+  "version": "1.0.0",
+  "author": "stewartjarod",
+  "homepage": "https://github.com/stewartjarod/baseline",
+  "skills": []
+}
