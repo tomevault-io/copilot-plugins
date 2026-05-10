@@ -1,0 +1,9 @@
+{
+  "name": "acegraphx--hermes-desktop-win",
+  "displayName": "hermes-desktop-win",
+  "description": "Native Windows (WPF) port of Hermes Desktop \u2014 SSH-based workspace for Hermes Agent. Terminal, sessions, files, usage, skills.",
+  "version": "1.0.0",
+  "author": "acegraphx",
+  "homepage": "https://github.com/acegraphx/hermes-desktop-win",
+  "skills": []
+}
