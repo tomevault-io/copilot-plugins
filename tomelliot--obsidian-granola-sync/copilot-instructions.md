@@ -1,54 +1,15 @@
-## code-style
+## documentation
 
-> Code style guide for Obsidian plugin development
+> When writing documentation files:
 
+When writing documentation files:
 
-# Obsidian Plugin Code Style Guide
-
-## Code Structure
-
-- **Use `this.app`**: Always access the app instance through `this.app` within plugin classes, never use global `app`
-- **Organize code into folders**: Group related functionality into folders (e.g., `services/`, `utils/`)
-- **Descriptive class names**: Use descriptive names that reflect functionality (e.g., `GranolaSync`, not `MyPlugin`)
-
-## TypeScript Standards
-
-- **Strict typing**: Use `noImplicitAny` and `strictNullChecks` (already configured)
-- **Type imports**: Import types explicitly when needed: `import type { GranolaDoc } from "./services/granolaApi"`
-- **Access modifiers**: Use `private` for internal members, `public` only when necessary
-
-## User Interface Text
-
-- **Sentence case**: Capitalize only the first word and proper nouns in UI text
-  - ✅ "Template folder location"
-  - ❌ "Template Folder Location"
-- **Avoid redundancy**: Don't include "settings" in section headings within settings tabs
-  - ✅ "Advanced"
-  - ❌ "Advanced settings"
-- **Use Obsidian methods**: Use `setHeading()` instead of HTML heading tags for consistent styling
-
-## Security Practices
-
-- **Avoid unsafe HTML**: Never use `innerHTML`, `outerHTML`, or `insertAdjacentHTML`
-- **Use Obsidian helpers**: Use `createEl()`, `createDiv()`, `createSpan()` for DOM manipulation
-
-## Resource Management
-
-- **Cleanup on unload**: Ensure all resources are released in `onunload()` method
-- **Use Obsidian registration**: Prefer `registerEvent()` and `addCommand()` for automatic cleanup
-
-## Terminology
-
-- **Note vs File**: Use "note" for Markdown files, "file" for other file types
-- **Folder vs Directory**: Use "folder" instead of "directory"
-- **Active note**: Use "active note" over "current note"
-- **Directional terms**: Hyphenate as adjectives ("bottom-left corner"), not as nouns ("bottom left")
-
-## Code Formatting
-
-- **Imports**: Group imports: Obsidian imports first, then external packages, then local imports
-- **Async/await**: Prefer async/await over promises for readability
-- **Error handling**: Use try/catch blocks for async operations and show user-friendly notices
+- be clear, but concise
+- use diagrams to illustrate where it adds clarity
+    - use mermaid diagrams
+- if a documentation file is over 200 lines long, break it into multiple smaller files
+- avoid putting code snippets from the repo into the README.md (they'll get stale). Reference the filename instead
+- add README.md files throughout the repo hierarchy, not just at the root
 
 ---
 > Source: [tomelliot/obsidian-granola-sync](https://github.com/tomelliot/obsidian-granola-sync) — distributed by [TomeVault](https://tomevault.io).
