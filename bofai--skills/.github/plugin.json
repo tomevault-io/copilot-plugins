@@ -1,0 +1,9 @@
+{
+  "name": "bofai--skills",
+  "displayName": "skills",
+  "description": "BANK OF AI Skills",
+  "version": "1.0.0",
+  "author": "BofAI",
+  "homepage": "https://github.com/BofAI/skills",
+  "skills": []
+}
