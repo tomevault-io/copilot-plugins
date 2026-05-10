@@ -1,0 +1,9 @@
+{
+  "name": "d-kimuson--claude-code-viewer",
+  "displayName": "claude-code-viewer",
+  "description": "A full-featured web-based Claude Code client that provides complete interactive functionality for managing Claude Code projects",
+  "version": "1.0.0",
+  "author": "d-kimuson",
+  "homepage": "https://github.com/d-kimuson/claude-code-viewer",
+  "skills": []
+}
