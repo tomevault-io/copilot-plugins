@@ -1,0 +1,9 @@
+{
+  "name": "productdevbook--portakal",
+  "displayName": "portakal",
+  "description": "Universal printer language SDK \u2014 9 languages, 9 parsers, 63 cross-compilers. TSC, ZPL, EPL, ESC/POS, CPCL, DPL, SBPL, Star PRNT, IPL. Zero dependencies. Pure TypeScript.",
+  "version": "1.0.0",
+  "author": "productdevbook",
+  "homepage": "https://github.com/productdevbook/portakal",
+  "skills": []
+}
