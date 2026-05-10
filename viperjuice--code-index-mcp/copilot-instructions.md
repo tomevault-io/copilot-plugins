@@ -1,285 +1,383 @@
-## security
+## typescript
 
-> This file defines security policies, best practices, and implementation guidelines for the Code-Index-MCP project to ensure safe code indexing and analysis.
+> This file defines TypeScript/JavaScript coding standards and patterns for any web UI or Node.js components that may be added to the Code-Index-MCP project.
 
-# Security Rules for Code-Index-MCP
+# TypeScript Rules for Code-Index-MCP
 
 ## Overview
-This file defines security policies, best practices, and implementation guidelines for the Code-Index-MCP project to ensure safe code indexing and analysis.
+This file defines TypeScript/JavaScript coding standards and patterns for any web UI or Node.js components that may be added to the Code-Index-MCP project.
 
-## Input Validation
+## Type Safety
 
-### File Path Validation
-```python
-import os
-from pathlib import Path
-
-def validate_file_path(file_path: str, base_dir: str) -> bool:
-    """Ensure file paths are within allowed directories."""
-    try:
-        # Resolve to absolute path
-        abs_path = Path(file_path).resolve()
-        base_path = Path(base_dir).resolve()
-        
-        # Check if path is within base directory
-        return abs_path.is_relative_to(base_path)
-    except Exception:
-        return False
-
-# Usage in API endpoints
-@app.post("/index")
-async def index_file(file_path: str):
-    if not validate_file_path(file_path, os.getcwd()):
-        raise HTTPException(403, "Access denied: Invalid file path")
+### Strict Type Checking
+```typescript
+// tsconfig.json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  }
+}
 ```
 
-### Query Sanitization
-```python
-def sanitize_search_query(query: str) -> str:
-    """Remove potentially dangerous characters from search queries."""
-    # Remove SQL injection attempts
-    dangerous_patterns = [';', '--', '/*', '*/', 'xp_', 'sp_']
-    for pattern in dangerous_patterns:
-        query = query.replace(pattern, '')
-    
-    # Limit query length
-    return query[:1000]
-```
-
-## Authentication & Authorization
-
-### API Key Management
-```python
-import secrets
-import hashlib
-
-class APIKeyManager:
-    def generate_api_key(self) -> str:
-        """Generate secure API key."""
-        return secrets.token_urlsafe(32)
-    
-    def hash_api_key(self, api_key: str) -> str:
-        """Hash API key for storage."""
-        return hashlib.sha256(api_key.encode()).hexdigest()
-    
-    def verify_api_key(self, provided_key: str, stored_hash: str) -> bool:
-        """Verify API key against stored hash."""
-        return self.hash_api_key(provided_key) == stored_hash
-```
-
-### Request Authentication
-```python
-from fastapi import Security, HTTPException
-from fastapi.security import APIKeyHeader
-
-api_key_header = APIKeyHeader(name="X-API-Key")
-
-async def verify_api_key(api_key: str = Security(api_key_header)):
-    """Verify API key middleware."""
-    if not api_key_manager.verify_api_key(api_key):
-        raise HTTPException(401, "Invalid API key")
-    return api_key
-```
-
-## Secret Detection
-
-### Pattern Detection
-```python
-import re
-
-SECRET_PATTERNS = {
-    'aws_access_key': r'AKIA[0-9A-Z]{16}',
-    'aws_secret_key': r'[0-9a-zA-Z/+=]{40}',
-    'github_token': r'ghp_[0-9a-zA-Z]{36}',
-    'api_key': r'api[_-]?key[_-]?[:=]\s*["\']?([0-9a-zA-Z\-_]+)["\']?',
-    'private_key': r'-----BEGIN (RSA|DSA|EC|OPENSSH) PRIVATE KEY-----'
+### Type Definitions
+```typescript
+// Define interfaces for API responses
+interface SymbolDefinition {
+  name: string;
+  type: 'function' | 'class' | 'variable' | 'method';
+  filePath: string;
+  line: number;
+  column: number;
+  docstring?: string;
 }
 
-def detect_secrets(content: str) -> List[Dict]:
-    """Detect potential secrets in code."""
-    findings = []
-    for secret_type, pattern in SECRET_PATTERNS.items():
-        matches = re.finditer(pattern, content, re.IGNORECASE)
-        for match in matches:
-            findings.append({
-                'type': secret_type,
-                'line': content[:match.start()].count('\n') + 1,
-                'matched': match.group(0)[:20] + '...'  # Truncate for safety
-            })
-    return findings
+interface SearchResult {
+  matches: Array<{
+    file: string;
+    line: number;
+    content: string;
+    score: number;
+  }>;
+  totalCount: number;
+}
+
+// Use discriminated unions for different response types
+type APIResponse<T> = 
+  | { status: 'success'; data: T }
+  | { status: 'error'; error: string }
+  | { status: 'loading' };
 ```
 
-### Secret Redaction
-```python
-def redact_secrets(content: str) -> str:
-    """Redact detected secrets from content."""
-    for secret_type, pattern in SECRET_PATTERNS.items():
-        content = re.sub(pattern, f'[REDACTED_{secret_type.upper()}]', content, flags=re.IGNORECASE)
-    return content
+## API Client Design
+
+### Type-Safe API Client
+```typescript
+class MCPClient {
+  private baseUrl: string;
+  private apiKey: string;
+
+  constructor(baseUrl: string, apiKey: string) {
+    this.baseUrl = baseUrl;
+    this.apiKey = apiKey;
+  }
+
+  private async request<T>(
+    endpoint: string,
+    options: RequestInit = {}
+  ): Promise<T> {
+    const response = await fetch(`${this.baseUrl}${endpoint}`, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': this.apiKey,
+        ...options.headers,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.statusText}`);
+    }
+
+    return response.json();
+  }
+
+  async getSymbolDefinition(
+    symbolName: string,
+    filePath?: string
+  ): Promise<SymbolDefinition> {
+    return this.request<SymbolDefinition>('/symbol', {
+      method: 'POST',
+      body: JSON.stringify({ symbol_name: symbolName, file_path: filePath }),
+    });
+  }
+
+  async searchCode(
+    query: string,
+    fileExtensions?: string[]
+  ): Promise<SearchResult> {
+    return this.request<SearchResult>('/search', {
+      method: 'POST',
+      body: JSON.stringify({ query, file_extensions: fileExtensions }),
+    });
+  }
+}
 ```
 
-## Plugin Security
+## Error Handling
 
-### Plugin Isolation
-```python
-import subprocess
-import resource
+### Custom Error Classes
+```typescript
+class MCPError extends Error {
+  constructor(
+    message: string,
+    public code: string,
+    public statusCode?: number
+  ) {
+    super(message);
+    this.name = 'MCPError';
+  }
+}
 
-def run_plugin_safely(plugin_path: str, input_data: str) -> str:
-    """Run plugin in isolated environment."""
-    # Set resource limits
-    def set_limits():
-        # Limit CPU time (seconds)
-        resource.setrlimit(resource.RLIMIT_CPU, (5, 5))
-        # Limit memory (bytes)
-        resource.setrlimit(resource.RLIMIT_AS, (512 * 1024 * 1024, 512 * 1024 * 1024))
-    
-    # Run plugin as subprocess with limits
-    result = subprocess.run(
-        ['python', plugin_path],
-        input=input_data,
-        capture_output=True,
-        text=True,
-        timeout=10,
-        preexec_fn=set_limits
-    )
-    
-    return result.stdout
+class NetworkError extends MCPError {
+  constructor(message: string) {
+    super(message, 'NETWORK_ERROR');
+  }
+}
+
+class AuthenticationError extends MCPError {
+  constructor(message: string) {
+    super(message, 'AUTH_ERROR', 401);
+  }
+}
 ```
 
-### Plugin Validation
-```python
-def validate_plugin(plugin_class):
-    """Validate plugin implements required interface."""
-    required_methods = ['index', 'getDefinition', 'getReferences']
-    
-    for method in required_methods:
-        if not hasattr(plugin_class, method):
-            raise SecurityError(f"Plugin missing required method: {method}")
-    
-    # Check for dangerous operations
-    source = inspect.getsource(plugin_class)
-    dangerous_ops = ['eval', 'exec', '__import__', 'compile']
-    
-    for op in dangerous_ops:
-        if op in source:
-            raise SecurityError(f"Plugin contains dangerous operation: {op}")
+### Error Handling Patterns
+```typescript
+// Result type for safer error handling
+type Result<T, E = Error> = 
+  | { ok: true; value: T }
+  | { ok: false; error: E };
+
+async function safeApiCall<T>(
+  fn: () => Promise<T>
+): Promise<Result<T>> {
+  try {
+    const value = await fn();
+    return { ok: true, value };
+  } catch (error) {
+    return { 
+      ok: false, 
+      error: error instanceof Error ? error : new Error(String(error))
+    };
+  }
+}
+
+// Usage
+const result = await safeApiCall(() => 
+  client.getSymbolDefinition('myFunction')
+);
+
+if (result.ok) {
+  console.log('Symbol found:', result.value);
+} else {
+  console.error('Error:', result.error.message);
+}
 ```
 
-## Network Security
+## State Management
 
-### HTTPS Enforcement
-```python
-from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
+### React State Pattern (if UI is added)
+```typescript
+import { create } from 'zustand';
 
-# Force HTTPS in production
-if os.getenv("ENVIRONMENT") == "production":
-    app.add_middleware(HTTPSRedirectMiddleware)
+interface CodeIndexState {
+  symbols: Map<string, SymbolDefinition>;
+  searchResults: SearchResult | null;
+  isLoading: boolean;
+  error: string | null;
+  
+  // Actions
+  searchCode: (query: string) => Promise<void>;
+  getSymbol: (name: string) => Promise<void>;
+  clearError: () => void;
+}
+
+const useCodeIndexStore = create<CodeIndexState>((set, get) => ({
+  symbols: new Map(),
+  searchResults: null,
+  isLoading: false,
+  error: null,
+
+  searchCode: async (query: string) => {
+    set({ isLoading: true, error: null });
+    try {
+      const results = await client.searchCode(query);
+      set({ searchResults: results, isLoading: false });
+    } catch (error) {
+      set({ 
+        error: error instanceof Error ? error.message : 'Unknown error',
+        isLoading: false 
+      });
+    }
+  },
+
+  getSymbol: async (name: string) => {
+    const { symbols } = get();
+    if (symbols.has(name)) return;
+
+    set({ isLoading: true, error: null });
+    try {
+      const symbol = await client.getSymbolDefinition(name);
+      set((state) => ({
+        symbols: new Map(state.symbols).set(name, symbol),
+        isLoading: false
+      }));
+    } catch (error) {
+      set({ 
+        error: error instanceof Error ? error.message : 'Unknown error',
+        isLoading: false 
+      });
+    }
+  },
+
+  clearError: () => set({ error: null })
+}));
 ```
 
-### CORS Configuration
-```python
-from fastapi.middleware.cors import CORSMiddleware
+## Testing Patterns
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["https://trusted-domain.com"],
-    allow_credentials=True,
-    allow_methods=["GET", "POST"],
-    allow_headers=["X-API-Key"],
-)
+### Unit Testing
+```typescript
+import { describe, it, expect, vi } from 'vitest';
+
+describe('MCPClient', () => {
+  it('should fetch symbol definition', async () => {
+    const mockFetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        name: 'testFunction',
+        type: 'function',
+        filePath: '/test.py',
+        line: 10,
+        column: 0
+      })
+    });
+
+    global.fetch = mockFetch;
+
+    const client = new MCPClient('http://localhost:8000', 'test-key');
+    const result = await client.getSymbolDefinition('testFunction');
+
+    expect(result.name).toBe('testFunction');
+    expect(mockFetch).toHaveBeenCalledWith(
+      'http://localhost:8000/symbol',
+      expect.objectContaining({
+        method: 'POST',
+        headers: expect.objectContaining({
+          'X-API-Key': 'test-key'
+        })
+      })
+    );
+  });
+});
 ```
 
-## Data Protection
+### Integration Testing
+```typescript
+import { test, expect } from '@playwright/test';
 
-### Encryption at Rest
-```python
-from cryptography.fernet import Fernet
-
-class DataEncryption:
-    def __init__(self, key: bytes = None):
-        self.key = key or Fernet.generate_key()
-        self.cipher = Fernet(self.key)
-    
-    def encrypt_file(self, file_path: str):
-        """Encrypt file contents."""
-        with open(file_path, 'rb') as f:
-            encrypted = self.cipher.encrypt(f.read())
-        
-        with open(file_path + '.enc', 'wb') as f:
-            f.write(encrypted)
-    
-    def decrypt_file(self, file_path: str) -> bytes:
-        """Decrypt file contents."""
-        with open(file_path, 'rb') as f:
-            return self.cipher.decrypt(f.read())
+test('search functionality', async ({ page }) => {
+  await page.goto('/');
+  
+  // Search for a function
+  await page.fill('[data-testid="search-input"]', 'parseFile');
+  await page.click('[data-testid="search-button"]');
+  
+  // Wait for results
+  await page.waitForSelector('[data-testid="search-results"]');
+  
+  // Verify results
+  const results = await page.$$('[data-testid="search-result-item"]');
+  expect(results.length).toBeGreaterThan(0);
+});
 ```
 
-### Secure Deletion
-```python
-import os
+## Performance Optimization
 
-def secure_delete(file_path: str):
-    """Securely delete file by overwriting."""
-    if not os.path.exists(file_path):
-        return
-    
-    filesize = os.path.getsize(file_path)
-    
-    with open(file_path, "ba+", buffering=0) as f:
-        # Overwrite with random data
-        f.write(os.urandom(filesize))
-        f.flush()
-        os.fsync(f.fileno())
-    
-    os.remove(file_path)
+### Debouncing and Throttling
+```typescript
+function debounce<T extends (...args: any[]) => any>(
+  fn: T,
+  delay: number
+): (...args: Parameters<T>) => void {
+  let timeoutId: NodeJS.Timeout;
+  
+  return (...args: Parameters<T>) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn(...args), delay);
+  };
+}
+
+// Use in search input
+const debouncedSearch = debounce((query: string) => {
+  store.searchCode(query);
+}, 300);
 ```
 
-## Audit Logging
+### Caching Strategy
+```typescript
+class CachedMCPClient extends MCPClient {
+  private cache = new Map<string, { data: any; timestamp: number }>();
+  private cacheTimeout = 5 * 60 * 1000; // 5 minutes
 
-### Security Event Logging
-```python
-import logging
-from datetime import datetime
+  private getCacheKey(method: string, params: any): string {
+    return `${method}:${JSON.stringify(params)}`;
+  }
 
-security_logger = logging.getLogger('security')
+  async getSymbolDefinition(
+    symbolName: string,
+    filePath?: string
+  ): Promise<SymbolDefinition> {
+    const cacheKey = this.getCacheKey('getSymbolDefinition', { symbolName, filePath });
+    const cached = this.cache.get(cacheKey);
 
-def log_security_event(event_type: str, details: Dict):
-    """Log security-relevant events."""
-    security_logger.warning(f"{event_type}: {json.dumps({
-        'timestamp': datetime.utcnow().isoformat(),
-        'event': event_type,
-        'details': details
-    })}")
+    if (cached && Date.now() - cached.timestamp < this.cacheTimeout) {
+      return cached.data;
+    }
 
-# Usage examples
-log_security_event("AUTH_FAILURE", {"ip": request.client.host, "reason": "Invalid API key"})
-log_security_event("SECRET_DETECTED", {"file": file_path, "type": "aws_key"})
-log_security_event("PATH_TRAVERSAL_ATTEMPT", {"path": attempted_path})
+    const data = await super.getSymbolDefinition(symbolName, filePath);
+    this.cache.set(cacheKey, { data, timestamp: Date.now() });
+    
+    return data;
+  }
+}
 ```
 
-## Security Checklist
+## Code Style
 
-### Development
-- [ ] All inputs validated and sanitized
-- [ ] SQL injection prevention (parameterized queries)
-- [ ] Path traversal prevention
-- [ ] Secret detection implemented
-- [ ] Authentication required for sensitive operations
+### Naming Conventions
+- Use camelCase for variables and functions
+- Use PascalCase for types and classes
+- Use UPPER_SNAKE_CASE for constants
+- Prefix interfaces with 'I' only when necessary to avoid conflicts
 
-### Deployment
-- [ ] HTTPS enabled
-- [ ] API keys rotated regularly
-- [ ] Logging configured
-- [ ] Resource limits set
-- [ ] Security headers configured
+### File Organization
+```
+src/
+├── types/          # Type definitions
+├── api/            # API client and related code
+├── components/     # React components (if UI)
+├── hooks/          # Custom hooks
+├── utils/          # Utility functions
+├── stores/         # State management
+└── tests/          # Test files
+```
 
-### Monitoring
-- [ ] Failed authentication attempts tracked
-- [ ] Unusual access patterns detected
-- [ ] Resource usage monitored
-- [ ] Security logs reviewed regularly
-- [ ] Vulnerability scanning automated
+### Import Order
+```typescript
+// 1. Node modules
+import { readFile } from 'fs/promises';
+
+// 2. External packages
+import React from 'react';
+import { z } from 'zod';
+
+// 3. Internal modules
+import { MCPClient } from '@/api/client';
+
+// 4. Relative imports
+import { formatCode } from './utils';
+
+// 5. Type imports
+import type { SymbolDefinition } from '@/types';
+```
 
 ---
 > Source: [ViperJuice/Code-Index-MCP](https://github.com/ViperJuice/Code-Index-MCP) — distributed by [TomeVault](https://tomevault.io).
