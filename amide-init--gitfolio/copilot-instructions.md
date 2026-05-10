@@ -1,36 +1,43 @@
-## gitforge
+## gitfolio
 
-> Core rules and context for the gitforge CLI + profile-site template
+> - This repo is both a Vite + React + TypeScript portfolio app and an npm CLI (`gitforge`).
 
+# GitHub Copilot Instructions for Gitfolio
 
-# gitforge Project Rules & Context
+## Project context
+- This repo is both a Vite + React + TypeScript portfolio app and an npm CLI (`gitforge`).
+- Keep the app deterministic and static: do not add runtime GitHub API calls in browser code.
+- Use functional React components with TypeScript and Tailwind CSS.
 
-- This repo is both:
-  - A **Vite + React + TS** template for a GitHub profile site.
-  - An **npm CLI package** named `gitforge` that generates static data from the GitHub API.
+## Branch and data rules
+- `main` is template code only: `data/*.json` must stay empty (`[]`).
+- `web` is deployment + personal data branch.
+- Never propose changes that put personal content into `main`.
 
-## CLI & Config
-
-- The single source of truth for config is `gitforge.config.json` (ignored by git).
-- Keep `gitforge.config.example.json` as the only tracked config template.
-- The generator script is `scripts/generate-github-data.js` and is exposed as the `gitforge` binary via `package.json`.
-- Preferred usage patterns to keep in mind:
-  - `gitforge [owner] [--type user|org]`
-  - Or: read `gitforge.config.json` when no CLI args are given.
-
-## Generated Files
-
-- Treat these as **generated**; do not hand-edit or rely on them for long-term docs:
+## Generated files
+- Do not hand-edit generated files:
   - `src/generated/githubData.ts`
   - `src/siteContent.json`
-- When editing content for the site, prefer working against `src/siteContent.json` (it is regenerated, so keep that in mind when suggesting workflows).
+- If content generation is needed, use existing generator workflows/scripts.
 
-## App Constraints
+## Config and secrets
+- Source-of-truth config is `gitforge.config.json` (git-ignored).
+- Only template config (`gitforge.config.example.json`) is tracked.
+- Never commit secrets (`.env`, tokens, client secrets, PATs).
 
-- Use **functional React components**, **TypeScript**, and **simple CSS** (no Tailwind / UI libraries).
-- The page is single-page (no routing) and should stay:
-  - Clean, dark, minimal, developer-focused.
-  - Deterministic and static (no runtime GitHub calls from the browser).
+## Editing guidance
+- Make minimal, surgical changes tied to the request.
+- Reuse existing patterns and libraries before introducing new ones.
+- Avoid unrelated refactors.
+- Keep routing/template patterns consistent across pages.
+
+## Validation commands
+- Install: `pnpm install`
+- Lint: `pnpm lint`
+- Build: `pnpm build`
+
+## Documentation consistency
+- Keep `CLAUDE.md`, `README.md`, and workflow behavior in sync when changing architecture expectations.
 
 ---
 > Source: [amide-init/gitfolio](https://github.com/amide-init/gitfolio) — distributed by [TomeVault](https://tomevault.io).
