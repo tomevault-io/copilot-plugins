@@ -1,80 +1,124 @@
-## self-improvement
+## testing-guidelines
 
-> Guidelines for continuously improving Cursor rules based on emerging code patterns and best practices.
+> Unit testing guidelines for concise and effective test coverage
 
-## Rule Improvement Triggers
 
-- New code patterns not covered by existing rules
-- Repeated similar implementations across files
-- Common error patterns that could be prevented
-- New libraries or tools being used consistently
-- Emerging best practices in the codebase
+# Unit Testing Guidelines
 
-# Analysis Process:
-- Compare new code with existing rules
-- Identify patterns that should be standardized
-- Look for references to external documentation
-- Check for consistent error handling patterns
-- Monitor test patterns and coverage
+## Test Conciseness Principles
 
-# Rule Updates:
+### Default Test Structure
+Most functions should have **only 2 unit tests**:
+1. **Happy Path Test** - Valid inputs with multiple scenarios
+2. **Error Handling Test** - Invalid inputs and edge cases
 
-- **Add New Rules When:**
-  - A new technology/pattern is used in 3+ files
-  - Common bugs could be prevented by a rule
-  - Code reviews repeatedly mention the same feedback
-  - New security or performance patterns emerge
+### Consolidate Related Scenarios
+Instead of separate tests for each condition, combine related validations:
 
-- **Modify Existing Rules When:**
-  - Better examples exist in the codebase
-  - Additional edge cases are discovered
-  - Related rules have been updated
-  - Implementation details have changed
+```python
+# ✅ Good: Consolidated valid scenarios
+def test_function_name_valid_inputs(self):
+    """Test function with various valid inputs."""
+    # Test multiple valid scenarios in one test
+    assert function(valid_input_1) == expected_1
+    assert function(valid_input_2) == expected_2
+    assert function(edge_case_valid) == expected_3
 
-- **Example Pattern Recognition:**
+# ✅ Good: Consolidated error scenarios  
+def test_function_name_error_handling(self):
+    """Test function error handling."""
+    with pytest.raises(ValueError):
+        function(invalid_input_1)
+    with pytest.raises(TypeError):
+        function(invalid_input_2)
+```
 
-  ```typescript
-  // If you see repeated patterns like:
-  const data = await prisma.user.findMany({
-    select: { id: true, email: true },
-    where: { status: 'ACTIVE' }
-  });
+```python
+# ❌ Bad: Too many separate tests
+def test_function_with_input_1(self):
+def test_function_with_input_2(self):
+def test_function_with_edge_case(self):
+def test_function_missing_column_1(self):
+def test_function_missing_column_2(self):
+def test_function_null_values(self):
+def test_function_empty_dataframe(self):
+```
 
-  // Consider adding to [prisma.mdc](mdc:shipixen/.cursor/rules/prisma.mdc):
-  // - Standard select fields
-  // - Common where conditions
-  // - Performance optimization patterns
-  ```
+## When to Add More Tests
 
-- **Rule Quality Checks:**
-- Rules should be actionable and specific
-- Examples should come from actual code
-- References should be up to date
-- Patterns should be consistently enforced
+Only create additional tests for:
+- **Complex functions** with multiple distinct code paths
+- **Critical business logic** requiring detailed validation
+- **Integration points** with external systems
+- **Performance-sensitive** functions
 
-## Continuous Improvement:
+## Test Naming Convention
 
-- Monitor code review comments
-- Track common development questions
-- Update rules after major refactors
-- Add links to relevant documentation
-- Cross-reference related rules
+Use descriptive names that capture the test scope:
+- `test_<function_name>_valid_scenarios`
+- `test_<function_name>_error_handling`
+- `test_<function_name>_integration` (if needed)
 
-## Rule Deprecation
+## Fixtures and Setup
 
-- Mark outdated patterns as deprecated
-- Remove rules that no longer apply
-- Update references to deprecated rules
-- Document migration paths for old patterns
+Keep fixtures simple and focused:
+- One fixture per test data type
+- Combine related test data in single fixtures
+- Avoid over-engineered test setup
 
-## Documentation Updates:
+## Example: Before and After
 
-- Keep examples synchronized with code
-- Update references to external docs
-- Maintain links between related rules
-- Document breaking changes
+### Before (Too Many Tests)
+```python
+def test_add_column_successful_calculation(self):
+def test_add_column_missing_columns(self):
+def test_add_column_zero_distance_handling(self):
+def test_add_column_null_values(self):
+def test_add_column_empty_dataframe(self):
+def test_add_column_return_type(self):
+def test_add_column_preserves_columns(self):
+```
 
-Follow [cursor-rules.mdc](mdc:.cursor/rules/curs or-rules.mdc) for proper rule formatting and structure.
+### After (Concise)
+```python
+def test_add_avg_fare_per_mile_by_zones_valid_scenarios(self, test_dataframe):
+    """Test function with valid inputs including edge cases."""
+    result_df = add_avg_fare_per_mile_by_zones(test_dataframe)
+    
+    # Test column addition
+    assert "avg_fare_per_mile_by_zones" in result_df.columns
+    
+    # Test return type  
+    assert isinstance(result, DataFrame)
+    
+    # Test column preservation
+    assert len(result_df.columns) == len(test_dataframe.columns) + 1
+    
+    # Test calculations with various scenarios
+    results = result_df.collect()
+    # ... validate multiple scenarios in one test
+
+def test_add_avg_fare_per_mile_by_zones_error_handling(self, spark_session):
+    """Test function error handling and edge cases."""
+    # Test missing columns
+    with pytest.raises(ValueError, match="Missing required columns"):
+        add_avg_fare_per_mile_by_zones(incomplete_df)
+    
+    # Test empty DataFrame handling
+    empty_result = add_avg_fare_per_mile_by_zones(empty_df)
+    assert empty_result.count() == 0
+    
+    # Test null value handling
+    null_result = add_avg_fare_per_mile_by_zones(null_df)
+    assert null_result.count() == len(null_data)
+```
+
+## Benefits of Concise Testing
+- Faster test execution
+- Easier maintenance
+- Focus on essential functionality
+- Clearer test intent
+- Reduced test code complexity
 
 ---
 > Source: [robertwhiffin/ai-slide-generator](https://github.com/robertwhiffin/ai-slide-generator) — distributed by [TomeVault](https://tomevault.io).
