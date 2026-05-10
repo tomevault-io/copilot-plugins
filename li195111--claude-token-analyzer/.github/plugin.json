@@ -1,0 +1,9 @@
+{
+  "name": "li195111--claude-token-analyzer",
+  "displayName": "claude-token-analyzer",
+  "description": "Diagnoses token waste in Claude Code sessions. 6 anomaly types, cost audit, trend forecasting. Fully local plugin.",
+  "version": "1.0.0",
+  "author": "li195111",
+  "homepage": "https://github.com/li195111/claude-token-analyzer",
+  "skills": []
+}
