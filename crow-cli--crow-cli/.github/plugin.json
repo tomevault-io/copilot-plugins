@@ -1,0 +1,9 @@
+{
+  "name": "crow-cli--crow-cli",
+  "displayName": "crow-cli",
+  "description": "Minimal MCP based ACP agent",
+  "version": "1.0.0",
+  "author": "crow-cli",
+  "homepage": "https://github.com/crow-cli/crow-cli",
+  "skills": []
+}
