@@ -1,0 +1,44 @@
+{
+  "name": "ori-runtime",
+  "owner": "ori-platform",
+  "repo": "ori-runtime",
+  "description": "An open-source, offline-capable agentic IoT runtime with physical actuation trust. Ori gives physical devices the brain to reason about sensor data via tiered LLM reasoning + graduated authority model for safe autonomous  physical action. Runs on a Pi.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ori-platform/ori-runtime",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T02:36:25Z"
+}
