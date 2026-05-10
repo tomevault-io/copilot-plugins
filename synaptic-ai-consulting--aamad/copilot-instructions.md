@@ -1,66 +1,51 @@
-## adapter-crewai
+## adapter-cursor-sdk
 
-> Runtime adapter guidance for building AAMAD-generated MVPs on CrewAI.
+> Runtime adapter guidance for building AAMAD-generated MVPs on the Cursor SDK.
 
 
-# CrewAI Adapter Rules
+# Cursor SDK Adapter Rules
 
 ## Purpose
-- Define runtime-specific guidance when `AAMAD_TARGET_RUNTIME=crewai`.
-- This adapter governs how implementation personas scaffold and validate the generated MVP runtime.
+- Define runtime-specific guidance when `AAMAD_TARGET_RUNTIME=cursor-sdk`.
+- This adapter governs implementation patterns for generated MVP backends that use Cursor SDK runtime primitives.
 
 ## Setup
-- Install CrewAI and dependencies in the generated backend environment.
-- Required runtime files should include:
-    - `config/agents.yaml`
-    - `config/tasks.yaml`
-    - `crew.py` (or equivalent runtime entrypoint)
-- Load secrets from environment variables and provide names in `.env.example`.
-- Record resolved `llm`, temperature, and max token controls in Audit.
+- Build the runtime with TypeScript and Node.js LTS (pin versions in setup docs for reproducibility).
+- Install and lock Cursor SDK dependencies in the generated backend project.
+- Configure required runtime environment variables (model/provider keys, gateway/base URL values, and runtime flags used by your organization).
+- Record resolved SDK/runtime version, model, temperature, and token or budget controls in artifact Audit sections.
 
 ## Mapping
-- All CrewAI agent and task definitions MUST be externalized to YAML files under a config/ directory (e.g., config/agents.yaml, config/tasks.yaml).
-- Use explicit task context chaining (`Task.context`) for deterministic dependency flow.
-- Define `expected_output` with required headings and target artifact paths.
-- Prefer `allow_delegation=false` unless the SAD justifies delegated manager patterns.
+- Model the generated multi-agent backend around explicit runtime roles (coordinator + specialized agents) and document boundaries in SAD/backend.md.
+- Keep runtime behaviors contract-first: request schema, response schema, and streaming/event envelopes must be defined before implementation.
+- Define tool and subagent surfaces as explicit contracts, including allowed operations and expected return shapes.
 
 ## Execution
-- Prefer sequential process mode for reproducible MVP builds.
-- Use hierarchical process mode only when justified in SAD and documented in Audit.
-- Baseline controls:
-    - `max_iter <= 12` for MVP tasks unless explicitly justified.
-    - `max_execution_time` tuned per epic.
-    - `max_retry_limit >= 2`.
-    - `max_rpm` set at crew level for budget stability.
-- If using function-calling agents, do not switch mode mid-run; record chosen mode in Audit.
-- Use `kickoff_for_each` only for truly independent batch items and document deterministic merge keys.
+- Set explicit limits for iteration/turns, tokens, and execution time; avoid implicit defaults.
+- Define deterministic retry and idempotency strategy for operations that can be replayed.
+- Document cancellation, timeout, and fallback behavior for each runtime-critical path.
+- Use runtime sessions/resume only where justified in SAD, and record retention scope in Audit.
 
 ## Tools
-- Bind only the minimum required tool set per agent/task.
-- Validate YAML-referenced tools before kickoff to avoid runtime binding errors.
-- Keep tool configs JSON-serializable; load secret parameters via env vars.
-- Permit web/API tools only where explicitly justified by persona scope.
+- Apply least-privilege tool policy per runtime role; do not expose broad tool sets by default.
+- Validate MCP server availability/auth before execution; halt with Diagnostic when required servers are unavailable.
+- Keep tool input/output contracts JSON-serializable and versioned when consumed across components.
+- Restrict high-risk tools (network, shell, write-capable operations) to tasks that explicitly require them.
 
 ## Logging
-- Capture rendered system/user prompts in Prompt Trace before execution.
-- Record lifecycle events (task start/stop, retries, guardrail outcomes) in Trace Log.
-- Keep Prompt Trace and Trace Log in project-context artifacts, not inline with generated code.
-- If using step callbacks/event listeners, redact secrets and persist logs under `project-context/2.build/logs`.
+- Capture Prompt Trace and execution diagnostics for runtime actions and tool calls.
+- Persist lifecycle logs (tool invocation results, retries, cancellations, errors) under `project-context/2.build/logs`.
+- Redact secrets and credentials from trace output and artifact logs.
 
 ## Quality Gates
-- Validate required template headings before final artifact write.
-- Use `Task.guardrail` for high-risk outputs (schema limits, content rules, size checks).
-- Require `Task.id` and explicit output path for traceability.
-- For machine-ingested output sections, enforce plain markdown/JSON without code fences.
-- For high-risk outputs, require a human review gate (`human_input=true` or explicit review task).
+- Enforce schema validation for runtime inputs/outputs before accepting results.
+- Validate required artifact headings and output formatting before final write.
+- Require citation and grounding checks for analytical outputs when applicable.
+- Keep artifact-generation behavior deterministic (low temperature unless justified in Audit).
 
 ## Failure Policy
-- On missing runtime prerequisites, unresolved tools, heading mismatches, or guardrail failure: halt and write Diagnostic.
-- On context overflow or budget breach: halt and report remediation notes in the artifact.
-
-## Memory
-- Default memory=False for reproducibility; if memory=True, constrain to current epic, redact secrets, and persist logs to project-context/2.build/logs.
-- If memory=True, set `CREWAI_STORAGE_DIR` to a project-scoped path and record scope/retention in Audit.
+- Halt and write Diagnostic on missing prerequisites, validation failures, unauthorized tools, or unresolved runtime dependencies.
+- On budget/context/time overrun, stop execution and document remediation steps and safe retry procedure.
 
 ---
 > Source: [synaptic-ai-consulting/AAMAD](https://github.com/synaptic-ai-consulting/AAMAD) — distributed by [TomeVault](https://tomevault.io).
