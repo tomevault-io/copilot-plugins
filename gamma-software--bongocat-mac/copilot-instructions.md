@@ -1,75 +1,65 @@
-## testing-guidelines
+## version-management
 
-> Tests are located in [Tests/BongoCatTests/](mdc:Tests/BongoCatTests/) with these key files:
+> version management and release process
 
 
-# Testing Guidelines for BongoCat
+# Version Management Guidelines
 
-## Test Structure
-Tests are located in [Tests/BongoCatTests/](mdc:Tests/BongoCatTests/) with these key files:
-- [BongoCatTests.swift](mdc:Tests/BongoCatTests/BongoCatTests.swift) - Main app tests
-- [CatAnimationControllerTests.swift](mdc:Tests/BongoCatTests/CatAnimationControllerTests.swift) - Animation logic tests
-- [StrokeCounterTests.swift](mdc:Tests/BongoCatTests/StrokeCounterTests.swift) - Input tracking tests
+BongoCat follows [Semantic Versioning](https://semver.org/) with automated version management scripts.
 
-## Testing Principles
-- **Unit tests** for business logic and data processing
-- **Mock system dependencies** (input monitoring, window management)
-- **Test state transitions** and edge cases
-- **Verify settings persistence** and restoration
-- **Test error conditions** and recovery
+## Version Files to Update
+When changing versions, these files need to be synchronized:
+- [Info.plist](mdc:Info.plist) - CFBundleShortVersionString and CFBundleVersion
+- [Package.swift](mdc:Package.swift) - If version is specified there
+- [CHANGELOG.md](mdc:CHANGELOG.md) - Version entries and release dates
 
-## Test Categories
+## Automated Scripts
+Use the provided scripts in [Scripts/](mdc:Scripts/) directory:
 
-### Core Functionality Tests
-- Input detection and paw mapping
-- Animation state transitions
-- Position saving and loading
-- Settings persistence
-- Stroke counting accuracy
+### Version Management
+- **[bump_version.sh](mdc:Scripts/bump_version.sh)** - Automatically updates version numbers across all files
+- **[check_version.sh](mdc:Scripts/check_version.sh)** - Verifies version consistency
+- **[build.sh](mdc:Scripts/build.sh)** - Builds and tests the application
+- **[package_app.sh](mdc:Scripts/package_app.sh)** - Creates distributable DMG
 
-### UI Component Tests
-- View state management
-- Menu interactions
-- Window positioning
-- Scale and rotation calculations
+## Semantic Versioning Rules
 
-### Integration Tests
-- App lifecycle management
-- Multi-monitor support
-- Accessibility permissions
-- System preference changes
+### MAJOR (x.0.0)
+- Breaking changes to existing functionality
+- Incompatible API changes
+- Major architectural changes
 
-## Mock Guidelines
-- Mock **CGEvent** and input monitoring for deterministic tests
-- Mock **UserDefaults** for settings tests
-- Mock **NSWindow** and **NSScreen** for positioning tests
-- Use **dependency injection** to make components testable
+### MINOR (x.y.0)
+- New features that are backwards compatible
+- New menu items or settings
+- New animation types or customization options
+- Performance improvements
 
-## Test Naming Convention
-```swift
-func test_featureName_whenCondition_shouldExpectedResult() {
-    // Test implementation
-}
-```
+### PATCH (x.y.z)
+- Bug fixes that are backwards compatible
+- Small UI improvements
+- Documentation updates
+- Performance optimizations without feature changes
 
-## Running Tests
-- Use the test script: `./Scripts/test.sh`
-- Run individual test files in Xcode
-- Ensure tests pass before committing changes
-- Add tests for new features and bug fixes
+## Release Process
+1. **Complete feature development**
+2. **Run tests**: `./Scripts/test.sh`
+3. **Update changelog**: Move unreleased items to new version section
+4. **Bump version**: `./Scripts/bump_version.sh [major|minor|patch]`
+5. **Verify version consistency**: `./Scripts/check_version.sh`
+6. **Build and test**: `./Scripts/build.sh`
+7. **Package for distribution**: `./Scripts/package_app.sh`
+8. **Commit and tag**: Git commit with version tag
 
-## Performance Testing
-- Test animation performance with high input rates
-- Verify memory usage doesn't grow over time
-- Test startup and shutdown performance
-- Monitor CPU usage during intensive operations
+## Current Version Tracking
+- Check current version in [Info.plist](mdc:Info.plist)
+- Version format: `MAJOR.MINOR.PATCH` (e.g., 1.0.0)
+- Build number format: `YYYY.MM` (e.g., 2025.07)
 
-## Testing Best Practices
-- Keep tests **fast and isolated**
-- Use **descriptive test names** that explain the scenario
-- **Arrange, Act, Assert** pattern for test structure
-- Clean up test state between tests
-- Test both **happy path** and **error scenarios**
+## Version Communication
+- Update [README.md](mdc:README.md) if installation instructions change
+- Ensure [CHANGELOG.md](mdc:CHANGELOG.md) has proper version sections
+- Consider updating GitHub releases with changelog content
 
 ---
 > Source: [Gamma-Software/BongoCat-mac](https://github.com/Gamma-Software/BongoCat-mac) — distributed by [TomeVault](https://tomevault.io).
