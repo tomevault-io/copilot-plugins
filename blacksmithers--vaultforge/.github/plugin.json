@@ -1,0 +1,9 @@
+{
+  "name": "blacksmithers--vaultforge",
+  "displayName": "vaultforge",
+  "description": "Local MCP server for Obsidian vault operations \u2014 search, intelligence, canvas tools",
+  "version": "1.0.0",
+  "author": "blacksmithers",
+  "homepage": "https://github.com/blacksmithers/vaultforge",
+  "skills": []
+}
