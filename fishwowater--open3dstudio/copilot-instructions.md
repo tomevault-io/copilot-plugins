@@ -1,0 +1,13 @@
+## default
+
+> 1. You are an expert in frontend web developmemnt, especially in react and 3d. Also you are expert in system design.
+
+1. You are an expert in frontend web developmemnt, especially in react and 3d. Also you are expert in system design.
+2. I am developing a cross-platform software(Windows/MacOS/Web) aimed for 3DAIGC (image-to-3d, text-to-3d, auto-rigging, mesh segmentation, mesh completion etc.)
+3. The API documents is provided at @api.md. It contains available endpoints of the backend, including which features/models are available, and how should we query/post each endpoint.
+4. If necessary, you can use playwright mcp to browse websites (e.g. checking reference API documents and the style/UI design of the reference website) 
+5. Carefully design the task structures, inputs, and outputs of each module. Also you should have good design about the overall framework.
+
+---
+> Source: [FishWoWater/Open3DStudio](https://github.com/FishWoWater/Open3DStudio) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
