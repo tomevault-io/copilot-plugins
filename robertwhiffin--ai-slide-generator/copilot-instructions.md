@@ -1,67 +1,26 @@
-## cursor-rules
+## databricks-lakebase
 
-> How to add or edit Cursor rules in our project
+> Ensure the service behaves like a singleton. That is, there should only be a single connection offered at once. If the connection doesn't yet exist on a call to query(), it creates the connection. If the connection is expired (that is, the time this connection was made was >59 minutes ago), it refreshes the connection.
 
-# Cursor Rules Location
+Ensure the service behaves like a singleton. That is, there should only be a single connection offered at once. If the connection doesn't yet exist on a call to query(), it creates the connection. If the connection is expired (that is, the time this connection was made was >59 minutes ago), it refreshes the connection.
 
-How to add new cursor rules to the project
+should expose as functional services like: **Lakebase.query()**, where the class is called Lakebase. this function should accept a string query, and return the rows if the query was successful or throw the encountered error if not. Do not manipulate the data afterwards or put it into a dataframe - return it as it is.
 
-1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-    ```
-    .cursor/rules/
-    ├── your-rule-name.mdc
-    ├── another-rule.mdc
-    └── ...
-    ```
+**CRITICAL**: The query() method must ALWAYS call both cursor.fetchall() AND connection.commit() for every query, regardless of query type (SELECT, INSERT, UPDATE, DELETE), because all queries should be RETURNING \*. This ensures:
 
-2. Follow the naming convention:
-    - Use kebab-case for filenames
-    - Always use .mdc extension
-    - Make names descriptive of the rule's purpose
+1. INSERT/UPDATE queries with RETURNING clauses return their results to the frontend (RETURNING \*)
+2. All transactions are properly committed to the database
+3. Consistent behavior across all query types
 
-3. Directory structure:
-    ```
-    PROJECT_ROOT/
-    ├── .cursor/
-    │   └── rules/
-    │       ├── your-rule-name.mdc
-    │       └── ...
-    └── ...
-    ```
+eg
 
-4. Never place rule files:
-    - In the project root
-    - In subdirectories outside .cursor/rules
-    - In any other location
+```python
+with self._connection.cursor() as cursor:
+    cursor.execute(sql)
 
-5. Cursor rules have the following structure:
-
-```
----
-description: Short description of the rule's purpose
-globs: optional/path/pattern/**/*
-alwaysApply: false
----
-# Rule Title
-
-Main content explaining the rule with markdown formatting.
-
-1. Step-by-step instructions
-2. Code examples
-3. Guidelines
-
-Example:
-
-```typescript
-// Good example
-function goodExample() {
-  // Implementation following guidelines
-}
-
-// Bad example
-function badExample() {
-  // Implementation not following guidelines
-}
+    rows = cursor.fetchall()
+    self._connection.commit()
+    return rows
 ```
 
 ---
