@@ -1,7 +1,7 @@
 {
   "name": "gavrix--appium-mcp",
   "displayName": "appium-mcp",
-  "description": "appium-mcp",
+  "description": "MCP server for appium",
   "version": "1.0.0",
   "author": "gavrix",
   "homepage": "https://github.com/gavrix/appium-mcp",
