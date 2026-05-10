@@ -1,0 +1,9 @@
+{
+  "name": "emdash-cms--templates",
+  "displayName": "templates",
+  "description": "Starter templates for EmDash CMS. Auto-synced from emdash-cms/emdash \u2014 open PRs there, not here.",
+  "version": "1.0.0",
+  "author": "emdash-cms",
+  "homepage": "https://github.com/emdash-cms/templates",
+  "skills": []
+}
