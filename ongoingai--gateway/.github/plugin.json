@@ -1,0 +1,9 @@
+{
+  "name": "ongoingai--gateway",
+  "displayName": "gateway",
+  "description": "Headless, OpenAI-compatible AI gateway in Go. Multi-tenant auth, tracing, cost tracking, rate limits, and optional PII redaction. Single binary, self-hosted, audit-ready by design.",
+  "version": "1.0.0",
+  "author": "ongoingai",
+  "homepage": "https://github.com/ongoingai/gateway",
+  "skills": []
+}
