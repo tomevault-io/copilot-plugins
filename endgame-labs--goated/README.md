@@ -7,11 +7,11 @@ Always-on personal AI assistant built around Claude Code and Codex.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Endgame-Labs/goated](https://github.com/Endgame-Labs/goated).
+Original source: `CLAUDE.md` in [Endgame-Labs/goated](https://github.com/Endgame-Labs/goated).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
