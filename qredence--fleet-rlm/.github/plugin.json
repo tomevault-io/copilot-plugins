@@ -1,0 +1,9 @@
+{
+  "name": "qredence--fleet-rlm",
+  "displayName": "fleet-rlm",
+  "description": "DSPy's Recursive Language Model (RLM) with Daytona Sandbox for secure cloud-based code execution",
+  "version": "1.0.0",
+  "author": "Qredence",
+  "homepage": "https://github.com/Qredence/fleet-rlm",
+  "skills": []
+}
