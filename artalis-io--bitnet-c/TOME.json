@@ -1,0 +1,44 @@
+{
+  "name": "bitnet.c",
+  "owner": "artalis-io",
+  "repo": "bitnet.c",
+  "description": "Minimal, zero-dependency LLM inference in pure C11. CPU-first with NEON/AVX2 SIMD. Flash MoE (pread + LRU expert cache). TurboQuant 3-bit KV compression (8.9x less memory per session). 20+ GGUF quant formats. Compiles to WASM.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/artalis-io/bitnet.c",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T09:33:55Z"
+}
