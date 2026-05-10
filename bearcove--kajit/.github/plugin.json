@@ -1,0 +1,9 @@
+{
+  "name": "bearcove--kajit",
+  "displayName": "kajit",
+  "description": "facet-based JIT (de)serialization for Rust",
+  "version": "1.0.0",
+  "author": "bearcove",
+  "homepage": "https://github.com/bearcove/kajit",
+  "skills": []
+}
