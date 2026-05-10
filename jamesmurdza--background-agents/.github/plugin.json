@@ -1,0 +1,9 @@
+{
+  "name": "jamesmurdza--background-agents",
+  "displayName": "background-agents",
+  "description": "Run AI coding agents in isolated sandboxes connected to your GitHub repositories",
+  "version": "1.0.0",
+  "author": "jamesmurdza",
+  "homepage": "https://github.com/jamesmurdza/background-agents",
+  "skills": []
+}
