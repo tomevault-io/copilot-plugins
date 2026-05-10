@@ -1,0 +1,9 @@
+{
+  "name": "stephancill--stupid-wallet",
+  "displayName": "stupid-wallet",
+  "description": "a dead simple ethereum wallet for ios/mac with a safari extension",
+  "version": "1.0.0",
+  "author": "stephancill",
+  "homepage": "https://github.com/stephancill/stupid-wallet",
+  "skills": []
+}
