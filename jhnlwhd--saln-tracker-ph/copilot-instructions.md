@@ -1,86 +1,53 @@
-## mobile-responsive-design
+## project-structure
 
-> Mobile-first responsive design patterns and best practices
+> SALN Tracker Philippines is a React Router 7 application for tracking Statement of Assets, Liabilities, and Net Worth records of Philippine public officials, promoting government transparency.
 
 
-# Mobile-First Responsive Design Rules
+# SALN Tracker Philippines - Project Structure Guide
 
-## Core Principles
-- **Mobile-First**: Always design for mobile, then enhance for larger screens
-- **Readable Text**: Ensure all text is readable on mobile devices (minimum 12px)
-- **Touch-Friendly**: Buttons and interactive elements should be easily tappable
-- **Flexible Layouts**: Use responsive grid systems and flexible containers
+## Overview
+SALN Tracker Philippines is a React Router 7 application for tracking Statement of Assets, Liabilities, and Net Worth records of Philippine public officials, promoting government transparency.
 
-## Responsive Breakpoints
-Use Tailwind's responsive prefixes consistently:
-- **Default**: Mobile (up to 640px)
-- **sm**: Small tablets (640px+)
-- **md**: Tablets (768px+)
-- **lg**: Laptops (1024px+)
-- **xl**: Desktops (1280px+)
+## Core Architecture
+- **Framework**: React Router 7 with TypeScript
+- **Styling**: TailwindCSS with Philippine flag color scheme
+- **Build Tool**: Vite
+- **Deployment**: Netlify
 
-## Text Sizing Patterns
-```tsx
-// Headings - responsive sizing
-<h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">
-<h2 className="text-lg sm:text-xl lg:text-2xl font-semibold">
+## Directory Structure
 
-// Body text - readable on all devices
-<p className="text-sm sm:text-base leading-relaxed">
-
-// Small text - ensure readability
-<p className="text-xs sm:text-sm text-gray-600">
+### App Structure
+```
+app/
+├── components/          # Reusable UI components
+│   ├── ui/             # Base UI components (Button, Card, Badge, Hashtags)
+│   ├── layout/         # Layout components (Header, Footer)
+│   ├── OfficialsGrid.tsx    # Main officials listing component
+│   └── SALNRecordsView.tsx  # SALN records display component
+├── data/               # Data management and utilities
+│   └── officials.ts    # Officials data, SALN types, and helper functions
+├── routes/             # Application routes
+│   ├── home.tsx       # Homepage with officials grid
+│   ├── about.tsx      # About page with platform information
+│   ├── official.$slug.tsx  # Individual official SALN pages
+│   └── $.tsx          # 404 Not Found page
+└── app.css            # Global styles and Tailwind configuration
 ```
 
-## Spacing Patterns
-```tsx
-// Container padding - tighter on mobile
-<div className="px-3 sm:px-4 lg:px-8">
+## Key Files
+- **Main Layout**: [app/root.tsx](mdc:app/root.tsx) - Root layout with favicon configuration
+- **Data Management**: [app/data/officials.ts](mdc:app/data/officials.ts) - Centralized officials data and SALN utilities
+- **Styling**: [tailwind.config.ts](mdc:tailwind.config.ts) - Philippine flag colors and custom design system
+- **Routing**: [app/routes.ts](mdc:app/routes.ts) - Application route definitions
 
-// Section spacing - reduced on mobile
-<div className="space-y-4 sm:space-y-6 lg:space-y-8">
+## Design System
+- **Primary Colors**: Philippine flag colors (Red #F70000, Blue #0038A8, Yellow #FCD116)
+- **Typography**: Bold headings with tight tracking, responsive text sizing
+- **Components**: Clean cards with rounded corners, multi-variant buttons, glass effects
+- **Layout**: Mobile-first responsive design with container-based grid system
 
-// Internal padding - adaptive
-<div className="p-3 sm:p-4 lg:p-6">
-```
-
-## Layout Patterns
-```tsx
-// Responsive grids
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-
-// Flexible containers
-<div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-
-// Conditional visibility
-<div className="hidden sm:block">Desktop content</div>
-<div className="sm:hidden">Mobile content</div>
-```
-
-## Component Sizing
-```tsx
-// Icons and logos - scale down on mobile
-<div className="h-7 w-7 sm:h-8 sm:w-8">
-
-// Cards - full width on mobile, constrained on desktop
-<Card className="w-full max-w-md mx-auto sm:max-w-none">
-```
-
-## Interactive Elements
-```tsx
-// Buttons - appropriate sizing for touch
-<Button className="w-full sm:w-auto text-sm">
-
-// Links - adequate touch targets
-<Link className="block py-2 px-3 sm:inline sm:p-0">
-```
-
-## Best Practices
-1. **Test on real devices** - Simulator testing isn't enough
-2. **Use `leading-tight`** for large text on mobile to prevent line height issues
-3. **Implement `truncate`** for long text that might overflow
-4. **Use `flex-shrink-0`** for elements that shouldn't shrink
-5. **Apply `min-w-0`** to flex containers to allow text truncation
+## Campaign Integration
+All pages include transparency campaign hashtags: **#OpenSALN #PublicSALNNow**
 
 ---
 > Source: [JHNLWHD/saln-tracker-ph](https://github.com/JHNLWHD/saln-tracker-ph) — distributed by [TomeVault](https://tomevault.io).
