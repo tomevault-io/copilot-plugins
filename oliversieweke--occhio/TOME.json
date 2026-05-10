@@ -4,7 +4,7 @@
   "repo": "occhio",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OliverSieweke/occhio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T10:49:36Z"
+  "distributed_at": "2026-05-10T21:45:24Z"
 }
