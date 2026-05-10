@@ -1,0 +1,9 @@
+{
+  "name": "steipete--tachikoma",
+  "displayName": "Tachikoma",
+  "description": "One interface, every AI model. A Swift SDK to interface with AI providers.",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/Tachikoma",
+  "skills": []
+}
