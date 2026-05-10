@@ -1,0 +1,9 @@
+{
+  "name": "tonicai--textual-mcp",
+  "displayName": "textual-mcp",
+  "description": "Textual MCP Server",
+  "version": "1.0.0",
+  "author": "TonicAI",
+  "homepage": "https://github.com/TonicAI/textual-mcp",
+  "skills": []
+}
