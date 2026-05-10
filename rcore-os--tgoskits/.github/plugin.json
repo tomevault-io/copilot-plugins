@@ -1,0 +1,9 @@
+{
+  "name": "rcore-os--tgoskits",
+  "displayName": "tgoskits",
+  "description": "An integrated repository for operating system and virtualization development",
+  "version": "1.0.0",
+  "author": "rcore-os",
+  "homepage": "https://github.com/rcore-os/tgoskits",
+  "skills": []
+}
