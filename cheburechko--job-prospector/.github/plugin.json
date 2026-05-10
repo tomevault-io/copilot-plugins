@@ -1,0 +1,9 @@
+{
+  "name": "cheburechko--job-prospector",
+  "displayName": "job-prospector",
+  "description": "The service for scraping, aggregating and classifying jobs from tech companies websites",
+  "version": "1.0.0",
+  "author": "cheburechko",
+  "homepage": "https://github.com/cheburechko/job-prospector",
+  "skills": []
+}
