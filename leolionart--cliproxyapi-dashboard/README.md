@@ -7,11 +7,11 @@ The reporting system integrated into the CLIProxyAPI allows for monitoring usage
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [leolionart/CLIProxyAPI-Dashboard](https://github.com/leolionart/CLIProxyAPI-Dashboard).
+Original source: `CLAUDE.md` in [leolionart/CLIProxyAPI-Dashboard](https://github.com/leolionart/CLIProxyAPI-Dashboard).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
