@@ -7,11 +7,11 @@ Website for IS 4010
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bgreenwell/is4010-website](https://github.com/bgreenwell/is4010-website).
+Original source: `CLAUDE.md` in [bgreenwell/is4010-website](https://github.com/bgreenwell/is4010-website).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
