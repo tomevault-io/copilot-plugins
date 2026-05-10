@@ -2,14 +2,16 @@
 
 > Source: [masterix21/laravel-licensing](https://github.com/masterix21/laravel-licensing) — distributed by [TomeVault](https://tomevault.io)
 
+A licensing package for Laravel with offline verification, seat management, cryptographic key rotation, and multi-product support.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [masterix21/laravel-licensing](https://github.com/masterix21/laravel-licensing).
+Original source: `AGENTS.md` in [masterix21/laravel-licensing](https://github.com/masterix21/laravel-licensing).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
