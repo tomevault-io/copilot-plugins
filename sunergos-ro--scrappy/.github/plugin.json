@@ -1,0 +1,9 @@
+{
+  "name": "sunergos-ro--scrappy",
+  "displayName": "scrappy",
+  "description": "A tiny browser scraper written in Go",
+  "version": "1.0.0",
+  "author": "sunergos-ro",
+  "homepage": "https://github.com/sunergos-ro/scrappy",
+  "skills": []
+}
