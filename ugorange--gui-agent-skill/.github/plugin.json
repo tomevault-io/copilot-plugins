@@ -1,0 +1,9 @@
+{
+  "name": "ugorange--gui-agent-skill",
+  "displayName": "gui_agent_skill",
+  "description": "gui_agent_skill",
+  "version": "1.0.0",
+  "author": "UgOrange",
+  "homepage": "https://github.com/UgOrange/gui_agent_skill",
+  "skills": []
+}
