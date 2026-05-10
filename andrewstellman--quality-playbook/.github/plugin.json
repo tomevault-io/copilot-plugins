@@ -1,0 +1,9 @@
+{
+  "name": "andrewstellman--quality-playbook",
+  "displayName": "quality-playbook",
+  "description": "The Quality Playbook is an open-source skill that turns AI coding agents into rigorous quality engineers. Point it at your code, in any language. Feed it whatever docs you have: READMEs, GitHub issues",
+  "version": "1.0.0",
+  "author": "andrewstellman",
+  "homepage": "https://github.com/andrewstellman/quality-playbook",
+  "skills": []
+}
