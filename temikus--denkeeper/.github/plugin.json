@@ -1,0 +1,9 @@
+{
+  "name": "temikus--denkeeper",
+  "displayName": "denkeeper",
+  "description": "A single-binary personal AI agent designed for people who want full control over their AI assistant. ",
+  "version": "1.0.0",
+  "author": "Temikus",
+  "homepage": "https://github.com/Temikus/denkeeper",
+  "skills": []
+}
