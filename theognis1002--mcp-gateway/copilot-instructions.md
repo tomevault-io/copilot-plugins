@@ -1,0 +1,14 @@
+## main
+
+> 1. Refer to `ARCHITECTURE.md` for project structure. Put business logic in proper files according to this file. Update file with any necessary changes.
+
+1. Refer to `ARCHITECTURE.md` for project structure. Put business logic in proper files according to this file. Update file with any necessary changes.
+1. Refer to `DATABASE_ERD.md` for database structure. Update file with any necessary changes.
+1. This is a SINGLE TENANT application since it is for open source purposes.
+1. Do NOT add too many comments for each function - have 1-2 comments per function at most unless the function is very complicated.
+1. Use `bun` for frontend app
+1. Types should go into `apps/backend/internal/types` directory
+
+---
+> Source: [theognis1002/mcp-gateway](https://github.com/theognis1002/mcp-gateway) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
