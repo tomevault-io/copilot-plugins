@@ -4,7 +4,7 @@
   "repo": "roon-knob",
   "description": "Custom firmware to turn a Waveshare ESP32-S3 Knob into a dedicated Hifi controller",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/muness/roon-knob",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T02:27:37Z"
+  "distributed_at": "2026-05-10T00:40:29Z"
 }
