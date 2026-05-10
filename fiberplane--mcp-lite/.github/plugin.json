@@ -1,0 +1,9 @@
+{
+  "name": "fiberplane--mcp-lite",
+  "displayName": "mcp-lite",
+  "description": "Lightweight, composable MCP framework for TypeScript",
+  "version": "1.0.0",
+  "author": "fiberplane",
+  "homepage": "https://github.com/fiberplane/mcp-lite",
+  "skills": []
+}
