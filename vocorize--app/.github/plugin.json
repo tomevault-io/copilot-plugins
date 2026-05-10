@@ -1,9 +1,9 @@
 {
   "name": "vocorize--app",
   "displayName": "app",
-  "description": "app",
+  "description": "Open Source Voice Dictation for macOS",
   "version": "1.0.0",
   "author": "vocorize",
-  "homepage": "https://tomevault.io/claim/vocorize",
+  "homepage": "https://github.com/vocorize/app",
   "skills": []
 }
