@@ -1,35 +1,19 @@
-## 00-project-principles
+## 01-file-creation-protocol
 
-> Project-wide engineering principles for this repo
+> Strict protocol for creating new files to avoid duplication and drift
 
 
-### **Step-by-step delivery**
-- **Backend first**, then frontend once the backend compiles, runs, and basic checks are green.
-- After any backend edit: build + run smoke checks before moving on.
+### **Before creating any new file**
+- Run an explicit directory listing of the target folder.
+- Search the entire repo with fuzzy/name and content search for similar filenames and responsibilities.
+- Check parent/related feature folders and existing imports/usages.
+- Prefer editing existing files over adding new ones.
+- If still unsure, ask for explicit approval before creating the file.
 
-### **Never over-engineer**
-- Prefer the simplest viable approach. If complexity is necessary, call it out and get approval first.
-
-### **Minimal dependencies**
-- Avoid adding deps unless justified. If a new dep is truly needed, pause and request confirmation first.
-
-### **Critical file creation protocol**
-- Before creating any file: list target folder, search repo for similar names, check related folders/imports, and prefer editing existing files.
-- Ask for explicit confirmation when in doubt.
-
-### **Code style**
-- Naming: descriptive, full words, clear intent. No 1–2 letter identifiers.
-- Control flow: early returns, handle edge/error cases first, shallow nesting.
-- Errors: do not swallow exceptions; return meaningful responses.
-- Comments: explain “why”, not “how”. Keep code self-explanatory.
-- Formatting: match local style; avoid large unrelated refactors.
-
-### **Testing/build hygiene**
-- After edits: run build/lint/tests where applicable. Keep CI green.
-
-### **Vertical-slice architecture**
-- Backend and frontend both follow vertical slices: group related UI, data hooks, types, and API calls by feature, not by layer.
-- Keep orchestration thin at the edges (controllers/pages); put logic where it belongs (handlers/hooks/services).
+### **After creating a file**
+- Add only focused content; avoid broad refactors.
+- Ensure build passes; lint if applicable.
+- Add tests/docs where meaningful.
 
 ---
 > Source: [WilliamAvHolmberg/vibecodementor](https://github.com/WilliamAvHolmberg/vibecodementor) — distributed by [TomeVault](https://tomevault.io).
