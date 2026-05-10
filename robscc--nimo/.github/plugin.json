@@ -1,0 +1,9 @@
+{
+  "name": "robscc--nimo",
+  "displayName": "nimo",
+  "description": "Agent Nimo for selfagent use",
+  "version": "1.0.0",
+  "author": "robscc",
+  "homepage": "https://github.com/robscc/nimo",
+  "skills": []
+}
