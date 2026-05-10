@@ -1,0 +1,37 @@
+## img2md-vlm-ocr
+
+> - If there is an explicit user instruction, execute it without clarifications.
+
+# Coding rules
+
+- If there is an explicit user instruction, execute it without clarifications.
+- If something needs to be created for user convenience (e.g., .env, documentation, auto-start), do it without extra questions.
+- All code comments must be in English.
+- The last line in new files must be empty.
+
+# Project Coding Rules
+
+## File Endings
+
+- Every new file **must** have a single empty line at the end (POSIX compatibility).
+
+## Comments
+
+- All comments in code **must** be in English, unless the user explicitly requests otherwise.
+
+## Project Structure
+
+- Follow this structure:
+    - app/
+        - controllers/ # Controllers: business logic, request handling
+        - services/ # Services: external API/model logic
+        - schemas/ # Pydantic schemas for request/response
+        - utils/ # Utility functions (e.g., image processing, padding, etc.)
+        - settings.py # Project and model settings (Pydantic)
+        - main.py # FastAPI entry point
+    - requirements.txt # Dependencies
+    - README.md # Project documentation
+
+---
+> Source: [EvilFreelancer/img2md-vlm-ocr](https://github.com/EvilFreelancer/img2md-vlm-ocr) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
