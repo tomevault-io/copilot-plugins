@@ -1,0 +1,9 @@
+{
+  "name": "get-convex--presence",
+  "displayName": "presence",
+  "description": "Convex presence component",
+  "version": "1.0.0",
+  "author": "get-convex",
+  "homepage": "https://github.com/get-convex/presence",
+  "skills": []
+}
