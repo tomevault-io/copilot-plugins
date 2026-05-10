@@ -1,0 +1,9 @@
+{
+  "name": "lerianstudio--matcher",
+  "displayName": "matcher",
+  "description": "Open-source transaction reconciliation engine. Automates multi-source matching with configurable rules, confidence scoring, fee verification, exception workflows, and immutable audit trails. Multi-ten",
+  "version": "1.0.0",
+  "author": "LerianStudio",
+  "homepage": "https://github.com/LerianStudio/matcher",
+  "skills": []
+}
