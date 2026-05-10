@@ -1,0 +1,9 @@
+{
+  "name": "hurttlocker--cortex",
+  "displayName": "cortex",
+  "description": "Import-first, zero-dependency, observable memory layer for AI agents",
+  "version": "1.0.0",
+  "author": "hurttlocker",
+  "homepage": "https://github.com/hurttlocker/cortex",
+  "skills": []
+}
