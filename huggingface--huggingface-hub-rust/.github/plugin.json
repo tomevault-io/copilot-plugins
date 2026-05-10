@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--huggingface-hub-rust",
+  "displayName": "huggingface_hub_rust",
+  "description": "Comprehensive Hugging Face Hub Library for rust",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/huggingface_hub_rust",
+  "skills": []
+}
