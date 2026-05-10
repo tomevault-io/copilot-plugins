@@ -1,0 +1,9 @@
+{
+  "name": "mksg-mugunthkumar--ha-chameleon",
+  "displayName": "ha-chameleon",
+  "description": " A Home Assistant custom integration that extracts colors from images and applies them to your RGB lights. Create ambient lighting scenes from photos, artwork, or movie posters with automatic color pa",
+  "version": "1.0.0",
+  "author": "MKSG-MugunthKumar",
+  "homepage": "https://github.com/MKSG-MugunthKumar/ha-chameleon",
+  "skills": []
+}
