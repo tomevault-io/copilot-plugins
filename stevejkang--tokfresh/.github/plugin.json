@@ -1,0 +1,9 @@
+{
+  "name": "stevejkang--tokfresh",
+  "displayName": "tokfresh",
+  "description": "Automate your Claude token reset timing for maximum efficiency. All credentials and scripts run on your own Cloudflare account. www.tokfresh.com",
+  "version": "1.0.0",
+  "author": "stevejkang",
+  "homepage": "https://github.com/stevejkang/tokfresh",
+  "skills": []
+}
