@@ -1,6 +1,8 @@
-# cyberfabric-core — distributed by TomeVault
+# cyberfabric-core
 
-> Originally from [cyberfabric/cyberfabric-core](https://github.com/cyberfabric/cyberfabric-core). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [cyberfabric/cyberfabric-core](https://github.com/cyberfabric/cyberfabric-core) — distributed by [TomeVault](https://tomevault.io)
+
+All-in-one open-source platform for enterprise-grade multi-tenant and multi-tier SaaS Services development
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [cyberfabric/cyberfabric-core](https:/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/cyberfabric)
+From [cyberfabric/cyberfabric-core](https://github.com/cyberfabric/cyberfabric-core) — a repo with 67+ stars on GitHub.
 
 ---
 
