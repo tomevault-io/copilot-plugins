@@ -1,80 +1,160 @@
-## general-rules
+## multilanguage-rules
 
-> Her dosya amacına göre belirlenen klasörde bulunmalıdır. Bu, projenin öngörülebilir ve düzenli kalmasını sağlar.
+> Proje zaten tam fonksiyonel i18next implementasyonuna sahip:
 
+# React Native CLI Boilerplate - i18n Çeviri Kuralları
 
-# React Native CLI Boilerplate - Proje Kuralları
+## Mevcut i18n Yapısı (i18next)
+Proje zaten tam fonksiyonel i18next implementasyonuna sahip:
 
-## Rule 1: The Sacred Folder Structure (Separation of Concerns)
-Her dosya amacına göre belirlenen klasörde bulunmalıdır. Bu, projenin öngörülebilir ve düzenli kalmasını sağlar.
-
-**Mevcut Proje Yapısı:**
 ```
 src/
-├── assets/          # Resimler, fontlar, animasyonlar (logo.png, lottie/)
-├── components/      # Yeniden kullanılabilir UI bileşenleri (I18nProvider, OneSignalProvider, vb.)
-├── config/          # Yapılandırma dosyaları (i18n.ts, onesignal.ts, storage.ts)
-├── hooks/           # Özel React hook'ları (useI18n.ts, useOneSignal.ts, useStorage.ts)
-├── locales/         # Çeviri dosyaları (tr.json, en.json)
-├── navigation/      # React Navigation mantığı (RootNavigator.tsx)
-├── onboarding/      # Onboarding ekranları (AgeScreen.tsx, GenderScreen.tsx)
-├── screens/         # Ana ekran bileşenleri (FirstScreen/)
-└── utils/           # Yardımcı fonksiyonlar (storage.ts)
+├── config/
+│   └── i18n.ts              # i18next yapılandırması
+├── hooks/
+│   └── useI18n.ts           # Çeviri hook'u (formatters dahil)
+├── components/
+│   └── I18nProvider.tsx     # i18n Provider wrapper
+└── locales/
+    ├── tr.json              # Türkçe çeviriler (varsayılan)
+    └── en.json              # İngilizce çeviriler (fallback)
 ```
 
-**Gelecekte Eklenecek Klasörler:**
-```
-src/
-├── api/             # API istemcileri ve çağrıları (ihtiyaç halinde)
-├── constants/       # Uygulama genelindeki sabitler (ihtiyaç halinde)
-├── store/           # Redux Toolkit durum yönetimi (ihtiyaç halinde)
-├── theme/           # Stil ve tema (renkler, fontlar, boşluklar)
-└── types/           # Global TypeScript tipleri
-```
+## 1. Translation File Structure (Mevcut Yapı)
+- Çeviriler `src/locales/` klasöründe JSON formatında saklanır
+- **tr.json:** Türkçe çeviriler (varsayılan dil)
+- **en.json:** İngilizce çeviriler (fallback dil)
+- **Nested structure kullanılır:** `common.loading`, `auth.loginSuccess`
 
-## Rule 2: Technology Stack (Mevcut)
-**Zaten Kurulu Teknolojiler:**
-- **Navigation:** React Navigation v7 (native-stack, stack)
-- **Styling:** styled-components v6
-- **Internationalization:** i18next + react-i18next
-- **Animations:** lottie-react-native
-- **Icons/Graphics:** react-native-svg
-- **TypeScript:** Full type safety
-
-## Rule 3: Absolute Imports (Zaten Yapılandırılmış)
-tsconfig.json ve babel.config.js zaten doğru şekilde yapılandırılmış:
-- `@/*` → `src/*`
-- `@assets/*` → `src/assets/*`
-- `@components/*` → `src/components/*`
-- `@config/*` → `src/config/*`
-- `@hooks/*` → `src/hooks/*`
-- `@navigation/*` → `src/navigation/*`
-- `@screens/*` → `src/screens/*`
-- `@utils/*` → `src/utils/*`
-
-## Rule 4: Modular Navigation (Zaten Uygulanmış)
-App.tsx dosyası temiz tutulmuş:
+## 2. useI18n Hook Usage (Mevcut)
 ```typescript
-<I18nProvider>
-  <NavigationContainer>
-    <RootNavigator />
-  </NavigationContainer>
-</I18nProvider>
+import { useI18n } from '@hooks/useI18n';
+
+const MyComponent = () => {
+  const { 
+    t,                    // Çeviri fonksiyonu
+    changeLanguage,       // Dil değiştirme
+    getCurrentLanguage,   // Mevcut dil
+    formatDate,          // Tarih formatlama (tr-TR/en-US)
+    formatNumber,        // Sayı formatlama  
+    formatCurrency,      // Para formatlama
+    currentLanguage,     // Mevcut dil (computed)
+    availableLanguages   // Mevcut diller (computed)
+  } = useI18n();
+
+  return <Text>{t('common.loading')}</Text>;
+};
 ```
 
-## Rule 5: Consistent Styling
-styled-components zaten projeye entegre edilmiş ve kullanılıyor.
-StyleSheet.create yerine styled-components tercih edilecek.
+## 3. Mevcut Key Structure'ı Koruyun
+Proje zaten iyi organize edilmiş nested structure kullanıyor:
 
-## Rule 6: State Management Strategy
-**Mevcut:** Local state + React hooks
-**Gelecek:** Gerektiğinde Redux Toolkit eklenecek (Context API global state için yasak)
+```json
+{
+  "common": { ... },          // Genel UI elementleri
+  "navigation": { ... },      // Navigasyon metinleri  
+  "auth": { ... },           // Kimlik doğrulama
+  "profile": { ... },        // Profil yönetimi
+  "settings": { ... },       // Ayarlar
+  "notifications": { ... },  // Bildirimler
+  "errors": { ... },         // Hata mesajları
+  "validation": { ... },     // Form validasyonları
+  "onboarding": { ... },     // Onboarding süreçleri
+  "gender": { ... },         // Cinsiyet seçimi
+  "age": { ... },           // Yaş seçimi
+  "onesignal": { ... }      // OneSignal entegrasyonu
+}
+```
 
-## Rule 7: Clean Code Discipline
-- **Strict Typing:** `any` tipinden kaçın
-- **Descriptive Naming:** Anlamlı isimler kullan
-- **Component Architecture:** Functional components kullan
-- **Props Interface:** Her component için interface tanımla
+## 4. Translation Key Usage (Mevcut Pattern)
+```typescript
+// Nested object structure kullanın
+t('common.loading')              // "Yükleniyor..."
+t('auth.loginSuccess')           // "Giriş başarılı"
+t('gender.gender_screen_title')  // "Cinsiyetinizi seçin"
+t('age.age_screen_title_part1')  // "Kaç "
+```
+
+## 5. Interpolation (i18next Style)
+```typescript
+// JSON'da placeholder format:
+{
+  "welcome_message": "Hoş geldin {{name}}!",
+  "selected_age": "Seçilen yaş: {{age}}"
+}
+
+// Component'te kullanım:
+t('welcome_message', { name: userName })
+t('age.selected_age', { age: selectedAge })
+```
+
+## 6. Language Switching Implementation
+```typescript
+const LanguageSwitcher = () => {
+  const { changeLanguage, currentLanguage } = useI18n();
+  
+  return (
+    <View>
+      <TouchableOpacity onPress={() => changeLanguage('tr')}>
+        <Text>Türkçe</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => changeLanguage('en')}>
+        <Text>English</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+```
+
+## 7. Advanced Features (Mevcut Hook'ta)
+```typescript
+const { formatDate, formatNumber, formatCurrency } = useI18n();
+
+// Locale-aware formatting
+formatDate(new Date(), { year: 'numeric', month: 'long' });
+formatNumber(1234.56); 
+formatCurrency(1000, 'TRY');
+```
+
+## 8. File Synchronization Rules
+Her yeni key MUTLAKA her iki dil dosyasında olmalı:
+1. tr.json'a ekle
+2. en.json'a ekle  
+3. Her iki dosyada da aynı nested path'te olduğunu doğrula
+
+## 9. Development Workflow
+Yeni çeviri eklerken adımlar:
+1. **Key İsimlendirme:** Mevcut pattern'e uygun isim belirle
+2. **Section Belirleme:** Hangi section'a ait olduğunu belirle
+3. **tr.json Güncelleme:** Türkçe çeviriyi ekle
+4. **en.json Güncelleme:** İngilizce çeviriyi ekle
+5. **Component Update:** useI18n hook'unu component'te kullan
+6. **Test:** Her iki dilde de test et
+
+## 10. Code Review Checklist
+- [ ] Yeni key'ler her iki dil dosyasında mevcut
+- [ ] Nested structure doğru şekilde organize
+- [ ] Interpolation placeholder'ları tutarlı
+- [ ] Component'lerde hardcode string yok
+- [ ] UI layout her iki dilde de çalışıyor
+
+## 11. Example Implementation
+```typescript
+// Correct usage with current structure
+import { useI18n } from '@hooks/useI18n';
+
+const MyComponent = () => {
+  const { t } = useI18n();
+  
+  return (
+    <View>
+      <Text>{t('common.loading')}</Text>
+      <Text>{t('errors.networkError')}</Text>
+      <Text>{t('auth.welcome')}</Text>
+    </View>
+  );
+};
+``` 
 
 ---
 > Source: [hasaneyldrm/reactnativecliboilerplate](https://github.com/hasaneyldrm/reactnativecliboilerplate) — distributed by [TomeVault](https://tomevault.io).
