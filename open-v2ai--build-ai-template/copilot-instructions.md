@@ -1,153 +1,120 @@
-## i18n-styling
+## markdown-rules
 
-> 国际化和样式开发规范和 Tailwind CSS/Shadcn UI 最佳实践
+> - **兼容性**: 支持各种 Markdown 渲染器。
 
 
-# 国际化和样式开发规范
+# Markdown 编写规范
 
-## 技术栈
+## 核心原则
 
-- **样式框架**: Tailwind CSS 3.x
-- **组件库**: Shadcn UI
-- **国际化**: next-intl
-- **图标**: Lucide React
-- **主题**: next-themes
+- **一致性**: 统一的格式和风格。
+- **可读性**: 清晰的结构和排版。
+- **可维护性**: 易于编辑和更新。
+- **兼容性**: 支持各种 Markdown 渲染器。
 
-## 国际化 (i18n) 规范
+## 自动化工具
 
-### 翻译文件结构
+项目已集成 `Markdownlint` 和 `Prettier` 以保证规范的执行。
 
-翻译文件位于 `web/app/messages/` (`zh.json`, `en.json`)。使用命名空间来组织翻译键。
+- **实时检查**: VS Code 扩展 `davidanson.vscode-markdownlint` 提供实时错误提示。
+- **自动格式化**: 保存时将自动格式化 Markdown 文件。
+- **命令行工具**:
+  - `pnpm run lint:md`: 检查所有 Markdown 文件。
+  - `pnpm run lint:md:fix`: 自动修复可修复的问题。
 
-```json
-// zh.json
-{
-  "common": {
-    "submit": "提交",
-    "cancel": "取消",
-    "loading": "加载中..."
-  },
-  "auth": {
-    "login": "登录",
-    "logout": "退出登录"
-  },
-  "error": {
-    "networkError": "网络错误，请稍后重试",
-    "unauthorized": "未授权，请先登录"
-  }
+## 关键格式规范
+
+### 标题
+
+- **层级**: 每个文档只应有一个一级标题 (`# H1`)。
+- **格式**: 必须在 `#` 后跟一个空格，且标题前后应有空行。
+- **内容**: 标题应简洁明了，不以标点符号结尾。
+
+```markdown
+# 文档主标题
+
+## 章节标题
+
+### 子章节标题
+```
+
+### 列表
+
+- **无序列表**: 使用 `-`，并保持 `2` 个空格的缩进。
+- **有序列表**: 使用 `1.`、`2.` 的格式。
+- **任务列表**: 使用 `- [ ]` (未完成) 和 `- [x]` (已完成)。
+
+```markdown
+- 无序列表项
+  - 嵌套项
+
+1. 有序列表项
+   1. 嵌套项
+
+- [x] 已完成任务
+```
+
+### 代码
+
+- **行内代码**: 使用反引号 `` ` `` 包裹代码片段，如 `const a = 1;`。
+- **代码块**: 使用三个反引号 ``` 并**必须**指定语言标识符。
+
+````markdown
+```typescript
+function greet(): string {
+  return 'Hello, World!'
 }
 ```
+````
 
-- **命名规范**: 使用 `模块.功能.具体项` 的方式，如 `auth.login.title`。避免超过三层嵌套。
+### 链接和图片
 
-### 在组件中使用翻译
+- **链接**: 优先使用 `./` 或 `../` 的相对路径。
+- **图片**: 必须提供有意义的 `alt` 文本。
 
-```typescript
-'use client';
-import { useTranslations } from 'next-intl';
+```markdown
+[贡献指南](./CONTRIBUTING.md)
 
-export default function LoginComponent() {
-  const t = useTranslations('auth');
-  const tCommon = useTranslations('common');
-
-  return (
-    <form>
-      <label>{t('email')}</label>
-      <button type="submit">{tCommon('submit')}</button>
-    </form>
-  );
-}
+![Logo Alt Text](./images/logo.png)
 ```
 
-对于服务端组件 (RSC)，使用 `getTranslations`。
+### 表格
 
-## Tailwind CSS 规范
+- **格式**: 表头和内容应对齐，以增强可读性。
 
-### 类名组织
-
-使用 `cn()` 工具函数，并遵循一致的顺序以提高可读性：
-
-1. **布局** (position, display)
-2. **盒模型** (width, height, margin, padding, border)
-3. **背景**
-4. **文字** (font-size, color)
-5. **其他**
-6. **过渡与动画**
-7. **响应式** (md:, lg:)
-8. **状态** (hover:, focus:, disabled:)
-
-```typescript
-<div className={cn(
-  "flex w-full p-4 bg-white dark:bg-gray-900",
-  "text-lg text-gray-900 dark:text-white",
-  "transition-colors hover:bg-gray-100",
-  isActive && "border-blue-500"
-)} />
+```markdown
+| 参数   | 类型   | 说明           |
+| ------ | ------ | -------------- |
+| `id`   | number | 用户唯一标识符 |
+| `name` | string | 用户名         |
 ```
 
-### 响应式与暗黑模式
+### 引用和强调
 
-- **移动优先**: 默认样式适用于移动端，使用 `md:`, `lg:` 等前缀扩展到大屏幕。
-- **暗黑模式**: 使用 `dark:` 前缀为暗黑模式提供特定样式。
+- **引用**: 使用 `>`，并在符号后跟一个空格。
+- **强调**:
+  - **粗体**: `**粗体**`
+  - _斜体_: `*斜体*`
+  - ~~删除线~~: `~~删除线~~`
 
-```typescript
-<div className="bg-white text-black dark:bg-gray-800 dark:text-white" />
-```
+## 特殊内容
 
-## Shadcn UI 组件
+- **提示/警告**: 使用块引用和 emoji 来突出显示。
 
-- **安装**: 使用 `npx shadcn-ui@latest add <component-name>` 添加新组件。
-- **使用**: 从 `@/components/ui/...` 导入组件。通过 `variant`, `size` 等 props 进行定制，并通过 `className` 覆盖样式。
+  > ⚠️ **警告**: 此操作不可逆转。
+  > 💡 **提示**: 这是一个有用的提示。
 
-```typescript
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+- **快捷键**: 使用 `<kbd>` 标签。
+  > <kbd>Ctrl</kbd> + <kbd>C</kbd>
 
-<Button variant="destructive" size="sm" className="w-full">
-  删除
-</Button>
+## 文档审查清单
 
-<Card>
-  <CardHeader><CardTitle>标题</CardTitle></CardHeader>
-  <CardContent><p>内容...</p></CardContent>
-</Card>
-```
-
-## 主题系统 (`next-themes`)
-
-- **Provider**: `ThemeProvider` 在 `layout.tsx` 中配置，提供全局主题支持。
-- **切换**: `ThemeToggleButton` 组件使用 `useTheme` Hook 来切换亮色/暗色/系统主题。
-
-## 图标 (Lucide React)
-
-从 `lucide-react` 导入图标，并通过 `className` 控制大小和颜色。
-
-```typescript
-import { User, Loader2 } from 'lucide-react';
-
-<Button>
-  <User className="mr-2 h-4 w-4" />
-  登录
-</Button>
-
-// 加载状态
-<Loader2 className="h-4 w-4 animate-spin" />
-```
-
-## 最佳实践总结
-
-- **国际化**:
-  - 保持翻译键结构清晰，及时更新所有语言文件。
-- **样式**:
-  - 遵循移动优先和一致的类名顺序。
-  - 充分利用 Tailwind CSS，避免自定义 CSS 和内联样式。
-- **组件**:
-  - 优先使用并扩展 Shadcn UI 组件。
-  - 保持组件 API 简洁，支持样式覆盖。
-- **可访问性 (A11y)**:
-  - 为交互元素添加 `aria-*` 标签。
-  - 确保应用支持键盘导航和焦点状态。
-  - 保证颜色有足够的对比度。
+- [ ] 标题层级和格式正确。
+- [ ] 列表格式统一且缩进正确。
+- [ ] 所有代码块都指定了语言。
+- [ ] 链接和图片路径有效，图片有 `alt` 文本。
+- [ ] 表格格式清晰。
+- [ ] 文档结构逻辑清晰，易于导航。
 
 ---
 > Source: [open-v2ai/build-ai-template](https://github.com/open-v2ai/build-ai-template) — distributed by [TomeVault](https://tomevault.io).
