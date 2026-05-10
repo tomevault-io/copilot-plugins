@@ -7,11 +7,11 @@ A template repo for end to end Neo4j development using MCP
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [neo4j-field/neo4j-mcp-workspace-template](https://github.com/neo4j-field/neo4j-mcp-workspace-template).
+Original source: `CLAUDE.md` in [neo4j-field/neo4j-mcp-workspace-template](https://github.com/neo4j-field/neo4j-mcp-workspace-template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
