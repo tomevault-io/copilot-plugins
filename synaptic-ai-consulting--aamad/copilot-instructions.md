@@ -1,0 +1,48 @@
+## aamad-core
+
+> Core, framework-agnostic rules and contracts for AAMAD; applies to all personas, tasks, and artifacts across the repository.
+
+
+## Purpose
+- Define universal principles, contracts, and invariants for AI-assisted, multi-agent development, independent of any specific execution framework.
+
+## Principles
+- **Single responsibility personas:** each persona owns a defined epic with explicit inputs, outputs, and prohibited actions.
+- **Context-first engineering:** all outputs must trace to PRD, SAD, SFS, or user stories; do not invent requirements.
+- **Reproducibility and provenance:** every artifact includes Sources, Assumptions, and Open Questions sections.
+- **Deterministic execution:** actions are idempotent; perform temp-write-then-atomic-replace for file outputs.
+- **Minimal viable architecture first:** implement MVP scope before expanding; document deferrals with rationale.
+
+## Agent Contract
+- Personas declare: id, role, instructions, actions, inputs, outputs, prohibited-actions. Agents MUST read only declared inputs and write only to declared outputs.
+- On missing/ambiguous inputs, write Assumptions and Open Questions; do not fabricate content.
+- All actions must append an Audit block with timestamp, persona id, and action name to the artifact.
+
+## Task Contract
+- Each task defines: description, expected_output (exact target file path and required headings), acceptance_criteria, traceability to PRD/SAD/SFS anchors.
+- Tasks include a self-check verifying required headings; if missing, write Diagnostic and halt.
+
+## Tooling Rules
+- Use only approved file and validation tools provided by the active runtime adapter for the generated application; no direct shell or network unless explicitly authorized by persona.
+- Log tool usage in the artifact, including model, temperature, max_tokens, and any material runtime controls impacting determinism.
+
+## State and Output
+- Outputs follow template headings exactly (.cursor/templates). Do not wrap machine-parsed blocks in code fences if templates require raw content.
+- Artifacts end with sections: Sources, Assumptions, Open Questions, Audit.
+- Prompt Trace must be captured for high-risk or production-facing outputs; if omitted, the Audit must state why.
+
+## Adapter Abstraction
+- AAMAD's IDE-time crew workflow is adapter-neutral. Personas and phase sequencing are governed by rules and persona contracts, not by runtime adapters.
+- The active runtime adapter (selected via `AAMAD_TARGET_RUNTIME`) defines conventions for the generated multi-agent application in Phase 2: runtime setup, agent declaration style, tool/MCP binding, observability, and execution controls.
+- Runtime adapters do not orchestrate AAMAD's own phases; they constrain how the implementation personas scaffold and validate the target runtime.
+
+## Failure Policy
+- On iteration/time limits or missing prerequisites, write a Halt and Report section with blockers; do not continue.
+
+## Security and Compliance
+- Never embed secrets in artifacts; use environment variables in runtime code only. Record third-party content in NOTICES as needed
+- Provide `.env.example` entries for required runtime secrets and keep secret values out of Prompt Trace and diagnostics.
+
+---
+> Source: [synaptic-ai-consulting/AAMAD](https://github.com/synaptic-ai-consulting/AAMAD) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
