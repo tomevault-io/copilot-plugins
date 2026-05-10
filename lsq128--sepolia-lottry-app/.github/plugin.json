@@ -1,0 +1,9 @@
+{
+  "name": "lsq128--sepolia-lottry-app",
+  "displayName": "sepolia-lottry-app",
+  "description": "\u53bb\u4e2d\u5fc3\u5316\u94fe\u4e0a\u62bd\u5956 DApp \u524d\u7aef\uff0c\u57fa\u4e8e Next.js + wagmi + RainbowKit \u6784\u5efa\uff0c\u4e0e\u667a\u80fd\u5408\u7ea6\u4ea4\u4e92",
+  "version": "1.0.0",
+  "author": "Lsq128",
+  "homepage": "https://github.com/Lsq128/sepolia-lottry-app",
+  "skills": []
+}
