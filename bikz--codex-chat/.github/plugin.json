@@ -1,0 +1,9 @@
+{
+  "name": "bikz--codex-chat",
+  "displayName": "codex-chat",
+  "description": "Open-source macOS SwiftUI Codex client with local Markdown chat history, reusable context, Skills + Mods, and explicit local safety controls.",
+  "version": "1.0.0",
+  "author": "Bikz",
+  "homepage": "https://github.com/Bikz/codex-chat",
+  "skills": []
+}
