@@ -1,317 +1,453 @@
-## api-patterns
+## authentication-and-security-patterns
 
-> RESTful API design patterns and conventions for POS System
+> Complete authentication, security, and debugging patterns for React + Go POS system
 
 
-# API Development Guidelines
+# 🔐 Authentication & Security Patterns
 
-## RESTful API Design
+## 🚀 Essential Authentication Architecture
 
-### Endpoint Conventions
-Follow the patterns established in [backend/internal/api/routes.go](mdc:backend/internal/api/routes.go):
+### JWT-Based Authentication Flow
+```typescript
+// Complete authentication workflow
+class APIClient {
+  constructor() {
+    const apiUrl = import.meta.env?.VITE_API_URL || 'http://localhost:8080/api/v1';
+    console.log('🔧 API Client baseURL:', apiUrl);
+    
+    this.client = axios.create({
+      baseURL: apiUrl,
+      timeout: 30000,
+      headers: { 'Content-Type': 'application/json' }
+    });
 
-### Resource Naming
-- Use plural nouns for resources: `/api/v1/orders`, `/api/v1/products`
-- Use kebab-case for multi-word resources: `/api/v1/dining-tables`
-- Nest related resources: `/api/v1/orders/{id}/payments`
-- Use descriptive action names for non-CRUD operations: `/api/v1/orders/{id}/status`
+    // Auto-attach token from localStorage
+    this.loadStoredAuth();
+  }
 
-### HTTP Methods
-Standard CRUD operations:
-```
-GET    /api/v1/orders           # List all orders
-POST   /api/v1/orders           # Create new order
-GET    /api/v1/orders/{id}      # Get specific order
-PUT    /api/v1/orders/{id}      # Update entire order
-PATCH  /api/v1/orders/{id}      # Partial update
-DELETE /api/v1/orders/{id}      # Delete order
+  private loadStoredAuth(): void {
+    const token = localStorage.getItem('pos_token');
+    if (token) {
+      this.client.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+  }
 
-# Action-specific endpoints
-PATCH  /api/v1/orders/{id}/status     # Update order status
-POST   /api/v1/orders/{id}/payments   # Add payment to order
-```
+  setAuthToken(token: string): void {
+    localStorage.setItem('pos_token', token);
+    this.client.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  }
 
-## Request/Response Patterns
+  clearAuth(): void {
+    localStorage.removeItem('pos_token');
+    localStorage.removeItem('pos_user');
+    delete this.client.defaults.headers.common['Authorization'];
+  }
 
-### Standard Response Format
-Use consistent response structure from [models/models.go](mdc:backend/internal/models/models.go):
-
-```json
-{
-  "success": true,
-  "message": "Order created successfully",
-  "data": {
-    "id": "uuid-here",
-    "order_number": "ORD001",
-    // ... other fields
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('pos_token');
   }
 }
 ```
 
-### Error Response Format
-```json
-{
-  "success": false,
-  "message": "User-friendly error message",
-  "error": "error_code_for_clients"
+## 🏗️ React Authentication Components
+
+### Protected Route Pattern (Avoid Infinite Redirects)
+```typescript
+function HomePage() {
+  // ✅ ALL HOOKS AT TOP LEVEL - NEVER after returns
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoadingAuth, setIsLoadingAuth] = useState(true); // Critical: Start true
+
+  const { isLoading: isVerifying, error } = useQuery({
+    queryKey: ['currentUser'],
+    queryFn: () => apiClient.getCurrentUser(),
+    enabled: false, // Control when to verify
+    retry: 1,
+  });
+
+  // Load auth state from localStorage FIRST
+  useEffect(() => {
+    const loadAuthState = async () => {
+      const token = localStorage.getItem('pos_token');
+      const storedUser = localStorage.getItem('pos_user');
+      
+      console.log('🔍 Loading auth - token:', token ? 'exists' : 'missing');
+      console.log('🔍 Loading auth - user:', storedUser ? 'exists' : 'missing');
+      
+      if (storedUser && token) {
+        try {
+          const parsedUser = JSON.parse(storedUser);
+          setUser(parsedUser);
+          console.log('✅ Auth loaded - user role:', parsedUser.role);
+        } catch (error) {
+          console.error('❌ Invalid stored auth data, clearing');
+          apiClient.clearAuth();
+        }
+      }
+      
+      setIsLoadingAuth(false);
+    };
+    
+    loadAuthState();
+  }, []);
+
+  // ✅ CRITICAL: Wait for localStorage loading before auth checks
+  if (isLoadingAuth) {
+    return <LoadingSpinner message="Loading authentication..." />;
+  }
+
+  // Only check auth AFTER loading is complete
+  if (!apiClient.isAuthenticated() || !user) {
+    console.log('🔄 Not authenticated, redirecting to login');
+    return <Navigate to="/login" replace />;
+  }
+
+  // Render protected content with user context
+  return <RoleBasedLayout user={user} />;
 }
 ```
 
-### Pagination Response Format
-```json
-{
-  "success": true,
-  "message": "Orders retrieved successfully",
-  "data": [...],
-  "meta": {
-    "current_page": 1,
-    "per_page": 20,
-    "total": 150,
-    "total_pages": 8
+### Login Component Pattern
+```typescript
+function LoginPage() {
+  const [error, setError] = useState<string | null>(null);
+  
+  // Redirect if already authenticated
+  if (apiClient.isAuthenticated()) {
+    return <Navigate to="/" replace />;
+  }
+
+  const loginMutation = useMutation({
+    mutationFn: async (credentials: LoginRequest) => {
+      console.log('🔄 Attempting login...');
+      return await apiClient.login(credentials);
+    },
+    onSuccess: (data) => {
+      console.log('✅ Login success:', data.success);
+      
+      if (data.success && data.data) {
+        // Set auth token first
+        apiClient.setAuthToken(data.data.token);
+        
+        // Store user data
+        localStorage.setItem('pos_user', JSON.stringify(data.data.user));
+        
+        console.log('✅ Auth stored - role:', data.data.user.role);
+        
+        // Brief delay prevents race conditions
+        setTimeout(() => {
+          router.navigate({ to: '/' });
+        }, 100);
+      }
+    },
+    onError: (error: any) => {
+      console.error('❌ Login failed:', error.message);
+      setError(error.message || 'Login failed');
+    },
+  });
+
+  return (
+    <LoginForm 
+      onSubmit={loginMutation.mutate}
+      isLoading={loginMutation.isPending}
+      error={error}
+    />
+  );
+}
+```
+
+## 🛡️ Backend Security Patterns
+
+### Go JWT Middleware
+```go
+// JWT authentication middleware
+func AuthMiddleware() gin.HandlerFunc {
+    return func(c *gin.Context) {
+        tokenString := c.GetHeader("Authorization")
+        if tokenString == "" {
+            c.JSON(http.StatusUnauthorized, models.APIResponse{
+                Success: false,
+                Message: "Authorization header required",
+                Error:   stringPtr("missing_auth_header"),
+            })
+            c.Abort()
+            return
+        }
+
+        // Remove "Bearer " prefix
+        if len(tokenString) > 7 && tokenString[:7] == "Bearer " {
+            tokenString = tokenString[7:]
+        }
+
+        token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+            if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+                return nil, fmt.Errorf("unexpected signing method")
+            }
+            return []byte(os.Getenv("JWT_SECRET")), nil
+        })
+
+        if err != nil || !token.Valid {
+            c.JSON(http.StatusUnauthorized, models.APIResponse{
+                Success: false,
+                Message: "Invalid or expired token",
+                Error:   stringPtr("invalid_token"),
+            })
+            c.Abort()
+            return
+        }
+
+        if claims, ok := token.Claims.(jwt.MapClaims); ok {
+            c.Set("user_id", claims["user_id"])
+            c.Set("username", claims["username"])
+            c.Set("role", claims["role"])
+        }
+
+        c.Next()
+    }
+}
+
+// Role-based access control
+func RequireRoles(allowedRoles ...string) gin.HandlerFunc {
+    return func(c *gin.Context) {
+        userRole, exists := c.Get("role")
+        if !exists {
+            c.JSON(http.StatusForbidden, models.APIResponse{
+                Success: false,
+                Message: "Role information not found",
+                Error:   stringPtr("missing_role"),
+            })
+            c.Abort()
+            return
+        }
+
+        role := userRole.(string)
+        for _, allowedRole := range allowedRoles {
+            if role == allowedRole {
+                c.Next()
+                return
+            }
+        }
+
+        c.JSON(http.StatusForbidden, models.APIResponse{
+            Success: false,
+            Message: "Insufficient permissions",
+            Error:   stringPtr("insufficient_permissions"),
+        })
+        c.Abort()
+    }
+}
+```
+
+### CORS Configuration for Development
+```go
+// Dynamic port CORS for development flexibility
+func setupCORS(router *gin.Engine) {
+    config := cors.New(cors.Config{
+        AllowOrigins: []string{
+            "http://localhost:3000",
+            "http://localhost:3001", 
+            "http://localhost:3002",
+            "http://localhost:3003",
+            "http://localhost:5173", // Vite default
+        },
+        AllowMethods: []string{
+            "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS",
+        },
+        AllowHeaders: []string{
+            "Origin", "Content-Type", "Content-Length", 
+            "Accept-Encoding", "X-CSRF-Token", "Authorization",
+            "X-Requested-With",
+        },
+        AllowCredentials: true,
+        MaxAge:           12 * time.Hour,
+    })
+    
+    router.Use(config)
+}
+```
+
+## 🐛 Common Issues & Solutions
+
+### 1. Infinite Redirect Loop
+**Symptoms:** Continuous redirects between `/login` and `/`
+
+**Root Cause:**
+```typescript
+// ❌ WRONG - Auth check before localStorage loading
+if (!apiClient.isAuthenticated() || !user) {
+  return <Navigate to="/login" />; // Creates loop
+}
+```
+
+**Solution:**
+```typescript
+// ✅ CORRECT - Wait for loading state
+if (isLoadingAuth) {
+  return <LoadingSpinner />;
+}
+
+if (!apiClient.isAuthenticated() || !user) {
+  return <Navigate to="/login" replace />;
+}
+```
+
+### 2. React Hooks Rules Violation
+**Symptoms:** "Rendered more hooks than during the previous render"
+
+**Solution:**
+```typescript
+// ✅ CORRECT - All hooks at top level
+function Component() {
+  const { data } = useQuery(...); // Hook at top
+  
+  if (someCondition) {
+    return <div>Early return</div>; // Return after hooks
   }
 }
 ```
 
-## Authentication & Authorization
+### 3. CORS Debugging
+**Test CORS Configuration:**
+```bash
+# Test preflight request
+curl -s -H "Origin: http://localhost:3001" \
+     -X OPTIONS http://localhost:8080/api/v1/auth/login -I
 
-### JWT Token Authentication
-Follow patterns from [middleware/auth.go](mdc:backend/internal/middleware/auth.go):
-
-### Request Headers
+# Expected headers:
+# Access-Control-Allow-Origin: http://localhost:3001
+# Access-Control-Allow-Methods: GET,POST,PUT,DELETE,PATCH,OPTIONS
 ```
-Authorization: Bearer <jwt_token>
-Content-Type: application/json
-Accept: application/json
+
+**Quick CORS Fix:**
+```bash
+# Add new port to CORS (adjust port as needed)
+# Edit backend/main.go CORS configuration
+# Restart backend container
+docker compose restart backend
 ```
 
-### Role-Based Access Control
+### 4. Environment Variables
+**Common Issue:** API requests to wrong URLs
+
+**Solution:**
+```bash
+# Set environment variables in both locations
+echo "VITE_API_URL=http://localhost:8080/api/v1" > .env
+echo "VITE_API_URL=http://localhost:8080/api/v1" > frontend/.env
+
+# Recreate containers (restart isn't enough for env vars)
+make down
+make dev
+```
+
+## 🔍 Authentication Debugging Checklist
+
+### Frontend Issues
+- [ ] Check browser localStorage: `pos_token` and `pos_user`
+- [ ] Verify API client baseURL in console logs
+- [ ] Check Network tab for 401/404 vs CORS errors
+- [ ] Confirm hooks are at component top level
+- [ ] Test with cleared localStorage
+
+### Backend Issues
+- [ ] Check backend logs: `docker logs pos-backend-dev --tail 50`
+- [ ] Verify JWT_SECRET environment variable
+- [ ] Test API endpoints with curl
+- [ ] Confirm CORS includes frontend port
+- [ ] Check route registration patterns
+
+### CORS Issues
+- [ ] Check current frontend port in terminal
+- [ ] Test CORS preflight with curl
+- [ ] Verify backend CORS allows current port
+- [ ] Restart backend after CORS changes
+- [ ] Clear browser cache/storage
+
+## 🏛️ Security Best Practices
+
+### Password Security
 ```go
-// Public routes - no authentication
-public.POST("/auth/login", authHandler.Login)
+import "golang.org/x/crypto/bcrypt"
 
-// Protected routes - authentication required
-protected.GET("/orders", orderHandler.GetOrders)
-
-// Admin routes - specific roles required
-admin.Use(middleware.RequireRoles([]string{"admin", "manager"}))
-admin.GET("/dashboard/stats", getDashboardStats)
-```
-
-## Query Parameters & Filtering
-
-### Standard Query Parameters
-```
-GET /api/v1/orders?page=1&per_page=20&status=pending&order_type=dine_in
-```
-
-### Common Parameters
-- `page` - Page number for pagination (default: 1)
-- `per_page` - Items per page (default: 20, max: 100)
-- `sort` - Sort field and direction: `sort=created_at:desc`
-- `search` - Text search across relevant fields
-- Resource-specific filters (status, type, date ranges, etc.)
-
-### Date Filtering
-```
-GET /api/v1/orders?created_after=2024-01-01&created_before=2024-12-31
-```
-
-## Error Handling
-
-### HTTP Status Codes
-Use appropriate status codes consistently:
-```
-200 OK              - Successful GET, PUT, PATCH
-201 Created         - Successful POST
-204 No Content      - Successful DELETE
-400 Bad Request     - Invalid request data
-401 Unauthorized    - Authentication required/failed  
-403 Forbidden       - Insufficient permissions
-404 Not Found       - Resource doesn't exist
-409 Conflict        - Resource conflict (duplicate, etc.)
-422 Unprocessable   - Valid JSON but business logic error
-500 Internal Error  - Server error
-```
-
-### Error Response Examples
-```go
-// Validation error
-c.JSON(http.StatusBadRequest, models.APIResponse{
-    Success: false,
-    Message: "Order must contain at least one item",
-    Error:   stringPtr("empty_order"),
-})
-
-// Resource not found
-c.JSON(http.StatusNotFound, models.APIResponse{
-    Success: false,
-    Message: "Order not found",
-    Error:   stringPtr("order_not_found"),
-})
-
-// Permission error
-c.JSON(http.StatusForbidden, models.APIResponse{
-    Success: false,
-    Message: "Insufficient permissions",
-    Error:   stringPtr("insufficient_permissions"),
-})
-```
-
-## Request Validation
-
-### Input Validation Pattern
-```go
-type CreateOrderRequest struct {
-    TableID      *uuid.UUID         `json:"table_id"`
-    CustomerName *string            `json:"customer_name"`
-    OrderType    string             `json:"order_type"`
-    Items        []CreateOrderItem  `json:"items"`
-    Notes        *string            `json:"notes"`
+func HashPassword(password string) (string, error) {
+    bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+    return string(bytes), err
 }
 
-func (h *OrderHandler) CreateOrder(c *gin.Context) {
-    var req CreateOrderRequest
-    if err := c.ShouldBindJSON(&req); err != nil {
-        c.JSON(http.StatusBadRequest, models.APIResponse{
-            Success: false,
-            Message: "Invalid request body",
-            Error:   stringPtr(err.Error()),
-        })
-        return
-    }
-    
-    // Additional business logic validation
-    if len(req.Items) == 0 {
-        c.JSON(http.StatusBadRequest, models.APIResponse{
-            Success: false,
-            Message: "Order must contain at least one item",
-            Error:   stringPtr("empty_order"),
-        })
-        return
-    }
+func VerifyPassword(hashedPassword, password string) error {
+    return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 }
 ```
 
-## Database Transaction Patterns
-
-### Transaction Usage
-Use transactions for multi-table operations:
+### Input Validation
 ```go
-func (h *OrderHandler) CreateOrder(c *gin.Context) {
-    tx, err := h.db.Begin()
-    if err != nil {
-        // Handle error
-        return
-    }
-    defer tx.Rollback() // Always rollback if not committed
-    
-    // Multiple database operations
-    _, err = tx.Exec("INSERT INTO orders ...")
-    if err != nil {
-        // Error will cause rollback
-        return
-    }
-    
-    _, err = tx.Exec("INSERT INTO order_items ...")
-    if err != nil {
-        return
-    }
-    
-    // Commit transaction
-    if err := tx.Commit(); err != nil {
-        // Handle commit error
-        return
-    }
+// Validate UUIDs
+orderID, err := uuid.Parse(c.Param("id"))
+if err != nil {
+    c.JSON(http.StatusBadRequest, models.APIResponse{
+        Success: false,
+        Message: "Invalid order ID format",
+        Error:   stringPtr("invalid_uuid"),
+    })
+    return
+}
+
+// Validate enums
+validStatuses := []string{"pending", "confirmed", "preparing", "ready", "served", "completed", "cancelled"}
+if !contains(validStatuses, req.Status) {
+    c.JSON(http.StatusBadRequest, models.APIResponse{
+        Success: false,
+        Message: "Invalid order status",
+        Error:   stringPtr("invalid_status"),
+    })
+    return
 }
 ```
 
-## API Documentation
-
-### Endpoint Documentation
-Document each endpoint with:
-- Purpose and description
-- Required permissions/roles
-- Request format and validation rules
-- Response format and possible status codes
-- Example requests and responses
-
-### Request/Response Examples
+### Security Logging
 ```go
-// CreateOrder creates a new order
-// @Summary Create a new order
-// @Description Create a new customer order with items and table assignment
-// @Tags orders
-// @Accept json
-// @Produce json
-// @Param order body CreateOrderRequest true "Order data"
-// @Success 201 {object} APIResponse{data=Order}
-// @Failure 400 {object} APIResponse
-// @Failure 401 {object} APIResponse
-// @Router /api/v1/orders [post]
+// Log security events
+log.Printf("LOGIN_SUCCESS: user=%s, ip=%s, role=%s", username, c.ClientIP(), user.Role)
+log.Printf("LOGIN_FAILED: username=%s, ip=%s", username, c.ClientIP())
+log.Printf("ACCESS_DENIED: user=%s, role=%s, endpoint=%s", username, role, c.Request.URL.Path)
 ```
 
-## Performance Considerations
+## 🚀 Development Workflow
 
-### Query Optimization
-- Use database indexes for frequently filtered fields
-- Implement pagination for large result sets
-- Avoid N+1 query problems with proper JOINs
-- Cache expensive computations
+### Environment Setup Commands
+```bash
+# Essential development commands
+make dev          # Start with proper environment variables
+make logs         # Monitor authentication flow
+make status       # Check system health
 
-### Response Optimization
-- Use appropriate HTTP caching headers
-- Compress responses when beneficial
-- Return only necessary fields (consider field selection)
-- Use ETags for conditional requests
+# Authentication debugging
+make logs-backend # Check JWT processing
+make logs-frontend# Check client-side auth
 
-## Rate Limiting & Throttling
-
-### Rate Limiting Strategy
-```go
-// Implement rate limiting middleware
-func RateLimitMiddleware() gin.HandlerFunc {
-    // Rate limiting implementation
-    // Consider user-based, IP-based, or endpoint-based limits
-}
-
-// Apply to sensitive endpoints
-protected.Use(RateLimitMiddleware())
+# Reset authentication state
+make db-reset     # Fresh database with demo users
+make clean        # Clear all Docker state
 ```
 
-## API Versioning
+### Demo Accounts for Testing
+| Role | Username | Password | Permissions |
+|------|----------|----------|-------------|
+| **👑 Admin** | `admin` | `admin123` | Full system access |
+| **🍽️ Server** | `server1` | `server123` | Dine-in orders only |
+| **💰 Counter** | `counter1` | `counter123` | All orders + payments |
+| **👨‍🍳 Kitchen** | `kitchen1` | `kitchen123` | Order preparation |
 
-### URL Versioning
-Current API uses URL path versioning:
+### Quick Authentication Test
+```typescript
+// Test authentication in browser console
+console.log('Token:', localStorage.getItem('pos_token'));
+console.log('User:', JSON.parse(localStorage.getItem('pos_user') || 'null'));
+console.log('API authenticated:', apiClient.isAuthenticated());
+
+// Clear auth for testing
+apiClient.clearAuth();
 ```
-/api/v1/orders    # Version 1
-/api/v2/orders    # Version 2 (future)
-```
-
-### Backward Compatibility
-- Maintain backward compatibility within major versions
-- Deprecate old endpoints gracefully with proper warnings
-- Document breaking changes and migration paths
-- Support multiple versions during transition periods
-
-## Monitoring & Logging
-
-### Request Logging
-Log important API operations:
-```go
-// Log successful operations
-log.Printf("Order created: user_id=%s, order_id=%s", userID, orderID)
-
-// Log errors with context
-log.Printf("Failed to create order: user_id=%s, error=%s", userID, err.Error())
-```
-
-### Metrics Collection
-Track key metrics:
-- Request/response times
-- Error rates by endpoint
-- Authentication success/failure rates
-- Resource creation/modification rates
-- Database query performance
 
 ---
 > Source: [madebyaris/poinf-of-sales](https://github.com/madebyaris/poinf-of-sales) — distributed by [TomeVault](https://tomevault.io).
