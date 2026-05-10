@@ -1,0 +1,9 @@
+{
+  "name": "madebyaris--poinf-of-sales",
+  "displayName": "poinf-of-sales",
+  "description": "Modern, enterprise-grade Point of Sale system built with Golang, React, TypeScript, and PostgreSQL. Features beautiful admin tables, role-based access, and professional UI/UX.",
+  "version": "1.0.0",
+  "author": "madebyaris",
+  "homepage": "https://github.com/madebyaris/poinf-of-sales",
+  "skills": []
+}
