@@ -1,0 +1,9 @@
+{
+  "name": "ryanlyn--readwise-skill",
+  "displayName": "readwise-skill",
+  "description": "Agent Skill and CLI for Readwise + Reader",
+  "version": "1.0.0",
+  "author": "ryanlyn",
+  "homepage": "https://github.com/ryanlyn/readwise-skill",
+  "skills": []
+}
