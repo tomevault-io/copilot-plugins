@@ -1,44 +1,52 @@
-## uni-app-x-best-practices
+## uts
 
-> Best practices for uni-app-x
+> UTS, or Uni Type Script, is a cross-platform, high-performance, strongly-typed modern programming language
 
 
-# Memory Bank
+### Core
+The code running environment is customized ts, and the type requirements are strictly similar to Kotlin. Any is not allowed for types.
+You cannot use dynamic objects. Only Map. All types must be explicitly declared, and implicit type conversions are not allowed.
+Don't write types directly in the code, define them at the top and then use them. Types are not allowed to be too deep, so write a separate one to refer to them.
+When determining if, the value inside must be of type boolean, and no other type should be used.
+For example: If the value of aNull is null, it is wrong to write if (aNull), and must be written as if (aNull != null)。
+Optional properties must use?. Use non-null assertion!,? Can be regarded as an empty decision.
+Do not use === and!==, Only == and!=
 
-You are an expert in uni-app-x, uts, ucss, uni-app with a deep understanding of best practices and performance optimization techniques in these technologies.
+### Type System Specifications
+- Force explicit declaration of variable/function types (except for simple literals), giving preference to using interfaces to define complex data structures. Union types need to explicitly declare null (such as string| null), prohibiting the use of any type. Support secure chain calls (?.) Handle optional values.
+- Static typing: UTS emphasizes static typing, requiring all variables and function parameters to have clear type declarations, avoiding the use of any type.
+- Type system: UTS does not support a structured type system, but adopts a nominal type system, emphasizing type names and inheritance relationships to ensure type safety.
+- Core language features: UTS does not support undefined, variable promotion, var keywords, etc., and requires conditional statements to use boolean types.
+- Type system dependent: UTS does not support conditional types, mapping types, utility types, as const assertions, etc.
+- Classes and objects are related: UTS does not support private fields starting with #, dynamic field access, static blocks, using classes as objects, etc.
+- Function dependence: UTS does not support types with call signatures and construct signatures, constructor types, function declarations used as values, etc.
+- Modules and namespaces: UTS does not support namespaces, require and import assignment expressions, export =... grammar, etc.
+- Type checking and conversion: UTS does not support the is operator and requires the use of instanceof and as for type protection.
+- Special language features: UTS does not support Symbol(), index signature, declaration merge, generator functions, JSX expressions, with statements, globalThis, etc.
+- Operators and expressions: UTS limits the use of unary operators and prohibits the use of delete and comma operators.
+- Prototypes and object manipulation: UTS does not support assigning values on prototypes.
+- Adaptation suggestions:
+- Use TypeScript type annotations to clarify type information.
+- Use classes and interfaces to define type structures.
+- Use instanceof and as for type protection.
+- Use static initializations or constructors to implement the functionality of static blocks.
+- Use modules to organize code.
 
-### Code Style and Structure
-    - Write concise, maintainable, and technically accurate UTS code with relevant examples.
-    - Use functional and declarative programming patterns; avoid classes.
-    - Favor iteration and modularization to adhere to DRY principles and avoid code duplication.
-    - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
-    - Organize files systematically: each file should contain only related content, such as exported components, subcomponents, helpers, static content, and types.
-    - Must be strongly typed, and must be typed in any case
-    
-### Naming Conventions
-    - Use lowercase with dashes for directories (e.g., components/auth-wizard).
-    - Favor named exports for functions.
-  
-### UTS Usage
-    - Use UTS for all code; prefer interfaces over types for their extendability and ability to merge.
-    - Avoid enums; use maps instead for better type safety and flexibility.
-    - Use functional components with UTS interfaces.
-  
-### Syntax and Formatting
-    - uni-app-x supports UTS native component development (native views are written by Android/iOS engineers and encapsulated into components) to achieve high-performance cross-platform rendering, while uni-app and Vue projects only support front-end component development.
-    - Always use the UVue Composition API script setup style.
-  
-### UI and Styling
-    - You must first try to implement and refine functionality using components in the current project
-    - Strictly follow the style attributes supported by UCSS
-    - Adopt mobile first responsive design
-    - Avoid using style attributes and selectors that are not supported by UCSS
-    - Use flex layout first
-  
-### Component And Easycom
-    - easycom is uni-app-x's intelligent component management solution. It realizes zero-configuration invocation of components by automatically scanning the components directory and files that comply with the component name/component name.uvue specification. Developers only need to create components according to the agreed catalog, and they can directly use the upper initials of tag names in the template, significantly improving cross-platform development efficiency.
-    - Automatically register components in the components directory through pages.json, which supports strict matching of component names and file names (such as test/test.uvue)
-    - Built-in components and easycom components are used directly through capitalized tag names. The responsive system is based on Proxy optimization and supports cross-platform compilation
+### variable management
+- let is used for variable variables, and var is disabled to avoid platform differences (such as the conflict between let and UTSlet in Swift)
+Variable naming follows the hump pattern, prohibits the beginning of numbers, and supports underscore separators
+- Variables must be typed when they are initialized or declared
+
+### Cross-platform adaptation rules
+Use conditional compilation instructions (such as #ifdef ANDROID) to handle platform differences and disable platform-specific syntax (such as Kotlin's when)
+Avoid directly manipulating DOM/BOM and use Uni APIs first (such as uni.request)
+
+### Adaptation suggestions
+- Use TypeScript type annotations to clarify type information.
+- Use classes and interfaces to define type structures.
+- Use instanceof and as for type protection.
+- Use static initializations or constructors to implement the functionality of static blocks.
+- Use modules to organize code.
 
 ---
 > Source: [dcloudio/uni-ai-x](https://github.com/dcloudio/uni-ai-x) — distributed by [TomeVault](https://tomevault.io).
