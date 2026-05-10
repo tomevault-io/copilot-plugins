@@ -1,21 +1,14 @@
-## jeju
+## models
 
-> We are building "DWS", which is decentralized web services on our own Jeju Network.
+> CURRENT MODELS
 
 
-We are building "DWS", which is decentralized web services on our own Jeju Network.
+# CURRENT MODELS
 
-The network itself is deployed onto AWS. But as a decentralized network, IT IS VERY IMPORTANT that all apps and resources deploy through Jeju CLI and using Jeju DWS tooling so it is completely abstracted.
-
-We use SQLit (our own distributed sqlite) in packages/sqlit -- it may have bugs. Fix the bugs, don't just skip over or ignore or go to a fallback.
-
-NO FALLBACKS. NO EASY WAY. Do it the RIGHT way.
-
-Frontend build deploys to DWS storage built on IPFS, backend workers deploy to DWS Workers which is workerd like Cloudflare, cache uses DWS Cache, DB uses DWS SQLit. Our routing is done with JNS by contract and registry.
-
-Make sure the deployment is right, working correctly and as we expect, NOT using ECR or any AWS resources for deployment. We should avoid deploying Docker containers for frontend or backend and instead do static bundle deployments, like Cloudflare etc.
-
-Identify any part of our deployment that is NOT currently decentralized, or is larping, or is taking shortcut and using AWS infrastructure, and instead switch to use DWS and decentralized deployment onto Jeju Network.
+Current model from OpenAI is gpt-5.2 and variants
+Current model from Anthropic is claude-sonnet-4.5 and claude-opus-4.5
+Current model from Google is gemini3
+Current model from Meta is Llama 4, which comes in two variants: llama-4-maverick-17b-128e-instruct and llama-4-scout-17b-16e-instruct
 
 ---
 > Source: [JejuNetwork/jeju](https://github.com/JejuNetwork/jeju) — distributed by [TomeVault](https://tomevault.io).
