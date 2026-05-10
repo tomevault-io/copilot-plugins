@@ -1,0 +1,9 @@
+{
+  "name": "charmbracelet--fantasy",
+  "displayName": "fantasy",
+  "description": "Build AI agents with Go. Multiple providers, multiple models, one API. \ud83e\uddd9",
+  "version": "1.0.0",
+  "author": "charmbracelet",
+  "homepage": "https://github.com/charmbracelet/fantasy",
+  "skills": []
+}
