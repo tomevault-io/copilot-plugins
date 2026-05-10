@@ -1,0 +1,9 @@
+{
+  "name": "prokube--pk-opencode-webui",
+  "displayName": "pk-opencode-webui",
+  "description": "Prefix-aware Web UI for OpenCode",
+  "version": "1.0.0",
+  "author": "prokube",
+  "homepage": "https://github.com/prokube/pk-opencode-webui",
+  "skills": []
+}
