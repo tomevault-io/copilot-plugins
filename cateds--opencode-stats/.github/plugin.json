@@ -1,0 +1,9 @@
+{
+  "name": "cateds--opencode-stats",
+  "displayName": "opencode-stats",
+  "description": "A terminal dashboard for tracking your OpenCode usage statistics - tokens, costs, models, and activity heatmap.",
+  "version": "1.0.0",
+  "author": "Cateds",
+  "homepage": "https://github.com/Cateds/opencode-stats",
+  "skills": []
+}
