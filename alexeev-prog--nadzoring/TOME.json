@@ -4,7 +4,7 @@
   "repo": "nadzoring",
   "description": "An open source tool for detecting website blocks, downdetecting, and network analysis",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alexeev-prog/nadzoring",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T18:56:21Z"
+  "distributed_at": "2026-05-10T17:00:45Z"
 }
