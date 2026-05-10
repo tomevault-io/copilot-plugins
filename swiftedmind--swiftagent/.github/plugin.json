@@ -1,0 +1,9 @@
+{
+  "name": "swiftedmind--swiftagent",
+  "displayName": "SwiftAgent",
+  "description": "Native Swift SDK for building autonomous AI agents with Apple's FoundationModels design philosophy",
+  "version": "1.0.0",
+  "author": "SwiftedMind",
+  "homepage": "https://github.com/SwiftedMind/SwiftAgent",
+  "skills": []
+}
