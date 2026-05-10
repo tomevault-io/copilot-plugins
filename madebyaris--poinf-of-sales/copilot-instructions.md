@@ -1,979 +1,232 @@
-## business-logic-patterns
+## database-patterns
 
-> Comprehensive business logic patterns for POS System domain understanding, user journeys, and workflow optimization
+> Database design patterns and conventions for PostgreSQL in POS System
 
 
-# 🍽️ POS Business Logic & Domain Patterns
+# Database Development Guidelines (PostgreSQL)
 
-## 🎯 Core Business Domain Understanding
+## Schema Design
 
-### Restaurant Operations Model
-The POS system orchestrates complex restaurant operations with multiple stakeholders and intricate workflows:
+### Primary Schema
+The main database schema is defined in [database/init/01_schema.sql](mdc:database/init/01_schema.sql):
 
-```typescript
-// Domain Model - Core Business Entities
-interface RestaurantDomain {
-  // Revenue Generation
-  orders: OrderLifecycle[]
-  payments: PaymentProcessing[]
-  inventory: InventoryManagement
-  
-  // Operations Management  
-  tables: TableManagement
-  staff: StaffOperations
-  kitchen: KitchenWorkflow
-  
-  // Business Intelligence
-  analytics: BusinessAnalytics
-  reporting: FinancialReporting
-}
+### Core Tables Structure:
+1. **users** - Staff and user management with role-based access
+2. **categories** - Product categorization with sorting and colors
+3. **products** - Menu items with pricing and availability
+4. **dining_tables** - Table and seating management
+5. **orders** - Order lifecycle with status tracking
+6. **order_items** - Individual items within orders
+7. **payments** - Payment processing and history
+8. **inventory** - Stock management and tracking
+9. **order_status_history** - Audit trail for order changes
 
-// Business Rules Engine
-class POSBusinessRules {
-  validateOrderCreation(order: CreateOrderRequest): ValidationResult
-  calculatePricing(items: OrderItem[]): PricingCalculation
-  manageInventory(productId: string, quantity: number): InventoryResult
-  optimizeKitchenWorkflow(orders: Order[]): WorkflowOptimization
-}
+## Naming Conventions
+
+### Table Names
+- Use plural snake_case: `order_items`, `dining_tables`
+- Descriptive names that clearly indicate content
+- Avoid abbreviations unless universally understood
+
+### Column Names
+- Use snake_case: `created_at`, `order_number`
+- Boolean fields start with `is_`: `is_active`, `is_occupied`
+- Timestamps end with `_at`: `created_at`, `processed_at`
+- Foreign keys follow pattern: `{table_name}_id`
+
+### Constraint Names
+- Primary keys: `{table}_pkey`
+- Foreign keys: `fk_{table}_{referenced_table}`
+- Unique constraints: `unique_{table}_{column}`
+- Check constraints: `check_{table}_{column}_{description}`
+
+## Data Types & Standards
+
+### UUID Primary Keys
+Use UUID v4 for all primary keys:
+```sql
+CREATE TABLE example_table (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    -- other columns
+);
 ```
 
-## 🔄 Critical User Journeys & Performance Optimization
-
-### 1. Server Journey: Dine-In Order Creation (Target: <30 seconds)
-```typescript
-// ✅ PERFORMANCE-OPTIMIZED: Server workflow
-class ServerWorkflowOptimization {
-  // Pre-load critical data for instant access
-  private async preloadServerData(): Promise<ServerContext> {
-    const [products, categories, tables, activeOrders] = await Promise.all([
-      this.productService.getAvailableProducts(), // Cache for 5 minutes
-      this.categoryService.getActiveCategories(), // Cache for 1 hour  
-      this.tableService.getTableStatus(), // Real-time, 30s cache
-      this.orderService.getActiveOrders() // Real-time, 10s cache
-    ])
-    
-    return { products, categories, tables, activeOrders }
-  }
-
-  // Optimistic order creation with rollback
-  async createOrderOptimistic(orderData: CreateOrderRequest): Promise<Order> {
-    // 1. Immediate UI feedback (0ms)
-    this.ui.showOrderCreating(orderData)
-    
-    // 2. Validate business rules locally (5-10ms)
-    const validation = await this.validateOrderBusiness(orderData)
-    if (!validation.isValid) {
-      throw new BusinessRuleError(validation.errors)
-    }
-    
-    // 3. Optimistic update (10-15ms)
-    const optimisticOrder = this.generateOptimisticOrder(orderData)
-    this.ui.showOrderCreated(optimisticOrder)
-    
-    // 4. Background server sync (100-200ms)
-    try {
-      const serverOrder = await this.orderService.createOrder(orderData)
-      this.reconcileOptimisticOrder(optimisticOrder, serverOrder)
-      return serverOrder
-    } catch (error) {
-      // Rollback optimistic changes
-      this.rollbackOptimisticOrder(optimisticOrder)
-      throw error
-    }
-  }
-
-  // Business rule validation (prevent API round-trips)
-  private async validateOrderBusiness(order: CreateOrderRequest): Promise<ValidationResult> {
-    const errors: string[] = []
-    
-    // Table availability check
-    if (order.table_id && !this.isTableAvailable(order.table_id)) {
-      errors.push('Table is not available')
-    }
-    
-    // Product availability batch check
-    const unavailableItems = order.items.filter(item => 
-      !this.isProductAvailable(item.product_id, item.quantity)
-    )
-    if (unavailableItems.length > 0) {
-      errors.push(`Products unavailable: ${unavailableItems.map(i => i.product_id).join(', ')}`)
-    }
-    
-    // Business hours validation
-    if (!this.isDuringBusinessHours()) {
-      errors.push('Orders cannot be created outside business hours')
-    }
-    
-    return { isValid: errors.length === 0, errors }
-  }
-}
+### Timestamps
+Always use `TIMESTAMP WITH TIME ZONE` for time tracking:
+```sql
+created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 ```
 
-### 2. Enhanced Kitchen Journey: As-Ready Service Workflow (Target: <3 seconds per item update)
-```typescript
-// ✅ REAL-TIME OPTIMIZED: Enhanced kitchen workflow with individual item tracking
-class EnhancedKitchenWorkflowEngine {
-  private orderPriorityQueue: PriorityQueue<KitchenOrder>
-  private preparationTimers: Map<string, Timer>
-  private realTimeUpdates: EventEmitter
-  private soundNotificationSystem: SoundNotificationSystem
-
-  // Intelligent order prioritization with as-ready service
-  async optimizeKitchenQueue(): Promise<KitchenOrder[]> {
-    const activeOrders = await this.getActiveKitchenOrders()
-    
-    // Business logic: Priority calculation with individual item tracking
-    return activeOrders
-      .map(order => ({
-        ...order,
-        priority: this.calculateOrderPriority(order),
-        estimatedTime: this.estimatePreparationTime(order),
-        dependencies: this.findOrderDependencies(order),
-        itemProgress: this.calculateItemProgress(order.items), // New: Individual item tracking
-        readyItems: order.items.filter(item => item.status === 'ready'),
-        servedItems: order.items.filter(item => item.status === 'served')
-      }))
-      .sort((a, b) => {
-        // Enhanced priority: wait time, complexity, table status, ready items
-        const aScore = (a.priority * a.waitTime * a.tableUrgency) + (a.readyItems.length * 10)
-        const bScore = (b.priority * b.waitTime * b.tableUrgency) + (b.readyItems.length * 10)
-        return bScore - aScore
-      })
-  }
-
-  // As-ready service: Individual item completion
-  async markItemReady(orderId: string, itemId: string): Promise<void> {
-    await this.updateItemStatus(orderId, itemId, 'ready')
-    this.soundNotificationSystem.playItemReadySound() // 1200Hz beep
-    this.notifyCounterStaff(orderId, itemId)
-  }
-
-  // As-ready service: Individual item serving
-  async serveReadyItem(orderId: string, itemId: string): Promise<void> {
-    await this.updateItemStatus(orderId, itemId, 'served')
-    this.soundNotificationSystem.playItemServedSound() // 1400Hz beep
-    
-    // Check if entire order is complete
-    const order = await this.getOrder(orderId)
-    if (this.isOrderFullyServed(order)) {
-      await this.completeOrder(orderId)
-      this.removeFromKitchenDisplay(orderId)
-    }
-  }
-
-  // Real-time status updates with business impact
-  async updateOrderStatus(orderId: string, status: KitchenStatus): Promise<void> {
-    const order = await this.getOrder(orderId)
-    const businessImpact = await this.calculateBusinessImpact(order, status)
-    
-    // Update with business context
-    await this.orderService.updateOrderStatus(orderId, {
-      status,
-      estimated_completion: businessImpact.estimatedCompletion,
-      kitchen_notes: businessImpact.notes,
-      affects_other_orders: businessImpact.dependencies
-    })
-    
-    // Trigger real-time notifications
-    this.notifyStakeholders(order, status, businessImpact)
-    
-    // Update kitchen display optimization
-    this.reoptimizeKitchenQueue()
-  }
-
-  // Business intelligence: Kitchen performance metrics
-  private calculateBusinessImpact(order: Order, newStatus: KitchenStatus): BusinessImpact {
-    return {
-      tableWaitTime: this.calculateTableWaitTime(order.table_id),
-      kitchenEfficiency: this.calculateKitchenEfficiency(),
-      customerSatisfactionImpact: this.predictSatisfactionImpact(order, newStatus),
-      revenueImpact: this.calculateRevenueImpact(order, newStatus),
-      staffWorkloadImpact: this.calculateWorkloadImpact(newStatus)
-    }
-  }
-}
+### Money Values
+Use `DECIMAL(10,2)` for all monetary values:
+```sql
+price DECIMAL(10,2) NOT NULL,
+total_amount DECIMAL(10,2) NOT NULL DEFAULT 0
 ```
 
-### 3. Counter Journey: Payment Processing (Target: <10 seconds)
-```typescript
-// ✅ PAYMENT-OPTIMIZED: Multi-step payment with error handling
-class PaymentWorkflowEngine {
-  // Payment processing with comprehensive business validation
-  async processPayment(paymentRequest: PaymentRequest): Promise<PaymentResult> {
-    // 1. Pre-flight validation (instant)
-    const validation = await this.validatePaymentBusiness(paymentRequest)
-    if (!validation.isValid) {
-      throw new PaymentValidationError(validation.errors)
-    }
-    
-    // 2. Calculate final amounts with business rules
-    const calculation = await this.calculatePaymentAmounts(paymentRequest)
-    
-    // 3. Process payment with error handling
-    try {
-      const result = await this.executePayment(calculation)
-      
-      // 4. Update business state
-      await this.updateBusinessState(result)
-      
-      // 5. Generate receipt and analytics
-      await this.generateReceiptAndAnalytics(result)
-      
-      return result
-    } catch (error) {
-      await this.handlePaymentError(error, paymentRequest)
-      throw error
-    }
-  }
+### String Fields
+- Use appropriate VARCHAR lengths based on expected content
+- Use TEXT for long content without length restrictions
+- Apply NOT NULL constraints where appropriate
 
-  // Business-aware payment validation
-  private async validatePaymentBusiness(request: PaymentRequest): Promise<ValidationResult> {
-    const order = await this.orderService.getOrder(request.order_id)
-    const errors: string[] = []
-    
-    // Order state validation
-    if (!['ready', 'served'].includes(order.status)) {
-      errors.push('Order must be ready or served before payment')
-    }
-    
-    // Amount validation with business rules
-    const expectedTotal = await this.calculateOrderTotal(order)
-    if (Math.abs(request.amount - expectedTotal) > 0.01) {
-      errors.push(`Payment amount ${request.amount} does not match order total ${expectedTotal}`)
-    }
-    
-    // Business hours and policies
-    if (request.payment_method === 'check' && !this.acceptsChecks()) {
-      errors.push('Check payments not accepted during this period')
-    }
-    
-    // Tip validation for business rules
-    if (request.tip_amount && request.tip_amount > expectedTotal * 0.3) {
-      errors.push('Tip amount seems unusually high, please confirm')
-    }
-    
-    return { isValid: errors.length === 0, errors }
-  }
+## Indexing Strategy
 
-  // Advanced payment calculation with business intelligence
-  private async calculatePaymentAmounts(request: PaymentRequest): Promise<PaymentCalculation> {
-    const order = await this.orderService.getOrderWithItems(request.order_id)
-    
-    return {
-      subtotal: this.calculateSubtotal(order.items),
-      tax: this.calculateTax(order.items), // Business-specific tax rules
-      discounts: await this.calculateDiscounts(order), // Loyalty, promotions
-      serviceCharge: this.calculateServiceCharge(order), // Table service, large parties
-      tip: request.tip_amount || 0,
-      finalTotal: this.calculateFinalTotal(order, request),
-      paymentBreakdown: this.generatePaymentBreakdown(request)
-    }
-  }
-}
+### Performance Indexes
+Critical indexes defined in [database/init/01_schema.sql](mdc:database/init/01_schema.sql):
+
+```sql
+-- Query optimization indexes
+CREATE INDEX idx_orders_status ON orders(status);
+CREATE INDEX idx_orders_created_at ON orders(created_at);
+CREATE INDEX idx_orders_table_id ON orders(table_id);
+CREATE INDEX idx_order_items_order_id ON order_items(order_id);
+CREATE INDEX idx_products_category_id ON products(category_id);
+CREATE INDEX idx_products_is_available ON products(is_available);
 ```
 
-## 🏗️ Tech Debt Prevention Patterns
+### Index Guidelines
+- Index foreign key columns for JOIN performance
+- Index columns used in WHERE clauses frequently
+- Index columns used for sorting (ORDER BY)
+- Avoid over-indexing (impacts INSERT/UPDATE performance)
+- Consider composite indexes for multi-column queries
 
-### 1. Consistency Enforcement
-```typescript
-// ✅ CONSISTENT: Standardized patterns across the system
-namespace POSConsistency {
-  // API Response consistency
-  export interface StandardAPIResponse<T> {
-    success: boolean
-    message: string
-    data?: T
-    error?: string
-    timestamp: string
-    request_id: string // For debugging and tracing
-  }
+## Relationships & Constraints
 
-  // Error handling consistency
-  export class BusinessError extends Error {
-    code: string
-    userMessage: string
-    context: Record<string, any>
-    
-    constructor(code: string, message: string, userMessage: string, context?: Record<string, any>) {
-      super(message)
-      this.code = code
-      this.userMessage = userMessage
-      this.context = context || {}
-    }
-  }
+### Foreign Key Relationships
+Maintain referential integrity with proper CASCADE rules:
+```sql
+-- Orders reference tables and users
+table_id UUID REFERENCES dining_tables(id) ON DELETE SET NULL,
+user_id UUID REFERENCES users(id) ON DELETE SET NULL,
 
-  // State management consistency
-  export interface BaseEntityState<T> {
-    items: T[]
-    loading: boolean
-    error: string | null
-    lastUpdated: Date
-    optimisticUpdates: Map<string, T>
-  }
-}
+-- Order items reference orders and products  
+order_id UUID REFERENCES orders(id) ON DELETE CASCADE,
+product_id UUID REFERENCES products(id) ON DELETE CASCADE
 ```
 
-### 2. DRY Principle Enforcement
-```typescript
-// ✅ DRY: Reusable business logic components
-class ReusableBusinessComponents {
-  // Unified validation system
-  static createValidator<T>(schema: ValidationSchema<T>) {
-    return {
-      validate: (data: T): ValidationResult => {
-        const errors: string[] = []
-        
-        Object.entries(schema.rules).forEach(([field, rules]) => {
-          const value = data[field]
-          rules.forEach(rule => {
-            if (!rule.check(value)) {
-              errors.push(rule.message)
-            }
-          })
-        })
-        
-        return { isValid: errors.length === 0, errors }
-      }
-    }
-  }
+### Check Constraints
+Use CHECK constraints for data validation:
+```sql
+-- Enum-like constraints
+role VARCHAR(20) NOT NULL CHECK (role IN ('admin', 'manager', 'cashier', 'kitchen')),
+status VARCHAR(20) NOT NULL CHECK (status IN ('pending', 'confirmed', 'preparing', 'ready', 'served', 'completed', 'cancelled')),
 
-  // Unified caching system
-  static createCacheManager<T>(config: CacheConfig) {
-    const cache = new Map<string, CacheEntry<T>>()
-    
-    return {
-      get: async (key: string, fetcher: () => Promise<T>): Promise<T> => {
-        const cached = cache.get(key)
-        if (cached && cached.expiresAt > Date.now()) {
-          return cached.data
-        }
-        
-        const data = await fetcher()
-        cache.set(key, {
-          data,
-          expiresAt: Date.now() + config.ttl,
-          createdAt: Date.now()
-        })
-        
-        return data
-      },
-      
-      invalidate: (key: string) => cache.delete(key),
-      clear: () => cache.clear()
-    }
-  }
-
-  // Unified state management
-  static createStateManager<T>(initialState: T) {
-    const subscribers = new Set<(state: T) => void>()
-    let currentState = { ...initialState }
-    
-    return {
-      getState: () => currentState,
-      setState: (updater: (state: T) => T) => {
-        const newState = updater(currentState)
-        currentState = newState
-        subscribers.forEach(callback => callback(newState))
-      },
-      subscribe: (callback: (state: T) => void) => {
-        subscribers.add(callback)
-        return () => subscribers.delete(callback)
-      }
-    }
-  }
-}
+-- Business rule constraints
+quantity INTEGER NOT NULL DEFAULT 1 CHECK (quantity > 0),
+price DECIMAL(10,2) NOT NULL CHECK (price >= 0)
 ```
 
-## ⚡ Performance-First Development Patterns
+## Triggers & Automation
 
-### 1. Database Performance Optimization
-```go
-// ✅ PERFORMANCE: Intelligent query optimization with business understanding
-type QueryOptimizer struct {
-    db                 *sql.DB
-    queryCache         *QueryCache
-    performanceMetrics *PerformanceMetrics
-}
+### Updated Timestamp Trigger
+Automatic updated_at timestamp management:
+```sql
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
 
-// Business-aware query optimization
-func (q *QueryOptimizer) GetOrdersOptimized(ctx context.Context, params OrderQueryParams) (*OrdersResult, error) {
-    // 1. Query planning based on business patterns
-    queryPlan := q.createQueryPlan(params)
-    
-    // 2. Use business-specific indexes
-    query := `
-        SELECT 
-            o.id, o.order_number, o.status, o.created_at, o.total_amount,
-            u.username, u.role,
-            t.table_number, t.section,
-            COUNT(oi.id) as item_count,
-            -- Performance: Calculate totals in DB, not application
-            SUM(oi.quantity * oi.price) as calculated_total
-        FROM orders o
-        -- Performance: Use covering indexes
-        LEFT JOIN users u ON o.user_id = u.id  
-        LEFT JOIN dining_tables t ON o.table_id = t.id
-        LEFT JOIN order_items oi ON o.id = oi.order_id
-        WHERE 1=1
-    `
-    
-    args := []interface{}{}
-    argIndex := 1
-    
-    // Business-aware filtering
-    if params.Status != "" {
-        query += fmt.Sprintf(" AND o.status = $%d", argIndex)
-        args = append(args, params.Status)
-        argIndex++
-    }
-    
-    if params.DateRange.IsValid() {
-        query += fmt.Sprintf(" AND o.created_at BETWEEN $%d AND $%d", argIndex, argIndex+1)
-        args = append(args, params.DateRange.Start, params.DateRange.End)
-        argIndex += 2
-    }
-    
-    // Performance: Smart pagination with business context
-    if params.UserRole == "kitchen" {
-        // Kitchen sees only orders that need preparation
-        query += " AND o.status IN ('pending', 'confirmed', 'preparing')"
-        query += " ORDER BY o.priority DESC, o.created_at ASC" // Urgency first
-    } else {
-        query += " ORDER BY o.created_at DESC"
-    }
-    
-    query += fmt.Sprintf(" GROUP BY o.id, u.username, u.role, t.table_number, t.section")
-    query += fmt.Sprintf(" LIMIT $%d OFFSET $%d", argIndex, argIndex+1)
-    args = append(args, params.Limit, params.Offset)
-    
-    // Execute with performance monitoring
-    start := time.Now()
-    rows, err := q.db.QueryContext(ctx, query, args...)
-    duration := time.Since(start)
-    
-    // Business intelligence: Track query performance
-    q.performanceMetrics.RecordQuery("get_orders", duration, len(args))
-    
-    if duration > 100*time.Millisecond {
-        log.Printf("SLOW QUERY WARNING: get_orders took %v", duration)
-    }
-    
-    return q.processOrderResults(rows)
-}
+-- Apply to relevant tables
+CREATE TRIGGER update_orders_updated_at 
+    BEFORE UPDATE ON orders 
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 ```
 
-### 2. Frontend Performance with Business Intelligence
-```typescript
-// ✅ PERFORMANCE: Intelligent component optimization with business understanding
-class BusinessIntelligentComponents {
-  // Smart memoization based on business context
-  static createSmartMemo<T extends ComponentProps>(
-    Component: React.FC<T>,
-    businessContext: BusinessContext
-  ): React.FC<T> {
-    return React.memo(Component, (prevProps, nextProps) => {
-      // Business-aware comparison
-      if (businessContext.isHighFrequencyUpdate) {
-        // Kitchen orders update frequently - check only critical props
-        return (
-          prevProps.id === nextProps.id &&
-          prevProps.status === nextProps.status &&
-          prevProps.priority === nextProps.priority
-        )
-      } else {
-        // Admin data changes less frequently - deep comparison ok
-        return isEqual(prevProps, nextProps)
-      }
-    })
-  }
+## Data Migration Patterns
 
-  // Intelligent data prefetching based on user journey
-  static createDataPrefetcher(userRole: UserRole) {
-    const prefetchStrategy = {
-      admin: {
-        prefetchOnIdle: ['reports', 'analytics', 'staff-performance'],
-        preloadCritical: ['active-orders', 'system-status'],
-        cacheStrategy: 'aggressive' // Admin needs comprehensive data
-      },
-      server: {
-        prefetchOnIdle: ['menu-items', 'table-status'],
-        preloadCritical: ['available-tables', 'active-categories'],
-        cacheStrategy: 'moderate' // Balance speed vs memory
-      },
-      kitchen: {
-        prefetchOnIdle: [],
-        preloadCritical: ['pending-orders', 'preparation-queue'],
-        cacheStrategy: 'minimal' // Real-time data, minimal cache
-      }
-    }
+### Schema Changes
+For schema modifications:
+1. Create migration scripts with version numbers
+2. Always provide both UP and DOWN migrations
+3. Test migrations on sample data before production
+4. Use transactions for multiple related changes
 
-    return prefetchStrategy[userRole]
-  }
-}
+### Example Migration Pattern:
+```sql
+-- Migration: 001_add_customer_phone.sql
+BEGIN;
+
+ALTER TABLE orders ADD COLUMN customer_phone VARCHAR(20);
+CREATE INDEX idx_orders_customer_phone ON orders(customer_phone) 
+    WHERE customer_phone IS NOT NULL;
+
+-- Rollback plan documented
+-- ALTER TABLE orders DROP COLUMN customer_phone;
+
+COMMIT;
 ```
 
-## 🧪 QA Integration & Error Prevention
+## Query Performance Patterns
 
-### 1. Business Logic Testing Patterns
-```typescript
-// ✅ QA: Business logic testing with domain understanding
-describe('POS Business Logic Tests', () => {
-  describe('Order Creation Business Rules', () => {
-    it('should prevent order creation outside business hours', async () => {
-      // Given: Restaurant is closed
-      const mockTime = new Date('2024-01-01T02:00:00') // 2 AM
-      jest.setSystemTime(mockTime)
-      
-      // When: Server attempts to create order
-      const orderRequest = createMockOrderRequest({
-        order_type: 'dine_in',
-        items: [{ product_id: 'burger-1', quantity: 1 }]
-      })
-      
-      // Then: Should reject with business rule error
-      await expect(orderService.createOrder(orderRequest))
-        .rejects
-        .toThrow(BusinessRuleError)
-        .toMatchBusinessRule('OUTSIDE_BUSINESS_HOURS')
-    })
-
-    it('should calculate complex pricing with discounts and tax', async () => {
-      // Given: Order with loyalty discount and special tax rules
-      const customer = createMockCustomer({ loyaltyTier: 'gold' })
-      const orderItems = [
-        { product_id: 'burger-1', quantity: 2, price: 12.99 },
-        { product_id: 'drink-1', quantity: 2, price: 3.99 }
-      ]
-      
-      // When: Calculate final pricing
-      const pricing = await pricingService.calculateOrderTotal({
-        items: orderItems,
-        customer,
-        appliedPromotions: ['GOLD_10_PERCENT']
-      })
-      
-      // Then: Should apply business rules correctly
-      expect(pricing).toMatchBusinessCalculation({
-        subtotal: 33.96,
-        discount: 3.40, // 10% gold discount
-        tax: 2.75, // 9% tax after discount
-        total: 33.31
-      })
-    })
-  })
-
-  describe('Kitchen Workflow Business Rules', () => {
-    it('should prioritize orders based on business intelligence', async () => {
-      // Given: Multiple orders with different priorities
-      const orders = [
-        createMockOrder({ table_id: 'vip-1', wait_time: 15, complexity: 'high' }),
-        createMockOrder({ table_id: 'regular-1', wait_time: 25, complexity: 'low' }),
-        createMockOrder({ table_id: 'regular-2', wait_time: 10, complexity: 'medium' })
-      ]
-      
-      // When: Kitchen optimizes queue
-      const optimizedQueue = await kitchenService.optimizeOrderQueue(orders)
-      
-      // Then: Should prioritize based on business rules
-      expect(optimizedQueue).toMatchBusinessPriority([
-        'vip-1', // VIP table trumps wait time
-        'regular-2', // Shorter wait time + medium complexity
-        'regular-1' // Longest wait but easiest to complete
-      ])
-    })
-  })
-})
-
-// Custom Jest matchers for business logic
-expect.extend({
-  toMatchBusinessRule(received: Error, expectedRule: string) {
-    const pass = received instanceof BusinessRuleError && received.code === expectedRule
-    return {
-      message: () => `Expected business rule ${expectedRule}, got ${received.constructor.name}`,
-      pass
-    }
-  },
-  
-  toMatchBusinessCalculation(received: PricingResult, expected: PricingExpectation) {
-    const toleranceChecks = Object.entries(expected).every(([key, value]) => {
-      const actual = received[key]
-      return Math.abs(actual - value) < 0.01 // Penny tolerance for financial calculations
-    })
-    
-    return {
-      message: () => `Business calculation mismatch: expected ${JSON.stringify(expected)}, got ${JSON.stringify(received)}`,
-      pass: toleranceChecks
-    }
-  }
-})
+### Efficient JOINs
+Use appropriate JOIN types and index foreign keys:
+```sql
+-- Good: Index-optimized JOIN
+SELECT o.*, t.table_number, u.username
+FROM orders o
+LEFT JOIN dining_tables t ON o.table_id = t.id
+LEFT JOIN users u ON o.user_id = u.id
+WHERE o.status = 'pending';
 ```
 
-### 2. Error Prevention with Business Context
-```typescript
-// ✅ ERROR PREVENTION: Comprehensive error handling with business intelligence
-class BusinessErrorPrevention {
-  // Intelligent error recovery based on business impact
-  static createErrorRecoveryManager(businessContext: BusinessContext) {
-    return {
-      handleOrderError: async (error: Error, orderContext: OrderContext) => {
-        const businessImpact = this.assessBusinessImpact(error, orderContext)
-        
-        switch (businessImpact.severity) {
-          case 'critical':
-            // Revenue-affecting errors - immediate escalation
-            await this.notifyManagement(error, orderContext)
-            await this.createEmergencyBackup()
-            return this.initiateFailsafeMode(orderContext)
-            
-          case 'high':
-            // Customer-affecting errors - graceful degradation
-            await this.notifyStaff(error, orderContext)
-            return this.provideFallbackService(orderContext)
-            
-          case 'medium':
-            // Performance errors - log and continue
-            this.logBusinessError(error, orderContext)
-            return this.retryWithBackoff(orderContext)
-            
-          case 'low':
-            // Minor errors - silent recovery
-            return this.silentRecover(orderContext)
-        }
-      },
-      
-      assessBusinessImpact: (error: Error, context: OrderContext): BusinessImpactAssessment => {
-        // Business intelligence for error severity
-        const factors = {
-          revenueImpact: this.calculateRevenueAtRisk(context),
-          customerImpact: this.calculateCustomerExperienceImpact(context),
-          operationalImpact: this.calculateOperationalDisruption(context),
-          timeOfDay: this.getBusinessPeriodSeverity(),
-          staffAvailability: this.getStaffAvailabilityFactor()
-        }
-        
-        return this.computeBusinessSeverity(factors)
-      }
-    }
-  }
-
-  // Proactive error prevention
-  static createPreventiveHealthChecks() {
-    return {
-      // Business-critical system health
-      checkOrderSystemHealth: async (): Promise<HealthCheck> => {
-        const checks = await Promise.all([
-          this.checkDatabasePerformance(), // Order creation speed
-          this.checkPaymentGateway(), // Payment processing
-          this.checkKitchenConnectivity(), // Kitchen display updates
-          this.checkInventorySync(), // Product availability
-          this.checkTableManagement() // Table status accuracy
-        ])
-        
-        return this.aggregateHealthStatus(checks)
-      },
-      
-      // Predictive failure detection
-      detectPotentialFailures: async (): Promise<PredictiveAlert[]> => {
-        const alerts: PredictiveAlert[] = []
-        
-        // Database performance degradation
-        if (await this.isDatabaseSlowing()) {
-          alerts.push({
-            type: 'database_performance',
-            severity: 'warning',
-            businessImpact: 'Order creation may slow down',
-            recommendedAction: 'Consider scaling database resources'
-          })
-        }
-        
-        // Kitchen queue overload
-        const kitchenLoad = await this.getKitchenQueueLoad()
-        if (kitchenLoad > 0.8) {
-          alerts.push({
-            type: 'kitchen_overload',
-            severity: 'high',
-            businessImpact: 'Customer wait times will increase',
-            recommendedAction: 'Alert kitchen manager to optimize workflow'
-          })
-        }
-        
-        return alerts
-      }
-    }
-  }
-}
+### Pagination
+Always use LIMIT/OFFSET for large result sets:
+```sql
+SELECT * FROM orders 
+ORDER BY created_at DESC 
+LIMIT $1 OFFSET $2;
 ```
 
-## 📊 Business Intelligence Integration
+### Parameterized Queries
+Always use parameter placeholders to prevent SQL injection:
+```sql
+-- Good: Parameterized query
+SELECT * FROM products WHERE category_id = $1 AND is_available = $2;
 
-### 1. Performance Monitoring with Business Context
-```typescript
-// ✅ BUSINESS INTELLIGENCE: Performance monitoring with business insights
-class BusinessIntelligenceMonitoring {
-  // Revenue-aware performance tracking
-  static trackBusinessMetrics(operation: string, duration: number, businessContext: BusinessContext): void {
-    const metrics = {
-      operation,
-      duration,
-      timestamp: Date.now(),
-      
-      // Business context
-      revenueImpact: businessContext.calculateRevenueImpact(duration),
-      customerImpact: businessContext.calculateCustomerImpact(duration),
-      operationalEfficiency: businessContext.calculateEfficiency(duration),
-      
-      // Performance classification
-      performanceGrade: this.classifyPerformance(operation, duration),
-      businessCriticality: this.assessBusinessCriticality(operation, businessContext)
-    }
-    
-    // Real-time business alerts
-    if (metrics.revenueImpact > 100) { // $100+ revenue at risk
-      this.sendBusinessAlert(`High revenue impact detected: ${operation} took ${duration}ms`)
-    }
-    
-    // Performance optimization recommendations
-    if (metrics.performanceGrade === 'poor') {
-      this.generateOptimizationRecommendation(metrics)
-    }
-  }
-
-  // Business-intelligent caching strategy
-  static createBusinessCache<T>() {
-    return {
-      // Cache strategy based on business value
-      set: (key: string, value: T, businessContext: BusinessContext) => {
-        const ttl = this.calculateOptimalTTL(key, businessContext)
-        const priority = this.calculateCachePriority(key, businessContext)
-        
-        return this.cache.set(key, value, { ttl, priority })
-      },
-      
-      // Intelligent cache invalidation
-      invalidateByBusinessEvent: (event: BusinessEvent) => {
-        const affectedKeys = this.getAffectedCacheKeys(event)
-        affectedKeys.forEach(key => this.cache.invalidate(key))
-      }
-    }
-  }
-}
+-- Bad: String concatenation (vulnerable to injection)
+-- SELECT * FROM products WHERE category_id = '" + categoryId + "'
 ```
 
-## 📱 Mobile Application Patterns (React Native)
+## Backup & Recovery
 
-### 1. Kitchen Staff Mobile App - Tablet & TV Display Optimization
-```typescript
-// ✅ MOBILE-OPTIMIZED: Kitchen display for tablets and large screens
-class MobileKitchenWorkflow {
-  // Touch-optimized interface patterns
-  private touchTargetSize = 50 // Minimum 50px for tablet touch
-  private gestureHandlers: GestureHandlerManager
-  private screenOrientation: 'landscape' | 'portrait'
+### Data Protection
+- Regular automated backups of critical data
+- Point-in-time recovery capability
+- Test restore procedures regularly
+- Document recovery time objectives (RTO)
 
-  // Large screen TV display mode
-  async initializeTVDisplayMode(): Promise<void> {
-    this.screenOrientation = 'landscape'
-    this.enableAutoRotation(false)
-    this.setFullScreenMode(true)
-    this.optimizeForDistance(true) // Larger fonts, higher contrast
-    
-    // TV-specific optimizations
-    await this.configureDisplaySettings({
-      fontSize: 'extra-large',
-      contrast: 'high',
-      colorScheme: 'high-visibility',
-      touchTargets: 'extra-large' // 60px+ for wall-mounted displays
-    })
-  }
+## Security Considerations
 
-  // Tablet-specific optimizations
-  async initializeTabletMode(): Promise<void> {
-    this.enableGestureNavigation()
-    this.optimizeForHandheld(true)
-    
-    // Tablet-specific features
-    await this.configureTabletSettings({
-      swipeGestures: true,
-      pinchToZoom: false, // Prevent accidental zooming
-      hapticFeedback: true,
-      orientationLock: 'landscape-primary'
-    })
-  }
+### Access Control
+- Use least-privilege principles for database users
+- Separate users for application vs administrative access
+- Regular password rotation for database accounts
+- Network-level access restrictions
 
-  // Offline mode for kitchen operations
-  async enableOfflineMode(): Promise<void> {
-    await this.syncCriticalData() // Orders, menu items, status updates
-    this.enableLocalStorage()
-    this.setupOfflineQueue() // Queue updates for when connection returns
-    
-    // Offline-first architecture
-    this.dataManager.setPriority('local-first')
-    this.notificationManager.enableLocalNotifications()
-  }
-}
-```
+### Data Encryption
+- Encrypt sensitive data at rest
+- Use SSL/TLS for database connections
+- Consider column-level encryption for PII
+- Audit access to sensitive tables
 
-### 2. Server Group Mobile App - Smartphone & Tablet Flexibility
-```typescript
-// ✅ MOBILE-OPTIMIZED: Server workflow for smartphones and tablets
-class MobileServerWorkflow {
-  private deviceType: 'smartphone' | 'tablet'
-  private paymentIntegration: MobilePaymentProcessor
-  
-  // Adaptive UI based on device size
-  async initializeDeviceOptimization(): Promise<void> {
-    this.deviceType = await this.detectDeviceType()
-    
-    if (this.deviceType === 'smartphone') {
-      await this.optimizeForSmartphone()
-    } else {
-      await this.optimizeForTablet()
-    }
-  }
+## Monitoring & Maintenance
 
-  // Smartphone-specific optimizations
-  private async optimizeForSmartphone(): Promise<void> {
-    this.ui.setLayout('single-column')
-    this.ui.enableBottomNavigation()
-    this.ui.setTouchTargets('standard') // 44px minimum
-    
-    // One-handed operation support
-    this.ui.enableReachabilityMode()
-    this.ui.setQuickActions(['add-item', 'view-cart', 'process-payment'])
-  }
+### Performance Monitoring
+- Monitor slow queries and optimization opportunities
+- Track connection pool usage and limits
+- Monitor disk space and growth trends
+- Set up alerting for critical metrics
 
-  // Tablet-specific optimizations  
-  private async optimizeForTablet(): Promise<void> {
-    this.ui.setLayout('multi-column')
-    this.ui.enableSideNavigation()
-    this.ui.setTouchTargets('large') // 50px for tablet use
-    
-    // Multi-tasking support
-    this.ui.enableSplitView() // Menu + cart simultaneously
-    this.ui.setAdvancedGestures(true)
-  }
-
-  // Mobile payment processing
-  async processMobilePayment(amount: number, method: PaymentMethod): Promise<PaymentResult> {
-    // Integration with mobile card readers
-    if (method === 'card') {
-      return await this.paymentIntegration.processCardPayment(amount)
-    }
-    
-    // NFC/contactless payments
-    if (method === 'contactless') {
-      return await this.paymentIntegration.processNFCPayment(amount)
-    }
-    
-    // Mobile wallet integration
-    if (method === 'mobile_wallet') {
-      return await this.paymentIntegration.processMobileWallet(amount)
-    }
-  }
-}
-```
-
-### 3. Cross-Platform Synchronization Patterns
-```typescript
-// ✅ SYNC-OPTIMIZED: Real-time synchronization between web and mobile
-class CrossPlatformSyncManager {
-  private webSocketConnection: WebSocketManager
-  private offlineQueue: OfflineOperationQueue
-  private conflictResolver: DataConflictResolver
-
-  // Real-time data synchronization
-  async initializeCrossPlatformSync(): Promise<void> {
-    // Establish WebSocket connection for real-time updates
-    await this.webSocketConnection.connect()
-    
-    // Listen for cross-platform events
-    this.webSocketConnection.on('order-updated', this.handleOrderUpdate)
-    this.webSocketConnection.on('kitchen-status-changed', this.handleKitchenUpdate)
-    this.webSocketConnection.on('payment-processed', this.handlePaymentUpdate)
-    
-    // Sync offline operations when connection restored
-    this.webSocketConnection.on('reconnected', this.syncOfflineOperations)
-  }
-
-  // Handle data conflicts between platforms
-  async resolveDataConflicts(localData: any, serverData: any): Promise<any> {
-    // Business rules for conflict resolution
-    const resolution = await this.conflictResolver.resolve({
-      local: localData,
-      server: serverData,
-      strategy: 'server-wins-for-payments', // Critical business rule
-      fallback: 'merge-non-conflicting'
-    })
-    
-    return resolution.resolvedData
-  }
-
-  // Offline operation queuing
-  async queueOfflineOperation(operation: OfflineOperation): Promise<void> {
-    await this.offlineQueue.add({
-      ...operation,
-      timestamp: Date.now(),
-      deviceId: await this.getDeviceId(),
-      priority: this.calculateOperationPriority(operation)
-    })
-  }
-}
-```
-
-## 🎯 Mobile Development Best Practices
-
-### Performance Optimization for Mobile
-```typescript
-// Mobile-specific performance patterns
-class MobilePerformanceOptimizer {
-  // Battery-conscious background processing
-  async optimizeBatteryUsage(): Promise<void> {
-    // Reduce polling frequency when app is backgrounded
-    this.dataSync.setBackgroundPollingInterval(30000) // 30s instead of 5s
-    
-    // Pause non-critical animations
-    this.ui.pauseDecoractiveAnimations()
-    
-    // Optimize network requests
-    this.api.enableRequestBatching()
-    this.api.setConnectionPooling(true)
-  }
-
-  // Memory management for long-running kitchen displays
-  async optimizeMemoryUsage(): Promise<void> {
-    // Limit order history in memory
-    this.orderManager.setMaxHistoryItems(50)
-    
-    // Lazy load images and assets
-    this.assetManager.enableLazyLoading()
-    
-    // Garbage collection optimization
-    this.schedulePeriodicCleanup(300000) // Every 5 minutes
-  }
-
-  // Network optimization for mobile connections
-  async optimizeNetworkUsage(): Promise<void> {
-    // Compress API responses
-    this.api.enableCompression()
-    
-    // Cache frequently accessed data
-    this.cache.setStrategy('aggressive-mobile')
-    
-    // Implement smart retry logic
-    this.api.setRetryStrategy({
-      maxRetries: 3,
-      backoffMultiplier: 2,
-      networkAware: true // Adjust based on connection quality
-    })
-  }
-}
-```
-
-This comprehensive business logic pattern ensures your POS system truly understands the restaurant domain, optimizes for real business outcomes, prevents technical debt, and maintains the highest quality standards. The patterns now include mobile-first development approaches that align with the GitHub milestones for React Native kitchen and server applications. The patterns are designed to work together to create a cohesive, high-performance system that scales across web and mobile platforms.
-
-<function_calls>
-<invoke name="todo_write">
-<parameter name="merge">true
+### Regular Maintenance
+- Analyze and vacuum tables regularly
+- Update table statistics for query optimization
+- Monitor and manage database locks
+- Review and optimize indexes based on usage patterns
 
 ---
 > Source: [madebyaris/poinf-of-sales](https://github.com/madebyaris/poinf-of-sales) — distributed by [TomeVault](https://tomevault.io).
