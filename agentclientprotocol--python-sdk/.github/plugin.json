@@ -1,0 +1,9 @@
+{
+  "name": "agentclientprotocol--python-sdk",
+  "displayName": "python-sdk",
+  "description": "Python SDK for ACP clients and agents.",
+  "version": "1.0.0",
+  "author": "agentclientprotocol",
+  "homepage": "https://github.com/agentclientprotocol/python-sdk",
+  "skills": []
+}
