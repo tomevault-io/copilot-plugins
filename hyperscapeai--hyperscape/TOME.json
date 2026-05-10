@@ -2,9 +2,9 @@
   "name": "hyperscape",
   "owner": "HyperscapeAI",
   "repo": "hyperscape",
-  "description": "",
+  "description": "MMORPG for humans and agents. In development. Powered by ElizaOS",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/HyperscapeAI",
+  "source_url": "https://github.com/HyperscapeAI/hyperscape",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T15:37:43Z"
+  "distributed_at": "2026-05-10T14:37:04Z"
 }
