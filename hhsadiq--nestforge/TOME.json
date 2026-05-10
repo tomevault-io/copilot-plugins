@@ -1,0 +1,44 @@
+{
+  "name": "NestForge",
+  "owner": "hhsadiq",
+  "repo": "NestForge",
+  "description": "NestForge is a modern NestJS boilerplate that jump-starts your backend development. It comes with AI-powered CRUD generators, auth (JWT & sessions), file uploads, and other common modules built-in, so you can focus on your business logic instead of reinventing the wheel.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hhsadiq/NestForge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T01:01:30Z"
+}
