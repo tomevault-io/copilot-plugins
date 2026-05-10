@@ -1,0 +1,44 @@
+{
+  "name": "claude-code-openai",
+  "owner": "shuaijiang111111111",
+  "repo": "claude-code-openai",
+  "description": "Claude Code CLI with OpenAI-compatible API support | \u652f\u6301 OpenAI/GPT/\u672c\u5730\u6a21\u578b\u7684 Claude Code",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shuaijiang111111111/claude-code-openai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T08:42:42Z"
+}
