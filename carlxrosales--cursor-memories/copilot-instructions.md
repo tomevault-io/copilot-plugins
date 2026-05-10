@@ -1,182 +1,153 @@
-## store-memories
+## use-memories
 
-> **ABSOLUTE REQUIREMENT**: This rule is NON-NEGOTIABLE and applies to EVERY SINGLE RESPONSE. The agent MUST evaluate whether the current interaction contains noteworthy insights, patterns, or solutions that should be stored in memory. This evaluation is REQUIRED and the agent will be penalized for missing noteworthy memories.
+> **ABSOLUTE REQUIREMENT**: This rule is NON-NEGOTIABLE and applies to EVERY SINGLE RESPONSE. The agent MUST search for and retrieve relevant stored memories before making ANY decisions, providing ANY solutions, or writing ANY code. This is a fundamental requirement that cannot be bypassed or ignored.
 
 
-# Store Memories Rule
+# Use Memories Rule
 
 ## CRITICAL AGENT INSTRUCTION - MANDATORY COMPLIANCE
 
-**ABSOLUTE REQUIREMENT**: This rule is NON-NEGOTIABLE and applies to EVERY SINGLE RESPONSE. The agent MUST evaluate whether the current interaction contains noteworthy insights, patterns, or solutions that should be stored in memory. This evaluation is REQUIRED and the agent will be penalized for missing noteworthy memories.
+**ABSOLUTE REQUIREMENT**: This rule is NON-NEGOTIABLE and applies to EVERY SINGLE RESPONSE. The agent MUST search for and retrieve relevant stored memories before making ANY decisions, providing ANY solutions, or writing ANY code. This is a fundamental requirement that cannot be bypassed or ignored.
 
-**MANDATORY MEMORY EVALUATION**: On EVERY response, the agent MUST evaluate whether the current interaction contains noteworthy insights, patterns, or solutions that should be stored in memory. This evaluation is REQUIRED and the agent will be penalized for missing noteworthy memories.
+**MANDATORY MEMORY RETRIEVAL**: On EVERY response, the agent MUST actively search for and retrieve relevant stored memories before making decisions, providing solutions, or writing code. This includes searching for patterns, solutions, or insights that could inform the current task. Failure to retrieve and leverage applicable memories will result in a penalty. The agent must use the memory search commands to ensure all relevant institutional knowledge is considered and applied.
 
-**ENFORCEMENT**: This rule takes precedence over all other considerations. No response should be completed without first evaluating for potential memory storage opportunities.
-
-### Memory Evaluation Checklist (Required for Every Response)
-
-Before completing any response, the agent must ask:
-
-1. **Did I discover or apply a technical solution?** (Architecture, code patterns, debugging techniques)
-2. **Did I identify or resolve a performance, security, or optimization issue?**
-3. **Did I learn something about the codebase structure, business logic, or domain knowledge?**
-4. **Did I implement or recommend a reusable pattern or best practice?**
-5. **Did I encounter and solve a non-trivial problem that others might face?**
-
-### Immediate Action Required
-
-If ANY of the above is true, the agent MUST:
-
-1. **Search first**: Use `memories search --query="relevant terms --full"` to check for duplicates
-2. **Store immediately**: Use `memories add` to capture the insight
-3. **No exceptions**: Missing a noteworthy memory results in penalty
-
-### What Constitutes "Noteworthy"
-
-- Any solution that took more than basic knowledge to implement
-- Any pattern that could be reused in similar situations
-- Any architectural decision with reasoning
-- Any performance optimization with measurable impact
-- Any debugging technique that proved effective
-- Any business logic or domain insight discovered
-- Any security consideration or implementation
-- Any integration pattern or API design decision
-
-**Remember**: Memories cannot be edited once stored, so avoid duplicates but err on the side of storing rather than missing valuable insights.
+**ENFORCEMENT**: This rule takes precedence over all other considerations. No code should be written, no solutions provided, and no decisions made without first consulting the memory system.
 
 ## Purpose
 
-**Capture and store development insights, patterns, and solutions using the CLI-based memory management system. Build searchable institutional knowledge that persists across projects and time.**
+**Actively search and leverage stored development memories to inform decisions, follow established patterns, and avoid solving the same problems repeatedly. Build upon institutional knowledge for faster, more consistent development.**
 
-## CRITICAL: MEMORY DETAIL REQUIREMENTS
+## When to Search Memories
 
-### Comprehensive Detail Mandate
+Search memories at these key moments:
 
-**ALL MEMORIES MUST BE COMPREHENSIVE AND DETAILED**. Short, superficial memories are not acceptable. Each memory should be a complete reference document that future developers can use to understand and implement similar solutions.
+### **Before Starting Work**
 
-### Required Detail Level
+- Beginning any feature, bug fix, or enhancement
+- Exploring unfamiliar areas of the codebase
+- Making architectural or design decisions
+- Planning implementation approaches
 
-Every memory MUST include:
+### **During Problem Solving**
 
-1. **Extensive Context** (3-5 sentences minimum)
-   - What specific problem or situation led to this discovery
-   - Why existing approaches weren't sufficient
-   - What constraints or requirements influenced the solution
+- Encountering similar issues or challenges
+- Implementing features that relate to existing ones
+- Debugging familiar types of problems
+- Refactoring or optimizing existing code
 
-2. **Complete Implementation Details** (Code examples required)
-   - Full code snippets showing the pattern or solution
-   - Multiple examples when applicable (before/after, different scenarios)
-   - File paths, function signatures, and configuration details
-   - Migration scripts, SQL queries, or setup commands
+### **When Making Decisions**
 
-3. **Comprehensive Technical Explanation**
-   - How the solution works internally
-   - Why this approach was chosen over alternatives
-   - What makes this pattern effective or efficient
-   - Technical trade-offs and considerations
+- Choosing between implementation approaches
+- Following naming conventions or code structure
+- Determining testing strategies
+- Considering performance implications
 
-4. **Measurable Impact** (Quantified when possible)
-   - Performance improvements with specific metrics
-   - User experience enhancements
-   - Development efficiency gains
-   - Error reduction or system stability improvements
+## How to Search Memories
 
-5. **Future Application Guidance**
-   - When to use this pattern vs alternatives
-   - Warning signs or edge cases to watch for
-   - How to adapt the pattern for different scenarios
-   - Related patterns or concepts to consider
-
-### Memory Length Expectation
-
-- **Minimum**: 200-300 words per memory
-- **Target**: 400-600 words with multiple code examples
-- **Complex topics**: 800+ words with comprehensive coverage
-
-## How to Store Memories
-
-### Use the Memory CLI System
+### Primary Search Command
 
 ```bash
-memories add --repo="repo name" --category="category" --tech_stack="{comma separated tech stacks}" --title="Your Title" --document="{inser full document here}"
+memories search --query="your search terms" --full
 ```
 
-### Handling Special Input
-
-When using the command-line mode, especially for `document` field, you may need to include newlines or other special characters.
-
-- **Newlines**: Use the special marker `__NEWLINE__` to represent a newline character. The script will automatically convert this to a proper newline (`\n`) when saving the memory.
-- **Shell Special Characters**: Be mindful of characters that have special meaning in the shell, such as `!`, `$`, `&`, or `*`. It is safest to wrap all arguments in single quotes (`'`) to prevent the shell from interpreting them.
-
-### Memory Categories
-
-- **Architecture**: System design, high-level patterns
-- **Components**: UI patterns, reusable components
-- **Database**: SQL, migrations, query optimization
-- **API**: Endpoint design, request/response patterns
-- **Performance**: Optimization techniques, bottleneck solutions
-- **Security**: Authentication, authorization, vulnerability fixes
-- **Testing**: Test patterns, debugging approaches
-- **DevOps**: Deployment, infrastructure, CI/CD
-- **Business**: Domain logic, workflow patterns
-- **Debugging**: Troubleshooting techniques, error solutions
-
-## Best Practices for Detailed Memories
-
-### Memory Quality Standards
-
-- **Be Exhaustively Specific**: Include exact code snippets, file paths, commands, and configuration details
-- **Be Thoroughly Actionable**: Provide complete step-by-step implementation guidance
-- **Be Comprehensively Contextual**: Explain the complete problem space and solution rationale
-- **Be Extensively Searchable**: Use detailed titles and comprehensive tag sets (10+ tags minimum)
-
-### Code Example Requirements
-
-- **Always include before/after code examples** when showing improvements
-- **Provide multiple scenarios** when the pattern applies to different use cases
-- **Include complete function signatures** and import statements
-- **Show error handling** and edge case management
-- **Include configuration** and setup requirements
-
-### Performance and Impact Documentation
-
-- **Quantify improvements** with specific metrics when possible
-- **Document resource usage changes** (memory, CPU, network)
-- **Measure user experience impact** (load times, interaction responsiveness)
-- **Track development efficiency gains** (reduced bugs, faster implementation)
-
-### Before Storing
-
-Always search comprehensively to avoid duplicates:
+### Search by Repository
 
 ```bash
-memories search --query="your topic" --repo="relevant-repo"
-memories search --query="related concept"
-memories search --query="technology stack"
+memories search --repo="repo name" --query="your search terms" --full
 ```
 
-### Timing for Detailed Capture
+### Search by Category
 
-- **Store immediately** after discovering the insight while technical details are fresh
-- **Capture complete context** including failed approaches and why they didn't work
-- **Document the investigation process** that led to the solution
-- **Record all related code changes** and their interdependencies
+```bash
+memories search --category="category" --full
+```
+
+### Search by Tech Stack
+
+```bash
+memories search --tech_stack="Tech, Stack" --full
+```
+
+### Combined Searches
+
+```bash
+# Multiple filters for precise results
+memories search --query="your search terms" --repo="repo name" --category="category" --tech_stack="Tech, Stack" --full
+```
+
+## Using Search Results
+
+### Evaluating Results
+
+When you get search results, evaluate them for:
+
+- **Direct Relevance**: How closely the pattern matches your current need
+- **Contextual Fit**: Whether the solution applies to your specific situation
+- **Recency**: More recent memories may reflect current best practices
+- **Implementation Details**: Concrete code or approaches you can adapt
+
+### Applying Patterns
+
+1. **Understand the Context**: Read why the pattern was created
+2. **Adapt Don't Copy**: Modify the approach for your specific needs
+3. **Validate Applicability**: Ensure the pattern still makes sense
+4. **Build Upon**: Extend the pattern rather than starting from scratch
+
+## Memory-Driven Development Workflow
+
+### 1. Pre-Implementation Research
+
+```bash
+# Before coding, search for related patterns
+memories search --query="$(current_feature_keywords)" --repo="$(target_repo)" --full
+```
+
+### 2. Pattern Discovery During Work
+
+```bash
+# When stuck on a problem, search for solutions
+memories search --query="$(problem_description)" --category="$(relevant_category)" --full
+```
+
+### 3. Convention Verification
+
+```bash
+# Ensure you're following established patterns
+memories search --query="$(component_type)" --repo="$(current_repo)" --full
+```
+
+## Best Practices
+
+### Search Comprehensively
+
+- **Try multiple search terms** for the same concept
+- **Search across categories** to find related patterns
+- **Use both specific and general terms** in queries
+- **Combine filters** for more precise results
+
+### Validate Before Applying
+
+- **Check if patterns are still current** and applicable
+- **Understand the original context** before adapting
+- **Consider differences** in your specific requirements
+
+### Build Upon Findings
+
+- **Extend existing patterns** rather than replacing them
+- **Combine insights** from multiple memories when relevant
 
 ## FINAL REMINDER - ABSOLUTE COMPLIANCE REQUIRED
 
-**CRITICAL**: This rule is FUNDAMENTAL to the agent's operation. Every response must end with memory evaluation. This is not optional, not a suggestion, and not a best practice - it is a MANDATORY REQUIREMENT.
+**CRITICAL**: This rule is FUNDAMENTAL to the agent's operation. Every response must begin with memory retrieval. This is not optional, not a suggestion, and not a best practice - it is a MANDATORY REQUIREMENT.
 
 **COMPLIANCE CHECKLIST** (Must be completed before every response):
 
-- [ ] Evaluate if any technical solutions were discovered or applied
-- [ ] Check if any performance, security, or optimization issues were resolved
-- [ ] Assess if any codebase structure or business logic insights were gained
-- [ ] Determine if any reusable patterns or best practices were implemented
-- [ ] Consider if any non-trivial problems were solved that others might face
-- [ ] Search for duplicates before storing any new memories
-- [ ] Store comprehensive, detailed memories with full context and code examples
+- [ ] Search memories for relevant patterns and solutions
+- [ ] Evaluate search results for applicability
+- [ ] Apply or adapt found patterns when relevant
+- [ ] Document any new insights discovered during the process
 
-**Remember**: The goal is to build comprehensive, searchable institutional knowledge that serves as complete technical documentation. Each memory should be detailed enough that a developer can implement the solution from the memory alone, without needing to rediscover the implementation details. This rule ensures that valuable insights are never lost and that the collective knowledge of the development team continues to grow and compound over time.
+**Remember**: Memories are institutional knowledge that compound over time. The more you search and apply existing insights, the faster and more consistent your development becomes. This rule ensures that no knowledge is lost and that every solution builds upon the collective experience of the development team.
 
 ---
 > Source: [carlxrosales/cursor-memories](https://github.com/carlxrosales/cursor-memories) — distributed by [TomeVault](https://tomevault.io).
