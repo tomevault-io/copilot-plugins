@@ -4,7 +4,7 @@
   "repo": "claude-code-springboot-template",
   "description": "Spring Boot Gradle template with Claude agents, reusable AI skills, and cross-tool guidance for Copilot and local LLM workflows.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DIL8654/claude-code-springboot-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T09:44:12Z"
+  "distributed_at": "2026-05-10T16:14:19Z"
 }
