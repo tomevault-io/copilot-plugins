@@ -1,0 +1,9 @@
+{
+  "name": "brancogao--webhook-debugger",
+  "displayName": "webhook-debugger",
+  "description": "Capture, inspect, and replay webhooks with 90-day history + signature verification. Built on Cloudflare Workers + D1.",
+  "version": "1.0.0",
+  "author": "brancogao",
+  "homepage": "https://github.com/brancogao/webhook-debugger",
+  "skills": []
+}
