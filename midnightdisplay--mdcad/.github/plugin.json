@@ -1,0 +1,9 @@
+{
+  "name": "midnightdisplay--mdcad",
+  "displayName": "mdCAD",
+  "description": "A lightweight, cross-platform CAD viewer and geometry editor built in C with sokol, cimgui and flecs",
+  "version": "1.0.0",
+  "author": "MidnightDisplay",
+  "homepage": "https://github.com/MidnightDisplay/mdCAD",
+  "skills": []
+}
