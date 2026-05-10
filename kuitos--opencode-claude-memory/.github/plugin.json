@@ -1,0 +1,9 @@
+{
+  "name": "kuitos--opencode-claude-memory",
+  "displayName": "opencode-claude-memory",
+  "description": "\ud83d\udd04 Claude Code-compatible memory for OpenCode \u2014 zero config, local-first, no migration.",
+  "version": "1.0.0",
+  "author": "kuitos",
+  "homepage": "https://github.com/kuitos/opencode-claude-memory",
+  "skills": []
+}
