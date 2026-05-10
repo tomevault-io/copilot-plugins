@@ -4,7 +4,7 @@
   "repo": "typeflux",
   "description": "Typeflux is a macOS menu bar voice input tool built with Swift. It is designed for a fast \"hold to talk, release to insert\" workflow: press a hotkey, speak naturally, let the app transcribe your speech, and send the resulting text back into the currently focused app.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mylxsw/typeflux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T06:06:40Z"
+  "distributed_at": "2026-05-10T13:54:45Z"
 }
