@@ -1,0 +1,9 @@
+{
+  "name": "notdezzi--freedomtalk",
+  "displayName": "freedomtalk",
+  "description": "Open-source Discord alternative with real-time messaging, voice/video calls, and self-hosted control. Built with Next.js, Fastify, and PostgreSQL.",
+  "version": "1.0.0",
+  "author": "notdezzi",
+  "homepage": "https://github.com/notdezzi/freedomtalk",
+  "skills": []
+}
