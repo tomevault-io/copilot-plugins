@@ -1,0 +1,44 @@
+{
+  "name": "DotaTerrainSwitcher",
+  "owner": "lanxiuyun",
+  "repo": "DotaTerrainSwitcher",
+  "description": "Dota2 \u5730\u56fe\u5207\u6362\u5668\u3002\u8fd9\u662f\u4e00\u4e2a\u5c06dota\u9ed8\u8ba4\u5730\u56fe\u66ff\u6362\u6210\u4f60\u559c\u6b22\u7684\u5b98\u65b9\u5730\u56fe\u7684\u5de5\u5177\u3002This is a tool to switch the default Dota map to your favorite official map.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lanxiuyun/DotaTerrainSwitcher",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T04:47:18Z"
+}
