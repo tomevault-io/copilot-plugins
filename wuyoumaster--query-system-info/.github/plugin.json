@@ -1,0 +1,9 @@
+{
+  "name": "wuyoumaster--query-system-info",
+  "displayName": "query_system_info",
+  "description": "A cross-platform system information library written in Rust, providing API bindings for Python and JavaScript, featuring system information querying and multi-dimensional process monitoring",
+  "version": "1.0.0",
+  "author": "wuyouMaster",
+  "homepage": "https://github.com/wuyouMaster/query_system_info",
+  "skills": []
+}
