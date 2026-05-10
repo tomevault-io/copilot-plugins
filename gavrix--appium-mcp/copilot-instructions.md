@@ -1,14 +1,28 @@
-## project-overview
+## project-structure
 
-> This project implements an Appium MCP (Model-Context-Protocol) server. Its main purpose is to expose Appium's mobile automation capabilities as a set of tools that can be consumed by an MCP client.
+> The project is structured to separate the core server logic from the individual tool implementations.
 
-# Project Overview
+# Project Structure
 
-This project implements an Appium MCP (Model-Context-Protocol) server. Its main purpose is to expose Appium's mobile automation capabilities as a set of tools that can be consumed by an MCP client.
+The project is structured to separate the core server logic from the individual tool implementations.
 
-The server allows for controlling and interacting with iOS simulators (and potentially Android devices in the future) through a standardized protocol.
+- **`[server.js](mdc:server.js)`**: This is the main entry point of the application. It initializes the `McpServer`, sets up shared state (`sharedState`) and common dependencies (`toolDependencies`), and then dynamically loads and registers all available tools.
 
-The main entry point for the server application is `[server.js](mdc:server.js)`.
+- **`tools/`**: This directory contains the implementation for each individual tool that the MCP server exposes.
+    - Each tool is defined in its own JavaScript file, e.g., `[tools/startSession.js](mdc:tools/startSession.js)`, `[tools/launchApp.js](mdc:tools/launchApp.js)`, etc.
+    - Each tool file exports a factory function named `create<ToolName>Tool` (e.g., `createStartSessionTool`).
+    - This factory function accepts `sharedState` and `dependencies` as arguments and returns a tool definition object.
+    - The tool definition object has the following structure:
+        - `name` (string): The programmatic name of the tool.
+        - `description` (string): A human-readable description of what the tool does.
+        - `schema` (object): A Zod schema defining the arguments the tool expects. For tools not requiring arguments, this is typically an empty object `{}`.
+        - `handler` (async function): The function that contains the actual logic for the tool. This handler receives the tool's arguments (if any) and has access to `sharedState` (e.g., `appiumDriver`) and `dependencies` (e.g., `logToFile`, `zod`) through a closure.
+
+- **Log Files**:
+    - `mcp-server.log`: General server logs.
+    - `device_console.log`: Logs captured from the connected iOS simulator (specifically filtered for React Native logs during `start_session`).
+
+JSDoc type annotations are used throughout the codebase for better type clarity and IntelliSense support.
 
 ---
 > Source: [gavrix/appium-mcp](https://github.com/gavrix/appium-mcp) — distributed by [TomeVault](https://tomevault.io).
