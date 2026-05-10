@@ -1,0 +1,9 @@
+{
+  "name": "russbaz--svelte-synk",
+  "displayName": "svelte-synk",
+  "description": "Svelte 5 cross-tab sync, leader election and task rollover on leader change (when leader tab is closed)",
+  "version": "1.0.0",
+  "author": "RussBaz",
+  "homepage": "https://github.com/RussBaz/svelte-synk",
+  "skills": []
+}
