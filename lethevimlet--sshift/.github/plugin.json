@@ -1,0 +1,9 @@
+{
+  "name": "lethevimlet--sshift",
+  "displayName": "sshift",
+  "description": "A modern, responsive web-based SSH and SFTP terminal client for the AI stack",
+  "version": "1.0.0",
+  "author": "lethevimlet",
+  "homepage": "https://github.com/lethevimlet/sshift",
+  "skills": []
+}
