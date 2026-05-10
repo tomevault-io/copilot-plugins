@@ -1,81 +1,83 @@
-## 2001-nextjs
+## 2002-tailwindcss
 
-> Use these rules when building Next.js projects
+> Apply Tailwind utilities when styling to keep layouts simple and uniform
 
 
-# Next.js Rules
+# Tailwind CSS Rules
 
 <version>1.0.0</version>
 
 ## Context
 
-- For building Next.js v15 (App Router) projects with React 19
-- Guides server vs. client component usage and modern patterns
-- Ensures optimal performance and developer experience
+- For styling with Tailwind CSS v4 and design system implementation
+- Emphasizes utility classes, consistency, and maintainable styling patterns
+- Ensures responsive design and accessibility compliance
 
 ## Requirements
 
-### Architecture Patterns
+### Utility Usage
 
-- Use App Router with proper file-system based routing
-- Default `layout.tsx` and `page.tsx` to server components
-- Place client components strategically for interactivity only
-- Implement proper data fetching patterns with server actions
+- Follow 8-point grid system using consistent spacing utilities (`p-4`, `m-2`, `space-y-4`)
+- Combine conditional classes with `cn()` utility function for better maintainability
+- Use semantic class names through component variants rather than inline utilities
+- Implement mobile-first responsive design with appropriate breakpoints
 
-### Component Strategy
+### Color System
 
-- Use client components only for local state, interactivity, or browser APIs
-- Prefer server components for data fetching and static content
-- Implement proper loading states with `loading.tsx` and `<Suspense>`
-- Use Shadcn UI `Skeleton` components for consistent loading UX
+- Use only custom colors defined in `globals.css` with CSS custom properties
+- Ensure WCAG 2.1 AA compliance for color contrast ratios
+- Implement proper dark mode support via `.dark:` variants
+- Use semantic color tokens (primary, secondary, success, error, warning)
 
-### Navigation and Routing
+### Component Styling
 
-- Use `<Link>` component for navigation instead of `<a>` tags
-- Use `useRouter` only when programmatic navigation is essential
-- Implement proper route protection with middleware
-- Use typed routes for better TypeScript integration
+- Create reusable component variants using `tailwind-variants` or similar
+- Maintain consistent component APIs with size and variant props
+- Use composition over configuration for complex styling patterns
+- Implement proper focus states and interactive feedback
 
-### Data Management
+### Performance
 
-- Prefer server actions over client-side API calls for mutations
-- Implement proper error handling with error boundaries
-- Use React 19's `useActionState` instead of deprecated `useFormState`
-- Configure proper caching strategies for fetch requests
-
-### Performance Optimization
-
-- Maintain Edge Runtime compatibility in middleware (no Node.js APIs)
-- Implement proper image optimization with Next.js Image component
-- Use streaming and progressive enhancement patterns
-- Configure proper headers for security and performance
-
-### Migration Notes (Next.js 15)
-
-- React 19 is required for Next.js 15
-- `ImageResponse` moved from `next/server` to `next/og`
-- Async APIs (`cookies`, `headers`, `draftMode`, `params`) return Promises
-- Fetch requests aren't cached by default; use `cache: "force-cache"` if needed
-- Geo/IP removed from `NextRequest`; use `@vercel/functions`
-- Route Handlers require explicit caching configuration
+- Avoid deep nesting of utility classes
+- Use `@apply` directive sparingly and only for component base styles
+- Implement proper purging to minimize bundle size
+- Use CSS custom properties for dynamic values
 
 ## Examples
 
 <example>
-  // server component
-  export default async function Page() {
-    const data = await getData(); // server action
-    return <div>{data}</div>;
-  }
+  import { cn } from "~/lib/utils";
+
+export function ExampleBox({ isActive }: { isActive: boolean }) {
+return (
+
+<div className={cn("p-4 rounded-md", isActive ? "bg-blue-500" : "")}>
+Content
+</div>
+);
+}
 </example>
 
 <example type="invalid">
-  "use client";
-  export default async function Page() {
-    const data = await getData();
-    return <div>{data}</div>;
-  }
+  <div style={{ padding: "20px" }}>Inline styled box</div>
 </example>
+
+## Tailwind v4 Updates
+
+- Config: `tailwind.config.ts` deprecated; now configure in `globals.css` with `@import "tailwindcss"`.
+- PostCSS: Plugin moved to `@tailwindcss/postcss`.
+- Utility Renames:
+  - `shadow-sm` → `shadow-xs`; `shadow` → `shadow-sm`; similar for `blur`, `drop-shadow`.
+  - `outline-none` → `outline-hidden`.
+  - `ring` defaults to 1px; use `ring-3` for old 3px behavior.
+- Removed Utilities: `bg-opacity-*`, `text-opacity-*`, `flex-shrink-*`, `flex-grow-*` → replaced by new patterns (`bg-black/50`, `shrink-*`, `grow-*`, etc.).
+- Placeholder Text: Now 50% of current color, not fixed gray.
+- Buttons: Default `cursor: default`.
+- Border Color: Defaults to `currentColor`.
+- `@layer`: `@layer utilities/components` replaced by `@utility`.
+- Variant Stacking: Applied left to right (e.g., `.hover:focus:bg-red-500`).
+- `space-y-*`: Uses new selector, may affect inline layouts.
+- Theming: Use `var(--color-...)` instead of `theme()` in CSS.
 
 ---
 > Source: [AbacatePay/abacate-chat](https://github.com/AbacatePay/abacate-chat) — distributed by [TomeVault](https://tomevault.io).
