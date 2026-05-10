@@ -1,150 +1,317 @@
-## admin-interface-patterns
+## api-patterns
 
-> Admin interface development patterns and conventions for POS System
+> RESTful API design patterns and conventions for POS System
 
 
-# Admin Interface Development Patterns
+# API Development Guidelines
 
-## Admin Layout Structure
+## RESTful API Design
 
-### Component Organization
-Admin components should follow this structure:
-- `AdminLayout.tsx` - Main admin wrapper with sidebar navigation
-- `Admin[Section].tsx` - Individual admin section components
-- Navigation integrated within single sidebar (no duplicate headers)
+### Endpoint Conventions
+Follow the patterns established in [backend/internal/api/routes.go](mdc:backend/internal/api/routes.go):
 
-### Navigation Pattern
-```typescript
-// AdminLayout.tsx navigation structure
-const adminSections = [
-  { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard /> },
-  { id: 'pos', label: 'General POS', icon: <Store /> },
-  { id: 'server', label: 'Server Interface', icon: <Users /> },
-  { id: 'counter', label: 'Counter/Checkout', icon: <CreditCard /> },
-  { id: 'kitchen', label: 'Kitchen Display', icon: <ChefHat /> },
-  { id: 'settings', label: 'Settings', icon: <Settings /> },
-  { id: 'staff', label: 'Manage Staff', icon: <UserCog /> },
-  { id: 'menu', label: 'Manage Menu', icon: <Menu /> },
-  { id: 'reports', label: 'View Reports', icon: <BarChart3 /> }
-]
+### Resource Naming
+- Use plural nouns for resources: `/api/v1/orders`, `/api/v1/products`
+- Use kebab-case for multi-word resources: `/api/v1/dining-tables`
+- Nest related resources: `/api/v1/orders/{id}/payments`
+- Use descriptive action names for non-CRUD operations: `/api/v1/orders/{id}/status`
+
+### HTTP Methods
+Standard CRUD operations:
+```
+GET    /api/v1/orders           # List all orders
+POST   /api/v1/orders           # Create new order
+GET    /api/v1/orders/{id}      # Get specific order
+PUT    /api/v1/orders/{id}      # Update entire order
+PATCH  /api/v1/orders/{id}      # Partial update
+DELETE /api/v1/orders/{id}      # Delete order
+
+# Action-specific endpoints
+PATCH  /api/v1/orders/{id}/status     # Update order status
+POST   /api/v1/orders/{id}/payments   # Add payment to order
 ```
 
-### Sidebar Layout Best Practices
-- **Single Navigation Source**: All navigation within sidebar, no duplicate top headers
-- **Collapsible Design**: Support both expanded (w-64) and collapsed (w-16) states
-- **User Info Integration**: User card and logout within navigation flow, not separate bottom section
-- **Flexible Layout**: Use flexbox with spacer to push user info and logout to bottom
-- **Consistent Styling**: Same button styles for all navigation items
+## Request/Response Patterns
 
-### User Authentication Integration
-```typescript
-// User info within navigation
-{!sidebarCollapsed && (
-  <div className="p-3 bg-muted/30 rounded-lg">
-    <div className="flex items-center gap-3">
-      <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-        <User className="w-4 h-4 text-primary-foreground" />
-      </div>
-      <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium truncate">{user.first_name} {user.last_name}</p>
-        <p className="text-xs text-muted-foreground truncate">{user.email}</p>
-      </div>
-      <Badge variant="outline">{user.role.toUpperCase()}</Badge>
-    </div>
-  </div>
-)}
+### Standard Response Format
+Use consistent response structure from [models/models.go](mdc:backend/internal/models/models.go):
 
-// Logout as navigation item
-<Button
-  variant="ghost"
-  onClick={handleLogout}
-  className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10"
->
-  <LogOut className="w-5 h-5" />
-  {!sidebarCollapsed && <span className="ml-3">Logout</span>}
-</Button>
-```
-
-## Interface Switching Pattern
-
-Admin users should be able to access all role interfaces:
-```typescript
-const renderCurrentSection = () => {
-  switch (currentSection) {
-    case 'dashboard': return <AdminDashboard />
-    case 'pos': return <POSLayout user={user} />
-    case 'server': return <ServerInterface />
-    case 'counter': return <CounterInterface />
-    case 'kitchen': return <KitchenLayout user={user} />
-    // ... other sections
+```json
+{
+  "success": true,
+  "message": "Order created successfully",
+  "data": {
+    "id": "uuid-here",
+    "order_number": "ORD001",
+    // ... other fields
   }
 }
 ```
 
-## API Integration Patterns
-
-### User Management
-```typescript
-// Admin-only endpoints
-async getUsers(): Promise<APIResponse<User[]>> {
-  return this.request({ method: 'GET', url: '/admin/users' });
-}
-
-async createUser(userData: CreateUserRequest): Promise<APIResponse<User>> {
-  return this.request({ method: 'POST', url: '/admin/users', data: userData });
+### Error Response Format
+```json
+{
+  "success": false,
+  "message": "User-friendly error message",
+  "error": "error_code_for_clients"
 }
 ```
 
-### Form Handling
-```typescript
-// Consistent form patterns for admin sections
-const [showCreateForm, setShowCreateForm] = useState(false)
-const [formData, setFormData] = useState<FormType>(initialValues)
-
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault()
-  if (validateForm()) {
-    mutation.mutate(formData)
+### Pagination Response Format
+```json
+{
+  "success": true,
+  "message": "Orders retrieved successfully",
+  "data": [...],
+  "meta": {
+    "current_page": 1,
+    "per_page": 20,
+    "total": 150,
+    "total_pages": 8
   }
 }
 ```
 
-## Styling Conventions
+## Authentication & Authorization
 
-### Responsive Layout
-- `min-h-screen bg-background flex` for full-height layout
-- `flex flex-col` for sidebar with proper spacing
-- `flex-1 overflow-auto` for main content area
+### JWT Token Authentication
+Follow patterns from [middleware/auth.go](mdc:backend/internal/middleware/auth.go):
 
-### Color Scheme
-- Primary actions: `bg-primary text-primary-foreground`
-- Destructive actions: `text-destructive hover:bg-destructive/10`
-- Muted backgrounds: `bg-muted/30` for subtle highlights
+### Request Headers
+```
+Authorization: Bearer <jwt_token>
+Content-Type: application/json
+Accept: application/json
+```
 
-### Icon Consistency
-- Navigation icons: `w-5 h-5` in expanded state
-- User avatars: `w-8 h-8` for main display, `w-6 h-6` for collapsed
-- Action buttons: `w-4 h-4` for standard buttons
+### Role-Based Access Control
+```go
+// Public routes - no authentication
+public.POST("/auth/login", authHandler.Login)
+
+// Protected routes - authentication required
+protected.GET("/orders", orderHandler.GetOrders)
+
+// Admin routes - specific roles required
+admin.Use(middleware.RequireRoles([]string{"admin", "manager"}))
+admin.GET("/dashboard/stats", getDashboardStats)
+```
+
+## Query Parameters & Filtering
+
+### Standard Query Parameters
+```
+GET /api/v1/orders?page=1&per_page=20&status=pending&order_type=dine_in
+```
+
+### Common Parameters
+- `page` - Page number for pagination (default: 1)
+- `per_page` - Items per page (default: 20, max: 100)
+- `sort` - Sort field and direction: `sort=created_at:desc`
+- `search` - Text search across relevant fields
+- Resource-specific filters (status, type, date ranges, etc.)
+
+### Date Filtering
+```
+GET /api/v1/orders?created_after=2024-01-01&created_before=2024-12-31
+```
 
 ## Error Handling
 
-Always provide user feedback:
-```typescript
-onSuccess: () => {
-  queryClient.invalidateQueries({ queryKey: ['users'] })
-  alert('User created successfully!')
-},
-onError: (error: any) => {
-  alert(`Failed to create user: ${error.message}`)
+### HTTP Status Codes
+Use appropriate status codes consistently:
+```
+200 OK              - Successful GET, PUT, PATCH
+201 Created         - Successful POST
+204 No Content      - Successful DELETE
+400 Bad Request     - Invalid request data
+401 Unauthorized    - Authentication required/failed  
+403 Forbidden       - Insufficient permissions
+404 Not Found       - Resource doesn't exist
+409 Conflict        - Resource conflict (duplicate, etc.)
+422 Unprocessable   - Valid JSON but business logic error
+500 Internal Error  - Server error
+```
+
+### Error Response Examples
+```go
+// Validation error
+c.JSON(http.StatusBadRequest, models.APIResponse{
+    Success: false,
+    Message: "Order must contain at least one item",
+    Error:   stringPtr("empty_order"),
+})
+
+// Resource not found
+c.JSON(http.StatusNotFound, models.APIResponse{
+    Success: false,
+    Message: "Order not found",
+    Error:   stringPtr("order_not_found"),
+})
+
+// Permission error
+c.JSON(http.StatusForbidden, models.APIResponse{
+    Success: false,
+    Message: "Insufficient permissions",
+    Error:   stringPtr("insufficient_permissions"),
+})
+```
+
+## Request Validation
+
+### Input Validation Pattern
+```go
+type CreateOrderRequest struct {
+    TableID      *uuid.UUID         `json:"table_id"`
+    CustomerName *string            `json:"customer_name"`
+    OrderType    string             `json:"order_type"`
+    Items        []CreateOrderItem  `json:"items"`
+    Notes        *string            `json:"notes"`
 }
+
+func (h *OrderHandler) CreateOrder(c *gin.Context) {
+    var req CreateOrderRequest
+    if err := c.ShouldBindJSON(&req); err != nil {
+        c.JSON(http.StatusBadRequest, models.APIResponse{
+            Success: false,
+            Message: "Invalid request body",
+            Error:   stringPtr(err.Error()),
+        })
+        return
+    }
+    
+    // Additional business logic validation
+    if len(req.Items) == 0 {
+        c.JSON(http.StatusBadRequest, models.APIResponse{
+            Success: false,
+            Message: "Order must contain at least one item",
+            Error:   stringPtr("empty_order"),
+        })
+        return
+    }
+}
+```
+
+## Database Transaction Patterns
+
+### Transaction Usage
+Use transactions for multi-table operations:
+```go
+func (h *OrderHandler) CreateOrder(c *gin.Context) {
+    tx, err := h.db.Begin()
+    if err != nil {
+        // Handle error
+        return
+    }
+    defer tx.Rollback() // Always rollback if not committed
+    
+    // Multiple database operations
+    _, err = tx.Exec("INSERT INTO orders ...")
+    if err != nil {
+        // Error will cause rollback
+        return
+    }
+    
+    _, err = tx.Exec("INSERT INTO order_items ...")
+    if err != nil {
+        return
+    }
+    
+    // Commit transaction
+    if err := tx.Commit(); err != nil {
+        // Handle commit error
+        return
+    }
+}
+```
+
+## API Documentation
+
+### Endpoint Documentation
+Document each endpoint with:
+- Purpose and description
+- Required permissions/roles
+- Request format and validation rules
+- Response format and possible status codes
+- Example requests and responses
+
+### Request/Response Examples
+```go
+// CreateOrder creates a new order
+// @Summary Create a new order
+// @Description Create a new customer order with items and table assignment
+// @Tags orders
+// @Accept json
+// @Produce json
+// @Param order body CreateOrderRequest true "Order data"
+// @Success 201 {object} APIResponse{data=Order}
+// @Failure 400 {object} APIResponse
+// @Failure 401 {object} APIResponse
+// @Router /api/v1/orders [post]
 ```
 
 ## Performance Considerations
 
-- Use React Query for all API calls with proper cache invalidation
-- Implement loading states for better UX
-- Lazy load admin sections when possible
-- Optimize re-renders with proper dependency arrays
+### Query Optimization
+- Use database indexes for frequently filtered fields
+- Implement pagination for large result sets
+- Avoid N+1 query problems with proper JOINs
+- Cache expensive computations
+
+### Response Optimization
+- Use appropriate HTTP caching headers
+- Compress responses when beneficial
+- Return only necessary fields (consider field selection)
+- Use ETags for conditional requests
+
+## Rate Limiting & Throttling
+
+### Rate Limiting Strategy
+```go
+// Implement rate limiting middleware
+func RateLimitMiddleware() gin.HandlerFunc {
+    // Rate limiting implementation
+    // Consider user-based, IP-based, or endpoint-based limits
+}
+
+// Apply to sensitive endpoints
+protected.Use(RateLimitMiddleware())
+```
+
+## API Versioning
+
+### URL Versioning
+Current API uses URL path versioning:
+```
+/api/v1/orders    # Version 1
+/api/v2/orders    # Version 2 (future)
+```
+
+### Backward Compatibility
+- Maintain backward compatibility within major versions
+- Deprecate old endpoints gracefully with proper warnings
+- Document breaking changes and migration paths
+- Support multiple versions during transition periods
+
+## Monitoring & Logging
+
+### Request Logging
+Log important API operations:
+```go
+// Log successful operations
+log.Printf("Order created: user_id=%s, order_id=%s", userID, orderID)
+
+// Log errors with context
+log.Printf("Failed to create order: user_id=%s, error=%s", userID, err.Error())
+```
+
+### Metrics Collection
+Track key metrics:
+- Request/response times
+- Error rates by endpoint
+- Authentication success/failure rates
+- Resource creation/modification rates
+- Database query performance
 
 ---
 > Source: [madebyaris/poinf-of-sales](https://github.com/madebyaris/poinf-of-sales) — distributed by [TomeVault](https://tomevault.io).
