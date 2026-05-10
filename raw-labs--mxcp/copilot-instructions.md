@@ -1,18 +1,13 @@
-## code-organization
+## dependencies
 
-> Code and file organization standards
+> Dependency management guidelines
 
 
-# Code Organization
+# Dependency Management
 
-- Avoid code duplication - use inheritance or composition when classes share common fields
-- Keep related functionality together in modules
-
-# File Organization
-
-- JSON schema files should be kept in a schemas/ subdirectory within the module
-- Configuration files should use YAML format
-- NO example files anywhere - not in tests, not in fixtures, nowhere
+- Use existing dependencies where possible (e.g., pandas, numpy are already available)
+- Avoid adding new dependencies without clear justification
+- Remember to add dependencies to pyproject.toml as needed, under the corresponding component
 
 ---
 > Source: [raw-labs/mxcp](https://github.com/raw-labs/mxcp) — distributed by [TomeVault](https://tomevault.io).
