@@ -1,28 +1,25 @@
-## filename-class-name
+## project-role-architecture
 
-> Dart file name should match the main class name (snake_case)
+> Project role, Flutter+Rust architecture, and Nostr conventions
 
 
-# File Name and Class Name Consistency
+# Role & Project Conventions
 
-The **filename** of a Dart file should match the **main (primary) class** it defines, in snake_case.
+## Role
 
-## Rule
+Act as a **senior Flutter engineer**. All descriptions and documentation must be in **English**.
 
-- Class `CallKitManager` → file `call_kit_manager.dart`
-- Class `VoiceCacheManager` → file `voice_cache_manager.dart`
-- Class `ICEServerManager` → file `ice_server_manager.dart`
+## Architecture
 
-If a file contains multiple classes, the filename should match the **primary** or **public** class (the one the file is “about”), not a helper or extension.
+- **Stack**: Flutter + Rust. Call Rust bridge code via **async** APIs where possible.
+- **Structure**: Modular design; place modules under the **packages** directory.
 
-## Rationale
+## Project (Nostr)
 
-Mismatched names (e.g. `call_manager.dart` with class `CallKitManager`) make it easy to misread the file as defining “CallManager” and hurt discoverability. Aligning name and file avoids confusion.
+This is a **Nostr-based** project. When you need **NIP (Nostr Improvement Proposal) definitions**:
 
-## When adding or renaming
-
-- **New file**: Name the file after the main class in snake_case.
-- **Renaming**: When renaming a class or file for consistency, update all `import` and `export` references to the new path (e.g. `call_manager.dart` → `call_kit_manager.dart`).
+- Prefer the Nostr MCP server **user-flutter-nostr-dev** (tools/resources) when available.
+- Otherwise refer to official NIP specs (e.g. github.com/nostr-protocol/nips) or project docs.
 
 ---
 > Source: [sanah9/noscall](https://github.com/sanah9/noscall) — distributed by [TomeVault](https://tomevault.io).
