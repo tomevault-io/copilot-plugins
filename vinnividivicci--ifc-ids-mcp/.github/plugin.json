@@ -1,0 +1,9 @@
+{
+  "name": "vinnividivicci--ifc-ids-mcp",
+  "displayName": "ifc-ids-mcp",
+  "description": "An MCP to create IDS files deterministically using IfcOpenShell's IfcTester",
+  "version": "1.0.0",
+  "author": "vinnividivicci",
+  "homepage": "https://github.com/vinnividivicci/ifc-ids-mcp",
+  "skills": []
+}
