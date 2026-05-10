@@ -1,0 +1,9 @@
+{
+  "name": "resmp-dev--ccr-rust",
+  "displayName": "ccr-rust",
+  "description": "Universal AI coding proxy. Use Claude Code, Codex CLI, or any tool with DeepSeek, GLM, MiniMax, and more\u2014without rate limits breaking your flow.",
+  "version": "1.0.0",
+  "author": "RESMP-DEV",
+  "homepage": "https://github.com/RESMP-DEV/ccr-rust",
+  "skills": []
+}
