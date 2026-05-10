@@ -2,7 +2,7 @@
   "name": "Paideia",
   "owner": "paideia-lms",
   "repo": "Paideia",
-  "description": "",
+  "description": "Next generation LMS focused on simplicity. Moodle and Canvas alternative in a single binary.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/paideia-lms",
+  "source_url": "https://github.com/paideia-lms/Paideia",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T03:50:55Z"
+  "distributed_at": "2026-05-10T00:45:09Z"
 }
