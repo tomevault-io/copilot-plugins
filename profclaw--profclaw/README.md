@@ -7,13 +7,13 @@ AI agent engine with 22 chat channels, 65 tools, and 15 skills. Self-hosted, loc
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [profclaw/profclaw](https://github.com/profclaw/profclaw).
+Original source: `AGENTS.md` in [profclaw/profclaw](https://github.com/profclaw/profclaw).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
