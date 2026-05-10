@@ -1,0 +1,9 @@
+{
+  "name": "el3ssar--resdag",
+  "displayName": "ResDAG",
+  "description": "A modern, GPU-accelerated Reservoir Computing library for PyTorch.  ResDAG brings the power of Echo State Networks (ESNs) and reservoir computing to PyTorch with a clean, modular API. Built for resear",
+  "version": "1.0.0",
+  "author": "El3ssar",
+  "homepage": "https://github.com/El3ssar/ResDAG",
+  "skills": []
+}
