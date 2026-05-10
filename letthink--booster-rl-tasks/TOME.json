@@ -4,7 +4,7 @@
   "repo": "booster_rl_tasks",
   "description": "For rl",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/letthink/booster_rl_tasks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T07:58:17Z"
+  "distributed_at": "2026-05-10T15:38:12Z"
 }
