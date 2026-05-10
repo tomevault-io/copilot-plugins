@@ -1,0 +1,11 @@
+## bilibili-mcp-rule
+
+> 当前项目的MCP
+
+
+1. 请多参考github上的bilibili-api项目：https://github.com/SocialSisterYi/bilibili-API-collect
+2. 代码要保持整洁、高效、优雅、不要在一个文件堆叠屎山代码，如果能够复用尽量复用,熟练应用各种设计模式
+
+---
+> Source: [aimoyuhub/bilibili-mcp](https://github.com/aimoyuhub/bilibili-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
