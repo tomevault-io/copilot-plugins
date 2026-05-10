@@ -1,0 +1,9 @@
+{
+  "name": "stackonehq--mcp-connectors",
+  "displayName": "mcp-connectors",
+  "description": "mcp connectors for disco",
+  "version": "1.0.0",
+  "author": "StackOneHQ",
+  "homepage": "https://github.com/StackOneHQ/mcp-connectors",
+  "skills": []
+}
