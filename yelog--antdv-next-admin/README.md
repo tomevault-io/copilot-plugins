@@ -7,11 +7,11 @@ vue admin,vue3 admin,antdv-next,vue后台管理,vue-admin,antdv,ant-design-vue
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yelog/antdv-next-admin](https://github.com/yelog/antdv-next-admin).
+Original source: `CLAUDE.md` in [yelog/antdv-next-admin](https://github.com/yelog/antdv-next-admin).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
