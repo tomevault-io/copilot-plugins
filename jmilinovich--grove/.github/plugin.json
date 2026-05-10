@@ -1,0 +1,9 @@
+{
+  "name": "jmilinovich--grove",
+  "displayName": "grove",
+  "description": "A hosted knowledge API that makes Obsidian vaults searchable and writable from any Claude surface.",
+  "version": "1.0.0",
+  "author": "jmilinovich",
+  "homepage": "https://github.com/jmilinovich/grove",
+  "skills": []
+}
