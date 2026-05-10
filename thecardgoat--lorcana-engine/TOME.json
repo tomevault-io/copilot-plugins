@@ -2,9 +2,9 @@
   "name": "lorcana-engine",
   "owner": "TheCardGoat",
   "repo": "lorcana-engine",
-  "description": "",
+  "description": "Typescript implementation of Lorcana Trading Card Game.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TheCardGoat/lorcana-engine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T00:04:03Z"
+  "distributed_at": "2026-05-10T11:45:42Z"
 }
