@@ -1,0 +1,9 @@
+{
+  "name": "cetra3--todo-mcp",
+  "displayName": "todo-mcp",
+  "description": "A Collaborative Todo List application and MCP server using CRDTs and Multicast",
+  "version": "1.0.0",
+  "author": "cetra3",
+  "homepage": "https://github.com/cetra3/todo-mcp",
+  "skills": []
+}
