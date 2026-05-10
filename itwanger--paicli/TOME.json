@@ -4,7 +4,7 @@
   "repo": "paicli",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/itwanger/paicli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T18:41:41Z"
+  "distributed_at": "2026-05-10T08:38:58Z"
 }
