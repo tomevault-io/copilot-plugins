@@ -1,188 +1,55 @@
-## omnilens
+## changelog
 
-> When reviewing a file, follow these steps in order:
+> Changelog maintenance policy - user-facing entries, never edit past entries
 
-# Code Review and Refactoring Guidelines
 
-## Code Review Process
+# Changelog Policy
 
-When reviewing a file, follow these steps in order:
+## User-Facing Entries Only
 
-### 1. Add Comments Following Convention
+Changelog entries are for end users. Keep them concise and avoid implementation details.
 
-#### Import Organization
-- Group imports by category with section comments:
-  - External library imports (React, Next.js, third-party)
-  - Internal component imports
-  - Utility imports
-  - Hook imports
-  - Type imports (if using `type` keyword)
+**Do not include:**
+- Component names (e.g., `WorkflowCreationSection`, `AppSidebar`)
+- File or page paths (e.g., `/dashboard/[slug]/testing`)
+- Internal utilities or API endpoints (e.g., `isFeatureEnabled`, `/api/auto-detect/[slug]`)
+- Technical refactoring details (e.g., "useState lazy initializers")
 
-#### File Structure
-Use section separators (`// ============================================================================`) for:
-- Helper Functions
-- Type Definitions
-- Component-Specific Utilities
-- Sub-Components
-- Main Component
-- Data Fetching (TanStack Query)
-- Local State
-- Effects
-- Computed Values
-- Mutations (TanStack Query)
-- Event Handlers
-- Render Logic - Early Returns
-- Main Render
+**Do include:**
+- User-visible features and improvements
+- Plain-language descriptions of what changed
+- Outcomes and benefits, not implementation
 
-#### Comment Types
-- **JSDoc comments** for:
-  - Functions (with `@param`, `@returns`, `@example` if helpful)
-  - Interfaces/Types
-  - Main component exports
-  
-- **Inline comments** for:
-  - Complex logic
-  - Non-obvious code patterns
-  - UI sections (using `{/* Comment */}` in JSX)
-  - State management explanations
+### Example
 
-#### Commenting Convention
-- Be concise but descriptive
-- Explain "why" not just "what" when non-obvious
-- Use consistent formatting
-- Follow the pattern established in `WorkflowCard.tsx` and `dashboard/[slug]/page.tsx`
+```markdown
+❌ BAD: "WorkflowCreationSection component for guided workflow creation on the home page"
+✅ GOOD: "Guided workflow creation on the home page"
 
-### 2. Determine if Functions Should Move to utils.ts
-
-**Move to utils.ts if:**
-- Function is used in multiple files
-- Function is a pure utility (no component-specific logic)
-- Function is reusable across the codebase
-- Function is testable in isolation
-
-**Keep in component file if:**
-- Function is only used once in that file
-- Function is tightly coupled to component logic
-- Function uses component-specific types/props
-
-**Examples:**
-- ✅ `formatRepoDisplayName()` - moved (used in multiple files)
-- ✅ `duration()`, `formatRunTime()` - moved (reusable utilities)
-- ❌ `findInsertIndex()` - kept local (only used once, component-specific)
-- ❌ `createMockRunFromWorkflow()` - kept local (component-specific)
-
-### 3. Determine if Code Should Be Extracted to Components
-
-**Extract to component file if:**
-- Component is substantial (>50-100 lines)
-- Component has its own props interface
-- Component is self-contained
-- Component could be reused elsewhere
-- Component follows pattern of other extracted components (e.g., `WorkflowCard.tsx`)
-
-**Keep in page file if:**
-- Component is small (<50 lines)
-- Component is tightly coupled to page logic
-- Component is only used once and unlikely to be reused
-
-**Examples:**
-- ✅ `RepositoryCard` - extracted (120+ lines, reusable)
-- ✅ `WorkflowCard` - extracted (substantial, reusable)
-- ❌ `NoRepositoriesFound` - could stay (smaller, page-specific)
-
-### 4. Lint and Type Check
-
-**Run both linters:**
-```bash
-bunx eslint <file>
-bunx tsc --noEmit
+❌ BAD: "Updates AppSidebar, FeatureCard, GetStartedButton, RepositoryCard components"
+✅ GOOD: "Improved navigation and UI"
 ```
 
-**Fix all errors before proceeding:**
-- Remove unused imports
-- Fix type errors
-- Address `any` types with proper types
-- Fix ESLint rule violations
+## Never Retroactively Change Entries
 
-**Provide summary:**
-- List all errors found
-- List all warnings (if any)
-- Confirm all fixes applied
+**Do not edit or remove existing changelog entries.** Changelog entries are historical records of what was released at each version. Editing past entries:
 
-## Type Safety Guidelines
+- Rewrites release history
+- Breaks version comparison and audit trails
+- Can confuse users who rely on accurate release notes
 
-### Avoid `any` Types
-- Always use proper TypeScript types
-- Import types from hooks/interfaces when available
-- Create specific types for API payloads (e.g., `AddRepoData`)
-- Use type assertions sparingly and with proper types
+### Correct Approach
 
-### Type Import Pattern
-```typescript
-import { useHook, type TypeFromHook } from "@/lib/hooks/hook-name";
+- **Add new entries** only for new releases
+- **Append to current/upcoming** version if you're still developing
+- **Leave past entries unchanged** even if features are later removed
+
+### Example
+
+```markdown
+❌ BAD: Removing "Testing Frameworks" from v1.5.0 after it was removed in a later refactor
+✅ GOOD: Add a new v1.6.0 entry: "Removed Testing Frameworks feature"
 ```
-
-## Component Extraction Pattern
-
-When extracting a component, follow this structure:
-
-```typescript
-// External library imports
-import ...
-
-// Type imports
-import type { ... } from "...";
-
-// Internal component imports
-import { ... } from "@/components/...";
-
-// Utility imports
-import { ... } from "@/lib/utils";
-
-// ============================================================================
-// Type Definitions
-// ============================================================================
-
-export interface ComponentProps {
-  // ...
-}
-
-// ============================================================================
-// Main Component
-// ============================================================================
-
-export default function Component({ ... }: ComponentProps) {
-  // ...
-}
-```
-
-## File Organization Best Practices
-
-### Page Files (`app/**/page.tsx`)
-- Should focus on page-level logic
-- Can contain small, page-specific components
-- Should import reusable components from `components/`
-
-### Component Files (`components/*.tsx`)
-- Should be self-contained
-- Should export props interfaces
-- Should follow consistent commenting convention
-- Should be reusable
-
-### Utility Files (`lib/utils.ts`)
-- Should contain pure functions
-- Should be framework-agnostic where possible
-- Should have clear JSDoc comments
-- Should be organized by category with section separators
-
-## Code Quality Standards
-
-- **No unused imports** - Remove all unused imports
-- **No `any` types** - Use proper types (warnings acceptable if documented)
-- **Consistent formatting** - Follow existing code style
-- **Clear naming** - Use descriptive names
-- **Proper separation** - Separate concerns appropriately
-- **Documentation** - Comment complex logic and non-obvious patterns
 
 ---
 > Source: [OmniLens/OmniLens](https://github.com/OmniLens/OmniLens) — distributed by [TomeVault](https://tomevault.io).
