@@ -1,0 +1,9 @@
+{
+  "name": "pragmaticfish--sushify",
+  "displayName": "sushify",
+  "description": "Turn your prompt salad into sushi! A dev tool to analyze and improve everything your app sends to LLMs",
+  "version": "1.0.0",
+  "author": "pragmaticfish",
+  "homepage": "https://github.com/pragmaticfish/sushify",
+  "skills": []
+}
