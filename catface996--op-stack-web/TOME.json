@@ -1,0 +1,44 @@
+{
+  "name": "op-stack-web",
+  "owner": "catface996",
+  "repo": "op-stack-web",
+  "description": "AIOps \u8fd0\u7ef4\u5e73\u53f0\u524d\u7aef - \u57fa\u4e8e React \u7684 Web \u63a7\u5236\u53f0\uff0c\u7528\u4e8e\u7ba1\u7406\u57fa\u7840\u8bbe\u65bd\u8d44\u6e90\u3001\u62d3\u6251\u53ef\u89c6\u5316\u3001AI \u6a21\u578b\u914d\u7f6e\u3001\u63d0\u793a\u8bcd\u6a21\u677f\u548c\u5c42\u7ea7\u591a\u667a\u80fd\u4f53\u7cfb\u7edf\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/catface996/op-stack-web",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T02:55:31Z"
+}
