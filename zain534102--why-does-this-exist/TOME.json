@@ -1,0 +1,44 @@
+{
+  "name": "why-does-this-exist",
+  "owner": "zain534102",
+  "repo": "why-does-this-exist",
+  "description": "A CLI tool that traces git blame \u2192 PRs \u2192 issues \u2192 reviews and explains legacy code decisions in plain English using AI",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zain534102/why-does-this-exist",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T04:32:15Z"
+}
