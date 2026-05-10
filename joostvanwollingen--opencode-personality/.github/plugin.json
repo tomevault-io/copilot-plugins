@@ -1,0 +1,9 @@
+{
+  "name": "joostvanwollingen--opencode-personality",
+  "displayName": "opencode-personality",
+  "description": "A configurable personality and mood system plugin for OpenCode",
+  "version": "1.0.0",
+  "author": "joostvanwollingen",
+  "homepage": "https://github.com/joostvanwollingen/opencode-personality",
+  "skills": []
+}
