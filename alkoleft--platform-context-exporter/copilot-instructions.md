@@ -1,767 +1,811 @@
-## 115-java-concurrency
+## 116-java-logging
 
-> Java rules for Concurrency objects
+> Java Logging Best Practices
 
-# Java rules for Concurrency objects
+# Java Logging Best Practices
 
-Effective Java concurrency relies on understanding thread safety fundamentals, using `java.util.concurrent` utilities, and managing thread pools with `ExecutorService`. Key practices include implementing concurrent design patterns like Producer-Consumer, leveraging `CompletableFuture` for asynchronous tasks, and ensuring thread safety through immutability and safe publication. Performance aspects like lock contention and memory consistency must be considered. Thorough testing, including stress tests and thread dump analysis, is crucial. Modern Java offers virtual threads for enhanced scalability, structured concurrency for simplified task management, and scoped values for safer thread-shared data as alternatives to thread-locals.
+Effective Java logging involves selecting a standard framework (SLF4J with Logback/Log4j2), using appropriate log levels (ERROR, WARN, INFO, DEBUG, TRACE),
+and adhering to core practices like parameterized logging, proper exception handling, and avoiding sensitive data exposure.
+Configuration should be environment-specific with clear output formats.
+Security is paramount: mask sensitive data, control log access, and ensure secure transmission.
+Implement centralized log aggregation, monitoring, and alerting for proactive issue detection.
+Finally, logging behavior and its impact should be validated through comprehensive testing.
 
 ## Implementing These Principles
 
 These guidelines are built upon the following core principles:
 
-1.  **Master Thread Safety Fundamentals**: Understand and correctly apply core concepts such as synchronization (locks, conditions), atomic operations (`java.util.concurrent.atomic`), thread-safe collections (`java.util.concurrent`), immutability, and the Java Memory Model to ensure data integrity and prevent race conditions or deadlocks.
-2.  **Efficient Thread Pool Management**: Utilize `ExecutorService` for robust thread management. Choose appropriate thread pool implementations and configure them with suitable sizing, keep-alive times, queue capacities, and rejection policies based on the application's workload. Implement graceful shutdown procedures.
-3.  **Leverage Concurrent Design Patterns**: Implement established patterns like Producer-Consumer (using `BlockingQueue`) and Publish-Subscribe to structure concurrent applications effectively, promoting decoupling, scalability, and maintainability.
-4.  **Embrace Asynchronous Programming with `CompletableFuture`**: Employ `CompletableFuture` to compose and manage asynchronous computations in a non-blocking way. Chain dependent tasks, combine results from multiple futures, and handle exceptions gracefully to build responsive and efficient applications.
-5.  **Prioritize Immutability and Safe Publication**: Design classes to be immutable whenever feasible to inherently achieve thread safety. Ensure that shared mutable objects are safely published (e.g., via `volatile`, static initializers, or proper synchronization) so that their state is consistently visible to all threads.
-6.  **Optimize for Performance, Considering Concurrency overheads**: Be mindful of performance implications such as lock contention (minimize scope, use finer-grained locks), memory consistency (understand happens-before, use `volatile` where appropriate), context switching overhead (size thread pools carefully), and potential issues like false sharing.
-7.  **Thorough Testing and Debugging**: Rigorously test concurrent code. This includes unit tests for thread-safe components, integration tests for interactions, and stress tests to reveal race conditions or deadlocks. Utilize thread dump analysis, proper logging, and concurrency testing tools.
-8.  **Adopt Modern Java Concurrency Features for Enhanced Development**: 
-    *   **Virtual Threads (Project Loom)**: Embrace virtual threads via `Executors.newVirtualThreadPerTaskExecutor()` for I/O-bound tasks to dramatically increase scalability with minimal resource overhead. Avoid pooling virtual threads.
-    *   **Structured Concurrency**: Use `StructuredTaskScope` to simplify the management of multiple related concurrent tasks as a single unit of work, improving error handling, cancellation, and resource management.
-    *   **Scoped Values**: Prefer `ScopedValue` over `ThreadLocal` for sharing immutable data robustly and efficiently across tasks within a dynamically bounded scope, especially when working with virtual threads.
+1.  **Standardized Framework Selection**: Utilize a widely accepted logging facade (preferably SLF4J) and a robust underlying implementation (Logback or Log4j2). This promotes consistency, flexibility, and access to advanced logging features.
+2.  **Meaningful and Consistent Log Levels**: Employ logging levels (ERROR, WARN, INFO, DEBUG, TRACE) deliberately and consistently to categorize the severity and importance of messages. This allows for effective filtering, monitoring, and targeted issue diagnosis.
+3.  **Adherence to Core Logging Practices**: Follow fundamental best practices such as using parameterized logging (avoiding string concatenation for performance and clarity), always logging exceptions with their stack traces, never logging sensitive data directly (PII, credentials), and using correlation IDs (e.g., via MDC) for request tracing in distributed environments.
+4.  **Thoughtful and Flexible Configuration**: Manage logging configuration externally (e.g., `logback.xml`, `log4j2.xml`). Tailor configurations for different environments (dev, test, prod) with appropriate log levels for various packages, clear and informative output formats (including timestamps, levels, logger names, thread info, and MDC data), and robust log rotation and retention policies.
+5.  **Security-Conscious Logging**: Prioritize security in all logging activities. Actively mask or filter sensitive information, control access to log files and log management systems, use secure protocols for transmitting logs, and ensure compliance with relevant data protection regulations (e.g., GDPR, HIPAA).
+6.  **Proactive Log Monitoring and Alerting**: Implement centralized log aggregation systems (e.g., ELK Stack, Splunk, Grafana Loki). Establish automated alerts based on log patterns, error rates, or specific critical events to enable proactive issue detection and rapid response.
+7.  **Comprehensive Logging Validation Through Testing**: Integrate logging into the testing strategy. Assert that critical log messages (especially errors and warnings) are generated as expected under specific conditions, verify log formats, test log level filtering, and assess any performance impact of logging.
 
 ## Table of contents
 
-- Rule 1: Thread Safety Fundamentals
-- Rule 2: Thread Pool Management
-- Rule 3: Concurrent Design Patterns
-- Rule 4: Asynchronous Programming with CompletableFuture
-- Rule 5: Thread Safety Guidelines (Immutability & Safe Publication)
-- Rule 6: Performance Considerations in Concurrency
-- Rule 7: Testing and Debugging Concurrent Code
-- Rule 8: Embrace Virtual Threads for Enhanced Scalability
-- Rule 9: Simplify Concurrent Code with Structured Concurrency
-- Rule 10: Manage Thread-Shared Data with Scoped Values
+- Rule 1: Choose an Appropriate Logging Framework
+- Rule 2: Understand and Use Logging Levels Correctly
+- Rule 3: Adhere to Core Logging Practices
+- Rule 4: Follow Configuration Best Practices
+- Rule 5: Implement Secure Logging Practices
+- Rule 6: Establish Effective Log Monitoring and Alerting
+- Rule 7: Incorporate Logging in Testing
 
-## Rule 1: Thread Safety Fundamentals
+## Rule 1: Choose an Appropriate Logging Framework
 
-Title: Understand and Apply Core Thread Safety Concepts
-Description: Ensure data integrity and correct behavior in multi-threaded environments by using thread-safe data structures and appropriate synchronization mechanisms.
-- Prefer `java.util.concurrent` collections over older synchronized wrappers.
-- Utilize immutable objects to eliminate risks of concurrent modification.
-- Employ thread-local variables for state confined to a single thread.
-- Use atomic classes (`java.util.concurrent.atomic`) for lock-free operations on single variables.
-- Choose flexible locking with `ReentrantLock` or `ReadWriteLock` for more complex scenarios.
-- Favor `java.util.concurrent` utilities over manual `wait()/notify()`.
-
-**Good example:**
-
-```java
-import java.util.Map;
-import java.util.Queue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-
-// Dummy classes for context
-class Task {}
-class Event {}
-class State {
-    public State(String initialState) {} // Constructor for initial state
-} 
-class UserContext {}
-class Item {}
-
-class ThreadSafetyExamples {
-    // Preferred concurrent collections
-    Map<String, String> concurrentMap = new ConcurrentHashMap<>();
-    Queue<Task> taskQueue = new ConcurrentLinkedQueue<>();
-    BlockingQueue<Event> eventQueue = new LinkedBlockingQueue<>();
-
-    // Atomic variables
-    AtomicInteger counter = new AtomicInteger(0);
-    AtomicReference<State> stateRef = new AtomicReference<>(new State("initial"));
-
-    // Thread-local storage
-    private static final ThreadLocal<UserContext> userContext =
-        ThreadLocal.withInitial(UserContext::new);
-
-    // Using ReentrantLock
-    private final ReentrantLock lock = new ReentrantLock();
-    private final Condition notFull = lock.newCondition(); // Example condition
-    private int itemCount = 0; // Example shared resource
-    private final int MAX_ITEMS = 10; // Example capacity
-
-    private boolean isFull() {
-        return itemCount >= MAX_ITEMS;
-    }
-     private boolean isEmpty() { // Example helper
-        return itemCount <= 0;
-    }
-
-
-    public void addItem(Item item) throws InterruptedException { // Added throws for await
-        lock.lock();
-        try {
-            while (isFull()) {
-                System.out.println("Queue is full, waiting to add item...");
-                notFull.await(); // Wait if queue is full
-            }
-            // Add item logic here
-            itemCount++;
-            System.out.println("Item added. Count: " + itemCount);
-            // Potentially signal other conditions (e.g., notEmpty.signalAll())
-        } finally {
-            lock.unlock();
-        }
-    }
-
-    // Using ReadWriteLock
-    private final ReadWriteLock rwLock = new ReentrantReadWriteLock();
-    private final Lock readLock = rwLock.readLock();
-    private final Lock writeLock = rwLock.writeLock();
-    private String sharedData = "Initial Data";
-
-    public String readData() {
-        readLock.lock();
-        try {
-            return sharedData;
-        } finally {
-            readLock.unlock();
-        }
-    }
-
-    public void writeData(String data) {
-        writeLock.lock();
-        try {
-            sharedData = data;
-            System.out.println("Data written: " + data);
-        } finally {
-            writeLock.unlock();
-        }
-    }
-}
-```
-
-**Bad Example:**
-
-```java
-// Bad example to be added
-// e.g., using Collections.synchronizedMap without careful iteration synchronization,
-// or incorrect use of wait/notify.
-```
-
-## Rule 2: Thread Pool Management
-
-Title: Manage Thread Pools Effectively with ExecutorService
+Title: Select a Standard Logging Facade and Implementation
 Description:
-Utilize `ExecutorService` for robust thread management.
-- Choose appropriate thread pool implementations (`FixedThreadPool`, `CachedThreadPool`, `ScheduledThreadPool`, custom `ThreadPoolExecutor`) based on workload.
-- Configure thread pools with appropriate sizing (core, maximum, keep-alive times, queue capacity).
-- Implement graceful shutdown procedures (`shutdown()`, `shutdownNow()`, `awaitTermination()`).
-- Define and handle rejected execution policies (`RejectedExecutionHandler`).
-- Monitor thread pool health and performance.
+Using a standard logging facade like SLF4J allows for flexibility in choosing and switching an underlying logging implementation (e.g., Logback, Log4j2).
+- **Primary Recommendation**: SLF4J with Logback. This combination is widely used, robust, and feature-rich.
+- **Alternatives**:
+    - SLF4J with Log4j2: Another powerful and performant option.
+    - Java Util Logging (JUL): Built into the JDK, but often less flexible and performant for complex applications.
 
 **Good example:**
-
+(Illustrating SLF4J usage - specific Logback/Log4j2 setup is in their config files)
 ```java
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.Objects;
 
-// Example ThreadFactoryBuilder (simplified, real one might be from Guava or similar)
-class ThreadFactoryBuilder {
-    private String nameFormat;
-    private final AtomicInteger threadNumber = new AtomicInteger(1);
+public class MyService {
+    // Logger declared using SLF4J
+    private static final Logger logger = LoggerFactory.getLogger(MyService.class);
 
-    public ThreadFactoryBuilder setNameFormat(String nameFormat) {
-        this.nameFormat = nameFormat;
-        return this;
-    }
-    public ThreadFactory build() {
-        return (r) -> new Thread(r, String.format(nameFormat, threadNumber.getAndIncrement()));
-    }
-}
-
-class ThreadPoolManagementExample {
-    public static void main(String args) throws InterruptedException {
-        // Fixed thread pool with named threads
-        ExecutorService fixedExecutor = Executors.newFixedThreadPool(
-            Runtime.getRuntime().availableProcessors(),
-            new ThreadFactoryBuilder()
-                .setNameFormat("worker-thread-%d")
-                .build()
-        );
-        fixedExecutor.submit(() -> System.out.println("Task running in fixed pool: " + Thread.currentThread().getName()));
-
-        // Scheduled thread pool for periodic tasks
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(
-            1,
-            new ThreadFactoryBuilder()
-                .setNameFormat("scheduler-thread-%d")
-                .build()
-        );
-        scheduler.scheduleAtFixedRate(() -> System.out.println("Scheduled task running: " + Thread.currentThread().getName()), 0, 5, TimeUnit.SECONDS);
-
-        // Custom thread pool configuration
-        int corePoolSize = 2;
-        int maximumPoolSize = 4;
-        long keepAliveTime = 60L;
-        int queueCapacity = 100;
-        ThreadPoolExecutor customPool = new ThreadPoolExecutor(
-            corePoolSize,
-            maximumPoolSize,
-            keepAliveTime,
-            TimeUnit.SECONDS,
-            new LinkedBlockingQueue<>(queueCapacity),
-            new ThreadFactoryBuilder().setNameFormat("custom-pool-thread-%d").build(),
-            new ThreadPoolExecutor.CallerRunsPolicy() // Example rejection policy
-        );
-        customPool.submit(() -> System.out.println("Task running in custom pool: " + Thread.currentThread().getName()));
-
-        // Shutdown procedures
-        shutdownExecutorService(fixedExecutor, "FixedExecutor");
-        shutdownExecutorService(customPool, "CustomPool");
-        // Scheduler needs a slightly different shutdown if tasks should not be interrupted
-        try {
-            if (!scheduler.awaitTermination(10, TimeUnit.SECONDS)) {
-                scheduler.shutdownNow();
-                if (!scheduler.awaitTermination(5, TimeUnit.SECONDS))
-                    System.err.println("Scheduler did not terminate");
-            }
-        } catch (InterruptedException ie) {
-            scheduler.shutdownNow();
-            Thread.currentThread().interrupt();
+    public void performAction(String input) {
+        // SLF4J API is used for logging
+        logger.info("Performing action with input: {}", input);
+        if (Objects.isNull(input) || input.isEmpty()) {
+            logger.warn("Input is null or empty, this might lead to unexpected behavior.");
+            // Potentially handle error or default behavior
         }
-        System.out.println("All pools shut down.");
-    }
-
-    public static void shutdownExecutorService(ExecutorService executor, String name) {
-        executor.shutdown(); // Disable new tasks from being submitted
-        try {
-            // Wait a while for existing tasks to terminate
-            if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
-                executor.shutdownNow(); // Cancel currently executing tasks
-                // Wait a while for tasks to respond to being cancelled
-                if (!executor.awaitTermination(60, TimeUnit.SECONDS))
-                    System.err.println("Pool " + name + " did not terminate");
-            }
-        } catch (InterruptedException ie) {
-            // (Re-)Cancel if current thread also interrupted
-            executor.shutdownNow();
-            // Preserve interrupt status
-            Thread.currentThread().interrupt();
-        }
-    }
-}
-```
-
-**Bad Example:**
-
-```java
-// Bad example to be added
-// e.g., using Executors.newSingleThreadExecutor() without considering its unbounded queue,
-// or not shutting down executors.
-```
-
-## Rule 3: Concurrent Design Patterns
-
-Title: Implement Common Concurrent Design Patterns
-Description:
-Leverage established patterns to structure concurrent applications effectively.
-- **Producer-Consumer**: Decouple task submission (producer) from task execution (consumer) using a shared buffer, typically a `BlockingQueue`.
-- **Publish-Subscribe**: Allow multiple subscribers to react to events published on specific topics, often using a central event bus or dispatcher.
-
-**Good example:**
-
-```java
-import java.util.Set;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.LinkedBlockingQueue;
-
-// Dummy classes for context
-class Task {
-    private final String data;
-    public Task(String data) { this.data = data; }
-    @Override public String toString() { return "Task" + data + ""; }
-}
-class Event {
-    private final String content;
-    public Event(String content) { this.content = content; }
-    @Override public String toString() { return "Event" + content + ""; }
-}
-interface EventListener {
-    void onEvent(Event event);
-}
-
-class ProducerConsumerExample {
-    private final BlockingQueue<Task> queue = new LinkedBlockingQueue<>(10); // Bounded queue
-
-    public void produce(Task task) throws InterruptedException {
-        System.out.println("Producing: " + task);
-        queue.put(task);  // Blocks if queue is full
-    }
-
-    public Task consume() throws InterruptedException {
-        Task task = queue.take();  // Blocks if queue is empty
-        System.out.println("Consuming: " + task);
-        return task;
+        // ... action logic ...
+        logger.debug("Action performed successfully for input: {}", input);
     }
 
     public static void main(String args) {
-        ProducerConsumerExample pc = new ProducerConsumerExample();
-        Thread producerThread = new Thread(() -> {
-            try {
-                for (int i = 0; i < 5; i++) {
-                    pc.produce(new Task("Data-" + i));
-                    Thread.sleep(100);
-                }
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        });
-
-        Thread consumerThread = new Thread(() -> {
-            try {
-                for (int i = 0; i < 5; i++) {
-                    pc.consume();
-                    Thread.sleep(200);
-                }
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        });
-        producerThread.start();
-        consumerThread.start();
-    }
-}
-
-class EventBus {
-    private final ConcurrentMap<String, Set<EventListener>> listeners =
-        new ConcurrentHashMap<>();
-
-    public void subscribe(String topic, EventListener listener) {
-        listeners.computeIfAbsent(topic,
-            k -> ConcurrentHashMap.newKeySet()).add(listener);
-        System.out.println("Listener subscribed to topic: " + topic);
-    }
-
-    public void publish(String topic, Event event) {
-        Set<EventListener> topicListeners = listeners.get(topic);
-        if (topicListeners != null) {
-            System.out.println("Publishing event to topic " + topic + ": " + event);
-            topicListeners.forEach(listener ->
-                CompletableFuture.runAsync(() -> { // Execute listener asynchronously
-                    System.out.println("Listener " + listener + " processing event: " + event + " on thread " + Thread.currentThread().getName());
-                    listener.onEvent(event);
-                }));
-        } else {
-            System.out.println("No listeners for topic: " + topic);
-        }
-    }
-    public static void main(String args) {
-        EventBus eventBus = new EventBus();
-        EventListener listener1 = event -> System.out.println("Listener 1 received: " + event);
-        EventListener listener2 = event -> System.out.println("Listener 2 received: " + event);
-
-        eventBus.subscribe("news", listener1);
-        eventBus.subscribe("news", listener2);
-        eventBus.subscribe("sports", listener1);
-
-        eventBus.publish("news", new Event("Breaking News!"));
-        eventBus.publish("sports", new Event("Goal Scored!"));
-        eventBus.publish("weather", new Event("Sunny day")); // No listener
+        MyService service = new MyService();
+        service.performAction("Test Data");
+        service.performAction(""); // Example that might trigger a WARN
     }
 }
 ```
 
 **Bad Example:**
-
 ```java
-// Bad example to be added
-// e.g., a producer-consumer with a non-thread-safe collection and race conditions.
-```
-
-## Rule 4: Asynchronous Programming with CompletableFuture
-
-Title: Utilize CompletableFuture for Asynchronous Operations
-Description:
-Employ `CompletableFuture` to compose and manage asynchronous computations in a non-blocking way.
-- Chain dependent asynchronous tasks using methods like `thenApplyAsync()`, `thenComposeAsync()`, `thenAcceptAsync()`.
-- Combine results from multiple `CompletableFuture` instances using `allOf()` or `anyOf()`.
-- Handle exceptions gracefully using `exceptionally()` or `handle()`.
-- Specify `Executor` instances for different stages if fine-grained thread control is needed.
-
-**Good example:**
-
-```java
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
-import java.util.concurrent.TimeUnit;
-
-
-// Dummy classes for context
-class Request {
-    final String data;
-    public Request(String data) { this.data = data; }
-    @Override public String toString() { return "Request" + data + ""; }
-}
-class ValidatedRequest {
-    final String data;
-    public ValidatedRequest(String data) { this.data = data; }
-     @Override public String toString() { return "ValidatedRequest" + data + ""; }
-}
-class ProcessedRequest {
-    final String data;
-    public ProcessedRequest(String data) { this.data = data; }
-     @Override public String toString() { return "ProcessedRequest" + data + ""; }
-}
-class Result {
-    final String data;
-    public Result(String data) { this.data = data; }
-    @Override public String toString() { return "Result" + data + ""; }
-}
-
-
-class AsyncService {
-    private final ExecutorService customExecutor = Executors.newFixedThreadPool(4);
-
-    // Simulate validation
-    private ValidatedRequest validateRequest(Request request) {
-        System.out.println("Validating " + request + " on " + Thread.currentThread().getName());
-        try { Thread.sleep(100); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
-        if (request.data.equals("invalid")) throw new IllegalArgumentException("Invalid request data: " + request.data);
-        return new ValidatedRequest("validated-" + request.data);
-    }
-
-    // Simulate processing
-    private ProcessedRequest processRequest(ValidatedRequest validatedRequest) {
-        System.out.println("Processing " + validatedRequest + " on " + Thread.currentThread().getName());
-        try { Thread.sleep(100); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
-        return new ProcessedRequest("processed-" + validatedRequest.data);
-    }
-
-    // Simulate formatting
-    private Result formatResult(ProcessedRequest processedRequest) {
-        System.out.println("Formatting " + processedRequest + " on " + Thread.currentThread().getName());
-        try { Thread.sleep(50); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
-        return new Result("formatted-" + processedRequest.data);
-    }
-
-    // Simulate error handling
-    private Result handleError(Throwable throwable) {
-        System.err.println("Error occurred: " + throwable.getMessage() + " on " + Thread.currentThread().getName());
-        return new Result("error-" + throwable.getClass().getSimpleName());
-    }
-
-    public CompletableFuture<Result> processSingleAsync(Request request) {
-        return CompletableFuture
-            .supplyAsync(() -> validateRequest(request), customExecutor) // Use a specific executor
-            .thenApplyAsync(this::processRequest, customExecutor)       // And for subsequent stages
-            .thenApply(this::formatResult) // Can run in previous stage's thread or ForkJoinPool.commonPool() if not specified
-            .exceptionally(this::handleError);
-    }
-
-    public CompletableFuture<List<Result>> processAllAsync(List<Request> requests) {
-        List<CompletableFuture<Result>> futures = requests.stream()
-            .map(this::processSingleAsync)
-            .collect(Collectors.toList());
-
-        return CompletableFuture.allOf(futures.toArray(new CompletableFuture0))
-            .thenApply(v -> futures.stream()
-                .map(CompletableFuture::join) // .join() can throw unchecked exceptions
-                .collect(Collectors.toList()))
-            .exceptionally(ex -> {
-                System.err.println("Error processing batch: " + ex.getMessage());
-                return List.of(new Result("batch-error"));
-            });
+// Directly using System.out.println for logging
+public class MyOldService {
+    public void doWork(String data) {
+        System.out.println("Starting work with data: " + data); // Hard to control, no levels, no formatting
+        if (data.equals("error")) {
+            System.err.println("An error occurred!"); // Also hard to manage
+        }
+        // ... logic ...
+        System.out.println("Work finished.");
     }
     
-    public void shutdown() {
-        customExecutor.shutdown();
+    public static void main(String args) {
+        MyOldService service = new MyOldService();
+        service.doWork("Sample");
+        service.doWork("error");
+    }
+}
+// Problem: System.out/err bypasses logging frameworks, offering no level control,
+// no easy way to direct output, and making log management difficult.
+```
+
+## Rule 2: Understand and Use Logging Levels Correctly
+
+Title: Apply Appropriate Logging Levels for Messages
+Description:
+Use logging levels consistently to categorize the severity and importance of log messages. This allows for effective filtering and monitoring.
+- **ERROR**: For errors that are fatal to the operation or critical issues requiring immediate attention.
+    - Examples: Database connection failures, system crashes, critical business logic failures.
+- **WARN**: For potentially harmful situations or unexpected technical/business events that might lead to an error if not addressed, but the application can currently recover or continue.
+    - Examples: Configuration issues, deprecated API usage, missing non-critical features, retryable errors.
+- **INFO**: For important business events, system state changes, and high-level operational tracing.
+    - Examples: Application startup/shutdown, service calls initiated/completed, major state transitions, user login.
+- **DEBUG**: For detailed information useful during development, troubleshooting, and diagnosing issues.
+    - Examples: Method entry/exit with parameters, variable values, flow control decisions, detailed steps within a process.
+- **TRACE**: For the most fine-grained debugging information, typically only enabled for very specific, localized troubleshooting.
+    - Examples: Loop iterations with values, very detailed flow information within a complex algorithm.
+
+**Good example:**
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.Objects;
+
+public class DataProcessor {
+    private static final Logger logger = LoggerFactory.getLogger(DataProcessor.class);
+
+    public void processData(String recordId, String data) {
+        logger.trace("Entering processData for recordId: {}, data snippet: {}", recordId, data.substring(0, Math.min(data.length(), 10)));
+        
+        if (Objects.isNull(data) || data.isEmpty()) {
+            logger.warn("Data for recordId {} is null or empty. Skipping processing.", recordId);
+            return;
+        }
+
+        logger.debug("Starting processing for recordId: {}", recordId);
         try {
-            if (!customExecutor.awaitTermination(5, TimeUnit.SECONDS)) {
-                customExecutor.shutdownNow();
+            // Simulate processing
+            if (recordId.equals("fail_critical")) {
+                throw new RuntimeException("Simulated critical failure");
             }
+            Thread.sleep(50); // Simulate work
+            logger.info("Successfully processed recordId: {}", recordId);
         } catch (InterruptedException e) {
-            customExecutor.shutdownNow();
+            logger.warn("Processing for recordId {} was interrupted.", recordId, e);
             Thread.currentThread().interrupt();
+        } catch (Exception e) {
+            logger.error("Critical error processing recordId: {}. Data: {}", recordId, data, e);
+            // Depending on design, might rethrow or handle as a business exception
         }
-        System.out.println("AsyncService custom executor shut down.");
+        logger.trace("Exiting processData for recordId: {}", recordId);
     }
 
     public static void main(String args) {
-        AsyncService service = new AsyncService();
-        Request validRequest = new Request("data1");
-        Request invalidRequest = new Request("invalid");
-
-        service.processSingleAsync(validRequest)
-               .thenAccept(result -> System.out.println("Single valid result: " + result))
-               .join(); // Wait for completion for demo
-
-        service.processSingleAsync(invalidRequest)
-               .thenAccept(result -> System.out.println("Single invalid result: " + result))
-               .join(); // Wait for completion for demo
-
-        List<Request> batch = List.of(new Request("batch1"), new Request("batch2"), new Request("invalid_batch"));
-        service.processAllAsync(batch)
-               .thenAccept(results -> System.out.println("Batch results: " + results))
-               .join(); // Wait for completion for demo
-        
-        service.shutdown();
+        DataProcessor processor = new DataProcessor();
+        processor.processData("REC001", "Some valid data here.");
+        processor.processData("REC002", ""); // Triggers WARN
+        processor.processData("fail_critical", "Data that will cause an error."); // Triggers ERROR
     }
 }
 ```
 
 **Bad Example:**
-
 ```java
-// Bad example to be added
-// e.g., blocking inside a CompletableFuture stage that runs on the common ForkJoinPool,
-// or forgetting to handle exceptions.
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.Objects;
+
+public class MisguidedLogger {
+    private static final Logger logger = LoggerFactory.getLogger(MisguidedLogger.class);
+
+    public void checkStatus(String item) {
+        // Overuse of INFO for debug-level details
+        logger.info("Checking status for item: " + item); 
+        boolean isActive = item.startsWith("active");
+        // Logging every minor step as INFO or even WARN
+        logger.info("Item " + item + " active status: " + isActive); 
+
+        if (!isActive) {
+            // Using ERROR for a non-critical, expected condition
+            logger.error("Item " + item + " is not active!"); 
+        }
+    }
+    public static void main(String args) {
+        MisguidedLogger ml = new MisguidedLogger();
+        ml.checkStatus("active_item");
+        ml.checkStatus("inactive_item");
+        // Problem: Log levels are misused. "Item is not active" might be a normal business condition (INFO/DEBUG)
+        // rather than an ERROR. Detailed status checks are DEBUG/TRACE.
+    }
+}
 ```
 
-## Rule 5: Thread Safety Guidelines (Immutability & Safe Publication)
+## Rule 3: Adhere to Core Logging Practices
 
-Title: Ensure Thread Safety through Immutability and Safe Publication
+Title: Implement Fundamental Best Practices for Effective Logging
 Description:
-Minimize concurrency risks by designing classes to be immutable and ensuring shared objects are safely published.
-- **Immutability**:
-    - Make fields `final` whenever possible.
-    - Ensure all fields are initialized during construction.
-    - Do not provide setters for mutable state.
-    - Use defensive copying for mutable components (like `List` or `Date`) passed into constructors or returned from getters, or use unmodifiable collections.
-    - Consider using the builder pattern for complex immutable objects.
-- **Safe Publication**:
-    - Ensure that shared objects are correctly published to other threads (e.g., by initializing them in static initializers, storing them in `volatile` fields, or using proper synchronization).
-    - `java.util.concurrent` collections and atomics handle safe publication internally for their state.
+Follow these core practices to ensure logs are useful, maintainable, and performant.
+
+**Sub-Rule 3.1: General Logging Practices**
+- **Logger Declaration**: Use a `static final Logger` instance per class, obtained via `LoggerFactory.getLogger(ClassName.class)`.
+- **Exception Handling**: Never catch and swallow exceptions without logging them appropriately (usually at ERROR or WARN level, including the stack trace).
+- **Sensitive Information**: Avoid logging sensitive data such as passwords, personal identifiable information (PII), security tokens, or financial details directly. If necessary, mask or tokenize such data.
+- **Parameterized Logging**: Use parameterized logging (`logger.info("User {} logged in", userId);`) instead of string concatenation (`logger.info("User " + userId + " logged in");`) for better performance and readability.
+- **Correlation IDs**: In distributed systems or microservices, include a correlation ID (e.g., via MDC - Mapped Diagnostic Context) in every log message to trace requests across different services.
+- **Log Rotation and Retention**: Configure appropriate log rotation (e.g., daily, by size) and retention policies to manage disk space and comply with data policies.
+
+**Sub-Rule 3.2: Performance Considerations**
+- **Guard Clauses**: For expensive logging operations (e.g., constructing complex messages only needed for DEBUG/TRACE), use guard clauses: `if (logger.isDebugEnabled()) { logger.debug("Complex message: " + buildComplexMessage()); }`. Parameterized logging often mitigates this for simple arguments.
+- **Asynchronous Logging**: For high-throughput applications, consider using asynchronous log appenders (async logging) to minimize the impact of logging on application thread performance.
+- **Configuration**: Configure appropriate buffer sizes and flush intervals for appenders.
+- **Monitoring**: Monitor the impact of logging on application performance.
+
+**Sub-Rule 3.3: Structured Logging**
+- **Format**: Consider using a structured logging format like JSON for machine-readable logs, especially if logs are centrally aggregated and analyzed.
+- **Consistent Metadata**: Include consistent metadata in log entries (e.g., application name, version, environment).
+- **Context Information**: Add contextual information like thread name, user ID (if available and safe), session ID (if applicable and safe).
+- **MDC for Request Tracking**: Use Mapped Diagnostic Context (MDC) to enrich log messages with request-specific information (like correlation ID, user ID) without passing it through every method call.
 
 **Good example:**
-
+(Illustrating several core practices)
 ```java
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList; // For mutable list example
-import java.util.Collections; // For unmodifiable list
-import java.util.concurrent.ConcurrentHashMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
+import java.util.Objects;
+import java.util.UUID;
 
-// Dummy class
-class Data {
-    String id;
-    public Data(String id) { this.id = id; }
-    @Override public String toString() { return "Data"+id+""; }
+class TransactionService {
+    // Rule 3.1: Logger Declaration
+    private static final Logger logger = LoggerFactory.getLogger(TransactionService.class);
+
+    public void processTransaction(String transactionId, String userId, String sensitiveData) {
+        // Rule 3.1 & 3.3: MDC for correlation ID and user context
+        MDC.put("correlationId", UUID.randomUUID().toString());
+        MDC.put("userId", userId); // Ensure userId is not PII or is masked if necessary
+
+        logger.info("Processing transaction ID: {}", transactionId);
+
+        try {
+            if (Objects.isNull(transactionId) || transactionId.isEmpty()) {
+                throw new IllegalArgumentException("Transaction ID cannot be null or empty.");
+            }
+
+            // Rule 3.1: Avoid logging sensitive information directly
+            // Instead of: logger.debug("Sensitive data for tx {}: {}", transactionId, sensitiveData);
+            logger.debug("Processing transaction {} with sensitive data (masked/omitted). Hash: {}", transactionId, sensitiveData.hashCode());
+
+
+            // Simulate some work
+            performStep1(transactionId);
+            performStep2(transactionId);
+
+            // Rule 3.2: Guard clause for expensive log message construction (if necessary)
+            if (logger.isTraceEnabled()) {
+                logger.trace("Detailed trace for transaction {}: {}", transactionId, generateDetailedTrace());
+            }
+
+            logger.info("Transaction {} processed successfully.", transactionId);
+
+        } catch (IllegalArgumentException iae) {
+            // Rule 3.1: Exception Logging with context and exception
+            logger.warn("Invalid argument for transaction {}: {}", transactionId, iae.getMessage(), iae);
+        } catch (Exception e) {
+            // Rule 3.1: Exception Logging
+            logger.error("Failed to process transaction {}", transactionId, e);
+            // Potentially rethrow as a custom business exception
+        } finally {
+            // Rule 3.3: Clear MDC context
+            MDC.clear();
+        }
+    }
+
+    private void performStep1(String transactionId) {
+        logger.debug("Performing step 1 for transaction {}", transactionId);
+        // ... logic for step 1
+    }
+
+    private void performStep2(String transactionId) {
+        logger.debug("Performing step 2 for transaction {}", transactionId);
+        // ... logic for step 2
+    }
+
+    private String generateDetailedTrace() {
+        // Simulate expensive message generation
+        return "Very detailed trace data...";
+    }
+    
+    public static void main(String args) {
+        TransactionService service = new TransactionService();
+        // Logback config would typically set the pattern to include MDC values like %X{correlationId} %X{userId}
+        service.processTransaction("TX123", "userA", "secret_credit_card_info");
+        service.processTransaction(null, "userB", "some_other_data");
+    }
+}
+```
+
+**Bad Example:**
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.Objects;
+
+public class BadLoggingExample {
+    private static final Logger logger = LoggerFactory.getLogger(BadLoggingExample.class);
+
+    public void handleRequest(String requestData, String userPassword) {
+        // Bad: String concatenation instead of parameterization
+        logger.debug("Received data: " + requestData + " for user.");
+
+        // Bad: Logging sensitive information (password)
+        logger.info("User password is: " + userPassword); 
+
+        try {
+            if (requestData.equals("fail")) {
+                throw new Exception("Simulated failure");
+            }
+            // ...
+        } catch (Exception e) {
+            // Bad: Swallowing exception or logging only message without stack trace
+            logger.info("An error occurred: " + e.getMessage()); 
+            // Or even worse: System.out.println("Error: " + e.getMessage());
+            // Or just: // e.printStackTrace(); (goes to stderr, not managed by logging)
+        }
+    }
+    public static void main(String args) {
+        BadLoggingExample bl = new BadLoggingExample();
+        bl.handleRequest("data1", "pa$$wOrd");
+        bl.handleRequest("fail", "anotherSecurePassword");
+    }
+}
+```
+
+## Rule 4: Follow Configuration Best Practices
+
+Title: Configure Your Logging Framework Thoughtfully
+Description:
+Proper configuration is key to effective logging.
+- **File Organization**:
+    - Separate logging configurations per environment (e.g., `logback-dev.xml`, `logback-prod.xml`).
+    - Use external configuration files rather than programmatic configuration where possible for easier changes.
+    - Implement different log levels for different packages/classes to control log verbosity (e.g., `DEBUG` for your application packages, `INFO` for libraries).
+- **Output Formats**:
+    - Include a timestamp with timezone (e.g., `%d{yyyy-MM-dd HH:mm:ss.SSSXXX}`).
+    - Add the log level (e.g., `%-5level`).
+    - Include the logger name or source class (e.g., `%logger{36}`).
+    - Add thread information (e.g., `%thread`).
+    - Include correlation ID if used (e.g., `%X{correlationId}`).
+    - Add other relevant contextual data from MDC.
+    - **Example Pattern (for Logback/Log4j2)**: ` %d{yyyy-MM-dd HH:mm:ss.SSSXXX} %thread %-5level %logger{36} %X{correlationId} - %msg%n%ex `
+      (Note: `%ex` is important for printing stack traces for exceptions passed as the last argument to logging methods)
+
+**Good example:**
+(Conceptual Logback configuration snippet - `logback.xml`)
+```xml
+<!-- This is an XML configuration example, not Java code -->
+<!-- <configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSSXXX} %thread %-5level %logger{36} %X{correlationId} - %msg%n%ex</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/myapp.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/myapp.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSSXXX} %thread %-5level %logger{36} %X{correlationId} - %msg%n%ex</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.example.myapp" level="DEBUG"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.hibernate" level="WARN"/>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration> -->
+
+// Java code showing how logger names affect output based on the above config
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.Objects;
+
+// Assuming package is com.example.myapp
+// package com.example.myapp; 
+
+public class ConfiguredLoggerExample {
+    private static final Logger appLogger = LoggerFactory.getLogger(ConfiguredLoggerExample.class); // Will use com.example.myapp logger
+    private static final Logger externalLibLogger = LoggerFactory.getLogger("org.hibernate.example.SomeClass"); // Will use org.hibernate logger
+
+    public static void main(String args) {
+        // Based on the conceptual XML config:
+        // com.example.myapp is DEBUG
+        // org.hibernate is WARN
+        // root is INFO
+        
+        appLogger.trace("This TRACE message from appLogger will likely not be seen (DEBUG is higher).");
+        appLogger.debug("This DEBUG message from appLogger will be seen.");
+        appLogger.info("This INFO message from appLogger will be seen.");
+
+        externalLibLogger.info("This INFO message from externalLibLogger will NOT be seen (WARN is higher).");
+        externalLibLogger.warn("This WARN message from externalLibLogger will be seen.");
+        
+        Logger rootExampleLogger = LoggerFactory.getLogger("some.other.package.MyClass"); // Falls under root logger
+        rootExampleLogger.debug("This DEBUG message from rootExampleLogger will NOT be seen (INFO is higher).");
+        rootExampleLogger.info("This INFO message from rootExampleLogger will be seen.");
+    }
 }
 
-// Immutability Example
-public final class ImmutableValue { // Class is final
-    private final int value;         // Field is final
-    private final List<String> items;  // Field is final
+```
+**Bad Example:**
+(Conceptual: A logging configuration that is too verbose or missing key information)
+```xml
+<!-- This is an XML configuration example, not Java code -->
+<!-- <configuration>
+    <appender name="STDOUT_BAD" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%msg%n</pattern> <!-- Bad: Missing timestamp, level, logger, thread -->
+        </encoder>
+    </appender>
 
-    public ImmutableValue(int value, List<String> items) {
-        this.value = value;
-        // Defensive copy to ensure the internal list cannot be modified externally
-        // and to ensure the list itself is immutable if List.copyOf is used.
-        this.items = List.copyOf(items); // Creates an unmodifiable list
+    <!-- Bad: Logging everything at TRACE level in production -->
+    <root level="TRACE"> 
+        <appender-ref ref="STDOUT_BAD" />
+    </root>
+</configuration> -->
+
+// Java code consequences
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.Objects;
+
+public class BadConfigConsequences {
+    private static final Logger logger = LoggerFactory.getLogger(BadConfigConsequences.class);
+    public static void main(String args) {
+        logger.info("User logged in.");
+        logger.error("Failed to connect to DB.", new RuntimeException("DB connection timeout"));
+        // Output with bad pattern:
+        // User logged in.
+        // Failed to connect to DB.  (Stack trace might appear on a new line or be missing depending on %ex)
+        // Problem: Logs are hard to read, debug, and filter. No context.
+        // Excessive TRACE level floods logs in production.
+    }
+}
+
+```
+
+## Rule 5: Implement Secure Logging Practices
+
+Title: Ensure Logs Do Not Compromise Security
+Description:
+Logging can inadvertently expose sensitive information if not handled carefully.
+- **Mask Sensitive Data**: Actively mask or filter sensitive data (passwords, API keys, PII, credit card numbers, health records) before it's written to logs. Use custom converters, filters, or wrappers if necessary.
+- **Log Access Controls**: Restrict access to log files and log management systems. Ensure that only authorized personnel can view or manage logs.
+- **Secure Transmission**: If logging to remote systems (e.g., centralized log servers), use secure transmission protocols (e.g., TLS/SSL).
+- **Regular Log Reviews**: Periodically review logs for unexpected sensitive data exposure or security-related events.
+- **Compliance**: Comply with data protection regulations (e.g., GDPR, HIPAA, CCPA) regarding what can be logged and how long it can be retained.
+
+**Good example:**
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.Objects;
+
+public class SecureLogger {
+    private static final Logger logger = LoggerFactory.getLogger(SecureLogger.class);
+
+    // Example of a simple masking utility
+    private static String maskCreditCard(String cardNumber) {
+        if (Objects.isNull(cardNumber) || cardNumber.length() < 10) {
+            return "INVALID_CC_DATA";
+        }
+        // Mask all but first 6 and last 4 digits typically
+        // For simplicity, just showing first 4 and last 4.
+        return cardNumber.substring(0, Math.min(4, cardNumber.length())) + 
+               "********" + 
+               cardNumber.substring(Math.max(0, cardNumber.length() - 4));
     }
 
-    public int getValue() {
-        return value;
+    public void processPayment(String userId, String creditCardNumber, double amount) {
+        // Good: Masking sensitive data before logging
+        logger.info("Processing payment for user: {}, amount: {}, card (masked): {}", 
+                    userId, amount, maskCreditCard(creditCardNumber));
+        
+        try {
+            // ... payment processing logic ...
+            if (amount > 10000) {
+                 // Example of logging a security-relevant event (but not sensitive data itself)
+                logger.warn("High value transaction processed for user: {}. Amount: {}", userId, amount);
+            }
+            logger.info("Payment successful for user {}", userId);
+        } catch (Exception e) {
+            // Log error, but avoid logging raw payment details in case of failure if they contain sensitive info
+            logger.error("Payment processing failed for user {}. Reason: {}", userId, e.getMessage(), e);
+        }
     }
+    public static void main(String args) {
+        SecureLogger sl = new SecureLogger();
+        sl.processPayment("user123", "1234567890123456", 99.99);
+        sl.processPayment("user456", "9876543210987654", 15000.00);
+    }
+}
+// Further good practices:
+// - Use Logback/Log4j2 filters or custom converters for more robust, centralized masking.
+// - Ensure log files have restricted permissions.
+// - Use tools for log analysis that respect data privacy.
+```
 
-    public List<String> getItems() {
-        // List.copyOf already returned an unmodifiable list, so no need to copy again.
-        // If 'items' were a mutable list internally, you'd return a new copy or unmodifiable view:
-        // return Collections.unmodifiableList(new ArrayList<>(items));
-        return items;
+**Bad Example:**
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.Objects;
+
+public class InsecureLogger {
+    private static final Logger logger = LoggerFactory.getLogger(InsecureLogger.class);
+
+    public void userLogin(String username, String password) {
+        // Bad: Logging username and password in clear text
+        logger.info("User login attempt: username={}, password={}", username, password); 
+
+        if ("admin".equals(username) && "admin123".equals(password)) {
+            logger.info("Admin user '{}' logged in successfully.", username);
+        } else {
+            logger.warn("Failed login attempt for username: {}", username);
+        }
+    }
+    
+    public void processUserData(String userId, String fullUserDetailsJson) {
+        // Bad: Logging potentially large JSON object containing PII without any filtering/masking
+        logger.debug("Processing user data for {}: {}", userId, fullUserDetailsJson);
     }
 
     public static void main(String args) {
-        List<String> initialItems = new ArrayList<>();
-        initialItems.add("one");
-        initialItems.add("two");
-        
-        ImmutableValue iv = new ImmutableValue(100, initialItems);
-        System.out.println("Value: " + iv.getValue());
-        System.out.println("Items: " + iv.getItems());
-        
-        initialItems.add("three"); // Modify original list
-        System.out.println("Original list modified. ImmutableValue items: " + iv.getItems()); // iv.items remains unchanged
-        
-        try {
-            iv.getItems().add("four"); // This will throw UnsupportedOperationException
-        } catch (UnsupportedOperationException e) {
-            System.out.println("Attempted to modify items from ImmutableValue: " + e.getMessage());
-        }
-    }
-}
-
-// Safe Publication Example
-class SafePublicationExample {
-    // Using ConcurrentHashMap ensures that both the map reference and its contents
-    // are safely published. computeIfAbsent is an atomic operation.
-    private static final Map<String, Data> cache = new ConcurrentHashMap<>();
-
-    public static Data getData(String key) {
-        // computeIfAbsent ensures that the Data object is created and published safely
-        // even if multiple threads call this method concurrently for the same key.
-        return cache.computeIfAbsent(key, k -> {
-            System.out.println("Creating Data for key: " + k);
-            return new Data(k); // The Data object is constructed and then put into the map
-        });
-    }
-
-    public static void main(String args) throws InterruptedException {
-        Runnable task = () -> {
-            Data d1 = SafePublicationExample.getData("A");
-            System.out.println(Thread.currentThread().getName() + " got " + d1);
-            Data d2 = SafePublicationExample.getData("B");
-            System.out.println(Thread.currentThread().getName() + " got " + d2);
-            Data d3 = SafePublicationExample.getData("A"); // Should retrieve from cache
-            System.out.println(Thread.currentThread().getName() + " got " + d3 + " (from cache)");
-        };
-
-        Thread t1 = new Thread(task, "Thread-1");
-        Thread t2 = new Thread(task, "Thread-2");
-
-        t1.start();
-        t2.start();
-
-        t1.join();
-        t2.join();
-        
-        System.out.println("Cache content: " + cache);
+        InsecureLogger il = new InsecureLogger();
+        il.userLogin("admin", "admin123"); // Logs password!
+        il.userLogin("testuser", "wrongPass"); // Logs password!
+        il.processUserData("uid001", "{\"name\":\"John Doe\", \"ssn\":\"123-45-678\", \"email\":\"john.doe@example.com\"}"); // Logs PII (SSN)
     }
 }
 ```
 
-**Bad Example:**
+## Rule 6: Establish Effective Log Monitoring and Alerting
 
-```java
-// Bad example to be added
-// e.g., a "supposedly" immutable object that returns references to internal mutable arrays/collections,
-// or unsafe publication of a shared object reference.
-```
-
-## Rule 6: Performance Considerations in Concurrency
-
-Title: Optimize Concurrent Code for Performance
+Title: Implement Log Aggregation, Monitoring, and Alerting
 Description:
-Be mindful of performance implications in concurrent applications.
-- **Lock Contention**: Reduce contention by narrowing lock scopes, using finer-grained locks (lock striping), or exploring optimistic locking or lock-free data structures.
-- **Memory Consistency**: Understand the Java Memory Model (JMM). Use `volatile` for visibility of single variables across threads. Be aware of happens-before relationships established by synchronization.
-- **Context Switching**: Excessive threads can lead to high context-switching overhead. Size thread pools appropriately.
-- **False Sharing**: Be aware of false sharing when mutable fields accessed by different threads reside on the same cache line (less common to manually address but good to know).
+Proactively use logs to understand application behavior and identify issues.
+- **Log Aggregation**: Set up a centralized log aggregation system (e.g., ELK Stack - Elasticsearch, Logstash, Kibana; Splunk; Grafana Loki) to collect logs from all application instances and services.
+- **Log-based Alerts**: Implement alerts based on log patterns, error rates, or specific critical log messages (e.g., alert on high frequency of `ERROR` logs, specific exception types, or security-related warnings).
+- **Structured Logging for Querying**: Use structured logging (e.g., JSON) to enable easier and more powerful querying and analysis in your log aggregation system.
+- **Regular Log Analysis**: Periodically analyze logs to identify trends, recurring issues, performance bottlenecks, or anomalous behavior.
+- **Monitor Logging System Health**: Ensure the logging pipeline itself is monitored (e.g., disk space on log servers, ingestion rates, query performance of the aggregation system).
 
 **Good example:**
-
+(Conceptual - actual implementation involves external systems)
 ```java
-import java.util.ArrayList;
-import java.util.HashMap; // For a simple non-thread-safe map
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
+import java.util.Objects;
+import java.util.UUID;
 
-// Lock Striping Example (Conceptual)
-class StripedMap<K, V> {
-    private static final int STRIPE_COUNT = 16; // Number of stripes (locks)
-    private final List<Lock> stripes;
-    private final List<Map<K, V>> buckets;
+public class MonitoredService {
+    private static final Logger logger = LoggerFactory.getLogger(MonitoredService.class);
 
-    @SuppressWarnings("unchecked")
-    public StripedMap() {
-        stripes = new ArrayList<>(STRIPE_COUNT);
-        buckets = new ArrayList<>(STRIPE_COUNT);
-        for (int i = 0; i < STRIPE_COUNT; i++) {
-            stripes.add(new ReentrantLock());
-            buckets.add(new HashMap<>()); // Each bucket is a standard HashMap
-        }
-    }
+    public void handleApiRequest(String endpoint, String payload) {
+        String correlationId = UUID.randomUUID().toString();
+        MDC.put("correlationId", correlationId);
+        MDC.put("endpoint", endpoint);
 
-    private int getStripeIndex(K key) {
-        return Math.abs(key.hashCode() % STRIPE_COUNT);
-    }
-
-    public V get(K key) {
-        int index = getStripeIndex(key);
-        Lock lock = stripes.get(index);
-        lock.lock();
         try {
-            return buckets.get(index).get(key);
+            logger.info("API request received."); // This log, with MDC, goes to a central log aggregator.
+            
+            if (payload.contains("<script>")) {
+                // Log a security-sensitive event that monitoring tools can pick up for alerts.
+                logger.warn("Potential XSS attempt detected in payload for correlationId: {}", correlationId);
+                // Handle error, e.g., return 400 Bad Request
+                return;
+            }
+            
+            // Simulate some processing
+            if (endpoint.equals("/critical_op")) {
+                if (Math.random() > 0.9) { // Simulate a sporadic critical failure
+                    throw new RuntimeException("Simulated critical operation failure!");
+                }
+            }
+            logger.debug("Processing complete for API request.");
+
+        } catch (RuntimeException e) {
+            // This ERROR log (especially with stack trace) would be a key candidate for alerting.
+            logger.error("Unhandled exception during API request.", e); 
+            // Respond with 500 Internal Server Error
         } finally {
-            lock.unlock();
+            MDC.clear();
         }
     }
 
-    public V put(K key, V value) {
-        int index = getStripeIndex(key);
-        Lock lock = stripes.get(index);
-        lock.lock();
-        try {
-            return buckets.get(index).put(key, value);
-        } finally {
-            lock.unlock();
+    public static void main(String args) {
+        MonitoredService service = new MonitoredService();
+        // Assume Logback is configured with a JSON appender sending to Logstash/Fluentd
+        // These logs would be searchable in Kibana/Splunk/Grafana by correlationId, endpoint, level, etc.
+        // Alerts could be set up for:
+        // 1. Any ERROR level log.
+        // 2. WARN messages containing "XSS attempt".
+        // 3. High rate of INFO messages for a specific endpoint indicating unusual load.
+        
+        service.handleApiRequest("/user_data", "{\"data\": \"normal\"}");
+        service.handleApiRequest("/submit_form", "payload with <script>alert('XSS')</script>");
+        for (int i=0; i<20; i++) { // Simulate multiple calls to potentially trigger the sporadic error
+            service.handleApiRequest("/critical_op", "some_data");
         }
     }
-    // Other methods like remove, size etc. would also need to use striping.
-    // size() would be more complex, requiring locking all stripes or summing sizes carefully.
 }
+// Key elements for monitoring:
+// - Centralized log storage (e.g., ELK, Splunk).
+// - Log shippers (e.g., Filebeat, Fluentd) sending logs from app servers.
+// - Dashboards in Kibana/Grafana to visualize log data (e.g., error rates).
+// - Alerting rules in ElastAlert, Grafana Alerting, or Splunk Alerts.
+```
 
-// Memory Consistency with volatile
-class MemoryConsistencyExample {
-    private volatile boolean flag = false; // volatile ensures visibility
-    private int data = 0; // non-volatile data
+**Bad Example:**
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.Objects;
 
-    public void writer() {
-        System.out.println(Thread.currentThread().getName() + " writing data...");
-        data = 42; // Write to non-volatile
-        flag = true; // Write to volatile, establishes happens-before
-        System.out.println(Thread.currentThread().getName() + " finished writing.");
-    }
+public class UnmonitoredService {
+    private static final Logger logger = LoggerFactory.getLogger(UnmonitoredService.class);
 
-    public void reader() {
-        System.out.println(Thread.currentThread().getName() + " waiting for flag...");
-        while (!flag) {
-            // Spin or Thread.yield() or park etc.
-            // Busy-waiting is generally bad, this is for demonstration of volatile.
+    public void doWork() {
+        try {
+            logger.info("Work started.");
+            // ... some logic ...
+            if (Math.random() > 0.5) {
+                throw new Exception("Something went wrong randomly!");
+            }
+            logger.info("Work finished.");
+        } catch (Exception e) {
+            // Logs an error, but if logs are only on local disk and not monitored,
+            // this critical issue might go unnoticed for a long time.
+            logger.error("Error during work", e); 
         }
-        // Because flag is volatile and was written after data,
-        // the JMM guarantees that the reader thread will see data = 42.
-        System.out.println(Thread.currentThread().getName() + " read data: " + data);
     }
 
-    public static void main(String args) throws InterruptedException {
-        MemoryConsistencyExample ex = new MemoryConsistencyExample();
-        Thread writerThread = new Thread(ex::writer, "WriterThread");
-        Thread readerThread = new Thread(ex::reader, "ReaderThread");
-
-        readerThread.start(); // Start reader first
-        Thread.sleep(100); // Give reader a chance to spin
-        writerThread.start();
-
-        writerThread.join();
-        readerThread.join();
-        System.out.println("Main: Both threads finished.");
+    public static void main(String args) {
+        UnmonitoredService service = new UnmonitoredService();
+        for (int i = 0; i < 5; i++) {
+            service.doWork();
+        }
+        // Problem: Logs are likely just going to console or a local file.
+        // - No central aggregation: Difficult to search across instances or time.
+        // - No alerts: Critical errors might be missed until users report them.
+        // - No analysis: Trends or recurring non-fatal issues are hard to spot.
     }
 }
 ```
 
-**Bad Example:**
+## Rule 7: Incorporate Logging in Testing
 
+Title: Validate Logging Behavior and Impact During Testing
+Description:
+Ensure logging works as expected and doesn't negatively impact the application.
+- **Logging Assertions**: In unit or integration tests, assert that specific log messages (especially `WARN` or `ERROR` for expected failure conditions, or important `INFO` messages) are generated when certain code paths are executed.
+- **Verify Log Messages in Integration Tests**: For critical flows, verify that appropriate log messages are written, perhaps by capturing log output or using testing utilities that can inspect logs.
+- **Test Different Logging Levels**: Ensure that configuring different log levels correctly filters messages as expected.
+- **Validate Log Format Compliance**: If a specific log format (e.g., JSON with certain fields) is required, write tests to validate that log output conforms to this format.
+- **Check Performance Impact**: For high-throughput logging scenarios, include tests to measure the performance overhead of logging and ensure it's within acceptable limits.
+
+**Good example:**
+(Conceptual example, actual testing might use libraries like Logback's `ListAppender` or dedicated testing utilities)
 ```java
-// Bad example to be added
-// e.g., holding a lock for too long, or a reader thread not seeing updates due to missing volatile/synchronization.
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.Objects;
+// For a real test, you'd use a testing framework (JUnit, TestNG)
+// and a library to capture logs, e.g., Logback's ListAppender or SystemLambda.
+
+// ---- SUT (System Under Test) ----
+class ImportantService {
+    private static final Logger logger = LoggerFactory.getLogger(ImportantService.class);
+    public void processImportantData(String dataId) {
+        if (Objects.isNull(dataId)) {
+            logger.error("Data ID is null, cannot process.");
+            throw new IllegalArgumentException("Data ID cannot be null");
+        }
+        if (dataId.startsWith("invalid_")) {
+            logger.warn("Received potentially invalid data ID: {}", dataId);
+            // continue processing with caution
+        }
+        logger.info("Processing data for ID: {}", dataId);
+        // ... actual processing ...
+    }
+}
+
+// ---- Test (Conceptual, would use testing framework) ----
+// import ch.qos.logback.classic.Level;
+// import ch.qos.logback.classic.LoggerContext;
+// import ch.qos.logback.classic.spi.ILoggingEvent;
+// import ch.qos.logback.core.read.ListAppender;
+// import org.junit.jupiter.api.AfterEach;
+// import org.junit.jupiter.api.BeforeEach;
+// import org.junit.jupiter.api.Test;
+// import static org.assertj.core.api.Assertions.assertThat;
+// import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+public class LoggingTestExample {
+    /*
+    private ListAppender<ILoggingEvent> listAppender;
+    private ImportantService service;
+
+    @BeforeEach
+    void setUp() {
+        service = new ImportantService();
+        LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+        listAppender = new ListAppender<>();
+        listAppender.start();
+        // Add appender to the logger of the class under test
+        ch.qos.logback.classic.Logger serviceLogger = loggerContext.getLogger(ImportantService.class);
+        serviceLogger.addAppender(listAppender);
+        serviceLogger.setLevel(Level.ALL); // Ensure all levels are captured for test
+    }
+
+    @AfterEach
+    void tearDown() {
+        listAppender.stop();
+        LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+        loggerContext.getLogger(ImportantService.class).detachAppender(listAppender);
+    }
+
+    @Test
+    void testNullDataId_logsErrorAndThrowsException() {
+        assertThatThrownBy(() -> service.processImportantData(null))
+            .isInstanceOf(IllegalArgumentException.class);
+        
+        List<ILoggingEvent> logs = listAppender.list;
+        assertThat(logs).hasSize(1);
+        assertThat(logs.get(0).getLevel()).isEqualTo(Level.ERROR);
+        assertThat(logs.get(0).getFormattedMessage()).contains("Data ID is null");
+    }
+
+    @Test
+    void testInvalidDataId_logsWarning() {
+        service.processImportantData("invalid_XYZ");
+        List<ILoggingEvent> logs = listAppender.list;
+        
+        // Expecting WARN then INFO
+        assertThat(logs.stream().anyMatch(event -> 
+            event.getLevel() == Level.WARN && event.getFormattedMessage().contains("Received potentially invalid data ID: invalid_XYZ")
+        )).isTrue();
+        assertThat(logs.stream().anyMatch(event -> 
+            event.getLevel() == Level.INFO && event.getFormattedMessage().contains("Processing data for ID: invalid_XYZ")
+        )).isTrue();
+    }
+    
+    @Test
+    void testValidDataId_logsInfo() {
+        service.processImportantData("valid_123");
+        List<ILoggingEvent> logs = listAppender.list;
+        assertThat(logs).hasSize(1);
+        assertThat(logs.get(0).getLevel()).isEqualTo(Level.INFO);
+        assertThat(logs.get(0).getFormattedMessage()).contains("Processing data for ID: valid_123");
+    }
+    */
+    public static void main(String args) {
+        System.out.println("This example is conceptual and best run within a JUnit/TestNG test environment.");
+        System.out.println("To run, uncomment the JUnit parts and include relevant testing/logback dependencies.");
+        // Example calls to see output if run directly (without log capture)
+        ImportantService service = new ImportantService();
+        try { service.processImportantData(null); } catch (Exception e) { /* ignore for direct run */ }
+        service.processImportantData("invalid_ABC");
+        service.processImportantData("valid_DEF");
+    }
+}
+
+```
+
+**Bad Example:**
+```java
+// Code that is hard to test for logging behavior
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.Objects;
+
+public class UntestableLogging {
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UntestableLogging.class);
+
+    public void complexOperation(String input) {
+        // ... many lines of code ...
+        if (input.equals("problem")) {
+            // Log message is deeply embedded, possibly conditional, hard to trigger specifically
+            // and verify without significant effort or refactoring.
+            logger.warn("A specific problem occurred with input: {}", input);
+        }
+        // ... more code ...
+        // No clear separation of concerns, making it hard to isolate and test logging.
+    }
+    public static void main(String args) {
+        UntestableLogging ul = new UntestableLogging();
+        ul.complexOperation("test");
+        ul.complexOperation("problem");
+        // Problem: Without proper test utilities or testable design,
+        // verifying that the WARN message is logged correctly (and only when expected)
+        // is difficult. Developers might skip testing logging, leading to unverified log output.
+    }
+}
+
 ```
 
 ---
