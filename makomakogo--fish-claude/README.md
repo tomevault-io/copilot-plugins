@@ -7,11 +7,11 @@ custom settings and tools about claude code, codex, opencode etc
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [makoMakoGo/fish-claude](https://github.com/makoMakoGo/fish-claude).
+Original source: `CLAUDE.md` in [makoMakoGo/fish-claude](https://github.com/makoMakoGo/fish-claude).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
