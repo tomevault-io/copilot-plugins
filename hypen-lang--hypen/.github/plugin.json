@@ -1,0 +1,9 @@
+{
+  "name": "hypen-lang--hypen",
+  "displayName": "hypen",
+  "description": "Hypen  - crossplatform UI framework for Rust, TS, Go, Kotlin, Swift and more",
+  "version": "1.0.0",
+  "author": "hypen-lang",
+  "homepage": "https://github.com/hypen-lang/hypen",
+  "skills": []
+}
