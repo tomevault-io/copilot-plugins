@@ -7,11 +7,11 @@ Sigma detection rules for AI agent security monitoring
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [agentshield-ai/sigma-ai](https://github.com/agentshield-ai/sigma-ai).
+Original source: `CLAUDE.md` in [agentshield-ai/sigma-ai](https://github.com/agentshield-ai/sigma-ai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
