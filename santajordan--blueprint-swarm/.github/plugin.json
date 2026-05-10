@@ -1,0 +1,9 @@
+{
+  "name": "santajordan--blueprint-swarm",
+  "displayName": "blueprint-swarm",
+  "description": "Agent swarm for GTM customer intelligence. Understand why customers buy and churn \u2014 in their own words. Built on Blueprint GTM methodology by Jordan Crawford.",
+  "version": "1.0.0",
+  "author": "SantaJordan",
+  "homepage": "https://github.com/SantaJordan/blueprint-swarm",
+  "skills": []
+}
