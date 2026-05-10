@@ -4,7 +4,7 @@
   "repo": "reel",
   "description": "A modern GTK frontend for Plex and other media servers",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arsfeld/reel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T11:38:13Z"
+  "distributed_at": "2026-05-10T19:16:07Z"
 }
