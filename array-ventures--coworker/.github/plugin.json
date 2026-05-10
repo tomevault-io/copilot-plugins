@@ -1,0 +1,9 @@
+{
+  "name": "array-ventures--coworker",
+  "displayName": "coworker",
+  "description": "Open-source AI agent with MCP UI, app builder, A2A protocol, skills marketplace, and multi-provider chat. Built with Mastra. Alternative to OpenClaw.",
+  "version": "1.0.0",
+  "author": "Array-Ventures",
+  "homepage": "https://github.com/Array-Ventures/coworker",
+  "skills": []
+}
