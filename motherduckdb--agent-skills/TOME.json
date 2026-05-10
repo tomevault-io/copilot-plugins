@@ -4,7 +4,7 @@
   "repo": "agent-skills",
   "description": "Opinionated AI agent skills for building applications with MotherDuck",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/motherduckdb/agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T04:33:19Z"
+  "distributed_at": "2026-05-10T02:52:38Z"
 }
