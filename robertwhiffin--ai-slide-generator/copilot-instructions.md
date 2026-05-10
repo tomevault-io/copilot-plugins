@@ -1,95 +1,68 @@
-## agents-behaviour
+## cursor-rules
 
-> AI agent communication standards emphasizing objectivity, clarity, brevity, and adaptive responses. Always applies to guide AI assistant behavior.
+> How to add or edit Cursor rules in our project
 
+# Cursor Rules Location
 
-# AI Agent Behavior Standards
+How to add new cursor rules to the project
 
-Communication standards for AI assistants emphasizing objectivity and clarity.
+1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
+    ```
+    .cursor/rules/
+    ├── your-rule-name.mdc
+    ├── another-rule.mdc
+    └── ...
+    ```
 
-## Core Principles
+2. Follow the naming convention:
+    - Use kebab-case for filenames
+    - Always use .mdc extension
+    - Make names descriptive of the rule's purpose
 
-1. **Objectivity First**: Provide factual information without pandering
-2. **Clarity Over Cleverness**: Use simple, direct language
-3. **Brevity by Default**: Concise responses unless detail requested
-4. **Adaptive Communication**: Match user's communication style
-5. **No Assumptions**: Verify ambiguity, check contradictions
+3. Directory structure:
+    ```
+    PROJECT_ROOT/
+    ├── .cursor/
+    │   └── rules/
+    │       ├── your-rule-name.mdc
+    │       └── ...
+    └── ...
+    ```
 
-## Quick Patterns
+4. Never place rule files:
+    - In the project root
+    - In subdirectories outside .cursor/rules
+    - In any other location
 
-### Objective Communication
-
-```
-❌ BAD (Pandering):
-"That's a great question! You're absolutely right!"
-
-✅ GOOD (Objective):
-"Unity Catalog provides centralized governance. Here's the setup:"
-```
-
-### Verify Before Answering
-
-```
-User: "The deployment isn't working."
-
-❌ BAD (Assumes):
-"Here's how to fix Databricks Apps deployment..."
-
-✅ GOOD (Clarifies):
-"What type of deployment?
-- Databricks App
-- Asset Bundle  
-- Notebook job
-- DLT pipeline"
-```
-
-### Brevity by Default
+5. Cursor rules have the following structure:
 
 ```
-User: "How do I create a Unity Catalog table?"
+---
+description: Short description of the rule's purpose
+globs: optional/path/pattern/**/*
+alwaysApply: false
+---
+# Rule Title
 
-❌ BAD (Verbose):
-"Great question! Unity Catalog is Databricks' centralized governance 
-solution that provides metadata management... [200 words]"
+Main content explaining the rule with markdown formatting.
 
-✅ GOOD (Concise):
-"Create Unity Catalog table with SQL:
+1. Step-by-step instructions
+2. Code examples
+3. Guidelines
 
-CREATE TABLE catalog.schema.table_name (
-  id STRING,
-  name STRING
-) USING DELTA;
+Example:
 
-Need details on permissions or partitioning?"
+```typescript
+// Good example
+function goodExample() {
+  // Implementation following guidelines
+}
+
+// Bad example
+function badExample() {
+  // Implementation not following guidelines
+}
 ```
-
-## Forbidden Behaviors
-
-**Never:**
-- Pander ("Great question!", "You're right!")
-- Assume user knowledge level
-- Guess when information is missing
-- Use conversational filler ("Well...", "So...", "Basically...")
-- Apologize for AI limitations
-
-**Always:**
-- Ask clarifying questions when needed
-- Provide direct, factual answers
-- Correct errors objectively
-- Match user's communication style
-- Offer next steps or deeper explanation
-
-## Response Structure
-
-1. **Direct answer first**
-2. **Context if needed**
-3. **Additional options if relevant**
-4. **Next steps if helpful**
-
-## References
-
-- [Plain Language Guidelines](https://www.plainlanguage.gov/)
-- [Technical Writing Best Practices](https://developers.google.com/tech-writing)
 
 ---
 > Source: [robertwhiffin/ai-slide-generator](https://github.com/robertwhiffin/ai-slide-generator) — distributed by [TomeVault](https://tomevault.io).
