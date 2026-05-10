@@ -1,76 +1,80 @@
-## project-structure
+## prompt-engineering
 
-> File organization and architectural patterns for the AI setup repository
+> Prompt engineering templates and best practices for AI model interactions
 
 
-# Project Structure & Architecture
+# Prompt Engineering Templates
 
-Guidelines for organizing files and structuring the AI setup repository.
+Guidelines and templates for effective AI prompt engineering. Use `@prompt-engineering` to include this rule.
 
-## Expected Project Structure
+## Prompt Engineering Best Practices
 
+### 1. Prompt Structure Templates
+```typescript
+// System prompt template
+const SYSTEM_PROMPT = `
+You are an expert assistant specialized in [DOMAIN].
+Your responses should be:
+- Accurate and factual
+- Concise but comprehensive
+- Professional in tone
+- Focused on [SPECIFIC_GOAL]
+
+Context: [CONTEXT_INFORMATION]
+`;
+
+// User prompt template
+const createUserPrompt = (input: string, context?: string) => `
+Task: ${input}
+${context ? `Additional context: ${context}` : ''}
+
+Please provide a response that follows the system guidelines.
+`;
 ```
-.
-├── README.md                 # Project documentation
-├── LICENSE                   # MIT license
-├── .gitignore               # Node.js/Next.js patterns
-├── .cursor/rules/           # Cursor project rules
-├── .env.example             # Environment variable template
-├── package.json             # Dependencies and scripts
-├── next.config.js           # Next.js configuration
-├── tsconfig.json            # TypeScript configuration
-├── src/
-│   ├── app/                 # Next.js app directory
-│   ├── components/          # React components
-│   ├── lib/                 # Utility functions and AI clients
-│   ├── types/               # TypeScript type definitions
-│   └── utils/               # Helper functions
-├── public/                  # Static assets
-└── docs/                    # Additional documentation
+
+### 2. Prompt Versioning
+- Store prompts in separate configuration files
+- Version prompts for A/B testing
+- Track prompt performance and iterate
+- Document prompt changes and rationale
+
+### 3. Dynamic Prompt Generation
+```typescript
+interface PromptConfig {
+  system: string;
+  temperature: number;
+  maxTokens: number;
+  stopSequences?: string[];
+}
+
+const generatePrompt = (
+  task: string, 
+  userInput: string, 
+  config: PromptConfig
+) => {
+  // Build context-aware prompts
+  // Include relevant examples
+  // Optimize for token efficiency
+};
 ```
 
-## Key Directory Guidelines
+### 4. Context Management
+- Implement conversation memory
+- Manage context window limits
+- Prioritize relevant information
+- Handle context overflow gracefully
 
-### Source Code Organization
-- `src/lib/` - Place AI client configurations and utilities here
-- `src/components/` - Reusable UI components, including AI-powered components
-- `src/app/api/` - API routes for AI services and integrations
-- `src/types/` - TypeScript definitions for AI responses and data models
+### 5. Prompt Optimization Techniques
+- Use few-shot learning examples
+- Implement chain-of-thought prompting
+- Apply role-based prompting
+- Include output format specifications
 
-### Component Organization
-- Group related components in feature-specific subdirectories
-- Keep component styles and tests near the component
-- Use index files for clean imports
-
-### Utility Organization
-- Group related utilities in feature-specific directories
-- Separate AI-specific utilities from general utilities
-- Implement consistent naming patterns
-
-## Architectural Principles
-
-### 1. Node.js/Next.js Development
-- Follow Next.js 13+ App Router patterns when applicable
-- Use modern ES6+ JavaScript/TypeScript features
-- Implement proper async/await patterns for AI API calls
-- Use React Server Components where appropriate
-- Optimize for both development and production environments
-
-### 2. File Naming Conventions
-- Use camelCase for JavaScript/TypeScript files
-- Use PascalCase for React component files
-- Use kebab-case for API routes and static files
-- Use descriptive names that indicate purpose
-
-### 3. Import Organization
-- Group imports by type (external, internal, relative)
-- Use absolute imports with path aliases when configured
-- Keep imports organized and clean
-
-### 4. Configuration Management
-- Keep all configuration files in the project root
-- Use TypeScript for configuration files when possible
-- Document configuration options and their purposes
+### 6. Testing and Validation
+- Create test suites for prompt effectiveness
+- Measure response quality metrics
+- Compare different prompt versions
+- Monitor prompt performance in production
 
 ---
 > Source: [HerringtonDarkholme/megarepo](https://github.com/HerringtonDarkholme/megarepo) — distributed by [TomeVault](https://tomevault.io).
