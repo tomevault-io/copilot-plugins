@@ -1,0 +1,9 @@
+{
+  "name": "caozhiyuan--copilot-api",
+  "displayName": "copilot-api",
+  "description": "Turn GitHub Copilot into OpenAI/Anthropic API compatible server. Usable with Claude Code Or Codex Or Opencode! Please read README.md completely before use!",
+  "version": "1.0.0",
+  "author": "caozhiyuan",
+  "homepage": "https://github.com/caozhiyuan/copilot-api",
+  "skills": []
+}
