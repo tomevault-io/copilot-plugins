@@ -4,7 +4,7 @@
   "repo": "project-orchestrator",
   "description": "A Rust-based AI agent orchestrator with Neo4j knowledge graph, Meilisearch semantic search, and Tree-sitter code parsing.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/this-rs/project-orchestrator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T18:57:53Z"
+  "distributed_at": "2026-05-10T08:48:34Z"
 }
