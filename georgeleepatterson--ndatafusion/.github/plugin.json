@@ -1,0 +1,9 @@
+{
+  "name": "georgeleepatterson--ndatafusion",
+  "displayName": "ndatafusion",
+  "description": "Extensions and support for linear algebra and ML in DataFusion",
+  "version": "1.0.0",
+  "author": "GeorgeLeePatterson",
+  "homepage": "https://github.com/GeorgeLeePatterson/ndatafusion",
+  "skills": []
+}
