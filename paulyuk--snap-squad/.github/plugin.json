@@ -1,0 +1,9 @@
+{
+  "name": "paulyuk--snap-squad",
+  "displayName": "snap-squad",
+  "description": "Warm-start addon for bradygaster/squad \u2014 pre-baked agent squads for hire for instant deployment",
+  "version": "1.0.0",
+  "author": "paulyuk",
+  "homepage": "https://github.com/paulyuk/snap-squad",
+  "skills": []
+}
