@@ -1,110 +1,96 @@
-## hooks
+## quality
 
-> Custom hooks patterns for data fetching, forms, and UI state management
+> Code quality checklist and anti-patterns to avoid before shipping
 
 
-# Custom Hooks Rules
+# Quality Checklist Rules
 
-## Hook Organization Patterns
+## Pre-Ship Quality Gates
 
-### Data Fetching Hooks
-```tsx
-// hooks/useUsers.ts
-export const useUsers = () => {
-  return useQuery({
-    queryKey: ['users'],
-    queryFn: () => userService.getAllUsers(),
-    staleTime: 5 * 60 * 1000, // 5 minutes
-  })
-}
+### Code Architecture Quality
+- [ ] **No monolithic components** - Each component under 300 lines with single responsibility
+- [ ] **Logic extraction** - Reusable logic moved to custom hooks, not duplicated
+- [ ] **Type safety** - Shared interfaces defined in `lib/types.ts` and reused
+- [ ] **Service layer** - API calls abstracted to service functions, not inline
+- [ ] **Proper imports** - Using path aliases (@/) and organized import groups
+- [ ] **Validation schemas** - Zod schemas shared and reused across components
+- [ ] **Component composition** - Complex UI built from smaller, focused components
 
-export const useUser = (id: string) => {
-  return useQuery({
-    queryKey: ['users', id],
-    queryFn: () => userService.getUser(id),
-    enabled: !!id,
-  })
-}
+### Design Quality  
+- [ ] Uses intentional color palette that serves the design purpose
+- [ ] Has proper visual hierarchy with varied typography scales
+- [ ] Includes subtle animations and micro-interactions
+- [ ] Features generous whitespace and purposeful spacing
+- [ ] All interactive elements have clear hover/active states
+- [ ] **Accessibility standards are met (proper contrast, focus states)**
+- [ ] Mobile experience is thoughtfully designed
+- [ ] Maintains cohesive visual story throughout
+- [ ] Design feels custom-crafted, not template-like
+- [ ] Visual identity matches target industry and audience
+- [ ] Color choices enhance user experience and brand message
+
+### Essential Commands Check
+```bash
+npm run lint         # MUST pass before shipping
+npm run build        # MUST succeed without errors
 ```
 
-### Form Hooks
+### NEVER Ship Code That:
+- Contains components over 300 lines mixing multiple concerns
+- Has duplicated logic that could be extracted to hooks
+- Uses inline API calls instead of service layer
+- Lacks proper TypeScript interfaces
+- Has accessibility contrast violations  
+- Contains copy-pasted code blocks
+- Mixes business logic with presentation layer
+- Has console errors or warnings
+- Fails ESLint checks
+
+### Development Workflow
+1. Run `npm run dev` to start development
+2. Follow component size limits (300 lines max)
+3. Extract reusable logic to hooks
+4. Test responsive design on mobile/desktop
+5. Verify accessibility contrast ratios
+6. Run `npm run lint` and fix all issues
+7. Ensure no console errors before shipping
+
+## Common Anti-Patterns to Avoid
+
+### Component Anti-Patterns
 ```tsx
-// hooks/useUserForm.ts
-export const useUserForm = (initialData?: Partial<User>) => {
-  const form = useForm<UserFormData>({
-    resolver: zodResolver(userSchema),
-    defaultValues: initialData || {},
-  })
-
-  const { mutate: saveUser, isPending } = useMutation({
-    mutationFn: userService.updateUser,
-    onSuccess: () => toast.success('User saved'),
-    onError: (error) => toast.error(error.message),
-  })
-
-  return { form, saveUser, isPending }
+// DON'T: Monolithic component
+const BadDashboard = () => {
+  // 400+ lines of mixed concerns
+  const [users, setUsers] = useState([])
+  const [products, setProducts] = useState([])
+  // ... massive component
 }
+
+// DO: Composition pattern
+const GoodDashboard = () => (
+  <PageLayout>
+    <DashboardHeader />
+    <DashboardMetrics />
+    <DashboardCharts />
+  </PageLayout>
+)
 ```
 
-### UI State Hooks
+### Data Fetching Anti-Patterns
 ```tsx
-// hooks/useDisclosure.ts
-export const useDisclosure = (initialState = false) => {
-  const [isOpen, setIsOpen] = useState(initialState)
-  
-  const open = useCallback(() => setIsOpen(true), [])
-  const close = useCallback(() => setIsOpen(false), [])
-  const toggle = useCallback(() => setIsOpen(prev => !prev), [])
-  
-  return { isOpen, open, close, toggle }
+// DON'T: Inline API calls
+const BadComponent = () => {
+  useEffect(() => {
+    fetch('/api/users').then(res => res.json()).then(setUsers)
+  }, [])
+}
+
+// DO: Service layer + custom hooks
+const GoodComponent = () => {
+  const { data: users } = useUsers()
 }
 ```
-
-### Local Storage Hook
-```tsx
-// hooks/useLocalStorage.ts
-export const useLocalStorage = <T>(key: string, initialValue: T) => {
-  const [storedValue, setStoredValue] = useState<T>(() => {
-    try {
-      const item = window.localStorage.getItem(key)
-      return item ? JSON.parse(item) : initialValue
-    } catch (error) {
-      return initialValue
-    }
-  })
-
-  const setValue = useCallback((value: T | ((val: T) => T)) => {
-    try {
-      const valueToStore = value instanceof Function ? value(storedValue) : value
-      setStoredValue(valueToStore)
-      window.localStorage.setItem(key, JSON.stringify(valueToStore))
-    } catch (error) {
-      console.error(error)
-    }
-  }, [key, storedValue])
-
-  return [storedValue, setValue] as const
-}
-```
-
-## Hook Naming Conventions
-- **Data**: `useUsers`, `useUser`, `useProducts`
-- **Forms**: `useUserForm`, `useProductForm`
-- **UI State**: `useDisclosure`, `useToggle`, `useLocalStorage`
-- **Business Logic**: `useAuth`, `useCart`, `useNotifications`
-
-## Hook Extraction Rules
-
-### Extract Logic When:
-- Same logic used in 2+ components
-- Component exceeds 100 lines due to logic
-- Complex state management patterns
-- API interaction patterns
-
-### Don't Extract When:
-- Logic is component-specific
-- Only used once
-- Simple useState patterns
 
 ---
 > Source: [chihebnabil/lovable-boilerplate](https://github.com/chihebnabil/lovable-boilerplate) — distributed by [TomeVault](https://tomevault.io).
