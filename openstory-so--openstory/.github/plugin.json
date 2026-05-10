@@ -1,0 +1,9 @@
+{
+  "name": "openstory-so--openstory",
+  "displayName": "openstory",
+  "description": "Open-source AI-powered video sequence platform built with TanStack Start",
+  "version": "1.0.0",
+  "author": "openstory-so",
+  "homepage": "https://github.com/openstory-so/openstory",
+  "skills": []
+}
