@@ -1,44 +1,58 @@
-## ui-components
+## wasp-overview
 
-> Describes where the ui components built on top with Shadcn UI exist, how they are customized, and Wasp specific rules concerning how new ShadCN UI components should be installed
+> This document covers the fundamental concepts of the Wasp framework and the basic project structure.
 
-Only ShadCN UI version 2.3.0 should be used with Wasp at the moment. Due to dependency conflicts Wasp cannot be used with Tailwindcss v4, which the newer version of Shadcn depends on. 
+# 1. Wasp Overview and Core Concepts
 
-Shadcn has already been setup with this project template, so there is no need to install it. All the ShadCN specific components exist in [src/components/ui](../../src/components/ui/)
+This document covers the fundamental concepts of the Wasp framework and the basic project structure.
 
-## Adding a new ShadCN component
-### 1. Add a new component
+## Background Information
 
-```bash
-npx shadcn@2.3.0 add button
-```
+### What is Wasp
 
-### 2. Adjust the `utils` import in `button.tsx` (for each component you add)
+- Wasp (Web Application SPecification language) is a declarative, statically typed, domain-specific language (DSL) for building modern, full-stack web applications.
+- Unlike traditional frameworks that are sets of libraries, Wasp is a simple programming language that understands web app concepts and generates code for you.
+- Wasp integrates with React (frontend), Node.js (backend), and Prisma (database ORM) to create full-stack web applications with minimal boilerplate.
+- The Wasp compiler reads your declarative configuration in the config file ([main.wasp](mdc:main.wasp) or `main.wasp.ts`) and generates all the necessary code for a working web application.
+- For the most up-to-date and comprehensive information, always refer to the Wasp Documenation (linked below).
 
-There will be a brand new `button.tsx` file in `src/components/ui`. We need to fix some import issues:
-```diff
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+### Wasp Project Structure
 
--import { cn } from "s/lib/utils"
-+import { cn } from "../../lib/utils"
-```
+- A Wasp project consists of a [main.wasp](mdc:main.wasp) (or `main.wasp.ts`) file in the root directory that defines the app's configuration.
+- The [schema.prisma](mdc:schema.prisma) file in the root directory defines your database models ("entities").
+- Your custom code lives in the `src/` directory (e.g. `src/{featureName}`), which contains client-side and server-side code.
+- Wasp generates additional code that connects everything together when you run your app.
 
-### 3. Use the `Button` component
-Now you are ready to use the `Button` component. That's it!
-```jsx
-import './Main.css'
+### The Wasp Config File
 
-import { Button } from './components/ui/button'
+- The main Wasp Config File ([main.wasp](mdc:main.wasp) or `main.wasp.ts`) is the central configuration file that defines your application structure.
+- It contains declarations for app settings, pages, routes, authentication, database entities, and operations (queries and actions).
+- Example structure:
+  ```main.wasp
+  app myApp {
+    wasp: {
+      version: "^0.16.0" // Check @main.wasp for the actual version
+    },
+    title: "My App",
+  }
 
-export const MainPage = () => {
-  return (
-    <div className="container">
-      <Button>This works</Button>
-    </div>
-  )
-}
+  route HomeRoute { path: "/", to: HomePage }
+  page HomePage {
+    component: import { HomePage } from "@src/client/pages/HomePage.tsx" // Example import path
+  }
+
+  // Operations are defined here, see 3-database-operations.mdc
+  query getTasks {
+    fn: import { getTasks } from "@src/server/queries.js",
+    entities: [Task]
+  }
+  ``` 
+
+### Wasp Documentation 
+More info on all of Wasp's features can be found in the Wasp documentation (NOTE: You can follow these links, instruct the user to add these docs to Cursor's settings, or have the user manually include them in the chat context):
+- Links to Wasp documentation sections (LLM-optimized): https://wasp.sh/llms.txt
+- Complete Wasp documentation (LLM-optimized): https://wasp.sh/llms-full.txt
+- Wasp Docs homepage (human-readable): https://wasp.sh/docs
 
 ---
 > Source: [wasp-lang/recipe-agent-saas-with-mastra](https://github.com/wasp-lang/recipe-agent-saas-with-mastra) — distributed by [TomeVault](https://tomevault.io).
