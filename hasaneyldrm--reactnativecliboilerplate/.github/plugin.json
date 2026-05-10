@@ -1,0 +1,9 @@
+{
+  "name": "hasaneyldrm--reactnativecliboilerplate",
+  "displayName": "reactnativecliboilerplate",
+  "description": "React Native CLI boilerplate with ready-to-use navigation, i18n, OneSignal integration and onboarding flow.",
+  "version": "1.0.0",
+  "author": "hasaneyldrm",
+  "homepage": "https://github.com/hasaneyldrm/reactnativecliboilerplate",
+  "skills": []
+}
