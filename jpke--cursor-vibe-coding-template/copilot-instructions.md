@@ -1,45 +1,60 @@
-## repository-initialization
+## rule-management
 
-> Detailed steps for initializing a git repository when cloning the template directly
+> Structure and formatting guidelines for Cursor rule files
 
 
-# Repository Initialization
+## Rule Structure Requirements
+```markdown
+---
+description: "Clear, one-line description of what the rule enforces"
+globs: ["path/to/files/*.ext", "other/path/**/*"]
+alwaysApply: boolean
+---
 
-**Note**: This is only needed when cloning the template directly. When using this as a GitHub template (recommended), a fresh repository is automatically created.
+- **Main Points in Bold**
+  - Sub-points with details
+  - Examples and explanations
+```
 
-When you request to "initialize git repo" (only needed for cloned templates), I will perform the following steps:
+## File References
+- Use `[filename](mdc:path/to/file)` to reference files
+- Example: `[prisma.mdc](mdc:.cursor/rules/prisma.mdc)` for rule references
+- Example: `[schema.prisma](mdc:prisma/schema.prisma)` for code references
 
-1. **Clear template git history**: Remove the existing `.git` directory to start fresh (`rm -rf .git`).
+## Code Examples
+- Use language-specific code blocks with DO/DON'T patterns:
+```typescript
+// ✅ DO: Show good examples
+const goodExample = true;
 
-2. Initialize a local Git repository (`git init`).
+// ❌ DON'T: Show anti-patterns
+const badExample = false;
+```
 
-3. Use the **GitHub CLI** (not MCP server) to create a new **private** remote repository on GitHub:
-   ```bash
-   gh repo create --private --enable-issues --clone=false
-   ```
+## Rule Content Guidelines
+- Start with high-level overview
+- Include specific, actionable requirements
+- Show examples of correct implementation
+- Reference existing code when possible
+- Keep rules DRY by referencing other rules
+- Use bullet points for clarity
+- Include both DO and DON'T examples
 
-4. Create a repository-scoped GitHub Personal Access Token using the GitHub CLI:
-   ```bash
-   gh auth token --hostname github.com --scopes "issues:write,contents:read,metadata:read" --repo-specific
-   ```
+## Example Pattern Recognition
+```typescript
+// If you see repeated patterns like:
+const data = await prisma.user.findMany({
+  select: { id: true, email: true },
+  where: { status: 'ACTIVE' }
+});
 
-5. Update the `.cursor/mcp.json` file to use the new scoped GitHub PAT in the GitHub MCP server configuration:
-   ```json
-   "github": {
-     "url": "https://api.githubcopilot.com/mcp/",
-     "headers": {
-       "Authorization": "Bearer <new_scoped_pat>"
-     }
-   }
-   ```
+// Consider adding to [prisma.mdc](mdc:.cursor/rules/prisma.mdc):
+// - Standard select fields
+// - Common where conditions
+// - Performance optimization patterns
+```
 
-6. Add the new remote to the local repository, stage all initial files, and push the first commit to the `main` branch:
-   ```bash
-   git remote add origin git@github.com:username/repo-name.git  # Use SSH format for authentication
-   git add .
-   git commit -m "feat: initial project setup"
-   git push -u origin main
-   ```
+Follow this structure for proper rule formatting and maintain consistency across all rule files.
 
 ---
 > Source: [jpke/cursor-vibe-coding-template](https://github.com/jpke/cursor-vibe-coding-template) — distributed by [TomeVault](https://tomevault.io).
