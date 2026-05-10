@@ -7,11 +7,11 @@ Rocky is a voice-first AI Agent app for iPhone. OpenRocky is the open-source pro
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [openrocky/openrocky](https://github.com/openrocky/openrocky).
+Original source: `CLAUDE.md` in [openrocky/openrocky](https://github.com/openrocky/openrocky).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
