@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--nemo-flow",
+  "displayName": "NeMo-Flow",
+  "description": "Multi-language agent runtime for execution scope management, lifecycle events, and middleware on tool and LLM calls.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/NeMo-Flow",
+  "skills": []
+}
