@@ -1,0 +1,9 @@
+{
+  "name": "amutable-systems--barrage",
+  "displayName": "barrage",
+  "description": "A concurrent async test framework using Python's asyncio",
+  "version": "1.0.0",
+  "author": "amutable-systems",
+  "homepage": "https://github.com/amutable-systems/barrage",
+  "skills": []
+}
