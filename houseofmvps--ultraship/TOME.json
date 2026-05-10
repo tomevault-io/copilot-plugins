@@ -4,7 +4,7 @@
   "repo": "ultraship",
   "description": "\"ULTRASHIP\" Claude Code plugin \u2014 39 skills, 33 tools, 11 agents for ship-ready workflows: planning, review, pentesting, safety guardrails, canary monitoring, SEO/AI-readiness check, penetration testing, code review, competitive analysis, incident response. 1 dependency. 180 tests. MIT.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Houseofmvps/ultraship",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T04:35:12Z"
+  "distributed_at": "2026-05-10T06:39:55Z"
 }
