@@ -1,0 +1,9 @@
+{
+  "name": "rhyssullivan--claude-sandbox-bot",
+  "displayName": "claude-sandbox-bot",
+  "description": "Demo of Claude Code in Vercel Sandbox in Discord",
+  "version": "1.0.0",
+  "author": "RhysSullivan",
+  "homepage": "https://github.com/RhysSullivan/claude-sandbox-bot",
+  "skills": []
+}
