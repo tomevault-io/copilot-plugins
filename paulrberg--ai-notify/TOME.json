@@ -4,7 +4,7 @@
   "repo": "ai-notify",
   "description": "macOS notifications for Claude Code and Codex CLI with intelligent session tracking",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PaulRBerg/ai-notify",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T14:15:43Z"
+  "distributed_at": "2026-05-10T03:06:57Z"
 }
