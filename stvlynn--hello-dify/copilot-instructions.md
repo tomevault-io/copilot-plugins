@@ -1,234 +1,159 @@
-## format
+## i18n
 
-> This document outlines the standard formatting rules for MDX files in the Hello Dify documentation. Following these guidelines ensures consistency across all documentation pages in all supported languages.
+> This document outlines the structure and standard operating procedures for managing multilingual content in the Hello Dify documentation website.
 
-# Hello Dify Documentation Format Guidelines
+# Hello Dify Internationalization (i18n) Guidelines
 
-This document outlines the standard formatting rules for MDX files in the Hello Dify documentation. Following these guidelines ensures consistency across all documentation pages in all supported languages.
+This document outlines the structure and standard operating procedures for managing multilingual content in the Hello Dify documentation website.
 
-## 1. MDX Metadata Format
+## Supported Languages
 
-Every MDX file must include a YAML frontmatter section at the beginning with the following format:
+The Hello Dify project currently supports the following languages:
+- English (en) - Default language
+- Chinese (zh)
+- Japanese (ja)
 
-```yaml
+## File Structure
+
+### MDX Documentation Files
+
+Documentation content is stored as MDX files in the following directory structure:
+
+```
+content/
+└── docs/
+    ├── meta.json             # English metadata
+    ├── meta.zh.json          # Chinese metadata
+    ├── meta.ja.json          # Japanese metadata
+    ├── index.mdx             # English documentation
+    ├── index.zh.mdx          # Chinese documentation
+    ├── index.ja.mdx          # Japanese documentation
+    ├── plugin/
+    │   ├── meta.json
+    │   ├── meta.zh.json
+    │   ├── meta.ja.json
+    │   ├── ssh-plugin-vibe-coding.mdx
+    │   ├── ssh-plugin-vibe-coding.zh.mdx
+    │   ├── ssh-plugin-vibe-coding.ja.mdx
+    │   └── ...
+    └── workflow/
+        ├── meta.json
+        ├── meta.zh.json
+        ├── meta.ja.json
+        └── node/
+            ├── meta.json
+            ├── meta.zh.json
+            ├── meta.ja.json
+            ├── multilingual-document-translator.mdx
+            ├── multilingual-document-translator.zh.mdx
+            ├── multilingual-document-translator.ja.mdx
+            └── ...
+```
+
+## Naming Conventions
+
+1. **Documentation Files**:
+   - English (default): `filename.mdx`
+   - Chinese: `filename.zh.mdx`
+   - Japanese: `filename.ja.mdx`
+
+2. **Metadata Files**:
+   - English (default): `meta.json`
+   - Chinese: `meta.zh.json`
+   - Japanese: `meta.ja.json`
+
+## Language-Specific Routing
+
+The application uses Next.js routing with language parameter:
+- Base structure: `/app/[lang]/...`
+- URLs follow the pattern: `/{lang}/docs/...`
+- Example: `/en/docs/workflow/node/multilingual-document-translator`
+
+## Standard Operating Procedure for i18n
+
+### Creating New Content
+
+1. **Always create the English version first**: 
+   - Create the English MDX file (`filename.mdx`)
+   - Update the English metadata file (`meta.json`) to include the new page
+
+2. **Then create translations**:
+   - Create Chinese translation (`filename.zh.mdx`)
+   - Create Japanese translation (`filename.ja.mdx`)
+   - Update respective metadata files (`meta.zh.json` and `meta.ja.json`)
+
+### Updating Metadata
+
+When adding a new page:
+
+1. English metadata example (`meta.json`):
+```json
+{
+    "title": "Node",
+    "icon": "node-tree",
+    "defaultOpen": false,
+    "pages": [
+        "multilingual-document-translator"
+    ]
+}
+```
+
+2. Create corresponding Chinese metadata (`meta.zh.json`):
+```json
+{
+    "title": "节点",
+    "icon": "node-tree",
+    "defaultOpen": false,
+    "pages": [
+        "multilingual-document-translator"
+    ]
+}
+```
+
+3. Create corresponding Japanese metadata (`meta.ja.json`):
+```json
+{
+    "title": "ノード",
+    "icon": "node-tree",
+    "defaultOpen": false,
+    "pages": [
+        "multilingual-document-translator"
+    ]
+}
+```
+
+### Document Content Structure
+
+Each MDX document should maintain this structure:
+
+```md
 ---
-title: "Page Title"
-description: "A brief description of the page content"
+title: "Title in the respective language"
+description: "Description in the respective language"
 ---
+
+# Content in the respective language
+...
 ```
 
-- `title`: Should be concise but descriptive
-- `description`: Should be under 160 characters for SEO purposes
-- Quotes around values are optional but recommended for values containing special characters
+### Handling Missing Translations
 
-## 2. iFrame Embedding Format
+The system will fall back to English content when a translated version is not available.
 
-When embedding iFrames (e.g., for demos), use the following format:
+## Guidelines for Translators
 
-### English
-```jsx
-⬇️ Try it out before reading
-<iframe
- src="https://instance.hellodify.com/e/bohpf11fe0nwncl3/"
- style={{
-   width: '100%',
-   minHeight: '500px'
- }}
- frameBorder="0"
- allow="microphone">
-</iframe>
+1. Maintain the same document structure between languages
+2. Preserve all code blocks exactly as they appear in the English version
+3. Translate UI elements mentioned in the document to match the actual translated UI
+4. Keep image references the same across all translations
+5. Preserve links but update any link text that needs translation
 
----
-```
+## Validation Tips
 
-### Chinese (zh)
-```jsx
-⬇️ 阅读前先体验
-<iframe
- src="https://instance.hellodify.com/e/bohpf11fe0nwncl3/"
- style={{
-   width: '100%',
-   minHeight: '500px'
- }}
- frameBorder="0"
- allow="microphone">
-</iframe>
-
----
-```
-
-### Japanese (ja)
-```jsx
-⬇️ 読む前に試してみてください
-<iframe
- src="https://instance.hellodify.com/e/bohpf11fe0nwncl3/"
- style={{
-   width: '100%',
-   minHeight: '500px'
- }}
- frameBorder="0"
- allow="microphone">
-</iframe>
-
----
-```
-
-## 3. Plugin Cards Format (GitHub + Marketplace)
-
-For plugin documentation with GitHub repository and Marketplace links, use the following cards format:
-
-### English
-```jsx
-<Cards>
-  <Card 
-    icon={<i className="ri-github-fill" />} 
-    href="https://github.com/username/repository" 
-    title="GitHub"
-  >
-  <p>See the repository on GitHub</p>
-  </Card>
-  <Card 
-    icon={<i className="ri-store-2-line" />} 
-    href="https://marketplace.dify.ai/plugins/username/plugin-name" 
-    title="Dify Marketplace"
-  >
-  <p>Install from Dify Marketplace</p>
-  </Card>
-</Cards>
-
----
-```
-
-### Chinese (zh)
-```jsx
-<Cards>
-  <Card 
-    icon={<i className="ri-github-fill" />} 
-    href="https://github.com/username/repository" 
-    title="GitHub"
-  >
-  <p>在GitHub上查看仓库</p>
-  </Card>
-  <Card 
-    icon={<i className="ri-store-2-line" />} 
-    href="https://marketplace.dify.ai/plugins/username/plugin-name" 
-    title="Dify市场"
-  >
-  <p>从Dify市场安装</p>
-  </Card>
-</Cards>
-
----
-```
-
-### Japanese (ja)
-```jsx
-<Cards>
-  <Card 
-    icon={<i className="ri-github-fill" />} 
-    href="https://github.com/username/repository" 
-    title="GitHub"
-  >
-  <p>GitHubでリポジトリを見る</p>
-  </Card>
-  <Card 
-    icon={<i className="ri-store-2-line" />} 
-    href="https://marketplace.dify.ai/plugins/username/plugin-name" 
-    title="Difyマーケットプレイス"
-  >
-  <p>Difyマーケットプレイスからインストール</p>
-  </Card>
-</Cards>
-
----
-```
-
-## 4. DSL File Download Cards Format
-
-For providing users with DSL file downloads, use the following format:
-
-### English
-```jsx
-<Cards>
-  <Card 
-    icon={<i className="ri-flow-chart" />} 
-    href="https://discord.gg/your-invite-link" 
-    title="Get the workflow"
-  >
-  <p>Join FirstLab to get DSL file</p>
-    <img src="https://s2.loli.net/2025/05/15/h2qntU94eHZyBXr.png" alt="Workflow Image" />
-  </Card>
-</Cards>
-```
-
-### Chinese (zh)
-```jsx
-<Cards>
-  <Card 
-    icon={<i className="ri-flow-chart" />} 
-    href="https://discord.gg/your-invite-link" 
-    title="获取工作流"
-  >
-  <p>加入 FirstLab 获取 DSL 文件</p>
-    <img src="https://s2.loli.net/2025/05/15/h2qntU94eHZyBXr.png" alt="工作流图片" />
-  </Card>
-</Cards>
-```
-
-### Japanese (ja)
-```jsx
-<Cards>
-  <Card 
-    icon={<i className="ri-flow-chart" />} 
-    href="https://discord.gg/your-invite-link" 
-    title="ワークフローを入手する"
-  >
-  <p>DSLファイルを入手するには、FirstLabに参加してください</p>
-    <img src="https://s2.loli.net/2025/05/15/h2qntU94eHZyBXr.png" alt="ワークフロー画像" />
-  </Card>
-</Cards>
-```
-
-## 5. Code Block Format
-
-When including code blocks, always specify the language for proper syntax highlighting:
-
-```jsx
-```python
-def example_function():
-    return "Hello Dify"
-```
-```
-
-For code blocks without a specific language, use:
-
-```jsx
-```
-Plain text content here
-```
-```
-
-## 6. Horizontal Rule
-
-Use three hyphens for horizontal rules to separate sections:
-
-```
----
-```
-
-## 7. Images
-
-Use the following format for images:
-
-```jsx
-![Alt text](https://example.com/image.png)
-```
-
-For images with specific dimensions or styling, use the Next.js Image component:
-
-```jsx
-<img src="/images/example.png" alt="Description" width={500} height={300} />
-```
+- Ensure all language versions of a document have the same frontmatter fields
+- Verify that all links work correctly in each language version
+- Check that metadata entries align across all language versions
+- Test navigation between translated pages to ensure proper language persistence
 
 ---
 > Source: [stvlynn/hello-dify](https://github.com/stvlynn/hello-dify) — distributed by [TomeVault](https://tomevault.io).
