@@ -1,0 +1,9 @@
+{
+  "name": "naufaldi--ts-hooks-kit",
+  "displayName": "ts-hooks-kit",
+  "description": "Actively maintained React hooks library based on usehooks-ts, upgraded for React 18/19 compatibility",
+  "version": "1.0.0",
+  "author": "naufaldi",
+  "homepage": "https://github.com/naufaldi/ts-hooks-kit",
+  "skills": []
+}
