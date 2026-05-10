@@ -1,0 +1,9 @@
+{
+  "name": "sirmalloc--ccstatusline",
+  "displayName": "ccstatusline",
+  "description": "\ud83d\ude80 Beautiful highly customizable statusline for Claude Code CLI with powerline support, themes, and more.",
+  "version": "1.0.0",
+  "author": "sirmalloc",
+  "homepage": "https://github.com/sirmalloc/ccstatusline",
+  "skills": []
+}
