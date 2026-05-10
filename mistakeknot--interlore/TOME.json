@@ -4,7 +4,7 @@
   "repo": "interlore",
   "description": "Philosophy observer \u2014 detects latent design patterns and proposes PHILOSOPHY.md updates",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mistakeknot/interlore",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T05:50:28Z"
+  "distributed_at": "2026-05-10T13:40:43Z"
 }
