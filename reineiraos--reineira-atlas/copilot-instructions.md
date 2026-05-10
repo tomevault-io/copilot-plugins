@@ -1,69 +1,59 @@
-## 10-pitch
+## reineira-atlas
 
-> Use for pitch prep, investor readiness, fundraising, pitch deck, fund intro, investor conversations, raise amount, use of funds
+> Startup operating system for ventures building on ReineiraOS — open settlement infrastructure for
 
+# Reineira Atlas
 
-# Pitch Prep — Fund Intro Readiness
+Startup operating system for ventures building on ReineiraOS — open settlement infrastructure for
+confidential programmable finance on Arbitrum with Fhenix FHE.
 
-> **Read before acting:**
-> - `.claude/docs/strategy/BUSINESS_MODEL.md`
-> - `.claude/docs/strategy/ROADMAP.md`
-> - `.claude/docs/intelligence/METRICS.md`
+## Domains
 
-Prepare ventures for investor conversations and fund introductions.
+| Domain   | What It Covers                                             |
+| -------- | ---------------------------------------------------------- |
+| Protocol | Condition resolvers, insurance policies, FHE, Solidity     |
+| Product  | Frontend (React 19), backend (TypeScript), SDK integration |
+| Strategy | Business model, pricing, tokenomics, roadmap               |
+| Growth   | Content, community, partnerships, developer relations      |
+| Ops      | Sprint planning, weekly reviews, metrics                   |
+| Legal    | MiCA, AML/KYC, GDPR, smart contract audits                |
+| Pitch    | Investor readiness, deck prep, fund introductions          |
 
-## Readiness Criteria
+## Shared Resources
 
-| Criterion                            | Notes                                  |
-| ------------------------------------ | -------------------------------------- |
-| Working product (testnet or mainnet) | Deployed resolver/policy + working app |
-| Clear business model                 | Documented in BUSINESS_MODEL.md        |
-| Metrics tracking                     | Dashboard in METRICS.md                |
-| Team and vision articulated          | Founder story + market thesis          |
-| Pitch materials prepared             | Deck + one-pager                       |
+Both Claude Code and Cursor read from the same knowledge base:
 
-## Pitch Deck Structure (10-12 slides)
+- **Docs:** `.claude/docs/` — source-of-truth documents (strategy, product, growth, legal, etc.)
+- **Data:** `.claude/data/` — append-only streams (decisions, metrics, signals)
 
-1. Title — Name, one-liner, tagline
-2. Problem — What's broken, who suffers
-3. Solution — What you build, how FHE changes the game
-4. How It Works — Protocol flow, 3-5 steps
-5. Market — TAM/SAM/SOM with validation
-6. Traction — Metrics, testnet data, partnerships
-7. Business Model — Revenue streams, unit economics
-8. Competitive Advantage — FHE moat, feature comparison
-9. Roadmap — Phase plan with milestones
-10. Team — Backgrounds, relevant experience
-11. Ask — Raise amount, use of funds
-12. Appendix — Technical details, financials
+## Tool-Specific Setup
 
-## How to Position FHE
+| Tool        | Config Directory  | Entry Point                    |
+| ----------- | ----------------- | ------------------------------ |
+| Claude Code | `.claude/`        | `CLAUDE.md` + `.claude/SYSTEM.md` |
+| Cursor      | `.cursor/`        | `.cursor/rules/00-system.mdc`  |
 
-**For crypto-native investors:**
-- FHE = computation on encrypted data = privacy without trusted parties
-- Moat: competitors can't replicate without FHE infrastructure
+## Key Commands
 
-**For non-crypto investors:**
-- "We process financial transactions where amounts and terms stay private"
-- Focus on business outcome, not cryptography
+| Command              | What It Does                                   |
+| -------------------- | ---------------------------------------------- |
+| `/bootstrap`         | Full venture setup from brief                  |
+| `/resolver`          | Design a condition resolver                    |
+| `/strategy`          | Strategic analysis and recommendation          |
+| `/integrate`         | Wire protocol to app end-to-end                |
+| `/weekly-plan`       | Weekly sprint review and planning              |
+| `/pitch-prep`        | Investor readiness assessment                  |
+| `/content`           | Create tutorials, blogs, social threads        |
+| `/compliance`        | Crypto regulatory compliance review            |
 
-## Key Metrics Investors Want
+## Protocol Context
 
-| Metric              | Why It Matters            |
-| ------------------- | ------------------------- |
-| GMV through escrows | Total economic activity   |
-| Active escrows      | Usage depth               |
-| Insurance purchased | Revenue proxy             |
-| Completion rate     | Product-market fit signal |
-| Pool liquidity      | Supply-side health        |
-
-## Checklist
-
-- [ ] Readiness criteria assessed honestly
-- [ ] Materials clear for non-technical audience
-- [ ] Numbers are real, not projected (or clearly labeled)
-- [ ] FHE positioning is crisp and differentiated
-- [ ] Competitive analysis is fair and specific
+- **Chain:** Arbitrum L2
+- **Encryption:** Fhenix CoFHE (FHE on EVM)
+- **Settlement:** Stablecoin-agnostic escrow (IFHERC20)
+- **Cross-chain:** Circle CCTP v2
+- **Contracts:** Solidity ^0.8.24, UUPS upgradeable
+- **Contract addresses:** See `CLAUDE.md` or query MCP server
 
 ---
 > Source: [ReineiraOS/reineira-atlas](https://github.com/ReineiraOS/reineira-atlas) — distributed by [TomeVault](https://tomevault.io).
