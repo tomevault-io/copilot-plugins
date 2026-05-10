@@ -1,6 +1,8 @@
-# saas-template-for-ai-lite — distributed by TomeVault
+# saas-template-for-ai-lite
 
-> Originally from [TeemuSo/saas-template-for-ai-lite](https://github.com/TeemuSo/saas-template-for-ai-lite). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [TeemuSo/saas-template-for-ai-lite](https://github.com/TeemuSo/saas-template-for-ai-lite) — distributed by [TomeVault](https://tomevault.io)
+
+This is a SaaS template designed for AI workflows. The template includes robust and minimal Supabase and Stripe integrations, allowing AI to update the codebase easily. 
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [TeemuSo/saas-template-for-ai-lite](ht
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/TeemuSo#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/TeemuSo/saas-template-for-ai-lite](https://github.com/TeemuSo/saas-template-for-ai-lite)
 
 ---
 
