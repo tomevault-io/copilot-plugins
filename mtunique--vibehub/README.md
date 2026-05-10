@@ -1,23 +1,26 @@
 # VibeHub
 
-> Config by [mtunique](https://github.com/mtunique/VibeHub) — distributed by [TomeVault](https://tomevault.io/claim/mtunique)
+> Tome by [mtunique](https://github.com/mtunique/VibeHub) — distributed by [TomeVault](https://tomevault.io)
+
+A macOS app that brings a Dynamic Island-style overlay for monitoring Claude Code and OpenCode CLI sessions. A claude island fork
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mtunique/VibeHub](https://github.com/mtunique/VibeHub).
+Original source: `AGENTS.md` in [mtunique/VibeHub](https://github.com/mtunique/VibeHub).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/mtunique](https://tomevault.io/claim/mtunique)
+From [mtunique/VibeHub](https://github.com/mtunique/VibeHub) — a repo with 36+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/mtunique) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:t-c-s -->
