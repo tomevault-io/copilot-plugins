@@ -1,0 +1,9 @@
+{
+  "name": "warestack--watchflow",
+  "displayName": "watchflow",
+  "description": "Agentic GitHub Guardrails - Replace static protection rules with context-aware enforcement.",
+  "version": "1.0.0",
+  "author": "warestack",
+  "homepage": "https://github.com/warestack/watchflow",
+  "skills": []
+}
