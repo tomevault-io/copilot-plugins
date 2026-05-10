@@ -1,0 +1,9 @@
+{
+  "name": "aipotheosis-labs--gate22",
+  "displayName": "gate22",
+  "description": "Open-source MCP gateway and control plane for teams to govern which tools agents can use, what they can do, and how it\u2019s audited\u2014across agentic IDEs like Cursor, or other agents and AI tools.",
+  "version": "1.0.0",
+  "author": "aipotheosis-labs",
+  "homepage": "https://github.com/aipotheosis-labs/gate22",
+  "skills": []
+}
