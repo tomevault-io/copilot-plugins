@@ -1,0 +1,44 @@
+{
+  "name": "ppt_assistant",
+  "owner": "BJSS-China",
+  "repo": "ppt_assistant",
+  "description": "\u8fd9\u662f\u4e00\u4e2a\u901a\u8fc7\u591a\u6a21\u6001\u5927\u6a21\u578b+LangGraph\u5b9e\u73b0\u7684PPT\u751f\u6210\u7cfb\u7edf\uff0c\u5305\u542b\u524d\u7aef\u3001\u540e\u7aef\u4ee5\u53caCore\u6838\u5fc3\u4e09\u90e8\u5206\u6784\u6210\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BJSS-China/ppt_assistant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T20:14:08Z"
+}
