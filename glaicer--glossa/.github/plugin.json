@@ -1,0 +1,9 @@
+{
+  "name": "glaicer--glossa",
+  "displayName": "Glossa",
+  "description": "Seamless speech-to-text app for Ubuntu with GNOME Wayland. A background daemon that uses global hotkeys, cloud STT APIs (Groq/OpenAI), and Wayland-native clipboard integration to type as you speak.",
+  "version": "1.0.0",
+  "author": "Glaicer",
+  "homepage": "https://github.com/Glaicer/Glossa",
+  "skills": []
+}
