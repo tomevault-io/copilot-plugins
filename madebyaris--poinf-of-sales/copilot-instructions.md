@@ -1,878 +1,980 @@
-## tech-debt-prevention
+## testing-patterns
 
-> Tech debt prevention patterns with consistency enforcement, code quality gates, and architectural governance
+> Comprehensive testing patterns for React Testing Library and Go testing in POS System
 
 
-# 🏗️ Tech Debt Prevention & Code Quality Governance
+# 🧪 Testing Patterns & Best Practices
 
-## 🎯 Zero Tech Debt Philosophy
+## 🎯 Testing Philosophy
 
-### Proactive Prevention Strategy
-```typescript
-// ✅ TECH DEBT PREVENTION: Systematic approach to code quality
-namespace TechDebtPrevention {
-  // Code quality metrics and thresholds
-  interface QualityGates {
-    code_coverage: { minimum: 85, target: 90 }
-    complexity_score: { maximum: 10, target: 7 }
-    duplication: { maximum: 3, target: 1 }
-    performance: { api_response: '< 200ms', ui_render: '< 100ms' }
-    security: { vulnerabilities: 0, code_quality: 'A' }
-  }
-
-  // Automated quality enforcement
-  class QualityEnforcer {
-    static enforcePreCommitQuality(): PreCommitHook {
-      return {
-        // Code format and style
-        prettier_format: true,
-        eslint_validation: true,
-        typescript_strict_check: true,
-        
-        // Business logic validation
-        business_rule_consistency: true,
-        api_contract_validation: true,
-        database_migration_safety: true,
-        
-        // Performance validation
-        bundle_size_check: true,
-        query_performance_validation: true,
-        memory_leak_detection: true
-      }
-    }
-  }
-}
+### Testing Pyramid for POS System
+```
+    E2E Tests (Few)
+    ↑ Full user workflows
+    ↑ Critical business flows
+    
+  Integration Tests (Some)
+  ↑ API + Database interactions
+  ↑ Component + API integration
+  
+    Unit Tests (Many)
+    ↑ Individual functions
+    ↑ Component behavior
+    ↑ Business logic validation
 ```
 
-## 🔒 Consistency Enforcement Patterns
+### Test Coverage Targets
+- **Unit Tests:** 80%+ coverage for business logic
+- **Integration Tests:** All API endpoints with database
+- **E2E Tests:** Core user journeys (login → order → payment → kitchen)
 
-### 1. Architectural Consistency
+## ⚛️ Frontend Testing Patterns (React Testing Library)
+
+### Component Testing Setup
 ```typescript
-// ✅ CONSISTENCY: Standardized architectural patterns
-class ArchitecturalConsistency {
-  // Enforce consistent API patterns
-  static createAPIEndpoint<TRequest, TResponse>(
-    config: APIEndpointConfig<TRequest, TResponse>
-  ): StandardAPIEndpoint<TRequest, TResponse> {
-    return {
-      // Standardized request validation
-      validateRequest: (request: TRequest): ValidationResult => {
-        const validator = this.createValidator(config.validation_schema)
-        return validator.validate(request)
-      },
+// test-utils.tsx - Custom testing utilities
+import { render, RenderOptions } from '@testing-library/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactElement } from 'react'
+import { BrowserRouter } from '@tanstack/react-router'
 
-      // Standardized business logic execution
-      executeBusinessLogic: async (request: TRequest): Promise<TResponse> => {
-        // Consistent error handling
-        try {
-          // Standardized logging
-          Logger.info(`Executing ${config.endpoint_name}`, { request })
-          
-          // Business logic with consistent patterns
-          const result = await config.business_logic(request)
-          
-          // Standardized success response
-          return {
-            success: true,
-            message: config.success_message,
-            data: result,
-            timestamp: new Date().toISOString(),
-            request_id: generateRequestId()
-          }
-        } catch (error) {
-          // Standardized error handling
-          return this.handleStandardError(error, config.endpoint_name)
-        }
-      },
+// Create a test query client with no retries
+const createTestQueryClient = () => new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,      // Don't retry on test failures
+      gcTime: Infinity,  // Keep data in cache
+    },
+    mutations: {
+      retry: false,
+    },
+  },
+})
 
-      // Standardized response formatting
-      formatResponse: (response: TResponse): StandardAPIResponse<TResponse> => {
-        return {
-          ...response,
-          version: config.api_version,
-          performance_metrics: this.getPerformanceMetrics()
-        }
-      }
-    }
-  }
-
-  // Enforce consistent component patterns
-  static createBusinessComponent<TProps>(
-    config: ComponentConfig<TProps>
-  ): React.FC<TProps> {
-    return React.memo((props: TProps) => {
-      // Standardized error boundary
-      return (
-        <ErrorBoundary fallback={config.error_fallback}>
-          {/* Standardized loading states */}
-          <Suspense fallback={config.loading_fallback}>
-            {/* Standardized accessibility */}
-            <div 
-              role={config.accessibility.role}
-              aria-label={config.accessibility.label}
-              className={cn(config.base_classes, props.className)}
-            >
-              {/* Component content with consistent patterns */}
-              {config.render(props)}
-            </div>
-          </Suspense>
-        </ErrorBoundary>
-      )
-    }, config.memo_comparison || shallowEqual)
-  }
-
-  // Database query consistency
-  static createDatabaseQuery<TParams, TResult>(
-    config: QueryConfig<TParams, TResult>
-  ): DatabaseQuery<TParams, TResult> {
-    return {
-      execute: async (params: TParams): Promise<TResult> => {
-        // Standardized query performance monitoring
-        const startTime = performance.now()
-        
-        try {
-          // Standardized parameter validation
-          this.validateQueryParams(params, config.param_schema)
-          
-          // Standardized query execution
-          const result = await this.executeQuery(config.query, params)
-          
-          // Standardized performance logging
-          const duration = performance.now() - startTime
-          this.logQueryPerformance(config.name, duration, params)
-          
-          return result
-        } catch (error) {
-          // Standardized error handling
-          this.handleQueryError(error, config.name, params)
-          throw error
-        }
-      }
-    }
-  }
+interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
+  queryClient?: QueryClient
+  initialEntries?: string[]
 }
+
+// Custom render with providers
+export const renderWithProviders = (
+  ui: ReactElement,
+  {
+    queryClient = createTestQueryClient(),
+    initialEntries = ['/'],
+    ...renderOptions
+  }: CustomRenderOptions = {}
+) => {
+  const Wrapper = ({ children }: { children: React.ReactNode }) => (
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter initialEntries={initialEntries}>
+        {children}
+      </BrowserRouter>
+    </QueryClientProvider>
+  )
+
+  return { ...render(ui, { wrapper: Wrapper, ...renderOptions }), queryClient }
+}
+
+// Re-export everything
+export * from '@testing-library/react'
 ```
 
-### 2. Code Pattern Enforcement
+### Component Testing Examples
+
+#### 1. Testing POS Product Card
 ```typescript
-// ✅ PATTERN ENFORCEMENT: Consistent code patterns across the system
-class CodePatternEnforcement {
-  // Standardized hook patterns
-  static createBusinessHook<TData, TError = Error>(
-    config: BusinessHookConfig<TData, TError>
-  ): BusinessHook<TData, TError> {
-    return function useBusinessData() {
-      // Consistent state management
-      const [state, setState] = useState<BusinessHookState<TData, TError>>({
-        data: null,
-        loading: false,
-        error: null,
-        lastUpdated: null
+// ProductCard.test.tsx
+import { screen, userEvent } from '@testing-library/react'
+import { renderWithProviders } from '../test-utils'
+import { ProductCard } from '@/components/pos/ProductCard'
+import { Product } from '@/types'
+
+const mockProduct: Product = {
+  id: '123',
+  name: 'Cheeseburger',
+  price: 12.99,
+  category_id: 'burgers',
+  is_available: true,
+  description: 'Delicious beef burger',
+  image_url: null,
+}
+
+describe('ProductCard', () => {
+  const mockOnSelect = jest.fn()
+
+  beforeEach(() => {
+    mockOnSelect.mockClear()
+  })
+
+  it('displays product information correctly', () => {
+    renderWithProviders(
+      <ProductCard 
+        product={mockProduct} 
+        onSelect={mockOnSelect} 
+        isSelected={false} 
+      />
+    )
+
+    expect(screen.getByText('Cheeseburger')).toBeInTheDocument()
+    expect(screen.getByText('$12.99')).toBeInTheDocument()
+    expect(screen.getByText('Delicious beef burger')).toBeInTheDocument()
+  })
+
+  it('calls onSelect when clicked', async () => {
+    const user = userEvent.setup()
+    
+    renderWithProviders(
+      <ProductCard 
+        product={mockProduct} 
+        onSelect={mockOnSelect} 
+        isSelected={false} 
+      />
+    )
+
+    await user.click(screen.getByText('Cheeseburger'))
+    expect(mockOnSelect).toHaveBeenCalledWith(mockProduct)
+  })
+
+  it('shows selected state correctly', () => {
+    renderWithProviders(
+      <ProductCard 
+        product={mockProduct} 
+        onSelect={mockOnSelect} 
+        isSelected={true} 
+      />
+    )
+
+    const card = screen.getByRole('button')
+    expect(card).toHaveClass('ring-2', 'ring-primary')
+  })
+
+  it('disables unavailable products', () => {
+    const unavailableProduct = { ...mockProduct, is_available: false }
+    
+    renderWithProviders(
+      <ProductCard 
+        product={unavailableProduct} 
+        onSelect={mockOnSelect} 
+        isSelected={false} 
+      />
+    )
+
+    const card = screen.getByRole('button')
+    expect(card).toBeDisabled()
+    expect(screen.getByText('Unavailable')).toBeInTheDocument()
+  })
+})
+```
+
+#### 2. Testing Forms with React Hook Form
+```typescript
+// OrderForm.test.tsx
+import { screen, userEvent, waitFor } from '@testing-library/react'
+import { renderWithProviders } from '../test-utils'
+import { OrderForm } from '@/components/forms/OrderForm'
+import { CreateOrderRequest } from '@/types'
+
+// Mock API client
+jest.mock('@/api/client', () => ({
+  createOrder: jest.fn(),
+}))
+
+describe('OrderForm', () => {
+  const mockOnSubmit = jest.fn()
+  const mockOnCancel = jest.fn()
+
+  beforeEach(() => {
+    mockOnSubmit.mockClear()
+    mockOnCancel.mockClear()
+  })
+
+  it('renders form fields correctly', () => {
+    renderWithProviders(
+      <OrderForm onSubmit={mockOnSubmit} onCancel={mockOnCancel} />
+    )
+
+    expect(screen.getByLabelText(/order type/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/customer name/i)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /create order/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /cancel/i })).toBeInTheDocument()
+  })
+
+  it('validates required fields', async () => {
+    const user = userEvent.setup()
+    
+    renderWithProviders(
+      <OrderForm onSubmit={mockOnSubmit} onCancel={mockOnCancel} />
+    )
+
+    // Try to submit without selecting order type
+    await user.click(screen.getByRole('button', { name: /create order/i }))
+
+    await waitFor(() => {
+      expect(screen.getByText(/order type is required/i)).toBeInTheDocument()
+    })
+
+    expect(mockOnSubmit).not.toHaveBeenCalled()
+  })
+
+  it('submits valid form data', async () => {
+    const user = userEvent.setup()
+    
+    renderWithProviders(
+      <OrderForm onSubmit={mockOnSubmit} onCancel={mockOnCancel} />
+    )
+
+    // Fill out form
+    await user.selectOptions(screen.getByLabelText(/order type/i), 'dine_in')
+    await user.type(screen.getByLabelText(/customer name/i), 'John Doe')
+
+    // Submit
+    await user.click(screen.getByRole('button', { name: /create order/i }))
+
+    await waitFor(() => {
+      expect(mockOnSubmit).toHaveBeenCalledWith({
+        order_type: 'dine_in',
+        customer_name: 'John Doe',
+        items: [],
+        notes: '',
       })
+    })
+  })
+})
+```
 
-      // Consistent data fetching
-      const fetchData = useCallback(async () => {
-        setState(prev => ({ ...prev, loading: true, error: null }))
+#### 3. Testing API Integration with MSW
+```typescript
+// api-integration.test.tsx
+import { rest } from 'msw'
+import { setupServer } from 'msw/node'
+import { screen, userEvent, waitFor } from '@testing-library/react'
+import { renderWithProviders } from '../test-utils'
+import { ProductList } from '@/components/pos/ProductList'
+
+// Mock API server
+const server = setupServer(
+  rest.get('http://localhost:8080/api/v1/products', (req, res, ctx) => {
+    return res(
+      ctx.json({
+        success: true,
+        data: [
+          { id: '1', name: 'Burger', price: 10.99, is_available: true },
+          { id: '2', name: 'Pizza', price: 15.99, is_available: true },
+        ]
+      })
+    )
+  }),
+  
+  rest.post('http://localhost:8080/api/v1/orders', (req, res, ctx) => {
+    return res(
+      ctx.json({
+        success: true,
+        data: { id: 'order-1', order_number: 'ORD-001' }
+      })
+    )
+  })
+)
+
+beforeAll(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
+
+describe('ProductList Integration', () => {
+  it('loads and displays products from API', async () => {
+    renderWithProviders(<ProductList onProductSelect={jest.fn()} />)
+
+    // Wait for products to load
+    await waitFor(() => {
+      expect(screen.getByText('Burger')).toBeInTheDocument()
+      expect(screen.getByText('Pizza')).toBeInTheDocument()
+    })
+  })
+
+  it('handles API errors gracefully', async () => {
+    // Mock server error
+    server.use(
+      rest.get('http://localhost:8080/api/v1/products', (req, res, ctx) => {
+        return res(ctx.status(500), ctx.json({ error: 'Server error' }))
+      })
+    )
+
+    renderWithProviders(<ProductList onProductSelect={jest.fn()} />)
+
+    await waitFor(() => {
+      expect(screen.getByText(/failed to load products/i)).toBeInTheDocument()
+    })
+  })
+})
+```
+
+### Custom Hooks Testing
+```typescript
+// useCart.test.ts
+import { renderHook, act } from '@testing-library/react'
+import { useCart } from '@/hooks/useCart'
+import { Product } from '@/types'
+
+const mockProduct: Product = {
+  id: '1',
+  name: 'Test Product',
+  price: 10.00,
+  category_id: 'test',
+  is_available: true,
+}
+
+describe('useCart', () => {
+  it('adds items to cart correctly', () => {
+    const { result } = renderHook(() => useCart())
+
+    act(() => {
+      result.current.addItem(mockProduct, 2)
+    })
+
+    expect(result.current.items).toHaveLength(1)
+    expect(result.current.items[0]).toEqual({
+      product: mockProduct,
+      quantity: 2,
+      subtotal: 20.00,
+    })
+    expect(result.current.total).toBe(20.00)
+  })
+
+  it('updates item quantity correctly', () => {
+    const { result } = renderHook(() => useCart())
+
+    act(() => {
+      result.current.addItem(mockProduct, 1)
+      result.current.updateQuantity(mockProduct.id, 3)
+    })
+
+    expect(result.current.items[0].quantity).toBe(3)
+    expect(result.current.total).toBe(30.00)
+  })
+
+  it('removes items from cart', () => {
+    const { result } = renderHook(() => useCart())
+
+    act(() => {
+      result.current.addItem(mockProduct, 1)
+      result.current.removeItem(mockProduct.id)
+    })
+
+    expect(result.current.items).toHaveLength(0)
+    expect(result.current.total).toBe(0)
+  })
+})
+```
+
+## 🔧 Backend Testing Patterns (Go)
+
+### Test Structure and Setup
+```go
+// handlers_test.go
+package handlers
+
+import (
+    "bytes"
+    "encoding/json"
+    "net/http"
+    "net/http/httptest"
+    "testing"
+
+    "github.com/gin-gonic/gin"
+    "github.com/stretchr/testify/assert"
+    "github.com/stretchr/testify/require"
+    "your-project/internal/models"
+)
+
+// Setup test router with middleware
+func setupTestRouter() *gin.Engine {
+    gin.SetMode(gin.TestMode)
+    router := gin.New()
+    
+    // Add necessary middleware for tests
+    router.Use(gin.Recovery())
+    
+    return router
+}
+
+// Helper to create authenticated request
+func createAuthenticatedRequest(method, url string, body interface{}, userID, role string) *http.Request {
+    var reqBody []byte
+    if body != nil {
+        reqBody, _ = json.Marshal(body)
+    }
+    
+    req := httptest.NewRequest(method, url, bytes.NewBuffer(reqBody))
+    req.Header.Set("Content-Type", "application/json")
+    
+    // Add auth context for testing
+    req.Header.Set("X-User-ID", userID)
+    req.Header.Set("X-User-Role", role)
+    
+    return req
+}
+```
+
+### Testing HTTP Handlers
+```go
+// order_handler_test.go
+func TestOrderHandler_CreateOrder(t *testing.T) {
+    db := setupTestDB(t)
+    defer teardownTestDB(t, db)
+    
+    orderHandler := NewOrderHandler(db)
+    router := setupTestRouter()
+    router.POST("/orders", orderHandler.CreateOrder)
+
+    tests := []struct {
+        name         string
+        request      models.CreateOrderRequest
+        userRole     string
+        expectedCode int
+        expectError  string
+    }{
+        {
+            name: "valid dine-in order",
+            request: models.CreateOrderRequest{
+                OrderType:    "dine_in",
+                CustomerName: stringPtr("John Doe"),
+                Items: []models.CreateOrderItem{
+                    {ProductID: "product-1", Quantity: 2},
+                },
+            },
+            userRole:     "server",
+            expectedCode: http.StatusCreated,
+        },
+        {
+            name: "empty order items",
+            request: models.CreateOrderRequest{
+                OrderType: "dine_in",
+                Items:     []models.CreateOrderItem{},
+            },
+            userRole:     "server",
+            expectedCode: http.StatusBadRequest,
+            expectError:  "empty_order",
+        },
+        {
+            name: "invalid order type",
+            request: models.CreateOrderRequest{
+                OrderType: "invalid_type",
+                Items: []models.CreateOrderItem{
+                    {ProductID: "product-1", Quantity: 1},
+                },
+            },
+            userRole:     "server",
+            expectedCode: http.StatusBadRequest,
+            expectError:  "invalid_order_type",
+        },
+    }
+
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            req := createAuthenticatedRequest("POST", "/orders", tt.request, "user-1", tt.userRole)
+            w := httptest.NewRecorder()
+            
+            router.ServeHTTP(w, req)
+            
+            assert.Equal(t, tt.expectedCode, w.Code)
+            
+            var response models.APIResponse
+            err := json.Unmarshal(w.Body.Bytes(), &response)
+            require.NoError(t, err)
+            
+            if tt.expectError != "" {
+                assert.False(t, response.Success)
+                assert.NotNil(t, response.Error)
+                assert.Equal(t, tt.expectError, *response.Error)
+            } else {
+                assert.True(t, response.Success)
+                assert.NotNil(t, response.Data)
+            }
+        })
+    }
+}
+```
+
+### Database Integration Testing
+```go
+// database_test.go
+func setupTestDB(t *testing.T) *sql.DB {
+    db, err := sql.Open("postgres", "postgresql://test:test@localhost:5433/pos_test?sslmode=disable")
+    require.NoError(t, err)
+    
+    // Run migrations or seed test data
+    seedTestData(t, db)
+    
+    return db
+}
+
+func teardownTestDB(t *testing.T, db *sql.DB) {
+    // Clean up test data
+    cleanupTestData(t, db)
+    db.Close()
+}
+
+func seedTestData(t *testing.T, db *sql.DB) {
+    // Insert test products
+    _, err := db.Exec(`
+        INSERT INTO products (id, name, price, category_id, is_available)
+        VALUES 
+            ('product-1', 'Test Burger', 10.99, 'category-1', true),
+            ('product-2', 'Test Pizza', 15.99, 'category-1', true)
+    `)
+    require.NoError(t, err)
+    
+    // Insert test users
+    _, err = db.Exec(`
+        INSERT INTO users (id, username, role, password_hash)
+        VALUES 
+            ('user-1', 'testserver', 'server', '$2b$10$hash'),
+            ('user-2', 'testadmin', 'admin', '$2b$10$hash')
+    `)
+    require.NoError(t, err)
+}
+
+func cleanupTestData(t *testing.T, db *sql.DB) {
+    tables := []string{"order_items", "orders", "products", "categories", "users"}
+    for _, table := range tables {
+        _, err := db.Exec(fmt.Sprintf("DELETE FROM %s", table))
+        require.NoError(t, err)
+    }
+}
+```
+
+### Testing Business Logic
+```go
+// order_service_test.go
+func TestCalculateOrderTotal(t *testing.T) {
+    tests := []struct {
+        name     string
+        items    []models.OrderItem
+        expected float64
+    }{
+        {
+            name: "single item",
+            items: []models.OrderItem{
+                {Price: 10.99, Quantity: 1},
+            },
+            expected: 10.99,
+        },
+        {
+            name: "multiple items",
+            items: []models.OrderItem{
+                {Price: 10.99, Quantity: 2},
+                {Price: 5.50, Quantity: 1},
+            },
+            expected: 27.48,
+        },
+        {
+            name:     "empty order",
+            items:    []models.OrderItem{},
+            expected: 0.00,
+        },
+    }
+
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            total := calculateOrderTotal(tt.items)
+            assert.Equal(t, tt.expected, total)
+        })
+    }
+}
+```
+
+## 🎭 E2E Testing Strategy
+
+### Critical User Journeys
+```typescript
+// e2e/order-flow.spec.ts
+import { test, expect } from '@playwright/test'
+
+test.describe('Complete Order Flow', () => {
+  test('admin can process full order lifecycle', async ({ page }) => {
+    // Login as admin
+    await page.goto('/login')
+    await page.fill('[name="username"]', 'admin')
+    await page.fill('[name="password"]', 'admin123')
+    await page.click('button[type="submit"]')
+    
+    // Navigate to server interface
+    await page.click('text=Server Interface')
+    
+    // Create order
+    await page.click('text=Cheeseburger')
+    await page.click('text=Add Fries')
+    await page.click('button:has-text("Create Order")')
+    
+    // Verify order created
+    await expect(page.locator('text=Order Created')).toBeVisible()
+    
+    // Switch to kitchen interface
+    await page.click('text=Kitchen Display')
+    
+    // Update order status
+    await page.click('button:has-text("Start Preparing")')
+    await page.click('button:has-text("Ready")')
+    
+    // Switch to counter for payment
+    await page.click('text=Counter/Checkout')
+    
+    // Process payment
+    await page.click('button:has-text("Cash")')
+    await page.fill('[name="amount_received"]', '25.00')
+    await page.click('button:has-text("Complete Payment")')
+    
+    // Verify payment processed
+    await expect(page.locator('text=Payment Complete')).toBeVisible()
+  })
+})
+```
+
+## 🎯 Testing Best Practices
+
+### Do's ✅
+- **Test behavior, not implementation** - Focus on what users see and do
+- **Use meaningful test names** - Describe the behavior being tested
+- **Follow AAA pattern** - Arrange, Act, Assert
+- **Mock external dependencies** - Keep tests isolated and fast
+- **Test error states** - Ensure graceful error handling
+- **Use test data builders** - Create reusable test data factories
+
+### Don'ts ❌
+- **Don't test implementation details** - Avoid testing internal component state
+- **Don't create brittle selectors** - Prefer semantic queries over CSS selectors
+- **Don't share state between tests** - Each test should be independent
+- **Don't mock what you don't own** - Avoid mocking third-party libraries unnecessarily
+- **Don't write tests without assertions** - Every test should verify something
+
+### Test Organization
+```
+src/
+├── components/
+│   ├── __tests__/           # Component tests
+│   │   ├── ProductCard.test.tsx
+│   │   └── OrderForm.test.tsx
+│   └── ProductCard.tsx
+├── hooks/
+│   ├── __tests__/           # Hook tests
+│   │   └── useCart.test.ts
+│   └── useCart.ts
+├── api/
+│   ├── __tests__/           # API integration tests
+│   │   └── client.test.ts
+│   └── client.ts
+└── __tests__/
+    ├── test-utils.tsx       # Test utilities
+    └── setup.ts             # Test setup
+```
+
+## 🚀 Development Commands
+
+### Frontend Testing
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run E2E tests
+npm run test:e2e
+```
+
+### Backend Testing
+```bash
+# Run all Go tests
+go test ./...
+
+# Run tests with coverage
+go test -coverprofile=coverage.out ./...
+go tool cover -html=coverage.out
+
+# Run specific test
+go test -run TestOrderHandler_CreateOrder ./internal/handlers
+
+# Run tests with verbose output
+go test -v ./...
+```
+
+### Integration Testing
+```bash
+# Start test database
+make test-db
+
+# Run integration tests
+make test-integration
+
+# Run full test suite
+make test-all
+```
+
+## 🛡️ Advanced QA Integration & Error Prevention
+
+### 1. Proactive Error Prevention Testing
+```typescript
+// ✅ ERROR PREVENTION: Business logic boundary testing
+describe('Business Logic Boundary Tests', () => {
+  describe('Order Value Boundaries', () => {
+    const boundaryTestCases = [
+      { value: 0, expected: 'reject', reason: 'zero_amount' },
+      { value: 0.01, expected: 'accept', reason: 'minimum_valid' },
+      { value: 999.99, expected: 'accept', reason: 'maximum_normal' },
+      { value: 1000.00, expected: 'require_approval', reason: 'high_value_threshold' },
+      { value: 10000.00, expected: 'reject', reason: 'exceeds_daily_limit' },
+      { value: -1, expected: 'reject', reason: 'negative_amount' },
+      { value: Number.MAX_VALUE, expected: 'reject', reason: 'overflow_protection' }
+    ]
+
+    boundaryTestCases.forEach(({ value, expected, reason }) => {
+      it(`should ${expected} order with value ${value} (${reason})`, async () => {
+        const order = createMockOrder({ total_amount: value })
+        const validator = new OrderValidator()
         
-        try {
-          const data = await config.fetcher()
-          setState({
-            data,
-            loading: false,
-            error: null,
-            lastUpdated: new Date()
-          })
-        } catch (error) {
-          setState(prev => ({
-            ...prev,
-            loading: false,
-            error: error as TError
-          }))
-        }
-      }, [config.dependencies])
+        const result = await validator.validateOrderValue(order)
+        
+        expect(result.decision).toBe(expected)
+        expect(result.reason).toBe(reason)
+      })
+    })
+  })
 
-      // Consistent lifecycle management
-      useEffect(() => {
-        if (config.auto_fetch) {
-          fetchData()
-        }
-      }, [fetchData])
+  describe('Edge Case Scenarios', () => {
+    it('should handle concurrent order modifications gracefully', async () => {
+      const order = await createTestOrder()
+      
+      // Simulate concurrent modifications
+      const modifications = Array(10).fill(null).map((_, index) => 
+        orderService.addItem(order.id, {
+          product_id: `item-${index}`,
+          quantity: 1
+        })
+      )
+      
+      const results = await Promise.allSettled(modifications)
+      const successful = results.filter(r => r.status === 'fulfilled')
+      const failed = results.filter(r => r.status === 'rejected')
+      
+      // Should handle gracefully without data corruption
+      expect(successful.length + failed.length).toBe(10)
+      expect(failed.every(f => 
+        f.reason instanceof ConcurrencyError
+      )).toBe(true)
+    })
 
-      // Consistent return interface
-      return {
-        ...state,
-        refetch: fetchData,
-        reset: () => setState({
-          data: null,
-          loading: false,
-          error: null,
-          lastUpdated: null
+    it('should handle network interruption during payment', async () => {
+      const payment = createMockPayment({ amount: 25.99 })
+      
+      // Mock network interruption
+      jest.spyOn(paymentGateway, 'process')
+        .mockRejectedValueOnce(new NetworkError('Connection timeout'))
+        .mockResolvedValueOnce({ success: true, transaction_id: 'txn_123' })
+      
+      const result = await paymentService.processWithRetry(payment)
+      
+      expect(result.success).toBe(true)
+      expect(result.retry_count).toBe(1)
+      expect(result.error_recovery).toBe('automatic_retry')
+    })
+  })
+})
+
+// Property-based testing for business rules
+describe('Property-Based Business Logic Tests', () => {
+  it('should maintain order total consistency', () => {
+    fc.assert(fc.property(
+      fc.array(fc.record({
+        price: fc.float({ min: 0.01, max: 100 }),
+        quantity: fc.integer({ min: 1, max: 10 })
+      })),
+      (items) => {
+        const order = createOrderFromItems(items)
+        const calculatedTotal = items.reduce(
+          (sum, item) => sum + (item.price * item.quantity), 
+          0
+        )
+        
+        expect(order.total_amount).toBeCloseTo(calculatedTotal, 2)
+      }
+    ))
+  })
+
+  it('should preserve business invariants across operations', () => {
+    fc.assert(fc.property(
+      fc.array(fc.oneof(
+        fc.record({ type: 'add_item', ...itemGenerator }),
+        fc.record({ type: 'remove_item', item_id: fc.string() }),
+        fc.record({ type: 'update_quantity', item_id: fc.string(), quantity: fc.nat() })
+      )),
+      (operations) => {
+        const order = createEmptyOrder()
+        
+        operations.forEach(op => {
+          try {
+            orderService.applyOperation(order, op)
+            
+            // Verify invariants after each operation
+            expect(order.total_amount).toBeGreaterThanOrEqual(0)
+            expect(order.items.every(item => item.quantity > 0)).toBe(true)
+            expect(order.items.length).toBeLessThanOrEqual(MAX_ORDER_ITEMS)
+          } catch (error) {
+            // Operations can fail, but should fail gracefully
+            expect(error).toBeInstanceOf(BusinessRuleError)
+          }
         })
       }
-    }
-  }
+    ))
+  })
+})
+```
 
-  // Standardized service patterns
-  static createBusinessService<TConfig>(
-    config: BusinessServiceConfig<TConfig>
-  ): BusinessService<TConfig> {
+### 2. Quality Gates Automation
+```typescript
+// ✅ AUTOMATION: Quality gates with business context
+class QualityGatesAutomation {
+  // Automated business logic validation
+  static createBusinessLogicValidator(): BusinessLogicValidator {
     return {
-      // Consistent initialization
-      initialize: async (): Promise<void> => {
-        Logger.info(`Initializing ${config.service_name}`)
-        await config.initialize?.()
+      validateBusinessRules: async (changeset: CodeChangeset): Promise<ValidationResult> => {
+        const violations: BusinessRuleViolation[] = []
+        
+        // Check for business logic consistency
+        const businessLogicFiles = changeset.files.filter(f => 
+          f.path.includes('handlers') || 
+          f.path.includes('services') || 
+          f.path.includes('business-logic')
+        )
+        
+        for (const file of businessLogicFiles) {
+          const analysis = await this.analyzeBusinessLogic(file)
+          
+          if (analysis.hasInconsistentPricing) {
+            violations.push({
+              type: 'PRICING_CONSISTENCY',
+              severity: 'high',
+              file: file.path,
+              message: 'Pricing calculation inconsistency detected',
+              suggestion: 'Use centralized pricing service'
+            })
+          }
+          
+          if (analysis.hasUnvalidatedUserInput) {
+            violations.push({
+              type: 'INPUT_VALIDATION',
+              severity: 'critical',
+              file: file.path,
+              message: 'User input not properly validated',
+              suggestion: 'Add input validation using business validation rules'
+            })
+          }
+        }
+        
+        return {
+          passed: violations.length === 0,
+          violations,
+          businessImpact: this.assessBusinessImpact(violations)
+        }
       },
 
-      // Consistent method patterns
-      ...Object.entries(config.methods).reduce((service, [methodName, methodConfig]) => {
-        service[methodName] = async (...args: any[]): Promise<any> => {
-          // Consistent logging
-          Logger.debug(`${config.service_name}.${methodName}`, { args })
-          
-          // Consistent validation
-          if (methodConfig.validation) {
-            const validation = methodConfig.validation(...args)
-            if (!validation.isValid) {
-              throw new ValidationError(validation.errors)
-            }
-          }
-
-          // Consistent caching
-          if (methodConfig.cache) {
-            const cacheKey = methodConfig.cache.keyGenerator(...args)
-            const cached = await this.cache.get(cacheKey)
-            if (cached) return cached
-          }
-
-          // Execute business logic
-          const result = await methodConfig.implementation(...args)
-
-          // Consistent caching
-          if (methodConfig.cache) {
-            const cacheKey = methodConfig.cache.keyGenerator(...args)
-            await this.cache.set(cacheKey, result, methodConfig.cache.ttl)
-          }
-
-          return result
-        }
-        return service
-      }, {} as any)
-    }
-  }
-}
-```
-
-## 🔄 DRY Principle Implementation
-
-### 1. Reusable Business Logic Components
-```typescript
-// ✅ DRY: Centralized business logic to eliminate duplication
-namespace ReusableBusinessLogic {
-  // Unified validation system
-  export class ValidationEngine {
-    private static validators = new Map<string, Validator<any>>()
-
-    static registerValidator<T>(name: string, validator: Validator<T>): void {
-      this.validators.set(name, validator)
-    }
-
-    static createCompositeValidator<T>(
-      validatorNames: string[],
-      customValidations?: Validation<T>[]
-    ): Validator<T> {
-      return {
-        validate: (data: T): ValidationResult => {
-          const errors: string[] = []
-          
-          // Apply registered validators
-          validatorNames.forEach(name => {
-            const validator = this.validators.get(name)
-            if (validator) {
-              const result = validator.validate(data)
-              if (!result.isValid) {
-                errors.push(...result.errors)
-              }
-            }
-          })
-
-          // Apply custom validations
-          customValidations?.forEach(validation => {
-            if (!validation.check(data)) {
-              errors.push(validation.message)
-            }
-          })
-
-          return {
-            isValid: errors.length === 0,
-            errors
-          }
-        }
-      }
-    }
-  }
-
-  // Unified caching system
-  export class UnifiedCache {
-    private static cache = new Map<string, CacheEntry<any>>()
-    private static strategies = new Map<string, CacheStrategy>()
-
-    static registerStrategy(name: string, strategy: CacheStrategy): void {
-      this.strategies.set(name, strategy)
-    }
-
-    static async get<T>(
-      key: string,
-      fetcher: () => Promise<T>,
-      strategyName: string = 'default'
-    ): Promise<T> {
-      const strategy = this.strategies.get(strategyName)
-      if (!strategy) {
-        throw new Error(`Cache strategy '${strategyName}' not found`)
-      }
-
-      const cached = this.cache.get(key)
-      if (cached && cached.expiresAt > Date.now()) {
-        return cached.data as T
-      }
-
-      const data = await fetcher()
-      this.cache.set(key, {
-        data,
-        expiresAt: Date.now() + strategy.ttl,
-        createdAt: Date.now(),
-        accessCount: 1
-      })
-
-      return data
-    }
-
-    static invalidatePattern(pattern: string): void {
-      const regex = new RegExp(pattern)
-      Array.from(this.cache.keys())
-        .filter(key => regex.test(key))
-        .forEach(key => this.cache.delete(key))
-    }
-  }
-
-  // Unified state management
-  export class BusinessStateManager<T> {
-    private state: T
-    private subscribers = new Set<StateChangeListener<T>>()
-    private middleware: StateMiddleware<T>[] = []
-
-    constructor(initialState: T) {
-      this.state = { ...initialState }
-    }
-
-    getState(): T {
-      return { ...this.state }
-    }
-
-    setState(updater: StateUpdater<T>): void {
-      const previousState = { ...this.state }
-      const newState = typeof updater === 'function' 
-        ? updater(previousState) 
-        : { ...previousState, ...updater }
-
-      // Apply middleware
-      const processedState = this.middleware.reduce(
-        (state, middleware) => middleware.process(state, previousState),
-        newState
-      )
-
-      this.state = processedState
-      
-      // Notify subscribers
-      this.subscribers.forEach(listener => 
-        listener(processedState, previousState)
-      )
-    }
-
-    subscribe(listener: StateChangeListener<T>): () => void {
-      this.subscribers.add(listener)
-      return () => this.subscribers.delete(listener)
-    }
-
-    addMiddleware(middleware: StateMiddleware<T>): void {
-      this.middleware.push(middleware)
-    }
-  }
-
-  // Unified HTTP client
-  export class BusinessHTTPClient {
-    private static instance: BusinessHTTPClient
-    private interceptors: HTTPInterceptor[] = []
-    private retryPolicies = new Map<string, RetryPolicy>()
-
-    static getInstance(): BusinessHTTPClient {
-      if (!this.instance) {
-        this.instance = new BusinessHTTPClient()
-      }
-      return this.instance
-    }
-
-    async request<TResponse>(config: HTTPRequestConfig): Promise<TResponse> {
-      let processedConfig = { ...config }
-      
-      // Apply request interceptors
-      for (const interceptor of this.interceptors) {
-        if (interceptor.request) {
-          processedConfig = await interceptor.request(processedConfig)
-        }
-      }
-
-      // Execute request with retry policy
-      const retryPolicy = this.retryPolicies.get(config.endpoint) || DEFAULT_RETRY_POLICY
-      return this.executeWithRetry(processedConfig, retryPolicy)
-    }
-
-    private async executeWithRetry<TResponse>(
-      config: HTTPRequestConfig,
-      retryPolicy: RetryPolicy
-    ): Promise<TResponse> {
-      let lastError: Error
-      
-      for (let attempt = 0; attempt <= retryPolicy.maxRetries; attempt++) {
-        try {
-          const response = await this.executeRequest<TResponse>(config)
-          
-          // Apply response interceptors
-          let processedResponse = response
-          for (const interceptor of this.interceptors) {
-            if (interceptor.response) {
-              processedResponse = await interceptor.response(processedResponse)
-            }
-          }
-          
-          return processedResponse
-        } catch (error) {
-          lastError = error as Error
-          
-          if (attempt < retryPolicy.maxRetries && retryPolicy.shouldRetry(error)) {
-            await this.delay(retryPolicy.calculateDelay(attempt))
-            continue
-          }
-          
-          break
-        }
-      }
-      
-      throw lastError!
-    }
-  }
-}
-```
-
-### 2. Shared Component Library
-```typescript
-// ✅ DRY: Reusable UI components with consistent behavior
-namespace SharedComponentLibrary {
-  // Base form component with consistent validation and submission
-  export const BusinessForm = <TFormData extends Record<string, any>>({
-    schema,
-    onSubmit,
-    loading,
-    children
-  }: BusinessFormProps<TFormData>) => {
-    const form = useForm<TFormData>({
-      resolver: zodResolver(schema),
-      mode: 'onChange' // Consistent validation timing
-    })
-
-    const handleSubmit = form.handleSubmit(async (data) => {
-      try {
-        await onSubmit(data)
-      } catch (error) {
-        // Consistent error handling
-        if (error instanceof ValidationError) {
-          error.fieldErrors.forEach(({ field, message }) => {
-            form.setError(field as Path<TFormData>, { message })
-          })
-        } else {
-          // Global form error
-          form.setError('root', { 
-            message: error instanceof Error ? error.message : 'An error occurred'
-          })
-        }
-      }
-    })
-
-    return (
-      <Form {...form}>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {children}
-          
-          {/* Consistent form actions */}
-          <FormActions>
-            <Button type="submit" disabled={loading}>
-              {loading ? <LoadingSpinner size="sm" /> : 'Submit'}
-            </Button>
-          </FormActions>
-        </form>
-      </Form>
-    )
-  }
-
-  // Reusable data table with consistent features
-  export const BusinessDataTable = <TData extends Record<string, any>>({
-    data,
-    columns,
-    loading,
-    pagination,
-    sorting,
-    filtering
-  }: BusinessDataTableProps<TData>) => {
-    // Consistent table state management
-    const table = useReactTable({
-      data: data || [],
-      columns,
-      getCoreRowModel: getCoreRowModel(),
-      getSortedRowModel: getSortedRowModel(),
-      getFilteredRowModel: getFilteredRowModel(),
-      getPaginationRowModel: getPaginationRowModel(),
-      
-      // Consistent default configurations
-      initialState: {
-        pagination: { pageSize: 20 },
-        sorting: [],
-        columnVisibility: {}
-      }
-    })
-
-    return (
-      <div className="space-y-4">
-        {/* Consistent table toolbar */}
-        <DataTableToolbar table={table} filtering={filtering} />
+      validatePerformanceImpact: async (changeset: CodeChangeset): Promise<PerformanceImpact> => {
+        const performanceAnalysis = await this.analyzePerformanceChanges(changeset)
         
-        {/* Consistent table structure */}
-        <div className="rounded-md border">
-          <Table>
-            <TableHeader>
-              {table.getHeaderGroups().map(headerGroup => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map(header => (
-                    <TableHead key={header.id}>
-                      {/* Consistent sorting indicators */}
-                      <DataTableColumnHeader header={header} />
-                    </TableHead>
-                  ))}
-                </TableRow>
-              ))}
-            </TableHeader>
-            
-            <TableBody>
-              {loading ? (
-                <DataTableSkeleton columnCount={columns.length} />
-              ) : table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map(row => (
-                  <TableRow key={row.id}>
-                    {row.getVisibleCells().map(cell => (
-                      <TableCell key={cell.id}>
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))
-              ) : (
-                <DataTableEmpty columnCount={columns.length} />
-              )}
-            </TableBody>
-          </Table>
-        </div>
-        
-        {/* Consistent pagination */}
-        <DataTablePagination table={table} />
-      </div>
-    )
+        return {
+          databaseQueryImpact: performanceAnalysis.queryChanges,
+          memoryImpact: performanceAnalysis.memoryChanges,
+          bundleSizeImpact: performanceAnalysis.bundleChanges,
+          businessCriticalPathsAffected: performanceAnalysis.criticalPaths,
+          recommendations: this.generatePerformanceRecommendations(performanceAnalysis)
+        }
+      }
+    }
   }
 
-  // Reusable business card with consistent layout
-  export const BusinessCard = ({
-    title,
-    description,
-    actions,
-    status,
-    metadata,
-    children
-  }: BusinessCardProps) => {
-    return (
-      <Card className="h-full">
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <div className="space-y-1">
-              <CardTitle className="text-base">{title}</CardTitle>
-              {description && (
-                <CardDescription>{description}</CardDescription>
-              )}
-            </div>
-            
-            {status && (
-              <Badge variant={getStatusVariant(status)}>
-                {status}
-              </Badge>
-            )}
-          </div>
-        </CardHeader>
-        
-        <CardContent className="pb-3">
-          {children}
-          
-          {metadata && (
-            <div className="mt-4 text-sm text-muted-foreground">
-              {Object.entries(metadata).map(([key, value]) => (
-                <div key={key} className="flex justify-between">
-                  <span>{key}:</span>
-                  <span>{value}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </CardContent>
-        
-        {actions && (
-          <CardFooter className="pt-3">
-            <div className="flex gap-2 w-full">
-              {actions.map((action, index) => (
-                <Button
-                  key={index}
-                  variant={action.variant || 'outline'}
-                  size="sm"
-                  onClick={action.onClick}
-                  disabled={action.disabled}
-                  className={action.className}
-                >
-                  {action.label}
-                </Button>
-              ))}
-            </div>
-          </CardFooter>
-        )}
-      </Card>
-    )
-  }
-}
-```
-
-## 🛡️ Quality Gates & Automation
-
-### 1. Automated Code Quality Checks
-```typescript
-// ✅ QUALITY GATES: Automated enforcement of quality standards
-class QualityGateEnforcement {
-  // Pre-commit quality checks
-  static createPreCommitPipeline(): QualityPipeline {
+  // Automated deployment quality gates
+  static createDeploymentQualityGates(): DeploymentQualityGates {
     return {
-      stages: [
+      preDeploymentChecks: [
         {
-          name: 'Format Check',
-          check: async (files: string[]) => {
-            const results = await Promise.all([
-              this.checkPrettierFormatting(files),
-              this.checkESLintRules(files),
-              this.checkTypeScriptCompilation(files)
-            ])
-            
+          name: 'Business Logic Regression Tests',
+          check: async () => {
+            const regressionResults = await this.runBusinessRegressionTests()
             return {
-              passed: results.every(r => r.passed),
-              errors: results.flatMap(r => r.errors),
-              autoFixAvailable: results.some(r => r.autoFixAvailable)
+              passed: regressionResults.allPassed,
+              critical_failures: regressionResults.criticalFailures,
+              business_impact: regressionResults.businessImpact
             }
           }
         },
-        
-        {
-          name: 'Business Logic Validation',
-          check: async (files: string[]) => {
-            return {
-              passed: await this.validateBusinessRuleConsistency(files),
-              errors: await this.getBusinessRuleViolations(files),
-              autoFixAvailable: false
-            }
-          }
-        },
-        
         {
           name: 'Performance Validation',
-          check: async (files: string[]) => {
-            const results = await Promise.all([
-              this.checkBundleSize(files),
-              this.validateQueryPerformance(files),
-              this.checkMemoryLeaks(files)
-            ])
-            
+          check: async () => {
+            const performanceResults = await this.validateDeploymentPerformance()
             return {
-              passed: results.every(r => r.passed),
-              errors: results.flatMap(r => r.errors),
-              warnings: results.flatMap(r => r.warnings || [])
+              passed: performanceResults.meetsThresholds,
+              response_times: performanceResults.responseTimes,
+              resource_usage: performanceResults.resourceUsage
             }
           }
         }
       ],
-      
-      onFailure: (stage: QualityStage, errors: QualityError[]) => {
-        throw new QualityGateError(
-          `Quality gate failed at stage: ${stage.name}`,
-          errors
-        )
-      }
-    }
-  }
 
-  // Code review automation
-  static createCodeReviewAssistant(): CodeReviewAssistant {
-    return {
-      // Automated pattern detection
-      detectPatternViolations: (diff: GitDiff): PatternViolation[] => {
-        const violations: PatternViolation[] = []
-        
-        // Check for DRY violations
-        const duplicateCode = this.detectDuplicateCode(diff)
-        if (duplicateCode.length > 0) {
-          violations.push({
-            type: 'DRY_VIOLATION',
-            severity: 'high',
-            message: 'Duplicate code detected',
-            suggestions: duplicateCode.map(d => d.refactoringSuggestion)
-          })
-        }
-        
-        // Check for inconsistent patterns
-        const inconsistentPatterns = this.detectInconsistentPatterns(diff)
-        violations.push(...inconsistentPatterns)
-        
-        return violations
-      },
-
-      // Automated test coverage analysis
-      analyzeTes tCoverage: (diff: GitDiff): TestCoverageAnalysis => {
-        return {
-          coverage_percentage: this.calculateCoverageForDiff(diff),
-          missing_tests: this.findUntested Code(diff),
-          test_quality_score: this.assessTestQuality(diff),
-          recommendations: this.generateTestRecommendations(diff)
-        }
-      },
-
-      // Performance impact analysis
-      analyzePerformanceImpact: (diff: GitDiff): PerformanceAnalysis => {
-        return {
-          bundle_size_impact: this.calculateBundleSizeChange(diff),
-          query_performance_impact: this.analyzeQueryChanges(diff),
-          memory_impact: this.analyzeMemoryImpact(diff),
-          recommendations: this.generatePerformanceRecommendations(diff)
-        }
-      }
-    }
-  }
-}
-```
-
-### 2. Continuous Quality Monitoring
-```typescript
-// ✅ MONITORING: Continuous quality and tech debt monitoring
-class ContinuousQualityMonitoring {
-  // Technical debt detection
-  static createTechDebtMonitor(): TechDebtMonitor {
-    return {
-      // Code complexity monitoring
-      monitorComplexity: async (): Promise<ComplexityReport> => {
-        const files = await this.getAllSourceFiles()
-        const complexityResults = await Promise.all(
-          files.map(file => this.analyzeFileComplexity(file))
-        )
-        
-        return {
-          overall_score: this.calculateOverallComplexityScore(complexityResults),
-          high_complexity_files: complexityResults
-            .filter(r => r.complexity > COMPLEXITY_THRESHOLD)
-            .sort((a, b) => b.complexity - a.complexity),
-          trending_complexity: this.calculateComplexityTrend(complexityResults),
-          refactoring_candidates: this.identifyRefactoringCandidates(complexityResults)
-        }
-      },
-
-      // Dependency analysis
-      monitorDependencies: async (): Promise<DependencyReport> => {
-        const dependencies = await this.analyzeDependencies()
-        
-        return {
-          outdated_packages: dependencies.outdated,
-          security_vulnerabilities: dependencies.vulnerabilities,
-          unused_dependencies: dependencies.unused,
-          circular_dependencies: dependencies.circular,
-          upgrade_recommendations: this.generateUpgradeRecommendations(dependencies)
-        }
-      },
-
-      // Performance regression detection
-      monitorPerformanceRegressions: async (): Promise<PerformanceReport> => {
-        const currentMetrics = await this.gatherPerformanceMetrics()
-        const historicalMetrics = await this.getHistoricalMetrics()
-        
-        return {
-          regressions: this.detectRegressions(currentMetrics, historicalMetrics),
-          improvements: this.detectImprovements(currentMetrics, historicalMetrics),
-          trending_metrics: this.calculateTrends(currentMetrics, historicalMetrics),
-          optimization_opportunities: this.identifyOptimizationOpportunities(currentMetrics)
-        }
-      }
-    }
-  }
-
-  // Automated refactoring suggestions
-  static createRefactoringSuggestionEngine(): RefactoringSuggestionEngine {
-    return {
-      // Extract common patterns
-      suggestPatternExtractions: (codebase: Codebase): PatternExtractionSuggestion[] => {
-        const duplicatePatterns = this.findDuplicatePatterns(codebase)
-        
-        return duplicatePatterns.map(pattern => ({
-          pattern_description: pattern.description,
-          occurrences: pattern.locations,
-          suggested_abstraction: pattern.suggestedAbstraction,
-          estimated_impact: {
-            lines_reduced: pattern.duplicateLines,
-            maintainability_improvement: pattern.maintainabilityScore,
-            test_coverage_impact: pattern.testCoverageChange
+      postDeploymentVerification: [
+        {
+          name: 'Business Critical Flows',
+          verify: async () => {
+            const flowResults = await this.verifyBusinessCriticalFlows()
+            return {
+              order_creation: flowResults.orderCreation.success,
+              payment_processing: flowResults.paymentProcessing.success,
+              kitchen_workflow: flowResults.kitchenWorkflow.success,
+              overall_health: flowResults.overallHealth
+            }
           }
-        }))
-      },
-
-      // Component optimization suggestions
-      suggestComponentOptimizations: (components: ComponentAnalysis[]): ComponentOptimization[] => {
-        return components
-          .filter(c => c.needsOptimization)
-          .map(component => ({
-            component_name: component.name,
-            optimization_type: component.suggestedOptimization,
-            current_issues: component.issues,
-            suggested_solution: component.solution,
-            implementation_effort: component.estimatedEffort
-          }))
-      },
-
-      // Database optimization suggestions
-      suggestDatabaseOptimizations: (queries: QueryAnalysis[]): DatabaseOptimization[] => {
-        return queries
-          .filter(q => q.performance_issues.length > 0)
-          .map(query => ({
-            query_identifier: query.id,
-            performance_issues: query.performance_issues,
-            suggested_indexes: query.suggestedIndexes,
-            query_rewrite_suggestions: query.rewriteSuggestions,
-            estimated_improvement: query.estimatedImprovement
-          }))
-      }
+        }
+      ]
     }
   }
 }
 ```
 
-This comprehensive tech debt prevention system ensures that code quality remains high, patterns stay consistent, and the system continues to evolve without accumulating technical debt. The automated checks and monitoring provide continuous feedback to maintain the highest standards of code quality and architectural integrity.
+### Enhanced Testing Commands
 
-<function_calls>
-<invoke name="todo_write">
-<parameter name="merge">true
+#### Advanced Frontend Testing
+```bash
+# Business logic validation
+npm run test:business-logic
+
+# Performance regression tests  
+npm run test:performance
+
+# Quality gates validation
+npm run test:quality-gates
+
+# Property-based testing
+npm run test:property-based
+
+# Error boundary testing
+npm run test:error-boundaries
+```
+
+#### Advanced Backend Testing
+```bash
+# Business logic consistency tests
+go test -run TestBusinessLogic ./...
+
+# Load and performance tests
+go test -run TestLoad ./...
+
+# Integration tests with business scenarios
+go test -tags=business-integration ./...
+
+# Boundary and edge case tests
+go test -run TestBoundary ./...
+```
 
 ---
 > Source: [madebyaris/poinf-of-sales](https://github.com/madebyaris/poinf-of-sales) — distributed by [TomeVault](https://tomevault.io).
