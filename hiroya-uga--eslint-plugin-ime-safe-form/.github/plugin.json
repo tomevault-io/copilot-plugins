@@ -1,0 +1,9 @@
+{
+  "name": "hiroya-uga--eslint-plugin-ime-safe-form",
+  "displayName": "eslint-plugin-ime-safe-form",
+  "description": "ESLint plugin to enforce using form submit event instead of keydown Enter (IME-friendly)",
+  "version": "1.0.0",
+  "author": "hiroya-uga",
+  "homepage": "https://github.com/hiroya-uga/eslint-plugin-ime-safe-form",
+  "skills": []
+}
