@@ -1,0 +1,9 @@
+{
+  "name": "voska--qbo-cli",
+  "displayName": "qbo-cli",
+  "description": "QuickBooks Online CLI for humans and AI agents",
+  "version": "1.0.0",
+  "author": "voska",
+  "homepage": "https://github.com/voska/qbo-cli",
+  "skills": []
+}
