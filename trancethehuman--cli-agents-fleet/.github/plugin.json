@@ -1,0 +1,9 @@
+{
+  "name": "trancethehuman--cli-agents-fleet",
+  "displayName": "cli-agents-fleet",
+  "description": "Run a fleet of CLI agents to do tasks and research",
+  "version": "1.0.0",
+  "author": "trancethehuman",
+  "homepage": "https://github.com/trancethehuman/cli-agents-fleet",
+  "skills": []
+}
