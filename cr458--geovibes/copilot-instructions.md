@@ -1,47 +1,49 @@
-## geovibes-module
+## jupyter-notebooks
 
-> - Follow the existing structure in [geovibes/](mdc:geovibes/) directory
+> - Keep notebook cells focused and atomic
 
 
-# Geovibes Module Development Standards
+# Jupyter Notebook Standards for Geovibes
 
-## Module Architecture
-- Follow the existing structure in [geovibes/](mdc:geovibes/) directory
-- Core tiling functionality is in [tiling.py](mdc:geovibes/tiling.py)
-- Geospatial utilities are in [geotiff/](mdc:geovibes/geotiff/) subdirectory
-- Google Earth Engine tools are in [google/](mdc:geovibes/google/) subdirectory
+## Notebook Structure and Organization
+- Keep notebook cells focused and atomic
+- Use markdown cells for section headers and explanations
+- Import all required libraries in the first cell
+- Never add inline comments unless explicitly requested
+- Include progress logging for long-running operations
 
-## MGRS and Tiling Operations
-- Use existing classes: `MGRSTileId`, `MGRSTileGrid` from [tiling.py](mdc:geovibes/tiling.py)
-- Leverage `get_mgrs_tile_ids_for_roi()` and `get_mgrs_tile_ids_for_roi_from_roi_file()`
-- Follow the pattern established in `chip_mgrs_tile()` function
-- Always use proper CRS handling with pyproj
+## Data Processing in Notebooks
+- Implement parallel processing for I/O-heavy operations
+- Use `ThreadPoolExecutor` or `ProcessPoolExecutor` for concurrent tasks
+- Display progress bars and timing information for long operations
+- Always save intermediate results to avoid re-computation
 
-## Database Integration
-- Reference [database.py](mdc:geovibes/database.py) for database operations
-- Use DuckDB for spatial queries when appropriate
-- Follow established patterns for spatial indexing
+## Integration with Geovibes Modules
+- Reference main modules using relative imports: `sys.path.append('..')`
+- Use functions from [tiling.py](mdc:geovibes/tiling.py) for MGRS operations
+- Leverage existing utilities in [geovibes/](mdc:geovibes/) directory
 
-## Geospatial Data Processing
-- Use GeoPandas for vector data operations
-- Ensure proper CRS transformations between datasets
-- Leverage existing utilities in [utils.py](mdc:geovibes/utils.py)
+## Memory Management and Performance
+- Clear large variables when no longer needed using `del variable_name`
+- Use `memory_usage(deep=True)` to monitor DataFrame memory consumption
+- Process data in chunks for large datasets
+- Implement sampling for visualization when datasets are too large
 
-## UI and Configuration
-- UI components should reference [ui.py](mdc:geovibes/ui.py)
-- Configuration settings should use [ui_config/](mdc:geovibes/ui_config/) modules
-- Follow the pattern in [ui_config/settings.py](mdc:geovibes/ui_config/settings.py)
+## Output and Results
+- Create comprehensive summary statistics and visualizations
+- Save results in multiple formats (CSV, Parquet, GeoParquet)
+- Include data quality checks and validation
+- Export combined datasets for further analysis
 
-## Module Dependencies
-- Keep dependencies minimal and well-defined
-- Use type hints consistently across all modules
-- Maintain compatibility with existing function signatures
-- Document all public APIs with comprehensive docstrings
+## Error Handling in Notebooks
+- DO NOT use try/except blocks during development phases
+- Use comprehensive logging instead: `logging.info()`, `logging.warning()`
+- Only add error handling when explicitly moving to production
 
-## Testing and Validation
-- Reference existing test patterns in [tests/](mdc:geovibes/tests/) directory
-- Validate MGRS tile operations against known test cases
-- Ensure coordinate system transformations are accurate
+## Environment Setup
+- Always check conda environment: `conda activate geovibes`
+- Configure logging at the beginning of notebooks
+- Set random seeds for reproducibility when applicable
 
 ---
 > Source: [cr458/geovibes](https://github.com/cr458/geovibes) — distributed by [TomeVault](https://tomevault.io).
