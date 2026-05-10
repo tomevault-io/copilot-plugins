@@ -1,0 +1,44 @@
+{
+  "name": "OpenKara",
+  "owner": "thedavidweng",
+  "repo": "OpenKara",
+  "description": "A desktop karaoke app that transforms your local music library into sing-along tracks using on-device AI stem separation and online synced lyrics, making karaoke affordable and reusable with the songs you already own.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/thedavidweng/OpenKara",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T10:51:58Z"
+}
