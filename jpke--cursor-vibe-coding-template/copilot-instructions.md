@@ -1,20 +1,61 @@
-## development
+## markdown-documentation
 
-> Core development practices for frontend, testing, and Python environments
+> Standards for accurate, concise, and professional markdown documentation with clear organization and navigation
 
 
-## Frontend Development
-- **MVP Development Workflow**:
-  - **Start with HTML**: Every application MVP, regardless of its final platform (e.g., mobile app), should begin as a basic HTML page. This enables rapid prototyping and iteration.
-  - **Styling Guidelines**: If you provide a `design.json` file, I will use it as the primary guideline for all styling and visual design choices.
+# Markdown Documentation Standards
 
-## Testing Strategy
-- **Test-Driven Development**: Adopt a TDD approach where possible. At a minimum, ensure that unit tests are created or updated for any new or modified code.
-- **Test Completion**: All tests must be passing before a coding task is considered complete.
-- **Test Output**: All test reports, artifacts, and error logs must be output to a common `tests_output/` directory at the project root.
+## Core Principles
+- **Accuracy**: All information must be current, tested, and factually correct
+- **Conciseness**: Communicate maximum value with minimum words
+- **Professionalism**: Use clear, consistent tone and proper formatting
 
-## Python Environment Management
-- **Virtual Environments**: Always use a virtual environment (`venv`) when running Python scripts. Check for an existing `venv` in the current or parent directories before creating a new one. Activate the `venv` before installing packages or executing scripts.
+## Content Organization
+
+### Information Hierarchy
+- **Lead with value**: Most critical information in first 2-3 paragraphs
+- **Progressive disclosure**: Details follow overview, specifics follow general
+- **Scannable structure**: Use headings, bullets, and whitespace strategically
+
+### Content Quality
+- **Eliminate duplication**: Each piece of information appears once
+- **Link don't repeat**: Reference other sections rather than duplicating content
+- **Update holistically**: When changing one section, review related sections
+
+## Structure Requirements
+
+### Navigation
+- **Table of Contents**: For files >200 lines or >5 main sections
+- **Consistent headings**: Use semantic hierarchy (H1 → H2 → H3)
+- **Cross-references**: Link related sections and external resources
+
+### Formatting Standards
+- **Code blocks**: Always specify language (`json`, `bash`, `typescript`)
+- **Lists**: Use bullets for items, numbers for sequential steps
+- **Tables**: For structured data comparison
+- **Callouts**: Use `>` for important notes, warnings, or tips
+
+## File-Specific Guidelines
+
+### README.md
+1. **Hook**: Project purpose in first sentence
+2. **Quick start**: Installation/usage in first section
+3. **Core features**: Key functionality overview
+4. **Developer info**: Setup, contributing, license
+
+### Technical Documentation
+- **Prerequisites**: Required knowledge, tools, versions
+- **Examples**: Working code snippets, not pseudo-code
+- **Troubleshooting**: Common issues with solutions
+- **References**: Links to official docs, RFCs, specifications
+
+## Quality Checks
+- [ ] Information is current and accurate
+- [ ] No duplicate content across sections
+- [ ] Most important info appears early
+- [ ] Structure enables quick scanning
+- [ ] All code examples work as written
+- [ ] Links are functional and relevant
 
 ---
 > Source: [jpke/cursor-vibe-coding-template](https://github.com/jpke/cursor-vibe-coding-template) — distributed by [TomeVault](https://tomevault.io).
