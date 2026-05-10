@@ -1,0 +1,9 @@
+{
+  "name": "mackding--codexclaw",
+  "displayName": "CodexClaw",
+  "description": "Telegram bot for Claude Code and Codex CLI with MCP routing, multi-agent orchestration, cron jobs, and access controls.",
+  "version": "1.0.0",
+  "author": "MackDing",
+  "homepage": "https://github.com/MackDing/CodexClaw",
+  "skills": []
+}
