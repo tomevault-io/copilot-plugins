@@ -1,39 +1,44 @@
-## ucss
+## uni-app-x-best-practices
 
-> Uni-App X implements a subset of Web CSS on the App platform
+> Best practices for uni-app-x
 
 
-### Layout Specifications
-- Disable layout such as float, grid, etc., all containers must use display:flex, and the default direction is vertical (implemented via flex-direction:column)
-- Page-level scrolling requires manual wrapping<scroll-view style="flex:1">, and it is recommended to use conditional compilation on Android
+# Memory Bank
 
-### Selector Restrictions
-- Only class selectors (.class) are supported, ID/attribute selectors are prohibited (e.g.#id,[attr])
-- Class names must comply with the [A-Za-z0 -9_-]+ specification, and special characters are prohibited (such as @class)
+You are an expert in uni-app-x, uts, ucss, uni-app with a deep understanding of best practices and performance optimization techniques in these technologies.
 
-### Style isolation rules
-- The text style (color, font-size) must be written <text>in the component, and the container component (<view>) prohibits setting text-related properties
-- Disable inheritance-related keywords such as inherit and unset
-
-### Hierarchy Control
-z-index only takes effect on sibling nodes at the same level, and absolute fixed bits that are separated from the document stream do not support hierarchical coverage
-
-### Module Support List
-| support module   | disable feature       | alternative                          |
-|------------|----------------|-----------------------------------|
-| Flex layout   | Grid/Float     | Use Nested Flex for complex layouts          |
-| Background and border| background picture       | Implemented through <image>components               |
-| Animation and Transition| CSS animation        | Use JavaScript API to achieve dynamic effects        |
-| variable system   | CSS variables        | Inject global variables through UTS               |
-| responsive     | media queries       | Processing using conditional compilation instructions              |
-
-### Code review priorities
-- Forbidden! important (only allowed in class selector)
-- Avoid multiple layers of nesting (recommended depth ≤3 layers)
-- Priority is given to rpx units (1rpx=0.5 physical pixels)
-- Unusable style: position:fixed (use absolute+top:env(safe-area-inset-top) instead)
-- Inavailable attribute: opacity:0.5 (use background:rgba(0,0,0,0.5))
-- Not available writing:<view style="color:red">text</view> (needs to be rewritten to<text style="color:red">text</text>)
+### Code Style and Structure
+    - Write concise, maintainable, and technically accurate UTS code with relevant examples.
+    - Use functional and declarative programming patterns; avoid classes.
+    - Favor iteration and modularization to adhere to DRY principles and avoid code duplication.
+    - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+    - Organize files systematically: each file should contain only related content, such as exported components, subcomponents, helpers, static content, and types.
+    - Must be strongly typed, and must be typed in any case
+    
+### Naming Conventions
+    - Use lowercase with dashes for directories (e.g., components/auth-wizard).
+    - Favor named exports for functions.
+  
+### UTS Usage
+    - Use UTS for all code; prefer interfaces over types for their extendability and ability to merge.
+    - Avoid enums; use maps instead for better type safety and flexibility.
+    - Use functional components with UTS interfaces.
+  
+### Syntax and Formatting
+    - uni-app-x supports UTS native component development (native views are written by Android/iOS engineers and encapsulated into components) to achieve high-performance cross-platform rendering, while uni-app and Vue projects only support front-end component development.
+    - Always use the UVue Composition API script setup style.
+  
+### UI and Styling
+    - You must first try to implement and refine functionality using components in the current project
+    - Strictly follow the style attributes supported by UCSS
+    - Adopt mobile first responsive design
+    - Avoid using style attributes and selectors that are not supported by UCSS
+    - Use flex layout first
+  
+### Component And Easycom
+    - easycom is uni-app-x's intelligent component management solution. It realizes zero-configuration invocation of components by automatically scanning the components directory and files that comply with the component name/component name.uvue specification. Developers only need to create components according to the agreed catalog, and they can directly use the upper initials of tag names in the template, significantly improving cross-platform development efficiency.
+    - Automatically register components in the components directory through pages.json, which supports strict matching of component names and file names (such as test/test.uvue)
+    - Built-in components and easycom components are used directly through capitalized tag names. The responsive system is based on Proxy optimization and supports cross-platform compilation
 
 ---
 > Source: [dcloudio/uni-ai-x](https://github.com/dcloudio/uni-ai-x) — distributed by [TomeVault](https://tomevault.io).
