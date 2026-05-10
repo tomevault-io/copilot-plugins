@@ -4,7 +4,7 @@
   "repo": "AnimoCerebro",
   "description": "Universal cognitive engine for AI. Features autonomy, self-reflection, and continuous learning via the Nine Questions loop.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xunharry4-source/AnimoCerebro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T22:13:09Z"
+  "distributed_at": "2026-05-10T21:34:24Z"
 }
