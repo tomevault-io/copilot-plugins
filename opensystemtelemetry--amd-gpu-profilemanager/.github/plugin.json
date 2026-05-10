@@ -1,0 +1,9 @@
+{
+  "name": "opensystemtelemetry--amd-gpu-profilemanager",
+  "displayName": "AMD.GPU.ProfileManager",
+  "description": "Utility for managing AMD GPU application profiles",
+  "version": "1.0.0",
+  "author": "OpenSystemTelemetry",
+  "homepage": "https://github.com/OpenSystemTelemetry/AMD.GPU.ProfileManager",
+  "skills": []
+}
