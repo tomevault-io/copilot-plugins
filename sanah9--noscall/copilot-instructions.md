@@ -1,23 +1,28 @@
-## commit-conventions
+## filename-class-name
 
-> Git commit message conventions (conventional commits)
+> Dart file name should match the main class name (snake_case)
 
 
-# Commit Conventions
+# File Name and Class Name Consistency
 
-Use **conventional commit** prefixes for all commits:
+The **filename** of a Dart file should match the **main (primary) class** it defines, in snake_case.
 
-| Prefix      | Use for                          |
-|------------|-----------------------------------|
-| `feat`     | New feature                       |
-| `fix`      | Bug fix                           |
-| `refactor` | Code refactor (no behavior change)|
-| `doc`      | Documentation only                |
-| `test`     | Adding or updating tests          |
+## Rule
 
-Example: `feat: add NIP-04 encrypted DM support`
+- Class `CallKitManager` → file `call_kit_manager.dart`
+- Class `VoiceCacheManager` → file `voice_cache_manager.dart`
+- Class `ICEServerManager` → file `ice_server_manager.dart`
 
-Do **not** append tool footers (e.g. `Made-with: Cursor`) to commit messages; keep the subject line clean unless the user explicitly asks for extra body text.
+If a file contains multiple classes, the filename should match the **primary** or **public** class (the one the file is “about”), not a helper or extension.
+
+## Rationale
+
+Mismatched names (e.g. `call_manager.dart` with class `CallKitManager`) make it easy to misread the file as defining “CallManager” and hurt discoverability. Aligning name and file avoids confusion.
+
+## When adding or renaming
+
+- **New file**: Name the file after the main class in snake_case.
+- **Renaming**: When renaming a class or file for consistency, update all `import` and `export` references to the new path (e.g. `call_manager.dart` → `call_kit_manager.dart`).
 
 ---
 > Source: [sanah9/noscall](https://github.com/sanah9/noscall) — distributed by [TomeVault](https://tomevault.io).
