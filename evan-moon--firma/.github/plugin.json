@@ -1,0 +1,9 @@
+{
+  "name": "evan-moon--firma",
+  "displayName": "firma",
+  "description": "Local-first CLI portfolio tracker for overseas investors, with built-in MCP server for Claude",
+  "version": "1.0.0",
+  "author": "evan-moon",
+  "homepage": "https://github.com/evan-moon/firma",
+  "skills": []
+}
