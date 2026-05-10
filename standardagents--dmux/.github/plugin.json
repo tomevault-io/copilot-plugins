@@ -1,0 +1,9 @@
+{
+  "name": "standardagents--dmux",
+  "displayName": "dmux",
+  "description": "A dev agent multiplexer for git worktrees and coding agents.",
+  "version": "1.0.0",
+  "author": "standardagents",
+  "homepage": "https://github.com/standardagents/dmux",
+  "skills": []
+}
