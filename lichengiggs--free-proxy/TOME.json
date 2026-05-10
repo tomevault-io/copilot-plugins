@@ -1,0 +1,44 @@
+{
+  "name": "free-proxy",
+  "owner": "lichengiggs",
+  "repo": "free-proxy",
+  "description": "\u5229\u7528\u5404\u5bb6\u7684\u514d\u8d39LLM API\uff0c\u5b9e\u73b0\u4e00\u6b21\u914d\u7f6e\u3001\u52a8\u6001\u5207\u6362\u6a21\u578b\uff0c\u8db3\u591f\u5b66\u4e60\u7684\u514d\u8d39\u7528\u91cf",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lichengiggs/free-proxy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T08:51:31Z"
+}
