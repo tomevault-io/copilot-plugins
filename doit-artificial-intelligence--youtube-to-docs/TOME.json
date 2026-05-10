@@ -4,7 +4,7 @@
   "repo": "youtube-to-docs",
   "description": "Convert YouTube videos into structured docs, summaries, audio, and visual assets for easier discovery.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DoIT-Artificial-Intelligence/youtube-to-docs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T23:34:39Z"
+  "distributed_at": "2026-05-10T20:30:40Z"
 }
