@@ -1,0 +1,9 @@
+{
+  "name": "ziium--ziium",
+  "displayName": "ziium",
+  "description": "The Ziium programming language: a Korean, message-oriented language implemented in Rust.",
+  "version": "1.0.0",
+  "author": "ziium",
+  "homepage": "https://github.com/ziium/ziium",
+  "skills": []
+}
