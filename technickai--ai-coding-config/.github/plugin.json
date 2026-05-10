@@ -1,0 +1,9 @@
+{
+  "name": "technickai--ai-coding-config",
+  "displayName": "ai-coding-config",
+  "description": "Claude Code plugin marketplace with 18 commands, 24 agents, and 33 coding rules",
+  "version": "1.0.0",
+  "author": "TechNickAI",
+  "homepage": "https://github.com/TechNickAI/ai-coding-config",
+  "skills": []
+}
