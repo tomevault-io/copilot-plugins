@@ -1,35 +1,156 @@
-## frontend-react
+## notifications
 
-> 前端 React/Vite 使用规范（API 客户端与 WS URL）
+> 通知系统规范（NotificationManager 与实时推送）
 
+# 通知系统规范
 
-# 前端规范
+## 核心组件
 
-环境与基础：
-- Vite 项目，API 基址来自 `VITE_API_BASE`（默认 `http://localhost:8000`）
-- 统一使用 `src/api/client.ts` 的封装方法进行 HTTP 请求与错误处理
+### NotificationManager
+- 位置：[backend/app/notification_manager.py](mdc:backend/app/notification_manager.py)
+- 全局单例：通过 `get_notification_manager()` 获取
+- 职责：
+  - 管理 WebSocket 监听器队列
+  - 维护通知历史（最多 1000 条）
+  - 广播通知到所有连接的客户端
+  - 根据类型自动选择日志级别
 
-错误处理：
-- `handleResponse()` 统一解析响应；非 2xx 会尝试读取 JSON 并使用 `detail` 字段
+### 通知类型（NotificationType）
+- `INFO`：一般信息
+- `SUCCESS`：成功事件
+- `WARNING`：警告
+- `ERROR`：错误
+- `TRADE_SIGNAL`：交易信号
+- `ORDER_UPDATE`：订单更新
+- `STRATEGY_UPDATE`：策略更新
 
-WebSocket：
-- 使用 `resolveWsUrl(path)` 自动根据 `VITE_API_BASE` 转换 `ws/wss` 协议
-- 行情流路径：`/ws/quotes`
+## API 端点
 
-页面路由/Tab：
-- 顶部 Tab 在 `src/App.tsx`，包含：设置、实时、实时K线、历史、策略控制、持仓监控
+路由：[backend/app/routers/notifications.py](mdc:backend/app/routers/notifications.py)
 
-接口约定（示例）：
-- 凭据：`fetchCredentials()`、`updateCredentials()`
-- 符号：`fetchSymbols()`、`updateSymbols()`
-- 校验：`verifySettings()`
-- 历史：`syncHistory()`、`fetchHistory()`
-- 明细：`fetchTicks()`
-- 组合：`fetchPortfolioOverview()`（返回 `positions/totals/account_balance`）
+### REST 接口
+- `GET /notifications/`：获取历史通知
+  - 参数：`limit`（默认 50）、`unread_only`（默认 false）
+- `POST /notifications/{notification_id}/read`：标记已读
+- `POST /notifications/read-all`：全部标记已读
+- `DELETE /notifications/`：清空所有通知
 
-参考：
-- [frontend/src/api/client.ts](mdc:frontend/src/api/client.ts)
-- [frontend/src/App.tsx](mdc:frontend/src/App.tsx)
+### WebSocket
+- `WS /notifications/ws`：实时通知流
+  - 连接后自动加入监听器列表
+  - 接收 JSON 格式的通知数据
+  - 断开时自动清理
+
+## 使用模式
+
+### 发送通知
+```python
+from backend.app.notification_manager import get_notification_manager, NotificationType
+
+notif_manager = get_notification_manager()
+
+# 通用通知
+await notif_manager.send_notification(
+    NotificationType.INFO,
+    "标题",
+    "消息内容",
+    data={"额外": "数据"}
+)
+
+# 专用通知方法
+await notif_manager.send_trading_signal(
+    strategy_id="strategy_1",
+    symbol="AAPL.US",
+    signal_type="BUY",
+    price=150.0
+)
+
+await notif_manager.send_order_update(
+    order_id="123456",
+    symbol="AAPL.US",
+    status="filled",
+    side="buy",
+    quantity=100,
+    price=150.0
+)
+
+await notif_manager.send_strategy_update(
+    strategy_id="strategy_1",
+    strategy_name="趋势策略",
+    status="active",
+    message="策略已启动"
+)
+```
+
+### 集成点
+
+策略引擎自动发送通知：
+- [backend/app/strategy_engine.py](mdc:backend/app/strategy_engine.py) 在交易事件时调用 `send_notification()`
+- 位置监控通过通知管理器发送仓位警报
+- 交易 API 在订单状态变化时发送更新
+
+## 数据结构
+
+### Notification
+```python
+@dataclass
+class Notification:
+    id: str                    # 唯一标识
+    type: NotificationType     # 通知类型
+    title: str                 # 标题
+    message: str              # 消息内容
+    data: Optional[Dict]      # 附加数据
+    timestamp: datetime       # 时间戳
+    read: bool               # 已读标志
+```
+
+### WebSocket 推送格式
+```json
+{
+  "type": "notification",
+  "data": {
+    "id": "notif_123_1696358400",
+    "type": "trade_signal",
+    "title": "交易信号 - AAPL.US",
+    "message": "策略 strategy_1 发出 BUY 信号，价格 150.0",
+    "data": {
+      "strategy_id": "strategy_1",
+      "symbol": "AAPL.US",
+      "signal_type": "BUY",
+      "price": 150.0
+    },
+    "timestamp": "2024-10-03T10:00:00",
+    "read": false
+  }
+}
+```
+
+## 注意事项
+
+1. **队列管理**：
+   - 每个 WebSocket 客户端独立队列（最多 50 条）
+   - 队列满时自动丢弃最旧消息
+   - 断开连接后自动清理队列
+
+2. **并发安全**：
+   - 监听器列表使用 `Set` 管理
+   - 发送时复制列表避免迭代冲突
+   - 失败的客户端自动移除
+
+3. **历史记录**：
+   - 内存存储，最多 1000 条
+   - 超出时滚动删除最旧记录
+   - 不持久化到数据库
+
+4. **错误处理**：
+   - 发送失败不影响其他客户端
+   - 自动记录警告日志
+   - 优雅降级（继续处理剩余客户端）
+
+参考文件：
+- [backend/app/notification_manager.py](mdc:backend/app/notification_manager.py)
+- [backend/app/routers/notifications.py](mdc:backend/app/routers/notifications.py)
+- [backend/app/strategy_engine.py](mdc:backend/app/strategy_engine.py)
 
 ---
 > Source: [majiajue/longbridge](https://github.com/majiajue/longbridge) — distributed by [TomeVault](https://tomevault.io).
