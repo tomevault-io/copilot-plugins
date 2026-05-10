@@ -1,0 +1,9 @@
+{
+  "name": "m1dnight--ferri",
+  "displayName": "ferri",
+  "description": "A self-hostable HTTP tunnel. Expose your local dev server to the internet with a single command.",
+  "version": "1.0.0",
+  "author": "m1dnight",
+  "homepage": "https://github.com/m1dnight/ferri",
+  "skills": []
+}
