@@ -1,0 +1,9 @@
+{
+  "name": "codeaashu--claude-code-info",
+  "displayName": "claude-code-info",
+  "description": "Leaked Claude Code source tree, documented: every file under claude/src with generated summaries, exports, dependency hints, and syntax-highlighted source previews",
+  "version": "1.0.0",
+  "author": "codeaashu",
+  "homepage": "https://github.com/codeaashu/claude-code-info",
+  "skills": []
+}
