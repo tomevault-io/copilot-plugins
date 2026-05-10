@@ -1,81 +1,76 @@
-## code-quality
+## project-structure
 
-> Code quality standards including TypeScript, testing, and formatting guidelines
+> File organization and architectural patterns for the AI setup repository
 
 
-# Code Quality Standards
+# Project Structure & Architecture
 
-Comprehensive code quality guidelines for the AI setup repository.
+Guidelines for organizing files and structuring the AI setup repository.
 
-## Core Development Principles
+## Expected Project Structure
 
-### 1. TypeScript Guidelines
-- Use strict type checking
-- Define interfaces for all AI API responses
-- Use union types for AI model selections
-- Implement proper error type definitions
-
-### 2. TypeScript Patterns
-```typescript
-// Define interfaces for AI responses
-interface AIResponse {
-  content: string;
-  model: string;
-  usage: {
-    prompt_tokens: number;
-    completion_tokens: number;
-  };
-}
-
-// Use union types for model selection
-type AIModel = 'gpt-4' | 'gpt-3.5-turbo' | 'claude-3' | 'claude-2';
+```
+.
+├── README.md                 # Project documentation
+├── LICENSE                   # MIT license
+├── .gitignore               # Node.js/Next.js patterns
+├── .cursor/rules/           # Cursor project rules
+├── .env.example             # Environment variable template
+├── package.json             # Dependencies and scripts
+├── next.config.js           # Next.js configuration
+├── tsconfig.json            # TypeScript configuration
+├── src/
+│   ├── app/                 # Next.js app directory
+│   ├── components/          # React components
+│   ├── lib/                 # Utility functions and AI clients
+│   ├── types/               # TypeScript type definitions
+│   └── utils/               # Helper functions
+├── public/                  # Static assets
+└── docs/                    # Additional documentation
 ```
 
-### 3. React Best Practices
-- Use functional components with hooks
-- Implement proper cleanup for AI subscriptions
-- Use React.memo for expensive AI-powered components
-- Handle loading and error states consistently
+## Key Directory Guidelines
 
-### 4. Testing Patterns
-```javascript
-// Example AI component test pattern
-describe('AI Chat Component', () => {
-  it('handles API errors gracefully', async () => {
-    // Mock AI service failure
-    mockAIService.mockRejectedValue(new Error('API Error'));
-    
-    render(<ChatComponent />);
-    
-    // Test error handling and user feedback
-    expect(screen.getByText(/error/i)).toBeInTheDocument();
-  });
-});
-```
+### Source Code Organization
+- `src/lib/` - Place AI client configurations and utilities here
+- `src/components/` - Reusable UI components, including AI-powered components
+- `src/app/api/` - API routes for AI services and integrations
+- `src/types/` - TypeScript definitions for AI responses and data models
 
-### 5. Error Handling Standards
-- Write comprehensive error handling and logging
-- Implement proper error boundaries for React components
-- Use custom error types for different failure scenarios
-- Provide meaningful error messages to users
+### Component Organization
+- Group related components in feature-specific subdirectories
+- Keep component styles and tests near the component
+- Use index files for clean imports
 
-### 6. Documentation Requirements
-- Document all AI-related functions and components
-- Include usage examples for AI integrations
-- Explain prompt engineering decisions
-- Document environment setup requirements
+### Utility Organization
+- Group related utilities in feature-specific directories
+- Separate AI-specific utilities from general utilities
+- Implement consistent naming patterns
 
-### 7. Code Style Guidelines
-- Write clean, readable, and well-documented code
-- Follow established linting and formatting rules
-- Write meaningful commit messages and documentation
-- Use descriptive variable and function names
+## Architectural Principles
 
-### 8. API Development Standards
-- Follow RESTful principles for AI service endpoints
-- Implement proper rate limiting and authentication
-- Use middleware for common AI service operations
-- Document API endpoints with clear examples
+### 1. Node.js/Next.js Development
+- Follow Next.js 13+ App Router patterns when applicable
+- Use modern ES6+ JavaScript/TypeScript features
+- Implement proper async/await patterns for AI API calls
+- Use React Server Components where appropriate
+- Optimize for both development and production environments
+
+### 2. File Naming Conventions
+- Use camelCase for JavaScript/TypeScript files
+- Use PascalCase for React component files
+- Use kebab-case for API routes and static files
+- Use descriptive names that indicate purpose
+
+### 3. Import Organization
+- Group imports by type (external, internal, relative)
+- Use absolute imports with path aliases when configured
+- Keep imports organized and clean
+
+### 4. Configuration Management
+- Keep all configuration files in the project root
+- Use TypeScript for configuration files when possible
+- Document configuration options and their purposes
 
 ---
 > Source: [HerringtonDarkholme/megarepo](https://github.com/HerringtonDarkholme/megarepo) — distributed by [TomeVault](https://tomevault.io).
