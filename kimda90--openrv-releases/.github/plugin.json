@@ -1,0 +1,9 @@
+{
+  "name": "kimda90--openrv-releases",
+  "displayName": "OpenRV-Releases",
+  "description": "OpenRV Releases build pipeline",
+  "version": "1.0.0",
+  "author": "kimda90",
+  "homepage": "https://github.com/kimda90/OpenRV-Releases",
+  "skills": []
+}
