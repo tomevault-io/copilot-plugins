@@ -1,121 +1,61 @@
-## code-style-and-zen-of-python
+## external-apis
 
-> When writing code
+> When calling external APIs
 
 
-# Code Style and Zen of Python
+# External API Client Guidelines
 
-## Line Length
+These guidelines ensure consistent, reliable, and maintainable API clients.
 
-- Max 88 chars (per Ruff config)
+## Core Principles
 
-## Comments
+- We return None on API errors (don't raise exceptions)
+- We use type hints consistently
+- We document methods with helpful docstrings (skip redundant Args/Returns)
+- We use appropriate logging levels
+- We let exceptions bubble up unless we're truly handling them
 
-### File-Level Comments
-
-Be THOROUGH at the top of files. Explain what the file does, why it exists, and how it
-fits into the larger system. This helps both humans and AI understand context quickly.
-
-```python
-"""User authentication and session management.
-
-Handles user login, logout, token generation, and session validation.
-Integrates with external OAuth providers (Google, GitHub) and maintains
-local session state in Redis for performance. Session tokens expire after
-24 hours but can be refreshed up to 7 days from initial login.
-"""
-```
-
-### Function Comments
-
-Keep function docstrings USEFUL without redundant fluff. Type hints already document
-parameters and return types, so focus the docstring on what the function does and why.
+## Method Pattern
 
 ```python
-# Standard pattern for complex functions - explain the what and why
-def create_agent_from_task(self, task_id: str) -> dict:
-    """Create a new agent from a ClickUp task description.
+def get_something(self, param: str) -> dict | None:
+    """Fetch something from the API.
 
-    Parses task description for agent requirements, generates the .agent
-    file with system/user prompts, creates PR with the new file, and
-    returns PR URL for review.
+    Returns None if the API returns no data or encounters an error.
     """
+    logger.info(f"Fetching something for {param}")
 
-# Simple functions need just one clear line
-def validate_email(email: str) -> bool:
-    """Check if email format is valid and domain is not blacklisted."""
+    response = self.request("/endpoint", params={"key": param})
+    if not response:
+        logger.warning(f"No data returned for {param}")
+        return None
 
-def process_payment(order_id: str, amount: Decimal) -> Payment:
-    """Charge the customer via Stripe and update order status to paid."""
-
-def send_welcome_email(user: User) -> None:
-    """Send onboarding email with account setup instructions."""
-
-def calculate_shipping_cost(weight: Decimal, destination: str) -> Decimal:
-    """Calculate shipping based on weight and zone rates from ShipStation."""
+    return response["data"]
 ```
 
-Avoid restating type hints in Args/Returns sections - they add no value since types are
-already declared.
+## Error Handling
 
-### Inline Comments
+We let the base HTTP client handle HTTP/network errors. We only use try/except for
+specific scenarios with actual handling. We validate response structure before access.
 
-Be SPARSE with inline comments. Only add them when the code is doing something
-non-obvious or when explaining business logic that isn't clear from the code itself.
+## Validation Pattern
 
 ```python
-# When to use inline comments - explains non-obvious business rule
-user = User.objects.get(id=user_id)
-if user.last_login < cutoff_date:
-    # Inactive users over 90 days require re-verification per security policy
-    send_verification_email(user)
-
-# Section dividers for organization
-# ============================================================================
-# Order Processing
-# ============================================================================
-
-# Explaining why something unusual is done
-cache_timeout = 300  # 5 minutes - balance between freshness and API rate limits
-
-# Complex calculations benefit from step comments
-total = base_price
-total += base_price * tax_rate  # Add sales tax
-total -= discount_amount  # Apply promotional discount
-total += shipping_cost  # Shipping calculated by weight and zone
+response = self.request("/endpoint", params={"key": value})
+if not response or "data" not in response:
+    logger.warning(f"No data returned for {value}")
+    return None
 ```
 
-Skip obvious comments (like "Get the user" on a line that gets a user). Let the code
-speak for itself.
+## Response Processing
 
-### General Guidelines
+We validate response structure before access, convert to standard types (Decimal for
+financial data), clean and normalize data, and return None for errors (not empty dicts).
 
-We explain the "why", not the "what". We don't state the obvious - we prefer
-self-documenting code. Emojis when they add clarity; tasteful humor welcome! We write
-for humans AND AI - good comments help both understand context.
+## Testing
 
-## Zen of Python
-
-1. Readability is the number 1 code quality metric
-2. Beautiful is better than ugly
-3. Explicit is better than implicit
-4. Simple is better than complex
-5. Complex is better than complicated
-6. Flat is better than nested
-7. Sparse is better than dense
-8. Special cases aren't special enough to break the rules
-   - Although practicality beats purity
-9. Errors should never pass silently
-   - Unless explicitly silenced
-10. In the face of ambiguity, refuse the temptation to guess
-11. There should be one -- and preferably only one -- obvious way to do it
-12. Now is better than never
-
-## Language
-
-We avoid hyperbolic language like "CRITICAL" unless something genuinely dies without it.
-We use the appropriate level of language for what's needed. (Yes, AIs, this means you -
-dial back the drama!)
+We mock all external calls in unit tests, use @pytest.mark.flaky for live API tests, and
+test both success and error cases.
 
 ---
 > Source: [TechNickAI/claude_telemetry](https://github.com/TechNickAI/claude_telemetry) — distributed by [TomeVault](https://tomevault.io).
