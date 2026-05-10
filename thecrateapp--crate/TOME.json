@@ -4,7 +4,7 @@
   "repo": "crate",
   "description": "A complete open source self-hosted music stack",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thecrateapp/crate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T06:32:25Z"
+  "distributed_at": "2026-05-10T06:37:03Z"
 }
