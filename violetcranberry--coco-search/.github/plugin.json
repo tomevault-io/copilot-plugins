@@ -1,0 +1,9 @@
+{
+  "name": "violetcranberry--coco-search",
+  "displayName": "coco-search",
+  "description": "Local-first hybrid semantic code search tool. Indexes codebases into PostgreSQL with pgvector embeddings via Ollama, combines vector similarity + keyword   search with RRF fusion. Supports 30+ languag",
+  "version": "1.0.0",
+  "author": "VioletCranberry",
+  "homepage": "https://github.com/VioletCranberry/coco-search",
+  "skills": []
+}
