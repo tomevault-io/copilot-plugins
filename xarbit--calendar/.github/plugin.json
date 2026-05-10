@@ -1,0 +1,9 @@
+{
+  "name": "xarbit--calendar",
+  "displayName": "Calendar",
+  "description": "The missing native Calender app for the COSMIC Desktop. Local, CalDAV, iCal.",
+  "version": "1.0.0",
+  "author": "xarbit",
+  "homepage": "https://github.com/xarbit/Calendar",
+  "skills": []
+}
