@@ -1,0 +1,9 @@
+{
+  "name": "milos-agathon--forge3d",
+  "displayName": "forge3d",
+  "description": "Rust\u2011first, cross\u2011platform wgpu/WebGPU renderer exposed to Python for fast, headless 3D rendering. Built in Rust, shipped as Python wheels.",
+  "version": "1.0.0",
+  "author": "milos-agathon",
+  "homepage": "https://github.com/milos-agathon/forge3d",
+  "skills": []
+}
