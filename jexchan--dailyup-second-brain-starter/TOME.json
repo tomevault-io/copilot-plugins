@@ -4,7 +4,7 @@
   "repo": "dailyup-second-brain-starter",
   "description": "An opinionated Obsidian second-brain template, built for long-term human-AI collaboration",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jexchan/dailyup-second-brain-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T16:44:22Z"
+  "distributed_at": "2026-05-10T07:02:52Z"
 }
