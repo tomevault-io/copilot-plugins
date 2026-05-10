@@ -1,0 +1,9 @@
+{
+  "name": "vtsaplin--datatalk-cli",
+  "displayName": "datatalk-cli",
+  "description": "Query CSV, Excel & Parquet files with natural language. Fast, local, DuckDB-powered.",
+  "version": "1.0.0",
+  "author": "vtsaplin",
+  "homepage": "https://github.com/vtsaplin/datatalk-cli",
+  "skills": []
+}
