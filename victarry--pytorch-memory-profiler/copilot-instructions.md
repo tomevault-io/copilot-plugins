@@ -1,62 +1,66 @@
-## memory-tracer-api
+## plugin-development
 
-> API usage patterns and best practices for MemoryTracer
+> All plugins must inherit from `TracerPlugin` and implement:
 
-# MemoryTracer API Usage Guide
+# Plugin Development Guidelines
 
-## Basic Usage Pattern
+## Plugin Interface
+All plugins must inherit from `TracerPlugin` and implement:
+- `setup(tracer)`: Initialize plugin with tracer instance
+- `enter()`: Called when entering tracer context
+- `exit(exc_type, exc_val, exc_tb)`: Cleanup on context exit
+
+## Plugin Responsibilities
+1. **Library Patching**: Override library-specific functions for fake tensor compatibility
+2. **Operation Tracking**: Register custom operations for memory tracking
+3. **Communication Handling**: Mock distributed operations
+4. **Resource Management**: Clean up patches and hooks on exit
+
+## Common Patterns
+
+### Patching External Libraries
 ```python
-from memory_profiler import MemoryTracer
-
-# Create tracer instance
-tracer = MemoryTracer(device="cuda", use_fake_tensor=True)
-
-# Use as context manager
-with tracer:
-    # Your model and training code here
-    model = create_model()
-    optimizer = create_optimizer(model.parameters())
+def enter(self):
+    # Save original function
+    self._original_func = library.function
+    # Replace with patched version
+    library.function = self._patched_function
     
-    # Register hooks for module-level tracking
-    hooks = tracer.memory_dispatch_mode.register_hooks_to_module(model)
-    
-    # Run training iteration
-    loss = train_step(model, data)
-    
-    # Clean up hooks
-    tracer.memory_dispatch_mode.remove_hooks(hooks)
-
-# Print memory statistics
-tracer.print_memory_stats()
+def exit(self, exc_type, exc_val, exc_tb):
+    # Restore original
+    library.function = self._original_func
 ```
 
-## Phase Tracking
-- Use `tracer.track_phase("phase_name")` to mark different training phases
-- Common phases: "forward", "backward", "optimizer_step"
-- Phases help identify memory bottlenecks
+### Handling Optional Dependencies
+```python
+try:
+    import optional_library
+    HAS_LIBRARY = True
+except ImportError:
+    HAS_LIBRARY = False
+    
+def setup(self, tracer):
+    if not HAS_LIBRARY:
+        logger.debug("Optional library not available, skipping plugin")
+        return
+```
 
-## Memory Snapshots
-- Save snapshots: `tracer.save_memory_snapshot(filepath)`
-- Snapshots include tensor details, stack traces, and module attribution
-- Use tools/visualizer.py to analyze snapshots
+### Custom Operation Registration
+```python
+def setup(self, tracer):
+    # Register custom ops with memory dispatcher
+    tracer.memory_dispatch_mode.register_custom_op(
+        op_name="custom_op",
+        memory_func=self.calculate_custom_op_memory
+    )
+```
 
-## Plugin System
-- Plugins are automatically loaded based on available libraries
-- Manual plugin registration: `tracer.register_plugin(MyPlugin())`
-- Plugins handle library-specific operations and patches
-
-## Distributed Training
-- Set WORLD_SIZE and RANK environment variables
-- Single process can simulate multi-GPU training
-- Supports TP (Tensor Parallel), PP (Pipeline Parallel), EP (Expert Parallel)
-
-## Best Practices
-1. Always use context manager to ensure proper cleanup
-2. Register hooks before training starts
-3. Track phases for detailed analysis
-4. Save snapshots at peak memory points
-5. Use fake tensors for estimation without GPU
-6. Clean up hooks after training iteration
+## Testing Plugins
+- Test with and without the target library
+- Verify patches don't break normal execution
+- Check memory calculations are accurate
+- Test distributed scenarios if applicable
+- Ensure proper cleanup in all exit paths
 
 ---
 > Source: [Victarry/PyTorch-Memory-Profiler](https://github.com/Victarry/PyTorch-Memory-Profiler) — distributed by [TomeVault](https://tomevault.io).
