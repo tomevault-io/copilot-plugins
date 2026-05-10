@@ -4,7 +4,7 @@
   "repo": "briefinglab",
   "description": "AI-powered content hub for Xbuilders \u2014 curated feeds, summaries, and signals.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/digging-airfare-4u/briefinglab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T22:42:14Z"
+  "distributed_at": "2026-05-10T11:02:40Z"
 }
