@@ -1,0 +1,9 @@
+{
+  "name": "gitjuzer--agentforge",
+  "displayName": "agentforge",
+  "description": "Adaptive multi-model LLM agent system for software engineering project management",
+  "version": "1.0.0",
+  "author": "gitjuzer",
+  "homepage": "https://github.com/gitjuzer/agentforge",
+  "skills": []
+}
