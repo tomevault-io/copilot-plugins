@@ -1,0 +1,9 @@
+{
+  "name": "kazupon--vite-plugin-makefile",
+  "displayName": "vite-plugin-makefile",
+  "description": "Vite plugin that converts Makefile targets into vite-plus tasks",
+  "version": "1.0.0",
+  "author": "kazupon",
+  "homepage": "https://github.com/kazupon/vite-plugin-makefile",
+  "skills": []
+}
