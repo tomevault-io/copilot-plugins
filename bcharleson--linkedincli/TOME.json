@@ -1,0 +1,44 @@
+{
+  "name": "linkedincli",
+  "owner": "bcharleson",
+  "repo": "linkedincli",
+  "description": "CLI and MCP server for LinkedIn \u2014 43 commands for profiles, posts, messaging, connections, search, feed, and more. Cookie session auth, AI agent native.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bcharleson/linkedincli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T10:05:36Z"
+}
