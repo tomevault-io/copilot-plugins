@@ -1,0 +1,9 @@
+{
+  "name": "aeoess--agent-passport-system",
+  "displayName": "agent-passport-system",
+  "description": "Cryptographic identity, delegation, governance, and commerce protocol for AI agents. Ed25519 signatures, 127 protocol modules, 2546 tests. npm install agent-passport-system",
+  "version": "1.0.0",
+  "author": "aeoess",
+  "homepage": "https://github.com/aeoess/agent-passport-system",
+  "skills": []
+}
