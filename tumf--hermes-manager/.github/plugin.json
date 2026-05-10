@@ -1,0 +1,9 @@
+{
+  "name": "tumf--hermes-manager",
+  "displayName": "hermes-manager",
+  "description": "Multi-agent control plane for provisioning, operating, and reusing Hermes Agents on a single host.",
+  "version": "1.0.0",
+  "author": "tumf",
+  "homepage": "https://github.com/tumf/hermes-manager",
+  "skills": []
+}
