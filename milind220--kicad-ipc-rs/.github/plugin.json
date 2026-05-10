@@ -1,0 +1,9 @@
+{
+  "name": "milind220--kicad-ipc-rs",
+  "displayName": "kicad-ipc-rs",
+  "description": "MIT licensed, fully updated, actively maintained Rust bindings for the KiCAD IPC API ",
+  "version": "1.0.0",
+  "author": "Milind220",
+  "homepage": "https://github.com/Milind220/kicad-ipc-rs",
+  "skills": []
+}
