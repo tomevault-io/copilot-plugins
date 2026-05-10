@@ -1,38 +1,73 @@
-## project-philosophy
+## python-standards
 
-> - Strictly follow the Zen of Python (PEP 20)
+> - Never add comments to code unless explicitly requested
 
 
-# Geovibes Project Philosophy and Standards
+# Python Coding Standards for Geovibes
 
-## Core Principles
-- Strictly follow the Zen of Python (PEP 20)
-- Prefer explicit over implicit
-- Simple is better than complex
-- Readability counts
-- Flat is better than nested
-- Sparse is better than dense
+## Comments and Documentation
+- Never add comments to code unless explicitly requested
+- Never add inline comments
+- Always include docstrings for functions, classes, and modules
+- Use Google-style or NumPy-style docstrings with type hints
 
-## Development Environment
-- Default assumption: Working on GCP cloud VMs or Modal serverless compute
-- Always ensure conda environment 'geovibes' is activated: `conda activate geovibes`
-- Ask for clarification if deployment environment affects implementation
+## Type Hints and Imports
+- Always add comprehensive type hints to all functions and methods
+- Use typing module imports as needed (List, Dict, Optional, Union, etc.)
+- Include return type annotations
+- Organize imports: standard library, third-party, local modules
+- Use f-strings for string formatting
 
-## Performance Focus
-- Actively consider and implement parallelization for I/O-heavy tasks
-- Use appropriate libraries (multiprocessing, concurrent.futures, asyncio, etc.)
-- Design with cloud-scale performance in mind
+## Error Handling During Development
+- DO NOT wrap code in try/except blocks during development
+- Only add try/except statements when explicitly told "we are ready to finish up"
+- When implementing error handling (only when requested), be specific about exception types
 
-## Path Handling
-- Always use `os.path.join()`, `pathlib.Path`, or similar for path operations
-- Never use string concatenation or manipulation for file paths
-- Use platform-independent path handling
+## Function Design
+- Do not create wrapper functions for single operations
+- Bad: `def load_csv(path): return pd.read_csv(path)`
+- Good: Use `pd.read_csv()` directly in the code
+- Only create functions when they encapsulate multiple operations or complex logic
 
-## Output Standards
-- DO NOT generate explanatory markdown files after completing tasks
-- DO NOT create README files unless explicitly requested
-- DO NOT generate example or demo scripts after completing tasks
-- Focus on delivering the requested functionality only
+## Code Quality
+- Follow PEP 8 style guidelines
+- Assume Python 3.8+ unless specified otherwise
+- Avoid global variables
+- Prefer generators for large data processing
+- Use context managers (with statements) for resource handling
+
+## Example Good Practice:
+```python
+from typing import List, Dict, Optional
+import pandas as pd
+from pathlib import Path
+
+def process_data_files(
+    file_paths: List[str], 
+    output_dir: str,
+    chunk_size: Optional[int] = None
+) -> Dict[str, pd.DataFrame]:
+    """
+    Process multiple data files in parallel.
+    
+    Args:
+        file_paths: List of file paths to process
+        output_dir: Directory to save processed files
+        chunk_size: Optional chunk size for large files
+        
+    Returns:
+        Dictionary mapping file names to processed DataFrames
+    """
+    output_path = Path(output_dir)
+    output_path.mkdir(exist_ok=True)
+    
+    results = {}
+    for file_path in file_paths:
+        df = pd.read_csv(file_path, chunksize=chunk_size)
+        results[Path(file_path).name] = df
+    
+    return results
+```
 
 ---
 > Source: [cr458/geovibes](https://github.com/cr458/geovibes) — distributed by [TomeVault](https://tomevault.io).
