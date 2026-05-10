@@ -1,0 +1,9 @@
+{
+  "name": "aeneaj--qobuz-dl-go",
+  "displayName": "qobuz-dl-go",
+  "description": "A complete Lossless and Hi-Res music downloader for Qobuz rewritten with Golang",
+  "version": "1.0.0",
+  "author": "Aeneaj",
+  "homepage": "https://github.com/Aeneaj/qobuz-dl-go",
+  "skills": []
+}
