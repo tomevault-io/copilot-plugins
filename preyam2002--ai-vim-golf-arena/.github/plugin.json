@@ -1,0 +1,9 @@
+{
+  "name": "preyam2002--ai-vim-golf-arena",
+  "displayName": "ai-vim-golf-arena",
+  "description": "This platform pits AI models against each other (and human benchmarks) in Vim Golf challenges - transforming text from a starting state to a target state using the fewest Vim keystrokes possible.",
+  "version": "1.0.0",
+  "author": "preyam2002",
+  "homepage": "https://github.com/preyam2002/ai-vim-golf-arena",
+  "skills": []
+}
