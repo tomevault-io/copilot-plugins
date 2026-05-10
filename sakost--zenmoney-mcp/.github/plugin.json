@@ -1,0 +1,9 @@
+{
+  "name": "sakost--zenmoney-mcp",
+  "displayName": "zenmoney-mcp",
+  "description": "MCP server wrapping the ZenMoney personal finance API",
+  "version": "1.0.0",
+  "author": "sakost",
+  "homepage": "https://github.com/sakost/zenmoney-mcp",
+  "skills": []
+}
