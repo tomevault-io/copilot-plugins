@@ -1,37 +1,36 @@
-## prompt-management
+## tag-system
 
-> 应用的核心功能是提示词（Prompt）的管理，包括添加、编辑、删除和标记收藏。
+> PromptGenie 使用标签（Tags）代替类别（Categories）对提示词进行分类管理。
 
-# 提示词管理
+# 标签系统
 
-应用的核心功能是提示词（Prompt）的管理，包括添加、编辑、删除和标记收藏。
+PromptGenie 使用标签（Tags）代替类别（Categories）对提示词进行分类管理。
 
 ## 数据模型
 
-提示词包含以下字段:
+标签包含以下字段:
 - id: 唯一标识符
-- title: 标题
-- content: 提示词内容
-- tags: 标签列表（用于分类和筛选）
-- isFavorite: 是否收藏
-- createdAt: 创建时间
-- updatedAt: 更新时间
+- name: 标签名称
+- color: 标签颜色（可选）
+
+提示词和标签是多对多关系，通过关联表 prompt_tags 连接。
 
 ## 关键组件
 
-- [src/components/PromptList.tsx](mdc:src/components/PromptList.tsx) - 提示词列表显示组件
-- [src/components/PromptCard.tsx](mdc:src/components/PromptCard.tsx) - 提示词卡片组件
-- [src/components/PromptForm.tsx](mdc:src/components/PromptForm.tsx) - 提示词编辑表单
+- [src/components/TagSelector.tsx](mdc:src/components/TagSelector.tsx) - 标签选择器组件
+- [src/components/TagList.tsx](mdc:src/components/TagList.tsx) - 标签列表显示组件
+- [src/components/TagBadge.tsx](mdc:src/components/TagBadge.tsx) - 标签徽章组件
 
 ## 数据操作
 
-所有数据库操作通过 [src/services/db.ts](mdc:src/services/db.ts) 中的服务函数实现:
-- getPrompts() - 获取所有提示词
-- getPromptById() - 根据ID获取提示词
-- createPrompt() - 创建新提示词
-- updatePrompt() - 更新提示词
-- deletePrompt() - 删除提示词
-- toggleFavorite() - 切换收藏状态
+标签相关的数据库操作:
+- getTags() - 获取所有标签
+- createTag() - 创建新标签
+- updateTag() - 更新标签
+- deleteTag() - 删除标签
+- getPromptTags() - 获取提示词的标签
+- addTagToPrompt() - 为提示词添加标签
+- removeTagFromPrompt() - 从提示词中移除标签
 
 ---
 > Source: [ChrisZou/promptgenie](https://github.com/ChrisZou/promptgenie) — distributed by [TomeVault](https://tomevault.io).
