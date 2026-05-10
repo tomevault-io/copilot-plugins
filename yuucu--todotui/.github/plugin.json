@@ -1,0 +1,9 @@
+{
+  "name": "yuucu--todotui",
+  "displayName": "todotui",
+  "description": "\u2328\ufe0f A Vim-like TUI that honors the simplicity of todo.txt \ud83d\udcdd",
+  "version": "1.0.0",
+  "author": "yuucu",
+  "homepage": "https://github.com/yuucu/todotui",
+  "skills": []
+}
