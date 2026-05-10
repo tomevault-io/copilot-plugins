@@ -1,0 +1,9 @@
+{
+  "name": "evilfreelancer--img2md-vlm-ocr",
+  "displayName": "img2md-vlm-ocr",
+  "description": "A comprehensive service for extracting document structure and content from images using advanced computer vision and vision-language models (VLM)",
+  "version": "1.0.0",
+  "author": "EvilFreelancer",
+  "homepage": "https://github.com/EvilFreelancer/img2md-vlm-ocr",
+  "skills": []
+}
