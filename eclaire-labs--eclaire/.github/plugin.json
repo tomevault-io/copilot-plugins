@@ -1,0 +1,9 @@
+{
+  "name": "eclaire-labs--eclaire",
+  "displayName": "eclaire",
+  "description": "Local-first, open-source AI assistant for your data. Unify tasks, notes, docs, photos, and bookmarks. Private, self-hosted, and extensible via APIs.",
+  "version": "1.0.0",
+  "author": "eclaire-labs",
+  "homepage": "https://github.com/eclaire-labs/eclaire",
+  "skills": []
+}
