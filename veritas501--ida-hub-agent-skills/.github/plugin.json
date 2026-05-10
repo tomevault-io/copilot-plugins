@@ -1,0 +1,9 @@
+{
+  "name": "veritas501--ida-hub-agent-skills",
+  "displayName": "ida-hub-agent-skills",
+  "description": "Orchestrate multiple IDA Pro instances through a central Hub, enabling AI agents to perform complex cross-instance reverse engineering tasks",
+  "version": "1.0.0",
+  "author": "veritas501",
+  "homepage": "https://github.com/veritas501/ida-hub-agent-skills",
+  "skills": []
+}
