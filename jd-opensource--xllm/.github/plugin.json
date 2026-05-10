@@ -1,0 +1,9 @@
+{
+  "name": "jd-opensource--xllm",
+  "displayName": "xllm",
+  "description": "A high-performance inference engine for LLM, VLM, DiT and REC models, optimized for diverse AI accelerators.",
+  "version": "1.0.0",
+  "author": "jd-opensource",
+  "homepage": "https://github.com/jd-opensource/xllm",
+  "skills": []
+}
