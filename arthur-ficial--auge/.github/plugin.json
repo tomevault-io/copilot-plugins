@@ -1,0 +1,9 @@
+{
+  "name": "arthur-ficial--auge",
+  "displayName": "auge",
+  "description": "On-device vision CLI - Apple Vision framework OCR, image classification, and object detection from the command line",
+  "version": "1.0.0",
+  "author": "Arthur-Ficial",
+  "homepage": "https://github.com/Arthur-Ficial/auge",
+  "skills": []
+}
