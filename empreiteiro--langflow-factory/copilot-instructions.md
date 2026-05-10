@@ -1,297 +1,477 @@
-## langflow-factory
+## dynamic-ui
 
-> from langflow.custom import Component
+> Dynamic output in Langflow components can be significantly affected by changing the number of rows in a `TableInput`. This behavior allows components to automatically adapt to data volume, showing relevant outputs based on the amount of available information.
 
-# Langflow Component Development Rules
+# Guide: Dynamic Output with Table Input
 
-## Component Structure Requirements
+## Overview
 
-### Class Definition
+Dynamic output in Langflow components can be significantly affected by changing the number of rows in a `TableInput`. This behavior allows components to automatically adapt to data volume, showing relevant outputs based on the amount of available information.
+
+## How It Works
+
+### 1. `update_outputs` Method
+
+The `update_outputs` method is the key to implementing dynamic output. It is automatically called when a field with `real_time_refresh=True` is modified.
+
 ```python
-from langflow.custom import Component
-from langflow.io import StrInput, BoolInput, FileInput
-from langflow.schema import Data, Message, DataFrame
-
-class ComponentName(Component):
-    display_name = "User Friendly Name"
-    description = "Clear, concise component description"
-    icon = "lucide-icon-name"  # Use Lucide icons only
-    name = "ComponentName"
-    version = "1.0.0"
-```
-
-### Input Patterns
-- Use `StrInput` for text, `BoolInput` for toggles, `FileInput` for files
-- Set `real_time_refresh=True` for fields that should trigger UI updates
-- Use `dynamic=True` and `show=False` for conditional fields
-- Always set `required=True` for mandatory inputs
-- Use `multiline=True` for text areas, `password=True` for secrets
-
-### Output Requirements
-- Always return `Data`, `Message`, or `DataFrame` objects
-- Use `Message` only for chat/text content with sender info
-- Use `DataFrame` for tabular data
-- Use `Data` for all other structured data
-- Define outputs with clear `display_name` and matching `method` names
-
-## Logging and Error Handling
-
-### Logging Rules
-- ALWAYS use `self.log()` instead of Python's logging module
-- Log errors before raising exceptions: `self.log(f"Error: {str(e)}")`
-- Log important processing steps for debugging
-- Use descriptive log messages with context
-
-### Error Handling Pattern
-```python
-def process_method(self) -> Data:
-    try:
-        # Validate inputs first
-        self.validate_inputs()
+def update_outputs(self, frontend_node: dict, field_name: str, field_value: Any) -> dict:
+    """Updates outputs dynamically based on the number of rows in the table input."""
+    if field_name == "data_table":
+        # Gets the number of rows in the table
+        row_count = len(field_value) if field_value else 0
         
-        # Process data
-        result = self.execute_logic()
+        # Clears existing outputs
+        frontend_node["outputs"] = []
         
-        return Data(data={"result": result})
-    except Exception as e:
-        self.log(f"Component failed: {str(e)}")
-        return Data(data={"error": str(e)})
+        # Adds outputs based on the number of rows
+        if row_count == 0:
+            # No rows - shows only warning
+            frontend_node["outputs"].append(
+                Output(display_name="Warning", name="warning", method="show_warning")
+            )
+        elif row_count == 1:
+            # One row - shows item details
+            frontend_node["outputs"].append(
+                Output(display_name="Item Details", name="item_details", method="show_item_details")
+            )
+        # ... more conditions
+        
+    return frontend_node
 ```
 
-## Input Validation Requirements
+### 2. TableInput Configuration
 
-### Validation Method
+For dynamic output to work, the `TableInput` must have `real_time_refresh=True`:
+
 ```python
-def validate_inputs(self) -> None:
-    """Validate all component inputs before processing"""
-    if not self.required_field:
-        raise ValueError("Required field is missing")
-    
-    if hasattr(self, 'timeout') and self.timeout <= 0:
-        raise ValueError("Timeout must be positive")
-```
-
-## Dynamic Fields Implementation
-
-### Real-time Refresh Pattern
-```python
-# In inputs list
-BoolInput(
-    name="advanced_mode",
-    display_name="Advanced Mode", 
-    real_time_refresh=True
+TableInput(
+    name="data_table",
+    display_name="Data Table",
+    info="Add or remove rows to see how outputs change dynamically.",
+    table_schema=[...],
+    value=[...],
+    real_time_refresh=True,  # Important!
 ),
-StrInput(
-    name="advanced_option",
-    display_name="Advanced Option",
-    dynamic=True,
-    show=False
-)
-
-# Update method
-def update_build_config(self, build_config: dict, field_value: any, field_name: str) -> dict:
-    if field_name == "advanced_mode":
-        build_config["advanced_option"]["show"] = field_value
-    return build_config
 ```
 
-## File Processing Rules
+## Dynamic Output Strategies
 
-### File Path Handling
-- Use `resolve_path()` method for file path resolution
-- Support multiple file formats when applicable
-- Handle encoding detection for text files
-- Follow USER_ID/FILE_ID.FILE_EXTENSION format for output paths
+### 1. Based on Number of Rows
 
-### File Processing Pattern
+| Number of Rows | Suggested Outputs | Justification |
+|----------------|------------------|---------------|
+| 0 | Warning | No data to process |
+| 1 | Item Details | Specific information for the single item |
+| 2-5 | Summary + Basic Statistics | Simple analysis suitable for the volume |
+| 6-10 | Summary + Advanced Statistics + Category Analysis | More detailed analysis |
+| 10+ | All available outputs | Complete analysis and reports |
+
+### 2. Based on Data Type
+
 ```python
-def process_files(self) -> DataFrame:
-    try:
-        resolved_files = self.resolve_path()
-        results = []
-        
-        for file_obj in resolved_files:
-            # Process each file
-            processed_data = self.process_single_file(file_obj)
-            results.append(Data(data=processed_data))
-        
-        return DataFrame(results)
-    except Exception as e:
-        self.log(f"File processing failed: {str(e)}")
-        return DataFrame([Data(data={"error": str(e)})])
-```
-
-## API Integration Standards
-
-### Authentication
-- Store API keys in `SecretStrInput` fields
-- Validate credentials before making requests
-- Handle authentication failures gracefully
-- Implement proper credential management
-
-### Request Handling
-- Implement exponential backoff for rate limiting
-- Handle pagination when needed
-- Parse API responses consistently
-- Log API usage for debugging
-- Return structured error responses for failed calls
-
-### HTTP Client Pattern
-```python
-def make_api_request(self, endpoint: str, data: dict) -> dict:
-    try:
-        response = requests.post(
-            endpoint,
-            json=data,
-            headers={"Authorization": f"Bearer {self.api_key}"},
-            timeout=self.timeout
+def update_outputs(self, frontend_node: dict, field_name: str, field_value: Any) -> dict:
+    if field_name == "data_table":
+        # Analyzes the type of data in rows
+        has_numeric_data = any(
+            str(item.get("value", "")).isdigit() 
+            for item in field_value
         )
-        response.raise_for_status()
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        self.log(f"API request failed: {str(e)}")
-        raise
-```
-
-## Component Organization
-
-### Naming Conventions
-- Use PascalCase for class names
-- Use snake_case for method and variable names
-- Use clear, descriptive names for inputs/outputs
-- Prefix private methods with underscore
-
-### Code Structure
-- Keep components focused on single responsibility
-- Extract reusable logic into separate methods
-- Group related inputs together
-- Document complex logic with inline comments
-- Use type hints for all parameters and returns
-
-## Testing Requirements
-
-### Component Testing
-- Create test files in `/tests` directory
-- Test both success and failure scenarios  
-- Mock external API calls
-- Validate component outputs
-- Test dynamic field behavior
-- Include edge case testing
-
-## DataFrame Output Patterns
-
-### Correct DataFrame Return Pattern
-- ALWAYS use `DataFrame(pd.DataFrame(data))` wrapper for tabular data
-- DO NOT set `self.status` when returning DataFrames - it interferes with display
-- Log DataFrame info before returning for debugging
-- Return error DataFrames for failures: `DataFrame(pd.DataFrame({"error": [error_msg]}))`
-
-### Working DataFrame Pattern
-```python
-def search_method(self) -> DataFrame:
-    try:
-        # Process data
-        results = []
-        for item in data:
-            results.append({
-                "column1": item.value1,
-                "column2": item.value2
-            })
         
-        # Create DataFrame and log info
-        df = pd.DataFrame(results)
-        self.log(f"Returning DataFrame with {len(df)} rows and columns: {list(df.columns)}")
-        return DataFrame(df)
+        if has_numeric_data:
+            frontend_node["outputs"].append(
+                Output(display_name="Statistics", name="stats", method="generate_stats")
+            )
+        else:
+            frontend_node["outputs"].append(
+                Output(display_name="Text Analysis", name="text_analysis", method="analyze_text")
+            )
+    
+    return frontend_node
+```
+
+### 3. Based on Data Complexity
+
+```python
+def update_outputs(self, frontend_node: dict, field_name: str, field_value: Any) -> dict:
+    if field_name == "data_table":
+        # Counts unique categories
+        categories = set(item.get("category", "") for item in field_value)
         
-    except Exception as e:
-        self.log(f"Error: {str(e)}")
-        return DataFrame(pd.DataFrame({"error": [str(e)]}))
+        if len(categories) > 3:
+            frontend_node["outputs"].append(
+                Output(display_name="Category Analysis", name="category_analysis", method="analyze_categories")
+            )
+        
+        # Checks if there are numeric values
+        numeric_values = [item for item in field_value if str(item.get("value", "")).isdigit()]
+        if len(numeric_values) > 5:
+            frontend_node["outputs"].append(
+                Output(display_name="Statistical Analysis", name="statistical_analysis", method="analyze_statistics")
+            )
+    
+    return frontend_node
 ```
 
-### DataFrame Display Issues
-- If DataFrame shows only status message but no data, check return pattern
-- Ensure proper indentation in loops when appending results
-- DO NOT mix `self.status` setting with DataFrame returns
-- Use logging instead of status for debugging DataFrame issues
+## Practical Examples
 
-## Performance Guidelines
+### Example 1: Sales Analysis Component
 
-### Optimization Rules
-- Process multiple files in batch when possible
-- Use efficient data structures for large datasets
-- Implement progress tracking for long operations
-- Cache results when appropriate
-- Minimize memory usage for large file processing
-
-### Resource Management
-- Close file handles properly
-- Clean up temporary files
-- Handle memory-intensive operations carefully
-- Use generators for large data processing
-
-## Multi-Action Component Pattern
-
-### Creating Components with Separate Actions
-When you need multiple actions in a single component (like Z-API Actions), follow this pattern:
-
-#### 1. Multiple Outputs Structure
 ```python
-outputs = [
-    Output(display_name="Action 1", name="action1", method="method1"),
-    Output(display_name="Action 2", name="action2", method="method2"),
-    Output(display_name="Action 3", name="action3", method="method3"),
-]
+class SalesAnalysisComponent(Component):
+    inputs = [
+        TableInput(
+            name="sales_data",
+            display_name="Sales Data",
+            table_schema=[
+                {"name": "product", "display_name": "Product", "type": "str"},
+                {"name": "quantity", "display_name": "Quantity", "type": "str"},
+                {"name": "price", "display_name": "Price", "type": "str"},
+                {"name": "category", "display_name": "Category", "type": "str"},
+            ],
+            real_time_refresh=True,
+        )
+    ]
+    
+    def update_outputs(self, frontend_node: dict, field_name: str, field_value: Any) -> dict:
+        if field_name == "sales_data":
+            row_count = len(field_value) if field_value else 0
+            
+            frontend_node["outputs"] = []
+            
+            # Always shows processed data
+            frontend_node["outputs"].append(
+                Output(display_name="Processed Data", name="processed_data", method="process_data")
+            )
+            
+            if row_count == 0:
+                frontend_node["outputs"].append(
+                    Output(display_name="Warning", name="warning", method="show_warning")
+                )
+            elif row_count <= 10:
+                frontend_node["outputs"].append(
+                    Output(display_name="Sales Summary", name="sales_summary", method="generate_summary")
+                )
+            else:
+                frontend_node["outputs"].append(
+                    Output(display_name="Sales Summary", name="sales_summary", method="generate_summary")
+                )
+                frontend_node["outputs"].append(
+                    Output(display_name="Category Analysis", name="category_analysis", method="analyze_categories")
+                )
+                frontend_node["outputs"].append(
+                    Output(display_name="Top Products", name="top_products", method="get_top_products")
+                )
+                frontend_node["outputs"].append(
+                    Output(display_name="Full Report", name="full_report", method="generate_full_report")
+                )
+        
+        return frontend_node
 ```
 
-#### 2. Separate Methods for Each Action
+### Example 2: Data Processing Component
+
 ```python
-def method1(self) -> Data:
-    """Execute Action 1 logic"""
-    try:
-        # Action 1 specific logic
-        result = self._execute_action1()
-        return Data(data={"result": result})
-    except Exception as e:
-        self.log(f"Action 1 failed: {str(e)}")
-        raise ValueError(f"Action 1 failed: {e!s}") from e
-
-def method2(self) -> Data:
-    """Execute Action 2 logic"""
-    try:
-        # Action 2 specific logic
-        result = self._execute_action2()
-        return Data(data={"result": result})
-    except Exception as e:
-        self.log(f"Action 2 failed: {str(e)}")
-        raise ValueError(f"Action 2 failed: {e!s}") from e
+class DataProcessorComponent(Component):
+    inputs = [
+        TableInput(
+            name="input_data",
+            display_name="Input Data",
+            table_schema=[
+                {"name": "id", "display_name": "ID", "type": "str"},
+                {"name": "value", "display_name": "Value", "type": "str"},
+                {"name": "type", "display_name": "Type", "type": "str"},
+            ],
+            real_time_refresh=True,
+        )
+    ]
+    
+    def update_outputs(self, frontend_node: dict, field_name: str, field_value: Any) -> dict:
+        if field_name == "input_data":
+            row_count = len(field_value) if field_value else 0
+            
+            frontend_node["outputs"] = []
+            
+            # Always shows processed data
+            frontend_node["outputs"].append(
+                Output(display_name="Processed Data", name="processed_data", method="process_data")
+            )
+            
+            # Adds outputs based on quantity and type of data
+            if row_count > 0:
+                # Checks if there's numeric data
+                has_numeric = any(
+                    str(item.get("value", "")).isdigit() 
+                    for item in field_value
+                )
+                
+                if has_numeric:
+                    frontend_node["outputs"].append(
+                        Output(display_name="Statistics", name="statistics", method="calculate_statistics")
+                    )
+                
+                # Checks if there are different types
+                types = set(item.get("type", "") for item in field_value)
+                if len(types) > 1:
+                    frontend_node["outputs"].append(
+                        Output(display_name="Type Analysis", name="type_analysis", method="analyze_by_type")
+                    )
+                
+                # For large volumes, adds advanced analysis
+                if row_count > 50:
+                    frontend_node["outputs"].append(
+                        Output(display_name="Advanced Analysis", name="advanced_analysis", method="advanced_analysis")
+                    )
+        
+        return frontend_node
 ```
 
-#### 3. Key Implementation Rules
-- **Each output = one action in Langflow UI**
-- **Each method = one specific operation**
-- **Remove action selection dropdowns** - users connect desired output
-- **Each method handles its own authentication and validation**
-- **Follow the pattern of StructuredOutputComponent and AstraDB**
+## Benefits of Dynamic Output
 
-#### 4. Benefits of This Pattern
-- Actions appear as separate options in Langflow
-- No need for action selection logic
-- Cleaner user interface
-- Better error isolation per action
-- Easier to maintain and extend
+### 1. Improved User Experience
+- Clean and relevant interface
+- Appropriate outputs for data volume
+- Reduced confusion with unnecessary outputs
 
-#### 5. Example Components Using This Pattern
-- `ZAPIActionsComponent` - Multiple Z-API operations
-- `StructuredOutputComponent` - Multiple output formats
-- `AstraDBVectorStoreComponent` - Multiple search methods
+### 2. Optimized Performance
+- Processing only necessary data
+- Reduced computational load
+- Faster response
 
-#### 6. Common Mistakes to Avoid
-- DON'T use a single method with action selection
-- DON'T mix action selection dropdowns with multiple outputs
-- DON'T forget to handle errors in each method separately
-- DON'T use `self.status` when returning DataFrames
+### 3. Flexibility
+- Automatic adaptation to context
+- Scalability with data volume
+- Simplified maintenance
+
+## Important Considerations
+
+### 1. Performance
+- Avoid unnecessary processing on large volumes
+- Consider pagination for very large datasets
+- Implement caching when appropriate
+
+### 2. Usability
+- Keep outputs consistent when possible
+- Provide clear feedback about changes
+- Document expected behavior
+
+### 3. Maintainability
+- Use constants for thresholds
+- Keep output logic organized
+- Test different data scenarios
+
+## Advanced Challenges and Solutions
+
+### 1. Problem: Dynamic Methods and Type Identification
+
+**Challenge**: When you create outputs dynamically with methods that don't exist statically in the class, Langflow cannot identify the return type of the outputs.
+
+**Problematic Example**:
+```python
+def update_outputs(self, frontend_node: dict, field_name: str, field_value: Any) -> dict:
+    for i, row in enumerate(field_value):
+        frontend_node["outputs"].append(
+            Output(
+                display_name=row.get("label", f"Case {i+1}"),
+                name=f"case_{i+1}_result",
+                method=f"process_case_{i+1}",  # ❌ Method doesn't exist statically
+                group_outputs=True
+            )
+        )
+```
+
+**Solution**: Use a single static method that handles internal routing:
+
+```python
+def update_outputs(self, frontend_node: dict, field_name: str, field_value: Any) -> dict:
+    for i, row in enumerate(field_value):
+        frontend_node["outputs"].append(
+            Output(
+                display_name=row.get("label", f"Case {i+1}"),
+                name=f"case_{i+1}_result",
+                method="process_case",  # ✅ Single static method
+                group_outputs=True
+            )
+        )
+
+def process_case(self) -> Message:
+    """Single method that processes all cases and stops unused outputs."""
+    cases = getattr(self, "cases", [])
+    # Logic to determine which case should be active
+    # Use self.stop() to stop unused outputs
+    for i in range(len(cases)):
+        if i != matched_case:
+            self.stop(f"case_{i+1}_result")
+    
+    return message_for_matched_case
+```
+
+### 2. Output Control with self.stop()
+
+**Concept**: Use `self.stop(output_name)` to control which outputs remain active during execution.
+
+```python
+def process_case(self) -> Message:
+    # Find the matching case
+    matched_case = None
+    for i, case in enumerate(cases):
+        if self.evaluate_condition(input_text, case_value, operator, case_sensitive):
+            matched_case = i
+            break
+    
+    if matched_case is not None:
+        # Stop all other cases
+        for i in range(len(cases)):
+            if i != matched_case:
+                self.stop(f"case_{i+1}_result")
+        
+        # Also stop the default output
+        self.stop("default_result")
+        
+        return self.message  # Return only for the active case
+    else:
+        # Stop all cases, leave only default active
+        for i in range(len(cases)):
+            self.stop(f"case_{i+1}_result")
+        
+        self.stop("process_case")  # Stop this method
+        return Message(text="")  # Default will be active
+```
+
+### 3. Synchronization Between Methods
+
+**Problem**: When you have multiple methods that need the same logic (like `process_case` and `default_response`).
+
+**Solution**: Share evaluation logic:
+
+```python
+def default_response(self) -> Message:
+    """Check if any case would match, if so, stop this output."""
+    cases = getattr(self, "cases", [])
+    
+    # Use the same logic as process_case
+    has_match = False
+    for case in cases:
+        match_value = case.get("value", "")
+        if match_value and self.evaluate_condition(input_text, match_value, operator, case_sensitive):
+            has_match = True
+            break
+    
+    if has_match:
+        self.stop("default_result")  # Stop this output
+        return Message(text="")
+    else:
+        return self.message  # This is the active output
+```
+
+### 4. Complete Example: Conditional Router
+
+```python
+class ConditionalRouterComponent(Component):
+    inputs = [
+        TableInput(
+            name="cases",
+            display_name="Cases",
+            table_schema=[
+                {"name": "label", "display_name": "Label", "type": "str"},
+                {"name": "value", "display_name": "Value", "type": "str"},
+            ],
+            real_time_refresh=True,  # Important for dynamic output
+        ),
+        DropdownInput(
+            name="operator",
+            display_name="Operator",
+            options=["equals", "contains", "starts with", "ends with"],
+        ),
+        MessageInput(name="message", display_name="Message"),
+    ]
+
+    def update_outputs(self, frontend_node: dict, field_name: str, field_value: Any) -> dict:
+        if field_name == "cases":
+            frontend_node["outputs"] = []
+            
+            # Add one output for each case
+            for i, row in enumerate(field_value):
+                label = row.get("label", f"Case {i+1}")
+                frontend_node["outputs"].append(
+                    Output(
+                        display_name=label,
+                        name=f"case_{i+1}_result",
+                        method="process_case",  # Single method
+                        group_outputs=True
+                    )
+                )
+            
+            # Always add default output
+            frontend_node["outputs"].append(
+                Output(display_name="Else", name="default_result", method="default_response", group_outputs=True)
+            )
+        
+        return frontend_node
+
+    def process_case(self) -> Message:
+        """Process all cases and activate only the one that matches."""
+        cases = getattr(self, "cases", [])
+        input_text = getattr(self, "input_text", "")
+        operator = getattr(self, "operator", "equals")
+        message = getattr(self, "message", Message(text=""))
+        
+        matched_case = None
+        for i, case in enumerate(cases):
+            match_value = case.get("value", "")
+            if match_value and self.evaluate_condition(input_text, match_value, operator):
+                matched_case = i
+                break
+        
+        if matched_case is not None:
+            # Stop all other outputs
+            for i in range(len(cases)):
+                if i != matched_case:
+                    self.stop(f"case_{i+1}_result")
+            self.stop("default_result")
+            
+            self.status = f"Matched {cases[matched_case].get('label', f'Case {matched_case+1}')}"
+            return message
+        else:
+            # Stop all case outputs
+            for i in range(len(cases)):
+                self.stop(f"case_{i+1}_result")
+            self.stop("process_case")
+            return Message(text="")
+
+    def default_response(self) -> Message:
+        """Active only when no case matches."""
+        cases = getattr(self, "cases", [])
+        input_text = getattr(self, "input_text", "")
+        operator = getattr(self, "operator", "equals")
+        message = getattr(self, "message", Message(text=""))
+        
+        # Check if any case would match
+        for case in cases:
+            match_value = case.get("value", "")
+            if match_value and self.evaluate_condition(input_text, match_value, operator):
+                self.stop("default_result")
+                return Message(text="")
+        
+        # No case matched
+        self.status = "Routed to Else (no match)"
+        return message
+```
+
+### 5. Best Practices for Dynamic Outputs
+
+1. **Use static methods**: Avoid creating method names dynamically
+2. **Implement control with stop()**: To ensure only one output is active
+3. **Synchronize logic**: Between different methods that make similar evaluations
+4. **Add informative logs**: To debug output behavior
+5. **Test edge cases**: Like empty lists or invalid values
+
+## Conclusion
+
+Dynamic output based on table input is a powerful functionality that allows creating more intelligent and responsive components. By implementing the `update_outputs` method and configuring `real_time_refresh=True`, you can create significantly better user experiences that automatically adapt to data context.
+
+The learnings from developing the Conditional Router show that complex dynamic outputs require special attention to method design and flow control, but when well implemented, they provide extremely flexible and powerful functionalities. 
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Empreiteiro)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Empreiteiro)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [Empreiteiro/langflow-factory](https://github.com/Empreiteiro/langflow-factory) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
