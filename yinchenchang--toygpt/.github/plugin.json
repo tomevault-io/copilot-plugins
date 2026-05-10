@@ -1,0 +1,9 @@
+{
+  "name": "yinchenchang--toygpt",
+  "displayName": "ToyGPT",
+  "description": "Character-level transformer language model trained on Shakespeare, based on Andrej Karpathy's tutorial",
+  "version": "1.0.0",
+  "author": "YinchenChang",
+  "homepage": "https://github.com/YinchenChang/ToyGPT",
+  "skills": []
+}
