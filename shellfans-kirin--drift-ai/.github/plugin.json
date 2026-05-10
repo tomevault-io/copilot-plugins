@@ -1,0 +1,9 @@
+{
+  "name": "shellfans-kirin--drift-ai",
+  "displayName": "drift_ai",
+  "description": "Local-first CLI: capture AI coding sessions, compact them, bind to commits via git notes. Day-one Claude Code + Codex.",
+  "version": "1.0.0",
+  "author": "ShellFans-Kirin",
+  "homepage": "https://github.com/ShellFans-Kirin/drift_ai",
+  "skills": []
+}
