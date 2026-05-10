@@ -7,14 +7,14 @@ Give your Antigravity agent the collective intelligence of the "Oh My" ecosystem
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [materialofair/oh-my-antigravity](https://github.com/materialofair/oh-my-antigravity).
+Original source: `AGENTS.md` in [materialofair/oh-my-antigravity](https://github.com/materialofair/oh-my-antigravity).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/materialofair/oh-my-antigravity](https://github.com/materialofair/oh-my-antigravity)
