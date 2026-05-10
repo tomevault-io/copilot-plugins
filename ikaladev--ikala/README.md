@@ -7,13 +7,13 @@ Proyecto visible página web
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [ikaladev/Ikala](https://github.com/ikaladev/Ikala).
+Original source: `CLAUDE.md` in [ikaladev/Ikala](https://github.com/ikaladev/Ikala).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
