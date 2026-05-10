@@ -1,68 +1,128 @@
-## project-structure
+## quick-comments-guide
 
-> Build AI Template 项目结构和技术栈指南
+> 代码注释快速指南 - 简明扼要的注释规范参考
 
 
-# Build AI Template - 项目结构指南
+# 代码注释快速指南
 
-## 项目概述
+## 核心要求
 
-这是一个用于快速构建 AI 应用的开源模板项目，核心功能是与智能代理（Agent）进行对话。
+- **必须使用中文注释**
+- **每个函数、类、组件和模型都应有详细的文档字符串 (docstring/JSDoc)**
+- **复杂或关键的业务逻辑必须有行内注释**
+- **代码修改时必须同步更新注释**
 
-## 技术栈
+## Python 注释模板
 
-- **前端**: Next.js 15.3 + TypeScript + Tailwind CSS + Shadcn UI + React 19
-- **后端**: FastAPI + Python 3.12 + SQLModel + PostgreSQL + Redis
-- **AI**: OpenAI API + 自定义 Agent 框架
-- **部署**: Docker + Docker Compose
-- **包管理**: 前端 `pnpm`，后端 `uv`
+### 函数/方法
 
-## 核心目录结构
+```python
+async def create_user(db: Session, user_data: UserCreate) -> User:
+    """
+    创建新用户并处理相关业务逻辑。
 
-### 后端 (`api/`)
+    - 参数:
+      - `db`: 数据库会话对象。
+      - `user_data`: 用户创建数据 (email, password)。
+    - 返回:
+      - 创建成功的用户对象。
+    - 异常:
+      - `ValueError`: 邮箱已存在。
+    """
+```
 
-- **`api/app/main.py`**: FastAPI 应用入口
-- **`api/app/core/`**: 核心配置 (安全, i18n)
-- **`api/app/models/`**: SQLModel 数据模型
-- **`api/app/schemas/`**: Pydantic 验证模式
-- **`api/app/routers/`**: API 路由定义
-- **`api/app/crud/`**: 数据库 CRUD 操作
-- **`api/app/services/`**: 业务逻辑服务
-- **`api/pyproject.toml`**: Python 依赖配置
+### 类
 
-### 前端 (`web/`)
+```python
+class UserService:
+    """
+    处理用户相关业务逻辑的服务类。
 
-- **`web/app/`**: Next.js App Router 页面
-- **`web/components/`**: React 组件 (包括 `ui/` 和 `admin/`)
-- **`web/i18n/`**: 国际化配置
-- **`web/util/`**: 工具函数
-- **`web/package.json`**: 前端依赖配置
+    主要功能:
+    - 用户注册与登录
+    - 权限验证
+    - 邮箱验证码处理
+    """
+```
 
-## 关键配置文件
+## TypeScript/React 注释模板
 
-- **`deploy/docker-compose.yaml`**: 生产环境部署
-- **`deploy-test/docker-compose.yaml`**: 测试环境部署
+### 组件/Hook
 
-## 开发流程
+```typescript
+/**
+ * 聊天内容页面组件，负责显示消息历史和处理用户输入。
+ *
+ * @param chatId - 聊天会话 ID。
+ * @param agentId - AI 助手 ID。
+ */
+export default function ChatContentPage({ chatId, agentId }: ChatContentPageProps) {
+  // ...
+}
 
-1. **后端优先**: 在 `api/` 中实现模型、路由和业务逻辑。
-2. **前端实现**: 在 `web/` 中创建对应的组件和页面。
-3. **样式开发**: 使用 Tailwind CSS 和 Shadcn UI。
-4. **国际化**: 添加翻译到 `web/app/messages/`。
-5. **类型定义**: 确保前后端类型一致。
+/**
+ * 管理聊天消息状态的 Hook，包括加载、发送和本地缓存。
+ *
+ * @param chatId - 聊天会话 ID。
+ * @returns 消息管理相关的状态和函数。
+ */
+export function useChatMessages(chatId: number) {
+  // ...
+}
+```
 
-## 开发规范
+### 状态变量
 
-- **代码注释**: 必须为所有代码添加详细的中文注释。
-- **代码优先**: 专注于功能实现，让代码本身成为最好的文档。
-- **注释维护**: 代码修改时必须同步更新相关注释。
+```typescript
+// 消息列表状态，存储当前对话的所有消息
+const [messages, setMessages] = useState<Message[]>([])
 
-## 核心功能模块
+// 发送状态，用于控制按钮禁用和加载指示器
+const [isSending, setIsSending] = useState(false)
+```
 
-- **用户管理**: 邮箱验证码登录、权限管理
-- **对话系统**: AI Agent 对话、流式响应
-- **管理后台**: 用户、对话、Agent 管理
-- **任务系统**: Agent 任务识别与执行
+## API 路由和数据库模型
+
+### API 路由 (FastAPI)
+
+```python
+@router.post("/users", response_model=UserResponse)
+async def create_user_endpoint(user_data: UserCreate):
+    """
+    创建用户 API 端点。
+
+    - 权限: 管理员
+    - 请求: `user_data` (包含 email, password)
+    - 响应 (201): 创建成功的用户信息。
+    - 响应 (400): 邮箱重复或数据格式错误。
+    """
+```
+
+### 数据库模型 (SQLModel)
+
+```python
+class User(SQLModel, table=True):
+    """
+    用户数据模型。
+
+    业务规则:
+    - 邮箱是唯一标识符，用于登录。
+    - 支持软删除 (`is_deleted` 字段)。
+    - 密码必须加密存储。
+    """
+    id: Optional[int] = Field(primary_key=True, description="用户唯一标识符")
+    email: str = Field(unique=True, description="用户邮箱地址，登录凭证")
+```
+
+## 注释清单
+
+- [ ] **该注释吗？**: 所有公共函数、组件、模型、API 端点和复杂逻辑都需要注释。
+- [ ] **写了什么？**: 注释应清晰说明代码的**功能**、**目的**和**业务规则**。
+- [ ] **质量如何？**:
+  - 使用中文。
+  - 描述参数和返回值。
+  - 列出可能的异常或错误情况。
+- [ ] **是否同步？**: 修改代码后，务必检查并更新相关注释。
 
 ---
 > Source: [open-v2ai/build-ai-template](https://github.com/open-v2ai/build-ai-template) — distributed by [TomeVault](https://tomevault.io).
