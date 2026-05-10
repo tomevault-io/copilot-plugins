@@ -1,333 +1,778 @@
-## eslint
+## react
 
-> - Write clean, readable, and maintainable code
+> React best practices and patterns for this codebase
 
 
-# ESLint Rules
+# React Development Guidelines
 
-## Code Quality & Style
+## Core Principles
 
-### General Principles
+1. **Function Components Only**: No class components - use hooks for state and lifecycle
+2. **TypeScript First**: Every component, prop, and hook must be properly typed
+3. **Composition Over Inheritance**: Build complex UIs from simple, composable pieces
+4. **Performance by Default**: Consider performance implications in initial implementation
+5. **Accessibility Always**: Every interactive element must be keyboard and screen reader accessible
 
-- Write clean, readable, and maintainable code
-- Prefer explicit and clear code over clever shortcuts
-- Use modern ES6+ features and TypeScript when applicable
-- Follow consistent naming conventions (camelCase for variables/functions, PascalCase for classes/components)
+## Component Architecture
 
-### Imports & Exports
+### File Structure
 
-- **Import Organization**: Order imports logically:
-  1. React and React-related imports
-  2. External libraries
-  3. Internal modules using path aliases (@/)
-  4. Relative imports
-  5. Type imports last
-- **No Duplicate Imports**: Consolidate imports from the same module
-- **No Unused Imports**: Remove any unused imports immediately
-- **TypeScript Imports**: Use `import type` for type-only imports
-- **Node Protocol**: Always use `node:` protocol for Node.js built-in modules (e.g., `import fs from 'node:fs'`)
-- **No Circular Dependencies**: Avoid circular imports between modules
-- **No Self Imports**: Never import from the same file
-- **Path Aliases**: Prefer `@/` imports over relative paths for src/ files
+```
+src/
+├── components/
+│   ├── ui/           # Reusable UI components (Button, Input, Card)
+│   ├── layout/       # Layout components (Header, Footer, Sidebar)
+│   └── features/     # Feature-specific components
+├── hooks/            # Custom React hooks
+├── utils/            # Utility functions
+├── types/            # Shared TypeScript types
+└── assets/           # Images, fonts, etc.
+```
 
-### TypeScript Guidelines
-
-- **Strict Type Safety**: Use proper TypeScript types, avoid `any` except in test files
-- **Consistent Type Imports**: Always use `import type` for type-only imports
-- **Optional Chaining**: Prefer optional chaining (`?.`) over manual null checks
-- **Nullish Coalescing**: Use `??` instead of `||` when checking for null/undefined
-- **Await Thenable**: Only await promises and thenable objects
-- **No Floating Promises**: Handle promise rejections appropriately (though currently relaxed)
-- **React Component Types**: Use `FC` or explicit return types for components
-- **Event Handler Types**: Use proper React event types (e.g., `React.MouseEvent<HTMLButtonElement>`)
-
-## Code Patterns & Best Practices
-
-### Control Flow
-
-- **No With Statements**: Never use `with` statements
-- **No Labels**: Avoid labeled statements
-- **Prefer Switch**: Use `switch` statements over complex if-else chains when appropriate
-- **Logical Operators**: Prefer logical operators over ternary when simpler
-
-### Functions & Async
-
-- **Promise Handling**:
-  - Don't wrap values in `Promise.resolve()` unnecessarily
-  - Use proper parameter names in promise methods
-  - Always catch or return promises
-  - Avoid nesting promises
-  - Don't mix callbacks and promises
-  - Don't use `new` with static promise methods
-  - Avoid returns in `finally` blocks
-- **Async/Await**: Don't await non-thenable expressions
-- **Prefer for...of**: Use `for...of` loops instead of `Array.forEach()` when possible
-
-### Variables & Scope
-
-- **Unused Variables**: Remove unused variables, prefix with `_` if needed for API compliance
-- **No Redeclaration**: Avoid variable redeclaration (handled by TypeScript)
-
-## Security Considerations
-
-- **Regex Safety**: Avoid non-literal regex patterns when possible
-- **Object Injection**: Be cautious with dynamic object access (though detection is relaxed)
-- **File System**: Use caution with dynamic file paths
-
-## File-Specific Rules
-
-### Test Files (`*.test.*`, `*.spec.*`, `/tests/`)
-
-- Allow `console.log` statements for debugging
-- Allow `any` type when necessary for mocking
-- Focus on readability and comprehensive test coverage
-- Use Vitest for testing React components
-- Use React Testing Library for component testing
-- Test user interactions over implementation details
-
-### Service Worker Files (`src/background/**`)
-
-- **No Browser APIs**: Never use `window`, `document`, `localStorage`, or `sessionStorage`
-- **Use Chrome APIs**: Use `chrome.storage` instead of web storage APIs
-- **Service Worker Globals**: Only use APIs available in service worker context
-- Available globals: `chrome`, `LanguageModel`, and standard service worker APIs
-
-### TypeScript Declaration Files (`*.d.ts`)
-
-- These are typically ignored and auto-generated
-- When writing custom declarations, use proper TypeScript declaration syntax
-
-## Comments & Documentation
-
-- **ESLint Comments**:
-  - Pair disable/enable comments properly
-  - Don't use unlimited disables
-  - Remove unused disable comments
-  - Use specific rule names in disable comments
-
-### Regex Patterns
-
-- Avoid empty capturing groups
-- Don't use lazy quantifiers at string ends
-- Prefer named capture groups when appropriate
-
-## Global Variables & Environment
-
-- **Available Globals**:
-  - Browser: Standard browser APIs
-  - Node.js: All Node.js globals
-  - Chrome Extensions: `chrome` API
-  - Bun: `Bun` runtime APIs
-  - Custom: `HTMLRewriter`, `LanguageModel`
-
-## File Organization
-
-- **Ignore Patterns**: Don't generate code for:
-  - `dist/`, `build/`, `coverage/`, `.bun/` directories
-  - `node_modules/`
-  - Lock files
-  - Git directories
-  - Temporary directories
-  - Auto-generated declaration files
-
-## Error Handling
-
-- **Disable Directives**: Report unused ESLint disable directives as errors
-- **Promise Validation**: Validate promise method parameters
-- **Import Cycles**: Prevent and resolve circular dependencies
-
-## Performance & Optimization
-
-- Prefer modern JavaScript features over polyfills
-- Use efficient array methods and iteration patterns
-- Avoid unnecessary async/await when not needed
-- Minimize bundle size by avoiding unnecessary dependencies
-
-## React-Specific Guidelines
-
-### React Hooks Rules
-
-- **Rules of Hooks**: Only call hooks at the top level, never in conditionals or loops
-- **Custom Hooks**: Prefix with `use` (e.g., `useAuth`, `useLocalStorage`)
-- **Dependency Arrays**: Include all dependencies in useEffect/useCallback/useMemo
-- **Cleanup Functions**: Always return cleanup functions in useEffect when needed
-
-### Component Guidelines
-
-- **Functional Components**: Always use functional components over class components
-- **Component Naming**: Use PascalCase for components, camelCase for instances
-- **Props Destructuring**: Destructure props in function parameters
-- **Default Props**: Use default parameters or defaultProps
-- **Key Props**: Always use stable, unique keys in lists
-- **Fragment Shorthand**: Use `<>` instead of `React.Fragment` when possible
-
-### JSX Guidelines
-
-- **Self-Closing Tags**: Use self-closing tags for components without children
-- **Boolean Props**: Omit `={true}` for boolean props
-- **Conditional Rendering**: Use `&&` for simple conditions, ternary for if-else
-- **Event Handlers**: Prefix with `handle` or `on` (e.g., `handleClick`, `onSubmit`)
-- **Inline Functions**: Avoid creating functions in render for performance
-
-### Performance Rules
-
-- **Memoization**: Use React.memo for expensive components
-- **useCallback**: Wrap callbacks passed to optimized child components
-- **useMemo**: Memoize expensive computations
-- **Lazy Loading**: Use React.lazy for code splitting
-- **Virtual Lists**: Consider virtualization for long lists
-
-### Accessibility (a11y)
-
-- **Semantic HTML**: Use proper HTML elements (button, nav, main, etc.)
-- **ARIA Labels**: Add aria-labels for interactive elements without visible text
-- **Keyboard Navigation**: Ensure all interactive elements are keyboard accessible
-- **Alt Text**: Always provide alt text for images
-- **Focus Management**: Handle focus appropriately in SPAs
-
-## Code Examples
-
-### Good Import Patterns
+### Component Organization
 
 ```typescript
-// React imports first
-import React, { useState, useEffect, type FC } from 'react';
-import { useRouter } from 'next/router';
-
-// External libraries
+// 1. Imports (in order)
+import { useState, useEffect, type FC } from 'react';
 import { z } from 'zod';
-import axios from 'axios';
 import clsx from 'clsx';
 
-// Internal modules with path aliases
-import { Button } from '@/components/ui/Button';
-import { useAuth } from '@/hooks/useAuth';
-import { API_URL } from '@/constants';
-
-// Relative imports
-import { utils } from '../utils';
-
-// Type imports last
-import type { User } from '@/types';
-import type { ButtonProps } from './Button.types';
-```
-
-### Good TypeScript Patterns
-
-```typescript
-// Use optional chaining and nullish coalescing
-const name = user?.profile?.name ?? 'Unknown';
-
-// Proper type imports
-import type { ComponentProps } from 'react';
-
-// Handle promises properly
-try {
-  const result = await fetchData();
-  return result;
-} catch (error) {
-  console.error('Failed to fetch data:', error);
-  throw error;
-}
-```
-
-### Service Worker Code
-
-```typescript
-// Good - use chrome APIs
-chrome.storage.local.set({ key: 'value' });
-
-// Bad - browser APIs not available
-// window.localStorage.setItem('key', 'value'); // ❌
-// document.querySelector('.element'); // ❌
-```
-
-### Good React Component Pattern
-
-```typescript
-import { useState, useCallback, type FC } from 'react';
-import { z } from 'zod';
-import { Button } from '@/components/ui/Button';
-import type { User } from '@/types';
-
-interface UserCardProps {
-  user: User;
-  onUpdate?: (user: User) => void;
-  className?: string;
+// 2. Type definitions
+interface ComponentProps {
+  // Props interface
 }
 
-export const UserCard: FC<UserCardProps> = ({
-  user,
-  onUpdate,
-  className
-}) => {
-  const [isEditing, setIsEditing] = useState(false);
+// 3. Schema definitions (if needed)
+const PropsSchema = z.object({
+  // Validation schema
+});
 
-  const handleEdit = useCallback(() => {
-    setIsEditing(true);
-  }, []);
+// 4. Component definition
+export const Component: FC<ComponentProps> = (props) => {
+  // 5. Hooks
+  const [state, setState] = useState();
 
-  const handleSave = useCallback((updatedUser: User) => {
-    onUpdate?.(updatedUser);
-    setIsEditing(false);
-  }, [onUpdate]);
+  // 6. Event handlers
+  const handleClick = () => {};
+
+  // 7. Effects
+  useEffect(() => {}, []);
+
+  // 8. Render
+  return <div />;
+};
+
+// 9. Display name (for debugging)
+Component.displayName = 'Component';
+```
+
+## State Management Patterns
+
+### Local State
+
+```typescript
+// Simple state for UI-only concerns
+const [isOpen, setIsOpen] = useState(false);
+
+// Complex state with reducer for business logic
+const [state, dispatch] = useReducer(reducer, initialState);
+```
+
+### Lifted State
+
+```typescript
+// Lift state to lowest common ancestor
+export function Parent() {
+  const [sharedState, setSharedState] = useState();
 
   return (
-    <div className={clsx('rounded-lg bg-white p-4', className)}>
-      <h3 className="text-lg font-bold">{user.name}</h3>
-      {isEditing ? (
-        <EditForm user={user} onSave={handleSave} />
-      ) : (
-        <Button onClick={handleEdit}>Edit</Button>
-      )}
+    <>
+      <ChildA state={sharedState} />
+      <ChildB onUpdate={setSharedState} />
+    </>
+  );
+}
+```
+
+### Global State (Context)
+
+```typescript
+// Create context with proper typing
+const StateContext = createContext<StateValue | undefined>(undefined);
+
+// Provider with value memoization
+export const StateProvider: FC<{ children: ReactNode }> = ({ children }) => {
+  const [state, setState] = useState();
+
+  const value = useMemo(
+    () => ({ state, setState }),
+    [state]
+  );
+
+  return <StateContext.Provider value={value}>{children}</StateContext.Provider>;
+};
+
+// Custom hook with error boundary
+export const useAppState = () => {
+  const context = useContext(StateContext);
+  if (!context) {
+    throw new Error('useAppState must be used within StateProvider');
+  }
+  return context;
+};
+```
+
+## Performance Optimization
+
+### Memoization Rules
+
+```typescript
+// Memo for expensive components
+export const ExpensiveComponent = memo(({ data }: Props) => {
+  return <ComplexVisualization data={data} />;
+});
+
+// useCallback for stable function references
+const handleSubmit = useCallback((data: FormData) => {
+  // Process data
+}, [dependency]);
+
+// useMemo for expensive calculations
+const processedData = useMemo(() => {
+  return expensiveCalculation(rawData);
+}, [rawData]);
+```
+
+### Code Splitting
+
+```typescript
+// Route-based splitting
+const Dashboard = lazy(() => import('@/pages/Dashboard'));
+
+// Component-based splitting for heavy components
+const HeavyChart = lazy(() => import('@/components/HeavyChart'));
+
+// With loading boundary
+<Suspense fallback={<Spinner />}>
+  <HeavyChart data={data} />
+</Suspense>
+```
+
+### List Optimization
+
+```typescript
+// Always use stable, unique keys
+items.map((item) => <Item key={item.id} {...item} />)
+
+// Virtualize long lists (100+ items)
+import { FixedSizeList } from 'react-window';
+
+<FixedSizeList
+  height={600}
+  itemCount={items.length}
+  itemSize={50}
+>
+  {({ index, style }) => (
+    <div style={style}>
+      <Item {...items[index]} />
     </div>
+  )}
+</FixedSizeList>
+```
+
+## Styling with TailwindCSS
+
+### Class Name Organization
+
+```typescript
+// Use clsx for conditional classes
+import clsx from 'clsx';
+
+<div
+  className={clsx(
+    // Base styles first
+    'rounded-lg border p-4',
+    // Conditional styles
+    {
+      'border-blue-500 bg-blue-50': isActive,
+      'border-gray-300 bg-white': !isActive,
+    },
+    // Size variants
+    {
+      'text-sm': size === 'small',
+      'text-base': size === 'medium',
+      'text-lg': size === 'large',
+    },
+    // State styles
+    'hover:shadow-md focus:outline-none focus:ring-2',
+    // Override with className prop
+    className
+  )}
+/>
+```
+
+### Component Variants with CVA
+
+```typescript
+import { cva, type VariantProps } from 'class-variance-authority';
+
+const buttonVariants = cva(
+  // Base styles
+  'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50',
+  {
+    variants: {
+      variant: {
+        primary: 'bg-blue-600 text-white hover:bg-blue-700',
+        secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300',
+        ghost: 'hover:bg-gray-100',
+      },
+      size: {
+        sm: 'h-9 px-3 text-sm',
+        md: 'h-10 px-4',
+        lg: 'h-11 px-8',
+      },
+    },
+    defaultVariants: {
+      variant: 'primary',
+      size: 'md',
+    },
+  }
+);
+
+interface ButtonProps
+  extends HTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  loading?: boolean;
+}
+
+export const Button: FC<ButtonProps> = ({
+  variant,
+  size,
+  className,
+  loading,
+  disabled,
+  children,
+  ...props
+}) => {
+  return (
+    <button
+      className={clsx(buttonVariants({ variant, size }), className)}
+      disabled={disabled || loading}
+      {...props}
+    >
+      {loading ? <Spinner /> : children}
+    </button>
   );
 };
 ```
 
-### Good Custom Hook Pattern
+## Form Handling
+
+### Controlled Components
 
 ```typescript
-import { useState, useEffect } from 'react';
+export function ControlledForm() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    // Process formData
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        name="name"
+        value={formData.name}
+        onChange={handleChange}
+      />
+      <input
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+      />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+```
+
+### React Hook Form + Zod
+
+```typescript
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-const DataSchema = z.object({
-  id: z.string(),
-  value: z.number(),
+const FormSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Invalid email address'),
+  age: z.number().min(18, 'Must be at least 18'),
 });
 
-type Data = z.infer<typeof DataSchema>;
+type FormData = z.infer<typeof FormSchema>;
 
-export function useApiData(endpoint: string) {
-  const [data, setData] = useState<Data | null>(null);
+export function ValidatedForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      age: 18,
+    },
+  });
+
+  const onSubmit = async (data: FormData) => {
+    // Data is validated and typed
+    await api.submitForm(data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <input {...register('name')} placeholder="Name" />
+        {errors.name && (
+          <span className="text-red-500">{errors.name.message}</span>
+        )}
+      </div>
+
+      <div>
+        <input {...register('email')} type="email" placeholder="Email" />
+        {errors.email && (
+          <span className="text-red-500">{errors.email.message}</span>
+        )}
+      </div>
+
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? 'Submitting...' : 'Submit'}
+      </button>
+    </form>
+  );
+}
+```
+
+## Custom Hooks Patterns
+
+### Data Fetching Hook
+
+```typescript
+export function useFetch<T>(url: string) {
+  const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    const abortController = new AbortController();
+
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch(endpoint);
+        const response = await fetch(url, {
+          signal: abortController.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const json = await response.json();
-        const validated = DataSchema.parse(json);
-        setData(validated);
+        setData(json);
       } catch (err) {
-        setError(err instanceof Error ? err : new Error('Unknown error'));
+        if (err instanceof Error && err.name !== 'AbortError') {
+          setError(err);
+        }
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [endpoint]);
+
+    return () => abortController.abort();
+  }, [url]);
 
   return { data, loading, error };
 }
 ```
 
-When generating code, always follow these patterns and ensure the code would pass the ESLint configuration provided.
+### Local Storage Hook
 
-If you are unclear on any of these rules, review @eslint.config.js.
+```typescript
+export function useLocalStorage<T>(
+  key: string,
+  initialValue: T
+): [T, (value: T | ((val: T) => T)) => void] {
+  // Get from local storage then parse stored json or return initialValue
+  const readValue = useCallback((): T => {
+    if (typeof window === 'undefined') {
+      return initialValue;
+    }
+
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.warn(`Error reading localStorage key "${key}":`, error);
+      return initialValue;
+    }
+  }, [initialValue, key]);
+
+  const [storedValue, setStoredValue] = useState<T>(readValue);
+
+  const setValue = useCallback(
+    (value: T | ((val: T) => T)) => {
+      try {
+        const valueToStore = value instanceof Function ? value(storedValue) : value;
+        setStoredValue(valueToStore);
+
+        if (typeof window !== 'undefined') {
+          window.localStorage.setItem(key, JSON.stringify(valueToStore));
+        }
+      } catch (error) {
+        console.warn(`Error setting localStorage key "${key}":`, error);
+      }
+    },
+    [key, storedValue]
+  );
+
+  useEffect(() => {
+    setStoredValue(readValue());
+  }, [readValue]);
+
+  return [storedValue, setValue];
+}
+```
+
+## Testing Best Practices
+
+### Component Testing
+
+```typescript
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { vi } from 'vitest';
+import { Button } from './Button';
+
+describe('Button', () => {
+  it('renders with correct text', () => {
+    render(<Button>Click me</Button>);
+    expect(screen.getByRole('button')).toHaveTextContent('Click me');
+  });
+
+  it('handles click events', async () => {
+    const handleClick = vi.fn();
+    render(<Button onClick={handleClick}>Click me</Button>);
+
+    fireEvent.click(screen.getByRole('button'));
+
+    await waitFor(() => {
+      expect(handleClick).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it('shows loading state', () => {
+    render(<Button loading>Submit</Button>);
+    expect(screen.getByRole('button')).toBeDisabled();
+    expect(screen.queryByText('Submit')).not.toBeInTheDocument();
+  });
+});
+```
+
+### Hook Testing
+
+```typescript
+import { renderHook, act } from '@testing-library/react';
+import { useCounter } from './useCounter';
+
+describe('useCounter', () => {
+  it('increments counter', () => {
+    const { result } = renderHook(() => useCounter());
+
+    act(() => {
+      result.current.increment();
+    });
+
+    expect(result.current.count).toBe(1);
+  });
+});
+```
+
+## Error Boundaries
+
+```typescript
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
+class ErrorBoundary extends Component<
+  { children: ReactNode; fallback?: ReactNode },
+  ErrorBoundaryState
+> {
+  constructor(props: { children: ReactNode; fallback?: ReactNode }) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error('Error caught by boundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        this.props.fallback || (
+          <div className="p-4 text-red-600">
+            <h2>Something went wrong.</h2>
+            <details>
+              <summary>Error details</summary>
+              <pre>{this.state.error?.toString()}</pre>
+            </details>
+          </div>
+        )
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+// Usage
+<ErrorBoundary fallback={<ErrorFallback />}>
+  <App />
+</ErrorBoundary>
+```
+
+## Accessibility Guidelines
+
+### Semantic HTML
+
+```typescript
+// ✅ Good
+<button onClick={handleClick}>Click me</button>
+<nav>{/* navigation items */}</nav>
+<main>{/* main content */}</main>
+
+// ❌ Bad
+<div onClick={handleClick}>Click me</div>
+<div className="navigation">{/* navigation items */}</div>
+```
+
+### ARIA Attributes
+
+```typescript
+// Labeling
+<button aria-label="Close dialog">×</button>
+
+// Live regions
+<div aria-live="polite" aria-atomic="true">
+  {notification && <p>{notification}</p>}
+</div>
+
+// Descriptions
+<input
+  aria-describedby="email-error"
+  aria-invalid={!!errors.email}
+/>
+<span id="email-error">{errors.email?.message}</span>
+```
+
+### Focus Management
+
+```typescript
+export function Modal({ isOpen, onClose, children }: ModalProps) {
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      closeButtonRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div role="dialog" aria-modal="true">
+      <button ref={closeButtonRef} onClick={onClose} aria-label="Close">
+        ×
+      </button>
+      {children}
+    </div>
+  );
+}
+```
+
+## Common Patterns
+
+### Render Props
+
+```typescript
+interface RenderPropProps<T> {
+  data: T[];
+  renderItem: (item: T, index: number) => ReactNode;
+}
+
+function List<T>({ data, renderItem }: RenderPropProps<T>) {
+  return (
+    <ul>
+      {data.map((item, index) => (
+        <li key={index}>{renderItem(item, index)}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+### Compound Components
+
+```typescript
+interface TabsContextValue {
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+}
+
+const TabsContext = createContext<TabsContextValue | undefined>(undefined);
+
+export function Tabs({ children, defaultTab }: TabsProps) {
+  const [activeTab, setActiveTab] = useState(defaultTab);
+
+  return (
+    <TabsContext.Provider value={{ activeTab, setActiveTab }}>
+      <div className="tabs">{children}</div>
+    </TabsContext.Provider>
+  );
+}
+
+Tabs.List = function TabsList({ children }: { children: ReactNode }) {
+  return <div className="tab-list">{children}</div>;
+};
+
+Tabs.Tab = function Tab({ value, children }: TabProps) {
+  const context = useContext(TabsContext);
+  if (!context) throw new Error('Tab must be used within Tabs');
+
+  return (
+    <button
+      className={clsx('tab', { active: context.activeTab === value })}
+      onClick={() => context.setActiveTab(value)}
+    >
+      {children}
+    </button>
+  );
+};
+
+Tabs.Panel = function TabPanel({ value, children }: TabPanelProps) {
+  const context = useContext(TabsContext);
+  if (!context) throw new Error('TabPanel must be used within Tabs');
+
+  if (context.activeTab !== value) return null;
+
+  return <div className="tab-panel">{children}</div>;
+};
+
+// Usage
+<Tabs defaultTab="tab1">
+  <Tabs.List>
+    <Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
+    <Tabs.Tab value="tab2">Tab 2</Tabs.Tab>
+  </Tabs.List>
+  <Tabs.Panel value="tab1">Content 1</Tabs.Panel>
+  <Tabs.Panel value="tab2">Content 2</Tabs.Panel>
+</Tabs>
+```
+
+## Anti-Patterns to Avoid
+
+### ❌ Direct DOM Manipulation
+
+```typescript
+// Bad
+document.getElementById('myDiv').style.display = 'none';
+
+// Good
+const [isVisible, setIsVisible] = useState(true);
+return isVisible && <div id="myDiv" />;
+```
+
+### ❌ Using Array Indexes as Keys
+
+```typescript
+// Bad
+items.map((item, index) => <Item key={index} />)
+
+// Good
+items.map((item) => <Item key={item.id} />)
+```
+
+### ❌ Inline Function Creation in Render
+
+```typescript
+// Bad
+<button onClick={() => handleClick(item.id)}>Click</button>
+
+// Good
+const handleItemClick = useCallback((id: string) => {
+  // handle click
+}, []);
+
+<button onClick={() => handleItemClick(item.id)}>Click</button>
+```
+
+### ❌ Mutating State Directly
+
+```typescript
+// Bad
+state.items.push(newItem);
+setState(state);
+
+// Good
+setState(prev => ({
+  ...prev,
+  items: [...prev.items, newItem]
+}));
+```
+
+## Debugging Tips
+
+1. **Use React DevTools** - Essential for component inspection
+2. **Add displayName** - Makes debugging easier
+3. **Use Error Boundaries** - Catch and handle errors gracefully
+4. **Console.log with labels** - `console.log('Component render:', { props, state })`
+5. **Use debugger statement** - Pause execution at specific points
+6. **Check React.StrictMode warnings** - Catch potential issues early
+
+## File Naming Conventions
+
+- Components: PascalCase (`Button.tsx`, `UserCard.tsx`)
+- Hooks: camelCase with 'use' prefix (`useAuth.ts`, `useLocalStorage.ts`)
+- Utilities: camelCase (`formatDate.ts`, `validateEmail.ts`)
+- Types: PascalCase with suffix (`UserTypes.ts`, `ApiTypes.ts`)
+- Constants: SCREAMING_SNAKE_CASE in files (`API_URL`, `MAX_RETRIES`)
+
+## Summary
+
+Follow these guidelines to build maintainable, performant, and accessible React applications. Remember:
+
+- **Type everything** - No implicit any
+- **Validate external data** - Use Zod for runtime validation
+- **Optimize thoughtfully** - Measure before optimizing
+- **Test behavior** - Not implementation details
+- **Keep it simple** - Complexity is the enemy of maintainability
 
 ---
 > Source: [stevekinney/react-performance](https://github.com/stevekinney/react-performance) — distributed by [TomeVault](https://tomevault.io).
