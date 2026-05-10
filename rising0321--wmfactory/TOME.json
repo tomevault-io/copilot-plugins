@@ -1,0 +1,44 @@
+{
+  "name": "WMFactory",
+  "owner": "Rising0321",
+  "repo": "WMFactory",
+  "description": "Unified Operator on Interactive World Model is a unified frontend for interactive world models. It lets users select a model, choose a dataset (e.g., CSGO) or directly upload an image, and immediately explore a playable 3D world with WASD movement and drag-to-rotate camera.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Rising0321/WMFactory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T08:49:51Z"
+}
