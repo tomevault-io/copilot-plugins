@@ -1,56 +1,67 @@
-## self-improve
+## template-setup
 
-> Continuously monitor and improve Cursor rules based on emerging code patterns
+> Detailed steps for template setup workflow when initializing a project
 
 
-## Rule Improvement Triggers
-- **New code patterns** not covered by existing rules
-- **Repeated implementations** across 3+ files
-- **Common error patterns** that could be prevented
-- **New libraries/tools** being used consistently
-- **Emerging best practices** in the codebase
+# Template Setup Workflow
 
-## When to Update Rules
+## Agent-Driven Initialization
+When a user prompts "initialize this project as <my project name>", I will **ONLY** handle template setup (do NOT include TaskMaster or PRD work):
 
-### Add New Rules When:
-- A new technology/pattern is used in 3+ files
-- Common bugs could be prevented by a rule
-- Code reviews repeatedly mention the same feedback
-- New security or performance patterns emerge
+1. **Copy `.cursor/.mcp.json.example` to `.cursor/mcp.json`** and prompt user for their API keys
+2. **Remove template-specific content** and customize for their project:
+   - **Move `README.md` to `docs/how_to_use_this_template.md`** to preserve template documentation
+   - **Copy `.cursor/templates/project_readme.md` to the project root as `README.md`** to create the new project-specific README
+   - **Update the new `README.md`** by replacing `[Project Name]` placeholder with user-provided name or "My Project"
+   - Update `SECURITY.md` to remove template references
+   - Remove or update any hardcoded paths in configuration files
 
-### Modify Existing Rules When:
-- Better examples exist in the codebase
-- Additional edge cases are discovered
-- Related rules have been updated
-- Implementation details have changed
+   **Environment File Distinction:**
+   - **Template `.env.example`**: Contains TaskMaster CLI configuration (ANTHROPIC_API_KEY, PERPLEXITY_API_KEY, etc.)
+   - **Project `.env`**: Will contain application-specific configuration (database URLs, app API keys, etc.)
+   - **Never mix these**: TaskMaster configuration is separate from project application configuration
+3. **Enable Issues** (if GitHub repository):
+   ```bash
+   gh api repos/OWNER/REPO --method PATCH --field has_issues=true
+   ```
+4. **Set Branch Protection Rules** (if GitHub repository):
+   ```bash
+   gh api repos/OWNER/REPO/branches/main/protection \
+     --method PUT \
+     --field required_status_checks='{"strict":true,"contexts":[],"checks":[]}' \
+     --field required_pull_request_reviews='{"dismiss_stale_reviews":false,"require_code_owner_reviews":false,"require_last_push_approval":false,"required_approving_review_count":1}' \
+     --field required_signatures='{"enabled":false}' \
+     --field enforce_admins='{"enabled":false}' \
+     --field required_linear_history='{"enabled":false}' \
+     --field allow_force_pushes='{"enabled":true}' \
+     --field allow_deletions='{"enabled":false}' \
+     --field block_creations='{"enabled":false}' \
+     --field required_conversation_resolution='{"enabled":false}' \
+     --field lock_branch='{"enabled":false}' \
+     --field allow_fork_syncing='{"enabled":false}'
+   ```
 
-## Rule Quality Assurance
-- Rules should be **actionable and specific**
-- Examples should come from **actual code**
-- References should be **up to date**
-- Patterns should be **consistently enforced**
-- Cross-reference related rules
+   **Branch Protection Rules Summary:**
+   - **Pull Request Reviews**: 1 approval required
+   - **Status Checks**: Strict mode enabled
+   - **Force Pushes**: Allowed
+   - **Branch Deletions**: Disabled
+   - **Admin Enforcement**: Disabled (admins can bypass)
 
-## Continuous Improvement Process
-- **Monitor** code review comments
-- **Track** common development questions
-- **Update** rules after major refactors
-- **Add** links to relevant documentation
-- **Maintain** links between related rules
+   **Manual Setup Alternative:**
+   If CLI commands fail, manually configure in GitHub:
+   1. Go to repository Settings → Branches
+   2. Add rule for `main` branch
+   3. Enable "Require a pull request before merging" (1 approval)
+   4. Enable "Require status checks to pass before merging" (strict mode)
+5. **Remove from Context Window** - Change `alwaysApply: true` to `alwaysApply: false` in the frontmatter of `.cursor/rules/template_setup.mdc`
 
-## Rule Deprecation
-- **Mark** outdated patterns as deprecated
-- **Remove** rules that no longer apply
-- **Update** references to deprecated rules
-- **Document** migration paths for old patterns
-
-## Documentation Maintenance
-- Keep examples synchronized with code
-- Update references to external docs
-- Maintain links between related rules
-- Document breaking changes
-
-Follow [rule_management.mdc](mdc:.cursor/rules/rule_management.mdc) for proper rule formatting and structure.
+## What NOT to Include in Template Initialization
+- **Do NOT set up TaskMaster** - This is a separate workflow that requires explicit user request
+- **Do NOT create PRDs** - Project Requirements Documents are separate from template setup
+- **Do NOT copy `.env.example` to `.env`** - Only do this if user specifically requests TaskMaster CLI setup
+- **Do NOT initialize git repository** - Template initialization is separate from git setup
+- **Do NOT create tasks or project management files** - Focus only on template structure
 
 ---
 > Source: [jpke/cursor-vibe-coding-template](https://github.com/jpke/cursor-vibe-coding-template) — distributed by [TomeVault](https://tomevault.io).
