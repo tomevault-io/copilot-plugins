@@ -1,0 +1,9 @@
+{
+  "name": "openai--harmony",
+  "displayName": "harmony",
+  "description": "Renderer for the harmony response format to be used with gpt-oss",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/harmony",
+  "skills": []
+}
