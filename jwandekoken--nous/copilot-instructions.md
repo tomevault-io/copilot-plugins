@@ -1,44 +1,40 @@
-## node-pnpm
+## python-commands-uv
 
-> Use this rule for all node.js package management operations
+> Use this rule for all python commands
 
 
-# Node Package Manager: pnpm
+# Python Command Execution with `uv`
 
-All Node.js package management operations **must** use `pnpm` instead of `npm` or `yarn`.
+All Python commands in this project **must** be executed using `uv run` instead of calling `python` or `python3` directly.
 
-## ✅ Always use `pnpm`
+**✅ Always use `uv run`**
 
-- Never use `npm install`, `npm run`, or other npm commands directly
-- Never use `yarn add`, `yarn install`, or other yarn commands
-- Always prefix commands with `pnpm`
+- Never run `python script.py`, `python -m pytest`, or similar commands directly
+- Always prefix Python execution with `uv run`
 
-## 🔁 Correct usage
+**🔁 Correct usage**
 
 ```bash
-# Instead of: npm install
-pnpm install
+# Instead of: python script.py
+uv run python script.py
 
-# Instead of: npm run build
-pnpm build
+# Instead of: python -m pytest tests/
+uv run python -m pytest tests/
 
-# Instead of: npm run dev
-pnpm dev
-
-# Instead of: yarn add vue-router
-pnpm add vue-router
+# Instead of: python -m mymodule
+uv run python -m mymodule
 ```
 
-## ❌ Incorrect usage
+**❌ Incorrect usage**
 
 ```bash
 # Don't do this:
-npm install
-yarn add lodash
-npm run build
+python script.py
+python -m pytest tests/
+python3 -c "print('hello')"
 ```
 
-This ensures consistency across the project and leverages pnpm's superior performance and disk efficiency.
+This ensures that all Python execution uses the correct virtual environment and dependencies managed by `uv`.
 
 ---
 > Source: [jwandekoken/nous](https://github.com/jwandekoken/nous) — distributed by [TomeVault](https://tomevault.io).
