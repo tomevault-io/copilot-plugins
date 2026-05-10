@@ -1,0 +1,9 @@
+{
+  "name": "chrislas--hyprvibe",
+  "displayName": "hyprvibe",
+  "description": "A riced up Hyprland desktop running ontop of NixOS.",
+  "version": "1.0.0",
+  "author": "ChrisLAS",
+  "homepage": "https://github.com/ChrisLAS/hyprvibe",
+  "skills": []
+}
