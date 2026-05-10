@@ -1,0 +1,9 @@
+{
+  "name": "rbas--roxy",
+  "displayName": "roxy",
+  "description": "Local dev proxy \u2014 replace localhost:PORT with custom .roxy domains, trusted HTTPS, built-in DNS, Docker auto-discovery,  static file serving, and WebSocket support",
+  "version": "1.0.0",
+  "author": "rbas",
+  "homepage": "https://github.com/rbas/roxy",
+  "skills": []
+}
