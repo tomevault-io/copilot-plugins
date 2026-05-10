@@ -1,0 +1,44 @@
+{
+  "name": "api-clawer",
+  "owner": "NeteaseCloudMusicApiEnhanced",
+  "repo": "api-clawer",
+  "description": "\u7b80\u6613\u7f51\u6613\u4e91\u97f3\u4e50\u5ba2\u6237\u7aef\u6293\u5305\u5de5\u5177, \u9002\u7528\u4e8e\u8d21\u732e NeteaseCloudMusicApi \u9879\u76ee",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NeteaseCloudMusicApiEnhanced/api-clawer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T10:43:04Z"
+}
