@@ -1,0 +1,9 @@
+{
+  "name": "avala-ai--agent-code",
+  "displayName": "agent-code",
+  "description": "An AI-powered coding agent for the terminal, written in pure Rust",
+  "version": "1.0.0",
+  "author": "avala-ai",
+  "homepage": "https://github.com/avala-ai/agent-code",
+  "skills": []
+}
