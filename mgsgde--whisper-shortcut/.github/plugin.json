@@ -1,0 +1,9 @@
+{
+  "name": "mgsgde--whisper-shortcut",
+  "displayName": "whisper-shortcut",
+  "description": "Speech-to-text and voice-to-prompt macOS app with Gemini and Whisper support",
+  "version": "1.0.0",
+  "author": "mgsgde",
+  "homepage": "https://github.com/mgsgde/whisper-shortcut",
+  "skills": []
+}
