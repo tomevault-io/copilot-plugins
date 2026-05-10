@@ -1,0 +1,57 @@
+## api-server-patterns
+
+> Patterns and conventions for the dbxmetagen FastAPI dashboard backend
+
+
+# API Server Patterns
+
+## Long-Running Operations
+
+Use **daemon thread + in-memory dict + polling** for anything > 2s:
+
+```python
+task_id = str(_uuid.uuid4())[:12]
+_task_dict[task_id] = {"status": "running", ...}
+
+def _run():
+    try:
+        result = do_work(...)
+        _task_dict[task_id] = {"status": "done", "result": result}
+    except Exception as e:
+        _task_dict[task_id] = {"status": "error", "error": str(e)}
+
+threading.Thread(target=_run, daemon=True).start()
+return {"task_id": task_id}
+```
+
+Poll via GET that reads the dict. SSE streaming exists for agent chat only (`/api/agent/deep/stream`, `/api/analyst/stream`). **Never use WebSockets.**
+
+## Caching
+
+Four `TTLCache` instances with thread locks:
+
+| Cache | TTL | Purpose |
+|-------|-----|---------|
+| `_yaml_cache` | 300s | Ontology bundles, domain configs |
+| `_job_list_cache` | 30s | Databricks job list |
+| `_coverage_cache` | 60s | FK map, coverage summary |
+| `_sl_context_cache` | 120s | Semantic layer context |
+
+Call `invalidate_query_caches()` after mutations (job submit, DDL apply, etc.).
+
+## Singletons
+
+Heavy objects use lazy double-checked locking:
+- `_ontology_graph_store` (SPARQL store)
+- `get_llm()` in `agent/common.py` (ChatDatabricks)
+- `get_graph()` in `agent/deep_analysis_graph.py` (compiled LangGraph)
+
+Never reinstantiate these per request.
+
+## Route Organization
+
+Endpoints are grouped by section comment headers, not separate `APIRouter` instances. Follow existing group structure when adding endpoints.
+
+---
+> Source: [databricks-industry-solutions/dbxmetagen](https://github.com/databricks-industry-solutions/dbxmetagen) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
