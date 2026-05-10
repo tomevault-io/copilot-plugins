@@ -1,156 +1,343 @@
-## notifications
+## position-monitor
 
-> 通知系统规范（NotificationManager 与实时推送）
+> 仓位监控系统（PositionMonitor、监控配置、风险管理）
 
-# 通知系统规范
+# 仓位监控系统规范
 
-## 核心组件
+## 核心架构
 
-### NotificationManager
-- 位置：[backend/app/notification_manager.py](mdc:backend/app/notification_manager.py)
-- 全局单例：通过 `get_notification_manager()` 获取
+### PositionMonitor
+- 位置：[backend/app/position_monitor.py](mdc:backend/app/position_monitor.py)
+- 全局单例：通过 `get_position_monitor()` 获取
 - 职责：
-  - 管理 WebSocket 监听器队列
-  - 维护通知历史（最多 1000 条）
-  - 广播通知到所有连接的客户端
-  - 根据类型自动选择日志级别
+  - 监控所有持仓的实时行情
+  - 根据个性化配置执行策略
+  - 风险管理（止损、止盈、仓位限制）
+  - 自动/半自动交易执行
+  - 市场时间检查
 
-### 通知类型（NotificationType）
-- `INFO`：一般信息
-- `SUCCESS`：成功事件
-- `WARNING`：警告
-- `ERROR`：错误
-- `TRADE_SIGNAL`：交易信号
-- `ORDER_UPDATE`：订单更新
-- `STRATEGY_UPDATE`：策略更新
+## 监控配置
+
+### PositionMonitoringConfig
+每个持仓可单独配置：
+
+```python
+@dataclass
+class PositionMonitoringConfig:
+    symbol: str                        # 股票代码
+    monitoring_status: MonitoringStatus  # ACTIVE/PAUSED/EXCLUDED
+    strategy_mode: StrategyMode        # AUTO/ALERT_ONLY/BALANCED/DISABLED
+    enabled_strategies: List[str]      # 启用的策略 ID 列表
+    
+    # 价格阈值
+    min_price: Optional[float]         # 最低监控价格
+    max_price: Optional[float]         # 最高监控价格
+    
+    # 成交量要求
+    min_volume: Optional[int]          # 最小成交量
+    
+    # 风险参数（可覆盖全局设置）
+    custom_stop_loss: Optional[float]       # 止损比例
+    custom_take_profit: Optional[float]     # 止盈比例
+    trailing_stop: Optional[float]          # 追踪止损比例
+    custom_position_limit: Optional[float]  # 仓位上限
+    
+    # 时间限制
+    monitoring_start_time: Optional[str]  # "09:30"
+    monitoring_end_time: Optional[str]    # "16:00"
+    expiry_date: Optional[datetime]       # 监控到期日期
+```
+
+### GlobalMonitoringSettings
+全局监控设置：
+
+```python
+@dataclass
+class GlobalMonitoringSettings:
+    global_enabled: bool = True            # 全局开关
+    market_hours_only: bool = True         # 仅市场时间
+    max_daily_trades: int = 20             # 单日最大交易数
+    max_total_exposure: float = 0.8        # 最大总仓位比例
+    emergency_stop: bool = False           # 紧急停止
+    
+    # 风险管理
+    global_stop_loss: float = 0.05         # 全局止损 5%
+    global_take_profit: float = 0.1        # 全局止盈 10%
+    max_position_size: float = 0.2         # 单仓位上限 20%
+    max_daily_loss: float = 0.05           # 单日最大亏损 5%
+    
+    # 波动率控制
+    pause_on_high_volatility: bool = False  # 高波动时暂停
+    
+    # 自动监控新仓位
+    auto_monitor_new_positions: bool = False
+    default_strategy_mode: StrategyMode = StrategyMode.BALANCED
+    default_enabled_strategies: List[str] = []
+    
+    # 排除列表
+    excluded_symbols: List[str] = []        # 不监控的股票列表
+```
+
+### 监控状态（MonitoringStatus）
+- `ACTIVE`：激活监控
+- `PAUSED`：暂停监控
+- `EXCLUDED`：排除监控（已过期或手动排除）
+
+### 策略模式（StrategyMode）
+- `AUTO`：自动执行交易
+- `ALERT_ONLY`：仅发送警报
+- `BALANCED`：平衡模式（根据置信度决定）
+- `DISABLED`：禁用策略
+
+## 监控流程
+
+### 1. 初始化
+```python
+# 启动时调用
+position_monitor = get_position_monitor()
+await position_monitor.initialize()
+
+# 流程：
+# 1. 加载全局设置
+# 2. 加载所有监控配置
+# 3. 获取当前持仓列表
+# 4. 为每个持仓创建 MonitoredPosition
+# 5. 排除 excluded_symbols
+# 6. 自动为新持仓创建配置（如果 auto_monitor_new_positions=True）
+```
+
+### 2. 行情处理
+```python
+# QuoteStreamManager 调用
+await position_monitor.process_quote(symbol, quote_data)
+
+# 检查流程：
+# 1. 检查是否为监控仓位
+# 2. 检查监控状态（ACTIVE）
+# 3. 验证交易时间
+# 4. 检查是否已过期
+# 5. 更新当前价格与盈亏
+# 6. 价格阈值检查
+# 7. 成交量检查
+# 8. 风险限制检查
+# 9. 评估策略信号
+```
+
+### 3. 风险检查
+```python
+async def check_risk_limits(position):
+    # 1. 单日亏损限制
+    if daily_loss >= global_settings.max_daily_loss:
+        return False
+    
+    # 2. 单仓位大小限制
+    position_ratio = position.market_value / total_portfolio_value
+    if position_ratio > position_limit:
+        return False
+    
+    # 3. 高波动暂停
+    if pause_on_high_volatility and abs(pnl_ratio) > 0.10:
+        return False
+    
+    return True
+```
+
+### 4. 策略评估
+```python
+async def evaluate_strategies(position, quote_data):
+    # 1. 检查启用的策略列表
+    # 2. 遍历每个策略
+    # 3. 获取策略引擎的 K 线缓冲区
+    # 4. 转换为 MarketData 格式
+    # 5. 评估策略条件
+    # 6. 根据策略模式执行：
+    #    - AUTO：自动执行交易
+    #    - ALERT_ONLY：发送警报
+    #    - BALANCED：根据置信度决定
+```
+
+### 5. 交易执行
+```python
+# 自动模式（AUTO）
+if signal and config.strategy_mode == StrategyMode.AUTO:
+    await execute_trade(position, signal, strategy_id)
+    position.trades_today += 1
+
+# 警报模式（ALERT_ONLY）
+elif signal and config.strategy_mode == StrategyMode.ALERT_ONLY:
+    await send_alert(position, signal, strategy_id)
+```
+
+## 市场时间检查
+
+### 港股市场（HK）
+- 交易时间：09:30 - 16:00 HKT
+- 方法：`is_hk_market_hours(dt)`
+
+### 美股市场（US）
+- 交易时间：09:30 - 16:00 EST/EDT（即 21:30 - 04:00 HKT）
+- 方法：`is_us_market_hours(dt)`
+
+### 自定义时间段
+通过 `monitoring_start_time` 和 `monitoring_end_time` 配置：
+- 支持跨夜时间段（如 `22:00` - `02:00`）
+- 优先于市场时间检查
+
+## 止损止盈逻辑
+
+### 止损
+```python
+if current_price <= position.avg_cost * (1 - stop_loss_ratio):
+    await execute_trade(position, signal, reason="stop_loss")
+```
+
+### 止盈
+```python
+if current_price >= position.avg_cost * (1 + take_profit_ratio):
+    await execute_trade(position, signal, reason="take_profit")
+```
+
+### 追踪止损
+```python
+if trailing_stop:
+    new_stop_loss = current_price * (1 - trailing_stop)
+    if new_stop_loss > position.stop_loss:
+        position.stop_loss = new_stop_loss
+```
 
 ## API 端点
 
-路由：[backend/app/routers/notifications.py](mdc:backend/app/routers/notifications.py)
+路由：[backend/app/routers/monitoring.py](mdc:backend/app/routers/monitoring.py)
 
-### REST 接口
-- `GET /notifications/`：获取历史通知
-  - 参数：`limit`（默认 50）、`unread_only`（默认 false）
-- `POST /notifications/{notification_id}/read`：标记已读
-- `POST /notifications/read-all`：全部标记已读
-- `DELETE /notifications/`：清空所有通知
+### 仓位配置
+- `GET /monitoring/positions/{symbol}`：获取单个仓位配置
+- `PUT /monitoring/positions/{symbol}`：更新仓位配置
+- `GET /monitoring/positions`：获取所有监控仓位
+- `GET /monitoring/status`：获取监控状态概览
 
-### WebSocket
-- `WS /notifications/ws`：实时通知流
-  - 连接后自动加入监听器列表
-  - 接收 JSON 格式的通知数据
-  - 断开时自动清理
+### 全局设置
+- `GET /monitoring/global-settings`：获取全局设置
+- `PUT /monitoring/global-settings`：更新全局设置
 
-## 使用模式
+### 监控控制
+- `POST /monitoring/start`：启动监控
+- `POST /monitoring/stop`：停止监控
+- `POST /monitoring/emergency-stop`：紧急停止
 
-### 发送通知
-```python
-from backend.app.notification_manager import get_notification_manager, NotificationType
+## 数据持久化
 
-notif_manager = get_notification_manager()
+使用 [backend/app/repositories.py](mdc:backend/app/repositories.py)：
 
-# 通用通知
-await notif_manager.send_notification(
-    NotificationType.INFO,
-    "标题",
-    "消息内容",
-    data={"额外": "数据"}
-)
-
-# 专用通知方法
-await notif_manager.send_trading_signal(
-    strategy_id="strategy_1",
-    symbol="AAPL.US",
-    signal_type="BUY",
-    price=150.0
-)
-
-await notif_manager.send_order_update(
-    order_id="123456",
-    symbol="AAPL.US",
-    status="filled",
-    side="buy",
-    quantity=100,
-    price=150.0
-)
-
-await notif_manager.send_strategy_update(
-    strategy_id="strategy_1",
-    strategy_name="趋势策略",
-    status="active",
-    message="策略已启动"
+### 仓位配置表（position_monitoring）
+```sql
+CREATE TABLE position_monitoring (
+    symbol TEXT PRIMARY KEY,
+    monitoring_status TEXT NOT NULL DEFAULT 'enabled',
+    strategy_mode TEXT NOT NULL DEFAULT 'balanced',
+    enabled_strategies TEXT NOT NULL DEFAULT '[]',  -- JSON 数组
+    max_position_ratio REAL NOT NULL DEFAULT 0.1,
+    stop_loss_ratio REAL NOT NULL DEFAULT 0.05,
+    take_profit_ratio REAL NOT NULL DEFAULT 0.1,
+    cooldown_minutes INTEGER NOT NULL DEFAULT 30,
+    notes TEXT,
+    created_at TEXT,
+    updated_at TEXT
 )
 ```
 
-### 集成点
-
-策略引擎自动发送通知：
-- [backend/app/strategy_engine.py](mdc:backend/app/strategy_engine.py) 在交易事件时调用 `send_notification()`
-- 位置监控通过通知管理器发送仓位警报
-- 交易 API 在订单状态变化时发送更新
-
-## 数据结构
-
-### Notification
-```python
-@dataclass
-class Notification:
-    id: str                    # 唯一标识
-    type: NotificationType     # 通知类型
-    title: str                 # 标题
-    message: str              # 消息内容
-    data: Optional[Dict]      # 附加数据
-    timestamp: datetime       # 时间戳
-    read: bool               # 已读标志
+### 全局设置表（global_monitoring_settings）
+```sql
+CREATE TABLE global_monitoring_settings (
+    id INTEGER PRIMARY KEY,  -- 始终为 1
+    global_enabled BOOLEAN NOT NULL DEFAULT 1,
+    market_hours_only BOOLEAN NOT NULL DEFAULT 1,
+    max_daily_trades INTEGER NOT NULL DEFAULT 20,
+    max_total_exposure REAL NOT NULL DEFAULT 0.8,
+    emergency_stop BOOLEAN NOT NULL DEFAULT 0,
+    risk_level TEXT NOT NULL DEFAULT 'medium',
+    notifications_enabled BOOLEAN NOT NULL DEFAULT 1,
+    excluded_symbols TEXT NOT NULL DEFAULT '[]',  -- JSON 数组
+    created_at TEXT,
+    updated_at TEXT
+)
 ```
 
-### WebSocket 推送格式
-```json
+## 集成点
+
+### QuoteStreamManager
+在 [backend/app/streaming.py](mdc:backend/app/streaming.py) 中：
+
+```python
+# 派发行情给仓位监控
+position_monitor = get_position_monitor()
+await position_monitor.process_quote(symbol, normalized_quote)
+```
+
+### StrategyEngine
+仓位监控使用策略引擎的：
+- K 线缓冲区（`kline_buffers`）
+- 策略配置（`strategies`）
+- 条件评估方法（`evaluate_conditions`）
+
+## 监控状态输出
+
+```python
+status = await position_monitor.get_monitoring_status()
+
+# 返回格式：
 {
-  "type": "notification",
-  "data": {
-    "id": "notif_123_1696358400",
-    "type": "trade_signal",
-    "title": "交易信号 - AAPL.US",
-    "message": "策略 strategy_1 发出 BUY 信号，价格 150.0",
-    "data": {
-      "strategy_id": "strategy_1",
+  "total_positions": 10,
+  "active_monitoring": 5,
+  "daily_trades": 3,
+  "daily_loss": 0.015,
+  "positions": {
+    "AAPL.US": {
       "symbol": "AAPL.US",
-      "signal_type": "BUY",
-      "price": 150.0
-    },
-    "timestamp": "2024-10-03T10:00:00",
-    "read": false
+      "quantity": 100,
+      "avg_cost": 150.0,
+      "current_price": 155.0,
+      "pnl": 500.0,
+      "pnl_ratio": 0.033,
+      "monitoring_status": "ACTIVE",
+      "strategy_mode": "AUTO",
+      "enabled_strategies": ["strategy_1"],
+      "signals_today": 2,
+      "trades_today": 1,
+      "last_check": "2024-10-03T10:30:00"
+    }
   }
 }
 ```
 
 ## 注意事项
 
-1. **队列管理**：
-   - 每个 WebSocket 客户端独立队列（最多 50 条）
-   - 队列满时自动丢弃最旧消息
-   - 断开连接后自动清理队列
+1. **新仓位自动监控**：
+   - 默认 `auto_monitor_new_positions=False`
+   - 启用后新仓位自动使用 `default_strategy_mode`
 
-2. **并发安全**：
-   - 监听器列表使用 `Set` 管理
-   - 发送时复制列表避免迭代冲突
-   - 失败的客户端自动移除
+2. **风险优先级**：
+   - 单日亏损限制 > 仓位大小限制 > 策略信号
+   - 任何风险检查失败都不执行交易
 
-3. **历史记录**：
-   - 内存存储，最多 1000 条
-   - 超出时滚动删除最旧记录
-   - 不持久化到数据库
+3. **并发控制**：
+   - 使用 `asyncio.Lock` 保护关键数据
+   - `process_quote` 方法串行执行
 
-4. **错误处理**：
-   - 发送失败不影响其他客户端
-   - 自动记录警告日志
-   - 优雅降级（继续处理剩余客户端）
+4. **仓位刷新**：
+   - 每 30 秒刷新一次持仓列表
+   - 自动移除已平仓的股票
+   - 更新持仓数量与成本
+
+5. **过期处理**：
+   - 超过 `expiry_date` 自动设为 `EXCLUDED`
+   - 不再监控但保留配置
 
 参考文件：
-- [backend/app/notification_manager.py](mdc:backend/app/notification_manager.py)
-- [backend/app/routers/notifications.py](mdc:backend/app/routers/notifications.py)
+- [backend/app/position_monitor.py](mdc:backend/app/position_monitor.py)
+- [backend/app/routers/monitoring.py](mdc:backend/app/routers/monitoring.py)
+- [backend/app/repositories.py](mdc:backend/app/repositories.py)
 - [backend/app/strategy_engine.py](mdc:backend/app/strategy_engine.py)
+- [backend/app/models.py](mdc:backend/app/models.py)
 
 ---
 > Source: [majiajue/longbridge](https://github.com/majiajue/longbridge) — distributed by [TomeVault](https://tomevault.io).
