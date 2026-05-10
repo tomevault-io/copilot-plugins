@@ -1,25 +1,28 @@
-## project-role-architecture
+## singleton-naming
 
-> Project role, Flutter+Rust architecture, and Nostr conventions
+> Singleton accessor naming convention for Dart/Flutter
 
 
-# Role & Project Conventions
+# Singleton Naming
 
-## Role
+## Convention for new code
 
-Act as a **senior Flutter engineer**. All descriptions and documentation must be in **English**.
+Use **one** consistent style for singleton/shared-instance accessors across the codebase:
 
-## Architecture
+- **Recommended: `.instance`** — e.g. `CallKitManager.instance`, `VoiceCacheManager.instance`
+- **Alternative: `.shared`** — e.g. `ICEServerManager.shared`, `Connect.sharedInstance` (if standardizing on `.shared`, prefer the shorter name)
 
-- **Stack**: Flutter + Rust. Call Rust bridge code via **async** APIs where possible.
-- **Structure**: Modular design; place modules under the **packages** directory.
+Do **not** introduce new mix of `.instance`, `.shared`, and `.sharedInstance` in new code.
 
-## Project (Nostr)
+## Legacy code
 
-This is a **Nostr-based** project. When you need **NIP (Nostr Improvement Proposal) definitions**:
+Existing code may still use `.sharedInstance`, `.shared`, or `.instance`. When you **touch a file** that uses a different style, consider aligning it to the chosen convention for that module or file. No need to do a one-time global rename—opportunistic updates reduce regression risk.
 
-- Prefer the Nostr MCP server **user-flutter-nostr-dev** (tools/resources) when available.
-- Otherwise refer to official NIP specs (e.g. github.com/nostr-protocol/nips) or project docs.
+## Reference (current codebase mix, for context)
+
+- `.instance`: `CallKitManager.instance`, `VoiceCacheManager.instance`
+- `.shared`: `ICEServerManager.shared`
+- `.sharedInstance`: `Connect.sharedInstance`, `Account.sharedInstance`, `Contacts.sharedInstance`, `Relays.sharedInstance`, `ThreadPoolManager.sharedInstance`
 
 ---
 > Source: [sanah9/noscall](https://github.com/sanah9/noscall) — distributed by [TomeVault](https://tomevault.io).
