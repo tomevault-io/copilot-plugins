@@ -1,0 +1,9 @@
+{
+  "name": "theognis1002--mcp-gateway",
+  "displayName": "mcp-gateway",
+  "description": "Model Context Protocol (MCP) Gateway & Registry - Central hub for managing tools, resources, and prompts for MCP-compatible LLMs. Translates REST APIs into MCP, builds virtual MCP servers with securit",
+  "version": "1.0.0",
+  "author": "theognis1002",
+  "homepage": "https://github.com/theognis1002/mcp-gateway",
+  "skills": []
+}
