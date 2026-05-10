@@ -1,0 +1,9 @@
+{
+  "name": "ghostapp-ai--ghost",
+  "displayName": "ghost",
+  "description": "The Private Agent OS \u2014 search files, run AI agents, connect to 10,000+ tools via the complete protocol stack (MCP, AG-UI, A2UI, A2A). Zero cloud. Zero telemetry. On-device inference.",
+  "version": "1.0.0",
+  "author": "ghostapp-ai",
+  "homepage": "https://github.com/ghostapp-ai/ghost",
+  "skills": []
+}
