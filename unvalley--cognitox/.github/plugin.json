@@ -1,0 +1,9 @@
+{
+  "name": "unvalley--cognitox",
+  "displayName": "cognitox",
+  "description": "\ud83d\udfe3 : An Amazon Cognito Emulator for local development",
+  "version": "1.0.0",
+  "author": "unvalley",
+  "homepage": "https://github.com/unvalley/cognitox",
+  "skills": []
+}
