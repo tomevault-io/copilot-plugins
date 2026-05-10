@@ -1,221 +1,94 @@
-## 101-configuration
+## 2000-react
 
-> Apply configuration guidelines when setting up projects to ensure consistent tooling, build processes, and development environments
+> Use React rules when building UI to produce maintainable components
 
 
-# Configuration Guidelines
+# React Rules
 
 <version>1.0.0</version>
 
 ## Context
 
-- Applies to project setup, build configuration, and development tooling
-- Ensures consistent development experience across team members
-- Optimizes build performance and deployment processes
+- For developing React components within Next.js using React 19
+- Emphasizes modern patterns, performance, and maintainability
+- Ensures proper component architecture and state management
 
 ## Requirements
 
-### Project Structure
+### Component Architecture
 
-- Use `src/` directory for all source code
-- Separate concerns with clear folder organization (`components/`, `hooks/`, `lib/`, `styles/`)
-- Place configuration files in project root
-- Use `public/` for static assets only
+- Use explicit imports instead of `import * as React from "react"`
+- Implement proper component composition and separation of concerns
+- Extract reusable logic into custom hooks
+- Set `displayName` on complex components and contexts for better debugging
 
-### Package Management
+### React 19 Patterns
 
-- Use pnpm for dependency management and workspace support
-- Pin exact versions for critical dependencies
-- Separate devDependencies from production dependencies
-- Regular security audits with `pnpm audit`
+- Client components must start with `"use client"` directive at the top
+- Server components require no directive; use `"use server"` for server actions
+- Pass `ref` as standard prop in React 19; `forwardRef` is deprecated
+- Use modern patterns for better performance and developer experience
 
-### TypeScript Configuration
+### JSX and Rendering
 
-- Enable strict mode with `"strict": true`
-- Use path mapping for clean imports (`@/` prefix)
-- Configure proper module resolution for Next.js
-- Enable incremental compilation for faster builds
+- Use `{condition ? <Element /> : null}` for conditional rendering; avoid `&&`
+- Destructure props and state for improved readability
+- Use proper boolean props syntax (e.g., `<Button disabled />`)
+- Avoid using array index as key; prefer stable, unique identifiers
 
-### Build and Development
+### State Management
 
-- Configure Next.js with App Router for modern routing
-- Use environment variables for configuration (`NEXT_PUBLIC_` prefix for client-side)
-- Implement proper error boundaries and logging
-- Configure bundle analysis for performance monitoring
+- Keep `useState` naming consistent (e.g., `[count, setCount]`)
+- Use lazy initialization for expensive initial state computations
+- Avoid calling state setters in `useEffect` without proper guards
+- Implement functional updates for state that depends on previous state
 
-### Code Quality Tools
+### Performance Optimization
 
-- ESLint with TypeScript and React rules
-- Prettier for consistent code formatting
-- Husky for git hooks and pre-commit checks
-- Lint-staged for efficient pre-commit linting
+- Use `useCallback`/`React.memo`/`useMemo` only when performance benefits are measured
+- Define default props as constants outside component to prevent re-renders
+- Avoid inline object/array literals as default props
+- Extract nested components to prevent unnecessary re-renders
 
-### Testing Setup
+### Side Effects and Cleanup
 
-- Jest for unit and integration testing
-- React Testing Library for component testing
-- Playwright for end-to-end testing
-- Coverage reporting with minimum thresholds
+- Clean up side effects in `useEffect` (timers, listeners, subscriptions)
+- Provide proper dependency arrays for hooks
+- Handle component unmounting gracefully
+- Use `useCallback` with stable dependencies for event handlers
 
-## Examples
+### Security and Best Practices
+
+- Avoid direct DOM manipulation (`findDOMNode`, direct element access)
+- Never use `dangerouslySetInnerHTML` unless absolutely necessary
+- Use `rel="noreferrer noopener"` with `target="_blank"` links
+- Implement proper error boundaries for component trees
+
+### Custom Hooks
+
+- Custom hooks must call at least one React hook
+- Follow naming convention with `use` prefix
+- Encapsulate related state logic and side effects
+- Return consistent interfaces from custom hooks
 
 <example>
-  // tsconfig.json - Proper TypeScript configuration
-  {
-    "compilerOptions": {
-      "target": "ES2017",
-      "lib": ["dom", "dom.iterable", "es6"],
-      "allowJs": true,
-      "skipLibCheck": true,
-      "strict": true,
-      "noEmit": true,
-      "esModuleInterop": true,
-      "module": "esnext",
-      "moduleResolution": "bundler",
-      "resolveJsonModule": true,
-      "isolatedModules": true,
-      "jsx": "preserve",
-      "incremental": true,
-      "plugins": [
-        {
-          "name": "next"
-        }
-      ],
-      "baseUrl": ".",
-      "paths": {
-        "@/*": ["./src/*"],
-        "@/components/*": ["./src/components/*"],
-        "@/lib/*": ["./src/lib/*"],
-        "@/hooks/*": ["./src/hooks/*"]
-      }
-    },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-    "exclude": ["node_modules"]
-  }
+  import { useCallback } from "react";
 
-// next.config.js - Optimized Next.js configuration
-/\*_ @type {import('next').NextConfig} _/
-const nextConfig = {
-experimental: {
-typedRoutes: true,
-},
-images: {
-formats: ['image/webp', 'image/avif'],
-deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-},
-compress: true,
-poweredByHeader: false,
-reactStrictMode: true,
-swcMinify: true,
-env: {
-CUSTOM_KEY: process.env.CUSTOM_KEY,
-},
-async headers() {
-return [
-{
-source: '/(.\*)',
-headers: [
-{
-key: 'X-Frame-Options',
-value: 'DENY',
-},
-{
-key: 'X-Content-Type-Options',
-value: 'nosniff',
-},
-],
-},
-]
-},
+function ProductPage({ productId }) {
+const handleSubmit = useCallback(() => {
+post("/product/" + productId + "/buy");
+}, [productId]);
+
+    return <ShippingForm onSubmit={handleSubmit} />;
+
 }
-
-module.exports = nextConfig
-
-// package.json - Proper scripts and dependencies structure
-{
-"name": "my-app",
-"version": "1.0.0",
-"private": true,
-"scripts": {
-"dev": "next dev",
-"build": "next build",
-"start": "next start",
-"lint": "next lint",
-"lint:fix": "next lint --fix",
-"type-check": "tsc --noEmit",
-"test": "jest",
-"test:watch": "jest --watch",
-"test:coverage": "jest --coverage",
-"e2e": "playwright test",
-"analyze": "ANALYZE=true next build",
-"clean": "rm -rf .next out node_modules/.cache"
-},
-"dependencies": {
-"next": "^15.0.0",
-"react": "^19.0.0",
-"react-dom": "^19.0.0"
-},
-"devDependencies": {
-"@types/node": "^20.0.0",
-"@types/react": "^19.0.0",
-"@types/react-dom": "^19.0.0",
-"eslint": "^8.57.0",
-"eslint-config-next": "^15.0.0",
-"typescript": "^5.0.0"
-},
-"engines": {
-"node": ">=18.0.0",
-"pnpm": ">=8.0.0"
-},
-"packageManager": "pnpm@8.15.0"
-}
-
-// .eslintrc.json - Comprehensive linting configuration
-{
-"extends": [
-"next/core-web-vitals",
-"@typescript-eslint/recommended",
-"prettier"
-],
-"parser": "@typescript-eslint/parser",
-"plugins": ["@typescript-eslint"],
-"rules": {
-"@typescript-eslint/no-unused-vars": "error",
-"@typescript-eslint/no-explicit-any": "warn",
-"@typescript-eslint/consistent-type-imports": "error",
-"prefer-const": "error",
-"no-var": "error"
-},
-"parserOptions": {
-"ecmaVersion": "latest",
-"sourceType": "module"
-}
-}
-
-// Environment variables structure
-// .env.local
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXT_PUBLIC_API_URL=https://api.example.com
-DATABASE_URL=postgresql://user:pass@localhost:5432/db
-JWT_SECRET=your-secret-key
 </example>
 
 <example type="invalid">
-  // Poor configuration without proper structure
-  {
-    "compilerOptions": {
-      "strict": false, // Disabling strict mode
-      // Missing path mapping and proper module resolution
-    }
-  }
-
-// Unsafe Next.js configuration
-const nextConfig = {
-// No security headers
-// No image optimization
-// No proper environment variable handling
-}
+  // Missing dependencies => new function on every render
+  const handleClick = useCallback(() => {
+    // ...
+  });
 </example>
 
 ---
