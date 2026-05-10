@@ -1,331 +1,54 @@
-## epics
+## project-config
 
-> Used when referred by @@EPIC or @@EPICS or when writing or completing any epic level of work or epic level of capabilities.
+> Last-Updated: 2025-06-07
 
-**Epic Planning & Tracking System**
-<!-- AI INSTRUCTIONS: Always follow these rules. Never modify this section. -->
+# project-config.md
+Last-Updated: 2025-06-07
 
-**Purpose**: Plan and track large initiatives using the hierarchy: EPIC GROUP → EPIC → PHASE → STEPS
+## Project Goal
+e.g. Build an enterprise ready platform that allows users to build and launch websites
 
-**Hierarchy Definitions**:
-- **EPIC GROUP**: Optional grouping of related epics
-- **EPIC**: Large collection of features/capabilities  
-- **PHASE**: Major milestone within an epic
-- **STEP**: Individual feature within a phase
+## Tech Stack
+- **Language(s):** e.g TypeScript , Javascript
+- **Framework(s):** e.g. Nuxt.js, Encore TS, Vue.js
+- **Build / Tooling:** e.g. pnpm, Turborepo, docker
+- **Monorepo Structure:** e.g Turborepo-managed workspace with apps/frontend and apps/backend
 
-**AI Usage Rules**:
-1. **Epic Creation**: When user requests epic planning, create comprehensive plans here
-2. **Architecture Integration**: Always consider architecture.mdc when planning epics and include architectural impact in epic steps
-3. **No Execution**: Never execute epic work - that happens in workflow_state.mdc  
-4. **Natural Language Processing**: Translate user requests into epic context for workflow integration
-5. **Progress Updates**: Update epic status when user reports progress or workflow completes
-6. **Epic Search**: Search existing epics when user mentions epic work to set proper workflow context
+## Critical Patterns & Conventions
+- When ever possible recommend building an AI-First solution, where solution uses an AI to make the user experience easy and streamlines. 
+- Prioritize using open source packages whenever you can instead of building your own. Preferred package repository is npm, but do also search for open source github repos. 
+- Prioritize `@Docs` for internal documentation and `@Web` for external resources.
+- Use `@Git` and `@Folders` in combination to understand the codebase structure and history.
+- Structure tool calls logically, documenting the rationale before execution.
+- For complex tasks, break them down into smaller, manageable steps using tool calls.
+- When using `@Files` or `@Code`, specify the file path and relevant code sections clearly.
+- If a tool call fails, attempt to diagnose the issue using error messages and logs. Refer to the troubleshooting guides if needed:
+    - @Common Issues
+    - @Troubleshooting Guide
+- Follow consistent naming conventions (e.g., camelCase for variables, PascalCase for classes).
+- Use meaningful variable and function names.
+- Write clear and concise comments.
+- Break down complex functions into smaller, more manageable units.
+- Handle errors gracefully and provide informative error messages.
+- Write unit and integration tests for critical components.
+- Keep code DRY (Don't Repeat Yourself) by abstracting reusable logic into functions or modules.
 
-**Context Limits**: Maximum 3 active epics to maintain AI effectiveness
+## Constraints
+- You have a limited context window (Claude's limitation).
+- You can make up to 25 tool calls per turn in Agent Composer mode.
+- Adhere to the "Cursor AI Operating Instructions" provided separately.
+- Prioritize code quality, maintainability, and security.
+- Avoid making assumptions; ask clarifying questions when needed.
 
-**EPICS PLANS**
-<!-- Stores and tracks the EPIC GROUP, EPIC, PHASE and STEP type of plans.  Only to be modified and used by an AI -->
-
-## EPIC PORTFOLIO STATUS
-
-### Current Portfolio Summary
-- **Total Active Epics**: 0 (Max: 3)
-- **Completed Epics**: 0
-- **Blocked Epics**: 0
-- **Last Updated**: [Date when portfolio was last updated]
-
-### Portfolio Limits
-**Max Active Epics**: 3 (to maintain AI context effectiveness)
-**Auto-Archive**: Completed epics older than 6 months
-
-### Epic Status Legend
-- ✅ **COMPLETED**: All phases and steps finished
-- 🔄 **IN_PROGRESS**: Currently being worked on
-- ⏳ **PLANNED**: Planned but not yet started
-- 🚫 **BLOCKED**: Stopped due to dependencies or issues
-- ⏸️ **PAUSED**: Temporarily suspended
-- ❌ **CANCELLED**: No longer needed
-- 📦 **ARCHIVED**: Completed and archived for reference
+## Tokenization Settings
+- Estimated chars-per-token: 3.5  
+- Max tokens for the AI: 120 0000
+- Plan for summary when **workflow-state.mdc** exceeds ~12 K chars.
 
 ---
 
-## ACTIVE EPICS
-
-<!-- Active epics will be listed here with progress tracking -->
-
-*No active epics currently planned. Use @EPIC or @EPICS to create new epic plans.*
-
----
-
-## EPIC PROGRESS TRACKING
-
-<!-- This section tracks progress for each epic with detailed status -->
-
-### Simplified Epic Template
-```
-### EPIC: [Epic Name]
-**Status**: [PLANNED/IN_PROGRESS/BLOCKED/COMPLETED]
-**Priority**: [High/Medium/Low]
-**Started**: [Start date]
-**Target Completion**: [Target date]
-
-#### Goal
-[Clear business objective and user value]
-
-#### Success Criteria
-- [ ] [Measurable outcome 1]
-- [ ] [Measurable outcome 2]
-- [ ] [Measurable outcome 3]
-
-#### Dependencies & Blockers
-- [Current dependencies or blocking issues]
-
-#### PHASE 1: [Phase Name] - [STATUS_ICON] [STATUS]
-**Goal**: [Phase objective and deliverables]
-
-**Steps:**
-1. **[Step Name]**: [What needs to be built/implemented] - [STATUS_ICON] [COMPLETION_%]
-   - Key requirements: [2-3 critical requirements]
-   - Acceptance criteria: [What defines "done"]
-   - Architecture impact: [How this affects current architecture or introduces new patterns]
-   - AI considerations: [Important context for AI execution]
-   - Status: [PLANNED/IN_PROGRESS/COMPLETED] ([completion_%])
-   - Started: [Date when work began]
-   - Last Updated: [Date of last progress]
-   - Completed: [Date when step finished]
-   - Notes: [Progress notes, decisions, blockers]
-
-2. **[Step Name]**: [What needs to be built/implemented] - [STATUS_ICON] [COMPLETION_%]
-   - Key requirements: [2-3 critical requirements]
-   - Acceptance criteria: [What defines "done"]
-   - AI considerations: [Important context for AI execution]
-   - Status: [PLANNED/IN_PROGRESS/COMPLETED] ([completion_%])
-   - Started: [Date when work began]
-   - Last Updated: [Date of last progress]
-   - Completed: [Date when step finished]
-   - Notes: [Progress notes, decisions, blockers]
-
-3. **[Step Name]**: [What needs to be built/implemented] - [STATUS_ICON] [COMPLETION_%]
-   - Key requirements: [2-3 critical requirements]
-   - Acceptance criteria: [What defines "done"]
-   - AI considerations: [Important context for AI execution]
-   - Status: [PLANNED/IN_PROGRESS/COMPLETED] ([completion_%])
-   - Started: [Date when work began]
-   - Last Updated: [Date of last progress]
-   - Completed: [Date when step finished]
-   - Notes: [Progress notes, decisions, blockers]
-
-#### PHASE 2: [Phase Name] - [STATUS_ICON] [STATUS]
-**Goal**: [Phase objective and deliverables]
-
-**Steps:**
-1. **[Step Name]**: [What needs to be built/implemented]
-   - Key requirements: [2-3 critical requirements]
-   - Acceptance criteria: [What defines "done"]
-   - AI considerations: [Important context for AI execution]
-
-2. **[Step Name]**: [What needs to be built/implemented]
-   - Key requirements: [2-3 critical requirements]
-   - Acceptance criteria: [What defines "done"]
-   - AI considerations: [Important context for AI execution]
-
-#### PHASE 3: [Phase Name] - [STATUS_ICON] [STATUS]
-**Goal**: [Phase objective and deliverables]
-
-**Steps:**
-1. **[Step Name]**: [What needs to be built/implemented]
-   - Key requirements: [2-3 critical requirements]
-   - Acceptance criteria: [What defines "done"]
-   - AI considerations: [Important context for AI execution]
-
-#### Notes
-- [Key decisions, scope changes, or important context]
-```
-
-### **Example: User Management Epic with Workflow Integration**
-```
-### EPIC: USER_MGMT_EPIC
-**Status**: IN_PROGRESS
-**Priority**: High
-**Started**: 2025-01-16
-**Target Completion**: 2025-02-28
-
-#### Goal
-Create comprehensive user management system with authentication and profiles
-
-#### Success Criteria
-- [ ] Users can register and authenticate securely
-- [ ] User profile management with real-time updates
-- [ ] Admin dashboard for user administration
-
-#### Dependencies & Blockers
-- Database schema completed ✅
-- Authentication service selected (Clerk) ✅
-
-#### PHASE 1: AUTHENTICATION_PHASE - 🔄 IN_PROGRESS
-**Goal**: Implement secure user authentication system
-
-**Steps:**
-1. **REGISTRATION_COMPONENT_STEP**: Build user registration form - ✅ 100%
-   - Key requirements: Email validation, password strength, GDPR compliance
-   - Acceptance criteria: Form validates inputs, stores user securely, sends confirmation
-   - Architecture impact: Establishes form validation patterns and authentication service integration
-   - AI considerations: Use existing form patterns, integrate with Clerk
-   - Status: COMPLETED (100%)
-   - Started: 2025-01-16
-   - Last Updated: 2025-01-18
-   - Completed: 2025-01-18
-   - Notes: Successfully integrated with Clerk, added custom validation rules
-
-2. **LOGIN_COMPONENT_STEP**: Implement secure login system - 🔄 75%
-   - Key requirements: Session management, rate limiting, remember me
-   - Acceptance criteria: Users can login/logout, sessions persist, security headers
-   - Architecture impact: Establishes session management patterns and security middleware
-   - AI considerations: Follow OAuth patterns, secure cookie handling
-   - Status: IN_PROGRESS (75%)
-   - Started: 2025-01-18
-   - Last Updated: 2025-01-20
-   - Completed: [Not completed]
-   - Notes: Core login working, implementing remember me functionality
-
-3. **PASSWORD_RESET_STEP**: Build password reset flow - ⏳ 0%
-   - Key requirements: Email verification, secure tokens, 1-hour expiration
-   - Acceptance criteria: Users can reset via email, tokens expire properly
-   - Architecture impact: Introduces email service integration and token management patterns
-   - AI considerations: Use email service, implement secure token generation
-   - Status: PLANNED (0%)
-   - Started: [Not started]
-   - Last Updated: [Not started]
-   - Completed: [Not completed]
-   - Notes: Waiting for login completion
-
-#### Notes
-- 2025-01-20: Login component 75% complete via workflow
-- 2025-01-18: Registration completed successfully, all tests passing
-- 2025-01-16: Epic created, authentication phase started
-```
-
-*Other progress tracking entries will appear here as epics are created and executed.*
-
----
-
-## EPIC COMPLETION HISTORY
-
-<!-- Recently completed epics (last 6 months) for reference -->
-<!-- Epics older than 6 months should be removed to maintain context size -->
-
-*No completed epics yet. Completed epics will be listed here with completion date and key outcomes.*
-
----
-
-## EPIC REPORTING AND RETROSPECTIVES
-
-### Epic Status Summary (Manual Count)
-*Updated manually when reviewing epic portfolio*
-- **Current Active Epics**: [Count from Active Epics section]
-- **Total Completed Epics**: [Count from Completion History]
-- **Last Portfolio Review**: [Date of last manual review]
-
-### Epic Retrospective Template
-*Used when completing epics to capture learnings*
-```
-## Epic Retrospective: [Epic Name]
-
-### Epic Summary
-- **Final Status**: [Completed/Cancelled with reason]
-- **Key Phases Completed**: [List major phases finished]
-- **Original vs Actual Scope**: [Any scope changes made]
-
-### What Went Well
-- [Positive aspects of the epic execution]
-
-### What Could Be Improved
-- [Areas for improvement in future epics]
-
-### Lessons Learned
-- [Key learnings to apply to future epics]
-
-### Recommendations
-- [Specific recommendations for future epic planning/execution]
-```
-
-### Epic Maintenance Checklist
-*For occasional portfolio cleanup*
-- [ ] Review active epic statuses and update if needed
-- [ ] Check for epics that should be completed or cancelled
-- [ ] Archive completed epics older than 6 months
-- [ ] Ensure no more than 3 active epics
-- [ ] Update portfolio summary counts
-
----
-
-## EPIC MANAGEMENT GUIDELINES
-
-### Epic State Management
-**State Transitions**:
-```
-PLANNED → IN_PROGRESS → COMPLETED
-    ↓         ↓            ↑
- CANCELLED ← BLOCKED ← ─ ─ ┘
-    ↓         ↓
- ARCHIVED ← PAUSED
-```
-
-### Update Guidelines
-- **Automatic Updates**: Epic steps are updated automatically when workflow completes with epic reference
-- **Manual Updates**: Can manually update step progress and notes during development
-- **Phase Completion**: Phases automatically marked complete when all steps reach 100%
-- **Epic Completion**: Move completed epics to history section
-- **Context Management**: Archive epics older than 6 months
-
-### Step Status Tracking
-- **Status Icons**: ⏳ PLANNED, 🔄 IN_PROGRESS, ✅ COMPLETED, 🚫 BLOCKED
-- **Completion Percentage**: 0% (planned) → 25%, 50%, 75% → 100% (completed)
-- **Progress Dates**: Track started, last updated, and completed dates
-- **Progress Notes**: Document decisions, blockers, and key developments
-
-### Portfolio Management
-- **Max Active Epics**: Keep only 2-3 active epics to maintain AI context effectiveness
-- **New Epic Planning**: If at limit, complete or pause existing epics before adding new ones
-- **Epic Focus**: Use workflow-state.mdc for detailed step execution, epics.mdc for high-level tracking
-
-### AI Epic Management Patterns
-
-#### **When User Requests Epic Work**
-1. **Search existing epics**: Look for matching epic names or features
-2. **Identify step context**: Find specific phase and step user is referencing
-3. **Set workflow context**: Configure workflow state with epic reference
-4. **Provide epic context**: Include step requirements during blueprint phase
-
-#### **When User Reports Progress**  
-1. **Find current work**: Identify which epic step user is working on
-2. **Update step status**: Modify completion percentage and notes
-3. **Update dates**: Set last updated timestamp
-4. **Check phase completion**: Update phase status if all steps complete
-
-#### **When User Requests Epic Planning**
-1. **Create new epic**: Use simplified template in ACTIVE EPICS section
-2. **Structure phases**: Break down epic into 2-4 phases
-3. **Detail steps**: Add 2-5 steps per phase with requirements and acceptance criteria
-4. **Set realistic scope**: Ensure epic fits within 3-epic portfolio limit
-
-### Realistic Expectations
-- Epic updates happen through AI interactions based on user prompts
-- AI manages epic file updates, users provide natural language instructions
-- Epic planning serves as AI memory and workflow integration context
-- Focus on AI-driven epic management rather than manual file editing
-
----
-
-## EPIC PLANNING WORKSPACE
-
-<!-- Temporary workspace for drafting new epics before they become active -->
-
-*This section can be used for drafting and refining epic plans before moving them to the active section.*
-
----
-
-<!-- END OF EPIC TRACKING STRUCTURE -->
+## Changelog
+<!-- The agent prepends the latest summary here as a new list item after each VALIDATE phase -->
 
 ---
 > Source: [fbrbovic/cursor-rule-framework](https://github.com/fbrbovic/cursor-rule-framework) — distributed by [TomeVault](https://tomevault.io).
