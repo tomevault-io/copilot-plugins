@@ -4,7 +4,7 @@
   "repo": "codedna",
   "description": "A lightweight annotation standard that helps AI agents navigate codebases faster, with fewer file reads and tool calls",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Larens94/codedna",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T09:54:38Z"
+  "distributed_at": "2026-05-10T16:40:46Z"
 }
