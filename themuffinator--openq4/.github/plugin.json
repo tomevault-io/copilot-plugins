@@ -1,0 +1,9 @@
+{
+  "name": "themuffinator--openq4",
+  "displayName": "OpenQ4",
+  "description": "The definitive source-port and game binary replacement to run QUAKE 4 on modern systems.",
+  "version": "1.0.0",
+  "author": "themuffinator",
+  "homepage": "https://github.com/themuffinator/OpenQ4",
+  "skills": []
+}
