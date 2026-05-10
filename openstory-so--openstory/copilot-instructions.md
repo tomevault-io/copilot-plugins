@@ -1,173 +1,80 @@
-## bun-test
+## context7-integration
 
-> When mocking entire modules, use `mock.module(path, callback) ` [(1) ](<https://bun.com/docs/test/mocks>) :
-
-## Cursor/Claude Rules for Bun Test Mocking
-
-### Rule 1: Use `mock.module() ` for Module-Level Mocking
-When mocking entire modules, use `mock.module(path, callback) ` [(1) ](<https://bun.com/docs/test/mocks>) :
-
-```typescript
-import { test, expect, mock } from "bun:test";
-
-mock.module("./module", () => {
-  return {
-    foo: "bar",
-  };
-}) ;
-
-test("mock.module", async () => {
-  const esm = await import("./module") ;
-  expect(esm.foo) .toBe("bar") ;
-  const cjs = require("./module") ;
-  expect(cjs.foo) .toBe("bar") ;
-}) ;
-```
+> Context7 MCP integration for up-to-date documentation
 
 
-### Rule 2: Use `spyOn() ` for Individual Function Mocking
-To mock specific functions from imported modules, use `spyOn() ` with `mockImplementation() ` , [(2) ](<https://bun.com/guides/test/spy-on>) :
+# Context7 MCP Integration
 
-```typescript
-import { test, expect, spyOn } from "bun:test";
+Always use Context7 MCP when you need current documentation for:
+- Code generation and setup steps
+- Library/API documentation  
+- Configuration examples
+- Framework-specific patterns
 
-const ringo = {
-  name: "Ringo",
-  sayHi() {
-    console.log(`Hello I'm ${this.name}`) ;
-  },
-};
+This means you should automatically use the Context7 MCP tools to resolve library IDs and get library docs without me having to explicitly ask.
 
-const spy = spyOn(ringo, "sayHi") ;
+## Pre-configured Library IDs
 
-test("spyon", () => {
-  expect(spy) .toHaveBeenCalledTimes(0) ;
-  ringo.sayHi() ;
-  expect(spy) .toHaveBeenCalledTimes(1) ;
-}) ;
-```
+Use these Context7 library IDs for OpenStory's tech stack:
 
+### Core Framework
+- `/vercel/next.js` - Next.js 15 documentation and patterns
+- `/microsoft/typescript` - TypeScript best practices
+- `/facebook/react` - React 19 features and hooks
 
-### Rule 3: Mock Return Values Using Mock Methods
-For mocking return values, use the mock function methods [(1) ](<https://bun.com/docs/test/mocks>) :
+### UI & Styling
+- `/tailwindlabs/tailwindcss` - Tailwind CSS 4 utilities and configuration
+- `/radix-ui/primitives` - Radix UI component APIs
+- `/shadcn/ui` - shadcn/ui component library
 
-```typescript
-import { mock } from "bun:test";
+### Backend & Data
+- `/elysiajs/elysia` - Elysia web framework patterns
+- `/drizzle-team/drizzle-orm` - Drizzle ORM queries and migrations
+- `/temporalio/sdk-typescript` - Temporal TypeScript SDK
+- `/tanstack/query` - TanStack Query v5 patterns
+- `/arktypeio/arktype` - ArkType runtime validation (backend validation)
 
-const random = mock((multiplier: number) => multiplier * Math.random() ) ;
-random(2) ;
-random(10) ;
+### AI Integration
+- `/fal-ai/client` - Fal.ai SDK for image/video generation
+- `/openai/openai-node` - OpenAI API for script analysis
 
-random.mock.calls;
-// [[ 2 ], [ 10 ]]
+### Infrastructure
+- `/upstash/redis` - Redis for caching (via @upstash/redis)
+- `/oven-sh/bun` - Bun runtime and package manager
 
-random.mock.results;
-// [
-//   { type: "return", value: 0.6533907460954099 },
-//   { type: "return", value: 0.6452713933037312 }
-// ]
-```
+## When to Use Context7
 
+Automatically invoke Context7 when:
+- Setting up new components or features
+- Working with framework-specific APIs (Next.js 15 App Router, React Server Components)
+- Implementing authentication patterns (Better Auth)
+- Configuring AI model integrations (Fal.ai models)
+- Working with async job queues (QStash patterns)
+- Implementing real-time features (Supabase Realtime)
+- Setting up validation schemas (Zod)
+- Troubleshooting integration issues
+- Learning new library features
 
-### Rule 4: Use Jest-Compatible Syntax
-Bun supports Jest-compatible mocking syntax :
-```typescript
-import { test, expect, jest } from "bun:test";
+## OpenStory-Specific Context Needs
 
-const random = jest.fn(() => Math.random() ) ;
+Prioritize Context7 for:
+- **Next.js 15**: Server Actions, async request params, React 19 features
+- **Elysia**: Route handlers, plugins, lifecycle hooks
+- **Drizzle ORM**: Query patterns, relations, migrations
+- **Temporal**: Workflow definitions, activity patterns, worker setup
+- **TanStack Query**: Query keys factory pattern, optimistic updates
+- **Fal.ai**: Model-specific parameters (flux, imagen4, veo3, kling, wan)
 
-test("random", async () => {
-  const val = random() ;
-  expect(val) .toBeGreaterThan(0) ;
-  expect(random) .toHaveBeenCalled() ;
-  expect(random) .toHaveBeenCalledTimes(1) ;
-}) ;
-```
+## Example Usage
 
+Instead of relying on potentially outdated training data, Context7 provides:
+- Current API signatures (especially for Next.js 15 breaking changes)
+- Latest configuration options (Tailwind 4, React 19)
+- Up-to-date code examples (async params in App Router)
+- Recent best practices (Server Components vs Client Components)
+- Breaking changes and migrations (React 18→19, Next.js 14→15)
 
-### Rule 5: Mock Fetch Using `spyOn` (Community Solution)
-For mocking `fetch`, use `spyOn` on the global object [(3) ](<https://github.com/oven-sh/bun/discussions/11169>) :
-
-```typescript
-const mockGetExample: typeof fetch = async (url, opts) => {
-  expect(url) .toBe('<https://example.com')>
-  expect(opts?.method) .toBe('GET')
-
-  return new Response(`{"success":true}`)
-}
-
-const spyFetch = spyOn(globalThis, 'fetch')
-
-beforeEach(() => {
-  spyFetch.mockReset()
-})
-
-afterAll(() => {
-  spyFetch.mockRestore()
-})
-
-test('fetches example.com', () => {
-  spyFetch.mockImplementation(mockGetExample)
-  // ... test code
-```
-
-
-### Rule 6: Handle Module Mock Restoration Issues
-Be aware that `mock.restore() ` has known issues with module mocks [(4) ](<https://github.com/oven-sh/bun/issues/7823>) . Use manual cleanup as a workaround:
-
-```typescript
-// Workaround for module mock restoration
-beforeEach(() => {
-  // Store original module before mocking
-  const original = await import('./module') ;
-  // Apply mock
-  mock.module('./module', () => ({ ...mockImplementation }) ) ;
-  
-  // Manual restore in afterEach
-  afterEach(() => {
-    mock.module('./module', () => original) ;
-  }) ;
-}) ;
-```
-
-
-### Rule 7: Use Preload for Early Module Mocking
-If you need to mock modules before they're imported, use `--preload` [(1) ](<https://bun.com/docs/test/mocks>) :
-
-```typescript
-// my-preload.ts
-import { mock } from "bun:test";
-
-mock.module("./module", () => {
-  return {
-    foo: "bar",
-  };
-}) ;
-```
-
-Then run: `bun test --preload ./my-preload`
-
-### Rule 8: Clear Mocks Between Tests
-Use `mock.clearAllMocks() ` to reset mock state :
-
-```typescript
-import { expect, mock, test } from "bun:test";
-
-const random1 = mock(() => Math.random() ) ;
-const random2 = mock(() => Math.random() ) ;
-
-test("clearing all mocks", () => {
-  random1() ;
-  random2() ;
-  expect(random1) .toHaveBeenCalledTimes(1) ;
-  expect(random2) .toHaveBeenCalledTimes(1) ;
-  
-  mock.clearAllMocks() ;
-  
-  expect(random1) .toHaveBeenCalledTimes(0) ;
-  expect(random2) .toHaveBeenCalledTimes(0) ;
-}) ;
-```
+This ensures all generated code uses current, working patterns rather than deprecated or incorrect approaches.
 
 ---
 > Source: [openstory-so/openstory](https://github.com/openstory-so/openstory) — distributed by [TomeVault](https://tomevault.io).
