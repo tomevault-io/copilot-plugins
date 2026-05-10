@@ -1,19 +1,11 @@
-## run-tests
+## synpress
 
-> Run tests yourself
+> Use synpress
 
 
-You should ALWAYS run the tests after you make any change and verify all tests pass. You should run the tests yourself.
+Use synpress for all frontend testing. Make sure we have tests for all user flows -- everything a user can do should have a test
 
-ALWAYAS RUN THE TESTS. ALWAYS RUN THEM YOURSELF.
-
-Do not wait for the user to run the tests. Assume that if you haven't tests your code, it's broken.
-
-You CAN run the tests. If you can't fix the underlying stuff and then run them again and again until it all works.
-
-ALWAYS run frontend testing with Synpress. Don't make a website or anything that requires user feedback-- this just slows down iteration process.
-
-We use Jeju CLI to run the tests, which wraps Playwright and Synpress for e2e tests. Make sure to always run the tests, especially e2e tests, and make sure that tests never run unless we're running them with the Jeju CLI, backend services and chain running
+Synpress is built into the Jeju CLI, and you can run it with 'jeju test'
 
 ---
 > Source: [JejuNetwork/jeju](https://github.com/JejuNetwork/jeju) — distributed by [TomeVault](https://tomevault.io).
