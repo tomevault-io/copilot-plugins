@@ -1,0 +1,9 @@
+{
+  "name": "mpsuesser--effect-oxlint",
+  "displayName": "effect-oxlint",
+  "description": "Write oxlint custom lint rules with Effect v4",
+  "version": "1.0.0",
+  "author": "mpsuesser",
+  "homepage": "https://github.com/mpsuesser/effect-oxlint",
+  "skills": []
+}
