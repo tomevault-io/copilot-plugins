@@ -1,0 +1,9 @@
+{
+  "name": "dimon94--cc-devflow",
+  "displayName": "cc-devflow",
+  "description": "\ud83d\ude80 One-command requirement development flow for Claude Code - Complete workflow system with sub-agents, quality gates, and intelligent automation",
+  "version": "1.0.0",
+  "author": "Dimon94",
+  "homepage": "https://github.com/Dimon94/cc-devflow",
+  "skills": []
+}
