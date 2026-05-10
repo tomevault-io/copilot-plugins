@@ -1,0 +1,9 @@
+{
+  "name": "clipperhouse--rate",
+  "displayName": "rate",
+  "description": "A composable rate limiter for Go",
+  "version": "1.0.0",
+  "author": "clipperhouse",
+  "homepage": "https://github.com/clipperhouse/rate",
+  "skills": []
+}
