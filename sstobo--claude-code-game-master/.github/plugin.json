@@ -1,0 +1,9 @@
+{
+  "name": "sstobo--claude-code-game-master",
+  "displayName": "Claude-Code-Game-Master",
+  "description": "Total conversion for Claude Code. Use RAG and the RPG ruleset apis to play a persistent adventure in any book or world of your choosing.",
+  "version": "1.0.0",
+  "author": "Sstobo",
+  "homepage": "https://github.com/Sstobo/Claude-Code-Game-Master",
+  "skills": []
+}
