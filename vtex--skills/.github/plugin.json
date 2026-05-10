@@ -1,0 +1,9 @@
+{
+  "name": "vtex--skills",
+  "displayName": "skills",
+  "description": "40 AI agent skills for VTEX platform development. Install with: gh skill install vtex/skills. Exports to Cursor, Copilot, Claude, AGENTS.md, OpenCode, and Kiro.",
+  "version": "1.0.0",
+  "author": "vtex",
+  "homepage": "https://github.com/vtex/skills",
+  "skills": []
+}
