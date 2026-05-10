@@ -1,0 +1,9 @@
+{
+  "name": "cola-io--codex-acp",
+  "displayName": "codex-acp",
+  "description": "An Agent Client Protocol (ACP)\u2013compatible agent that bridges the OpenAI Codex runtime with ACP clients over stdio.",
+  "version": "1.0.0",
+  "author": "cola-io",
+  "homepage": "https://github.com/cola-io/codex-acp",
+  "skills": []
+}
