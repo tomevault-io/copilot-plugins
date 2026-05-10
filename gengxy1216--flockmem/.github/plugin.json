@@ -1,0 +1,9 @@
+{
+  "name": "gengxy1216--flockmem",
+  "displayName": "FlockMem",
+  "description": "\u2726 FlockMem is a lightweight, local-first long-term collective memory bus  for multi-agents, optimized for edge deployment with a minimal memory footprint under 50MB. It combines   text-based, vector s",
+  "version": "1.0.0",
+  "author": "gengxy1216",
+  "homepage": "https://github.com/gengxy1216/FlockMem",
+  "skills": []
+}
