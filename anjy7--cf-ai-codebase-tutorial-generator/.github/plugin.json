@@ -1,0 +1,9 @@
+{
+  "name": "anjy7--cf-ai-codebase-tutorial-generator",
+  "displayName": "cf_ai_codebase-tutorial-generator",
+  "description": "Transform any GitHub repository into a comprehensive, AI-generated tutorial in minutes",
+  "version": "1.0.0",
+  "author": "anjy7",
+  "homepage": "https://github.com/anjy7/cf_ai_codebase-tutorial-generator",
+  "skills": []
+}
