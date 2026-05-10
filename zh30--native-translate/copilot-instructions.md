@@ -1,40 +1,41 @@
-## native-translate
+## 00-project-structure-and-entries
 
-> 代码风格、命名与可维护性
+> - [rspack.config.js](mdc:rspack.config.js)
 
-# 代码风格与可维护性
+# 项目结构与入口映射
 
-- **命名**：函数用动宾短语；变量用有意义的名词短语；避免缩写与 1-2 字母变量。
-- **类型**：公共 API 明确注解；避免 `any`，优先 `unknown`/范型；导出类型统一放在 `types` 或同文件顶部。
-- **控制流**：优先卫语句、处理边界；避免深层嵌套；仅在有意义时捕获异常。
-- **注释**：仅为复杂/决策性逻辑添加简洁注释（解释“为什么”而非“如何”）。
-- **格式**：遵循现有格式；长行换行；避免无关大规模改格式。
-- **UI/状态**：局部用 `useState`/`useReducer`，跨组件用 Context（轻量场景）；必要时再引入更重状态库。
-- **性能**：有需要时使用 `useMemo`/`useCallback`/`React.memo`；避免过度优化。
+- **核心配置**
+  - [rspack.config.js](mdc:rspack.config.js)
+  - [tsconfig.json](mdc:tsconfig.json)
+  - [biome.json](mdc:biome.json)
+  - [package.json](mdc:package.json)
+
+- **浏览器扩展清单**
+  - [src/manifest.json](mdc:src/manifest.json)
+  - 保持输出文件名与清单一致：
+    - `background.service_worker` → `background.js`
+    - `content_scripts[].js` → `contentScript.js`
+    - `action.default_popup` → `popup.html`
+    - `side_panel.default_path` → `sidePanel.html`
+
+- **入口与产物（保持名称一一对应）**
+  - Popup 页面： [src/popup/popup.tsx](mdc:src/popup/popup.tsx) → [src/popup/popup.html](mdc:src/popup/popup.html)
+  - Side Panel： [src/sidePanel/sidePanel.tsx](mdc:src/sidePanel/sidePanel.tsx) → [src/sidePanel/sidePanel.html](mdc:src/sidePanel/sidePanel.html)
+  - 后台 SW： [src/scripts/background.ts](mdc:src/scripts/background.ts) → `background.js`
+  - 内容脚本： [src/scripts/contentScript.ts](mdc:src/scripts/contentScript.ts) → `contentScript.js`
+
+- **样式与静态资源**
+  - Tailwind 入口： [src/styles/tailwind.css](mdc:src/styles/tailwind.css)
+  - 公共图标示例： [public/icon.png](mdc:public/icon.png)
+  - 多语言示例： [_locales/en/messages.json](mdc:_locales/en/messages.json)
+
+- **UI 与工具**
+  - 公共组件： [src/components/ui/button.tsx](mdc:src/components/ui/button.tsx), [src/components/ui/select.tsx](mdc:src/components/ui/select.tsx), [src/components/ui/label.tsx](mdc:src/components/ui/label.tsx)
+  - 工具函数： [src/utils/cn.ts](mdc:src/utils/cn.ts), [src/utils/i18n.ts](mdc:src/utils/i18n.ts), [src/utils/rtl.ts](mdc:src/utils/rtl.ts)
+
+- **路径别名**
+  - 通过 bundler 与 TS 配置将 `@/*` 指向 `src/*`，优先使用绝对导入：例如 `import { cn } from '@/utils/cn'`。
 
 ---
-globs: *.ts,*.tsx
-description: 代码风格、命名与可维护性
----
-## 代码风格
-
-- **命名**：避免 1-2 字母的短名。函数用动词短语，变量用名词短语。保持清晰可读。
-- **类型**：组件 Props、返回值与公共 API 必须显式类型。尽量避免 `any`。
-- **控制流**：使用早返回，捕获错误需有意义的处理；不要无意义吞错。
-- **注释**：仅在复杂处添加“为什么”，避免赘述“做什么”。
-- **格式化**：遵循 Biome；不要在无关行做大范围重排。
-- **文件组织**：
-  - 组件：`src/components/`
-  - 页面：`src/popup/`、`src/sidePanel/`
-  - 工具：`src/utils/`
-  - 类型：`src/types/`（如新增公共类型）
-
-## React 组件
-
-- 使用函数式组件与自动 JSX 运行时；优先 `React.FC<Props>`。
-- 状态管理优先 `useState`/`useReducer`，跨组件简易场景可用 Context。
-- 需要 Portal/浮层的组件注意 `z-index` 与注入上下文（内容脚本环境）。
-
----
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/zh30) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [zh30/native-translate](https://github.com/zh30/native-translate) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
