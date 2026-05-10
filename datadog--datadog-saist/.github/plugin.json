@@ -1,0 +1,9 @@
+{
+  "name": "datadog--datadog-saist",
+  "displayName": "datadog-saist",
+  "description": "AI-native SAST",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/datadog-saist",
+  "skills": []
+}
