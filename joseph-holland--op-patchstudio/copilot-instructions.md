@@ -1,40 +1,11 @@
-## design
+## dev-rules
 
-> rules for design language and styling
+> general dev info for OP-PatchStudio app
 
-- use carbon design system for all ui elements
-- use font awesome icons for all icons
-- ui palette is monochrome (op-xy device aesthetic)
-
-## Color System & Theming
-- NEVER hard-code colours; ALWAYS use CSS variables from `src/theme/device-themes.scss`
-- Theme system supports multiple device themes (OP-XY, OP-1 Field) and future dark mode
-- Use semantic color variables for consistency:
-    - `var(--color-text-primary)` → main text
-    - `var(--color-text-secondary)` → secondary text, icons
-    - `var(--color-bg-primary)` → main backgrounds
-    - `var(--color-bg-secondary)` → secondary backgrounds
-    - `var(--color-border-light)` → borders, dividers
-    - `var(--color-interactive-focus)` → interactive elements
-- Icons must use theme variables (e.g., `var(--color-text-secondary)`) not hardcoded colors
-- For knob colors, use semantic names ('black', 'dark', 'light', 'white') that map to theme variables
-
-## Typography & Content
-- text must be lowercase everywhere except:
-    - keyboard letters (A, S, D, F, G, H, J, W, E, R, T, Y, U)
-    - musical note names (C4, F#3, Ab2, etc.)
-
-## Layout & Spacing
-- border-radius scale:
-    - 15px  → outer containers (main panels, modals, keyboards)
-    - 6px   → secondary elements (buttons, badges)
-    - 3px   → small inner elements (toggles, inputs)
-- when reusing carbon components, override tokens so colours match the theme (monochrome)
-
-## Accessibility
-- aim for WCAG 2.1 level AA compliance
-- ensure proper color contrast ratios
-- maintain 44x44px minimum touch targets for interactive elements
+- ensure not to use copyright code, we can use as reference, but our implementation must not be the same
+- don't ever use emojis in console logs, it's not cute or clever
+- ensure to always remove debug logging after we've fixed any issues, we must not push console logs to prod
+- must be strongly typed whereever possible and not use 'any'
 
 ---
 > Source: [joseph-holland/op-patchstudio](https://github.com/joseph-holland/op-patchstudio) — distributed by [TomeVault](https://tomevault.io).
