@@ -1,0 +1,9 @@
+{
+  "name": "zhuofanwu--taxiagent",
+  "displayName": "TaxiAgent",
+  "description": "\u4e00\u4e2a\u9762\u5411\u7f51\u7ea6\u8f66\u573a\u666f\u7684\u591a Agent + Spring Boot & Spring AI \u9879\u76ee\uff0c\u4ece\u5e95\u5c42\u6413\u4e00\u4e2aReAct\u6846\u67b6",
+  "version": "1.0.0",
+  "author": "ZhuofanWu",
+  "homepage": "https://github.com/ZhuofanWu/TaxiAgent",
+  "skills": []
+}
