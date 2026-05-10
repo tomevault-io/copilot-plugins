@@ -4,7 +4,7 @@
   "repo": "Blog-Preview-Card",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/emon-mehedi/Blog-Preview-Card",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T06:17:10Z"
+  "distributed_at": "2026-05-10T14:05:03Z"
 }
