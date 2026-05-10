@@ -1,33 +1,34 @@
-## 20-ui-and-tailwind
+## 30-i18n-and-rtl
 
-> UI 组件与 Tailwind 使用规范
+> 国际化（Chrome i18n）与 RTL 方向设置规范
 
-# UI 组件与 Tailwind 规范
+# 国际化与 RTL 规范
 
-- **组件来源**：优先使用项目内 `src/components/ui/*` 组件：
-  - [src/components/ui/button.tsx](mdc:src/components/ui/button.tsx)
-  - [src/components/ui/select.tsx](mdc:src/components/ui/select.tsx)
-  - [src/components/ui/label.tsx](mdc:src/components/ui/label.tsx)
-- **样式入口**：全局样式在 [src/styles/tailwind.css](mdc:src/styles/tailwind.css)。
-- **Tailwind 用法**：
-  - 直接在 JSX 中组合 utility class，避免过度使用 `@apply`。
-  - 使用 `cn()` 合并 className：[src/utils/cn.ts](mdc:src/utils/cn.ts)。
-  - 响应式前缀：`sm:`、`md:`、`lg:`，尽量保持类名字符串可读。
-  - 仅在必要时使用 JIT 任意值，例如 `w-[300px]`。
-- **无障碍与语义**：优先使用语义标签与可访问属性，表单元素配合 `Label`。
+- **Chrome i18n**：文案应从 `_locales/*/messages.json` 读取，示例：
+  - 英文：[ _locales/en/messages.json ](mdc:_locales/en/messages.json)
+- **工具函数**：使用 [src/utils/i18n.ts](mdc:src/utils/i18n.ts) 获取文案，使用 [src/utils/rtl.ts](mdc:src/utils/rtl.ts) 处理方向。
+- **方向与布局**：根据语言调用 `setDocumentDirection()` 设置 `dir="rtl|ltr"`，确保组件在 RTL 下布局正确。
+- **不要硬编码**：避免在 UI 中写死字符串；新增文案需同时补齐各语言或提供合理回退。
 
 ---
-globs: *.tsx
-description: UI 组件与 Tailwind 使用规范
+globs: src/**/*.ts,src/**/*.tsx
+description: 国际化（Chrome i18n）与 RTL 方向设置规范
 ---
-## Tailwind 与 UI 规范
+## i18n 与 RTL
 
-- **Tailwind 入口**：通过 [src/styles/tailwind.css](mdc:src/styles/tailwind.css) 导入。页面入口需首先 `import '../styles/tailwind.css'`。
-- **类合并**：使用 `cn`（clsx + tailwind-merge）合并类名，避免冲突：`className={cn('p-2', conditional && 'text-blue-600')}`。
-- **组件变体**：优先使用 `class-variance-authority` 定义变体，如 [src/components/ui/button.tsx](mdc:src/components/ui/button.tsx)。新增组件参照此模式定义 `variants` 与 `defaultVariants`。
-- **选择器组件**：参照 [src/components/ui/select.tsx](mdc:src/components/ui/select.tsx) 的 Radix Select 封装。Layer 保持 `z-[2147483647]`，避免在内容脚本覆盖页面被遮挡。
-- **暗色模式**：使用 `dark:` 前缀支持深色主题，尽量避免自定义 CSS；若确需自定义，集中于 `tailwind.css`。
-- **排版密度**：默认 `text-sm` 与紧凑间距，延续现有设计语言。
+- **消息函数**：使用 [src/utils/i18n.ts](mdc:src/utils/i18n.ts) 的 `t(key, substitutions?)`，在缺失或调用异常时回退为 `key`。
+- **UI 方向**：在页面入口按 UI 语言设置 `dir` 与 `lang`：
+
+```ts
+import { getUILocale, isRTLLanguage } from '@/utils/rtl';
+const ui = getUILocale();
+document.documentElement.setAttribute('dir', isRTLLanguage(ui) ? 'rtl' : 'ltr');
+document.documentElement.setAttribute('lang', ui);
+```
+
+- **CSS 层**：`tailwind.css` 中 `body { direction: __MSG_@@bidi_dir__; }` 依赖 Chrome 本地化替换。不要移除该占位符。
+- **本地化目录**：在 [_locales/](mdc:_locales) 中新增/维护 `messages.json`，键名与 `t()` 调用保持一致。
+- **类型提示**：可在组件内维护受控的语言代码联合类型（参照 `popup.tsx` 的 `LanguageCode`）。
 
 ---
 > Source: [zh30/native-translate](https://github.com/zh30/native-translate) — distributed by [TomeVault](https://tomevault.io).
