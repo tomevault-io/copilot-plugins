@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--vibesdk",
+  "displayName": "vibesdk",
+  "description": "An open-source vibe coding platform that helps you build your own vibe-coding platform, built entirely on Cloudflare stack ",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/vibesdk",
+  "skills": []
+}
