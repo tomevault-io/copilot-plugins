@@ -1,0 +1,9 @@
+{
+  "name": "jermolene--twillm",
+  "displayName": "twillm",
+  "description": "A TiddlyWiki-based LLM knowledge base",
+  "version": "1.0.0",
+  "author": "Jermolene",
+  "homepage": "https://github.com/Jermolene/twillm",
+  "skills": []
+}
