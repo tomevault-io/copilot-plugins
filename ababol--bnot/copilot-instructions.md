@@ -1,0 +1,198 @@
+## bnot
+
+> pnpm dev               # Development (Vite HMR + Rust)
+
+# CLAUDE.md — Bnot
+
+## Build & Run
+
+```bash
+pnpm dev               # Development (Vite HMR + Rust)
+pnpm build             # Production build (.app bundle)
+pnpm format            # Prettier + organize imports
+cargo check            # Check Rust workspace only
+```
+
+Requires: macOS 14+, Rust (rustup), Node.js 22+, pnpm.
+
+## Release
+
+Use the `/release` skill (`.claude/skills/release/SKILL.md`). It pushes `main` and runs `gh release create`, which triggers `.github/workflows/release.yml`. The workflow reads the version from the release tag and writes it into `apps/desktop/tauri.conf.json` + `apps/desktop/Cargo.toml` in the runner only — **never bump any `version` field in the repo manually**.
+
+## Project Structure
+
+```
+bnot/
+  apps/
+    desktop/            # Tauri v2 Rust core
+      src/              # main.rs, lib.rs, commands.rs, window.rs, notch.rs, keyboard.rs,
+                        # sidecar.rs, socket_server.rs, peer_auth.rs
+    web/                # React 19 + TypeScript + Tailwind v4 frontend
+      src/
+        components/     # notch-content, compact-view, overview-view, session-card, pixel-bnot, etc.
+        context/        # session-context.tsx (useReducer + Context), types.ts
+        hooks/          # use-tauri-events.ts, use-timer.ts, use-hero-session.ts
+        lib/            # colors.ts, format.ts, tauri.ts
+  packages/
+    sidecar/            # Node.js sidecar (process scanning, session mgmt)
+      src/              # index.ts, process-scanner.ts, context-scanner.ts, session-manager.ts,
+                        # paths.ts, terminal-utils.ts, terminal-jumper.ts, ghostty-tab-mapper.ts,
+                        # hook-installer.ts, history-scanner.ts, repo-finder.ts,
+                        # worktree-creator.ts, session-launcher.ts, ipc.ts, types.ts
+    bridge/             # Rust CLI binary (Claude Code hook handler)
+      src/              # main.rs, hook_input.rs
+```
+
+## Architecture
+
+### Data Flow
+
+```
+Claude Code hooks → bnot-bridge (Rust CLI) → Unix socket → Tauri Rust (peer-auth) → Sidecar
+Sidecar → stdout NDJSON events → Tauri Rust → app.emit() → React frontend
+React → invoke() → Tauri commands → Sidecar stdin NDJSON requests
+```
+
+The socket server lives in the Tauri Rust process (`socket_server.rs`) and authenticates each
+peer against the bundled `bnot-bridge` path before forwarding messages to the sidecar via
+`socketMessage` IPC requests. Approval responses come back through `socketResponse` events.
+
+### Panel States
+
+5 states managed by `SessionContext` reducer: `compact`, `alert`, `overview`, `approval`, `ask`. `alert` is a widened `compact` used to flag pending approvals/questions via the bell pixel.
+
+State changes always go through `setPanelState(dispatch, state)` in `lib/tauri.ts`, which dispatches to React and invokes the Rust backend in one call.
+
+### Tauri Commands (commands.rs)
+
+- Window/navigation: `get_notch_geometry`, `set_panel_state`, `send_goto_tab`, `navigate_pane`, `activate_app`
+- Session: `jump_to_session`, `resume_session`, `answer_question`
+- Approval: `approve_session`, `approve_session_always`, `deny_session`, `accept_edits_session`, `bypass_permissions_session`
+- System: `open_settings`, `quit_app`
+
+### Sidecar IPC Methods (index.ts)
+
+`getStatus`, `jumpToSession`, `answerQuestion`, `approveSession`, `approveSessionAlways`, `denySession`, `acceptEditsSession`, `bypassPermissionsSession`, `openWorktree`, `resumeSession`.
+
+### Key Session Fields (types.ts)
+
+`id`, `status` (active/waitingApproval/waitingAnswer/completed/error), `workingDirectory`, `contextTokens`, `maxContextTokens`, `cpuPercent`, `gitBranch?`, `gitWorktree?`, `sessionMode?` (normal/plan/auto/dangerous), `agentColor?`.
+
+## Architecture Decisions
+
+**DO use LogicalPosition/LogicalSize for Tauri window positioning** — Retina 2x displays halve PhysicalPosition values.
+
+**DO use NSAnimationContext for panel transitions** — `window.rs::animate_frame()` with `ANIMATION_DURATION` (0.2s ease-out). Don't use Tauri's `set_position`/`set_size` for state transitions (no animation).
+
+**DO swizzle `acceptsFirstMouse:` on the webview** — Tauri's NSWindow requires focus before passing clicks. `window.rs::swizzle_accepts_first_mouse` swizzles WKWebView and its internal views to return YES.
+
+**DO NOT use `setFloatingPanel` on Tauri windows** — Tauri's NSWindow doesn't respond to NSPanel methods. Use `msg_send!` for `setLevel`, `setCollectionBehavior`, `setHidesOnDeactivate` only.
+
+**DO NOT update `lastActivity` in ProcessScanner** — Only hooks and initial session creation should set it.
+
+**DO copy `tty`/`processPid`/`cpuPercent` during dedup** — Surviving session must have process info or tab jumping won't work.
+
+**DO use Ghostty's native AppleScript API** for terminal focus — `ghostty-tab-mapper.ts` uses `focus` command + TTY marker. CGEvent/Accessibility approaches are too slow.
+
+**DO make sidecar spawning non-fatal** — If node/npx isn't found, the app still renders without session data.
+
+**DO use `pnpm dev` for development** — Runs `tauri dev` from root which starts Vite dev server + Rust build. The raw debug binary doesn't properly serve the embedded frontend.
+
+**DO authenticate UnixStream peers** — `~/.bnot/bnot.sock` is owned by the Tauri Rust process and rejects any peer whose executable isn't a known `bnot-bridge` path (verified via `getpeereid` + `LOCAL_PEERPID` + `proc_pidpath` in `peer_auth.rs`). The socket file is also `chmod 0600`. Any local app on the same UID would otherwise be able to inject fake `permissionRequest` messages and impersonate Claude Code's approval prompts.
+
+## Shared Utilities
+
+**`lib/tauri.ts`** — `setPanelState()` and `jumpToSession()`. All panel state changes must use `setPanelState` to keep React and Rust in sync.
+
+**`lib/format.ts`** — `formatElapsed()`, `formatIdle()`, `formatRelativeTime()`, `shortenPath()`, `tokenShort()`. All time/path/token formatting lives here.
+
+**`lib/colors.ts`** — `sessionStatusColor()` maps status+cpu to BnotColor. `parseBnotColor()` validates strings from the backend. `bnotTraitsFromId()` generates deterministic bnot appearance from hash.
+
+**`context/types.ts`** — `directoryName()`, `isIdle()`, `projectName()`, `contextPercent()`. Derived helpers for session data.
+
+**`packages/sidecar/src/paths.ts`** — `CLAUDE_DIR`, `RUNTIME_DIR`, `CONFIG_PATH`. All shared paths.
+
+**`packages/sidecar/src/terminal-utils.ts`** — `escapeForAppleScript()`, `escapeShell()`. All string escaping for shell/AppleScript.
+
+## Tailwind CSS v4
+
+- Plugin: `@tailwindcss/vite` in `apps/web/vite.config.ts`
+- CSS entry: `apps/web/src/index.css` with `@import "tailwindcss"` + `@theme` block
+- Custom tokens: `--color-bnot-green`, `--color-surface`, `--color-text-dim`, etc.
+- Do NOT add `* { margin: 0; padding: 0; }` outside Tailwind layers — it overrides utility classes.
+
+## TypeScript
+
+- Strict mode with `noUnusedLocals`, `noUnusedParameters`, `noFallthroughCasesInSwitch`
+- Target: ES2021, JSX: react-jsx, module resolution: bundler
+- Reducer exhaustiveness enforced via `satisfies never`
+
+## IPC Protocol
+
+Tauri <-> Sidecar via stdin/stdout NDJSON:
+
+```
+Tauri -> Sidecar:  {"id":1, "method":"jumpToSession", "params":{"sessionId":"proc-123"}}
+Sidecar -> Tauri:  {"event":"sessionsUpdated", "data":{"sessions":{...}, "heroId":"proc-123"}}
+Sidecar -> Tauri:  {"event":"tauriCommand", "data":{"method":"activate_app", "params":{...}}}
+```
+
+`tauriCommand` events are handled in Rust (keyboard injection, app activation) — not forwarded to the frontend.
+
+## Claude Code Hooks
+
+Auto-installed to `~/.claude/settings.json` on startup via `hook-installer.ts`. Bridge binary reads hook JSON from stdin, sends NDJSON to `~/.bnot/bnot.sock`, exits 0. The socket is owned by the Tauri Rust process and only accepts connections from the bundled `bnot-bridge` binary.
+
+For dangerous tools (Bash, Edit, Write, NotebookEdit, MultiEdit), bridge blocks and waits for approval response (120s timeout). For safe tools, it's fire-and-forget.
+
+## Context Token Estimation
+
+Fast path (3s): `raw_total * ESTIMATION_RATIO` or `max_context * fillPercent` for autocompacted sessions.
+Exact query (60s): `claude --print "/context" --resume <id>`.
+
+Constants in `context-scanner.ts`: `ESTIMATION_RATIO=0.85`, `OVER_RATIO_OFFSET=0.08`, `MIN_FILL_PERCENT=0.3`, `MAX_FILL_PERCENT=0.7`.
+
+## macOS Permissions
+
+Bnot drives Ghostty/iTerm via AppleScript and System Events keystrokes (worktree
+launch, /color injection, tab focus). After first install — and after any version
+bump that re-signs the bundle — macOS revokes the relevant grants and the
+keystroke path silently fails (Ghostty `activate` still works, so the user just
+sees their existing tab focus). Grant manually:
+
+- **System Settings → Privacy & Security → Accessibility** → enable Bnot
+- **System Settings → Privacy & Security → Automation** → Bnot → enable Ghostty
+  (and iTerm if used)
+
+When osascript fails with `-1719` / `-1743` / `-1728` / `-600`, the sidecar
+fires a native macOS notification telling the user to grant Accessibility
+(`packages/sidecar/src/session-launcher.ts::surfaceLaunchError`).
+
+## Runtime Files
+
+- `~/.bnot/bnot.sock` — Unix domain socket, owned by Tauri Rust, mode 0600, peer-authenticated
+- `~/.bnot/config.json` — Project directories config
+- `~/.claude/settings.json` — Claude Code hooks
+- `~/.claude/sessions/*.json` — Session metadata
+- `~/.claude/projects/<key>/<sessionId>.jsonl` — Conversation data
+
+## Testing
+
+```bash
+# Send a fake hook event via the bridge (the only authenticated path).
+echo '{"session_id":"test","tool_name":"Edit","tool_input":{"file_path":"test.ts"},"hookEventName":"PreToolUse","cwd":"/tmp"}' | ./target/debug/bnot-bridge pre-tool
+
+# Verify the socket rejects non-bridge peers — this should connect, then close immediately
+# without producing any UI update. Look for a "[socket-server] reject connection" line in the
+# Tauri stderr.
+node -e "
+const net = require('net');
+const sock = net.createConnection(process.env.HOME + '/.bnot/bnot.sock');
+sock.on('close', () => console.log('closed'));
+sock.on('error', (e) => console.log('err', e.code));
+"
+```
+
+---
+> Source: [ababol/bnot](https://github.com/ababol/bnot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-28 -->
