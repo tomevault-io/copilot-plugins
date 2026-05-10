@@ -1,0 +1,9 @@
+{
+  "name": "skobkin--antenna-stats",
+  "displayName": "antenna-stats",
+  "description": "Some not so precise measurements of antennas.",
+  "version": "1.0.0",
+  "author": "skobkin",
+  "homepage": "https://github.com/skobkin/antenna-stats",
+  "skills": []
+}
