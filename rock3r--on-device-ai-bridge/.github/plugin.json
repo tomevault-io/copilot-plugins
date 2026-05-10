@@ -1,0 +1,9 @@
+{
+  "name": "rock3r--on-device-ai-bridge",
+  "displayName": "on-device-ai-bridge",
+  "description": "Exposes Apple's on-device AI (FoundationModels framework) as an OpenAI-compatible REST API via an IntelliJ plugin. Requires macOS 26+ (Tahoe) with Apple Intelligence enabled and Apple Silicon.",
+  "version": "1.0.0",
+  "author": "rock3r",
+  "homepage": "https://github.com/rock3r/on-device-ai-bridge",
+  "skills": []
+}
