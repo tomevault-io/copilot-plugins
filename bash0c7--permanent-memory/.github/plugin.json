@@ -1,0 +1,9 @@
+{
+  "name": "bash0c7--permanent-memory",
+  "displayName": "permanent-memory",
+  "description": "Ruby MCP server for esa-backed permanent memory",
+  "version": "1.0.0",
+  "author": "bash0C7",
+  "homepage": "https://github.com/bash0C7/permanent-memory",
+  "skills": []
+}
