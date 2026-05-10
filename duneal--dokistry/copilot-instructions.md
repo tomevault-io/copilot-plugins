@@ -1,49 +1,12 @@
-## naming-conventions
+## primitives-ui
 
-> Enforce kebab-case for regular SCSS, PascalCase/camelCase for SCSS modules, PascalCase for components, and camelCase for functions/variables.
+> Use UI primitive components (Button, Input, Card, Badge, Breadcrumb, Dialog, etc.) from the src/app/_components/ui folder
 
 
-# SCSS / CSS Rules
-
-## Regular SCSS files (`.scss` only)
-- File names must be **kebab-case** (`button.scss`, `card-header.scss`).
-- All **variables** (e.g., `$spacing-unit`) must be **kebab-case**.
-- All **class names** must be **kebab-case**.
-- **Prohibited:** camelCase, PascalCase, or snake_case inside `.scss`.
-
-## SCSS module files (`.module.scss`)
-- File names must match the **component name** in **PascalCase** or **camelCase** (`Button.module.scss`, `button.module.scss`).
-- Inside module files:
-  - **Class names** must match **PascalCase** or **camelCase** style for component usage.
-  - Variables can use **camelCase** or **kebab-case**, depending on project conventions.
-
-# TypeScript / TSX Rules
-
-- **Component files** (`.tsx`) must be named in **PascalCase**.
-- Components must be exported with **PascalCase** names (`Button`, `Card`).
-- **Functions, hooks, and variables** must use **camelCase**.
-- **Prohibited:** snake_case or kebab-case in TS/TSX.
-
-# Examples
-
-## Regular SCSS (`.scss`)
-✅ `$c-primary: #fff;`  
-✅ `.button--primary { ... }`  
-❌ `$PrimaryColor: #fff;`  
-❌ `.ButtonPrimary { ... }`  
-❌ File name: `Button.scss`
-
-## SCSS Module (`.module.scss`)
-✅ `.buttonPrimary { ... }`  
-✅ `.ButtonPrimary { ... }`  
-✅ File name: `Button.module.scss` or `button.module.scss`  
-❌ `.button-primary { ... }` (only for regular SCSS)  
-
-## TS / TSX
-✅ `const fetchData = () => { ... }`  
-✅ `export function Button() { ... }`  
-❌ `const Fetch_Data = () => { ... }`  
-❌ `export function button() { ... }`  
+- For buttons, use `<Button variant="...">` instead of `<button className="...">`.
+- For inputs, use `<Input />`.
+- For badges, use `<Badge />`.
+- Never use generic divs for interactive components; always prefer the existing primitives.
 
 ---
 > Source: [duneal/dokistry](https://github.com/duneal/dokistry) — distributed by [TomeVault](https://tomevault.io).
