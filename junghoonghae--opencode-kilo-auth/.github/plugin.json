@@ -1,0 +1,9 @@
+{
+  "name": "junghoonghae--opencode-kilo-auth",
+  "displayName": "opencode-kilo-auth",
+  "description": "OpenCode plugin for Kilo Gateway \u2014 access 342+ AI models including 29 free tier models like GLM 5.",
+  "version": "1.0.0",
+  "author": "JungHoonGhae",
+  "homepage": "https://github.com/JungHoonGhae/opencode-kilo-auth",
+  "skills": []
+}
