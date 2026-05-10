@@ -1,0 +1,9 @@
+{
+  "name": "miuuyy--clew",
+  "displayName": "Clew",
+  "description": "Clear path from where you are to what you want to learn. AI agent turns goals and topic dumps into graph with visible dependencies (generative roadmap.sh)",
+  "version": "1.0.0",
+  "author": "miuuyy",
+  "homepage": "https://github.com/miuuyy/Clew",
+  "skills": []
+}
