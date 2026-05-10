@@ -1,11 +1,121 @@
-## dont-swallow-logs
+## e2e-testing
 
-> Show logs, dont send to dev null or & > 1
+> E2E Testing with AI Visual Verification
 
 
-It helps if we can see the logs. Don't hide them. I am reading the console and can only help if I can see them. Just run 'bun run dev" instead of, for example, driving it into a file or dev/null. NO &2>@1 > | -- let me read the logs! Just let them write to console!
+# E2E Testing Guide
 
-You LARP a lot by echoing "all tests passed!" instead of running the tests. You also put "!" in your echos which causes the command to break on Mac OSX. Don't do that. Just run the tests and output actual output.
+## Current Status (82 tests passing)
+
+| App | Tests | Coverage |
+|-----|-------|----------|
+| DWS | 39 | ✅ 31 pages, navigation, mobile, 5 API endpoints |
+| Autocrat | 20 | ✅ DAO list, create wizard (5 steps), form validation, mobile |
+| Crucible | 23 | ✅ Agents, chat, rooms, header, footer, mobile |
+| Bazaar | - | ⏳ Needs dependencies |
+| Gateway | 15+ | ⏳ Needs SQLit (10 tabs ready) |
+| Factory | - | ⏳ Needs setup |
+| Monitoring | - | ⏳ Needs setup |
+| Node | - | ⏳ Needs Tauri |
+| Wallet | - | ⏳ Needs setup |
+
+## Running E2E Tests
+
+```bash
+# Run E2E tests for a specific app (app must be running first)
+cd apps/<app-name>
+SKIP_WEBSERVER=1 ANTHROPIC_API_KEY=$(grep ANTHROPIC_API_KEY ../../.env | cut -d= -f2) bunx playwright test tests/e2e/
+
+# Start app first (in another terminal)
+cd apps/<app-name> && bun run dev
+
+# Or run all tests via jeju CLI
+bun run jeju test --mode e2e --app <app-name>
+```
+
+## E2E Test Structure
+
+Every app with a frontend should have:
+
+```
+apps/<app-name>/
+├── tests/
+│   └── e2e/
+│       └── comprehensive.spec.ts  # Tests ALL routes with AI verification
+├── playwright.config.ts
+└── test-results/
+    ├── screenshots/              # Page screenshots
+    └── ai-verification-cache.json # Cached AI results
+```
+
+## Creating Comprehensive E2E Tests
+
+1. **Extract all routes from App.tsx** - Every route must be tested
+2. **Define expected content** - What text should appear on each page
+3. **Add descriptions for AI** - What the page should look like
+4. **Use AI visual verification** - Claude/OpenAI verifies screenshots
+
+## Key Patterns
+
+### Fail-Fast on Errors
+```typescript
+// Capture ALL console errors - crash immediately
+page.on('console', (msg) => {
+  if (msg.type() === 'error') {
+    errors.push(msg.text())
+  }
+})
+
+if (errors.length > 0) {
+  throw new Error(`Page has errors: ${errors.join(', ')}`)
+}
+```
+
+### AI Visual Verification with Caching
+```typescript
+const imageHash = hashImage(screenshotPath)
+const cached = verificationCache[imageHash]
+
+if (cached) {
+  verification = cached.result // Use cached
+} else {
+  verification = await verifyImage(screenshotPath, description)
+  verificationCache[imageHash] = { result: verification, ... }
+  saveCache()
+}
+```
+
+### Quality Checks
+- `excellent` (95%+) - Perfect
+- `good` (85-94%) - Minor issues
+- `acceptable` (70-84%) - Needs improvement  
+- `poor` (50-69%) - Significant issues
+- `broken` (<50%) - FAIL the test
+
+## Environment Variables
+
+Required in `.env`:
+```
+ANTHROPIC_API_KEY=sk-ant-...  # For Claude AI verification
+# OR
+OPENAI_API_KEY=sk-...         # For GPT-4 verification
+```
+
+## Commands
+
+```bash
+# Full E2E with AI verification
+ANTHROPIC_API_KEY=... bunx playwright test tests/e2e/
+
+# Skip AI verification (faster, no API key needed)
+bunx playwright test tests/e2e/
+
+# Run specific test
+bunx playwright test tests/e2e/comprehensive.spec.ts --grep "Dashboard"
+
+# Show browser (not headless)
+bunx playwright test tests/e2e/ --headed
+```
 
 ---
 > Source: [JejuNetwork/jeju](https://github.com/JejuNetwork/jeju) — distributed by [TomeVault](https://tomevault.io).
