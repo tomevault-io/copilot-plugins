@@ -1,0 +1,9 @@
+{
+  "name": "internet-development--ts-general-agent",
+  "displayName": "ts-general-agent",
+  "description": "General agent with adapters that uses Vercel's AI Gateway aiming to be under $50 a day and still effective.",
+  "version": "1.0.0",
+  "author": "internet-development",
+  "homepage": "https://github.com/internet-development/ts-general-agent",
+  "skills": []
+}
