@@ -1,0 +1,9 @@
+{
+  "name": "dev-smurf--excaliclaude",
+  "displayName": "excaliclaude",
+  "description": "MCP server that lets Claude draw in your Excalidraw canvas in real-time via the collaboration protocol",
+  "version": "1.0.0",
+  "author": "dev-smurf",
+  "homepage": "https://github.com/dev-smurf/excaliclaude",
+  "skills": []
+}
