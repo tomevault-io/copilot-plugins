@@ -1,9 +1,9 @@
 {
   "name": "teemuso--saas-template-for-ai-lite",
   "displayName": "saas-template-for-ai-lite",
-  "description": "saas-template-for-ai-lite",
+  "description": "This is a SaaS template designed for AI workflows. The template includes robust and minimal Supabase and Stripe integrations, allowing AI to update the codebase easily. ",
   "version": "1.0.0",
   "author": "TeemuSo",
-  "homepage": "https://tomevault.io/claim/TeemuSo",
+  "homepage": "https://github.com/TeemuSo/saas-template-for-ai-lite",
   "skills": []
 }
