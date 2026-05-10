@@ -1,0 +1,9 @@
+{
+  "name": "chigkim--collaborative-agent",
+  "displayName": "collaborative-agent",
+  "description": "Testing collaborative agents coordinated by a strict orchestrator. Includes role separation, retry logic, and standardized output generation.",
+  "version": "1.0.0",
+  "author": "chigkim",
+  "homepage": "https://github.com/chigkim/collaborative-agent",
+  "skills": []
+}
