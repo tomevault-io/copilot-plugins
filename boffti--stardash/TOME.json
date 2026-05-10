@@ -4,7 +4,7 @@
   "repo": "stardash",
   "description": "AI-powered workspace to discover, organize, and contribute to your starred GitHub repos - with MCP support for code assistants (coming soon)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/boffti/stardash",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T01:01:31Z"
+  "distributed_at": "2026-05-10T11:43:37Z"
 }
