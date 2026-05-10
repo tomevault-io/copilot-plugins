@@ -1,0 +1,9 @@
+{
+  "name": "deathbeam--slopcode-nvim",
+  "displayName": "slopcode.nvim",
+  "description": "minimal AI coding agent for neovim",
+  "version": "1.0.0",
+  "author": "deathbeam",
+  "homepage": "https://github.com/deathbeam/slopcode.nvim",
+  "skills": []
+}
