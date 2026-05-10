@@ -4,7 +4,7 @@
   "repo": "everything-harness-engineering",
   "description": "Research workspace on harness engineering, coding-agent shells, and automation workflow systems.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BeMxself/everything-harness-engineering",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T07:50:14Z"
+  "distributed_at": "2026-05-10T15:17:51Z"
 }
