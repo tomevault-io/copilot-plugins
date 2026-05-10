@@ -4,7 +4,7 @@
   "repo": "learning-repository",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/baphuongna/learning-repository",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T12:52:06Z"
+  "distributed_at": "2026-05-10T17:44:34Z"
 }
