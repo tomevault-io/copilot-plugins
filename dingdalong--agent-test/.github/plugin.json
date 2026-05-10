@@ -1,0 +1,9 @@
+{
+  "name": "dingdalong--agent-test",
+  "displayName": "agent_test",
+  "description": "my ai agent",
+  "version": "1.0.0",
+  "author": "dingdalong",
+  "homepage": "https://github.com/dingdalong/agent_test",
+  "skills": []
+}
