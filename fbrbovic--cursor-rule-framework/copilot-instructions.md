@@ -1,54 +1,40 @@
-## project-config
+## rules
 
-> Last-Updated: 2025-06-07
+> This file contains all cursor rules that should be followed during development. When asked to remember a cursor rule, it will be added to the appropriate section below. All rules in this file must always be followed unless explicitly overridden by the user.
 
-# project-config.md
-Last-Updated: 2025-06-07
+# Cursor Rule Organization and Codification
+This file contains all cursor rules that should be followed during development. When asked to remember a cursor rule, it will be added to the appropriate section below. All rules in this file must always be followed unless explicitly overridden by the user. 
 
-## Project Goal
-e.g. Build an enterprise ready platform that allows users to build and launch websites
+## Rule Locations and Scope
 
-## Tech Stack
-- **Language(s):** e.g TypeScript , Javascript
-- **Framework(s):** e.g. Nuxt.js, Encore TS, Vue.js
-- **Build / Tooling:** e.g. pnpm, Turborepo, docker
-- **Monorepo Structure:** e.g Turborepo-managed workspace with apps/frontend and apps/backend
+- **/**: Contains rules and guidelines that apply to the entire application, across all workspaces and domains. Use this location for any rule that should be remembered and enforced globally.
+- **/[[domain]]**: e.g.  Contains rules and guidelines that apply only to the [[DOMAIN]] portion of the application. Use this location for rules specific to the [[DOMAIN]] codebase,
 
-## Critical Patterns & Conventions
-- When ever possible recommend building an AI-First solution, where solution uses an AI to make the user experience easy and streamlines. 
-- Prioritize using open source packages whenever you can instead of building your own. Preferred package repository is npm, but do also search for open source github repos. 
-- Prioritize `@Docs` for internal documentation and `@Web` for external resources.
-- Use `@Git` and `@Folders` in combination to understand the codebase structure and history.
-- Structure tool calls logically, documenting the rationale before execution.
-- For complex tasks, break them down into smaller, manageable steps using tool calls.
-- When using `@Files` or `@Code`, specify the file path and relevant code sections clearly.
-- If a tool call fails, attempt to diagnose the issue using error messages and logs. Refer to the troubleshooting guides if needed:
-    - @Common Issues
-    - @Troubleshooting Guide
-- Follow consistent naming conventions (e.g., camelCase for variables, PascalCase for classes).
-- Use meaningful variable and function names.
-- Write clear and concise comments.
-- Break down complex functions into smaller, more manageable units.
-- Handle errors gracefully and provide informative error messages.
-- Write unit and integration tests for critical components.
-- Keep code DRY (Don't Repeat Yourself) by abstracting reusable logic into functions or modules.
-
-## Constraints
-- You have a limited context window (Claude's limitation).
-- You can make up to 25 tool calls per turn in Agent Composer mode.
-- Adhere to the "Cursor AI Operating Instructions" provided separately.
-- Prioritize code quality, maintainability, and security.
-- Avoid making assumptions; ask clarifying questions when needed.
-
-## Tokenization Settings
-- Estimated chars-per-token: 3.5  
-- Max tokens for the AI: 120 0000
-- Plan for summary when **workflow-state.mdc** exceeds ~12 K chars.
+## Best Practices
+- **All Cursor rules must use the `.mdc` extension.** Do not use `.md` or other extensions for rules files.
+- Always write and update rules in the correct workspace according to their intended scope.
+- Reference global rules from workspace-specific rules if needed, but do not duplicate content.
+- When in doubt, prefer to place rules in the most restrictive (specific) workspace that matches their scope.
 
 ---
 
-## Changelog
-<!-- The agent prepends the latest summary here as a new list item after each VALIDATE phase -->
+This meta-rule ensures clarity and consistency in rule management across the project. Update this file if the rule organization strategy changes.
+
+## Rule addition instructions
+When the user asks to "remember a cursor rule", add it to the appropriate section below or create a new subsection if needed. 
+Always include:
+- Clear rule description
+- Context for when it applies
+- Any exceptions or special cases
+- Date added (as a commnet)
+- Keep the rule as short as possible without sacrificing clarity and understanding
+
+IMPORTANT: If below rules get larger than 500 lines, break up the rules into meaningful groups and store them as separate files in .cursor/rules directory starting with rules- prefix.  Then make sure to add the reference in this file to it with short instructions on how to read it and follow it. 
+
+## Development Rules
+<-- This area should store all the rules,  to be only completed and managed by AI -->
+
+ 
 
 ---
 > Source: [fbrbovic/cursor-rule-framework](https://github.com/fbrbovic/cursor-rule-framework) — distributed by [TomeVault](https://tomevault.io).
