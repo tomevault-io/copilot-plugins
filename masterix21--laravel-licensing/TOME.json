@@ -2,9 +2,9 @@
   "name": "laravel-licensing",
   "owner": "masterix21",
   "repo": "laravel-licensing",
-  "description": "",
+  "description": "A licensing package for Laravel with offline verification, seat management, cryptographic key rotation, and multi-product support.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/masterix21/laravel-licensing",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T12:56:59Z"
+  "distributed_at": "2026-05-10T15:07:01Z"
 }
