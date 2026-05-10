@@ -1,0 +1,9 @@
+{
+  "name": "feramance--torrentarr",
+  "displayName": "Torrentarr",
+  "description": "Hit & Run protection, free space control, quality upgrades, and import triggering. C# port of qBitrr with the same config and schema.",
+  "version": "1.0.0",
+  "author": "Feramance",
+  "homepage": "https://github.com/Feramance/Torrentarr",
+  "skills": []
+}
