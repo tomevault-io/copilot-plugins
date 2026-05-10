@@ -1,0 +1,9 @@
+{
+  "name": "raccioly--docguard",
+  "displayName": "docguard",
+  "description": "The enforcement tool for Canonical-Driven Development (CDD). Audit, generate, and guard your project documentation. Zero dependencies.",
+  "version": "1.0.0",
+  "author": "raccioly",
+  "homepage": "https://github.com/raccioly/docguard",
+  "skills": []
+}
