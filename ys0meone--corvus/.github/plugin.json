@@ -1,0 +1,9 @@
+{
+  "name": "ys0meone--corvus",
+  "displayName": "Corvus",
+  "description": "Multi-agent AI research system \u2014 finds academic papers via semantic search & citation snowballing, then answers questions over them using agentic RAG with self-reflection. Built with LangGraph, FastAP",
+  "version": "1.0.0",
+  "author": "YS0meone",
+  "homepage": "https://github.com/YS0meone/Corvus",
+  "skills": []
+}
