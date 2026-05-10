@@ -1,0 +1,9 @@
+{
+  "name": "badlogic--pi-mono",
+  "displayName": "pi-mono",
+  "description": "AI agent toolkit: coding agent CLI, unified LLM API, TUI & web UI libraries, Slack bot, vLLM pods",
+  "version": "1.0.0",
+  "author": "badlogic",
+  "homepage": "https://github.com/badlogic/pi-mono",
+  "skills": []
+}
