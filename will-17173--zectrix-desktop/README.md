@@ -7,11 +7,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [will-17173/zectrix-desktop](https://github.com/will-17173/zectrix-desktop).
+Original source: `CLAUDE.md` in [will-17173/zectrix-desktop](https://github.com/will-17173/zectrix-desktop).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
