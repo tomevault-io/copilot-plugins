@@ -4,7 +4,7 @@
   "repo": "sheal",
   "description": "your ai agent keeps making the same mistakes. sheal fixes that.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/liwala/sheal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T16:09:02Z"
+  "distributed_at": "2026-05-10T06:41:34Z"
 }
