@@ -1,0 +1,9 @@
+{
+  "name": "lanxiuyun--dotaterrainswitcher",
+  "displayName": "DotaTerrainSwitcher",
+  "description": "Dota2 \u5730\u56fe\u5207\u6362\u5668\u3002\u8fd9\u662f\u4e00\u4e2a\u5c06dota\u9ed8\u8ba4\u5730\u56fe\u66ff\u6362\u6210\u4f60\u559c\u6b22\u7684\u5b98\u65b9\u5730\u56fe\u7684\u5de5\u5177\u3002This is a tool to switch the default Dota map to your favorite official map.",
+  "version": "1.0.0",
+  "author": "lanxiuyun",
+  "homepage": "https://github.com/lanxiuyun/DotaTerrainSwitcher",
+  "skills": []
+}
