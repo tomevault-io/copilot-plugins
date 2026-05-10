@@ -1,0 +1,9 @@
+{
+  "name": "yehudafrankel--clankbrain",
+  "displayName": "clankbrain",
+  "description": "Memory + workflows for Claude Code that compound across sessions",
+  "version": "1.0.0",
+  "author": "YehudaFrankel",
+  "homepage": "https://github.com/YehudaFrankel/clankbrain",
+  "skills": []
+}
