@@ -1,0 +1,9 @@
+{
+  "name": "tjx666--vscode-mcp",
+  "displayName": "vscode-mcp",
+  "description": "MCP server for Claude Code/VSCode/Cursor/Windsurf to use editor self functionality. \u26a1 Get real-time LSP diagnostics, type information, and code navigation for AI coding agents without waiting for slow",
+  "version": "1.0.0",
+  "author": "tjx666",
+  "homepage": "https://github.com/tjx666/vscode-mcp",
+  "skills": []
+}
