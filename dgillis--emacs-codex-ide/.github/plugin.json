@@ -1,0 +1,9 @@
+{
+  "name": "dgillis--emacs-codex-ide",
+  "displayName": "emacs-codex-ide",
+  "description": "Codex IDE integration for Emacs",
+  "version": "1.0.0",
+  "author": "dgillis",
+  "homepage": "https://github.com/dgillis/emacs-codex-ide",
+  "skills": []
+}
