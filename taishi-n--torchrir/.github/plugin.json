@@ -1,0 +1,9 @@
+{
+  "name": "taishi-n--torchrir",
+  "displayName": "torchrir",
+  "description": "PyTorch-based room impulse response (RIR) simulation toolkit with dynamic scenes, GPU acceleration.",
+  "version": "1.0.0",
+  "author": "taishi-n",
+  "homepage": "https://github.com/taishi-n/torchrir",
+  "skills": []
+}
