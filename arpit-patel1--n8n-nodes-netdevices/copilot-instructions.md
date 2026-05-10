@@ -1,19 +1,55 @@
-## git-push-and-npm-publish
+## python-netmiko-to-n8n-netrouter-node-typescript
 
-> When the user says git push and publish, perform the following actions in order:
+> Build a robust and modular support system within the Node.js/TypeScript ecosystem to manage network infrastructure (Cisco and Juniper routers, switches, and Linux servers) directly from n8n. This will eliminate reliance on external Python scripts or bridge layers, making native automation in n8n seamless and scalable.
 
-When the user says git push and publish, perform the following actions in order:
-	1.	Commit any pending changes and push to the main branch.
-	2.	Increment the patch version in package.json using npm version patch.
-	3.	Push commits and tags to Git: git push && git push --tags.
+🌐 Project Goal
 
-Note: The GitHub Actions workflow (.github/workflows/release.yml) will automatically:
-	- Run linter (npm run lint)
-	- Build the project (npm run build)
-	- Create a GitHub Release with auto-generated release notes
-	- Publish the package to npm
+Build a robust and modular support system within the Node.js/TypeScript ecosystem to manage network infrastructure (Cisco and Juniper routers, switches, and Linux servers) directly from n8n. This will eliminate reliance on external Python scripts or bridge layers, making native automation in n8n seamless and scalable.
 
-The manual steps of linting, building, and publishing to npm are no longer required as they are handled by the CI/CD pipeline.
+⸻
+
+🧭 Context & Motivation
+	•	Python has a mature and widely-used library called Netmiko (built on top of Paramiko) for SSH-based interaction with network devices.
+	•	Currently, Node.js lacks a comparable abstraction, making the development of n8n custom nodes for network management challenging.
+	•	This project aims to fill that gap by creating a reusable, extensible Node.js module (or set of helpers) that mirrors Netmiko’s functionality for core use cases.
+
+⸻
+
+✅ Objectives
+	•	Support vendor-specific command execution workflows (initially Cisco IOS and Juniper JunOS).
+	•	Provide a clean abstraction layer similar to Netmiko for:
+	•	SSH connectivity
+	•	Command execution
+	•	Error handling
+	•	Logging
+	•	Session lifecycle management
+	•	Build an n8n custom node that utilizes this internal module to perform operations like:
+	•	Run CLI commands
+	•	Fetch configuration
+	•	Apply configuration snippets
+	•	Reboot/Reload devices
+
+⸻
+
+🧪 References
+	•	Use the Python implementation found in references/netmiko-develop/ strictly as inspiration and reference.
+	•	Do not port 1:1 — adapt design to Node.js idioms using available SSH libraries like:
+	•	ssh2
+	•	node-pty (optional)
+	•	telnet-client (if telnet support is needed)
+
+⸻
+
+📦 Deliverables
+	•	A Node.js-based abstraction library similar to Netmiko.
+	•	One n8n custom node that utilize the library.
+
+⸻
+
+⚠️ Constraints
+	•	This is not a full rewrite of Netmiko — focus only on features required by the n8n use case.
+	•	Avoid tight coupling with n8n internals — keep device communication logic modular and testable in isolation.
+	•	Ensure secure handling of credentials and device info (do not log passwords or sensitive data).
 
 ---
 > Source: [arpit-patel1/n8n-nodes-netdevices](https://github.com/arpit-patel1/n8n-nodes-netdevices) — distributed by [TomeVault](https://tomevault.io).
