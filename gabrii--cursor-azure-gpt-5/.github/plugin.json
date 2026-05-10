@@ -1,0 +1,9 @@
+{
+  "name": "gabrii--cursor-azure-gpt-5",
+  "displayName": "Cursor-Azure-GPT-5",
+  "description": "A service that allows Cursor to use Azure GPT-5 deployments.",
+  "version": "1.0.0",
+  "author": "gabrii",
+  "homepage": "https://github.com/gabrii/Cursor-Azure-GPT-5",
+  "skills": []
+}
