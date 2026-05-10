@@ -4,7 +4,7 @@
   "repo": "ejemplo-harness-subagentes",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/betta-tech/ejemplo-harness-subagentes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T01:07:58Z"
+  "distributed_at": "2026-05-10T22:06:23Z"
 }
