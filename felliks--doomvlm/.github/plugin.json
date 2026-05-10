@@ -1,0 +1,9 @@
+{
+  "name": "felliks--doomvlm",
+  "displayName": "DoomVLM",
+  "description": "AI plays Doom \u2014 pit Vision Language Models against demons and each other. Solo scenarios, deathmatch arena, 1-4 agents with any OpenAI-compatible API",
+  "version": "1.0.0",
+  "author": "Felliks",
+  "homepage": "https://github.com/Felliks/DoomVLM",
+  "skills": []
+}
