@@ -1,0 +1,9 @@
+{
+  "name": "cloud-eye-prime--mcp-agent-forge",
+  "displayName": "mcp-agent-forge",
+  "description": "Dispatch AI coding agents (Claude Code, Copilot, OpenCode) as MCP tools",
+  "version": "1.0.0",
+  "author": "Cloud-Eye-Prime",
+  "homepage": "https://github.com/Cloud-Eye-Prime/mcp-agent-forge",
+  "skills": []
+}
