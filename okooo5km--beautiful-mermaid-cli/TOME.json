@@ -4,7 +4,7 @@
   "repo": "beautiful-mermaid-cli",
   "description": "Render Mermaid diagrams as beautiful SVG/PNG/ASCII from the command line.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/okooo5km/beautiful-mermaid-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T06:11:19Z"
+  "distributed_at": "2026-05-10T13:57:16Z"
 }
