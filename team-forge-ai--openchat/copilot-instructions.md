@@ -1,59 +1,29 @@
-## database-migrations
+## react
 
-> How to create and apply database migrations in this Tauri project
+> React Naming Conventions:
 
 
-# Database Migrations Process
+React Naming Conventions:
 
-When creating new database migrations in this Tauri project, follow these steps:
+- Use kebab-case for files and directories.
 
-## 1. Create the Migration SQL File
+Components:
 
-- Add a new `.sql` file in `src-tauri/migrations/`
-- Use naming convention: `XXX_description.sql` (e.g., `010_add_model_to_app_settings.sql`)
-- Include clear comments explaining the migration purpose
+- DO not use 'use client' or 'use server' statements
+- Favor named exports for components
+- Ensure components are modular, reusable, and maintain a clear separation of concerns.
+- Always split React components out so there is only ever one per file
+- Keep logic as low as possible. For example a PostItem should handling its own deletion, rather than passing the logic up in a property callback.
+- Rather than have a large function, like a TRPC mutation handler, inside the component, refactor and split it out into a generic helper or hooks lib.
+- Prefer the hooks pattern for complex logic. Look at existing examples in the project.
+- DO NOT `import * as React from 'react'`, import each React function specifically
+- `zod` and `react-hook-form` packages are installed - use them.
 
-## 2. Register the Migration in Rust
+UI and Styling:
 
-⚠️ **CRITICAL STEP**: You MUST add the migration to [src-tauri/src/migrations.rs](mdc:src-tauri/src/migrations.rs)
-
-Add a new `Migration` entry to the `migrations()` function:
-
-```rust
-Migration {
-    version: X, // Increment from the last version
-    description: "description_matching_filename",
-    sql: include_str!("../migrations/XXX_description.sql"),
-    kind: MigrationKind::Up,
-},
-```
-
-## 3. Migration File Requirements
-
-- Must be valid SQLite syntax
-- Include proper error handling (IF NOT EXISTS, etc.)
-- Add comments explaining the purpose
-- For schema changes, consider backwards compatibility
-
-## Example Migration Flow
-
-1. Create `src-tauri/migrations/010_add_model_to_app_settings.sql`
-2. Add the migration entry to `migrations.rs` with version 10
-3. The migration will be automatically applied on next app startup
-
-## Common Migration Types
-
-- **Add column**: `ALTER TABLE table_name ADD COLUMN column_name TYPE;`
-- **Create table**: `CREATE TABLE IF NOT EXISTS table_name (...);`
-- **Create index**: `CREATE INDEX IF NOT EXISTS idx_name ON table_name (column);`
-
-## Verification
-
-After creating a migration:
-
-- Check that it's listed in `migrations.rs`
-- Test the migration by running the app
-- Verify the schema changes are applied correctly
+- Use Shadcn UI, Radix, and Tailwind Aria for components and styling
+- Prefer using Shadcn components for anything UI related
+- Implement responsive design with Tailwind CSS; use a mobile-first approach
 
 ---
 > Source: [team-forge-ai/openchat](https://github.com/team-forge-ai/openchat) — distributed by [TomeVault](https://tomevault.io).
