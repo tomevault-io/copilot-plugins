@@ -1,0 +1,9 @@
+{
+  "name": "toruseo--itic-probe-viewer",
+  "displayName": "iTIC-probe-viewer",
+  "description": "Web GIS viewer for iTIC probe vehicle data",
+  "version": "1.0.0",
+  "author": "toruseo",
+  "homepage": "https://github.com/toruseo/iTIC-probe-viewer",
+  "skills": []
+}
