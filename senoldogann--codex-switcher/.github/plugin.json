@@ -1,0 +1,9 @@
+{
+  "name": "senoldogann--codex-switcher",
+  "displayName": "codex-switcher",
+  "description": "A macOS menu bar app that manages multiple OpenAI Codex accounts and automatically switches between them when usage limits are reached \u2014 no manual login/logout needed.",
+  "version": "1.0.0",
+  "author": "senoldogann",
+  "homepage": "https://github.com/senoldogann/codex-switcher",
+  "skills": []
+}
