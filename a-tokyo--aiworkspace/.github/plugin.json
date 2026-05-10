@@ -1,0 +1,9 @@
+{
+  "name": "a-tokyo--aiworkspace",
+  "displayName": "aiworkspace",
+  "description": "\ud83e\uddd1\u200d\ud83d\udcbb Set up and manage AI agent skills and configs for Cursor, Claude Code, Codex and more across multi-repo workspaces.",
+  "version": "1.0.0",
+  "author": "a-tokyo",
+  "homepage": "https://github.com/a-tokyo/aiworkspace",
+  "skills": []
+}
