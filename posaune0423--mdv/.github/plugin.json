@@ -1,0 +1,9 @@
+{
+  "name": "posaune0423--mdv",
+  "displayName": "mdv",
+  "description": "mdv is a blazing-fast Markdown viewer built in Rust. With the Kitty Graphics Protocol, it renders rich, beautiful Markdown natively in your terminal, including typography, images, diagrams, syntax hig",
+  "version": "1.0.0",
+  "author": "posaune0423",
+  "homepage": "https://github.com/posaune0423/mdv",
+  "skills": []
+}
