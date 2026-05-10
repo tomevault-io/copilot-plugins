@@ -1,85 +1,145 @@
-## 1000-typescript
+## 1001-markdown
 
-> Enforce strict typing when coding to ensure reliable TypeScript usage
+> Always use for writing or updating Markdown files to ensure consistent formatting and readability across documentation
 
 
-# TypeScript Rules
-
-<version>1.0.0</version>
+# Markdown Documentation Standards
 
 ## Context
 
-- Applies to TypeScript and JavaScript in modern development
-- Ensures type safety, code quality, and maintainable codebases
-- Promotes functional programming patterns and strict typing
+- Applies to all `.md` and `.mdx` files.
+- Ensures clear, structured, and consistent formatting.
 
 ## Requirements
 
-### Type Safety
+- Follow the [Markdown Guide](mdc:https:/www.markdownguide.org) for syntax.
+- Maintain logical document structure and readability.
+- Use minimal, structured YAML front matter when needed.
+- Leverage Mermaid diagrams for complex visual documentation.
 
-- Avoid `any` type; use `unknown`, generics, or precise types instead
-- Use `as const` for exact object types and literal type inference
-- Mark immutable component props and data structures as `readonly`
-- Implement proper type guards for runtime type checking
-- Use discriminated unions for complex state management
+## Markdown Formatting Rules
 
-### Modern JavaScript/TypeScript
+- Use ATX-style headings (`# Heading`), maintaining a proper hierarchy (max depth: 4).
+- Add a blank line before and after headings.
+- Indent XML tag content by 2 spaces; close tags on a new line.
+- Use blockquotes with emoji for callouts (Warning, Tip, Note).
 
-- Prefer ESM (`import`/`export`) over CommonJS (`require`/`module.exports`)
-- Use nullish coalescing (`??`) over logical OR (`||`) for null/undefined checks
-- Handle promises properly with `await` or `.then()` - avoid promise anti-patterns
-- Use optional chaining (`?.`) to prevent runtime errors safely
-- Prefer template literals over string concatenation
+<example>
 
-### Error Handling
+> 🚨 **Warning:** Critical information.
+> 💡 **Tip:** Helpful suggestion.
+> 📝 **Note:** Additional context.
 
-- Throw `Error` instances with meaningful messages, not strings or objects
-- Implement proper error boundaries and error handling patterns
-- Use Result/Either types for predictable error handling when appropriate
-- Avoid swallowing errors silently
+</example>
 
-### Code Quality
+## Code Blocks
 
-- Remove unused variables, imports, and expressions
-- Avoid non-null assertions (`!`) unless absolutely necessary
-- Never use `eval()` or dynamic code execution for security
-- Add explanatory comments for `@ts-ignore` or `@ts-expect-error` usage
+- Use triple backticks and specify language.
+- Indent properly within blocks.
+- Add a blank line before and after the block.
+- Use inline code for short references.
 
-### Functional Programming
+<example>
 
-- Favor functional programming patterns over OOP (except for custom errors)
-- Use immutable data patterns and pure functions when possible
-- Prefer composition over inheritance
-- Use higher-order functions and function composition
+```typescript
+function example(): void {
+  console.log('Hello, Reliverse!');
+}
+```
 
-### Type Definitions
+Use `example()` inline.
 
-- Ensure type compatibility for operations (both operands of `+` same type)
-- Use namespaces only for declaration merging; avoid `module` keyword
-- Avoid redundant type annotations where TypeScript can infer types
-- Prefer array literal syntax `[]` over generic array constructors
-- Prevent duplicate values in enums and union types
+</example>
 
-### Interface Design
+## Tables
 
-- Design clear, composable interfaces with proper generic constraints
-- Use utility types (`Partial`, `Pick`, `Omit`) for type transformations
-- Implement proper branded types for domain-specific values
-- Create discriminated unions for complex state representations
+- Use alignment indicators (`:---`, `:---:`, `---:`).
+- Include a header row and separator.
+- Keep tables simple, with blank lines before and after.
+
+<example>
+
+| Name |  Type  | Description |
+| :--- | :----: | ----------: |
+| id   | number | Primary key |
+| name | string | User's name |
+
+</example>
+
+## Special Elements
+
+### Callouts
+
+Use blockquotes with emoji:
+
+<example>
+
+> 🚨 **Warning:** Critical information.
+> 💡 **Tip:** Helpful suggestion.
+> 📝 **Note:** Additional context.
+
+</example>
+
+### Mermaid Diagrams
+
+Use Mermaid for architecture flows, decision trees, state machines, and AI agent rule flows.
+
+#### Diagram Best Practices
+
+1. Add a title (`--- title: Example ---`).
+2. Use descriptive node labels.
+3. Comment complex flows.
+4. Group related components in subgraphs.
+5. Maintain consistent layout (`TD`, `LR`, `TB`).
+6. Keep diagrams focused.
+
+<example>
+
+```mermaid
+---
+title: Example Workflow
+---
+graph TD
+  A[Start] --> B{Decision}
+  B -->|Yes| C[Process 1]
+  B -->|No| D[Process 2]
+  C --> E[End]
+  D --> E
+```
+
+</example>
+
+<example type="invalid">
+
+```mermaid
+graph TD
+A-->B
+B-->C
+```
+
+❌ No title, unclear labels, no context.
+
+</example>
 
 ## Examples
 
 <example>
-  function parseData(data: unknown): string | null {
-    if (typeof data === "string") return data;
-    return null;
-  }
+
+```md
+# Heading
+
+> 🚨 **Warning:** Important detail.
+```
+
+✅ Proper headings, callouts, and spacing.
+
 </example>
 
 <example type="invalid">
-  function parseData(data: any): any {
-    return data;
-  }
+
+❌ No headings.
+❌ Inline code block missing triple backticks.
+
 </example>
 
 ---
