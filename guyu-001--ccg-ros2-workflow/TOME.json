@@ -1,0 +1,44 @@
+{
+  "name": "ccg-ros2-workflow",
+  "owner": "GuYu-001",
+  "repo": "ccg-ros2-workflow",
+  "description": "L\u7ad9\u98ce\u4f6cCCG-\u673a\u5668\u4ebaROS2\u5f00\u53d1\u7248",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/GuYu-001/ccg-ros2-workflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T19:17:49Z"
+}
