@@ -1,0 +1,9 @@
+{
+  "name": "microclaw--skillsyoga",
+  "displayName": "skillsyoga",
+  "description": "SkillsYoga helps you manage SKILL.md-based skills for different AI tools in one place.",
+  "version": "1.0.0",
+  "author": "microclaw",
+  "homepage": "https://github.com/microclaw/skillsyoga",
+  "skills": []
+}
