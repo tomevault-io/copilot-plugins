@@ -1,145 +1,18 @@
-## best-practice
+## context
 
-> always use bun as package manager.
+> Paideia LMS is a modern, lightweight Learning Management System built with Bun and React Router v7. The project is designed for extreme ease of management and deployment as a single executable, serving as a modern alternative to traditional LMS platforms like Moodle.
 
 
-## package manager
-always use bun as package manager.
+Paideia LMS is a modern, lightweight Learning Management System built with Bun and React Router v7. The project is designed for extreme ease of management and deployment as a single executable, serving as a modern alternative to traditional LMS platforms like Moodle.
 
-## frontend
+Core Characteristics:
 
-Should use mantine component all the time. we should use design token from mantine. 
-
-We should not use tailwind classes. Strictly prohibited.
-
-We should not use any external css framework. Strictly prohibited.
-
-when working with jsx array, we should not use index as key. we should use the id of the item if available.
-
-we should use `<meta>` in the page component.
-
-we should use `typeCreateLoader` and `typeCreateActionRpc` to create the loader and action functions.
-
-in `clientAction`, we should use `notifications` from `@mantine/notifications` to show notifications. we check the `actionData.status` against `StatusCode` to show the appropriate notification.
-
-after using hook to update server data, we don't need to use `useRevalidator` to revalidate the page because react router will handle the revalidation automatically.
-
-use interface but not type for component props except for `createRouteComponent` where we can use type.
-
-in the loader, we should always throw ErrorResponse if fail, unless it is a non component route. in action, we return error response from `utils/responses` instead of throwing error.
-
-we should not use `as` operator for type casting, especially in the UI components. we should fix the type in the upstream internal functions or context. 
-
-avoid create complex props type for component, try infer type from loader data `Route.ComponentProps["loaderData"]` if possible.
-
-we should break down the components so that each component only use one action hook. 
-
-## Routing
-
-we should use `href` from `react-router` to create hrefs for the routes.
-
-in the `routes.ts`, we use `:id` to define the user id parameter. when it is not userId or in special case, we should always specify the type of `:noteId` or `:moduleId`. 
-
-when a route has search param defined by loader Params, it is better to expose a getRouteUrl function to get the route url with the search params.
-
-### styling
-
-we should not hardcode `bg` color in mantine components unless it's absolutely necessary. we should provide comment to explain.
-
-## contexts 
-
-react router context should **not** import types from payload types. It should create types for itself to provide type stability for the frontend.
-
-## testing 
-
-every features on the backend should be tested using `bun:test`.
-
-we should only use payload local api. we should not use anything related to nextjs.
-
-testing should be simple and easy to read. for complex test, we better just skip and and test manually instead.
-
-each test files should only have one describe block. each test file related to database, s3, redis or payload should have do a refresh using beforeAll. 
-
-if you really want a completely isolated test, you should always create a new root describe block and its own beforeAll and AfterAll. beforeAll and AfterAll can have overrideAccess: true because they are not part of the test suite and are not affected by the test suite. in test case, we should try to provide the test user so that we can test the authentication unless otherwise specified.
-
-when we need to test result ok and then do type narrowing, we should use `expect(result.ok).toBe(true); if (!result.ok) {` pattern for early return so we don't need to have nested if statements. 
-
-for UI e2e testing, we should use AI agent to test browser. you should write test in `tests/e2e`. see `tests/e2e/login.test.yaml` for example. It use `describe`, `it`, `expect` and `beforeEach`, `AfterEach`, `Before`, `After` to write the test. we don't need to be very rigorous because the UI might change.
-
-## error handling
-
-we **should not** use try catch, especially not in internal functions which we use typescript result, it will be confusing and hard to manage. we should use typescript result to handle the error, using `Result.wrap`. When a function return a result, function should be named with `try` prefix like `tryFunction` or `trySomething`.
-
-in the loader of react router, we should throw ErrorResponse rather than just error. 
-
-when throwing error using typescript result, we should first create the error in `app/utils/error.ts` first. The error class should be used in the `transformError` in `Result.wrap` or `Result.try`.
-
-## permissions and access control
-
-all permissions should be calculated and checked in the server loader rather than in the component. the value is then passed to component through loader data. we should use `PermissionResult` from `server/utils/permissions.ts` to check the permission.
-
-## Database 
-
-when an operation is doing multiple mutation to the database, we should **always** use transaction.
-
-database migration should always be non breaking and backward compatible.
-
-payload local api return document with unknown depth. we should handle both case when depth is 0 and 1, value is either object or id (string). 
-
-**strictly avoid** using `as` operator in internal functions. **No type casting allowed**.
-
-use virtual field over depth. we would rather have a nested virtual field than have depth more than 2, because depth can cause infinite loop.
-
-all globals collections should be defined in a single `server/collections/globals.ts`.
-
-
-## json
-
-some data are stored as json object in the database. we should use `tryResolve` functions to resolve the json object to the latest version. in other files, we should always import from `server/json` instead of directly from the file because it will be easier to manage the imports.
-
-## internal functions 
-
-when user id provided to the internal function, we can always assume the user exists.
-
-we should not expose the depth variable to args for internal functions. The output type should be defined.
-
-we should standardize internal function arg. internal function should always have only one arg and we should create type for the arg, the arg type should include `payload: Payload`, `user?: TypedUser | null`, `req?: Partial<PayloadRequest>` and `overrideAccess?: boolean` as args. sometimes we might need to have `s3Client: S3Client` as args. 
-
-internal functions must handle transactions if the function is doing multiple mutations to the database. for internal functions that handle transactions, we should use `handleTransactionId` to handle the transaction. if we use `handleTransactionId` and `isTransactionCreated` is true, we should always use `tx` to execute the operation inside the transaction.
-
-for other function, we don't need to check for transaction, we simply pass the req into payload function call (payload.find) as it is. (if req has transaction ID, good, if not, we let it be). 
-
-course and the linked gradebook should always have the same id. so we can use them interchangeably.
-
-we use `interceptPayloadError` to intercept raw payload function call such as `payload.create`, `payload.find`, `payload.findByID`, `payload.update`, `payload.delete` and etc. to handle the error and throw the error with the appropriate error message.
-
-try our best not to provide return type for internal functions. 
-
-use `then(stripDepth<depth, operation>())` to strip the depth from the payload result.
-
-should not accept `depth` as an arg for internal functions but we should always use explicit `depth` for the payload function call.
-
-use interface but not type for Args type.
-
-## Changelog
-
-changelog should be written in the `changelogs` folder. each changelog should be named like `0001-2025-01-01-feature-or-change-name.md`. the number should be the order of the changelog. the date should be the date of the changelog. the feature name should be the name of the feature. a standard changelog should look like this `changelogs/0016-2025-10-29-assignment-grading-page.md`.
-
-## Release note
-
-release note should be written in the `release-notes` folder. each release note should be named like `0.5.4-2025-11-08.md`. the date should be the date of the release note. the version should be the version of the release note. Release note aggregate all changelogs related to the release but be less specific and technical than changelog. should focus more on the features and the user impact, especially in term on user interface and user experience.
-
-## Coding style
-
-max line leng per file should be 1000. When exceeding, we should split the code into multiple files for readability.
-
-for complicated code, we should always add comment to explain the code.
-
-avoid function declarations inside blocks (e.g. inside if, for, callbacks) when code may run in strict mode; use arrow functions instead. see `.cursor/skills/linter-config-typescript/SKILL.md` if you hit "Function declarations are not allowed inside blocks".
-
-for tsconfig in monorepo, put shared options in root `tsconfig.json`; child configs extend with `extends`. avoid catch-all `"*"` path—it breaks npm resolution. see `.cursor/skills/tsconfig-monorepo/SKILL.md`.
-
-when `bun run build` fails with "Could not resolve" for path aliases (app/*, server/*) while typecheck passes, use relative imports in server files or add a Bun resolver plugin. see `.cursor/skills/bun-build-monorepo/SKILL.md`.
+Single Executable Deployment: Packages into one binary for maximum portability
+Dual-Server Architecture: Frontend server (port 3001) and backend server (port 3000) running in the same process
+Type-Safe API: End-to-end type safety using Elysia and Treaty
+Headless CMS: Payload CMS for content management
+Modern UI: Mantine component library
+Fast Runtime: Bun as both runtime and bundler
 
 ---
 > Source: [paideia-lms/Paideia](https://github.com/paideia-lms/Paideia) — distributed by [TomeVault](https://tomevault.io).
