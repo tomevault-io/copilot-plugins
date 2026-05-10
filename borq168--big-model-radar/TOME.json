@@ -4,7 +4,7 @@
   "repo": "big_model_radar",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/borq168/big_model_radar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T08:06:22Z"
+  "distributed_at": "2026-05-10T15:43:17Z"
 }
