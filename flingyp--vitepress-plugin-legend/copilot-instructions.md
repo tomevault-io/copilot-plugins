@@ -1,54 +1,61 @@
-## development-workflow
+## plugin-architecture
 
-> - 所有核心逻辑使用 TypeScript 编写
+> - 主入口：[core/index.ts](mdc:core/index.ts)
 
-# 开发工作流程规则
+# 插件架构规则
 
-## 代码规范
+## 核心架构
 
-### TypeScript 开发
-- 所有核心逻辑使用 TypeScript 编写
-- 严格遵循 [tsconfig.json](mdc:tsconfig.json) 配置
-- 使用类型注解，避免 `any` 类型
+### 插件入口
+- 主入口：[core/index.ts](mdc:core/index.ts)
+- 导出 `vitepressMarkmapPreview` 函数
+- 集成 markdown-it 插件系统
 
-### Vue 组件开发
-- 使用 Vue 3 Composition API
-- 组件文件命名采用 PascalCase
-- 组件位于 [core/components/](mdc:core/components) 目录
+### 解析流程
+1. **代码块解析**: [core/utils/parse-code.ts](mdc:core/utils/parse-code.ts)
+   - 识别 `markmap` 代码块
+   - 解析 markdown 内容为思维导图数据
+   - 支持 mermaid 语法
 
-### 代码质量
-- 使用 ESLint 进行代码检查：[eslint.config.mjs](mdc:eslint.config.mjs)
-- 使用 Prettier 进行代码格式化：[.prettierrc](mdc:.prettierrc)
-- 使用 Stylelint 进行样式检查：[stylelint.config.mjs](mdc:stylelint.config.mjs)
+2. **组件解析**: [core/utils/parse-component.ts](mdc:core/utils/parse-component.ts)
+   - 识别 `<markmap>` 组件标签
+   - 解析组件属性和内容
+   - 生成 Vue 组件实例
 
-## Git 工作流
+### 渲染组件
 
-### 提交规范
-- 使用 Conventional Commits 规范
-- 通过 `pnpm commit` 进行规范化提交
-- 配置了 [.husky/](mdc:.husky) 钩子进行提交前检查
+#### MindMapRoot.vue
+- 位置：[core/components/MindMapRoot.vue](mdc:core/components/MindMapRoot.vue)
+- 功能：思维导图的主要渲染组件
+- 特性：
+  - 支持交互式操作
+  - 可配置样式和主题
+  - 响应式设计
 
-### 版本管理
-- 使用 Changesets 进行版本管理：[.changeset/](mdc:.changeset)
-- 通过 `pnpm changeset` 创建版本变更
-- 通过 `pnpm release` 发布新版本
+## 数据流
 
-## 构建和发布
+### Markdown → 思维导图
+1. 解析 markdown 语法结构
+2. 转换为 markmap 数据格式
+3. 应用配置选项
+4. 渲染为交互式思维导图
 
-### 开发环境
-- 使用 `pnpm dev` 启动开发服务器
-- 使用 `pnpm docs:dev` 启动文档服务器
-- 实时热重载支持
+### 配置选项
+- 支持 markmap 的所有配置项
+- 通过 frontmatter 或组件属性配置
+- 支持主题、颜色、布局等自定义
 
-### 构建流程
-- 使用 Vite 进行构建：[core/vite.config.ts](mdc:core/vite.config.ts)
-- 构建产物输出到 [core/dist/](mdc:core/dist) 目录
-- 支持 TypeScript 类型声明文件生成
+## 扩展性
 
-### 发布流程
-- 自动运行 lint 检查
-- 构建所有包
-- 发布到 npm 仓库
+### 自定义组件
+- 可在 [core/components/](mdc:core/components) 添加新组件
+- 遵循 Vue 3 Composition API 规范
+- 支持 TypeScript 类型定义
+
+### 工具函数扩展
+- 在 [core/utils/](mdc:core/utils) 添加新的解析器
+- 保持模块化和可测试性
+- 遵循单一职责原则
 
 ---
 > Source: [flingyp/vitepress-plugin-legend](https://github.com/flingyp/vitepress-plugin-legend) — distributed by [TomeVault](https://tomevault.io).
