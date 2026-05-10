@@ -1,0 +1,44 @@
+{
+  "name": "beauty-webcam-mac",
+  "owner": "madebyaris",
+  "repo": "beauty-webcam-mac",
+  "description": "\ud83c\udfa5 Professional real-time webcam enhancement for macOS. Transform your video calls with studio-quality beauty filters, lighting correction, and GPU-accelerated processing. Native menu bar app built with Metal, CoreMediaIO, and AVFoundation. <15% CPU usage, works with any camera-enabled app.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/madebyaris/beauty-webcam-mac",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T12:17:36Z"
+}
