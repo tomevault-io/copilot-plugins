@@ -7,11 +7,11 @@ Your new best friend 🐶 A proactive iMessage based agent built on the Claude A
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [raroque/boop-agent](https://github.com/raroque/boop-agent).
+Original source: `CLAUDE.md` in [raroque/boop-agent](https://github.com/raroque/boop-agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
