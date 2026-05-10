@@ -1,11 +1,53 @@
-## synpress
+## typescript-types
 
-> Use synpress
+> TypeScript type safety rules
 
 
-Use synpress for all frontend testing. Make sure we have tests for all user flows -- everything a user can do should have a test
+NEVER use `any` type. Always use proper TypeScript types.
 
-Synpress is built into the Jeju CLI, and you can run it with 'jeju test'
+NEVER use `unknown` type unless absolutely necessary. Prefer specific types, union types, or generics instead.
+
+When `unknown` is absolutely necessary (e.g., parsing JSON from external APIs where the structure is truly unknown), use type guards or type assertions with proper validation.
+
+Examples of what NOT to do:
+```typescript
+// BAD - using any
+function processData(data: any) { ... }
+
+// BAD - using unknown when a specific type is known
+function getUser(id: string): unknown { ... }
+
+// BAD - using any for error handling
+catch (error: any) { ... }
+```
+
+Examples of what TO do:
+```typescript
+// GOOD - using specific types
+function processData(data: UserData) { ... }
+
+// GOOD - using union types
+function getUser(id: string): User | null { ... }
+
+// GOOD - using proper error types
+catch (error: Error) { ... }
+
+// GOOD - using unknown only when truly necessary with type guards
+function parseApiResponse(json: string): ApiResponse {
+  const data: unknown = JSON.parse(json);
+  if (isApiResponse(data)) {
+    return data;
+  }
+  throw new Error('Invalid API response');
+}
+```
+
+Before making new types, check if the type already exists somewhere and can be shared
+While working, if you see a local type, check if it's a duplicate
+Make sure to use Zod for validation for anything unknown regarding input or output data
+Avoid ??, ?., [0]?, || 'default' when it will fail with no data
+Avoid optionals unless the data is truly optional. If it's not, go upstream and fix.
+REMEMBER: Strong type patterns, strong type assumptions, shared types!
 
 ---
 > Source: [JejuNetwork/jeju](https://github.com/JejuNetwork/jeju) — distributed by [TomeVault](https://tomevault.io).
