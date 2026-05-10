@@ -1,12 +1,12 @@
-## primitives-ui
+## scss-variables-mixins
 
-> Use UI primitive components (Button, Input, Card, Badge, Breadcrumb, Dialog, etc.) from the src/app/_components/ui folder
+> Use predefined SCSS variables and mixins instead of hardcoded values. Always import the base SCSS properly.
 
 
-- For buttons, use `<Button variant="...">` instead of `<button className="...">`.
-- For inputs, use `<Input />`.
-- For badges, use `<Badge />`.
-- Never use generic divs for interactive components; always prefer the existing primitives.
+- Use SCSS variables like `$spacing-`, `$c-primary`, `$c-secondary`, `$fs-`, `$fw-`, `$bkp-`, etc., defined in `src/styles/base/_variables.scss`.
+- Use mixins such as `@include flex()`, `@include grid()`, `@include title()`, `@include text()`, etc., defined in `src/styles/base/_mixins.scss`.
+- Do not hardcode values (e.g., `px`, `#fff`) directly in SCSS, unless in specific justified cases.
+- Always import the base SCSS with `@use '../base' as *;`, adjusting the relative path as needed.
 
 ---
 > Source: [duneal/dokistry](https://github.com/duneal/dokistry) — distributed by [TomeVault](https://tomevault.io).
