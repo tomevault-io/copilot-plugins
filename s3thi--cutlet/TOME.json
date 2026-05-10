@@ -2,9 +2,9 @@
   "name": "cutlet",
   "owner": "s3thi",
   "repo": "cutlet",
-  "description": "",
+  "description": "A dynamic programming language built entirely by Claude Code",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/s3thi",
+  "source_url": "https://github.com/s3thi/cutlet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T16:49:55Z"
+  "distributed_at": "2026-05-10T15:45:24Z"
 }
