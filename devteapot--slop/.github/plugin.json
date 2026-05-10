@@ -1,0 +1,9 @@
+{
+  "name": "devteapot--slop",
+  "displayName": "slop",
+  "description": "A protocol for AI to observe and interact with application state",
+  "version": "1.0.0",
+  "author": "devteapot",
+  "homepage": "https://github.com/devteapot/slop",
+  "skills": []
+}
