@@ -1,50 +1,38 @@
-## adapter-registry
+## development-workflow
 
-> description: Registry and selection rules for choosing the runtime adapter used by AAMAD-generated multi-agent applications.
+> AAMAD modular development workflow for context-aware agent coordination
 
-description: Registry and selection rules for choosing the runtime adapter used by AAMAD-generated multi-agent applications.
-globs:
-alwaysApply: true
----
 
-# Adapter Registry Rules
+# AAMAD Modular Development Workflow
 
-## Purpose
-- Select the runtime target for the generated multi-agent application without changing AAMAD's core crew workflow.
+## Development Module Structure
+Execute development in separate modules with fresh context:
 
-## Selection Mechanism
-- Use environment variable `AAMAD_TARGET_RUNTIME` with values:
-    - `crewai` (default)
-    - `claude-agent-sdk`
-    - `cursor-sdk`
-- Runtime adapter rules are loaded from `.cursor/rules/adapter-<name>.mdc`; selected runtime should have a matching adapter file.
-- If unset or unknown, default to `crewai` and record the resolved value plus warning in the artifact Audit.
+1. **Module 1: Core Configuration** - Agent and task definitions only
+2. **Module 2: API Integration** - Backend connectivity only  
+3. **Module 3: Frontend Integration** - UI and user experience only
+4. **Module 4: Validation** - End-to-end testing only
 
-## Adapter Contract
-- Each adapter must define:
-    - Setup requirements (dependencies, env vars, and runtime prerequisites).
-    - Agent declaration pattern for the generated application (how runtime agents/subagents are represented).
-    - Tool and MCP binding policy, including validation and least-privilege guidance.
-    - Execution controls (iteration/time/budget caps, retries, and cancellation behavior).
-    - Logging hooks for Prompt Trace, Diagnostic, and Audit sections.
-    - Memory/session handling and reproducibility constraints.
-    - Output contract conventions (structured I/O, schema checks, citation/grounding rules when applicable).
+## Context Management Rules
+- Start each module in fresh Cursor session (Cmd+Shift+P → "New Chat")
+- Reference specific files from previous modules using @filename
+- NEVER attempt end-to-end development in single session
+- Keep module scope strictly defined - no feature creep
 
-## Runtime Hooks
-- Preflight: verify PRD/SAD/SFS presence per persona, validate runtime/tool config, resolve runtime value, then proceed or Halt and Report.
-- Postflight: validate artifact against template schema, append Prompt Trace + Audit, ensure deterministic write.
+## Module Success Criteria
+Each module must be fully functional and testable independently:
+- Module 1: CrewAI crew.kickoff() executes successfully
+- Module 2: API endpoints return valid responses  
+- Module 3: Frontend displays and interacts correctly
+- Module 4: Complete workflow functions end-to-end
 
-## Extensibility
-- New adapters must keep the same section taxonomy: Purpose, Setup, Mapping, Execution, Tools, Logging, Quality Gates, Failure Policy.
-- Adapters may add capabilities (e.g., graph supervision) but cannot change AAMAD Core contracts.
+## Development Flow Control
+- Complete each module fully before proceeding to next
+- Validate module functionality before context switch
+- Document module outputs for next module reference
+- Never backtrack to previous modules within same session
 
-## Selection Criteria
-- `crewai`: best when you want declarative task orchestration with YAML-first config and explicit task graph controls.
-- `claude-agent-sdk`: best when you want an agentic runtime harness with hooks, custom tools/MCP integration, and session-level control.
-- `cursor-sdk`: best when you want TypeScript-first runtime integration with Cursor-native harness capabilities and explicit tool/runtime contracts.
-
-## Usage
-- Operators set `AAMAD_TARGET_RUNTIME` before Build-phase implementation work; personas align generated runtime code and docs to `.cursor/rules/adapter-${AAMAD_TARGET_RUNTIME}.mdc`.
+> For detailed agent/epic/action mapping, see `.cursor/rules/epics-index.mdc`.
 
 ---
 > Source: [synaptic-ai-consulting/AAMAD](https://github.com/synaptic-ai-consulting/AAMAD) — distributed by [TomeVault](https://tomevault.io).
