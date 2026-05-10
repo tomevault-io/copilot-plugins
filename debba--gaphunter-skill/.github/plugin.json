@@ -1,0 +1,9 @@
+{
+  "name": "debba--gaphunter-skill",
+  "displayName": "gaphunter-skill",
+  "description": "Competitor review gap-analysis skill for Claude Code with rigid HTML reports, filters, and PDF export.",
+  "version": "1.0.0",
+  "author": "debba",
+  "homepage": "https://github.com/debba/gaphunter-skill",
+  "skills": []
+}
