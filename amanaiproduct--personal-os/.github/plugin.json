@@ -1,0 +1,9 @@
+{
+  "name": "amanaiproduct--personal-os",
+  "displayName": "personal-os",
+  "description": "Framework for a local AI agent powered task management system ",
+  "version": "1.0.0",
+  "author": "amanaiproduct",
+  "homepage": "https://github.com/amanaiproduct/personal-os",
+  "skills": []
+}
