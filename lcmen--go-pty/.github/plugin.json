@@ -1,0 +1,9 @@
+{
+  "name": "lcmen--go-pty",
+  "displayName": "go-pty",
+  "description": "Run multiple commands concurrently, each in its own pseudoterminal.",
+  "version": "1.0.0",
+  "author": "lcmen",
+  "homepage": "https://github.com/lcmen/go-pty",
+  "skills": []
+}
