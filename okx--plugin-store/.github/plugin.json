@@ -1,0 +1,9 @@
+{
+  "name": "okx--plugin-store",
+  "displayName": "plugin-store",
+  "description": "plugin-store",
+  "version": "1.0.0",
+  "author": "okx",
+  "homepage": "https://github.com/okx/plugin-store",
+  "skills": []
+}
