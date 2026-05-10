@@ -1,27 +1,127 @@
-## databricks-lakebase
+## databricks-overview
 
-> Ensure the service behaves like a singleton. That is, there should only be a single connection offered at once. If the connection doesn't yet exist on a call to query(), it creates the connection. If the connection is expired (that is, the time this connection was made was >59 minutes ago), it refreshes the connection.
+> Databricks development patterns and best practices. Applies to Python, SQL, and DLT files. Provides high-level guidance for AI/GenAI, data engineering, ML, deployment, governance, and platform domains.
 
-Ensure the service behaves like a singleton. That is, there should only be a single connection offered at once. If the connection doesn't yet exist on a call to query(), it creates the connection. If the connection is expired (that is, the time this connection was made was >59 minutes ago), it refreshes the connection.
 
-should expose as functional services like: **Lakebase.query()**, where the class is called Lakebase. this function should accept a string query, and return the rows if the query was successful or throw the encountered error if not. Do not manipulate the data afterwards or put it into a dataframe - return it as it is.
+# Databricks Development Overview
 
-**CRITICAL**: The query() method must ALWAYS call both cursor.fetchall() AND connection.commit() for every query, regardless of query type (SELECT, INSERT, UPDATE, DELETE), because all queries should be RETURNING \*. This ensures:
+High-level Databricks development patterns and domain expertise reference.
 
-1. INSERT/UPDATE queries with RETURNING clauses return their results to the frontend (RETURNING \*)
-2. All transactions are properly committed to the database
-3. Consistent behavior across all query types
+## Core Principles
 
-eg
+1. **Delta Lake Foundation**: All data stored in Delta format with ACID guarantees
+2. **Unity Catalog**: Centralized governance and metadata management
+3. **Medallion Architecture**: Bronze → Silver → Gold progression for data quality
+4. **MLflow Tracking**: All ML experiments logged with parameters and metrics
+5. **Model Serving**: Deploy models via Databricks Model Serving with autoscaling
 
+## Domain Expertise
+
+### AI/GenAI Development
+- **LLM Integration**: Use Foundation Model API or Model Serving
+- **RAG Systems**: Implement with Vector Search and Delta Sync indexes
+- **Agent Bricks**: Leverage for Information Extraction, Custom LLM, Knowledge Assistant
+- **Fine-Tuning**: Use LoRA/QLoRA for efficient model adaptation
+- **Prompt Engineering**: Version control and log prompts with MLflow
+
+**Reference**: See `cursor/docs/ai-development.md` for detailed patterns
+
+### Data Engineering
+- **Delta Lake**: ACID transactions, time travel, schema evolution, CDC
+- **Delta Live Tables**: Declarative pipelines with data quality expectations
+- **Medallion Architecture**: Bronze (raw) → Silver (cleaned) → Gold (aggregated)
+- **Structured Streaming**: Auto Loader for incremental ingestion
+- **Optimization**: Liquid Clustering, Z-Ordering, Predictive Optimization
+
+**Reference**: See `cursor/docs/data-engineering.md` for detailed patterns
+
+### ML Engineering
+- **MLflow**: Experiment tracking, model registry in Unity Catalog
+- **Feature Store**: Centralized feature engineering and training-serving consistency
+- **Model Serving**: Deploy with autoscaling and A/B testing
+- **Monitoring**: Drift detection and performance tracking
+
+**Reference**: See `cursor/docs/ml-engineering.md` for detailed patterns
+
+### Deployment & Operations
+- **Asset Bundles**: Infrastructure as code for deployments
+- **CI/CD**: GitHub Actions, Azure DevOps integration
+- **Terraform**: IaC for workspace configuration
+- **Workflows**: Job orchestration and scheduling
+
+**Reference**: See `cursor/docs/deployment-ops.md` for detailed patterns
+
+### Governance & Security
+- **Unity Catalog**: Catalog/schema/table hierarchy, permissions
+- **Row-Level Security**: Fine-grained access control
+- **PII Protection**: Detection and masking
+- **Audit Logging**: Compliance and lineage tracking
+
+**Reference**: See `cursor/docs/governance-security.md` for detailed patterns
+
+### Platform Architecture
+- **Cluster Configuration**: Optimal instance types and autoscaling
+- **Cost Optimization**: Spot instances, auto-termination, right-sizing
+- **Performance Tuning**: Photon, AQE, query optimization
+
+**Reference**: See `cursor/docs/platform.md` for detailed patterns
+
+## Quick Reference Patterns
+
+### Delta Lake Operations
 ```python
-with self._connection.cursor() as cursor:
-    cursor.execute(sql)
+# Create Delta table
+df.write.format("delta").saveAsTable("catalog.schema.table_name")
 
-    rows = cursor.fetchall()
-    self._connection.commit()
-    return rows
+# Time travel
+df = spark.read.format("delta").option("versionAsOf", 0).table("catalog.schema.table_name")
+
+# Enable CDC
+spark.sql("ALTER TABLE catalog.schema.table SET TBLPROPERTIES (delta.enableChangeDataFeed = true)")
 ```
+
+### MLflow Tracking
+```python
+import mlflow
+mlflow.set_experiment("/Users/user@company.com/my-experiment")
+with mlflow.start_run():
+    mlflow.log_param("n_estimators", 100)
+    mlflow.log_metric("accuracy", 0.95)
+    mlflow.sklearn.log_model(model, "model")
+```
+
+### Vector Search RAG
+```python
+from databricks.vector_search.client import VectorSearchClient
+vsc = VectorSearchClient()
+index = vsc.get_index(endpoint_name="my_endpoint", index_name="catalog.schema.index")
+results = index.similarity_search(query_text="What is Delta Lake?", num_results=5)
+```
+
+## Using Specialist Agents
+
+Invoke domain specialists with `@` mentions:
+- `@databricks-ai-specialist` - For AI/GenAI development
+- `@databricks-data-specialist` - For data engineering
+- `@databricks-ml-specialist` - For ML engineering
+- `@databricks-ops-specialist` - For deployment and operations
+- `@databricks-security-specialist` - For governance and security
+- `@databricks-platform-specialist` - For platform architecture
+
+## Common Anti-Patterns
+
+- ❌ Writing Parquet directly → ✅ Always use Delta Lake format
+- ❌ No medallion layers → ✅ Implement Bronze-Silver-Gold architecture
+- ❌ Using workspace registry → ✅ Use Unity Catalog model registry
+- ❌ Not logging experiments → ✅ Log all experiments with MLflow
+- ❌ Hardcoded credentials → ✅ Use Databricks secrets or Unity Catalog external locations
+
+## References
+
+- [Delta Lake Guide](https://docs.databricks.com/delta/)
+- [MLflow Documentation](https://docs.databricks.com/mlflow/)
+- [Vector Search](https://docs.databricks.com/generative-ai/vector-search.html)
+- [Unity Catalog](https://docs.databricks.com/data-governance/unity-catalog/)
 
 ---
 > Source: [robertwhiffin/ai-slide-generator](https://github.com/robertwhiffin/ai-slide-generator) — distributed by [TomeVault](https://tomevault.io).
