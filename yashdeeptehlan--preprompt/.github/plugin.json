@@ -1,0 +1,9 @@
+{
+  "name": "yashdeeptehlan--preprompt",
+  "displayName": "preprompt",
+  "description": "MCP server that intercepts and optimizes prompts in Claude Code + Cursor",
+  "version": "1.0.0",
+  "author": "yashdeeptehlan",
+  "homepage": "https://github.com/yashdeeptehlan/preprompt",
+  "skills": []
+}
