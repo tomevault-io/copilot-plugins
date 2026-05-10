@@ -1,0 +1,9 @@
+{
+  "name": "purplenoodlesoop--horizon",
+  "displayName": "horizon",
+  "description": "\ud83e\udde0 Personal multi-agent assistant with vault-resident capabilities \u2014 single-thread centralized orchestration, signal-driven heartbeat, Obsidian-as-state. Single user, single vault, one binary.",
+  "version": "1.0.0",
+  "author": "purplenoodlesoop",
+  "homepage": "https://github.com/purplenoodlesoop/horizon",
+  "skills": []
+}
