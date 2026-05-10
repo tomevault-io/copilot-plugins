@@ -1,0 +1,9 @@
+{
+  "name": "kotlin--kotlinx-schema",
+  "displayName": "kotlinx-schema",
+  "description": "Kotlin Multiplatform library that generates JSON Schemas from your methods and classes both at compile-time via Kotlin Symbol Processing(KSP) and at runtime via reflection or kotlinx.serialization.",
+  "version": "1.0.0",
+  "author": "Kotlin",
+  "homepage": "https://github.com/Kotlin/kotlinx-schema",
+  "skills": []
+}
