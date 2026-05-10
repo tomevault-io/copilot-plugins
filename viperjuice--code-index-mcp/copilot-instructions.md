@@ -1,481 +1,285 @@
-## react
+## security
 
-> This file defines React patterns and best practices for any future web UI components in the Code-Index-MCP project.
+> This file defines security policies, best practices, and implementation guidelines for the Code-Index-MCP project to ensure safe code indexing and analysis.
 
-# React Rules for Code-Index-MCP
+# Security Rules for Code-Index-MCP
 
 ## Overview
-This file defines React patterns and best practices for any future web UI components in the Code-Index-MCP project.
+This file defines security policies, best practices, and implementation guidelines for the Code-Index-MCP project to ensure safe code indexing and analysis.
 
-## Component Structure
+## Input Validation
 
-### Functional Components with TypeScript
-```tsx
-import React, { useState, useCallback, memo } from 'react';
+### File Path Validation
+```python
+import os
+from pathlib import Path
 
-interface CodeSearchProps {
-  onSearch: (query: string) => Promise<void>;
-  placeholder?: string;
-  className?: string;
-}
+def validate_file_path(file_path: str, base_dir: str) -> bool:
+    """Ensure file paths are within allowed directories."""
+    try:
+        # Resolve to absolute path
+        abs_path = Path(file_path).resolve()
+        base_path = Path(base_dir).resolve()
+        
+        # Check if path is within base directory
+        return abs_path.is_relative_to(base_path)
+    except Exception:
+        return False
 
-export const CodeSearch = memo<CodeSearchProps>(({ 
-  onSearch, 
-  placeholder = "Search code...",
-  className = ""
-}) => {
-  const [query, setQuery] = useState('');
-  const [isSearching, setIsSearching] = useState(false);
-
-  const handleSearch = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!query.trim()) return;
-
-    setIsSearching(true);
-    try {
-      await onSearch(query);
-    } finally {
-      setIsSearching(false);
-    }
-  }, [query, onSearch]);
-
-  return (
-    <form onSubmit={handleSearch} className={className}>
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder={placeholder}
-        disabled={isSearching}
-      />
-      <button type="submit" disabled={isSearching}>
-        {isSearching ? 'Searching...' : 'Search'}
-      </button>
-    </form>
-  );
-});
-
-CodeSearch.displayName = 'CodeSearch';
+# Usage in API endpoints
+@app.post("/index")
+async def index_file(file_path: str):
+    if not validate_file_path(file_path, os.getcwd()):
+        raise HTTPException(403, "Access denied: Invalid file path")
 ```
 
-## Custom Hooks
-
-### Data Fetching Hook
-```tsx
-import { useState, useEffect, useCallback } from 'react';
-
-interface UseApiOptions<T> {
-  initialData?: T;
-  onError?: (error: Error) => void;
-}
-
-function useApi<T>(
-  apiCall: () => Promise<T>,
-  options: UseApiOptions<T> = {}
-) {
-  const [data, setData] = useState<T | undefined>(options.initialData);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-
-  const execute = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const result = await apiCall();
-      setData(result);
-      return result;
-    } catch (err) {
-      const error = err instanceof Error ? err : new Error(String(err));
-      setError(error);
-      options.onError?.(error);
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  }, [apiCall, options.onError]);
-
-  return { data, loading, error, execute };
-}
-
-// Usage
-function SymbolViewer({ symbolName }: { symbolName: string }) {
-  const { data, loading, error, execute } = useApi(
-    () => client.getSymbolDefinition(symbolName),
-    { onError: (err) => console.error('Failed to load symbol:', err) }
-  );
-
-  useEffect(() => {
-    execute();
-  }, [execute]);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-  if (!data) return null;
-
-  return <SymbolDetails symbol={data} />;
-}
-```
-
-### Code Editor Integration Hook
-```tsx
-interface UseCodeNavigationOptions {
-  onNavigate?: (location: CodeLocation) => void;
-}
-
-interface CodeLocation {
-  file: string;
-  line: number;
-  column: number;
-}
-
-function useCodeNavigation(options: UseCodeNavigationOptions = {}) {
-  const navigate = useCallback((location: CodeLocation) => {
-    // Integrate with VS Code or other editors
-    if (window.vscode) {
-      window.vscode.postMessage({
-        command: 'openFile',
-        file: location.file,
-        line: location.line,
-        column: location.column
-      });
-    }
+### Query Sanitization
+```python
+def sanitize_search_query(query: str) -> str:
+    """Remove potentially dangerous characters from search queries."""
+    # Remove SQL injection attempts
+    dangerous_patterns = [';', '--', '/*', '*/', 'xp_', 'sp_']
+    for pattern in dangerous_patterns:
+        query = query.replace(pattern, '')
     
-    options.onNavigate?.(location);
-  }, [options.onNavigate]);
-
-  return { navigate };
-}
+    # Limit query length
+    return query[:1000]
 ```
 
-## State Management Patterns
+## Authentication & Authorization
 
-### Context for Global State
-```tsx
-interface CodeIndexContextType {
-  client: MCPClient;
-  currentProject: string;
-  setCurrentProject: (project: string) => void;
-}
+### API Key Management
+```python
+import secrets
+import hashlib
 
-const CodeIndexContext = React.createContext<CodeIndexContextType | null>(null);
-
-export function CodeIndexProvider({ 
-  children, 
-  apiKey,
-  baseUrl = 'http://localhost:8000'
-}: { 
-  children: React.ReactNode;
-  apiKey: string;
-  baseUrl?: string;
-}) {
-  const [currentProject, setCurrentProject] = useState('');
-  const client = useMemo(
-    () => new MCPClient(baseUrl, apiKey),
-    [baseUrl, apiKey]
-  );
-
-  return (
-    <CodeIndexContext.Provider value={{
-      client,
-      currentProject,
-      setCurrentProject
-    }}>
-      {children}
-    </CodeIndexContext.Provider>
-  );
-}
-
-export function useCodeIndex() {
-  const context = useContext(CodeIndexContext);
-  if (!context) {
-    throw new Error('useCodeIndex must be used within CodeIndexProvider');
-  }
-  return context;
-}
-```
-
-## Performance Optimization
-
-### Virtual Scrolling for Large Lists
-```tsx
-import { FixedSizeList } from 'react-window';
-
-interface SearchResultsProps {
-  results: SearchResult[];
-  onItemClick: (item: SearchResult) => void;
-}
-
-function SearchResults({ results, onItemClick }: SearchResultsProps) {
-  const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => {
-    const item = results[index];
+class APIKeyManager:
+    def generate_api_key(self) -> str:
+        """Generate secure API key."""
+        return secrets.token_urlsafe(32)
     
-    return (
-      <div 
-        style={style} 
-        onClick={() => onItemClick(item)}
-        className="search-result-item"
-      >
-        <div className="file-path">{item.file}</div>
-        <div className="line-number">Line {item.line}</div>
-        <pre className="code-snippet">{item.content}</pre>
-      </div>
-    );
-  };
-
-  return (
-    <FixedSizeList
-      height={600}
-      itemCount={results.length}
-      itemSize={100}
-      width="100%"
-    >
-      {Row}
-    </FixedSizeList>
-  );
-}
+    def hash_api_key(self, api_key: str) -> str:
+        """Hash API key for storage."""
+        return hashlib.sha256(api_key.encode()).hexdigest()
+    
+    def verify_api_key(self, provided_key: str, stored_hash: str) -> bool:
+        """Verify API key against stored hash."""
+        return self.hash_api_key(provided_key) == stored_hash
 ```
 
-### Code Splitting
-```tsx
-import { lazy, Suspense } from 'react';
+### Request Authentication
+```python
+from fastapi import Security, HTTPException
+from fastapi.security import APIKeyHeader
 
-// Lazy load heavy components
-const SymbolGraph = lazy(() => import('./SymbolGraph'));
-const CodeDiff = lazy(() => import('./CodeDiff'));
+api_key_header = APIKeyHeader(name="X-API-Key")
 
-function App() {
-  return (
-    <Suspense fallback={<LoadingSpinner />}>
-      <Routes>
-        <Route path="/graph" element={<SymbolGraph />} />
-        <Route path="/diff" element={<CodeDiff />} />
-      </Routes>
-    </Suspense>
-  );
-}
+async def verify_api_key(api_key: str = Security(api_key_header)):
+    """Verify API key middleware."""
+    if not api_key_manager.verify_api_key(api_key):
+        raise HTTPException(401, "Invalid API key")
+    return api_key
 ```
 
-## Error Boundaries
+## Secret Detection
 
-### Global Error Boundary
-```tsx
-interface ErrorBoundaryState {
-  hasError: boolean;
-  error: Error | null;
+### Pattern Detection
+```python
+import re
+
+SECRET_PATTERNS = {
+    'aws_access_key': r'AKIA[0-9A-Z]{16}',
+    'aws_secret_key': r'[0-9a-zA-Z/+=]{40}',
+    'github_token': r'ghp_[0-9a-zA-Z]{36}',
+    'api_key': r'api[_-]?key[_-]?[:=]\s*["\']?([0-9a-zA-Z\-_]+)["\']?',
+    'private_key': r'-----BEGIN (RSA|DSA|EC|OPENSSH) PRIVATE KEY-----'
 }
 
-class ErrorBoundary extends React.Component<
-  { children: React.ReactNode },
-  ErrorBoundaryState
-> {
-  constructor(props: { children: React.ReactNode }) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
-
-  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('React Error Boundary caught:', error, errorInfo);
-    // Send to error tracking service
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="error-fallback">
-          <h2>Something went wrong</h2>
-          <details style={{ whiteSpace: 'pre-wrap' }}>
-            {this.state.error?.toString()}
-          </details>
-          <button onClick={() => this.setState({ hasError: false, error: null })}>
-            Try again
-          </button>
-        </div>
-      );
-    }
-
-    return this.props.children;
-  }
-}
+def detect_secrets(content: str) -> List[Dict]:
+    """Detect potential secrets in code."""
+    findings = []
+    for secret_type, pattern in SECRET_PATTERNS.items():
+        matches = re.finditer(pattern, content, re.IGNORECASE)
+        for match in matches:
+            findings.append({
+                'type': secret_type,
+                'line': content[:match.start()].count('\n') + 1,
+                'matched': match.group(0)[:20] + '...'  # Truncate for safety
+            })
+    return findings
 ```
 
-## Accessibility
-
-### ARIA Labels and Keyboard Navigation
-```tsx
-function CodeSymbolTree({ symbols }: { symbols: SymbolDefinition[] }) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    switch (e.key) {
-      case 'ArrowDown':
-        e.preventDefault();
-        setSelectedIndex((i) => Math.min(i + 1, symbols.length - 1));
-        break;
-      case 'ArrowUp':
-        e.preventDefault();
-        setSelectedIndex((i) => Math.max(i - 1, 0));
-        break;
-      case 'Enter':
-        e.preventDefault();
-        navigateToSymbol(symbols[selectedIndex]);
-        break;
-    }
-  };
-
-  return (
-    <ul
-      role="tree"
-      aria-label="Code symbols"
-      onKeyDown={handleKeyDown}
-      tabIndex={0}
-    >
-      {symbols.map((symbol, index) => (
-        <li
-          key={symbol.name}
-          role="treeitem"
-          aria-selected={index === selectedIndex}
-          aria-level={1}
-          onClick={() => navigateToSymbol(symbol)}
-        >
-          <span className="symbol-icon" aria-hidden="true">
-            {getSymbolIcon(symbol.type)}
-          </span>
-          <span className="symbol-name">{symbol.name}</span>
-        </li>
-      ))}
-    </ul>
-  );
-}
+### Secret Redaction
+```python
+def redact_secrets(content: str) -> str:
+    """Redact detected secrets from content."""
+    for secret_type, pattern in SECRET_PATTERNS.items():
+        content = re.sub(pattern, f'[REDACTED_{secret_type.upper()}]', content, flags=re.IGNORECASE)
+    return content
 ```
 
-## Testing Patterns
+## Plugin Security
 
-### Component Testing
-```tsx
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+### Plugin Isolation
+```python
+import subprocess
+import resource
 
-describe('CodeSearch', () => {
-  it('should call onSearch with query', async () => {
-    const mockOnSearch = vi.fn();
-    const user = userEvent.setup();
-
-    render(<CodeSearch onSearch={mockOnSearch} />);
-
-    const input = screen.getByPlaceholderText('Search code...');
-    const button = screen.getByRole('button', { name: 'Search' });
-
-    await user.type(input, 'parseFile');
-    await user.click(button);
-
-    await waitFor(() => {
-      expect(mockOnSearch).toHaveBeenCalledWith('parseFile');
-    });
-  });
-
-  it('should disable form during search', async () => {
-    const mockOnSearch = vi.fn(() => new Promise(resolve => setTimeout(resolve, 100)));
-
-    render(<CodeSearch onSearch={mockOnSearch} />);
-
-    const input = screen.getByPlaceholderText('Search code...');
-    const button = screen.getByRole('button');
-
-    fireEvent.change(input, { target: { value: 'test' } });
-    fireEvent.click(button);
-
-    expect(button).toBeDisabled();
-    expect(input).toBeDisabled();
-
-    await waitFor(() => {
-      expect(button).not.toBeDisabled();
-    });
-  });
-});
+def run_plugin_safely(plugin_path: str, input_data: str) -> str:
+    """Run plugin in isolated environment."""
+    # Set resource limits
+    def set_limits():
+        # Limit CPU time (seconds)
+        resource.setrlimit(resource.RLIMIT_CPU, (5, 5))
+        # Limit memory (bytes)
+        resource.setrlimit(resource.RLIMIT_AS, (512 * 1024 * 1024, 512 * 1024 * 1024))
+    
+    # Run plugin as subprocess with limits
+    result = subprocess.run(
+        ['python', plugin_path],
+        input=input_data,
+        capture_output=True,
+        text=True,
+        timeout=10,
+        preexec_fn=set_limits
+    )
+    
+    return result.stdout
 ```
 
-## Styling Patterns
-
-### CSS Modules with TypeScript
-```tsx
-import styles from './CodeViewer.module.css';
-
-interface CodeViewerProps {
-  code: string;
-  language: string;
-  theme?: 'light' | 'dark';
-}
-
-export function CodeViewer({ code, language, theme = 'light' }: CodeViewerProps) {
-  return (
-    <div className={`${styles.container} ${styles[theme]}`}>
-      <div className={styles.header}>
-        <span className={styles.language}>{language}</span>
-      </div>
-      <pre className={styles.code}>
-        <code>{code}</code>
-      </pre>
-    </div>
-  );
-}
+### Plugin Validation
+```python
+def validate_plugin(plugin_class):
+    """Validate plugin implements required interface."""
+    required_methods = ['index', 'getDefinition', 'getReferences']
+    
+    for method in required_methods:
+        if not hasattr(plugin_class, method):
+            raise SecurityError(f"Plugin missing required method: {method}")
+    
+    # Check for dangerous operations
+    source = inspect.getsource(plugin_class)
+    dangerous_ops = ['eval', 'exec', '__import__', 'compile']
+    
+    for op in dangerous_ops:
+        if op in source:
+            raise SecurityError(f"Plugin contains dangerous operation: {op}")
 ```
 
-### Styled Components (Alternative)
-```tsx
-import styled from 'styled-components';
+## Network Security
 
-const Container = styled.div<{ $primary?: boolean }>`
-  padding: 16px;
-  background: ${props => props.$primary ? '#007bff' : '#f8f9fa'};
-  border-radius: 4px;
-  
-  &:hover {
-    background: ${props => props.$primary ? '#0056b3' : '#e9ecef'};
-  }
-`;
+### HTTPS Enforcement
+```python
+from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 
-const Title = styled.h3`
-  margin: 0 0 8px 0;
-  color: ${props => props.theme.colors.text};
-`;
+# Force HTTPS in production
+if os.getenv("ENVIRONMENT") == "production":
+    app.add_middleware(HTTPSRedirectMiddleware)
 ```
 
-## Best Practices
+### CORS Configuration
+```python
+from fastapi.middleware.cors import CORSMiddleware
 
-### Component Organization
-```
-components/
-├── common/           # Reusable components
-│   ├── Button/
-│   │   ├── Button.tsx
-│   │   ├── Button.test.tsx
-│   │   ├── Button.module.css
-│   │   └── index.ts
-│   └── SearchInput/
-├── features/         # Feature-specific components
-│   ├── CodeSearch/
-│   └── SymbolViewer/
-└── layouts/          # Layout components
-    ├── MainLayout/
-    └── SidebarLayout/
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://trusted-domain.com"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
+    allow_headers=["X-API-Key"],
+)
 ```
 
-### Props Interface Naming
-- Suffix component props with `Props`
-- Use descriptive names for callback props
-- Prefer `onAction` pattern for events
+## Data Protection
 
-### Performance Guidelines
-1. Use `React.memo` for expensive components
-2. Implement `useMemo` and `useCallback` appropriately
-3. Avoid inline object/array creation in props
-4. Use React DevTools Profiler for optimization
-5. Implement code splitting for large features
+### Encryption at Rest
+```python
+from cryptography.fernet import Fernet
+
+class DataEncryption:
+    def __init__(self, key: bytes = None):
+        self.key = key or Fernet.generate_key()
+        self.cipher = Fernet(self.key)
+    
+    def encrypt_file(self, file_path: str):
+        """Encrypt file contents."""
+        with open(file_path, 'rb') as f:
+            encrypted = self.cipher.encrypt(f.read())
+        
+        with open(file_path + '.enc', 'wb') as f:
+            f.write(encrypted)
+    
+    def decrypt_file(self, file_path: str) -> bytes:
+        """Decrypt file contents."""
+        with open(file_path, 'rb') as f:
+            return self.cipher.decrypt(f.read())
+```
+
+### Secure Deletion
+```python
+import os
+
+def secure_delete(file_path: str):
+    """Securely delete file by overwriting."""
+    if not os.path.exists(file_path):
+        return
+    
+    filesize = os.path.getsize(file_path)
+    
+    with open(file_path, "ba+", buffering=0) as f:
+        # Overwrite with random data
+        f.write(os.urandom(filesize))
+        f.flush()
+        os.fsync(f.fileno())
+    
+    os.remove(file_path)
+```
+
+## Audit Logging
+
+### Security Event Logging
+```python
+import logging
+from datetime import datetime
+
+security_logger = logging.getLogger('security')
+
+def log_security_event(event_type: str, details: Dict):
+    """Log security-relevant events."""
+    security_logger.warning(f"{event_type}: {json.dumps({
+        'timestamp': datetime.utcnow().isoformat(),
+        'event': event_type,
+        'details': details
+    })}")
+
+# Usage examples
+log_security_event("AUTH_FAILURE", {"ip": request.client.host, "reason": "Invalid API key"})
+log_security_event("SECRET_DETECTED", {"file": file_path, "type": "aws_key"})
+log_security_event("PATH_TRAVERSAL_ATTEMPT", {"path": attempted_path})
+```
+
+## Security Checklist
+
+### Development
+- [ ] All inputs validated and sanitized
+- [ ] SQL injection prevention (parameterized queries)
+- [ ] Path traversal prevention
+- [ ] Secret detection implemented
+- [ ] Authentication required for sensitive operations
+
+### Deployment
+- [ ] HTTPS enabled
+- [ ] API keys rotated regularly
+- [ ] Logging configured
+- [ ] Resource limits set
+- [ ] Security headers configured
+
+### Monitoring
+- [ ] Failed authentication attempts tracked
+- [ ] Unusual access patterns detected
+- [ ] Resource usage monitored
+- [ ] Security logs reviewed regularly
+- [ ] Vulnerability scanning automated
 
 ---
 > Source: [ViperJuice/Code-Index-MCP](https://github.com/ViperJuice/Code-Index-MCP) — distributed by [TomeVault](https://tomevault.io).
