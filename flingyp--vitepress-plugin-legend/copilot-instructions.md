@@ -1,61 +1,76 @@
-## plugin-architecture
+## testing-and-documentation
 
-> - 主入口：[core/index.ts](mdc:core/index.ts)
+> - **使用示例**: [docs/index.md](mdc:docs/index.md) - 插件基本用法和展示效果
 
-# 插件架构规则
+# 测试和文档规则
 
-## 核心架构
+## 文档结构
 
-### 插件入口
-- 主入口：[core/index.ts](mdc:core/index.ts)
-- 导出 `vitepressMarkmapPreview` 函数
-- 集成 markdown-it 插件系统
+### 主要文档
+- **使用示例**: [docs/index.md](mdc:docs/index.md) - 插件基本用法和展示效果
+- **Vue 示例**: [docs/Vue.md](mdc:docs/Vue.md) - Vue 相关思维导图示例
+- **配置说明**: 参考 [core/package.json](mdc:core/package.json) 中的依赖和配置
 
-### 解析流程
-1. **代码块解析**: [core/utils/parse-code.ts](mdc:core/utils/parse-code.ts)
-   - 识别 `markmap` 代码块
-   - 解析 markdown 内容为思维导图数据
-   - 支持 mermaid 语法
+### 文档内容要求
+- 提供完整的使用示例
+- 包含配置选项说明
+- 展示各种 markmap 语法特性
+- 提供常见问题解答
 
-2. **组件解析**: [core/utils/parse-component.ts](mdc:core/utils/parse-component.ts)
-   - 识别 `<markmap>` 组件标签
-   - 解析组件属性和内容
-   - 生成 Vue 组件实例
+## 示例文件
 
-### 渲染组件
+### 代码块示例
+- 使用 markmap 代码块语法编写
+- 包含各种 markdown 元素
+- 展示插件的高级功能
+- 提供可复制的代码块
 
-#### MindMapRoot.vue
-- 位置：[core/components/MindMapRoot.vue](mdc:core/components/MindMapRoot.vue)
-- 功能：思维导图的主要渲染组件
-- 特性：
-  - 支持交互式操作
-  - 可配置样式和主题
-  - 响应式设计
+### 组件示例
+- `<PreviewMarkmapPath>` 组件用法
+- 路径参数配置
+- 动态加载功能演示
 
-## 数据流
+## 代码注释
 
-### Markdown → 思维导图
-1. 解析 markdown 语法结构
-2. 转换为 markmap 数据格式
-3. 应用配置选项
-4. 渲染为交互式思维导图
+### TypeScript 文件
+- 为所有导出的函数和类型添加 JSDoc 注释
+- 说明参数类型和返回值
+- 提供使用示例
 
-### 配置选项
-- 支持 markmap 的所有配置项
-- 通过 frontmatter 或组件属性配置
-- 支持主题、颜色、布局等自定义
+### Vue 组件
+- 为 props 和 emits 添加类型定义
+- 使用注释说明组件功能
+- 提供 props 使用示例
 
-## 扩展性
+## 测试策略
 
-### 自定义组件
-- 可在 [core/components/](mdc:core/components) 添加新组件
-- 遵循 Vue 3 Composition API 规范
-- 支持 TypeScript 类型定义
+### 单元测试
+- 为工具函数编写测试
+- 测试 markdown 解析逻辑
+- 验证配置选项处理
 
-### 工具函数扩展
-- 在 [core/utils/](mdc:core/utils) 添加新的解析器
-- 保持模块化和可测试性
-- 遵循单一职责原则
+### 集成测试
+- 测试插件与 markdown-it 的集成
+- 验证 Vue 组件渲染
+- 测试文件路径解析功能
+
+
+### 手动测试
+- 在文档中验证示例效果
+- 测试不同 markdown 语法
+- 验证响应式设计
+
+## 维护指南
+
+### 版本更新
+- 更新 [core/CHANGELOG.md](mdc:core/CHANGELOG.md)
+- 同步更新文档示例
+- 验证向后兼容性
+
+### 问题排查
+- 检查 markdown-it 插件注册
+- 验证 Vue 组件导入
+- 确认依赖版本兼容性
 
 ---
 > Source: [flingyp/vitepress-plugin-legend](https://github.com/flingyp/vitepress-plugin-legend) — distributed by [TomeVault](https://tomevault.io).
