@@ -1,0 +1,9 @@
+{
+  "name": "the-vibe-company--granite",
+  "displayName": "Granite",
+  "description": "Local-first knowledge compiler for humans and agents. Inspired by Karpathy's vision. Plain markdown, CLI + MCP server.",
+  "version": "1.0.0",
+  "author": "The-Vibe-Company",
+  "homepage": "https://github.com/The-Vibe-Company/Granite",
+  "skills": []
+}
