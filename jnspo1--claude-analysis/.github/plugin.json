@@ -1,0 +1,9 @@
+{
+  "name": "jnspo1--claude-analysis",
+  "displayName": "claude-analysis",
+  "description": "Extracts and analyzes tool usage from Claude Code project JSONL logs",
+  "version": "1.0.0",
+  "author": "jnspo1",
+  "homepage": "https://github.com/jnspo1/claude-analysis",
+  "skills": []
+}
