@@ -4,7 +4,7 @@
   "repo": "flutter_meta_wearables_dat",
   "description": "A Flutter plugin that provides a bridge to Meta's Wearables Device Access Toolkit (DAT), enabling integration with Meta AI Glasses for iOS and Android",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rodcone/flutter_meta_wearables_dat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T04:20:26Z"
+  "distributed_at": "2026-05-10T13:05:00Z"
 }
