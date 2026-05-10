@@ -1,811 +1,1087 @@
-## 116-java-logging
+## 121-java-unit-testing
 
-> Java Logging Best Practices
+> Java Unit testing guidelines
 
-# Java Logging Best Practices
+# Java Unit testing guidelines
 
-Effective Java logging involves selecting a standard framework (SLF4J with Logback/Log4j2), using appropriate log levels (ERROR, WARN, INFO, DEBUG, TRACE),
-and adhering to core practices like parameterized logging, proper exception handling, and avoiding sensitive data exposure.
-Configuration should be environment-specific with clear output formats.
-Security is paramount: mask sensitive data, control log access, and ensure secure transmission.
-Implement centralized log aggregation, monitoring, and alerting for proactive issue detection.
-Finally, logging behavior and its impact should be validated through comprehensive testing.
+Effective Java unit testing involves using JUnit 5 annotations and AssertJ for fluent assertions. Tests should follow the Given-When-Then structure with descriptive names for clarity. Each test must have a single responsibility, be independent, and leverage parameterized tests for data variations. Mocking dependencies with frameworks like Mockito is crucial for isolating the unit under test. While code coverage is a useful guide, the focus should be on meaningful tests for critical logic and edge cases. Test classes and methods should typically be package-private. Strategies for code splitting include small test methods and helper functions. Anti-patterns like testing implementation details, hard-coded values, and ignoring failures should be avoided. Proper state management involves isolated state and immutable objects, and error handling should include testing for expected exceptions and their messages.
 
 ## Implementing These Principles
 
 These guidelines are built upon the following core principles:
 
-1.  **Standardized Framework Selection**: Utilize a widely accepted logging facade (preferably SLF4J) and a robust underlying implementation (Logback or Log4j2). This promotes consistency, flexibility, and access to advanced logging features.
-2.  **Meaningful and Consistent Log Levels**: Employ logging levels (ERROR, WARN, INFO, DEBUG, TRACE) deliberately and consistently to categorize the severity and importance of messages. This allows for effective filtering, monitoring, and targeted issue diagnosis.
-3.  **Adherence to Core Logging Practices**: Follow fundamental best practices such as using parameterized logging (avoiding string concatenation for performance and clarity), always logging exceptions with their stack traces, never logging sensitive data directly (PII, credentials), and using correlation IDs (e.g., via MDC) for request tracing in distributed environments.
-4.  **Thoughtful and Flexible Configuration**: Manage logging configuration externally (e.g., `logback.xml`, `log4j2.xml`). Tailor configurations for different environments (dev, test, prod) with appropriate log levels for various packages, clear and informative output formats (including timestamps, levels, logger names, thread info, and MDC data), and robust log rotation and retention policies.
-5.  **Security-Conscious Logging**: Prioritize security in all logging activities. Actively mask or filter sensitive information, control access to log files and log management systems, use secure protocols for transmitting logs, and ensure compliance with relevant data protection regulations (e.g., GDPR, HIPAA).
-6.  **Proactive Log Monitoring and Alerting**: Implement centralized log aggregation systems (e.g., ELK Stack, Splunk, Grafana Loki). Establish automated alerts based on log patterns, error rates, or specific critical events to enable proactive issue detection and rapid response.
-7.  **Comprehensive Logging Validation Through Testing**: Integrate logging into the testing strategy. Assert that critical log messages (especially errors and warnings) are generated as expected under specific conditions, verify log formats, test log level filtering, and assess any performance impact of logging.
+1.  **Clarity and Readability**: Tests should be easy to understand. This is achieved through descriptive names (or `@DisplayName`), a clear Given-When-Then structure, and focused assertions. Readable tests serve as living documentation for the code under test.
+2.  **Isolation and Independence**: Each test must be self-contained, not relying on the state or outcome of other tests. Dependencies should be mocked to ensure the unit under test is validated in isolation. This leads to reliable and stable test suites.
+3.  **Comprehensive Validation**: Tests should thoroughly verify the behavior of the unit, including its responses to valid inputs, edge cases, boundary conditions, and error scenarios. This involves not just positive paths but also how the code handles failures and exceptions.
+4.  **Modern Tooling and Practices**: Leverage modern testing frameworks (JUnit 5), fluent assertion libraries (AssertJ), and mocking tools (Mockito) to write expressive, maintainable, and powerful tests. Utilize features like parameterized tests to reduce boilerplate and improve coverage of data variations.
+5.  **Maintainability and Focus**: Tests should be easy to maintain. This means avoiding tests that are too complex, test implementation details, or have multiple responsibilities. A well-written test makes it clear what is being tested and why, simplifying debugging and refactoring efforts.
 
 ## Table of contents
 
-- Rule 1: Choose an Appropriate Logging Framework
-- Rule 2: Understand and Use Logging Levels Correctly
-- Rule 3: Adhere to Core Logging Practices
-- Rule 4: Follow Configuration Best Practices
-- Rule 5: Implement Secure Logging Practices
-- Rule 6: Establish Effective Log Monitoring and Alerting
-- Rule 7: Incorporate Logging in Testing
+- Rule 1: Use JUnit 5 Annotations
+- Rule 2: Use AssertJ for Assertions
+- Rule 3: Structure Tests with Given-When-Then
+- Rule 4: Use Descriptive Test Names
+- Rule 5: Aim for Single Responsibility in Tests
+- Rule 6: Ensure Tests are Independent
+- Rule 7: Use Parameterized Tests for Data Variations
+- Rule 8: Utilize Mocking for Dependencies (Mockito)
+- Rule 9: Consider Test Coverage, But Don't Obsess
+- Rule 10: Test Scopes
+- Rule 11: Code Splitting Strategies
+- Rule 12: Anti-patterns and Code Smells
+- Rule 13: State Management
+- Rule 14: Error Handling
+- Rule 15: Leverage JSpecify for Null Safety
+- Rule 16: Key Questions to Guide Test Creation (RIGHT-BICEP)
+- Rule 17: Characteristics of Good Tests (A-TRIP)
+- Rule 18: Verifying CORRECT Boundary Conditions
 
-## Rule 1: Choose an Appropriate Logging Framework
+## Rule 1: Use JUnit 5 Annotations
 
-Title: Select a Standard Logging Facade and Implementation
-Description:
-Using a standard logging facade like SLF4J allows for flexibility in choosing and switching an underlying logging implementation (e.g., Logback, Log4j2).
-- **Primary Recommendation**: SLF4J with Logback. This combination is widely used, robust, and feature-rich.
-- **Alternatives**:
-    - SLF4J with Log4j2: Another powerful and performant option.
-    - Java Util Logging (JUL): Built into the JDK, but often less flexible and performant for complex applications.
-
-**Good example:**
-(Illustrating SLF4J usage - specific Logback/Log4j2 setup is in their config files)
-```java
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.Objects;
-
-public class MyService {
-    // Logger declared using SLF4J
-    private static final Logger logger = LoggerFactory.getLogger(MyService.class);
-
-    public void performAction(String input) {
-        // SLF4J API is used for logging
-        logger.info("Performing action with input: {}", input);
-        if (Objects.isNull(input) || input.isEmpty()) {
-            logger.warn("Input is null or empty, this might lead to unexpected behavior.");
-            // Potentially handle error or default behavior
-        }
-        // ... action logic ...
-        logger.debug("Action performed successfully for input: {}", input);
-    }
-
-    public static void main(String args) {
-        MyService service = new MyService();
-        service.performAction("Test Data");
-        service.performAction(""); // Example that might trigger a WARN
-    }
-}
-```
-
-**Bad Example:**
-```java
-// Directly using System.out.println for logging
-public class MyOldService {
-    public void doWork(String data) {
-        System.out.println("Starting work with data: " + data); // Hard to control, no levels, no formatting
-        if (data.equals("error")) {
-            System.err.println("An error occurred!"); // Also hard to manage
-        }
-        // ... logic ...
-        System.out.println("Work finished.");
-    }
-    
-    public static void main(String args) {
-        MyOldService service = new MyOldService();
-        service.doWork("Sample");
-        service.doWork("error");
-    }
-}
-// Problem: System.out/err bypasses logging frameworks, offering no level control,
-// no easy way to direct output, and making log management difficult.
-```
-
-## Rule 2: Understand and Use Logging Levels Correctly
-
-Title: Apply Appropriate Logging Levels for Messages
-Description:
-Use logging levels consistently to categorize the severity and importance of log messages. This allows for effective filtering and monitoring.
-- **ERROR**: For errors that are fatal to the operation or critical issues requiring immediate attention.
-    - Examples: Database connection failures, system crashes, critical business logic failures.
-- **WARN**: For potentially harmful situations or unexpected technical/business events that might lead to an error if not addressed, but the application can currently recover or continue.
-    - Examples: Configuration issues, deprecated API usage, missing non-critical features, retryable errors.
-- **INFO**: For important business events, system state changes, and high-level operational tracing.
-    - Examples: Application startup/shutdown, service calls initiated/completed, major state transitions, user login.
-- **DEBUG**: For detailed information useful during development, troubleshooting, and diagnosing issues.
-    - Examples: Method entry/exit with parameters, variable values, flow control decisions, detailed steps within a process.
-- **TRACE**: For the most fine-grained debugging information, typically only enabled for very specific, localized troubleshooting.
-    - Examples: Loop iterations with values, very detailed flow information within a complex algorithm.
+Title: Prefer JUnit 5 annotations over JUnit 4.
+Description: Utilize annotations from the `org.junit.jupiter.api` package (e.g., `@Test`, `@BeforeEach`, `@AfterEach`, `@DisplayName`, `@Nested`, `@Disabled`) instead of their JUnit 4 counterparts (`@org.junit.Test`, `@Before`, `@After`, `@Ignore`). This ensures consistency and allows leveraging the full capabilities of JUnit 5.
 
 **Good example:**
+
 ```java
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.Objects;
-
-public class DataProcessor {
-    private static final Logger logger = LoggerFactory.getLogger(DataProcessor.class);
-
-    public void processData(String recordId, String data) {
-        logger.trace("Entering processData for recordId: {}, data snippet: {}", recordId, data.substring(0, Math.min(data.length(), 10)));
-        
-        if (Objects.isNull(data) || data.isEmpty()) {
-            logger.warn("Data for recordId {} is null or empty. Skipping processing.", recordId);
-            return;
-        }
-
-        logger.debug("Starting processing for recordId: {}", recordId);
-        try {
-            // Simulate processing
-            if (recordId.equals("fail_critical")) {
-                throw new RuntimeException("Simulated critical failure");
-            }
-            Thread.sleep(50); // Simulate work
-            logger.info("Successfully processed recordId: {}", recordId);
-        } catch (InterruptedException e) {
-            logger.warn("Processing for recordId {} was interrupted.", recordId, e);
-            Thread.currentThread().interrupt();
-        } catch (Exception e) {
-            logger.error("Critical error processing recordId: {}. Data: {}", recordId, data, e);
-            // Depending on design, might rethrow or handle as a business exception
-        }
-        logger.trace("Exiting processData for recordId: {}", recordId);
-    }
-
-    public static void main(String args) {
-        DataProcessor processor = new DataProcessor();
-        processor.processData("REC001", "Some valid data here.");
-        processor.processData("REC002", ""); // Triggers WARN
-        processor.processData("fail_critical", "Data that will cause an error."); // Triggers ERROR
-    }
-}
-```
-
-**Bad Example:**
-```java
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.Objects;
-
-public class MisguidedLogger {
-    private static final Logger logger = LoggerFactory.getLogger(MisguidedLogger.class);
-
-    public void checkStatus(String item) {
-        // Overuse of INFO for debug-level details
-        logger.info("Checking status for item: " + item); 
-        boolean isActive = item.startsWith("active");
-        // Logging every minor step as INFO or even WARN
-        logger.info("Item " + item + " active status: " + isActive); 
-
-        if (!isActive) {
-            // Using ERROR for a non-critical, expected condition
-            logger.error("Item " + item + " is not active!"); 
-        }
-    }
-    public static void main(String args) {
-        MisguidedLogger ml = new MisguidedLogger();
-        ml.checkStatus("active_item");
-        ml.checkStatus("inactive_item");
-        // Problem: Log levels are misused. "Item is not active" might be a normal business condition (INFO/DEBUG)
-        // rather than an ERROR. Detailed status checks are DEBUG/TRACE.
-    }
-}
-```
-
-## Rule 3: Adhere to Core Logging Practices
-
-Title: Implement Fundamental Best Practices for Effective Logging
-Description:
-Follow these core practices to ensure logs are useful, maintainable, and performant.
-
-**Sub-Rule 3.1: General Logging Practices**
-- **Logger Declaration**: Use a `static final Logger` instance per class, obtained via `LoggerFactory.getLogger(ClassName.class)`.
-- **Exception Handling**: Never catch and swallow exceptions without logging them appropriately (usually at ERROR or WARN level, including the stack trace).
-- **Sensitive Information**: Avoid logging sensitive data such as passwords, personal identifiable information (PII), security tokens, or financial details directly. If necessary, mask or tokenize such data.
-- **Parameterized Logging**: Use parameterized logging (`logger.info("User {} logged in", userId);`) instead of string concatenation (`logger.info("User " + userId + " logged in");`) for better performance and readability.
-- **Correlation IDs**: In distributed systems or microservices, include a correlation ID (e.g., via MDC - Mapped Diagnostic Context) in every log message to trace requests across different services.
-- **Log Rotation and Retention**: Configure appropriate log rotation (e.g., daily, by size) and retention policies to manage disk space and comply with data policies.
-
-**Sub-Rule 3.2: Performance Considerations**
-- **Guard Clauses**: For expensive logging operations (e.g., constructing complex messages only needed for DEBUG/TRACE), use guard clauses: `if (logger.isDebugEnabled()) { logger.debug("Complex message: " + buildComplexMessage()); }`. Parameterized logging often mitigates this for simple arguments.
-- **Asynchronous Logging**: For high-throughput applications, consider using asynchronous log appenders (async logging) to minimize the impact of logging on application thread performance.
-- **Configuration**: Configure appropriate buffer sizes and flush intervals for appenders.
-- **Monitoring**: Monitor the impact of logging on application performance.
-
-**Sub-Rule 3.3: Structured Logging**
-- **Format**: Consider using a structured logging format like JSON for machine-readable logs, especially if logs are centrally aggregated and analyzed.
-- **Consistent Metadata**: Include consistent metadata in log entries (e.g., application name, version, environment).
-- **Context Information**: Add contextual information like thread name, user ID (if available and safe), session ID (if applicable and safe).
-- **MDC for Request Tracking**: Use Mapped Diagnostic Context (MDC) to enrich log messages with request-specific information (like correlation ID, user ID) without passing it through every method call.
-
-**Good example:**
-(Illustrating several core practices)
-```java
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
-import java.util.Objects;
-import java.util.UUID;
-
-class TransactionService {
-    // Rule 3.1: Logger Declaration
-    private static final Logger logger = LoggerFactory.getLogger(TransactionService.class);
-
-    public void processTransaction(String transactionId, String userId, String sensitiveData) {
-        // Rule 3.1 & 3.3: MDC for correlation ID and user context
-        MDC.put("correlationId", UUID.randomUUID().toString());
-        MDC.put("userId", userId); // Ensure userId is not PII or is masked if necessary
-
-        logger.info("Processing transaction ID: {}", transactionId);
-
-        try {
-            if (Objects.isNull(transactionId) || transactionId.isEmpty()) {
-                throw new IllegalArgumentException("Transaction ID cannot be null or empty.");
-            }
-
-            // Rule 3.1: Avoid logging sensitive information directly
-            // Instead of: logger.debug("Sensitive data for tx {}: {}", transactionId, sensitiveData);
-            logger.debug("Processing transaction {} with sensitive data (masked/omitted). Hash: {}", transactionId, sensitiveData.hashCode());
-
-
-            // Simulate some work
-            performStep1(transactionId);
-            performStep2(transactionId);
-
-            // Rule 3.2: Guard clause for expensive log message construction (if necessary)
-            if (logger.isTraceEnabled()) {
-                logger.trace("Detailed trace for transaction {}: {}", transactionId, generateDetailedTrace());
-            }
-
-            logger.info("Transaction {} processed successfully.", transactionId);
-
-        } catch (IllegalArgumentException iae) {
-            // Rule 3.1: Exception Logging with context and exception
-            logger.warn("Invalid argument for transaction {}: {}", transactionId, iae.getMessage(), iae);
-        } catch (Exception e) {
-            // Rule 3.1: Exception Logging
-            logger.error("Failed to process transaction {}", transactionId, e);
-            // Potentially rethrow as a custom business exception
-        } finally {
-            // Rule 3.3: Clear MDC context
-            MDC.clear();
-        }
-    }
-
-    private void performStep1(String transactionId) {
-        logger.debug("Performing step 1 for transaction {}", transactionId);
-        // ... logic for step 1
-    }
-
-    private void performStep2(String transactionId) {
-        logger.debug("Performing step 2 for transaction {}", transactionId);
-        // ... logic for step 2
-    }
-
-    private String generateDetailedTrace() {
-        // Simulate expensive message generation
-        return "Very detailed trace data...";
-    }
-    
-    public static void main(String args) {
-        TransactionService service = new TransactionService();
-        // Logback config would typically set the pattern to include MDC values like %X{correlationId} %X{userId}
-        service.processTransaction("TX123", "userA", "secret_credit_card_info");
-        service.processTransaction(null, "userB", "some_other_data");
-    }
-}
-```
-
-**Bad Example:**
-```java
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.Objects;
-
-public class BadLoggingExample {
-    private static final Logger logger = LoggerFactory.getLogger(BadLoggingExample.class);
-
-    public void handleRequest(String requestData, String userPassword) {
-        // Bad: String concatenation instead of parameterization
-        logger.debug("Received data: " + requestData + " for user.");
-
-        // Bad: Logging sensitive information (password)
-        logger.info("User password is: " + userPassword); 
-
-        try {
-            if (requestData.equals("fail")) {
-                throw new Exception("Simulated failure");
-            }
-            // ...
-        } catch (Exception e) {
-            // Bad: Swallowing exception or logging only message without stack trace
-            logger.info("An error occurred: " + e.getMessage()); 
-            // Or even worse: System.out.println("Error: " + e.getMessage());
-            // Or just: // e.printStackTrace(); (goes to stderr, not managed by logging)
-        }
-    }
-    public static void main(String args) {
-        BadLoggingExample bl = new BadLoggingExample();
-        bl.handleRequest("data1", "pa$$wOrd");
-        bl.handleRequest("fail", "anotherSecurePassword");
-    }
-}
-```
-
-## Rule 4: Follow Configuration Best Practices
-
-Title: Configure Your Logging Framework Thoughtfully
-Description:
-Proper configuration is key to effective logging.
-- **File Organization**:
-    - Separate logging configurations per environment (e.g., `logback-dev.xml`, `logback-prod.xml`).
-    - Use external configuration files rather than programmatic configuration where possible for easier changes.
-    - Implement different log levels for different packages/classes to control log verbosity (e.g., `DEBUG` for your application packages, `INFO` for libraries).
-- **Output Formats**:
-    - Include a timestamp with timezone (e.g., `%d{yyyy-MM-dd HH:mm:ss.SSSXXX}`).
-    - Add the log level (e.g., `%-5level`).
-    - Include the logger name or source class (e.g., `%logger{36}`).
-    - Add thread information (e.g., `%thread`).
-    - Include correlation ID if used (e.g., `%X{correlationId}`).
-    - Add other relevant contextual data from MDC.
-    - **Example Pattern (for Logback/Log4j2)**: ` %d{yyyy-MM-dd HH:mm:ss.SSSXXX} %thread %-5level %logger{36} %X{correlationId} - %msg%n%ex `
-      (Note: `%ex` is important for printing stack traces for exceptions passed as the last argument to logging methods)
-
-**Good example:**
-(Conceptual Logback configuration snippet - `logback.xml`)
-```xml
-<!-- This is an XML configuration example, not Java code -->
-<!-- <configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSSXXX} %thread %-5level %logger{36} %X{correlationId} - %msg%n%ex</pattern>
-        </encoder>
-    </appender>
-
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/myapp.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/myapp.%d{yyyy-MM-dd}.log</fileNamePattern>
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSSXXX} %thread %-5level %logger{36} %X{correlationId} - %msg%n%ex</pattern>
-        </encoder>
-    </appender>
-
-    <logger name="com.example.myapp" level="DEBUG"/>
-    <logger name="org.springframework" level="INFO"/>
-    <logger name="org.hibernate" level="WARN"/>
-
-    <root level="INFO">
-        <appender-ref ref="STDOUT" />
-        <appender-ref ref="FILE" />
-    </root>
-</configuration> -->
-
-// Java code showing how logger names affect output based on the above config
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.Objects;
-
-// Assuming package is com.example.myapp
-// package com.example.myapp; 
-
-public class ConfiguredLoggerExample {
-    private static final Logger appLogger = LoggerFactory.getLogger(ConfiguredLoggerExample.class); // Will use com.example.myapp logger
-    private static final Logger externalLibLogger = LoggerFactory.getLogger("org.hibernate.example.SomeClass"); // Will use org.hibernate logger
-
-    public static void main(String args) {
-        // Based on the conceptual XML config:
-        // com.example.myapp is DEBUG
-        // org.hibernate is WARN
-        // root is INFO
-        
-        appLogger.trace("This TRACE message from appLogger will likely not be seen (DEBUG is higher).");
-        appLogger.debug("This DEBUG message from appLogger will be seen.");
-        appLogger.info("This INFO message from appLogger will be seen.");
-
-        externalLibLogger.info("This INFO message from externalLibLogger will NOT be seen (WARN is higher).");
-        externalLibLogger.warn("This WARN message from externalLibLogger will be seen.");
-        
-        Logger rootExampleLogger = LoggerFactory.getLogger("some.other.package.MyClass"); // Falls under root logger
-        rootExampleLogger.debug("This DEBUG message from rootExampleLogger will NOT be seen (INFO is higher).");
-        rootExampleLogger.info("This INFO message from rootExampleLogger will be seen.");
-    }
-}
-
-```
-**Bad Example:**
-(Conceptual: A logging configuration that is too verbose or missing key information)
-```xml
-<!-- This is an XML configuration example, not Java code -->
-<!-- <configuration>
-    <appender name="STDOUT_BAD" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%msg%n</pattern> <!-- Bad: Missing timestamp, level, logger, thread -->
-        </encoder>
-    </appender>
-
-    <!-- Bad: Logging everything at TRACE level in production -->
-    <root level="TRACE"> 
-        <appender-ref ref="STDOUT_BAD" />
-    </root>
-</configuration> -->
-
-// Java code consequences
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.Objects;
-
-public class BadConfigConsequences {
-    private static final Logger logger = LoggerFactory.getLogger(BadConfigConsequences.class);
-    public static void main(String args) {
-        logger.info("User logged in.");
-        logger.error("Failed to connect to DB.", new RuntimeException("DB connection timeout"));
-        // Output with bad pattern:
-        // User logged in.
-        // Failed to connect to DB.  (Stack trace might appear on a new line or be missing depending on %ex)
-        // Problem: Logs are hard to read, debug, and filter. No context.
-        // Excessive TRACE level floods logs in production.
-    }
-}
-
-```
-
-## Rule 5: Implement Secure Logging Practices
-
-Title: Ensure Logs Do Not Compromise Security
-Description:
-Logging can inadvertently expose sensitive information if not handled carefully.
-- **Mask Sensitive Data**: Actively mask or filter sensitive data (passwords, API keys, PII, credit card numbers, health records) before it's written to logs. Use custom converters, filters, or wrappers if necessary.
-- **Log Access Controls**: Restrict access to log files and log management systems. Ensure that only authorized personnel can view or manage logs.
-- **Secure Transmission**: If logging to remote systems (e.g., centralized log servers), use secure transmission protocols (e.g., TLS/SSL).
-- **Regular Log Reviews**: Periodically review logs for unexpected sensitive data exposure or security-related events.
-- **Compliance**: Comply with data protection regulations (e.g., GDPR, HIPAA, CCPA) regarding what can be logged and how long it can be retained.
-
-**Good example:**
-```java
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.Objects;
-
-public class SecureLogger {
-    private static final Logger logger = LoggerFactory.getLogger(SecureLogger.class);
-
-    // Example of a simple masking utility
-    private static String maskCreditCard(String cardNumber) {
-        if (Objects.isNull(cardNumber) || cardNumber.length() < 10) {
-            return "INVALID_CC_DATA";
-        }
-        // Mask all but first 6 and last 4 digits typically
-        // For simplicity, just showing first 4 and last 4.
-        return cardNumber.substring(0, Math.min(4, cardNumber.length())) + 
-               "********" + 
-               cardNumber.substring(Math.max(0, cardNumber.length() - 4));
-    }
-
-    public void processPayment(String userId, String creditCardNumber, double amount) {
-        // Good: Masking sensitive data before logging
-        logger.info("Processing payment for user: {}, amount: {}, card (masked): {}", 
-                    userId, amount, maskCreditCard(creditCardNumber));
-        
-        try {
-            // ... payment processing logic ...
-            if (amount > 10000) {
-                 // Example of logging a security-relevant event (but not sensitive data itself)
-                logger.warn("High value transaction processed for user: {}. Amount: {}", userId, amount);
-            }
-            logger.info("Payment successful for user {}", userId);
-        } catch (Exception e) {
-            // Log error, but avoid logging raw payment details in case of failure if they contain sensitive info
-            logger.error("Payment processing failed for user {}. Reason: {}", userId, e.getMessage(), e);
-        }
-    }
-    public static void main(String args) {
-        SecureLogger sl = new SecureLogger();
-        sl.processPayment("user123", "1234567890123456", 99.99);
-        sl.processPayment("user456", "9876543210987654", 15000.00);
-    }
-}
-// Further good practices:
-// - Use Logback/Log4j2 filters or custom converters for more robust, centralized masking.
-// - Ensure log files have restricted permissions.
-// - Use tools for log analysis that respect data privacy.
-```
-
-**Bad Example:**
-```java
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.Objects;
-
-public class InsecureLogger {
-    private static final Logger logger = LoggerFactory.getLogger(InsecureLogger.class);
-
-    public void userLogin(String username, String password) {
-        // Bad: Logging username and password in clear text
-        logger.info("User login attempt: username={}, password={}", username, password); 
-
-        if ("admin".equals(username) && "admin123".equals(password)) {
-            logger.info("Admin user '{}' logged in successfully.", username);
-        } else {
-            logger.warn("Failed login attempt for username: {}", username);
-        }
-    }
-    
-    public void processUserData(String userId, String fullUserDetailsJson) {
-        // Bad: Logging potentially large JSON object containing PII without any filtering/masking
-        logger.debug("Processing user data for {}: {}", userId, fullUserDetailsJson);
-    }
-
-    public static void main(String args) {
-        InsecureLogger il = new InsecureLogger();
-        il.userLogin("admin", "admin123"); // Logs password!
-        il.userLogin("testuser", "wrongPass"); // Logs password!
-        il.processUserData("uid001", "{\"name\":\"John Doe\", \"ssn\":\"123-45-678\", \"email\":\"john.doe@example.com\"}"); // Logs PII (SSN)
-    }
-}
-```
-
-## Rule 6: Establish Effective Log Monitoring and Alerting
-
-Title: Implement Log Aggregation, Monitoring, and Alerting
-Description:
-Proactively use logs to understand application behavior and identify issues.
-- **Log Aggregation**: Set up a centralized log aggregation system (e.g., ELK Stack - Elasticsearch, Logstash, Kibana; Splunk; Grafana Loki) to collect logs from all application instances and services.
-- **Log-based Alerts**: Implement alerts based on log patterns, error rates, or specific critical log messages (e.g., alert on high frequency of `ERROR` logs, specific exception types, or security-related warnings).
-- **Structured Logging for Querying**: Use structured logging (e.g., JSON) to enable easier and more powerful querying and analysis in your log aggregation system.
-- **Regular Log Analysis**: Periodically analyze logs to identify trends, recurring issues, performance bottlenecks, or anomalous behavior.
-- **Monitor Logging System Health**: Ensure the logging pipeline itself is monitored (e.g., disk space on log servers, ingestion rates, query performance of the aggregation system).
-
-**Good example:**
-(Conceptual - actual implementation involves external systems)
-```java
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
-import java.util.Objects;
-import java.util.UUID;
-
-public class MonitoredService {
-    private static final Logger logger = LoggerFactory.getLogger(MonitoredService.class);
-
-    public void handleApiRequest(String endpoint, String payload) {
-        String correlationId = UUID.randomUUID().toString();
-        MDC.put("correlationId", correlationId);
-        MDC.put("endpoint", endpoint);
-
-        try {
-            logger.info("API request received."); // This log, with MDC, goes to a central log aggregator.
-            
-            if (payload.contains("<script>")) {
-                // Log a security-sensitive event that monitoring tools can pick up for alerts.
-                logger.warn("Potential XSS attempt detected in payload for correlationId: {}", correlationId);
-                // Handle error, e.g., return 400 Bad Request
-                return;
-            }
-            
-            // Simulate some processing
-            if (endpoint.equals("/critical_op")) {
-                if (Math.random() > 0.9) { // Simulate a sporadic critical failure
-                    throw new RuntimeException("Simulated critical operation failure!");
-                }
-            }
-            logger.debug("Processing complete for API request.");
-
-        } catch (RuntimeException e) {
-            // This ERROR log (especially with stack trace) would be a key candidate for alerting.
-            logger.error("Unhandled exception during API request.", e); 
-            // Respond with 500 Internal Server Error
-        } finally {
-            MDC.clear();
-        }
-    }
-
-    public static void main(String args) {
-        MonitoredService service = new MonitoredService();
-        // Assume Logback is configured with a JSON appender sending to Logstash/Fluentd
-        // These logs would be searchable in Kibana/Splunk/Grafana by correlationId, endpoint, level, etc.
-        // Alerts could be set up for:
-        // 1. Any ERROR level log.
-        // 2. WARN messages containing "XSS attempt".
-        // 3. High rate of INFO messages for a specific endpoint indicating unusual load.
-        
-        service.handleApiRequest("/user_data", "{\"data\": \"normal\"}");
-        service.handleApiRequest("/submit_form", "payload with <script>alert('XSS')</script>");
-        for (int i=0; i<20; i++) { // Simulate multiple calls to potentially trigger the sporadic error
-            service.handleApiRequest("/critical_op", "some_data");
-        }
-    }
-}
-// Key elements for monitoring:
-// - Centralized log storage (e.g., ELK, Splunk).
-// - Log shippers (e.g., Filebeat, Fluentd) sending logs from app servers.
-// - Dashboards in Kibana/Grafana to visualize log data (e.g., error rates).
-// - Alerting rules in ElastAlert, Grafana Alerting, or Splunk Alerts.
-```
-
-**Bad Example:**
-```java
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.Objects;
-
-public class UnmonitoredService {
-    private static final Logger logger = LoggerFactory.getLogger(UnmonitoredService.class);
-
-    public void doWork() {
-        try {
-            logger.info("Work started.");
-            // ... some logic ...
-            if (Math.random() > 0.5) {
-                throw new Exception("Something went wrong randomly!");
-            }
-            logger.info("Work finished.");
-        } catch (Exception e) {
-            // Logs an error, but if logs are only on local disk and not monitored,
-            // this critical issue might go unnoticed for a long time.
-            logger.error("Error during work", e); 
-        }
-    }
-
-    public static void main(String args) {
-        UnmonitoredService service = new UnmonitoredService();
-        for (int i = 0; i < 5; i++) {
-            service.doWork();
-        }
-        // Problem: Logs are likely just going to console or a local file.
-        // - No central aggregation: Difficult to search across instances or time.
-        // - No alerts: Critical errors might be missed until users report them.
-        // - No analysis: Trends or recurring non-fatal issues are hard to spot.
-    }
-}
-```
-
-## Rule 7: Incorporate Logging in Testing
-
-Title: Validate Logging Behavior and Impact During Testing
-Description:
-Ensure logging works as expected and doesn't negatively impact the application.
-- **Logging Assertions**: In unit or integration tests, assert that specific log messages (especially `WARN` or `ERROR` for expected failure conditions, or important `INFO` messages) are generated when certain code paths are executed.
-- **Verify Log Messages in Integration Tests**: For critical flows, verify that appropriate log messages are written, perhaps by capturing log output or using testing utilities that can inspect logs.
-- **Test Different Logging Levels**: Ensure that configuring different log levels correctly filters messages as expected.
-- **Validate Log Format Compliance**: If a specific log format (e.g., JSON with certain fields) is required, write tests to validate that log output conforms to this format.
-- **Check Performance Impact**: For high-throughput logging scenarios, include tests to measure the performance overhead of logging and ensure it's within acceptable limits.
-
-**Good example:**
-(Conceptual example, actual testing might use libraries like Logback's `ListAppender` or dedicated testing utilities)
-```java
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.Objects;
-// For a real test, you'd use a testing framework (JUnit, TestNG)
-// and a library to capture logs, e.g., Logback's ListAppender or SystemLambda.
-
-// ---- SUT (System Under Test) ----
-class ImportantService {
-    private static final Logger logger = LoggerFactory.getLogger(ImportantService.class);
-    public void processImportantData(String dataId) {
-        if (Objects.isNull(dataId)) {
-            logger.error("Data ID is null, cannot process.");
-            throw new IllegalArgumentException("Data ID cannot be null");
-        }
-        if (dataId.startsWith("invalid_")) {
-            logger.warn("Received potentially invalid data ID: {}", dataId);
-            // continue processing with caution
-        }
-        logger.info("Processing data for ID: {}", dataId);
-        // ... actual processing ...
-    }
-}
-
-// ---- Test (Conceptual, would use testing framework) ----
-// import ch.qos.logback.classic.Level;
-// import ch.qos.logback.classic.LoggerContext;
-// import ch.qos.logback.classic.spi.ILoggingEvent;
-// import ch.qos.logback.core.read.ListAppender;
-// import org.junit.jupiter.api.AfterEach;
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.Test;
-// import static org.assertj.core.api.Assertions.assertThat;
-// import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-public class LoggingTestExample {
-    /*
-    private ListAppender<ILoggingEvent> listAppender;
-    private ImportantService service;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+
+@DisplayName("My Service Test")
+class MyServiceTest {
+
+    private MyService service;
 
     @BeforeEach
     void setUp() {
-        service = new ImportantService();
-        LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
-        listAppender = new ListAppender<>();
-        listAppender.start();
-        // Add appender to the logger of the class under test
-        ch.qos.logback.classic.Logger serviceLogger = loggerContext.getLogger(ImportantService.class);
-        serviceLogger.addAppender(listAppender);
-        serviceLogger.setLevel(Level.ALL); // Ensure all levels are captured for test
-    }
-
-    @AfterEach
-    void tearDown() {
-        listAppender.stop();
-        LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
-        loggerContext.getLogger(ImportantService.class).detachAppender(listAppender);
+        service = new MyService(); // Setup executed before each test
     }
 
     @Test
-    void testNullDataId_logsErrorAndThrowsException() {
-        assertThatThrownBy(() -> service.processImportantData(null))
-            .isInstanceOf(IllegalArgumentException.class);
-        
-        List<ILoggingEvent> logs = listAppender.list;
-        assertThat(logs).hasSize(1);
-        assertThat(logs.get(0).getLevel()).isEqualTo(Level.ERROR);
-        assertThat(logs.get(0).getFormattedMessage()).contains("Data ID is null");
-    }
+    @DisplayName("should process data correctly")
+    void processData() {
+        // Given
+        String input = "test";
 
-    @Test
-    void testInvalidDataId_logsWarning() {
-        service.processImportantData("invalid_XYZ");
-        List<ILoggingEvent> logs = listAppender.list;
-        
-        // Expecting WARN then INFO
-        assertThat(logs.stream().anyMatch(event -> 
-            event.getLevel() == Level.WARN && event.getFormattedMessage().contains("Received potentially invalid data ID: invalid_XYZ")
-        )).isTrue();
-        assertThat(logs.stream().anyMatch(event -> 
-            event.getLevel() == Level.INFO && event.getFormattedMessage().contains("Processing data for ID: invalid_XYZ")
-        )).isTrue();
-    }
-    
-    @Test
-    void testValidDataId_logsInfo() {
-        service.processImportantData("valid_123");
-        List<ILoggingEvent> logs = listAppender.list;
-        assertThat(logs).hasSize(1);
-        assertThat(logs.get(0).getLevel()).isEqualTo(Level.INFO);
-        assertThat(logs.get(0).getFormattedMessage()).contains("Processing data for ID: valid_123");
-    }
-    */
-    public static void main(String args) {
-        System.out.println("This example is conceptual and best run within a JUnit/TestNG test environment.");
-        System.out.println("To run, uncomment the JUnit parts and include relevant testing/logback dependencies.");
-        // Example calls to see output if run directly (without log capture)
-        ImportantService service = new ImportantService();
-        try { service.processImportantData(null); } catch (Exception e) { /* ignore for direct run */ }
-        service.processImportantData("invalid_ABC");
-        service.processImportantData("valid_DEF");
+        // When
+        String result = service.process(input);
+
+        // Then
+        assertThat(result).isEqualTo("PROCESSED:test");
     }
 }
-
 ```
 
 **Bad Example:**
+
 ```java
-// Code that is hard to test for logging behavior
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.Objects;
+import org.junit.Before; // JUnit 4
+import org.junit.Test;   // JUnit 4
+import static org.junit.Assert.assertEquals; // JUnit 4 Assert
 
-public class UntestableLogging {
-    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UntestableLogging.class);
+public class MyServiceTest {
 
-    public void complexOperation(String input) {
-        // ... many lines of code ...
-        if (input.equals("problem")) {
-            // Log message is deeply embedded, possibly conditional, hard to trigger specifically
-            // and verify without significant effort or refactoring.
-            logger.warn("A specific problem occurred with input: {}", input);
-        }
-        // ... more code ...
-        // No clear separation of concerns, making it hard to isolate and test logging.
+    private MyService service;
+
+    @Before // JUnit 4
+    public void setup() {
+        service = new MyService();
     }
-    public static void main(String args) {
-        UntestableLogging ul = new UntestableLogging();
-        ul.complexOperation("test");
-        ul.complexOperation("problem");
-        // Problem: Without proper test utilities or testable design,
-        // verifying that the WARN message is logged correctly (and only when expected)
-        // is difficult. Developers might skip testing logging, leading to unverified log output.
+
+    @Test // JUnit 4
+    public void processData() {
+        String input = "test";
+        String result = service.process(input);
+        assertEquals("PROCESSED:test", result); // JUnit 4 Assert
+    }
+}
+```
+
+## Rule 2: Use AssertJ for Assertions
+
+Title: Prefer AssertJ for assertions.
+Description: Employ AssertJ's fluent API (`org.assertj.core.api.Assertions.assertThat`) for more readable, expressive, and maintainable assertions compared to JUnit Jupiter's `Assertions` class or Hamcrest matchers.
+
+**Good Example:**
+
+```java
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+class AssertJExampleTest {
+
+    @Test
+    void checkValue() {
+        String result = "hello";
+        assertThat(result)
+            .isEqualTo("hello")
+            .startsWith("hell")
+            .endsWith("o")
+            .hasSize(5); // Chain multiple assertions fluently
+    }
+
+    @Test
+    void checkException() {
+        MyService service = new MyService();
+        assertThatThrownBy(() -> service.divide(1, 0)) // Preferred way to test exceptions
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("zero");
+    }
+}
+```
+
+**Bad Example:**
+
+```java
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*; // JUnit Jupiter Assertions
+
+class JUnitAssertionsExampleTest {
+
+    @Test
+    void checkValue() {
+        String result = "hello";
+        assertEquals("hello", result); // Less fluent
+        assertTrue(result.startsWith("hell")); // Separate assertions for each property
+        assertTrue(result.endsWith("o"));
+        assertEquals(5, result.length());
+    }
+
+    @Test
+    void checkException() {
+        MyService service = new MyService();
+        // More verbose exception testing
+        IllegalArgumentException exception = assertThrows(
+            IllegalArgumentException.class,
+            () -> service.divide(1, 0)
+        );
+        assertTrue(exception.getMessage().contains("zero")); // Separate assertion for message
+    }
+}
+```
+
+## Rule 3: Structure Tests with Given-When-Then
+
+Title: Structure test methods using the Given-When-Then pattern.
+Description: Organize the logic within test methods into three distinct, clearly separated phases: **Given** (setup preconditions), **When** (execute the code under test), and **Then** (verify the outcome). Use comments or empty lines to visually separate these phases, enhancing readability and understanding of the test's purpose.
+
+**Good example:**
+
+```java
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+
+class GivenWhenThenTest {
+
+    @Test
+    void shouldCalculateSumCorrectly() {
+        // Given
+        Calculator calculator = new Calculator();
+        int num1 = 5;
+        int num2 = 10;
+        int expectedSum = 15;
+
+        // When
+        int actualSum = calculator.add(num1, num2);
+
+        // Then
+        assertThat(actualSum).isEqualTo(expectedSum);
+    }
+}
+```
+
+**Bad Example:**
+
+```java
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+
+class UnstructuredTest {
+
+    @Test
+    void testAddition() {
+        // Lack of clear separation makes it harder to follow the test flow
+        Calculator calculator = new Calculator();
+        assertThat(calculator.add(5, 10)).isEqualTo(15); // Combines action and verification
+        // Setup might be mixed with action or verification elsewhere
+    }
+}
+```
+
+## Rule 4: Use Descriptive Test Names
+
+Title: Write descriptive test method names or use `@DisplayName`.
+Description: Test names should clearly communicate the scenario being tested and the expected outcome. Use either descriptive method names (e.g., following the `should_ExpectedBehavior_when_StateUnderTest` pattern) or JUnit 5's `@DisplayName` annotation for more natural language descriptions. This makes test reports easier to understand.
+
+**Good Example (Method Name):**
+
+```java
+@Test
+void should_throwException_when_divisorIsZero() {
+    // Given
+    Calculator calculator = new Calculator();
+
+    // When & Then
+    assertThatThrownBy(() -> calculator.divide(1, 0))
+        .isInstanceOf(ArithmeticException.class);
+}
+```
+
+**Good Example (@DisplayName):**
+
+```java
+@Test
+@DisplayName("Should return the correct sum for positive numbers")
+void additionWithPositives() {
+     // Given
+     Calculator calculator = new Calculator();
+     int num1 = 5;
+     int num2 = 10;
+
+     // When
+     int actualSum = calculator.add(num1, num2);
+
+     // Then
+     assertThat(actualSum).isEqualTo(15);
+}
+```
+
+**Bad Example:**
+
+```java
+@Test
+void testDivide() { // Name is too generic, doesn't explain the scenario
+    // ... test logic ...
+}
+
+@Test
+void test1() { // Uninformative name
+    // ... test logic ...
+}
+```
+
+## Rule 5: Aim for Single Responsibility in Tests
+
+Title: Each test method should verify a single logical concept.
+Description: Avoid testing multiple unrelated things within a single test method. Each test should focus on one specific aspect of the unit's behavior or one particular scenario. This makes tests easier to understand, debug, and maintain. If a test fails, its specific focus makes pinpointing the cause simpler.
+
+**Good Example:**
+
+```java
+// Separate tests for different validation aspects
+@Test
+void should_reject_when_emailIsNull() {
+    // ... test logic for null email ...
+}
+
+@Test
+void should_reject_when_emailFormatIsInvalid() {
+    // ... test logic for invalid email format ...
+}
+```
+
+**Bad Example:**
+
+```java
+@Test
+void testUserValidation() { // Tests multiple conditions at once
+    // Given user with null email
+    // ... assertion for null email ...
+
+    // Given user with invalid email format
+    // ... assertion for invalid format ...
+
+    // Given user with valid email
+    // ... assertion for valid email ...
+}
+```
+
+## Rule 6: Ensure Tests are Independent
+
+Title: Tests must be independent and runnable in any order.
+Description: Avoid creating tests that depend on the state left behind by previously executed tests. Each test should set up its own required preconditions (using `@BeforeEach` or within the test method itself) and should not rely on the execution order. This ensures test suite stability and reliability, preventing flickering tests.
+
+**Good Example:**
+
+```java
+class IndependentTests {
+    private MyRepository repository = new InMemoryRepository(); // Or use @BeforeEach
+
+    @Test
+    void should_findItem_when_itemExists() {
+        // Given
+        Item item = new Item("testId", "TestData");
+        repository.save(item); // Setup specific to this test
+
+        // When
+        Optional<Item> found = repository.findById("testId");
+
+        // Then
+        assertThat(found).isPresent();
+    }
+
+    @Test
+    void should_returnEmpty_when_itemDoesNotExist() {
+        // Given - Repository is clean (or re-initialized via @BeforeEach)
+
+        // When
+        Optional<Item> found = repository.findById("nonExistentId");
+
+        // Then
+        assertThat(found).isNotPresent();
+    }
+}
+```
+
+**Bad Example:**
+
+```java
+class DependentTests {
+    private static MyRepository repository = new InMemoryRepository(); // Shared state
+    private static Item savedItem;
+
+    @Test // Test 1 (might run first)
+    void testSave() {
+        savedItem = new Item("testId", "Data");
+        repository.save(savedItem);
+        // ... assertions ...
+    }
+
+    @Test // Test 2 (depends on Test 1 having run)
+    void testFind() {
+        // This test fails if testSave() hasn't run or if run order changes
+        Optional<Item> found = repository.findById("testId");
+        assertThat(found).isPresent();
+    }
+}
+```
+
+## Rule 7: Use Parameterized Tests for Data Variations
+
+Title: Use `@ParameterizedTest` for testing the same logic with different inputs.
+Description: When testing a method's behavior across various input values or boundary conditions, leverage JUnit 5's parameterized tests (`@ParameterizedTest` with sources like `@ValueSource`, `@CsvSource`, `@MethodSource`). This avoids code duplication and clearly separates the test logic from the test data.
+
+**Good Example:**
+
+```java
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import static org.assertj.core.api.Assertions.assertThat;
+
+class ParameterizedCalculatorTest {
+
+    private final Calculator calculator = new Calculator();
+
+    @ParameterizedTest(name = "{index} {0} + {1} = {2}") // Clear naming for each case
+    @CsvSource({
+        "1,  2,  3",
+        "0,  0,  0",
+        "-5, 5,  0",
+        "10, -3, 7"
+    })
+    void additionTest(int a, int b, int expectedResult) {
+        // Given inputs a, b (from @CsvSource)
+
+        // When
+        int actualResult = calculator.add(a, b);
+
+        // Then
+        assertThat(actualResult).isEqualTo(expectedResult);
+    }
+}
+ ```
+
+**Bad Example:**
+
+```java
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+
+class RepetitiveCalculatorTest {
+
+    private final Calculator calculator = new Calculator();
+
+    // Redundant tests for the same logic
+    @Test
+    void add1and2() {
+        assertThat(calculator.add(1, 2)).isEqualTo(3);
+    }
+
+    @Test
+    void add0and0() {
+        assertThat(calculator.add(0, 0)).isEqualTo(0);
+    }
+
+    @Test
+    void addNegative5and5() {
+        assertThat(calculator.add(-5, 5)).isEqualTo(0);
+    }
+
+    @Test
+    void add10andNegative3() {
+        assertThat(calculator.add(10, -3)).isEqualTo(7);
+    }
+}
+```
+
+## Rule 8: Utilize Mocking for Dependencies (Mockito)
+
+Title: Isolate the unit under test using mocking frameworks like Mockito.
+Description: Unit tests should focus solely on the logic of the class being tested (System Under Test - SUT), not its dependencies (database, network services, other classes). Use mocking frameworks like Mockito to create mock objects that simulate the behavior of these dependencies. This ensures tests are fast, reliable, and truly test the unit in isolation.
+
+**Key Mockito Concepts:**
+
+*   **`mock(Class<T> classToMock)`**: Creates a mock object of a given class or interface.
+*   **`when(mock.methodCall()).thenReturn(value)`**: Defines the behavior of a mock object's method. When the specified method is called on the mock, it will return the defined `value`.
+*   **`verify(mock).methodCall()`**: Verifies that a specific method was called on the mock object. You can also specify the number of times (`times(n)`), at least once (`atLeastOnce()`), etc.
+*   **`@Mock` Annotation**: Used with `@ExtendWith(MockitoExtension.class)` (JUnit 5) to automatically create mocks for fields.
+*   **`@InjectMocks` Annotation**: Creates an instance of the class under test and automatically injects fields annotated with `@Mock` into it.
+
+**Good Example (using Mockito):**
+
+```java
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*; // Import static methods
+
+// Assume classes: UserService, UserRepository, User
+
+@ExtendWith(MockitoExtension.class) // Integrate Mockito with JUnit 5
+class UserServiceTest {
+
+    @Mock // Create a mock UserRepository
+    private UserRepository userRepository;
+
+    @InjectMocks // Create UserService instance and inject the mock repository
+    private UserService userService;
+
+    @Test
+    @DisplayName("Should return user when found by id")
+    void findUserById_Success() {
+        // Given
+        User expectedUser = new User("123", "John Doe");
+        // Define mock behavior: when findById("123") is called, return our user
+        when(userRepository.findById("123")).thenReturn(Optional.of(expectedUser));
+
+        // When
+        Optional<User> actualUser = userService.findUserById("123");
+
+        // Then
+        assertThat(actualUser).isPresent().contains(expectedUser);
+        // Verify that findById("123") was called exactly once on the mock repository
+        verify(userRepository, times(1)).findById("123");
+        verifyNoMoreInteractions(userRepository); // Optional: ensure no other methods were called
+    }
+
+    @Test
+    @DisplayName("Should return empty optional when user not found")
+    void findUserById_NotFound() {
+        // Given
+        // Define mock behavior: when findById is called with any string, return empty
+        when(userRepository.findById(anyString())).thenReturn(Optional.empty());
+
+        // When
+        Optional<User> actualUser = userService.findUserById("unknownId");
+
+        // Then
+        assertThat(actualUser).isNotPresent();
+        verify(userRepository).findById("unknownId"); // Verify the specific call
+    }
+
+    @Test
+    @DisplayName("Should save user successfully")
+    void saveUser() {
+        // Given
+        User userToSave = new User(null, "Jane Doe"); // ID might be generated on save
+        User savedUser = new User("genId", "Jane Doe");
+        // Define behavior for save: return the user with an ID
+        when(userRepository.save(any(User.class))).thenReturn(savedUser);
+
+        // When
+        User result = userService.saveUser(userToSave);
+
+        // Then
+        assertThat(result).isEqualTo(savedUser);
+        // Verify that save was called with the correct user object (or use ArgumentCaptor for complex cases)
+        verify(userRepository).save(userToSave);
+    }
+}
+```
+
+**Why Mocking is Crucial:**
+
+*   **Isolation:** Ensures the test focuses only on the `UserService` logic, not the actual database interaction.
+*   **Speed:** Mock operations are in-memory and extremely fast, unlike real I/O operations.
+*   **Determinism:** Mock behavior is explicitly defined, making tests predictable and reliable, regardless of external system state.
+*   **Control:** Allows simulating specific scenarios (e.g., user not found, database errors) that might be difficult to set up with real dependencies.
+
+## Rule 9: Consider Test Coverage, But Don't Obsess
+
+Title: Use code coverage as a guide, not a definitive quality metric.
+Description: Tools like JaCoCo can measure which lines of code are executed by your tests (code coverage). Aiming for high coverage (e.g., >80% line/branch coverage) is generally good practice, as it indicates most code paths are tested. However, 100% coverage doesn't guarantee bug-free code or high-quality tests. Focus on writing meaningful tests for critical logic and edge cases rather than solely chasing coverage numbers. A test might cover a line but not actually verify its correctness effectively.
+
+## Rule 10: Test Scopes
+
+### Test classes should be package-private
+
+Test classes should have package-private visibility. There is no need for them to be public.
+
+### Test methods should be package-private
+
+Test methods should have package-private visibility. There is no need for them to be public.
+
+## Rule 11: Code Splitting Strategies
+
+- **Small Test Methods:** Keep test methods small and focused on testing a single behavior.
+- **Helper Methods:** Use helper methods to avoid code duplication in test setup and assertions.
+- **Parameterized Tests:** Utilize JUnit's parameterized tests to test the same logic with different input values.
+
+## Rule 12: Anti-patterns and Code Smells
+
+- **Testing Implementation Details:** Avoid testing implementation details that might change, leading to brittle tests. Focus on testing behavior and outcomes.
+- **Hard-coded Values:** Avoid hard-coding values in tests. Use constants or test data to make tests more maintainable.
+- **Complex Test Logic:** Keep test logic simple and avoid complex calculations or conditional statements within tests.
+- **Ignoring Edge Cases:** Don't ignore edge cases or boundary conditions. Ensure tests cover a wide range of inputs, including invalid or unexpected values.
+- **Slow Tests:** Avoid slow tests that discourage developers from running them frequently.
+- **Over-reliance on Mocks:** Mock judiciously; too many mocks can obscure the actual behavior and make tests less reliable.
+- **Ignoring Test Failures:** Never ignore failing tests. Investigate and fix them promptly.
+
+## Rule 13: State Management
+
+- **Isolated State:** Ensure each test has its own isolated state to avoid interference between tests. Use `@BeforeEach` to reset the state before each test.
+- **Immutable Objects:** Prefer immutable objects to simplify state management and avoid unexpected side effects.
+- **Stateless Components:** Design stateless components whenever possible to reduce the need for state management in tests.
+
+## Rule 14: Error Handling
+
+- **Expected Exceptions:** Use AssertJ's `assertThatThrownBy` to verify that a method throws the expected exception under specific conditions.
+- **Exception Messages:** Assert the exception message to ensure the correct error is being thrown with helpful context.
+- **Graceful Degradation:** Test how the application handles errors and gracefully degrades when dependencies are unavailable.
+
+## Rule 15: Leverage JSpecify for Null Safety
+
+Title: Utilize JSpecify annotations for explicit nullness contracts.
+Description: Employ JSpecify annotations (`org.jspecify.annotations.*`) such as `@NullMarked`, `@Nullable`, and `@NonNull` to clearly define the nullness expectations of method parameters, return types, and fields within your tests and the code under test. This practice enhances code clarity, enables static analysis tools to catch potential `NullPointerExceptions` early, and improves the overall robustness of your tests and application code. In test code, this is particularly important for defining the expected behavior of mocks and verifying interactions with potentially null values.
+
+**Good Example (Illustrating usage in a test context):**
+
+```java
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
+
+// Assume:
+// @NullMarked // Usually at package-info.java or a higher-level class
+// interface DataService {
+//     @Nullable String getData(String key);
+//     String processData(@Nullable String data);
+// }
+//
+// class MyProcessor {
+//     private final DataService dataService;
+//
+//     MyProcessor(DataService dataService) {
+//         this.dataService = dataService;
+//     }
+//
+//     String execute(String key) {
+//         @Nullable String rawData = dataService.getData(key);
+//         // rawData could be null here, static analysis would warn if not checked
+//         if (rawData == null) {
+//             return dataService.processData(null);
+//         }
+//         return dataService.processData(rawData.toUpperCase());
+//     }
+// }
+
+
+@NullMarked // Applies non-null by default to this test class
+@ExtendWith(MockitoExtension.class)
+class MyProcessorTest {
+
+    @Mock
+    private DataService mockDataService;
+
+    private MyProcessor myProcessor;
+
+    @Test
+    void should_handleNullData_when_serviceReturnsNull() {
+        // Given
+        myProcessor = new MyProcessor(mockDataService);
+        String key = "testKey";
+        // JSpecify helps clarify that getData can return null
+        when(mockDataService.getData(key)).thenReturn(null);
+        // JSpecify helps clarify that processData can accept null
+        when(mockDataService.processData(null)).thenReturn("processed:null");
+
+
+        // When
+        String result = myProcessor.execute(key);
+
+        // Then
+        assertThat(result).isEqualTo("processed:null");
+    }
+
+    @Test
+    void should_processNonNullData_when_serviceReturnsData() {
+        // Given
+        myProcessor = new MyProcessor(mockDataService);
+        String key = "testKey";
+        String serviceData = "someData"; // Effectively @NonNull due to @NullMarked context
+        // getData's return is @Nullable, but we are testing the non-null path
+        when(mockDataService.getData(key)).thenReturn(serviceData);
+        // processData's argument is @Nullable, here we pass a non-null value
+        when(mockDataService.processData("SOMEDATA")).thenReturn("processed:SOMEDATA");
+
+        // When
+        String result = myProcessor.execute(key);
+
+        // Then
+        assertThat(result).isEqualTo("processed:SOMEDATA");
+    }
+}
+```
+
+**Bad Example (Lack of explicit nullness):**
+
+```java
+// No JSpecify annotations, nullness is ambiguous
+// class DataService {
+//     String getData(String key); // Is null return possible? Is key nullable?
+//     String processData(String data); // Can data be null?
+// }
+//
+// class MyProcessor {
+//     // ... constructor ...
+//     String execute(String key) {
+//         String rawData = dataService.getData(key);
+//         // Potential NPE here if getData can return null and it's not handled.
+//         // The contract is unclear without annotations.
+//         return dataService.processData(rawData.toUpperCase());
+//     }
+// }
+
+class MyProcessorTest {
+    // ... test setup ...
+
+    @Test
+    void testProcessing() {
+        // Given
+        MyProcessor myProcessor = new MyProcessor(mockDataService);
+        String key = "testKey";
+        // Ambiguity: if getData returns null, this test might pass or fail unexpectedly
+        // depending on mock setup, but the underlying contract isn't clear.
+        when(mockDataService.getData(key)).thenReturn("someData");
+        when(mockDataService.processData("SOMEDATA")).thenReturn("processed:SOMEDATA");
+        // If getData could return null and mockDataService.processData isn't
+        // prepared for mockDataService.processData(null), an NPE could occur
+        // in the code under test or the test itself, masking the real issue.
+
+        // When
+        String result = myProcessor.execute(key);
+
+        // Then
+        assertThat(result).isEqualTo("processed:SOMEDATA");
+    }
+}
+```
+
+## Rule 16: Key Questions to Guide Test Creation (RIGHT-BICEP)
+
+Title: Key Questions to Guide Test Creation
+Description:
+- If the code ran correctly, how would I know?
+- How am I going to test this?
+- What else can go wrong?
+- Could this same kind of problem happen anywhere else?
+- What to Test: Use Your RIGHT-BICEP
+  - Are the results **R**ight?
+  - Are all the **B**oundary conditions CORRECT?
+  - Can you check **I**nverse relationships?
+  - Can you **C**ross-check results using other means?
+  - Can you force **E**rror conditions to happen?
+  - Are **P**erformance characteristics within bounds?
+
+**Good example:**
+
+```java
+// Testing a calculator's add method, considering RIGHT-BICEP
+public class Calculator {
+    public int add(int a, int b) {
+        if ((long)a + b > Integer.MAX_VALUE || (long)a + b < Integer.MIN_VALUE) {
+            throw new ArithmeticException("Integer overflow");
+        }
+        return a + b;
     }
 }
 
+// Test class
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+public class CalculatorTest {
+
+    private final Calculator calculator = new Calculator();
+
+    // R - Right results
+    @Test
+    void add_simplePositiveNumbers_returnsCorrectSum() {
+        assertThat(calculator.add(2, 3)).isEqualTo(5);
+    }
+
+    // B - Boundary conditions (e.g., with zero, negative numbers, max/min values)
+    @Test
+    void add_numberAndZero_returnsNumber() {
+        assertThat(calculator.add(5, 0)).isEqualTo(5);
+    }
+
+    @Test
+    void add_positiveAndNegative_returnsCorrectSum() {
+        assertThat(calculator.add(5, -4)).isEqualTo(1);
+    }
+    
+    @Test
+    void add_nearMaxInteger_returnsCorrectSum() {
+        assertThat(calculator.add(Integer.MAX_VALUE - 1, 1)).isEqualTo(Integer.MAX_VALUE);
+    }
+
+    // I - Inverse relationships (e.g., subtraction)
+    // (Not directly applicable for a simple add, but if we had subtract: result - b == a)
+
+    // C - Cross-check (e.g., add(a,b) == add(b,a))
+    @Test
+    void add_commutativeProperty_holdsTrue() {
+        assertThat(calculator.add(2, 3)).isEqualTo(calculator.add(3, 2));
+    }
+
+    // E - Error conditions (e.g., overflow)
+    @Test
+    void add_integerOverflow_throwsArithmeticException() {
+        assertThatThrownBy(() -> calculator.add(Integer.MAX_VALUE, 1))
+            .isInstanceOf(ArithmeticException.class)
+            .hasMessageContaining("overflow");
+    }
+    
+    @Test
+    void add_integerUnderflow_throwsArithmeticException() {
+        assertThatThrownBy(() -> calculator.add(Integer.MIN_VALUE, -1))
+            .isInstanceOf(ArithmeticException.class)
+            .hasMessageContaining("overflow");
+    }
+
+    // P - Performance (Not typically unit tested unless specific requirements)
+    // @Test
+    // void add_performance_isWithinAcceptableLimits() {
+    //     // Potentially a more complex performance test scenario
+    // }
+}
+```
+
+**Bad Example:**
+
+```java
+// Test only covers one simple case (violates "Thorough" from A-TRIP, and doesn't consider RIGHT-BICEP)
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class CalculatorTestPoor {
+    private final Calculator calculator = new Calculator();
+
+    @Test
+    void add_basicTest() {
+        assertThat(calculator.add(2, 2)).isEqualTo(4); // Only testing one happy path.
+                                                      // No boundary conditions, no error conditions, etc.
+    }
+}
+```
+
+## Rule 17: Characteristics of Good Tests (A-TRIP)
+
+Title: Characteristics of Good Tests (A-TRIP)
+Description:
+Good tests are A-TRIP:
+- **A**utomatic: Tests should run without human intervention.
+- **T**horough: Test everything that could break; cover edge cases.
+- **R**epeatable: Tests should produce the same results every time, in any environment.
+- **I**ndependent: Tests should not rely on each other or on the order of execution.
+- **P**rofessional: Test code is real code; keep it clean, maintainable, and well-documented.
+
+**Good example:**
+
+```java
+// Demonstrating A-TRIP principles
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+// Production class (simplified)
+class OrderProcessor {
+    private List<String> items;
+
+    public OrderProcessor() {
+        this.items = new ArrayList<>();
+    }
+
+    public void addItem(String item) {
+        if (Objects.isNull(item) || item.trim().isEmpty()) {
+            throw new IllegalArgumentException("Item cannot be null or empty");
+        }
+        this.items.add(item);
+    }
+
+    public int getItemCount() {
+        return this.items.size();
+    }
+
+    public void clearItems() {
+        this.items.clear();
+    }
+}
+
+// Test class demonstrating A-TRIP
+public class OrderProcessorTest {
+
+    private OrderProcessor processor;
+
+    // Automatic: Part of JUnit test suite, runs with build tools.
+    // Independent: Each test sets up its own state.
+    @BeforeEach
+    void setUp() {
+        processor = new OrderProcessor(); // Fresh instance for each test
+    }
+
+    // Thorough: Testing adding valid items.
+    @Test
+    void addItem_validItem_increasesCount() {
+        processor.addItem("Laptop");
+        assertThat(processor.getItemCount()).isEqualTo(1);
+        processor.addItem("Mouse");
+        assertThat(processor.getItemCount()).isEqualTo(2);
+    }
+
+    // Thorough: Testing an edge case (adding null).
+    @Test
+    void addItem_nullItem_throwsIllegalArgumentException() {
+        assertThatThrownBy(() -> processor.addItem(null))
+            .isInstanceOf(IllegalArgumentException.class);
+    }
+    
+    // Thorough: Testing another edge case (adding empty string).
+    @Test
+    void addItem_emptyItem_throwsIllegalArgumentException() {
+        assertThatThrownBy(() -> processor.addItem("   "))
+            .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    // Repeatable: No external dependencies that change (e.g., time, random numbers without seed).
+    // This test will always pass or always fail consistently.
+    @Test
+    void getItemCount_afterClearing_isZero() {
+        processor.addItem("Keyboard");
+        processor.clearItems();
+        assertThat(processor.getItemCount()).isEqualTo(0);
+    }
+
+    // Professional: Code is clean, uses meaningful names, follows conventions.
+}
+```
+
+**Bad Example:**
+
+```java
+// Violating A-TRIP principles
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class BadOrderProcessorTest {
+    // Violates Independent: static processor shared between tests can lead to order dependency.
+    private static OrderProcessor sharedProcessor = new OrderProcessor();
+
+    @Test
+    void test1_addItem() {
+        // Assumes this runs first or that sharedProcessor is empty.
+        sharedProcessor.addItem("Book");
+        assertThat(sharedProcessor.getItemCount()).isEqualTo(1); // Might fail if other tests run first and add items.
+                                                                // This makes it NOT Repeatable consistently.
+    }
+
+    @Test
+    void test2_addAnotherItem() {
+        sharedProcessor.addItem("Pen");
+        // The expected count depends on whether test1_addItem ran and succeeded.
+        // assertThat(sharedProcessor.getItemCount()).isEqualTo(2); // Unreliable
+        assertThat(sharedProcessor.getItemCount()).isGreaterThan(0); // Weaker assertion due to lack of independence.
+    }
+
+    // Violates Automatic: If a test required manual setup (e.g., "Ensure database server X is running and has Y data")
+    // Violates Thorough: Might only test happy paths.
+    // Violates Professional: Unclear test names, messy code, reliance on external state.
+}
+```
+
+## Rule 18: Verifying CORRECT Boundary Conditions
+
+Title: Verifying CORRECT Boundary Conditions
+Description:
+Ensure your tests check the following boundary conditions (CORRECT):
+- **C**onformance: Does the value conform to an expected format? (e.g., email format, date format)
+- **O**rdering: Is the set of values ordered or unordered as appropriate? (e.g., sorted list, items in a queue)
+- **R**ange: Is the value within reasonable minimum and maximum values? (e.g., age > 0, percentage 0-100)
+- **R**eference: Does the code reference anything external that isn't under direct control of the code itself? (e.g., file existence, network connection - often for integration tests, but can apply to unit tests with mocks)
+- **E**xistence: Does the value exist? (e.g., is non-null, non-zero, present in a set)
+- **C**ardinality: Are there exactly enough values? (e.g., expecting 1 result, 0 results, N results)
+- **T**ime (absolute and relative): Is everything happening in order? At the right time? In time? (e.g., timeouts, sequence of events)
+
+**Good example:**
+
+```java
+// Example: Testing a method that validates a user registration age.
+import java.util.Objects;
+public class UserValidation {
+    private static final int MIN_AGE = 18;
+    private static final int MAX_AGE = 120;
+
+    public boolean isAgeValid(int age) {
+        // R - Range
+        return age >= MIN_AGE && age <= MAX_AGE;
+    }
+
+    public boolean isValidEmailFormat(String email) {
+        if (Objects.isNull(email)) return false;
+        // C - Conformance (simplified regex for demonstration)
+        return email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+    }
+    
+    // E - Existence
+    public boolean processUsername(String username) {
+        if (Objects.isNull(username) || username.trim().isEmpty()) {
+            // Checks for existence (non-null, non-empty)
+            return false; 
+        }
+        // process username
+        return true;
+    }
+}
+
+// Test class
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class UserValidationTest {
+    private final UserValidation validator = new UserValidation();
+
+    // Testing Range for age
+    @Test
+    void isAgeValid_ageAtLowerBound_returnsTrue() {
+        assertThat(validator.isAgeValid(18)).isTrue();
+    }
+
+    @Test
+    void isAgeValid_ageAtUpperBound_returnsTrue() {
+        assertThat(validator.isAgeValid(120)).isTrue();
+    }
+    
+    @Test
+    void isAgeValid_ageWithinBounds_returnsTrue() {
+        assertThat(validator.isAgeValid(35)).isTrue();
+    }
+
+    @Test
+    void isAgeValid_ageBelowLowerBound_returnsFalse() {
+        assertThat(validator.isAgeValid(17)).isFalse();
+    }
+
+    @Test
+    void isAgeValid_ageAboveUpperBound_returnsFalse() {
+        assertThat(validator.isAgeValid(121)).isFalse();
+    }
+
+    // Testing Conformance for email
+    @ParameterizedTest
+    @ValueSource(strings = {"user@example.com", "user.name@sub.example.co.uk"})
+    void isValidEmailFormat_validEmails_returnsTrue(String email) {
+        assertThat(validator.isValidEmailFormat(email)).isTrue();
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"userexample.com", "user@", "@example.com", "user @example.com", ""})
+    void isValidEmailFormat_invalidEmails_returnsFalse(String email) {
+        assertThat(validator.isValidEmailFormat(email)).isFalse();
+    }
+    
+    @Test
+    void isValidEmailFormat_nullEmail_returnsFalse() {
+        assertThat(validator.isValidEmailFormat(null)).isFalse();
+    }
+
+    // Testing Existence for username
+    @Test
+    void processUsername_validUsername_returnsTrue() {
+        assertThat(validator.processUsername("john_doe")).isTrue();
+    }
+
+    @Test
+    void processUsername_nullUsername_returnsFalse() {
+        assertThat(validator.processUsername(null)).isFalse();
+    }
+    
+    @Test
+    void processUsername_emptyUsername_returnsFalse() {
+        assertThat(validator.processUsername("")).isFalse();
+    }
+
+    @Test
+    void processUsername_blankUsername_returnsFalse() {
+        assertThat(validator.processUsername("   ")).isFalse();
+    }
+}
+```
+
+**Bad Example:**
+
+```java
+// Only testing one happy path for age validation, ignoring boundaries.
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class UserValidationPoorTest {
+    private final UserValidation validator = new UserValidation();
+
+    @Test
+    void isAgeValid_typicalAge_returnsTrue() {
+        assertThat(validator.isAgeValid(25)).isTrue(); // Only one value tested.
+                                                      // Min, max, below min, above max are not tested.
+    }
+    
+    @Test
+    void isValidEmailFormat_typicalEmail_returnsTrue() {
+        assertThat(validator.isValidEmailFormat("test@example.com")).isTrue(); // No invalid formats, no nulls.
+    }
+}
 ```
 
 ---
