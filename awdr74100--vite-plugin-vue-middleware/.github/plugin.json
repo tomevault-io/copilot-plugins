@@ -1,0 +1,9 @@
+{
+  "name": "awdr74100--vite-plugin-vue-middleware",
+  "displayName": "vite-plugin-vue-middleware",
+  "description": "File-based navigation guards for Vue Router",
+  "version": "1.0.0",
+  "author": "awdr74100",
+  "homepage": "https://github.com/awdr74100/vite-plugin-vue-middleware",
+  "skills": []
+}
