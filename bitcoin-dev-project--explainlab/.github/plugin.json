@@ -1,0 +1,9 @@
+{
+  "name": "bitcoin-dev-project--explainlab",
+  "displayName": "ExplainLab",
+  "description": "Multi-agent pipeline that turns any technical topic into an animated explainer video (Orchestration in a loop)",
+  "version": "1.0.0",
+  "author": "bitcoin-dev-project",
+  "homepage": "https://github.com/bitcoin-dev-project/ExplainLab",
+  "skills": []
+}
