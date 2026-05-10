@@ -1,0 +1,9 @@
+{
+  "name": "dkships--pm-copilot",
+  "displayName": "pm-copilot",
+  "description": "MCP server that triangulates customer support tickets and feature requests to help PMs decide what to build next",
+  "version": "1.0.0",
+  "author": "dkships",
+  "homepage": "https://github.com/dkships/pm-copilot",
+  "skills": []
+}
