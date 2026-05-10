@@ -1,0 +1,44 @@
+{
+  "name": "label-studio-chinese",
+  "owner": "MindAsAI",
+  "repo": "label-studio-chinese",
+  "description": "\u66f4\u9002\u5408\u4e2d\u56fd\u5b9d\u5b9d\u7684\u6570\u636e\u6807\u6ce8\u5e73\u53f0",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MindAsAI/label-studio-chinese",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T21:36:10Z"
+}
