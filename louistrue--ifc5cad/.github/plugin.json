@@ -1,0 +1,9 @@
+{
+  "name": "louistrue--ifc5cad",
+  "displayName": "ifc5cad",
+  "description": "Browser-based 3D CAD for authoring IFC5/IFCX models, built with TypeScript, Three.js, and OpenCascade WebAssembly.",
+  "version": "1.0.0",
+  "author": "louistrue",
+  "homepage": "https://github.com/louistrue/ifc5cad",
+  "skills": []
+}
