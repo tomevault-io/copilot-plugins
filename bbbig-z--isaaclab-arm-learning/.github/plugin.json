@@ -1,0 +1,9 @@
+{
+  "name": "bbbig-z--isaaclab-arm-learning",
+  "displayName": "Isaaclab-arm-learning",
+  "description": "\u672c\u9879\u76ee\u57fa\u4e8eIsaac Lab\u6846\u67b6\uff0c\u5b9e\u73b0\u4e86ARM\u516d\u81ea\u7531\u5ea6\u673a\u68b0\u81c2\u7684\u5f3a\u5316\u5b66\u4e60\u8bad\u7ec3\u7cfb\u7edf\uff0c\u652f\u6301\u591a\u79cd\u64cd\u4f5c\u4efb\u52a1\u548c\u63a7\u5236\u65b9\u5f0f\u3002\uff08\u96c6\u6210wandb\uff09",
+  "version": "1.0.0",
+  "author": "BBBig-z",
+  "homepage": "https://github.com/BBBig-z/Isaaclab-arm-learning",
+  "skills": []
+}
