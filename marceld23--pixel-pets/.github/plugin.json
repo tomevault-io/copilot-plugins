@@ -1,0 +1,9 @@
+{
+  "name": "marceld23--pixel-pets",
+  "displayName": "Pixel-Pets",
+  "description": "Pixel-Pets: A local, open-source virtual pet ecosystem on M5Stack. 100% AI-authored C++ (Claude) by a 10yo maker. Includes Muffin (LLM), Visu & Goo-Goo variants + companion device Pip. Built for priva",
+  "version": "1.0.0",
+  "author": "marceld23",
+  "homepage": "https://github.com/marceld23/Pixel-Pets",
+  "skills": []
+}
