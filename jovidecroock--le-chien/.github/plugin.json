@@ -1,0 +1,9 @@
+{
+  "name": "jovidecroock--le-chien",
+  "displayName": "le-chien",
+  "description": "A chat application hosted on CF workers built with preact",
+  "version": "1.0.0",
+  "author": "JoviDeCroock",
+  "homepage": "https://github.com/JoviDeCroock/le-chien",
+  "skills": []
+}
