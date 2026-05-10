@@ -1,0 +1,9 @@
+{
+  "name": "arnaldo-delisio--claude-code-studio",
+  "displayName": "claude-code-studio",
+  "description": "Transform Claude Code into a complete development studio with 40+ specialized AI agents, MCP integrations, and enterprise-grade workflows",
+  "version": "1.0.0",
+  "author": "arnaldo-delisio",
+  "homepage": "https://github.com/arnaldo-delisio/claude-code-studio",
+  "skills": []
+}
