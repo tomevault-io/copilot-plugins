@@ -1,57 +1,95 @@
-## vtchat
+## front-end-rule
 
-> This guide is streamlined to reduce context size. Use AGENTS.md for the authoritative repository guidelines.
+> Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
 
-# Gemini Agent Guide (Concise)
 
-This guide is streamlined to reduce context size. Use AGENTS.md for the authoritative repository guidelines.
+## Frontend
 
-## Key Practices
+Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
 
-- Bun for all tasks; no npm/yarn.
-- 4-space indent, single quotes, 100-char line.
-- PascalCase components; camelCase hooks/utils; kebab-case files; named exports.
-- Use enums for reusable keys; configuration via environment variables only.
-- UI follows shadcn/ui minimal principles; neutral palette; minimal icons.
+Server:
 
-## HTTP Client Guidelines
+```ts#index.ts
+import index from "./index.html"
 
-- **Use ky HTTP client only**: `import { http } from '@repo/shared/lib/http-client'`
-- **Never use fetch directly** - bypasses security and standardization
-- GET: `const data = await http.get('/api/endpoint')`
-- POST: `const result = await http.post('/api/endpoint', { body: data })`
-- Streaming: `const response = await http.postStream('/api/completion', { body, signal })`
-- API keys: `http.post('/api/external', { body, apiKeys: { openai: 'sk-...' } })`
+Bun.serve({
+  routes: {
+    "/": index,
+    "/api/users/:id": {
+      GET: (req) => {
+        return new Response(JSON.stringify({ id: req.params.id }));
+      },
+    },
+  },
+  // optional websocket support
+  websocket: {
+    open: (ws) => {
+      ws.send("Hello, world!");
+    },
+    message: (ws, message) => {
+      ws.send(message);
+    },
+    close: (ws) => {
+      // handle close
+    }
+  },
+  development: {
+    hmr: true,
+    console: true,
+  }
+})
+```
 
-## Structure & Commands
+HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
 
-- Apps in `apps/` (Next.js in `apps/web`); shared packages in `packages/` (`@repo/ui`, `@repo/shared`, `@repo/common`).
-- Tests live in `apps/web/app/tests/`.
-- Common commands: `bun install`, `bun dev`, `bun run build`, `bun run lint`, `bun run fmt`, `bun test`.
+```html#index.html
+<html>
+  <body>
+    <h1>Hello, world!</h1>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
+```
 
-## Deployment & Logging
+With the following `frontend.tsx`:
 
-- Never run `./deploy-fly.sh` without explicit approval.
-- Use `log` from `@repo/shared/lib/logger`; avoid `console.*`.
+```tsx#frontend.tsx
+import React from "react";
 
-## React Best Practices
+// import .css files directly and it works
+import './index.css';
 
-- For comprehensive `useEffect` best practices, examples, and anti-patterns, see [docs/react-effect.md](./docs/react-effect.md).
+import { createRoot } from "react-dom/client";
 
-Refer to AGENTS.md for complete details.
+const root = createRoot(document.body);
 
-## URL Context + Grounding (Gemini)
+export default function Frontend() {
+  return <h1>Hello, world!</h1>;
+}
 
-When your prompt contains one or more URLs, the Gemini web search task automatically enables Google’s URL Context tool alongside Google Search grounding. The model retrieves content from those URLs (if supported and safe) and uses it to enhance the answer. Retrieved URLs are surfaced in the Sources stack when available.
+root.render(<Frontend />);
+```
 
-Notes
+Then, run index.ts
 
-- Works with Gemini 3 family used for web search (Flash, Pro, Flash Lite).
-- Up to 20 URLs per request; unsupported/paywalled URLs are skipped by Google.
-- Retrieved content counts toward input tokens per Google pricing/limits.
-- Gemini 3 Flash Lite always requires a user-supplied Gemini API key (no server-managed key).
+```sh
+bun --hot ./index.ts
+```
+
+For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
+
+## UI components
+
+- when try to install components, navigatete to ~/Developer/learn-by-doing/vtchat/packages/ui first, then use bunx
+- To install shadcn components, check example command: `npx shadcn@latest add label`
+- Use shadcn/ui components for UI elements
+- Use `@repo/ui` for shared UI components
+- Use lucide icons from `lucide-react`
+- Use Tailwind CSS for styling
+- Use `clsx` for conditional class names
+- Use `tailwind-merge` for merging Tailwind classes
+- Use `framer-motion` for animations
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/vinhnx)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/vinhnx)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Source: [vinhnx/vtchat](https://github.com/vinhnx/vtchat) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
