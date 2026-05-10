@@ -1,36 +1,70 @@
-## 0-project
+## document
 
-> 项目事实与全局约束（可执行）
+> - `README.md`：项目根目录，提供项目概述
 
+# 文档规范
 
-# 项目事实
+## 通用要求
+- 所有文档使用Markdown格式
+- 使用简洁、清晰的语言
+- 文档内容应保持最新
+- 避免拼写和语法错误
+- 使用中文作为主要语言
 
-## 技术栈（已确认）
-- 前端：Vue 3 + TypeScript + Vite
-- UI：Naive UI
-- 路由：Vue Router（路由保持 hash 模式，见 `src/router/index.ts`）
-- i18n：vue-i18n（词条：`src/i18n/locales/*`；类型：`src/i18n/types.ts`）
-- 桌面端：Tauri v2（Rust 入口：`src-tauri/src/lib.rs`；配置：`src-tauri/tauri.conf.json`）
+## 目录结构
+- `README.md`：项目根目录，提供项目概述
+- `docs/`：存放详细文档
+  - `guide/`：使用指南
+  - `api/`：API文档
+  - `examples/`：示例代码文档
 
-## 包管理与命令
-- 包管理器：pnpm（Tauri 配置中 `beforeDevCommand/beforeBuildCommand` 使用 pnpm）
-- 本地开发：优先使用 `pnpm tauri dev`
-- 打包：使用 `pnpm build` 打包（仅在你明确要求我打包时参考）
+## README.md 内容规范
+- 项目名称和简短描述
+- 技术栈说明
+- 项目结构说明
+- 安装与运行指南
+- 基本使用示例
+- 贡献指南链接
+- 许可证信息
 
-## 目录约定
-- 页面：`src/pages/*`
-- 布局：`src/layouts/AppLayout.vue`
-- 组件：`src/components/*`
-- i18n：`src/i18n/*`
-- 样式：`src/styles/*`
-- 路由入口：`src/router/index.ts`
-- Tauri 资源：`src-tauri/resources/**`（会被打包进应用资源，见 `src-tauri/tauri.conf.json` 的 bundle.resources）
+## Markdown 格式规范
+- 使用 ATX 风格的标题（使用 # 符号）
+- 标题层级不应跳跃（如 h1 后面直接使用 h3）
+- 代码块需指定语言类型
+- 列表项使用 - 而非 * 或 +
+- 链接使用 [文本](mdc:URL) 格式
+- 图片使用 ![替代文本](mdc:图片URL) 格式
 
-## 规则使用优先级
-- 全局约束：`0-project.mdc`、`general.mdc`
-- Vue：`vue.mdc`（仅 `.vue`）
-- Tauri：`tauri.mdc`（仅 `src-tauri/**`）
-- Git 提交信息：`git.mdc`（仅在你明确要求我“生成提交信息/提交代码”时参考）
+## 文档内容组织
+- 从整体到局部，从简单到复杂
+- 重要信息放在前面
+- 相关内容应当放在一起
+- 使用小标题和列表增强可读性
+- 避免过长段落，保持内容简洁
+
+## 代码示例规范
+- 提供完整可运行的示例
+- 代码应当简洁且易于理解
+- 添加适当的注释解释关键部分
+- 说明代码的预期输出或行为
+- 更新示例以匹配最新API
+
+## 版本记录规范
+- 使用 `CHANGELOG.md` 记录版本变更
+- 遵循语义化版本（Semantic Versioning）规范
+- 每个版本应包含：新增功能、修复问题、破坏性变更
+
+## 图表与图片
+- 使用清晰、分辨率足够的图片
+- 为图片提供有意义的替代文本
+- 图表应当简洁，避免过多装饰
+- 图表颜色应当考虑色盲用户的可访问性
+
+## 文档审核
+- 新文档应经过至少一人审核
+- 定期检查文档的准确性和时效性
+- 鼓励用户反馈文档问题
+- 修复发现的文档错误应当优先处理
 
 ---
 > Source: [lanxiuyun/DotaTerrainSwitcher](https://github.com/lanxiuyun/DotaTerrainSwitcher) — distributed by [TomeVault](https://tomevault.io).
