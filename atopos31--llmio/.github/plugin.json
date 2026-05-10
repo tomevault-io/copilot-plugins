@@ -1,0 +1,9 @@
+{
+  "name": "atopos31--llmio",
+  "displayName": "llmio",
+  "description": "LLM API load-balancing gateway. LLM API \u8d1f\u8f7d\u5747\u8861\u7f51\u5173.",
+  "version": "1.0.0",
+  "author": "atopos31",
+  "homepage": "https://github.com/atopos31/llmio",
+  "skills": []
+}
