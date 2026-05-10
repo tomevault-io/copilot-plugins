@@ -1,0 +1,9 @@
+{
+  "name": "haoyiyin--basjoo",
+  "displayName": "basjoo",
+  "description": "AI customer support platform with a FastAPI backend, Next.js admin dashboard, embeddable chat widget, and Qdrant-powered knowledge   retrieval.",
+  "version": "1.0.0",
+  "author": "haoyiyin",
+  "homepage": "https://github.com/haoyiyin/basjoo",
+  "skills": []
+}
