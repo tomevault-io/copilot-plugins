@@ -1,0 +1,9 @@
+{
+  "name": "swananan--ghostscope",
+  "displayName": "ghostscope",
+  "description": "DWARF-aware eBPF tracer for source-level userspace tracing - Explore in a TUI or automate with a scriptable CLI",
+  "version": "1.0.0",
+  "author": "swananan",
+  "homepage": "https://github.com/swananan/ghostscope",
+  "skills": []
+}
