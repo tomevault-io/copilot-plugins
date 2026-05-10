@@ -4,7 +4,7 @@
   "repo": "hyperliquid-trading-bot",
   "description": "hyperliquid grid trading bot dex perpetuals l1 crypto typescript nodejs automated algorithmic grid-strategy testnet wallet orderbook risk stop-loss drawdown rebalance python defi hft open-source trading-strategy spot leverage ohlcv rest-api crypto-bot quant scalp dca maker taker",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NoFxAi-OS/hyperliquid-trading-bot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T21:44:58Z"
+  "distributed_at": "2026-05-10T21:06:35Z"
 }
