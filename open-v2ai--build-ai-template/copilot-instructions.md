@@ -1,179 +1,127 @@
-## database-models
+## deployment-devops
 
-> 数据库模型设计和 SQLModel/Alembic 最佳实践
+> 部署和运维规范，包含 Docker、CI/CD 和监控最佳实践
 
 
-# 数据库模型设计规范 - SQLModel/PostgreSQL
-
-## 核心原则
-
-- **详细注释**: 所有模型必须有详细的中文注释，说明字段、业务规则和关联关系。
-- **应用层维护关系**: 不在数据库层面设置 `FOREIGN KEY` 或 `UNIQUE` 约束，由应用层逻辑保证数据一致性和唯一性。
-- **软删除**: 所有表必须包含 `is_deleted: bool` 字段。
-- **时间戳**: 所有表必须包含 `created_at` 和 `updated_at` 字段。
-- **主键**: 使用自增整数 `id` 作为主键。
+# 部署和运维规范
 
 ## 技术栈
 
-- **ORM**: SQLModel (基于 SQLAlchemy + Pydantic)
-- **数据库**: PostgreSQL 15+
-- **迁移工具**: Alembic
+- **容器化**: Docker + Docker Compose
+- **CI/CD**: GitHub Actions
+- **反向代理**: Nginx
+- **数据库**: PostgreSQL 15+ + Redis 7+
+- **监控**: 日志文件 + 健康检查
 
-## 模型文件组织
+## 项目部署结构
 
-```bash
-api/app/models/
-├── __init__.py      # 模型导出
-├── user.py          # 用户相关模型
-├── chat.py          # 对话相关模型
-└── ...              # 其他模型
-```
-
-## SQLModel 模型定义规范
-
-### 基础模型模板
-
-所有模型都应包含标准字段，可以通过继承一个 `BaseModel` 来实现。
-
-```python
-from sqlmodel import SQLModel, Field, Relationship
-from datetime import datetime
-
-class User(SQLModel, table=True):
-    """
-    用户模型
-
-    业务规则:
-    - 邮箱作为唯一登录标识
-    - 支持软删除
-
-    关联关系:
-    - 一对多: User -> Chat
-    - 一对一: User -> UserMembership
-    """
-    id: Optional[int] = Field(default=None, primary_key=True)
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow, sa_column_kwargs={"onupdate": datetime.utcnow})
-    is_deleted: bool = Field(default=False)
-
-    # 基础信息
-    email: str = Field(max_length=255, unique=True, index=True, description="用户邮箱")
-    username: str = Field(max_length=50, description="用户名")
-    hashed_password: str = Field(description="加密后的密码")
-
-    # 账户状态
-    is_active: bool = Field(default=True)
-
-    # 关联关系
-    chats: List["Chat"] = Relationship(
-        back_populates="user",
-        sa_relationship_kwargs={"lazy": "selectin"} # 预加载策略
-    )
-    membership: Optional["UserMembership"] = Relationship(
-        back_populates="user",
-        sa_relationship_kwargs={"uselist": False}
-    )
-```
-
-### 枚举和 JSON 字段
-
-```python
-from enum import Enum
-from sqlalchemy import Column, JSON
-
-# 使用枚举
-class MembershipType(str, Enum):
-    FREE = "free"
-    MONTHLY = "monthly"
-
-class UserMembership(SQLModel, table=True):
-    membership_type: MembershipType = Field(default=MembershipType.FREE)
-
-# 使用 JSON
-class Agent(SQLModel, table=True):
-    config: Dict[str, Any] = Field(default_factory=dict, sa_column=Column(JSON))
-```
-
-## CRUD 操作规范
-
-CRUD 操作应封装在 `api/app/crud/` 目录下的类中。
-
-```python
-from sqlmodel import select
-from ..models.user import User
-from ..schemas.user import UserCreate
-
-class CRUDUser:
-    """用户 CRUD 操作类"""
-
-    async def get_by_email(self, db: Session, *, email: str) -> Optional[User]:
-        statement = select(User).where(User.email == email, User.is_deleted == False)
-        return db.exec(statement).first()
-
-    async def create(self, db: Session, *, obj_in: UserCreate) -> User:
-        # ... 创建逻辑，包括密码哈希
-        db_obj = User(...)
-        db.add(db_obj)
-        db.commit()
-        db.refresh(db_obj)
-        return db_obj
-
-    async def authenticate(self, db: Session, *, email: str, password: str) -> Optional[User]:
-        # ... 用户认证逻辑
-        pass
-
-user_crud = CRUDUser()
-```
-
-## Alembic 数据库迁移
-
-使用 Alembic 管理数据库 schema 变更。
+项目包含独立的生产环境 (`deploy/`) 和测试环境 (`deploy-test/`) 配置。
 
 ```bash
-# 1. 修改 SQLModel 模型后，自动生成迁移脚本
-alembic revision --autogenerate -m "描述你的变更"
-
-# 2. 应用迁移到数据库
-alembic upgrade head
-
-# 回滚迁移
-alembic downgrade -1
-
-# 查看历史
-alembic history
+deploy/
+├── docker-compose.yaml     # 生产环境编排
+├── nginx/default.conf      # Nginx 配置
+├── volumes/                # 数据卷挂载 (db, redis)
+├── .env.example            # 环境变量模板
+├── makefile                # 部署命令
+└── README.md               # 部署说明
 ```
 
-## 数据库会话管理
+## Docker 配置
 
-通过 FastAPI 的依赖注入系统来管理数据库会话。
+使用多阶段构建 (`multi-stage builds`) 优化镜像大小和安全性。
 
-```python
-# api/app/dependencies/db.py
-from ..db.base import engine
+### 后端 Dockerfile (`api/Dockerfile`)
 
-def get_db() -> Generator[Session, None, None]:
-    """获取数据库会话的依赖"""
-    with Session(engine) as session:
-        yield session
+- **builder 阶段**: 安装 `uv` 并下载所有 Python 依赖。
+- **production 阶段**:
+  - 使用 `python:3.12-slim` 基础镜像。
+  - 创建非 root 用户 `appuser` 并使用。
+  - 从 `builder` 阶段复制虚拟环境。
+  - 添加 `HEALTHCHECK` 指令。
+  - 启动命令: `uvicorn app.main:app`
+
+### 前端 Dockerfile (`web/Dockerfile`)
+
+- **builder 阶段**: 使用 `pnpm` 安装依赖并构建 Next.js 应用 (`pnpm build`)。
+- **production 阶段**:
+  - 使用 `node:18-alpine` 基础镜像。
+  - 创建非 root 用户 `nextjs` 并使用。
+  - 复制 `.next/standalone` 和 `.next/static` 以支持独立运行。
+  - 添加 `HEALTHCHECK` 指令。
+  - 启动命令: `node server.js`
+
+## 部署命令
+
+通过 `Makefile` 简化部署操作，所有命令在 `deploy/` 或 `deploy-test/` 目录下执行。
+
+```makefile
+# 核心命令
+up:       ## 启动所有服务 (docker-compose up -d)
+down:     ## 停止所有服务 (docker-compose down)
+build:    ## (重新)构建 Docker 镜像
+restart:  ## 重启所有服务
+rebuild:  ## 完全重建 (down -> clean -> build -> up)
+
+# 运维命令
+logs:     ## 查看所有服务日志
+status:   ## 查看服务状态
+health:   ## 检查服务健康状态 (curl)
+migrate:  ## 执行数据库迁移 (alembic upgrade head)
+backup:   ## 备份数据库 (pg_dump)
+restore:  ## 恢复数据库 (psql)
+update:   ## 更新代码并重建服务 (git pull + rebuild)
+
+# 调试命令
+shell-api:      ## 进入 API 容器
+shell-postgres: ## 进入数据库容器
 ```
 
-## 查询和事务
+## 环境变量配置
 
-- **预加载**: 为避免 N+1 查询问题，在查询关联数据时使用 `selectinload`。
+在部署前，必须将 `.env.example` 复制为 `.env` 并填写所有必要的值。
 
-  ```python
-  from sqlalchemy.orm import selectinload
-  statement = select(User).options(selectinload(User.chats))
-  ```
+**关键配置项**:
 
-- **事务**: 数据库会话 (`Session`) 自动处理事务。在单个请求中，所有操作都在一个事务内。如果需要精细控制，可以手动调用 `db.commit()`、`db.rollback()` 和 `db.flush()`。
+- `ENV`: `production` 或 `test`
+- `DATABASE_URL`: PostgreSQL 连接字符串
+- `REDIS_URL`: Redis 连接字符串
+- `SECRET_KEY`: 用于 JWT 签名的密钥
+- `MAIL_*`: 邮件服务配置
+- `AGENT_*`: AI 服务 (如 OpenAI) 的 API Key 和配置
 
-## 最佳实践总结
+## 监控和日志
 
-- **模型设计**: 使用有意义的名称，添加索引，合理使用关联关系。
-- **查询优化**: 使用预加载，批量操作，并为常用查询添加缓存。
-- **数据安全**: 绝不存储明文密码，使用参数化查询防止 SQL 注入。
-- **维护性**: 保持迁移脚本的可追溯性，为模型和字段添加详细注释。
+### 健康检查
+
+- **API**: `/api/v1/system/health`
+  - **基础检查**: 返回服务状态和版本。
+  - **详细检查**: `/health/detailed`，检查数据库、Redis 连接和系统资源（CPU、内存）。如果资源使用率过高或连接失败，返回 `503 Service Unavailable`。
+- **Web**: 前端应用也应提供一个简单的健康检查端点。
+
+### 日志
+
+- 所有服务通过 Docker Compose 将日志输出到标准输出 (`stdout`)。
+- 使用 `make logs` 或 `docker-compose logs -f <service_name>` 查看实时日志。
+- 在生产环境中，应配置日志聚合系统（如 ELK, Grafana Loki）来收集和分析日志。
+
+## 部署清单和最佳实践
+
+### 部署前检查清单
+
+- [ ] 环境变量 `.env` 已正确配置。
+- [ ] SSL 证书已配置在 Nginx 中。
+- [ ] 数据库迁移脚本已测试并准备就绪。
+- [ ] 数据库备份策略已配置。
+- [ ] 已完成安全扫描，无高危漏洞。
+
+### 运维最佳实践
+
+- **定期备份**: 每日自动备份数据库。
+- **监控告警**: 设置资源使用率和服务健康状态告警。
+- **安全更新**: 定期更新基础镜像和应用依赖。
+- **灾难恢复**: 定期测试数据库的备份恢复流程。
+- **文档同步**: 保持部署文档与实际流程一致。
 
 ---
 > Source: [open-v2ai/build-ai-template](https://github.com/open-v2ai/build-ai-template) — distributed by [TomeVault](https://tomevault.io).
