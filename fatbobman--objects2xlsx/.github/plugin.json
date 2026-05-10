@@ -1,0 +1,9 @@
+{
+  "name": "fatbobman--objects2xlsx",
+  "displayName": "Objects2XLSX",
+  "description": "A powerful, type-safe Swift library for converting Swift objects to Excel (.xlsx) files. Objects2XLSX provides a modern, declarative API for creating professional Excel spreadsheets with full styling ",
+  "version": "1.0.0",
+  "author": "fatbobman",
+  "homepage": "https://github.com/fatbobman/Objects2XLSX",
+  "skills": []
+}
