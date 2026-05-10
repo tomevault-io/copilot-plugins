@@ -1,0 +1,9 @@
+{
+  "name": "hiop-oss--rsonschema",
+  "displayName": "rsonschema",
+  "description": "A fast, simple, user-friendly JSON Schema validator written in Rust",
+  "version": "1.0.0",
+  "author": "hiop-oss",
+  "homepage": "https://github.com/hiop-oss/rsonschema",
+  "skills": []
+}
