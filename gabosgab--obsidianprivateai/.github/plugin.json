@@ -1,0 +1,9 @@
+{
+  "name": "gabosgab--obsidianprivateai",
+  "displayName": "ObsidianPrivateAI",
+  "description": "Effortlessly chat with your Obsidian notes using a privacy first LLM. Private by design, your notes never leave the device and use local processing only.",
+  "version": "1.0.0",
+  "author": "gabosgab",
+  "homepage": "https://github.com/gabosgab/ObsidianPrivateAI",
+  "skills": []
+}
