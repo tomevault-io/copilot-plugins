@@ -2,6 +2,8 @@
 
 > Sourced from [zenbase-ai/llml](https://github.com/zenbase-ai/llml) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+Compose data structures, serialize them to prompts.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
