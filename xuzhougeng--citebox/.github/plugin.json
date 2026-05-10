@@ -1,0 +1,9 @@
+{
+  "name": "xuzhougeng--citebox",
+  "displayName": "citebox",
+  "description": "Lightweight, self-hosted PDF paper manager with figure extraction, grouping, and tagging. Built with Go + SQLite",
+  "version": "1.0.0",
+  "author": "xuzhougeng",
+  "homepage": "https://github.com/xuzhougeng/citebox",
+  "skills": []
+}
