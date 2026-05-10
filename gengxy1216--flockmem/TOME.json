@@ -1,0 +1,44 @@
+{
+  "name": "FlockMem",
+  "owner": "gengxy1216",
+  "repo": "FlockMem",
+  "description": "\u2726 FlockMem is a lightweight, local-first long-term collective memory bus  for multi-agents, optimized for edge deployment with a minimal memory footprint under 50MB. It combines   text-based, vector similarity, and knowledge graph retrieval with traceable citations.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gengxy1216/FlockMem",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T16:15:11Z"
+}
