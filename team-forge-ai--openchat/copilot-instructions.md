@@ -1,70 +1,349 @@
-## shadcn-components
+## src-architecture
 
-> How to install shadcn React components
+> This document summarizes the structure, responsibilities, and key technologies used across `src/` to provide actionable context for future engineering tasks.
 
-The following official shadcn-ui components are available. Please check to see if they are installed under `./apps/web/components/ui` before installing them with `pnpm dlx shadcn@latest add <component-id>`.
 
-Notice that The 'shadcn-ui' package is deprecated. Please use the 'shadcn' package instead. For example:
+## OpenChat src/ architecture overview
 
-```bash
-pnpm dlx shadcn@latest add progress --cwd apps/web
-```
+This document summarizes the structure, responsibilities, and key technologies used across `src/` to provide actionable context for future engineering tasks.
 
-YOU MUST use `pnpm dlx shadcn@latest` when installing shadcn packages.
+### Key technologies
 
-Docs for each components are available at `https://ui.shadcn.com/docs/components/<component-id>`. Fetch and read the docs before using the component so that your knowledge is up-to-date.
+- **React + TypeScript**: Functional components with hooks, strong typing
+- **Tailwind CSS**: Global theme tokens and utilities in `src/App.css`
+- **shadcn/ui + Radix Primitives**: Accessible, headless UI primitives in `src/components/ui/*`
+- **TanStack Query**: Server-state query/mutation and cache invalidation for conversations/messages
+- **ReactMarkdown + remark/rehype + KaTeX + Shiki**: Markdown rendering with code highlighting and custom elements
+- **Lucide Icons**: `lucide-react` icons
+- **Tauri + @tauri-apps/plugin-sql**: Desktop shell and SQLite DB access
 
-#	Component ID (slug)	Human-friendly name	What it's for (1-sentence use-case)
-1	accordion	Accordion	Stack of headings that expand/collapse to reveal hidden content.
-2	alert	Alert	Static call-out box for status or info messages.
-3	alert-dialog	Alert Dialog	Modal that interrupts the flow to confirm or warn about critical actions.
-4	aspect-ratio	Aspect Ratio	Wrapper that locks children to a fixed width-to-height ratio (great for responsive media).
-5	avatar	Avatar	Small user/asset image or initials placeholder.
-6	badge	Badge	Tiny label for counts or status (e.g. “New”, “3”).
-7	breadcrumb	Breadcrumb	Navigation trail that shows “where you are” in the app hierarchy.
-8	button	Button	Click/tap element that triggers an action.
-9	calendar	Calendar	Stand-alone calendar view, used by Date Picker or on its own.
-10	card	Card	Content container with optional header/body/footer.
-11	carousel	Carousel	Horizontal slider that cycles through a set of items or images.
-12	chart	Chart	Light wrapper for quick bar/line/pie visualizations.
-13	checkbox	Checkbox	Square control for on/off selection of independent items.
-14	collapsible	Collapsible	Utility that hides/reveals content with smooth height animation.
-15	combobox	Combobox	Autocomplete text input that filters a long list and lets users pick an item.
-16	command	Command Palette	VS Code-style keyboard overlay for fuzzy-searching actions.
-17	context-menu	Context Menu	Right-click (long-press) menu with context-specific commands.
-18	data-table	Data Table	Table with helpers for sorting, filtering and pagination.
-19	date-picker	Date Picker	Input field that pops a calendar for choosing dates or ranges.
-20	dialog	Dialog	Generic modal overlay for arbitrary interactive content.
-21	drawer	Drawer	Slide-in panel (often from edge/bottom) for secondary workflows.
-22	dropdown-menu	Dropdown Menu	Triggered list of options/actions that auto-dismisses on selection.
-23	form	Form	Helpers and styles for accessible, validated forms.
-24	hover-card	Hover Card	Lightweight popover that appears on hover/focus to show extra info.
-25	input	Input	Standard single-line text field.
-26	input-otp	Input OTP	Grouped inputs optimised for entering one-time pass-codes.
-27	label	Label	Accessible label element for any form control.
-28	menubar	Menubar	Horizontal desktop-app-style menu with dropdown sub-menus.
-29	navigation-menu	Navigation Menu	Multi-level nav bar with active indicators and hover previews.
-30	pagination	Pagination	Next/previous + numbered page controls for paginated data sets.
-31	popover	Popover	Non-modal floating panel anchored to a trigger (e.g. emoji picker).
-32	progress	Progress	Linear bar that shows completion percentage.
-33	radio-group	Radio Group	Set of mutually-exclusive selection buttons.
-34	resizable	Resizable	Wrapper that lets users drag to resize split panes.
-35	scroll-area	Scroll Area	Augments native scrolling with custom styling and shadows.
-36	select	Select	Styled single-select dropdown (native <select> replacement).
-37	separator	Separator	Horizontal or vertical rule dividing content.
-38	sheet	Sheet	Mobile-friendly slide-up bottom sheet (from tiny to full-screen).
-39	sidebar	Sidebar	Vertical navigation rail that can collapse/expand.
-40	skeleton	Skeleton	Grey placeholder shapes shown while real content loads.
-41	slider	Slider	Draggable handle on a track for numeric values or ranges.
-42	sonner	Sonner	Opinionated toast component (thin wrapper around the Sonner library).
-43	switch	Switch	Toggle switch for true/false settings.
-44	table	Table	Basic static table markup & styling.
-45	tabs	Tabs	Tab strip that swaps between associated panels.
-46	textarea	Textarea	Multi-line text input.
-47	toast	Toast	Ephemeral message that pops at screen edge and auto-dismisses.
-48	toggle	Toggle	Pressable button that stays pressed/un-pressed to indicate state.
-49	toggle-group	Toggle Group	Collection of toggles acting as single- or multi-select controls.
-50	tooltip	Tooltip	Small hover/focus label supplying helper text.
+## App entry and layout
+
+- `src/app.tsx`
+  - Top-level composition and providers: `MLXServerProvider`, `ConversationProvider`, and `SidebarProvider`.
+  - App shell: header + left sidebar + chat window.
+- `src/App.css`
+  - Tailwind setup (`@import 'tailwindcss'`), custom CSS variables (OKLCH-based palette), dark mode tokens, base resets.
+  - Global UX details: disable rubber-banding, cursor defaults, animated “aurora” background used by empty chat state.
+
+## Context providers
+
+- `src/contexts/conversation-context.tsx`
+  - Holds `selectedConversationId` and setter for cross-app selection.
+- `src/contexts/mlx-server-context.tsx`
+  - Wires to `mlxServer` service. Exposes `status`, `error`, and `restartServer()`.
+  - Initializes server event listeners, fetches initial status, keeps state updated.
+- `src/contexts/theme-context.tsx`
+  - Simple theme manager (`light`/`dark`/`system`) toggling root class.
+
+## App shell and sidebar
+
+- `src/components/app-header.tsx`
+  - Top bar with sidebar trigger and `MLXServerStatus` indicator.
+- `src/components/app-sidebar.tsx`
+  - Wraps header, conversations, and footer inside `Sidebar` UI primitive.
+- `src/components/app-sidebar/*`
+  - `app-sidebar-header.tsx`: “New chat” button (uses conversations hook).
+  - `app-sidebar-conversations.tsx`: Search input and conversation list; integrates `useConversations` and `useConversation` for selection and deletion.
+  - `app-sidebar-conversation-item.tsx`: Single row with contextual menu, share/delete actions, confirmation dialog.
+  - `app-sidebar-footer.tsx`: Placeholder settings button.
+
+## Chat experience
+
+- `src/components/chat-window.tsx`
+  - Orchestrates chat: gets selected conversation, messages, and MLX status.
+  - On submit: lazily creates a conversation if needed, then streams a response.
+- `src/components/chat-input.tsx`
+  - Textarea with dynamic height and roundedness, Enter-to-send (Shift+Enter for newline), send/plus actions, loading state.
+- `src/components/chat-messages-list.tsx`
+  - Virtual list container with auto-scroll-to-bottom behavior; shows `ChatEmptyState` when appropriate.
+- `src/components/chat-message.tsx`
+  - Renders user vs assistant bubbles, timestamp, copy-to-clipboard button.
+  - Assistant reasoning (if present) via `ReasoningDisplay`.
+- `src/components/chat-error-banner.tsx`
+  - Inline error surface for failed send/stream scenarios.
+- `src/components/chat-empty-state.tsx`
+  - Centered welcome with animated aurora background overlay.
+- `src/components/reasoning-display.tsx`
+  - Collapsible “Reasoning” panel with approximate token count; supports loading state.
+
+## Markdown rendering system
+
+- `src/components/markdown/markdown.tsx`
+  - ReactMarkdown root configured with `remarkGfm`, `remarkMath`, `rehypeRaw`, `rehypeKatex`, and custom `rehypeMarkCodeBlocks`.
+  - Applies typography-tailwind classes and code block overflow rules.
+- `src/components/markdown/components.tsx`
+  - Maps markdown elements to React components:
+    - `code`: Distinguishes inline vs block; uses `CodeBlock` for blocks.
+    - `img`: Upgrades to `MarkdownImage` with modal preview and download.
+    - `email-artifact` and `quick-reply`: Custom elements; `QuickReply` accepts optional `onSend` handler.
+- `src/components/code-block.tsx`
+  - Uses Shiki to convert code to HAST, then `hast-util-to-jsx-runtime` for SSR-friendly rendering. Includes `CopyButton`.
+- `src/components/markdown/rehype-plugins.ts`
+  - `rehypeMarkCodeBlocks`: Flags `code` nodes as inline or block based on parent `pre`.
+- `src/components/markdown/email-artifact.tsx`
+  - Shows email preview with “Open in Email Client” (mailto) action.
+- `src/components/markdown/markdown-image.tsx`
+  - Click-to-zoom image in Dialog, toolbar actions for download and close.
+- `src/components/markdown/quick-reply.tsx`
+  - Renders a button that can invoke an injected `onSend(text)` callback.
+- `src/components/markdown/utils.ts`, `types.ts`
+  - Helpers (extract text, determine language class) and stronger node typings.
+
+## UI primitives (shadcn/ui over Radix)
+
+- Buttons/inputs: `ui/button.tsx`, `ui/input.tsx`
+- Overlay and feedback: `ui/dialog.tsx`, `ui/alert-dialog.tsx`, `ui/dropdown-menu.tsx`, `ui/tooltip.tsx`, `ui/skeleton.tsx`, `ui/collapsible.tsx`, `ui/dialog-ext.tsx`
+- Sidebar system: `ui/sidebar.tsx`
+  - Full responsive off-canvas/icon modes, keyboard shortcut (Cmd/Ctrl+B), mobile Sheet integration.
+- Minor: `ui/separator.tsx`, `window-drag-region.tsx` for Tauri drag regions.
+
+## Hooks
+
+- `src/hooks/use-conversations.ts`
+  - Query: `getConversations(search)`. Mutations: create (insert), delete; invalidates caches. Syncs selection clearing on delete.
+- `src/hooks/use-messages.ts`
+  - Query for conversation messages. Mutation `sendMessage` orchestrates:
+    - Insert user message → stream assistant response via `useChatCompletion`
+    - On first token, insert assistant message; on subsequent chunks, `updateMessage`
+    - Stream reasoning chunks too; update both `content` and `reasoning`
+    - `touchConversation` and lazy title setting via `setConversationTitleIfUnset`
+    - Invalidate queries for live UI updates
+- `src/hooks/use-chat-completion.ts`
+  - Builds chat context from DB and ensures a system prompt.
+  - Calls `mlxServer.chatCompletionRequest(..., { stream: true })` and parses SSE lines (`data:`), handling `[DONE]`, content deltas, and reasoning events.
+  - Exposes `onChunk`, `onReasoningChunk`, `onComplete`, `onError` callbacks.
+- `src/hooks/use-transcription.ts`
+  - Web Speech API wrapper with final/interim transcripts, lifecycle, and error handling.
+- `src/hooks/use-shortcut.ts`
+  - Platform-aware keyboard shortcut binding (e.g., `mod+n`).
+- `src/hooks/use-mobile.ts`
+  - `matchMedia`-based responsive boolean.
+- `src/hooks/use-unique-id.ts`
+  - Simple incrementing ID generator per hook instance.
+
+## Services, data, and utilities
+
+- `src/lib/db.ts`
+  - SQLite via `@tauri-apps/plugin-sql`:
+    - Conversations: insert, delete, list (with optional LIKE search), touch (update `updated_at`)
+    - Messages: insert, update, list (including reasoning)
+    - Conditional title setter: `updateConversationTitleIfUnset`
+- `src/lib/mlx-server.ts`
+  - Service for bridging to the local MLX server: status caching, event listeners, health checks, restart, and generic request helper.
+  - `chatCompletionRequest(messages, options)` for both streaming and non-streaming.
+  - `convertRustStatusToJS` maps Tauri/Rust shape to UI type.
+- `src/lib/mlx-server-schemas.ts`
+  - Zod schemas and types for message, choices, streaming chunks, models, etc.
+- `src/lib/mlx-server-validation.ts`
+  - Port validation and state guards for the server process (used on the Rust/Tauri side; imported in service workflows if needed).
+- `src/lib/generate-conversation-name.ts`
+  - Generates conversation titles from chat history; includes sanitization and generic-title filtering.
+- `src/lib/set-conversation-title.ts`
+  - Uses the generator and `updateConversationTitleIfUnset` to set titles post-stream; integrates with React Query for cache refresh.
+- `src/lib/dom-utils.ts`
+  - Small browser helpers, e.g., `downloadFile(url, filename)` used by image viewer.
+- `src/lib/utils.ts`
+  - `cn()` className joiner.
+
+## Types
+
+- `src/types/index.ts`
+  - UI-facing `Conversation` and `Message` types (includes optional `reasoning`).
+- `src/types/mlx-server.ts`
+  - Client-side MLX types: config, status, chat messages, streaming chunk shapes, and custom error classes.
+
+## Primary user flows
+
+- **Startup**: `MLXServerProvider` initializes MLX event listeners and status; app renders shell (`SidebarProvider` + header + `ChatWindow`).
+- **Create conversation**: From sidebar header, header shortcut (`mod+n` via `AppShortcuts`), or implicitly on first send if none is selected.
+- **Send message**: `ChatWindow.handleSubmit` ensures a conversation exists → `useMessages.sendMessage` inserts user → `useChatCompletion.generateStreaming` streams assistant and reasoning → DB updates per chunk → React Query invalidations refresh the UI → title set if unset.
+- **Delete conversation**: From conversation item menu → confirmation dialog → mutation deletes messages then conversation → clears selection if needed → list re-fetches.
+- **Markdown rendering**: Messages render through `Markdown`, which upgrades code blocks (`CodeBlock` with Shiki) and images (`MarkdownImage` viewer), supports math via KaTeX, and allows future custom elements.
+
+## Styling and UX notes
+
+- Theme tokens use OKLCH; dark mode swaps palette. Many components rely on focus rings and accessibility defaults from shadcn/ui + Radix.
+- Sidebar supports off-canvas, icon-collapse, and mobile sheet modes; toggled via header trigger or shortcut (Cmd/Ctrl+B).
+- Tauri-specific: window drag regions (`data-tauri-drag-region`) in header and the `WindowDragRegion` wrapper.
+
+## Gotchas and extension points
+
+- Streaming parser expects `data:`-prefixed SSE lines and `[DONE]` termination; robustness exists but malformed chunks are ignored with console warnings.
+- `QuickReply` supports `onSend`, but the current `Markdown` wrapper doesn’t inject it; wire it when enabling clickable reply artifacts.
+- Title generation runs post-completion to avoid premature/low-signal titles; uses a conditional update to prevent overwriting edited titles.
+- DB access is async and stored in a single SQLite file (`chatchat3.db`); ensure migrations are applied in Tauri layer.
+
+## OpenChat src/ architecture overview
+
+This document summarizes the structure, responsibilities, and key technologies used across `src/` to provide actionable context for future engineering tasks.
+
+### Key technologies
+
+- **React + TypeScript**: Functional components with hooks, strong typing
+- **Tailwind CSS**: Global theme tokens and utilities in `src/App.css`
+- **shadcn/ui + Radix Primitives**: Accessible, headless UI primitives in `src/components/ui/*`
+- **TanStack Query**: Server-state query/mutation and cache invalidation for conversations/messages
+- **ReactMarkdown + remark/rehype + KaTeX + Shiki**: Markdown rendering with code highlighting and custom elements
+- **Lucide Icons**: `lucide-react` icons
+- **Tauri + @tauri-apps/plugin-sql**: Desktop shell and SQLite DB access
+
+## App entry and layout
+
+- `src/app.tsx`
+  - Top-level composition and providers: `MLXServerProvider`, `ConversationProvider`, and `SidebarProvider`.
+  - App shell: header + left sidebar + chat window.
+- `src/App.css`
+  - Tailwind setup (`@import 'tailwindcss'`), custom CSS variables (OKLCH-based palette), dark mode tokens, base resets.
+  - Global UX details: disable rubber-banding, cursor defaults, animated “aurora” background used by empty chat state.
+
+## Context providers
+
+- `src/contexts/conversation-context.tsx`
+  - Holds `selectedConversationId` and setter for cross-app selection.
+- `src/contexts/mlx-server-context.tsx`
+  - Wires to `mlxServer` service. Exposes `status`, `error`, and `restartServer()`.
+  - Initializes server event listeners, fetches initial status, keeps state updated.
+- `src/contexts/theme-context.tsx`
+  - Simple theme manager (`light`/`dark`/`system`) toggling root class.
+
+## App shell and sidebar
+
+- `src/components/app-header.tsx`
+  - Top bar with sidebar trigger and `MLXServerStatus` indicator.
+- `src/components/app-sidebar.tsx`
+  - Wraps header, conversations, and footer inside `Sidebar` UI primitive.
+- `src/components/app-sidebar/*`
+  - `app-sidebar-header.tsx`: “New chat” button (uses conversations hook).
+  - `app-sidebar-conversations.tsx`: Search input and conversation list; integrates `useConversations` and `useConversation` for selection and deletion.
+  - `app-sidebar-conversation-item.tsx`: Single row with contextual menu, share/delete actions, confirmation dialog.
+  - `app-sidebar-footer.tsx`: Placeholder settings button.
+
+## Chat experience
+
+- `src/components/chat-window.tsx`
+  - Orchestrates chat: gets selected conversation, messages, and MLX status.
+  - On submit: lazily creates a conversation if needed, then streams a response.
+- `src/components/chat-input.tsx`
+  - Textarea with dynamic height and roundedness, Enter-to-send (Shift+Enter for newline), send/plus actions, loading state.
+- `src/components/chat-messages-list.tsx`
+  - Virtual list container with auto-scroll-to-bottom behavior; shows `ChatEmptyState` when appropriate.
+- `src/components/chat-message.tsx`
+  - Renders user vs assistant bubbles, timestamp, copy-to-clipboard button.
+  - Assistant reasoning (if present) via `ReasoningDisplay`.
+- `src/components/chat-error-banner.tsx`
+  - Inline error surface for failed send/stream scenarios.
+- `src/components/chat-empty-state.tsx`
+  - Centered welcome with animated aurora background overlay.
+- `src/components/reasoning-display.tsx`
+  - Collapsible “Reasoning” panel with approximate token count; supports loading state.
+
+## Markdown rendering system
+
+- `src/components/markdown/markdown.tsx`
+  - ReactMarkdown root configured with `remarkGfm`, `remarkMath`, `rehypeRaw`, `rehypeKatex`, and custom `rehypeMarkCodeBlocks`.
+  - Applies typography-tailwind classes and code block overflow rules.
+- `src/components/markdown/components.tsx`
+  - Maps markdown elements to React components:
+    - `code`: Distinguishes inline vs block; uses `CodeBlock` for blocks.
+    - `img`: Upgrades to `MarkdownImage` with modal preview and download.
+    - `email-artifact` and `quick-reply`: Custom elements; `QuickReply` accepts optional `onSend` handler.
+- `src/components/code-block.tsx`
+  - Uses Shiki to convert code to HAST, then `hast-util-to-jsx-runtime` for SSR-friendly rendering. Includes `CopyButton`.
+- `src/components/markdown/rehype-plugins.ts`
+  - `rehypeMarkCodeBlocks`: Flags `code` nodes as inline or block based on parent `pre`.
+- `src/components/markdown/email-artifact.tsx`
+  - Shows email preview with “Open in Email Client” (mailto) action.
+- `src/components/markdown/markdown-image.tsx`
+  - Click-to-zoom image in Dialog, toolbar actions for download and close.
+- `src/components/markdown/quick-reply.tsx`
+  - Renders a button that can invoke an injected `onSend(text)` callback.
+- `src/components/markdown/utils.ts`, `types.ts`
+  - Helpers (extract text, determine language class) and stronger node typings.
+
+## UI primitives (shadcn/ui over Radix)
+
+- Buttons/inputs: `ui/button.tsx`, `ui/input.tsx`
+- Overlay and feedback: `ui/dialog.tsx`, `ui/alert-dialog.tsx`, `ui/dropdown-menu.tsx`, `ui/tooltip.tsx`, `ui/skeleton.tsx`, `ui/collapsible.tsx`, `ui/dialog-ext.tsx`
+- Sidebar system: `ui/sidebar.tsx`
+  - Full responsive off-canvas/icon modes, keyboard shortcut (Cmd/Ctrl+B), mobile Sheet integration.
+- Minor: `ui/separator.tsx`, `window-drag-region.tsx` for Tauri drag regions.
+
+## Hooks
+
+- `src/hooks/use-conversations.ts`
+  - Query: `getConversations(search)`. Mutations: create (insert), delete; invalidates caches. Syncs selection clearing on delete.
+- `src/hooks/use-messages.ts`
+  - Query for conversation messages. Mutation `sendMessage` orchestrates:
+    - Insert user message → stream assistant response via `useChatCompletion`
+    - On first token, insert assistant message; on subsequent chunks, `updateMessage`
+    - Stream reasoning chunks too; update both `content` and `reasoning`
+    - `touchConversation` and lazy title setting via `setConversationTitleIfUnset`
+    - Invalidate queries for live UI updates
+- `src/hooks/use-chat-completion.ts`
+  - Builds chat context from DB and ensures a system prompt.
+  - Calls `mlxServer.chatCompletionRequest(..., { stream: true })` and parses SSE lines (`data:`), handling `[DONE]`, content deltas, and reasoning events.
+  - Exposes `onChunk`, `onReasoningChunk`, `onComplete`, `onError` callbacks.
+- `src/hooks/use-transcription.ts`
+  - Web Speech API wrapper with final/interim transcripts, lifecycle, and error handling.
+- `src/hooks/use-shortcut.ts`
+  - Platform-aware keyboard shortcut binding (e.g., `mod+n`).
+- `src/hooks/use-mobile.ts`
+  - `matchMedia`-based responsive boolean.
+- `src/hooks/use-unique-id.ts`
+  - Simple incrementing ID generator per hook instance.
+
+## Services, data, and utilities
+
+- `src/lib/db.ts`
+  - SQLite via `@tauri-apps/plugin-sql`:
+    - Conversations: insert, delete, list (with optional LIKE search), touch (update `updated_at`)
+    - Messages: insert, update, list (including reasoning)
+    - Conditional title setter: `updateConversationTitleIfUnset`
+- `src/lib/mlx-server.ts`
+  - Service for bridging to the local MLX server: status caching, event listeners, health checks, restart, and generic request helper.
+  - `chatCompletionRequest(messages, options)` for both streaming and non-streaming.
+  - `convertRustStatusToJS` maps Tauri/Rust shape to UI type.
+- `src/lib/mlx-server-schemas.ts`
+  - Zod schemas and types for message, choices, streaming chunks, models, etc.
+- `src/lib/mlx-server-validation.ts`
+  - Port validation and state guards for the server process (used on the Rust/Tauri side; imported in service workflows if needed).
+- `src/lib/generate-conversation-name.ts`
+  - Generates conversation titles from chat history; includes sanitization and generic-title filtering.
+- `src/lib/set-conversation-title.ts`
+  - Uses the generator and `updateConversationTitleIfUnset` to set titles post-stream; integrates with React Query for cache refresh.
+- `src/lib/dom-utils.ts`
+  - Small browser helpers, e.g., `downloadFile(url, filename)` used by image viewer.
+- `src/lib/utils.ts`
+  - `cn()` className joiner.
+
+## Types
+
+- `src/types/index.ts`
+  - UI-facing `Conversation` and `Message` types (includes optional `reasoning`).
+- `src/types/mlx-server.ts`
+  - Client-side MLX types: config, status, chat messages, streaming chunk shapes, and custom error classes.
+
+## Primary user flows
+
+- **Startup**: `MLXServerProvider` initializes MLX event listeners and status; app renders shell (`SidebarProvider` + header + `ChatWindow`).
+- **Create conversation**: From sidebar header, header shortcut (`mod+n` via `AppShortcuts`), or implicitly on first send if none is selected.
+- **Send message**: `ChatWindow.handleSubmit` ensures a conversation exists → `useMessages.sendMessage` inserts user → `useChatCompletion.generateStreaming` streams assistant and reasoning → DB updates per chunk → React Query invalidations refresh the UI → title set if unset.
+- **Delete conversation**: From conversation item menu → confirmation dialog → mutation deletes messages then conversation → clears selection if needed → list re-fetches.
+- **Markdown rendering**: Messages render through `Markdown`, which upgrades code blocks (`CodeBlock` with Shiki) and images (`MarkdownImage` viewer), supports math via KaTeX, and allows future custom elements.
+
+## Styling and UX notes
+
+- Theme tokens use OKLCH; dark mode swaps palette. Many components rely on focus rings and accessibility defaults from shadcn/ui + Radix.
+- Sidebar supports off-canvas, icon-collapse, and mobile sheet modes; toggled via header trigger or shortcut (Cmd/Ctrl+B).
+- Tauri-specific: window drag regions (`data-tauri-drag-region`) in header and the `WindowDragRegion` wrapper.
+
+## Gotchas and extension points
+
+- Streaming parser expects `data:`-prefixed SSE lines and `[DONE]` termination; robustness exists but malformed chunks are ignored with console warnings.
+- `QuickReply` supports `onSend`, but the current `Markdown` wrapper doesn’t inject it; wire it when enabling clickable reply artifacts.
+- Title generation runs post-completion to avoid premature/low-signal titles; uses a conditional update to prevent overwriting edited titles.
+- DB access is async and stored in a single SQLite file (`chatchat3.db`); ensure migrations are applied in Tauri layer.
 
 ---
 > Source: [team-forge-ai/openchat](https://github.com/team-forge-ai/openchat) — distributed by [TomeVault](https://tomevault.io).
