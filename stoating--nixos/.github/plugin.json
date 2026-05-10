@@ -1,0 +1,9 @@
+{
+  "name": "stoating--nixos",
+  "displayName": "nixos",
+  "description": "my personal nixos configuration",
+  "version": "1.0.0",
+  "author": "stoating",
+  "homepage": "https://github.com/stoating/nixos",
+  "skills": []
+}
