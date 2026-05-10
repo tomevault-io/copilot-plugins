@@ -1,0 +1,9 @@
+{
+  "name": "wpacademy--nextjs-woocommerce-frontend",
+  "displayName": "nextjs-woocommerce-frontend",
+  "description": "NextJS frontwned for WooCommerce & WordPress. A headless solution to convert your WooCommerce store into a modern NextJS app.",
+  "version": "1.0.0",
+  "author": "wpacademy",
+  "homepage": "https://github.com/wpacademy/nextjs-woocommerce-frontend",
+  "skills": []
+}
