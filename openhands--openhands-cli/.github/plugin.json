@@ -1,0 +1,9 @@
+{
+  "name": "openhands--openhands-cli",
+  "displayName": "OpenHands-CLI",
+  "description": "Lightweight OpenHands CLI in a binary executable",
+  "version": "1.0.0",
+  "author": "OpenHands",
+  "homepage": "https://github.com/OpenHands/OpenHands-CLI",
+  "skills": []
+}
