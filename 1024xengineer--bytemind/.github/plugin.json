@@ -1,0 +1,9 @@
+{
+  "name": "1024xengineer--bytemind",
+  "displayName": "bytemind",
+  "description": "ByteMind is a lightweight Coding Agent designed to help users complete the software engineering loop.",
+  "version": "1.0.0",
+  "author": "1024XEngineer",
+  "homepage": "https://github.com/1024XEngineer/bytemind",
+  "skills": []
+}
