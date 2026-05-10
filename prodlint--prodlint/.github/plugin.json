@@ -1,0 +1,9 @@
+{
+  "name": "prodlint--prodlint",
+  "displayName": "prodlint",
+  "description": "Your vibe-coded app has hardcoded secrets, missing auth, and hallucinated imports. Find out in under a second.",
+  "version": "1.0.0",
+  "author": "prodlint",
+  "homepage": "https://github.com/prodlint/prodlint",
+  "skills": []
+}
