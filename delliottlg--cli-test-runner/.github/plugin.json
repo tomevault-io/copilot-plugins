@@ -1,0 +1,9 @@
+{
+  "name": "delliottlg--cli-test-runner",
+  "displayName": "cli-test-runner",
+  "description": "Minimal CLI tool for running Lingraphica Unity tests on Android devices",
+  "version": "1.0.0",
+  "author": "delliottlg",
+  "homepage": "https://github.com/delliottlg/cli-test-runner",
+  "skills": []
+}
