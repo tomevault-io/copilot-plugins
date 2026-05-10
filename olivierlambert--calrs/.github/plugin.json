@@ -1,0 +1,9 @@
+{
+  "name": "olivierlambert--calrs",
+  "displayName": "calrs",
+  "description": "Fast, self-hostable scheduling platform. Like Cal.com, but written in Rust.",
+  "version": "1.0.0",
+  "author": "olivierlambert",
+  "homepage": "https://github.com/olivierlambert/calrs",
+  "skills": []
+}
