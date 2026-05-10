@@ -1,0 +1,9 @@
+{
+  "name": "bjss-china--ppt-assistant",
+  "displayName": "ppt_assistant",
+  "description": "\u8fd9\u662f\u4e00\u4e2a\u901a\u8fc7\u591a\u6a21\u6001\u5927\u6a21\u578b+LangGraph\u5b9e\u73b0\u7684PPT\u751f\u6210\u7cfb\u7edf\uff0c\u5305\u542b\u524d\u7aef\u3001\u540e\u7aef\u4ee5\u53caCore\u6838\u5fc3\u4e09\u90e8\u5206\u6784\u6210\u3002",
+  "version": "1.0.0",
+  "author": "BJSS-China",
+  "homepage": "https://github.com/BJSS-China/ppt_assistant",
+  "skills": []
+}
