@@ -4,7 +4,7 @@
   "repo": "rift",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Compound-inc/rift",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T16:54:45Z"
+  "distributed_at": "2026-05-10T15:16:10Z"
 }
