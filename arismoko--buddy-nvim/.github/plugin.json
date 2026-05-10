@@ -1,0 +1,9 @@
+{
+  "name": "arismoko--buddy-nvim",
+  "displayName": "buddy.nvim",
+  "description": "AI-powered MCP server for Neovim - bridge your editor to LLM agents",
+  "version": "1.0.0",
+  "author": "arismoko",
+  "homepage": "https://github.com/arismoko/buddy.nvim",
+  "skills": []
+}
