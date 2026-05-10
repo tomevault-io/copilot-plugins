@@ -1,278 +1,110 @@
-## forms
+## hooks
 
-> Form handling patterns with React Hook Form and Zod validation
+> Custom hooks patterns for data fetching, forms, and UI state management
 
 
-# Form Handling Rules
+# Custom Hooks Rules
 
-## React Hook Form + Zod Pattern
+## Hook Organization Patterns
 
-### Basic Form Setup
+### Data Fetching Hooks
 ```tsx
-// components/forms/UserForm.tsx
-interface UserFormProps {
-  onSubmit: (data: UserFormData) => void
-  initialData?: Partial<User>
-  isLoading?: boolean
+// hooks/useUsers.ts
+export const useUsers = () => {
+  return useQuery({
+    queryKey: ['users'],
+    queryFn: () => userService.getAllUsers(),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  })
 }
 
-export const UserForm = ({ onSubmit, initialData, isLoading }: UserFormProps) => {
-  const form = useForm<UserFormData>({
-    resolver: zodResolver(userSchema),
-    defaultValues: {
-      name: initialData?.name || '',
-      email: initialData?.email || '',
-      phone: initialData?.phone || '',
-    }
+export const useUser = (id: string) => {
+  return useQuery({
+    queryKey: ['users', id],
+    queryFn: () => userService.getUser(id),
+    enabled: !!id,
   })
-
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Full Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter full name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input type="email" placeholder="Enter email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        
-        <Button type="submit" disabled={isLoading} className="w-full">
-          {isLoading ? 'Saving...' : 'Save User'}
-        </Button>
-      </form>
-    </Form>
-  )
 }
 ```
 
-### Form Hook Pattern
+### Form Hooks
 ```tsx
 // hooks/useUserForm.ts
-export const useUserForm = (userId?: string) => {
-  const { data: user } = useUser(userId)
-  const createUser = useCreateUser()
-  const updateUser = useUpdateUser()
-  
+export const useUserForm = (initialData?: Partial<User>) => {
   const form = useForm<UserFormData>({
     resolver: zodResolver(userSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      phone: '',
-    }
+    defaultValues: initialData || {},
   })
-  
-  // Reset form when user data loads
-  useEffect(() => {
-    if (user) {
-      form.reset({
-        name: user.name,
-        email: user.email,
-        phone: user.phone || '',
-      })
-    }
-  }, [user, form])
-  
-  const handleSubmit = (data: UserFormData) => {
-    if (userId) {
-      updateUser.mutate({ id: userId, data })
-    } else {
-      createUser.mutate(data)
-    }
-  }
-  
-  const isLoading = createUser.isPending || updateUser.isPending
-  
-  return {
-    form,
-    handleSubmit,
-    isLoading,
-    reset: form.reset,
-  }
+
+  const { mutate: saveUser, isPending } = useMutation({
+    mutationFn: userService.updateUser,
+    onSuccess: () => toast.success('User saved'),
+    onError: (error) => toast.error(error.message),
+  })
+
+  return { form, saveUser, isPending }
 }
 ```
 
-### Advanced Form Patterns
-
-#### Multi-Step Form
+### UI State Hooks
 ```tsx
-// hooks/useMultiStepForm.ts
-export const useMultiStepForm = <T extends Record<string, any>>(
-  steps: Array<{ key: string; schema: ZodSchema<any> }>,
-  onComplete: (data: T) => void
-) => {
-  const [currentStep, setCurrentStep] = useState(0)
-  const [formData, setFormData] = useState<Partial<T>>({})
+// hooks/useDisclosure.ts
+export const useDisclosure = (initialState = false) => {
+  const [isOpen, setIsOpen] = useState(initialState)
   
-  const currentStepConfig = steps[currentStep]
+  const open = useCallback(() => setIsOpen(true), [])
+  const close = useCallback(() => setIsOpen(false), [])
+  const toggle = useCallback(() => setIsOpen(prev => !prev), [])
   
-  const form = useForm({
-    resolver: zodResolver(currentStepConfig.schema),
-    defaultValues: formData[currentStepConfig.key] || {}
-  })
-  
-  const nextStep = (data: any) => {
-    setFormData(prev => ({ ...prev, [currentStepConfig.key]: data }))
-    
-    if (currentStep < steps.length - 1) {
-      setCurrentStep(prev => prev + 1)
-    } else {
-      onComplete({ ...formData, [currentStepConfig.key]: data } as T)
-    }
-  }
-  
-  const prevStep = () => {
-    if (currentStep > 0) {
-      setCurrentStep(prev => prev - 1)
-    }
-  }
-  
-  return {
-    form,
-    currentStep,
-    totalSteps: steps.length,
-    isFirstStep: currentStep === 0,
-    isLastStep: currentStep === steps.length - 1,
-    nextStep,
-    prevStep,
-    handleSubmit: form.handleSubmit(nextStep)
-  }
+  return { isOpen, open, close, toggle }
 }
 ```
 
-#### Dynamic Form Fields
+### Local Storage Hook
 ```tsx
-// components/forms/DynamicFieldArray.tsx
-export const DynamicFieldArray = ({ name, control }: DynamicFieldArrayProps) => {
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name,
+// hooks/useLocalStorage.ts
+export const useLocalStorage = <T>(key: string, initialValue: T) => {
+  const [storedValue, setStoredValue] = useState<T>(() => {
+    try {
+      const item = window.localStorage.getItem(key)
+      return item ? JSON.parse(item) : initialValue
+    } catch (error) {
+      return initialValue
+    }
   })
 
-  return (
-    <div className="space-y-4">
-      {fields.map((field, index) => (
-        <div key={field.id} className="flex gap-2 items-end">
-          <FormField
-            control={control}
-            name={`${name}.${index}.value`}
-            render={({ field }) => (
-              <FormItem className="flex-1">
-                <FormLabel>Item {index + 1}</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button
-            type="button"
-            variant="outline"
-            size="icon"
-            onClick={() => remove(index)}
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        </div>
-      ))}
-      
-      <Button
-        type="button"
-        variant="outline"
-        onClick={() => append({ value: '' })}
-      >
-        <Plus className="h-4 w-4 mr-2" />
-        Add Item
-      </Button>
-    </div>
-  )
+  const setValue = useCallback((value: T | ((val: T) => T)) => {
+    try {
+      const valueToStore = value instanceof Function ? value(storedValue) : value
+      setStoredValue(valueToStore)
+      window.localStorage.setItem(key, JSON.stringify(valueToStore))
+    } catch (error) {
+      console.error(error)
+    }
+  }, [key, storedValue])
+
+  return [storedValue, setValue] as const
 }
 ```
 
-### Form Validation Rules
+## Hook Naming Conventions
+- **Data**: `useUsers`, `useUser`, `useProducts`
+- **Forms**: `useUserForm`, `useProductForm`
+- **UI State**: `useDisclosure`, `useToggle`, `useLocalStorage`
+- **Business Logic**: `useAuth`, `useCart`, `useNotifications`
 
-#### Complex Validation Schema
-```tsx
-// lib/validations/userProfile.ts
-export const userProfileSchema = z.object({
-  personal: z.object({
-    firstName: z.string().min(2, 'First name required'),
-    lastName: z.string().min(2, 'Last name required'),
-    email: emailSchema,
-    phone: phoneSchema.optional(),
-    dateOfBirth: z.string().optional(),
-  }),
-  address: z.object({
-    street: z.string().min(5, 'Street address required'),
-    city: z.string().min(2, 'City required'),
-    state: z.string().min(2, 'State required'),
-    zipCode: z.string().regex(/^\d{5}(-\d{4})?$/, 'Invalid zip code'),
-    country: z.string().min(2, 'Country required'),
-  }),
-  preferences: z.object({
-    newsletter: z.boolean().default(false),
-    notifications: z.boolean().default(true),
-    theme: z.enum(['light', 'dark', 'system']).default('system'),
-  })
-})
-```
+## Hook Extraction Rules
 
-#### Conditional Validation
-```tsx
-export const conditionalSchema = z.object({
-  userType: z.enum(['individual', 'business']),
-  email: emailSchema,
-  companyName: z.string().optional(),
-  taxId: z.string().optional(),
-}).refine(
-  (data) => {
-    if (data.userType === 'business') {
-      return data.companyName && data.taxId
-    }
-    return true
-  },
-  {
-    message: "Company name and tax ID required for business accounts",
-    path: ["companyName"],
-  }
-)
-```
+### Extract Logic When:
+- Same logic used in 2+ components
+- Component exceeds 100 lines due to logic
+- Complex state management patterns
+- API interaction patterns
 
-## Form Anti-Patterns
-- Manual form state management
-- Inline validation logic
-- No error handling
-- Uncontrolled components mixing with controlled
-- No loading states during submission
-
-## Form Best Practices
-- Always use React Hook Form + Zod
-- Extract form logic to custom hooks
-- Provide loading states during submission
-- Reset forms after successful submission
-- Handle both client and server validation errors
+### Don't Extract When:
+- Logic is component-specific
+- Only used once
+- Simple useState patterns
 
 ---
 > Source: [chihebnabil/lovable-boilerplate](https://github.com/chihebnabil/lovable-boilerplate) — distributed by [TomeVault](https://tomevault.io).
