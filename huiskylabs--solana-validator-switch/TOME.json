@@ -1,0 +1,44 @@
+{
+  "name": "solana-validator-switch",
+  "owner": "huiskylabs",
+  "repo": "solana-validator-switch",
+  "description": "Solana Validator Switch (SVS) - 1-2s Hot Swap & Failover Solution",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/huiskylabs/solana-validator-switch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T17:16:07Z"
+}
