@@ -7,11 +7,11 @@ Next-Gen AI-Aware Git
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [h5i-dev/h5i](https://github.com/h5i-dev/h5i).
+Original source: `CLAUDE.md` in [h5i-dev/h5i](https://github.com/h5i-dev/h5i).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
