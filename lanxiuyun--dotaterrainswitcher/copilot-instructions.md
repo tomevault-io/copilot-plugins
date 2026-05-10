@@ -1,47 +1,54 @@
-## general
+## git
 
-> - 路径别名：`@` 指向 `src`（见 `vite.config.ts`）
+> 辅助生成 git 提交信息
 
-# 项目通用规范
+# Git 规范
 
-## 技术栈
-- Vue 3 
-- Vite 前端构建工具
-- Vue Router 路由管理
-- Pinia 状态管理
+## 提交规范
+git 提交模板<type>(<scope>): <subject>，具体要求如下：
+1. 注意冒号 : 后有空格
+2. type 的枚举值有：
+- feat: 新增功能
+- fix: 修复 bug
+- docs: 文档注释
+- style: 代码格式(不影响代码运行的变动)
+- refactor: 重构、优化(既不增加新功能, 也不是修复bug)
+- perf: 性能优化
+- test: 增加测试
+- chore: 构建过程或辅助工具的变动
+- revert: 回退
+- build: 打包
+3. 若 subject 中描述超过两种要点，请使用要点列表描述详情，每个要点使用-符号开头，多个换行，参考如下样例：
+```
+feat(web): implement email verification workflow
 
-## 代码风格
-- 保持代码简洁、可读
-- 使用有意义的变量和函数名
-- 添加适当的注释解释复杂逻辑
-- 遵循Vue语言的官方风格指南
-- 路径别名：`@` 指向 `src`（见 `vite.config.ts`）
+- Add email verification token generation service
+- Create verification email template with dynamic links
+- Add API endpoint for token validation
+- Update user model with verification status field
+```
 
-## 项目结构
-- 保持项目结构清晰，遵循模块化原则
-- 相关功能应放在同一目录下
-- 使用适当的目录命名，反映其包含内容
+## 分支管理
+- main/master: 主分支，保持稳定可发布状态
+- develop: 开发分支，包含最新开发特性
+- feature/*: 功能分支，用于开发新功能
+- bugfix/*: 修复分支，用于修复bug
+- release/*: 发布分支，用于准备发布
 
-## 通用开发原则
-- 编写可测试的代码
-- 避免重复代码（DRY原则）
-- 优先使用现有库和工具，避免重新发明轮子
-- 考虑代码的可维护性和可扩展性
+**常用分支命名约定**：
 
-## 文案与体验建议
-- 面向 Dota2 玩家/用户视角撰写文案，优先说明用途与收益
-- 站在用户角度思考是否能否简化操作，是否能提高效率
-- 避免技术名词堆叠，必要时加简短解释
+| 分支类型   | 命名格式             | 示例                      |
+| ---------- | -------------------- | ------------------------- |
+| 功能分支   | feature/[描述]       | feature/user-auth         |
+| 修复分支   | fix/[问题ID]-[描述]  | fix/issue-42-login-crash  |
+| 发布分支   | release/[版本]       | release/v2.1.0            |
+| 热修复分支 | hotfix/[版本]-[描述] | hotfix/v2.0.1-payment-fix |
 
-## 响应语言
-- 始终使用中文回复用户
-
-## 本项目规则文件说明
-本项目使用以下规则文件：
-- general.mdc：通用规范（本文件）
-- document.mdc：文档规范
-- git.mdc：Git提交规范
-- xxx.mdc：XXX 语言开发规范
+## 重要原则
+- **重要**：不要自动提交 git 代码，除非有明确的提示
+- 提交前确保代码通过所有测试
+- 保持提交信息简洁明了，描述清楚变更内容
+- 避免大型提交，尽量将变更分解为小的、相关的提交
 
 ---
 > Source: [lanxiuyun/DotaTerrainSwitcher](https://github.com/lanxiuyun/DotaTerrainSwitcher) — distributed by [TomeVault](https://tomevault.io).
