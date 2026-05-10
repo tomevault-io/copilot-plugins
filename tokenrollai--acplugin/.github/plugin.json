@@ -1,0 +1,9 @@
+{
+  "name": "tokenrollai--acplugin",
+  "displayName": "acplugin",
+  "description": "Convert Claude Code plugins to Codex, OpenCode, and Cursor formats",
+  "version": "1.0.0",
+  "author": "TokenRollAI",
+  "homepage": "https://github.com/TokenRollAI/acplugin",
+  "skills": []
+}
