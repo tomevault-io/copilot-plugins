@@ -1,9 +1,9 @@
 {
   "name": "empreiteiro--langflow-factory",
   "displayName": "langflow-factory",
-  "description": "langflow-factory",
+  "description": "Langflow Factory is a comprehensive collection of custom components designed to extend Langflow's capabilities with powerful integrations, data processing tools, and AI-powered generators.",
   "version": "1.0.0",
   "author": "Empreiteiro",
-  "homepage": "https://tomevault.io/claim/Empreiteiro",
+  "homepage": "https://github.com/Empreiteiro/langflow-factory",
   "skills": []
 }
