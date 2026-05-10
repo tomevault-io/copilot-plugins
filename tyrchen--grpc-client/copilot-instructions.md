@@ -1,50 +1,94 @@
-## codequality
+## dioxus
 
-> Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.
+> - Use the `#[component]` macro for all components
 
-# Code Quality Guidelines
+# Dioxus 0.6 Best Practices
 
-## Verify Information
-Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.
+## Component Structure
+- Use the `#[component]` macro for all components
+- Keep components focused on a single responsibility
+- Extract complex logic into custom hooks
+- Name components using PascalCase
+- Name hooks using the `use_` prefix and snake_case
+- Return `Element` type from component functions
+- Provide proper rustdoc comments for public components
 
-## File-by-File Changes
-Make changes file by file and give me a chance to spot mistakes.
+## State Management
+- Use `use_signal` for reactive state (preferred over deprecated `use_hook`)
+- Use `read()` and `write()` methods for signal access
+- Avoid direct mutations outside of write blocks
+- Use `.set()` for simple signal updates
+- Use `use_effect` for side effects and lifecycle events
+- Keep state as close as possible to where it's used
 
-## No Apologies
-Never use apologies.
+## Hooks
+- Create custom hooks for reusable logic
+- Return `Signal<T>` from hooks that manage state
+- Use proper tuple destructuring when returning multiple values
+- Follow React-like naming conventions for hooks (`use_*`)
+- Bundle related operations in a struct when returning multiple functions
+- Use `use_effect` for initialization and cleanup
+- Define clear input/output types for hooks
 
-## No Understanding Feedback
-Avoid giving feedback about understanding in comments or documentation.
+## Event Handling
+- Create specific, named event handlers
+- Use `move |param| { ... }` for event handlers
+- Return handlers from hooks when they're related to that hook's state
+- Box complex event handlers with proper type definitions
+- Use event delegation when appropriate
 
-## No Whitespace Suggestions
-Don't suggest whitespace changes.
+## RSX Syntax
+- Use proper indentation in `rsx!` blocks
+- Group related attributes together
+- Use string interpolation for dynamic class names: `class: "base-class {dynamic_class}"`
+- Use shorthand for boolean properties
+- Include proper ARIA attributes for accessibility
 
-## No Summaries
-Don't summarize changes made.
+## Performance
+- Use `use_memo` for expensive computations
+- Define component props explicitly for complex components
+- Avoid unnecessary re-renders
+- Leverage Rust's borrowing system for references
 
-## No Inventions
-Don't invent changes other than what's explicitly requested.
+## Storage
+- Use abstracted storage operations (like the `utils::save` and `utils::load` functions)
+- Handle storage errors gracefully
+- Define constants for storage keys
 
-## No Unnecessary Confirmations
-Don't ask for confirmation of information already provided in the context.
+## Styling
+- Use consistent class naming conventions
+- Leverage utility-first CSS frameworks like Tailwind
+- Create helper functions for common style patterns
+- Use theme-aware styling with dark/light mode support
 
-## Preserve Existing Code
-Don't remove unrelated code or functionalities. Pay attention to preserving existing structures.
+## Persistence
+- Save state to localStorage or other storage when needed
+- Load state on component initialization
+- Handle serialization/deserialization errors
 
-## Single Chunk Edits
-Provide all edits in a single chunk instead of multiple-step instructions or explanations for the same file.
+## Testing
+- Write unit tests for components with VirtualDom
+- Test initial rendering, state changes, and event handling
+- Use proper test assertions
+- Structure tests with Arrange-Act-Assert pattern
 
-## No Implementation Checks
-Don't ask the user to verify implementations that are visible in the provided context.
+## Platform Specifics
+- Use feature flags for platform-specific code (`#[cfg(feature = "desktop")]`)
+- Handle platform differences with conditional compilation
+- Provide appropriate fallbacks for all platforms
 
-## No Unnecessary Updates
-Don't suggest updates or changes to files when there are no actual modifications needed.
+## Project Structure
+- Organize components in a logical directory structure
+- Use modules to group related components
+- Keep shared constants in a dedicated module
+- Separate concerns: UI components, state management, and utilities
 
-## Provide Real File Links
-Always provide links to the real files, not x.md.
-
-## No Current Implementation
-Don't show or discuss the current implementation unless specifically requested.
+## Code Style
+- Follow Rust naming conventions
+- Use standard function signatures for event handlers
+- Keep functions short and focused
+- Use type aliases for complex types
+- Use consistent parameter naming
 
 ---
 > Source: [tyrchen/grpc-client](https://github.com/tyrchen/grpc-client) — distributed by [TomeVault](https://tomevault.io).
