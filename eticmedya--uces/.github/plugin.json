@@ -1,0 +1,9 @@
+{
+  "name": "eticmedya--uces",
+  "displayName": "uces",
+  "description": "Production-grade configuration system for Claude Code CLI with smart routing, skill modules, and automation hooks.",
+  "version": "1.0.0",
+  "author": "eticmedya",
+  "homepage": "https://github.com/eticmedya/uces",
+  "skills": []
+}
