@@ -1,0 +1,44 @@
+{
+  "name": "VibeDoc",
+  "owner": "calderbuild",
+  "repo": "VibeDoc",
+  "description": "\ud83d\ude80 Your AI Product Manager & Architect - Transform ideas into complete development plans with AI coding prompts in 60-180 seconds",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/calderbuild/VibeDoc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T14:41:14Z"
+}
