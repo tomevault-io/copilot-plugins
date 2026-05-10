@@ -4,7 +4,7 @@
   "repo": "AICOO-Skills",
   "description": "An official set of skills to share, maintain and connect personal AI Agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Aicoo-Team/AICOO-Skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T07:38:41Z"
+  "distributed_at": "2026-05-10T15:00:53Z"
 }
