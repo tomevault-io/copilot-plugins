@@ -1,0 +1,9 @@
+{
+  "name": "sshh12--claude-plugins",
+  "displayName": "claude-plugins",
+  "description": "Shrivu's random Claude Code plugins.",
+  "version": "1.0.0",
+  "author": "sshh12",
+  "homepage": "https://github.com/sshh12/claude-plugins",
+  "skills": []
+}
