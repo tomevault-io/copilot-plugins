@@ -1,0 +1,9 @@
+{
+  "name": "mehmetbaykar--swift-poe-search-mcp",
+  "displayName": "swift-poe-search-mcp",
+  "description": "A Swift MCP (Model Context Protocol) server providing AI-powered search and research tools via the Poe API proxy.",
+  "version": "1.0.0",
+  "author": "mehmetbaykar",
+  "homepage": "https://github.com/mehmetbaykar/swift-poe-search-mcp",
+  "skills": []
+}
