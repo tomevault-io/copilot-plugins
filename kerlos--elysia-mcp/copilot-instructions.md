@@ -1,1406 +1,1311 @@
-## json-rpc
-
-> import { z, ZodTypeAny } from "zod";
-
-import { z, ZodTypeAny } from "zod";
-
-export const LATEST_PROTOCOL_VERSION = "2025-03-26";
-export const SUPPORTED_PROTOCOL_VERSIONS = [
-  LATEST_PROTOCOL_VERSION,
-  "2024-11-05",
-  "2024-10-07",
-];
-
-/* JSON-RPC types */
-export const JSONRPC_VERSION = "2.0";
-
-/**
- * A progress token, used to associate progress notifications with the original request.
- */
-export const ProgressTokenSchema = z.union([z.string(), z.number().int()]);
-
-/**
- * An opaque token used to represent a cursor for pagination.
- */
-export const CursorSchema = z.string();
-
-const RequestMetaSchema = z
-  .object({
-    /**
-     * If specified, the caller is requesting out-of-band progress notifications for this request (as represented by notifications/progress). The value of this parameter is an opaque token that will be attached to any subsequent notifications. The receiver is not obligated to provide these notifications.
-     */
-    progressToken: z.optional(ProgressTokenSchema),
-  })
-  .passthrough();
-
-const BaseRequestParamsSchema = z
-  .object({
-    _meta: z.optional(RequestMetaSchema),
-  })
-  .passthrough();
-
-export const RequestSchema = z.object({
-  method: z.string(),
-  params: z.optional(BaseRequestParamsSchema),
-});
-
-const BaseNotificationParamsSchema = z
-  .object({
-    /**
-     * This parameter name is reserved by MCP to allow clients and servers to attach additional metadata to their notifications.
-     */
-    _meta: z.optional(z.object({}).passthrough()),
-  })
-  .passthrough();
-
-export const NotificationSchema = z.object({
-  method: z.string(),
-  params: z.optional(BaseNotificationParamsSchema),
-});
-
-export const ResultSchema = z
-  .object({
-    /**
-     * This result property is reserved by the protocol to allow clients and servers to attach additional metadata to their responses.
-     */
-    _meta: z.optional(z.object({}).passthrough()),
-  })
-  .passthrough();
-
-/**
- * A uniquely identifying ID for a request in JSON-RPC.
- */
-export const RequestIdSchema = z.union([z.string(), z.number().int()]);
-
-/**
- * A request that expects a response.
- */
-export const JSONRPCRequestSchema = z
-  .object({
-    jsonrpc: z.literal(JSONRPC_VERSION),
-    id: RequestIdSchema,
-  })
-  .merge(RequestSchema)
-  .strict();
-
-export const isJSONRPCRequest = (value: unknown): value is JSONRPCRequest =>
-  JSONRPCRequestSchema.safeParse(value).success;
-
-/**
- * A notification which does not expect a response.
- */
-export const JSONRPCNotificationSchema = z
-  .object({
-    jsonrpc: z.literal(JSONRPC_VERSION),
-  })
-  .merge(NotificationSchema)
-  .strict();
-
-export const isJSONRPCNotification = (
-  value: unknown
-): value is JSONRPCNotification =>
-  JSONRPCNotificationSchema.safeParse(value).success;
-
-/**
- * A successful (non-error) response to a request.
- */
-export const JSONRPCResponseSchema = z
-  .object({
-    jsonrpc: z.literal(JSONRPC_VERSION),
-    id: RequestIdSchema,
-    result: ResultSchema,
-  })
-  .strict();
-
-export const isJSONRPCResponse = (value: unknown): value is JSONRPCResponse =>
-  JSONRPCResponseSchema.safeParse(value).success;
-
-/**
- * Error codes defined by the JSON-RPC specification.
- */
-export enum ErrorCode {
-  // SDK error codes
-  ConnectionClosed = -32000,
-  RequestTimeout = -32001,
-
-  // Standard JSON-RPC error codes
-  ParseError = -32700,
-  InvalidRequest = -32600,
-  MethodNotFound = -32601,
-  InvalidParams = -32602,
-  InternalError = -32603,
-}
-
-/**
- * A response to a request that indicates an error occurred.
- */
-export const JSONRPCErrorSchema = z
-  .object({
-    jsonrpc: z.literal(JSONRPC_VERSION),
-    id: RequestIdSchema,
-    error: z.object({
-      /**
-       * The error type that occurred.
-       */
-      code: z.number().int(),
-      /**
-       * A short description of the error. The message SHOULD be limited to a concise single sentence.
-       */
-      message: z.string(),
-      /**
-       * Additional information about the error. The value of this member is defined by the sender (e.g. detailed error information, nested errors etc.).
-       */
-      data: z.optional(z.unknown()),
-    }),
-  })
-  .strict();
-
-export const isJSONRPCError = (value: unknown): value is JSONRPCError =>
-  JSONRPCErrorSchema.safeParse(value).success;
-
-export const JSONRPCMessageSchema = z.union([
-  JSONRPCRequestSchema,
-  JSONRPCNotificationSchema,
-  JSONRPCResponseSchema,
-  JSONRPCErrorSchema,
-]);
-
-/* Empty result */
-/**
- * A response that indicates success but carries no data.
- */
-export const EmptyResultSchema = ResultSchema.strict();
-
-/* Cancellation */
-/**
- * This notification can be sent by either side to indicate that it is cancelling a previously-issued request.
- *
- * The request SHOULD still be in-flight, but due to communication latency, it is always possible that this notification MAY arrive after the request has already finished.
- *
- * This notification indicates that the result will be unused, so any associated processing SHOULD cease.
- *
- * A client MUST NOT attempt to cancel its `initialize` request.
- */
-export const CancelledNotificationSchema = NotificationSchema.extend({
-  method: z.literal("notifications/cancelled"),
-  params: BaseNotificationParamsSchema.extend({
-    /**
-     * The ID of the request to cancel.
-     *
-     * This MUST correspond to the ID of a request previously issued in the same direction.
-     */
-    requestId: RequestIdSchema,
-
-    /**
-     * An optional string describing the reason for the cancellation. This MAY be logged or presented to the user.
-     */
-    reason: z.string().optional(),
-  }),
-});
-
-/* Initialization */
-/**
- * Describes the name and version of an MCP implementation.
- */
-export const ImplementationSchema = z
-  .object({
-    name: z.string(),
-    version: z.string(),
-  })
-  .passthrough();
-
-/**
- * Capabilities a client may support. Known capabilities are defined here, in this schema, but this is not a closed set: any client can define its own, additional capabilities.
- */
-export const ClientCapabilitiesSchema = z
-  .object({
-    /**
-     * Experimental, non-standard capabilities that the client supports.
-     */
-    experimental: z.optional(z.object({}).passthrough()),
-    /**
-     * Present if the client supports sampling from an LLM.
-     */
-    sampling: z.optional(z.object({}).passthrough()),
-    /**
-     * Present if the client supports listing roots.
-     */
-    roots: z.optional(
-      z
-        .object({
-          /**
-           * Whether the client supports issuing notifications for changes to the roots list.
-           */
-          listChanged: z.optional(z.boolean()),
-        })
-        .passthrough(),
-    ),
-  })
-  .passthrough();
-
-/**
- * This request is sent from the client to the server when it first connects, asking it to begin initialization.
- */
-export const InitializeRequestSchema = RequestSchema.extend({
-  method: z.literal("initialize"),
-  params: BaseRequestParamsSchema.extend({
-    /**
-     * The latest version of the Model Context Protocol that the client supports. The client MAY decide to support older versions as well.
-     */
-    protocolVersion: z.string(),
-    capabilities: ClientCapabilitiesSchema,
-    clientInfo: ImplementationSchema,
-  }),
-});
-
-export const isInitializeRequest = (value: unknown): value is InitializeRequest =>
-  InitializeRequestSchema.safeParse(value).success;
-
-
-/**
- * Capabilities that a server may support. Known capabilities are defined here, in this schema, but this is not a closed set: any server can define its own, additional capabilities.
- */
-export const ServerCapabilitiesSchema = z
-  .object({
-    /**
-     * Experimental, non-standard capabilities that the server supports.
-     */
-    experimental: z.optional(z.object({}).passthrough()),
-    /**
-     * Present if the server supports sending log messages to the client.
-     */
-    logging: z.optional(z.object({}).passthrough()),
-    /**
-     * Present if the server supports sending completions to the client.
-     */
-    completions: z.optional(z.object({}).passthrough()),
-    /**
-     * Present if the server offers any prompt templates.
-     */
-    prompts: z.optional(
-      z
-        .object({
-          /**
-           * Whether this server supports issuing notifications for changes to the prompt list.
-           */
-          listChanged: z.optional(z.boolean()),
-        })
-        .passthrough(),
-    ),
-    /**
-     * Present if the server offers any resources to read.
-     */
-    resources: z.optional(
-      z
-        .object({
-          /**
-           * Whether this server supports clients subscribing to resource updates.
-           */
-          subscribe: z.optional(z.boolean()),
-
-          /**
-           * Whether this server supports issuing notifications for changes to the resource list.
-           */
-          listChanged: z.optional(z.boolean()),
-        })
-        .passthrough(),
-    ),
-    /**
-     * Present if the server offers any tools to call.
-     */
-    tools: z.optional(
-      z
-        .object({
-          /**
-           * Whether this server supports issuing notifications for changes to the tool list.
-           */
-          listChanged: z.optional(z.boolean()),
-        })
-        .passthrough(),
-    ),
-  })
-  .passthrough();
-
-/**
- * After receiving an initialize request from the client, the server sends this response.
- */
-export const InitializeResultSchema = ResultSchema.extend({
-  /**
-   * The version of the Model Context Protocol that the server wants to use. This may not match the version that the client requested. If the client cannot support this version, it MUST disconnect.
-   */
-  protocolVersion: z.string(),
-  capabilities: ServerCapabilitiesSchema,
-  serverInfo: ImplementationSchema,
-  /**
-   * Instructions describing how to use the server and its features.
-   *
-   * This can be used by clients to improve the LLM's understanding of available tools, resources, etc. It can be thought of like a "hint" to the model. For example, this information MAY be added to the system prompt.
-   */
-  instructions: z.optional(z.string()),
-});
-
-/**
- * This notification is sent from the client to the server after initialization has finished.
- */
-export const InitializedNotificationSchema = NotificationSchema.extend({
-  method: z.literal("notifications/initialized"),
-});
-
-export const isInitializedNotification = (value: unknown): value is InitializedNotification =>
-  InitializedNotificationSchema.safeParse(value).success;
-
-/* Ping */
-/**
- * A ping, issued by either the server or the client, to check that the other party is still alive. The receiver must promptly respond, or else may be disconnected.
- */
-export const PingRequestSchema = RequestSchema.extend({
-  method: z.literal("ping"),
-});
-
-/* Progress notifications */
-export const ProgressSchema = z
-  .object({
-    /**
-     * The progress thus far. This should increase every time progress is made, even if the total is unknown.
-     */
-    progress: z.number(),
-    /**
-     * Total number of items to process (or total progress required), if known.
-     */
-    total: z.optional(z.number()),
-    /**
-     * An optional message describing the current progress.
-     */
-    message: z.optional(z.string()),
-  })
-  .passthrough();
-
-/**
- * An out-of-band notification used to inform the receiver of a progress update for a long-running request.
- */
-export const ProgressNotificationSchema = NotificationSchema.extend({
-  method: z.literal("notifications/progress"),
-  params: BaseNotificationParamsSchema.merge(ProgressSchema).extend({
-    /**
-     * The progress token which was given in the initial request, used to associate this notification with the request that is proceeding.
-     */
-    progressToken: ProgressTokenSchema,
-  }),
-});
-
-/* Pagination */
-export const PaginatedRequestSchema = RequestSchema.extend({
-  params: BaseRequestParamsSchema.extend({
-    /**
-     * An opaque token representing the current pagination position.
-     * If provided, the server should return results starting after this cursor.
-     */
-    cursor: z.optional(CursorSchema),
-  }).optional(),
-});
-
-export const PaginatedResultSchema = ResultSchema.extend({
-  /**
-   * An opaque token representing the pagination position after the last returned result.
-   * If present, there may be more results available.
-   */
-  nextCursor: z.optional(CursorSchema),
-});
-
-/* Resources */
-/**
- * The contents of a specific resource or sub-resource.
- */
-export const ResourceContentsSchema = z
-  .object({
-    /**
-     * The URI of this resource.
-     */
-    uri: z.string(),
-    /**
-     * The MIME type of this resource, if known.
-     */
-    mimeType: z.optional(z.string()),
-  })
-  .passthrough();
-
-export const TextResourceContentsSchema = ResourceContentsSchema.extend({
-  /**
-   * The text of the item. This must only be set if the item can actually be represented as text (not binary data).
-   */
-  text: z.string(),
-});
-
-export const BlobResourceContentsSchema = ResourceContentsSchema.extend({
-  /**
-   * A base64-encoded string representing the binary data of the item.
-   */
-  blob: z.string().base64(),
-});
-
-/**
- * A known resource that the server is capable of reading.
- */
-export const ResourceSchema = z
-  .object({
-    /**
-     * The URI of this resource.
-     */
-    uri: z.string(),
-
-    /**
-     * A human-readable name for this resource.
-     *
-     * This can be used by clients to populate UI elements.
-     */
-    name: z.string(),
-
-    /**
-     * A description of what this resource represents.
-     *
-     * This can be used by clients to improve the LLM's understanding of available resources. It can be thought of like a "hint" to the model.
-     */
-    description: z.optional(z.string()),
-
-    /**
-     * The MIME type of this resource, if known.
-     */
-    mimeType: z.optional(z.string()),
-  })
-  .passthrough();
-
-/**
- * A template description for resources available on the server.
- */
-export const ResourceTemplateSchema = z
-  .object({
-    /**
-     * A URI template (according to RFC 6570) that can be used to construct resource URIs.
-     */
-    uriTemplate: z.string(),
-
-    /**
-     * A human-readable name for the type of resource this template refers to.
-     *
-     * This can be used by clients to populate UI elements.
-     */
-    name: z.string(),
-
-    /**
-     * A description of what this template is for.
-     *
-     * This can be used by clients to improve the LLM's understanding of available resources. It can be thought of like a "hint" to the model.
-     */
-    description: z.optional(z.string()),
-
-    /**
-     * The MIME type for all resources that match this template. This should only be included if all resources matching this template have the same type.
-     */
-    mimeType: z.optional(z.string()),
-  })
-  .passthrough();
-
-/**
- * Sent from the client to request a list of resources the server has.
- */
-export const ListResourcesRequestSchema = PaginatedRequestSchema.extend({
-  method: z.literal("resources/list"),
-});
-
-/**
- * The server's response to a resources/list request from the client.
- */
-export const ListResourcesResultSchema = PaginatedResultSchema.extend({
-  resources: z.array(ResourceSchema),
-});
-
-/**
- * Sent from the client to request a list of resource templates the server has.
- */
-export const ListResourceTemplatesRequestSchema = PaginatedRequestSchema.extend(
-  {
-    method: z.literal("resources/templates/list"),
-  },
-);
-
-/**
- * The server's response to a resources/templates/list request from the client.
- */
-export const ListResourceTemplatesResultSchema = PaginatedResultSchema.extend({
-  resourceTemplates: z.array(ResourceTemplateSchema),
-});
-
-/**
- * Sent from the client to the server, to read a specific resource URI.
- */
-export const ReadResourceRequestSchema = RequestSchema.extend({
-  method: z.literal("resources/read"),
-  params: BaseRequestParamsSchema.extend({
-    /**
-     * The URI of the resource to read. The URI can use any protocol; it is up to the server how to interpret it.
-     */
-    uri: z.string(),
-  }),
-});
-
-/**
- * The server's response to a resources/read request from the client.
- */
-export const ReadResourceResultSchema = ResultSchema.extend({
-  contents: z.array(
-    z.union([TextResourceContentsSchema, BlobResourceContentsSchema]),
-  ),
-});
-
-/**
- * An optional notification from the server to the client, informing it that the list of resources it can read from has changed. This may be issued by servers without any previous subscription from the client.
- */
-export const ResourceListChangedNotificationSchema = NotificationSchema.extend({
-  method: z.literal("notifications/resources/list_changed"),
-});
-
-/**
- * Sent from the client to request resources/updated notifications from the server whenever a particular resource changes.
- */
-export const SubscribeRequestSchema = RequestSchema.extend({
-  method: z.literal("resources/subscribe"),
-  params: BaseRequestParamsSchema.extend({
-    /**
-     * The URI of the resource to subscribe to. The URI can use any protocol; it is up to the server how to interpret it.
-     */
-    uri: z.string(),
-  }),
-});
-
-/**
- * Sent from the client to request cancellation of resources/updated notifications from the server. This should follow a previous resources/subscribe request.
- */
-export const UnsubscribeRequestSchema = RequestSchema.extend({
-  method: z.literal("resources/unsubscribe"),
-  params: BaseRequestParamsSchema.extend({
-    /**
-     * The URI of the resource to unsubscribe from.
-     */
-    uri: z.string(),
-  }),
-});
-
-/**
- * A notification from the server to the client, informing it that a resource has changed and may need to be read again. This should only be sent if the client previously sent a resources/subscribe request.
- */
-export const ResourceUpdatedNotificationSchema = NotificationSchema.extend({
-  method: z.literal("notifications/resources/updated"),
-  params: BaseNotificationParamsSchema.extend({
-    /**
-     * The URI of the resource that has been updated. This might be a sub-resource of the one that the client actually subscribed to.
-     */
-    uri: z.string(),
-  }),
-});
-
-/* Prompts */
-/**
- * Describes an argument that a prompt can accept.
- */
-export const PromptArgumentSchema = z
-  .object({
-    /**
-     * The name of the argument.
-     */
-    name: z.string(),
-    /**
-     * A human-readable description of the argument.
-     */
-    description: z.optional(z.string()),
-    /**
-     * Whether this argument must be provided.
-     */
-    required: z.optional(z.boolean()),
-  })
-  .passthrough();
-
-/**
- * A prompt or prompt template that the server offers.
- */
-export const PromptSchema = z
-  .object({
-    /**
-     * The name of the prompt or prompt template.
-     */
-    name: z.string(),
-    /**
-     * An optional description of what this prompt provides
-     */
-    description: z.optional(z.string()),
-    /**
-     * A list of arguments to use for templating the prompt.
-     */
-    arguments: z.optional(z.array(PromptArgumentSchema)),
-  })
-  .passthrough();
-
-/**
- * Sent from the client to request a list of prompts and prompt templates the server has.
- */
-export const ListPromptsRequestSchema = PaginatedRequestSchema.extend({
-  method: z.literal("prompts/list"),
-});
-
-/**
- * The server's response to a prompts/list request from the client.
- */
-export const ListPromptsResultSchema = PaginatedResultSchema.extend({
-  prompts: z.array(PromptSchema),
-});
-
-/**
- * Used by the client to get a prompt provided by the server.
- */
-export const GetPromptRequestSchema = RequestSchema.extend({
-  method: z.literal("prompts/get"),
-  params: BaseRequestParamsSchema.extend({
-    /**
-     * The name of the prompt or prompt template.
-     */
-    name: z.string(),
-    /**
-     * Arguments to use for templating the prompt.
-     */
-    arguments: z.optional(z.record(z.string())),
-  }),
-});
-
-/**
- * Text provided to or from an LLM.
- */
-export const TextContentSchema = z
-  .object({
-    type: z.literal("text"),
-    /**
-     * The text content of the message.
-     */
-    text: z.string(),
-  })
-  .passthrough();
-
-/**
- * An image provided to or from an LLM.
- */
-export const ImageContentSchema = z
-  .object({
-    type: z.literal("image"),
-    /**
-     * The base64-encoded image data.
-     */
-    data: z.string().base64(),
-    /**
-     * The MIME type of the image. Different providers may support different image types.
-     */
-    mimeType: z.string(),
-  })
-  .passthrough();
-
-/**
- * An Audio provided to or from an LLM.
- */
-export const AudioContentSchema = z
-  .object({
-    type: z.literal("audio"),
-    /**
-     * The base64-encoded audio data.
-     */
-    data: z.string().base64(),
-    /**
-     * The MIME type of the audio. Different providers may support different audio types.
-     */
-    mimeType: z.string(),
-  })
-  .passthrough();
-
-/**
- * The contents of a resource, embedded into a prompt or tool call result.
- */
-export const EmbeddedResourceSchema = z
-  .object({
-    type: z.literal("resource"),
-    resource: z.union([TextResourceContentsSchema, BlobResourceContentsSchema]),
-  })
-  .passthrough();
-
-/**
- * Describes a message returned as part of a prompt.
- */
-export const PromptMessageSchema = z
-  .object({
-    role: z.enum(["user", "assistant"]),
-    content: z.union([
-      TextContentSchema,
-      ImageContentSchema,
-      AudioContentSchema,
-      EmbeddedResourceSchema,
-    ]),
-  })
-  .passthrough();
-
-/**
- * The server's response to a prompts/get request from the client.
- */
-export const GetPromptResultSchema = ResultSchema.extend({
-  /**
-   * An optional description for the prompt.
-   */
-  description: z.optional(z.string()),
-  messages: z.array(PromptMessageSchema),
-});
-
-/**
- * An optional notification from the server to the client, informing it that the list of prompts it offers has changed. This may be issued by servers without any previous subscription from the client.
- */
-export const PromptListChangedNotificationSchema = NotificationSchema.extend({
-  method: z.literal("notifications/prompts/list_changed"),
-});
-
-/* Tools */
-/**
- * Additional properties describing a Tool to clients.
- *
- * NOTE: all properties in ToolAnnotations are **hints**.
- * They are not guaranteed to provide a faithful description of
- * tool behavior (including descriptive properties like `title`).
- *
- * Clients should never make tool use decisions based on ToolAnnotations
- * received from untrusted servers.
- */
-export const ToolAnnotationsSchema = z
-  .object({
-    /**
-     * A human-readable title for the tool.
-     */
-    title: z.optional(z.string()),
-
-    /**
-     * If true, the tool does not modify its environment.
-     *
-     * Default: false
-     */
-    readOnlyHint: z.optional(z.boolean()),
-
-    /**
-     * If true, the tool may perform destructive updates to its environment.
-     * If false, the tool performs only additive updates.
-     *
-     * (This property is meaningful only when `readOnlyHint == false`)
-     *
-     * Default: true
-     */
-    destructiveHint: z.optional(z.boolean()),
-
-    /**
-     * If true, calling the tool repeatedly with the same arguments
-     * will have no additional effect on the its environment.
-     *
-     * (This property is meaningful only when `readOnlyHint == false`)
-     *
-     * Default: false
-     */
-    idempotentHint: z.optional(z.boolean()),
-
-    /**
-     * If true, this tool may interact with an "open world" of external
-     * entities. If false, the tool's domain of interaction is closed.
-     * For example, the world of a web search tool is open, whereas that
-     * of a memory tool is not.
-     *
-     * Default: true
-     */
-    openWorldHint: z.optional(z.boolean()),
-  })
-  .passthrough();
-
-/**
- * Definition for a tool the client can call.
- */
-export const ToolSchema = z
-  .object({
-    /**
-     * The name of the tool.
-     */
-    name: z.string(),
-    /**
-     * A human-readable description of the tool.
-     */
-    description: z.optional(z.string()),
-    /**
-     * A JSON Schema object defining the expected parameters for the tool.
-     */
-    inputSchema: z
-      .object({
-        type: z.literal("object"),
-        properties: z.optional(z.object({}).passthrough()),
-        required: z.optional(z.array(z.string())),
-      })
-      .passthrough(),
-    /**
-     * An optional JSON Schema object defining the structure of the tool's output returned in 
-     * the structuredContent field of a CallToolResult.
-     */
-    outputSchema: z.optional(
-      z.object({
-        type: z.literal("object"),
-        properties: z.optional(z.object({}).passthrough()),
-        required: z.optional(z.array(z.string())),
-      })
-      .passthrough()
-    ),
-    /**
-     * Optional additional tool information.
-     */
-    annotations: z.optional(ToolAnnotationsSchema),
-  })
-  .passthrough();
-
-/**
- * Sent from the client to request a list of tools the server has.
- */
-export const ListToolsRequestSchema = PaginatedRequestSchema.extend({
-  method: z.literal("tools/list"),
-});
-
-/**
- * The server's response to a tools/list request from the client.
- */
-export const ListToolsResultSchema = PaginatedResultSchema.extend({
-  tools: z.array(ToolSchema),
-});
-
-/**
- * The server's response to a tool call.
- */
-export const CallToolResultSchema = ResultSchema.extend({
-  /**
-   * A list of content objects that represent the result of the tool call.
-   *
-   * If the Tool does not define an outputSchema, this field MUST be present in the result.
-   * For backwards compatibility, this field is always present, but it may be empty.
-   */
-  content: z.array(
-    z.union([
-      TextContentSchema,
-      ImageContentSchema,
-      AudioContentSchema,
-      EmbeddedResourceSchema,
-    ])).default([]),
-
-  /**
-   * An object containing structured tool output.
-   *
-   * If the Tool defines an outputSchema, this field MUST be present in the result, and contain a JSON object that matches the schema.
-   */
-  structuredContent: z.object({}).passthrough().optional(),
-
-  /**
-   * Whether the tool call ended in an error.
-   *
-   * If not set, this is assumed to be false (the call was successful).
-   *
-   * Any errors that originate from the tool SHOULD be reported inside the result
-   * object, with `isError` set to true, _not_ as an MCP protocol-level error
-   * response. Otherwise, the LLM would not be able to see that an error occurred
-   * and self-correct.
-   *
-   * However, any errors in _finding_ the tool, an error indicating that the
-   * server does not support tool calls, or any other exceptional conditions,
-   * should be reported as an MCP error response.
-   */
-  isError: z.optional(z.boolean()),
-});
-
-/**
- * CallToolResultSchema extended with backwards compatibility to protocol version 2024-10-07.
- */
-export const CompatibilityCallToolResultSchema = CallToolResultSchema.or(
-  ResultSchema.extend({
-    toolResult: z.unknown(),
-  }),
-);
-
-/**
- * Used by the client to invoke a tool provided by the server.
- */
-export const CallToolRequestSchema = RequestSchema.extend({
-  method: z.literal("tools/call"),
-  params: BaseRequestParamsSchema.extend({
-    name: z.string(),
-    arguments: z.optional(z.record(z.unknown())),
-  }),
-});
-
-/**
- * An optional notification from the server to the client, informing it that the list of tools it offers has changed. This may be issued by servers without any previous subscription from the client.
- */
-export const ToolListChangedNotificationSchema = NotificationSchema.extend({
-  method: z.literal("notifications/tools/list_changed"),
-});
-
-/* Logging */
-/**
- * The severity of a log message.
- */
-export const LoggingLevelSchema = z.enum([
-  "debug",
-  "info",
-  "notice",
-  "warning",
-  "error",
-  "critical",
-  "alert",
-  "emergency",
-]);
-
-/**
- * A request from the client to the server, to enable or adjust logging.
- */
-export const SetLevelRequestSchema = RequestSchema.extend({
-  method: z.literal("logging/setLevel"),
-  params: BaseRequestParamsSchema.extend({
-    /**
-     * The level of logging that the client wants to receive from the server. The server should send all logs at this level and higher (i.e., more severe) to the client as notifications/logging/message.
-     */
-    level: LoggingLevelSchema,
-  }),
-});
-
-/**
- * Notification of a log message passed from server to client. If no logging/setLevel request has been sent from the client, the server MAY decide which messages to send automatically.
- */
-export const LoggingMessageNotificationSchema = NotificationSchema.extend({
-  method: z.literal("notifications/message"),
-  params: BaseNotificationParamsSchema.extend({
-    /**
-     * The severity of this log message.
-     */
-    level: LoggingLevelSchema,
-    /**
-     * An optional name of the logger issuing this message.
-     */
-    logger: z.optional(z.string()),
-    /**
-     * The data to be logged, such as a string message or an object. Any JSON serializable type is allowed here.
-     */
-    data: z.unknown(),
-  }),
-});
-
-/* Sampling */
-/**
- * Hints to use for model selection.
- */
-export const ModelHintSchema = z
-  .object({
-    /**
-     * A hint for a model name.
-     */
-    name: z.string().optional(),
-  })
-  .passthrough();
-
-/**
- * The server's preferences for model selection, requested of the client during sampling.
- */
-export const ModelPreferencesSchema = z
-  .object({
-    /**
-     * Optional hints to use for model selection.
-     */
-    hints: z.optional(z.array(ModelHintSchema)),
-    /**
-     * How much to prioritize cost when selecting a model.
-     */
-    costPriority: z.optional(z.number().min(0).max(1)),
-    /**
-     * How much to prioritize sampling speed (latency) when selecting a model.
-     */
-    speedPriority: z.optional(z.number().min(0).max(1)),
-    /**
-     * How much to prioritize intelligence and capabilities when selecting a model.
-     */
-    intelligencePriority: z.optional(z.number().min(0).max(1)),
-  })
-  .passthrough();
-
-/**
- * Describes a message issued to or received from an LLM API.
- */
-export const SamplingMessageSchema = z
-  .object({
-    role: z.enum(["user", "assistant"]),
-    content: z.union([TextContentSchema, ImageContentSchema, AudioContentSchema]),
-  })
-  .passthrough();
-
-/**
- * A request from the server to sample an LLM via the client. The client has full discretion over which model to select. The client should also inform the user before beginning sampling, to allow them to inspect the request (human in the loop) and decide whether to approve it.
- */
-export const CreateMessageRequestSchema = RequestSchema.extend({
-  method: z.literal("sampling/createMessage"),
-  params: BaseRequestParamsSchema.extend({
-    messages: z.array(SamplingMessageSchema),
-    /**
-     * An optional system prompt the server wants to use for sampling. The client MAY modify or omit this prompt.
-     */
-    systemPrompt: z.optional(z.string()),
-    /**
-     * A request to include context from one or more MCP servers (including the caller), to be attached to the prompt. The client MAY ignore this request.
-     */
-    includeContext: z.optional(z.enum(["none", "thisServer", "allServers"])),
-    temperature: z.optional(z.number()),
-    /**
-     * The maximum number of tokens to sample, as requested by the server. The client MAY choose to sample fewer tokens than requested.
-     */
-    maxTokens: z.number().int(),
-    stopSequences: z.optional(z.array(z.string())),
-    /**
-     * Optional metadata to pass through to the LLM provider. The format of this metadata is provider-specific.
-     */
-    metadata: z.optional(z.object({}).passthrough()),
-    /**
-     * The server's preferences for which model to select.
-     */
-    modelPreferences: z.optional(ModelPreferencesSchema),
-  }),
-});
-
-/**
- * The client's response to a sampling/create_message request from the server. The client should inform the user before returning the sampled message, to allow them to inspect the response (human in the loop) and decide whether to allow the server to see it.
- */
-export const CreateMessageResultSchema = ResultSchema.extend({
-  /**
-   * The name of the model that generated the message.
-   */
-  model: z.string(),
-  /**
-   * The reason why sampling stopped.
-   */
-  stopReason: z.optional(
-    z.enum(["endTurn", "stopSequence", "maxTokens"]).or(z.string()),
-  ),
-  role: z.enum(["user", "assistant"]),
-  content: z.discriminatedUnion("type", [
-    TextContentSchema,
-    ImageContentSchema,
-    AudioContentSchema
-  ]),
-});
-
-/* Autocomplete */
-/**
- * A reference to a resource or resource template definition.
- */
-export const ResourceReferenceSchema = z
-  .object({
-    type: z.literal("ref/resource"),
-    /**
-     * The URI or URI template of the resource.
-     */
-    uri: z.string(),
-  })
-  .passthrough();
-
-/**
- * Identifies a prompt.
- */
-export const PromptReferenceSchema = z
-  .object({
-    type: z.literal("ref/prompt"),
-    /**
-     * The name of the prompt or prompt template
-     */
-    name: z.string(),
-  })
-  .passthrough();
-
-/**
- * A request from the client to the server, to ask for completion options.
- */
-export const CompleteRequestSchema = RequestSchema.extend({
-  method: z.literal("completion/complete"),
-  params: BaseRequestParamsSchema.extend({
-    ref: z.union([PromptReferenceSchema, ResourceReferenceSchema]),
-    /**
-     * The argument's information
-     */
-    argument: z
-      .object({
-        /**
-         * The name of the argument
-         */
-        name: z.string(),
-        /**
-         * The value of the argument to use for completion matching.
-         */
-        value: z.string(),
-      })
-      .passthrough(),
-  }),
-});
-
-/**
- * The server's response to a completion/complete request
- */
-export const CompleteResultSchema = ResultSchema.extend({
-  completion: z
-    .object({
-      /**
-       * An array of completion values. Must not exceed 100 items.
-       */
-      values: z.array(z.string()).max(100),
-      /**
-       * The total number of completion options available. This can exceed the number of values actually sent in the response.
-       */
-      total: z.optional(z.number().int()),
-      /**
-       * Indicates whether there are additional completion options beyond those provided in the current response, even if the exact total is unknown.
-       */
-      hasMore: z.optional(z.boolean()),
-    })
-    .passthrough(),
-});
-
-/* Roots */
-/**
- * Represents a root directory or file that the server can operate on.
- */
-export const RootSchema = z
-  .object({
-    /**
-     * The URI identifying the root. This *must* start with file:// for now.
-     */
-    uri: z.string().startsWith("file://"),
-    /**
-     * An optional name for the root.
-     */
-    name: z.optional(z.string()),
-  })
-  .passthrough();
-
-/**
- * Sent from the server to request a list of root URIs from the client.
- */
-export const ListRootsRequestSchema = RequestSchema.extend({
-  method: z.literal("roots/list"),
-});
-
-/**
- * The client's response to a roots/list request from the server.
- */
-export const ListRootsResultSchema = ResultSchema.extend({
-  roots: z.array(RootSchema),
-});
-
-/**
- * A notification from the client to the server, informing it that the list of roots has changed.
- */
-export const RootsListChangedNotificationSchema = NotificationSchema.extend({
-  method: z.literal("notifications/roots/list_changed"),
-});
-
-/* Client messages */
-export const ClientRequestSchema = z.union([
-  PingRequestSchema,
-  InitializeRequestSchema,
-  CompleteRequestSchema,
-  SetLevelRequestSchema,
-  GetPromptRequestSchema,
-  ListPromptsRequestSchema,
-  ListResourcesRequestSchema,
-  ListResourceTemplatesRequestSchema,
-  ReadResourceRequestSchema,
-  SubscribeRequestSchema,
-  UnsubscribeRequestSchema,
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-]);
-
-export const ClientNotificationSchema = z.union([
-  CancelledNotificationSchema,
-  ProgressNotificationSchema,
-  InitializedNotificationSchema,
-  RootsListChangedNotificationSchema,
-]);
-
-export const ClientResultSchema = z.union([
-  EmptyResultSchema,
-  CreateMessageResultSchema,
-  ListRootsResultSchema,
-]);
-
-/* Server messages */
-export const ServerRequestSchema = z.union([
-  PingRequestSchema,
-  CreateMessageRequestSchema,
-  ListRootsRequestSchema,
-]);
-
-export const ServerNotificationSchema = z.union([
-  CancelledNotificationSchema,
-  ProgressNotificationSchema,
-  LoggingMessageNotificationSchema,
-  ResourceUpdatedNotificationSchema,
-  ResourceListChangedNotificationSchema,
-  ToolListChangedNotificationSchema,
-  PromptListChangedNotificationSchema,
-]);
-
-export const ServerResultSchema = z.union([
-  EmptyResultSchema,
-  InitializeResultSchema,
-  CompleteResultSchema,
-  GetPromptResultSchema,
-  ListPromptsResultSchema,
-  ListResourcesResultSchema,
-  ListResourceTemplatesResultSchema,
-  ReadResourceResultSchema,
-  CallToolResultSchema,
-  ListToolsResultSchema,
-]);
-
-export class McpError extends Error {
-  constructor(
-    public readonly code: number,
-    message: string,
-    public readonly data?: unknown,
-  ) {
-    super(`MCP error ${code}: ${message}`);
-    this.name = "McpError";
+## mcp
+
+> TITLE: Implement Transport Error Handling in TypeScript and Python
+
+TITLE: Implement Transport Error Handling in TypeScript and Python
+DESCRIPTION: This code snippet illustrates how to incorporate comprehensive error handling within transport implementations. It demonstrates catching exceptions during connection establishment and message transmission, logging errors, and ensuring proper resource cleanup using `try-catch` blocks and context managers.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/docs/concepts/transports.mdx#_snippet_4
+
+LANGUAGE: TypeScript
+CODE:
+```
+class ExampleTransport implements Transport {
+  async start() {
+    try {
+      // Connection logic
+    } catch (error) {
+      this.onerror?.(new Error(`Failed to connect: ${error}`));
+      throw error;
+    }
+  }
+
+  async send(message: JSONRPCMessage) {
+    try {
+      // Sending logic
+    } catch (error) {
+      this.onerror?.(new Error(`Failed to send message: ${error}`));
+      throw error;
+    }
   }
 }
+```
 
-type Primitive = string | number | boolean | bigint | null | undefined;
-type Flatten<T> = T extends Primitive
-  ? T
-  : T extends Array<infer U>
-  ? Array<Flatten<U>>
-  : T extends Set<infer U>
-  ? Set<Flatten<U>>
-  : T extends Map<infer K, infer V>
-  ? Map<Flatten<K>, Flatten<V>>
-  : T extends object
-  ? { [K in keyof T]: Flatten<T[K]> }
-  : T;
+LANGUAGE: Python
+CODE:
+```
+@contextmanager
+async def example_transport(scope: Scope, receive: Receive, send: Send):
+    try:
+        # Create streams for bidirectional communication
+        read_stream_writer, read_stream = anyio.create_memory_object_stream(0)
+        write_stream, write_stream_reader = anyio.create_memory_object_stream(0)
 
-type Infer<Schema extends ZodTypeAny> = Flatten<z.infer<Schema>>;
+        async def message_handler():
+            try:
+                async with read_stream_writer:
+                    # Message handling logic
+                    pass
+            except Exception as exc:
+                logger.error(f"Failed to handle message: {exc}")
+                raise exc
 
-/* JSON-RPC types */
-export type ProgressToken = Infer<typeof ProgressTokenSchema>;
-export type Cursor = Infer<typeof CursorSchema>;
-export type Request = Infer<typeof RequestSchema>;
-export type RequestMeta = Infer<typeof RequestMetaSchema>;
-export type Notification = Infer<typeof NotificationSchema>;
-export type Result = Infer<typeof ResultSchema>;
-export type RequestId = Infer<typeof RequestIdSchema>;
-export type JSONRPCRequest = Infer<typeof JSONRPCRequestSchema>;
-export type JSONRPCNotification = Infer<typeof JSONRPCNotificationSchema>;
-export type JSONRPCResponse = Infer<typeof JSONRPCResponseSchema>;
-export type JSONRPCError = Infer<typeof JSONRPCErrorSchema>;
-export type JSONRPCMessage = Infer<typeof JSONRPCMessageSchema>;
+        async with anyio.create_task_group() as tg:
+            tg.start_soon(message_handler)
+            try:
+                # Yield streams for communication
+                yield read_stream, write_stream
+            except Exception as exc:
+                logger.error(f"Transport error: {exc}")
+                raise exc
+            finally:
+                tg.cancel_scope.cancel()
+                await write_stream.aclose()
+                await read_stream.aclose()
+    except Exception as exc:
+        logger.error(f"Failed to initialize transport: {exc}")
+        raise exc
+```
 
-/* Empty result */
-export type EmptyResult = Infer<typeof EmptyResultSchema>;
+----------------------------------------
 
-/* Cancellation */
-export type CancelledNotification = Infer<typeof CancelledNotificationSchema>;
+TITLE: Implement Tool Execution Handler with Weather API Tools (Kotlin)
+DESCRIPTION: This snippet demonstrates how to set up an HTTP client using Ktor for making requests to the weather.gov API and how to register two tools (`get_alerts` and `get_forecast`) with an MCP server. The `get_alerts` tool fetches weather alerts by state, validating the 'state' parameter. The `get_forecast` tool retrieves weather forecasts by latitude and longitude, validating both parameters. Both tools handle input validation and return `CallToolResult` with `TextContent`.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/server.mdx#_snippet_33
 
-/* Initialization */
-export type Implementation = Infer<typeof ImplementationSchema>;
-export type ClientCapabilities = Infer<typeof ClientCapabilitiesSchema>;
-export type InitializeRequest = Infer<typeof InitializeRequestSchema>;
-export type ServerCapabilities = Infer<typeof ServerCapabilitiesSchema>;
-export type InitializeResult = Infer<typeof InitializeResultSchema>;
-export type InitializedNotification = Infer<typeof InitializedNotificationSchema>;
+LANGUAGE: kotlin
+CODE:
+```
+// Create an HTTP client with a default request configuration and JSON content negotiation
+val httpClient = HttpClient {
+    defaultRequest {
+        url("https://api.weather.gov")
+        headers {
+            append("Accept", "application/geo+json")
+            append("User-Agent", "WeatherApiClient/1.0")
+        }
+        contentType(ContentType.Application.Json)
+    }
+    // Install content negotiation plugin for JSON serialization/deserialization
+    install(ContentNegotiation) { json(Json { ignoreUnknownKeys = true }) }
+}
 
-/* Ping */
-export type PingRequest = Infer<typeof PingRequestSchema>;
+// Register a tool to fetch weather alerts by state
+server.addTool(
+    name = "get_alerts",
+    description = """
+        Get weather alerts for a US state. Input is Two-letter US state code (e.g. CA, NY)
+    """.trimIndent(),
+    inputSchema = Tool.Input(
+        properties = buildJsonObject {
+            putJsonObject("state") {
+                put("type", "string")
+                put("description", "Two-letter US state code (e.g. CA, NY)")
+            }
+        },
+        required = listOf("state")
+    )
+) { request ->
+    val state = request.arguments["state"]?.jsonPrimitive?.content
+    if (state == null) {
+        return@addTool CallToolResult(
+            content = listOf(TextContent("The 'state' parameter is required."))
+        )
+    }
 
-/* Progress notifications */
-export type Progress = Infer<typeof ProgressSchema>;
-export type ProgressNotification = Infer<typeof ProgressNotificationSchema>;
+    val alerts = httpClient.getAlerts(state)
 
-/* Pagination */
-export type PaginatedRequest = Infer<typeof PaginatedRequestSchema>;
-export type PaginatedResult = Infer<typeof PaginatedResultSchema>;
+    CallToolResult(content = alerts.map { TextContent(it) })
+}
 
-/* Resources */
-export type ResourceContents = Infer<typeof ResourceContentsSchema>;
-export type TextResourceContents = Infer<typeof TextResourceContentsSchema>;
-export type BlobResourceContents = Infer<typeof BlobResourceContentsSchema>;
-export type Resource = Infer<typeof ResourceSchema>;
-export type ResourceTemplate = Infer<typeof ResourceTemplateSchema>;
-export type ListResourcesRequest = Infer<typeof ListResourcesRequestSchema>;
-export type ListResourcesResult = Infer<typeof ListResourcesResultSchema>;
-export type ListResourceTemplatesRequest = Infer<typeof ListResourceTemplatesRequestSchema>;
-export type ListResourceTemplatesResult = Infer<typeof ListResourceTemplatesResultSchema>;
-export type ReadResourceRequest = Infer<typeof ReadResourceRequestSchema>;
-export type ReadResourceResult = Infer<typeof ReadResourceResultSchema>;
-export type ResourceListChangedNotification = Infer<typeof ResourceListChangedNotificationSchema>;
-export type SubscribeRequest = Infer<typeof SubscribeRequestSchema>;
-export type UnsubscribeRequest = Infer<typeof UnsubscribeRequestSchema>;
-export type ResourceUpdatedNotification = Infer<typeof ResourceUpdatedNotificationSchema>;
+// Register a tool to fetch weather forecast by latitude and longitude
+server.addTool(
+    name = "get_forecast",
+    description = """
+        Get weather forecast for a specific latitude/longitude
+    """.trimIndent(),
+    inputSchema = Tool.Input(
+        properties = buildJsonObject {
+            putJsonObject("latitude") { put("type", "number") }
+            putJsonObject("longitude") { put("type", "number") }
+        },
+        required = listOf("latitude", "longitude")
+    )
+) { request ->
+    val latitude = request.arguments["latitude"]?.jsonPrimitive?.doubleOrNull
+    val longitude = request.arguments["longitude"]?.jsonPrimitive?.doubleOrNull
+    if (latitude == null || longitude == null) {
+        return@addTool CallToolResult(
+            content = listOf(TextContent("The 'latitude' and 'longitude' parameters are required."))
+        )
+    }
 
-/* Prompts */
-export type PromptArgument = Infer<typeof PromptArgumentSchema>;
-export type Prompt = Infer<typeof PromptSchema>;
-export type ListPromptsRequest = Infer<typeof ListPromptsRequestSchema>;
-export type ListPromptsResult = Infer<typeof ListPromptsResultSchema>;
-export type GetPromptRequest = Infer<typeof GetPromptRequestSchema>;
-export type TextContent = Infer<typeof TextContentSchema>;
-export type ImageContent = Infer<typeof ImageContentSchema>;
-export type AudioContent = Infer<typeof AudioContentSchema>;
-export type EmbeddedResource = Infer<typeof EmbeddedResourceSchema>;
-export type PromptMessage = Infer<typeof PromptMessageSchema>;
-export type GetPromptResult = Infer<typeof GetPromptResultSchema>;
-export type PromptListChangedNotification = Infer<typeof PromptListChangedNotificationSchema>;
+    val forecast = httpClient.getForecast(latitude, longitude)
 
-/* Tools */
-export type ToolAnnotations = Infer<typeof ToolAnnotationsSchema>;
-export type Tool = Infer<typeof ToolSchema>;
-export type ListToolsRequest = Infer<typeof ListToolsRequestSchema>;
-export type ListToolsResult = Infer<typeof ListToolsResultSchema>;
-export type CallToolResult = Infer<typeof CallToolResultSchema>;
-export type CompatibilityCallToolResult = Infer<typeof CompatibilityCallToolResultSchema>;
-export type CallToolRequest = Infer<typeof CallToolRequestSchema>;
-export type ToolListChangedNotification = Infer<typeof ToolListChangedNotificationSchema>;
+    CallToolResult(content = forecast.map { TextContent(it) })
+```
 
-/* Logging */
-export type LoggingLevel = Infer<typeof LoggingLevelSchema>;
-export type SetLevelRequest = Infer<typeof SetLevelRequestSchema>;
-export type LoggingMessageNotification = Infer<typeof LoggingMessageNotificationSchema>;
+----------------------------------------
 
-/* Sampling */
-export type SamplingMessage = Infer<typeof SamplingMessageSchema>;
-export type CreateMessageRequest = Infer<typeof CreateMessageRequestSchema>;
-export type CreateMessageResult = Infer<typeof CreateMessageResultSchema>;
+TITLE: Add Core MCP SDK Dependency
+DESCRIPTION: Add the main Model Context Protocol (MCP) SDK dependency to your project. This core module provides base functionality and APIs, including default STDIO and SSE transport implementations, without requiring external web frameworks.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/sdk/java/mcp-overview.mdx#_snippet_0
 
-/* Autocomplete */
-export type ResourceReference = Infer<typeof ResourceReferenceSchema>;
-export type PromptReference = Infer<typeof PromptReferenceSchema>;
-export type CompleteRequest = Infer<typeof CompleteRequestSchema>;
-export type CompleteResult = Infer<typeof CompleteResultSchema>;
+LANGUAGE: Maven
+CODE:
+```
+<dependency>
+    <groupId>io.modelcontextprotocol.sdk</groupId>
+    <artifactId>mcp</artifactId>
+</dependency>
+```
 
-/* Roots */
-export type Root = Infer<typeof RootSchema>;
-export type ListRootsRequest = Infer<typeof ListRootsRequestSchema>;
-export type ListRootsResult = Infer<typeof ListRootsResultSchema>;
-export type RootsListChangedNotification = Infer<typeof RootsListChangedNotificationSchema>;
+LANGUAGE: Gradle
+CODE:
+```
+dependencies {
+  implementation platform("io.modelcontextprotocol.sdk:mcp")
+  //...
+}
+```
 
-/* Client messages */
-export type ClientRequest = Infer<typeof ClientRequestSchema>;
-export type ClientNotification = Infer<typeof ClientNotificationSchema>;
-export type ClientResult = Infer<typeof ClientResultSchema>;
+----------------------------------------
 
-/* Server messages */
-export type ServerRequest = Infer<typeof ServerRequestSchema>;
-export type ServerNotification = Infer<typeof ServerNotificationSchema>;
-export type ServerResult = Infer<typeof ServerResultSchema>;
+TITLE: Client `initialize` Request Example
+DESCRIPTION: Example JSON-RPC request sent by the client to initiate the Model Context Protocol session. This request includes the client's supported protocol version, its capabilities, and identifying client information.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2024-11-05/basic/lifecycle.mdx#_snippet_1
+
+LANGUAGE: json
+CODE:
+```
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2024-11-05",
+    "capabilities": {
+      "roots": {
+        "listChanged": true
+      },
+      "sampling": {}
+    },
+    "clientInfo": {
+      "name": "ExampleClient",
+      "version": "1.0.0"
+    }
+  }
+}
+```
+
+----------------------------------------
+
+TITLE: Configure Anthropic API Key
+DESCRIPTION: Instructions for securely storing the Anthropic API key in a `.env` file and adding `.env` to your `.gitignore` to prevent accidental commits of sensitive information.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/client.mdx#_snippet_12
+
+LANGUAGE: bash
+CODE:
+```
+echo "ANTHROPIC_API_KEY=<your key here>" > .env
+```
+
+LANGUAGE: bash
+CODE:
+```
+echo ".env" >> .gitignore
+```
+
+----------------------------------------
+
+TITLE: Process User Queries and Handle Tool Calls (TypeScript)
+DESCRIPTION: Implements the `processQuery` method responsible for interacting with an AI model (Anthropic's Claude) to handle user queries. It initializes messages, retrieves available tools, executes tool calls based on the model's response, and manages the conversation flow until a final text response is generated.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/tutorials/building-a-client-node.mdx#_snippet_6
+
+LANGUAGE: typescript
+CODE:
+```
+  async processQuery(query: string): Promise<string> {
+    if (!this.client) {
+      throw new Error("Client not connected");
+    }
+
+    // Initialize messages array with user query
+    let messages: Anthropic.MessageParam[] = [
+      {
+        role: "user",
+        content: query,
+      },
+    ];
+
+    // Get available tools
+    const toolsResponse = await this.client.request(
+      { method: "tools/list" },
+      ListToolsResultSchema
+    );
+
+    const availableTools = toolsResponse.tools.map((tool: any) => ({
+      name: tool.name,
+      description: tool.description,
+      input_schema: tool.inputSchema,
+    }));
+
+    const finalText: string[] = [];
+    let currentResponse = await this.anthropic.messages.create({
+      model: "claude-3-5-sonnet-20241022",
+      max_tokens: 1000,
+      messages,
+      tools: availableTools,
+    });
+
+    // Process the response and any tool calls
+    while (true) {
+      // Add Claude's response to final text and messages
+      for (const content of currentResponse.content) {
+        if (content.type === "text") {
+          finalText.push(content.text);
+        } else if (content.type === "tool_use") {
+          const toolName = content.name;
+          const toolArgs = content.input;
+
+          // Execute tool call
+          const result = await this.client.request(
+            {
+              method: "tools/call",
+              params: {
+                name: toolName,
+                arguments: toolArgs,
+              },
+            },
+            CallToolResultSchema
+          );
+
+          finalText.push(
+            `[Calling tool ${toolName} with args ${JSON.stringify(toolArgs)}]`
+          );
+
+          // Add Claude's response (including tool use) to messages
+          messages.push({
+            role: "assistant",
+            content: currentResponse.content,
+          });
+
+          // Add tool result to messages
+          messages.push({
+            role: "user",
+            content: [
+              {
+                type: "tool_result",
+                tool_use_id: content.id,
+                content: [
+                  { type: "text", text: JSON.stringify(result.content) },
+                ],
+              },
+            ],
+          });
+
+          // Get next response from Claude with tool results
+          currentResponse = await this.anthropic.messages.create({
+            model: "claude-3-5-sonnet-20241022",
+            max_tokens: 1000,
+            messages,
+            tools: availableTools,
+          });
+
+          // Add Claude's interpretation of the tool results to final text
+          if (currentResponse.content[0]?.type === "text") {
+            finalText.push(currentResponse.content[0].text);
+          }
+
+          // Continue the loop to process any additional tool calls
+          continue;
+        }
+      }
+
+      // If we reach here, there were no tool calls in the response
+      break;
+    }
+
+    return finalText.join("\n");
+  }
+```
+
+----------------------------------------
+
+TITLE: Model Context Protocol: Data Types and URI Schemes Reference
+DESCRIPTION: This section provides a detailed reference for the core data types and standard URI schemes defined in the Model Context Protocol. It outlines the properties of a 'Resource', describes how 'Resource Contents' are structured for both text and binary data, and explains the purpose and usage guidelines for 'https://', 'file://', and 'git://' URI schemes.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/draft/server/resources.mdx#_snippet_17
+
+LANGUAGE: APIDOC
+CODE:
+```
+Data Types:
+  Resource:
+    uri: string - Unique identifier for the resource
+    name: string - Human-readable name
+    description: string (optional) - Optional description
+    mimeType: string (optional) - Optional MIME type
+    size: number (optional) - Optional size in bytes
+
+  Resource Contents:
+    Description: Resources can contain either text or binary data.
+    Text Content:
+      uri: string
+      mimeType: string - "text/plain"
+      text: string - Resource content
+    Binary Content:
+      uri: string
+      mimeType: string - e.g., "image/png"
+      blob: string - base64-encoded-data
+
+Common URI Schemes:
+  https://:
+    Description: Used to represent a resource available on the web. Servers SHOULD use this scheme only when the client is able to fetch and load the resource directly from the web on its own.
+  file://:
+    Description: Used to identify resources that behave like a filesystem. Resources do not need to map to an actual physical filesystem. MCP servers MAY identify file:// resources with an XDG MIME type.
+  git://:
+    Description: Git version control integration.
+```
+
+----------------------------------------
+
+TITLE: Model Context Protocol (MCP) Architecture Diagram
+DESCRIPTION: This Mermaid diagram illustrates the client-host-server architecture of the Model Context Protocol (MCP). It shows how a single 'Application Host Process' manages multiple 'Clients', which in turn connect to various 'Servers' (local or remote) to access different resources. The diagram highlights the isolation between clients and servers and the flow of interaction.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-03-26/architecture/index.mdx#_snippet_0
+
+LANGUAGE: Mermaid
+CODE:
+```
+graph LR
+    subgraph "Application Host Process"
+        H[Host]
+        C1[Client 1]
+        C2[Client 2]
+        C3[Client 3]
+        H --> C1
+        H --> C2
+        H --> C3
+    end
+
+    subgraph "Local machine"
+        S1[Server 1<br>Files & Git]
+        S2[Server 2<br>Database]
+        R1[("Local<br>Resource A")]
+        R2[("Local<br>Resource B")]
+
+        C1 --> S1
+        C2 --> S2
+        S1 <--> R1
+        S2 <--> R2
+    end
+
+    subgraph "Internet"
+        S3[Server 3<br>External APIs]
+        R3[("Remote<br>Resource C")]
+
+        C3 --> S3
+        S3 <--> R3
+    end
+```
+
+----------------------------------------
+
+TITLE: Request LLM Generation: sampling/createMessage
+DESCRIPTION: Servers use this JSON-RPC method to request a language model generation. It includes an array of messages, optional model preferences, a system prompt, and a maximum token limit for the response.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-03-26/client/sampling.mdx#_snippet_1
+
+LANGUAGE: json
+CODE:
+```
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "sampling/createMessage",
+  "params": {
+    "messages": [
+      {
+        "role": "user",
+        "content": {
+          "type": "text",
+          "text": "What is the capital of France?"
+        }
+      }
+    ],
+    "modelPreferences": {
+      "hints": [
+        {
+          "name": "claude-3-sonnet"
+        }
+      ],
+      "intelligencePriority": 0.8,
+      "speedPriority": 0.5
+    },
+    "systemPrompt": "You are a helpful assistant.",
+    "maxTokens": 100
+  }
+}
+```
+
+----------------------------------------
+
+TITLE: Defining JSON-RPC Request Structure in TypeScript
+DESCRIPTION: This snippet defines the TypeScript interface for a JSON-RPC 2.0 request message. It specifies that requests must include a 'jsonrpc' version, a unique 'id' (string or number, but not null), a 'method' name, and an optional 'params' object for arguments. The 'id' must not have been previously used by the requestor within the same session.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-03-26/basic/index.mdx#_snippet_0
+
+LANGUAGE: TypeScript
+CODE:
+```
+{
+  jsonrpc: "2.0";
+  id: string | number;
+  method: string;
+  params?: {
+    [key: string]: unknown;
+  };
+}
+```
+
+----------------------------------------
+
+TITLE: Model Context Protocol Lifecycle Diagram
+DESCRIPTION: Illustrates the three main phases of the Model Context Protocol (MCP) connection lifecycle: Initialization, Operation, and Shutdown, showing the sequence of interactions between the client and server.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2024-11-05/basic/lifecycle.mdx#_snippet_0
+
+LANGUAGE: mermaid
+CODE:
+```
+sequenceDiagram
+    participant Client
+    participant Server
+
+    Note over Client,Server: Initialization Phase
+    activate Client
+    Client->>+Server: initialize request
+    Server-->>Client: initialize response
+    Client--)Server: initialized notification
+
+    Note over Client,Server: Operation Phase
+    rect rgb(200, 220, 250)
+        note over Client,Server: Normal protocol operations
+    end
+
+    Note over Client,Server: Shutdown
+    Client--)-Server: Disconnect
+    deactivate Server
+    Note over Client,Server: Connection closed
+```
+
+----------------------------------------
+
+TITLE: Model Context Protocol (MCP) Core Concepts and Structure
+DESCRIPTION: Defines the fundamental components and communication mechanisms of the Model Context Protocol, including its JSON-RPC 2.0 foundation, roles of participants (Hosts, Clients, Servers), and primary features offered for context sharing and capability exposure.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2024-11-05/index.mdx#_snippet_0
+
+LANGUAGE: APIDOC
+CODE:
+```
+Model Context Protocol (MCP) Specification:
+  Protocol: JSON-RPC 2.0
+  Communication Roles:
+    Host: LLM applications initiating connections
+    Client: Connectors within the host application
+    Server: Services providing context and capabilities
+
+  Base Protocol Details:
+    - JSON-RPC message format
+    - Stateful connections
+    - Server and client capability negotiation
+
+  Features (Server offers to Client):
+    - Resources: Context and data, for the user or the AI model to use
+    - Prompts: Templated messages and workflows for users
+    - Tools: Functions for the AI model to execute
+
+  Features (Client offers to Server):
+    - Sampling: Server-initiated agentic behaviors and recursive LLM interactions
+
+  Additional Utilities:
+    - Configuration
+    - Progress tracking
+    - Cancellation
+    - Error reporting
+    - Logging
+```
+
+----------------------------------------
+
+TITLE: OAuth 2.1 Authorization Code Grant Flow (PKCE) with MCP Server
+DESCRIPTION: This sequence diagram illustrates the OAuth 2.1 Authorization Code Grant flow, specifically for public clients using PKCE, within the context of an MCP server. It details the steps from an initial unauthorized MCP request to obtaining and using an access token, involving a User-Agent (browser), the Client, and the MCP Server acting as the authorization server.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-03-26/basic/authorization.mdx#_snippet_0
+
+LANGUAGE: mermaid
+CODE:
+```
+sequenceDiagram
+    participant B as User-Agent (Browser)
+    participant C as Client
+    participant M as MCP Server
+
+    C->>M: MCP Request
+    M->>C: HTTP 401 Unauthorized
+    Note over C: Generate code_verifier and code_challenge
+    C->>B: Open browser with authorization URL + code_challenge
+    B->>M: GET /authorize
+    Note over M: User logs in and authorizes
+    M->>B: Redirect to callback URL with auth code
+    B->>C: Callback with authorization code
+    C->>M: Token Request with code + code_verifier
+    M->>C: Access Token (+ Refresh Token)
+    C->>M: MCP Request with Access Token
+    Note over C,M: Begin standard MCP message exchange
+```
+
+----------------------------------------
+
+TITLE: OAuth 2.1 Bearer Token Authorization Header
+DESCRIPTION: This snippet demonstrates the required format for including an access token in HTTP requests to MCP servers, conforming to OAuth 2.1 Section 5.1.1. The access token must be sent in the 'Authorization' header using the 'Bearer' scheme.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/draft/basic/authorization.mdx#_snippet_2
+
+LANGUAGE: http
+CODE:
+```
+Authorization: Bearer <access-token>
+```
+
+----------------------------------------
+
+TITLE: Define Main Execution Logic (Python)
+DESCRIPTION: This asynchronous `main` function serves as the application's entry point. It handles command-line arguments for server connection, initializes the `MCPClient`, connects to the specified server, runs the interactive chat loop, and ensures proper resource cleanup using a `finally` block, even in case of errors. The `if __name__ == "__main__"` block ensures `main` is executed when the script runs.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/client.mdx#_snippet_6
+
+LANGUAGE: python
+CODE:
+```
+async def main():
+    if len(sys.argv) < 2:
+        print("Usage: python client.py <path_to_server_script>")
+        sys.exit(1)
+
+    client = MCPClient()
+    try:
+        await client.connect_to_server(sys.argv[1])
+        await client.chat_loop()
+    finally:
+        await client.cleanup()
+
+if __name__ == "__main__":
+    import sys
+    import asyncio
+    asyncio.run(main())
+```
+
+----------------------------------------
+
+TITLE: Process User Queries with Anthropic and MCP Tools
+DESCRIPTION: Adds the `processQuery` method to the `MCPClient`, which handles user input by sending it to the Anthropic API. It processes the AI's response, identifying and executing tool calls suggested by Anthropic using the MCP client, and then integrates the tool results back into the conversation flow to generate a final response.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/client.mdx#_snippet_15
+
+LANGUAGE: typescript
+CODE:
+```
+async processQuery(query: string) {
+  const messages: MessageParam[] = [
+    {
+      role: "user",
+      content: query,
+    },
+  ];
+
+  const response = await this.anthropic.messages.create({
+    model: "claude-3-5-sonnet-20241022",
+    max_tokens: 1000,
+    messages,
+    tools: this.tools,
+  });
+
+  const finalText = [];
+  const toolResults = [];
+
+  for (const content of response.content) {
+    if (content.type === "text") {
+      finalText.push(content.text);
+    } else if (content.type === "tool_use") {
+      const toolName = content.name;
+      const toolArgs = content.input as { [x: string]: unknown } | undefined;
+
+      const result = await this.mcp.callTool({
+        name: toolName,
+        arguments: toolArgs,
+      });
+      toolResults.push(result);
+      finalText.push(
+        `[Calling tool ${toolName} with args ${JSON.stringify(toolArgs)}]`
+      );
+
+      messages.push({
+        role: "user",
+        content: result.content as string,
+      });
+
+      const response = await this.anthropic.messages.create({
+        model: "claude-3-5-sonnet-20241022",
+        max_tokens: 1000,
+        messages,
+      });
+
+      finalText.push(
+        response.content[0].type === "text" ? response.content[0].text : ""
+      );
+    }
+  }
+
+  return finalText.join("\n");
+}
+```
+
+----------------------------------------
+
+TITLE: Spring AI ChatClient Implementation with MCP Tool Integration
+DESCRIPTION: Java code snippet demonstrating how to build a Spring AI ChatClient. It configures a default system message, registers MCP tool callbacks using `mcpToolAdapter.toolCallbacks()`, and integrates an `InMemoryChatMemory` for conversation context.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/client.mdx#_snippet_24
+
+LANGUAGE: Java
+CODE:
+```
+var chatClient = chatClientBuilder
+    .defaultSystem("You are useful assistant, expert in AI and Java.")
+    .defaultToolCallbacks((Object[]) mcpToolAdapter.toolCallbacks())
+    .defaultAdvisors(new MessageChatMemoryAdvisor(new InMemoryChatMemory()))
+    .build();
+```
+
+----------------------------------------
+
+TITLE: Define Basic MCP Client Class in Python
+DESCRIPTION: This Python snippet outlines the initial structure of the `MCPClient` class. It imports necessary modules for asynchronous operations, MCP client functionalities, Anthropic API interaction, and environment variable loading. The `__init__` method initializes session, exit stack, and Anthropic client objects.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/client.mdx#_snippet_2
+
+LANGUAGE: python
+CODE:
+```
+import asyncio
+from typing import Optional
+from contextlib import AsyncExitStack
+
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+
+from anthropic import Anthropic
+from dotenv import load_dotenv
+
+load_dotenv()  # load environment variables from .env
+
+class MCPClient:
+    def __init__(self):
+        # Initialize session and client objects
+        self.session: Optional[ClientSession] = None
+        self.exit_stack = AsyncExitStack()
+        self.anthropic = Anthropic()
+    # methods will go here
+```
+
+----------------------------------------
+
+TITLE: Defining JSON-RPC 2.0 Response Structure (TypeScript)
+DESCRIPTION: This snippet outlines the structure for a JSON-RPC 2.0 response in the Model Context Protocol (MCP). Responses must carry the same ID as their corresponding request and must contain either a `result` or an `error` field, but never both. Error codes are required to be integers.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2024-11-05/basic/messages.mdx#_snippet_1
+
+LANGUAGE: TypeScript
+CODE:
+```
+{
+  jsonrpc: "2.0";
+  id: string | number;
+  result?: {
+    [key: string]: unknown;
+  }
+  error?: {
+    code: number;
+    message: string;
+    data?: unknown;
+  }
+}
+```
+
+----------------------------------------
+
+TITLE: Kotlin: Implement Query Processing with Tool Calls
+DESCRIPTION: This snippet defines the core functionality for processing user queries within the MCP client. It demonstrates how to build messages for the Anthropic API, handle responses, and specifically manage tool calls by invoking the MCP client's `callTool` method and integrating tool results back into the conversation flow.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/client.mdx#_snippet_35
+
+LANGUAGE: kotlin
+CODE:
+```
+private val messageParamsBuilder: MessageCreateParams.Builder = MessageCreateParams.builder()
+    .model(Model.CLAUDE_3_5_SONNET_20241022)
+    .maxTokens(1024)
+
+suspend fun processQuery(query: String): String {
+    val messages = mutableListOf(
+        MessageParam.builder()
+            .role(MessageParam.Role.USER)
+            .content(query)
+            .build()
+    )
+
+    val response = anthropic.messages().create(
+        messageParamsBuilder
+            .messages(messages)
+            .tools(tools)
+            .build()
+    )
+
+    val finalText = mutableListOf<String>()
+    response.content().forEach { content ->
+        when {
+            content.isText() -> finalText.add(content.text().getOrNull()?.text() ?: "")
+
+            content.isToolUse() -> {
+                val toolName = content.toolUse().get().name()
+                val toolArgs =
+                    content.toolUse().get()._input().convert(object : TypeReference<Map<String, JsonValue>>() {})
+
+                val result = mcp.callTool(
+                    name = toolName,
+                    arguments = toolArgs ?: emptyMap()
+                )
+                finalText.add("[Calling tool $toolName with args $toolArgs]")
+
+                messages.add(
+                    MessageParam.builder()
+                        .role(MessageParam.Role.USER)
+                        .content(
+                            """
+                                "type": "tool_result",
+                                "tool_name": $toolName,
+                                "result": ${result?.content?.joinToString("\n") { (it as TextContent).text ?: "" }}
+                            """.trimIndent()
+                        )
+                        .build()
+                )
+
+                val aiResponse = anthropic.messages().create(
+                    messageParamsBuilder
+                        .messages(messages)
+                        .build()
+                )
+
+                finalText.add(aiResponse.content().first().text().getOrNull()?.text() ?: "")
+            }
+        }
+    }
+
+    return finalText.joinToString("\n", prefix = "", postfix = "")
+}
+```
+
+----------------------------------------
+
+TITLE: Illustrating Complete Authorization Flow (Mermaid)
+DESCRIPTION: This sequence diagram outlines the complete authorization flow for MCP, including server metadata discovery, optional dynamic client registration, PKCE parameter generation, user authorization via browser, and the final token exchange and API requests using the obtained access token.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-03-26/basic/authorization.mdx#_snippet_2
+
+LANGUAGE: mermaid
+CODE:
+```
+sequenceDiagram
+    participant B as User-Agent (Browser)
+    participant C as Client
+    participant M as MCP Server
+
+    C->>M: GET /.well-known/oauth-authorization-server
+    alt Server Supports Discovery
+        M->>C: Authorization Server Metadata
+    else No Discovery
+        M->>C: 404 (Use default endpoints)
+    end
+
+    alt Dynamic Client Registration
+        C->>M: POST /register
+        M->>C: Client Credentials
+    end
+
+    Note over C: Generate PKCE Parameters
+    C->>B: Open browser with authorization URL + code_challenge
+    B->>M: Authorization Request
+    Note over M: User /authorizes
+    M->>B: Redirect to callback with authorization code
+    B->>C: Authorization code callback
+    C->>M: Token Request + code_verifier
+    M->>C: Access Token (+ Refresh Token)
+    C->>M: API Requests with Access Token
+```
+
+----------------------------------------
+
+TITLE: MCP Tool Data Type Definition
+DESCRIPTION: Defines the structure of a tool within the Model Context Protocol, including its unique name, human-readable description, and JSON schemas for expected input and optional output parameters. Annotations provide additional behavioral details.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/draft/server/tools.mdx#_snippet_6
+
+LANGUAGE: APIDOC
+CODE:
+```
+Tool:
+  name: string - Unique identifier for the tool
+  description: string - Human-readable description of functionality
+  inputSchema: JSON Schema - Defines expected parameters
+  outputSchema: JSON Schema (optional) - Defines expected output structure
+  annotations: object (optional) - Properties describing tool behavior
+```
+
+----------------------------------------
+
+TITLE: Illustrating Cancellation Race Conditions (Mermaid)
+DESCRIPTION: This Mermaid sequence diagram visualizes the timing considerations and potential race conditions when a cancellation notification is sent. It shows a client sending a request, followed by a cancellation, and highlights that the server's processing might complete before the cancellation arrives, or it might stop processing if the cancellation arrives in time.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/draft/basic/utilities/cancellation.mdx#_snippet_1
+
+LANGUAGE: mermaid
+CODE:
+```
+sequenceDiagram
+   participant Client
+   participant Server
+
+   Client->>Server: Request (ID: 123)
+   Note over Server: Processing starts
+   Client--)Server: notifications/cancelled (ID: 123)
+   alt
+      Note over Server: Processing may have<br/>completed before<br/>cancellation arrives
+   else If not completed
+      Note over Server: Stop processing
+   end
+```
+
+----------------------------------------
+
+TITLE: Defining JSON-RPC 2.0 Notification Structure (TypeScript)
+DESCRIPTION: This snippet defines the structure for a JSON-RPC 2.0 notification within the Model Context Protocol (MCP). Notifications are distinct as they do not anticipate a response and, consequently, must not include an `id` field. They specify the `jsonrpc` version, a `method` name, and optional `params`.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2024-11-05/basic/messages.mdx#_snippet_2
+
+LANGUAGE: TypeScript
+CODE:
+```
+{
+  jsonrpc: "2.0";
+  method: string;
+  params?: {
+    [key: string]: unknown;
+  };
+}
+```
+
+----------------------------------------
+
+TITLE: MCP Session Management: Mcp-Session-Id Header and Lifecycle
+DESCRIPTION: Describes the mechanism for establishing and managing stateful sessions in the Model Context Protocol (MCP) using the `Mcp-Session-Id` HTTP header. It covers session assignment during initialization, client usage in subsequent requests, server termination, client re-initialization on 404, and optional client-initiated session termination.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-03-26/basic/transports.mdx#_snippet_5
+
+LANGUAGE: APIDOC
+CODE:
+```
+HTTP Header: Mcp-Session-Id
+  Description: Assigned by server during initialization (InitializeResult) to establish a session.
+  Format: Globally unique, cryptographically secure (e.g., UUID, JWT), visible ASCII characters (0x21-0x7E).
+  Client Usage: MUST be included in all subsequent HTTP requests if returned by server.
+  Server Behavior:
+    - SHOULD respond with HTTP 400 Bad Request if required session ID is missing (except initialization).
+    - MAY terminate session at any time; MUST respond with HTTP 404 Not Found for requests with terminated ID.
+    - MAY respond with HTTP 405 Method Not Allowed for client-initiated DELETE requests.
+
+Session Lifecycle:
+  Initialization: Client POSTs InitializeRequest; Server responds with InitializeResponse and optional Mcp-Session-Id.
+  Ongoing Interaction: Client includes Mcp-Session-Id in all subsequent requests (POST, GET, DELETE).
+  Server Termination: Server responds with HTTP 404 for requests with terminated session ID.
+  Client Re-initialization: On receiving HTTP 404, client MUST start new session (new InitializeRequest without session ID).
+  Client Termination (Optional): Client SHOULD send HTTP DELETE with Mcp-Session-Id to explicitly terminate.
+```
+
+----------------------------------------
+
+TITLE: Define Weather Tool Functions for MCP Server
+DESCRIPTION: This Python code defines two asynchronous tool functions, `get_alerts` and `get_forecast`, using the `@mcp.tool()` decorator. `get_alerts` fetches weather alerts for a given US state, while `get_forecast` retrieves a detailed weather forecast for specified latitude and longitude. Both functions interact with an external NWS API and return formatted string results.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/server.mdx#_snippet_4
+
+LANGUAGE: python
+CODE:
+```
+@mcp.tool()
+async def get_alerts(state: str) -> str:
+    """Get weather alerts for a US state.
+
+    Args:
+        state: Two-letter US state code (e.g. CA, NY)
+    """
+    url = f"{NWS_API_BASE}/alerts/active/area/{state}"
+    data = await make_nws_request(url)
+
+    if not data or "features" not in data:
+        return "Unable to fetch alerts or no alerts found."
+
+    if not data["features"]:
+        return "No active alerts for this state."
+
+    alerts = [format_alert(feature) for feature in data["features"]]
+    return "\n---\n".join(alerts)
+
+@mcp.tool()
+async def get_forecast(latitude: float, longitude: float) -> str:
+    """Get weather forecast for a location.
+
+    Args:
+        latitude: Latitude of the location
+        longitude: Longitude of the location
+    """
+    # First get the forecast grid endpoint
+    points_url = f"{NWS_API_BASE}/points/{latitude},{longitude}"
+    points_data = await make_nws_request(points_url)
+
+    if not points_data:
+        return "Unable to fetch forecast data for this location."
+
+    # Get the forecast URL from the points response
+    forecast_url = points_data["properties"]["forecast"]
+    forecast_data = await make_nws_request(forecast_url)
+
+    if not forecast_data:
+        return "Unable to fetch detailed forecast."
+
+    # Format the periods into a readable forecast
+    periods = forecast_data["properties"]["periods"]
+    forecasts = []
+    for period in periods[:5]:  # Only show next 5 periods
+        forecast = f"""
+{period['name']}:
+Temperature: {period['temperature']}°{period['temperatureUnit']}
+Wind: {period['windSpeed']} {period['windDirection']}
+Forecast: {period['detailedForecast']}
+"""
+        forecasts.append(forecast)
+
+    return "\n---\n".join(forecasts)
+```
+
+----------------------------------------
+
+TITLE: Initialize and Configure MCP Server (Sync and Async APIs) in Java
+DESCRIPTION: These examples demonstrate how to create and configure both synchronous and asynchronous Model Context Protocol (MCP) servers in Java. They show how to define server capabilities (e.g., resources, tools, prompts, logging, completions) and register various specifications. The synchronous example uses direct method calls, while the asynchronous example utilizes reactive streams for registration and server closure, with success callbacks.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/sdk/java/mcp-server.mdx#_snippet_0
+
+LANGUAGE: Java
+CODE:
+```
+// Create a server with custom configuration
+McpSyncServer syncServer = McpServer.sync(transportProvider)
+    .serverInfo("my-server", "1.0.0")
+    .capabilities(ServerCapabilities.builder()
+        .resources(true)     // Enable resource support
+        .tools(true)         // Enable tool support
+        .prompts(true)       // Enable prompt support
+        .logging()           // Enable logging support
+        .completions()      // Enable completions support
+        .build())
+    .build();
+
+// Register tools, resources, and prompts
+syncServer.addTool(syncToolSpecification);
+syncServer.addResource(syncResourceSpecification);
+syncServer.addPrompt(syncPromptSpecification);
+
+// Close the server when done
+syncServer.close();
+```
+
+LANGUAGE: Java
+CODE:
+```
+// Create an async server with custom configuration
+McpAsyncServer asyncServer = McpServer.async(transportProvider)
+    .serverInfo("my-server", "1.0.0")
+    .capabilities(ServerCapabilities.builder()
+        .resources(true)     // Enable resource support
+        .tools(true)         // Enable tool support
+        .prompts(true)       // Enable prompt support
+        .logging()           // Enable logging support
+        .build())
+    .build();
+
+// Register tools, resources, and prompts
+asyncServer.addTool(asyncToolSpecification)
+    .doOnSuccess(v -> logger.info("Tool registered"))
+    .subscribe();
+
+asyncServer.addResource(asyncResourceSpecification)
+    .doOnSuccess(v -> logger.info("Resource registered"))
+    .subscribe();
+
+asyncServer.addPrompt(asyncPromptSpecification)
+    .doOnSuccess(v -> logger.info("Prompt registered"))
+    .subscribe();
+
+// Close the server when done
+asyncServer.close()
+    .doOnSuccess(v -> logger.info("Server closed"))
+    .subscribe();
+```
+
+----------------------------------------
+
+TITLE: Implement MCP Server Connection Method in Python
+DESCRIPTION: This Python method, `connect_to_server`, handles establishing a connection to an MCP server. It determines the server's language (.py or .js) to set the correct command (`python` or `node`), configures `StdioServerParameters`, and initializes a `ClientSession`. After connection, it lists and prints the tools available from the server.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/quickstart/client.mdx#_snippet_3
+
+LANGUAGE: python
+CODE:
+```
+async def connect_to_server(self, server_script_path: str):
+    """Connect to an MCP server
+
+    Args:
+        server_script_path: Path to the server script (.py or .js)
+    """
+    is_python = server_script_path.endswith('.py')
+    is_js = server_script_path.endswith('.js')
+    if not (is_python or is_js):
+        raise ValueError("Server script must be a .py or .js file")
+
+    command = "python" if is_python else "node"
+    server_params = StdioServerParameters(
+        command=command,
+        args=[server_script_path],
+        env=None
+    )
+
+    stdio_transport = await self.exit_stack.enter_async_context(stdio_client(server_params))
+    self.stdio, self.write = stdio_transport
+    self.session = await self.exit_stack.enter_async_context(ClientSession(self.stdio, self.write))
+
+    await self.session.initialize()
+
+    # List available tools
+    response = await self.session.list_tools()
+    tools = response.tools
+    print("\nConnected to server with tools:", [tool.name for tool in tools])
+```
+
+----------------------------------------
+
+TITLE: MCP Client-Server Architecture Overview
+DESCRIPTION: Illustrates the Model Context Protocol's client-server architecture, showing how multiple clients within a host connect to separate server processes via a transport layer. This visualizes the 1:1 connection model between clients and servers.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/docs/concepts/architecture.mdx#_snippet_0
+
+LANGUAGE: mermaid
+CODE:
+```
+flowchart LR
+    subgraph "Host"
+        client1[MCP Client]
+        client2[MCP Client]
+    end
+    subgraph "Server Process"
+        server1[MCP Server]
+    end
+    subgraph "Server Process"
+        server2[MCP Server]
+    end
+
+    client1 <-->|Transport Layer| server1
+    client2 <-->|Transport Layer| server2
+```
+
+----------------------------------------
+
+TITLE: Request LLM Generation (sampling/createMessage)
+DESCRIPTION: Servers send a 'sampling/createMessage' request to initiate a language model generation. This example demonstrates a text-based user message, along with model preferences for intelligence and speed, and a system prompt.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2024-11-05/client/sampling.mdx#_snippet_1
+
+LANGUAGE: json
+CODE:
+```
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "sampling/createMessage",
+  "params": {
+    "messages": [
+      {
+        "role": "user",
+        "content": {
+          "type": "text",
+          "text": "What is the capital of France?"
+        }
+      }
+    ],
+    "modelPreferences": {
+      "hints": [
+        {
+          "name": "claude-3-sonnet"
+        }
+      ],
+      "intelligencePriority": 0.8,
+      "speedPriority": 0.5
+    },
+    "systemPrompt": "You are a helpful assistant.",
+    "maxTokens": 100
+  }
+}
+```
+
+----------------------------------------
+
+TITLE: Client `initialize` Request Example (JSON)
+DESCRIPTION: JSON-RPC request sent by the client to initiate the Model Context Protocol connection. It includes the supported protocol version, client capabilities, and client implementation details, marking the start of the Initialization phase.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-03-26/basic/lifecycle.mdx#_snippet_1
+
+LANGUAGE: json
+CODE:
+```
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-03-26",
+    "capabilities": {
+      "roots": {
+        "listChanged": true
+      },
+      "sampling": {}
+    },
+    "clientInfo": {
+      "name": "ExampleClient",
+      "version": "1.0.0"
+    }
+  }
+}
+```
+
+----------------------------------------
+
+TITLE: Example MCP Sampling Request
+DESCRIPTION: Illustrates a JSON request to the client for an LLM completion, including a user message, system prompt, and context inclusion from the current server.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/docs/concepts/sampling.mdx#_snippet_2
+
+LANGUAGE: json
+CODE:
+```
+{
+  "method": "sampling/createMessage",
+  "params": {
+    "messages": [
+      {
+        "role": "user",
+        "content": {
+          "type": "text",
+          "text": "What files are in the current directory?"
+        }
+      }
+    ],
+    "systemPrompt": "You are a helpful file system assistant.",
+    "includeContext": "thisServer",
+    "maxTokens": 100
+  }
+}
+```
+
+----------------------------------------
+
+TITLE: Structure JSON-RPC Error Responses (JSON)
+DESCRIPTION: This example illustrates a standard JSON-RPC error response structure. It includes the 'jsonrpc' version, an 'id' for the request, and an 'error' object containing a numeric 'code' and a human-readable 'message' to describe the failure. Clients should return such errors for common failure cases.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-03-26/client/sampling.mdx#_snippet_9
+
+LANGUAGE: json
+CODE:
+```
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "error": {
+    "code": -1,
+    "message": "User rejected sampling request"
+  }
+}
+```
+
+----------------------------------------
+
+TITLE: MCP Sampling Response Format
+DESCRIPTION: Defines the structure of the LLM completion result returned by the client after processing a sampling request.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/docs/concepts/sampling.mdx#_snippet_1
+
+LANGUAGE: APIDOC
+CODE:
+```
+MCP Sampling Response:
+  model: string (required)
+    description: Name of the model used for completion.
+  stopReason: string ("endTurn" | "stopSequence" | "maxTokens" | custom) (optional)
+    description: Reason for stopping generation.
+  role: string ("user" | "assistant") (required)
+    description: The role of the message sender (e.g., "assistant" for the LLM's response).
+  content: object (required)
+    description: The completion content.
+    type: string ("text" | "image") (required)
+      description: The type of content.
+    text: string (optional)
+      description: For text content.
+    data: string (optional)
+      description: Base64 encoded data for images.
+    mimeType: string (optional)
+      description: MIME type for images.
+```
+
+LANGUAGE: typescript
+CODE:
+```
+{
+  model: string,  // Name of the model used
+  stopReason?: "endTurn" | "stopSequence" | "maxTokens" | string,
+  role: "user" | "assistant",
+  content: {
+    type: "text" | "image",
+    text?: string,
+    data?: string,
+    mimeType?: string
+  }
+}
+```
+
+----------------------------------------
+
+TITLE: Implementation Guidelines for Model Context Protocol
+DESCRIPTION: These guidelines outline key considerations for implementing the Model Context Protocol. They emphasize the importance of server-side validation of prompt arguments, client-side handling of pagination for large lists, and mutual respect for capability negotiation between parties.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/draft/server/prompts.mdx#_snippet_13
+
+LANGUAGE: APIDOC
+CODE:
+```
+Implementation Considerations:
+  Servers SHOULD validate prompt arguments before processing
+  Clients SHOULD handle pagination for large prompt lists
+  Both parties SHOULD respect capability negotiation
+```
+
+----------------------------------------
+
+TITLE: Defining JSON-RPC Notification Message - TypeScript
+DESCRIPTION: This snippet defines the structure for a Model Context Protocol (MCP) notification message in TypeScript. Notifications are one-way messages that do not expect a response and, consequently, must not include an `id` field. They are used for sending information without requiring an acknowledgment.
+SOURCE: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/draft/basic/index.mdx#_snippet_2
+
+LANGUAGE: TypeScript
+CODE:
+```
+{
+  jsonrpc: "2.0";
+  method: string;
+  params?: {
+    [key: string]: unknown;
+  };
+}
+```
 
 ---
 > Source: [kerlos/elysia-mcp](https://github.com/kerlos/elysia-mcp) — distributed by [TomeVault](https://tomevault.io).
