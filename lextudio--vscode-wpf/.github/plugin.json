@@ -1,0 +1,9 @@
+{
+  "name": "lextudio--vscode-wpf",
+  "displayName": "vscode-wpf",
+  "description": "VS Code Tools for WPF",
+  "version": "1.0.0",
+  "author": "lextudio",
+  "homepage": "https://github.com/lextudio/vscode-wpf",
+  "skills": []
+}
