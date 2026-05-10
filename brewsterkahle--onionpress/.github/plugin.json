@@ -1,0 +1,9 @@
+{
+  "name": "brewsterkahle--onionpress",
+  "displayName": "onionpress",
+  "description": "Easy and free self-hosted web server for macOS (wordpress+Tor Onion Service)",
+  "version": "1.0.0",
+  "author": "brewsterkahle",
+  "homepage": "https://github.com/brewsterkahle/onionpress",
+  "skills": []
+}
