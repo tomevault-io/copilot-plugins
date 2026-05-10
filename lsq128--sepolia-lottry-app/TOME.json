@@ -1,0 +1,44 @@
+{
+  "name": "sepolia-lottry-app",
+  "owner": "Lsq128",
+  "repo": "sepolia-lottry-app",
+  "description": "\u53bb\u4e2d\u5fc3\u5316\u94fe\u4e0a\u62bd\u5956 DApp \u524d\u7aef\uff0c\u57fa\u4e8e Next.js + wagmi + RainbowKit \u6784\u5efa\uff0c\u4e0e\u667a\u80fd\u5408\u7ea6\u4ea4\u4e92",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Lsq128/sepolia-lottry-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T04:33:54Z"
+}
