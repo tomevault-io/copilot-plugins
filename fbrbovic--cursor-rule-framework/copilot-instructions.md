@@ -1,193 +1,181 @@
-## architecture
+## cursor-rules-management
 
-> Contains comprehensive high, mid and low level information about our project software and cloud architecture.
+> Comprehensive cursor rules management including location policy and metadata preservation. Used anytime new cursor AI rule is to be generated or if existing one is updated.
 
-**Instructions** 
-This rule contains comprehensive overview of our Architecture.
+# 🚨 CRITICAL: Cursor Rules Management Policy 🚨
 
-You are always to refer to this file when making any Architectual Decisions or building, tracking and making any plans. 
-You are always to keep expanding this and any referred sub documents with any relevent information or plans about any levels of our architecture.
+This rule ensures proper location, format, and handling of all Cursor MDC rule files.
 
-Contains sections of various high level overviews of our architecture, each section might contain a reference to additional detailed doc, if it's there super important to always refer to it. 
+## PART 1: MANDATORY LOCATION POLICY
 
-# **Architecture Documentation**
+### All Cursor Rules Must Live in `.cursor/rules/`
 
-## **AI & User Collaboration Protocol**
+**This is the ONLY acceptable location for cursor rules files (.mdc).**
 
-### **Update Guidelines**
-- **AI Updates**: AI should update this file during CONSTRUCT phase when implementing architectural changes
-- **User Updates**: Users can update this file directly when making architectural decisions
-- **Conflict Resolution**: Latest timestamp wins; conflicts should be noted in changelog
-- **Version Tracking**: All major changes should be logged with date and reason
+#### ✅ Correct Locations
+- ✅ `.cursor/rules/rules.mdc`
+- ✅ `.cursor/rules/architecture.mdc`
+- ✅ `.cursor/rules/any-other-rule.mdc`
 
-### **Change Protocol**
+#### ❌ INCORRECT Locations (NEVER USE)
+- ❌ `rules.mdc` (root level)
+- ❌ `migration.mdc` (root level)
+- ❌ `backend-encore/rules.mdc`
+- ❌ Any other location outside `.cursor/rules/`
+
+#### Why Location Matters
+1. **Cursor IDE Integration**: Cursor only recognizes rules in `.cursor/rules/`
+2. **Team Consistency**: All team members expect rules in standard location
+3. **Version Control**: Proper .gitignore handling for cursor-specific files
+4. **Tool Compatibility**: Other cursor-compatible tools expect this structure
+
+## PART 2: MANDATORY MDC METADATA FORMAT
+
+### What is MDC Metadata?
+Every `.mdc` file in the `.cursor/rules/` directory must have metadata at the top in this format:
+
 ```
-## Architecture Changelog
-- [YYYY-MM-DD] [AI/USER] [CHANGE_TYPE] - Brief description
-- [YYYY-MM-DD] [AI/USER] [CHANGE_TYPE] - Brief description
-```
-
+---
+description: Brief description of what this rule does
+globs: file/pattern/to/match/**/*.*
+alwaysApply: true/false
 ---
 
-## **High-Level Architecture**
-
-### **System Overview**
-<!-- AI/User: Update this section with overall system design -->
-*No architecture defined yet. This will be populated as development progresses.*
-
-**Key Architectural Principles:**
-- [ ] Modular design with clear separation of concerns
-- [ ] Scalable and maintainable codebase
-- [ ] Security-first approach
-- [ ] Performance optimization
-- [ ] Code reusability and DRY principles
-
-### **Technology Stack**
-<!-- AI/User: Update from project-config.mdc and actual implementation -->
-*Technology stack will be documented here based on project-config.mdc and actual implementation choices.*
-
-### **Deployment Architecture**
-<!-- AI/User: Update with deployment strategy and infrastructure -->
-*Deployment architecture will be defined here as infrastructure decisions are made.*
-
----
-
-## **Domain Architecture**
-
-### **Application Domains**
-<!-- AI/User: Update with business domains and their relationships -->
-*Application domains will be documented here as they are identified and implemented.*
-
-### **Domain Boundaries**
-<!-- AI/User: Update with clear domain separation and interfaces -->
-*Domain boundaries and interfaces will be defined here as the application grows.*
-
----
-
-## **Technical Architecture**
-
-### **Data Architecture**
-<!-- AI/User: Update with database design, data flow, and storage decisions -->
-*Data architecture will be documented here including:*
-- Database schema design
-- Data flow patterns
-- Storage solutions
-- Data security and privacy
-
-### **API Architecture**
-<!-- AI/User: Update with API design patterns and standards -->
-*API architecture will be documented here including:*
-- REST/GraphQL design patterns
-- Authentication and authorization
-- API versioning strategy
-- Error handling patterns
-
-### **Frontend Architecture**
-<!-- AI/User: Update with frontend patterns and component structure -->
-*Frontend architecture will be documented here including:*
-- Component hierarchy and patterns
-- State management approach
-- Routing and navigation
-- UI/UX design system integration
-
-### **Backend Architecture**
-<!-- AI/User: Update with backend services and patterns -->
-*Backend architecture will be documented here including:*
-- Service layer organization
-- Business logic patterns
-- Integration patterns
-- Background job processing
-
----
-
-## **Infrastructure Architecture**
-
-### **Development Environment**
-<!-- AI/User: Update with local development setup -->
-*Development environment setup will be documented here.*
-
-### **Production Environment**
-<!-- AI/User: Update with production infrastructure -->
-*Production environment will be documented here including:*
-- Hosting and deployment
-- Monitoring and logging
-- Backup and disaster recovery
-- Security and compliance
-
----
-
-## **Security Architecture**
-
-### **Authentication & Authorization**
-<!-- AI/User: Update with security implementation details -->
-*Security architecture will be documented here including:*
-- Authentication mechanisms
-- Authorization patterns
-- Session management
-- Security headers and policies
-
-### **Data Security**
-<!-- AI/User: Update with data protection measures -->
-*Data security measures will be documented here.*
-
----
-
-## **Architecture Decision Records (ADRs)**
-
-### **Decision Template**
-```
-### ADR-[NUMBER]: [TITLE]
-**Date**: [YYYY-MM-DD]
-**Status**: [Proposed/Accepted/Deprecated/Superseded]
-**Deciders**: [AI/User/Team]
-
-#### Context
-[What is the issue we're trying to solve?]
-
-#### Decision
-[What is the change we're making?]
-
-#### Consequences
-[What becomes easier or harder to do because of this change?]
-
-#### Alternatives Considered
-[What other options were evaluated?]
+# Rule content starts here
 ```
 
-### **Active Decisions**
-<!-- AI/User: Add new ADRs here as architectural decisions are made -->
-*No architectural decisions recorded yet. ADRs will be added as decisions are made.*
+### ABSOLUTE REQUIREMENTS
+
+#### 1. Never Remove or Modify Delimiters
+- The `---` lines at the beginning and end of metadata are CRITICAL
+- Removing these breaks the MDC format and disables the rule
+- Always preserve exactly three dashes on each line
+
+#### 2. Always Preserve Existing Fields
+When updating an MDC file, you MUST preserve:
+- `description`: Brief description of the rule's purpose
+- `globs`: File patterns that trigger this rule
+- `alwaysApply`: Whether rule applies to all contexts (true/false)
+
+#### 3. Only Update Content Below Metadata
+- Only modify content below the second `---` line
+- Never modify anything between the first and second `---` lines
+- If you need to change metadata fields, do so carefully and preserve the format
+
+## PART 3: AI ASSISTANT WORKFLOW
+
+### Before Creating/Editing Rules
+1. **ALWAYS** check if `.cursor/rules/` directory exists
+2. If it doesn't exist, create it first
+3. **ALWAYS** create rules in `.cursor/rules/filename.mdc`
+4. **ALWAYS** start with proper MDC metadata
+5. Choose appropriate `globs` pattern for the rule's scope
+6. Use `alwaysApply: true` only for workspace-wide rules
+
+### Before Deleting Root-Level Rules
+1. **ALWAYS** compare root-level rules with `.cursor/rules/` versions
+2. Merge any new content from root-level to `.cursor/rules/`
+3. Only delete root-level after confirming merge is complete
+
+### When Updating Existing Rules
+1. Read the entire file first to understand current metadata
+2. Preserve existing metadata exactly as-is
+3. Only modify content below the second `---` line
+4. Test the rule still works after updating
+
+## PART 4: COMMON MDC FILE TYPES AND METADATA
+
+### Architecture Rules
+```
+---
+description: Backend architecture guidelines and service structure
+globs: backend-encore/**/*.*
+alwaysApply: true
+---
+```
+
+### Service-Specific Rules
+```
+---
+description: Rules for specific service or integration
+globs: backend-encore/service-name/**/*.*
+alwaysApply: false
+---
+```
+
+### Testing Rules
+```
+---
+description: Testing patterns and requirements
+globs: **/*.test.ts, **/*.spec.ts
+alwaysApply: false
+---
+```
+
+### Global Workspace Rules
+```
+---
+description: Rules applying to entire workspace
+globs: **/*.*
+alwaysApply: true
+---
+```
+
+## PART 5: ERROR DETECTION AND RECOVERY
+
+### Symptoms of Broken MDC Files
+- Rule doesn't appear in Cursor's rule picker
+- Rule doesn't automatically apply when expected
+- File patterns don't match correctly
+- Rule appears as "invalid" in Cursor settings
+
+### Recovery Process
+1. Check for missing or malformed `---` delimiters
+2. Verify all required fields are present
+3. Ensure proper YAML format in metadata section
+4. Verify file is in `.cursor/rules/` directory
+5. Test rule functionality after fixing
+
+## PART 6: VALIDATION CHECKLIST
+
+Before saving any MDC file, verify:
+- [ ] File is saved in `.cursor/rules/` directory
+- [ ] Metadata section starts and ends with `---`
+- [ ] All required fields are present and properly formatted
+- [ ] `globs` pattern matches intended files
+- [ ] `alwaysApply` setting is appropriate
+- [ ] Content below metadata follows proper markdown format
+- [ ] No duplicate rules files in root or other locations
+
+## PART 7: COMMON MISTAKES TO AVOID
+
+### Location Mistakes
+- Placing MDC files outside `.cursor/rules/` directory
+- Creating duplicate rules in multiple locations
+- Not checking for existing `.cursor/rules/` directory
+
+### Format Mistakes  
+- Removing metadata when updating content
+- Changing `globs` patterns without understanding implications
+- Using incorrect YAML syntax in metadata
+- Mixing content with metadata section
+
+### Memory Reminder for AI Assistant
+- **Never** create rules files outside `.cursor/rules/`
+- **Always** use the full path: `.cursor/rules/filename.mdc`
+- **Always** preserve existing metadata exactly
+- **Always** check for content differences before deleting duplicates
+
+## PART 8: DEBUGGING TIPS
+
+- Use Cursor's rule management interface to validate MDC files
+- Check Cursor settings to see if rules are properly loaded
+- Test rule application by matching against expected file patterns
+- Verify rule behavior in different contexts (auto-apply vs manual)
 
 ---
 
-## **Architecture Validation Rules**
-
-### **Validation Checklist**
-- [ ] **Consistency**: New components follow existing patterns
-- [ ] **Scalability**: Design supports expected growth
-- [ ] **Maintainability**: Code is readable and well-organized
-- [ ] **Security**: Security considerations are addressed
-- [ ] **Performance**: Performance impact is considered
-- [ ] **Testing**: Testability is built into the design
-
-### **Integration Points**
-- **Epic Planning**: All epic steps should consider architectural impact
-- **Workflow Planning**: Blueprint phase must validate against this architecture
-- **Code Review**: Implementation should follow architectural decisions
-
----
-
-## **Architecture Changelog**
-<!-- AI/User: Log all significant architecture changes here -->
-*Architecture changes will be logged here with timestamps and descriptions.*
-
-**Format**: [YYYY-MM-DD] [AI/USER] [ADD/MODIFY/REMOVE] - Description
-
----
-
-## **Architecture References**
-<!-- AI/User: Add links to detailed architecture documents -->
-*References to detailed architecture documents will be added here as they are created.*
+**This rule was created to prevent repeated mistakes with cursor rules location and format. All requirements must be followed exactly.**
 
 ---
 > Source: [fbrbovic/cursor-rule-framework](https://github.com/fbrbovic/cursor-rule-framework) — distributed by [TomeVault](https://tomevault.io).
