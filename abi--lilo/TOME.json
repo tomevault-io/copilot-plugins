@@ -4,7 +4,7 @@
   "repo": "lilo",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/abi/lilo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T08:02:56Z"
+  "distributed_at": "2026-05-10T15:40:45Z"
 }
