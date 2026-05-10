@@ -1,0 +1,44 @@
+{
+  "name": "STS2_DualRoleAdventure",
+  "owner": "liwenhao0427",
+  "repo": "STS2_DualRoleAdventure",
+  "description": "\u6740\u622e\u5c16\u58542 \u672c\u5730\u5355\u4eba\u591a\u89d2\u8272\u5192\u9669Mod",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liwenhao0427/STS2_DualRoleAdventure",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T10:39:17Z"
+}
