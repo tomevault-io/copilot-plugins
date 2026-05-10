@@ -1,0 +1,9 @@
+{
+  "name": "hamzafer--claude-routines",
+  "displayName": "claude-routines",
+  "description": "Manage Claude Code Routines as code. Edit .md files, ask Claude to deploy them. No CLI to install, no tokens to manage.",
+  "version": "1.0.0",
+  "author": "hamzafer",
+  "homepage": "https://github.com/hamzafer/claude-routines",
+  "skills": []
+}
