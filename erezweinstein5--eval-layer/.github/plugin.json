@@ -1,0 +1,9 @@
+{
+  "name": "erezweinstein5--eval-layer",
+  "displayName": "eval-layer",
+  "description": "A Claude Code skill that adds a rubric-based eval layer to any agent project. Framework-agnostic \u2014 generates rubric, test cases, judge prompt, and harness. Returns a weighted score plus a judge-lenien",
+  "version": "1.0.0",
+  "author": "erezweinstein5",
+  "homepage": "https://github.com/erezweinstein5/eval-layer",
+  "skills": []
+}
