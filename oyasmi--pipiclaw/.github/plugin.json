@@ -1,0 +1,9 @@
+{
+  "name": "oyasmi--pipiclaw",
+  "displayName": "pipiclaw",
+  "description": "An AI assistant runtime for coding and team workflows, with DingTalk AI Cards, sub-agents, memory, and scheduled events.",
+  "version": "1.0.0",
+  "author": "oyasmi",
+  "homepage": "https://github.com/oyasmi/pipiclaw",
+  "skills": []
+}
