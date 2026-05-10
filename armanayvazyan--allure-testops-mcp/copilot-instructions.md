@@ -1,20 +1,20 @@
-## integration-tests-guidelines
+## mcp-tools-guidelines
 
-> Integration test conventions for Vitest suite
+> Conventions for MCP tool implementation under src/tools
 
 
-# Integration Test Guidelines
+# MCP Tool Guidelines
 
-- Keep tests deterministic and independent; avoid hidden cross-test state.
-- Reuse `tests/integration/setup.ts` helpers and fixtures for authentication/project setup.
-- Prefer assertions that verify behavior and contract shape, not implementation details.
-- Name test cases by API behavior (list, get, create, update, delete, search) for scanability.
-- When adding tests, cover happy path and at least one failure/validation scenario.
+- Keep tool schema descriptions precise and user-focused; update docs/examples when behavior changes.
+- Maintain backward compatibility for tool parameters unless a breaking change is explicitly requested.
+- Validate required project context (`projectId` or `projectName`) consistently with existing tool patterns.
+- Return actionable, structured errors; avoid vague failure messages.
+- Prefer shared API/auth helpers instead of duplicating request logic in each tool file.
 
-## Running Tests
+## Verification
 
-- Run targeted tests first: `npm run test -- tests/integration/<file>.test.ts`.
-- Run full suite before finalizing: `npm run test`.
+- For tool behavior changes, run relevant integration tests in `tests/integration`.
+- Confirm no regressions in tool registration and names.
 
 ---
 > Source: [armanayvazyan/allure-testops-mcp](https://github.com/armanayvazyan/allure-testops-mcp) — distributed by [TomeVault](https://tomevault.io).
