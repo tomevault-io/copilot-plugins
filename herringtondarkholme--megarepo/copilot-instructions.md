@@ -1,60 +1,81 @@
-## ai-development
+## code-quality
 
-> Core AI development patterns and best practices for the Megarepo AI setup repository
+> Code quality standards including TypeScript, testing, and formatting guidelines
 
 
-# AI Development Best Practices
+# Code Quality Standards
 
-You are working on an AI-focused development project. Follow these core principles for AI integration:
+Comprehensive code quality guidelines for the AI setup repository.
 
-## AI-First Development Principles
+## Core Development Principles
 
-### 1. API Integration Patterns
-- Use modern async/await patterns for all AI API calls
-- Implement comprehensive error handling for AI service failures
-- Consider token usage and model performance optimization
-- Design for scalability with AI workloads
+### 1. TypeScript Guidelines
+- Use strict type checking
+- Define interfaces for all AI API responses
+- Use union types for AI model selections
+- Implement proper error type definitions
 
-### 2. Preferred AI Integration Pattern
-```javascript
-const aiResponse = await fetch('/api/ai-service', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${process.env.AI_API_KEY}`
-  },
-  body: JSON.stringify({ prompt, options })
-});
-
-if (!aiResponse.ok) {
-  throw new Error(`AI service error: ${aiResponse.status}`);
+### 2. TypeScript Patterns
+```typescript
+// Define interfaces for AI responses
+interface AIResponse {
+  content: string;
+  model: string;
+  usage: {
+    prompt_tokens: number;
+    completion_tokens: number;
+  };
 }
+
+// Use union types for model selection
+type AIModel = 'gpt-4' | 'gpt-3.5-turbo' | 'claude-3' | 'claude-2';
 ```
 
-### 3. Recommended AI Dependencies
-When adding AI functionality, prefer these established packages:
-- `openai` - Official OpenAI API client
-- `@langchain/core` - LangChain framework
-- `@vercel/ai` - Vercel AI SDK
-- `@huggingface/inference` - Hugging Face API client
+### 3. React Best Practices
+- Use functional components with hooks
+- Implement proper cleanup for AI subscriptions
+- Use React.memo for expensive AI-powered components
+- Handle loading and error states consistently
 
-### 4. Response Handling Best Practices
-- Always validate AI responses before using them
-- Implement fallback mechanisms for failed requests
-- Log AI interactions for debugging and monitoring
-- Handle streaming responses appropriately
+### 4. Testing Patterns
+```javascript
+// Example AI component test pattern
+describe('AI Chat Component', () => {
+  it('handles API errors gracefully', async () => {
+    // Mock AI service failure
+    mockAIService.mockRejectedValue(new Error('API Error'));
+    
+    render(<ChatComponent />);
+    
+    // Test error handling and user feedback
+    expect(screen.getByText(/error/i)).toBeInTheDocument();
+  });
+});
+```
 
-### 5. Performance Optimization
-- Cache AI responses when appropriate
-- Implement request debouncing for user inputs
-- Use background processing for long-running AI tasks
-- Consider edge functions for AI API proxying
+### 5. Error Handling Standards
+- Write comprehensive error handling and logging
+- Implement proper error boundaries for React components
+- Use custom error types for different failure scenarios
+- Provide meaningful error messages to users
 
-### 6. User Experience Guidelines
-- Provide clear loading indicators for AI operations
-- Implement progressive disclosure for complex AI features
-- Give users control over AI behavior and settings
-- Provide feedback mechanisms for AI output quality
+### 6. Documentation Requirements
+- Document all AI-related functions and components
+- Include usage examples for AI integrations
+- Explain prompt engineering decisions
+- Document environment setup requirements
+
+### 7. Code Style Guidelines
+- Write clean, readable, and well-documented code
+- Follow established linting and formatting rules
+- Write meaningful commit messages and documentation
+- Use descriptive variable and function names
+
+### 8. API Development Standards
+- Follow RESTful principles for AI service endpoints
+- Implement proper rate limiting and authentication
+- Use middleware for common AI service operations
+- Document API endpoints with clear examples
 
 ---
 > Source: [HerringtonDarkholme/megarepo](https://github.com/HerringtonDarkholme/megarepo) — distributed by [TomeVault](https://tomevault.io).
