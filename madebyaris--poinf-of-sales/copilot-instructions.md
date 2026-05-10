@@ -1,980 +1,686 @@
-## testing-patterns
+## user-journey-optimization
 
-> Comprehensive testing patterns for React Testing Library and Go testing in POS System
+> User journey optimization patterns for all POS roles with performance, UX, and business outcome focus
 
 
-# 🧪 Testing Patterns & Best Practices
+# 👥 User Journey Optimization & Role-Specific Patterns
 
-## 🎯 Testing Philosophy
+## 🎯 Journey-First Design Philosophy
 
-### Testing Pyramid for POS System
-```
-    E2E Tests (Few)
-    ↑ Full user workflows
-    ↑ Critical business flows
-    
-  Integration Tests (Some)
-  ↑ API + Database interactions
-  ↑ Component + API integration
-  
-    Unit Tests (Many)
-    ↑ Individual functions
-    ↑ Component behavior
-    ↑ Business logic validation
-```
-
-### Test Coverage Targets
-- **Unit Tests:** 80%+ coverage for business logic
-- **Integration Tests:** All API endpoints with database
-- **E2E Tests:** Core user journeys (login → order → payment → kitchen)
-
-## ⚛️ Frontend Testing Patterns (React Testing Library)
-
-### Component Testing Setup
+### Performance Targets by Role
 ```typescript
-// test-utils.tsx - Custom testing utilities
-import { render, RenderOptions } from '@testing-library/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactElement } from 'react'
-import { BrowserRouter } from '@tanstack/react-router'
-
-// Create a test query client with no retries
-const createTestQueryClient = () => new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,      // Don't retry on test failures
-      gcTime: Infinity,  // Keep data in cache
-    },
-    mutations: {
-      retry: false,
-    },
+interface RolePerformanceTargets {
+  admin: {
+    dashboardLoad: '< 2 seconds',
+    reportGeneration: '< 5 seconds',
+    userManagement: '< 1 second per action',
+    systemOverview: '< 1.5 seconds'
   },
-})
-
-interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
-  queryClient?: QueryClient
-  initialEntries?: string[]
+  server: {
+    orderCreation: '< 30 seconds total',
+    productSelection: '< 5 seconds per item',
+    tableAssignment: '< 3 seconds',
+    customerInteraction: 'seamless, no delays'
+  },
+  counter: {
+    paymentProcessing: '< 10 seconds',
+    orderTypeSwitch: '< 2 seconds',
+    receiptGeneration: '< 3 seconds',
+    queueManagement: 'real-time updates'
+  },
+  kitchen: {
+    statusUpdates: '< 1 second',
+    orderPrioritization: 'real-time',
+    workflowOptimization: 'continuous',
+    communicationDelay: '< 2 seconds'
+  }
 }
-
-// Custom render with providers
-export const renderWithProviders = (
-  ui: ReactElement,
-  {
-    queryClient = createTestQueryClient(),
-    initialEntries = ['/'],
-    ...renderOptions
-  }: CustomRenderOptions = {}
-) => {
-  const Wrapper = ({ children }: { children: React.ReactNode }) => (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter initialEntries={initialEntries}>
-        {children}
-      </BrowserRouter>
-    </QueryClientProvider>
-  )
-
-  return { ...render(ui, { wrapper: Wrapper, ...renderOptions }), queryClient }
-}
-
-// Re-export everything
-export * from '@testing-library/react'
 ```
 
-### Component Testing Examples
+## 👑 Admin Journey Optimization
 
-#### 1. Testing POS Product Card
+### 1. Executive Dashboard Experience
 ```typescript
-// ProductCard.test.tsx
-import { screen, userEvent } from '@testing-library/react'
-import { renderWithProviders } from '../test-utils'
-import { ProductCard } from '@/components/pos/ProductCard'
-import { Product } from '@/types'
+// ✅ ADMIN-OPTIMIZED: Executive dashboard with business intelligence
+class AdminDashboardOptimization {
+  // Intelligent data aggregation for C-level insights
+  async loadExecutiveDashboard(): Promise<ExecutiveDashboard> {
+    // Parallel data loading for instant insights
+    const [
+      realtimeMetrics,
+      financialSummary,
+      operationalHealth,
+      staffPerformance,
+      customerSatisfaction,
+      systemAlerts
+    ] = await Promise.all([
+      this.getRealtimeBusinessMetrics(), // Revenue, orders/hour, avg ticket
+      this.getFinancialSummary(), // Daily/weekly/monthly trends
+      this.getOperationalHealth(), // Kitchen efficiency, table turnover
+      this.getStaffPerformance(), // Individual and team metrics
+      this.getCustomerSatisfaction(), // Wait times, order accuracy
+      this.getSystemAlerts() // Technical and business alerts
+    ])
 
-const mockProduct: Product = {
-  id: '123',
-  name: 'Cheeseburger',
-  price: 12.99,
-  category_id: 'burgers',
-  is_available: true,
-  description: 'Delicious beef burger',
-  image_url: null,
-}
-
-describe('ProductCard', () => {
-  const mockOnSelect = jest.fn()
-
-  beforeEach(() => {
-    mockOnSelect.mockClear()
-  })
-
-  it('displays product information correctly', () => {
-    renderWithProviders(
-      <ProductCard 
-        product={mockProduct} 
-        onSelect={mockOnSelect} 
-        isSelected={false} 
-      />
-    )
-
-    expect(screen.getByText('Cheeseburger')).toBeInTheDocument()
-    expect(screen.getByText('$12.99')).toBeInTheDocument()
-    expect(screen.getByText('Delicious beef burger')).toBeInTheDocument()
-  })
-
-  it('calls onSelect when clicked', async () => {
-    const user = userEvent.setup()
-    
-    renderWithProviders(
-      <ProductCard 
-        product={mockProduct} 
-        onSelect={mockOnSelect} 
-        isSelected={false} 
-      />
-    )
-
-    await user.click(screen.getByText('Cheeseburger'))
-    expect(mockOnSelect).toHaveBeenCalledWith(mockProduct)
-  })
-
-  it('shows selected state correctly', () => {
-    renderWithProviders(
-      <ProductCard 
-        product={mockProduct} 
-        onSelect={mockOnSelect} 
-        isSelected={true} 
-      />
-    )
-
-    const card = screen.getByRole('button')
-    expect(card).toHaveClass('ring-2', 'ring-primary')
-  })
-
-  it('disables unavailable products', () => {
-    const unavailableProduct = { ...mockProduct, is_available: false }
-    
-    renderWithProviders(
-      <ProductCard 
-        product={unavailableProduct} 
-        onSelect={mockOnSelect} 
-        isSelected={false} 
-      />
-    )
-
-    const card = screen.getByRole('button')
-    expect(card).toBeDisabled()
-    expect(screen.getByText('Unavailable')).toBeInTheDocument()
-  })
-})
-```
-
-#### 2. Testing Forms with React Hook Form
-```typescript
-// OrderForm.test.tsx
-import { screen, userEvent, waitFor } from '@testing-library/react'
-import { renderWithProviders } from '../test-utils'
-import { OrderForm } from '@/components/forms/OrderForm'
-import { CreateOrderRequest } from '@/types'
-
-// Mock API client
-jest.mock('@/api/client', () => ({
-  createOrder: jest.fn(),
-}))
-
-describe('OrderForm', () => {
-  const mockOnSubmit = jest.fn()
-  const mockOnCancel = jest.fn()
-
-  beforeEach(() => {
-    mockOnSubmit.mockClear()
-    mockOnCancel.mockClear()
-  })
-
-  it('renders form fields correctly', () => {
-    renderWithProviders(
-      <OrderForm onSubmit={mockOnSubmit} onCancel={mockOnCancel} />
-    )
-
-    expect(screen.getByLabelText(/order type/i)).toBeInTheDocument()
-    expect(screen.getByLabelText(/customer name/i)).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /create order/i })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /cancel/i })).toBeInTheDocument()
-  })
-
-  it('validates required fields', async () => {
-    const user = userEvent.setup()
-    
-    renderWithProviders(
-      <OrderForm onSubmit={mockOnSubmit} onCancel={mockOnCancel} />
-    )
-
-    // Try to submit without selecting order type
-    await user.click(screen.getByRole('button', { name: /create order/i }))
-
-    await waitFor(() => {
-      expect(screen.getByText(/order type is required/i)).toBeInTheDocument()
+    // Business intelligence: Automatic insights generation
+    const insights = this.generateBusinessInsights({
+      metrics: realtimeMetrics,
+      trends: financialSummary,
+      operations: operationalHealth
     })
 
-    expect(mockOnSubmit).not.toHaveBeenCalled()
-  })
+    return {
+      kpis: this.createKPIDashboard(realtimeMetrics),
+      trends: this.createTrendAnalysis(financialSummary),
+      alerts: this.prioritizeAlerts(systemAlerts),
+      recommendations: insights.recommendations,
+      quickActions: this.generateQuickActions(insights)
+    }
+  }
 
-  it('submits valid form data', async () => {
-    const user = userEvent.setup()
-    
-    renderWithProviders(
-      <OrderForm onSubmit={mockOnSubmit} onCancel={mockOnCancel} />
-    )
+  // Predictive business insights
+  private generateBusinessInsights(data: DashboardData): BusinessInsights {
+    const insights: BusinessInsight[] = []
 
-    // Fill out form
-    await user.selectOptions(screen.getByLabelText(/order type/i), 'dine_in')
-    await user.type(screen.getByLabelText(/customer name/i), 'John Doe')
-
-    // Submit
-    await user.click(screen.getByRole('button', { name: /create order/i }))
-
-    await waitFor(() => {
-      expect(mockOnSubmit).toHaveBeenCalledWith({
-        order_type: 'dine_in',
-        customer_name: 'John Doe',
-        items: [],
-        notes: '',
-      })
-    })
-  })
-})
-```
-
-#### 3. Testing API Integration with MSW
-```typescript
-// api-integration.test.tsx
-import { rest } from 'msw'
-import { setupServer } from 'msw/node'
-import { screen, userEvent, waitFor } from '@testing-library/react'
-import { renderWithProviders } from '../test-utils'
-import { ProductList } from '@/components/pos/ProductList'
-
-// Mock API server
-const server = setupServer(
-  rest.get('http://localhost:8080/api/v1/products', (req, res, ctx) => {
-    return res(
-      ctx.json({
-        success: true,
-        data: [
-          { id: '1', name: 'Burger', price: 10.99, is_available: true },
-          { id: '2', name: 'Pizza', price: 15.99, is_available: true },
+    // Revenue optimization insights
+    if (data.metrics.averageTicket < data.historical.averageTicket * 0.95) {
+      insights.push({
+        type: 'revenue_optimization',
+        severity: 'medium',
+        title: 'Average Ticket Size Declining',
+        description: 'Consider implementing upselling strategies or menu optimization',
+        actionable: true,
+        quickActions: [
+          { label: 'View Menu Performance', action: 'navigate_to_menu_analytics' },
+          { label: 'Staff Upselling Training', action: 'create_training_task' }
         ]
       })
-    )
-  }),
-  
-  rest.post('http://localhost:8080/api/v1/orders', (req, res, ctx) => {
-    return res(
-      ctx.json({
-        success: true,
-        data: { id: 'order-1', order_number: 'ORD-001' }
+    }
+
+    // Operational efficiency insights
+    if (data.operations.kitchenEfficiency < 0.85) {
+      insights.push({
+        type: 'operational_efficiency',
+        severity: 'high',
+        title: 'Kitchen Efficiency Below Target',
+        description: 'Kitchen preparation times are impacting customer satisfaction',
+        actionable: true,
+        quickActions: [
+          { label: 'View Kitchen Analytics', action: 'navigate_to_kitchen_dashboard' },
+          { label: 'Optimize Kitchen Workflow', action: 'open_workflow_optimizer' }
+        ]
       })
-    )
-  })
-)
-
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
-
-describe('ProductList Integration', () => {
-  it('loads and displays products from API', async () => {
-    renderWithProviders(<ProductList onProductSelect={jest.fn()} />)
-
-    // Wait for products to load
-    await waitFor(() => {
-      expect(screen.getByText('Burger')).toBeInTheDocument()
-      expect(screen.getByText('Pizza')).toBeInTheDocument()
-    })
-  })
-
-  it('handles API errors gracefully', async () => {
-    // Mock server error
-    server.use(
-      rest.get('http://localhost:8080/api/v1/products', (req, res, ctx) => {
-        return res(ctx.status(500), ctx.json({ error: 'Server error' }))
-      })
-    )
-
-    renderWithProviders(<ProductList onProductSelect={jest.fn()} />)
-
-    await waitFor(() => {
-      expect(screen.getByText(/failed to load products/i)).toBeInTheDocument()
-    })
-  })
-})
-```
-
-### Custom Hooks Testing
-```typescript
-// useCart.test.ts
-import { renderHook, act } from '@testing-library/react'
-import { useCart } from '@/hooks/useCart'
-import { Product } from '@/types'
-
-const mockProduct: Product = {
-  id: '1',
-  name: 'Test Product',
-  price: 10.00,
-  category_id: 'test',
-  is_available: true,
-}
-
-describe('useCart', () => {
-  it('adds items to cart correctly', () => {
-    const { result } = renderHook(() => useCart())
-
-    act(() => {
-      result.current.addItem(mockProduct, 2)
-    })
-
-    expect(result.current.items).toHaveLength(1)
-    expect(result.current.items[0]).toEqual({
-      product: mockProduct,
-      quantity: 2,
-      subtotal: 20.00,
-    })
-    expect(result.current.total).toBe(20.00)
-  })
-
-  it('updates item quantity correctly', () => {
-    const { result } = renderHook(() => useCart())
-
-    act(() => {
-      result.current.addItem(mockProduct, 1)
-      result.current.updateQuantity(mockProduct.id, 3)
-    })
-
-    expect(result.current.items[0].quantity).toBe(3)
-    expect(result.current.total).toBe(30.00)
-  })
-
-  it('removes items from cart', () => {
-    const { result } = renderHook(() => useCart())
-
-    act(() => {
-      result.current.addItem(mockProduct, 1)
-      result.current.removeItem(mockProduct.id)
-    })
-
-    expect(result.current.items).toHaveLength(0)
-    expect(result.current.total).toBe(0)
-  })
-})
-```
-
-## 🔧 Backend Testing Patterns (Go)
-
-### Test Structure and Setup
-```go
-// handlers_test.go
-package handlers
-
-import (
-    "bytes"
-    "encoding/json"
-    "net/http"
-    "net/http/httptest"
-    "testing"
-
-    "github.com/gin-gonic/gin"
-    "github.com/stretchr/testify/assert"
-    "github.com/stretchr/testify/require"
-    "your-project/internal/models"
-)
-
-// Setup test router with middleware
-func setupTestRouter() *gin.Engine {
-    gin.SetMode(gin.TestMode)
-    router := gin.New()
-    
-    // Add necessary middleware for tests
-    router.Use(gin.Recovery())
-    
-    return router
-}
-
-// Helper to create authenticated request
-func createAuthenticatedRequest(method, url string, body interface{}, userID, role string) *http.Request {
-    var reqBody []byte
-    if body != nil {
-        reqBody, _ = json.Marshal(body)
-    }
-    
-    req := httptest.NewRequest(method, url, bytes.NewBuffer(reqBody))
-    req.Header.Set("Content-Type", "application/json")
-    
-    // Add auth context for testing
-    req.Header.Set("X-User-ID", userID)
-    req.Header.Set("X-User-Role", role)
-    
-    return req
-}
-```
-
-### Testing HTTP Handlers
-```go
-// order_handler_test.go
-func TestOrderHandler_CreateOrder(t *testing.T) {
-    db := setupTestDB(t)
-    defer teardownTestDB(t, db)
-    
-    orderHandler := NewOrderHandler(db)
-    router := setupTestRouter()
-    router.POST("/orders", orderHandler.CreateOrder)
-
-    tests := []struct {
-        name         string
-        request      models.CreateOrderRequest
-        userRole     string
-        expectedCode int
-        expectError  string
-    }{
-        {
-            name: "valid dine-in order",
-            request: models.CreateOrderRequest{
-                OrderType:    "dine_in",
-                CustomerName: stringPtr("John Doe"),
-                Items: []models.CreateOrderItem{
-                    {ProductID: "product-1", Quantity: 2},
-                },
-            },
-            userRole:     "server",
-            expectedCode: http.StatusCreated,
-        },
-        {
-            name: "empty order items",
-            request: models.CreateOrderRequest{
-                OrderType: "dine_in",
-                Items:     []models.CreateOrderItem{},
-            },
-            userRole:     "server",
-            expectedCode: http.StatusBadRequest,
-            expectError:  "empty_order",
-        },
-        {
-            name: "invalid order type",
-            request: models.CreateOrderRequest{
-                OrderType: "invalid_type",
-                Items: []models.CreateOrderItem{
-                    {ProductID: "product-1", Quantity: 1},
-                },
-            },
-            userRole:     "server",
-            expectedCode: http.StatusBadRequest,
-            expectError:  "invalid_order_type",
-        },
     }
 
-    for _, tt := range tests {
-        t.Run(tt.name, func(t *testing.T) {
-            req := createAuthenticatedRequest("POST", "/orders", tt.request, "user-1", tt.userRole)
-            w := httptest.NewRecorder()
-            
-            router.ServeHTTP(w, req)
-            
-            assert.Equal(t, tt.expectedCode, w.Code)
-            
-            var response models.APIResponse
-            err := json.Unmarshal(w.Body.Bytes(), &response)
-            require.NoError(t, err)
-            
-            if tt.expectError != "" {
-                assert.False(t, response.Success)
-                assert.NotNil(t, response.Error)
-                assert.Equal(t, tt.expectError, *response.Error)
-            } else {
-                assert.True(t, response.Success)
-                assert.NotNil(t, response.Data)
-            }
-        })
-    }
-}
-```
-
-### Database Integration Testing
-```go
-// database_test.go
-func setupTestDB(t *testing.T) *sql.DB {
-    db, err := sql.Open("postgres", "postgresql://test:test@localhost:5433/pos_test?sslmode=disable")
-    require.NoError(t, err)
-    
-    // Run migrations or seed test data
-    seedTestData(t, db)
-    
-    return db
-}
-
-func teardownTestDB(t *testing.T, db *sql.DB) {
-    // Clean up test data
-    cleanupTestData(t, db)
-    db.Close()
-}
-
-func seedTestData(t *testing.T, db *sql.DB) {
-    // Insert test products
-    _, err := db.Exec(`
-        INSERT INTO products (id, name, price, category_id, is_available)
-        VALUES 
-            ('product-1', 'Test Burger', 10.99, 'category-1', true),
-            ('product-2', 'Test Pizza', 15.99, 'category-1', true)
-    `)
-    require.NoError(t, err)
-    
-    // Insert test users
-    _, err = db.Exec(`
-        INSERT INTO users (id, username, role, password_hash)
-        VALUES 
-            ('user-1', 'testserver', 'server', '$2b$10$hash'),
-            ('user-2', 'testadmin', 'admin', '$2b$10$hash')
-    `)
-    require.NoError(t, err)
-}
-
-func cleanupTestData(t *testing.T, db *sql.DB) {
-    tables := []string{"order_items", "orders", "products", "categories", "users"}
-    for _, table := range tables {
-        _, err := db.Exec(fmt.Sprintf("DELETE FROM %s", table))
-        require.NoError(t, err)
-    }
-}
-```
-
-### Testing Business Logic
-```go
-// order_service_test.go
-func TestCalculateOrderTotal(t *testing.T) {
-    tests := []struct {
-        name     string
-        items    []models.OrderItem
-        expected float64
-    }{
-        {
-            name: "single item",
-            items: []models.OrderItem{
-                {Price: 10.99, Quantity: 1},
-            },
-            expected: 10.99,
-        },
-        {
-            name: "multiple items",
-            items: []models.OrderItem{
-                {Price: 10.99, Quantity: 2},
-                {Price: 5.50, Quantity: 1},
-            },
-            expected: 27.48,
-        },
-        {
-            name:     "empty order",
-            items:    []models.OrderItem{},
-            expected: 0.00,
-        },
-    }
-
-    for _, tt := range tests {
-        t.Run(tt.name, func(t *testing.T) {
-            total := calculateOrderTotal(tt.items)
-            assert.Equal(t, tt.expected, total)
-        })
-    }
-}
-```
-
-## 🎭 E2E Testing Strategy
-
-### Critical User Journeys
-```typescript
-// e2e/order-flow.spec.ts
-import { test, expect } from '@playwright/test'
-
-test.describe('Complete Order Flow', () => {
-  test('admin can process full order lifecycle', async ({ page }) => {
-    // Login as admin
-    await page.goto('/login')
-    await page.fill('[name="username"]', 'admin')
-    await page.fill('[name="password"]', 'admin123')
-    await page.click('button[type="submit"]')
-    
-    // Navigate to server interface
-    await page.click('text=Server Interface')
-    
-    // Create order
-    await page.click('text=Cheeseburger')
-    await page.click('text=Add Fries')
-    await page.click('button:has-text("Create Order")')
-    
-    // Verify order created
-    await expect(page.locator('text=Order Created')).toBeVisible()
-    
-    // Switch to kitchen interface
-    await page.click('text=Kitchen Display')
-    
-    // Update order status
-    await page.click('button:has-text("Start Preparing")')
-    await page.click('button:has-text("Ready")')
-    
-    // Switch to counter for payment
-    await page.click('text=Counter/Checkout')
-    
-    // Process payment
-    await page.click('button:has-text("Cash")')
-    await page.fill('[name="amount_received"]', '25.00')
-    await page.click('button:has-text("Complete Payment")')
-    
-    // Verify payment processed
-    await expect(page.locator('text=Payment Complete')).toBeVisible()
-  })
-})
-```
-
-## 🎯 Testing Best Practices
-
-### Do's ✅
-- **Test behavior, not implementation** - Focus on what users see and do
-- **Use meaningful test names** - Describe the behavior being tested
-- **Follow AAA pattern** - Arrange, Act, Assert
-- **Mock external dependencies** - Keep tests isolated and fast
-- **Test error states** - Ensure graceful error handling
-- **Use test data builders** - Create reusable test data factories
-
-### Don'ts ❌
-- **Don't test implementation details** - Avoid testing internal component state
-- **Don't create brittle selectors** - Prefer semantic queries over CSS selectors
-- **Don't share state between tests** - Each test should be independent
-- **Don't mock what you don't own** - Avoid mocking third-party libraries unnecessarily
-- **Don't write tests without assertions** - Every test should verify something
-
-### Test Organization
-```
-src/
-├── components/
-│   ├── __tests__/           # Component tests
-│   │   ├── ProductCard.test.tsx
-│   │   └── OrderForm.test.tsx
-│   └── ProductCard.tsx
-├── hooks/
-│   ├── __tests__/           # Hook tests
-│   │   └── useCart.test.ts
-│   └── useCart.ts
-├── api/
-│   ├── __tests__/           # API integration tests
-│   │   └── client.test.ts
-│   └── client.ts
-└── __tests__/
-    ├── test-utils.tsx       # Test utilities
-    └── setup.ts             # Test setup
-```
-
-## 🚀 Development Commands
-
-### Frontend Testing
-```bash
-# Run all tests
-npm test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run tests with coverage
-npm run test:coverage
-
-# Run E2E tests
-npm run test:e2e
-```
-
-### Backend Testing
-```bash
-# Run all Go tests
-go test ./...
-
-# Run tests with coverage
-go test -coverprofile=coverage.out ./...
-go tool cover -html=coverage.out
-
-# Run specific test
-go test -run TestOrderHandler_CreateOrder ./internal/handlers
-
-# Run tests with verbose output
-go test -v ./...
-```
-
-### Integration Testing
-```bash
-# Start test database
-make test-db
-
-# Run integration tests
-make test-integration
-
-# Run full test suite
-make test-all
-```
-
-## 🛡️ Advanced QA Integration & Error Prevention
-
-### 1. Proactive Error Prevention Testing
-```typescript
-// ✅ ERROR PREVENTION: Business logic boundary testing
-describe('Business Logic Boundary Tests', () => {
-  describe('Order Value Boundaries', () => {
-    const boundaryTestCases = [
-      { value: 0, expected: 'reject', reason: 'zero_amount' },
-      { value: 0.01, expected: 'accept', reason: 'minimum_valid' },
-      { value: 999.99, expected: 'accept', reason: 'maximum_normal' },
-      { value: 1000.00, expected: 'require_approval', reason: 'high_value_threshold' },
-      { value: 10000.00, expected: 'reject', reason: 'exceeds_daily_limit' },
-      { value: -1, expected: 'reject', reason: 'negative_amount' },
-      { value: Number.MAX_VALUE, expected: 'reject', reason: 'overflow_protection' }
-    ]
-
-    boundaryTestCases.forEach(({ value, expected, reason }) => {
-      it(`should ${expected} order with value ${value} (${reason})`, async () => {
-        const order = createMockOrder({ total_amount: value })
-        const validator = new OrderValidator()
-        
-        const result = await validator.validateOrderValue(order)
-        
-        expect(result.decision).toBe(expected)
-        expect(result.reason).toBe(reason)
-      })
-    })
-  })
-
-  describe('Edge Case Scenarios', () => {
-    it('should handle concurrent order modifications gracefully', async () => {
-      const order = await createTestOrder()
-      
-      // Simulate concurrent modifications
-      const modifications = Array(10).fill(null).map((_, index) => 
-        orderService.addItem(order.id, {
-          product_id: `item-${index}`,
-          quantity: 1
-        })
-      )
-      
-      const results = await Promise.allSettled(modifications)
-      const successful = results.filter(r => r.status === 'fulfilled')
-      const failed = results.filter(r => r.status === 'rejected')
-      
-      // Should handle gracefully without data corruption
-      expect(successful.length + failed.length).toBe(10)
-      expect(failed.every(f => 
-        f.reason instanceof ConcurrencyError
-      )).toBe(true)
-    })
-
-    it('should handle network interruption during payment', async () => {
-      const payment = createMockPayment({ amount: 25.99 })
-      
-      // Mock network interruption
-      jest.spyOn(paymentGateway, 'process')
-        .mockRejectedValueOnce(new NetworkError('Connection timeout'))
-        .mockResolvedValueOnce({ success: true, transaction_id: 'txn_123' })
-      
-      const result = await paymentService.processWithRetry(payment)
-      
-      expect(result.success).toBe(true)
-      expect(result.retry_count).toBe(1)
-      expect(result.error_recovery).toBe('automatic_retry')
-    })
-  })
-})
-
-// Property-based testing for business rules
-describe('Property-Based Business Logic Tests', () => {
-  it('should maintain order total consistency', () => {
-    fc.assert(fc.property(
-      fc.array(fc.record({
-        price: fc.float({ min: 0.01, max: 100 }),
-        quantity: fc.integer({ min: 1, max: 10 })
-      })),
-      (items) => {
-        const order = createOrderFromItems(items)
-        const calculatedTotal = items.reduce(
-          (sum, item) => sum + (item.price * item.quantity), 
-          0
-        )
-        
-        expect(order.total_amount).toBeCloseTo(calculatedTotal, 2)
-      }
-    ))
-  })
-
-  it('should preserve business invariants across operations', () => {
-    fc.assert(fc.property(
-      fc.array(fc.oneof(
-        fc.record({ type: 'add_item', ...itemGenerator }),
-        fc.record({ type: 'remove_item', item_id: fc.string() }),
-        fc.record({ type: 'update_quantity', item_id: fc.string(), quantity: fc.nat() })
-      )),
-      (operations) => {
-        const order = createEmptyOrder()
-        
-        operations.forEach(op => {
-          try {
-            orderService.applyOperation(order, op)
-            
-            // Verify invariants after each operation
-            expect(order.total_amount).toBeGreaterThanOrEqual(0)
-            expect(order.items.every(item => item.quantity > 0)).toBe(true)
-            expect(order.items.length).toBeLessThanOrEqual(MAX_ORDER_ITEMS)
-          } catch (error) {
-            // Operations can fail, but should fail gracefully
-            expect(error).toBeInstanceOf(BusinessRuleError)
-          }
-        })
-      }
-    ))
-  })
-})
-```
-
-### 2. Quality Gates Automation
-```typescript
-// ✅ AUTOMATION: Quality gates with business context
-class QualityGatesAutomation {
-  // Automated business logic validation
-  static createBusinessLogicValidator(): BusinessLogicValidator {
     return {
-      validateBusinessRules: async (changeset: CodeChangeset): Promise<ValidationResult> => {
-        const violations: BusinessRuleViolation[] = []
+      insights,
+      recommendations: this.generateActionableRecommendations(insights),
+      predictedImpact: this.calculatePredictedBusinessImpact(insights)
+    }
+  }
+}
+
+// Admin interface switching optimization
+class AdminInterfaceSwitching {
+  // Seamless role interface switching with context preservation
+  async switchToRoleInterface(targetRole: UserRole, preserveContext: boolean = true): Promise<void> {
+    // Pre-load target interface data
+    const targetData = await this.preloadRoleData(targetRole)
+    
+    if (preserveContext) {
+      // Preserve admin context for quick return
+      this.preserveAdminContext({
+        currentDashboard: this.getCurrentDashboardState(),
+        activeReports: this.getActiveReports(),
+        notifications: this.getPendingNotifications()
+      })
+    }
+
+    // Optimized transition with loading states
+    this.showTransitionLoading(`Switching to ${targetRole} interface...`)
+    
+    // Load role-specific optimizations
+    const roleOptimizations = await this.loadRoleOptimizations(targetRole)
+    
+    // Smooth transition with preserved user experience
+    this.transitionToRoleInterface(targetRole, targetData, roleOptimizations)
+  }
+
+  // Role-specific data preloading
+  private async preloadRoleData(role: UserRole): Promise<RoleData> {
+    const preloadStrategies = {
+      server: () => Promise.all([
+        this.menuService.getAvailableProducts(),
+        this.tableService.getAvailableTables(),
+        this.orderService.getActiveOrders()
+      ]),
+      counter: () => Promise.all([
+        this.orderService.getPendingPayments(),
+        this.paymentService.getPaymentMethods(),
+        this.customerService.getLoyaltyPrograms()
+      ]),
+      kitchen: () => Promise.all([
+        this.kitchenService.getActiveOrders(),
+        this.kitchenService.getPreparationQueue(),
+        this.kitchenService.getKitchenStations()
+      ])
+    }
+
+    return preloadStrategies[role]?.() || Promise.resolve(null)
+  }
+}
+```
+
+## 🍽️ Server Journey Optimization
+
+### 1. Lightning-Fast Order Creation
+```typescript
+// ✅ SERVER-OPTIMIZED: Fastest possible order creation workflow
+class ServerOrderOptimization {
+  // Intelligent product suggestions based on context
+  async optimizeProductSelection(context: ServerContext): Promise<ProductSuggestions> {
+    const suggestions = await Promise.all([
+      this.getPopularItems(), // Most ordered items today
+      this.getSeasonalRecommendations(), // Weather/season based
+      this.getTableSpecificSuggestions(context.table_id), // Table history
+      this.getTimeBasedSuggestions(), // Lunch vs dinner items
+      this.getInventoryOptimizedItems() // Items needing to move
+    ])
+
+    return {
+      quickAccess: suggestions[0].slice(0, 8), // 8 most popular for instant access
+      recommended: this.mergeAndRankSuggestions(suggestions),
+      categories: await this.getOptimizedCategories(),
+      searchSuggestions: await this.getIntelligentSearchSuggestions()
+    }
+  }
+
+  // Voice-optimized order taking
+  async enableVoiceOrderAssistance(): Promise<VoiceAssistant> {
+    return {
+      startListening: () => {
+        // "Large pepperoni pizza, extra cheese, side of wings"
+        this.voiceRecognition.listen({
+          grammar: 'restaurant_menu',
+          continuous: true,
+          confidenceThreshold: 0.8
+        })
+      },
+
+      processVoiceOrder: async (transcript: string) => {
+        // AI-powered menu item extraction
+        const extractedItems = await this.nlpService.extractMenuItems(transcript)
         
-        // Check for business logic consistency
-        const businessLogicFiles = changeset.files.filter(f => 
-          f.path.includes('handlers') || 
-          f.path.includes('services') || 
-          f.path.includes('business-logic')
-        )
-        
-        for (const file of businessLogicFiles) {
-          const analysis = await this.analyzeBusinessLogic(file)
-          
-          if (analysis.hasInconsistentPricing) {
-            violations.push({
-              type: 'PRICING_CONSISTENCY',
-              severity: 'high',
-              file: file.path,
-              message: 'Pricing calculation inconsistency detected',
-              suggestion: 'Use centralized pricing service'
-            })
-          }
-          
-          if (analysis.hasUnvalidatedUserInput) {
-            violations.push({
-              type: 'INPUT_VALIDATION',
-              severity: 'critical',
-              file: file.path,
-              message: 'User input not properly validated',
-              suggestion: 'Add input validation using business validation rules'
-            })
-          }
-        }
+        // Confidence-based confirmation
+        return extractedItems.map(item => ({
+          product: item.product,
+          quantity: item.quantity,
+          confidence: item.confidence,
+          needsConfirmation: item.confidence < 0.9,
+          suggestedAlternatives: item.confidence < 0.7 ? item.alternatives : []
+        }))
+      },
+
+      provideFeedback: (feedback: VoiceFeedback) => {
+        // "I heard 'large pepperoni pizza', is that correct?"
+        this.speakConfirmation(feedback)
+      }
+    }
+  }
+
+  // Gesture-based order modification
+  async enableGestureControls(): Promise<GestureController> {
+    return {
+      // Swipe gestures for quantity adjustment
+      onSwipeRight: (item: OrderItem) => this.incrementQuantity(item),
+      onSwipeLeft: (item: OrderItem) => this.decrementQuantity(item),
+      
+      // Pinch to remove items
+      onPinch: (item: OrderItem) => this.removeItemWithConfirmation(item),
+      
+      // Long press for customization
+      onLongPress: (item: OrderItem) => this.showCustomizationOptions(item),
+      
+      // Double tap for quick add
+      onDoubleTap: (product: Product) => this.quickAdd(product)
+    }
+  }
+
+  // Predictive text for special instructions
+  async generateInstructionPredictions(partialText: string): Promise<string[]> {
+    const commonInstructions = await this.getCommonInstructions()
+    const contextualPredictions = await this.getContextualPredictions(partialText)
+    
+    return [
+      ...contextualPredictions.slice(0, 3),
+      ...commonInstructions
+        .filter(instruction => instruction.startsWith(partialText.toLowerCase()))
+        .slice(0, 5)
+    ]
+  }
+}
+
+// Server-specific UI optimizations
+class ServerUIOptimization {
+  // Large touch targets for tablet use
+  generateTouchOptimizedUI(): ServerUIConfig {
+    return {
+      buttonSize: {
+        primary: '60px', // Easy finger tap
+        secondary: '48px',
+        icon: '44px' // Apple's minimum recommended
+      },
+      
+      spacing: {
+        between_products: '12px',
+        section_margins: '24px',
+        safe_area: '16px' // Away from screen edges
+      },
+      
+      typography: {
+        product_names: '18px', // Easy to read while moving
+        prices: '16px bold',
+        descriptions: '14px',
+        min_line_height: '1.4'
+      },
+      
+      interaction: {
+        tap_feedback: 'haptic + visual',
+        loading_states: 'skeleton_shimmer',
+        error_display: 'inline_toast',
+        success_confirmation: 'checkmark_animation'
+      }
+    }
+  }
+
+  // Context-aware interface adaptation
+  async adaptToEnvironment(context: EnvironmentContext): Promise<UIAdaptation> {
+    const adaptations = {
+      lighting: {
+        bright: { theme: 'light', contrast: 'high' },
+        dim: { theme: 'dark', contrast: 'enhanced' },
+        changing: { theme: 'auto', contrast: 'adaptive' }
+      },
+      
+      noise_level: {
+        quiet: { audio_feedback: 'subtle' },
+        normal: { audio_feedback: 'standard' },
+        loud: { audio_feedback: 'enhanced', visual_feedback: 'prominent' }
+      },
+      
+      rush_period: {
+        true: { layout: 'simplified', animations: 'reduced', shortcuts: 'enabled' },
+        false: { layout: 'full', animations: 'smooth', shortcuts: 'optional' }
+      }
+    }
+
+    return this.applyAdaptations(adaptations, context)
+  }
+}
+```
+
+## 💰 Counter Journey Optimization
+
+### 1. Multi-Modal Payment Excellence
+```typescript
+// ✅ COUNTER-OPTIMIZED: Seamless payment processing for all order types
+class CounterPaymentOptimization {
+  // Intelligent payment method selection
+  async optimizePaymentMethods(order: Order, customer: Customer): Promise<PaymentOptimization> {
+    const recommendations = await this.analyzePaymentPreferences({
+      order_total: order.total_amount,
+      customer_history: customer?.payment_history,
+      current_promotions: await this.getActivePromotions(),
+      loyalty_benefits: await this.getLoyaltyBenefits(customer),
+      time_of_day: new Date().getHours()
+    })
+
+    return {
+      recommended_method: recommendations.primary,
+      alternatives: recommendations.alternatives,
+      
+      // Smart suggestions
+      split_payment_options: recommendations.split_options,
+      tip_suggestions: this.calculateOptimalTipSuggestions(order.total_amount),
+      loyalty_redemptions: recommendations.loyalty_opportunities,
+      
+      // UX optimizations
+      quick_amounts: this.generateQuickAmountButtons(order.total_amount),
+      keyboard_shortcuts: this.getPaymentKeyboardShortcuts(),
+      receipt_options: this.getReceiptPreferences(customer)
+    }
+  }
+
+  // Lightning-fast receipt generation
+  async generateOptimizedReceipt(payment: Payment): Promise<ReceiptGeneration> {
+    // Parallel processing for speed
+    const [
+      receiptData,
+      loyaltyUpdate,
+      businessAnalytics,
+      customerCommunication
+    ] = await Promise.all([
+      this.formatReceiptData(payment),
+      this.updateLoyaltyPoints(payment.customer_id, payment.amount),
+      this.recordBusinessMetrics(payment),
+      this.prepareCustomerCommunication(payment)
+    ])
+
+    // Smart receipt customization
+    const receiptCustomization = await this.customizeReceipt({
+      customer_preferences: payment.customer?.receipt_preferences,
+      business_branding: await this.getBrandingElements(),
+      promotional_messages: await this.getContextualPromotions(payment),
+      next_visit_incentives: await this.generateRetentionOffers(payment.customer_id)
+    })
+
+    return {
+      receipt: this.combineReceiptElements(receiptData, receiptCustomization),
+      delivery_methods: this.determineDeliveryMethods(payment.customer),
+      follow_up_actions: this.generateFollowUpActions(payment)
+    }
+  }
+
+  // Queue management optimization
+  async optimizeCounterQueue(): Promise<QueueOptimization> {
+    const queueAnalysis = await this.analyzeCurrentQueue()
+    
+    return {
+      // Intelligent order routing
+      order_routing: {
+        express_line: queueAnalysis.simple_orders, // < 3 items, card payment
+        full_service: queueAnalysis.complex_orders, // Large orders, special requests
+        pickup_only: queueAnalysis.pickup_orders // Pre-paid online orders
+      },
+      
+      // Staff allocation suggestions
+      staffing_recommendations: {
+        current_efficiency: queueAnalysis.efficiency_score,
+        suggested_stations: queueAnalysis.optimal_station_count,
+        cross_training_opportunities: queueAnalysis.skill_gaps
+      },
+      
+      // Customer communication
+      wait_time_estimates: {
+        express: this.calculateExpressWaitTime(),
+        full_service: this.calculateFullServiceWaitTime(),
+        accuracy_confidence: queueAnalysis.prediction_confidence
+      }
+    }
+  }
+}
+
+// Counter-specific multi-tasking optimization
+class CounterMultitaskingOptimization {
+  // Context switching between order types
+  async enableSeamlessOrderTypeSwitch(): Promise<OrderTypeSwitcher> {
+    return {
+      // Maintain context across switches
+      preserveContext: (currentOrder: PartialOrder, targetType: OrderType) => {
+        const adaptedOrder = this.adaptOrderToType(currentOrder, targetType)
         
         return {
-          passed: violations.length === 0,
-          violations,
-          businessImpact: this.assessBusinessImpact(violations)
+          preserved_items: adaptedOrder.compatible_items,
+          modified_items: adaptedOrder.modified_items,
+          additional_fields: adaptedOrder.required_fields,
+          ui_adaptations: adaptedOrder.ui_changes
         }
       },
 
-      validatePerformanceImpact: async (changeset: CodeChangeset): Promise<PerformanceImpact> => {
-        const performanceAnalysis = await this.analyzePerformanceChanges(changeset)
-        
-        return {
-          databaseQueryImpact: performanceAnalysis.queryChanges,
-          memoryImpact: performanceAnalysis.memoryChanges,
-          bundleSizeImpact: performanceAnalysis.bundleChanges,
-          businessCriticalPathsAffected: performanceAnalysis.criticalPaths,
-          recommendations: this.generatePerformanceRecommendations(performanceAnalysis)
-        }
-      }
+      // Quick switch shortcuts
+      keyboard_shortcuts: {
+        'Alt+D': 'switch_to_dine_in',
+        'Alt+T': 'switch_to_takeout', 
+        'Alt+L': 'switch_to_delivery',
+        'Alt+P': 'switch_to_phone_order'
+      },
+
+      // Visual transition optimization
+      transition_animation: 'slide_with_context_preservation',
+      loading_state: 'skeleton_with_preserved_data',
+      error_recovery: 'restore_previous_context'
     }
   }
 
-  // Automated deployment quality gates
-  static createDeploymentQualityGates(): DeploymentQualityGates {
+  // Parallel order processing
+  async enableParallelOrderHandling(): Promise<ParallelProcessor> {
     return {
-      preDeploymentChecks: [
-        {
-          name: 'Business Logic Regression Tests',
-          check: async () => {
-            const regressionResults = await this.runBusinessRegressionTests()
-            return {
-              passed: regressionResults.allPassed,
-              critical_failures: regressionResults.criticalFailures,
-              business_impact: regressionResults.businessImpact
-            }
-          }
-        },
-        {
-          name: 'Performance Validation',
-          check: async () => {
-            const performanceResults = await this.validateDeploymentPerformance()
-            return {
-              passed: performanceResults.meetsThresholds,
-              response_times: performanceResults.responseTimes,
-              resource_usage: performanceResults.resourceUsage
-            }
-          }
-        }
-      ],
+      // Handle multiple orders simultaneously
+      concurrent_orders: {
+        max_concurrent: 3, // Based on cognitive load research
+        context_switching_delay: 200, // ms buffer for mental switching
+        visual_indicators: 'color_coded_tabs',
+        keyboard_navigation: 'tab_cycling'
+      },
 
-      postDeploymentVerification: [
-        {
-          name: 'Business Critical Flows',
-          verify: async () => {
-            const flowResults = await this.verifyBusinessCriticalFlows()
-            return {
-              order_creation: flowResults.orderCreation.success,
-              payment_processing: flowResults.paymentProcessing.success,
-              kitchen_workflow: flowResults.kitchenWorkflow.success,
-              overall_health: flowResults.overallHealth
-            }
-          }
-        }
-      ]
+      // Smart notifications
+      notification_management: {
+        priority_system: 'payment_ready > order_complete > new_order',
+        consolidation_rules: 'group_similar_events',
+        quiet_hours: 'reduce_non_critical_notifications',
+        escalation_policy: 'manager_alert_after_5min'
+      }
     }
   }
 }
 ```
 
-### Enhanced Testing Commands
+## 👨‍🍳 Kitchen Journey Optimization
 
-#### Advanced Frontend Testing
-```bash
-# Business logic validation
-npm run test:business-logic
+### 1. Intelligent Workflow Orchestration
+```typescript
+// ✅ KITCHEN-OPTIMIZED: Real-time workflow optimization with AI assistance
+class KitchenWorkflowIntelligence {
+  // AI-powered order prioritization
+  async optimizeKitchenWorkflow(): Promise<WorkflowOptimization> {
+    const currentState = await this.getKitchenCurrentState()
+    const orderComplexity = await this.analyzeOrderComplexity()
+    const staffCapacity = await this.assessStaffCapacity()
+    
+    // Machine learning for optimal sequencing
+    const optimizedSequence = await this.mlOrderSequencer.optimize({
+      pending_orders: currentState.pending_orders,
+      preparation_times: orderComplexity.estimated_times,
+      staff_availability: staffCapacity.current_capacity,
+      equipment_status: currentState.equipment_availability,
+      
+      // Business constraints
+      customer_wait_targets: this.getWaitTimeTargets(),
+      vip_priorities: currentState.vip_orders,
+      delivery_deadlines: currentState.delivery_orders
+    })
 
-# Performance regression tests  
-npm run test:performance
+    return {
+      recommended_sequence: optimizedSequence.order_sequence,
+      parallel_preparation: optimizedSequence.parallel_opportunities,
+      resource_allocation: optimizedSequence.staff_assignments,
+      time_estimates: optimizedSequence.completion_predictions,
+      
+      // Proactive insights
+      bottleneck_warnings: optimizedSequence.potential_bottlenecks,
+      efficiency_score: optimizedSequence.predicted_efficiency,
+      customer_impact: optimizedSequence.customer_satisfaction_impact
+    }
+  }
 
-# Quality gates validation
-npm run test:quality-gates
+  // Real-time kitchen coaching
+  async provideRealTimeCoaching(): Promise<KitchenCoach> {
+    return {
+      // Preparation guidance
+      step_by_step_guidance: async (order: KitchenOrder) => {
+        const recipe = await this.getOptimizedRecipe(order)
+        const chef_level = await this.getChefSkillLevel()
+        
+        return this.adaptGuidanceToSkill(recipe, chef_level)
+      },
 
-# Property-based testing
-npm run test:property-based
+      // Timing optimization
+      timing_alerts: {
+        prep_start_warnings: '2min before optimal start time',
+        cooking_reminders: 'stage-based timer alerts',
+        plating_readiness: 'when all components ready',
+        service_window: 'optimal serving temperature window'
+      },
 
-# Error boundary testing
-npm run test:error-boundaries
+      // Quality assurance
+      quality_checkpoints: {
+        visual_inspection: 'AI-powered image analysis for plating',
+        temperature_monitoring: 'smart probe integration',
+        portion_validation: 'weight-based portion control',
+        completion_verification: 'checklist completion tracking'
+      }
+    }
+  }
+
+  // Intelligent communication system
+  async enableSmartKitchenCommunication(): Promise<CommunicationSystem> {
+    return {
+      // Contextual messaging
+      smart_notifications: {
+        server_updates: 'automatic ETA updates to servers',
+        customer_alerts: 'delay notifications with alternatives',
+        management_reports: 'efficiency and issue summaries',
+        cross_station_coordination: 'synchronized preparation alerts'
+      },
+
+      // Voice-activated controls
+      voice_commands: {
+        status_updates: '"Order 123 ready for pickup"',
+        requests_help: '"Need assistance at grill station"',
+        inventory_alerts: '"Running low on chicken"',
+        quality_issues: '"Hold order 456 - refire needed"'
+      },
+
+      // Visual communication
+      display_optimization: {
+        color_coding: 'priority and status color system',
+        progress_indicators: 'visual preparation progress bars',
+        station_coordination: 'cross-station dependency visualization',
+        urgency_signals: 'escalating visual alerts for delayed orders'
+      }
+    }
+  }
+
+  // Predictive kitchen analytics
+  async generatePredictiveInsights(): Promise<KitchenPredictiveAnalytics> {
+    const historicalData = await this.getKitchenHistoricalData()
+    const currentTrends = await this.getCurrentTrends()
+    
+    return {
+      // Preparation time predictions
+      prep_time_forecasting: {
+        individual_orders: this.predictOrderPreparationTime,
+        batch_optimization: this.predictBatchCookingOpportunities,
+        rush_period_planning: this.predictRushPeriodCapacity,
+        staff_scheduling: this.predictOptimalStaffLevels
+      },
+
+      // Quality predictions
+      quality_risk_assessment: {
+        ingredient_freshness: this.predictIngredientOptimalUsage,
+        equipment_maintenance: this.predictEquipmentMaintenanceNeeds,
+        recipe_consistency: this.predictQualityDeviations,
+        customer_satisfaction: this.predictCustomerSatisfactionImpact
+      },
+
+      // Business impact forecasting
+      business_impact_predictions: {
+        revenue_optimization: this.predictRevenueImpactOfEfficiency,
+        cost_reduction: this.predictCostSavingOpportunities,
+        customer_retention: this.predictCustomerRetentionImpact,
+        staff_satisfaction: this.predictStaffSatisfactionImpact
+      }
+    }
+  }
+}
 ```
 
-#### Advanced Backend Testing
-```bash
-# Business logic consistency tests
-go test -run TestBusinessLogic ./...
+## 🔄 Cross-Journey Integration Patterns
 
-# Load and performance tests
-go test -run TestLoad ./...
+### 1. Seamless Handoff Optimization
+```typescript
+// ✅ INTEGRATION: Seamless data flow between all user journeys
+class CrossJourneyIntegration {
+  // Real-time state synchronization
+  async synchronizeUserJourneys(): Promise<JourneySyncManager> {
+    return {
+      // Order lifecycle synchronization
+      order_handoffs: {
+        server_to_kitchen: {
+          data_transfer: 'complete_order_context',
+          timing_optimization: 'immediate_kitchen_notification',
+          error_handling: 'bidirectional_communication'
+        },
+        
+        kitchen_to_counter: {
+          data_transfer: 'completion_status_with_quality_notes',
+          timing_optimization: 'proactive_payment_preparation',
+          error_handling: 'automatic_status_rollback'
+        },
+        
+        counter_to_admin: {
+          data_transfer: 'financial_and_operational_metrics',
+          timing_optimization: 'real_time_dashboard_updates',
+          error_handling: 'data_consistency_verification'
+        }
+      },
 
-# Integration tests with business scenarios
-go test -tags=business-integration ./...
+      // Context preservation across roles
+      context_handoffs: {
+        admin_to_role_switch: 'preserve_oversight_context',
+        emergency_escalation: 'full_context_transfer_to_management',
+        shift_changes: 'comprehensive_state_transfer'
+      },
 
-# Boundary and edge case tests
-go test -run TestBoundary ./...
+      // Performance monitoring across journeys
+      journey_performance: {
+        end_to_end_tracking: 'customer_order_journey_timing',
+        bottleneck_detection: 'cross_role_workflow_analysis',
+        optimization_suggestions: 'multi_role_efficiency_improvements'
+      }
+    }
+  }
+
+  // Intelligent notification routing
+  async createIntelligentNotificationSystem(): Promise<NotificationRouter> {
+    return {
+      // Context-aware routing
+      route_notification: (notification: Notification, context: SystemContext) => {
+        const routing = this.calculateOptimalRouting(notification, context)
+        
+        return {
+          primary_recipients: routing.immediate_action_required,
+          secondary_recipients: routing.awareness_only,
+          escalation_chain: routing.escalation_sequence,
+          delivery_methods: routing.optimal_delivery_channels
+        }
+      },
+
+      // Intelligent aggregation
+      aggregate_notifications: (notifications: Notification[]) => {
+        return {
+          grouped_by_context: this.groupRelatedNotifications(notifications),
+          prioritized_by_business_impact: this.prioritizeByBusinessImpact(notifications),
+          optimized_for_attention: this.optimizeForUserAttention(notifications)
+        }
+      },
+
+      // Feedback loop optimization
+      notification_effectiveness: {
+        track_response_times: 'measure_action_completion_speed',
+        measure_attention_impact: 'cognitive_load_assessment',
+        optimize_delivery_timing: 'learn_optimal_notification_windows'
+      }
+    }
+  }
+}
 ```
+
+This user journey optimization framework ensures each role has a perfectly tuned experience while maintaining seamless integration across the entire POS system. The patterns focus on real business outcomes, user satisfaction, and operational efficiency.
+
+<function_calls>
+<invoke name="todo_write">
+<parameter name="merge">true
 
 ---
 > Source: [madebyaris/poinf-of-sales](https://github.com/madebyaris/poinf-of-sales) — distributed by [TomeVault](https://tomevault.io).
