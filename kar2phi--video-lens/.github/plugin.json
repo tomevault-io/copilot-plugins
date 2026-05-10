@@ -1,0 +1,9 @@
+{
+  "name": "kar2phi--video-lens",
+  "displayName": "video-lens",
+  "description": "video-lens is a coding agent skill that fetches a YouTube transcript and generates a structured HTML report: executive summary, key points, analysis, takeaway, timestamped topic outline, and an embedd",
+  "version": "1.0.0",
+  "author": "kar2phi",
+  "homepage": "https://github.com/kar2phi/video-lens",
+  "skills": []
+}
