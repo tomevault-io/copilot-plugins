@@ -1,15 +1,10 @@
-## miaocha-git-rule
+## miaocha-sql-rule
 
-> git 提交规则
+> SQL脚本规范，项目SQL版本SQL规范
 
-进行git提交的动作时，必须遵循以下要求。
-1. 查看 git status 目前更改，新增，删除了哪些文件。一定要了解用户到底真实做了什么，和结合上下文用户对你提的需求
-2. 提交风格需要遵守过往的风格
-3. 临时创建提交信息文件，使用提交信息进行提交，你必须注意不能把提交信息混在一起提交到git
-4. 提交信息遵从  operation(area) 的格式，比如 feat(logsearch) , refactor(test) , 或者 fix&chore(logsearch,logstash) 这样的格式
-5. 注意你需要先add需要提交的文件，再创建提交信息文件，这样你才能避免把提交信息文件混在一起提交到git
-6. 提交完成之后需要删除临时提交信息文件。
-7. 提交信息必须使用中文，除非用户明确要求你使用英文
+当编辑SQL文件的时候，SQL语句须遵循以下规范
+1. sql 脚本中涉及到 字符串 varchar 类型的长度定义，按照  8，16，32，64，128，256，512 + 的长度规范定义
+2. 禁止使用外键
 
 ---
 > Source: [Hinadt-Inc/miaocha](https://github.com/Hinadt-Inc/miaocha) — distributed by [TomeVault](https://tomevault.io).
