@@ -1,0 +1,9 @@
+{
+  "name": "sane100400--blitz-bounty-agent",
+  "displayName": "Blitz-Bounty-Agent",
+  "description": "Autonomous smart contract security agent \u2014 audit competitions & Immunefi bug bounties",
+  "version": "1.0.0",
+  "author": "sane100400",
+  "homepage": "https://github.com/sane100400/Blitz-Bounty-Agent",
+  "skills": []
+}
