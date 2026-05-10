@@ -1,49 +1,38 @@
-## jupyter-notebooks
+## project-philosophy
 
-> - Keep notebook cells focused and atomic
+> - Strictly follow the Zen of Python (PEP 20)
 
 
-# Jupyter Notebook Standards for Geovibes
+# Geovibes Project Philosophy and Standards
 
-## Notebook Structure and Organization
-- Keep notebook cells focused and atomic
-- Use markdown cells for section headers and explanations
-- Import all required libraries in the first cell
-- Never add inline comments unless explicitly requested
-- Include progress logging for long-running operations
+## Core Principles
+- Strictly follow the Zen of Python (PEP 20)
+- Prefer explicit over implicit
+- Simple is better than complex
+- Readability counts
+- Flat is better than nested
+- Sparse is better than dense
 
-## Data Processing in Notebooks
-- Implement parallel processing for I/O-heavy operations
-- Use `ThreadPoolExecutor` or `ProcessPoolExecutor` for concurrent tasks
-- Display progress bars and timing information for long operations
-- Always save intermediate results to avoid re-computation
+## Development Environment
+- Default assumption: Working on GCP cloud VMs or Modal serverless compute
+- Always ensure conda environment 'geovibes' is activated: `conda activate geovibes`
+- Ask for clarification if deployment environment affects implementation
 
-## Integration with Geovibes Modules
-- Reference main modules using relative imports: `sys.path.append('..')`
-- Use functions from [tiling.py](mdc:geovibes/tiling.py) for MGRS operations
-- Leverage existing utilities in [geovibes/](mdc:geovibes/) directory
+## Performance Focus
+- Actively consider and implement parallelization for I/O-heavy tasks
+- Use appropriate libraries (multiprocessing, concurrent.futures, asyncio, etc.)
+- Design with cloud-scale performance in mind
 
-## Memory Management and Performance
-- Clear large variables when no longer needed using `del variable_name`
-- Use `memory_usage(deep=True)` to monitor DataFrame memory consumption
-- Process data in chunks for large datasets
-- Implement sampling for visualization when datasets are too large
+## Path Handling
+- Always use `os.path.join()`, `pathlib.Path`, or similar for path operations
+- Never use string concatenation or manipulation for file paths
+- Use platform-independent path handling
 
-## Output and Results
-- Create comprehensive summary statistics and visualizations
-- Save results in multiple formats (CSV, Parquet, GeoParquet)
-- Include data quality checks and validation
-- Export combined datasets for further analysis
-
-## Error Handling in Notebooks
-- DO NOT use try/except blocks during development phases
-- Use comprehensive logging instead: `logging.info()`, `logging.warning()`
-- Only add error handling when explicitly moving to production
-
-## Environment Setup
-- Always check conda environment: `conda activate geovibes`
-- Configure logging at the beginning of notebooks
-- Set random seeds for reproducibility when applicable
+## Output Standards
+- DO NOT generate explanatory markdown files after completing tasks
+- DO NOT create README files unless explicitly requested
+- DO NOT generate example or demo scripts after completing tasks
+- Focus on delivering the requested functionality only
 
 ---
 > Source: [cr458/geovibes](https://github.com/cr458/geovibes) — distributed by [TomeVault](https://tomevault.io).
