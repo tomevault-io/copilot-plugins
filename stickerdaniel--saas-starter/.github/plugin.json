@@ -1,0 +1,9 @@
+{
+  "name": "stickerdaniel--saas-starter",
+  "displayName": "saas-starter",
+  "description": "Open-source SvelteKit + Convex + Better Auth SaaS template. Deploys for $0 on Cloudflare Workers or Vercel. Ships with auth, billing, admin, AI chat with tool calling, support chat, email, and i18n. E",
+  "version": "1.0.0",
+  "author": "stickerdaniel",
+  "homepage": "https://github.com/stickerdaniel/saas-starter",
+  "skills": []
+}
