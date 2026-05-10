@@ -1,0 +1,9 @@
+{
+  "name": "jasmedia--inferxgate",
+  "displayName": "InferXgate",
+  "description": "Blazing fast LLM Gateway for 100+ LLMs",
+  "version": "1.0.0",
+  "author": "jasmedia",
+  "homepage": "https://github.com/jasmedia/InferXgate",
+  "skills": []
+}
