@@ -1,0 +1,9 @@
+{
+  "name": "windborne--zulipmcp",
+  "displayName": "zulipmcp",
+  "description": "Run AI agents in Zulip as @mentionable bots \u2014 or wire into any MCP client.",
+  "version": "1.0.0",
+  "author": "windborne",
+  "homepage": "https://github.com/windborne/zulipmcp",
+  "skills": []
+}
