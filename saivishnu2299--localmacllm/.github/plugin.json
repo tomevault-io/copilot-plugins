@@ -1,0 +1,9 @@
+{
+  "name": "saivishnu2299--localmacllm",
+  "displayName": "LocalMacLLM",
+  "description": "Train a 1.5M parameter GPT-style language model on your MacBook Pro in under 10 minutes using Apple's MLX framework",
+  "version": "1.0.0",
+  "author": "saivishnu2299",
+  "homepage": "https://github.com/saivishnu2299/LocalMacLLM",
+  "skills": []
+}
