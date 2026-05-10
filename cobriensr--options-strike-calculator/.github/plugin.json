@@ -1,0 +1,9 @@
+{
+  "name": "cobriensr--options-strike-calculator",
+  "displayName": "Options-Strike-Calculator",
+  "description": "AI and ML integration with Unusual Whales API to determine optimal SPX trade recommendations",
+  "version": "1.0.0",
+  "author": "cobriensr",
+  "homepage": "https://github.com/cobriensr/Options-Strike-Calculator",
+  "skills": []
+}
