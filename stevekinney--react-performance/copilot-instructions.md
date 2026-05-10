@@ -1,778 +1,221 @@
-## react
+## type-safety
 
-> React best practices and patterns for this codebase
+> handleSubmit,
 
 
-# React Development Guidelines
+# Type Validation with Zod
 
-## Core Principles
+You are an expert TypeScript developer who understands that type assertions (using `as`) only provide compile-time safety without runtime validation.
 
-1. **Function Components Only**: No class components - use hooks for state and lifecycle
-2. **TypeScript First**: Every component, prop, and hook must be properly typed
-3. **Composition Over Inheritance**: Build complex UIs from simple, composable pieces
-4. **Performance by Default**: Consider performance implications in initial implementation
-5. **Accessibility Always**: Every interactive element must be keyboard and screen reader accessible
+## Zod Over Type Assertions
 
-## Component Architecture
+- **NEVER** use type assertions (with `as`) for external data sources, API responses, or user inputs
+- **ALWAYS** use Zod schemas to validate and parse data from external sources
+- Implement proper error handling for validation failures
 
-### File Structure
+## Zod Implementation Patterns
 
+- Import zod with: `import { z } from 'zod'` (not 'zod/v4' - we use standard Zod v3)
+- Define schemas near related types or in dedicated schema files
+- Use `schema.parse()` for throwing validation behavior
+- Use `schema.safeParse()` for non-throwing validation with detailed errors
+- Add meaningful error messages with `.refine()` and `.superRefine()`
+- Set up default values with `.default()` when appropriate
+- Use transformations with `.transform()` to convert data formats
+- Always handle potential validation errors
+
+```ts
+// ❌ WRONG: Using type assertions
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  age: number;
+}
+
+const fetchUser = async (id: string): Promise<User> => {
+  const response = await fetch(`/api/users/${id}`);
+  const data = await response.json();
+  return data as User; // DANGEROUS: No runtime validation!
+};
 ```
-src/
-├── components/
-│   ├── ui/           # Reusable UI components (Button, Input, Card)
-│   ├── layout/       # Layout components (Header, Footer, Sidebar)
-│   └── features/     # Feature-specific components
-├── hooks/            # Custom React hooks
-├── utils/            # Utility functions
-├── types/            # Shared TypeScript types
-└── assets/           # Images, fonts, etc.
-```
 
-### Component Organization
-
-```typescript
-// 1. Imports (in order)
-import { useState, useEffect, type FC } from 'react';
+```ts
+// ✅ RIGHT: Using Zod for validation
 import { z } from 'zod';
-import clsx from 'clsx';
 
-// 2. Type definitions
-interface ComponentProps {
-  // Props interface
-}
-
-// 3. Schema definitions (if needed)
-const PropsSchema = z.object({
-  // Validation schema
+// Define the schema
+const UserSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string().min(1),
+  email: z.string().email(),
+  age: z.number().int().positive().min(13),
 });
 
-// 4. Component definition
-export const Component: FC<ComponentProps> = (props) => {
-  // 5. Hooks
-  const [state, setState] = useState();
+// Derive the type from the schema
+type User = z.infer<typeof UserSchema>;
 
-  // 6. Event handlers
-  const handleClick = () => {};
+const fetchUser = async (id: string): Promise<User> => {
+  const response = await fetch(`/api/users/${id}`);
+  const data = await response.json();
 
-  // 7. Effects
-  useEffect(() => {}, []);
-
-  // 8. Render
-  return <div />;
+  // Runtime validation
+  return UserSchema.parse(data);
 };
 
-// 9. Display name (for debugging)
-Component.displayName = 'Component';
-```
+// With error handling
+const fetchUserSafe = async (id: string): Promise<User | null> => {
+  try {
+    const response = await fetch(`/api/users/${id}`);
+    const data = await response.json();
 
-## State Management Patterns
+    const result = UserSchema.safeParse(data);
+    if (!result.success) {
+      console.error('Invalid user data:', result.error.format());
+      return null;
+    }
 
-### Local State
-
-```typescript
-// Simple state for UI-only concerns
-const [isOpen, setIsOpen] = useState(false);
-
-// Complex state with reducer for business logic
-const [state, dispatch] = useReducer(reducer, initialState);
-```
-
-### Lifted State
-
-```typescript
-// Lift state to lowest common ancestor
-export function Parent() {
-  const [sharedState, setSharedState] = useState();
-
-  return (
-    <>
-      <ChildA state={sharedState} />
-      <ChildB onUpdate={setSharedState} />
-    </>
-  );
-}
-```
-
-### Global State (Context)
-
-```typescript
-// Create context with proper typing
-const StateContext = createContext<StateValue | undefined>(undefined);
-
-// Provider with value memoization
-export const StateProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [state, setState] = useState();
-
-  const value = useMemo(
-    () => ({ state, setState }),
-    [state]
-  );
-
-  return <StateContext.Provider value={value}>{children}</StateContext.Provider>;
-};
-
-// Custom hook with error boundary
-export const useAppState = () => {
-  const context = useContext(StateContext);
-  if (!context) {
-    throw new Error('useAppState must be used within StateProvider');
+    return result.data;
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    return null;
   }
-  return context;
 };
 ```
 
-## Performance Optimization
+## React-Specific Validation Patterns
 
-### Memoization Rules
-
-```typescript
-// Memo for expensive components
-export const ExpensiveComponent = memo(({ data }: Props) => {
-  return <ComplexVisualization data={data} />;
-});
-
-// useCallback for stable function references
-const handleSubmit = useCallback((data: FormData) => {
-  // Process data
-}, [dependency]);
-
-// useMemo for expensive calculations
-const processedData = useMemo(() => {
-  return expensiveCalculation(rawData);
-}, [rawData]);
-```
-
-### Code Splitting
-
-```typescript
-// Route-based splitting
-const Dashboard = lazy(() => import('@/pages/Dashboard'));
-
-// Component-based splitting for heavy components
-const HeavyChart = lazy(() => import('@/components/HeavyChart'));
-
-// With loading boundary
-<Suspense fallback={<Spinner />}>
-  <HeavyChart data={data} />
-</Suspense>
-```
-
-### List Optimization
-
-```typescript
-// Always use stable, unique keys
-items.map((item) => <Item key={item.id} {...item} />)
-
-// Virtualize long lists (100+ items)
-import { FixedSizeList } from 'react-window';
-
-<FixedSizeList
-  height={600}
-  itemCount={items.length}
-  itemSize={50}
->
-  {({ index, style }) => (
-    <div style={style}>
-      <Item {...items[index]} />
-    </div>
-  )}
-</FixedSizeList>
-```
-
-## Styling with TailwindCSS
-
-### Class Name Organization
-
-```typescript
-// Use clsx for conditional classes
-import clsx from 'clsx';
-
-<div
-  className={clsx(
-    // Base styles first
-    'rounded-lg border p-4',
-    // Conditional styles
-    {
-      'border-blue-500 bg-blue-50': isActive,
-      'border-gray-300 bg-white': !isActive,
-    },
-    // Size variants
-    {
-      'text-sm': size === 'small',
-      'text-base': size === 'medium',
-      'text-lg': size === 'large',
-    },
-    // State styles
-    'hover:shadow-md focus:outline-none focus:ring-2',
-    // Override with className prop
-    className
-  )}
-/>
-```
-
-### Component Variants with CVA
-
-```typescript
-import { cva, type VariantProps } from 'class-variance-authority';
-
-const buttonVariants = cva(
-  // Base styles
-  'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50',
-  {
-    variants: {
-      variant: {
-        primary: 'bg-blue-600 text-white hover:bg-blue-700',
-        secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300',
-        ghost: 'hover:bg-gray-100',
-      },
-      size: {
-        sm: 'h-9 px-3 text-sm',
-        md: 'h-10 px-4',
-        lg: 'h-11 px-8',
-      },
-    },
-    defaultVariants: {
-      variant: 'primary',
-      size: 'md',
-    },
-  }
-);
-
-interface ButtonProps
-  extends HTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  loading?: boolean;
-}
-
-export const Button: FC<ButtonProps> = ({
-  variant,
-  size,
-  className,
-  loading,
-  disabled,
-  children,
-  ...props
-}) => {
-  return (
-    <button
-      className={clsx(buttonVariants({ variant, size }), className)}
-      disabled={disabled || loading}
-      {...props}
-    >
-      {loading ? <Spinner /> : children}
-    </button>
-  );
-};
-```
-
-## Form Handling
-
-### Controlled Components
-
-```typescript
-export function ControlledForm() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-  });
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    // Process formData
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-      />
-      <input
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-      />
-      <button type="submit">Submit</button>
-    </form>
-  );
-}
-```
-
-### React Hook Form + Zod
+### Form Validation with React Hook Form + Zod
 
 ```typescript
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
+// Define form schema
 const FormSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+  confirmPassword: z.string(),
   age: z.number().min(18, 'Must be at least 18'),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ['confirmPassword'],
 });
 
 type FormData = z.infer<typeof FormSchema>;
 
-export function ValidatedForm() {
+export function SignUpForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      age: 18,
-    },
   });
 
-  const onSubmit = async (data: FormData) => {
-    // Data is validated and typed
-    await api.submitForm(data);
+  const onSubmit = (data: FormData) => {
+    // Data is already validated by Zod
+    console.log('Valid form data:', data);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <input {...register('name')} placeholder="Name" />
-        {errors.name && (
-          <span className="text-red-500">{errors.name.message}</span>
-        )}
-      </div>
+      <input {...register('email')} placeholder="Email" />
+      {errors.email && <span>{errors.email.message}</span>}
 
-      <div>
-        <input {...register('email')} type="email" placeholder="Email" />
-        {errors.email && (
-          <span className="text-red-500">{errors.email.message}</span>
-        )}
-      </div>
+      <input {...register('password')} type="password" />
+      {errors.password && <span>{errors.password.message}</span>}
 
-      <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Submitting...' : 'Submit'}
-      </button>
+      <button type="submit">Sign Up</button>
     </form>
   );
 }
 ```
 
-## Custom Hooks Patterns
-
-### Data Fetching Hook
+### Props Validation
 
 ```typescript
-export function useFetch<T>(url: string) {
-  const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+import { z } from 'zod';
+import type { FC } from 'react';
 
-  useEffect(() => {
-    const abortController = new AbortController();
-
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(url, {
-          signal: abortController.signal,
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const json = await response.json();
-        setData(json);
-      } catch (err) {
-        if (err instanceof Error && err.name !== 'AbortError') {
-          setError(err);
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-
-    return () => abortController.abort();
-  }, [url]);
-
-  return { data, loading, error };
-}
-```
-
-### Local Storage Hook
-
-```typescript
-export function useLocalStorage<T>(
-  key: string,
-  initialValue: T
-): [T, (value: T | ((val: T) => T)) => void] {
-  // Get from local storage then parse stored json or return initialValue
-  const readValue = useCallback((): T => {
-    if (typeof window === 'undefined') {
-      return initialValue;
-    }
-
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
-      console.warn(`Error reading localStorage key "${key}":`, error);
-      return initialValue;
-    }
-  }, [initialValue, key]);
-
-  const [storedValue, setStoredValue] = useState<T>(readValue);
-
-  const setValue = useCallback(
-    (value: T | ((val: T) => T)) => {
-      try {
-        const valueToStore = value instanceof Function ? value(storedValue) : value;
-        setStoredValue(valueToStore);
-
-        if (typeof window !== 'undefined') {
-          window.localStorage.setItem(key, JSON.stringify(valueToStore));
-        }
-      } catch (error) {
-        console.warn(`Error setting localStorage key "${key}":`, error);
-      }
-    },
-    [key, storedValue]
-  );
-
-  useEffect(() => {
-    setStoredValue(readValue());
-  }, [readValue]);
-
-  return [storedValue, setValue];
-}
-```
-
-## Testing Best Practices
-
-### Component Testing
-
-```typescript
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { vi } from 'vitest';
-import { Button } from './Button';
-
-describe('Button', () => {
-  it('renders with correct text', () => {
-    render(<Button>Click me</Button>);
-    expect(screen.getByRole('button')).toHaveTextContent('Click me');
-  });
-
-  it('handles click events', async () => {
-    const handleClick = vi.fn();
-    render(<Button onClick={handleClick}>Click me</Button>);
-
-    fireEvent.click(screen.getByRole('button'));
-
-    await waitFor(() => {
-      expect(handleClick).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  it('shows loading state', () => {
-    render(<Button loading>Submit</Button>);
-    expect(screen.getByRole('button')).toBeDisabled();
-    expect(screen.queryByText('Submit')).not.toBeInTheDocument();
-  });
+// Define props schema
+const ComponentPropsSchema = z.object({
+  title: z.string(),
+  count: z.number().int().nonnegative(),
+  isActive: z.boolean().optional(),
+  items: z.array(z.string()).min(1),
+  config: z.object({
+    theme: z.enum(['light', 'dark']),
+    size: z.enum(['sm', 'md', 'lg']),
+  }),
 });
-```
 
-### Hook Testing
+type ComponentProps = z.infer<typeof ComponentPropsSchema>;
 
-```typescript
-import { renderHook, act } from '@testing-library/react';
-import { useCounter } from './useCounter';
-
-describe('useCounter', () => {
-  it('increments counter', () => {
-    const { result } = renderHook(() => useCounter());
-
-    act(() => {
-      result.current.increment();
-    });
-
-    expect(result.current.count).toBe(1);
-  });
-});
-```
-
-## Error Boundaries
-
-```typescript
-interface ErrorBoundaryState {
-  hasError: boolean;
-  error: Error | null;
-}
-
-class ErrorBoundary extends Component<
-  { children: ReactNode; fallback?: ReactNode },
-  ErrorBoundaryState
-> {
-  constructor(props: { children: ReactNode; fallback?: ReactNode }) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
-
-  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        this.props.fallback || (
-          <div className="p-4 text-red-600">
-            <h2>Something went wrong.</h2>
-            <details>
-              <summary>Error details</summary>
-              <pre>{this.state.error?.toString()}</pre>
-            </details>
-          </div>
-        )
-      );
-    }
-
-    return this.props.children;
-  }
-}
-
-// Usage
-<ErrorBoundary fallback={<ErrorFallback />}>
-  <App />
-</ErrorBoundary>
-```
-
-## Accessibility Guidelines
-
-### Semantic HTML
-
-```typescript
-// ✅ Good
-<button onClick={handleClick}>Click me</button>
-<nav>{/* navigation items */}</nav>
-<main>{/* main content */}</main>
-
-// ❌ Bad
-<div onClick={handleClick}>Click me</div>
-<div className="navigation">{/* navigation items */}</div>
-```
-
-### ARIA Attributes
-
-```typescript
-// Labeling
-<button aria-label="Close dialog">×</button>
-
-// Live regions
-<div aria-live="polite" aria-atomic="true">
-  {notification && <p>{notification}</p>}
-</div>
-
-// Descriptions
-<input
-  aria-describedby="email-error"
-  aria-invalid={!!errors.email}
-/>
-<span id="email-error">{errors.email?.message}</span>
-```
-
-### Focus Management
-
-```typescript
-export function Modal({ isOpen, onClose, children }: ModalProps) {
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    if (isOpen) {
-      closeButtonRef.current?.focus();
-    }
-  }, [isOpen]);
-
-  if (!isOpen) return null;
+// Validate props at runtime (useful for components receiving external data)
+export const SafeComponent: FC<unknown> = (props) => {
+  // Validate props at runtime
+  const validatedProps = ComponentPropsSchema.parse(props);
 
   return (
-    <div role="dialog" aria-modal="true">
-      <button ref={closeButtonRef} onClick={onClose} aria-label="Close">
-        ×
-      </button>
-      {children}
+    <div>
+      <h1>{validatedProps.title}</h1>
+      <p>Count: {validatedProps.count}</p>
     </div>
   );
-}
-```
-
-## Common Patterns
-
-### Render Props
-
-```typescript
-interface RenderPropProps<T> {
-  data: T[];
-  renderItem: (item: T, index: number) => ReactNode;
-}
-
-function List<T>({ data, renderItem }: RenderPropProps<T>) {
-  return (
-    <ul>
-      {data.map((item, index) => (
-        <li key={index}>{renderItem(item, index)}</li>
-      ))}
-    </ul>
-  );
-}
-```
-
-### Compound Components
-
-```typescript
-interface TabsContextValue {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
-}
-
-const TabsContext = createContext<TabsContextValue | undefined>(undefined);
-
-export function Tabs({ children, defaultTab }: TabsProps) {
-  const [activeTab, setActiveTab] = useState(defaultTab);
-
-  return (
-    <TabsContext.Provider value={{ activeTab, setActiveTab }}>
-      <div className="tabs">{children}</div>
-    </TabsContext.Provider>
-  );
-}
-
-Tabs.List = function TabsList({ children }: { children: ReactNode }) {
-  return <div className="tab-list">{children}</div>;
 };
+```
 
-Tabs.Tab = function Tab({ value, children }: TabProps) {
-  const context = useContext(TabsContext);
-  if (!context) throw new Error('Tab must be used within Tabs');
+### Context Value Validation
 
-  return (
-    <button
-      className={clsx('tab', { active: context.activeTab === value })}
-      onClick={() => context.setActiveTab(value)}
-    >
-      {children}
-    </button>
-  );
+```typescript
+import { createContext, useContext, type FC, type ReactNode } from 'react';
+import { z } from 'zod';
+
+const AuthContextSchema = z.object({
+  user: z.object({
+    id: z.string(),
+    email: z.string().email(),
+    role: z.enum(['admin', 'user', 'guest']),
+  }).nullable(),
+  login: z.function().args(z.string(), z.string()).returns(z.promise(z.void())),
+  logout: z.function().returns(z.void()),
+});
+
+type AuthContextValue = z.infer<typeof AuthContextSchema>;
+
+const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within AuthProvider');
+  }
+  // Validate context value at runtime if receiving from external source
+  return AuthContextSchema.parse(context);
 };
-
-Tabs.Panel = function TabPanel({ value, children }: TabPanelProps) {
-  const context = useContext(TabsContext);
-  if (!context) throw new Error('TabPanel must be used within Tabs');
-
-  if (context.activeTab !== value) return null;
-
-  return <div className="tab-panel">{children}</div>;
-};
-
-// Usage
-<Tabs defaultTab="tab1">
-  <Tabs.List>
-    <Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
-    <Tabs.Tab value="tab2">Tab 2</Tabs.Tab>
-  </Tabs.List>
-  <Tabs.Panel value="tab1">Content 1</Tabs.Panel>
-  <Tabs.Panel value="tab2">Content 2</Tabs.Panel>
-</Tabs>
 ```
 
-## Anti-Patterns to Avoid
-
-### ❌ Direct DOM Manipulation
+### Environment Variables Validation
 
 ```typescript
-// Bad
-document.getElementById('myDiv').style.display = 'none';
+import { z } from 'zod';
 
-// Good
-const [isVisible, setIsVisible] = useState(true);
-return isVisible && <div id="myDiv" />;
+const EnvSchema = z.object({
+  VITE_API_URL: z.string().url(),
+  VITE_APP_NAME: z.string().min(1),
+  VITE_ENABLE_ANALYTICS: z.string().transform(v => v === 'true'),
+  VITE_MAX_UPLOAD_SIZE: z.string().transform(Number).pipe(z.number().positive()),
+});
+
+// Validate env vars at app startup
+export const env = EnvSchema.parse(import.meta.env);
+
+// Now use with full type safety
+const apiUrl = env.VITE_API_URL; // string (validated URL)
+const enableAnalytics = env.VITE_ENABLE_ANALYTICS; // boolean
 ```
-
-### ❌ Using Array Indexes as Keys
-
-```typescript
-// Bad
-items.map((item, index) => <Item key={index} />)
-
-// Good
-items.map((item) => <Item key={item.id} />)
-```
-
-### ❌ Inline Function Creation in Render
-
-```typescript
-// Bad
-<button onClick={() => handleClick(item.id)}>Click</button>
-
-// Good
-const handleItemClick = useCallback((id: string) => {
-  // handle click
-}, []);
-
-<button onClick={() => handleItemClick(item.id)}>Click</button>
-```
-
-### ❌ Mutating State Directly
-
-```typescript
-// Bad
-state.items.push(newItem);
-setState(state);
-
-// Good
-setState(prev => ({
-  ...prev,
-  items: [...prev.items, newItem]
-}));
-```
-
-## Debugging Tips
-
-1. **Use React DevTools** - Essential for component inspection
-2. **Add displayName** - Makes debugging easier
-3. **Use Error Boundaries** - Catch and handle errors gracefully
-4. **Console.log with labels** - `console.log('Component render:', { props, state })`
-5. **Use debugger statement** - Pause execution at specific points
-6. **Check React.StrictMode warnings** - Catch potential issues early
-
-## File Naming Conventions
-
-- Components: PascalCase (`Button.tsx`, `UserCard.tsx`)
-- Hooks: camelCase with 'use' prefix (`useAuth.ts`, `useLocalStorage.ts`)
-- Utilities: camelCase (`formatDate.ts`, `validateEmail.ts`)
-- Types: PascalCase with suffix (`UserTypes.ts`, `ApiTypes.ts`)
-- Constants: SCREAMING_SNAKE_CASE in files (`API_URL`, `MAX_RETRIES`)
-
-## Summary
-
-Follow these guidelines to build maintainable, performant, and accessible React applications. Remember:
-
-- **Type everything** - No implicit any
-- **Validate external data** - Use Zod for runtime validation
-- **Optimize thoughtfully** - Measure before optimizing
-- **Test behavior** - Not implementation details
-- **Keep it simple** - Complexity is the enemy of maintainability
 
 ---
 > Source: [stevekinney/react-performance](https://github.com/stevekinney/react-performance) — distributed by [TomeVault](https://tomevault.io).
