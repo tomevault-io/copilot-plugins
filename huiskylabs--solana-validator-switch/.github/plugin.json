@@ -1,0 +1,9 @@
+{
+  "name": "huiskylabs--solana-validator-switch",
+  "displayName": "solana-validator-switch",
+  "description": "Solana Validator Switch (SVS) - 1-2s Hot Swap & Failover Solution",
+  "version": "1.0.0",
+  "author": "huiskylabs",
+  "homepage": "https://github.com/huiskylabs/solana-validator-switch",
+  "skills": []
+}
