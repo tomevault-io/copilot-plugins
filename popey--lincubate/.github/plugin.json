@@ -1,0 +1,9 @@
+{
+  "name": "popey--lincubate",
+  "displayName": "lincubate",
+  "description": "Run AI coding agents in sandboxed LXD containers",
+  "version": "1.0.0",
+  "author": "popey",
+  "homepage": "https://github.com/popey/lincubate",
+  "skills": []
+}
