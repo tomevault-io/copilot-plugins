@@ -1,130 +1,92 @@
-## git-commit-message
+## git-interaction
 
-> When running git commit
+> I am a careful steward of your git repository. I make changes to files but leave version
 
 
-# Git Commit Message Guidelines
+# Git Collaboration Rules
 
-We write commit messages to communicate with our future selves and teammates. A great
-commit message tells the story of why we made a change, making code archaeology easier
-and helping others understand our reasoning and thought process.
+I am a careful steward of your git repository. I make changes to files but leave version
+control decisions to you. I can commit to main when you ask, but I'll seek confirmation
+before pushing to main or merging branches since these affect the shared repository.
 
-## Core Principles
+## Core Identity
 
-- Reflect on the full change before writing the message
-- Focus on motivation and reasoning, not just what changed (the diff shows that)
-- Scale message length to change importance and size - simple changes get one line,
-  major architectural changes deserve 2-3 paragraphs
-- Use imperative mood ("Add feature" not "Added feature")
-- Summary line under 72 characters, no period at the end
-- Capitalize the first word after any emoji
+I work in your repository with these fundamental constraints: I make code changes but
+don't commit them unless you explicitly ask. When given permission, I can commit to
+main. Pushing to main or merging branches into main requires your confirmation. I work
+on feature branches when doing autonomous tasks. I treat your git history as permanent
+and important.
 
-## No-Deploy Marker
+## How I Handle Git Operations
 
-For changes that should not trigger deployment (documentation, tests, CI config, etc.),
-include `[no-deploy]` in the commit message. This signals both humans and CI/CD
-automation that deployment is unnecessary.
+By default, I make all the code changes you need but leave them uncommitted in your
+working directory. This lets you review everything with `git diff` before deciding what
+becomes part of your permanent history. When you're ready, you tell me "please commit"
+and I'll create the commit with an appropriate message.
 
-Place the marker either:
+### Selective Staging
 
-- At the end of the summary line if it fits:
-  `Update README with installation steps [no-deploy]`
-- On its own line after the summary for longer messages
+When you ask me to commit "your changes" or "my changes", I am surgical and precise:
 
-## Emoji Usage
+**I only stage files I modified** - I use `git add` to stage only the specific files I
+changed in the current session. I never stage unrelated files or your other
+work-in-progress.
 
-You have complete freedom to choose ANY emoji that adds value. Start with gitmoji as
-your reference - if there's a clear gitmoji match, use it. But feel free to get creative
-and use any emoji that genuinely enhances meaning or clarity.
+**Partial staging when needed** - If a file contains both my changes and your other
+unstaged work, I use `git add -p` (patch mode) to stage only the specific hunks I
+modified. This ensures I never accidentally commit your uncommitted work.
 
-Include an emoji when it:
+**Transparency before committing** - Before creating any commit, I tell you exactly
+which files or hunks I'm staging so you can verify I'm not including anything
+unintended.
 
-- Makes commit history more scannable at a glance
-- Provides instant visual categorization of the change type
-- Creates useful visual anchors in git log
-- Adds personality or context that words alone miss
+**Tracking my changes** - I keep track of which files I've modified during our session
+using tool results and my actions. When asked to commit "just your changes", I stage
+only those specific files.
 
-Skip the emoji entirely when it would feel forced or add no real value. Many excellent
-commit messages need no emoji at all.
+When you explicitly ask me to work autonomously in a git worktree following
+`git-worktree-task.mdc` as an `autonomous-developer.md`, I operate differently. I create
+a feature branch, make commits following your project's conventions (reading
+`git-commit-message.mdc` first), push to that feature branch, and open a pull request
+for your review. Even in this autonomous mode, pushing to main or merging into main
+requires your explicit confirmation.
 
-Trust your judgment on which emoji fits best, or whether to use one at all.
+## Commit Message Excellence
 
-## Structure
+When generating commit messages, I first look for and read `git-commit-message.mdc` or
+similar guidelines in your project. I follow your project's specific conventions and
+style. I write messages that explain why changes were made, not just what changed.
 
-```
-[optional emoji] Summary line under 72 characters
+## Permission Model
 
-[Optional body when context is needed]
-```
+I understand the distinction between these git operations:
 
-Body is optional. Include when explaining why adds value beyond the summary and diff.
-When included: explain motivation, problem being solved, impact, trade-offs, or
-alternatives considered. Wrap at 72 characters. For large/important changes, write 2-3
-paragraphs if needed.
+**Committing to main** - Creating a local commit on the main branch. This is allowed
+when you give explicit permission with "please commit". The commit stays local until
+pushed.
 
-## Examples
+**Pushing to main** - Sending local commits to the remote main branch. This affects the
+shared repository that others pull from. I'll ask for confirmation before proceeding.
 
-Simple change (no body needed):
+**Merging into main** - Integrating changes from another branch or pull request into
+main. This combines branch histories and affects the shared codebase. I'll ask for
+confirmation before proceeding.
 
-```
-🐛 Handle null values in user preferences
-```
+When you say "please commit", I'll create commits (including to main if that's the
+current branch). Operations that affect the remote repository (pushing to main, merging
+into main) require your confirmation. Force pushing anywhere or deleting branches also
+require explicit confirmation.
 
-Simple documentation change (no deploy):
+## Operating Philosophy
 
-```
-Fix typo in API documentation [no-deploy]
-```
+Your git history tells the story of your project's evolution. Every commit is a
+permanent record. The main branch represents your production-ready code. These aren't
+just technical details - they're why I default to caution and require explicit
+permission. You maintain control over what becomes permanent in your repository's
+history.
 
-Medium change with context:
-
-```
-♻️ Extract validation logic into shared module
-
-Validation was duplicated across registration, profile updates, and
-admin tools with slight variations causing inconsistent behavior.
-Consolidating into a shared module ensures consistency and makes
-future validation changes easier.
-```
-
-Documentation with body (no deploy on separate line):
-
-```
-📝 Update deployment guide with environment variables
-[no-deploy]
-
-Added missing DATABASE_POOL_SIZE and CACHE_TTL variables that were
-causing confusion during staging deployments. Also clarified the
-difference between development and production configurations.
-```
-
-Large architectural change (2-3 paragraphs for major changes):
-
-```
-🏗️ Migrate from REST to event-driven architecture
-
-Replace synchronous REST endpoints with event-driven processing to
-support real-time features and improve system resilience...
-
-Previous architecture required services to block waiting for responses,
-creating cascading failures and poor user experience during high load.
-Events allow asynchronous processing and natural retry mechanisms...
-
-This change affects order processing, notification system, and analytics
-pipeline. Services can now scale independently and handle partial
-failures gracefully. Trade-off: eventual consistency instead of
-immediate, but business requirements allow 2-3 second delay...
-```
-
-## Guidelines
-
-Write messages that future developers will thank you for. Use present tense imperative
-mood. Skip conventional commit prefixes like feat: or fix: (gitmoji serves this purpose
-when needed). Include body text only when it adds meaningful context. Write clearly and
-directly for human readers.
-
-The goal is clarity and kindness to our future selves and teammates. Every commit
-message is a small act of documentation that either helps or hinders. We choose to help.
+When uncertain, I make the changes but don't commit them. You decide when your git
+history updates.
 
 ---
 > Source: [TechNickAI/claude_telemetry](https://github.com/TechNickAI/claude_telemetry) — distributed by [TomeVault](https://tomevault.io).
