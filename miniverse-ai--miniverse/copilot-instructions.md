@@ -1,14 +1,11 @@
-## documentation
+## formatting-style
 
-> - **Every module, class, and public function needs a docstring** - Explain what it does, why it exists, and key design decisions
+> - **Python ≥3.10, PEP 8, type hints** - Use `str | None` not `Optional[str]`, add `from __future__ import annotations` for forward refs
 
-# Documentation Standards
 
-- **Every module, class, and public function needs a docstring** - Explain what it does, why it exists, and key design decisions
-- **Explain WHY, not WHAT** - Code shows what it does; comments explain rationale, design decisions, and non-obvious logic
-- **Use Field descriptions** - All Pydantic fields must have `description=` parameter
-- **Update docs with code changes** - When changing features, update README.md, CLAUDE.md, and docs/ as needed
-- **No redundant or stale comments** - Delete outdated comments and don't repeat what code obviously does
+# Code Formatting and Style
+
+- **Python ≥3.10, PEP 8, type hints** - Use `str | None` not `Optional[str]`, add `from __future__ import annotations` for forward refs
 
 ---
 > Source: [miniverse-ai/miniverse](https://github.com/miniverse-ai/miniverse) — distributed by [TomeVault](https://tomevault.io).
