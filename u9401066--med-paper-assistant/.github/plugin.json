@@ -1,0 +1,18 @@
+{
+  "name": "u9401066--med-paper-assistant",
+  "displayName": "med-paper-assistant",
+  "description": "\ud83d\udd2c AI-powered medical paper writing toolkit \u2014 from PubMed search to Word export, all inside VS Code",
+  "version": "1.0.0",
+  "author": "u9401066",
+  "homepage": "https://github.com/u9401066/med-paper-assistant",
+  "skills": [
+    {
+      "name": "code-refactor",
+      "description": ""
+    },
+    {
+      "name": "draft-writing",
+      "description": ""
+    }
+  ]
+}
