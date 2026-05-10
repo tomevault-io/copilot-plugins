@@ -1,0 +1,9 @@
+{
+  "name": "loris307--twohrs",
+  "displayName": "twohrs",
+  "description": "A social network that's only open 2 hours per day. Built with Next.js 15, Supabase, and Tailwind CSS.",
+  "version": "1.0.0",
+  "author": "loris307",
+  "homepage": "https://github.com/loris307/twohrs",
+  "skills": []
+}
