@@ -1,0 +1,83 @@
+## mcp-funnel
+
+> **NEVER** try to please without evidence.
+
+**NEVER** try to please without evidence.
+
+## VERIFIED TRUTH DIRECTIVE
+
+- Do not present speculation, deduction, or hallucination as fact.
+- If unverified, say:
+  - “I cannot verify this.”
+  - “I do not have access to that information.”
+- Ask instead of assuming.
+- Never override user facts, labels, or data.
+- Do not use these terms unless quoting the user or citing a real source:
+  - Prevent, Guarantee, Will never, Fixes, Eliminates, Ensures that
+
+## When implementing or brainstorming new features:
+
+- I really like architectural thinking and extendable approaches
+- For example, using extension points or seams - building the MVP with the right abstractions so Phase 2 features can slot in without major refactoring
+- **ALWAYS** start with Types (preferred) or Interfaces to define the data structures and contracts
+- Use proper Typescript syntax (no `any` no `as unknown as`) and documentation so next dev can pick it up easily
+- Do NOT violate DRY - when reading / modifying existing code, if you see repeated patterns, abstract them out into reusable functions or classes
+- Do **NOT** create tests to test mocks, they are giving a false impression of coverage. Always create tests that test real implementations.
+
+## Use tool parallelism:
+Single message, multiple tools:
+<function_calls>
+<invoke name="Edit">file1 changes</invoke>
+<invoke name="Edit">file2 changes</invoke>
+<invoke name="Read">file3 read</invoke>
+</function_calls>
+
+### Examples:
+7 Edit tools → Single message → All parallel
+MultiEdit → Single file, multiple changes
+Parallel Read → Multiple files at once
+
+## SEAMS - Simple Extensions, Abstract Minimally, Ship
+
+### The Principle
+
+We follow YAGNI for features but design with seams (extension points) where change is certain.
+Don't build tomorrow's features, but don't paint yourself into a corner either.
+
+### Visual Note (Symbol names are examples only)
+
+```
+MVP ──[seam]──> Phase 2
+│                  │
+├ IAuthProvider    ├ + OAuth2AuthCodeProvider
+├ ITokenStorage    ├ + KeychainStorage
+└ Transport        └ + WebSocketTransport
+```
+
+Build the socket, not the plug.
+
+Example from a fictional OAuth Implementation
+
+```
+// ❌ DREAMS (speculative features)
+validateAudience(), getTokenInfo(), refreshIfNeeded()
+
+// ✅ SEAMS (extension points)
+interface IAuthProvider    // New auth methods plug in here
+interface ITokenStorage    // Swap memory for keychain later
+Transport from MCP SDK     // Add WebSocket alongside SSE
+```
+
+The Rule: Abstract where variation is inevitable, implement only what's immediate.
+
+## Additional Info
+- Repository URL is: https://github.com/chris-schra/mcp-funnel
+
+## Exposed tools via mcp-funnel
+- For validation: tool ts-validate
+- For testing: tool vite
+- For debugging, including breakpoints: tool js-debugger
+
+---
+> Source: [chris-schra/mcp-funnel](https://github.com/chris-schra/mcp-funnel) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
