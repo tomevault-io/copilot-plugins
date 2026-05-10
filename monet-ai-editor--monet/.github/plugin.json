@@ -1,0 +1,9 @@
+{
+  "name": "monet-ai-editor--monet",
+  "displayName": "Monet",
+  "description": "Edit videos and Design images with Claude code or Codex",
+  "version": "1.0.0",
+  "author": "Monet-AI-Editor",
+  "homepage": "https://github.com/Monet-AI-Editor/Monet",
+  "skills": []
+}
