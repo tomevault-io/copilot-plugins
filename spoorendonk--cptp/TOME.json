@@ -4,7 +4,7 @@
   "repo": "cptp",
   "description": "Branch-and-cut solver for the Capacitated Profitable Tour Problem (CPTP)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/spoorendonk/cptp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T01:56:11Z"
+  "distributed_at": "2026-05-10T22:42:06Z"
 }
