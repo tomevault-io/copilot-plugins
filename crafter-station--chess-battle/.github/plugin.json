@@ -1,0 +1,9 @@
+{
+  "name": "crafter-station--chess-battle",
+  "displayName": "chess-battle",
+  "description": "llms playing chess",
+  "version": "1.0.0",
+  "author": "crafter-station",
+  "homepage": "https://github.com/crafter-station/chess-battle",
+  "skills": []
+}
