@@ -1,0 +1,21 @@
+## frontend-styles
+
+> - **组件优先**：参考 [COMPONENT_LIBRARY_REFERENCE.md](mdc:COMPONENT_LIBRARY_REFERENCE.md) 选择现有组件和变体
+
+# 前端样式开发规范
+
+- **组件优先**：参考 [COMPONENT_LIBRARY_REFERENCE.md](mdc:COMPONENT_LIBRARY_REFERENCE.md) 选择现有组件和变体
+- **严禁重复造轮子**：不要手写已有组件实现
+- **主动评估组件适用性**：如果现有组件不适合当前需求，要主动提出并说明你的替代方案
+- **样式规范**： [index.css](mdc:src/index.css) 主题变量 优先于 Tailwind 标准类，严谨使用硬编码颜色值
+- **结构复用**：参考最接近的现有页面的页面结构
+- **布局组件**：使用 PageContainer + PageHeader + BlockLayout，参考 [LAYOUT_SYSTEM.md](mdc:LAYOUT_SYSTEM.md)
+- **拆分文件**：若为复杂页面，不要全塞在一个文件里面，基于职责合理拆分文件。
+
+## 开发流程
+- **开发规划**：不要直接进行开发，先规划看打算使用哪些组件、如何布局，若有缺失信息先让用户补充
+- **代码审查**：开发完成后，审查还有哪些地方不符合规范
+
+---
+> Source: [marcoding2025/shadcn-tailwind-design-system](https://github.com/marcoding2025/shadcn-tailwind-design-system) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
