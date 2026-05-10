@@ -1,0 +1,9 @@
+{
+  "name": "nano-collective--nanocoder",
+  "displayName": "nanocoder",
+  "description": "A beautiful local-first coding agent running in your terminal - built by the community for the community \u2692",
+  "version": "1.0.0",
+  "author": "Nano-Collective",
+  "homepage": "https://github.com/Nano-Collective/nanocoder",
+  "skills": []
+}
