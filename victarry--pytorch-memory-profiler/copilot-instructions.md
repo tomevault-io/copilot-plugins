@@ -1,48 +1,62 @@
-## coding-standards
+## memory-tracer-api
 
-> - Follow Black formatting with line length of 100
+> API usage patterns and best practices for MemoryTracer
 
-# Python Coding Standards for Memory Profiler
+# MemoryTracer API Usage Guide
 
-## Code Style
-- Follow Black formatting with line length of 100
-- Use isort for import organization (profile: black)
-- Type hints are encouraged but not mandatory
-- Use f-strings for string formatting
+## Basic Usage Pattern
+```python
+from memory_profiler import MemoryTracer
 
-## Imports
-- Group imports: standard library, third-party, local
-- Use absolute imports for memory_profiler modules
-- Import specific classes/functions, not entire modules
+# Create tracer instance
+tracer = MemoryTracer(device="cuda", use_fake_tensor=True)
 
-## Documentation
-- All public classes and methods must have docstrings
-- Use Google-style docstrings format
-- Include Args, Returns, and Raises sections where applicable
-- Add type hints in function signatures when possible
+# Use as context manager
+with tracer:
+    # Your model and training code here
+    model = create_model()
+    optimizer = create_optimizer(model.parameters())
+    
+    # Register hooks for module-level tracking
+    hooks = tracer.memory_dispatch_mode.register_hooks_to_module(model)
+    
+    # Run training iteration
+    loss = train_step(model, data)
+    
+    # Clean up hooks
+    tracer.memory_dispatch_mode.remove_hooks(hooks)
 
-## Logging
-- Use the project's logger from `memory_profiler.core.logger`
-- Use appropriate log levels: DEBUG for detailed tracing, INFO for general flow, WARNING for issues
-- Include context in log messages (e.g., tensor shapes, memory sizes)
+# Print memory statistics
+tracer.print_memory_stats()
+```
 
-## Error Handling
-- Catch specific exceptions, not bare except clauses
-- Provide informative error messages
-- Use custom exceptions when appropriate
-- Handle missing optional dependencies gracefully
+## Phase Tracking
+- Use `tracer.track_phase("phase_name")` to mark different training phases
+- Common phases: "forward", "backward", "optimizer_step"
+- Phases help identify memory bottlenecks
 
-## Memory Tracking Specific
-- Always use context managers for resource management
-- Clean up hooks and modes properly in exit handlers
-- Track both peak and current memory
-- Include device information in memory reports
+## Memory Snapshots
+- Save snapshots: `tracer.save_memory_snapshot(filepath)`
+- Snapshots include tensor details, stack traces, and module attribution
+- Use tools/visualizer.py to analyze snapshots
 
-## Testing Considerations
-- Mock external dependencies (torch.cuda, distributed)
-- Test with both real and fake tensors
-- Verify memory calculations are correct
-- Test plugin loading and error handling
+## Plugin System
+- Plugins are automatically loaded based on available libraries
+- Manual plugin registration: `tracer.register_plugin(MyPlugin())`
+- Plugins handle library-specific operations and patches
+
+## Distributed Training
+- Set WORLD_SIZE and RANK environment variables
+- Single process can simulate multi-GPU training
+- Supports TP (Tensor Parallel), PP (Pipeline Parallel), EP (Expert Parallel)
+
+## Best Practices
+1. Always use context manager to ensure proper cleanup
+2. Register hooks before training starts
+3. Track phases for detailed analysis
+4. Save snapshots at peak memory points
+5. Use fake tensors for estimation without GPU
+6. Clean up hooks after training iteration
 
 ---
 > Source: [Victarry/PyTorch-Memory-Profiler](https://github.com/Victarry/PyTorch-Memory-Profiler) — distributed by [TomeVault](https://tomevault.io).
