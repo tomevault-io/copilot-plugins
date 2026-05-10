@@ -1,0 +1,44 @@
+{
+  "name": "cmux-linux",
+  "owner": "bradwilson331",
+  "repo": "cmux-linux",
+  "description": "Linux port of cmux, A Ghostty-based macOS terminal with vertical tabs and notifications for AI coding agents",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bradwilson331/cmux-linux",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T05:09:21Z"
+}
