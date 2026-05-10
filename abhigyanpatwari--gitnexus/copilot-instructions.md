@@ -1,17 +1,12 @@
-## 200-eval
+## gitnexus
 
-> - **Run tests**: `cd eval && uv run pytest tests/`
+> Use **`.cursor/index.mdc`** (`alwaysApply: true`) for project rules. See [AGENTS.md](AGENTS.md).
 
+# Deprecated for Cursor Agent Mode
 
-# GitNexus eval harness (Python)
+Use **`.cursor/index.mdc`** (`alwaysApply: true`) for project rules. See [AGENTS.md](AGENTS.md).
 
-- **Run tests**: `cd eval && uv run pytest tests/`
-- **Run with coverage**: `cd eval && uv run coverage run -m pytest tests/ && uv run coverage report`
-- **Lint**: `cd eval && uv run ruff check .`
-- **Run eval**: `cd eval && uv run python run_eval.py --config configs/<config>.yaml`
-- Shared constants live in `eval/constants.py`; tool specs in `eval/tool_registry.py`.
-- Error logging uses `utils/errors.py` — set `GITNEXUS_EVAL_DEBUG=1` for full tracebacks.
-- Property-based tests use Hypothesis (`eval/tests/test_property_based.py`).
+This file is kept only as a breadcrumb for older workflows.
 
 ---
 > Source: [abhigyanpatwari/GitNexus](https://github.com/abhigyanpatwari/GitNexus) — distributed by [TomeVault](https://tomevault.io).
