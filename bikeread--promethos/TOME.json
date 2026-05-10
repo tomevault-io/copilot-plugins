@@ -4,7 +4,7 @@
   "repo": "promethos",
   "description": "A skills-first framework for agent-system design, governance, evaluation, and evolution across domains.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bikeread/promethos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T04:44:57Z"
+  "distributed_at": "2026-05-10T04:58:54Z"
 }
