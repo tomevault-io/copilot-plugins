@@ -4,7 +4,7 @@
   "repo": "llama.cpp-deepseek-v4-flash",
   "description": "Experimental implementation of DeepSeek v4 flaash in llama.cpp",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/antirez/llama.cpp-deepseek-v4-flash",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T13:39:04Z"
+  "distributed_at": "2026-05-10T00:59:36Z"
 }
