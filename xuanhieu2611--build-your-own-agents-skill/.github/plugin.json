@@ -1,0 +1,9 @@
+{
+  "name": "xuanhieu2611--build-your-own-agents-skill",
+  "displayName": "build-your-own-agents-skill",
+  "description": "Build AI agents using the same architecture patterns as Claude Code. Skill + 6 examples + runnable Python code. No framework.",
+  "version": "1.0.0",
+  "author": "xuanhieu2611",
+  "homepage": "https://github.com/xuanhieu2611/build-your-own-agents-skill",
+  "skills": []
+}
