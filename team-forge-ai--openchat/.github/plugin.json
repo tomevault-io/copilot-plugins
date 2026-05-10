@@ -1,0 +1,9 @@
+{
+  "name": "team-forge-ai--openchat",
+  "displayName": "openchat",
+  "description": "Private, local-first AI chat desktop app built with Tauri (Rust) + React + TypeScript. ",
+  "version": "1.0.0",
+  "author": "team-forge-ai",
+  "homepage": "https://github.com/team-forge-ai/openchat",
+  "skills": []
+}
