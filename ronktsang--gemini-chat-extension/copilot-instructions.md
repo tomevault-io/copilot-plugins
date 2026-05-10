@@ -1,28 +1,47 @@
-## browser-extension-architecture
+## build-and-run
 
-> Boot sequence, script boundaries, and UI mounting
+> Use PNPM (pinned via `packageManager` in [`package.json`](mdc:package.json)).
 
-# Extension Architecture and Boot Sequence
+# Build and Run
 
-- Content script entry: [`src/entrypoints/content/index.tsx`](mdc:src/entrypoints/content/index.tsx)
-  1. Inject main-world script [`url-monitor-main-world.ts`](mdc:src/entrypoints/url-monitor-main-world.ts)
-  2. Start `urlMonitor` then `chatChangeDetector`
-  3. Mount UI with `createIntegratedUi` and `renderOverlay`
-- Main-world responsibilities:
-  - Override `history.pushState/replaceState` and dispatch `GEM_EXT_EVENTS.URL_CHANGE`
-  - Never read or mutate React UI here; only emit navigation events
-- Isolated world responsibilities:
-  - Subscribe to URL change events via [`urlMonitor`](mdc:src/services/urlMonitor.ts)
-  - Coordinate services and mount the Shadow DOM UI overlay
+Use PNPM (pinned via `packageManager` in [`package.json`](mdc:package.json)).
 
-## Events
-- Event constant: [`GEM_EXT_EVENTS.URL_CHANGE`](mdc:src/common/event.ts)
-- Prefer the global event bus for cross-module events (see event bus rule)
+## Install
+```bash
+pnpm install
+```
 
-## Do / Don’t
-- Do: Inject main-world script before starting services that depend on navigation
-- Do: Use `createIntegratedUi` for UI mounting and keep a very high `z-index`
-- Don’t: Directly patch `history` from isolated world; always go through main world
+## Develop
+```bash
+pnpm dev            # Chromium-based browser
+pnpm dev:firefox    # Firefox
+```
+- Starts WXT in watch mode, loads the extension, and enables live reload.
+- Source lives in [`src/`](mdc:src) and entry points under [`src/entrypoints`](mdc:src/entrypoints).
+
+## Build & Zip
+```bash
+pnpm build          # Build for Chromium
+pnpm build:firefox  # Build for Firefox
+pnpm zip            # Zip Chromium build
+pnpm zip:firefox    # Zip Firefox build
+```
+- Manifest is generated from [`wxt.config.ts`](mdc:wxt.config.ts). Do not edit the legacy root `manifest.json` for WXT builds.
+
+## Type Check & Lint
+```bash
+pnpm compile  # tsc --noEmit
+pnpm lint     # alias to compile
+```
+
+## i18n Consistency
+```bash
+pnpm run check:i18n
+```
+- Verifies all locale files against English base using [`scripts/check-i18n.js`](mdc:scripts/check-i18n.js).
+
+## Post-Install
+- `postinstall` runs `wxt prepare` automatically to set up the project for WXT.
 
 ---
 > Source: [RonkTsang/gemini-chat-extension](https://github.com/RonkTsang/gemini-chat-extension) — distributed by [TomeVault](https://tomevault.io).
