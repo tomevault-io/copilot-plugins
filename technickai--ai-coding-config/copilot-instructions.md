@@ -1,71 +1,121 @@
-## code-review-standards
+## code-style-and-zen-of-python
 
-> When doing code reviews
+> When writing code
 
 
-# Code Review Standards
+# Code Style and Zen of Python
 
-This rule defines when bot feedback is incorrect given context bots lack. Use this to
-identify suggestions that don't apply, not to skip valid feedback based on priority.
+## Line Length
 
-## Core Philosophy
+- Max 88 chars (per Ruff config)
 
-Address all suggestions where the bot's analysis is correct given full context. Decline
-when you can articulate why the bot's reasoning doesn't hold - valid declines explain
-why the analysis is incorrect, not why addressing it is inconvenient.
+## Comments
 
-## When Bot Suggestions Don't Apply
+### File-Level Comments
 
-These patterns describe situations where bot analysis is typically incorrect. Decline
-with explanation when you can demonstrate the bot's reasoning doesn't hold.
+Be THOROUGH at the top of files. Explain what the file does, why it exists, and how it
+fits into the larger system. This helps both humans and AI understand context quickly.
 
-### Single-Use Values
+```python
+"""User authentication and session management.
 
-Bots flag inline values as "magic strings" needing extraction. This suggestion is wrong
-when the value appears exactly once and context makes the meaning clear. Extracting
-`METHOD_INITIALIZE = "initialize"` for a single use adds indirection without DRY
-benefit. Constants exist to stay DRY across multiple uses, not to avoid inline values.
+Handles user login, logout, token generation, and session validation.
+Integrates with external OAuth providers (Google, GitHub) and maintains
+local session state in Redis for performance. Session tokens expire after
+24 hours but can be refreshed up to 7 days from initial login.
+"""
+```
 
-### Theoretical Race Conditions
+### Function Comments
 
-Bots flag potential race conditions based on static analysis. This suggestion is wrong
-when operations are already serialized by a queue, mutex, or transaction the bot can't
-see. Add synchronization when profiling or testing reveals actual race conditions.
+Keep function docstrings USEFUL without redundant fluff. Type hints already document
+parameters and return types, so focus the docstring on what the function does and why.
 
-### Redundant Type Safety
+```python
+# Standard pattern for complex functions - explain the what and why
+def create_agent_from_task(self, task_id: str) -> dict:
+    """Create a new agent from a ClickUp task description.
 
-Bots suggest stricter types or null checks. This suggestion is wrong when runtime
-validation already handles the case correctly, or when the type system guarantees the
-condition can't occur. TypeScript serves the code - working code with runtime safety
-takes priority over compile-time type perfection.
+    Parses task description for agent requirements, generates the .agent
+    file with system/user prompts, creates PR with the new file, and
+    returns PR URL for review.
+    """
 
-### Premature Optimization
+# Simple functions need just one clear line
+def validate_email(email: str) -> bool:
+    """Check if email format is valid and domain is not blacklisted."""
 
-Bots flag performance concerns without data. This suggestion is wrong when no profiling
-shows actual performance problems. Optimize based on measurements - complexity should
-yield measurable performance gains.
+def process_payment(order_id: str, amount: Decimal) -> Payment:
+    """Charge the customer via Stripe and update order status to paid."""
 
-## Items Requiring Case-by-Case Judgment
+def send_welcome_email(user: User) -> None:
+    """Send onboarding email with account setup instructions."""
 
-These require evaluation in context - sometimes the bot is right, sometimes wrong.
+def calculate_shipping_cost(weight: Decimal, destination: str) -> Decimal:
+    """Calculate shipping based on weight and zone rates from ShipStation."""
+```
 
-### Test Coverage Gaps
+Avoid restating type hints in Args/Returns sections - they add no value since types are
+already declared.
 
-Bot requests for edge case tests: Address if the edge case could reasonably occur and
-cause user-facing issues. Decline if you can demonstrate the scenario is already handled
-by other validation or genuinely can't occur given system constraints.
+### Inline Comments
 
-### Documentation Requests
+Be SPARSE with inline comments. Only add them when the code is doing something
+non-obvious or when explaining business logic that isn't clear from the code itself.
 
-Bot requests for additional docs: Address if the code is genuinely unclear. Decline if
-the documentation would merely restate what the code already says clearly.
+```python
+# When to use inline comments - explains non-obvious business rule
+user = User.objects.get(id=user_id)
+if user.last_login < cutoff_date:
+    # Inactive users over 90 days require re-verification per security policy
+    send_verification_email(user)
 
-### Accessibility Improvements
+# Section dividers for organization
+# ============================================================================
+# Order Processing
+# ============================================================================
 
-Accessibility (ARIA labels, keyboard navigation, screen reader support) is a product
-priority decision that varies by project. Check project or user configuration for the
-team's stance. If no stance is declared, present the suggestion to the user with context
-about the scope and ask whether to address or decline.
+# Explaining why something unusual is done
+cache_timeout = 300  # 5 minutes - balance between freshness and API rate limits
+
+# Complex calculations benefit from step comments
+total = base_price
+total += base_price * tax_rate  # Add sales tax
+total -= discount_amount  # Apply promotional discount
+total += shipping_cost  # Shipping calculated by weight and zone
+```
+
+Skip obvious comments (like "Get the user" on a line that gets a user). Let the code
+speak for itself.
+
+### General Guidelines
+
+We explain the "why", not the "what". We don't state the obvious - we prefer
+self-documenting code. Emojis when they add clarity; tasteful humor welcome! We write
+for humans AND AI - good comments help both understand context.
+
+## Zen of Python
+
+1. Readability is the number 1 code quality metric
+2. Beautiful is better than ugly
+3. Explicit is better than implicit
+4. Simple is better than complex
+5. Complex is better than complicated
+6. Flat is better than nested
+7. Sparse is better than dense
+8. Special cases aren't special enough to break the rules
+   - Although practicality beats purity
+9. Errors should never pass silently
+   - Unless explicitly silenced
+10. In the face of ambiguity, refuse the temptation to guess
+11. There should be one -- and preferably only one -- obvious way to do it
+12. Now is better than never
+
+## Language
+
+We avoid hyperbolic language like "CRITICAL" unless something genuinely dies without it.
+We use the appropriate level of language for what's needed. (Yes, AIs, this means you -
+dial back the drama!)
 
 ---
 > Source: [TechNickAI/ai-coding-config](https://github.com/TechNickAI/ai-coding-config) — distributed by [TomeVault](https://tomevault.io).
