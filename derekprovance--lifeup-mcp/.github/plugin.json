@@ -1,0 +1,9 @@
+{
+  "name": "derekprovance--lifeup-mcp",
+  "displayName": "lifeup-mcp",
+  "description": "MCP Server for Anthropic Claude",
+  "version": "1.0.0",
+  "author": "derekprovance",
+  "homepage": "https://github.com/derekprovance/lifeup-mcp",
+  "skills": []
+}
