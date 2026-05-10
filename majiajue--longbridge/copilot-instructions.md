@@ -1,38 +1,49 @@
-## longbridge
+## backend-fastapi
 
-> 资产组合与监控（positions/overview、监控模型、组合推送）
+> 后端 FastAPI 结构与约定（路由/模型/异常/生命周期）
 
 
-# 资产组合与监控规则
+# 后端 FastAPI 规则
 
-API 约定：
-- `GET /portfolio/positions`：列表化当前账户持仓，字段兼容多版本返回
-- `GET /portfolio/overview`：返回 `positions/totals/account_balance` 综合信息
+结构约定：
+- 应用入口：`backend/app/main.py`
+  - `@app.on_event("startup")` 中：
+    - `quote_stream_manager.attach_loop(loop)`
+    - `quote_stream_manager.ensure_started()`
+    - `get_position_monitor().start_monitoring()`
+  - `@app.on_event("shutdown")` 中：
+    - `await quote_stream_manager.stop()`
+    - `await get_position_monitor().stop_monitoring()`
+  - WebSocket：`/ws/quotes` 按 JSON 文本推送；`datetime` 等通过自定义 `default` 序列化
 
-模型与字段：
-- 详见 `models.py`：`PortfolioPosition/PortfolioOverviewResponse` 等
-- 监控与策略相关枚举/模型：`MonitoringStatus/StrategyMode/PositionMonitoringConfig/GlobalMonitoringSettings` 等
+- 路由放置在 `backend/app/routers/`：
+  - `settings.py`：凭据/符号 GET/PUT 与 `/verify`
+  - `quotes.py`：`/history/sync`、`/history`、`/ticks`、`/stream/status`
+  - `portfolio.py`：`/positions`、`/overview`
 
-服务层：
-- `get_positions()`：
-  - 使用 `TradeContext.stock_positions()`，兼容 `channels/list` 与属性式返回
-  - 归一字段：`symbol/symbol_name/currency/qty/available_quantity/avg_price/market/direction`
-- `get_account_balance()`：
-  - 优先拉取 USD，再合并全币种；USD 缺失时返回 `_meta.usd_missing`
-  - 解析 `cash_infos`、冻结费用与融资字段
-- `get_portfolio_overview()`：
-  - 先用缓存价（`fetch_latest_prices`），再尝试实时 `ctx.quote(symbols)` 覆盖，并尽力保存到 DB
-  - 计算 `cost/market_value/pnl/pnl_percent`，`day_*` 为简化占位
+- Pydantic 模型集中在 `backend/app/models.py`，优先在此新增/复用
 
-实时推送：
-- `QuoteStreamManager._run_portfolio_updates()` 每 5 秒推送组合快照到 WebSocket 队列
+异常与依赖：
+- 未安装 longport SDK 时抛出 `LongbridgeDependencyMissing`，路由层统一映射为 503
+- 上游 API 错误抛出 `LongbridgeAPIError`，路由层统一映射为 502
+- 参数校验失败抛 `ValueError` 或 FastAPI 自带校验，映射为 400
+
+通用实践：
+- 与 longport 交互，请使用 `services._quote_context()` 以确保资源回收
+- DB 访问通过 `db.get_connection()` with 上下文；避免在路由中直接拼接 SQL
+- 新接口：
+  1) 在 `models.py` 定义请求/响应模型
+  2) 在 `services.py` 实现业务逻辑
+  3) 在 `routers/*` 暴露 API，捕获并转换异常
 
 参考：
+- [backend/app/main.py](mdc:backend/app/main.py)
+- [backend/app/routers/settings.py](mdc:backend/app/routers/settings.py)
+- [backend/app/routers/quotes.py](mdc:backend/app/routers/quotes.py)
 - [backend/app/routers/portfolio.py](mdc:backend/app/routers/portfolio.py)
-- [backend/app/services.py](mdc:backend/app/services.py)
 - [backend/app/models.py](mdc:backend/app/models.py)
-- [backend/app/streaming.py](mdc:backend/app/streaming.py)
+- [backend/app/services.py](mdc:backend/app/services.py)
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/majiajue) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [majiajue/longbridge](https://github.com/majiajue/longbridge) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
