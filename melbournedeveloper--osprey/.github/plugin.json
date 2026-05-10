@@ -1,0 +1,9 @@
+{
+  "name": "melbournedeveloper--osprey",
+  "displayName": "osprey",
+  "description": "A modern functional programming language designed for elegance, safety, and performance. Written in Go, outputs to LLVM.",
+  "version": "1.0.0",
+  "author": "MelbourneDeveloper",
+  "homepage": "https://github.com/MelbourneDeveloper/osprey",
+  "skills": []
+}
