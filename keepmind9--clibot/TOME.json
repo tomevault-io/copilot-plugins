@@ -4,7 +4,7 @@
   "repo": "clibot",
   "description": "ACP-compatible AI CLI bridge to IM platforms. Connect Claude Code, Gemini,   OpenCode, and other ACP-enabled tools to Discord, Telegram, Feishu, DingTalk, Weixin, QQ. Control desktop AI assistants from your phone with streaming responses,   whitelist auth, and proxy - no public IP required.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/keepmind9/clibot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T11:53:13Z"
+  "distributed_at": "2026-05-10T20:49:30Z"
 }
