@@ -4,7 +4,7 @@
   "repo": "harness-cli",
   "description": "CLI harness for long-running app development with Claude Agent SDK or Codex App Server",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hyspacex/harness-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T15:51:48Z"
+  "distributed_at": "2026-05-10T05:00:38Z"
 }
