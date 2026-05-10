@@ -1,0 +1,9 @@
+{
+  "name": "lucharo--always-on-claude",
+  "displayName": "always-on-claude",
+  "description": "Guide for setting up an always-on Claude Code server with Tailscale, Mutagen sync, and Happy CLI",
+  "version": "1.0.0",
+  "author": "lucharo",
+  "homepage": "https://github.com/lucharo/always-on-claude",
+  "skills": []
+}
