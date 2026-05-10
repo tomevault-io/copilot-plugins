@@ -1,47 +1,16 @@
-## build-and-run
+## coding-style
 
-> Use PNPM (pinned via `packageManager` in [`package.json`](mdc:package.json)).
+> - **Naming**: Use descriptive names; avoid abbreviations; functions are verbs; variables are nouns
 
-# Build and Run
+# Coding Style (TypeScript/React)
 
-Use PNPM (pinned via `packageManager` in [`package.json`](mdc:package.json)).
-
-## Install
-```bash
-pnpm install
-```
-
-## Develop
-```bash
-pnpm dev            # Chromium-based browser
-pnpm dev:firefox    # Firefox
-```
-- Starts WXT in watch mode, loads the extension, and enables live reload.
-- Source lives in [`src/`](mdc:src) and entry points under [`src/entrypoints`](mdc:src/entrypoints).
-
-## Build & Zip
-```bash
-pnpm build          # Build for Chromium
-pnpm build:firefox  # Build for Firefox
-pnpm zip            # Zip Chromium build
-pnpm zip:firefox    # Zip Firefox build
-```
-- Manifest is generated from [`wxt.config.ts`](mdc:wxt.config.ts). Do not edit the legacy root `manifest.json` for WXT builds.
-
-## Type Check & Lint
-```bash
-pnpm compile  # tsc --noEmit
-pnpm lint     # alias to compile
-```
-
-## i18n Consistency
-```bash
-pnpm run check:i18n
-```
-- Verifies all locale files against English base using [`scripts/check-i18n.js`](mdc:scripts/check-i18n.js).
-
-## Post-Install
-- `postinstall` runs `wxt prepare` automatically to set up the project for WXT.
+- **Naming**: Use descriptive names; avoid abbreviations; functions are verbs; variables are nouns
+- **Types**: Annotate exported/public APIs; avoid `any` and unsafe casts
+- **Control Flow**: Prefer guard clauses and shallow nesting; avoid unnecessary try/catch and swallow-only handlers
+- **Comments**: Only for non-obvious rationale, invariants, or caveats; keep concise; **always write comments in English**
+- **Formatting**: Match existing style; wrap long lines; do not reformat unrelated code
+- **Imports**: Keep paths aligned with existing alias usage (e.g., `@/utils/...`)
+- **UI**: Prefer composition over prop drilling; colocate small helpers near usage
 
 ---
 > Source: [RonkTsang/gemini-chat-extension](https://github.com/RonkTsang/gemini-chat-extension) — distributed by [TomeVault](https://tomevault.io).
