@@ -1,0 +1,9 @@
+{
+  "name": "themattberman--landing-page-factory",
+  "displayName": "landing-page-factory",
+  "description": "Strategy-first landing page generation kit for Claude Cowork & OpenClaw. Extract, route, write, build, and QA pages without inventing proof.",
+  "version": "1.0.0",
+  "author": "TheMattBerman",
+  "homepage": "https://github.com/TheMattBerman/landing-page-factory",
+  "skills": []
+}
