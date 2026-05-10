@@ -1,183 +1,201 @@
-## changelog
+## primary-workflow
 
-> AI changelog for the project in chronological order
+> You are building a general coding agent called Agency Code with Agency Swarm framework.
 
 
-Only add changes when instructed by the user. (Latest on top)
+You are building a general coding agent called Agency Code with Agency Swarm framework.
 
-Entry template:
+# Agency Swarm Framework Overview
+
+Agency Swarm is an open-source agent orchestration framework (v1.x) built on the OpenAI Agents SDK. It lets you compose multiple specialized agents, each with its own tools and instructions, into a coordinated agency with explicit, directional communication flows. See: [Overview](https://agency-swarm.ai/welcome/overview.md), [Agents](https://agency-swarm.ai/core-framework/agents/overview.md), [Agencies](https://agency-swarm.ai/core-framework/agencies/overview.md), and [Communication Flows](https://agency-swarm.ai/core-framework/agencies/communication-flows.md).
+
+## Key Concepts
+
+- Agents: Independent workers with role-specific instructions and toolsets.
+- Tools: Pydantic-validated actions agents can execute; can be classes or `@function_tool` functions.
+- Agency: A graph of agents with defined communication flows, plus shared instructions.
+- Shared State: Optional context for cross-tool/agent data sharing.
+- MCP Integration: Optional external tool servers via Model Context Protocol.
+
+## Create a Tool (class-based)
+
+```python
+from agency_swarm.tools import BaseTool
+from pydantic import Field
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+class MyCustomTool(BaseTool):
+    """Fetches or computes something useful for an agent task."""
+    query: str = Field(..., description="Search or input text")
+
+    def run(self) -> str:
+        api_key = os.getenv("MY_API_KEY", "")
+        # Implement real logic (no placeholders)
+        return f"Processed: {self.query}"
+
+if __name__ == "__main__":
+    print(MyCustomTool(query="hello").run())
+```
+
+## Create a Tool (function-based)
+
+```python
+from agents import function_tool
+from dotenv import load_dotenv
+
+load_dotenv()
+
+@function_tool
+def my_function_tool(text: str) -> str:
+    """Simple functional tool example."""
+    return text.upper()
+
+if __name__ == "__main__":
+    print(my_function_tool("ok"))
+```
+
+## Create an Agent
+
+```python
+from agents import ModelSettings
+from agency_swarm import Agent
+
+developer = Agent(
+    name="Developer",
+    description="Writes and edits code based on tasks.",
+    instructions="./instructions.md",
+    tools_folder="./tools",
+    model_settings=ModelSettings(model="gpt-4o", temperature=0.2, max_completion_tokens=20000),
+)
+```
+
+## Create an Agency
+
+```python
+from dotenv import load_dotenv
+from agency_swarm import Agency
+from ceo import ceo
+from developer import developer
+
+load_dotenv()
+
+agency = Agency(
+    ceo,
+    communication_flows=[(ceo, developer)],  # left can initiate to right
+    shared_instructions="agency_manifesto.md",
+)
+
+if __name__ == "__main__":
+    agency.terminal_demo()
+```
+
+## Shared State (optional)
+
+```python
+from agency_swarm.tools import BaseTool
+from pydantic import Field
+
+class RememberValue(BaseTool):
+    key: str = Field(..., description="Shared-state key")
+    value: str = Field(..., description="Value to store")
+
+    def run(self) -> str:
+        # _context is a private RunContextWrapper initialized by the agent
+        self._context.set(self.key, self.value)
+        return self._context.get(self.key, "")
+```
+
+## MCP Integration (optional)
+
+```python
+from agency_swarm.tools.mcp import MCPServerStdio
+
+filesystem_server = MCPServerStdio(
+    name="Filesystem_Server",
+    params={"command": "npx", "args": ["-y", "@modelcontextprotocol/server-filesystem", "."]},
+    cache_tools_list=True,
+)
+# Attach to an Agent via the mcp_servers list when instantiating it
+```
+
+## References
+
+- Tools: [Step-by-Step Guide](https://agency-swarm.ai/core-framework/tools/custom-tools/step-by-step-guide.md), [Overview](https://agency-swarm.ai/core-framework/tools/overview.md)
+- Agents: [Overview](https://agency-swarm.ai/core-framework/agents/overview.md), [Built-in Tools](https://agency-swarm.ai/core-framework/agents/built-in-tools.md)
+- Agencies: [Overview](https://agency-swarm.ai/core-framework/agencies/overview.md), [Communication Flows](https://agency-swarm.ai/core-framework/agencies/communication-flows.md)
+- Migration to v1.x: [Guide](https://agency-swarm.ai/migration/guide.md)
+- Full documentation: [Agency Swarm](https://agency-swarm.ai/llms.txt)
+
+# Directory Structure
 
 ```
-# <Date> by <Agen or Model Name>
-
-- Agent: <AgentName>
-- Date: YYYY-MM-DD
-- Affected directories: `<dir1>`, `<dir2>`, ...
-- Summary of changes:
-  - <high-level bullet>
-  - <high-level bullet>
+Agency-Code/
+  - agency.py
+  - agency_code_agent/
+    - __init__.py
+    - agency_code_agent.py
+    - instructions.md
+  - subagent_name/
+    - __init__.py
+    - subagent_name.py
+    - instructions.md
+  - tools/
+    - __init__.py
+    - bash.py
+    - edit.py
+    - glob.py
+    - grep.py
+    - ls.py
+    - multi_edit.py
+    - notebook_edit.py
+    - notebook_read.py
+    - read.py
+    - task.py
+    - todo_write.py
+    - todo_complete.py
+    - write.py
+  - LICENSE
+  - README.md
+  - requirements.txt
+  - run_tests.py
+  - tests/
+    - conftest.py
+    - debug_tool_test.py
+    - test_agency.py
+    - test_bash_tool.py
+    - test_edit_tool.py
+    - test_generated_sample.py
+    - test_glob_tool.py
+    - test_grep_tool.py
+    - test_ls_tool.py
+    - test_multi_edit_tool.py
+    - test_notebook_edit_tool.py
+    - test_notebook_read_tool.py
+    - test_read_tool.py
+    - test_sample.py
+    - test_task_tool.py
+    - test_todo_write_tool.py
+    - test_write_tool.py
+    - tool_integration_test.py
 ```
 
-# Changelog
+# Common Workflows
 
-## 2025-01-13 by Claude (Bash Tool Hanging Fix)
+### Adding tools
 
-- Agent: Claude
-- Date: 2025-01-13
-- Affected directories: `agency_code_agent/tools/`, `tests/`
-- Summary of changes:
-  - **Critical Hanging Issue Fix**: Completely resolved Bash tool hanging when called multiple times by agents
-  - **Architecture Overhaul**:
-    - Replaced complex persistent shell implementation (`subprocess.Popen` with pipes, threading, select) with simple `subprocess.run` approach
-    - Removed problematic shell session management that caused deadlocks and hanging
-    - Maintained all original functionality (timeout, exit codes, output capture, interactive command handling)
-  - **Parallel Execution Prevention**:
-    - Added global `_bash_execution_lock` and `_bash_busy` flag to prevent simultaneous command execution
-    - Implemented clear agent guidance when terminal is busy: instructs sequential submission or command combining with `;`/`&&`
-    - Thread-safe implementation with proper exception handling ensures busy flag is always cleared
-  - **Enhanced Documentation** (by user):
-    - Added comprehensive docstring with directory verification steps, command execution guidelines, and git/GitHub workflows
-    - Added optional `description` field for command documentation (5-10 words describing command purpose)
-    - Included best practices for path quoting, tool usage recommendations, and commit message formatting
-  - **Test Results**:
-    - **Bash Tests**: 19/19 passing (100% success rate, was 16/19 before)
-    - **Execution Speed**: Commands complete in ~0.01s (was hanging indefinitely)
-    - **Tool Tests**: All other tool tests (Edit, Write, MultiEdit) complete quickly without hanging
-    - **Agency Tests**: Framework-level timeouts remain (unrelated to Bash tool fix)
-  - **Production Impact**:
-    - Eliminated indefinite hanging when agents call bash commands multiple times
-    - Preserved all bash functionality while fixing core reliability issue
-    - Clear agent guidance prevents parallel execution conflicts
-    - Tool is now production-ready and bulletproof for agent usage
+1. Create a new tool class in the `tools` folder: `tools/tool_name.py` or in a subagent specific tools folder: `subagent_name/tools/tool_name.py`
+2. Add tool to the agent in the agent file: `subagent_name/subagent_name.py`
 
-## 2025-08-13 by Claude (Project Structure Refactor)
+### Adding subagents
 
-- Agent: Claude
-- Date: 2025-08-13
-- Affected directories: `agency_code_agent/`, `agency.py`, `tests/`, `run_tests.py`, `.cursor/rules/`
-- Summary of changes:
-  - **Major Structure Refactor**: Refined project organization for better modularity and clarity
-  - **Directory Changes**:
-    - Renamed `agency_code/` → `agency_code_agent/` for better semantic naming
-    - Moved `agency.py` from `agency_code_agent/` to root directory for easier access
-    - Updated agency.py import: `from .agency_code_agent import agency_code_agent` → `from agency_code_agent.agency_code_agent import agency_code_agent`
-    - Updated instructions.md path to `agency_code_agent/instructions.md`
-  - **Import Updates**: Updated all import statements across entire codebase:
-    - All test files: `from agency_code.*` → `from agency_code_agent.*` (20+ files)
-    - Core files: `tests/conftest.py`, `run_tests.py`, `agency_code_agent/__init__.py`
-    - Tool references and internal paths updated consistently
-  - **Configuration Updates**:
-    - Updated todo file path: `/tmp/agency_code_todos.json` → `/tmp/agency_code_agent_todos.json`
-    - Updated all documentation and help text references
-  - **Documentation Updates**:
-    - Updated `project-overview.mdc` directory structure diagram
-    - Reflects new layout with `agency.py` at root and `agency_code_agent/` as module folder
-  - **Architecture Benefits**:
-    - Clearer separation: root-level orchestration (`agency.py`) and agent module (`agency_code_agent/`)
-    - More intuitive project navigation and understanding
-    - Better alignment with Agency Swarm best practices
-
-## 2025-08-13 by Claude (Directory Rename)
-
-- Agent: Claude
-- Date: 2025-08-13
-- Affected directories: `agency_code/`, `tests/`, `run_tests.py`
-- Summary of changes:
-  - **Project Rename**: Renamed `claude_code` folder and agent to `agency_code` for better branding alignment
-  - **Directory Structure**:
-    - Renamed `claude_code/` → `agency_code/`
-    - Renamed `claude_code_agent.py` → `agency_code_agent.py`
-    - Updated agent class name: `ClaudeCodeAgent` → `AgencyCodeAgent`
-    - Updated factory function: `create_claude_code_agent()` → `create_agency_code_agent()`
-    - Updated singleton variable: `claude_code_agent` → `agency_code_agent`
-  - **Import Updates**: Updated all import statements across:
-    - All test files in `tests/` directory (20+ files)
-    - Core agency files (`agency.py`, `__init__.py`)
-    - Tool files and references
-    - Test runner (`run_tests.py`)
-  - **Configuration Updates**:
-    - Updated todo file path: `/tmp/claude_code_todos.json` → `/tmp/agency_code_todos.json`
-    - Updated all internal references and documentation paths
-  - **Backward Compatibility**: Maintained all functionality while updating naming throughout codebase
-
-## 2025-08-13 by Claude (YAML Alignment)
-
-- Agent: Claude
-- Date: 2025-08-13
-- Affected directories: `agency_code/tools/`, `tests/`
-- Summary of changes:
-  - **YAML/Implementation Alignment**: Fixed all identified mismatches between YAML schema and tool implementations
-  - **Shared State Infrastructure**:
-    - Implemented Agency Swarm shared state tracking using `self.context.get()/set()`
-    - Added global fallback registry `_global_read_files` for standalone tool usage
-    - Tracks absolute file paths across tool invocations to enforce preconditions
-  - **Tool-specific fixes**:
-    - **Edit Tool**: Added Read precondition enforcement - tool now errors if attempting to edit without prior Read tool usage
-    - **MultiEdit Tool**:
-      - Added same Read precondition enforcement for existing files
-      - Fixed atomicity for new file creation - all edits validated before any file I/O operations
-      - Ensures true atomic operations (either all succeed or none applied)
-    - **Write Tool**: Added Read precondition enforcement for existing files only (new files don't require prior Read)
-    - **Grep Tool**: Removed `timeout` parameter to match YAML schema (`additionalProperties: false`), hardcoded 30s timeout
-    - **Bash Tool**:
-      - Implemented persistent shell session using global `subprocess.Popen` process
-      - Added thread-safe shell management with `_shell_lock`
-      - Maintains environment variables, working directory, and shell state across tool calls
-      - Improved command parsing with unique delimiter system for reliable output capture
-      - Note: User reverted timeout restriction removal, keeping `ge=5000` minimum
-  - **Comprehensive Testing**:
-    - Created dedicated test files for all enhanced tools
-    - Added tests for Read precondition enforcement across Edit/MultiEdit/Write tools
-    - Added atomicity tests for MultiEdit new file creation scenarios
-    - Enhanced bash tests for persistent session validation
-    - Test results: Edit (100%), MultiEdit (100%), Write (100%), Grep (100%), Bash (84% - 16/19 passing)
-  - **Architecture Compliance**: All implementations follow [Agency Swarm best practices](https://agency-swarm.ai/core-framework/tools/custom-tools/best-practices)
-    - Proper shared state usage with backward compatibility
-    - Error messages guide agent behavior effectively
-    - Production-ready error handling and validation
-  - **Safety & Integrity**: Enhanced tools now prevent accidental file overwrites and ensure data integrity through precondition enforcement and atomic operations
-
-## 2025-08-12 by Claude
-
-- Agent: Claude
-- Date: 2025-08-12
-- Affected directories: `tests/`, `requirements.txt`, `run_tests.py`
-- Summary of changes:
-  - **Complete pytest migration**: Refactored all tests from unittest to pytest framework (28/30 tests passing - 93.3% success rate)
-  - **File conversions**:
-    - `tests/test_sample.py`: Converted from unittest.TestCase to simple pytest functions
-    - `tests/test_agency.py`: Refactored with pytest fixtures, pytest-asyncio decorators, and proper async patterns
-    - `tests/debug_tool_test.py`: Converted to pytest with async support and agency fixture
-    - `tests/tool_integration_test.py`: Refactored to pytest format with agent fixture
-  - **Dependencies**: Added `pytest>=6.0.0` and `pytest-asyncio>=0.21.0` to requirements.txt
-  - **Test runner**: Created comprehensive `run_tests.py` with:
-    - Automatic dependency installation
-    - Colored output and detailed reporting
-    - Error handling and troubleshooting guidance
-    - Support for running specific tests
-    - Proper exit codes for CI/CD integration
-  - **Test improvements**:
-    - Implemented proper async test patterns with `@pytest.mark.asyncio` decorators
-    - Added `@pytest.mark.skipif` decorators for tests requiring OPENAI_API_KEY
-    - Created reusable fixtures for agency and agent instances
-    - Fixed tool parameter validation and direct tool invocation tests
-    - Improved error detection patterns in agency tests (specific error patterns vs general "error" word)
-  - **Test results**: All core tool tests (100%), tool integration tests (100%), and most agency tests (4/6) now passing
-  - **Task management**: Used TODO tracking throughout development to ensure comprehensive completion
-
-## 2025-08-12 by Cursor
-
-- Agent: Cursor
-- Date: 2025-08-12
-- Affected directories: `tests/`, `agency_code/tools/`, `agency_code/`, `.cursor/rules/`
-- Summary of changes:
-  - Organized tests into `tests/` and fixed imports/paths
-  - Added dedicated tests for Bash, Read, Edit, Grep, Glob, TodoWrite
-  - Bash: aligned default timeout; added exit code and stdout/stderr sections
-  - Read: switched to true cat -n numbering; explicit truncation footer
-  - Edit: success preview and clearer multi-occurrence error previews
-  - Grep: `--color=never`, clear exit-code handling, optional timeout
-  - TodoWrite: removed emojis; file-based persistence only
+1. Create a new agent folder in the root directory: `subagent_name/`
+2. Create instruction.md file for the agent: `subagent_name/instructions.md` following the template in `subagent_template/instructions.md`
+3. Read the `./tools` folder and deteremine the necessary files to import for this agent. Subagent might not need all the tools, so only import the necessary ones. For example, for a planner agent, you might only need the `Read`, `Bash`, `LS`, and `Grep` tools.
+4. Create an agent file: `subagent_name/subagent_name.py` following the template in `subagent_template/subagent1.py`
+5. Add subagent to the agency.py file: `agency.py`
 
 ---
 > Source: [VRSEN/Agency-Code](https://github.com/VRSEN/Agency-Code) — distributed by [TomeVault](https://tomevault.io).
