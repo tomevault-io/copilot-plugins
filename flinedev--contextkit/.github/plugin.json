@@ -1,0 +1,9 @@
+{
+  "name": "flinedev--contextkit",
+  "displayName": "ContextKit",
+  "description": "Claude Code context engineering & planning system for individual AI development workflows",
+  "version": "1.0.0",
+  "author": "FlineDev",
+  "homepage": "https://github.com/FlineDev/ContextKit",
+  "skills": []
+}
