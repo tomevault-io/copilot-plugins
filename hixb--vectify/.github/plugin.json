@@ -1,0 +1,9 @@
+{
+  "name": "hixb--vectify",
+  "displayName": "vectify",
+  "description": "Transform SVG files into framework-specific icon components with TypeScript support",
+  "version": "1.0.0",
+  "author": "hixb",
+  "homepage": "https://github.com/hixb/vectify",
+  "skills": []
+}
