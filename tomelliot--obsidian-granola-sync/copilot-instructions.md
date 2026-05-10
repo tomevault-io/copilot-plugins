@@ -1,27 +1,54 @@
-## branch-naming
+## code-style
 
-> when creating git branches
+> Code style guide for Obsidian plugin development
 
-# Branch Naming Convention
 
-When working on GitHub issues, use the following branch naming pattern:
+# Obsidian Plugin Code Style Guide
 
-```
-issue/[issue_number]
-```
+## Code Structure
 
-## Examples
+- **Use `this.app`**: Always access the app instance through `this.app` within plugin classes, never use global `app`
+- **Organize code into folders**: Group related functionality into folders (e.g., `services/`, `utils/`)
+- **Descriptive class names**: Use descriptive names that reflect functionality (e.g., `GranolaSync`, not `MyPlugin`)
 
-- For issue #15: `issue/15`
-- For issue #42: `issue/42`
-- For issue #123: `issue/123`
+## TypeScript Standards
 
-## Rationale
+- **Strict typing**: Use `noImplicitAny` and `strictNullChecks` (already configured)
+- **Type imports**: Import types explicitly when needed: `import type { GranolaDoc } from "./services/granolaApi"`
+- **Access modifiers**: Use `private` for internal members, `public` only when necessary
 
-This convention makes it easy to:
-- Identify which issue a branch addresses
-- Track related branches and PRs
-- Maintain consistency across the repository
+## User Interface Text
+
+- **Sentence case**: Capitalize only the first word and proper nouns in UI text
+  - ✅ "Template folder location"
+  - ❌ "Template Folder Location"
+- **Avoid redundancy**: Don't include "settings" in section headings within settings tabs
+  - ✅ "Advanced"
+  - ❌ "Advanced settings"
+- **Use Obsidian methods**: Use `setHeading()` instead of HTML heading tags for consistent styling
+
+## Security Practices
+
+- **Avoid unsafe HTML**: Never use `innerHTML`, `outerHTML`, or `insertAdjacentHTML`
+- **Use Obsidian helpers**: Use `createEl()`, `createDiv()`, `createSpan()` for DOM manipulation
+
+## Resource Management
+
+- **Cleanup on unload**: Ensure all resources are released in `onunload()` method
+- **Use Obsidian registration**: Prefer `registerEvent()` and `addCommand()` for automatic cleanup
+
+## Terminology
+
+- **Note vs File**: Use "note" for Markdown files, "file" for other file types
+- **Folder vs Directory**: Use "folder" instead of "directory"
+- **Active note**: Use "active note" over "current note"
+- **Directional terms**: Hyphenate as adjectives ("bottom-left corner"), not as nouns ("bottom left")
+
+## Code Formatting
+
+- **Imports**: Group imports: Obsidian imports first, then external packages, then local imports
+- **Async/await**: Prefer async/await over promises for readability
+- **Error handling**: Use try/catch blocks for async operations and show user-friendly notices
 
 ---
 > Source: [tomelliot/obsidian-granola-sync](https://github.com/tomelliot/obsidian-granola-sync) — distributed by [TomeVault](https://tomevault.io).
