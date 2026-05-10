@@ -4,7 +4,7 @@
   "repo": "auxx-ai",
   "description": "The Open Source Front / Attio meets N8N Alternative",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Auxx-Ai/auxx-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T12:24:16Z"
+  "distributed_at": "2026-05-10T00:45:53Z"
 }
