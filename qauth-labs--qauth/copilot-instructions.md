@@ -1,72 +1,68 @@
-## language
+## validation
 
-> - **Default Language**: English
+> Input validation patterns, schema organization, and security for Zod schemas
 
 
-# QAuth - Language Rules
+# Validation (QAuth)
 
-## Language
+## Zod v4 Validators
 
-- **Default Language**: English
-  - All code (variables, functions, classes, comments) must be in English
-  - All documentation (README, inline comments, JSDoc) must be in English
-  - All commit messages must be in English
-  - All issues, PRs, and discussions must be in English
-  - Exception: User-facing content can be localized (i18n)
+Use standalone validators (see `.cursor/rules/zod.mdc`):
 
-## Code Standards
+- `z.email()` not `z.string().email()`
+- `z.uuid()` not `z.string().uuid()`
+- `z.url()` not `z.string().url()`
 
-- **TypeScript**: Use strict mode, prefer type safety over `any`
-- **Naming Conventions**:
-  - camelCase for variables and functions
-  - PascalCase for classes, interfaces, and types
-  - UPPER_SNAKE_CASE for constants
-  - kebab-case for file names
-- **Comments**: Write clear, concise comments in English for complex logic
-- **Documentation**: Use JSDoc/TSDoc for public APIs
+## Schema Organization
 
-## Architecture
+- **API schemas**: `apps/auth-server/src/app/schemas/` (e.g. `auth.ts`, `oauth.ts`, `common.ts`)
+- **Config schemas**: `libs/server/config/src/lib/schemas/` (env validation)
+- **Shared validators**: `libs/shared/validation/` (email normalization, password strength)
+- Export schema and inferred type: `export type RequestType = z.infer<typeof requestSchema>`
 
-- **Federation First**: QAuth is a federated identity hub — upstream identity sources (passwords, VC wallets, OIDC providers) plug in through the `CredentialProvider` interface; downstream apps see only standard OAuth 2.1 / OIDC tokens
-- **Modular First**: Phase 1 is a modular monolith; libs are designed for microservice extraction (Phase 3+)
-- **API First**: Design APIs before implementation
-- **Security First**: Always consider security implications (OAuth 2.1, PKCE mandatory, Argon2id, timing-safe)
-- **Performance**: Consider performance, but don't over-optimize prematurely
+## Security and Best Practices
 
-## Git Commit Messages
+- **Validate all inputs**: Request body, query params, headers, and response shape. Never trust user input.
+- **Fail fast**: Validation happens at the route level via Fastify schema; invalid requests return 400 before handler runs.
+- **Normalize before validation**: Email normalization (`normalizeEmail`) happens after format validation but before storage/query.
+- **Specific formats**: Use regex for exact formats (e.g. hex tokens: `/^[0-9a-fA-F]{64}$/`, PKCE verifiers: `/^[A-Za-z0-9._~-]{43,128}$/`).
+- **Length limits**: Set `.min()` and `.max()` on strings to prevent DoS (e.g. `state: z.string().max(255).optional()`).
+- **Password strength**: Use `zxcvbn` via `@qauth-labs/shared-validation`; return feedback for weak passwords.
 
-Follow Conventional Commits:
+## Route Integration
 
-- `feat:` new feature
-- `fix:` bug fix
-- `docs:` documentation changes
-- `style:` formatting, missing semicolons, etc.
-- `refactor:` code restructuring
-- `perf:` performance improvements
-- `test:` adding tests
-- `chore:` maintenance tasks
+```typescript
+// ✅ GOOD: Schema registered on route
+fastify.withTypeProvider<ZodTypeProvider>().post(
+  '/login',
+  {
+    schema: {
+      body: loginSchema,
+      response: { 200: loginResponseSchema },
+    },
+  },
+  async (request, reply) => {
+    // request.body is typed and validated
+  }
+);
 
-Example: `feat(auth): implement OAuth 2.1 authorization code flow`
+// ❌ BAD: Manual validation in handler
+fastify.post('/login', async (request, reply) => {
+  const body = loginSchema.parse(request.body); // Too late, already in handler
+});
+```
 
-## Dependencies
+## Example Schema
 
-- Prefer well-maintained, popular libraries
-- Check security advisories before adding dependencies
-- Keep dependencies up to date
-- Document why a dependency is needed
+```typescript
+export const registerSchema = z.object({
+  email: z.email('Invalid email format'),
+  password: z.string(),
+  realmId: z.uuid('Invalid realm ID format').optional(),
+});
 
-## Testing
-
-- Write tests for business logic
-- Write tests for public APIs
-- Aim for meaningful coverage, not just high percentage
-
-## Pull Requests
-
-- Keep PRs small and focused
-- Write clear PR descriptions in English
-- Link related issues
-- Ensure CI passes before requesting review
+export type RegisterRequest = z.infer<typeof registerSchema>;
+```
 
 ---
 > Source: [qauth-labs/qauth](https://github.com/qauth-labs/qauth) — distributed by [TomeVault](https://tomevault.io).
