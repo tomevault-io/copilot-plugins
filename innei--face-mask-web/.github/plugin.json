@@ -1,0 +1,9 @@
+{
+  "name": "innei--face-mask-web",
+  "displayName": "face-mask-web",
+  "description": "An AI-based face detection and Emoji replacement web-app",
+  "version": "1.0.0",
+  "author": "Innei",
+  "homepage": "https://github.com/Innei/face-mask-web",
+  "skills": []
+}
