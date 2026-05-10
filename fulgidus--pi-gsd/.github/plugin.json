@@ -1,0 +1,9 @@
+{
+  "name": "fulgidus--pi-gsd",
+  "displayName": "pi-gsd",
+  "description": "Pi porting of get-shit-done workflow",
+  "version": "1.0.0",
+  "author": "fulgidus",
+  "homepage": "https://github.com/fulgidus/pi-gsd",
+  "skills": []
+}
