@@ -1,0 +1,9 @@
+{
+  "name": "gc-lab-gonzalo--proto-synth-v2",
+  "displayName": "proto-synth-v2",
+  "description": "Sintetizador Open Source educativo basado en ESP32 - GC Lab Chile",
+  "version": "1.0.0",
+  "author": "GC-Lab-Gonzalo",
+  "homepage": "https://github.com/GC-Lab-Gonzalo/proto-synth-v2",
+  "skills": []
+}
