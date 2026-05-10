@@ -7,11 +7,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Gurabit77/XIAOMI-MiMo-code](https://github.com/Gurabit77/XIAOMI-MiMo-code).
+Original source: `CLAUDE.md` in [Gurabit77/XIAOMI-MiMo-code](https://github.com/Gurabit77/XIAOMI-MiMo-code).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
