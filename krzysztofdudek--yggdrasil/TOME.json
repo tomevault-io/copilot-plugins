@@ -4,7 +4,7 @@
   "repo": "Yggdrasil",
   "description": "Architecture enforcement for AI coding agents. You write rules in plain Markdown; a reviewer verifies every change the agent makes and feeds violations back into the agent's loop \u2014 before it moves on. Works with Claude Code, Cursor, Copilot, Codex, Cline, and more.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/krzysztofdudek/Yggdrasil",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T18:54:55Z"
+  "distributed_at": "2026-05-10T16:53:04Z"
 }
