@@ -1,0 +1,9 @@
+{
+  "name": "highkay--go-proxy-manager",
+  "displayName": "go-proxy-manager",
+  "description": "GPM is a lightweight, high-performance proxy pool manager written in Go. It aggregates, validates, and serves proxy lists via a simple HTTP API.",
+  "version": "1.0.0",
+  "author": "highkay",
+  "homepage": "https://github.com/highkay/go-proxy-manager",
+  "skills": []
+}
