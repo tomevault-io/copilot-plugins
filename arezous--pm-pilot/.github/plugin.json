@@ -1,0 +1,9 @@
+{
+  "name": "arezous--pm-pilot",
+  "displayName": "pm-pilot",
+  "description": "AI copilot for product managers. Built for Claude Code and Cursor.",
+  "version": "1.0.0",
+  "author": "arezous",
+  "homepage": "https://github.com/arezous/pm-pilot",
+  "skills": []
+}
