@@ -1,0 +1,9 @@
+{
+  "name": "headwalluk--payment-email-notifications",
+  "displayName": "payment-email-notifications",
+  "description": "Create payment notifications emails in WooCommerce",
+  "version": "1.0.0",
+  "author": "headwalluk",
+  "homepage": "https://github.com/headwalluk/payment-email-notifications",
+  "skills": []
+}
