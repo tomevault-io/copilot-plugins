@@ -1,0 +1,147 @@
+## commit-conventions
+
+> VOrg 项目代码提交规范与流程
+
+# VOrg 代码提交 Agent 流程
+
+此流程从代码编写完毕开始，到成功创建 commit 为止。适用于 VOrg VS Code 扩展项目的代码提交环节。
+
+## 第一阶段：提交前验证 (Pre-submission Validation)
+
+在将代码打包成一次提交之前，Agent 会执行一系列严格的自动化检查，确保代码符合质量标准。
+
+### 环节1：自动化测试
+
+**流程**：Agent 运行所有相关的测试套件，包括单元测试和集成测试。
+
+1. **单元测试**：运行 `pnpm run test:unit` 验证解析逻辑（ContextAnalyzer、HeadingParser、ListParser 等）
+
+**注意事项**：
+- **强制通过**：必须通过所有测试，任何失败都会立即中止提交流程
+- **测试覆盖率**：检查新代码的测试覆盖率是否达到预设阈值（Parser 类目标 90%+）
+- **报告生成**：自动生成并附上测试报告，以便审查者快速了解测试结果
+
+### 环节2：静态代码分析与构建检查
+
+**流程**：使用静态分析工具扫描代码，检查编码规范、潜在的 bug 和代码异味。
+
+**VOrg 项目特定**：
+- **ESLint 检查**：运行 `pnpm run lint` 检查 TypeScript 代码规范
+- **TypeScript 编译**：运行 `pnpm run compile-tests` 确保代码能够正确编译
+- **Webpack 构建**：运行 `pnpm run compile` 验证生产构建是否成功（可选，但推荐）
+
+**注意事项**：
+- **零容忍规则**：对于严重的安全漏洞或破坏性的编码问题，应配置为"零容忍"，检查不通过则流程失败
+- **风格一致性**：确保代码风格与项目现有代码保持一致，遵循 TypeScript 和 ESLint 配置
+- **配置管理**：分析规则集由项目统一配置（`tsconfig.json`、`.eslintrc` 等）
+
+### 环节3：文档更新检查
+
+**流程**：Agent 检查与代码变更相关的文档是否已相应更新。
+
+**VOrg 项目特定文档结构**：
+- **功能文档**：`docs/FEATURES.md` - 新功能需要更新
+- **用户指南**：`docs/USER_GUIDE.md` - 用户可见的变更需要更新
+- **编辑功能**：`docs/EDITING_FEATURES.md` - 编辑相关功能变更
+- **快捷键**：`docs/KEYBINDINGS.md` - 快捷键变更
+- **技术文档**：`docs/TECHNICAL.md` - 技术实现变更
+- **API 文档**：公共 API 变更需要检查代码中的 JSDoc/TypeDoc 注释是否已更新
+- **更新日志**：`release.md` - 所有用户可见的变更按照文档中的归类进行更新
+- **README**：`README.md` 和 `README-CN.md` - 重要功能变更需要更新
+
+**变更关联分析规则**：
+- **配置变更**：检查 `package.json` 中的配置项说明是否更新
+- **版本号变更**：检查 `package.json` 中的 `version` 字段和 `CHANGELOG.md` 是否同步更新
+
+**启发式检查**：
+- 检查文档目录 (`docs/`) 或特定文档文件（如 `CHANGELOG.md`）的文件修改时间戳或 Git 历史
+- 如果 Agent 无法确定，在后续生成的拉取请求描述中自动添加待办事项：`[ ] 检查文档是否已更新`
+
+## 第二阶段：提交与审查请求 (Commit & Review Request)
+
+通过所有验证后，Agent 将代码正式提交并创建拉取请求，以供团队成员审查。
+
+### 环节4：生成结构化的提交信息 (Commit Message)
+
+**流程**：Agent 将所有暂存的代码变更打包成一个或多个原子性的提交，生成符合规范的提交信息。
+
+**VOrg 项目提交格式规范**（遵循 Conventional Commits）：
+
+```
+<type>(<scope>): <description>
+
+[optional body]
+```
+
+**提交类型 (Types)**：
+- `feat`: 新功能
+- `fix`: Bug 修复
+- `refactor`: 代码重构（不改变行为）
+- `docs`: 文档变更
+- `style`: 格式调整（不影响代码逻辑）
+- `test`: 添加或更新测试
+- `chore`: 维护任务（依赖、构建配置等）
+
+**作用域 (Scopes)**：
+- `preview`: 预览功能
+- `syntax`: 语法高亮
+- `commands`: 命令处理
+- `editing`: 编辑功能
+- `links`: 链接处理
+- `ui`: 用户界面
+- `config`: 配置
+- `deps`: 依赖
+- `build`: 构建系统
+
+**注意事项**：
+- **原子性提交**：确保每一次提交都对应一个独立的、完整的逻辑单元
+- **遵循规范**：提交信息应严格遵循 Conventional Commits 格式，例如 `feat(preview): add dark theme support`
+- **关联任务**：提交信息中应关联到相关的 Issue 编号（如 `Closes #123`），以便于追溯
+- **清晰描述**：提交信息不仅要有标题，还应包含一个简短的主体，解释"为什么"要进行这次修改
+- **格式要求**：
+  - 主题行限制在 50 个字符以内
+  - 使用祈使语气（"add feature" 而不是 "added feature"）
+  - 正文每行不超过 72 个字符
+
+- **内容要求**：
+  - 关注"做什么"和"为什么"：提交信息应说明本次提交做了什么，以及为什么需要这个变更（用户价值或问题背景）
+  - 避免技术实现细节：不要描述"如何做"，技术实现细节应体现在代码中
+  - 避免列出"相关变更"：不要列出修改了哪些文件或添加了哪些命令
+  - 保持简洁清晰：确保提交信息易于理解，避免冗长和模糊的描述
+
+**示例**：
+
+✅ **好的提交信息**：
+```
+feat(editing): 实现 Ctrl+C Ctrl+C 上下文操作功能
+
+实现类似 org-mode 的 C-c C-c 功能，根据当前上下文智能执行相应操作。
+
+当前支持在 checkbox 列表项上循环切换完成状态：
+- [ ] (未完成) → [X] (完成) → [-] (部分完成) → [ ] (未完成)
+```
+
+```
+feat(preview): 添加 HTML 导出功能
+
+此前，用户只能在 VS Code 中预览 org 文件。此变更
+添加了将预览内容导出为 HTML 文件的能力，使用户
+能够分享或归档他们的 org-mode 文档。
+```
+
+❌ **不好的提交信息**（包含技术实现细节）：
+```
+feat(editing): 实现 Ctrl+C Ctrl+C 上下文操作功能
+
+- 新增 ContextCommands 类，采用可扩展的处理器架构
+- 使用 ContextAnalyzer 分析当前光标位置的上下文
+- 添加 vorg.ctrlCtrl 命令和 Ctrl+C Ctrl+C 快捷键绑定
+- 更新编辑功能文档和快捷键文档
+```
+**版本发布检查**（如适用）：
+- 如果涉及版本发布，检查 `package.json` 中的版本号是否已更新
+- 检查 `CHANGELOG.md` 是否已更新并包含本次变更
+
+---
+> Source: [re-f/vorg](https://github.com/re-f/vorg) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
