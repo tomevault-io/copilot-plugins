@@ -1,0 +1,9 @@
+{
+  "name": "ibm--ado",
+  "displayName": "ado",
+  "description": "A framework for designing, executing  and analysing experiment campaigns ",
+  "version": "1.0.0",
+  "author": "IBM",
+  "homepage": "https://github.com/IBM/ado",
+  "skills": []
+}
