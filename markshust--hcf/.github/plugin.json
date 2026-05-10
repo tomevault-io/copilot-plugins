@@ -1,0 +1,9 @@
+{
+  "name": "markshust--hcf",
+  "displayName": "hcf",
+  "description": "Autonomous development plugin for Claude Code. Define requirements with a PM, then let parallel workers implement everything using TDD.",
+  "version": "1.0.0",
+  "author": "markshust",
+  "homepage": "https://github.com/markshust/hcf",
+  "skills": []
+}
