@@ -1,0 +1,9 @@
+{
+  "name": "strataga--agentarch",
+  "displayName": "agentarch",
+  "description": "A local-first, open-source Rust-based AI app builder that generates code using orchestrated multi agents and sub-agents.",
+  "version": "1.0.0",
+  "author": "strataga",
+  "homepage": "https://github.com/strataga/agentarch",
+  "skills": []
+}
