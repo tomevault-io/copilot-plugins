@@ -1,0 +1,9 @@
+{
+  "name": "strands-agents--sdk-typescript",
+  "displayName": "sdk-typescript",
+  "description": "A model-driven approach to building AI agents in just a few lines of code. ",
+  "version": "1.0.0",
+  "author": "strands-agents",
+  "homepage": "https://github.com/strands-agents/sdk-typescript",
+  "skills": []
+}
