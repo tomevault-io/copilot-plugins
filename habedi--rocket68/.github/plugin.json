@@ -1,0 +1,9 @@
+{
+  "name": "habedi--rocket68",
+  "displayName": "rocket68",
+  "description": "A Motorola 68000 CPU emulator in C",
+  "version": "1.0.0",
+  "author": "habedi",
+  "homepage": "https://github.com/habedi/rocket68",
+  "skills": []
+}
