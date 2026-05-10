@@ -1,0 +1,9 @@
+{
+  "name": "algorandfoundation--xchain-accounts",
+  "displayName": "xchain-accounts",
+  "description": "EVM Account Abstraction on Algorand via ECDSA signature verification",
+  "version": "1.0.0",
+  "author": "algorandfoundation",
+  "homepage": "https://github.com/algorandfoundation/xchain-accounts",
+  "skills": []
+}
