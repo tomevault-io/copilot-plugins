@@ -1,0 +1,9 @@
+{
+  "name": "plobb--celltype-agent",
+  "displayName": "celltype-agent",
+  "description": "Agentic AI tool for automated cell type annotation of single-cell and spatial genomics data (10x Chromium, Visium, Xenium) using Claude and curated marker databases.",
+  "version": "1.0.0",
+  "author": "plobb",
+  "homepage": "https://github.com/plobb/celltype-agent",
+  "skills": []
+}
