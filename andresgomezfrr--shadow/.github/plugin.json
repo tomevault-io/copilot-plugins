@@ -1,0 +1,9 @@
+{
+  "name": "andresgomezfrr--shadow",
+  "displayName": "shadow",
+  "description": "Local-first memory, observation, and autonomy layer for Claude. A background daemon that learns from your sessions.",
+  "version": "1.0.0",
+  "author": "andresgomezfrr",
+  "homepage": "https://github.com/andresgomezfrr/shadow",
+  "skills": []
+}
