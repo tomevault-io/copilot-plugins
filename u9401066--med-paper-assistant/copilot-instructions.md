@@ -1,0 +1,124 @@
+## med-paper-assistant
+
+> > 完整指引：[AGENTS.md](../AGENTS.md)。本檔每次對話都載入，務求精簡。
+
+# Copilot 指令（Quick Reference）
+
+> 完整指引：[AGENTS.md](../AGENTS.md)。本檔每次對話都載入，務求精簡。
+
+## 核心價值
+
+**逐步多輪演進**：寫論文是人類多年累積、多輪訓練的結果。Agent + MCP 框架必須實現類似的螺旋式進步。三層架構：L1 Hook（即時品質）→ L2 Code（結構約束）→ L3 CI（長期演進）。每輪可審計，每輪更好。（CONSTITUTION §25-26）
+
+## 雙模式心智模型
+
+先讀 `project.json.workflow_mode`，再決定路徑：
+
+- `library-wiki` = **Library Wiki Path**：ingest → organize → analyze → synthesize → query。目標是維護可被 agent 管理的個人文獻庫 / wiki。這條路不強制 concept validation，也不套用 manuscript pipeline gates。
+- `manuscript` = **Manuscript Path**：concept → draft → review → export。目標是產出投稿稿件。這條路才套用 novelty / concept validation、writing hooks、review loop、export gates。
+
+如果用戶從 library/wiki 轉向寫稿，先把 `workflow_mode` 切到 `manuscript`，再要求 `paper_type`、`concept.md`、draft/review/export。
+
+## 模式（操作前必查 `.copilot-mode.json`）
+
+| 模式          | 可修改檔案          | 技能範圍            |
+| ------------- | ------------------- | ------------------- |
+| `development` | 全部                | 全部技能 + 靜態分析 |
+| `normal`      | `projects/` `docs/` | 僅研究技能          |
+| `research`    | `projects/` `docs/` | 僅研究技能          |
+
+Normal/Research 下 `.claude/` `.github/` `src/` `tests/` `integrations/` `AGENTS.md` `CONSTITUTION.md` `pyproject.toml` 皆唯讀。
+用戶要改受保護檔案 → 提示切換開發模式。
+
+## 關鍵規則
+
+**Path Selection**: 先看 `workflow_mode`。建 library/wiki 時優先 `workflow_mode="library-wiki"`；要寫論文時才用 `workflow_mode="manuscript"`。
+
+**儲存文獻**: `save_reference_mcp(pmid)` 永遠優先（MCP-to-MCP 驗證）。`save_reference()` 僅 API 不可用時 fallback。
+
+**草稿引用**: `get_available_citations()` → `patch_draft()` → `sync_references()`。禁止直接 `replace_string_in_file` 改引用。
+
+**Novelty Check**: 僅適用於 `manuscript` 路徑。犀利回饋 + 給選項（「直接寫？修正？用 CGU？」）。禁止討好式回饋或自動改 NOVELTY。
+
+**Workspace State**: 新對話 → `get_workspace_state()`。重要操作 → `sync_workspace_state()`。
+
+**Memory Bank**: 重要操作後更新 `memory-bank/`。對話結束前更新 `projects/{slug}/.memory/`。
+
+## 法規層級
+
+CONSTITUTION.md > `.github/bylaws/*.md` > `.claude/skills/*/SKILL.md`
+
+## 跨 MCP 編排（詳見 auto-paper SKILL.md）
+
+Pipeline 定義「何時」、Skill 定義「如何」、Hook 定義「品質」。
+
+**Phase 0 Source Materials + Journal Profile**: 先呼叫 `project_action(action="source_materials")` 掃描 workspace root 的 DOCX/XLSX/PDF/CSV 等用戶原始素材，產出 `.audit/source-materials.yaml`；若有 `pending_asset_aware`，先交給 asset-aware ingestion。之後再用內建麻醉學 Top 20 期刊設定（`templates/journal-profiles/`）或 `project_action(action="journal_profile")` 產生 `journal-profile.yaml`。
+
+| Phase           | 外部 MCP / 重點                                         |
+| --------------- | ------------------------------------------------------- |
+| 0 原始素材/期刊 | asset-aware-mcp🔸（pending DOCX/XLSX/PDF）              |
+| 2 文獻          | pubmed-search, zotero-keeper🔸                          |
+| 2.1 全文        | asset-aware-mcp🔸, pubmed-search                        |
+| 3 概念          | cgu🔸（novelty < 75）                                   |
+| 5 撰寫          | drawio🔸, cgu🔸, data tools                             |
+| 7 審查          | min_rounds=2（Code-Enforced）                           |
+| 9 匯出          | docx+pdf（CRITICAL Gate）                               |
+| 11 Final        | final artifacts；Git remote/push 是 optional provenance |
+
+## Hook 架構（79 checks — 56 Code-Enforced / 23 Agent-Driven）
+
+| 類型             | 時機               | Code-Enforced                                                                                                                                                           | Agent-Driven                                |
+| ---------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| Copilot A1-7+A3b | post-write         | A1 字數、A2 引用、A3 Anti-AI、A3b AI 結構信號、A3c 語體一致性、A4 Wikilink、A5 語言一致、A6 段落重複、A7 文獻數量充足性、**B2 🔒保護內容**                              | —                                           |
+| Copilot B1-16    | post-section       | B8 統計對齊、B9 時態、B10 段落品質、B11 Results 客觀性、B12 Intro 結構、B13 Discussion 結構、B14 倫理聲明、B15 Hedging、B16 效果量                                      | B1, B3-B7 概念一致、方法學、順序、Brief     |
+| Copilot C1-13    | post-manuscript    | **C2 投稿清單**、C3 N值、C4 縮寫、C5 Wikilink、C6 字數、C7a 圖表數、C7b 資產覆蓋、C7d 交叉引用、C9 補充材料、C10 全文驗證、C11 引用分布、C12 引用決策審計、C13 圖表品質 | C1, C8 全稿一致、時間                       |
+| Copilot D1-D9    | Phase 10           | D1-D9 全部（MetaLearningEngine）                                                                                                                                        | —                                           |
+| Copilot E1-5     | Phase 7 每輪       | —                                                                                                                                                                       | E1-E5 EQUATOR 報告指引（純 Agent 評估）     |
+| Copilot F1-4     | post-manuscript    | F 全部（DataArtifactTracker）                                                                                                                                           | —                                           |
+| **Review R1-R6** | **Phase 7 submit** | **R1 報告深度、R2 回應完整性、R3 EQUATOR、R4 追蹤性、R5 Anti-AI、R6 引用預算（ReviewHooksEngine）**                                                                     | —                                           |
+| General G9       | pre-commit         | G9 Git 狀態（WritingHooksEngine）                                                                                                                                       | —                                           |
+| Pre-Commit P1-8  | git commit 前      | P1 引用完整(→C5)、P2 Anti-AI(→A3)、P4 字數(→A1)、P5 保護內容、**P6 記憶同步**、P7 文獻完整                                                                              | P3, P8（Agent 遵循 git-precommit SKILL.md） |
+| General G1-8     | git commit 前      | —                                                                                                                                                                       | G1-G8（Agent 遵循 git-precommit SKILL.md）  |
+
+**Code-Enforced** = `run_writing_hooks` / `run_review_hooks` / `run_meta_learning` 內有確定性程式碼邏輯。
+**Agent-Driven** = 僅靠 Agent 閱讀 SKILL.md 並自行執行，無程式碼強制。
+
+## MCP Server（runtime-validated authority）
+
+目前 authority：117 full / 22 compact default + 3 prompts + 3 resources。
+單一來源：`tool-surface-authority.json`。`scripts/check_tool_surface_authority.py`、release workflow、`npm run validate` 都會驗證這些數字。
+
+| 模組        | 重點                                                                                                                        |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- |
+| project/    | CRUD + exploration + workspace state + writing checkpoint                                                                   |
+| reference/  | save_reference_mcp 優先 + subagent analysis + local/web/markdown intake + canonical identity + wiki materialization（full） |
+| draft/      | writing + citation + editing (patch_draft)                                                                                  |
+| validation/ | validate_concept + wikilinks                                                                                                |
+| analysis/   | table_one + stats + figures（含 insert_figure/insert_table/list_assets/review_asset）                                       |
+| review/     | formatting + pipeline + audit + review-hooks + meta-learning + flexibility + approve_concept                                |
+| export/     | word + pandoc (docx/pdf/bib)                                                                                                |
+| facade/     | project/workspace/review/pipeline/export stable entrypoints                                                                 |
+
+## VS Code Copilot Lifecycle Hooks
+
+7 個核心 hook 腳本（`.github/hooks/mdpaper-lifecycle.json`）。設計文件：`docs/design/copilot-lifecycle-hooks.md`。
+
+| Event            | 腳本                | 功能                                               |
+| ---------------- | ------------------- | -------------------------------------------------- |
+| SessionStart     | session-init.sh     | 載入模式/recovery/workflow mode/pending evolutions |
+| UserPromptSubmit | prompt-analyzer.sh  | 意圖偵測（mode-switch/commit/library/manuscript）  |
+| PreToolUse       | pre-tool-guard.sh   | 模式保護 + 破壞性指令攔截                          |
+| PostToolUse      | post-tool-check.sh  | Workflow-aware 提醒（library vs manuscript）       |
+| PreCompact       | pre-compact-save.sh | Context 壓縮前 checkpoint                          |
+| SubagentStart    | subagent-init.sh    | 注入專案/模式/workflow mode 至 subagent            |
+| Stop             | session-stop.sh     | 審計 + 清理 + memory sync 提醒                     |
+
+補強層：`.github/hooks/mode-guard.json` 會在 `PreToolUse` 階段額外執行 `scripts/copilot_hook_guard.py`。它負責 Python/Windows-safe 的工具路徑解析，特別是 `apply_patch` 這類 shell hook 不易精準判斷的編輯入口。
+
+## 回應風格
+
+繁體中文 · 清晰步驟 · 引用法規 · uv 優先
+
+---
+> Source: [u9401066/med-paper-assistant](https://github.com/u9401066/med-paper-assistant) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-10 -->
