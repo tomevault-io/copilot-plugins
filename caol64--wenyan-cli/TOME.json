@@ -1,0 +1,44 @@
+{
+  "name": "wenyan-cli",
+  "owner": "caol64",
+  "repo": "wenyan-cli",
+  "description": "\u6587\u989c\u7684 CLI \u5de5\u5177\uff0c\u65b9\u4fbf\u4f7f\u7528\u547d\u4ee4\u884c\u5c06markdown\u6392\u7248\u5e76\u4e0a\u4f20\u5230\u5fae\u4fe1\u516c\u4f17\u53f7",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/caol64/wenyan-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T14:59:07Z"
+}
