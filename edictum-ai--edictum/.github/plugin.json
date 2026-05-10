@@ -1,0 +1,9 @@
+{
+  "name": "edictum-ai--edictum",
+  "displayName": "edictum",
+  "description": "Runtime governance for AI agents. Contracts enforce what tools can do \u2014 before they execute.",
+  "version": "1.0.0",
+  "author": "edictum-ai",
+  "homepage": "https://github.com/edictum-ai/edictum",
+  "skills": []
+}
