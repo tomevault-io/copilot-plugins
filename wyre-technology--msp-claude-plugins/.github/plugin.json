@@ -1,0 +1,9 @@
+{
+  "name": "wyre-technology--msp-claude-plugins",
+  "displayName": "msp-claude-plugins",
+  "description": "Community-driven Claude Code plugins for MSP tools (PSA, RMM, Documentation)",
+  "version": "1.0.0",
+  "author": "wyre-technology",
+  "homepage": "https://github.com/wyre-technology/msp-claude-plugins",
+  "skills": []
+}
