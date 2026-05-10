@@ -1,9 +1,9 @@
 {
   "name": "levifig--rails-instructions",
   "displayName": "rails-instructions",
-  "description": "rails-instructions",
+  "description": "Set of instructions for your favorite AI agent (e.g. Cursor, Copilot, Claude, etc) for a \"DHH-driven\" Ruby on Rails development philosophy.",
   "version": "1.0.0",
   "author": "levifig",
-  "homepage": "https://tomevault.io/claim/levifig",
+  "homepage": "https://github.com/levifig/rails-instructions",
   "skills": []
 }
