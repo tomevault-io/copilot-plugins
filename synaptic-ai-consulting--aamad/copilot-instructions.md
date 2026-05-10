@@ -1,52 +1,66 @@
-## adapter-claude-agent-sdk
+## adapter-crewai
 
-> Runtime adapter guidance for building AAMAD-generated MVPs on the Claude Agent SDK.
+> Runtime adapter guidance for building AAMAD-generated MVPs on CrewAI.
 
 
-# Claude Agent SDK Adapter Rules
+# CrewAI Adapter Rules
 
 ## Purpose
-- Define runtime-specific guidance when `AAMAD_TARGET_RUNTIME=claude-agent-sdk`.
-- This adapter governs implementation patterns for generated MVP backends that use the Claude Agent SDK.
+- Define runtime-specific guidance when `AAMAD_TARGET_RUNTIME=crewai`.
+- This adapter governs how implementation personas scaffold and validate the generated MVP runtime.
 
 ## Setup
-- Install SDK dependencies for the selected language runtime:
-    - Python: `pip install claude-agent-sdk`
-    - TypeScript: install the Claude Agent SDK package used by your org standard.
-- Configure required runtime environment variables (`ANTHROPIC_API_KEY` and any org-specific gateway/base URL settings).
-- Record SDK version, resolved model, temperature, and token controls in artifact Audit.
+- Install CrewAI and dependencies in the generated backend environment.
+- Required runtime files should include:
+    - `config/agents.yaml`
+    - `config/tasks.yaml`
+    - `crew.py` (or equivalent runtime entrypoint)
+- Load secrets from environment variables and provide names in `.env.example`.
+- Record resolved `llm`, temperature, and max token controls in Audit.
 
 ## Mapping
-- Represent specialized runtime agents as `AgentDefinition` entries in `ClaudeAgentOptions.agents`.
-- Use the main runtime agent as coordinator and invoke specialized agents via the `Agent` tool.
-- For cloud-managed multi-agent orchestration, use callable-agent patterns where appropriate and document delegation boundaries in SAD/backend.md.
+- All CrewAI agent and task definitions MUST be externalized to YAML files under a config/ directory (e.g., config/agents.yaml, config/tasks.yaml).
+- Use explicit task context chaining (`Task.context`) for deterministic dependency flow.
+- Define `expected_output` with required headings and target artifact paths.
+- Prefer `allow_delegation=false` unless the SAD justifies delegated manager patterns.
 
 ## Execution
-- Set explicit per-task turn and token budgets; do not rely on implicit defaults.
-- Use `ClaudeSDKClient` for bidirectional interactive flows and streaming workflows.
-- Define retry and idempotency behavior for runtime actions that may be replayed.
-- Use session resume/fork only when required, and document rationale and retention scope in Audit.
+- Prefer sequential process mode for reproducible MVP builds.
+- Use hierarchical process mode only when justified in SAD and documented in Audit.
+- Baseline controls:
+    - `max_iter <= 12` for MVP tasks unless explicitly justified.
+    - `max_execution_time` tuned per epic.
+    - `max_retry_limit >= 2`.
+    - `max_rpm` set at crew level for budget stability.
+- If using function-calling agents, do not switch mode mid-run; record chosen mode in Audit.
+- Use `kickoff_for_each` only for truly independent batch items and document deterministic merge keys.
 
 ## Tools
-- Default to least-privilege `allowed_tools` lists per runtime task.
-- Use built-in tools (`Read`, `Write`, `Edit`, `Bash`, `Glob`, `Grep`, `WebSearch`, `WebFetch`) only where required by scope.
-- Prefer in-process MCP servers for custom internal tools; use external MCP servers when process boundaries are required.
-- Validate MCP server availability and auth before execution; fail fast with Diagnostic on missing dependencies.
+- Bind only the minimum required tool set per agent/task.
+- Validate YAML-referenced tools before kickoff to avoid runtime binding errors.
+- Keep tool configs JSON-serializable; load secret parameters via env vars.
+- Permit web/API tools only where explicitly justified by persona scope.
 
 ## Logging
-- Capture Prompt Trace prior to execution and append to artifacts or trace logs per persona output rules.
-- Use hooks (`PreToolUse`, `PostToolUse`, `SubagentStart`, `SubagentStop`) to log lifecycle events and enforce guardrails.
-- Persist runtime trace logs under `project-context/2.build/logs` and redact sensitive values.
+- Capture rendered system/user prompts in Prompt Trace before execution.
+- Record lifecycle events (task start/stop, retries, guardrail outcomes) in Trace Log.
+- Keep Prompt Trace and Trace Log in project-context artifacts, not inline with generated code.
+- If using step callbacks/event listeners, redact secrets and persist logs under `project-context/2.build/logs`.
 
 ## Quality Gates
-- Enforce structured output contracts using output schema validation or post-write validators.
-- Require citation and numeric grounding checks for analytical outputs when applicable.
-- Keep artifact-generation tasks deterministic (low temperature unless justified in Audit).
-- Validate required headings and machine-ingested formatting before final write.
+- Validate required template headings before final artifact write.
+- Use `Task.guardrail` for high-risk outputs (schema limits, content rules, size checks).
+- Require `Task.id` and explicit output path for traceability.
+- For machine-ingested output sections, enforce plain markdown/JSON without code fences.
+- For high-risk outputs, require a human review gate (`human_input=true` or explicit review task).
 
 ## Failure Policy
-- Halt with Diagnostic when schema validation, guardrails, tool authorization, or runtime prerequisites fail.
-- On budget/context overrun, stop execution and write remediation notes in the artifact.
+- On missing runtime prerequisites, unresolved tools, heading mismatches, or guardrail failure: halt and write Diagnostic.
+- On context overflow or budget breach: halt and report remediation notes in the artifact.
+
+## Memory
+- Default memory=False for reproducibility; if memory=True, constrain to current epic, redact secrets, and persist logs to project-context/2.build/logs.
+- If memory=True, set `CREWAI_STORAGE_DIR` to a project-scoped path and record scope/retention in Audit.
 
 ---
 > Source: [synaptic-ai-consulting/AAMAD](https://github.com/synaptic-ai-consulting/AAMAD) — distributed by [TomeVault](https://tomevault.io).
