@@ -1,0 +1,9 @@
+{
+  "name": "joshzyj--open-scholar-skill",
+  "displayName": "open-scholar-skill",
+  "description": "Open scholar skill, a claude code plugin, for academic research",
+  "version": "1.0.0",
+  "author": "joshzyj",
+  "homepage": "https://github.com/joshzyj/open-scholar-skill",
+  "skills": []
+}
