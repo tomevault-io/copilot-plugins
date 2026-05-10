@@ -1,53 +1,93 @@
-## system-overview
+## tauri-app-icons
 
-> - **What this is**: OpenChat is a Tauri desktop app that chats with a local MLX model server. Frontend is React + TypeScript; data persisted in SQLite; backend is Rust/Tauri.
+> Tauri ships a default icon set (Tauri logo). Replace it by generating icons from your app image.
 
 
-## OpenChat system overview
+# Tauri App Icons
 
-- **What this is**: OpenChat is a Tauri desktop app that chats with a local MLX model server. Frontend is React + TypeScript; data persisted in SQLite; backend is Rust/Tauri.
+Tauri ships a default icon set (Tauri logo). Replace it by generating icons from your app image.
 
-- **Frontend (src/)**
-  - **Providers**: `MLXServerProvider` (MLX status + restart via Tauri invokes/events), `ConversationProvider` (current selection).
-  - **Shell**: `AppHeader` (MLX status), `Sidebar` (shadcn/Radix; search + conversations), `ChatWindow` (messages + input).
-  - **Chat flow**: If none selected, create conversation → insert user message → stream assistant (and optional reasoning) → update DB per chunk → React Query invalidations refresh UI → set conversation title after completion.
-  - **Markdown**: ReactMarkdown + GFM + Math/KaTeX; Shiki code highlighting; image modal viewer; custom elements (`email-artifact`, `quick-reply`).
-  - **UX**: Enter to send (Shift+Enter newline); `mod+n` new chat; `mod+b` toggle sidebar. Chat input is disabled unless MLX is running and ready.
+## Filetypes
 
-- **Backend (src-tauri/)**
-  - **MLX process manager**: `MLXServerManager` spawns `binaries/openchat-mlx-server`, finds port, health-checks `/health`, tracks `is_running/is_ready/port/pid/model_path`, emits `mlx-status-changed` events.
-  - **Commands**: `mlx_get_status`, `mlx_restart`, `mlx_health_check`; port utilities for diagnostics.
-  - **DB**: SQLite via `tauri-plugin-sql`; migrations create `conversations` and `messages` (with `reasoning` and `status: pending|complete|error`). Index on `messages.conversation_id`.
+- icon.icns = macOS
+- icon.ico = Windows
+- \*.png = Linux
+- Square\*Logo.png & StoreLogo.png = Intended for AppX/MS Store (currently unused)
 
-- **Integration points**
-  - Frontend listens to `mlx-status-changed` and converts snake_case → camelCase. Invokes Tauri commands with `@tauri-apps/api/core`.
-  - Streaming parser consumes SSE `data:` lines and `[DONE]` sentinel.
+Some formats (especially PNG) may be used across platforms. Include all icons even if you build for only some platforms.
 
-- **Conventions**
-  - Use `@/…` imports, shadcn UI/Radix + Tailwind, TanStack Query for server state, one component per file, clear naming, no unnecessary comments.
+## Generate icons (pnpm)
 
-## OpenChat system overview (always-on)
+Use a squared PNG or SVG with transparency (e.g., 1024×1024).
 
-- **What this is**: OpenChat is a Tauri desktop app that chats with a local MLX model server. Frontend is React + TypeScript; data persisted in SQLite; backend is Rust/Tauri.
+```bash
+pnpm run tauri icon ./app-icon.png
+```
 
-- **Frontend (src/)**
-  - **Providers**: `MLXServerProvider` (MLX status + restart via Tauri invokes/events), `ConversationProvider` (current selection).
-  - **Shell**: `AppHeader` (MLX status), `Sidebar` (shadcn/Radix; search + conversations), `ChatWindow` (messages + input).
-  - **Chat flow**: If none selected, create conversation → insert user message → stream assistant (and optional reasoning) → update DB per chunk → React Query invalidations refresh UI → set conversation title after completion.
-  - **Markdown**: ReactMarkdown + GFM + Math/KaTeX; Shiki code highlighting; image modal viewer; custom elements (`email-artifact`, `quick-reply`).
-  - **UX**: Enter to send (Shift+Enter newline); `mod+n` new chat; `mod+b` toggle sidebar. Chat input is disabled unless MLX is running and ready.
+Arguments and options (common):
 
-- **Backend (src-tauri/)**
-  - **MLX process manager**: `MLXServerManager` spawns `binaries/openchat-mlx-server`, finds port, health-checks `/health`, tracks `is_running/is_ready/port/pid/model_path`, emits `mlx-status-changed` events.
-  - **Commands**: `mlx_get_status`, `mlx_restart`, `mlx_health_check`; port utilities for diagnostics.
-  - **DB**: SQLite via `tauri-plugin-sql`; migrations create `conversations` and `messages` (with `reasoning` and `status: pending|complete|error`). Index on `messages.conversation_id`.
+- [INPUT]: Source icon path (default: ./app-icon.png)
 
-- **Integration points**
-  - Frontend listens to `mlx-status-changed` and converts snake_case → camelCase. Invokes Tauri commands with `@tauri-apps/api/core`.
-  - Streaming parser consumes SSE `data:` lines and `[DONE]` sentinel.
+Desktop icons are generated to `src-tauri/icons/` by default and included automatically in builds.
 
-- **Conventions**
-  - Use `@/…` imports, shadcn UI/Radix + Tailwind, TanStack Query for server state, one component per file, clear naming, no unnecessary comments.
+### macOS icon prep (padding + corners)
+
+MacOS requires icons to be artwork inside a padded canvas and apply rounded corners to the artwork itself before generating the icon set.
+
+- **Canvas**: 1024×1024, transparent
+- **Inner artwork size**: 826×826 (≈ 80.66% of canvas)
+- **Corner radius (Apple standard)**: 187 px on the 826 side (≈ 22.6% of inner side)
+
+General guidance for other base sizes:
+
+- **inner_size** = round(0.8066 × canvas_size)
+- **corner_radius** = round(0.226 × inner_size)
+
+#### Create previews with ImageMagick
+
+Generate two previews to compare composition, then pick one to feed into the Tauri icon generator.
+
+- **Center-cropped (cover) with rounded corners**
+
+```bash
+magick \
+  \( -size 1024x1024 canvas:none \) \
+  \( ./SOURCE.png \
+     -resize 826x826^ -gravity center -extent 826x826 \
+     \( -size 826x826 xc:none -fill white -draw "roundrectangle 0,0,825,825,187,187" \) \
+     -alpha set -compose CopyOpacity -composite \) \
+  -gravity center -compose over -composite \
+  ./app-icon-1024-preview-crop.png
+```
+
+- **Fit-within (letterbox) with rounded corners**
+
+```bash
+magick \
+  \( -size 1024x1024 canvas:none \) \
+  \( ./SOURCE.png \
+     -resize 826x826 -background none -gravity center -extent 826x826 \
+     \( -size 826x826 xc:none -fill white -draw "roundrectangle 0,0,825,825,187,187" \) \
+     -alpha set -compose CopyOpacity -composite \) \
+  -gravity center -compose over -composite \
+  ./app-icon-1024-preview-letterbox.png
+```
+
+After selecting the preferred preview, generate the full icon set (desktop + mobile) into `src-tauri/icons`:
+
+```bash
+pnpm run tauri icon ./app-icon-1024-preview-crop.png -o src-tauri/icons -v
+```
+
+## Icon workflow steps
+
+To generate icons, you can use the following steps:
+
+1. Receive a png file from the user, preferrably 1024x1024.
+2. Prep the icon (padding, corners) for macOS using the directions above.
+3. Run the `pnpm run tauri icon` command to generate the icons.
+
+You may overwrite existing icons. Imagemagick is already installed on the system.
 
 ---
 > Source: [team-forge-ai/openchat](https://github.com/team-forge-ai/openchat) — distributed by [TomeVault](https://tomevault.io).
