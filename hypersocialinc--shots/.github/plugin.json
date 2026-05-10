@@ -1,0 +1,9 @@
+{
+  "name": "hypersocialinc--shots",
+  "displayName": "shots",
+  "description": "Claude Code/Agent Skill for making App Store Screenshot generator with GPT Image 2. Give it your App Store link & screenshots of your app and it will produce beautiful app store screenshots ready to u",
+  "version": "1.0.0",
+  "author": "hypersocialinc",
+  "homepage": "https://github.com/hypersocialinc/shots",
+  "skills": []
+}
