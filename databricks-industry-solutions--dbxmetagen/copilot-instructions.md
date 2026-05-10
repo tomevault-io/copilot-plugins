@@ -1,46 +1,39 @@
-## dbxmetagen-ddl
+## dbxmetagen-testing
 
-> DDL generation and review handling patterns for dbxmetagen
+> Testing conventions for dbxmetagen unit tests
 
 
-# DDL Handling Rules
+# dbxmetagen Test Conventions
 
-## Quote Wrapping
+## Running Tests
 
-DDL string literals use double-quote wrapping: `COMMENT ON TABLE ... IS "comment text"`.
-Inside the comment, double quotes are sanitized to single quotes before wrapping.
+- Always use `uv run pytest` or `./run_tests.sh` -- never bare `pytest`.
+- `run_tests.sh` handles running DDL regenerator and binary/variant tests in
+  separate processes to avoid import conflicts.
+- Use `run_tests.sh -q` for a quick core-only run.
 
-## Regex for Comment Extraction/Replacement
+## Writing Tests
 
-Always use a `\2` backreference to match the same quote character that opened the string:
+- Use `MetadataConfig(skip_yaml_loading=True, ...)` to avoid reading YAML files.
+- `conftest.py` auto-stubs heavy deps (pyspark, mlflow, databricks SDK, etc.).
+  Key fixtures: `mock_spark`, `test_config`, `sample_table_rows`.
+- Any `pd.read_csv` call on TSV files MUST include:
+  ```python
+  pd.read_csv(path, sep="\t", keep_default_na=False, na_values=[])
+  ```
+  Without this, literal `"None"` values become NaN and break downstream logic.
 
-```python
-# CORRECT -- backreference ensures matching quotes
-r'(COMMENT ON TABLE [^"\']+ IS\s+)(["\'])(.*?)\2'
+## Marking Known Bugs
 
-# WRONG -- separate group matches mismatched quotes, breaks on apostrophes
-r'(COMMENT ON TABLE [^"\']+ IS\s+)(["\'])(.*?)(["\'])'
-```
+- Use `@pytest.mark.xfail(reason="<brief description>")` for pre-existing bugs
+  you've confirmed but aren't fixing in the current change. Never `@pytest.mark.skip`.
+- Remove `xfail` once the underlying bug is fixed and the test passes.
 
-When replacing, the captured comment text is in group 3 (not group 4).
+## DDL Regenerator Tests
 
-## `is_column_comment` Detection
-
-Check for the full DDL keyword, not just the word "COLUMN":
-
-```python
-# CORRECT
-is_col = "COMMENT ON COLUMN" in ddl.upper() or "ALTER COLUMN" in ddl.upper()
-
-# WRONG -- "Column" commonly appears in AI-generated comment text
-is_col = "COLUMN" in ddl.upper()
-```
-
-## Comment Sanitization Consistency
-
-Both the generation path (`processing.py`) and the review path (`ddl_regenerator.py`)
-must apply the same sanitization: `new_comment.replace('""', "'").replace('"', "'")`.
-If you change one path, update the other.
+- Tests in `tests/test_ddl_regenerator.py` must run in a separate pytest process
+  due to mlflow import conflicts. `run_tests.sh` handles this automatically.
+- If running manually: `uv run pytest tests/test_ddl_regenerator.py -v`
 
 ---
 > Source: [databricks-industry-solutions/dbxmetagen](https://github.com/databricks-industry-solutions/dbxmetagen) — distributed by [TomeVault](https://tomevault.io).
