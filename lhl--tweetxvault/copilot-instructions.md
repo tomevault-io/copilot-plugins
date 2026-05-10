@@ -1,0 +1,174 @@
+## tweetxvault
+
+> See `docs/PLAN.md` for the implementation plan, `docs/README.md` for the documentation index, and `reference/` for third-party repo snapshots.
+
+# tweetxvault — Agent Guide
+
+See `docs/PLAN.md` for the implementation plan, `docs/README.md` for the documentation index, and `reference/` for third-party repo snapshots.
+This `AGENTS.md`/`CLAUDE.md` covers ground rules, workflow, and repo conventions.
+
+Instruction precedence: if this file conflicts with platform/system/developer instructions, follow those first.
+
+## Project Overview
+
+tweetxvault is a Python tool for regularly exporting Twitter/X bookmarks and likes into a local embedded database (SeekDB). Implementation details live in [docs/PLAN.md](docs/PLAN.md).
+
+Notes:
+- `docs/initial/` is historical and intentionally frozen (do not edit; it may contradict current plans).
+- `reference/` is for study only (read-only snapshots).
+
+## Work Tracking
+
+### WORKLOG.md (repo root)
+
+Maintain `WORKLOG.md` in the repo root. This is the cross-session handoff file. Log all major actions — not just task completions:
+- Implementation decisions and rationale
+- Dependency additions and version info
+- Blockers encountered and how they were resolved
+- Config or infrastructure changes
+- Key findings or results
+
+Format: reverse-chronological, date headers, bullet points. Keep entries concise with evidence (commands run, outcomes).
+
+### docs/IMPLEMENTATION.md
+
+For multi-step work, maintain `docs/IMPLEMENTATION.md` as a checklist:
+- Update checkboxes as items complete
+- Note blockers or deferrals inline
+- Multiple agents may coordinate here — append/patch carefully, don't overwrite others' work
+
+### docs/README.md
+
+Index of all documentation. Keep in sync when adding/removing docs.
+
+### docs/PUBLISH.md
+
+When preparing or publishing a new version, follow `docs/PUBLISH.md` as the
+release punch list. Release work must update version metadata, `CHANGELOG.md`,
+related docs, validation/build steps, tag creation, and PyPI/GitHub bookkeeping.
+
+## Concurrent Work
+
+- Run `git status -sb` before starting work and before each commit.
+- Other agents or the human may be working in the repo at the same time.
+- Pre-existing dirty or untracked files are non-blocking; leave them untouched.
+- Stage and commit only files for your active task.
+
+### Single-File Contention
+
+- If two agents need the same file and edits may overlap, **stop and await instruction**.
+- The designated agent stages and commits their scoped hunks first to unblock others.
+- Never resolve contention by force-staging the whole file or reverting another agent's work.
+
+### Never Discard Others' Work
+
+Do not use destructive commands unless explicitly instructed:
+- `git restore`, `git checkout --`, `git reset --hard`, `git clean`
+- `rm -rf`, overwriting redirects like `> file`
+- Bulk rewrites that destroy local edits
+
+## Development Workflow
+
+### Before Picking Up Work
+
+- Read `WORKLOG.md` and `docs/IMPLEMENTATION.md` for current state
+- Check git status/log for recent changes
+- Review relevant docs (see `docs/README.md` for index)
+- Confirm your approach aligns with documented plans
+
+### During Execution
+
+- Keep changes incremental and testable
+- Log decisions and progress in `WORKLOG.md`
+- Test before committing
+- When adding or changing user-facing CLI flags, command groups, or status markers:
+  - Give every new flag/argument explicit CLI help text; do not rely on bare Typer defaults
+  - Update `README.md` when the behavior is user-facing, especially for operational flags, state markers, reset/clear commands, or anything users are expected to interpret from `stats`/CLI output
+  - Add or update CLI help tests so representative `--help` output proves the new flags/markers are actually exposed
+
+### After Changes
+
+- Run targeted tests for changed scope
+- Update relevant docs if behavior changed
+- Commit promptly when a logical unit of work is complete (see Git Practices)
+
+## Project-Specific Rules
+
+### Credential Safety
+
+- **NEVER** commit cookies, auth tokens, session files, or any credential material
+- Browser profile paths should be auto-detected or passed as CLI args, never hardcoded with user-specific paths
+- `.gitignore` must exclude: `*.sqlite`, `*.db`, `twitter_session.json`, any `data/` output directories
+
+### Reference Directory
+
+- `reference/` contains third-party repos for study — treat as read-only
+- See `reference/README.md` for source URLs and descriptions
+- Do not modify vendored code for style or cleanup
+- Research notes about reference code go in `docs/`, not inside `reference/`
+- **Use reference code only for Twitter API reverse engineering** (query IDs, feature flags, cursor formats, headers) — never copy architectural patterns, code structure, or implementation decisions from any reference project
+- tweetxvault is its own project with its own architecture; if the only rationale for a choice is "another tool does it this way", reject it
+
+## Git Practices
+
+### Commit Timing
+
+**Commit on completed logical units of work.** A task is a coherent change — not every file edit, but not only milestone closures either. Config changes, doc updates, dependency additions, and working feature increments are all committable units.
+
+- **Commit immediately** after validation passes — do not ask, do not wait to be asked, just commit
+- Do not commit mid-task while exploring, debugging, or in a broken state
+
+### Commit Mechanics
+
+- **NEVER** use `git add .`, `git add -A`, or `git commit -a`
+- **NEVER** revert, checkout, or restore files you did not modify for the current task
+- **ALWAYS** add files explicitly: `git add <file1> <file2> ...`
+- **ALWAYS** verify before commit:
+  ```bash
+  git diff --staged --name-only   # verify only your files
+  git diff --staged               # review the actual diff
+  ```
+- If unrelated changes exist in the worktree, leave them unstaged
+
+### Commit Messages
+
+```
+type: short summary (imperative mood)
+
+- Bullet points if needed
+- What changed and why
+```
+
+- **Conventional prefixes**: `feat:`, `fix:`, `docs:`, `test:`, `refactor:`, `chore:`
+- **No bylines** — no co-author footers, no agent attribution, no generated text
+
+## Handling Blockers
+
+| Situation | Action |
+|-----------|--------|
+| Cookie extraction fails | Check the selected browser is installed, the profile exists, and the user is logged into x.com |
+| Playwright detected as bot | Try `--headful` mode; check for new bot detection |
+| GraphQL schema changes | Storage unaffected (raw JSON); parsing/extraction may need updates |
+| Rate limiting | Increase scroll delays; reduce export frequency |
+| Unclear requirements | Check docs first, then ask the lead |
+| Unrecognized files in worktree | Leave them — another agent or the human is working on those |
+| Need to modify a file with others' edits | Stop and ask before proceeding |
+
+## Communication
+
+- Lead with the substantive finding or result, not just what command was run
+- If work is still in progress, state the current concrete result or explicitly say there is no result yet
+- Separate what is verified from what is inferred or assumed
+
+## Meta
+
+Update this file when:
+- A workflow pattern proves helpful or causes confusion
+- A new tool or process gets introduced
+- Project structure changes
+
+Keep changes focused on process/behavior. Project-specific details go in `docs/`.
+
+---
+> Source: [lhl/tweetxvault](https://github.com/lhl/tweetxvault) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
