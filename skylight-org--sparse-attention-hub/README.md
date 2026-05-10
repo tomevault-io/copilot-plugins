@@ -1,6 +1,8 @@
-# sparse-attention-hub — distributed by TomeVault
+# sparse-attention-hub
 
-> Originally from [skylight-org/sparse-attention-hub](https://github.com/skylight-org/sparse-attention-hub). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [skylight-org/sparse-attention-hub](https://github.com/skylight-org/sparse-attention-hub) — distributed by [TomeVault](https://tomevault.io)
+
+Advancing the frontier of efficient AI
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [skylight-org/sparse-attention-hub](ht
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/skylight-org)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/skylight-org/sparse-attention-hub](https://github.com/skylight-org/sparse-attention-hub)
 
 ---
 
