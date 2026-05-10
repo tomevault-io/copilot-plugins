@@ -1,0 +1,9 @@
+{
+  "name": "elpulgo--azdo",
+  "displayName": "azdo",
+  "description": "A TUI for working with Azure DevOps in ze terminal.",
+  "version": "1.0.0",
+  "author": "Elpulgo",
+  "homepage": "https://github.com/Elpulgo/azdo",
+  "skills": []
+}
