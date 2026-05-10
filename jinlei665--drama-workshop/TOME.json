@@ -1,0 +1,44 @@
+{
+  "name": "drama-workshop",
+  "owner": "jinlei665",
+  "repo": "drama-workshop",
+  "description": "\u77ed\u5267\u6f2b\u5267\u521b\u4f5c\u5de5\u574a - AI\u9a71\u52a8\u7684\u77ed\u5267\u89c6\u9891\u751f\u6210\u5de5\u5177",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jinlei665/drama-workshop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T11:07:26Z"
+}
