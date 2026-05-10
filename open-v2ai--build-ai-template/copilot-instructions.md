@@ -1,127 +1,163 @@
-## deployment-devops
+## frontend-rules
 
-> 部署和运维规范，包含 Docker、CI/CD 和监控最佳实践
+> - **框架**: Next.js 15.3 + React 19
 
 
-# 部署和运维规范
+# 前端开发规范 - React/Next.js/TypeScript
 
 ## 技术栈
 
-- **容器化**: Docker + Docker Compose
-- **CI/CD**: GitHub Actions
-- **反向代理**: Nginx
-- **数据库**: PostgreSQL 15+ + Redis 7+
-- **监控**: 日志文件 + 健康检查
+- **框架**: Next.js 15.3 + React 19
+- **语言**: TypeScript 5.x
+- **样式**: Tailwind CSS + Shadcn UI
+- **状态管理**: React Hooks + Context API
+- **国际化**: next-intl
+- **包管理**: pnpm
 
-## 项目部署结构
+## 文件组织与导入
 
-项目包含独立的生产环境 (`deploy/`) 和测试环境 (`deploy-test/`) 配置。
+- **组件**: 所有组件位于 `web/components/`，并按功能分组 (`ui/`, `admin/`, `sidebar/`)。
+- **页面**: 页面位于 `web/app/[locale]/`，使用 Next.js App Router。
+- **导入规范**: **必须**使用 `@` 绝对路径导入，禁止相对路径。
 
-```bash
-deploy/
-├── docker-compose.yaml     # 生产环境编排
-├── nginx/default.conf      # Nginx 配置
-├── volumes/                # 数据卷挂载 (db, redis)
-├── .env.example            # 环境变量模板
-├── makefile                # 部署命令
-└── README.md               # 部署说明
+```typescript
+// ✅ 正确
+import { Button } from '@/components/ui/button'
+import { fetcher } from '@/util/fetcher'
+
+// ❌ 错误
+import { Button } from './ui/button'
+import { fetcher } from '../util/fetcher'
 ```
 
-## Docker 配置
+**导入顺序**:
 
-使用多阶段构建 (`multi-stage builds`) 优化镜像大小和安全性。
+1. React / Next.js 核心库
+2. 第三方库
+3. 项目内部模块 (组件、工具函数、类型等)
+4. 样式文件
 
-### 后端 Dockerfile (`api/Dockerfile`)
+## 组件开发规范
 
-- **builder 阶段**: 安装 `uv` 并下载所有 Python 依赖。
-- **production 阶段**:
-  - 使用 `python:3.12-slim` 基础镜像。
-  - 创建非 root 用户 `appuser` 并使用。
-  - 从 `builder` 阶段复制虚拟环境。
-  - 添加 `HEALTHCHECK` 指令。
-  - 启动命令: `uvicorn app.main:app`
+- **命名**: 文件名 `kebab-case.tsx`, 组件名 `PascalCase`, Props 接口 `ComponentNameProps`。
+- **客户端组件**: 如果需要客户端交互，必须在文件顶部添加 `'use client'`。
+- **Props**: Props 接口应清晰定义，并包含 JSDoc 注释。
+- **样式**: 使用 `cn()` 工具函数合并 Tailwind CSS 类名，实现条件样式。
 
-### 前端 Dockerfile (`web/Dockerfile`)
+```typescript
+'use client';
 
-- **builder 阶段**: 使用 `pnpm` 安装依赖并构建 Next.js 应用 (`pnpm build`)。
-- **production 阶段**:
-  - 使用 `node:18-alpine` 基础镜像。
-  - 创建非 root 用户 `nextjs` 并使用。
-  - 复制 `.next/standalone` 和 `.next/static` 以支持独立运行。
-  - 添加 `HEALTHCHECK` 指令。
-  - 启动命令: `node server.js`
+import { cn } from '@/lib/utils';
 
-## 部署命令
+interface MyComponentProps {
+  /** 是否激活 */
+  isActive: boolean;
+  className?: string;
+}
 
-通过 `Makefile` 简化部署操作，所有命令在 `deploy/` 或 `deploy-test/` 目录下执行。
-
-```makefile
-# 核心命令
-up:       ## 启动所有服务 (docker-compose up -d)
-down:     ## 停止所有服务 (docker-compose down)
-build:    ## (重新)构建 Docker 镜像
-restart:  ## 重启所有服务
-rebuild:  ## 完全重建 (down -> clean -> build -> up)
-
-# 运维命令
-logs:     ## 查看所有服务日志
-status:   ## 查看服务状态
-health:   ## 检查服务健康状态 (curl)
-migrate:  ## 执行数据库迁移 (alembic upgrade head)
-backup:   ## 备份数据库 (pg_dump)
-restore:  ## 恢复数据库 (psql)
-update:   ## 更新代码并重建服务 (git pull + rebuild)
-
-# 调试命令
-shell-api:      ## 进入 API 容器
-shell-postgres: ## 进入数据库容器
+export default function MyComponent({ isActive, className }: MyComponentProps) {
+  return (
+    <div className={cn("base-styles", isActive && "active-styles", className)}>
+      {/* ... */}
+    </div>
+  );
+}
 ```
 
-## 环境变量配置
+## TypeScript 类型规范
 
-在部署前，必须将 `.env.example` 复制为 `.env` 并填写所有必要的值。
+- **位置**: 共享类型放于 `web/types/`，页面专用类型放于页面目录下的 `types.ts`。
+- **定义**:
+  - 使用 `interface` 定义对象结构。
+  - 使用 `type` 定义联合类型或工具类型。
+  - 使用 `as const` 创建枚举对象，而不是 `enum`。
 
-**关键配置项**:
+```typescript
+interface User {
+  id: number
+  username: string
+}
 
-- `ENV`: `production` 或 `test`
-- `DATABASE_URL`: PostgreSQL 连接字符串
-- `REDIS_URL`: Redis 连接字符串
-- `SECRET_KEY`: 用于 JWT 签名的密钥
-- `MAIL_*`: 邮件服务配置
-- `AGENT_*`: AI 服务 (如 OpenAI) 的 API Key 和配置
+type UserRole = 'admin' | 'user'
 
-## 监控和日志
+const MembershipType = {
+  FREE: 'free',
+  MONTHLY: 'monthly',
+} as const
+type Membership = (typeof MembershipType)[keyof typeof MembershipType]
+```
 
-### 健康检查
+## API 调用与数据缓存
 
-- **API**: `/api/v1/system/health`
-  - **基础检查**: 返回服务状态和版本。
-  - **详细检查**: `/health/detailed`，检查数据库、Redis 连接和系统资源（CPU、内存）。如果资源使用率过高或连接失败，返回 `503 Service Unavailable`。
-- **Web**: 前端应用也应提供一个简单的健康检查端点。
+### API 调用
 
-### 日志
+统一使用 `@/util/fetcher` 工具函数，它封装了认证和错误处理逻辑。
 
-- 所有服务通过 Docker Compose 将日志输出到标准输出 (`stdout`)。
-- 使用 `make logs` 或 `docker-compose logs -f <service_name>` 查看实时日志。
-- 在生产环境中，应配置日志聚合系统（如 ELK, Grafana Loki）来收集和分析日志。
+```typescript
+import { fetcher } from '@/util/fetcher'
 
-## 部署清单和最佳实践
+async function fetchUserData() {
+  try {
+    const data = await fetcher.get('/api/v1/profile', { needAuth: true })
+    return data
+  } catch (error) {
+    toast.error('获取用户信息失败')
+    console.error(error)
+  }
+}
+```
 
-### 部署前检查清单
+### 全局数据缓存 (`useGlobalDataCache`)
 
-- [ ] 环境变量 `.env` 已正确配置。
-- [ ] SSL 证书已配置在 Nginx 中。
-- [ ] 数据库迁移脚本已测试并准备就绪。
-- [ ] 数据库备份策略已配置。
-- [ ] 已完成安全扫描，无高危漏洞。
+为避免重复网络请求和保证数据一致性，项目使用 `useGlobalDataCache` Hook 管理核心数据（如聊天列表和消息）。
 
-### 运维最佳实践
+**核心原则**:
 
-- **定期备份**: 每日自动备份数据库。
-- **监控告警**: 设置资源使用率和服务健康状态告警。
-- **安全更新**: 定期更新基础镜像和应用依赖。
-- **灾难恢复**: 定期测试数据库的备份恢复流程。
-- **文档同步**: 保持部署文档与实际流程一致。
+1. **读操作优先从缓存获取**: 在请求网络前，先检查数据是否存在于缓存中。
+2. **写操作更新缓存**: 数据变更后（增、删、改），应直接更新本地缓存，而不是重新拉取整个列表。
+3. **使用统一数据源**: 所有组件都应从该 Hook 获取数据，避免维护独立的状态。
+
+```typescript
+import { useGlobalDataCache } from '@/hooks/use-global-data-cache'
+
+function ChatSidebar() {
+  const { chats, isLoading } = useGlobalDataCache()
+  // ... 渲染聊天列表
+}
+
+function ChatContent() {
+  const { getChatById, addMessageToChat } = useGlobalDataCache()
+  // ... 使用 getChatById 获取聊天详情
+  // ... 发送消息后，使用 addMessageToChat 更新缓存
+}
+```
+
+## 国际化 (i18n)
+
+- **翻译文件**: 位于 `web/app/messages/`，按语言 (`en.json`, `zh.json`) 组织。
+- **命名规范**: 使用嵌套 JSON 结构，按 `模块.页面.键` 的方式组织。
+- **使用**: 在组件中使用 `useTranslations` Hook 获取翻译函数 `t`。
+
+```typescript
+import { useTranslations } from 'next-intl';
+
+const t = useTranslations('common'); // 加载 common 命名空间
+return <Button>{t('submit')}</Button>;
+```
+
+## 性能优化
+
+- **组件**: 对计算成本高的纯组件使用 `React.memo`，对复杂计算和函数分别使用 `useMemo` 和 `useCallback`。
+- **图片**: 始终使用 `next/image` 组件进行图片优化。
+- **代码分割**: 使用 `next/dynamic` 动态导入大型或不常用的组件。
+
+## 核心开发规范
+
+- **TypeScript 优先**: 严禁使用 `.js` 或 `.jsx` 文件。
+- **中文注释**: 所有组件和复杂逻辑必须有详细的中文注释。
+- **单一职责**: 保持组件功能单一，复杂组件应拆分为更小的子组件。
+- **用户体验**: 必须处理加载 (`loading`) 和错误 (`error`) 状态，提供清晰的 UI 反馈。
+- **响应式设计**: 所有页面和组件必须在移动端和桌面端表现良好。
 
 ---
 > Source: [open-v2ai/build-ai-template](https://github.com/open-v2ai/build-ai-template) — distributed by [TomeVault](https://tomevault.io).
