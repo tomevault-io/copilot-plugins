@@ -1,0 +1,9 @@
+{
+  "name": "pspdfkit-labs--nutrient-skills",
+  "displayName": "nutrient-skills",
+  "description": "AI agent skills for Nutrient APIs and SDKs  \u2014 works with Claude Code, Codex, Gemini CLI, Cursor, and 35+ more agents",
+  "version": "1.0.0",
+  "author": "PSPDFKit-labs",
+  "homepage": "https://github.com/PSPDFKit-labs/nutrient-skills",
+  "skills": []
+}
