@@ -1,0 +1,9 @@
+{
+  "name": "t1--tdder",
+  "displayName": "tdder",
+  "description": "A Claude Code plugin that guides AI agents through disciplined Test-Driven Development and Clean Code practices.",
+  "version": "1.0.0",
+  "author": "t1",
+  "homepage": "https://github.com/t1/tdder",
+  "skills": []
+}
