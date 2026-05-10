@@ -1,0 +1,9 @@
+{
+  "name": "marcodiniz--ag-local-bridge",
+  "displayName": "ag-local-bridge",
+  "description": "OpenAI-compatible API bridge for Antigravity \u2014 use Claude, Gemini, and GPT-OSS with any tool",
+  "version": "1.0.0",
+  "author": "marcodiniz",
+  "homepage": "https://github.com/marcodiniz/ag-local-bridge",
+  "skills": []
+}
