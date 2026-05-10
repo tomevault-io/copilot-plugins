@@ -1,128 +1,262 @@
-## transactions
+## typescript-result
 
-> Database transactions allow your application to make a series of database changes in an all-or-nothing commit. Consider an HTTP request that creates a new Order and has an afterChange hook to update the stock count of related Items. If an error occurs when updating an Item and an HTTP error is returned to the user, you would not want the new Order to be persisted or any other items to be changed either. This kind of interaction with the database is handled seamlessly with transactions.
+> error handling with typescript result
 
-Database transactions allow your application to make a series of database changes in an all-or-nothing commit. Consider an HTTP request that creates a new Order and has an afterChange hook to update the stock count of related Items. If an error occurs when updating an Item and an HTTP error is returned to the user, you would not want the new Order to be persisted or any other items to be changed either. This kind of interaction with the database is handled seamlessly with transactions.
 
-By default, Payload will use transactions for all data changing operations, as long as it is supported by the configured database. Database changes are contained within all Payload operations and any errors thrown will result in all changes being rolled back without being committed. When transactions are not supported by the database, Payload will continue to operate as expected without them.
 
-Note:
+## Getting started
 
-MongoDB requires a connection to a replicaset in order to make use of transactions.
+## Installation
 
-Note:
+### Requirements
 
-Transactions in SQLite are disabled by default. You need to pass transactionOptions: {} to enable them.
+#### Typescript
 
-The initial request made to Payload will begin a new transaction and attach it to the req.transactionID. If you have a hook that interacts with the database, you can opt in to using the same transaction by passing the req in the arguments. For example:
+Technically Typescript with version `4.8.0` or higher should work, but we recommend using version >= `5` when possible.
 
-```typescript
-const afterChange: CollectionAfterChangeHook = async ({ req }) => {
-  // because req.transactionID is assigned from Payload and passed through,
-  // my-slug will only persist if the entire request is successful
-  await req.payload.create({
-    req,
-    collection: 'my-slug',
-    data: {
-      some: 'data',
-    },
-  })
+Also it is important that you have `strict` or `strictNullChecks` enabled in your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "strict": true
+  }
 }
 ```
 
-### Async Hooks with Transactions
-Since Payload hooks can be async and be written to not await the result, it is possible to have an incorrect success response returned on a request that is rolled back. If you have a hook where you do not await the result, then you should not pass the req.transactionID.
+#### Node
+
+Tested with [Node.js](https://nodejs.org/) version `16` and higher.
+
+### Install the library
+
+You can install the library using your favorite package manager.
+
+```sh
+sh$ npm add typescript-result
+```
+```sh
+sh$ pnpm add typescript-result
+```
+```sh
+sh$ yarn add typescript-result
+```
+```sh
+sh$ bun add typescript-result
+```
+
+## Your first Result
+
+Let's start by refactoring a function that reads a file and parses its content:
 
 ```typescript
-const afterChange: CollectionAfterChangeHook = async ({ req }) => {
-  // WARNING: an async call made with the same req, but NOT awaited,
-  // may fail resulting in an OK response being returned with response data that is not committed
-  const dangerouslyIgnoreAsync = req.payload.create({
-    req,
-    collection: 'my-slug',
-    data: {
-      some: 'other data',
-    },
-  })
-
-  // Should this call fail, it will not rollback other changes
-  // because the req (and its transactionID) is not passed through
-  const safelyIgnoredAsync = req.payload.create({
-    collection: 'my-slug',
-    data: {
-      some: 'other data',
-    },
-  })
+function readConfig(filePath: string): Config {
+  const contents = fs.readFileSync(filePath, "utf-8");
+  return JSON.parse(contents);
 }
 ```
 
+This code has a serious flaw: multiple things can go wrong, but the function signature gives no indication of this. The consumer expects this function to always return a `Config` object, but what happens when the file doesn't exist? What if the contents aren't valid JSON? What if the JSON structure doesn't match the expected `Config` shape?
 
-### Direct Transaction Access
-When writing your own scripts or custom endpoints, you may wish to have direct control over transactions. This is useful for interacting with your database outside of Payload's Local API.
+Let's refactor this code using a `Result` type to make these potential failures **explicit**.
 
-The following functions can be used for managing transactions:
+First, we need to define some errors so that we can distinguish between different error cases:
 
-`payload.db.beginTransaction` - Starts a new session and returns a transaction ID for use in other Payload Local API calls.
-`payload.db.commitTransaction` - Takes the identifier for the transaction, finalizes any changes.
-`payload.db.rollbackTransaction` - Takes the identifier for the transaction, discards any changes.
+```ts
+class IOError extends Error {
+  readonly type = "io-error";
+}
 
-Payload uses the `req` object to pass the transaction ID through to the database adapter. If you are not using the `req` object, you can make a new object to pass the transaction ID directly to database adapter methods and Local API calls. Example:
+class ParseError extends Error {
+  readonly type = "parse-error";
+}
+
+class ValidationError extends Error {
+  readonly type = "validation-error";
+}
+```
+
+INFO
+
+Please disregard the `readonly type` property in the error classes for now. It's not necessary for the library to work, but it can be useful for type narrowing and debugging purposes. For more information, see [A note on errors](https://www.typescript-result.dev/a-note-on-errors).
+
+### Returning a Result
+
+With these error classes in place, we can now express the *outcome* of the `readConfig` function as a `Result` type. In case of a caught error, we will return a `Result.error()` with the appropriate error. In case of success, we will return a `Result.ok()` with the parsed configuration object.
 
 ```typescript
-import payload from 'payload'
-import config from './payload.config'
+type Config = {
+  name: string;
+  version: number;
+}
 
-const standalonePayloadScript = async () => {
-  // initialize Payload
-  await payload.init({ config })
+function readConfig(filePath: string) {
+  let contents: string;
+  try {
+    contents = fs.readFileSync(filePath, "utf-8");
+  } catch (error) {
+    return Result.error(
+      new IOError(`Unable to read file: ${filePath}`, { cause: error })
+    );
+  }
 
-  const transactionID = await payload.db.beginTransaction()
+  let json: unknown;
+  try {
+    json = JSON.parse(contents);
+  } catch (error) {
+    return Result.error(
+      new ParseError(`Unable to parse JSON from file: ${filePath}`)
+    );
+  }
 
   try {
-    // Make an update using the Local API
-    await payload.update({
-      collection: 'posts',
-      data: {
-        some: 'data',
-      },
-      where: {
-        slug: { equals: 'my-slug' },
-      },
-      req: { transactionID },
-    })
-
-    /*
-      You can make additional db changes or run other functions
-      that need to be committed on an all or nothing basis
-     */
-
-    // Commit the transaction
-    await payload.db.commitTransaction(transactionID)
+    const config = parseConfig(json);
+    return Result.ok(config);
   } catch (error) {
-    // Rollback the transaction
-    await payload.db.rollbackTransaction(transactionID)
+    return Result.error(
+      new ValidationError(
+        `Invalid configuration in file: ${filePath}`, 
+        { cause: error }
+      )
+    );
   }
 }
 
-standalonePayloadScript()
+const result = readConfig("config.json");
 ```
 
-### Disabling Transactions
-If you wish to disable transactions entirely, you can do so by passing false as the transactionOptions in your database adapter configuration. All the official Payload database adapters support this option.
+If you look at the final `result`, you'll see exactly what the outcome of the function can be. And while technically the above code is correct, it is very verbose. Luckily, the library provides a way to make this code more concise.
 
-In addition to allowing database transactions to be disabled at the adapter level. You can prevent Payload from using a transaction in direct calls to the Local API by adding disableTransaction: true to the args. For example:
+### Adding the Result.try helper
+
+First, we will introduce the `Result.try` helper function. This function is basically a wrapper around the `try/catch` block that allows us to handle errors in a more concise way. It tries to execute the provided function and wrap the returned value in a `Result.ok()`, or catch any errors and wrap them in a `Result.error()`. Optionally, you can provide a second callback function that allows you to transform the error before wrapping it in a `Result.error()`. Let's see how this looks:
 
 ```typescript
-await payload.update({
-  collection: 'posts',
-  data: {
-    some: 'data',
+function readConfig(filePath: string) {
+  const contentResult = Result.try(
+    () => fs.readFileSync(filePath, "utf-8"),
+    (error) => new IOError(`Unable to read file: ${filePath}`, { cause: error })
+  );
+  if (!contentResult.ok) {
+    return contentResult;
+  }
+
+  const jsonResult = Result.try(
+    () => JSON.parse(contentResult.value),
+    () => new ParseError(`Unable to parse JSON from file: ${filePath}`)
+  );
+  if (!jsonResult.ok) {
+    return jsonResult;
+  }
+  
+  const configResult = Result.try(
+    () => parseConfig(jsonResult.value),
+    (error) => new ValidationError(
+      `Invalid configuration in file: ${filePath}`, 
+      { cause: error }
+    )
+  );
+
+  return configResult;
+}
+```
+
+### Extracting steps with Result.wrap
+
+Ok, no more `try/catch` blocks, but the code is still very verbose. To improve readability, we can extract each step into a separate function. This will allow us to focus on the main logic of the `readConfig` function without getting lost in the details of error handling. This is where `Result.wrap` comes in handy. This is very similar to `Result.try`, but instead of executing a function directly, it returns a function instead:
+
+```typescript
+const readFile = Result.wrap(
+  (filePath: string) => fs.readFileSync(filePath, "utf-8"),
+  (error) => new IOError(`Unable to read file`, { cause: error }),
+);
+
+const parseJSON = Result.wrap(
+  (data: string) => JSON.parse(data) as unknown,
+  () => new ParseError(`Unable to parse JSON`)
+);
+
+const parseConfig = Result.wrap(
+  (data: unknown) => {
+    /* skipped for brevity */
+    return data as Config;
   },
-  where: {
-    slug: { equals: 'my-slug' },
-  },
-  disableTransaction: true,
-})
+  (error) => new ValidationError(`Invalid configuration`, { cause: error }),
+);
+
+function readConfig(filePath: string) {
+  const contentResult = readFile(filePath);
+  if (!contentResult.ok) {
+    return contentResult;
+  }
+
+  const jsonResult = parseJSON(contentResult.value);
+  if (!jsonResult.ok) {
+    return jsonResult;
+  }
+  
+  return parseConfig(jsonResult.value);
+}
+```
+
+### Chaining operations
+
+This is a step in the right direction, but we can still improve the code further. Did you notice how we check for errors after each step? This is a pattern both loved and hated in languages like Go. While it makes things explicit, it can also lead to a lot of boilerplate code. To make our code more ergonomic, we can introduce *chaining*: performing multiple operations on a `Result` instance in a more concise way. In 90% of the cases `Result.map()` is the method you want to use. Let's see how this works in practice:
+
+```typescript
+function readConfig(filePath: string) {
+  return readFile(filePath)
+    .map((contents) => parseJSON(contents))
+    .map((json) => parseConfig(json));
+}
+```
+
+INFO
+
+Most operations on `Result` instances are polymorphic, meaning you can return different types of values from them — literal values, promises, or even other `Result` instances as shown above. This flexibility makes it easy to compose operations and build complex workflows.
+
+TIP
+
+If you have worked with `typescript-result` for a while, you'll notice that often there are multiple ways to achieve the same result. This is intentional, as we want to provide you with the flexibility to choose the approach that best fits your use case. The library is designed to be ergonomic and easy to use, so you can focus on writing clean and maintainable code.
+
+To illustrate this point, we could have 'inlined' the json parsing using `mapCatching` for instance, instead of extracting it into a separate function:
+
+```typescript
+function readConfig(filePath: string) {
+  return readFile(filePath)
+    .mapCatching(
+      (contents) => JSON.parse(contents),
+      () => new ParseError(`Unable to parse JSON`)
+    )
+    .map((json) => parseConfig(json));
+}
+```
+
+### (Optional) 'do-style' syntax using generators
+
+Remember this pattern from a few examples back?
+
+```typescript
+const result = operation();
+if (!result.ok) {
+  return result;
+}
+```
+
+With Rust you can use the [`?` operator](https://doc.rust-lang.org/rust-by-example/std/result/question_mark.html) to make this more concise, but in TypeScript we don't have that luxury. However, we can use generator functions to achieve a similar effect. This is an optional feature of the library, and you can choose to use it or not. For more information, see [Chaining vs. generator syntax](https://www.typescript-result.dev/chaining-vs-generator-syntax#using-generators).
+
+Here's a quick example of how this works:
+
+```typescript
+function* readConfig(filePath: string) {
+  const contents = yield* readFile(filePath);
+  const json = yield* parseJSON(contents);
+  const config = yield* parseConfig(json);
+  return config;
+}
+
+const result = Result.gen(readConfig("config.json"));
+
 ```
 
 ---
