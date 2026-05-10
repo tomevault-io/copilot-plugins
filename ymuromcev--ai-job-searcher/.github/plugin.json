@@ -1,0 +1,9 @@
+{
+  "name": "ymuromcev--ai-job-searcher",
+  "displayName": "ai-job-searcher",
+  "description": "Multi-profile job search pipeline. One engine, multiple candidates.",
+  "version": "1.0.0",
+  "author": "ymuromcev",
+  "homepage": "https://github.com/ymuromcev/ai-job-searcher",
+  "skills": []
+}
