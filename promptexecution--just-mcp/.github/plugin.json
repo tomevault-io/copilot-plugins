@@ -1,0 +1,9 @@
+{
+  "name": "promptexecution--just-mcp",
+  "displayName": "just-mcp",
+  "description": "mcp server for just",
+  "version": "1.0.0",
+  "author": "PromptExecution",
+  "homepage": "https://github.com/PromptExecution/just-mcp",
+  "skills": []
+}
