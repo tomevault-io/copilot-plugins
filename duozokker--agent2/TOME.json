@@ -4,7 +4,7 @@
   "repo": "agent2",
   "description": "Turn domain experts into production AI agents.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/duozokker/agent2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T04:35:45Z"
+  "distributed_at": "2026-05-10T08:53:14Z"
 }
