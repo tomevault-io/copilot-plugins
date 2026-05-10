@@ -1,0 +1,44 @@
+{
+  "name": "co-study-scheduler",
+  "owner": "deepakdeo",
+  "repo": "co-study-scheduler",
+  "description": "Real-time co-study session scheduler with automatic timezone conversion. Create a room, share the link, let your group book slots; no login required.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/deepakdeo/co-study-scheduler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T13:30:33Z"
+}
