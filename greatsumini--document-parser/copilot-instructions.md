@@ -1,163 +1,181 @@
-## database
+## global
 
-> This revised architecture focuses on rapid launch and core value validation by incorporating the feedback above.
+> Common Guideline
 
-## A Minimal Viable Product (MVP) Data Flow and Schema
 
-This revised architecture focuses on rapid launch and core value validation by incorporating the feedback above.
 
-### 1. MVP Data Flow
+# Senior Developer Guidelines
 
-The flow is simplified by merging complex phases and removing non-essential components, leaving only the core process.
+## Must
 
-#### 1.1 Simplified Overall Architecture
+- always use client component for all components. (use `use client` directive)
+- always use promise for page.tsx params props.
+- use valid picsum.photos stock image for placeholder image
 
-```mermaid
-graph TD
-    subgraph "User"
-        U[Users]
-    end
+## Library
 
-    subgraph "Template"
-        T[Templates]
-        TF[Template Fields]
-    end
+use following libraries for specific functionalities:
 
-    subgraph "Document"
-        D[Documents]
-    end
+1. `date-fns`: For efficient date and time handling.
+2. `ts-pattern`: For clean and type-safe branching logic.
+3. `@tanstack/react-query`: For server state management.
+4. `zustand`: For lightweight global state management.
+5. `react-use`: For commonly needed React hooks.
+6. `es-toolkit`: For robust utility functions.
+7. `lucide-react`: For customizable icons.
+8. `zod`: For schema validation and data integrity.
+9. `shadcn-ui`: For pre-built accessible UI components.
+10. `tailwindcss`: For utility-first CSS styling.
+11. `supabase`: For a backend-as-a-service solution.
+12. `react-hook-form`: For form validation and state management.
 
-    subgraph "System"
-        J[Jobs]
-    end
+## Directory Structure
 
-    U -- Creates --> T
-    TF -- Belongs to --> T
-    D -- Created from --> T
-    D -- Created by --> U
-    J -- Tracks progress for --> D
-```
+- src
+- src/app: Next.js App Routers
+- src/components/ui: shadcn-ui components
+- src/constants: Common constants
+- src/hooks: Common hooks
+- src/lib: utility functions
+- src/remote: http client
+- src/features/[featureName]/components/\*: Components for specific feature
+- src/features/[featureName]/constants/\*
+- src/features/[featureName]/hooks/\*
+- src/features/[featureName]/lib/\*
+- src/features/[featureName]/api.ts: api fetch functions
 
-#### 1.2 Core Data Flow
+## Solution Process:
 
-```mermaid
-sequenceDiagram
-    participant Client
-    participant API
-    participant Storage
-    participant DB
-    participant Worker
+1. Rephrase Input: Transform to clear, professional prompt.
+2. Analyze & Strategize: Identify issues, outline solutions, define output format.
+3. Develop Solution:
+   - "As a senior-level developer, I need to [rephrased prompt]. To accomplish this, I need to:"
+   - List steps numerically.
+   - "To resolve these steps, I need the following solutions:"
+   - List solutions with bullet points.
+4. Validate Solution: Review, refine, test against edge cases.
+5. Evaluate Progress:
+   - If incomplete: Pause, inform user, await input.
+   - If satisfactory: Proceed to final output.
+6. Prepare Final Output:
+   - ASCII title
+   - Problem summary and approach
+   - Step-by-step solution with relevant code snippets
+   - Format code changes:
+     ```language:path/to/file
+     // ... existing code ...
+     function exampleFunction() {
+         // Modified or new code here
+     }
+     // ... existing code ...
+     ```
+   - Use appropriate formatting
+   - Describe modifications
+   - Conclude with potential improvements
 
-    Client->>API: Upload request with file and templateId
-    API->>API: Basic validation (auth, file size)
-    API->>Storage: Upload file
-    Storage-->>API: Success response with file_path
+## Key Mindsets:
 
-    API->>DB: Create documents record (status: 'processing')
-    API->>Worker: Request job processing (documentId, filePath)
-    API-->>Client: Acknowledgment with documentId
+1. Simplicity
+2. Readability
+3. Maintainability
+4. Testability
+5. Reusability
+6. Functional Paradigm
+7. Pragmatism
 
-    Worker->>DB: Update Document status to 'processing'
-    Worker->>Worker: Parse file (PDF, Excel, etc.)
-    Worker->>LLM: (No cache) Request field mapping and Markdown generation
-    LLM-->>Worker: Return generated Markdown and extracted data
+## Code Guidelines:
 
-    Worker->>DB: Update documents record <br> (content, mapped_data, status: 'completed')
-    Worker->>Client: (Optional) Notify completion via SSE/Webhook
-```
+1. Early Returns
+2. Conditional Classes over ternary
+3. Descriptive Names
+4. Constants > Functions
+5. DRY
+6. Functional & Immutable
+7. Minimal Changes
+8. Pure Functions
+9. Composition over inheritance
 
------
+## Functional Programming:
 
-### 2. MVP Database Schema
+- Avoid Mutation
+- Use Map, Filter, Reduce
+- Currying and Partial Application
+- Immutability
 
-The number of tables has been drastically reduced to focus on core entities.
+## Code-Style Guidelines
 
-```sql
--- User role ENUM type definition
-CREATE TYPE user_role AS ENUM ('admin', 'member');
+- Use TypeScript for type safety.
+- Follow the coding standards defined in the ESLint configuration.
+- Ensure all components are responsive and accessible.
+- Use Tailwind CSS for styling, adhering to the defined color palette.
+- When generating code, prioritize TypeScript and React best practices.
+- Ensure that any new components are reusable and follow the existing design patterns.
+- Minimize the use of AI generated comments, instead use clearly named variables and functions.
+- Always validate user inputs and handle errors gracefully.
+- Use the existing components and pages as a reference for the new components and pages.
 
--- Users
-CREATE TABLE users (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    email VARCHAR(255) UNIQUE NOT NULL,
-    name VARCHAR(255),
-    auth_provider VARCHAR(50),
-    role user_role DEFAULT 'member',
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
+## Performance:
 
--- Field type ENUM
-CREATE TYPE field_type AS ENUM ('text', 'number', 'date', 'boolean', 'select', 'multiselect');
+- Avoid Premature Optimization
+- Profile Before Optimizing
+- Optimize Judiciously
+- Document Optimizations
 
--- Templates
-CREATE TABLE templates (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(255) NOT NULL,
-    description TEXT,
-    content TEXT NOT NULL, -- The Markdown body of the template
-    created_by UUID REFERENCES users(id) ON DELETE SET NULL,
-    is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
+## Comments & Documentation:
 
--- Template Fields
-CREATE TABLE template_fields (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    template_id UUID NOT NULL REFERENCES templates(id) ON DELETE CASCADE,
-    field_key VARCHAR(255) NOT NULL, -- e.g., {{customer_name}}
-    field_name VARCHAR(255) NOT NULL, -- e.g., "Customer Name"
-    field_type field_type NOT NULL DEFAULT 'text',
-    mapping_hints TEXT[], -- Hints for LLM mapping
-    is_required BOOLEAN DEFAULT false,
-    default_value TEXT,
-    validation_rules JSONB,
-    display_order INTEGER DEFAULT 0,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW(),
-    UNIQUE(template_id, field_key)
-);
+- Comment function purpose
+- Use JSDoc for JS
+- Document "why" not "what"
 
--- Document status ENUM type definition
-CREATE TYPE document_status AS ENUM ('processing', 'completed', 'failed');
+## Function Ordering:
 
--- Documents (Core consolidated table)
-CREATE TABLE documents (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    template_id UUID NOT NULL REFERENCES templates(id),
+- Higher-order functionality first
+- Group related functions
 
-    -- Source file info
-    source_file_name VARCHAR(255) NOT NULL,
-    source_storage_path TEXT NOT NULL,
-    source_file_type VARCHAR(50),
-    source_file_size INTEGER,
+## Handling Bugs:
 
-    -- Processing status and results
-    status document_status DEFAULT 'processing',
-    title VARCHAR(255),
-    content TEXT, -- The final generated Markdown
-    mapped_data JSONB, -- Data extracted and mapped by the LLM
-    error_message TEXT, -- Error message on failure
-    processing_started_at TIMESTAMPTZ,
-    processing_completed_at TIMESTAMPTZ,
+- Use TODO: and FIXME: comments
 
-    -- Creation info
-    created_by UUID REFERENCES users(id) ON DELETE SET NULL,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
+## Error Handling:
 
--- Indexes (Only basic FK and query indexes)
-CREATE INDEX idx_users_email ON users(email);
-CREATE INDEX idx_templates_created_by ON templates(created_by);
-CREATE INDEX idx_templates_active ON templates(is_active);
-CREATE INDEX idx_template_fields_template ON template_fields(template_id);
-CREATE INDEX idx_documents_template ON documents(template_id);
-CREATE INDEX idx_documents_status ON documents(status);
-CREATE INDEX idx_documents_created_by ON documents(created_by);
-CREATE INDEX idx_documents_status_created_at ON documents(status, created_at);
-```
+- Use appropriate techniques
+- Prefer returning errors over exceptions
+
+## Testing:
+
+- Unit tests for core functionality
+- Consider integration and end-to-end tests
+
+## Next.js
+
+- you must use promise for page.tsx params props.
+
+## Shadcn-ui
+
+- if you need to add new component, please show me the installation instructions. I'll paste it into terminal.
+- example
+  ```
+  $ npx shadcn@latest add card
+  $ npx shadcn@latest add textarea
+  $ npx shadcn@latest add dialog
+  ```
+
+## Supabase
+
+- if you need to add new table, please create migration. I'll paste it into supabase.
+- do not run supabase locally
+- store migration query for `.sql` file. in /supabase/migrations/
+
+## Package Manager
+
+- use npm as package manager.
+
+## Korean Text
+
+- 코드를 생성한 후에 utf-8 기준으로 깨지는 한글이 있는지 확인해주세요. 만약 있다면 수정해주세요.
+
+You are a senior full-stack developer, one of those rare 10x devs. Your focus: clean, maintainable, high-quality code.
+Apply these principles judiciously, considering project and team needs.
 
 ---
 > Source: [greatSumini/document-parser](https://github.com/greatSumini/document-parser) — distributed by [TomeVault](https://tomevault.io).
