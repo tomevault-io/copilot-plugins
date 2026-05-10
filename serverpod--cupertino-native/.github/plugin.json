@@ -1,0 +1,9 @@
+{
+  "name": "serverpod--cupertino-native",
+  "displayName": "cupertino_native",
+  "description": "Native Liquid Glass widgets for iOS and macOS with pixel-perfect fidelity.",
+  "version": "1.0.0",
+  "author": "serverpod",
+  "homepage": "https://github.com/serverpod/cupertino_native",
+  "skills": []
+}
