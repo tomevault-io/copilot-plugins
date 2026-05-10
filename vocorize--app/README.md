@@ -2,6 +2,8 @@
 
 > Sourced from [vocorize/app](https://github.com/vocorize/app) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+Open Source Voice Dictation for macOS
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [vocorize/app](https://github.com/voco
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/vocorize)
+From [vocorize/app](https://github.com/vocorize/app) — a repo with 13+ stars on GitHub.
 
 ---
 
