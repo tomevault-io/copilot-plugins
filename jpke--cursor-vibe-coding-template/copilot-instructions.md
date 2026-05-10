@@ -1,61 +1,45 @@
-## markdown-documentation
+## repository-initialization
 
-> Standards for accurate, concise, and professional markdown documentation with clear organization and navigation
+> Detailed steps for initializing a git repository when cloning the template directly
 
 
-# Markdown Documentation Standards
+# Repository Initialization
 
-## Core Principles
-- **Accuracy**: All information must be current, tested, and factually correct
-- **Conciseness**: Communicate maximum value with minimum words
-- **Professionalism**: Use clear, consistent tone and proper formatting
+**Note**: This is only needed when cloning the template directly. When using this as a GitHub template (recommended), a fresh repository is automatically created.
 
-## Content Organization
+When you request to "initialize git repo" (only needed for cloned templates), I will perform the following steps:
 
-### Information Hierarchy
-- **Lead with value**: Most critical information in first 2-3 paragraphs
-- **Progressive disclosure**: Details follow overview, specifics follow general
-- **Scannable structure**: Use headings, bullets, and whitespace strategically
+1. **Clear template git history**: Remove the existing `.git` directory to start fresh (`rm -rf .git`).
 
-### Content Quality
-- **Eliminate duplication**: Each piece of information appears once
-- **Link don't repeat**: Reference other sections rather than duplicating content
-- **Update holistically**: When changing one section, review related sections
+2. Initialize a local Git repository (`git init`).
 
-## Structure Requirements
+3. Use the **GitHub CLI** (not MCP server) to create a new **private** remote repository on GitHub:
+   ```bash
+   gh repo create --private --enable-issues --clone=false
+   ```
 
-### Navigation
-- **Table of Contents**: For files >200 lines or >5 main sections
-- **Consistent headings**: Use semantic hierarchy (H1 → H2 → H3)
-- **Cross-references**: Link related sections and external resources
+4. Create a repository-scoped GitHub Personal Access Token using the GitHub CLI:
+   ```bash
+   gh auth token --hostname github.com --scopes "issues:write,contents:read,metadata:read" --repo-specific
+   ```
 
-### Formatting Standards
-- **Code blocks**: Always specify language (`json`, `bash`, `typescript`)
-- **Lists**: Use bullets for items, numbers for sequential steps
-- **Tables**: For structured data comparison
-- **Callouts**: Use `>` for important notes, warnings, or tips
+5. Update the `.cursor/mcp.json` file to use the new scoped GitHub PAT in the GitHub MCP server configuration:
+   ```json
+   "github": {
+     "url": "https://api.githubcopilot.com/mcp/",
+     "headers": {
+       "Authorization": "Bearer <new_scoped_pat>"
+     }
+   }
+   ```
 
-## File-Specific Guidelines
-
-### README.md
-1. **Hook**: Project purpose in first sentence
-2. **Quick start**: Installation/usage in first section
-3. **Core features**: Key functionality overview
-4. **Developer info**: Setup, contributing, license
-
-### Technical Documentation
-- **Prerequisites**: Required knowledge, tools, versions
-- **Examples**: Working code snippets, not pseudo-code
-- **Troubleshooting**: Common issues with solutions
-- **References**: Links to official docs, RFCs, specifications
-
-## Quality Checks
-- [ ] Information is current and accurate
-- [ ] No duplicate content across sections
-- [ ] Most important info appears early
-- [ ] Structure enables quick scanning
-- [ ] All code examples work as written
-- [ ] Links are functional and relevant
+6. Add the new remote to the local repository, stage all initial files, and push the first commit to the `main` branch:
+   ```bash
+   git remote add origin git@github.com:username/repo-name.git  # Use SSH format for authentication
+   git add .
+   git commit -m "feat: initial project setup"
+   git push -u origin main
+   ```
 
 ---
 > Source: [jpke/cursor-vibe-coding-template](https://github.com/jpke/cursor-vibe-coding-template) — distributed by [TomeVault](https://tomevault.io).
