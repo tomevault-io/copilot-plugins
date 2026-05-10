@@ -4,7 +4,7 @@
   "repo": "caic",
   "description": "Coding Agents in Containers ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/caic-xyz/caic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T04:23:52Z"
+  "distributed_at": "2026-05-10T13:07:45Z"
 }
