@@ -1,4 +1,4 @@
-## main
+## occhio
 
 > [//]: # (Referenced or symlinked by: README.md, CLAUDE.md, .clinerules, .cursor/rules/AGENTS.md, .windsurf/rules/main.md, .github/copilot-instructions.md, .junie/guidelines.md, aider.conf.yml )
 
