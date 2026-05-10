@@ -1,0 +1,9 @@
+{
+  "name": "linearis-oss--linearis",
+  "displayName": "linearis",
+  "description": "CLI tool for Linear.app with JSON output, smart ID resolution, and optimized GraphQL queries. Designed for LLM agents and humans who prefer structured data.",
+  "version": "1.0.0",
+  "author": "linearis-oss",
+  "homepage": "https://github.com/linearis-oss/linearis",
+  "skills": []
+}
