@@ -1,0 +1,9 @@
+{
+  "name": "plasmate-labs--plasmate",
+  "displayName": "plasmate",
+  "description": "The browser engine for agents. HTML in, Semantic Object Model out. 10x token compression, V8 JS rendering, CDP compatible. Apache-2.0.",
+  "version": "1.0.0",
+  "author": "plasmate-labs",
+  "homepage": "https://github.com/plasmate-labs/plasmate",
+  "skills": []
+}
