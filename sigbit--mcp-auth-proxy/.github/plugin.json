@@ -1,0 +1,9 @@
+{
+  "name": "sigbit--mcp-auth-proxy",
+  "displayName": "mcp-auth-proxy",
+  "description": "MCP Auth Proxy is a secure OAuth 2.1 authentication proxy for Model Context Protocol (MCP) servers",
+  "version": "1.0.0",
+  "author": "sigbit",
+  "homepage": "https://github.com/sigbit/mcp-auth-proxy",
+  "skills": []
+}
