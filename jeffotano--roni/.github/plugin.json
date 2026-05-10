@@ -1,0 +1,9 @@
+{
+  "name": "jeffotano--roni",
+  "displayName": "roni",
+  "description": "Unofficial AI coach for Tonal fitness machines. Self-host your own copy or bring your own Gemini API key. Not affiliated with Tonal Systems, Inc.",
+  "version": "1.0.0",
+  "author": "JeffOtano",
+  "homepage": "https://github.com/JeffOtano/roni",
+  "skills": []
+}
