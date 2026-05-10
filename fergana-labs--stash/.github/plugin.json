@@ -1,0 +1,9 @@
+{
+  "name": "fergana-labs--stash",
+  "displayName": "stash",
+  "description": "Shared memory for your team's coding agents",
+  "version": "1.0.0",
+  "author": "Fergana-Labs",
+  "homepage": "https://github.com/Fergana-Labs/stash",
+  "skills": []
+}
