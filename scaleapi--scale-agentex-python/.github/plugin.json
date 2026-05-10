@@ -1,0 +1,9 @@
+{
+  "name": "scaleapi--scale-agentex-python",
+  "displayName": "scale-agentex-python",
+  "description": "Official Python SDK for Agentex",
+  "version": "1.0.0",
+  "author": "scaleapi",
+  "homepage": "https://github.com/scaleapi/scale-agentex-python",
+  "skills": []
+}
