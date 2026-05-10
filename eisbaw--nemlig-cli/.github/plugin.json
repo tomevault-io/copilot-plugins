@@ -1,0 +1,9 @@
+{
+  "name": "eisbaw--nemlig-cli",
+  "displayName": "nemlig_cli",
+  "description": "Command-line-interface for nemlig.com, danish delivery service",
+  "version": "1.0.0",
+  "author": "eisbaw",
+  "homepage": "https://github.com/eisbaw/nemlig_cli",
+  "skills": []
+}
