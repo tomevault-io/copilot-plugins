@@ -1,61 +1,105 @@
-## external-apis
+## fixing-github-actions-builds
 
-> When calling external APIs
+> When the Github Actions build is broken
 
 
-# External API Client Guidelines
+# Fixing Broken GitHub Actions Builds
 
-These guidelines ensure consistent, reliable, and maintainable API clients.
+## Purpose
 
-## Core Principles
+This guide documents the process for diagnosing and fixing broken GitHub Actions builds
+using the `gh` CLI.
 
-- We return None on API errors (don't raise exceptions)
-- We use type hints consistently
-- We document methods with helpful docstrings (skip redundant Args/Returns)
-- We use appropriate logging levels
-- We let exceptions bubble up unless we're truly handling them
+## Prerequisites
 
-## Method Pattern
+### Check if gh is installed
 
-```python
-def get_something(self, param: str) -> dict | None:
-    """Fetch something from the API.
+First, verify the GitHub CLI is installed:
 
-    Returns None if the API returns no data or encounters an error.
-    """
-    logger.info(f"Fetching something for {param}")
-
-    response = self.request("/endpoint", params={"key": param})
-    if not response:
-        logger.warning(f"No data returned for {param}")
-        return None
-
-    return response["data"]
+```bash
+gh --version
 ```
 
-## Error Handling
+### If gh is not installed
 
-We let the base HTTP client handle HTTP/network errors. We only use try/except for
-specific scenarios with actual handling. We validate response structure before access.
+Politely stop and guide the developer:
 
-## Validation Pattern
+> The GitHub CLI (`gh`) is not installed. Let's get that set up first!
+>
+> Installation (macOS):
+>
+> ```bash
+> brew install gh
+> gh auth login
+> ```
+>
+> Follow the prompts to authenticate with GitHub. Once complete, we can proceed with
+> debugging the build!
 
-```python
-response = self.request("/endpoint", params={"key": value})
-if not response or "data" not in response:
-    logger.warning(f"No data returned for {value}")
-    return None
+## Diagnostic Workflow
+
+### Step 1: List Recent Workflow Runs
+
+```bash
+gh run list --limit 5
 ```
 
-## Response Processing
+Identify the failed run (marked with `X` or `failure` status). Note the run ID.
 
-We validate response structure before access, convert to standard types (Decimal for
-financial data), clean and normalize data, and return None for errors (not empty dicts).
+### Step 2: Get Failed Logs
 
-## Testing
+```bash
+gh run view <run-id> --log-failed | cat
+```
 
-We mock all external calls in unit tests, use @pytest.mark.flaky for live API tests, and
-test both success and error cases.
+This shows ONLY the logs from failed steps. Analyze these logs to identify the root
+cause.
+
+### Step 3: Reproduce Locally
+
+Based on the error in the logs, reproduce the failure locally to verify the fix.
+
+### Step 4: Make the Fix
+
+Edit the relevant files to fix the issue identified in the logs.
+
+### Step 5: Verify Locally
+
+Test the fix thoroughly to ensure it resolves the issue.
+
+### Step 6: Report to Developer
+
+DO NOT commit or push changes!
+
+Report to the developer:
+
+> Build issue fixed!
+>
+> Changes made:
+>
+> - `path/to/file`: Description of change
+>
+> Next steps:
+>
+> 1. Review the changes with `git status` and `git diff`
+> 2. Test locally if desired
+> 3. Commit and push when ready
+> 4. Monitor the new build with `gh run watch`
+
+## Integration with Cursor
+
+When a developer says "the build is broken" or "fix the GitHub Actions build":
+
+1. Run `gh --version` to verify installation (stop if not installed)
+2. Run `gh run list --limit 5` to see recent runs
+3. Identify the failed run ID
+4. Run `gh run view <run-id> --log-failed | cat` to get error details
+5. Analyze the logs and identify root cause
+6. Fix the issue locally
+7. Verify the fix works
+8. Report back to developer with changes and next steps
+
+Remember: We diagnose and fix, the developer commits and pushes!
 
 ---
 > Source: [TechNickAI/claude_telemetry](https://github.com/TechNickAI/claude_telemetry) — distributed by [TomeVault](https://tomevault.io).
