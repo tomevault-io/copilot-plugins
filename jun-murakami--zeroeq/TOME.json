@@ -4,7 +4,7 @@
   "repo": "ZeroEQ",
   "description": "A professional zero-latency broadcast-oriented equalizer plugin. for VST/AU/AAX/LV2/CLAP",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Jun-Murakami/ZeroEQ",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T10:19:06Z"
+  "distributed_at": "2026-05-10T17:16:54Z"
 }
