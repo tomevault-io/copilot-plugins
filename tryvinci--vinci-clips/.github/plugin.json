@@ -1,0 +1,9 @@
+{
+  "name": "tryvinci--vinci-clips",
+  "displayName": "vinci-clips",
+  "description": "Open source AI-powered video clipping platform that automatically transforms long-form videos into engaging short clips optimized for social media platforms.",
+  "version": "1.0.0",
+  "author": "tryvinci",
+  "homepage": "https://github.com/tryvinci/vinci-clips",
+  "skills": []
+}
