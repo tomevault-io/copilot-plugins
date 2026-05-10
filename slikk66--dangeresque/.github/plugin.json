@@ -1,0 +1,9 @@
+{
+  "name": "slikk66--dangeresque",
+  "displayName": "dangeresque",
+  "description": "Claude/Codex headless task worker dispatch and orchestration thin wrapper",
+  "version": "1.0.0",
+  "author": "slikk66",
+  "homepage": "https://github.com/slikk66/dangeresque",
+  "skills": []
+}
