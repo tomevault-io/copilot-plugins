@@ -1,0 +1,9 @@
+{
+  "name": "ankanmisra--settleone",
+  "displayName": "SettleOne",
+  "description": "A cross-chain, identity-powered payment interface that batches off-chain USDC transactions for a single, gas-efficient settlement on Base. Built with Yellow Network state channels, ENS, and Circle",
+  "version": "1.0.0",
+  "author": "AnkanMisra",
+  "homepage": "https://github.com/AnkanMisra/SettleOne",
+  "skills": []
+}
