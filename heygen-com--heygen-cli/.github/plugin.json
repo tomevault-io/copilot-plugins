@@ -1,0 +1,9 @@
+{
+  "name": "heygen-com--heygen-cli",
+  "displayName": "heygen-cli",
+  "description": "Create AI videos from the terminal. Official CLI for the HeyGen video generation API.",
+  "version": "1.0.0",
+  "author": "heygen-com",
+  "homepage": "https://github.com/heygen-com/heygen-cli",
+  "skills": []
+}
