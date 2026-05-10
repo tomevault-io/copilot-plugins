@@ -1,0 +1,9 @@
+{
+  "name": "letsdev-it--sessfind",
+  "displayName": "sessfind",
+  "description": "CLI tool to search and resume AI sessions across Github Copilot, Claude Code, OpenCode, Codex, and Cursor.",
+  "version": "1.0.0",
+  "author": "letsdev-it",
+  "homepage": "https://github.com/letsdev-it/sessfind",
+  "skills": []
+}
