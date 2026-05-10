@@ -1,91 +1,71 @@
-## autonomous-development-workflow
+## code-review-standards
 
-> When completing tasks autonomously without human supervision
+> When doing code reviews
 
 
-# Autonomous Development Workflow
+# Code Review Standards
 
-For AI agents completing tasks without human supervision. The goal: deliver a clean pull
-request that passes all checks and gets merged without back-and-forth.
+This rule defines when bot feedback is incorrect given context bots lack. Use this to
+identify suggestions that don't apply, not to skip valid feedback based on priority.
 
-## Spec Quality Is the Bottleneck
+## Core Philosophy
 
-Invest more time understanding the problem than writing the implementation. A precise
-understanding of the problem produces better code than any amount of iteration on an
-ambiguous one. If the task description is ambiguous, clarify before implementing. Quick,
-localized changes with no behavioral impact may proceed directly.
+Address all suggestions where the bot's analysis is correct given full context. Decline
+when you can articulate why the bot's reasoning doesn't hold - valid declines explain
+why the analysis is incorrect, not why addressing it is inconvenient.
 
-## Before Implementation
+## When Bot Suggestions Don't Apply
 
-Assess whether you have enough clarity to implement correctly. Can you articulate the
-problem being solved, what "done" looks like, the edge cases, and the assumptions you're
-making? If not, ask before proceeding.
+These patterns describe situations where bot analysis is typically incorrect. Decline
+with explanation when you can demonstrate the bot's reasoning doesn't hold.
 
-Load project standards via `/load-rules`. If that's not available, fall back to reading
-applicable rules directly. Every applicable rule must be followed.
+### Single-Use Values
 
-If `CLAUDE.md` or `AGENTS.md` exist in the project root, read those for additional
-context.
+Bots flag inline values as "magic strings" needing extraction. This suggestion is wrong
+when the value appears exactly once and context makes the meaning clear. Extracting
+`METHOD_INITIALIZE = "initialize"` for a single use adds indirection without DRY
+benefit. Constants exist to stay DRY across multiple uses, not to avoid inline values.
 
-## Implementation
+### Theoretical Race Conditions
 
-Write code following all cursor rules. Reference specific rules by reading the files
-directly.
+Bots flag potential race conditions based on static analysis. This suggestion is wrong
+when operations are already serialized by a queue, mutex, or transaction the bot can't
+see. Add synchronization when profiling or testing reveals actual race conditions.
 
-## Validation - Use the Tooling
+### Redundant Type Safety
 
-The project has tooling configured. We use it instead of manually trying to comply.
+Bots suggest stricter types or null checks. This suggestion is wrong when runtime
+validation already handles the case correctly, or when the type system guarantees the
+condition can't occur. TypeScript serves the code - working code with runtime safety
+takes priority over compile-time type perfection.
 
-Check for pre-commit and run if exists:
+### Premature Optimization
 
-```bash
-[ -f .pre-commit-config.yaml ] && pre-commit run --all-files
-```
+Bots flag performance concerns without data. This suggestion is wrong when no profiling
+shows actual performance problems. Optimize based on measurements - complexity should
+yield measurable performance gains.
 
-Read `.github/workflows/build.yml` (or ci.yml, test.yml) and replicate those validation
-steps locally, for example:
+## Items Requiring Case-by-Case Judgment
 
-```bash
-ruff check --fix .    # Auto-fix linting
-ruff format .         # Auto-format code
-pytest                # Run tests
-```
+These require evaluation in context - sometimes the bot is right, sometimes wrong.
 
-If we added functionality, we add tests following project patterns. Aim for 95% coverage
--- solid testing without obsessing over every edge case.
+### Test Coverage Gaps
 
-Only commit and push when all validation passes.
+Bot requests for edge case tests: Address if the edge case could reasonably occur and
+cause user-facing issues. Decline if you can demonstrate the scenario is already handled
+by other validation or genuinely can't occur given system constraints.
 
-## Evaluate Outcomes
+### Documentation Requests
 
-Run `git diff` and review the changes at the feature level. The question isn't "is every
-line correct" -- it's "does this changeset solve the problem cleanly?"
+Bot requests for additional docs: Address if the code is genuinely unclear. Decline if
+the documentation would merely restate what the code already says clearly.
 
-Verify the implementation delivers what was asked for -- not just technically correct, but
-useful. Check that no unnecessary complexity was introduced.
+### Accessibility Improvements
 
-Read through applicable rules and verify compliance. Document any assumptions or
-non-obvious choices in the PR description so reviewers understand the decisions made.
-
-## Submission
-
-Generate commit message following git-commit-message.mdc (if present).
-
-Use `gh pr create` to submit a high-quality pull request with clear description of what
-changed and why.
-
-## Boundaries
-
-Proceed autonomously: using existing tooling, following established patterns, changes
-within task scope.
-
-Ask first: major architectural changes, changes that would result in data loss, etc.
-
-## Success
-
-A successful autonomous PR means: the implementation solves the stated problem, all
-automated checks pass, code follows project standards, and the developer merges it
-without requesting changes.
+Accessibility (ARIA labels, keyboard navigation, screen reader support) is a product
+priority decision that varies by project. Check project or user configuration for the
+team's stance. If no stance is declared, present the suggestion to the user with context
+about the scope and ask whether to address or decline.
 
 ---
 > Source: [TechNickAI/ai-coding-config](https://github.com/TechNickAI/ai-coding-config) — distributed by [TomeVault](https://tomevault.io).
