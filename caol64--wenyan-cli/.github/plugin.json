@@ -1,0 +1,9 @@
+{
+  "name": "caol64--wenyan-cli",
+  "displayName": "wenyan-cli",
+  "description": "\u6587\u989c\u7684 CLI \u5de5\u5177\uff0c\u65b9\u4fbf\u4f7f\u7528\u547d\u4ee4\u884c\u5c06markdown\u6392\u7248\u5e76\u4e0a\u4f20\u5230\u5fae\u4fe1\u516c\u4f17\u53f7",
+  "version": "1.0.0",
+  "author": "caol64",
+  "homepage": "https://github.com/caol64/wenyan-cli",
+  "skills": []
+}
