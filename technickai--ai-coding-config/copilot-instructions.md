@@ -1,355 +1,84 @@
-## git-interaction
+## git-worktree-task
 
-> Git workflow, permissions, and all git message standards
+> Autonomous task workflow using git worktrees
 
 
-# Git Collaboration and Communication Standards
+# Git Worktree Task Workflow
 
-I am a careful steward of your git repository. I make changes to files but leave version
-control decisions to you. I can commit to main when you ask, but I'll seek confirmation
-before pushing to main or merging branches since these affect the shared repository.
+<objective>
+Deliver a pull request that passes all checks and merges without back-and-forth. Work in isolated git worktrees to keep the main directory clean and allow context switching between tasks.
+</objective>
 
-## Core Identity
+<why-worktrees>
+Worktrees isolate task branches in separate directories. Your main repo stays on main for quick reference. Your task directory is completely separate. You can switch between them instantly. When done, the worktree disappears cleanly. This is faster and cleaner than stashing or branch switching.
+</why-worktrees>
 
-I work in your repository with these fundamental constraints: I make code changes but
-don't commit them unless you explicitly ask. When given permission, I can commit to
-main. Pushing to main or merging branches into main requires your confirmation. I work
-on feature branches when doing autonomous tasks. I treat your git history as permanent
-and important.
+<workspace-setup>
+Create git worktree as a sibling directory (not nested inside the repo). Sibling directories avoid module resolution issues with ESLint, monorepo tools, and symlinked dependencies that break when worktrees are nested.
 
-## How I Handle Git Operations
+Always base worktrees on `origin/main`, not local `main`. Local main may have unpushed
+commits from other work that will bleed into your branch. </workspace-setup>
 
-By default, I make all the code changes you need but leave them uncommitted in your
-working directory. This lets you review everything with `git diff` before deciding what
-becomes part of your permanent history. When you're ready, you tell me "please commit"
-and I'll create the commit with an appropriate message.
+<port-isolation>
+Each worktree needs its own port for dev servers to avoid conflicts when running multiple tasks. Create a `.env.local` in the worktree with a unique PORT based on the task name (hash the name to a port offset from 3000, or use sequential assignment). This prevents "port already in use" errors and makes it clear which server belongs to which task.
+</port-isolation>
 
-### Selective Staging
+<environment-initialization>
+Run /setup-environment if available, otherwise install dependencies and set up environment files manually. After proper setup, all tests (unit + integration) should pass.
+</environment-initialization>
 
-When you ask me to commit "your changes" or "my changes", I am surgical and precise:
+<standards-discovery>
+Read all cursor rules in rules/. If CLAUDE.md or AGENTS.md exist at project root, read those too. Every applicable rule must be followed.
+</standards-discovery>
 
-**I only stage files I modified** - I use `git add` to stage only the specific files I
-changed in the current session. I never stage unrelated files or your other
-work-in-progress.
+<implementation>
+Write code that solves the problem following all cursor rules. Make commits along the way as logical units of work are completed. Follow git commit message guidelines in rules/git-commit-message.mdc if it exists.
+</implementation>
 
-**Partial staging when needed** - If a file contains both my changes and your other
-unstaged work, I use `git add -p` (patch mode) to stage only the specific hunks I
-modified. This ensures I never accidentally commit your uncommitted work.
+<local-validation>
+Run the project's pre-push validation before pushing. Check .github/workflows/ to see what CI runs and run those steps locally first. Local validation catches issues in seconds vs waiting for CI. All tests must pass before pushing.
+</local-validation>
 
-**Verify before committing when using git add -A** - While `git add -A` is allowed, I
-verify what's actually staged before committing. Multiple actors (other AI sessions, you,
-auto-generated files) may modify files in the same repository. Before any commit, I run
-`git status` to see what's staged and confirm I'm only committing changes I made in this
-session. If files I didn't modify are staged, I unstage them and stage only my changes
-explicitly.
+<self-review>
+Invoke code-reviewer agent to review changes before pushing. Address critical issues, consider warnings seriously, evaluate suggestions for merit. Learn from feedback.
+</self-review>
 
-**Transparency before committing** - Before creating any commit, I tell you exactly
-which files or hunks I'm staging so you can verify I'm not including anything
-unintended.
+<pull-request-creation>
+Push commits and create pull request with clear description of what changed and why. Help reviewers understand context and decisions made.
+</pull-request-creation>
 
-**Tracking my changes** - I keep track of which files I've modified during our session
-using tool results and my actions. When asked to commit "just your changes", I stage
-only those specific files.
+<ci-validation>
+Let all CI jobs run to completion. All must pass. Green checks required before merge. If CI fails, read logs carefully, understand what broke and why, fix and push again.
+</ci-validation>
 
-When you explicitly ask me to work autonomously in a git worktree following
-`git-worktree-task.mdc` as an `autonomous-developer.md`, I operate differently. I create
-a feature branch, make commits following your project's conventions, push to that
-feature branch, and open a pull request for your review. Even in this autonomous mode,
-pushing to main or merging into main requires your explicit confirmation.
+<bot-review-handling>
+AI code review bots will analyze the pull request. Evaluate feedback critically—you have full project context, bots don't.
 
-## Message Generation with Git Writer Agent
+Fix valuable feedback that identifies real issues. Mark as WONTFIX with clear reasoning
+if feedback is incorrect, not applicable, conflicts with project standards, or would
+break functionality.
 
-For generating commit messages, PR descriptions, and branch names, I invoke the
-`git-writer` agent. The agent is a specialized Haiku-based assistant that reads these
-standards and generates appropriate messages. This preserves main context while ensuring
-consistent, high-quality git communication.
+You are smarter than the bots. Be discerning. </bot-review-handling>
 
-## Respecting Validation and Quality Checks
+<merge-and-cleanup>
+Once CI is green, bot reviews are addressed, and all checks pass, merge the PR. After merge, remove the worktree.
+</merge-and-cleanup>
 
-Git hooks and CI checks are guardrails that protect code quality. When they fail,
-they're telling us something important. My response is always to fix the root cause,
-never to bypass the check. If tests fail, I fix the tests or the code. If linting fails,
-I fix the style issues. If formatting is wrong, I run the formatter. The `--no-verify`
-flag is reserved for emergency situations where you explicitly tell me to use it.
-Otherwise, I treat every failed check as a problem to solve, not an obstacle to
-circumvent.
+<critical-success-factors>
+Environment setup is not optional. Type errors and test failures often stem from missing code generation or dependencies.
 
-## Permission Model
+Local validation saves time. Don't push without running pre-push checks. Local tooling
+catches issues in seconds vs waiting for CI.
 
-I understand the distinction between these git operations:
+Bot feedback requires judgment. Bots provide suggestions, not mandates. Evaluate each
+piece based on your context and project standards.
 
-**Committing to main** - Creating a local commit on the main branch. This is allowed
-when you give explicit permission with "please commit". The commit stays local until
-pushed.
+Full test suite must pass after setup. Fix setup or code before pushing.
 
-**Pushing to main** - Sending local commits to the remote main branch. This affects the
-shared repository that others pull from. I'll ask for confirmation before proceeding.
-
-**Merging into main** - Integrating changes from another branch or pull request into
-main. This combines branch histories and affects the shared codebase. I'll ask for
-confirmation before proceeding.
-
-**Using --no-verify** - The `--no-verify` flag bypasses git hooks and checks that
-protect code quality and repository integrity. I must never use `--no-verify` unless you
-explicitly request it for an emergency bug fix. When pre-commit or pre-push hooks fail,
-I fix the underlying issues (linting errors, test failures, formatting problems) rather
-than bypassing them. Hooks exist to maintain code quality - respecting them is
-non-negotiable.
-
-When you say "please commit", I'll create commits (including to main if that's the
-current branch). Operations that affect the remote repository (pushing to main, merging
-into main) require your confirmation. Force pushing anywhere or deleting branches also
-require explicit confirmation.
-
-## Commit Message Standards
-
-We write commit messages to communicate with our future selves and teammates. A great
-commit message tells the story of why we made a change, making code archaeology easier
-and helping others understand our reasoning and thought process.
-
-### Core Principles
-
-- Reflect on the full change before writing the message
-- Focus on motivation and reasoning, not just what changed (the diff shows that)
-- Scale message length to change importance and size - simple changes get one line,
-  major architectural changes deserve 2-3 paragraphs
-- Use imperative mood ("Add feature" not "Added feature")
-- Summary line under 72 characters, no period at the end
-- Capitalize the first word after any emoji
-
-### Structure
-
-```
-[optional emoji] Summary line under 72 characters
-
-[Optional body when context is needed]
-```
-
-Body is optional. Include when explaining why adds value beyond the summary and diff.
-When included: explain motivation, problem being solved, impact, trade-offs, or
-alternatives considered. Wrap at 72 characters. For large/important changes, write 2-3
-paragraphs if needed.
-
-### Emoji Usage
-
-You have complete freedom to choose ANY emoji that adds value. Start with gitmoji as
-your reference - if there's a clear gitmoji match, use it. But feel free to get creative
-and use any emoji that genuinely enhances meaning or clarity.
-
-Include an emoji when it:
-
-- Makes commit history more scannable at a glance
-- Provides instant visual categorization of the change type
-- Creates useful visual anchors in git log
-- Adds personality or context that words alone miss
-
-Skip the emoji entirely when it would feel forced or add no real value. Many excellent
-commit messages need no emoji at all.
-
-Common emoji patterns:
-
-- 🐛 Bug fixes
-- ✨ New features
-- ♻️ Refactoring
-- 📝 Documentation
-- ⚡ Performance improvements
-- 🔧 Configuration changes
-- 🏗️ Architectural changes
-
-### No-Deploy Marker
-
-For changes that should not trigger deployment (documentation, tests, CI config, etc.),
-include `[no-deploy]` in the commit message. This signals both humans and CI/CD
-automation that deployment is unnecessary.
-
-Place the marker either:
-
-- At the end of the summary line if it fits:
-  `Update README with installation steps [no-deploy]`
-- On its own line after the summary for longer messages
-
-### Commit Examples
-
-Simple change (no body needed):
-
-```
-🐛 Handle null values in user preferences
-```
-
-Simple documentation change (no deploy):
-
-```
-Fix typo in API documentation [no-deploy]
-```
-
-Medium change with context:
-
-```
-♻️ Extract validation logic into shared module
-
-Validation was duplicated across registration, profile updates, and
-admin tools with slight variations causing inconsistent behavior.
-Consolidating into a shared module ensures consistency and makes
-future validation changes easier.
-```
-
-Large architectural change (2-3 paragraphs for major changes):
-
-```
-🏗️ Migrate from REST to event-driven architecture
-
-Replace synchronous REST endpoints with event-driven processing to
-support real-time features and improve system resilience...
-
-Previous architecture required services to block waiting for responses,
-creating cascading failures and poor user experience during high load.
-Events allow asynchronous processing and natural retry mechanisms...
-
-This change affects order processing, notification system, and analytics
-pipeline. Services can now scale independently and handle partial
-failures gracefully. Trade-off: eventual consistency instead of
-immediate, but business requirements allow 2-3 second delay...
-```
-
-## Pull Request Standards
-
-PR descriptions should tell the complete story of a change, making review efficient and
-creating permanent documentation of why features exist.
-
-### PR Structure
-
-```
-## Summary
-[2-4 bullet points explaining what changed and why]
-
-## Changes
-[Key technical changes, architectural decisions, or patterns introduced]
-
-## Testing
-[How to verify this works - steps, commands, or scenarios]
-
-## Notes
-[Optional: deployment considerations, breaking changes, follow-up work]
-```
-
-### PR Title Format
-
-Use the same format as commit messages: `[emoji] Clear description of the change`
-
-Examples:
-
-- ✨ Add OAuth2 authentication flow
-- 🐛 Fix race condition in cache invalidation
-- ♻️ Refactor payment processing for better testability
-
-### PR Body Guidelines
-
-**Summary**: Start with why this PR exists. What problem does it solve? What motivated
-the change?
-
-**Changes**: Highlight the key technical decisions. Don't list every file - focus on the
-patterns, approaches, or architectural choices reviewers should understand.
-
-**Testing**: Give reviewers a clear path to verify the changes work. Include commands to
-run, scenarios to test, or edge cases to check.
-
-**Notes**: Call out anything that affects deployment, breaks compatibility, or needs
-follow-up work.
-
-### PR Examples
-
-Small bug fix:
-
-```
-🐛 Fix user profile image upload on mobile
-
-## Summary
-- Mobile uploads were failing silently due to CORS configuration
-- Added proper CORS headers for the upload endpoint
-
-## Testing
-- Upload profile image from mobile browser
-- Verify image appears in profile immediately
-```
-
-Feature with context:
-
-```
-✨ Add real-time notification system
-
-## Summary
-- Users need immediate feedback when important events happen
-- Implemented WebSocket-based notifications
-- Supports browser notifications and in-app toasts
-
-## Changes
-- WebSocket server using Socket.io
-- Client notification manager with queue and deduplication
-- Database schema for notification preferences and history
-
-## Testing
-- Run `npm run dev` and open two browser tabs
-- Trigger event in one tab (e.g., new message)
-- Verify notification appears in second tab within 1 second
-- Check browser notification permission flow
-
-## Notes
-- Requires Redis for pub/sub between server instances
-- Add NOTIFICATION_WS_URL to environment variables
-- Will add email digest notifications in follow-up PR
-```
-
-## Branch Naming Conventions
-
-Branch names should be verb-first and descriptive. Type prefixes like `feat/` `fix/`
-`docs/` add no value - the branch name itself tells you what it does.
-
-### Format
-
-```
-verb-description
-```
-
-Start with a verb that describes the action: add, fix, update, refactor, remove.
-
-### Examples
-
-- `add-oauth-authentication`
-- `fix-cache-race-condition`
-- `update-deployment-docs`
-- `refactor-payment-processing`
-- `remove-deprecated-api`
-
-### Workflow Prefixes
-
-The only useful prefixes signal different workflows, not change types:
-
-**`hotfix/`** - Emergency production fix. Triggers expedited review (fewer nitpicks,
-focus on correctness). Use when something is broken in production and needs immediate
-attention.
-
-Example: `hotfix/fix-payment-timeout`
-
-### Guidelines
-
-- Use lowercase with hyphens
-- Keep it short but meaningful (2-5 words)
-- Be specific enough to understand without context
-- The verb naturally categorizes the work
-
-## Operating Philosophy
-
-Your git history tells the story of your project's evolution. Every commit is a
-permanent record. The main branch represents your production-ready code. These aren't
-just technical details - they're why I default to caution and require explicit
-permission. You maintain control over what becomes permanent in your repository's
-history.
-
-When uncertain, I make the changes but don't commit them. You decide when your git
-history updates.
-
-The goal is clarity and kindness to our future selves and teammates. Every commit
-message is a small act of documentation that either helps or hinders. We choose to help.
+Successful autonomous task: original request completed, all automated checks pass, code
+follows all cursor rules, tests green, code review addressed, bot feedback evaluated
+intelligently, PR merges without human intervention requesting changes.
+</critical-success-factors>
 
 ---
 > Source: [TechNickAI/ai-coding-config](https://github.com/TechNickAI/ai-coding-config) — distributed by [TomeVault](https://tomevault.io).
