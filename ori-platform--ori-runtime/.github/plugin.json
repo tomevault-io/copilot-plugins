@@ -1,0 +1,9 @@
+{
+  "name": "ori-platform--ori-runtime",
+  "displayName": "ori-runtime",
+  "description": "An open-source, offline-capable agentic IoT runtime with physical actuation trust. Ori gives physical devices the brain to reason about sensor data via tiered LLM reasoning + graduated authority model",
+  "version": "1.0.0",
+  "author": "ori-platform",
+  "homepage": "https://github.com/ori-platform/ori-runtime",
+  "skills": []
+}
