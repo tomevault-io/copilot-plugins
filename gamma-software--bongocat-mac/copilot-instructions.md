@@ -1,46 +1,75 @@
-## swift-guidelines
+## testing-guidelines
 
-> - Use **4 spaces** for indentation (never tabs)
+> Tests are located in [Tests/BongoCatTests/](mdc:Tests/BongoCatTests/) with these key files:
 
 
-# Swift Development Guidelines for BongoCat
+# Testing Guidelines for BongoCat
 
-## Code Style
-- Use **4 spaces** for indentation (never tabs)
-- Follow **SwiftUI** best practices for UI components
-- Use **proper access control** (private, internal, public)
-- Prefer **computed properties** over methods where appropriate
-- Use **meaningful variable and function names**
+## Test Structure
+Tests are located in [Tests/BongoCatTests/](mdc:Tests/BongoCatTests/) with these key files:
+- [BongoCatTests.swift](mdc:Tests/BongoCatTests/BongoCatTests.swift) - Main app tests
+- [CatAnimationControllerTests.swift](mdc:Tests/BongoCatTests/CatAnimationControllerTests.swift) - Animation logic tests
+- [StrokeCounterTests.swift](mdc:Tests/BongoCatTests/StrokeCounterTests.swift) - Input tracking tests
 
-## Architecture Patterns
-- Follow **MVVM pattern** for SwiftUI views
-- Use **@StateObject** for owned objects, **@ObservedObject** for passed objects
-- Implement **proper error handling** with Result types or throwing functions
-- Keep **view models separate** from views for testability
+## Testing Principles
+- **Unit tests** for business logic and data processing
+- **Mock system dependencies** (input monitoring, window management)
+- **Test state transitions** and edge cases
+- **Verify settings persistence** and restoration
+- **Test error conditions** and recovery
 
-## BongoCat-Specific Guidelines
-- **Input monitoring** should be handled in [InputMonitor.swift](mdc:Sources/BongoCat/InputMonitor.swift)
-- **Animation logic** belongs in [CatView.swift](mdc:Sources/BongoCat/CatView.swift)
-- **Window management** should stay in [OverlayWindow.swift](mdc:Sources/BongoCat/OverlayWindow.swift)
-- **Settings persistence** should use UserDefaults with proper key naming
+## Test Categories
 
-## Performance Considerations
-- Minimize **view updates** by using proper state management
-- **Debounce rapid input events** to prevent excessive animations
-- Use **lazy loading** for images and resources
-- Keep the **main thread free** for UI updates
+### Core Functionality Tests
+- Input detection and paw mapping
+- Animation state transitions
+- Position saving and loading
+- Settings persistence
+- Stroke counting accuracy
 
-## Accessibility
-- Ensure all UI elements have proper **accessibility labels**
-- Handle **VoiceOver** navigation appropriately
-- Respect **reduced motion** system preferences
-- Provide **keyboard navigation** alternatives where needed
+### UI Component Tests
+- View state management
+- Menu interactions
+- Window positioning
+- Scale and rotation calculations
 
-## Testing
-- Write **unit tests** for business logic in [Tests/BongoCatTests/](mdc:Tests/BongoCatTests/)
-- Mock **system dependencies** like input monitoring
-- Test **state transitions** and **error conditions**
-- Verify **settings persistence** and **restoration**
+### Integration Tests
+- App lifecycle management
+- Multi-monitor support
+- Accessibility permissions
+- System preference changes
+
+## Mock Guidelines
+- Mock **CGEvent** and input monitoring for deterministic tests
+- Mock **UserDefaults** for settings tests
+- Mock **NSWindow** and **NSScreen** for positioning tests
+- Use **dependency injection** to make components testable
+
+## Test Naming Convention
+```swift
+func test_featureName_whenCondition_shouldExpectedResult() {
+    // Test implementation
+}
+```
+
+## Running Tests
+- Use the test script: `./Scripts/test.sh`
+- Run individual test files in Xcode
+- Ensure tests pass before committing changes
+- Add tests for new features and bug fixes
+
+## Performance Testing
+- Test animation performance with high input rates
+- Verify memory usage doesn't grow over time
+- Test startup and shutdown performance
+- Monitor CPU usage during intensive operations
+
+## Testing Best Practices
+- Keep tests **fast and isolated**
+- Use **descriptive test names** that explain the scenario
+- **Arrange, Act, Assert** pattern for test structure
+- Clean up test state between tests
+- Test both **happy path** and **error scenarios**
 
 ---
 > Source: [Gamma-Software/BongoCat-mac](https://github.com/Gamma-Software/BongoCat-mac) — distributed by [TomeVault](https://tomevault.io).
