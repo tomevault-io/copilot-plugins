@@ -1,18 +1,13 @@
-## 60-style-lint-typecheck
+## 70-examples-and-docs
 
-> Formatting, linting, and type checking standards
+> How to use examples and documentation for development
 
 
-Standards:
+Use the `examples/` directory as reference implementations and tutorials. When creating new features:
 
-- Format code via `rye run format` or `./scripts/format`
-- Lint via `rye run lint` or `./scripts/lint`
-- Type check via `rye run typecheck` (pyright + mypy)
-
-Guidance:
-
-- Keep code readable and consistent; prefer small, focused functions
-- Avoid introducing style or type violations; fix before committing
+- Mirror patterns from the closest matching example
+- Keep examples runnable with the documented commands
+- Prefer adding or updating examples alongside significant feature changes
 
 ---
 > Source: [scaleapi/scale-agentex-python](https://github.com/scaleapi/scale-agentex-python) — distributed by [TomeVault](https://tomevault.io).
