@@ -1,0 +1,9 @@
+{
+  "name": "eyinwei--wordman-vsto",
+  "displayName": "WordMan_VSTO",
+  "description": "WordMan \u662f\u4e00\u4e2a\u529f\u80fd\u5f3a\u5927\u7684 Microsoft Word VSTO \u63d2\u4ef6\uff0c\u4e13\u4e3a\u5b66\u672f\u5199\u4f5c\u3001\u6587\u6863\u6392\u7248\u548c\u529e\u516c\u6548\u7387\u63d0\u5347\u800c\u8bbe\u8ba1\u3002\u8be5\u63d2\u4ef6\u57fa\u4e8e .NET Framework 4.0 \u5f00\u53d1\uff0c\u517c\u5bb9 Windows 7 \u53ca\u4ee5\u4e0a\u7cfb\u7edf\u548c Office 2013 \u53ca\u4ee5\u4e0a\u7248\u672c\u3002",
+  "version": "1.0.0",
+  "author": "eyinwei",
+  "homepage": "https://github.com/eyinwei/WordMan_VSTO",
+  "skills": []
+}
