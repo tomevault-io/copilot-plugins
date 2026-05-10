@@ -7,14 +7,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [ljquan/opentu](https://github.com/ljquan/opentu).
+Original source: `AGENTS.md` in [ljquan/opentu](https://github.com/ljquan/opentu).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [ljquan/opentu](https://github.com/ljquan/opentu) — a repo with 571+ stars on GitHub.
