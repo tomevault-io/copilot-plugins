@@ -4,7 +4,7 @@
   "repo": "syllago",
   "description": "A content management system for AI coding tools. Convert between tools, bundle content into shareable loadouts, and install rules, skills, agents, hooks, and MCP configs to the right place.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenScribbler/syllago",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T03:58:04Z"
+  "distributed_at": "2026-05-10T23:05:08Z"
 }
