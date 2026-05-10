@@ -1,0 +1,9 @@
+{
+  "name": "boring-design--elastic-fruit-runner",
+  "displayName": "elastic-fruit-runner",
+  "description": "Elastic GitHub Actions self-hosted runner manager for Apple Silicon (macOS via Tart + Linux via Docker)",
+  "version": "1.0.0",
+  "author": "boring-design",
+  "homepage": "https://github.com/boring-design/elastic-fruit-runner",
+  "skills": []
+}
