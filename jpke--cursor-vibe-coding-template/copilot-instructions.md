@@ -1,60 +1,56 @@
-## rule-management
+## self-improve
 
-> Structure and formatting guidelines for Cursor rule files
+> Continuously monitor and improve Cursor rules based on emerging code patterns
 
 
-## Rule Structure Requirements
-```markdown
----
-description: "Clear, one-line description of what the rule enforces"
-globs: ["path/to/files/*.ext", "other/path/**/*"]
-alwaysApply: boolean
----
+## Rule Improvement Triggers
+- **New code patterns** not covered by existing rules
+- **Repeated implementations** across 3+ files
+- **Common error patterns** that could be prevented
+- **New libraries/tools** being used consistently
+- **Emerging best practices** in the codebase
 
-- **Main Points in Bold**
-  - Sub-points with details
-  - Examples and explanations
-```
+## When to Update Rules
 
-## File References
-- Use `[filename](mdc:path/to/file)` to reference files
-- Example: `[prisma.mdc](mdc:.cursor/rules/prisma.mdc)` for rule references
-- Example: `[schema.prisma](mdc:prisma/schema.prisma)` for code references
+### Add New Rules When:
+- A new technology/pattern is used in 3+ files
+- Common bugs could be prevented by a rule
+- Code reviews repeatedly mention the same feedback
+- New security or performance patterns emerge
 
-## Code Examples
-- Use language-specific code blocks with DO/DON'T patterns:
-```typescript
-// ✅ DO: Show good examples
-const goodExample = true;
+### Modify Existing Rules When:
+- Better examples exist in the codebase
+- Additional edge cases are discovered
+- Related rules have been updated
+- Implementation details have changed
 
-// ❌ DON'T: Show anti-patterns
-const badExample = false;
-```
+## Rule Quality Assurance
+- Rules should be **actionable and specific**
+- Examples should come from **actual code**
+- References should be **up to date**
+- Patterns should be **consistently enforced**
+- Cross-reference related rules
 
-## Rule Content Guidelines
-- Start with high-level overview
-- Include specific, actionable requirements
-- Show examples of correct implementation
-- Reference existing code when possible
-- Keep rules DRY by referencing other rules
-- Use bullet points for clarity
-- Include both DO and DON'T examples
+## Continuous Improvement Process
+- **Monitor** code review comments
+- **Track** common development questions
+- **Update** rules after major refactors
+- **Add** links to relevant documentation
+- **Maintain** links between related rules
 
-## Example Pattern Recognition
-```typescript
-// If you see repeated patterns like:
-const data = await prisma.user.findMany({
-  select: { id: true, email: true },
-  where: { status: 'ACTIVE' }
-});
+## Rule Deprecation
+- **Mark** outdated patterns as deprecated
+- **Remove** rules that no longer apply
+- **Update** references to deprecated rules
+- **Document** migration paths for old patterns
 
-// Consider adding to [prisma.mdc](mdc:.cursor/rules/prisma.mdc):
-// - Standard select fields
-// - Common where conditions
-// - Performance optimization patterns
-```
+## Documentation Maintenance
+- Keep examples synchronized with code
+- Update references to external docs
+- Maintain links between related rules
+- Document breaking changes
 
-Follow this structure for proper rule formatting and maintain consistency across all rule files.
+Follow [rule_management.mdc](mdc:.cursor/rules/rule_management.mdc) for proper rule formatting and structure.
 
 ---
 > Source: [jpke/cursor-vibe-coding-template](https://github.com/jpke/cursor-vibe-coding-template) — distributed by [TomeVault](https://tomevault.io).
