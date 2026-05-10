@@ -1,53 +1,68 @@
-## project-structure
+## react-typescript-patterns
 
-> SALN Tracker Philippines is a React Router 7 application for tracking Statement of Assets, Liabilities, and Net Worth records of Philippine public officials, promoting government transparency.
+> Follow this consistent pattern for React components:
 
 
-# SALN Tracker Philippines - Project Structure Guide
+# React TypeScript Development Patterns
 
-## Overview
-SALN Tracker Philippines is a React Router 7 application for tracking Statement of Assets, Liabilities, and Net Worth records of Philippine public officials, promoting government transparency.
+## Component Structure
+Follow this consistent pattern for React components:
 
-## Core Architecture
-- **Framework**: React Router 7 with TypeScript
-- **Styling**: TailwindCSS with Philippine flag color scheme
-- **Build Tool**: Vite
-- **Deployment**: Netlify
+```tsx
+import type { ComponentProps } from './types';
+import { ComponentUI } from './ui/ComponentName';
 
-## Directory Structure
+interface ComponentNameProps {
+  // Define props with clear types
+  data: DataType;
+  onAction?: (param: ParamType) => void;
+  className?: string;
+}
 
-### App Structure
-```
-app/
-├── components/          # Reusable UI components
-│   ├── ui/             # Base UI components (Button, Card, Badge, Hashtags)
-│   ├── layout/         # Layout components (Header, Footer)
-│   ├── OfficialsGrid.tsx    # Main officials listing component
-│   └── SALNRecordsView.tsx  # SALN records display component
-├── data/               # Data management and utilities
-│   └── officials.ts    # Officials data, SALN types, and helper functions
-├── routes/             # Application routes
-│   ├── home.tsx       # Homepage with officials grid
-│   ├── about.tsx      # About page with platform information
-│   ├── official.$slug.tsx  # Individual official SALN pages
-│   └── $.tsx          # 404 Not Found page
-└── app.css            # Global styles and Tailwind configuration
+export function ComponentName({ data, onAction, className = '' }: ComponentNameProps) {
+  // Component logic here
+  return (
+    <div className={`base-classes ${className}`}>
+      {/* JSX content */}
+    </div>
+  );
+}
 ```
 
-## Key Files
-- **Main Layout**: [app/root.tsx](mdc:app/root.tsx) - Root layout with favicon configuration
-- **Data Management**: [app/data/officials.ts](mdc:app/data/officials.ts) - Centralized officials data and SALN utilities
-- **Styling**: [tailwind.config.ts](mdc:tailwind.config.ts) - Philippine flag colors and custom design system
-- **Routing**: [app/routes.ts](mdc:app/routes.ts) - Application route definitions
+## TypeScript Guidelines
+- **Always use explicit return types** for functions that return JSX
+- **Define interfaces** for all component props, even simple ones
+- **Use type imports** with `import type` for type-only imports
+- **Avoid `any` type** - use proper TypeScript interfaces
+- **Export types** from data files for reuse across components
 
-## Design System
-- **Primary Colors**: Philippine flag colors (Red #F70000, Blue #0038A8, Yellow #FCD116)
-- **Typography**: Bold headings with tight tracking, responsive text sizing
-- **Components**: Clean cards with rounded corners, multi-variant buttons, glass effects
-- **Layout**: Mobile-first responsive design with container-based grid system
+## Component Guidelines
+- **Single Responsibility**: Each component should have one clear purpose
+- **Reusable UI Components**: Place in `app/components/ui/` directory
+- **Layout Components**: Place in `app/components/layout/` directory
+- **Feature Components**: Place in `app/components/` root directory
 
-## Campaign Integration
-All pages include transparency campaign hashtags: **#OpenSALN #PublicSALNNow**
+## Props Patterns
+- **Always destructure props** in function parameters
+- **Provide default values** for optional props using `= defaultValue`
+- **Use optional chaining** (`?.`) for potentially undefined values
+- **Pass className prop** for styling flexibility
+
+## Import Organization
+```tsx
+// 1. React and external libraries
+import { Link } from 'react-router';
+
+// 2. Type imports
+import type { Route } from "./+types/route-name";
+
+// 3. Internal components
+import { Header } from "../components/layout/Header";
+import { Button } from "../components/ui/Button";
+
+// 4. Data and utilities
+import { getData } from "../data/officials";
+```
 
 ---
 > Source: [JHNLWHD/saln-tracker-ph](https://github.com/JHNLWHD/saln-tracker-ph) — distributed by [TomeVault](https://tomevault.io).
