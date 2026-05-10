@@ -1,88 +1,87 @@
-## code-dependency-check-rule
+## new-header-inclusion-rule
 
-> This rule applies whenever a function (its signature, or implementation that affects callers) or a global/widely-used variable (its name, type, or how it's used) is modified.
+> This rule applies whenever a new header file (e.g., `new_module.h`) is created within the project.
 
-# Rule: Code Dependency and Impact Analysis
+# Rule: New Header File Setup
 
 ## Context
-This rule applies whenever a function (its signature, or implementation that affects callers) or a global/widely-used variable (its name, type, or how it's used) is modified.
+This rule applies whenever a new header file (e.g., `new_module.h`) is created within the project.
 
 ## Instructions
-When modifying functions or variables that might be used elsewhere in the codebase, it is crucial to identify and update all dependent code to maintain consistency and prevent errors.
 
-1.  **Identify the Scope of Change**:
-    *   Clearly understand what has changed:
-        *   For functions: Is it the name, return type, number/type of parameters, or core behavior that impacts how it's called or what it returns?
-        *   For variables: Is it the name, data type, scope, or the way its value is set/interpreted?
+When a new header file is created, perform the following steps:
 
-2.  **Locate All Usages/Dependencies**:
-    *   Use codebase search tools (e.g., semantic search, grep/text search provided by `default_api.codebase_search` or `default_api.grep_search`) to find all instances where the modified function is called or the variable is accessed.
-    *   Pay attention to:
-        *   Direct function calls.
-        *   Assignments to/from the variable.
-        *   Use of the variable in expressions or conditional logic.
-        *   Function pointers or other indirect references if applicable (especially in C projects).
+1.  **Modify `[zf_common_headfile.h](mdc:libraries/zf_common/zf_common_headfile.h)`:**
+    *   Add an `#include` directive for the newly created header file.
+    *   This directive should be placed in an appropriate section. Based on the existing structure of `[zf_common_headfile.h](mdc:libraries/zf_common/zf_common_headfile.h)`, user-created headers are typically added under the `//=====================================================用户层======================================================` comment.
+    *   Example: If `my_feature.h` is created, add `#include "my_feature.h"` in that section.
 
-3.  **Update Dependent Code**:
-    *   For each identified usage, propose changes using the `edit_file` tool to align with the modifications made to the original function or variable.
-    *   If a function's parameters changed, update the arguments in all calls.
-    *   If a variable's name or type changed, update all references accordingly.
-    *   If the *meaning* or *behavior* of a function/variable changed, ensure the calling/using code still operates correctly with the new behavior. This might involve more than just syntax changes and require careful logical adjustments.
+2.  **Modify the Newly Created Header File (e.g., `new_module.h`):**
+    *   **Include Guards:** Ensure the new header file has standard include guards to prevent multiple inclusions.
+        ```c
+        #ifndef __NEW_MODULE_H__ // Or a project-specific naming convention for guards, e.g., _NEW_MODULE_H_
+        #define __NEW_MODULE_H__
 
-4.  **Consider Indirect Impacts**:
-    *   Think about whether the change could affect other parts of the system indirectly. For example:
-        *   If a function now returns values in a different range or format, any logic that depends on the old range/format needs to be updated.
-        *   If a variable's change affects program state, consider how this impacts other modules that rely on that state.
-        *   Changes in data structures returned by functions or pointed to by variables also require updates in all code that accesses members of that structure.
+        // Header content will go here
 
-5.  **Header File Consistency**:
-    *   If a function signature or global variable declaration in a header file (e.g., `my_module.h`) is changed, ensure this header file is correctly updated.
-    *   Remember that changes in a header file can affect all `.c` files that include it.
-    *   Refer to `[project_guidance_tc26b.mdc](mdc:.cursor/rules/project_guidance_tc26b.mdc)` and `[new_header_inclusion_rule.mdc](mdc:.cursor/rules/new_header_inclusion_rule.mdc)` for guidelines on header file management, especially concerning `[libraries/zf_common/zf_common_headfile.h](mdc:libraries/zf_common/zf_common_headfile.h)` if relevant.
+        #endif /* __NEW_MODULE_H__ */
+        ```
+    *   **Include `zf_common_headfile.h`:** Add an `#include` directive for `[zf_common_headfile.h](mdc:libraries/zf_common/zf_common_headfile.h)`. This is often one of the first includes.
+        ```c
+        #ifndef __NEW_MODULE_H__
+        #define __NEW_MODULE_H__
 
-6.  **Verification (Recommended)**:
-    *   After making changes, if compilation tools or linters are available through the environment, suggest running them to catch syntax errors or type mismatches.
-    *   Advise the user to thoroughly review the proposed changes and test the affected functionality to ensure correctness, as automated updates might not always capture all nuances of the required logic changes.
+        #include "zf_common_headfile.h" // Include the common header
+
+        // Other specific includes for this module, if any
+        // Declarations and definitions for new_module
+
+        #endif /* __NEW_MODULE_H__ */
+        ```
+
+## Include Order Considerations:
+
+*   **In `[zf_common_headfile.h](mdc:libraries/zf_common/zf_common_headfile.h)`:**
+    *   Respect the existing grouping of headers (e.g., C standard libraries, SDK, common library, drivers, devices, user layer).
+    *   Add the new header to its logical group, most likely the "User Layer" (用户层) for custom application code.
+
+*   **In the New Header File:**
+    *   `#include "zf_common_headfile.h"` should generally be included early, as it provides common types, configurations, and potentially other foundational includes.
+    *   Any includes specific to the new module that are *not* already covered by `zf_common_headfile.h` can follow.
 
 ## Example Scenario:
 
-Suppose a function `int32_t process_data(int32_t input_val)` in `user/data_processor.c` (declared in `user/data_processor.h`) is changed to `float32_t process_data(int32_t input_val, float32_t scale_factor)`.
+Suppose a new header file `user_utils.h` is created, intended for general user-level utilities.
 
-1.  **Change Identified**: Function signature changed (return type from `int32_t` to `float32_t`, added `scale_factor` parameter of type `float32_t`).
-2.  **Update Declaration**: Modify `user/data_processor.h`:
+1.  **Changes to `[zf_common_headfile.h](mdc:libraries/zf_common/zf_common_headfile.h)**:
     ```c
-    // Old:
-    // int32_t process_data(int32_t input_val);
-    // New:
-    float32_t process_data(int32_t input_val, float32_t scale_factor);
-    ```
-3.  **Locate Usages**: Search the project for `process_data(`.
-4.  **Update Call Sites**: If `user/main_logic.c` had:
-    ```c
-    #include "data_processor.h" // Assuming it includes the header
-    // ...
-    int32_t raw_data = 100;
-    int32_t processed_result = process_data(raw_data);
-    // use processed_result as int32_t
-    ```
-    It needs to be updated. For example:
-    ```c
-    #include "data_processor.h"
-    // ...
-    int32_t raw_data = 100;
-    float32_t scale = 0.5f;
-    float32_t processed_result_float = process_data(raw_data, scale);
-    // use processed_result_float as float32_t, adjust subsequent logic
-    ```
-5.  **Indirect Impacts**: Any code in `user/main_logic.c` that used `processed_result` as an `int32_t` (e.g., for array indexing, integer arithmetic, bitwise operations) must be reviewed and potentially modified to correctly handle a `float32_t`.
+    // ... other includes ...
 
-## Importance
-Neglecting to update all dependent code can lead to:
-*   Compilation errors (often the easiest to catch).
-*   Runtime errors or undefined behavior (e.g., due to type mismatches not caught by the compiler, or incorrect function arguments).
-*   Logical errors in program behavior that can be subtle and difficult to debug.
+    //=====================================================用户层======================================================
+    #include "image_deal.h"
+    #include "PID.h"
+    // ... other existing user includes ...
+    #include "user_utils.h" // <-- New include added here
+    //=====================================================用户层======================================================
 
-Always be thorough when refactoring or modifying shared code elements, especially in a C project where type safety and manual memory management are critical.
+    // ... rest of the file ...
+    #endif
+    ```
+
+2.  **Content of the new `user_utils.h` (e.g., if placed in a `user/` directory):**
+    ```c
+    #ifndef __USER_UTILS_H__
+    #define __USER_UTILS_H__
+
+    #include "zf_common_headfile.h" // Essential common includes
+
+    // Function prototypes, type definitions, etc., for user_utils
+    // For example:
+    // void util_initialize_system(void);
+    // int util_calculate_crc(const char* data, int length);
+
+    #endif /* __USER_UTILS_H__ */
+    ```
 
 ---
 > Source: [MingTeer/Front_Car](https://github.com/MingTeer/Front_Car) — distributed by [TomeVault](https://tomevault.io).
