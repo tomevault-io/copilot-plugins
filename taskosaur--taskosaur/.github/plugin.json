@@ -1,0 +1,9 @@
+{
+  "name": "taskosaur--taskosaur",
+  "displayName": "Taskosaur",
+  "description": "Open Source Project Management with Conversational AI Task Execution. Built for teams who want conversational workflow management alongside traditional PM features. Self-hostable with modular architec",
+  "version": "1.0.0",
+  "author": "Taskosaur",
+  "homepage": "https://github.com/Taskosaur/Taskosaur",
+  "skills": []
+}
