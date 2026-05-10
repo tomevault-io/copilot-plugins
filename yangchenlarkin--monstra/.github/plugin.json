@@ -1,0 +1,9 @@
+{
+  "name": "yangchenlarkin--monstra",
+  "displayName": "Monstra",
+  "description": "High-performance Swift framework for task execution, memory caching, and data management with intelligent execution merging, TTL caching, and retry logic",
+  "version": "1.0.0",
+  "author": "yangchenlarkin",
+  "homepage": "https://github.com/yangchenlarkin/Monstra",
+  "skills": []
+}
