@@ -1,204 +1,481 @@
-## database
+## react
 
-> This file defines database design patterns, query optimization strategies, and data management rules for the Code-Index-MCP project.
+> This file defines React patterns and best practices for any future web UI components in the Code-Index-MCP project.
 
-# Database Rules for Code-Index-MCP
+# React Rules for Code-Index-MCP
 
 ## Overview
-This file defines database design patterns, query optimization strategies, and data management rules for the Code-Index-MCP project.
+This file defines React patterns and best practices for any future web UI components in the Code-Index-MCP project.
 
-## Storage Architecture
+## Component Structure
 
-### Local-First Design
-- **Primary Storage**: SQLite with FTS5 for full-text search
-- **Index Format**: Structured JSON with normalized tables
-- **File-Based**: Each project has its own database file
-- **Portability**: Database files can be copied/moved
+### Functional Components with TypeScript
+```tsx
+import React, { useState, useCallback, memo } from 'react';
 
-### Schema Design
-```sql
--- Core tables structure
-CREATE TABLE files (
-    id INTEGER PRIMARY KEY,
-    path TEXT UNIQUE NOT NULL,
-    content TEXT,
-    language TEXT,
-    last_modified INTEGER,
-    hash TEXT
-);
-
-CREATE TABLE symbols (
-    id INTEGER PRIMARY KEY,
-    file_id INTEGER REFERENCES files(id),
-    name TEXT NOT NULL,
-    type TEXT, -- function, class, variable, etc.
-    line_start INTEGER,
-    line_end INTEGER,
-    column_start INTEGER,
-    column_end INTEGER,
-    parent_id INTEGER REFERENCES symbols(id)
-);
-
-CREATE TABLE imports (
-    id INTEGER PRIMARY KEY,
-    file_id INTEGER REFERENCES files(id),
-    module_name TEXT,
-    alias TEXT,
-    line_number INTEGER
-);
-
--- Full-text search tables
-CREATE VIRTUAL TABLE files_fts USING fts5(
-    path, content, tokenize='porter unicode61'
-);
-
-CREATE VIRTUAL TABLE symbols_fts USING fts5(
-    name, type, tokenize='porter unicode61'
-);
-```
-
-## Query Optimization
-
-### Indexing Strategy
-```sql
--- Performance indexes
-CREATE INDEX idx_symbols_file ON symbols(file_id);
-CREATE INDEX idx_symbols_name ON symbols(name);
-CREATE INDEX idx_symbols_type ON symbols(type);
-CREATE INDEX idx_imports_file ON imports(file_id);
-CREATE INDEX idx_files_language ON files(language);
-```
-
-### Query Patterns
-```python
-# Efficient symbol lookup
-def find_symbol(name: str, file_path: str = None):
-    query = """
-    SELECT s.*, f.path 
-    FROM symbols s
-    JOIN files f ON s.file_id = f.id
-    WHERE s.name = ?
-    """
-    params = [name]
-    
-    if file_path:
-        query += " AND f.path = ?"
-        params.append(file_path)
-    
-    return db.execute(query, params)
-
-# Full-text search with ranking
-def search_code(query: str):
-    return db.execute("""
-    SELECT path, snippet(files_fts, 1, '<b>', '</b>', '...', 32) as snippet,
-           rank
-    FROM files_fts
-    WHERE files_fts MATCH ?
-    ORDER BY rank
-    LIMIT 50
-    """, [query])
-```
-
-## Data Management
-
-### Transaction Handling
-```python
-# Batch insertions with transactions
-def batch_insert_symbols(symbols: List[Dict]):
-    with db.transaction():
-        for symbol in symbols:
-            db.execute(
-                "INSERT INTO symbols (file_id, name, type, line_start) VALUES (?, ?, ?, ?)",
-                [symbol['file_id'], symbol['name'], symbol['type'], symbol['line_start']]
-            )
-```
-
-### Migration System
-```python
-# Version-based migrations
-migrations = {
-    1: "CREATE TABLE schema_version (version INTEGER)",
-    2: "ALTER TABLE files ADD COLUMN encoding TEXT DEFAULT 'utf-8'",
-    3: "CREATE INDEX idx_files_hash ON files(hash)"
+interface CodeSearchProps {
+  onSearch: (query: string) => Promise<void>;
+  placeholder?: string;
+  className?: string;
 }
 
-def run_migrations():
-    current_version = get_schema_version()
-    for version, sql in migrations.items():
-        if version > current_version:
-            db.execute(sql)
-            update_schema_version(version)
+export const CodeSearch = memo<CodeSearchProps>(({ 
+  onSearch, 
+  placeholder = "Search code...",
+  className = ""
+}) => {
+  const [query, setQuery] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
+
+  const handleSearch = useCallback(async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!query.trim()) return;
+
+    setIsSearching(true);
+    try {
+      await onSearch(query);
+    } finally {
+      setIsSearching(false);
+    }
+  }, [query, onSearch]);
+
+  return (
+    <form onSubmit={handleSearch} className={className}>
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder={placeholder}
+        disabled={isSearching}
+      />
+      <button type="submit" disabled={isSearching}>
+        {isSearching ? 'Searching...' : 'Search'}
+      </button>
+    </form>
+  );
+});
+
+CodeSearch.displayName = 'CodeSearch';
 ```
 
-## Performance Guidelines
+## Custom Hooks
 
-### Memory Management
-- Use WAL mode for better concurrency
-- Configure page cache size appropriately
-- Implement connection pooling
-- Close connections promptly
+### Data Fetching Hook
+```tsx
+import { useState, useEffect, useCallback } from 'react';
 
-### Optimization Techniques
-1. **Prepared Statements**: Reuse compiled queries
-2. **Batch Operations**: Group similar operations
-3. **Lazy Loading**: Load data on demand
-4. **Partitioning**: Split large tables by project/language
+interface UseApiOptions<T> {
+  initialData?: T;
+  onError?: (error: Error) => void;
+}
 
-## Backup and Recovery
+function useApi<T>(
+  apiCall: () => Promise<T>,
+  options: UseApiOptions<T> = {}
+) {
+  const [data, setData] = useState<T | undefined>(options.initialData);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
-### Backup Strategy
-```bash
-# Automated backup script
-#!/bin/bash
-sqlite3 project.db ".backup backup_$(date +%Y%m%d_%H%M%S).db"
+  const execute = useCallback(async () => {
+    setLoading(true);
+    setError(null);
 
-# Incremental backup using WAL
-sqlite3 project.db "PRAGMA wal_checkpoint(TRUNCATE)"
-```
+    try {
+      const result = await apiCall();
+      setData(result);
+      return result;
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      setError(error);
+      options.onError?.(error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  }, [apiCall, options.onError]);
 
-### Data Integrity
-- Regular VACUUM operations
-- Integrity checks on startup
-- Automatic corruption recovery
-- Transaction rollback on errors
+  return { data, loading, error, execute };
+}
 
-## Cloud Sync Considerations
+// Usage
+function SymbolViewer({ symbolName }: { symbolName: string }) {
+  const { data, loading, error, execute } = useApi(
+    () => client.getSymbolDefinition(symbolName),
+    { onError: (err) => console.error('Failed to load symbol:', err) }
+  );
 
-### Sync Protocol
-- Track change timestamps
-- Implement conflict resolution
-- Use merkle trees for efficient diff
-- Support partial syncs
+  useEffect(() => {
+    execute();
+  }, [execute]);
 
-### Data Format
-```json
-{
-    "sync_version": "1.0",
-    "project_id": "uuid",
-    "timestamp": 1234567890,
-    "changes": [
-        {
-            "operation": "insert",
-            "table": "symbols",
-            "data": {...}
-        }
-    ]
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  if (!data) return null;
+
+  return <SymbolDetails symbol={data} />;
 }
 ```
 
-## Security Rules
+### Code Editor Integration Hook
+```tsx
+interface UseCodeNavigationOptions {
+  onNavigate?: (location: CodeLocation) => void;
+}
 
-### Access Control
-- Read-only mode for untrusted projects
-- Sanitize all inputs
-- Parameterized queries only
-- No dynamic SQL generation
+interface CodeLocation {
+  file: string;
+  line: number;
+  column: number;
+}
 
-### Sensitive Data
-- Exclude files matching .gitignore
-- Redact detected secrets
-- Encrypt database at rest (optional)
-- Audit log for all modifications
+function useCodeNavigation(options: UseCodeNavigationOptions = {}) {
+  const navigate = useCallback((location: CodeLocation) => {
+    // Integrate with VS Code or other editors
+    if (window.vscode) {
+      window.vscode.postMessage({
+        command: 'openFile',
+        file: location.file,
+        line: location.line,
+        column: location.column
+      });
+    }
+    
+    options.onNavigate?.(location);
+  }, [options.onNavigate]);
+
+  return { navigate };
+}
+```
+
+## State Management Patterns
+
+### Context for Global State
+```tsx
+interface CodeIndexContextType {
+  client: MCPClient;
+  currentProject: string;
+  setCurrentProject: (project: string) => void;
+}
+
+const CodeIndexContext = React.createContext<CodeIndexContextType | null>(null);
+
+export function CodeIndexProvider({ 
+  children, 
+  apiKey,
+  baseUrl = 'http://localhost:8000'
+}: { 
+  children: React.ReactNode;
+  apiKey: string;
+  baseUrl?: string;
+}) {
+  const [currentProject, setCurrentProject] = useState('');
+  const client = useMemo(
+    () => new MCPClient(baseUrl, apiKey),
+    [baseUrl, apiKey]
+  );
+
+  return (
+    <CodeIndexContext.Provider value={{
+      client,
+      currentProject,
+      setCurrentProject
+    }}>
+      {children}
+    </CodeIndexContext.Provider>
+  );
+}
+
+export function useCodeIndex() {
+  const context = useContext(CodeIndexContext);
+  if (!context) {
+    throw new Error('useCodeIndex must be used within CodeIndexProvider');
+  }
+  return context;
+}
+```
+
+## Performance Optimization
+
+### Virtual Scrolling for Large Lists
+```tsx
+import { FixedSizeList } from 'react-window';
+
+interface SearchResultsProps {
+  results: SearchResult[];
+  onItemClick: (item: SearchResult) => void;
+}
+
+function SearchResults({ results, onItemClick }: SearchResultsProps) {
+  const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => {
+    const item = results[index];
+    
+    return (
+      <div 
+        style={style} 
+        onClick={() => onItemClick(item)}
+        className="search-result-item"
+      >
+        <div className="file-path">{item.file}</div>
+        <div className="line-number">Line {item.line}</div>
+        <pre className="code-snippet">{item.content}</pre>
+      </div>
+    );
+  };
+
+  return (
+    <FixedSizeList
+      height={600}
+      itemCount={results.length}
+      itemSize={100}
+      width="100%"
+    >
+      {Row}
+    </FixedSizeList>
+  );
+}
+```
+
+### Code Splitting
+```tsx
+import { lazy, Suspense } from 'react';
+
+// Lazy load heavy components
+const SymbolGraph = lazy(() => import('./SymbolGraph'));
+const CodeDiff = lazy(() => import('./CodeDiff'));
+
+function App() {
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <Routes>
+        <Route path="/graph" element={<SymbolGraph />} />
+        <Route path="/diff" element={<CodeDiff />} />
+      </Routes>
+    </Suspense>
+  );
+}
+```
+
+## Error Boundaries
+
+### Global Error Boundary
+```tsx
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  ErrorBoundaryState
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('React Error Boundary caught:', error, errorInfo);
+    // Send to error tracking service
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="error-fallback">
+          <h2>Something went wrong</h2>
+          <details style={{ whiteSpace: 'pre-wrap' }}>
+            {this.state.error?.toString()}
+          </details>
+          <button onClick={() => this.setState({ hasError: false, error: null })}>
+            Try again
+          </button>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+```
+
+## Accessibility
+
+### ARIA Labels and Keyboard Navigation
+```tsx
+function CodeSymbolTree({ symbols }: { symbols: SymbolDefinition[] }) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setSelectedIndex((i) => Math.min(i + 1, symbols.length - 1));
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setSelectedIndex((i) => Math.max(i - 1, 0));
+        break;
+      case 'Enter':
+        e.preventDefault();
+        navigateToSymbol(symbols[selectedIndex]);
+        break;
+    }
+  };
+
+  return (
+    <ul
+      role="tree"
+      aria-label="Code symbols"
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+    >
+      {symbols.map((symbol, index) => (
+        <li
+          key={symbol.name}
+          role="treeitem"
+          aria-selected={index === selectedIndex}
+          aria-level={1}
+          onClick={() => navigateToSymbol(symbol)}
+        >
+          <span className="symbol-icon" aria-hidden="true">
+            {getSymbolIcon(symbol.type)}
+          </span>
+          <span className="symbol-name">{symbol.name}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Testing Patterns
+
+### Component Testing
+```tsx
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+describe('CodeSearch', () => {
+  it('should call onSearch with query', async () => {
+    const mockOnSearch = vi.fn();
+    const user = userEvent.setup();
+
+    render(<CodeSearch onSearch={mockOnSearch} />);
+
+    const input = screen.getByPlaceholderText('Search code...');
+    const button = screen.getByRole('button', { name: 'Search' });
+
+    await user.type(input, 'parseFile');
+    await user.click(button);
+
+    await waitFor(() => {
+      expect(mockOnSearch).toHaveBeenCalledWith('parseFile');
+    });
+  });
+
+  it('should disable form during search', async () => {
+    const mockOnSearch = vi.fn(() => new Promise(resolve => setTimeout(resolve, 100)));
+
+    render(<CodeSearch onSearch={mockOnSearch} />);
+
+    const input = screen.getByPlaceholderText('Search code...');
+    const button = screen.getByRole('button');
+
+    fireEvent.change(input, { target: { value: 'test' } });
+    fireEvent.click(button);
+
+    expect(button).toBeDisabled();
+    expect(input).toBeDisabled();
+
+    await waitFor(() => {
+      expect(button).not.toBeDisabled();
+    });
+  });
+});
+```
+
+## Styling Patterns
+
+### CSS Modules with TypeScript
+```tsx
+import styles from './CodeViewer.module.css';
+
+interface CodeViewerProps {
+  code: string;
+  language: string;
+  theme?: 'light' | 'dark';
+}
+
+export function CodeViewer({ code, language, theme = 'light' }: CodeViewerProps) {
+  return (
+    <div className={`${styles.container} ${styles[theme]}`}>
+      <div className={styles.header}>
+        <span className={styles.language}>{language}</span>
+      </div>
+      <pre className={styles.code}>
+        <code>{code}</code>
+      </pre>
+    </div>
+  );
+}
+```
+
+### Styled Components (Alternative)
+```tsx
+import styled from 'styled-components';
+
+const Container = styled.div<{ $primary?: boolean }>`
+  padding: 16px;
+  background: ${props => props.$primary ? '#007bff' : '#f8f9fa'};
+  border-radius: 4px;
+  
+  &:hover {
+    background: ${props => props.$primary ? '#0056b3' : '#e9ecef'};
+  }
+`;
+
+const Title = styled.h3`
+  margin: 0 0 8px 0;
+  color: ${props => props.theme.colors.text};
+`;
+```
+
+## Best Practices
+
+### Component Organization
+```
+components/
+├── common/           # Reusable components
+│   ├── Button/
+│   │   ├── Button.tsx
+│   │   ├── Button.test.tsx
+│   │   ├── Button.module.css
+│   │   └── index.ts
+│   └── SearchInput/
+├── features/         # Feature-specific components
+│   ├── CodeSearch/
+│   └── SymbolViewer/
+└── layouts/          # Layout components
+    ├── MainLayout/
+    └── SidebarLayout/
+```
+
+### Props Interface Naming
+- Suffix component props with `Props`
+- Use descriptive names for callback props
+- Prefer `onAction` pattern for events
+
+### Performance Guidelines
+1. Use `React.memo` for expensive components
+2. Implement `useMemo` and `useCallback` appropriately
+3. Avoid inline object/array creation in props
+4. Use React DevTools Profiler for optimization
+5. Implement code splitting for large features
 
 ---
 > Source: [ViperJuice/Code-Index-MCP](https://github.com/ViperJuice/Code-Index-MCP) — distributed by [TomeVault](https://tomevault.io).
