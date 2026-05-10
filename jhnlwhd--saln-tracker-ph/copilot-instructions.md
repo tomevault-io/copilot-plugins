@@ -1,101 +1,129 @@
-## routing-navigation
+## tailwind-design-system
 
-> React Router 7 patterns and navigation best practices
+> Philippine flag-inspired design system and TailwindCSS conventions
 
 
-# React Router 7 Navigation Patterns
+# SALN Tracker Philippines Design System
 
-## Route Structure
-Follow the file-based routing convention defined in [app/routes.ts](mdc:app/routes.ts):
+## Color Palette
+Based on the Philippine flag colors defined in [tailwind.config.ts](mdc:tailwind.config.ts):
 
-```
-/                    → app/routes/home.tsx
-/about              → app/routes/about.tsx  
-/official/:slug     → app/routes/official.$slug.tsx
-/*                  → app/routes/$.tsx (404 catch-all)
-```
-
-## URL Slug Pattern
-Use SEO-friendly slugs for official pages:
+### Primary Colors (Philippine Flag)
 ```tsx
-// Slug format: position-name
-// Examples:
-// /official/president-ferdinand-marcos-jr
-// /official/vice-president-sara-duterte
-// /official/senator-alan-peter-cayetano
+// Red - President, danger states
+className="bg-ph-red text-white"        // #F70000
+className="text-ph-red-600"
 
-// Generate slugs using utility function
-import { generateSlug } from '../data/officials';
-const slug = generateSlug(official);
+// Blue - Vice President, primary actions
+className="bg-ph-blue text-white"       // #0038A8
+className="text-ph-blue-600"
+
+// Yellow - Senators, warning states
+className="bg-ph-yellow text-gray-900"  // #FCD116
+className="text-ph-yellow-600"
 ```
 
-## Navigation Components
-Always use React Router's `Link` component for client-side navigation:
-
+### Extended Color System
 ```tsx
-import { Link } from 'react-router';
+// Primary (Blue-based)
+className="bg-primary-500 text-white"   // Main brand color
+className="bg-primary-50 border-primary-200"  // Light backgrounds
 
-// Internal navigation
-<Link to="/" className="hover:text-primary-600 transition-colors">
-  Home
-</Link>
+// Accent (Gold-based)
+className="bg-accent-500 text-white"    // Secondary actions
+className="bg-accent-50 text-accent-800"      // Highlighted content
 
-// Dynamic routes
-<Link to={`/official/${generateSlug(official)}`}>
-  View SALN Records
-</Link>
-
-// Button-style links
-<Link to="/about">
-  <Button variant="primary">Learn More</Button>
-</Link>
+// Danger (Red-based)
+className="bg-danger-500 text-white"    // Error states
+className="bg-danger-50 text-danger-800"      // Error backgrounds
 ```
 
-## Route Components Pattern
+## Typography Scale
 ```tsx
-import type { Route } from "./+types/route-name";
+// Display headings
+className="text-2xl sm:text-4xl font-bold tracking-tight"
 
-// Meta function for SEO
-export function meta({ params }: Route.MetaArgs) {
-  return [
-    { title: "Page Title - SALN Tracker Philippines" },
-    { name: "description", content: "Page description for SEO" },
-  ];
-}
+// Section headings
+className="text-xl sm:text-2xl font-bold text-gray-900"
 
-// Main component
-export default function RouteComponent({ params }: Route.ComponentProps) {
-  // Route logic here
-  return <div>{/* Page content */}</div>;
-}
+// Card titles
+className="text-lg font-semibold text-gray-900"
+
+// Body text
+className="text-sm sm:text-base text-gray-700 leading-relaxed"
+
+// Small text
+className="text-xs sm:text-sm text-gray-600"
 ```
 
-## Error Handling
-- **404 Pages**: Use [app/routes/$.tsx](mdc:app/routes/$.tsx) for catch-all routing
-- **Not Found States**: Check for data existence and show appropriate messages
-- **Navigation Fallbacks**: Always provide "Back to Home" links
+## Component Patterns
 
-## Data Loading Patterns
+### Cards
 ```tsx
-// Load data in component
-const official = findOfficialBySlug(params.slug);
+// Standard card
+<Card hoverable className="h-full">
+  <CardHeader className="pb-3">
+    <CardTitle className="text-base sm:text-lg">Title</CardTitle>
+  </CardHeader>
+  <CardContent className="pt-0">
+    {/* Content */}
+  </CardContent>
+</Card>
 
-// Handle not found
-if (!official) {
-  return <NotFoundComponent />;
-}
-
-// Use computed data
-const officialWithSALN = getOfficialWithSALNData(official);
+// Highlighted card
+<Card className="border-2 border-primary-200 bg-primary-50">
 ```
 
-## Best Practices
-1. **Always use `Link`** for internal navigation (never `<a>` tags)
-2. **Include transition classes** for smooth hover effects
-3. **Provide clear navigation paths** - users should always know where they are
-4. **Use semantic slugs** that are readable and SEO-friendly
-5. **Include breadcrumbs** or "back" buttons for deep pages
-6. **Handle loading states** appropriately during navigation
+### Buttons
+```tsx
+// Primary action
+<Button variant="primary" size="sm" className="w-full">
+
+// Secondary action
+<Button variant="ghost" className="text-sm">
+
+// Badge variants
+<Badge variant="ph-red" size="lg">PRESIDENT</Badge>
+<Badge variant="ph-blue" size="lg">VICE PRESIDENT</Badge>
+<Badge variant="ph-yellow" size="lg">SENATOR</Badge>
+```
+
+### Gradients
+```tsx
+// Flag gradient (red to blue)
+className="bg-flag-gradient"
+
+// Primary gradient
+className="bg-gradient-to-r from-primary-500 to-primary-600"
+
+// Accent gradient  
+className="bg-gradient-to-r from-accent-400 to-accent-500"
+```
+
+### Glass Effects
+```tsx
+// Backdrop blur glass effect
+className="bg-white/95 backdrop-blur-sm"
+className="bg-white/10 backdrop-blur-sm border border-white/20"
+```
+
+## Layout Conventions
+```tsx
+// Page containers
+className="container mx-auto px-3 sm:px-4 lg:px-8"
+
+// Section spacing
+className="space-y-6 sm:space-y-8"
+
+// Grid layouts
+className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+```
+
+## Accessibility
+- Use semantic HTML elements
+- Ensure sufficient color contrast
+- Provide proper focus states with `focus:` variants
+- Use `sr-only` for screen reader content when needed
 
 ---
 > Source: [JHNLWHD/saln-tracker-ph](https://github.com/JHNLWHD/saln-tracker-ph) — distributed by [TomeVault](https://tomevault.io).
