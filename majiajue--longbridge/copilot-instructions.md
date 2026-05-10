@@ -1,41 +1,280 @@
-## streaming-ws
+## trading-api
 
-> 行情流与 WebSocket 规范（QuoteStreamManager 与 /ws/quotes）
+> Longbridge 交易 API 集成（下单、撤单、查询）
 
+# Longbridge 交易 API 规范
 
-# 行情流与 WebSocket 规则
+## 核心组件
 
-核心职责：
-- `QuoteStreamManager` 负责：
-  - 订阅与管理 Longbridge 行情（`QuoteContext`）
-  - 维护监听队列，向所有队列广播 payload
-  - 跟踪状态与最近行情时间（`_last_quote_at`），对外提供 `snapshot()`
-  - 动态更新订阅（凭据变更重启、符号变更 reload）
-  - 周期性推送组合更新（`_run_portfolio_updates`）
+### LongbridgeTradingAPI
+- 位置：[backend/app/trading_api.py](mdc:backend/app/trading_api.py)
+- 全局单例：通过 `get_trading_api()` 获取
+- 职责：
+  - 封装 Longbridge TradeContext
+  - 提供下单、撤单、查询接口
+  - 统一错误处理与日志记录
 
-线程/事件循环：
-- 在 `startup` 中通过 `attach_loop(asyncio.get_running_loop())` 提供 loop
-- `ensure_started()` 在后台线程运行 `_run()`，并启动组合更新线程
-- `stop()` 会结束两条线程并广播停止状态
+## 凭据管理
 
-广播数据格式：
-- 状态：`{"type":"status","status":str,"detail":str|null,"subscribed":[...],"last_quote_at":iso}`
-- 行情：`{"type":"quote","symbol":str, "last_done":float|null, ... , "timestamp":unix}`
-- 组合：`{"type":"portfolio_update", "timestamp":iso, "positions":[], "totals":{}, "account_balance":{}}`
+从 [backend/app/repositories.py](mdc:backend/app/repositories.py) 加载加密凭据：
+- `LONGPORT_APP_KEY`
+- `LONGPORT_APP_SECRET`
+- `LONGPORT_ACCESS_TOKEN`
 
-前端接入：
-- WebSocket 路径：`/ws/quotes`
-- 统一通过 `frontend/src/api/client.ts` 的 `resolveWsUrl()` 构造 WS 地址
-- 首条消息通常为 `type=status` 的快照
+## 数据结构
 
-扩展与变更：
-- 新增推送类型时，保持 `type` 字段稳定且向前兼容
-- 大对象频推送需节流或拆分（避免阻塞队列）；默认队列容量为 200
-- 行情标准化逻辑集中于 `_normalize_quote()`，涉及 symbol 归一化、涨跌幅计算
+### OrderRequest
+```python
+@dataclass
+class OrderRequest:
+    symbol: str                     # 股票代码（如 "AAPL.US"）
+    side: OrderSide                 # BUY / SELL
+    quantity: int                   # 数量
+    order_type: OrderType = MARKET  # 订单类型
+    price: Optional[float] = None   # 限价（限价单）
+    stop_price: Optional[float] = None  # 止损价（止损单）
+    time_in_force: str = "Day"     # 有效期
+    remark: Optional[str] = None   # 备注
+```
 
-参考：
-- [backend/app/streaming.py](mdc:backend/app/streaming.py)
-- [backend/app/main.py](mdc:backend/app/main.py)
+### OrderResponse
+```python
+@dataclass
+class OrderResponse:
+    order_id: str                  # 订单 ID
+    status: OrderStatus            # 订单状态
+    symbol: str
+    side: OrderSide
+    quantity: int
+    filled_quantity: int           # 已成交数量
+    price: Optional[float]         # 委托价
+    filled_price: Optional[float]  # 成交价
+    created_at: datetime
+    updated_at: datetime
+    error_message: Optional[str] = None
+```
+
+### 枚举类型
+
+#### OrderStatus
+- `PENDING`：待提交
+- `SUBMITTED`：已提交
+- `PARTIAL_FILLED`：部分成交
+- `FILLED`：全部成交
+- `CANCELLED`：已取消
+- `REJECTED`：已拒绝
+- `EXPIRED`：已过期
+
+#### OrderType
+- `MARKET`：市价单
+- `LIMIT`：限价单
+- `STOP`：止损单
+- `STOP_LIMIT`：止损限价单
+
+#### OrderSide
+- `BUY`：买入（映射到 Longbridge `OrderSide.Buy`）
+- `SELL`：卖出（映射到 Longbridge `OrderSide.Sell`）
+
+## API 方法
+
+### 1. place_order()
+下单接口（异步）
+
+```python
+trading_api = get_trading_api()
+
+order_request = OrderRequest(
+    symbol="AAPL.US",
+    side=OrderSide.BUY,
+    quantity=100,
+    order_type=OrderType.MARKET,
+    remark="策略买入"
+)
+
+order_response = await trading_api.place_order(order_request)
+
+if order_response.status.value in ["submitted", "filled", "partial_filled"]:
+    print(f"订单成功：{order_response.order_id}")
+else:
+    print(f"订单失败：{order_response.error_message}")
+```
+
+**返回**：
+- 成功：`OrderResponse` with `status=SUBMITTED`，包含 `order_id`
+- 失败：`OrderResponse` with `status=REJECTED`，包含 `error_message`
+
+**注意**：
+- 市价单无需 `price`
+- 限价单必须提供 `price`
+- TradeContext 自动关闭（finally 块）
+
+### 2. cancel_order()
+撤单接口（异步）
+
+```python
+success = await trading_api.cancel_order(order_id="123456")
+```
+
+**返回**：
+- `True`：撤单成功
+- `False`：撤单失败（订单不存在或无法撤销）
+
+### 3. get_order_status()
+查询订单状态（异步）
+
+```python
+order_response = await trading_api.get_order_status(order_id="123456")
+
+if order_response:
+    print(f"状态：{order_response.status.value}")
+    print(f"成交量：{order_response.filled_quantity}")
+    print(f"成交价：{order_response.filled_price}")
+```
+
+**返回**：
+- 成功：`OrderResponse` 对象
+- 失败：`None`（订单不存在或查询失败）
+
+**实现**：
+- 调用 Longbridge `today_orders()` 获取当日所有订单
+- 遍历查找匹配的 `order_id`
+- 映射 Longbridge 状态到本地枚举
+
+### 4. get_account_balance()
+查询账户余额（异步）
+
+```python
+balance = await trading_api.get_account_balance()
+
+# 返回格式：
+{
+  "USD": {
+    "total_cash": 100000.0,
+    "available_cash": 95000.0,
+    "frozen_cash": 5000.0,
+    "net_assets": 120000.0,
+    "currency": "USD"
+  },
+  "HKD": { ... }
+}
+```
+
+### 5. get_positions()
+查询当前持仓（异步）
+
+```python
+positions = await trading_api.get_positions()
+
+# 返回列表：
+[
+  {
+    "symbol": "AAPL.US",
+    "symbol_name": "Apple Inc.",
+    "currency": "USD",
+    "quantity": 100.0,
+    "available_quantity": 100.0,
+    "cost_price": 150.0,
+    "market": "US",
+    "account_channel": "lb"
+  }
+]
+```
+
+## 异常处理
+
+### LongbridgeDependencyMissing
+- 场景：未安装 `longport` SDK
+- 处理：路由层映射为 503 Service Unavailable
+- 解决：运行 `pip install longport`
+
+### LongbridgeAPIError
+- 场景：凭据未配置、API 调用失败
+- 处理：路由层映射为 502 Bad Gateway
+- 日志：记录详细错误信息
+
+## 集成点
+
+### 策略引擎集成
+在 [backend/app/strategy_engine.py](mdc:backend/app/strategy_engine.py) 中：
+
+#### 买入流程
+```python
+# 执行最优买入
+from .trading_api import get_trading_api, OrderRequest, OrderSide, OrderType
+
+trading_api = get_trading_api()
+order_request = OrderRequest(
+    symbol=symbol,
+    side=OrderSide.BUY,
+    quantity=quantity,
+    order_type=OrderType.MARKET,
+    remark=f"Strategy: {strategy_id}"
+)
+
+order_response = await trading_api.place_order(order_request)
+
+if order_response.status.value in ["submitted", "filled", "partial_filled"]:
+    position.order_id = order_response.order_id
+    position.actual_entry_price = order_response.filled_price
+else:
+    # 订单失败，删除仓位或标记为模拟
+    position.is_simulation = True
+```
+
+#### 卖出流程
+```python
+# 执行卖出
+order_request = OrderRequest(
+    symbol=position.symbol,
+    side=OrderSide.SELL,
+    quantity=position.quantity,
+    order_type=OrderType.MARKET,
+    remark=f"Exit: {reason}"
+)
+
+order_response = await trading_api.place_order(order_request)
+
+if order_response.status.value in ["submitted", "filled", "partial_filled"]:
+    position.exit_order_id = order_response.order_id
+    position.actual_exit_price = order_response.filled_price
+    
+    # 用实际成交价重新计算 PnL
+    if position.actual_entry_price and position.actual_exit_price:
+        actual_pnl = (position.actual_exit_price - position.actual_entry_price) * position.quantity
+        position.pnl = actual_pnl
+```
+
+## 注意事项
+
+1. **上下文管理**：
+   - TradeContext 在每次调用时创建
+   - 使用后立即关闭（`finally` 块）
+   - 避免长时间持有连接
+
+2. **错误重试**：
+   - API 失败不自动重试
+   - 建议上层实现重试逻辑
+   - 记录所有失败到日志
+
+3. **订单类型映射**：
+   - 本地 `OrderType.MARKET` → Longbridge `OrderType.MO`
+   - 本地 `OrderType.LIMIT` → Longbridge `OrderType.LO`
+   - 止损单映射为 `SLO`
+
+4. **时间处理**：
+   - Longbridge 返回 ISO 8601 格式时间戳
+   - 自动转换为 Python `datetime`（移除时区信息）
+
+5. **模拟与真实交易**：
+   - 策略引擎优先尝试真实下单
+   - 失败时保留模拟仓位（`is_simulation=True`）
+   - 方便回测与实盘切换
+
+参考文件：
+- [backend/app/trading_api.py](mdc:backend/app/trading_api.py)
+- [backend/app/strategy_engine.py](mdc:backend/app/strategy_engine.py)
+- [backend/app/exceptions.py](mdc:backend/app/exceptions.py)
+- [backend/app/repositories.py](mdc:backend/app/repositories.py)
 
 ---
 > Source: [majiajue/longbridge](https://github.com/majiajue/longbridge) — distributed by [TomeVault](https://tomevault.io).
