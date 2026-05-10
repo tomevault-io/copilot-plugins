@@ -1,0 +1,9 @@
+{
+  "name": "mikkoparkkola--trvl",
+  "displayName": "trvl",
+  "description": "AI Travel Agent \u2014 Google Flights + Hotels from your terminal. 43 MCP tools, trip optimization, airport lounges, travel hacks. Free, no API keys, single Go binary.",
+  "version": "1.0.0",
+  "author": "MikkoParkkola",
+  "homepage": "https://github.com/MikkoParkkola/trvl",
+  "skills": []
+}
