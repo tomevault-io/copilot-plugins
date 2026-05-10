@@ -1,0 +1,9 @@
+{
+  "name": "rygel--aiusagetracker",
+  "displayName": "AIUsageTracker",
+  "description": "Token usage tracker for (not only) OpenCode",
+  "version": "1.0.0",
+  "author": "rygel",
+  "homepage": "https://github.com/rygel/AIUsageTracker",
+  "skills": []
+}
