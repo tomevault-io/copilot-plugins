@@ -1,0 +1,9 @@
+{
+  "name": "louisbrulenaudet--genai-api",
+  "displayName": "genai-api",
+  "description": "Supercharge your applications using Cloudflare Workers and Gemini within minutes (and for free, up to hundreds of requests per day) \u2601\ufe0f\u2728",
+  "version": "1.0.0",
+  "author": "louisbrulenaudet",
+  "homepage": "https://github.com/louisbrulenaudet/genai-api",
+  "skills": []
+}
