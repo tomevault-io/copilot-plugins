@@ -1,0 +1,9 @@
+{
+  "name": "cloudgen--ciao-lite",
+  "displayName": "ciao-lite",
+  "description": "CIAO-Lite is designed for fast convergence.   Its core philosophy is Simplicity but Safety \u2014 we pursue clean and simple code, but safety, clarity of intention, and long-term maintainability always hav",
+  "version": "1.0.0",
+  "author": "cloudgen",
+  "homepage": "https://github.com/cloudgen/ciao-lite",
+  "skills": []
+}
