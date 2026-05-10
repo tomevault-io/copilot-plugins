@@ -1,0 +1,9 @@
+{
+  "name": "calhooon--bsv-wallet-cli",
+  "displayName": "bsv-wallet-cli",
+  "description": "Self-hosted BSV wallet and BRC-100 server in a single Rust binary \u2014 non-custodial, CLI-first, wire-compatible with MetaNet Client",
+  "version": "1.0.0",
+  "author": "Calhooon",
+  "homepage": "https://github.com/Calhooon/bsv-wallet-cli",
+  "skills": []
+}
