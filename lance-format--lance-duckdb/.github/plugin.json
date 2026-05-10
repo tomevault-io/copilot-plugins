@@ -1,0 +1,9 @@
+{
+  "name": "lance-format--lance-duckdb",
+  "displayName": "lance-duckdb",
+  "description": "The lance extensions for DuckDB enable reading and writing of lance tables.",
+  "version": "1.0.0",
+  "author": "lance-format",
+  "homepage": "https://github.com/lance-format/lance-duckdb",
+  "skills": []
+}
