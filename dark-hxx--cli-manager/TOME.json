@@ -1,0 +1,44 @@
+{
+  "name": "CLI-Manager",
+  "owner": "dark-hxx",
+  "repo": "CLI-Manager",
+  "description": "CLI-Manager: \u7528\u4e8e\u96c6\u4e2d\u7ba1\u7406\u57fa\u4e8e Windows PowerShell \u7684\u591a\u4e2a\u5f00\u53d1\u9879\u76ee\uff0c\u89e3\u51b3\u591a\u7a97\u53e3\u5207\u6362\u3001\u91cd\u590d\u8f93\u5165\u547d\u4ee4\u7684\u75db\u70b9\uff0c\u63d0\u5347\u5f00\u53d1\u5de5\u4f5c\u6d41\u6548\u7387\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dark-hxx/CLI-Manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T09:16:21Z"
+}
