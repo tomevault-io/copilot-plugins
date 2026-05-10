@@ -1,0 +1,57 @@
+{
+  "name": "med-paper-assistant",
+  "owner": "u9401066",
+  "repo": "med-paper-assistant",
+  "description": "\ud83d\udd2c AI-powered medical paper writing toolkit \u2014 from PubMed search to Word export, all inside VS Code",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-refactor",
+      "path": ".claude/skills/code-refactor",
+      "github_url": "https://github.com/u9401066/med-paper-assistant/tree/main/.claude/skills/code-refactor",
+      "description": ""
+    },
+    {
+      "name": "draft-writing",
+      "path": "vscode-extension/skills/draft-writing",
+      "github_url": "https://github.com/u9401066/med-paper-assistant/tree/main/vscode-extension/skills/draft-writing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/u9401066/med-paper-assistant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T22:30:08Z"
+}
