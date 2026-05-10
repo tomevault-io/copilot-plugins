@@ -1,93 +1,65 @@
-## tauri-app-icons
+## typescript
 
-> Tauri ships a default icon set (Tauri logo). Replace it by generating icons from your app image.
+> - Prefer interfaces over types for object definitions
 
 
-# Tauri App Icons
+# TypeScript Best Practices
 
-Tauri ships a default icon set (Tauri logo). Replace it by generating icons from your app image.
+## Type System
 
-## Filetypes
+- Prefer interfaces over types for object definitions
+- Use type for unions, intersections, and mapped types
+- NEVER use `any` or `as any` types or coercion
+- Use strict TypeScript configuration
+- Leverage TypeScript's built-in utility types
+- Use generics for reusable type patterns
+- Use `unknown` for variables that are not yet typed
+- Use `Zod` for schema validation
+- Use the type guards pattern for runtime type checking
+- Use `assertString` for runtime string checking
 
-- icon.icns = macOS
-- icon.ico = Windows
-- \*.png = Linux
-- Square\*Logo.png & StoreLogo.png = Intended for AppX/MS Store (currently unused)
+## Naming Conventions
 
-Some formats (especially PNG) may be used across platforms. Include all icons even if you build for only some platforms.
+- Use PascalCase for type names and interfaces
+- Use camelCase for variables and functions
+- Use UPPER_CASE for constants
+- Use descriptive names with auxiliary verbs (e.g., isLoading, hasError)
+- Prefix interfaces for React props with 'Props' (e.g., ButtonProps)
 
-## Generate icons (pnpm)
+## Code Organization
 
-Use a squared PNG or SVG with transparency (e.g., 1024×1024).
+- Keep type definitions close to where they're used
+- Export types and interfaces from dedicated type files when shared
+- Use barrel exports (index.ts) for organizing exports
+- Place shared types in a `types.ts` file
+- Co-locate component props with their components
+- Prefer to use multiple files.
+- Never place two classes or components in the same file.
 
-```bash
-pnpm run tauri icon ./app-icon.png
-```
+## Functions
 
-Arguments and options (common):
+- Use explicit return types for public functions
+- Use arrow functions for callbacks and methods
+- Use function overloads for complex type scenarios
+- Prefer async/await over Promises
+- Prefer function declarations over function expressions.
+- Prefer functional programming over classes.
 
-- [INPUT]: Source icon path (default: ./app-icon.png)
+## Best Practices
 
-Desktop icons are generated to `src-tauri/icons/` by default and included automatically in builds.
+- Enable strict mode in tsconfig.json
+- Use readonly for immutable properties
+- Leverage discriminated unions for type safety
+- Implement proper null checking
+- When making changes, don't worry about backwards compatibility. For example, don't alias types.
 
-### macOS icon prep (padding + corners)
+## Imports
 
-MacOS requires icons to be artwork inside a padded canvas and apply rounded corners to the artwork itself before generating the icon set.
+- ALWAYS use `@/` style imports vs relative imports, except when importing from the same directory.
 
-- **Canvas**: 1024×1024, transparent
-- **Inner artwork size**: 826×826 (≈ 80.66% of canvas)
-- **Corner radius (Apple standard)**: 187 px on the 826 side (≈ 22.6% of inner side)
+## Error Handling
 
-General guidance for other base sizes:
-
-- **inner_size** = round(0.8066 × canvas_size)
-- **corner_radius** = round(0.226 × inner_size)
-
-#### Create previews with ImageMagick
-
-Generate two previews to compare composition, then pick one to feed into the Tauri icon generator.
-
-- **Center-cropped (cover) with rounded corners**
-
-```bash
-magick \
-  \( -size 1024x1024 canvas:none \) \
-  \( ./SOURCE.png \
-     -resize 826x826^ -gravity center -extent 826x826 \
-     \( -size 826x826 xc:none -fill white -draw "roundrectangle 0,0,825,825,187,187" \) \
-     -alpha set -compose CopyOpacity -composite \) \
-  -gravity center -compose over -composite \
-  ./app-icon-1024-preview-crop.png
-```
-
-- **Fit-within (letterbox) with rounded corners**
-
-```bash
-magick \
-  \( -size 1024x1024 canvas:none \) \
-  \( ./SOURCE.png \
-     -resize 826x826 -background none -gravity center -extent 826x826 \
-     \( -size 826x826 xc:none -fill white -draw "roundrectangle 0,0,825,825,187,187" \) \
-     -alpha set -compose CopyOpacity -composite \) \
-  -gravity center -compose over -composite \
-  ./app-icon-1024-preview-letterbox.png
-```
-
-After selecting the preferred preview, generate the full icon set (desktop + mobile) into `src-tauri/icons`:
-
-```bash
-pnpm run tauri icon ./app-icon-1024-preview-crop.png -o src-tauri/icons -v
-```
-
-## Icon workflow steps
-
-To generate icons, you can use the following steps:
-
-1. Receive a png file from the user, preferrably 1024x1024.
-2. Prep the icon (padding, corners) for macOS using the directions above.
-3. Run the `pnpm run tauri icon` command to generate the icons.
-
-You may overwrite existing icons. Imagemagick is already installed on the system.
+- DO NOT proactively add error handling
 
 ---
 > Source: [team-forge-ai/openchat](https://github.com/team-forge-ai/openchat) — distributed by [TomeVault](https://tomevault.io).
