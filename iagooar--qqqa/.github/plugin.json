@@ -1,0 +1,9 @@
+{
+  "name": "iagooar--qqqa",
+  "displayName": "qqqa",
+  "description": "Fast, stateless LLM for your shell: qq answers; qa runs commands",
+  "version": "1.0.0",
+  "author": "iagooar",
+  "homepage": "https://github.com/iagooar/qqqa",
+  "skills": []
+}
