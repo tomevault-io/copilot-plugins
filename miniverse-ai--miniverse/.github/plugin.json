@@ -1,9 +1,9 @@
 {
   "name": "miniverse-ai--miniverse",
   "displayName": "miniverse",
-  "description": "miniverse",
+  "description": "LLM framework for building multi-agent simulations",
   "version": "1.0.0",
   "author": "miniverse-ai",
-  "homepage": "https://tomevault.io/claim/miniverse-ai",
+  "homepage": "https://github.com/miniverse-ai/miniverse",
   "skills": []
 }
