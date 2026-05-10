@@ -1,164 +1,104 @@
-## frontend
+## overview
 
-> - **Speed over purity** - Ship features fast, refactor later
+> **Optimize for AI Code Generation Speed and Reliability**
 
-# Frontend Architecture - Vertical Slices
+# Rapid-Dev Project Overview
 
-## 🎯 Philosophy: PRAGMATIC OVER PERFECT
-- **Speed over purity** - Ship features fast, refactor later
-- **Simple patterns** - Avoid over-engineering 
-- **Consistency** - Follow established patterns for AI predictability
+## 🎯 Architecture Philosophy: PRAGMATIC FIRST
+**Optimize for AI Code Generation Speed and Reliability**
+- **Speed over purity** - Ship working features, refactor later
+- **Simple over clever** - Boring code is maintainable code
+- **Consistent patterns** - AI can predict and repeat
+- **Avoid over-engineering** - YAGNI (You Aren't Gonna Need It)
 
-## 📁 Structure
+## 🏗️ Vertical Slice Architecture
+**Both Frontend + Backend use feature slices (but cross-imports OK)**
 ```
-src/
-├── features/          # Self-contained feature slices
-├── shared/           # Reusable components/hooks
-├── api/              # 🤖 ORVAL GENERATED (DO NOT EDIT)
-└── app/              # Next.js App Router
-```
-
-## 🏗️ Feature Slice Pattern
-```
-features/feature-name/
-├── index.ts          # Exports (import { X } from '@/features/auth')
-├── components/       # Feature components
-├── hooks/           # Wraps api/hooks with business logic
-└── [name]-context.tsx # Feature state (if needed)
+frontend/src/features/     # React feature slices (can import each other)
+api/Source/Features/       # .NET feature slices (MediatR patterns)
 ```
 
-## 🤖 Orval Integration - CRITICAL
-- **Generated**: `api/hooks/` (React Query) + `api/models/` (DTOs)
-- **Regenerate**: `npm run api:generate` after backend changes
-- **Pattern**: Features wrap generated hooks, add business logic
-- **🚨 NEVER EDIT**: Generated files will be overwritten
+## 🔧 Technology Stack
+- **Frontend**: Next.js 15 + React 19 + TypeScript + Orval
+- **Backend**: .NET 9 + ASP.NET Core + MediatR + EF Core
+- **Database**: PostgreSQL with Code First migrations
+- **Auth**: ASP.NET Core Identity + JWT + OTP via Resend
+- **Real-time**: SignalR for live updates
+- **Jobs**: Hangfire (background processing)
+- **Storage**: Cloudflare R2 for files
 
-## 🔧 Tech Stack
-- **Next.js 15** + **React 19** + **TypeScript 5**
-- **React Query** + **shadcn/ui** + **Tailwind CSS**
-- **Axios** (JWT auth) + **SignalR** (real-time)
+## 🔄 API Integration Flow - CRITICAL
+1. Backend updates .NET controllers/models
+2. Swagger spec auto-generated at `/swagger/v1/swagger.json`
+3. Frontend runs `npm run api:generate` (Orval)
+4. TypeScript hooks/DTOs generated (NEVER EDIT THESE)
+5. Features wrap generated code with business logic
 
-## 📋 Patterns
+## 🔐 Authentication Pattern
+- ASP.NET Core Identity manages users + OTP tokens
+- OTP sent via Resend email service 
+- JWT tokens for API authentication
+- Frontend stores JWT in localStorage
+- Axios interceptors add `Authorization: Bearer {token}`
+- SignalR uses same JWT for real-time auth
 
-### Imports
-```typescript
-// External first
-import { useState } from 'react';
-// Internal with aliases
-import { Button } from '@/shared/components/ui/button';
-import { useAuth } from '@/features/auth';
-import { useUsers } from '@/features/users'; // ✅ Cross-feature OK
+## 🚀 Development Workflow
+
+### Backend First (Always)
+1. Create feature slice in `api/Source/Features/[Feature]/`
+2. Add Commands, Queries, Models via MediatR
+3. EF migrations: `dotnet ef migrations add [Name]`
+4. Swagger updates automatically
+
+### Then Frontend
+1. Run `npm run api:generate` (regenerates TypeScript)
+2. Create feature slice in `frontend/src/features/[feature]/`
+3. Wrap generated hooks with business logic
+4. Build UI components
+
+## 🎯 Key Principles
+- ✅ Features CAN cross-import (be pragmatic, not dogmatic)
+- ✅ Domain events for async cross-feature communication
+- ✅ Generated code is NEVER edited manually
+- ✅ Type safety end-to-end (.NET → TypeScript via Swagger)
+- ✅ Real-time updates via SignalR + React Query cache invalidation
+- ✅ Ship fast, optimize later
+
+## 🚨 Critical Things to Remember
+- **Orval wipes `api/` folder** - wrap generated hooks, don't edit
+- **EF migrations** - always test locally before deploy
+- **JWT expiry** - handle 401s gracefully in frontend
+- **SignalR cleanup** - useEffect cleanup for connections
+- **Background jobs** - use for heavy operations, not blocking requests
+- **CORS** - Next.js proxy handles this (`/api/*` → backend)
+
+## 📁 Project Structure
+```
+rapid-dev/
+├── frontend/          # Next.js app
+├── api/               # .NET 9 backend  
+├── infrastructure/    # Docker configs
+└── docs/              # Setup guides (Cloudflare, Resend, etc.)
 ```
 
-### Components
-```typescript
-export function Component({ prop }: Props) {
-  // Hooks first - use namespaced, not destructured
-  const data = useData();
-  const form = useForm();
-  
-  // Event handlers
-  const handleClick = () => data.refresh();
-  
-  // Render
-  return <div>{content}</div>;
-}
-```
+## 🔄 Common Patterns
 
-### Hook Usage - CRITICAL PATTERN
-**Use namespaced hooks, NOT destructuring for cleaner code:**
+### Adding New Feature
+1. **Backend**: Feature folder + Commands/Queries + Controller
+2. **Database**: EF migration if needed
+3. **Frontend**: `npm run api:generate` + feature slice + UI
 
-```typescript
-// ❌ BAD: Destructuring chaos
-const { data, isLoading, error, hasData, create, update, delete: deleteItem, isCreating, isUpdating, isDeleting } = useItems();
-const { name, setName, description, setDescription, isVisible, open, close, submit } = useForm();
+### File Upload Flow
+1. Frontend requests presigned URL from Cloudflare R2
+2. Direct upload to R2 (bypasses backend)
+3. Frontend notifies backend of upload completion
+4. Backend processes file, triggers domain events
 
-// ✅ GOOD: Clean namespaced
-const items = useItems();
-const form = useForm();
-
-// Usage becomes crystal clear:
-<button onClick={items.create} disabled={items.isCreating}>
-  {items.isCreating ? 'Creating...' : 'Create'}
-</button>
-<input value={form.name} onChange={form.setName} />
-```
-
-**Benefits:**
-- **5 lines instead of 20+** - massive reduction in component noise
-- **Clear origins** - `items.create()` vs mystery `create()` function
-- **Better IntelliSense** - type `items.` to see all available methods
-- **No naming conflicts** - multiple hooks can have `isLoading`
-- **Easier refactoring** - hook API changes don't break destructuring
-
-### Code as Poetry
-**Write code that reads like poetry - simple, clear, purposeful:**
-
-```typescript
-function MyComponent() {
-  // Clean setup - like verses in a poem
-  const data = useData();
-  const form = useForm();
-  const animations = useAnimations();
-
-  // Guard clauses - clear and direct
-  if (data.isLoading) return <Loading />;
-  if (data.error) return <Error />;
-
-  // Pure composition - every line has purpose
-  return (
-    <div>
-      <Header />
-      <CreateForm data={data} form={form} />
-      <ItemsList data={data} animations={animations} />
-    </div>
-  );
-}
-```
-
-**Poetry Principles:**
-- **Rhythm** - Setup → Guard → Compose (natural flow)
-- **Clarity** - Every variable name tells its story
-- **Purpose** - No line exists without reason
-- **Simplicity** - Complex is the enemy of readable
-
-### API Hook Wrapping
-```typescript
-// features/users/hooks/use-users.ts
-import { useGetUsers } from '@/api/hooks'; // Generated
-
-export function useUsers() {
-  const query = useGetUsers();
-  
-  // Add business logic here
-  return {
-    ...query,
-    displayUsers: query.data?.map(u => ({
-      ...u,
-      fullName: `${u.firstName} ${u.lastName}`
-    }))
-  };
-}
-```
-
-## 🎯 Key Rules
-- ✅ Never edit `api/hooks/` or `api/models/`
-- ✅ Features CAN import from other features (be pragmatic)
-- ✅ Use Server Components by default, 'use client' when needed
-- ✅ JWT from localStorage, axios interceptors for auth
-- ✅ Wrap generated hooks in feature-specific hooks
-- ✅ Keep it simple - avoid over-engineering
-- ✅ Consistency over cleverness
-- ✅ keep the design clear, do not overuse emojis, make it feel real, and clean
-
-
-
-## 🚨 Critical Gotchas
-- **Orval regeneration** wipes `api/` folder - never edit directly
-- **'use client'** needed for hooks, state, event handlers
-- **SignalR connections** need cleanup in useEffect
-- **JWT expiry** - handle 401s gracefully
-- **Loading states** - always handle isLoading/error from React Query
+### Real-time Updates
+1. Backend operation triggers domain event
+2. SignalR hub sends update to connected clients
+3. Frontend React Query cache invalidation
+4. UI automatically re-renders with fresh data 
 
 ---
 > Source: [WilliamAvHolmberg/vibecodementor](https://github.com/WilliamAvHolmberg/vibecodementor) — distributed by [TomeVault](https://tomevault.io).
