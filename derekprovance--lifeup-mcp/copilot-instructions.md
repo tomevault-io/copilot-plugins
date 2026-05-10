@@ -1,0 +1,454 @@
+## lifeup-mcp
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+**LifeUp MCP Server** is a Model Context Protocol (MCP) server that enables Claude to interact with the LifeUp task management app running on a local Android device. The server acts as a bridge between Claude and LifeUp's HTTP API, exposing 20 tools for task creation, achievement management, querying, user profile information, shop browsing, and data mutation operations. In SAFE_MODE, 14 tools are available (11 read-only + 3 create operations).
+
+## Architecture
+
+### High-Level Design
+
+```
+Claude (via MCP)
+    ↓
+MCP Server (Node.js/TypeScript)
+    ├── Request Handlers (server.ts)
+    ├── Tool Implementations (tools/)
+    ├── API Client (client/lifeup-client.ts)
+    ├── Configuration (config/)
+    ├── Error Handling (error/)
+    └── Validation (via Zod)
+    ↓
+HTTP Client (axios)
+    ↓
+LifeUp Cloud API (Android Device)
+```
+
+### Key Components
+
+**server.ts** - MCP server initialization and tool registration
+- Registers two request handlers: `tools/list` and `tools/call`
+- Dispatches tool calls to appropriate tool implementations
+- Uses Zod schemas for request validation
+
+**client/lifeup-client.ts** - HTTP wrapper around LifeUp's REST API
+- Singleton instance (`lifeupClient`)
+- Handles all HTTP requests to LifeUp server
+- Converts axios errors to `LifeUpError` with user-friendly messages
+- Health check capability for connectivity verification
+
+**tools/task-tools.ts** - Task management operations
+- 6 exported static methods: `createTask`, `listAllTasks`, `searchTasks`, `getTaskHistory`, `getTaskCategories`, `deleteTask`
+- All return formatted markdown strings for Claude
+- Calls `lifeupClient` methods and wraps results in error handling
+
+**tools/achievement-tools.ts** - Achievement querying, matching, and management
+- `listAchievements` - Lists all achievements by fetching from all categories (N+1 requests where N=category count), with fallback to categories if unavailable
+  - Shows unlock conditions when available (requires API support)
+  - Displays 21 condition types: task completions, coins, skills, items, usage metrics, etc.
+  - Format: "Unlock by: [condition 1] AND [condition 2]"
+  - Falls back gracefully if conditions unavailable
+  - Shows detailed progress for locked achievements (e.g., "50% progress: 5/10")
+- `listAchievementCategories` - Lists all achievement categories with IDs and descriptions
+- `matchTaskToAchievements` - Keyword-based matching algorithm to suggest relevant achievements for a task
+- `createAchievement` - Create new custom achievements with optional unlock conditions and rewards
+- `updateAchievement` - Modify existing achievement properties (name, description, rewards, unlock status). ⚠️ IMPORTANT: The LifeUp API does not support updating conditions_json. To change unlock conditions, you must delete the achievement and create a new one.
+- `deleteAchievement` - Delete achievement definitions permanently
+
+**tools/user-info-tools.ts** - User profile and character information
+- `listSkills` - Lists all skills with levels, experience, and progress to next level
+- `getUserInfo` - Displays player name, character level, version, and total experience
+- `getCoinBalance` - Shows current coin balance and currency information
+- Helps users understand their character progression and economy
+
+**tools/shop-tools.ts** - Shop browsing and item search
+- `listShopItems` - Lists all shop items with prices, stock availability, and owned quantities
+- `getShopCategories` - Lists all shop item categories for organization
+- `searchShopItems` - Filters items by name, category, and price range
+- Enables users to browse and search the shop inventory
+
+**tools/mutation-tools.ts** - Safe data mutation operations
+- `editTask` - Edit existing task properties (name, rewards, category, appearance, task type, count settings)
+- `addShopItem` - Create new shop items with price, stock, effects, and purchase limits
+- `editShopItem` - Modify shop items with absolute/relative adjustments
+- `applyPenalty` - Apply penalties (coins, exp, or items) with custom reasons
+- `editSkill` - Create, update, or delete skills; adjust skill experience points
+- All operations are "safe" - they don't auto-grant rewards or auto-complete tasks
+
+**config/config.ts** - Configuration singleton
+- Loads environment variables (LIFEUP_HOST, LIFEUP_PORT, LIFEUP_API_TOKEN, DEBUG, SAFE_MODE)
+- Provides `configManager` singleton
+- Debug logging utility for troubleshooting
+- Safe mode support for disabling mutation tools
+
+**config/validation.ts** - Zod schemas for input validation
+- `CreateTaskSchema`, `SearchTasksSchema`, `TaskHistorySchema`, `AchievementMatchSchema`, `SearchShopItemsSchema`
+- All tool inputs validated before execution
+
+**error/error-handler.ts** - Error handling utilities
+- `LifeUpError` class with technical and user-facing messages
+- `ErrorHandler.handleNetworkError()` - Maps axios errors to LifeUpError
+- `ErrorHandler.handleApiError()` - Handles HTTP response errors
+- Graceful fallback for API features that may not be available
+
+**client/types.ts** - TypeScript interfaces for all API response types
+- Mirrors LifeUp API schema (Task, Achievement, Category, Skill, Item, etc.)
+- Used for type-safe API client methods
+
+**client/constants.ts** - API endpoints and configuration constants
+- `API_ENDPOINTS` - All LifeUp REST endpoints
+- `LIFEUP_URL_SCHEMES` - lifeup:// protocol URLs for task creation
+- Status codes and response codes
+
+### Mutation Operations
+
+The server supports "safe mutations" - create/update/delete operations that require explicit parameters and don't automatically affect game state:
+
+**Safe Mutations (Available):**
+1. **Task Management:**
+   - `create_task` - Creates tasks that must be manually completed in the app
+   - `edit_task` - Edit existing task properties (name, rewards, category, appearance, task type, count settings). Supports absolute/relative value adjustments via exp_set_type and coin_set_type parameters.
+   - `delete_task` - Permanently delete a task by its ID. ⚠️ This action cannot be undone. Blocked in SAFE_MODE. Requires explicit task ID to prevent accidental deletions.
+
+   **XP Parameter:**
+   - `exp` is optional. When specified, you must provide the `skillIds` (create_task) or `skills` (edit_task) array to indicate which attributes should receive the XP.
+   - When omitted:
+     - For `create_task`: XP defaults to 0
+     - For `edit_task`: Task's existing XP value remains unchanged
+   - Examples:
+     - `create_task(name: "Learn Rust", exp: 50, skillIds: [1, 2])` - Sets XP to 50, applies to attributes 1 and 2
+     - `edit_task(id: 1, exp: 75, skills: [1, 2])` - Updates XP to 75, applies to attributes 1 and 2
+
+   **Auto Use Items:**
+   - Both `create_task` and `edit_task` support `auto_use_item` parameter (boolean, defaults to false)
+   - When true, item rewards are automatically consumed/used when the task is completed
+   - Example: `edit_task(id: 1, auto_use_item: true)` - Items will auto-consume on task completion
+
+   **Count Tasks (Task Types):**
+   - Both `create_task` and `edit_task` support `task_type` parameter (0-3, requires LifeUp v1.99.1+)
+   - Task types:
+     - 0 = Normal task (default) - Standard single-completion task
+     - 1 = Count task - Can be completed multiple times with a target count
+     - 2 = Negative task - Tasks that penalize when completed
+     - 3 = API task - Special API-controlled tasks
+   - `target_times` (number > 0): Required for count tasks (task_type=1). Specifies how many times the task must be completed.
+   - `is_affect_shop_reward` (boolean, defaults to false): For count tasks, determines whether the count affects shop item reward calculations.
+   - Examples:
+     - `create_task(name: "Exercise", task_type: 1, target_times: 5)` - Count task: Exercise 5 times
+     - `create_task(name: "Read 30min", task_type: 1, target_times: 7, is_affect_shop_reward: true)` - Count task with shop reward scaling
+     - `edit_task(id: 1, task_type: 1, target_times: 10)` - Convert existing task to count task with target of 10
+
+   **Task Metadata (Importance & Difficulty):**
+   - Both `create_task` and `edit_task` support optional `importance` and `difficulty` parameters
+   - `importance` (1-4): Marks task priority level (1=Low, 2=Normal, 3=High, 4=Critical)
+   - `difficulty` (1-4): Marks task difficulty (1=Easy, 2=Normal, 3=Hard, 4=Very Hard)
+   - Both parameters default to 1 if not specified
+   - These are metadata fields for organization and planning, not affecting rewards
+   - Examples:
+     - `create_task(name: "Learn TypeScript", importance: 3, difficulty: 3)` - High priority, hard task
+     - `edit_task(id: 5, importance: 2, difficulty: 1)` - Reduce importance and difficulty of existing task
+     - `create_task(name: "Quick review", importance: 1, difficulty: 1)` - Low priority, easy task
+
+2. **Achievement Management:**
+   - `create_achievement` - Create new achievements without unlocking them (locked by default)
+   - `update_achievement` - Modify achievement properties
+   - `delete_achievement` - Remove achievement definitions
+
+3. **Shop Item Management:**
+   - `add_shop_item` - Create new shop items
+   - `edit_shop_item` - Modify item properties with absolute/relative adjustments
+
+4. **Resource Management:**
+   - `apply_penalty` - Apply coins/exp/item penalties with custom reasons (not auto-granted rewards)
+   - `edit_skill` - Create, update, or delete skills; adjust skill experience
+
+**Prohibited Operations:**
+- Task completion (requires manual action in app)
+- Shop purchases (requires manual action in app)
+- Achievement unlocking (achievements are created locked by default)
+- Reward grants (use create_task with rewards or apply_penalty instead)
+
+Enforcement through:
+1. URL scheme whitelisting (only safe endpoints exposed)
+2. Default safe parameters (e.g., unlocked: false for achievements)
+3. Tool implementations use explicit parameters (not auto-granted rewards)
+4. Penalties require custom reason text (explicit user intent)
+
+**SAFE_MODE Behavior:**
+- When SAFE_MODE is enabled, create operations remain available
+- Edit and delete operations are blocked both at tool list registration and runtime
+- Users receive clear error messages if attempting blocked operations
+
+**Time/Recurrence Parameters Removed:**
+- The LifeUp API has timezone handling bugs that corrupt recurring tasks and deadlines. The following parameters have been removed from task input:
+  - `frequency` (recurring task patterns)
+  - `deadline` (task due dates)
+  - `remind_time` (subtask reminders)
+  - `start_time` (task start times)
+- **You can still** view all existing time data: search tasks by deadline using `deadlineBefore`, view deadline/frequency in task details, see created/updated timestamps
+- **Count task features remain available**: `task_type`, `target_times`, `is_affect_shop_reward` are not timezone-dependent and continue to work normally
+
+### Error Flow
+
+```
+API Call (axios) → Error
+    ↓
+ErrorHandler.handleNetworkError/handleApiError
+    ↓
+LifeUpError (technical message + user message)
+    ↓
+Tool catches and formats as user-friendly response string
+    ↓
+Claude receives actionable error message
+```
+
+### MCP Error Signaling
+
+The server follows MCP best practices for error reporting:
+
+1. **Tool Execution Errors**: Set `isError: true` in CallToolResult
+   - Detected by checking for ❌ emoji marker at start of response
+   - Allows LLMs to see errors and attempt self-correction
+   - Examples: API failures, validation errors, connection issues
+
+2. **Protocol-Level Errors**: Returned as JSON-RPC errors
+   - Unknown tools, malformed requests, server crashes
+   - Less likely to be recoverable by LLMs
+
+**Error Detection:**
+Server checks if tool response starts with ❌ (from handleToolError() in tool-helpers.ts).
+All tool errors use this marker consistently.
+
+## Common Commands
+
+### Build and Development
+
+```bash
+# Build TypeScript to JavaScript (required before running)
+npm run build
+
+# Watch mode - auto-recompile on file changes
+npm run watch
+
+# Start the server (must build first)
+npm run start
+
+# Development mode with hot reload
+npm run dev
+
+# Test the server with test suite
+node test-mcp.js
+```
+
+### Configuration
+
+```bash
+# Create .env from template (required)
+cp .env.example .env
+
+# Edit configuration
+nano .env
+
+# Enable debug logging
+DEBUG=true npm run start
+```
+
+### Debugging
+
+```bash
+# Run with debug output to see API calls and tool execution
+DEBUG=true npm run start
+
+# Check if server responds correctly
+node test-mcp.js
+
+# Rebuild and test in one command
+npm run build && node test-mcp.js
+```
+
+## Workflow for Common Tasks
+
+### Adding a New MCP Tool
+
+1. Create tool method in appropriate file:
+   - `tools/task-tools.ts` - Task management tools
+   - `tools/achievement-tools.ts` - Achievement tools
+   - `tools/user-info-tools.ts` - User profile and character tools
+   - `tools/shop-tools.ts` - Shop and inventory tools
+   - Create new file for tools in new category
+2. Add input validation schema to config/validation.ts (if input parameters needed)
+3. Add client method to `client/lifeup-client.ts` if new API endpoint needed
+4. Register handler in server.ts `setupToolHandlers()` method
+5. Add tool definition to `getTools()` method with proper schema
+6. Update this file with the new tool
+7. Test with: `npm run build && node test-mcp.js`
+
+### Modifying API Client
+
+1. Add/update endpoint in client/constants.ts if needed
+2. Update or add method to LifeUpClient class
+3. Update types.ts with response types if data structure changes
+4. Test with: `npm run build && npm run start`
+
+### Handling New Error Cases
+
+1. Add new error code handling in error/error-handler.ts
+2. Provide both technical message and user-friendly message
+3. Set `recoverable` flag if user can fix it (e.g., IP change)
+4. Import and use in relevant tool or client method
+5. Test error case manually or add to test-mcp.js
+
+### Improving Achievement Matching
+
+The matching algorithm is in `AchievementTools.findMatches()`:
+- Extracts keywords from task name
+- Searches for keywords in achievement text
+- Applies confidence scoring
+- Returns top 5 matches
+
+To improve: modify keyword extraction or confidence calculation logic.
+
+## Configuration
+
+### Environment Variables (.env)
+
+- **LIFEUP_HOST** - IP address of Android device running LifeUp (e.g., 192.168.1.100)
+- **LIFEUP_PORT** - HTTP API port (default: 13276)
+- **LIFEUP_API_TOKEN** - Optional authentication token (leave empty if not configured)
+- **DEBUG** - Enable debug logging (default: false, set to "true" for logs)
+- **SAFE_MODE** - When true, disables edit and delete mutation tools (default: false). Create operations (create_task, create_achievement, add_shop_item) remain available. Only edit/delete operations (edit_task, delete_task, update_achievement, delete_achievement, edit_shop_item, apply_penalty, edit_skill) are blocked.
+
+### Runtime Configuration
+
+Timeout, retries, and other runtime config defined in src/config/config.ts:
+- `timeout: 10000` - Request timeout in milliseconds
+- `retries: 2` - Number of retries for failed requests
+- These can be modified in config.ts and rebuilt
+
+## Testing Strategy
+
+The project includes automated tests using Vitest that verify:
+1. Input validation rejects invalid requests
+2. Error handling works correctly
+3. Achievement matching algorithm functions properly
+
+Run with: `npm run test:run`
+
+Additional tests:
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:coverage` - Generate coverage report
+- `npm run test:ui` - Run tests with UI
+- `npm run test:e2e` - Run E2E tests against actual LifeUp API
+
+### Debugging with Android Emulator
+
+When running against the LifeUp Android emulator, you can view detailed logs:
+
+```bash
+# View logs for LifeUp package with INFO level and suppress other logs
+adb logcat com.LifeUp:I *:S
+
+# Alternative: view all logs for LifeUp (verbose)
+adb logcat com.LifeUp:V *:S
+
+# Clear logcat before running a test
+adb logcat -c
+adb logcat com.LifeUp:I *:S
+
+# Filter specific patterns (e.g., API errors)
+adb logcat com.LifeUp:E *:S | grep -i "error\|exception"
+```
+
+This is particularly useful for debugging:
+- API response issues (404, 500, malformed responses)
+- Timezone-related errors (Invalid time value)
+- ContentProvider errors (Error Code 10002)
+- Network connectivity problems
+
+## Dependencies
+
+- **@modelcontextprotocol/sdk** - MCP protocol implementation
+- **axios** - HTTP client for LifeUp API
+- **zod** - Runtime input validation
+- **dotenv** - Environment variable loading
+- **typescript** - Language (dev only)
+- **@types/node** - Node types (dev only)
+- **tsx** - TypeScript executor (dev only)
+
+## Key Design Decisions
+
+1. **Singleton Singletons** - configManager and lifeupClient are module-level singletons for easy access throughout the app
+2. **Zod for Validation** - Runtime validation catches bad input from Claude before API calls
+3. **Graceful Degradation** - Achievement endpoint failures fall back to categories instead of failing completely
+4. **Markdown Output** - All tools return formatted markdown strings for rich Claude display
+5. **User-Friendly Errors** - All errors include actionable guidance (e.g., "update LIFEUP_HOST if IP changed")
+6. **Read-Only by Design** - API client only wraps safe endpoints, enforced at source
+7. **Granular SAFE_MODE** - SAFE_MODE distinguishes between create (allowed) and edit/delete (blocked) operations, enabling safe experimentation with new entities while preventing data corruption. Runtime enforcement provides defense-in-depth.
+8. **Graceful Condition Display** - Achievement unlock conditions are displayed when returned by the API, with human-readable formatting for all 21 condition types. System gracefully degrades to "Not available" if conditions aren't provided, maintaining backward compatibility.
+
+## LifeUp API Integration
+
+The server wraps LifeUp Cloud's HTTP API. Key integration points:
+
+- **Task Management** - Uses `/tasks`, `/history`, and task categories endpoints
+- **Task Creation** - Uses `lifeup://api/add_task` URL scheme via `/api` endpoint
+- **Achievements** - Fetches from all categories using `/achievement_categories` and `/achievements/{category_id}` endpoints for querying
+- **Achievement Management** - Uses `lifeup://api/achievement` URL scheme for CRUD operations (create/update/delete)
+- **Skills** - Reads from `/skills` endpoint for character progression
+- **Shop & Items** - Uses `/items` and `/items_categories` endpoints for inventory browsing
+- **User Profile** - Uses `/info` and `/coin` endpoints for account information
+- **Error Code 10002** - Indicates ContentProvider error (feature unavailable in this LifeUp version)
+
+For API details, refer to the documentation in the `docs/` folder (markdown files are more accurate than the autogenerated JSON). For general information, see: https://docs.lifeupapp.fun/en/#/guide/api
+
+### Known LifeUp API Limitations
+
+**1. Creation Endpoints Don't Return Entity IDs**
+- `create_achievement`, `add_shop_item`, and subtask operations don't return the created entity's ID
+- Affects: Editing or deleting recently created achievements/items requires name-based lookup
+- Workaround: Querying existing entities by name or category instead of by ID
+- Impact: Tests that edit/delete newly created items skip gracefully with warning messages
+
+**2. Subtask Creation Timezone Issues**
+- Creating tasks with inline subtasks fails with "Invalid time value" error
+- Root cause: API has undocumented timezone handling issues in subtask operations
+- Affects: `create_task` with `subtasks` parameter
+- Workaround: Create subtasks separately using `create_subtask` tool instead
+- Note: These timezone issues only affect time-related parameters (deadline, frequency, remind_time), which were already removed from task input
+
+**3. Edit Subtask Requires Parent Task Identifier**
+- The `edit_subtask` tool requires BOTH the parent task AND subtask identifiers
+- Must provide one of: `main_id`, `main_gid`, or `main_name` (parent task)
+- Must provide one of: `edit_id`, `edit_gid`, or `edit_name` (subtask to edit)
+- This is correct API behavior but commonly overlooked
+
+## MCP Protocol Details
+
+The server implements MCP's JSON-RPC protocol over stdio:
+
+- Request Handler 1: `tools/list` - Returns array of available tools with schemas
+- Request Handler 2: `tools/call` - Executes specified tool with provided arguments
+- Both handlers use Zod schemas for validation
+- Responses include `content` array with `type: 'text'` and markdown text
+
+No custom request types or resources are exposed (tools only).
+
+## TypeScript Configuration
+
+- Target: ES2020 (Node.js 18+)
+- Module: ES2020 (ESM imports)
+- Strict mode enabled with all checks
+- Declaration files generated for type safety
+- Source maps for debugging
+
+No linter configured (ESLint recommended for production).
+
+---
+> Source: [derekprovance/lifeup-mcp](https://github.com/derekprovance/lifeup-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-29 -->
