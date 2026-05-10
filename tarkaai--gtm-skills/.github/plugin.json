@@ -1,0 +1,9 @@
+{
+  "name": "tarkaai--gtm-skills",
+  "displayName": "gtm-skills",
+  "description": "GTM skills for AI agents. 240 plays across Marketing, Sales, and Product. Configure once for your CRM and automation stack.",
+  "version": "1.0.0",
+  "author": "tarkaai",
+  "homepage": "https://github.com/tarkaai/gtm-skills",
+  "skills": []
+}
