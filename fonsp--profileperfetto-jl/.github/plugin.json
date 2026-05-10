@@ -1,0 +1,9 @@
+{
+  "name": "fonsp--profileperfetto-jl",
+  "displayName": "ProfilePerfetto.jl",
+  "description": "Super easy profiling for Julia",
+  "version": "1.0.0",
+  "author": "fonsp",
+  "homepage": "https://github.com/fonsp/ProfilePerfetto.jl",
+  "skills": []
+}
