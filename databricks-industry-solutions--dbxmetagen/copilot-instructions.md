@@ -1,35 +1,41 @@
-## frontend-patterns
+## genie-patterns
 
-> Frontend conventions for the dbxmetagen React dashboard
+> Genie space generation pipeline invariants and patterns
 
 
-# Frontend Patterns
+# Genie Pipeline Patterns
 
-## Stack
+## Architecture
 
-React 19 + Vite + Tailwind CSS. JSX (not TSX). Entry point: `main.jsx`.
+Three-phase LLM pipeline in `agent.py`:
+1. **Phase 1 (Core):** description, text_instructions, sample_questions, join_specs
+2. **Phase 2 (SQL):** example_sql pairs
+3. **Phase 3 (Snippets):** sql_snippets (measures, filters, expressions)
 
-## Build Requirement
+Post-processing merges pre-built joins, validates SQL, and builds the serialized space via `schema.py`.
 
-`dist/` is committed to the repo and synced to Databricks via DAB. After any frontend change:
+## Join Reliability
 
-```bash
-cd apps/dbxmetagen-app/app/src
-npm run build
-```
+- During context assembly (`context.py`), extract metric view joins into `join_specs` so the agent has them as input.
+- After the agent runs, force-merge any pre-built `join_specs` into the output -- never rely solely on the LLM to reproduce them.
+- The agent prompt must tell the LLM that pre-built joins will be auto-merged, so it should focus on additional joins only.
+- If `join_specs` is empty and there are multiple data sources, emit a warning log.
 
-Forgetting this means the deployed app won't reflect your changes.
+## SQL Conventions
 
-## API Layer
+- Table references must be fully qualified: `catalog.schema.table`.
+- Column references in snippets use `table.column` format.
+- Date functions: `TIMESTAMPADD`/`TIMESTAMPDIFF` use bare singular units (no quotes, no plurals). `DATE_TRUNC` uses single-quoted interval.
+- Join SQL is simplified to `table.column` via `_simplify_join_sql` and backtick-quoted via `_backtick_join_sql` in `schema.py`.
+- Date unit fixing (`_fix_date_func_units`) runs on all generated SQL.
 
-All backend calls go through `apiCache.js`, which handles fetch + caching. Add new API calls there rather than using raw `fetch` in components.
+## Safety
 
-## Structure
+All phases include `SAFETY_PROMPT_BLOCK`. Never generate PII/PHI in descriptions, instructions, sample questions, or example SQL. Avoid ephemeral statistics (row counts, date ranges). Structural patterns are fine.
 
-- `components/` -- reusable UI components
-- `hooks/` -- custom React hooks
-- `utils/` -- helper functions
-- `public/` -- static assets
+## Serialized Space (`schema.py`)
+
+`build_serialized_space()` coerces raw LLM output into the Genie API payload. Pydantic models act as a whitelist -- only defined fields survive serialization. Do not add fields to the Pydantic models without verifying they exist in the Genie proto schema.
 
 ---
 > Source: [databricks-industry-solutions/dbxmetagen](https://github.com/databricks-industry-solutions/dbxmetagen) — distributed by [TomeVault](https://tomevault.io).
