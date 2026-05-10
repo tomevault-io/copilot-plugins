@@ -1,0 +1,9 @@
+{
+  "name": "openleash--openleash",
+  "displayName": "openleash",
+  "description": "An open-source authorization layer where owners set policies, agents ask before acting, and counterparties can verify the agent was authorized.",
+  "version": "1.0.0",
+  "author": "openleash",
+  "homepage": "https://github.com/openleash/openleash",
+  "skills": []
+}
