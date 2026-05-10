@@ -7,11 +7,11 @@ use ai analysis Performance issue with perfetto
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Gracker/SmartPerfetto](https://github.com/Gracker/SmartPerfetto).
+Original source: `CLAUDE.md` in [Gracker/SmartPerfetto](https://github.com/Gracker/SmartPerfetto).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
