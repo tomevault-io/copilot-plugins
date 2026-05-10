@@ -1,68 +1,35 @@
-## validation
+## zod
 
-> Input validation patterns, schema organization, and security for Zod schemas
+> Zod v4 validators—use standalone format validators, not z.string().email() etc. See https://zod.dev/api for full list.
 
 
-# Validation (QAuth)
+# Zod v4 (QAuth)
 
-## Zod v4 Validators
+This project uses **Zod v4**. Many format validators are **standalone functions**, not string methods.
 
-Use standalone validators (see `.cursor/rules/zod.mdc`):
+## Standalone validators (do not use deprecated form)
 
-- `z.email()` not `z.string().email()`
-- `z.uuid()` not `z.string().uuid()`
-- `z.url()` not `z.string().url()`
+| Use         | Not                  |
+| ----------- | -------------------- |
+| `z.email()` | `z.string().email()` |
+| `z.uuid()`  | `z.string().uuid()`  |
+| `z.url()`   | `z.string().url()`   |
 
-## Schema Organization
+Optional error message: `z.email('Invalid email format')`, `z.uuid('Invalid realm ID format')`, `z.url('Must be a valid URL')`.
 
-- **API schemas**: `apps/auth-server/src/app/schemas/` (e.g. `auth.ts`, `oauth.ts`, `common.ts`)
-- **Config schemas**: `libs/server/config/src/lib/schemas/` (env validation)
-- **Shared validators**: `libs/shared/validation/` (email normalization, password strength)
-- Export schema and inferred type: `export type RequestType = z.infer<typeof requestSchema>`
+## More string formats (Zod v4)
 
-## Security and Best Practices
+Also standalone: `z.httpUrl()`, `z.hostname()`, `z.jwt()`, `z.iso.date()`, `z.iso.datetime()`, `z.ipv4()`, `z.ipv6()`, `z.hex()`, `z.base64()`, etc. See [zod.dev/api](https://zod.dev/api) under "String formats."
 
-- **Validate all inputs**: Request body, query params, headers, and response shape. Never trust user input.
-- **Fail fast**: Validation happens at the route level via Fastify schema; invalid requests return 400 before handler runs.
-- **Normalize before validation**: Email normalization (`normalizeEmail`) happens after format validation but before storage/query.
-- **Specific formats**: Use regex for exact formats (e.g. hex tokens: `/^[0-9a-fA-F]{64}$/`, PKCE verifiers: `/^[A-Za-z0-9._~-]{43,128}$/`).
-- **Length limits**: Set `.min()` and `.max()` on strings to prevent DoS (e.g. `state: z.string().max(255).optional()`).
-- **Password strength**: Use `zxcvbn` via `@qauth-labs/shared-validation`; return feedback for weak passwords.
-
-## Route Integration
+## Types from schemas
 
 ```typescript
-// ✅ GOOD: Schema registered on route
-fastify.withTypeProvider<ZodTypeProvider>().post(
-  '/login',
-  {
-    schema: {
-      body: loginSchema,
-      response: { 200: loginResponseSchema },
-    },
-  },
-  async (request, reply) => {
-    // request.body is typed and validated
-  }
-);
-
-// ❌ BAD: Manual validation in handler
-fastify.post('/login', async (request, reply) => {
-  const body = loginSchema.parse(request.body); // Too late, already in handler
-});
+export type RequestType = z.infer<typeof requestSchema>;
 ```
 
-## Example Schema
+## Rule
 
-```typescript
-export const registerSchema = z.object({
-  email: z.email('Invalid email format'),
-  password: z.string(),
-  realmId: z.uuid('Invalid realm ID format').optional(),
-});
-
-export type RegisterRequest = z.infer<typeof registerSchema>;
-```
+Do **not** use deprecated validators like `z.string().email()`, `z.string().uuid()`, or `z.string().url()`. If you learn another Zod v4 standalone validator, use it consistently and do not fall back to the old string-method form.
 
 ---
 > Source: [qauth-labs/qauth](https://github.com/qauth-labs/qauth) — distributed by [TomeVault](https://tomevault.io).
