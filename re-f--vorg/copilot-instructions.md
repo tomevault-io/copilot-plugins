@@ -1,146 +1,274 @@
-## commit-conventions
+## feature-development-guide
 
-> VOrg 项目代码提交规范与流程
+> 当为 VOrg 扩展添加新功能时，请按照以下清单确保所有相关文件都得到正确更新。
 
-# VOrg 代码提交 Agent 流程
+# VOrg 功能开发指南
 
-此流程从代码编写完毕开始，到成功创建 commit 为止。适用于 VOrg VS Code 扩展项目的代码提交环节。
+## 功能开发完整清单
 
-## 第一阶段：提交前验证 (Pre-submission Validation)
+当为 VOrg 扩展添加新功能时，请按照以下清单确保所有相关文件都得到正确更新。
 
-在将代码打包成一次提交之前，Agent 会执行一系列严格的自动化检查，确保代码符合质量标准。
+## 🏗️ 核心代码开发
 
-### 环节1：自动化测试
+### 1. 实现核心功能
+- **新功能模块**：在 `src/` 下创建或修改相应的功能文件
+- **提供者（Providers）**：如果是 VS Code API 功能，在相应目录创建提供者类
+  - [src/outline/](mdc:src/outline) - 大纲相关功能
+  - [src/links/](mdc:src/links) - 链接相关功能
+  - [src/folding/](mdc:src/folding) - 折叠相关功能
+  - [src/preview/](mdc:src/preview) - 预览相关功能
 
-**流程**：Agent 运行所有相关的测试套件，包括单元测试和集成测试。
+### 2. 命令注册
+- **命令实现**：在 [src/commands/](mdc:src/commands) 目录添加命令实现
+- **命令注册**：在 [src/commands/index.ts](mdc:src/commands/index.ts) 注册新命令
+- **扩展激活**：在 [src/extension.ts](mdc:src/extension.ts) 中注册提供者和命令
 
-1. **单元测试**：运行 `pnpm run test:unit` 验证解析逻辑（ContextAnalyzer、HeadingParser、ListParser 等）
+### 3. 扩展清单更新
+必须更新 [package.json](mdc:package.json) 的以下部分：
 
-**注意事项**：
-- **强制通过**：必须通过所有测试，任何失败都会立即中止提交流程
-- **测试覆盖率**：检查新代码的测试覆盖率是否达到预设阈值（Parser 类目标 90%+）
-- **报告生成**：自动生成并附上测试报告，以便审查者快速了解测试结果
-
-### 环节2：静态代码分析与构建检查
-
-**流程**：使用静态分析工具扫描代码，检查编码规范、潜在的 bug 和代码异味。
-
-**VOrg 项目特定**：
-- **ESLint 检查**：运行 `pnpm run lint` 检查 TypeScript 代码规范
-- **TypeScript 编译**：运行 `pnpm run compile-tests` 确保代码能够正确编译
-- **Webpack 构建**：运行 `pnpm run compile` 验证生产构建是否成功（可选，但推荐）
-
-**注意事项**：
-- **零容忍规则**：对于严重的安全漏洞或破坏性的编码问题，应配置为"零容忍"，检查不通过则流程失败
-- **风格一致性**：确保代码风格与项目现有代码保持一致，遵循 TypeScript 和 ESLint 配置
-- **配置管理**：分析规则集由项目统一配置（`tsconfig.json`、`.eslintrc` 等）
-
-### 环节3：文档更新检查
-
-**流程**：Agent 检查与代码变更相关的文档是否已相应更新。
-
-**VOrg 项目特定文档结构**：
-- **功能文档**：`docs/FEATURES.md` - 新功能需要更新
-- **用户指南**：`docs/USER_GUIDE.md` - 用户可见的变更需要更新
-- **编辑功能**：`docs/EDITING_FEATURES.md` - 编辑相关功能变更
-- **快捷键**：`docs/KEYBINDINGS.md` - 快捷键变更
-- **技术文档**：`docs/TECHNICAL.md` - 技术实现变更
-- **API 文档**：公共 API 变更需要检查代码中的 JSDoc/TypeDoc 注释是否已更新
-- **更新日志**：`release.md` - 所有用户可见的变更按照文档中的归类进行更新
-- **README**：`README.md` 和 `README-CN.md` - 重要功能变更需要更新
-
-**变更关联分析规则**：
-- **配置变更**：检查 `package.json` 中的配置项说明是否更新
-- **版本号变更**：检查 `package.json` 中的 `version` 字段和 `CHANGELOG.md` 是否同步更新
-
-**启发式检查**：
-- 检查文档目录 (`docs/`) 或特定文档文件（如 `CHANGELOG.md`）的文件修改时间戳或 Git 历史
-- 如果 Agent 无法确定，在后续生成的拉取请求描述中自动添加待办事项：`[ ] 检查文档是否已更新`
-
-## 第二阶段：提交与审查请求 (Commit & Review Request)
-
-通过所有验证后，Agent 将代码正式提交并创建拉取请求，以供团队成员审查。
-
-### 环节4：生成结构化的提交信息 (Commit Message)
-
-**流程**：Agent 将所有暂存的代码变更打包成一个或多个原子性的提交，生成符合规范的提交信息。
-
-**VOrg 项目提交格式规范**（遵循 Conventional Commits）：
-
-```
-<type>(<scope>): <description>
-
-[optional body]
+#### 激活事件
+```json
+"activationEvents": [
+  "onCommand:vorg.yourNewCommand",
+  "onLanguage:org"
+]
 ```
 
-**提交类型 (Types)**：
-- `feat`: 新功能
-- `fix`: Bug 修复
-- `refactor`: 代码重构（不改变行为）
-- `docs`: 文档变更
-- `style`: 格式调整（不影响代码逻辑）
-- `test`: 添加或更新测试
-- `chore`: 维护任务（依赖、构建配置等）
-
-**作用域 (Scopes)**：
-- `preview`: 预览功能
-- `syntax`: 语法高亮
-- `commands`: 命令处理
-- `editing`: 编辑功能
-- `links`: 链接处理
-- `ui`: 用户界面
-- `config`: 配置
-- `deps`: 依赖
-- `build`: 构建系统
-
-**注意事项**：
-- **原子性提交**：确保每一次提交都对应一个独立的、完整的逻辑单元
-- **遵循规范**：提交信息应严格遵循 Conventional Commits 格式，例如 `feat(preview): add dark theme support`
-- **关联任务**：提交信息中应关联到相关的 Issue 编号（如 `Closes #123`），以便于追溯
-- **清晰描述**：提交信息不仅要有标题，还应包含一个简短的主体，解释"为什么"要进行这次修改
-- **格式要求**：
-  - 主题行限制在 50 个字符以内
-  - 使用祈使语气（"add feature" 而不是 "added feature"）
-  - 正文每行不超过 72 个字符
-
-- **内容要求**：
-  - 关注"做什么"和"为什么"：提交信息应说明本次提交做了什么，以及为什么需要这个变更（用户价值或问题背景）
-  - 避免技术实现细节：不要描述"如何做"，技术实现细节应体现在代码中
-  - 避免列出"相关变更"：不要列出修改了哪些文件或添加了哪些命令
-  - 保持简洁清晰：确保提交信息易于理解，避免冗长和模糊的描述
-
-**示例**：
-
-✅ **好的提交信息**：
-```
-feat(editing): 实现 Ctrl+C Ctrl+C 上下文操作功能
-
-实现类似 org-mode 的 C-c C-c 功能，根据当前上下文智能执行相应操作。
-
-当前支持在 checkbox 列表项上循环切换完成状态：
-- [ ] (未完成) → [X] (完成) → [-] (部分完成) → [ ] (未完成)
+#### 命令定义
+```json
+"commands": [
+  {
+    "command": "vorg.yourNewCommand",
+    "title": "VOrg: Your New Feature",
+    "icon": "$(your-icon)"
+  }
+]
 ```
 
+#### 快捷键绑定
+```json
+"keybindings": [
+  {
+    "command": "vorg.yourNewCommand",
+    "key": "ctrl+alt+n",
+    "mac": "cmd+alt+n",
+    "when": "editorLangId == org"
+  }
+]
 ```
-feat(preview): 添加 HTML 导出功能
 
-此前，用户只能在 VS Code 中预览 org 文件。此变更
-添加了将预览内容导出为 HTML 文件的能力，使用户
-能够分享或归档他们的 org-mode 文档。
+#### 菜单项
+```json
+"menus": {
+  "editor/title": [
+    {
+      "when": "editorLangId == org",
+      "command": "vorg.yourNewCommand",
+      "group": "navigation"
+    }
+  ]
+}
 ```
 
-❌ **不好的提交信息**（包含技术实现细节）：
-```
-feat(editing): 实现 Ctrl+C Ctrl+C 上下文操作功能
+## 🧪 测试开发
 
-- 新增 ContextCommands 类，采用可扩展的处理器架构
-- 使用 ContextAnalyzer 分析当前光标位置的上下文
-- 添加 vorg.ctrlCtrl 命令和 Ctrl+C Ctrl+C 快捷键绑定
-- 更新编辑功能文档和快捷键文档
+### 1. 单元测试
+在 [src/test/unit/](mdc:src/test/unit) 创建或扩展单元测试：
+
+#### Mock 设置
+- 使用 [src/test/unit/vscode-mock.ts](mdc:src/test/unit/vscode-mock.ts) 中的 VS Code API Mock
+- 如需新的 Mock 类型，在 Mock 文件中添加
+
+#### 测试文件命名
+- 文件名格式：`yourFeature.unit.test.ts`
+- 测试类名格式：`YourFeature Unit Tests`
+
+#### 测试结构示例
+```typescript
+suite('Your Feature Unit Tests', () => {
+  let provider: YourFeatureProvider;
+  
+  setup(() => {
+    provider = new YourFeatureProvider();
+  });
+  
+  test('应该正确处理基本用例', () => {
+    // 测试实现
+    assert.ok(result);
+    assert.strictEqual(actual, expected);
+  });
+});
 ```
-**版本发布检查**（如适用）：
-- 如果涉及版本发布，检查 `package.json` 中的版本号是否已更新
-- 检查 `CHANGELOG.md` 是否已更新并包含本次变更
+
+### 2. 集成测试
+在 [src/test/suite/](mdc:src/test/suite) 创建或扩展集成测试：
+
+#### 测试文件命名
+- 文件名格式：`yourFeature.test.ts`
+- 使用真实的 VS Code API 进行测试
+
+#### 集成测试示例
+```typescript
+import * as vscode from 'vscode';
+import { YourFeatureProvider } from '../../yourFeature/yourFeatureProvider';
+
+suite('YourFeature Integration Tests', () => {
+  test('应该在真实VS Code环境中正常工作', async () => {
+    const doc = await vscode.workspace.openTextDocument({
+      content: '* Test Content',
+      language: 'org'
+    });
+    
+    // 测试实现
+  });
+});
+```
+
+### 3. 测试数据更新
+根据新功能需求更新 [test-data/](mdc:test-data) 中的测试文件：
+
+#### 主测试文件
+- [test-data/main.org](mdc:test-data/main.org) - 添加新功能的测试用例
+
+#### 专用测试文件
+- [test-data/projects.org](mdc:test-data/projects.org) - 项目相关测试
+- [test-data/notes.org](mdc:test-data/notes.org) - 笔记相关测试
+- [test-data/subdir/deep.org](mdc:test-data/subdir/deep.org) - 深层目录测试
+
+#### 测试数据格式
+```org
+** 🔧 Your New Feature Test
+
+*** 基本功能测试
+测试内容描述
+
+*** 边界情况测试
+边界情况的测试内容
+
+*** ID链接测试
+:PROPERTIES:
+:ID: YOUR-FEATURE-UUID-1234-5678-9ABC-DEF012345678
+:END:
+
+用于测试ID链接功能的内容
+```
+
+### 4. 测试运行
+确保所有测试命令都能正常运行：
+
+```bash
+# 编译代码
+npm run compile
+
+# 运行集成测试
+npm test
+
+# 运行单元测试
+npm run test:unit
+
+# 监听模式
+npm run watch
+```
+
+## 📚 文档更新
+
+### 1. 功能文档
+在 [docs/](mdc:docs) 目录更新相关文档：
+
+#### 功能特性文档
+- [docs/FEATURES.md](mdc:docs/FEATURES.md) - 添加新功能的详细描述
+
+#### 用户指南
+- [docs/USER_GUIDE.md](mdc:docs/USER_GUIDE.md) - 添加使用教程和示例
+
+#### 技术文档
+- [docs/TECHNICAL.md](mdc:docs/TECHNICAL.md) - 添加技术实现细节
+
+#### 语法高亮文档（如适用）
+- [docs/SYNTAX_HIGHLIGHTING.md](mdc:docs/SYNTAX_HIGHLIGHTING.md) - 新增语法支持说明
+
+### 2. 主文档更新
+更新项目根目录的主要文档：
+
+#### README 更新
+- [README.md](mdc:README.md) - 在功能特点、使用方法和功能对比部分添加新功能
+
+#### 示例文件
+- [example.org](mdc:example.org) - 添加新功能的使用示例
+
+## 🎨 语法和配置
+
+### 1. 语法高亮
+如果新功能涉及新的语法元素：
+
+#### TextMate 语法
+- [syntaxes/org.tmLanguage.json](mdc:syntaxes/org.tmLanguage.json) - 添加新的语法规则
+
+#### 语言配置
+- [language-configuration.json](mdc:language-configuration.json) - 更新语言特性配置
+
+#### 语法高亮增强
+- [src/syntaxHighlighter.ts](mdc:src/syntaxHighlighter.ts) - 添加装饰器高亮支持
+
+### 2. TypeScript 配置
+确保新文件包含在编译范围内：
+- [tsconfig.json](mdc:tsconfig.json) - 检查编译配置
+- 新建目录需要确保不在 `exclude` 列表中
+
+## 🚀 开发和测试流程
+
+### 1. 开发环境设置
+```bash
+# 安装依赖
+npm install
+
+# 编译并监听
+npm run watch
+
+# 在VS Code中按F5启动扩展开发主机
+```
+
+### 2. 测试流程
+1. **单元测试优先**：先编写单元测试确保核心逻辑正确
+2. **集成测试验证**：在真实VS Code环境中测试完整功能
+3. **手动测试**：使用测试数据文件进行手动验证
+4. **回归测试**：确保现有功能未受影响
+
+### 3. 代码质量检查
+```bash
+# 代码检查
+npm run lint
+
+# 编译检查
+npm run compile
+
+# 完整测试
+npm run pretest
+```
+
+## ✅ 发布前检查清单
+
+- [ ] **核心功能**：新功能实现完整且正确
+- [ ] **命令注册**：package.json 中正确注册命令、快捷键和菜单
+- [ ] **扩展激活**：extension.ts 中正确注册提供者
+- [ ] **单元测试**：覆盖核心逻辑的单元测试
+- [ ] **集成测试**：VS Code 环境中的集成测试
+- [ ] **测试数据**：更新 test-data 中的测试用例
+- [ ] **文档更新**：README、用户指南、技术文档
+- [ ] **语法支持**：新语法的 TextMate 规则和高亮
+- [ ] **代码质量**：通过 lint 和 compile 检查
+
+## 🔄 迭代开发建议
+
+1. **小步迭代**：将大功能拆分为小的可测试单元
+2. **测试驱动**：先写测试再实现功能
+3. **文档同步**：代码和文档同步更新
+4. **持续集成**：每次提交都运行完整测试套件
+5. **用户反馈**：使用测试数据模拟真实用户场景
+
+---
+
+*遵循此指南可确保新功能的高质量交付和项目的长期可维护性。*
 
 ---
 > Source: [re-f/vorg](https://github.com/re-f/vorg) — distributed by [TomeVault](https://tomevault.io).
