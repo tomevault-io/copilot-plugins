@@ -1,0 +1,9 @@
+{
+  "name": "artalis-io--bitnet-c",
+  "displayName": "bitnet.c",
+  "description": "Minimal, zero-dependency LLM inference in pure C11. CPU-first with NEON/AVX2 SIMD. Flash MoE (pread + LRU expert cache). TurboQuant 3-bit KV compression (8.9x less memory per session). 20+ GGUF quant ",
+  "version": "1.0.0",
+  "author": "artalis-io",
+  "homepage": "https://github.com/artalis-io/bitnet.c",
+  "skills": []
+}
