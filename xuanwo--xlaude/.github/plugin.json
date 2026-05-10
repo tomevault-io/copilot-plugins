@@ -1,0 +1,9 @@
+{
+  "name": "xuanwo--xlaude",
+  "displayName": "xlaude",
+  "description": "A CLI tool for managing Claude instances with git worktree",
+  "version": "1.0.0",
+  "author": "Xuanwo",
+  "homepage": "https://github.com/Xuanwo/xlaude",
+  "skills": []
+}
