@@ -1,0 +1,9 @@
+{
+  "name": "colophon-group--jobseek",
+  "displayName": "jobseek",
+  "description": " Monitors company career pages for new job postings and surfaces them in a single dashboard.",
+  "version": "1.0.0",
+  "author": "colophon-group",
+  "homepage": "https://github.com/colophon-group/jobseek",
+  "skills": []
+}
