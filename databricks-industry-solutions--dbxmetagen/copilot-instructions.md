@@ -1,56 +1,46 @@
-## api-server-patterns
+## dbxmetagen-ddl
 
-> Patterns and conventions for the dbxmetagen FastAPI dashboard backend
+> DDL generation and review handling patterns for dbxmetagen
 
 
-# API Server Patterns
+# DDL Handling Rules
 
-## Long-Running Operations
+## Quote Wrapping
 
-Use **daemon thread + in-memory dict + polling** for anything > 2s:
+DDL string literals use double-quote wrapping: `COMMENT ON TABLE ... IS "comment text"`.
+Inside the comment, double quotes are sanitized to single quotes before wrapping.
+
+## Regex for Comment Extraction/Replacement
+
+Always use a `\2` backreference to match the same quote character that opened the string:
 
 ```python
-task_id = str(_uuid.uuid4())[:12]
-_task_dict[task_id] = {"status": "running", ...}
+# CORRECT -- backreference ensures matching quotes
+r'(COMMENT ON TABLE [^"\']+ IS\s+)(["\'])(.*?)\2'
 
-def _run():
-    try:
-        result = do_work(...)
-        _task_dict[task_id] = {"status": "done", "result": result}
-    except Exception as e:
-        _task_dict[task_id] = {"status": "error", "error": str(e)}
-
-threading.Thread(target=_run, daemon=True).start()
-return {"task_id": task_id}
+# WRONG -- separate group matches mismatched quotes, breaks on apostrophes
+r'(COMMENT ON TABLE [^"\']+ IS\s+)(["\'])(.*?)(["\'])'
 ```
 
-Poll via GET that reads the dict. SSE streaming exists for agent chat only (`/api/agent/deep/stream`, `/api/analyst/stream`). **Never use WebSockets.**
+When replacing, the captured comment text is in group 3 (not group 4).
 
-## Caching
+## `is_column_comment` Detection
 
-Four `TTLCache` instances with thread locks:
+Check for the full DDL keyword, not just the word "COLUMN":
 
-| Cache | TTL | Purpose |
-|-------|-----|---------|
-| `_yaml_cache` | 300s | Ontology bundles, domain configs |
-| `_job_list_cache` | 30s | Databricks job list |
-| `_coverage_cache` | 60s | FK map, coverage summary |
-| `_sl_context_cache` | 120s | Semantic layer context |
+```python
+# CORRECT
+is_col = "COMMENT ON COLUMN" in ddl.upper() or "ALTER COLUMN" in ddl.upper()
 
-Call `invalidate_query_caches()` after mutations (job submit, DDL apply, etc.).
+# WRONG -- "Column" commonly appears in AI-generated comment text
+is_col = "COLUMN" in ddl.upper()
+```
 
-## Singletons
+## Comment Sanitization Consistency
 
-Heavy objects use lazy double-checked locking:
-- `_ontology_graph_store` (SPARQL store)
-- `get_llm()` in `agent/common.py` (ChatDatabricks)
-- `get_graph()` in `agent/deep_analysis_graph.py` (compiled LangGraph)
-
-Never reinstantiate these per request.
-
-## Route Organization
-
-Endpoints are grouped by section comment headers, not separate `APIRouter` instances. Follow existing group structure when adding endpoints.
+Both the generation path (`processing.py`) and the review path (`ddl_regenerator.py`)
+must apply the same sanitization: `new_comment.replace('""', "'").replace('"', "'")`.
+If you change one path, update the other.
 
 ---
 > Source: [databricks-industry-solutions/dbxmetagen](https://github.com/databricks-industry-solutions/dbxmetagen) — distributed by [TomeVault](https://tomevault.io).
