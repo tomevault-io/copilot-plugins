@@ -1,43 +1,60 @@
-## typescript-javascript
+## ai-development
 
-> **Activation Mode**: Glob
+> Core AI development patterns and best practices for the Megarepo AI setup repository
 
-# TypeScript and JavaScript Rules
 
-**Activation Mode**: Glob
-**Pattern**: `**/*.{ts,tsx,js,jsx}`
+# AI Development Best Practices
 
-<typescript_preferences>
-- Use strict type checking and enable all strict TypeScript compiler options
-- Define interfaces for all AI API responses and data models
-- Use union types for AI model selections and configuration options
-- Implement proper error type definitions for AI service failures
-- Prefer type-safe patterns over any types, especially for AI data
-</typescript_preferences>
+You are working on an AI-focused development project. Follow these core principles for AI integration:
 
-<ai_integration_patterns>
-- Implement proper async/await patterns for AI API calls with error handling
-- Use React Server Components where appropriate for AI data fetching
-- Handle loading and error states consistently across AI-powered components
-- Implement request debouncing for user inputs to AI services
-- Use background processing for long-running AI tasks and streaming responses
-</ai_integration_patterns>
+## AI-First Development Principles
 
-<code_organization>
-- Place AI client configurations and utilities in src/lib/ directory
-- Organize imports: external dependencies first, then internal modules
-- Use meaningful variable names for AI-related functionality and prompts
-- Group related AI functionality together in logical modules
-- Follow Next.js 13+ App Router patterns when applicable
-</code_organization>
-
-<error_handling>
+### 1. API Integration Patterns
+- Use modern async/await patterns for all AI API calls
 - Implement comprehensive error handling for AI service failures
-- Handle rate limiting with exponential backoff strategies
-- Provide fallback mechanisms for AI service unavailability
-- Log AI interactions appropriately for debugging and monitoring
-- Include proper cleanup for AI subscriptions and streaming connections
-</error_handling>
+- Consider token usage and model performance optimization
+- Design for scalability with AI workloads
+
+### 2. Preferred AI Integration Pattern
+```javascript
+const aiResponse = await fetch('/api/ai-service', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${process.env.AI_API_KEY}`
+  },
+  body: JSON.stringify({ prompt, options })
+});
+
+if (!aiResponse.ok) {
+  throw new Error(`AI service error: ${aiResponse.status}`);
+}
+```
+
+### 3. Recommended AI Dependencies
+When adding AI functionality, prefer these established packages:
+- `openai` - Official OpenAI API client
+- `@langchain/core` - LangChain framework
+- `@vercel/ai` - Vercel AI SDK
+- `@huggingface/inference` - Hugging Face API client
+
+### 4. Response Handling Best Practices
+- Always validate AI responses before using them
+- Implement fallback mechanisms for failed requests
+- Log AI interactions for debugging and monitoring
+- Handle streaming responses appropriately
+
+### 5. Performance Optimization
+- Cache AI responses when appropriate
+- Implement request debouncing for user inputs
+- Use background processing for long-running AI tasks
+- Consider edge functions for AI API proxying
+
+### 6. User Experience Guidelines
+- Provide clear loading indicators for AI operations
+- Implement progressive disclosure for complex AI features
+- Give users control over AI behavior and settings
+- Provide feedback mechanisms for AI output quality
 
 ---
 > Source: [HerringtonDarkholme/megarepo](https://github.com/HerringtonDarkholme/megarepo) — distributed by [TomeVault](https://tomevault.io).
