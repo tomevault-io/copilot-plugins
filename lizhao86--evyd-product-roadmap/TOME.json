@@ -1,0 +1,44 @@
+{
+  "name": "EVYD-Product-Roadmap",
+  "owner": "lizhao86",
+  "repo": "EVYD-Product-Roadmap",
+  "description": "EVYD \u53ef\u89c6\u5316\u4ea7\u54c1 Roadmap \u7535\u5b50\u767d\u677f \u2014 \u7eaf\u524d\u7aef\uff0cCSV \u9a71\u52a8\uff0c\u8d22\u5e74\u89c6\u56fe\uff0c\u62d6\u62fd\u4ea4\u4e92",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lizhao86/EVYD-Product-Roadmap",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T13:52:13Z"
+}
