@@ -1,0 +1,9 @@
+{
+  "name": "ibbybuilds--discli",
+  "displayName": "discli",
+  "description": "Discord server management CLI for AI agents and humans. Channels, roles, permissions, messages, embeds, files, emojis, invites, audit logs. One command = one API call. No bot server needed.",
+  "version": "1.0.0",
+  "author": "ibbybuilds",
+  "homepage": "https://github.com/ibbybuilds/discli",
+  "skills": []
+}
