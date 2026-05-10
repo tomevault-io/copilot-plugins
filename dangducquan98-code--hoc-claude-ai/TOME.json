@@ -1,0 +1,44 @@
+{
+  "name": "hoc-claude-ai",
+  "owner": "dangducquan98-code",
+  "repo": "hoc-claude-ai",
+  "description": "L\u1ed9 tr\u00ecnh h\u1ecdc Claude AI \u2014 16 b\u00e0i h\u1ecdc t\u1eeb zero \u0111\u1ebfn th\u00e0nh th\u1ea1o",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dangducquan98-code/hoc-claude-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T15:33:04Z"
+}
