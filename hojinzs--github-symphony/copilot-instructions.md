@@ -1,78 +1,101 @@
 ## github-symphony
 
-> This repository is an implementation of OpenAI Symphony as described in [docs/symphony-spec.md](docs/symphony-spec.md).
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENT.md
+# CLAUDE.md
 
-## Project Identity
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-This repository is an implementation of OpenAI Symphony as described in [docs/symphony-spec.md](docs/symphony-spec.md).
+## Project Overview
 
-The upstream specification is the source reference for architecture, layering, orchestration behavior, runtime behavior, workflow loading, workspace lifecycle, tracker integration boundaries, and observability expectations.
+GitHub Symphony — a multi-tenant AI coding agent orchestration platform built on the Symphony specification (`docs/symphony-spec.md`, read-only). The repository is a pnpm monorepo (pnpm 9+, Node.js 24+) with strict TypeScript.
 
-## Mandatory Pre-Work Checks
+## Common Commands
 
-Before writing or changing any spec, design, or implementation artifact, the agent MUST identify:
+```bash
+pnpm install              # Install dependencies
+pnpm build                # Build all packages (pnpm -r build)
+pnpm lint                 # ESLint across all packages
+pnpm test                 # Vitest across all packages
+pnpm typecheck            # TypeScript strict check (sequential)
+pnpm format               # Prettier check
+pnpm format:write         # Prettier auto-fix
 
-1. Which Symphony spec layer the work belongs to.
-2. Whether the work affects one layer only or crosses multiple layers.
+# Single package
+pnpm --filter @gh-symphony/core test
+pnpm --filter @gh-symphony/orchestrator build
 
-Use the layer model from the Symphony spec:
+# Single test file
+npx vitest run packages/core/src/workflow/workflow-loader.test.ts
 
-1. Policy Layer
-2. Configuration Layer
-3. Coordination Layer
-4. Execution Layer
-5. Integration Layer
-6. Observability Layer
+```
 
-When starting work, explicitly classify the task against one or more of these layers.
+Before shipping: `pnpm lint && pnpm test && pnpm typecheck && pnpm build`
 
-## Mandatory Post-Work Checks
+**작업 완료 후 반드시 TC를 작성하고 테스트를 실행하여 검증해야 한다.** 단위 테스트로 충분하지 않은 통합 동작은 Docker E2E 환경에서 블랙박스 테스트로 검증한다. 구체적인 방법은 [AGENT_TEST.md](AGENT_TEST.md) 참조.
 
-After completing any spec or implementation task, the agent MUST verify:
+## Architecture
 
-1. Whether the resulting design or code still conforms to [docs/symphony-spec.md](docs/symphony-spec.md).
-2. Whether any part of the work intentionally diverges from the upstream spec.
-3. **TC 작성 및 테스트 실행**: 작업 완료 후 간단한 TC(Test Case)를 작성하고, 테스트를 실행하여 검증해야 한다. 단위 테스트(`pnpm test`)는 필수이며, 통합 동작 검증이 필요한 경우 Docker E2E 환경에서 블랙박스 테스트를 수행한다. 구체적인 테스트 방법은 [AGENT_TEST.md](AGENT_TEST.md)를 참고한다.
+### Six Symphony Layers
 
-If a divergence exists:
+All work must be classified against these layers (per `AGENT.md`):
 
-- The divergence must be called out explicitly in the relevant change proposal, design, task, or implementation notes.
-- The divergence must be treated as a repository-level implementation choice, not as an implicit rewrite of the upstream spec.
-- The divergence must not be hidden behind ambiguous wording.
+1. **Policy** — `WORKFLOW.md` prompt and team rules (repo-defined, per-repository)
+2. **Configuration** — Workflow config parsing and validation
+3. **Coordination** — Orchestrator polling, dispatch, leases, retries, recovery
+4. **Execution** — Worker filesystem lifecycle, agent subprocess
+5. **Integration** — GitHub tracker adapter (tracker-specific code stays here)
+6. **Observability** — Structured events and status snapshots
 
-## Hard Rule: Do Not Modify The Upstream Spec
+### Package Dependency Graph
 
-The file [docs/symphony-spec.md](docs/symphony-spec.md) is the upstream source specification.
+```
+orchestrator ──→ core, tracker-github
+worker ──────→ core, runtime-codex, tracker-github, extension-github-workflow
+runtime-codex ─→ core
+tracker-github ─→ core
+extension-github-workflow ─→ core
+```
 
-Agents MUST NOT edit, rewrite, patch, or reformat that file as part of normal spec work or implementation work.
+### Key Packages
 
-If a proposed design appears to conflict with the upstream spec:
+- **`packages/core`** — Domain types, contracts (`OrchestratorStateStore`, `OrchestratorTrackerAdapter`), workflow lifecycle (`WorkflowExecutionPhase`: planning → human-review → implementation → awaiting-merge → completed), orchestration records, observability snapshots. No external dependencies.
+- **`packages/orchestrator`** — CLI entrypoint, `OrchestratorService` dispatch loop, filesystem-backed state store (`OrchestratorFsStore`), status HTTP server (default `:4680`). Commands: `run`, `run-once`, `dispatch`, `run-issue`, `recover`, `status`.
+- **`packages/worker`** — Runs a single issue; serves `/api/v1/state`; integrates with Codex runtime; manages approval workflow and after-create hooks.
+- **`packages/runtime-codex`** — Codex AI runtime integration (launcher, session, git-credential-helper, github-graphql tool).
+- **`packages/tracker-github`** — `GitHubTrackerAdapter` implementing `OrchestratorTrackerAdapter` contract.
 
-- Do not modify the upstream spec file.
-- Keep the divergence in repository-local design/change documents instead.
-- Make the divergence explicit and reviewable.
+### Key Contracts (in core)
 
-## Spec And Implementation Discipline
+- `OrchestratorTrackerAdapter` — listIssues, buildWorkerEnvironment, reviveIssue
+- `OrchestratorStateStore` — loadWorkspaceConfigs, saveRun, appendRunEvent, leases
+- `WorkflowLifecycleConfig` — maps tracker state strings to execution phases
 
-When proposing or implementing changes:
+### Runtime State
 
-- Prefer aligning the repository to the upstream Symphony spec rather than redefining core behavior locally.
-- Keep tracker-specific behavior out of core layers unless the upstream spec clearly allows that boundary.
-- Keep workflow-policy behavior separate from orchestration-core behavior.
-- Treat GitHub-specific semantics as repository extensions layered on top of Symphony core behavior.
+Filesystem state lives under `.runtime/orchestrator/`:
+- `workspaces/<id>/config.json` — workspace metadata
+- `workspaces/<id>/leases.json` — issue-phase leases
+- `runs/<run-id>/run.json` — run snapshots
+- `runs/<run-id>/events.ndjson` — structured events
 
-## Applies To
+## Code Conventions
 
-These rules apply to:
+- **TypeScript strict mode** — do not weaken compiler settings
+- **Prettier**: double quotes, semicolons, trailing commas (es5)
+- **ESLint**: flat config, unused vars prefixed with `_`
+- **Tests**: `*.test.ts` files, Vitest, node environment
+- **Build output**: `dist/` for libraries
+- **Workspace protocol**: `workspace:*` version specifiers between packages
 
-- OpenSpec proposals, designs, tasks, and capability specs
-- package structure changes
-- runtime/orchestrator/tracker integration work
-- workflow/config changes
-- implementation and refactoring work
+## Spec Discipline
+
+- `docs/symphony-spec.md` is the upstream spec — never modify it
+- Divergences from the spec must be explicit and documented in change artifacts
+- GitHub-specific semantics are extensions layered on top of Symphony core
+- Keep tracker-specific behavior out of core layers
+- Keep workflow-policy behavior separate from orchestration-core behavior
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/hojinzs) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [hojinzs/github-symphony](https://github.com/hojinzs/github-symphony) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-29 -->
