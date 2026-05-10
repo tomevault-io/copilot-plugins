@@ -1,11 +1,9 @@
-## do-all-todos
+## dont-create-markdown
 
-> Do all todos
+> Don't create new markdown files
 
 
-Always do all of your TODOs. Don't wait. Don't take the simple approach or prioritize critical path. Don't stop or claim success when there are still minor issues. Unless all tests pass at 100% and all lint errors are resolved and everything runs, you aren't done. Always add TODOs to test, run dev and start, lint and critically review for any unfinished or obviously bad code.
-
-After you've completed all of your TODOs, go back and review all of them to make sure you cleaned up your work and your code is as tight and neat as possible, with no unnecessary fallbacks, try catch, comment slop or other bad programming habits.
+Don't create new markdown files for reports, reviews, etc. Just dot he review, then apply your thoughts and fix things based on the review immediately. Write markdowns is a waste of time and we don't read them. Only valid markdown are README and documentation.
 
 ---
 > Source: [JejuNetwork/jeju](https://github.com/JejuNetwork/jeju) — distributed by [TomeVault](https://tomevault.io).
