@@ -4,7 +4,7 @@
   "repo": "ShinKu",
   "description": "a modern, rebranded, and enhanced fork of TachiyomiSY/Mihon, designed for a immersive and intelligent manga-reading experience.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Harrys-HQ/ShinKu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T10:57:10Z"
+  "distributed_at": "2026-05-10T17:37:48Z"
 }
