@@ -1,0 +1,9 @@
+{
+  "name": "arpit-patel1--n8n-nodes-netdevices",
+  "displayName": "n8n-nodes-netdevices",
+  "description": "N8n node to communicate with network devcies",
+  "version": "1.0.0",
+  "author": "arpit-patel1",
+  "homepage": "https://github.com/arpit-patel1/n8n-nodes-netdevices",
+  "skills": []
+}
