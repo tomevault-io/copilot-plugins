@@ -1,0 +1,9 @@
+{
+  "name": "emberravager--aicustomerservice",
+  "displayName": "AICustomerService",
+  "description": "\u57fa\u4e8e LangChain \u548c FastAPI \u7684\u73b0\u4ee3\u5316\u667a\u80fd\u5ba2\u670d\u7cfb\u7edf",
+  "version": "1.0.0",
+  "author": "EmberRavager",
+  "homepage": "https://github.com/EmberRavager/AICustomerService",
+  "skills": []
+}
