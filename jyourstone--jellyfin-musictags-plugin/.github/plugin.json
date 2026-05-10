@@ -1,0 +1,9 @@
+{
+  "name": "jyourstone--jellyfin-musictags-plugin",
+  "displayName": "jellyfin-musictags-plugin",
+  "description": "A Jellyfin plugin that automatically extracts metadata from audio files - such as ID3 tags, Vorbis comments, and more - and converts them into standard Jellyfin tags.",
+  "version": "1.0.0",
+  "author": "jyourstone",
+  "homepage": "https://github.com/jyourstone/jellyfin-musictags-plugin",
+  "skills": []
+}
