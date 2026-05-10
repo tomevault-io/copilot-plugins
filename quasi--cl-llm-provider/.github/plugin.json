@@ -1,0 +1,9 @@
+{
+  "name": "quasi--cl-llm-provider",
+  "displayName": "cl-llm-provider",
+  "description": "Interface to connect with multiple LLM providers. Completions, Tools, Observability.",
+  "version": "1.0.0",
+  "author": "quasi",
+  "homepage": "https://github.com/quasi/cl-llm-provider",
+  "skills": []
+}
