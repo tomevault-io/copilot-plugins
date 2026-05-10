@@ -1,0 +1,9 @@
+{
+  "name": "areibman--bottleneck",
+  "displayName": "bottleneck",
+  "description": "Code review for AI native teams. Native Electron app for reviewing pull requests dramatically faster than Github web. Specialized for handling reviews for background agents working on multiple concurr",
+  "version": "1.0.0",
+  "author": "areibman",
+  "homepage": "https://github.com/areibman/bottleneck",
+  "skills": []
+}
