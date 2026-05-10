@@ -1,0 +1,9 @@
+{
+  "name": "packmindhub--packmind",
+  "displayName": "packmind",
+  "description": "Packmind seamlessly captures your engineering playbook and turns it into AI context, guardrails, and governance.",
+  "version": "1.0.0",
+  "author": "PackmindHub",
+  "homepage": "https://github.com/PackmindHub/packmind",
+  "skills": []
+}
