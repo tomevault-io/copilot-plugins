@@ -1,0 +1,9 @@
+{
+  "name": "etechlead--token-map",
+  "displayName": "token-map",
+  "description": "TokenMap is a desktop app for treemap-based codebase analysis by tokens, size, complexity, hotspots, and refactor priority",
+  "version": "1.0.0",
+  "author": "etechlead",
+  "homepage": "https://github.com/etechlead/token-map",
+  "skills": []
+}
