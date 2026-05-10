@@ -1,0 +1,9 @@
+{
+  "name": "bensyverson--operator",
+  "displayName": "Operator",
+  "description": "A minimal, un-opinionated agent library for Swift providing conversation and tool calling",
+  "version": "1.0.0",
+  "author": "bensyverson",
+  "homepage": "https://github.com/bensyverson/Operator",
+  "skills": []
+}
