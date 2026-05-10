@@ -1,0 +1,9 @@
+{
+  "name": "birko--birko-backgroundjobs-elasticsearch",
+  "displayName": "Birko.BackgroundJobs.ElasticSearch",
+  "description": "Birko.BackgroundJobs.ElasticSearch",
+  "version": "1.0.0",
+  "author": "birko",
+  "homepage": "https://github.com/birko/Birko.BackgroundJobs.ElasticSearch",
+  "skills": []
+}
