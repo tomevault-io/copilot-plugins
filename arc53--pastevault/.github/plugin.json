@@ -1,0 +1,9 @@
+{
+  "name": "arc53--pastevault",
+  "displayName": "pastevault",
+  "description": "Modern secure pastebin with a VS Code-like editor. Share code, text, and markdown securely with automatic expiry and burn-after-read options.",
+  "version": "1.0.0",
+  "author": "arc53",
+  "homepage": "https://github.com/arc53/pastevault",
+  "skills": []
+}
