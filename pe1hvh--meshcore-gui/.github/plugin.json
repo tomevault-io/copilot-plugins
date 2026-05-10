@@ -1,0 +1,9 @@
+{
+  "name": "pe1hvh--meshcore-gui",
+  "displayName": "meshcore-gui",
+  "description": "Native desktop GUI for MeshCore mesh network devices via BLE \u2014 no firmware changes required",
+  "version": "1.0.0",
+  "author": "pe1hvh",
+  "homepage": "https://github.com/pe1hvh/meshcore-gui",
+  "skills": []
+}
