@@ -1,0 +1,44 @@
+{
+  "name": "xyz-dl",
+  "owner": "shiquda",
+  "repo": "xyz-dl",
+  "description": "\u5c0f\u5b87\u5b99FM \u64ad\u5ba2 CLI \u4e0b\u8f7d\u5de5\u5177\uff0c\u652f\u6301\u5355\u96c6\u4e0b\u8f7d\u3001\u4e13\u8f91\u4e0b\u8f7d\u3001\u5b57\u5e55\u4e0b\u8f7d",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shiquda/xyz-dl",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T23:07:20Z"
+}
