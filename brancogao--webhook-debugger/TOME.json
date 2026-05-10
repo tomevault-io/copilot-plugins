@@ -1,0 +1,44 @@
+{
+  "name": "webhook-debugger",
+  "owner": "brancogao",
+  "repo": "webhook-debugger",
+  "description": "Capture, inspect, and replay webhooks with 90-day history + signature verification. Built on Cloudflare Workers + D1.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/brancogao/webhook-debugger",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T17:56:49Z"
+}
