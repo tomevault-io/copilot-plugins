@@ -1,62 +1,26 @@
-## general
+## html
 
-> The local development environment is completely contained within the `/dev` directory.
+> The Jellyfin plugin configuration page has a specific JavaScript environment that must be respected.
 
-### Development Environment
+### 1. JavaScript Environment Limitations
 
-The local development environment is completely contained within the `/dev` directory.
+The Jellyfin plugin configuration page has a specific JavaScript environment that must be respected.
 
-- This includes the `docker-compose.yml`, the `build-local.sh` script, test media folders, and the `jellyfin-data` directory. The build script is configured to use a separate `meta-dev.json` file and handles all necessary paths for a local build. Do not modify files outside of `/dev` for local testing.
+- **No Template Literals:** Do not use ES6 template literals (backticks `` ` ``) for string formatting. This environment does not support them. All dynamic strings **must** be constructed using traditional string concatenation with the `+` operator.
 
-C# 12+ Collection Expressions
+- **Use Inline Notifications:** Jellyfin's `Dashboard.alert()` function is unreliable and fails silently. Standard browser `alert()` is also discouraged as it is intrusive. All user-facing messages (both success and error) **must** be displayed using the project's custom `showNotification(message, type)` function.
 
-Use C# 12+ collection expressions for cleaner, more concise code.
+### 2. API Error Handling
 
-Debugging and Testing Workflow
+When handling API errors, remember that the server returns error messages in a specific format.
 
-Local Development Loop
-1. Make code changes
-2. Build: `./build-local.sh` (from `/dev` directory)
-3. Wait for user input
-4. Check logs: `tail -n 100 jellyfin-data/config/log/log_YYYYMMDD.log`
+- A `400 Bad Request` from the backend API will contain a **JSON-encoded string** in the response body. This is *not* a JSON object. You must call `.text()` on the `Response` object and then use `JSON.parse()` on the resulting string to get the clean error message. Forgetting to parse the JSON string will result in a message wrapped in quotes being displayed.
 
-Log Analysis Patterns
-```bash
-# Find specific debug messages
-grep -A 10 -B 5 "specific_debug_message" jellyfin-data/config/log/log_*.log
+### 3. UI Styling and CSS
 
-# Monitor real-time logs during testing
-tail -f jellyfin-data/config/log/log_*.log | grep "MusicTags"
+To maintain a consistent and professional appearance, all UI elements must use Jellyfin's standard CSS classes.
 
-# Count log entries for performance analysis
-grep -c "expensive_operation" jellyfin-data/config/log/log_*.log
-```
-
-#### Debugging Unknown Data Structures
-Always add comprehensive logging when exploring new object types:
-```csharp
-if (result != null)
-{
-    logger?.LogDebug("Result type: {Type}", result.GetType().Name);
-    
-    // Log properties
-    var properties = result.GetType().GetProperties().Select(p => p.Name).ToArray();
-    logger?.LogDebug("Properties: [{Props}]", string.Join(", ", properties));
-    
-    // Test if it's enumerable
-    if (result is IEnumerable<object> enumerable)
-    {
-        var items = enumerable.Take(3).ToList();
-        logger?.LogDebug("Enumerable with {Count} items (showing first 3)", items.Count);
-        
-        foreach (var item in items)
-        {
-            var itemProps = item.GetType().GetProperties().Select(p => p.Name).ToArray();
-            logger?.LogDebug("Item properties: [{Props}]", string.Join(", ", itemProps));
-        }
-    }
-}
-```
+- Avoid using custom inline styles for layout and component styling. Instead, use Jellyfin's predefined classes like `inputContainer`, `inputLabel` `sectionTitle`, `checkboxLabel`, `fieldDescription`, `emby-button`, and `raised` to ensure the plugin's UI matches the native Jellyfin look and feel.
 
 ---
 > Source: [jyourstone/jellyfin-musictags-plugin](https://github.com/jyourstone/jellyfin-musictags-plugin) — distributed by [TomeVault](https://tomevault.io).
