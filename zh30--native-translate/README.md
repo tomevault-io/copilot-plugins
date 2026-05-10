@@ -2,6 +2,8 @@
 
 > Source: [zh30/native-translate](https://github.com/zh30/native-translate) — distributed by [TomeVault](https://tomevault.io)
 
+Private, local‑first translation using Chrome's built‑in AI Translator & Language Detector. No cloud calls, no telemetry — your content never leaves the browser.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
