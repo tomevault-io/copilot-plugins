@@ -1,0 +1,44 @@
+{
+  "name": "pt_mate",
+  "owner": "JustLookAtNow",
+  "repo": "pt_mate",
+  "description": "\u57fa\u4e8e Flutter\uff08Material Design 3\uff09\u5f00\u53d1\u7684\u79c1\u6709\u79cd\u5b50\u7ad9\u70b9\u5ba2\u6237\u7aef\uff0c\u652f\u6301\u591a\u79cdPT\u7ad9\u70b9\u7684\u79cd\u5b50\u6d4f\u89c8\u3001\u641c\u7d22\u548c\u4e0b\u8f7d\u7ba1\u7406\u3002\u76ee\u524d\u652f\u6301M-Team\u548cNexusPHP\u7c7b\u578b\u7684\u7ad9\u70b9\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JustLookAtNow/pt_mate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T14:37:25Z"
+}
