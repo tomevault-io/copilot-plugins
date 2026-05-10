@@ -4,7 +4,7 @@
   "repo": "wechat-channel",
   "description": "\u5c06\u5fae\u4fe1\u63a5\u5165\u4e3a\u4efb\u610f\u7cfb\u7edf\u7684\u7edf\u4e00\u6d88\u606f\u901a\u9053",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nanbingxyz/wechat-channel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T22:29:05Z"
+  "distributed_at": "2026-05-10T21:43:19Z"
 }
