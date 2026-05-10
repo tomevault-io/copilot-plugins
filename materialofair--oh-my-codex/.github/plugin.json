@@ -1,0 +1,9 @@
+{
+  "name": "materialofair--oh-my-codex",
+  "displayName": "oh-my-codex",
+  "description": "workflows for Codex CLI. Unified Skills, rules, and prompts to standardize and automate coding, refactoring, testing, and review workflows. Less prompt-tuning, more shipping.",
+  "version": "1.0.0",
+  "author": "materialofair",
+  "homepage": "https://github.com/materialofair/oh-my-codex",
+  "skills": []
+}
