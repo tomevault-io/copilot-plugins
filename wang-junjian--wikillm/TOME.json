@@ -1,0 +1,44 @@
+{
+  "name": "wikillm",
+  "owner": "wang-junjian",
+  "repo": "wikillm",
+  "description": "WikiLLM\uff1a\u57fa\u4e8e Andrej Karpathy \u7406\u5ff5\u7684 AI \u81ea\u4e3b\u4e2a\u4eba\u77e5\u8bc6\u5e93",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wang-junjian/wikillm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T05:16:12Z"
+}
