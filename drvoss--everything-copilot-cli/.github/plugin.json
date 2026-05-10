@@ -1,0 +1,9 @@
+{
+  "name": "drvoss--everything-copilot-cli",
+  "displayName": "everything-copilot-cli",
+  "description": "The definitive guide & configuration system for GitHub Copilot CLI \u2014 agents, skills, rules, multi-AI orchestration, and more",
+  "version": "1.0.0",
+  "author": "drvoss",
+  "homepage": "https://github.com/drvoss/everything-copilot-cli",
+  "skills": []
+}
