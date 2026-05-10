@@ -1,94 +1,48 @@
-## dioxus
+## environment
 
-> - Use the `#[component]` macro for all components
+> This describes the environment including shell, build system, etc.
 
-# Dioxus 0.6 Best Practices
+# Development Environment Preferences
 
-## Component Structure
-- Use the `#[component]` macro for all components
-- Keep components focused on a single responsibility
-- Extract complex logic into custom hooks
-- Name components using PascalCase
-- Name hooks using the `use_` prefix and snake_case
-- Return `Element` type from component functions
-- Provide proper rustdoc comments for public components
+## Shell
+- Using Nushell as the primary shell
+- Prefer shell-agnostic commands when possible
+- For Nushell-specific syntax, use the appropriate commands and data structures
 
-## State Management
-- Use `use_signal` for reactive state (preferred over deprecated `use_hook`)
-- Use `read()` and `write()` methods for signal access
-- Avoid direct mutations outside of write blocks
-- Use `.set()` for simple signal updates
-- Use `use_effect` for side effects and lifecycle events
-- Keep state as close as possible to where it's used
+## Build Systems
+- Prefer Makefiles over shell scripts for build automation
+- Use descriptive targets in Makefiles with proper documentation
+- Implement proper dependency tracking in Makefiles
 
-## Hooks
-- Create custom hooks for reusable logic
-- Return `Signal<T>` from hooks that manage state
-- Use proper tuple destructuring when returning multiple values
-- Follow React-like naming conventions for hooks (`use_*`)
-- Bundle related operations in a struct when returning multiple functions
-- Use `use_effect` for initialization and cleanup
-- Define clear input/output types for hooks
+## Python
+- Use `uv` for Python package management and virtual environments
+- Prefer isolated environments for each project
+- Include proper dependency specifications in requirements files
 
-## Event Handling
-- Create specific, named event handlers
-- Use `move |param| { ... }` for event handlers
-- Return handlers from hooks when they're related to that hook's state
-- Box complex event handlers with proper type definitions
-- Use event delegation when appropriate
+## Rust
+- Use Cargo for package management and builds
+- Use rustup for toolchain management
+- Follow Rust idioms as specified in rust.mdc
 
-## RSX Syntax
-- Use proper indentation in `rsx!` blocks
-- Group related attributes together
-- Use string interpolation for dynamic class names: `class: "base-class {dynamic_class}"`
-- Use shorthand for boolean properties
-- Include proper ARIA attributes for accessibility
+## Version Control
+- Git for version control
+- Use meaningful commit messages and branch names
+- Prefer small, focused commits
 
-## Performance
-- Use `use_memo` for expensive computations
-- Define component props explicitly for complex components
-- Avoid unnecessary re-renders
-- Leverage Rust's borrowing system for references
+## Editor/IDE
+- Using Cursor as the IDE
+- Leverage Cursor-specific features for productivity
+- Follow code organization as specified by other .mdc files
 
-## Storage
-- Use abstracted storage operations (like the `utils::save` and `utils::load` functions)
-- Handle storage errors gracefully
-- Define constants for storage keys
-
-## Styling
-- Use consistent class naming conventions
-- Leverage utility-first CSS frameworks like Tailwind
-- Create helper functions for common style patterns
-- Use theme-aware styling with dark/light mode support
-
-## Persistence
-- Save state to localStorage or other storage when needed
-- Load state on component initialization
-- Handle serialization/deserialization errors
+## Containers & Deployment
+- Use dockerfile (podman) for containerization when needed
+- Create optimized multi-stage builds for production containers
+- Document deployment procedures clearly
 
 ## Testing
-- Write unit tests for components with VirtualDom
-- Test initial rendering, state changes, and event handling
-- Use proper test assertions
-- Structure tests with Arrange-Act-Assert pattern
-
-## Platform Specifics
-- Use feature flags for platform-specific code (`#[cfg(feature = "desktop")]`)
-- Handle platform differences with conditional compilation
-- Provide appropriate fallbacks for all platforms
-
-## Project Structure
-- Organize components in a logical directory structure
-- Use modules to group related components
-- Keep shared constants in a dedicated module
-- Separate concerns: UI components, state management, and utilities
-
-## Code Style
-- Follow Rust naming conventions
-- Use standard function signatures for event handlers
-- Keep functions short and focused
-- Use type aliases for complex types
-- Use consistent parameter naming
+- Include automated tests for all components
+- Run tests before submitting pull requests
+- Use appropriate testing frameworks for each language
 
 ---
 > Source: [tyrchen/grpc-client](https://github.com/tyrchen/grpc-client) — distributed by [TomeVault](https://tomevault.io).
