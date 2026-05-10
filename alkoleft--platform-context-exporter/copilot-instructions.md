@@ -1,164 +1,82 @@
-## 301-framework-spring-boot
+## java-spring-cursor-rules
 
-> Spring Boot development guidelines
+> Java Spring Cursor Rules
 
-# Spring Boot Development Guidelines
+You are an expert in Java programming, Spring Boot, Spring Framework, Maven, JUnit, and related Java technologies.
 
-## Project Structure
+Code Style and Structure
+- Write clean, efficient, and well-documented Java code with accurate Spring Boot examples.
+- Use Spring Boot best practices and conventions throughout your code.
+- Implement RESTful API design patterns when creating web services.
+- Use descriptive method and variable names following camelCase convention.
+- Structure Spring Boot applications: controllers, services, repositories, models, configurations.
 
-## Best Practices
+Spring Boot Specifics
+- Use Spring Boot starters for quick project setup and dependency management.
+- Implement proper use of annotations (e.g., @SpringBootApplication, @RestController, @Service).
+- Utilize Spring Boot's auto-configuration features effectively.
+- Implement proper exception handling using @ControllerAdvice and @ExceptionHandler.
 
-### Configuration
-configuration_guidelines:
-  - "Use configuration properties classes over @Value"
-  - "Externalize configuration using application.yml"
-  - "Use profiles for environment-specific settings"
-  - "Follow the 12-factor app methodology"
-  - "Use @ConfigurationProperties for type-safe configuration"
+Naming Conventions
+- Use PascalCase for class names (e.g., UserController, OrderService).
+- Use camelCase for method and variable names (e.g., findUserById, isOrderValid).
+- Use ALL_CAPS for constants (e.g., MAX_RETRY_ATTEMPTS, DEFAULT_PAGE_SIZE).
 
-### REST APIs
+Java and Spring Boot Usage
+- Use Java 17 or later features when applicable (e.g., records, sealed classes, pattern matching).
+- Leverage Spring Boot 3.x features and best practices.
+- Use Spring Data JPA for database operations when applicable.
+- Implement proper validation using Bean Validation (e.g., @Valid, custom validators).
 
-rest_guidelines:
-  - "Follow REST maturity model"
-  - "Use proper HTTP methods (GET, POST, PUT, DELETE)"
-  - "Implement proper error handling with @ControllerAdvice"
-  - "Use DTOs to control API response/request structure"
-  - "Implement API versioning"
-  - "Use proper HTTP status codes"
-  - "Document APIs using OpenAPI/Swagger"
+Configuration and Properties
+- Use application.properties or application.yml for configuration.
+- Implement environment-specific configurations using Spring Profiles.
+- Use @ConfigurationProperties for type-safe configuration properties.
 
-### Security
+Dependency Injection and IoC
+- Use constructor injection over field injection for better testability.
+- Leverage Spring's IoC container for managing bean lifecycles.
 
-security_guidelines:
-  - "Enable HTTPS in production"
-  - "Implement proper authentication and authorization"
-  - "Use Spring Security for security concerns"
-  - "Implement CORS properly"
-  - "Follow OWASP security guidelines"
-  - "Use security headers"
-  - "Implement rate limiting"
+Testing
+- Write unit tests using JUnit 5 and Spring Boot Test.
+- Use MockMvc for testing web layers.
+- Implement integration tests using @SpringBootTest.
+- Use @DataJpaTest for repository layer tests.
 
-### Database
+Performance and Scalability
+- Implement caching strategies using Spring Cache abstraction.
+- Use async processing with @Async for non-blocking operations.
+- Implement proper database indexing and query optimization.
 
-database_guidelines:
-  - "Use Spring Data JDBC repositories when possible"
-  - "Implement proper transaction management"
-  - "Use connection pooling"
-  - "Implement database migrations with Flyway/Liquibase"
-  - "Implement proper indexing strategy"
+Security
+- Implement Spring Security for authentication and authorization.
+- Use proper password encoding (e.g., BCrypt).
+- Implement CORS configuration when necessary.
 
-### Testing
+Logging and Monitoring
+- Use SLF4J with Logback for logging.
+- Implement proper log levels (ERROR, WARN, INFO, DEBUG).
+- Use Spring Boot Actuator for application monitoring and metrics.
 
-testing_guidelines:
-  - "Write unit tests for services and controllers"
-  - "Use @SpringBootTest for integration tests"
-  - "Implement test slices (@WebMvcTest, @DataJpaTest)"
-  - "Use test containers for integration tests"
-  - "Mock external services"
-  - "Test configuration properties"
+API Documentation
+- Use Springdoc OpenAPI (formerly Swagger) for API documentation.
 
-### Performance
+Data Access and ORM
+- Use Spring Data JPA for database operations.
+- Implement proper entity relationships and cascading.
+- Use database migrations with tools like Flyway or Liquibase.
 
-performance_guidelines:
-  - "Use caching where appropriate"
-  - "Implement connection pooling"
-  - "Use async processing for long-running tasks"
-  - "Implement proper logging levels"
-  - "Use metrics and monitoring"
-  - "Implement proper exception handling"
+Build and Deployment
+- Use Maven for dependency management and build processes.
+- Implement proper profiles for different environments (dev, test, prod).
+- Use Docker for containerization if applicable.
 
-### Code Examples
+Follow best practices for:
+- RESTful API design (proper use of HTTP methods, status codes, etc.).
+- Microservices architecture (if applicable).
+- Asynchronous processing using Spring's @Async or reactive programming with Spring WebFlux.
 
-#### Configuration Properties
-```java
-@ConfigurationProperties(prefix = "app")
-@Validated
-public class AppProperties {
-    @NotNull
-    private String apiKey;
-    private int cacheTimeout;
-    // getters and setters
-}
-```
-
-#### Controller
-```java
-@RestController
-@RequestMapping("/api/v1")
-@Validated
-public class UserController {
-    @GetMapping("/users/{id}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
-        // implementation
-    }
-}
-```
-
-#### Service
-```java
-@Service
-@Transactional
-public class UserService {
-    private final UserRepository userRepository;
-    
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-}
-```
-
-### Dependencies
-
-essential_dependencies:
-  spring_boot_starters:
-    - "spring-boot-starter-web"
-    - "spring-boot-starter-data-jdbc"
-    - "spring-boot-starter-security"
-    - "spring-boot-starter-validation"
-    - "spring-boot-starter-actuator"
-  testing:
-    - "spring-boot-starter-test"
-    - "testcontainers"
-  utilities:
-    - "springdoc-openapi"
-
-### Actuator
-
-actuator_guidelines:
-  - "Enable appropriate endpoints"
-  - "Secure sensitive endpoints"
-  - "Implement custom health indicators"
-  - "Configure metrics collection"
-  - "Implement proper info endpoint"
-
-### Logging
-
-logging_guidelines:
-  - "Use SLF4J with Logback"
-  - "Configure appropriate log levels"
-  - "Implement structured logging"
-  - "Use MDC for request tracking"
-  - "Configure log rotation"
-
-### Error Handling
-
-error_handling:
-  - "Use @ControllerAdvice for global error handling"
-  - "Return proper error responses"
-  - "Implement validation error handling"
-  - "Log errors appropriately"
-
-### Production Readiness
-
-production_checklist:
-  - "Enable HTTPS"
-  - "Configure proper logging"
-  - "Enable metrics and monitoring"
-  - "Implement health checks"
-  - "Configure proper error pages"
-  - "Set up proper backup strategy"
-  - "Implement circuit breakers for external services"
-  - "Configure proper timeouts"
+Adhere to SOLID principles and maintain high cohesion and low coupling in your Spring Boot application design.
 
 ---
 > Source: [alkoleft/platform-context-exporter](https://github.com/alkoleft/platform-context-exporter) — distributed by [TomeVault](https://tomevault.io).
