@@ -1,0 +1,44 @@
+{
+  "name": "skin-crafter",
+  "owner": "bafv4",
+  "repo": "skin-crafter",
+  "description": "\u5b6b\u306e\u624b\u7684Minecraft\u30b9\u30ad\u30f3\u4f5c\u6210\u30b5\u30a4\u30c8",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bafv4/skin-crafter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T20:13:36Z"
+}
