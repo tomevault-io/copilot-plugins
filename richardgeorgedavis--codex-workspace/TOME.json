@@ -1,0 +1,105 @@
+{
+  "name": "Codex-Workspace",
+  "owner": "RichardGeorgeDavis",
+  "repo": "Codex-Workspace",
+  "description": "AI instruction skills by RichardGeorgeDavis",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "SKILL.md",
+      "path": ".agents/skills/agent-tooling-doctor/SKILL.md",
+      "github_url": "https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/.agents/skills/agent-tooling-doctor/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": ".agents/skills/quality-gate/SKILL.md",
+      "github_url": "https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/.agents/skills/quality-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": ".agents/skills/repo-onboarding/SKILL.md",
+      "github_url": "https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/.agents/skills/repo-onboarding/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": ".agents/skills/runtime-triage/SKILL.md",
+      "github_url": "https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/.agents/skills/runtime-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": ".agents/skills/security-check/SKILL.md",
+      "github_url": "https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/.agents/skills/security-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": ".agents/skills/typescript-review/SKILL.md",
+      "github_url": "https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/.agents/skills/typescript-review/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": ".agents/skills/workspace-maintenance/SKILL.md",
+      "github_url": "https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/.agents/skills/workspace-maintenance/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": ".agents/skills/workspace-quality-gate/SKILL.md",
+      "github_url": "https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/.agents/skills/workspace-quality-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "shared/skills/runtime-triage/SKILL.md",
+      "github_url": "https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/shared/skills/runtime-triage/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "shared/skills/workspace-maintenance/SKILL.md",
+      "github_url": "https://github.com/RichardGeorgeDavis/Codex-Workspace/tree/main/shared/skills/workspace-maintenance/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/RichardGeorgeDavis/Codex-Workspace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T10:30:09Z"
+}
