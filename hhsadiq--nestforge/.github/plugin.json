@@ -1,0 +1,9 @@
+{
+  "name": "hhsadiq--nestforge",
+  "displayName": "NestForge",
+  "description": "NestForge is a modern NestJS boilerplate that jump-starts your backend development. It comes with AI-powered CRUD generators, auth (JWT & sessions), file uploads, and other common modules built-in, so",
+  "version": "1.0.0",
+  "author": "hhsadiq",
+  "homepage": "https://github.com/hhsadiq/NestForge",
+  "skills": []
+}
