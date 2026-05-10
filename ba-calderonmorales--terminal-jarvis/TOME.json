@@ -1,0 +1,44 @@
+{
+  "name": "terminal-jarvis",
+  "owner": "BA-CalderonMorales",
+  "repo": "terminal-jarvis",
+  "description": "In the midst of all the tools out there that you can possibly use to keep track of them. Here's a \"shovel\" that just works to try them all out.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BA-CalderonMorales/terminal-jarvis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T23:11:17Z"
+}
