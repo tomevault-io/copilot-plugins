@@ -2,7 +2,7 @@
   "name": "retail-shopping-assistant",
   "owner": "NVIDIA-AI-Blueprints",
   "repo": "retail-shopping-assistant",
-  "description": "",
+  "description": "The Retail Shopping Assistant is an AI-powered blueprint that provides a comprehensive interface for an intelligent retail shopping advisor. Built with LangGraph for agent orchestration, it features multi-agent architecture, real-time streaming responses, image-based search, and intelligent shopping cart management.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/NVIDIA-AI-Blueprints",
+  "source_url": "https://github.com/NVIDIA-AI-Blueprints/retail-shopping-assistant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T07:31:42Z"
+  "distributed_at": "2026-05-10T19:14:29Z"
 }
