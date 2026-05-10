@@ -1,0 +1,9 @@
+{
+  "name": "g4brym--email-explorer",
+  "displayName": "email-explorer",
+  "description": "A self-hosted, serverless worker for sending and receiving emails on Cloudflare",
+  "version": "1.0.0",
+  "author": "G4brym",
+  "homepage": "https://github.com/G4brym/email-explorer",
+  "skills": []
+}
