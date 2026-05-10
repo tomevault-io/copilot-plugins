@@ -1,123 +1,98 @@
-## cursor-rules
+## dev-workflow
 
-> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
+> Guide for using Task Master to manage task-driven development workflows
 
-> You are an expert developer on the ElizaOS project. You write clear, correct, and maintainable code that adheres to the architectural principles and best practices outlined in this guide.
+> You are an expert developer on the ElizaOS project, following a structured and test-driven development workflow to ensure high-quality contributions.
 
-# ElizaOS Master Development Guide
+# ElizaOS Standard Development Workflow
 
-## 1. Core Development Principles
+This document outlines the standard process for building, testing, and contributing to the ElizaOS project. Following this workflow ensures consistency, quality, and adherence to architectural principles.
 
-- **Plan First**: Always begin with a thorough plan. For bugs, identify the root cause and all affected files. For features, create a complete implementation plan, analyzing risks and potential outcomes before writing code.
-- **No Stubs**: Never commit incomplete code, stubs, or placeholder implementations. Write complete, working features.
-- **Test-Driven**: Verify all changes with comprehensive tests. The system is complex, and models can be unpredictable. Write tests first when possible, and ensure all tests pass before considering a task complete.
-
-## 2. Package & Architecture Overview
-
-ElizaOS is a monorepo containing several key packages. Understanding their roles is crucial.
-
--   `packages/core`: `@elizaos/core` - The heart of the system, containing the `AgentRuntime` and all core type definitions (`Plugin`, `Action`, `Service`, etc.). **This package must not have dependencies on other packages in the monorepo.**
--   `packages/cli`: The command-line interface. This is the primary entry point for developers, used for running projects (`elizaos start`), managing agents (`elizaos agent`), and testing (`elizaos test`).
--   `packages/plugin-bootstrap`: Provides the default set of events, actions, and providers that give an agent its basic capabilities.
--   `packages/plugin-sql`: Provides the default database adapter for PGLite and PostgreSQL.
-
-### High-Level Architecture
 ```mermaid
 graph TD
-    subgraph "Developer Interface"
-        A[CLI (elizaos start)]
-    end
-
-    subgraph "Runtime"
-        B[AgentServer]
-        C[AgentRuntime]
-        D[Database (PGLite/Postgres)]
-        E[Plugins]
-    end
-
-    subgraph "Core Components (within Plugin)"
-        F[Actions]
-        G[Providers]
-        H[Services]
-        I[Events]
-        J[Models]
-    end
-
-    A --> B;
-    B --> C;
-    C --> D;
-    C --> E;
-    E --> F & G & H & I & J;
+    A[1. Understand Requirement] --> B[2. Plan Implementation];
+    B --> C{Bug or Feature?};
+    C -->|Bug| D[Identify Root Cause & Affected Files];
+    C -->|Feature| E[Create PRD / Design Doc];
+    D & E --> F[3. Create Detailed Change Plan];
+    F -->e Tests First];
+    G --> H[5. Implement Solution];
+    H --> I{Tests Passing?};
+    I -->|No| H;
+    I -->|Yes| J[6. Review for Edge Cases & Finalize];
+    J --> K[7.Pull Request];
 ```
 
----
+## Step 1: Understand the Requirement
+Before writing any code, fully understand the goal.
+- **For a Feature**: Read the Product Requirements Document (PRD) or feature ticket. Clarify any ambiguities.
+- **For a Bug**: Replicate the bug locally. Understand the exact steps to reproduce it and the expected correct behavior.
 
-## 3. The Plugin System
+## Step 2: Plan the Implementation
+This is the most critical phase. Do not start coding without a plan.
+- **Research**: Use `grep` and your IDE to find all relevant files, services, actions, and types that will be affected by your change.
+- **Impact Analysis**: Think through tive outcomes. How could this change break other parts of the system?
+- **Propose a Solution**: Write a detailed implementation plan. This can be a short design doc, a detailed comment in a ticket, or a markdown file. It should oufiles you will change.
+    - The new functions/classes/components you will add.
+    - The existing cod.
+    - The rationale for your approach.
+    - Any identified risks.
 
-Plugins are the fundamental building blocks of the agent. Refer to [**Core Plugin Architecture**](mdc:.cursor/rules/elizaos_v2_api_plugins_core.mdc) for a deep dive.
+## Step 3: Project and Feature Scaffolding
+Use the CLecessary boilerplate.
 
-- **`Plugin` Interface**: The manifest of capabilities (`name`, `description`, `init`, `dependencies`, `actions`, `providers`, `services`, etc.).
-- **Lifecycle**: The `AgentRuntime` resolves dependencies, performs a topological sort, and then registers plugins in order, calling their `init` function and registering all components.
-- **Services**: Long-running, stateful singleton classes for managing complex logic or connections (e.g., a database connection pool, a WebSocket client). Accessed via `runtime.getService('service-name')`.
-- **Actions**: Define what an agent *can do*. A function that gets executed when the LLM decides to take an action.
-- **Providers**: Supply contextual information (the agent's "senses") into the prompt before the LLM makes a decision.
+- **New Plugin**: If the feature is best encapsulated in a new plugin, use `elizaos create`.
+eractively create a new plugin
+  elizaos create
+  # Select 'Plugin' from the prompt
+  ```
+- **New Action/Provider/Service** existing plugin, create the new files (e.g., `src/actions/myNewAction.ts`) and add them to the main `Plugin` definition in `src/index.ts`.
 
----
+## Step 4: Test-Driven Development
+Write your tests *before* you write the implementation logic. This clarifies the ensures your code is correct from the start.
 
-## 4. CLI Usage & Project Management
+- **Unit Tests**: For isolated logic (e.g., a utility function, a single action's data transformation).
+` with mocks (`vi.fn()`).
+    - Create a `__tests__` directory next to your source file.
+    - Run tests with `elizaos test` (it will run vitest).
+    - Refer to the [**Unit Testing Guide**](mdc:.aos_v2_testing_unit.mdc).
 
-The `elizaos` CLI is your primary tool for creating, running, and testing projects. Refer to [**CLI Project Management**](mdc:.cursor/rules/elizaos_v2_cli_project.mdc), [**Agent Management**](mdc:.cursor/rules/elizaos_v2_cli_agents.mdc), and [**Configuration Guide**](mdc:.cursor/rules/elizaos_v2_cli_config.mdc) for details.
+- **E2E Tests**: For integration logic (e.g., an action that calls a service which then interacts with the database).
+    - Add a `TestCase` to the `tes your `plugin/index.ts`.
+    - The test will receive a live `IAgentRuntime`.
+    - Run tests with `elizaoser to the [**E2E Testing Guide**](mdc:.cursor/rules/elizaos_v2_testing_e2e.mdc).
 
-### Key Commands
--   **`elizaos create`**: Interactively scaffolds a new project, plugin, or agent character file. It sets up the directory structure, `package.json`, and initial `.env` file.
--   **`elizaos start`**: Starts the `AgentServer`, loading the project or plugin from the current directory. This is the main command for running your agent locally.
--   **`elizaos test`**: Runs the test suite. It can execute both isolated unit tests (`vitest`) and end-to-end tests against a live, local runtime.
--   **`elizaos env`**: Provides commands (`list`, `edit-local`, `reset`) for safely managing your project-local `.env` file.
+```bash
+# From your plugin or project directory
+# This runs both unit and E2E tests defined for the context.
+elizaos test
 
-### Configuration
-- **`.env` file**: Located at your project root, this is the primary place for all secrets and environment-specific configuration. It is loaded into `process.env` at runtime. **Never commit this file.**
-- **`runtime.getSetting(key)`**: The correct way to access configuration from within your code. It provides a consistent interface to environment variables and character settings.
+# Filter fo suite to speed up your workflow
+elizaos test --name "My New Feature Tests"
+```
 
----
+## Step 5: Implement the Solution
+With a plans in place, you can now write the implementation code.
 
-## 5. Testing
+- **Run the Agent**: Use `elizaos start` to run the agent lws for manual testing and verification as you code.
+  ```bash
+  # From your project or plugin directory
+  elizaos start
+  ```
+- **Iterate**: Write code to make your failing tests ptyle guidelines and architectural patterns. Use `runtime.getSetting` for stract complexity into services, and expose capabilities through actions and providers.
+- **Refactor**: Once tests are passing, review your code for clarity, performance, and maintainability.
 
-ElizaOS employs a two-pronged testing strategy: Unit tests for isolation and E2E tests for integration.
+## Step 6: Final Review and Verification
+- **Edge Cases**: Review your code one last time. Have you handled n arrays? Unexpected API responses?
+- **Manual Check**: Run through the feature or bug fix manually one last time using `elizaos start`.
+- **Full Test Suite**: Run the entire test suite for your package without any filters to ensure you haven't caused any regressions.
+  `test
+  ```
 
-### Unit Testing
-Refer to the [**Unit Testing Guide**](mdc:.cursor/rules/elizaos_v2_testing_unit.mdc).
-- **Framework**: `vitest`.
-- **Goal**: Test a single function or component in complete isolation.
-- **Technique**: Use `vi.mock` to mock all external dependencies, especially the `IAgentRuntime`. Create mock factories to provile ###esting
-Refer to the [**E2E Testing Guide**](mdc:.cursor/rules/2_testing_e2e.mdc).
-- **Frameworlizaos test` test runner.
-- **Gointegration and interaction of multiple components in a live environment.
-- **Technique**: Your test function receives a fully initialized, live `IAgentRuntime` instance. You can make real database calls, access running services, and validate the complete workflow. **Do not use mocks in E2E tests.**
-
----
-
-## 6. API & On-Chain Integration
-
-### External API Integration
-Refer to the [**API Client Integration Guide**](mdc:.cursor/rules/elizaos_v2_api_client_integration.mdc).
-- **Pattern**: Encapsulate all logic for a third-party API into a dedicated client module within your plugin.
-- **Structure**: Separate concerns into `validator`, `builder`, and `request` functions.
-- **Best Practices**: Use `axios` or `fetch`, handle authentication securely (via `runtime.getSetting`), manage errors gracefully (especially rate limits), and always set timeouts.
-
-### LLM Provider Integration
-Refer to the [**LLM Provider Guide**](mdc:.cursor/rules/elizaos_v2_api_llm_providers.mdc).
-- **Pattern**: Create a plugin that registers a `ModelHandler` function for a specific `ModelType` (e.g., `TEXT_LARGE`).
-- **Registration**: Use the `models` property on the `Plugin` interface. Set a `priority` to indicate preference over other providers.
-- **Usage**: Other components should call `runtime.useModel(ModelType.TEXT_LARGE, params)` to invoke the LLM. The runtime automatically selects the highest-priority handler.
-
-### On-Chain Plugin Integration
-Refer to the [**On-Chain Plugin Guide**](mdc:.cursor/rules/elizaos_v2_onchain_plugins.mdc).
-- **Pattern**: Use dedicated `Services` to manage `Connection` to an RPC node and to handle `Transaction` building, signing, and sending.
-- **Security**: Key management is critical. **Never store private keys in code.** Load them securely from a secret store or environment variables at runtime via `runtime.getSetting`.
-- **Abstraction**: On-chain actions should be abstracted into natural language capabilities for the agent (e.g., `transfer-spl-token`).
-
----
-> This guide serves as the single source of truth. Refer to the linked detailed documents for specific implementation patterns.
+## Step 7: Commit and Create a Pull Request
+- **Commit Message**: Write a clear and descriptive commit messagntional commit standards (e.g., `feat(plugin-x): Add new action for y`, `fix(core): Resolve issue with z`).
+- **Pull Request**: Open a pull request against the `main` branch. The description should link to the relevant ticket/issue and summarize the changes made.
+- **CI/CD**: The CI/CD pipeline will automatically run the full test suite for the entire project. Ensure it passes.
 
 ---
 > Source: [bio-xyz/BioAgentsEliza](https://github.com/bio-xyz/BioAgentsEliza) — distributed by [TomeVault](https://tomevault.io).
