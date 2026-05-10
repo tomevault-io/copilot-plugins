@@ -1,58 +1,24 @@
-## bem-conventions
+## comments
 
-> Enforce BEM naming convention for CSS classes using a custom double-underscore format for nested children. Also enforce media queries to be declared inside elements/nested elements directly, not separately.
+> Minimize unnecessary comments. Only add comments for complex code or very specific cases.
 
 
-# Guidelines for BEM & Media Queries
+# Guidelines
+- Avoid comments that just repeat what the code does.
+  - ❌ `// increment i by 1` → `i++`
+- Only add comments for:
+  - Complex algorithms, tricky logic, or non-obvious behavior.
+  - Backend-oriented or domain-specific processes where the intent isn’t clear from code.
+  - Special cases or workarounds (why something is done in a specific way).
 
-1. **Parent / children / subchildren**
-   - Use **double underscores `__`** between each level.
-   - Example structure:
-     ```scss
-     .card { ... }                   // parent
-     .card__header { ... }           // child
-     .card__header__title { ... }    // subchild
-     .card__body { ... }             // child
-     .card__body__text { ... }       // subchild
-     ```
-
-2. **Modifiers**
-   - Use double hyphen `--` after the full element name.
-   - Example:
-     ```scss
-     .card__header--highlight { ... }
-     .card__body__text--small { ... }
-     ```
-
-3. **Rules**
-   - **Always use parent names as prefix** for nested elements.  
-   - Never skip levels (`.header__title` is not allowed if the parent is `.card`).  
-   - Modifiers always apply to the full element path (`parent__child--modifier` or `parent__child__subchild--modifier`).  
-   - No global styles or random class names inside modules.  
-   - **Always write `@media` queries inside the element or nested element directly, not in a separate block.**
-     ```scss
-     .card__body__text {
-       font-size: 14px;
-
-       @media (min-width: 768px) {
-         font-size: 16px;
-       }
-     }
-     ```
-
-4. **Cursor enforcement**
-   - When generating or refactoring classes, **always follow this BEM hierarchy**.  
-   - Never generate flat class names like `.title`, `.header`, etc., unless explicitly requested.  
-   - Media queries must **always live inside the relevant class nesting**.
+- For front-end primitives, utilities, or simple functions:
+  - Prefer **self-explanatory names** and clean code instead of comments.
+  - Cursor should **not generate comments automatically** unless explicitly asked.
 
 # Examples
-✅ `.button__icon { ... }`  
-✅ `.button__icon__svg { ... }`  
-✅ `.button__icon--active { ... }`  
-✅ `.button__icon { color: red; @media (min-width: 768px) { color: blue; } }`  
-❌ `.icon { ... }`  
-❌ `.button-icon { ... }`  
-❌ Separate `@media` blocks outside element definitions  
+✅ `const isSold = property.status === "sold";`   // no comment needed
+✅ `// Special case: fallback when API returns empty array`  // allowed
+❌ `// set isSold to true if property is sold`       // unnecessary
 
 ---
 > Source: [duneal/dokistry](https://github.com/duneal/dokistry) — distributed by [TomeVault](https://tomevault.io).
