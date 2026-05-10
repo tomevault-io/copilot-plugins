@@ -1,0 +1,9 @@
+{
+  "name": "scouzi1966--maclocal-api",
+  "displayName": "maclocal-api",
+  "description": "'afm' command cli: macOS server and single prompt mode that exposes Apple's Foundation and MLX Models and other APIs running on your Mac through a single aggregated OpenAI-compatible API endpoint. Sup",
+  "version": "1.0.0",
+  "author": "scouzi1966",
+  "homepage": "https://github.com/scouzi1966/maclocal-api",
+  "skills": []
+}
