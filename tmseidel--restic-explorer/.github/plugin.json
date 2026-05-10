@@ -1,0 +1,9 @@
+{
+  "name": "tmseidel--restic-explorer",
+  "displayName": "restic-explorer",
+  "description": "Web dashboard for browsing and managing restic backup repositories. Built with Spring Boot & Thymeleaf.",
+  "version": "1.0.0",
+  "author": "tmseidel",
+  "homepage": "https://github.com/tmseidel/restic-explorer",
+  "skills": []
+}
