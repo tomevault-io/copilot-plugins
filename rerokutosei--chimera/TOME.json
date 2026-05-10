@@ -1,0 +1,44 @@
+{
+  "name": "Chimera",
+  "owner": "ReRokutosei",
+  "repo": "Chimera",
+  "description": "\ud83d\udcf8 Simple, ad-free Android app for stitching long Picture | \u7b80\u5355\u6613\u7528\u3001\u65e0\u5e7f\u544a\u7684\u5b89\u5353\u957f\u56fe\u62fc\u63a5\u5de5\u5177",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ReRokutosei/Chimera",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T00:31:49Z"
+}
