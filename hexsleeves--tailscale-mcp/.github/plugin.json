@@ -1,0 +1,9 @@
+{
+  "name": "hexsleeves--tailscale-mcp",
+  "displayName": "tailscale-mcp",
+  "description": "server that provides seamless integration with Tailscale's CLI commands and REST API, enabling automated network management and monitoring through a standardized interface",
+  "version": "1.0.0",
+  "author": "HexSleeves",
+  "homepage": "https://github.com/HexSleeves/tailscale-mcp",
+  "skills": []
+}
