@@ -1,0 +1,9 @@
+{
+  "name": "danielpmichalski--anki-cloud",
+  "displayName": "anki-cloud",
+  "description": "A fully-fledged Anki Sync Server with OAuth2.0, REST API and MCP Server included, everything one needs to finally work with Anki the way one wants.",
+  "version": "1.0.0",
+  "author": "danielpmichalski",
+  "homepage": "https://github.com/danielpmichalski/anki-cloud",
+  "skills": []
+}
