@@ -1,9 +1,9 @@
 {
   "name": "nvidia-ai-blueprints--retail-shopping-assistant",
   "displayName": "retail-shopping-assistant",
-  "description": "retail-shopping-assistant",
+  "description": "The Retail Shopping Assistant is an AI-powered blueprint that provides a comprehensive interface for an intelligent retail shopping advisor. Built with LangGraph for agent orchestration, it features m",
   "version": "1.0.0",
   "author": "NVIDIA-AI-Blueprints",
-  "homepage": "https://tomevault.io/claim/NVIDIA-AI-Blueprints",
+  "homepage": "https://github.com/NVIDIA-AI-Blueprints/retail-shopping-assistant",
   "skills": []
 }
