@@ -1,0 +1,9 @@
+{
+  "name": "benclawbot--open-brain",
+  "displayName": "open-brain",
+  "description": "Personal semantic memory system with MCP interface - PostgreSQL + pgvector",
+  "version": "1.0.0",
+  "author": "benclawbot",
+  "homepage": "https://github.com/benclawbot/open-brain",
+  "skills": []
+}
