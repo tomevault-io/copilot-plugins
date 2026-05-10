@@ -1,0 +1,9 @@
+{
+  "name": "worth-doing--videos",
+  "displayName": "videOS",
+  "description": "videOS \u2014 Ultra-Advanced Native macOS Video Player. libVLC engine, glass morphism UI, library management, playlists, bookmarks, network streams. Swift + SwiftUI. Signed & Notarized.",
+  "version": "1.0.0",
+  "author": "Worth-Doing",
+  "homepage": "https://github.com/Worth-Doing/videOS",
+  "skills": []
+}
