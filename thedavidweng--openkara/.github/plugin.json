@@ -1,0 +1,9 @@
+{
+  "name": "thedavidweng--openkara",
+  "displayName": "OpenKara",
+  "description": "A desktop karaoke app that transforms your local music library into sing-along tracks using on-device AI stem separation and online synced lyrics, making karaoke affordable and reusable with the songs",
+  "version": "1.0.0",
+  "author": "thedavidweng",
+  "homepage": "https://github.com/thedavidweng/OpenKara",
+  "skills": []
+}
