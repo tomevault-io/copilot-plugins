@@ -1,0 +1,9 @@
+{
+  "name": "samhoque--bmad-workflow-automation",
+  "displayName": "BMAD-Workflow-Automation",
+  "description": "A Bun TypeScript application that automates BMAD project workflows using Claude Code. This tool provides a complete story development pipeline from draft creation through commit and deployment, with c",
+  "version": "1.0.0",
+  "author": "SamHoque",
+  "homepage": "https://github.com/SamHoque/BMAD-Workflow-Automation",
+  "skills": []
+}
