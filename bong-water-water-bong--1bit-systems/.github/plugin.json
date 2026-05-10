@@ -1,0 +1,9 @@
+{
+  "name": "bong-water-water-bong--1bit-systems",
+  "displayName": "1bit-systems",
+  "description": "Local, ternary-weight LLM inference on AMD Strix Halo. Rust above the kernels, HIP below, zero Python at runtime. https://discord.gg/EhQgmNePg",
+  "version": "1.0.0",
+  "author": "bong-water-water-bong",
+  "homepage": "https://github.com/bong-water-water-bong/1bit-systems",
+  "skills": []
+}
