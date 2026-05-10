@@ -1,0 +1,9 @@
+{
+  "name": "officialboomi--bc-integration",
+  "displayName": "bc-integration",
+  "description": "Boomi Companion: Claude plugin for the boomi-integration skill",
+  "version": "1.0.0",
+  "author": "OfficialBoomi",
+  "homepage": "https://github.com/OfficialBoomi/bc-integration",
+  "skills": []
+}
