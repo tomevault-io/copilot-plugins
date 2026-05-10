@@ -4,7 +4,7 @@
   "repo": "sandcastle",
   "description": "Sandcastle is the open agent orchestrator to manage all loops.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/andresmarpz/sandcastle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T12:28:58Z"
+  "distributed_at": "2026-05-10T00:48:21Z"
 }
