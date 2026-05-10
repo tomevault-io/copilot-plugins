@@ -4,7 +4,7 @@
   "repo": "ai-literacy-superpowers",
   "description": "A set of Claude Code and GitHub Copilot plugins providing the AI Literacy framework's complete development workflow \u2014 harness engineering, agent orchestration, literate programming, CUPID code review, and the three enforcement loops",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Habitat-Thinking/ai-literacy-superpowers",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T13:02:58Z"
+  "distributed_at": "2026-05-10T01:04:26Z"
 }
