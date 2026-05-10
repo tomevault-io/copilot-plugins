@@ -1,19 +1,59 @@
-## code-conventions
+## database-migrations
 
-> When writing or modifying code in this project, please adhere to the following conventions:
+> How to create and apply database migrations in this Tauri project
 
 
-# Code Conventions
+# Database Migrations Process
 
-When writing or modifying code in this project, please adhere to the following conventions:
+When creating new database migrations in this Tauri project, follow these steps:
 
-1.  **TypeScript Best Practices**: Follow standard, idiomatic TypeScript coding practices for structure, naming, and types, unless otherwise overridden.
-2.  **Minimal Comments**: Avoid adding comments unless they explain complex logic or non-obvious decisions. Well-written, self-explanatory code is preferred. Do not add comments that merely restate what the code does.
-3.  **Tests as Documentation**: Rely on comprehensive tests (which will be added later if not present) to document the behavior and usage of the code, rather than extensive comments within the code itself.
-4.  **File naming conventions**: Use kebab-case when naming directories, TypeScript, and other files.
-5.  **Type checking**: after major modifications run `pnpm typecheck` and fix any errors.
-6.  **UX/UI** We are using Tailwind CSS, React, shadcn/ui components and Lucide React icons. Generate responsive designs. Provide default props for React Components. Check to see if a shadcn component exists under `src/components/ui` before installing it.
-7.  **Models/db/tables** When pulling in a database type, Kysely.
+## 1. Create the Migration SQL File
+
+- Add a new `.sql` file in `src-tauri/migrations/`
+- Use naming convention: `XXX_description.sql` (e.g., `010_add_model_to_app_settings.sql`)
+- Include clear comments explaining the migration purpose
+
+## 2. Register the Migration in Rust
+
+⚠️ **CRITICAL STEP**: You MUST add the migration to [src-tauri/src/migrations.rs](mdc:src-tauri/src/migrations.rs)
+
+Add a new `Migration` entry to the `migrations()` function:
+
+```rust
+Migration {
+    version: X, // Increment from the last version
+    description: "description_matching_filename",
+    sql: include_str!("../migrations/XXX_description.sql"),
+    kind: MigrationKind::Up,
+},
+```
+
+## 3. Migration File Requirements
+
+- Must be valid SQLite syntax
+- Include proper error handling (IF NOT EXISTS, etc.)
+- Add comments explaining the purpose
+- For schema changes, consider backwards compatibility
+
+## Example Migration Flow
+
+1. Create `src-tauri/migrations/010_add_model_to_app_settings.sql`
+2. Add the migration entry to `migrations.rs` with version 10
+3. The migration will be automatically applied on next app startup
+
+## Common Migration Types
+
+- **Add column**: `ALTER TABLE table_name ADD COLUMN column_name TYPE;`
+- **Create table**: `CREATE TABLE IF NOT EXISTS table_name (...);`
+- **Create index**: `CREATE INDEX IF NOT EXISTS idx_name ON table_name (column);`
+
+## Verification
+
+After creating a migration:
+
+- Check that it's listed in `migrations.rs`
+- Test the migration by running the app
+- Verify the schema changes are applied correctly
 
 ---
 > Source: [team-forge-ai/openchat](https://github.com/team-forge-ai/openchat) — distributed by [TomeVault](https://tomevault.io).
