@@ -1,16 +1,19 @@
-## app-technologies
+## code-conventions
 
-> - **Desktop** - Tauri (Rust + TypeScript)
+> When writing or modifying code in this project, please adhere to the following conventions:
 
 
-## Technologies used
+# Code Conventions
 
-- **Desktop** - Tauri (Rust + TypeScript)
-- **Frontend** - React + TypeScript + Tailwind CSS + shadcn/ui
-- **Database** - SQLite with migrations
-- **Testing** - Vitest
-- **Code Quality** - ESLint + Prettier
-- **Package Management** - pnpm (TypeScript) + Cargo (Rust)
+When writing or modifying code in this project, please adhere to the following conventions:
+
+1.  **TypeScript Best Practices**: Follow standard, idiomatic TypeScript coding practices for structure, naming, and types, unless otherwise overridden.
+2.  **Minimal Comments**: Avoid adding comments unless they explain complex logic or non-obvious decisions. Well-written, self-explanatory code is preferred. Do not add comments that merely restate what the code does.
+3.  **Tests as Documentation**: Rely on comprehensive tests (which will be added later if not present) to document the behavior and usage of the code, rather than extensive comments within the code itself.
+4.  **File naming conventions**: Use kebab-case when naming directories, TypeScript, and other files.
+5.  **Type checking**: after major modifications run `pnpm typecheck` and fix any errors.
+6.  **UX/UI** We are using Tailwind CSS, React, shadcn/ui components and Lucide React icons. Generate responsive designs. Provide default props for React Components. Check to see if a shadcn component exists under `src/components/ui` before installing it.
+7.  **Models/db/tables** When pulling in a database type, Kysely.
 
 ---
 > Source: [team-forge-ai/openchat](https://github.com/team-forge-ai/openchat) — distributed by [TomeVault](https://tomevault.io).
