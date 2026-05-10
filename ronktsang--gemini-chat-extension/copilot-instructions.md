@@ -1,12 +1,43 @@
-## legacy-files-note
+## project-structure
 
-> - The root [`manifest.json`](mdc:manifest.json) and parts of [`docs/tech.md`](mdc:docs/tech.md) describe an older, Rollup-based DOM-injection architecture with vendored assets.
+> This project is a WXT-based MV3 browser extension using React and Chakra UI v3. The source code lives under [`src/`](mdc:src/), and WXT generates the final manifest at build time from [`wxt.config.ts`](mdc:wxt.config.ts).
 
-# Legacy Files and Outdated Docs
+# Project Structure and Key Entry Points
 
-- The root [`manifest.json`](mdc:manifest.json) and parts of [`docs/tech.md`](mdc:docs/tech.md) describe an older, Rollup-based DOM-injection architecture with vendored assets.
-- Current builds use WXT with React and Chakra UI; the manifest is generated from [`wxt.config.ts`](mdc:wxt.config.ts).
-- Treat `manifest.json` and the Rollup/`vendor/` references in `docs/tech.md` as historical context. Prefer the WXT configuration and the TypeScript/React sources in [`src/`](mdc:src/).
+This project is a WXT-based MV3 browser extension using React and Chakra UI v3. The source code lives under [`src/`](mdc:src/), and WXT generates the final manifest at build time from [`wxt.config.ts`](mdc:wxt.config.ts).
+
+## Top-Level
+- [`package.json`](mdc:package.json): scripts and dependencies
+- [`wxt.config.ts`](mdc:wxt.config.ts): WXT configuration, modules, and generated manifest fields
+- [`web-ext.config.ts`](mdc:web-ext.config.ts): optional tooling config
+- Legacy file: [`manifest.json`](mdc:manifest.json) is not the source of truth; prefer WXT output
+
+## Source Layout (under `src/`)
+- Entry points: [`src/entrypoints/`](mdc:src/entrypoints)
+  - Content script: [`src/entrypoints/content/index.tsx`](mdc:src/entrypoints/content/index.tsx)
+  - Main-world script: [`src/entrypoints/url-monitor-main-world.ts`](mdc:src/entrypoints/url-monitor-main-world.ts)
+  - Popup app: [`src/entrypoints/popup/`](mdc:src/entrypoints/popup)
+  - Background: [`src/entrypoints/background.ts`](mdc:src/entrypoints/background.ts)
+- UI components: [`src/components/`](mdc:src/components)
+  - Shadow DOM Chakra provider: [`src/components/ui/provider-shadow-dom.tsx`](mdc:src/components/ui/provider-shadow-dom.tsx)
+  - Setting panel: [`src/components/setting-panel`](mdc:src/components/setting-panel)
+- Services and eventing
+  - Events: [`src/common/event.ts`](mdc:src/common/event.ts)
+  - Event bus: [`src/utils/eventbus.ts`](mdc:src/utils/eventbus.ts)
+  - URL monitor: [`src/services/urlMonitor.ts`](mdc:src/services/urlMonitor.ts)
+  - Chat change detector: [`src/services/chatChangeDetector.ts`](mdc:src/services/chatChangeDetector.ts)
+- Data layer (Dexie/IndexedDB)
+  - DB: [`src/data/db.ts`](mdc:src/data/db.ts)
+  - Repositories: [`src/data/repositories/`](mdc:src/data/repositories)
+  - Sources: [`src/data/sources/`](mdc:src/data/sources)
+- i18n
+  - Locale files: [`src/locales/*.json`](mdc:src/locales)
+  - Helper: [`src/utils/i18n.ts`](mdc:src/utils/i18n.ts)
+
+## Core Flow
+- Content script boots, injects main-world script, starts `urlMonitor`, then `chatChangeDetector`, then mounts UI overlay via `renderOverlay`.
+- Shadow DOM provider isolates styles and syncs color mode; UI composed with Chakra components.
+- Event bus and constants coordinate inter-module communication.
 
 ---
 > Source: [RonkTsang/gemini-chat-extension](https://github.com/RonkTsang/gemini-chat-extension) — distributed by [TomeVault](https://tomevault.io).
