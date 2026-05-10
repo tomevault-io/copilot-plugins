@@ -1,52 +1,184 @@
-## user-rules-template
+## workflow-state
 
-> <!-- This rule is to be added to your Cursor IDE Settings "User Rules" section  - COPY BELOW THIS LINE -->
+> Used for when referering to workflow-state or when doing work on any epic
 
-<!-- This rule is to be added to your Cursor IDE Settings "User Rules" section  - COPY BELOW THIS LINE -->
-Act as an expert AI programming assistant who produces clear, idiomatic code that adheres to the project's standards (see ## Tech Stack and ## Critical Patterns & Conventions in .cursor/rules/project-config.mdc). Maintain a thoughtful, step-by-step reasoning process that is visible to the user only in the places designated below.
+# workflow_state.md
+_Last updated: 2025-06-06_
 
-General Guidelines
-Respect section boundaries.
-Every write-back must stay inside the correct ## block of .cursor/rules/workflow-state.mdc (## State, ## Plan, ## Rules, ## Items, ## Log, ## ArchiveLog). Never mix content between them.
+## State
+Phase: null 
+Status: null  
+CurrentItem: null
+EpicReference: null
+EpicPhase: null
+EpicStep: null  
 
-Keep logs and status updates concise; avoid narrative fluff.
+## Plan
+<!-- THe AI fills this in during the BLUEPRINT phase -->
 
-Workflow Phases
-1 · BLUEPRINT (planning)
-- Before writing any implementation code, switch to the BLUEPRINT phase.
-- Always double check our .cursor/rules/architecture.mdc doc which contains comprehensive overview of our architecutre we want to make sure our plan is in alignment with our existing architecture. 
-- You must always check our .cursor/rules/epics.mdc which contains a detailed plan of any long term epics we have planned. Make sure we track our progress in .cursor/rules/epics.mdc as we are completing our steps in this workflow. Our workflow plan here should always refer to some epic, epic phase or epic phase step which work is being completed for.  
-- Blueprint plan should always be cross-referenced with our global cursor rule .cursor/rules/rules.mdc , all the rules defined there must be followed. 
-- Think step-by-step: draft a very detailed plan in the ## Plan section using pseudocode or clear action descriptions. Often our process crashes and we have to restart it, so our plan should be comprehensive and very detailed so we can continue without loosing any details. Make sure that each step is not too large. Plan should always include steps to write or update any relevent documentation and cursor rule docs with relevent information. 
-- When the plan is ready, set State.Status = NEEDS_PLAN_APPROVAL and explicitly ask the user for confirmation.
+## Rules
+> **Keep every major section under an explicit H2 (`##`) heading so the agent can locate them unambiguously.**
 
-2 · CONSTRUCT (implementation)
-- Adhere strictly to the approved plan.
-- Produce code that is correct, secure, performant, and idiomatic. We want modular architecture that is highly re-usable. 
-- When implementing architectural changes, update .cursor/rules/architecture.mdc with new patterns, decisions, or design choices.
-- Prioritise readability over premature optimisation. Prioritise code quality over time to write the code. We don't mind taking extra time to write quality code.
-- Leave no TODOs, placeholders, or incomplete stubs. Never leave any issues broken or not fixed. 
-- Include all imports/dependencies and use conventional naming.
-- Run tests/linters after each atomic change; log the results.
+### [PHASE: ANALYZE]
+1. Read **project_config.md**, relevant code & docs.  
+2. **Epic Integration Logic**:
+   - If user request mentions epic work (e.g., "work on login from user management epic"), search epics.mdc
+   - Identify matching epic, phase, and step from user's natural language description
+   - Set CurrentItem to descriptive format, and set epic fields:
+     - Set `EpicReference = EPIC_NAME` (if found)
+     - Set `EpicPhase = PHASE_NAME` (if found)
+     - Set `EpicStep = STEP_NAME` (if found)
+   - If no epic context found, leave epic fields as null
+3. Summarize requirements. *No code or planning.*
 
-3 · VALIDATE (final checks)
-- Re-run the full test suite and any E2E checks.
-- On success, set Phase = VALIDATE, Status = COMPLETED.
-- Automatically trigger post-processing rules (see below).
+### [PHASE: BLUEPRINT]
+1. **Architecture Validation**: Read architecture.mdc to understand current architecture and validate planned changes align with existing patterns and decisions.
+2. If `EpicReference` exists, read epic context from epics.mdc for step requirements and acceptance criteria.
+3. **Architecture Impact Assessment**: Evaluate if planned work requires architectural changes or updates.
+4. Decompose task into ordered steps.  
+5. Write pseudocode or file-level diff outline under **## Plan**.
+6. **Plan Architecture Updates**: Include steps to update architecture.mdc if architectural changes are being made.
+7. Set `Status = NEEDS_PLAN_APPROVAL` and await user confirmation.
 
-Automatic House-Keeping Rules
-Rule	Trigger	Action
-RULE_LOG_ROTATE_01	length(## Log) > 5 000 chars	Summarise the five most important points from ## Log into ## ArchiveLog, then clear ## Log.
-RULE_SUMMARY_01	Phase == VALIDATE && Status == COMPLETED	Prepend a one-sentence summary as a new list item under ## Changelog in project_config.md.
+### [PHASE: CONSTRUCT]
+1. Follow the approved **## Plan** exactly.  
+2. After each atomic change:  
+   - run test / linter commands specified in `project_config.md`  
+   - capture tool output in **## Log**
+3. **Architecture Updates**: When implementing architectural changes, update architecture.mdc with new patterns, decisions, or modifications.
+4. On success of all steps, set `Phase = VALIDATE`.
 
-Construct-Phase Coding Checklist
-✅ Follow the approved plan exactly.
-✅ Generate up-to-date, bug-free, fully functional code.
-✅ Run and pass all tests/linters.
-✅ Do not leak secrets; mask any credentials before logging.
-✅ Confirm each step's completion in ## Log (briefly).
+### [PHASE: VALIDATE]
+1. Rerun full test suite & any E2E checks.  
+2. If clean, set `Status = COMPLETED`.  
+3. Trigger **RULE_ITERATE_01** when applicable.
 
-Stay disciplined: plan → seek approval → implement → validate → summarise → iterate.
+---
+
+### RULE_INIT_01
+Trigger ▶ `Phase == INIT`  
+Action ▶ Ask user for first high-level task → `Phase = ANALYZE, Status = RUNNING`.
+
+### RULE_ITERATE_01
+Trigger ▶ `Status == COMPLETED && Items contains unprocessed rows`  
+Action ▶  
+1. Set `CurrentItem` to next unprocessed row in **## Items**.  
+2. Parse epic reference if CurrentItem format is `EPIC_NAME > PHASE_NAME > STEP_NAME`.
+3. Clear **## Log**, reset `Phase = ANALYZE, Status = READY`.
+
+### RULE_LOG_ROTATE_01
+Trigger ▶ `length(## Log) > 5 000 chars`  
+Action ▶ Summarise the top 5 findings from **## Log** into **## ArchiveLog**, then clear **## Log**.
+
+### RULE_EPIC_UPDATE_01
+Trigger ▶ `Phase == VALIDATE && Status == COMPLETED && EpicReference != null`
+Action ▶
+1. Parse EpicReference, EpicPhase, and EpicStep to identify epic location in epics.mdc.
+2. Update corresponding epic step status to include completion percentage, date, and notes.
+3. Check if all steps in the phase are completed, update phase status accordingly.
+4. Add completion entry to epic notes section with timestamp.
+
+### RULE_EPIC_COMPLETION_ARCHIVE_01
+Trigger ▶ `Epic Status == COMPLETED in epics.mdc`
+Action ▶
+1. Identify completed epic(s) in the ACTIVE EPICS section of epics.mdc.
+2. Move the completed epic from ACTIVE EPICS section to EPIC COMPLETION HISTORY section.
+3. Update portfolio summary counts: decrease Active Epics, increase Completed Epics.
+4. Preserve all epic details, phases, steps, and outcomes in the completion history.
+5. Update Epic Status Summary section with current counts.
+6. Log the epic archival in workflow ## Log section.
+
+### RULE_ARCHITECTURE_UPDATE_01
+Trigger ▶ `Phase == CONSTRUCT && architectural changes are being implemented`
+Action ▶
+1. Identify the architectural change being made (new pattern, technology choice, design decision).
+2. Update the relevant section in architecture.mdc with the new information.
+3. Add entry to Architecture Changelog with timestamp and change type.
+4. Log the architecture update in workflow ## Log section.
+
+### RULE_ARCHITECTURE_VALIDATE_01
+Trigger ▶ `Phase == BLUEPRINT && CurrentItem involves architectural decisions`
+Action ▶
+1. Read current architecture.mdc to understand existing patterns and constraints.
+2. Validate that planned changes align with existing architectural decisions.
+3. Identify any conflicts with current architecture and note in plan.
+4. Include architecture update steps in the plan if new patterns are being introduced.
+
+### RULE_SUMMARY_01
+Trigger ▶ `Phase == VALIDATE && Status == COMPLETED`  
+Action ▶ 
+1. Read `project_config.md`.
+2. Construct the new changelog line: `- <One-sentence summary of completed work>`.
+3. Find the `## Changelog` heading in `project_config.md`.
+4. Insert the new changelog line immediately after the `## Changelog` heading and its following newline (making it the new first item in the list).
+
+---
+
+## Epic Integration Usage
+
+### **Realistic User Interactions**
+
+#### **Starting Epic Work**
+```bash
+# User says:
+"Start working on the login component from the user management epic"
+
+# AI automatically:
+1. Searches epics.mdc for user management epic
+2. Finds the login component step in authentication phase
+3. Sets CurrentItem: "Login component implementation"
+4. Sets epic fields:
+   EpicReference: USER_MGMT_EPIC
+   EpicPhase: AUTHENTICATION_PHASE  
+   EpicStep: LOGIN_COMPONENT_STEP
+5. Reads epic context during blueprint phase
+```
+
+#### **Epic Progress Updates**
+```bash
+# User says:
+"Update the login component progress to 75%, core functionality is done but still need remember me feature"
+
+# AI automatically:
+1. Finds current epic work in epics.mdc
+2. Updates step status to IN_PROGRESS (75%)
+3. Updates notes with user's progress description
+4. Sets last updated date
+```
+
+#### **Standalone Work (No Epic)**
+```bash
+# User says:
+"Fix the payment processing bug in checkout"
+
+# AI automatically:
+1. No epic context mentioned, processes as standalone work
+2. Sets CurrentItem: "Fix payment processing bug"
+3. Leaves epic fields null:
+   EpicReference: null
+   EpicPhase: null
+   EpicStep: null
+```
+
+### **AI Epic Management Commands**
+The AI handles these natural language requests:
+- **"Plan an epic for [feature]"** → Creates new epic in epics.mdc
+- **"Work on [step] from [epic]"** → Starts workflow with epic context
+- **"Update progress on [current work]"** → Updates epic step status
+- **"Mark [step] as complete"** → Sets step to 100% and updates epic
+- **"Show epic status"** → Displays current epic progress
+
+---
+
+## Items
+| id | description | status |
+|----|-------------|--------|
+
+## Log
+<!-- AI appends detailed reasoning, tool output, and errors here -->
+
+## ArchiveLog
+<!-- RULE_LOG_ROTATE_01 stores condensed summaries here -->
 
 ---
 > Source: [fbrbovic/cursor-rule-framework](https://github.com/fbrbovic/cursor-rule-framework) — distributed by [TomeVault](https://tomevault.io).
