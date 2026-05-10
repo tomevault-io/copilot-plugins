@@ -1,9 +1,9 @@
 {
   "name": "paideia-lms--paideia",
   "displayName": "Paideia",
-  "description": "Paideia",
+  "description": "Next generation LMS focused on simplicity. Moodle and Canvas alternative in a single binary.",
   "version": "1.0.0",
   "author": "paideia-lms",
-  "homepage": "https://tomevault.io/claim/paideia-lms",
+  "homepage": "https://github.com/paideia-lms/Paideia",
   "skills": []
 }
