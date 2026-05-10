@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--nvcf-go",
+  "displayName": "nvcf-go",
+  "description": "common NVCF components",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/nvcf-go",
+  "skills": []
+}
