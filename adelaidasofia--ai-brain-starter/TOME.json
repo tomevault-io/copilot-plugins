@@ -1,0 +1,44 @@
+{
+  "name": "ai-brain-starter",
+  "owner": "adelaidasofia",
+  "repo": "ai-brain-starter",
+  "description": "The operating system for Claude Code. Memory, accountability, journaling, knowledge graphs, pattern recognition \u2014 one install, every session compounds.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/adelaidasofia/ai-brain-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T21:35:39Z"
+}
