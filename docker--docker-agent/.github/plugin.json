@@ -1,0 +1,9 @@
+{
+  "name": "docker--docker-agent",
+  "displayName": "docker-agent",
+  "description": "AI Agent Builder and Runtime by Docker Engineering",
+  "version": "1.0.0",
+  "author": "docker",
+  "homepage": "https://github.com/docker/docker-agent",
+  "skills": []
+}
