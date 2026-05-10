@@ -1,0 +1,9 @@
+{
+  "name": "shitz--clutch",
+  "displayName": "clutch",
+  "description": "Clutch a modern transmission RPC client built in pure Rust using iced.",
+  "version": "1.0.0",
+  "author": "shitz",
+  "homepage": "https://github.com/shitz/clutch",
+  "skills": []
+}
