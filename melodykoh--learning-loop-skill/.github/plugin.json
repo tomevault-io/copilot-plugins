@@ -1,0 +1,9 @@
+{
+  "name": "melodykoh--learning-loop-skill",
+  "displayName": "learning-loop-skill",
+  "description": "Claude Code skill for capturing learnings before context compaction",
+  "version": "1.0.0",
+  "author": "melodykoh",
+  "homepage": "https://github.com/melodykoh/learning-loop-skill",
+  "skills": []
+}
