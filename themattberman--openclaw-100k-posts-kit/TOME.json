@@ -1,0 +1,44 @@
+{
+  "name": "openclaw-100k-posts-kit",
+  "owner": "TheMattBerman",
+  "repo": "openclaw-100k-posts-kit",
+  "description": "OpenClaw-native content pipeline for turning performance signal into publishable ideas.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TheMattBerman/openclaw-100k-posts-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T09:30:08Z"
+}
