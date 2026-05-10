@@ -1,1088 +1,586 @@
-## 121-java-unit-testing
+## 122-java-integration-testing
 
-> Java Unit testing guidelines
+> Java Integration testing guidelines
 
-# Java Unit testing guidelines
+# Java Integration testing guidelines
 
-Effective Java unit testing involves using JUnit 5 annotations and AssertJ for fluent assertions. Tests should follow the Given-When-Then structure with descriptive names for clarity. Each test must have a single responsibility, be independent, and leverage parameterized tests for data variations. Mocking dependencies with frameworks like Mockito is crucial for isolating the unit under test. While code coverage is a useful guide, the focus should be on meaningful tests for critical logic and edge cases. Test classes and methods should typically be package-private. Strategies for code splitting include small test methods and helper functions. Anti-patterns like testing implementation details, hard-coded values, and ignoring failures should be avoided. Proper state management involves isolated state and immutable objects, and error handling should include testing for expected exceptions and their messages.
-
-## Implementing These Principles
-
-These guidelines are built upon the following core principles:
-
-1.  **Clarity and Readability**: Tests should be easy to understand. This is achieved through descriptive names (or `@DisplayName`), a clear Given-When-Then structure, and focused assertions. Readable tests serve as living documentation for the code under test.
-2.  **Isolation and Independence**: Each test must be self-contained, not relying on the state or outcome of other tests. Dependencies should be mocked to ensure the unit under test is validated in isolation. This leads to reliable and stable test suites.
-3.  **Comprehensive Validation**: Tests should thoroughly verify the behavior of the unit, including its responses to valid inputs, edge cases, boundary conditions, and error scenarios. This involves not just positive paths but also how the code handles failures and exceptions.
-4.  **Modern Tooling and Practices**: Leverage modern testing frameworks (JUnit 5), fluent assertion libraries (AssertJ), and mocking tools (Mockito) to write expressive, maintainable, and powerful tests. Utilize features like parameterized tests to reduce boilerplate and improve coverage of data variations.
-5.  **Maintainability and Focus**: Tests should be easy to maintain. This means avoiding tests that are too complex, test implementation details, or have multiple responsibilities. A well-written test makes it clear what is being tested and why, simplifying debugging and refactoring efforts.
+These guidelines aim to ensure consistency, reliability, and maintainability of integration tests within the project.
 
 ## Table of contents
 
-- Rule 1: Use JUnit 5 Annotations
-- Rule 2: Use AssertJ for Assertions
-- Rule 3: Structure Tests with Given-When-Then
-- Rule 4: Use Descriptive Test Names
-- Rule 5: Aim for Single Responsibility in Tests
-- Rule 6: Ensure Tests are Independent
-- Rule 7: Use Parameterized Tests for Data Variations
-- Rule 8: Utilize Mocking for Dependencies (Mockito)
-- Rule 9: Consider Test Coverage, But Don't Obsess
-- Rule 10: Test Scopes
-- Rule 11: Code Splitting Strategies
-- Rule 12: Anti-patterns and Code Smells
-- Rule 13: State Management
-- Rule 14: Error Handling
-- Rule 15: Leverage JSpecify for Null Safety
-- Rule 16: Key Questions to Guide Test Creation (RIGHT-BICEP)
-- Rule 17: Characteristics of Good Tests (A-TRIP)
-- Rule 18: Verifying CORRECT Boundary Conditions
+- Rule 1: Define Clear Scope and Purpose for Integration Tests
+- Rule 2: Manage Test Environment & Dependencies with Testcontainers
+- Rule 3: Utilize RestAssured for Robust API Testing
+- Rule 4: Implement Consistent Data Management Strategies
+- Rule 5: Maintain Clear Test Structure and Assertions
+- Rule 6: Optimize for Performance and Ensure Proper Cleanup
 
-## Rule 1: Use JUnit 5 Annotations
+## Rule 1: Define Clear Scope and Purpose for Integration Tests
 
-Title: Prefer JUnit 5 annotations over JUnit 4.
-Description: Utilize annotations from the `org.junit.jupiter.api` package (e.g., `@Test`, `@BeforeEach`, `@AfterEach`, `@DisplayName`, `@Nested`, `@Disabled`) instead of their JUnit 4 counterparts (`@org.junit.Test`, `@Before`, `@After`, `@Ignore`). This ensures consistency and allows leveraging the full capabilities of JUnit 5.
+Title: Clearly Define the Scope and Purpose of Each Integration Test
+Description:
+- Integration tests must verify the interaction between multiple components or systems (e.g., service layer with database, service-to-service communication over HTTP).
+- Clearly define the boundary of each integration test. What specific interaction, contract, or flow is being tested?
+- Prefer integration tests for verifying contracts between services (APIs) and interactions with external dependencies (databases, message queues, etc.).
+- Avoid replicating complex business logic in integration tests if it is already thoroughly covered by unit tests. Focus on the integration points.
 
 **Good example:**
-
 ```java
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
+// Assume: ProductService interacts with ProductRepository (database) and NotificationService (external HTTP)
+
+// @SpringBootTest // or similar context for the test
+// @Testcontainers // if using Testcontainers
+public class ProductServiceIT {
+
+    // @Autowired
+    // private ProductService productService;
+    
+    // @Autowired
+    // private ProductRepository productRepository; // To verify DB state
+
+    // Mock or use a Testcontainer for NotificationService if its actual calls are out of scope
+    // @MockBean
+    // private NotificationService mockNotificationService;
+
+    // @Test
+    void should_createProduct_saveToDatabase_and_sendNotification() {
+        // Scope: Test the flow of creating a product, ensuring it's saved,
+        // and that a notification attempt is made.
+
+        // Given: A product DTO
+        // ProductDto newProductDto = new ProductDto("Laptop X1", 1500.00);
+
+        // When: ProductService creates the product
+        // Product createdProduct = productService.createProduct(newProductDto);
+
+        // Then: Verify interactions
+        // 1. Product is saved in the database (verify via repository or direct query)
+        // Optional<ProductEntity> savedEntity = productRepository.findById(createdProduct.getId());
+        // assertThat(savedEntity).isPresent();
+        // assertThat(savedEntity.get().getName()).isEqualTo("Laptop X1");
+
+        // 2. Notification service was called (verify via mock or wiremock if testing HTTP contract)
+        // verify(mockNotificationService).sendProductCreationNotification(any(Product.class));
+        System.out.println("Conceptual test: Product creation flow verified.");
+    }
+}
+```
+
+**Bad Example:**
+```java
+// @SpringBootTest
+public class OverlappingProductLogicIT {
+
+    // @Autowired
+    // private ProductService productService;
+
+    // @Test
+    void should_calculateComplexPricing_duringProductCreation() {
+        // Bad: This test might be re-testing complex pricing logic
+        // that should already be unit-tested in ProductService or a PricingEngine unit test.
+        // The integration test should focus on whether ProductService correctly integrates
+        // with the database and other services during creation, assuming pricing logic is correct.
+        
+        // ProductDto productWithComplexPricing = new ProductDto("ComplexItem", 10.0, List.of(new DiscountRule(...)));
+        // Product createdProduct = productService.createProduct(productWithComplexPricing);
+        
+        // If asserts here are deeply checking specific price calculations, it's likely a unit test concern.
+        // assertThat(createdProduct.getFinalPrice()).isEqualTo(9.99); // This might be too specific for an IT
+        System.out.println("Conceptual bad test: Replicating unit test logic for pricing.");
+    }
+}
+```
+
+## Rule 2: Manage Test Environment & Dependencies with Testcontainers
+
+Title: Use Testcontainers for Reliable Management of External Dependencies
+Description:
+- Use Testcontainers (`org.testcontainers:testcontainers`) to manage external dependencies (databases, message brokers, caches, other services) required for the test. Avoid relying on pre-existing, shared external environments to ensure test isolation and reproducibility.
+- Declare containerized dependencies using `@Testcontainers` and `@Container` annotations for JUnit 5 integration (`org.testcontainers:junit-jupiter`). Manage container lifecycles appropriately (per test suite using `static @Container` or per test method, favoring suite-level for performance).
+- Use official or well-maintained Docker images for dependencies. Pin image versions (e.g., `"postgres:15-alpine"`) to ensure reproducible builds.
+- Configure containers programmatically (ports, environment variables, wait strategies) within the test setup. Use `Wait.for...` strategies (e.g., `Wait.forHttp("/health")`, `Wait.forLogMessage(...)`) to ensure containers are ready before tests run.
+- Inject dynamic container properties (like mapped ports or JDBC URLs) into the application context or test configuration. For Spring Boot, use `@DynamicPropertySource` with a static method. For others, manually retrieve properties in setup methods.
+
+**Good example:**
+```java
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import static org.assertj.core.api.Assertions.assertThat; // For assertion
 
-@DisplayName("My Service Test")
-class MyServiceTest {
+@Testcontainers
+@SpringBootTest // Or relevant test context setup
+class MyRepositoryIT {
 
-    private MyService service;
+    @Container // Static -> shared container for all tests in this class
+    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15-alpine")
+            .withDatabaseName("testdb")
+            .withUsername("testuser")
+            .withPassword("testpass");
+            // .waitingFor(Wait.forListeningPort()); // Default wait strategy is often sufficient for DBs
+
+    // Dynamically set properties based on container info
+    @DynamicPropertySource
+    static void configureProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", postgres::getJdbcUrl);
+        registry.add("spring.datasource.username", postgres::getUsername);
+        registry.add("spring.datasource.password", postgres::getPassword);
+        registry.add("spring.jpa.hibernate.ddl-auto", () -> "create-drop");
+    }
+
+    // Inject your repository/service here
+    // @Autowired
+    // private MyRepository repository;
+
+    @Test
+    void should_connectAndInteractWithDatabase() {
+        // Test logic interacting with the repository,
+        // which uses the Testcontainer database
+        assertThat(postgres.isRunning()).isTrue();
+        System.out.println("PostgreSQL container is running on JDBC URL: " + postgres.getJdbcUrl());
+        // ... perform repository operations and assertions ...
+        // Example: MyEntity entity = new MyEntity("testData");
+        // repository.save(entity);
+        // Optional<MyEntity> found = repository.findById(entity.getId());
+        // assertThat(found).isPresent();
+    }
+}
+```
+
+**Bad Example:**
+```java
+// @SpringBootTest
+public class MyServiceReliesOnExternalDbIT {
+
+    // @Autowired
+    // private MyDataService dataService;
+
+    // No Testcontainers. This test assumes an external PostgreSQL server
+    // is running on localhost:5432 with specific credentials and schema.
+    // spring.datasource.url=jdbc:postgresql://localhost:5432/mydb_dev
+    // spring.datasource.username=dev_user
+    // spring.datasource.password=dev_secret
+
+    // @Test
+    void should_fetchDataFromPreConfiguredExternalDatabase() {
+        // Bad: Test depends on an external, manually configured database.
+        // - Not isolated: Other tests or developers might change the DB state.
+        // - Not reproducible: Fails if DB is down, schema changes, or on CI without the DB.
+        // - Hard to manage data state between tests.
+        // List<Data> data = dataService.findAll();
+        // assertThat(data).isNotEmpty(); // This might pass or fail based on external DB state.
+        System.out.println("Conceptual bad test: Relies on external, shared database.");
+    }
+}
+```
+
+## Rule 3: Utilize RestAssured for Robust API Testing
+
+Title: Employ RestAssured for Testing RESTful APIs Following Given/When/Then
+Description:
+- Use RestAssured (`io.rest-assured:rest-assured`) for testing RESTful APIs.
+- Structure tests using the Given/When/Then (Gherkin-like) syntax provided by RestAssured:
+    - `given()`: Set up request prerequisites (headers, authentication, path/query parameters, request body).
+    - `when()`: Perform the HTTP request (GET, POST, PUT, DELETE, etc.).
+    - `then()`: Validate the response (status code, headers, response body).
+- Always validate the HTTP status code first using `statusCode()`.
+- Use Hamcrest matchers (`org.hamcrest.Matchers`) or RestAssured's built-in JSON/XML path validation (`body()`) for asserting response content. Be specific but avoid overly brittle assertions (e.g., don't assert entire large JSON bodies if only a few fields matter).
+- Define base URIs, ports, and common paths in a setup method (`@BeforeEach` or a base test class). Set `RestAssured.baseURI`, `RestAssured.port` (often using the dynamic port from Spring Boot Test or Testcontainers).
+- Handle authentication consistently. Use RestAssured's built-in mechanisms or abstract authentication logic.
+- For complex request/response bodies, use POJOs with libraries like Jackson or Gson for serialization/deserialization.
+
+**Good example:**
+```java
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
+// Assuming a simple DTO for request/response
+class ResourceDto {
+    public int id;
+    public String name;
+    public String data;
+    public ResourceDto() {}
+    public ResourceDto(int id, String name, String data) { this.id = id; this.name = name; this.data = data;}
+}
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+// Assume a controller exists at /resources that uses ResourceDto
+// and has GET /resources/{id}, POST /resources
+class MyApiControllerIT {
+
+    @LocalServerPort
+    private int port;
 
     @BeforeEach
     void setUp() {
-        service = new MyService(); // Setup executed before each test
+        RestAssured.baseURI = "http://localhost";
+        RestAssured.port = port;
+        // RestAssured.basePath = "/api/v1"; // If applicable
+        // Setup mock responses for an actual test if the backend is not fully running for this slice
+        // For this example, assume the endpoints are live and will respond appropriately.
     }
 
     @Test
-    @DisplayName("should process data correctly")
-    void processData() {
-        // Given
-        String input = "test";
+    void getResourceById_shouldReturnOkAndResource() {
+        // Mocking for standalone example (replace with actual endpoint call if SUT is running)
+        // For a real test against a live Spring Boot app, remove this mock if endpoint is implemented
+        // MocoRestAssured.given().get("/resources/123"). répondre().statusCode(200).contentType(ContentType.JSON).body("{ \"id\": 123, \"name\": \"ResourceName\", \"data\": \"Sample Data\" }");
 
-        // When
-        String result = service.process(input);
+        given()
+            .accept(ContentType.JSON)
+            .pathParam("id", 123)
+        .when()
+            .get("/resources/{id}") // Replace with actual implemented endpoint
+        .then()
+            .statusCode(200) // Assume endpoint returns 200 for existing resource
+            .contentType(ContentType.JSON)
+            .body("id", equalTo(123)) 
+            .body("name", containsString("ResourceName")); // Flexible assertion for name
+            // .body("name", equalTo("ResourceName")); // More specific if exact match needed
+    }
 
-        // Then
-        assertThat(result).isEqualTo("PROCESSED:test");
+    @Test
+    void createResource_shouldReturnCreatedAndResourceLocation() {
+        ResourceDto newResource = new ResourceDto(0, "New Item", "Some data");
+
+        given()
+            .contentType(ContentType.JSON)
+            .body(newResource) // Serialize POJO to JSON
+        .when()
+            .post("/resources") // Replace with actual implemented endpoint
+        .then()
+            .statusCode(201) // Assume endpoint returns 201 for new resource
+            .header("Location", containsString("/resources/")) // Check for Location header
+            .body("id", notNullValue()) // Assert that an ID was generated
+            .body("name", equalTo("New Item"));
     }
 }
 ```
 
 **Bad Example:**
-
 ```java
-import org.junit.Before; // JUnit 4
-import org.junit.Test;   // JUnit 4
-import static org.junit.Assert.assertEquals; // JUnit 4 Assert
-
-public class MyServiceTest {
-
-    private MyService service;
-
-    @Before // JUnit 4
-    public void setup() {
-        service = new MyService();
-    }
-
-    @Test // JUnit 4
-    public void processData() {
-        String input = "test";
-        String result = service.process(input);
-        assertEquals("PROCESSED:test", result); // JUnit 4 Assert
-    }
-}
-```
-
-## Rule 2: Use AssertJ for Assertions
-
-Title: Prefer AssertJ for assertions.
-Description: Employ AssertJ's fluent API (`org.assertj.core.api.Assertions.assertThat`) for more readable, expressive, and maintainable assertions compared to JUnit Jupiter's `Assertions` class or Hamcrest matchers.
-
-**Good Example:**
-
-```java
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static io.restassured.RestAssured.*;
+import static org.assertj.core.api.Assertions.assertThat; // Using AssertJ for body checks
 
-class AssertJExampleTest {
+// @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class ApiTestAntiPatternsIT {
+
+    // @LocalServerPort private int port;
+    // @BeforeEach void setUp() { RestAssured.port = port; RestAssured.baseURI="http://localhost"; }
 
     @Test
-    void checkValue() {
-        String result = "hello";
-        assertThat(result)
-            .isEqualTo("hello")
-            .startsWith("hell")
-            .endsWith("o")
-            .hasSize(5); // Chain multiple assertions fluently
+    void getResource_badAssertions() {
+        // Bad: Not checking status code first or at all.
+        // Bad: Extracting entire response as string and doing string manipulations.
+        // String responseBody = get("/resources/1").asString(); 
+        // assertThat(responseBody).contains("\"id\":1"); // Brittle, hard to read
+        
+        // Bad: Overly specific assertions on large JSON strings.
+        // get("/complex-resource/1").then().body(equalTo("{very long and complex json string...}"));
+        System.out.println("Conceptual bad API test: Poor assertions, missing status code check.");
     }
 
     @Test
-    void checkException() {
-        MyService service = new MyService();
-        assertThatThrownBy(() -> service.divide(1, 0)) // Preferred way to test exceptions
-            .isInstanceOf(IllegalArgumentException.class)
-            .hasMessageContaining("zero");
+    void createResource_noBodyValidation() {
+        // Bad: Not validating the structure or content of the response body upon creation.
+        // given().contentType("application/json").body("{ \"name\": \"Test\" }")
+        // .when().post("/resources")
+        // .then().statusCode(201); // Only checks status code, not what was created or returned.
+        System.out.println("Conceptual bad API test: Missing response body validation.");
     }
 }
 ```
 
-**Bad Example:**
+## Rule 4: Implement Consistent Data Management Strategies
 
-```java
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*; // JUnit Jupiter Assertions
-
-class JUnitAssertionsExampleTest {
-
-    @Test
-    void checkValue() {
-        String result = "hello";
-        assertEquals("hello", result); // Less fluent
-        assertTrue(result.startsWith("hell")); // Separate assertions for each property
-        assertTrue(result.endsWith("o"));
-        assertEquals(5, result.length());
-    }
-
-    @Test
-    void checkException() {
-        MyService service = new MyService();
-        // More verbose exception testing
-        IllegalArgumentException exception = assertThrows(
-            IllegalArgumentException.class,
-            () -> service.divide(1, 0)
-        );
-        assertTrue(exception.getMessage().contains("zero")); // Separate assertion for message
-    }
-}
-```
-
-## Rule 3: Structure Tests with Given-When-Then
-
-Title: Structure test methods using the Given-When-Then pattern.
-Description: Organize the logic within test methods into three distinct, clearly separated phases: **Given** (setup preconditions), **When** (execute the code under test), and **Then** (verify the outcome). Use comments or empty lines to visually separate these phases, enhancing readability and understanding of the test's purpose.
-
-**Good example:**
-
-```java
-import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-
-class GivenWhenThenTest {
-
-    @Test
-    void shouldCalculateSumCorrectly() {
-        // Given
-        Calculator calculator = new Calculator();
-        int num1 = 5;
-        int num2 = 10;
-        int expectedSum = 15;
-
-        // When
-        int actualSum = calculator.add(num1, num2);
-
-        // Then
-        assertThat(actualSum).isEqualTo(expectedSum);
-    }
-}
-```
-
-**Bad Example:**
-
-```java
-import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-
-class UnstructuredTest {
-
-    @Test
-    void testAddition() {
-        // Lack of clear separation makes it harder to follow the test flow
-        Calculator calculator = new Calculator();
-        assertThat(calculator.add(5, 10)).isEqualTo(15); // Combines action and verification
-        // Setup might be mixed with action or verification elsewhere
-    }
-}
-```
-
-## Rule 4: Use Descriptive Test Names
-
-Title: Write descriptive test method names or use `@DisplayName`.
-Description: Test names should clearly communicate the scenario being tested and the expected outcome. Use either descriptive method names (e.g., following the `should_ExpectedBehavior_when_StateUnderTest` pattern) or JUnit 5's `@DisplayName` annotation for more natural language descriptions. This makes test reports easier to understand.
-
-**Good Example (Method Name):**
-
-```java
-@Test
-void should_throwException_when_divisorIsZero() {
-    // Given
-    Calculator calculator = new Calculator();
-
-    // When & Then
-    assertThatThrownBy(() -> calculator.divide(1, 0))
-        .isInstanceOf(ArithmeticException.class);
-}
-```
-
-**Good Example (@DisplayName):**
-
-```java
-@Test
-@DisplayName("Should return the correct sum for positive numbers")
-void additionWithPositives() {
-     // Given
-     Calculator calculator = new Calculator();
-     int num1 = 5;
-     int num2 = 10;
-
-     // When
-     int actualSum = calculator.add(num1, num2);
-
-     // Then
-     assertThat(actualSum).isEqualTo(15);
-}
-```
-
-**Bad Example:**
-
-```java
-@Test
-void testDivide() { // Name is too generic, doesn't explain the scenario
-    // ... test logic ...
-}
-
-@Test
-void test1() { // Uninformative name
-    // ... test logic ...
-}
-```
-
-## Rule 5: Aim for Single Responsibility in Tests
-
-Title: Each test method should verify a single logical concept.
-Description: Avoid testing multiple unrelated things within a single test method. Each test should focus on one specific aspect of the unit's behavior or one particular scenario. This makes tests easier to understand, debug, and maintain. If a test fails, its specific focus makes pinpointing the cause simpler.
-
-**Good Example:**
-
-```java
-// Separate tests for different validation aspects
-@Test
-void should_reject_when_emailIsNull() {
-    // ... test logic for null email ...
-}
-
-@Test
-void should_reject_when_emailFormatIsInvalid() {
-    // ... test logic for invalid email format ...
-}
-```
-
-**Bad Example:**
-
-```java
-@Test
-void testUserValidation() { // Tests multiple conditions at once
-    // Given user with null email
-    // ... assertion for null email ...
-
-    // Given user with invalid email format
-    // ... assertion for invalid format ...
-
-    // Given user with valid email
-    // ... assertion for valid email ...
-}
-```
-
-## Rule 6: Ensure Tests are Independent
-
-Title: Tests must be independent and runnable in any order.
-Description: Avoid creating tests that depend on the state left behind by previously executed tests. Each test should set up its own required preconditions (using `@BeforeEach` or within the test method itself) and should not rely on the execution order. This ensures test suite stability and reliability, preventing flickering tests.
-
-**Good Example:**
-
-```java
-class IndependentTests {
-    private MyRepository repository = new InMemoryRepository(); // Or use @BeforeEach
-
-    @Test
-    void should_findItem_when_itemExists() {
-        // Given
-        Item item = new Item("testId", "TestData");
-        repository.save(item); // Setup specific to this test
-
-        // When
-        Optional<Item> found = repository.findById("testId");
-
-        // Then
-        assertThat(found).isPresent();
-    }
-
-    @Test
-    void should_returnEmpty_when_itemDoesNotExist() {
-        // Given - Repository is clean (or re-initialized via @BeforeEach)
-
-        // When
-        Optional<Item> found = repository.findById("nonExistentId");
-
-        // Then
-        assertThat(found).isNotPresent();
-    }
-}
-```
-
-**Bad Example:**
-
-```java
-class DependentTests {
-    private static MyRepository repository = new InMemoryRepository(); // Shared state
-    private static Item savedItem;
-
-    @Test // Test 1 (might run first)
-    void testSave() {
-        savedItem = new Item("testId", "Data");
-        repository.save(savedItem);
-        // ... assertions ...
-    }
-
-    @Test // Test 2 (depends on Test 1 having run)
-    void testFind() {
-        // This test fails if testSave() hasn't run or if run order changes
-        Optional<Item> found = repository.findById("testId");
-        assertThat(found).isPresent();
-    }
-}
-```
-
-## Rule 7: Use Parameterized Tests for Data Variations
-
-Title: Use `@ParameterizedTest` for testing the same logic with different inputs.
-Description: When testing a method's behavior across various input values or boundary conditions, leverage JUnit 5's parameterized tests (`@ParameterizedTest` with sources like `@ValueSource`, `@CsvSource`, `@MethodSource`). This avoids code duplication and clearly separates the test logic from the test data.
-
-**Good Example:**
-
-```java
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import static org.assertj.core.api.Assertions.assertThat;
-
-class ParameterizedCalculatorTest {
-
-    private final Calculator calculator = new Calculator();
-
-    @ParameterizedTest(name = "{index} {0} + {1} = {2}") // Clear naming for each case
-    @CsvSource({
-        "1,  2,  3",
-        "0,  0,  0",
-        "-5, 5,  0",
-        "10, -3, 7"
-    })
-    void additionTest(int a, int b, int expectedResult) {
-        // Given inputs a, b (from @CsvSource)
-
-        // When
-        int actualResult = calculator.add(a, b);
-
-        // Then
-        assertThat(actualResult).isEqualTo(expectedResult);
-    }
-}
- ```
-
-**Bad Example:**
-
-```java
-import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-
-class RepetitiveCalculatorTest {
-
-    private final Calculator calculator = new Calculator();
-
-    // Redundant tests for the same logic
-    @Test
-    void add1and2() {
-        assertThat(calculator.add(1, 2)).isEqualTo(3);
-    }
-
-    @Test
-    void add0and0() {
-        assertThat(calculator.add(0, 0)).isEqualTo(0);
-    }
-
-    @Test
-    void addNegative5and5() {
-        assertThat(calculator.add(-5, 5)).isEqualTo(0);
-    }
-
-    @Test
-    void add10andNegative3() {
-        assertThat(calculator.add(10, -3)).isEqualTo(7);
-    }
-}
-```
-
-## Rule 8: Utilize Mocking for Dependencies (Mockito)
-
-Title: Isolate the unit under test using mocking frameworks like Mockito.
-Description: Unit tests should focus solely on the logic of the class being tested (System Under Test - SUT), not its dependencies (database, network services, other classes). Use mocking frameworks like Mockito to create mock objects that simulate the behavior of these dependencies. This ensures tests are fast, reliable, and truly test the unit in isolation.
-
-**Key Mockito Concepts:**
-
-*   **`mock(Class<T> classToMock)`**: Creates a mock object of a given class or interface.
-*   **`when(mock.methodCall()).thenReturn(value)`**: Defines the behavior of a mock object's method. When the specified method is called on the mock, it will return the defined `value`.
-*   **`verify(mock).methodCall()`**: Verifies that a specific method was called on the mock object. You can also specify the number of times (`times(n)`), at least once (`atLeastOnce()`), etc.
-*   **`@Mock` Annotation**: Used with `@ExtendWith(MockitoExtension.class)` (JUnit 5) to automatically create mocks for fields.
-*   **`@InjectMocks` Annotation**: Creates an instance of the class under test and automatically injects fields annotated with `@Mock` into it.
-
-**Good Example (using Mockito):**
-
-```java
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*; // Import static methods
-
-// Assume classes: UserService, UserRepository, User
-
-@ExtendWith(MockitoExtension.class) // Integrate Mockito with JUnit 5
-class UserServiceTest {
-
-    @Mock // Create a mock UserRepository
-    private UserRepository userRepository;
-
-    @InjectMocks // Create UserService instance and inject the mock repository
-    private UserService userService;
-
-    @Test
-    @DisplayName("Should return user when found by id")
-    void findUserById_Success() {
-        // Given
-        User expectedUser = new User("123", "John Doe");
-        // Define mock behavior: when findById("123") is called, return our user
-        when(userRepository.findById("123")).thenReturn(Optional.of(expectedUser));
-
-        // When
-        Optional<User> actualUser = userService.findUserById("123");
-
-        // Then
-        assertThat(actualUser).isPresent().contains(expectedUser);
-        // Verify that findById("123") was called exactly once on the mock repository
-        verify(userRepository, times(1)).findById("123");
-        verifyNoMoreInteractions(userRepository); // Optional: ensure no other methods were called
-    }
-
-    @Test
-    @DisplayName("Should return empty optional when user not found")
-    void findUserById_NotFound() {
-        // Given
-        // Define mock behavior: when findById is called with any string, return empty
-        when(userRepository.findById(anyString())).thenReturn(Optional.empty());
-
-        // When
-        Optional<User> actualUser = userService.findUserById("unknownId");
-
-        // Then
-        assertThat(actualUser).isNotPresent();
-        verify(userRepository).findById("unknownId"); // Verify the specific call
-    }
-
-    @Test
-    @DisplayName("Should save user successfully")
-    void saveUser() {
-        // Given
-        User userToSave = new User(null, "Jane Doe"); // ID might be generated on save
-        User savedUser = new User("genId", "Jane Doe");
-        // Define behavior for save: return the user with an ID
-        when(userRepository.save(any(User.class))).thenReturn(savedUser);
-
-        // When
-        User result = userService.saveUser(userToSave);
-
-        // Then
-        assertThat(result).isEqualTo(savedUser);
-        // Verify that save was called with the correct user object (or use ArgumentCaptor for complex cases)
-        verify(userRepository).save(userToSave);
-    }
-}
-```
-
-**Why Mocking is Crucial:**
-
-*   **Isolation:** Ensures the test focuses only on the `UserService` logic, not the actual database interaction.
-*   **Speed:** Mock operations are in-memory and extremely fast, unlike real I/O operations.
-*   **Determinism:** Mock behavior is explicitly defined, making tests predictable and reliable, regardless of external system state.
-*   **Control:** Allows simulating specific scenarios (e.g., user not found, database errors) that might be difficult to set up with real dependencies.
-
-## Rule 9: Consider Test Coverage, But Don't Obsess
-
-Title: Use code coverage as a guide, not a definitive quality metric.
-Description: Tools like JaCoCo can measure which lines of code are executed by your tests (code coverage). Aiming for high coverage (e.g., >80% line/branch coverage) is generally good practice, as it indicates most code paths are tested. However, 100% coverage doesn't guarantee bug-free code or high-quality tests. Focus on writing meaningful tests for critical logic and edge cases rather than solely chasing coverage numbers. A test might cover a line but not actually verify its correctness effectively.
-
-## Rule 10: Test Scopes
-
-### Test classes should be package-private
-
-Test classes should have package-private visibility. There is no need for them to be public.
-
-### Test methods should be package-private
-
-Test methods should have package-private visibility. There is no need for them to be public.
-
-## Rule 11: Code Splitting Strategies
-
-- **Small Test Methods:** Keep test methods small and focused on testing a single behavior.
-- **Helper Methods:** Use helper methods to avoid code duplication in test setup and assertions.
-- **Parameterized Tests:** Utilize JUnit's parameterized tests to test the same logic with different input values.
-
-## Rule 12: Anti-patterns and Code Smells
-
-- **Testing Implementation Details:** Avoid testing implementation details that might change, leading to brittle tests. Focus on testing behavior and outcomes.
-- **Hard-coded Values:** Avoid hard-coding values in tests. Use constants or test data to make tests more maintainable.
-- **Complex Test Logic:** Keep test logic simple and avoid complex calculations or conditional statements within tests.
-- **Ignoring Edge Cases:** Don't ignore edge cases or boundary conditions. Ensure tests cover a wide range of inputs, including invalid or unexpected values.
-- **Slow Tests:** Avoid slow tests that discourage developers from running them frequently.
-- **Over-reliance on Mocks:** Mock judiciously; too many mocks can obscure the actual behavior and make tests less reliable.
-- **Ignoring Test Failures:** Never ignore failing tests. Investigate and fix them promptly.
-
-## Rule 13: State Management
-
-- **Isolated State:** Ensure each test has its own isolated state to avoid interference between tests. Use `@BeforeEach` to reset the state before each test.
-- **Immutable Objects:** Prefer immutable objects to simplify state management and avoid unexpected side effects.
-- **Stateless Components:** Design stateless components whenever possible to reduce the need for state management in tests.
-
-## Rule 14: Error Handling
-
-- **Expected Exceptions:** Use AssertJ's `assertThatThrownBy` to verify that a method throws the expected exception under specific conditions.
-- **Exception Messages:** Assert the exception message to ensure the correct error is being thrown with helpful context.
-- **Graceful Degradation:** Test how the application handles errors and gracefully degrades when dependencies are unavailable.
-
-## Rule 15: Leverage JSpecify for Null Safety
-
-Title: Utilize JSpecify annotations for explicit nullness contracts.
-Description: Employ JSpecify annotations (`org.jspecify.annotations.*`) such as `@NullMarked`, `@Nullable`, and `@NonNull` to clearly define the nullness expectations of method parameters, return types, and fields within your tests and the code under test. This practice enhances code clarity, enables static analysis tools to catch potential `NullPointerExceptions` early, and improves the overall robustness of your tests and application code. In test code, this is particularly important for defining the expected behavior of mocks and verifying interactions with potentially null values.
-
-**Good Example (Illustrating usage in a test context):**
-
-```java
-import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
-
-// Assume:
-// @NullMarked // Usually at package-info.java or a higher-level class
-// interface DataService {
-//     @Nullable String getData(String key);
-//     String processData(@Nullable String data);
-// }
-//
-// class MyProcessor {
-//     private final DataService dataService;
-//
-//     MyProcessor(DataService dataService) {
-//         this.dataService = dataService;
-//     }
-//
-//     String execute(String key) {
-//         @Nullable String rawData = dataService.getData(key);
-//         // rawData could be null here, static analysis would warn if not checked
-//         if (rawData == null) {
-//             return dataService.processData(null);
-//         }
-//         return dataService.processData(rawData.toUpperCase());
-//     }
-// }
-
-
-@NullMarked // Applies non-null by default to this test class
-@ExtendWith(MockitoExtension.class)
-class MyProcessorTest {
-
-    @Mock
-    private DataService mockDataService;
-
-    private MyProcessor myProcessor;
-
-    @Test
-    void should_handleNullData_when_serviceReturnsNull() {
-        // Given
-        myProcessor = new MyProcessor(mockDataService);
-        String key = "testKey";
-        // JSpecify helps clarify that getData can return null
-        when(mockDataService.getData(key)).thenReturn(null);
-        // JSpecify helps clarify that processData can accept null
-        when(mockDataService.processData(null)).thenReturn("processed:null");
-
-
-        // When
-        String result = myProcessor.execute(key);
-
-        // Then
-        assertThat(result).isEqualTo("processed:null");
-    }
-
-    @Test
-    void should_processNonNullData_when_serviceReturnsData() {
-        // Given
-        myProcessor = new MyProcessor(mockDataService);
-        String key = "testKey";
-        String serviceData = "someData"; // Effectively @NonNull due to @NullMarked context
-        // getData's return is @Nullable, but we are testing the non-null path
-        when(mockDataService.getData(key)).thenReturn(serviceData);
-        // processData's argument is @Nullable, here we pass a non-null value
-        when(mockDataService.processData("SOMEDATA")).thenReturn("processed:SOMEDATA");
-
-        // When
-        String result = myProcessor.execute(key);
-
-        // Then
-        assertThat(result).isEqualTo("processed:SOMEDATA");
-    }
-}
-```
-
-**Bad Example (Lack of explicit nullness):**
-
-```java
-// No JSpecify annotations, nullness is ambiguous
-// class DataService {
-//     String getData(String key); // Is null return possible? Is key nullable?
-//     String processData(String data); // Can data be null?
-// }
-//
-// class MyProcessor {
-//     // ... constructor ...
-//     String execute(String key) {
-//         String rawData = dataService.getData(key);
-//         // Potential NPE here if getData can return null and it's not handled.
-//         // The contract is unclear without annotations.
-//         return dataService.processData(rawData.toUpperCase());
-//     }
-// }
-
-class MyProcessorTest {
-    // ... test setup ...
-
-    @Test
-    void testProcessing() {
-        // Given
-        MyProcessor myProcessor = new MyProcessor(mockDataService);
-        String key = "testKey";
-        // Ambiguity: if getData returns null, this test might pass or fail unexpectedly
-        // depending on mock setup, but the underlying contract isn't clear.
-        when(mockDataService.getData(key)).thenReturn("someData");
-        when(mockDataService.processData("SOMEDATA")).thenReturn("processed:SOMEDATA");
-        // If getData could return null and mockDataService.processData isn't
-        // prepared for mockDataService.processData(null), an NPE could occur
-        // in the code under test or the test itself, masking the real issue.
-
-        // When
-        String result = myProcessor.execute(key);
-
-        // Then
-        assertThat(result).isEqualTo("processed:SOMEDATA");
-    }
-}
-```
-
-## Rule 16: Key Questions to Guide Test Creation (RIGHT-BICEP)
-
-Title: Key Questions to Guide Test Creation
+Title: Ensure Controlled and Isolated Data States for Each Test
 Description:
-- If the code ran correctly, how would I know?
-- How am I going to test this?
-- What else can go wrong?
-- Could this same kind of problem happen anywhere else?
-- What to Test: Use Your RIGHT-BICEP
-  - Are the results **R**ight?
-  - Are all the **B**oundary conditions CORRECT?
-  - Can you check **I**nverse relationships?
-  - Can you **C**ross-check results using other means?
-  - Can you force **E**rror conditions to happen?
-  - Are **P**erformance characteristics within bounds?
+- Each integration test must run with a known, controlled data state to ensure reliability and prevent interference between tests. Tests must be independent.
+- Seed necessary test data before each test (`@BeforeEach`) or test suite (`@BeforeAll`). Options include:
+    - **Application Services:** Call repository or service methods to set up required entities.
+    - **Object Mothers / Test Data Builders:** Use patterns to create complex test data objects easily and consistently.
+    - **SQL Scripts:** Use `@Sql` (Spring) or execute scripts via JDBC/Testcontainers `execInContainer()` for setup.
+- Clean up persistent data created during a test run to ensure test isolation. Choose one primary strategy:
+    - **Transaction Rollback:** (Preferred for simplicity if applicable, e.g., Spring Test with `@Transactional`) Annotate test methods or the class. Spring Test will automatically roll back the transaction after each test for database operations within that transaction.
+    - **Truncate/Delete Tables:** Execute `TRUNCATE TABLE ...` or `DELETE FROM ...` statements in `@AfterEach` or via Testcontainers. Fastest for complex state reset if transactions are not manageable across all interactions.
+    - **Delete Specific Data:** Use repository/service methods in `@AfterEach` to delete only the data created by the test (can be complex to track and error-prone).
+    - **Container Recreation:** Recreate the database container per test or class (very slow, generally avoided unless absolutely necessary for complete isolation between test classes).
 
 **Good example:**
-
+(Using Spring Test `@Transactional` for rollback)
 ```java
-// Testing a calculator's add method, considering RIGHT-BICEP
-public class Calculator {
-    public int add(int a, int b) {
-        if ((long)a + b > Integer.MAX_VALUE || (long)a + b < Integer.MIN_VALUE) {
-            throw new ArithmeticException("Integer overflow");
-        }
-        return a + b;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+// Assume Entity: Item with id, name
+// Assume Repository: ItemRepository extends JpaRepository<Item, Long>
+
+// @Testcontainers // If DB is managed by Testcontainers
+// @SpringBootTest
+// @Transactional // This will roll back transactions after each test method
+public class ItemRepositoryTransactionalIT {
+
+    // @Autowired
+    // private ItemRepository itemRepository;
+
+    // @Test
+    void should_saveAndRetrieveItem() {
+        // Item newItem = new Item("Test Item");
+        // Item savedItem = itemRepository.save(newItem);
+        // assertThat(savedItem.getId()).isNotNull();
+        
+        // Optional<Item> foundItem = itemRepository.findById(savedItem.getId());
+        // assertThat(foundItem).isPresent();
+        // assertThat(foundItem.get().getName()).isEqualTo("Test Item");
+        System.out.println("Conceptual test: Save and retrieve with @Transactional rollback.");
+        // Data inserted here will be rolled back automatically after this test method.
+    }
+
+    // @Test
+    void should_findNoItems_ifNoneSavedInThisTest() {
+        // List<Item> items = itemRepository.findAll();
+        // assertThat(items).isEmpty();
+        System.out.println("Conceptual test: Ensuring test isolation via @Transactional.");
+        // Due to rollback from other tests, this test starts with a clean state (within its transaction).
     }
 }
+```
 
-// Test class
-import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+**Bad Example:**
+```java
+// @SpringBootTest
+// @Testcontainers
+public class ItemRepositoryNoCleanupIT {
+    // @Autowired 
+    // private ItemRepository itemRepository;
+    private static Long sharedItemId; // Bad: Sharing state between tests via static field
 
-public class CalculatorTest {
-
-    private final Calculator calculator = new Calculator();
-
-    // R - Right results
-    @Test
-    void add_simplePositiveNumbers_returnsCorrectSum() {
-        assertThat(calculator.add(2, 3)).isEqualTo(5);
+    // @Test // Assume tests run in unpredictable order
+    void testA_createItem() {
+        // Item item = new Item("Shared Item");
+        // item = itemRepository.save(item);
+        // sharedItemId = item.getId();
+        // assertThat(itemRepository.count()).isGreaterThan(0);
+        System.out.println("Conceptual bad test A: Creates data that might affect other tests.");
     }
 
-    // B - Boundary conditions (e.g., with zero, negative numbers, max/min values)
-    @Test
-    void add_numberAndZero_returnsNumber() {
-        assertThat(calculator.add(5, 0)).isEqualTo(5);
-    }
-
-    @Test
-    void add_positiveAndNegative_returnsCorrectSum() {
-        assertThat(calculator.add(5, -4)).isEqualTo(1);
-    }
-    
-    @Test
-    void add_nearMaxInteger_returnsCorrectSum() {
-        assertThat(calculator.add(Integer.MAX_VALUE - 1, 1)).isEqualTo(Integer.MAX_VALUE);
-    }
-
-    // I - Inverse relationships (e.g., subtraction)
-    // (Not directly applicable for a simple add, but if we had subtract: result - b == a)
-
-    // C - Cross-check (e.g., add(a,b) == add(b,a))
-    @Test
-    void add_commutativeProperty_holdsTrue() {
-        assertThat(calculator.add(2, 3)).isEqualTo(calculator.add(3, 2));
-    }
-
-    // E - Error conditions (e.g., overflow)
-    @Test
-    void add_integerOverflow_throwsArithmeticException() {
-        assertThatThrownBy(() -> calculator.add(Integer.MAX_VALUE, 1))
-            .isInstanceOf(ArithmeticException.class)
-            .hasMessageContaining("overflow");
-    }
-    
-    @Test
-    void add_integerUnderflow_throwsArithmeticException() {
-        assertThatThrownBy(() -> calculator.add(Integer.MIN_VALUE, -1))
-            .isInstanceOf(ArithmeticException.class)
-            .hasMessageContaining("overflow");
-    }
-
-    // P - Performance (Not typically unit tested unless specific requirements)
     // @Test
-    // void add_performance_isWithinAcceptableLimits() {
-    //     // Potentially a more complex performance test scenario
+    void testB_checkIfItemExists() {
+        // Bad: This test's success depends on testA_createItem() having run first
+        // and no cleanup being performed. This leads to flaky and order-dependent tests.
+        // if (sharedItemId != null) {
+        //    Optional<Item> item = itemRepository.findById(sharedItemId);
+        //    assertThat(item).isPresent(); 
+        // } else {
+        //    List<Item> items = itemRepository.findAll();
+        //    assertThat(items.stream().anyMatch(i -> i.getName().equals("Shared Item"))).isTrue(); // Brittle check
+        // }
+        System.out.println("Conceptual bad test B: Depends on data from another test due to no cleanup.");
+    }
+}
+```
+
+## Rule 5: Maintain Clear Test Structure and Assertions
+
+Title: Structure Integration Tests Clearly and Use Specific Assertions
+Description:
+- Keep integration tests focused on a single user story, API endpoint interaction, or component integration scenario.
+- Use descriptive test method names (e.g., `should_ExpectedBehavior_when_StateUnderTest`) or JUnit 5's `@DisplayName` annotation to clearly explain the scenario being tested.
+- Assertions should be specific and provide clear failure messages.
+    - **RestAssured:** Leverage Hamcrest matchers for clear assertions on response bodies (e.g., `body("path.to.field", equalTo(expectedValue))`).
+    - **Database State:** Use repositories or JDBC to fetch data after the action and assert its state using libraries like AssertJ for fluent and readable assertions.
+- Use RestAssured's logging (`log().ifValidationFails()`) during development/debugging, but remove or minimize verbose logging (`log().all()`) in committed code to keep test output clean and focus on assertion failures.
+
+**Good example:**
+```java
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+// import static io.restassured.RestAssured.*;
+// import static org.hamcrest.Matchers.*;
+// import static org.assertj.core.api.Assertions.assertThat;
+
+// @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class UserRegistrationIT {
+    // @LocalServerPort private int port;
+    // @Autowired private UserRepository userRepository;
+    // @BeforeEach void setUp() { /* RestAssured.port = port; ... */ }
+
+    @Test
+    @DisplayName("POST /users with valid data should create user, return 201, and user details")
+    void postUsers_withValidData_shouldCreateUserAndReturn201() {
+        // String newUserJson = "{ \"username\": \"testuser\", \"email\": \"test@example.com\" }";
+        
+        // int newUserId = 
+        // given()
+        //    .contentType(ContentType.JSON)
+        //    .body(newUserJson)
+        // .when()
+        //    .post("/users")
+        // .then()
+        //    .log().ifValidationFails() // Good: log only if something is wrong
+        //    .statusCode(201)
+        //    .body("username", equalTo("testuser"))
+        //    .body("email", equalTo("test@example.com"))
+        //    .body("id", notNullValue())
+        //    .extract().path("id");
+
+        // Verify database state (using AssertJ for fluent assertions)
+        // Optional<UserEntity> createdUser = userRepository.findById(newUserId);
+        // assertThat(createdUser).isPresent();
+        // assertThat(createdUser.get().getEmail()).isEqualTo("test@example.com");
+        System.out.println("Conceptual good test: Clear name, focused scope, specific assertions.");
+    }
+}
+```
+
+**Bad Example:**
+```java
+// @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class VagueUserActionsIT {
+    // @Test
+    void testUserActions() { // Bad: Vague test name, unclear scope
+        // This test might try to do too many things:
+        // 1. Create a user
+        // given(...).when().post("/users").then().statusCode(201);
+        
+        // 2. Update the user
+        // given(...).body("{...update...}").when().put("/users/1").then().statusCode(200);
+        
+        // 3. Fetch the user and verify all fields
+        // String response = get("/users/1").asString();
+        // Bad: Asserting a large string is brittle.
+        // assertThat(response).isEqualTo("{ \"id\":1, \"name\":\"updated\", ... very_long_json ... }"); // Should use specific field assertions instead
+        
+        // 4. Delete the user
+        // when().delete("/users/1").then().statusCode(204);
+        System.out.println("Conceptual bad test: Vague name, too broad, brittle assertions.");
+        // Problem: If one part fails, it's hard to know which interaction broke.
+        // Assertions are not specific enough or are too brittle.
+    }
+}
+```
+
+## Rule 6: Optimize for Performance and Ensure Proper Cleanup
+
+Title: Be Mindful of Integration Test Performance and Resource Cleanup
+Description:
+- Be mindful of integration test execution time. Container startup is often the main overhead.
+    - **Prefer static `@Container` fields:** This reuses the same container for all tests within a class, significantly speeding up test suites.
+    - **Consider Singleton Container Pattern:** For sharing a container across multiple test classes (more advanced setup, use with caution to maintain isolation if state leaks).
+- Ensure Testcontainers resources are stopped and removed after the test suite finishes. The `testcontainers-junit-jupiter` extension handles this automatically for containers managed via `@Container`. If managing containers manually, ensure `stop()` is called in a suitable cleanup hook (e.g., `@AfterAll` or a JVM shutdown hook for true singletons).
+- Separate integration tests (e.g., `*IT.java` or `*IntegrationTest.java`) from unit tests (`*Test.java`) using naming conventions. Configure build tools (Maven Surefire/Failsafe, Gradle) to run them in different phases or tasks if needed (integration tests often run after the application is packaged).
+
+**Good example:**
+(Using static @Container for performance and automatic cleanup by junit-jupiter extension)
+```java
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
+import static org.assertj.core.api.Assertions.assertThat; // For assertion
+
+@Testcontainers
+public class MyServiceWithSharedContainerIT {
+
+    // Good: Static container is started once for all tests in this class
+    @Container
+    static GenericContainer<?> redis = new GenericContainer<>(DockerImageName.parse("redis:6-alpine"))
+            .withExposedPorts(6379);
+
+    @BeforeAll
+    static void beforeAll() {
+        System.out.println("Redis container started for suite: " + redis.getContainerIpAddress() + ":" + redis.getMappedPort(6379));
+        // Setup SUT to use redis.getMappedPort(6379) etc.
+    }
+
+    @Test
+    void testOperationOne_usesRedis() {
+        assertThat(redis.isRunning()).isTrue();
+        // ... test logic interacting with service that uses Redis ...
+        System.out.println("Test one with shared Redis.");
+    }
+
+    @Test
+    void testOperationTwo_usesRedis() {
+        assertThat(redis.isRunning()).isTrue();
+        // ... another test logic ...
+        System.out.println("Test two with shared Redis.");
+    }
+
+    // @AfterAll // Not strictly needed for @Container, as Testcontainers extension handles stop()
+    // static void afterAll() {
+    //    System.out.println("Suite finished, Testcontainers will stop the Redis container.");
     // }
 }
 ```
 
 **Bad Example:**
-
 ```java
-// Test only covers one simple case (violates "Thorough" from A-TRIP, and doesn't consider RIGHT-BICEP)
-import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-
-public class CalculatorTestPoor {
-    private final Calculator calculator = new Calculator();
-
-    @Test
-    void add_basicTest() {
-        assertThat(calculator.add(2, 2)).isEqualTo(4); // Only testing one happy path.
-                                                      // No boundary conditions, no error conditions, etc.
-    }
-}
-```
-
-## Rule 17: Characteristics of Good Tests (A-TRIP)
-
-Title: Characteristics of Good Tests (A-TRIP)
-Description:
-Good tests are A-TRIP:
-- **A**utomatic: Tests should run without human intervention.
-- **T**horough: Test everything that could break; cover edge cases.
-- **R**epeatable: Tests should produce the same results every time, in any environment.
-- **I**ndependent: Tests should not rely on each other or on the order of execution.
-- **P**rofessional: Test code is real code; keep it clean, maintainable, and well-documented.
-
-**Good example:**
-
-```java
-// Demonstrating A-TRIP principles
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.utility.DockerImageName;
 
-// Production class (simplified)
-class OrderProcessor {
-    private List<String> items;
+// @Testcontainers // Annotation might be missing or misused
+public class MyServiceWithPerMethodContainerIT {
 
-    public OrderProcessor() {
-        this.items = new ArrayList<>();
+    // Bad: Non-static @Container (or manual management per method) starts a new container for EACH test method.
+    // This is very slow for multiple tests.
+    // @Container // If this were not static, it would be per-method if @Testcontainers is on class
+    private GenericContainer<?> redisPerMethod; 
+
+    // @BeforeEach // Manual start/stop per method is slow and error-prone
+    void setUpPerMethod() {
+        redisPerMethod = new GenericContainer<>(DockerImageName.parse("redis:5-alpine"))
+                            .withExposedPorts(6379);
+        redisPerMethod.start(); // Manual start
+        System.out.println("Redis started for method at port: " + redisPerMethod.getMappedPort(6379));
     }
 
-    public void addItem(String item) {
-        if (Objects.isNull(item) || item.trim().isEmpty()) {
-            throw new IllegalArgumentException("Item cannot be null or empty");
+    // @Test
+    void testA() {
+        // assertThat(redisPerMethod.isRunning()).isTrue();
+        System.out.println("Test A using its own Redis instance.");
+    }
+
+    // @Test
+    void testB() {
+        // assertThat(redisPerMethod.isRunning()).isTrue();
+        System.out.println("Test B using its own Redis instance (slow!).");
+    }
+
+    // @AfterEach
+    void tearDownPerMethod() {
+        if (redisPerMethod != null) {
+            redisPerMethod.stop(); // Manual stop needed
+            System.out.println("Redis stopped for method.");
         }
-        this.items.add(item);
     }
-
-    public int getItemCount() {
-        return this.items.size();
-    }
-
-    public void clearItems() {
-        this.items.clear();
-    }
-}
-
-// Test class demonstrating A-TRIP
-public class OrderProcessorTest {
-
-    private OrderProcessor processor;
-
-    // Automatic: Part of JUnit test suite, runs with build tools.
-    // Independent: Each test sets up its own state.
-    @BeforeEach
-    void setUp() {
-        processor = new OrderProcessor(); // Fresh instance for each test
-    }
-
-    // Thorough: Testing adding valid items.
-    @Test
-    void addItem_validItem_increasesCount() {
-        processor.addItem("Laptop");
-        assertThat(processor.getItemCount()).isEqualTo(1);
-        processor.addItem("Mouse");
-        assertThat(processor.getItemCount()).isEqualTo(2);
-    }
-
-    // Thorough: Testing an edge case (adding null).
-    @Test
-    void addItem_nullItem_throwsIllegalArgumentException() {
-        assertThatThrownBy(() -> processor.addItem(null))
-            .isInstanceOf(IllegalArgumentException.class);
-    }
-    
-    // Thorough: Testing another edge case (adding empty string).
-    @Test
-    void addItem_emptyItem_throwsIllegalArgumentException() {
-        assertThatThrownBy(() -> processor.addItem("   "))
-            .isInstanceOf(IllegalArgumentException.class);
-    }
-
-    // Repeatable: No external dependencies that change (e.g., time, random numbers without seed).
-    // This test will always pass or always fail consistently.
-    @Test
-    void getItemCount_afterClearing_isZero() {
-        processor.addItem("Keyboard");
-        processor.clearItems();
-        assertThat(processor.getItemCount()).isEqualTo(0);
-    }
-
-    // Professional: Code is clean, uses meaningful names, follows conventions.
+    // Problem: Significant performance degradation due to container restart for every test.
+    // Also, higher risk of resource leaks if stop() is missed or fails.
 }
 ```
 
-**Bad Example:**
-
-```java
-// Violating A-TRIP principles
-import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-
-public class BadOrderProcessorTest {
-    // Violates Independent: static processor shared between tests can lead to order dependency.
-    private static OrderProcessor sharedProcessor = new OrderProcessor();
-
-    @Test
-    void test1_addItem() {
-        // Assumes this runs first or that sharedProcessor is empty.
-        sharedProcessor.addItem("Book");
-        assertThat(sharedProcessor.getItemCount()).isEqualTo(1); // Might fail if other tests run first and add items.
-                                                                // This makes it NOT Repeatable consistently.
-    }
-
-    @Test
-    void test2_addAnotherItem() {
-        sharedProcessor.addItem("Pen");
-        // The expected count depends on whether test1_addItem ran and succeeded.
-        // assertThat(sharedProcessor.getItemCount()).isEqualTo(2); // Unreliable
-        assertThat(sharedProcessor.getItemCount()).isGreaterThan(0); // Weaker assertion due to lack of independence.
-    }
-
-    // Violates Automatic: If a test required manual setup (e.g., "Ensure database server X is running and has Y data")
-    // Violates Thorough: Might only test happy paths.
-    // Violates Professional: Unclear test names, messy code, reliance on external state.
-}
-```
-
-## Rule 18: Verifying CORRECT Boundary Conditions
-
-Title: Verifying CORRECT Boundary Conditions
-Description:
-Ensure your tests check the following boundary conditions (CORRECT):
-- **C**onformance: Does the value conform to an expected format? (e.g., email format, date format)
-- **O**rdering: Is the set of values ordered or unordered as appropriate? (e.g., sorted list, items in a queue)
-- **R**ange: Is the value within reasonable minimum and maximum values? (e.g., age > 0, percentage 0-100)
-- **R**eference: Does the code reference anything external that isn't under direct control of the code itself? (e.g., file existence, network connection - often for integration tests, but can apply to unit tests with mocks)
-- **E**xistence: Does the value exist? (e.g., is non-null, non-zero, present in a set)
-- **C**ardinality: Are there exactly enough values? (e.g., expecting 1 result, 0 results, N results)
-- **T**ime (absolute and relative): Is everything happening in order? At the right time? In time? (e.g., timeouts, sequence of events)
-
-**Good example:**
-
-```java
-// Example: Testing a method that validates a user registration age.
-import java.util.Objects;
-public class UserValidation {
-    private static final int MIN_AGE = 18;
-    private static final int MAX_AGE = 120;
-
-    public boolean isAgeValid(int age) {
-        // R - Range
-        return age >= MIN_AGE && age <= MAX_AGE;
-    }
-
-    public boolean isValidEmailFormat(String email) {
-        if (Objects.isNull(email)) return false;
-        // C - Conformance (simplified regex for demonstration)
-        return email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
-    }
-    
-    // E - Existence
-    public boolean processUsername(String username) {
-        if (Objects.isNull(username) || username.trim().isEmpty()) {
-            // Checks for existence (non-null, non-empty)
-            return false; 
-        }
-        // process username
-        return true;
-    }
-}
-
-// Test class
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-import static org.assertj.core.api.Assertions.assertThat;
-
-public class UserValidationTest {
-    private final UserValidation validator = new UserValidation();
-
-    // Testing Range for age
-    @Test
-    void isAgeValid_ageAtLowerBound_returnsTrue() {
-        assertThat(validator.isAgeValid(18)).isTrue();
-    }
-
-    @Test
-    void isAgeValid_ageAtUpperBound_returnsTrue() {
-        assertThat(validator.isAgeValid(120)).isTrue();
-    }
-    
-    @Test
-    void isAgeValid_ageWithinBounds_returnsTrue() {
-        assertThat(validator.isAgeValid(35)).isTrue();
-    }
-
-    @Test
-    void isAgeValid_ageBelowLowerBound_returnsFalse() {
-        assertThat(validator.isAgeValid(17)).isFalse();
-    }
-
-    @Test
-    void isAgeValid_ageAboveUpperBound_returnsFalse() {
-        assertThat(validator.isAgeValid(121)).isFalse();
-    }
-
-    // Testing Conformance for email
-    @ParameterizedTest
-    @ValueSource(strings = {"user@example.com", "user.name@sub.example.co.uk"})
-    void isValidEmailFormat_validEmails_returnsTrue(String email) {
-        assertThat(validator.isValidEmailFormat(email)).isTrue();
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"userexample.com", "user@", "@example.com", "user @example.com", ""})
-    void isValidEmailFormat_invalidEmails_returnsFalse(String email) {
-        assertThat(validator.isValidEmailFormat(email)).isFalse();
-    }
-    
-    @Test
-    void isValidEmailFormat_nullEmail_returnsFalse() {
-        assertThat(validator.isValidEmailFormat(null)).isFalse();
-    }
-
-    // Testing Existence for username
-    @Test
-    void processUsername_validUsername_returnsTrue() {
-        assertThat(validator.processUsername("john_doe")).isTrue();
-    }
-
-    @Test
-    void processUsername_nullUsername_returnsFalse() {
-        assertThat(validator.processUsername(null)).isFalse();
-    }
-    
-    @Test
-    void processUsername_emptyUsername_returnsFalse() {
-        assertThat(validator.processUsername("")).isFalse();
-    }
-
-    @Test
-    void processUsername_blankUsername_returnsFalse() {
-        assertThat(validator.processUsername("   ")).isFalse();
-    }
-}
-```
-
-**Bad Example:**
-
-```java
-// Only testing one happy path for age validation, ignoring boundaries.
-import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-
-public class UserValidationPoorTest {
-    private final UserValidation validator = new UserValidation();
-
-    @Test
-    void isAgeValid_typicalAge_returnsTrue() {
-        assertThat(validator.isAgeValid(25)).isTrue(); // Only one value tested.
-                                                      // Min, max, below min, above max are not tested.
-    }
-    
-    @Test
-    void isValidEmailFormat_typicalEmail_returnsTrue() {
-        assertThat(validator.isValidEmailFormat("test@example.com")).isTrue(); // No invalid formats, no nulls.
-    }
-}
-```
+---
+This rule serves as a starting point. Refer to authoritative resources on Java Integration Testing, Testcontainers, and RestAssured for more in-depth understanding and application.
 
 ---
 > Source: [alkoleft/platform-context-exporter](https://github.com/alkoleft/platform-context-exporter) — distributed by [TomeVault](https://tomevault.io).
