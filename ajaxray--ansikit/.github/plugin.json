@@ -1,0 +1,9 @@
+{
+  "name": "ajaxray--ansikit",
+  "displayName": "AnsiKit",
+  "description": "Tiny, Zero-dependency ANSI escape helper for building terminal UIs in PHP.",
+  "version": "1.0.0",
+  "author": "ajaxray",
+  "homepage": "https://github.com/ajaxray/AnsiKit",
+  "skills": []
+}
