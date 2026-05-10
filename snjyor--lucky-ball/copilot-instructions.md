@@ -1,168 +1,79 @@
-## api-reference
+## data-analysis
 
-> 项目使用官方彩票API获取开奖数据，确保数据的准确性和及时性。
+> 项目包含两个主要的分析器，分别处理不同类型的彩票数据。
 
-# API 参考文档
+# 数据分析算法和方法
 
-## 数据源概述
-项目使用官方彩票API获取开奖数据，确保数据的准确性和及时性。
+## 分析器架构
+项目包含两个主要的分析器，分别处理不同类型的彩票数据。
 
-## 双色球API
+## 双色球分析器
+双色球采用6+1模式（红球1-33选6个，蓝球1-16选1个）：
 
-### 接口信息
-- **基础URL**: `https://www.cwl.gov.cn/cwl_admin/front/cwlkj/search/kjxx/findDrawNotice`
-- **请求方法**: GET
-- **数据格式**: JSON
+### 数据源
+- **API接口**: 中国福利彩票官方API
+- **数据格式**: JSON格式的历史开奖记录
+- **更新频率**: 每天自动抓取最新数据
 
-### 请求参数
-```
-name: ssq (双色球标识)
-issueCount: (期数，为空时获取最新一期)
-issueStart: (起始期号)
-issueEnd: (结束期号)
-dayStart: (开始日期，格式：YYYY-MM-DD)
-dayEnd: (结束日期，格式：YYYY-MM-DD)
-pageNo: (页码，从1开始)
-pageSize: (每页记录数，最大30)
-week: (星期几开奖)
-systemType: (系统类型)
-```
+### 分析维度
 
-### 响应格式
-```json
-{
-  "state": 0,
-  "message": "成功",
-  "total": 总记录数,
-  "Tflag": 1,
-  "result": [
-    {
-      "name": "双色球",
-      "code": "23154",
-      "detailsLink": "详情链接",
-      "videoLink": "视频链接", 
-      "date": "2023-12-31",
-      "week": "星期日",
-      "red": "01,05,09,20,21,27",
-      "blue": "04",
-      "blue2": "",
-      "sales": "销售额",
-      "poolmoney": "奖池金额",
-      "content": "中奖详情",
-      "addmoney": "加奖金额",
-      "addmoney2": "",
-      "msg": "",
-      "z2add": "",
-      "m2add": "",
-      "prizegrades": [奖级信息数组]
-    }
-  ]
-}
-```
+#### 1. 频率分析
+- 统计每个号码的历史出现次数
+- 计算出现频率百分比
+- 生成高频、中频、低频号码分类
 
-## 大乐透API
+#### 2. 规律分析
+- **奇偶分布**: 分析红球奇偶数比例
+- **和值分布**: 计算红球号码总和的分布情况
+- **跨度分布**: 分析最大号码与最小号码的差值
 
-### 接口信息
-- **基础URL**: `https://webapi.sporttery.cn/gateway/lottery/getHistoryPageListV1.qry`
-- **请求方法**: GET
-- **数据格式**: JSON
+#### 3. 走势分析
+- 追踪最近期数的开奖趋势
+- 识别热号（高频出现的号码）
+- 分析号码的冷热变化
 
-### 请求参数
-```
-gameNo: 85 (大乐透游戏编号)
-provinceId: 0 (省份ID，0表示全国)
-pageSize: 30 (每页记录数)
-isVerify: 1 (是否验证)
-pageNo: (页码，从1开始)
-```
+## 大乐透分析器
+大乐透采用5+2模式（前区1-35选5个，后区1-12选2个）：
 
-### 响应格式
-```json
-{
-  "value": {
-    "pages": 总页数,
-    "size": 每页大小,
-    "total": 总记录数,
-    "list": [
-      {
-        "lotteryDrawNum": "25057",
-        "lotteryDrawTime": "2025-05-24 20:30:00",
-        "lotteryDrawResult": "09 10 11 12 29 01 10",
-        "lotteryUnsortDrawresult": "未排序结果",
-        "prizeLevelList": [
-          {
-            "awardLevel": "一等奖",
-            "awardLevelNum": 中奖注数,
-            "awardMoney": 单注奖金
-          }
-        ],
-        "isPoolRoll": "是否滚存",
-        "poolBalanceAfterdraw": "奖池余额",
-        "drawMoney": "本期销量",
-        "systemEntriesNum": "系统投注数"
-      }
-    ]
-  },
-  "isSuccess": true,
-  "errorCode": null,
-  "errorMessage": null
-}
-```
+### 数据源
+- **API接口**: 国家体彩中心官方API
+- **数据格式**: JSON格式，包含奖级信息
+- **特殊处理**: 需要解析前区和后区号码
 
-## 数据处理
+### 分析算法
+与双色球类似，但针对5+2模式进行了优化：
+- 前区和后区分别进行频率分析
+- 前区奇偶分布、和值、跨度分析
+- 后区独立的频率统计
 
-### 双色球数据解析
-```python
-# 红球号码解析
-red_balls = [int(x) for x in record['red'].split(',')]
+## 智能推荐算法
 
-# 蓝球号码解析  
-blue_ball = int(record['blue'])
+### 推荐策略
+1. **高频主导**: 基于最高频号码的稳定组合
+2. **均衡分布**: 高中低频号码的平衡组合
+3. **中频优先**: 以中频号码为主的稳健组合
+4. **冷热结合**: 热号与冷号结合的对冲组合
+5. **超高频**: 超高频号码的激进组合
+6. **低频反选**: 低频号码的反向思维组合
+7. **随机均衡**: 各频段随机均衡组合
+8. **奇偶优化**: 考虑奇偶平衡的优化组合
 
-# 期号和日期
-period = record['code']
-date = record['date']
-```
+### 算法特点
+- 基于历史统计概率
+- 考虑号码分布规律
+- 多种策略组合降低风险
+- 包含详细的特征说明
 
-### 大乐透数据解析
-```python
-# 开奖号码解析
-numbers = record['lotteryDrawResult'].split(' ')
-front_balls = [int(x) for x in numbers[:5]]  # 前区5个号码
-back_balls = [int(x) for x in numbers[5:]]   # 后区2个号码
+## 可视化输出
+- **频率分析图表**: matplotlib生成的柱状图
+- **Markdown报告**: 详细的分析报告文档
+- **数据表格**: 清晰的统计数据展示
 
-# 期号和时间
-period = record['lotteryDrawNum']
-draw_time = record['lotteryDrawTime']
-```
-
-## 错误处理
-
-### 常见错误
-1. **网络超时**: 设置合理的超时时间和重试机制
-2. **API限流**: 添加请求间隔，避免频繁调用
-3. **数据格式变更**: 增加数据验证和异常处理
-4. **服务不可用**: 实现降级策略
-
-### 最佳实践
-- 使用合适的User-Agent头
-- 实现指数退避重试策略
-- 缓存数据减少API调用
-- 监控API响应状态
-
-## 数据质量
-
-### 验证规则
-- 检查期号格式和连续性
-- 验证号码范围和数量
-- 确认日期格式正确性
-- 校验奖级信息完整性
-
-### 数据清洗
-- 去除重复记录
-- 处理缺失数据
-- 标准化数据格式
-- 验证数据一致性
+## 免责声明集成
+所有分析结果都包含明确的免责声明，强调：
+- 彩票开奖的随机性
+- 历史数据的局限性
+- 理性购彩的重要性
 
 ---
 > Source: [snjyor/lucky_ball](https://github.com/snjyor/lucky_ball) — distributed by [TomeVault](https://tomevault.io).
