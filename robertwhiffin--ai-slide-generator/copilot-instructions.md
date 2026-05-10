@@ -1,127 +1,243 @@
-## databricks-overview
+## dev-standards
 
-> Databricks development patterns and best practices. Applies to Python, SQL, and DLT files. Provides high-level guidance for AI/GenAI, data engineering, ML, deployment, governance, and platform domains.
+> Code quality standards including code reuse, error handling, testing discipline, linting/formatting, and technical debt management. Applies to all code files.
 
 
-# Databricks Development Overview
+# Development Standards
 
-High-level Databricks development patterns and domain expertise reference.
+Code quality standards for maintaining a high-quality, maintainable codebase.
 
 ## Core Principles
 
-1. **Delta Lake Foundation**: All data stored in Delta format with ACID guarantees
-2. **Unity Catalog**: Centralized governance and metadata management
-3. **Medallion Architecture**: Bronze → Silver → Gold progression for data quality
-4. **MLflow Tracking**: All ML experiments logged with parameters and metrics
-5. **Model Serving**: Deploy models via Databricks Model Serving with autoscaling
+1. **DRY (Don't Repeat Yourself)**: Extract and reuse common logic
+2. **Fail Fast**: Validate inputs early and provide clear error messages
+3. **Test-Driven Quality**: Every feature has corresponding tests
+4. **Consistent Style**: Use automated formatting and linting
+5. **Technical Debt Tracking**: Document and prioritize tech debt
 
-## Domain Expertise
+## Code Reuse Patterns
 
-### AI/GenAI Development
-- **LLM Integration**: Use Foundation Model API or Model Serving
-- **RAG Systems**: Implement with Vector Search and Delta Sync indexes
-- **Agent Bricks**: Leverage for Information Extraction, Custom LLM, Knowledge Assistant
-- **Fine-Tuning**: Use LoRA/QLoRA for efficient model adaptation
-- **Prompt Engineering**: Version control and log prompts with MLflow
+### Extract Common Functionality
 
-**Reference**: See `cursor/docs/ai-development.md` for detailed patterns
-
-### Data Engineering
-- **Delta Lake**: ACID transactions, time travel, schema evolution, CDC
-- **Delta Live Tables**: Declarative pipelines with data quality expectations
-- **Medallion Architecture**: Bronze (raw) → Silver (cleaned) → Gold (aggregated)
-- **Structured Streaming**: Auto Loader for incremental ingestion
-- **Optimization**: Liquid Clustering, Z-Ordering, Predictive Optimization
-
-**Reference**: See `cursor/docs/data-engineering.md` for detailed patterns
-
-### ML Engineering
-- **MLflow**: Experiment tracking, model registry in Unity Catalog
-- **Feature Store**: Centralized feature engineering and training-serving consistency
-- **Model Serving**: Deploy with autoscaling and A/B testing
-- **Monitoring**: Drift detection and performance tracking
-
-**Reference**: See `cursor/docs/ml-engineering.md` for detailed patterns
-
-### Deployment & Operations
-- **Asset Bundles**: Infrastructure as code for deployments
-- **CI/CD**: GitHub Actions, Azure DevOps integration
-- **Terraform**: IaC for workspace configuration
-- **Workflows**: Job orchestration and scheduling
-
-**Reference**: See `cursor/docs/deployment-ops.md` for detailed patterns
-
-### Governance & Security
-- **Unity Catalog**: Catalog/schema/table hierarchy, permissions
-- **Row-Level Security**: Fine-grained access control
-- **PII Protection**: Detection and masking
-- **Audit Logging**: Compliance and lineage tracking
-
-**Reference**: See `cursor/docs/governance-security.md` for detailed patterns
-
-### Platform Architecture
-- **Cluster Configuration**: Optimal instance types and autoscaling
-- **Cost Optimization**: Spot instances, auto-termination, right-sizing
-- **Performance Tuning**: Photon, AQE, query optimization
-
-**Reference**: See `cursor/docs/platform.md` for detailed patterns
-
-## Quick Reference Patterns
-
-### Delta Lake Operations
+**Before (Duplicated Logic):**
 ```python
-# Create Delta table
-df.write.format("delta").saveAsTable("catalog.schema.table_name")
-
-# Time travel
-df = spark.read.format("delta").option("versionAsOf", 0).table("catalog.schema.table_name")
-
-# Enable CDC
-spark.sql("ALTER TABLE catalog.schema.table SET TBLPROPERTIES (delta.enableChangeDataFeed = true)")
+# File: routes/users.py
+@router.get("/users")
+async def get_users():
+    try:
+        users = await db.fetch_users()
+        return {"data": users}
+    except Exception as e:
+        logger.error(f"Error fetching users: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
 ```
 
-### MLflow Tracking
+**After (Reusable Pattern):**
 ```python
-import mlflow
-mlflow.set_experiment("/Users/user@company.com/my-experiment")
-with mlflow.start_run():
-    mlflow.log_param("n_estimators", 100)
-    mlflow.log_metric("accuracy", 0.95)
-    mlflow.sklearn.log_model(model, "model")
+# File: utils/error_handling.py
+from functools import wraps
+from fastapi import HTTPException
+import logging
+
+logger = logging.getLogger(__name__)
+
+def handle_errors(func):
+    """Decorator for consistent error handling across endpoints."""
+    @wraps(func)
+    async def wrapper(*args, **kwargs):
+        try:
+            return await func(*args, **kwargs)
+        except ValueError as e:
+            logger.warning(f"Validation error in {func.__name__}: {e}")
+            raise HTTPException(status_code=400, detail=str(e))
+        except Exception as e:
+            logger.error(f"Error in {func.__name__}: {e}", exc_info=True)
+            raise HTTPException(status_code=500, detail="Internal server error")
+    return wrapper
+
+# File: routes/users.py
+from utils.error_handling import handle_errors
+
+@router.get("/users")
+@handle_errors
+async def get_users():
+    users = await db.fetch_users()
+    return {"data": users}
 ```
 
-### Vector Search RAG
+## Error Handling
+
+### Structured Error Handling
+
 ```python
-from databricks.vector_search.client import VectorSearchClient
-vsc = VectorSearchClient()
-index = vsc.get_index(endpoint_name="my_endpoint", index_name="catalog.schema.index")
-results = index.similarity_search(query_text="What is Delta Lake?", num_results=5)
+# exceptions.py
+class AppException(Exception):
+    """Base exception for application-specific errors."""
+    def __init__(self, message: str, details: Optional[Dict] = None):
+        self.message = message
+        self.details = details or {}
+        super().__init__(self.message)
+
+class ValidationError(AppException):
+    """Input validation failed."""
+    pass
+
+class ResourceNotFoundError(AppException):
+    """Requested resource not found."""
+    pass
 ```
 
-## Using Specialist Agents
+### Logging Standards
 
-Invoke domain specialists with `@` mentions:
-- `@databricks-ai-specialist` - For AI/GenAI development
-- `@databricks-data-specialist` - For data engineering
-- `@databricks-ml-specialist` - For ML engineering
-- `@databricks-ops-specialist` - For deployment and operations
-- `@databricks-security-specialist` - For governance and security
-- `@databricks-platform-specialist` - For platform architecture
+```python
+import logging
+
+logger = logging.getLogger(__name__)
+
+# Use appropriate log levels
+logger.debug("Detailed diagnostic information")
+logger.info("General informational messages")
+logger.warning("Unexpected but handled situations")
+logger.error("Errors that should be investigated")
+logger.critical("System failures requiring immediate attention")
+```
+
+## Testing Discipline
+
+### Minimum Coverage Targets
+
+- Unit tests: 80% code coverage
+- Integration tests: Critical paths covered
+- End-to-end tests: Key user journeys covered
+
+### Unit Testing Example
+
+```python
+import pytest
+from unittest.mock import Mock, patch
+from utils.databricks_utils import list_tables_in_schema
+
+@pytest.fixture
+def mock_workspace_client():
+    """Mock WorkspaceClient for tests."""
+    with patch('utils.databricks_utils.get_workspace_client') as mock:
+        yield mock.return_value
+
+def test_list_tables_in_schema(mock_workspace_client):
+    """Test listing tables in a schema."""
+    # Arrange
+    mock_table = Mock()
+    mock_table.catalog_name = "main"
+    mock_table.schema_name = "default"
+    mock_table.name = "users"
+    mock_table.table_type.value = "MANAGED"
+    
+    mock_workspace_client.tables.list.return_value = [mock_table]
+    
+    # Act
+    result = list_tables_in_schema("main", "default")
+    
+    # Assert
+    assert len(result) == 1
+    assert result[0]["catalog"] == "main"
+    assert result[0]["name"] == "users"
+```
+
+## Code Style and Formatting
+
+### Python Standards
+
+**Tools:**
+- **Ruff**: Fast linter and formatter
+- **mypy**: Static type checking
+- **black** (or Ruff format): Code formatting
+
+**Usage:**
+```bash
+# Lint code
+ruff check .
+
+# Format code
+ruff format .
+
+# Type check
+mypy .
+```
+
+### TypeScript Standards
+
+**Tools:**
+- **ESLint**: Linting
+- **Prettier**: Formatting
+- **TypeScript**: Type checking
+
+**Usage:**
+```bash
+# Lint code
+npm run lint
+
+# Fix auto-fixable issues
+npm run lint:fix
+
+# Type check
+npm run type-check
+```
+
+## Technical Debt Management
+
+### Documenting Technical Debt
+
+**TODO Comments for Minor Debt:**
+```python
+# TODO(john): Refactor this to use async/await instead of callbacks
+# Priority: Low | Created: 2024-10-31
+def legacy_data_fetch(callback):
+    # Implementation
+    pass
+```
+
+**Technical Debt Register (TECHNICAL_DEBT.md):**
+```markdown
+# Technical Debt Register
+
+## High Priority
+
+### TD-001: Replace sync database calls with async
+**Created:** 2024-10-15  
+**Owner:** @john-doe  
+**Impact:** Performance bottleneck  
+**Effort:** 3 days  
+```
+
+## Code Review Standards
+
+### Pre-Review Checklist
+
+**Before submitting PR:**
+- [ ] All tests pass locally
+- [ ] Code formatted (ruff format / prettier)
+- [ ] Linter passes (ruff check / eslint)
+- [ ] Type checking passes (mypy / tsc)
+- [ ] No console.log or print debugging statements
+- [ ] Documentation updated (README, docstrings)
+- [ ] Error handling implemented
+- [ ] Tests added for new functionality
 
 ## Common Anti-Patterns
 
-- ❌ Writing Parquet directly → ✅ Always use Delta Lake format
-- ❌ No medallion layers → ✅ Implement Bronze-Silver-Gold architecture
-- ❌ Using workspace registry → ✅ Use Unity Catalog model registry
-- ❌ Not logging experiments → ✅ Log all experiments with MLflow
-- ❌ Hardcoded credentials → ✅ Use Databricks secrets or Unity Catalog external locations
+- ❌ Copy-paste code → ✅ Extract reusable functions
+- ❌ Silent failures → ✅ Log errors and raise exceptions
+- ❌ No tests → ✅ Write tests for all new code
+- ❌ Inconsistent formatting → ✅ Use automated formatters
+- ❌ Ignoring linter warnings → ✅ Fix all warnings before commit
+- ❌ print() / console.log debugging → ✅ Use proper logging
+- ❌ Undocumented technical debt → ✅ Create TODO or register entry
 
 ## References
 
-- [Delta Lake Guide](https://docs.databricks.com/delta/)
-- [MLflow Documentation](https://docs.databricks.com/mlflow/)
-- [Vector Search](https://docs.databricks.com/generative-ai/vector-search.html)
-- [Unity Catalog](https://docs.databricks.com/data-governance/unity-catalog/)
+- [Python Testing with pytest](https://docs.pytest.org/)
+- [Ruff Linter](https://docs.astral.sh/ruff/)
+- [ESLint Rules](https://eslint.org/docs/rules/)
 
 ---
 > Source: [robertwhiffin/ai-slide-generator](https://github.com/robertwhiffin/ai-slide-generator) — distributed by [TomeVault](https://tomevault.io).
