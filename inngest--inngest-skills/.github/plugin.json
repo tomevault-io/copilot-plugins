@@ -1,0 +1,9 @@
+{
+  "name": "inngest--inngest-skills",
+  "displayName": "inngest-skills",
+  "description": "Agent Skills for building with Inngest",
+  "version": "1.0.0",
+  "author": "inngest",
+  "homepage": "https://github.com/inngest/inngest-skills",
+  "skills": []
+}
