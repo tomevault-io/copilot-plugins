@@ -1,0 +1,9 @@
+{
+  "name": "ahacop--erwindb",
+  "displayName": "erwindb",
+  "description": "TUI for exploring Erwin Brandstetter's Stack Overflow answers",
+  "version": "1.0.0",
+  "author": "ahacop",
+  "homepage": "https://github.com/ahacop/erwindb",
+  "skills": []
+}
