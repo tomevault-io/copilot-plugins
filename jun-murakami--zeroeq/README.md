@@ -7,11 +7,11 @@ A professional zero-latency broadcast-oriented equalizer plugin. for VST/AU/AAX/
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Jun-Murakami/ZeroEQ](https://github.com/Jun-Murakami/ZeroEQ).
+Original source: `CLAUDE.md` in [Jun-Murakami/ZeroEQ](https://github.com/Jun-Murakami/ZeroEQ).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
