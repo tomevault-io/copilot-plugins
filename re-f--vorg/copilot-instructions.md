@@ -1,172 +1,54 @@
-## release
+## vorg-guide
 
-> VOrg 项目版本发布流程规则
+> VOrg 是一个 VS Code 扩展，提供 Org-mode 文档的实时预览功能，类似于 Markdown Preview。它允许用户在编辑 Org-mode 文档的同时，实时查看渲染后的效果。
+
+# VOrg 扩展指南
+
+## 项目概述
+VOrg 是一个 VS Code 扩展，提供 Org-mode 文档的实时预览功能，类似于 Markdown Preview。它允许用户在编辑 Org-mode 文档的同时，实时查看渲染后的效果。
+
+## 主要功能
+1. Org-mode 预览 (`vorg.preview`)
+   - 实时预览 Org-mode 文档
+   - 支持 Org-mode 语法高亮
+   - 提供类似 Markdown Preview 的预览体验
+
+2. 文档解析与转换
+   - 使用 uniorg 解析 Org-mode 文档
+   - 通过 rehype 将 Org-mode 转换为 HTML
+   - 支持 Org-mode 的所有标准语法
+
+3. 预览功能
+   - 支持实时更新
+   - 提供预览窗口
+   - 支持滚动同步
+   - 支持主题适配
+
+## 技术栈
+- VS Code Extension API
+- unified 处理流程
+  - uniorg-parse: Org-mode 解析器
+  - uniorg-rehype: Org-mode 到 HTML 的转换器
+  - rehype-stringify: HTML 字符串化
+- WebView API: 用于显示预览
 
 
-# VOrg 版本发布规则
+## 预览支持的功能
+- 标题层级（使用 * 标记）
+- 列表（有序和无序）
+- 链接
+- 代码块
+- 表格
+- 引用
+- 任务列表
+- 时间戳
+- 标签
 
-## 发布新版本的标准流程
-
-当用户要求发布新版本时，必须按以下步骤执行：
-
-### 1. 确定版本号
-- 使用语义化版本控制 (SemVer): `MAJOR.MINOR.PATCH`
-  - `MAJOR`: 不兼容的 API 变更
-  - `MINOR`: 向后兼容的功能新增
-  - `PATCH`: 向后兼容的 Bug 修复
-- 当前版本号在 `package.json` 的 `version` 字段中
-
-### 2. 更新版本号
-- 更新 `package.json` 中的 `version` 字段
-- 使用 `search_replace` 工具精确替换版本号字符串
-
-### 3. 更新 CHANGELOG.md
-- 在 CHANGELOG.md 顶部添加新版本条目
-- 格式：`## [版本号] - YYYY-MM-DD`
-- 使用 `date +%Y-%m-%d` 获取当前日期
-- 按以下类别组织变更：
-  - `🐛 Bug 修复`
-  - `✨ 新增功能`
-  - `🔧 改进优化`
-  - `⚡ 性能提升`
-  - `🎨 样式更新`
-  - `♻️ 代码重构`
-- **重要规则**：
-  - **功能描述必须包含使用方法**：对于新增功能，特别是用户交互功能（如工作区符号搜索），必须说明如何使用（快捷键、操作步骤等）
-  - **不要写实现细节**：禁止在 CHANGELOG 中写内部实现细节，如"自动重算层级"、"保留 TODO 关键字"、"索引更新"等。只写用户能直接感受到的功能效果。
-  - **不要写文档更新**：CHANGELOG 中不要包含 `📝 文档更新` 类别，文档更新不应作为版本发布内容
-  - **分类要准确**：outline path 显示、文件路径显示等 UI 增强应归为 `🔧 改进优化`，而不是 `✨ 新增功能`
-- 从 git 历史中提取变更信息：
-  ```bash
-  git log --oneline --since="上次发布版本日期"
-  git log 上次发布版本commit..HEAD --name-status
-  git log 上次发布版本commit..HEAD --pretty=format:"%h - %s (%an, %ar)" --name-status
-  ```
-
-### 3.1. 更新 release.md
-- **必须更新 release.md 文件**：每次发布新版本时都要更新 `release.md`
-- **只写用户感受到的功能**：
-  - 只包含用户可以直接体验到的功能特性
-  - 不要包含技术实现细节（如"引入符号索引服务"、"统一日志系统"等）
-  - 不要包含内部优化和重构内容
-  - 专注于用户可见的功能改进和 Bug 修复
-- 格式参考：
-  ```markdown
-  # X.Y.Z 版本变更
-  ## 新增功能
-  - **功能名称**：简要描述和使用方法
-
-  ## Bug 修复
-  - **修复内容**：简要描述
-  ```
-
-### 3.2. 更新 src/changelogPanel.ts
-- **必须更新 src/changelogPanel.ts 中的 CHANGELOG 数据**：每次发布新版本时都要同步更新
-- `src/changelogPanel.ts` 中的 `CHANGELOG` 常量是扩展内嵌更新日志 UI 的数据来源
-- 更新规则与 CHANGELOG.md 保持一致：
-  - 只写用户可见的功能，不写实现细节
-  - 分类准确：`✨` 用于新功能，`🔧` 用于改进优化，`🐛` 用于 Bug 修复
-  - 每条内容尽量精简，控制在 50 字以内
-- 示例格式：
-  ```typescript
-  const CHANGELOG: Record<string, ChangelogEntry> = {
-    '1.2.0': {
-      title: '版本主题',
-      items: [
-        { tag: '✨', tagColor: '#3fb950', text: '新功能：描述，使用方法' },
-        { tag: '🔧', tagColor: '#79c0ff', text: '改进描述' },
-        { tag: '🐛', tagColor: '#58a6ff', text: '修复描述' },
-      ],
-    },
-  };
-  ```
-
-### 4. 构建和打包
-- 运行 `pnpm run package` 命令
-- 这会执行：
-  - Webpack 生产构建
-  - 生成 VSIX 包文件
-- 输出文件：`vorg-版本号.vsix`
-
-### 5. 验证清单
-发布前检查：
-- [ ] 版本号已更新
-- [ ] CHANGELOG.md 已更新（包含功能使用方法，不包含文档更新）
-- [ ] release.md 已更新（只包含用户可见功能）
-- [ ] src/changelogPanel.ts 中的 CHANGELOG 数据已同步更新
-- [ ] 构建成功无错误
-- [ ] VSIX 文件已生成
-- [ ] Git 提交已创建
-- [ ] Git 标签已创建并推送
-
-### 6. Git 提交和标签
-- 提交版本变更到 Git：
-  - Commit 信息格式：`release 版本号` 或 `chore: release 版本号`
-  - 示例：`git commit -am "chore: release 0.0.5"`
-- 创建 Git 标签：
-  - 标签格式：`v版本号`（例如：`v0.0.5`）
-  - 创建带注释的标签：`git tag -a v版本号 -m "Release 版本号"`
-  - 示例：`git tag -a v0.0.5 -m "Release 0.0.5"`
-  - 推送标签到远程：`git push origin v版本号` 或 `git push --tags`
-
-## 示例发布命令响应
-
-当用户说"发布新版本 X.Y.Z"时，应该：
-1. 更新 `package.json` 版本号
-2. 更新 `CHANGELOG.md`（从 git 历史提取变更，包含功能使用方法，不包含文档更新）
-3. 更新 `release.md`（只包含用户可见功能，不包含技术实现细节）
-4. 运行 `pnpm run package`
-5. 确认生成的文件
-6. 创建 Git commit
-7. 创建 Git tag（格式：`vX.Y.Z`）
-8. 推送 commit 和 tag 到远程仓库
-
-## 代码编辑规范
-
-- 使用 `search_replace` 工具进行精确替换
-- 读取文件时使用 `read_file` 工具
-- 执行命令时使用 `run_terminal_cmd` 工具
-- 所有响应使用中文
-
-## 文件路径规范
-
-- 使用绝对路径：`/Users/Ref/Library/CloudStorage/OneDrive-Personal/codes/vorg/`
-- 或者相对于工作区根目录的路径
-
-## CHANGELOG 格式示例
-
-```markdown
-## [0.0.5] - 2025-11-05
-
-### 🐛 Bug 修复
-
-- **修复标题**：详细描述
-
-### 🔧 改进优化
-
-- **优化标题**：详细描述
-  - 子项说明
-  - 子项说明
-```
-
-**注意**：`📝 文档更新` 不应出现在 CHANGELOG 中。
-
-**正确示例**：
-- ✨ `Org Refile：支持将子树移动到同一文件或跨文件的指定目标标题下。使用方法：Ctrl+C Ctrl+W`
-- 🔧 `跨文件目标在 Quick Pick 描述中显示文件路径，便于区分同名标题`
-
-**错误示例（不要这样写）**：
-- ✨ `移动后自动重算层级，保留 TODO 关键字、优先级、标签、内容结构` — 这是实现细节，用户不关心
-- ✨ `显示完整 outline path（如 H1 > H2）进行区分` — 应归为改进优化，不是新功能
-
-## Git 历史分析
-
-当需要更新 CHANGELOG 时：
-1. 查看最近的提交：`git log --oneline -20`
-2. 查看详细变更：`git log --stat -10`
-3. 查看特定版本后的变更：`git log 上次版本commit..HEAD --pretty=format:"%h - %s (%an, %ar)" --name-status`
-4. 提取变更类型和描述
-5. 按类别组织到 CHANGELOG 中
+## 注意事项
+- 预览会实时更新，无需手动刷新
+- 支持 VS Code 的主题，预览样式会自动适应
+- 可以同时打开多个预览窗口
+- 支持预览窗口的缩放和布局调整
 
 ---
 > Source: [re-f/vorg](https://github.com/re-f/vorg) — distributed by [TomeVault](https://tomevault.io).
