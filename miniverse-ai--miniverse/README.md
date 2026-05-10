@@ -1,6 +1,8 @@
 # miniverse
 
-> Tome by [miniverse-ai](https://github.com/miniverse-ai/miniverse) — distributed by [TomeVault](https://tomevault.io/claim/miniverse-ai)
+> Tome by [miniverse-ai](https://github.com/miniverse-ai/miniverse) — distributed by [TomeVault](https://tomevault.io)
+
+LLM framework for building multi-agent simulations
 
 ## GitHub Copilot Config
 
@@ -15,10 +17,10 @@ Original source: `.cursor/rules/*.mdc` in [miniverse-ai/miniverse](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/miniverse-ai)
+From [miniverse-ai/miniverse](https://github.com/miniverse-ai/miniverse) — a repo with 15+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/miniverse-ai) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-s -->
