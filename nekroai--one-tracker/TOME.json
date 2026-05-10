@@ -1,0 +1,44 @@
+{
+  "name": "one-tracker",
+  "owner": "NekroAI",
+  "repo": "one-tracker",
+  "description": "One Tracker \u00b7 AI \u6a21\u578b\u4ef7\u683c\u6bd4\u8f83/\u8ffd\u8e2a | Aggregates OneHub/NewAPI/OneAPI, token normalization, auto best vendor; filters/sort/analytics \u00b7 Cloudflare/Hono/React/D1/Drizzle",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NekroAI/one-tracker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T02:33:34Z"
+}
