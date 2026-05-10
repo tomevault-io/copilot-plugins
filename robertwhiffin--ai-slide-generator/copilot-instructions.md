@@ -1,243 +1,188 @@
-## dev-standards
+## directory-structure
 
-> Code quality standards including code reuse, error handling, testing discipline, linting/formatting, and technical debt management. Applies to all code files.
+> Project directory structure and important files and folders
 
+# Project Directory Structure
 
-# Development Standards
+This document outlines the directory structure and important files in the use-case-agent-system project.
 
-Code quality standards for maintaining a high-quality, maintainable codebase.
+## Root Directory Structure
 
-## Core Principles
+```
+use-case-agent-system/
+├── .cursor/              # Cursor IDE configuration
+│   └── rules/           # Cursor AI rules for code assistance
+│       ├── cursor-rules.mdc          # Guide for creating cursor rules
+│       ├── self-improvement.mdc      # Self-improvement guidelines
+│       └── directory-structure.mdc   # This file
+├── .gitignore           # Git ignore patterns
+├── README.md            # Project documentation
+├── requirements.txt     # Python dependencies
+├── src/                 # Source code directory
+│   └── __init__.py     # Python package initialization
+└── tests/               # Test directory
+    └── __init__.py     # Test package initialization
+```
 
-1. **DRY (Don't Repeat Yourself)**: Extract and reuse common logic
-2. **Fail Fast**: Validate inputs early and provide clear error messages
-3. **Test-Driven Quality**: Every feature has corresponding tests
-4. **Consistent Style**: Use automated formatting and linting
-5. **Technical Debt Tracking**: Document and prioritize tech debt
+## Important Directories
 
-## Code Reuse Patterns
+### `/src/`
+**Purpose:** Main source code directory for the project
+- Contains all Python source code modules
+- Each module should be a separate `.py` file
+- Use `__init__.py` to mark as a Python package
 
-### Extract Common Functionality
+**Guidelines:**
+- All application code goes here
+- Organize into submodules as the project grows
+- Keep business logic separate from tests
 
-**Before (Duplicated Logic):**
+### `/tests/`
+**Purpose:** Test suite for the project
+- Contains all test files
+- Follow naming convention: `test_*.py` for test files
+- Mirror the structure of `/src/` directory
+
+**Guidelines:**
+- Use pytest or unittest for testing
+- Aim for high test coverage
+- Integration tests and unit tests should be clearly separated
+
+### `/.cursor/rules/`
+**Purpose:** Cursor AI assistant rules and guidelines
+- Contains `.mdc` files with development guidelines
+- Rules help maintain code consistency
+- Can be scoped to specific file patterns using globs
+
+**Guidelines:**
+- Follow [cursor-rules.mdc](mdc:.cursor/rules/cursor-rules.mdc) for creating new rules
+- Use kebab-case for rule filenames
+- Set `alwaysApply: true` for project-wide rules
+- Set `alwaysApply: false` and use globs for specific contexts
+
+## Important Files
+
+### `README.md`
+- Project overview and documentation
+- Installation instructions
+- Usage examples
+- Should be kept up-to-date as the project evolves
+
+### `requirements.txt`
+- Python package dependencies
+- Pin versions for reproducibility
+- Update when adding new dependencies
+- Use `pip install -r requirements.txt` to install
+
+### `.gitignore`
+- Specifies files/directories to exclude from version control
+- Already configured for:
+  - Python bytecode (`__pycache__/`, `*.pyc`)
+  - Virtual environments (`venv/`, `env/`)
+  - IDE files (`.vscode/`, `.idea/`)
+  - Test artifacts (`.pytest_cache/`, `.coverage`)
+  - Environment variables (`.env`)
+
+## File Organization Best Practices
+
+### When Adding New Source Files:
+1. **Modules:** Place in `/src/` directory
+   ```python
+   src/
+   ├── __init__.py
+   ├── models.py
+   ├── services.py
+   ├── utils.py
+   └── config.py
+   ```
+
+2. **Subpackages:** Create subdirectories with `__init__.py`
+   ```python
+   src/
+   ├── __init__.py
+   ├── agents/
+   │   ├── __init__.py
+   │   ├── base_agent.py
+   │   └── specialized_agents.py
+   └── core/
+       ├── __init__.py
+       └── engine.py
+   ```
+
+### When Adding New Tests:
+1. Mirror the source structure
+   ```python
+   src/models.py  →  tests/test_models.py
+   src/utils.py   →  tests/test_utils.py
+   ```
+
+2. For subpackages:
+   ```python
+   tests/
+   ├── __init__.py
+   ├── agents/
+   │   ├── __init__.py
+   │   └── test_base_agent.py
+   └── core/
+       ├── __init__.py
+       └── test_engine.py
+   ```
+
+### When Adding Configuration:
+- Environment-specific configs: Use `.env` files (excluded from git)
+- Shared configs: Create `src/config.py` or `config/` directory
+- Secrets: Never commit to git, use environment variables
+
+## Common Patterns
+
+### Import Paths
 ```python
-# File: routes/users.py
-@router.get("/users")
-async def get_users():
-    try:
-        users = await db.fetch_users()
-        return {"data": users}
-    except Exception as e:
-        logger.error(f"Error fetching users: {e}")
-        raise HTTPException(status_code=500, detail="Internal server error")
+# Good - absolute imports from src
+from src.models import MyModel
+from src.utils import helper_function
+
+# Good - relative imports within package
+from .models import MyModel
+from ..utils import helper_function
 ```
 
-**After (Reusable Pattern):**
-```python
-# File: utils/error_handling.py
-from functools import wraps
-from fastapi import HTTPException
-import logging
+### Module Naming
+- Use lowercase with underscores: `my_module.py`
+- Avoid generic names: prefer `user_service.py` over `service.py`
+- Be descriptive: `authentication.py` not `auth.py`
 
-logger = logging.getLogger(__name__)
+## Development Workflow
 
-def handle_errors(func):
-    """Decorator for consistent error handling across endpoints."""
-    @wraps(func)
-    async def wrapper(*args, **kwargs):
-        try:
-            return await func(*args, **kwargs)
-        except ValueError as e:
-            logger.warning(f"Validation error in {func.__name__}: {e}")
-            raise HTTPException(status_code=400, detail=str(e))
-        except Exception as e:
-            logger.error(f"Error in {func.__name__}: {e}", exc_info=True)
-            raise HTTPException(status_code=500, detail="Internal server error")
-    return wrapper
+1. **New Feature:**
+   - Add source code in `/src/`
+   - Write tests in `/tests/`
+   - Update `requirements.txt` if new dependencies
+   - Update `README.md` if needed
 
-# File: routes/users.py
-from utils.error_handling import handle_errors
+2. **Bug Fix:**
+   - Write failing test first (TDD)
+   - Fix bug in source code
+   - Ensure all tests pass
 
-@router.get("/users")
-@handle_errors
-async def get_users():
-    users = await db.fetch_users()
-    return {"data": users}
-```
+3. **Refactoring:**
+   - Maintain test coverage
+   - Update documentation
+   - Consider adding cursor rules for new patterns
 
-## Error Handling
+## Future Growth
 
-### Structured Error Handling
+As the project grows, consider:
+- Adding `/docs/` for detailed documentation
+- Creating `/scripts/` for utility scripts
+- Adding `/config/` for configuration files
+- Setting up `/data/` for data files (ensure in `.gitignore`)
+- Creating `/notebooks/` for Jupyter notebooks
+- Adding CI/CD configuration (`.github/workflows/`, `.gitlab-ci.yml`)
 
-```python
-# exceptions.py
-class AppException(Exception):
-    """Base exception for application-specific errors."""
-    def __init__(self, message: str, details: Optional[Dict] = None):
-        self.message = message
-        self.details = details or {}
-        super().__init__(self.message)
+## Related Rules
 
-class ValidationError(AppException):
-    """Input validation failed."""
-    pass
-
-class ResourceNotFoundError(AppException):
-    """Requested resource not found."""
-    pass
-```
-
-### Logging Standards
-
-```python
-import logging
-
-logger = logging.getLogger(__name__)
-
-# Use appropriate log levels
-logger.debug("Detailed diagnostic information")
-logger.info("General informational messages")
-logger.warning("Unexpected but handled situations")
-logger.error("Errors that should be investigated")
-logger.critical("System failures requiring immediate attention")
-```
-
-## Testing Discipline
-
-### Minimum Coverage Targets
-
-- Unit tests: 80% code coverage
-- Integration tests: Critical paths covered
-- End-to-end tests: Key user journeys covered
-
-### Unit Testing Example
-
-```python
-import pytest
-from unittest.mock import Mock, patch
-from utils.databricks_utils import list_tables_in_schema
-
-@pytest.fixture
-def mock_workspace_client():
-    """Mock WorkspaceClient for tests."""
-    with patch('utils.databricks_utils.get_workspace_client') as mock:
-        yield mock.return_value
-
-def test_list_tables_in_schema(mock_workspace_client):
-    """Test listing tables in a schema."""
-    # Arrange
-    mock_table = Mock()
-    mock_table.catalog_name = "main"
-    mock_table.schema_name = "default"
-    mock_table.name = "users"
-    mock_table.table_type.value = "MANAGED"
-    
-    mock_workspace_client.tables.list.return_value = [mock_table]
-    
-    # Act
-    result = list_tables_in_schema("main", "default")
-    
-    # Assert
-    assert len(result) == 1
-    assert result[0]["catalog"] == "main"
-    assert result[0]["name"] == "users"
-```
-
-## Code Style and Formatting
-
-### Python Standards
-
-**Tools:**
-- **Ruff**: Fast linter and formatter
-- **mypy**: Static type checking
-- **black** (or Ruff format): Code formatting
-
-**Usage:**
-```bash
-# Lint code
-ruff check .
-
-# Format code
-ruff format .
-
-# Type check
-mypy .
-```
-
-### TypeScript Standards
-
-**Tools:**
-- **ESLint**: Linting
-- **Prettier**: Formatting
-- **TypeScript**: Type checking
-
-**Usage:**
-```bash
-# Lint code
-npm run lint
-
-# Fix auto-fixable issues
-npm run lint:fix
-
-# Type check
-npm run type-check
-```
-
-## Technical Debt Management
-
-### Documenting Technical Debt
-
-**TODO Comments for Minor Debt:**
-```python
-# TODO(john): Refactor this to use async/await instead of callbacks
-# Priority: Low | Created: 2024-10-31
-def legacy_data_fetch(callback):
-    # Implementation
-    pass
-```
-
-**Technical Debt Register (TECHNICAL_DEBT.md):**
-```markdown
-# Technical Debt Register
-
-## High Priority
-
-### TD-001: Replace sync database calls with async
-**Created:** 2024-10-15  
-**Owner:** @john-doe  
-**Impact:** Performance bottleneck  
-**Effort:** 3 days  
-```
-
-## Code Review Standards
-
-### Pre-Review Checklist
-
-**Before submitting PR:**
-- [ ] All tests pass locally
-- [ ] Code formatted (ruff format / prettier)
-- [ ] Linter passes (ruff check / eslint)
-- [ ] Type checking passes (mypy / tsc)
-- [ ] No console.log or print debugging statements
-- [ ] Documentation updated (README, docstrings)
-- [ ] Error handling implemented
-- [ ] Tests added for new functionality
-
-## Common Anti-Patterns
-
-- ❌ Copy-paste code → ✅ Extract reusable functions
-- ❌ Silent failures → ✅ Log errors and raise exceptions
-- ❌ No tests → ✅ Write tests for all new code
-- ❌ Inconsistent formatting → ✅ Use automated formatters
-- ❌ Ignoring linter warnings → ✅ Fix all warnings before commit
-- ❌ print() / console.log debugging → ✅ Use proper logging
-- ❌ Undocumented technical debt → ✅ Create TODO or register entry
-
-## References
-
-- [Python Testing with pytest](https://docs.pytest.org/)
-- [Ruff Linter](https://docs.astral.sh/ruff/)
-- [ESLint Rules](https://eslint.org/docs/rules/)
+- [cursor-rules.mdc](mdc:.cursor/rules/cursor-rules.mdc) - How to create cursor rules
+- [self-improvement.mdc](mdc:.cursor/rules/self-improvement.mdc) - Rule improvement process
 
 ---
 > Source: [robertwhiffin/ai-slide-generator](https://github.com/robertwhiffin/ai-slide-generator) — distributed by [TomeVault](https://tomevault.io).
