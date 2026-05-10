@@ -1,34 +1,34 @@
-## 30-i18n-and-rtl
+## 40-extension-build-and-contracts
 
-> 国际化（Chrome i18n）与 RTL 方向设置规范
+> 浏览器扩展构建（Rspack）与 Manifest 合约
 
-# 国际化与 RTL 规范
+# 扩展构建与 Manifest 合约
 
-- **Chrome i18n**：文案应从 `_locales/*/messages.json` 读取，示例：
-  - 英文：[ _locales/en/messages.json ](mdc:_locales/en/messages.json)
-- **工具函数**：使用 [src/utils/i18n.ts](mdc:src/utils/i18n.ts) 获取文案，使用 [src/utils/rtl.ts](mdc:src/utils/rtl.ts) 处理方向。
-- **方向与布局**：根据语言调用 `setDocumentDirection()` 设置 `dir="rtl|ltr"`，确保组件在 RTL 下布局正确。
-- **不要硬编码**：避免在 UI 中写死字符串；新增文案需同时补齐各语言或提供合理回退。
+- 使用 Rspack 打包，入口与产物文件名必须与 [src/manifest.json](mdc:src/manifest.json) 中声明一致：
+  - `background.service_worker` → `background.js`
+  - `content_scripts[].js` → `contentScript.js`
+  - `action.default_popup` → `popup.html`
+  - `side_panel.default_path` → `sidePanel.html`
+- 开发模式不生成 zip 包；仅在 `pnpm run build` 时打包最终产物（遵循工作流与发布约定）。
+- 统一从 [rspack.config.js](mdc:rspack.config.js) 管理多入口与输出，改名时同步更新 `manifest.json`，保持一一对应。
+- 静态资源（图标等）放在 `public/`，参考 [public/icon.png](mdc:public/icon.png)。
 
 ---
-globs: src/**/*.ts,src/**/*.tsx
-description: 国际化（Chrome i18n）与 RTL 方向设置规范
+description: 浏览器扩展构建（Rspack）与 Manifest 合约
 ---
-## i18n 与 RTL
+## 构建与清单合约
 
-- **消息函数**：使用 [src/utils/i18n.ts](mdc:src/utils/i18n.ts) 的 `t(key, substitutions?)`，在缺失或调用异常时回退为 `key`。
-- **UI 方向**：在页面入口按 UI 语言设置 `dir` 与 `lang`：
-
-```ts
-import { getUILocale, isRTLLanguage } from '@/utils/rtl';
-const ui = getUILocale();
-document.documentElement.setAttribute('dir', isRTLLanguage(ui) ? 'rtl' : 'ltr');
-document.documentElement.setAttribute('lang', ui);
-```
-
-- **CSS 层**：`tailwind.css` 中 `body { direction: __MSG_@@bidi_dir__; }` 依赖 Chrome 本地化替换。不要移除该占位符。
-- **本地化目录**：在 [_locales/](mdc:_locales) 中新增/维护 `messages.json`，键名与 `t()` 调用保持一致。
-- **类型提示**：可在组件内维护受控的语言代码联合类型（参照 `popup.tsx` 的 `LanguageCode`）。
+- **入口声明**：构建入口在 [rspack.config.js](mdc:rspack.config.js) 中：`popup`, `sidePanel`, `background`, `contentScript`。产物文件名固定为 `[name].js` 与 `[name].css`，禁止 runtimeChunk 与 splitChunks，以便与清单严格对应。
+- **拷贝与产物**：通过 Copy 插件复制 `public/`、`src/manifest.json` 与 `_locales/`。保持路径一致。
+- **Zip 打包**：构建完成后自动压缩为 `Native-translate.zip`。如需关闭，临时移除 Zip 插件注册。
+- **Manifest 对齐**：
+  - `background.service_worker`: `background.js`
+  - `content_scripts[].js`: `contentScript.js`
+  - `action.default_popup`: `popup.html`
+  - `side_panel.default_path`: `sidePanel.html`
+  - 如改名，需同步修改入口与清单。
+- **资源类型**：图片与字体使用 `asset/resource`，保持输出目录：`assets/` 与 `assets/fonts/`。
+- **最高层隐藏**：在覆盖页面 UI（尤其内容脚本）中，悬浮层使用 `z-[2147483647]` 避免被站点样式覆盖。
 
 ---
 > Source: [zh30/native-translate](https://github.com/zh30/native-translate) — distributed by [TomeVault](https://tomevault.io).
