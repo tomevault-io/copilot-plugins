@@ -1,0 +1,9 @@
+{
+  "name": "erikote04--swift-api-design-guidelines-agent-skill",
+  "displayName": "Swift-API-Design-Guidelines-Agent-Skill",
+  "description": "Swift API Design Guidelines Agent Skill for AI coding tools that support the Agent Skills open format. It provides practical, structured guidance for API naming, argument labels, terminology, document",
+  "version": "1.0.0",
+  "author": "Erikote04",
+  "homepage": "https://github.com/Erikote04/Swift-API-Design-Guidelines-Agent-Skill",
+  "skills": []
+}
