@@ -1,0 +1,9 @@
+{
+  "name": "cyberdrain--check",
+  "displayName": "Check",
+  "description": "Check is an advanced open source browser extension by CyberDrain that provides real-time protection against Microsoft 365 phishing attacks. Designed for enterprises and managed service providers, Chec",
+  "version": "1.0.0",
+  "author": "CyberDrain",
+  "homepage": "https://github.com/CyberDrain/Check",
+  "skills": []
+}
