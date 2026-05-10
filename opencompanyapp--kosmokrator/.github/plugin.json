@@ -1,0 +1,9 @@
+{
+  "name": "opencompanyapp--kosmokrator",
+  "displayName": "kosmokrator",
+  "description": "AI coding agent for the terminal \u2014 PHP 8.4, Symfony TUI, mythology-themed",
+  "version": "1.0.0",
+  "author": "OpenCompanyApp",
+  "homepage": "https://github.com/OpenCompanyApp/kosmokrator",
+  "skills": []
+}
