@@ -1,0 +1,9 @@
+{
+  "name": "orinachum--claude-code-guide",
+  "displayName": "claude-code-guide",
+  "description": "An interactive plugin for Claude Code delivering guided onboarding, workflow automation, and gamified progression.",
+  "version": "1.0.0",
+  "author": "OriNachum",
+  "homepage": "https://github.com/OriNachum/claude-code-guide",
+  "skills": []
+}
