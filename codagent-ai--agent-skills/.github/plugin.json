@@ -1,0 +1,9 @@
+{
+  "name": "codagent-ai--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Codagent Agent Skills is a plugin that provides a set of focused skills for each stage of software development.",
+  "version": "1.0.0",
+  "author": "Codagent-AI",
+  "homepage": "https://github.com/Codagent-AI/agent-skills",
+  "skills": []
+}
