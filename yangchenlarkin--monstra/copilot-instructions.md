@@ -1,156 +1,149 @@
-## architecture
+## workflow
 
-> Monstra is a Swift framework providing high-performance caching, task management, and data structures. It's designed for iOS/macOS applications requiring efficient memory management and concurrent task execution.
+> - **Primary development**: All feature development and bug fixes occur on the `develop` branch
 
-# Monstra Framework - Cursor Rules
+# 🚀 Monstra Release Workflow
 
-## Project Architecture
+## 📋 **Development & Release Process**
 
-### Overview
-Monstra is a Swift framework providing high-performance caching, task management, and data structures. It's designed for iOS/macOS applications requiring efficient memory management and concurrent task execution.
+### **1. Development Phase: Work on develop branch**
+- **Primary development**: All feature development and bug fixes occur on the `develop` branch
+- **Feature branching**: Create dedicated feature branches from `develop` for significant changes or new features
+- **Integration workflow**: Merge completed feature branches back to `develop` through pull requests with code review
+- **Branch purpose**: Maintain `develop` as the primary integration branch for ongoing development work
 
-### Module Structure
+### **2. Quality Assurance: Validate and merge to main for release preparation**
+- **Pre-merge validation**: Ensure all continuous integration workflows pass successfully on the `develop` branch:
+  - ✅ **Coverage tests** (ci.yml) - Executes comprehensive test suite with coverage analysis on develop pushes
+  - ✅ **Development monitoring** (scheduled-tests-dev.yml) - Runs automated health checks every 15 minutes on develop
+- **Release preparation**: Create a pull request from `develop` → `main` with detailed release notes
+- **Code review and merge**: Conduct thorough review and merge to the `main` branch when ready for release
+- **Post-merge verification**: Confirm main branch workflows execute successfully:
+  - ✅ **Documentation deployment** (docs.yml) - Generates and publishes API documentation on main pushes  
+  - ✅ **Production monitoring** (scheduled-tests.yml) - Runs stability checks every 4 hours on main
+- **Branch stability**: The `main` branch represents production-ready, stable code suitable for public release
 
-#### 1. **Monstask** - Task Management
-- **MonoTask**: Single-instance task executor with execution merging, TTL caching, retry logic, and forceUpdate capabilities
-- **KVHeavyTasksManager**: Manager for heavy, resource-intensive tasks
-- **KVLightTasksManager**: Manager for lightweight, high-volume tasks
+### **3. Version Tagging: Apply semantic version tag to main branch**
+- **Tag target**: Apply version tag to the merge commit on the `main` branch
+- **Naming convention**: Use semantic versioning format `vX.Y.Z` (examples: `v1.0.0`, `v0.1.0`, `v2.3.1`)
+- **Semantic versioning guidelines**:
+  - **MAJOR version** (X): Increment for incompatible API changes or breaking modifications
+  - **MINOR version** (Y): Increment for new functionality that maintains backward compatibility
+  - **PATCH version** (Z): Increment for backward-compatible bug fixes and minor improvements
 
-Key Features:
-- Execution deduplication (multiple calls to same task merge into single execution)
-- TTL-based result caching with configurable expiration
-- Retry mechanisms with exponential backoff
-- Force update capability to bypass cache and restart execution
-- Thread-safe operations using semaphores and queues
+### **4. Release Publication: Execute comprehensive release process**
 
-#### 2. **Monstore** - Caching System
-- **MemoryCache**: Thread-safe in-memory cache with TTL and LRU eviction
-- **PriorityLRUQueue**: Priority-based Least Recently Used queue implementation
-- **TTLPriorityLRUQueue**: TTL-aware priority LRU queue
-- **CacheStatistics**: Performance monitoring and metrics collection
+#### **Pre-Release Checklist:**
 
-Key Features:
-- TTL (Time-To-Live) expiration
-- Priority-based eviction policies
-- LRU (Least Recently Used) eviction
-- Thread-safe concurrent access
-- Performance statistics and monitoring
+##### **Version Consistency Check:**
+- [ ] Update `Monstra.podspec` version number (line 3: `spec.version = "X.Y.Z"`)
+- [ ] Update version references in README.md (CocoaPods example: `pod 'Monstra', '~> X.Y.Z'`)
+- [ ] Update version in Package.swift if needed
+- [ ] Update CHANGELOG.md with new version entry and release notes
+- [ ] Update any hardcoded version references in documentation files
 
-#### 3. **MonstraBase** - Core Data Structures
-- **DoublyLink**: Doubly-linked list implementation
-- **HashQueue**: Hash-based queue for O(1) operations
-- **Heap**: Min/Max heap implementation for priority operations
-- **CPUTimeStamp**: High-precision timing utilities
-- **TracingIDFactory**: Thread-safe ID generation
-- **RetryCount**: Retry logic with configurable backoff strategies
+##### **Project Links Verification:**
+**Direct Control URLs (Check these):**
+- [ ] **GitHub Repository**: https://github.com/yangchenlarkin/Monstra
+- [ ] **API Documentation**: https://yangchenlarkin.github.io/Monstra/
 
-### Design Patterns
+**Third-Party Platforms (Will update automatically after release):**
+- ⏳ **Swift Package Index**: https://swiftpackageindex.com/yangchenlarkin/Monstra *(updates within 24-48 hours)*
+- ⏳ **CocoaPods**: https://cocoapods.org/pods/Monstra *(updates after `pod trunk push`)*
+- ⏳ **awesome-swift PR**: https://github.com/matteocrippa/awesome-swift/pull/1872 *(pending maintainer review)*
 
-#### 1. **Single Responsibility Principle**
-Each class has a focused purpose:
-- MonoTask: Task execution and caching
-- MemoryCache: Data storage and eviction
-- Managers: Orchestration and coordination
+**Documentation & Resources:**
+- [ ] **README.md examples** - Verify all code snippets compile and work
+- [ ] **API Documentation links** - Ensure all internal documentation links resolve
+- [ ] **Example projects** - Test all example project links and compilation
+- [ ] **License file** - Verify LICENSE file is accessible and current
+- [ ] **Contributing guidelines** - Check CONTRIBUTING.md links and instructions
+- [ ] **Security policy** - Verify SECURITY.md is up-to-date and accessible
 
-#### 2. **Thread Safety**
-All public APIs are thread-safe using:
-- DispatchSemaphore for critical sections
-- Concurrent queues for parallel execution
-- Atomic operations where appropriate
+##### **Technical Validation:**
+- [ ] **Package Manager Integration**:
+  - [ ] Swift Package Manager: Test `swift package resolve` with new version
+  - [ ] CocoaPods: Validate `pod spec lint Monstra.podspec` passes
+- [ ] **Cross-Platform Compatibility**:
+  - [ ] iOS build verification
+  - [ ] macOS build verification  
+  - [ ] tvOS build verification
+  - [ ] watchOS build verification
+- [ ] **Documentation Generation**:
+  - [ ] Run `bash Scripts/generate-docs.sh` successfully
+  - [ ] Verify docs deploy to GitHub Pages without errors
+  - [ ] Check all API documentation renders correctly
+- [ ] **Quality Assurance**:
+  - [ ] Full test suite passes: `swift test`
+  - [ ] Code coverage meets standards (99%+)
+  - [ ] No linter warnings or errors
+  - [ ] Performance benchmarks within acceptable ranges
 
-#### 3. **Generic Programming**
-Heavy use of Swift generics for type safety:
+#### **Release Process:**
+1. **Create Git Tag**
+   ```bash
+   git checkout main
+   git pull origin main
+   git tag vX.Y.Z  # Replace X.Y.Z with actual version (e.g., v1.0.0, v0.1.5, v2.3.1)
+   git push origin vX.Y.Z
+   ```
+
+2. **Create GitHub Release**
+   - Go to GitHub → Releases → "Create a new release"
+   - Select the tag you just created (vX.Y.Z)
+   - Release title: `vX.Y.Z - [Release Name]` (e.g., `v1.0.0 - Stable Release`)
+   - Generate release notes or write custom notes
+   - Mark as "Latest release"
+   - Publish release
+
+3. **Update Package Managers**
+   - [ ] **CocoaPods**: Run `pod trunk push Monstra.podspec`
+   - [ ] **Swift Package Index**: Automatic update (monitors tags)
+   - [ ] Verify package manager integration works
+
+4. **Update Documentation**
+   - [ ] Ensure docs.yml workflow runs and updates GitHub Pages
+   - [ ] Verify API documentation reflects new version
+   - [ ] Update any external documentation references
+
+5. **Community Notifications**
+   - [ ] Update awesome-swift PR if version was a concern
+   - [ ] Post release announcement on social media
+   - [ ] Update any blog posts or articles
+   - [ ] Notify users in GitHub Discussions (if enabled)
+
+6. **Post-Release Verification**
+   - [ ] Test installation via Swift Package Manager
+   - [ ] Test installation via CocoaPods
+   - [ ] Verify Swift Package Index shows new version
+   - [ ] Check that documentation site is updated
+   - [ ] Monitor for any immediate issues or feedback
+
+#### **Release Notes Template:**
+```markdown
+## What's New in vX.Y.Z
+
+### 🚀 New Features
+- Feature 1 description
+- Feature 2 description
+
+### 🐛 Bug Fixes
+- Bug fix 1 description
+- Bug fix 2 description
+
+### 📚 Documentation
+- Documentation improvements
+- New examples added
+
+### 🔧 Technical Changes
+- Performance improvements
+- Internal refactoring
+
+### 📦 Installation
+**Swift Package Manager:**
 ```swift
-class MonoTask<ResultType> { ... }
-class MemoryCache<Key: Hashable, Value> { ... }
+.package(url: "https://github.com/yangchenlarkin/Monstra.git", from: "X.Y.Z")
 ```
-
-#### 4. **Protocol-Oriented Design**
-Protocols define contracts for extensibility:
-- Cacheable protocols
-- Task execution protocols
-- Statistics collection protocols
-
-### Key Architectural Decisions
-
-#### 1. **Memory Management**
-- Automatic memory cleanup with TTL expiration
-- LRU eviction prevents unbounded growth
-- Weak references prevent retain cycles
-
-#### 2. **Concurrency Model**
-- Task-based concurrency with Swift's Task API
-- DispatchQueue for background execution
-- Semaphores for synchronization
-
-#### 3. **Error Handling**
-- Result types for explicit error handling
-- Retry mechanisms for transient failures
-- Graceful degradation on errors
-
-#### 4. **Performance Optimization**
-- O(1) cache operations where possible
-- Lazy initialization patterns
-- Efficient data structures (heaps, hash tables)
-
-### Testing Strategy
-
-#### 1. **Unit Tests**
-- Comprehensive test coverage for all modules
-- Performance tests for critical paths
-- Race condition testing for concurrent operations
-
-#### 2. **Integration Tests**
-- Cross-module interaction testing
-- Real-world usage scenarios
-- Memory leak detection
-
-#### 3. **Example Projects**
-- UserProfileManager: Demonstrates MonoTask with Combine
-- ModuleInitialization: Shows configuration management
-- ObjectFetchTask: API integration patterns
-
-### Dependencies
-- **Foundation**: Core Swift functionality
-- **Combine**: Reactive programming (in examples)
-- **Swift Concurrency**: async/await support
-
-### Distribution
-- **Swift Package Manager**: Primary distribution method
-- **CocoaPods**: Secondary distribution via podspec
-- **Semantic Versioning**: Version management strategy
-
-## Coding Guidelines
-
-### Swift Style
-- Follow Swift API Design Guidelines
-- Use descriptive naming conventions
-- Prefer value types over reference types where appropriate
-- Use access control modifiers appropriately (private, internal, public)
-
-### Documentation
-- All public APIs must have documentation comments
-- Use Swift DocC format for documentation
-- Include usage examples in documentation
-- Document thread safety guarantees
-
-### Testing
-- Write tests before implementing new features
-- Maintain >90% code coverage
-- Include performance benchmarks for critical paths
-- Test concurrent scenarios thoroughly
-
-### Git Workflow
-- Use conventional commit messages (feat:, fix:, docs:, etc.)
-- Create feature branches for new development
-- Require PR reviews for main branch changes
-- Run CI tests before merging
-
-### Performance Considerations
-- Profile memory usage regularly
-- Benchmark critical operations
-- Optimize for common use cases
-- Document performance characteristics
 
 ---
 > Source: [yangchenlarkin/Monstra](https://github.com/yangchenlarkin/Monstra) — distributed by [TomeVault](https://tomevault.io).
