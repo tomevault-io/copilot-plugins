@@ -1,33 +1,148 @@
-## ruff-linting
+## user-facing-language
 
-> For fixing lint errors
+> Write for capable, intelligent users. Make them feel respected, capable, confident,
 
 
-# Ruff Linting
+# User-Facing Language Guide
 
-We use `ruff` for linting. If there are lint errors, or if the user says "fix lint
-errors":
+Write for capable, intelligent users. Make them feel respected, capable, confident,
+understood, and excited.
 
-1. Run: `ruff check --fix --unsafe-fixes`
-2. Repeat until all errors are fixed
+Quality bar: Apple-level attention. Every word earns its place.
 
-## Using Targeted Ignores
+## Voice
 
-For legitimate exceptions, use targeted ignores with specific rule codes and
-explanations:
+Be authentic. Explain something real, not sell something imaginary. "Exports to CSV in
+under 2 seconds" builds trust. "Fast and efficient" says nothing.
 
-```python
-# Include the rule code and why we're ignoring it
-process = subprocess.Popen(["pbcopy"], stdin=subprocess.PIPE)  # ruff: ignore=S603,S607 - Needed for clipboard
+Be direct. Say what you mean. Cut unnecessary words.
 
-result = eval(user_formula)  # ruff: ignore=S307 - Safe: formula validated by parser
+Be confident. You built something real, so own it. Avoid hedging with "might," "could,"
+or "potentially." If it saves time, say how much.
 
-api_key = os.getenv("SECRET_KEY")  # ruff: ignore=S105 - Environment variable, not hardcoded
+Be specific. Concrete details matter. "Handles codebases up to 1M lines" beats "Scales
+well."
+
+## Language Patterns
+
+Use "we" for the team: "We built this to solve the N machines problem." Use "you" for
+users: "You configure it once, then it runs automatically." Use imperatives for
+instructions: "Install the package. Set your API key."
+
+## What Not to Write
+
+### AI Clichés
+
+The "it's not just X, it's Y" pattern appears constantly in AI-generated content. Never
+use it.
+
+```
+✗ "It's not just a code editor, it's a complete development environment"
+✗ "This isn't just about speed, it's about transforming your workflow"
+✗ "If 2024 was the year of X, 2025 will be..."
+✗ "Imagine a world where..."
+✗ "Let's dive in..."
+
+✓ "A code editor with integrated debugging and deployment"
+✓ "Processes 10,000 records in 2 seconds instead of 5 minutes"
 ```
 
-Use `# ruff: ignore=RULE_CODE` format. Multiple rules: `# ruff: ignore=S603,S607`
+### CRITICAL Means Something Dies
 
-When we fix all errors, celebrate! Clean code feels good. 🌟
+AI marks everything as CRITICAL. Reserve this word for when something actually breaks
+without it.
+
+```
+✗ "CRITICAL: Read this section"
+✗ "CRITICAL: Follow these best practices"
+✗ "CRITICAL: Understand the architecture"
+
+✓ "CRITICAL: Set ANTHROPIC_API_KEY or Claude Code won't start"
+✓ "CRITICAL: Back up data before running - this operation is destructive"
+```
+
+CRITICAL means the system fails, data is lost, or security is compromised. Don't use it
+for recommendations, best practices, or things that are merely helpful. Most things
+aren't critical.
+
+## Format
+
+### Prose Over Lists
+
+Write in paragraphs by default. Lists sacrifice readability for brevity.
+
+```
+✗ Benefits:
+  - Fast performance
+  - Easy to use
+  - Secure by default
+
+✓ The tool delivers fast performance, taking under 100ms for most operations.
+  It's designed for ease of use - most developers are productive within minutes.
+  Security is built in from the start.
+```
+
+Use lists for steps in procedures, options to choose from, or reference items. Don't use
+lists to avoid writing prose.
+
+### Bold Sparingly
+
+Bold is for emphasis. If everything is bold, nothing is.
+
+```
+✗ **Cursor** is an **AI-powered** editor with **inline suggestions** and
+  **chat interface** for **consistent behavior**.
+
+✓ Cursor is an AI-powered code editor. It provides inline suggestions as you
+  type, a chat interface for larger changes, and a rules system to keep AI
+  behavior consistent.
+```
+
+Use bold for key terms on first mention, UI elements ("Click **Save**"), or data loss
+warnings. Never bold emphasis words themselves (important, critical, key). Never bold
+every other phrase.
+
+### Structure with Paragraphs
+
+The first paragraph of each section states the key point. Following paragraphs add
+details. Headings let readers scan and find what they need.
+
+Use diagrams when spatial relationships or visual structure helps understanding. ASCII
+art and Mermaid work well for showing how things connect or flow.
+
+## Examples
+
+**Feature description**:
+
+```
+✗ Our revolutionary platform leverages cutting-edge technology to transform
+  your workflow. It's not just about automation—it's about unlocking your
+  full potential.
+
+✓ Automates data entry, validation, and export. You go from 4 hours of manual
+  work to 10 minutes of review.
+```
+
+**Technical capability**:
+
+```
+✗ The system utilizes advanced algorithms to process your data and generate
+  intelligent insights.
+
+✓ Uses PostgreSQL full-text search to find relevant records in under 100ms,
+  even across millions of rows.
+```
+
+## The North Star
+
+Think Apple. Think Stripe. Think Basecamp.
+
+Write with the confidence of someone who's built something real, the clarity of someone
+who respects the reader's time, and the authenticity of someone who understands the
+actual problem.
+
+From a place of universal love: we build tools that amplify human potential. The
+language should honor that mission.
 
 ---
 > Source: [TechNickAI/claude_telemetry](https://github.com/TechNickAI/claude_telemetry) — distributed by [TomeVault](https://tomevault.io).
