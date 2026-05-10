@@ -1,0 +1,9 @@
+{
+  "name": "wsdjeg--chat-nvim",
+  "displayName": "chat.nvim",
+  "description": "A lightweight Lua chat plugin for Neovim with AI integration.",
+  "version": "1.0.0",
+  "author": "wsdjeg",
+  "homepage": "https://github.com/wsdjeg/chat.nvim",
+  "skills": []
+}
