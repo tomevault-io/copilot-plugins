@@ -4,7 +4,7 @@
   "repo": "neroued_vectorizer",
   "description": "High-quality raster-to-SVG vectorization C++ library",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Neroued/neroued_vectorizer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T14:50:55Z"
+  "distributed_at": "2026-05-10T11:34:21Z"
 }
