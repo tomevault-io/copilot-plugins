@@ -1,59 +1,19 @@
-## lumen
+## claude-md-rule
 
-> - **NO explanatory comments that simply restate what the code does**
+> This project has a file [CLAUDE.md](mdc:CLAUDE.md) at the project root. This file contains:
 
-## Code Quality Guidelines
+# Your rule content
 
-### Comments and Documentation
-- **NO explanatory comments that simply restate what the code does**
-- **NO obvious comments** like `// increment counter` for `counter++`
-- **NO redundant comments** that duplicate clear variable/function names
-- Only add comments for:
-  - Complex business logic or algorithms
-  - Non-obvious workarounds or edge cases
-  - API integrations with specific requirements
-  - Performance optimizations
-  - Security considerations
-  - Temporary code that needs attention
+This project has a file [CLAUDE.md](mdc:CLAUDE.md) at the project root. This file contains:
+- Description of the project
+- Explanation of the components of the project and how they work
+- Existing functionlity of the project
+- Things we want to build next
 
-### Code Style
-- Write self-documenting code with clear variable and function names
-- Prefer descriptive names over comments when possible
-- Keep functions small and focused on single responsibilities
-- Use meaningful commit messages instead of inline TODO comments
+When in doubt about how the project works or general questions related to the project, you will refer to this file. If you still do not have a clear solution to your question, you MUST ask me.
 
-### Examples of What NOT to Do
-```javascript
-// BAD - Don't add these types of comments
-const user = getUser(); // Get the user
-if (user.isActive) { // Check if user is active
-    user.login(); // Log the user in
-}
-```
-
-### Examples of What TO Do
-```javascript
-// GOOD - Clean, self-documenting code
-const user = getUser();
-if (user.isActive) {
-    user.login();
-}
-
-// GOOD - Only comment when adding real value
-// Workaround: API returns 200 even for validation errors
-// so we need to check the response body for error field
-if (response.status === 200 && response.body.error) {
-    throw new ValidationError(response.body.error);
-}
-```
-
-### General Principles
-- Code should be readable without comments
-- If you feel a comment is needed, first try to refactor for clarity
-- Focus on **why** something is done, not **what** is being done
-- Prioritize clean, maintainable code over verbose explanations
+When there have been a large change to the code, you should update CLUADE.md with any updates you deem fit for this file. Only make concrete changes to the text. DO NOT MAKE cosmetic changes.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/pretzelai)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/pretzelai)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [pretzelai/lumen](https://github.com/pretzelai/lumen) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
