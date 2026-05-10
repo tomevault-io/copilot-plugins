@@ -7,11 +7,11 @@ Collaborative Agent Communication Protocol
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Wallisking1991/CACP](https://github.com/Wallisking1991/CACP).
+Original source: `CLAUDE.md` in [Wallisking1991/CACP](https://github.com/Wallisking1991/CACP).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
