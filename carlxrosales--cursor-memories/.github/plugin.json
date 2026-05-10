@@ -1,0 +1,9 @@
+{
+  "name": "carlxrosales--cursor-memories",
+  "displayName": "cursor-memories",
+  "description": "A CLI tool for storing and searching development memories, insights, and patterns using Cursor Rules, Supabase, and OpenAI embeddings.",
+  "version": "1.0.0",
+  "author": "carlxrosales",
+  "homepage": "https://github.com/carlxrosales/cursor-memories",
+  "skills": []
+}
