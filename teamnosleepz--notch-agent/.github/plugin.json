@@ -1,0 +1,9 @@
+{
+  "name": "teamnosleepz--notch-agent",
+  "displayName": "notch-agent",
+  "description": "A lightweight macOS menu bar app that turns your MacBook's notch into a live Claude Code status indicator.",
+  "version": "1.0.0",
+  "author": "TeamNoSleepz",
+  "homepage": "https://github.com/TeamNoSleepz/notch-agent",
+  "skills": []
+}
