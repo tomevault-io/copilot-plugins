@@ -1,0 +1,9 @@
+{
+  "name": "wasp-lang--recipe-agent-saas-with-mastra",
+  "displayName": "recipe-agent-saas-with-mastra",
+  "description": "A complete recipe agent SaaS app built on top of Wasp's Open SaaS template and the Mastra AI framework",
+  "version": "1.0.0",
+  "author": "wasp-lang",
+  "homepage": "https://github.com/wasp-lang/recipe-agent-saas-with-mastra",
+  "skills": []
+}
