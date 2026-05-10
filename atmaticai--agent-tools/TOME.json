@@ -1,0 +1,44 @@
+{
+  "name": "agent-tools",
+  "owner": "AtmaticAI",
+  "repo": "agent-tools",
+  "description": "agent-tools is an agent-driven data utility platform that provides deterministic tools for transforming, formatting, and inspecting structured data. Designed for MCP and A2A systems, Actiform ensures that when agents act, the resulting data is correct, inspectable, and production-ready.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AtmaticAI/agent-tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T21:39:03Z"
+}
