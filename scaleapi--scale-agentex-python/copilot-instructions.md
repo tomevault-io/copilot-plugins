@@ -1,19 +1,18 @@
-## 40-temporal-and-agents
+## 50-tests-and-mocking
 
-> Temporal workflows, activities, and agent development guidance
+> Testing workflow and mock server details
 
 
-Temporal integration:
+Testing:
 
-- Workflow definitions live in `lib/core/temporal/`
-- Include activity definitions for different providers and worker implementations
-- Keep workflow logic deterministic and side-effect free; move I/O into activities
+- Run tests with `rye run pytest` or `./scripts/test`
+- To run a specific test: `rye run pytest path/to/test_file.py::TestClass::test_method -v`
+- A mock server is automatically started for tests on port 4010
 
-Agent framework:
+When writing tests:
 
-- Agents are manifest-driven and support multiple agent types (sync and Temporal-based)
-- Use the examples under `examples/10_async/` and `examples/10_temporal/` for patterns
-- For debugging agents, use the CLI flags `--debug-worker` and `--debug-port`
+- Prefer deterministic unit tests that do not depend on external services
+- Use the mock server and fixtures provided in the repository
 
 ---
 > Source: [scaleapi/scale-agentex-python](https://github.com/scaleapi/scale-agentex-python) — distributed by [TomeVault](https://tomevault.io).
