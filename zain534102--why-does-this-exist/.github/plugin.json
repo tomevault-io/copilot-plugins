@@ -1,0 +1,9 @@
+{
+  "name": "zain534102--why-does-this-exist",
+  "displayName": "why-does-this-exist",
+  "description": "A CLI tool that traces git blame \u2192 PRs \u2192 issues \u2192 reviews and explains legacy code decisions in plain English using AI",
+  "version": "1.0.0",
+  "author": "zain534102",
+  "homepage": "https://github.com/zain534102/why-does-this-exist",
+  "skills": []
+}
