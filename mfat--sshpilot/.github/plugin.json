@@ -1,0 +1,9 @@
+{
+  "name": "mfat--sshpilot",
+  "displayName": "sshpilot",
+  "description": "User-friendly, cross-platform SSH connection manager",
+  "version": "1.0.0",
+  "author": "mfat",
+  "homepage": "https://github.com/mfat/sshpilot",
+  "skills": []
+}
