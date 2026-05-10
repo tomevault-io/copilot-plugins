@@ -1,96 +1,190 @@
-## quality
+## services
 
-> Code quality checklist and anti-patterns to avoid before shipping
+> Service layer architecture, API patterns, and data management with TanStack Query
 
 
-# Quality Checklist Rules
+# Service Layer & Data Management Rules
 
-## Pre-Ship Quality Gates
+## Service Layer Organization
 
-### Code Architecture Quality
-- [ ] **No monolithic components** - Each component under 300 lines with single responsibility
-- [ ] **Logic extraction** - Reusable logic moved to custom hooks, not duplicated
-- [ ] **Type safety** - Shared interfaces defined in `lib/types.ts` and reused
-- [ ] **Service layer** - API calls abstracted to service functions, not inline
-- [ ] **Proper imports** - Using path aliases (@/) and organized import groups
-- [ ] **Validation schemas** - Zod schemas shared and reused across components
-- [ ] **Component composition** - Complex UI built from smaller, focused components
-
-### Design Quality  
-- [ ] Uses intentional color palette that serves the design purpose
-- [ ] Has proper visual hierarchy with varied typography scales
-- [ ] Includes subtle animations and micro-interactions
-- [ ] Features generous whitespace and purposeful spacing
-- [ ] All interactive elements have clear hover/active states
-- [ ] **Accessibility standards are met (proper contrast, focus states)**
-- [ ] Mobile experience is thoughtfully designed
-- [ ] Maintains cohesive visual story throughout
-- [ ] Design feels custom-crafted, not template-like
-- [ ] Visual identity matches target industry and audience
-- [ ] Color choices enhance user experience and brand message
-
-### Essential Commands Check
-```bash
-npm run lint         # MUST pass before shipping
-npm run build        # MUST succeed without errors
+### File Structure
+```
+src/lib/
+├── utils.ts          # General utilities (keep cn function)
+├── types.ts          # Shared TypeScript interfaces
+├── constants.ts      # App-wide constants
+├── validations/      # Zod schemas
+│   ├── user.ts
+│   ├── product.ts
+│   └── common.ts
+└── services/         # API service layer
+    ├── api.ts        # Base API client
+    ├── userService.ts
+    └── productService.ts
 ```
 
-### NEVER Ship Code That:
-- Contains components over 300 lines mixing multiple concerns
-- Has duplicated logic that could be extracted to hooks
-- Uses inline API calls instead of service layer
-- Lacks proper TypeScript interfaces
-- Has accessibility contrast violations  
-- Contains copy-pasted code blocks
-- Mixes business logic with presentation layer
-- Has console errors or warnings
-- Fails ESLint checks
-
-### Development Workflow
-1. Run `npm run dev` to start development
-2. Follow component size limits (300 lines max)
-3. Extract reusable logic to hooks
-4. Test responsive design on mobile/desktop
-5. Verify accessibility contrast ratios
-6. Run `npm run lint` and fix all issues
-7. Ensure no console errors before shipping
-
-## Common Anti-Patterns to Avoid
-
-### Component Anti-Patterns
+### Service Layer Pattern
 ```tsx
-// DON'T: Monolithic component
-const BadDashboard = () => {
-  // 400+ lines of mixed concerns
-  const [users, setUsers] = useState([])
-  const [products, setProducts] = useState([])
-  // ... massive component
+// services/userService.ts
+export const userService = {
+  async getAll(): Promise<User[]> {
+    const response = await fetch('/api/users')
+    if (!response.ok) throw new Error('Failed to fetch users')
+    return response.json()
+  },
+  
+  async getById(id: string): Promise<User> {
+    const response = await fetch(`/api/users/${id}`)
+    if (!response.ok) throw new Error('Failed to fetch user')
+    return response.json()
+  },
+  
+  async create(data: CreateUserData): Promise<User> {
+    const response = await fetch('/api/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    if (!response.ok) throw new Error('Failed to create user')
+    return response.json()
+  },
+  
+  async update(id: string, data: Partial<User>): Promise<User> {
+    const response = await fetch(`/api/users/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    if (!response.ok) throw new Error('Failed to update user')
+    return response.json()
+  }
 }
-
-// DO: Composition pattern
-const GoodDashboard = () => (
-  <PageLayout>
-    <DashboardHeader />
-    <DashboardMetrics />
-    <DashboardCharts />
-  </PageLayout>
-)
 ```
 
-### Data Fetching Anti-Patterns
+### Shared Types (lib/types.ts)
 ```tsx
-// DON'T: Inline API calls
-const BadComponent = () => {
-  useEffect(() => {
-    fetch('/api/users').then(res => res.json()).then(setUsers)
-  }, [])
+export interface User {
+  id: string
+  email: string
+  name: string
+  avatar?: string
+  role: UserRole
+  createdAt: string
+  updatedAt: string
 }
 
-// DO: Service layer + custom hooks
-const GoodComponent = () => {
-  const { data: users } = useUsers()
+export interface ApiResponse<T> {
+  data: T
+  message: string
+  success: boolean
+  meta?: {
+    total: number
+    page: number
+    limit: number
+  }
+}
+
+export type UserRole = 'admin' | 'user' | 'guest'
+export type Theme = 'light' | 'dark' | 'system'
+export type LoadingState = 'idle' | 'loading' | 'success' | 'error'
+```
+
+### Constants (lib/constants.ts)
+```tsx
+export const API_ENDPOINTS = {
+  USERS: '/api/users',
+  PRODUCTS: '/api/products',
+  AUTH: '/api/auth',
+} as const
+
+export const QUERY_KEYS = {
+  USERS: 'users',
+  PRODUCTS: 'products',
+  USER_PROFILE: 'user-profile',
+} as const
+
+export const ROUTES = {
+  HOME: '/',
+  DASHBOARD: '/dashboard',
+  USERS: '/users',
+  PROFILE: '/profile',
+} as const
+```
+
+### Validation Schemas
+```tsx
+// lib/validations/common.ts
+export const emailSchema = z.string().email('Invalid email address')
+export const phoneSchema = z.string().regex(/^\+?[\d\s-()]+$/, 'Invalid phone number')
+
+// lib/validations/user.ts
+export const userSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: emailSchema,
+  phone: phoneSchema.optional(),
+  role: z.enum(['admin', 'user', 'guest'])
+})
+
+export const createUserSchema = userSchema.omit({ role: true })
+export const updateUserSchema = userSchema.partial()
+
+export type UserFormData = z.infer<typeof userSchema>
+export type CreateUserData = z.infer<typeof createUserSchema>
+export type UpdateUserData = z.infer<typeof updateUserSchema>
+```
+
+## TanStack Query Integration
+
+### Query Hooks Pattern
+```tsx
+// hooks/useUsers.ts
+export const useUsers = (params?: UserQueryParams) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.USERS, params],
+    queryFn: () => userService.getAll(params),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  })
+}
+
+export const useUser = (id: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.USERS, id],
+    queryFn: () => userService.getById(id),
+    enabled: !!id,
+  })
 }
 ```
+
+### Mutation Hooks Pattern
+```tsx
+// hooks/useUserMutations.ts
+export const useCreateUser = () => {
+  const queryClient = useQueryClient()
+  
+  return useMutation({
+    mutationFn: userService.create,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USERS] })
+      toast.success('User created successfully')
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    }
+  })
+}
+```
+
+## NEVER in Components
+- Direct API calls (`fetch`, `axios` inline)
+- Business logic mixed with UI
+- Hardcoded API URLs
+- Duplicate validation schemas
+
+## ALWAYS Use
+- Service layer for all API calls
+- Shared types for consistent interfaces
+- Custom hooks for data fetching
+- Centralized constants for URLs and keys
 
 ---
 > Source: [chihebnabil/lovable-boilerplate](https://github.com/chihebnabil/lovable-boilerplate) — distributed by [TomeVault](https://tomevault.io).
