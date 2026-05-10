@@ -1,11 +1,11 @@
-## formatting-style
+## no-emojis
 
-> - **Python ≥3.10, PEP 8, type hints** - Use `str | None` not `Optional[str]`, add `from __future__ import annotations` for forward refs
+> Do not use emojis anywhere in code, documentation, comments, or any files in this repository.
 
 
-# Code Formatting and Style
+# No Emojis
 
-- **Python ≥3.10, PEP 8, type hints** - Use `str | None` not `Optional[str]`, add `from __future__ import annotations` for forward refs
+Do not use emojis anywhere in code, documentation, comments, or any files in this repository.
 
 ---
 > Source: [miniverse-ai/miniverse](https://github.com/miniverse-ai/miniverse) — distributed by [TomeVault](https://tomevault.io).
