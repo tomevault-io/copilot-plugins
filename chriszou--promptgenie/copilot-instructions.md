@@ -1,36 +1,38 @@
-## tag-system
+## ui-components
 
-> PromptGenie 使用标签（Tags）代替类别（Categories）对提示词进行分类管理。
+> PromptGenie 使用自定义 React 组件构建用户界面。
 
-# 标签系统
+# UI 组件
 
-PromptGenie 使用标签（Tags）代替类别（Categories）对提示词进行分类管理。
+PromptGenie 使用自定义 React 组件构建用户界面。
 
-## 数据模型
+## 布局组件
 
-标签包含以下字段:
-- id: 唯一标识符
-- name: 标签名称
-- color: 标签颜色（可选）
+- [src/components/Layout.tsx](mdc:src/components/Layout.tsx) - 主布局组件
+- [src/components/Sidebar.tsx](mdc:src/components/Sidebar.tsx) - 侧边栏组件
+- [src/components/Header.tsx](mdc:src/components/Header.tsx) - 头部导航栏
 
-提示词和标签是多对多关系，通过关联表 prompt_tags 连接。
+## 提示词相关组件
 
-## 关键组件
+- [src/components/PromptList.tsx](mdc:src/components/PromptList.tsx) - 提示词列表表格
+- [src/components/PromptCard.tsx](mdc:src/components/PromptCard.tsx) - 提示词卡片
+- [src/components/PromptForm.tsx](mdc:src/components/PromptForm.tsx) - 提示词表单
 
-- [src/components/TagSelector.tsx](mdc:src/components/TagSelector.tsx) - 标签选择器组件
-- [src/components/TagList.tsx](mdc:src/components/TagList.tsx) - 标签列表显示组件
-- [src/components/TagBadge.tsx](mdc:src/components/TagBadge.tsx) - 标签徽章组件
+## 标签相关组件
 
-## 数据操作
+- [src/components/TagSelector.tsx](mdc:src/components/TagSelector.tsx) - 标签选择器
+- [src/components/TagBadge.tsx](mdc:src/components/TagBadge.tsx) - 标签徽章
+  
+## UI 工具
 
-标签相关的数据库操作:
-- getTags() - 获取所有标签
-- createTag() - 创建新标签
-- updateTag() - 更新标签
-- deleteTag() - 删除标签
-- getPromptTags() - 获取提示词的标签
-- addTagToPrompt() - 为提示词添加标签
-- removeTagFromPrompt() - 从提示词中移除标签
+应用使用 [Lucide React](mdc:https:/lucide.dev/docs/lucide-react) 作为图标库:
+```typescript
+import { StarIcon, CopyIcon, PencilIcon, TagIcon, TrashIcon } from 'lucide-react';
+```
+
+## 实用工具
+
+- [src/utils/time.ts](mdc:src/utils/time.ts) - 时间格式化函数
 
 ---
 > Source: [ChrisZou/promptgenie](https://github.com/ChrisZou/promptgenie) — distributed by [TomeVault](https://tomevault.io).
