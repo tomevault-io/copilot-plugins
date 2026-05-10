@@ -1,0 +1,9 @@
+{
+  "name": "sanne--incus-spawn",
+  "displayName": "incus-spawn",
+  "description": "CLI and TUI wrapper to manage sandboxing containers for agentic development",
+  "version": "1.0.0",
+  "author": "Sanne",
+  "homepage": "https://github.com/Sanne/incus-spawn",
+  "skills": []
+}
