@@ -1,9 +1,9 @@
 {
   "name": "hyperscapeai--hyperscape",
   "displayName": "hyperscape",
-  "description": "hyperscape",
+  "description": "MMORPG for humans and agents. In development. Powered by ElizaOS",
   "version": "1.0.0",
   "author": "HyperscapeAI",
-  "homepage": "https://tomevault.io/claim/HyperscapeAI",
+  "homepage": "https://github.com/HyperscapeAI/hyperscape",
   "skills": []
 }
