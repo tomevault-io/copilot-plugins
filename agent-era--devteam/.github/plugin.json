@@ -1,0 +1,9 @@
+{
+  "name": "agent-era--devteam",
+  "displayName": "devteam",
+  "description": "Run a team of local coding agents in your terminal. Launch multiple Claude Code, Codex or Gemini agents, switch between them, review their changes and add comments, and push PRs  all from one streamli",
+  "version": "1.0.0",
+  "author": "agent-era",
+  "homepage": "https://github.com/agent-era/devteam",
+  "skills": []
+}
