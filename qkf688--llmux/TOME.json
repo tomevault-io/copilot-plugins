@@ -4,7 +4,7 @@
   "repo": "llmux",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/qkf688/llmux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T14:01:53Z"
+  "distributed_at": "2026-05-10T02:46:47Z"
 }
