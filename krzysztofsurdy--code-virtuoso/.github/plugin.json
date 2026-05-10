@@ -1,0 +1,9 @@
+{
+  "name": "krzysztofsurdy--code-virtuoso",
+  "displayName": "code-virtuoso",
+  "description": "Skills, sub-agents, and playbooks for Claude Code, Cursor, and any Agent Skills-compatible AI coding assistant.",
+  "version": "1.0.0",
+  "author": "krzysztofsurdy",
+  "homepage": "https://github.com/krzysztofsurdy/code-virtuoso",
+  "skills": []
+}
