@@ -1,133 +1,47 @@
-## sentry
+## rift
 
-> These examples should be used as guidance when configuring Sentry functionality within a project.
+> This repo is a Bun + Turborepo monorepo.
 
-These examples should be used as guidance when configuring Sentry functionality within a project.
+# Repository Guidelines
 
-# Exception Catching
+## Project Structure & Module Organization
 
-Use `Sentry.captureException(error)` to capture an exception and log the error in Sentry.
-Use this in try catch blocks or areas where exceptions are expected
+This repo is a Bun + Turborepo monorepo.
 
-# Tracing Examples
+- `apps/start`: TanStack Start app (Vite), main app source in `apps/start/src`, static files in `apps/start/public`.
+- `packages/ui`, `packages/utils`, `packages/chat-scroll`, `packages/tailwind-config`: shared workspace packages.
+- `reference/`: upstream/reference snapshots; do not treat as active app code.
 
-Spans should be created for meaningful actions within an applications like button clicks, API calls, and function calls
-Use the `Sentry.startSpan` function to create a span
-Child spans can exist within a parent span
+Prefer changes in `apps/*/src` and `packages/*/src`. Keep shared logic in `packages/*` and app-specific logic in each app.
 
-## Custom Span instrumentation in component actions
+## Build, Test, and Development Commands
 
-The `name` and `op` properties should be meaninful for the activities in the call.
-Attach attributes based on relevant information and metrics from the request
+Run from repo root unless noted.
 
-```javascript
-function TestComponent() {
-  const handleTestButtonClick = () => {
-    // Create a transaction/span to measure performance
-    Sentry.startSpan(
-      {
-        op: "ui.click",
-        name: "Test Button Click",
-      },
-      (span) => {
-        const value = "some config";
-        const metric = "some metric";
+- `bun run lint`: run workspace lint tasks.
+- `bun run check`: run workspace checks.
+- `cd apps/start && bun run test`: run Vitest tests for the TanStack app.
 
-        // Metrics can be added to the span
-        span.setAttribute("config", value);
-        span.setAttribute("metric", metric);
+## Naming Conventions
 
-        doSomething();
-      },
-    );
-  };
+- Naming: components `Kebab-Case.tsx`, hooks `use-*.ts(x)` or `use*.ts(x)`, route files follow framework conventions.
 
-  return (
-    <button type="button" onClick={handleTestButtonClick}>
-      Test Sentry
-    </button>
-  );
-}
-```
+## Testing Guidelines
 
-## Custom span instrumentation in API calls
+- Framework: Vitest is configured in `apps/start` (`bun run test` there).
+- Current state: there are few/no committed app tests yet.
+- Add tests as `*.test.ts` / `*.test.tsx`, colocated with code in `apps/start/src` (or package `src` for shared logic).
 
-The `name` and `op` properties should be meaninful for the activities in the call.
-Attach attributes based on relevant information and metrics from the request
+## Comments in code
 
-```javascript
-async function fetchUserData(userId) {
-  return Sentry.startSpan(
-    {
-      op: "http.client",
-      name: `GET /api/users/${userId}`,
-    },
-    async () => {
-      const response = await fetch(`/api/users/${userId}`);
-      const data = await response.json();
-      return data;
-    },
-  );
-}
-```
+- You need to add comprehensive documentation for the code you write, so future devs and underestend the code with ease
+- DO NOT abuse comments and a way to "respond" to user question or request, they need to be real informatives
+- DO NOT spam comments for irelevant code 
+- For complex logic or parts of a service, you can explain the implementation so future devs know why that code is the way it is
 
-# Logs
+### Non-obvious caveats
 
-Where logs are used, ensure Sentry is imported using `import * as Sentry from "@sentry/nextjs"`
-Enable logging in Sentry using `Sentry.init({  enableLogs: true })`
-Reference the logger using `const { logger } = Sentry`
-Sentry offers a consoleLoggingIntegration that can be used to log specific console error types automatically without instrumenting the individual logger calls
-
-## Configuration
-
-In NextJS the client side Sentry initialization is in `instrumentation-client.(js|ts)`, the server initialization is in `sentry.server.config.ts` and the edge initialization is in `sentry.edge.config.ts`
-Initialization does not need to be repeated in other files, it only needs to happen the files mentioned above. You should use `import * as Sentry from "@sentry/nextjs"` to reference Sentry functionality
-
-### Baseline
-
-```javascript
-import * as Sentry from "@sentry/nextjs";
-
-Sentry.init({
-  dsn: "https://0894cb8fa1966df202121a2e5c5f3f6b@o4510584741298176.ingest.us.sentry.io/4510584746147840",
-
-  enableLogs: true,
-});
-```
-
-### Logger Integration
-
-```javascript
-Sentry.init({
-  dsn: "https://0894cb8fa1966df202121a2e5c5f3f6b@o4510584741298176.ingest.us.sentry.io/4510584746147840",
-  integrations: [
-    // send console.log, console.warn, and console.error calls as logs to Sentry
-    Sentry.consoleLoggingIntegration({ levels: ["log", "warn", "error"] }),
-  ],
-});
-```
-
-## Logger Examples
-
-`logger.fmt` is a template literal function that should be used to bring variables into the structured logs.
-
-```javascript
-logger.trace("Starting database connection", { database: "users" });
-logger.debug(logger.fmt`Cache miss for user: ${userId}`);
-logger.info("Updated profile", { profileId: 345 });
-logger.warn("Rate limit reached for endpoint", {
-  endpoint: "/api/results/",
-  isEnterprise: false,
-});
-logger.error("Failed to process payment", {
-  orderId: "order_123",
-  amount: 99.99,
-});
-logger.fatal("Database connection pool exhausted", {
-  database: "users",
-  activeConnections: 100,
-});
-```
+- **`@rocicorp/zero-sqlite3` native binary**: After `bun install`, the `zero-cache-dev` process needs the native `better_sqlite3.node` binary. Run `npm run install` from the package directory to download the prebuilt binary via `prebuild-install`. With Bun, the package may live under `node_modules/.bun/@rocicorp+zero-sqlite3@<version>/node_modules/@rocicorp/zero-sqlite3` — use that path if `node_modules/@rocicorp/zero-sqlite3` does not exist. Without this step, `zero-cache` will crash with "Could not locate the bindings file."
 
 ---
 > Source: [Compound-inc/rift](https://github.com/Compound-inc/rift) — distributed by [TomeVault](https://tomevault.io).
