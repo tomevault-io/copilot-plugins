@@ -1,0 +1,9 @@
+{
+  "name": "kweaver-ai--kweaver-sdk",
+  "displayName": "kweaver-sdk",
+  "description": "sdk of kweaver for agents",
+  "version": "1.0.0",
+  "author": "kweaver-ai",
+  "homepage": "https://github.com/kweaver-ai/kweaver-sdk",
+  "skills": []
+}
