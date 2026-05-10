@@ -1,80 +1,106 @@
-## 001-accessibility
+## 100-design-engineering
 
-> Enforce accessibility guidelines when building or reviewing UI to ensure inclusive user experiences
+> Apply design engineering practices when building UI components to ensure scalable, accessible, and maintainable design systems
 
 
-# Accessibility (A11y) Standards
+# Design Engineering Practices
 
 <version>1.0.0</version>
 
 ## Context
 
-- Ensures all user-facing pages and components meet WCAG 2.1 AA standards
-- Applies to interactions, visual elements, markup structure, and user experience
-- Promotes inclusive design for users with diverse abilities and assistive technologies
+- Applies to UI component development and design system implementation
+- Ensures consistent, accessible, and scalable user interfaces
+- Bridges design and engineering through systematic approaches
 
 ## Requirements
 
-### Keyboard Navigation
+### Design System Foundation
 
-- Provide full keyboard navigation support for all interactive elements
-- Implement visible focus indicators with sufficient contrast (3:1 minimum)
-- Ensure logical tab order that matches visual layout
-- Support standard keyboard shortcuts and escape mechanisms
-- Handle focus management in modals and dynamic content
+- Follow 8-point grid system for all spacing (multiples of 8px: 8, 16, 24, 32px)
+- Maintain consistent color palette using CSS custom properties
+- Use semantic design tokens for colors, typography, and spacing
+- Create reusable component variants with consistent APIs
 
-### Semantic HTML
+### Component Architecture
 
-- Use proper heading hierarchy (h1-h6) for content structure
-- Implement semantic landmarks (nav, main, aside, footer)
-- Use appropriate list elements (ul, ol, dl) for grouped content
-- Apply correct input types and form element associations
-- Utilize semantic HTML5 elements over generic divs when possible
+- Design components with composition over configuration
+- Implement proper prop interfaces with TypeScript
+- Use compound components for complex UI patterns
+- Provide sensible defaults while maintaining flexibility
 
-### ARIA Implementation
+### Accessibility Standards
 
-- Include ARIA attributes when semantic HTML is insufficient
-- Use ARIA labels for complex interactive components
-- Implement ARIA live regions for dynamic content updates
-- Apply proper ARIA roles for custom components
-- Ensure ARIA attributes are correctly associated and functional
+- Include ARIA attributes and semantic HTML by default
+- Support keyboard navigation and focus management
+- Maintain WCAG 2.1 AA compliance for color contrast
+- Test components with screen readers
 
-### Visual Accessibility
+### Responsive Design
 
-- Maintain WCAG 2.1 AA color contrast ratios (4.5:1 for normal text, 3:1 for large text)
-- Ensure information is not conveyed by color alone
-- Support user preferences for reduced motion and high contrast
-- Implement scalable text that works up to 200% zoom
-- Provide alternative text for all meaningful images
+- Implement mobile-first responsive design patterns
+- Use container queries for component-level responsiveness
+- Ensure touch targets meet minimum size requirements (44px)
+- Test across different viewport sizes and devices
 
-### Form Accessibility
+### Performance Optimization
 
-- Associate all form fields with descriptive labels or aria-label
-- Group related form fields with fieldset and legend elements
-- Provide clear error messages and validation feedback
-- Implement proper form submission and error handling
-- Support form auto-completion where appropriate
-
-### Content Structure
-
-- Use consistent navigation patterns and skip links
-- Implement clear page titles and headings
-- Provide alternative formats for complex content (tables, charts)
-- Ensure content is readable and understandable
-- Support multiple input methods and assistive technologies
+- Implement lazy loading for non-critical components
+- Use React.memo strategically for expensive renders
+- Optimize bundle size with tree-shaking friendly exports
+- Implement proper image optimization with Next.js Image
 
 ## Examples
 
 <example>
-  <!-- Properly labeled input with helper text -->
-  <label for="email">Email</label>
-  <input type="email" id="email" aria-describedby="email-helper"/>
-  <p id="email-helper">We'll never share your email address.</p>
+  // Design system component with proper structure
+  interface ButtonProps {
+    variant?: 'primary' | 'secondary' | 'ghost'
+    size?: 'sm' | 'md' | 'lg'
+    disabled?: boolean
+    children: React.ReactNode
+  }
+
+export function Button({
+variant = 'primary',
+size = 'md',
+disabled = false,
+...props
+}: ButtonProps) {
+return (
+<button
+className={cn(
+// Base styles following 8-point grid
+'inline-flex items-center justify-center rounded-lg font-medium transition-colors',
+'focus:outline-none focus:ring-2 focus:ring-offset-2',
+// Size variants (8-point grid: 32px, 40px, 48px)
+size === 'sm' && 'h-8 px-3 text-sm',
+size === 'md' && 'h-10 px-4 text-base',
+size === 'lg' && 'h-12 px-6 text-lg',
+// Variant styles
+variant === 'primary' && 'bg-primary text-primary-foreground hover:bg-primary/90',
+variant === 'secondary' && 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+disabled && 'opacity-50 cursor-not-allowed'
+)}
+disabled={disabled}
+{...props}
+/>
+)
+}
 </example>
 
 <example type="invalid">
-  <!-- Missing label and no ARIA attributes -->
-  <input type="text"/>
+  // Poor component design - no design system adherence
+  function Button({ color, padding, onClick }) {
+    return (
+      <button
+        style={{ backgroundColor: color, padding: padding }}
+        onClick={onClick}
+      >
+        Click me
+      </button>
+    )
+  }
 </example>
 
 ---
