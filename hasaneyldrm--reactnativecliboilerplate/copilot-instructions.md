@@ -1,160 +1,127 @@
-## multilanguage-rules
+## storage-rules
 
-> Proje zaten tam fonksiyonel i18next implementasyonuna sahip:
+> Hybrid Storage Pattern Rules (Redux + AsyncStorage)
 
-# React Native CLI Boilerplate - i18n Çeviri Kuralları
 
-## Mevcut i18n Yapısı (i18next)
-Proje zaten tam fonksiyonel i18next implementasyonuna sahip:
-
-```
-src/
-├── config/
-│   └── i18n.ts              # i18next yapılandırması
-├── hooks/
-│   └── useI18n.ts           # Çeviri hook'u (formatters dahil)
-├── components/
-│   └── I18nProvider.tsx     # i18n Provider wrapper
-└── locales/
-    ├── tr.json              # Türkçe çeviriler (varsayılan)
-    └── en.json              # İngilizce çeviriler (fallback)
-```
-
-## 1. Translation File Structure (Mevcut Yapı)
-- Çeviriler `src/locales/` klasöründe JSON formatında saklanır
-- **tr.json:** Türkçe çeviriler (varsayılan dil)
-- **en.json:** İngilizce çeviriler (fallback dil)
-- **Nested structure kullanılır:** `common.loading`, `auth.loginSuccess`
-
-## 2. useI18n Hook Usage (Mevcut)
-```typescript
-import { useI18n } from '@hooks/useI18n';
-
-const MyComponent = () => {
-  const { 
-    t,                    // Çeviri fonksiyonu
-    changeLanguage,       // Dil değiştirme
-    getCurrentLanguage,   // Mevcut dil
-    formatDate,          // Tarih formatlama (tr-TR/en-US)
-    formatNumber,        // Sayı formatlama  
-    formatCurrency,      // Para formatlama
-    currentLanguage,     // Mevcut dil (computed)
-    availableLanguages   // Mevcut diller (computed)
-  } = useI18n();
-
-  return <Text>{t('common.loading')}</Text>;
-};
-```
-
-## 3. Mevcut Key Structure'ı Koruyun
-Proje zaten iyi organize edilmiş nested structure kullanıyor:
-
-```json
-{
-  "common": { ... },          // Genel UI elementleri
-  "navigation": { ... },      // Navigasyon metinleri  
-  "auth": { ... },           // Kimlik doğrulama
-  "profile": { ... },        // Profil yönetimi
-  "settings": { ... },       // Ayarlar
-  "notifications": { ... },  // Bildirimler
-  "errors": { ... },         // Hata mesajları
-  "validation": { ... },     // Form validasyonları
-  "onboarding": { ... },     // Onboarding süreçleri
-  "gender": { ... },         // Cinsiyet seçimi
-  "age": { ... },           // Yaş seçimi
-  "onesignal": { ... }      // OneSignal entegrasyonu
-}
-```
-
-## 4. Translation Key Usage (Mevcut Pattern)
-```typescript
-// Nested object structure kullanın
-t('common.loading')              // "Yükleniyor..."
-t('auth.loginSuccess')           // "Giriş başarılı"
-t('gender.gender_screen_title')  // "Cinsiyetinizi seçin"
-t('age.age_screen_title_part1')  // "Kaç "
-```
-
-## 5. Interpolation (i18next Style)
-```typescript
-// JSON'da placeholder format:
-{
-  "welcome_message": "Hoş geldin {{name}}!",
-  "selected_age": "Seçilen yaş: {{age}}"
-}
-
-// Component'te kullanım:
-t('welcome_message', { name: userName })
-t('age.selected_age', { age: selectedAge })
-```
-
-## 6. Language Switching Implementation
-```typescript
-const LanguageSwitcher = () => {
-  const { changeLanguage, currentLanguage } = useI18n();
-  
-  return (
-    <View>
-      <TouchableOpacity onPress={() => changeLanguage('tr')}>
-        <Text>Türkçe</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => changeLanguage('en')}>
-        <Text>English</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
-```
-
-## 7. Advanced Features (Mevcut Hook'ta)
-```typescript
-const { formatDate, formatNumber, formatCurrency } = useI18n();
-
-// Locale-aware formatting
-formatDate(new Date(), { year: 'numeric', month: 'long' });
-formatNumber(1234.56); 
-formatCurrency(1000, 'TRY');
-```
-
-## 8. File Synchronization Rules
-Her yeni key MUTLAKA her iki dil dosyasında olmalı:
-1. tr.json'a ekle
-2. en.json'a ekle  
-3. Her iki dosyada da aynı nested path'te olduğunu doğrula
-
-## 9. Development Workflow
-Yeni çeviri eklerken adımlar:
-1. **Key İsimlendirme:** Mevcut pattern'e uygun isim belirle
-2. **Section Belirleme:** Hangi section'a ait olduğunu belirle
-3. **tr.json Güncelleme:** Türkçe çeviriyi ekle
-4. **en.json Güncelleme:** İngilizce çeviriyi ekle
-5. **Component Update:** useI18n hook'unu component'te kullan
-6. **Test:** Her iki dilde de test et
-
-## 10. Code Review Checklist
-- [ ] Yeni key'ler her iki dil dosyasında mevcut
-- [ ] Nested structure doğru şekilde organize
-- [ ] Interpolation placeholder'ları tutarlı
-- [ ] Component'lerde hardcode string yok
-- [ ] UI layout her iki dilde de çalışıyor
-
-## 11. Example Implementation
-```typescript
-// Correct usage with current structure
-import { useI18n } from '@hooks/useI18n';
-
-const MyComponent = () => {
-  const { t } = useI18n();
-  
-  return (
-    <View>
-      <Text>{t('common.loading')}</Text>
-      <Text>{t('errors.networkError')}</Text>
-      <Text>{t('auth.welcome')}</Text>
-    </View>
-  );
-};
-``` 
+Hybrid Storage Pattern Rules (Redux + AsyncStorage)
+CORE APPROACH
+Use Redux and AsyncStorage together. Redux handles UI state and caching, AsyncStorage handles persistence. On app start, load data from AsyncStorage to Redux once. All reads come from Redux instantly. All writes use optimistic UI first, then save to AsyncStorage in background.
+SLICE STRUCTURE
+Create one slice file per data type. Name it dataTypeSlice.ts. Every slice needs 5 async thunks: loadFromStorage, add, remove, update, refresh. Also needs 3 optimistic actions: optimisticAdd, optimisticRemove, optimisticUpdate.
+State structure is always: items array, loading boolean, error string, initialized boolean, lastSync timestamp. Same for every data type.
+ASYNC THUNK RULES
+loadFromStorage only runs on app start. Gets data from AsyncStorage, loads into Redux. Logs to console.
+add thunk creates new item. Saves to AsyncStorage first, returns formatted data to Redux if successful. Shows meaningful error if fails.
+remove thunk deletes item. Removes from AsyncStorage, returns item ID to Redux if successful.
+update thunk modifies item. Finds item in AsyncStorage, updates it, returns update info to Redux.
+refresh thunk bypasses cache. Clears storage cache, reloads data fresh.
+OPTIMISTIC UI RULES
+Every CRUD operation runs optimistic action first. Updates Redux state immediately, UI responds instantly. Real operation happens in background. If operation fails, revert optimistic update.
+optimisticAdd adds item to list immediately. optimisticRemove removes item from list immediately. optimisticUpdate updates item immediately.
+STORAGE SERVICE RULES
+Add methods to storage.ts for each data type. getAll method checks cache first, if empty gets from AsyncStorage, saves to cache.
+save method gets existing list, adds or updates item, saves to AsyncStorage, updates cache.
+delete method filters existing list, saves to AsyncStorage, updates cache.
+Add cache invalidation methods to cache object.
+COMPONENT USAGE RULES
+Every component uses useSelector to get data from Redux. Uses useDispatch to trigger actions. Error handling with useEffect, shows toast if error exists, calls clearError action.
+CRUD operations follow standard pattern: optimistic action, background async thunk, error handling, success feedback.
+Check loading states. If initialized is false and loading is true, show loading. If items empty and initialized is true, show empty state.
+APP INITIALIZATION RULES
+AppInitializer component in App.tsx runs loadFromStorage thunk for every data type. Loads in parallel using promises array. Writes console logs.
+Add every data type reducer to store. Include in RootState type.
+NAMING CONVENTION RULES
+Slice files are dataTypeSlice.ts format. Interface names are PascalCase. State names are dataTypeState format.
+Action names use load, add, remove, update, refresh prefixes. Optimistic actions use optimistic prefix.
+AsyncStorage keys are @logpressai_datatypes format. Cache keys are DATATYPES_KEY format.
+Console log messages follow standard format. Operation emoji, Redux prefix, meaningful message.
+ERROR HANDLING RULES
+Every async thunk uses try-catch. Shows meaningful error message. Updates error state in slice.
+Components listen to error state with useEffect. Shows toast notification if error exists. Dispatches clearError action.
+Handle different error types: network error, AsyncStorage error, validation error.
+LOADING STATE RULES
+Initial loading only shows on app start. Check initialized false and loading true combination.
+Refresh loading managed with separate state. Use RefreshControl component.
+Background operations don't show loading, only use optimistic UI.
+REFRESH PATTERN RULES
+Add RefreshControl component to every list screen. onRefresh method calls refresh thunk. Invalidates cache, reloads data fresh.
+Manual refresh buttons use same pattern.
+CACHE MANAGEMENT RULES
+Add cache invalidation method for every data type. TTL duration is 5 minutes. Log cache hit/miss to console.
+Cache clears on: refresh, app restart, manual invalidation.
+FUTURE DB SYNC PREPARATION RULES
+Leave comment placeholder for DB sync in every async thunk. Keep infrastructure ready for network state control. Create basic structure for offline queue system.
+Add online/offline state detection. AsyncStorage when offline, DB sync when online.
+CHECKLIST FOR EVERY DATA TYPE
+Slice file created. 5 async thunks added. 3 optimistic actions added. Error handling exists. Storage methods added. Cache invalidation exists. Reducer added to store. Added to app initialization. Component pattern correct. Loading states implemented. Refresh pattern added. Console logs exist. Naming convention followed.
+PERFORMANCE RULES
+Optimize Redux selectors. Prevent unnecessary re-renders. Use memoization.
+AsyncStorage operations run on background thread. Don't block UI thread.
+Optimize cache hit rate. Keep frequently accessed data in cache.
+DEBUGGING RULES
+Use Redux DevTools. Track action history. Take state snapshots.
+Console logs are meaningful. Include operation type, timestamp, data summary.
+Implement error tracking. Log error details, stack trace, user context.
+These rules ensure consistent, performant and maintainable code for every data type.Hybrid Storage Pattern Rules (Redux + AsyncStorage)
+CORE APPROACH
+Use Redux and AsyncStorage together. Redux handles UI state and caching, AsyncStorage handles persistence. On app start, load data from AsyncStorage to Redux once. All reads come from Redux instantly. All writes use optimistic UI first, then save to AsyncStorage in background.
+SLICE STRUCTURE
+Create one slice file per data type. Name it dataTypeSlice.ts. Every slice needs 5 async thunks: loadFromStorage, add, remove, update, refresh. Also needs 3 optimistic actions: optimisticAdd, optimisticRemove, optimisticUpdate.
+State structure is always: items array, loading boolean, error string, initialized boolean, lastSync timestamp. Same for every data type.
+ASYNC THUNK RULES
+loadFromStorage only runs on app start. Gets data from AsyncStorage, loads into Redux. Logs to console.
+add thunk creates new item. Saves to AsyncStorage first, returns formatted data to Redux if successful. Shows meaningful error if fails.
+remove thunk deletes item. Removes from AsyncStorage, returns item ID to Redux if successful.
+update thunk modifies item. Finds item in AsyncStorage, updates it, returns update info to Redux.
+refresh thunk bypasses cache. Clears storage cache, reloads data fresh.
+OPTIMISTIC UI RULES
+Every CRUD operation runs optimistic action first. Updates Redux state immediately, UI responds instantly. Real operation happens in background. If operation fails, revert optimistic update.
+optimisticAdd adds item to list immediately. optimisticRemove removes item from list immediately. optimisticUpdate updates item immediately.
+STORAGE SERVICE RULES
+Add methods to storage.ts for each data type. getAll method checks cache first, if empty gets from AsyncStorage, saves to cache.
+save method gets existing list, adds or updates item, saves to AsyncStorage, updates cache.
+delete method filters existing list, saves to AsyncStorage, updates cache.
+Add cache invalidation methods to cache object.
+COMPONENT USAGE RULES
+Every component uses useSelector to get data from Redux. Uses useDispatch to trigger actions. Error handling with useEffect, shows toast if error exists, calls clearError action.
+CRUD operations follow standard pattern: optimistic action, background async thunk, error handling, success feedback.
+Check loading states. If initialized is false and loading is true, show loading. If items empty and initialized is true, show empty state.
+APP INITIALIZATION RULES
+AppInitializer component in App.tsx runs loadFromStorage thunk for every data type. Loads in parallel using promises array. Writes console logs.
+Add every data type reducer to store. Include in RootState type.
+NAMING CONVENTION RULES
+Slice files are dataTypeSlice.ts format. Interface names are PascalCase. State names are dataTypeState format.
+Action names use load, add, remove, update, refresh prefixes. Optimistic actions use optimistic prefix.
+AsyncStorage keys are @logpressai_datatypes format. Cache keys are DATATYPES_KEY format.
+Console log messages follow standard format. Operation emoji, Redux prefix, meaningful message.
+ERROR HANDLING RULES
+Every async thunk uses try-catch. Shows meaningful error message. Updates error state in slice.
+Components listen to error state with useEffect. Shows toast notification if error exists. Dispatches clearError action.
+Handle different error types: network error, AsyncStorage error, validation error.
+LOADING STATE RULES
+Initial loading only shows on app start. Check initialized false and loading true combination.
+Refresh loading managed with separate state. Use RefreshControl component.
+Background operations don't show loading, only use optimistic UI.
+REFRESH PATTERN RULES
+Add RefreshControl component to every list screen. onRefresh method calls refresh thunk. Invalidates cache, reloads data fresh.
+Manual refresh buttons use same pattern.
+CACHE MANAGEMENT RULES
+Add cache invalidation method for every data type. TTL duration is 5 minutes. Log cache hit/miss to console.
+Cache clears on: refresh, app restart, manual invalidation.
+FUTURE DB SYNC PREPARATION RULES
+Leave comment placeholder for DB sync in every async thunk. Keep infrastructure ready for network state control. Create basic structure for offline queue system.
+Add online/offline state detection. AsyncStorage when offline, DB sync when online.
+CHECKLIST FOR EVERY DATA TYPE
+Slice file created. 5 async thunks added. 3 optimistic actions added. Error handling exists. Storage methods added. Cache invalidation exists. Reducer added to store. Added to app initialization. Component pattern correct. Loading states implemented. Refresh pattern added. Console logs exist. Naming convention followed.
+PERFORMANCE RULES
+Optimize Redux selectors. Prevent unnecessary re-renders. Use memoization.
+AsyncStorage operations run on background thread. Don't block UI thread.
+Optimize cache hit rate. Keep frequently accessed data in cache.
+DEBUGGING RULES
+Use Redux DevTools. Track action history. Take state snapshots.
+Console logs are meaningful. Include operation type, timestamp, data summary.
+Implement error tracking. Log error details, stack trace, user context.
+These rules ensure consistent, performant and maintainable code for every data type.
 
 ---
 > Source: [hasaneyldrm/reactnativecliboilerplate](https://github.com/hasaneyldrm/reactnativecliboilerplate) — distributed by [TomeVault](https://tomevault.io).
