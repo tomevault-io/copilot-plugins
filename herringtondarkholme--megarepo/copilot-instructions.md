@@ -1,80 +1,68 @@
-## prompt-engineering
+## security
 
-> Prompt engineering templates and best practices for AI model interactions
+> Security guidelines and API key management best practices
 
 
-# Prompt Engineering Templates
+# Security & API Key Management
 
-Guidelines and templates for effective AI prompt engineering. Use `@prompt-engineering` to include this rule.
+Critical security guidelines for AI development in this repository.
 
-## Prompt Engineering Best Practices
+## Core Security Principles
 
-### 1. Prompt Structure Templates
-```typescript
-// System prompt template
-const SYSTEM_PROMPT = `
-You are an expert assistant specialized in [DOMAIN].
-Your responses should be:
-- Accurate and factual
-- Concise but comprehensive
-- Professional in tone
-- Focused on [SPECIFIC_GOAL]
+### 1. API Key and Credential Management
+- **NEVER** commit API keys, secrets, or credentials to version control
+- Always use environment variables for sensitive data
+- Create `.env.example` files to document required environment variables
+- Implement proper API key rotation and management patterns
+- Use secure storage solutions for production deployments
 
-Context: [CONTEXT_INFORMATION]
-`;
+### 2. Environment Variable Patterns
+Create `.env.local` with these patterns:
+```env
+# AI Service Keys
+OPENAI_API_KEY=your_openai_key_here
+ANTHROPIC_API_KEY=your_anthropic_key_here
 
-// User prompt template
-const createUserPrompt = (input: string, context?: string) => `
-Task: ${input}
-${context ? `Additional context: ${context}` : ''}
+# Application Settings
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NODE_ENV=development
 
-Please provide a response that follows the system guidelines.
-`;
+# Database (if needed)
+DATABASE_URL=your_database_url_here
 ```
 
-### 2. Prompt Versioning
-- Store prompts in separate configuration files
-- Version prompts for A/B testing
-- Track prompt performance and iterate
-- Document prompt changes and rationale
+### 3. Data Privacy Guidelines
+- Avoid sending sensitive user data to AI services
+- Implement data anonymization where possible
+- Follow GDPR and privacy regulations
+- Document data usage and retention policies
 
-### 3. Dynamic Prompt Generation
-```typescript
-interface PromptConfig {
-  system: string;
-  temperature: number;
-  maxTokens: number;
-  stopSequences?: string[];
+### 4. API Security Best Practices
+- Validate all inputs before sending to AI services
+- Implement proper CORS settings
+- Use HTTPS for all AI API communications
+- Regularly rotate API keys and secrets
+
+### 5. Error Handling Security
+```javascript
+// Secure error handling - don't expose sensitive details
+try {
+  const response = await aiClient.complete(prompt);
+  return response;
+} catch (error) {
+  // Log detailed error internally
+  logger.error('AI service error', { error, userId: user.id });
+  
+  // Return generic error to client
+  throw new Error('AI service temporarily unavailable');
 }
-
-const generatePrompt = (
-  task: string, 
-  userInput: string, 
-  config: PromptConfig
-) => {
-  // Build context-aware prompts
-  // Include relevant examples
-  // Optimize for token efficiency
-};
 ```
 
-### 4. Context Management
-- Implement conversation memory
-- Manage context window limits
-- Prioritize relevant information
-- Handle context overflow gracefully
-
-### 5. Prompt Optimization Techniques
-- Use few-shot learning examples
-- Implement chain-of-thought prompting
-- Apply role-based prompting
-- Include output format specifications
-
-### 6. Testing and Validation
-- Create test suites for prompt effectiveness
-- Measure response quality metrics
-- Compare different prompt versions
-- Monitor prompt performance in production
+### 6. Rate Limiting and Monitoring
+- Implement proper rate limiting for AI API endpoints
+- Monitor API usage and costs
+- Track unusual usage patterns
+- Implement health checks for AI services
 
 ---
 > Source: [HerringtonDarkholme/megarepo](https://github.com/HerringtonDarkholme/megarepo) — distributed by [TomeVault](https://tomevault.io).
