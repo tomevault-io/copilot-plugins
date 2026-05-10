@@ -1,0 +1,9 @@
+{
+  "name": "victarry--pytorch-memory-profiler",
+  "displayName": "PyTorch-Memory-Profiler",
+  "description": "PyTorch-Memory-Profiler",
+  "version": "1.0.0",
+  "author": "Victarry",
+  "homepage": "https://github.com/Victarry/PyTorch-Memory-Profiler",
+  "skills": []
+}
