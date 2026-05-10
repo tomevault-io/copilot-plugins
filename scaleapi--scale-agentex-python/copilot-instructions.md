@@ -1,13 +1,20 @@
-## 20-codegen-boundaries
+## 30-cli-and-commands
 
-> Keep manual code separate from generated SDK code
+> Guidance for working with the agentex CLI and commands
 
 
-Guideline:
+The `agentex` CLI exposes:
 
-- Avoid modifying auto-generated files in `src/agentex/` except where explicitly intended. Place custom logic, extensions, and higher-level abstractions in `src/agentex/lib/`.
-- When adding features, prefer adding new modules under `src/agentex/lib/**` rather than changing generated files directly.
-- If a change to generated code is required, document the reason and ensure the generator configuration or upstream schema is updated to make the change reproducible.
+- `agentex agents` for get/list/run/build/deploy agents
+- `agentex tasks` for get/list/delete tasks
+- `agentex secrets` for sync/get/list/delete secrets
+- `agentex uv` as a UV wrapper with AgentEx-specific enhancements
+- `agentex init` to initialize new agent projects
+
+Development tips:
+
+- For agent development, use `agentex agents run --manifest manifest.yaml`
+- For debugging, append `--debug-worker` and optionally `--debug-port 5679`
 
 ---
 > Source: [scaleapi/scale-agentex-python](https://github.com/scaleapi/scale-agentex-python) — distributed by [TomeVault](https://tomevault.io).
