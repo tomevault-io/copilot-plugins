@@ -7,14 +7,14 @@ The IDE without editor
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [2mawi2/schaltwerk](https://github.com/2mawi2/schaltwerk).
+Original source: `AGENTS.md` in [2mawi2/schaltwerk](https://github.com/2mawi2/schaltwerk).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [2mawi2/schaltwerk](https://github.com/2mawi2/schaltwerk) — a repo with 280+ stars on GitHub.
