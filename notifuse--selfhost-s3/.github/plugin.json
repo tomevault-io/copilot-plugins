@@ -1,0 +1,9 @@
+{
+  "name": "notifuse--selfhost-s3",
+  "displayName": "selfhost_s3",
+  "description": "A minimal S3-compatible object storage server that persists files to the local filesystem.",
+  "version": "1.0.0",
+  "author": "Notifuse",
+  "homepage": "https://github.com/Notifuse/selfhost_s3",
+  "skills": []
+}
