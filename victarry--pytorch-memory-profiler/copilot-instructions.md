@@ -1,66 +1,54 @@
-## plugin-development
+## project-structure
 
-> All plugins must inherit from `TracerPlugin` and implement:
+> This is a PyTorch memory profiling library that estimates memory footprint of models using FakeTensorMode and TorchDispatchMode.
 
-# Plugin Development Guidelines
+# PyTorch Memory Profiler Project Structure
 
-## Plugin Interface
-All plugins must inherit from `TracerPlugin` and implement:
-- `setup(tracer)`: Initialize plugin with tracer instance
-- `enter()`: Called when entering tracer context
-- `exit(exc_type, exc_val, exc_tb)`: Cleanup on context exit
+This is a PyTorch memory profiling library that estimates memory footprint of models using FakeTensorMode and TorchDispatchMode.
 
-## Plugin Responsibilities
-1. **Library Patching**: Override library-specific functions for fake tensor compatibility
-2. **Operation Tracking**: Register custom operations for memory tracking
-3. **Communication Handling**: Mock distributed operations
-4. **Resource Management**: Clean up patches and hooks on exit
+## Core Architecture
 
-## Common Patterns
+### Main Components
+- **memory_profiler/core**: Core memory tracing functionality
+  - [memory_tracer.py](mdc:memory_profiler/core/memory_tracer.py): Main MemoryTracer class that orchestrates memory profiling
+  - [memory_dispatch_mode.py](mdc:memory_profiler/core/memory_dispatch_mode.py): TorchDispatchMode implementation for tracking memory operations
+  - [mod_tracker.py](mdc:memory_profiler/core/mod_tracker.py): Module-level tracking for memory usage attribution
+  - [logger.py](mdc:memory_profiler/core/logger.py): Logging utilities with rich formatting support
 
-### Patching External Libraries
-```python
-def enter(self):
-    # Save original function
-    self._original_func = library.function
-    # Replace with patched version
-    library.function = self._patched_function
-    
-def exit(self, exc_type, exc_val, exc_tb):
-    # Restore original
-    library.function = self._original_func
+### Plugin System
+- **memory_profiler/plugins**: Extensible plugin architecture for different frameworks
+  - [base_plugin.py](mdc:memory_profiler/plugins/base_plugin.py): Abstract base class for all plugins
+  - [distributed_plugin.py](mdc:memory_profiler/plugins/distributed_plugin.py): Distributed training support
+  - [megatron_core_plugin.py](mdc:memory_profiler/plugins/megatron_core_plugin.py): Megatron-LM integration
+  - [transformer_engine_plugin.py](mdc:memory_profiler/plugins/transformer_engine_plugin.py): TransformerEngine support
+  - [p2p_communication_plugin.py](mdc:memory_profiler/plugins/p2p_communication_plugin.py): P2P communication handling
+
+## Key Features
+1. **FakeTensor-based estimation**: Uses PyTorch's FakeTensorMode to estimate memory without actual GPU execution
+2. **Distributed training support**: Can simulate distributed training with a single process
+3. **Module-level tracking**: Pinpoints memory usage to specific model modules
+4. **Phase tracking**: Tracks memory across different training phases (forward, backward, optimizer)
+5. **Visualization**: Includes Streamlit-based visualizer in [tools/visualizer.py](mdc:tools/visualizer.py)
+
+## Project Layout
+```
+pytorch-memory-tracing/
+├── memory_profiler/          # Main package
+│   ├── core/                 # Core functionality
+│   └── plugins/              # Framework integrations
+├── examples/                 # Usage examples
+│   ├── simple/              # Basic single-GPU examples
+│   ├── mcore/               # Megatron-Core examples
+│   └── megatron-lm/         # Megatron-LM scripts
+├── patches/                  # Patches for external libraries
+├── tools/                    # Visualization and analysis tools
+└── docs/                     # Documentation
 ```
 
-### Handling Optional Dependencies
-```python
-try:
-    import optional_library
-    HAS_LIBRARY = True
-except ImportError:
-    HAS_LIBRARY = False
-    
-def setup(self, tracer):
-    if not HAS_LIBRARY:
-        logger.debug("Optional library not available, skipping plugin")
-        return
-```
-
-### Custom Operation Registration
-```python
-def setup(self, tracer):
-    # Register custom ops with memory dispatcher
-    tracer.memory_dispatch_mode.register_custom_op(
-        op_name="custom_op",
-        memory_func=self.calculate_custom_op_memory
-    )
-```
-
-## Testing Plugins
-- Test with and without the target library
-- Verify patches don't break normal execution
-- Check memory calculations are accurate
-- Test distributed scenarios if applicable
-- Ensure proper cleanup in all exit paths
+## Entry Points
+- Main API: `from memory_profiler import MemoryTracer`
+- Simple usage: [examples/simple/single_gpu.py](mdc:examples/simple/single_gpu.py)
+- Megatron integration: [examples/mcore/pretrain_gpt.py](mdc:examples/mcore/pretrain_gpt.py)
 
 ---
 > Source: [Victarry/PyTorch-Memory-Profiler](https://github.com/Victarry/PyTorch-Memory-Profiler) — distributed by [TomeVault](https://tomevault.io).
