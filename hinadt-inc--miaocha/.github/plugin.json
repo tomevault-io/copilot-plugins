@@ -1,0 +1,9 @@
+{
+  "name": "hinadt-inc--miaocha",
+  "displayName": "miaocha",
+  "description": "MiaoCha - is an enterprise-level log analysis platform that can collect massive logs in one stop and realize millisecond-level search and query and intelligent data analysis.",
+  "version": "1.0.0",
+  "author": "Hinadt-Inc",
+  "homepage": "https://github.com/Hinadt-Inc/miaocha",
+  "skills": []
+}
