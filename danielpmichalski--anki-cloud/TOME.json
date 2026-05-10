@@ -1,0 +1,44 @@
+{
+  "name": "anki-cloud",
+  "owner": "danielpmichalski",
+  "repo": "anki-cloud",
+  "description": "A fully-fledged Anki Sync Server with OAuth2.0, REST API and MCP Server included, everything one needs to finally work with Anki the way one wants.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/danielpmichalski/anki-cloud",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T09:30:34Z"
+}
