@@ -4,7 +4,7 @@
   "repo": "oh-my-antigravity",
   "description": "Give your Antigravity agent the collective intelligence of the \"Oh My\" ecosystem with 72 specialized Skills and 35 automated Workflows.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/materialofair/oh-my-antigravity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T11:51:05Z"
+  "distributed_at": "2026-05-10T20:14:30Z"
 }
