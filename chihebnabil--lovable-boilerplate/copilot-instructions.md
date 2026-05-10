@@ -1,145 +1,76 @@
-## components
+## core
 
-> Component development patterns and composition rules
+> Core architecture and quality rules for React + Vite + shadcn/ui template
 
 
-# Component Development Rules
+# React + Vite + shadcn/ui Template - Core Rules
 
-## Component Patterns
+## CRITICAL ARCHITECTURE RULES
 
-### GOOD Component Structure
-```tsx
-// Single responsibility, 20-80 lines
-interface UserCardProps {
-  user: User
-  onEdit: (id: string) => void
-  className?: string
-}
+### Component Size & Organization
+- **NEVER** create components over 300 lines
+- **ALWAYS** break down complex components into smaller, focused pieces (20-100 lines)
+- **EXTRACT** reusable logic to custom hooks, not copy-paste
+- **USE** composition patterns - build complex UI from smaller components
 
-export const UserCard = ({ user, onEdit, className }: UserCardProps) => {
-  return (
-    <Card className={cn("p-4", className)}>
-      <Avatar src={user.avatar} />
-      <div>
-        <h3 className="font-semibold">{user.name}</h3>
-        <p className="text-muted-foreground">{user.email}</p>
-        <Button onClick={() => onEdit(user.id)}>Edit</Button>
-      </div>
-    </Card>
-  )
-}
+### File Structure Requirements
+```
+src/
+├── components/
+│   ├── ui/              # shadcn/ui components (READ-ONLY)
+│   ├── common/          # Reusable components
+│   ├── forms/           # Form components
+│   └── features/        # Feature-specific components
+├── hooks/               # Custom React hooks
+├── lib/
+│   ├── utils.ts         # Utilities (includes cn function)
+│   ├── types.ts         # Shared TypeScript types
+│   ├── constants.ts     # App constants
+│   └── validations/     # Zod schemas
+├── pages/               # Route components (composition only)
+├── services/            # API calls
+└── context/             # React context providers
 ```
 
-### AVOID: Monolithic Components
+### Import Organization
 ```tsx
-// DON'T: 300+ lines mixing concerns
-const UserManagement = () => {
-  // Massive component with multiple responsibilities
-}
+// 1. React imports
+import React, { useState, useEffect } from 'react'
+
+// 2. Third-party libraries
+import { useQuery } from '@tanstack/react-query'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+// 3. UI components
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+
+// 4. Local components
+import { UserCard } from '@/components/common/UserCard'
+
+// 5. Hooks and utilities
+import { useDisclosure } from '@/hooks/useDisclosure'
+import { cn } from '@/lib/utils'
+
+// 6. Types and constants
+import type { User } from '@/lib/types'
+import { API_ENDPOINTS } from '@/lib/constants'
 ```
 
-### Component Composition Pattern
-```tsx
-// Build complex UI from smaller components
-const Dashboard = () => (
-  <PageLayout>
-    <DashboardHeader />
-    <DashboardMetrics />
-    <DashboardCharts />
-    <DashboardActivity />
-  </PageLayout>
-)
+### Essential Commands
+```bash
+npm run dev          # Start development server (port 8080)
+npm run build        # Production build  
+npm run lint         # Run ESLint - MUST pass before shipping
 ```
 
-## UI Component Rules
-
-### shadcn/ui Components
-- **NEVER** modify files in `src/components/ui/` directly
-- **EXTEND** by creating wrappers in `src/components/common/`
-- **COMPOSE** multiple ui components to build features
-
-### Form Components
-```tsx
-// Use React Hook Form + Zod pattern
-export const UserForm = ({ onSubmit, initialData }: UserFormProps) => {
-  const form = useForm<UserFormData>({
-    resolver: zodResolver(userSchema),
-    defaultValues: initialData
-  })
-
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </form>
-    </Form>
-  )
-}
-```
-
-## Page Component Rules
-
-### Pages = Composition Only
-```tsx
-// PERFECT: Thin orchestration layer (10-30 lines max)
-const DashboardPage = () => {
-  const { data: user, isLoading } = useCurrentUser()
-  
-  if (isLoading) return <PageSkeleton />
-  
-  return (
-    <PageLayout>
-      <DashboardHeader user={user} />
-      <DashboardMetrics />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <DashboardCharts />
-        <DashboardActivity />
-      </div>
-    </PageLayout>
-  )
-}
-```
-
-### NEVER in Pages
-- Business logic (extract to hooks)
-- API calls (use service layer)
-- Complex state management
-- Inline event handlers
-
-## Reusable Component Patterns
-
-### Compound Components
-```tsx
-const DataTable = ({ children }) => (
-  <div className="border rounded-lg overflow-hidden">{children}</div>
-)
-
-const DataTableHeader = ({ children }) => (
-  <div className="bg-muted p-4 border-b">{children}</div>
-)
-
-// Usage
-<DataTable>
-  <DataTableHeader>
-    <h3>Users</h3>
-  </DataTableHeader>
-  <DataTableBody>
-    {users.map(user => <UserRow key={user.id} user={user} />)}
-  </DataTableBody>
-</DataTable>
-```
+### Quality Gates
+- **BEFORE SHIPPING**: Run `npm run lint` and fix all issues
+- **ACCESSIBILITY**: Maintain WCAG 2.1 AA contrast (4.5:1 minimum)
+- **NO CONSOLE ERRORS**: Zero warnings in browser console
+- **RESPONSIVE**: Test on mobile and desktop
+- **DESIGN QUALITY**: Industry-appropriate visual identity with purposeful color psychology
+- **CUSTOM DESIGN**: Interfaces should feel premium and custom-crafted, not template-like
 
 ---
 > Source: [chihebnabil/lovable-boilerplate](https://github.com/chihebnabil/lovable-boilerplate) — distributed by [TomeVault](https://tomevault.io).
