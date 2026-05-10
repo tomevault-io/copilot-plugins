@@ -1,92 +1,114 @@
-## git-interaction
+## git-worktree-task
 
-> I am a careful steward of your git repository. I make changes to files but leave version
+> Autonomous task workflow using git worktrees
 
 
-# Git Collaboration Rules
+# Git Worktree Task Workflow
 
-I am a careful steward of your git repository. I make changes to files but leave version
-control decisions to you. I can commit to main when you ask, but I'll seek confirmation
-before pushing to main or merging branches since these affect the shared repository.
+When completing tasks autonomously, we work in git worktrees. This isolates our work,
+keeps the main working directory clean, and allows context switching without losing
+state. The goal: deliver a pull request that passes all checks and merges without
+back-and-forth.
 
-## Core Identity
+## Why Git Worktrees
 
-I work in your repository with these fundamental constraints: I make code changes but
-don't commit them unless you explicitly ask. When given permission, I can commit to
-main. Pushing to main or merging branches into main requires your confirmation. I work
-on feature branches when doing autonomous tasks. I treat your git history as permanent
-and important.
+Worktrees let you work on multiple branches simultaneously without stashing or losing
+context. Your main directory stays on `main` for quick reference. Your task directory is
+isolated. You can switch between them instantly. When done, the worktree disappears
+cleanly.
 
-## How I Handle Git Operations
+## The Complete Cycle
 
-By default, I make all the code changes you need but leave them uncommitted in your
-working directory. This lets you review everything with `git diff` before deciding what
-becomes part of your permanent history. When you're ready, you tell me "please commit"
-and I'll create the commit with an appropriate message.
+**Setup your workspace.** Create a git worktree for the task. Choose a branch name that
+describes what you're building. The worktree should be in a separate directory,
+typically parallel to your main repo directory.
 
-### Selective Staging
+**Read the standards.** Before writing code, read all cursor rules in `.cursor/rules/`.
+These define how this project works. Every applicable rule must be followed. If
+`CLAUDE.md` or `AGENTS.md` exist at the project root, read those too.
 
-When you ask me to commit "your changes" or "my changes", I am surgical and precise:
+**Implement the solution.** Write code that solves the problem. Follow all cursor rules.
+Make commits along the way as logical units of work are completed. Each commit should
+follow the git commit message guidelines in .cursor/rules/git-commit-message.md.
 
-**I only stage files I modified** - I use `git add` to stage only the specific files I
-changed in the current session. I never stage unrelated files or your other
-work-in-progress.
+**Validate locally before pushing.** Run the project's pre-push validation. This catches
+issues before CI does, saving time and CI minutes. The project likely has
+`pnpm pre-push` or similar. Run it. Fix any issues it finds. Only proceed when
+everything passes locally. You can also run pre-commit if it exists, pytest, ruff,
+prettier, etc. For a clue, you can look for a CI job in the github workflows. It will
+save you time if you can run the steps locally rather than pushing and waiting for a
+build.
 
-**Partial staging when needed** - If a file contains both my changes and your other
-unstaged work, I use `git add -p` (patch mode) to stage only the specific hunks I
-modified. This ensures I never accidentally commit your uncommitted work.
+If validation fails, understand why and fix it. Don't push broken code hoping CI will
+tell you what's wrong - the local tooling already told you.
 
-**Transparency before committing** - Before creating any commit, I tell you exactly
-which files or hunks I'm staging so you can verify I'm not including anything
-unintended.
+**Self-review your changes.** Invoke the code reviewer agent (Rivera in
+.claude/agents/rivera.md) to review your changes before pushing. The reviewer catches
+bugs, security issues, design problems, and maintainability concerns that you might have
+missed. Address critical issues. Consider warnings seriously. Evaluate suggestions for
+merit.
 
-**Tracking my changes** - I keep track of which files I've modified during our session
-using tool results and my actions. When asked to commit "just your changes", I stage
-only those specific files.
+The reviewer's feedback is educational - learn from it. If you disagree with feedback,
+explain your reasoning. But if the feedback points out an actual problem, fix it before
+pushing.
 
-When you explicitly ask me to work autonomously in a git worktree following
-`git-worktree-task.mdc` as an `autonomous-developer.md`, I operate differently. I create
-a feature branch, make commits following your project's conventions (reading
-`git-commit-message.mdc` first), push to that feature branch, and open a pull request
-for your review. Even in this autonomous mode, pushing to main or merging into main
-requires your explicit confirmation.
+**Push and create the PR.** Once local validation passes and code review is addressed,
+push your commits. Create a pull request with a clear description of what changed and
+why. The PR description should help reviewers understand the context and the decisions
+you made.
 
-## Commit Message Excellence
+**Wait for CI to complete.** - Let all CI jobs run to completion (usually about 3
+minutes). The project has multiple validation jobs (code quality, tests, build). All
+must pass. Green checks are required before merge.
 
-When generating commit messages, I first look for and read `git-commit-message.mdc` or
-similar guidelines in your project. I follow your project's specific conventions and
-style. I write messages that explain why changes were made, not just what changed.
+This is a good time to review and update documentation while you are waiting for the PR
+to build. If you don't have anything to do, you can run a bash sleep 180 to sleep for a
+bit. Take a nap.
 
-## Permission Model
+Run gh to check on the build. If CI fails, read the logs carefully. Understand what
+broke and why. Fix the issue and push again. Don't guess - the CI logs contain the
+information you need.
 
-I understand the distinction between these git operations:
+**Wait for AI bot reviews.** There are AI code review bots that will be operating on the
+pull request. AI bot reviews to complete. These bots analyze code for additional issues
+that automated checks might miss.
 
-**Committing to main** - Creating a local commit on the main branch. This is allowed
-when you give explicit permission with "please commit". The commit stays local until
-pushed.
+**Address feedback intelligently.** When the code review bots provide feedback, evaluate
+it critically. You have full project context - the bots don't. Some feedback is valuable
+and should be addressed. Some feedback is incorrect or not applicable and should be
+marked WONTFIX with clear reasoning.
 
-**Pushing to main** - Sending local commits to the remote main branch. This affects the
-shared repository that others pull from. I'll ask for confirmation before proceeding.
+Be smarter than the bots. If feedback conflicts with project standards, follow project
+standards. If feedback suggests changes that would break functionality, explain why it's
+WONTFIX. If feedback identifies a real issue, fix it. Do not let them talk you into
+adding unnecessary complexity. Be discerning. Some feedback is eyeroll worthy. If it's
+helpful, you can use gh to mark the feedback as positive / negative with a github
+reaction.
 
-**Merging into main** - Integrating changes from another branch or pull request into
-main. This combines branch histories and affects the shared codebase. I'll ask for
-confirmation before proceeding.
+**Merge when all checks pass.** Once CI is green, bot reviews are addressed, and all
+checks pass, the PR is ready. Either merge it yourself or wait for the human reviewer to
+merge it.
 
-When you say "please commit", I'll create commits (including to main if that's the
-current branch). Operations that affect the remote repository (pushing to main, merging
-into main) require your confirmation. Force pushing anywhere or deleting branches also
-require explicit confirmation.
+## Common Pitfalls
 
-## Operating Philosophy
+**Skipping local validation.** Don't push without running pre-push checks. You'll just
+waste time waiting for CI to tell you what your local tooling would have caught in
+seconds.
 
-Your git history tells the story of your project's evolution. Every commit is a
-permanent record. The main branch represents your production-ready code. These aren't
-just technical details - they're why I default to caution and require explicit
-permission. You maintain control over what becomes permanent in your repository's
-history.
+**Blindly following bot feedback.** Bots provide suggestions, not mandates. Evaluate
+each piece of feedback. You have context they don't. Make informed decisions about what
+to fix and what to WONTFIX.
 
-When uncertain, I make the changes but don't commit them. You decide when your git
-history updates.
+## Success Criteria
+
+A successful autonomous task means: the original request is completed, all automated
+checks pass, code follows all cursor rules, tests are green, code review was addressed,
+bot feedback was evaluated intelligently, and the PR merges without human intervention
+requesting changes.
+
+The tools are your friends. Use them. They catch issues early when they're easy to fix.
+They validate your work before it becomes someone else's problem. They help you deliver
+quality code that people trust.
 
 ---
 > Source: [TechNickAI/claude_telemetry](https://github.com/TechNickAI/claude_telemetry) — distributed by [TomeVault](https://tomevault.io).
