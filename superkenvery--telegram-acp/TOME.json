@@ -4,7 +4,7 @@
   "repo": "Telegram-ACP",
   "description": "Control any agent from telegram",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SuperKenVery/Telegram-ACP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T01:46:57Z"
+  "distributed_at": "2026-05-10T11:57:32Z"
 }
