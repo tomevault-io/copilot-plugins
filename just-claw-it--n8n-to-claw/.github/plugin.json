@@ -1,0 +1,9 @@
+{
+  "name": "just-claw-it--n8n-to-claw",
+  "displayName": "n8n-to-claw",
+  "description": "A CLI tool that converts n8n workflow JSON into OpenClaw-compatible skills",
+  "version": "1.0.0",
+  "author": "just-claw-it",
+  "homepage": "https://github.com/just-claw-it/n8n-to-claw",
+  "skills": []
+}
