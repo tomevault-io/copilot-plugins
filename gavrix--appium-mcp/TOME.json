@@ -2,7 +2,7 @@
   "name": "appium-mcp",
   "owner": "gavrix",
   "repo": "appium-mcp",
-  "description": "",
+  "description": "MCP server for appium",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gavrix/appium-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T14:48:33Z"
+  "distributed_at": "2026-05-10T22:33:24Z"
 }
