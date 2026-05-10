@@ -1,0 +1,9 @@
+{
+  "name": "bedriyan--medkit-app",
+  "displayName": "medkit-app",
+  "description": "A voice-first AI patient simulator bringing the future of medical education to your browser, built with Claude Opus 4.7.",
+  "version": "1.0.0",
+  "author": "bedriyan",
+  "homepage": "https://github.com/bedriyan/medkit-app",
+  "skills": []
+}
