@@ -1,0 +1,9 @@
+{
+  "name": "blundergoat--goat-flow",
+  "displayName": "goat-flow",
+  "description": "A structured workflow system for AI coding agents - harness engineering, execution loop, skills, hooks, and a learning loop. Works with Claude Code, Gemini CLI, Codex.    ",
+  "version": "1.0.0",
+  "author": "blundergoat",
+  "homepage": "https://github.com/blundergoat/goat-flow",
+  "skills": []
+}
