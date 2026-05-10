@@ -1,0 +1,9 @@
+{
+  "name": "robonuggets--fantastic-posters",
+  "displayName": "fantastic-posters",
+  "description": "Generate posters across 31 visual styles using GPT Image 2. Auto-picks the right style from your brief, builds the prompt, renders. Hand off to Canva Magic Layers for editing.",
+  "version": "1.0.0",
+  "author": "robonuggets",
+  "homepage": "https://github.com/robonuggets/fantastic-posters",
+  "skills": []
+}
