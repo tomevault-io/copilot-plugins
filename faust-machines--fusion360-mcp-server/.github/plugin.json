@@ -1,0 +1,9 @@
+{
+  "name": "faust-machines--fusion360-mcp-server",
+  "displayName": "fusion360-mcp-server",
+  "description": "MCP Server for Autodesk Fusion 360",
+  "version": "1.0.0",
+  "author": "faust-machines",
+  "homepage": "https://github.com/faust-machines/fusion360-mcp-server",
+  "skills": []
+}
