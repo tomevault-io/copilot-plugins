@@ -1,0 +1,9 @@
+{
+  "name": "shivam2003-dev--ministack-aws",
+  "displayName": "ministack-aws",
+  "description": "A complete, production-like AWS testing environment with real infrastructure. Includes 40+ AWS services with actual databases, caches, and a web UI.",
+  "version": "1.0.0",
+  "author": "shivam2003-dev",
+  "homepage": "https://github.com/shivam2003-dev/ministack-aws",
+  "skills": []
+}
