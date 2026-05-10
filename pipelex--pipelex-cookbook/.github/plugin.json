@@ -1,0 +1,9 @@
+{
+  "name": "pipelex--pipelex-cookbook",
+  "displayName": "pipelex-cookbook",
+  "description": "Cookbook for Pipelex, the declarative language for composable Al workflows. Devtool for agents and mere humans.",
+  "version": "1.0.0",
+  "author": "Pipelex",
+  "homepage": "https://github.com/Pipelex/pipelex-cookbook",
+  "skills": []
+}
