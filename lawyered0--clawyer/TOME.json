@@ -1,0 +1,44 @@
+{
+  "name": "cLawyer",
+  "owner": "lawyered0",
+  "repo": "cLawyer",
+  "description": "cLawyer is a local-first legal AI assistant for law firms with matter isolation, citation discipline, and max-lockdown hardening",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lawyered0/cLawyer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T13:30:08Z"
+}
