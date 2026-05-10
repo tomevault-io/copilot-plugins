@@ -1,0 +1,9 @@
+{
+  "name": "prismer-ai--k8s4claw",
+  "displayName": "k8s4claw",
+  "description": "The Kubernetes operator where AI agents manage their own infrastructure. Self-healing via intent annotations, Ed25519-signed audit, graceful LLM fallback.",
+  "version": "1.0.0",
+  "author": "Prismer-AI",
+  "homepage": "https://github.com/Prismer-AI/k8s4claw",
+  "skills": []
+}
