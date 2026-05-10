@@ -1,0 +1,9 @@
+{
+  "name": "zimbatm--subportal",
+  "displayName": "subportal",
+  "description": "xdg-open on your server",
+  "version": "1.0.0",
+  "author": "zimbatm",
+  "homepage": "https://github.com/zimbatm/subportal",
+  "skills": []
+}
