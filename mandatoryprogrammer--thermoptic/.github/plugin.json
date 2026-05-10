@@ -1,0 +1,9 @@
+{
+  "name": "mandatoryprogrammer--thermoptic",
+  "displayName": "thermoptic",
+  "description": "A next-generation HTTP stealth proxy which perfectly cloaks requests as the Chrome browser across all layers of the stack.",
+  "version": "1.0.0",
+  "author": "mandatoryprogrammer",
+  "homepage": "https://github.com/mandatoryprogrammer/thermoptic",
+  "skills": []
+}
