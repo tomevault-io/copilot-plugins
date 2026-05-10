@@ -1,28 +1,13 @@
-## python-dev
+## readme-summary
 
-> Python development guidance, combined from reviewing various examples and modifying to personal preferences
+> We will be building a web app. Please keep a short README.md that summarizes the purpose of the project, specifies technologies used and why, and how to get started using it. After each request, determine if this needs to be changed, and update it if so.
 
-# Python Development Rules
 
-## Code Quality
-- DRY principle, composition over inheritance, pure functions when possible
-- Simple solutions over clever ones, design for common use cases first
-- Type hints required, snake_case naming, Google-style docstrings
-- Keep functions small (single responsibility), preserve existing comments
+We will be building a web app. Please keep a short README.md that summarizes the purpose of the project, specifies technologies used and why, and how to get started using it. After each request, determine if this needs to be changed, and update it if so.
 
-## Error Handling & Efficiency  
-- Specific exception types, validate inputs early, no bare except
-- f-strings, comprehensions, context managers
+When README changes are warranted, cross-check the companion technical docs in `docs/technical/` (frontend overview, backend overview, slide parser & script management, etc.) and update them whenever the underlying behavior changes.
 
-## Testing (Critical)
-- **pytest only** (no unittest), all tests in `./tests/` with `__init__.py`
-- TDD approach: write/update tests for all new/modified code
-- All tests must pass before task completion
-
-## Environment
-- Dependency management via https://github.com/astral-sh/uv and virtual environments.
-- Code style consistency using Ruff.
-- **Virtual Environment or uv**: Always use either `uv` or a virtual environment (`venv`) when running Python scripts. Check for an existing `.venv` in the current or parent directories before creating a new one. Activate the `.venv` before installing packages or executing scripts.
+Only modify README files as part of a commit. When preparing a commit, ask whether the README (and related technical docs) should be updated before proceeding.
 
 ---
 > Source: [robertwhiffin/ai-slide-generator](https://github.com/robertwhiffin/ai-slide-generator) — distributed by [TomeVault](https://tomevault.io).
