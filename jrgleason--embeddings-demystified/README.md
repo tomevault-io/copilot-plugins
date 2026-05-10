@@ -7,11 +7,11 @@ This is a presentation on embeddings for CodeMash 2026
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jrgleason/embeddings-demystified](https://github.com/jrgleason/embeddings-demystified).
+Original source: `CLAUDE.md` in [jrgleason/embeddings-demystified](https://github.com/jrgleason/embeddings-demystified).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
