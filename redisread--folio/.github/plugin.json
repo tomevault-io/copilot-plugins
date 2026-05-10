@@ -1,0 +1,9 @@
+{
+  "name": "redisread--folio",
+  "displayName": "folio",
+  "description": "\u6781\u7b80 RSS \u9605\u8bfb\u5668 \u2014 \u57fa\u4e8e Next.js + Cloudflare Workers",
+  "version": "1.0.0",
+  "author": "redisread",
+  "homepage": "https://github.com/redisread/folio",
+  "skills": []
+}
