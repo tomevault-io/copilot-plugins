@@ -4,7 +4,7 @@
   "repo": "vendor_jarvisos",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/ocansey11",
+  "source_url": "https://github.com/ocansey11/vendor_jarvisos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T11:33:42Z"
+  "distributed_at": "2026-05-10T20:42:14Z"
 }
