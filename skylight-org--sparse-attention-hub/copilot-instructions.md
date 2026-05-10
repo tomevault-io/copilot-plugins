@@ -1,20 +1,41 @@
-## defensive-coding
+## doctstring-python
 
-> when to do defensive and when not to do defensive coding
+> docstring format to use in python
 
 
-Follow these instructions when writing any python code
+While writing python code, always ensure to add correct formatted docstrings to classes and methods.
 
-1. Keep code minimal by focusing only on the logic needed for the task.
-2. Trust internal invariants in self-contained projects—don't check for impossible conditions.
-3. Avoid unnecessary type checks or error handling when inputs are fully controlled.
-4. Use assertions during development to catch unexpected states, but remove or reduce them in production if they're redundant.
-5. Apply defensive coding only when dealing with:
-    a. External inputs (user data, files, APIs)
-    b. Unreliable dependencies
-    c. Long-lived or reused code (e.g. libraries, shared modules)
-6. Prioritize readability and maintainability over protecting against unrealistic edge cases.
-7. Do not use try catch paradigm as much as possible. It should be used only when it is actually required.
+An example format of a good docstring is below
+
+
+"""Example Google style docstrings.
+
+This module demonstrates documentation as specified by the `Google Python
+Style Guide`_. Docstrings may extend over multiple lines. Sections are created
+with a section header and a colon followed by a block of indented text.
+
+Example:
+    Examples can be given using either the ``Example`` or ``Examples``
+    sections. Sections support any reStructuredText formatting, including
+    literal blocks::
+
+        $ python example_google.py
+
+Section breaks are created by resuming unindented text. Section breaks
+are also implicitly created anytime a new section starts.
+
+Attributes:
+    module_level_variable1 (int): Module level variables may be documented in
+        either the ``Attributes`` section of the module docstring, or in an
+        inline docstring immediately following the variable.
+
+        Either form is acceptable, but the two should not be mixed. Choose
+        one convention to document module level variables and be consistent
+        with it.
+
+Todo:
+    * For module TODOs
+"""
 
 ---
 > Source: [skylight-org/sparse-attention-hub](https://github.com/skylight-org/sparse-attention-hub) — distributed by [TomeVault](https://tomevault.io).
