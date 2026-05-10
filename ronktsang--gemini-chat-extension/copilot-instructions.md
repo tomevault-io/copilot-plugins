@@ -1,16 +1,22 @@
-## coding-style
+## data-layer-and-repositories
 
-> - **Naming**: Use descriptive names; avoid abbreviations; functions are verbs; variables are nouns
+> Data layer conventions with Dexie, repositories, and domain mapping
 
-# Coding Style (TypeScript/React)
+# Data Layer and Repositories
 
-- **Naming**: Use descriptive names; avoid abbreviations; functions are verbs; variables are nouns
-- **Types**: Annotate exported/public APIs; avoid `any` and unsafe casts
-- **Control Flow**: Prefer guard clauses and shallow nesting; avoid unnecessary try/catch and swallow-only handlers
-- **Comments**: Only for non-obvious rationale, invariants, or caveats; keep concise; **always write comments in English**
-- **Formatting**: Match existing style; wrap long lines; do not reformat unrelated code
-- **Imports**: Keep paths aligned with existing alias usage (e.g., `@/utils/...`)
-- **UI**: Prefer composition over prop drilling; colocate small helpers near usage
+- IndexedDB via Dexie is initialized in [`src/data/db.ts`](mdc:src/data/db.ts)
+  - Database name: `gemini_extension`
+  - Tables are versioned; update `version(...).stores({...})` as schemas evolve
+- Access data via repositories in [`src/data/repositories`](mdc:src/data/repositories)
+  - Example: [`chainPromptRepository`](mdc:src/data/repositories/chainPromptRepository.ts)
+  - Responsibilities: ID generation (`nanoid`), timestamps, zod validation, Row↔Domain mapping
+- Data sources live under [`src/data/sources`](mdc:src/data/sources)
+
+## Guidelines
+- Validate inputs with zod schemas at repository boundaries
+- Keep domain types in [`src/domain`](mdc:src/domain)
+- Sort/paginate/filter in repositories, not UI components
+- Prefer immutable updates and explicit timestamps (`createdAt`, `updatedAt`)
 
 ---
 > Source: [RonkTsang/gemini-chat-extension](https://github.com/RonkTsang/gemini-chat-extension) — distributed by [TomeVault](https://tomevault.io).
