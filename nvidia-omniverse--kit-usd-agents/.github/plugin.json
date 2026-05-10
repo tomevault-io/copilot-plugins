@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-omniverse--kit-usd-agents",
+  "displayName": "kit-usd-agents",
+  "description": "The base repository to build OmniverseKit USD agents. ",
+  "version": "1.0.0",
+  "author": "NVIDIA-Omniverse",
+  "homepage": "https://github.com/NVIDIA-Omniverse/kit-usd-agents",
+  "skills": []
+}
