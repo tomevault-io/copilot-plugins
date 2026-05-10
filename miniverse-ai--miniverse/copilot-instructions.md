@@ -1,14 +1,13 @@
-## use-changelog
+## uv-package-management
 
-> - **Document all changes** - Update `CHANGELOG.md` for every PR with meaningful changes
+> Always use `uv` for package management. Never use pip, poetry, or other tools.# Package Management
 
 
-# Changelog Usage
+# Package Management
 
-- **Document all changes** - Update `CHANGELOG.md` for every PR with meaningful changes
-- **Use conventional format** - Follow "Added", "Changed", "Fixed", "Removed" sections
-- **Include PR references** - Link to PR numbers for traceability
-- **Group by version** - Organize entries under version headers with dates
+Always use `uv` for package management. Never use pip, poetry, or other tools.# Package Management
+
+Always use `uv` for package management. Never use pip, poetry, or other tools.
 
 ---
 > Source: [miniverse-ai/miniverse](https://github.com/miniverse-ai/miniverse) — distributed by [TomeVault](https://tomevault.io).
