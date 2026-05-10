@@ -1,235 +1,123 @@
-## bioagentseliza
+## cursor-rules
 
-> Repository: https://github.com/elizaos/eliza
+> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
 
-# ElizaOS 1.0.0 Development Rules
+> You are an expert developer on the ElizaOS project. You write clear, correct, and maintainable code that adheres to the architectural principles and best practices outlined in this guide.
 
-Repository: https://github.com/elizaos/eliza
+# ElizaOS Master Development Guide
 
-## Package structure
+## 1. Core Development Principles
 
-packages/core - @elizaos/core - the runtime and types
-packages/client - The frontend GUI that is displayed by the CLI running
-packages/app - The desktop and mobile application, built in Tauri, wrapping the core GUI and CLI
-packages/cli - The CLI which contains the agent runtime and starts up the REST API, GUI, and loads agents and projects
--> This is what runs in most 'bun run test' and 'bun run start' cases, etc
--> 'elizaos' command is from here
-packages/plugin-bootstrap - Default event handlers, actions and providers
-packages/plugin-sql - DatabaseAdapter for Postgres and PGLite, soon others
+- **Plan First**: Always begin with a thorough plan. For bugs, identify the root cause and all affected files. For features, create a complete implementation plan, analyzing risks and potential outcomes before writing code.
+- **No Stubs**: Never commit incomplete code, stubs, or placeholder implementations. Write complete, working features.
+- **Test-Driven**: Verify all changes with comprehensive tests. The system is complex, and models can be unpredictable. Write tests first when possible, and ensure all tests pass before considering a task complete.
 
-There are others but they are not as important
+## 2. Package & Architecture Overview
 
-## Core Development Principles
+ElizaOS is a monorepo containing several key packages. Understanding their roles is crucial.
 
-### 1. Flow - Always Plan First
+-   `packages/core`: `@elizaos/core` - The heart of the system, containing the `AgentRuntime` and all core type definitions (`Plugin`, `Action`, `Service`, etc.). **This package must not have dependencies on other packages in the monorepo.**
+-   `packages/cli`: The command-line interface. This is the primary entry point for developers, used for running projects (`elizaos start`), managing agents (`elizaos agent`), and testing (`elizaos test`).
+-   `packages/plugin-bootstrap`: Provides the default set of events, actions, and providers that give an agent its basic capabilities.
+-   `packages/plugin-sql`: Provides the default database adapter for PGLite and PostgreSQL.
 
-- **Bug Fixes**: First identify the bug, research ALL related files, create complete change plan
-- **Impact Analysis**: Identify all possible errors and negative outcomes from changes
-- **Documentation**: Create thorough PRD and implementation plan BEFORE writing any code
-- **Identify risks and approaches**: Thoroughly outline all risks and offer multiple possible approaches, choosing your favorite
-- **Just do it**: Once the plan is in place, start writing code. Don't wait for response from the user.
+### High-Level Architecture
+```mermaid
+graph TD
+    subgraph "Developer Interface"
+        A[CLI (elizaos start)]
+    end
 
-### 2. No Stubs or Incomplete Code
+    subgraph "Runtime"
+        B[AgentServer]
+        C[AgentRuntime]
+        D[Database (PGLite/Postgres)]
+        E[Plugins]
+    end
 
-- **Never** use stubs, fake code, or incomplete implementations
-- **Always** continue writing until all stubs are replaced with finished, working code
-- **No POCs**: Never deliver proof-of-concepts - only finished, detailed code
-- **Iteration**: Work on files until they are perfect, looping testing and fixing until all tests pass
+    subgraph "Core Components (within Plugin)"
+        F[Actions]
+        G[Providers]
+        H[Services]
+        I[Events]
+        J[Models]
+    end
 
-### 3. Test-Driven Development
+    A --> B;
+    B --> C;
+    C --> D;
+    C --> E;
+    E --> F & G & H & I & J;
+```
 
-- Models hallucinate frequently - thorough testing is critical
-- Verify tests are complete and passing before declaring changes correct
-- First attempts are usually incorrect - test thoroughly
-- Write tests before implementation when possible
+---
 
-## Testing Infrastructure
+## 3. The Plugin System
 
-### Command Structure
+Plugins are the fundamental building blocks of the agent. Refer to [**Core Plugin Architecture**](mdc:.cursor/rules/elizaos_v2_api_plugins_core.mdc) for a deep dive.
 
-- **Main Command**: `elizaos test` (run from packages/cli)
-- **Test Framework**: vitest
-- **Subcommands**:
-  - `component`: Run component tests using Vitest
-  - `e2e`: Run end-to-end runtime tests
-  - `all`: Run both component and e2e tests (default)
+- **`Plugin` Interface**: The manifest of capabilities (`name`, `description`, `init`, `dependencies`, `actions`, `providers`, `services`, etc.).
+- **Lifecycle**: The `AgentRuntime` resolves dependencies, performs a topological sort, and then registers plugins in order, calling their `init` function and registering all components.
+- **Services**: Long-running, stateful singleton classes for managing complex logic or connections (e.g., a database connection pool, a WebSocket client). Accessed via `runtime.getService('service-name')`.
+- **Actions**: Define what an agent *can do*. A function that gets executed when the LLM decides to take an action.
+- **Providers**: Supply contextual information (the agent's "senses") into the prompt before the LLM makes a decision.
 
-### Test Types
+---
 
-- **E2E Tests**:
-  - Use actual runtime
-  - Cannot use vitest state (interferes with internal elizaos vitest instance)
-  - Test real integrations and workflows
-- **Unit Tests**:
-  - Use vitest with standard primitives
-  - Test individual components in isolation
+## 4. CLI Usage & Project Management
 
-## Architecture Details
+The `elizaos` CLI is your primary tool for creating, running, and testing projects. Refer to [**CLI Project Management**](mdc:.cursor/rules/elizaos_v2_cli_project.mdc), [**Agent Management**](mdc:.cursor/rules/elizaos_v2_cli_agents.mdc), and [**Configuration Guide**](mdc:.cursor/rules/elizaos_v2_cli_config.mdc) for details.
 
-### Core Dependencies
+### Key Commands
+-   **`elizaos create`**: Interactively scaffolds a new project, plugin, or agent character file. It sets up the directory structure, `package.json`, and initial `.env` file.
+-   **`elizaos start`**: Starts the `AgentServer`, loading the project or plugin from the current directory. This is the main command for running your agent locally.
+-   **`elizaos test`**: Runs the test suite. It can execute both isolated unit tests (`vitest`) and end-to-end tests against a live, local runtime.
+-   **`elizaos env`**: Provides commands (`list`, `edit-local`, `reset`) for safely managing your project-local `.env` file.
 
-- **Central Dependency**: Everything depends on @elizaos/core or packages/core
-- **No Circular Dependencies**: Core cannot depend on other packages
-- **Import Pattern**: Use @elizaos/core in package code, packages/core in internal references
+### Configuration
+- **`.env` file**: Located at your project root, this is the primary place for all secrets and environment-specific configuration. It is loaded into `process.env` at runtime. **Never commit this file.**
+- **`runtime.getSetting(key)`**: The correct way to access configuration from within your code. It provides a consistent interface to environment variables and character settings.
 
-### Key Files
+---
 
-- **Types**: `packages/core/src/types.ts` - All core type definitions
-- **Runtime**: `packages/core/src/runtime.ts` - Main runtime implementation
-- **Plugin Compatibility**: Shim everything through /specs (currently defaulting to v2)
+## 5. Testing
 
-### Abstraction Layers
+ElizaOS employs a two-pronged testing strategy: Unit tests for isolation and E2E tests for integration.
 
-- **Channel → Room Mapping**:
-  - Discord/Twitter/GUI channels become "rooms"
-  - All IDs swizzled with agent's UUID into deterministic UUIDs
-  - Maintains consistency across platforms
-- **Server → World Mapping**:
-  - Servers become "worlds" in agent memory
-  - Some connectors (MMO games) may use "world" on both sides
-- **Messaging Server Abstractions**:
-  - CLI uses: server, channel, user
-  - Frontend client unaware of worlds/rooms
-  - These are purely agent-side abstractions
+### Unit Testing
+Refer to the [**Unit Testing Guide**](mdc:.cursor/rules/elizaos_v2_testing_unit.mdc).
+- **Framework**: `vitest`.
+- **Goal**: Test a single function or component in complete isolation.
+- **Technique**: Use `vi.mock` to mock all external dependencies, especially the `IAgentRuntime`. Create mock factories to provile ###esting
+Refer to the [**E2E Testing Guide**](mdc:.cursor/rules/2_testing_e2e.mdc).
+- **Frameworlizaos test` test runner.
+- **Gointegration and interaction of multiple components in a live environment.
+- **Technique**: Your test function receives a fully initialized, live `IAgentRuntime` instance. You can make real database calls, access running services, and validate the complete workflow. **Do not use mocks in E2E tests.**
 
-### Service Architecture
+---
 
-- Services maintain system state
-- Access pattern: `getService(serviceName)`
-- Services can call each other
-- Actions can access services
+## 6. API & On-Chain Integration
 
-## Component Specifications
-
-### Actions
-
-**Purpose**: Define agent capabilities and response mechanisms
-
-**Decision Flow**:
-
-1. Message received
-2. Agent evaluates all actions via validation functions
-3. Valid actions provided to LLM via actionsProvider
-4. LLM decides which action(s) to execute
-5. Handler generates response with "thought" component
-6. Response processed and sent
-
-### Providers
-
-**Purpose**: Supply dynamic contextual information - agent's "senses"
-
-**Functionality**:
-
-- Inject real-time information into agent context
-- Bridge between agent and external systems
-- Format information for conversation templates
-- Maintain consistent data access
-
-**Examples**:
-
-- News provider: Fetch and format news
-- Terminal provider: Game terminal information
-- Wallet provider: Current asset information
-- Time provider: Current date/time injection
-
-**Execution**: Run during or before action execution
-
-### Evaluators
-
-**Purpose**: Post-interaction cognitive processing
-
-**Capabilities**:
-
-- Knowledge extraction and storage
-- Relationship tracking between entities
-- Conversation quality self-reflection
-- Goal tracking and achievement
-- Tone analysis for future adjustments
-
-**Execution**: Run after response generation with AgentRuntime
-
-### Tasks
-
-**Purpose**: Manage deferred, scheduled, and interactive operations
-
-**Features**:
-
-- Queue work for later execution
-- Repeat actions at defined intervals
-- Await user input
-- Implement multi-interaction workflows
-- Task workers registered by name with runtime
-
-### Plugins
-
-**Purpose**: Modular extensions for enhanced capabilities
-
-**Features**:
-
-- Add new functionality
-- Integrate external services
-- Customize agent behavior
-- Platform-specific enhancements
-
-**HTTP Routes**:
-
-- "public" routes exposed as HTML tabs
-- Must have "name" property for tab display
-
-### Services
-
-**Purpose**: Enable AI agents to interact with external platforms
-
-**Characteristics**:
-
-- Specialized interface per platform
-- Maintain consistent agent behavior
-- Core component of the system
-
-### Events
-
-Messages are passed by events, so that individual services are decoupled from generic agent event handlers
-By default, agent events are registered in packages/plugin-bootstrap
-
-## Database Architecture
-
-- **ORM**: Drizzle ORM with IDatabaseAdapter interface
-- **Adapters**:
-  - **PGLite**: Local development & testing (lightweight PostgreSQL in Node.js)
-  - **PostgreSQL**: Production (vector search, scaling, high reliability)
-
-## Code Style Guidelines
-
-- TypeScript for all code
-- Comprehensive error handling required
-- Clear separation of concerns
-- Follow existing patterns in codebase
-- Descriptive variable and function names
-- Comment complex logic
-- Don't comment change notes
-- Never omit code or add an "// ..." as it risks breaking the codebase
-
-## Development Workflow
-
-1. Understand the requirement completely
-2. Research all affected files and components
-3. Create detailed implementation plan
-4. Write comprehensive tests
-5. Implement solution iteratively
-6. Verify all tests pass
-7. Review for edge cases
-8. Ensure no stubs remain
-
-## Important Notes
-
-- Agent perspective is key for all abstractions
-- Memory system uses deterministic UUID generation
-- Each agent has a fully separate and unique set of UUIDs to describe the same world, rooms, etc
-- All components integrate through the runtime
-- Services are the state management layer
-- Actions drive agent behavior
-- Providers supply context
-- Evaluators enable learning and reflection
+### External API Integration
+Refer to the [**API Client Integration Guide**](mdc:.cursor/rules/elizaos_v2_api_client_integration.mdc).
+- **Pattern**: Encapsulate all logic for a third-party API into a dedicated client module within your plugin.
+- **Structure**: Separate concerns into `validator`, `builder`, and `request` functions.
+- **Best Practices**: Use `axios` or `fetch`, handle authentication securely (via `runtime.getSetting`), manage errors gracefully (especially rate limits), and always set timeouts.
+
+### LLM Provider Integration
+Refer to the [**LLM Provider Guide**](mdc:.cursor/rules/elizaos_v2_api_llm_providers.mdc).
+- **Pattern**: Create a plugin that registers a `ModelHandler` function for a specific `ModelType` (e.g., `TEXT_LARGE`).
+- **Registration**: Use the `models` property on the `Plugin` interface. Set a `priority` to indicate preference over other providers.
+- **Usage**: Other components should call `runtime.useModel(ModelType.TEXT_LARGE, params)` to invoke the LLM. The runtime automatically selects the highest-priority handler.
+
+### On-Chain Plugin Integration
+Refer to the [**On-Chain Plugin Guide**](mdc:.cursor/rules/elizaos_v2_onchain_plugins.mdc).
+- **Pattern**: Use dedicated `Services` to manage `Connection` to an RPC node and to handle `Transaction` building, signing, and sending.
+- **Security**: Key management is critical. **Never store private keys in code.** Load them securely from a secret store or environment variables at runtime via `runtime.getSetting`.
+- **Abstraction**: On-chain actions should be abstracted into natural language capabilities for the agent (e.g., `transfer-spl-token`).
+
+---
+> This guide serves as the single source of truth. Refer to the linked detailed documents for specific implementation patterns.
 
 ---
 > Source: [bio-xyz/BioAgentsEliza](https://github.com/bio-xyz/BioAgentsEliza) — distributed by [TomeVault](https://tomevault.io).
