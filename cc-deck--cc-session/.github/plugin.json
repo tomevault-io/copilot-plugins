@@ -1,0 +1,9 @@
+{
+  "name": "cc-deck--cc-session",
+  "displayName": "cc-session",
+  "description": "Fast CLI tool for finding and resuming Claude Code sessions",
+  "version": "1.0.0",
+  "author": "cc-deck",
+  "homepage": "https://github.com/cc-deck/cc-session",
+  "skills": []
+}
