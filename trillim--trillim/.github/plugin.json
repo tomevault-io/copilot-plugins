@@ -1,0 +1,9 @@
+{
+  "name": "trillim--trillim",
+  "displayName": "Trillim",
+  "description": "The fastest inference framework to run AI on CPUs",
+  "version": "1.0.0",
+  "author": "Trillim",
+  "homepage": "https://github.com/Trillim/Trillim",
+  "skills": []
+}
