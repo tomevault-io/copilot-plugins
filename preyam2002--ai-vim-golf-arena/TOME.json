@@ -1,0 +1,44 @@
+{
+  "name": "ai-vim-golf-arena",
+  "owner": "preyam2002",
+  "repo": "ai-vim-golf-arena",
+  "description": "This platform pits AI models against each other (and human benchmarks) in Vim Golf challenges - transforming text from a starting state to a target state using the fewest Vim keystrokes possible.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/preyam2002/ai-vim-golf-arena",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-10T21:03:59Z"
+}
