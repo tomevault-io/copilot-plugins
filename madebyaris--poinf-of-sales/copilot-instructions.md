@@ -1,232 +1,206 @@
-## database-patterns
+## development-workflow
 
-> Database design patterns and conventions for PostgreSQL in POS System
+> Development workflow automation and best practices for POS System
 
 
-# Database Development Guidelines (PostgreSQL)
+# Development Workflow Guide
 
-## Schema Design
+## Quick Start Commands
 
-### Primary Schema
-The main database schema is defined in [database/init/01_schema.sql](mdc:database/init/01_schema.sql):
+### Primary Development Workflow
+Use [Makefile](mdc:Makefile) for all development operations:
 
-### Core Tables Structure:
-1. **users** - Staff and user management with role-based access
-2. **categories** - Product categorization with sorting and colors
-3. **products** - Menu items with pricing and availability
-4. **dining_tables** - Table and seating management
-5. **orders** - Order lifecycle with status tracking
-6. **order_items** - Individual items within orders
-7. **payments** - Payment processing and history
-8. **inventory** - Stock management and tracking
-9. **order_status_history** - Audit trail for order changes
-
-## Naming Conventions
-
-### Table Names
-- Use plural snake_case: `order_items`, `dining_tables`
-- Descriptive names that clearly indicate content
-- Avoid abbreviations unless universally understood
-
-### Column Names
-- Use snake_case: `created_at`, `order_number`
-- Boolean fields start with `is_`: `is_active`, `is_occupied`
-- Timestamps end with `_at`: `created_at`, `processed_at`
-- Foreign keys follow pattern: `{table_name}_id`
-
-### Constraint Names
-- Primary keys: `{table}_pkey`
-- Foreign keys: `fk_{table}_{referenced_table}`
-- Unique constraints: `unique_{table}_{column}`
-- Check constraints: `check_{table}_{column}_{description}`
-
-## Data Types & Standards
-
-### UUID Primary Keys
-Use UUID v4 for all primary keys:
-```sql
-CREATE TABLE example_table (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    -- other columns
-);
+```bash
+# Essential commands for daily development
+make help         # Show all available commands
+make dev          # Start development environment with hot reloading
+make up           # Start Docker containers in background
+make down         # Stop all containers
+make status       # Check system status
 ```
 
-### Timestamps
-Always use `TIMESTAMP WITH TIME ZONE` for time tracking:
-```sql
-created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+### Database Management Workflow
+```bash
+# Database operations (all interactive and safe)
+make create-admin # Create super admin user
+make backup       # Backup entire system (database + files)
+make restore      # Restore from backup (interactive menu)
+make db-reset     # Reset to fresh state with seed data
+make db-shell     # Access PostgreSQL shell
+make remove-data  # DESTRUCTIVE: Remove all data (multiple confirmations)
 ```
 
-### Money Values
-Use `DECIMAL(10,2)` for all monetary values:
-```sql
-price DECIMAL(10,2) NOT NULL,
-total_amount DECIMAL(10,2) NOT NULL DEFAULT 0
+## Development Environment Setup
+
+### First Time Setup
+1. Clone repository and navigate to project root
+2. Ensure Docker Desktop is running
+3. Run `make dev` - automatically creates `.env` file if missing
+4. Access applications:
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:8080
+   - Database: localhost:5432
+
+### Daily Development Workflow
+```bash
+# Start development session
+make dev          # Starts all services with hot reloading
+
+# During development
+make logs         # View all service logs
+make logs-backend # View only backend logs
+make logs-frontend# View only frontend logs
+
+# End development session
+make down         # Stop all containers
 ```
 
-### String Fields
-- Use appropriate VARCHAR lengths based on expected content
-- Use TEXT for long content without length restrictions
-- Apply NOT NULL constraints where appropriate
+## Database Development Workflow
 
-## Indexing Strategy
+### Working with Database
+1. **Fresh Start**: `make db-reset` - Clean database with seed data
+2. **Backup Before Changes**: `make backup` - Create safety backup
+3. **Make Changes**: Edit schema files or use application
+4. **Test Changes**: Verify functionality
+5. **Create Admin**: `make create-admin` - Add admin users as needed
 
-### Performance Indexes
-Critical indexes defined in [database/init/01_schema.sql](mdc:database/init/01_schema.sql):
+### Database Schema Changes
+1. Edit [database/init/01_schema.sql](mdc:database/init/01_schema.sql)
+2. Edit [database/init/02_seed_data.sql](mdc:database/init/02_seed_data.sql) if needed
+3. Run `make db-reset` to apply changes
+4. Test with fresh data
 
-```sql
--- Query optimization indexes
-CREATE INDEX idx_orders_status ON orders(status);
-CREATE INDEX idx_orders_created_at ON orders(created_at);
-CREATE INDEX idx_orders_table_id ON orders(table_id);
-CREATE INDEX idx_order_items_order_id ON order_items(order_id);
-CREATE INDEX idx_products_category_id ON products(category_id);
-CREATE INDEX idx_products_is_available ON products(is_available);
+### Emergency Recovery
+- All destructive operations create emergency backups
+- Use `make restore` to recover from any backup
+- Emergency backups are automatically created in `backups/` directory
+
+## Production Deployment Workflow
+
+### Production Build
+```bash
+# Build and start production environment
+make prod         # Starts production containers
+
+# Production utilities
+make logs         # Monitor production logs
+make backup       # Create production backup
+make clean        # Clean up resources (with confirmations)
 ```
 
-### Index Guidelines
-- Index foreign key columns for JOIN performance
-- Index columns used in WHERE clauses frequently
-- Index columns used for sorting (ORDER BY)
-- Avoid over-indexing (impacts INSERT/UPDATE performance)
-- Consider composite indexes for multi-column queries
+### Production Database Management
+- Use same `make backup` and `make restore` commands
+- Emergency backups created before any destructive operations
+- All operations require explicit confirmations
 
-## Relationships & Constraints
+## Safety Features
 
-### Foreign Key Relationships
-Maintain referential integrity with proper CASCADE rules:
-```sql
--- Orders reference tables and users
-table_id UUID REFERENCES dining_tables(id) ON DELETE SET NULL,
-user_id UUID REFERENCES users(id) ON DELETE SET NULL,
+### Multiple Confirmation Layers
+All potentially destructive operations require specific confirmations:
+- `make remove-data` requires typing "DELETE ALL DATA"
+- `make restore` requires typing "RESTORE"  
+- `make clean` requires typing "YES"
 
--- Order items reference orders and products  
-order_id UUID REFERENCES orders(id) ON DELETE CASCADE,
-product_id UUID REFERENCES products(id) ON DELETE CASCADE
+### Automatic Backups
+- Emergency backups created before destructive operations
+- Backup rotation (keeps last 10 backups)
+- Comprehensive backup manifests with metadata
+- Multiple backup formats (SQL, tar.gz, complete bundles)
+
+### Container Health Checking
+- All database operations verify container is running
+- Automatic fallback between dev/prod container names
+- Clear error messages with resolution suggestions
+
+## Advanced Development Features
+
+### Testing and Quality
+```bash
+make test         # Run all tests
+make lint         # Run linting checks
+make format       # Format code
+make deps         # Update dependencies
 ```
 
-### Check Constraints
-Use CHECK constraints for data validation:
-```sql
--- Enum-like constraints
-role VARCHAR(20) NOT NULL CHECK (role IN ('admin', 'manager', 'cashier', 'kitchen')),
-status VARCHAR(20) NOT NULL CHECK (status IN ('pending', 'confirmed', 'preparing', 'ready', 'served', 'completed', 'cancelled')),
-
--- Business rule constraints
-quantity INTEGER NOT NULL DEFAULT 1 CHECK (quantity > 0),
-price DECIMAL(10,2) NOT NULL CHECK (price >= 0)
+### System Monitoring
+```bash
+make status       # Comprehensive system status
+make logs         # Real-time log monitoring
 ```
 
-## Triggers & Automation
-
-### Updated Timestamp Trigger
-Automatic updated_at timestamp management:
-```sql
-CREATE OR REPLACE FUNCTION update_updated_at_column()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.updated_at = CURRENT_TIMESTAMP;
-    RETURN NEW;
-END;
-$$ language 'plpgsql';
-
--- Apply to relevant tables
-CREATE TRIGGER update_orders_updated_at 
-    BEFORE UPDATE ON orders 
-    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+### Cleanup and Maintenance
+```bash
+make clean        # Remove unused Docker resources
+make rebuild      # Force rebuild all images
+make restart      # Restart all services
 ```
 
-## Data Migration Patterns
+## Helper Scripts Reference
 
-### Schema Changes
-For schema modifications:
-1. Create migration scripts with version numbers
-2. Always provide both UP and DOWN migrations
-3. Test migrations on sample data before production
-4. Use transactions for multiple related changes
+### Script Locations
+All helper scripts are in [scripts/](mdc:scripts/) directory:
 
-### Example Migration Pattern:
-```sql
--- Migration: 001_add_customer_phone.sql
-BEGIN;
+- **[create-admin.sh](mdc:scripts/create-admin.sh)** - Interactive admin user creation
+- **[backup.sh](mdc:scripts/backup.sh)** - Complete system backup
+- **[restore.sh](mdc:scripts/restore.sh)** - Interactive backup restoration  
+- **[remove-data.sh](mdc:scripts/remove-data.sh)** - Safe data removal
+- **[db-reset.sh](mdc:scripts/db-reset.sh)** - Database reset with verification
 
-ALTER TABLE orders ADD COLUMN customer_phone VARCHAR(20);
-CREATE INDEX idx_orders_customer_phone ON orders(customer_phone) 
-    WHERE customer_phone IS NOT NULL;
+### Script Features
+- **Colored Output** - Clear visual feedback with status indicators
+- **Input Validation** - Prevents invalid operations
+- **Error Handling** - Comprehensive error checking and recovery
+- **Safety Confirmations** - Multiple confirmation layers for safety
+- **Progress Reporting** - Step-by-step operation feedback
 
--- Rollback plan documented
--- ALTER TABLE orders DROP COLUMN customer_phone;
+## Integration with Development Tools
 
-COMMIT;
-```
+### File Organization
+- **Makefile Commands** - Organized by category with clear descriptions
+- **Docker Integration** - Seamless container management
+- **Environment Management** - Automatic `.env` file creation
+- **Backup Management** - Automated backup rotation and cleanup
 
-## Query Performance Patterns
+### IDE Integration
+- All commands work from terminal in any IDE
+- Makefile provides tab completion for commands
+- Scripts provide clear error messages and next steps
+- Comprehensive help system with `make help`
 
-### Efficient JOINs
-Use appropriate JOIN types and index foreign keys:
-```sql
--- Good: Index-optimized JOIN
-SELECT o.*, t.table_number, u.username
-FROM orders o
-LEFT JOIN dining_tables t ON o.table_id = t.id
-LEFT JOIN users u ON o.user_id = u.id
-WHERE o.status = 'pending';
-```
+## Best Practices
 
-### Pagination
-Always use LIMIT/OFFSET for large result sets:
-```sql
-SELECT * FROM orders 
-ORDER BY created_at DESC 
-LIMIT $1 OFFSET $2;
-```
+### Development Session
+1. **Always start with** `make status` to check current state
+2. **Use** `make backup` before major changes
+3. **Monitor with** `make logs` during development
+4. **Clean up with** `make down` when finished
 
-### Parameterized Queries
-Always use parameter placeholders to prevent SQL injection:
-```sql
--- Good: Parameterized query
-SELECT * FROM products WHERE category_id = $1 AND is_available = $2;
+### Database Work
+1. **Create backups** before schema changes
+2. **Use** `make db-reset` for clean testing environment  
+3. **Verify changes** with `make status`
+4. **Keep emergency backups** for safety
 
--- Bad: String concatenation (vulnerable to injection)
--- SELECT * FROM products WHERE category_id = '" + categoryId + "'
-```
+### Production Deployment
+1. **Always backup** production before changes
+2. **Test locally** with `make prod`
+3. **Monitor deployment** with `make logs`
+4. **Verify functionality** with `make status`
 
-## Backup & Recovery
+## Troubleshooting
 
-### Data Protection
-- Regular automated backups of critical data
-- Point-in-time recovery capability
-- Test restore procedures regularly
-- Document recovery time objectives (RTO)
+### Common Issues
+1. **"Container not running"** - Run `make up` or `make dev`
+2. **"Permission denied"** - Ensure Docker Desktop is running
+3. **"Port conflicts"** - Check ports 3000, 8080, 5432 are available
+4. **"Database errors"** - Try `make db-reset` for fresh start
 
-## Security Considerations
-
-### Access Control
-- Use least-privilege principles for database users
-- Separate users for application vs administrative access
-- Regular password rotation for database accounts
-- Network-level access restrictions
-
-### Data Encryption
-- Encrypt sensitive data at rest
-- Use SSL/TLS for database connections
-- Consider column-level encryption for PII
-- Audit access to sensitive tables
-
-## Monitoring & Maintenance
-
-### Performance Monitoring
-- Monitor slow queries and optimization opportunities
-- Track connection pool usage and limits
-- Monitor disk space and growth trends
-- Set up alerting for critical metrics
-
-### Regular Maintenance
-- Analyze and vacuum tables regularly
-- Update table statistics for query optimization
-- Monitor and manage database locks
-- Review and optimize indexes based on usage patterns
+### Recovery Steps
+1. Check system status: `make status`
+2. View logs: `make logs`
+3. Restart services: `make restart`
+4. Reset database: `make db-reset`
+5. Restore backup: `make restore`
 
 ---
 > Source: [madebyaris/poinf-of-sales](https://github.com/madebyaris/poinf-of-sales) — distributed by [TomeVault](https://tomevault.io).
