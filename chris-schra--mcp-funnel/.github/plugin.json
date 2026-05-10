@@ -1,0 +1,9 @@
+{
+  "name": "chris-schra--mcp-funnel",
+  "displayName": "mcp-funnel",
+  "description": "Finally, a proxy that does what grep does for logs - filters out the noise. Stop carrying 70k tokens of tools you'll never use. It's like tree-shaking, but for MCP. \ud83d\ude80",
+  "version": "1.0.0",
+  "author": "chris-schra",
+  "homepage": "https://github.com/chris-schra/mcp-funnel",
+  "skills": []
+}
