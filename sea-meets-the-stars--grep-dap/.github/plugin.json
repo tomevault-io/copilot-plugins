@@ -1,0 +1,9 @@
+{
+  "name": "sea-meets-the-stars--grep-dap",
+  "displayName": "grep-dap",
+  "description": "Grep OPeNDAP repositories",
+  "version": "1.0.0",
+  "author": "Sea-Meets-the-Stars",
+  "homepage": "https://github.com/Sea-Meets-the-Stars/grep-dap",
+  "skills": []
+}
