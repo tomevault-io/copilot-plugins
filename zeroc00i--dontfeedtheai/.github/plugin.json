@@ -1,0 +1,9 @@
+{
+  "name": "zeroc00i--dontfeedtheai",
+  "displayName": "DontFeedTheAI",
+  "description": "Reverse proxy for Claude Code that anonymizes sensitive pentest data (IPs, hashes, credentials, hostnames,     PII) before it reaches Anthropic. Dual-layer detection: local Ollama LLM + regex safety n",
+  "version": "1.0.0",
+  "author": "zeroc00I",
+  "homepage": "https://github.com/zeroc00I/DontFeedTheAI",
+  "skills": []
+}
