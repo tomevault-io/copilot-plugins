@@ -1,0 +1,9 @@
+{
+  "name": "lifeiteng--omnivad-kit",
+  "displayName": "OmniVAD-Kit",
+  "description": "Cross-platform VAD & Audio Event Detection toolkit \u2014 Python (PyPI) + TypeScript (npm) + C API. DFSMN models ~2MB, 200x real-time. Runs everywhere: native, browser (WASM), Node.js.",
+  "version": "1.0.0",
+  "author": "lifeiteng",
+  "homepage": "https://github.com/lifeiteng/OmniVAD-Kit",
+  "skills": []
+}
