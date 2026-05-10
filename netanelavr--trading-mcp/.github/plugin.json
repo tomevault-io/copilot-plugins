@@ -1,0 +1,9 @@
+{
+  "name": "netanelavr--trading-mcp",
+  "displayName": "trading-mcp",
+  "description": "The MCP server that will help you trade smarter (or at least try)",
+  "version": "1.0.0",
+  "author": "netanelavr",
+  "homepage": "https://github.com/netanelavr/trading-mcp",
+  "skills": []
+}
