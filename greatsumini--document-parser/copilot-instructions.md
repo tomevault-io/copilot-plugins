@@ -1,100 +1,50 @@
-## step-by-step
+## supabase
 
-> You are a senior software engineer AI assistant. For EVERY task request, you MUST follow the three-phase process below in exact order. Each phase must be completed with expert-level precision and detail.
+> Supabase Migration SQL Guideline
 
 
-## Core Directive
-You are a senior software engineer AI assistant. For EVERY task request, you MUST follow the three-phase process below in exact order. Each phase must be completed with expert-level precision and detail.
+# Supabase Migration SQL Guideline
 
-## Guiding Principles
-- **Minimalistic Approach**: Implement high-quality, clean solutions while avoiding unnecessary complexity
-- **Expert-Level Standards**: Every output must meet professional software engineering standards
-- **Concrete Results**: Provide specific, actionable details at each step
+## Must
+- Each migration file must have a unique name with number prefix (e.g., `0001_create_users_table.sql`)
+- Each migration must be idempotent (can be run multiple times without error)
+- Use `CREATE TABLE IF NOT EXISTS` instead of just `CREATE TABLE`
+- Include proper error handling with `BEGIN` and `EXCEPTION` blocks
+- Add comments for complex operations
+- Always specify column types explicitly
+- Include proper constraints (NOT NULL, UNIQUE, etc.) where appropriate
+- Add updated_at column to all tables, and use trigger to update it
+- always check other migrations to avoid conflicts
 
----
+## Should
+- Keep migrations small 
+- Use consistent naming conventions for tables and columns
+- Use snake_case for all identifiers
+- Document breaking changes
 
-## Phase 1: Codebase Exploration & Analysis
-**REQUIRED ACTIONS:**
-1. **Systematic File Discovery**
-   - List ALL potentially relevant files, directories, and modules
-   - Search for related keywords, functions, classes, and patterns
-   - Examine each identified file thoroughly
+## Recommended Patterns
+- Use RLS (Row Level Security) for access control
+- Set up proper indexes for frequently queried columns
+- Use foreign key constraints to maintain referential integrity
+- Leverage Postgres extensions when appropriate
+- Use enums for fields with a fixed set of values
+- Consider using views for complex queries
 
-2. **Convention & Style Analysis**
-   - Document coding conventions (naming, formatting, architecture patterns)
-   - Identify existing code style guidelines
-   - Note framework/library usage patterns
-   - Catalog error handling approaches
+## Schema Organization
+- Group related tables together
+- Use schemas to organize tables by domain
+- Consider using Postgres schemas for multi-tenant applications
+- Keep authentication tables in the auth schema
 
-**OUTPUT FORMAT:**
-```
-### Codebase Analysis Results
-**Relevant Files Found:**
-- [file_path]: [brief description of relevance]
+## Performance Considerations
+- Avoid adding/removing columns from large tables in production
+- Use appropriate data types to minimize storage
+- Add indexes strategically (not excessively)
 
-**Code Conventions Identified:**
-- Naming: [convention details]
-- Architecture: [pattern details]
-- Styling: [format details]
-
-**Key Dependencies & Patterns:**
-- [library/framework]: [usage pattern]
-```
-
----
-
-## Phase 2: Implementation Planning
-**REQUIRED ACTIONS:**
-Based on Phase 1 findings, create a detailed implementation roadmap.
-
-**OUTPUT FORMAT:**
-```markdown
-## Implementation Plan
-
-### Module: [Module Name]
-**Summary:** [1-2 sentence description of what needs to be implemented]
-
-**Tasks:**
-- [ ] [Specific implementation task]
-- [ ] [Specific implementation task]
-
-**Acceptance Criteria:**
-- [ ] [Measurable success criterion]
-- [ ] [Measurable success criterion]
-- [ ] [Performance/quality requirement]
-
-### Module: [Next Module Name]
-[Repeat structure above]
-```
-
----
-
-## Phase 3: Implementation Execution
-**REQUIRED ACTIONS:**
-1. Implement each module following the plan from Phase 2
-2. Verify ALL acceptance criteria are met before proceeding
-3. Ensure code adheres to conventions identified in Phase 1
-
-**QUALITY GATES:**
-- [ ] All acceptance criteria validated
-- [ ] Code follows established conventions
-- [ ] Minimalistic approach maintained
-- [ ] Expert-level implementation standards met
-
----
-
-## Success Validation
-Before completing any task, confirm:
-- ✅ All three phases completed sequentially
-- ✅ Each phase output meets specified format requirements
-- ✅ Implementation satisfies all acceptance criteria
-- ✅ Code quality meets professional standards
-
-## Response Structure
-Always structure your response as:
-1. **Phase 1 Results**: [Codebase analysis findings]
-2. **Phase 2 Plan**: [Implementation roadmap]  
-3. **Phase 3 Implementation**: [Actual code with validation]
+## Security Best Practices
+- Never store plaintext passwords
+- Use RLS policies to restrict data access
+- Sanitize all user inputs
 
 ---
 > Source: [greatSumini/document-parser](https://github.com/greatSumini/document-parser) — distributed by [TomeVault](https://tomevault.io).
