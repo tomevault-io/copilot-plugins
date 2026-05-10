@@ -1,388 +1,233 @@
-## frontend-vue-standards
+## git-commit-standards
 
-> Vue3/TypeScript 前端编码规范和最佳实践
+> Git 提交规范和最佳实践
 
 
-# Vue3/TypeScript 前端编码规范
+# Git 提交规范
 
-## 代码风格
+## Commit Message 格式
 
-### 基本规范
+遵循 Conventional Commits 规范：
 
-- 使用 2 空格缩进
-- 使用单引号（字符串）
-- 每行代码不超过 100 字符
-- 使用分号结尾
-- 使用 Prettier 格式化代码
+```
+<type>(<scope>): <subject>
 
-### 文件命名
+<body>
+
+<footer>
+```
+
+### Type（必填）
+
+提交类型说明：
+
+- `feat`: 新功能（feature）
+- `fix`: 修复 bug
+- `docs`: 文档更新
+- `style`: 代码格式调整（不影响代码运行）
+- `refactor`: 重构（既不是新增功能，也不是修复 bug）
+- `perf`: 性能优化
+- `test`: 测试相关
+- `chore`: 构建过程或辅助工具的变动
+- `ci`: CI/CD 配置文件和脚本的变动
+- `build`: 影响构建系统或外部依赖的更改
+
+### Scope（可选）
+
+影响范围，例如：
+
+- `backend`: 后端代码
+- `frontend`: 前端代码
+- `api`: API 接口
+- `ui`: 用户界面
+- `docker`: Docker 相关
+- `docs`: 文档
+
+### Subject（必填）
+
+- 简短描述（不超过 50 字符）
+- 使用现在时态："add" 而不是 "added"
+- 不要大写首字母
+- 结尾不加句号
+
+### Body（可选）
+
+- 详细描述改动内容
+- 解释为什么做这个改动
+- 与之前行为的对比
+
+### Footer（可选）
+
+- 关闭的 Issue：`Closes #123`
+- 不兼容改动：`BREAKING CHANGE: 说明`
+
+## 提交示例
+
+### 基本示例
 
 ```bash
-# ✅ Vue 组件：使用大驼峰（PascalCase）
-ContainerCard.vue
-ComposeCreateView.vue
-NetworkDetailView.vue
+# ✅ 新增功能
+feat(backend): add container export API
 
-# ✅ TypeScript 文件：使用小驼峰（camelCase）
-useContainer.ts
-containerStats.ts
-axiosConfig.ts
+实现容器导出功能，支持通过 API 导出容器为 tar 文件
+- 添加 /api/v1/containers/:id/export 接口
+- 支持大文件流式下载
+- 添加 token 认证
 
-# ✅ 类型定义文件
-types.ts
-vite-env.d.ts
-auto-imports.d.ts
+# ✅ 修复 bug
+fix(frontend): fix memory leak in WebSocket connection
 
-# ❌ 避免：使用连字符或下划线
-container-card.vue
-compose_create_view.vue
+修复 WebSocket 连接未正确关闭导致的内存泄漏问题
+
+# ✅ 文档更新
+docs: update README with 2FA setup instructions
+
+添加双因素认证配置说明和使用指南
+
+# ✅ 性能优化
+perf(frontend): optimize container list rendering
+
+使用虚拟滚动优化大量容器的列表渲染性能
+
+# ✅ 重构
+refactor(backend): simplify error handling logic
+
+统一错误处理逻辑，使用自定义错误类型
+
+# ✅ 样式调整
+style(frontend): format code with prettier
+
+使用 prettier 格式化所有前端代码
+
+# ✅ 构建配置
+chore(docker): update base image to alpine 3.19
+
+# ✅ 测试
+test(backend): add unit tests for compose client
 ```
 
-## TypeScript 规范
+### 复杂示例（包含 body）
 
-### 类型定义
+```bash
+feat(frontend): add responsive design for mobile devices
 
-```typescript
-// ✅ 使用 interface 定义对象类型
-interface ContainerStatus {
-  id: string
-  name: string
-  running: boolean
-  status: 'UpdateAvailable' | 'UpToDate' | 'Error'
-}
+实现移动端响应式布局：
+- 添加移动端导航抽屉
+- 优化容器卡片在小屏幕上的显示
+- 添加设备类型检测工具函数
+- 支持平板设备的特殊处理
 
-// ✅ 使用 type 定义联合类型和函数类型
-type DeviceType = 'desktop' | 'tablet' | 'mobile'
-type ErrorHandler = (error: Error) => void
-
-// ✅ 明确指定函数返回类型
-const fetchContainers = async (useCache = true): Promise<void> => {
-  // ...
-}
-
-// ✅ 使用泛型
-const formatResponse = <T>(data: T): ApiResponse<T> => {
-  return { code: 0, data, msg: 'success' }
-}
+测试覆盖：iPhone、iPad、Android 手机和平板
 ```
 
-### 类型导入
+### 不兼容改动示例
 
-```typescript
-// ✅ 使用 type 关键字导入类型
-import type { ContainerStatus, BatchUpdateResult } from '@/common/types'
-import type { IconProps, MessageApi } from 'naive-ui'
+```bash
+feat(api): change container stats API response format
 
-// ✅ 混合导入
-import { ref, computed, type Ref } from 'vue'
-```
+BREAKING CHANGE: 容器统计 API 响应格式变更
 
-### 避免使用 any
-
-```typescript
-// ❌ 避免使用 any
-const handleError = (error: any) => {
-  console.error(error)
+旧格式：
+{
+  "cpu": 50.5,
+  "memory": 1024000
 }
 
-// ✅ 使用 unknown 或具体类型
-const handleError = (error: unknown) => {
-  if (error instanceof Error) {
-    console.error(error.message)
-  }
-}
-
-// ✅ 或定义具体类型
-interface ApiError {
-  code: number
-  message: string
-}
-
-const handleError = (error: ApiError) => {
-  console.error(error.message)
+新格式：
+{
+  "cpu": { "usage": 50.5, "cores": 4 },
+  "memory": { "usage": 1024000, "limit": 2048000 }
 }
 ```
 
-## Vue 3 Composition API
+## 提交最佳实践
 
-### Setup 语法
+### 提交频率
 
-```vue
-<script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import type { ContainerStatus } from '@/common/types'
+```bash
+# ✅ 小步提交，每个提交只包含一个逻辑改动
+git commit -m "feat(backend): add container list API"
+git commit -m "feat(frontend): implement container list page"
+git commit -m "docs: add API documentation"
 
-// ✅ 使用 ref 和 reactive
-const loading = ref(false)
-const containers = ref<ContainerStatus[]>([])
-
-// ✅ 使用 computed
-const runningCount = computed(() => 
-  containers.value.filter(c => c.running).length
-)
-
-// ✅ 生命周期钩子
-onMounted(async () => {
-  await fetchData()
-})
-
-// ✅ 定义函数
-const fetchData = async (): Promise<void> => {
-  loading.value = true
-  try {
-    // 获取数据
-  } catch (error) {
-    console.error('获取数据失败:', error)
-  } finally {
-    loading.value = false
-  }
-}
-</script>
+# ❌ 避免一次提交包含多个不相关的改动
+git commit -m "feat: add multiple features and fix bugs"
 ```
 
-### 组件通信
+### 提交前检查
 
-```vue
-<script setup lang="ts">
-// ✅ Props 定义（使用 TypeScript）
-interface Props {
-  containerId: string
-  showActions?: boolean
-}
+```bash
+# ✅ 提交前检查代码
+1. 运行测试：确保所有测试通过
+2. 代码检查：运行 linter
+3. 格式化：使用 prettier/gofmt 格式化代码
+4. 审查改动：使用 git diff 检查所有改动
 
-const props = withDefaults(defineProps<Props>(), {
-  showActions: true
-})
-
-// ✅ Emits 定义
-interface Emits {
-  (e: 'update', id: string): void
-  (e: 'delete', id: string): void
-}
-
-const emit = defineEmits<Emits>()
-
-const handleUpdate = () => {
-  emit('update', props.containerId)
-}
-</script>
+# ✅ 使用 git add -p 选择性暂存
+git add -p  # 交互式选择要暂存的改动
 ```
 
-## Pinia Store 规范
+### 分支命名
 
-```typescript
-// ✅ 使用 Composition API 风格的 Store
-import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+```bash
+# ✅ 使用清晰的分支名称
+feature/container-export
+fix/websocket-memory-leak
+refactor/error-handling
+docs/api-documentation
 
-export const useContainerStore = defineStore('container', () => {
-  // ✅ 状态定义（使用 ref）
-  const containers = ref<ContainerStatus[]>([])
-  const loading = ref(false)
-  
-  // ✅ 计算属性
-  const runningContainers = computed(() => 
-    containers.value.filter(c => c.running)
-  )
-  
-  // ✅ Actions（异步函数）
-  const fetchContainers = async (): Promise<void> => {
-    loading.value = true
-    try {
-      const data = await containerApi.getContainers()
-      if (data.code === 0) {
-        containers.value = data.data.containers
-      } else {
-        throw new Error(data.msg)
-      }
-    } catch (error) {
-      console.error('获取容器列表失败:', error)
-      throw error
-    } finally {
-      loading.value = false
-    }
-  }
-  
-  // ✅ 返回所有需要暴露的状态和方法
-  return {
-    // 状态
-    containers,
-    loading,
-    
-    // 计算属性
-    runningContainers,
-    
-    // 方法
-    fetchContainers,
-  }
-})
+# ❌ 避免模糊的分支名
+dev
+test
+tmp
 ```
 
-## 错误处理
+## 多人协作
 
-```typescript
-// ✅ 统一的错误处理模式
-const handleAction = async (): Promise<boolean> => {
-  try {
-    const data = await api.performAction()
-    if (data.code === 0) {
-      message.success('操作成功')
-      return true
-    } else {
-      throw new Error(data.msg)
-    }
-  } catch (error) {
-    console.error('操作失败:', error)
-    const errorMsg = error instanceof Error ? error.message : '未知错误'
-    message.error(errorMsg)
-    throw error
-  }
-}
+### Pull Request 标题
 
-// ✅ 使用自定义工具函数处理换行错误
-import { showErrorWithNewlines } from '@/common/utils'
-
-try {
-  await someAction()
-} catch (error: any) {
-  showErrorWithNewlines(message, error.message)
-}
+```bash
+# ✅ 使用与 commit message 相同的格式
+feat(frontend): add container filtering功能
+fix(backend): resolve race condition in scheduler
 ```
 
-## Vue 模板规范
+### PR 描述模板
 
-```vue
-<template>
-  <!-- ✅ 使用 v-if 和 v-else-if -->
-  <div v-if="loading">加载中...</div>
-  <div v-else-if="error">{{ error }}</div>
-  <div v-else>
-    <!-- ✅ 使用 v-for 时必须提供 key -->
-    <div
-      v-for="container in containers"
-      :key="container.id"
-      class="container-item"
-    >
-      {{ container.name }}
-    </div>
-  </div>
-  
-  <!-- ✅ 事件处理使用箭头函数或方法引用 -->
-  <n-button @click="handleClick">点击</n-button>
-  <n-button @click="() => handleUpdate(id)">更新</n-button>
-  
-  <!-- ✅ 属性换行对齐 -->
-  <n-input
-    v-model:value="formData.name"
-    placeholder="请输入名称"
-    :disabled="loading"
-    @update:value="handleChange"
-  />
-</template>
+```markdown
+## 改动说明
+简要描述这个 PR 做了什么
+
+## 改动类型
+- [ ] 新功能
+- [ ] Bug 修复
+- [ ] 文档更新
+- [ ] 性能优化
+- [ ] 重构
+- [ ] 其他
+
+## 测试
+说明如何测试这些改动
+
+## 相关 Issue
+Closes #123
+
+## 截图（如果适用）
+添加截图说明 UI 改动
 ```
 
-## 样式规范
+## 提交检查清单
 
-```vue
-<style scoped>
-/* ✅ 使用 scoped 避免样式污染 */
-.container-card {
-  padding: 16px;
-  border-radius: 8px;
-  background: var(--n-color);
-}
+在提交代码前，确保：
 
-/* ✅ 使用 CSS 变量（Naive UI 主题变量） */
-.title {
-  color: var(--n-text-color);
-  font-size: var(--n-font-size);
-}
-
-/* ✅ 使用嵌套（如果使用 SCSS） */
-.container-item {
-  padding: 12px;
-  
-  &:hover {
-    background: var(--n-color-hover);
-  }
-  
-  .title {
-    font-weight: 600;
-  }
-}
-
-/* ❌ 避免使用 !important */
-.override {
-  color: red !important; /* 不推荐 */
-}
-</style>
-```
-
-## 导入顺序
-
-```typescript
-// 1. Vue 相关
-import { ref, computed, onMounted } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-
-// 2. 第三方库
-import { useMessage } from 'naive-ui'
-import { defineStore } from 'pinia'
-import dayjs from 'dayjs'
-
-// 3. 项目内部模块（按字母顺序）
-import { containerApi } from '@/common/api'
-import type { ContainerStatus } from '@/common/types'
-import { formatBytes, formatTime } from '@/common/utils'
-import { useContainerStore } from '@/store/container'
-
-// 4. 组件
-import ContainerCard from '@/components/ContainerCard.vue'
-```
-
-## 注释规范
-
-```typescript
-/**
- * 格式化字节数
- * @param bytes 字节数
- * @returns 格式化后的字符串（如 "1.5 MB"）
- */
-export const formatBytes = (bytes: number): string => {
-  if (bytes === 0) return '0 B'
-  const k = 1024
-  const sizes = ['B', 'KB', 'MB', 'GB', 'TB']
-  const i = Math.floor(Math.log(bytes) / Math.log(k))
-  return `${(bytes / Math.pow(k, i)).toFixed(2)} ${sizes[i]}`
-}
-
-// ✅ 单行注释：解释为什么这样做
-// 使用 Map 提高查找性能
-const containersMap = new Map(containers.map(c => [c.id, c]))
-
-// ✅ TODO 注释
-// TODO: 添加批量删除功能
-// FIXME: 修复内存泄漏问题
-```
-
-## 性能优化
-
-```typescript
-// ✅ 使用 computed 缓存计算结果
-const expensiveValue = computed(() => {
-  return containers.value.reduce((sum, c) => sum + c.memoryUsage, 0)
-})
-
-// ✅ 使用 ref 而不是 reactive（性能更好）
-const state = ref({ count: 0 })  // ✅
-const state = reactive({ count: 0 })  // 可以，但 ref 更优
-
-// ✅ 及时清理监听器和定时器
-onUnmounted(() => {
-  clearInterval(timer)
-  unsubscribe()
-})
-```
+- [ ] Commit message 遵循规范格式
+- [ ] 代码通过所有测试
+- [ ] 代码已格式化
+- [ ] 移除了调试代码和 console.log
+- [ ] 更新了相关文档
+- [ ] 每个提交只包含一个逻辑改动
+- [ ] 提交信息清晰描述了改动内容
+- [ ] 检查了 git diff，确认所有改动都是预期的
 
 ---
 > Source: [jianxcao/watch-docker](https://github.com/jianxcao/watch-docker) — distributed by [TomeVault](https://tomevault.io).
