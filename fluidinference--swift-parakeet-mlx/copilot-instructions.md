@@ -1,132 +1,84 @@
-## mlx-swift-api-conventions
+## mlx-tensor-formats
 
-> This rule documents important MLX Swift API patterns and common conversion issues from Python MLX to Swift MLX.
+> **❌ WRONG ASSUMPTION**: MLX Swift uses PyTorch-style NCHW format
 
-# MLX Swift API Conventions and Common Pitfalls
+# MLX Tensor Format Conventions & Common Pitfalls
 
-This rule documents important MLX Swift API patterns and common conversion issues from Python MLX to Swift MLX.
+## Critical: MLX Swift and Python Use Identical Tensor Formats
 
-## Core API Patterns
+**❌ WRONG ASSUMPTION**: MLX Swift uses PyTorch-style NCHW format  
+**✅ CORRECT**: MLX Swift uses the same NHWC format as Python MLX
 
-### Array Operations
-- Use `MLX.concatenated()` instead of `MLXArray.concatenated()`
-- Use `MLX.stacked()` instead of `MLXArray.stacked()`
-- Use `MLX.padded()` instead of `MLX.pad()`
+### Tensor Format Rules
 
-### Padding Operations
+1. **Conv2d Input Format**: `[N, H, W, C]` (batch, height, width, channels)
+2. **Conv1d Input Format**: `[N, L, C]` (batch, length, channels)  
+3. **Weight Formats**: Identical between Python and Swift MLX
+   - Conv2d weights: `[out_channels, kernel_h, kernel_w, in_channels_per_group]`
+   - Conv1d weights: `[out_channels, kernel_size, in_channels_per_group]`
+
+## Key Project Files
+
+### Core Implementation
+- [Sources/ParakeetMLX/Conformer.swift](mdc:Sources/ParakeetMLX/Conformer.swift) - Main conformer encoder with DwStridingSubsampling
+- [Sources/ParakeetMLX/ParakeetMLX.swift](mdc:Sources/ParakeetMLX/ParakeetMLX.swift) - Main model class and weight loading
+- [Sources/ParakeetMLX/RNNT.swift](mdc:Sources/ParakeetMLX/RNNT.swift) - RNN-T components (LSTM, prediction, joint networks)
+
+### Python Reference
+- [Python/conformer.py](mdc:Python/conformer.py) - Reference Python implementation
+- [Python/rnnt.py](mdc:Python/rnnt.py) - Reference RNN-T implementation
+- [Python/parakeet.py](mdc:Python/parakeet.py) - Main Python model interface
+
+## Common Pitfalls & Solutions
+
+### 1. Weight Loading (ParakeetMLX.swift)
 ```swift
-// CORRECT: Use MLX.padded with proper parameter labels and types
-x = MLX.padded(x, widths: padArray.map { IntOrPair($0) }, mode: .constant, value: MLXArray(0.0))
-
-// WRONG: Missing widths label, wrong value type
-x = MLX.padded(x, padArray, mode: .constant, value: 0.0)
+// ❌ DON'T transpose weights - they're already in correct format
+// ✅ DO use weights as-is from safetensors
+let transformedWeights = weights  // No transposition needed!
 ```
 
-### Type Conversion
+### 2. Conv2d Tensor Handling (Conformer.swift)
 ```swift
-// CORRECT: Specify type explicitly for .item()
-let length = Int(array.item(Int32.self))
-let value = array.item(Float.self)
-
-// WRONG: Ambiguous type conversion
-let length = Int(array.item())  // Compilation error
+// ❌ Wrong: Assuming NCHW format
+// ✅ Correct: Handle NHWC format with proper transposes
+x = x.transposed(axes: [0, 2, 3, 1])  // [NCHW] -> [NHWC] for Conv2d
+// ... conv operations ...
+x = x.transposed(axes: [0, 3, 1, 2])  // [NHWC] -> [NCHW] back
 ```
 
-### IntOrPair Usage
+### 3. Depthwise Convolution Configuration
 ```swift
-// CORRECT: Pass tuple as single parameter
-kernelSize: IntOrPair((3, 3))
-stride: IntOrPair((2, 2))
-
-// WRONG: Pass two separate parameters
-kernelSize: IntOrPair(3, 3)  // Compilation error
+// ❌ Wrong: groups=1 for depthwise conv
+// ✅ Correct: groups=inputChannels for depthwise conv
+Conv2d(
+    inputChannels: inChannels,
+    outputChannels: inChannels,
+    groups: inChannels  // Essential for depthwise convolution
+)
 ```
 
-## Neural Network Layers
-
-### Conv2d Parameters
+### 4. LSTM Tensor Handling (RNNT.swift)
 ```swift
-///
-/// ### See Also
-/// - <doc:convolution>
-/// - ``IntOrPair``
-/// - ``conv1d(_:_:stride:padding:dilation:groups:stream:)``
-/// - ``conv3d(_:_:stride:padding:dilation:groups:stream:)``
-/// - ``convolve(_:_:mode:stream:)``
-/// - ``convGeneral(_:_:strides:padding:kernelDilation:inputDilation:groups:flip:stream:)-9t1sj``
-public func conv2d(
-    _ array: MLXArray, _ weight: MLXArray, stride: IntOrPair = 1, padding: IntOrPair = 0,
-    dilation: IntOrPair = 1, groups: Int = 1, stream: StreamOrDevice = .default
-) -> MLXArray {
-    var result = mlx_array_new()
-    mlx_conv2d(
-        &result,
-        array.ctx, weight.ctx, stride.first.int32, stride.second.int32, padding.first.int32,
-        padding.second.int32, dilation.first.int32, dilation.second.int32, groups.int32,
-        stream.ctx)
-    return MLXArray(result)
+// ✅ These transposes are CORRECT for batch_first LSTM handling
+if batchFirst {
+    x = x.transposed(axes: [1, 0, 2])  // [batch, seq, features] -> [seq, batch, features]
 }
 ```
 
-### Linear Layers
-```swift
-// Standard linear layer
-let linear = Linear(inputDim, outputDim, bias: true)
-```
+## Debugging Tips
 
-### Activation Functions
-Use MLX namespace for activation functions:
-```swift
-// CORRECT
-let output = MLX.sigmoid(x)
-let output = MLX.tanh(x)
-let output = MLX.softmax(x, axis: -1)
+1. **Check weight shapes**: Depthwise conv weights have shape `[out_channels, kernel_h, kernel_w, 1]`
+2. **Verify tensor dimensions**: Print shapes before/after each operation
+3. **Compare with Python**: Use same transpose operations as Python reference
+4. **Weight loading**: No format conversion needed between Python and Swift MLX
 
-// Custom activations
-private func silu(_ x: MLXArray) -> MLXArray {
-    return x * MLX.sigmoid(x)
-}
-```
+## Architecture Overview
 
-## FFT Operations
-```swift
-// CORRECT: Use MLX.rfft
-let fftResult = MLX.rfft(frameMatrix, axis: -1)
-
-// WRONG: MLX.FFT.rfft doesn't exist
-let fftResult = MLX.FFT.rfft(frameMatrix, axis: -1)
-```
-
-## Common Conversion Patterns
-
-### From Python mx.pad to Swift MLX.padded
-```python
-# Python MLX
-x = mx.pad(x, pad_width, mode='constant', constant_values=0.0)
-```
-
-```swift
-// Swift MLX
-x = MLX.padded(x, widths: padWidth.map { IntOrPair($0) }, mode: .constant, value: MLXArray(0.0))
-```
-
-### From Python mx.concatenate to Swift MLX.concatenated
-```python
-# Python MLX
-result = mx.concatenate([array1, array2], axis=0)
-```
-
-```swift
-// Swift MLX
-result = MLX.concatenated([array1, array2], axis: 0)
-```
-
-## Best Practices
-
-1. **Always specify types for .item()** - MLX Swift requires explicit type specification
-2. **Use IntOrPair correctly** - Pass tuples as single parameters, not separate arguments
-3. **Wrap scalar values in MLXArray** - Many functions expect MLXArray parameters, not raw scalars
-4. **Use MLX namespace** - Most functions are in the MLX namespace, not as instance methods
+- **Encoder**: Conformer with DwStridingSubsampling for downsampling
+- **Decoder**: LSTM-based prediction network  
+- **Joint**: Combines encoder and decoder outputs for final predictions
+- **TDT Decoding**: Time-dependent transducer with duration prediction
 
 ---
 > Source: [FluidInference/swift-parakeet-mlx](https://github.com/FluidInference/swift-parakeet-mlx) — distributed by [TomeVault](https://tomevault.io).
