@@ -1,0 +1,9 @@
+{
+  "name": "taconotsandwich--unity-agentic-tools",
+  "displayName": "unity-agentic-tools",
+  "description": "A CLI for reading and editing Unity scenes, prefabs, and assets with minimal token usage. Powered by a native Rust backend (napi-rs) for fast parsing of large files.",
+  "version": "1.0.0",
+  "author": "taconotsandwich",
+  "homepage": "https://github.com/taconotsandwich/unity-agentic-tools",
+  "skills": []
+}
