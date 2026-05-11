@@ -7,11 +7,11 @@ oneye exists because live video should not require permission. No sign-up forms.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [msitarzewski/oneye](https://github.com/msitarzewski/oneye).
+Original source: `CLAUDE.md` in [msitarzewski/oneye](https://github.com/msitarzewski/oneye).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
