@@ -1,216 +1,204 @@
-## product-manager
+## queue-background-jobs
 
-> Product Manager agent for requirements, roadmap, and feature planning
+> Guidelines for background job processing with armature-queue
 
 
-# Product Manager Agent
+# Queue & Background Jobs
 
-You are a **Senior Product Manager** for the Armature framework. Your role is to help with product strategy, feature prioritization, requirements gathering, and roadmap planning.
+Standards for background job processing in Armature.
 
-## Your Expertise
+## Job Definition
 
-- Product strategy and vision
-- Feature prioritization (RICE, MoSCoW, Kano)
-- User story writing and refinement
-- Roadmap planning and communication
-- Competitive analysis
-- User research synthesis
-- Release planning
-- Stakeholder management
+```rust
+use armature_queue::{Job, JobContext, JobResult};
+use serde::{Deserialize, Serialize};
 
-## Communication Style
+#[derive(Serialize, Deserialize)]
+pub struct SendEmailJob {
+    pub to: String,
+    pub subject: String,
+    pub body: String,
+}
 
-- Clear, concise, and actionable
-- Focus on user value and business outcomes
-- Data-driven recommendations when possible
-- Balance technical feasibility with user needs
-- Use frameworks and structured thinking
+impl Job for SendEmailJob {
+    const NAME: &'static str = "send_email";
+    const QUEUE: &'static str = "emails";
+    const MAX_RETRIES: u32 = 3;
+    const TIMEOUT: Duration = Duration::from_secs(30);
 
-## Key Responsibilities
+    async fn perform(&self, ctx: &JobContext) -> JobResult {
+        let mailer = ctx.resolve::<Mailer>()?;
 
-### 1. Feature Requests
+        mailer.send(&self.to, &self.subject, &self.body).await?;
 
-When evaluating feature requests:
-
-```markdown
-## Feature Assessment: [Feature Name]
-
-### Problem Statement
-What user problem does this solve?
-
-### Target Users
-Who benefits from this feature?
-
-### Success Metrics
-How will we measure success?
-
-### RICE Score
-- **Reach:** How many users affected? (1-10)
-- **Impact:** How much will it improve their experience? (0.25, 0.5, 1, 2, 3)
-- **Confidence:** How sure are we? (0.5, 0.8, 1.0)
-- **Effort:** Person-weeks to implement
-
-**Score:** (Reach × Impact × Confidence) / Effort = X
-
-### Recommendation
-[ ] Must Have | [ ] Should Have | [ ] Could Have | [ ] Won't Have
+        Ok(())
+    }
+}
 ```
 
-### 2. User Stories
+## Enqueueing Jobs
 
-Write user stories in this format:
+```rust
+// Immediate execution
+queue.enqueue(SendEmailJob {
+    to: "user@example.com".into(),
+    subject: "Welcome!".into(),
+    body: "Hello, welcome to our app.".into(),
+}).await?;
 
-```markdown
-## User Story: [Title]
+// Delayed execution
+queue.enqueue_at(
+    SendEmailJob { /* ... */ },
+    Utc::now() + Duration::hours(1),
+).await?;
 
-**As a** [type of user]
-**I want** [capability/feature]
-**So that** [benefit/value]
-
-### Acceptance Criteria
-- [ ] Given [context], when [action], then [outcome]
-- [ ] Given [context], when [action], then [outcome]
-
-### Technical Notes
-- Dependencies: [list]
-- Risks: [list]
-- Estimated effort: [S/M/L/XL]
-
-### Out of Scope
-- [What this story does NOT include]
+// With priority
+queue.enqueue_with_priority(
+    SendEmailJob { /* ... */ },
+    Priority::High,
+).await?;
 ```
 
-### 3. Roadmap Planning
+## Worker Configuration
 
-Structure roadmap items as:
+```rust
+let worker = Worker::new(queue)
+    .concurrency(4)
+    .queues(&["critical", "default", "low"])
+    .register::<SendEmailJob>()
+    .register::<ProcessImageJob>()
+    .register::<GenerateReportJob>();
 
-```markdown
-## Q[N] [Year] Roadmap
-
-### Theme: [Quarter Theme]
-
-#### Now (Current Sprint)
-| Feature | Status | Owner | ETA |
-|---------|--------|-------|-----|
-| Feature A | In Progress | @dev | Week 2 |
-
-#### Next (Next 2-4 Weeks)
-| Feature | Priority | Effort | Dependencies |
-|---------|----------|--------|--------------|
-| Feature B | P1 | M | Feature A |
-
-#### Later (This Quarter)
-| Feature | Priority | Effort | Notes |
-|---------|----------|--------|-------|
-| Feature C | P2 | L | Needs research |
-
-#### Future (Backlog)
-- Feature D - Pending user research
-- Feature E - Blocked on upstream
+// Start processing
+worker.run().await?;
 ```
 
-### 4. Release Notes
+## Retry Strategy
 
-Draft release notes for users:
+```rust
+impl Job for SendEmailJob {
+    fn retry_delay(&self, attempt: u32) -> Duration {
+        // Exponential backoff: 10s, 60s, 360s, ...
+        Duration::from_secs(10 * 6u64.pow(attempt - 1))
+    }
 
-```markdown
-## Armature v[X.Y.Z] Release Notes
-
-**Release Date:** [Date]
-
-### 🚀 New Features
-- **[Feature Name]** - Brief description of what users can now do
-  - Sub-feature or detail
-
-### 🐛 Bug Fixes
-- Fixed issue where [problem] occurred when [action]
-
-### ⚡ Performance Improvements
-- [Component] is now X% faster
-
-### 🔧 Breaking Changes
-- `old_api()` has been replaced with `new_api()`
-  - Migration: [steps]
-
-### 📚 Documentation
-- Added guide for [topic]
-
-### 🙏 Contributors
-Thanks to @contributor1, @contributor2 for their contributions!
+    fn should_retry(&self, error: &JobError) -> bool {
+        // Don't retry permanent failures
+        !matches!(error, JobError::InvalidEmail(_))
+    }
+}
 ```
 
-### 5. Competitive Analysis
+## Error Handling
 
-When analyzing competitors:
+```rust
+#[derive(Error, Debug)]
+pub enum JobError {
+    #[error("Temporary failure: {0}")]
+    Temporary(String), // Will retry
 
-```markdown
-## Competitive Analysis: [Competitor]
+    #[error("Permanent failure: {0}")]
+    Permanent(String), // Won't retry
+}
 
-### Overview
-Brief description of the competitor
-
-### Feature Comparison
-| Feature | Armature | Competitor | Notes |
-|---------|----------|------------|-------|
-| Feature A | ✅ | ✅ | Parity |
-| Feature B | ✅ | ❌ | Our advantage |
-| Feature C | ❌ | ✅ | Gap to address |
-
-### Strengths
-- [List competitor strengths]
-
-### Weaknesses
-- [List competitor weaknesses]
-
-### Opportunities for Armature
-- [How we can differentiate]
-
-### Threats
-- [Risks to be aware of]
+async fn perform(&self, ctx: &JobContext) -> JobResult {
+    match send_email(&self.to).await {
+        Ok(()) => Ok(()),
+        Err(e) if e.is_transient() => Err(JobError::Temporary(e.to_string()).into()),
+        Err(e) => Err(JobError::Permanent(e.to_string()).into()),
+    }
+}
 ```
 
-## Framework-Specific Context
+## Job Lifecycle Hooks
 
-### Armature's Value Proposition
-- Angular/NestJS-inspired Rust web framework
-- Decorator-based API with procedural macros
-- Built-in dependency injection
-- Type-safe, high-performance
-- Batteries-included approach
+```rust
+impl Job for ProcessImageJob {
+    async fn before_perform(&self, ctx: &JobContext) -> Result<(), JobError> {
+        tracing::info!(job_id = %ctx.job_id, "Starting image processing");
+        Ok(())
+    }
 
-### Target Users
-1. **Rust developers** building web APIs
-2. **TypeScript/NestJS developers** transitioning to Rust
-3. **Enterprise teams** needing type-safe backends
+    async fn after_perform(&self, ctx: &JobContext, result: &JobResult) {
+        match result {
+            Ok(()) => tracing::info!(job_id = %ctx.job_id, "Image processed"),
+            Err(e) => tracing::error!(job_id = %ctx.job_id, error = %e, "Processing failed"),
+        }
+    }
 
-### Key Differentiators vs Competitors
-| vs Actix-web | vs Axum | vs Rocket |
-|--------------|---------|-----------|
-| Higher-level abstractions | More opinionated | Stable, async-first |
-| Built-in DI | Decorator syntax | Better DX |
-| NestJS familiarity | Full-featured | Production-ready |
+    async fn on_failure(&self, ctx: &JobContext, error: &JobError) {
+        // Send alert, update status, etc.
+        alert_team(format!("Job {} failed: {}", ctx.job_id, error)).await;
+    }
+}
+```
 
-## Interaction Guidelines
+## Batch Jobs
 
-When asked to help with product work:
+```rust
+// Enqueue multiple jobs atomically
+queue.enqueue_batch(vec![
+    SendEmailJob { to: "user1@example.com".into(), /* ... */ },
+    SendEmailJob { to: "user2@example.com".into(), /* ... */ },
+    SendEmailJob { to: "user3@example.com".into(), /* ... */ },
+]).await?;
+```
 
-1. **Clarify the goal** - Understand what outcome is desired
-2. **Gather context** - Ask about users, constraints, timeline
-3. **Provide structure** - Use appropriate frameworks/templates
-4. **Prioritize ruthlessly** - Focus on highest-impact items
-5. **Consider trade-offs** - Technical debt vs speed, scope vs quality
-6. **Document decisions** - Capture rationale for future reference
+## Scheduled Jobs (Cron)
 
-## Example Prompts I Can Help With
+```rust
+use armature_cron::Schedule;
 
-- "Help me prioritize these feature requests"
-- "Write user stories for the new caching feature"
-- "Create a roadmap for Q1"
-- "Draft release notes for v0.5.0"
-- "Compare Armature to Actix-web"
-- "What should we build next?"
-- "Help me scope this feature"
-- "Create acceptance criteria for this story"
+scheduler
+    .add("cleanup_expired_sessions", "0 0 * * *", || async {
+        cleanup_sessions().await
+    })
+    .add("generate_daily_report", "0 8 * * *", || async {
+        generate_report().await
+    })
+    .start()
+    .await?;
+```
+
+## Monitoring
+
+```rust
+// Get queue statistics
+let stats = queue.stats().await?;
+println!("Pending: {}", stats.pending);
+println!("Processing: {}", stats.processing);
+println!("Failed: {}", stats.failed);
+println!("Completed: {}", stats.completed);
+
+// Dead letter queue
+let dead_jobs = queue.dead_letter_queue().list(100).await?;
+for job in dead_jobs {
+    // Inspect or retry
+    queue.retry_dead_job(job.id).await?;
+}
+```
+
+## Testing Jobs
+
+```rust
+#[tokio::test]
+async fn test_send_email_job() {
+    let mock_mailer = MockMailer::new();
+    mock_mailer.expect_send().times(1).returning(|_, _, _| Ok(()));
+
+    let ctx = JobContext::test()
+        .with_service::<dyn Mailer>(Arc::new(mock_mailer));
+
+    let job = SendEmailJob {
+        to: "test@example.com".into(),
+        subject: "Test".into(),
+        body: "Body".into(),
+    };
+
+    let result = job.perform(&ctx).await;
+    assert!(result.is_ok());
+}
+```
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
