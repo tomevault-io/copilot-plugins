@@ -1,0 +1,9 @@
+{
+  "name": "naresh084--claudegate",
+  "displayName": "claudegate",
+  "description": "  ClaudeGate - A CLI wrapper that lets you switch between Anthropic, OpenRouter, Z.AI, Kimi K2, Novita AI, and custom endpoints with a single command. No manual config editing required.",
+  "version": "1.0.0",
+  "author": "Naresh084",
+  "homepage": "https://github.com/Naresh084/claudegate",
+  "skills": []
+}
