@@ -1,0 +1,121 @@
+## rust-voronoi-planet
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Build and Test Commands
+
+```bash
+# Build the library
+cargo build
+
+# Build with all features
+cargo build --all-features
+
+# Run tests
+cargo test
+
+# Run tests with specific feature
+cargo test --features serde
+
+# Run a specific example
+cargo run --example generate_planet
+cargo run --example terrain_demo
+cargo run --example mesh_demo
+cargo run --example full_demo
+
+# Run example with release optimizations (recommended for larger planets)
+cargo run --example generate_planet --release
+
+# Check without building
+cargo check
+```
+
+## Features
+
+- `spatial-index` (default): Enables O(log n) position-to-cell lookups using KD-tree (kiddo)
+- `serde`: Enables serialization support for configuration and cells
+
+## Architecture
+
+This library generates Voronoi-tessellated sphere meshes for procedural planet generation.
+
+### Generation Pipeline (`src/generation/`)
+
+The Voronoi generation follows this pipeline:
+
+1. **Point Generation**: Configurable via `PointDistribution` enum:
+   - `Random` (`points.rs`): Uniform random distribution using ChaCha8Rng for determinism
+   - `Fibonacci` (`fibonacci.rs`): Golden spiral lattice, near-uniform in O(n) time (recommended)
+2. **Lloyd's Relaxation** (`lloyd.rs`): Optional iterative refinement. Features convergence detection.
+   - Not needed with Fibonacci distribution (use `lloyd_iterations: 0` for best performance)
+3. **Delaunay Triangulation** (`delaunay.rs`): Uses parry3d convex hull (convex hull of sphere points = Delaunay triangulation)
+4. **Voronoi Construction** (`voronoi.rs`): Computes circumcenters, orders vertices CCW, finds neighbors
+
+### Core Types
+
+- `PlanetConfig` / `PlanetConfigBuilder` (`config.rs`): Serializable configuration (seed, size, lloyd iterations, lloyd_convergence)
+- `VoronoiPlanet<T>` (`planet.rs`): Complete planet with cells, generic over terrain type T
+- `VoronoiCell<T>` (`cell.rs`): Individual cell with id, center, terrain, neighbors, vertices
+- `RawCell` (`generation/voronoi.rs`): Geometry-only cell before terrain is applied
+
+### Terrain System (`src/terrain/`)
+
+- `TerrainSampler` trait: Sample terrain at 3D positions
+- `PerlinTerrainSampler`: Default sampler using 3D Perlin noise with domain warping
+- `BasicTerrainType`: Ocean, Beach, Land, Mountain, Ice
+
+### Mesh Generation (`src/mesh/`)
+
+- `MeshData`: Engine-agnostic output (positions, normals, colors, indices)
+- `ColorMapper` trait: Map terrain types to RGBA colors
+- Cells are triangulated as triangle fans from center to boundary
+
+### Spatial Queries (`src/spatial.rs`)
+
+When `spatial-index` feature is enabled:
+- `SpatialIndex`: KD-tree wrapper for O(log n) nearest-neighbor lookups
+- `planet.find_cell_at(position)`: Convert 3D position to cell ID
+
+## Key Design Decisions
+
+- **Determinism**: Same seed produces identical planet (ChaCha8Rng, stable sort)
+- **Engine-agnostic**: Raw mesh data compatible with Bevy, Godot, wgpu
+- **Serialization**: Only config is serialized (~20 bytes), planets regenerated from config
+- **Generic terrain**: `VoronoiCell<T>` allows custom terrain types via `TerrainSampler`
+
+## Planet Sizes
+
+| Size   | Cells  | Radius |
+|--------|--------|--------|
+| Tiny   | 5,000  | 11.3   |
+| Small  | 11,000 | 16.7   |
+| Medium | 17,000 | 20.9   |
+| Large  | 26,000 | 25.8   |
+
+## Performance
+
+The main bottleneck is convex hull computation (~170ms per call for 5000 cells).
+
+| Configuration | Convex Hull Calls | Approx. Time | Cell Quality |
+|--------------|------------------|--------------|--------------|
+| Random + 5 Lloyd | 6× | ~1000ms | Excellent |
+| Fibonacci + 1 Lloyd | 2× | ~340ms | Excellent |
+| Fibonacci + 0 Lloyd | 1× | ~170ms | Good |
+
+**Recommended (best balance of speed and quality):**
+```rust
+PlanetConfigBuilder::new()
+    .point_distribution(PointDistribution::Fibonacci)
+    .lloyd_iterations(1)?
+    .build()?
+```
+
+Note: Fibonacci distribution includes automatic jitter to break up the regular spiral pattern and produce natural-looking Voronoi cells.
+
+---
+> Source: [svdragster/rust_voronoi_planet](https://github.com/svdragster/rust_voronoi_planet) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
