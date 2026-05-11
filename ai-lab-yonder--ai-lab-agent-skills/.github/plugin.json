@@ -1,0 +1,9 @@
+{
+  "name": "ai-lab-yonder--ai-lab-agent-skills",
+  "displayName": "ai-lab-agent-skills",
+  "description": "A curated set of practical skills and cheat-sheet commands designed to help participants quickly understand, use, and experiment with AI agents during the AI Lab workshop.",
+  "version": "1.0.0",
+  "author": "AI-Lab-Yonder",
+  "homepage": "https://github.com/AI-Lab-Yonder/ai-lab-agent-skills",
+  "skills": []
+}
