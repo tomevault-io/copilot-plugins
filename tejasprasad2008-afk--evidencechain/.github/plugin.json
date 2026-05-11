@@ -1,0 +1,9 @@
+{
+  "name": "tejasprasad2008-afk--evidencechain",
+  "displayName": "evidencechain",
+  "description": "Autonomous forensic investigation agent with self-correction for SANS SIFT Workstation. 21 typed MCP tools, 7 contradiction detectors, evidence-weighted confidence scoring. Built for SANS Find Evil! H",
+  "version": "1.0.0",
+  "author": "tejasprasad2008-afk",
+  "homepage": "https://github.com/tejasprasad2008-afk/evidencechain",
+  "skills": []
+}
