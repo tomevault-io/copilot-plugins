@@ -1,0 +1,9 @@
+{
+  "name": "dangerousthings--flipper-wedge",
+  "displayName": "flipper-wedge",
+  "description": "Type RFID UIDs and NFC NDEF contents as keyboard input via USB and BLE",
+  "version": "1.0.0",
+  "author": "DangerousThings",
+  "homepage": "https://github.com/DangerousThings/flipper-wedge",
+  "skills": []
+}
