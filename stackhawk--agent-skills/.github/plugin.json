@@ -1,0 +1,9 @@
+{
+  "name": "stackhawk--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Official StackHawk skills for Claude Code. Security testing and reporting powered by HawkScan.",
+  "version": "1.0.0",
+  "author": "stackhawk",
+  "homepage": "https://github.com/stackhawk/agent-skills",
+  "skills": []
+}
