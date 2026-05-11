@@ -1,0 +1,9 @@
+{
+  "name": "ucb-bar--merlin",
+  "displayName": "merlin",
+  "description": "MLIR-in as a compiler stack for ucb-bar",
+  "version": "1.0.0",
+  "author": "ucb-bar",
+  "homepage": "https://github.com/ucb-bar/merlin",
+  "skills": []
+}
