@@ -1,0 +1,9 @@
+{
+  "name": "tangsy--aedifex",
+  "displayName": "aedifex",
+  "description": "Open-source 3D architectural editor with AI design assistant. Build floor plans with walls, doors, windows, and furniture using natural language. Powered by WebGPU,   Three.js, and React.",
+  "version": "1.0.0",
+  "author": "TangSY",
+  "homepage": "https://github.com/TangSY/aedifex",
+  "skills": []
+}
