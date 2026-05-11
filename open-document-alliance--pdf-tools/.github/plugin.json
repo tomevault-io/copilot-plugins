@@ -1,0 +1,9 @@
+{
+  "name": "open-document-alliance--pdf-tools",
+  "displayName": "PDF-Tools",
+  "description": "PDF Filler for Claude Desktop (using Claude Desktop Extensions)",
+  "version": "1.0.0",
+  "author": "Open-Document-Alliance",
+  "homepage": "https://github.com/Open-Document-Alliance/PDF-Tools",
+  "skills": []
+}
