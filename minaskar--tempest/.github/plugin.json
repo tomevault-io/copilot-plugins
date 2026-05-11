@@ -1,0 +1,9 @@
+{
+  "name": "minaskar--tempest",
+  "displayName": "tempest",
+  "description": "Persistent Sampling for fast Bayesian posterior sampling and model evidence estimation in scientific applications",
+  "version": "1.0.0",
+  "author": "minaskar",
+  "homepage": "https://github.com/minaskar/tempest",
+  "skills": []
+}
