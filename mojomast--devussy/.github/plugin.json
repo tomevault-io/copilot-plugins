@@ -1,0 +1,9 @@
+{
+  "name": "mojomast--devussy",
+  "displayName": "devussy",
+  "description": "Devussy \u2014 interview to DevPlan. Multi\u2011stage AI planning pipeline with live progress. Generated devplans can be used with any agent by asking them to read handoff and resume development. circular devel",
+  "version": "1.0.0",
+  "author": "mojomast",
+  "homepage": "https://github.com/mojomast/devussy",
+  "skills": []
+}
