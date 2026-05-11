@@ -1,30 +1,58 @@
-## components
+## development-guide
 
-> 项目使用 Vue 3 的组合式 API 和 `<script setup>` 语法。组件文件应遵循以下结构：
+> - [vite.config.js](mdc:vite.config.js) - Vite 构建工具配置
 
-# 组件规则
+# 开发指南
 
-## 组件结构
+## 项目设置
 
-项目使用 Vue 3 的组合式 API 和 `<script setup>` 语法。组件文件应遵循以下结构：
+1. 安装依赖：
+   ```bash
+   npm install
+   ```
 
-```vue
-<script setup>
-// 导入
-import { ref } from 'vue'
+2. 启动开发服务器：
+   ```bash
+   npm run dev
+   ```
 
-// 状态和逻辑
-const count = ref(0)
-</script>
+3. 构建生产版本：
+   ```bash
+   npm run build
+   ```
 
-<template>
-  <!-- 模板内容 -->
-</template>
+4. 预览生产版本：
+   ```bash
+   npm run preview
+   ```
 
-<style scoped>
-/* 组件样式 */
-</style>
-```
+## 项目配置
+
+- [vite.config.js](mdc:vite.config.js) - Vite 构建工具配置
+- [jsconfig.json](mdc:jsconfig.json) - JavaScript 配置
+
+## 代码风格指南
+
+### Vue 组件
+
+- 使用 `<script setup>` 语法
+- 组件名称使用 PascalCase 命名
+- 文件名与组件名一致
+- 视图组件以 `View` 结尾
+- 通用组件放在 `components` 目录
+- 页面级组件放在 `views` 目录
+
+### JavaScript
+
+- 使用 ES6+ 语法
+- 使用 `const` 和 `let`，避免使用 `var`
+- 使用箭头函数
+- 使用解构赋值
+
+### CSS
+
+- 组件样式使用 `scoped` 属性
+- 全局样式放在 `src/assets` 目录下
 
 ---
 > Source: [chen-banxia/message-center-ui](https://github.com/chen-banxia/message-center-ui) — distributed by [TomeVault](https://tomevault.io).
