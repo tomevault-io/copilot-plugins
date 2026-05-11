@@ -1,257 +1,181 @@
-## dev-workflow
+## mcp-debugging
 
-> Guide for task-driven development workflows
+> The mcp-debug agent provides essential tools to test and explore MCP (Model Context Protocol) servers. This guide focuses on using the agent to debug MCP server behavior and functionality.
 
+## Debugging MCP Servers via MCP-Debug Agent
 
-# The Development Workflow
+The mcp-debug agent provides essential tools to test and explore MCP (Model Context Protocol) servers. This guide focuses on using the agent to debug MCP server behavior and functionality.
 
-This document outlines the standard, iterative process for all development work. Following this workflow is **mandatory** to ensure consistency, quality, and effective collaboration across the project.
+## Core Agent Modes
 
-## The Core Development Loop
+The agent operates in three distinct modes:
 
-All work, from new features to bug fixes, follows this fundamental three-phase cycle:
-
-**REMEMBER: This repository uses `main` as the default branch. NEVER commit directly to `main`!**
-
-1.  **Phase 1: Planning & Alignment**
-    -   Select an issue from the backlog.
-    -   Switch to the `main` branch and pull the latest changes.
-    -   **Create a dedicated feature branch from `main`** (NEVER work directly on `main`).
-    -   Explore the codebase to create a detailed implementation strategy.
-
-2.  **Phase 2: Iterative Implementation**
-    -   **Log your plan first.** Document your intended changes in the relevant issue *before* writing code.
-    -   Implement the changes, adhering to the project's architectural guidelines.
-    -   Continuously log progress, discoveries, and setbacks as you work to create a rich history of the task.
-
-3.  **Phase 3: Finalization & Committing**
-    -   Write and pass all required tests.
-    -   Format your code according to project standards.
-    -   Update any relevant project rules based on your changes.
-    -   Commit your work using a structured, conventional commit message.
-    -   Push your branch and create a PR.
-
----
-
-## Phase 1: Planning & Alignment
-
-Before writing a single line of implementation code, you must have a clear plan and be working on the correct branch.
-
-### 1.1. Select an Issue & State Your Intent
-
-1.  **List Open Issues:** Use `mcp_github_list_issues` to see available tasks for `giantswarm/mcp-debug`.
-2.  **Choose an Issue:** Select the highest-priority issue you are able to work on.
-3.  **Get Details:** Use `mcp_github_get_issue` to retrieve its full details.
-4.  **Announce Your Plan:** In the chat, you **MUST** summarize the issue (title, number) and your intended high-level approach.
-    -   **Example:** *"I am starting work on issue #37: Refactor Capability API. My plan is to start by defining the new interfaces in the API package..."*
-
-### 1.2. Create a Dedicated Git Branch
-
-**CRITICAL: NEVER COMMIT DIRECTLY TO THE `main` BRANCH!**
-
-The repository uses `main` as the default branch (NOT `master`). All work MUST be done in feature branches.
-
-1.  **Check Your Current Branch:** Run `git rev-parse --abbrev-ref HEAD`.
-2.  **STOP if on `main`:** If you are on `main`, you MUST create a new branch immediately. DO NOT make any commits to `main`.
-3.  **Branch Naming Convention:** Branch names **MUST** follow this format:
-    > `<type>/issue-<number>-<kebab-case-title>`
-4.  **Branch Types:** `feature`, `fix`, `refactor`, `docs`, `test`, `chore`.
-5.  **Example:** `git checkout -b feature/issue-42-add-prometheus-provider`
-
-**Workflow Summary:**
-- Always switch to `main` and pull latest changes first
-- Always create a branch from `main`
-- Make all commits to your feature branch
-- Push your branch and create a Pull Request
-- Merge to `main` only via Pull Request
-- NEVER `git commit` while on `main`
-- NEVER `git push origin main`
-
-### 1.3. Explore and Plan
-
-This is a critical step to ensure your implementation is well-considered.
-
-1.  **Explore the Codebase:** Identify the specific files, functions, and lines of code that need to be added, removed, or changed.
-2.  **Formulate a Detailed Plan:** Based on your exploration, create a precise implementation plan. What is the exact diff you intend to apply? What potential challenges do you foresee? This plan will be logged in the next step.
-
----
-
-## Phase 2: Iterative Implementation & Logging
-
-This cycle is the heart of the workflow. It's designed to build a rich, contextual history of the implementation, which is invaluable for debugging, collaboration, and future reference.
-
-### 2.1. Log Your Plan *Before* Coding
-
-1.  Before you start implementing, log the detailed plan you created in step 1.3.
-2.  Always update the description of the existing issue with your plan.
-3.  Verify that the plan was successfully logged by viewing the issue details again.
-
-### 2.2. Implement & Log Progress
-
-1.  **Set Issue Status:** Mark the issue as `in-progress`.
-2.  **Write Code:** Begin writing code according to your plan and the project's [architecture.mdc](mdc:.cursor/rules/architecture.mdc).
-3.  **Log Continuously:** As you work, you will learn things. **You must log them.** Regularly update the issue to append new findings.
-    -   **What Worked:** Confirmed approaches, "fundamental truths."
-    -   **What Didn't Work:** Dead ends, failed experiments, and why.
-    -   **Specifics:** Successful code snippets, configurations, or commands.
-    -   **Decisions:** Any choices made, especially if confirmed with the user.
-
----
-
-## Phase 3: Finalization & Committing
-
-### 3.1. Pre-Commit Quality Check
-
-Before **every** commit, you **MUST** perform these checks:
-
-1.  **Format Code:**
-    ```bash
-    goimports -w .
-    go fmt ./...
-    ```
-
-2.  **Lint Code:**
-    ```bash
-    make lint
-    ```
-    -   **CRITICAL:** Fix ALL linter errors before committing.
-    -   Linter failures in CI will block your PR from being merged.
-
-3.  **Run All Tests:**
-    ```bash
-    make test
-    ```
-    -   **DO NOT** commit if any tests are failing. Fix the tests first.
-    -   Code must meet the test coverage minimums defined in [architecture.mdc](mdc:.cursor/rules/architecture.mdc).
-
-4.  **Update TUI Snapshots (if applicable):**
-    -   If you made changes to the TUI, update the golden files: `NO_COLOR=true go test ./internal/tui/view/... -update`.
-    -   Review the changes to ensure they are intentional.
-
-### 3.2. Review & Update Rules
-
-1.  Review your implementation and the chat history.
-2.  Identify any new patterns, conventions, or best practices that emerged.
-3.  Update existing rules in `.cursor/rules/` if you discovered new patterns that should be followed. This is a critical step for our collective improvement.
-
-### 3.3. Craft the Commit Message
-
-Commit messages are vital documentation. They **MUST** follow the [Conventional Commits](mdc:https:/www.conventionalcommits.org/en/v1.0.0) specification.
-
-**Structure:**
-```
-<type>(<scope>): <subject>
-<BLANK LINE>
-<body>
-<BLANK LINE>
-<footer>
-```
--   **Type:** `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `style`, `perf`, `ci`, `build`.
--   **Scope (Optional):** The area of the codebase affected (e.g., `api`, `tui`, `capability`).
--   **Subject:** A short, imperative-tense summary. No period at the end.
--   **Body (Recommended):** Explain the *what* and *why* of the change.
--   **Footer:** Reference the issue being closed using `Closes #<issue_number>`. This automatically links the commit to the issue and closes it. Include `BREAKING CHANGE:` for any backward-incompatible changes.
-
-**Example:**
-```
-feat(api): Add GetWorkflow handler
-
-Implement the GetWorkflow function in the API layer to allow services
-to retrieve workflow definitions by name. This is a prerequisite
-for the workflow execution engine.
-
-Closes #52
+### 1. Normal Mode (Default)
+Connects to an MCP server, lists available tools/resources/prompts, and waits for notifications:
+```bash
+mcp-debug --endpoint http://localhost:8090/sse
 ```
 
-### 3.4. Commit, Push, and Create Pull Request
+### 2. REPL Mode
+Interactive mode for exploring and executing MCP capabilities:
+```bash
+mcp-debug --repl
+```
 
-**VERIFICATION: Before committing, ensure you are NOT on the `main` branch!**
+In REPL mode, you can:
+- List available tools, resources, and prompts
+- Get detailed information about specific items
+- Execute tools interactively with JSON arguments
+- View resources and retrieve their contents
+- Execute prompts with arguments
+- Toggle notification display
 
-1.  **Verify Branch:** Run `git branch --show-current` - it MUST NOT be `main`
+### 3. MCP Server Mode
+Run the agent as an MCP server exposing debugging tools via stdio:
+```bash
+mcp-debug --mcp-server
+```
 
-2.  **Commit Changes:**
-    ```bash
-    git add .
-    git commit -m "..."
-    ```
+This mode is designed for integration with AI assistants like Claude or Cursor. Configure it in your AI assistant's MCP settings.
 
-3.  **Never Amend Commits**: Amend is very difficult to handle with multiple people and with gitops. So avoid using this.
+## REPL Commands
 
-4.  **Push Branch:**
-    ```bash
-    git push -u origin <your-branch-name>
-    ```
+### Listing Commands
+```
+list tools                   # List all available tools
+list resources               # List all available resources  
+list prompts                 # List all available prompts
+```
 
-5.  **Create Pull Request:** Use `gh pr create` to create a PR targeting the `main` branch.
+### Describe Commands
+```
+describe tool <name>         # Show detailed information about a tool
+describe resource <uri>      # Show detailed information about a resource
+describe prompt <name>       # Show detailed information about a prompt
+```
 
-6.  **Mark Issue Done:** Set the task status to `done`.
+### Execution Commands
+```
+call <tool> {json}           # Execute a tool with JSON arguments
+get <resource-uri>           # Retrieve a resource
+prompt <name> {json}         # Get a prompt with JSON arguments
+```
 
-7.  **Announce Completion:** Inform the user that your changes have been pushed to a branch and a PR has been created.
+### Control Commands
+```
+notifications <on|off>       # Enable/disable notification display
+help, ?                      # Show help message
+exit, quit                   # Exit the REPL
+```
 
-### 3.5. Monitor CI Checks (MANDATORY)
+## Examples
 
-After creating a PR or pushing new commits to an existing PR, you **MUST** actively monitor the CI checks:
+### Calling a Tool
+```
+MCP> call calculate {"operation": "add", "x": 5, "y": 3}
+Executing tool: calculate...
+Result:
+{
+  "result": 8
+}
+```
 
-1.  **Wait for Checks to Start:**
-    ```bash
-    # Wait 20-30 seconds for checks to initialize
-    sleep 20
-    gh pr checks
-    ```
+### Getting a Resource
+```
+MCP> get docs://readme
+Retrieving resource: docs://readme...
+Contents:
+# Project README
+This is the project documentation...
+```
 
-2.  **Monitor Until All Checks Pass:**
-    - **DO NOT** walk away after pushing.
-    - Check status every 30-60 seconds until all checks complete.
-    - Exit code 8 means checks are still running (this is normal).
-    - Exit code 1 means checks failed (action required).
-    - Exit code 0 means all checks passed (success!).
+### Using a Prompt
+```
+MCP> prompt greeting {"name": "Alice"}
+Getting prompt: greeting...
+Messages:
 
-3.  **If Checks Fail - Immediate Action Required:**
-    ```bash
-    # View failed check logs
-    gh pr checks
-    gh run view <run-id> --log-failed
-    ```
-    
-    **Common Failures:**
-    - **Lint failures:** Run `make lint` locally, fix issues, commit, push.
-    - **Build failures:** Run `go build ./...` locally, fix, commit, push.
-    - **Test failures:** Run `make test` locally, fix, commit, push.
+[1] Role: user
+Content: Hello Alice! How can I help you today?
+```
 
-4.  **Fix and Re-push:**
-    ```bash
-    # Fix the issue locally
-    make lint  # or whatever failed
-    
-    # Commit the fix
-    git add .
-    git commit -m "fix(ci): resolve <check-name> failure"
-    
-    # Push and monitor again
-    git push
-    sleep 20
-    gh pr checks
-    ```
+## Debugging Workflow
 
-5.  **Keep Monitoring:** After fixing, continue monitoring until ALL checks are green.
+### 1. Connect and Explore
+Start with REPL mode to explore what the MCP server offers:
+```bash
+mcp-debug --repl --endpoint http://your-server:port/sse
+```
 
-**Why This Matters:**
-- Failed CI checks block PR merges.
-- Quick fixes prevent blocking other developers.
-- Demonstrates professional development practices.
-- Ensures code quality before review.
+### 2. Enable Verbose Logging
+For detailed protocol inspection:
+```bash
+mcp-debug --verbose --json-rpc
+```
 
-**NEVER:**
-- Push and walk away without checking CI.
-- Leave failing checks for others to discover.
-- Assume checks will pass because local tests passed.
-- Wait for PR review before fixing obvious CI failures.
+### 3. Test Tool Execution
+Use the REPL to test individual tools with different arguments to ensure they work correctly.
 
-**ALWAYS:**
-- Monitor checks immediately after pushing.
-- Fix CI failures within minutes, not hours.
-- Re-check after every fix until all green.
-- Only request review when all checks pass.
+### 4. Monitor Notifications
+Keep the agent running to monitor for dynamic updates when tools/resources/prompts change.
+
+## Common Issues and Solutions
+
+**Connection Failed**
+- Verify the endpoint URL is correct
+- Check if the MCP server is running
+- Ensure the server supports SSE transport
+
+**Tool Not Found**
+- Use `list tools` to see available tools
+- Tool names are case-sensitive
+- Check if the tool was recently added (may need to reconnect)
+
+**Invalid Arguments**
+- Arguments must be valid JSON
+- Use `describe tool <name>` to see required parameters
+- Check the schema for correct types
+
+**No Notifications**
+- Some servers don't send notifications
+- Enable verbose mode to see keepalive messages
+- Check if the server implements notification capabilities
+
+## Integration with AI Assistants
+
+To use mcp-debug as an MCP server in Cursor:
+
+1. Add to your `.cursor/mcp.json`:
+```json
+{
+  "mcpServers": {
+    "mcp-debug": {
+      "command": "mcp-debug",
+      "args": ["--mcp-server", "--endpoint", "http://localhost:8090/sse"]
+    }
+  }
+}
+```
+
+2. The agent exposes these tools:
+- `list_tools` - List all available tools
+- `list_resources` - List all available resources  
+- `list_prompts` - List all available prompts
+- `describe_tool` - Get tool details
+- `describe_resource` - Get resource details
+- `describe_prompt` - Get prompt details
+- `call_tool` - Execute a tool
+- `get_resource` - Retrieve resource contents
+- `get_prompt` - Execute a prompt
+
+## Tips for Effective Debugging
+
+1. **Start Simple**: Begin with `list` commands to understand what's available
+2. **Use Descriptions**: Always check tool/resource/prompt descriptions before using them
+3. **Test Incrementally**: Test one tool at a time with minimal arguments first
+4. **Monitor Changes**: Keep an agent running to catch dynamic updates
+5. **Log Everything**: Use verbose mode when troubleshooting issues
+6. **Validate JSON**: Ensure your arguments are valid JSON before execution
 
 ---
 > Source: [giantswarm/mcp-debug](https://github.com/giantswarm/mcp-debug) — distributed by [TomeVault](https://tomevault.io).
