@@ -1,0 +1,9 @@
+{
+  "name": "bearcove--hotmeal",
+  "displayName": "hotmeal",
+  "description": "Parse, manipulate, diff and patch HTML \ud83d\udcc4",
+  "version": "1.0.0",
+  "author": "bearcove",
+  "homepage": "https://github.com/bearcove/hotmeal",
+  "skills": []
+}
