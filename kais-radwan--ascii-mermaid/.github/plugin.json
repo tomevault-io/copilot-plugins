@@ -1,0 +1,9 @@
+{
+  "name": "kais-radwan--ascii-mermaid",
+  "displayName": "ascii-mermaid",
+  "description": "Neovim plugin that renders Mermaid diagrams as inline ASCII art using virtual text",
+  "version": "1.0.0",
+  "author": "kais-radwan",
+  "homepage": "https://github.com/kais-radwan/ascii-mermaid",
+  "skills": []
+}
