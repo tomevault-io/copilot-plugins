@@ -1,0 +1,9 @@
+{
+  "name": "dnnsjsk--tailwindphp",
+  "displayName": "tailwindphp",
+  "description": "A 1:1 port of TailwindCSS 4.x to PHP. Generate Tailwind CSS with pure PHP \u2014 no Node.js required.",
+  "version": "1.0.0",
+  "author": "dnnsjsk",
+  "homepage": "https://github.com/dnnsjsk/tailwindphp",
+  "skills": []
+}
