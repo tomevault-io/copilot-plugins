@@ -1,0 +1,9 @@
+{
+  "name": "funagent--ai-bubu",
+  "displayName": "ai-bubu",
+  "description": "A desktop pet that tracks your AI coding activity (Cursor, Claude Code, Codex, Trae) and turns it into steps \u2014 the more you code with AI, the faster your pet runs. Built with Tauri + Vue 3. \u4e00\u4e2a\u684c\u9762\u5ba0\u7269\u5e94\u7528\uff0c\u8ffd",
+  "version": "1.0.0",
+  "author": "funAgent",
+  "homepage": "https://github.com/funAgent/ai-bubu",
+  "skills": []
+}
