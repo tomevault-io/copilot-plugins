@@ -1,0 +1,9 @@
+{
+  "name": "guillermolg00--translate-kit",
+  "displayName": "translate-kit",
+  "description": "AI-powered translation SDK that generates translations at build time using your own AI models via the Vercel AI SDK. It's compatible with next-intl and supports any AI provider with no vendor lock-in.",
+  "version": "1.0.0",
+  "author": "guillermolg00",
+  "homepage": "https://github.com/guillermolg00/translate-kit",
+  "skills": []
+}
