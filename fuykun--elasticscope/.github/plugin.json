@@ -1,0 +1,9 @@
+{
+  "name": "fuykun--elasticscope",
+  "displayName": "ElasticScope",
+  "description": "A modern, powerful web UI for Elasticsearch",
+  "version": "1.0.0",
+  "author": "fuykun",
+  "homepage": "https://github.com/fuykun/ElasticScope",
+  "skills": []
+}
