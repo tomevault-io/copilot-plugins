@@ -1,0 +1,9 @@
+{
+  "name": "cogitatortech--chilli",
+  "displayName": "chilli",
+  "description": "A microframework for creating command-line applications in Zig",
+  "version": "1.0.0",
+  "author": "CogitatorTech",
+  "homepage": "https://github.com/CogitatorTech/chilli",
+  "skills": []
+}
