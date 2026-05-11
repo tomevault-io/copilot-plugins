@@ -1,0 +1,9 @@
+{
+  "name": "ascii-supply-networks--dagster-slurm",
+  "displayName": "dagster-slurm",
+  "description": "Dagster SLURM integration",
+  "version": "1.0.0",
+  "author": "ascii-supply-networks",
+  "homepage": "https://github.com/ascii-supply-networks/dagster-slurm",
+  "skills": []
+}
