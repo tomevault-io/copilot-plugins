@@ -1,0 +1,9 @@
+{
+  "name": "shareai-lab--kode-agent",
+  "displayName": "Kode-Agent",
+  "description": "Kode Agent \u2014 Design for post-human workflows. One unit agent for every human & computer task.",
+  "version": "1.0.0",
+  "author": "shareAI-lab",
+  "homepage": "https://github.com/shareAI-lab/Kode-Agent",
+  "skills": []
+}
