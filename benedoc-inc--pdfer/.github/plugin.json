@@ -1,0 +1,9 @@
+{
+  "name": "benedoc-inc--pdfer",
+  "displayName": "pdfer",
+  "description": "A pure Go library for PDF processing with comprehensive XFA (XML Forms Architecture) support",
+  "version": "1.0.0",
+  "author": "benedoc-inc",
+  "homepage": "https://github.com/benedoc-inc/pdfer",
+  "skills": []
+}
