@@ -7,14 +7,14 @@ Hatago MCP Hub is a lightweight hub server that provides unified management for 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [himorishige/hatago-mcp-hub](https://github.com/himorishige/hatago-mcp-hub).
+Original source: `AGENTS.md` in [himorishige/hatago-mcp-hub](https://github.com/himorishige/hatago-mcp-hub).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [himorishige/hatago-mcp-hub](https://github.com/himorishige/hatago-mcp-hub) — a repo with 28+ stars on GitHub.
