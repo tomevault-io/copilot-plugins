@@ -1,45 +1,75 @@
-## context7-rules
+## python-rules
 
-> Instruction: MUST follow Context7 Instructions to correctly ask for documentation
+> Our guidelines are for Django REST API application development.
 
 
-Priority: High
-Instruction: MUST follow Context7 Instructions to correctly ask for documentation
+Our guidelines are for Django REST API application development.
 
-# Context7 Instructions
+Key Principles
+- Write clear and technical responses with accurate Django REST Framework examples.
+- Use Django and DRF built-in features and tools whenever possible.
+- Prioritize readability and maintainability, following PEP 8 style.
+- Use descriptive variable and function names, following naming conventions.
+- Structure the project modularly using Django apps for reusability and separation.
 
-## Tool Usage Guidelines
-1. When you need documentation for a specific library, format your prompts to clearly mention the library name.
-2. If you need information about a specific feature or function, include relevant keywords to help Context7 fetch the most relevant documentation.
-3. For complex queries involving multiple libraries, prioritize the main library in your prompt.
-4. Remember that Context7 works best when you're specific about what you're trying to accomplish.
+Django/DRF Guidelines
+- Use CBV for complex logic, FBV for simple logic.
+- All database operations should use Django ORM; avoid raw SQL unless necessary.
+- Use Django's built-in user model and authentication system for user management.
+- Use DRF's Serializer and ModelSerializer for data validation and transformation.
+- Place business logic in models and serializers; views should only handle requests.
+- Define clear RESTful URLs in Django's urls.py.
+- Follow Django security best practices (CSRF, SQL injection, XSS protection).
+- Use DRF's permission and authentication classes for access control.
 
-## Available Tools
-Context7 provides two main tools for accessing documentation:
+Error Handling and Validation
+- Handle errors in the view layer using try-except and DRF exception handling.
+- Use DRF's validation framework for form and model data validation.
+- Support custom error responses and error pages (e.g., 404, 500).
 
-1. **`resolve-library-id`**: Resolves a general library name into a Context7-compatible library ID.
-   * **Parameters**:
-     * `libraryName` (required): The name of the library you want documentation for (e.g., "react", "nextjs", "postgres")
+Dependencies
+- Django
+- Django REST Framework
+- Celery (for background tasks)
+- Redis (for caching and task queues)
+- PostgreSQL or MySQL (for production database)
 
-2. **`get-library-docs`**: Fetches documentation for a library using a Context7-compatible library ID.
-   * **Parameters**:
-     * `context7CompatibleLibraryID` (required): The library ID (can be obtained from `resolve-library-id`)
-     * `topic` (optional): Focus the docs on a specific topic (e.g., "routing", "hooks", "authentication")
-     * `tokens` (optional, default 10000): Maximum number of tokens to return.
+Performance Optimization
+- Use select_related and prefetch_related for query optimization.
+- Use Django/DRF caching (e.g., Redis/Memcached) to reduce database load.
+- Optimize database indexing and queries.
+- Use async views and Celery for IO-bound or long-running tasks.
 
-## Best Practices
-1. **Be Clear and Specific**: Mention the exact library, version (if applicable), and specific functionality you're interested in.
-2. **Mention Use Cases**: Describe what you're trying to build or the problem you're trying to solve.
-3. **One Task at a Time**: For complex projects, break down your requests into smaller, focused queries.
-4. **Verify and Iterate**: If the documentation isn't quite what you needed, refine your prompt to be more specific.
+Key Conventions
+1. Follow Django's "convention over configuration" principle.
+2. Always prioritize security and performance at every stage.
+3. Maintain a clear and logical project structure.
 
-## Example Workflow
-1. **Write your prompt**: "How do I create a basic Express.js API with MongoDB connection? use context7"
-2. **Behind the scenes**:
-   - Context7 identifies Express.js and MongoDB as key libraries
-   - It fetches up-to-date documentation for both
-   - The documentation is injected into the prompt context
-3. **The AI response**: Generated code and explanations based on current, accurate documentation
+Response
+1. All explanations must be in Chinese, and all code comments must be in English.
+
+Comments
+1. All comments must be in English.
+2. Do not use inline comments; comments must be above the code block.
+
+Code Formatting
+1. Limit each line of code to a maximum of 79 characters. Use line breaks and indentation for readability.
+
+Import Rules
+1. Use a three-part import structure:
+   - Standard library imports
+   - Third-party library imports
+   - Local application imports
+2. Separate each group with one blank line.
+3. Sort imports alphabetically within each group.
+4. Do not mix import types in a single block.
+5. Use absolute imports unless relative imports are required.
+6. Do not add comments to import statements.
+
+Docstring Rules
+1. All class and function comments must use docstring style (triple quotes).
+
+Refer to Django and DRF official documentation for best practices in views, models, serializers, and security.
 
 ---
 > Source: [HyperBDR/devmind](https://github.com/HyperBDR/devmind) — distributed by [TomeVault](https://tomevault.io).
