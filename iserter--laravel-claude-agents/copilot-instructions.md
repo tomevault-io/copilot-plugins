@@ -1,60 +1,11 @@
-## conventional-commits
+## laravel-claude-agents
 
-> Use Conventional Commits for all commit messages
+> - **Commits**: Use [Conventional Commits](https://www.conventionalcommits.org/) for all commit messages (e.g. `feat:`, `fix:`, `docs:`, `chore:`). See `.cursor/rules/conventional-commits.mdc` for the full rule and examples.
 
+# Laravel Claude Agents – Project context for AI
 
-# Conventional Commits
-
-Use [Conventional Commits](https://www.conventionalcommits.org/) for every commit message.
-
-## Format
-
-```
-<type>[optional scope]: <description>
-
-[optional body]
-
-[optional footer]
-```
-
-- **First line**: type (required), optional scope in parentheses, colon and space, short description in imperative mood (lowercase, no period).
-- **Body** (optional): wrap at 72 chars; explain what and why, not how.
-- **Footer** (optional): e.g. `BREAKING CHANGE:`, `Refs #123`.
-
-## Types
-
-| Type       | Use for |
-|-----------|---------|
-| `feat`    | New feature (MINOR bump) |
-| `fix`     | Bug fix (PATCH bump) |
-| `docs`    | Documentation only |
-| `style`   | Formatting, whitespace, no code change |
-| `refactor`| Code change that is not a fix or feature |
-| `perf`    | Performance improvement |
-| `test`    | Adding or updating tests |
-| `build`   | Build system, dependencies, tooling |
-| `ci`      | CI configuration |
-| `chore`   | Other changes (e.g. repo maintenance) |
-| `revert`  | Revert a previous commit |
-
-## Examples
-
-```text
-feat(api): add pagination to skills list
-fix(auth): resolve token expiry race condition
-docs: update README installation steps
-chore(deps): bump composer dependencies
-feat(parser)!: drop support for PHP 7.4
-
-BREAKING CHANGE: PHP 8.0+ is now required.
-```
-
-## Rules
-
-- Use imperative mood: "add feature" not "added feature" or "adds feature".
-- No period at the end of the subject line.
-- For breaking changes, use `!` after type/scope and/or a `BREAKING CHANGE:` footer.
-- When suggesting or writing commits, always use this format.
+- **Commits**: Use [Conventional Commits](https://www.conventionalcommits.org/) for all commit messages (e.g. `feat:`, `fix:`, `docs:`, `chore:`). See `.cursor/rules/conventional-commits.mdc` for the full rule and examples.
+- **Releases**: [Release Please](https://github.com/googleapis/release-please-action) runs on push to `main`. It opens/updates a Release PR that bumps `composer.json` version and updates `CHANGELOG.md` from conventional commits; merging that PR creates the git tag and GitHub release. For local or one-off version bumps, use `scripts/bump-version.sh [patch|minor|major] [--tag] [--commit]`.
 
 ---
 > Source: [iSerter/laravel-claude-agents](https://github.com/iSerter/laravel-claude-agents) — distributed by [TomeVault](https://tomevault.io).
