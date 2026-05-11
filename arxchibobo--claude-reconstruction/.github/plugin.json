@@ -1,0 +1,9 @@
+{
+  "name": "arxchibobo--claude-reconstruction",
+  "displayName": "claude-Reconstruction",
+  "description": "Provide Claude with complete and effective engineering documentation, organize skills/plugins/error question banks/MCP skill collections, handle full Claude engineering adaptation capabilities, and ex",
+  "version": "1.0.0",
+  "author": "Arxchibobo",
+  "homepage": "https://github.com/Arxchibobo/claude-Reconstruction",
+  "skills": []
+}
