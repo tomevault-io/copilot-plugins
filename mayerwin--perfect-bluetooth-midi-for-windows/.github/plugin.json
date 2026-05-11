@@ -1,0 +1,9 @@
+{
+  "name": "mayerwin--perfect-bluetooth-midi-for-windows",
+  "displayName": "Perfect-Bluetooth-MIDI-For-Windows",
+  "description": "Bridge a Bluetooth LE MIDI device into Windows MIDI Services so any DAW or Web MIDI site can use it wired-style.",
+  "version": "1.0.0",
+  "author": "mayerwin",
+  "homepage": "https://github.com/mayerwin/Perfect-Bluetooth-MIDI-For-Windows",
+  "skills": []
+}
