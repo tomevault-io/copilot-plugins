@@ -1,0 +1,9 @@
+{
+  "name": "msitarzewski--glas-sh",
+  "displayName": "glas.sh",
+  "description": "glas.sh brings native terminal experiences to visionOS through multiple floating \"glass-style\" terminal windows, each connected to remote Linux hosts. ",
+  "version": "1.0.0",
+  "author": "msitarzewski",
+  "homepage": "https://github.com/msitarzewski/glas.sh",
+  "skills": []
+}
