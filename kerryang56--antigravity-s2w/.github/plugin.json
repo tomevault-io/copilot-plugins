@@ -1,0 +1,9 @@
+{
+  "name": "kerryang56--antigravity-s2w",
+  "displayName": "Antigravity-S2W",
+  "description": "A VS Code extension developed with Antigravity that transforms installed AI skills (Claude/Codex/Gemini) into executable Global Workflows. Install from ZIP/GitHub and invoke via '/' commands.",
+  "version": "1.0.0",
+  "author": "KerrYang56",
+  "homepage": "https://github.com/KerrYang56/Antigravity-S2W",
+  "skills": []
+}
