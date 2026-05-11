@@ -4,7 +4,7 @@
   "repo": "datarobot-agent-application",
   "description": "DataRobot Agentic Starter Application Template",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/datarobot-community/datarobot-agent-application",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T20:09:03Z"
+  "distributed_at": "2026-05-11T15:23:06Z"
 }
