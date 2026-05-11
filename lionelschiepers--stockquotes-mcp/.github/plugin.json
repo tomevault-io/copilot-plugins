@@ -1,0 +1,9 @@
+{
+  "name": "lionelschiepers--stockquotes-mcp",
+  "displayName": "StockQuotes.MCP",
+  "description": "AI MCP Server to fetch real time financial data",
+  "version": "1.0.0",
+  "author": "lionelschiepers",
+  "homepage": "https://github.com/lionelschiepers/StockQuotes.MCP",
+  "skills": []
+}
