@@ -1,0 +1,9 @@
+{
+  "name": "acoyfellow--ralph",
+  "displayName": "ralph",
+  "description": "Automated agent that processes stories from a PRD, implementing one story per run with strict constraints.",
+  "version": "1.0.0",
+  "author": "acoyfellow",
+  "homepage": "https://github.com/acoyfellow/ralph",
+  "skills": []
+}
