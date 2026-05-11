@@ -7,11 +7,11 @@ A portable framework that reduces the cognitive load of working with AI coding a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [thaitype/chief](https://github.com/thaitype/chief).
+Original source: `CLAUDE.md` in [thaitype/chief](https://github.com/thaitype/chief).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
