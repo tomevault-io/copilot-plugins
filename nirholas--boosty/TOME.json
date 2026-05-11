@@ -4,7 +4,7 @@
   "repo": "boosty",
   "description": "All-in-One Solana + EVM Volume Booster with a built-in Volume Bot and Deployer.  [WIP]",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nirholas/boosty",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T12:04:12Z"
+  "distributed_at": "2026-05-11T16:54:56Z"
 }
