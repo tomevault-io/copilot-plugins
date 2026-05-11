@@ -1,0 +1,9 @@
+{
+  "name": "tokligence--tokligence-gateway",
+  "displayName": "tokligence-gateway",
+  "description": "Go LLM gateway \u2014 one interface for Claude Code, Codex, Gemini CLI, Anthropic, OpenAI, Qwen, and vLLM.",
+  "version": "1.0.0",
+  "author": "tokligence",
+  "homepage": "https://github.com/tokligence/tokligence-gateway",
+  "skills": []
+}
