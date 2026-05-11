@@ -4,7 +4,7 @@
   "repo": "qauth",
   "description": "Post-quantum ready, headless-first identity platform. A developer-friendly alternative to Keycloak.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/qauth-labs/qauth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T09:42:23Z"
+  "distributed_at": "2026-05-11T20:43:00Z"
 }
