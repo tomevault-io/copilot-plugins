@@ -1,0 +1,9 @@
+{
+  "name": "nimbleway--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Advanced agent skills for real-time web intelligence. Features specialized focus modes, AI-powered answer synthesis, parallel search, and smart filtering. Built on     the Agent Skills open standard.",
+  "version": "1.0.0",
+  "author": "Nimbleway",
+  "homepage": "https://github.com/Nimbleway/agent-skills",
+  "skills": []
+}
