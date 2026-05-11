@@ -1,85 +1,520 @@
-## documentation-sync
+## documentation
 
-> Whenever documentation files are added or modified in the `docs/` directory, the corresponding website documentation in `web/` must also be updated.
+> All documentation for the Armature project must be generated in the `docs/` directory following these standards.
 
-# Documentation Sync Rule
 
-## Rule
+# Documentation Standards
 
-Whenever documentation files are added or modified in the `docs/` directory, the corresponding website documentation in `web/` must also be updated.
+All documentation for the Armature project must be generated in the `docs/` directory following these standards.
 
-## Background
+## Directory Structure
 
-The Armature project has two documentation locations:
+All documentation files go directly in the `docs/` root directory. **Do NOT create subfolders.**
 
-1. **Source Documentation**: `docs/` directory - Markdown files for the framework
-2. **Website Documentation**: `web/src/app/pages/docs/` - Angular components that display the documentation
+```
+docs/
+├── README.md                    # Documentation index
+├── getting-started.md           # Getting started guide
+├── auth-guide.md                # Authentication guide
+├── cache-guide.md               # Cache guide
+├── cron-guide.md                # Cron guide
+├── queue-guide.md               # Queue guide
+├── deployment-guide.md          # Deployment guide
+└── *.md                         # All other documentation
+```
 
-The website reads markdown files from `web/public/docs/` (which is symlinked to `docs/` in development).
+**Important:** Do NOT create subdirectories like `guides/`, `modules/`, or `examples/`. All `.md` files belong in `docs/` root.
 
-## Required Actions
+## File Naming
 
-### When Adding New Documentation
+- Use **lowercase with hyphens**: `my-feature-guide.md`
+- Be **descriptive**: `oauth2-providers-guide.md` not `oauth.md`
+- Use **.md extension** for all Markdown files
+- Avoid abbreviations unless widely understood
 
-1. Create the markdown file in `docs/` following the `UPPER_SNAKE_CASE.md` naming convention
-2. Update `web/src/app/pages/docs/docs.component.ts` to include the new document in the documentation list:
+### Good Examples ✅
 
-```typescript
-// Add to the docs array in DocsComponent
-{
-  title: 'Your New Guide',
-  filename: 'YOUR_NEW_GUIDE.md',
-  description: 'Brief description of what this guide covers'
+- `websocket-sse-guide.md`
+- `authentication-guide.md`
+- `rate-limiting-configuration.md`
+
+### Bad Examples ❌
+
+- `WS_SSE.md` (uppercase, abbreviation)
+- `auth.md` (too generic)
+- `guide-1.md` (not descriptive)
+
+## Documentation Requirements
+
+### Every Feature Must Have Documentation
+
+When adding a new feature, you MUST create corresponding documentation in `docs/`:
+
+1. **Feature Guide** (`docs/<feature>-guide.md`)
+   - Overview of the feature
+   - Key concepts
+   - Configuration options
+   - Step-by-step instructions
+   - Code examples
+   - Best practices
+   - Troubleshooting
+
+2. **API Reference** (inline code docs)
+   - Rust doc comments (`///`)
+   - Examples in doc comments
+   - Clear parameter descriptions
+
+3. **Code Examples** (`examples/` directory - code only)
+   - Working code example
+   - Comments explaining key parts
+   - README if complex
+
+## Documentation Format
+
+### Markdown Structure
+
+```markdown
+# Title
+
+Brief one-paragraph introduction.
+
+## Table of Contents
+
+- [Section 1](#section-1)
+- [Section 2](#section-2)
+
+## Overview
+
+High-level explanation of what this is and why it exists.
+
+## Features
+
+- ✅ Feature 1
+- ✅ Feature 2
+- ✅ Feature 3
+
+## Usage
+
+### Basic Example
+
+\`\`\`rust
+// Working code example
+use armature::prelude::*;
+
+#[tokio::main]
+async fn main() {
+    // Example code
+}
+\`\`\`
+
+### Advanced Example
+
+More complex usage...
+
+## Configuration
+
+Detailed configuration options...
+
+## Best Practices
+
+1. Practice one
+2. Practice two
+
+## Common Pitfalls
+
+- ❌ Don't do this
+- ✅ Do this instead
+
+## API Reference
+
+Link to generated API docs or inline reference.
+
+## Summary
+
+Quick recap of key points.
+```
+
+### Required Sections
+
+Every guide must include:
+
+1. **Title** - Clear, descriptive
+2. **Overview** - What and why
+3. **Features** - Bullet list of capabilities
+4. **Usage** - At least one working example
+5. **Best Practices** - Dos and don'ts
+6. **Summary** - Quick reference
+
+## Code Examples
+
+### Requirements
+
+- **Must be runnable** without errors
+- **Include necessary imports**
+- **Add comments** for non-obvious code
+- **Use realistic scenarios**
+- **Show error handling**
+
+### Good Example ✅
+
+```rust
+use armature_queue::*;
+
+#[tokio::main]
+async fn main() -> Result<(), QueueError> {
+    // Connect to Redis
+    let queue = Queue::new("redis://localhost:6379", "default").await?;
+
+    // Enqueue a job
+    let job_id = queue.enqueue(
+        "send_email",
+        serde_json::json!({
+            "to": "user@example.com",
+            "subject": "Welcome!"
+        })
+    ).await?;
+
+    println!("Job enqueued: {}", job_id);
+    Ok(())
 }
 ```
 
-3. Optionally update the website navigation if the document should appear in the main menu
+### Bad Example ❌
 
-### When Modifying Existing Documentation
-
-- Changes to existing `docs/*.md` files are automatically reflected on the website due to the symlink
-- No additional action needed unless renaming files
-
-### When Renaming Documentation
-
-1. Rename the file in `docs/` to the new `UPPER_SNAKE_CASE.md` name
-2. Update the `filename` field in `web/src/app/pages/docs/docs.component.ts`
-
-### When Deleting Documentation
-
-1. Remove the file from `docs/`
-2. Remove the corresponding entry from `web/src/app/pages/docs/docs.component.ts`
-
-## File Locations
-
-| Purpose | Location |
-|---------|----------|
-| Source docs | `docs/*.md` |
-| Docs component | `web/src/app/pages/docs/docs.component.ts` |
-| Docs styles | `web/src/app/pages/docs/docs.component.scss` |
-| Public symlink | `web/public/docs/` → `../../docs/` |
-
-## Example
-
-When adding a new guide called "Request Validation Guide":
-
-1. Create `docs/REQUEST_VALIDATION_GUIDE.md`
-2. Update `docs.component.ts`:
-
-```typescript
-docs = [
-  // ... existing docs ...
-  {
-    title: 'Request Validation Guide',
-    filename: 'REQUEST_VALIDATION_GUIDE.md',
-    description: 'How to validate incoming requests'
-  },
-];
+```rust
+// Incomplete, won't compile
+let queue = Queue::new("redis://localhost:6379");
+queue.enqueue("send_email", data);
 ```
 
-## CI/CD Note
+## Inline Code Documentation
 
-The GitHub Actions workflow (`.github/workflows/docs.yml`) automatically copies all `docs/*.md` files to the deployed website during the build process. No manual copy step is needed for deployment.
+### Rust Doc Comments
+
+```rust
+/// Brief one-line description.
+///
+/// More detailed explanation of what this does,
+/// including any important details.
+///
+/// # Arguments
+///
+/// * `param1` - Description of param1
+/// * `param2` - Description of param2
+///
+/// # Returns
+///
+/// What this function returns and when.
+///
+/// # Errors
+///
+/// Possible error conditions and what causes them.
+///
+/// # Examples
+///
+/// ```
+/// use armature_queue::Queue;
+///
+/// # async fn example() -> Result<(), QueueError> {
+/// let queue = Queue::new("redis://localhost:6379", "default").await?;
+/// # Ok(())
+/// # }
+/// ```
+///
+/// # Panics
+///
+/// Conditions under which this panics (if any).
+pub async fn example_function(param1: String, param2: i32) -> Result<String, Error> {
+    // Implementation
+}
+```
+
+### Module-Level Documentation
+
+```rust
+//! Job queue module for background processing.
+//!
+//! This module provides a Redis-backed job queue system with
+//! automatic retries, priorities, and scheduled jobs.
+//!
+//! # Examples
+//!
+//! ```no_run
+//! use armature_queue::*;
+//!
+//! # async fn example() -> Result<(), QueueError> {
+//! let queue = Queue::new("redis://localhost:6379", "default").await?;
+//! queue.enqueue("task", serde_json::json!({})).await?;
+//! # Ok(())
+//! # }
+//! ```
+```
+
+## Documentation Types
+
+### 1. Getting Started Guides
+
+**Purpose:** Help new users quickly start using the feature.
+
+**Structure:**
+- Prerequisites
+- Installation
+- Quick start (5 minutes or less)
+- Next steps
+
+### 2. Concept Guides
+
+**Purpose:** Explain concepts and architecture.
+
+**Structure:**
+- What is this?
+- Why does it exist?
+- How does it work?
+- When to use it?
+
+### 3. How-To Guides
+
+**Purpose:** Step-by-step instructions for specific tasks.
+
+**Structure:**
+- Problem statement
+- Prerequisites
+- Step-by-step solution
+- Verification
+- Troubleshooting
+
+### 4. Reference Documentation
+
+**Purpose:** Complete technical details.
+
+**Structure:**
+- All configuration options
+- All API methods
+- All types and enums
+- All error codes
+
+## Visual Aids
+
+### Use Diagrams When Helpful
+
+```markdown
+## Architecture
+
+\`\`\`
+┌──────────┐     ┌──────────┐     ┌──────────┐
+│  Client  │────▶│  Server  │────▶│ Database │
+└──────────┘     └──────────┘     └──────────┘
+\`\`\`
+```
+
+### Use Tables for Comparisons
+
+```markdown
+| Feature | Option A | Option B |
+|---------|----------|----------|
+| Speed   | Fast     | Slow     |
+| Memory  | Low      | High     |
+```
+
+### Use Lists for Steps
+
+```markdown
+1. First step
+2. Second step
+3. Third step
+```
+
+## Keeping Documentation Updated
+
+### When Code Changes, Update Docs
+
+**CRITICAL:** Documentation must be updated in the same PR as code changes.
+
+### Update Checklist
+
+- [ ] Inline code comments updated
+- [ ] API reference updated
+- [ ] User guide updated (if behavior changed)
+- [ ] Examples updated (if API changed)
+- [ ] README updated (if new feature)
+- [ ] CHANGELOG.md updated
+
+### Documentation Review
+
+Before merging:
+1. All code examples compile
+2. All links work
+3. No typos or grammar errors
+4. Formatting is consistent
+5. Screenshots are up to date (if any)
+
+## Linking
+
+### Internal Links
+
+```markdown
+See the [Authentication Guide](./AUTH_GUIDE.md) for details.
+
+Jump to [Configuration](#configuration) section.
+```
+
+### External Links
+
+```markdown
+See the [Rust Book](https://doc.rust-lang.org/book/) for more information.
+```
+
+### API Links
+
+```markdown
+See [`Queue::enqueue`](../armature-queue/src/queue.rs) for details.
+```
+
+## Common Patterns
+
+### Feature Documentation Template
+
+```markdown
+# Feature Name
+
+Brief description of what this feature does.
+
+## Features
+
+- ✅ Feature 1
+- ✅ Feature 2
+
+## Basic Usage
+
+\`\`\`rust
+// Working example
+\`\`\`
+
+## Configuration
+
+### Options
+
+- `option1` - Description
+- `option2` - Description
+
+## Examples
+
+### Example 1: Common Use Case
+
+\`\`\`rust
+// Example code
+\`\`\`
+
+### Example 2: Advanced Use Case
+
+\`\`\`rust
+// Example code
+\`\`\`
+
+## Best Practices
+
+1. Do this
+2. Don't do that
+
+## Troubleshooting
+
+### Problem 1
+
+**Symptom:** What you see
+
+**Cause:** Why it happens
+
+**Solution:** How to fix
+
+## API Reference
+
+Link to generated docs or detailed API listing.
+
+## Summary
+
+Key takeaways.
+```
+
+## Documentation Testing
+
+### Test Code Examples
+
+```bash
+# Test all doc examples
+cargo test --doc --all-features
+
+# Test specific module docs
+cargo test --doc --package armature-queue
+```
+
+### Check Links
+
+```bash
+# Use markdown link checker (install if needed)
+markdown-link-check docs/**/*.md
+```
+
+## Documentation Tools
+
+### Generate API Docs
+
+```bash
+# Generate and open API documentation
+cargo doc --all-features --no-deps --open
+```
+
+### Build Documentation Site
+
+```bash
+# If using mdBook or similar
+mdbook build docs/
+mdbook serve docs/
+```
+
+## Exception: Root README
+
+The **root README.md** stays in the project root directory, not in `docs/`.
+
+```
+armature/
+├── README.md          ← Project overview (root)
+├── docs/
+│   ├── README.md      ← Documentation index
+│   └── *.md           ← All other docs (flat, no subfolders)
+└── ...
+```
+
+## Documentation Metrics
+
+### Quality Indicators
+
+- ✅ All public APIs have doc comments
+- ✅ All features have user guides
+- ✅ All code examples compile
+- ✅ No broken links
+- ✅ No spelling errors
+- ✅ Consistent formatting
+
+### Coverage Goals
+
+- **100%** of public API documented
+- **100%** of features have guides
+- **90%+** of doc examples compile
+- **100%** of links work
+
+## Summary
+
+**Key Principles:**
+
+1. **Location:** All docs in `docs/` root directory - NO subfolders (except root README)
+2. **Naming:** lowercase-with-hyphens.md
+3. **Flat Structure:** All documentation files go directly in `docs/`, not in subdirectories
+4. **Completeness:** Every feature must have documentation
+5. **Quality:** Working code examples, clear explanations
+6. **Maintenance:** Update docs with code changes
+7. **Testing:** All examples must compile
+
+**Documentation is code!** Treat it with the same care and rigor. 📚
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
