@@ -7,13 +7,13 @@ Modern photo gallery for photographers, with S3/GitHub sync, EXIF details, maps,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Afilmory/afilmory](https://github.com/Afilmory/afilmory).
+Original source: `AGENTS.md` in [Afilmory/afilmory](https://github.com/Afilmory/afilmory).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
