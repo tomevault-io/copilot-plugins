@@ -1,0 +1,9 @@
+{
+  "name": "wordpress--php-ai-client",
+  "displayName": "php-ai-client",
+  "description": "A provider agnostic PHP AI client SDK to communicate with any generative AI models of various capabilities using a uniform API.",
+  "version": "1.0.0",
+  "author": "WordPress",
+  "homepage": "https://github.com/WordPress/php-ai-client",
+  "skills": []
+}
