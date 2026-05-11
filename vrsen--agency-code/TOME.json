@@ -4,7 +4,7 @@
   "repo": "Agency-Code",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/VRSEN/Agency-Code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T14:12:21Z"
+  "distributed_at": "2026-05-11T23:34:56Z"
 }
