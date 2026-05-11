@@ -1,0 +1,60 @@
+## python-code-generation
+
+> Python code generation guidelines and environment setup
+
+
+# Python Environment
+
+Always use the virtual environment located at `/Users/ali/hessian/.venv` when running Python code.
+
+- Use the Python interpreter directly: `hessian/.venv/bin/python`
+- Or activate first: `source hessian/.venv/bin/activate`
+
+When executing Python scripts, tests, or any Python code in this project, always
+use the virtual environment to ensure consistent dependencies and package
+versions.
+
+# Code Generation Guidelines
+
+## Coding standards
+
+* Prefer to inline variables. If a variable is only used once, inline it. Use
+  keyword args to give the result a name. If the resulting expression is
+  complex, write a comment to explain what the expression does.
+
+## Comments
+
+Comments that preceed a code block andexplain several lines of code are
+instructive and should be kept. But avoid comments that literally repeat in
+Englishthe code that follows. We comments that say things that are not obvious
+from a cursory reading of the code.  For example, these are all redundant
+comments:
+
+```
+# Assign b to a
+a = b
+# Call a's callback.
+a.call_callback()
+```
+
+The following comments are useful because they add some context:
+
+```
+# Save b. We're going to modify it and would like to keep it around.
+a = b
+# The above subtly changes the state of a. Notify its clients of that
+# change.
+a.call_callback()
+```
+
+## Tests
+
+* Test files don't need a main driver. They'll always be called through pytest.
+  They'll never be called as standalone programs.
+
+* When many tests share the same local variables and objects, refactor these
+  redundancies into pytest fixtures
+
+---
+> Source: [a-rahimi/hessian](https://github.com/a-rahimi/hessian) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
