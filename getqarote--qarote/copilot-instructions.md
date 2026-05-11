@@ -1,101 +1,143 @@
-## react-imports
+## tailwind-css
 
-> **NEVER use namespace imports (`import * as React`) to access React hooks in production code.**
+> All styling must be done through Tailwind CSS classes and configuration, not inline styles or CSS-in-JS.
 
 
-# React Import Best Practices
+# Tailwind CSS Usage Rules
 
-## Critical Rule: Always Use Named Imports for React Hooks
+All styling must be done through Tailwind CSS classes and configuration, not inline styles or CSS-in-JS.
 
-**NEVER use namespace imports (`import * as React`) to access React hooks in production code.**
+## Core Principles
 
-### ❌ WRONG - Causes Production Errors
+1. **No inline styles** - Never use `style={{}}` prop in React components
+2. **No CSS-in-JS** - Do not use styled-components, emotion, or similar libraries
+3. **Use Tailwind classes** - All styling should use Tailwind utility classes via `className`
+4. **Extend Tailwind config** - Custom colors, animations, and utilities go in `tailwind.config.ts`
+5. **Component classes in CSS** - Reusable component patterns go in `index.css` using `@layer components`
 
-```typescript
-import * as React from "react";
+## Allowed Approaches
 
-function MyComponent() {
-  const [state, setState] = React.useState(); // ❌ Can fail in production builds
-  React.useEffect(() => {}, []); // ❌ Can fail in production builds
-}
+### ✅ Use Tailwind Utility Classes
+
+```tsx
+// ✅ Correct - Using Tailwind classes
+<div className="flex items-center justify-center min-h-screen bg-background">
+  <Card className="w-full max-w-md p-6">
+    <h1 className="text-2xl font-bold text-foreground">Title</h1>
+  </Card>
+</div>
 ```
 
-### ✅ CORRECT - Use Named Imports for Hooks
+### ✅ Extend Tailwind Config
 
+**`tailwind.config.ts`**:
 ```typescript
-import { useState, useEffect } from "react";
-// You can still use namespace import for other React APIs if needed
-import * as React from "react";
-
-function MyComponent() {
-  const [state, setState] = useState(); // ✅ Always works
-  useEffect(() => {}, []); // ✅ Always works
-  
-  // Namespace import is fine for non-hook APIs
-  const context = React.createContext();
-  const Component = React.forwardRef(...);
-}
-```
-
-## When to Use Namespace vs Named Imports
-
-### Use Named Imports For:
-- **All React hooks**: `useState`, `useEffect`, `useCallback`, `useMemo`, `useRef`, `useContext`, etc.
-- **Common React APIs**: `StrictMode`, `Fragment`, `Suspense`, `lazy`, `memo`
-
-### Namespace Import (`import * as React`) is OK For:
-- `React.createContext()`
-- `React.forwardRef()`
-- `React.Component`
-- `React.PureComponent`
-- Type references: `React.ReactNode`, `React.ComponentProps`, `React.CSSProperties`
-
-## Best Practice Pattern
-
-```typescript
-// ✅ RECOMMENDED: Named imports for hooks, namespace for other APIs
-import { useState, useEffect, useCallback, useMemo } from "react";
-import * as React from "react";
-
-function MyComponent() {
-  // Hooks - use named imports
-  const [state, setState] = useState();
-  useEffect(() => {}, []);
-  const memoized = useMemo(() => {}, []);
-  
-  // Other APIs - namespace is fine
-  const context = React.createContext();
-  const Component = React.forwardRef(...);
-}
-```
-
-## Why This Matters
-
-Using `React.useEffect` or `React.useState` via namespace imports can cause:
-- **Production build failures**: `TypeError: Cannot read properties of null (reading 'useEffect')`
-- **Bundling issues**: React may not be properly resolved in minified builds
-- **Runtime errors**: React instance may be `null` when accessed via namespace
-
-## Vite Configuration
-
-The `vite.config.ts` includes critical settings to prevent this:
-
-```typescript
-resolve: {
-  dedupe: ["react", "react-dom"], // Ensures single React instance
-},
-build: {
-  rollupOptions: {
-    output: {
-      manualChunks: {
-        "vendor-react": ["react", "react-dom"], // Ensures React is bundled correctly
+export default {
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+      },
+      backgroundImage: {
+        "gradient-button": "linear-gradient(to right, rgb(194 65 12), rgb(185 28 28))",
+      },
+      animation: {
+        "slide-in-right": "slide-in-right 1s ease-out forwards",
       },
     },
   },
+} satisfies Config;
+```
+
+**Component**:
+```tsx
+// ✅ Correct - Using custom Tailwind utilities from config
+<button className="bg-gradient-button hover:bg-gradient-button-hover">
+  Click me
+</button>
+```
+
+### ✅ Use Component Classes in CSS
+
+**`index.css`**:
+```css
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-button hover:bg-gradient-button-hover text-white font-medium px-6 py-2 rounded-md;
+  }
+  
+  .card-unified {
+    @apply bg-card border border-border rounded-lg shadow-sm;
+  }
 }
 ```
 
-**Never remove these settings** - they prevent duplicate React instances and bundling issues.
+**Component**:
+```tsx
+// ✅ Correct - Using component classes from CSS
+<button className="btn-primary">Click me</button>
+<Card className="card-unified">Content</Card>
+```
+
+## Prohibited Approaches
+
+### ❌ Inline Styles
+
+```tsx
+// ❌ Incorrect - Using inline styles
+<div style={{ display: "flex", alignItems: "center", padding: "1rem" }}>
+  Content
+</div>
+
+// ✅ Correct - Use Tailwind classes
+<div className="flex items-center p-4">
+  Content
+</div>
+```
+
+### ❌ CSS-in-JS Libraries
+
+```tsx
+// ❌ Incorrect - Using styled-components or emotion
+const StyledButton = styled.button`
+  background: linear-gradient(to right, #c2410c, #b91c1c);
+  padding: 0.5rem 1rem;
+`;
+
+// ✅ Correct - Use Tailwind classes or component classes
+<button className="bg-gradient-button px-4 py-2">Click me</button>
+```
+
+## Button Styling
+
+- **Primary action buttons (CTAs) MUST use the gradient button classes:**
+  - Use `bg-gradient-button hover:bg-gradient-button-hover text-white` for all primary action buttons
+  - This applies to submit buttons, save buttons, create buttons, and any other primary CTAs
+  - **DO NOT** use hardcoded colors like `bg-orange-500 hover:bg-orange-600`
+
+## Toggle Input Styling
+
+- **Switch/Toggle components MUST use the gradient button classes when checked:**
+  - Use `data-[state=checked]:bg-gradient-button` for all Switch components
+  - This ensures toggle switches match the design system's gradient styling
+  - **DO NOT** rely on default `bg-primary` styling for switches
+
+## File Organization
+
+- **`tailwind.config.ts`** - Custom theme extensions (colors, animations, utilities)
+- **`index.css`** - Global styles, CSS variables, component classes (`@layer components`)
+- **`styles/*.css`** - Third-party component overrides only (e.g., `google-auth.css`)
+
+## Benefits
+
+- **Consistency**: All styles follow the same system
+- **Maintainability**: Styles are centralized and easy to update
+- **Performance**: Tailwind purges unused styles
+- **Type safety**: Tailwind classes are validated
+- **Reusability**: Custom utilities and components can be reused across the app
 
 ---
 > Source: [getqarote/Qarote](https://github.com/getqarote/Qarote) — distributed by [TomeVault](https://tomevault.io).
