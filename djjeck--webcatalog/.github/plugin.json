@@ -1,0 +1,9 @@
+{
+  "name": "djjeck--webcatalog",
+  "displayName": "webcatalog",
+  "description": "Dockerized web client for Win Catalog",
+  "version": "1.0.0",
+  "author": "djjeck",
+  "homepage": "https://github.com/djjeck/webcatalog",
+  "skills": []
+}
