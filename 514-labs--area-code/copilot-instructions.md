@@ -1,40 +1,42 @@
-## area-code
+## moose-services
 
-> apply when working on the web applications including any -web- systems
+> Use this when working on or testing moose related services like those in /services/sync-base or /services/analytical-base
 
+# Moose Services Rules
 
-# Web Application Rules
+These rules apply to Moose-based services in the `services/` directory (analytical-base and sync-base).
 
-These rules apply to all web applications in the `apps/` directory that contain "-web-" in their folder name.
+## Workflow Testing Guidelines
 
-## Development Guidelines
+When testing workflows in these services:
 
-- Use React with TypeScript
-- Follow consistent component naming conventions (PascalCase for components)
-- Use Tailwind CSS for styling 
-- Leverage shared UI components from `@workspace/ui` package
-- Use Tanstack Router for routing
-- Use Tanstack Query for interfacing with APIs
-- Use Tanstack Form for forms
-- Use Tanstack Table for tables (Data Table in ShadCN)
-- Prefer typescript interfaces over Zod schemas
-- Keep casing consistent within each directory
-- Prefer composition over inheritance for components
-- Use proper TypeScript types and interfaces
+- **Always use the command:** `moose workflow run <workflow-name>` to test if a workflow is running correctly
+- **Assume the Moose instance is already running** - no need to start it separately. Inspect the existing terminal
+- **Code changes will hot reload automatically** - any modifications to the Moose code will be picked up by the running server without manual restart
 
-## File Organization
+## Development Workflow
 
-- Components should be organized in logical directories
-- Keep route components in the `src/routes/` directory
-- Use proper barrel exports (`index.ts`) for clean imports
-- Separate business logic from UI components when possible
+1. Make changes to your workflow code
+2. Save the file (hot reload will handle the rest)
+3. Test using: `moose workflow run <workflow-name>`
+4. Check logs and output to verify behavior
 
-## Performance
+## Example Usage
 
-- Use lazy loading for routes when appropriate
-- Optimize bundle size by leveraging shared packages
-- Follow React best practices for re-renders
+```bash
+# Testing a specific workflow
+moose workflow run eventsPipeline
+
+# The Moose instance will already be running, so this command
+# will execute against the current running instance
+```
+
+## Important Notes
+
+- Do not restart the Moose server unnecessarily - it supports hot reload
+- Focus on the workflow logic rather than server management
+- Use the workflow run command for quick iteration and testing 
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/514-labs) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [514-labs/area-code](https://github.com/514-labs/area-code) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
