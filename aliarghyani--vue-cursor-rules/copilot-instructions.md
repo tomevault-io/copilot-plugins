@@ -1,78 +1,74 @@
-## project-structure
+## prompt-guide
 
-> Vue 3 project structure and organization
+> Prompt engineering tips for creating effective Cursor rules
 
-# Project Structure
+# Prompt Engineering Guide
 
-**Role:** You are a Vue 3 expert specializing in scalable project architecture and organization.
+## Rule Structure Basics
 
-**Core Rules:**
-- Follow feature-based directory structure
-- Use barrel exports for clean imports
-- Maintain consistent naming conventions
-- Separate concerns (components, composables, stores)
-- Keep related files together
+**Make rules specific and modular:**
+- Keep full examples under ~4KB; link to longer versions when needed.
+- Use clear section delimiters: `### Props`, `### Methods`, `### Examples`
+- Start with role definition: "You are a Vue 3 expert specializing in..."
+- Include 3-5 core rules as bullets
+- Add chain-of-thought instruction for consistency
 
-**Chain-of-Thought:** Think step-by-step: 1. Identify feature boundaries 2. Organize by domain 3. Setup clean import paths 4. Maintain consistency
+## Vue-Specific Patterns
 
-## Recommended Directory Structure
-
-```
-src/
-├── components/          # Reusable UI components
-│   ├── ui/             # Base UI components (Button, Input, etc.)
-│   └── features/       # Feature-specific components
-├── views/              # Page components
-├── composables/        # Reusable composition functions
-├── stores/             # Pinia stores
-├── router/             # Vue Router configuration
-├── services/           # API services and external integrations
-├── types/              # TypeScript type definitions
-├── utils/              # Utility functions
-├── assets/             # Static assets (images, styles)
-└── main.ts             # Application entry point
+**For composables:** Chain thoughts--plan reactivity first, then export:
+```markdown
+Think step-by-step: 1. Define reactive state 2. Create computed/methods 3. Return interface
 ```
 
-## Component Organization
-
-```
-components/
-├── ui/
-│   ├── Button.vue
-│   ├── Input.vue
-│   ├── Modal.vue
-│   └── index.ts        # Export barrel
-├── features/
-│   ├── UserProfile/
-│   │   ├── UserProfile.vue
-│   │   ├── UserAvatar.vue
-│   │   └── index.ts
-│   └── ProductCard/
-│       ├── ProductCard.vue
-│       ├── ProductImage.vue
-│       └── index.ts
+**For components:** Structure before implementation:
+```markdown
+Think step-by-step: 1. Analyze props/emits 2. Plan template structure 3. Implement logic
 ```
 
-## Naming Conventions
+## Utility Defaults
 
-- **Components**: PascalCase (`UserProfile.vue`)
-- **Views**: PascalCase with View suffix (`HomeView.vue`)
-- **Composables**: camelCase with use prefix (`useUserData.ts`)
-- **Stores**: camelCase with Store suffix (`userStore.ts`)
-- **Types**: PascalCase for interfaces (`User`, `ApiResponse`)
-- **Files**: kebab-case for utilities (`api-client.ts`)
+- For cross-cutting utilities (debounce/throttle, timers, event listeners, observers, etc.), prefer the matching helper from `@vueuse/core` instead of hand-written implementations.
 
-## Import/Export Patterns
+## Type Resolution Workflow
 
-```typescript
-// components/ui/index.ts - Barrel exports
-export { default as Button } from './Button.vue'
-export { default as Input } from './Input.vue'
-export { default as Modal } from './Modal.vue'
+When the agent or linting surfaces unresolved types (e.g., "Cannot use namespace 'User' as a type"):
+- Look in the shared `types/` directory first; reuse exports from `types/index.ts` or sibling files.
+- Prefer `import type { Foo } from '@/types'` (or alias `types/*`) over namespace or global references.
+- If the type does not exist, define it in `types/`, export it, then update the calling code to use the shared import.
+- Re-run the fix after updating imports to ensure the error clears instead of muting it with `any`.
 
-// In components
-import { Button, Input } from '@/components/ui'
+## Before/After Examples
+
+**Before (too vague):**
+```markdown
+Use composition API for components
 ```
+
+**After (modular + sized):**
+```markdown
+# Role: You are a Vue 3 component expert
+Core Rules:
+- Always use `<script setup>` syntax
+- Type props with `defineProps<T>()`
+- Use `defineEmits<T>()` for events
+- Prefer `ref()` for primitives, `reactive()` for objects
+
+Think step-by-step: 1. Analyze component needs 2. Define interface 3. Implement logic
+```
+
+## Activation Patterns
+
+- **File patterns:** `*.vue` for components, `**/composables/**` for composables
+- **Context triggers:** Keywords like `pinia`, `router`, `test`
+- **Refinement:** Test outputs and adjust globs for better targeting
+
+## Testing Rules
+
+Iterate by:
+1. Create minimal rule
+2. Test with real code
+3. Refine based on AI outputs
+4. Add examples only if needed
 
 ---
 > Source: [aliarghyani/vue-cursor-rules](https://github.com/aliarghyani/vue-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
