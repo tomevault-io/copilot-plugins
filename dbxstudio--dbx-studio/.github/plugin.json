@@ -1,0 +1,9 @@
+{
+  "name": "dbxstudio--dbx-studio",
+  "displayName": "dbx-studio",
+  "description": "Free Open-source AI SQL client that helps developers and data teams explore databases using natural language.",
+  "version": "1.0.0",
+  "author": "Dbxstudio",
+  "homepage": "https://github.com/Dbxstudio/dbx-studio",
+  "skills": []
+}
