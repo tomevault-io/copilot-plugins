@@ -1,9 +1,9 @@
 {
   "name": "batpool--upstox-totp",
   "displayName": "upstox-totp",
-  "description": "upstox-totp",
+  "description": "A modern, lightweight Python package that simplifies Upstox API authentication by handling TOTP-based login and token generation automatically.",
   "version": "1.0.0",
   "author": "batpool",
-  "homepage": "https://tomevault.io/claim/batpool",
+  "homepage": "https://github.com/batpool/upstox-totp",
   "skills": []
 }
