@@ -1,0 +1,9 @@
+{
+  "name": "imincik--nix-forge",
+  "displayName": "nix-forge",
+  "description": "Simplified Nix packaging with maximum added value.",
+  "version": "1.0.0",
+  "author": "imincik",
+  "homepage": "https://github.com/imincik/nix-forge",
+  "skills": []
+}
