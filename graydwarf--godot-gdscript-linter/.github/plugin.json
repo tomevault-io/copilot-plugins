@@ -1,0 +1,9 @@
+{
+  "name": "graydwarf--godot-gdscript-linter",
+  "displayName": "godot-gdscript-linter",
+  "description": "Code quality analyzer plugin for GDScript with clickable issue navigation",
+  "version": "1.0.0",
+  "author": "graydwarf",
+  "homepage": "https://github.com/graydwarf/godot-gdscript-linter",
+  "skills": []
+}
