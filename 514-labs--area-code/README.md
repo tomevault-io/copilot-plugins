@@ -2,6 +2,8 @@
 
 > Sourced from [514-labs/area-code](https://github.com/514-labs/area-code) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+A baseline repo for bootstrapping sophisticated applications that require a relatively sophisticated architecture
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [514-labs/area-code](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [514-labs/area-code](https://github.com/514-labs/area-code) — a repo with 0+ stars on GitHub.
+From [514-labs/area-code](https://github.com/514-labs/area-code) — a repo with 18+ stars on GitHub.
 
 ---
 
