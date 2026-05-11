@@ -1,0 +1,329 @@
+## karimo
+
+> When changes impact target repositories (installed KARIMO projects), you MUST complete ALL steps below. **The release is NOT complete until the GitHub Release exists AND is verified via API.**
+
+# KARIMO Source Repository Rules
+
+## Release Protocol (MANDATORY)
+
+When changes impact target repositories (installed KARIMO projects), you MUST complete ALL steps below. **The release is NOT complete until the GitHub Release exists AND is verified via API.**
+
+### Preferred Method: Release Script
+
+Use the release script for atomic, verified releases:
+
+```bash
+.karimo/scripts/release.sh 8.3.0        # Full release
+.karimo/scripts/release.sh 8.3.0 --dry-run  # Preview only
+```
+
+The script handles: version bump, commit, tag, push, release creation, and API verification.
+
+### Manual Release Checklist (if not using script)
+
+```
+[ ] 1. VERSION BUMP
+    - Update `.karimo/VERSION` with new semver
+    - Update `version` field in `.karimo/MANIFEST.json` to match
+
+[ ] 2. CHANGELOG ENTRY
+    - Add entry to `CHANGELOG.md` under new version header
+    - Format: `## [X.Y.Z] - YYYY-MM-DD`
+    - Include: Added, Changed, Fixed, Removed subsections as needed
+
+[ ] 3. DOCUMENTATION UPDATES
+    - README.md — Update version badge
+    - .karimo/docs/ARCHITECTURE.md — Update version header
+    - .karimo/docs/COMMANDS.md — If slash commands changed
+    - .karimo/docs/GETTING-STARTED.md — If setup flow changed
+
+[ ] 4. COMMIT ALL CHANGES (BEFORE TAGGING)
+    - Commit version bump, changelog, AND documentation
+    - Push to origin/main
+    - CRITICAL: All changes must be committed BEFORE creating tag/release
+
+[ ] 5. CREATE TAG AND RELEASE (ATOMIC)
+    - git tag vX.Y.Z
+    - git push origin vX.Y.Z
+    - gh release create vX.Y.Z --title "vX.Y.Z" --notes "..."
+    - Do these in immediate sequence
+
+[ ] 6. VERIFY VIA API (REQUIRED)
+    - curl -s "https://api.github.com/repos/opensesh/KARIMO/releases/latest" | grep tag_name
+    - Must show your new version
+    - If not, the release is BROKEN
+```
+
+### CRITICAL: Never Move Tags After Release
+
+**DO NOT run these commands after creating a release:**
+```bash
+# DANGEROUS - orphans the release:
+git tag -d vX.Y.Z && git tag vX.Y.Z  # Moving tag
+git tag -f vX.Y.Z                      # Force-updating tag
+```
+
+Moving a tag after release creation orphans the GitHub release (makes it a draft pointing to "untagged-*"). This breaks `/karimo:update` for all users.
+
+**If you need to include more commits after release:**
+1. Delete the release: `gh release delete vX.Y.Z --yes`
+2. Delete the tag: `git tag -d vX.Y.Z && git push origin :refs/tags/vX.Y.Z`
+3. Make your additional commits
+4. Re-run the release script or checklist from step 1
+
+### STOP CHECK
+
+Before marking a release task complete, verify ALL of these:
+
+1. **Release exists:** `gh release view vX.Y.Z` returns the release
+2. **API shows latest:** `curl -s "https://api.github.com/repos/opensesh/KARIMO/releases/latest" | grep tag_name` shows your version
+3. **Tag matches HEAD:** `git rev-parse vX.Y.Z` equals `git rev-parse HEAD`
+
+**If any check fails, the release is broken and must be recreated.**
+
+## What Impacts Target Repositories
+
+Changes to these files affect installed projects:
+- `.claude/agents/*` — Agent definitions
+- `.claude/commands/*` — Slash commands
+- `.claude/skills/*` — Skill definitions
+- `.karimo/templates/*` — PRD/task templates
+- `.claude/KARIMO_RULES.md` — Agent behavior rules
+
+Changes to these files do NOT affect installed projects:
+- `install.sh`, `update.sh` — Installer scripts (source-only)
+- `CONTRIBUTING.md` — Contribution guidelines
+- `.github/workflows/karimo-test-install.yml` — Source-only CI
+
+## Atomic Commit Workflow (MANDATORY)
+
+**Iron Law: COMMIT AFTER EACH LOGICAL UNIT OF WORK — NOT AT THE END**
+
+Bundling all changes into one commit destroys traceability. Each plan phase, task, or logical unit gets its own commit. This is non-negotiable.
+
+### When to Commit
+
+| Trigger | Action |
+|---------|--------|
+| Plan phase complete | Commit immediately |
+| TodoWrite task marked `completed` | Commit that task's changes |
+| Bug fix verified | Commit the fix |
+| Refactor complete | Commit separately from features |
+| Moving to unrelated work | Commit current work first |
+
+### Workflow Integration
+
+1. **During Plan Execution:**
+   - Complete a phase/task
+   - Verify it works (tests, build, etc.)
+   - Stage and commit with descriptive message
+   - Mark TodoWrite item as `completed`
+   - Move to next task
+
+2. **At End of Work Session:**
+   - Show commit summary to user
+   - Format: list of commits made with messages
+   - Example:
+     ```
+     ## Commits Made This Session
+     - `abc1234` feat(auth): add logout button component
+     - `def5678` feat(auth): implement logout API call
+     - `ghi9012` test(auth): add logout flow tests
+     ```
+
+### Commit Format
+
+Use Conventional Commits:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+
+**Types:** feat, fix, refactor, style, docs, test, chore, perf
+
+**Rules:**
+- Imperative mood: "add feature" not "added feature"
+- Keep first line under 72 characters
+- ALWAYS include Co-Authored-By footer
+
+### Anti-Patterns (STOP if you catch yourself...)
+
+- Saying "I'll commit everything at the end"
+- Asking "do you want me to commit?" after all work is done
+- Making one commit with unrelated changes
+- Waiting to commit until user asks
+
+---
+
+# KARIMO Configuration Guide
+
+## What is KARIMO?
+
+KARIMO is an autonomous development **methodology** delivered via Claude Code configuration. It transforms product requirements into shipped code using AI agents, GitHub automation, and structured human oversight.
+
+**Core philosophy:** You are the architect, agents are the builders, automated review is the inspector.
+
+**Asset Management:** Visual context (mockups, screenshots, diagrams) can be stored and tracked throughout the PRD lifecycle. Assets are organized by stage (research/planning/execution) and referenced in PRDs and task briefs. See [.karimo/docs/ASSETS.md](.karimo/docs/ASSETS.md) for details.
+
+---
+
+## Slash Commands
+
+| Command | Purpose |
+|---------|---------|
+| `/karimo:research "feature-name"` | **REQUIRED first step** — Create PRD folder + run research |
+| `/karimo:plan --prd {slug}` | PRD interview using research context |
+| `/karimo:run --prd {slug}` | Execute: brief generation → review → orchestration |
+| `/karimo:merge --prd {slug}` | Create final PR to main after execution completes |
+| `/karimo:dashboard [--prd {slug}]` | Monitor progress and system health |
+| `/karimo:feedback` | Intelligent feedback with auto-detection |
+| `/karimo:configure` | Create or update project configuration |
+| `/karimo:update` | Check for and apply KARIMO updates |
+| `/karimo:doctor [--test]` | Check installation health |
+| `/karimo:help` | Help & documentation search |
+
+---
+
+## Adoption Phases
+
+KARIMO uses three optional adoption phases:
+
+### Phase 1: Execute PRD
+Your first planning process with KARIMO:
+- Run `/karimo:research "feature-name"` to create PRD folder and run research
+- Run `/karimo:plan --prd {slug}` to create PRD through agent interviews
+- Agent teams coordinate task execution
+- Wave-based execution (wave 2 waits for wave 1 to merge)
+- PRs target main directly with labels for tracking
+- Claude Code handles worktrees automatically via `isolation: worktree`
+
+**This is where everyone starts.** Phase 1 is fully functional out of the box.
+
+### Phase 2: Automate Review
+Add automated code review to your workflow. Choose your provider:
+
+| Provider | Pricing | Best For |
+|----------|---------|----------|
+| **Greptile** | $30/month flat | High volume (50+ PRs/month) |
+| **Claude Code Review** | $15-25 per PR | Low-medium volume, native Claude integration |
+
+Both providers support:
+- Automated revision loops when issues are found
+- Model escalation (Sonnet → Opus) after first failure
+- Hard gate after 3 failed attempts (needs human review)
+
+**Optional but highly recommended.** Run `/karimo:configure --review` to choose your provider.
+
+### Phase 3: Monitor & Review
+GitHub-native monitoring — no separate dashboard needed:
+- `/karimo:status` — Smart monitoring (no arg = all PRDs, with arg = specific details)
+- GitHub — PR comments, labels, activity
+- Claude Code analytics — Review usage (if using Code Review)
+
+---
+
+## Execution Model
+
+KARIMO uses a PR-centric workflow with wave-based execution:
+
+**Key Features:**
+- PRs target `main` directly (no feature branches)
+- Tasks execute in wave order (wave 2 waits for wave 1 to merge)
+- Claude Code manages worktrees via `isolation: worktree`
+- PR labels replace GitHub Projects for tracking
+- Branch naming: `worktree/{prd-slug}-{task-id}`
+
+**Requirements:**
+- GitHub MCP server configured in Claude Code
+- gh CLI authenticated with `repo` scope
+
+**Benefits:**
+- Complete traceability (task → PR → merge)
+- Wave-based parallel execution
+- PR-based code review workflow
+- Automated review integration (Greptile or Code Review)
+- Git state reconstruction for crash recovery
+
+---
+
+## Configuration
+
+KARIMO configuration lives in `.karimo/config.yaml`. On first `/karimo:plan` or `/karimo:configure`, the investigator agent auto-detects project context and populates the config file.
+
+Key settings:
+- **Project** — Runtime, framework, package manager
+- **Commands** — Build, lint, test, typecheck commands
+- **Boundaries** — Files agents must not touch (`never_touch`) or must flag for review (`require_review`)
+- **GitHub** — Owner, repository, default branch
+- **Learnings** — Patterns and anti-patterns stored in `.karimo/learnings/` (categorized directories)
+
+---
+
+## Agent Rules
+
+Agent behavior is governed by `.claude/KARIMO_RULES.md`. This file defines:
+- Task execution boundaries
+- Wave-ordered execution model
+- PR creation guidelines
+- Finding propagation between waves
+
+---
+
+## Installed Components
+
+When you run `install.sh`, these files are added:
+
+| Location | Contents |
+|----------|----------|
+| `.claude/plugins/karimo/agents/` | **22** agent definitions (16 coordination + 6 task agents) |
+| `.claude/plugins/karimo/commands/` | **11** slash commands |
+| `.claude/plugins/karimo/skills/` | **8** skills (2 coordination + 3 research + 3 task agent) |
+| `.claude/plugins/karimo/KARIMO_RULES.md` | Agent behavior rules |
+| `.karimo/templates/` | **18** templates |
+| `.karimo/scripts/` | **1** CLI script (asset management) |
+
+**Optional:** Run `/karimo:configure --review` to choose and configure your automated code review provider (Greptile or Claude Code Review).
+
+### Agent Types
+
+**Coordination agents:** interviewer, investigator, researcher, refiner, reviewer, brief-reviewer, brief-corrector, brief-writer, pm, review-architect, feedback-auditor
+
+**Task agents:** implementer, tester, documenter (each with Sonnet and Opus variants)
+
+### Skills
+
+**Coordination skills:** bash-utilities, orchestration-inference
+
+**Research skills:** research-methods, external-research, firecrawl-web-tools
+
+**Task agent skills:** code-standards, testing-standards, doc-standards
+
+---
+
+## Documentation
+
+| Document | Purpose |
+|----------|---------|
+| [ARCHITECTURE.md](.karimo/docs/ARCHITECTURE.md) | System design and integration |
+| [CI-CD.md](.karimo/docs/CI-CD.md) | CI/CD integration and preview deployments |
+| [COMMANDS.md](.karimo/docs/COMMANDS.md) | Slash command reference |
+| [COMMIT-STRATEGY.md](.karimo/docs/COMMIT-STRATEGY.md) | Atomic commit lifecycle and templates |
+| [COMPOUND-LEARNING.md](.karimo/docs/COMPOUND-LEARNING.md) | Two-scope learning system |
+| [DASHBOARD.md](.karimo/docs/DASHBOARD.md) | Dashboard spec (Phase 3) |
+| [GETTING-STARTED.md](.karimo/docs/GETTING-STARTED.md) | Installation walkthrough |
+| [PHASES.md](.karimo/docs/PHASES.md) | Adoption phases explained |
+| [SAFEGUARDS.md](.karimo/docs/SAFEGUARDS.md) | Code integrity, security, Greptile |
+
+---
+
+## Learnings
+
+Project-specific learnings are stored in `.karimo/learnings/` (categorized directories: patterns, anti-patterns, project-notes, execution-rules) and populated via `/karimo:feedback`. This keeps CLAUDE.md minimal while providing agents with accumulated knowledge.
+
+---
+> Source: [opensesh/KARIMO](https://github.com/opensesh/KARIMO) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-01 -->
