@@ -1,0 +1,9 @@
+{
+  "name": "xorrkaz--cml-mcp",
+  "displayName": "cml-mcp",
+  "description": "A Model Context Protocol (MCP) Server for Cisco Modeling Labs (CML)",
+  "version": "1.0.0",
+  "author": "xorrkaz",
+  "homepage": "https://github.com/xorrkaz/cml-mcp",
+  "skills": []
+}
