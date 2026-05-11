@@ -1,0 +1,9 @@
+{
+  "name": "velmighty--youtube-to-knowledge",
+  "displayName": "youtube-to-knowledge",
+  "description": "Turn any YouTube video into a transcript, summary, and knowledge graph - powered by Claude Code.",
+  "version": "1.0.0",
+  "author": "velmighty",
+  "homepage": "https://github.com/velmighty/youtube-to-knowledge",
+  "skills": []
+}
