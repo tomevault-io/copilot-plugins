@@ -1,0 +1,9 @@
+{
+  "name": "uburuntu--vas3k-mcp",
+  "displayName": "vas3k-mcp",
+  "description": "Plug vas3k.club into your AI \u2014 search members, cite posts, pull links right in chat. Remote MCP server on Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "uburuntu",
+  "homepage": "https://github.com/uburuntu/vas3k-mcp",
+  "skills": []
+}
