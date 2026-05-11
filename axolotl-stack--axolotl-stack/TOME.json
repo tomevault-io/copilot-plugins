@@ -4,7 +4,7 @@
   "repo": "axolotl-stack",
   "description": "A monorepo of MCPE related tools in Rust. Transport layers, game protocol and server impl. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/axolotl-stack/axolotl-stack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T03:42:46Z"
+  "distributed_at": "2026-05-11T22:21:03Z"
 }
