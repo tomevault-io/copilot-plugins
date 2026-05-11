@@ -1,0 +1,9 @@
+{
+  "name": "barryw--paperlessmcp",
+  "displayName": "PaperlessMCP",
+  "description": "A Model Context Protocol (MCP) server for Paperless-ngx document management",
+  "version": "1.0.0",
+  "author": "barryw",
+  "homepage": "https://github.com/barryw/PaperlessMCP",
+  "skills": []
+}
