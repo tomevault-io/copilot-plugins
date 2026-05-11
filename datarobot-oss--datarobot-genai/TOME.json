@@ -4,7 +4,7 @@
   "repo": "datarobot-genai",
   "description": "Repository for datarobot-genai library",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/datarobot-oss/datarobot-genai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T20:07:45Z"
+  "distributed_at": "2026-05-11T15:18:29Z"
 }
