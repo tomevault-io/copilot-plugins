@@ -1,0 +1,9 @@
+{
+  "name": "icher-g--sqm",
+  "displayName": "sqm",
+  "description": "SQM (Structured Query Model) is a Java framework for representing SQL as a typed immutable model and running end-to-end SQL pipelines. It supports parse, validate, transform/rewrite, render, serialize",
+  "version": "1.0.0",
+  "author": "icher-g",
+  "homepage": "https://github.com/icher-g/sqm",
+  "skills": []
+}
