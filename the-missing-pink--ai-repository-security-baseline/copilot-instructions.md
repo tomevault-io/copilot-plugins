@@ -1,36 +1,35 @@
-## 04-accessibility
+## 05-dependencies
 
-> Accessibility standards for UI components — WCAG 2.1 AA compliance.
+> Supply chain security rules for dependency management.
 
 
-# Accessibility Standards (WCAG 2.1 AA)
+# Dependency & Supply Chain Security
 
-## Semantic HTML
+## Adding Dependencies
 
-- Use semantic elements (nav, main, article, section, button, etc.).
-- Never use div or span for interactive elements.
-- Ensure correct heading hierarchy (h1 through h6 in order).
+- NEVER add new dependencies without user approval.
+- When proposing, include: name, version, purpose, popularity, license, and known vulnerabilities.
+- Prefer well-established, widely-used packages.
+- Pin exact versions in lock files.
+- Verify package names carefully to avoid typosquatting.
 
-## ARIA & Screen Readers
+## Lock Files
 
-- Add ARIA labels and roles where semantic HTML is insufficient.
-- All images must have meaningful alt attributes (or alt="" for decorative).
-- Form inputs must have associated label elements.
-- Dynamic content must use ARIA live regions.
+- NEVER delete or regenerate lock files without explicit approval.
+- Lock file changes must be reviewed carefully.
+- Resolve conflicts in lock files carefully — never simply regenerate.
 
-## Keyboard Navigation
+## Vulnerability Response
 
-- All interactive elements must be reachable via keyboard.
-- Maintain a logical tab order.
-- Provide visible focus indicators.
-- Support Escape to close modals.
+- If you discover a known vulnerability, warn the user immediately.
+- Propose the minimal update needed to resolve it.
+- Never ignore or suppress vulnerability warnings.
 
-## Visual Design
+## Package Verification
 
-- Minimum 4.5:1 color contrast for normal text, 3:1 for large text.
-- Never convey information through color alone.
-- Use relative units (rem, em) for text, not px.
-- Support prefers-reduced-motion and prefers-color-scheme.
+- Check that package sources match expected repositories.
+- Be suspicious of packages with very few downloads or very new publish dates.
+- Never install packages from URLs, git repos, or local paths without review.
 
 ---
 > Source: [the-missing-pink/ai-repository-security-baseline](https://github.com/the-missing-pink/ai-repository-security-baseline) — distributed by [TomeVault](https://tomevault.io).
