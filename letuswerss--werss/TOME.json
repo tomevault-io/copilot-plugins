@@ -1,0 +1,44 @@
+{
+  "name": "werss",
+  "owner": "letuswerss",
+  "repo": "werss",
+  "description": "WeRSS - \u9762\u5411\u4e2a\u4eba\u81ea\u6258\u7ba1\u573a\u666f\u7684\u5fae\u4fe1\u516c\u4f17\u53f7\u70ed\u5ea6\u5206\u6790\u7cfb\u7edf\uff0cAI Powered \u8ba2\u9605\u5185\u5bb9\u6574\u7406\u4e0e\u5206\u6790\u5de5\u5177\uff0c\u652f\u6301\u8ba2\u9605\u7ba1\u7406\u3001\u6458\u8981 RSS\u3001\u6807\u7b7e\u6574\u7406\u3001\u4e3b\u9898\u5f52\u7eb3\u3001\u53ef\u89c6\u5316\u4e0e\u672c\u5730\u5316\u540e\u53f0\u7ba1\u7406, API/MCP\u8c03\u7528\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/letuswerss/werss",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T10:36:23Z"
+}
