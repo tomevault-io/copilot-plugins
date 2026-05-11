@@ -7,13 +7,13 @@ Malla is a web analyzer for Meshtastic networks based on MQTT data.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [nytera/meshworks-malla](https://github.com/nytera/meshworks-malla).
+Original source: `AGENTS.md` in [nytera/meshworks-malla](https://github.com/nytera/meshworks-malla).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
