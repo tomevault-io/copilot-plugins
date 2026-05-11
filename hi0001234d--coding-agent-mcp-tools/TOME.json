@@ -1,0 +1,44 @@
+{
+  "name": "coding-agent-mcp-tools",
+  "owner": "hi0001234d",
+  "repo": "coding-agent-mcp-tools",
+  "description": "Curated list of coding agents and MCP tools for maintenance, debugging, and development workflows, helping developers understand, debug, and maintain vibe-coded projects and large codebases.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hi0001234d/coding-agent-mcp-tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T06:07:15Z"
+}
