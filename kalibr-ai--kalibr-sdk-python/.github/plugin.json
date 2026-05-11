@@ -1,0 +1,9 @@
+{
+  "name": "kalibr-ai--kalibr-sdk-python",
+  "displayName": "kalibr-sdk-python",
+  "description": "Stop overpaying to run your agents. Kalibr routes every request to lower-cost model and tool paths without degrading performance.",
+  "version": "1.0.0",
+  "author": "kalibr-ai",
+  "homepage": "https://github.com/kalibr-ai/kalibr-sdk-python",
+  "skills": []
+}
