@@ -1,0 +1,9 @@
+{
+  "name": "giantswarm--mcp-debug",
+  "displayName": "mcp-debug",
+  "description": "Command-line tool for debugging MCP servers",
+  "version": "1.0.0",
+  "author": "giantswarm",
+  "homepage": "https://github.com/giantswarm/mcp-debug",
+  "skills": []
+}
