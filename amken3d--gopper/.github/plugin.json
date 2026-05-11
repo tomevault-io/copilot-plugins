@@ -1,0 +1,9 @@
+{
+  "name": "amken3d--gopper",
+  "displayName": "gopper",
+  "description": "A port of the popular 3d Printer firmware Klipper to Tinygo",
+  "version": "1.0.0",
+  "author": "amken3d",
+  "homepage": "https://github.com/amken3d/gopper",
+  "skills": []
+}
