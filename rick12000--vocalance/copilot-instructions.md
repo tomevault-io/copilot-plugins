@@ -1,11 +1,10 @@
-## system-permissions
+## vocalance-repo-guidance
 
-> - NEVER commit any changes.
+> - Put all parameters and configuration variables that you think would be customizable in the [app_config.py](mdc:src/config/app_config.py) or another configuration module in the config folder, do not hard code them in the module you're working on or place them at the top of the module.
 
-- NEVER commit any changes.
-- NEVER revert commits or affect the commit history.
-- NEVER push commits or pull from remote, or interact at all with remote branches.
-- NEVER perform any kind of git action through my terminal.
+# General Rules:
+- Put all parameters and configuration variables that you think would be customizable in the [app_config.py](mdc:src/config/app_config.py) or another configuration module in the config folder, do not hard code them in the module you're working on or place them at the top of the module.
+- Any changes to do with stored objects (in appdir or other permanent folder) should go through or use the 'services/storage/' folder modules or add to them. Centralize storage operations and only call them where needed, don't decentralize storage definitions and handling.
 
 ---
 > Source: [rick12000/vocalance](https://github.com/rick12000/vocalance) — distributed by [TomeVault](https://tomevault.io).
