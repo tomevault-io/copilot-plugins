@@ -1,0 +1,9 @@
+{
+  "name": "amaretto-software-labs--identity-base",
+  "displayName": "identity-base",
+  "description": "Identity provider with user db, OIDC support via OpenIdDict and an easy admin interface",
+  "version": "1.0.0",
+  "author": "Amaretto-Software-Labs",
+  "homepage": "https://github.com/Amaretto-Software-Labs/identity-base",
+  "skills": []
+}
