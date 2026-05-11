@@ -1,0 +1,9 @@
+{
+  "name": "rexleimo--agno-go",
+  "displayName": "agno-Go",
+  "description": "Agno-Go: A High-Performance Multi-Agent System Framework Based on Golang. Inheriting the Agno design philosophy, it leverages Golang's concurrency model and per",
+  "version": "1.0.0",
+  "author": "rexleimo",
+  "homepage": "https://github.com/rexleimo/agno-Go",
+  "skills": []
+}
