@@ -1,0 +1,9 @@
+{
+  "name": "vultuk--claude-code-web",
+  "displayName": "claude-code-web",
+  "description": "Web-based interface for Claude Code CLI with multi-session support",
+  "version": "1.0.0",
+  "author": "vultuk",
+  "homepage": "https://github.com/vultuk/claude-code-web",
+  "skills": []
+}
