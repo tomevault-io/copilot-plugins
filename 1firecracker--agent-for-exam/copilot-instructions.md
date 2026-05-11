@@ -1,0 +1,13 @@
+## basic-rule
+
+> 1. before start writing code, you need to give severl plans to choose
+
+1. before start writing code, you need to give severl plans to choose
+2. before execute operation , you need to ask more information for details
+3. make the code and project as concise as possible
+4. Do not create useless md document unless the user tell you to do
+5. 生成的文档需要放到相应根目录的docs目录下
+
+---
+> Source: [1firecracker/Agent-For-Exam](https://github.com/1firecracker/Agent-For-Exam) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
