@@ -1,0 +1,9 @@
+{
+  "name": "hong4rc--copy-path-nvim",
+  "displayName": "copy-path.nvim",
+  "description": "Copy buffer paths to clipboard \u2014 11 path kinds, GitHub permalinks, file tree support, built-in picker. Zero config, LazyVim compatible.",
+  "version": "1.0.0",
+  "author": "hong4rc",
+  "homepage": "https://github.com/hong4rc/copy-path.nvim",
+  "skills": []
+}
