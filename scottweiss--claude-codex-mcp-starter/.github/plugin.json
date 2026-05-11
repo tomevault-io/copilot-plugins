@@ -1,0 +1,9 @@
+{
+  "name": "scottweiss--claude-codex-mcp-starter",
+  "displayName": "claude-codex-mcp-starter",
+  "description": "A starting point for Claude Code to Codex collaboration",
+  "version": "1.0.0",
+  "author": "scottweiss",
+  "homepage": "https://github.com/scottweiss/claude-codex-mcp-starter",
+  "skills": []
+}
