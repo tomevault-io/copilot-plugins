@@ -4,7 +4,7 @@
   "repo": "booklib",
   "description": "Detects what your AI doesn't know about your project and fixes it. Post-training gap detection, runtime context injection via MCP.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/booklib-ai/booklib",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T00:12:47Z"
+  "distributed_at": "2026-05-11T12:41:46Z"
 }
