@@ -1,0 +1,9 @@
+{
+  "name": "aebrer--dreb",
+  "displayName": "dreb",
+  "description": "Provider-agnostic agentic coding harness. Hard fork of pi-mono.",
+  "version": "1.0.0",
+  "author": "aebrer",
+  "homepage": "https://github.com/aebrer/dreb",
+  "skills": []
+}
