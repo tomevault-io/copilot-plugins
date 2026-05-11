@@ -1,0 +1,9 @@
+{
+  "name": "sozercan--vekil",
+  "displayName": "vekil",
+  "description": "\ud83e\uddd1\u200d\ud83d\udcbc Go reverse proxy exposing Anthropic, Gemini, and OpenAI APIs over Azure Foundry, GitHub Copilot, OpenAI Codex subscriptions",
+  "version": "1.0.0",
+  "author": "sozercan",
+  "homepage": "https://github.com/sozercan/vekil",
+  "skills": []
+}
