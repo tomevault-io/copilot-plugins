@@ -1,0 +1,9 @@
+{
+  "name": "parnexcodes--synclaude",
+  "displayName": "synclaude",
+  "description": "Interactive model selection tool for Claude Code with Synthetic AI models",
+  "version": "1.0.0",
+  "author": "parnexcodes",
+  "homepage": "https://github.com/parnexcodes/synclaude",
+  "skills": []
+}
