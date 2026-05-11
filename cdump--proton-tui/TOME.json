@@ -4,7 +4,7 @@
   "repo": "proton-tui",
   "description": "A modern, unofficial ProtonVPN Terminal User Interface (TUI) for Linux, written in Rust.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cdump/proton-tui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T00:14:33Z"
+  "distributed_at": "2026-05-11T19:00:33Z"
 }
