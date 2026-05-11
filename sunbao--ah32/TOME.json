@@ -4,7 +4,7 @@
   "repo": "ah32",
   "description": "vibe office",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sunbao/ah32",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T00:59:16Z"
+  "distributed_at": "2026-05-11T13:01:23Z"
 }
