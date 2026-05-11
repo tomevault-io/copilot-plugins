@@ -1,0 +1,9 @@
+{
+  "name": "roerohan--fullstack-monorepo-template",
+  "displayName": "fullstack-monorepo-template",
+  "description": "Fullstack monorepo template using Tanstack Start and Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "roerohan",
+  "homepage": "https://github.com/roerohan/fullstack-monorepo-template",
+  "skills": []
+}
