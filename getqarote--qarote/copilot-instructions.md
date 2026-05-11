@@ -1,66 +1,101 @@
-## react-apps
+## react-imports
 
-> This file applies to all React applications in the monorepo: `apps/app`, `apps/web`, and `apps/portal`.
+> **NEVER use namespace imports (`import * as React`) to access React hooks in production code.**
 
 
-# React Applications Rules
+# React Import Best Practices
 
-This file applies to all React applications in the monorepo: `apps/app`, `apps/web`, and `apps/portal`.
+## Critical Rule: Always Use Named Imports for React Hooks
 
-## Tailwind Config Reference
+**NEVER use namespace imports (`import * as React`) to access React hooks in production code.**
 
-- **ALWAYS reference the `tailwind.config.ts` file in the current app directory before creating or updating components**
-  - For `apps/app/`: reference `apps/app/tailwind.config.ts`
-  - For `apps/web/`: reference `apps/web/tailwind.config.ts`
-  - For `apps/portal/`: reference `apps/portal/tailwind.config.ts`
-  - Check available custom colors, animations, and design tokens defined in the config
-  - Use the predefined color palette (primary, secondary, destructive, muted, accent, etc.)
-  - Use custom background gradients (`gradient-page`, `gradient-button`, `gradient-title`) when appropriate
-  - Reference custom animations and keyframes if needed
-  - Ensure consistency with the existing design system
+### ❌ WRONG - Causes Production Errors
 
-## React Query Hooks (where applicable)
+```typescript
+import * as React from "react";
 
-- **All `useQuery` hooks MUST be located in `src/hooks/queries/` or `src/hooks/`**
-  - Do not create inline `useQuery` calls in components or pages
-  - Create custom hooks in appropriate hook directories for all data fetching operations
-  - Export hooks from hook files and import them in components
+function MyComponent() {
+  const [state, setState] = React.useState(); // ❌ Can fail in production builds
+  React.useEffect(() => {}, []); // ❌ Can fail in production builds
+}
+```
 
-- **All `useMutation` hooks SHOULD be located in hook directories**
-  - Prefer creating mutation hooks in hook files for consistency
-  - Exceptions: Simple, component-specific mutations that don't need reuse can remain in components
-  - All server-related mutations (users, vhosts, queues, etc.) should be in hook files
+### ✅ CORRECT - Use Named Imports for Hooks
 
-- **Query hooks should:**
-  - Accept `serverId: string | null` when applicable
-  - Include `serverExists: boolean = true` parameter to prevent queries for deleted servers
-  - Handle query invalidation in `onSuccess` callbacks for mutations
-  - Use consistent query keys defined in `queryKeys` object
+```typescript
+import { useState, useEffect } from "react";
+// You can still use namespace import for other React APIs if needed
+import * as React from "react";
 
-- **Components should:**
-  - Import hooks from appropriate hook directories (`@/hooks/queries/` or `@/hooks/`)
-  - Handle UI-specific concerns (toast notifications, navigation, state updates) in components
-  - Pass `serverExists` validation to hooks when checking if server exists
+function MyComponent() {
+  const [state, setState] = useState(); // ✅ Always works
+  useEffect(() => {}, []); // ✅ Always works
+  
+  // Namespace import is fine for non-hook APIs
+  const context = React.createContext();
+  const Component = React.forwardRef(...);
+}
+```
 
-## Component Structure
+## When to Use Namespace vs Named Imports
 
-- **All React components should follow consistent patterns:**
-  - Use functional components with TypeScript
-  - Use hooks for state management and side effects
-  - Keep components focused and single-purpose
-  - Extract reusable logic into custom hooks
-  - Use proper TypeScript types for props and state
+### Use Named Imports For:
+- **All React hooks**: `useState`, `useEffect`, `useCallback`, `useMemo`, `useRef`, `useContext`, etc.
+- **Common React APIs**: `StrictMode`, `Fragment`, `Suspense`, `lazy`, `memo`
 
-## File Organization
+### Namespace Import (`import * as React`) is OK For:
+- `React.createContext()`
+- `React.forwardRef()`
+- `React.Component`
+- `React.PureComponent`
+- Type references: `React.ReactNode`, `React.ComponentProps`, `React.CSSProperties`
 
-- **Follow the standard React app structure:**
-  - `src/components/` - Reusable UI components
-  - `src/pages/` - Page-level components
-  - `src/hooks/` - Custom React hooks
-  - `src/lib/` - Utility functions and helpers
-  - `src/contexts/` - React context providers
-  - `src/types/` - TypeScript type definitions
-  - `src/schemas/` - Zod validation schemas
+## Best Practice Pattern
+
+```typescript
+// ✅ RECOMMENDED: Named imports for hooks, namespace for other APIs
+import { useState, useEffect, useCallback, useMemo } from "react";
+import * as React from "react";
+
+function MyComponent() {
+  // Hooks - use named imports
+  const [state, setState] = useState();
+  useEffect(() => {}, []);
+  const memoized = useMemo(() => {}, []);
+  
+  // Other APIs - namespace is fine
+  const context = React.createContext();
+  const Component = React.forwardRef(...);
+}
+```
+
+## Why This Matters
+
+Using `React.useEffect` or `React.useState` via namespace imports can cause:
+- **Production build failures**: `TypeError: Cannot read properties of null (reading 'useEffect')`
+- **Bundling issues**: React may not be properly resolved in minified builds
+- **Runtime errors**: React instance may be `null` when accessed via namespace
+
+## Vite Configuration
+
+The `vite.config.ts` includes critical settings to prevent this:
+
+```typescript
+resolve: {
+  dedupe: ["react", "react-dom"], // Ensures single React instance
+},
+build: {
+  rollupOptions: {
+    output: {
+      manualChunks: {
+        "vendor-react": ["react", "react-dom"], // Ensures React is bundled correctly
+      },
+    },
+  },
+}
+```
+
+**Never remove these settings** - they prevent duplicate React instances and bundling issues.
 
 ---
 > Source: [getqarote/Qarote](https://github.com/getqarote/Qarote) — distributed by [TomeVault](https://tomevault.io).
