@@ -1,55 +1,67 @@
-## cursor-rules
+## git-strategy
 
-> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
+> - **Branch-per-Task (BPT) strategy**
 
+- **Branch-per-Task (BPT) strategy**
+  - For every Taskmaster task create a dedicated branch:
+    `task-<id>-<slug>` (e.g. `task-17-api-metrics-fix`).
+  - Base the branch on `master` (or the active feature tag’s branch if using tags).
 
-- **Required Rule Structure:**
-  ```markdown
-  ---
-  description: Clear, one-line description of what the rule enforces
-  globs: path/to/files/*.ext, other/path/**/*
-  alwaysApply: boolean
-  ---
+- **Explicit confirmation before committing**
+  - Stage (`git add -A`) **only after tests pass locally**.
+  - Ask the user for “OK to commit & push?” before every commit.
+    - If *yes*: `git commit -m "<Conventional Commit>"` then `git push -u origin <branch>`.
+    - If *no*: keep refining until approval.
 
-  - **Main Points in Bold**
-    - Sub-points with details
-    - Examples and explanations
-  ```
+- **Atomic, Conventional Commits**
+  - One logical change per commit; do not mix refactors with new features.
+  - Use Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`, …).
+  - Include Task ID in the footer:
+    ```
+    feat(api): add /metrics endpoint
 
-- **File References:**
-  - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
-  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
-  - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
+    Task: #12
+    ```
 
-- **Code Examples:**
-  - Use language-specific code blocks
-  ```typescript
-  // ✅ DO: Show good examples
-  const goodExample = true;
+- **Pull-Request & Merge rules**
+  - Open a PR as soon as the first commit is pushed (draft OK).
+  - CI must be green (lint, type-check, tests, coverage ≥90 %) before PR can be marked ready.
+  - At least one approving review required.
+  - **Squash-merge** into `master` to keep history linear; PR title becomes squash commit.
 
-  // ❌ DON'T: Show anti-patterns
-  const badExample = false;
-  ```
+- **CI/CD pipeline tie-ins**
+  - `push` or `pull_request` on any branch triggers the **CI matrix** (`.github/workflows/ci.yml`):
+    1. Ruff / Black / Mypy linters
+    2. Pytest + coverage gate (≥90 %)
+    3. Optional perf job (`make perf`) on nightly cron
+  - `push` on `master` (post-merge) additionally:
+    - Builds & pushes the Docker image to GHCR
+    - Uploads nightly `pg_dump` backup artifacts
+  - Semantic version tag (`v*.*.*`) triggers Vercel/Supabase deploy workflow when those features land (Task 18).
 
-- **Rule Content Guidelines:**
-  - Start with high-level overview
-  - Include specific, actionable requirements
-  - Show examples of correct implementation
-  - Reference existing code when possible
-  - Keep rules DRY by referencing other rules
+- **Rebasing & Syncing**
+  - Keep branch up-to-date via `git pull --rebase origin master`.
+  - Resolve conflicts locally; re-run full test suite before pushing.
 
-- **Rule Maintenance:**
-  - Update rules when new patterns emerge
-  - Add examples from actual codebase
-  - Remove outdated patterns
-  - Cross-reference related rules
+- **Large / risky features**
+  - If a feature spans several Taskmaster tasks:
+    - Create an umbrella branch `feature/<name>` forked from `master`.
+    - Open PR targeting `master`, then stack task branches on top and merge sequentially.
 
-- **Best Practices:**
-  - Use bullet points for clarity
-  - Keep descriptions concise
-  - Include both DO and DON'T examples
-  - Reference actual code over theoretical examples
-  - Use consistent formatting across rules
+- **Emergency fixes**
+  - Branch from `master` → `hotfix/<issue>`
+    - Fast-track through CI; reviewers may approve retrospectively if blocking production.
+
+- **Tag discipline**
+  - Only CI/CD or release scripts create annotated tags (`git tag -a vX.Y.Z -m ...`).
+
+- **Pre-commit hooks (guard rails)**
+  - `poetry run pre-commit install` on first clone.
+  - Hooks block pushes that violate formatting or lint rules.
+
+- **Documentation & traceability**
+  - Link PRs to Taskmaster tasks (`Fixes TM-#<id>`) so the bot can automatically close them.
+  - Keep CHANGELOG updated via Changesets if public releases are cut.
 
 ---
 > Source: [leonardsellem/readwise-vector-db](https://github.com/leonardsellem/readwise-vector-db) — distributed by [TomeVault](https://tomevault.io).
