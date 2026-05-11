@@ -1,0 +1,9 @@
+{
+  "name": "aescaffre--pixinsight-mcp",
+  "displayName": "pixinsight-mcp",
+  "description": "MCP Server for controlling PixInsight astrophotography processing via AI assistants",
+  "version": "1.0.0",
+  "author": "aescaffre",
+  "homepage": "https://github.com/aescaffre/pixinsight-mcp",
+  "skills": []
+}
