@@ -1,0 +1,9 @@
+{
+  "name": "bekirdag--docdex",
+  "displayName": "docdex",
+  "description": "A document index with MCP, http and client support. https://docdex.org/ ",
+  "version": "1.0.0",
+  "author": "bekirdag",
+  "homepage": "https://github.com/bekirdag/docdex",
+  "skills": []
+}
