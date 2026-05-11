@@ -1,0 +1,9 @@
+{
+  "name": "agents-sh--radkit",
+  "displayName": "radkit",
+  "description": "Rust Agent Development Kit",
+  "version": "1.0.0",
+  "author": "agents-sh",
+  "homepage": "https://github.com/agents-sh/radkit",
+  "skills": []
+}
