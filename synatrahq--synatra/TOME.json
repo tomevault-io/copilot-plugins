@@ -4,7 +4,7 @@
   "repo": "synatra",
   "description": "The control layer for AI Agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/synatrahq/synatra",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T15:56:24Z"
+  "distributed_at": "2026-05-11T17:36:54Z"
 }
