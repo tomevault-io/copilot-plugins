@@ -1,0 +1,9 @@
+{
+  "name": "exisz--isitstable",
+  "displayName": "IsItStable",
+  "description": "Is It Stable? \u2014 Version stability verdicts for npm packages. Because upgrading shouldn't require courage.",
+  "version": "1.0.0",
+  "author": "exisz",
+  "homepage": "https://github.com/exisz/IsItStable",
+  "skills": []
+}
