@@ -1,0 +1,9 @@
+{
+  "name": "lespaceman--athena-flow-cli",
+  "displayName": "athena-flow-cli",
+  "description": "An agentic workflow runtime",
+  "version": "1.0.0",
+  "author": "lespaceman",
+  "homepage": "https://github.com/lespaceman/athena-flow-cli",
+  "skills": []
+}
