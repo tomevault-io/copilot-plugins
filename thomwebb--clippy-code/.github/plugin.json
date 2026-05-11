@@ -1,0 +1,9 @@
+{
+  "name": "thomwebb--clippy-code",
+  "displayName": "clippy-code",
+  "description": "A CLI coding agent powered by a friendly paperclip",
+  "version": "1.0.0",
+  "author": "thomwebb",
+  "homepage": "https://github.com/thomwebb/clippy-code",
+  "skills": []
+}
