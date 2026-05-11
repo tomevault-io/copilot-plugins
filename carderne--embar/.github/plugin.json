@@ -1,0 +1,9 @@
+{
+  "name": "carderne--embar",
+  "displayName": "embar",
+  "description": "A Python ORM with types",
+  "version": "1.0.0",
+  "author": "carderne",
+  "homepage": "https://github.com/carderne/embar",
+  "skills": []
+}
