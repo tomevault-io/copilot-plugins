@@ -1,0 +1,9 @@
+{
+  "name": "pipecat-ai--voice-ui-kit",
+  "displayName": "voice-ui-kit",
+  "description": "Components, hooks and template apps for building React voice AI applications quickly. Designed to support and accelerate Pipecat AI development.",
+  "version": "1.0.0",
+  "author": "pipecat-ai",
+  "homepage": "https://github.com/pipecat-ai/voice-ui-kit",
+  "skills": []
+}
