@@ -1,0 +1,9 @@
+{
+  "name": "homebrewroboticsclub--task-router-x402",
+  "displayName": "Task-router-x402",
+  "description": "Task-router-x402 is a Node.js/Express service for orchestrating robots and agents with x402 payment integration. ",
+  "version": "1.0.0",
+  "author": "homebrewroboticsclub",
+  "homepage": "https://github.com/homebrewroboticsclub/Task-router-x402",
+  "skills": []
+}
