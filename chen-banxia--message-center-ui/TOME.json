@@ -1,0 +1,44 @@
+{
+  "name": "message-center-ui",
+  "owner": "chen-banxia",
+  "repo": "message-center-ui",
+  "description": "\u4e00\u4e2a\u7b80\u5355\u7684\u4f01\u4e1a\u7ea7\u6d88\u606f\u4e2d\u5fc3\uff0c\u7eafdemo\uff0c\u4ec5\u4f9b\u53c2\u8003\uff0c\u524d\u7aef\u9879\u76ee\uff0c\u4f7f\u7528vue3\u642d\u5efa\uff0cstore\u6682\u5b58\u6570\u636e\uff0c\u53ef\u80fd\u5bf9\u4f60\u6709\u7528",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chen-banxia/message-center-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T07:40:54Z"
+}
