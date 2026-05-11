@@ -1,0 +1,9 @@
+{
+  "name": "tessera-ui--tessera",
+  "displayName": "tessera",
+  "description": "A cross-platform declarative & functional UI library for rust, focused on performance and extensibility.",
+  "version": "1.0.0",
+  "author": "tessera-ui",
+  "homepage": "https://github.com/tessera-ui/tessera",
+  "skills": []
+}
