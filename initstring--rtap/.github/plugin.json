@@ -1,0 +1,9 @@
+{
+  "name": "initstring--rtap",
+  "displayName": "RTAP",
+  "description": "Red Team Assessment Platform - reporting, visualizations, and analytics for cybersecurity red teams",
+  "version": "1.0.0",
+  "author": "initstring",
+  "homepage": "https://github.com/initstring/RTAP",
+  "skills": []
+}
