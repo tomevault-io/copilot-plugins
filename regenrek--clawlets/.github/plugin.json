@@ -1,0 +1,9 @@
+{
+  "name": "regenrek--clawlets",
+  "displayName": "clawlets",
+  "description": "Clawlets is an unofficial openclaw server provisioner made for hetzner.",
+  "version": "1.0.0",
+  "author": "regenrek",
+  "homepage": "https://github.com/regenrek/clawlets",
+  "skills": []
+}
