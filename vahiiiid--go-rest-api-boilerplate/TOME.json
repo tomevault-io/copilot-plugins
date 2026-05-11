@@ -2,9 +2,9 @@
   "name": "go-rest-api-boilerplate",
   "owner": "vahiiiid",
   "repo": "go-rest-api-boilerplate",
-  "description": "",
+  "description": "\ud83d\ude80 Production-ready AI-friendly Go REST API boilerplate with Clean Architecture, JWT auth, RBAC, PostgreSQL migrations, and highly tested. AI-optimized with built-in guidelines for most used IDEs. Docker hot-reload, Swagger docs, one-command setup. Build production APIs in minutes, not weeks.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vahiiiid/go-rest-api-boilerplate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T08:05:53Z"
+  "distributed_at": "2026-05-11T17:51:44Z"
 }
