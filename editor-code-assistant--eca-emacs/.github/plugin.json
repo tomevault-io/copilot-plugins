@@ -1,0 +1,9 @@
+{
+  "name": "editor-code-assistant--eca-emacs",
+  "displayName": "eca-emacs",
+  "description": "Editor Code Assistant (ECA) integration for Emacs",
+  "version": "1.0.0",
+  "author": "editor-code-assistant",
+  "homepage": "https://github.com/editor-code-assistant/eca-emacs",
+  "skills": []
+}
