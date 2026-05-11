@@ -1,0 +1,9 @@
+{
+  "name": "kpavlov--ksp-maven-plugin",
+  "displayName": "ksp-maven-plugin",
+  "description": "Kotlin Symbol Processor (KSP v2) Maven Plugin",
+  "version": "1.0.0",
+  "author": "kpavlov",
+  "homepage": "https://github.com/kpavlov/ksp-maven-plugin",
+  "skills": []
+}
