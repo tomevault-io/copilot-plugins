@@ -1,0 +1,9 @@
+{
+  "name": "airscripts--agentskill",
+  "displayName": "agentskill",
+  "description": "Let any agent produce code indistinguishable from the existing codebase.",
+  "version": "1.0.0",
+  "author": "airscripts",
+  "homepage": "https://github.com/airscripts/agentskill",
+  "skills": []
+}
