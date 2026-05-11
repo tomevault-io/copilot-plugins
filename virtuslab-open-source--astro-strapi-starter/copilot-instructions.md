@@ -1,16 +1,19 @@
-## astro-strapi-loader
+## astro-strapi-starter
 
-> Strapi 5 + @sensinum/astro-strapi-loader — content.config.ts, populate, qs, locales
+> Astro x Strapi starter — layout, content collections, block renderer vs StrapiBlocks, types
 
 
-# Upstream rule (no local copy)
+# Astro Strapi starter
 
-The full **Cursor project rule** for the loader is maintained in the **astro-strapi-loader** repository. Open or fetch:
+- **Stack:** Astro 6, Strapi 5, `@sensinum/astro-strapi-loader`, `@sensinum/astro-strapi-blocks` (read [`.ai/AGENTS.md`](../../.ai/AGENTS.md) and [`.ai/astro-strapi-starter/SKILL.md`](../../.ai/astro-strapi-starter/SKILL.md)). **Onboarding:** copy or fetch upstream raw `SKILL` for loader/blocks (pin to `package.json` versions) per the starter skill — stubs are not a substitute for full upstream docs.
 
-- **GitHub:** <https://github.com/VirtusLab-Open-Source/astro-strapi-loader/blob/main/.cursor/rules/astro-strapi-loader.mdc>
-- **Raw:** <https://raw.githubusercontent.com/VirtusLab-Open-Source/astro-strapi-loader/main/.cursor/rules/astro-strapi-loader.mdc>
+- **Content:** `src/content.config.ts` exports `collections` from `generateCollections`. Handle Strapi unavailability in `try/catch` so static builds or local dev can still run.
 
-This file exists only to **preserve** the same `globs` / scope in this starter. For project-specific notes, see [`.ai/AGENTS.md`](../../.ai/AGENTS.md) and the stub at [`.ai/astro-strapi-loader/SKILL.md`](../../.ai/astro-strapi-loader/SKILL.md).
+- **Two patterns:** (1) **Dynamic zone** entries with `__component` → `BlockRenderer.astro` and siblings under `src/components/blocks/`. (2) **Rich text Blocks JSON** from Strapi 5 → `<StrapiBlocks />` inside those components when the field is a Blocks editor, not a separate dynamic-zone component.
+
+- **Types:** Under `src/types/strapi/`, add or edit focused modules and **re-export** from `index.ts`. Align with Content Builder / Content API; the loader emits Zod from schema introspection — hand types should match the same shapes.
+
+- **Do not** commit `.env` or real API tokens. Use `env.example` as the template for variable names.
 
 ---
 > Source: [VirtusLab-Open-Source/astro-strapi-starter](https://github.com/VirtusLab-Open-Source/astro-strapi-starter) — distributed by [TomeVault](https://tomevault.io).
