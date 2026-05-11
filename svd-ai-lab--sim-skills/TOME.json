@@ -1,0 +1,44 @@
+{
+  "name": "sim-skills",
+  "owner": "svd-ai-lab",
+  "repo": "sim-skills",
+  "description": "sim-skills \u2014 agent playbooks that teach LLMs how to drive every engineering tool, paired with the sim-cli runtime",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/svd-ai-lab/sim-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T23:54:16Z"
+}
