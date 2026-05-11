@@ -1,0 +1,9 @@
+{
+  "name": "mcardzh--gromacs-helper-vscode",
+  "displayName": "gromacs-helper-vscode",
+  "description": "Complete language support for GROMACS molecular dynamics simulation files including MDP, TOP, GRO, and NDX formats",
+  "version": "1.0.0",
+  "author": "mcardZH",
+  "homepage": "https://github.com/mcardZH/gromacs-helper-vscode",
+  "skills": []
+}
