@@ -1,0 +1,44 @@
+{
+  "name": "obsidian-todoseq",
+  "owner": "scross01",
+  "repo": "obsidian-todoseq",
+  "description": "TODOseq (\"to-do-seek\") is a lightweight, keyword-based task tracker for Obsidian",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/scross01/obsidian-todoseq",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T23:44:25Z"
+}
