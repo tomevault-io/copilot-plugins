@@ -4,7 +4,7 @@
   "repo": "quickcsv",
   "description": "The fastest way to view, search, and inspect large CSV files on macOS. Built for speed and reliability",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ayu5h-raj/quickcsv",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T19:46:43Z"
+  "distributed_at": "2026-05-11T20:48:22Z"
 }
