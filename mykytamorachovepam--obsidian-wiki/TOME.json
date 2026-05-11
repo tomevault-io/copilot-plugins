@@ -4,7 +4,7 @@
   "repo": "obsidian-wiki",
   "description": "Insired by @karpathy . A personal knowledge base maintained by an LLM agent inside an Obsidian vault. Instead of retrieving from raw documents on every question (like traditional RAG), the LLM incrementally builds and maintains a structured, interlinked wiki that compounds knowledge over time.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MykytaMorachovEpam/obsidian-wiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T15:58:36Z"
+  "distributed_at": "2026-05-11T04:51:34Z"
 }
