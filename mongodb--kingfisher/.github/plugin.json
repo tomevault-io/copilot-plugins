@@ -1,0 +1,9 @@
+{
+  "name": "mongodb--kingfisher",
+  "displayName": "kingfisher",
+  "description": "Find, validate, and map the impact of leaked secrets across your stack. Revoke fast. 900+ rules.",
+  "version": "1.0.0",
+  "author": "mongodb",
+  "homepage": "https://github.com/mongodb/kingfisher",
+  "skills": []
+}
