@@ -4,7 +4,7 @@
   "repo": "ClawKeeper",
   "description": "Autonomous AI bookkeeping for SMBs \u2014 110 AI agents handle invoices, reconciliation, and financial reporting so you never touch a spreadsheet again.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Alexi5000/ClawKeeper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T04:29:07Z"
+  "distributed_at": "2026-05-11T00:56:58Z"
 }
