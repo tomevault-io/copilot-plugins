@@ -1,0 +1,9 @@
+{
+  "name": "nikketryhard--tenhou-to-mjai",
+  "displayName": "tenhou-to-mjai",
+  "description": "Converts Tenhou game logs into mjai format for Mortal AI training.",
+  "version": "1.0.0",
+  "author": "NikkeTryHard",
+  "homepage": "https://github.com/NikkeTryHard/tenhou-to-mjai",
+  "skills": []
+}
