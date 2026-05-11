@@ -1,142 +1,124 @@
-## bus-architecture
+## export-restrictions
 
-> Bus Architecture Principle - Eliminate Props Drilling
+> Export restrictions and API design principles
 
 
-# Bus Architecture Principle - Eliminate Props Drilling
+# Export Restrictions - Avoid Unnecessary API Exposure
 
-## Core Philosophy: "Bus Direct Connection"
+## Core Principle: Only Export What's Actually Used
 
-Like the internet, we should use a "bus" architecture to eliminate props drilling and speed up information flow. Components should connect directly to the bus (stores/events) rather than passing data through multiple layers.
+**NEVER export anything that is not used by external consumers.** This prevents API bloat, reduces maintenance burden, and keeps interfaces clean.
 
-## Architecture Hierarchy
+## Export Decision Rules
 
-### 1. **Store State Management** (Primary)
-- Use stores for **persistent state** that needs to be shared across components
-- Use stores for **UI state** that affects multiple components
-- Use stores for **business logic state** that needs to be consistent
+### ✅ **DO Export When:**
+- **External Usage Confirmed**: Component/service is imported and used by other modules
+- **Public API**: Intentionally designed for external consumption
+- **Reusable Utilities**: Generic functions that multiple modules need
+- **Type Definitions**: Types that external consumers need for type safety
 
-**Examples:**
-- User authentication state
-- Current channel selection
-- UI sidebar states (open/closed)
-- Theme preferences
-- Data loading states
+### ❌ **DON'T Export When:**
+- **Internal Implementation**: Only used within the same module/feature
+- **Single Use**: Only used in one place
+- **Implementation Details**: Internal helpers, utilities, or intermediate functions
+- **Unused Code**: No external references found
 
-### 2. **RxEvent Bus** (Secondary)
-- Use events for **one-time actions** and **cross-component communication**
-- Use events for **loose coupling** between distant components
-- Use events for **temporary state** that doesn't need persistence
+## Implementation Guidelines
 
-**Examples:**
-- Opening modals/dialogs
-- Triggering API calls
-- Cross-feature communication
-- User actions that need immediate response
-
-### 3. **Props** (Last Resort)
-- **ONLY** use props for **pure, reusable components**
-- **ONLY** use props when the component is **intentionally designed for reusability**
-- **ONLY** use props for **configuration** that doesn't change often
-
-**Examples:**
-- UI components (Button, Input, Modal)
-- Layout components (Container, Grid)
-- Pure presentation components
-
-## Implementation Rules
-
-### ✅ DO: Use Store for Shared State
+### 1. **Index Files (.tsx/.ts)**
 ```typescript
-// ✅ Good: Direct store access
-const { currentChannelId, setCurrentChannel } = useNotesViewStore();
-const { isAIAssistantOpen, openAIAssistant } = useUIStateStore();
+// ❌ BAD: Exporting everything
+export { InternalHelper } from './internal-helper';
+export { UnusedUtility } from './unused-utility';
+export { PublicAPI } from './public-api';
+
+// ✅ GOOD: Only export what's actually used
+export { PublicAPI } from './public-api';
+// InternalHelper and UnusedUtility are not exported
 ```
 
-### ✅ DO: Use Events for Actions
+### 2. **Service Classes**
 ```typescript
-// ✅ Good: Event bus for actions
-rxEventBusService.requestOpenAIAssistant$.emit({ channelId });
-rxEventBusService.requestOpenSettings$.emit();
+// ❌ BAD: Exporting internal methods
+export class MyService {
+  public processData() { /* used externally */ }
+  public internalHelper() { /* only used internally */ }
+  public debugMethod() { /* never used */ }
+}
+
+// ✅ GOOD: Only export public API
+export class MyService {
+  public processData() { /* used externally */ }
+  private internalHelper() { /* only used internally */ }
+  // debugMethod removed or made private
+}
 ```
 
-### ❌ AVOID: Props Drilling
+### 3. **Component Exports**
 ```typescript
-// ❌ Bad: Props drilling through multiple layers
-<Parent onAction={handleAction}>
-  <Child onAction={onAction}>
-    <GrandChild onAction={onAction}>
-      <GreatGrandChild onAction={onAction} />
-    </GrandChild>
-  </Child>
-</Parent>
+// ❌ BAD: Exporting internal components
+export { MainComponent } from './main-component';
+export { InternalSubComponent } from './internal-sub-component';
+export { UnusedHelper } from './unused-helper';
+
+// ✅ GOOD: Only export public components
+export { MainComponent } from './main-component';
+// InternalSubComponent and UnusedHelper are not exported
 ```
 
-### ✅ DO: Props for Pure Components
-```typescript
-// ✅ Good: Props for reusable pure components
-<Button onClick={handleClick} variant="primary" size="lg">
-  Click me
-</Button>
+## Verification Process
 
-<Modal isOpen={isOpen} onClose={onClose}>
-  Content
-</Modal>
+### Before Adding Exports:
+1. **Search Usage**: Use `grep` or IDE search to find actual usage
+2. **Check Imports**: Verify the item is imported elsewhere
+3. **Review Dependencies**: Ensure it's not just internal to the module
+4. **Document Purpose**: If exporting, document why it's part of the public API
+
+### Regular Cleanup:
+1. **Audit Exports**: Periodically review what's exported vs. what's used
+2. **Remove Unused**: Delete exports that have no external references
+3. **Refactor Internals**: Move unused exports to internal modules
+4. **Update Documentation**: Keep API documentation current
+
+## Examples from Codebase
+
+### Context Feature Exports
+```typescript
+// ✅ GOOD: Only exports what's actually used externally
+export { contextDataCache } from './services/context-data-cache';        // Used by ai-conversation-chat.tsx
+export { channelContextManager } from './services/channel-context-manager'; // Used by ai-agent-factory.ts
+export { sessionContextManager } from './services/session-context-manager'; // Used by ai-agent-factory.ts
+export { ConversationContextControl } from './components/conversation-context-control'; // Used by mobile/desktop
 ```
 
-## Migration Strategy
+### Avoid Over-Exporting
+```typescript
+// ❌ BAD: Don't export internal utilities unless needed
+export { useContextStatusStore } from './stores/context-status.store'; // Only used internally
+export { ChannelContextSnapshot } from './services/context-data-cache'; // Type only used internally
 
-### Phase 1: Identify Props Drilling
-1. Look for props passed through 3+ component layers
-2. Look for props that are just "passing through" without modification
-3. Look for props that represent shared state
-
-### Phase 2: Convert to Store
-1. Move shared state to appropriate store
-2. Update components to use store directly
-3. Remove intermediate prop passing
-
-### Phase 3: Convert to Events
-1. Convert action props to event emissions
-2. Update target components to listen to events
-3. Remove action prop chains
-
-### Phase 4: Clean Up
-1. Remove unused prop interfaces
-2. Simplify component signatures
-3. Update tests
+// ✅ GOOD: Only export what external consumers need
+// useContextStatusStore and ChannelContextSnapshot are not exported
+```
 
 ## Benefits
 
-- **Faster Development**: No need to trace prop chains
-- **Better Performance**: Direct access, no unnecessary re-renders
-- **Easier Maintenance**: Changes in one place affect all consumers
-- **Cleaner Code**: Components focus on their own logic
-- **Better Testing**: Test components in isolation with mocked stores/events
+- **Cleaner APIs**: Easier to understand and use
+- **Reduced Coupling**: Less dependencies between modules
+- **Better Maintainability**: Fewer breaking changes when refactoring
+- **Improved Performance**: Smaller bundle sizes
+- **Clear Boundaries**: Obvious separation between public and private APIs
 
-## Store Organization
+## Enforcement
 
-### UI State Store
-- Sidebar states (open/closed)
-- Modal states
-- Loading states
-- View preferences
-
-### Business State Store
-- Current selections
-- User data
-- Application state
-- Cache data
-
-### Event Bus
-- User actions
-- Cross-component communication
-- Temporary notifications
-- One-time operations
+- **Code Reviews**: Always check if new exports are actually needed
+- **Linting Rules**: Use tools to detect unused exports
+- **Documentation**: Document the public API clearly
+- **Regular Audits**: Periodically review and clean up exports
 
 ---
 
-**Remember**: The goal is to make components as independent as possible while maintaining clear data flow. When in doubt, prefer store over events, and events over props.
+**Remember**: A good API is one that exports only what's necessary. When in doubt, don't export it.
 
 ---
 > Source: [Peiiii/EchoNote](https://github.com/Peiiii/EchoNote) — distributed by [TomeVault](https://tomevault.io).
