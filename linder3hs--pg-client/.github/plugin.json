@@ -1,0 +1,9 @@
+{
+  "name": "linder3hs--pg-client",
+  "displayName": "pg-client",
+  "description": "Minimalist web-based PostgreSQL client for local development",
+  "version": "1.0.0",
+  "author": "linder3hs",
+  "homepage": "https://github.com/linder3hs/pg-client",
+  "skills": []
+}
