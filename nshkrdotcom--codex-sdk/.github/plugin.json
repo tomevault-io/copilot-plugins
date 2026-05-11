@@ -1,0 +1,9 @@
+{
+  "name": "nshkrdotcom--codex-sdk",
+  "displayName": "codex_sdk",
+  "description": "OpenAI Codex SDK written in Elixir",
+  "version": "1.0.0",
+  "author": "nshkrdotcom",
+  "homepage": "https://github.com/nshkrdotcom/codex_sdk",
+  "skills": []
+}
