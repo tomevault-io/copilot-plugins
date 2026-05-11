@@ -1,140 +1,54 @@
-## conventions
+## structure
 
-> Established coding conventions for error handling, async patterns, function organization, and type usage
+> Directory organization, file naming, and module structure conventions
 
 
-- **Error Handling**: Always check for errors using instanceof Error before accessing error properties. Use instanceof Error before accessing .message. Return error objects with success: false and error message string. Log errors appropriately based on context (console.error for CLI, return error for library API).
-  - catch (error) {
-  return {
-    success: false,
-    error: error instanceof Error ? error.message : 'Unknown error occurred',
-  };
-}
-  - process.on('error', (err) => {
-  resolve({
-    installed: false,
-    error: err.message,
-  });
-});
+- **Directory Organization**: Source code in src/ directory. Compiled output in dist/ directory. Configuration files (package.json, tsconfig.json) at root. Documentation (README.md, LICENSE) at root. Use .cursor/rules/ for generated rules output.
+  - src/
+├── types.ts
+├── analyzer.ts
+├── rules-manager.ts
+├── cli.ts
+└── index.ts
+  - dist/  (generated)
+.cursor/
+  rules/  (generated)
 
-- **Async/Await Usage**: Always use async/await for asynchronous operations, never Promise chains (.then/.catch). Make async functions return Promise<T> with explicit type. Use try-catch blocks for error handling in async functions. Wrap callback-based APIs (like spawn) in Promise constructors.
-  - export async function generateRules(config: GenerateRulesConfig = {}): Promise<RulesManagerResult> {
-  try {
-    const result = await analyzeCodebase({ verbose });
-    // ...
-  } catch (error) {
-    // handle error
-  }
-}
-  - export async function checkCursorAgent(): Promise<CursorAgentCheck> {
-  return new Promise((resolve) => {
-    // callback-based logic
-  });
-}
+- **File Naming Conventions**: Use kebab-case for file names: analyzer.ts, rules-manager.ts, cli.ts. Use descriptive names that indicate file purpose. Keep file names short but clear. Use .ts extension for TypeScript source files.
+  - analyzer.ts - cursor-agent integration
+  - rules-manager.ts - rules file management
+  - cli.ts - command-line interface
 
-- **Function Organization**: Export functions at module level. Group related functions together. Use helper functions to break down complex logic. Keep functions focused on a single responsibility. Document exported functions with JSDoc comments.
-  - export async function generateRules(...) { }
-  - export async function checkAgent() { }
-  - export async function analyze(...) { }
-  - function createAnalysisPrompt(): string { }
-  - function parseRawOutput(rawOutput: string): AnalysisData | null { }
+- **Module Structure**: Each file should represent a single module with a clear responsibility. index.ts serves as the main entry point and re-exports public APIs. Group related functionality together. Keep modules focused and cohesive.
+  - index.ts - main API, re-exports types
+  - analyzer.ts - all cursor-agent interaction logic
+  - rules-manager.ts - all file system operations for rules
 
-- **TypeScript Type Usage**: Define interfaces for all data structures. Use optional properties (?) for values that may be undefined. Use explicit return types on all exported functions. Use union types for literal value sets. Avoid any type, use unknown if type is truly unknown.
-  - export interface AnalysisResult {
-  success: boolean;
-  data?: AnalysisData;
-  error?: string;
-  rawOutput?: string;
-}
-  - ruleType?: 'always' | 'auto-attached' | 'agent-requested' | 'manual';
-  - export async function generateRules(config: GenerateRulesConfig = {}): Promise<RulesManagerResult>
+- **Import/Export Patterns**: Use relative imports for local modules (./types, ./analyzer). Use absolute imports for node_modules. Export public API from index.ts. Keep internal implementation details private (don't export utility functions unless needed by other modules).
+  - import { generateRules } from './index';
+  - import { checkCursorAgent } from './analyzer';
+  - export * from './types';
 
-- **Default Parameters**: Use default parameters for optional configuration options. Provide sensible defaults. Use object destructuring with defaults in function parameters.
-  - export async function generateRules(config: GenerateRulesConfig = {}): Promise<RulesManagerResult>
-  - export async function analyzeCodebase(options: AnalyzeOptions = {}): Promise<AnalysisResult> {
-  const { timeout = 300000, verbose = false } = options;
-}
-  - export async function analyze(verbose: boolean = false): Promise<AnalysisResult>
-
-- **Result Objects**: Use result objects with success boolean and additional data/error fields for function returns. This pattern allows for consistent error handling and data extraction. Include arrays for operation results (created, updated, unchanged).
-  - interface RulesManagerResult {
-  success: boolean;
-  created: string[];
-  updated: string[];
-  unchanged: string[];
-  error?: string;
-}
-  - return {
-  success: true,
-  created: ['file1.mdc'],
-  updated: [],
-  unchanged: [],
-};
-
-- **Verbose Logging Pattern**: Accept verbose boolean parameter for detailed logging. Check verbose flag before logging detailed information. Use console.log for verbose output, console.error for errors. Provide helpful progress messages during long operations. For large outputs, truncate and show length/preview.
-  - if (verbose) {
-  console.log(`Using cursor-agent: ${agentCheck.version}`);
-}
-  - if (verbose && analysisResult.success && analysisResult.data) {
-  console.log('Analysis successful, data received');
-}
-  - if (analysisResult.rawOutput.length < 500) {
-  console.log('Raw output:', analysisResult.rawOutput);
-} else {
-  console.log('Raw output (first 500 chars):', analysisResult.rawOutput.substring(0, 500));
+- **Entry Points**: index.ts is the main library entry point exporting public API. cli.ts is the CLI entry point (has shebang #!/usr/bin/env node). Package.json defines main (dist/index.js) and bin (dist/cli.js) entry points. Build script should set executable permissions on CLI (chmod +x dist/cli.js).
+  - // index.ts
+export async function generateRules(...) { }
+  - #!/usr/bin/env node
+// cli.ts
+import { Command } from 'commander';
+  - "scripts": {
+  "build": "tsc && chmod +x dist/cli.js"
 }
 
-- **Dry Run Pattern**: Support dry-run mode for operations that modify files. Check dryRun flag before performing write operations. Log what would be done in dry-run mode. Return the same result structure whether dry-run or actual execution.
-  - if (!dryRun) {
-  fs.writeFileSync(filePath, mdc, 'utf-8');
-}
-result.created.push(filename);
-  - if (config.dryRun) {
-  console.log(chalk.yellow('DRY RUN MODE: No files will be written\n'));
-}
+- **Configuration Files**: tsconfig.json at root with strict settings. package.json defines scripts, dependencies, and metadata. Keep configuration files at root level. Use standard naming conventions for config files.
+  - tsconfig.json - TypeScript compiler options
+  - package.json - npm/yarn package configuration
 
-- **Nested JSON Parsing**: When parsing JSON from external tools, handle nested JSON structures. Check if the result is wrapped in a response object and extract the actual data. Support both direct JSON and string-encoded JSON within objects. Use type assertions with validation.
-  - let parsed = JSON.parse(jsonMatch[0]) as unknown;
-if (typeof parsed === 'object' && parsed !== null && 'result' in parsed) {
-  const wrapper = parsed as { result: unknown };
-  if (typeof wrapper.result === 'string') {
-    const resultMatch = wrapper.result.match(/\{[\s\S]*\}/);
-    if (resultMatch) {
-      parsed = JSON.parse(resultMatch[0]) as unknown;
-    }
-  }
-}
-
-- **Process Stream Handling**: When handling process streams (stdout/stderr), accumulate output in string variables. Handle both stdout and stderr separately. Clear timeouts when processes close. Handle process errors separately from exit codes.
-  - let stdout = '';
-let stderr = '';
-childProcess.stdout.on('data', (data: Buffer) => {
-  stdout += data.toString();
-});
-childProcess.on('close', (code) => {
-  clearTimeout(timeoutId);
-  // handle result
-});
-childProcess.on('error', (err) => {
-  clearTimeout(timeoutId);
-  // handle error
-});
-
-- **Promise Resolution Pattern**: When wrapping callback-based APIs in Promises, always resolve with result objects rather than rejecting. This allows callers to check success status rather than using try-catch for expected failures.
-  - return new Promise((resolve) => {
-  process.on('close', (code) => {
-    resolve({ installed: code === 0 });
-  });
-  process.on('error', (err) => {
-    resolve({ installed: false, error: err.message });
-  });
-});
-
-- **Type Assertion Safety**: When using type assertions (as), validate the structure first. Use typeof checks and property existence checks before asserting types. Prefer type guards over assertions when possible.
-  - if (typeof parsed === 'object' && parsed !== null && 'result' in parsed) {
-  const wrapper = parsed as { result: unknown };
-  // safe to use wrapper
-}
+- **Type Definition Centralization**: All TypeScript interfaces and types should be defined in types.ts. This provides a single source of truth for type definitions and makes them easily importable across modules.
+  - // types.ts
+export interface GenerateRulesConfig { ... }
+export interface AnalysisResult { ... }
+  - // Other files
+import { GenerateRulesConfig, AnalysisResult } from './types';
 
 ---
 > Source: [Srajangpt1/agent-rule-sync](https://github.com/Srajangpt1/agent-rule-sync) — distributed by [TomeVault](https://tomevault.io).
