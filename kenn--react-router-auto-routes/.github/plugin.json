@@ -1,0 +1,9 @@
+{
+  "name": "kenn--react-router-auto-routes",
+  "displayName": "react-router-auto-routes",
+  "description": "Automatic folder-based routing with colocation for React Router v7+",
+  "version": "1.0.0",
+  "author": "kenn",
+  "homepage": "https://github.com/kenn/react-router-auto-routes",
+  "skills": []
+}
