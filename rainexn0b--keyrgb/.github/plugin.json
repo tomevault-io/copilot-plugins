@@ -1,0 +1,9 @@
+{
+  "name": "rainexn0b--keyrgb",
+  "displayName": "keyRGB",
+  "description": "Linux tray app + per-key RGB editor for mostly tongfang/ITE-based laptop keyboards/chassis lighting",
+  "version": "1.0.0",
+  "author": "Rainexn0b",
+  "homepage": "https://github.com/Rainexn0b/keyRGB",
+  "skills": []
+}
