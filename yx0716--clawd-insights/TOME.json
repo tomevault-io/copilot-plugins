@@ -1,0 +1,44 @@
+{
+  "name": "clawd-insights",
+  "owner": "yx0716",
+  "repo": "clawd-insights",
+  "description": "A fork of `rullerzhou-afk/clawd-on-desk` that keeps the real-time desktop pet experience and adds a local insights layer on top. It tracks agent activity on screen, scans local conversation history, and generates AI summaries of what each session was trying to achieve and what it actually accomplished.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yx0716/clawd-insights",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T23:34:25Z"
+}
