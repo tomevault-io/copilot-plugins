@@ -1,67 +1,74 @@
-## git-strategy
+## self-improve
 
-> - **Branch-per-Task (BPT) strategy**
+> Guidelines for continuously improving Windsurf rules based on emerging code patterns and best practices.
 
-- **Branch-per-Task (BPT) strategy**
-  - For every Taskmaster task create a dedicated branch:
-    `task-<id>-<slug>` (e.g. `task-17-api-metrics-fix`).
-  - Base the branch on `master` (or the active feature tag’s branch if using tags).
 
-- **Explicit confirmation before committing**
-  - Stage (`git add -A`) **only after tests pass locally**.
-  - Ask the user for “OK to commit & push?” before every commit.
-    - If *yes*: `git commit -m "<Conventional Commit>"` then `git push -u origin <branch>`.
-    - If *no*: keep refining until approval.
+- **Rule Improvement Triggers:**
+  - New code patterns not covered by existing rules
+  - Repeated similar implementations across files
+  - Common error patterns that could be prevented
+  - New libraries or tools being used consistently
+  - Emerging best practices in the codebase
 
-- **Atomic, Conventional Commits**
-  - One logical change per commit; do not mix refactors with new features.
-  - Use Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`, …).
-  - Include Task ID in the footer:
-    ```
-    feat(api): add /metrics endpoint
+- **Analysis Process:**
+  - Compare new code with existing rules
+  - Identify patterns that should be standardized
+  - Look for references to external documentation
+  - Check for consistent error handling patterns
+  - Monitor test patterns and coverage
 
-    Task: #12
-    ```
+- **Rule Updates:**
+  - **Add New Rules When:**
+    - A new technology/pattern is used in 3+ files
+    - Common bugs could be prevented by a rule
+    - Code reviews repeatedly mention the same feedback
+    - New security or performance patterns emerge
 
-- **Pull-Request & Merge rules**
-  - Open a PR as soon as the first commit is pushed (draft OK).
-  - CI must be green (lint, type-check, tests, coverage ≥90 %) before PR can be marked ready.
-  - At least one approving review required.
-  - **Squash-merge** into `master` to keep history linear; PR title becomes squash commit.
+  - **Modify Existing Rules When:**
+    - Better examples exist in the codebase
+    - Additional edge cases are discovered
+    - Related rules have been updated
+    - Implementation details have changed
 
-- **CI/CD pipeline tie-ins**
-  - `push` or `pull_request` on any branch triggers the **CI matrix** (`.github/workflows/ci.yml`):
-    1. Ruff / Black / Mypy linters
-    2. Pytest + coverage gate (≥90 %)
-    3. Optional perf job (`make perf`) on nightly cron
-  - `push` on `master` (post-merge) additionally:
-    - Builds & pushes the Docker image to GHCR
-    - Uploads nightly `pg_dump` backup artifacts
-  - Semantic version tag (`v*.*.*`) triggers Vercel/Supabase deploy workflow when those features land (Task 18).
+- **Example Pattern Recognition:**
+  ```typescript
+  // If you see repeated patterns like:
+  const data = await prisma.user.findMany({
+    select: { id: true, email: true },
+    where: { status: 'ACTIVE' }
+  });
 
-- **Rebasing & Syncing**
-  - Keep branch up-to-date via `git pull --rebase origin master`.
-  - Resolve conflicts locally; re-run full test suite before pushing.
+  // Consider adding to [prisma.md](.windsurf/rules/prisma.md):
+  // - Standard select fields
+  // - Common where conditions
+  // - Performance optimization patterns
+  ```
 
-- **Large / risky features**
-  - If a feature spans several Taskmaster tasks:
-    - Create an umbrella branch `feature/<name>` forked from `master`.
-    - Open PR targeting `master`, then stack task branches on top and merge sequentially.
+- **Rule Quality Checks:**
+  - Rules should be actionable and specific
+  - Examples should come from actual code
+  - References should be up to date
+  - Patterns should be consistently enforced
 
-- **Emergency fixes**
-  - Branch from `master` → `hotfix/<issue>`
-    - Fast-track through CI; reviewers may approve retrospectively if blocking production.
+- **Continuous Improvement:**
+  - Monitor code review comments
+  - Track common development questions
+  - Update rules after major refactors
+  - Add links to relevant documentation
+  - Cross-reference related rules
 
-- **Tag discipline**
-  - Only CI/CD or release scripts create annotated tags (`git tag -a vX.Y.Z -m ...`).
+- **Rule Deprecation:**
+  - Mark outdated patterns as deprecated
+  - Remove rules that no longer apply
+  - Update references to deprecated rules
+  - Document migration paths for old patterns
 
-- **Pre-commit hooks (guard rails)**
-  - `poetry run pre-commit install` on first clone.
-  - Hooks block pushes that violate formatting or lint rules.
-
-- **Documentation & traceability**
-  - Link PRs to Taskmaster tasks (`Fixes TM-#<id>`) so the bot can automatically close them.
-  - Keep CHANGELOG updated via Changesets if public releases are cut.
+- **Documentation Updates:**
+  - Keep examples synchronized with code
+  - Update references to external docs
+  - Maintain links between related rules
+  - Document breaking changes
+Follow [windsurf_rules.md](.windsurf/rules/windsurf_rules.md) for proper rule formatting and structure.
 
 ---
 > Source: [leonardsellem/readwise-vector-db](https://github.com/leonardsellem/readwise-vector-db) — distributed by [TomeVault](https://tomevault.io).
