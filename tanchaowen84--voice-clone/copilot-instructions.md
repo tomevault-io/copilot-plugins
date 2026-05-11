@@ -1,13 +1,38 @@
-## nextjs-best-practices
+## project-structure
 
-> Best practices for Next.js applications and routing
+> - `src/app/`: Next.js app router pages and layouts
 
+# Project Structure Guide
 
-- Utilize Next.js 15's new features like Server Actions for improved performance and security
-- Implement proper error handling with `error.tsx` and `not-found.tsx` for better user experience
-- Use `next-safe-action` for secure form submissions and API calls
-- Use the `use client` directive for client components to optimize server-side rendering
-- Leverage `next-themes` for easy theme management and dark mode support
+## Core Directories
+- `src/app/`: Next.js app router pages and layouts
+- `src/components/`: Reusable React components
+- `src/lib/`: Utility functions and shared code
+- `src/db/`: Database schema and migrations using Drizzle ORM
+- `src/stores/`: Zustand state management
+- `src/actions/`: Server actions and API routes
+- `src/hooks/`: Custom React hooks
+- `src/types/`: TypeScript type definitions
+- `src/i18n/`: Internationalization setup
+- `src/mail/`: Email templates and mail functionality
+- `src/payment/`: Payment integration
+- `src/analytics/`: Analytics and tracking
+- `src/storage/`: File storage integration
+
+## Configuration Files
+- `next.config.ts`: Next.js configuration
+- `drizzle.config.ts`: Database configuration
+- `biome.json`: Code formatting and linting rules
+- `tsconfig.json`: TypeScript configuration
+- `components.json`: UI components configuration
+
+## Content Management
+- `content/`: MDX content files
+- `content-collections.ts`: Content collection configuration
+
+## Environment
+- `env.example`: Environment variables template
+- `global.d.ts`: Global TypeScript declarations
 
 ---
 > Source: [tanchaowen84/voice-clone](https://github.com/tanchaowen84/voice-clone) — distributed by [TomeVault](https://tomevault.io).
