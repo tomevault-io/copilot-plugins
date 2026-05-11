@@ -1,0 +1,9 @@
+{
+  "name": "samueltulach--unxorer",
+  "displayName": "unxorer",
+  "description": "Yet another IDA Pro/Home plugin for deobfuscating stack strings",
+  "version": "1.0.0",
+  "author": "SamuelTulach",
+  "homepage": "https://github.com/SamuelTulach/unxorer",
+  "skills": []
+}
