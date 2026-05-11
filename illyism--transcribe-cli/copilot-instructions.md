@@ -1,61 +1,65 @@
-## cleanup-pattern
+## cli-patterns
 
-> How to properly clean up temporary files in transcribe functions
+> const input = args.find(arg => !arg.startsWith('--')) || args[0]
 
 
-# Cleanup Pattern
+# CLI Patterns
 
-## Always Use `finally` Blocks
-
-All temporary files MUST be cleaned up in `finally` blocks:
+## Argument Parsing
 
 ```typescript
-let tempFile: string | null = null
-let optimizedFile: string | null = null
-
-try {
-  // Processing logic...
-  tempFile = createTempFile()
-  optimizedFile = processFile(tempFile)
-  // ...
-} finally {
-  // Clean up in reverse order of creation
-  if (tempFile && existsSync(tempFile)) {
-    unlinkSync(tempFile)
-  }
-  if (optimizedFile && existsSync(optimizedFile)) {
-    unlinkSync(optimizedFile)
-  }
-  if (tempFile || optimizedFile) {
-    console.log('🧹 Cleaned up temporary files')
-  }
-}
+const input = args.find(arg => !arg.startsWith('--')) || args[0]
+const useRaw = args.includes('--raw')
 ```
 
-## Temporary File Naming
+Always extract the file/URL first (non-flag argument), then check for flags.
 
-Use timestamps to avoid conflicts:
+## Help Text
+
+Must include:
+- Usage line with placeholder
+- All flags and options
+- Multiple examples (local file, YouTube, with flags)
+- Current optimizations status
+- Supported formats
+- Configuration instructions
+
+## Error Messages
+
+Pattern: Always include helpful links and copy-paste commands:
+
 ```typescript
-const tempPath = join(dir, `temp_${Date.now()}.mp3`)
-const optimizedPath = join(dir, `optimized_${Date.now()}.mp3`)
+throw new Error(
+  'OPENAI_API_KEY not found.\n\n' +
+  '🔑 Get your API key: https://platform.openai.com/api-keys\n\n' +
+  'Then set it using ONE of these methods:\n\n' +
+  '1️⃣  Environment variable...\n' +
+  '2️⃣  Config file...\n\n' +
+  '📚 Full setup guide: https://github.com/...'
+)
 ```
 
-## Files to Clean Up
+## Config Resolution
 
-1. **Extracted audio** from videos (`*_temp.mp3`)
-2. **Optimized audio** after speed adjustment (`optimized_*.mp3`)
-3. **Downloaded YouTube files** from temp directory
-4. **Test output files** (in test suite only)
+Priority order:
+1. Environment variable (`OPENAI_API_KEY`)
+2. Config file (`~/.transcribe/config.json`)
 
-## Never Delete
+Always try both before throwing error.
 
-- Original input files
-- Generated SRT files
-- User-specified output paths
+## Output Format
 
-## Error Handling
+```typescript
+console.log(`\n✅ SRT file saved to: ${result.srtPath}`)
+console.log(`\nTranscription preview:`)
+console.log('─'.repeat(60))
+console.log(result.text.substring(0, 500) + '...')
+console.log('─'.repeat(60))
+console.log(`\nLanguage: ${result.language}`)
+console.log(`Duration: ${result.duration.toFixed(2)}s`)
+```
 
-Even if an error occurs, cleanup MUST run. That's why we use `finally` blocks, not just at the end of the function.
+Use emoji icons for progress steps: 🎬 🎥 📊 ⚡ 🎙️ ✅ ⏱️ 🧹
 
 ---
 > Source: [Illyism/transcribe-cli](https://github.com/Illyism/transcribe-cli) — distributed by [TomeVault](https://tomevault.io).
