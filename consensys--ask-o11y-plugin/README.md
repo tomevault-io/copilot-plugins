@@ -7,13 +7,13 @@ AI-powered observability assistant for Grafana that helps you query data, invest
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Consensys/ask-o11y-plugin](https://github.com/Consensys/ask-o11y-plugin).
+Original source: `AGENTS.md` in [Consensys/ask-o11y-plugin](https://github.com/Consensys/ask-o11y-plugin).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
