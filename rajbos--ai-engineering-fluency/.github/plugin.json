@@ -1,0 +1,9 @@
+{
+  "name": "rajbos--ai-engineering-fluency",
+  "displayName": "ai-engineering-fluency",
+  "description": "VS Code Extension that shows information about the estimated token usage of GitHub Copilot",
+  "version": "1.0.0",
+  "author": "rajbos",
+  "homepage": "https://github.com/rajbos/ai-engineering-fluency",
+  "skills": []
+}
