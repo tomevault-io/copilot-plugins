@@ -1,0 +1,9 @@
+{
+  "name": "lzjever--serilux",
+  "displayName": "serilux",
+  "description": "A powerful serialization framework for Python objects with automatic type registration and validation. Extract from AgentSmith, released under Apache 2.0.",
+  "version": "1.0.0",
+  "author": "lzjever",
+  "homepage": "https://github.com/lzjever/serilux",
+  "skills": []
+}
