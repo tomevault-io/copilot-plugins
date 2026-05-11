@@ -1,0 +1,9 @@
+{
+  "name": "typisttech--wpsecadv",
+  "displayName": "wpsecadv",
+  "description": "Composer repository for WordPress security advisories.",
+  "version": "1.0.0",
+  "author": "typisttech",
+  "homepage": "https://github.com/typisttech/wpsecadv",
+  "skills": []
+}
