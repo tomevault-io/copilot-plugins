@@ -1,0 +1,9 @@
+{
+  "name": "smart-mcp-proxy--mcpproxy-go",
+  "displayName": "mcpproxy-go",
+  "description": "Supercharge AI Agents, Safely",
+  "version": "1.0.0",
+  "author": "smart-mcp-proxy",
+  "homepage": "https://github.com/smart-mcp-proxy/mcpproxy-go",
+  "skills": []
+}
