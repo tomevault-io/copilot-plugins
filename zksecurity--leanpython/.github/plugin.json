@@ -1,0 +1,9 @@
+{
+  "name": "zksecurity--leanpython",
+  "displayName": "leanPython",
+  "description": "Python interpreter written in Lean4?",
+  "version": "1.0.0",
+  "author": "zksecurity",
+  "homepage": "https://github.com/zksecurity/leanPython",
+  "skills": []
+}
