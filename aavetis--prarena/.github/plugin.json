@@ -1,0 +1,9 @@
+{
+  "name": "aavetis--prarena",
+  "displayName": "PRarena",
+  "description": "This repo tracks the opened and merged PRs by the top SWE coding agents by OpenAI, GitHub, and others. Updates regularly.",
+  "version": "1.0.0",
+  "author": "aavetis",
+  "homepage": "https://github.com/aavetis/PRarena",
+  "skills": []
+}
