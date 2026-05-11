@@ -4,7 +4,7 @@
   "repo": "markdown-flow",
   "description": "MarkdownFlow extends standard Markdown with AI to create personalized, interactive documents. Tagline: \"Write Once, Deliver Personally\"",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ai-shifu/markdown-flow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T23:57:07Z"
+  "distributed_at": "2026-05-11T19:36:27Z"
 }
