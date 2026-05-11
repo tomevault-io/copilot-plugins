@@ -4,7 +4,7 @@
   "repo": "saleor",
   "description": "Saleor Core: the high performance, composable, headless commerce API.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/capitaloperator0311/saleor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T05:49:55Z"
+  "distributed_at": "2026-05-11T22:45:10Z"
 }
