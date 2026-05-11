@@ -1,198 +1,142 @@
-## avoid-over-abstraction
+## bus-architecture
 
-> Avoid Over-Abstraction - Keep Things Simple and Practical
+> Bus Architecture Principle - Eliminate Props Drilling
 
 
-# 避免过度抽象原则
+# Bus Architecture Principle - Eliminate Props Drilling
 
-## 核心思想
+## Core Philosophy: "Bus Direct Connection"
 
-**简单的东西不需要抽象，复杂的东西才需要抽象。**
+Like the internet, we should use a "bus" architecture to eliminate props drilling and speed up information flow. Components should connect directly to the bus (stores/events) rather than passing data through multiple layers.
 
-过度抽象会带来：
-- 增加认知负担
-- 降低代码可读性
-- 增加维护成本
-- 降低开发效率
-- 过度工程化
+## Architecture Hierarchy
 
-## 抽象决策原则
+### 1. **Store State Management** (Primary)
+- Use stores for **persistent state** that needs to be shared across components
+- Use stores for **UI state** that affects multiple components
+- Use stores for **business logic state** that needs to be consistent
 
-### ✅ **需要抽象的情况**
-1. **重复次数 ≥ 3**: 同样的模式出现3次以上
-2. **复杂度高**: 逻辑复杂，值得封装
-3. **变化频繁**: 经常需要修改和扩展
-4. **业务价值**: 抽象后能带来明显的业务价值
-5. **团队协作**: 多人使用，需要统一接口
+**Examples:**
+- User authentication state
+- Current channel selection
+- UI sidebar states (open/closed)
+- Theme preferences
+- Data loading states
 
-### ❌ **不需要抽象的情况**
-1. **简单重复**: 只是简单的样式或结构重复
-2. **一次性使用**: 只在特定场景使用
-3. **过度设计**: 为了抽象而抽象
-4. **灵活性差**: 抽象后反而限制了使用场景
-5. **认知负担**: 抽象后更难理解
+### 2. **RxEvent Bus** (Secondary)
+- Use events for **one-time actions** and **cross-component communication**
+- Use events for **loose coupling** between distant components
+- Use events for **temporary state** that doesn't need persistence
 
-## 抽象层次控制
+**Examples:**
+- Opening modals/dialogs
+- Triggering API calls
+- Cross-feature communication
+- User actions that need immediate response
 
-### 🎯 **抽象层次原则**
-1. **最多2层抽象**: 避免过深的抽象层次
-2. **单一职责**: 每个抽象只做一件事
-3. **简单接口**: 接口要简单明了
-4. **灵活配置**: 提供合理的配置选项
-5. **易于理解**: 新同事能快速理解
+### 3. **Props** (Last Resort)
+- **ONLY** use props for **pure, reusable components**
+- **ONLY** use props when the component is **intentionally designed for reusability**
+- **ONLY** use props for **configuration** that doesn't change often
 
-### 📊 **抽象复杂度评估**
+**Examples:**
+- UI components (Button, Input, Modal)
+- Layout components (Container, Grid)
+- Pure presentation components
+
+## Implementation Rules
+
+### ✅ DO: Use Store for Shared State
 ```typescript
-// ❌ 过度抽象 - 为了抽象而抽象
-interface ButtonConfig {
-  variant: 'primary' | 'secondary' | 'tertiary';
-  size: 'sm' | 'md' | 'lg';
-  state: 'normal' | 'loading' | 'disabled';
-  icon?: ReactNode;
-  onClick?: () => void;
-  className?: string;
-  style?: CSSProperties;
-  // ... 20+ 个配置项
-}
-
-// ✅ 适度抽象 - 只抽象必要的部分
-interface ButtonProps {
-  variant?: 'primary' | 'secondary';
-  size?: 'sm' | 'md' | 'lg';
-  onClick?: () => void;
-  children: ReactNode;
-}
+// ✅ Good: Direct store access
+const { currentChannelId, setCurrentChannel } = useNotesViewStore();
+const { isAIAssistantOpen, openAIAssistant } = useUIStateStore();
 ```
 
-## 具体判断标准
-
-### 🔍 **重复模式判断**
+### ✅ DO: Use Events for Actions
 ```typescript
-// ❌ 不需要抽象 - 只是简单的样式重复
-<div className="flex items-center gap-2">
-  <Icon />
-  <Text />
-</div>
-
-// ✅ 需要抽象 - 复杂的逻辑重复
-const handleFormSubmit = (data) => {
-  validate(data);
-  transform(data);
-  submit(data);
-  showSuccess();
-};
+// ✅ Good: Event bus for actions
+rxEventBusService.requestOpenAIAssistant$.emit({ channelId });
+rxEventBusService.requestOpenSettings$.emit();
 ```
 
-### 🎨 **UI组件抽象判断**
+### ❌ AVOID: Props Drilling
 ```typescript
-// ❌ 过度抽象 - 简单的布局不需要抽象
-<FlexGroup direction="row" align="center" gap="2">
-  <Button>Save</Button>
-  <Button>Cancel</Button>
-</FlexGroup>
-
-// ✅ 简单直接 - 保持原有的简单性
-<div className="flex items-center gap-2">
-  <Button>Save</Button>
-  <Button>Cancel</Button>
-</div>
+// ❌ Bad: Props drilling through multiple layers
+<Parent onAction={handleAction}>
+  <Child onAction={onAction}>
+    <GrandChild onAction={onAction}>
+      <GreatGrandChild onAction={onAction} />
+    </GrandChild>
+  </Child>
+</Parent>
 ```
 
-### 🔧 **工具函数抽象判断**
+### ✅ DO: Props for Pure Components
 ```typescript
-// ❌ 过度抽象 - 简单的工具函数
-const formatDate = (date: Date) => date.toISOString().split('T')[0];
+// ✅ Good: Props for reusable pure components
+<Button onClick={handleClick} variant="primary" size="lg">
+  Click me
+</Button>
 
-// ✅ 适度抽象 - 复杂的工具函数
-const formatDate = (date: Date, format: 'short' | 'long' | 'relative') => {
-  // 复杂的格式化逻辑
-};
+<Modal isOpen={isOpen} onClose={onClose}>
+  Content
+</Modal>
 ```
 
-## 重构指导
+## Migration Strategy
 
-### 1. **识别过度抽象**
-- 组件使用率低（< 3次）
-- 配置项过多（> 5个）
-- 抽象层次过深（> 2层）
-- 理解成本高
-- 维护成本高
+### Phase 1: Identify Props Drilling
+1. Look for props passed through 3+ component layers
+2. Look for props that are just "passing through" without modification
+3. Look for props that represent shared state
 
-### 2. **简化抽象**
-- 减少配置项
-- 降低抽象层次
-- 简化接口设计
-- 提高可读性
+### Phase 2: Convert to Store
+1. Move shared state to appropriate store
+2. Update components to use store directly
+3. Remove intermediate prop passing
 
-### 3. **移除抽象**
-- 直接内联简单逻辑
-- 删除未使用的抽象
-- 恢复原始实现
-- 保持代码简单
+### Phase 3: Convert to Events
+1. Convert action props to event emissions
+2. Update target components to listen to events
+3. Remove action prop chains
 
-## 最佳实践
+### Phase 4: Clean Up
+1. Remove unused prop interfaces
+2. Simplify component signatures
+3. Update tests
 
-### ✅ **好的抽象**
-```typescript
-// 简单、清晰、实用
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  children: ReactNode;
-}
+## Benefits
 
-// 复杂逻辑的合理抽象
-const useApi = <T>(url: string) => {
-  const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  
-  // 复杂的API逻辑
-  return { data, loading, error, refetch };
-};
-```
+- **Faster Development**: No need to trace prop chains
+- **Better Performance**: Direct access, no unnecessary re-renders
+- **Easier Maintenance**: Changes in one place affect all consumers
+- **Cleaner Code**: Components focus on their own logic
+- **Better Testing**: Test components in isolation with mocked stores/events
 
-### ❌ **坏的抽象**
-```typescript
-// 过度复杂，难以理解
-interface UniversalComponentProps {
-  type: 'button' | 'input' | 'select' | 'textarea';
-  variant: 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'outline';
-  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  state: 'normal' | 'loading' | 'disabled' | 'error' | 'success';
-  // ... 50+ 个配置项
-}
+## Store Organization
 
-// 为了抽象而抽象
-const createWrapper = (Component: any) => (props: any) => (
-  <div className="wrapper">
-    <Component {...props} />
-  </div>
-);
-```
+### UI State Store
+- Sidebar states (open/closed)
+- Modal states
+- Loading states
+- View preferences
 
-## 代码审查检查点
+### Business State Store
+- Current selections
+- User data
+- Application state
+- Cache data
 
-### 🤔 **审查问题**
-1. **这个抽象真的必要吗？**
-2. **使用频率是否足够高？**
-3. **抽象层次是否过深？**
-4. **配置项是否过多？**
-5. **新同事能快速理解吗？**
-6. **维护成本是否合理？**
+### Event Bus
+- User actions
+- Cross-component communication
+- Temporary notifications
+- One-time operations
 
-### 📝 **重构建议**
-- 如果使用频率 < 3次，考虑内联
-- 如果配置项 > 5个，考虑拆分
-- 如果抽象层次 > 2层，考虑简化
-- 如果理解成本高，考虑重写
-- 如果维护成本高，考虑删除
+---
 
-## 总结
-
-**记住**: 好的代码是简单、清晰、实用的。不要为了抽象而抽象，要为了解决问题而抽象。简单的东西保持简单，复杂的东西才需要抽象。
-
-**原则**: 能简单就简单，能直接就直接，能内联就内联。抽象是为了解决问题，不是为了展示技术。
+**Remember**: The goal is to make components as independent as possible while maintaining clear data flow. When in doubt, prefer store over events, and events over props.
 
 ---
 > Source: [Peiiii/EchoNote](https://github.com/Peiiii/EchoNote) — distributed by [TomeVault](https://tomevault.io).
