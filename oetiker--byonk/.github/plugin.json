@@ -1,0 +1,9 @@
+{
+  "name": "oetiker--byonk",
+  "displayName": "byonk",
+  "description": "Byonk (Bring Your Own Ink) - SVG-based content server for TRMNL e-ink devices",
+  "version": "1.0.0",
+  "author": "oetiker",
+  "homepage": "https://github.com/oetiker/byonk",
+  "skills": []
+}
