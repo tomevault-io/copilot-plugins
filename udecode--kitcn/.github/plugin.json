@@ -1,0 +1,9 @@
+{
+  "name": "udecode--kitcn",
+  "displayName": "kitcn",
+  "description": "Convex + Better Auth + tRPC + Drizzle + TanStack Query + shadcn",
+  "version": "1.0.0",
+  "author": "udecode",
+  "homepage": "https://github.com/udecode/kitcn",
+  "skills": []
+}
