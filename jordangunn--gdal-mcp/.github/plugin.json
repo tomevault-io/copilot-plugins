@@ -1,0 +1,9 @@
+{
+  "name": "jordangunn--gdal-mcp",
+  "displayName": "gdal-mcp",
+  "description": "Model Context Protocol server that packages GDAL-style geospatial workflows through Python-native libraries (Rasterio, GeoPandas, PyProj, etc.) to give AI agents catalog discovery, metadata intelligen",
+  "version": "1.0.0",
+  "author": "JordanGunn",
+  "homepage": "https://github.com/JordanGunn/gdal-mcp",
+  "skills": []
+}
