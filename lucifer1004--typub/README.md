@@ -7,11 +7,11 @@ Typub - A Typst-first local CMS
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lucifer1004/typub](https://github.com/lucifer1004/typub).
+Original source: `CLAUDE.md` in [lucifer1004/typub](https://github.com/lucifer1004/typub).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
