@@ -1,0 +1,9 @@
+{
+  "name": "strawgate--py-key-value",
+  "displayName": "py-key-value",
+  "description": "A pluggable interface for KV Stores",
+  "version": "1.0.0",
+  "author": "strawgate",
+  "homepage": "https://github.com/strawgate/py-key-value",
+  "skills": []
+}
