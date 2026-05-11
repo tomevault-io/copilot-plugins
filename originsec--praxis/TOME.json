@@ -4,7 +4,7 @@
   "repo": "praxis",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/originsec/praxis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T09:29:18Z"
+  "distributed_at": "2026-05-11T15:28:10Z"
 }
