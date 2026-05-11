@@ -1,0 +1,9 @@
+{
+  "name": "fulcrumgenomics--ref-solver",
+  "displayName": "ref-solver",
+  "description": "Identify which human reference genome was used to align a BAM/SAM/CRAM file",
+  "version": "1.0.0",
+  "author": "fulcrumgenomics",
+  "homepage": "https://github.com/fulcrumgenomics/ref-solver",
+  "skills": []
+}
