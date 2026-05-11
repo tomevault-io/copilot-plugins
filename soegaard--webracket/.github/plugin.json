@@ -1,0 +1,9 @@
+{
+  "name": "soegaard--webracket",
+  "displayName": "webracket",
+  "description": "The WebRacket language is a subset of Racket that compiles to WebAssembly",
+  "version": "1.0.0",
+  "author": "soegaard",
+  "homepage": "https://github.com/soegaard/webracket",
+  "skills": []
+}
