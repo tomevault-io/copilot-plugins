@@ -1,193 +1,57 @@
-## pytest
+## standards
 
-> These rules apply when writing unit tests for the kajson project.
+> This document outlines the coding standards and quality control procedures that must be followed when contributing to this project.
 
-# Pytest Testing Rules
+# Coding Standards
 
-These rules apply when writing unit tests for the kajson project.
+This document outlines the coding standards and quality control procedures that must be followed when contributing to this project.
 
-## Core Requirements
+## Style
 
-- **Always use pytest** as the testing framework
-- **Use pytest-mock plugin** with full type annotations (`MockerFixture`) for robust, type-safe mocking
-- **Follow existing patterns** established in the test suite
+Always use type hints. Use the types with Uppercase first letter for types like Dict[], List[] etc.
 
-## Test File Structure
+## Code Quality Checks
 
-- Name test files with `test_` prefix (e.g., `test_class_registry.py`)
-- Use descriptive names that match the functionality being tested
-- Place test files in the `tests/` directory at the project root
-- Import the `pytest_mock.MockerFixture` type for proper type annotations
+### Linting and Type Checking
 
-## Test Class Organization
+Before finalizing a task, you must run the following command to check for linting issues, type errors, and code quality problems:
 
-**Always group tests into classes** following this pattern:
-
-```python
-class TestModuleName:
-    def test_specific_functionality(self):
-        """Clear docstring explaining what this test verifies."""
-        # Test implementation
-        
-    def test_error_conditions(self):
-        """Test error handling and edge cases."""
-        # Error testing with pytest.raises
-        
-    def test_with_mocking(self, mocker: MockerFixture):
-        """Test that requires mocking dependencies."""
-        # Mocking implementation
+```bash
+make check
 ```
 
-## Mocking Best Practices
+This command runs multiple code quality tools:
+- Pyright: Static type checking
+- Ruff: Fast Python linter
+- Mypy: Static type checker
 
-### When to Mock
-- External dependencies (file system, network, databases)
-- Complex internal dependencies that make testing difficult
-- Logger instances to verify logging behavior
-- Time-dependent operations
+Always fix any issues reported by these tools before proceeding.
 
-### How to Mock
-```python
-def test_with_mocking(self, mocker: MockerFixture):
-    # Mock external dependencies
-    mock_import = mocker.patch("module.function_name", return_value=expected_value)
-    
-    # Mock loggers for verification
-    mock_logger = mocker.MagicMock()
-    instance.set_logger(mock_logger)
-    
-    # Use spies to verify internal method calls
-    spy_method = mocker.spy(instance, '_internal_method')
-    
-    # Execute test
-    result = instance.method_under_test()
-    
-    # Verify mocks were called correctly
-    mock_import.assert_called_once_with(expected_args)
-    spy_method.assert_called_with(expected_internal_args)
-```
+### Running Tests
 
-### Pydantic Model Considerations
-- When mocking methods on Pydantic models, patch at the **class level**, not instance level
-- Use `mocker.patch.object(ClassName, "method_name")` instead of `mocker.patch.object(instance, "method_name")`
+We have several make commands for running tests:
 
-## Test Data Organization
+1. `make tp`: Runs all tests with these markers:
+   ```
+   (dry_runnable or not (inference or llm or imgg or ocr)) and not (needs_output or pipelex_api)
+   ```
+   Use this for quick test runs that don't require LLM or image generation.
 
-- Create `test_data.py` files when you have complex test data
-- Group test data into classes with descriptive names
-- Use `ClassVar` for collections to avoid mutable defaults:
+2. To run specific tests:
+   ```bash
+   make tp TEST=TestClassName
+   # or
+   make tp TEST=test_function_name
+   ```
+   It matches names, so `TEST=test_function_name` is going to run all test with the function name that STARTS with `test_function_name`.
 
-```python
-class TestCases:
-    EXAMPLE_CASE = SomeModel(field="value")
-    
-    MULTIPLE_CASES: ClassVar[List[SomeModel]] = [
-        EXAMPLE_CASE,
-        SomeModel(field="other_value"),
-    ]
-```
+## Important Project Directories
 
-## Assertions and Testing Patterns
+### Tests Directory
+- All tests are located in the `tests/` directory
 
-### Type Comparisons
-- Use `is` for type comparisons: `assert result is ExpectedType`
-- Use `==` for value comparisons: `assert result == expected_value`
-
-### Exception Testing
-```python
-def test_error_conditions(self):
-    with pytest.raises(SpecificException) as excinfo:
-        function_that_should_fail()
-    assert "expected error message" in str(excinfo.value)
-```
-
-### Parametrized Tests
-Use `@pytest.mark.parametrize` for testing multiple scenarios:
-
-```python
-@pytest.mark.parametrize("input_value,expected", [
-    ("case1", "result1"),
-    ("case2", "result2"),
-])
-def test_multiple_cases(self, input_value, expected):
-    assert function_under_test(input_value) == expected
-```
-
-## Test Documentation
-
-- **Always include docstrings** explaining what each test verifies
-- Use descriptive test method names that explain the scenario
-- Group related tests together in logical order within the class
-
-## Coverage Expectations
-
-- Aim for **95%+ coverage** for core modules
-- Test both success and failure paths
-- Include edge cases (empty inputs, None values, boundary conditions)
-- Test error handling and validation
-
-## Performance and Reliability
-
-- **Avoid real file system operations** - use mocking instead
-- **Avoid network calls** - mock external services
-- **Use temporary directories** (`tempfile.TemporaryDirectory()`) only when absolutely necessary
-- **Clean up resources** - pytest-mock handles this automatically for mocks
-
-## Integration with Project Standards
-
-- Run `make check` before committing to ensure tests pass linting
-- Use `make test TEST=TestClassName` to run specific test classes
-- Follow the project's type annotation standards
-- Ensure all tests pass in the CI/CD pipeline
-
-## Example Test Structure
-
-```python
-# tests/test_example.py
-import pytest
-from pytest_mock import MockerFixture
-from pydantic import BaseModel
-
-from kajson.example_module import ExampleClass
-from kajson.exceptions import ExampleException
-
-
-class TestExampleClass:
-    def test_basic_functionality(self):
-        """Test basic operation works correctly."""
-        instance = ExampleClass()
-        result = instance.basic_method("input")
-        assert result == "expected_output"
-
-    def test_error_handling(self):
-        """Test proper exception handling."""
-        instance = ExampleClass()
-        with pytest.raises(ExampleException) as excinfo:
-            instance.method_that_fails("bad_input")
-        assert "specific error message" in str(excinfo.value)
-
-    def test_with_mocking(self, mocker: MockerFixture):
-        """Test functionality that requires mocking dependencies."""
-        instance = ExampleClass()
-        mock_dependency = mocker.patch("kajson.example_module.external_function")
-        mock_dependency.return_value = "mocked_result"
-        
-        result = instance.method_using_dependency()
-        
-        mock_dependency.assert_called_once()
-        assert result == "expected_result_with_mock"
-
-    @pytest.mark.parametrize("input_val,expected", [
-        ("input1", "output1"),
-        ("input2", "output2"),
-    ])
-    def test_parametrized_scenarios(self, input_val, expected):
-        """Test multiple input scenarios."""
-        instance = ExampleClass()
-        assert instance.transform(input_val) == expected
-```
-
-This comprehensive approach ensures consistent, maintainable, and reliable tests across the entire project.
+### Documentation Directory
+- All documentation is located in the `docs/` directory
 
 ---
 > Source: [Pipelex/kajson](https://github.com/Pipelex/kajson) — distributed by [TomeVault](https://tomevault.io).
