@@ -7,11 +7,11 @@ Ever® Jobs™ - aggregating jobs/gigs postings from multiple sources
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ever-jobs/ever-jobs](https://github.com/ever-jobs/ever-jobs).
+Original source: `CLAUDE.md` in [ever-jobs/ever-jobs](https://github.com/ever-jobs/ever-jobs).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
