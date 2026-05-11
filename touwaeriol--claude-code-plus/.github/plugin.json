@@ -1,0 +1,9 @@
+{
+  "name": "touwaeriol--claude-code-plus",
+  "displayName": "claude-code-plus",
+  "description": "\ud83d\udda5\ufe0f GUI Plugin for Claude Code / Codex CLI / Gemini CLI in JetBrains IDEs - Run AI coding assistants with a beautiful visual interface",
+  "version": "1.0.0",
+  "author": "touwaeriol",
+  "homepage": "https://github.com/touwaeriol/claude-code-plus",
+  "skills": []
+}
