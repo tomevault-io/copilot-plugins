@@ -2,7 +2,7 @@
   "name": "upstox-totp",
   "owner": "batpool",
   "repo": "upstox-totp",
-  "description": "",
+  "description": "A modern, lightweight Python package that simplifies Upstox API authentication by handling TOTP-based login and token generation automatically.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/batpool",
+  "source_url": "https://github.com/batpool/upstox-totp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T20:50:09Z"
+  "distributed_at": "2026-05-11T11:57:49Z"
 }
