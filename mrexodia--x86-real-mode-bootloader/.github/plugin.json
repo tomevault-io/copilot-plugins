@@ -1,0 +1,9 @@
+{
+  "name": "mrexodia--x86-real-mode-bootloader",
+  "displayName": "x86-real-mode-bootloader",
+  "description": "Boot loader and emulator for real mode written in C/Python.",
+  "version": "1.0.0",
+  "author": "mrexodia",
+  "homepage": "https://github.com/mrexodia/x86-real-mode-bootloader",
+  "skills": []
+}
