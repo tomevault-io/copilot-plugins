@@ -1,0 +1,9 @@
+{
+  "name": "tseknet--fleet-plan",
+  "displayName": "fleet-plan",
+  "description": "terraform plan, but for Fleet",
+  "version": "1.0.0",
+  "author": "TsekNet",
+  "homepage": "https://github.com/TsekNet/fleet-plan",
+  "skills": []
+}
