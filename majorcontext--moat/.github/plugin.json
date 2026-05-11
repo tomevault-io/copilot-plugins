@@ -1,0 +1,9 @@
+{
+  "name": "majorcontext--moat",
+  "displayName": "moat",
+  "description": "Run agents in containers with credential injection and full observability.",
+  "version": "1.0.0",
+  "author": "majorcontext",
+  "homepage": "https://github.com/majorcontext/moat",
+  "skills": []
+}
