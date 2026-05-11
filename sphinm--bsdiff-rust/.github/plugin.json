@@ -1,0 +1,9 @@
+{
+  "name": "sphinm--bsdiff-rust",
+  "displayName": "bsdiff-rust",
+  "description": "A high-performance binary differential patching library based on Rust + NAPI-RS, providing optimized bsdiff/bspatch algorithm implementation for Node.js",
+  "version": "1.0.0",
+  "author": "Sphinm",
+  "homepage": "https://github.com/Sphinm/bsdiff-rust",
+  "skills": []
+}
