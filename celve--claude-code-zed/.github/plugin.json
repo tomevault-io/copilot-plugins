@@ -1,0 +1,9 @@
+{
+  "name": "celve--claude-code-zed",
+  "displayName": "claude-code-zed",
+  "description": "Zed extension for Claude Code CLI integration",
+  "version": "1.0.0",
+  "author": "celve",
+  "homepage": "https://github.com/celve/claude-code-zed",
+  "skills": []
+}
