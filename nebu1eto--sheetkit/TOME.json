@@ -4,7 +4,7 @@
   "repo": "sheetkit",
   "description": "High-Performance SpreadsheetML(.xlsx) Library for Rust and TypeScript",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Nebu1eto/sheetkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T21:19:23Z"
+  "distributed_at": "2026-05-11T12:06:11Z"
 }
