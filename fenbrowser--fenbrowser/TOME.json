@@ -4,7 +4,7 @@
   "repo": "fenbrowser",
   "description": "Fen Browser is an independent browser engine focused on correctness and clean architecture. It builds its own rendering and layout systems and is not yet intended for daily use.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FENBROWSER/fenbrowser",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T19:59:51Z"
+  "distributed_at": "2026-05-11T21:19:48Z"
 }
