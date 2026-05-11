@@ -1,0 +1,9 @@
+{
+  "name": "wolfe-jam--grok-faf-mcp",
+  "displayName": "grok-faf-mcp",
+  "description": "Persistent Project Context for xAI Grok \u2014 IANA-registered .faf format \u00b7 MCP server on a URL",
+  "version": "1.0.0",
+  "author": "Wolfe-Jam",
+  "homepage": "https://github.com/Wolfe-Jam/grok-faf-mcp",
+  "skills": []
+}
