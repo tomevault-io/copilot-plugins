@@ -7,11 +7,11 @@ Insired by @karpathy . A personal knowledge base maintained by an LLM agent insi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [MykytaMorachovEpam/obsidian-wiki](https://github.com/MykytaMorachovEpam/obsidian-wiki).
+Original source: `CLAUDE.md` in [MykytaMorachovEpam/obsidian-wiki](https://github.com/MykytaMorachovEpam/obsidian-wiki).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
