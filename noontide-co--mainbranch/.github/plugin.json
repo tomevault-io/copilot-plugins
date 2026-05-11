@@ -1,0 +1,9 @@
+{
+  "name": "noontide-co--mainbranch",
+  "displayName": "mainbranch",
+  "description": "Runtime-agnostic mb CLI + agent workflows for running a business from markdown files in git.",
+  "version": "1.0.0",
+  "author": "noontide-co",
+  "homepage": "https://github.com/noontide-co/mainbranch",
+  "skills": []
+}
