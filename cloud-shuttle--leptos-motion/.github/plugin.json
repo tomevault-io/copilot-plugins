@@ -1,0 +1,9 @@
+{
+  "name": "cloud-shuttle--leptos-motion",
+  "displayName": "leptos-motion",
+  "description": "\ud83c\udfac Production-ready animation library for Leptos with complete Motion Studio, WebGL acceleration, and Framer Motion-inspired API. Built with Rust & WebAssembly for 60fps animations, 3D transforms, path",
+  "version": "1.0.0",
+  "author": "cloud-shuttle",
+  "homepage": "https://github.com/cloud-shuttle/leptos-motion",
+  "skills": []
+}
