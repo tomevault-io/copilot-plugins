@@ -1,0 +1,9 @@
+{
+  "name": "gvpproj--gvp-music-sv",
+  "displayName": "gvp-music-sv",
+  "description": "Music Page adapted from old HTML static site to SvelteKit",
+  "version": "1.0.0",
+  "author": "GVPproj",
+  "homepage": "https://github.com/GVPproj/gvp-music-sv",
+  "skills": []
+}
