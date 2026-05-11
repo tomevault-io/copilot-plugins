@@ -7,13 +7,13 @@ Post-quantum ready, headless-first identity platform. A developer-friendly alter
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [qauth-labs/qauth](https://github.com/qauth-labs/qauth).
+Original source: `AGENTS.md` in [qauth-labs/qauth](https://github.com/qauth-labs/qauth).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
