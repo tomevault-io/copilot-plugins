@@ -1,0 +1,9 @@
+{
+  "name": "damacus--ironbuckets",
+  "displayName": "ironbuckets",
+  "description": "A modern webUI for managing MinIO clusters",
+  "version": "1.0.0",
+  "author": "damacus",
+  "homepage": "https://github.com/damacus/ironbuckets",
+  "skills": []
+}
