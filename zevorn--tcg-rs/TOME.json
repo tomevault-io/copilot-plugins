@@ -4,7 +4,7 @@
   "repo": "tcg-rs",
   "description": "Rust for QEMU TCG.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zevorn/tcg-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T22:26:53Z"
+  "distributed_at": "2026-05-11T12:32:46Z"
 }
