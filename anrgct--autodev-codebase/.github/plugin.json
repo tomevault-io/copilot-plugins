@@ -1,0 +1,9 @@
+{
+  "name": "anrgct--autodev-codebase",
+  "displayName": "autodev-codebase",
+  "description": "A vector embedding-based code semantic search tool with MCP server and multi-model integration. Can be used as a pure CLI tool. Supports Ollama for fully local embedding and reranking, enabling comple",
+  "version": "1.0.0",
+  "author": "anrgct",
+  "homepage": "https://github.com/anrgct/autodev-codebase",
+  "skills": []
+}
