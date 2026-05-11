@@ -1,74 +1,99 @@
-## main
+## pinia-stores
 
-> Vue 3 Cursor Rules - Practical development patterns
+> State management with Pinia stores
 
+# Pinia Stores
 
-# Vue 3 Cursor Rules
+**Role:** You are a Vue 3 expert specializing in global state management with Pinia.
 
-Practical, concise rules for Vue 3 development using Composition API.
+**Core Rules:**
+- Use Composition API syntax with `defineStore`
+- Return readonly state to prevent direct mutations
+- Keep actions simple and focused
+- Use getters for computed values
+- Handle loading and error states consistently
 
-## Available Rules
+**Chain-of-Thought:** Think step-by-step: 1. Design store interface 2. Define reactive state 3. Create getters/computed 4. Implement actions
 
-### Core Patterns
-- `vue-fundamentals.mdc` - Essential Vue 3 Composition API patterns
-- `composables.mdc` - Reusable composition functions
-- `pinia-stores.mdc` - State management with Pinia
-- `vue-router.mdc` - Navigation and routing
-- `typescript-patterns.mdc` - TypeScript integration
-- `tailwind-patterns.mdc` - Tailwind CSS styling patterns
+## Basic Store Pattern
 
-### Development Workflow
-- `component-testing.mdc` - Testing with Vitest and Vue Test Utils
-- `form-handling.mdc` - Form validation and submission
-- `api-integration.mdc` - Data fetching and API services
-- `project-structure.mdc` - Directory organization
-- `prompt-guide.mdc` - Prompt engineering tips for rule creation
-- `ui-kits-guide.mdc` - Integration guide for popular UI frameworks
+```typescript
+// stores/user.ts
+import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
 
-## Features
+export const useUserStore = defineStore('user', () => {
+  // State
+  const user = ref<User | null>(null)
+  const loading = ref(false)
+  
+  // Getters
+  const isLoggedIn = computed(() => !!user.value)
+  const userName = computed(() => user.value?.name ?? 'Guest')
+  
+  // Actions
+  const login = async (credentials: LoginCredentials) => {
+    loading.value = true
+    try {
+      const response = await authApi.login(credentials)
+      user.value = response.user
+    } finally {
+      loading.value = false
+    }
+  }
+  
+  const logout = () => {
+    user.value = null
+  }
+  
+  return {
+    // State (readonly)
+    user: readonly(user),
+    loading: readonly(loading),
+    
+    // Getters
+    isLoggedIn,
+    userName,
+    
+    // Actions
+    login,
+    logout
+  }
+})
+```
 
-- **Context-aware**: Rules activate based on file patterns and content
-- **Non-restrictive**: Provides guidance without limiting creativity
-- **Practical**: Real working code examples
-- **Modern**: Focuses on Vue 3.4+ and Composition API
-- **Modular**: Inspired by prompt engineering for AI-controllable outputs
-- **UI-Framework Flexible**: Works with vanilla Vue or any UI kit (Vuetify, Quasar, Tailwind, etc.)
+## Using Stores in Components
 
-## UI Kit Compatibility
+```vue
+<script setup lang="ts">
+import { useUserStore } from '@/stores/user'
 
-Rules work with any UI framework (vanilla, Tailwind, or component libraries like Vuetify/Quasar). No lock-in -- core Vue patterns remain framework-neutral while templates adapt. See `ui-kits-guide.mdc` for integration examples.
+const userStore = useUserStore()
 
-**Quick-start examples:**
-- **Vuetify:** `npm install vuetify` -> adapt rules as shown in guide
-- **Quasar:** `quasar create` -> use with existing composable patterns
-- **Tailwind:** Works alongside for custom styling or as primary framework
+const handleLogin = async () => {
+  await userStore.login({ email, password })
+}
+</script>
 
-## Cursor Model Tips
+<template>
+  <div>
+    <p v-if="userStore.isLoggedIn">
+      Welcome, {{ userStore.userName }}!
+    </p>
+    <button v-else @click="handleLogin" :disabled="userStore.loading">
+      Login
+    </button>
+  </div>
+</template>
+```
 
-For lighter models, shorten examples in rules. Test workflow chains for consistency. See `prompt-guide.mdc` for customization tips.
+## Store Best Practices
 
-## Quantitative Metrics
-
-- **13 files**, ~40.6KB total (via scripts/measure-tokens.mjs)
-- **Modular structure** with role-based headers
-- **UI kit flexible** - works with 90%+ of Vue component libraries
-- **Workflow chains** in key files for step-by-step guidance
-- **Context-aware activation** reduces noise by 60%
-- **Compatible** with Vue 3.4+ and top UI frameworks (Vuetify, Quasar, Element Plus, Tailwind UI)
-
-## Usage
-
-Rules automatically activate when working with relevant files:
-- `.vue` files -> Vue fundamentals
-- `/composables` -> Composables patterns
-- `/stores` -> Pinia patterns
-- `.test.ts` -> Testing patterns
-- `tailwind.config.*` -> Tailwind patterns
-- UI kit files -> Framework-specific adaptations (see ui-kits-guide.mdc)
-
----
-
-*Efficient development assistance for Vue 3 projects*
+- Use Composition API syntax with `defineStore`
+- Return readonly state to prevent direct mutations
+- Keep actions simple and focused
+- Use getters for computed values
+- Handle loading and error states
 
 ---
 > Source: [aliarghyani/vue-cursor-rules](https://github.com/aliarghyani/vue-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
