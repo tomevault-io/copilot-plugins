@@ -1,18 +1,46 @@
-## 00-core
+## 01-security
 
-> Core rules that apply to all interactions. References AGENTS.md as the central source of truth.
+> Security rules for preventing secret leakage, injection vulnerabilities, and unsafe code patterns.
 
 
-# Core Rules
+# Security Rules
 
-> **Read and follow all rules in AGENTS.md at the repository root — it is the central source of truth.**
+## Secrets & Credentials
 
-## Mandatory
+- NEVER read, open, or reference .env files (.env.example and .env.template are allowed).
+- NEVER hardcode secrets, API keys, tokens, or passwords in any file.
+- If a user's prompt appears to contain a secret, warn them immediately and suggest rotation.
+- Always use environment variables or secret managers for credentials.
 
-1. Follow every rule in AGENTS.md without exception.
-2. Never modify AGENTS.md, CLAUDE.md, .cursor/rules/, or any instruction file without explicit user approval.
-3. When changes to protected files are needed, show a before/after diff and wait for approval.
-4. If you encounter [PLACEHOLDER] sections in AGENTS.md, offer to help fill them in — but always show proposed changes and get approval first.
+## Secret Patterns to Flag
+
+Warn the user if you detect these patterns in code:
+
+- API keys: `(sk|pk|api|key|token|secret|password|credential)[-_]?[a-zA-Z0-9]{16,}`
+- AWS keys: `AKIA[0-9A-Z]{16}`
+- Private keys: `-----BEGIN (RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----`
+- Connection strings: `(mongodb|postgres|mysql|redis|amqp)://[^\s]+`
+- JWT tokens: `eyJ[A-Za-z0-9-_]+\.eyJ[A-Za-z0-9-_]+`
+
+## Secure Coding
+
+- Validate and sanitize all user input at system boundaries.
+- Apply context-appropriate output encoding to prevent XSS.
+- Use parameterized queries — never concatenate user input into SQL.
+- Never implement custom cryptography — use established libraries.
+- Enforce least-privilege access checks on every endpoint.
+- Never expose stack traces or internal paths to end users.
+- Never use eval(), exec(), or dynamic code execution with user input.
+- Never disable SSL/TLS verification or security headers.
+
+## Protected Files (require explicit approval to modify)
+
+- .env, .env.* (except .env.example, .env.template)
+- *.pem, *.key, *.cert, *.p12, *.pfx
+- .github/workflows/, Dockerfile, docker-compose*.yml
+- *.tf, *.tfvars, serverless.yml, k8s manifests
+- Lock files (package-lock.json, pnpm-lock.yaml, yarn.lock, etc.)
+- CODEOWNERS, .npmrc, .pypirc
 
 ---
 > Source: [the-missing-pink/ai-repository-security-baseline](https://github.com/the-missing-pink/ai-repository-security-baseline) — distributed by [TomeVault](https://tomevault.io).
