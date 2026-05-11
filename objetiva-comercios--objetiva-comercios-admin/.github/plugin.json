@@ -1,0 +1,9 @@
+{
+  "name": "objetiva-comercios--objetiva-comercios-admin",
+  "displayName": "objetiva-comercios-admin",
+  "description": "Full-stack commercial admin platform \u2014 NestJS + Next.js + Capacitor monorepo with Supabase auth, PostgreSQL/Drizzle ORM, article CRUD with images, API keys, webhooks, and multi-warehouse stock managem",
+  "version": "1.0.0",
+  "author": "objetiva-comercios",
+  "homepage": "https://github.com/objetiva-comercios/objetiva-comercios-admin",
+  "skills": []
+}
