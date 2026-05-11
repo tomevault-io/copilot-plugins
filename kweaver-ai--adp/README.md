@@ -7,11 +7,11 @@ ADP is an intelligent data platform that bridges the gap between heterogeneous d
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kweaver-ai/adp](https://github.com/kweaver-ai/adp).
+Original source: `CLAUDE.md` in [kweaver-ai/adp](https://github.com/kweaver-ai/adp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
