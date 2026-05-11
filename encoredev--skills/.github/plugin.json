@@ -1,0 +1,9 @@
+{
+  "name": "encoredev--skills",
+  "displayName": "skills",
+  "description": "Agent Skills for development with Encore.",
+  "version": "1.0.0",
+  "author": "encoredev",
+  "homepage": "https://github.com/encoredev/skills",
+  "skills": []
+}
