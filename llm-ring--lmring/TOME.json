@@ -4,7 +4,7 @@
   "repo": "lmring",
   "description": "Open-source, self-hostable LLM arena with model compare, voting, and leaderboards",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/llm-ring/lmring",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T00:31:15Z"
+  "distributed_at": "2026-05-11T12:38:18Z"
 }
