@@ -1,91 +1,43 @@
 ## open-codelabs
 
-> **Open Codelabs** is a full-stack, open-source platform for creating and hosting hands-on coding workshops (Codelabs), inspired by Google Codelabs. It features a dual-role system (Facilitator vs. Attendee), AI-assisted content generation, and flexible deployment options (Self-hosted via Rust/SQLite or Serverless via Firebase).
+> - `backend/`: Rust Axum server, state, handlers, migrations.
 
-# Open Codelabs Project Context
+# Repository Guidelines
 
-## Project Overview
-**Open Codelabs** is a full-stack, open-source platform for creating and hosting hands-on coding workshops (Codelabs), inspired by Google Codelabs. It features a dual-role system (Facilitator vs. Attendee), AI-assisted content generation, and flexible deployment options (Self-hosted via Rust/SQLite or Serverless via Firebase).
+## Project Structure & Module Organization
+- `backend/`: Rust Axum server, state, handlers, migrations.
+- `frontend/`: SvelteKit (Bun) app; key libs in `src/lib`, routes under `src/routes`.
+- `assets/`, `landing/`: static and landing assets; `docs/`: MkDocs docs.
+- Root configs: `docker-compose.yml`, `.env.sample`, Firebase rules, README variants.
 
-## Tech Stack & Architecture
+## Build, Test, and Development Commands
+- Docker stack: `docker compose up --build` (frontend at `:5173`, backend at `:8080`).
+- Backend local: `cd backend && cargo run` (needs `DATABASE_URL`, `ADMIN_ID`, `ADMIN_PW`, optional `GEMINI_API_KEY`).
+- Frontend local: `cd frontend && bun install && bun run dev` (needs `VITE_API_URL`, optional `VITE_ADMIN_ENCRYPTION_PASSWORD`).
+- Backend tests: `cd backend && cargo test`.
+- Frontend format/lint (if configured): `cd frontend && bun run check` / `bun run lint` (add scripts if missing).
 
-### Frontend (`/frontend`)
-*   **Framework:** SvelteKit 5 (Vite + TypeScript)
-*   **Runtime:** Bun
-*   **Styling:** Tailwind CSS 4.0
-*   **State Management:** Svelte Runes
-*   **Communication:** HTTP REST + WebSocket
-*   **Internationalization:** `svelte-i18n`
+## Coding Style & Naming Conventions
+- Rust: follow `cargo fmt` defaults; snake_case for files/modules; struct/enum PascalCase.
+- Svelte/TS: 2-space indent; PascalCase components in `src/lib/components`, kebab-case routes; prefer module-scoped helpers over globals.
+- Keep user-facing text i18n-friendly (`svelte-i18n`).
+- Env keys: `VITE_*` for frontend build-time, uppercase snake for backend.
 
-### Backend (`/backend`)
-*   **Language:** Rust (Edition 2021)
-*   **Framework:** Axum (Tokio stack)
-*   **Database:** SQLite (managed via SQLx)
-*   **Key Libraries:** `sqlx`, `tokio`, `serde`, `tower-http`, `tracing`
+## Testing Guidelines
+- Backend: write `#[tokio::test]`/`#[test]` in module-adjacent files; prefer integration-style coverage for handlers/state; run `cargo test` before PRs.
+- Frontend: add component/page tests if harness present; keep fixtures in `src/lib/__tests__` or colocated.
+- Name tests descriptively (behavior-focused), not just “works”.
 
-### Infrastructure
-*   **Containerization:** Docker & Docker Compose
-*   **Cloud (Optional):** Firebase (Hosting, Firestore, Storage)
-*   **Documentation:** MkDocs
+## Commit & Pull Request Guidelines
+- Messages: short imperative summary (e.g., “Add Gemini env wiring”), optional body for context.
+- PRs: describe scope and risk, link issues, include screenshots for UI changes, and list test commands run.
+- Keep changes minimal per PR; avoid unrelated formatting churn.
 
-## Key Commands
-
-### Docker (Recommended for Running)
-```bash
-# Start the full stack (Frontend + Backend + DB)
-docker compose up --build
-```
-*   Frontend: `http://localhost:5173`
-*   Backend: `http://localhost:8080`
-
-### Local Development
-
-#### Backend
-```bash
-cd backend
-# Setup environment variables
-echo "DATABASE_URL=sqlite:data/sqlite.db?mode=rwc" > .env
-# Run the server
-cargo run
-```
-
-#### Frontend
-```bash
-cd frontend
-# Install dependencies
-bun install
-# Setup environment variables
-echo "VITE_API_URL=http://localhost:8080" > .env
-# Run dev server
-bun run dev
-```
-
-### Public Exposure
-To expose the local server for a workshop:
-```bash
-./run-public.sh --ngrok
-# OR
-./run-public.sh --bore
-# OR
-./run-public.sh --cloudflare
-```
-
-## Project Structure
-*   `backend/`: Rust source code, migrations, and Cargo configuration.
-*   `frontend/`: SvelteKit application, components, and static assets.
-*   `docs/`: Project documentation source files (MkDocs).
-*   `run-public.sh`: Script to tunnel localhost to the public internet.
-*   `docker-compose.yml`: Orchestration for local deployment.
-
-## Development Conventions
-*   **Code Style:** Follows standard Rust (`cargo fmt`) and TypeScript/Svelte conventions (`prettier`).
-*   **Database:** Database schema changes are handled via `sqlx` migrations (`backend/migrations`).
-*   **I18n:** All user-facing text should be internationalized using `svelte-i18n`.
-*   **Architecture:**
-    *   **Frontend:** Reactive UI with Svelte Runes, communicating with backend via REST and WebSocket.
-    *   **Backend:** RESTful API with specific handlers for admin/attendee logic.
+## Security & Configuration Tips
+- Do not commit real API keys; use `.env` or Docker secrets. Frontend needs `VITE_ADMIN_ENCRYPTION_PASSWORD` baked at build to avoid prompts.
+- Backend decrypts Gemini keys with `ADMIN_PW`; ensure frontend uses the same password when encrypting.
+- For public exposure, prefer `./run-public.sh --ngrok|--bore` instead of opening raw ports.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/JAICHANGPARK)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/JAICHANGPARK)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [JAICHANGPARK/open-codelabs](https://github.com/JAICHANGPARK/open-codelabs) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
