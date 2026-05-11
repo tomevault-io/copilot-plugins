@@ -1,0 +1,9 @@
+{
+  "name": "automagik-dev--forge",
+  "displayName": "forge",
+  "description": "The Vibe Coding++\u2122 platform - orchestrate multiple AI agents, experiment with isolated attempts, ship code you understand. Multi-agent kanban with MCP integration.",
+  "version": "1.0.0",
+  "author": "automagik-dev",
+  "homepage": "https://github.com/automagik-dev/forge",
+  "skills": []
+}
