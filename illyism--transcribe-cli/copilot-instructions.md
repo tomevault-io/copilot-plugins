@@ -1,74 +1,79 @@
-## publishing
+## testing
 
-> How to publish and version the package
+> A/B testing framework for optimization strategies
 
 
-# Publishing Workflow
+# Testing Framework
 
-## Version Strategy
+## Test Structure
 
-Follow semantic versioning strictly:
+All tests in [test/](mdc:test/) follow this pattern:
 
-- **Patch** (3.0.0 → 3.0.1): Bug fixes, documentation updates
-- **Minor** (3.0.0 → 3.1.0): New features, backward compatible
-- **Major** (3.0.0 → 4.0.0): Breaking changes
-
-### Breaking Changes
-
-Examples of breaking changes:
-- Changing default behavior (like enabling optimization by default)
-- Removing or renaming CLI flags
-- Changing API function signatures
-- Changing output format
-
-## Publishing Commands
-
-```bash
-cd /Users/illyism/Products/magicspace/magicspace-old/packages/transcribe
-
-# 1. Version bump
-npm version major  # or minor, or patch
-
-# 2. Build (happens automatically via prepublishOnly)
-# bun run build
-
-# 3. Publish
-npm publish
-
-# 4. Push to GitHub
-git push && git push --tags
-
-# 5. Create GitHub release
-gh release create v3.0.0 --title "..." --notes "..."
+```typescript
+async function testMethodName(inputPath: string) {
+  const startTime = Date.now()
+  
+  // 1. Validate input
+  // 2. Process audio with strategy
+  // 3. Transcribe with Whisper API
+  // 4. Calculate metrics
+  // 5. Save metrics.json
+  // 6. Return metrics object
+  
+  return metrics
+}
 ```
 
-## Pre-Publish Checklist
+## Required Metrics
 
-- [ ] All changes committed
-- [ ] Tests pass (run manual tests in test/)
-- [ ] CHANGELOG.md updated
-- [ ] README.md updated with new features
-- [ ] No API keys or secrets in code
-- [ ] Build succeeds (`bun run build`)
-- [ ] Help text is current (`--help`)
+Every test must track:
 
-## Files Included in Package
+```typescript
+interface TestMetrics {
+  method: string              // 'baseline', 'speed', 'opus'
+  originalSize: number        // Bytes
+  processedSize: number       // Bytes
+  compressionRatio: number    // processedSize / originalSize
+  originalDuration: number    // Seconds
+  processedDuration: number   // Seconds (may differ if sped up)
+  transcriptionTime: number   // Milliseconds
+  totalTime: number          // Milliseconds
+  estimatedCost: number      // Dollars
+  language: string
+  // Method-specific fields...
+}
+```
 
-See `.npmignore`:
-- ✅ `dist/` (compiled code)
-- ✅ `README.md`
-- ✅ `LICENSE`
-- ❌ `src/` (source code)
-- ❌ `test/` (test suite)
-- ❌ `.env`, `.env.*`
+## Adding New Optimization Strategies
 
-## GitHub Integration
+1. Create `test/test-newmethod.ts`
+2. Implement the test function following the pattern
+3. Export the function
+4. Add to [test/compare.ts](mdc:test/compare.ts) in `runAllTests()`
+5. Update comparison table logic if needed
+6. Document hypothesis in [test/README.md](mdc:test/README.md)
 
-Always create a release after publishing:
-- Tag matches npm version (v3.0.0)
-- Include changelog in release notes
-- Link to NPM package
-- Mention breaking changes prominently
+## Running Tests
+
+```bash
+cd test
+bun compare.ts /path/to/video.mp4
+```
+
+This runs all tests and generates:
+- Individual metrics in `output/{method}/metrics.json`
+- Comparison table
+- Recommendations based on file size
+- Full report in `output/comparison-report.json`
+
+## Test Output
+
+Never commit test output files. They're in `.gitignore`:
+- `*.srt`, `*.mp3`, `*.ogg` files
+- `metrics.json`
+- `comparison-report.json`
+
+Keep the directory structure with `.gitkeep` files.
 
 ---
 > Source: [Illyism/transcribe-cli](https://github.com/Illyism/transcribe-cli) — distributed by [TomeVault](https://tomevault.io).
