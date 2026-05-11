@@ -1,0 +1,9 @@
+{
+  "name": "indrazm--moonrepo-kickstart",
+  "displayName": "moonrepo-kickstart",
+  "description": "A modern, production-ready full-stack monorepo template powered by moonrepo, featuring a FastAPI backend, React 19 frontend with TanStack ecosystem, and type-safe API communication.",
+  "version": "1.0.0",
+  "author": "indrazm",
+  "homepage": "https://github.com/indrazm/moonrepo-kickstart",
+  "skills": []
+}
