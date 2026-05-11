@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-sigs--wg-ai-gateway",
+  "displayName": "wg-ai-gateway",
+  "description": "Proposals and discussions for the AI Gateway Working Group.",
+  "version": "1.0.0",
+  "author": "kubernetes-sigs",
+  "homepage": "https://github.com/kubernetes-sigs/wg-ai-gateway",
+  "skills": []
+}
