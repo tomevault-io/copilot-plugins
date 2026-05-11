@@ -1,0 +1,9 @@
+{
+  "name": "satococoa--wtp",
+  "displayName": "wtp",
+  "description": "\ud83c\udf33 A powerful Git worktree CLI tool with automated setup, branch tracking, and smart navigation",
+  "version": "1.0.0",
+  "author": "satococoa",
+  "homepage": "https://github.com/satococoa/wtp",
+  "skills": []
+}
