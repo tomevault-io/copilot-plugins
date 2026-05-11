@@ -1,0 +1,9 @@
+{
+  "name": "mikaelwills--spacetimedb-dart-sdk",
+  "displayName": "spacetimedb-dart-sdk",
+  "description": "A dart SDK for SpacetimeDB",
+  "version": "1.0.0",
+  "author": "mikaelwills",
+  "homepage": "https://github.com/mikaelwills/spacetimedb-dart-sdk",
+  "skills": []
+}
