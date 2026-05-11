@@ -1,123 +1,176 @@
-## rein-go
+## rein-inspect
 
-> Run one task through the full REIN flow from clarification through implementation, cleanup, review, and verification
+> Understand a codebase and maintain .rein/codebase/ as a navigable map with evidence-backed findings
 
 
-# rein-go
+# rein-inspect
 
-Use this when the user wants one REIN-controlled flow instead of manually invoking `rein-interview`, `rein-plan`, implementation, cleanup, review, and verification as separate steps.
+`rein-inspect` is a documentation-first reconnaissance skill. Its job is to understand a codebase carefully and maintain a durable map of that understanding under `.rein/codebase/`.
 
-`rein-go` is the end-to-end orchestration surface for REIN.
+The skill produces:
+- `.rein/codebase/MAP.md`
+- topical companion docs under `.rein/codebase/`
 
-## When To Use
+It observes and records. It does not recommend fixes.
 
-- The user wants one continuous REIN workflow with minimal pauses
-- The task is broad enough to need clarification, planning, implementation, and post-implementation review
-- A completed `rein-interview` bundle already exists and should feed directly into planning and implementation
-- The user explicitly invokes `$rein-go`, `/rein-go`, or asks for a single flow command
+## When to Use
 
-## When Not To Use
+Use this skill when:
+- you need a high-signal map of an unfamiliar repo or subsystem
+- a project has grown beyond what one README can orient cleanly
+- you want durable codebase reference docs for future agents or humans
+- repeated work keeps re-discovering the same architecture or boundary facts
 
-- The task is already a tiny single-file change
-- The user explicitly wants only one stage, such as interview-only or plan-only work
-- The user wants to skip clarification and planning entirely
+## Do Not Use
 
-## Flow Contract
+Do not use this skill when:
+- the user asked for implementation, refactoring, or repair rather than inspection
+- the repo already has a maintained codebase map that only needs a tiny manual update
+- you only need a quick one-turn explanation instead of persistent docs
+- you are not prepared to read enough of the codebase to support the claims you write
 
-- Public entrypoint: `rein go`
-- Wrapper triggers: `$rein-go` and `/rein-go`
-- Default posture: keep going with minimal pauses once the flow starts
-- Hard stop on:
-  - dangerous or destructive actions that require approval
-  - missing permissions or blocked tool access
-  - any failed stage: plan, implementation, cleanup, review, or verify
-- Preserve the current install and hook philosophy; do not turn REIN into a hook-first enforcement layer
+## Operating Boundaries
 
-## Runtime Helper
+- Read before writing.
+- Follow actual code evidence, not guessed architecture.
+- Keep output rooted at `.rein/codebase/`.
+- Preserve and update existing docs in place.
+- Add a new topical doc only when the inspected codebase reveals a real uncovered area.
+- Record observations and evidence-backed inferred risks.
+- Do not propose fixes, refactors, or migrations.
+- Do not edit application code as part of this skill unless the user explicitly asked for code changes outside the inspection pass.
 
-Start the flow through the runtime:
+## Output Contract
 
-```bash
-rein go "<task>" --json
+Always maintain this docs tree:
+
+```text
+.rein/
+  codebase/
+    MAP.md
+    <topic>.md
+    <topic>.md
 ```
 
-If a completed interview bundle already exists:
+`MAP.md` is the entrypoint. It should explain the major sections of the codebase and link to the topical docs.
 
-```bash
-rein go --from-interview <slug|path> --json
+Topical docs should be created from discovered domains, not a hard-coded list. Examples might include:
+- `architecture.md`
+- `frontend.md`
+- `backend.md`
+- `data-flow.md`
+- `testing.md`
+- `tooling.md`
+
+The exact set depends on the repo.
+
+## Procedure
+
+1. Establish scope
+   - If the caller provides a subsystem or path, inspect that area first and expand only as needed to explain its boundaries.
+   - If no scope is provided, inspect the full repo structure.
+
+2. Discover the repo shape
+   - Read root docs and configuration first.
+   - Identify major runtime surfaces, packages, apps, libraries, services, tooling, tests, and infrastructure.
+   - Trace how the main entrypoints connect to the rest of the codebase.
+
+3. Group the codebase into stable domains
+   - Create topical docs around real boundaries in the codebase.
+   - Prefer a few meaningful docs over a file-by-file dump.
+   - Use names that describe actual responsibilities.
+
+4. Read enough to support each claim
+   - Verify architecture statements against code.
+   - Confirm patterns by reading representative files, not one isolated example.
+   - Confirm fallbacks, failure paths, and important conditionals before documenting them.
+
+5. Write or update `MAP.md`
+   - Summarize the major domains.
+   - Link to each topical doc.
+   - Explain what each doc is for.
+   - Keep it navigational, not verbose.
+
+6. Write or update topical docs
+   - Preserve useful existing material when it remains accurate.
+   - Update stale sections in place.
+   - Add a new topical doc when the current set does not cover an important discovered domain.
+
+7. Review for drift
+   - Remove claims that are not supported by what you read.
+   - Remove recommendation language.
+   - Check that the map and topical docs still agree with each other.
+
+## Required Structure For Each Topical Doc
+
+Each generated topical doc should use this minimum structure:
+
+```text
+# <Topic>
+
+## What This Area Does
+- concise responsibility summary
+
+## Key Paths
+- important directories, files, or entrypoints
+
+## How It Works
+- main flows, control paths, or lifecycle notes
+
+## Patterns And Conventions
+- repeated local patterns, boundaries, and best practices embodied in the code
+
+## Dependencies And Touchpoints
+- what this area depends on
+- what depends on it
+
+## Findings
+- observed findings
+- evidence-backed inferred risks
 ```
 
-Then use:
+Keep sections concise. Expand only when the code actually justifies it.
 
-```bash
-rein go status --slug <slug> --json
-rein go resume --slug <slug> --json
-rein go advance --slug <slug> --stage <stage> --status <completed|failed|blocked> ... --json
-```
+## Findings Discipline
 
-Treat the returned flow state as the source of truth for current stage, resume point, stop reason, and downstream stage artifacts.
+`Findings` may include:
+- direct observations from the code
+- evidence-backed inferred risks
+- notable fallbacks
+- likely regression-sensitive paths
 
-## Stage Order
+`Findings` must not include:
+- fix proposals
+- refactor advice
+- migration plans
+- generic style opinions detached from the repo
 
-1. Interview
-   - Bare `rein go "<task>"` initializes the flow and starts `rein-interview` automatically.
-   - If the flow was started with `--from-interview`, the interview stage is marked completed from the bundle.
-   - While interview is still active, use the normal `rein interview ...` runtime commands and present the user-facing interview exactly like `rein-interview` does, including the clarity score and question frame.
-   - Never answer interview rounds on the user's behalf, never auto-crystallize, and never skip directly to planning in fresh mode.
-   - If `rein go resume --slug <slug> --json` still returns `currentStage: interview` and recommends `rein interview crystallize ...`, the interview is not done yet; crystallize first, then resume again to advance into planning.
+When writing an inferred risk:
+- tie it to the code evidence that led to it
+- state it as a risk or likely consequence, not as a fact you did not verify
+- stop before prescribing a remedy
 
-2. Plan
-   - The runtime creates a plan artifact from the completed `rein-interview` `result.json`.
-   - Planning is runtime-backed; it should not require a manual wrapper jump just to mark plan complete.
-   - Keep the plan minimum-sufficient and aligned to the interview bundle.
+The model is expert inspection: understand carefully, note what is there, note what looks risky, and hand over the notes.
 
-3. Implementation
-   - Implement directly from the runtime plan artifact.
-   - Reuse existing runtime and patterns before inventing new abstractions.
-   - Do not drift into installer rewrites or hook-model changes unless the task explicitly requires them.
-   - When implementation is done, report it back into the runtime with `rein go advance ... --stage implementation --changed-files '<json>'`.
+## Quality Bar
 
-4. Cleanup
-   - Run `rein-cleanup` on the changed-file scope recorded by the implementation stage.
-   - Keep cleanup bounded to the files and mess created by the task.
-   - Report the result back with `rein go advance ... --stage cleanup`.
+The output is good enough when:
+- `.rein/codebase/MAP.md` gives a reliable starting point for navigating the repo
+- each topical doc reflects a real architectural or functional boundary
+- descriptions explain behavior and responsibilities, not just filenames
+- findings are grounded and useful without drifting into advice
+- repeat runs improve the docs without trashing prior useful structure
 
-5. Review
-   - Run `rein-review` on the resulting diff.
-   - Fix any scope drift, debug leftovers, or suspicious test changes before continuing.
-   - Report the result back with `rein go advance ... --stage review`.
+## Final Checklist
 
-6. Verify
-   - Run `rein-verify` before declaring completion.
-   - The flow is not done just because implementation passed.
-   - Report the result back with `rein go advance ... --stage verify`.
-
-## Stage Rules
-
-- Use `rein-interview` runtime commands for persistence and state.
-- Use the `rein go` runtime state as the source of truth for current stage, changed files, and resume behavior.
-- Use completed interview artifacts as the source of truth for downstream planning inputs.
-- Ask the user only when:
-  - a destructive step needs approval
-  - a permission boundary blocks the flow
-  - a critical product decision is still unresolved and cannot be verified from the repo
-- If a stage fails, stop at that stage and report the failure plainly instead of silently continuing.
-- Do not skip cleanup, review, or verification just because the earlier stages succeeded.
-
-## Output
-
-When the flow completes:
-- summarize the completed stages
-- name the key files changed
-- name the commands and tests run
-- state any remaining risks or uncertainties
-
-If the flow stops early:
-- name the failing stage
-- explain what blocked it
-- state the next resume point clearly
-
-Task: {{ARGUMENTS}}
+- enough of the codebase was read to support the written claims
+- `.rein/codebase/MAP.md` exists and links to the topical docs
+- topical docs are organized by real repo domains
+- existing docs were updated in place when possible
+- new docs were added only for genuinely uncovered areas
+- each topical doc has a `Findings` section
+- inferred risks are evidence-backed and clearly framed
+- no fixes or recommendations were proposed
 
 ---
 > Source: [jstxn/rein](https://github.com/jstxn/rein) — distributed by [TomeVault](https://tomevault.io).
