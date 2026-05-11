@@ -1,0 +1,9 @@
+{
+  "name": "pancudaniel7--blockscan-ethereum-service",
+  "displayName": "blockscan-ethereum-service",
+  "description": "Blockscan is a production\u2011ready microservice that ingests Ethereum blocks and reliably publishes them to Kafka. It supports both low\u2011latency streaming of new heads and reorg\u2011safe ingestion of finalize",
+  "version": "1.0.0",
+  "author": "pancudaniel7",
+  "homepage": "https://github.com/pancudaniel7/blockscan-ethereum-service",
+  "skills": []
+}
