@@ -1,0 +1,9 @@
+{
+  "name": "lousputthole--sbox-claude",
+  "displayName": "Sbox-Claude",
+  "description": "integration for Claude code into S&box game developer",
+  "version": "1.0.0",
+  "author": "LouSputthole",
+  "homepage": "https://github.com/LouSputthole/Sbox-Claude",
+  "skills": []
+}
