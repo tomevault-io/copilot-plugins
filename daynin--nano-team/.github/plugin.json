@@ -1,0 +1,9 @@
+{
+  "name": "daynin--nano-team",
+  "displayName": "nano-team",
+  "description": "A tiny pi.dev extension that runs your subagents and shows them as a compact chip row above the editor",
+  "version": "1.0.0",
+  "author": "daynin",
+  "homepage": "https://github.com/daynin/nano-team",
+  "skills": []
+}
