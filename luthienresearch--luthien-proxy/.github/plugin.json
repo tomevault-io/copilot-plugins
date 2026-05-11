@@ -1,0 +1,9 @@
+{
+  "name": "luthienresearch--luthien-proxy",
+  "displayName": "luthien-proxy",
+  "description": "AI Control for Claude Code in the real world",
+  "version": "1.0.0",
+  "author": "LuthienResearch",
+  "homepage": "https://github.com/LuthienResearch/luthien-proxy",
+  "skills": []
+}
