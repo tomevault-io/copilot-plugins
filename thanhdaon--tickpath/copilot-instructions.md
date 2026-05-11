@@ -1,887 +1,209 @@
-## tanstack-react-router-routing
-
-> TanStack Router: Routing
-
-# Code-Based Routing
-
-> [!TIP]
-> Code-based routing is not recommended for most applications. It is recommended to use [File-Based Routing](../file-based-routing.md) instead.
-
-## ⚠️ Before You Start
-
-- If you're using [File-Based Routing](../file-based-routing.md), **skip this guide**.
-- If you still insist on using code-based routing, you must read the [Routing Concepts](../routing-concepts.md) guide first, as it also covers core concepts of the router.
-
-## Route Trees
-
-Code-based routing is no different from file-based routing in that it uses the same route tree concept to organize, match and compose matching routes into a component tree. The only difference is that instead of using the filesystem to organize your routes, you use code.
-
-Let's consider the same route tree from the [Route Trees & Nesting](../route-trees.md#route-trees) guide, and convert it to code-based routing:
-
-Here is the file-based version:
-
-```
-routes/
-├── __root.tsx
-├── index.tsx
-├── about.tsx
-├── posts/
-│   ├── index.tsx
-│   ├── $postId.tsx
-├── posts.$postId.edit.tsx
-├── settings/
-│   ├── profile.tsx
-│   ├── notifications.tsx
-├── _pathlessLayout.tsx
-├── _pathlessLayout/
-│   ├── route-a.tsx
-├── ├── route-b.tsx
-├── files/
-│   ├── $.tsx
-```
-
-And here is a summarized code-based version:
-
-```tsx
-import { createRootRoute, createRoute } from '@tanstack/react-router'
-
-const rootRoute = createRootRoute()
-
-const indexRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/',
-})
-
-const aboutRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: 'about',
-})
-
-const postsRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: 'posts',
-})
-
-const postsIndexRoute = createRoute({
-  getParentRoute: () => postsRoute,
-  path: '/',
-})
-
-const postRoute = createRoute({
-  getParentRoute: () => postsRoute,
-  path: '$postId',
-})
-
-const postEditorRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: 'posts/$postId/edit',
-})
-
-const settingsRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: 'settings',
-})
-
-const profileRoute = createRoute({
-  getParentRoute: () => settingsRoute,
-  path: 'profile',
-})
-
-const notificationsRoute = createRoute({
-  getParentRoute: () => settingsRoute,
-  path: 'notifications',
-})
-
-const pathlessLayoutRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  id: 'pathlessLayout',
-})
-
-const pathlessLayoutARoute = createRoute({
-  getParentRoute: () => pathlessLayoutRoute,
-  path: 'route-a',
-})
-
-const pathlessLayoutBRoute = createRoute({
-  getParentRoute: () => pathlessLayoutRoute,
-  path: 'route-b',
-})
-
-const filesRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: 'files/$',
-})
-```
-
-## Anatomy of a Route
-
-All other routes other than the root route are configured using the `createRoute` function:
-
-```tsx
-const route = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/posts',
-  component: PostsComponent,
-})
-```
-
-The `getParentRoute` option is a function that returns the parent route of the route you're creating.
-
-**❓❓❓ "Wait, you're making me pass the parent route for every route I make?"**
-
-Absolutely! The reason for passing the parent route has **everything to do with the magical type safety** of TanStack Router. Without the parent route, TypeScript would have no idea what types to supply your route with!
-
-> [!IMPORTANT]
-> For every route that **NOT** the **Root Route** or a **Pathless Layout Route**, a `path` option is required. This is the path that will be matched against the URL pathname to determine if the route is a match.
+## tanstack-react-router-setup-and-architecture
 
-When configuring route `path` option on a route, it ignores leading and trailing slashes (this does not include "index" route paths `/`). You can include them if you want, but they will be normalized internally by TanStack Router. Here is a table of valid paths and what they will be normalized to:
+> TanStack Router: Setup and Architecture
 
-| Path     | Normalized Path |
-| -------- | --------------- |
-| `/`      | `/`             |
-| `/about` | `about`         |
-| `about/` | `about`         |
-| `about`  | `about`         |
-| `$`      | `$`             |
-| `/$`     | `$`             |
-| `/$/`    | `$`             |
-
-## Manually building the route tree
-
-When building a route tree in code, it's not enough to define the parent route of each route. You must also construct the final route tree by adding each route to its parent route's `children` array. This is because the route tree is not built automatically for you like it is in file-based routing.
-
-```tsx
-/* prettier-ignore */
-const routeTree = rootRoute.addChildren([
-  indexRoute,
-  aboutRoute,
-  postsRoute.addChildren([
-    postsIndexRoute,
-    postRoute,
-  ]),
-  postEditorRoute,
-  settingsRoute.addChildren([
-    profileRoute,
-    notificationsRoute,
-  ]),
-  pathlessLayoutRoute.addChildren([
-    pathlessLayoutARoute,
-    pathlessLayoutBRoute,
-  ]),
-  filesRoute.addChildren([
-    fileRoute,
-  ]),
-])
-/* prettier-ignore-end */
-```
-
-But before you can go ahead and build the route tree, you need to understand how the Routing Concepts for Code-Based Routing work.
-
-## Routing Concepts for Code-Based Routing
+# Overview
 
-Believe it or not, file-based routing is really a superset of code-based routing and uses the filesystem and a bit of code-generation abstraction on top of it to generate this structure you see above automatically.
-
-We're going to assume you've read the [Routing Concepts](../routing-concepts.md) guide and are familiar with each of these main concepts:
-
-- The Root Route
-- Basic Routes
-- Index Routes
-- Dynamic Route Segments
-- Splat / Catch-All Routes
-- Layout Routes
-- Pathless Routes
-- Non-Nested Routes
-
-Now, let's take a look at how to create each of these route types in code.
-
-## The Root Route
-
-Creating a root route in code-based routing is thankfully the same as doing so in file-based routing. Call the `createRootRoute()` function.
-
-Unlike file-based routing however, you do not need to export the root route if you don't want to. It's certainly not recommended to build an entire route tree and application in a single file (although you can and we do this in the examples to demonstrate routing concepts in brevity).
-
-```tsx
-// Standard root route
-import { createRootRoute } from '@tanstack/react-router'
-
-const rootRoute = createRootRoute()
-
-// Root route with Context
-import { createRootRouteWithContext } from '@tanstack/react-router'
-import type { QueryClient } from '@tanstack/react-query'
-
-export interface MyRouterContext {
-  queryClient: QueryClient
-}
-const rootRoute = createRootRouteWithContext<MyRouterContext>()
-```
-
-To learn more about Context in TanStack Router, see the [Router Context](../../guide/router-context.md) guide.
-
-## Basic Routes
-
-To create a basic route, simply provide a normal `path` string to the `createRoute` function:
-
-```tsx
-const aboutRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: 'about',
-})
-```
-
-See, it's that simple! The `aboutRoute` will match the URL `/about`.
-
-## Index Routes
-
-Unlike file-based routing, which uses the `index` filename to denote an index route, code-based routing uses a single slash `/` to denote an index route. For example, the `posts.index.tsx` file from our example route tree above would be represented in code-based routing like this:
-
-```tsx
-const postsRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: 'posts',
-})
-
-const postsIndexRoute = createRoute({
-  getParentRoute: () => postsRoute,
-  // Notice the single slash `/` here
-  path: '/',
-})
-```
-
-So, the `postsIndexRoute` will match the URL `/posts/` (or `/posts`).
-
-## Dynamic Route Segments
-
-Dynamic route segments work exactly the same in code-based routing as they do in file-based routing. Simply prefix a segment of the path with a `$` and it will be captured into the `params` object of the route's `loader` or `component`:
-
-```tsx
-const postIdRoute = createRoute({
-  getParentRoute: () => postsRoute,
-  path: '$postId',
-  // In a loader
-  loader: ({ params }) => fetchPost(params.postId),
-  // Or in a component
-  component: PostComponent,
-})
-
-function PostComponent() {
-  const { postId } = postIdRoute.useParams()
-  return <div>Post ID: {postId}</div>
-}
-```
-
-> [!TIP]
-> If your component is code-split, you can use the [getRouteApi function](../../guide/code-splitting.md#manually-accessing-route-apis-in-other-files-with-the-getrouteapi-helper) to avoid having to import the `postIdRoute` configuration to get access to the typed `useParams()` hook.
-
-## Splat / Catch-All Routes
-
-As expected, splat/catch-all routes also work the same in code-based routing as they do in file-based routing. Simply prefix a segment of the path with a `$` and it will be captured into the `params` object under the `_splat` key:
-
-```tsx
-const filesRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: 'files',
-})
-
-const fileRoute = createRoute({
-  getParentRoute: () => filesRoute,
-  path: '$',
-})
-```
-
-For the URL `/documents/hello-world`, the `params` object will look like this:
-
-```js
-{
-  '_splat': 'documents/hello-world'
-}
-```
-
-## Layout Routes
-
-Layout routes are routes that wrap their children in a layout component. In code-based routing, you can create a layout route by simply nesting a route under another route:
-
-```tsx
-const postsRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: 'posts',
-  component: PostsLayoutComponent, // The layout component
-})
-
-function PostsLayoutComponent() {
-  return (
-    <div>
-      <h1>Posts</h1>
-      <Outlet />
-    </div>
-  )
-}
-
-const postsIndexRoute = createRoute({
-  getParentRoute: () => postsRoute,
-  path: '/',
-})
-
-const postsCreateRoute = createRoute({
-  getParentRoute: () => postsRoute,
-  path: 'create',
-})
-
-const routeTree = rootRoute.addChildren([
-  // The postsRoute is the layout route
-  // Its children will be nested under the PostsLayoutComponent
-  postsRoute.addChildren([postsIndexRoute, postsCreateRoute]),
-])
-```
-
-Now, both the `postsIndexRoute` and `postsCreateRoute` will render their contents inside of the `PostsLayoutComponent`:
-
-```tsx
-// URL: /posts
-<PostsLayoutComponent>
-  <PostsIndexComponent />
-</PostsLayoutComponent>
-
-// URL: /posts/create
-<PostsLayoutComponent>
-  <PostsCreateComponent />
-</PostsLayoutComponent>
-```
-
-## Pathless Layout Routes
-
-In file-based routing a pathless layout route is prefixed with a `_`, but in code-based routing, this is simply a route with an `id` instead of a `path` option. This is because code-based routing does not use the filesystem to organize routes, so there is no need to prefix a route with a `_` to denote that it has no path.
-
-```tsx
-const pathlessLayoutRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  id: 'pathlessLayout',
-  component: PathlessLayoutComponent,
-})
-
-function PathlessLayoutComponent() {
-  return (
-    <div>
-      <h1>Pathless Layout</h1>
-      <Outlet />
-    </div>
-  )
-}
-
-const pathlessLayoutARoute = createRoute({
-  getParentRoute: () => pathlessLayoutRoute,
-  path: 'route-a',
-})
-
-const pathlessLayoutBRoute = createRoute({
-  getParentRoute: () => pathlessLayoutRoute,
-  path: 'route-b',
-})
-
-const routeTree = rootRoute.addChildren([
-  // The pathless layout route has no path, only an id
-  // So its children will be nested under the pathless layout route
-  pathlessLayoutRoute.addChildren([pathlessLayoutARoute, pathlessLayoutBRoute]),
-])
-```
-
-Now both `/route-a` and `/route-b` will render their contents inside of the `PathlessLayoutComponent`:
-
-```tsx
-// URL: /route-a
-<PathlessLayoutComponent>
-  <RouteAComponent />
-</PathlessLayoutComponent>
-
-// URL: /route-b
-<PathlessLayoutComponent>
-  <RouteBComponent />
-</PathlessLayoutComponent>
-```
-
-## Non-Nested Routes
-
-Building non-nested routes in code-based routing does not require using a trailing `_` in the path, but does require you to build your route and route tree with the right paths and nesting. Let's consider the route tree where we want the post editor to **not** be nested under the posts route:
-
-- `/posts_/$postId/edit`
-- `/posts`
-  - `$postId`
-
-To do this we need to build a separate route for the post editor and include the entire path in the `path` option from the root of where we want the route to be nested (in this case, the root):
-
-```tsx
-// The posts editor route is nested under the root route
-const postEditorRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  // The path includes the entire path we need to match
-  path: 'posts/$postId/edit',
-})
-
-const postsRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: 'posts',
-})
-
-const postRoute = createRoute({
-  getParentRoute: () => postsRoute,
-  path: '$postId',
-})
-
-const routeTree = rootRoute.addChildren([
-  // The post editor route is nested under the root route
-  postEditorRoute,
-  postsRoute.addChildren([postRoute]),
-])
-```
-
-# File-Based Routing
-
-Most of the TanStack Router documentation is written for file-based routing and is intended to help you understand in more detail how to configure file-based routing and the technical details behind how it works. While file-based routing is the preferred and recommended way to configure TanStack Router, you can also use [code-based routing](../code-based-routing.md) if you prefer.
-
-## What is File-Based Routing?
-
-File-based routing is a way to configure your routes using the filesystem. Instead of defining your route structure via code, you can define your routes using a series of files and directories that represent the route hierarchy of your application. This brings a number of benefits:
-
-- **Simplicity**: File-based routing is visually intuitive and easy to understand for both new and experienced developers.
-- **Organization**: Routes are organized in a way that mirrors the URL structure of your application.
-- **Scalability**: As your application grows, file-based routing makes it easy to add new routes and maintain existing ones.
-- **Code-Splitting**: File-based routing allows TanStack Router to automatically code-split your routes for better performance.
-- **Type-Safety**: File-based routing raises the ceiling on type-safety by generating managing type linkages for your routes, which can otherwise be a tedious process via code-based routing.
-- **Consistency**: File-based routing enforces a consistent structure for your routes, making it easier to maintain and update your application and move from one project to another.
-
-## `/`s or `.`s?
-
-While directories have long been used to represent route hierarchy, file-based routing introduces an additional concept of using the `.` character in the file-name to denote a route nesting. This allows you to avoid creating directories for few deeply nested routes and continue to use directories for wider route hierarchies. Let's take a look at some examples!
-
-## Directory Routes
-
-Directories can be used to denote route hierarchy, which can be useful for organizing multiple routes into logical groups and also cutting down on the filename length for large groups of deeply nested routes.
-
-See the example below:
-
-| Filename                | Route Path                | Component Output                  |
-| ----------------------- | ------------------------- | --------------------------------- |
-| ʦ `__root.tsx`          |                           | `<Root>`                          |
-| ʦ `index.tsx`           | `/` (exact)               | `<Root><RootIndex>`               |
-| ʦ `about.tsx`           | `/about`                  | `<Root><About>`                   |
-| ʦ `posts.tsx`           | `/posts`                  | `<Root><Posts>`                   |
-| 📂 `posts`              |                           |                                   |
-| ┄ ʦ `index.tsx`         | `/posts` (exact)          | `<Root><Posts><PostsIndex>`       |
-| ┄ ʦ `$postId.tsx`       | `/posts/$postId`          | `<Root><Posts><Post>`             |
-| 📂 `posts_`             |                           |                                   |
-| ┄ 📂 `$postId`          |                           |                                   |
-| ┄ ┄ ʦ `edit.tsx`        | `/posts/$postId/edit`     | `<Root><EditPost>`                |
-| ʦ `settings.tsx`        | `/settings`               | `<Root><Settings>`                |
-| 📂 `settings`           |                           | `<Root><Settings>`                |
-| ┄ ʦ `profile.tsx`       | `/settings/profile`       | `<Root><Settings><Profile>`       |
-| ┄ ʦ `notifications.tsx` | `/settings/notifications` | `<Root><Settings><Notifications>` |
-| ʦ `_pathlessLayout.tsx` |                           | `<Root><PathlessLayout>`          |
-| 📂 `_pathlessLayout`    |                           |                                   |
-| ┄ ʦ `route-a.tsx`       | `/route-a`                | `<Root><PathlessLayout><RouteA>`  |
-| ┄ ʦ `route-b.tsx`       | `/route-b`                | `<Root><PathlessLayout><RouteB>`  |
-| 📂 `files`              |                           |                                   |
-| ┄ ʦ `$.tsx`             | `/files/$`                | `<Root><Files>`                   |
-| 📂 `account`            |                           |                                   |
-| ┄ ʦ `route.tsx`         | `/account`                | `<Root><Account>`                 |
-| ┄ ʦ `overview.tsx`      | `/account/overview`       | `<Root><Account><Overview>`       |
-
-## Flat Routes
-
-Flat routing gives you the ability to use `.`s to denote route nesting levels.
-
-This can be useful when you have a large number of uniquely deeply nested routes and want to avoid creating directories for each one:
-
-See the example below:
-
-| Filename                        | Route Path                | Component Output                  |
-| ------------------------------- | ------------------------- | --------------------------------- |
-| ʦ `__root.tsx`                  |                           | `<Root>`                          |
-| ʦ `index.tsx`                   | `/` (exact)               | `<Root><RootIndex>`               |
-| ʦ `about.tsx`                   | `/about`                  | `<Root><About>`                   |
-| ʦ `posts.tsx`                   | `/posts`                  | `<Root><Posts>`                   |
-| ʦ `posts.index.tsx`             | `/posts` (exact)          | `<Root><Posts><PostsIndex>`       |
-| ʦ `posts.$postId.tsx`           | `/posts/$postId`          | `<Root><Posts><Post>`             |
-| ʦ `posts_.$postId.edit.tsx`     | `/posts/$postId/edit`     | `<Root><EditPost>`                |
-| ʦ `settings.tsx`                | `/settings`               | `<Root><Settings>`                |
-| ʦ `settings.profile.tsx`        | `/settings/profile`       | `<Root><Settings><Profile>`       |
-| ʦ `settings.notifications.tsx`  | `/settings/notifications` | `<Root><Settings><Notifications>` |
-| ʦ `_pathlessLayout.tsx`         |                           | `<Root><PathlessLayout>`          |
-| ʦ `_pathlessLayout.route-a.tsx` | `/route-a`                | `<Root><PathlessLayout><RouteA>`  |
-| ʦ `_pathlessLayout.route-b.tsx` | `/route-b`                | `<Root><PathlessLayout><RouteB>`  |
-| ʦ `files.$.tsx`                 | `/files/$`                | `<Root><Files>`                   |
-| ʦ `account.tsx`                 | `/account`                | `<Root><Account>`                 |
-| ʦ `account.overview.tsx`        | `/account/overview`       | `<Root><Account><Overview>`       |
-
-## Mixed Flat and Directory Routes
-
-It's extremely likely that a 100% directory or flat route structure won't be the best fit for your project, which is why TanStack Router allows you to mix both flat and directory routes together to create a route tree that uses the best of both worlds where it makes sense:
-
-See the example below:
-
-| Filename                       | Route Path                | Component Output                  |
-| ------------------------------ | ------------------------- | --------------------------------- |
-| ʦ `__root.tsx`                 |                           | `<Root>`                          |
-| ʦ `index.tsx`                  | `/` (exact)               | `<Root><RootIndex>`               |
-| ʦ `about.tsx`                  | `/about`                  | `<Root><About>`                   |
-| ʦ `posts.tsx`                  | `/posts`                  | `<Root><Posts>`                   |
-| 📂 `posts`                     |                           |                                   |
-| ┄ ʦ `index.tsx`                | `/posts` (exact)          | `<Root><Posts><PostsIndex>`       |
-| ┄ ʦ `$postId.tsx`              | `/posts/$postId`          | `<Root><Posts><Post>`             |
-| ┄ ʦ `$postId.edit.tsx`         | `/posts/$postId/edit`     | `<Root><Posts><Post><EditPost>`   |
-| ʦ `settings.tsx`               | `/settings`               | `<Root><Settings>`                |
-| ʦ `settings.profile.tsx`       | `/settings/profile`       | `<Root><Settings><Profile>`       |
-| ʦ `settings.notifications.tsx` | `/settings/notifications` | `<Root><Settings><Notifications>` |
-| ʦ `account.tsx`                | `/account`                | `<Root><Account>`                 |
-| ʦ `account.overview.tsx`       | `/account/overview`       | `<Root><Account><Overview>`       |
-
-Both flat and directory routes can be mixed together to create a route tree that uses the best of both worlds where it makes sense.
-
-> [!TIP]
-> If you find that the default file-based routing structure doesn't fit your needs, you can always use [Virtual File Routes](../virtual-file-routes.md) to control the source of your routes whilst still getting the awesome performance benefits of file-based routing.
-
-## Getting started with File-Based Routing
-
-To get started with file-based routing, you'll need to configure your project's bundler to use the TanStack Router Plugin or the TanStack Router CLI.
-
-To enable file-based routing, you'll need to be using React with a supported bundler. See if your bundler is listed in the configuration guides below.
-
-[//]: # 'SupportedBundlersList'
-
-- [Installation with Vite](../installation-with-vite.md)
-- [Installation with Rspack/Rsbuild](../installation-with-rspack.md)
-- [Installation with Webpack](../installation-with-webpack.md)
-- [Installation with Esbuild](../installation-with-esbuild.md)
-
-[//]: # 'SupportedBundlersList'
-
-When using TanStack Router's file-based routing through one of the supported bundlers, our plugin will **automatically generate your route configuration through your bundler's dev and build processes**. It is the easiest way to use TanStack Router's route generation features.
-
-If your bundler is not yet supported, you can reach out to us on Discord or GitHub to let us know. Till then, fear not! You can still use the [`@tanstack/router-cli`](../installation-with-router-cli.md) package to generate your route tree file.
-
-# File Naming Conventions
-
-File-based routing requires that you follow a few simple file naming conventions to ensure that your routes are generated correctly. The concepts these conventions enable are covered in detail in the [Route Trees & Nesting](../route-trees.md) guide.
-
-| Feature                            | Description                                                                                                                                                                                                                                                                                                                                                                        |
-| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`__root.tsx`**                   | The root route file must be named `__root.tsx` and must be placed in the root of the configured `routesDirectory`.                                                                                                                                                                                                                                                                 |
-| **`.` Separator**                  | Routes can use the `.` character to denote a nested route. For example, `blog.post` will be generated as a child of `blog`.                                                                                                                                                                                                                                                        |
-| **`$` Token**                      | Route segments with the `$` token are parameterized and will extract the value from the URL pathname as a route `param`.                                                                                                                                                                                                                                                           |
-| **`_` Prefix**                     | Route segments with the `_` prefix are considered to be pathless layout routes and will not be used when matching its child routes against the URL pathname.                                                                                                                                                                                                                       |
-| **`_` Suffix**                     | Route segments with the `_` suffix exclude the route from being nested under any parent routes.                                                                                                                                                                                                                                                                                    |
-| **`-` Prefix**                     | Files and folders with the `-` prefix are excluded from the route tree. They will not be added to the `routeTree.gen.ts` file and can be used to colocate logic in route folders.                                                                                                                                                                                                  |
-| **`(folder)` folder name pattern** | A folder that matches this pattern is treated as a **route group**, preventing the folder from being included in the route's URL path.                                                                                                                                                                                                                                             |
-| **`index` Token**                  | Route segments ending with the `index` token (before any file extensions) will match the parent route when the URL pathname matches the parent route exactly. This can be configured via the `indexToken` configuration option, see [options](../../../../api/file-based-routing.md#indextoken).                                                                                   |
-| **`.route.tsx` File Type**         | When using directories to organise routes, the `route` suffix can be used to create a route file at the directory's path. For example, `blog.post.route.tsx` or `blog/post/route.tsx` can be used as the route file for the `/blog/post` route. This can be configured via the `routeToken` configuration option, see [options](../../../../api/file-based-routing.md#routetoken). |
-
-> **💡 Remember:** The file-naming conventions for your project could be affected by what [options](../../../../api/file-based-routing.md) are configured.
-
-## Dynamic Path Params
-
-Dynamic path params can be used in both flat and directory routes to create routes that can match a dynamic segment of the URL path. Dynamic path params are denoted by the `$` character in the filename:
-
-| Filename              | Route Path       | Component Output      |
-| --------------------- | ---------------- | --------------------- |
-| ...                   | ...              | ...                   |
-| ʦ `posts.$postId.tsx` | `/posts/$postId` | `<Root><Posts><Post>` |
-
-We'll learn more about dynamic path params in the [Path Params](../../guide/path-params.md) guide.
-
-## Pathless Routes
-
-Pathless routes wrap child routes with either logic or a component without requiring a URL path. Non-path routes are denoted by the `_` character in the filename:
-
-| Filename       | Route Path | Component Output |
-| -------------- | ---------- | ---------------- |
-| ʦ `_app.tsx`   |            |                  |
-| ʦ `_app.a.tsx` | /a         | `<Root><App><A>` |
-| ʦ `_app.b.tsx` | /b         | `<Root><App><B>` |
-
-To learn more about pathless routes, see the [Routing Concepts - Pathless Routes](../routing-concepts.md#pathless-layout-routes) guide.
-
-# Installation with Vite
-
-[//]: # 'BundlerConfiguration'
-
-To use file-based routing with **Esbuild**, you'll need to install the `@tanstack/router-plugin` package.
+**TanStack Router is a router for building React and Solid applications**. Some of its features include:
+
+- 100% inferred TypeScript support
+- Typesafe navigation
+- Nested Routing and layout routes (with pathless layouts)
+- Built-in Route Loaders w/ SWR Caching
+- Designed for client-side data caches (TanStack Query, SWR, etc.)
+- Automatic route prefetching
+- Asynchronous route elements and error boundaries
+- File-based Route Generation
+- Typesafe JSON-first Search Params state management APIs
+- Path and Search Parameter Schema Validation
+- Search Param Navigation APIs
+- Custom Search Param parser/serializer support
+- Search param middleware
+- Route matching/loading middleware
+
+To get started quickly, head to the next page. For a more lengthy explanation, buckle up while I bring you up to speed!
+
+## "A Fork in the Route"
+
+Using a router to build applications is widely regarded as a must-have and is usually one of the first choices you’ll make in your tech stack.
+
+[//]: # 'WhyChooseTanStackRouter'
+
+**So, why should you choose TanStack Router over another router?**
+
+To answer this question, we need to look at the other options in the space. There are many if you look hard enough, but in my experience, only a couple are worth exploring seriously:
+
+- **Next.js** - Widely regarded as the de facto framework for starting a new React project, it’s laser focused on performance, workflow, and bleeding edge technology. Its APIs and abstractions are powerful, but can sometimes come across as non-standard. Its extremely fast growth and adoption in the industry has resulted in a featured packed experience, but at the expense of feeling overwhelming and sometimes bloated.
+- **Remix / React Router** - A full-stack framework based on the historically successful React Router offers a similarly powerful developer and user experience, with APIs and vision based firmly on web standards like Request/Response and a focus on running anywhere JS can run. Many of its APIs and abstractions are wonderfully designed and were inspiration for more than a few TanStack Router APIs. That said, its rigid design, bolted-on type safety and sometimes strict over-adherence to platform APIs can leave some developers wanting more.
+
+Both of these frameworks (and their routers) are great, and I can personally attest that both are very good solutions for building React applications. My experience has also taught me that these solutions could also be much better, especially around the actual routing APIs that are available to developers to make their apps faster, easier, and more enjoyable to work with.
+
+It's probably no surprise at this point that picking a router is so important that it is often tied 1-to-1 with your choice of framework, since most frameworks rely on a specific router.
+
+[//]: # 'WhyChooseTanStackRouter'
+
+**Does this mean that TanStack Router is a framework?**
+
+TanStack Router itself is not a "framework" in the traditional sense, since it doesn't address a few other common full-stack concerns. However TanStack Router has been designed to be upgradable to a full-stack framework when used in conjunction with other tools that address bundling, deployments, and server-side-specific functionality. This is why we are currently developing [TanStack Start](https://tanstack.com/start), a full-stack framework that is built on top of TanStack Router and Vite.
+
+For a deeper dive on the history of TanStack Router, feel free to read [TanStack Router's History](../decisions-on-dx.md#tanstack-routers-origin-story).
+
+## Why TanStack Router?
+
+TanStack Router delivers on the same fundamental expectations as other routers that you’ve come to expect:
+
+- Nested routes, layout routes, grouped routes
+- File-based Routing
+- Parallel data loading
+- Prefetching
+- URL Path Params
+- Error Boundaries and Handling
+- SSR
+- Route Masking
+
+And it also delivers some new features that raise the bar:
+
+- 100% inferred TypeScript support
+- Typesafe navigation
+- Built-in SWR Caching for loaders
+- Designed for client-side data caches (TanStack Query, SWR, etc.)
+- Typesafe JSON-first Search Params state management APIs
+- Path and Search Parameter Schema Validation
+- Search Parameter Navigation APIs
+- Custom Search Param parser/serializer support
+- Search param middleware
+- Inherited Route Context
+- Mixed file-based and code-based routing
+
+Let’s dive into some of the more important ones in more detail!
+
+## 100% Inferred TypeScript Support
+
+Everything these days is written “in Typescript” or at the very least offers type definitions that are veneered over runtime functionality, but too few packages in the ecosystem actually design their APIs with TypeScript in mind. So while I’m pleased that your router is auto-completing your option fields and catching a few property/method typos here and there, there is much more to be had.
+
+- TanStack Router is fully aware of all of your routes and their configuration at any given point in your code. This includes the path, path params, search params, context, and any other configuration you’ve provided. Ultimately this means that you can navigate to any route in your app with 100% type safety and confidence that your link or navigate call will succeed.
+- TanStack Router provides lossless type-inference. It uses countless generic type parameters to enforce and propagate any type information you give it throughout the rest of its API and ultimately your app. No other router offers this level of type safety and developer confidence.
+
+What does all of that mean for you?
+
+- Faster feature development with auto-completion and type hints
+- Safer and faster refactors
+- Confidence that your code will work as expected
+
+## 1st Class Search Parameters
+
+Search parameters are often an afterthought, treated like a black box of strings (or string) that you can parse and update, but not much else. Existing solutions are **not** type-safe either, adding to the caution that is required to deal with them. Even the most "modern" frameworks and routers and leave it up to you to figure out how to manage this state. Sometimes they'll parse the search string into an object for you, or sometimes you're left to do it yourself with `URLSearchParams`.
+
+Let's step back and remember that **search params are the most powerful state manager in your entire application.** They are global, serializable, bookmarkable, and shareable making them the perfect place to store any kind of state that needs to survive a page refresh or a social share.
+
+To live up to that responsibility, search parameters are a first-class citizen in TanStack Router. While still based on standard URLSearchParams, TanStack Router uses a powerful parser/serializer to manage deeper and more complex data structures in your search params, all while keeping them type-safe and easy to work with.
+
+**It's like having `useState` right in the URL!**
+
+Search parameters are:
+
+- Automatically parsed and serialized as JSON
+- Validated and typed
+- Inherited from parent routes
+- Accessible in loaders, components, and hooks
+- Easily modified with the useSearch hook, Link, navigate, and router.navigate APIs
+- Customizable with a custom search filters and middleware
+- Subscribed via fine-grained search param selectors for efficient re-renders
+
+Once you start using TanStack Router's search parameters, you'll wonder how you ever lived without them.
+
+## Built-In Caching and Friendly Data Loading
+
+Data loading is a critical part of any application and while most existing routers offer some form of critical data loading APIs, they often fall short when it comes to caching and data lifecycle management. Existing solutions suffer from a few common problems:
+
+- No caching at all. Data is always fresh, but your users are left waiting for frequently accessed data to load over and over again.
+- Overly-aggressive caching. Data is cached for too long, leading to stale data and a poor user experience.
+- Blunt invalidation strategies and APIs. Data may be invalidated too often, leading to unnecessary network requests and wasted resources, or you may not have any fine-grained control over when data is invalidated at all.
+
+TanStack Router solves these problems with a two-prong approach to caching and data loading:
+
+### Built-in Cache
+
+TanStack Router provides a light-weight built-in caching layer that works seamlessly with the Router. This caching layer is loosely based on TanStack Query, but with fewer features and a much smaller API surface area. Like TanStack Query, sane but powerful defaults guarantee that your data is cached for reuse, invalidated when necessary, and garbage collected when not in use. It also provides a simple API for invalidating the cache manually when needed.
+
+### Flexible & Powerful Data Lifecycle APIs
+
+TanStack Router is designed with a flexible and powerful data loading API that more easily integrates with existing data fetching libraries like TanStack Query, SWR, Apollo, Relay, or even your own custom data fetching solution. Configurable APIs like `context`, `beforeLoad`, `loaderDeps` and `loader` work in unison to make it easy to define declarative data dependencies, prefetch data, and manage the lifecycle of an external data source with ease.
+
+## Inherited Route Context
+
+TanStack Router's router and route context is a powerful feature that allows you to define context that is specific to a route which is then inherited by all child routes. Even the router and root routes themselves can provide context. Context can be built up both synchronously and asynchronously, and can be used to share data, configuration, or even functions between routes and route configurations. This is especially useful for scenarios like:
+
+- Authentication and Authorization
+- Hybrid SSR/CSR data fetching and preloading
+- Theming
+- Singletons and global utilities
+- Curried or partial application across preloading, loading, and rendering stages
+
+Also, what would route context be if it weren't type-safe? TanStack Router's route context is fully type-safe and inferred at zero cost to you.
+
+## File-based and/or Code-Based Routing
+
+TanStack Router supports both file-based and code-based routing at the same time. This flexibility allows you to choose the approach that best fits your project's needs.
+
+TanStack Router's file-based routing approach is uniquely user-facing. Route configuration is generated for you either by the Vite plugin or TanStack Router CLI, leaving the usage of said generated code up to you! This means that you're always in total control of your routes and router, even if you use file-based routing.
+
+## Acknowledgements
+
+TanStack Router builds on concepts and patterns popularized by many other OSS projects, including:
+
+- [TRPC](https://trpc.io/)
+- [Remix](https://remix.run)
+- [Chicane](https://swan-io.github.io/chicane/)
+- [Next.js](https://nextjs.org)
+
+We acknowledge the investment, risk and research that went into their development, but are excited to push the bar they have set even higher.
+
+## Let's go!
+
+Enough overview, there's so much more to do with TanStack Router. Hit that next button and let's get started!
+
+# Quick Start
+
+If you're feeling impatient and prefer to skip all of our wonderful documentation, here is the bare minimum to get going with TanStack Router using both file-based route generation and code-based route configuration:
+
+## Using File-Based Route Generation
+
+File based route generation (through Vite, and other supported bundlers) is the recommended way to use TanStack Router as it provides the best experience, performance, and ergonomics for the least amount of effort.
+
+### Scaffolding Your First TanStack Router Project
 
 ```sh
+npx create-tsrouter-app@latest my-app --template file-router
+```
+
+See [create-tsrouter-app](https://github.com/TanStack/create-tsrouter-app/tree/main/cli/create-tsrouter-app) for more options.
+
+### Manual Setup
+
+Alternatively, you can manually setup the project using the following steps:
+
+#### Install TanStack Router, Vite Plugin, and the Router Devtools
+
+```sh
+npm install @tanstack/react-router @tanstack/react-router-devtools
 npm install -D @tanstack/router-plugin
+# or
+pnpm add @tanstack/react-router @tanstack/react-router-devtools
+pnpm add -D @tanstack/router-plugin
+# or
+yarn add @tanstack/react-router @tanstack/react-router-devtools
+yarn add -D @tanstack/router-plugin
+# or
+bun add @tanstack/react-router @tanstack/react-router-devtools
+bun add -D @tanstack/router-plugin
+# or
+deno add npm:@tanstack/react-router npm:@tanstack/router-plugin npm:@tanstack/react-router-devtools
 ```
 
-Once installed, you'll need to add the plugin to your configuration.
+#### Configure the Vite Plugin
 
 ```tsx
-// esbuild.config.js
-import { tanstackRouter } from '@tanstack/router-plugin/esbuild'
-
-export default {
-  // ...
-  plugins: [
-    tanstackRouter({
-      target: 'react',
-      autoCodeSplitting: true,
-    }),
-  ],
-}
-```
-
-Or, you can clone our [Quickstart Esbuild example](https://github.com/TanStack/router/tree/main/examples/react/quickstart-esbuild-file-based) and get started.
-
-Now that you've added the plugin to your Esbuild configuration, you're all set to start using file-based routing with TanStack Router.
-
-[//]: # 'BundlerConfiguration'
-
-## Ignoring the generated route tree file
-
-If your project is configured to use a linter and/or formatter, you may want to ignore the generated route tree file. This file is managed by TanStack Router and therefore shouldn't be changed by your linter or formatter.
-
-Here are some resources to help you ignore the generated route tree file:
-
-- Prettier - [https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore](https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore)
-- ESLint - [https://eslint.org/docs/latest/use/configure/ignore#ignoring-files](https://eslint.org/docs/latest/use/configure/ignore#ignoring-files)
-- Biome - [https://biomejs.dev/reference/configuration/#filesignore](https://biomejs.dev/reference/configuration/#filesignore)
-
-> [!WARNING]
-> If you are using VSCode, you may experience the route tree file unexpectedly open (with errors) after renaming a route.
-
-You can prevent that from the VSCode settings by marking the file as readonly. Our recommendation is to also exclude it from search results and file watcher with the following settings:
-
-```json
-{
-  "files.readonlyInclude": {
-    "**/routeTree.gen.ts": true
-  },
-  "files.watcherExclude": {
-    "**/routeTree.gen.ts": true
-  },
-  "search.exclude": {
-    "**/routeTree.gen.ts": true
-  }
-}
-```
-
-You can use those settings either at a user level or only for a single workspace by creating the file `.vscode/settings.json` at the root of your project.
-
-## Configuration
-
-When using the TanStack Router Plugin with Esbuild for File-based routing, it comes with some sane defaults that should work for most projects:
-
-```json
-{
-  "routesDirectory": "./src/routes",
-  "generatedRouteTree": "./src/routeTree.gen.ts",
-  "routeFileIgnorePrefix": "-",
-  "quoteStyle": "single"
-}
-```
-
-If these defaults work for your project, you don't need to configure anything at all! However, if you need to customize the configuration, you can do so by editing the configuration object passed into the `tanstackRouter` function.
-
-You can find all the available configuration options in the [File-based Routing API Reference](../../../../api/file-based-routing.md).
-
-# Installation with Router CLI
-
-> [!WARNING]
-> You should only use the TanStack Router CLI if you are not using a supported bundler. The CLI only supports the generation of the route tree file and does not provide any other features.
-
-To use file-based routing with the TanStack Router CLI, you'll need to install the `@tanstack/router-cli` package.
-
-```sh
-npm install -D @tanstack/router-cli
-```
-
-Once installed, you'll need to amend your your scripts in your `package.json` for the CLI to `watch` and `generate` files.
-
-```json
-{
-  "scripts": {
-    "generate-routes": "tsr generate",
-    "watch-routes": "tsr watch",
-    "build": "npm run generate-routes && ...",
-    "dev": "npm run watch-routes && ..."
-  }
-}
-```
-
-[//]: # 'AfterScripts'
-[//]: # 'AfterScripts'
-
-You shouldn't forget to _ignore_ the generated route tree file. Head over to the [Ignoring the generated route tree file](#ignoring-the-generated-route-tree-file) section to learn more.
-
-With the CLI installed, the following commands are made available via the `tsr` command
-
-## Using the `generate` command
-
-Generates the routes for a project based on the provided configuration.
-
-```sh
-tsr generate
-```
-
-## Using the `watch` command
-
-Continuously watches the specified directories and regenerates routes as needed.
-
-**Usage:**
-
-```sh
-tsr watch
-```
-
-With file-based routing enabled, whenever you start your application in development mode, TanStack Router will watch your configured `routesDirectory` and generate your route tree whenever a file is added, removed, or changed.
-
-## Ignoring the generated route tree file
-
-If your project is configured to use a linter and/or formatter, you may want to ignore the generated route tree file. This file is managed by TanStack Router and therefore shouldn't be changed by your linter or formatter.
-
-Here are some resources to help you ignore the generated route tree file:
-
-- Prettier - [https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore](https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore)
-- ESLint - [https://eslint.org/docs/latest/use/configure/ignore#ignoring-files](https://eslint.org/docs/latest/use/configure/ignore#ignoring-files)
-- Biome - [https://biomejs.dev/reference/configuration/#filesignore](https://biomejs.dev/reference/configuration/#filesignore)
-
-> [!WARNING]
-> If you are using VSCode, you may experience the route tree file unexpectedly open (with errors) after renaming a route.
-
-You can prevent that from the VSCode settings by marking the file as readonly. Our recommendation is to also exclude it from search results and file watcher with the following settings:
-
-```json
-{
-  "files.readonlyInclude": {
-    "**/routeTree.gen.ts": true
-  },
-  "files.watcherExclude": {
-    "**/routeTree.gen.ts": true
-  },
-  "search.exclude": {
-    "**/routeTree.gen.ts": true
-  }
-}
-```
-
-You can use those settings either at a user level or only for a single workspace by creating the file `.vscode/settings.json` at the root of your project.
-
-## Configuration
-
-When using the TanStack Router CLI for File-based routing, it comes with some sane defaults that should work for most projects:
-
-```json
-{
-  "routesDirectory": "./src/routes",
-  "generatedRouteTree": "./src/routeTree.gen.ts",
-  "routeFileIgnorePrefix": "-",
-  "quoteStyle": "single"
-}
-```
-
-If these defaults work for your project, you don't need to configure anything at all! However, if you need to customize the configuration, you can do so by creating a `tsr.config.json` file in the root of your project directory.
-
-[//]: # 'TargetConfiguration'
-[//]: # 'TargetConfiguration'
-
-You can find all the available configuration options in the [File-based Routing API Reference](../../../../api/file-based-routing.md).
-
-# Installation with Rspack
-
-[//]: # 'BundlerConfiguration'
-
-To use file-based routing with **Rspack** or **Rsbuild**, you'll need to install the `@tanstack/router-plugin` package.
-
-```sh
-npm install -D @tanstack/router-plugin
-```
-
-Once installed, you'll need to add the plugin to your configuration.
-
-```tsx
-// rsbuild.config.ts
-import { defineConfig } from '@rsbuild/core'
-import { pluginReact } from '@rsbuild/plugin-react'
-import { tanstackRouter } from '@tanstack/router-plugin/rspack'
-
-export default defineConfig({
-  plugins: [pluginReact()],
-  tools: {
-    rspack: {
-      plugins: [
-        tanstackRouter({
-          target: 'react',
-          autoCodeSplitting: true,
-        }),
-      ],
-    },
-  },
-})
-```
-
-Or, you can clone our [Quickstart Rspack/Rsbuild example](https://github.com/TanStack/router/tree/main/examples/react/quickstart-rspack-file-based) and get started.
-
-Now that you've added the plugin to your Rspack/Rsbuild configuration, you're all set to start using file-based routing with TanStack Router.
-
-[//]: # 'BundlerConfiguration'
-
-## Ignoring the generated route tree file
-
-If your project is configured to use a linter and/or formatter, you may want to ignore the generated route tree file. This file is managed by TanStack Router and therefore shouldn't be changed by your linter or formatter.
-
-Here are some resources to help you ignore the generated route tree file:
-
-- Prettier - [https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore](https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore)
-- ESLint - [https://eslint.org/docs/latest/use/configure/ignore#ignoring-files](https://eslint.org/docs/latest/use/configure/ignore#ignoring-files)
-- Biome - [https://biomejs.dev/reference/configuration/#filesignore](https://biomejs.dev/reference/configuration/#filesignore)
-
-> [!WARNING]
-> If you are using VSCode, you may experience the route tree file unexpectedly open (with errors) after renaming a route.
-
-You can prevent that from the VSCode settings by marking the file as readonly. Our recommendation is to also exclude it from search results and file watcher with the following settings:
-
-```json
-{
-  "files.readonlyInclude": {
-    "**/routeTree.gen.ts": true
-  },
-  "files.watcherExclude": {
-    "**/routeTree.gen.ts": true
-  },
-  "search.exclude": {
-    "**/routeTree.gen.ts": true
-  }
-}
-```
-
-You can use those settings either at a user level or only for a single workspace by creating the file `.vscode/settings.json` at the root of your project.
-
-## Configuration
-
-When using the TanStack Router Plugin with Rspack (or Rsbuild) for File-based routing, it comes with some sane defaults that should work for most projects:
-
-```json
-{
-  "routesDirectory": "./src/routes",
-  "generatedRouteTree": "./src/routeTree.gen.ts",
-  "routeFileIgnorePrefix": "-",
-  "quoteStyle": "single"
-}
-```
-
-If these defaults work for your project, you don't need to configure anything at all! However, if you need to customize the configuration, you can do so by editing the configuration object passed into the `tanstackRouter` function.
-
-You can find all the available configuration options in the [File-based Routing API Reference](../../../../api/file-based-routing.md).
-
-# Installation with Vite
-
-[//]: # 'BundlerConfiguration'
-
-To use file-based routing with **Vite**, you'll need to install the `@tanstack/router-plugin` package.
-
-```sh
-npm install -D @tanstack/router-plugin
-```
-
-Once installed, you'll need to add the plugin to your Vite configuration.
-
-```ts
 // vite.config.ts
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -896,1090 +218,733 @@ export default defineConfig({
       autoCodeSplitting: true,
     }),
     react(),
-    // ...
+    // ...,
   ],
 })
 ```
 
-Or, you can clone our [Quickstart Vite example](https://github.com/TanStack/router/tree/main/examples/react/quickstart-file-based) and get started.
+> [!TIP]
+> If you are not using Vite, or any of the supported bundlers, you can check out the [TanStack Router CLI](../routing/installation-with-router-cli.md) guide for more info.
 
-> [!WARNING]
-> If you are using the older `@tanstack/router-vite-plugin` package, you can still continue to use it, as it will be aliased to the `@tanstack/router-plugin/vite` package. However, we would recommend using the `@tanstack/router-plugin` package directly.
+Create the following files:
 
-Now that you've added the plugin to your Vite configuration, you're all set to start using file-based routing with TanStack Router.
+- `src/routes/__root.tsx` (with two '`_`' characters)
+- `src/routes/index.tsx`
+- `src/routes/about.tsx`
+- `src/main.tsx`
 
-[//]: # 'BundlerConfiguration'
-
-## Ignoring the generated route tree file
-
-If your project is configured to use a linter and/or formatter, you may want to ignore the generated route tree file. This file is managed by TanStack Router and therefore shouldn't be changed by your linter or formatter.
-
-Here are some resources to help you ignore the generated route tree file:
-
-- Prettier - [https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore](https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore)
-- ESLint - [https://eslint.org/docs/latest/use/configure/ignore#ignoring-files](https://eslint.org/docs/latest/use/configure/ignore#ignoring-files)
-- Biome - [https://biomejs.dev/reference/configuration/#filesignore](https://biomejs.dev/reference/configuration/#filesignore)
-
-> [!WARNING]
-> If you are using VSCode, you may experience the route tree file unexpectedly open (with errors) after renaming a route.
-
-You can prevent that from the VSCode settings by marking the file as readonly. Our recommendation is to also exclude it from search results and file watcher with the following settings:
-
-```json
-{
-  "files.readonlyInclude": {
-    "**/routeTree.gen.ts": true
-  },
-  "files.watcherExclude": {
-    "**/routeTree.gen.ts": true
-  },
-  "search.exclude": {
-    "**/routeTree.gen.ts": true
-  }
-}
-```
-
-You can use those settings either at a user level or only for a single workspace by creating the file `.vscode/settings.json` at the root of your project.
-
-## Configuration
-
-When using the TanStack Router Plugin with Vite for File-based routing, it comes with some sane defaults that should work for most projects:
-
-```json
-{
-  "routesDirectory": "./src/routes",
-  "generatedRouteTree": "./src/routeTree.gen.ts",
-  "routeFileIgnorePrefix": "-",
-  "quoteStyle": "single"
-}
-```
-
-If these defaults work for your project, you don't need to configure anything at all! However, if you need to customize the configuration, you can do so by editing the configuration object passed into the `tanstackRouter` function.
-
-You can find all the available configuration options in the [File-based Routing API Reference](../../../../api/file-based-routing.md).
-
-# Installation with Webpack
-
-[//]: # 'BundlerConfiguration'
-
-To use file-based routing with **Webpack**, you'll need to install the `@tanstack/router-plugin` package.
-
-```sh
-npm install -D @tanstack/router-plugin
-```
-
-Once installed, you'll need to add the plugin to your configuration.
+#### `src/routes/__root.tsx`
 
 ```tsx
-// webpack.config.ts
-import { tanstackRouter } from '@tanstack/router-plugin/webpack'
+import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
-export default {
-  plugins: [
-    tanstackRouter({
-      target: 'react',
-      autoCodeSplitting: true,
-    }),
-  ],
-}
+export const Route = createRootRoute({
+  component: () => (
+    <>
+      <div className="p-2 flex gap-2">
+        <Link to="/" className="[&.active]:font-bold">
+          Home
+        </Link>{' '}
+        <Link to="/about" className="[&.active]:font-bold">
+          About
+        </Link>
+      </div>
+      <hr />
+      <Outlet />
+      <TanStackRouterDevtools />
+    </>
+  ),
+})
 ```
 
-Or, you can clone our [Quickstart Webpack example](https://github.com/TanStack/router/tree/main/examples/react/quickstart-webpack-file-based) and get started.
-
-Now that you've added the plugin to your Webpack configuration, you're all set to start using file-based routing with TanStack Router.
-
-[//]: # 'BundlerConfiguration'
-
-## Ignoring the generated route tree file
-
-If your project is configured to use a linter and/or formatter, you may want to ignore the generated route tree file. This file is managed by TanStack Router and therefore shouldn't be changed by your linter or formatter.
-
-Here are some resources to help you ignore the generated route tree file:
-
-- Prettier - [https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore](https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore)
-- ESLint - [https://eslint.org/docs/latest/use/configure/ignore#ignoring-files](https://eslint.org/docs/latest/use/configure/ignore#ignoring-files)
-- Biome - [https://biomejs.dev/reference/configuration/#filesignore](https://biomejs.dev/reference/configuration/#filesignore)
-
-> [!WARNING]
-> If you are using VSCode, you may experience the route tree file unexpectedly open (with errors) after renaming a route.
-
-You can prevent that from the VSCode settings by marking the file as readonly. Our recommendation is to also exclude it from search results and file watcher with the following settings:
-
-```json
-{
-  "files.readonlyInclude": {
-    "**/routeTree.gen.ts": true
-  },
-  "files.watcherExclude": {
-    "**/routeTree.gen.ts": true
-  },
-  "search.exclude": {
-    "**/routeTree.gen.ts": true
-  }
-}
-```
-
-You can use those settings either at a user level or only for a single workspace by creating the file `.vscode/settings.json` at the root of your project.
-
-## Configuration
-
-When using the TanStack Router Plugin with Webpack for File-based routing, it comes with some sane defaults that should work for most projects:
-
-```json
-{
-  "routesDirectory": "./src/routes",
-  "generatedRouteTree": "./src/routeTree.gen.ts",
-  "routeFileIgnorePrefix": "-",
-  "quoteStyle": "single"
-}
-```
-
-If these defaults work for your project, you don't need to configure anything at all! However, if you need to customize the configuration, you can do so by editing the configuration object passed into the `tanstackRouter` function.
-
-You can find all the available configuration options in the [File-based Routing API Reference](../../../../api/file-based-routing.md).
-
-# Route Matching
-
-Route matching follows a consistent and predictable pattern. This guide will explain how route trees are matched.
-
-When TanStack Router processes your route tree, all of your routes are automatically sorted to match the most specific routes first. This means that regardless of the order your route tree is defined, routes will always be sorted in this order:
-
-- Index Route
-- Static Routes (most specific to least specific)
-- Dynamic Routes (longest to shortest)
-- Splat/Wildcard Routes
-
-Consider the following pseudo route tree:
-
-```
-Root
-  - blog
-    - $postId
-    - /
-    - new
-  - /
-  - *
-  - about
-  - about/us
-```
-
-After sorting, this route tree will become:
-
-```
-Root
-  - /
-  - about/us
-  - about
-  - blog
-    - /
-    - new
-    - $postId
-  - *
-```
-
-This final order represents the order in which routes will be matched based on specificity.
-
-Using that route tree, let's follow the matching process for a few different URLs:
-
-- `/blog`
-  ```
-  Root
-    ❌ /
-    ❌ about/us
-    ❌ about
-    ⏩ blog
-      ✅ /
-      - new
-      - $postId
-    - *
-  ```
-- `/blog/my-post`
-  ```
-  Root
-    ❌ /
-    ❌ about/us
-    ❌ about
-    ⏩ blog
-      ❌ /
-      ❌ new
-      ✅ $postId
-    - *
-  ```
-- `/`
-  ```
-  Root
-    ✅ /
-    - about/us
-    - about
-    - blog
-      - /
-      - new
-      - $postId
-    - *
-  ```
-- `/not-a-route`
-  ```
-  Root
-    ❌ /
-    ❌ about/us
-    ❌ about
-    ❌ blog
-      - /
-      - new
-      - $postId
-    ✅ *
-  ```
-
-# Route Trees
-
-TanStack Router uses a nested route tree to match up the URL with the correct component tree to render.
-
-To build a route tree, TanStack Router supports:
-
-- [File-Based Routing](../file-based-routing.md)
-- [Code-Based Routing](../code-based-routing.md)
-
-Both methods support the exact same core features and functionality, but **file-based routing requires less code for the same or better results**. For this reason, **file-based routing is the preferred and recommended way** to configure TanStack Router. Most of the documentation is written from the perspective of file-based routing.
-
-## Route Trees
-
-Nested routing is a powerful concept that allows you to use a URL to render a nested component tree. For example, given the URL of `/blog/posts/123`, you could create a route hierarchy that looks like this:
-
-```tsx
-├── blog
-│   ├── posts
-│   │   ├── $postId
-```
-
-And render a component tree that looks like this:
-
-```tsx
-<Blog>
-  <Posts>
-    <Post postId="123" />
-  </Posts>
-</Blog>
-```
-
-Let's take that concept and expand it out to a larger site structure, but with file-names now:
-
-```
-/routes
-├── __root.tsx
-├── index.tsx
-├── about.tsx
-├── posts/
-│   ├── index.tsx
-│   ├── $postId.tsx
-├── posts.$postId.edit.tsx
-├── settings/
-│   ├── profile.tsx
-│   ├── notifications.tsx
-├── _pathlessLayout/
-│   ├── route-a.tsx
-├── ├── route-b.tsx
-├── files/
-│   ├── $.tsx
-```
-
-The above is a valid route tree configuration that can be used with TanStack Router! There's a lot of power and convention to unpack with file-based routing, so let's break it down a bit.
-
-## Route Tree Configuration
-
-Route trees can be configured using a few different ways:
-
-- [Flat Routes](../file-based-routing.md#flat-routes)
-- [Directories](../file-based-routing.md#directory-routes)
-- [Mixed Flat Routes and Directories](../file-based-routing.md#mixed-flat-and-directory-routes)
-- [Virtual File Routes](../virtual-file-routes.md)
-- [Code-Based Routes](../code-based-routing.md)
-
-Please be sure to check out the full documentation links above for each type of route tree, or just proceed to the next section to get started with file-based routing.
-
-# Routing Concepts
-
-TanStack Router supports a number of powerful routing concepts that allow you to build complex and dynamic routing systems with ease.
-
-Each of these concepts is useful and powerful, and we'll dive into each of them in the following sections.
-
-## Anatomy of a Route
-
-All other routes, other than the [Root Route](#the-root-route), are configured using the `createFileRoute` function, which provides type safety when using file-based routing:
+#### `src/routes/index.tsx`
 
 ```tsx
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({
-  component: PostsComponent,
+  component: Index,
 })
-```
 
-The `createFileRoute` function takes a single argument, the file-route's path as a string.
-
-**❓❓❓ "Wait, you're making me pass the path of the route file to `createFileRoute`?"**
-
-Yes! But don't worry, this path is **automatically written and managed by the router for you via the TanStack Router Bundler Plugin or Router CLI.** So, as you create new routes, move routes around or rename routes, the path will be updated for you automatically.
-
-The reason for this pathname has everything to do with the magical type safety of TanStack Router. Without this pathname, TypeScript would have no idea what file we're in! (We wish TypeScript had a built-in for this, but they don't yet 🤷‍♂️)
-
-## The Root Route
-
-The root route is the top-most route in the entire tree and encapsulates all other routes as children.
-
-- It has no path
-- It is **always** matched
-- Its `component` is **always** rendered
-
-Even though it doesn't have a path, the root route has access to all of the same functionality as other routes including:
-
-- components
-- loaders
-- search param validation
-- etc.
-
-To create a root route, call the `createRootRoute()` function and export it as the `Route` variable in your route file:
-
-```tsx
-// Standard root route
-import { createRootRoute } from '@tanstack/react-router'
-
-export const Route = createRootRoute()
-
-// Root route with Context
-import { createRootRouteWithContext } from '@tanstack/react-router'
-import type { QueryClient } from '@tanstack/react-query'
-
-export interface MyRouterContext {
-  queryClient: QueryClient
+function Index() {
+  return (
+    <div className="p-2">
+      <h3>Welcome Home!</h3>
+    </div>
+  )
 }
-export const Route = createRootRouteWithContext<MyRouterContext>()
 ```
 
-To learn more about Context in TanStack Router, see the [Router Context](../../guide/router-context.md) guide.
-
-## Basic Routes
-
-Basic routes match a specific path, for example `/about`, `/settings`, `/settings/notifications` are all basic routes, as they match the path exactly.
-
-Let's take a look at an `/about` route:
+#### `src/routes/about.tsx`
 
 ```tsx
-// about.tsx
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/about')({
-  component: AboutComponent,
+  component: About,
 })
 
-function AboutComponent() {
-  return <div>About</div>
+function About() {
+  return <div className="p-2">Hello from About!</div>
 }
 ```
 
-Basic routes are simple and straightforward. They match the path exactly and render the provided component.
+#### `src/main.tsx`
 
-## Index Routes
+Regardless of whether you are using the `@tanstack/router-plugin` package and running the `npm run dev`/`npm run build` scripts, or manually running the `tsr watch`/`tsr generate` commands from your package scripts, the route tree file will be generated at `src/routeTree.gen.ts`.
 
-Index routes specifically target their parent route when it is **matched exactly and no child route is matched**.
-
-Let's take a look at an index route for a `/posts` URL:
+Import the generated route tree and create a new router instance:
 
 ```tsx
-// posts.index.tsx
+import { StrictMode } from 'react'
+import ReactDOM from 'react-dom/client'
+import { RouterProvider, createRouter } from '@tanstack/react-router'
+
+// Import the generated route tree
+import { routeTree } from './routeTree.gen'
+
+// Create a new router instance
+const router = createRouter({ routeTree })
+
+// Register the router instance for type safety
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
+}
+
+// Render the app
+const rootElement = document.getElementById('root')!
+if (!rootElement.innerHTML) {
+  const root = ReactDOM.createRoot(rootElement)
+  root.render(
+    <StrictMode>
+      <RouterProvider router={router} />
+    </StrictMode>,
+  )
+}
+```
+
+If you are working with this pattern you should change the `id` of the root `<div>` on your `index.html` file to `<div id='root'></div>`
+
+## Using Code-Based Route Configuration
+
+> [!IMPORTANT]
+> The following example shows how to configure routes using code, and for simplicity's sake is in a single file for this demo. While code-based generation allows you to declare many routes and even the router instance in a single file, we recommend splitting your routes into separate files for better organization and performance as your application grows.
+
+```tsx
+import { StrictMode } from 'react'
+import ReactDOM from 'react-dom/client'
+import {
+  Outlet,
+  RouterProvider,
+  Link,
+  createRouter,
+  createRoute,
+  createRootRoute,
+} from '@tanstack/react-router'
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
+
+const rootRoute = createRootRoute({
+  component: () => (
+    <>
+      <div className="p-2 flex gap-2">
+        <Link to="/" className="[&.active]:font-bold">
+          Home
+        </Link>{' '}
+        <Link to="/about" className="[&.active]:font-bold">
+          About
+        </Link>
+      </div>
+      <hr />
+      <Outlet />
+      <TanStackRouterDevtools />
+    </>
+  ),
+})
+
+const indexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/',
+  component: function Index() {
+    return (
+      <div className="p-2">
+        <h3>Welcome Home!</h3>
+      </div>
+    )
+  },
+})
+
+const aboutRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/about',
+  component: function About() {
+    return <div className="p-2">Hello from About!</div>
+  },
+})
+
+const routeTree = rootRoute.addChildren([indexRoute, aboutRoute])
+
+const router = createRouter({ routeTree })
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
+}
+
+const rootElement = document.getElementById('app')!
+if (!rootElement.innerHTML) {
+  const root = ReactDOM.createRoot(rootElement)
+  root.render(
+    <StrictMode>
+      <RouterProvider router={router} />
+    </StrictMode>,
+  )
+}
+```
+
+If you glossed over these examples or didn't understand something, we don't blame you, because there's so much more to learn to really take advantage of TanStack Router! Let's move on.
+
+# Devtools
+
+> Link, take this sword... I mean Devtools!... to help you on your way!
+
+Wave your hands in the air and shout hooray because TanStack Router comes with dedicated devtools! 🥳
+
+When you begin your TanStack Router journey, you'll want these devtools by your side. They help visualize all of the inner workings of TanStack Router and will likely save you hours of debugging if you find yourself in a pinch!
+
+## Installation
+
+The devtools are a separate package that you need to install:
+
+```sh
+npm install @tanstack/react-router-devtools
+```
+
+or
+
+```sh
+pnpm add @tanstack/react-router-devtools
+```
+
+or
+
+```sh
+yarn add @tanstack/react-router-devtools
+```
+
+or
+
+```sh
+bun add @tanstack/react-router-devtools
+```
+
+## Import the Devtools
+
+```js
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
+```
+
+## Using Devtools in production
+
+The Devtools, if imported as `TanStackRouterDevtools` will not be shown in production. If you want to have devtools in an environment with `process.env.NODE_ENV === 'production'`, use instead `TanStackRouterDevtoolsInProd`, which has all the same options:
+
+```tsx
+import { TanStackRouterDevtoolsInProd } from '@tanstack/react-router-devtools'
+```
+
+## Using inside of the `RouterProvider`
+
+The easiest way for the devtools to work is to render them inside of your root route (or any other route). This will automatically connect the devtools to the router instance.
+
+```tsx
+const rootRoute = createRootRoute({
+  component: () => (
+    <>
+      <Outlet />
+      <TanStackRouterDevtools />
+    </>
+  ),
+})
+
+const routeTree = rootRoute.addChildren([
+  // ... other routes
+])
+
+const router = createRouter({
+  routeTree,
+})
+
+function App() {
+  return <RouterProvider router={router} />
+}
+```
+
+## Manually passing the Router Instance
+
+If rendering the devtools inside of the `RouterProvider` isn't your cup of tea, a `router` prop for the devtools accepts the same `router` instance you pass to the `Router` component. This makes it possible to place the devtools anywhere on the page, not just inside the provider:
+
+```tsx
+function App() {
+  return (
+    <>
+      <RouterProvider router={router} />
+      <TanStackRouterDevtools router={router} />
+    </>
+  )
+}
+```
+
+## Floating Mode
+
+Floating Mode will mount the devtools as a fixed, floating element in your app and provide a toggle in the corner of the screen to show and hide the devtools. This toggle state will be stored and remembered in localStorage across reloads.
+
+Place the following code as high in your React app as you can. The closer it is to the root of the page, the better it will work!
+
+```js
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
+
+function App() {
+  return (
+    <>
+      <Router />
+      <TanStackRouterDevtools initialIsOpen={false} />
+    </>
+  )
+}
+```
+
+### Devtools Options
+
+- `router: Router`
+  - The router instance to connect to.
+- `initialIsOpen: Boolean`
+  - Set this `true` if you want the devtools to default to being open.
+- `panelProps: PropsObject`
+  - Use this to add props to the panel. For example, you can add `className`, `style` (merge and override default style), etc.
+- `closeButtonProps: PropsObject`
+  - Use this to add props to the close button. For example, you can add `className`, `style` (merge and override default style), `onClick` (extend default handler), etc.
+- `toggleButtonProps: PropsObject`
+  - Use this to add props to the toggle button. For example, you can add `className`, `style` (merge and override default style), `onClick` (extend default handler), etc.
+- `position?: "top-left" | "top-right" | "bottom-left" | "bottom-right"`
+  - Defaults to `bottom-left`.
+  - The position of the TanStack Router logo to open and close the devtools panel.
+- `shadowDOMTarget?: ShadowRoot`
+  - Specifies a Shadow DOM target for the devtools.
+  - By default, devtool styles are applied to the `<head>` tag of the main document (light DOM). When a `shadowDOMTarget` is provided, styles will be applied within this Shadow DOM instead.
+- `containerElement?: string | any`
+  - Use this to render the devtools inside a different type of container element for ally purposes.
+  - Any string which corresponds to a valid intrinsic JSX element is allowed.
+  - Defaults to 'footer'.
+
+## Fixed Mode
+
+To control the position of the devtools, import the `TanStackRouterDevtoolsPanel`:
+
+```js
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
+```
+
+It can then be attached to provided shadow DOM target:
+
+```js
+<TanStackRouterDevtoolsPanel
+  shadowDOMTarget={shadowContainer}
+  router={router}
+/>
+```
+
+Click [here](https://tanstack.com/router/latest/docs/framework/react/examples/basic-devtools-panel) to see a live example of this in StackBlitz.
+
+## Embedded Mode
+
+Embedded Mode will embed the devtools as a regular component in your application. You can style it however you'd like after that!
+
+```js
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
+
+function App() {
+  return (
+    <>
+      <Router router={router} />
+      <TanStackRouterDevtoolsPanel
+        router={router}
+        style={styles}
+        className={className}
+      />
+    </>
+  )
+}
+```
+
+### DevtoolsPanel Options
+
+- `router: Router`
+  - The router instance to connect to.
+- `style: StyleObject`
+  - The standard React style object used to style a component with inline styles.
+- `className: string`
+  - The standard React className property used to style a component with classes.
+- `isOpen?: boolean`
+  - A boolean variable indicating whether the panel is open or closed.
+- `setIsOpen?: (isOpen: boolean) => void`
+  - A function that toggles the open and close state of the panel.
+- `handleDragStart?: (e: any) => void`
+  - Handles the opening and closing the devtools panel.
+- `shadowDOMTarget?: ShadowRoot`
+  - Specifies a Shadow DOM target for the devtools.
+  - By default, devtool styles are applied to the `<head>` tag of the main document (light DOM). When a `shadowDOMTarget` is provided, styles will be applied within this Shadow DOM instead.
+
+# Migration from React Router Checklist
+
+**_If your UI is blank, open the console, and you will probably have some errors that read something along the lines of `cannot use 'useNavigate' outside of context` . This means there are React Router api’s that are still imported and referenced that you need to find and remove. The easiest way to make sure you find all React Router imports is to uninstall `react-router-dom` and then you should get typescript errors in your files. Then you will know what to change to a `@tanstack/react-router` import._**
+
+Here is the [example repo](https://github.com/Benanna2019/SickFitsForEveryone/tree/migrate-to-tanstack/router/React-Router)
+
+- [ ] Install Router - `npm i @tanstack/react-router`
+- [ ] **Optional:** Uninstall React Router to get TypeScript errors on imports.
+  - At this point I don’t know if you can do a gradual migration, but it seems likely you could have multiple router providers, not desirable.
+  - The api’s between React Router and TanStack Router are very similar and could most likely be handled in a sprint cycle or two if that is your companies way of doing things.
+- [ ] Create Routes for each existing React Router route we have
+- [ ] Create root route
+- [ ] Create router instance
+- [ ] Add global module in main.tsx
+- [ ] Remove any React Router (`createBrowserRouter` or `BrowserRouter`), `Routes`, and `Route` Components from main.tsx
+- [ ] **Optional:** Refactor `render` function for custom setup/providers - The repo referenced above has an example - This was necessary in the case of Supertokens. Supertoken has a specific setup with React Router and a different setup with all other React implementations
+- [ ] Set RouterProvider and pass it the router as the prop
+- [ ] Replace all instances of React Router `Link` component with `@tanstack/react-router` `Link` component
+  - [ ] Add `to` prop with literal path
+  - [ ] Add `params` prop, where necessary with params like so `params={{ orderId: order.id }}`
+- [ ] Replace all instances of React Router `useNavigate` hook with `@tanstack/react-router` `useNavigate` hook
+  - [ ] Set `to` property and `params` property where needed
+- [ ] Replace any React Router `Outlet`'s with the `@tanstack/react-router` equivalent
+- [ ] If you are using `useSearchParams` hook from React Router, move the search params default value to the validateSearch property on a Route definition.
+  - [ ] Instead of using the `useSearchParams` hook, use `@tanstack/react-router` `Link`'s search property to update the search params state
+  - [ ] To read search params you can do something like the following
+    - `const { page } = useSearch({ from: productPage.fullPath })`
+- [ ] If using React Router’s `useParams` hook, update the import to be from `@tanstack/react-router` and set the `from` property to the literal path name where you want to read the params object from
+  - So say we have a route with the path name `orders/$orderid`.
+  - In the `useParams` hook we would set up our hook like so: `const params = useParams({ from: "/orders/$orderId" })`
+  - Then wherever we wanted to access the order id we would get it off of the params object `params.orderId`
+
+# Migration from React Location
+
+Before you begin your journey in migrating from React Location, it's important that you have a good understanding of the [Routing Concepts](../routing/routing-concepts.md) and [Design Decisions](../decisions-on-dx.md) used by TanStack Router.
+
+## Differences between React Location and TanStack Router
+
+React Location and TanStack Router share much of same design decisions concepts, but there are some key differences that you should be aware of.
+
+- React Location uses _generics_ to infer types for routes, while TanStack Router uses _module declaration merging_ to infer types.
+- Route configuration in React Location is done using a single array of route definitions, while in TanStack Router, route configuration is done using a tree of route definitions starting with the [root route](../routing/routing-concepts.md#the-root-route).
+- [File-based routing](../routing/file-based-routing.md) is the recommended way to define routes in TanStack Router, while React Location only allows you to define routes in a single file using a code-based approach.
+  - TanStack Router does support a [code-based approach](../routing/code-based-routing.md) to defining routes, but it is not recommended for most use cases. You can read more about why, over here: [why is file-based routing the preferred way to define routes?](../decisions-on-dx.md#3-why-is-file-based-routing-the-preferred-way-to-define-routes)
+
+## Migration guide
+
+In this guide we'll go over the process of migrating the [React Location Basic example](https://github.com/TanStack/router/tree/react-location/examples/basic) over to TanStack Router using file-based routing, with the end goal of having the same functionality as the original example (styling and other non-routing related code will be omitted).
+
+> [!TIP]
+> To use a code-based approach for defining your routes, you can read the [code-based Routing](../routing/code-based-routing.md) guide.
+
+### Step 1: Swap over to TanStack Router's dependencies
+
+First, we need to install the dependencies for TanStack Router.
+
+```sh
+npm install @tanstack/react-router @tanstack/router-devtools
+```
+
+And remove the React Location dependencies.
+
+```sh
+npm uninstall @tanstack/react-location @tanstack/react-location-devtools
+```
+
+### Step 2: Use the file-based routing watcher
+
+If your project uses Vite (or one of the supported bundlers), you can use the TanStack Router plugin to watch for changes in your routes files and automatically update the routes configuration.
+
+Installation of the Vite plugin:
+
+```sh
+npm install -D @tanstack/router-plugin
+```
+
+And add it to your `vite.config.js`:
+
+```js
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { tanstackRouter } from '@tanstack/router-plugin/vite'
+
+export default defineConfig({
+  // ...
+  plugins: [tanstackRouter(), react()],
+})
+```
+
+However, if your application does not use Vite, you use one of our other [supported bundlers](../routing/file-based-routing.md#getting-started-with-file-based-routing), or you can use the `@tanstack/router-cli` package to watch for changes in your routes files and automatically update the routes configuration.
+
+### Step 3: Add the file-based configuration file to your project
+
+Create a `tsr.config.json` file in the root of your project with the following content:
+
+```json
+{
+  "routesDirectory": "./src/routes",
+  "generatedRouteTree": "./src/routeTree.gen.ts"
+}
+```
+
+You can find the full list of options for the `tsr.config.json` file [here](../../../api/file-based-routing.md).
+
+### Step 4: Create the routes directory
+
+Create a `routes` directory in the `src` directory of your project.
+
+```sh
+mkdir src/routes
+```
+
+### Step 5: Create the root route file
+
+```tsx
+// src/routes/__root.tsx
+import { createRootRoute, Outlet, Link } from '@tanstack/react-router'
+import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+
+export const Route = createRootRoute({
+  component: () => {
+    return (
+      <>
+        <div>
+          <Link to="/" activeOptions={{ exact: true }}>
+            Home
+          </Link>
+          <Link to="/posts">Posts</Link>
+        </div>
+        <hr />
+        <Outlet />
+        <TanStackRouterDevtools />
+      </>
+    )
+  },
+})
+```
+
+### Step 6: Create the index route file
+
+```tsx
+// src/routes/index.tsx
 import { createFileRoute } from '@tanstack/react-router'
 
-// Note the trailing slash, which is used to target index routes
-export const Route = createFileRoute('/posts/')({
-  component: PostsIndexComponent,
+export const Route = createFileRoute('/')({
+  component: Index,
+})
+```
+
+> You will need to move any related components and logic needed for the index route from the `src/index.tsx` file to the `src/routes/index.tsx` file.
+
+### Step 7: Create the posts route file
+
+```tsx
+// src/routes/posts.tsx
+import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
+
+export const Route = createFileRoute('/posts')({
+  component: Posts,
+  loader: async () => {
+    const posts = await fetchPosts()
+    return {
+      posts,
+    }
+  },
 })
 
-function PostsIndexComponent() {
-  return <div>Please select a post!</div>
+function Posts() {
+  const { posts } = Route.useLoaderData()
+  return (
+    <div>
+      <nav>
+        {posts.map((post) => (
+          <Link
+            key={post.id}
+            to={`/posts/$postId`}
+            params={{ postId: post.id }}
+          >
+            {post.title}
+          </Link>
+        ))}
+      </nav>
+      <Outlet />
+    </div>
+  )
 }
 ```
 
-This route will be matched when the URL is `/posts` exactly.
+> You will need to move any related components and logic needed for the posts route from the `src/index.tsx` file to the `src/routes/posts.tsx` file.
 
-## Dynamic Route Segments
-
-Route path segments that start with a `$` followed by a label are dynamic and capture that section of the URL into the `params` object for use in your application. For example, a pathname of `/posts/123` would match the `/posts/$postId` route, and the `params` object would be `{ postId: '123' }`.
-
-These params are then usable in your route's configuration and components! Let's look at a `posts.$postId.tsx` route:
+### Step 8: Create the posts index route file
 
 ```tsx
+// src/routes/posts.index.tsx
+import { createFileRoute } from '@tanstack/react-router'
+
+export const Route = createFileRoute('/posts/')({
+  component: PostsIndex,
+})
+```
+
+> You will need to move any related components and logic needed for the posts index route from the `src/index.tsx` file to the `src/routes/posts.index.tsx` file.
+
+### Step 9: Create the posts id route file
+
+```tsx
+// src/routes/posts.$postId.tsx
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/posts/$postId')({
-  // In a loader
-  loader: ({ params }) => fetchPost(params.postId),
-  // Or in a component
-  component: PostComponent,
+  component: PostsId,
+  loader: async ({ params: { postId } }) => {
+    const post = await fetchPost(postId)
+    return {
+      post,
+    }
+  },
 })
 
-function PostComponent() {
-  // In a component!
-  const { postId } = Route.useParams()
-  return <div>Post ID: {postId}</div>
+function PostsId() {
+  const { post } = Route.useLoaderData()
+  // ...
 }
 ```
 
-> 🧠 Dynamic segments work at **each** segment of the path. For example, you could have a route with the path of `/posts/$postId/$revisionId` and each `$` segment would be captured into the `params` object.
+> You will need to move any related components and logic needed for the posts id route from the `src/index.tsx` file to the `src/routes/posts.$postId.tsx` file.
 
-## Splat / Catch-All Routes
+### Step 10: Generate the route tree
 
-A route with a path of only `$` is called a "splat" route because it _always_ captures _any_ remaining section of the URL pathname from the `$` to the end. The captured pathname is then available in the `params` object under the special `_splat` property.
+If you are using one of the supported bundlers, the route tree will be generated automatically when you run the dev script.
 
-For example, a route targeting the `files/$` path is a splat route. If the URL pathname is `/files/documents/hello-world`, the `params` object would contain `documents/hello-world` under the special `_splat` property:
+If you are not using one of the supported bundlers, you can generate the route tree by running the following command:
 
-```js
-{
-  '_splat': 'documents/hello-world'
-}
+```sh
+npx tsr generate
 ```
 
-> ⚠️ In v1 of the router, splat routes are also denoted with a `*` instead of a `_splat` key for backwards compatibility. This will be removed in v2.
+### Step 11: Update the main entry file to render the Router
 
-> 🧠 Why use `$`? Thanks to tools like Remix, we know that despite `*`s being the most common character to represent a wildcard, they do not play nice with filenames or CLI tools, so just like them, we decided to use `$` instead.
-
-## Optional Path Parameters
-
-Optional path parameters allow you to define route segments that may or may not be present in the URL. They use the `{-$paramName}` syntax and provide flexible routing patterns where certain parameters are optional.
+Once you've generated the route-tree, you can then update the `src/index.tsx` file to create the router instance and render it.
 
 ```tsx
-// posts.{-$category}.tsx - Optional category parameter
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/posts/{-$category}')({
-  component: PostsComponent,
-})
-
-function PostsComponent() {
-  const { category } = Route.useParams()
-
-  return <div>{category ? `Posts in ${category}` : 'All Posts'}</div>
-}
-```
-
-This route will match both `/posts` (category is `undefined`) and `/posts/tech` (category is `"tech"`).
-
-You can also define multiple optional parameters in a single route:
-
-```tsx
-// posts.{-$category}.{-$slug}.tsx
-export const Route = createFileRoute('/posts/{-$category}/{-$slug}')({
-  component: PostsComponent,
-})
-```
-
-This route matches `/posts`, `/posts/tech`, and `/posts/tech/hello-world`.
-
-> 🧠 Routes with optional parameters are ranked lower in priority than exact matches, ensuring that more specific routes like `/posts/featured` are matched before `/posts/{-$category}`.
-
-## Layout Routes
-
-Layout routes are used to wrap child routes with additional components and logic. They are useful for:
-
-- Wrapping child routes with a layout component
-- Enforcing a `loader` requirement before displaying any child routes
-- Validating and providing search params to child routes
-- Providing fallbacks for error components or pending elements to child routes
-- Providing shared context to all child routes
-- And more!
-
-Let's take a look at an example layout route called `app.tsx`:
-
-```
-routes/
-├── app.tsx
-├── app.dashboard.tsx
-├── app.settings.tsx
-```
-
-In the tree above, `app.tsx` is a layout route that wraps two child routes, `app.dashboard.tsx` and `app.settings.tsx`.
-
-This tree structure is used to wrap the child routes with a layout component:
-
-```tsx
-import { Outlet, createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/app')({
-  component: AppLayoutComponent,
-})
-
-function AppLayoutComponent() {
-  return (
-    <div>
-      <h1>App Layout</h1>
-      <Outlet />
-    </div>
-  )
-}
-```
-
-The following table shows which component(s) will be rendered based on the URL:
-
-| URL Path         | Component                |
-| ---------------- | ------------------------ |
-| `/app`           | `<AppLayout>`            |
-| `/app/dashboard` | `<AppLayout><Dashboard>` |
-| `/app/settings`  | `<AppLayout><Settings>`  |
-
-Since TanStack Router supports mixed flat and directory routes, you can also express your application's routing using layout routes within directories:
-
-```
-routes/
-├── app/
-│   ├── route.tsx
-│   ├── dashboard.tsx
-│   ├── settings.tsx
-```
-
-In this nested tree, the `app/route.tsx` file is a configuration for the layout route that wraps two child routes, `app/dashboard.tsx` and `app/settings.tsx`.
-
-Layout Routes also let you enforce component and loader logic for Dynamic Route Segments:
-
-```
-routes/
-├── app/users/
-│   ├── $userId/
-|   |   ├── route.tsx
-|   |   ├── index.tsx
-|   |   ├── edit.tsx
-```
-
-## Pathless Layout Routes
-
-Like [Layout Routes](#layout-routes), Pathless Layout Routes are used to wrap child routes with additional components and logic. However, pathless layout routes do not require a matching `path` in the URL and are used to wrap child routes with additional components and logic without requiring a matching `path` in the URL.
-
-Pathless Layout Routes are prefixed with an underscore (`_`) to denote that they are "pathless".
-
-> 🧠 The part of the path after the `_` prefix is used as the route's ID and is required because every route must be uniquely identifiable, especially when using TypeScript so as to avoid type errors and accomplish autocomplete effectively.
-
-Let's take a look at an example route called `_pathlessLayout.tsx`:
-
-```
-
-routes/
-├── _pathlessLayout.tsx
-├── _pathlessLayout.a.tsx
-├── _pathlessLayout.b.tsx
-
-```
-
-In the tree above, `_pathlessLayout.tsx` is a pathless layout route that wraps two child routes, `_pathlessLayout.a.tsx` and `_pathlessLayout.b.tsx`.
-
-The `_pathlessLayout.tsx` route is used to wrap the child routes with a Pathless layout component:
-
-```tsx
-import { Outlet, createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/_pathlessLayout')({
-  component: PathlessLayoutComponent,
-})
-
-function PathlessLayoutComponent() {
-  return (
-    <div>
-      <h1>Pathless layout</h1>
-      <Outlet />
-    </div>
-  )
-}
-```
-
-The following table shows which component will be rendered based on the URL:
-
-| URL Path | Component             |
-| -------- | --------------------- |
-| `/`      | `<Index>`             |
-| `/a`     | `<PathlessLayout><A>` |
-| `/b`     | `<PathlessLayout><B>` |
-
-Since TanStack Router supports mixed flat and directory routes, you can also express your application's routing using pathless layout routes within directories:
-
-```
-routes/
-├── _pathlessLayout/
-│   ├── route.tsx
-│   ├── a.tsx
-│   ├── b.tsx
-```
-
-However, unlike Layout Routes, since Pathless Layout Routes do match based on URL path segments, this means that these routes do not support [Dynamic Route Segments](#dynamic-route-segments) as part of their path and therefore cannot be matched in the URL.
-
-This means that you cannot do this:
-
-```
-routes/
-├── _$postId/ ❌
-│   ├── ...
-```
-
-Rather, you'd have to do this:
-
-```
-routes/
-├── $postId/
-├── _postPathlessLayout/ ✅
-│   ├── ...
-```
-
-## Non-Nested Routes
-
-Non-nested routes can be created by suffixing a parent file route segment with a `_` and are used to **un-nest** a route from its parents and render its own component tree.
-
-Consider the following flat route tree:
-
-```
-routes/
-├── posts.tsx
-├── posts.$postId.tsx
-├── posts_.$postId.edit.tsx
-```
-
-The following table shows which component will be rendered based on the URL:
-
-| URL Path          | Component                    |
-| ----------------- | ---------------------------- |
-| `/posts`          | `<Posts>`                    |
-| `/posts/123`      | `<Posts><Post postId="123">` |
-| `/posts/123/edit` | `<PostEditor postId="123">`  |
-
-- The `posts.$postId.tsx` route is nested as normal under the `posts.tsx` route and will render `<Posts><Post>`.
-- The `posts_.$postId.edit.tsx` route **does not share** the same `posts` prefix as the other routes and therefore will be treated as if it is a top-level route and will render `<PostEditor>`.
-
-## Excluding Files and Folders from Routes
-
-Files and folders can be excluded from route generation with a `-` prefix attached to the file name. This gives you the ability to colocate logic in the route directories.
-
-Consider the following route tree:
-
-```
-routes/
-├── posts.tsx
-├── -posts-table.tsx // 👈🏼 ignored
-├── -components/ // 👈🏼 ignored
-│   ├── header.tsx // 👈🏼 ignored
-│   ├── footer.tsx // 👈🏼 ignored
-│   ├── ...
-```
-
-We can import from the excluded files into our posts route
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { PostsTable } from './-posts-table'
-import { PostsHeader } from './-components/header'
-import { PostsFooter } from './-components/footer'
-
-export const Route = createFileRoute('/posts')({
-  loader: () => fetchPosts(),
-  component: PostComponent,
-})
-
-function PostComponent() {
-  const posts = Route.useLoaderData()
-
-  return (
-    <div>
-      <PostsHeader />
-      <PostsTable posts={posts} />
-      <PostsFooter />
-    </div>
-  )
-}
-```
-
-The excluded files will not be added to `routeTree.gen.ts`.
-
-## Pathless Route Group Directories
-
-Pathless route group directories use `()` as a way to group routes files together regardless of their path. They are purely organizational and do not affect the route tree or component tree in any way.
-
-```
-routes/
-├── index.tsx
-├── (app)/
-│   ├── dashboard.tsx
-│   ├── settings.tsx
-│   ├── users.tsx
-├── (auth)/
-│   ├── login.tsx
-│   ├── register.tsx
-```
-
-In the example above, the `app` and `auth` directories are purely organizational and do not affect the route tree or component tree in any way. They are used to group related routes together for easier navigation and organization.
-
-The following table shows which component will be rendered based on the URL:
-
-| URL Path     | Component     |
-| ------------ | ------------- |
-| `/`          | `<Index>`     |
-| `/dashboard` | `<Dashboard>` |
-| `/settings`  | `<Settings>`  |
-| `/users`     | `<Users>`     |
-| `/login`     | `<Login>`     |
-| `/register`  | `<Register>`  |
-
-As you can see, the `app` and `auth` directories are purely organizational and do not affect the route tree or component tree in any way.
-
-# Virtual File Routes
-
-> We'd like to thank the Remix team for [pioneering the concept of virtual file routes](https://www.youtube.com/watch?v=fjTX8hQTlEc&t=730s). We've taken inspiration from their work and adapted it to work with TanStack Router's existing file-based route-tree generation.
-
-Virtual file routes are a powerful concept that allows you to build a route tree programmatically using code that references real files in your project. This can be useful if:
-
-- You have an existing route organization that you want to keep.
-- You want to customize the location of your route files.
-- You want to completely override TanStack Router's file-based route generation and build your own convention.
-
-Here's a quick example of using virtual file routes to map a route tree to a set of real files in your project:
-
-```tsx
-// routes.ts
-import {
-  rootRoute,
-  route,
-  index,
-  layout,
-  physical,
-} from '@tanstack/virtual-file-routes'
-
-export const routes = rootRoute('root.tsx', [
-  index('index.tsx'),
-  layout('pathlessLayout.tsx', [
-    route('/dashboard', 'app/dashboard.tsx', [
-      index('app/dashboard-index.tsx'),
-      route('/invoices', 'app/dashboard-invoices.tsx', [
-        index('app/invoices-index.tsx'),
-        route('$id', 'app/invoice-detail.tsx'),
-      ]),
-    ]),
-    physical('/posts', 'posts'),
-  ]),
-])
-```
-
-## Configuration
-
-Virtual file routes can be configured either via:
-
-- The `TanStackRouter` plugin for Vite/Rspack/Webpack
-- The `tsr.config.json` file for the TanStack Router CLI
-
-## Configuration via the TanStackRouter Plugin
-
-If you're using the `TanStackRouter` plugin for Vite/Rspack/Webpack, you can configure virtual file routes by passing the path of your routes file to the `virtualRoutesConfig` option when setting up the plugin:
-
-```tsx
-// vite.config.ts
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { tanstackRouter } from '@tanstack/router-plugin/vite'
-
-export default defineConfig({
-  plugins: [
-    tanstackRouter({
-      target: 'react',
-      virtualRouteConfig: './routes.ts',
-    }),
-    react(),
-  ],
-})
-```
-
-Or, you choose to define the virtual routes directly in the configuration:
-
-```tsx
-// vite.config.ts
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { tanstackRouter } from '@tanstack/router-plugin/vite'
-import { rootRoute } from '@tanstack/virtual-file-routes'
-
-const routes = rootRoute('root.tsx', [
-  // ... the rest of your virtual route tree
-])
-
-export default defineConfig({
-  plugins: [tanstackRouter({ virtualRouteConfig: routes }), react()],
-})
-```
-
-## Creating Virtual File Routes
-
-To create virtual file routes, you'll need to import the `@tanstack/virtual-file-routes` package. This package provides a set of functions that allow you to create virtual routes that reference real files in your project. A few utility functions are exported from the package:
-
-- `rootRoute` - Creates a virtual root route.
-- `route` - Creates a virtual route.
-- `index` - Creates a virtual index route.
-- `layout` - Creates a virtual pathless layout route.
-- `physical` - Creates a physical virtual route (more on this later).
-
-## Virtual Root Route
-
-The `rootRoute` function is used to create a virtual root route. It takes a file name and an array of children routes. Here's an example of a virtual root route:
-
-```tsx
-// routes.ts
-import { rootRoute } from '@tanstack/virtual-file-routes'
-
-export const routes = rootRoute('root.tsx', [
-  // ... children routes
-])
-```
-
-## Virtual Route
-
-The `route` function is used to create a virtual route. It takes a path, a file name, and an array of children routes. Here's an example of a virtual route:
-
-```tsx
-// routes.ts
-import { route } from '@tanstack/virtual-file-routes'
-
-export const routes = rootRoute('root.tsx', [
-  route('/about', 'about.tsx', [
-    // ... children routes
-  ]),
-])
-```
-
-You can also define a virtual route without a file name. This allows to set a common path prefix for its children:
-
-```tsx
-// routes.ts
-import { route } from '@tanstack/virtual-file-routes'
-
-export const routes = rootRoute('root.tsx', [
-  route('/hello', [
-    route('/world', 'world.tsx'), // full path will be "/hello/world"
-    route('/universe', 'universe.tsx'), // full path will be "/hello/universe"
-  ]),
-])
-```
-
-## Virtual Index Route
-
-The `index` function is used to create a virtual index route. It takes a file name. Here's an example of a virtual index route:
-
-```tsx
-import { index } from '@tanstack/virtual-file-routes'
-
-const routes = rootRoute('root.tsx', [index('index.tsx')])
-```
-
-## Virtual Pathless Route
-
-The `layout` function is used to create a virtual pathless route. It takes a file name, an array of children routes, and an optional pathless ID. Here's an example of a virtual pathless route:
-
-```tsx
-// routes.ts
-import { layout } from '@tanstack/virtual-file-routes'
-
-export const routes = rootRoute('root.tsx', [
-  layout('pathlessLayout.tsx', [
-    // ... children routes
-  ]),
-])
-```
-
-You can also specify a pathless ID to give the route a unique identifier that is different from the filename:
-
-```tsx
-// routes.ts
-import { layout } from '@tanstack/virtual-file-routes'
-
-export const routes = rootRoute('root.tsx', [
-  layout('my-pathless-layout-id', 'pathlessLayout.tsx', [
-    // ... children routes
-  ]),
-])
-```
-
-## Physical Virtual Routes
-
-Physical virtual routes are a way to "mount" a directory of good ol' TanStack Router File Based routing convention under a specific URL path. This can be useful if you are using virtual routes to customize a small portion of your route tree high up in the hierarchy, but want to use the standard file-based routing convention for sub-routes and directories.
-
-Consider the following file structure:
-
-```
-/routes
-├── root.tsx
-├── index.tsx
-├── pathlessLayout.tsx
-├── app
-│   ├── dashboard.tsx
-│   ├── dashboard-index.tsx
-│   ├── dashboard-invoices.tsx
-│   ├── invoices-index.tsx
-│   ├── invoice-detail.tsx
-└── posts
-    ├── index.tsx
-    ├── $postId.tsx
-    ├── $postId.edit.tsx
-    ├── comments/
-    │   ├── index.tsx
-    │   ├── $commentId.tsx
-    └── likes/
-        ├── index.tsx
-        ├── $likeId.tsx
-```
-
-Let's use virtual routes to customize our route tree for everything but `posts`, then use physical virtual routes to mount the `posts` directory under the `/posts` path:
-
-```tsx
-// routes.ts
-export const routes = rootRoute('root.tsx', [
-  // Set up your virtual routes as normal
-  index('index.tsx'),
-  layout('pathlessLayout.tsx', [
-    route('/dashboard', 'app/dashboard.tsx', [
-      index('app/dashboard-index.tsx'),
-      route('/invoices', 'app/dashboard-invoices.tsx', [
-        index('app/invoices-index.tsx'),
-        route('$id', 'app/invoice-detail.tsx'),
-      ]),
-    ]),
-    // Mount the `posts` directory under the `/posts` path
-    physical('/posts', 'posts'),
-  ]),
-])
-```
-
-## Virtual Routes inside of TanStack Router File Based routing
-
-The previous section showed you how you can use TanStack Router's File Based routing convention inside of a virtual route configuration.
-However, the opposite is possible as well.  
-You can configure the main part of your app's route tree using TanStack Router's File Based routing convention and opt into virtual route configuration for specific subtrees.
-
-Consider the following file structure:
-
-```
-/routes
-├── __root.tsx
-├── foo
-│   ├── bar
-│   │   ├── __virtual.ts
-│   │   ├── details.tsx
-│   │   ├── home.tsx
-│   │   └── route.ts
-│   └── bar.tsx
-└── index.tsx
-```
-
-Let's look at the `bar` directory which contains a special file named `__virtual.ts`. This file instructs the generator to switch over to virtual file route configuration for this directory (and its child directories).
-
-`__virtual.ts` configures the virtual routes for that particular subtree of the route tree. It uses the same API as explained above, with the only difference being that no `rootRoute` is defined for that subtree:
-
-```tsx
-// routes/foo/bar/__virtual.ts
-import {
-  defineVirtualSubtreeConfig,
-  index,
-  route,
-} from '@tanstack/virtual-file-routes'
-
-export default defineVirtualSubtreeConfig([
-  index('home.tsx'),
-  route('$id', 'details.tsx'),
-])
-```
-
-The helper function `defineVirtualSubtreeConfig` is closely modeled after vite's `defineConfig` and allows you to define a subtree configuration via a default export. The default export can either be
-
-- a subtree config object
-- a function returning a subtree config object
-- an async function returning a subtree config object
-
-## Inception
-
-You can mix and match TanStack Router's File Based routing convention and virtual route configuration however you like.  
-Let's go deeper!  
-Check out the following example that starts off using File Based routing convention, switches over to virtual route configuration for `/posts`, switches back to File Based routing convention for `/posts/lets-go` only to switch over to virtual route configuration again for `/posts/lets-go/deeper`.
-
-```
-├── __root.tsx
-├── index.tsx
-├── posts
-│   ├── __virtual.ts
-│   ├── details.tsx
-│   ├── home.tsx
-│   └── lets-go
-│       ├── deeper
-│       │   ├── __virtual.ts
-│       │   └── home.tsx
-│       └── index.tsx
-└── posts.tsx
-```
-
-## Configuration via the TanStack Router CLI
-
-If you're using the TanStack Router CLI, you can configure virtual file routes by defining the path to your routes file in the `tsr.config.json` file:
-
-```json
-// tsr.config.json
-{
-  "virtualRouteConfig": "./routes.ts"
-}
-```
-
-Or you can define the virtual routes directly in the configuration, while much less common allows you to configure them via the TanStack Router CLI by adding a `virtualRouteConfig` object to your `tsr.config.json` file and defining your virtual routes and passing the resulting JSON that is generated by calling the actual `rootRoute`/`route`/`index`/etc functions from the `@tanstack/virtual-file-routes` package:
-
-```json
-// tsr.config.json
-{
-  "virtualRouteConfig": {
-    "type": "root",
-    "file": "root.tsx",
-    "children": [
-      {
-        "type": "index",
-        "file": "home.tsx"
-      },
-      {
-        "type": "route",
-        "file": "posts/posts.tsx",
-        "path": "/posts",
-        "children": [
-          {
-            "type": "index",
-            "file": "posts/posts-home.tsx"
-          },
-          {
-            "type": "route",
-            "file": "posts/posts-detail.tsx",
-            "path": "$postId"
-          }
-        ]
-      },
-      {
-        "type": "layout",
-        "id": "first",
-        "file": "layout/first-pathless-layout.tsx",
-        "children": [
-          {
-            "type": "layout",
-            "id": "second",
-            "file": "layout/second-pathless-layout.tsx",
-            "children": [
-              {
-                "type": "route",
-                "file": "a.tsx",
-                "path": "/route-a"
-              },
-              {
-                "type": "route",
-                "file": "b.tsx",
-                "path": "/route-b"
-              }
-            ]
-          }
-        ]
-      }
-    ]
+// src/index.tsx
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { createRouter, RouterProvider } from '@tanstack/react-router'
+
+// Import the generated route tree
+import { routeTree } from './routeTree.gen'
+
+// Create a new router instance
+const router = createRouter({ routeTree })
+
+// Register the router instance for type safety
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
   }
 }
+
+const domElementId = 'root' // Assuming you have a root element with the id 'root'
+
+// Render the app
+const rootElement = document.getElementById(domElementId)
+if (!rootElement) {
+  throw new Error(`Element with id ${domElementId} not found`)
+}
+
+ReactDOM.createRoot(rootElement).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>,
+)
 ```
+
+### Finished!
+
+You should now have successfully migrated your application from React Location to TanStack Router using file-based routing.
+
+React Location also has a few more features that you might be using in your application. Here are some guides to help you migrate those features:
+
+- [Search params](../guide/search-params.md)
+- [Data loading](../guide/data-loading.md)
+- [History types](../guide/history-types.md)
+- [Wildcard / Splat / Catch-all routes](../routing/routing-concepts.md#splat--catch-all-routes)
+- [Authenticated routes](../guide/authenticated-routes.md)
+
+TanStack Router also has a few more features that you might want to explore:
+
+- [Router Context](../guide/router-context.md)
+- [Preloading](../guide/preloading.md)
+- [Pathless Layout Routes](../routing/routing-concepts.md#pathless-layout-routes)
+- [Route masking](../guide/route-masking.md)
+- [SSR](../guide/ssr.md)
+- ... and more!
+
+If you are facing any issues or have any questions, feel free to ask for help in the TanStack Discord.
+
+# Frequently Asked Questions
+
+Welcome to the TanStack Router FAQ! Here you'll find answers to common questions about the TanStack Router. If you have a question that isn't answered here, please feel free to ask in the [TanStack Discord](https://tlinz.com/discord).
+
+## Should I commit my `routeTree.gen.ts` file into git?
+
+Yes! Although the route tree file (i.e. `routeTree.gen.ts`) is generated by the TanStack Router, it is essentially towards the runtime of your application. It is not a build artifact. The route tree file is a critical part of your application's source code, and it is used by the TanStack Router to build your application's routes at runtime.
+
+You should commit this file into git so that other developers can use it to build your application.
+
+## Can I conditionally render the Root Route component?
+
+No, the root route is always rendered as it is the entry point of your application.
+
+If you need to conditionally render a route's component, this usually means that the page content needs to be different based on some condition (e.g. user authentication). For this use case, you should use a [Layout Route](../routing/routing-concepts.md#layout-routes) or a [Pathless Layout Route](../routing/routing-concepts.md#pathless-layout-routes) to conditionally render the content.
+
+You can restrict access to these routes using a conditional check in the `beforeLoad` function of the route.
+
+<details>
+<summary>What does this look like?</summary>
+
+```tsx
+// src/routes/_pathless-layout.tsx
+import { createFileRoute, Outlet } from '@tanstack/react-router'
+import { isAuthenticated } from '../utils/auth'
+
+export const Route = createFileRoute('/_pathless-layout', {
+  beforeLoad: async () => {
+    // Check if the user is authenticated
+    const authed = await isAuthenticated()
+    if (!authed) {
+      // Redirect the user to the login page
+      return '/login'
+    }
+  },
+  component: PathlessLayoutRouteComponent,
+  // ...
+})
+
+function PathlessLayoutRouteComponent() {
+  return (
+    <div>
+      <h1>You are authed</h1>
+      <Outlet />
+    </div>
+  )
+}
+```
+
+</details>
 
 ---
 > Source: [thanhdaon/tickpath](https://github.com/thanhdaon/tickpath) — distributed by [TomeVault](https://tomevault.io).
