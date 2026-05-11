@@ -1,0 +1,9 @@
+{
+  "name": "yaleh--meta-cc",
+  "displayName": "meta-cc",
+  "description": "Meta-Cognition tool for Claude Code - analyze session history for workflow optimization.",
+  "version": "1.0.0",
+  "author": "yaleh",
+  "homepage": "https://github.com/yaleh/meta-cc",
+  "skills": []
+}
