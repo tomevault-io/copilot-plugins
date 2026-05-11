@@ -1,12 +1,19 @@
-## s4
+## testing
 
-> `s4` is a CLI tool helps AI coding agents by providing just enough context of the task at hands and specific instructions on what to do next.
+> When writing tests, always follow these best practices:
 
-`s4` is a CLI tool helps AI coding agents by providing just enough context of the task at hands and specific instructions on what to do next.
+When writing tests, always follow these best practices:
 
-Here's interesting thing: The project uses s4 itself to developing s4 further. @s4.yaml is S4 documentation about S4 project itself. All the information you need to know about this project is in that file.
-
-Always run `s4 status` to get the status of the project and the next action to take. This tool will give you the full context you need to know. Before stating you've completed the task, run `s4 status` again to make sure you've completed all the steps.
+- Use 'vitest' as the test framework.
+- You don't need to import 'vitest' in your tests because it's already imported in the test runner.
+- Tests should be read as specifications or examples rather than implementation details.
+- Quality of tests should be the same as the code they test. Remove duplication and make tests as simple as possible.
+- Avoid mock whenever possible. It is a sign of a bad design. Try to refactor the code to make it easier to test.
+- When writing example data for tests, use the simplest possible data that still covers the test case to keep clarity.
+- Use `describe()` to group tests into logical units, while don't make too many `describe()` needlessly.
+- Never nest `describe()` into other `describe()` blocks.
+- Never wrap single test in `describe()` block.
+- When writing acceptance tests, do not use `describe()` since you just write a single test per file.
 
 ---
 > Source: [akngs/s4](https://github.com/akngs/s4) — distributed by [TomeVault](https://tomevault.io).
