@@ -1,0 +1,9 @@
+{
+  "name": "zj1123581321--youtube-download-api",
+  "displayName": "youtube_download_api",
+  "description": "\u57fa\u4e8e ytdlp \u548c tikhub\uff0c\u5bf9\u5916\u66b4\u9732 api \uff0c\u8f93\u5165 url \uff0c\u670d\u52a1\u5668\u5b8c\u6210\u97f3\u9891\u4e0b\u8f7d+transcript \u4e0b\u8f7d\u3002\u914d\u7f6e\u4e86 tls \u6307\u7eb9+ potoken \u8ba4\u8bc1+cookie \u6587\u4ef6\u3002\u652f\u6301\u4f01\u5fae\u901a\u77e5+\u4efb\u52a1\u7ed3\u675f\u7684\u56de\u8c03\u3002",
+  "version": "1.0.0",
+  "author": "zj1123581321",
+  "homepage": "https://github.com/zj1123581321/youtube_download_api",
+  "skills": []
+}
