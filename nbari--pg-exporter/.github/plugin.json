@@ -1,0 +1,9 @@
+{
+  "name": "nbari--pg-exporter",
+  "displayName": "pg_exporter",
+  "description": "A PostgreSQL metric exporter for Prometheus written in Rust",
+  "version": "1.0.0",
+  "author": "nbari",
+  "homepage": "https://github.com/nbari/pg_exporter",
+  "skills": []
+}
