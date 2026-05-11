@@ -1,0 +1,44 @@
+{
+  "name": "openzro",
+  "owner": "openzro",
+  "repo": "openzro",
+  "description": "Self-hosted zero-trust mesh networking on WireGuard. BSD-3 fork of NetBird @ v0.52.2 with HA, peer admission gate, MDM/EDR posture, and audit-grade flow exports.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/openzro/openzro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T09:52:33Z"
+}
