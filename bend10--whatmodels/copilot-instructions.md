@@ -1,35 +1,44 @@
-## deploy
+## project-overview
 
-> How to deploy changes live to whatmodelscanirun.com
+> Project architecture and conventions for whatmodelscanirun.com
 
 
-# Deploying Changes
+# Project Overview
 
-This site is deployed automatically via GitHub Pages. Pushing to `main` triggers a build and deploy.
+Static SvelteKit 2 (Svelte 5) site that helps users find which AI models their GPU can run. Deployed to GitHub Pages at whatmodelscanirun.com.
 
-## Steps
+## Tech Stack
 
-1. **Make your changes** in the working tree.
-2. **Test locally** by running `npm run build` to ensure the static build succeeds. You can preview with `npm run preview`.
-3. **Commit** to the `main` branch with a descriptive message in imperative mood (e.g. "Add favicon", "Fix layout on mobile").
-4. **Push** to `origin/main`:
-   ```
-   git push origin main
-   ```
-5. **Verify deployment** — the GitHub Actions workflow (`.github/workflows/deploy.yml`) runs automatically:
-   - Checks out the repo
-   - Installs dependencies with `npm ci`
-   - Builds with `npm run build` (using `BASE_PATH` from GitHub Pages config)
-   - Uploads and deploys the `build/` directory to GitHub Pages
-6. **Check the result** at https://whatmodelscanirun.com
+- **SvelteKit 2** with `@sveltejs/adapter-static` — builds to `build/`
+- **Svelte 5 runes** — `$state`, `$derived`, `$bindable`, `$props()` (no stores, no legacy syntax)
+- **JavaScript only** — no TypeScript
+- **Plain CSS** — CSS variables in `app.css`, scoped `<style>` blocks in components, no CSS framework
+- **Vitest** — unit tests for pure calculation functions
+- **PostHog** — lightweight analytics via `$lib/analytics.js`
 
-## Key Details
+## Key Architecture Decisions
 
-- **Adapter**: `@sveltejs/adapter-static` — outputs to `build/`.
-- **Static assets**: Place files in `static/` (e.g. `favicon.svg`, `CNAME`, images). They are copied as-is to the build output.
-- **CNAME**: `static/CNAME` maps the custom domain `whatmodelscanirun.com`.
-- **Base path**: Handled automatically by the deploy workflow via `BASE_PATH` env var. Use `{base}` prefix from `$app/paths` when referencing static assets in Svelte components.
-- **No PR required**: This project deploys directly from `main`. Commit and push.
+- **No runtime data fetching** — GPU and model data are static JSON imported at build time
+- **All calculation logic lives in `$lib/calculations.js`** — pure functions, no side effects, independently testable
+- **URL state** — query params (`?gpu=rtx-4090&ctx=32&speed=50`) synced via `replaceState` for sharing/bookmarking
+- **Single page** — one route (`+page.svelte`) wires `GpuInput` and `ModelResults` components
+- **Dark theme only** — design tokens defined as CSS variables in `:root`
+
+## Data Flow
+
+```
+GpuInput (user selects GPU or enters VRAM)
+  → binds vram, bandwidth, minContextK, minTokPerSec to +page.svelte
+  → passed as props to ModelResults
+  → bucketModels() calculates fits / tight / noFit
+```
+
+## Commands
+
+- `npm run dev` — dev server on port 5173
+- `npm run build` — production build to `build/`
+- `npm test` — run Vitest tests
+- `npm run test:watch` — Vitest in watch mode
 
 ---
 > Source: [BenD10/whatmodels](https://github.com/BenD10/whatmodels) — distributed by [TomeVault](https://tomevault.io).
