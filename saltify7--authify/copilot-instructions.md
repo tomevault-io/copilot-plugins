@@ -1,27 +1,54 @@
-## linter
+## style
 
-> Linter Guidelines
+> - Prefer to use PrimeVue compontents where possible
 
+## UI Style Guidelines
 
-# Linter
+### PrimeVue
 
-We have a built-in ESLint linter configured at the root folder. After making any significant change, always run the linter with `pnpm lint` and fix all potential issues.
+- Prefer to use PrimeVue compontents where possible
+- A custom PrimeVue theme is configured with dark mode as default, handling most color-related styles for us.
 
-## Most common mistakes that lead to linter errors
+### General Theme
 
-### Lint Rule: Unexpected nullable string value in conditional. Please handle nullish or empty cases explicitly
+- Dark Mode is default — all UI elements follow a dark, low-contrast background with light text for high readability.
+- For text / background colors, prefer to use `...-surface-...` f.e. `border-surface-700`.
+- Caido uses `bg-surface-800` as the main app background, `bg-surface-700` is the background used for `Card` component.
+- Follow minimalistic color palette. AVOID using too much colors where possible.
 
-To prevent this, when comparing strings, instead of writing:
+### Layout & Components
+
+- Often use PrimeVue `Splitter` and `SplitterPanel` for vertical or horizontal layout.
+- Prefer to use `Card` PrimeVue components a lot, if needed add `h-full` to them via `pt` params.
+
+Example:
 
 ```
-if (!str) {}
+<Card
+  class="h-full"
+  :pt="{
+    body: { class: 'h-full p-0' },
+    content: { class: 'h-full flex flex-col' },
+  }"
+>
 ```
 
-do this:
+### Enviroment
 
-```
-if (str !== undefined) {}
-```
+- Keep in mind that we are building a plugin that's inside a Caido web app, we can modify frontend by adding sidebar pages using Caido Frontend SDK.
+- Our plugin content is rendered within a dedicated window/panel that Caido provides for our sidebar page.
+- The plugin UI should integrate seamlessly with Caido's existing interface and theming.
+
+### Data Representation
+
+- Prefer `DataTable` component for displaying structured data:
+  * Caido often uses `stripedRows`, use it where possible
+  * Actions column at the end (e.g. “Install” buttons).
+- Empty states use friendly, minimal messages with icons.
+
+### Icons
+
+- Always use `fas fa-[...]` for icons. We don't support any other icon libraries.
 
 ---
 > Source: [saltify7/Authify](https://github.com/saltify7/Authify) — distributed by [TomeVault](https://tomevault.io).
