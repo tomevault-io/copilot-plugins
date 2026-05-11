@@ -1,0 +1,9 @@
+{
+  "name": "nakasyou--hono-typedstream",
+  "displayName": "hono-typedstream",
+  "description": "Typed streaming for Hono",
+  "version": "1.0.0",
+  "author": "nakasyou",
+  "homepage": "https://github.com/nakasyou/hono-typedstream",
+  "skills": []
+}
