@@ -1,0 +1,9 @@
+{
+  "name": "signalpilot-labs--autofyn",
+  "displayName": "AutoFyn",
+  "description": "Run Claude in self-improving loops to optimize measurable goals.",
+  "version": "1.0.0",
+  "author": "SignalPilot-Labs",
+  "homepage": "https://github.com/SignalPilot-Labs/AutoFyn",
+  "skills": []
+}
