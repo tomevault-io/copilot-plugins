@@ -1,0 +1,245 @@
+## architecture-catalog
+
+> A lightweight, Git-native architecture catalog. It replaces monolithic tools like Archi with a simple repo structure: architecture elements are registered as Markdown files, diagrams are draw.io files, and Python scripts validate, extract, refresh, and generate dashboards.
+
+# CLAUDE.md
+
+## What is this project?
+
+A lightweight, Git-native architecture catalog. It replaces monolithic tools like Archi with a simple repo structure: architecture elements are registered as Markdown files, diagrams are draw.io files, and Python scripts validate, extract, refresh, and generate dashboards.
+
+The goal is to be an open-source, lightweight alternative for architects who want Git-friendly, AI-readable architecture models without learning a DSL or paying for enterprise tooling.
+
+## Architecture (how it works)
+
+```
+registry-mapping.yaml  ──→  registry-loader.ts  ──→  Astro pages
+  (schema: types,             (reads .md files,        (static HTML
+   fields, relationships)      resolves refs,           at build time)
+                               builds graph)
+```
+
+**Single source of truth:** `models/registry-mapping.yaml` drives everything — the UI, validation, and data loading. Adding a new element type = add one entry to this YAML file + create a `_template.md`. Zero code changes.
+
+**Data pipeline:** registry-mapping.yaml → `registry-loader.ts` (loadRegistry()) → `registry.ts` (bridge) → Astro pages. The loader builds an in-memory graph with elements, edges, and indexes (byType, byDomain, byLayer).
+
+**Key design:** Framework-agnostic. ArchiMate alignment is optional, not required. Works with any architecture vocabulary. Layers are flat (1 to N), each with sub-folders for element types. No nested child layers.
+
+## Current State
+
+### Registry (registry-v2/)
+- **4-layer structure** — flat layers, each with typed sub-folders
+- **Template-driven** — each element type has a `_template.md` with typed YAML frontmatter
+- **Example domains**: "Customer Management", "Billing & Payments", "Analytics & Insights" — 3 fictional B2B SaaS CRM domains with 71 elements across all 4 layers
+- **Health:** 71 healthy, 71 connected, 0 orphans, 0 broken refs, 84 pages
+
+### Catalog UI (catalog-ui/)
+- **Astro 5 + React** static site for browsing the registry
+- **Schema-driven** — all types, layers, and relationships derived from `models/registry-mapping.yaml`
+- **ReactFlow graphs** for visualizing element relationships (via `@xyflow/react` + dagre)
+- **Diagram viewer** supporting PlantUML, BPMN, and draw.io formats
+- **CSS pattern:** EventCatalog-inspired RGB variable pattern: `--ec-page-bg: 255 255 255` used as `rgb(var(--ec-page-bg))`
+- **3-panel layout:** icon bar (56px) + nested sidebar (315px) + main content
+
+### Piece 1 / Piece 2 Strategy
+- **Piece 1 (this repo):** registry-mapping.yaml → registry skeleton → UI. Ships first.
+- **Piece 2 (future):** meta model → registry-mapping.yaml generation. Convenience tool, not critical path.
+
+---
+
+## Skills (Slash Commands)
+
+| Skill | Usage | Purpose |
+|-------|-------|---------|
+| `/enterprise-platform-archi` | `/enterprise-platform-archi [question]` | Enterprise Platform domain Q&A, create entries, proposals |
+| `/validate` | `/validate` | Run model validation, show errors and orphans |
+| `/dashboard` | `/dashboard` | Generate HTML health dashboard |
+| `/new-entry` | `/new-entry [type] [name]` | Create registry entry (guided wizard) |
+| `/scaffold-component` | `/scaffold-component [Name]` | Scaffold React component + test file |
+| `/deploy` | `/deploy [--dry-run] [--target catalog\|docs\|all]` | Build & deploy to Firebase Hosting |
+| `/crawl-apis` | `/crawl-apis <path> [--domain <name>] [--write]` | Scan codebase for APIs, propose registry entries |
+| `/crawl-data` | `/crawl-data <path> [--domain <name>] [--write]` | Scan codebase for data models, propose registry entries |
+
+### Examples
+```
+/enterprise-platform-archi What data does Tenant Management own?
+/enterprise-platform-archi Create a registry entry for Payment Gateway
+/validate
+/dashboard
+/new-entry data-object "Payment Record"
+/scaffold-component CapabilityHeatmap
+/deploy --dry-run
+/deploy --target catalog
+/crawl-apis ./src --domain "Customer Management"
+/crawl-data ./src --domain "Billing & Payments"
+```
+
+### Why Skills?
+- **Explicit invocation** — Type `/enterprise-platform-archi` to guarantee the right context
+- **Scoped search** — Each domain skill searches its own files first, minimizing token usage
+- **Pattern for teams** — `/<domain>-archi` is learnable: `/payments-archi`, `/logistics-archi`, etc.
+
+---
+
+## Repo Structure
+
+```
+.claude/
+  skills/
+    enterprise-platform-archi/SKILL.md  # /enterprise-platform-archi skill
+    validate/SKILL.md               # /validate skill
+    dashboard/SKILL.md              # /dashboard skill
+    new-entry/SKILL.md              # /new-entry skill
+    scaffold-component/SKILL.md     # /scaffold-component skill
+  agents/
+    domain-expert.md                # Read-only domain Q&A (auto-delegation)
+    fe-developer.md                 # Frontend developer (catalog-ui/)
+    registry-agent.md               # Registry data specialist (registry-v2/, views/)
+    test-writer.md                  # Test specialist (pytest + vitest)
+  hooks/
+    welcome.sh                      # Shows skills on session start
+    pre-commit-validate.sh          # Runs validate.py before git commits
+    check-test-exists.sh            # Warns if .tsx has no co-located test
+  rules/
+    vocab-agnostic.md               # 2-tier vocab-agnostic reminder (catalog-ui/src/**)
+    registry-format.md              # Registry entry format rules (registry-v2/**)
+  settings.json                     # Hook configuration
+
+registry-v2/                # Element registry — one .md file per architecture element
+  1-business/                # Layer 1: Business
+  2-organization/            # Layer 2: Organization
+  3-application/             # Layer 3: Application (primary focus)
+  4-technology/              # Layer 4: Technology
+
+views/                       # Architecture diagrams by domain
+  customer-management/       # Example domain diagrams
+
+models/
+  registry-mapping.yaml        # Schema mapping (types → folders → UI) — THE source of truth
+
+catalog-ui/                  # Astro 5 + React catalog UI
+  src/
+    data/registry.ts           # Schema-driven data provider (bridge module)
+    lib/registry-loader.ts     # Builds in-memory graph from registry-v2/
+    lib/types.ts               # TypeScript interfaces
+    config/meta-model.config.ts # Graph layout config (hierarchy ranks, relationship semantics)
+
+scripts/
+  validate.py                # Validates diagrams against registry
+  generate_dashboard.py      # HTML health dashboard
+  refresh_diagrams.py        # Sync registry to diagrams
+  extract_view.py            # Extract YAML from .drawio
+  generate_library.py        # Generate draw.io library
+
+docs-site/                   # Starlight documentation site
+  src/content/docs/            # All documentation pages (Markdown)
+```
+
+---
+
+## Key Scripts
+
+```bash
+python scripts/validate.py                            # Validate model
+python scripts/generate_dashboard.py                  # Generate dashboard.html
+python scripts/refresh_diagrams.py                    # Sync registry to diagrams
+python scripts/extract_view.py <file>                 # Extract YAML from diagram
+python scripts/generate_metamodel.py <file.drawio>    # Generate registry-mapping.yaml from meta-model diagram
+```
+
+---
+
+## Catalog UI
+
+```bash
+cd catalog-ui
+npm install
+npm run dev      # Start dev server on port 4321
+npm run build    # Build static site
+```
+
+The UI is fully schema-driven via `models/registry-mapping.yaml`. Adding a new element type requires:
+1. Add entry to `registry-mapping.yaml`
+2. Create `_template.md` in the appropriate `registry-v2/` subfolder
+3. Rebuild — zero code changes needed
+
+---
+
+## Adding New Domains
+
+1. Create skill: `.claude/skills/<domain>-archi/SKILL.md`
+2. Create sub-agent: `.claude/agents/<domain>.md`
+3. Create views folder: `views/<domain>/`
+4. Create registry entries in `registry-v2/` (discover folders from registry-mapping.yaml)
+5. Update welcome hook to show new skill
+
+See `templates/agents/domain-onboarding.md` for a guided template, or `docs-site/src/content/docs/contributing/how-to-contribute.md` for detailed instructions.
+
+---
+
+## Git Workflow
+
+- **Never commit directly to `main`** — branch protection rules are enabled
+- Always create a feature branch from `main`: `git checkout -b <type>/<short-description>`
+- Branch naming: `feat/`, `fix/`, `chore/`, `docs/` prefixes
+- Implement, test, commit on the branch, then push and create a PR
+- Merge via GitHub PR (squash or merge commit)
+
+---
+
+## Maps Architecture
+
+Maps are analytical views that consume registry data. They are a **separate layer** from the core registry schema.
+
+**Two-tier design:**
+
+1. **Core schema (`registry-mapping.yaml`)** — vocabulary-agnostic, drives the registry loader and catalog UI. No type-name conditionals, no layer-name conditionals. A user can rename every type and layer and it still works.
+
+2. **Map definitions (separate YAML files)** — view-specific, can reference specific element types. Each map type gets its own YAML:
+   - `registry-mapping.yaml` → Domain Context Map (uses registry relationships)
+   - `event-mapping.yaml` → Event Flow Map (knows about events, publish/consume)
+   - Future: `heatmap-mapping.yaml`, `impact-mapping.yaml`, etc.
+
+**Why maps are NOT vocabulary-agnostic:** An event map needs to know what events are. A capability heatmap needs to know what capabilities are. These are opinionated analytical views — that's the whole point. The core registry stays generic; map views are intentionally domain-aware.
+
+**Adding a new map type:**
+1. Create a YAML definition file in `models/` (e.g., `heatmap-mapping.yaml`)
+2. Create the React visualization component in `catalog-ui/src/components/graphs/`
+3. Create the Astro page to render it
+4. Pre-configured maps ship with the project; custom maps can be contributed
+
+---
+
+## Content & Marketing
+
+**Do NOT create blog posts, social media drafts, or content schedules in this repo.** All content is managed in the `media-manager` repo (`/Users/raj.navakoti/Desktop/github/media-manager/`). Use media-manager's content-writer agent for drafting. The `content/` and `media/` folders here are gitignored local scratch space only.
+
+---
+
+## Development Principles
+
+- Build incrementally — 1% at a time, prove each piece works
+- Keep it simple — no servers, no databases, just files, Git, and Python
+- Don't make architects learn new tools — draw.io, Markdown, and Git are enough
+- AI integration is a side effect of the format, not a feature to build
+- Domain-scoped skills — each domain gets `/<domain>-archi` to avoid searching everything
+- Schema-driven — zero hardcoded types. Everything flows from registry-mapping.yaml
+
+### Vocabulary-Agnostic Principle (CRITICAL)
+
+This project MUST remain vocabulary-agnostic. Users can use ArchiMate, TOGAF, C4, or any custom vocabulary. The UI and loader code must NEVER contain logic that depends on specific type names, layer names, or relationship names.
+
+**Rules for all code changes:**
+
+1. **No type-name conditionals** — Never write `if (type === 'component')` or `type.includes('data')`. Behavior must be driven by schema properties (`graph_rank`, `layer`, `icon`) not by type key strings.
+2. **No layer-name conditionals** — Never write `if (layer === 'applications_and_data')`. Layer colors and metadata come from `registry-mapping.yaml`.
+3. **No relationship-name conditionals** — Never write `if (rel === 'composition')` in data/rendering logic. Relationship semantics come from `meta-model.config.ts` which reads from the YAML.
+4. **Hardcoded style maps are optional enrichments** — `NODE_STYLES`, `ELEMENT_ICONS`, `ELEMENT_HIERARCHY` in TypeScript provide rich styling for known types, but unknown types MUST fall back to schema-derived values (layer color, `graph_rank`, `icon` emoji from the YAML). A user who defines a brand-new element type in `registry-mapping.yaml` should see it render correctly without touching any `.ts` or `.tsx` file.
+5. **Domain anchor = `graph_rank: 0`** — The domain/area anchor element is identified by having `graph_rank: 0` in the YAML, not by checking for a specific type key like `domain`.
+6. **The `archimate:` field in registry-mapping.yaml is optional metadata** — It exists for documentation/reference for ArchiMate users. The UI and loader NEVER read it.
+
+**Test:** If a user renames every element type, layer, and relationship in `registry-mapping.yaml` to completely custom names, the catalog UI must still build and render correctly.
+
+---
+> Source: [ea-toolkit/architecture-catalog](https://github.com/ea-toolkit/architecture-catalog) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
