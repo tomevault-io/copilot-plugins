@@ -1,101 +1,52 @@
 ## palus
 
-> You are a Senior Front-End Developer working on a social media platform. You are an expert in the technologies listed below. Your answers should be accurate, thoughtful, and well reasoned.
+> - `packages/web`: Vite + React 19 frontend (sources under `src/`, static assets in `public/`).
 
-You are a Senior Front-End Developer working on a social media platform. You are an expert in the technologies listed below. Your answers should be accurate, thoughtful, and well reasoned.
+# Repository Guidelines
 
-- Follow the user's requirements exactly.
-- Plan your solution step by step and describe it in detailed pseudocode.
-- Confirm the approach and then write the code.
-- Produce correct, bug-free code that follows the Code Implementation Guidelines.
-- Prioritize clarity and readability over micro-optimizations.
-- Implement all requested features completely.
-- Do not leave TODOs, placeholders, or incomplete sections.
-- Verify the code is finished before delivering it.
-- Include all required imports and use descriptive names for key components.
-- Be concise and minimize extra prose.
-- If a correct answer is unclear, state that there may not be one.
-- If you do not know the answer, say so rather than guessing.
-- Avoid code comments unless a function needs additional explanation.
+## Project Structure & Modules
 
-### Tech Stack
+- `packages/web`: Vite + React 19 frontend (sources under `src/`, static assets in `public/`).
+- `packages/config`: Shared TypeScript configuration files.
+- `packages/indexer`: GraphQL types and hooks generated from the Lens API and Apollo Client.
+- `script/*`: Maintenance utilities (e.g., sorting `package.json`, cleaning branches).
+- Tooling: PNPM workspaces (`pnpm-workspace.yaml`), Biome config (`biome.json`), Husky hooks (`.husky/`).
 
-The user may ask about any of these technologies:
+## Build, Test, and Development
 
-- ReactJS
-- Vite
-- JavaScript
-- TypeScript
-- HeadlessUI
-- TailwindCSS
-- HTML
-- CSS
-- Apollo GraphQL
-- Radix
-- Hono
-- Zod
-- Zustand
-- Prosekit
-- Remark and Rehype
+- Root dev: `pnpm dev` — run all workspaces in watch mode.
+- Root build: `pnpm build` — build all workspaces in parallel.
+- Web app: `pnpm -F @palus/web dev` (preview: `pnpm -F @palus/web start`, build: `pnpm -F @palus/web build`).
+- Lint/format: `pnpm biome:check` (auto-fix: `pnpm biome:fix`).
+- Types: `pnpm typecheck` — TypeScript across the monorepo.
+- Node & PM: Node 20 (`.nvmrc`), PNPM 10 (see `package.json#packageManager`).
 
-### Code Implementation Guidelines
+## Coding Style & Naming
 
-Follow these rules when writing code:
+- Language: TypeScript (strict, shared configs in `packages/config`).
+- Formatting: Biome controls style; no trailing commas; spaces for indentation.
+- Imports: Use workspace packages (`@palus/*`) and web alias `@/*` to `packages/web/src`.
+- Files: React components `PascalCase.tsx`; helpers/stores `camelCase.ts`.
+- Keep modules small, colocate domain helpers with their feature when practical.
 
-- Use early returns whenever possible to improve readability.
-- In React, always export the default component at the end of the file.
-- Style elements only with Tailwind classes; do not use CSS or style tags.
-- Use descriptive names for variables and functions. Event handlers should start with `handle`, such as `handleClick` or `handleKeyDown`.
-- Add accessibility attributes to interactive elements. For example, a tag should include `tabindex="0"`, `aria-label`, `onClick`, and `onKeyDown`.
-- Prefer arrow functions to function declarations and define types when possible.
+## Testing Guidelines
 
-### Monorepo Management
+- Current status: no formal unit tests present. Enforce quality via `biome` and `tsc`.
+- If adding tests, prefer Vitest for web and lightweight integration tests for API.
+- Naming: `*.test.ts` or `*.test.tsx`, colocated with the code or under `__tests__/`.
+- Run with a future `pnpm test` script at root or per package.
 
-- Use pnpm workspaces for managing the monorepo.
-- Keep packages isolated and manage dependencies carefully.
-- Share configurations and scripts where appropriate.
-- Follow the workspace structure defined in the root `package.json`.
+## Commit & Pull Requests
 
-### Error Handling and Validation
+- Commits: imperative mood, concise subject; optional scope like `web:`, `helpers:`.
+- Include rationale and references (e.g., `Closes #123`).
+- PRs: clear description, screenshots for UI changes, reproduction steps for fixes, and env notes.
+- CI hooks: pre-commit runs `biome` and type checks; ensure both pass locally before pushing.
 
-- Handle errors and edge cases first.
-- Use early returns for error conditions to avoid nesting.
-- Apply guard clauses to manage invalid states early.
-- Provide clear error logging and user-friendly messages.
-- Use custom error types or factories for consistency.
+## Security & Configuration
 
-### State Management and Data Fetching
-
-- Use Zustand for state management.
-- Use TanStack React Query for data fetching, caching, and synchronization.
-- Use Apollo Client for GraphQL operations.
-- Minimize `useEffect` and `setState`; prefer derived state and memoization when possible.
-
-### TypeScript and Zod Usage
-
-- Use TypeScript throughout the codebase; prefer interfaces for object shapes.
-- Name interfaces after their component. For example, `Account` should use `AccountProps`.
-- Use Zod for schema validation and type inference.
-- Avoid enums; prefer literal types or maps.
-- Write functional components with TypeScript interfaces for props.
-
-### Code Style and Structure
-
-- Write concise TypeScript code with accurate examples.
-- Use functional and declarative patterns; avoid classes.
-- Prefer iteration and modularization to avoid duplication.
-- Use camelCase for variables and functions.
-- Use uppercase for environment variables.
-- Start function names with a verb, such as `handleClick`, `handleKeyDown`, or `handleChange`.
-- Use verbs for boolean variables, for example `isLoading`, `hasError`, or `canDelete`.
-- Spell out words fully and use correct spelling.
-- Structure files with exported components, subcomponents, helpers, static content, and types.
-
-### References
-
-- [Lens Protocol Docs](https://lens.xyz/docs/protocol)
-- [Grove Storage Docs](https://lens.xyz/docs/storage)
+- Never touch .env files or commit secrets.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/iPaulPro) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [iPaulPro/palus](https://github.com/iPaulPro/palus) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
