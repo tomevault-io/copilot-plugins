@@ -1,40 +1,39 @@
-## specify-rules
+## ui-testing
 
-> Auto-generated from all feature plans. Last updated: 2025-09-22
+> UI Testing Instructions for Flutter App
 
-# app Development Guidelines
 
-Auto-generated from all feature plans. Last updated: 2025-09-22
+## UI Testing with Marionette MCP
+When asked to "test your changes", "qa your changes", or verify app behavior, use Marionette MCP to interact with the running Flutter app:
 
-## Active Technologies
-- Dart 3.0+ with Flutter 3.16+ + Flutter, dart_nostr, local_auth, shared_preferences (001-store-text-in-lockbox)
-- Dart 3.0+ / Flutter 3.16+ + Flutter, nostr_dart (Nostr protocol), shamir_secret_sharing (cryptographic library) (002-distributed-backup-of)
-- FlutterSecureStorage (local), Nostr relays (distributed) (002-distributed-backup-of)
-- Dart 3.0+ / Flutter 3.16+ + Flutter, ndk (Nostr protocol), ntcdcrypto (Shamir's Secret Sharing) (002-distributed-backup-of)
-- Dart 3.0+ with Flutter 3.16+ + Flutter, NDK (Nostr), flutter_secure_storage, crypto (003-lockbox-recovery)
-- FlutterSecureStorage for local data, Nostr relays for distributed shares (003-lockbox-recovery)
-- Dart 3.5.3, Flutter 3.35.0 (004-invitation-links)
-- SharedPreferences for invitation code tracking, FlutterSecureStorage for sensitive data (004-invitation-links)
+**Quick Start:**
+1. **Launch app in debug mode** (if not already running):
+   ```bash
+   flutter run -d macos > /tmp/flutter_run.log 2>&1 &
+   ```
+   Wait 10-15 seconds for the app to start.
 
-## Project Structure
-```
-src/
-tests/
-```
+2. **Find VM Service URI**:
+   ```bash
+   sleep 10 && grep -i "vm service\|ws://" /tmp/flutter_run.log | head -1
+   ```
+   Look for output like: `A Dart VM Service on macOS is available at: http://127.0.0.1:XXXXX/XXXXX=/`
+   Convert to WebSocket format: `ws://127.0.0.1:XXXXX/XXXXX=/ws`
 
-## Commands
-# Add commands for Dart 3.0+ with Flutter 3.16+
+3. **Connect via Marionette**:
+   ```
+   mcp_horcrux_app-marionette_connect with uri: ws://127.0.0.1:XXXXX/XXXXX=/ws
+   ```
 
-## Code Style
-Dart 3.0+ with Flutter 3.16+: Follow standard conventions
+4. **Verify changes**:
+   - Take screenshots: `mcp_horcrux_app-marionette_take_screenshots`
+   - Get interactive elements: `mcp_horcrux_app-marionette_get_interactive_elements`
+   - Tap buttons: `mcp_horcrux_app-marionette_tap` (by text, key, or type)
+   - Enter text: `mcp_horcrux_app-marionette_enter_text` (by key)
+   - Scroll: `mcp_horcrux_app-marionette_scroll_to`
+   - Hot reload: `mcp_horcrux_app-marionette_hot_reload` (after code changes)
 
-## Recent Changes
-- 004-invitation-links: Added Dart 3.5.3, Flutter 3.35.0
-- 003-lockbox-recovery: Added Dart 3.0+ with Flutter 3.16+ + Flutter, NDK (Nostr), flutter_secure_storage, crypto
-- 002-distributed-backup-of: Added Dart 3.0+ / Flutter 3.16+ + Flutter, ndk (Nostr protocol), ntcdcrypto (Shamir's Secret Sharing)
-
-<!-- MANUAL ADDITIONS START -->
-<!-- MANUAL ADDITIONS END -->
+**Note**: If the app is already running, check for existing VM Service URI in logs or connect to existing instance.
 
 ---
 > Source: [mplorentz/horcrux](https://github.com/mplorentz/horcrux) — distributed by [TomeVault](https://tomevault.io).
