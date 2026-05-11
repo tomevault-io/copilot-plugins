@@ -4,7 +4,7 @@
   "repo": "OSS-Skills",
   "description": "6 Claude Code skills that walk you through your first open source contribution. Built by a GSoC mentor.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chiruu12/OSS-Skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T05:39:39Z"
+  "distributed_at": "2026-05-11T08:51:24Z"
 }
