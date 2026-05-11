@@ -1,0 +1,9 @@
+{
+  "name": "miao4ai--open-recruiter",
+  "displayName": "open_recruiter",
+  "description": "An autonomous AI agent for recruitment workflow automation.",
+  "version": "1.0.0",
+  "author": "miao4ai",
+  "homepage": "https://github.com/miao4ai/open_recruiter",
+  "skills": []
+}
