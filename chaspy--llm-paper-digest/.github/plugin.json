@@ -1,0 +1,9 @@
+{
+  "name": "chaspy--llm-paper-digest",
+  "displayName": "llm-paper-digest",
+  "description": "Daily LLM paper digest with Japanese summaries and Marp slides",
+  "version": "1.0.0",
+  "author": "chaspy",
+  "homepage": "https://github.com/chaspy/llm-paper-digest",
+  "skills": []
+}
