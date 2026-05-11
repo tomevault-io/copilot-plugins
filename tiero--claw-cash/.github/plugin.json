@@ -1,0 +1,9 @@
+{
+  "name": "tiero--claw-cash",
+  "displayName": "claw-cash",
+  "description": "Bitcoin wallet for AI agents. Stablecoins in, Bitcoin out. Keys in hardware enclaves. Works with OpenClaw, Claude Code, or any agent harness.",
+  "version": "1.0.0",
+  "author": "tiero",
+  "homepage": "https://github.com/tiero/claw-cash",
+  "skills": []
+}
