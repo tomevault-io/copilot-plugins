@@ -1,0 +1,9 @@
+{
+  "name": "loffloff--gemini-live-react",
+  "displayName": "gemini-live-react",
+  "description": "React hook for Google Gemini Live API - real-time voice streaming, session recording, workflow automation, and smart element detection",
+  "version": "1.0.0",
+  "author": "loffloff",
+  "homepage": "https://github.com/loffloff/gemini-live-react",
+  "skills": []
+}
