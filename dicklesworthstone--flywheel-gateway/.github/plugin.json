@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--flywheel-gateway",
+  "displayName": "flywheel_gateway",
+  "description": "SDK-first orchestration platform for managing AI coding agent fleets: BYOA key rotation, real-time WebSocket dashboard, DCG integration, and cross-agent search",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/flywheel_gateway",
+  "skills": []
+}
