@@ -1,0 +1,9 @@
+{
+  "name": "aibuild-lab--agent-native-os",
+  "displayName": "agent-native-os",
+  "description": "Agent Native OS \u2014 Claude Code workshop student repo. Your operating system for working with AI agents.",
+  "version": "1.0.0",
+  "author": "aibuild-lab",
+  "homepage": "https://github.com/aibuild-lab/agent-native-os",
+  "skills": []
+}
