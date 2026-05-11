@@ -1,0 +1,9 @@
+{
+  "name": "florinel-chis--magento-graphql-docs-mcp",
+  "displayName": "magento-graphql-docs-mcp",
+  "description": "A local STDIO MCP server that provides tools to search and retrieve Magento 2 GraphQL API documentation from local markdown files.",
+  "version": "1.0.0",
+  "author": "florinel-chis",
+  "homepage": "https://github.com/florinel-chis/magento-graphql-docs-mcp",
+  "skills": []
+}
