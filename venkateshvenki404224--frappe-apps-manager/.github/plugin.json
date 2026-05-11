@@ -1,0 +1,9 @@
+{
+  "name": "venkateshvenki404224--frappe-apps-manager",
+  "displayName": "frappe-apps-manager",
+  "description": "A comprehensive Claude Code plugin for Frappe Framework development, providing tools, commands, agents, and Skills to streamline your Frappe application development workflow.",
+  "version": "1.0.0",
+  "author": "Venkateshvenki404224",
+  "homepage": "https://github.com/Venkateshvenki404224/frappe-apps-manager",
+  "skills": []
+}
