@@ -1,0 +1,9 @@
+{
+  "name": "sting8k--srcwalk",
+  "displayName": "srcwalk",
+  "description": "Agent's code navigator CLI - instantly outline, search, and trace call graphs across any language. One binary, one skill, zero config.",
+  "version": "1.0.0",
+  "author": "sting8k",
+  "homepage": "https://github.com/sting8k/srcwalk",
+  "skills": []
+}
