@@ -1,117 +1,279 @@
-## auto-commit
+## cli-development
 
-> Commit message format and auto-commit policy
+> Guidelines for developing the armature-cli tool
 
 
-# Commit Message Convention
+# CLI Development
 
-**ALWAYS** use the `type(scope): description` format for ALL commits.
+Standards for developing the Armature CLI tool.
 
-## Format (Required)
+## Command Structure
 
-```
-<type>(<scope>): <description>
+```rust
+use clap::{Parser, Subcommand};
 
-[optional body]
+#[derive(Parser)]
+#[command(name = "armature")]
+#[command(about = "Armature Framework CLI")]
+#[command(version)]
+pub struct Cli {
+    #[command(subcommand)]
+    pub command: Commands,
 
-[optional footer]
-```
+    #[arg(short, long, global = true)]
+    pub verbose: bool,
+}
 
-### Type (Required)
+#[derive(Subcommand)]
+pub enum Commands {
+    /// Create a new Armature project
+    New(NewCommand),
 
-| Type | Description |
-|------|-------------|
-| `feat` | New feature |
-| `fix` | Bug fix |
-| `docs` | Documentation changes |
-| `refactor` | Code refactoring |
-| `test` | Adding or updating tests |
-| `chore` | Maintenance tasks, dependencies |
-| `style` | Code style/formatting changes |
-| `perf` | Performance improvements |
-| `ci` | CI/CD configuration |
-| `build` | Build system changes |
+    /// Generate code (controller, service, etc.)
+    Generate(GenerateCommand),
 
-### Scope (Required)
+    /// Start development server
+    Dev(DevCommand),
 
-The scope indicates which part of the codebase is affected:
-
-| Scope | When to use |
-|-------|-------------|
-| `core` | armature-core crate |
-| `auth` | armature-auth, armature-oauth2, armature-saml |
-| `cache` | armature-cache, armature-redis |
-| `queue` | armature-queue |
-| `di` | armature-di |
-| `macros` | armature-proc-macro |
-| `cli` | armature-cli |
-| `ws` | armature-websocket |
-| `sse` | armature-sse |
-| `db` | armature-diesel, armature-seaorm |
-| `aws` | armature-aws |
-| `gcp` | armature-gcp |
-| `azure` | armature-azure |
-| `docs` | Documentation files |
-| `examples` | Example code |
-| `tests` | Test files |
-| `deps` | Dependency updates |
-
-### Examples
-
-```bash
-# Features
-git commit -m "feat(auth): add OAuth2 provider support"
-git commit -m "feat(queue): implement job retry with exponential backoff"
-git commit -m "feat(ws): add room-based message broadcasting"
-
-# Bug fixes
-git commit -m "fix(cache): resolve Redis connection timeout"
-git commit -m "fix(core): handle empty request body correctly"
-
-# Documentation
-git commit -m "docs(readme): update installation instructions"
-git commit -m "docs(auth): add JWT configuration examples"
-
-# Refactoring
-git commit -m "refactor(core): simplify error handling"
-git commit -m "refactor(macros): reduce code duplication in derive macros"
-
-# Tests
-git commit -m "test(auth): add integration tests for OAuth2 flow"
-
-# Chores
-git commit -m "chore(deps): update tokio to 1.35"
-
-# Breaking changes (add ! after scope)
-git commit -m "feat(api)!: change response format to camelCase"
+    /// Build for production
+    Build(BuildCommand),
+}
 ```
 
-## Auto-Commit Policy
+## New Project Command
 
-Commit after completing tasks that modify files:
-- ✅ Implementing a feature
-- ✅ Fixing a bug
-- ✅ Refactoring code
-- ✅ Adding/updating documentation
-- ✅ Creating new files
-- ✅ Modifying configuration
+```rust
+#[derive(Args)]
+pub struct NewCommand {
+    /// Project name
+    pub name: String,
 
-Do NOT commit when:
-- ❌ Changes are incomplete or broken
-- ❌ Tests are failing
-- ❌ User explicitly asks not to commit
-- ❌ Only reading files (no modifications)
+    /// Template to use
+    #[arg(short, long, default_value = "default")]
+    pub template: String,
 
-## Multi-File Commits
+    /// Skip git initialization
+    #[arg(long)]
+    pub no_git: bool,
+}
 
-When changes span multiple crates, use the most significant scope or `core`:
+impl NewCommand {
+    pub async fn run(&self) -> Result<()> {
+        println!("Creating new project: {}", self.name);
 
-```bash
-# Changes to multiple crates for a single feature
-git commit -m "feat(auth): add session management with Redis storage"
+        // Create directory structure
+        create_project_structure(&self.name)?;
 
-# Dependency updates across workspace
-git commit -m "chore(deps): update workspace dependencies"
+        // Copy template files
+        copy_template(&self.template, &self.name)?;
+
+        // Initialize git
+        if !self.no_git {
+            init_git(&self.name)?;
+        }
+
+        println!("✅ Project created successfully!");
+        println!("\nNext steps:");
+        println!("  cd {}", self.name);
+        println!("  cargo run");
+
+        Ok(())
+    }
+}
+```
+
+## Code Generation
+
+```rust
+#[derive(Subcommand)]
+pub enum GenerateCommand {
+    /// Generate a controller
+    Controller(GenerateControllerArgs),
+
+    /// Generate a service
+    Service(GenerateServiceArgs),
+
+    /// Generate a module
+    Module(GenerateModuleArgs),
+
+    /// Generate a migration
+    Migration(GenerateMigrationArgs),
+}
+
+#[derive(Args)]
+pub struct GenerateControllerArgs {
+    /// Controller name (e.g., "users" or "api/v1/users")
+    pub name: String,
+
+    /// Generate CRUD endpoints
+    #[arg(long)]
+    pub crud: bool,
+}
+
+impl GenerateControllerArgs {
+    pub fn run(&self) -> Result<()> {
+        let template = if self.crud {
+            include_str!("templates/controller_crud.rs.tmpl")
+        } else {
+            include_str!("templates/controller.rs.tmpl")
+        };
+
+        let rendered = render_template(template, &self.context())?;
+
+        let path = format!("src/controllers/{}.rs", self.name.to_snake_case());
+        fs::write(&path, rendered)?;
+
+        println!("✅ Created {}", path);
+
+        // Update mod.rs
+        update_mod_file("src/controllers/mod.rs", &self.name)?;
+
+        Ok(())
+    }
+}
+```
+
+## Development Server
+
+```rust
+#[derive(Args)]
+pub struct DevCommand {
+    /// Port to listen on
+    #[arg(short, long, default_value = "3000")]
+    pub port: u16,
+
+    /// Host to bind to
+    #[arg(long, default_value = "127.0.0.1")]
+    pub host: String,
+
+    /// Enable hot reload
+    #[arg(long, default_value = "true")]
+    pub hot_reload: bool,
+}
+
+impl DevCommand {
+    pub async fn run(&self) -> Result<()> {
+        println!("🚀 Starting development server on {}:{}", self.host, self.port);
+
+        if self.hot_reload {
+            // Watch for file changes
+            let watcher = FileWatcher::new(vec!["src/**/*.rs"])?;
+
+            loop {
+                // Build and run
+                let child = Command::new("cargo")
+                    .args(["run"])
+                    .env("ARMATURE_PORT", self.port.to_string())
+                    .spawn()?;
+
+                // Wait for changes
+                watcher.wait_for_changes().await?;
+
+                // Restart
+                child.kill()?;
+                println!("🔄 Restarting...");
+            }
+        } else {
+            Command::new("cargo")
+                .args(["run"])
+                .status()?;
+        }
+
+        Ok(())
+    }
+}
+```
+
+## Template Files
+
+Store templates in `armature-cli/templates/`:
+
+```rust
+// templates/controller.rs.tmpl
+use armature::prelude::*;
+
+#[controller("/{{path}}")]
+pub struct {{name}}Controller {
+    // Add dependencies here
+}
+
+#[get("")]
+async fn list(&self) -> Result<Json<Vec<{{model}}>>, Error> {
+    todo!()
+}
+
+#[get("/:id")]
+async fn get(&self, id: Path<Uuid>) -> Result<Json<{{model}}>, Error> {
+    todo!()
+}
+```
+
+## Output Formatting
+
+```rust
+use console::{style, Emoji};
+
+static SUCCESS: Emoji = Emoji("✅", "[OK]");
+static ERROR: Emoji = Emoji("❌", "[ERR]");
+static INFO: Emoji = Emoji("ℹ️", "[INFO]");
+
+fn print_success(msg: &str) {
+    println!("{} {}", SUCCESS, style(msg).green());
+}
+
+fn print_error(msg: &str) {
+    eprintln!("{} {}", ERROR, style(msg).red());
+}
+
+fn print_info(msg: &str) {
+    println!("{} {}", INFO, style(msg).cyan());
+}
+```
+
+## Error Handling
+
+```rust
+use miette::{Diagnostic, Result};
+use thiserror::Error;
+
+#[derive(Error, Diagnostic, Debug)]
+pub enum CliError {
+    #[error("Project '{0}' already exists")]
+    #[diagnostic(code(armature::project_exists))]
+    ProjectExists(String),
+
+    #[error("Template '{0}' not found")]
+    #[diagnostic(
+        code(armature::template_not_found),
+        help("Available templates: default, api, minimal")
+    )]
+    TemplateNotFound(String),
+
+    #[error("Invalid project name: {0}")]
+    #[diagnostic(code(armature::invalid_name))]
+    InvalidName(String),
+}
+```
+
+## Testing CLI Commands
+
+```rust
+#[test]
+fn test_new_command() {
+    let temp = tempdir().unwrap();
+
+    let cmd = NewCommand {
+        name: "test-project".into(),
+        template: "default".into(),
+        no_git: true,
+    };
+
+    std::env::set_current_dir(&temp).unwrap();
+    cmd.run().unwrap();
+
+    assert!(temp.path().join("test-project/Cargo.toml").exists());
+    assert!(temp.path().join("test-project/src/main.rs").exists());
+}
 ```
 
 ---
