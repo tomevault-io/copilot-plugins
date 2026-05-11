@@ -4,7 +4,7 @@
   "repo": "scf",
   "description": "scf\u5b98\u7f51",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/liyxianren/scf",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T09:43:20Z"
+  "distributed_at": "2026-05-11T02:49:43Z"
 }
