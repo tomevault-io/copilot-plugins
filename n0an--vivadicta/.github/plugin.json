@@ -1,0 +1,9 @@
+{
+  "name": "n0an--vivadicta",
+  "displayName": "VivaDicta",
+  "description": "iOS & watchOS speech-to-text app with AI voice keyboard, on-device RAG, and chat with your notes - powered by Apple Foundation Models, WhisperKit, NVIDIA Parakeet, and 20+ AI providers",
+  "version": "1.0.0",
+  "author": "n0an",
+  "homepage": "https://github.com/n0an/VivaDicta",
+  "skills": []
+}
