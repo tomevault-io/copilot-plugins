@@ -1,0 +1,9 @@
+{
+  "name": "robustagile--linkedin-formatter",
+  "displayName": "linkedin-formatter",
+  "description": "A simple web application to create rich-formatted LinkedIn posts. ",
+  "version": "1.0.0",
+  "author": "robustagile",
+  "homepage": "https://github.com/robustagile/linkedin-formatter",
+  "skills": []
+}
