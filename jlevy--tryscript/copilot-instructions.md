@@ -1,131 +1,81 @@
-## automatic-shortcut-triggers
+## backward-compatibility-rules
 
-> Automatic Shortcut Triggers
+> Backward Compatibility Guidelines
 
-# Automatic Shortcut Triggers
+## Backward Compatibility Guidelines
 
-Before responding to ANY coding or development request, you MUST check if a shortcut
-applies. If a shortcut applies, you MUST use it.
+### Types of Backward Compatibility
 
-## Mandatory Check Protocol
+When making code changes, you should be aware of compatibility requirements for:
 
-1. Scan shortcuts in @docs/general/agent-shortcuts/ for applicable workflows
+- Code compatibility internal to a single application (types and method or function
+  signatures)
 
-2. If a shortcut matches → Announce: “Using [shortcut name]”
+- API compatibility for libraries (types and method or function signatures)
 
-3. Follow the shortcut exactly
+- Server API compatibility (REST, GraphQL, gRPC, etc.)
 
-## Shortcut Trigger Table
+- File format compatibility
 
-You can search for all filenames in this table, then read the contents and follow the
-instructions.
+- Database schema compatibility
 
-### Spec Creation and Management
+### Backward Compatibility Template
 
-| If user request involves... | Use shortcut |
-| --- | --- |
-| Creating a new feature plan | @shortcut-new-plan-spec.md |
-| Creating an implementation spec | @shortcut-new-implementation-spec.md |
-| Creating a validation/test spec | @shortcut-new-validation-spec.md |
-| Refining or clarifying an existing spec | @shortcut-refine-spec.md |
-| Updating a spec with new information | @shortcut-update-spec.md |
-| Updating specs progress and beads | @shortcut-update-specs-status.md |
+> Use the following template when clarifying backward compatibility requirements:
 
-### Implementation
+For the following areas:
 
-| If user request involves... | Use shortcut |
-| --- | --- |
-| Creating implementation beads from a spec | @shortcut-new-implementation-beads-from-spec.md |
-| Implementing beads | @shortcut-implement-beads.md |
-| Implementing a spec (legacy, no beads) | @shortcut-implement-spec.md |
-| Exploratory coding / prototype / spike | @shortcut-coding-spike.md |
+- “DO NOT MAINTAIN” means simply make the changes and DO NOT preserve any old stubs or
+  add comments about past changes
 
-### Commits and PRs
+- “KEEP DEPRECATED” means to add new features but also preserve support, function stubs,
+  and comments about past changes
 
-| If user request involves... | Use shortcut |
-| --- | --- |
-| Committing code | @shortcut-precommit-process.md → @shortcut-commit-code.md |
-| Creating a validation plan | @shortcut-create-or-update-validation-plan.md |
-| Creating a PR with validation | @shortcut-create-or-update-pr-with-validation-plan.md |
-| Creating a PR (simple, no validation plan) | @shortcut-create-pr-simple.md |
+- “SUPPORT BOTH” means to add new features but also preserve support, function
 
-### Code Review
+- “MIGRATE” means to add new features but also document and use database migrations or
+  automated tasks to migrate to new formats or schemas
 
-| If user request involves... | Use shortcut |
-| --- | --- |
-| Reviewing code, specs, docs | @shortcut-review-all-code-specs-docs-convex.md |
-| Reviewing a PR and commenting | @shortcut-review-pr.md |
-| Reviewing and fixing a PR with beads | @shortcut-review-pr-and-fix-with-beads.md |
+- “N/A” means this area isn’t applicable
 
-### Research and Architecture
+**BACKWARD COMPATIBILITY REQUIREMENTS:**
 
-| If user request involves... | Use shortcut |
-| --- | --- |
-| Research or technical investigation | @shortcut-new-research-brief.md |
-| Creating architecture documentation | @shortcut-new-architecture-doc.md |
-| Updating/revising architecture docs | @shortcut-revise-architecture-doc.md |
+- **Code types, methods, and function signatures**:
+  [DO NOT MAINTAIN or KEEP DEPRECATED, additional notes if necessary]
 
-### Cleanup and Maintenance
+- **Library APIs**:
+  [DO NOT MAINTAIN or KEEP DEPRECATED or N/A, plus any additional notes]
 
-| If user request involves... | Use shortcut |
-| --- | --- |
-| Code cleanup or refactoring | @shortcut-cleanup-all.md |
-| Removing trivial tests | @shortcut-cleanup-remove-trivial-tests.md |
-| Updating docstrings | @shortcut-cleanup-update-docstrings.md |
-| Merging from upstream | @shortcut-merge-upstream.md |
+- **Server APIs**:
+  [DO NOT MAINTAIN or KEEP DEPRECATED or N/A, plus any additional notes]
 
-## Common Shortcut Chains (Combos)
+- **File formats**: [DO NOT MAINTAIN or SUPPORT BOTH or N/A, plus any additional notes]
 
-Some workflows require multiple shortcuts in sequence.
-Always complete the full chain when applicable.
+- **Database schemas**: [DO NOT MAINTAIN or MIGRATE or N/A, plus any additional notes]
 
-### Implement This Spec (Full Feature Flow)
+### Always Clarify Backward Compatibility Requirements
 
-When user says “implement this spec” or similar:
+- ALWAYS be clear on backward compatibility requirements when making changes.
+  These should ALWAYS be clear in any specification.
 
-1. @shortcut-new-implementation-beads-from-spec.md — Create beads from the spec
+- If they are not clear, stop and ask the user for clarification.
 
-2. @shortcut-implement-beads.md — Implement all beads
+### When Backward Compatibility Is Important
 
-3. @shortcut-create-or-update-pr-with-validation-plan.md — Create PR with validation
+- In general, compatibility for libraries, servers, file formats and database schemas is
+  VERY IMPORTANT. Compatibility and migration should be planned carefully.
 
-### Commit Flow
+- Backward compatibility and legacy support *within* a single application is usually NOT
+  important and should NOT be done if it needlessly complicates code changes.
+  But if not specified, it also should be clarified to be sure it is not needed.
 
-1. @shortcut-precommit-process.md — Run pre-commit checks
+### Single Application Code Backward Compatibility
 
-2. @shortcut-commit-code.md — Commit changes
+- Unless stated in the spec or stated by the user, deprecated and backward compatibility
+  code support should NOT be left after refactors to a single application repository.
 
-### PR Flow (with Validation)
-
-1. @shortcut-precommit-process.md — Run pre-commit checks
-
-2. @shortcut-create-or-update-validation-plan.md — Create/update validation plan
-
-3. @shortcut-create-or-update-pr-with-validation-plan.md — Create/update PR
-
-### New Feature (Full Lifecycle)
-
-1. @shortcut-new-plan-spec.md — Create plan spec
-
-2. @shortcut-new-implementation-beads-from-spec.md — Create implementation beads
-
-3. @shortcut-implement-beads.md — Implement beads
-
-4. @shortcut-create-or-update-pr-with-validation-plan.md — Create PR with validation
-
-## This is NOT Optional
-
-If a shortcut exists for your task, you must use it.
-Do not rationalize skipping it.
-Common rationalizations to avoid:
-
-- “This is simple, I don’t need a shortcut” → WRONG. Use the shortcut.
-
-- “I know how to do this” → WRONG. The shortcut may have steps you’ll forget.
-
-- “The user didn’t ask for a shortcut” → WRONG. Shortcuts are mandatory when applicable.
-
-- “The shortcut is overkill” → WRONG. Shortcuts ensure consistency and quality.
+- When doing normal refactoring or reorganizing code, REMOVE deprecated functions,
+  methods, classes, or files completely if backward compatibility is not needed.
 
 ---
 > Source: [jlevy/tryscript](https://github.com/jlevy/tryscript) — distributed by [TomeVault](https://tomevault.io).
