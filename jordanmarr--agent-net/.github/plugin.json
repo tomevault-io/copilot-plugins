@@ -1,0 +1,9 @@
+{
+  "name": "jordanmarr--agent-net",
+  "displayName": "Agent.NET",
+  "description": "A composable AI agent framework for .NET.",
+  "version": "1.0.0",
+  "author": "JordanMarr",
+  "homepage": "https://github.com/JordanMarr/Agent.NET",
+  "skills": []
+}
