@@ -4,7 +4,7 @@
   "repo": "mono",
   "description": "The feedback engine for modern teams.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mediansh/mono",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T16:24:50Z"
+  "distributed_at": "2026-05-11T05:30:34Z"
 }
