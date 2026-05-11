@@ -1,0 +1,9 @@
+{
+  "name": "jcputney--agent-peer-review",
+  "displayName": "agent-peer-review",
+  "description": "A Claude Code plugin that validates Claude's work using OpenAI Codex CLI. Two AI perspectives catch more issues than one.",
+  "version": "1.0.0",
+  "author": "jcputney",
+  "homepage": "https://github.com/jcputney/agent-peer-review",
+  "skills": []
+}
