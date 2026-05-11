@@ -1,0 +1,9 @@
+{
+  "name": "marimerllc--calendar-mcp",
+  "displayName": "calendar-mcp",
+  "description": "A unified Model Context Protocol (MCP) server that enables AI assistants to access multiple email and calendar accounts simultaneously across Microsoft 365 (multiple tenants), Outlook.com, and Google ",
+  "version": "1.0.0",
+  "author": "MarimerLLC",
+  "homepage": "https://github.com/MarimerLLC/calendar-mcp",
+  "skills": []
+}
