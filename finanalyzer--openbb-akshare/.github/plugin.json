@@ -1,0 +1,9 @@
+{
+  "name": "finanalyzer--openbb-akshare",
+  "displayName": "openbb_akshare",
+  "description": "OpenBB extension for AKShare.",
+  "version": "1.0.0",
+  "author": "finanalyzer",
+  "homepage": "https://github.com/finanalyzer/openbb_akshare",
+  "skills": []
+}
