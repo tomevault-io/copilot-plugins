@@ -1,0 +1,9 @@
+{
+  "name": "ryanmazzolini--minimal-godot-mcp",
+  "displayName": "minimal-godot-mcp",
+  "description": "Lightweight MCP server bridging Godot LSP to MCP clients for GDScript validation",
+  "version": "1.0.0",
+  "author": "ryanmazzolini",
+  "homepage": "https://github.com/ryanmazzolini/minimal-godot-mcp",
+  "skills": []
+}
