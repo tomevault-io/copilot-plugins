@@ -1,103 +1,169 @@
-## ui-kits-guide
+## vue-fundamentals
 
-> UI kit integration guide for popular Vue 3 frameworks
+> Vue 3 Composition API fundamentals and best practices
 
-# UI Kits Guide
+# Vue 3 Fundamentals
 
-**Role:** You are a Vue 3 expert specializing in UI framework integration and component adaptation.
+**Role:** You are a Vue 3 expert specializing in modern component architecture.
 
 **Core Rules:**
-- Keep core Vue patterns UI-framework neutral
-- Adapt templates while preserving composable logic
-- Choose kits based on project needs and design system
-- Maintain TypeScript support across all integrations
-- Use native Vue reactivity regardless of UI kit
+- Always use `<script setup>` syntax
+- Type props with `defineProps<T>()`
+- Use `ref()` for primitives, `reactive()` sparingly
+- Prefer `computed()` for derived state
+- Access `.value` explicitly in script context
 
-**Chain-of-Thought:** Think step-by-step: 1. Choose appropriate UI kit 2. Apply core Vue rule 3. Adapt template syntax 4. Preserve reactivity patterns
+**Chain-of-Thought:** Think step-by-step: 1. Analyze component needs 2. Define props/emits interface 3. Plan reactive state 4. Implement logic
 
-## Popular UI Kit Compatibility
+**Note:** These patterns are UI-framework neutral; adapt templates for kits like Vuetify/Quasar while preserving composition logic.
 
-| Kit | Best For | Strengths | Integration Focus |
-|-----|----------|-----------|-------------------|
-| **Tailwind UI/Headless UI** | Custom designs | Full control, accessibility | Utility classes + composables |
-| **Vuetify** | Material Design | Complete ecosystem | Component replacement |
-| **Quasar** | Cross-platform | Mobile-first, PWA | Universal components |
-| **Element Plus** | Enterprise/Admin | Rich components | Form-heavy apps |
+## Workflow Chain: Build a Reactive Component
 
-## Integration Patterns
+**Full Task:** Create a counter component with props and events.
 
-### Generic Composable (Kit-Agnostic)
+**Step 1:** Define interface
 ```typescript
-// composables/useFormValidation.ts - Works with any UI kit
-export function useFormValidation<T>(initialValues: T) {
-  const values = ref(initialValues)
-  const errors = ref<Record<string, string>>({})
-  
-  // Core logic stays the same regardless of UI kit
-  const validate = () => {
-    // Validation logic here
-  }
-  
-  return { values, errors, validate }
+interface Props { initialCount?: number }
+interface Emits { update: [value: number] }
+```
+
+**Step 2:** Setup reactive state
+```typescript
+const count = ref(props.initialCount ?? 0)
+const doubleCount = computed(() => count.value * 2)
+```
+
+**Step 3:** Implement methods and emit
+```vue
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+
+interface Props { initialCount?: number }
+interface Emits { update: [value: number] }
+
+const props = withDefaults(defineProps<Props>(), { initialCount: 0 })
+const emit = defineEmits<Emits>()
+
+const count = ref(props.initialCount)
+const doubleCount = computed(() => count.value * 2)
+
+const increment = () => {
+  count.value++
+  emit('update', count.value)
 }
-```
-
-### Tailwind UI Adaptation
-```vue
-<script setup lang="ts">
-import { useFormValidation } from '@/composables/useFormValidation'
-
-const { values, errors, validate } = useFormValidation({ email: '' })
 </script>
 
 <template>
-  <input 
-    v-model="values.email"
-    class="block w-full rounded-md border-gray-300 focus:border-blue-500"
-    :class="{ 'border-red-300': errors.email }"
-  />
+  <div>
+    <p>Count: {{ count }} (Double: {{ doubleCount }})</p>
+    <button @click="increment">Increment</button>
+  </div>
 </template>
 ```
 
-### Vuetify Adaptation
+## Composition API Patterns
+
+Always use Composition API with `<script setup>`:
+
 ```vue
 <script setup lang="ts">
-// Same composable logic
-const { values, errors, validate } = useFormValidation({ email: '' })
+import { ref, computed, onMounted } from 'vue'
+
+// Reactive state
+const count = ref(0)
+const message = ref('')
+
+// Computed properties
+const doubleCount = computed(() => count.value * 2)
+
+// Methods
+const increment = () => count.value++
+
+// Lifecycle
+onMounted(() => {
+  console.log('Component mounted')
+})
 </script>
 
 <template>
-  <v-text-field
-    v-model="values.email"
-    label="Email"
-    :error-messages="errors.email"
-  />
+  <div>
+    <p>Count: {{ count }}</p>
+    <p>Double: {{ doubleCount }}</p>
+    <button @click="increment">Increment</button>
+  </div>
 </template>
 ```
 
-## Kit Selection Guide
+## Props and Emits
 
-**For Custom Designs:** Tailwind UI + Headless UI
-- Full design control
-- Excellent accessibility
-- Works with any design system
+```vue
+<script setup lang="ts">
+interface Props {
+  title: string
+  count?: number
+}
 
-**For Material Design:** Vuetify
-- Complete Material components
-- Strong TypeScript support
-- Large ecosystem
+interface Emits {
+  update: [value: number]
+  close: []
+}
 
-**For Cross-Platform:** Quasar
-- Mobile, desktop, web
-- Built-in PWA support
-- Excellent performance
+const props = withDefaults(defineProps<Props>(), {
+  count: 0
+})
 
-**For Enterprise/Admin:** Element Plus
-- Rich component library
-- Table/form-heavy apps
-- Good documentation
+const emit = defineEmits<Emits>()
 
-*Remember: Core Vue patterns (composables, stores, routing) remain identical across all kits.*
+const handleUpdate = (value: number) => {
+  emit('update', value)
+}
+</script>
+```
+
+## Reactivity Best Practices
+
+- Use `ref()` for primitives
+- Use `reactive()` for objects (sparingly)
+- Always access `.value` in script
+- Use `computed()` for derived state
+- Use `watch()` for side effects
+
+```typescript
+// Good
+const user = ref<User | null>(null)
+const isLoggedIn = computed(() => !!user.value)
+
+// Avoid
+const state = reactive({ user: null, isLoggedIn: false })
+```
+
+## UI Kit Adaptations
+
+**Core composition logic stays identical across all UI frameworks:**
+
+- **Tailwind UI:** Use utility classes with semantic HTML
+  ```vue
+  <button @click="increment" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Increment
+  </button>
+  ```
+
+- **Vuetify:** Replace with Material components
+  ```vue
+  <v-btn @click="increment" color="primary">Increment</v-btn>
+  ```
+
+- **Quasar:** Use mobile-optimized components
+  ```vue
+  <q-btn @click="increment" color="primary" label="Increment" />
+  ```
+
+- **Element Plus:** Leverage rich component library
+  ```vue
+  <el-button @click="increment" type="primary">Increment</el-button>
+  ```
+
+*Key principle: Reactivity (`ref`, `computed`, `watch`) and composition patterns remain unchanged--only template syntax adapts. See ui-kits-guide.mdc for comprehensive integration patterns.*
 
 ---
 > Source: [aliarghyani/vue-cursor-rules](https://github.com/aliarghyani/vue-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
