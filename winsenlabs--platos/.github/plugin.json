@@ -1,0 +1,9 @@
+{
+  "name": "winsenlabs--platos",
+  "displayName": "platos",
+  "description": "Platos is the only runtime infrastructure you will need to deploy, monitor and manage agents in production!",
+  "version": "1.0.0",
+  "author": "winsenlabs",
+  "homepage": "https://github.com/winsenlabs/platos",
+  "skills": []
+}
