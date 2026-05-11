@@ -1,21 +1,23 @@
-# reactive-agents-ts — distributed by TomeVault
+# reactive-agents-ts
 
-> Originally from [tylerjrbuell/reactive-agents-ts](https://github.com/tylerjrbuell/reactive-agents-ts). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [tylerjrbuell/reactive-agents-ts](https://github.com/tylerjrbuell/reactive-agents-ts) — distributed by [TomeVault](https://tomevault.io)
+
+Composable TypeScript AI agent framework — Effect-TS type safety, 5 reasoning strategies, persistent gateway, real-time streaming, multi-agent A2A
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [tylerjrbuell/reactive-agents-ts](https://github.com/tylerjrbuell/reactive-agents-ts).
+Original source: `AGENTS.md` in [tylerjrbuell/reactive-agents-ts](https://github.com/tylerjrbuell/reactive-agents-ts).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/tylerjrbuell#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/tylerjrbuell/reactive-agents-ts](https://github.com/tylerjrbuell/reactive-agents-ts)
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install tylerjrbuell/reactive-agents-ts
 ```
-Or browse all formats at [https://tomevault.io/claim/tylerjrbuell](https://tomevault.io/claim/tylerjrbuell).
+Source: [github.com/tylerjrbuell/reactive-agents-ts](https://github.com/tylerjrbuell/reactive-agents-ts).
 
 <!-- genome:d-i-q -->
