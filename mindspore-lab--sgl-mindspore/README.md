@@ -7,11 +7,11 @@ sgl-mindspore
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mindspore-lab/sgl-mindspore](https://github.com/mindspore-lab/sgl-mindspore).
+Original source: `CLAUDE.md` in [mindspore-lab/sgl-mindspore](https://github.com/mindspore-lab/sgl-mindspore).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
