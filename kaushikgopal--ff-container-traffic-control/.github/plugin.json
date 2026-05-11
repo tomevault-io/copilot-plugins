@@ -1,0 +1,9 @@
+{
+  "name": "kaushikgopal--ff-container-traffic-control",
+  "displayName": "ff-container-traffic-control",
+  "description": "Firefox addon (extension) that helps you define rules which will control which container a website opens in. Read more: https://kau.sh/blog/container-traffic-control/",
+  "version": "1.0.0",
+  "author": "kaushikgopal",
+  "homepage": "https://github.com/kaushikgopal/ff-container-traffic-control",
+  "skills": []
+}
