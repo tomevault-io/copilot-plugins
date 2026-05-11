@@ -1,0 +1,9 @@
+{
+  "name": "roniel-rhack--envi",
+  "displayName": "envi",
+  "description": "A terminal UI for managing .env files \u2014 diff, scan, edit, and validate environment variables across projects and profiles.",
+  "version": "1.0.0",
+  "author": "roniel-rhack",
+  "homepage": "https://github.com/roniel-rhack/envi",
+  "skills": []
+}
