@@ -1,0 +1,9 @@
+{
+  "name": "ai4curation--github-ai-integrations",
+  "displayName": "github-ai-integrations",
+  "description": "Copier template for adding AI integrations to a GH repo",
+  "version": "1.0.0",
+  "author": "ai4curation",
+  "homepage": "https://github.com/ai4curation/github-ai-integrations",
+  "skills": []
+}
