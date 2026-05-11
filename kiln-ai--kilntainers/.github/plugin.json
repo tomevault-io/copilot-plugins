@@ -1,0 +1,9 @@
+{
+  "name": "kiln-ai--kilntainers",
+  "displayName": "Kilntainers",
+  "description": "MCP server to give every agent an ephemeral Linux sandboxes for executing shell commands. ",
+  "version": "1.0.0",
+  "author": "Kiln-AI",
+  "homepage": "https://github.com/Kiln-AI/Kilntainers",
+  "skills": []
+}
