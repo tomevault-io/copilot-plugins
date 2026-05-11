@@ -1,21 +1,23 @@
-## config
+## example
 
-> Configuration files - TypeScript, ESLint, Rollup, Vitest
+> Example application demonstrating library usage - Vite + TailwindCSS 4 + Tweakpane
 
 
-- TypeScript: strict mode, ES2022 target, ESNext modules, bundler resolution
-- Rollup: builds both ESM (`index.js`) and CJS (`index.cjs`) from `src/index.ts`
-- ESLint: TypeScript ESLint for `.ts` files, plain JS rules for `example/**/*.js`
-- Vitest: `vitest.config.ts` (TypeScript), happy-dom environment, globals enabled, setup file at `tests/setup.ts`
-- package.json: `type: "module"`, exports field for dual ESM/CJS, files array for publish
-- Scripts follow pattern: `dev` (watch), `build` (production), `test`, `lint`, `format`
-- Use `prepublishOnly` to run build + test before publishing
-- Version scripts: `release:patch|minor|major` - auto-push tags
-- ESLint ignores: `dist/`, `node_modules/`, `example/dist/`, `example/node_modules/`
-- Prettier formats: TypeScript, JavaScript, JSON, Markdown, HTML, CSS, Handlebars
-- @file tsconfig.json
-- @file rollup.config.js
-- @file eslint.config.js
+- Use plain JavaScript (ES modules) - no TypeScript in example directory
+- Vite for build tooling (`npm run dev`, `npm run build`)
+- TailwindCSS v4 for styling - use utility classes
+- Handlebars for templating video cards
+- Tweakpane for interactive controls/demos
+- Organize code in `lib/` subdirectory with barrel exports
+- Constants in `constants.js` at example root
+- Use `file:..` dependency reference to local package in package.json
+- Main entry point: `main.js` - DOM ready, initialize components
+- Functions should be pure and reusable - create factory functions when needed
+- Use descriptive variable names and JSDoc comments for complex functions (`@fileoverview` for main files)
+- DOM manipulation: use `getElementById` with constants from `constants.js`
+- Clean up event listeners and `AmbientGlow` instances properly
+- @file example/main.js
+- @file example/lib/index.js
 
 ---
 > Source: [mike-at-redspace/video-ambient-glow](https://github.com/mike-at-redspace/video-ambient-glow) — distributed by [TomeVault](https://tomevault.io).
