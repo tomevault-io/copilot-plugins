@@ -7,11 +7,11 @@ MCP Steroid IntelliJ Plugin project page
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jonnyzzz/mcp-steroid](https://github.com/jonnyzzz/mcp-steroid).
+Original source: `CLAUDE.md` in [jonnyzzz/mcp-steroid](https://github.com/jonnyzzz/mcp-steroid).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
