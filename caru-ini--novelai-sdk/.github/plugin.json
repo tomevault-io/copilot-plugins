@@ -1,0 +1,9 @@
+{
+  "name": "caru-ini--novelai-sdk",
+  "displayName": "novelai-sdk",
+  "description": "\u2712NovelAI API SDK for Python with rich type hints and strong Pydantic v2 validation.",
+  "version": "1.0.0",
+  "author": "caru-ini",
+  "homepage": "https://github.com/caru-ini/novelai-sdk",
+  "skills": []
+}
