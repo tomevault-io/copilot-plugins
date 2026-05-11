@@ -4,7 +4,7 @@
   "repo": "kana-dojo",
   "description": "Aesthetic, minimalist platform for learning Japanese inspired by Duolingo and Monkeytype, built with Next.js and sponsored by Vercel. Beginner-friendly with plenty of good first issues - all contributions are welcome!",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lingdojo/kana-dojo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T00:04:33Z"
+  "distributed_at": "2026-05-11T09:59:16Z"
 }
