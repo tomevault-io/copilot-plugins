@@ -7,11 +7,11 @@ The one dashboard you’ve been looking for — track spend and usage across Cla
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [janekbaraniewski/openusage](https://github.com/janekbaraniewski/openusage).
+Original source: `CLAUDE.md` in [janekbaraniewski/openusage](https://github.com/janekbaraniewski/openusage).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
