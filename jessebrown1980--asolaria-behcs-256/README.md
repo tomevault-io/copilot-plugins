@@ -7,11 +7,11 @@ Federated multi-agent civilization toolkit · 19 supervisors/tools · SMP v5+ GA
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [JesseBrown1980/asolaria-behcs-256](https://github.com/JesseBrown1980/asolaria-behcs-256).
+Original source: `CLAUDE.md` in [JesseBrown1980/asolaria-behcs-256](https://github.com/JesseBrown1980/asolaria-behcs-256).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
