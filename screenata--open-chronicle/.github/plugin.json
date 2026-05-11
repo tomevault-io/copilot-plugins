@@ -1,0 +1,9 @@
+{
+  "name": "screenata--open-chronicle",
+  "displayName": "open-chronicle",
+  "description": "Local screen memory for Claude Code and Codex CLI.",
+  "version": "1.0.0",
+  "author": "Screenata",
+  "homepage": "https://github.com/Screenata/open-chronicle",
+  "skills": []
+}
