@@ -4,7 +4,7 @@
   "repo": "tako",
   "description": "Build, run, and manage app instances anywhere, without thinking about the boring stuff",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lilienblum/tako",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T22:23:25Z"
+  "distributed_at": "2026-05-11T12:18:15Z"
 }
