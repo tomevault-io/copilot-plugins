@@ -1,0 +1,9 @@
+{
+  "name": "penberg--weave",
+  "displayName": "weave",
+  "description": "Deterministic execution for reproducible debugging\u2014for AI agents and humans.",
+  "version": "1.0.0",
+  "author": "penberg",
+  "homepage": "https://github.com/penberg/weave",
+  "skills": []
+}
