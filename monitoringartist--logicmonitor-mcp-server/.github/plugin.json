@@ -1,0 +1,9 @@
+{
+  "name": "monitoringartist--logicmonitor-mcp-server",
+  "displayName": "logicmonitor-mcp-server",
+  "description": ":sparkles: LogicMonitor MCP server",
+  "version": "1.0.0",
+  "author": "monitoringartist",
+  "homepage": "https://github.com/monitoringartist/logicmonitor-mcp-server",
+  "skills": []
+}
