@@ -1,0 +1,45 @@
+## go-allocations-vsix
+
+> This codebase is a VS Code extension that helps locate Go allocations, using your benchmarks.
+
+This codebase is a VS Code extension that helps locate Go allocations, using your benchmarks.
+It is a sidebar in the VS Code UI.
+
+Research how VS Code extensions work, and explain them. They seem to be
+"reactive", there is a fair amount of "magic", where it's not obvious how
+certain methods get called. Research the lifecycle. For example, getChildren
+is an overload that is automatically called by the framework when tree nodes
+are revealed.
+
+When I ask for a new feature, focus on the smallest, simplest version first. Only
+implement the "happy path" to start. After that, suggest edge cases and error
+paths. Perhaps add comments indicating a TODO for handling those cases.
+
+## Data structures and integrity
+
+Avoid creating two sources of truth. There are two main data structures:
+
+- The module cache is the source of truth for the module structure.
+- In turn, we create TreeItems reflecting this structure, for the UI.
+
+You might think of it as analogous to an MVC pattern. The model is the module
+cache, the view is the TreeView, and the controller is the provider.
+
+Use types to help detect errors.
+
+Prefer to throw an error when something unexpected happens. It probably
+indicates a bug, or a violation of an invariant. Avoid things called
+"ensure", that's a code smell.
+
+## Pull requests and code reviews
+
+When I ask you to "review this PR", use the gh CLI tool to get information
+about the pull request, based on the current local git branch.
+
+When I ask you to publish your review summary to the PR, use the gh CLI tool
+to do so, and **clearly identify** who you are (for example, VS Code Copilot, Cursor, etc), that this was an
+automated review, and what LLM model you are using.
+
+---
+> Source: [clipperhouse/go-allocations-vsix](https://github.com/clipperhouse/go-allocations-vsix) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
