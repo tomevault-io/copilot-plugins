@@ -1,0 +1,44 @@
+{
+  "name": "claude-opus-4.7-prompt-optimizer",
+  "owner": "CheswickDEV",
+  "repo": "claude-opus-4.7-prompt-optimizer",
+  "description": "A meta-prompting system that transforms raw prompts into production-ready, XML-structured prompts optimized for Claude Opus 4.7. 11 codified rules, 10-component framework, complexity-based routing, hard prompt: trigger.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CheswickDEV/claude-opus-4.7-prompt-optimizer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T04:54:11Z"
+}
