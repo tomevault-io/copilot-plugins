@@ -1,0 +1,9 @@
+{
+  "name": "farol-team--gnap",
+  "displayName": "gnap",
+  "description": "GNAP \u2014 Git-Native Agent Protocol. RFC Draft for git-based agent orchestration. Zero servers.",
+  "version": "1.0.0",
+  "author": "farol-team",
+  "homepage": "https://github.com/farol-team/gnap",
+  "skills": []
+}
