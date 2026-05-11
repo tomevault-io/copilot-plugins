@@ -1,0 +1,9 @@
+{
+  "name": "jasterv--teatui",
+  "displayName": "teatui",
+  "description": ":warning: This repo has been migrated :warning: Experimental library providing an Elm-like framework to build TUI applications in Rust",
+  "version": "1.0.0",
+  "author": "JasterV",
+  "homepage": "https://github.com/JasterV/teatui",
+  "skills": []
+}
