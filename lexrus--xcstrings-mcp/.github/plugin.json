@@ -1,0 +1,9 @@
+{
+  "name": "lexrus--xcstrings-mcp",
+  "displayName": "xcstrings_mcp",
+  "description": "A Rust implementation of a Model Context Protocol (MCP) server designed for working with Xcode `Localizable.xcstrings` files.",
+  "version": "1.0.0",
+  "author": "lexrus",
+  "homepage": "https://github.com/lexrus/xcstrings_mcp",
+  "skills": []
+}
