@@ -1,0 +1,9 @@
+{
+  "name": "vyrti--quichash",
+  "displayName": "quichash",
+  "description": "Ultra fast hashing app for Linux, Mac, Windows, Freebsd",
+  "version": "1.0.0",
+  "author": "vyrti",
+  "homepage": "https://github.com/vyrti/quichash",
+  "skills": []
+}
