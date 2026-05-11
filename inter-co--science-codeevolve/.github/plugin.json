@@ -1,0 +1,9 @@
+{
+  "name": "inter-co--science-codeevolve",
+  "displayName": "science-codeevolve",
+  "description": "CodeEvolve is an open-source evolutionary coding agent for algorithm discovery and optimization.",
+  "version": "1.0.0",
+  "author": "inter-co",
+  "homepage": "https://github.com/inter-co/science-codeevolve",
+  "skills": []
+}
