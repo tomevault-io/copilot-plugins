@@ -1,0 +1,9 @@
+{
+  "name": "mrvandalo--nixos-artifacts",
+  "displayName": "nixos-artifacts",
+  "description": "artifact/secret management concept for nixos",
+  "version": "1.0.0",
+  "author": "mrVanDalo",
+  "homepage": "https://github.com/mrVanDalo/nixos-artifacts",
+  "skills": []
+}
