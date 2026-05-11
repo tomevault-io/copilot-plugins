@@ -4,7 +4,7 @@
   "repo": "seaguntech-monorepo-template",
   "description": "\u269b\ufe0f Seaguntech monorepo with Turborepo, pnpm, and Tailwind v4",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/seaguntech/seaguntech-monorepo-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T15:31:48Z"
+  "distributed_at": "2026-05-11T17:24:01Z"
 }
