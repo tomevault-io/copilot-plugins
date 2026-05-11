@@ -1,0 +1,44 @@
+{
+  "name": "leptos-motion",
+  "owner": "cloud-shuttle",
+  "repo": "leptos-motion",
+  "description": "\ud83c\udfac Production-ready animation library for Leptos with complete Motion Studio, WebGL acceleration, and Framer Motion-inspired API. Built with Rust & WebAssembly for 60fps animations, 3D transforms, path morphing, and spring physics. v0.8.3 with comprehensive ADRs, pnpm support, and near-100% test coverage.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cloud-shuttle/leptos-motion",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T22:08:48Z"
+}
