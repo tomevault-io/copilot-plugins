@@ -1,0 +1,9 @@
+{
+  "name": "asiflow--claude-nexus-hyper-agent-team",
+  "displayName": "claude-nexus-hyper-agent-team",
+  "description": "multi-agents operating system layer on top of Claude Cod: multi-agent engineering team for Claude Code, with hook-enforced protocol, adversarial review, Bayesian trust calibration, dynamic specialist ",
+  "version": "1.0.0",
+  "author": "asiflow",
+  "homepage": "https://github.com/asiflow/claude-nexus-hyper-agent-team",
+  "skills": []
+}
