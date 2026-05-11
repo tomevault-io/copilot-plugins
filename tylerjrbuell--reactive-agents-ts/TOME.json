@@ -2,9 +2,9 @@
   "name": "reactive-agents-ts",
   "owner": "tylerjrbuell",
   "repo": "reactive-agents-ts",
-  "description": "",
+  "description": "Composable TypeScript AI agent framework \u2014 Effect-TS type safety, 5 reasoning strategies, persistent gateway, real-time streaming, multi-agent A2A",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/tylerjrbuell",
+  "source_url": "https://github.com/tylerjrbuell/reactive-agents-ts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T11:51:45Z"
+  "distributed_at": "2026-05-11T14:58:13Z"
 }
