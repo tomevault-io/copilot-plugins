@@ -2,6 +2,7 @@
 
 > <!-- jankurai generated adapter -->
 
+
 <!-- jankurai generated adapter -->
 <!-- jankurai agent request v1 sha256:REPLACE_WITH_HASH -->
 Read `AGENTS.md` first. Use `agent/JANKURAI_STANDARD.md` as the canonical jankurai standard.
