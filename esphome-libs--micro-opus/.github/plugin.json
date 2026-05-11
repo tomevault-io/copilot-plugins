@@ -1,0 +1,9 @@
+{
+  "name": "esphome-libs--micro-opus",
+  "displayName": "micro-opus",
+  "description": "Embedded-focused wrapper for the Opus audio codec library with Ogg Opus decoding support",
+  "version": "1.0.0",
+  "author": "esphome-libs",
+  "homepage": "https://github.com/esphome-libs/micro-opus",
+  "skills": []
+}
