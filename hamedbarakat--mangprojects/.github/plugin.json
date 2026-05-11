@@ -1,0 +1,9 @@
+{
+  "name": "hamedbarakat--mangprojects",
+  "displayName": "mangprojects",
+  "description": "Flutter app for managing engineering projects with Firestore database",
+  "version": "1.0.0",
+  "author": "HamedBarakat",
+  "homepage": "https://github.com/HamedBarakat/mangprojects",
+  "skills": []
+}
