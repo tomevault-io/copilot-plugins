@@ -1,0 +1,9 @@
+{
+  "name": "platformatic--k8s-watt-performance-demo",
+  "displayName": "k8s-watt-performance-demo",
+  "description": "k8s-watt-performance-demo",
+  "version": "1.0.0",
+  "author": "platformatic",
+  "homepage": "https://github.com/platformatic/k8s-watt-performance-demo",
+  "skills": []
+}
