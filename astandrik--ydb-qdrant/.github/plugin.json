@@ -1,0 +1,9 @@
+{
+  "name": "astandrik--ydb-qdrant",
+  "displayName": "ydb-qdrant",
+  "description": "Qdrant-compatible Node.js/TypeScript service and npm library for storing and searching embeddings in YDB with exact KNN over a global one-table layout.",
+  "version": "1.0.0",
+  "author": "astandrik",
+  "homepage": "https://github.com/astandrik/ydb-qdrant",
+  "skills": []
+}
