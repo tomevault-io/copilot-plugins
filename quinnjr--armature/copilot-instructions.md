@@ -1,128 +1,173 @@
-## rust-module-creation
+## security-authentication
 
-> Guidelines for creating new armature-* crates following framework conventions
+> Security and authentication standards for Armature applications
 
 
-# Rust Module Creation
+# Security & Authentication
 
-When creating a new `armature-*` crate for the framework, follow these conventions.
+Security standards for authentication, authorization, and secure coding.
 
-## Directory Structure
+## Password Hashing
 
-```
-armature-<name>/
-├── Cargo.toml
-├── src/
-│   ├── lib.rs          # Public API exports
-│   ├── config.rs       # Builder pattern configuration
-│   ├── error.rs        # thiserror-based error types
-│   └── <impl>.rs       # Implementation files
-└── tests/
-    └── integration.rs  # Integration tests
-```
-
-## Cargo.toml Template
-
-```toml
-[package]
-name = "armature-<name>"
-version.workspace = true
-edition.workspace = true
-license.workspace = true
-repository.workspace = true
-description = "Description of the module"
-
-[dependencies]
-armature-core = { path = "../armature-core", optional = true }
-thiserror = "2"
-tokio = { version = "1", features = ["rt-multi-thread"] }
-serde = { version = "1", features = ["derive"] }
-
-[features]
-default = []
-di = ["armature-core"]
-```
-
-## Error Handling
-
-Use `thiserror` for all error types:
+Use Argon2id (preferred) or bcrypt:
 
 ```rust
-use thiserror::Error;
+use argon2::{Argon2, PasswordHasher, PasswordVerifier};
+use argon2::password_hash::{SaltString, rand_core::OsRng};
 
-#[derive(Error, Debug)]
-pub enum MyModuleError {
-    #[error("Configuration error: {0}")]
-    Config(String),
+pub fn hash_password(password: &str) -> Result<String, AuthError> {
+    let salt = SaltString::generate(&mut OsRng);
+    let argon2 = Argon2::default();
 
-    #[error("Connection failed: {0}")]
-    Connection(#[from] std::io::Error),
+    Ok(argon2
+        .hash_password(password.as_bytes(), &salt)?
+        .to_string())
+}
+
+pub fn verify_password(password: &str, hash: &str) -> Result<bool, AuthError> {
+    let parsed_hash = PasswordHash::new(hash)?;
+    Ok(Argon2::default()
+        .verify_password(password.as_bytes(), &parsed_hash)
+        .is_ok())
 }
 ```
 
-## Configuration Builder Pattern
+## JWT Configuration
 
 ```rust
-#[derive(Debug, Clone)]
-pub struct MyModuleConfig {
-    pub setting: String,
-    pub timeout_ms: u64,
+// Use RS256 for production, HS256 only for development
+pub struct JwtConfig {
+    pub algorithm: Algorithm,      // RS256 preferred
+    pub access_ttl: Duration,      // 15 minutes max
+    pub refresh_ttl: Duration,     // 7 days max
+    pub issuer: String,
+    pub audience: Vec<String>,
 }
 
-impl Default for MyModuleConfig {
-    fn default() -> Self {
-        Self {
-            setting: String::new(),
-            timeout_ms: 5000,
+// Always validate claims
+fn validate_token(token: &str) -> Result<Claims, AuthError> {
+    let mut validation = Validation::new(Algorithm::RS256);
+    validation.set_audience(&["my-app"]);
+    validation.set_issuer(&["my-issuer"]);
+    validation.validate_exp = true;
+    validation.validate_nbf = true;
+
+    decode::<Claims>(token, &key, &validation)
+}
+```
+
+## OAuth2 / PKCE
+
+Always use PKCE for public clients:
+
+```rust
+use pkce::{CodeChallenge, CodeVerifier};
+
+let verifier = CodeVerifier::new();
+let challenge = CodeChallenge::from_verifier(&verifier);
+
+// Store verifier in session, send challenge to authorization server
+```
+
+## Authorization Guards
+
+```rust
+#[injectable]
+pub struct RoleGuard {
+    required_roles: Vec<String>,
+}
+
+impl Guard for RoleGuard {
+    async fn can_activate(&self, ctx: &RequestContext) -> Result<bool, GuardError> {
+        let user = ctx.get::<AuthenticatedUser>()?;
+
+        let has_role = self.required_roles
+            .iter()
+            .any(|role| user.roles.contains(role));
+
+        if !has_role {
+            // Log authorization failure
+            tracing::warn!(
+                user_id = %user.id,
+                required = ?self.required_roles,
+                "Authorization denied"
+            );
         }
-    }
-}
 
-impl MyModuleConfig {
-    pub fn builder() -> MyModuleConfigBuilder {
-        MyModuleConfigBuilder::default()
-    }
-}
-
-#[derive(Default)]
-pub struct MyModuleConfigBuilder {
-    config: MyModuleConfig,
-}
-
-impl MyModuleConfigBuilder {
-    pub fn setting(mut self, value: impl Into<String>) -> Self {
-        self.config.setting = value.into();
-        self
-    }
-
-    pub fn build(self) -> MyModuleConfig {
-        self.config
+        Ok(has_role)
     }
 }
 ```
 
-## Dependency Injection Integration
-
-When the `di` feature is enabled:
+## Input Validation
 
 ```rust
-#[cfg(feature = "di")]
-use armature_core::injectable;
+use validator::Validate;
 
-#[cfg_attr(feature = "di", injectable)]
-pub struct MyService {
-    config: MyModuleConfig,
+#[derive(Deserialize, Validate)]
+pub struct LoginRequest {
+    #[validate(email)]
+    pub email: String,
+
+    #[validate(length(min = 8, max = 128))]
+    pub password: String,
 }
+
+// Always validate before processing
+async fn login(req: Json<LoginRequest>) -> Result<Response, Error> {
+    req.validate()?;
+    // ...
+}
+```
+
+## Security Headers
+
+```rust
+fn security_headers() -> impl Middleware {
+    SecurityHeaders::new()
+        .content_security_policy("default-src 'self'")
+        .strict_transport_security(Duration::days(365), true)
+        .x_frame_options(XFrameOptions::Deny)
+        .x_content_type_options(XContentTypeOptions::NoSniff)
+        .referrer_policy(ReferrerPolicy::StrictOriginWhenCrossOrigin)
+}
+```
+
+## Cookie Security
+
+```rust
+Cookie::build("session", token)
+    .http_only(true)      // Prevent XSS access
+    .secure(true)         // HTTPS only
+    .same_site(SameSite::Strict)
+    .max_age(Duration::hours(1))
+    .path("/")
+    .finish()
+```
+
+## Secrets Management
+
+```rust
+// Never log sensitive data
+tracing::info!(user_id = %user.id, "Login successful");
+// NOT: tracing::info!(password = %password, "Login attempt");
+
+// Use constant-time comparison for secrets
+use subtle::ConstantTimeEq;
+secret1.as_bytes().ct_eq(secret2.as_bytes()).into()
 ```
 
 ## Checklist
 
-- [ ] Add crate to workspace members in root `Cargo.toml`
-- [ ] Implement `Default` for config structs
-- [ ] Use `thiserror` for error types
-- [ ] Add `#[injectable]` when `di` feature is enabled
-- [ ] Write doc comments with examples
-- [ ] Create integration tests
+- [ ] Use Argon2id for password hashing
+- [ ] JWT access tokens ≤ 15 minutes
+- [ ] RS256 algorithm in production
+- [ ] PKCE for OAuth2 public clients
+- [ ] Validate all user input
+- [ ] Set security headers
+- [ ] HttpOnly + Secure cookies
+- [ ] Never log sensitive data
+- [ ] Run `cargo audit` regularly
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
