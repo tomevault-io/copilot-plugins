@@ -1,0 +1,9 @@
+{
+  "name": "atomantic--portos",
+  "displayName": "PortOS",
+  "description": "Self-hosted dev machine OS \u2014 app management, AI agent orchestration, digital twin, second brain, and health tracking from a single dashboard over Tailscale",
+  "version": "1.0.0",
+  "author": "atomantic",
+  "homepage": "https://github.com/atomantic/PortOS",
+  "skills": []
+}
