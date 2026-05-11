@@ -1,237 +1,143 @@
-## architecture-patterns
+## coding-standards
 
-> 架构模式和设计原则，包含核心架构模式、设计模式、数据模型设计、依赖注入、错误处理架构等
+> Python 编码规范，包含风格、错误处理、日志记录、配置管理等
 
-# 架构模式和设计原则
+# 编码规范和最佳实践
 
-## 核心架构模式
+## Python 编码规范
 
-### 三阶段架构
-项目采用"录制-执行-自愈"三阶段架构：
+### 代码风格
+- 遵循 PEP 8 标准
+- 使用 4 个空格缩进，不使用制表符
+- 行长度限制为 88 字符（Black 格式化器标准）
+- 使用 f-string 进行字符串格式化
 
-1. **录制阶段** ([src/core/recorder.py](mdc:src/core/recorder.py))
-   - 使用 Browser-Use 进行智能录制
-   - 生成 JSON 格式的工作流文件
-   - 支持变量提取和参数化
-
-2. **执行阶段** (待实现)
-   - 使用 Playwright 进行高性能执行
-   - 支持并发执行和批处理
-   - 模板渲染和上下文管理
-
-3. **自愈阶段** (待实现)
-   - 使用 Browser-Use 进行错误修复
-   - 自动适应页面变化
-   - 工作流自进化
-
-### 分层架构
-```
-┌─────────────────────────────────────┐
-│           CLI & Web UI              │  # 用户接口层
-├─────────────────────────────────────┤
-│         Core Business Logic         │  # 核心业务逻辑
-│  ┌─────────┬─────────┬─────────────┐ │
-│  │Recorder │Executor │   Healer    │ │
-│  └─────────┴─────────┴─────────────┘ │
-├─────────────────────────────────────┤
-│           Models & Utils            │  # 数据模型和工具
-├─────────────────────────────────────┤
-│      External Dependencies         │  # 外部依赖
-│   Browser-Use | Playwright | APIs  │
-└─────────────────────────────────────┘
-```
-
-## 设计模式
-
-### 1. 策略模式 (Strategy Pattern)
-用于不同的执行策略：
-
+### 导入规范
 ```python
-from abc import ABC, abstractmethod
-
-class ExecutionStrategy(ABC):
-    @abstractmethod
-    async def execute(self, workflow: Workflow, context: Dict[str, str]) -> ExecutionResult:
-        pass
-
-class PlaywrightStrategy(ExecutionStrategy):
-    async def execute(self, workflow: Workflow, context: Dict[str, str]) -> ExecutionResult:
-        # Playwright 执行逻辑
-        pass
-
-class BrowserUseStrategy(ExecutionStrategy):
-    async def execute(self, workflow: Workflow, context: Dict[str, str]) -> ExecutionResult:
-        # Browser-Use 执行逻辑
-        pass
-```
-
-### 2. 工厂模式 (Factory Pattern)
-用于创建不同类型的步骤执行器：
-
-```python
-class StepExecutorFactory:
-    @staticmethod
-    def create_executor(step_type: StepType) -> StepExecutor:
-        if step_type == StepType.NAVIGATE:
-            return NavigateExecutor()
-        elif step_type == StepType.CLICK:
-            return ClickExecutor()
-        # ... 其他步骤类型
-```
-
-### 3. 观察者模式 (Observer Pattern)
-用于执行过程的监控和日志记录：
-
-```python
-class ExecutionObserver(ABC):
-    @abstractmethod
-    def on_step_start(self, step: WorkflowStep):
-        pass
-    
-    @abstractmethod
-    def on_step_complete(self, step: WorkflowStep, result: StepResult):
-        pass
-
-class LoggingObserver(ExecutionObserver):
-    def on_step_start(self, step: WorkflowStep):
-        logger.info("步骤开始", step_id=step.id, step_type=step.type)
-```
-
-## 数据模型设计
-
-### 核心模型
-参考 [src/models/workflow.py](mdc:src/models/workflow.py) 的设计：
-
-- **Workflow**: 工作流主模型
-- **WorkflowStep**: 工作流步骤
-- **WorkflowVariable**: 工作流变量
-- **ExecutionResult**: 执行结果
-- **StepResult**: 步骤执行结果
-
-### 模型设计原则
-1. 使用 Pydantic 进行数据验证
-2. 支持 JSON 序列化/反序列化
-3. 包含必要的元数据（创建时间、更新时间等）
-4. 支持版本控制
-
-## 依赖注入
-
-### 服务容器
-创建简单的依赖注入容器：
-
-```python
-class Container:
-    def __init__(self):
-        self._services = {}
-    
-    def register(self, service_type: type, implementation: object):
-        self._services[service_type] = implementation
-    
-    def get(self, service_type: type):
-        return self._services.get(service_type)
-
-# 全局容器实例
-container = Container()
-```
-
-### 使用示例
-```python
-# 注册服务
-container.register(WorkflowRecorder, WorkflowRecorder())
-container.register(ScriptCleaner, ScriptCleaner())
-
-# 使用服务
-recorder = container.get(WorkflowRecorder)
-```
-
-## 错误处理架构
-
-### 异常层次结构
-```python
-class GaiaRPAError(Exception):
-    """Gaia RPA 基础异常"""
-    pass
-
-class WorkflowError(GaiaRPAError):
-    """工作流相关异常"""
-    pass
-
-class RecordingError(WorkflowError):
-    """录制异常"""
-    pass
-
-class ExecutionError(WorkflowError):
-    """执行异常"""
-    pass
-
-class HealingError(WorkflowError):
-    """自愈异常"""
-    pass
-```
-
-### 错误恢复策略
-1. **重试机制**: 对临时性错误进行重试
-2. **降级策略**: 当主要功能失败时使用备用方案
-3. **熔断器**: 防止级联失败
-4. **自愈机制**: 使用 Browser-Use 进行智能修复
-
-## 并发和异步设计
-
-### 异步优先
-- 所有 I/O 操作使用异步
-- 使用 `asyncio` 进行并发控制
-- 避免阻塞操作
-
-### 并发控制
-```python
+# 标准库导入
 import asyncio
-from asyncio import Semaphore
+from pathlib import Path
+from typing import Dict, List, Optional
 
-class ConcurrentExecutor:
-    def __init__(self, max_concurrent: int = 5):
-        self.semaphore = Semaphore(max_concurrent)
-    
-    async def execute_batch(self, workflows: List[Workflow]) -> List[ExecutionResult]:
-        tasks = [self._execute_single(workflow) for workflow in workflows]
-        return await asyncio.gather(*tasks, return_exceptions=True)
-    
-    async def _execute_single(self, workflow: Workflow) -> ExecutionResult:
-        async with self.semaphore:
-            # 执行单个工作流
-            pass
+# 第三方库导入
+import typer
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+# 本地导入
+from ..core.recorder import WorkflowRecorder
+from ..models.workflow import Workflow
+from ..utils.logger import logger
 ```
 
-## 插件化架构
+### 类型注解
+- 必须为所有函数参数和返回值添加类型注解
+- 使用 `typing` 模块的类型提示
+- 对于复杂类型，优先使用 Pydantic 模型
 
-### 插件接口
 ```python
-class Plugin(ABC):
-    @abstractmethod
-    def get_name(self) -> str:
-        pass
-    
-    @abstractmethod
-    async def initialize(self):
-        pass
-    
-    @abstractmethod
-    async def execute(self, context: Dict[str, Any]) -> Any:
-        pass
+from typing import Dict, List, Optional
+from pydantic import BaseModel
+
+def process_workflow(workflow: Workflow, context: Dict[str, str]) -> Optional[ExecutionResult]:
+    """处理工作流执行"""
+    pass
 ```
 
-### 插件管理器
+### 异步编程
+- 使用 `async/await` 语法
+- 异步函数必须以 `async def` 开头
+- 调用异步函数时必须使用 `await`
+
 ```python
-class PluginManager:
-    def __init__(self):
-        self.plugins: Dict[str, Plugin] = {}
+async def record_workflow(self, name: str) -> Workflow:
+    """录制工作流"""
+    workflow = await self._create_workflow(name)
+    return workflow
+```
+
+## 文档字符串
+使用 Google 风格的文档字符串：
+
+```python
+def execute_workflow(workflow_path: str, context: Dict[str, str]) -> ExecutionResult:
+    """执行工作流
     
-    def register_plugin(self, plugin: Plugin):
-        self.plugins[plugin.get_name()] = plugin
-    
-    async def execute_plugin(self, name: str, context: Dict[str, Any]):
-        if plugin := self.plugins.get(name):
-            return await plugin.execute(context)
-        raise PluginNotFoundError(f"Plugin {name} not found")
+    Args:
+        workflow_path: 工作流文件路径
+        context: 执行上下文变量
+        
+    Returns:
+        ExecutionResult: 执行结果对象
+        
+    Raises:
+        WorkflowNotFoundError: 当工作流文件不存在时
+        ExecutionError: 当执行失败时
+    """
+    pass
+```
+
+## 错误处理
+- 使用具体的异常类型，避免使用裸露的 `except:`
+- 创建自定义异常类继承自适当的基类
+- 记录异常信息到日志
+
+```python
+class WorkflowError(Exception):
+    """工作流相关错误基类"""
+    pass
+
+class WorkflowNotFoundError(WorkflowError):
+    """工作流未找到错误"""
+    pass
+
+try:
+    result = await execute_workflow(workflow_path)
+except WorkflowNotFoundError as e:
+    logger.error("工作流未找到", workflow_path=workflow_path, error=str(e))
+    raise
+except Exception as e:
+    logger.error("执行失败", error=str(e))
+    raise WorkflowError(f"执行失败: {e}") from e
+```
+
+## 日志记录
+使用 [src/utils/logger.py](mdc:src/utils/logger.py) 中的结构化日志：
+
+```python
+from ..utils.logger import logger
+
+# 信息日志
+logger.info("工作流录制开始", workflow_name=name)
+
+# 错误日志
+logger.error("工作流执行失败", workflow_name=name, error=str(e))
+
+# 调试日志
+logger.debug("步骤执行详情", step_id=step.id, step_type=step.type)
+```
+
+## 配置管理
+- 使用 [config.yml](mdc:config.yml) 进行配置管理
+- 环境变量优先于配置文件
+- 敏感信息通过环境变量传递
+
+## 测试规范
+- 测试文件放在 `tests/` 目录下
+- 测试文件名以 `test_` 开头
+- 使用 pytest 作为测试框架
+- 异步测试使用 `pytest-asyncio`
+
+```python
+import pytest
+from src.core.recorder import WorkflowRecorder
+
+@pytest.mark.asyncio
+async def test_workflow_recording():
+    """测试工作流录制功能"""
+    recorder = WorkflowRecorder()
+    workflow = await recorder.record_workflow("test_workflow")
+    assert workflow.name == "test_workflow"
 ```
 
 ---
