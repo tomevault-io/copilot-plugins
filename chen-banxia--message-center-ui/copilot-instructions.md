@@ -1,56 +1,28 @@
-## state-management
+## ui
 
-> 项目使用 Pinia 进行状态管理。Pinia 是 Vue 官方推荐的状态管理库，替代了 Vuex。
+> 请帮我创建一个基于Vue 3和Element Plus的Web应用界面，具有以下特点：
 
-# 状态管理规则
+请帮我创建一个基于Vue 3和Element Plus的Web应用界面，具有以下特点：
 
-项目使用 Pinia 进行状态管理。Pinia 是 Vue 官方推荐的状态管理库，替代了 Vuex。
+1. 使用Vue 3的Composition API和<script setup>语法，
+2. 使用js编写代码
+3. 使用Element Plus作为UI组件库
+4. 使用vite构建工具
+5. 页面结构包含：
+   - 顶部导航栏(el-header)，包含logo和导航菜单
+   - 侧边栏(el-aside)，包含功能菜单
+   - 主内容区(el-main)，用于显示当前功能的内容
+   - 底部页脚(el-footer)，包含版权信息
 
-## Store 结构
+6. 实现响应式设计，适配不同屏幕尺寸
+7. 使用Element Plus的主题颜色系统
+8. 包含必要的路由配置
+9. 添加必要的状态管理(可以使用Pinia)
+10. 确保代码结构清晰，有良好的组件拆分
+11. 可以模拟一些数据
 
-Store 文件位于 `src/stores` 目录下，示例文件为 [counter.js](mdc:src/stores/counter.js)。
 
-## 创建 Store
-
-使用 `defineStore` 函数创建 store：
-
-```js
-import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
-
-export const useYourStore = defineStore('your-store', () => {
-  // 状态
-  const state = ref(initialValue)
-  
-  // Getters (计算属性)
-  const derivedState = computed(() => state.value * 2)
-  
-  // Actions (方法)
-  function updateState(newValue) {
-    state.value = newValue
-  }
-  
-  return { state, derivedState, updateState }
-})
-```
-
-## 使用 Store
-
-在组件中使用 store：
-
-```vue
-<script setup>
-import { useYourStore } from '@/stores/your-store'
-
-const store = useYourStore()
-
-// 访问状态
-console.log(store.state)
-
-// 调用 action
-store.updateState(newValue)
-</script>
-```
+请提供完整的代码实现，包括必要的样式和交互逻辑。
 
 ---
 > Source: [chen-banxia/message-center-ui](https://github.com/chen-banxia/message-center-ui) — distributed by [TomeVault](https://tomevault.io).
