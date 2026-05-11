@@ -1,0 +1,9 @@
+{
+  "name": "buildermethods--bm-skills",
+  "displayName": "bm-skills",
+  "description": "A collection of public open-source tools for builders, by Brian Casel @ Builder Methods (buildermethods.com).",
+  "version": "1.0.0",
+  "author": "buildermethods",
+  "homepage": "https://github.com/buildermethods/bm-skills",
+  "skills": []
+}
