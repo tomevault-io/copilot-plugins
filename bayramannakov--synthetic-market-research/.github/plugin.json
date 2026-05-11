@@ -1,0 +1,9 @@
+{
+  "name": "bayramannakov--synthetic-market-research",
+  "displayName": "synthetic-market-research",
+  "description": "Agent skill for fast, cheap market research using LLM synthetic surveys + Semantic Similarity Rating (SSR). No API keys needed.",
+  "version": "1.0.0",
+  "author": "BayramAnnakov",
+  "homepage": "https://github.com/BayramAnnakov/synthetic-market-research",
+  "skills": []
+}
