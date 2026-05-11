@@ -4,7 +4,7 @@
   "repo": "unifi-network-maps-ha",
   "description": "Interactive UniFi network topology map for Home Assistant. Visualize device connections, monitor client presence, and display your network structure in a live Lovelace card.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/merlijntishauser/unifi-network-maps-ha",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T20:46:14Z"
+  "distributed_at": "2026-05-11T18:19:53Z"
 }
