@@ -4,7 +4,7 @@
   "repo": "opencode-feishu",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NeverMore93/opencode-feishu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T22:28:34Z"
+  "distributed_at": "2026-05-11T12:35:49Z"
 }
