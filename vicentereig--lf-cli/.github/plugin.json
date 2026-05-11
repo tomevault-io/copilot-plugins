@@ -1,0 +1,9 @@
+{
+  "name": "vicentereig--lf-cli",
+  "displayName": "lf-cli",
+  "description": "Super power your agents with Langfuse metrics",
+  "version": "1.0.0",
+  "author": "vicentereig",
+  "homepage": "https://github.com/vicentereig/lf-cli",
+  "skills": []
+}
