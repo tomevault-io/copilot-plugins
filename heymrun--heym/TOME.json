@@ -4,7 +4,7 @@
   "repo": "heym",
   "description": "Self-hosted AI workflow automation platform with visual canvas, agents, RAG, HITL, MCP, and observability in one runtime.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/heymrun/heym",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T08:34:59Z"
+  "distributed_at": "2026-05-11T09:48:17Z"
 }
