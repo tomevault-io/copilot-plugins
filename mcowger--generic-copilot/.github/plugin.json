@@ -1,0 +1,9 @@
+{
+  "name": "mcowger--generic-copilot",
+  "displayName": "generic-copilot",
+  "description": "Use frontier LLMs from nearly any orovider in VS Code with GitHub Copilot Chat - no Copilot subscription needed. Powered by any Vercel AI-SDK compatible provider including Claude Code, LiteLLM. z.ai, ",
+  "version": "1.0.0",
+  "author": "mcowger",
+  "homepage": "https://github.com/mcowger/generic-copilot",
+  "skills": []
+}
