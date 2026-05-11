@@ -1,97 +1,71 @@
-## release
+## skin-system
 
-> 版本发布流程
+> 皮肤系统开发与资源管理规范
 
 
-# 发布流程 Skill
+# 皮肤系统规范
 
-当用户要求发布新版本时（触发词：发布、release、发版、bump version），按以下步骤执行。
-每一步执行前向用户确认，获得许可后再操作。
+## 目录结构
 
-## Step 1: 预检
-
-```bash
-git status
-git branch --show-current
+```
+packages/app/public/skins/
+├── order.json            # 内置皮肤展示顺序
+├── vita/
+│   ├── skin.json         # 皮肤清单
+│   ├── pet.png           # 精灵图（头像）
+│   └── skin.png          # 动画精灵图
+├── doux/
+└── ...
 ```
 
-- 确认当前在 `main` 分支
-- 确认工作区干净（无未提交变更）
-- 如果不满足，提示用户先处理
+皮肤通过扫描目录自动发现，无需手动注册。
 
-## Step 2: 确认版本级别
+## 展示顺序
 
-询问用户本次发布的版本级别：
-- `patch` — Bug 修复（0.1.0 → 0.1.1）
-- `minor` — 新功能（0.1.0 → 0.2.0）
-- `major` — 破坏性变更（0.1.0 → 1.0.0）
-- 或直接指定版本号（如 `0.2.0`）
+内置皮肤的展示顺序由 `order.json` 控制，它是一个 JSON 字符串数组：
 
-## Step 3: 更新版本号
-
-```bash
-pnpm bump <level>
+```json
+["vita", "tard", "mort", "doux", "boy", "dinosaur", "glube", "line"]
 ```
 
-脚本会同步更新三个文件：
-- `packages/app/package.json`
-- `packages/app/src-tauri/tauri.conf.json`
-- `packages/app/src-tauri/Cargo.toml`
+- 调整顺序：只需修改数组中元素的位置
+- 新增皮肤：在数组中添加对应的 skin ID
+- `build.rs` 在编译时读取此文件生成 `BUILTIN_SKIN_IDS`
+- 皮肤 ID 即目录名，不带任何前缀，保持稳定
 
-## Step 4: 生成 Changelog
+## skin.json 必填字段
 
-```bash
-git-cliff -o CHANGELOG.md
-```
+- `name` — 皮肤名称
+- `author` — 作者
+- `animations` — 动画配置（至少包含 `idle`）
 
-生成后展示 CHANGELOG 变更摘要，请用户确认。
+## 动画状态
 
-## Step 5: 提交发版 Commit
+有效状态: `idle`, `walk`, `run`, `sprint`
 
-```bash
-git add -A
-git commit -m "chore(app): release v<VERSION>"
-```
+每个动画需包含:
+- `file` — 引用的图片文件（必须实际存在）
+- `loop` — 是否循环
+- `sprite` — 精灵图参数: `frameWidth`, `frameHeight`, `frameCount`, `columns`, `fps`, `startFrame`
 
-注意：此处直接使用规范的 release commit 格式，不使用 panda-git-commit。
+## 支持的渲染格式
 
-## Step 6: 打 Tag
+- `sprite` — 精灵图（SpriteRenderer）
+- `lottie` — Lottie 动画（LottieRenderer）
+- 其他 — 静态图片（ImageRenderer）
 
-```bash
-git tag v<VERSION>
-```
+## 校验流程
 
-## Step 7: 推送
+1. 修改皮肤资源后运行 `pnpm validate:skins`
+2. pre-commit hook 会自动执行校验
 
-**需用户明确确认后才执行推送。**
+## 添加新皮肤
 
-```bash
-git push origin main --tags
-```
-
-推送后告知用户：
-- GitHub Actions 会自动构建 macOS（双架构）、Windows、Linux 安装包
-- 构建会自动签名并生成 `latest.json`（应用内自动更新所需）
-- 构建完成后会创建 Draft Release，包含安装包和 `latest.json`
-- 需要到 GitHub Releases 页面手动发布
-- 发布后旧版本启动时会自动检测到新版本并提示更新
-
-## 首次配置（签名密钥）
-
-如果仓库还未配置签名密钥，需要先完成以下一次性设置：
-
-1. **生成密钥对**：`pnpm tauri signer generate -w ~/.tauri/aibubu.key`
-2. **填入公钥**：终端输出的公钥字符串 → `tauri.conf.json` 的 `plugins.updater.pubkey`
-3. **配置 GitHub Secrets**（Settings → Secrets → Actions）：
-   - `TAURI_SIGNING_PRIVATE_KEY` — 私钥文件内容（生成时不要设密码）
-4. 提交含 pubkey 的 `tauri.conf.json`
-
-## 注意事项
-
-- 版本号不要手动修改文件，必须使用 `pnpm bump` 保持三处同步
-- release commit 格式固定为 `chore(app): release v<VERSION>`
-- tag 格式固定为 `v<VERSION>`（如 `v0.2.0`）
-- 推送前必须获得用户明确确认
+1. 创建目录 `packages/app/public/skins/<skin-id>/`
+2. 添加 `skin.json` + `pet.png`
+3. 在 `order.json` 数组中添加 `<skin-id>`
+4. 运行 `pnpm validate:skins`
+5. commit: `feat(skin): add <skin-name> skin`
 
 ---
 > Source: [funAgent/ai-bubu](https://github.com/funAgent/ai-bubu) — distributed by [TomeVault](https://tomevault.io).
