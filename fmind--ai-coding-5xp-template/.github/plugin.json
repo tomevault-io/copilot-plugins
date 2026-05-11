@@ -1,0 +1,9 @@
+{
+  "name": "fmind--ai-coding-5xp-template",
+  "displayName": "ai-coding-5xp-template",
+  "description": "A boilerplate and reference guide demonstrating the 5xP Context Framework for steering AI coding agents (like Gemini, Copilot, Cline) through context engineering.",
+  "version": "1.0.0",
+  "author": "fmind",
+  "homepage": "https://github.com/fmind/ai-coding-5xp-template",
+  "skills": []
+}
