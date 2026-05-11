@@ -1,0 +1,9 @@
+{
+  "name": "kpavlov--koog-spring-boot-assistant",
+  "displayName": "koog-spring-boot-assistant",
+  "description": "Kotlin + SpringBoot + Koog + Promptfoo example",
+  "version": "1.0.0",
+  "author": "kpavlov",
+  "homepage": "https://github.com/kpavlov/koog-spring-boot-assistant",
+  "skills": []
+}
