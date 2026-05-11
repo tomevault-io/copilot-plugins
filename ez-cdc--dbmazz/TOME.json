@@ -1,0 +1,44 @@
+{
+  "name": "dbmazz",
+  "owner": "ez-cdc",
+  "repo": "dbmazz",
+  "description": "CDC, radically simplified. One Rust binary replaces  Kafka + Debezium + ZooKeeper + Flink. Any source, any target.  300K+ events/sec \u00b7 <1s latency \u00b7 ~5 MB RAM.  Fewer components = fewer failures + lower cloud bill. Open-source.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ez-cdc/dbmazz",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T03:08:14Z"
+}
