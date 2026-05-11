@@ -1,4 +1,4 @@
-## laravel-boost
+## dujiaoka-next
 
 > <laravel-boost-guidelines>
 
