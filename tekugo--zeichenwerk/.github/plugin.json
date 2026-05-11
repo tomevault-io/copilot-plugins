@@ -1,0 +1,9 @@
+{
+  "name": "tekugo--zeichenwerk",
+  "displayName": "zeichenwerk",
+  "description": "Go console user interface library based on tcell",
+  "version": "1.0.0",
+  "author": "tekugo",
+  "homepage": "https://github.com/tekugo/zeichenwerk",
+  "skills": []
+}
