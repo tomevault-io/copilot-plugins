@@ -1,0 +1,9 @@
+{
+  "name": "endurnyrproject--lifthrasir",
+  "displayName": "lifthrasir",
+  "description": "A Ragnarok Online Client written in Rust and Bevy",
+  "version": "1.0.0",
+  "author": "EndurnyrProject",
+  "homepage": "https://github.com/EndurnyrProject/lifthrasir",
+  "skills": []
+}
