@@ -1,85 +1,399 @@
-## project-structure
+## react-development
 
-> Core project structure and architecture guide for LobeHub Editor
+> Comprehensive React component development guidelines for LobeHub Editor
 
 
-# LobeHub Editor Project Structure
+# React Component Guidelines
 
-## Architecture Overview
+## Component Architecture
 
-LobeHub Editor follows a **dual-layer architecture**:
+LobeHub Editor uses React components in two main contexts:
 
-1. **Kernel Layer** (`src/editor-kernel/`) - Framework-agnostic core
-2. **React Layer** (`src/react/` + `src/plugins/*/react/`) - React-specific implementations
+1. **High-level components** in [src/react/](mdc:src/react/) - Main user-facing components
+2. **Plugin components** in [src/plugins/\*/react/](mdc:src/plugins/) - Plugin-specific React implementations
 
-## Directory Structure
+### Main Components
 
-### Core Editor Kernel
+Primary components in [src/react/](mdc:src/react/):
 
-- [src/editor-kernel/](mdc:src/editor-kernel/) - Core editor logic
-  - [kernel.ts](mdc:src/editor-kernel/kernel.ts) - Main editor class with plugin system
-  - [data-source.ts](mdc:src/editor-kernel/data-source.ts) - Content management (JSON/Markdown/Text)
-  - [service.ts](mdc:src/editor-kernel/service.ts) - Service container and dependency injection
-  - [plugin/](mdc:src/editor-kernel/plugin/) - Plugin base classes and interfaces
-  - [react/](mdc:src/editor-kernel/react/) - React integration layer
-  - [types.ts](mdc:src/editor-kernel/types.ts) - TypeScript interfaces
+- [Editor](mdc:src/react/Editor/) - Core editor with plugin system
+- [ChatInput](mdc:src/react/ChatInput/) - Chat interface container
+- [ChatInputActions](mdc:src/react/ChatInputActions/) - Action management
+- [ChatInputActionBar](mdc:src/react/ChatInputActionBar/) - Action layout
+- [SendButton](mdc:src/react/SendButton/) - Send functionality
+- [CodeLanguageSelect](mdc:src/react/CodeLanguageSelect/) - Language selection
 
-### Plugin System
+## Component Development Pattern
 
-- [src/plugins/](mdc:src/plugins/) - Feature plugins with consistent structure
+### Standard Component Definition
 
-#### Core Plugins
+```typescript
+import { memo, useCallback, useState, ReactNode, CSSProperties } from 'react';
+import { LexicalEditor } from 'lexical';
+import { createDebugLogger } from '@/utils/debug';
 
-- [common/](mdc:src/plugins/common/) - Foundation components (ReactEditor, ReactEditorContent, ReactPlainText)
-- [markdown/](mdc:src/plugins/markdown/) - Markdown processing engine with transformers
-- [upload/](mdc:src/plugins/upload/) - File upload management with priority system
+export interface ComponentNameProps {
+  /** Required prop with JSDoc description */
+  requiredProp: string;
+  /** Optional prop with default value */
+  optionalProp?: boolean;
+  /** Event handler callback */
+  onEvent?: (data: EventData) => void;
+  /** Children for composition */
+  children?: ReactNode;
+  /** Style customization */
+  className?: string;
+  style?: CSSProperties;
+}
 
-#### Content Plugins
+export const ComponentName = memo<ComponentNameProps>(({
+  requiredProp,
+  optionalProp = false,
+  onEvent,
+  children,
+  className,
+  style,
+  ...rest
+}) => {
+  // Hooks and state
+  const [state, setState] = useState(initialValue);
+  const { styles, cx } = useStyles();
+  const logger = createDebugLogger('react', 'component-name');
+  
+  // Event handlers with useCallback
+  const handleEvent = useCallback((data: EventData) => {
+    logger.debug('Event triggered:', data);
+    onEvent?.(data);
+  }, [onEvent, logger]);
+  
+  // Render
+  return (
+    <div 
+      className={cx(styles.container, className)}
+      style={style}
+      {...rest}
+    >
+      {children}
+    </div>
+  );
+});
 
-- [slash/](mdc:src/plugins/slash/) - Slash commands (/, @) with fuzzy search
-- [mention/](mdc:src/plugins/mention/) - @mention system with decorators
-- [codeblock/](mdc:src/plugins/codeblock/) - Syntax highlighting with Shiki
-- [image/](mdc:src/plugins/image/) - Image handling with captions and resizing
-- [table/](mdc:src/plugins/table/) - Table support with i18n
-- [file/](mdc:src/plugins/file/) - File attachments with status tracking
-- [link/](mdc:src/plugins/link/) - Link management with validation
-- [list/](mdc:src/plugins/list/) - Lists with nesting support
-- [hr/](mdc:src/plugins/hr/) - Horizontal rules with styling
+ComponentName.displayName = 'ComponentName';
+```
 
-### React Components
+### Plugin Component Pattern
 
-- [src/react/](mdc:src/react/) - High-level React components
-  - [Editor/](mdc:src/react/Editor/) - Main Editor component
-  - [ChatInput/](mdc:src/react/ChatInput/) - Chat interface component
-  - [ChatInputActions/](mdc:src/react/ChatInputActions/) - Action buttons
-  - [ChatInputActionBar/](mdc:src/react/ChatInputActionBar/) - Action bar layout
-  - [SendButton/](mdc:src/react/SendButton/) - Send button with states
-  - [CodeLanguageSelect/](mdc:src/react/CodeLanguageSelect/) - Language selector
+```typescript
+export interface ReactPluginNameProps {
+  /** Editor instance for command dispatch */
+  editor?: LexicalEditor;
+  /** Plugin configuration */
+  config?: PluginConfig;
+  /** Plugin state management */
+  state?: PluginState;
+  /** Plugin event callbacks */
+  onPluginEvent?: (event: PluginEvent) => void;
+}
 
-## Plugin Structure Convention
+export const ReactPluginName = memo<ReactPluginNameProps>(({
+  editor,
+  config,
+  state,
+  onPluginEvent,
+}) => {
+  const logger = createDebugLogger('plugin', 'plugin-name');
+  
+  // Command dispatch to editor
+  const handleCommand = useCallback((command: Command, payload: any) => {
+    logger.debug('Dispatching command:', command, payload);
+    editor?.dispatchCommand(command, payload);
+  }, [editor, logger]);
+  
+  // Plugin-specific event handling
+  const handlePluginEvent = useCallback((event: PluginEvent) => {
+    logger.debug('Plugin event:', event);
+    onPluginEvent?.(event);
+  }, [onPluginEvent, logger]);
+  
+  return (
+    <div className="plugin-container">
+      {/* Plugin UI implementation */}
+    </div>
+  );
+});
 
-Each plugin follows this consistent structure:
+ReactPluginName.displayName = 'ReactPluginName';
+```
 
-- `plugin/` - Core plugin logic and node definitions
-- `react/` - React components and hooks (if applicable)
-- `command/` - Editor commands and handlers
-- `service/` - Services and business logic
-- `node/` - Custom Lexical nodes
-- `utils/` - Utility functions and helpers
-- `index.md` - Comprehensive documentation
-- `index.ts` - Public API exports
+## Editor Integration Patterns
 
-## Key Entry Points
+### Main Editor Usage
 
-- [src/index.ts](mdc:src/index.ts) - Main public API exports
-- [package.json](mdc:package.json) - Project configuration and dependencies
-- [README.md](mdc:README.md) - Project overview and usage guide
+```typescript
+import { Editor, useEditor } from '@lobehub/editor/react';
+import { 
+  ReactSlashPlugin, 
+  ReactMentionPlugin,
+  ReactCodeblockPlugin 
+} from '@lobehub/editor';
 
-## Build and Development
+function MyEditorComponent() {
+  const editor = useEditor();
+  
+  const handleChange = useCallback((editor: IEditor) => {
+    const content = editor.getDocument('markdown');
+    // Handle content changes
+  }, []);
+  
+  return (
+    <Editor
+      editorRef={editor}
+      placeholder="Start typing..."
+      plugins={[
+        ReactSlashPlugin,
+        ReactMentionPlugin,
+        ReactCodeblockPlugin,
+      ]}
+      slashOption={{
+        items: slashCommands,
+      }}
+      mentionOption={{
+        items: mentionItems,
+      }}
+      onChange={handleChange}
+    />
+  );
+}
+```
 
-- [vitest.config.ts](mdc:vitest.config.ts) - Test configuration
-- [.dumi/](mdc:.dumi/) - Documentation build system
-- [docs/](mdc:docs/) - Documentation source files
+### Chat Interface Pattern
+
+```typescript
+import { ChatInput, ChatInputActionBar, ChatInputActions, SendButton } from '@lobehub/editor/react';
+
+function ChatInterface() {
+  const handleSend = useCallback(() => {
+    // Handle send action
+  }, []);
+  
+  return (
+    <ChatInput
+      header={<ChatHeader />}
+      footer={
+        <ChatInputActionBar
+          left={<ChatInputActions items={leftActions} />}
+          right={<SendButton onSend={handleSend} />}
+        />
+      }
+    >
+      <Editor {...editorProps} />
+    </ChatInput>
+  );
+}
+```
+
+## Styling Standards
+
+### Style Hooks with antd-style
+
+```typescript
+import { createStyles } from 'antd-style';
+
+const useStyles = createStyles(({ css, token, isDarkMode }) => ({
+  container: css`
+    padding: ${token.padding}px;
+    border-radius: ${token.borderRadius}px;
+    background: ${isDarkMode ? token.colorBgElevated : token.colorBgContainer};
+    border: 1px solid ${token.colorBorder};
+    
+    &:hover {
+      border-color: ${token.colorPrimary};
+    }
+  `,
+  
+  active: css`
+    background: ${token.colorPrimary};
+    color: ${token.colorTextLightSolid};
+  `,
+  
+  disabled: css`
+    opacity: 0.6;
+    cursor: not-allowed;
+  `,
+}));
+
+// Usage in component
+const { styles, cx } = useStyles();
+```
+
+## Event Handling
+
+### Command Integration
+
+```typescript
+import { INSERT_HEADING_COMMAND, INSERT_LIST_COMMAND } from '@lobehub/editor';
+
+const EditorToolbar = memo(({ editor }: { editor: LexicalEditor }) => {
+  const logger = createDebugLogger('react', 'toolbar');
+  
+  const handleAction = useCallback((action: ActionType) => {
+    logger.debug('Toolbar action:', action);
+    
+    switch (action.type) {
+      case 'heading':
+        editor.dispatchCommand(INSERT_HEADING_COMMAND, { tag: 'h1' });
+        break;
+      case 'list':
+        editor.dispatchCommand(INSERT_LIST_COMMAND, { listType: 'bullet' });
+        break;
+    }
+  }, [editor, logger]);
+  
+  return <ActionButton onAction={handleAction} />;
+});
+```
+
+### State Management
+
+```typescript
+const StatefulComponent = memo(() => {
+  // Local component state
+  const [isOpen, setIsOpen] = useState(false);
+  
+  // Editor state integration
+  const editorState = useEditorState();
+  
+  // Derived state with memoization
+  const canSave = useMemo(() => {
+    return editorState.hasContent && !editorState.isLoading;
+  }, [editorState.hasContent, editorState.isLoading]);
+  
+  return (
+    <Button 
+      disabled={!canSave}
+      onClick={() => setIsOpen(true)}
+    >
+      Save
+    </Button>
+  );
+});
+```
+
+## Performance Optimization
+
+### Memoization Best Practices
+
+```typescript
+const OptimizedComponent = memo<Props>(({ items, onSelect, config }) => {
+  // Memoize expensive calculations
+  const processedItems = useMemo(() => {
+    return items.map(item => processItem(item, config));
+  }, [items, config]);
+  
+  // Memoize event handlers
+  const handleSelect = useCallback((item: Item) => {
+    onSelect?.(item);
+  }, [onSelect]);
+  
+  // Memoize derived values
+  const filteredItems = useMemo(() => {
+    return processedItems.filter(item => item.isVisible);
+  }, [processedItems]);
+  
+  return (
+    <ItemList 
+      items={filteredItems}
+      onSelect={handleSelect}
+    />
+  );
+});
+```
+
+### Virtual Lists for Large Data
+
+```typescript
+import { FixedSizeList as List } from 'react-window';
+
+const VirtualizedList = memo<{ items: Item[] }>(({ items }) => {
+  const Row = useCallback(({ index, style }: ListChildComponentProps) => (
+    <div style={style}>
+      <ItemRenderer item={items[index]} />
+    </div>
+  ), [items]);
+  
+  return (
+    <List
+      height={400}
+      itemCount={items.length}
+      itemSize={50}
+      itemData={items}
+    >
+      {Row}
+    </List>
+  );
+});
+```
+
+## Demo Component Patterns
+
+### Development-Only Debugging
+
+For demo components in `demos/` directories:
+
+```typescript
+import { devConsole } from '@/utils/debug';
+
+const DemoComponent = memo(() => {
+  const handleDemoAction = useCallback((data: any) => {
+    // Use devConsole for demo-specific logging
+    devConsole.log('Demo action triggered:', data);
+    
+    // Demo logic
+  }, []);
+  
+  return <DemoUI onAction={handleDemoAction} />;
+});
+```
+
+## Component Testing
+
+```typescript
+import { render, screen, fireEvent } from '@testing-library/react';
+import { ComponentName } from './ComponentName';
+
+describe('ComponentName', () => {
+  it('should render with required props', () => {
+    render(<ComponentName requiredProp="test" />);
+    expect(screen.getByText('test')).toBeInTheDocument();
+  });
+  
+  it('should handle events correctly', () => {
+    const handleEvent = jest.fn();
+    render(<ComponentName onEvent={handleEvent} />);
+    
+    fireEvent.click(screen.getByRole('button'));
+    expect(handleEvent).toHaveBeenCalledWith(expectedData);
+  });
+  
+  it('should apply custom styles', () => {
+    render(<ComponentName className="custom-class" />);
+    expect(screen.getByRole('button')).toHaveClass('custom-class');
+  });
+});
+```
+
+## Best Practices
+
+1. **Always use memo** - Wrap components with `memo` for performance
+2. **Proper prop types** - Define comprehensive TypeScript interfaces
+3. **Event handler memoization** - Use `useCallback` for event handlers
+4. **Expensive calculation memoization** - Use `useMemo` for heavy computations
+5. **Debug logging** - Use appropriate debug loggers for different contexts
+6. **Display names** - Always set `displayName` for debugging
+7. **Style isolation** - Use antd-style's `createStyles` for component styling
+8. **Accessibility** - Include proper ARIA attributes and keyboard navigation
+9. **Error boundaries** - Implement error boundaries for critical components
+10. **Testing** - Write comprehensive tests for component behavior
 
 ---
 > Source: [lobehub/lobe-editor](https://github.com/lobehub/lobe-editor) — distributed by [TomeVault](https://tomevault.io).
