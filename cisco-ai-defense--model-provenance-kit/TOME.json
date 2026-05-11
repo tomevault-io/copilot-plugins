@@ -4,7 +4,7 @@
   "repo": "model-provenance-kit",
   "description": "Toolkit to assess and determine model provenance",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cisco-ai-defense/model-provenance-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T02:44:20Z"
+  "distributed_at": "2026-05-11T12:18:50Z"
 }
