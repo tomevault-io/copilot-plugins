@@ -1,0 +1,9 @@
+{
+  "name": "garrickz2--grove",
+  "displayName": "grove",
+  "description": "A Kanban-style TUI for parallel AI coding. Manage Git worktrees as tasks, run multiple agents in isolated tmux sessions, get notified via hooks. Built for developers who vibe with Claude Code, Cursor,",
+  "version": "1.0.0",
+  "author": "GarrickZ2",
+  "homepage": "https://github.com/GarrickZ2/grove",
+  "skills": []
+}
