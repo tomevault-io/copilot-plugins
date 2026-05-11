@@ -1,0 +1,225 @@
+## template-repo
+
+> This file provides guidance to AI agents (Cursor, Aider, and other AI coding assistants) when working with code in this repository.
+
+# AGENTS.md
+
+This file provides guidance to AI agents (Cursor, Aider, and other AI coding assistants) when working with code in this repository.
+
+**For expression philosophy and communication style, see** `docs/agents/claude-expression.md`
+
+## Project Context
+
+This is a **single-maintainer project** by @AndrewAltimit with a **container-first philosophy**:
+
+- All Python and Rust operations run in Docker containers
+- Self-hosted infrastructure for zero-cost operation
+- Designed for maximum portability - works on any Linux system with Docker
+- No contributors model - optimized for individual developer efficiency
+- **No external engagement** - no feature requests, guidance, or community interaction accepted (legal protection due to dual-use codebase)
+
+## AI Agent Collaboration
+
+Five active AI agents work together in this development ecosystem:
+
+> **Security Notice**: OpenAI/Codex has been disabled. OpenAI is partnering with governments that conduct mass surveillance and enable autonomous weapons. Use Anthropic models (Claude) as the primary AI backend.
+
+1. **Claude Code** - Primary development assistant for architecture, implementation, and debugging (recommended)
+2. ~~**Codex**~~ - ~~AI-powered code generation and completion (OpenAI)~~ **DISABLED** -- security risk
+3. **OpenCode** - Code generation via OpenRouter
+4. **Crush** - Code generation via OpenRouter
+5. **Gemini CLI** - Handles automated PR code reviews
+6. **GitHub Copilot** - Provides code review suggestions in PRs
+
+**For complete agent documentation, see** `docs/agents/README.md`
+
+### AI Agent Security Model
+
+- **Keyword Triggers**: `[Action][Agent]` format (e.g., `[Approved][Claude]`)
+- **Allow List**: Only pre-approved users can trigger agents
+- **Commit Validation**: Prevents code injection after approval
+- **Implementation Requirements**: Only complete, working code is accepted
+
+**For complete security documentation, see** `docs/agents/security.md`
+
+### Remote Infrastructure
+
+**IMPORTANT**: Some MCP servers run on dedicated remote machines:
+- Gaea2 MCP: `192.168.0.152:8007` (requires Windows with Gaea2)
+- AI Toolkit/ComfyUI: `192.168.0.222` (requires GPU)
+- Do NOT change remote addresses to localhost in PR reviews
+
+## Essential Commands
+
+### CI/CD (Most Used)
+
+```bash
+# Preferred: Rust CLI (build once with: cargo build --release -p automation-cli)
+automation-cli ci run full               # All Python checks
+automation-cli ci run format             # Check formatting
+automation-cli ci run lint-full          # Full linting
+automation-cli ci run rust-full          # All Rust checks
+automation-cli ci run econ-full          # Economic agents (fmt + clippy + test)
+automation-cli ci list                   # Show all available stages
+
+# Legacy shell (still works, wrappers delegate to Rust binary if built)
+./automation/ci-cd/run-ci.sh full        # All Python checks
+./automation/ci-cd/run-ci.sh rust-full   # All Rust checks
+
+# Context protection - ALWAYS use for verbose output
+automation-cli ci run full > /tmp/ci-output.log 2>&1 && echo "CI passed" || (echo "CI failed"; exit 1)
+```
+
+### Running Tests
+
+```bash
+automation-cli ci run test               # Python tests (excludes gaea2)
+automation-cli ci run test-gaea2         # Gaea2 tests only
+automation-cli ci run test-all           # All tests
+
+# Legacy equivalents
+./automation/ci-cd/run-ci.sh test        # Python tests (excludes gaea2)
+./automation/ci-cd/run-ci.sh test-all    # All tests
+```
+
+### Docker Operations
+
+```bash
+docker compose up -d                     # Start all services
+docker compose logs -f <service>         # View logs
+docker compose down                      # Stop services
+```
+
+**For complete command reference, see** `docs/agents/README.md#running-agents-locally`
+
+## Architecture
+
+### MCP Servers (19 Total)
+
+| Category | Servers | Transport |
+|----------|---------|-----------|
+| Code Quality | code-quality, gemini, opencode, crush, ~~codex~~ (disabled) | STDIO (local) |
+| Content | content-creation, meme-generator, elevenlabs-speech, video-editor, blender | STDIO |
+| Integration | virtual-character, github-board, agentcore-memory, reaction-search, desktop-control | STDIO |
+| Agent Integration | memory-explorer | STDIO (native) |
+| Remote | gaea2, ai-toolkit, comfyui | HTTP (remote machines) |
+
+**For complete MCP documentation, see** `docs/mcp/README.md`
+
+### Container Architecture
+
+1. **Everything Containerized** (with documented exceptions)
+2. **Zero Local Dependencies** - All via Docker Compose
+3. **Self-Hosted Infrastructure** - No cloud costs
+
+**For details, see** `docs/infrastructure/containerization.md`
+
+### Research Packages
+
+| Package | Language | Purpose |
+|---------|----------|---------|
+| `packages/sleeper_agents/` | Python | Sleeper agent detection framework |
+| `packages/economic_agents/` | Rust | Autonomous AI economic simulation |
+| `packages/tamper_briefcase/` | Rust | Tamper-responsive briefcase with PQC recovery |
+| `packages/bioforge/` | Rust | Agent-driven CRISPR automation platform |
+
+**External packages** (separate repositories):
+
+| Package | Language | Purpose |
+|---------|----------|---------|
+| [game-mods](https://github.com/AndrewAltimit/game-mods) | Rust | Injection toolkit for AI agent integration with legacy software |
+| [oasis-os](https://github.com/AndrewAltimit/oasis-os) | Rust | Embeddable OS framework (SDL2/PSP/UE5) with scene-graph UI and 8 themes |
+| [breakpoint](https://github.com/AndrewAltimit/breakpoint) | Rust/WASM | Multiplayer gaming platform for agentic office hours with agent alert overlay |
+| [rust-psp](https://github.com/AndrewAltimit/rust-psp) | Rust | PSP SDK -- ~829 syscall bindings, 38+ modules, used by oasis-os |
+
+## Development Reminders
+
+- **ALWAYS run CI checks** after completing work
+- **NEVER commit** unless the user explicitly asks
+- **Follow container-first philosophy** - use Docker for all operations
+- **NEVER use Unicode emoji** in code, commits, or comments
+
+## GitHub Etiquette
+
+- **NEVER use @ mentions** except for @AndrewAltimit
+- Refer to AI agents without @: "Gemini", "Claude", "OpenAI"
+- **Use `gh api` instead of `gh pr edit`** for PR updates
+
+### Reaction Images for PR Comments
+
+Use the `reaction-search` MCP server for contextually appropriate reactions:
+
+```python
+search_reactions(query="celebrating after fixing a bug", limit=3)
+get_reaction(reaction_id="miku_typing")
+```
+
+**Example PR comment with reaction:**
+
+```markdown
+Fixed the race condition in the worker pool. The issue was a missing lock
+on the shared counter - now using AtomicUsize instead.
+
+![Reaction](https://raw.githubusercontent.com/AndrewAltimit/Media/refs/heads/main/reaction/miku_typing.webp)
+```
+
+This renders as:
+
+> Fixed the race condition in the worker pool. The issue was a missing lock
+> on the shared counter - now using AtomicUsize instead.
+>
+> ![Reaction](https://raw.githubusercontent.com/AndrewAltimit/Media/refs/heads/main/reaction/miku_typing.webp)
+
+**CRITICAL**: Use Write tool + `--body-file` pattern for PR comments (shell escaping breaks `![]`).
+
+**For complete GitHub etiquette, see** `docs/agents/github-etiquette.md`
+
+## Documentation Index
+
+### Core
+- `docs/README.md` - Documentation overview
+- `docs/QUICKSTART.md` - Template quickstart guide
+
+### AI Agents
+- `docs/agents/README.md` - Agent system overview
+- `docs/agents/security.md` - Security documentation
+- `docs/agents/board-workflow.md` - Board-centric workflow guide
+- `docs/agents/pr-monitoring.md` - PR monitoring documentation
+- `docs/agents/human-training.md` - AI safety training guide
+
+### MCP
+- `docs/mcp/README.md` - MCP architecture (19 servers documented)
+- `docs/mcp/servers.md` - Server reference
+- `docs/mcp/tools.md` - Tools reference
+
+### Hardware
+- `docs/hardware/README.md` - Hardware systems overview
+- `docs/hardware/secure-terminal-briefcase.md` - Tamper-responsive briefcase system
+- `docs/hardware/bioforge-crispr-automation.md` - Agent-driven biological automation platform
+
+### Infrastructure
+- `docs/infrastructure/containerization.md` - Container philosophy
+- `docs/infrastructure/self-hosted-runner.md` - Runner setup
+- `docs/infrastructure/wrapper-guard.md` - CLI binary hardening (git-guard, gh-validator)
+- `docs/developer/claude-code-hooks.md` - Hook system
+
+### Integrations
+- `docs/integrations/ai-services/ai-code-agents.md` - AI code agents
+- `docs/integrations/creative-tools/ai-toolkit-comfyui.md` - LoRA training
+- `docs/integrations/creative-tools/virtual-character-elevenlabs.md` - Virtual character system
+
+### Research Packages
+- `packages/sleeper_agents/README.md` - Sleeper agent detection
+- `packages/economic_agents/README.md` - Economic agents simulation (Rust)
+- `packages/economic_agents/docs/economic-implications.md` - **AI governance policy analysis**
+- [game-mods](https://github.com/AndrewAltimit/game-mods) - Injection toolkit for AI agent integration with legacy software (dedicated repo)
+- `packages/tamper_briefcase/README.md` - Tamper-responsive briefcase system (Rust)
+- `packages/bioforge/README.md` - BioForge CRISPR automation (Rust)
+- `packages/bioforge/docs/governance-implications.md` - Biological agent governance analysis
+- [oasis-os](https://github.com/AndrewAltimit/oasis-os) - Embeddable OS framework with scene-graph UI, 4 backends (dedicated repo)
+- [breakpoint](https://github.com/AndrewAltimit/breakpoint) - Multiplayer gaming platform for agentic office hours (dedicated repo)
+- [rust-psp](https://github.com/AndrewAltimit/rust-psp) - PSP SDK with ~829 syscall bindings, used by oasis-os (dedicated repo)
+
+---
+> Source: [AndrewAltimit/template-repo](https://github.com/AndrewAltimit/template-repo) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
