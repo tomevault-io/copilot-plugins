@@ -1,0 +1,9 @@
+{
+  "name": "arolang--aro",
+  "displayName": "aro",
+  "description": "ARO is a declarative language for specifying business features in a human-readable format that can be compiled and executed. Features are expressed as Action-Result-Object statements.",
+  "version": "1.0.0",
+  "author": "arolang",
+  "homepage": "https://github.com/arolang/aro",
+  "skills": []
+}
