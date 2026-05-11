@@ -1,0 +1,9 @@
+{
+  "name": "chadthornton--upnote-mcp",
+  "displayName": "upnote-mcp",
+  "description": "Model Context Protocol server for Upnote integration",
+  "version": "1.0.0",
+  "author": "chadthornton",
+  "homepage": "https://github.com/chadthornton/upnote-mcp",
+  "skills": []
+}
