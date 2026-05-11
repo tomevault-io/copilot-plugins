@@ -1,0 +1,9 @@
+{
+  "name": "jwbargsten--valacc",
+  "displayName": "valacc",
+  "description": "Scala 3 accumulative error validation library",
+  "version": "1.0.0",
+  "author": "jwbargsten",
+  "homepage": "https://github.com/jwbargsten/valacc",
+  "skills": []
+}
