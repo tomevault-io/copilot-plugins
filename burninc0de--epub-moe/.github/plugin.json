@@ -1,0 +1,9 @@
+{
+  "name": "burninc0de--epub-moe",
+  "displayName": "epub-moe",
+  "description": "A simple react app for fine-tuning audio positioning in EPUBs with media overlays",
+  "version": "1.0.0",
+  "author": "burninc0de",
+  "homepage": "https://github.com/burninc0de/epub-moe",
+  "skills": []
+}
