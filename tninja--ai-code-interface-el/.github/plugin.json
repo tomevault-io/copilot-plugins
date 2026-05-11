@@ -1,0 +1,9 @@
+{
+  "name": "tninja--ai-code-interface-el",
+  "displayName": "ai-code-interface.el",
+  "description": "Unified Emacs interface supporting OpenAI Codex, GitHub Copilot CLI, Claude Code, Gemini CLI, Opencode, and more",
+  "version": "1.0.0",
+  "author": "tninja",
+  "homepage": "https://github.com/tninja/ai-code-interface.el",
+  "skills": []
+}
