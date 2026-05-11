@@ -1,0 +1,9 @@
+{
+  "name": "sigrea--core",
+  "displayName": "core",
+  "description": "The signal base reactive programming library.",
+  "version": "1.0.0",
+  "author": "sigrea",
+  "homepage": "https://github.com/sigrea/core",
+  "skills": []
+}
