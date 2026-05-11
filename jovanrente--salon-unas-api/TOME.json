@@ -1,0 +1,44 @@
+{
+  "name": "salon-unas-api",
+  "owner": "jovanrente",
+  "repo": "salon-unas-api",
+  "description": "Sistema de gesti\u00f3n de citas para sal\u00f3n de u\u00f1as - Spring Boot + Kotlin",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jovanrente/salon-unas-api",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T01:57:42Z"
+}
