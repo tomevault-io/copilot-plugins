@@ -1,0 +1,44 @@
+{
+  "name": "claudegate",
+  "owner": "Naresh084",
+  "repo": "claudegate",
+  "description": "  ClaudeGate - A CLI wrapper that lets you switch between Anthropic, OpenRouter, Z.AI, Kimi K2, Novita AI, and custom endpoints with a single command. No manual config editing required.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Naresh084/claudegate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T02:35:22Z"
+}
