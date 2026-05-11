@@ -7,11 +7,11 @@ Give Claude full access to your email through Mozilla Thunderbird. CLI + MCP ser
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vitalio-sh/thunderbird-cli](https://github.com/vitalio-sh/thunderbird-cli).
+Original source: `CLAUDE.md` in [vitalio-sh/thunderbird-cli](https://github.com/vitalio-sh/thunderbird-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
