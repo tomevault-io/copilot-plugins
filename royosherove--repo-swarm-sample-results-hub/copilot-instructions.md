@@ -1,14 +1,77 @@
-## report-and-query-placement
+## special-tooling
 
-> if you are about to create a new report in markdown, or generate any chart as a reponse to a user query about this repository, always place the results in a folder in the root of this repository with this pattern:
+> Select the most appropriate command-line tool for each specific task rather than defaulting to generic utilities. This ensures optimal performance, cleaner syntax, and more maintainable commands.
 
 
-if you are about to create a new report in markdown, or generate any chart as a reponse to a user query about this repository, always place the results in a folder in the root of this repository with this pattern: 
-[root]/reports/[query-title-up-to-5-words]/[generated-files-go-here]
+# CLI Tool Selection Guide
 
-also, save the query that generated the report at the top section of the report under "prompt that generated this report:" (save all the history of the prompts so people can repeat them later)
+## Core Principle
+Select the most appropriate command-line tool for each specific task rather than defaulting to generic utilities. This ensures optimal performance, cleaner syntax, and more maintainable commands.
 
-report date shoudl be generated using a command line call always.
+## Tool Selection Matrix
+
+### File Discovery & Navigation
+- **Finding files by name/type**: Use `fd` (alternative to `find`)
+  - Example: `fd -e py` (find all Python files)
+  - Example: `fd -H '^\..*' -d 1` (find hidden files in current directory)
+
+### Text & Code Search
+- **Finding text/strings in files**: Use `rg` (ripgrep)
+  - Example: `rg "TODO" --type py` (search TODOs in Python files)
+  - Example: `rg -i "error" --glob "*.log"` (case-insensitive search in logs)
+
+- **Finding code patterns/AST-based search**: Use `ast-grep`
+  - Example: `ast-grep --pattern 'console.log($$$)'` (find all console.log statements)
+  - Example: `ast-grep --pattern 'function $name($_) { $$$ }'` (find function declarations)
+
+### Interactive Selection
+- **Selecting from multiple results**: Pipe to `fzf`
+  - Example: `fd . | fzf --preview 'cat {}'` (interactive file browser)
+  - Example: `rg -l "import" | fzf` (select from files containing imports)
+
+### Structured Data Processing
+- **JSON manipulation**: Use `jq`
+  - Example: `cat data.json | jq '.users[] | .name'` (extract user names)
+  - Example: `curl api.example.com | jq '.results | length'` (count results)
+
+- **YAML/XML processing**: Use `yq`
+  - Example: `yq '.services.*.ports[]' docker-compose.yml` (extract all ports)
+  - Example: `yq -p xml '.root.element' data.xml` (parse XML)
+
+## Decision Flow
+1. **Identify the task type** - What are you trying to accomplish?
+2. **Match to appropriate tool** - Use the most specialized tool available
+3. **Combine tools when needed** - Pipe outputs for complex workflows
+4. **Fallback gracefully** - Use standard tools only when specialized ones aren't available
+
+## Best Practices
+- Prefer specialized tools for better performance and clearer intent
+- Chain tools using pipes for complex operations
+- Use tool-specific features (e.g., `rg`'s type filters, `fd`'s regex support)
+- Consider output format when chaining (some tools have JSON output options)
+
+## Common Workflows
+```bash
+# Find and edit files interactively
+fd -e md | fzf --preview 'bat {}' | xargs $EDITOR
+
+# Search code patterns in specific language files
+ast-grep --lang python --pattern 'import $
+```
+
+Remember: The goal is to use the right tool for the job, resulting in more efficient, readable, and maintainable command-line operations. | fzf --preview 'bat -n {}'
+
+# Search React hooks across TypeScript files
+ast-grep --lang tsx --pattern 'use$Hook($$)' -A 3
+
+# Process API responses
+curl -s api.example.com | jq '.data[] | select(.active == true)'
+
+# Find and replace across files
+fd -e js -x sd 'oldPattern' 'newPattern' {}
+```
+
+Remember: The goal is to use the right tool for the job, resulting in more efficient, readable, and maintainable command-line operations.
 
 ---
 > Source: [royosherove/repo-swarm-sample-results-hub](https://github.com/royosherove/repo-swarm-sample-results-hub) — distributed by [TomeVault](https://tomevault.io).
