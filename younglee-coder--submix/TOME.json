@@ -1,0 +1,44 @@
+{
+  "name": "SubMix",
+  "owner": "YoungLee-coder",
+  "repo": "SubMix",
+  "description": "\u4f01\u4e1a\u7f51\u7edc\u534f\u8bae\u8f6c\u6362\u5668\uff0c\u5c06\u5355\u72ec\u7684\u534f\u8bae\u8ba2\u9605\u94fe\u63a5\u8f6c\u6362\u4e3a Mihomo \u5185\u6838 YAML \u914d\u7f6e\u6587\u4ef6",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/YoungLee-coder/SubMix",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T19:40:21Z"
+}
