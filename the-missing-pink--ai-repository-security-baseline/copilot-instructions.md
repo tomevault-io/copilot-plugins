@@ -1,29 +1,36 @@
-## 03-testing
+## 04-accessibility
 
-> Testing requirements — test-before-commit policy, coverage expectations, and test quality standards.
+> Accessibility standards for UI components — WCAG 2.1 AA compliance.
 
 
-# Testing Requirements
+# Accessibility Standards (WCAG 2.1 AA)
 
-## Test-Before-Commit Policy
+## Semantic HTML
 
-- Run the full test suite before every commit.
-- Run linting and type checking before every commit.
-- Never skip tests with --no-verify, skip, xfail, or equivalent.
-- Never delete or disable existing tests to make new code pass.
+- Use semantic elements (nav, main, article, section, button, etc.).
+- Never use div or span for interactive elements.
+- Ensure correct heading hierarchy (h1 through h6 in order).
 
-## Coverage
+## ARIA & Screen Readers
 
-- All new functions, methods, and endpoints must have tests.
-- Bug fixes must include regression tests.
-- Test edge cases, error paths, and boundary conditions.
+- Add ARIA labels and roles where semantic HTML is insufficient.
+- All images must have meaningful alt attributes (or alt="" for decorative).
+- Form inputs must have associated label elements.
+- Dynamic content must use ARIA live regions.
 
-## Quality
+## Keyboard Navigation
 
-- Tests must be deterministic: no random data, no time-dependent assertions.
-- Use mocks and stubs for external services.
-- Test names must describe the scenario and expected behavior.
-- Follow Arrange-Act-Assert pattern.
+- All interactive elements must be reachable via keyboard.
+- Maintain a logical tab order.
+- Provide visible focus indicators.
+- Support Escape to close modals.
+
+## Visual Design
+
+- Minimum 4.5:1 color contrast for normal text, 3:1 for large text.
+- Never convey information through color alone.
+- Use relative units (rem, em) for text, not px.
+- Support prefers-reduced-motion and prefers-color-scheme.
 
 ---
 > Source: [the-missing-pink/ai-repository-security-baseline](https://github.com/the-missing-pink/ai-repository-security-baseline) — distributed by [TomeVault](https://tomevault.io).
