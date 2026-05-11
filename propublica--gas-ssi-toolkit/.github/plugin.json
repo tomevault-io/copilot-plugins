@@ -1,0 +1,9 @@
+{
+  "name": "propublica--gas-ssi-toolkit",
+  "displayName": "gas-ssi-toolkit",
+  "description": "The source code for the GAS SSI Toolkit",
+  "version": "1.0.0",
+  "author": "propublica",
+  "homepage": "https://github.com/propublica/gas-ssi-toolkit",
+  "skills": []
+}
