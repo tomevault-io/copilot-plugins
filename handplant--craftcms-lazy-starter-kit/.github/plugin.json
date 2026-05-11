@@ -1,0 +1,9 @@
+{
+  "name": "handplant--craftcms-lazy-starter-kit",
+  "displayName": "craftcms-lazy-starter-kit",
+  "description": "A modern Craft CMS starter kit for agencies and developers \u2014 featuring Vite, Tailwind, Datastar, DDEV, MCP, LLM Ready.",
+  "version": "1.0.0",
+  "author": "handplant",
+  "homepage": "https://github.com/handplant/craftcms-lazy-starter-kit",
+  "skills": []
+}
