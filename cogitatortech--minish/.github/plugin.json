@@ -1,0 +1,9 @@
+{
+  "name": "cogitatortech--minish",
+  "displayName": "minish",
+  "description": "A property-based testing framework for Zig \u26a1",
+  "version": "1.0.0",
+  "author": "CogitatorTech",
+  "homepage": "https://github.com/CogitatorTech/minish",
+  "skills": []
+}
