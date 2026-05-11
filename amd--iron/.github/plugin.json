@@ -1,0 +1,9 @@
+{
+  "name": "amd--iron",
+  "displayName": "IRON",
+  "description": "Close-to-metal programming for AMD NPUs",
+  "version": "1.0.0",
+  "author": "amd",
+  "homepage": "https://github.com/amd/IRON",
+  "skills": []
+}
