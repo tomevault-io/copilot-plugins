@@ -1,0 +1,9 @@
+{
+  "name": "nateberkopec--yamiochi",
+  "displayName": "yamiochi",
+  "description": "Minimal RFC-compliant Ruby Rack HTTP/1.1 server",
+  "version": "1.0.0",
+  "author": "nateberkopec",
+  "homepage": "https://github.com/nateberkopec/yamiochi",
+  "skills": []
+}
