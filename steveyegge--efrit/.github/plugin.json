@@ -1,0 +1,9 @@
+{
+  "name": "steveyegge--efrit",
+  "displayName": "efrit",
+  "description": "A native elisp coding agent running in Emacs",
+  "version": "1.0.0",
+  "author": "steveyegge",
+  "homepage": "https://github.com/steveyegge/efrit",
+  "skills": []
+}
