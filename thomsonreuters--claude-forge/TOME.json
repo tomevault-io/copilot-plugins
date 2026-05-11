@@ -4,7 +4,7 @@
   "repo": "claude-forge",
   "description": "Developer toolkit for Claude Code: multi-model proxy routing, session management, policy engine, and skills architecture",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thomsonreuters/claude-forge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T11:02:40Z"
+  "distributed_at": "2026-05-11T10:14:45Z"
 }
