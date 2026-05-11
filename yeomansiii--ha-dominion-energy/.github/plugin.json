@@ -1,0 +1,9 @@
+{
+  "name": "yeomansiii--ha-dominion-energy",
+  "displayName": "ha-dominion-energy",
+  "description": "A Home Assistant custom integration for monitoring your Dominion Energy electricity usage with high-resolution 30-minute interval data.",
+  "version": "1.0.0",
+  "author": "YeomansIII",
+  "homepage": "https://github.com/YeomansIII/ha-dominion-energy",
+  "skills": []
+}
