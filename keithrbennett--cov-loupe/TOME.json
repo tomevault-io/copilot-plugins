@@ -4,7 +4,7 @@
   "repo": "cov-loupe",
   "description": "Refines Ruby Simplecov test coverage data as CLI, MCP server, and library",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/keithrbennett/cov-loupe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T21:02:27Z"
+  "distributed_at": "2026-05-11T18:41:42Z"
 }
