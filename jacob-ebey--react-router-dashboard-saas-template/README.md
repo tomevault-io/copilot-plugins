@@ -1,6 +1,6 @@
-# react-router-dashboard-saas-template — distributed by TomeVault
+# react-router-dashboard-saas-template
 
-> Originally from [jacob-ebey/react-router-dashboard-saas-template](https://github.com/jacob-ebey/react-router-dashboard-saas-template). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [jacob-ebey/react-router-dashboard-saas-template](https://github.com/jacob-ebey/react-router-dashboard-saas-template) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [jacob-ebey/react-router-dashboard-saa
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/jacob-ebey#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/jacob-ebey/react-router-dashboard-saas-template](https://github.com/jacob-ebey/react-router-dashboard-saas-template)
 
 ---
 
