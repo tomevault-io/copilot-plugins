@@ -1,0 +1,9 @@
+{
+  "name": "bugb-technologies--guardlink",
+  "displayName": "guardlink",
+  "description": "AI-maintained security annotations for code. Continuous threat modeling, enforced in CI.",
+  "version": "1.0.0",
+  "author": "Bugb-Technologies",
+  "homepage": "https://github.com/Bugb-Technologies/guardlink",
+  "skills": []
+}
