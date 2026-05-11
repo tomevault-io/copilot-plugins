@@ -1,0 +1,9 @@
+{
+  "name": "a2z-ice--aauthspiffe",
+  "displayName": "AAuthSpiffe",
+  "description": "Zero-secret authentication for AI agents using SPIFFE/SPIRE, Keycloak, and MCP OAuth. Replaces static client secrets with cryptographically verified workload identity.",
+  "version": "1.0.0",
+  "author": "a2z-ice",
+  "homepage": "https://github.com/a2z-ice/AAuthSpiffe",
+  "skills": []
+}
