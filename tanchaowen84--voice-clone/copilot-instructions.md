@@ -1,13 +1,14 @@
-## radix-ui-best-practices
+## react-best-practices
 
-> Best practices for using Radix UI components
+> Best practices for React component development
 
 
-- Use Radix UI primitives for building custom, accessible components
-- Utilize Radix UI's composition patterns for creating complex, reusable UI elements
-- Implement proper ARIA attributes and keyboard navigation for accessibility
-- Utilize Radix UI's built-in state management for complex components
-- Customize Radix UI components using the `asChild` prop for better flexibility
+- Use functional components with hooks instead of class components for better performance and readability
+- Implement proper state management using using libraries like Zustand for complex state scenarios
+- Utilize React 19's new features like `use` hook for better data fetching and suspense integration
+- Ensure proper prop type validation using TypeScript for enhanced type safety
+- Utilize `useCallback` and `useMemo` for performance optimization
+- Leverage `react-hook-form` for efficient form handling and validation
 
 ---
 > Source: [tanchaowen84/voice-clone](https://github.com/tanchaowen84/voice-clone) — distributed by [TomeVault](https://tomevault.io).
