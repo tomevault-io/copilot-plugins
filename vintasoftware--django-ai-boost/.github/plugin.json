@@ -1,0 +1,9 @@
+{
+  "name": "vintasoftware--django-ai-boost",
+  "displayName": "django-ai-boost",
+  "description": "A MCP server for Django applications, inspired by Laravel Boost.",
+  "version": "1.0.0",
+  "author": "vintasoftware",
+  "homepage": "https://github.com/vintasoftware/django-ai-boost",
+  "skills": []
+}
