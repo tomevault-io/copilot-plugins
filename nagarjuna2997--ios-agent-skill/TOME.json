@@ -4,7 +4,7 @@
   "repo": "ios-agent-skill",
   "description": "Production-ready iOS SwiftUI guidance for AI coding agents.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Nagarjuna2997/ios-agent-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T06:32:30Z"
+  "distributed_at": "2026-05-11T06:32:58Z"
 }
