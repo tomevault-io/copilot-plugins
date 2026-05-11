@@ -1,0 +1,9 @@
+{
+  "name": "krissen--snacks-bibtex-nvim",
+  "displayName": "snacks-bibtex.nvim",
+  "description": "A Snacks-powered picker for browsing, previewing, and inserting BibTeX references in Neovim.",
+  "version": "1.0.0",
+  "author": "krissen",
+  "homepage": "https://github.com/krissen/snacks-bibtex.nvim",
+  "skills": []
+}
