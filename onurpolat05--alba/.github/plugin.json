@@ -1,0 +1,9 @@
+{
+  "name": "onurpolat05--alba",
+  "displayName": "ALBA",
+  "description": "Turn Claude Code into a personal AI agent with persistent memory. Interactive setup, 9 skills, 6 hooks, role-agnostic. Zero dependencies.",
+  "version": "1.0.0",
+  "author": "onurpolat05",
+  "homepage": "https://github.com/onurpolat05/ALBA",
+  "skills": []
+}
