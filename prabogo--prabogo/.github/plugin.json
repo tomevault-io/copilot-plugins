@@ -1,0 +1,9 @@
+{
+  "name": "prabogo--prabogo",
+  "displayName": "prabogo",
+  "description": "Prabogo is a Go framework designed to simplify project development by providing an interactive command interface and built-in instructions for AI assistance.",
+  "version": "1.0.0",
+  "author": "prabogo",
+  "homepage": "https://github.com/prabogo/prabogo",
+  "skills": []
+}
