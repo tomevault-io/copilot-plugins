@@ -4,7 +4,7 @@
   "repo": "unpack",
   "description": "Turn AI research conversations into structured, buildable projects. Works with Claude Code and Codex.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/apresmoi/unpack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T03:14:06Z"
+  "distributed_at": "2026-05-11T13:15:38Z"
 }
