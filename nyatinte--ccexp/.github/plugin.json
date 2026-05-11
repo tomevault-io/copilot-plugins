@@ -1,0 +1,9 @@
+{
+  "name": "nyatinte--ccexp",
+  "displayName": "ccexp",
+  "description": "interactive terminal interface for discovering, previewing, and managing Claude Code configuration files and slash commands.",
+  "version": "1.0.0",
+  "author": "nyatinte",
+  "homepage": "https://github.com/nyatinte/ccexp",
+  "skills": []
+}
