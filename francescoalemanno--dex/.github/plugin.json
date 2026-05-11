@@ -1,0 +1,9 @@
+{
+  "name": "francescoalemanno--dex",
+  "displayName": "dex",
+  "description": "A structured orchestrator for AI coding agents. Give it a request \u2014 it plans, implements, and reviews the work automatically using your preferred coding CLI.",
+  "version": "1.0.0",
+  "author": "francescoalemanno",
+  "homepage": "https://github.com/francescoalemanno/dex",
+  "skills": []
+}
