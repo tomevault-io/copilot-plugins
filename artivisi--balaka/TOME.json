@@ -1,0 +1,44 @@
+{
+  "name": "balaka",
+  "owner": "artivisi",
+  "repo": "balaka",
+  "description": "Open-source accounting application for Indonesian SMEs. Spring Boot 4 + Thymeleaf + PostgreSQL. Tax-compliant (PPN, PPh, Coretax), payroll, inventory, production, bank reconciliation, invoicing.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/artivisi/balaka",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T22:34:34Z"
+}
