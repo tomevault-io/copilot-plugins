@@ -1,14 +1,14 @@
-## plan-product
+## react
 
-> Plan a new product and install Agent OS in its codebase.
+> React best practices and patterns for modern web applications
 
 
-# Plan Product
+# React
 
-Plan a new product and install Agent OS in its codebase.
+React best practices and patterns for modern web applications
 
-Refer to the instructions located in this file:
-@.agent-os/instructions/core/plan-product.md
+Refer to the guidelines located in this file:
+@.agent-os/standards/code-style/react.md 
 
 ---
 > Source: [TheCardGoat/lorcana-simulator](https://github.com/TheCardGoat/lorcana-simulator) — distributed by [TomeVault](https://tomevault.io).
