@@ -1,122 +1,198 @@
-## web-guidelines
+## inbound
 
-> Concise rules for building accessible, fast, delightful UIs Use MUST/SHOULD/NEVER to guide decisions
+> > Guidelines for AI agents working with this Next.js 15 + Elysia API codebase.
+
+# AGENTS.md - Inbound Email Platform
+
+> Guidelines for AI agents working with this Next.js 15 + Elysia API codebase.
+
+## Quick Reference
+
+| Task | Command |
+|------|---------|
+| Single test | `bun test path/to/file.test.ts` |
+| All E2 API tests | `bun run test:e2` |
+| Legacy API tests | `bun run test-api` |
+| SDK tests | `bun run test-sdk` |
+| Lint | `bun run lint` |
+| Generate OpenAPI | `bun run generate:openapi` |
+
+### Restricted Commands
+- `bun run dev` / `bun run build` - Ask before running
+- `bunx drizzle-kit generate/push` - Prompt user to run manually
+- `npx tsc` - Never run (breaks project state)
+
+## Package Manager
+
+**Only use `bun`** - Never npm, yarn, or pnpm.
+
+## Architecture
+
+```
+app/api/
+├── e2/                    # Elysia API (primary)
+│   ├── domains/           # Domain endpoints
+│   ├── emails/            # Email endpoints  
+│   ├── lib/               # Auth, types, responses
+│   └── [[...slugs]]/route.ts
+└── v2/                    # Legacy Next.js routes
+
+lib/db/schema.ts           # Drizzle schema (type source of truth)
+features/                  # Feature-specific logic
+```
+
+## Code Style
+
+### Imports
+```typescript
+// Order: external packages -> local modules -> types
+import { Elysia, t } from "elysia";
+import { db } from "@/lib/db";
+import { emailDomains } from "@/lib/db/schema";
+import type { InferSelectModel } from "drizzle-orm";
+```
+
+**Always use `@/` path alias** - Never relative paths like `../../../`.
+
+### TypeScript
+- **No `any`** - Biome enforces `noExplicitAny: error`
+- **Find existing types** in `lib/db/schema.ts` - don't duplicate
+- **Infer DB types**: `InferSelectModel<typeof tableName>`
+- **Route params**: `params: Promise<{ id: string }>`, then `const { id } = await params`
+
+### Database
+- **Drizzle ORM only** - No raw SQL
+- **Use `structuredEmails`** - NOT deprecated `receivedEmails`/`parsedEmails`
+- Always scope queries by `userId` for multi-tenant safety
+
+### Naming Conventions
+- Files: `kebab-case.ts`
+- React components: `PascalCase.tsx`
+- Hooks: `use` prefix + Query/Mutation suffix (`useDomainsQuery.ts`)
+- Tests: Same name + `.test.ts`
+
+### React Components
+- Use variant props for styling - never custom colors/sizes/border-radius
+- Colors from CSS variables in `global.css`
+- Use Suspense with fallback for async data
+- Use TanStack Query (`useQuery`, `useMutation`) for data fetching
+
+### Comments
+- No comments unless explicitly requested
+- No unnecessary README files
+
+## Elysia API Patterns
+
+### Response Schemas (Critical for OpenAPI)
+**Always use status-code keyed objects, NOT `t.Union()`:**
+
+```typescript
+// CORRECT - All responses properly documented
+response: {
+  200: SuccessResponse,
+  400: ErrorResponse,
+  401: ErrorResponse,
+  404: ErrorResponse,
+  500: ErrorResponse,
+}
+
+// WRONG - won't show in OpenAPI docs
+response: t.Union([SuccessResponse, ErrorResponse])
+```
+
+### Error Handling
+```typescript
+import { createErrorResponse } from "./lib/responses";
+
+set.status = 400;
+return createErrorResponse(400, "Bad Request", "Validation failed");
+```
+
+| Code | Use Case |
+|------|----------|
+| 200 | Success (GET, PATCH, DELETE) |
+| 201 | Created (POST) |
+| 400 | Validation error |
+| 401 | Auth required |
+| 404 | Not found |
+| 409 | Conflict |
+| 500 | Server error |
+
+## Testing
+
+Tests use `bun:test` against the dev API:
+
+```typescript
+import { describe, it, expect } from "bun:test";
+
+const API_URL = "https://dev.inbound.new/api/e2";
+
+async function apiRequest(endpoint: string, options: RequestInit = {}) {
+  return fetch(`${API_URL}${endpoint}`, {
+    ...options,
+    headers: {
+      Authorization: `Bearer ${process.env.INBOUND_API_KEY}`,
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+}
+
+describe("Domains API", () => {
+  it("should list domains", async () => {
+    const response = await apiRequest("/domains");
+    expect(response.status).toBe(200);
+  });
+});
+```
+
+## Pagination Standard
+
+All list endpoints return:
+```typescript
+{
+  data: Item[],
+  pagination: { limit: number, offset: number, total: number, hasMore: boolean }
+}
+```
+
+## Common Pitfalls
+
+1. Don't duplicate types - use `lib/db/schema.ts`
+2. Don't use deprecated tables (`receivedEmails`/`parsedEmails`)
+3. Don't forget user scoping in DB queries
+4. Don't use `t.Union()` for Elysia responses
+5. Don't run drizzle-kit commands directly
+
+## User Ban System
+
+**Ban enforcement is already built-in** - setting `user.banned = true` blocks access immediately:
+
+- `app/api/e2/lib/auth.ts:168-220` - Validates ban status on every E2 API request
+- `lib/email-management/outbound-send-guard.ts:194-209` - Blocks banned users from sending emails
+- `app/api/e2/helper/main.ts:92-129` - Validates ban status for V2 API (legacy)
+
+Ban fields in `user` table:
+- `banned` (boolean) - Primary ban flag
+- `banReason` (text) - Displayed to user on 403 responses
+- `banExpires` (timestamp) - Optional expiry; `null` = permanent
+
+**Admin endpoints** (require admin role):
+- `POST /admin/users/:userId/ban` - Ban user, set reason/expiry
+- `POST /admin/users/:userId/unban` - Clear ban, reset fields
+
+**Additional enforcement** when banning for abuse:
+1. **Suspend tenant** - Set `sesTenants.status = "suspended"` and call `suspendTenantSending()` to disable AWS SES config set
+2. **Cancel scheduled emails** - Update `scheduledEmails` where `status IN ("scheduled", "processing")` to `"cancelled"`
+3. See `scripts/ban-user.ts` for complete ban workflow including tenant suspension and scheduled email cleanup
+
+**Tenant suspension helpers**:
+- `lib/aws-ses/aws-ses-tenants.ts:1160` - `suspendTenantSending(configSetName, reason)` - disables AWS SES sending
+- `lib/aws-ses/aws-ses-tenants.ts:1153` - `pauseTenantSending(configSetName, reason)` - for temporary pauses
+- Both update `sesTenants.status` in DB and call AWS SES `PutConfigurationSetSendingOptionsCommand`
 
 
-Concise rules for building accessible, fast, delightful UIs Use MUST/SHOULD/NEVER to guide decisions
-
-## Interactions
-
-- Keyboard
-  - MUST: Full keyboard support per [WAI-ARIA APG](https://www.w3.org/WAI/ARIA/apg/patterns/)
-  - MUST: Visible focus rings (`:focus-visible`; group with `:focus-within`)
-  - MUST: Manage focus (trap, move, and return) per APG patterns
-- Targets & input
-  - MUST: Hit target ≥24px (mobile ≥44px) If visual <24px, expand hit area
-  - MUST: Mobile `<input>` font-size ≥16px or set:
-    ```html
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-    ```
-  - NEVER: Disable browser zoom
-  - MUST: `touch-action: manipulation` to prevent double-tap zoom; set `-webkit-tap-highlight-color` to match design
-- Inputs & forms (behavior)
-  - MUST: Hydration-safe inputs (no lost focus/value)
-  - NEVER: Block paste in `<input>/<textarea>`
-  - MUST: Loading buttons show spinner and keep original label
-  - MUST: Enter submits focused text input In `<textarea>`, ⌘/Ctrl+Enter submits; Enter adds newline
-  - MUST: Keep submit enabled until request starts; then disable, show spinner, use idempotency key
-  - MUST: Don’t block typing; accept free text and validate after
-  - MUST: Allow submitting incomplete forms to surface validation
-  - MUST: Errors inline next to fields; on submit, focus first error
-  - MUST: `autocomplete` + meaningful `name`; correct `type` and `inputmode`
-  - SHOULD: Disable spellcheck for emails/codes/usernames
-  - SHOULD: Placeholders end with ellipsis and show example pattern (eg, `+1 (123) 456-7890`, `sk-012345…`)
-  - MUST: Warn on unsaved changes before navigation
-  - MUST: Compatible with password managers & 2FA; allow pasting one-time codes
-  - MUST: Trim values to handle text expansion trailing spaces
-  - MUST: No dead zones on checkboxes/radios; label+control share one generous hit target
-- State & navigation
-  - MUST: URL reflects state (deep-link filters/tabs/pagination/expanded panels) Prefer libs like [nuqs](https://nuqs.dev)
-  - MUST: Back/Forward restores scroll
-  - MUST: Links are links—use `<a>/<Link>` for navigation (support Cmd/Ctrl/middle-click)
-- Feedback
-  - SHOULD: Optimistic UI; reconcile on response; on failure show error and rollback or offer Undo
-  - MUST: Confirm destructive actions or provide Undo window
-  - MUST: Use polite `aria-live` for toasts/inline validation
-  - SHOULD: Ellipsis (`…`) for options that open follow-ups (eg, “Rename…”)
-- Touch/drag/scroll
-  - MUST: Design forgiving interactions (generous targets, clear affordances; avoid finickiness)
-  - MUST: Delay first tooltip in a group; subsequent peers no delay
-  - MUST: Intentional `overscroll-behavior: contain` in modals/drawers
-  - MUST: During drag, disable text selection and set `inert` on dragged element/containers
-  - MUST: No “dead-looking” interactive zones—if it looks clickable, it is
-- Autofocus
-  - SHOULD: Autofocus on desktop when there’s a single primary input; rarely on mobile (to avoid layout shift)
-
-## Animation
-
-- MUST: Honor `prefers-reduced-motion` (provide reduced variant)
-- SHOULD: Prefer CSS > Web Animations API > JS libraries
-- MUST: Animate compositor-friendly props (`transform`, `opacity`); avoid layout/repaint props (`top/left/width/height`)
-- SHOULD: Animate only to clarify cause/effect or add deliberate delight
-- SHOULD: Choose easing to match the change (size/distance/trigger)
-- MUST: Animations are interruptible and input-driven (avoid autoplay)
-- MUST: Correct `transform-origin` (motion starts where it “physically” should)
-
-## Layout
-
-- SHOULD: Optical alignment; adjust by ±1px when perception beats geometry
-- MUST: Deliberate alignment to grid/baseline/edges/optical centers—no accidental placement
-- SHOULD: Balance icon/text lockups (stroke/weight/size/spacing/color)
-- MUST: Verify mobile, laptop, ultra-wide (simulate ultra-wide at 50% zoom)
-- MUST: Respect safe areas (use env(safe-area-inset-*))
-- MUST: Avoid unwanted scrollbars; fix overflows
-
-## Content & Accessibility
-
-- SHOULD: Inline help first; tooltips last resort
-- MUST: Skeletons mirror final content to avoid layout shift
-- MUST: `<title>` matches current context
-- MUST: No dead ends; always offer next step/recovery
-- MUST: Design empty/sparse/dense/error states
-- SHOULD: Curly quotes (“ ”); avoid widows/orphans
-- MUST: Tabular numbers for comparisons (`font-variant-numeric: tabular-nums` or a mono like Geist Mono)
-- MUST: Redundant status cues (not color-only); icons have text labels
-- MUST: Don’t ship the schema—visuals may omit labels but accessible names still exist
-- MUST: Use the ellipsis character `…` (not ``)
-- MUST: `scroll-margin-top` on headings for anchored links; include a “Skip to content” link; hierarchical `<h1–h6>`
-- MUST: Resilient to user-generated content (short/avg/very long)
-- MUST: Locale-aware dates/times/numbers/currency
-- MUST: Accurate names (`aria-label`), decorative elements `aria-hidden`, verify in the Accessibility Tree
-- MUST: Icon-only buttons have descriptive `aria-label`
-- MUST: Prefer native semantics (`button`, `a`, `label`, `table`) before ARIA
-- SHOULD: Right-clicking the nav logo surfaces brand assets
-- MUST: Use non-breaking spaces to glue terms: `10&nbsp;MB`, `⌘&nbsp;+&nbsp;K`, `Vercel&nbsp;SDK`
-
-## Performance
-
-- SHOULD: Test iOS Low Power Mode and macOS Safari
-- MUST: Measure reliably (disable extensions that skew runtime)
-- MUST: Track and minimize re-renders (React DevTools/React Scan)
-- MUST: Profile with CPU/network throttling
-- MUST: Batch layout reads/writes; avoid unnecessary reflows/repaints
-- MUST: Mutations (`POST/PATCH/DELETE`) target <500 ms
-- SHOULD: Prefer uncontrolled inputs; make controlled loops cheap (keystroke cost)
-- MUST: Virtualize large lists (eg, `virtua`)
-- MUST: Preload only above-the-fold images; lazy-load the rest
-- MUST: Prevent CLS from images (explicit dimensions or reserved space)
-
-## Design
-
-- SHOULD: Layered shadows (ambient + direct)
-- SHOULD: Crisp edges via semi-transparent borders + shadows
-- SHOULD: Nested radii: child ≤ parent; concentric
-- SHOULD: Hue consistency: tint borders/shadows/text toward bg hue
-- MUST: Accessible charts (color-blind-friendly palettes)
-- MUST: Meet contrast—prefer [APCA](https://apcacontrastcom/) over WCAG 2
-- MUST: Increase contrast on `:hover/:active/:focus`
-- SHOULD: Match browser UI to bg
-- SHOULD: Avoid gradient banding (use masks when needed)
+6. Don't skip `validateAndRateLimit()` in handlers
 
 ---
 > Source: [inboundemail/inbound](https://github.com/inboundemail/inbound) — distributed by [TomeVault](https://tomevault.io).
