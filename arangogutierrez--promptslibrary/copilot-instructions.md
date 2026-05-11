@@ -1,14 +1,41 @@
-## rust
+## tdd
 
-> Rust standards
+> TDD protocol for implementing features and fixing bugs — RED/GREEN/REFACTOR phase signals, checkpoint gating, context verification
 
-# Rust
-style:clippy-clean|rustfmt|no-unsafe-unless-justified
-pattern:Result>panic|enum-for-state-machines|newtype-for-validation
-error:thiserror-for-library|anyhow-for-application|?-propagation
-lifetime:minimize-annotations|owned-in-API|borrow-internally
-test:cargo-test|#[cfg(test)]|proptest-for-invariants
-security:no-unwrap-in-production|audit-deps(cargo-audit)|no-unsafe-ffi-leaks
+# TDD Protocol
+
+## Phase Signals (prefix every implementation response)
+- `[PLAN]` — designing/specifying before code
+- `[RED]` — writing or presenting a failing test
+- `[GREEN]` — writing minimum code to pass the test
+- `[REFACTOR]` — cleaning up after green, no behavior change
+- `[CHECKPOINT]` — requesting human commit before large refactor
+
+## Hard Rules
+- RED before GREEN: never write implementation without a failing test first
+- One phase per turn: never mix test changes and implementation in the same edit
+- Fitness function: tests are contracts — never modify tests to make implementation pass
+- Batch size: each PR ≤ 1 concern; break down first if > 1
+
+## Checkpoint Protocol
+Before any REFACTOR touching > 3 files or > 50 LOC:
+1. Signal `[CHECKPOINT]` and summarize current GREEN state
+2. Ask human to review diff and commit
+3. Wait for confirmation before proceeding
+4. Begin REFACTOR as a new atomic change after checkpoint
+
+## Context Verification
+At implementation start, verify you have:
+- API docs for external services being integrated
+- Team conventions for the language/framework in use
+- Existing test patterns in the repo
+If any missing → ask before writing code. Never guess at APIs or conventions.
+
+## Security Scans (verify phase)
+Run language-appropriate scans before claiming implementation is complete:
+- Detect project language from files present (go.mod → Go, package.json → Node, etc.)
+- Use the language-specific rule (go.mdc, etc.) for exact scan commands
+- Always run: `trivy fs .` for filesystem/dependency vulnerability scan
 
 ---
 > Source: [ArangoGutierrez/promptsLibrary](https://github.com/ArangoGutierrez/promptsLibrary) — distributed by [TomeVault](https://tomevault.io).
