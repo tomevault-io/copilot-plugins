@@ -4,7 +4,7 @@
   "repo": "agent-skills",
   "description": "A minimal set of agent skills for high-quality UI and frontend work.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mblode/agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T17:58:47Z"
+  "distributed_at": "2026-05-11T17:44:02Z"
 }
