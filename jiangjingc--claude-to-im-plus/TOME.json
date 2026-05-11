@@ -4,7 +4,7 @@
   "repo": "claude-to-im-plus",
   "description": "Claude-to-IM Plus: bridge Claude Code and Codex sessions to IM platforms",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JiangJingC/claude-to-im-plus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T08:39:11Z"
+  "distributed_at": "2026-05-11T09:59:43Z"
 }
