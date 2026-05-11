@@ -1,426 +1,81 @@
-## release-notes-template
+## create-commit
 
-> This template provides the standard format for all release notes in this project. Follow this structure exactly to ensure consistency and professionalism across all releases
+> Commit message rules
 
-# Release Notes Template
+# IDENTITY and PURPOSE
 
-> **Instructions**: This template provides the standard format for all release notes in this project. Follow this structure exactly to ensure consistency and professionalism across all releases.
+You are an expert Git commit message generator, specializing in creating concise, informative, and standardized commit messages based on Git diffs. Your purpose is to follow the Conventional Commits format and provide clear, actionable commit messages.
 
-## Format Structure
+# GUIDELINES
 
-```markdown
-# Release Notes v[VERSION]
+- Adhere strictly to the Conventional Commits format.
+- Use allowed types: `feat`, `fix`, `build`, `chore`, `ci`, `docs`, `style`, `test`, `perf`, `refactor`, etc.
+- Keep the commit message title under 60 characters.
+- Use present tense in both title and body.
+- Output only the git commit command in a single `bash` code block.
+- Tailor the message detail to the extent of changes:
+  - For few changes: Be concise.
+  - For many changes: Include more details in the body.
+- Explain why the change was made, this is more important than what was changed. Everyone can read the code, but not the purpose and vision we had when we wrote it. So explain the purpose and intention in the message title of the commit.
 
-## 🚀 New Features
+# STEPS
 
-### **[Feature Category Name]**
-- **[Feature Name]**: [Brief description of the feature and its primary benefit]
-- **[Feature Name]**: [Brief description of the feature and its primary benefit]
-- **[Feature Name]**: [Brief description of the feature and its primary benefit]
+1. Analyze the provided diff context thoroughly.
+2. Identify the primary changes and their significance.
+3. Determine the appropriate commit type and scope (if applicable).
+4. Craft a clear, concise description for the commit title.
+5. If requested, create a detailed body explaining the changes.
+6. Include resolved issues in the footer when specified.
+7. Format the commit message according to the guidelines and flags.
 
-### **[Another Feature Category]**
-- **[Feature Name]**: [Brief description of the feature and its primary benefit]
+# INPUT
 
-## 🔧 Improvements
+- Required: `<diff_context>`
+- Optional flags:
+  - `--with-body`: Include a detailed commit body using a multiline string.
+  - `--resolved-issues=<issue_numbers>`: Add resolved issues to the commit footer.
 
-### **[Improvement Category Name]**
-- **[Improvement Name]**: [Description of what was improved and the impact]
-- **[Improvement Name]**: [Description of what was improved and the impact]
+# OUTPUT EXAMPLES
 
-### **[Another Improvement Category]**
-- **[Improvement Name]**: [Description of what was improved and the impact]
+1. Basic commit:
 
-## 🐛 Fixes
+   ```bash
+   git commit -m "fix: enhance user registration validation to prevent invalid data entry"
+   ```
 
-### **[Fix Category Name]**
-- **[Fix Name]**: [Description of what was fixed and the impact]
-- **[Fix Name]**: [Description of what was fixed and the impact]
+2. Commit with body:
 
-## 📚 Documentation
+   ```bash
+   git commit -m "feat(auth): introduce two-factor authentication to strengthen account security
 
-### **[Documentation Category Name]**
-- **[Documentation Update]**: [Description of documentation changes and their value]
-- **[Documentation Update]**: [Description of documentation changes and their value]
+   - implement sms and email options for 2fa to provide flexibility
+   - update user model to store 2fa preferences, ensuring personalized security settings
+   - create new api endpoints for 2fa setup and verification, facilitating easy integration"
+   ```
 
-## 🧪 Testing & Quality
+3. Commit with resolved issues:
 
-### **[Testing Category Name]**
-- **[Testing Improvement]**: [Description of testing changes and quality impact]
-- **[Testing Improvement]**: [Description of testing changes and quality impact]
+   ```bash
+   git commit -m "docs: expand troubleshooting steps for arm64 architecture on macOS to aid developers
 
-### **[Quality Category Name]**
-- **[Quality Improvement]**: [Description of quality improvements and their benefits]
+   - clarify the instruction to replace debuggerPath in launch.json, reducing setup confusion
+   - add steps to verify compatibility of cmake, clang, and clang++ with arm64 architecture, ensuring smooth development
+   - provide example output for architecture verification commands, aiding in quick identification of issues
+   - include command to upgrade llvm using homebrew on macOS, streamlining the update process
+   - add note to retry compilation process after ensuring compatibility, minimizing build errors"
+   ```
 
-## 🔄 Migration Notes
+4. Commit with filename in body:
 
-### **Breaking Changes**
-- **[Change Description]**: [Impact and what users need to know]
-- **[Change Description]**: [Impact and what users need to know]
+   ```bash
+   git commit -m "refactor: restructure utility functions for improved code modularity
 
-### **Upgrade Path**
-- **[Upgrade Step]**: [Clear instructions for users to upgrade]
-- **[Upgrade Step]**: [Clear instructions for users to upgrade]
+   - move helper functions from `src/utils/helpers.js` to `src/utils/string-helpers.js` and `src/utils/array-helpers.js`, enhancing code organization
+   - update import statements in affected files to reflect new structure, maintaining code integrity
+   - add unit tests for newly separated utility functions, ensuring reliability and ease of maintenance"
+   ```
 
-**Version**: [VERSION]  
-**Installation**: `pip install llm-ci-runner==[VERSION]`
-
-## Changelog
-
-For detailed changes, see the [commit history](https://github.com/Nantero1/ai-first-devops-toolkit/compare/v[previous-VERSION]...v[VERSION]).
-
-## 🔗 Links
-- [Documentation](https://github.com/Nantero1/ai-first-devops-toolkit)
-- [Issues](https://github.com/Nantero1/ai-first-devops-toolkit/issues)
-- [Source Code](https://github.com/Nantero1/ai-first-devops-toolkit)
-- [AI-First DevOps Blog](https://technologyworkroom.blogspot.com/2025/06/building-ai-first-devops.html)
-```
-
-## Writing Guidelines
-
-### 🎯 General Principles
-
-1. **Clarity First**: Write for both technical and non-technical audiences
-2. **Value-Focused**: Emphasize benefits and impact, not just what changed
-3. **Consistency**: Use the same format and style throughout
-4. **Completeness**: Include all significant changes, improvements, and fixes
-5. **Actionable**: Provide clear upgrade paths and migration instructions
-
-### 📝 Section-Specific Guidelines
-
-#### 🚀 New Features
-- **Purpose**: Highlight major new capabilities that add value
-- **Structure**: Group related features under descriptive category headers
-- **Content**: Focus on user benefits, not implementation details
-- **Format**: `**[Feature Name]**: [Brief description emphasizing value and impact]`
-- **Examples**:
-  - `**100% Schema Enforcement**: Token-level constraint enforcement with guaranteed compliance`
-  - `**AI-First Development**: Transform requirements into complete workflows through structured AI interactions`
-
-#### 🔧 Improvements
-- **Purpose**: Document enhancements to existing functionality
-- **Structure**: Organize by area (Code Quality, Performance, Developer Experience, etc.)
-- **Content**: Explain what was improved and why it matters
-- **Format**: `**[Improvement Name]**: [Description of improvement and its benefit]`
-- **Examples**:
-  - `**Import Optimization**: Removed unused imports to streamline the codebase`
-  - `**Enhanced Error Handling**: Updated functions with exception chaining for better error traceability`
-
-#### 🐛 Fixes
-- **Purpose**: Document bug fixes and issue resolutions
-- **Structure**: Group by component or area affected
-- **Content**: Describe what was broken and how it's now fixed
-- **Format**: `**[Fix Name]**: [Description of issue and resolution]`
-- **Examples**:
-  - `**Removed Test Pollution**: Eliminated test helper classes from production code`
-  - `**Proper HTTP Mocking**: Implemented respx for HTTP-level mocking instead of inappropriate production code test modes`
-
-#### 📚 Documentation
-- **Purpose**: Highlight documentation improvements and additions
-- **Structure**: Separate by type (Code Documentation, Technical Documentation, etc.)
-- **Content**: Explain what documentation was added/improved and its value
-- **Format**: `**[Documentation Type]**: [Description of changes and benefits]`
-
-#### 🧪 Testing & Quality
-- **Purpose**: Document testing improvements and quality enhancements
-- **Structure**: Separate testing changes from general quality improvements
-- **Content**: Emphasize coverage, reliability, and maintainability improvements
-- **Format**: `**[Testing/Quality Aspect]**: [Description of improvements and impact]`
-
-#### 🔄 Migration Notes
-- **Purpose**: Guide users through any breaking changes or upgrade requirements
-- **When to Include**: Only include if there are breaking changes or significant upgrade considerations
-- **Structure**: Separate "Breaking Changes" from "Upgrade Path"
-- **Content**: Be explicit about what users need to do
-
-### 🎨 Formatting Standards
-
-#### Emojis
-- Use consistent emojis for each section (🚀, 🔧, 🐛, 📚, 🧪, 🔄)
-- Do not use emojis elsewhere in the content
-
-#### Text Formatting
-- **Bold** for feature/improvement names
-- `Code formatting` for commands, file names, and technical terms
-- Regular text for descriptions
-
-#### Headers
-- Use `###` for category headers within sections
-- Use `**` for individual item names
-- Maintain consistent capitalization
-
-#### Lists
-- Use `-` for bullet points
-- Maintain consistent indentation
-- Keep descriptions concise but informative
-
-### 📋 Content Guidelines
-
-#### What to Include
-- All new features, regardless of size
-- Significant improvements and optimizations
-- Bug fixes that users might notice
-- Documentation updates that add value
-- Testing improvements that enhance reliability
-- Breaking changes and migration requirements
-
-#### What to Exclude
-- Internal refactoring that doesn't affect users
-- Trivial fixes (typos, minor formatting)
-- Development-only changes (unless they affect contributors)
-- Overly technical implementation details
-
-#### Writing Style
-- Use active voice: "Added feature X" not "Feature X was added"
-- Be specific: "Improved error handling" not "Made things better"
-- Focus on outcomes: "Reduced test runtime by 42%" not "Optimized tests"
-- Use present tense for what the software now does
-
-### 🔍 Review Checklist
-
-Before publishing, ensure:
-- [ ] All sections follow the template format exactly
-- [ ] Version numbers are consistent throughout
-- [ ] Installation command is updated
-- [ ] Links are current and functional
-- [ ] Migration notes are complete (if applicable)
-- [ ] Content is free of typos and grammatical errors
-- [ ] Each change is categorized appropriately
-- [ ] Benefits and impact are clearly stated
-- [ ] Technical jargon is explained or avoided
-
-### 📊 Examples of Good vs. Bad Entries
-
-#### ✅ Good Examples
-- `**Generic LLM-as-Judge Evaluation**: Introduced abstract evaluation framework that works with any example type without hard-coupled criteria`
-- `**Enhanced YAML Processing**: Migrated from PyYAML to ruamel.yaml for improved parsing and better formatting control`
-- `**Proper HTTP Mocking**: Implemented respx for HTTP-level mocking instead of inappropriate production code test modes`
-
-#### ❌ Bad Examples
-- `**Fixed stuff**: Made some changes to the code`
-- `**Refactored**: Moved code around`
-- `**Updated dependencies**: Changed some packages`
-
-### 🎯 Success Metrics
-
-A good release note should:
-- Help users understand the value of upgrading
-- Provide clear migration guidance for breaking changes
-- Highlight improvements that matter to users
-- Maintain professional tone while being accessible
-- Be comprehensive without being overwhelming
-
----
-
-**Remember**: Release notes are marketing material as much as they are technical documentation. They should excite users about improvements while providing the practical information they need to upgrade successfully. # Release Notes Template
-
-> **Instructions**: This template provides the standard format for all release notes in this project. Follow this structure exactly to ensure consistency and professionalism across all releases.
-
-## Format Structure
-
-```markdown
-# Release Notes v[VERSION]
-
-## 🚀 New Features
-
-### **[Feature Category Name]**
-- **[Feature Name]**: [Brief description of the feature and its primary benefit]
-- **[Feature Name]**: [Brief description of the feature and its primary benefit]
-- **[Feature Name]**: [Brief description of the feature and its primary benefit]
-
-### **[Another Feature Category]**
-- **[Feature Name]**: [Brief description of the feature and its primary benefit]
-
-## 🔧 Improvements
-
-### **[Improvement Category Name]**
-- **[Improvement Name]**: [Description of what was improved and the impact]
-- **[Improvement Name]**: [Description of what was improved and the impact]
-
-### **[Another Improvement Category]**
-- **[Improvement Name]**: [Description of what was improved and the impact]
-
-## 🐛 Fixes
-
-### **[Fix Category Name]**
-- **[Fix Name]**: [Description of what was fixed and the impact]
-- **[Fix Name]**: [Description of what was fixed and the impact]
-
-## 📚 Documentation
-
-### **[Documentation Category Name]**
-- **[Documentation Update]**: [Description of documentation changes and their value]
-- **[Documentation Update]**: [Description of documentation changes and their value]
-
-## 🧪 Testing & Quality
-
-### **[Testing Category Name]**
-- **[Testing Improvement]**: [Description of testing changes and quality impact]
-- **[Testing Improvement]**: [Description of testing changes and quality impact]
-
-### **[Quality Category Name]**
-- **[Quality Improvement]**: [Description of quality improvements and their benefits]
-
-## 🔄 Migration Notes
-
-### **Breaking Changes**
-- **[Change Description]**: [Impact and what users need to know]
-- **[Change Description]**: [Impact and what users need to know]
-
-### **Upgrade Path**
-- **[Upgrade Step]**: [Clear instructions for users to upgrade]
-- **[Upgrade Step]**: [Clear instructions for users to upgrade]
-
-**Version**: [VERSION]  
-**Installation**: `pip install llm-ci-runner==[VERSION]`
-
-## Changelog
-
-For detailed changes, see the [commit history](https://github.com/Nantero1/ai-first-devops-toolkit/compare/v[previous-VERSION]...v[VERSION]).
-
-## 🔗 Links
-- [Documentation](https://github.com/Nantero1/ai-first-devops-toolkit)
-- [Issues](https://github.com/Nantero1/ai-first-devops-toolkit/issues)
-- [Source Code](https://github.com/Nantero1/ai-first-devops-toolkit)
-- [AI-First DevOps Blog](https://technologyworkroom.blogspot.com/2025/06/building-ai-first-devops.html)
-```
-
-## Writing Guidelines
-
-### 🎯 General Principles
-
-1. **Clarity First**: Write for both technical and non-technical audiences
-2. **Value-Focused**: Emphasize benefits and impact, not just what changed
-3. **Consistency**: Use the same format and style throughout
-4. **Completeness**: Include all significant changes, improvements, and fixes
-5. **Actionable**: Provide clear upgrade paths and migration instructions
-
-### 📝 Section-Specific Guidelines
-
-#### 🚀 New Features
-- **Purpose**: Highlight major new capabilities that add value
-- **Structure**: Group related features under descriptive category headers
-- **Content**: Focus on user benefits, not implementation details
-- **Format**: `**[Feature Name]**: [Brief description emphasizing value and impact]`
-- **Examples**:
-  - `**100% Schema Enforcement**: Token-level constraint enforcement with guaranteed compliance`
-  - `**AI-First Development**: Transform requirements into complete workflows through structured AI interactions`
-
-#### 🔧 Improvements
-- **Purpose**: Document enhancements to existing functionality
-- **Structure**: Organize by area (Code Quality, Performance, Developer Experience, etc.)
-- **Content**: Explain what was improved and why it matters
-- **Format**: `**[Improvement Name]**: [Description of improvement and its benefit]`
-- **Examples**:
-  - `**Import Optimization**: Removed unused imports to streamline the codebase`
-  - `**Enhanced Error Handling**: Updated functions with exception chaining for better error traceability`
-
-#### 🐛 Fixes
-- **Purpose**: Document bug fixes and issue resolutions
-- **Structure**: Group by component or area affected
-- **Content**: Describe what was broken and how it's now fixed
-- **Format**: `**[Fix Name]**: [Description of issue and resolution]`
-- **Examples**:
-  - `**Removed Test Pollution**: Eliminated test helper classes from production code`
-  - `**Proper HTTP Mocking**: Implemented respx for HTTP-level mocking instead of inappropriate production code test modes`
-
-#### 📚 Documentation
-- **Purpose**: Highlight documentation improvements and additions
-- **Structure**: Separate by type (Code Documentation, Technical Documentation, etc.)
-- **Content**: Explain what documentation was added/improved and its value
-- **Format**: `**[Documentation Type]**: [Description of changes and benefits]`
-
-#### 🧪 Testing & Quality
-- **Purpose**: Document testing improvements and quality enhancements
-- **Structure**: Separate testing changes from general quality improvements
-- **Content**: Emphasize coverage, reliability, and maintainability improvements
-- **Format**: `**[Testing/Quality Aspect]**: [Description of improvements and impact]`
-
-#### 🔄 Migration Notes
-- **Purpose**: Guide users through any breaking changes or upgrade requirements
-- **When to Include**: Only include if there are breaking changes or significant upgrade considerations
-- **Structure**: Separate "Breaking Changes" from "Upgrade Path"
-- **Content**: Be explicit about what users need to do
-
-### 🎨 Formatting Standards
-
-#### Emojis
-- Use consistent emojis for each section (🚀, 🔧, 🐛, 📚, 🧪, 🔄)
-- Do not use emojis elsewhere in the content
-
-#### Text Formatting
-- **Bold** for feature/improvement names
-- `Code formatting` for commands, file names, and technical terms
-- Regular text for descriptions
-
-#### Headers
-- Use `###` for category headers within sections
-- Use `**` for individual item names
-- Maintain consistent capitalization
-
-#### Lists
-- Use `-` for bullet points
-- Maintain consistent indentation
-- Keep descriptions concise but informative
-
-### 📋 Content Guidelines
-
-#### What to Include
-- All new features, regardless of size
-- Significant improvements and optimizations
-- Bug fixes that users might notice
-- Documentation updates that add value
-- Testing improvements that enhance reliability
-- Breaking changes and migration requirements
-
-#### What to Exclude
-- Internal refactoring that doesn't affect users
-- Trivial fixes (typos, minor formatting)
-- Development-only changes (unless they affect contributors)
-- Overly technical implementation details
-
-#### Writing Style
-- Use active voice: "Added feature X" not "Feature X was added"
-- Be specific: "Improved error handling" not "Made things better"
-- Focus on outcomes: "Reduced test runtime by 42%" not "Optimized tests"
-- Use present tense for what the software now does
-
-### 🔍 Review Checklist
-
-Before publishing, ensure:
-- [ ] All sections follow the template format exactly
-- [ ] Version numbers are consistent throughout
-- [ ] Installation command is updated
-- [ ] Links are current and functional
-- [ ] Migration notes are complete (if applicable)
-- [ ] Content is free of typos and grammatical errors
-- [ ] Each change is categorized appropriately
-- [ ] Benefits and impact are clearly stated
-- [ ] Technical jargon is explained or avoided
-
-### 📊 Examples of Good vs. Bad Entries
-
-#### ✅ Good Examples
-- `**Generic LLM-as-Judge Evaluation**: Introduced abstract evaluation framework that works with any example type without hard-coupled criteria`
-- `**Enhanced YAML Processing**: Migrated from PyYAML to ruamel.yaml for improved parsing and better formatting control`
-- `**Proper HTTP Mocking**: Implemented respx for HTTP-level mocking instead of inappropriate production code test modes`
-
-#### ❌ Bad Examples
-- `**Fixed stuff**: Made some changes to the code`
-- `**Refactored**: Moved code around`
-- `**Updated dependencies**: Changed some packages`
-
-### 🎯 Success Metrics
-
-A good release note should:
-- Help users understand the value of upgrading
-- Provide clear migration guidance for breaking changes
-- Highlight improvements that matter to users
-- Maintain professional tone while being accessible
-- Be comprehensive without being overwhelming
-
----
-
-**Remember**: Release notes are marketing material as much as they are technical documentation. They should excite users about improvements while providing the practical information they need to upgrade successfully. 
+# INPUT
 
 ---
 > Source: [Nantero1/ai-first-devops-toolkit](https://github.com/Nantero1/ai-first-devops-toolkit) — distributed by [TomeVault](https://tomevault.io).
