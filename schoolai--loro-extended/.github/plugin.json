@@ -1,0 +1,9 @@
+{
+  "name": "schoolai--loro-extended",
+  "displayName": "loro-extended",
+  "description": "Extended functionality for Loro CRDT library",
+  "version": "1.0.0",
+  "author": "SchoolAI",
+  "homepage": "https://github.com/SchoolAI/loro-extended",
+  "skills": []
+}
