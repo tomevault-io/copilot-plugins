@@ -1,0 +1,9 @@
+{
+  "name": "undefinedopcode--kate-code",
+  "displayName": "kate-code",
+  "description": "A Claude Code plugin for the Kate Editor leveraging Zed Industries claude-code-acp.",
+  "version": "1.0.0",
+  "author": "undefinedopcode",
+  "homepage": "https://github.com/undefinedopcode/kate-code",
+  "skills": []
+}
