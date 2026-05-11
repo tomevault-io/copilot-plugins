@@ -1,0 +1,9 @@
+{
+  "name": "confabulousdev--confab-web",
+  "displayName": "confab-web",
+  "description": "Open-source session management platform for Claude Code \u2014 analytics, AI recaps, sharing, and team features. Self-hosted with Docker.",
+  "version": "1.0.0",
+  "author": "ConfabulousDev",
+  "homepage": "https://github.com/ConfabulousDev/confab-web",
+  "skills": []
+}
