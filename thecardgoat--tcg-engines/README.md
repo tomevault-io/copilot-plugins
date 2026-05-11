@@ -2,6 +2,8 @@
 
 > Source: [TheCardGoat/tcg-engines](https://github.com/TheCardGoat/tcg-engines) — distributed by [TomeVault](https://tomevault.io)
 
+Typescript implementation of TCG rules
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
