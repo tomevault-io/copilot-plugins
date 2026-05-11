@@ -1,0 +1,9 @@
+{
+  "name": "beaconcms--tailwind-compiler",
+  "displayName": "tailwind_compiler",
+  "description": "tailwind_compiler",
+  "version": "1.0.0",
+  "author": "BeaconCMS",
+  "homepage": "https://github.com/BeaconCMS/tailwind_compiler",
+  "skills": []
+}
