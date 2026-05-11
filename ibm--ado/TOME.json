@@ -4,7 +4,7 @@
   "repo": "ado",
   "description": "A framework for designing, executing  and analysing experiment campaigns ",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/IBM/ado",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T04:57:20Z"
+  "distributed_at": "2026-05-11T19:54:01Z"
 }
