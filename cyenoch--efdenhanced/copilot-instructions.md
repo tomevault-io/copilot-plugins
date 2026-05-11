@@ -1,23 +1,263 @@
-## project-overview
+## settings-system
 
-> - C# (.NET Standard 2.1) + Unity + Harmony + `Duckov.Modding.ModBehaviour`
+> Mod settings system usage guide
 
-# EfDEnhanced 项目指引
+# 模组设置系统指南
 
-## 技术栈
-- C# (.NET Standard 2.1) + Unity + Harmony + `Duckov.Modding.ModBehaviour`
+## 设置系统架构
 
-## 文件结构
-- `ModBehaviour.cs` - 模组入口
-- `Features/` - 功能实现
-- `Patches/` - Harmony 补丁
-- `Utils/` - 工具类
+模组使用统一的设置管理系统，位于 [Utils/ModSettings.cs](mdc:Utils/ModSettings.cs)。
 
-## 开发规范
-- 补丁类放 `Patches/`
-- 新功能放 `Features/`
-- 工具类放 `Utils/`
-- UI 组件用 `Utils/UI/`
+## 设置类型
+
+### 可用的设置类型
+
+每种设置类型都有对应的类：
+
+1. **布尔值** - [Utils/Settings/BoolSettingsEntry.cs](mdc:Utils/Settings/BoolSettingsEntry.cs)
+2. **整数** - [Utils/Settings/IntSettingsEntry.cs](mdc:Utils/Settings/IntSettingsEntry.cs)
+3. **浮点数** - [Utils/Settings/FloatSettingsEntry.cs](mdc:Utils/Settings/FloatSettingsEntry.cs)
+4. **字符串** - [Utils/Settings/StringSettingsEntry.cs](mdc:Utils/Settings/StringSettingsEntry.cs)
+5. **选项列表** - [Utils/Settings/OptionsSettingsEntry.cs](mdc:Utils/Settings/OptionsSettingsEntry.cs)
+6. **按键绑定** - [Utils/Settings/KeyCodeSettingsEntry.cs](mdc:Utils/Settings/KeyCodeSettingsEntry.cs)
+
+所有设置类型都继承自 [Utils/Settings/SettingsEntry.cs](mdc:Utils/Settings/SettingsEntry.cs)。
+
+## 添加新设置
+
+### 1. 在 ModSettings 中定义
+
+```csharp
+// 在 ModSettings.cs 中添加
+public static class ModSettings
+{
+    // 布尔设置
+    public static BoolSettingsEntry EnableFeature = new BoolSettingsEntry(
+        key: "EnableFeature",
+        displayName: "启用功能",
+        description: "启用或禁用此功能",
+        defaultValue: true
+    );
+    
+    // 整数设置
+    public static IntSettingsEntry MaxItems = new IntSettingsEntry(
+        key: "MaxItems",
+        displayName: "最大物品数",
+        description: "设置最大物品数量",
+        defaultValue: 10,
+        minValue: 1,
+        maxValue: 100
+    );
+    
+    // 浮点数设置
+    public static FloatSettingsEntry SpeedMultiplier = new FloatSettingsEntry(
+        key: "SpeedMultiplier",
+        displayName: "速度倍率",
+        description: "移动速度倍率",
+        defaultValue: 1.5f,
+        minValue: 0.5f,
+        maxValue: 3.0f
+    );
+    
+    // 选项列表设置
+    public static OptionsSettingsEntry DisplayMode = new OptionsSettingsEntry(
+        key: "DisplayMode",
+        displayName: "显示模式",
+        description: "选择显示模式",
+        options: new[] { "简洁", "标准", "详细" },
+        defaultIndex: 1
+    );
+    
+    // 字符串设置
+    public static StringSettingsEntry CustomText = new StringSettingsEntry(
+        key: "CustomText",
+        displayName: "自定义文本",
+        description: "输入自定义文本",
+        defaultValue: "默认文本"
+    );
+    
+    // 按键绑定设置
+    public static KeyCodeSettingsEntry OpenMenuHotkey = new KeyCodeSettingsEntry(
+        prefix: "EfDEnhanced",
+        key: "OpenMenuHotkey",
+        name: "Settings_OpenMenuHotkey",  // 本地化键
+        defaultValue: KeyCode.H,
+        category: "Keybindings",
+        description: "设置打开菜单的快捷键"
+    );
+}
+```
+
+注意多语言
+
+### 2. 访问设置值
+
+```csharp
+// 读取设置值
+bool isEnabled = ModSettings.EnableFeature.Value;
+int maxItems = ModSettings.MaxItems.Value;
+float speed = ModSettings.SpeedMultiplier.Value;
+string mode = ModSettings.DisplayMode.Value;
+string text = ModSettings.CustomText.Value;
+KeyCode hotkey = ModSettings.OpenMenuHotkey.Value;
+
+// 修改设置值
+ModSettings.EnableFeature.Value = false;
+ModSettings.MaxItems.Value = 20;
+ModSettings.OpenMenuHotkey.Value = KeyCode.F1;
+
+// 检查按键绑定
+if (Input.GetKeyDown(ModSettings.OpenMenuHotkey.Value))
+{
+    // 触发快捷键操作
+}
+```
+
+### 3. 监听设置变化
+
+```csharp
+// 订阅值变化事件
+ModSettings.EnableFeature.OnValueChanged += (newValue) => 
+{
+    ModLogger.LogInfo($"功能已{(newValue ? "启用" : "禁用")}");
+    // 执行相应逻辑
+};
+
+// 在不再需要时取消订阅
+ModSettings.EnableFeature.OnValueChanged -= handler;
+```
+
+## 设置持久化
+
+设置系统自动处理保存和加载：
+
+```csharp
+// 保存所有设置
+ModSettings.SaveSettings();
+
+// 加载所有设置
+ModSettings.LoadSettings();
+
+// 重置为默认值
+ModSettings.ResetToDefaults();
+```
+
+通常在 [ModBehaviour.cs](mdc:ModBehaviour.cs) 的生命周期方法中处理：
+
+```csharp
+private void Awake()
+{
+    ModSettings.LoadSettings();
+}
+
+private void OnDestroy()
+{
+    ModSettings.SaveSettings();
+}
+```
+
+## 在 UI 中显示设置
+
+使用 [Utils/UI/Builders/FormBuilder.cs](mdc:Utils/UI/Builders/FormBuilder.cs) 自动创建设置 UI：
+
+```csharp
+using EfDEnhanced.Utils.UI.Builders;
+
+var formBuilder = new FormBuilder(parentTransform);
+
+// 添加布尔设置（Toggle）
+formBuilder.AddToggle(
+    ModSettings.EnableFeature.DisplayName,
+    ModSettings.EnableFeature.Value,
+    value => ModSettings.EnableFeature.Value = value
+);
+
+// 添加数值设置（Slider）
+formBuilder.AddSlider(
+    ModSettings.SpeedMultiplier.DisplayName,
+    ModSettings.SpeedMultiplier.MinValue,
+    ModSettings.SpeedMultiplier.MaxValue,
+    ModSettings.SpeedMultiplier.Value,
+    value => ModSettings.SpeedMultiplier.Value = value
+);
+
+// 添加选项设置（Dropdown）
+formBuilder.AddDropdown(
+    ModSettings.DisplayMode.DisplayName,
+    ModSettings.DisplayMode.Options,
+    ModSettings.DisplayMode.SelectedIndex,
+    index => ModSettings.DisplayMode.SelectedIndex = index
+);
+
+// 添加按键绑定设置（KeybindingButton）
+formBuilder.AddKeybinding(
+    ModSettings.OpenMenuHotkey
+);
+
+formBuilder.Build();
+```
+
+## 按键绑定 UI 组件
+
+使用 [Utils/UI/Components/ModKeybindingButton.cs](mdc:Utils/UI/Components/ModKeybindingButton.cs) 创建按键绑定UI：
+
+```csharp
+using EfDEnhanced.Utils.UI.Components;
+
+// 创建按键绑定按钮
+ModKeybindingButton keybindingButton = ModKeybindingButton.Create(
+    parentTransform,
+    ModSettings.OpenMenuHotkey
+);
+```
+
+**按键绑定按钮特性**:
+- 点击按钮后进入监听模式，显示 "Press Any Key..."
+- 按下任意键即可绑定（排除保留按键）
+- 按 ESC 取消绑定操作
+- 自动显示友好的按键名称（如 "Space"、"F1"、"Num 5"）
+- 自动订阅设置变更事件，实时更新显示
+- 支持本地化文本
+
+**按键验证**:
+KeyCodeSettingsEntry 内置验证系统，自动拒绝无效按键：
+- ✅ 允许: A-Z、0-9、F1-F15、方向键、小键盘、修饰键、控制键
+- ✅ 允许: 鼠标中键/侧键（Mouse2-Mouse6）
+- ✅ 允许: **手柄按键**（JoystickButton0-19，Xbox/PlayStation 手柄）
+- ❌ 禁止: 鼠标左右键（Mouse0/Mouse1）、None
+
+## 设置注入游戏选项面板
+
+参考 [Patches/OptionsPanelPatch.cs](mdc:Patches/OptionsPanelPatch.cs) 了解如何将模组设置集成到游戏原有的选项界面。
+
+## 最佳实践
+
+1. **使用有意义的键名**
+   - 使用小写字母和下划线
+   - 例如: `enable_quest_tracker`, `movement_speed_multiplier`
+
+2. **提供清晰的显示名称和描述**
+   - 显示名称: 简短的功能名称
+   - 描述: 解释设置的作用和影响
+
+3. **设置合理的默认值和范围**
+   - 默认值应该是最常用的配置
+   - 数值范围要合理，避免破坏游戏平衡
+
+4. **及时保存设置**
+   - 在设置变化时自动保存
+   - 在模组卸载时保存
+
+5. **考虑向后兼容**
+   - 新增设置使用新键名
+   - 保留旧设置的默认行为
+
+## 示例参考
+
+完整的设置系统实现示例：
+- [Utils/ModSettings.cs](mdc:Utils/ModSettings.cs) - 设置定义
+- [Features/ModSettingsContent.cs](mdc:Features/ModSettingsContent.cs) - 设置 UI 界面
+- [Patches/OptionsPanelPatch.cs](mdc:Patches/OptionsPanelPatch.cs) - 设置注入
 
 ---
 > Source: [Cyenoch/EfDEnhanced](https://github.com/Cyenoch/EfDEnhanced) — distributed by [TomeVault](https://tomevault.io).
