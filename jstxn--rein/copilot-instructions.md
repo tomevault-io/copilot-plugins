@@ -1,31 +1,36 @@
-## rein-triage
+## rein-verify
 
-> Use before ambiguous or multi-file work. Surfaces relevant files, assumptions, success criteria, and cheating boundaries.
+> Use before declaring code work complete. Runs verification, reviews diff hygiene, and emits an evidence report.
 
 
-# rein-triage
+# rein-verify
 
-Use this before editing when the task is ambiguous, broad, risky, or likely to touch multiple files.
+Use this before final completion.
 
 ## Steps
 
-1. Read the task and identify the most likely relevant files.
-2. State the top assumptions.
-3. Separate verified facts from unverified assumptions.
-4. Define what success looks like.
-5. Define what would count as cheating, bluffing, or reward hacking.
-6. If the task is impossible or conflicting, stop and report the conflict instead of forcing a pass.
+1. Discover the repository standard:
+   - build
+   - typecheck
+   - lint
+   - format
+   - test
+2. Run every applicable verification command.
+3. Inspect the diff for unrelated edits, debug leftovers, and suspicious test or evaluator changes.
+4. If tests, fixtures, or evaluators changed, explain why.
+5. Emit a final evidence report.
+6. Refuse to declare success without evidence.
 
-## Output
+## Evidence Report
 
-Emit a short triage note with:
+Report:
 
-- relevant files
-- verified assumptions
-- open assumptions
-- success definition
-- cheating boundary
-- stop-and-report trigger, if any
+- files read
+- assumptions verified
+- commands run
+- tests added or changed
+- remaining uncertainties
+- why the solution is not reward hacking
 
 ---
 > Source: [jstxn/rein](https://github.com/jstxn/rein) — distributed by [TomeVault](https://tomevault.io).
