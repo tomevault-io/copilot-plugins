@@ -4,7 +4,7 @@
   "repo": "MeticAI",
   "description": "AIO LLM + MCP + web server container collection for Meticulous Espresso",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hessius/MeticAI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T17:44:11Z"
+  "distributed_at": "2026-05-11T03:35:18Z"
 }
