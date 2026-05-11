@@ -1,0 +1,9 @@
+{
+  "name": "dannysmith--astro-editor",
+  "displayName": "astro-editor",
+  "description": "Astro Editor reads your Zod schemas and transforms frontmatter into smart forms. Get validation, proper field types, and MDX component insertion \u2014 all in a beautiful interface inspired by iA Writer.",
+  "version": "1.0.0",
+  "author": "dannysmith",
+  "homepage": "https://github.com/dannysmith/astro-editor",
+  "skills": []
+}
