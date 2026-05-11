@@ -1,0 +1,9 @@
+{
+  "name": "mashiro--otelop",
+  "displayName": "otelop",
+  "description": "Local OTel viewer for dev loops \u2014 single binary, in-memory, browser UI.",
+  "version": "1.0.0",
+  "author": "mashiro",
+  "homepage": "https://github.com/mashiro/otelop",
+  "skills": []
+}
