@@ -1,0 +1,9 @@
+{
+  "name": "buildkite--content-cache",
+  "displayName": "content-cache",
+  "description": "A content-addressable caching proxy for Go modules and NPM packages.",
+  "version": "1.0.0",
+  "author": "buildkite",
+  "homepage": "https://github.com/buildkite/content-cache",
+  "skills": []
+}
