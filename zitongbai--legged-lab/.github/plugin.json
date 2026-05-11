@@ -1,0 +1,9 @@
+{
+  "name": "zitongbai--legged-lab",
+  "displayName": "legged_lab",
+  "description": "Isaac Lab extension for legged robots. ",
+  "version": "1.0.0",
+  "author": "zitongbai",
+  "homepage": "https://github.com/zitongbai/legged_lab",
+  "skills": []
+}
