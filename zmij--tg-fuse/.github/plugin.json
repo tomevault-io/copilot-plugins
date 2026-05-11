@@ -1,0 +1,9 @@
+{
+  "name": "zmij--tg-fuse",
+  "displayName": "tg-fuse",
+  "description": "Send Telegram files the Unix way: cp meme.jpg /dev/tg/@friend",
+  "version": "1.0.0",
+  "author": "zmij",
+  "homepage": "https://github.com/zmij/tg-fuse",
+  "skills": []
+}
