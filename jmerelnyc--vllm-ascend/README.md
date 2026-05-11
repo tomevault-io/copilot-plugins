@@ -7,11 +7,11 @@ Community-maintained vLLM hardware plugin for Ascend NPUs
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jmerelnyc/vllm-ascend](https://github.com/jmerelnyc/vllm-ascend).
+Original source: `CLAUDE.md` in [jmerelnyc/vllm-ascend](https://github.com/jmerelnyc/vllm-ascend).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
