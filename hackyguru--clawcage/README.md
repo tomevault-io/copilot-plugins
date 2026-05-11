@@ -7,14 +7,14 @@ Air-gapped Linux VM on your Mac for running Open Claw and other AI agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [hackyguru/clawcage](https://github.com/hackyguru/clawcage).
+Original source: `CLAUDE.md` in [hackyguru/clawcage](https://github.com/hackyguru/clawcage).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/hackyguru/clawcage](https://github.com/hackyguru/clawcage)
