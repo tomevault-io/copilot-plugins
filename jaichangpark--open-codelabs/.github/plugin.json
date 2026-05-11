@@ -1,9 +1,9 @@
 {
   "name": "jaichangpark--open-codelabs",
   "displayName": "open-codelabs",
-  "description": "open-codelabs",
+  "description": "Open Codelabs is an open-source platform designed to easily host and manage Google Codelab-style hands-on sessions. Built with a modern tech stack, it supports both Facilitator and Attendee roles, wit",
   "version": "1.0.0",
   "author": "JAICHANGPARK",
-  "homepage": "https://tomevault.io/claim/JAICHANGPARK",
+  "homepage": "https://github.com/JAICHANGPARK/open-codelabs",
   "skills": []
 }
