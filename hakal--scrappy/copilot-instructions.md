@@ -1,0 +1,440 @@
+## scrappy
+
+> **CRITICAL: Never use emojis or special characters.**
+
+# Claude Code Guidelines
+
+**CRITICAL: Never use emojis or special characters.**
+
+---
+
+This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
+
+## Quick Reference
+
+```bash
+bd ready              # Find available work
+bd show <id>          # View issue details
+bd update <id> --status in_progress  # Claim work
+bd close <id>         # Complete work
+bd sync               # Sync with git
+```
+
+## Landing the Plane (Session Completion)
+
+**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+
+**MANDATORY WORKFLOW:**
+
+1. **File issues for remaining work** - Create issues for anything that needs follow-up
+2. **Run quality gates** (if code changed) - Tests, linters, builds
+3. **Add changelog fragments** (if user-facing changes) - Use towncrier format:
+   - Feature: `changelog.d/feature/<short-name>.md`
+   - Bug fix: `changelog.d/fix/<short-name>.md`
+   - Breaking: `changelog.d/breaking/<short-name>.md`
+   - Content: Brief description of the change (1-2 sentences)
+4. **Update issue status** - Close finished work, update in-progress items
+5. **PUSH TO REMOTE** - This is MANDATORY:
+   ```bash
+   git pull --rebase
+   bd sync
+   git push
+   git status  # MUST show "up to date with origin"
+   ```
+6. **Clean up** - Clear stashes, prune remote branches
+7. **Verify** - All changes committed AND pushed
+8. **Hand off** - Provide context for next session
+
+**CRITICAL RULES:**
+- Work is NOT complete until `git push` succeeds
+- NEVER stop before pushing - that leaves work stranded locally
+- NEVER say "ready to push when you are" - YOU must push
+- If push fails, resolve and retry until it succeeds
+
+---
+
+## ISSUE DISCOVERY (MANDATORY)
+
+While coding, you MUST document any issues you encounter using `bd create`. This includes:
+
+**Code Quality Issues:**
+- SOLID principle violations (god classes, missing protocols, hard-coded dependencies)
+- Missing dependency injection
+- Concrete classes without protocols
+- Tests that violate guidelines (over-mocked, structure-only, no behavior testing)
+- Missing edge case handling
+
+**Bugs and Problems:**
+- Runtime errors or unexpected behavior
+- Logic errors discovered during implementation
+- Integration issues between components
+- Performance problems
+
+**Technical Debt:**
+- TODO/FIXME comments in code
+- Incomplete implementations
+- Missing tests for existing functionality
+- Documentation gaps
+
+---
+
+## ARCHITECTURAL PRINCIPLES (READ THIS FIRST)
+
+### You Are an Architect, Not a Code Monkey
+
+Before writing ANY code, you must:
+1. **Design the abstraction** - What protocol/interface is needed?
+2. **Consider SOLID principles** - Is this following Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion?
+3. **Plan dependency injection** - How will this be tested? What needs to be injected?
+4. **Think about edge cases** - What can go wrong? What are the boundaries?
+5. **Design before coding** - No coding until the design is clear
+
+### MANDATORY: Protocol-First Design
+
+**NEVER write a concrete class without defining its protocol first.**
+
+```python
+# WRONG - Concrete class first
+class ResponseCache:
+    def get(self, key: str) -> Optional[str]:
+        return self._cache.get(key)
+
+# RIGHT - Protocol first, then implementation
+class CacheProtocol(Protocol):
+    """Defines the contract for caching behavior."""
+    def get(self, key: str) -> Optional[str]: ...
+    def put(self, key: str, value: str) -> None: ...
+    def clear(self) -> None: ...
+
+class ResponseCache:  # Implements CacheProtocol
+    def get(self, key: str) -> Optional[str]:
+        return self._cache.get(key)
+```
+
+**Why?** Protocols enable:
+- Testing with test doubles
+- Swapping implementations
+- Dependency inversion
+- Clear contracts
+
+---
+
+## SOLID PRINCIPLES (NON-NEGOTIABLE)
+
+### Single Responsibility Principle
+**Each class should have ONE reason to change.**
+
+**BAD - God Class:**
+```python
+class AgentOrchestrator:
+    def __init__(self):
+        self.cache = ResponseCache()
+        self.rate_tracker = RateLimitTracker()
+        self.session_manager = SessionManager()
+        # ... does caching, rate limiting, sessions, delegation, context, etc.
+```
+
+**GOOD - Focused Classes:**
+```python
+class Orchestrator:
+    def __init__(
+        self,
+        cache: CacheProtocol,
+        rate_tracker: RateLimitProtocol,
+        session: SessionProtocol,
+        delegator: DelegationProtocol,
+    ):
+        # Each dependency is a focused, single-purpose component
+```
+
+### Open/Closed Principle
+**Open for extension, closed for modification.**
+
+Use strategy pattern, not if/else chains.
+
+ **BAD:**
+```python
+def execute(self, task_type: str):
+    if task_type == "research":
+        # research logic
+    elif task_type == "coding":
+        # coding logic
+    # Adding new type = modifying this function
+```
+
+**GOOD:**
+```python
+class ExecutionStrategy(Protocol):
+    def execute(self, task: Task) -> Result: ...
+
+# Add new strategies without modifying existing code
+strategies = {
+    TaskType.RESEARCH: ResearchStrategy(),
+    TaskType.CODING: CodingStrategy(),
+}
+```
+
+### Liskov Substitution Principle
+**Subtypes must be substitutable for their base types.**
+
+If you inherit from a class or implement a protocol, you must honor the contract completely.
+
+### Interface Segregation Principle
+**Don't force clients to depend on interfaces they don't use.**
+
+**BAD - Fat Interface:**
+```python
+class ProviderProtocol(Protocol):
+    def chat(self) -> Response: ...
+    def stream(self) -> Iterator[str]: ...
+    def embed(self) -> List[float]: ...
+    # Providers forced to implement everything even if not supported
+```
+
+**GOOD - Focused Interfaces:**
+```python
+class ChatProvider(Protocol):
+    def chat(self) -> Response: ...
+
+class StreamingProvider(Protocol):
+    def stream(self) -> Iterator[str]: ...
+
+# Providers implement only what they support
+```
+
+### Dependency Inversion Principle
+**Depend on abstractions, not concretions.**
+
+**BAD:**
+```python
+class CodeAgent:
+    def __init__(self):
+        self.cache = ResponseCache()  # Depends on concrete class
+        self.file_ops = Path()  # Depends on stdlib directly
+```
+
+**GOOD:**
+```python
+class CodeAgent:
+    def __init__(
+        self,
+        cache: CacheProtocol,  # Depends on abstraction
+        file_system: FileSystemProtocol,  # Depends on abstraction
+    ):
+```
+
+---
+
+## DEPENDENCY INJECTION (MANDATORY)
+
+### The Rule: ALL Dependencies MUST Be Injected
+
+**NO direct instantiation of dependencies in class bodies.**
+
+**FORBIDDEN PATTERNS:**
+```python
+class MyClass:
+    def __init__(self):
+        self.cache = ResponseCache()  # NO! Direct instantiation
+        self.db = sqlite3.connect("db.sqlite")  # NO! Hard-coded dependency
+        self.config = load_config()  # NO! Side effect in constructor
+        Path("file.txt").write_text("data")  # NO! Direct file access
+
+    def process(self):
+        result = requests.get("http://api.com")  # NO! Direct HTTP call
+```
+
+**REQUIRED PATTERN:**
+```python
+class MyClass:
+    def __init__(
+        self,
+        cache: CacheProtocol,
+        db: DatabaseProtocol,
+        config: Config,
+        file_system: FileSystemProtocol,
+        http_client: HTTPClientProtocol,
+    ):
+        self.cache = cache
+        self.db = db
+        self.config = config
+        self.file_system = file_system
+        self.http_client = http_client
+```
+
+### Constructor Rules
+
+1. **NO side effects** - Constructors assign dependencies only
+2. **NO business logic** - Move logic to explicit methods
+3. **NO I/O operations** - No file reads, no network calls
+4. **NO auto-registration** - Explicit is better than implicit
+5. **Provide defaults with factory pattern:**
+
+```python
+def __init__(
+    self,
+    cache: Optional[CacheProtocol] = None,
+):
+    self.cache = cache or self._create_default_cache()
+
+def _create_default_cache(self) -> CacheProtocol:
+    return ResponseCache()  # Factory method for default
+```
+
+---
+
+## TESTS
+
+### Test Quality Checklist
+
+Before writing ANY test, answer these questions:
+
+**Does this test prove a feature works?**
+- If NO → Don't write it
+
+**Would this test fail if the feature breaks?**
+- If NO → Don't write it
+
+**Can I refactor internals without breaking this test?**
+- If NO → You're testing implementation, not behavior
+
+**Does this test cover edge cases?**
+- Empty inputs?
+- Boundary values?
+- Error conditions?
+- Invalid data?
+
+**Am I mocking appropriately?**
+- Only external dependencies (APIs, file system, network)?
+- Using real objects for business logic?
+- Using test doubles from `helpers.py`?
+
+### TEST ISOLATION (CRITICAL - READ THIS)
+
+**NEVER MAKE REAL API CALLS IN TESTS. EVER.**
+**TEST BEHAVIOR THROUGH MOCKS NOT REAL APIS YOU MANIAC**
+
+### Tests to NEVER Write
+
+ **Structure-only tests:**
+```python
+def test_returns_correct_type():
+    result = do_thing()
+    assert isinstance(result, MyClass)  # So what? Proves nothing!
+```
+
+ **Initialization tests:**
+```python
+def test_initialization():
+    obj = MyClass()
+    assert obj is not None  # Useless!
+    assert hasattr(obj, 'field')  # Useless!
+```
+
+ **Over-mocked tests:**
+```python
+def test_with_all_mocks():
+    mock1 = Mock()
+    mock2 = Mock()
+    mock3 = Mock()
+    obj = MyClass(mock1, mock2, mock3)
+    obj.do_thing()
+    mock1.assert_called_once()  # Only proves mock was called, not that feature works!
+```
+
+### Tests to ALWAYS Write
+
+ **Behavior tests:**
+```python
+def test_cache_returns_none_when_empty():
+    cache = ResponseCache()
+    result = cache.get("nonexistent")
+    assert result is None  # Tests actual behavior
+
+def test_cache_returns_stored_value():
+    cache = ResponseCache()
+    cache.put("key", "value")
+    result = cache.get("key")
+    assert result == "value"  # Tests actual behavior
+```
+
+ **Edge case tests:**
+```python
+def test_handles_empty_input():
+    result = process([])
+    assert result == []
+
+def test_handles_none_input():
+    result = process(None)
+    assert result is None
+
+def test_raises_on_invalid_input():
+    with pytest.raises(ValueError):
+        process("invalid")
+```
+
+ **Integration tests:**
+```python
+def test_end_to_end_flow():
+    # Use real objects, not mocks
+    orchestrator = create_test_orchestrator()
+    result = orchestrator.delegate("test query")
+    assert result.content != ""
+    assert result.tokens_used > 0
+```
+
+---
+
+## COMMANDS
+
+**MANDATORY: After making code changes, ALWAYS run linting and type checking:**
+
+```bash
+# Lint with ruff (REQUIRED after changes)
+ruff check src/ tests/
+
+# Type check with mypy (REQUIRED after changes)
+mypy src/
+
+# Run all tests
+python -m pytest tests/ -v
+
+# Run specific test file
+python -m pytest tests/test_<module>.py -v
+
+# Run with coverage (informational only)
+python -m pytest tests/ --cov=src --cov-report=term-missing
+```
+
+**Quality Gate:** Do not consider a task complete until ruff and mypy pass without errors.
+
+---
+
+## REMEMBER
+
+**You are building a system that must:**
+- Be testable without real I/O
+- Support swapping implementations
+- Be maintainable by others
+- Follow industry best practices
+- Prove it works via tests
+
+**Think like an architect:**
+1. Design interfaces first
+2. Consider dependencies
+3. Plan for testing
+4. Follow SOLID
+5. Write tests that prove it works
+6. Then implement
+
+**Never be a lazy coder:**
+- Don't mock everything
+- Don't write tests that prove nothing
+- Don't create god classes
+- Don't hard-code dependencies
+- Don't skip edge cases
+- Don't write code without designing first
+
+---
+> Source: [HakAl/scrappy](https://github.com/HakAl/scrappy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
