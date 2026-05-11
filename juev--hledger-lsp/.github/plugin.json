@@ -1,0 +1,9 @@
+{
+  "name": "juev--hledger-lsp",
+  "displayName": "hledger-lsp",
+  "description": "Language Server Protocol (LSP) implementation for hledger journal files",
+  "version": "1.0.0",
+  "author": "juev",
+  "homepage": "https://github.com/juev/hledger-lsp",
+  "skills": []
+}
