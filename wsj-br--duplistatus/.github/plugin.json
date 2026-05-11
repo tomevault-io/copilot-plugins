@@ -1,0 +1,9 @@
+{
+  "name": "wsj-br--duplistatus",
+  "displayName": "duplistatus",
+  "description": "Web dashboard for monitoring Duplicati backups with overdue alerts, notifications, and backup logging.",
+  "version": "1.0.0",
+  "author": "wsj-br",
+  "homepage": "https://github.com/wsj-br/duplistatus",
+  "skills": []
+}
