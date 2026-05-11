@@ -1,0 +1,9 @@
+{
+  "name": "npstorey--civic-ai-tools",
+  "displayName": "civic-ai-tools",
+  "description": "Open-source platform connecting AI assistants to government open data \u2014 MCP server, curated civic MCP directory, and anti-hallucination framework for all 559 Socrata portals",
+  "version": "1.0.0",
+  "author": "npstorey",
+  "homepage": "https://github.com/npstorey/civic-ai-tools",
+  "skills": []
+}
