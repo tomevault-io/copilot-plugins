@@ -1,0 +1,9 @@
+{
+  "name": "heldernoid--openstitch",
+  "displayName": "openstitch",
+  "description": "Draw cool web UIs with local LLMs.",
+  "version": "1.0.0",
+  "author": "heldernoid",
+  "homepage": "https://github.com/heldernoid/openstitch",
+  "skills": []
+}
