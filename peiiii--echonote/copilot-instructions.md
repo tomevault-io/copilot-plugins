@@ -1,155 +1,199 @@
-## echonote
+## avoid-over-abstraction
 
-> This rule provides a structured approach to analyze multiple technical solutions and determine the optimal recommendation. Use this when the user requests multiple solutions or when comparing different approaches.
+> Avoid Over-Abstraction - Keep Things Simple and Practical
 
 
-# Multi-Solution Comparison & Recommendation System
+# 避免过度抽象原则
 
-## Overview
-This rule provides a structured approach to analyze multiple technical solutions and determine the optimal recommendation. Use this when the user requests multiple solutions or when comparing different approaches.
+## 核心思想
 
-## Process Flow
+**简单的东西不需要抽象，复杂的东西才需要抽象。**
 
-### 1. **Solution Analysis Phase**
-- Identify the core problem/requirement
-- Generate 2-4 distinct solution approaches
-- Analyze each solution systematically
+过度抽象会带来：
+- 增加认知负担
+- 降低代码可读性
+- 增加维护成本
+- 降低开发效率
+- 过度工程化
 
-### 2. **Evaluation Framework**
-For each solution, evaluate:
-- **Technical Feasibility** (1-5 scale)
-- **Maintainability** (1-5 scale)  
-- **Performance Impact** (1-5 scale)
-- **Development Time** (1-5 scale)
-- **Reusability** (1-5 scale)
-- **Risk Level** (Low/Medium/High)
+## 抽象决策原则
 
-### 3. **Solution Presentation Format**
+### ✅ **需要抽象的情况**
+1. **重复次数 ≥ 3**: 同样的模式出现3次以上
+2. **复杂度高**: 逻辑复杂，值得封装
+3. **变化频繁**: 经常需要修改和扩展
+4. **业务价值**: 抽象后能带来明显的业务价值
+5. **团队协作**: 多人使用，需要统一接口
 
-#### Solution A: [Name]
-**Approach:** Brief description
-**Pros:**
-- Point 1
-- Point 2
-- Point 3
+### ❌ **不需要抽象的情况**
+1. **简单重复**: 只是简单的样式或结构重复
+2. **一次性使用**: 只在特定场景使用
+3. **过度设计**: 为了抽象而抽象
+4. **灵活性差**: 抽象后反而限制了使用场景
+5. **认知负担**: 抽象后更难理解
 
-**Cons:**
-- Point 1
-- Point 2
+## 抽象层次控制
 
-**Technical Details:**
-- Implementation approach
-- Key technologies/components
-- Estimated effort
+### 🎯 **抽象层次原则**
+1. **最多2层抽象**: 避免过深的抽象层次
+2. **单一职责**: 每个抽象只做一件事
+3. **简单接口**: 接口要简单明了
+4. **灵活配置**: 提供合理的配置选项
+5. **易于理解**: 新同事能快速理解
 
-**Risk Assessment:** [Low/Medium/High]
+### 📊 **抽象复杂度评估**
+```typescript
+// ❌ 过度抽象 - 为了抽象而抽象
+interface ButtonConfig {
+  variant: 'primary' | 'secondary' | 'tertiary';
+  size: 'sm' | 'md' | 'lg';
+  state: 'normal' | 'loading' | 'disabled';
+  icon?: ReactNode;
+  onClick?: () => void;
+  className?: string;
+  style?: CSSProperties;
+  // ... 20+ 个配置项
+}
 
----
-
-#### Solution B: [Name]
-[Same format as above]
-
----
-
-### 4. **Recommendation Matrix**
-
-| Solution | Feasibility | Maintainability | Performance | Dev Time | Reusability | Risk | **Total Score** |
-|----------|-------------|------------------|-------------|----------|-------------|------|-----------------|
-| Solution A | X/5 | X/5 | X/5 | X/5 | X/5 | Low | **XX/25** |
-| Solution B | X/5 | X/5 | X/5 | X/5 | X/5 | Medium | **XX/25** |
-
-### 5. **Final Recommendation**
-**🏆 Recommended Solution:** [Solution Name]
-
-**Why This Solution:**
-- Primary reason
-- Secondary reason
-- Long-term benefits
-
-**Implementation Priority:** [High/Medium/Low]
-**Estimated Timeline:** [Time estimate]
-**Next Steps:** [Immediate actions]
-
-## Usage Examples
-
-### Example 1: Component Architecture
-**Problem:** Need to create a reusable button component system
-
-**Solutions:**
-1. **Atomic Design Pattern** - Create base button + variants
-2. **Compound Component Pattern** - Button + Button.Icon + Button.Text
-3. **Render Props Pattern** - Flexible but complex
-4. **HOC Pattern** - Higher-order component wrapper
-
-### Example 2: State Management
-**Problem:** Choose state management for a React app
-
-**Solutions:**
-1. **useState + useContext** - Simple, built-in
-2. **Zustand** - Lightweight, simple API
-3. **Redux Toolkit** - Powerful, established
-4. **Jotai** - Atomic, React-focused
-
-## Response Template
-
-```
-## 🔍 Problem Analysis
-[Brief problem description]
-
-## 🚀 Solution Comparison
-
-### Solution A: [Name]
-**Approach:** [Description]
-**Pros:** [List]
-**Cons:** [List]
-**Technical Details:** [Implementation details]
-**Risk Assessment:** [Low/Medium/High]
-
-### Solution B: [Name]
-[Same format]
-
-### Solution C: [Name]
-[Same format]
-
-## 📊 Evaluation Matrix
-
-| Solution | Feasibility | Maintainability | Performance | Dev Time | Reusability | Risk | **Total Score** |
-|----------|-------------|------------------|-------------|----------|-------------|------|-----------------|
-| Solution A | X/5 | X/5 | X/5 | X/5 | X/5 | Low | **XX/25** |
-| Solution B | X/5 | X/5 | X/5 | X/5 | X/5 | Medium | **XX/25** |
-| Solution C | X/5 | X/5 | X/5 | X/5 | X/5 | High | **XX/25** |
-
-## 🏆 Final Recommendation
-
-**Recommended Solution:** [Solution Name]
-
-**Why This Solution:**
-- [Primary reason]
-- [Secondary reason]
-- [Long-term benefits]
-
-**Implementation Priority:** [High/Medium/Low]
-**Estimated Timeline:** [Time estimate]
-**Next Steps:** [Immediate actions]
+// ✅ 适度抽象 - 只抽象必要的部分
+interface ButtonProps {
+  variant?: 'primary' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
+  onClick?: () => void;
+  children: ReactNode;
+}
 ```
 
-## Key Principles
+## 具体判断标准
 
-1. **Always provide 2-4 solutions** - Don't overwhelm with too many options
-2. **Use consistent evaluation criteria** - Apply the same framework to all solutions
-3. **Quantify when possible** - Use 1-5 scales and risk levels
-4. **Consider long-term implications** - Think beyond immediate implementation
-5. **Provide clear next steps** - Give actionable guidance after recommendation
-6. **Balance technical and business factors** - Consider both technical merit and practical constraints
+### 🔍 **重复模式判断**
+```typescript
+// ❌ 不需要抽象 - 只是简单的样式重复
+<div className="flex items-center gap-2">
+  <Icon />
+  <Text />
+</div>
 
-## When to Use
+// ✅ 需要抽象 - 复杂的逻辑重复
+const handleFormSubmit = (data) => {
+  validate(data);
+  transform(data);
+  submit(data);
+  showSuccess();
+};
+```
 
-- **Architecture decisions** - Component structure, state management, data flow
-- **Technology selection** - Libraries, frameworks, tools
-- **Implementation approaches** - Different ways to solve the same problem
-- **Refactoring strategies** - Multiple paths to improve existing code
-- **Performance optimization** - Different approaches to improve speed/efficiency
+### 🎨 **UI组件抽象判断**
+```typescript
+// ❌ 过度抽象 - 简单的布局不需要抽象
+<FlexGroup direction="row" align="center" gap="2">
+  <Button>Save</Button>
+  <Button>Cancel</Button>
+</FlexGroup>
+
+// ✅ 简单直接 - 保持原有的简单性
+<div className="flex items-center gap-2">
+  <Button>Save</Button>
+  <Button>Cancel</Button>
+</div>
+```
+
+### 🔧 **工具函数抽象判断**
+```typescript
+// ❌ 过度抽象 - 简单的工具函数
+const formatDate = (date: Date) => date.toISOString().split('T')[0];
+
+// ✅ 适度抽象 - 复杂的工具函数
+const formatDate = (date: Date, format: 'short' | 'long' | 'relative') => {
+  // 复杂的格式化逻辑
+};
+```
+
+## 重构指导
+
+### 1. **识别过度抽象**
+- 组件使用率低（< 3次）
+- 配置项过多（> 5个）
+- 抽象层次过深（> 2层）
+- 理解成本高
+- 维护成本高
+
+### 2. **简化抽象**
+- 减少配置项
+- 降低抽象层次
+- 简化接口设计
+- 提高可读性
+
+### 3. **移除抽象**
+- 直接内联简单逻辑
+- 删除未使用的抽象
+- 恢复原始实现
+- 保持代码简单
+
+## 最佳实践
+
+### ✅ **好的抽象**
+```typescript
+// 简单、清晰、实用
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: ReactNode;
+}
+
+// 复杂逻辑的合理抽象
+const useApi = <T>(url: string) => {
+  const [data, setData] = useState<T | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  
+  // 复杂的API逻辑
+  return { data, loading, error, refetch };
+};
+```
+
+### ❌ **坏的抽象**
+```typescript
+// 过度复杂，难以理解
+interface UniversalComponentProps {
+  type: 'button' | 'input' | 'select' | 'textarea';
+  variant: 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'outline';
+  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  state: 'normal' | 'loading' | 'disabled' | 'error' | 'success';
+  // ... 50+ 个配置项
+}
+
+// 为了抽象而抽象
+const createWrapper = (Component: any) => (props: any) => (
+  <div className="wrapper">
+    <Component {...props} />
+  </div>
+);
+```
+
+## 代码审查检查点
+
+### 🤔 **审查问题**
+1. **这个抽象真的必要吗？**
+2. **使用频率是否足够高？**
+3. **抽象层次是否过深？**
+4. **配置项是否过多？**
+5. **新同事能快速理解吗？**
+6. **维护成本是否合理？**
+
+### 📝 **重构建议**
+- 如果使用频率 < 3次，考虑内联
+- 如果配置项 > 5个，考虑拆分
+- 如果抽象层次 > 2层，考虑简化
+- 如果理解成本高，考虑重写
+- 如果维护成本高，考虑删除
+
+## 总结
+
+**记住**: 好的代码是简单、清晰、实用的。不要为了抽象而抽象，要为了解决问题而抽象。简单的东西保持简单，复杂的东西才需要抽象。
+
+**原则**: 能简单就简单，能直接就直接，能内联就内联。抽象是为了解决问题，不是为了展示技术。
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Peiiii) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [Peiiii/EchoNote](https://github.com/Peiiii/EchoNote) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
