@@ -1,0 +1,9 @@
+{
+  "name": "kot149--zmk-layout-shift",
+  "displayName": "zmk-layout-shift",
+  "description": "ZMK module to dynamically shift keyboard layouts at runtime",
+  "version": "1.0.0",
+  "author": "kot149",
+  "homepage": "https://github.com/kot149/zmk-layout-shift",
+  "skills": []
+}
