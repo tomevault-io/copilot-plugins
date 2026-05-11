@@ -1,0 +1,9 @@
+{
+  "name": "calinfaja--k-lean",
+  "displayName": "K-LEAN",
+  "description": "Cross-platform toolkit to enhance Claude Code with multi-LLM consensus, 8 specialist agents, semantic knowledge search, and one-command install.",
+  "version": "1.0.0",
+  "author": "calinfaja",
+  "homepage": "https://github.com/calinfaja/K-LEAN",
+  "skills": []
+}
