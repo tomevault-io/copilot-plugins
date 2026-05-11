@@ -1,0 +1,9 @@
+{
+  "name": "superset-studio--majordomo-gateway",
+  "displayName": "majordomo-gateway",
+  "description": "majordomo-gateway",
+  "version": "1.0.0",
+  "author": "superset-studio",
+  "homepage": "https://github.com/superset-studio/majordomo-gateway",
+  "skills": []
+}
