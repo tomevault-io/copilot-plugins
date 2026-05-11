@@ -1,6 +1,8 @@
 # upstox-totp
 
-> Tome by [batpool](https://github.com/batpool/upstox-totp) — distributed by [TomeVault](https://tomevault.io/claim/batpool)
+> Tome by [batpool](https://github.com/batpool/upstox-totp) — distributed by [TomeVault](https://tomevault.io)
+
+A modern, lightweight Python package that simplifies Upstox API authentication by handling TOTP-based login and token generation automatically.
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [batpool/upstox-totp](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/batpool#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/batpool/upstox-totp](https://github.com/batpool/upstox-totp)
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install batpool/upstox-totp
 ```
-Or browse all formats at [https://tomevault.io/claim/batpool](https://tomevault.io/claim/batpool).
+Source: [github.com/batpool/upstox-totp](https://github.com/batpool/upstox-totp).
 
 <!-- genome:t-i-q -->
