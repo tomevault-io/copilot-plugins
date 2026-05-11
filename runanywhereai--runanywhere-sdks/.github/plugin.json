@@ -1,0 +1,9 @@
+{
+  "name": "runanywhereai--runanywhere-sdks",
+  "displayName": "runanywhere-sdks",
+  "description": "Production ready toolkit to run AI locally",
+  "version": "1.0.0",
+  "author": "RunanywhereAI",
+  "homepage": "https://github.com/RunanywhereAI/runanywhere-sdks",
+  "skills": []
+}
