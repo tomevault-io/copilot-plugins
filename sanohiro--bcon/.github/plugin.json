@@ -1,0 +1,9 @@
+{
+  "name": "sanohiro--bcon",
+  "displayName": "bcon",
+  "description": "GPU-accelerated terminal emulator for Linux console (TTY) \u2014 no X11/Wayland required",
+  "version": "1.0.0",
+  "author": "sanohiro",
+  "homepage": "https://github.com/sanohiro/bcon",
+  "skills": []
+}
