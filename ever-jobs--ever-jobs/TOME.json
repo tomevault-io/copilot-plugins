@@ -4,7 +4,7 @@
   "repo": "ever-jobs",
   "description": "Ever\u00ae Jobs\u2122 - aggregating jobs/gigs postings from multiple sources",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ever-jobs/ever-jobs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T21:54:34Z"
+  "distributed_at": "2026-05-11T12:07:42Z"
 }
