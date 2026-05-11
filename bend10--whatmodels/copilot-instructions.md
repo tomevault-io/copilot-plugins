@@ -1,42 +1,66 @@
-## calculations-and-testing
+## data-files
 
-> Calculation logic and testing conventions
+> How to add or edit GPUs and models in the JSON data files
 
 
-# Calculations and Testing
+# GPU and Model Data
 
-## calculations.js — Pure Functions
+Data lives in `src/lib/data/` as static JSON, imported at build time. No runtime fetching.
 
-All business logic lives in `src/lib/calculations.js` as pure, side-effect-free functions. This separation is intentional — keep it that way.
+## Adding a GPU (`gpus.json`)
 
-Key functions:
-- `calcMaxContext(model, userVram)` — max context (K tokens) that fits in VRAM
-- `calcTokPerSec(model, bandwidth)` — estimated decode tokens/sec
-- `bucketModels(allModels, vram, bandwidth, minContextK, minTokPerSec)` — sorts models into fits/tight/noFit
-- `qualityTier(score)` — MMLU score → { label, cls } tier
-- `contextLabel(k)`, `tokLabel(tps)` — display formatting
+Entries are grouped by manufacturer (NVIDIA, AMD, Intel, Apple), sorted newest-first within each group.
 
-## Core Formulas
-
-```
-max_context_k = floor((vram - weight_gb) / kv_per_1k_gb)   [capped at model max]
-tok/s = round(bandwidth / (weight_gb + 1.0))                [1.0 GB overhead constant]
+Discrete GPU:
+```json
+{ "id": "rtx-5090", "name": "GeForce RTX 5090", "manufacturer": "NVIDIA", "vram_gb": 32, "bandwidth_gbps": 1792 }
 ```
 
-- `INFERENCE_OVERHEAD_GB = 1.0` — empirically calibrated, do not change without benchmarks
-- `TIGHT_FIT_CONTEXT_K = 4` — models below 4K context are always "tight fit"
+Apple Silicon (multiple memory configs with different bandwidths):
+```json
+{
+  "id": "m4-max",
+  "name": "M4 Max",
+  "manufacturer": "Apple",
+  "vram_options": [
+    { "vram_gb": 36, "bandwidth_gbps": 410 },
+    { "vram_gb": 64, "bandwidth_gbps": 546 }
+  ]
+}
+```
 
-## Testing
+- `id`: kebab-case unique identifier (used in URL params)
+- `manufacturer`: one of `"NVIDIA"`, `"AMD"`, `"Intel"`, `"Apple"` — used for dropdown grouping
+- Discrete GPUs have `vram_gb` + `bandwidth_gbps` at top level
+- Apple Silicon has `vram_options` array instead (no top-level `vram_gb`/`bandwidth_gbps`)
 
-Tests are in `src/lib/calculations.test.js` using Vitest. Run with `npm test`.
+## Adding a Model (`models.json`)
 
-When modifying calculation functions:
-1. Update or add tests for any changed behavior
-2. Use the existing fixture pattern (`smallModel`, `mediumModel`, `largeModel`)
-3. Include edge cases (zero VRAM, null bandwidth, empty model list)
-4. Add a comment showing the math: `// 24 GB VRAM, 8.99 GB weights → 15.01 / 0.25 = 60K`
+Each entry represents one model at one quantization level:
+```json
+{
+  "id": "llama-3.1-8b-q4",
+  "name": "Llama 3.1 8B",
+  "params_b": 8.03,
+  "quantization": "Q4_K_M",
+  "weight_gb": 4.92,
+  "kv_per_1k_gb": 0.122,
+  "max_context_k": 128,
+  "mmlu_score": 69.4,
+  "features": ["tool_use"],
+  "notes": "32 layers, 8 KV heads, head_dim 128. GGUF Q4_K_M file size."
+}
+```
 
-Do not put calculation logic in Svelte components — extract it to `calculations.js` and test it.
+Required fields:
+- `weight_gb`: actual GGUF file size (deterministic per model architecture and quantization format)
+- `kv_per_1k_gb`: `2 × layers × kv_heads × head_dim × 2 × 1000 / (1024³)` (fp16 KV cache)
+- `max_context_k`: from model card (e.g. 128 for 128K context)
+- `mmlu_score`: MMLU benchmark score (used for sorting and quality tier badges)
+- `features`: array of supported feature strings — `"vision"`, `"reasoning"`, `"tool_use"`. Use `[]` if the model has none. All quant variants of a model share the same features.
+- `notes`: include architecture details (layers, KV heads, head_dim) and weight source
+
+Models are grouped by family, with multiple quantization variants per model (typically Q4_K_M, Q8_0, fp16).
 
 ---
 > Source: [BenD10/whatmodels](https://github.com/BenD10/whatmodels) — distributed by [TomeVault](https://tomevault.io).
