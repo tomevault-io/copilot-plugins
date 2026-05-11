@@ -1,0 +1,9 @@
+{
+  "name": "avwohl--uc80",
+  "displayName": "uc80",
+  "description": "Super optimizing C compiler targeting Z80 processor and CP/M operating system",
+  "version": "1.0.0",
+  "author": "avwohl",
+  "homepage": "https://github.com/avwohl/uc80",
+  "skills": []
+}
