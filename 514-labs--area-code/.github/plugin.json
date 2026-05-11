@@ -1,7 +1,7 @@
 {
   "name": "514-labs--area-code",
   "displayName": "area-code",
-  "description": "area-code",
+  "description": "A baseline repo for bootstrapping sophisticated applications that require a relatively sophisticated architecture",
   "version": "1.0.0",
   "author": "514-labs",
   "homepage": "https://github.com/514-labs/area-code",
