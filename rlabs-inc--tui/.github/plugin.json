@@ -1,0 +1,9 @@
+{
+  "name": "rlabs-inc--tui",
+  "displayName": "tui",
+  "description": "Blazing fast svelte-like reactive framework for creating TUI applications ",
+  "version": "1.0.0",
+  "author": "RLabs-Inc",
+  "homepage": "https://github.com/RLabs-Inc/tui",
+  "skills": []
+}
