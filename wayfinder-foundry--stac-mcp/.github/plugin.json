@@ -1,0 +1,9 @@
+{
+  "name": "wayfinder-foundry--stac-mcp",
+  "displayName": "stac-mcp",
+  "description": "An MCP Server for STAC requests",
+  "version": "1.0.0",
+  "author": "Wayfinder-Foundry",
+  "homepage": "https://github.com/Wayfinder-Foundry/stac-mcp",
+  "skills": []
+}
