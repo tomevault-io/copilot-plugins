@@ -1,0 +1,9 @@
+{
+  "name": "sadopc--gotermsql",
+  "displayName": "gotermsql",
+  "description": "A full-featured terminal SQL IDE in Go. Supports PostgreSQL, MySQL, SQLite, and DuckDB. Features schema browser, autocomplete, syntax highlighting, vim keybindings, and single-binary distribution.",
+  "version": "1.0.0",
+  "author": "sadopc",
+  "homepage": "https://github.com/sadopc/gotermsql",
+  "skills": []
+}
