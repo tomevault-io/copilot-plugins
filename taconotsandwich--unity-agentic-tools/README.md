@@ -1,0 +1,26 @@
+# AI instruction files for unity-agentic-tools
+
+> Sourced from [taconotsandwich/unity-agentic-tools](https://github.com/taconotsandwich/unity-agentic-tools) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+A CLI for reading and editing Unity scenes, prefabs, and assets with minimal token usage. Powered by a native Rust backend (napi-rs) for fast parsing of large files.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [taconotsandwich/unity-agentic-tools](https://github.com/taconotsandwich/unity-agentic-tools).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/taconotsandwich/unity-agentic-tools](https://github.com/taconotsandwich/unity-agentic-tools)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-q -->
