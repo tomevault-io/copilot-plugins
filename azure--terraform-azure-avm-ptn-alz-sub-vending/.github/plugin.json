@@ -1,0 +1,9 @@
+{
+  "name": "azure--terraform-azure-avm-ptn-alz-sub-vending",
+  "displayName": "terraform-azure-avm-ptn-alz-sub-vending",
+  "description": "Terraform Azure Verified Pattern Module for Subscription Vending",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/terraform-azure-avm-ptn-alz-sub-vending",
+  "skills": []
+}
