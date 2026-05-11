@@ -1,0 +1,9 @@
+{
+  "name": "tobilg--text-to-sql-proxy",
+  "displayName": "text-to-sql-proxy",
+  "description": "A local HTTP proxy that bridges web applications with AI CLI tools to generate SQL queries for different databases",
+  "version": "1.0.0",
+  "author": "tobilg",
+  "homepage": "https://github.com/tobilg/text-to-sql-proxy",
+  "skills": []
+}
