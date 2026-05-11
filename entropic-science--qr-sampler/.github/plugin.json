@@ -1,0 +1,9 @@
+{
+  "name": "entropic-science--qr-sampler",
+  "displayName": "qr-sampler",
+  "description": "Integrate any source of randomness into LLM token sampling. Easily create new profiles for inference engines, entropy sources, sampling methods, or \"consciousness signal amplification algorithms\" for ",
+  "version": "1.0.0",
+  "author": "Entropic-Science",
+  "homepage": "https://github.com/Entropic-Science/qr-sampler",
+  "skills": []
+}
