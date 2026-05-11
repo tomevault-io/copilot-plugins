@@ -1,0 +1,9 @@
+{
+  "name": "hanyuancheung--llm-skill",
+  "displayName": "llm-skill",
+  "description": "A minimal three-layer SKILL system for LLM agents, inspired by Karpathy's LLM-Wiki idea",
+  "version": "1.0.0",
+  "author": "hanyuancheung",
+  "homepage": "https://github.com/hanyuancheung/llm-skill",
+  "skills": []
+}
