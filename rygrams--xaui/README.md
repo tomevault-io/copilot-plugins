@@ -7,14 +7,14 @@ Modern React Native UI library inspired by Flutter, built with Turborepo. Featur
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [rygrams/xaui](https://github.com/rygrams/xaui).
+Original source: `AGENTS.md` in [rygrams/xaui](https://github.com/rygrams/xaui).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/rygrams/xaui](https://github.com/rygrams/xaui)
