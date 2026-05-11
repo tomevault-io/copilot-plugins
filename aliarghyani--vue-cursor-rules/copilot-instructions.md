@@ -1,74 +1,108 @@
-## prompt-guide
+## tailwind-patterns
 
-> Prompt engineering tips for creating effective Cursor rules
+> Tailwind CSS patterns and best practices for Vue 3
 
-# Prompt Engineering Guide
+# Tailwind CSS Integration
 
-## Rule Structure Basics
+**Role:** You are a Vue 3 expert specializing in utility-first CSS with Tailwind.
 
-**Make rules specific and modular:**
-- Keep full examples under ~4KB; link to longer versions when needed.
-- Use clear section delimiters: `### Props`, `### Methods`, `### Examples`
-- Start with role definition: "You are a Vue 3 expert specializing in..."
-- Include 3-5 core rules as bullets
-- Add chain-of-thought instruction for consistency
+**Core Rules:**
+- Use computed classes for dynamic styling
+- Follow mobile-first responsive design
+- Implement dark mode with class variants
+- Prefer utility classes over custom CSS
+- Extract complex patterns to component classes
 
-## Vue-Specific Patterns
+**Chain-of-Thought:** Think step-by-step: 1. Plan component variants 2. Create computed class objects 3. Apply responsive patterns 4. Add dark mode support
 
-**For composables:** Chain thoughts--plan reactivity first, then export:
-```markdown
-Think step-by-step: 1. Define reactive state 2. Create computed/methods 3. Return interface
+**Note:** Tailwind works alongside any UI kit -- use for custom styling or as the primary framework. Compatible with Headless UI for accessible components.
+
+## Component Styling Patterns
+
+- Drive variants with computed class arrays/objects so markup stays lean.
+- Full example: `examples/tailwind-button.vue` covers variant, size, and disabled props.
+
+```ts
+const sizeClasses = { sm: 'px-3 py-1.5 text-sm', md: 'px-4 py-2 text-base', lg: 'px-6 py-3 text-lg' }
+const variantClasses = {
+  primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
+  secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500',
+  danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
+}
+const props = withDefaults(
+  defineProps<{ variant?: keyof typeof variantClasses; size?: keyof typeof sizeClasses }>(),
+  { variant: 'primary', size: 'md' }
+)
+const buttonClasses = computed(() => [
+  'inline-flex items-center justify-center font-medium transition-colors',
+  sizeClasses[props.size ?? 'md'],
+  variantClasses[props.variant ?? 'primary'],
+])
 ```
 
-**For components:** Structure before implementation:
-```markdown
-Think step-by-step: 1. Analyze props/emits 2. Plan template structure 3. Implement logic
+## Responsive Design Patterns
+
+- Start mobile-first, then layer `sm/ md/ lg` utilities for additional breakpoints.
+- Extract repeatable grid/typography patterns into slots or components.
+- Full layout example: `examples/tailwind-responsive.vue`.
+
+```vue
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  <article v-for="item in items" :key="item.id" class="rounded-lg shadow p-4">...</article>
+</div>
 ```
 
-## Utility Defaults
+## Dark Mode Support
 
-- For cross-cutting utilities (debounce/throttle, timers, event listeners, observers, etc.), prefer the matching helper from `@vueuse/core` instead of hand-written implementations.
+- Toggle a `.dark` class (or media query) on the root container.
+- Pair light/dark utilities so text meets contrast requirements.
 
-## Type Resolution Workflow
-
-When the agent or linting surfaces unresolved types (e.g., "Cannot use namespace 'User' as a type"):
-- Look in the shared `types/` directory first; reuse exports from `types/index.ts` or sibling files.
-- Prefer `import type { Foo } from '@/types'` (or alias `types/*`) over namespace or global references.
-- If the type does not exist, define it in `types/`, export it, then update the calling code to use the shared import.
-- Re-run the fix after updating imports to ensure the error clears instead of muting it with `any`.
-
-## Before/After Examples
-
-**Before (too vague):**
-```markdown
-Use composition API for components
+```vue
+<div class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+  <p class="text-gray-600 dark:text-gray-300">Content that adapts to dark mode</p>
+</div>
 ```
 
-**After (modular + sized):**
-```markdown
-# Role: You are a Vue 3 component expert
-Core Rules:
-- Always use `<script setup>` syntax
-- Type props with `defineProps<T>()`
-- Use `defineEmits<T>()` for events
-- Prefer `ref()` for primitives, `reactive()` for objects
+## Form Styling
 
-Think step-by-step: 1. Analyze component needs 2. Define interface 3. Implement logic
+- Use consistent spacing (`space-y-*`) and focus states on all controls.
+- Surface validation with color + messaging; add `aria-invalid` when errors exist.
+
+```vue
+<input
+  v-model="form.email"
+  type="email"
+  :aria-invalid="!!errors.email"
+  class="mt-1 block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800"
+/>
 ```
 
-## Activation Patterns
+## Animation and Transitions
 
-- **File patterns:** `*.vue` for components, `**/composables/**` for composables
-- **Context triggers:** Keywords like `pinia`, `router`, `test`
-- **Refinement:** Test outputs and adjust globs for better targeting
+- Lean on Tailwind utilities (`animate-spin`, `transition-transform`) for common motion.
+- Define lightweight keyframes only when utilities fall short; scope them per component.
+- Full example: `examples/tailwind-animations.vue`.
 
-## Testing Rules
+```vue
+<div class="transform hover:scale-105 transition-transform duration-200">Hover me</div>
+```
 
-Iterate by:
-1. Create minimal rule
-2. Test with real code
-3. Refine based on AI outputs
-4. Add examples only if needed
+## Utility-First Best Practices
+
+- Use `@apply` sparingly, prefer utility classes
+- Group related utilities together
+- Use responsive prefixes consistently
+- Leverage CSS custom properties for dynamic values
+- Extract complex component styles to separate classes
+
+```css
+/* tailwind.config.js custom utilities */
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+```
 
 ---
 > Source: [aliarghyani/vue-cursor-rules](https://github.com/aliarghyani/vue-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
