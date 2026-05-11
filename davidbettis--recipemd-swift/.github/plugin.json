@@ -1,0 +1,9 @@
+{
+  "name": "davidbettis--recipemd-swift",
+  "displayName": "recipemd-swift",
+  "description": "A Swift implementation of the RecipeMD format",
+  "version": "1.0.0",
+  "author": "davidbettis",
+  "homepage": "https://github.com/davidbettis/recipemd-swift",
+  "skills": []
+}
