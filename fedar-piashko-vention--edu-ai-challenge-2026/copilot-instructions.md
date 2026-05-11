@@ -1,72 +1,66 @@
-## edu-ai-challenge-2026
+## challenge-repo-setup
 
-> These rules apply to the entire repository and all future work in:
+> AI Challenge repository operating rules and defaults
 
-# AI Challenge 2026 - Repository Rules
 
-## Scope
+# AI Challenge 2026 - Cursor Rule
 
-These rules apply to the entire repository and all future work in:
+## Repository Boundaries
 
-- `task-1/`
-- `task-2/`
-- `task-3/`
-- `task-4/`
+- This repository contains four isolated task workspaces: `task-1`, `task-2`, `task-3`, `task-4`.
+- Never initialize an application at the repository root.
+- Never create root-level `package.json`, lockfiles, or root app scaffolding.
+- When starting implementation for a task, initialize tooling only inside that task's directory.
 
-## Repository Architecture
+## Baseline Technology Defaults
 
-1. Keep each challenge task isolated inside its own folder (`task-X`).
-2. Do not initialize an app at repository root.
-3. Do not create root-level `package.json` or lockfiles.
-4. If a task needs a project scaffold, initialize it only inside that task directory.
-
-## Default Technical Stack
-
-Unless a task explicitly overrides the stack, use:
+Use these defaults unless a specific task announcement says otherwise:
 
 - Node.js 24
 - React latest stable
 - React Bootstrap for UI components
 - Font Awesome for icons
 
-## Execution and Planning Discipline
+## Task Execution Protocol
 
-1. Read the task announcement and transform requirements into a checklist.
-2. Ask clarifying questions immediately when requirements are ambiguous.
-3. Avoid assumptions that can affect scoring; if assumptions are required, write them explicitly.
-4. Work in small verifiable increments and validate after each major step.
+1. Read the task announcement completely.
+2. Convert requirements into an explicit checklist.
+3. Ask clarifying questions immediately when requirements are ambiguous.
+4. Implement with small, verifiable steps.
+5. Re-check each requirement before final submission.
 
-## Submission Safety Rules
+## Quality and Submission Discipline
 
-1. Optimize for correctness over speed.
-2. Perform requirement-by-requirement validation before finalizing.
-3. Verify all links, artifacts, and expected outputs before submission.
-4. Ensure there are no placeholder TODOs or incomplete sections in deliverables.
+- Prioritize correctness over speed.
+- Validate all required deliverables and artifacts.
+- Verify that links and deployed resources are reachable and correct.
+- Remove incomplete placeholders and unresolved TODO items before finalizing.
+- Assume one-shot submission quality expectations for bonus eligibility.
 
-## Documentation Rules
+## Required Task Documentation
 
-Each task directory should maintain a `README.md` with:
+Maintain/update `task-X/README.md` with:
 
-- objective and scope
-- implementation notes
+- task objective and scope
+- implementation summary
 - setup/run instructions
 - verification checklist
-- final submission artifacts/links
+- submission links and artifacts
 
-## AI-Agent Collaboration Rules
+## Agent Behavior Requirements
 
-1. Start by restating task requirements and acceptance criteria.
-2. If unsure, ask questions before implementing.
-3. Explicitly list assumptions and risks.
-4. Provide a concise verification report before marking work complete.
-5. Avoid destructive actions unless explicitly requested.
+- Restate acceptance criteria before implementation.
+- Surface assumptions and risks explicitly.
+- Ask questions instead of guessing when uncertainty impacts correctness.
+- Provide a concise verification report when work is complete.
+- Avoid destructive operations unless explicitly requested.
 
-## Security and Hygiene
+## Safety and Repo Hygiene
 
-1. Never commit secrets, tokens, or credentials.
-2. Keep naming predictable and task-specific.
-3. Prefer reproducible commands and explicit setup instructions.
-4. Keep changes minimal and aligned with the active task.
+- Never commit secrets, tokens, or credentials.
+- Keep naming clear and consistent.
+- Prefer deterministic commands and reproducible instructions.
+- Keep changes limited to files relevant to the active task.
 
 ---
 > Source: [fedar-piashko-vention/edu-ai-challenge-2026](https://github.com/fedar-piashko-vention/edu-ai-challenge-2026) — distributed by [TomeVault](https://tomevault.io).
