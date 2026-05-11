@@ -1,0 +1,9 @@
+{
+  "name": "jlevy--tryscript",
+  "displayName": "tryscript",
+  "description": "Powerful, agent-friendly testing of CLI applications via golden tests",
+  "version": "1.0.0",
+  "author": "jlevy",
+  "homepage": "https://github.com/jlevy/tryscript",
+  "skills": []
+}
