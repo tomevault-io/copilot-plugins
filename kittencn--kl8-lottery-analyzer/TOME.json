@@ -1,0 +1,44 @@
+{
+  "name": "kl8-lottery-analyzer",
+  "owner": "KittenCN",
+  "repo": "kl8-lottery-analyzer",
+  "description": "KL8 (\u5feb\u4e508) \u5f69\u7968\u6570\u636e\u5206\u6790\u9884\u6d4b\u5de5\u5177",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/KittenCN/kl8-lottery-analyzer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T20:21:20Z"
+}
