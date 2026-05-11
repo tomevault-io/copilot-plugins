@@ -1,0 +1,9 @@
+{
+  "name": "spotify--sourcekit-bazel-bsp",
+  "displayName": "sourcekit-bazel-bsp",
+  "description": "iOS Development (and more) in alternative IDEs like Cursor / VSCode, for Bazel projects",
+  "version": "1.0.0",
+  "author": "spotify",
+  "homepage": "https://github.com/spotify/sourcekit-bazel-bsp",
+  "skills": []
+}
