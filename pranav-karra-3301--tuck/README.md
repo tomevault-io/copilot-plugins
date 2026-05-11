@@ -7,13 +7,13 @@ manage your dotfiles!
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Pranav-Karra-3301/tuck](https://github.com/Pranav-Karra-3301/tuck).
+Original source: `AGENTS.md` in [Pranav-Karra-3301/tuck](https://github.com/Pranav-Karra-3301/tuck).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
