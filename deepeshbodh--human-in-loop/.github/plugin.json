@@ -1,0 +1,9 @@
+{
+  "name": "deepeshbodh--human-in-loop",
+  "displayName": "human-in-loop",
+  "description": "SPEC-first multi-agent framework for Claude Code.",
+  "version": "1.0.0",
+  "author": "deepeshBodh",
+  "homepage": "https://github.com/deepeshBodh/human-in-loop",
+  "skills": []
+}
