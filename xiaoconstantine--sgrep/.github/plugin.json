@@ -1,0 +1,9 @@
+{
+  "name": "xiaoconstantine--sgrep",
+  "displayName": "sgrep",
+  "description": "CLI for semantic grep",
+  "version": "1.0.0",
+  "author": "XiaoConstantine",
+  "homepage": "https://github.com/XiaoConstantine/sgrep",
+  "skills": []
+}
