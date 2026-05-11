@@ -1,107 +1,42 @@
-## common-patterns
+## frontend-structure
 
-> import { MapContainer, TileLayer, useMap } from "react-leaflet"
+> The UI is built with Next.js 15 using the App Router pattern.
 
-# Common Patterns & Code Snippets
+# Frontend Structure Guide
 
-## React Leaflet Map Setup
-```tsx
-import { MapContainer, TileLayer, useMap } from "react-leaflet"
-import "leaflet/dist/leaflet.css"
-import L from "leaflet"
+The UI is built with Next.js 15 using the App Router pattern.
+Uses shadcn library.
 
-// Fix default markers
-delete (L.Icon.Default.prototype as any)._getIconUrl
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: "/placeholder.svg?height=25&width=25",
-  iconUrl: "/placeholder.svg?height=25&width=25",
-  shadowUrl: "/placeholder.svg?height=25&width=25",
-})
+## Key Files
+- **Entry Point**: [page.tsx](mdc:ui/app/page.tsx) - Main application page
+- **Layout**: [layout.tsx](mdc:ui/app/layout.tsx) - Root layout with theme provider
+- **Main Component**: [map-screen.tsx](mdc:ui/components/map-screen.tsx) - Core map interface
+- **Theme Provider**: [theme-provider.tsx](mdc:ui/components/theme-provider.tsx) - Dark/light theme support
+- **Global Styles**: [globals.css](mdc:ui/app/globals.css) - Tailwind base styles
 
-const BENGALURU_CENTER: [number, number] = [12.9716, 77.5946]
-```
+## Directory Structure
+- `ui/app/` - Next.js App Router pages and layouts
+- `ui/components/` - React components
+- `ui/components/ui/` - shadcn/ui reusable components
+- `ui/hooks/` - Custom React hooks
+- `ui/lib/` - Utility functions and configurations
+- `ui/public/` - Static assets
+- `ui/styles/` - Additional stylesheets
 
-## shadcn/ui Component Usage
-```tsx
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
+## Configuration Files
+- [package.json](mdc:ui/package.json) - Dependencies and scripts
+- [next.config.mjs](mdc:ui/next.config.mjs) - Next.js configuration
+- [tailwind.config.ts](mdc:ui/tailwind.config.ts) - Tailwind CSS configuration
+- [tsconfig.json](mdc:ui/tsconfig.json) - TypeScript configuration
+- [components.json](mdc:ui/components.json) - shadcn/ui configuration
 
-// Use consistent styling patterns
-<Button size="icon" className="h-12 w-12 rounded-full shadow-lg">
-  <Icon className="h-5 w-5" />
-</Button>
-```
-
-## Cloudflare Workers Endpoint Pattern
-```typescript
-import { OpenAPIRoute } from "chanfana"
-import { z } from "zod"
-
-export class TaskCreate extends OpenAPIRoute {
-  schema = {
-    tags: ["Tasks"],
-    summary: "Create a new task",
-    request: {
-      body: {
-        content: {
-          "application/json": {
-            schema: z.object({
-              name: z.string(),
-              description: z.string().optional(),
-            }),
-          },
-        },
-      },
-    },
-    responses: {
-      "200": {
-        description: "Task created successfully",
-        content: {
-          "application/json": {
-            schema: z.object({
-              success: z.boolean(),
-              result: z.object({
-                id: z.string(),
-                name: z.string(),
-              }),
-            }),
-          },
-        },
-      },
-    },
-  }
-
-  async handle(request: Request, env: any, context: any, data: any) {
-    // Implementation here
-  }
-}
-```
-
-## TypeScript Type Patterns
-```typescript
-// API Response types
-interface ApiResponse<T> {
-  success: boolean
-  result?: T
-  error?: string
-}
-
-// Map layer configuration
-interface MapLayer {
-  name: string
-  url: string
-  attribution: string
-  icon: React.ComponentType
-}
-```
-
-## Tailwind CSS Patterns
-- **Responsive**: `sm:`, `md:`, `lg:`, `xl:` prefixes
-- **Dark Mode**: `dark:` prefix for dark theme styles
-- **Spacing**: Use consistent spacing scale (4, 8, 12, 16, etc.)
-- **Colors**: Use semantic color names from theme
-- **Shadows**: `shadow-sm`, `shadow-md`, `shadow-lg` for depth
+## Map Features
+The main map component includes:
+- Multiple tile layer options (Street, Satellite, Terrain, Dark, Light, Watercolor)
+- Zoom controls and reset functionality
+- Responsive design with mobile-friendly UI
+- Loading states and error handling
+- Bengaluru-centered default view (12.9716, 77.5946)
 
 ---
 > Source: [warlockdn/open-urban-eyesore](https://github.com/warlockdn/open-urban-eyesore) — distributed by [TomeVault](https://tomevault.io).
