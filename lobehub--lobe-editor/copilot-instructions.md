@@ -1,102 +1,123 @@
-## debug-logging
+## documentation-standards
 
-> Debug logging standards and usage guidelines for LobeHub Editor
+> Documentation standards and formatting guidelines for LobeHub Editor
 
 
-# Debug Logging Standards
+# Documentation Standards
 
-## Debug Package Integration
+## Plugin Documentation Structure
 
-LobeHub Editor uses the [debug](https://www.npmjs.com/package/debug) package for structured logging. All utilities are centralized in [src/utils/debug.ts](mdc:src/utils/debug.ts).
+All plugin documentation in `src/plugins/*/index.md` follows this standard format:
 
-### Usage Pattern
+### Required Frontmatter
 
-```typescript
-import { createDebugLogger } from '@/utils/debug';
-
-class MyComponent {
-  private logger = createDebugLogger('kernel'); // or 'plugin', 'service', etc.
-  
-  someMethod() {
-    this.logger.info('🚀 Component initialized');    // Major events
-    this.logger.debug('🔍 Processing data');         // Detailed tracing (sparingly)
-    this.logger.warn('⚠️ Deprecated feature used');  // Non-critical issues
-    this.logger.error('❌ Operation failed:', error); // Critical errors
-  }
-}
+```yaml
+---
+nav: Plugins
+group: [Core|Plugins] or { title: "Group Name", order: -1 }
+title: PluginName
+description: Brief description explaining purpose, key features, and capabilities
+atomId: ReactComponentName (for React components)
+---
 ```
 
-**Note**: `logger.error/warn` use native console methods for proper browser dev tool categorization.
+### Required Sections
 
-### Category-Specific Usage
+#### 1. Introduction
 
-```typescript
-// Plugins
-export const MyPlugin = class extends KernelPlugin {
-  private logger = createDebugLogger('plugin', 'my-plugin-name');
-}
+- Comprehensive explanation of plugin purpose and capabilities
+- Overview of architecture and key features
+- Context of how it fits in the editor ecosystem
 
-// Services
-export class MyService implements IMyService {
-  private logger = createDebugLogger('service', 'my-service');
-}
+#### 2. Basic Usage (if applicable)
 
-// Demo files - development only
-import { devConsole } from '@/utils/debug';
-devConsole.log('Development only logging');
+- Demo code reference: `<code src="./demos/index.tsx"></code>`
+- Add attributes like `nopadding`, `center`, `iframe` as needed
+
+#### 3. Core Architecture
+
+Document beyond just React components:
+
+- **Plugin Systems**: Service integration, command patterns
+- **Node Architecture**: Custom node types and serialization
+- **Service Integration**: Business logic and data management
+- **Utility Functions**: Helper functions and operations
+
+#### 4. Components (if applicable)
+
+- **Component Name**: Brief description
+- **API Table**: Complete property documentation
+
+#### 5. Commands (if applicable)
+
+- Command examples with TypeScript code blocks
+- Parameter documentation
+- Usage patterns
+
+#### 6. Plugin Configuration
+
+- **PluginOptions**: Configuration interface documentation
+- **Theme Configuration**: CSS theme options
+- **Service APIs**: Interface documentation
+
+#### 7. Usage Examples
+
+- **Basic Setup**: Simple configuration
+- **Advanced Usage**: Complex scenarios
+- **Custom Implementations**: Extension patterns
+- **Integration Examples**: Real-world usage
+
+## API Documentation Format
+
+### Property Tables
+
+Use consistent table formatting:
+
+```markdown
+| Property | Description | Type | Default |
+| -------- | ----------- | ---- | ------- |
+| prop     | Description | `Type` | `default` |
 ```
 
-## Environment Configuration
+### Code Examples
 
-```bash
-# Enable all debug messages
-DEBUG=lobe-editor:*
+- Use TypeScript for all code examples
+- Include proper imports and context
+- Show both basic and advanced usage patterns
+- Include error handling where relevant
 
-# Enable specific categories
-DEBUG=lobe-editor:kernel,lobe-editor:plugin:*
+### Type Definitions
 
-# Enable with exclusions (reduce noise)
-DEBUG=lobe-editor:*,-lobe-editor:demo
+- Document interfaces and types clearly
+- Show inheritance relationships
+- Include example usage
 
-# Enable only critical logs
-DEBUG=lobe-editor:*:error,lobe-editor:*:warn
-```
+## Writing Guidelines
 
-**Environment Usage:**
+1. **Clarity**: Use clear, concise language
+2. **Completeness**: Cover all aspects of functionality
+3. **Consistency**: Follow established patterns
+4. **Technical Depth**: Go beyond surface-level descriptions
+5. **Practical Examples**: Provide actionable code samples
 
-- **Development**: Use `devConsole` for temporary debugging
-- **Production**: Use debug loggers that respect environment variables
+## Component Documentation
 
-## Available Namespaces
+For React components in `src/react/*/index.md`:
 
-- `lobe-editor:kernel` - Core editor functionality
-- `lobe-editor:plugin:*` - Plugin-specific debugging
-- `lobe-editor:service:*` - Service layer debugging
-- `lobe-editor:upload` - File upload operations
-- `lobe-editor:react` - React components
-- `lobe-editor:demo` - Demo components
+- Focus on component API and usage
+- Include comprehensive prop tables
+- Show integration patterns
+- Document event handlers and callbacks
 
-## Migration from console.\*
+## Architecture Documentation
 
-```typescript
-// ❌ Don't use console directly
-console.log('Debug info');
+When documenting plugin architecture:
 
-// ✅ Use debug loggers instead
-this.logger.debug('Debug info');
-
-// ✅ For demo files, use devConsole
-devConsole.log('Demo debug info');
-```
-
-## Best Practices
-
-1. **Use appropriate log levels**: `info` for major events, `warn` for non-critical issues, `error` for failures, `debug` sparingly
-2. **Visual distinction with emojis**: 🚀 startup, ✅ success, ⚠️ warnings, ❌ errors
-3. **Reduce log noise**: Group similar operations, skip repetitive operations
-4. **Never use console.* directly*\* - Always use debug loggers
-5. **Meaningful, concise messages** - Clear but brief descriptions
-6. **Respect environment variables** - All logs should be controllable via DEBUG
+- Explain service integration
+- Document command patterns
+- Show node relationships
+- Cover serialization aspects
+- Include utility function descriptions
 
 ---
 > Source: [lobehub/lobe-editor](https://github.com/lobehub/lobe-editor) — distributed by [TomeVault](https://tomevault.io).
