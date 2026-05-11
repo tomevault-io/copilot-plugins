@@ -1,143 +1,94 @@
-## localization
+## mod-development
 
-> Localization and multi-language support guidelines
+> This is a mod for "Escape from Duckov" (NOT Escape from Tarkov) built with:
 
-# 本地化指南
+# EfDEnhanced Mod Development Rules
 
-## 本地化系统
+## Project Context
 
-游戏使用 `TeamSoda.MiniLocalizor` 本地化系统。模组提供 [Utils/LocalizationHelper.cs](mdc:Utils/LocalizationHelper.cs) 辅助类。
+This is a mod for "Escape from Duckov" (NOT Escape from Tarkov) built with:
+- .NET Standard 2.1
+- Unity game engine integration
+- HarmonyLib for runtime patching
+- Game's official Modding framework
 
-## 支持的语言
+## Code Standards
 
-- 简体中文 (ChineseSimplified)
-- 繁体中文 (ChineseTraditional)
-- 英语 (English)
-- 日语 (Japanese)
-
-## 使用本地化
-
-### 获取本地化文本
+### Logging
+Always use [ModLogger](mdc:Utils/ModLogger.cs) instead of Unity's Debug.Log:
 
 ```csharp
-using EfDEnhanced.Utils;
+ModLogger.Log("message");
+ModLogger.LogWarning("warning");
+ModLogger.LogError("error");
+ModLogger.Log("ComponentName", "message");
 
-// 获取已有的游戏本地化文本
-string text = LocalizationHelper.GetLocalizedText("localization_key");
-
-// 检查本地化键是否存在
-bool exists = LocalizationHelper.HasKey("localization_key");
-
-// 获取当前语言
-var currentLanguage = LocalizationHelper.GetCurrentLanguage();
+TransformTreeLogger.LogTransformTree(transform);
 ```
 
-### 添加自定义本地化
-
-如果需要为模组添加新的本地化文本：
+### Harmony Patches
+- Place patches in `Patches/` directory
+- Group by game system (e.g., QuestPatches.cs, InventoryPatches.cs)
+- Always wrap patch logic in try-catch blocks
+- Use descriptive method names
+- Add component-specific logging
 
 ```csharp
-// 方法 1: 直接使用字典映射
-private static readonly Dictionary<string, string> LocalizedStrings = new Dictionary<string, string>
+[HarmonyPatch(typeof(TargetClass), "MethodName")]
+class MyPatch
 {
-    // 简体中文
-    { "zh_CN_key", "中文文本" },
-    // 英文
-    { "en_US_key", "English Text" },
-    // 日文
-    { "ja_JP_key", "日本語テキスト" }
-};
-
-// 方法 2: 根据当前语言返回对应文本
-private string GetLocalizedString(string key)
-{
-    var lang = LocalizationHelper.GetCurrentLanguage();
-    return lang switch
+    static void Prefix()
     {
-        "ChineseSimplified" => "中文文本",
-        "English" => "English Text",
-        "Japanese" => "日本語テキスト",
-        _ => "Default Text"
-    };
+        try
+        {
+            ModLogger.Log("MyPatch", "Executing patch");
+            // patch logic
+        }
+        catch (Exception ex)
+        {
+            ModLogger.LogError($"MyPatch failed: {ex}");
+        }
+    }
 }
 ```
 
-## UI 文本本地化
+### Error Handling
+- Catch exceptions in all patch methods
+- Log errors with context using ModLogger
+- Never let exceptions break game functionality
+- Handle null references gracefully
 
-### UI 组件中使用本地化
+### Code Organization
+- One feature = one file/class
+- Keep patches modular and loosely coupled
+- Place shared utilities in `Utils/` directory
+- Follow existing project structure
 
-```csharp
-using UnityEngine.UI;
+## Key Dependencies
 
-// 设置 Text 组件
-var textComponent = GetComponent<Text>();
-textComponent.text = LocalizationHelper.GetLocalizedText("ui_button_confirm");
+Game assemblies referenced from [EfDEnhanced.csproj](mdc:EfDEnhanced.csproj):
+- `TeamSoda.Duckov.Core.dll` - Core game framework
+- `TeamSoda.Duckov.Utilities.dll` - Game utilities
+- `Assembly-CSharp.dll` - Main game logic
+- Unity engine assemblies
+- `0Harmony` (NuGet package)
 
-// 设置 TextMeshProUGUI 组件
-using TMPro;
-var tmpText = GetComponent<TextMeshProUGUI>();
-tmpText.text = LocalizationHelper.GetLocalizedText("ui_title");
-```
+## Development Workflow
 
-### 动态更新语言
+1. Search decompiled code for target methods / modules
+2. Create patch file in `Patches/`
+3. Implement with try-catch and logging
+4. Build: `dotnet build`
+5. Deploy: `./scripts/deploy.sh`
+6. Test in-game with `./scripts/rlog.sh` for live logs
 
-监听语言变化并更新 UI：
+## Documentation References
 
-```csharp
-private void OnEnable()
-{
-    // 订阅语言变化事件（如果游戏提供）
-    UpdateLocalizedTexts();
-}
-
-private void UpdateLocalizedTexts()
-{
-    buttonText.text = LocalizationHelper.GetLocalizedText("button_key");
-    titleText.text = LocalizationHelper.GetLocalizedText("title_key");
-    // ... 更新其他文本
-}
-```
-
-## 查找现有本地化键
-
-要查找游戏中已有的本地化键：
-
-```bash
-# 搜索本地化文件
-grep pattern:"localization_key" path:"extracted_assets"
-
-# 搜索包含特定文本的键
-grep pattern:"某个文本" path:"extracted_assets/Assets/Resources"
-```
-
-## 最佳实践
-
-1. **优先使用游戏现有本地化键**
-   - 保持与游戏风格一致
-   - 避免重复工作
-
-2. **为模组功能创建独立本地化**
-   - 使用带前缀的键名，如 `mod_feature_name`
-   - 支持所有游戏语言
-
-3. **处理缺失翻译**
-   - 始终提供英文作为后备
-   - 记录日志提示缺失的翻译
-
-4. **避免硬编码文本**
-   - 所有用户可见的文本都应本地化
-   - 包括日志消息中面向用户的部分
-
-## 示例代码
-
-参考现有实现：
-- [Features/ActiveQuestTracker.cs](mdc:Features/ActiveQuestTracker.cs) - 显示本地化任务信息
-- [Features/ModSettingsContent.cs](mdc:Features/ModSettingsContent.cs) - 设置界面本地化
-- [Utils/LocalizationHelper.cs](mdc:Utils/LocalizationHelper.cs) - 本地化辅助类
-
-## 相关文档
-
-详细本地化文档: [docs/localization-guide.md](mdc:docs/localization-guide.md)
+- [CLAUDE.md](mdc:CLAUDE.md) - Complete project guide
+- [ModBehaviour.cs](mdc:ModBehaviour.cs) - Mod entry point
+- Extracted assets in [extracted_assets/](mdc:extracted_assets)
+- Game scene documentation in [docs/scenes/](mdc:docs/scenes)
+- Asset guides in [docs/assets/](mdc:docs/assets)
 
 ---
 > Source: [Cyenoch/EfDEnhanced](https://github.com/Cyenoch/EfDEnhanced) — distributed by [TomeVault](https://tomevault.io).
