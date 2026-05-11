@@ -1,0 +1,9 @@
+{
+  "name": "coder--claudecode-nvim",
+  "displayName": "claudecode.nvim",
+  "description": "\ud83e\udde9 Claude Code Neovim IDE Extension",
+  "version": "1.0.0",
+  "author": "coder",
+  "homepage": "https://github.com/coder/claudecode.nvim",
+  "skills": []
+}
