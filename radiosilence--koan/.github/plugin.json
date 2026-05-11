@@ -1,0 +1,9 @@
+{
+  "name": "radiosilence--koan",
+  "displayName": "koan",
+  "description": "Bit-perfect terminal music player \u2014 Ratatui TUI, gapless playback, Subsonic/Navidrome streaming, spectrum analyzer, ReplayGain, lyrics, fb2k format strings. Pure Rust.",
+  "version": "1.0.0",
+  "author": "radiosilence",
+  "homepage": "https://github.com/radiosilence/koan",
+  "skills": []
+}
