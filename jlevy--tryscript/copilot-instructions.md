@@ -1,356 +1,392 @@
-## typescript-cli-tool-rules
+## typescript-rules
 
-> CLI Tool Development Rules
+> General Guidelines
 
-# CLI Tool Development Rules
+# TypeScript Rules
 
-These rules apply to all CLI tools, command-line scripts, and terminal utilities.
+## Coding Style
 
-## Color and Output Formatting
+- Use clear lowerCamelCase or UpperCamelCase names for functions and variables, per
+  usual TypeScript conventions.
 
-- **ALWAYS use picocolors for terminal colors:** Import `picocolors` (aliased as `pc`)
-  for all color and styling needs.
-  NEVER use hardcoded ANSI escape codes like `\x1b[36m` or `\033[32m`.
+- DO NOT use fully uppercase abbreviations: Use names like `mapHistoryToLlmMessages`. DO
+  NOT use names like `mapHistoryToLLMMessages`.
 
-  ```ts
-  // GOOD: Use picocolors
-  import pc from 'picocolors';
-  console.log(pc.green('Success!'));
-  console.log(pc.cyan('Info message'));
-  
-  // BAD: Hardcoded ANSI codes
-  console.log('\x1b[32mSuccess!\x1b[0m');
-  console.log('\x1b[36mInfo message\x1b[0m');
-  ```
+- DO NOT use underscore prefixes for variables that are actually used.
+  Underscore prefixes should only be used for genuinely unused parameters (like
+  framework callbacks).
 
-- **Use shared color utilities:** Create a shared formatting module for consistent color
-  application across commands.
+## Docstrings
 
-  ```ts
-  // lib/cliFormatting.ts - shared color utilities
-  import pc from 'picocolors';
-  
-  export const colors = {
-    success: (s: string) => pc.green(s),
-    error: (s: string) => pc.red(s),
-    info: (s: string) => pc.cyan(s),
-    warn: (s: string) => pc.yellow(s),
-    muted: (s: string) => pc.gray(s),
-  };
-  
-  // Usage in commands:
-  import { colors } from '../lib/cliFormatting.js';
-  console.log(colors.success('Operation completed'));
-  ```
+- All major functions and types should have a *concise* docstring explaining their
+  purpose. They should use `\**` … `*/` style comments.
 
-- **Trust picocolors TTY detection:** Picocolors automatically detects when stdout is
-  not a TTY (e.g., piped to `cat` or redirected to a file) and disables colors.
-  DO NOT manually check `process.stdout.isTTY` unless you need special non-color
-  behavior.
+  - Focus on any rationale or purpose.
 
-  Picocolors respects:
+  - Do NOT state obvious things about the code.
 
-  - `NO_COLOR=1` environment variable (disables colors)
+  This should cover
 
-  - `FORCE_COLOR=1` environment variable (forces colors)
+  - Public types
 
-  - `--no-color` and `--color` command-line flags (if implemented)
+  - Major functions
 
-  - TTY detection via `process.stdout.isTTY`
+  - Convex schemas, functions, actions, mutations, and queries
+
+  It should NOT cover:
+
+  - Test functions
+
+  - Trivial internal helper functions
+
+  Example:
 
   ```ts
-  // GOOD: Let picocolors handle it automatically
-  import pc from 'picocolors';
-  console.log(pc.green('This works correctly in all contexts'));
-  
-  // BAD: Manual TTY checking (redundant with picocolors)
-  const useColors = process.stdout.isTTY;
-  const msg = useColors ? '\x1b[32mSuccess\x1b[0m' : 'Success';
-  console.log(msg);
-  ```
-
-## Commander.js Patterns
-
-- **Use Commander.js for all CLI tools:** Import from `commander` and follow established
-  patterns for command registration and option handling.
-
-- **Apply colored help to all commands:** Use `withColoredHelp()` wrapper from shared
-  utilities to ensure consistent help text formatting.
-
-  ```ts
-  import { Command } from 'commander';
-  import { withColoredHelp } from '../lib/shared.js';
-  
-  export const myCommand = withColoredHelp(new Command('my-command'))
-    .description('Description here')
-    .action(async (options, command) => {
-      // Implementation
-    });
-  ```
-
-- **Use shared context helpers:** Create utilities like `getCommandContext()`,
-  `setupDebug()`, and `logDryRun()` in a shared module for consistent behavior.
-
-  ```ts
-  import { getCommandContext, setupDebug, logDryRun } from '../lib/shared.js';
-  
-  .action(async (options, command) => {
-    const ctx = getCommandContext(command);
-    setupDebug(ctx);
-  
-    if (ctx.dryRun) {
-      logDryRun('Would perform action', { details: 'here' });
-      return;
-    }
-  
-    // Actual implementation
-  });
-  ```
-
-- **Support `--dry-run`, `--verbose`, and `--quiet` flags:** These are global options
-  defined at the program level.
-  Access them via `getCommandContext()`.
-
-## Progress and Feedback
-
-- **Use @clack/prompts for interactive UI:** Import `@clack/prompts` as `p` for
-  spinners, prompts, and status messages.
-
-  ```ts
-  import * as p from '@clack/prompts';
-  
-  p.intro('🧪 Starting test suite');
-  
-  const spinner = p.spinner();
-  spinner.start('Processing data');
-  // ... work ...
-  spinner.stop('✅ Data processed');
-  
-  p.outro('All done!');
-  ```
-
-- **Use consistent logging methods:**
-
-  - `p.log.info()` for informational messages
-
-  - `p.log.success()` for successful operations
-
-  - `p.log.warn()` for warnings
-
-  - `p.log.error()` for errors
-
-  - `p.log.step()` for step-by-step progress
-
-- **Use appropriate emojis for status:** Follow emoji conventions from
-  `@docs/general/agent-rules/general-style-rules.md`:
-
-  - ✅ for success
-
-  - ❌ for failure/error
-
-  - ⚠️ for warnings
-
-  - ⏰ for timing information
-
-  - 🧪 for tests
-
-## Timing and Performance
-
-- **Display timing for long operations:** For operations that take multiple seconds,
-  display timing information using the ⏰ emoji and colored output.
-
-  ```ts
-  const start = Date.now();
-  // ... operation ...
-  const duration = ((Date.now() - start) / 1000).toFixed(1);
-  console.log(colors.cyan(`⏰ Operation completed: ${duration}s`));
-  ```
-
-- **Show total time for multi-step operations:** For scripts that run multiple phases
-  (like test suites), show individual phase times and a total.
-
-  ```ts
-  console.log(colors.cyan(`⏰ Phase 1: ${phase1Time}s`));
-  console.log(colors.cyan(`⏰ Phase 2: ${phase2Time}s`));
-  console.log('');
-  console.log(colors.green(`⏰ Total time: ${totalTime}s`));
-  ```
-
-## Script Structure
-
-- **Use TypeScript for all CLI scripts:** Write scripts as `.ts` files with proper
-  types. Use `#!/usr/bin/env tsx` shebang for executable scripts.
-
-  ```ts
-  #!/usr/bin/env tsx
-  
   /**
-   * Script description here.
+   * Render a ContextSummary as readable markdown for both LLMs and users.
    */
-  
-  import { execSync } from 'node:child_process';
-  import * as p from '@clack/prompts';
-  
-  async function main() {
-    // Implementation
+  export function formatContextMarkdown(
+    summary: ContextSummary,
+    options?: { maxHoldings?: number },
+  ): string {
+    ...
+  }
+  ```
+
+- **Document fields in type definitions, not at usage sites.** Place documentation
+  directly on type/interface fields as the single source of truth.
+  Reference the type documentation elsewhere using `@see TypeName.fieldName`.
+
+  ```ts
+  // GOOD: Documentation on type definition
+  interface RunConfig {
+    /** When true, logs full LLM request/response payloads for debugging. */
+    logLlmCalls: boolean;
+    /**
+     * TEST ONLY: Disables automatic scheduling of backtest steps.
+     * NEVER use in production.
+     */
+    testSkipScheduling?: boolean;
   }
   
-  main().catch((err) => {
-    p.log.error(`Script failed: ${err}`);
-    process.exit(1);
+  // Reference it elsewhere
+  export const runConfigValidator = v.object({
+    logLlmCalls: v.optional(v.boolean()),
+    /** @see RunConfig.testSkipScheduling for documentation */
+    testSkipScheduling: v.optional(v.boolean()),
+  });
+  
+  // BAD: Documentation duplicated at multiple usage sites
+  export const runConfigValidator = v.object({
+    /** When true, logs full LLM request/response payloads for debugging. */
+    logLlmCalls: v.optional(v.boolean()),
+    /** TEST ONLY: Disables automatic scheduling... */
+    testSkipScheduling: v.optional(v.boolean()),
   });
   ```
 
-- **Handle errors gracefully:** Always catch errors at the top level and provide clear
-  error messages before exiting.
+## Type Annotations
+
+- Don’t use `any` to types unless absolutely necessary!
+  Do not add `any` types to get type checking to pass.
+  Use more precise types instead.
+  Then make sure type checking passes.
+
+- Avoid `as any` and unsafe casts.
+  Prefer overloads or precise types at boundaries.
 
   ```ts
-  main().catch((err) => {
-    p.log.error(`Operation failed: ${err.message || err}`);
-    process.exit(1);
+  // BAD: Silences type safety
+  const logger = createAgentLogger(ctx, agentCtx as any);
+  
+  // GOOD: Provide a precise input shape or overload that matches
+  const logger = createAgentLogger(ctx, {
+    runId: runId as Id<'runs'>,
+    agentId: agentId as Id<'agents'>,
+    conversationId: conversationId as Id<'conversations'>,
+    experimentRunId: experimentRunId,
   });
+  // Or define overloads to accept both Id<> and string shared types, and narrow internally.
   ```
 
-- **Exit with proper codes:** Use `process.exit(0)` for success and `process.exit(1)`
-  for failures. This is important for CI/CD pipelines and shell scripts.
+- **Extract and name inline object types.** DO NOT use anonymous inline types for
+  complex structures that appear in multiple places.
+  Create named types in shared locations.
+
+  ```ts
+  // BAD: Inline anonymous type duplicated across functions
+  interface ExecutionResults {
+    tradesSummary: {
+      totalTrades: number;
+      successfulTrades: number;
+      trades: { symbol: string; action: 'buy' | 'sell'; price: number }[];
+    };
+  }
+  
+  // GOOD: Named type in shared location
+  interface FullTradeSummary {
+    stats: TradeSummaryStats;
+    trades: TradeDetail[];
+  }
+  interface ExecutionResults {
+    tradesSummary: FullTradeSummary;
+  }
+  ```
+
+- **Consolidate duplicate calculation logic.** DO NOT duplicate calculations of related
+  metrics. Create a single function that computes all related values together.
+
+  ```ts
+  // BAD: Same calculations scattered across files
+  const totalBuyValue = trades
+    .filter((t) => t.action === 'buy')
+    .reduce((sum, t) => sum + t.value, 0);
+  const totalSellValue = trades
+    .filter((t) => t.action === 'sell')
+    .reduce((sum, t) => sum + t.value, 0);
+  
+  // GOOD: Single shared function computes all related metrics
+  function computeTradeSummaryStats(trades: Trade[]): TradeSummaryStats {
+    return {
+      totalBuyValue: trades.filter((t) => t.action === 'buy').reduce((sum, t) => sum + t.value, 0),
+      totalSellValue: trades
+        .filter((t) => t.action === 'sell')
+        .reduce((sum, t) => sum + t.value, 0),
+      uniqueTickers: new Set(trades.map((t) => t.symbol)).size,
+    };
+  }
+  ```
+
+## Exhaustiveness Checks
+
+- **Always add exhaustiveness checks to `switch` statements on discriminated union
+  types.** When switching on unions (like `field.kind` or `action.type`), include a
+  `default` branch that assigns to `never`. This forces a compile-time error if a new
+  variant is added but not handled.
+
+  ```ts
+  // GOOD: Exhaustiveness check catches missing cases at compile time
+  switch (field.kind) {
+    case 'string':
+      return handleString(field);
+    case 'number':
+      return handleNumber(field);
+    // ... all cases ...
+    default: {
+      const _exhaustive: never = field;
+      throw new Error(`Unhandled field kind: ${(_exhaustive as { kind: string }).kind}`);
+    }
+  }
+  
+  // BAD: Missing cases silently fall through or return undefined
+  switch (field.kind) {
+    case 'string':
+      return handleString(field);
+    case 'number':
+      return handleNumber(field);
+    // New field kinds won't cause compile errors!
+  }
+  
+  // BAD: Default that masks missing cases
+  switch (field.kind) {
+    case 'string':
+      return handleString(field);
+    default:
+      return null; // Silently handles unknown cases
+  }
+  ```
+
+  This pattern ensures that when new variants are added to a union type, every `switch`
+  that handles that type will fail to compile until updated.
+
+## Function Parameters
+
+- **Avoid optional parameters in methods where accidental omission of a value can lead
+  to bugs:** This is especially true for factory functions.
+  It’s better to be explicit about all parameters to ensure we don’t accidentally omit
+  important context.
+
+  Prefer explicit `| null` instead of optional parameters (`?`) when a value can be
+  intentionally absent.
+
+  Example: Don’t create default context objects as it’s easy to have them use
+  misconfigured defaults!
+
+  ```ts
+  // GOOD: Explicit parameters with clear null semantics
+  export function createAgentExecCtx(
+    ctx: any,
+    params: {
+      executionType: 'live' | 'experiment';
+      experimentRunId: Id<'experimentRuns'> | null; // null for live, required for experiment
+      agentId: Id<'agents'>;
+      runId: Id<'runs'>;
+      conversationId: Id<'conversations'>;
+      runConfig: RunConfig | null;
+      paperTimestamp: number; // Unix timestamp in milliseconds (Date.now() format)
+    },
+  ): Promise<AgentExecCtx>;
+  
+  // BAD: Optional parameters that can lead to accidental omission
+  export function createAgentExecCtx(
+    ctx: any,
+    type: 'live' | 'experiment',
+    options?: {
+      agentId?: Id<'agents'>;
+      paperTimestamp?: number;
+      runConfig?: RunConfig;
+      experimentRunId?: Id<'experimentRuns'>;
+    },
+  ): Promise<AgentExecCtx>;
+  ```
+
+- Remove unused parameters after refactors.
+  Do not keep placeholder params like `_ctx` unless required by a framework.
+
+  ```ts
+  // BAD: Legacy unused parameter kept
+  export function doWork(_ctx: any, params: X): Y {
+    /* _ctx unused */
+  }
+  
+  // GOOD: Remove unused param and update callers
+  export function doWork(params: X): Y {
+    /* ... */
+  }
+  ```
 
 ## File Naming
 
-- **Use descriptive kebab-case names:** CLI script files should use kebab-case with
-  clear purpose indicators.
+- **Do NOT use non-descriptive filenames:** Avoid duplicate filenames `index.ts` for
+  source modules. Prefer unique, purpose-revealing names that state what the file does.
 
-  - Examples: `test-with-timings.ts`, `test-all-commands.ts`, `generate-config-data.ts`
+  - Examples: Instead of `tools/index.ts`, use `tools/tool-registry.ts` (or a similarly
+    descriptive name that matches its purpose).
 
-- **Organize commands in a `commands/` directory:** Keep command implementations
-  organized with one file per command or command group.
+- **Avoid creating multiple source files with the same name and different purposes:** Do
+  not use the filename in different directories with different logic.
+  Use unique, descriptive names to avoid confusion and make code easier to remember and
+  search for.
 
-## Documentation
+  - For example, don’t have two files like `shared/types/runtimeTypes.ts` and
+    `convex/models/runtimeTypes.ts`. Give them different names, such as
+    `shared/types/appRuntimeTypes.ts` and `convex/models/runtimeValidators.ts`.
 
-- **Document CLI scripts with file-level comments:** Include a brief description of what
-  the script does at the top of the file.
+## Imports and Exports
 
-  ```ts
-  /**
-   * Test Runner with Timing
-   *
-   * Runs the full test suite (codegen, format, lint, unit, integration)
-   * and displays timing information for each phase.
-   */
-  ```
-
-- **Add help text to all commands and options:** Use `.description()` for commands and
-  options to provide clear help text.
+- **Avoid dynamic imports!** Prefer static imports over dynamic imports.
+  Dynamic `import()` calls are not supported in many runtime environments and make code
+  less readable. ALWAYS use static imports at the top of the file unless dynamic imports
+  are explicitly required and known to be supported.
 
   ```ts
-  .option('--mode <mode>', 'Mock mode: real or full_fixed')
-  .option('--output-dir <path>', 'Output directory', './runs')
-  ```
-
-## Environment Variables
-
-When supporting environment variables, especially those used by SDK libraries (like
-`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, etc.), also support `.env` loading so CLIs work
-seamlessly in local dev and in remote environments.
-
-- **Add dotenv as a dependency:** Add `dotenv` to your project dependencies for `.env`
-  file loading.
-
-- **Load `.env.local` and `.env` automatically (recommended):** Support both
-  `.env.local` and `.env` automatically, with `.env.local` taking precedence over
-  `.env`.
-
-- **Manual dotenv loading:** For standalone scripts that don’t use `vite-node`, load
-  environment files manually with explicit precedence:
-
-  ```ts
-  import dotenv from 'dotenv';
-  import { existsSync } from 'node:fs';
+  // BAD: Dynamic import (not supported in many runtimes)
+  export const myFunction = async (args) => {
+    const { helper } = await import('./helpers.js');
+    return helper(args);
+  };
   
-  // Load .env.local first (higher priority), then .env (lower priority).
-  // Note: dotenv does NOT override existing values by default, so load higher-priority
-  // first.
-  if (existsSync('.env.local')) {
-    dotenv.config({ path: '.env.local' });
-  }
-  if (existsSync('.env')) {
-    dotenv.config({ path: '.env' });
+  // GOOD: Static import at top of file
+  import { helper } from './helpers.js';
+  
+  export const myFunction = async (args) => {
+    return helper(args);
+  };
+  ```
+
+- **Do not use inline imports** like `import('../path').Type` in function parameters.
+  Import types at the top of the file.
+  Again, this is better for readability and consistency.
+
+- **Avoid re-exporting functions or types** unless explicitly done for consumers of a
+  library (such as a top-level `index.ts`).
+
+  - If a function or type is moved from one file to another, ALWAYS update all imports
+    in the codebase to the location.
+    DO NOT re-export types a type or other value from its old location:
+
+    ```ts
+    // BAD: Do not re-export imports for re-import elsewhere:
+    export { backtestStep } from './experimentExecution';
+    
+    // GOOD: Import directly from the new location:
+    import { backtestStep } from './experimentExecution';
+    ```
+
+- **Barrel files:** The rules differ for libraries vs applications.
+
+  **For libraries:** Use exactly ONE barrel file — the root `index.ts` that defines the
+  public API. This is essential for consumers who `import { X } from 'your-library'`. Do
+  NOT create module-level barrels (like `utils/index.ts` or `harness/index.ts`).
+  Internal code should import directly from source files.
+
+  ```ts
+  // BAD: Module-level barrel that just re-exports siblings
+  // src/harness/index.ts
+  export { FormHarness } from './harness.js';
+  export { MockAgent } from './mockAgent.js';
+  
+  // BAD: Importing through module barrel
+  import { FormHarness } from '../harness';
+  
+  // GOOD: Import directly from source file
+  import { FormHarness } from '../harness/harness.js';
+  
+  // GOOD: Root index.ts for public API is fine
+  // src/index.ts (package entry point)
+  export { FormHarness } from './harness/harness.js';
+  ```
+
+  **For applications:** Avoid barrel files entirely.
+  Apps have no public API, so barrels only add indirection.
+  Import directly from source files throughout.
+  If you find yourself wanting a barrel for “convenience,” that’s often a sign of
+  incomplete refactors or poor module structure.
+
+## Exceptions
+
+- **Do not use pointless try/catch blocks:** Look for try/catch blocks like this:
+
+  ```ts
+  try {
+    // ...
+  } catch (error) {
+    // Re-throw errors
+    throw error;
   }
   ```
 
-- **Fail fast with clear errors:** If a required env var is missing, throw immediately
-  with a message listing all accepted variable names.
+  Then decide which is best: (1) REMOVE them the block entirely or (2) wrap the
+  exception with better message and relevant context:
 
-- **Document required variables:** List required environment variables in the command’s
-  help text or a README.
+  ```ts
+  try {
+    // ...
+  } catch (error) {
+    throw new Error(`Failed to do X because of Y: ${localVar.infoDetails}: ${error.message}`);
+  }
+  ```
 
-- **Never commit secrets:** Use `.env.local` for secrets (it’s typically gitignored).
-  `.env` should only contain non-sensitive defaults.
+## File Operations
 
-## Best Practices
+- **Use `atomically` for writing files:** When writing files to disk, use the
+  `atomically` library instead of `fs.writeFile` or `fs.writeFileSync`. This prevents
+  partial or corrupted files if the process crashes mid-write.
 
-- **Don’t reinvent the wheel:** Use established patterns from existing CLI commands in
-  this project or best practices from other modern open source CLI tools in Typescript.
+  The `atomically` library writes to a temp file first, then renames atomically to the
+  final path. This guarantees you never have half-written files.
+  (`atomically` is TypeScript-native, zero third-party dependencies, slightly faster,
+  has more robust error handling and retry logic than `write-file-atomic`.)
 
-- **Test with pipes:** Verify that scripts work correctly when output is piped (e.g.,
-  `npm test | cat` should have no ANSI codes).
-
-- **Respect environment variables:**
-
-  - `NO_COLOR` - disable colors
-
-  - `FORCE_COLOR` - force colors
-
-  - `DEBUG` or `VERBOSE` - enable verbose logging
-
-  - `QUIET_MODE` - suppress non-essential output
-
-- **Make scripts composable:** Design scripts to work well in pipelines and automation.
-  Consider how they’ll be used in CI/CD and shell scripts.
-
-## Library/CLI Hybrid Packages
-
-When building a package that functions as both a library and a CLI tool, isolate all
-Node.js dependencies to CLI-only code.
-This allows the core library to be used in non-Node environments (browsers, edge
-runtimes, Cloudflare Workers, etc.).
-
-**Key rules:**
-
-- Core library entry point (`index.ts`) must have no `node:` imports
-
-- All `node:` imports must be in `cli/` directory only
-
-- Configuration constants go in node-free files
-
-- Build-time values use bundler `define` injection
-
-- Add guard tests to prevent future regressions
-
-For detailed patterns, directory structure, and implementation examples, see
-[Modern TypeScript Monorepo Patterns](../research/current/research-modern-typescript-monorepo-patterns.md#13-librarycli-hybrid-packages).
-
-## CLI Architecture Patterns
-
-For architectural patterns when building CLI applications, see
-[Modern TypeScript CLI Patterns](../research/current/research-modern-typescript-cli-patterns.md).
-
-**Key patterns covered:**
-
-- **Base Command Pattern** — Eliminate boilerplate with a base class
-
-- **Dual Output Mode** — Support both text and JSON output via OutputManager
-
-- **Handler + Command Structure** — Separate definitions from implementation
-
-- **Formatter Pattern** — Pair text and JSON formatters for each domain
-
-- **Version Handling** — Git-based dynamic versioning (`X.Y.Z-dev.N.hash`)
-
-- **Global Options** — Define `--dry-run`, `--verbose`, `--quiet`, `--format` at program
-  level
-
-- **Stdout/Stderr Separation** — Data to stdout, errors to stderr for pipeline
-  compatibility
+  ```ts
+  // BAD: Can leave corrupted file if process crashes mid-write
+  import { writeFileSync } from 'fs';
+  writeFileSync(filePath, content);
+  
+  // GOOD: Modern TypeScript-native with zero dependencies
+  import { writeFile } from 'atomically';
+  await writeFile(filePath, content);
+  ```
 
 ---
 > Source: [jlevy/tryscript](https://github.com/jlevy/tryscript) — distributed by [TomeVault](https://tomevault.io).
