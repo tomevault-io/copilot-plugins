@@ -1,0 +1,9 @@
+{
+  "name": "stephendade--mavlinklinktester",
+  "displayName": "mavlinklinktester",
+  "description": "A tool for characterizing the reliability and latency of MAVLink connections",
+  "version": "1.0.0",
+  "author": "stephendade",
+  "homepage": "https://github.com/stephendade/mavlinklinktester",
+  "skills": []
+}
