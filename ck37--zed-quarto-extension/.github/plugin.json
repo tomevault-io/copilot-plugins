@@ -1,0 +1,9 @@
+{
+  "name": "ck37--zed-quarto-extension",
+  "displayName": "zed-quarto-extension",
+  "description": "An attempt at adding Quarto support to Zed",
+  "version": "1.0.0",
+  "author": "ck37",
+  "homepage": "https://github.com/ck37/zed-quarto-extension",
+  "skills": []
+}
