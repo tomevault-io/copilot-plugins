@@ -1,0 +1,9 @@
+{
+  "name": "imbenrabi--financial-modeling-prep-mcp-server",
+  "displayName": "Financial-Modeling-Prep-MCP-Server",
+  "description": "A Model Context Protocol (MCP) implementation for Financial Modeling Prep, enabling AI assistants to access and analyze financial data, stock information, company fundamentals, and market insights.",
+  "version": "1.0.0",
+  "author": "imbenrabi",
+  "homepage": "https://github.com/imbenrabi/Financial-Modeling-Prep-MCP-Server",
+  "skills": []
+}
