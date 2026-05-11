@@ -1,0 +1,9 @@
+{
+  "name": "mzbac--kooka-server",
+  "displayName": "kooka-server",
+  "description": "mlx-lm server wrapper for agentic harness",
+  "version": "1.0.0",
+  "author": "mzbac",
+  "homepage": "https://github.com/mzbac/kooka-server",
+  "skills": []
+}
