@@ -1,0 +1,9 @@
+{
+  "name": "theeaglebyte--skylight-mcp",
+  "displayName": "skylight-mcp",
+  "description": "MCP server for Skylight family calendar - enables AI assistants to manage calendars, chores, lists, meals, and rewards",
+  "version": "1.0.0",
+  "author": "TheEagleByte",
+  "homepage": "https://github.com/TheEagleByte/skylight-mcp",
+  "skills": []
+}
