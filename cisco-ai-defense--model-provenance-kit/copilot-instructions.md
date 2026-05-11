@@ -1,113 +1,110 @@
-## codeguard-0-framework-and-languages
+## codeguard-0-mobile-apps
 
-> rule_id: codeguard-0-framework-and-languages
+> rule_id: codeguard-0-mobile-apps
 
 
-rule_id: codeguard-0-framework-and-languages
+rule_id: codeguard-0-mobile-apps
 
-## Framework & Language Guides
+## Mobile Application Security Guidelines
 
-Apply secure‑by‑default patterns per platform. Harden configurations, use built‑in protections, and avoid common pitfalls.
+Essential security practices for developing secure mobile applications across iOS and Android platforms.
 
-### Django
-- Disable DEBUG in production; keep Django and deps updated.
-- Enable `SecurityMiddleware`, clickjacking middleware, MIME sniffing protection.
-- Force HTTPS (`SECURE_SSL_REDIRECT`); configure HSTS; set secure cookie flags (`SESSION_COOKIE_SECURE`, `CSRF_COOKIE_SECURE`).
-- CSRF: ensure `CsrfViewMiddleware` and `{% csrf_token %}` in forms; proper AJAX token handling.
-- XSS: rely on template auto‑escaping; avoid `mark_safe` unless trusted; use `json_script` for JS.
-- Auth: use `django.contrib.auth`; validators in `AUTH_PASSWORD_VALIDATORS`.
-- Secrets: generate via `get_random_secret_key`; store in env/secrets manager.
+### Architecture and Design
 
-### Django REST Framework (DRF)
-- Set `DEFAULT_AUTHENTICATION_CLASSES` and restrictive `DEFAULT_PERMISSION_CLASSES`; never leave `AllowAny` for protected endpoints.
-- Always call `self.check_object_permissions(request, obj)` for object‑level authz.
-- Serializers: explicit `fields=[...]`; avoid `exclude` and `"__all__"`.
-- Throttling: enable rate limits (and/or at gateway/WAF).
-- Disable unsafe HTTP methods where not needed. Avoid raw SQL; use ORM/parameters.
+Implement secure design principles from the start:
+- Follow least privilege and defense in depth principles
+- Use standard secure authentication protocols (OAuth2, JWT)
+- Perform all authentication and authorization checks server-side
+- Request only necessary permissions for app and backend services
+- Establish security controls for app updates, patches, and releases
+- Use only trusted and validated third-party libraries and components
 
-### Laravel
-- Production: `APP_DEBUG=false`; generate app key; secure file perms.
-- Cookies/sessions: enable encryption middleware; set `http_only`, `same_site`, `secure`, short lifetimes.
-- Mass assignment: use `$request->only()` / `$request->validated()`; avoid `$request->all()`.
-- SQLi: use Eloquent parameterization; validate dynamic identifiers.
-- XSS: rely on Blade escaping; avoid `{!! ... !!}` for untrusted data.
-- File uploads: validate `file`, size, and `mimes`; sanitize filenames with `basename`.
-- CSRF: ensure middleware and form tokens enabled.
+### Authentication and Authorization
 
-### Symfony
-- XSS: Twig auto‑escaping; avoid `|raw` unless trusted.
-- CSRF: use `csrf_token()` and `isCsrfTokenValid()` for manual flows; Forms include tokens by default.
-- SQLi: Doctrine parameterized queries; never concatenate inputs.
-- Command execution: avoid `exec/shell_exec`; use Filesystem component.
-- Uploads: validate with `#[File(...)]`; store outside public; unique names.
-- Directory traversal: validate `realpath`/`basename` and enforce allowed roots.
-- Sessions/security: configure secure cookies and authentication providers/firewalls.
+Never trust the client for security decisions:
+- Perform authentication/authorization server-side only
+- Do not store user passwords on device; use revocable access tokens
+- Avoid hardcoding credentials in the mobile app
+- Encrypt credentials in transmission
+- Use platform-specific secure storage (iOS Keychain, Android Keystore)
+- Require password complexity and avoid short PINs (4 digits)
+- Implement session timeouts and remote logout functionality
+- Require re-authentication for sensitive operations
+- Use platform-supported biometric authentication with secure fallbacks
 
-### Ruby on Rails
-- Avoid dangerous functions:
+### Data Storage and Privacy
 
-```ruby
-eval("ruby code here")
-system("os command here")
-`ls -al /` # (backticks contain os command)
-exec("os command here")
-spawn("os command here")
-open("| os command here")
-Process.exec("os command here")
-Process.spawn("os command here")
-IO.binread("| os command here")
-IO.binwrite("| os command here", "foo")
-IO.foreach("| os command here") {}
-IO.popen("os command here")
-IO.read("| os command here")
-IO.readlines("| os command here")
-IO.write("| os command here", "foo")
-```
+Protect sensitive data at rest and in transit:
+- Encrypt sensitive data using platform APIs; avoid custom encryption
+- Leverage hardware-based security features (Secure Enclave, Strongbox)
+- Store private data on device's internal storage only
+- Minimize PII collection to necessity and implement automatic expiration
+- Avoid caching, logging, or background snapshots of sensitive data
+- Always use HTTPS for network communications
 
-- SQLi: always parameterize; use `sanitize_sql_like` for LIKE patterns.
-- XSS: default auto‑escape; avoid `raw`, `html_safe` on untrusted data; use `sanitize` allow‑lists.
-- Sessions: database‑backed store for sensitive apps; force HTTPS (`config.force_ssl = true`).
-- Auth: use Devise or proven libraries; configure routes and protected areas.
-- CSRF: `protect_from_forgery` for state‑changing actions.
-- Secure redirects: validate/allow‑list targets.
-- Headers/CORS: set secure defaults; configure `rack-cors` carefully.
+### Network Communication
 
-### .NET (ASP.NET Core)
-- Keep runtime and NuGet packages updated; enable SCA in CI.
-- Authz: use `[Authorize]` attributes; perform server‑side checks; prevent IDOR.
-- Authn/sessions: ASP.NET Identity; lockouts; cookies `HttpOnly`/`Secure`; short timeouts.
-- Crypto: use PBKDF2 for passwords, AES‑GCM for encryption; DPAPI for local secrets; TLS 1.2+.
-- Injection: parameterize SQL/LDAP; validate with allow‑lists.
-- Config: enforce HTTPS redirects; remove version headers; set CSP/HSTS/X‑Content‑Type‑Options.
-- CSRF: anti‑forgery tokens on state‑changing actions; validate on server.
+Assume all network communication is insecure:
+- Use HTTPS for all network communication
+- Do not override SSL certificate validation for self-signed certificates
+- Use strong, industry standard cipher suites with appropriate key lengths
+- Use certificates signed by trusted CA providers
+- Consider certificate pinning for additional security
+- Encrypt data even if sent over SSL
+- Avoid sending sensitive data via SMS
 
-### Java and JAAS
-- SQL/JPA: use `PreparedStatement`/named parameters; never concatenate input.
-- XSS: allow‑list validation; sanitize output with reputable libs; encode for context.
-- Logging: parameterized logging to prevent log injection.
-- Crypto: AES‑GCM; secure random nonces; never hardcode keys; use KMS/HSM.
-- JAAS: configure `LoginModule` stanzas; implement `initialize/login/commit/abort/logout`; avoid exposing credentials; segregate public/private credentials; manage subject principals properly.
+### Code Quality and Integrity
 
-### Node.js
-- Limit request sizes; validate and sanitize input; escape output.
-- Avoid `eval`, `child_process.exec` with user input; use `helmet` for headers; `hpp` for parameter pollution.
-- Rate limit auth endpoints; monitor event loop health; handle uncaught exceptions cleanly.
-- Cookies: set `secure`, `httpOnly`, `sameSite`; set `NODE_ENV=production`.
-- Keep packages updated; run `npm audit`; use security linters and ReDoS testing.
+Maintain application security throughout development:
+- Use static analysis tools to identify vulnerabilities
+- Make security a focal point during code reviews
+- Keep all libraries up to date to patch known vulnerabilities
+- Disable debugging in production builds
+- Include code to validate integrity of application code
+- Obfuscate the app binary
+- Implement runtime anti-tampering controls:
+  - Check for debugging, hooking, or code injection
+  - Detect emulator or rooted/jailbroken devices
+  - Verify app signatures at runtime
 
-### PHP Configuration
-- Production php.ini: `expose_php=Off`, log errors not display; restrict `allow_url_fopen/include`; set `open_basedir`.
-- Disable dangerous functions; set session cookie flags (`Secure`, `HttpOnly`, `SameSite=Strict`); enable strict session mode.
-- Constrain upload size/number; set resource limits (memory, post size, execution time).
-- Use Snuffleupagus or similar for additional hardening.
+### Platform-Specific Security
 
-### Implementation Checklist
-- Use each framework’s built‑in CSRF/XSS/session protections and secure cookie flags.
-- Parameterize all data access; avoid dangerous OS/exec functions with untrusted input.
-- Enforce HTTPS/HSTS; set secure headers.
-- Centralize secret management; never hardcode secrets; lock down debug in production.
-- Validate/allow‑list redirects and dynamic identifiers.
-- Keep dependencies and frameworks updated; run SCA and static analysis regularly.
+#### Android Security
+- Use Android's ProGuard for code obfuscation
+- Avoid storing sensitive data in SharedPreferences
+- Disable backup mode to prevent sensitive data in backups
+- Use Android Keystore with hardware backing (TEE or StrongBox)
+- Implement Google's Play Integrity API for device and app integrity checks
+
+#### iOS Security
+- Configure Shortcuts permissions to require device unlock for sensitive actions
+- Set Siri intent `requiresUserAuthentication` to true for sensitive functionality
+- Implement authentication checks on deep link endpoints
+- Use conditional logic to mask sensitive widget content on lock screen
+- Store sensitive data in iOS Keychain, not plist files
+- Use Secure Enclave for cryptographic key storage
+- Implement App Attest API for app integrity validation
+- Use DeviceCheck API for persistent device state tracking
+
+### Testing and Monitoring
+
+Validate security controls through comprehensive testing:
+- Perform penetration testing including cryptographic vulnerability assessment
+- Leverage automated tests to ensure security features work as expected
+- Ensure security features do not harm usability
+- Use real-time monitoring to detect and respond to threats
+- Have a clear incident response plan in place
+- Plan for regular updates and implement forced update mechanisms when necessary
+
+### Input and Output Validation
+
+Prevent injection and execution attacks:
+- Validate and sanitize all user input
+- Validate and sanitize output to prevent injection attacks
+- Mask sensitive information on UI fields to prevent shoulder surfing
+- Inform users about security-related activities (logins from new devices)
+
+By following these practices derived from the OWASP Mobile Application Security framework, you can significantly improve the security posture of your mobile applications across both development and operational phases.
 
 ---
 > Source: [cisco-ai-defense/model-provenance-kit](https://github.com/cisco-ai-defense/model-provenance-kit) — distributed by [TomeVault](https://tomevault.io).
