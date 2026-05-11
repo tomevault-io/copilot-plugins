@@ -1,0 +1,9 @@
+{
+  "name": "juanjofuchs--hwinfo-tui",
+  "displayName": "hwinfo-tui",
+  "description": "A gping-inspired terminal visualization tool for monitoring real-time hardware sensor data from HWInfo.",
+  "version": "1.0.0",
+  "author": "JuanjoFuchs",
+  "homepage": "https://github.com/JuanjoFuchs/hwinfo-tui",
+  "skills": []
+}
