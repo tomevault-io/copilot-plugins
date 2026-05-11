@@ -1,0 +1,9 @@
+{
+  "name": "carlkcarlk--device-envoy",
+  "displayName": "device-envoy",
+  "description": "Build Pico and ESP32 applications with LED panels, easy WiFi, and composable device abstractions.",
+  "version": "1.0.0",
+  "author": "CarlKCarlK",
+  "homepage": "https://github.com/CarlKCarlK/device-envoy",
+  "skills": []
+}
