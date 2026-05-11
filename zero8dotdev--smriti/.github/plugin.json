@@ -1,0 +1,9 @@
+{
+  "name": "zero8dotdev--smriti",
+  "displayName": "smriti",
+  "description": "Shared memory for AI-powered engineering teams. Captures, indexes, and recalls conversations across Claude Code, Cursor, Codex, and other agents. Share team knowledge through git \u2014 no cloud required.",
+  "version": "1.0.0",
+  "author": "zero8dotdev",
+  "homepage": "https://github.com/zero8dotdev/smriti",
+  "skills": []
+}
