@@ -1,0 +1,9 @@
+{
+  "name": "zainnab-sparq--cc-self-train",
+  "displayName": "cc-self-train",
+  "description": "Learn features by building projects hands-on with Claude Code--no boring videos, outdated blog posts, or stale   courses.",
+  "version": "1.0.0",
+  "author": "zainnab-sparq",
+  "homepage": "https://github.com/zainnab-sparq/cc-self-train",
+  "skills": []
+}
