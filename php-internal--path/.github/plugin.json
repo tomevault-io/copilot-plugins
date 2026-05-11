@@ -1,0 +1,9 @@
+{
+  "name": "php-internal--path",
+  "displayName": "path",
+  "description": "File path helper",
+  "version": "1.0.0",
+  "author": "php-internal",
+  "homepage": "https://github.com/php-internal/path",
+  "skills": []
+}
