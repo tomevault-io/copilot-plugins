@@ -1,0 +1,9 @@
+{
+  "name": "montgomerybohde--pylipidparse",
+  "displayName": "PyLipidParse",
+  "description": "PyLipidParse is a lightweight Python library for converting standard lipid notation into RDKit and SMILES representations. ",
+  "version": "1.0.0",
+  "author": "MontgomeryBohde",
+  "homepage": "https://github.com/MontgomeryBohde/PyLipidParse",
+  "skills": []
+}
