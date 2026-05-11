@@ -7,11 +7,11 @@ A macOS app to quickly launch your projects in Terminal or VS Code
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [viveky259259/project-launcher](https://github.com/viveky259259/project-launcher).
+Original source: `CLAUDE.md` in [viveky259259/project-launcher](https://github.com/viveky259259/project-launcher).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
