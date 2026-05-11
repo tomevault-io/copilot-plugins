@@ -1,0 +1,9 @@
+{
+  "name": "somiona--mwb-client-macos",
+  "displayName": "mwb-client-macos",
+  "description": "A native macOS client that connects your Mac to a Windows machine running Mouse Without Borders (part of Microsoft PowerToys). Share a single mouse and keyboard across both machines over your local ne",
+  "version": "1.0.0",
+  "author": "Somiona",
+  "homepage": "https://github.com/Somiona/mwb-client-macos",
+  "skills": []
+}
