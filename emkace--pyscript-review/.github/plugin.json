@@ -1,0 +1,9 @@
+{
+  "name": "emkace--pyscript-review",
+  "displayName": "pyscript_review",
+  "description": " Peer-review and grading web app for Jupyter notebook submissions, rewritten with PySciprt, PuePy  and Python  using basecoatUI ",
+  "version": "1.0.0",
+  "author": "EmKaCe",
+  "homepage": "https://github.com/EmKaCe/pyscript_review",
+  "skills": []
+}
