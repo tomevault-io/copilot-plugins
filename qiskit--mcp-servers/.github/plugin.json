@@ -1,0 +1,9 @@
+{
+  "name": "qiskit--mcp-servers",
+  "displayName": "mcp-servers",
+  "description": "A collection of MCP servers to allow LLMs to use the qiskit,qiskit-ibm-runtime library,  qiskit-ibm-transpiler, qiskit-code-assistant service library and others",
+  "version": "1.0.0",
+  "author": "Qiskit",
+  "homepage": "https://github.com/Qiskit/mcp-servers",
+  "skills": []
+}
