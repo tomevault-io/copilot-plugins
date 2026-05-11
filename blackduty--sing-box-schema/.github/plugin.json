@@ -1,0 +1,9 @@
+{
+  "name": "blackduty--sing-box-schema",
+  "displayName": "sing-box-schema",
+  "description": "Provides type-safe sing-box configuration syntax support for code editors / TypeScript projects",
+  "version": "1.0.0",
+  "author": "BlackDuty",
+  "homepage": "https://github.com/BlackDuty/sing-box-schema",
+  "skills": []
+}
