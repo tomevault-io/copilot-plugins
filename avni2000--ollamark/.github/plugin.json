@@ -1,0 +1,9 @@
+{
+  "name": "avni2000--ollamark",
+  "displayName": "OllaMark",
+  "description": "Ollama-based autoformatter for Obsidian",
+  "version": "1.0.0",
+  "author": "Avni2000",
+  "homepage": "https://github.com/Avni2000/OllaMark",
+  "skills": []
+}
