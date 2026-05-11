@@ -1,0 +1,9 @@
+{
+  "name": "stack-cli--stack-cli",
+  "displayName": "stack-cli",
+  "description": "Open Source Alternative to Supabase, Vercel, Netlify and Heroku. ",
+  "version": "1.0.0",
+  "author": "stack-cli",
+  "homepage": "https://github.com/stack-cli/stack-cli",
+  "skills": []
+}
