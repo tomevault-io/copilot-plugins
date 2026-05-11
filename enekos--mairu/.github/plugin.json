@@ -1,0 +1,9 @@
+{
+  "name": "enekos--mairu",
+  "displayName": "mairu",
+  "description": "Opinionated semantically aware agent that lifts rocks",
+  "version": "1.0.0",
+  "author": "enekos",
+  "homepage": "https://github.com/enekos/mairu",
+  "skills": []
+}
