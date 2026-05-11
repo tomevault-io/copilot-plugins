@@ -1,0 +1,9 @@
+{
+  "name": "evantahler--icloud-backup",
+  "displayName": "icloud-backup",
+  "description": "Append-only backup of iCloud Photos, Drive, Notes, and Contacts to any local directory.",
+  "version": "1.0.0",
+  "author": "evantahler",
+  "homepage": "https://github.com/evantahler/icloud-backup",
+  "skills": []
+}
