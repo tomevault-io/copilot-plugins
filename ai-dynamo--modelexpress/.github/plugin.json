@@ -1,0 +1,9 @@
+{
+  "name": "ai-dynamo--modelexpress",
+  "displayName": "modelexpress",
+  "description": "Model Express is a Rust-based component meant to be placed next to existing model inference systems to speed up their startup times and improve overall performance.",
+  "version": "1.0.0",
+  "author": "ai-dynamo",
+  "homepage": "https://github.com/ai-dynamo/modelexpress",
+  "skills": []
+}
