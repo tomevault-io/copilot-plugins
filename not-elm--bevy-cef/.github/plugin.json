@@ -1,0 +1,9 @@
+{
+  "name": "not-elm--bevy-cef",
+  "displayName": "bevy_cef",
+  "description": "Allows to render the webview into bevy's world space",
+  "version": "1.0.0",
+  "author": "not-elm",
+  "homepage": "https://github.com/not-elm/bevy_cef",
+  "skills": []
+}
