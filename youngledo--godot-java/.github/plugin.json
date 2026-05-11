@@ -1,0 +1,9 @@
+{
+  "name": "youngledo--godot-java",
+  "displayName": "godot-java",
+  "description": "Java bindings for Godot is here.",
+  "version": "1.0.0",
+  "author": "youngledo",
+  "homepage": "https://github.com/youngledo/godot-java",
+  "skills": []
+}
