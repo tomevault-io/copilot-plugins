@@ -4,7 +4,7 @@
   "repo": "agent-fecfile",
   "description": "A Claude Code plugin + Agent Skill + MCP Server for analyzing Federal Election Commission (FEC) campaign finance filings.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hodgesmr/agent-fecfile",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T14:00:24Z"
+  "distributed_at": "2026-05-11T20:57:22Z"
 }
