@@ -1,0 +1,9 @@
+{
+  "name": "0xpolygon--polygon-agent-cli",
+  "displayName": "polygon-agent-cli",
+  "description": "Infrastructure for building agents on Polygon",
+  "version": "1.0.0",
+  "author": "0xPolygon",
+  "homepage": "https://github.com/0xPolygon/polygon-agent-cli",
+  "skills": []
+}
