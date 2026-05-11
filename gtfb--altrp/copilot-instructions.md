@@ -1,0 +1,27 @@
+## golden-rules
+
+> 1.  **Communication Protocol**
+
+# Golden Rules
+
+1.  **Communication Protocol**
+    - Chat interaction with the user: **Russian**.
+    - Code, comments, commit messages, and branch names: **English ONLY**.
+
+2.  **Branch Integrity**
+    - The `main` and `develop` branches are protected. They MUST NOT be deleted or force-pushed to. All merges into them must be via Pull Requests.
+
+3.  **Component Generation**
+    - ALL new React components MUST be scaffolded using the `bun hygen component new --name ComponentName` command. Do not create component files manually.
+
+4.  **Styling Constraints**
+    - Custom CSS files (`.css`), CSS Modules (`.module.css`), or inline `<style>` tags are STRICTLY FORBIDDEN.
+    - All styling MUST be achieved using **Tailwind CSS 4** utility classes and pre-built **Shadcn/ui** components.
+
+5.  **Documentation Policy**
+    - Code should be self-documenting. AVOID creating excessive documentation (e.g., long TSDoc blocks for simple functions).
+    - Adhere strictly to the existing project folder structure for organization. Do not create new top-level directories without explicit permission.
+
+---
+> Source: [GTFB/altrp](https://github.com/GTFB/altrp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
