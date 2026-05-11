@@ -1,0 +1,9 @@
+{
+  "name": "rjwalters--vibesql",
+  "displayName": "vibesql",
+  "description": "Vibe-coded NIST compatible database in Rust",
+  "version": "1.0.0",
+  "author": "rjwalters",
+  "homepage": "https://github.com/rjwalters/vibesql",
+  "skills": []
+}
