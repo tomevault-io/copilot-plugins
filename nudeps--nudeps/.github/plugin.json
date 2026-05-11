@@ -1,0 +1,9 @@
+{
+  "name": "nudeps--nudeps",
+  "displayName": "nudeps",
+  "description": "The DX of a bundler without the complexity of one. Experimentally soft-launched, try it and give us feedback!",
+  "version": "1.0.0",
+  "author": "nudeps",
+  "homepage": "https://github.com/nudeps/nudeps",
+  "skills": []
+}
