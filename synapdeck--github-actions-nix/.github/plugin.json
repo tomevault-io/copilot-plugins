@@ -1,0 +1,9 @@
+{
+  "name": "synapdeck--github-actions-nix",
+  "displayName": "github-actions-nix",
+  "description": "Generate GitHub Actions workflows from Nix configuration",
+  "version": "1.0.0",
+  "author": "synapdeck",
+  "homepage": "https://github.com/synapdeck/github-actions-nix",
+  "skills": []
+}
