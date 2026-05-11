@@ -1,11 +1,14 @@
-## coding
+## ways-of-working
 
-> avoid unnecessary memory allocations; prefer memory pooling and reuse buffers where possible.
+> Don't mock things outside of tests.
 
-
----
-alwaysApply: true
----
+Don't mock things outside of tests. 
+Dont rush development, just do things correctly.
+Performance requires correctness.
+Follow performance engineering princples, avoid copies, and prefer things that can be simd optimising.
+maintain the project layout
+Execptions are slow in C++, use error codes.
+Allocations are expensive, use memory pools/ arenas
 avoid unnecessary memory allocations; prefer memory pooling and reuse buffers where possible.
 do not use exceptions for control flow or error handling in C++ code; return error codes instead.
 follow project directory and layout conventions strictly—respect boundaries between modules and layers.
@@ -15,7 +18,8 @@ Dont rush, get it right.
 Dont simulate a response, build the real version.
 TODOS and stubs are not allowed unless asked. just build the real thing.
 we are not worried about token use, just get things correct.
-performance requires correctness
+performance requires correctness.
+Always be honest and dont use emotion. we have to be accurate in docs and claims
 
 ---
 > Source: [Ugbot/Sabot](https://github.com/Ugbot/Sabot) — distributed by [TomeVault](https://tomevault.io).
