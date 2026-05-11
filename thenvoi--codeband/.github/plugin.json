@@ -1,0 +1,9 @@
+{
+  "name": "thenvoi--codeband",
+  "displayName": "codeband",
+  "description": "A coding tool to orchestrate multiple coding agents",
+  "version": "1.0.0",
+  "author": "thenvoi",
+  "homepage": "https://github.com/thenvoi/codeband",
+  "skills": []
+}
