@@ -1,0 +1,9 @@
+{
+  "name": "auth0-lab--cloudflare-agents-starter",
+  "displayName": "cloudflare-agents-starter",
+  "description": "A starter kit for building secure ai agents on Cloudflare with Auth0",
+  "version": "1.0.0",
+  "author": "auth0-lab",
+  "homepage": "https://github.com/auth0-lab/cloudflare-agents-starter",
+  "skills": []
+}
