@@ -1,0 +1,9 @@
+{
+  "name": "definite-app--ultraplan",
+  "displayName": "ultraplan",
+  "description": "CLI tool for recording multi-modal context (audio, keystrokes, clipboard, screenshots) locally",
+  "version": "1.0.0",
+  "author": "definite-app",
+  "homepage": "https://github.com/definite-app/ultraplan",
+  "skills": []
+}
