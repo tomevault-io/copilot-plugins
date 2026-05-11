@@ -1,15 +1,27 @@
-## presets-and-tools
+## project-overview
 
-> - **Presets schema**: [presets/presets.json](mdc:presets/presets.json)
+> - **Primary DCTL**: [FadedBalancerDCTL.dctl](mdc:FadedBalancerDCTL.dctl)
 
-### Presets and Tooling
+### Faded Balancer DCTL — Project Overview
 
-- **Presets schema**: [presets/presets.json](mdc:presets/presets.json)
-  - Ensure preset parameter keys match `FadedBalancerDCTL.dctl`.
-  - Validate changes with [tools/validate_presets.py](mdc:tools/validate_presets.py).
-- **Release**: Use [tools/create_releases.sh](mdc:tools/create_releases.sh) to package artifacts.
-- **Docs sync**: Update [docs/presets_companion.md](mdc:docs/presets_companion.md) when presets change.
-- **Assets**: Reference sample images in [assets/before](mdc:assets/before/) and [assets/after](mdc:assets/after/) for before/after documentation.
+- **Primary DCTL**: [FadedBalancerDCTL.dctl](mdc:FadedBalancerDCTL.dctl)
+- **Presets**: [presets/presets.json](mdc:presets/presets.json)
+- **Documentation**:
+  - [README.md](mdc:README.md)
+  - [docs/BACKGROUND_FILM_FADING.md](mdc:docs/BACKGROUND_FILM_FADING.md)
+  - [docs/FAQ.md](mdc:docs/FAQ.md)
+  - [docs/presets_companion.md](mdc:docs/presets_companion.md)
+  - Internal: [internal/docs/SPECIFICATION.md](mdc:internal/docs/SPECIFICATION.md)
+- **Assets for examples**: before/after images under [assets/before](mdc:assets/before/) and [assets/after](mdc:assets/after/)
+- **Tools**:
+  - Validate presets: [tools/validate_presets.py](mdc:tools/validate_presets.py)
+  - Release helper: [tools/create_releases.sh](mdc:tools/create_releases.sh)
+- **Previous versions**: [previous_versions/](mdc:previous_versions/)
+- **Vendor DCTL helpers**: [internal/docs/vendor/DaVinciCTL](mdc:internal/docs/vendor/DaVinciCTL/)
+
+Guidance:
+- When modifying `FadedBalancerDCTL.dctl`, ensure parameter names and defaults stay in sync with `presets/presets.json` and referenced docs.
+- Keep the README usage section current if UI/parameters change.
 
 ---
 > Source: [fabiocolor/Faded-Balancer-DCTL](https://github.com/fabiocolor/Faded-Balancer-DCTL) — distributed by [TomeVault](https://tomevault.io).
