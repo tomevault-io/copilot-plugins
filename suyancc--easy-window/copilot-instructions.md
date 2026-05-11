@@ -1,323 +1,418 @@
-## tauri-integration
+## typescript-development
 
-> Easy Window 基于 Tauri 2.x 构建，将Web前端与Rust后端相结合，提供原生桌面应用体验。
+> 类型定义文件统一放在 `src/types/` 目录下，按功能模块组织：
 
-# Tauri 桌面应用集成规范
+# TypeScript 开发规范
 
-## Tauri 架构概览
+## 类型定义规范
 
-Easy Window 基于 Tauri 2.x 构建，将Web前端与Rust后端相结合，提供原生桌面应用体验。
+### 项目类型结构
+类型定义文件统一放在 `src/types/` 目录下，按功能模块组织：
 
-### 项目结构
 ```
-├── src/                    # Vue3 前端代码
-├── src-tauri/             # Tauri/Rust 后端代码
-│   ├── src/               # Rust源码
-│   ├── Cargo.toml         # Rust依赖配置
-│   ├── tauri.conf.json    # Tauri配置文件
-│   └── icons/             # 应用图标
-├── dist/                  # 构建输出
-└── target/                # Rust编译输出
+src/types/
+├── index.ts           # 导出所有类型
+├── components.ts      # 组件相关类型
+├── api.ts            # API接口类型
+├── store.ts          # 状态管理类型
+├── router.ts         # 路由类型
+├── utils.ts          # 工具函数类型
+└── global.d.ts       # 全局类型声明
 ```
 
-## 前端与后端通信
+### 基础类型定义
 
-### 调用Tauri API
+#### 组件Props类型
 ```typescript
-import { invoke } from '@tauri-apps/api/core'
-import { readTextFile, writeTextFile } from '@tauri-apps/plugin-fs'
-
-// 调用Rust后端命令
-const result = await invoke('my_command', { 
-  param1: 'value1',
-  param2: 'value2' 
-})
-
-// 文件系统操作
-const content = await readTextFile('path/to/file.txt')
-await writeTextFile('path/to/file.txt', 'new content')
-```
-
-### Window管理
-```typescript
-import { getCurrentWindow } from '@tauri-apps/api/window'
-
-const appWindow = getCurrentWindow()
-
-// 窗口操作
-await appWindow.setTitle('新标题')
-await appWindow.minimize()
-await appWindow.maximize()
-await appWindow.close()
-
-// 监听窗口事件
-appWindow.listen('tauri://close-requested', () => {
-  console.log('用户尝试关闭窗口')
-})
-```
-
-## 文件系统操作
-
-### 文件读写
-```typescript
-import { 
-  readTextFile, 
-  writeTextFile, 
-  exists,
-  createDir,
-  copyFile
-} from '@tauri-apps/plugin-fs'
-import { join, appDataDir } from '@tauri-apps/api/path'
-
-// 获取应用数据目录
-const appDataPath = await appDataDir()
-const configPath = await join(appDataPath, 'config.json')
-
-// 检查文件是否存在
-if (await exists(configPath)) {
-  const config = await readTextFile(configPath)
-  console.log('配置文件内容:', config)
+// src/types/components.ts
+export interface BaseComponentProps {
+  id: string
+  className?: string
+  style?: CSSProperties
+  disabled?: boolean
+  visible?: boolean
 }
 
-// 写入配置文件
-await writeTextFile(configPath, JSON.stringify(configData))
+export interface ButtonProps extends BaseComponentProps {
+  type?: 'primary' | 'success' | 'warning' | 'danger' | 'info'
+  size?: 'large' | 'default' | 'small'
+  loading?: boolean
+  icon?: string
+  onClick?: (event: MouseEvent) => void
+}
+
+export interface InputProps extends BaseComponentProps {
+  modelValue?: string | number
+  placeholder?: string
+  maxlength?: number
+  showWordLimit?: boolean
+  clearable?: boolean
+  'onUpdate:modelValue'?: (value: string | number) => void
+}
 ```
 
-### 对话框操作
+#### API响应类型
 ```typescript
-import { open, save } from '@tauri-apps/plugin-dialog'
+// src/types/api.ts
+export interface ApiResponse<T = any> {
+  code: number
+  message: string
+  data: T
+  success: boolean
+  timestamp: number
+}
 
-// 打开文件选择对话框
-const selected = await open({
-  multiple: false,
-  filters: [{
-    name: 'Vue文件',
-    extensions: ['vue']
-  }]
-})
+export interface PaginationParams {
+  page: number
+  pageSize: number
+  total?: number
+}
 
-// 保存文件对话框
-const filePath = await save({
-  filters: [{
-    name: '项目文件',
-    extensions: ['json']
-  }]
-})
-```
+export interface PaginatedResponse<T> extends ApiResponse<T[]> {
+  pagination: PaginationParams
+}
 
-## 应用配置管理
+// 项目相关API类型
+export interface ProjectInfo {
+  id: string
+  name: string
+  description?: string
+  version: string
+  createTime: string
+  updateTime: string
+  components: ComponentConfig[]
+}
 
-### tauri.conf.json 关键配置
-```json
-{
-  "app": {
-    "name": "Easy Window",
-    "version": "1.0.0"
-  },
-  "build": {
-    "frontendDist": "../dist"
-  },
-  "bundle": {
-    "identifier": "com.easywindow.app",
-    "windows": {
-      "certificateThumbprint": null,
-      "digestAlgorithm": "sha256",
-      "timestampUrl": ""
-    }
-  },
-  "plugins": {
-    "fs": {
-      "scope": [
-        "$APPDATA/**",
-        "$DOCUMENT/**"
-      ]
-    }
+export interface ComponentConfig {
+  id: string
+  type: string
+  props: Record<string, any>
+  children?: ComponentConfig[]
+  position: {
+    x: number
+    y: number
+    width: number
+    height: number
   }
 }
 ```
 
-### 安全策略
-Tauri采用严格的安全策略，需要明确配置允许的API和文件访问范围：
+#### Store状态类型
+```typescript
+// src/types/store.ts
+export interface AppState {
+  theme: 'light' | 'dark'
+  language: 'zh-CN' | 'en-US'
+  sidebarCollapsed: boolean
+  loading: boolean
+}
 
-```json
-{
-  "permissions": [
-    "fs:default",
-    "dialog:default",
-    "window:default"
-  ]
+export interface ProjectState {
+  currentProject: ProjectInfo | null
+  projects: ProjectInfo[]
+  selectedComponent: ComponentConfig | null
+  draggedComponent: ComponentConfig | null
+}
+
+export interface UserState {
+  userInfo: UserInfo | null
+  isLoggedIn: boolean
+  permissions: string[]
+}
+
+export interface UserInfo {
+  id: string
+  username: string
+  email: string
+  avatar?: string
+  role: string
 }
 ```
 
-## 自动更新系统
+### Vue 3 + TypeScript 最佳实践
 
-### 更新检查
+#### 组件Props定义
 ```typescript
-import { check } from '@tauri-apps/plugin-updater'
+// 推荐的Props定义方式
+<script setup lang="ts">
+interface Props {
+  title: string
+  content?: string
+  type?: 'info' | 'warning' | 'error'
+  closable?: boolean
+}
 
-async function checkForUpdates() {
+const props = withDefaults(defineProps<Props>(), {
+  type: 'info',
+  closable: true
+})
+
+// 计算属性类型推断
+const computedClass = computed(() => ({
+  [`alert-${props.type}`]: true,
+  'is-closable': props.closable
+}))
+</script>
+```
+
+#### 响应式数据类型
+```typescript
+import { ref, reactive } from 'vue'
+import type { ComponentConfig, ProjectInfo } from '@/types'
+
+// ref 类型声明
+const loading = ref<boolean>(false)
+const projectList = ref<ProjectInfo[]>([])
+const selectedComponent = ref<ComponentConfig | null>(null)
+
+// reactive 类型声明
+interface FormData {
+  name: string
+  email: string
+  age: number
+}
+
+const formData = reactive<FormData>({
+  name: '',
+  email: '',
+  age: 0
+})
+```
+
+#### 事件处理器类型
+```typescript
+<script setup lang="ts">
+interface Emits {
+  change: [value: string]
+  click: [event: MouseEvent]
+  submit: [data: FormData]
+}
+
+const emit = defineEmits<Emits>()
+
+// 事件处理函数
+const handleClick = (event: MouseEvent) => {
+  emit('click', event)
+}
+
+const handleSubmit = (data: FormData) => {
+  emit('submit', data)
+}
+</script>
+```
+
+## 工具函数类型定义
+
+### 通用工具类型
+```typescript
+// src/types/utils.ts
+
+// 深度只读类型
+export type DeepReadonly<T> = {
+  readonly [P in keyof T]: T[P] extends Record<string, any>
+    ? DeepReadonly<T[P]>
+    : T[P]
+}
+
+// 可选属性类型
+export type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
+
+// 必需属性类型
+export type RequiredBy<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>
+
+// 联合转交集类型
+export type UnionToIntersection<U> = 
+  (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never
+
+// 函数参数类型提取
+export type Parameters<T extends (...args: any) => any> = T extends (...args: infer P) => any ? P : never
+
+// 函数返回值类型提取
+export type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : any
+```
+
+### API工具类型
+```typescript
+// API请求配置类型
+export interface RequestConfig {
+  url: string
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE'
+  params?: Record<string, any>
+  data?: any
+  headers?: Record<string, string>
+  timeout?: number
+}
+
+// API服务类型
+export type ApiService<T extends Record<string, any>> = {
+  [K in keyof T]: T[K] extends (...args: any[]) => any
+    ? (...args: Parameters<T[K]>) => Promise<ApiResponse<ReturnType<T[K]>>>
+    : never
+}
+```
+
+## 全局类型声明
+
+### Vue全局属性扩展
+```typescript
+// src/types/global.d.ts
+import 'vue'
+
+declare module 'vue' {
+  interface ComponentCustomProperties {
+    $message: typeof ElMessage
+    $confirm: typeof ElMessageBox.confirm
+    $loading: (options?: any) => any
+  }
+}
+
+// 全局变量类型
+declare global {
+  interface Window {
+    __TAURI__: any
+    electronAPI?: any
+  }
+  
+  // 环境变量类型
+  interface ImportMetaEnv {
+    readonly VITE_APP_NAME: string
+    readonly VITE_APP_VERSION: string
+    readonly VITE_API_BASE_URL: string
+    readonly VITE_AUTO_UPDATE_ENABLED: string
+  }
+}
+```
+
+### Element Plus 组件类型扩展
+```typescript
+// 扩展Element Plus组件类型
+import type { ElForm, ElTable, ElDialog } from 'element-plus'
+
+export type FormInstance = InstanceType<typeof ElForm>
+export type TableInstance = InstanceType<typeof ElTable>
+export type DialogInstance = InstanceType<typeof ElDialog>
+
+// 表单验证规则类型
+export interface FormRules {
+  [key: string]: Array<{
+    required?: boolean
+    message?: string
+    trigger?: string | string[]
+    validator?: (rule: any, value: any, callback: any) => void
+  }>
+}
+```
+
+## 类型安全最佳实践
+
+### 1. 严格类型检查
+```typescript
+// tsconfig.json 配置
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
+}
+```
+
+### 2. 类型守卫使用
+```typescript
+// 类型守卫函数
+export function isString(value: unknown): value is string {
+  return typeof value === 'string'
+}
+
+export function isArray<T>(value: unknown): value is T[] {
+  return Array.isArray(value)
+}
+
+export function isValidComponentConfig(config: any): config is ComponentConfig {
+  return config && 
+         typeof config.id === 'string' && 
+         typeof config.type === 'string' &&
+         config.props !== undefined
+}
+
+// 使用类型守卫
+function processData(data: unknown) {
+  if (isValidComponentConfig(data)) {
+    // 这里data被正确推断为ComponentConfig类型
+    console.log(data.id, data.type)
+  }
+}
+```
+
+### 3. 泛型约束
+```typescript
+// 泛型约束示例
+interface Identifiable {
+  id: string
+}
+
+function updateItem<T extends Identifiable>(items: T[], id: string, updates: Partial<T>): T[] {
+  return items.map(item => 
+    item.id === id ? { ...item, ...updates } : item
+  )
+}
+
+// 使用示例
+const updatedComponents = updateItem(components, 'comp-1', { 
+  props: { visible: false } 
+})
+```
+
+### 4. 条件类型使用
+```typescript
+// 条件类型示例
+type ApiMethod<T> = T extends 'get' 
+  ? (url: string, params?: any) => Promise<any>
+  : T extends 'post'
+  ? (url: string, data?: any) => Promise<any>
+  : never
+
+// 映射类型
+type ComponentEvents<T> = {
+  [K in keyof T as `on${Capitalize<string & K>}`]: T[K] extends Function 
+    ? T[K] 
+    : never
+}
+```
+
+## 错误处理和类型安全
+
+### 异步操作类型安全
+```typescript
+import type { ApiResponse } from '@/types/api'
+
+// 封装API调用的类型安全函数
+async function safeApiCall<T>(
+  apiCall: () => Promise<ApiResponse<T>>
+): Promise<[T | null, string | null]> {
   try {
-    const update = await check()
-    if (update?.available) {
-      console.log('发现新版本:', update.version)
-      console.log('更新日志:', update.body)
-      
-      // 下载并安装更新
-      await update.downloadAndInstall()
-      
-      // 重启应用
-      await relaunch()
+    const response = await apiCall()
+    if (response.success) {
+      return [response.data, null]
+    } else {
+      return [null, response.message]
     }
   } catch (error) {
-    console.error('检查更新失败:', error)
+    return [null, error instanceof Error ? error.message : '未知错误']
   }
 }
-```
 
-### 更新配置
-在 `tauri.conf.json` 中配置更新服务器：
-
-```json
-{
-  "updater": {
-    "active": true,
-    "endpoints": [
-      "https://api.yourdomain.com/updates/{{target}}/{{current_version}}"
-    ],
-    "dialog": true,
-    "pubkey": "YOUR_PUBLIC_KEY"
-  }
-}
-```
-
-## 打包和分发
-
-### 开发模式运行
-```bash
-# 启动开发服务器
-npm run tauri:dev
-
-# 仅构建前端
-npm run dev
-```
-
-### 生产构建
-```bash
-# 构建应用
-npm run tauri:build
-
-# 构建特定平台
-npm run tauri build -- --target x86_64-pc-windows-msvc
-```
-
-### 构建配置优化
-```json
-{
-  "bundle": {
-    "targets": ["msi", "nsis"],
-    "resources": ["assets/*"],
-    "externalBin": [],
-    "copyright": "© 2024 Easy Window Team",
-    "category": "DeveloperTool",
-    "shortDescription": "桌面UI生成工具",
-    "longDescription": "一款基于Vue3+Tauri的可视化桌面UI设计工具"
-  }
-}
-```
-
-## 开发最佳实践
-
-### 1. 错误处理
-```typescript
-try {
-  const result = await invoke('risky_command')
-  return result
-} catch (error) {
-  console.error('Tauri命令执行失败:', error)
-  // 显示用户友好的错误消息
-  ElMessage.error('操作失败，请重试')
-  throw error
-}
-```
-
-### 2. 跨平台兼容性
-```typescript
-import { platform } from '@tauri-apps/plugin-os'
-
-const currentPlatform = await platform()
-if (currentPlatform === 'windows') {
-  // Windows特定逻辑
-} else if (currentPlatform === 'macos') {
-  // macOS特定逻辑
-}
-```
-
-### 3. 性能优化
-- 避免频繁的前后端通信
-- 缓存常用的Tauri API调用结果
-- 使用批量操作减少IPC开销
-
-### 4. 调试技巧
-```typescript
-// 开发模式下启用控制台
-if (import.meta.env.DEV) {
-  document.addEventListener('contextmenu', (e) => {
-    e.preventDefault()
-  })
-}
-
-// 监听Tauri事件进行调试
-import { listen } from '@tauri-apps/api/event'
-
-listen('tauri://window-created', (event) => {
-  console.log('窗口创建事件:', event)
-})
-```
-
-## 原生功能集成
-
-### 系统托盘
-```typescript
-import { TrayIcon } from '@tauri-apps/api/tray'
-
-const tray = await TrayIcon.new({
-  icon: 'icons/icon.png',
-  tooltip: 'Easy Window'
-})
-
-tray.on('click', () => {
-  // 点击托盘图标的处理逻辑
-})
-```
-
-### 全局快捷键
-```typescript
-import { register } from '@tauri-apps/plugin-global-shortcut'
-
-await register('CommandOrControl+Shift+E', () => {
-  console.log('快捷键被触发')
-})
-```
-
-### 系统通知
-```typescript
-import { 
-  isPermissionGranted, 
-  requestPermission, 
-  sendNotification 
-} from '@tauri-apps/plugin-notification'
-
-let permissionGranted = await isPermissionGranted()
-if (!permissionGranted) {
-  const permission = await requestPermission()
-  permissionGranted = permission === 'granted'
-}
-
-if (permissionGranted) {
-  sendNotification({
-    title: 'Easy Window',
-    body: '操作完成！'
-  })
+// 使用示例
+const [projectData, error] = await safeApiCall(() => fetchProject(id))
+if (error) {
+  console.error('获取项目失败:', error)
+} else if (projectData) {
+  // projectData 已经是正确的类型
+  console.log('项目名称:', projectData.name)
 }
 ```
 
