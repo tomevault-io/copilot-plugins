@@ -1,26 +1,59 @@
-## aidev-tests
+## aidev
 
-> Test conventions and commands for aidev
+> aidev project rules
 
 
-# aidev Tests
+# aidev Project Rules
 
-## Runner and layout
+## Stack
+- TypeScript 5, CommonJS (`"type": "commonjs"`), Node.js ≥ 18
+- Dependencies: `chalk@4`, `commander@12`, `dotenv@16`
+- No HTTP libraries — use native `fetch` (Node 18+) only
+- chalk v4 specifically (v5 is ESM-only and incompatible)
 
-- Node.js built-in test runner: `node --require tsx/cjs --test 'src/__tests__/**/*.test.ts'`
-- Run with: `npm test`
-- Tests live in `src/__tests__/`. One test file per module when possible (e.g. `config.test.ts`, `run.test.ts`).
+## Code Conventions
+- All native Node.js imports use the `node:` prefix:
+  `node:fs`, `node:path`, `node:child_process`, `node:os`, etc.
+- All subprocess calls use `spawnSync(bin, [...args])` with array arguments — never string interpolation into shell commands
+- Strict TypeScript: no `any`, explicit return types on exported functions
 
-## Conventions
+## Architecture
 
-- Use `describe` / `it` and `assert` from Node's `node:assert`.
-- For env-dependent tests (e.g. `loadConfig` with real env), use temp dirs or override `process.env` and restore after; config tests that need POSIX use conditional skip for Windows.
-- Mock external calls (fetch, spawnSync) where appropriate so tests don't hit real APIs or CLIs.
-- No `any`; explicit types. Follow project rule: `node:` prefix for built-ins.
+### Providers (`src/providers/`)
+- `TaskProvider` interface: `fetchTasks()`, `postComment()`, `getComments()`, `updateStatus()`
+- Implemented providers include ClickUp, Jira, Linear, Monday, Notion, Trello, and local; register new ones in `createProvider()`
+- To add a provider: implement `TaskProvider`, register in `createProvider()` factory
 
-## After changing code
+### AI Runners (`src/ai/`)
+- `AIRunner` interface: `name`, `isAvailable()`, `run(prompt, notes?)`
+- Runners: `ClaudeRunner` (claude CLI), `CursorRunner` (cursor --agent)
+- `auto` mode: no TTY → Claude first; TTY → Cursor first; fallback to next on failure
 
-Run `npm test` before committing. Fix any new failures in the touched area.
+### Commands (`src/commands/`)
+- `init` — writes `.env.aidev` from inline template; skips if file exists
+- `run` — fetches tasks, applies filter (all/open/pending), implements each
+- `schedule` — manages per-directory crontab entries using marker `# aidev-cwd:/path`
+
+### CLI (`src/cli.ts`)
+- `run [filter]` is registered with `{ isDefault: true }` — do not use `program.action()` as default, it causes double-execution
+
+## Task Processing Flow
+```
+fetchTasks()
+  skip: closed/done/cancelled/complete statuses
+  skip: remote branch already exists (taskId prefix)
+  pending tasks: check for human reply before proceeding
+  open tasks: checkNeedsClarification() → postComment + set pending if unclear
+  implementTask():
+    updateStatus("in progress") → git branch → AI runner → commit → push
+    postComment(branch + PR link) → updateStatus(CLICKUP_IN_REVIEW_STATUS)
+```
+
+## Build
+```bash
+npm run build    # tsc + chmod +x dist/cli.js
+npm run dev -- run --help
+```
 
 ---
 > Source: [qelos-io/aidev](https://github.com/qelos-io/aidev) — distributed by [TomeVault](https://tomevault.io).
