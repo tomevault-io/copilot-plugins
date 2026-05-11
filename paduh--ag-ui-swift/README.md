@@ -7,11 +7,11 @@ The AG-UI Swift SDK is a Swift library for building AI agent user interfaces tha
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [paduh/ag-ui-swift](https://github.com/paduh/ag-ui-swift).
+Original source: `CLAUDE.md` in [paduh/ag-ui-swift](https://github.com/paduh/ag-ui-swift).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
