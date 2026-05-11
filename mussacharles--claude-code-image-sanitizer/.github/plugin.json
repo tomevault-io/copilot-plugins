@@ -1,0 +1,9 @@
+{
+  "name": "mussacharles--claude-code-image-sanitizer",
+  "displayName": "claude-code-image-sanitizer",
+  "description": "Auto-resize oversized images and repair corrupted sessions in Claude Code",
+  "version": "1.0.0",
+  "author": "MussaCharles",
+  "homepage": "https://github.com/MussaCharles/claude-code-image-sanitizer",
+  "skills": []
+}
