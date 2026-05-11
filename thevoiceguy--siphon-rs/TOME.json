@@ -4,7 +4,7 @@
   "repo": "siphon-rs",
   "description": "A SIP stack written in Rust",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thevoiceguy/siphon-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T07:47:18Z"
+  "distributed_at": "2026-05-11T23:02:04Z"
 }
