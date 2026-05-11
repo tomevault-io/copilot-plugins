@@ -1,0 +1,9 @@
+{
+  "name": "voicetestdev--voicetest",
+  "displayName": "voicetest",
+  "description": "Test harness for voice agents. Import from Retell, VAPI, Bland, LiveKit. Run autonomous simulations. Evaluate with LLM judges.",
+  "version": "1.0.0",
+  "author": "voicetestdev",
+  "homepage": "https://github.com/voicetestdev/voicetest",
+  "skills": []
+}
