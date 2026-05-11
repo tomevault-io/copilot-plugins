@@ -1,0 +1,9 @@
+{
+  "name": "zhanghandong--claude-code-api-rs",
+  "displayName": "claude-code-api-rs",
+  "description": "A high-performance Rust implementation of an OpenAI-compatible API gateway for Claude Code CLI.",
+  "version": "1.0.0",
+  "author": "ZhangHanDong",
+  "homepage": "https://github.com/ZhangHanDong/claude-code-api-rs",
+  "skills": []
+}
