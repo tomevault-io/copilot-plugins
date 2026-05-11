@@ -1,176 +1,103 @@
-## typescript-patterns
+## ui-kits-guide
 
-> TypeScript patterns and type safety in Vue 3
+> UI kit integration guide for popular Vue 3 frameworks
 
-# TypeScript Patterns
+# UI Kits Guide
 
-**Role:** You are a Vue 3 expert specializing in TypeScript integration and type safety.
+**Role:** You are a Vue 3 expert specializing in UI framework integration and component adaptation.
 
 **Core Rules:**
-- Define interfaces for props, emits, and API responses
-- Check the shared `types/` directory before creating new definitions and prefer `import type` for shared models
-- Use generic types for reusable composables
-- Leverage type inference where possible
-- Create strict type definitions for stores
-- Use discriminated unions for complex state
+- Keep core Vue patterns UI-framework neutral
+- Adapt templates while preserving composable logic
+- Choose kits based on project needs and design system
+- Maintain TypeScript support across all integrations
+- Use native Vue reactivity regardless of UI kit
 
-**Chain-of-Thought:** Think step-by-step: 1. Identify data shapes 2. Define TypeScript interfaces 3. Apply generics for reusability 4. Ensure type safety
+**Chain-of-Thought:** Think step-by-step: 1. Choose appropriate UI kit 2. Apply core Vue rule 3. Adapt template syntax 4. Preserve reactivity patterns
 
-## Shared Type Imports
+## Popular UI Kit Compatibility
 
-1. Search the `types/` directory (root alias `types/*` and `@/types`) for existing definitions before declaring one inline.
-2. When a matching type exists, import it with `import type { MyType } from '@/types'` to avoid namespace or value imports.
-3. If a type is missing, add it to `types/index.ts` (or the appropriate shared file), export it, and reuse it across components, stores, and composables.
-4. Avoid `declare namespace` or global augmentations unless the project already uses them; prefer explicit modules.
+| Kit | Best For | Strengths | Integration Focus |
+|-----|----------|-----------|-------------------|
+| **Tailwind UI/Headless UI** | Custom designs | Full control, accessibility | Utility classes + composables |
+| **Vuetify** | Material Design | Complete ecosystem | Component replacement |
+| **Quasar** | Cross-platform | Mobile-first, PWA | Universal components |
+| **Element Plus** | Enterprise/Admin | Rich components | Form-heavy apps |
 
+## Integration Patterns
+
+### Generic Composable (Kit-Agnostic)
 ```typescript
-// Good: explicit shared type import
-import { ref } from 'vue'
-import type { User } from '@/types'
-
-const users = ref<User[]>([])
+// composables/useFormValidation.ts - Works with any UI kit
+export function useFormValidation<T>(initialValues: T) {
+  const values = ref(initialValues)
+  const errors = ref<Record<string, string>>({})
+  
+  // Core logic stays the same regardless of UI kit
+  const validate = () => {
+    // Validation logic here
+  }
+  
+  return { values, errors, validate }
+}
 ```
 
-```typescript
-// Avoid: implicitly referencing unresolved namespaces
-const users = ref<UserNamespace.User[]>([]) // Lints as namespace usage
-```
-
-## Component Props Typing
-
-Import shared types from the project's types directory for consistency:
-
-```typescript
-import { User } from '../../types'
-```
-
+### Tailwind UI Adaptation
 ```vue
 <script setup lang="ts">
-import { User } from '../../types'
+import { useFormValidation } from '@/composables/useFormValidation'
 
-
-interface Props {
-  user: User
-  showEmail?: boolean
-  size?: 'sm' | 'md' | 'lg'
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  showEmail: true,
-  size: 'md'
-})
-
-interface Emits {
-  click: [user: User]
-  delete: [userId: number]
-}
-
-const emit = defineEmits<Emits>()
+const { values, errors, validate } = useFormValidation({ email: '' })
 </script>
+
+<template>
+  <input 
+    v-model="values.email"
+    class="block w-full rounded-md border-gray-300 focus:border-blue-500"
+    :class="{ 'border-red-300': errors.email }"
+  />
+</template>
 ```
 
-## Reactive Refs with Types
+### Vuetify Adaptation
+```vue
+<script setup lang="ts">
+// Same composable logic
+const { values, errors, validate } = useFormValidation({ email: '' })
+</script>
 
-```typescript
-import { ref, computed, type Ref } from 'vue'
-import type { User, ApiResponse } from '../../types'
-
-// Primitive types
-const count = ref<number>(0)
-const message = ref<string>('')
-const isVisible = ref<boolean>(false)
-
-// Object types using shared interfaces
-const user = ref<User | null>(null)
-const users = ref<User[]>([])
-
-// Computed with explicit typing
-const userDisplayName = computed<string>(() => {
-  return user.value?.name ?? 'Anonymous'
-})
-
-// Generic composable typing with shared ApiResponse
-function useApi<T>(): {
-  data: Ref<T | null>
-  loading: Ref<boolean>
-  error: Ref<string | null>
-  fetch: () => Promise<ApiResponse<T>>
-} {
-  const data = ref<T | null>(null)
-  const loading = ref(false)
-  const error = ref<string | null>(null)
-
-  const fetch = async (): Promise<ApiResponse<T>> => {
-    // Implementation with type safety
-    return { data: null, message: '', success: false, timestamp: new Date().toISOString() }
-  }
-
-  return { data, loading, error, fetch }
-}
+<template>
+  <v-text-field
+    v-model="values.email"
+    label="Email"
+    :error-messages="errors.email"
+  />
+</template>
 ```
 
-## Store Typing
+## Kit Selection Guide
 
-```typescript
-// types/store.ts
-export interface UserState {
-  currentUser: User | null
-  users: User[]
-  loading: boolean
-}
+**For Custom Designs:** Tailwind UI + Headless UI
+- Full design control
+- Excellent accessibility
+- Works with any design system
 
-// stores/user.ts
-export const useUserStore = defineStore('user', () => {
-  const currentUser = ref<User | null>(null)
-  const users = ref<User[]>([])
-  const loading = ref<boolean>(false)
+**For Material Design:** Vuetify
+- Complete Material components
+- Strong TypeScript support
+- Large ecosystem
 
-  // Typed actions
-  const fetchUsers = async (): Promise<ApiResponse<User[]>> => {
-    loading.value = true
-    try {
-      // API call with typing
-      const response = await fetch('/api/users')
-      const result: ApiResponse<User[]> = await response.json()
-      users.value = result.data
-      return result
-    } catch (error) {
-      throw new Error('Failed to fetch users')
-    } finally {
-      loading.value = false
-    }
-  }
+**For Cross-Platform:** Quasar
+- Mobile, desktop, web
+- Built-in PWA support
+- Excellent performance
 
-  return {
-    currentUser,
-    users,
-    loading,
-    fetchUsers
-  }
-})
-```
+**For Enterprise/Admin:** Element Plus
+- Rich component library
+- Table/form-heavy apps
+- Good documentation
 
-## API Response Typing
-
-```typescript
-// types/api.ts
-**Use shared API types from `types/index.ts`:**
-
-```typescript
-import type { ApiResponse, PaginatedResponse, User } from '../../types'
-
-// Usage with shared types
-const fetchUsers = async (): Promise<ApiResponse<User[]>> => {
-  const response = await fetch('/api/users')
-  return response.json()
-}
-
-const fetchPaginatedUsers = async (page: number, limit: number): Promise<PaginatedResponse<User>> => {
-  const response = await fetch(`/api/users?page=${page}&limit=${limit}`)
-  return response.json()
-}
-```
-```
+*Remember: Core Vue patterns (composables, stores, routing) remain identical across all kits.*
 
 ---
 > Source: [aliarghyani/vue-cursor-rules](https://github.com/aliarghyani/vue-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
