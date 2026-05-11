@@ -1,0 +1,9 @@
+{
+  "name": "mirastacklabs-ai--mirador-core",
+  "displayName": "mirador-core",
+  "description": "The ultimate unified observability backend powering seamless, intelligent correlation and AI-driven insights across metrics, logs, and traces at unprecedented scale and speed.",
+  "version": "1.0.0",
+  "author": "mirastacklabs-ai",
+  "homepage": "https://github.com/mirastacklabs-ai/mirador-core",
+  "skills": []
+}
