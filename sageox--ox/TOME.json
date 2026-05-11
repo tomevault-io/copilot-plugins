@@ -4,7 +4,7 @@
   "repo": "ox",
   "description": "SageOx is the hivemind for agentic engineering",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sageox/ox",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T06:05:20Z"
+  "distributed_at": "2026-05-11T14:23:56Z"
 }
