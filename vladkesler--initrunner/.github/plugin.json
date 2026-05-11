@@ -1,0 +1,9 @@
+{
+  "name": "vladkesler--initrunner",
+  "displayName": "initrunner",
+  "description": "Define AI agent roles in YAML and run them anywhere: CLI, API server, or autonomous daemon",
+  "version": "1.0.0",
+  "author": "vladkesler",
+  "homepage": "https://github.com/vladkesler/initrunner",
+  "skills": []
+}
