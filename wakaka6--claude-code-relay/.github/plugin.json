@@ -1,0 +1,9 @@
+{
+  "name": "wakaka6--claude-code-relay",
+  "displayName": "claude-code-relay",
+  "description": "\u9ad8\u6027\u80fd Claude Code \u4e2d\u8f6c\u670d\u52a1\uff0c\u4f7f\u7528 Rust \u5b9e\u73b0\u3002\u652f\u6301 Claude\u3001Gemini \u591a\u5e73\u53f0\u8d26\u6237\u7ba1\u7406\u4e0e\u667a\u80fd\u8c03\u5ea6\u3002",
+  "version": "1.0.0",
+  "author": "wakaka6",
+  "homepage": "https://github.com/wakaka6/claude-code-relay",
+  "skills": []
+}
