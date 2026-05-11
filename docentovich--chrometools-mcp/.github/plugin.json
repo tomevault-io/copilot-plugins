@@ -1,0 +1,9 @@
+{
+  "name": "docentovich--chrometools-mcp",
+  "displayName": "chrometools-mcp",
+  "description": "MCP (Model Context Protocol) server for Chrome automation using Puppeteer. Persistent browser sessions, visual testing, Figma comparison, and design validation. Works seamlessly in WSL, Linux, and mac",
+  "version": "1.0.0",
+  "author": "docentovich",
+  "homepage": "https://github.com/docentovich/chrometools-mcp",
+  "skills": []
+}
