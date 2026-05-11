@@ -1,0 +1,9 @@
+{
+  "name": "langchain-ai--open-swe",
+  "displayName": "open-swe",
+  "description": "An Open-Source Asynchronous Coding Agent",
+  "version": "1.0.0",
+  "author": "langchain-ai",
+  "homepage": "https://github.com/langchain-ai/open-swe",
+  "skills": []
+}
