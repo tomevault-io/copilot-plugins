@@ -1,0 +1,9 @@
+{
+  "name": "tinqerjs--tinqer",
+  "displayName": "tinqer",
+  "description": "An unfaithful port of Linq to Sql to Typescript",
+  "version": "1.0.0",
+  "author": "tinqerjs",
+  "homepage": "https://github.com/tinqerjs/tinqer",
+  "skills": []
+}
