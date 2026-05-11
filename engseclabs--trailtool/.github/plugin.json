@@ -1,0 +1,9 @@
+{
+  "name": "engseclabs--trailtool",
+  "displayName": "trailtool",
+  "description": "Simplified CloudTrail analysis for AI agents",
+  "version": "1.0.0",
+  "author": "engseclabs",
+  "homepage": "https://github.com/engseclabs/trailtool",
+  "skills": []
+}
