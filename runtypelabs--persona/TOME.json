@@ -4,7 +4,7 @@
   "repo": "persona",
   "description": "Open-source embeddable AI chat UI with streaming, voice, and theming",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/runtypelabs/persona",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T23:38:25Z"
+  "distributed_at": "2026-05-11T18:40:12Z"
 }
