@@ -1,0 +1,9 @@
+{
+  "name": "harperfast--harper",
+  "displayName": "harper",
+  "description": "Harper is an open-source Node.js performance platform that unifies database, cache, application, and messaging layers into one in-memory process.",
+  "version": "1.0.0",
+  "author": "HarperFast",
+  "homepage": "https://github.com/HarperFast/harper",
+  "skills": []
+}
