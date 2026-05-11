@@ -1,0 +1,9 @@
+{
+  "name": "zirkelc--ai-stream-utils",
+  "displayName": "ai-stream-utils",
+  "description": "Filter and transform UI messages while streaming to the client",
+  "version": "1.0.0",
+  "author": "zirkelc",
+  "homepage": "https://github.com/zirkelc/ai-stream-utils",
+  "skills": []
+}
