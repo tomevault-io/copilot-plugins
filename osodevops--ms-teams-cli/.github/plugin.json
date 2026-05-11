@@ -1,0 +1,9 @@
+{
+  "name": "osodevops--ms-teams-cli",
+  "displayName": "ms-teams-cli",
+  "description": "A fast, single-binary Microsoft Teams CLI built in Rust \u2014 agent-first design, structured JSON output, real-time webhooks, and full Graph API coverage",
+  "version": "1.0.0",
+  "author": "osodevops",
+  "homepage": "https://github.com/osodevops/ms-teams-cli",
+  "skills": []
+}
