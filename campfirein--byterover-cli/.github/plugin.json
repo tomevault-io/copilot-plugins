@@ -1,0 +1,9 @@
+{
+  "name": "campfirein--byterover-cli",
+  "displayName": "byterover-cli",
+  "description": "ByteRover CLI (brv) - The portable memory layer for  autonomous coding agents (formerly Cipher)",
+  "version": "1.0.0",
+  "author": "campfirein",
+  "homepage": "https://github.com/campfirein/byterover-cli",
+  "skills": []
+}
