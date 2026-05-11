@@ -1,0 +1,9 @@
+{
+  "name": "belkins--cost-guardian",
+  "displayName": "cost-guardian",
+  "description": "Real-time budget enforcement, cost tracking, and optimization for Claude Code",
+  "version": "1.0.0",
+  "author": "Belkins",
+  "homepage": "https://github.com/Belkins/cost-guardian",
+  "skills": []
+}
