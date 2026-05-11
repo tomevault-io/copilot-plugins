@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--ace-claude-code",
+  "displayName": "ace-claude-code",
+  "description": "Unified multi-agent orchestration layer for Claude Code with parallel execution, session persistence, and natural language routing.",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/ace-claude-code",
+  "skills": []
+}
