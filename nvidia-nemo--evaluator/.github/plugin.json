@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-nemo--evaluator",
+  "displayName": "Evaluator",
+  "description": "Open-source library for scalable, reproducible evaluation of AI models and benchmarks.",
+  "version": "1.0.0",
+  "author": "NVIDIA-NeMo",
+  "homepage": "https://github.com/NVIDIA-NeMo/Evaluator",
+  "skills": []
+}
