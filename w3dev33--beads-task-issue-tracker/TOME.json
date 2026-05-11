@@ -4,7 +4,7 @@
   "repo": "beads-task-issue-tracker",
   "description": "This project's successor is PaiR (v0.25.0) \u2014 download at https://pair.w3dev.fr",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/w3dev33/beads-task-issue-tracker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T08:54:22Z"
+  "distributed_at": "2026-05-11T14:55:36Z"
 }
