@@ -1,0 +1,9 @@
+{
+  "name": "argile-ai--claude-ralph-mode",
+  "displayName": "claude-ralph-mode",
+  "description": "A implementation of the Ralph Wiggum pattern by Geoffrey Huntley",
+  "version": "1.0.0",
+  "author": "argile-ai",
+  "homepage": "https://github.com/argile-ai/claude-ralph-mode",
+  "skills": []
+}
