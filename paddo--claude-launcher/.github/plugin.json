@@ -1,0 +1,9 @@
+{
+  "name": "paddo--claude-launcher",
+  "displayName": "claude-launcher",
+  "description": "Launch Claude Code with multiple backends (Anthropic, OpenRouter)",
+  "version": "1.0.0",
+  "author": "paddo",
+  "homepage": "https://github.com/paddo/claude-launcher",
+  "skills": []
+}
