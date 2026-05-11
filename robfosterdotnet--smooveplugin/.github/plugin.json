@@ -1,0 +1,9 @@
+{
+  "name": "robfosterdotnet--smooveplugin",
+  "displayName": "SmoovePlugin",
+  "description": "Audio plugin that automatically identifies and tames problematic resonances in real-time. Adaptive spectral processing applies transparent reduction only where needed\u2014ideal for vocals, instruments, an",
+  "version": "1.0.0",
+  "author": "robfosterdotnet",
+  "homepage": "https://github.com/robfosterdotnet/SmoovePlugin",
+  "skills": []
+}
