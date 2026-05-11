@@ -2,20 +2,22 @@
 
 > Source: [evantahler/mcpx](https://github.com/evantahler/mcpx) — distributed by [TomeVault](https://tomevault.io)
 
+A command-line interface for MCP servers. curl for MCP.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [evantahler/mcpx](https://github.com/evantahler/mcpx).
+Original source: `.cursor/rules/*.mdc` in [evantahler/mcpx](https://github.com/evantahler/mcpx).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [evantahler/mcpx](https://github.com/evantahler/mcpx) — a repo with 0+ stars on GitHub.
+From [evantahler/mcpx](https://github.com/evantahler/mcpx) — a repo with 32+ stars on GitHub.
 
 ---
 
