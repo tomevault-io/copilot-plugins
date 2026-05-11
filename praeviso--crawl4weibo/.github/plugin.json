@@ -1,0 +1,9 @@
+{
+  "name": "praeviso--crawl4weibo",
+  "displayName": "crawl4weibo",
+  "description": "An out-of-the-box Weibo scraper Python library, based on a successfully tested solution, usable without cookies.",
+  "version": "1.0.0",
+  "author": "Praeviso",
+  "homepage": "https://github.com/Praeviso/crawl4weibo",
+  "skills": []
+}
