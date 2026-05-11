@@ -1,0 +1,9 @@
+{
+  "name": "1firecracker--agent-for-exam",
+  "displayName": "Agent-For-Exam",
+  "description": "Agent for exam is an AI exam preparation assistant, based on mulit agent system",
+  "version": "1.0.0",
+  "author": "1firecracker",
+  "homepage": "https://github.com/1firecracker/Agent-For-Exam",
+  "skills": []
+}
