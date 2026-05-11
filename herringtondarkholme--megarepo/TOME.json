@@ -4,7 +4,7 @@
   "repo": "megarepo",
   "description": "a repo with all ai setup",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HerringtonDarkholme/megarepo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T07:02:07Z"
+  "distributed_at": "2026-05-11T20:14:12Z"
 }
