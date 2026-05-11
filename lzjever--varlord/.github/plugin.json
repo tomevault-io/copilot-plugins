@@ -1,0 +1,9 @@
+{
+  "name": "lzjever--varlord",
+  "displayName": "varlord",
+  "description": "Unified yet dead simple Python config management: defaults, CLI, env vars, .env, etcd. Type-safe, validated, with dynamic updates.",
+  "version": "1.0.0",
+  "author": "lzjever",
+  "homepage": "https://github.com/lzjever/varlord",
+  "skills": []
+}
