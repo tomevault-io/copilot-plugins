@@ -1,0 +1,9 @@
+{
+  "name": "nebulab--active-shopify-graphql",
+  "displayName": "active_shopify_graphql",
+  "description": "Bringing domain object peace of mind to the world of Shopify GraphQL APIs",
+  "version": "1.0.0",
+  "author": "nebulab",
+  "homepage": "https://github.com/nebulab/active_shopify_graphql",
+  "skills": []
+}
