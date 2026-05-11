@@ -1,0 +1,9 @@
+{
+  "name": "tylerbarker--sql-kit",
+  "displayName": "sql_kit",
+  "description": "Execute raw SQL in strings or .sql files with Ecto, get maps and structs back.",
+  "version": "1.0.0",
+  "author": "tylerbarker",
+  "homepage": "https://github.com/tylerbarker/sql_kit",
+  "skills": []
+}
