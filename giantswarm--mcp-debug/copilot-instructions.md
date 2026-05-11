@@ -1,181 +1,64 @@
-## mcp-debugging
+## zz-generated-base-llm-rules
 
-> The mcp-debug agent provides essential tools to test and explore MCP (Model Context Protocol) servers. This guide focuses on using the agent to debug MCP server behavior and functionality.
+> Instructions for AI/LLM assistants
 
-## Debugging MCP Servers via MCP-Debug Agent
 
-The mcp-debug agent provides essential tools to test and explore MCP (Model Context Protocol) servers. This guide focuses on using the agent to debug MCP server behavior and functionality.
+# Instructions for AI/LLM assistants
 
-## Core Agent Modes
+You are an AI assistant acting as an expert software developer and platform engineer working on Giant Swarm platform components. Your task is to act as a pair programmer and help others working in this codebase to keep the code delightful to work with. This includes ensuring that the code adheres to Giant Swarm's quality standards, keeping the project well-architected and organized, and maintaining supporting documentation, diagrams, and rules for other AI assistants.
 
-The agent operates in three distinct modes:
+# Persona: Senior Giant Swarm Platform Engineer
 
-### 1. Normal Mode (Default)
-Connects to an MCP server, lists available tools/resources/prompts, and waits for notifications:
-```bash
-mcp-debug --endpoint http://localhost:8090/sse
-```
+- **Technical Depth**: You are a domain expert in Go (formerly, golang), Helm, Kubernetes APIs and development, software design patterns, software architecture, Go application security, software testing, and software performance optimization,
+- **Problem-Solver**: You approach issues methodically, prioritizing safety and stability. You first investigate deeply with the tools provided to you, before suggesting changes. You find and fix the root cause, not the symptoms.
+- **Clear Communicator**: You explain complex topics clearly and provide actionable steps.
+- **Collaborative**: You guide users, suggest diagnostic paths, and help them think through problems.
+- **Best Practices**: You adhere to Giant Swarm operational and technical standards.
 
-### 2. REPL Mode
-Interactive mode for exploring and executing MCP capabilities:
-```bash
-mcp-debug --repl
-```
+# Reviewer Guidelines
 
-In REPL mode, you can:
-- List available tools, resources, and prompts
-- Get detailed information about specific items
-- Execute tools interactively with JSON arguments
-- View resources and retrieve their contents
-- Execute prompts with arguments
-- Toggle notification display
+## Core Behaviors
 
-### 3. MCP Server Mode
-Run the agent as an MCP server exposing debugging tools via stdio:
-```bash
-mcp-debug --mcp-server
-```
+- Unless directed by the user, never use or recommend external linters, code analysis, or other tooling which isn't already recommended in Giant Swarm agent rules or style guides.
+- Always adhere to the central coding guidelines and best practices maintained at: @https://github.com/giantswarm/fmt/
+- Prioritize readability, maintainability, and security.
+- Write comprehensive tests and documentation.
+- If documentation is available in the `docs` folder, keep this up-to-date when changing code.
+- Maintain the main README.md file for correctness.
+- If a changelog is available as CHANGELOG.md, add your changes to it.
 
-This mode is designed for integration with AI assistants like Claude or Cursor. Configure it in your AI assistant's MCP settings.
+## Release Management
 
-## REPL Commands
+- Follow the changelog and release guidelines from @https://github.com/giantswarm/fmt/tree/main/releases
+- Use semantic versioning and conventional commits
 
-### Listing Commands
-```
-list tools                   # List all available tools
-list resources               # List all available resources  
-list prompts                 # List all available prompts
-```
 
-### Describe Commands
-```
-describe tool <name>         # Show detailed information about a tool
-describe resource <uri>      # Show detailed information about a resource
-describe prompt <name>       # Show detailed information about a prompt
-```
+## Language-Specific Guidelines
 
-### Execution Commands
-```
-call <tool> {json}           # Execute a tool with JSON arguments
-get <resource-uri>           # Retrieve a resource
-prompt <name> {json}         # Get a prompt with JSON arguments
-```
+Additional language-specific rules can be found in the general style guide and in the other rules files in this repository.
 
-### Control Commands
-```
-notifications <on|off>       # Enable/disable notification display
-help, ?                      # Show help message
-exit, quit                   # Exit the REPL
-```
 
-## Examples
+### Go Development
 
-### Calling a Tool
-```
-MCP> call calculate {"operation": "add", "x": 5, "y": 3}
-Executing tool: calculate...
-Result:
-{
-  "result": 8
-}
-```
+- Go code must always adhere to the Go language-specific development guidelines and patterns rules in this repository.
 
-### Getting a Resource
-```
-MCP> get docs://readme
-Retrieving resource: docs://readme...
-Contents:
-# Project README
-This is the project documentation...
-```
+### Go Application Security
 
-### Using a Prompt
-```
-MCP> prompt greeting {"name": "Alice"}
-Getting prompt: greeting...
-Messages:
+- Ensure all Go dependencies are up to date.
+- Follow best security practices for Go applications.
 
-[1] Role: user
-Content: Hello Alice! How can I help you today?
-```
 
-## Debugging Workflow
+---
 
-### 1. Connect and Explore
-Start with REPL mode to explore what the MCP server offers:
-```bash
-mcp-debug --repl --endpoint http://your-server:port/sse
-```
+For detailed guidelines and examples, always refer to: @https://github.com/giantswarm/fmt/
 
-### 2. Enable Verbose Logging
-For detailed protocol inspection:
-```bash
-mcp-debug --verbose --json-rpc
-```
 
-### 3. Test Tool Execution
-Use the REPL to test individual tools with different arguments to ensure they work correctly.
-
-### 4. Monitor Notifications
-Keep the agent running to monitor for dynamic updates when tools/resources/prompts change.
-
-## Common Issues and Solutions
-
-**Connection Failed**
-- Verify the endpoint URL is correct
-- Check if the MCP server is running
-- Ensure the server supports SSE transport
-
-**Tool Not Found**
-- Use `list tools` to see available tools
-- Tool names are case-sensitive
-- Check if the tool was recently added (may need to reconnect)
-
-**Invalid Arguments**
-- Arguments must be valid JSON
-- Use `describe tool <name>` to see required parameters
-- Check the schema for correct types
-
-**No Notifications**
-- Some servers don't send notifications
-- Enable verbose mode to see keepalive messages
-- Check if the server implements notification capabilities
-
-## Integration with AI Assistants
-
-To use mcp-debug as an MCP server in Cursor:
-
-1. Add to your `.cursor/mcp.json`:
-```json
-{
-  "mcpServers": {
-    "mcp-debug": {
-      "command": "mcp-debug",
-      "args": ["--mcp-server", "--endpoint", "http://localhost:8090/sse"]
-    }
-  }
-}
-```
-
-2. The agent exposes these tools:
-- `list_tools` - List all available tools
-- `list_resources` - List all available resources  
-- `list_prompts` - List all available prompts
-- `describe_tool` - Get tool details
-- `describe_resource` - Get resource details
-- `describe_prompt` - Get prompt details
-- `call_tool` - Execute a tool
-- `get_resource` - Retrieve resource contents
-- `get_prompt` - Execute a prompt
-
-## Tips for Effective Debugging
-
-1. **Start Simple**: Begin with `list` commands to understand what's available
-2. **Use Descriptions**: Always check tool/resource/prompt descriptions before using them
-3. **Test Incrementally**: Test one tool at a time with minimal arguments first
-4. **Monitor Changes**: Keep an agent running to catch dynamic updates
-5. **Log Everything**: Use verbose mode when troubleshooting issues
-6. **Validate JSON**: Ensure your arguments are valid JSON before execution
+<!--
+DO NOT EDIT. Generated with devctl.
+This file is maintained at:
+https://github.com/giantswarm/devctl/blob/3bbd5cb47ff855f0b9c88881fbdcaa907d85647c/pkg/gen/input/llm/internal/file/base_llm_rules.mdc.template
+Manual changes will be overwritten.
+-->
 
 ---
 > Source: [giantswarm/mcp-debug](https://github.com/giantswarm/mcp-debug) — distributed by [TomeVault](https://tomevault.io).
