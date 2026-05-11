@@ -1,0 +1,9 @@
+{
+  "name": "jtalk22--slack-mcp-server",
+  "displayName": "slack-mcp-server",
+  "description": "Session-based Slack MCP for Claude and MCP clients: local-first workflows, secure-default HTTP.",
+  "version": "1.0.0",
+  "author": "jtalk22",
+  "homepage": "https://github.com/jtalk22/slack-mcp-server",
+  "skills": []
+}
