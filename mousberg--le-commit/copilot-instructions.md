@@ -1,12 +1,6 @@
-## event-driven-architecture
+## package-management
 
-> description: This application uses an event-driven architecture with database triggers and webhooks for asynchronous processing.
-
----
-description: This application uses an event-driven architecture with database triggers and webhooks for asynchronous processing.
-globs:
-alwaysApply: false
----
+> Always use `pnpm` commands instead of `npm`. Everything except documentation lives in the `frontend` folder.
 
 ---
 > Source: [mousberg/le-commit](https://github.com/mousberg/le-commit) — distributed by [TomeVault](https://tomevault.io).
