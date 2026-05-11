@@ -1,0 +1,9 @@
+{
+  "name": "markusleben--ha-nova",
+  "displayName": "ha-nova",
+  "description": "AI-powered Home Assistant control. Lean relay + LLM skills for Claude Code, Codex, and OpenCode.",
+  "version": "1.0.0",
+  "author": "markusleben",
+  "homepage": "https://github.com/markusleben/ha-nova",
+  "skills": []
+}
