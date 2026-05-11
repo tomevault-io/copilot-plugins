@@ -4,7 +4,7 @@
   "repo": "dryui",
   "description": "160+ components and theme controls, plus a CLI, MCP, and feedback engine to keep AI on track.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rob-balfre/dryui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T16:04:13Z"
+  "distributed_at": "2026-05-11T04:56:47Z"
 }
