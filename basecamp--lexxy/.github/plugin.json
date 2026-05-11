@@ -1,0 +1,9 @@
+{
+  "name": "basecamp--lexxy",
+  "displayName": "lexxy",
+  "description": "A modern rich text editor for Rails.",
+  "version": "1.0.0",
+  "author": "basecamp",
+  "homepage": "https://github.com/basecamp/lexxy",
+  "skills": []
+}
