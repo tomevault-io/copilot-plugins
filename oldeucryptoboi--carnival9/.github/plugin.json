@@ -1,0 +1,9 @@
+{
+  "name": "oldeucryptoboi--carnival9",
+  "displayName": "Carnival9",
+  "description": "Deterministic agent runtime with explicit plans, typed tools, permissions, and replay. Implements Google DeepMind's Intelligent AI Delegation framework. Named after ELP's Karn Evil 9.",
+  "version": "1.0.0",
+  "author": "oldeucryptoboi",
+  "homepage": "https://github.com/oldeucryptoboi/Carnival9",
+  "skills": []
+}
