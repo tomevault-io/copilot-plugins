@@ -1,582 +1,134 @@
-## coding-standards
+## final-review-gate
 
-> // ✅ 组件文件: PascalCase
+> This is an advanced, experimental rule. It instructs the AI Agent to check for, potentially create, and then execute a Python script (`final_review_gate.py`) in your project's root directory to facilitate an interactive review loop. By using this rule, you acknowledge that the AI will attempt file system operations (read, write, execute) as directed. Ensure the AI's execution environment has appropriate permissions if you expect script auto-creation to work, and be aware of the security implications.
 
-# 代码质量标准和开发规范
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# AI Agent Protocol: Self-Contained Mandatory Interactive Final Review Loop with Auto-Script Creation (Version 3)
 
-## 代码风格规范
+## 0. User Advisory & Safety:
+This is an advanced, experimental rule. It instructs the AI Agent to check for, potentially create, and then execute a Python script (`final_review_gate.py`) in your project's root directory to facilitate an interactive review loop. By using this rule, you acknowledge that the AI will attempt file system operations (read, write, execute) as directed. Ensure the AI's execution environment has appropriate permissions if you expect script auto-creation to work, and be aware of the security implications.
 
-### 命名规范
-```typescript
-// 文件命名
-// ✅ 组件文件: PascalCase
-ComponentName.vue
-PropertyEditor.vue
+## 1. Core Principle & Context:
+Your primary task processing includes a **mandatory final interactive review stage** driven by user input through a specific Python script (`final_review_gate.py`). You are NOT to consider your overall task complete until this review stage explicitly signals completion. This protocol leverages your known capability to run commands in a sub-terminal (displayed within the chat interface) and read their output.
 
-// ✅ 工具函数: camelCase  
-utilityFunction.ts
-apiService.ts
+## Phase 0: Ensure `final_review_gate.py` Script Exists
+(This phase is executed ONCE per user request that triggers this overall protocol, or if the script is missing or its content is incorrect.)
 
-// ✅ 配置文件: kebab-case
-api-config.ts
-build-config.ts
+1.  **Define Script Details:**
+    * **Script Name:** `final_review_gate.py`
+    * **Target Location:** Directly in the root of the current project/workspace.
+    * **Python Script Content (ensure this exact content is used):**
+        ```python
+        # final_review_gate.py
+import sys
+import os
 
-// ✅ 常量: SCREAMING_SNAKE_CASE
-const API_BASE_URL = 'https://api.example.com'
-const MAX_RETRY_COUNT = 3
+if __name__ == "__main__":
+    # Try to make stdout unbuffered for more responsive interaction.
+    # This might not work on all platforms or if stdout is not a TTY,
+    # but it's a good practice for this kind of interactive script.
+    try:
+        sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', buffering=1)
+    except Exception:
+        pass # Ignore if unbuffering fails, e.g., in certain environments
 
-// ✅ 变量和函数: camelCase
-const userName = 'admin'
-const isLoading = false
-function handleClick() {}
+    try:
+        sys.stderr = os.fdopen(sys.stderr.fileno(), 'w', buffering=1)
+    except Exception:
+        pass # Ignore
 
-// ✅ 类型和接口: PascalCase
-interface UserInfo {}
-type ComponentProps = {}
-```
-
-### 导入导出规范
-```typescript
-// ✅ 推荐的导入顺序
-// 1. Node.js 内置模块
-import path from 'path'
-
-// 2. 第三方库
-import { ref, computed, watch } from 'vue'
-import { defineStore } from 'pinia'
-import { ElMessage } from 'element-plus'
-
-// 3. 内部模块 - 按路径深度排序
-import type { ApiResponse } from '@/types'
-import { apiClient } from '@/services/base'
-import { useAppStore } from '@/stores/app'
-import ComponentEditor from '@/components/editors/ComponentEditor.vue'
-
-// ✅ 导出规范
-// 优先使用命名导出
-export const utilFunction = () => {}
-export { ApiService } from './api'
-
-// 默认导出仅用于Vue组件和主要模块
-export default defineComponent({
-  name: 'ComponentName'
-})
-```
-
-## 代码注释规范
-
-### JSDoc 注释标准
-```typescript
-/**
- * 用户信息接口
- * @interface UserInfo
- */
-interface UserInfo {
-  /** 用户ID */
-  id: string
-  /** 用户名 */
-  username: string
-  /** 用户邮箱 */
-  email: string
-}
-
-/**
- * 获取用户信息
- * @param {string} userId - 用户ID
- * @param {Object} options - 可选参数
- * @param {boolean} options.includeProfile - 是否包含详细信息
- * @returns {Promise<ApiResponse<UserInfo>>} 返回用户信息
- * @throws {Error} 当用户不存在时抛出错误
- * @example
- * ```typescript
- * const user = await getUserInfo('123', { includeProfile: true })
- * console.log(user.data.username)
- * ```
- */
-async function getUserInfo(
-  userId: string, 
-  options: { includeProfile?: boolean } = {}
-): Promise<ApiResponse<UserInfo>> {
-  // 实现逻辑
-}
-```
-
-### Vue组件注释
-```vue
-<template>
-  <!-- 主容器 - 负责布局和样式控制 -->
-  <div class="component-container">
-    <!-- 标题区域 -->
-    <header class="header">
-      <h1>{{ title }}</h1>
-    </header>
+    print("--- 最终审核关卡已激活 ---", flush=True)
+    print("AI已完成主要操作。等待您的审核或进一步子提示。", flush=True)
+    print("输入您的子提示，或输入以下任一指令：'TASK_COMPLETE'、'Done'、'Quit'、'q' 以确认完成。", flush=True)
     
-    <!-- 内容区域 - 支持插槽自定义 -->
-    <main class="content">
-      <slot name="content">
-        <!-- 默认内容 -->
-      </slot>
-    </main>
-  </div>
-</template>
+    active_session = True
+    while active_session:
+        try:
+            # Signal that the script is ready for input.
+            # The AI doesn't need to parse this, but it's good for user visibility.
+            print("审核关卡等待输入：", end="", flush=True) 
+            
+            line = sys.stdin.readline()
+            
+            if not line:  # EOF
+                print("--- 审核关卡：标准输入关闭（EOF），正在退出脚本 ---", flush=True)
+                active_session = False
+                break
+            
+            user_input = line.strip()
 
-<script setup lang="ts">
-/**
- * 通用容器组件
- * 提供标准的页面布局结构，支持标题和内容自定义
- * 
- * @component Container
- * @example
- * <Container title="页面标题">
- *   <template #content>
- *     自定义内容
- *   </template>
- * </Container>
- */
+            # Check for exit conditions
+            if user_input.upper() in ['TASK_COMPLETE', 'DONE', 'QUIT', 'Q']: # MODIFIED: Empty string no longer exits
+                print(f"--- 审核关卡：用户通过 '{user_input.upper()}' 确认完成 ---", flush=True)
+                active_session = False
+                break
+            elif user_input: # If there's any other non-empty input (and not a completion command)
+                # This is the critical line the AI will "listen" for.
+                print(f"用户审核子提示：{user_input}", flush=True)
+            # If user_input was empty (and not a completion command),
+            # the loop simply continues, and "REVIEW_GATE_AWAITING_INPUT:" will be printed again.
+            
+        except KeyboardInterrupt:
+            print("--- 审核关卡：用户中断会话（KeyboardInterrupt） ---", flush=True)
+            active_session = False
+            break
+        except Exception as e:
+            print(f"--- 审核关卡脚本错误：{e} ---", flush=True)
+            active_session = False
+            break
+            
+	print("--- 最终审核关卡脚本已退出 ---", flush=True)
+        ```
 
-interface Props {
-  /** 页面标题 */
-  title: string
-  /** 是否显示边框 */
-  bordered?: boolean
-}
+2.  **Ensure Script Existence and Correctness:**
+    a.  Use your file system tools to check if the file `final_review_gate.py` exists in the project root.
+    b.  **If the file `final_review_gate.py` does NOT exist OR if its content does not EXACTLY match the Python script provided in section "Phase 0.1.Python Script Content" (you may need to read the existing file and compare):**
+        i.  You MUST create or overwrite the `final_review_gate.py` file in the project root.
+        ii. The content of this file MUST be *exactly* the Python script content provided above. Ensure all indentation, comments, and lines are preserved perfectly. Use your "create file" or "edit file" tool.
+        iii. After creating/overwriting it, announce: "The `final_review_gate.py` script has been created/updated in the project root with the latest interaction enhancements."
+    c.  **If the file `final_review_gate.py` already exists and its content is correct:** You may skip announcing its creation.
+    d.  If you encounter any errors checking for, reading, or creating/writing the file (e.g., permission issues), you MUST report this to the user. State clearly: "Error managing `final_review_gate.py`: [specific error]. Cannot proceed with interactive review." and then conclude the interaction for the main task as best as you can without this interactive step.
 
-const props = withDefaults(defineProps<Props>(), {
-  bordered: true
-})
+## Phase 1: Primary Task Execution
+1.  Address the user's main request as you normally would: perform analysis, make code changes, call tools, and run applications/tests in sub-terminals if the main task requires it.
+    * **Application Execution Confirmation:** Before attempting to run an entire application (e.g., a web server, a full front-end build, a long-running background process), you MUST ask the user for explicit confirmation. For example: "I am about to run the [application name/command]. Is it okay to proceed, or is it possibly already running?"
+    * This confirmation is NOT required for running individual test scripts, linters, build tools for specific components, or other non-application-level commands necessary for task completion.
+    * If the user indicates an application is already running or denies permission, adapt your strategy accordingly (e.g., focus on tests or specific file executions).
+2.  Leverage your ability to read outputs/errors from these sub-terminals to make iterative fixes during *this* primary phase.
 
-// 组件逻辑...
-</script>
-```
+## Phase 2: Mandatory Final Interactive Review Script Execution
+1.  **Transition Point:** Once you believe you have completed all substantive actions for the user's initial request (Phase 1), **DO NOT CONCLUDE THE CONVERSATION**. You MUST now transition to this Final Interactive Review phase.
+2.  **Action:** Execute the `final_review_gate.py` script (which you ensured exists and is correct in Phase 0) from the project root.
+    * Determine the correct Python interpreter command (e.g., `python`, `python3`) available in the execution environment. A robust command attempt would be `python3 ./final_review_gate.py` and if that fails, try `python ./final_review_gate.py`.
+    * **Crucially, the terminal for this script MUST run directly within the chat window, and its output MUST be continuously visible to the user as it is generated.** It must NOT pop open as a separate window or run hidden in the background. You MUST wait for the script (and its terminal interaction) to fully complete and exit before you proceed with any further actions or attempt to conclude the overall task. Your processing will be blocked by this script's execution.
+3.  **Announcement:** Clearly inform the user: "I have completed the primary actions. Now initiating the mandatory Final Interactive Review by running `./final_review_gate.py`. The review terminal is now active **in this chat window, and its output will be displayed live**. Please provide any sub-prompts directly into that script's input area, or type 'TASK_COMPLETE', 'Done', 'Quit', or 'q' when satisfied." (MODIFIED: Removed "or simply press Enter")
 
-## 错误处理规范
+## Phase 3: Interactive Review Loop (Monitoring Script Output)
+1.  **Active Monitoring & Display:** Continuously monitor the standard output (stdout) of the launched `final_review_gate.py` script **as it appears live in the chat window**. Ensure the user sees all script output, including the `REVIEW_GATE_AWAITING_INPUT:` prompt. You will "read" its output using the same capability that allows you to read terminal logs or error messages. The script will loop and re-prompt if an empty input is given.
+2.  **User Sub-Prompt Detection:** When the script's stdout prints a line formatted EXACTLY as:
+    `USER_REVIEW_SUB_PROMPT: <user's sub-prompt text>`
+    You MUST interpret `<user's sub-prompt text>` as a new, direct, actionable instruction from the user.
+3.  **Processing Sub-Prompts:**
+    a.  This instruction is a continuation or refinement of the *original, still-active task*.
+    b.  Analyze the sub-prompt. Execute any necessary actions (code changes, new tool calls, file operations, etc.). **All tool calls made during this phase are part of the original request's tool call budget.** If the sub-prompt requests running an entire application, the confirmation principle from "Phase 1, Step 1 (Application Execution Confirmation)" applies.
+    c.  Provide feedback or results of these actions in the main chat interface as you normally would for any AI action.
+    d.  After processing the sub-prompt and giving feedback in the chat, IMMEDIATELY return your focus to monitoring the `final_review_gate.py` script's terminal output (which remains live and visible in the chat) for the next user instruction or completion signal. This loop is critical.
+4.  **Completion Signal Detection:** The interactive review loop continues until the script's stdout (visible in the chat window) prints a line containing:
+    * `--- REVIEW GATE: USER SIGNALED COMPLETION WITH 'TASK_COMPLETE' ---` (or 'DONE', 'QUIT', 'Q' as per script logic)
+    * OR `--- FINAL REVIEW GATE SCRIPT EXITED ---` (or any other script exit/error message like `REVIEW GATE: STDIN CLOSED` or `REVIEW GATE SCRIPT ERROR:`)
+    (MODIFIED: Removed specific "EMPTY INPUT RECEIVED" as a completion signal, as the script no longer behaves this way for completion.)
 
-### 统一错误处理
-```typescript
-// ✅ 错误类型定义
-enum ErrorCode {
-  NETWORK_ERROR = 'NETWORK_ERROR',
-  VALIDATION_ERROR = 'VALIDATION_ERROR',
-  PERMISSION_DENIED = 'PERMISSION_DENIED',
-  RESOURCE_NOT_FOUND = 'RESOURCE_NOT_FOUND'
-}
+## Phase 4: True Task Conclusion
+1.  Only after the `final_review_gate.py` script has terminated (as observed by its terminal session in the chat window closing and its final exit messages being printed and visible) are you permitted to consider the user's original request fully satisfied.
+2.  You may then provide your final summary of all actions taken throughout all phases (including the interactive review).
 
-interface AppError {
-  code: ErrorCode
-  message: string
-  details?: any
-  timestamp: number
-}
+## Overriding Default Behavior:
 
-// ✅ 错误处理工具
-class ErrorHandler {
-  /**
-   * 创建标准化错误对象
-   */
-  static createError(code: ErrorCode, message: string, details?: any): AppError {
-    return {
-      code,
-      message,
-      details,
-      timestamp: Date.now()
-    }
-  }
-
-  /**
-   * 处理API错误
-   */
-  static handleApiError(error: any): AppError {
-    if (error.response) {
-      const { status, data } = error.response
-      switch (status) {
-        case 404:
-          return this.createError(
-            ErrorCode.RESOURCE_NOT_FOUND,
-            '请求的资源不存在',
-            { originalError: error }
-          )
-        case 403:
-          return this.createError(
-            ErrorCode.PERMISSION_DENIED,
-            '没有权限访问该资源',
-            { originalError: error }
-          )
-        default:
-          return this.createError(
-            ErrorCode.NETWORK_ERROR,
-            data?.message || '网络请求失败',
-            { originalError: error }
-          )
-      }
-    }
-    
-    return this.createError(
-      ErrorCode.NETWORK_ERROR,
-      '网络连接失败',
-      { originalError: error }
-    )
-  }
-
-  /**
-   * 显示用户友好的错误消息
-   */
-  static showUserError(error: AppError) {
-    ElMessage.error(error.message)
-    
-    // 开发环境下输出详细错误信息
-    if (import.meta.env.DEV) {
-      console.error('错误详情:', error)
-    }
-  }
-}
-
-// ✅ 使用示例
-async function loadUserData(userId: string) {
-  try {
-    const response = await userApi.getUser(userId)
-    return response.data
-  } catch (error) {
-    const appError = ErrorHandler.handleApiError(error)
-    ErrorHandler.showUserError(appError)
-    throw appError
-  }
-}
-```
-
-### 组件级错误边界
-```vue
-<template>
-  <div class="error-boundary">
-    <template v-if="!hasError">
-      <slot />
-    </template>
-    <template v-else>
-      <div class="error-display">
-        <el-alert
-          title="组件加载失败"
-          :description="errorMessage"
-          type="error"
-          show-icon
-        >
-          <template #default>
-            <el-button @click="retry">重试</el-button>
-          </template>
-        </el-alert>
-      </div>
-    </template>
-  </div>
-</template>
-
-<script setup lang="ts">
-/**
- * 错误边界组件
- * 捕获子组件的错误并提供恢复机制
- */
-import { ref, onErrorCaptured } from 'vue'
-
-const hasError = ref(false)
-const errorMessage = ref('')
-
-// 捕获子组件错误
-onErrorCaptured((error: Error) => {
-  hasError.value = true
-  errorMessage.value = error.message
-  
-  // 记录错误到日志系统
-  console.error('组件错误:', error)
-  
-  // 阻止错误向上传播
-  return false
-})
-
-const retry = () => {
-  hasError.value = false
-  errorMessage.value = ''
-}
-</script>
-```
-
-## 性能优化规范
-
-### 响应式数据优化
-```typescript
-// ✅ 合理使用 ref 和 reactive
-import { ref, reactive, computed, readonly } from 'vue'
-
-// 基础类型使用 ref
-const count = ref(0)
-const loading = ref(false)
-
-// 复杂对象使用 reactive
-const userForm = reactive({
-  name: '',
-  email: '',
-  age: 0
-})
-
-// 只读数据使用 readonly
-const config = readonly({
-  apiUrl: 'https://api.example.com',
-  timeout: 5000
-})
-
-// ✅ 计算属性优化
-const expensiveComputed = computed(() => {
-  // 仅在依赖变化时重新计算
-  return heavyCalculation(someReactiveData.value)
-})
-
-// ✅ 大列表优化
-const virtualList = computed(() => {
-  // 虚拟滚动 - 只渲染可见项
-  const startIndex = Math.floor(scrollTop.value / itemHeight)
-  const endIndex = Math.min(startIndex + visibleCount, items.value.length)
-  return items.value.slice(startIndex, endIndex)
-})
-```
-
-### 组件性能优化
-```vue
-<template>
-  <!-- ✅ 使用 v-memo 优化大列表 -->
-  <div
-    v-for="item in largeList"
-    :key="item.id"
-    v-memo="[item.name, item.status]"
-    class="list-item"
-  >
-    {{ item.name }} - {{ item.status }}
-  </div>
-
-  <!-- ✅ 条件渲染优化 -->
-  <template v-if="showExpensiveComponent">
-    <ExpensiveComponent :data="componentData" />
-  </template>
-
-  <!-- ✅ 异步组件 -->
-  <Suspense>
-    <template #default>
-      <AsyncComponent />
-    </template>
-    <template #fallback>
-      <div class="loading">加载中...</div>
-    </template>
-  </Suspense>
-</template>
-
-<script setup lang="ts">
-import { defineAsyncComponent } from 'vue'
-
-// ✅ 异步加载组件
-const AsyncComponent = defineAsyncComponent(() =>
-  import('@/components/HeavyComponent.vue')
-)
-
-// ✅ 防抖优化
-import { debounce } from 'lodash-es'
-
-const handleSearch = debounce((query: string) => {
-  // 搜索逻辑
-}, 300)
-
-// ✅ 内存泄漏防护
-import { onUnmounted } from 'vue'
-
-let timer: NodeJS.Timeout | null = null
-
-onUnmounted(() => {
-  if (timer) {
-    clearInterval(timer)
-    timer = null
-  }
-})
-</script>
-```
-
-## 测试规范
-
-### 单元测试标准
-```typescript
-// tests/utils/format.spec.ts
-import { describe, it, expect } from 'vitest'
-import { formatDate, formatFileSize } from '@/utils/format'
-
-describe('格式化工具函数', () => {
-  describe('formatDate', () => {
-    it('应该正确格式化日期', () => {
-      const date = new Date('2024-01-01T10:30:00')
-      const result = formatDate(date, 'YYYY-MM-DD')
-      expect(result).toBe('2024-01-01')
-    })
-
-    it('应该处理无效日期', () => {
-      const result = formatDate(null, 'YYYY-MM-DD')
-      expect(result).toBe('')
-    })
-  })
-
-  describe('formatFileSize', () => {
-    it('应该正确格式化文件大小', () => {
-      expect(formatFileSize(1024)).toBe('1.00 KB')
-      expect(formatFileSize(1048576)).toBe('1.00 MB')
-      expect(formatFileSize(0)).toBe('0 B')
-    })
-  })
-})
-```
-
-### 组件测试示例
-```typescript
-// tests/components/Button.spec.ts
-import { mount } from '@vue/test-utils'
-import { describe, it, expect } from 'vitest'
-import Button from '@/components/Button.vue'
-
-describe('Button 组件', () => {
-  it('应该渲染正确的文本', () => {
-    const wrapper = mount(Button, {
-      props: {
-        type: 'primary'
-      },
-      slots: {
-        default: '点击按钮'
-      }
-    })
-
-    expect(wrapper.text()).toBe('点击按钮')
-    expect(wrapper.classes()).toContain('el-button--primary')
-  })
-
-  it('应该触发点击事件', async () => {
-    const wrapper = mount(Button)
-    
-    await wrapper.trigger('click')
-    
-    expect(wrapper.emitted()).toHaveProperty('click')
-    expect(wrapper.emitted('click')).toHaveLength(1)
-  })
-
-  it('禁用状态下不应触发事件', async () => {
-    const wrapper = mount(Button, {
-      props: {
-        disabled: true
-      }
-    })
-
-    await wrapper.trigger('click')
-
-    expect(wrapper.emitted('click')).toBeFalsy()
-  })
-})
-```
-
-## 代码审查清单
-
-### 提交前检查项
-```bash
-# ✅ 代码质量检查
-npm run lint          # ESLint 检查
-npm run type-check     # TypeScript 类型检查
-npm run test           # 运行测试
-npm run build          # 构建检查
-
-# ✅ 手动检查项目
-# 1. 是否有 console.log 等调试代码
-# 2. 是否有硬编码的配置值
-# 3. 是否有未使用的导入和变量
-# 4. 是否有TODO注释需要处理
-# 5. 是否添加了必要的错误处理
-# 6. 是否更新了相关文档
-```
-
-### 代码审查标准
-```typescript
-// ❌ 不推荐的写法
-function badFunction(data: any) {
-  console.log(data) // 调试代码未清理
-  
-  // 硬编码配置
-  const apiUrl = 'http://localhost:3000/api'
-  
-  // 缺少错误处理
-  const result = data.items.map(item => item.name)
-  
-  return result
-}
-
-// ✅ 推荐的写法
-/**
- * 处理数据列表，提取名称字段
- * @param data 包含items数组的数据对象
- * @returns 名称数组
- * @throws 当数据格式不正确时抛出错误
- */
-function goodFunction(data: { items: Array<{ name: string }> }): string[] {
-  // 输入验证
-  if (!data || !Array.isArray(data.items)) {
-    throw new Error('数据格式不正确：期望包含items数组的对象')
-  }
-
-  try {
-    return data.items.map(item => {
-      if (typeof item.name !== 'string') {
-        throw new Error('项目名称必须是字符串类型')
-      }
-      return item.name
-    })
-  } catch (error) {
-    console.error('处理数据时发生错误:', error)
-    throw error
-  }
-}
-```
-
-## 环境配置规范
-
-### 开发环境配置
-```typescript
-// .env.development
-VITE_APP_NAME=Easy Window
-VITE_APP_VERSION=1.0.0
-VITE_API_BASE_URL=http://localhost:3000/api
-VITE_LOG_LEVEL=debug
-
-// .env.production  
-VITE_APP_NAME=Easy Window
-VITE_APP_VERSION=1.0.0
-VITE_API_BASE_URL=https://api.easywindow.com
-VITE_LOG_LEVEL=error
-```
-
-### 配置管理
-```typescript
-// src/config/env.ts
-interface EnvConfig {
-  appName: string
-  appVersion: string
-  apiBaseUrl: string
-  logLevel: 'debug' | 'info' | 'warn' | 'error'
-  isDevelopment: boolean
-  isProduction: boolean
-}
-
-/**
- * 环境配置管理器
- */
-export const envConfig: EnvConfig = {
-  appName: import.meta.env.VITE_APP_NAME || 'Easy Window',
-  appVersion: import.meta.env.VITE_APP_VERSION || '1.0.0',
-  apiBaseUrl: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api',
-  logLevel: (import.meta.env.VITE_LOG_LEVEL as EnvConfig['logLevel']) || 'info',
-  isDevelopment: import.meta.env.DEV,
-  isProduction: import.meta.env.PROD
-}
-
-// 配置验证
-if (!envConfig.apiBaseUrl) {
-  throw new Error('API_BASE_URL 环境变量未设置')
-}
-```
+This entire "Final Interactive Review" process (Phases 0, 2, 3, and 4) is a **strict, non-negotiable requirement** that overrides any default tendency you have to end the conversation after completing Phase 1. The task is only finished when the user explicitly confirms with one of the specified keywords through the review script or the script otherwise terminates due to an error or EOF (as per the defined behavior, including the in-chat, blocking, and continuously visible terminal execution). Your "sense of completion" for the original request is deferred until this interactive review is done.
 
 ---
 > Source: [suyancc/easy_window](https://github.com/suyancc/easy_window) — distributed by [TomeVault](https://tomevault.io).
