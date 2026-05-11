@@ -7,13 +7,13 @@ The fastest way to view, search, and inspect large CSV files on macOS. Built for
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [ayu5h-raj/quickcsv](https://github.com/ayu5h-raj/quickcsv).
+Original source: `CLAUDE.md` in [ayu5h-raj/quickcsv](https://github.com/ayu5h-raj/quickcsv).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
