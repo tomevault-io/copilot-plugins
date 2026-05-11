@@ -1,0 +1,44 @@
+{
+  "name": "mintorain-tmux-ocastra",
+  "owner": "mintorain",
+  "repo": "mintorain-tmux-ocastra",
+  "description": "MINTORAIN \ubc14\uc774\ube0c\ucf54\ub529 - Claude Code \ud300 \uc5d0\uc774\uc804\ud2b8 tmux 5\ubd84\ud560 \uc790\ub3d9\ud654 \ud0a4\ud2b8",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mintorain/mintorain-tmux-ocastra",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T03:54:57Z"
+}
