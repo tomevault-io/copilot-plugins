@@ -1,9 +1,9 @@
 {
   "name": "nantero1--ai-first-devops-toolkit",
   "displayName": "ai-first-devops-toolkit",
-  "description": "ai-first-devops-toolkit",
+  "description": "This toolkit represents a step toward AI-First DevOps AI-First DevOps - where intelligent automation handles the entire development lifecycle.",
   "version": "1.0.0",
   "author": "Nantero1",
-  "homepage": "https://tomevault.io/claim/Nantero1",
+  "homepage": "https://github.com/Nantero1/ai-first-devops-toolkit",
   "skills": []
 }
