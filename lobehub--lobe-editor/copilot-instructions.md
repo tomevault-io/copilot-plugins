@@ -1,436 +1,85 @@
-## plugin-development
-
-> Comprehensive plugin development, architecture, and refactoring guidelines for LobeHub Editor
-
-
-# Plugin Development Guidelines
-
-## Plugin Architecture Overview
-
-LobeHub Editor follows a **dual-layer architecture** with framework-agnostic core and React-specific implementations.
-
-### Plugin Structure Convention
-
-Each plugin in [src/plugins/](mdc:src/plugins/) follows this structure:
-
-```
-plugin-name/
-├── index.ts          # Main exports
-├── index.md          # Documentation
-├── plugin/           # Core plugin logic
-│   ├── index.ts      # Plugin class
-│   └── registry.ts   # Commands and hotkeys
-├── react/            # React components (if applicable)
-├── command/          # Editor commands
-├── service/          # Business logic services
-├── node/             # Custom Lexical nodes
-├── utils/            # Utility functions
-└── demos/            # Demo examples
-```
-
-## Plugin Implementation Pattern
-
-### Base Plugin Class
-
-All plugins extend [KernelPlugin](mdc:src/editor-kernel/plugin.ts):
-
-```typescript
-import { KernelPlugin } from '@/editor-kernel/plugin';
-import { IEditorKernel, IEditorPlugin, IEditorPluginConstructor } from '@/types';
-import { createDebugLogger } from '@/utils/debug';
-
-export const MyPlugin: IEditorPluginConstructor<MyPluginOptions> = class
-  extends KernelPlugin
-  implements IEditorPlugin<MyPluginOptions>
-{
-  static pluginName = 'MyPluginName'; // Always follow naming convention
-  private logger = createDebugLogger('plugin', 'my-plugin');
-
-  constructor(
-    protected kernel: IEditorKernel,
-    public config?: MyPluginOptions, // Make config public for registry access
-  ) {
-    super();
-    
-    // Register nodes, services, themes
-    kernel.registerNodes([MyCustomNode]);
-    kernel.registerService(IMyService, new MyService());
-    
-    if (config?.theme) {
-      kernel.registerThemes(config.theme);
-    }
-    
-    // Register decorators for custom nodes
-    this.registerDecorator(
-      kernel,
-      MyCustomNode.getType(),
-      (node: DecoratorNode<any>, editor: LexicalEditor) => {
-        return config?.decorator ? config.decorator(node as MyCustomNode, editor) : null;
-      },
-    );
-  }
-
-  onInit(editor: LexicalEditor): void {
-    // Register commands, listeners, observers via registry
-    this.register(registerMyCommands(editor, this.kernel, {
-      enableHotkey: this.config?.enableHotkey,
-      // other options from config
-    }));
-  }
-};
-```
-
-## Registry Pattern for Commands and Hotkeys
-
-### Registry Function Structure
-
-Create `plugin/registry.ts` for centralized command and hotkey management:
-
-```typescript
-import { mergeRegister } from '@lexical/utils';
-import { LexicalEditor } from 'lexical';
-import { IEditorKernel } from '@/types';
-import { HotkeyEnum } from '@/types/hotkey';
-
-export interface PluginRegistryOptions {
-  enableHotkey?: boolean;
-  // Plugin-specific options in alphabetical order
-}
-
-export function registerPluginCommands(
-  editor: LexicalEditor,
-  kernel: IEditorKernel,
-  options?: PluginRegistryOptions,
-) {
-  const { enableHotkey = true } = options || {};
-  
-  return mergeRegister(
-    // Core commands (always active)
-    editor.registerCommand(COMMAND, handler, PRIORITY),
-    
-    // Update listeners for state tracking
-    editor.registerUpdateListener(() => {
-      // State management logic
-    }),
-    
-    // Hotkeys (conditionally enabled)
-    kernel.registerHotkey(
-      HotkeyEnum.Action,
-      () => editor.dispatchCommand(COMMAND, payload),
-      {
-        enabled: enableHotkey,
-        preventDefault: true,
-        stopPropagation: true,
-      },
-    ),
-  );
-}
-```
-
-### What Goes in Registry vs React Components
-
-**Move TO Registry:**
-
-1. **Hotkey Registration** - `kernel.registerHotkey()`
-2. **Core Editor Commands** - `editor.registerCommand()`
-3. **Update Listeners for Business Logic** - State tracking, validation
-4. **Keyboard Event Handlers** - Framework-agnostic keyboard logic
-
-**Keep in React Components:**
-
-1. **UI State Management** - React state and effects
-2. **DOM Manipulation** - Positioning, floating UI
-3. **React-Specific Commands** - Commands that update React state
-
-## Service Pattern
-
-### Service Definition
-
-Services should implement interfaces in `service/`:
-
-```typescript
-import { genServiceId } from '@/editor-kernel/service';
-import { IServiceID } from '@/types';
-
-export interface IMyService {
-  method1(param: Type): ReturnType;
-  method2(param: Type): Promise<ReturnType>;
-}
-
-export const IMyService: IServiceID<IMyService> = 
-  genServiceId<IMyService>('MyService');
-
-export class MyService implements IMyService {
-  private logger = createDebugLogger('service', 'my-service');
-  
-  method1(param: Type): ReturnType {
-    this.logger.debug('Method1 called with:', param);
-    // Implementation
-  }
-}
-```
-
-### Service Registration
-
-Register services in plugin constructor:
-
-```typescript
-constructor(protected kernel: IEditorKernel, public config?: Options) {
-  super();
-  kernel.registerService(IMyService, new MyService());
-}
-```
-
-## Command Pattern
-
-### Command Definition
-
-Define commands in `command/index.ts`:
-
-```typescript
-import { createCommand, LexicalEditor, COMMAND_PRIORITY_HIGH } from 'lexical';
-
-export const MY_COMMAND = createCommand<PayloadType>('MY_COMMAND');
-
-export function registerMyCommand(editor: LexicalEditor) {
-  return editor.registerCommand(
-    MY_COMMAND,
-    (payload) => {
-      editor.update(() => {
-        // Command implementation inside editor.update()
-      });
-      return true; // Command handled
-    },
-    COMMAND_PRIORITY_HIGH,
-  );
-}
-```
-
-## Custom Node System
-
-### Node Definition
-
-Define custom nodes in `node/` directory:
-
-```typescript
-import { DecoratorNode, NodeKey, LexicalEditor, EditorConfig } from 'lexical';
-
-export interface SerializedMyNode extends SerializedLexicalNode {
-  type: 'my-node';
-  customProperty: string;
-}
-
-export class MyNode extends DecoratorNode<ReactElement> {
-  __customProperty: string;
-
-  static getType(): string {
-    return 'my-node';
-  }
-
-  static clone(node: MyNode): MyNode {
-    return new MyNode(node.__customProperty, node.__key);
-  }
-
-  static importJSON(serializedNode: SerializedMyNode): MyNode {
-    return $createMyNode(serializedNode.customProperty);
-  }
-
-  exportJSON(): SerializedMyNode {
-    return {
-      ...super.exportJSON(),
-      type: 'my-node',
-      customProperty: this.__customProperty,
-    };
-  }
-
-  createDOM(config: EditorConfig): HTMLElement {
-    const element = document.createElement('div');
-    element.className = config.theme?.myNode || '';
-    return element;
-  }
-
-  updateDOM(): false {
-    return false;
-  }
-
-  decorate(): ReactElement {
-    return <MyNodeComponent node={this} />;
-  }
-}
-
-export function $createMyNode(customProperty: string): MyNode {
-  return new MyNode(customProperty);
-}
-
-export function $isMyNode(node: LexicalNode | null | undefined): node is MyNode {
-  return node instanceof MyNode;
-}
-```
-
-## React Integration
-
-### React Plugin Components
-
-React components in `react/` directory:
-
-```typescript
-import { memo } from 'react';
-import { LexicalEditor } from 'lexical';
-
-export interface ReactMyPluginProps {
-  enableHotkey?: boolean; // Always include for consistency
-  editor?: LexicalEditor;
-  config?: MyPluginConfig;
-  onEvent?: (event: MyEvent) => void;
-}
-
-export const ReactMyPlugin = memo<ReactMyPluginProps>(({
-  enableHotkey = true,
-  editor,
-  config,
-  onEvent,
-}) => {
-  const logger = createDebugLogger('react', 'my-plugin');
-  
-  // Register plugin with kernel
-  useLayoutEffect(() => {
-    editor?.registerPlugin(MyPlugin, {
-      enableHotkey,
-      // other config
-    });
-  }, [enableHotkey, /* dependencies */]);
-
-  const handleAction = useCallback((action: Action) => {
-    logger.debug('Action triggered:', action);
-    editor?.dispatchCommand(MY_COMMAND, action);
-  }, [editor, logger]);
-
-  return (
-    <div>
-      {/* Plugin UI */}
-    </div>
-  );
-});
-
-ReactMyPlugin.displayName = 'ReactMyPlugin';
-```
-
-## Plugin Integration Examples
-
-### Markdown Integration
-
-```typescript
-// In plugin constructor
-kernel
-  .requireService(IMarkdownShortCutService)
-  ?.registerMarkdownWriter(MyNode.getType(), (ctx, node) => {
-    if ($isMyNode(node)) {
-      ctx.appendLine(`Custom: ${node.getCustomProperty()}`);
-    }
-  });
-```
-
-### Upload Integration
-
-```typescript
-// In plugin onInit
-this.kernel
-  .requireService(IUploadService)
-  ?.registerUpload(async (file: File, from: string, range: Range | null) => {
-    // Handle file upload
-    return $createMyNode(file.name);
-  });
-```
-
-## Plugin Naming Convention
-
-All plugins must follow this naming standard:
-
-```typescript
-static pluginName = 'PluginNamePlugin';
-```
-
-**Rules:**
-
-- Use PascalCase (first letter capitalized)
-- Always end with "Plugin" suffix
-- Be descriptive and clear about functionality
-
-**Examples:**
-
-```typescript
-// ✅ Correct naming
-static pluginName = 'MathPlugin';
-static pluginName = 'FilePlugin';
-static pluginName = 'CodeblockPlugin';
-
-// ❌ Incorrect naming
-static pluginName = 'math';         // Missing Plugin suffix, lowercase
-static pluginName = 'upload';       // Missing Plugin suffix, lowercase
-```
-
-## Migration/Refactoring Steps
-
-When refactoring existing plugins to follow current patterns:
-
-### 1. Create Registry File
-
-```typescript
-// src/plugins/[plugin-name]/plugin/registry.ts
-export function registerPluginCommands(
-  editor: LexicalEditor,
-  kernel: IEditorKernel,
-  options?: PluginRegistryOptions,
-) {
-  const { enableHotkey = true } = options || {};
-  
-  return mergeRegister(
-    // Move editor commands here
-    // Move hotkey registration here with enabled option
-  );
-}
-```
-
-### 2. Update Plugin Class
-
-- Make `config` property `public` for registry access
-- Call registry function in `onInit`
-- Add `enableHotkey` to plugin options interface
-
-### 3. Update React Interface
-
-- Add `enableHotkey?: boolean` to React props
-- Pass through to plugin configuration
-- Move hotkey logic from React to registry
-
-### 4. Test Integration
-
-- Verify hotkey enable/disable functionality
-- Test command registration and execution
-- Ensure React component still functions properly
-
-## Best Practices
-
-1. **Follow naming conventions** - Use consistent naming for all plugin components
-2. **Use debug logging** - Implement proper logging with namespaced debuggers
-3. **Handle hot reload** - Support development hot reload scenarios
-4. **Document thoroughly** - Provide comprehensive plugin documentation
-5. **Type safety** - Use proper TypeScript interfaces and generics
-6. **Error handling** - Implement robust error handling throughout
-7. **Service isolation** - Keep business logic in services, not components
-8. **Command responsibility** - One command per distinct operation
-9. **Registry pattern** - Move framework-agnostic logic to registry files
-10. **React separation** - Keep React components focused on UI concerns
-
-## Benefits of This Architecture
-
-1. **Framework Agnostic**: Core logic works without React
-2. **Testable**: Easier to unit test separated concerns
-3. **Configurable**: Users can disable hotkeys per plugin
-4. **Maintainable**: Clear separation of responsibilities
-5. **Consistent**: Same pattern across all plugins
-6. **Performance**: Conditional registration reduces overhead
-7. **Reusable**: Registry functions can be used in different contexts
+## project-structure
+
+> Core project structure and architecture guide for LobeHub Editor
+
+
+# LobeHub Editor Project Structure
+
+## Architecture Overview
+
+LobeHub Editor follows a **dual-layer architecture**:
+
+1. **Kernel Layer** (`src/editor-kernel/`) - Framework-agnostic core
+2. **React Layer** (`src/react/` + `src/plugins/*/react/`) - React-specific implementations
+
+## Directory Structure
+
+### Core Editor Kernel
+
+- [src/editor-kernel/](mdc:src/editor-kernel/) - Core editor logic
+  - [kernel.ts](mdc:src/editor-kernel/kernel.ts) - Main editor class with plugin system
+  - [data-source.ts](mdc:src/editor-kernel/data-source.ts) - Content management (JSON/Markdown/Text)
+  - [service.ts](mdc:src/editor-kernel/service.ts) - Service container and dependency injection
+  - [plugin/](mdc:src/editor-kernel/plugin/) - Plugin base classes and interfaces
+  - [react/](mdc:src/editor-kernel/react/) - React integration layer
+  - [types.ts](mdc:src/editor-kernel/types.ts) - TypeScript interfaces
+
+### Plugin System
+
+- [src/plugins/](mdc:src/plugins/) - Feature plugins with consistent structure
+
+#### Core Plugins
+
+- [common/](mdc:src/plugins/common/) - Foundation components (ReactEditor, ReactEditorContent, ReactPlainText)
+- [markdown/](mdc:src/plugins/markdown/) - Markdown processing engine with transformers
+- [upload/](mdc:src/plugins/upload/) - File upload management with priority system
+
+#### Content Plugins
+
+- [slash/](mdc:src/plugins/slash/) - Slash commands (/, @) with fuzzy search
+- [mention/](mdc:src/plugins/mention/) - @mention system with decorators
+- [codeblock/](mdc:src/plugins/codeblock/) - Syntax highlighting with Shiki
+- [image/](mdc:src/plugins/image/) - Image handling with captions and resizing
+- [table/](mdc:src/plugins/table/) - Table support with i18n
+- [file/](mdc:src/plugins/file/) - File attachments with status tracking
+- [link/](mdc:src/plugins/link/) - Link management with validation
+- [list/](mdc:src/plugins/list/) - Lists with nesting support
+- [hr/](mdc:src/plugins/hr/) - Horizontal rules with styling
+
+### React Components
+
+- [src/react/](mdc:src/react/) - High-level React components
+  - [Editor/](mdc:src/react/Editor/) - Main Editor component
+  - [ChatInput/](mdc:src/react/ChatInput/) - Chat interface component
+  - [ChatInputActions/](mdc:src/react/ChatInputActions/) - Action buttons
+  - [ChatInputActionBar/](mdc:src/react/ChatInputActionBar/) - Action bar layout
+  - [SendButton/](mdc:src/react/SendButton/) - Send button with states
+  - [CodeLanguageSelect/](mdc:src/react/CodeLanguageSelect/) - Language selector
+
+## Plugin Structure Convention
+
+Each plugin follows this consistent structure:
+
+- `plugin/` - Core plugin logic and node definitions
+- `react/` - React components and hooks (if applicable)
+- `command/` - Editor commands and handlers
+- `service/` - Services and business logic
+- `node/` - Custom Lexical nodes
+- `utils/` - Utility functions and helpers
+- `index.md` - Comprehensive documentation
+- `index.ts` - Public API exports
+
+## Key Entry Points
+
+- [src/index.ts](mdc:src/index.ts) - Main public API exports
+- [package.json](mdc:package.json) - Project configuration and dependencies
+- [README.md](mdc:README.md) - Project overview and usage guide
+
+## Build and Development
+
+- [vitest.config.ts](mdc:vitest.config.ts) - Test configuration
+- [.dumi/](mdc:.dumi/) - Documentation build system
+- [docs/](mdc:docs/) - Documentation source files
 
 ---
 > Source: [lobehub/lobe-editor](https://github.com/lobehub/lobe-editor) — distributed by [TomeVault](https://tomevault.io).
