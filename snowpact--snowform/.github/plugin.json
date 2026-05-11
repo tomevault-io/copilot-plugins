@@ -1,0 +1,9 @@
+{
+  "name": "snowpact--snowform",
+  "displayName": "snowform",
+  "description": "Automatic form generation from Zod schemas with react-hook-form",
+  "version": "1.0.0",
+  "author": "snowpact",
+  "homepage": "https://github.com/snowpact/snowform",
+  "skills": []
+}
