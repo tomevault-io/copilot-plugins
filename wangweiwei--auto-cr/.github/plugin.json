@@ -1,0 +1,9 @@
+{
+  "name": "wangweiwei--auto-cr",
+  "displayName": "auto-cr",
+  "description": "auto-cr: a lightning-fast SWC-powered code review toolkit\u2014CLI + extensible rule SDK\u2014to surface risky JS/TS changes before merge.",
+  "version": "1.0.0",
+  "author": "wangweiwei",
+  "homepage": "https://github.com/wangweiwei/auto-cr",
+  "skills": []
+}
