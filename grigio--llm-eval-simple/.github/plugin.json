@@ -1,0 +1,9 @@
+{
+  "name": "grigio--llm-eval-simple",
+  "displayName": "llm-eval-simple",
+  "description": "llm-eval-simple is a simple LLM evaluation framework with intermediate actions and prompt pattern selection",
+  "version": "1.0.0",
+  "author": "grigio",
+  "homepage": "https://github.com/grigio/llm-eval-simple",
+  "skills": []
+}
