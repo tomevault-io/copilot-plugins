@@ -4,7 +4,7 @@
   "repo": "git-on-cloudflare",
   "description": "A vibe-coded Git Smart HTTP v2 server on Cloudflare Workers with Durable Objects, R2, and a clean dark-mode UI.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zllovesuki/git-on-cloudflare",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T23:50:08Z"
+  "distributed_at": "2026-05-11T19:14:53Z"
 }
