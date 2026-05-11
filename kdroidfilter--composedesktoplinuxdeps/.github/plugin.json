@@ -1,0 +1,9 @@
+{
+  "name": "kdroidfilter--composedesktoplinuxdeps",
+  "displayName": "ComposeDesktopLinuxDeps",
+  "description": "Gradle plugin for Compose Desktop that injects Linux package dependencies into jpackage outputs (DEB): add Depends:/Requires: automatically.",
+  "version": "1.0.0",
+  "author": "kdroidFilter",
+  "homepage": "https://github.com/kdroidFilter/ComposeDesktopLinuxDeps",
+  "skills": []
+}
