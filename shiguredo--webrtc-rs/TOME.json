@@ -4,7 +4,7 @@
   "repo": "webrtc-rs",
   "description": "Rust bindings for libwebrtc",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shiguredo/webrtc-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T02:56:04Z"
+  "distributed_at": "2026-05-11T13:10:49Z"
 }
