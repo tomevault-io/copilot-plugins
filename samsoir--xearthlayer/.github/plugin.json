@@ -1,0 +1,9 @@
+{
+  "name": "samsoir--xearthlayer",
+  "displayName": "xearthlayer",
+  "description": "Streaming satellite imagery for X-Plane 12 flight simulator via FUSE virtual filesystem, built using Rust",
+  "version": "1.0.0",
+  "author": "samsoir",
+  "homepage": "https://github.com/samsoir/xearthlayer",
+  "skills": []
+}
