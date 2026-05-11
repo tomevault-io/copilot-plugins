@@ -1,0 +1,9 @@
+{
+  "name": "mpazik--binder",
+  "displayName": "Binder",
+  "description": "Headless knowledge base with bidirectional Markdown sync",
+  "version": "1.0.0",
+  "author": "mpazik",
+  "homepage": "https://github.com/mpazik/Binder",
+  "skills": []
+}
