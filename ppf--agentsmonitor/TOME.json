@@ -4,7 +4,7 @@
   "repo": "agentsmonitor",
   "description": "Monitor AI Agents in Native MacOS app",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ppf/agentsmonitor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T07:36:27Z"
+  "distributed_at": "2026-05-11T02:12:45Z"
 }
