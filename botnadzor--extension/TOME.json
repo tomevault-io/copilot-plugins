@@ -4,7 +4,7 @@
   "repo": "extension",
   "description": "Botnadzor's browser extension for highlighting fake accounts on vk.com",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/botnadzor/extension",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T00:10:57Z"
+  "distributed_at": "2026-05-11T18:59:32Z"
 }
