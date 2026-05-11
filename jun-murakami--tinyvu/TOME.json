@@ -4,7 +4,7 @@
   "repo": "TinyVU",
   "description": "The most compact professional VU meter plugin available. for VST/AU/AAX/LV2/CLAP",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Jun-Murakami/TinyVU",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T10:57:32Z"
+  "distributed_at": "2026-05-11T10:13:16Z"
 }
