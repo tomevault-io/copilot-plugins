@@ -1,0 +1,9 @@
+{
+  "name": "cyberfabric--cyber-insight",
+  "displayName": "cyber-insight",
+  "description": "Cyber Insight defines roles and activities, connects to your systems through ready-to-use connectors (including AI tools), and measures productivity at individual, team, and organization levels. Drill",
+  "version": "1.0.0",
+  "author": "cyberfabric",
+  "homepage": "https://github.com/cyberfabric/cyber-insight",
+  "skills": []
+}
