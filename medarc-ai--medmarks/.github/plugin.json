@@ -1,0 +1,9 @@
+{
+  "name": "medarc-ai--medmarks",
+  "displayName": "medmarks",
+  "description": "Automated LLM evaluation suite for medical tasks",
+  "version": "1.0.0",
+  "author": "MedARC-AI",
+  "homepage": "https://github.com/MedARC-AI/medmarks",
+  "skills": []
+}
