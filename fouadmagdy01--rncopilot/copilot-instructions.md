@@ -1,177 +1,120 @@
-## rncopilot
+## project
 
-> React Native Expo template. Follow these rules for every suggestion.
+> React Native Expo Template - Project Rules
 
-# GitHub Copilot Instructions
 
-React Native Expo template. Follow these rules for every suggestion.
+# Project Rules
 
-## Stack
+This is a production-grade React Native Expo template. All rules below are mandatory.
 
-React Native 0.83.2, Expo SDK 55, expo-router, TypeScript 5.9 strict, react-native-unistyles 3.x, TanStack Query, Zustand, Supabase, Axios, react-i18next (EN+AR), react-native-mmkv, react-hook-form, zod/v4.
+See `CONVENTIONS.md` for detailed conventions and `docs/AI-GUIDE.md` for patterns and recipes.
 
-Path aliases: `@/*` = `src/*`, `~/*` = `app/*`
+## Stack Summary
 
----
+- React Native 0.83.2 + Expo SDK 55, expo-router (file-based)
+- TypeScript 5.9 strict, path aliases: `@/*` = `src/*`, `~/*` = `app/*`
+- **Styling:** react-native-unistyles 3.x (NOT react-native StyleSheet)
+- **Server state:** @tanstack/react-query
+- **Client state:** Zustand (auth via `useAuthStore`)
+- **Forms:** react-hook-form + `zod/v4`
+- **Storage:** react-native-mmkv via `@/utils/storage`
+- **i18n:** react-i18next, EN + AR (RTL)
+- **HTTP:** Axios via `@/services/api` (auto-attaches Bearer token)
 
-## Styling Rules
+## Non-Negotiable Rules
 
-- Import `StyleSheet` from `react-native-unistyles`, never from `react-native`
-- Always use the theme callback: `StyleSheet.create((theme) => ({ ... }))`
-- Never inline styles: no `style={{ padding: 16 }}`
-- Never color literals: no `color: '#6366F1'` or `backgroundColor: 'white'`
-- Never hardcoded spacing: use `theme.metrics.spacing.p16` not `padding: 16`
+### Styling
 
 ```typescript
+// Import ALWAYS from react-native-unistyles
 import { StyleSheet } from 'react-native-unistyles';
 
+// ALWAYS use theme callback
 const styles = StyleSheet.create((theme) => ({
   container: {
-    padding: theme.metrics.spacing.p16,
-    backgroundColor: theme.colors.background.surface,
+    padding: theme.metrics.spacing.p16,          // NOT padding: 16
+    backgroundColor: theme.colors.background.surface,  // NOT '#FFFFFF'
     borderRadius: theme.metrics.borderRadius.md,
-    borderWidth: 1,
-    borderColor: theme.colors.border.default,
-  },
-  title: {
-    fontSize: theme.fonts.size.lg,
-    color: theme.colors.text.primary,
   },
 }));
+
+// NEVER inline styles
+// WRONG: <View style={{ padding: 16, backgroundColor: '#fff' }}>
+// RIGHT: <View style={styles.container}>
 ```
 
----
-
-## Components
-
-Use project components, not React Native primitives where a project component exists.
+### Components
 
 ```typescript
-// Text - use project Text, not RN Text
+// Always use project Text, not React Native Text
 import { Text } from '@/common/components/Text';
 <Text variant="h1">{t('home.title')}</Text>
-<Text variant="body" color={theme.colors.text.secondary}>{t('home.body')}</Text>
-// Variants: h1, h2, h3, body, bodySmall, caption, label, overline
 
-// Button
-import { Button } from '@/common/components/Button';
-<Button title={t('actions.submit')} variant="primary" size="md" onPress={fn} loading={isPending} />
-// Variants: primary, secondary, outline, ghost | Sizes: sm, md, lg
-
-// Icon (Ionicons names)
-import { Icon } from '@/common/components/Icon';
-<Icon name="home-outline" variant="primary" size={20} />
-// Variants: primary, secondary, tertiary, muted, inverse, accent
-
-// Screen root
+// Always use ScreenContainer as screen root
 import { ScreenContainer } from '@/common/components/ScreenContainer';
-<ScreenContainer scrollable padded>{/* content */}</ScreenContainer>
+export default function MyScreen() {
+  return <ScreenContainer scrollable>{/* content */}</ScreenContainer>;
+}
 
-// Card
-import { Card } from '@/common/components/Card';
-<Card variant="elevated" pressable onPress={fn}>{/* content */}</Card>
-// Variants: default, elevated, outlined
-
-// Input
-import { Input } from '@/common/components/Input';
-<Input label={t('fields.email')} value={val} onChangeText={fn} error={err ? t(err) : undefined} />
+// Import from barrel, not implementation
+import { Button } from '@/common/components/Button';           // CORRECT
+import { Button } from '@/common/components/Button/Button';    // WRONG
 ```
 
-Import from barrels: `@/common/components/Button` not `@/common/components/Button/Button`.
-
----
-
-## i18n - Required for Every String
+### i18n - Every String Must Be Translated
 
 ```typescript
 const { t } = useTranslation();
+<Text>{t('home.welcome')}</Text>      // CORRECT
+<Text>Welcome</Text>                  // WRONG - hardcoded
 
-// CORRECT
-<Text>{t('home.welcome')}</Text>
-<Button title={t('actions.save')} />
-
-// WRONG
-<Text>Welcome</Text>
-<Button title="Save" />
+// Update BOTH files when adding text:
+// src/i18n/locales/en.json
+// src/i18n/locales/ar.json
 ```
 
-When adding keys, update both:
-
-- `src/i18n/locales/en.json`
-- `src/i18n/locales/ar.json`
-
-Zod validation messages use i18n keys:
+### Auth - Zustand Only
 
 ```typescript
-z.string().min(1, 'validation.required'); // key, not raw text
-```
-
----
-
-## Auth
-
-```typescript
+// In components
 import { useAuthStore } from '@/providers/auth/authStore';
+const user = useAuthStore((s) => s.user);                // CORRECT - selector
+const store = useAuthStore();                             // WRONG - whole store
 
-// Always use selectors in components
-const user = useAuthStore((s) => s.user);
-const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
-
-// Outside React (interceptors, utilities)
+// Outside React
 const session = useAuthStore.getState().session;
+
+// NEVER create React Context for auth
 ```
 
-Never create a React Context for auth.
-
----
-
-## State Management
+### TypeScript
 
 ```typescript
-// Zustand for client state - always use selectors
-const items = useMyStore((s) => s.items); // CORRECT
-const { items } = useMyStore(); // WRONG
+// No any types
+const data: Product[] = response.data;   // CORRECT
+const data: any = response.data;         // WRONG
 
-// Store pattern
-export const useMyStore = create<MyState>((set) => ({
-  items: [],
-  addItem: (item) => set((state) => ({ items: [...state.items, item] })),
-}));
+// Type-only imports
+import type { ButtonProps } from '@/common/components/Button';
 
-// React Query for server state
-export function useProducts() {
-  return useQuery({
-    queryKey: ['products'],
-    queryFn: () => api.get<Product[]>('/products').then((r) => r.data),
-  });
-}
+// Named exports in src/ (not default)
+export function MyComponent() {}         // CORRECT
+export default function MyComponent() {} // WRONG (except app/ screens)
+
+// Zod - use v4
+import { z } from 'zod/v4';             // CORRECT
+import { z } from 'zod';               // WRONG
 ```
 
----
-
-## API
+### Forms
 
 ```typescript
-import { api } from '@/services/api';
-// Auto-attaches Bearer token, handles 401, normalizes errors
-
-const products = await api.get<Product[]>('/products').then((r) => r.data);
-const product = await api.post<Product>('/products', data).then((r) => r.data);
-```
-
----
-
-## Forms
-
-```typescript
-import { z } from 'zod/v4';    // zod/v4, not zod
-import { useForm } from 'react-hook-form';
+import { z } from 'zod/v4';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormField } from '@/common/components/FormField';
-import { Input } from '@/common/components/Input';
 
 const schema = z.object({
-  email: z.email('validation.emailInvalid'),
+  email: z.email('validation.emailInvalid'),      // i18n key, not raw text
   password: z.string().min(8, 'validation.passwordMin'),
 });
 
@@ -179,44 +122,85 @@ const { control, handleSubmit } = useForm({
   resolver: zodResolver(schema),
   defaultValues: { email: '', password: '' },
 });
-
-// Use FormField instead of raw Controller
-<FormField name="email" control={control} label={t('fields.email')} required>
-  <Input keyboardType="email-address" autoCapitalize="none" />
-</FormField>
 ```
 
----
-
-## Exports
+### API Calls
 
 ```typescript
-// Named exports in src/ always
-export function MyComponent() {} // CORRECT
-export default function MyComponent() {} // WRONG (except app/ screens)
+import { api } from '@/services/api';
+// Auto-attaches Bearer token, normalizes errors, handles 401
 
-// app/ screens require default (Expo Router)
-export default function HomeScreen() {} // CORRECT
+const data = await api.get<Product[]>('/products').then((r) => r.data);
+
+// All API calls go in src/features/<feature>/services/<feature>Service.ts
+// Wrap in React Query hooks in src/features/<feature>/hooks/
 ```
 
----
+## Directory Structure
 
-## Never Do
+```
+src/
+  common/components/    33 shared UI components
+  config/               env.ts (centralized, validated)
+  features/<feature>/   components/, services/, hooks/, stores/, types/, schemas/, constants/
+  hooks/                useBottomPadding, useNetworkStatus, useScreenDimensions, useProtectedRoute
+  i18n/locales/         en.json, ar.json
+  providers/auth/       authStore.ts (useAuthStore, useAuthInit)
+  services/api/         client.ts (Axios instance: api)
+  theme/                metrics.ts (rf, hs, vs), light-theme.ts, dark-theme.ts
+  utils/storage/        useStorage, useStorageBoolean, STORAGE_KEYS
 
-- `import { StyleSheet } from 'react-native'`
-- Inline styles: `style={{ padding: 16 }}`
-- Color literals: `color: '#fff'`
-- Hardcoded UI text: `<Text>Hello</Text>`
-- `any` types
-- `import { z } from 'zod'` (must be `zod/v4`)
-- `useMyStore()` without selector
-- React Context for auth
-- `fetch()` directly (use `api` from `@/services/api`)
-- Relative paths climbing 2+ levels
-- `export default` in `src/` component files
-- `console.log` in production code
+app/
+  _layout.tsx           GestureHandler > ErrorBoundary > QueryProvider > BottomSheet > AppContent
+  (main)/(tabs)/        Tab screens
+```
 
----
+## Routing
+
+```typescript
+// Expo Router - all navigation via router
+import { router } from 'expo-router';
+router.push('/products');
+router.replace('/(auth)/login');
+
+// Route params
+import { useLocalSearchParams } from 'expo-router';
+const { id } = useLocalSearchParams<{ id: string }>();
+
+// All app/ files use default export (Expo Router requirement)
+export default function ProductsScreen() {}
+```
+
+## Theme Tokens Quick Reference
+
+```
+theme.colors.brand.primary          - #6366F1 (indigo)
+theme.colors.brand.tertiary         - #14B8A6 (teal accent)
+theme.colors.background.app         - screen background
+theme.colors.background.surface     - cards
+theme.colors.background.input       - text inputs
+theme.colors.text.primary           - main text
+theme.colors.text.secondary         - supporting
+theme.colors.text.muted             - placeholder
+theme.colors.text.inverse           - on dark backgrounds
+theme.colors.border.default         - standard borders
+theme.colors.border.focus           - input focus
+theme.colors.state.success/error/warning/info
+theme.colors.overlay.modal          - rgba(0,0,0,0.5)
+theme.metrics.spacing.p{4-120}      - horizontal (hs scaled)
+theme.metrics.spacingV.p{4-120}     - vertical (vs scaled)
+theme.metrics.borderRadius.xs/sm/md/lg/xl/full
+theme.metrics.iconSize.xs/sm/md/lg/xl
+theme.fonts.size.xxs through 6xl
+```
+
+## Commit Format
+
+```
+<type>(<scope>): <subject>
+
+Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+```
 
 ## Template Migration
 
