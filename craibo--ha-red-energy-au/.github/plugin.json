@@ -1,0 +1,9 @@
+{
+  "name": "craibo--ha-red-energy-au",
+  "displayName": "ha-red-energy-au",
+  "description": "Home Assistant Red Energy Integration",
+  "version": "1.0.0",
+  "author": "craibo",
+  "homepage": "https://github.com/craibo/ha-red-energy-au",
+  "skills": []
+}
