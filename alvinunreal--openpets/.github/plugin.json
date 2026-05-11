@@ -1,0 +1,9 @@
+{
+  "name": "alvinunreal--openpets",
+  "displayName": "openpets",
+  "description": "Desktop pets for AI coding agents. Install pets, connect Claude Code via MCP, and see live coding status on your desktop.",
+  "version": "1.0.0",
+  "author": "alvinunreal",
+  "homepage": "https://github.com/alvinunreal/openpets",
+  "skills": []
+}
