@@ -1,0 +1,9 @@
+{
+  "name": "acnlabs--metaspec",
+  "displayName": "MetaSpec",
+  "description": "Meta-specification framework for AI Agents to generate  Spec-driven X toolkits automatically.",
+  "version": "1.0.0",
+  "author": "acnlabs",
+  "homepage": "https://github.com/acnlabs/MetaSpec",
+  "skills": []
+}
