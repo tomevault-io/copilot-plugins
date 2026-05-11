@@ -1,117 +1,67 @@
-## 000-cursor-rules
+## 801-feature-workflow
 
-> ALWAYS when asked to CREATE A RULE or UPDATE A RULE or taught a lesson from the user that should be retained as a new rule for Cursor
+> FOLLOW feature development workflow WHEN implementing new features TO ensure consistent, tested, and documented changes
 
-# Cursor Rules Format
 
-## Core Structure
-
-```mdc
----
-description: ACTION when TRIGGER to OUTCOME
-globs: *.mdc
----
-
-# Rule Title
+# Feature Development Workflow
 
 ## Context
-- When to apply this rule
-- Prerequisites or conditions
+- When implementing new features from the features documentation
+- When making significant changes that require testing and documentation
+- When working on a feature branch
 
 ## Requirements
-- Concise, actionable items
-- Each requirement must be testable
+- Start from up-to-date main branch
+- Create feature branch with descriptive name (feature/feature-name)
+- Locate and review feature documentation in docs/features directory
+- Follow documentation requirements systematically
+- IMPORTANT Commit frequently to trigger pre-commit hooks (linting, formatting, tests)
+- CRITICAL Always stage ALL modified files after making changes
+- CRITICAL Always push changes to remote after committing
+- Add comprehensive tests for new functionality
+- Push completed work to remote for PR review
 
 ## Examples
 <example>
-Good concise example with explanation
+# Good workflow
+1. git checkout main && git pull
+2. git checkout -b feature/server-info
+3. Review docs/features/002-server-info-resource.md
+4. Implement ServerInfo interface
+5. Add getServerInfo method with tests
+6. git add . # Stage ALL changes
+7. Commit to run hooks: "feat: add server info interface"
+8. git push origin feature/server-info # Push changes immediately
+9. Implement ServerStatus interface
+10. Add getServerStatus method with tests
+11. git add . # Stage ALL changes again
+12. Commit to run hooks: "feat: add server status resource"
+13. git push origin feature/server-info # Push changes again
+14. Fix any linting issues
+15. git add . && git commit -m "fix: linting issues"
+16. git push origin feature/server-info
 </example>
 
 <example type="invalid">
-Invalid concise example with explanation
+# Poor workflow
+1. Start coding without checking docs
+2. Make all changes in one big commit
+3. Skip tests or add them later
+4. Leave changes unstaged
+5. Forget to push changes to remote
+6. Push directly to main
+7. Fix linting issues after PR
 </example>
-```
 
-## File Organization
-
-### Location
-- Path: `.cursor/rules/`
-- Extension: `.mdc`
-
-### Naming Convention
-PREFIX-name.mdc where PREFIX is:
-- 0XX: Core standards
-- 1XX: Tool configs
-- 3XX: Testing standards
-- 1XXX: Language rules
-- 2XXX: Framework rules
-- 8XX: Workflows
-- 9XX: Templates
-- _name.mdc: Private rules
-
-### Glob Pattern Examples
-Common glob patterns for different rule types:
-- Core standards: .cursor/rules/*.mdc
-- Language rules: src/**/*.{js,ts}
-- Testing standards: **/*.test.{js,ts}
-- React components: src/components/**/*.tsx
-- Documentation: docs/**/*.md
-- Configuration files: *.config.{js,json}
-- Build artifacts: dist/**/*
-- Multiple extensions: src/**/*.{js,jsx,ts,tsx}
-- Multiple files: dist/**/*, docs/**/*.md
-
-## Required Fields
-
-### Frontmatter
-- description: ACTION TRIGGER OUTCOME format
-- globs: `glob pattern for files and folders`
-
-### Body
-- <version>X.Y.Z</version>
-- context: Usage conditions
-- requirements: Actionable items
-- examples: Both valid and invalid
-
-## Formatting Guidelines
-
-- Use Concise Markdown primarily
-- XML tags limited to:
-  - <example>
-  - <danger>
-  - <required>
-  - <rules>
-  - <rule>
-  - <critical>
-  - <version>
-- Always indent content within XML or nested XML tags by 2 spaces
-- Keep rules as short as possbile
-- Use Mermaid syntax if it will be shorter or clearer than describing a complex rule
-- Use Emojis where appropriate to convey meaning that will improve rule understanding by the AI Agent
-- Keep examples as short as possible to clearly convey the positive or negative example
-
-## AI Optimization Tips
-
-1. Use precise, deterministic ACTION TRIGGER OUTCOME format in descriptions
-2. Provide concise positive and negative example of rule application in practice
-3. Optimize for AI context window efficiency
-4. Remove any non-essential or redundant information
-5. Use standard glob patterns without quotes (e.g., *.js, src/**/*.ts)
-
-## AI Context Efficiency
-
-1. Keep frontmatter description under 120 characters (or less) while maintaining clear intent for rule selection by AI AGent
-2. Limit examples to essential patterns only
-3. Use hierarchical structure for quick parsing
-4. Remove redundant information across sections
-5. Maintain high information density with minimal tokens
-6. Focus on machine-actionable instructions over human explanations
-
+## Critical Points
 <critical>
-  - NEVER include verbose explanations or redundant context that increases AI token overhead
-  - Keep file as short and to the point as possible BUT NEVER at the expense of sacrificing rule impact and usefulness for the AI Agent.
-  - the front matter can ONLY have the fields description and globs.
-</critical>
+- ALWAYS work from feature documentation
+- NEVER skip tests for new functionality
+- Commit OFTEN to utilize pre-commit hooks
+- ALWAYS stage ALL modified files after making changes
+- ALWAYS push changes to remote after committing
+- Keep commits focused and well-described
+</critical> 
 
 ---
 > Source: [dazeb/coolify-mcp-enhanced](https://github.com/dazeb/coolify-mcp-enhanced) — distributed by [TomeVault](https://tomevault.io).
