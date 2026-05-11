@@ -7,11 +7,11 @@ Library for easy testing of kubernetes deployments and operators using fabric8 a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [skodjob/kubetest4j](https://github.com/skodjob/kubetest4j).
+Original source: `CLAUDE.md` in [skodjob/kubetest4j](https://github.com/skodjob/kubetest4j).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
