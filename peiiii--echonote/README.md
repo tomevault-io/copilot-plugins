@@ -2,6 +2,8 @@
 
 > Source: [Peiiii/EchoNote](https://github.com/Peiiii/EchoNote) — distributed by [TomeVault](https://tomevault.io)
 
+AI Powered Note Taking With Agent
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
