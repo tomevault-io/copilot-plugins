@@ -4,7 +4,7 @@
   "repo": "epost-agent-kit-cli",
   "description": "CLI Tool manage ePost Agent Kit",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Klara-copilot/epost-agent-kit-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T15:33:25Z"
+  "distributed_at": "2026-05-11T01:44:40Z"
 }
