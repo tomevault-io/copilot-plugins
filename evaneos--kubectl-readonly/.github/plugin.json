@@ -1,0 +1,9 @@
+{
+  "name": "evaneos--kubectl-readonly",
+  "displayName": "kubectl-readonly",
+  "description": "A kubectl wrapper that only allows read-only commands. Designed to prevent accidental modifications when AI assistants (like Claude) explore Kubernetes clusters, including production.",
+  "version": "1.0.0",
+  "author": "Evaneos",
+  "homepage": "https://github.com/Evaneos/kubectl-readonly",
+  "skills": []
+}
