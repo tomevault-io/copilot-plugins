@@ -1,49 +1,12 @@
-## quality-workflow
+## ask-o11y-plugin
 
-> Quality gates and severity policy for this project
+> **DEPRECATED** — See [CLAUDE.md](./CLAUDE.md) for the authoritative project documentation.
 
+# AGENTS.md
 
-# Quality Workflow
+**DEPRECATED** — See [CLAUDE.md](./CLAUDE.md) for the authoritative project documentation.
 
-Reference: [CLAUDE.md](./CLAUDE.md) is the authoritative source.
-
-## Quality Gates (after every code change)
-
-Run these steps after **every** code change:
-
-1. **Build compiles** — `npm run build` (frontend) + `npm run build:backend` (Go)
-2. **OpenAPI spec** — update `pkg/plugin/openapi/openapi.json` and run `validate:openapi` if routes changed
-3. **Code review** — fix critical/major/medium issues
-4. **Clean AI noise** — remove comments that restate code; only keep non-obvious *why* comments
-5. **Tests & lint** — `npm run test:ci`, `go test ./pkg/...`, `npm run lint`, `npm run typecheck`
-
-## Commands
-
-```bash
-# Always prefix npm commands with nvm use 22 &&
-nvm use 22 && npm run test:ci        # Frontend unit tests
-go test ./pkg/...                    # Backend tests
-nvm use 22 && npm run lint           # ESLint
-nvm use 22 && npm run typecheck      # TypeScript
-nvm use 22 && npm run validate:openapi  # OpenAPI validation
-```
-
-## Severity Policy
-
-| Severity | Action |
-|----------|--------|
-| Critical | Fix now |
-| Major | Fix before commit |
-| Medium | Fix before PR |
-| Low | Optional |
-
-## Commit Format (CI-enforced)
-
-**Format:** `type(scope): description` — lowercase, imperative, no period.
-
-**Types:** feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
-
-**Scopes:** chat, mcp, session, config, rbac, oauth, share, viz, backend, ui, frontend, deps, release, ci, main
+This file is kept for backwards compatibility but is no longer maintained.
 
 ---
 > Source: [Consensys/ask-o11y-plugin](https://github.com/Consensys/ask-o11y-plugin) — distributed by [TomeVault](https://tomevault.io).
