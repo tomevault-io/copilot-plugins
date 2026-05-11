@@ -7,11 +7,11 @@ Keyword-based academic paper tracker supporting arXiv & OpenAlex, with LLM-power
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [RainerSeventeen/paper-tracker](https://github.com/RainerSeventeen/paper-tracker).
+Original source: `CLAUDE.md` in [RainerSeventeen/paper-tracker](https://github.com/RainerSeventeen/paper-tracker).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
