@@ -1,0 +1,9 @@
+{
+  "name": "tarow--nix-podman-stacks",
+  "displayName": "nix-podman-stacks",
+  "description": "Home Manager Modules for integrated Podman Stacks",
+  "version": "1.0.0",
+  "author": "Tarow",
+  "homepage": "https://github.com/Tarow/nix-podman-stacks",
+  "skills": []
+}
