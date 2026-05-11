@@ -1,0 +1,9 @@
+{
+  "name": "adamghill--dj-spinners",
+  "displayName": "dj-spinners",
+  "description": "Pure SVG loading spinners for Django.",
+  "version": "1.0.0",
+  "author": "adamghill",
+  "homepage": "https://github.com/adamghill/dj-spinners",
+  "skills": []
+}
