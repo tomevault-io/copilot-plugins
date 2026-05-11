@@ -4,7 +4,7 @@
   "repo": "FMMLoader-26",
   "description": "A FM26 Mod Loader.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jal-co/FMMLoader-26",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T10:31:02Z"
+  "distributed_at": "2026-05-11T04:00:36Z"
 }
