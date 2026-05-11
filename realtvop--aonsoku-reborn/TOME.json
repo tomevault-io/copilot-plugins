@@ -4,7 +4,7 @@
   "repo": "aonsoku-reborn",
   "description": "A modern desktop client for Navidrome/Subsonic servers built with React and Electron, with more features.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/realtvop/aonsoku-reborn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T15:16:12Z"
+  "distributed_at": "2026-05-11T16:46:04Z"
 }
