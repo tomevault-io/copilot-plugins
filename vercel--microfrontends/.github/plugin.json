@@ -1,0 +1,9 @@
+{
+  "name": "vercel--microfrontends",
+  "displayName": "microfrontends",
+  "description": "Build microfrontends on Vercel",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/microfrontends",
+  "skills": []
+}
