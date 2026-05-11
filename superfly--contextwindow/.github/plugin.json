@@ -1,0 +1,9 @@
+{
+  "name": "superfly--contextwindow",
+  "displayName": "contextwindow",
+  "description": "A low-level library for writing Go LLM agents",
+  "version": "1.0.0",
+  "author": "superfly",
+  "homepage": "https://github.com/superfly/contextwindow",
+  "skills": []
+}
