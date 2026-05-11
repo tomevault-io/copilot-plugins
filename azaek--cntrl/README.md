@@ -7,11 +7,11 @@ A lightweight agent that turns your PC into a scriptable IoT device. Monitor sta
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [azaek/cntrl](https://github.com/azaek/cntrl).
+Original source: `CLAUDE.md` in [azaek/cntrl](https://github.com/azaek/cntrl).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
