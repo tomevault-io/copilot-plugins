@@ -1,0 +1,9 @@
+{
+  "name": "cloud-shuttle--leptos-state",
+  "displayName": "leptos-state",
+  "description": "A state management library for Leptos applications inspired by Zustand's simplicity and XState's state machine capabilities.",
+  "version": "1.0.0",
+  "author": "cloud-shuttle",
+  "homepage": "https://github.com/cloud-shuttle/leptos-state",
+  "skills": []
+}
