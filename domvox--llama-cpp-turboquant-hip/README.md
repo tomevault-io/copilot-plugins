@@ -7,11 +7,11 @@ TurboQuant KV cache compression for llama.cpp — HIP/ROCm port for AMD RDNA3 (g
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [domvox/llama.cpp-turboquant-hip](https://github.com/domvox/llama.cpp-turboquant-hip).
+Original source: `CLAUDE.md` in [domvox/llama.cpp-turboquant-hip](https://github.com/domvox/llama.cpp-turboquant-hip).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
