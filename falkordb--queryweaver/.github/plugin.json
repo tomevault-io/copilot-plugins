@@ -1,0 +1,9 @@
+{
+  "name": "falkordb--queryweaver",
+  "displayName": "QueryWeaver",
+  "description": "An open-source Text2SQL tool that transforms natural language into SQL using graph-powered schema understanding. Ask your database questions in plain English, QueryWeaver handles the weaving.",
+  "version": "1.0.0",
+  "author": "FalkorDB",
+  "homepage": "https://github.com/FalkorDB/QueryWeaver",
+  "skills": []
+}
