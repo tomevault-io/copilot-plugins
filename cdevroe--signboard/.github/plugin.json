@@ -1,0 +1,9 @@
+{
+  "name": "cdevroe--signboard",
+  "displayName": "signboard",
+  "description": "A local-first kanban app that writes Markdown files.",
+  "version": "1.0.0",
+  "author": "cdevroe",
+  "homepage": "https://github.com/cdevroe/signboard",
+  "skills": []
+}
