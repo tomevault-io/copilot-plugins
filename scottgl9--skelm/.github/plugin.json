@@ -1,0 +1,9 @@
+{
+  "name": "scottgl9--skelm",
+  "displayName": "skelm",
+  "description": "skelm - open-source framework for secure, agentic, long-running workflows. Authoring, scheduling, and operating typed pipelines that mix deterministic code, LLM inference, and agent loops under defaul",
+  "version": "1.0.0",
+  "author": "scottgl9",
+  "homepage": "https://github.com/scottgl9/skelm",
+  "skills": []
+}
