@@ -1,0 +1,9 @@
+{
+  "name": "allra-fintech--git-issue",
+  "displayName": "git-issue",
+  "description": "A console-based issue tracker for managing issues in your git repositories",
+  "version": "1.0.0",
+  "author": "Allra-Fintech",
+  "homepage": "https://github.com/Allra-Fintech/git-issue",
+  "skills": []
+}
