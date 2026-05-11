@@ -1,0 +1,9 @@
+{
+  "name": "yuuki--rdma-exporter",
+  "displayName": "rdma_exporter",
+  "description": "Prometheus exporter for collection of RDMA (RoCE) NIC statistics from Linux hosts",
+  "version": "1.0.0",
+  "author": "yuuki",
+  "homepage": "https://github.com/yuuki/rdma_exporter",
+  "skills": []
+}
