@@ -1,75 +1,92 @@
-## python-rules
+## run-command-in-terminal
 
-> Our guidelines are for Django REST API application development.
+> Terminal command execution rules for non-interactive debugging
 
 
-Our guidelines are for Django REST API application development.
+# Terminal Command Execution Rules
 
-Key Principles
-- Write clear and technical responses with accurate Django REST Framework examples.
-- Use Django and DRF built-in features and tools whenever possible.
-- Prioritize readability and maintainability, following PEP 8 style.
-- Use descriptive variable and function names, following naming conventions.
-- Structure the project modularly using Django apps for reusability and separation.
+## Core Principle
+**Always use non-interactive mode** when executing terminal commands during debugging. Never use interactive methods that require user input, as they will cause processes to hang.
 
-Django/DRF Guidelines
-- Use CBV for complex logic, FBV for simple logic.
-- All database operations should use Django ORM; avoid raw SQL unless necessary.
-- Use Django's built-in user model and authentication system for user management.
-- Use DRF's Serializer and ModelSerializer for data validation and transformation.
-- Place business logic in models and serializers; views should only handle requests.
-- Define clear RESTful URLs in Django's urls.py.
-- Follow Django security best practices (CSRF, SQL injection, XSS protection).
-- Use DRF's permission and authentication classes for access control.
+## Prohibited Interactive Commands
+Avoid these interactive approaches:
+- Interactive shell sessions (`bash`, `sh`, `zsh` without `-c`)
+- Interactive Docker containers (`docker exec -it`)
+- Interactive Python shells (`python`, `python manage.py shell`)
+- Interactive package managers (`npm`, `pip` without `--yes`/`-y`)
+- Interactive Git commands (`git add` without specific files)
 
-Error Handling and Validation
-- Handle errors in the view layer using try-except and DRF exception handling.
-- Use DRF's validation framework for form and model data validation.
-- Support custom error responses and error pages (e.g., 404, 500).
+## Required Non-Interactive Alternatives
 
-Dependencies
-- Django
-- Django REST Framework
-- Celery (for background tasks)
-- Redis (for caching and task queues)
-- PostgreSQL or MySQL (for production database)
+### Docker Commands
+```bash
+# ❌ Interactive (prohibited)
+docker exec -it container_name bash
+docker run -it image_name /bin/bash
 
-Performance Optimization
-- Use select_related and prefetch_related for query optimization.
-- Use Django/DRF caching (e.g., Redis/Memcached) to reduce database load.
-- Optimize database indexing and queries.
-- Use async views and Celery for IO-bound or long-running tasks.
+# ✅ Non-interactive (required)
+docker exec container_name your_command
+docker run image_name your_command
+```
 
-Key Conventions
-1. Follow Django's "convention over configuration" principle.
-2. Always prioritize security and performance at every stage.
-3. Maintain a clear and logical project structure.
+### Python/Django Commands
+```bash
+# ❌ Interactive (prohibited)
+python manage.py shell
+python
+python manage.py dbshell
 
-Response
-1. All explanations must be in Chinese, and all code comments must be in English.
+# ✅ Non-interactive (required)
+python manage.py shell -c "your_command"
+python -c "your_command"
+python manage.py shell -c "from app.models import Model; print(Model.objects.count())"
+```
 
-Comments
-1. All comments must be in English.
-2. Do not use inline comments; comments must be above the code block.
+### Package Management
+```bash
+# ❌ Interactive (prohibited)
+npm install
+pip install package_name
 
-Code Formatting
-1. Limit each line of code to a maximum of 79 characters. Use line breaks and indentation for readability.
+# ✅ Non-interactive (required)
+npm install --yes
+pip install package_name --yes
+```
 
-Import Rules
-1. Use a three-part import structure:
-   - Standard library imports
-   - Third-party library imports
-   - Local application imports
-2. Separate each group with one blank line.
-3. Sort imports alphabetically within each group.
-4. Do not mix import types in a single block.
-5. Use absolute imports unless relative imports are required.
-6. Do not add comments to import statements.
+### Database Operations
+```bash
+# ❌ Interactive (prohibited)
+psql database_name
+mysql -u user database_name
 
-Docstring Rules
-1. All class and function comments must use docstring style (triple quotes).
+# ✅ Non-interactive (required)
+psql database_name -c "SELECT * FROM table_name;"
+mysql -u user database_name -e "SELECT * FROM table_name;"
+```
 
-Refer to Django and DRF official documentation for best practices in views, models, serializers, and security.
+### Git Operations
+```bash
+# ❌ Interactive (prohibited)
+git add
+git commit
+
+# ✅ Non-interactive (required)
+git add specific_file.py
+git commit -m "commit message"
+```
+
+## Best Practices
+1. **Always specify exact commands** rather than opening interactive sessions
+2. **Use command chaining** with `&&` or `;` for multiple operations
+3. **Include timeout flags** where available (e.g., `--timeout=30`)
+4. **Redirect output** to files when needed: `command > output.log 2>&1`
+5. **Use background execution** (`&`) for long-running processes only when necessary
+
+## Error Handling
+If a command fails or hangs:
+1. Use `timeout` command to limit execution time
+2. Redirect stderr to capture error messages
+3. Provide fallback non-interactive alternatives
 
 ---
 > Source: [HyperBDR/devmind](https://github.com/HyperBDR/devmind) — distributed by [TomeVault](https://tomevault.io).
