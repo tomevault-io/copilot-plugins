@@ -1,0 +1,9 @@
+{
+  "name": "adrirubio--claude-deck",
+  "displayName": "claude-deck",
+  "description": "A web-based dashboard for visually managing and configuring Claude Code projects and extensions.",
+  "version": "1.0.0",
+  "author": "adrirubio",
+  "homepage": "https://github.com/adrirubio/claude-deck",
+  "skills": []
+}
