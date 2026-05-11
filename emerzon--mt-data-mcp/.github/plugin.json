@@ -1,0 +1,9 @@
+{
+  "name": "emerzon--mt-data-mcp",
+  "displayName": "mt-data-mcp",
+  "description": "A MCP server for MetaTrader5 that provides market data and technical indicators",
+  "version": "1.0.0",
+  "author": "emerzon",
+  "homepage": "https://github.com/emerzon/mt-data-mcp",
+  "skills": []
+}
