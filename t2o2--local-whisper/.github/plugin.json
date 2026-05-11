@@ -1,0 +1,9 @@
+{
+  "name": "t2o2--local-whisper",
+  "displayName": "local-whisper",
+  "description": "\ud83c\udf99\ufe0f Local voice-to-text for macOS. 100% offline",
+  "version": "1.0.0",
+  "author": "t2o2",
+  "homepage": "https://github.com/t2o2/local-whisper",
+  "skills": []
+}
