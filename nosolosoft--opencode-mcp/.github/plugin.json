@@ -1,0 +1,9 @@
+{
+  "name": "nosolosoft--opencode-mcp",
+  "displayName": "opencode-mcp",
+  "description": "MCP Server for OpenCode CLI integration - Execute OpenCode commands, manage sessions, and discover models through the Model Context Protocol",
+  "version": "1.0.0",
+  "author": "nosolosoft",
+  "homepage": "https://github.com/nosolosoft/opencode-mcp",
+  "skills": []
+}
