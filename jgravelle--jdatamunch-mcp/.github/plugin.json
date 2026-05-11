@@ -1,0 +1,9 @@
+{
+  "name": "jgravelle--jdatamunch-mcp",
+  "displayName": "jdatamunch-mcp",
+  "description": "Token-efficient MCP server for tabular data retrieval. Index CSV/Excel files, query rows, aggregate \u2014 99%+ token savings vs raw file reads.",
+  "version": "1.0.0",
+  "author": "jgravelle",
+  "homepage": "https://github.com/jgravelle/jdatamunch-mcp",
+  "skills": []
+}
