@@ -1,0 +1,9 @@
+{
+  "name": "zalo--tetrament",
+  "displayName": "Tetrament",
+  "description": "Physics Engine for Tetrahedral Finite Element Simulation",
+  "version": "1.0.0",
+  "author": "zalo",
+  "homepage": "https://github.com/zalo/Tetrament",
+  "skills": []
+}
