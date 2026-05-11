@@ -1,0 +1,9 @@
+{
+  "name": "7mind--kanata-switcher",
+  "displayName": "kanata-switcher",
+  "description": "Kanata layer switcher based on focused application, for *all* Linux desktop environments  (Wayland and X11)",
+  "version": "1.0.0",
+  "author": "7mind",
+  "homepage": "https://github.com/7mind/kanata-switcher",
+  "skills": []
+}
