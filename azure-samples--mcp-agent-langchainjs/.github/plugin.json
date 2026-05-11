@@ -1,0 +1,9 @@
+{
+  "name": "azure-samples--mcp-agent-langchainjs",
+  "displayName": "mcp-agent-langchainjs",
+  "description": "Serverless AI agent using LangChain.js and Model Context Protocol (MCP) integration to order burgers from a burger restaurant",
+  "version": "1.0.0",
+  "author": "Azure-Samples",
+  "homepage": "https://github.com/Azure-Samples/mcp-agent-langchainjs",
+  "skills": []
+}
