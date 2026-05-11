@@ -4,7 +4,7 @@
   "repo": "travel-hacking-toolkit",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bailylu/travel-hacking-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T14:39:52Z"
+  "distributed_at": "2026-05-11T11:03:37Z"
 }
