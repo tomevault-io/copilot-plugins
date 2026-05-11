@@ -4,7 +4,7 @@
   "repo": "skillful-agent-system-builder",
   "description": "Skillful Agent System Builder helps you create custom AI agent teams without writing complex prompts from scratch.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/houarnu166/skillful-agent-system-builder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T12:14:25Z"
+  "distributed_at": "2026-05-11T17:02:33Z"
 }
