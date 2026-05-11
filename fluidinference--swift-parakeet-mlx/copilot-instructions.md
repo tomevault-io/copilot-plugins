@@ -1,84 +1,56 @@
-## mlx-tensor-formats
+## parakeet-mlx-swift-overview
 
-> **❌ WRONG ASSUMPTION**: MLX Swift uses PyTorch-style NCHW format
+> This project is a Swift implementation of the Parakeet speech recognition models using MLX Swift, converted from the original Python MLX implementation.
 
-# MLX Tensor Format Conventions & Common Pitfalls
+# ParakeetMLX Swift - Project Overview
 
-## Critical: MLX Swift and Python Use Identical Tensor Formats
+This project is a Swift implementation of the Parakeet speech recognition models using MLX Swift, converted from the original Python MLX implementation.
 
-**❌ WRONG ASSUMPTION**: MLX Swift uses PyTorch-style NCHW format  
-**✅ CORRECT**: MLX Swift uses the same NHWC format as Python MLX
+## Core Architecture
 
-### Tensor Format Rules
+The main library is structured around these key components:
 
-1. **Conv2d Input Format**: `[N, H, W, C]` (batch, height, width, channels)
-2. **Conv1d Input Format**: `[N, L, C]` (batch, length, channels)  
-3. **Weight Formats**: Identical between Python and Swift MLX
-   - Conv2d weights: `[out_channels, kernel_h, kernel_w, in_channels_per_group]`
-   - Conv1d weights: `[out_channels, kernel_size, in_channels_per_group]`
+- **[ParakeetMLX.swift](mdc:Sources/ParakeetMLX/ParakeetMLX.swift)** - Main library interface with `ParakeetTDT` model class, streaming support, and model loading functions
+- **[Conformer.swift](mdc:Sources/ParakeetMLX/Conformer.swift)** - Conformer encoder implementation with attention mechanisms, convolution modules, and positional encoding
+- **[RNNT.swift](mdc:Sources/ParakeetMLX/RNNT.swift)** - RNN-T decoder components including prediction network, joint network, and LSTM/GRU implementations
+- **[AudioProcessing.swift](mdc:Sources/ParakeetMLX/AudioProcessing.swift)** - Audio preprocessing pipeline with STFT, mel-scale conversion, and windowing functions
 
-## Key Project Files
+## Main Interfaces
 
-### Core Implementation
-- [Sources/ParakeetMLX/Conformer.swift](mdc:Sources/ParakeetMLX/Conformer.swift) - Main conformer encoder with DwStridingSubsampling
-- [Sources/ParakeetMLX/ParakeetMLX.swift](mdc:Sources/ParakeetMLX/ParakeetMLX.swift) - Main model class and weight loading
-- [Sources/ParakeetMLX/RNNT.swift](mdc:Sources/ParakeetMLX/RNNT.swift) - RNN-T components (LSTM, prediction, joint networks)
-
-### Python Reference
-- [Python/conformer.py](mdc:Python/conformer.py) - Reference Python implementation
-- [Python/rnnt.py](mdc:Python/rnnt.py) - Reference RNN-T implementation
-- [Python/parakeet.py](mdc:Python/parakeet.py) - Main Python model interface
-
-## Common Pitfalls & Solutions
-
-### 1. Weight Loading (ParakeetMLX.swift)
+### Model Loading
 ```swift
-// ❌ DON'T transpose weights - they're already in correct format
-// ✅ DO use weights as-is from safetensors
-let transformedWeights = weights  // No transposition needed!
+let model = try loadParakeetModel(from: "nvidia/parakeet-tdt_ctc-1.1b", dtype: .bfloat16)
 ```
 
-### 2. Conv2d Tensor Handling (Conformer.swift)
+### Basic Transcription
 ```swift
-// ❌ Wrong: Assuming NCHW format
-// ✅ Correct: Handle NHWC format with proper transposes
-x = x.transposed(axes: [0, 2, 3, 1])  // [NCHW] -> [NHWC] for Conv2d
-// ... conv operations ...
-x = x.transposed(axes: [0, 3, 1, 2])  // [NHWC] -> [NCHW] back
+let result = try model.transcribe(audioData: audioData)
+print("Transcription: \(result.text)")
 ```
 
-### 3. Depthwise Convolution Configuration
+### Streaming Transcription
 ```swift
-// ❌ Wrong: groups=1 for depthwise conv
-// ✅ Correct: groups=inputChannels for depthwise conv
-Conv2d(
-    inputChannels: inChannels,
-    outputChannels: inChannels,
-    groups: inChannels  // Essential for depthwise convolution
-)
+let stream = model.transcribeStream(contextSize: (256, 256), depth: 1)
+try stream.addAudio(audioChunk)
+let partialResult = stream.result
 ```
 
-### 4. LSTM Tensor Handling (RNNT.swift)
-```swift
-// ✅ These transposes are CORRECT for batch_first LSTM handling
-if batchFirst {
-    x = x.transposed(axes: [1, 0, 2])  // [batch, seq, features] -> [seq, batch, features]
-}
-```
+## Package Structure
 
-## Debugging Tips
+- **[Package.swift](mdc:Package.swift)** - Swift package definition with MLX Swift dependencies
+- **[Sources/ParakeetCLI/main.swift](mdc:Sources/ParakeetCLI/main.swift)** - Command-line interface for transcription
+- **[Tests/ParakeetMLXTests/](mdc:Tests/ParakeetMLXTests/)** - Unit tests for core functionality
+- **[Examples/BasicTranscription.swift](mdc:Examples/BasicTranscription.swift)** - Usage examples and integration patterns
+- **[README-Swift.md](mdc:README-Swift.md)** - Comprehensive documentation and API reference
 
-1. **Check weight shapes**: Depthwise conv weights have shape `[out_channels, kernel_h, kernel_w, 1]`
-2. **Verify tensor dimensions**: Print shapes before/after each operation
-3. **Compare with Python**: Use same transpose operations as Python reference
-4. **Weight loading**: No format conversion needed between Python and Swift MLX
+## Key Features
 
-## Architecture Overview
-
-- **Encoder**: Conformer with DwStridingSubsampling for downsampling
-- **Decoder**: LSTM-based prediction network  
-- **Joint**: Combines encoder and decoder outputs for final predictions
-- **TDT Decoding**: Time-dependent transducer with duration prediction
+- High-performance speech recognition optimized for Apple Silicon
+- Real-time streaming inference with configurable context windows
+- Chunked processing for long audio files
+- Word-level timestamp alignment
+- Support for Hugging Face Hub model loading
+- Cross-platform compatibility (macOS/iOS)
 
 ---
 > Source: [FluidInference/swift-parakeet-mlx](https://github.com/FluidInference/swift-parakeet-mlx) — distributed by [TomeVault](https://tomevault.io).
