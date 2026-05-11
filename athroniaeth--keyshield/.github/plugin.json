@@ -1,0 +1,9 @@
+{
+  "name": "athroniaeth--keyshield",
+  "displayName": "keyshield",
+  "description": "keyshield (old repo name was fastapi-api-key) provides a backend-agnostic library that provides a production-ready, secure API key system, with optional FastAPI, Litestar, Django, Quart and Typer conn",
+  "version": "1.0.0",
+  "author": "Athroniaeth",
+  "homepage": "https://github.com/Athroniaeth/keyshield",
+  "skills": []
+}
