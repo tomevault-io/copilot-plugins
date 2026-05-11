@@ -1,50 +1,130 @@
-## codequality
+## cpp
 
-> Code Quality Guidelines
+> - Use English for all code and documentation.
 
-# Code Quality Guidelines
+# C++ Programming Guidelines
 
-## Verify Information
-Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.
+## Basic Principles
 
-## File-by-File Changes
-Make changes file by file and give me a chance to spot mistakes.
+- Use English for all code and documentation.
+- Always declare the type of each variable and function (parameters and return value).
+- Create necessary types and classes.
+- Use Doxygen style comments to document public classes and methods.
+- Don't leave blank lines within a function.
+- Follow the one-definition rule (ODR).
+- Use only Ascii when writing code. Do not put non ascii symbols in comments of code.
 
-## No Apologies
-Never use apologies.
+## Nomenclature
+- Use the case already existant in the file.
+- Use snake_case for classes and structures.
+- Use snake_case for variables, functions, and methods.
+- Use ALL_CAPS for constants and macros.
+- Use snake_case for file and directory names.
+- Use UPPERCASE for environment variables.
+- Avoid magic numbers and define constants.
+- Start each function with a verb.
+- Use verbs for boolean variables. Example: is_loading, has_error, can_delete, etc.
+- Use complete words instead of abbreviations and ensure correct spelling.
+  - Except for standard abbreviations like API, URL, etc.
+  - Except for well-known abbreviations:
+    - i, j, k for loops
+    - err for errors
+    - ctx for contexts
+    - req, res for request/response parameters
 
-## No Understanding Feedback
-Avoid giving feedback about understanding in comments or documentation.
+## Functions
 
-## No Whitespace Suggestions
-Don't suggest whitespace changes.
+- Write short functions with a single purpose. Less than 20 instructions.
+- Name functions with a verb and something else.
+- If it returns a boolean, use is_x or has_x, can_x, etc.
+- If it doesn't return anything (void), use execute_x or save_x, etc.
+- Avoid nesting blocks by:
+  - Early checks and returns.
+  - Extraction to utility functions.
+- Use standard library algorithms (std::for_each, std::transform, std::find, etc.) to avoid function nesting.
+- Use lambda functions for simple operations.
+- Use named functions for non-simple operations.
+- Use default parameter values instead of checking for null or nullptr.
+- Reduce function parameters using structs or classes
+  - Use an object to pass multiple parameters.
+  - Use an object to return multiple results.
+  - Declare necessary types for input arguments and output.
+- Use a single level of abstraction.
 
-## No Summaries
-Don't summarize changes made.
+## Data
 
-## No Inventions
-Don't invent changes other than what's explicitly requested.
+- Don't abuse primitive types and encapsulate data in composite types.
+- Avoid data validations in functions and use classes with internal validation.
+- Prefer immutability for data.
+- Use const for data that doesn't change.
+- Use constexpr for compile-time constants.
+- Use std::optional for possibly null values.
 
-## No Unnecessary Confirmations
-Don't ask for confirmation of information already provided in the context.
+## Classes
 
-## Preserve Existing Code
-Don't remove unrelated code or functionalities. Pay attention to preserving existing structures.
+- Follow SOLID principles.
+- Prefer composition over inheritance.
+- Declare interfaces as abstract classes or concepts.
+- Write small classes with a single purpose.
+  - Less than 200 instructions.
+  - Less than 10 public methods.
+  - Less than 10 properties.
+- Use the Rule of Five (or Rule of Zero) for resource management.
+- Make member variables private and provide getters/setters where necessary.
+- Use const-correctness for member functions.
 
-## Single Chunk Edits
-Provide all edits in a single chunk instead of multiple-step instructions or explanations for the same file.
+## Exceptions
 
-## No Implementation Checks
-Don't ask the user to verify implementations that are visible in the provided context.
+- Use exceptions to handle errors you don't expect.
+- If you catch an exception, it should be to:
+  - Fix an expected problem.
+  - Add context.
+  - Otherwise, use a global handler.
+- Use hpp::optional, or error codes for expected failures.
 
-## No Unnecessary Updates
-Don't suggest updates or changes to files when there are no actual modifications needed.
+## Memory Management
 
-## Provide Real File Links
-Always provide links to the real files, not x.md.
+- Prefer smart pointers (std::unique_ptr, std::shared_ptr) over raw pointers.
+- Use RAII (Resource Acquisition Is Initialization) principles.
+- Avoid memory leaks by proper resource management.
+- Use std::vector and other standard containers instead of C-style arrays.
 
-## No Current Implementation
-Don't show or discuss the current implementation unless specifically requested.
+## Testing
+
+- Follow the Arrange-Act-Assert convention for tests.
+- Name test variables clearly.
+- Follow the convention: input_x_, mock_x, actual_x, expected_x, etc.
+- Write unit tests for each public function.
+- Use test doubles to simulate dependencies.
+  - Except for third-party dependencies that are not expensive to execute.
+- Write integration tests for each module.
+- Follow the Given-When-Then convention.
+
+## Project Structure
+
+- Use modular architecture
+- Separate interface (.h) from implementation (.cpp).
+- Use namespaces to organize code logically.
+- Create a core namespace for foundational components.
+- Create a utils namespace for utility functions.
+- deps folder contains third party libraries. They can be used but should almost never be modified.
+
+## Standard Library
+
+- Use the C++ Standard Library whenever possible.
+- Prefer std::string over C-style strings.
+- Use std::vector, std::map, std::unordered_map, etc. for collections.
+- Use hpp::optional, hpp::variant, hpp::any for modern type safety.
+- Use std::filesystem for file operations with namespace alias fs.
+- Use std::chrono for time-related operations.
+- Use hpp::string_view for string manipiulation that does not need to create new strings.
+## Concurrency
+
+- Use std::thread, std::mutex, std::lock_guard for thread safety.
+- Prefer task-based parallelism over thread-based parallelism.
+- Use std::atomic for atomic operations.
+- Avoid data races by proper synchronization.
+- Use thread-safe data structures when necessary.
 
 ---
 > Source: [unravel-dev/UnravelEngine](https://github.com/unravel-dev/UnravelEngine) — distributed by [TomeVault](https://tomevault.io).
