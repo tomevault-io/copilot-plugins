@@ -1,0 +1,9 @@
+{
+  "name": "jakekaplan--loq",
+  "displayName": "loq",
+  "description": "An electric fence for LLMs (and humans too). Written in Rust, loq enforces file line limits: fast, zero-config, and language agnostic.",
+  "version": "1.0.0",
+  "author": "jakekaplan",
+  "homepage": "https://github.com/jakekaplan/loq",
+  "skills": []
+}
