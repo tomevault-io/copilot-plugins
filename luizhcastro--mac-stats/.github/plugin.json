@@ -1,0 +1,9 @@
+{
+  "name": "luizhcastro--mac-stats",
+  "displayName": "mac-stats",
+  "description": "A native macOS menu bar app for real-time monitoring of system stats.",
+  "version": "1.0.0",
+  "author": "luizhcastro",
+  "homepage": "https://github.com/luizhcastro/mac-stats",
+  "skills": []
+}
