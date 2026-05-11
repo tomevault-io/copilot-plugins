@@ -7,11 +7,11 @@ Idiomatic Clojure wrapper for Playwright. Browser automation, API testing, Allur
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Blockether/spel](https://github.com/Blockether/spel).
+Original source: `CLAUDE.md` in [Blockether/spel](https://github.com/Blockether/spel).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
