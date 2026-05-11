@@ -1,0 +1,44 @@
+{
+  "name": "korean-law-alio-mcp",
+  "owner": "scvcoder",
+  "repo": "korean-law-alio-mcp",
+  "description": "(\uac1c\uc694) \uad6d\uac00\ubc95\ub839\uc815\ubcf4\uc13c\ud130\uc640 \uc54c\ub9ac\uc624\uc758 \uacf5\uacf5\uae30\uad00 \ub0b4\ubd80\uaddc\uc815\uc744 \uac80\uc0c9\u00b7\ube44\uad50\u00b7\ubd84\uc11d\ud558\ub294 MCP. (\ub3c4\uad6c) \ubc95\uc81c\ucc98 87 + ALIO \uacf5\uacf5\uae30\uad00 \uaddc\uc815 23 = 110\uac1c MCP \ub3c4\uad6c. (\ub370\uc774\ud130) 1,600 \ubc95\ub960, 10,000 \ud589\uc815\uaddc\uce59, \uc218\ub9cc\uac74 \ud310\ub840, 344\uac1c \uacf5\uacf5\uae30\uad00 35,000 \ub0b4\ubd80\uaddc\uc815.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/scvcoder/korean-law-alio-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T05:15:42Z"
+}
