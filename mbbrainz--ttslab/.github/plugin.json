@@ -1,0 +1,9 @@
+{
+  "name": "mbbrainz--ttslab",
+  "displayName": "ttslab",
+  "description": "TTSLab is THE place to easily test ANY text to text to speech model on your own pc with 0 cost",
+  "version": "1.0.0",
+  "author": "MbBrainz",
+  "homepage": "https://github.com/MbBrainz/ttslab",
+  "skills": []
+}
