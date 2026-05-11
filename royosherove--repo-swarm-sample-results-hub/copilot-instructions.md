@@ -1,15 +1,14 @@
-## ignore-reports-folder-for-queries
+## report-and-query-placement
 
-> when searching for information, do NOT use information found under "reports" folder or "prompts" folder or any of their subfolder.
+> if you are about to create a new report in markdown, or generate any chart as a reponse to a user query about this repository, always place the results in a folder in the root of this repository with this pattern:
 
-# **Critical Instruction**
 
-when searching for information, do NOT use information found under "reports" folder or "prompts" folder or any of their subfolder.
+if you are about to create a new report in markdown, or generate any chart as a reponse to a user query about this repository, always place the results in a folder in the root of this repository with this pattern: 
+[root]/reports/[query-title-up-to-5-words]/[generated-files-go-here]
 
-- [root]/reports/[ignore-anything here]
-- [root]/prompts/[ignore-anything here]
-- [root]/analysis_outputs/[ignore-anything here]
-- [root]/diagrams/[ignore-anything here]
+also, save the query that generated the report at the top section of the report under "prompt that generated this report:" (save all the history of the prompts so people can repeat them later)
+
+report date shoudl be generated using a command line call always.
 
 ---
 > Source: [royosherove/repo-swarm-sample-results-hub](https://github.com/royosherove/repo-swarm-sample-results-hub) — distributed by [TomeVault](https://tomevault.io).
