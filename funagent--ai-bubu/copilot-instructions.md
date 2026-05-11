@@ -1,71 +1,66 @@
-## skin-system
+## tauri-rust
 
-> 皮肤系统开发与资源管理规范
+> Tauri 2 Rust 后端开发规范
 
 
-# 皮肤系统规范
+# Tauri Rust 开发规范
 
-## 目录结构
+## 代码质量
+
+- 必须通过 `cargo fmt` 和 `cargo clippy -- -D warnings`
+- 使用 `Result` 和 `?` 运算符处理错误，避免 `unwrap()`
+- 公开 API 添加文档注释 (`///`)
+
+## Tauri 命令
+
+- 命令函数使用 `#[tauri::command]` 宏
+- 在 `lib.rs` 中通过 `invoke_handler` 注册
+- 命令参数和返回值必须实现 `Serialize` / `Deserialize`
+- 异步命令返回 `Result<T, String>`
+
+## 项目结构
 
 ```
-packages/app/public/skins/
-├── order.json            # 内置皮肤展示顺序
-├── vita/
-│   ├── skin.json         # 皮肤清单
-│   ├── pet.png           # 精灵图（头像）
-│   └── skin.png          # 动画精灵图
-├── doux/
-└── ...
+src-tauri/src/
+├── lib.rs          # 入口，命令注册
+├── tray.rs         # 系统托盘
+├── steps.rs        # 步数持久化 (SQLite)
+├── skin_import.rs  # 皮肤导入
+├── monitor/        # 活跃度监测引擎
+│   ├── mod.rs      # MonitorEngine
+│   ├── scoring.rs  # 评分状态机
+│   ├── config.rs   # Provider 配置加载
+│   └── adapters/   # 适配器（sqlite, jsonl, process 等）
+└── social/         # 局域网社交
+    ├── mod.rs      # 社交模块入口
+    ├── discovery.rs # UDP 发现
+    └── protocol.rs  # 协议定义
 ```
 
-皮肤通过扫描目录自动发现，无需手动注册。
+## 监测适配器
 
-## 展示顺序
+- Provider 配置文件: `packages/app/providers/*.toml`
+- 支持的适配器类型: `sqlite`, `jsonl`, `process`, `vscode_ext`, `file_mtime`
+- 路径变量: `${HOME}`, `${APP_SUPPORT}`, `${APPDATA}`
+- 修改 provider 后需在 macOS/Windows/Linux 测试路径兼容性
 
-内置皮肤的展示顺序由 `order.json` 控制，它是一个 JSON 字符串数组：
+## 数据持久化
 
-```json
-["vita", "tard", "mort", "doux", "boy", "dinosaur", "glube", "line"]
-```
+- 步数数据使用 SQLite（`rusqlite`）
+- 设置使用 Tauri Store plugin
+- 数据库文件在用户 app data 目录
 
-- 调整顺序：只需修改数组中元素的位置
-- 新增皮肤：在数组中添加对应的 skin ID
-- `build.rs` 在编译时读取此文件生成 `BUILTIN_SKIN_IDS`
-- 皮肤 ID 即目录名，不带任何前缀，保持稳定
+## 局域网社交
 
-## skin.json 必填字段
+- UDP 广播端口: 23456
+- 协议版本: `0.1.0`
+- 心跳包含: peer_id, nickname, daily_steps, activity_score, movement_state, pet_skin
 
-- `name` — 皮肤名称
-- `author` — 作者
-- `animations` — 动画配置（至少包含 `idle`）
+## 安全
 
-## 动画状态
-
-有效状态: `idle`, `walk`, `run`, `sprint`
-
-每个动画需包含:
-- `file` — 引用的图片文件（必须实际存在）
-- `loop` — 是否循环
-- `sprite` — 精灵图参数: `frameWidth`, `frameHeight`, `frameCount`, `columns`, `fps`, `startFrame`
-
-## 支持的渲染格式
-
-- `sprite` — 精灵图（SpriteRenderer）
-- `lottie` — Lottie 动画（LottieRenderer）
-- 其他 — 静态图片（ImageRenderer）
-
-## 校验流程
-
-1. 修改皮肤资源后运行 `pnpm validate:skins`
-2. pre-commit hook 会自动执行校验
-
-## 添加新皮肤
-
-1. 创建目录 `packages/app/public/skins/<skin-id>/`
-2. 添加 `skin.json` + `pet.png`
-3. 在 `order.json` 数组中添加 `<skin-id>`
-4. 运行 `pnpm validate:skins`
-5. commit: `feat(skin): add <skin-name> skin`
+- CSP 策略在 `tauri.conf.json` 中配置
+- 添加外部资源访问需更新 CSP
+- 文件系统访问需在 capabilities 中声明
 
 ---
 > Source: [funAgent/ai-bubu](https://github.com/funAgent/ai-bubu) — distributed by [TomeVault](https://tomevault.io).
