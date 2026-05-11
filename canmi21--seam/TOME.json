@@ -4,7 +4,7 @@
   "repo": "seam",
   "description": "Rendering is a protocol, not a render-time computation.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/canmi21/seam",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T09:36:05Z"
+  "distributed_at": "2026-05-11T16:41:30Z"
 }
