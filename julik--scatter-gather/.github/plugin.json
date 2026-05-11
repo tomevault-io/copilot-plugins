@@ -1,0 +1,9 @@
+{
+  "name": "julik--scatter-gather",
+  "displayName": "scatter_gather",
+  "description": "Dead-simple scatter-gather (batching) for your ActiveJobs",
+  "version": "1.0.0",
+  "author": "julik",
+  "homepage": "https://github.com/julik/scatter_gather",
+  "skills": []
+}
