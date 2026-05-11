@@ -1,44 +1,55 @@
-## routing
+## state-management
 
-> 项目使用 Vue Router 进行路由管理。路由配置文件位于 [router/index.js](mdc:src/router/index.js)。
+> 项目使用 Pinia 进行状态管理。Pinia 是 Vue 官方推荐的状态管理库，替代了 Vuex。
 
-# 路由规则
+# 状态管理规则
 
-项目使用 Vue Router 进行路由管理。路由配置文件位于 [router/index.js](mdc:src/router/index.js)。
+项目使用 Pinia 进行状态管理。Pinia 是 Vue 官方推荐的状态管理库，替代了 Vuex。
 
-## 路由配置
+## Store 结构
 
-当前配置了以下路由：
+Store 文件位于 `src/stores` 目录下，示例文件为 [counter.js](mdc:src/stores/counter.js)。
 
-- `/` - 首页，对应 [HomeView.vue](mdc:src/views/HomeView.vue)
-- `/about` - 关于页，对应 [AboutView.vue](mdc:src/views/AboutView.vue)（懒加载）
+## 创建 Store
 
-## 添加新路由
-
-添加新路由时，请遵循以下步骤：
-
-1. 在 `src/views` 目录下创建新的视图组件
-2. 在 [router/index.js](mdc:src/router/index.js) 中添加新的路由配置
-3. 对于大型页面，建议使用懒加载方式导入组件：
-   ```js
-   component: () => import('../views/YourView.vue')
-   ```
-
-## 路由导航
-
-在组件中使用 `RouterLink` 组件进行导航：
-
-```vue
-<RouterLink to="/your-route">导航文本</RouterLink>
-```
-
-或者使用编程式导航：
+使用 `defineStore` 函数创建 store：
 
 ```js
-import { useRouter } from 'vue-router'
+import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
 
-const router = useRouter()
-router.push('/your-route')
+export const useYourStore = defineStore('your-store', () => {
+  // 状态
+  const state = ref(initialValue)
+  
+  // Getters (计算属性)
+  const derivedState = computed(() => state.value * 2)
+  
+  // Actions (方法)
+  function updateState(newValue) {
+    state.value = newValue
+  }
+  
+  return { state, derivedState, updateState }
+})
+```
+
+## 使用 Store
+
+在组件中使用 store：
+
+```vue
+<script setup>
+import { useYourStore } from '@/stores/your-store'
+
+const store = useYourStore()
+
+// 访问状态
+console.log(store.state)
+
+// 调用 action
+store.updateState(newValue)
+</script>
 ```
 
 ---
