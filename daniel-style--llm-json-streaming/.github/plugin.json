@@ -1,0 +1,9 @@
+{
+  "name": "daniel-style--llm-json-streaming",
+  "displayName": "llm-json-streaming",
+  "description": "streaming json using OpenAI, Anthropic and Gemini models.( for great UX)",
+  "version": "1.0.0",
+  "author": "daniel-style",
+  "homepage": "https://github.com/daniel-style/llm-json-streaming",
+  "skills": []
+}
