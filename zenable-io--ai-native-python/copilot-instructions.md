@@ -1,0 +1,55 @@
+## python-template
+
+> You are working on a cookiecutter template for generating modern Python projects.
+
+type: always
+
+---
+
+# AI-Native Python Paved Road Template Rules
+
+You are working on a cookiecutter template for generating modern Python projects.
+
+## Critical Context
+
+This is a TEMPLATE GENERATOR. Files in `{{cookiecutter.project_name ...}}/` contain Jinja2 variables that must be preserved exactly as written.
+
+## Tech Stack
+
+- Python 3.13+ with uv package manager (NOT pip/poetry)
+- pytest with >80% coverage requirement
+- Pre-commit: ruff, pyright, refurb
+- Security: grype, syft
+- CI/CD: GitHub Actions
+
+6. Update documentation in the docs/ directory as features are added or changed
+
+## Code Standards
+
+- Max line length: 120
+- Type hints required
+- Google-style docstrings
+- Use pathlib (no os.path)
+- Use logging (no print)
+- Specific exception handling
+
+## Key Commands
+
+```bash
+task init       # Setup environment
+task build      # Build project
+task test       # Run tests
+task lint       # Check code quality
+```
+
+## Template Testing
+
+```bash
+uvx --with gitpython cookiecutter . --no-input    # Generate a default project
+cd $(ls -td * | head -1)
+task init test                                    # Test the template
+```
+
+---
+> Source: [Zenable-io/ai-native-python](https://github.com/Zenable-io/ai-native-python) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
