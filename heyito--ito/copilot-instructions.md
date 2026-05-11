@@ -1,51 +1,46 @@
-## typescript
+## ito
 
-> - Prefer interfaces over types for object definitions
+> - `app/` hosts the Electron renderer (React + Tailwind); `lib/` contains shared TypeScript modules, preload logic, and unit tests.
 
-# TypeScript Best Practices
+# Repository Guidelines
 
-## Type System
-- Prefer interfaces over types for object definitions
-- Use type for unions, intersections, and mapped types
-- NEVER use `any` or `as any` types or coercion
-- Use strict TypeScript configuration
-- Leverage TypeScript's built-in utility types
-- Use generics for reusable type patterns
+## Project Structure & Module Organization
 
-## Naming Conventions
-- Use PascalCase for type names and interfaces
-- Use camelCase for variables and functions
-- Use UPPER_CASE for constants
-- Use descriptive names with auxiliary verbs (e.g., isLoading, hasError)
-- Prefix interfaces for React props with 'Props' (e.g., ButtonProps)
+- `app/` hosts the Electron renderer (React + Tailwind); `lib/` contains shared TypeScript modules, preload logic, and unit tests.
+- `server/` holds the Bun-based transcription API, database migrations, and infrastructure scripts.
+- `native/` includes Rust crates for keyboard, audio, and text bridges; rebuild via scripts as needed.
+- `resources/` provides packaging assets (icons, updater configs), while `build/` and `out/` house generated installers; avoid editing build outputs.
+- Use `scripts/` for automation and keep generated proto/constants under `lib/generated` (created by build steps).
 
-## Code Organization
-- Keep type definitions close to where they're used
-- Export types and interfaces from dedicated type files when shared
-- Use barrel exports (index.ts) for organizing exports
-- Place shared types in a `types.ts` file
-- Co-locate component props with their components
+## Build, Test, and Development Commands
 
-## Functions
-- Use explicit return types for public functions
-- Use arrow functions for callbacks and methods
-- Implement proper error handling with custom error types
-- Use function overloads for complex type scenarios
-- Prefer async/await over Promises
-- Prefer function declarations over function expressions.
-- Prefer functional programming over classes.
+- `bun install` aligns dependencies after pulls.
+- `bun run dev` starts the Electron shell with live reload; `bun run dev:rust` rebuilds native bridges via `./build-binaries.sh` before launching.
+- Packaging: `bun run build:app` for cross-platform; use `bun run build:mac` / `bun run build:win` for platform installers.
+- Backend (`server/`): `bun install`, `bun run local-db-up` (Postgres), `bun run db:migrate`, `bun run dev`.
 
-## Best Practices
-- Enable strict mode in tsconfig.json
-- Use readonly for immutable properties
-- Leverage discriminated unions for type safety
-- Use type guards for runtime type checking
-- Implement proper null checking
-- Avoid type assertions unless necessary
+## Coding Style & Naming Conventions
 
-## Error Handling
-- Do not proactively add error handling
-- Handle Promise rejections properly
+- TypeScript + React across app/lib; server targets modern ECMAScript on Bun.
+- Prettier (2-space indent) and ESLint enforce formatting. Run `bun run format` and `bun run lint` (or `*:app` variants) before submitting.
+- Components/classes use `PascalCase`, hooks/utilities `camelCase`, constants `SCREAMING_SNAKE_CASE`. Co-locate Tailwind styles with components and reuse tokens via `lib/constants`.
+- Always prefer console commands over log commands. E.g. use `console.log` instead of `log.info`.
+
+## Testing Guidelines
+
+- Unit tests run with Bun. Renderer/shared specs live in `lib/__tests__`; server tests reside under `server/src/**`. Name files with `.test.ts`.
+- Run `bun run runLibTests`, `bun run runServerTests`, or `bun run runAllTests`; paste output in PR notes.
+- Seed backend tests with `bun run local-db-up` and avoid hitting external services—mock microphone, OS, and network dependencies.
+
+## Commit & Pull Request Guidelines
+
+- Conventional commits are enforced via commitlint (example: `feat(app): add dictation overlay`). Scope by top-level folder.
+- PRs need a summary, linked issue, test commands, and screenshots/GIFs for UI work. Call out schema/config updates and refresh `.env.example` files.
+
+## Environment & Security Notes
+
+- Copy `.env.example` (root) and `server/.env.example`; never commit credentials.
+- After modifying protobufs or constants, run `bun run generate:constants` so `lib/generated` stays in sync with the app bundle.
 
 ---
 > Source: [heyito/ito](https://github.com/heyito/ito) — distributed by [TomeVault](https://tomevault.io).
