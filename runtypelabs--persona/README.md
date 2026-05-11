@@ -7,11 +7,11 @@ Open-source embeddable AI chat UI with streaming, voice, and theming
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [runtypelabs/persona](https://github.com/runtypelabs/persona).
+Original source: `CLAUDE.md` in [runtypelabs/persona](https://github.com/runtypelabs/persona).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
