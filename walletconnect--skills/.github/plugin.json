@@ -1,0 +1,9 @@
+{
+  "name": "walletconnect--skills",
+  "displayName": "skills",
+  "description": "Centralized repository for shared Claude Code configuration files used across WalletConnect projects.",
+  "version": "1.0.0",
+  "author": "WalletConnect",
+  "homepage": "https://github.com/WalletConnect/skills",
+  "skills": []
+}
