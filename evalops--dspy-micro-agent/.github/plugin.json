@@ -1,0 +1,9 @@
+{
+  "name": "evalops--dspy-micro-agent",
+  "displayName": "dspy-micro-agent",
+  "description": "Minimal agent runtime built with DSPy modules and a thin Python loop. Includes CLI, FastAPI server, and eval harness with OpenAI/Ollama support.",
+  "version": "1.0.0",
+  "author": "evalops",
+  "homepage": "https://github.com/evalops/dspy-micro-agent",
+  "skills": []
+}
