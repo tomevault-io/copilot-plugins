@@ -4,7 +4,7 @@
   "repo": "linctl",
   "description": "A Linear CLI tool built with agents in mind (but useful to humans too).  Implemented in Golang with Cobra.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dorkitude/linctl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T17:57:38Z"
+  "distributed_at": "2026-05-11T05:02:59Z"
 }
