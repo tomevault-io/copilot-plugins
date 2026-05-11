@@ -4,7 +4,7 @@
   "repo": "xamal",
   "description": "Deploy Elixir apps to bare metal servers. Like Kamal, but with native releases + Caddy instead of Docker.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dmkenney/xamal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T14:50:49Z"
+  "distributed_at": "2026-05-11T11:12:40Z"
 }
