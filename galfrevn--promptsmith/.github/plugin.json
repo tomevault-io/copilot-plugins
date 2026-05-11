@@ -1,0 +1,9 @@
+{
+  "name": "galfrevn--promptsmith",
+  "displayName": "promptsmith",
+  "description": "\ud83e\udde0 A TypeScript library for crafting structured, maintainable system prompts using a fluent, chainable API with full type safety. It supports context, few-shot examples, guardrails against prompt injec",
+  "version": "1.0.0",
+  "author": "galfrevn",
+  "homepage": "https://github.com/galfrevn/promptsmith",
+  "skills": []
+}
