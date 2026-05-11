@@ -1,0 +1,9 @@
+{
+  "name": "editor-code-assistant--eca",
+  "displayName": "eca",
+  "description": "Editor Code Assistant (ECA) - AI pair programming capabilities agnostic of editor",
+  "version": "1.0.0",
+  "author": "editor-code-assistant",
+  "homepage": "https://github.com/editor-code-assistant/eca",
+  "skills": []
+}
