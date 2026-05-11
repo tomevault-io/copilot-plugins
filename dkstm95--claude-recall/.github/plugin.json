@@ -1,0 +1,9 @@
+{
+  "name": "dkstm95--claude-recall",
+  "displayName": "claude-recall",
+  "description": "A statusline for parallel Claude Code sessions \u2014 know what each one is for at a glance.",
+  "version": "1.0.0",
+  "author": "dkstm95",
+  "homepage": "https://github.com/dkstm95/claude-recall",
+  "skills": []
+}
