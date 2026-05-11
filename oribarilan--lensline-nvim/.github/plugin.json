@@ -1,0 +1,9 @@
+{
+  "name": "oribarilan--lensline-nvim",
+  "displayName": "lensline.nvim",
+  "description": "Modular nvim codelens support with inline references, git blame and more",
+  "version": "1.0.0",
+  "author": "oribarilan",
+  "homepage": "https://github.com/oribarilan/lensline.nvim",
+  "skills": []
+}
