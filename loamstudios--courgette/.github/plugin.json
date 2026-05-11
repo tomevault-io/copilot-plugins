@@ -1,0 +1,9 @@
+{
+  "name": "loamstudios--courgette",
+  "displayName": "courgette",
+  "description": "A TUI library for Elixir",
+  "version": "1.0.0",
+  "author": "LoamStudios",
+  "homepage": "https://github.com/LoamStudios/courgette",
+  "skills": []
+}
