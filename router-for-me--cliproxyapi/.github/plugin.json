@@ -1,0 +1,9 @@
+{
+  "name": "router-for-me--cliproxyapi",
+  "displayName": "CLIProxyAPI",
+  "description": "Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code as an OpenAI/Gemini/Claude/Codex compatible API service, allowing you to enjoy the free Gemini 3.1 Pro, GPT 5.5, Claude model through API",
+  "version": "1.0.0",
+  "author": "router-for-me",
+  "homepage": "https://github.com/router-for-me/CLIProxyAPI",
+  "skills": []
+}
