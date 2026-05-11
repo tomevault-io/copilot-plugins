@@ -1,0 +1,9 @@
+{
+  "name": "tlehman--litprog-skill",
+  "displayName": "litprog-skill",
+  "description": "Literate programming skill for agent harnesses like Claude Code, OpenCode and Hermes Agent",
+  "version": "1.0.0",
+  "author": "tlehman",
+  "homepage": "https://github.com/tlehman/litprog-skill",
+  "skills": []
+}
