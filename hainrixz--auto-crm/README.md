@@ -7,11 +7,11 @@ CRM local con IA que se personaliza a tu negocio. 100% local, open-source, power
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Hainrixz/auto-crm](https://github.com/Hainrixz/auto-crm).
+Original source: `CLAUDE.md` in [Hainrixz/auto-crm](https://github.com/Hainrixz/auto-crm).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
