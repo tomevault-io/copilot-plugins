@@ -7,11 +7,11 @@ Saleor Core: the high performance, composable, headless commerce API.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [capitaloperator0311/saleor](https://github.com/capitaloperator0311/saleor).
+Original source: `CLAUDE.md` in [capitaloperator0311/saleor](https://github.com/capitaloperator0311/saleor).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
