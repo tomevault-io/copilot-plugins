@@ -1,0 +1,9 @@
+{
+  "name": "nbramia--lifeos",
+  "displayName": "LifeOS",
+  "description": "Personal assistant, data aggregation, and CRM integrating Obsidian, Gsuite, and messaging",
+  "version": "1.0.0",
+  "author": "nbramia",
+  "homepage": "https://github.com/nbramia/LifeOS",
+  "skills": []
+}
