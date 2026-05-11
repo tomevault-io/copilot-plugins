@@ -7,11 +7,11 @@ Website for Kanvas extension
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [meshery-extensions/kanvas-site](https://github.com/meshery-extensions/kanvas-site).
+Original source: `CLAUDE.md` in [meshery-extensions/kanvas-site](https://github.com/meshery-extensions/kanvas-site).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
