@@ -4,7 +4,7 @@
   "repo": "kexp-menubar",
   "description": "A macOS menubar app for KEXP",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/isaacd9/kexp-menubar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T00:11:48Z"
+  "distributed_at": "2026-05-11T07:03:14Z"
 }
