@@ -1,0 +1,9 @@
+{
+  "name": "alexnodeland--fugue",
+  "displayName": "fugue",
+  "description": "A type-safe, monadic probabilistic programming library for Rust",
+  "version": "1.0.0",
+  "author": "alexnodeland",
+  "homepage": "https://github.com/alexnodeland/fugue",
+  "skills": []
+}
