@@ -7,14 +7,14 @@ A Linear CLI tool built with agents in mind (but useful to humans too).  Impleme
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [dorkitude/linctl](https://github.com/dorkitude/linctl).
+Original source: `AGENTS.md` in [dorkitude/linctl](https://github.com/dorkitude/linctl).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [dorkitude/linctl](https://github.com/dorkitude/linctl) — a repo with 125+ stars on GitHub.
