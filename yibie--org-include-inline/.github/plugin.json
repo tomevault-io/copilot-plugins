@@ -1,0 +1,9 @@
+{
+  "name": "yibie--org-include-inline",
+  "displayName": "org-include-inline",
+  "description": "A minor mode for Org mode that displays #+INCLUDE directive contents inline within your Org buffers.",
+  "version": "1.0.0",
+  "author": "yibie",
+  "homepage": "https://github.com/yibie/org-include-inline",
+  "skills": []
+}
