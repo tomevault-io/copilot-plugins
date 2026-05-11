@@ -1,0 +1,9 @@
+{
+  "name": "athasdev--athas",
+  "displayName": "athas",
+  "description": "A lightweight, cross-platform code editor, built with Tauri (Rust and React) with Git support, AI agents, vim keybindings.",
+  "version": "1.0.0",
+  "author": "athasdev",
+  "homepage": "https://github.com/athasdev/athas",
+  "skills": []
+}
