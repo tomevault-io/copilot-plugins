@@ -1,0 +1,9 @@
+{
+  "name": "umutbozdag--agent-skills-manager",
+  "displayName": "agent-skills-manager",
+  "description": "Manage all your AI agent skills from a single dashboard \u2014 Cursor, Claude, and Agents",
+  "version": "1.0.0",
+  "author": "umutbozdag",
+  "homepage": "https://github.com/umutbozdag/agent-skills-manager",
+  "skills": []
+}
