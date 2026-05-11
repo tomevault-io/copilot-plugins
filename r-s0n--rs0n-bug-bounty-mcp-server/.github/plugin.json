@@ -1,0 +1,9 @@
+{
+  "name": "r-s0n--rs0n-bug-bounty-mcp-server",
+  "displayName": "rs0n-bug-bounty-mcp-server",
+  "description": "An MCP (Model Context Protocol) server that gives Claude Code access to a comprehensive bug bounty hunting knowledge base.",
+  "version": "1.0.0",
+  "author": "R-s0n",
+  "homepage": "https://github.com/R-s0n/rs0n-bug-bounty-mcp-server",
+  "skills": []
+}
