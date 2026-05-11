@@ -1,0 +1,9 @@
+{
+  "name": "ferspanghero--activities-finder",
+  "displayName": "activities-finder",
+  "description": "An automated tool that aggregates event listings from curated local sources, filters them by date, city, and activity type, deduplicates across sources, and presents a consolidated list of things to d",
+  "version": "1.0.0",
+  "author": "ferspanghero",
+  "homepage": "https://github.com/ferspanghero/activities-finder",
+  "skills": []
+}
