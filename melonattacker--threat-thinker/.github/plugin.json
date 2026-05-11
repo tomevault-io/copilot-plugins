@@ -1,0 +1,9 @@
+{
+  "name": "melonattacker--threat-thinker",
+  "displayName": "threat-thinker",
+  "description": "AI-powered threat modeling that turns architecture diagrams and business context into actionable threats",
+  "version": "1.0.0",
+  "author": "melonattacker",
+  "homepage": "https://github.com/melonattacker/threat-thinker",
+  "skills": []
+}
