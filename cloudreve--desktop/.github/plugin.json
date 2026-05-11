@@ -1,0 +1,9 @@
+{
+  "name": "cloudreve--desktop",
+  "displayName": "desktop",
+  "description": "Desktop sync client for Cloudreve.",
+  "version": "1.0.0",
+  "author": "cloudreve",
+  "homepage": "https://github.com/cloudreve/desktop",
+  "skills": []
+}
