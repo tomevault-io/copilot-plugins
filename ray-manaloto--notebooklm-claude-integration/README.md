@@ -7,11 +7,11 @@ NotebookLM integration for Claude Desktop (MCP) and Claude Code (Plugin) - unifi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ray-manaloto/notebooklm-claude-integration](https://github.com/ray-manaloto/notebooklm-claude-integration).
+Original source: `CLAUDE.md` in [ray-manaloto/notebooklm-claude-integration](https://github.com/ray-manaloto/notebooklm-claude-integration).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
