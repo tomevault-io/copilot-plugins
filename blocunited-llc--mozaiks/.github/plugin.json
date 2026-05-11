@@ -1,0 +1,9 @@
+{
+  "name": "blocunited-llc--mozaiks",
+  "displayName": "mozaiks",
+  "description": "The Mozaiks core is a self-hostable runtime for deploying AI-driven, multi-tenant web apps with real-time UI, auth, and billing built in. Apps are defined via YAML and lightweight Python/JS stubs for ",
+  "version": "1.0.0",
+  "author": "BlocUnited-LLC",
+  "homepage": "https://github.com/BlocUnited-LLC/mozaiks",
+  "skills": []
+}
