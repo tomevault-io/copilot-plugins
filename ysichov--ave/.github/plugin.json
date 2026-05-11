@@ -1,0 +1,9 @@
+{
+  "name": "ysichov--ave",
+  "displayName": "AVE",
+  "description": "Abap Versions Explorer - Versions Comparer with navigation in programs, classes, Transport Tasks/Requests and Packages + standalone local HTML/JS comparer with Debug",
+  "version": "1.0.0",
+  "author": "ysichov",
+  "homepage": "https://github.com/ysichov/AVE",
+  "skills": []
+}
