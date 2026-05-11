@@ -1,0 +1,9 @@
+{
+  "name": "pluk-inc--markdown-preview",
+  "displayName": "markdown-preview",
+  "description": "A simple Markdown viewer for reading .md files",
+  "version": "1.0.0",
+  "author": "pluk-inc",
+  "homepage": "https://github.com/pluk-inc/markdown-preview",
+  "skills": []
+}
