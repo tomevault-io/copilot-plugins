@@ -1,232 +1,117 @@
-## dependency-injection
+## docs-website-components
 
-> Dependency injection patterns for Armature applications
+> When creating or modifying Angular components for the documentation website (`web/src/app/pages/docs/`), **always use external HTML template files** instead of inline templates.
 
+# Documentation Website Component Structure
 
-# Dependency Injection
+## Rule
 
-Guidelines for using Armature's dependency injection system.
+When creating or modifying Angular components for the documentation website (`web/src/app/pages/docs/`), **always use external HTML template files** instead of inline templates.
 
-## Injectable Services
+## Structure
 
-```rust
-use armature_di::injectable;
+Each documentation page component should have the following file structure:
 
-#[injectable]
-pub struct UserService {
-    repository: Arc<dyn UserRepository>,
-    cache: Arc<dyn Cache>,
-}
+```
+web/src/app/pages/docs/pages/<component-name>/
+├── <component-name>.component.ts    # Component class with templateUrl
+├── <component-name>.component.html  # External HTML template
+└── <component-name>.component.scss  # Optional: Component-specific styles
+```
 
-impl UserService {
-    pub fn new(
-        repository: Arc<dyn UserRepository>,
-        cache: Arc<dyn Cache>,
-    ) -> Self {
-        Self { repository, cache }
-    }
+## Component TypeScript Pattern
 
-    pub async fn get_user(&self, id: Uuid) -> Result<User, Error> {
-        // Check cache first
-        if let Some(user) = self.cache.get(&format!("user:{}", id)).await? {
-            return Ok(user);
-        }
+```typescript
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
-        // Fetch from repository
-        let user = self.repository.find_by_id(id).await?;
-
-        // Cache for future requests
-        self.cache.set(&format!("user:{}", id), &user, Duration::from_secs(300)).await?;
-
-        Ok(user)
-    }
+@Component({
+  selector: 'app-<component-name>',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  templateUrl: './<component-name>.component.html',
+  styleUrls: ['./<component-name>.component.scss']  // Optional
+})
+export class <ComponentName>Component {
+  // Component logic
 }
 ```
 
-## Module Configuration
+## Why This Rule Exists
 
-```rust
-use armature_di::module;
+1. **Readability** - HTML templates for documentation pages can be large; separating them improves maintainability
+2. **Editor Support** - External HTML files get better syntax highlighting and IntelliSense
+3. **Consistency** - All documentation components follow the same pattern
+4. **Diffing** - Easier to review changes when HTML is in separate files
+5. **Hot Reload** - Some Angular tooling handles external templates better for HMR
 
-#[module]
-pub struct AppModule {
-    #[provider]
-    user_service: UserService,
+## Exceptions
 
-    #[provider]
-    post_service: PostService,
+- Small utility components with minimal templates (< 10 lines) may use inline templates
+- The `DocPageComponent` shared component uses inline template as it's a wrapper
 
-    #[controller]
-    users_controller: UsersController,
+## Examples
 
-    #[controller]
-    posts_controller: PostsController,
-}
+### ✅ Good - External Template
 
-impl AppModule {
-    pub fn new(config: &Config) -> Self {
-        // Configure module with dependencies
-    }
-}
-```
-
-## Provider Scopes
-
-```rust
-// Singleton - one instance for entire application
-#[injectable(scope = "singleton")]
-pub struct DatabasePool { }
-
-// Request - new instance per HTTP request
-#[injectable(scope = "request")]
-pub struct RequestContext { }
-
-// Transient - new instance every time (default)
-#[injectable]
-pub struct EmailSender { }
-```
-
-## Factory Providers
-
-```rust
-#[module]
-pub struct DatabaseModule;
-
-impl DatabaseModule {
-    #[provider]
-    fn provide_pool(config: &DatabaseConfig) -> DbPool {
-        create_pool(&config.url)
-    }
-
-    #[provider]
-    fn provide_user_repo(pool: Arc<DbPool>) -> Arc<dyn UserRepository> {
-        Arc::new(PgUserRepository::new(pool))
-    }
+```typescript
+// grafana-dashboards.component.ts
+@Component({
+  selector: 'app-grafana-dashboards',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  templateUrl: './grafana-dashboards.component.html',
+  styleUrls: ['./grafana-dashboards.component.scss']
+})
+export class GrafanaDashboardsComponent {
+  // ...
 }
 ```
 
-## Interface Binding
+### ❌ Bad - Inline Template (for doc pages)
 
-```rust
-// Define trait
-pub trait EmailSender: Send + Sync {
-    async fn send(&self, email: &Email) -> Result<(), Error>;
-}
-
-// Implement for production
-#[injectable(provides = "dyn EmailSender")]
-pub struct SmtpEmailSender {
-    config: SmtpConfig,
-}
-
-// Implement for testing
-pub struct MockEmailSender {
-    sent: Arc<Mutex<Vec<Email>>>,
-}
-
-// Register in module
-#[module]
-pub struct MailModule;
-
-impl MailModule {
-    #[provider]
-    fn provide_email_sender(config: &Config) -> Arc<dyn EmailSender> {
-        if config.is_test() {
-            Arc::new(MockEmailSender::new())
-        } else {
-            Arc::new(SmtpEmailSender::new(&config.smtp))
-        }
-    }
+```typescript
+// grafana-dashboards.component.ts
+@Component({
+  selector: 'app-grafana-dashboards',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  template: `
+    <div class="doc-content">
+      <!-- Large HTML content here -->
+    </div>
+  `
+})
+export class GrafanaDashboardsComponent {
+  // ...
 }
 ```
 
-## Resolving Dependencies
+## Shared Styles
 
-```rust
-// In controllers - automatic injection
-#[controller("/users")]
-pub struct UsersController {
-    user_service: Arc<UserService>, // Automatically injected
-}
+Documentation components should import the shared documentation styles:
 
-// Manual resolution
-let user_service = container.resolve::<UserService>();
-let email_sender = container.resolve::<dyn EmailSender>();
+```scss
+// <component-name>.component.scss
+@use '../../_doc-content' as doc;
+
+// Component-specific styles here
 ```
 
-## Lifecycle Hooks
+## Adding New Documentation Pages
 
-```rust
-#[injectable]
-pub struct CacheService {
-    client: RedisClient,
-}
+When adding a new documentation page:
 
-impl OnInit for CacheService {
-    async fn on_init(&self) -> Result<(), Error> {
-        // Run after construction
-        self.client.ping().await?;
-        tracing::info!("Cache service initialized");
-        Ok(())
-    }
-}
-
-impl OnDestroy for CacheService {
-    async fn on_destroy(&self) {
-        // Cleanup before shutdown
-        self.client.close().await;
-        tracing::info!("Cache service shutdown");
-    }
-}
-```
-
-## Testing with DI
-
-```rust
-#[tokio::test]
-async fn test_user_service() {
-    // Create test container with mocks
-    let container = Container::test()
-        .with::<dyn UserRepository>(Arc::new(MockUserRepository::new()))
-        .with::<dyn Cache>(Arc::new(MockCache::new()))
-        .build();
-
-    let service = container.resolve::<UserService>();
-
-    let result = service.get_user(Uuid::new_v4()).await;
-    assert!(result.is_ok());
-}
-```
-
-## Circular Dependency Prevention
-
-```rust
-// Bad - circular dependency
-#[injectable]
-pub struct ServiceA {
-    b: Arc<ServiceB>, // ServiceB also depends on ServiceA
-}
-
-// Good - use lazy resolution or events
-#[injectable]
-pub struct ServiceA {
-    container: Arc<Container>,
-}
-
-impl ServiceA {
-    fn get_b(&self) -> Arc<ServiceB> {
-        self.container.resolve::<ServiceB>()
-    }
-}
-```
-
-## Best Practices
-
-1. **Depend on abstractions** - Use `Arc<dyn Trait>` over concrete types
-2. **Constructor injection** - Prefer constructor over field injection
-3. **Small interfaces** - Keep traits focused (ISP)
-4. **Avoid service locator** - Don't pass Container everywhere
-5. **Test with mocks** - Use trait bounds for testability
+1. Create the component directory: `web/src/app/pages/docs/pages/<name>/`
+2. Create `<name>.component.ts` with `templateUrl`
+3. Create `<name>.component.html` with the template
+4. Create `<name>.component.scss` importing shared styles
+5. Register in `docs.component.ts`:
+   - Import the component
+   - Add to `imports` array
+   - Add to `docs` array with `hasComponent: true`
+   - Add `@case` in the template switch
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
