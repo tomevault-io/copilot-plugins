@@ -1,35 +1,107 @@
-## backend-api
+## common-patterns
 
-> The API is built with Cloudflare Workers using Hono framework and OpenAPI integration.
+> import { MapContainer, TileLayer, useMap } from "react-leaflet"
 
-# Backend API Structure
+# Common Patterns & Code Snippets
 
-The API is built with Cloudflare Workers using Hono framework and OpenAPI integration.
+## React Leaflet Map Setup
+```tsx
+import { MapContainer, TileLayer, useMap } from "react-leaflet"
+import "leaflet/dist/leaflet.css"
+import L from "leaflet"
 
-## Key Files
-- **Entry Point**: [index.ts](mdc:api/src/index.ts) - Main worker entry point
-- **Types**: [types.ts](mdc:api/src/types.ts) - Shared TypeScript types
-- **Configuration**: [wrangler.jsonc](mdc:api/wrangler.jsonc) - Cloudflare Workers config
+// Fix default markers
+delete (L.Icon.Default.prototype as any)._getIconUrl
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: "/placeholder.svg?height=25&width=25",
+  iconUrl: "/placeholder.svg?height=25&width=25",
+  shadowUrl: "/placeholder.svg?height=25&width=25",
+})
 
-## API Endpoints
+const BENGALURU_CENTER: [number, number] = [12.9716, 77.5946]
+```
 
-## Technology Stack
-- **Runtime**: Cloudflare Workers
-- **Framework**: Hono for HTTP handling
-- **OpenAPI**: Chanfana for API documentation and validation
-- **Validation**: Zod schemas for type safety
-- **Deployment**: Wrangler CLI
+## shadcn/ui Component Usage
+```tsx
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
 
-## Development
-- **Dev Server**: `pnpm dev` - Starts local development server
-- **Deploy**: `pnpm deploy` - Deploys to Cloudflare Workers
-- **Type Generation**: `pnpm cf-typegen` - Generates Cloudflare types
-- **Use cache as much as possible** - In get requests always prefer caching, when updating, update the cache
+// Use consistent styling patterns
+<Button size="icon" className="h-12 w-12 rounded-full shadow-lg">
+  <Icon className="h-5 w-5" />
+</Button>
+```
 
-## Configuration Files
-- [package.json](mdc:api/package.json) - Dependencies and scripts
-- [tsconfig.json](mdc:api/tsconfig.json) - TypeScript configuration
-- [worker-configuration.d.ts](mdc:api/worker-configuration.d.ts) - Generated Cloudflare types
+## Cloudflare Workers Endpoint Pattern
+```typescript
+import { OpenAPIRoute } from "chanfana"
+import { z } from "zod"
+
+export class TaskCreate extends OpenAPIRoute {
+  schema = {
+    tags: ["Tasks"],
+    summary: "Create a new task",
+    request: {
+      body: {
+        content: {
+          "application/json": {
+            schema: z.object({
+              name: z.string(),
+              description: z.string().optional(),
+            }),
+          },
+        },
+      },
+    },
+    responses: {
+      "200": {
+        description: "Task created successfully",
+        content: {
+          "application/json": {
+            schema: z.object({
+              success: z.boolean(),
+              result: z.object({
+                id: z.string(),
+                name: z.string(),
+              }),
+            }),
+          },
+        },
+      },
+    },
+  }
+
+  async handle(request: Request, env: any, context: any, data: any) {
+    // Implementation here
+  }
+}
+```
+
+## TypeScript Type Patterns
+```typescript
+// API Response types
+interface ApiResponse<T> {
+  success: boolean
+  result?: T
+  error?: string
+}
+
+// Map layer configuration
+interface MapLayer {
+  name: string
+  url: string
+  attribution: string
+  icon: React.ComponentType
+}
+```
+
+## Tailwind CSS Patterns
+- **Responsive**: `sm:`, `md:`, `lg:`, `xl:` prefixes
+- **Dark Mode**: `dark:` prefix for dark theme styles
+- **Spacing**: Use consistent spacing scale (4, 8, 12, 16, etc.)
+- **Colors**: Use semantic color names from theme
+- **Shadows**: `shadow-sm`, `shadow-md`, `shadow-lg` for depth
 
 ---
 > Source: [warlockdn/open-urban-eyesore](https://github.com/warlockdn/open-urban-eyesore) — distributed by [TomeVault](https://tomevault.io).
