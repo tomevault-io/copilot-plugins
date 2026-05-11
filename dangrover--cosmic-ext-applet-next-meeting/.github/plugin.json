@@ -1,0 +1,9 @@
+{
+  "name": "dangrover--cosmic-ext-applet-next-meeting",
+  "displayName": "cosmic-ext-applet-next-meeting",
+  "description": "Applet for Cosmic DE that shows your next meeting with button to join",
+  "version": "1.0.0",
+  "author": "dangrover",
+  "homepage": "https://github.com/dangrover/cosmic-ext-applet-next-meeting",
+  "skills": []
+}
