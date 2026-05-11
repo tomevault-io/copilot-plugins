@@ -1,393 +1,183 @@
-## performance-benchmarking
+## performance-optimization
 
-> Guidelines for performance optimization and benchmarking in the Armature framework.
+> Performance optimization and profiling guidelines for Armature
 
 
-# Performance & Benchmarking
+# Performance Optimization
 
-Guidelines for performance optimization and benchmarking in the Armature framework.
+Guidelines for optimizing performance and profiling the Armature framework.
 
-## Benchmark Infrastructure
-
-### Running Benchmarks
-
-```bash
-# Run all benchmarks
-cargo bench
-
-# Run specific benchmark
-cargo bench --bench core_benchmarks
-
-# Run with native CPU optimizations
-cargo bench --profile release-native
-
-# Run with flamegraph profiling
-cargo bench --profile profiling
-```
-
-### Benchmark Location
-
-All benchmarks are in `benches/`:
-
-```
-benches/
-├── core_benchmarks.rs        # Core framework benchmarks
-├── security_benchmarks.rs    # Crypto/hashing benchmarks
-├── validation_benchmarks.rs  # Input validation
-├── cache_benchmarks.rs       # Cache operations
-├── auth_benchmarks.rs        # Authentication
-├── json_benchmarks.rs        # JSON parsing/serialization
-├── http_client_benchmarks.rs # HTTP client
-└── framework_comparison.rs   # Compare with Actix/Axum/Warp
-```
-
-## Writing Benchmarks with Criterion
-
-```rust
-use criterion::{black_box, criterion_group, criterion_main, Criterion, BenchmarkId};
-
-fn benchmark_router(c: &mut Criterion) {
-    let router = Router::new()
-        .route("/users", get(users_handler))
-        .route("/users/:id", get(user_handler));
-
-    c.bench_function("router_static_route", |b| {
-        b.iter(|| {
-            black_box(router.match_route("/users", Method::GET))
-        })
-    });
-
-    c.bench_function("router_dynamic_route", |b| {
-        b.iter(|| {
-            black_box(router.match_route("/users/123", Method::GET))
-        })
-    });
-}
-
-// Parameterized benchmarks
-fn benchmark_json_parsing(c: &mut Criterion) {
-    let mut group = c.benchmark_group("json_parsing");
-
-    for size in [100, 1000, 10000].iter() {
-        let json = generate_json(*size);
-
-        group.bench_with_input(
-            BenchmarkId::from_parameter(size),
-            &json,
-            |b, json| {
-                b.iter(|| {
-                    black_box(serde_json::from_str::<Value>(json).unwrap())
-                })
-            },
-        );
-    }
-
-    group.finish();
-}
-
-criterion_group!(benches, benchmark_router, benchmark_json_parsing);
-criterion_main!(benches);
-```
-
-## Async Benchmarks
+## Benchmarking with Criterion
 
 ```rust
 use criterion::{criterion_group, criterion_main, Criterion};
-use tokio::runtime::Runtime;
+use std::hint::black_box;
 
-fn benchmark_async_handler(c: &mut Criterion) {
-    let rt = Runtime::new().unwrap();
+fn bench_request_parsing(c: &mut Criterion) {
+    let data = setup_test_data();
 
-    c.bench_function("async_handler", |b| {
-        b.to_async(&rt).iter(|| async {
-            let response = handle_request().await;
-            black_box(response)
+    c.bench_function("parse_request", |b| {
+        b.iter(|| {
+            black_box(parse_request(black_box(&data)))
         })
     });
 }
-```
 
-## Profiling
-
-### CPU Profiling with Flamegraph
-
-```bash
-# Install flamegraph
-cargo install flamegraph
-
-# Generate flamegraph
-cargo flamegraph --bench core_benchmarks -- --bench
-
-# Or for a running server
-cargo flamegraph --example profiling_server
-```
-
-### Memory Profiling
-
-The project has comprehensive memory profiling tools:
-
-```bash
-# Use the memory profiling script
-./scripts/memory-profile.sh dhat 30      # DHAT (recommended for Rust)
-./scripts/memory-profile.sh valgrind 30  # Valgrind leak detection
-./scripts/memory-profile.sh massif 30    # Massif heap profiler
-./scripts/memory-profile.sh heaptrack 30 # Heaptrack detailed analysis
-
-# Build with DHAT support
-cargo build --example memory_profile_server --release --features memory-profiling
-
-# Run memory benchmarks
-cargo bench --bench memory_benchmarks
-```
-
-**DHAT Setup:**
-
-```rust
-#[cfg(feature = "memory-profiling")]
-#[global_allocator]
-static ALLOC: dhat::Alloc = dhat::Alloc;
-
-fn main() {
-    #[cfg(feature = "memory-profiling")]
-    let _profiler = dhat::Profiler::new_heap();
-    // Run workload - report generated on exit
-}
-```
-
-View DHAT reports at: https://nnethercote.github.io/dh_view/dh_view.html
-
-See `docs/memory-profiling-guide.md` for complete documentation.
-
-### Using perf
-
-```bash
-# Record performance data
-perf record -g cargo bench --bench core_benchmarks
-
-# Generate report
-perf report
-
-# Generate flamegraph from perf data
-perf script | stackcollapse-perf.pl | flamegraph.pl > flamegraph.svg
-```
-
-## Build Profiles
-
-The project has optimized build profiles in `Cargo.toml`:
-
-| Profile | Use Case | LTO | Optimizations |
-|---------|----------|-----|---------------|
-| `release` | Standard release | thin | O3 |
-| `release-fat` | Maximum optimization | fat | O3 + panic=abort |
-| `release-native` | Benchmarks | thin | O3 + target-cpu=native |
-| `profiling` | Profiling | thin | O3 + debug symbols |
-| `pgo-generate` | PGO data collection | thin | O3 |
-| `pgo-use` | PGO-optimized build | fat | O3 |
-
-### Profile-Guided Optimization (PGO)
-
-```bash
-# Step 1: Build with profiling instrumentation
-RUSTFLAGS="-Cprofile-generate=/tmp/pgo" cargo build --profile pgo-generate
-
-# Step 2: Run representative workload
-./target/pgo-generate/armature-benchmark
-
-# Step 3: Merge profile data
-llvm-profdata merge -o merged.profdata /tmp/pgo/*.profraw
-
-# Step 4: Build with PGO
-RUSTFLAGS="-Cprofile-use=$(pwd)/merged.profdata" cargo build --profile pgo-use
-```
-
-## Performance Patterns
-
-### Zero-Cost Abstractions
-
-```rust
-// ✅ Good: Zero-cost abstraction with generics
-pub fn process<T: AsRef<[u8]>>(data: T) -> Result<(), Error> {
-    let bytes = data.as_ref();
-    // Process bytes
-    Ok(())
-}
-
-// ❌ Bad: Dynamic dispatch when not needed
-pub fn process(data: &dyn AsRef<[u8]>) -> Result<(), Error> {
-    // Unnecessary vtable lookup
-}
-```
-
-### Minimize Allocations
-
-```rust
-// ✅ Good: Reuse buffers
-pub struct Router {
-    buffer: Vec<u8>,  // Reused across requests
-}
-
-impl Router {
-    pub fn handle(&mut self, request: &[u8]) -> Response {
-        self.buffer.clear();
-        self.buffer.extend_from_slice(request);
-        // Process using self.buffer
-    }
-}
-
-// ❌ Bad: Allocate per request
-pub fn handle(request: &[u8]) -> Response {
-    let buffer = request.to_vec();  // New allocation every time
-    // Process
-}
-```
-
-### Use SmallVec for Small Collections
-
-```rust
-use smallvec::SmallVec;
-
-// ✅ Good: Stack allocation for typical case
-type Headers = SmallVec<[(String, String); 16]>;
-
-// ❌ Bad: Always heap allocate
-type Headers = Vec<(String, String)>;
-```
-
-### Inline Hot Paths
-
-```rust
-// ✅ Good: Inline small, hot functions
-#[inline]
-pub fn parse_method(bytes: &[u8]) -> Option<Method> {
-    match bytes {
-        b"GET" => Some(Method::Get),
-        b"POST" => Some(Method::Post),
-        _ => None,
-    }
-}
-
-// For very hot paths
-#[inline(always)]
-pub fn is_whitespace(b: u8) -> bool {
-    b == b' ' || b == b'\t'
-}
-```
-
-### SIMD Optimization
-
-The framework includes SIMD-optimized parsers:
-
-```rust
-// Enable SIMD JSON parsing
-[features]
-simd-json = ["armature-core/simd-json"]
-
-// Use SIMD parser for HTTP parsing
-use armature_core::simd_parser::*;
-
-let (method, path, version) = parse_request_line_simd(bytes)?;
-```
-
-## Benchmark Targets
-
-### Framework Comparison Baselines
-
-| Operation | Target | Current |
-|-----------|--------|---------|
-| Hello World RPS | 500k+ | - |
-| JSON Serialization | 200k+ RPS | - |
-| Route Matching | 1M+ ops/sec | - |
-| JWT Validation | 50k+ ops/sec | - |
-
-### Compare Against
-
-- Actix-web
-- Axum
-- Warp
-- Rocket
-
-```bash
-# Run comparison benchmarks
-cargo bench --bench framework_comparison
+criterion_group!(benches, bench_request_parsing);
+criterion_main!(benches);
 ```
 
 ## Memory Optimization
 
-### Track Allocations
-
-```rust
-#[cfg(feature = "alloc-tracking")]
-use tracking_allocator::TrackingAllocator;
-
-#[cfg(feature = "alloc-tracking")]
-#[global_allocator]
-static ALLOC: TrackingAllocator = TrackingAllocator;
-
-// In tests
-#[test]
-fn test_no_allocations() {
-    let _guard = ALLOC.track();
-
-    // This should not allocate
-    let result = hot_path_function();
-
-    assert_eq!(ALLOC.allocations(), 0);
-}
-```
-
 ### Arena Allocation
 
-```rust
-use armature_core::arena::Arena;
+Use arena allocators for request-scoped data:
 
-// ✅ Good: Arena for request-scoped allocations
-pub async fn handle_request(arena: &Arena) -> Response {
-    let headers = arena.alloc_slice(&parsed_headers);
-    let body = arena.alloc_str(&body_content);
-    // All deallocated at once when request completes
+```rust
+use armature_core::arena::{with_arena, reset_arena};
+
+async fn handle_request(req: Request) -> Response {
+    with_arena(|arena| {
+        // Allocations here are freed together
+        let data = arena.alloc_str(&req.body);
+        process(data)
+    });
+
+    reset_arena(); // Free all at once
 }
 ```
 
-## Continuous Benchmarking
+### Object Pools
 
-### CI Integration
+Reuse frequently allocated objects:
 
-```yaml
-# .github/workflows/bench.yml
-name: Benchmarks
+```rust
+use crossbeam::queue::ArrayQueue;
 
-on:
-  push:
-    branches: [main]
-  pull_request:
+pub struct Pool<T> {
+    objects: ArrayQueue<T>,
+    factory: fn() -> T,
+}
 
-jobs:
-  benchmark:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Run benchmarks
-        run: cargo bench --bench core_benchmarks -- --save-baseline pr
-
-      - name: Compare with main
-        run: |
-          git checkout main
-          cargo bench --bench core_benchmarks -- --baseline main
-          git checkout -
-          critcmp main pr
+impl<T> Pool<T> {
+    pub fn get(&self) -> PoolGuard<T> {
+        let obj = self.objects.pop().unwrap_or_else(|| (self.factory)());
+        PoolGuard { pool: self, obj: Some(obj) }
+    }
+}
 ```
 
-## Summary
+### Bounded Collections
 
-1. Use **Criterion** for benchmarking with proper methodology
-2. Profile with **flamegraph** and **perf** before optimizing
-3. Use **release-native** profile for accurate benchmark numbers
-4. Consider **PGO** for production builds
-5. Minimize allocations in hot paths
-6. Use **SmallVec** for small, bounded collections
-7. Leverage **SIMD** for parsing operations
-8. Track and compare benchmarks in CI
+Always bound caches to prevent memory leaks:
+
+```rust
+use lru::LruCache;
+use std::num::NonZeroUsize;
+
+// Good - bounded cache
+let cache: LruCache<Key, Value> = LruCache::new(NonZeroUsize::new(10_000).unwrap());
+
+// Bad - unbounded, can grow forever
+let cache: HashMap<Key, Value> = HashMap::new();
+```
+
+## Avoiding Allocations
+
+```rust
+// Prefer &str over String in function parameters
+fn process(data: &str) { }  // Good
+fn process(data: String) { } // Allocates
+
+// Use Cow for conditional ownership
+use std::borrow::Cow;
+fn normalize(s: &str) -> Cow<str> {
+    if needs_change(s) {
+        Cow::Owned(transform(s))
+    } else {
+        Cow::Borrowed(s)
+    }
+}
+
+// Use SmallVec for typically-small collections
+use smallvec::SmallVec;
+let items: SmallVec<[Item; 8]> = SmallVec::new();
+```
+
+## Async Optimization
+
+```rust
+// Use tokio::join! for concurrent independent operations
+let (users, posts) = tokio::join!(
+    fetch_users(),
+    fetch_posts()
+);
+
+// Buffer streams for batching
+use futures::StreamExt;
+stream.chunks(100).for_each_concurrent(4, |batch| async {
+    process_batch(batch).await;
+});
+```
+
+## Memory Profiling
+
+Run memory profiling with DHAT:
+
+```bash
+./scripts/memory-profile.sh dhat 30
+```
+
+Check for leaks with Valgrind:
+
+```bash
+./scripts/memory-profile.sh valgrind 30
+```
+
+## Build Profiles
+
+```toml
+# Fast compilation for development
+[profile.dev]
+opt-level = 0
+
+# Maximum optimization for release
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 16
+
+# Maximum optimization, slower compile
+[profile.release-fat]
+inherits = "release"
+lto = "fat"
+codegen-units = 1
+```
+
+## Profiling Commands
+
+```bash
+# CPU flamegraph
+cargo flamegraph --release --example server
+
+# Memory profiling
+cargo run --example memory_profile_server --features memory-profiling
+
+# Benchmarks
+cargo bench --bench <name>
+
+# HTTP load testing
+oha -n 10000 -c 100 http://localhost:3000/
+```
+
+## Checklist
+
+- [ ] Use `black_box()` in benchmarks
+- [ ] Bound all caches with LRU or similar
+- [ ] Profile before optimizing
+- [ ] Use arena allocation for request data
+- [ ] Prefer `&str` over `String` parameters
+- [ ] Use `tokio::join!` for concurrent I/O
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
