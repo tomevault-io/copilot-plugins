@@ -1,0 +1,9 @@
+{
+  "name": "egeominotti--binja",
+  "displayName": "binja",
+  "description": "High-performance multi-engine template system for Bun. Jinja2/DTL, Handlebars & Liquid support. 2-4x faster than Nunjucks, 160x with AOT. 84 filters, template inheritance, autoescape, debug panel.",
+  "version": "1.0.0",
+  "author": "egeominotti",
+  "homepage": "https://github.com/egeominotti/binja",
+  "skills": []
+}
