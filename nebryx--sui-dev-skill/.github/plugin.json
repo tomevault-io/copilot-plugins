@@ -1,0 +1,9 @@
+{
+  "name": "nebryx--sui-dev-skill",
+  "displayName": "sui-dev-skill",
+  "description": "Claude Code skill for modern sui development",
+  "version": "1.0.0",
+  "author": "Nebryx",
+  "homepage": "https://github.com/Nebryx/sui-dev-skill",
+  "skills": []
+}
