@@ -1,0 +1,9 @@
+{
+  "name": "cebert--aws-lambda-performance-benchmarks",
+  "displayName": "aws-lambda-performance-benchmarks",
+  "description": "Comprehensive performance benchmark comparing AWS Lambda Arm (Graviton) vs x86 across Python 3.14/3.13/3.12/3.11, Node.js 22/20, and Rust",
+  "version": "1.0.0",
+  "author": "cebert",
+  "homepage": "https://github.com/cebert/aws-lambda-performance-benchmarks",
+  "skills": []
+}
