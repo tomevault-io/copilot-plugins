@@ -7,11 +7,11 @@ AI 原生 JMComic 助手：通过 MCP 与 Skills 将 JMComic 注入你的 AI Age
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hect0x7/jmcomic-ai](https://github.com/hect0x7/jmcomic-ai).
+Original source: `CLAUDE.md` in [hect0x7/jmcomic-ai](https://github.com/hect0x7/jmcomic-ai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
