@@ -1,16 +1,18 @@
-## rust-solid-hexagonal
+## maverick
 
-> Rust — SOLID and ports-and-adapters (traits in core, I/O at edges)
+> - Keep the kernel pure: domain, ports, use cases, protocol policy, resilience and orchestration contracts belong in core; HTTP, UDP, persistence wiring, metrics, CLI and deployment concerns do not.
 
+## Maverick Engineering Rules
 
-# Rust — SOLID and hexagonal layout
-
-- **S** — One `struct`/`impl` per reason to change. Separate use-case orchestration from serialization or SQL details.
-- **O** — Extend with new types or **trait** implementations instead of growing a central `match` on strings; prefer enums when the set is closed and known.
-- **L** — Types that implement domain traits must honor the contract (no unexpected panics in methods the core treats as total).
-- **I** — Small, client-oriented traits (`SessionRepository`, `UplinkRepository`), not a single persistence “god trait”.
-- **D** — **Core/domain** depends on abstractions (`trait` in `ports`); **adapters** (sqlite, udp, …) implement those traits and depend on domain types, not the reverse.
-- **Hexagonal**: business rules without `tokio::net`, `rusqlite`, or filesystem paths in the nucleus—only types and ports. Side effects live at the edges.
+- Keep the kernel pure: domain, ports, use cases, protocol policy, resilience and orchestration contracts belong in core; HTTP, UDP, persistence wiring, metrics, CLI and deployment concerns do not.
+- Depend on traits, not concrete adapters. Composition of SQLite, network transports or framework-specific objects must happen outside kernel modules.
+- Prefer small, explicit units with one reason to change. If a module is mixing policy and infrastructure, split it before adding more behavior.
+- Preserve offline-first behavior. New flows must keep local processing and degradation paths working when remote dependencies fail.
+- Make failure modes explicit. Return structured errors, avoid hidden panics, and add backpressure, retries or circuit breakers only where they protect a real boundary.
+- Use Rust idioms that improve clarity: strong types, exhaustive matches, ownership-aware APIs, and async boundaries only where needed.
+- Keep public APIs narrow. Expose the minimum surface required by callers and avoid leaking adapter details through core interfaces.
+- Write tests close to the behavior being protected. Prefer focused unit tests for policy and targeted integration tests for adapters and composition.
+- Do not move fast by violating boundaries. If a change needs a shortcut across layers, stop and introduce the missing port or composition seam first.
 
 ---
 > Source: [antonygiomarxdev/maverick](https://github.com/antonygiomarxdev/maverick) — distributed by [TomeVault](https://tomevault.io).
