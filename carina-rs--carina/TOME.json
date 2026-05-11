@@ -4,7 +4,7 @@
   "repo": "carina",
   "description": "A strongly typed infrastructure management tool",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/carina-rs/carina",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T15:33:40Z"
+  "distributed_at": "2026-05-11T17:27:07Z"
 }
