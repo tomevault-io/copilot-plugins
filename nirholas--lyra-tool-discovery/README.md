@@ -7,11 +7,11 @@ AI powered automation toolkit which acts as an agent that discovers MCP servers 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nirholas/lyra-tool-discovery](https://github.com/nirholas/lyra-tool-discovery).
+Original source: `CLAUDE.md` in [nirholas/lyra-tool-discovery](https://github.com/nirholas/lyra-tool-discovery).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
