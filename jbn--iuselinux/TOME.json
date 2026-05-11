@@ -4,7 +4,7 @@
   "repo": "iuselinux",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jbn/iuselinux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T03:40:14Z"
+  "distributed_at": "2026-05-11T22:19:10Z"
 }
