@@ -1,0 +1,9 @@
+{
+  "name": "oxc-project--tsgolint",
+  "displayName": "tsgolint",
+  "description": "Type aware linting for oxlint",
+  "version": "1.0.0",
+  "author": "oxc-project",
+  "homepage": "https://github.com/oxc-project/tsgolint",
+  "skills": []
+}
