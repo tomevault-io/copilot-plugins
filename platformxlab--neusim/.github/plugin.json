@@ -1,0 +1,9 @@
+{
+  "name": "platformxlab--neusim",
+  "displayName": "NeuSim",
+  "description": "An open-source simulator framework for neural processing units",
+  "version": "1.0.0",
+  "author": "platformxlab",
+  "homepage": "https://github.com/platformxlab/NeuSim",
+  "skills": []
+}
