@@ -1,0 +1,9 @@
+{
+  "name": "benboerba620--karpathy-claude-wiki",
+  "displayName": "karpathy-claude-wiki",
+  "description": "Karpathy-style personal wiki for LLMs - markdown + frontmatter, no vector DB, no RAG. Built for Claude Code, works with any file-editing AI agent.",
+  "version": "1.0.0",
+  "author": "Benboerba620",
+  "homepage": "https://github.com/Benboerba620/karpathy-claude-wiki",
+  "skills": []
+}
