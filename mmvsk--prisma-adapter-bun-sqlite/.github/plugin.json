@@ -1,0 +1,9 @@
+{
+  "name": "mmvsk--prisma-adapter-bun-sqlite",
+  "displayName": "prisma-adapter-bun-sqlite",
+  "description": "Prisma adapter using `bun:sqlite`",
+  "version": "1.0.0",
+  "author": "mmvsk",
+  "homepage": "https://github.com/mmvsk/prisma-adapter-bun-sqlite",
+  "skills": []
+}
