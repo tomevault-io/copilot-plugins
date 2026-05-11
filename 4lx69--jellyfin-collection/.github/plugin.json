@@ -1,0 +1,9 @@
+{
+  "name": "4lx69--jellyfin-collection",
+  "displayName": "jellyfin-collection",
+  "description": "Kometa-compatible collection manager for Jellyfin with Sonarr/Radarr integration",
+  "version": "1.0.0",
+  "author": "4lx69",
+  "homepage": "https://github.com/4lx69/jellyfin-collection",
+  "skills": []
+}
