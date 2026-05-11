@@ -1,0 +1,9 @@
+{
+  "name": "jstxn--rein",
+  "displayName": "rein",
+  "description": "REIN is a lightweight and hands-off harness for stricter, more explicit agentic coding workflows. This is an evolution of https://github.com/jstxn/FEAR.md",
+  "version": "1.0.0",
+  "author": "jstxn",
+  "homepage": "https://github.com/jstxn/rein",
+  "skills": []
+}
