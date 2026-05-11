@@ -1,0 +1,9 @@
+{
+  "name": "anotb--management-consulting-plugin",
+  "displayName": "management-consulting-plugin",
+  "description": "Management consulting skills for Claude Code, Cowork, Codex, and other agents. Strategy, operations, and transformation workflows for the full engagement lifecycle.",
+  "version": "1.0.0",
+  "author": "anotb",
+  "homepage": "https://github.com/anotb/management-consulting-plugin",
+  "skills": []
+}
