@@ -1,14 +1,12 @@
-## react-best-practices
+## react-hook-form-best-practices
 
-> Best practices for React component development
+> Best practices for form handling with React Hook Form
 
 
-- Use functional components with hooks instead of class components for better performance and readability
-- Implement proper state management using using libraries like Zustand for complex state scenarios
-- Utilize React 19's new features like `use` hook for better data fetching and suspense integration
-- Ensure proper prop type validation using TypeScript for enhanced type safety
-- Utilize `useCallback` and `useMemo` for performance optimization
-- Leverage `react-hook-form` for efficient form handling and validation
+- Use the `useForm` hook for efficient form state management.
+- Implement validation using Zod with `@hookform/resolvers` for type-safe form validation.
+- Utilize the `Controller` component for integrating with custom inputs.
+- Leverage the `useFormContext` hook for sharing form state across components.
 
 ---
 > Source: [tanchaowen84/voice-clone](https://github.com/tanchaowen84/voice-clone) — distributed by [TomeVault](https://tomevault.io).
