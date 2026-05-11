@@ -1,0 +1,9 @@
+{
+  "name": "pgmq--pgmq-py",
+  "displayName": "pgmq-py",
+  "description": "Python client for pgmq",
+  "version": "1.0.0",
+  "author": "pgmq",
+  "homepage": "https://github.com/pgmq/pgmq-py",
+  "skills": []
+}
