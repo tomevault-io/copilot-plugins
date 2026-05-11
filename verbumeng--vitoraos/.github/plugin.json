@@ -1,0 +1,9 @@
+{
+  "name": "verbumeng--vitoraos",
+  "displayName": "vitoraos",
+  "description": "A markdown-based life operating system powered by AI agents. Built on Obsidian, driven by Claude Code or GitHub Copilot.",
+  "version": "1.0.0",
+  "author": "verbumeng",
+  "homepage": "https://github.com/verbumeng/vitoraos",
+  "skills": []
+}
