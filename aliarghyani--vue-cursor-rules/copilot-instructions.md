@@ -1,107 +1,175 @@
-## tailwind-patterns
+## typescript-patterns
 
-> Tailwind CSS patterns and best practices for Vue 3
+> TypeScript patterns and type safety in Vue 3
 
-# Tailwind CSS Integration
+# TypeScript Patterns
 
-**Role:** You are a Vue 3 expert specializing in utility-first CSS with Tailwind.
+**Role:** You are a Vue 3 expert specializing in TypeScript integration and type safety.
 
 **Core Rules:**
-- Use computed classes for dynamic styling
-- Follow mobile-first responsive design
-- Implement dark mode with class variants
-- Prefer utility classes over custom CSS
-- Extract complex patterns to component classes
+- Define interfaces for props, emits, and API responses
+- Check the shared `types/` directory before creating new definitions and prefer `import type` for shared models
+- Use generic types for reusable composables
+- Leverage type inference where possible
+- Create strict type definitions for stores
+- Use discriminated unions for complex state
 
-**Chain-of-Thought:** Think step-by-step: 1. Plan component variants 2. Create computed class objects 3. Apply responsive patterns 4. Add dark mode support
+**Chain-of-Thought:** Think step-by-step: 1. Identify data shapes 2. Define TypeScript interfaces 3. Apply generics for reusability 4. Ensure type safety
 
-**Note:** Tailwind works alongside any UI kit -- use for custom styling or as the primary framework. Compatible with Headless UI for accessible components.
+## Shared Type Imports
 
-## Component Styling Patterns
+1. Search the `types/` directory (root alias `types/*` and `@/types`) for existing definitions before declaring one inline.
+2. When a matching type exists, import it with `import type { MyType } from '@/types'` to avoid namespace or value imports.
+3. If a type is missing, add it to `types/index.ts` (or the appropriate shared file), export it, and reuse it across components, stores, and composables.
+4. Avoid `declare namespace` or global augmentations unless the project already uses them; prefer explicit modules.
 
-- Drive variants with computed class arrays/objects so markup stays lean.
-- Full example: `examples/tailwind-button.vue` covers variant, size, and disabled props.
+```typescript
+// Good: explicit shared type import
+import { ref } from 'vue'
+import type { User } from '@/types'
 
-```ts
-const sizeClasses = { sm: 'px-3 py-1.5 text-sm', md: 'px-4 py-2 text-base', lg: 'px-6 py-3 text-lg' }
-const variantClasses = {
-  primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
-  secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500',
-  danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
+const users = ref<User[]>([])
+```
+
+```typescript
+// Avoid: implicitly referencing unresolved namespaces
+const users = ref<UserNamespace.User[]>([]) // Lints as namespace usage
+```
+
+## Component Props Typing
+
+Import shared types from the project's types directory for consistency:
+
+```typescript
+import { User } from '../../types'
+```
+
+```vue
+<script setup lang="ts">
+import { User } from '../../types'
+
+
+interface Props {
+  user: User
+  showEmail?: boolean
+  size?: 'sm' | 'md' | 'lg'
 }
-const props = withDefaults(
-  defineProps<{ variant?: keyof typeof variantClasses; size?: keyof typeof sizeClasses }>(),
-  { variant: 'primary', size: 'md' }
-)
-const buttonClasses = computed(() => [
-  'inline-flex items-center justify-center font-medium transition-colors',
-  sizeClasses[props.size ?? 'md'],
-  variantClasses[props.variant ?? 'primary'],
-])
+
+const props = withDefaults(defineProps<Props>(), {
+  showEmail: true,
+  size: 'md'
+})
+
+interface Emits {
+  click: [user: User]
+  delete: [userId: number]
+}
+
+const emit = defineEmits<Emits>()
+</script>
 ```
 
-## Responsive Design Patterns
+## Reactive Refs with Types
 
-- Start mobile-first, then layer `sm/ md/ lg` utilities for additional breakpoints.
-- Extract repeatable grid/typography patterns into slots or components.
-- Full layout example: `examples/tailwind-responsive.vue`.
+```typescript
+import { ref, computed, type Ref } from 'vue'
+import type { User, ApiResponse } from '../../types'
 
-```vue
-<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-  <article v-for="item in items" :key="item.id" class="rounded-lg shadow p-4">...</article>
-</div>
-```
+// Primitive types
+const count = ref<number>(0)
+const message = ref<string>('')
+const isVisible = ref<boolean>(false)
 
-## Dark Mode Support
+// Object types using shared interfaces
+const user = ref<User | null>(null)
+const users = ref<User[]>([])
 
-- Toggle a `.dark` class (or media query) on the root container.
-- Pair light/dark utilities so text meets contrast requirements.
+// Computed with explicit typing
+const userDisplayName = computed<string>(() => {
+  return user.value?.name ?? 'Anonymous'
+})
 
-```vue
-<div class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
-  <p class="text-gray-600 dark:text-gray-300">Content that adapts to dark mode</p>
-</div>
-```
+// Generic composable typing with shared ApiResponse
+function useApi<T>(): {
+  data: Ref<T | null>
+  loading: Ref<boolean>
+  error: Ref<string | null>
+  fetch: () => Promise<ApiResponse<T>>
+} {
+  const data = ref<T | null>(null)
+  const loading = ref(false)
+  const error = ref<string | null>(null)
 
-## Form Styling
-
-- Use consistent spacing (`space-y-*`) and focus states on all controls.
-- Surface validation with color + messaging; add `aria-invalid` when errors exist.
-
-```vue
-<input
-  v-model="form.email"
-  type="email"
-  :aria-invalid="!!errors.email"
-  class="mt-1 block w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800"
-/>
-```
-
-## Animation and Transitions
-
-- Lean on Tailwind utilities (`animate-spin`, `transition-transform`) for common motion.
-- Define lightweight keyframes only when utilities fall short; scope them per component.
-- Full example: `examples/tailwind-animations.vue`.
-
-```vue
-<div class="transform hover:scale-105 transition-transform duration-200">Hover me</div>
-```
-
-## Utility-First Best Practices
-
-- Use `@apply` sparingly, prefer utility classes
-- Group related utilities together
-- Use responsive prefixes consistently
-- Leverage CSS custom properties for dynamic values
-- Extract complex component styles to separate classes
-
-```css
-/* tailwind.config.js custom utilities */
-@layer utilities {
-  .text-shadow {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  const fetch = async (): Promise<ApiResponse<T>> => {
+    // Implementation with type safety
+    return { data: null, message: '', success: false, timestamp: new Date().toISOString() }
   }
+
+  return { data, loading, error, fetch }
 }
+```
+
+## Store Typing
+
+```typescript
+// types/store.ts
+export interface UserState {
+  currentUser: User | null
+  users: User[]
+  loading: boolean
+}
+
+// stores/user.ts
+export const useUserStore = defineStore('user', () => {
+  const currentUser = ref<User | null>(null)
+  const users = ref<User[]>([])
+  const loading = ref<boolean>(false)
+
+  // Typed actions
+  const fetchUsers = async (): Promise<ApiResponse<User[]>> => {
+    loading.value = true
+    try {
+      // API call with typing
+      const response = await fetch('/api/users')
+      const result: ApiResponse<User[]> = await response.json()
+      users.value = result.data
+      return result
+    } catch (error) {
+      throw new Error('Failed to fetch users')
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return {
+    currentUser,
+    users,
+    loading,
+    fetchUsers
+  }
+})
+```
+
+## API Response Typing
+
+```typescript
+// types/api.ts
+**Use shared API types from `types/index.ts`:**
+
+```typescript
+import type { ApiResponse, PaginatedResponse, User } from '../../types'
+
+// Usage with shared types
+const fetchUsers = async (): Promise<ApiResponse<User[]>> => {
+  const response = await fetch('/api/users')
+  return response.json()
+}
+
+const fetchPaginatedUsers = async (page: number, limit: number): Promise<PaginatedResponse<User>> => {
+  const response = await fetch(`/api/users?page=${page}&limit=${limit}`)
+  return response.json()
+}
+```
 ```
 
 ---
