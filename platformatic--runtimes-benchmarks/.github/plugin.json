@@ -1,0 +1,9 @@
+{
+  "name": "platformatic--runtimes-benchmarks",
+  "displayName": "runtimes-benchmarks",
+  "description": "Performance benchmark comparing Next.js on Node.js, Bun, Deno, and Platformatic Watt",
+  "version": "1.0.0",
+  "author": "platformatic",
+  "homepage": "https://github.com/platformatic/runtimes-benchmarks",
+  "skills": []
+}
