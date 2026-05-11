@@ -1,0 +1,9 @@
+{
+  "name": "sebyx07--better-structure-sql",
+  "displayName": "better_structure_sql",
+  "description": "Clean database schema dumps for Rails (PostgreSQL, MySQL, SQLite) without external tool dependencies",
+  "version": "1.0.0",
+  "author": "sebyx07",
+  "homepage": "https://github.com/sebyx07/better_structure_sql",
+  "skills": []
+}
