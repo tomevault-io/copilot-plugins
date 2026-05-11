@@ -1,0 +1,9 @@
+{
+  "name": "truehazker--elysia-boilerplate",
+  "displayName": "elysia-boilerplate",
+  "description": "Production-ready Elysia boilerplate with TypeScript, Bun, PostgreSQL, and Docker. Features Drizzle ORM, OpenAPI docs, hot reload, and modular architecture. Perfect for building fast APIs with modern t",
+  "version": "1.0.0",
+  "author": "truehazker",
+  "homepage": "https://github.com/truehazker/elysia-boilerplate",
+  "skills": []
+}
