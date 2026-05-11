@@ -1,0 +1,9 @@
+{
+  "name": "averyy--pcbparts-mcp",
+  "displayName": "pcbparts-mcp",
+  "description": "MCP server for searching electronic components for PCB assembly",
+  "version": "1.0.0",
+  "author": "Averyy",
+  "homepage": "https://github.com/Averyy/pcbparts-mcp",
+  "skills": []
+}
