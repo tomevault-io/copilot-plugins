@@ -1,34 +1,29 @@
-## 02-privacy
+## 03-testing
 
-> Privacy-by-design rules for handling PII, logging, telemetry, and data minimization.
+> Testing requirements — test-before-commit policy, coverage expectations, and test quality standards.
 
 
-# Privacy Rules
+# Testing Requirements
 
-## Data Minimization
+## Test-Before-Commit Policy
 
-- Only collect, store, and process data that is strictly necessary.
-- Prefer anonymous or pseudonymous identifiers over PII.
-- Set data retention limits — do not store data indefinitely.
+- Run the full test suite before every commit.
+- Run linting and type checking before every commit.
+- Never skip tests with --no-verify, skip, xfail, or equivalent.
+- Never delete or disable existing tests to make new code pass.
 
-## PII Handling
+## Coverage
 
-- Never log PII (names, emails, IP addresses, phone numbers) in application logs.
-- Mask or redact PII in error messages and log output.
-- Encrypt PII at rest and in transit.
-- Mark PII fields in database schemas with clear comments.
+- All new functions, methods, and endpoints must have tests.
+- Bug fixes must include regression tests.
+- Test edge cases, error paths, and boundary conditions.
 
-## Telemetry & Analytics
+## Quality
 
-- Never add tracking or analytics without consent mechanisms.
-- All analytics must be opt-in or provide clear opt-out.
-- Never send PII to third-party analytics services.
-
-## Compliance
-
-- Support GDPR rights: access, rectification, erasure, portability.
-- Include consent mechanisms where personal data is collected.
-- Follow the most restrictive applicable regulation.
+- Tests must be deterministic: no random data, no time-dependent assertions.
+- Use mocks and stubs for external services.
+- Test names must describe the scenario and expected behavior.
+- Follow Arrange-Act-Assert pattern.
 
 ---
 > Source: [the-missing-pink/ai-repository-security-baseline](https://github.com/the-missing-pink/ai-repository-security-baseline) — distributed by [TomeVault](https://tomevault.io).
