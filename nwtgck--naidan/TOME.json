@@ -4,7 +4,7 @@
   "repo": "naidan",
   "description": "A privacy-focused web UI for LLMs (OpenAI-compatible APIs and Ollama) designed to run directly from a portable directory on your filesystem.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nwtgck/naidan",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T17:38:55Z"
+  "distributed_at": "2026-05-11T03:05:04Z"
 }
