@@ -1,0 +1,19 @@
+## best-practices
+
+> Always try best to follow the best practices:
+
+Always try best to follow the best practices:
+
+- Prefer short and side-effect free functions over long and side-effectful functions.
+- Prefer immutable data structures over mutable ones.
+- Prefer the simplest possible solution over the most complex one. Never over-engineer.
+- Use descriptive yet short names for variables, functions, classes, and modules. Exception: use single letter names for loop variables and parameters of one-liner functions.
+- Add documentation to all public functions and classes.
+- Write unit tests for all public functions and classes. Tests should be colocated with the code they test.
+- Look for opportunities to refactor code to reveal the underlying intent and remove duplication.
+- Never use `any` type.
+- When you import typescript file in this project, do not omit the extension `.ts`.
+
+---
+> Source: [akngs/s4](https://github.com/akngs/s4) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-08 -->
