@@ -1,150 +1,163 @@
-## component-testing
+## composables
 
-> Component testing with Vitest and Vue Test Utils
+> Composables patterns and reusable logic
 
-# Component Testing
+# Composables
 
-**Role:** You are a Vue 3 expert specializing in component testing and quality assurance.
+**Role:** You are a Vue 3 expert specializing in reusable composition functions and reactive logic.
 
 **Core Rules:**
-- Use Vitest with Vue Test Utils for component tests
-- Test behavior, not implementation details
-- Mock external dependencies properly
-- Test props, events, and user interactions
-- Keep tests focused and readable
+- Use `use` prefix for composable functions
+- Return readonly reactive state when appropriate
+- Expose methods for state manipulation
+- Handle cleanup in `onUnmounted` if needed
+- Keep composables focused and single-purpose
+- Prefer well-tested utilities from `@vueuse/core` for common patterns (debounce, throttle, event helpers, etc.) before writing custom logic
 
-**Chain-of-Thought:** Think step-by-step: 1. Identify what to test 2. Setup component with props 3. Simulate user actions 4. Assert expected outcomes
+**Chain-of-Thought:** Think step-by-step: 1. Plan reactivity needs 2. Define internal state 3. Create methods/computed 4. Design return interface
 
-**Note:** Testing patterns are UI-framework neutral; adapt selectors and mocks for specific UI kits while preserving test logic.
+## Workflow Chain: Build a Form Composable
 
-## Test Setup
+**Full Task:** Create a reusable form composable with validation.
 
+**Step 1:** Define form state and validation
 ```typescript
-// tests/setup.ts
-import { beforeEach } from 'vitest'
-import { config } from '@vue/test-utils'
-
-config.global.plugins = [/* your plugins */]
-
-beforeEach(() => {
-  // Reset mocks
-  vi.clearAllMocks()
-})
-```
-
-## Basic Component Test
-
-```typescript
-// components/Counter.test.ts
-import { mount } from '@vue/test-utils'
-import { describe, it, expect } from 'vitest'
-import Counter from '@/components/Counter.vue'
-
-describe('Counter', () => {
-  it('renders initial count', () => {
-    const wrapper = mount(Counter, {
-      props: { initialCount: 5 }
-    })
-    
-    expect(wrapper.text()).toContain('5')
-  })
-  
-  it('increments count on button click', async () => {
-    const wrapper = mount(Counter)
-    
-    await wrapper.find('button').trigger('click')
-    
-    expect(wrapper.text()).toContain('1')
-  })
-  
-  it('emits update event', async () => {
-    const wrapper = mount(Counter)
-    
-    await wrapper.find('button').trigger('click')
-    
-    expect(wrapper.emitted()).toHaveProperty('update')
-    expect(wrapper.emitted('update')?.[0]).toEqual([1])
-  })
-})
-```
-
-## Testing Composables
-
-```typescript
-// composables/useCounter.test.ts
-import { describe, it, expect } from 'vitest'
-import { useCounter } from '@/composables/useCounter'
-
-describe('useCounter', () => {
-  it('initializes with default value', () => {
-    const { count } = useCounter()
-    expect(count.value).toBe(0)
-  })
-  
-  it('increments count', () => {
-    const { count, increment } = useCounter()
-    
-    increment()
-    
-    expect(count.value).toBe(1)
-  })
-})
-```
-
-## Mock External Dependencies
-
-```typescript
-// Mock API calls
-vi.mock('@/api/users', () => ({
-  getUsers: vi.fn(() => Promise.resolve([]))
-}))
-
-// Mock router
-const mockRouter = {
-  push: vi.fn()
+// composables/useForm.ts
+interface FormState<T> {
+  values: T
+  errors: Partial<Record<keyof T, string>>
+  isValid: boolean
 }
-
-vi.mock('vue-router', () => ({
-  useRouter: () => mockRouter
-}))
 ```
 
-## UI Kit Testing Adaptations
-
-**Core testing logic remains identical—adapt selectors and setup for specific UI libraries:**
-
-- **Tailwind UI/Native Elements:** Standard CSS selectors
-  ```typescript
-  await wrapper.find('button').trigger('click')
-  expect(wrapper.find('.text-red-600')).toBeTruthy() // Error state
-  ```
-
-- **Vuetify:** Component-specific selectors and global setup
-  ```typescript
-  // vitest.config.ts
-  config.global.plugins = [vuetify]
+**Step 2:** Implement reactive logic
+```typescript
+export function useForm<T extends Record<string, any>>(
+  initialValues: T,
+  validate: (values: T) => Partial<Record<keyof T, string>>
+) {
+  const values = ref(initialValues)
+  const errors = ref<Partial<Record<keyof T, string>>>({})
   
-  // Test
-  await wrapper.findComponent({ name: 'VBtn' }).trigger('click')
-  expect(wrapper.findComponent({ name: 'VAlert' }).exists()).toBe(true)
-  ```
-
-- **Quasar:** Configure Quasar testing utilities
-  ```typescript
-  import { installQuasarPlugin } from '@quasar/quasar-app-extension-testing-unit-vitest'
-  installQuasarPlugin()
+  const isValid = computed(() => Object.keys(errors.value).length === 0)
   
-  await wrapper.findComponent({ name: 'QBtn' }).trigger('click')
-  ```
-
-- **Element Plus:** Setup Element Plus globally
-  ```typescript
-  config.global.plugins = [ElementPlus]
+  const validateForm = () => {
+    errors.value = validate(values.value)
+    return isValid.value
+  }
   
-  await wrapper.findComponent({ name: 'ElButton' }).trigger('click')
-  ```
+  return {
+    values,
+    errors: readonly(errors),
+    isValid,
+    validateForm,
+    reset: () => { values.value = { ...initialValues } }
+  }
+}
+```
 
-*Essential: Test component behavior and user interactions, not UI kit implementation details. Composable and business logic tests remain framework-agnostic.*
+**Step 3:** Use in component (see form-handling.mdc for integration):
+```vue
+<script setup lang="ts">
+const { values, errors, isValid, validateForm } = useForm(
+  { email: '', password: '' },
+  (vals) => ({
+    email: !vals.email ? 'Required' : undefined,
+    password: vals.password.length < 6 ? 'Too short' : undefined
+  })
+)
+</script>
+```
+
+## Basic Composable Pattern
+
+```typescript
+// composables/useCounter.ts
+import { ref, computed } from 'vue'
+
+export function useCounter(initialValue = 0) {
+  const count = ref(initialValue)
+  
+  const increment = () => count.value++
+  const decrement = () => count.value--
+  const reset = () => count.value = initialValue
+  
+  const isZero = computed(() => count.value === 0)
+  const isPositive = computed(() => count.value > 0)
+  
+  return {
+    count: readonly(count),
+    increment,
+    decrement,
+    reset,
+    isZero,
+    isPositive
+  }
+}
+```
+
+## API Composable
+
+```typescript
+// composables/useApi.ts
+import { ref } from 'vue'
+
+export function useApi<T>(url: string) {
+  const data = ref<T | null>(null)
+  const loading = ref(false)
+  const error = ref<string | null>(null)
+  
+  const execute = async () => {
+    try {
+      loading.value = true
+      error.value = null
+      
+      const response = await fetch(url)
+      if (!response.ok) throw new Error(response.statusText)
+      
+      data.value = await response.json()
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : 'Unknown error'
+    } finally {
+      loading.value = false
+    }
+  }
+  
+  return { data, loading, error, execute }
+}
+```
+
+## Utility Integrations
+
+Lean on curated helpers from `@vueuse/core` whenever a task needs cross-cutting utilities so behaviour stays consistent.
+
+- Debounce or throttle user input -> `useDebounceFn`, `useThrottleFn`
+- Repeating timers or animation frames -> `useIntervalFn`, `useRafFn`
+- DOM listeners or observers -> `useEventListener`, `useIntersectionObserver`
+
+```typescript
+import { useDebounceFn } from '@vueuse/core'
+
+const runSearch = useDebounceFn(() => submitSearch(query.value), 200)
+```
+
+## Storage Composable
+
+```typescript
+// composables/useLocalStorage.ts
+import { ref, watch, Ref } from 'vue'
+
+export function useLocalStorage<T>(key: string, defaultValue: T): Ref<T> {
+  const stored = localStorage.getItem(key)
+  const value = ref(stored ? JSON.parse(stored) : defaultValue)
+  
+  watch(value, (newValue) => {
+    localStorage.setItem(key, JSON.stringify(newValue))
+  }, { deep: true })
+  
+  return value
+}
+```
 
 ---
 > Source: [aliarghyani/vue-cursor-rules](https://github.com/aliarghyani/vue-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
