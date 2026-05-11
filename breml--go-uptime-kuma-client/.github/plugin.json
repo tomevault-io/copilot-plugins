@@ -1,0 +1,9 @@
+{
+  "name": "breml--go-uptime-kuma-client",
+  "displayName": "go-uptime-kuma-client",
+  "description": "Go Client for Uptime Kuma API",
+  "version": "1.0.0",
+  "author": "breml",
+  "homepage": "https://github.com/breml/go-uptime-kuma-client",
+  "skills": []
+}
