@@ -1,0 +1,9 @@
+{
+  "name": "amadeusitgroup--gh-app-auth",
+  "displayName": "gh-app-auth",
+  "description": "GitHub CLI extension for Git credential authentication using GitHub Apps and PATs with pattern-based routing and encrypted storage",
+  "version": "1.0.0",
+  "author": "AmadeusITGroup",
+  "homepage": "https://github.com/AmadeusITGroup/gh-app-auth",
+  "skills": []
+}
