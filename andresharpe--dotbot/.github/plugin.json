@@ -1,0 +1,9 @@
+{
+  "name": "andresharpe--dotbot",
+  "displayName": "dotbot",
+  "description": "Structured, auditable AI-assisted development for teams. Zero-dependency MCP server, web dashboard, and multi-provider AI CLI support.",
+  "version": "1.0.0",
+  "author": "andresharpe",
+  "homepage": "https://github.com/andresharpe/dotbot",
+  "skills": []
+}
