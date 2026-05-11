@@ -1,0 +1,44 @@
+{
+  "name": "video-agent",
+  "owner": "stock-programmer",
+  "repo": "video-agent",
+  "description": "\u4e09\u91cd\u68a6AI\u89c6\u9891\u5de5\u5382   \ud83c\udf08 \u8ba9\u521b\u610f\u89e6\u624b\u53ef\u53ca",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/stock-programmer/video-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T19:49:37Z"
+}
