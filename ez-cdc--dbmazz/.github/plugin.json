@@ -1,0 +1,9 @@
+{
+  "name": "ez-cdc--dbmazz",
+  "displayName": "dbmazz",
+  "description": "CDC, radically simplified. One Rust binary replaces  Kafka + Debezium + ZooKeeper + Flink. Any source, any target.  300K+ events/sec \u00b7 <1s latency \u00b7 ~5 MB RAM.  Fewer components = fewer failures + low",
+  "version": "1.0.0",
+  "author": "ez-cdc",
+  "homepage": "https://github.com/ez-cdc/dbmazz",
+  "skills": []
+}
