@@ -1,0 +1,9 @@
+{
+  "name": "iroblesrazzaq--rallyclip",
+  "displayName": "RallyClip",
+  "description": "RallyClip is a free and open source tennis match segmentation tool that takes a raw tennis match video and removes all dead time between points, producing a segmented video containing only the points.",
+  "version": "1.0.0",
+  "author": "iroblesrazzaq",
+  "homepage": "https://github.com/iroblesrazzaq/RallyClip",
+  "skills": []
+}
