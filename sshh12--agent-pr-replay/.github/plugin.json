@@ -1,0 +1,9 @@
+{
+  "name": "sshh12--agent-pr-replay",
+  "displayName": "agent-pr-replay",
+  "description": "Agent PR Replay takes merged PRs from any repository, reverse-engineers the task prompt, runs Claude Code against it, and compares what the agent did versus what humans actually shipped. The result is",
+  "version": "1.0.0",
+  "author": "sshh12",
+  "homepage": "https://github.com/sshh12/agent-pr-replay",
+  "skills": []
+}
