@@ -1,0 +1,9 @@
+{
+  "name": "ag-ui-protocol--ag-ui",
+  "displayName": "ag-ui",
+  "description": "AG-UI: the Agent-User Interaction Protocol. Bring Agents into Frontend Applications.",
+  "version": "1.0.0",
+  "author": "ag-ui-protocol",
+  "homepage": "https://github.com/ag-ui-protocol/ag-ui",
+  "skills": []
+}
