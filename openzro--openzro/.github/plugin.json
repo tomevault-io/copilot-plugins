@@ -1,0 +1,9 @@
+{
+  "name": "openzro--openzro",
+  "displayName": "openzro",
+  "description": "Self-hosted zero-trust mesh networking on WireGuard. BSD-3 fork of NetBird @ v0.52.2 with HA, peer admission gate, MDM/EDR posture, and audit-grade flow exports.",
+  "version": "1.0.0",
+  "author": "openzro",
+  "homepage": "https://github.com/openzro/openzro",
+  "skills": []
+}
