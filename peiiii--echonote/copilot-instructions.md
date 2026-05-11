@@ -1,124 +1,96 @@
-## export-restrictions
+## no-auto-commit
 
-> Export restrictions and API design principles
+> Prevent automatic git commits unless explicitly requested by user
 
 
-# Export Restrictions - Avoid Unnecessary API Exposure
+# No Auto-Commit Rule
 
-## Core Principle: Only Export What's Actually Used
+## ⚠️ CRITICAL: Never Auto-Commit
 
-**NEVER export anything that is not used by external consumers.** This prevents API bloat, reduces maintenance burden, and keeps interfaces clean.
+**NEVER execute any git commit operations unless explicitly requested by the user.**
 
-## Export Decision Rules
+## Strict Requirements
 
-### ✅ **DO Export When:**
-- **External Usage Confirmed**: Component/service is imported and used by other modules
-- **Public API**: Intentionally designed for external consumption
-- **Reusable Utilities**: Generic functions that multiple modules need
-- **Type Definitions**: Types that external consumers need for type safety
+### 1. **Explicit User Request Required**
+- **ONLY commit when user types**: `/commit` or explicitly says "commit" or "提交"
+- **NEVER commit automatically** for any reason
+- **NEVER assume** user wants to commit changes
+- **NEVER commit** as part of other operations
 
-### ❌ **DON'T Export When:**
-- **Internal Implementation**: Only used within the same module/feature
-- **Single Use**: Only used in one place
-- **Implementation Details**: Internal helpers, utilities, or intermediate functions
-- **Unused Code**: No external references found
+### 2. **Forbidden Scenarios**
+- ❌ **Never commit** after code changes
+- ❌ **Never commit** after fixing linter errors
+- ❌ **Never commit** after refactoring
+- ❌ **Never commit** after adding new features
+- ❌ **Never commit** after any file modifications
+- ❌ **Never commit** "just to save progress"
 
-## Implementation Guidelines
+### 3. **Safe Operations Allowed**
+- ✅ `git add .` - Stage changes (when explicitly requested)
+- ✅ `git status` - Check repository status
+- ✅ `git diff` - View changes
+- ✅ `git log` - View commit history
+- ✅ `git branch` - Check branches
+- ✅ Any other git commands that don't create commits
 
-### 1. **Index Files (.tsx/.ts)**
-```typescript
-// ❌ BAD: Exporting everything
-export { InternalHelper } from './internal-helper';
-export { UnusedUtility } from './unused-utility';
-export { PublicAPI } from './public-api';
+### 4. **User Commands That Trigger Commits**
+- `/commit` - Execute commit with auto-generated message
+- "commit these changes" - User explicitly requests commit
+- "提交代码" - User explicitly requests commit in Chinese
+- "git commit" - User explicitly types git commit command
 
-// ✅ GOOD: Only export what's actually used
-export { PublicAPI } from './public-api';
-// InternalHelper and UnusedUtility are not exported
+### 5. **What to Do Instead of Auto-committing**
+1. **Inform user** that changes are ready
+2. **Suggest** they use `/commit` command
+3. **Wait** for explicit user instruction
+4. **Explain** what changes were made
+5. **Offer** to help with commit message if requested
+
+## Examples
+
+### ❌ WRONG - Auto-committing
+```bash
+# User makes changes, AI automatically commits
+git add .
+git commit -m "feat: add new feature"
+# This is FORBIDDEN!
 ```
 
-### 2. **Service Classes**
-```typescript
-// ❌ BAD: Exporting internal methods
-export class MyService {
-  public processData() { /* used externally */ }
-  public internalHelper() { /* only used internally */ }
-  public debugMethod() { /* never used */ }
-}
-
-// ✅ GOOD: Only export public API
-export class MyService {
-  public processData() { /* used externally */ }
-  private internalHelper() { /* only used internally */ }
-  // debugMethod removed or made private
-}
+### ✅ CORRECT - Waiting for user request
+```bash
+# User makes changes, AI waits
+# AI: "Changes are ready. Use /commit to save them."
+# User types: /commit
+# AI: Now executes commit
 ```
 
-### 3. **Component Exports**
-```typescript
-// ❌ BAD: Exporting internal components
-export { MainComponent } from './main-component';
-export { InternalSubComponent } from './internal-sub-component';
-export { UnusedHelper } from './unused-helper';
-
-// ✅ GOOD: Only export public components
-export { MainComponent } from './main-component';
-// InternalSubComponent and UnusedHelper are not exported
+### ✅ CORRECT - User explicitly requests
+```bash
+# User: "Please commit these changes"
+# AI: "I'll commit the changes for you"
+git add .
+git commit -m "feat: implement requested changes"
 ```
 
-## Verification Process
+## Emergency Situations
 
-### Before Adding Exports:
-1. **Search Usage**: Use `grep` or IDE search to find actual usage
-2. **Check Imports**: Verify the item is imported elsewhere
-3. **Review Dependencies**: Ensure it's not just internal to the module
-4. **Document Purpose**: If exporting, document why it's part of the public API
+### If You Accidentally Committed
+1. **Immediately inform** the user
+2. **Explain** what happened
+3. **Offer** to help revert if needed
+4. **Apologize** for the violation
+5. **Reinforce** the rule for future
 
-### Regular Cleanup:
-1. **Audit Exports**: Periodically review what's exported vs. what's used
-2. **Remove Unused**: Delete exports that have no external references
-3. **Refactor Internals**: Move unused exports to internal modules
-4. **Update Documentation**: Keep API documentation current
+## Rule Enforcement
 
-## Examples from Codebase
-
-### Context Feature Exports
-```typescript
-// ✅ GOOD: Only exports what's actually used externally
-export { contextDataCache } from './services/context-data-cache';        // Used by ai-conversation-chat.tsx
-export { channelContextManager } from './services/channel-context-manager'; // Used by ai-agent-factory.ts
-export { sessionContextManager } from './services/session-context-manager'; // Used by ai-agent-factory.ts
-export { ConversationContextControl } from './components/conversation-context-control'; // Used by mobile/desktop
-```
-
-### Avoid Over-Exporting
-```typescript
-// ❌ BAD: Don't export internal utilities unless needed
-export { useContextStatusStore } from './stores/context-status.store'; // Only used internally
-export { ChannelContextSnapshot } from './services/context-data-cache'; // Type only used internally
-
-// ✅ GOOD: Only export what external consumers need
-// useContextStatusStore and ChannelContextSnapshot are not exported
-```
-
-## Benefits
-
-- **Cleaner APIs**: Easier to understand and use
-- **Reduced Coupling**: Less dependencies between modules
-- **Better Maintainability**: Fewer breaking changes when refactoring
-- **Improved Performance**: Smaller bundle sizes
-- **Clear Boundaries**: Obvious separation between public and private APIs
-
-## Enforcement
-
-- **Code Reviews**: Always check if new exports are actually needed
-- **Linting Rules**: Use tools to detect unused exports
-- **Documentation**: Document the public API clearly
-- **Regular Audits**: Periodically review and clean up exports
+- **This rule is ALWAYS ACTIVE**
+- **No exceptions** without explicit user override
+- **Every AI response** must respect this rule
+- **Violation is a serious error** that must be corrected
 
 ---
 
-**Remember**: A good API is one that exports only what's necessary. When in doubt, don't export it.
+**Remember**: When in doubt, DON'T commit. Wait for the user to explicitly request it.
 
 ---
 > Source: [Peiiii/EchoNote](https://github.com/Peiiii/EchoNote) — distributed by [TomeVault](https://tomevault.io).
