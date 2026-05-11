@@ -1,0 +1,9 @@
+{
+  "name": "grillcheese-ai--grilly",
+  "displayName": "grilly",
+  "description": "GPU-accelerated neural network operations using Vulkan compute shaders.",
+  "version": "1.0.0",
+  "author": "Grillcheese-AI",
+  "homepage": "https://github.com/Grillcheese-AI/grilly",
+  "skills": []
+}
