@@ -4,7 +4,7 @@
   "repo": "ha-air-comfort-card",
   "description": "A custom Home Assistant card that visualises indoor air comfort using temperature and humidity",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mrded/ha-air-comfort-card",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T09:22:36Z"
+  "distributed_at": "2026-05-11T15:22:06Z"
 }
