@@ -4,7 +4,7 @@
   "repo": "sndv-hdl",
   "description": "A Typescript to SystemVerilog Compiler",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thecharge/sndv-hdl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T05:47:09Z"
+  "distributed_at": "2026-05-11T14:13:07Z"
 }
