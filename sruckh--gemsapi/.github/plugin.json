@@ -1,0 +1,9 @@
+{
+  "name": "sruckh--gemsapi",
+  "displayName": "gemsAPI",
+  "description": "A FastAPI and MCP server connected to Supabase table for managing, testing, and programmatically accessing LLM System Instructions, System Prompts, BOTs, Google Gems. ",
+  "version": "1.0.0",
+  "author": "sruckh",
+  "homepage": "https://github.com/sruckh/gemsAPI",
+  "skills": []
+}
