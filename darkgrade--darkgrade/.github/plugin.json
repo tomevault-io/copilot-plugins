@@ -1,0 +1,9 @@
+{
+  "name": "darkgrade--darkgrade",
+  "displayName": "darkgrade",
+  "description": "Connect to & control your Canon EOS, Sony Alpha, or Nikon Z camera with 2 lines of TypeScript",
+  "version": "1.0.0",
+  "author": "darkgrade",
+  "homepage": "https://github.com/darkgrade/darkgrade",
+  "skills": []
+}
