@@ -1,0 +1,9 @@
+{
+  "name": "myysophia--sql2metrics",
+  "displayName": "sql2metrics",
+  "description": "SQL2Metrics \u662f\u4e00\u6b3e\u96f6\u4ee3\u7801\u3001\u914d\u7f6e\u9a71\u52a8\u7684\u901a\u7528 Prometheus Exporter\u3002",
+  "version": "1.0.0",
+  "author": "myysophia",
+  "homepage": "https://github.com/myysophia/sql2metrics",
+  "skills": []
+}
