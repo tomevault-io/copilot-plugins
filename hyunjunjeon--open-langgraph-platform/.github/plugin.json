@@ -1,0 +1,9 @@
+{
+  "name": "hyunjunjeon--open-langgraph-platform",
+  "displayName": "open-langgraph-platform",
+  "description": "Self-hosted LangGraph Platform - `Agent Protocol` server built on LangGraph",
+  "version": "1.0.0",
+  "author": "HyunjunJeon",
+  "homepage": "https://github.com/HyunjunJeon/open-langgraph-platform",
+  "skills": []
+}
