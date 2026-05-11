@@ -1,0 +1,9 @@
+{
+  "name": "bucketdock--bucketdock",
+  "displayName": "bucketdock",
+  "description": "BucketDock - native macOS desktop browser for S3-compatible object storage",
+  "version": "1.0.0",
+  "author": "bucketdock",
+  "homepage": "https://github.com/bucketdock/bucketdock",
+  "skills": []
+}
