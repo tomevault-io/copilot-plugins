@@ -7,13 +7,13 @@ All-in-one open-source platform for enterprise-grade multi-tenant and multi-tier
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [cyberfabric/cyberfabric-core](https://github.com/cyberfabric/cyberfabric-core).
+Original source: `AGENTS.md` in [cyberfabric/cyberfabric-core](https://github.com/cyberfabric/cyberfabric-core).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
