@@ -1,0 +1,44 @@
+{
+  "name": "agentic-internet",
+  "owner": "AgenticInternet",
+  "repo": "agentic-internet",
+  "description": "AgenticInternet is an innovative project focused on empowering agents to autonomously browse, interact, and collaborate across the web. Our goal is to create an intelligent assistant capable of executing complex online workflows, enhancing productivity and creativity for end-users and organizations.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AgenticInternet/agentic-internet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T19:26:26Z"
+}
