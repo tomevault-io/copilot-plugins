@@ -1,0 +1,9 @@
+{
+  "name": "yen0304--skill-dock",
+  "displayName": "Skill-Dock",
+  "description": "Local-first agent skill manager for VS Code / Cursor. Manage, browse, and import skills across Claude, Cursor, Codex and more.",
+  "version": "1.0.0",
+  "author": "yen0304",
+  "homepage": "https://github.com/yen0304/Skill-Dock",
+  "skills": []
+}
