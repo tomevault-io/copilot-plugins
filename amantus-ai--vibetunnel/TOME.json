@@ -4,7 +4,7 @@
   "repo": "vibetunnel",
   "description": "Turn any browser into your terminal & command your agents on the go.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/amantus-ai/vibetunnel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T21:56:52Z"
+  "distributed_at": "2026-05-11T07:50:54Z"
 }
