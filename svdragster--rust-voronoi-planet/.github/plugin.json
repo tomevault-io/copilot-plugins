@@ -1,0 +1,9 @@
+{
+  "name": "svdragster--rust-voronoi-planet",
+  "displayName": "rust_voronoi_planet",
+  "description": "This rust library generates Voronoi-tessellated sphere meshes for procedural planet generation.",
+  "version": "1.0.0",
+  "author": "svdragster",
+  "homepage": "https://github.com/svdragster/rust_voronoi_planet",
+  "skills": []
+}
