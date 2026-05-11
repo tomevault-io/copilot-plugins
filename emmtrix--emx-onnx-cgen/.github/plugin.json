@@ -1,0 +1,9 @@
+{
+  "name": "emmtrix--emx-onnx-cgen",
+  "displayName": "emx-onnx-cgen",
+  "description": "Deterministic ONNX-to-C compiler for embedded and safety-critical systems, generating static, auditable C code with no dynamic memory or runtime dependencies.",
+  "version": "1.0.0",
+  "author": "emmtrix",
+  "homepage": "https://github.com/emmtrix/emx-onnx-cgen",
+  "skills": []
+}
