@@ -1,0 +1,9 @@
+{
+  "name": "kzahel--jstorrent",
+  "displayName": "JSTorrent",
+  "description": "A modern, full-featured BitTorrent client for Desktop, ChromeOS, and Android",
+  "version": "1.0.0",
+  "author": "kzahel",
+  "homepage": "https://github.com/kzahel/JSTorrent",
+  "skills": []
+}
