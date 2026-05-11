@@ -1,54 +1,46 @@
-## git-workflow
+## project
 
-> Git 工作流与发版流程
+> AIbubu 项目总览与基本规范
 
 
-# Git 工作流
+# AIbubu 项目规范
 
-## 分支策略
+## 项目概述
 
-- `main` — 主分支，保持稳定
-- `feat/*` — 功能分支
-- `fix/*` — 修复分支
+AI 步步 (AIbubu) 是一款 Tauri 2 桌面宠物应用，监测 AI 编码工具活跃度并量化为步数驱动桌面宠物。
+
+## Monorepo 结构
+
+- `packages/app/` — Tauri 桌面应用（Vue 3 前端 + Rust 后端）
+- `packages/site/` — Astro 官网
+- `scripts/` — 工具脚本
+
+## 常用命令
+
+- `pnpm dev` / `pnpm tauri dev` — 开发
+- `pnpm test` — 测试
+- `pnpm lint` — ESLint 检查
+- `pnpm format` — Prettier 格式化
+- `pnpm validate:skins` — 校验皮肤
+- `pnpm bump <patch|minor|major>` — 版本号同步更新
 
 ## Commit 规范
 
-由 commitlint + Husky 强制执行 Conventional Commits。
+Conventional Commits，由 commitlint 强制执行。
 
 格式: `type(scope): description`
 
-scope 枚举: `app`, `site`, `skin`, `monitor`, `social`, `i18n`, `ci`, `deps`
+允许的 scope: `app`, `site`, `skin`, `monitor`, `social`, `i18n`, `ci`, `deps`
 
-**使用 panda-git-commit skill 生成 commit message。**
+提交时使用 **panda-git-commit** skill 生成 commit message。
 
-## 发版流程
+## 通用编码规范
 
-```bash
-# 1. 更新版本号（同步三处）
-pnpm bump minor
-
-# 2. 生成 CHANGELOG
-git-cliff -o CHANGELOG.md
-
-# 3. 提交发版
-git add -A
-git commit -m "chore(app): release v0.x.0"
-git tag v0.x.0
-git push origin main --tags
-```
-
-## CI/CD
-
-- **ci.yml** — PR/push 触发: lint + test + rust check + site build
-- **release.yml** — tag 触发: 跨平台构建 → Draft GitHub Release
-- **Vercel** — push 到 main 且 `packages/site/` 变更时自动部署官网
-
-## 版本号位置
-
-使用 `pnpm bump` 一键同步:
-1. `packages/app/package.json`
-2. `packages/app/src-tauri/Cargo.toml`
-3. `packages/app/src-tauri/tauri.conf.json`
+- 始终用中文回复用户
+- 修改代码前先询问用户确认
+- 不要自动执行 git add / commit / push
+- 不使用 `SELECT *`，明确指定列名
+- 路径别名: `@/` → `packages/app/src/`
 
 ---
 > Source: [funAgent/ai-bubu](https://github.com/funAgent/ai-bubu) — distributed by [TomeVault](https://tomevault.io).
