@@ -1,0 +1,9 @@
+{
+  "name": "mirno-ehf--ue5-mcp",
+  "displayName": "ue5-mcp",
+  "description": "Let AI edit your Unreal Engine Blueprints. MCP server plugin for Claude Code \u2014 describe what you want in plain English.",
+  "version": "1.0.0",
+  "author": "mirno-ehf",
+  "homepage": "https://github.com/mirno-ehf/ue5-mcp",
+  "skills": []
+}
