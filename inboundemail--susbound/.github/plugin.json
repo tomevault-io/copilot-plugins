@@ -1,0 +1,9 @@
+{
+  "name": "inboundemail--susbound",
+  "displayName": "susbound",
+  "description": "Get a security review of any email",
+  "version": "1.0.0",
+  "author": "inboundemail",
+  "homepage": "https://github.com/inboundemail/susbound",
+  "skills": []
+}
