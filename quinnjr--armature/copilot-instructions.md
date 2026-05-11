@@ -1,217 +1,232 @@
-## database-integration
+## dependency-injection
 
-> Database integration patterns for Armature applications
+> Dependency injection patterns for Armature applications
 
 
-# Database Integration
+# Dependency Injection
 
-Guidelines for database integration with Diesel or SeaORM.
+Guidelines for using Armature's dependency injection system.
 
-## Connection Pooling
+## Injectable Services
 
 ```rust
-use diesel::r2d2::{ConnectionManager, Pool};
-use diesel::PgConnection;
+use armature_di::injectable;
 
-pub type DbPool = Pool<ConnectionManager<PgConnection>>;
+#[injectable]
+pub struct UserService {
+    repository: Arc<dyn UserRepository>,
+    cache: Arc<dyn Cache>,
+}
 
-pub fn create_pool(database_url: &str) -> DbPool {
-    let manager = ConnectionManager::<PgConnection>::new(database_url);
-    Pool::builder()
-        .max_size(10)
-        .min_idle(Some(2))
-        .connection_timeout(Duration::from_secs(5))
-        .build(manager)
-        .expect("Failed to create pool")
+impl UserService {
+    pub fn new(
+        repository: Arc<dyn UserRepository>,
+        cache: Arc<dyn Cache>,
+    ) -> Self {
+        Self { repository, cache }
+    }
+
+    pub async fn get_user(&self, id: Uuid) -> Result<User, Error> {
+        // Check cache first
+        if let Some(user) = self.cache.get(&format!("user:{}", id)).await? {
+            return Ok(user);
+        }
+
+        // Fetch from repository
+        let user = self.repository.find_by_id(id).await?;
+
+        // Cache for future requests
+        self.cache.set(&format!("user:{}", id), &user, Duration::from_secs(300)).await?;
+
+        Ok(user)
+    }
 }
 ```
 
-## Repository Pattern
+## Module Configuration
+
+```rust
+use armature_di::module;
+
+#[module]
+pub struct AppModule {
+    #[provider]
+    user_service: UserService,
+
+    #[provider]
+    post_service: PostService,
+
+    #[controller]
+    users_controller: UsersController,
+
+    #[controller]
+    posts_controller: PostsController,
+}
+
+impl AppModule {
+    pub fn new(config: &Config) -> Self {
+        // Configure module with dependencies
+    }
+}
+```
+
+## Provider Scopes
+
+```rust
+// Singleton - one instance for entire application
+#[injectable(scope = "singleton")]
+pub struct DatabasePool { }
+
+// Request - new instance per HTTP request
+#[injectable(scope = "request")]
+pub struct RequestContext { }
+
+// Transient - new instance every time (default)
+#[injectable]
+pub struct EmailSender { }
+```
+
+## Factory Providers
+
+```rust
+#[module]
+pub struct DatabaseModule;
+
+impl DatabaseModule {
+    #[provider]
+    fn provide_pool(config: &DatabaseConfig) -> DbPool {
+        create_pool(&config.url)
+    }
+
+    #[provider]
+    fn provide_user_repo(pool: Arc<DbPool>) -> Arc<dyn UserRepository> {
+        Arc::new(PgUserRepository::new(pool))
+    }
+}
+```
+
+## Interface Binding
+
+```rust
+// Define trait
+pub trait EmailSender: Send + Sync {
+    async fn send(&self, email: &Email) -> Result<(), Error>;
+}
+
+// Implement for production
+#[injectable(provides = "dyn EmailSender")]
+pub struct SmtpEmailSender {
+    config: SmtpConfig,
+}
+
+// Implement for testing
+pub struct MockEmailSender {
+    sent: Arc<Mutex<Vec<Email>>>,
+}
+
+// Register in module
+#[module]
+pub struct MailModule;
+
+impl MailModule {
+    #[provider]
+    fn provide_email_sender(config: &Config) -> Arc<dyn EmailSender> {
+        if config.is_test() {
+            Arc::new(MockEmailSender::new())
+        } else {
+            Arc::new(SmtpEmailSender::new(&config.smtp))
+        }
+    }
+}
+```
+
+## Resolving Dependencies
+
+```rust
+// In controllers - automatic injection
+#[controller("/users")]
+pub struct UsersController {
+    user_service: Arc<UserService>, // Automatically injected
+}
+
+// Manual resolution
+let user_service = container.resolve::<UserService>();
+let email_sender = container.resolve::<dyn EmailSender>();
+```
+
+## Lifecycle Hooks
 
 ```rust
 #[injectable]
-pub struct UserRepository {
-    pool: Arc<DbPool>,
+pub struct CacheService {
+    client: RedisClient,
 }
 
-impl UserRepository {
-    pub async fn find_by_id(&self, id: Uuid) -> Result<Option<User>, DbError> {
-        let conn = self.pool.get()?;
-
-        users::table
-            .find(id)
-            .first(&conn)
-            .optional()
-            .map_err(Into::into)
-    }
-
-    pub async fn create(&self, new_user: NewUser) -> Result<User, DbError> {
-        let conn = self.pool.get()?;
-
-        diesel::insert_into(users::table)
-            .values(&new_user)
-            .get_result(&conn)
-            .map_err(Into::into)
-    }
-}
-```
-
-## Transactions
-
-```rust
-pub async fn transfer_funds(
-    &self,
-    from: Uuid,
-    to: Uuid,
-    amount: Decimal,
-) -> Result<(), DbError> {
-    let conn = self.pool.get()?;
-
-    conn.transaction(|conn| {
-        // Debit source account
-        diesel::update(accounts::table.find(from))
-            .set(accounts::balance.eq(accounts::balance - amount))
-            .execute(conn)?;
-
-        // Credit destination account
-        diesel::update(accounts::table.find(to))
-            .set(accounts::balance.eq(accounts::balance + amount))
-            .execute(conn)?;
-
+impl OnInit for CacheService {
+    async fn on_init(&self) -> Result<(), Error> {
+        // Run after construction
+        self.client.ping().await?;
+        tracing::info!("Cache service initialized");
         Ok(())
-    })
+    }
+}
+
+impl OnDestroy for CacheService {
+    async fn on_destroy(&self) {
+        // Cleanup before shutdown
+        self.client.close().await;
+        tracing::info!("Cache service shutdown");
+    }
 }
 ```
 
-## Query Optimization
-
-```rust
-// Select only needed columns
-users::table
-    .select((users::id, users::name, users::email))
-    .load::<(Uuid, String, String)>(&conn)?;
-
-// Use joins instead of N+1 queries
-users::table
-    .inner_join(posts::table)
-    .filter(users::id.eq(user_id))
-    .select((users::all_columns, posts::all_columns))
-    .load::<(User, Post)>(&conn)?;
-
-// Paginate large result sets
-users::table
-    .order(users::created_at.desc())
-    .limit(20)
-    .offset(page * 20)
-    .load::<User>(&conn)?;
-```
-
-## Model Definitions
-
-```rust
-use diesel::prelude::*;
-
-#[derive(Queryable, Identifiable, Selectable)]
-#[diesel(table_name = users)]
-pub struct User {
-    pub id: Uuid,
-    pub name: String,
-    pub email: String,
-    pub password_hash: String,
-    pub created_at: DateTime<Utc>,
-    pub updated_at: DateTime<Utc>,
-}
-
-#[derive(Insertable)]
-#[diesel(table_name = users)]
-pub struct NewUser {
-    pub name: String,
-    pub email: String,
-    pub password_hash: String,
-}
-
-#[derive(AsChangeset)]
-#[diesel(table_name = users)]
-pub struct UpdateUser {
-    pub name: Option<String>,
-    pub email: Option<String>,
-}
-```
-
-## Migrations
-
-```bash
-# Create migration
-diesel migration generate create_users
-
-# Run migrations
-diesel migration run
-
-# Revert last migration
-diesel migration revert
-```
-
-Migration file structure:
-
-```sql
--- up.sql
-CREATE TABLE users (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
-
-CREATE INDEX idx_users_email ON users(email);
-
--- down.sql
-DROP TABLE users;
-```
-
-## Testing with Transactions
+## Testing with DI
 
 ```rust
 #[tokio::test]
-async fn test_user_creation() {
-    let pool = create_test_pool();
-    let conn = pool.get().unwrap();
+async fn test_user_service() {
+    // Create test container with mocks
+    let container = Container::test()
+        .with::<dyn UserRepository>(Arc::new(MockUserRepository::new()))
+        .with::<dyn Cache>(Arc::new(MockCache::new()))
+        .build();
 
-    // Wrap test in transaction that rolls back
-    conn.test_transaction(|conn| {
-        let repo = UserRepository::new(pool.clone());
+    let service = container.resolve::<UserService>();
 
-        let user = repo.create(NewUser {
-            name: "Test".into(),
-            email: "test@example.com".into(),
-            password_hash: "hash".into(),
-        })?;
-
-        assert_eq!(user.name, "Test");
-        Ok(())
-    });
+    let result = service.get_user(Uuid::new_v4()).await;
+    assert!(result.is_ok());
 }
 ```
 
-## Error Handling
+## Circular Dependency Prevention
 
 ```rust
-#[derive(Error, Debug)]
-pub enum DbError {
-    #[error("Record not found")]
-    NotFound,
+// Bad - circular dependency
+#[injectable]
+pub struct ServiceA {
+    b: Arc<ServiceB>, // ServiceB also depends on ServiceA
+}
 
-    #[error("Duplicate key: {0}")]
-    Duplicate(String),
+// Good - use lazy resolution or events
+#[injectable]
+pub struct ServiceA {
+    container: Arc<Container>,
+}
 
-    #[error("Connection error: {0}")]
-    Connection(#[from] r2d2::Error),
-
-    #[error("Query error: {0}")]
-    Query(#[from] diesel::result::Error),
+impl ServiceA {
+    fn get_b(&self) -> Arc<ServiceB> {
+        self.container.resolve::<ServiceB>()
+    }
 }
 ```
+
+## Best Practices
+
+1. **Depend on abstractions** - Use `Arc<dyn Trait>` over concrete types
+2. **Constructor injection** - Prefer constructor over field injection
+3. **Small interfaces** - Keep traits focused (ISP)
+4. **Avoid service locator** - Don't pass Container everywhere
+5. **Test with mocks** - Use trait bounds for testability
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
