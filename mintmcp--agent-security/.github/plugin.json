@@ -1,0 +1,9 @@
+{
+  "name": "mintmcp--agent-security",
+  "displayName": "agent-security",
+  "description": "Hooks for Claude Code and Cursor for secrets scanning",
+  "version": "1.0.0",
+  "author": "mintmcp",
+  "homepage": "https://github.com/mintmcp/agent-security",
+  "skills": []
+}
