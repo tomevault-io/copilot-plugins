@@ -4,7 +4,7 @@
   "repo": "peepshow",
   "description": "Turn a video \u2014 or an animated GIF, APNG, or WebP \u2014 into a timeline of still frames so an LLM can \"watch\" it as a series of images.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/t0mtaylor/peepshow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T02:31:53Z"
+  "distributed_at": "2026-05-11T13:39:36Z"
 }
