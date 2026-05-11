@@ -1,0 +1,9 @@
+{
+  "name": "quantbai--elvers",
+  "displayName": "elvers",
+  "description": "Multi-factor alpha research platform for systematic trading",
+  "version": "1.0.0",
+  "author": "quantbai",
+  "homepage": "https://github.com/quantbai/elvers",
+  "skills": []
+}
