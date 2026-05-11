@@ -4,7 +4,7 @@
   "repo": "polymarket-tui",
   "description": "TUI interface for Polymarket",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/penso/polymarket-tui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T11:39:55Z"
+  "distributed_at": "2026-05-11T20:51:19Z"
 }
