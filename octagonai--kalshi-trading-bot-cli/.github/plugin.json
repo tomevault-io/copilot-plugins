@@ -1,0 +1,9 @@
+{
+  "name": "octagonai--kalshi-trading-bot-cli",
+  "displayName": "kalshi-trading-bot-cli",
+  "description": "AI-native CLI for trading Kalshi prediction markets. Runs deep fundamental research, generates independent probability estimates, computes edge vs. live order books, and executes trades with Kelly siz",
+  "version": "1.0.0",
+  "author": "OctagonAI",
+  "homepage": "https://github.com/OctagonAI/kalshi-trading-bot-cli",
+  "skills": []
+}
