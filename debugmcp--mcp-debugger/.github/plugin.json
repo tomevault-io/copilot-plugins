@@ -1,0 +1,9 @@
+{
+  "name": "debugmcp--mcp-debugger",
+  "displayName": "mcp-debugger",
+  "description": "LLM-driven debugger server \u2013 give your AI agents step-through debugging superpowers",
+  "version": "1.0.0",
+  "author": "debugmcp",
+  "homepage": "https://github.com/debugmcp/mcp-debugger",
+  "skills": []
+}
