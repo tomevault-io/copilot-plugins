@@ -7,11 +7,11 @@ A fast, modern desktop dictation app. Speak naturally and have your words transc
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [xarthurx/whisperi](https://github.com/xarthurx/whisperi).
+Original source: `CLAUDE.md` in [xarthurx/whisperi](https://github.com/xarthurx/whisperi).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
