@@ -1,124 +1,210 @@
-## daisyui
+## drizzle
 
-> CSS library for Tailwind CSS 4 that provides semantic component class names.
+> > Drizzle is a modern TypeScript ORM developers wanna use in their next project. It is lightweight at only ~7.4kb minified+gzipped, and it's tree shakeable with exactly 0 dependencies. It supports every PostgreSQL, MySQL, SQLite and SingleStore database and is serverless-ready by design.
 
 
-# daisyUI 5
+# Drizzle
 
-CSS library for Tailwind CSS 4 that provides semantic component class names.
+> Drizzle is a modern TypeScript ORM developers wanna use in their next project. It is lightweight at only ~7.4kb minified+gzipped, and it's tree shakeable with exactly 0 dependencies. It supports every PostgreSQL, MySQL, SQLite and SingleStore database and is serverless-ready by design.
 
-**Links:**
+## meet drizzle
 
-- [daisyUI docs](http://daisyui.com)
-- [Installation guide](https://daisyui.com/docs/install/)
-- [Config docs](https://daisyui.com/docs/config/)
-- [Theme generator](https://daisyui.com/theme-generator/)
+- [Get started with Drizzle](https://orm.drizzle.team/docs/get-started)
+- [Get Started with Drizzle and PostgreSQL](https://orm.drizzle.team/docs/get-started/postgresql-new)
+- [Get Started with Drizzle and PostgreSQL in existing project](https://orm.drizzle.team/docs/get-started/postgresql-existing)
+- [Get Started with Drizzle and Gel](https://orm.drizzle.team/docs/get-started/gel-new)
+- [Get Started with Drizzle and Gel in existing project](https://orm.drizzle.team/docs/get-started/gel-existing)
+- [Get Started with Drizzle and SingleStore](https://orm.drizzle.team/docs/get-started/singlestore-new)
+- [Get Started with Drizzle and SingleStore in existing project](https://orm.drizzle.team/docs/get-started/singlestore-existing)
+- [Get Started with Drizzle and Neon](https://orm.drizzle.team/docs/get-started/neon-new)
+- [Get Started with Drizzle and Neon in existing project](https://orm.drizzle.team/docs/get-started/neon-existing)
+- [Get Started with Drizzle and Supabase](https://orm.drizzle.team/docs/get-started/supabase-new)
+- [Get Started with Drizzle and Supabase in existing project](https://orm.drizzle.team/docs/get-started/supabase-existing)
+- [Get Started with Drizzle and Xata](https://orm.drizzle.team/docs/get-started/xata-new)
+- [Get Started with Drizzle and Xata in existing project](https://orm.drizzle.team/docs/get-started/xata-existing)
+- [Get Started with Drizzle and PGlite](https://orm.drizzle.team/docs/get-started/pglite-new)
+- [Get Started with Drizzle and PGLite in existing project](https://orm.drizzle.team/docs/get-started/pglite-existing)
+- [Get Started with Drizzle and Nile](https://orm.drizzle.team/docs/get-started/nile-new)
+- [Get Started with Drizzle and Nile in existing project](https://orm.drizzle.team/docs/get-started/nile-existing)
+- [Get Started with Drizzle and Vercel Postgres](https://orm.drizzle.team/docs/get-started/vercel-new)
+- [Get Started with Drizzle and Vercel Postgres in existing project](https://orm.drizzle.team/docs/get-started/vercel-existing)
+- [Get Started with Drizzle and MySQL](https://orm.drizzle.team/docs/get-started/mysql-new)
+- [Get Started with Drizzle and MySQL in existing project](https://orm.drizzle.team/docs/get-started/mysql-existing)
+- [Get Started with Drizzle and PlanetScale](https://orm.drizzle.team/docs/get-started/planetscale-new)
+- [Get Started with Drizzle and PlanetScale in existing project](https://orm.drizzle.team/docs/get-started/planetscale-existing)
+- [Get Started with Drizzle and TiDB](https://orm.drizzle.team/docs/get-started/tidb-new)
+- [Get Started with Drizzle and TiDB in existing project](https://orm.drizzle.team/docs/get-started/tidb-existing)
+- [Get Started with Drizzle and SQLite](https://orm.drizzle.team/docs/get-started/sqlite-new)
+- [Get Started with Drizzle and SQLite in existing project](https://orm.drizzle.team/docs/get-started/sqlite-existing)
+- [Get Started with Drizzle and Turso](https://orm.drizzle.team/docs/get-started/turso-new)
+- [Get Started with Drizzle and Turso in existing project](https://orm.drizzle.team/docs/get-started/turso-existing)
+- [Get Started with Drizzle and D1](https://orm.drizzle.team/docs/get-started/d1-new)
+- [Get Started with Drizzle and SQLite Durable Objects](https://orm.drizzle.team/docs/get-started/do-new)
+- [Get Started with Drizzle and Bun:SQLite](https://orm.drizzle.team/docs/get-started/bun-sqlite-new)
+- [Get Started with Drizzle and Bun:SQLite in existing project](https://orm.drizzle.team/docs/get-started/bun-sqlite-existing)
+- [Get Started with Drizzle and Bun:SQLite](https://orm.drizzle.team/docs/get-started/bun-sql-new)
+- [Get Started with Drizzle and SQLite in existing project](https://orm.drizzle.team/docs/get-started/bun-sql-existing)
+- [Get Started with Drizzle and Expo](https://orm.drizzle.team/docs/get-started/expo-new)
+- [Get Started with Drizzle and Expo in existing project](https://orm.drizzle.team/docs/get-started/expo-existing)
+- [Get Started with Drizzle and OP-SQLite](https://orm.drizzle.team/docs/get-started/op-sqlite-new)
+- [Get Started with Drizzle and OP-SQLite in existing project](https://orm.drizzle.team/docs/get-started/op-sqlite-existing)
+- [Drizzle ORM](https://orm.drizzle.team/docs/overview)
+- [Drizzle gotchas](https://orm.drizzle.team/docs/gotchas)
 
-## Installation
+## Fundamentals
 
-Requires Tailwind CSS 4. Add to CSS file:
+- [Drizzle schema](https://orm.drizzle.team/docs/sql-schema-declaration)
+- [Database connection with Drizzle](https://orm.drizzle.team/docs/connect-overview)
+- [Drizzle Queries + CRUD](https://orm.drizzle.team/docs/data-querying)
+- [Drizzle migrations fundamentals](https://orm.drizzle.team/docs/migrations)
 
-```css
-@import "tailwindcss";
-@plugin "daisyui";
-```
+## Connect
 
-## Key Rules
+- [Drizzle \<\> PostgreSQL](https://orm.drizzle.team/docs/get-started-postgresql)
+- [Drizzle \<\> Gel](https://orm.drizzle.team/docs/get-started-gel)
+- [Drizzle \<\> MySQL](https://orm.drizzle.team/docs/get-started-mysql)
+- [Drizzle \<\> SQLite](https://orm.drizzle.team/docs/get-started-sqlite)
+- [Drizzle \<\> SingleStore](https://orm.drizzle.team/docs/get-started-singlestore)
+- [Drizzle \<\> Neon Postgres](https://orm.drizzle.team/docs/connect-neon)
+- [Drizzle \<\> Vercel Postgres](https://orm.drizzle.team/docs/connect-vercel-postgres)
+- [Drizzle \<\> Prisma Postgres](https://orm.drizzle.team/docs/connect-prisma-postgres)
+- [Drizzle \<\> Supabase](https://orm.drizzle.team/docs/connect-supabase)
+- [Drizzle \<\> Xata](https://orm.drizzle.team/docs/connect-xata)
+- [Drizzle \<\> PGlite](https://orm.drizzle.team/docs/connect-pglite)
+- [Drizzle \<\> Nile](https://orm.drizzle.team/docs/connect-nile)
+- [Drizzle \<\> Bun SQL](https://orm.drizzle.team/docs/connect-bun-sql)
+- [Drizzle \<\> PlanetScale](https://orm.drizzle.team/docs/connect-planetscale)
+- [Drizzle \<\> TiDB Serverless](https://orm.drizzle.team/docs/connect-tidb)
+- [Drizzle \<\> Turso](https://orm.drizzle.team/docs/connect-turso)
+- [Drizzle \<\> Cloudflare D1](https://orm.drizzle.team/docs/connect-cloudflare-d1)
+- [Drizzle \<\> Bun SQLite](https://orm.drizzle.team/docs/connect-bun-sqlite)
+- [Drizzle \<\> Cloudflare Durable Objects SQLite](https://orm.drizzle.team/docs/connect-cloudflare-do)
+- [Drizzle \<\> Expo SQLite](https://orm.drizzle.team/docs/connect-expo-sqlite)
+- [Drizzle \<\> OP SQLite](https://orm.drizzle.team/docs/connect-op-sqlite)
+- [Drizzle \<\> React Native SQLite](https://orm.drizzle.team/docs/connect-react-native-sqlite)
+- [Drizzle \<\> AWS Data API Postgres](https://orm.drizzle.team/docs/connect-aws-data-api-pg)
+- [Drizzle \<\> AWS Data API MySQL](https://orm.drizzle.team/docs/connect-aws-data-api-mysql)
+- [Drizzle HTTP proxy](https://orm.drizzle.team/docs/connect-drizzle-proxy)
 
-1. Use daisyUI component classes + Tailwind utilities for customization
-2. Use semantic colors (`primary`, `base-100`) over Tailwind colors for theme compatibility
-3. Responsive: `sm:menu-horizontal`, `lg:drawer-open`
-4. Override with `!` only as last resort: `btn bg-red-500!`
-5. Layout: `max-w-screen-xl mx-auto px-4` for containers
+## Manage schema
 
-## Color System
+- [PostgreSQL column types](https://orm.drizzle.team/docs/column-types/pg)
+- [MySQL column types](https://orm.drizzle.team/docs/column-types/mysql)
+- [SQLite column types](https://orm.drizzle.team/docs/column-types/sqlite)
+- [SingleStore column types](https://orm.drizzle.team/docs/column-types/singlestore)
+- [Indexes & Constraints](https://orm.drizzle.team/docs/indexes-constraints)
+- [Sequences](https://orm.drizzle.team/docs/sequences)
+- [Views](https://orm.drizzle.team/docs/views)
+- [Table schemas](https://orm.drizzle.team/docs/schemas)
+- [Row-Level Security (RLS)](https://orm.drizzle.team/docs/rls)
+- [PostgreSQL extensions](https://orm.drizzle.team/docs/extensions/pg)
+- [MySQL extensions](https://orm.drizzle.team/docs/extensions/mysql)
+- [SQLite extensions](https://orm.drizzle.team/docs/extensions/sqlite)
+- [SingleStore extensions](https://orm.drizzle.team/docs/extensions/singlestore)
+- [Drizzle soft relations](https://orm.drizzle.team/docs/relations)
 
-**Semantic Colors:**
+## Migrations
 
-- `primary/primary-content` - Brand colors
-- `secondary/secondary-content` - Secondary brand
-- `accent/accent-content` - Accent colors
-- `base-100/200/300/content` - Background layers
-- `info/success/warning/error` + `-content` - Status colors
-- `neutral/neutral-content` - Neutral colors
+- [Migrations with Drizzle Kit](https://orm.drizzle.team/docs/kit-overview)
+- [`drizzle-kit generate` ](https://orm.drizzle.team/docs/drizzle-kit-generate)
+- [`drizzle-kit migrate`](https://orm.drizzle.team/docs/drizzle-kit-migrate)
+- [`drizzle-kit push`](https://orm.drizzle.team/docs/drizzle-kit-push)
+- [`drizzle-kit pull`](https://orm.drizzle.team/docs/drizzle-kit-pull)
+- [`drizzle-kit export` ](https://orm.drizzle.team/docs/drizzle-kit-export)
+- [`drizzle-kit check`](https://orm.drizzle.team/docs/drizzle-kit-check)
+- [`drizzle-kit up`](https://orm.drizzle.team/docs/drizzle-kit-up)
+- [`drizzle-kit studio`](https://orm.drizzle.team/docs/drizzle-kit-studio)
+- [Migrations with Drizzle Kit](https://orm.drizzle.team/docs/kit-custom-migrations)
+- [Drizzle migrations for teams](https://orm.drizzle.team/docs/kit-migrations-for-teams)
+- [Drizzle migrations in web and mobile environments](https://orm.drizzle.team/docs/kit-web-mobile)
+- [Drizzle Kit configuration file](https://orm.drizzle.team/docs/drizzle-config-file)
 
-## Component Classes
+## Seeding
 
-### Layout & Navigation
+- [Drizzle Seed](https://orm.drizzle.team/docs/seed-overview)
+- [Generators](https://orm.drizzle.team/docs/seed-functions)
+- [Versioning](https://orm.drizzle.team/docs/seed-versioning)
 
-- **`navbar`** - [docs](https://daisyui.com/components/navbar/) - Navigation bar
-- **`drawer`** - [docs](https://daisyui.com/components/drawer/) - Sidebar layout
-- **`footer`** - [docs](https://daisyui.com/components/footer/) - Page footer
-- **`menu`** - [docs](https://daisyui.com/components/menu/) - Menu lists
-- **`breadcrumbs`** - [docs](https://daisyui.com/components/breadcrumbs/) - Navigation breadcrumbs
+## Access your data
 
-### Content Display
+- [Drizzle Queries](https://orm.drizzle.team/docs/rqb)
+- [SQL Select](https://orm.drizzle.team/docs/select)
+- [SQL Insert](https://orm.drizzle.team/docs/insert)
+- [SQL Update](https://orm.drizzle.team/docs/update)
+- [SQL Delete](https://orm.drizzle.team/docs/delete)
+- [Filter and conditional operators](https://orm.drizzle.team/docs/operators)
+- [Drizzle query utils](https://orm.drizzle.team/docs/query-utils)
+- [Joins [SQL]](https://orm.drizzle.team/docs/joins)
+- [Magical `sql` operator 🪄](https://orm.drizzle.team/docs/sql)
 
-- **`card`** - [docs](https://daisyui.com/components/card/) - Content containers
-- **`table`** - [docs](https://daisyui.com/components/table/) - Data tables
-- **`timeline`** - [docs](https://daisyui.com/components/timeline/) - Event timelines
-- **`stats`** - [docs](https://daisyui.com/components/stat/) - Statistics display
-- **`hero`** - [docs](https://daisyui.com/components/hero/) - Hero sections
-- **`list`** - [docs](https://daisyui.com/components/list/) - Item lists
+## Performance
 
-### Forms & Inputs
+- [Query performance](https://orm.drizzle.team/docs/perf-queries)
+- [Drizzle Serverless performance](https://orm.drizzle.team/docs/perf-serverless)
 
-- **`btn`** - [docs](https://daisyui.com/components/button/) - Buttons
-- **`input`** - [docs](https://daisyui.com/components/input/) - Text inputs
-- **`textarea`** - [docs](https://daisyui.com/components/textarea/) - Multi-line text
-- **`select`** - [docs](https://daisyui.com/components/select/) - Dropdowns
-- **`checkbox`** - [docs](https://daisyui.com/components/checkbox/) - Checkboxes
-- **`radio`** - [docs](https://daisyui.com/components/radio/) - Radio buttons
-- **`toggle`** - [docs](https://daisyui.com/components/toggle/) - Toggle switches
-- **`range`** - [docs](https://daisyui.com/components/range/) - Range sliders
-- **`file-input`** - [docs](https://daisyui.com/components/file-input/) - File uploads
-- **`rating`** - [docs](https://daisyui.com/components/rating/) - Star ratings
+## Advanced
 
-### Feedback & Status
+- [Set Operations](https://orm.drizzle.team/docs/set-operations)
+- [Generated Columns](https://orm.drizzle.team/docs/generated-columns)
+- [Transactions](https://orm.drizzle.team/docs/transactions)
+- [Batch API](https://orm.drizzle.team/docs/batch-api)
+- [Cache](https://orm.drizzle.team/docs/cache)
+- [Dynamic query building](https://orm.drizzle.team/docs/dynamic-query-building)
+- [Read Replicas](https://orm.drizzle.team/docs/read-replicas)
+- [Common way of defining custom types](https://orm.drizzle.team/docs/custom-types)
 
-- **`alert`** - [docs](https://daisyui.com/components/alert/) - Alert messages
-- **`badge`** - [docs](https://daisyui.com/components/badge/) - Status badges
-- **`progress`** - [docs](https://daisyui.com/components/progress/) - Progress bars
-- **`radial-progress`** - [docs](https://daisyui.com/components/radial-progress/) - Circular progress
-- **`loading`** - [docs](https://daisyui.com/components/loading/) - Loading animations
-- **`skeleton`** - [docs](https://daisyui.com/components/skeleton/) - Loading placeholders
-- **`steps`** - [docs](https://daisyui.com/components/steps/) - Step indicators
-- **`countdown`** - [docs](https://daisyui.com/components/countdown/) - Countdown timers
-- **`toast`** - [docs](https://daisyui.com/components/toast/) - Toast notifications
+## Extensions
 
-### Interactive Elements
+- [Drizzle extension for Prisma](https://orm.drizzle.team/docs/prisma)
+- [ESLint Drizzle Plugin](https://orm.drizzle.team/docs/eslint-plugin)
+- [drizzle-zod](https://orm.drizzle.team/docs/zod)
+- [drizzle-typebox](https://orm.drizzle.team/docs/typebox)
+- [drizzle-valibot](https://orm.drizzle.team/docs/valibot)
+- [drizzle-arktype](https://orm.drizzle.team/docs/arktype)
+- [drizzle-graphql](https://orm.drizzle.team/docs/graphql)
 
-- **`modal`** - [docs](https://daisyui.com/components/modal/) - Modal dialogs
-- **`dropdown`** - [docs](https://daisyui.com/components/dropdown/) - Dropdown menus
-- **`collapse`** - [docs](https://daisyui.com/components/collapse/) - Collapsible content
-- **`tabs`** - [docs](https://daisyui.com/components/tab/) - Tab navigation
-- **`swap`** - [docs](https://daisyui.com/components/swap/) - Content swapping
-- **`carousel`** - [docs](https://daisyui.com/components/carousel/) - Image carousels
+## Guides
 
-### Utilities & Helpers
+- [Guides](https://orm.drizzle.team/docs/guides)
+- [Conditional filters in query](https://orm.drizzle.team/docs/guides/conditional-filters-in-query)
+- [SQL Increment value](https://orm.drizzle.team/docs/guides/incrementing-a-value)
+- [SQL Decrement value](https://orm.drizzle.team/docs/guides/decrementing-a-value)
+- [Include or Exclude Columns in Query](https://orm.drizzle.team/docs/guides/include-or-exclude-columns)
+- [SQL Toggle value](https://orm.drizzle.team/docs/guides/toggling-a-boolean-field)
+- [Count rows](https://orm.drizzle.team/docs/guides/count-rows)
+- [Upsert Query](https://orm.drizzle.team/docs/guides/upsert)
+- [SQL Limit/Offset pagination](https://orm.drizzle.team/docs/guides/limit-offset-pagination)
+- [SQL Cursor-based pagination](https://orm.drizzle.team/docs/guides/cursor-based-pagination)
+- [SQL Timestamp as a default value](https://orm.drizzle.team/docs/guides/timestamp-default-value)
+- [Gel auth extension](https://orm.drizzle.team/docs/guides/gel-ext-auth)
+- [Select parent rows with at least one related child row](https://orm.drizzle.team/docs/guides/select-parent-rows-with-at-least-one-related-child-row)
+- [Empty array as a default value](https://orm.drizzle.team/docs/guides/empty-array-default-value)
+- [Update many with different values for each row](https://orm.drizzle.team/docs/guides/update-many-with-different-value)
+- [Unique and Case-Insensitive Email Handling](https://orm.drizzle.team/docs/guides/unique-case-insensitive-email)
+- [Vector similarity search with pgvector extension](https://orm.drizzle.team/docs/guides/vector-similarity-search)
+- [PostgreSQL full-text search](https://orm.drizzle.team/docs/guides/postgresql-full-text-search)
+- [Cloudflare D1 HTTP API with Drizzle Kit](https://orm.drizzle.team/docs/guides/d1-http-with-drizzle-kit)
+- [Point datatype in PostgreSQL](https://orm.drizzle.team/docs/guides/point-datatype-psql)
+- [PostGIS geometry point](https://orm.drizzle.team/docs/guides/postgis-geometry-point)
+- [How to setup PostgreSQL locally](https://orm.drizzle.team/docs/guides/postgresql-local-setup)
+- [How to setup MySQL locally](https://orm.drizzle.team/docs/guides/mysql-local-setup)
+- [Seeding Partially Exposed Tables with Foreign Key](https://orm.drizzle.team/docs/guides/seeding-with-partially-exposed-tables)
+- [Seeding using 'with' option](https://orm.drizzle.team/docs/guides/seeding-using-with-option)
+- [Full-text search with Generated Columns](https://orm.drizzle.team/docs/guides/full-text-search-with-generated-columns)
 
-- **`avatar`** - [docs](https://daisyui.com/components/avatar/) - User avatars
-- **`indicator`** - [docs](https://daisyui.com/components/indicator/) - Corner indicators
-- **`divider`** - [docs](https://daisyui.com/components/divider/) - Content dividers
-- **`join`** - [docs](https://daisyui.com/components/join/) - Grouped elements
-- **`mask`** - [docs](https://daisyui.com/components/mask/) - Image masks
-- **`stack`** - [docs](https://daisyui.com/components/stack/) - Layered content
-- **`link`** - [docs](https://daisyui.com/components/link/) - Styled links
-- **`kbd`** - [docs](https://daisyui.com/components/kbd/) - Keyboard shortcuts
+## Tutorials
 
-### Mockups & Demos
-
-- **`mockup-browser`** - [docs](https://daisyui.com/components/mockup-browser/) - Browser mockup
-- **`mockup-code`** - [docs](https://daisyui.com/components/mockup-code/) - Code editor mockup
-- **`mockup-phone`** - [docs](https://daisyui.com/components/mockup-phone/) - Phone mockup
-- **`mockup-window`** - [docs](https://daisyui.com/components/mockup-window/) - Window mockup
-
-## Common Patterns
-
-- **Sizes:** `*-xs`, `*-sm`, `*-md`, `*-lg`, `*-xl`
-- **Colors:** `*-primary`, `*-secondary`, `*-accent`, `*-neutral`, `*-info`, `*-success`, `*-warning`, `*-error`
-- **Styles:** `*-outline`, `*-ghost`, `*-soft`
-- **Responsive:** `sm:*-horizontal`, `lg:*-open`
+- [Tutorials](https://orm.drizzle.team/docs/tutorials)
+- [Drizzle with Netlify Edge Functions and Neon Postgres ](https://orm.drizzle.team/docs/tutorials/drizzle-with-netlify-edge-functions-neon)
+- [Drizzle with Netlify Edge Functions and Supabase Database](https://orm.drizzle.team/docs/tutorials/drizzle-with-netlify-edge-functions-supabase)
+- [Drizzle with Supabase Edge Functions](https://orm.drizzle.team/docs/tutorials/drizzle-with-supabase-edge-functions)
+- [Drizzle with Vercel Edge Functions](https://orm.drizzle.team/docs/tutorials/drizzle-with-vercel-edge-functions)
+- [Drizzle with Neon Postgres](https://orm.drizzle.team/docs/tutorials/drizzle-with-neon)
+- [Drizzle with Nile Database](https://orm.drizzle.team/docs/tutorials/drizzle-with-nile)
+- [Drizzle with Supabase Database](https://orm.drizzle.team/docs/tutorials/drizzle-with-supabase)
+- [Drizzle with Turso](https://orm.drizzle.team/docs/tutorials/drizzle-with-turso)
+- [Drizzle with Vercel Postgres](https://orm.drizzle.team/docs/tutorials/drizzle-with-vercel)
+- [Todo App with Neon Postgres](https://orm.drizzle.team/docs/tutorials/drizzle-nextjs-neon)
 
 ---
 > Source: [jacob-ebey/react-router-dashboard-saas-template](https://github.com/jacob-ebey/react-router-dashboard-saas-template) — distributed by [TomeVault](https://tomevault.io).
