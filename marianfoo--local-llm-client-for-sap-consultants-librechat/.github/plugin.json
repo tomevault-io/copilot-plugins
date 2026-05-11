@@ -1,0 +1,9 @@
+{
+  "name": "marianfoo--local-llm-client-for-sap-consultants-librechat",
+  "displayName": "local-llm-client-for-sap-consultants-librechat",
+  "description": "This is fork of LibreChat to showcase the usage with MCP Server for SAP Data",
+  "version": "1.0.0",
+  "author": "marianfoo",
+  "homepage": "https://github.com/marianfoo/local-llm-client-for-sap-consultants-librechat",
+  "skills": []
+}
