@@ -1,14 +1,10 @@
-## boris
+## 210
 
-> anything related to UI/UX
+> Keep files below 420 lines.
 
 
-# Mobile-First UI/UX
-
-This is a mobile-first application. All UI elements should be designed with that in mind. The application should work well on small screens, including older smartphones. The UX should be immaculate on mobile, even when in flight mode. (We use local caches and local relays, so that app works offline too.)
-
-Let's not show too many error messages, and more importantly: let's not make them red. Nothing is ever this tragic.
+Keep files below 420 lines.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/dergigi) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [dergigi/boris](https://github.com/dergigi/boris) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
