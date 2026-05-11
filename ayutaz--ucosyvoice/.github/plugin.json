@@ -1,0 +1,9 @@
+{
+  "name": "ayutaz--ucosyvoice",
+  "displayName": "uCosyVoice",
+  "description": "CosyVoice3 text-to-speech for Unity using ONNX inference. Supports zero-shot voice cloning",
+  "version": "1.0.0",
+  "author": "ayutaz",
+  "homepage": "https://github.com/ayutaz/uCosyVoice",
+  "skills": []
+}
