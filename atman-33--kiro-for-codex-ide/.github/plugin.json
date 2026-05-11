@@ -1,0 +1,9 @@
+{
+  "name": "atman-33--kiro-for-codex-ide",
+  "displayName": "kiro-for-codex-ide",
+  "description": "VS Code extension for spec-driven development with Codex CLI, leveraging OpenAI\u2019s Codex VS Code extension. Manage specs, steering docs, and prompts visually, tightly integrated with Codex.",
+  "version": "1.0.0",
+  "author": "atman-33",
+  "homepage": "https://github.com/atman-33/kiro-for-codex-ide",
+  "skills": []
+}
