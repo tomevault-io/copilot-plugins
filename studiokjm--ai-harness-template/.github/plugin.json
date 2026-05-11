@@ -1,0 +1,9 @@
+{
+  "name": "studiokjm--ai-harness-template",
+  "displayName": "ai-harness-template",
+  "description": "AI Harness Engineering Template \u2014 guardrails, gates, and boundaries for AI coding agents. One-command install. Zero dependencies.",
+  "version": "1.0.0",
+  "author": "studioKjm",
+  "homepage": "https://github.com/studioKjm/ai-harness-template",
+  "skills": []
+}
