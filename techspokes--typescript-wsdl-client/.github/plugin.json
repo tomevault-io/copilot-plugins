@@ -1,0 +1,9 @@
+{
+  "name": "techspokes--typescript-wsdl-client",
+  "displayName": "typescript-wsdl-client",
+  "description": "TypeScript WSDL \u2192 SOAP client generator with full xs:attribute, complex types, sequences, inheritance, and namespace-collision merging.",
+  "version": "1.0.0",
+  "author": "TechSpokes",
+  "homepage": "https://github.com/TechSpokes/typescript-wsdl-client",
+  "skills": []
+}
