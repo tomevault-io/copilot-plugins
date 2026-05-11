@@ -4,7 +4,7 @@
   "repo": "openbare",
   "description": "Decentralized web proxy network designed for censorship resistance, high availability. Deploy nodes on Vercel, Railway, Cloudflare Workers in seconds.  Use community-maintained public nodes. Features automatic failover between nodes, <50ms edge latency, built-in health monitoring, full compatibility with Ultraviolet, other TompHTTP clients.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nirholas/openbare",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T02:47:39Z"
+  "distributed_at": "2026-05-11T19:13:19Z"
 }
