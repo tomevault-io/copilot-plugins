@@ -1,0 +1,9 @@
+{
+  "name": "kaminocorp--photon",
+  "displayName": "photon",
+  "description": "Photon is a perception engine for image pipelines: ingest, analyze, extract, and semantically index visual data. Built for high-volume processing and designed to serve as the core visual intelligence ",
+  "version": "1.0.0",
+  "author": "kaminocorp",
+  "homepage": "https://github.com/kaminocorp/photon",
+  "skills": []
+}
