@@ -1,0 +1,9 @@
+{
+  "name": "dbobylev--adodevmetrics",
+  "displayName": "adodevmetrics",
+  "description": "Gathering PR commit stats from Azure repo",
+  "version": "1.0.0",
+  "author": "dbobylev",
+  "homepage": "https://github.com/dbobylev/adodevmetrics",
+  "skills": []
+}
