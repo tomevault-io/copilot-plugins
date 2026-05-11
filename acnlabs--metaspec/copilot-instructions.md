@@ -1,0 +1,1429 @@
+## metaspec
+
+> Generates Speckits (Spec-driven Toolkits)
+
+# Meta-Spec AI Agent Guide
+
+> **For AI Assistants**: This document provides guidance on using Meta-Spec to generate Spec-Driven X (SD-X) speckits.
+
+---
+
+## 🎯 Your Role
+
+You are helping a developer create **speckits** (spec-driven toolkits for AI agents) using MetaSpec. 
+
+MetaSpec is a meta-specification framework that generates complete Spec-Driven X (SD-X) speckits:
+- **SD-Development** - Spec-driven development
+- **SD-Design** - Spec-driven design systems
+- **SD-Testing** - Spec-driven testing frameworks
+- **SD-Documentation** - Spec-driven documentation
+- **SD-Operations** - Spec-driven operations
+- **SD-X** - Spec-driven generation for any domain
+
+**Key principle**: MetaSpec generates production-ready speckits with CLI, parser, validator, templates, and AI agent support
+
+---
+
+## 💡 Core Concept: Meta-Specification Framework
+
+MetaSpec is a **meta-specification framework** - it uses specifications to generate specification toolkits.
+
+```
+Meta-Specification (MetaSpec)
+        ↓
+  Defines how to define specifications
+        ↓
+Generates Speckits (Spec-driven Toolkits)
+        ↓
+Speckits carry domain specifications
+        ↓
+Used to develop domain projects
+```
+
+### Key Insights
+
+1. **Meta-level abstraction** - MetaSpec defines how to create specification systems
+2. **Generative framework** - Generates complete speckits from meta-specifications
+3. **Recursive architecture** - MetaSpec uses SDD to develop itself, generates speckits that use SDD
+4. **Specification-centric** - Domain specs are the source of truth, speckits are carriers
+
+**Example Flow**:
+```
+MetaSpec (meta-spec)
+    ↓ generates
+MCP-Spec-Kit (carries MCP specification spec)
+    ↓ used by
+Developer (validates MCP servers against spec)
+```
+
+**This means**: MetaSpec is not just "spec-driven development" - it's a framework that **generates speckits** (spec-driven toolkits) for any domain.
+
+**See [Recommended Practice: SDS + SDD Separation](#recommended-practice-sds--sdd-separation) in MetaSpec Commands section for how speckits separate domain specifications from toolkit implementation.**
+
+---
+
+## 📋 CLI Commands
+
+MetaSpec provides these commands:
+
+- `metaspec init [name]` - Create speckit (interactive or template-based)
+- `metaspec search <query>` - Search community speckits
+- `metaspec install <name>` - Install from community
+- `metaspec contribute <name>` - Contribute to community
+- `metaspec list` - List installed speckits  
+- `metaspec info <name>` - Show speckit information
+
+Use these commands in your workflow to help users create and discover speckits.
+
+---
+
+## 🔒 Constitutional Principles
+
+**ALWAYS follow** `memory/constitution.md` which defines:
+- Core principles for meta-spec definitions
+- Quality standards for generated systems
+- Prohibited patterns
+- Required patterns
+
+### Constitution Structure
+
+The constitution is organized into **three parts**:
+
+```
+memory/constitution.md
+├── Part I: Project Core Values (Managed by: /speckit.constitution)
+│   - AI-First Design
+│   - Progressive Enhancement
+│   - Minimal Viable Abstraction
+│   - Domain Specificity
+│
+├── Part II: Specification Design Principles (Managed by: /metaspec.sds.constitution)
+│   - Entity Clarity
+│   - Validation Completeness
+│   - Operation Semantics
+│   - Implementation Neutrality
+│   - Extensibility Design
+│   - Domain Fidelity
+│   - Workflow Completeness ⭐ NEW
+│
+└── Part III: Toolkit Implementation Principles (Managed by: /metaspec.sdd.constitution)
+    - Entity-First Design
+    - Validator Extensibility
+    - Spec-First Development
+    - AI-Agent Friendly
+    - Progressive Enhancement
+    - Automated Quality
+```
+
+**Key principles:**
+1. **Minimal Viable Abstraction** (Part I): Don't over-abstract
+2. **AI-First Design** (Part I): Generated systems must be AI-friendly
+3. **Progressive Enhancement** (Part I): Start with MVP, add features incrementally
+4. **Domain Specificity** (Part I): Respect domain constraints
+5. **Workflow Completeness** (Part II): ⭐ **NEW** - Define complete user workflows, not just isolated operations
+
+---
+
+## 🚀 Workflow-Driven Design Philosophy
+
+**CRITICAL NEW PRINCIPLE** (v0.7.0+): MetaSpec now requires **workflow-first design** for all domain specifications.
+
+### Two Types of Workflows ⭐ UPDATED v0.8.0
+
+**IMPORTANT**: There are TWO types of workflows in specifications. Understanding the distinction is critical.
+
+#### Type 1: Entity State Machines (Business Execution)
+
+**What**: Lifecycle of individual entities during business operations  
+**Example**: Order (pending → confirmed → shipped → delivered)  
+**Used by**: Business logic, domain operations  
+**Defines**: Status field transitions, business rules  
+
+```yaml
+Order Entity:
+  status: [pending, confirmed, shipped, delivered]
+  transitions:
+    - pending → confirmed (when: payment verified)
+    - confirmed → shipped (when: items packed)
+    - shipped → delivered (when: customer receives)
+```
+
+#### Type 2: Specification Usage Workflow (Specification Creation) ⭐ NEW
+
+**What**: End-to-end process of creating and using the specification itself  
+**Example**: SDS Workflow (Constitution → Specify → Clarify → ... → Implement)  
+**Used by**: Users creating specifications, AI agents  
+**Defines**: Action steps, slash commands, quality gates  
+
+```yaml
+SDS Workflow:
+  Step 1: Constitution → /metaspec.sds.constitution
+  Step 2: Specify → /metaspec.sds.specify
+  Step 3: Clarify → /metaspec.sds.clarify
+  ...
+  Step 8: Implement → /metaspec.sds.implement
+```
+
+**Key Distinction**:
+- **Type 1**: How entities change during business execution (WHAT happens)
+- **Type 2**: How to create/use/validate the specification (HOW to use speckit)
+
+**Most speckits need BOTH**:
+- Type 1: Define entity lifecycles (if domain has stateful entities)
+- Type 2: **Required for all Speckits** - Define specification creation workflow
+
+### Why Workflow Matters
+
+❌ **Don't build**: "Toolbox" (collection of isolated operations)  
+✅ **Do build**: "Workflow Systems" (integrated end-to-end user journeys)
+
+### The Problem We Solved
+
+**Before v0.7.0**: Developers could create speckits that passed all quality checks but lacked clear user workflows. Users received "13 commands" without knowing which to use first, or how they relate.
+
+**After v0.7.0**: All domain specifications MUST define:
+1. **Workflow Phases** - Distinct stages in the user journey (Type 2)
+2. **Phase Purposes** - Why each phase exists
+3. **Operation Mapping** - Which operations belong to which phase
+4. **Sequencing** - Entry/exit criteria, dependencies, ordering
+5. **End-to-End Examples** - Complete workflow demonstrations
+6. **Entity State Machines** - If domain has stateful entities (Type 1)
+
+### MetaSpec as Example
+
+MetaSpec itself demonstrates perfect workflow design:
+
+```
+SDS Workflow:
+  Phase 1: Constitution → /metaspec.sds.constitution
+  Phase 2: Specification → /metaspec.sds.specify
+  Phase 3: Quality Gates → /metaspec.sds.clarify, /metaspec.sds.checklist
+  Phase 4: Implementation → /metaspec.sds.plan, /metaspec.sds.tasks, /metaspec.sds.implement
+  Phase 5: Validation → /metaspec.sds.analyze
+
+SDD Workflow:
+  Phase 1: Constitution → /metaspec.sdd.constitution
+  Phase 2: Specification → /metaspec.sdd.specify, /metaspec.sdd.clarify
+  Phase 3: Architecture → /metaspec.sdd.plan, /metaspec.sdd.checklist
+  Phase 4: Implementation → /metaspec.sdd.tasks, /metaspec.sdd.analyze, /metaspec.sdd.implement
+```
+
+**Your mission**: Ensure all speckits you help create follow this same pattern.
+
+### Required Workflow Elements
+
+When defining domain specifications, ALWAYS include:
+
+1. **Phase Definitions**
+   ```yaml
+   Phase 1: [Name]
+     Purpose: [Why this phase exists]
+     Entry: [When user enters]
+     Operations: [Which operations]
+     Outputs: [What is produced]
+     Exit: [When complete]
+   ```
+
+2. **Operation-to-Phase Mapping**
+   - Every operation MUST belong to at least one workflow phase
+   - No "orphan" operations without clear usage context
+
+3. **Workflow Examples**
+   - Show complete end-to-end usage
+   - Demonstrate phase transitions
+   - Include success indicators
+
+4. **Decision Points**
+   - Document when users choose between paths
+   - Explain branching logic
+   - Provide decision criteria
+
+### Enforcement
+
+The new **Part II Principle 7: Workflow Completeness** ensures:
+- `/metaspec.sds.constitution` includes workflow requirements
+- `/metaspec.sds.specify` generates Workflow Specification sections
+- `/metaspec.sds.checklist` (future) validates workflow completeness
+- `/metaspec.sds.analyze` (future) scores workflow quality
+
+### Examples
+
+**Good Workflow-Driven Design** (Type 2: Specification Usage Workflow):
+```
+MetaSpec SDS Workflow:
+  Phase 1: Foundation
+    - Operations: /metaspec.sds.constitution
+    - Output: Specification design principles
+  
+  Phase 2: Specification
+    - Operations: /metaspec.sds.specify, /metaspec.sds.clarify
+    - Output: Domain specification document
+  
+  Phase 3: Quality Gates
+    - Operations: /metaspec.sds.checklist, /metaspec.sds.analyze
+    - Output: Quality validation reports
+  
+  Phase 4: Implementation (if complex)
+    - Operations: /metaspec.sds.plan, /metaspec.sds.tasks, /metaspec.sds.implement
+    - Output: Sub-specifications
+```
+
+**Good Entity State Machine** (Type 1: Business Execution):
+```
+Specification Entity (MetaSpec itself):
+  States: draft → review → approved → deprecated
+  Transitions:
+    - draft → review (when: ready for feedback)
+    - review → approved (when: quality checks pass)
+    - approved → deprecated (when: replaced by new version)
+```
+
+**Bad (Pre-v0.7.0) Design**:
+```
+Specification Operations (no workflow):
+  - /spec.create (what's this for?)
+  - /spec.validate (when to use?)
+  - /spec.analyze (how does this relate to create?)
+  ❌ Users confused about sequence and relationships
+```
+
+### Your Checklist
+
+When helping users create speckits, verify:
+
+**Type 2: Specification Usage Workflow** (Required for all speckits):
+- [ ] Domain specification includes "Specification Usage Workflow" section
+- [ ] Workflow has 8-12 action steps (Constitution → Specify → ... → Implement)
+- [ ] Each step maps 1:1 to a slash command
+- [ ] Each step has clear goal, inputs, outputs, quality criteria
+- [ ] End-to-end workflow examples provided
+
+**Type 1: Entity State Machines** (If domain has stateful entities):
+- [ ] Domain specification includes "Entity State Machines" section
+- [ ] Each stateful entity has defined states and transitions
+- [ ] Forbidden transitions are documented
+- [ ] Validation rules for state changes defined
+
+**Constitution**:
+- [ ] Constitution Part II includes Workflow Completeness principle
+
+---
+
+## 🤝 Spec-Driven Development for Speckits
+
+Generated **speckits** (spec-driven toolkits) include **MetaSpec commands** in `.metaspec/commands/` to assist AI in understanding and generating the speckit.
+
+**Speckits** are specialized toolkits generated by MetaSpec that:
+- Carry domain specifications as core assets
+- Include built-in MetaSpec commands for development
+- Follow spec-driven architecture patterns
+
+These commands provide a complete workflow from specification definition to controlled evolution (19 commands total: 8 SDS + 8 SDD + 3 Evolution).
+
+See [MetaSpec Commands section](#-metaspec-commands-specification-lifecycle-management) for the complete command reference.
+
+---
+
+## 🎯 MetaSpec Commands: Specification Lifecycle Management
+
+When you generate a speckit, it includes MetaSpec (Spec-Driven X) commands in the `.metaspec/commands/` directory. These commands manage the **specification lifecycle**.
+
+### Command Groups
+
+MetaSpec uses a three-layer architecture to separate concerns:
+
+#### SDS (Spec-Driven Specification) - 8 Commands
+For defining domain specifications:
+
+- `/metaspec.sds.constitution` - Update Part II of constitution (Specification Design Principles)
+- `/metaspec.sds.specify` - Define specification entities, operations, validation rules
+- `/metaspec.sds.clarify` - Clarify underspecified areas (recommended BEFORE plan; input quality gate)
+- `/metaspec.sds.plan` - Plan specification architecture and sub-specifications
+- `/metaspec.sds.tasks` - Break down specification work
+- `/metaspec.sds.analyze` - Cross-artifact consistency check (run AFTER tasks, BEFORE implement; checkpoint)
+- `/metaspec.sds.implement` - Write specification documents (creates sub-spec files, NOT code)
+- `/metaspec.sds.checklist` - Generate quality checklist (like "unit tests for specifications"; output quality gate)
+
+**Location**: Works with `specs/domain/` directory (stores domain specifications)
+**Constitution**: Updates Part II in `/memory/constitution.md`
+
+#### 🌳 Recursive Tree Structure (NEW)
+
+**SDS supports recursive specification hierarchy**:
+
+**IMPORTANT**: Physical structure is **FLAT**, logical structure is **TREE**.
+
+**Physical Structure** (flat directory layout):
+```bash
+specs/domain/
+├── 001-order-specification/     # All at same level
+├── 002-order-creation/
+├── 003-payment-processing/
+├── 013-credit-card-payment/     # Same level, not nested
+├── 014-digital-wallet-payment/
+└── 015-bank-transfer-payment/
+```
+
+**Logical Structure** (tree via frontmatter):
+```
+001-order-specification (root)
+  ├── 002-order-creation (leaf)
+  ├── 003-payment-processing (parent)
+  │   ├── 013-credit-card-payment (leaf)
+  │   ├── 014-digital-wallet-payment (leaf)
+  │   └── 015-bank-transfer-payment (leaf)
+  └── 004-fulfillment (leaf)
+```
+
+**Why flat physical structure?**
+- ✅ Simple paths: `specs/domain/013-credit-card-payment/`
+- ✅ FEATURE independence: Each specification is a standalone FEATURE
+- ✅ Flexible numbering: 003's children can be 013-015 (skip 004-012)
+- ✅ Git branch friendly: Branch name = directory name
+- ✅ Easy reorganization: Change parent in frontmatter, no file moves
+
+**Key features**:
+- **Any specification can be a parent**: If complex, run plan → tasks → implement to create sub-specifications
+- **Unlimited depth**: Sub-specifications can have their own sub-specifications
+- **Context tracking**: Via YAML frontmatter (spec_id, parent, root, type)
+- **Unified commands**: Same commands work at all levels
+
+**How relationships are maintained**:
+- **Physical**: All specifications are sibling directories under `specs/domain/`
+- **Logical**: Parent-child relationships declared in YAML frontmatter
+  ```yaml
+  ---
+  spec_id: 013-credit-card-payment
+  parent: 003-payment-processing    # ← Declares logical parent
+  root: 001-order-specification
+  type: leaf
+  ---
+  ```
+- **Parent → Child**: Parent's `spec.md` lists sub-specifications in "Sub-Specifications" table
+- **Child → Parent**: Child's `spec.md` shows "Parent chain" breadcrumb navigation
+- **Benefit**: Change relationships by editing frontmatter, no directory restructuring needed
+
+**Example workflow** (Level 2 splitting):
+```bash
+# At root (001)
+/metaspec.sds.specify → 001-order-specification/spec.md
+/metaspec.sds.plan → Decides to split
+/metaspec.sds.implement → Creates 002-008
+
+# At level 2 (003 is also complex)
+cd specs/domain/003-payment-processing/
+/metaspec.sds.plan → Decides to split again
+/metaspec.sds.implement → Creates 013-015
+```
+
+**Numbering strategy**:
+- Root specification starts at 001
+- First-level children: 002-009 (reserve 001 for root)
+- Second-level children: 010-099 (e.g., 003's children are 013-015)
+- Third-level children: 100-999
+- Benefits: Clear hierarchy, flexible expansion, easy identification
+
+**See [Recommended Practice: SDS + SDD Separation](#recommended-practice-sds--sdd-separation) for specification + toolkit separation.**
+
+---
+
+#### ⚠️ CRITICAL PRINCIPLE: Specification First, Toolkit Second
+
+**Every speckit MUST have a domain specification before toolkit development.**
+
+Why this matters:
+- **Specification** = WHAT (domain specification, core asset)
+- **Toolkit** = HOW (implementation, supporting tool)
+- Without specification, MetaSpec becomes a generic code generator
+- **Spec-Driven** means specifications drive development
+
+**Workflow**:
+1. ✅ First: Define specification with `/metaspec.sds.specify`
+2. ✅ Then: Develop toolkit with `/metaspec.sdd.specify`
+3. ❌ Never: Skip specification and go straight to toolkit
+
+**Enforcement**:
+- `/metaspec.sdd.specify` will ERROR if no specification exists
+- `/metaspec.sdd.analyze` marks missing specification as CRITICAL
+- Toolkit specs MUST have Dependencies section referencing specification
+
+---
+
+### 🎯 How Toolkit Value is Realized
+
+**Toolkit value ≠ Fixed code templates**  
+**Toolkit value = Spec-driven code generation**
+
+MetaSpec generates **working toolkits** through a three-stage process:
+
+#### Stage 1: Define Specification (SDS)
+```
+/metaspec.sds.specify
+  ↓
+specs/domain/001-{domain}-specification/spec.md
+  - Entity definitions
+  - Validation rules
+  - Operations
+  - Error handling
+```
+
+#### Stage 2: Define Toolkit (SDD)
+```
+/metaspec.sdd.specify
+  ↓
+AI guides you to define:
+  - Implementation Language: Python / TypeScript / Go / Rust / Other
+  - Required Components: Parser / Validator / CLI / Generator / SDK
+  - Architecture: Monolithic / Modular / Plugin-based
+  ↓
+specs/toolkit/001-{name}/spec.md
+  - Language choice + rationale
+  - Component selection
+  - Architecture direction
+  - Dependencies on specification
+```
+
+#### Stage 3: Generate Code (SDD)
+```
+/metaspec.sdd.plan
+  ↓
+AI designs architecture based on:
+  - Chosen language (Python/TS/Go/Rust)
+  - Required components
+  - Specification entities
+  ↓
+specs/toolkit/001-{name}/plan.md
+  - Tech stack for chosen language
+  - File structure
+  - Component interfaces
+  
+/metaspec.sdd.implement
+  ↓
+AI generates code based on:
+  - Specification (entity definitions)
+  - Toolkit spec (language, components)
+  - Plan (architecture, structure)
+  ↓
+src/{package_name}/
+  - models.py/ts/go (from specification entities)
+  - parser.py/ts/go (from toolkit spec)
+  - validator.py/ts/go (enforces specification rules)
+  - cli.py/ts/go (toolkit commands)
+```
+
+**Key advantages**:
+- ✅ **Language-agnostic**: Supports Python, TypeScript, Go, Rust
+- ✅ **Component-flexible**: Generate only what's needed
+- ✅ **Architecture-adaptive**: Monolithic, modular, or plugin-based
+- ✅ **Spec-driven**: Code generated from specifications, not templates
+- ✅ **Specification-compliant**: Generated code enforces specification rules
+
+**Example outcome**:
+```bash
+$ cd my-speckit
+$ /metaspec.sds.specify  # Define domain specification
+$ /metaspec.sdd.specify  # Choose Python, Parser+Validator+CLI
+$ /metaspec.sdd.plan     # Design Python architecture
+$ /metaspec.sdd.implement # Generate code
+$ pip install -e .
+$ my-speckit --help      # ✅ Working CLI!
+$ my-speckit validate spec.yaml  # ✅ Validates against specification!
+```
+
+This is how MetaSpec realizes Toolkit value: **not by providing fixed templates, but by generating spec-driven, language-appropriate, working code**.
+
+#### SDD (Spec-Driven Development) - 8 Commands
+For developing speckits (spec-driven toolkits):
+
+- `/metaspec.sdd.constitution` - Update Part III of constitution (Toolkit Implementation Principles)
+- `/metaspec.sdd.specify` - Define toolkit specifications
+- `/metaspec.sdd.clarify` - Clarify technical decisions (recommended BEFORE plan; input quality gate)
+- `/metaspec.sdd.plan` - Plan toolkit implementation architecture
+- `/metaspec.sdd.checklist` - Validate requirements completeness (recommended AFTER plan; quality gate)
+- `/metaspec.sdd.tasks` - Break down implementation work
+- `/metaspec.sdd.analyze` - Check architecture consistency (recommended AFTER tasks, BEFORE implement; checkpoint)
+- `/metaspec.sdd.implement` - Build toolkit code (write actual implementation)
+
+**Workflow**: Follows [spec-kit](https://github.com/github/spec-kit) pattern completely (toolkit development always needs full process)
+```
+constitution → specify → [clarify] → plan → [checklist] → tasks → [analyze] → implement
+```
+
+**Location**: Works with `specs/toolkit/` directory
+**Constitution**: Updates Part III in `/memory/constitution.md`
+
+#### Evolution - 3 Shared Commands
+For controlled specification evolution (both SDS and SDD):
+
+- `/metaspec.proposal` - Propose changes with `--type sds|sdd` parameter
+- `/metaspec.apply` - Apply approved changes
+- `/metaspec.archive` - Archive completed changes
+
+**Location**: Works with `changes/` directory (independent from specs/)
+
+### The Relationship
+
+```
+MetaSpec commands (19 total):
+  - SDS (8 commands)     → Define domain specifications (specs/domain/)
+                         → Update constitution Part II
+  - SDD (8 commands)     → Develop toolkits (specs/toolkit/)
+                         → Update constitution Part III
+  - Evolution (3 shared) → Manage changes (changes/)
+                              ↓
+                    Project structure:
+                    ├── memory/
+                    │   └── constitution.md  ← Unified constitution (3 parts)
+                    ├── specs/
+                    │   ├── domain/   ← SDS manages (domain specifications)
+                    │   └── toolkit/  ← SDD manages (toolkit implementation)
+                    └── changes/      ← Evolution manages (independent)
+```
+
+**Key principle**: 
+- One unified constitution with three parts
+- SDS and SDD each manage their respective sections
+- Clear separation between domain specification and toolkit development
+
+### When to Use Which
+
+**Use SDS commands** (`/metaspec.sds.*`):
+- Defining domain specifications from scratch
+- Specifying specification entities, operations, validation rules
+- Creating domain specifications independent of implementation
+- Focus on WHAT the domain specification is
+
+**Use SDD commands** (`/metaspec.sdd.*`):
+- Developing spec-driven toolkits (always uses complete workflow like spec-kit)
+- Planning and implementing parsers, validators, CLI
+- Building tools to support a specification
+- Focus on HOW to implement the toolkit
+- Unlike SDS, toolkit development always needs full process (no "Simple Path")
+
+**Use Evolution commands** (`/metaspec.*`):
+- Specification is stable and in use (domain specification or toolkit)
+- Changes need review or approval
+- Want to track change history
+- Controlled evolution for both SDS and SDD specs
+- Use `--type sds` for specification changes, `--type sdd` for toolkit changes
+
+**Typical workflow**:
+1. **SDS**: Define domain specification
+   - Simple: `/metaspec.sds.specify` → `/metaspec.sds.checklist`
+   - Complex: `/metaspec.sds.specify` → `/metaspec.sds.plan` → `/metaspec.sds.tasks` → `/metaspec.sds.implement`
+2. **SDD**: Develop toolkit (always complete workflow, like spec-kit)
+   - `/metaspec.sdd.specify` → `/metaspec.sdd.clarify` → `/metaspec.sdd.plan` → `/metaspec.sdd.checklist` → `/metaspec.sdd.tasks` → `/metaspec.sdd.analyze` → `/metaspec.sdd.implement`
+3. **Evolution**: Manage changes to either specification or toolkit
+   - `/metaspec.proposal --type sds|sdd`
+
+### Recommended Practice: SDS + SDD Separation
+
+When using MetaSpec to develop a speckit, follow this two-phase approach:
+
+#### Phase 1: Domain Specification (SDS)
+
+**Purpose**: Define the domain specification, rules, and standards
+
+**Location**: `specs/domain/001-{domain}-specification/`
+
+**What to include**:
+- Domain entities and schemas
+- Validation rules and constraints
+- Operations and interfaces
+- Error handling specifications
+
+**Example**:
+```markdown
+# specs/domain/001-mcp-core-specification/spec.md
+
+## MCP Specification
+
+### Server Interface
+- initialize: Server startup handshake
+- tools/list: Enumerate available tools
+- tools/call: Execute a specific tool
+
+### Validation Rules
+- Tool name must be unique
+- inputSchema must be valid JSON Schema
+```
+
+**Key principle**: This is pure domain knowledge, independent of any speckit implementation.
+
+#### Phase 2: Toolkit Specification (SDD)
+
+**Purpose**: Define how to build tools to parse, validate, and enforce the specification
+
+**Location**: `specs/toolkit/001-{name}/`
+
+**What to include**:
+- Explicit dependency on domain specifications
+- **User Journey Analysis** (🆕 From Step 2.5)
+  - Primary users (AI Agents vs Human Developers distribution)
+  - Key usage scenarios (3-5 scenarios with User/Context/Goal/Pain Point)
+  - Feature derivation from scenarios (P0/P1/P2 priority matrix)
+  - Command design rationale (why each command exists)
+  - Scenario coverage matrix
+- Parser design (input formats)
+- Validator logic (references specification rules)
+- CLI commands (init, validate, generate)
+- **Slash Commands** (for AI agents)
+- **Templates & Examples** (🆕 From Component 6)
+  - Templates directory structure (organized by specification system source)
+  - Template mapping (library specs → directories)
+  - Entity templates (specification entities → template files)
+  - Examples directory (basic/advanced/use-cases)
+  - Implementation checklist
+- Success criteria
+
+**Example**:
+```markdown
+# specs/toolkit/001-mcp-parser/spec.md
+
+## Dependencies
+- Depends on: domain/001-mcp-core-spec
+
+## User Journey Analysis
+### Primary Users
+- 80% AI Agents (Claude in Cursor)
+- 20% Human Developers
+
+### Key Scenarios
+**Scenario 1**: AI Agent generates MCP server from natural language
+- User: AI Agent
+- Goal: Generate valid server definition
+- Required Features: show-spec command, get-template command, validate CLI
+
+**Scenario 2**: Developer validates server definition manually
+- User: Human Developer
+- Goal: Verify server compliance
+- Required Features: init, validate, docs
+
+### Derived Features (P0)
+- Specification reference system: AI needs rules before generating (Scenarios: 1)
+- Template system: Users need starting points (Scenarios: 1, 2)
+- Validation CLI: Critical for both AI and developers (All scenarios)
+
+### Command Design Rationale
+- show-spec: AI needs rules before generating → Scenario 1
+- validate: Critical for both AI and developers → All scenarios
+- init: Developer quick setup → Scenario 2
+
+## Components
+1. Parser: Parse MCP server definitions
+2. Validator: Verify compliance with specification
+3. CLI: mcp-spec-kit init|validate|generate
+
+## Templates & Examples
+### Templates Directory Structure
+templates/
+├── generic/               # From library/generic
+│   ├── commands/
+│   └── templates/
+├── spec-kit/              # From library/sdd/spec-kit
+│   ├── commands/
+│   └── templates/
+└── mcp/                   # Custom (from domain/001-mcp-spec)
+    ├── commands/
+    │   ├── show-spec.md
+    │   ├── get-template.md
+    │   └── validate-server.md
+    └── templates/
+        ├── basic-server.yaml
+        └── advanced-server.yaml
+
+### Examples Directory
+examples/
+├── basic/
+│   ├── simple-server.yaml
+│   └── README.md
+└── advanced/
+    ├── full-featured-server.yaml
+    └── README.md
+```
+
+**Key principle**: Toolkit specs explicitly depend on domain specifications, derive features from user scenarios, and define HOW to implement the toolkit.
+
+#### MetaSpec Workflow for SDS + SDD
+
+**SDS has two workflow paths** (like [GitHub spec-kit](https://github.com/github/spec-kit)):
+
+**Path 1: Simple Specification** (Recommended starting point)
+- Use when: Single specification document, no need to split
+
+```bash
+# Core Flow (Required)
+/metaspec.sds.constitution  # 1. Define specification design principles
+/metaspec.sds.specify       # 2. Create specs/domain/001-{domain}-specification/spec.md
+
+# Quality Gates (Recommended)
+/metaspec.sds.clarify       # 3. Clarify ambiguities (input quality gate)
+/metaspec.sds.checklist     # 4. Final quality validation (output quality gate)
+```
+
+**Path 2: Complex Specification** (Needs splitting)
+- Use when: Large specification requiring multiple sub-specifications
+
+```bash
+# Core Flow (Required)
+/metaspec.sds.constitution  # 1. Define specification design principles
+/metaspec.sds.specify       # 2. Create root specification
+
+# Quality Gates (Recommended)
+/metaspec.sds.clarify       # 3. Clarify ambiguities (BEFORE plan, input quality gate)
+
+# Core Flow (Required) - Continued
+/metaspec.sds.plan          # 4. Plan sub-specification architecture ⭐
+
+# Quality Gates (Recommended)
+/metaspec.sds.checklist     # 5. Validate requirements (AFTER plan, quality gate)
+
+# Core Flow (Required) - Continued
+/metaspec.sds.tasks         # 6. Break down specification tasks ⭐
+
+# Quality Gates (Recommended)
+/metaspec.sds.analyze       # 7. Check task consistency (AFTER tasks, checkpoint)
+
+# Core Flow (Required) - Continued
+/metaspec.sds.implement     # 8. Write sub-specification documents (NOT code) ⭐
+```
+
+📌 **How to choose**: Start with Path 1. If `/metaspec.sds.specify` output shows complexity, run `/metaspec.sds.plan` to decide if splitting is needed. If yes, switch to Path 2.
+
+# Phase 2: Toolkit Specification (SDD)
+/metaspec.sdd.constitution  # Define toolkit principles
+/metaspec.sdd.specify       # Create specs/toolkit/001-parser/spec.md
+                           # Must reference: domain/001-{domain}-spec
+/metaspec.sdd.plan          # Plan toolkit architecture
+/metaspec.sdd.tasks         # Break down implementation
+/metaspec.sdd.implement     # Build src/ code based on toolkit spec
+/metaspec.sdd.checklist     # Validate quality
+/metaspec.sdd.analyze       # Verify toolkit references specification correctly
+
+# Evolution: Manage Changes
+/metaspec.proposal "Add GraphQL" --type sds    # Propose specification change
+/metaspec.apply add-graphql                     # Apply approved change
+/metaspec.archive add-graphql                   # Archive completed change
+```
+
+#### Why Separate?
+
+1. **Clear separation of concerns**
+   - Specification experts define WHAT (SDS)
+   - Toolkit experts define HOW (SDD)
+
+2. **Reusable specifications**
+   - Domain specifications can be published independently
+   - Other tools can reference the same specification
+
+3. **Clean dependencies**
+   - Toolkit explicitly depends on specification
+   - `/metaspec.sdd.analyze` can verify consistency
+
+4. **Embodies MetaSpec philosophy**
+   - Domain specification is the source of truth
+   - Toolkit is the carrier
+
+#### When to Use
+
+**Use SDS + SDD Separation** (Recommended):
+- Domain has well-defined specifications (MCP, OpenAPI, GraphQL)
+- Domain specification can be useful independently
+- Multiple toolkit implementations might exist
+
+**Merge SDS and SDD** (Acceptable for simple cases):
+- Very simple domain without formal specifications
+- Toolkit is the only implementation
+- No need for standalone domain specification
+
+### Practical Examples
+
+**Example 1: Starting a new speckit (Simple Specification)**
+```bash
+cd my-speckit
+# Phase 1: Define specification (Simple Path)
+/metaspec.sds.constitution  # Define specification design principles
+/metaspec.sds.specify "Define domain specification"  # Create specification
+/metaspec.sds.clarify  # Clarify ambiguities (recommended)
+/metaspec.sds.checklist  # Quality check (recommended)
+
+# Phase 2: Develop toolkit (complete workflow)
+/metaspec.sdd.constitution  # Define toolkit principles
+/metaspec.sdd.specify "Define parser and validator"  # Toolkit spec
+/metaspec.sdd.clarify  # Clarify technical decisions (recommended)
+/metaspec.sdd.plan  # Plan architecture
+/metaspec.sdd.checklist  # Validate requirements (recommended)
+/metaspec.sdd.tasks  # Break down implementation
+/metaspec.sdd.analyze  # Check architecture consistency (recommended)
+/metaspec.sdd.implement  # Write code
+```
+
+**Example 1b: Complex Specification (Needs Splitting)**
+```bash
+cd my-speckit
+# Phase 1: Define specification (Complex Path)
+/metaspec.sds.constitution  # Define specification design principles
+/metaspec.sds.specify "Define MCP specification"  # Create root specification
+/metaspec.sds.clarify  # Clarify ambiguities (BEFORE plan)
+/metaspec.sds.plan  # Plan sub-specification architecture
+/metaspec.sds.checklist  # Validate requirements (AFTER plan)
+/metaspec.sds.tasks  # Break down specification tasks
+/metaspec.sds.analyze  # Check task consistency (BEFORE implement)
+/metaspec.sds.implement  # Write sub-specification documents (NOT code)
+
+# Phase 2: Develop toolkit (complete workflow, same as Example 1)
+/metaspec.sdd.constitution
+/metaspec.sdd.specify "Define parser and validator"
+/metaspec.sdd.clarify
+/metaspec.sdd.plan
+/metaspec.sdd.checklist
+/metaspec.sdd.tasks
+/metaspec.sdd.analyze
+/metaspec.sdd.implement
+```
+
+**Example 2: Iterating on specification**
+```bash
+# Make changes to specs/domain/001-*/spec.md
+/metaspec.sds.clarify  # Resolve ambiguities
+/metaspec.sds.checklist  # Validate specification quality
+/metaspec.sds.analyze  # Check consistency
+```
+
+**Example 3: Implementing toolkit**
+```bash
+/metaspec.sdd.tasks  # Break down work
+/metaspec.sdd.implement  # Execute tasks
+/metaspec.sdd.checklist  # Validate quality
+```
+
+**Example 4: Controlled evolution**
+```bash
+# For stable specification or toolkit
+/metaspec.proposal "Add GraphQL support" --type sds  # Specification change
+# Review and approve
+/metaspec.apply <proposal-id>
+/metaspec.archive <proposal-id>
+```
+
+---
+
+## 🧭 Token Optimization: Precision-Guided Navigation
+
+**NEW in v0.5.4+**: Major MetaSpec commands now include **precision-guided navigation** with exact line numbers, enabling massive token savings (84-99%).
+
+### What is Precision-Guided Navigation?
+
+Instead of reading entire command files (1000-2300+ lines), AI can now jump directly to specific sections using `read_file` with `offset` and `limit` parameters.
+
+**Example**:
+```python
+# ❌ Before: Read entire file
+read_file("src/metaspec/templates/meta/sdd/commands/specify.md.j2")
+# Result: 2378 lines (~8000 tokens)
+
+# ✅ After: Read only CLI design section
+read_file("src/metaspec/templates/meta/sdd/commands/specify.md.j2", offset=390, limit=273)
+# Result: 273 lines (~900 tokens)
+# Token savings: 88.3% 🎉
+```
+
+### Commands with Navigation
+
+**Enhanced commands** (6 total, 8615 lines coverage):
+
+| Command | Lines | Navigation Sections | Best Savings |
+|---------|-------|---------------------|--------------|
+| **SDD/specify** | 2378 | 7 main + 7 subsections | 70-94% |
+| **SDS/implement** | 1271 | 6 main + 9 templates | 87-95% |
+| **SDS/specify** | 1060 | 6 main + 8 templates | 70-90% |
+| **SDS/tasks** | 1054 | 7 main + 5 templates + 4 phases | 84-99% |
+| **SDD/implement** | 998 | 7 main + 4 languages + 5 phases | 84-97% |
+| **SDD/plan** | 854 | 7 main + 4 languages + 4 components | 90-98% |
+
+### How to Use Navigation
+
+Each enhanced command starts with a **📖 Navigation Guide** table showing:
+- **Line ranges** for each section
+- **read_file usage** with exact offset/limit
+- **Typical usage patterns** with concrete examples
+- **Token savings** calculation
+
+**Example from SDD/specify**:
+
+```markdown
+📖 Navigation Guide (Quick Reference with Line Numbers)
+
+Core Flow:
+| Step | Lines | Size | read_file Usage |
+|------|-------|------|-----------------|
+| 1. Setup | 55-111 | 56 lines | read_file(target_file, offset=55, limit=56) |
+| 3. CLI Design | 390-663 | 273 lines | read_file(target_file, offset=390, limit=273) |
+
+💡 Typical Usage Patterns:
+# Minimal: Read only Steps 1-2 (135 lines)
+read_file(target_file, offset=55, limit=135)
+
+# CLI Design: Read Component 3 (273 lines)
+read_file(target_file, offset=390, limit=273)
+```
+
+### Language-Specific Navigation (SDD)
+
+**Special feature** for toolkit development: Jump directly to language-specific context.
+
+```python
+# Python toolkit development
+read_file("implement.md.j2", offset=210, limit=25)  # 97% savings! 🏆
+
+# TypeScript toolkit development
+read_file("implement.md.j2", offset=236, limit=25)  # 97% savings! 🏆
+
+# Go toolkit development
+read_file("plan.md.j2", offset=132, limit=15)  # 98% savings! 🏆
+
+# Rust toolkit development
+read_file("plan.md.j2", offset=148, limit=16)  # 98% savings! 🏆
+```
+
+### Best Practices
+
+**When to use navigation**:
+1. ✅ You need specific guidance (e.g., CLI design, templates)
+2. ✅ You're familiar with the command structure
+3. ✅ You want to minimize token usage
+
+**When to read full file**:
+1. ⚠️ First time using the command (learn structure)
+2. ⚠️ Need comprehensive understanding
+3. ⚠️ Unclear which section you need
+
+**Quick Reference Strategy**:
+```python
+# Step 1: Read navigation guide only (first 100 lines)
+read_file(target_file, offset=1, limit=100)
+
+# Step 2: Based on navigation, read specific section
+read_file(target_file, offset=390, limit=273)
+
+# Result: ~370 lines vs 2378 lines = 84% savings
+```
+
+### Token Savings by Scenario
+
+**Real-world examples**:
+
+| Scenario | Before | After | Savings |
+|----------|--------|-------|---------|
+| Quick start | 2378 lines | 135 lines | **94.2%** |
+| CLI design | 2378 lines | 273 lines | **88.3%** |
+| Template reference | 1054 lines | 11 lines | **99.0%** 🏆 |
+| Language context | 854 lines | 16 lines | **98.1%** 🏆 |
+| Operation template | 1271 lines | 45 lines | **96.5%** |
+
+**Average token savings**: 88-98% in typical usage scenarios.
+
+---
+
+## 🔄 Using Commands with Iteration Support
+
+**CRITICAL**: Validation/analysis commands (checklist, analyze, clarify) support **iteration modes** to preserve history and track progress.
+
+### Understanding Iteration Modes
+
+When you run a validation command and output already exists, you should ask the user which mode to use:
+
+| Mode | Action | When to Use |
+|------|--------|-------------|
+| **update** (default) | Update scores/status, add Iteration N section | User says "re-run", "verify improvement", "check again" |
+| **new** | Create new output (backup existing) | User says "start fresh", "regenerate" |
+| **append** | Add supplementary output for different focus | User says "add another", "different aspect" |
+
+### Default Interpretation Rules
+
+**When user says**:
+- ✅ "re-run checklist" → **update** mode
+- ✅ "re-run analyze" → **update** mode
+- ✅ "verify improvement" → **update** mode
+- ✅ "check quality again" → **update** mode
+- ⚠️ "start fresh" → **new** mode
+- ⚠️ "regenerate checklist" → **new** mode
+- 🔵 "add another checklist" → **append** mode
+
+**Key principle**: Default to **update** mode unless user explicitly requests new/regenerate.
+
+### Iteration Workflow Example
+
+**Scenario**: User improves specification based on checklist feedback
+
+```bash
+# Step 1: Initial validation
+User: "Run checklist to validate specification quality"
+AI: /metaspec.sds.checklist
+
+Output:
+✅ Checklist generated: comprehensive-quality.md
+
+📋 Summary:
+- CHK001: ❌ Missing field types
+- CHK002: ❌ No validation rules
+- CHK003: ⚠️ Incomplete examples
+Score: 33% (1/3 passing)
+
+# Step 2: User fixes issues
+User edits specs/domain/001-mcp/spec.md
+- Adds field types
+- Adds validation rules
+
+# Step 3: Re-validate (CRITICAL MOMENT)
+User: "Re-run checklist to verify improvements"
+
+AI recognizes:
+- ✅ Checklist file exists
+- ✅ User says "re-run... verify improvements"
+- ✅ This means: update mode (not regenerate)
+
+AI: /metaspec.sds.checklist (update mode)
+
+Output:
+✅ Checklist updated: comprehensive-quality.md
+
+📊 Iteration 2 Summary:
+- Items updated: 3/3
+- Improved: 2 items (CHK001: ❌ → ✅, CHK002: ❌ → ✅)
+- Still partial: 1 item (CHK003: ⚠️)
+
+📈 Progress:
+- Previous: 33% (1/3 passing)
+- Current: 67% (2/3 passing)
+- Improvement: +34%
+
+🎯 Key improvements:
+- CHK001: ❌ → ✅ (field types now defined)
+- CHK002: ❌ → ✅ (validation rules added)
+
+⚠️ Still needs work:
+- CHK003: Examples incomplete (2/5 entities)
+```
+
+### What Gets Preserved in Update Mode
+
+**Preserved**:
+- ✅ All previous iteration records (Iteration 1, 2, 3...)
+- ✅ Original checklist item IDs (CHK001, CHK002...)
+- ✅ Evidence and detailed findings
+- ✅ Category structure
+- ✅ Progress history
+
+**Updated**:
+- ✅ Pass/Partial/Missing status (❌ → ⚠️ → ✅)
+- ✅ Evidence with new findings
+- ✅ Overall scores and percentages
+
+**Added**:
+- ✅ New Iteration N section with date
+- ✅ Progress comparison (before/after)
+- ✅ List of improvements
+
+### Best Practices for AI Agents
+
+1. **Always check if output exists**
+   ```bash
+   Before running validation command:
+   - Check: Does checklists/comprehensive-quality.md exist?
+   - If YES: Ask user for mode (or infer from keywords)
+   - If NO: Generate new
+   ```
+
+2. **Default to update mode**
+   ```bash
+   Unless user explicitly says "start fresh" or "regenerate":
+   → Always choose update mode
+   → This preserves valuable history
+   ```
+
+3. **Highlight improvements**
+   ```bash
+   In update mode, emphasize:
+   - What improved: CHK001: ❌ → ✅
+   - What's still needed: CHK003: ⚠️
+   - Overall progress: +34%
+   ```
+
+4. **Never silently overwrite**
+   ```bash
+   ❌ WRONG: Detect existing file → Silently regenerate
+   ✅ RIGHT: Detect existing file → Ask mode → Update with history
+   ```
+
+### When NOT to Use Iteration Modes
+
+**Creation commands** (specify, implement, constitution):
+- ❌ These create initial specs/code
+- ❌ After creation, users edit directly
+- ❌ No iteration tracking needed
+
+**Execution commands** (tasks):
+- ❌ These execute and mark complete
+- ❌ Not validation-oriented
+- ❌ Use Evolution for changes
+
+### Evolution Layer vs Command Layer
+
+**Command Layer** (checklist, analyze, clarify):
+- Purpose: **Validate** specification quality (read-only)
+- Output: checklists/quality.md, analysis/report.md
+- Never modifies: spec.md
+- Iteration: update/new/append modes
+
+**Evolution Layer** (proposal, apply, archive):
+- Purpose: **Modify** specifications (formal process)
+- Output: changes/[id]/proposal.md, spec-delta.md
+- Modifies: spec.md (after approval)
+- When: Released toolkit OR breaking/major changes
+
+See [Decision Guide](docs/evolution-guide.md) for when to use which.
+
+---
+
+## 📝 Complete Workflow: Generating a Speckit
+
+This section describes **how to generate a speckit** using `metaspec init`.
+
+**Note**: This is different from **developing a speckit** (which uses MetaSpec commands and [SDS + SDD Separation](#recommended-practice-sds--sdd-separation) practice).
+
+### Two Workflows
+
+| Workflow | Purpose | Commands |
+|----------|---------|----------|
+| **Generate Speckit** | Create initial speckit structure | `metaspec init` (this section) |
+| **Develop Speckit** | Define specs and implement features | MetaSpec commands `/metaspec.*` |
+
+Creating a speckit is more complex than building an application. Follow these steps carefully.
+
+---
+
+### **STEP 1: Understand Domain Requirements**
+
+**Goal**: Research domain before designing.
+
+**Key actions**:
+1. Ask clarifying questions (domain, use case, users, existing tools)
+2. Use `web_search` for standards and best practices
+3. Identify key entities and relationships
+
+**Checklist**:
+- [ ] Domain thoroughly researched
+- [ ] Key entities identified (1-3 core entities)
+- [ ] Existing solutions studied
+- [ ] Not assuming domain behavior
+
+---
+
+### **STEP 2: Design Entity Model**
+
+**Goal**: Define core entities with minimal fields.
+
+**Key principles**:
+- Start minimal: 1-3 entities, 3-5 fields each
+- Field types: `string`, `number`, `boolean`, `array`, `object`
+- Only essential fields as `required: true`
+- Every field needs a description
+
+**Checklist**:
+- [ ] Entities match domain research
+- [ ] Field names clear and consistent
+- [ ] Only essential fields required
+- [ ] No over-engineering
+
+---
+
+### **STEP 3: Use Template or Interactive Mode**
+
+**Recommended**: Use `metaspec init` with templates or interactive mode.
+
+```bash
+metaspec init                        # Interactive wizard
+metaspec init my-toolkit             # Quick start (uses 'default')
+metaspec init my-toolkit default     # Explicit (same as above)
+```
+
+**Required fields** (if manual):
+- `name`, `version`, `domain`, `lifecycle`, `description`
+- Entity definition (from STEP 2)
+- Commands (init, validate, generate)
+- Dependencies (pydantic, typer, yaml parser)
+
+**Checklist**:
+- [ ] All required fields filled
+- [ ] Entity matches STEP 2 design
+- [ ] Commands aligned with domain
+- [ ] Dependencies specified
+
+---
+
+### **STEP 3.5: Understand init Command Standards** ⭐ NEW
+
+**Goal**: Ensure your speckit's `init` command follows MetaSpec standards.
+
+**Why this matters**: When you later use `/metaspec.sdd.specify` to define your toolkit, the `init` command specification must align with MetaSpec conventions. This prevents common mistakes like creating single files instead of project structures.
+
+#### init Command Standard for Generator/Scaffolder Toolkits
+
+**If your toolkit type is "Generator/Scaffolder"**, the `init` command **MUST**:
+
+1. **Argument Format**:
+   ```bash
+   {toolkit-name} init <project-directory> [OPTIONS]
+   ```
+   - ✅ Argument is a **directory name** (not a filename)
+   - ❌ WRONG: `{toolkit-name} init spec.yaml`
+   - ✅ RIGHT: `{toolkit-name} init my-project`
+
+2. **Output Structure** (Must create):
+   ```
+   <project-directory>/
+   ├── .{toolkit-name}/       # Configuration directory
+   │   ├── commands/          # (Optional) Custom slash commands
+   │   └── templates/         # (Optional) Output templates
+   ├── memory/
+   │   └── constitution.md    # Project principles (pre-filled)
+   ├── specs/
+   │   └── {initial-spec}     # Initial specification file
+   └── README.md              # Project documentation
+   ```
+
+3. **constitution.md Requirements**:
+   - ✅ Must be pre-filled with template content
+   - ✅ Must include domain-specific guidance
+   - ❌ NOT empty or placeholder
+
+4. **Initial Specification File**:
+   - ✅ Created from template with example data
+   - ✅ Must pass validation immediately
+
+#### Reference Examples
+
+**✅ Correct (MetaSpec itself)**:
+```bash
+metaspec init my-speckit
+# Creates: my-speckit/ with full structure
+# - All required directories
+# - Pre-filled constitution.md
+# - Example spec files
+```
+
+**❌ Wrong**:
+```bash
+my-toolkit init spec.yaml
+# Creates: Single spec.yaml file only
+# Missing: directories, constitution, README
+```
+
+#### Why These Standards?
+
+1. **Consistency**: All MetaSpec-generated toolkits follow the same pattern
+2. **AI-Friendly**: AI agents know what to expect
+3. **Complete Projects**: Users get a full project structure, not just a file
+4. **Best Practices**: Follows industry standards (like create-react-app, cargo new)
+
+#### When NOT to Follow
+
+**If your toolkit is NOT a "Generator/Scaffolder"** (e.g., pure validator, query tool), `init` may have different behavior or not exist at all. The standards above apply specifically to toolkits that create projects or scaffolding.
+
+---
+
+### **STEP 4: Preview with Dry-Run**
+
+**Goal**: Test before generating.
+
+```bash
+metaspec init my-toolkit --dry-run
+```
+
+**Checklist**:
+- [ ] File structure looks correct
+- [ ] Entity names verified
+- [ ] Dependencies confirmed
+- [ ] No validation errors
+
+---
+
+### **STEP 5: Generate Speckit**
+
+**Goal**: Generate the complete speckit.
+
+```bash
+metaspec init my-speckit -o ./my-speckit
+```
+
+**Post-generation**:
+1. Verify files created successfully
+2. Run init script if exists: `./scripts/init.sh`
+3. Read generated README.md and AGENTS.md
+
+**Checklist**:
+- [ ] Generation completed without errors
+- [ ] All expected files present
+- [ ] README and AGENTS.md generated
+
+---
+
+### **STEP 6: Test the Speckit**
+
+**Goal**: Verify speckit works.
+
+```bash
+cd my-speckit
+pip install -e .
+my-speckit --help
+my-speckit init sample.yaml
+my-speckit validate sample.yaml
+```
+
+**Checklist**:
+- [ ] CLI commands work
+- [ ] Help messages clear
+- [ ] Sample spec validates
+- [ ] Error messages helpful
+
+---
+
+## ⚠️ Common Pitfalls
+
+**Avoid these mistakes**:
+
+1. **Over-Engineering** - Start with 1-3 entities, 3-5 fields each (not 20+ fields)
+2. **Skipping Research** - Always use `web_search` to study domain standards
+3. **No Dry-Run** - Always preview with `--dry-run` before generating
+4. **Not Testing** - Test CLI commands after generation
+5. **Ignoring Constitution** - Follow Minimal Viable Abstraction, AI-First Design, Progressive Enhancement
+
+---
+
+## 🎯 Success Criteria
+
+A successful speckit generation should:
+
+- [ ] **Solves a real domain problem** - Not just a generic tool
+- [ ] **Has clear entity model** - Entities match domain research
+- [ ] **Follows minimal abstraction** - No over-engineering
+- [ ] **Generates cleanly** - No errors during `metaspec init`
+- [ ] **CLI works** - All commands functional
+- [ ] **Has good docs** - README and AGENTS.md are clear
+- [ ] **Includes constitution** - memory/constitution.md exists
+- [ ] **Is testable** - Can create sample specs
+- [ ] **Follows patterns** - Matches existing spec-driven tools
+
+---
+
+## 📚 Additional Resources
+
+- **Template**: `templates/meta-spec-template.yaml`
+- **Examples**: `examples/` directory
+- **Constitution**: `memory/constitution.md`
+- **Docs**: `docs/` directory
+
+---
+> Source: [acnlabs/MetaSpec](https://github.com/acnlabs/MetaSpec) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
