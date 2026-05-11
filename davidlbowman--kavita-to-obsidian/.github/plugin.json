@@ -1,0 +1,9 @@
+{
+  "name": "davidlbowman--kavita-to-obsidian",
+  "displayName": "kavita-to-obsidian",
+  "description": "An Obsidian plugin that syncs your annotations, highlights, and bookmarks from Kavita into your Obsidian vault.",
+  "version": "1.0.0",
+  "author": "davidlbowman",
+  "homepage": "https://github.com/davidlbowman/kavita-to-obsidian",
+  "skills": []
+}
