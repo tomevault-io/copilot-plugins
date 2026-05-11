@@ -1,0 +1,9 @@
+{
+  "name": "antbald--ha-ev-smart-charger",
+  "displayName": "ha-ev-smart-charger",
+  "description": "Home Assistant integration for intelligent EV charging control based on solar production, time of day, and battery levels",
+  "version": "1.0.0",
+  "author": "antbald",
+  "homepage": "https://github.com/antbald/ha-ev-smart-charger",
+  "skills": []
+}
