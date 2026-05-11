@@ -1,0 +1,9 @@
+{
+  "name": "cleancocoa--timeline-ui",
+  "displayName": "timeline-ui",
+  "description": " SwiftUI package to display iOS Calendar.app like timelines with event previews (GitHub mirror of canonical Codeberg repo)",
+  "version": "1.0.0",
+  "author": "CleanCocoa",
+  "homepage": "https://github.com/CleanCocoa/timeline-ui",
+  "skills": []
+}
