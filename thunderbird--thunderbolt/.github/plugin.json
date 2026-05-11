@@ -1,0 +1,9 @@
+{
+  "name": "thunderbird--thunderbolt",
+  "displayName": "thunderbolt",
+  "description": "AI You Control: Choose your models. Own your data. Eliminate vendor lock-in.",
+  "version": "1.0.0",
+  "author": "thunderbird",
+  "homepage": "https://github.com/thunderbird/thunderbolt",
+  "skills": []
+}
