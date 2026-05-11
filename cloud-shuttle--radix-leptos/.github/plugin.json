@@ -1,0 +1,9 @@
+{
+  "name": "cloud-shuttle--radix-leptos",
+  "displayName": "radix-leptos",
+  "description": "High-performance, accessible UI components for Leptos - Rust port of Radix UI primitives with 57+ components, 1200+ tests, and 538KB optimized bundle",
+  "version": "1.0.0",
+  "author": "cloud-shuttle",
+  "homepage": "https://github.com/cloud-shuttle/radix-leptos",
+  "skills": []
+}
