@@ -1,0 +1,9 @@
+{
+  "name": "logandonley--fleet",
+  "displayName": "fleet",
+  "description": "A NixOS home lab starter",
+  "version": "1.0.0",
+  "author": "logandonley",
+  "homepage": "https://github.com/logandonley/fleet",
+  "skills": []
+}
