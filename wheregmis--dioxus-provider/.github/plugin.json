@@ -1,0 +1,9 @@
+{
+  "name": "wheregmis--dioxus-provider",
+  "displayName": "dioxus-provider",
+  "description": "Effortless, powerful, and scalable data fetching and caching for Dioxus applications, inspired by Riverpod for Flutter",
+  "version": "1.0.0",
+  "author": "wheregmis",
+  "homepage": "https://github.com/wheregmis/dioxus-provider",
+  "skills": []
+}
