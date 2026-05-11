@@ -1,0 +1,9 @@
+{
+  "name": "christopherseaman--wasmvm",
+  "displayName": "wasmvm",
+  "description": "iPad-local Linux dev environment: CheerpX in WKWebView with Swift-side localhost networking + 9P2000.L file bridge.",
+  "version": "1.0.0",
+  "author": "christopherseaman",
+  "homepage": "https://github.com/christopherseaman/wasmvm",
+  "skills": []
+}
