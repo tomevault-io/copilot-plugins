@@ -1,0 +1,9 @@
+{
+  "name": "decade-qiu--go2netspectra",
+  "displayName": "Go2NetSpectra",
+  "description": "Go2NetSpectra is a high-performance, distributed traffic monitoring and analysis framework designed for both real-time and offline data processing in large-scale network environments.",
+  "version": "1.0.0",
+  "author": "Decade-qiu",
+  "homepage": "https://github.com/Decade-qiu/Go2NetSpectra",
+  "skills": []
+}
