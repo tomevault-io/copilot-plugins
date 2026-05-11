@@ -1,0 +1,9 @@
+{
+  "name": "block--uuidv7",
+  "displayName": "uuidv7",
+  "description": "A Minimal UUID v7 Implementation",
+  "version": "1.0.0",
+  "author": "block",
+  "homepage": "https://github.com/block/uuidv7",
+  "skills": []
+}
