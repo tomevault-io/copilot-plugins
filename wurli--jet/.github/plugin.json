@@ -1,0 +1,9 @@
+{
+  "name": "wurli--jet",
+  "displayName": "jet",
+  "description": "A Rust-powered Jupyter kernel supervisor for Neovim",
+  "version": "1.0.0",
+  "author": "wurli",
+  "homepage": "https://github.com/wurli/jet",
+  "skills": []
+}
