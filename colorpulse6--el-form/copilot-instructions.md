@@ -1,0 +1,44 @@
+## change-management-flow
+
+> Change management flow for repo-wide changes (code, tests, changelogs, changesets, CI)
+
+
+- Follow `scripts/change-management-flow.md` for any repo-wide change:
+
+  - Dependencies, schema internals, validation engines, API surfaces
+  - Version upgrades (e.g., Zod major)
+  - Changes touching multiple packages, examples, and docs
+
+- Enforce these steps in order:
+
+  1. Build workspace early: `pnpm -w -r build`
+  2. Add/update tests in owning package, run `pnpm --filter <pkg> test` (or `pnpm test`)
+     - Include both runtime tests (e.g., Vitest) and type tests when applicable (e.g., `tsd` for TypeScript API/typing changes)
+     - For react-hooks typing changes: add/adjust vitest tests under `packages/el-form-react-hooks/src/__tests__` and `tsd` assertions in `packages/el-form-react-hooks/tsd.test-d.ts`
+  3. Rebuild examples & docs (included in workspace build)
+  4. Update changelogs: `packages/*/CHANGELOG.md`, `docs/CHANGELOG.md`, optionally `docs/docs/changelog.md`
+  5. Create Changeset: `pnpm changeset:add` (or `--empty`) and verify `pnpm changeset:status`
+  6. CI validation: ensure `.github/workflows/ci.yml` builds and runs tests
+     - Verify new test commands are wired (runtime + type tests) for the affected package(s)
+  7. Version & release: `pnpm release:version` then `pnpm release`, or push and let CI handle (see `scripts/release.md`)
+
+- Conventions & guardrails:
+
+  - Use pnpm (no npm/yarn), non-interactive commands in CI
+  - Avoid `instanceof` on Zod schemas; use `el-form-core/src/zodHelpers.ts`
+  - Prefer `_zod.def` or helper fallbacks for Zod internals
+  - Keep edits minimal and localized; avoid reformatting
+  - Ensure examples/docs use current library APIs (e.g., Zod 4 enum options `{ message }`/`{ required_error }`)
+
+- Acceptance criteria:
+  - Workspace build passes
+  - Relevant package tests pass (runtime + type)
+  - Changelogs updated
+  - Changeset committed and `changeset:status` looks correct
+  - CI green (build + tests)
+
+@scripts/change-management-flow.md
+
+---
+> Source: [colorpulse6/el-form](https://github.com/colorpulse6/el-form) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
