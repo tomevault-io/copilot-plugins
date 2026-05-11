@@ -1,0 +1,9 @@
+{
+  "name": "mahmutsalman--book-reader",
+  "displayName": "book-reader",
+  "description": "Context-aware AI dictionary for books, manga & comics. Neural TTS (Piper), IPA generation, PaddleOCR, multi-word lookup. Supports cloud & local LLMs. Offline-first. Built for language learners to elim",
+  "version": "1.0.0",
+  "author": "mahmutsalman",
+  "homepage": "https://github.com/mahmutsalman/book-reader",
+  "skills": []
+}
