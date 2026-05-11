@@ -1,0 +1,9 @@
+{
+  "name": "preslavrachev--gomjml",
+  "displayName": "gomjml",
+  "description": "A native Go implementation of the MJML email framework, providing fast compilation of MJML markup to responsive HTML. ",
+  "version": "1.0.0",
+  "author": "preslavrachev",
+  "homepage": "https://github.com/preslavrachev/gomjml",
+  "skills": []
+}
