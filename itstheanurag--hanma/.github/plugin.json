@@ -1,0 +1,9 @@
+{
+  "name": "itstheanurag--hanma",
+  "displayName": "hanma",
+  "description": "Hanma is a beta CLI tool for MERN backend developers that lets you download and reuse server-side code snippets directly into your projects, without copy-pasting or manual setup.  This release focuses",
+  "version": "1.0.0",
+  "author": "itstheanurag",
+  "homepage": "https://github.com/itstheanurag/hanma",
+  "skills": []
+}
