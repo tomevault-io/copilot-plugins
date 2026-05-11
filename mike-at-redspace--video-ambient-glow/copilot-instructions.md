@@ -1,22 +1,25 @@
-## src-core
+## src-lib
 
-> Core source files - main entry point, types, and constants
+> Internal library modules - canvas, frame processing, event handling
 
 
-- TypeScript strict mode enabled - use explicit types, avoid `any`
-- All public APIs must have JSDoc comments with `@public` tag
-- Internal types/constants use `@internal` tag in JSDoc
-- Use ES modules (`import`/`export`) exclusively
-- Class-based API: `AmbientGlow` is the main exported class
-- Main modules (`index.ts`, `types.ts`, `constants.ts`) must include `@module` and `@packageDocumentation` tags
-- Other modules use only `@module` tag
-- Constants should be exported from `constants.ts` as `as const` objects
-- Type definitions belong in `types.ts` - use interfaces for public types, `@internal` for private
-- Public API methods must have usage examples in JSDoc `@example` blocks
-- Export types alongside the class for external consumption
-- Use descriptive error messages with "AmbientGlow:" prefix (errors) or console.warn for warnings
-- Follow the pattern: constructor → setup → event handlers → cleanup in `destroy()`
-- @file src/index.ts
+- All exports must be marked `@internal` in JSDoc - these are not part of public API
+- Functions should be pure and focused on single responsibilities
+- Canvas operations go in `canvas.ts` - creation, styling, context handling
+- Frame processing logic in `frameProcessor.ts` - color extraction, blending
+- Event handling in `eventHandlers.ts` - factory functions for event listeners
+- Use named exports, not default exports
+- All functions need JSDoc with parameter descriptions and return types
+- Canvas contexts must be checked with type guards before use
+- Error handling: throw descriptive errors with context about which canvas/operation failed
+- Use constants from `../constants.ts` instead of magic numbers
+- Functions should accept options/types as parameters rather than accessing globals
+- All lib modules use `@module` tag (not `@packageDocumentation`)
+- Re-export via `src/lib/index.ts` barrel export
+- Prefer functional approach - avoid classes in lib modules
+- @file src/lib/canvas.ts
+- @file src/lib/frameProcessor.ts
+- @file src/lib/eventHandlers.ts
 
 ---
 > Source: [mike-at-redspace/video-ambient-glow](https://github.com/mike-at-redspace/video-ambient-glow) — distributed by [TomeVault](https://tomevault.io).
