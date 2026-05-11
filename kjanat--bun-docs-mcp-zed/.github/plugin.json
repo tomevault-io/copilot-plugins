@@ -1,0 +1,9 @@
+{
+  "name": "kjanat--bun-docs-mcp-zed",
+  "displayName": "bun-docs-mcp-zed",
+  "description": "MCP server integration for searching Bun documentation directly in Zed editor",
+  "version": "1.0.0",
+  "author": "kjanat",
+  "homepage": "https://github.com/kjanat/bun-docs-mcp-zed",
+  "skills": []
+}
