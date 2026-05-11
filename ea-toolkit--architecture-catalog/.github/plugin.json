@@ -1,0 +1,9 @@
+{
+  "name": "ea-toolkit--architecture-catalog",
+  "displayName": "architecture-catalog",
+  "description": "Git-native architecture catalog \u2014 Markdown registry, schema-driven UI, AI-ready",
+  "version": "1.0.0",
+  "author": "ea-toolkit",
+  "homepage": "https://github.com/ea-toolkit/architecture-catalog",
+  "skills": []
+}
