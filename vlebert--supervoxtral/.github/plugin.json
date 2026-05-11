@@ -1,0 +1,9 @@
+{
+  "name": "vlebert--supervoxtral",
+  "displayName": "supervoxtral",
+  "description": "A simple Python CLI/GUI tool to record audio from your microphone, optionally convert it (WAV/MP3/Opus), and send it to Mistral Voxtral transcription/chat APIs.",
+  "version": "1.0.0",
+  "author": "vlebert",
+  "homepage": "https://github.com/vlebert/supervoxtral",
+  "skills": []
+}
