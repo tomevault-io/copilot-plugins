@@ -1,0 +1,9 @@
+{
+  "name": "steadfastasart--geoscience-skills",
+  "displayName": "geoscience-skills",
+  "description": "\ud83c\udf0d 30 AI-powered geoscience skills for Claude Code, Cursor & GitHub Copilot. Seismic, well logs, 3D modelling, inversion, geostatistics, spatial regression, NetCDF, and more.",
+  "version": "1.0.0",
+  "author": "SteadfastAsArt",
+  "homepage": "https://github.com/SteadfastAsArt/geoscience-skills",
+  "skills": []
+}
