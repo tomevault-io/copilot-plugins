@@ -1,271 +1,188 @@
-## external-review-spec
+## webnovel-workflow
 
-> Step 3.5 外部模型审查的 Prompt 模板、输出 Schema 和审查报告格式（Round 16 · 14 模型扁平共识）
+> 网文写作工作流核心规则（从 Claude Code memory 迁移）
 
 
-# Step 3.5 外部模型审查规范
+# 网文写作工作流规则
 
-> **Round 16 架构（2026-04-23 · Ch6 RCA 最终根治）**：
-> - 14 模型扁平共识 · 无 core / supplemental 层级
-> - 统一重试 2 次 · 统一早停阈值 4
-> - Step 6 A3 判定：≥ 10/14 有效 pass · 8-9 medium warn · 5-7 high warn（仍不阻塞） · <5 critical
-> - 详见 `webnovel-writer/skills/webnovel-write/references/step-3.5-external-review.md`
+## 项目配置
 
-## 一、外审 Prompt 模板
+- workspace_root: I:\AI-extention\webnovel-writer
+- current_project_root: I:\AI-extention\webnovel-writer\星际拆解师
+- 插件目录: C:\Users\Windows\.claude\plugins\cache\webnovel-writer-marketplace\webnovel-writer\5.6.0
 
-调用外部模型时，system 消息使用以下模板（`{context}` 替换为章节特定描述）：
+## 禁止跳步赶进度（硬约束）
 
-```
-你是一个资深网文章节审查专家。请从以下10个维度对章节进行严格审查并打分（0-100）：
-1.设定一致性 2.连贯性 3.人物塑造 4.追读力 5.爽点密度 6.节奏控制 7.对话质量 8.信息密度 9.文笔质感 10.情感表现
+每章必须独立走完完整流程（Step 0→1→2A→2B→3→3.5→4→5→6→7），不得跳过任何Step。
 
-{context}
+**历史违规记录：**
+1. Ch7-10：跳过审查子代理
+2. Ch13-20：跳过 Context Agent + 审查 + 报告文件
+3. Ch22-25：跳过 Step 0/1/2B + 内部 checker 没等返回就推进下一章
 
-请严格按以下 JSON 格式返回（不要加 ```json 标记，直接返回纯 JSON）：
+**执行纪律：**
+- 写完一章 → 等所有 checker 返回 → 汇总 → 修复 → 报告 → Data Agent → Git → 才开始下一章
+- 绝不在 checker 运行期间开始下一章的起草
+- 不要在意时间和 token，只要质量
 
-{
-  "overall_score": <0-100的数字>,
-  "dimensions": [
-    {
-      "name": "<维度名>",
-      "score": <0-100>,
-      "comment": "<该维度的整体评语，2-3句>",
-      "issues": [
-        {
-          "type": "<SETTING_CONFLICT|CONTINUITY|OOC|PACING|READER_PULL|STYLE>",
-          "severity": "<critical|high|medium|low>",
-          "location": "<定位到具体段落，如'第3段陆衍与韩远对话处'>",
-          "description": "<问题描述>",
-          "suggestion": "<具体修改建议，给出改写方向或示例>",
-          "quote": "<引用正文中的原句，便于定位>"
-        }
-      ]
-    }
-  ],
-  "issues": [<所有维度的 issues 扁平化汇总>],
-  "summary": "<80字以内的整体评价>"
-}
+## 禁止跳过 Step 2B
 
-评分标准：
-- 95-100: 出版级品质，几乎无可挑剔
-- 90-94: 优秀，仅有轻微瑕疵
-- 85-89: 良好，有少量可优化空间
-- 80-84: 合格，存在若干需改进之处
-- 75-79: 及格，有明显问题需要修复
-- <75: 不合格，存在严重问题
+标准模式写作流程中，Step 2B（风格适配）不可跳过，必须在 2A 之后、Step 3 之前执行。只有 --fast 或 --minimal 模式才允许跳过 2B。
 
-issue 的 type 分类说明：
-- SETTING_CONFLICT: 设定/能力/等级/物品与已有世界观矛盾
-- CONTINUITY: 时间线/因果链/前后章衔接/倒计时错误
-- OOC: 角色言行与已建立的人设不符
-- PACING: 节奏失衡（信息过密/过疏、情绪无层次、段落过长）
-- READER_PULL: 钩子弱/微兑现缺失/悬念管理不当
-- STYLE: 句式AI化/说明腔/排版/对话自然度
-- DIALOGUE_FLAT: 不同角色说话风格过于相似，遮住人名后无法分辨说话者
-- DIALOGUE_INFODUMP: 角色对话只为向读者传递设定信息，缺少意图和冲突
-- DIALOGUE_MONOLOGUE: 单人连续独白过长（超过200字），缺少互动打断
-- PADDING: 段落无信息增量，不推进剧情/角色/情绪，属于水分填充
-- REPETITION: 同一信息已通过其他方式传达后再次重复描述
-```
+## 每章必须跑完整审查流程
 
-## 一·一、开篇章节特殊处理（Ch1-3）
+- 每章必须并行启动审查子代理（10个维度全部执行）
+- 等待所有审查器返回后汇总评分
+- 有可修复的 medium 以上问题就修改正文，然后重跑对应审查器做第二轮
+- 确认没有明显提升空间后才进入 Data Agent → 审计闸门 → Git
+- 任何情况都不能为了速度牺牲质量
 
-当审查的章节为 Ch1-3 时，在 system prompt 的 `{context}` 中额外追加：
+## 审查评分目标
 
-```
-【特别注意】这是小说的第{chapter}章（开篇章节）。请以首次接触本书的新读者视角额外评估：
-1. 读完后是否有强烈意愿继续阅读？（1-10分）
-2. 主角是否在前500字内建立了辨识度？
-3. 世界观是否Show not Tell？
-4. 有没有让你想跳过的段落？
-5. 人物名字是否过多让你困惑？
-开篇章节的评分标准应比普通章节更严格。
-```
+- 90-100 可接受范围，但越高越好
+- 有提升空间时应多轮审查修改
+- 个别维度因章节类型/情节因素评分偏低属于正常，不必强行拉分
+- 存在可修复的 medium/high 问题时，Step 4 修复后重新进入 Step 3 做第二轮审查
 
-## 一·二、User 消息结构（必须注入项目上下文）
+## Step 3.5 外部模型审查配置（Round 14+ · 14 模型 × 13 维度）
 
-外审 API 调用的 user 消息**不能只发章节正文**。必须按以下结构组装：
+> 权威版本在 `webnovel-writer/skills/webnovel-write/references/step-3.5-external-review.md`。此处给运行时摘要。
 
-```
-===== 项目上下文（请基于以下信息严格审查正文） =====
+**架构：3 供应商 × 14 模型 × 13 维度 = 182 份独立评分（共识机制）**
 
-【本章大纲】
-{从详细大纲提取本章 "### 第 N 章" 段落}
+**核心层（3，必须成功，异构性覆盖）：**
+- `qwen3.6-plus` — openclawroot
+- `gpt-5.4` — openclawroot
+- `gemini-3.1-pro` — openclawroot
 
-【主角设定】
-{主角卡.md + 金手指设计.md}
+**补充层（11，失败不阻塞，累计 3 维度失败早停）：**
+- `doubao-pro` — ark-coding（主） → openclawroot（备）
+- `doubao-seed-2.0-lite` — ark-coding
+- `glm-5` — openclawroot → siliconflow
+- `glm-5.1` — ark-coding
+- `glm-4.7` — openclawroot → siliconflow
+- `mimo-v2-pro` — openclawroot
+- `minimax-m2.7-hs` — openclawroot
+- `minimax-m2.5` — ark-coding
+- `deepseek-v3.2-thinking` — ark-coding（主 · max_tokens=32768） → openclawroot → siliconflow
+- `kimi-k2.5` — ark-coding（max_tokens=32768）
+- `kimi-k2.6` — ark-coding
 
-【配角设定】
-{女主卡.md + 反派设计.md}
+**供应商：**
+- **openclawroot** (`https://openclawroot.com/v1`)，key=`OPENCLAWROOT_API_KEY`，RPM=30
+- **ark-coding** 火山方舟 Coding Plan (`https://ark.cn-beijing.volces.com/api/coding/v3`)，key=`ARK_CODING_API_KEY`（fallback `ARK_API_KEY`），RPM=30；所有 7 个模型用原生 `thinking={"type":"enabled"}`
+- **siliconflow** (`https://api.siliconflow.cn/v1`)，key=`EMBED_API_KEY`，RPM=30（仅 glm-5/glm-4.7/deepseek-v3.2 兜底）
 
-【力量体系】
-{力量体系.md}
+**thinking / max_tokens 策略：**
+- ark-coding：`thinking={"type":"enabled"}`，max_tokens 按上限（32768 或 65536）
+- openclawroot：按家族分派 `reasoning_effort`（gpt）/`thinking_budget`（gemini）/`enable_thinking`（qwen/deepseek/doubao/glm/mimo/minimax）
 
-【世界观】
-{世界观.md}
+**重试与 fallback：**
+- ark-coding/healwrap/nextapi：重试 2 次
+- openclawroot/siliconflow：fail-fast 切下一 provider
+- 路由验证：每次调用后检查 `response.model` 与请求匹配
+- 幽灵零分（score=0 + 空摘要）：provider 层自动切下一供应商
 
-【前2章摘要】
-{summaries/ch{N-2}.md + ch{N-1}.md}
+**调用方式（硬规则）：**
+- **必须**用 `--model-key all` 一次性跑全部 14 个模型，禁止手动逐个调用（防遗漏）
+- 脚本仅支持：`--project-root` / `--chapter` / `--mode` / `--model-key` / `--models` / `--max-concurrent` / `--rpm-override`
+- 不要传 `--chapter-file` / `--outline-file` 等不存在的参数
 
-【主角当前状态（注意：以下为最新状态，审查早期章节时动态数值可能与正文不一致，以正文为准）】
-{state.json 的 protagonist_state（移除credits）+ progress}
-
-===== 待审查正文 =====
-
-{章节正文全文}
+```bash
+python -X utf8 "${SCRIPTS_DIR}/external_review.py" \
+  --project-root "${PROJECT_ROOT}" \
+  --chapter {chapter_num} \
+  --mode dimensions \
+  --model-key all
 ```
 
-加载规则：大纲按 `### 第 N 章` 分割取本章；前章摘要 Ch1 无则跳过；state.json 只取 protagonist_state 和 progress；设定集全拼接约 7500 字；总 user 消息约 12000 字。
+**外审 Prompt：**
+13 个审查维度 = 11 工艺维度（设定一致性 / 连贯性 / 人物塑造 / 追读力 / 爽点密度 / 节奏控制 / 对话质量 / 信息密度 / 文笔质感 / 情感表现 / 读者视角流畅度 `reader_flow`）+ `naturalness`（汉语母语自然度）+ `reader_critic`（读者锐评）。每个 issue 必含 type / severity / location / description / suggestion / quote。
 
-## 二、外审输出 JSON Schema
+**外审输出 JSON 必须包含：**
+`model_actual` / `routing_verified` / `provider_chain` / `api_meta`（elapsed_ms / tokens / attempts / final_provider）。
 
-每个模型的审查结果文件（`.webnovel/tmp/external_review_{model_key}_ch{NNNN}.json`）必须包含：
+**审查报告格式：**
+- 14 模型 × 13 维度评分矩阵（含"供应商"列）
+- 共识问题（≥3 个模型指出的同类问题 = 真问题；14 模型下可将阈值调至 ≥4）
+- Step 4 修复清单（共识 + severity ≥ medium + verified 筛选）
 
-```json
-{
-  "agent": "external-{model_key}",
-  "chapter": 27,
-  "model_key": "kimi",
-  "model_requested": "kimi-k2.5",
-  "model_actual": "<response.model字段的值>",
-  "provider": "ark-coding",
-  "routing_verified": true,
-  "overall_score": 87,
-  "pass": true,
-  "dimension_reports": [
-    {
-      "name": "设定一致性",
-      "score": 88,
-      "comment": "评语...",
-      "issues": [
-        {
-          "type": "SETTING_CONFLICT",
-          "severity": "low",
-          "location": "第5段，沈映雪引路对话",
-          "description": "...",
-          "suggestion": "...",
-          "quote": "原文引用...",
-          "verified": "verified|unverified|dismissed"
-        }
-      ]
-    }
-  ],
-  "issues": [],
-  "cross_validation": {
-    "total_issues": 5,
-    "verified": 3,
-    "unverified": 1,
-    "dismissed": 1
-  },
-  "provider_chain": [
-    {"provider": "ark-coding", "attempt": 1, "result": "timeout"},
-    {"provider": "ark-coding", "attempt": 2, "result": "success", "routing_ok": true}
-  ],
-  "api_meta": {
-    "final_provider": "ark-coding",
-    "elapsed_ms": 8500,
-    "prompt_tokens": 2300,
-    "completion_tokens": 1800,
-    "attempts_total": 2
-  },
-  "summary": "..."
-}
-```
+**执行要求：** 每章 Step 3（13 个内部 checker）+ Step 3.5（14 个外部模型 × 13 维度）通过后，核心 3 模型全部返回后才进入 Step 4。
 
-### 字段说明
+## 开篇黄金协议（Ch1-3 专用，叠加在标准流程之上）
 
-| 字段 | 必填 | 说明 |
-|------|------|------|
-| `model_requested` | 是 | 请求时传入的 model 名 |
-| `model_actual` | 是 | API 响应中 `response.model` 的值 |
-| `routing_verified` | 是 | `model_requested` 与 `model_actual` 是否匹配 |
-| `provider_chain` | 是 | 按顺序记录每次尝试的供应商和结果 |
-| `cross_validation.verified` | 是 | issues 中与项目上下文一致的数量 |
-| `cross_validation.dismissed` | 是 | issues 中与项目上下文矛盾、判定为误报的数量 |
-| `dimension_reports[].issues` | 是 | 该维度下的具体问题，可为空数组 |
-| `dimension_reports[].issues[].quote` | 是 | 引用正文原句，便于 Step 4 定位修改 |
+- Ch1：主角在前 500 字内出场且用行动展示（非旁白介绍）
+- Ch1：核心冲突或世界规则在前 1000 字内暗示（Show not Tell）
+- Ch1：章末钩子强度强制 strong
+- Ch1-2：金手指至少暗示存在
+- Ch1-3：人物名字总数不超过 5 个
+- Ch1-3：至少 5 个冲突点
+- Ch1-3：第一个场景必须包含至少 1 个具象数字（展示世界观量级）
 
-### 路由验证规则
+## 中文思维写作约束（硬规则）
 
-判定 routing_verified 的逻辑：
-1. `response.model == model_requested` → true（ark-coding / openclawroot 当前均返回短名，直接相等或 substring 匹配）
-2. 硅基流动的 model 名格式为 `Pro/xxx/Model`，与请求匹配时也算 true（`_normalized_match`）
-3. `verify_routing` 的 `ROUTING_BUGS` 常量维护历史 provider 路由 bug blacklist（历史：codexcc 请求 glm 返回 MiniMax / 请求 kimi 返回 qianfan）；Round 14+ ark-coding & openclawroot 尚无已知 routing bug
+- **禁止"先英后中"**：不得先用英文工程化骨架（如 ABCDE 分段、Summary/Conclusion 框架）组织内容，再翻译成中文。
+- **中文叙事单元优先**：以"动作、反应、代价、情绪、场景、关系位移"为基本叙事单元，不使用英文结构标签驱动正文生成。
+- **禁止英文结论话术**：正文、审查说明、润色说明、变更摘要、最终报告中不得出现 Overall / PASS / FAIL / Summary / Conclusion 等英文结论标题。
+- **英文仅限机器标识**：CLI flag（`--fast`）、checker id（`consistency-checker`）、DB 字段名（`anti_ai_force_check`）、JSON 键名等不可改的接口名保持英文，其余一律使用简体中文。
 
-### 交叉验证规则
+## Search Tool 使用规则（全流程适用）
 
-外审 Agent 在拿到模型返回后，用已读取的项目上下文（state.json/前章摘要/大纲）验证每个 issue：
-- `verified`: issue 提到的事实与项目数据一致（如"倒计时错误"确实错了）
-- `unverified`: 无法从已有数据确认或否认
-- `dismissed`: issue 提到的"错误"实际上项目数据中有依据支持（误报）
+**触发规则：**
+- **强制触发**：涉及专业领域（机甲技术/军事/科学/法律）→ 搜索术语和真实细节
+- **强制触发**：需要特定案例或参考（如"真实驾驶舱布局""地下通道地质结构"）→ 搜索具体资料
+- **推荐触发**：章节类型特殊（战斗/情感/揭秘/追逐/谈判）→ 搜索该类型写作技巧
+- **推荐触发**：新卷首章或Ch1-3 → 搜索同题材开篇技巧
+- **推荐触发**：审查发现 HIGH 级 STYLE/PACING 问题 → 搜索改进方法
+- **按需触发**：普通推进章无特殊场景 → 不搜索
 
-## 三、审查报告模板
+**各 Step 的具体搜索内容：**
+- Step 1：搜索本章场景类型的写作技巧（"机甲战斗 描写技巧""谈判场景 张力写法"）
+- Step 2A：搜索专业领域术语和真实细节（"机甲驾驶舱 操控界面""军事通讯 加密术语"）
+- Step 2B：搜索风格参考（"硬核科幻 技术描写 范例"）
+- Step 4：搜索审查问题的改进方法（"对话平淡 改进技巧""节奏拖沓 如何加快"）
 
-`审查报告/第{NNNN}章审查报告.md` 格式：
+搜索结果归档：有价值的专业信息保存到 `调研笔记/` 对应主题文件，供后续章节复用。
 
-```markdown
-# 第{N}章审查报告
+**Search 失败处理协议（硬规则）**：
+1. 立即停止当前工作
+2. 告知用户搜索工具不可用
+3. 等待用户配置或手动提供信息后再继续
+4. 不要跳过搜索步骤直接继续——搜索获取的专业细节直接影响质量
 
-## 内部审查（10 checker）
-- 综合评分: {score}
-- 严重/高: {N}个
+## 充分性闸门（流程结束前必须通过）
 
-| 维度 | 分数 |
-|------|------|
-| 设定一致性 | {score} |
-| 连贯性 | {score} |
-| 人物塑造 | {score} |
-| 追读力 | {score} |
-| 爽点密度 | {score} |
-| 节奏控制 | {score} |
-| 对话质量 | {score} |
-| 信息密度 | {score} |
-| 文笔质感 | {score} |
-| 情感表现 | {score} |
+未满足以下条件前，不得结束当前章节流程：
 
-## 外部审查（14 模型 × 13 维度评分矩阵 · Round 14+）
+1. 章节正文文件存在且非空
+2. Step 3 已产出 `overall_score` 且 `review_metrics` 成功落库
+3. Step 4 已处理全部 `critical`，`high` 未修项有 deviation 记录
+4. Step 4 的 `anti_ai_force_check=pass`（基于全文检查；fail 时不得进入 Step 5）
+5. Step 5 已回写 `state.json`、`index.db`、`summaries/ch{NNNN}.md`
+6. Step 6 审计闸门通过（approve 或 approve_with_warnings），block 则不得 Git
+7. 审查报告 .md 文件已生成（含内部 + 外部评分矩阵）
 
-> 13 维度 = 10 工艺维度 + reader_flow + naturalness + reader_critic
+## 插件自定义改动
 
-| 模型 | 供应商 | 设定 | 连贯 | 人物 | 追读 | 爽点 | 节奏 | 对话 | 密度 | 文笔 | 情感 | 流畅 | 母语 | 锐评 | 总分 | 路由 |
-|------|--------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|
-| qwen3.6-plus | openclawroot | | | | | | | | | | | | | | | ✅/❌ |
-| gpt-5.4 | openclawroot | | | | | | | | | | | | | | | ✅/❌ |
-| gemini-3.1-pro | openclawroot | | | | | | | | | | | | | | | ✅/❌ |
-| doubao-pro | ark-coding | | | | | | | | | | | | | | | ✅/❌ |
-| doubao-seed-2.0-lite | ark-coding | | | | | | | | | | | | | | | ✅/❌ |
-| glm-5 | openclawroot | | | | | | | | | | | | | | | ✅/❌ |
-| glm-5.1 | ark-coding | | | | | | | | | | | | | | | ✅/❌ |
-| glm-4.7 | openclawroot | | | | | | | | | | | | | | | ✅/❌ |
-| mimo-v2-pro | openclawroot | | | | | | | | | | | | | | | ✅/❌ |
-| minimax-m2.7-hs | openclawroot | | | | | | | | | | | | | | | ✅/❌ |
-| minimax-m2.5 | ark-coding | | | | | | | | | | | | | | | ✅/❌ |
-| deepseek-v3.2-thinking | ark-coding | | | | | | | | | | | | | | | ✅/❌ |
-| kimi-k2.5 | ark-coding | | | | | | | | | | | | | | | ✅/❌ |
-| kimi-k2.6 | ark-coding | | | | | | | | | | | | | | | ✅/❌ |
+用户 fork 了 webnovel-writer 到 XuanRanL/webnovel-writer。
+所有自定义改动记录在：`C:\Users\Windows\.claude\plugins\marketplaces\webnovel-writer-marketplace\webnovel-writer\CUSTOMIZATIONS.md`
 
-外部均值: {score}
+- 用户说"上游更新了" → 先读 CUSTOMIZATIONS.md，merge 后逐条验证改动未丢失
+- 做任何新的自定义改动 → 必须追加记录到 CUSTOMIZATIONS.md
 
-## 共识问题（>=3模型指出）
-| 问题 | 提出模型 | severity | location | 建议 |
-|------|---------|----------|----------|------|
-| ... | kimi,glm,qwen-plus | medium | 第X段 | ... |
+## 字数目标
 
-## Step 4 修复清单
-从共识问题 + severity >= medium + verified 的 issues 中筛选：
-1. [severity] location: description → suggestion
-2. ...
+默认章节字数目标已调整为 **2200-3500字**（2026-04-03 最新）。
+已修改文件：SKILL.md（3处）、style-adapter.md（2处）。
+战斗章/高潮章/卷末章可按大纲或用户指定突破上限。
 
-## 模型路由验证
-| 模型 | 供应商 | 请求 | 实际 | 路由 |
-|------|--------|------|------|------|
-| kimi-k2.5 | ark-coding | kimi-k2.5 | kimi-k2.5 | ✅ |
-| ... | | | | |
+## API 配置位置
 
-## 润色记录（Step 4 后填写）
-- anti_ai_force_check: pass/fail
-- 毒点风险: pass/fail
-```
+`.env` 文件位于两处（脚本按优先级加载）：
+1. 工作区根目录：`I:\AI-extention\webnovel-writer\.env`（优先）
+2. 全局：`C:\Users\Windows\.claude\webnovel-writer\.env`（兜底）
+
+包含：Embedding / Rerank / 外部审查 API 的密钥和端点（Round 14+ 当前用到：`OPENCLAWROOT_API_KEY` + `ARK_CODING_API_KEY` + `EMBED_API_KEY`/`SILICONFLOW_API_KEY`；历史遗留：HEALWRAP/CODEXCC/NEXTAPI，已废弃但 key 仍保留在 .env 里以备后用）。
 
 ---
 > Source: [XuanRanL/webnovelwriter](https://github.com/XuanRanL/webnovelwriter) — distributed by [TomeVault](https://tomevault.io).
