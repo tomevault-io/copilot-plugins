@@ -1,0 +1,9 @@
+{
+  "name": "ksd-co--rust-rule-engine",
+  "displayName": "rust-rule-engine",
+  "description": "A blazing-fast Rust rule engine with RETE algorithm, backward chaining inference, and GRL (Grule Rule Language) syntax. Features: forward/backward chaining, pattern matching, unification, O(1) rule in",
+  "version": "1.0.0",
+  "author": "KSD-CO",
+  "homepage": "https://github.com/KSD-CO/rust-rule-engine",
+  "skills": []
+}
