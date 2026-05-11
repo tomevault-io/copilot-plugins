@@ -1,0 +1,9 @@
+{
+  "name": "gldc--claude-code-remote-app",
+  "displayName": "claude-code-remote-app",
+  "description": "Expo mobile app for Claude Code Remote \u2014 manage Claude Code sessions from your phone",
+  "version": "1.0.0",
+  "author": "gldc",
+  "homepage": "https://github.com/gldc/claude-code-remote-app",
+  "skills": []
+}
