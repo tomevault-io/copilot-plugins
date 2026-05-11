@@ -4,7 +4,7 @@
   "repo": "academic-writing-toolkit",
   "description": "Structured skills for reading, writing, and managing academic research with AI agents. Works with Claude Code, Codex CLI, Gemini CLI, Cursor, and more.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yha9806/academic-writing-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T03:44:55Z"
+  "distributed_at": "2026-05-11T01:06:57Z"
 }
