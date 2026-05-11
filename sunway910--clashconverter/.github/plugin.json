@@ -1,0 +1,9 @@
+{
+  "name": "sunway910--clashconverter",
+  "displayName": "clashconverter",
+  "description": "Convert proxy links to clash yaml",
+  "version": "1.0.0",
+  "author": "sunway910",
+  "homepage": "https://github.com/sunway910/clashconverter",
+  "skills": []
+}
