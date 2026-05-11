@@ -1,0 +1,9 @@
+{
+  "name": "jegama--your-calvinist-podcast-qa-database",
+  "displayName": "Your-Calvinist-Podcast-QA-Database",
+  "description": "A FastAPI application that extracts, classifies, and serves timestamped Q&A content from YouTube podcast episodes. Built for YourCalvinist Podcast with Keith Foskey.",
+  "version": "1.0.0",
+  "author": "Jegama",
+  "homepage": "https://github.com/Jegama/Your-Calvinist-Podcast-QA-Database",
+  "skills": []
+}
