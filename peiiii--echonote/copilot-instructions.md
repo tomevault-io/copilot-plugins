@@ -1,96 +1,175 @@
-## no-auto-commit
+## template-config-pattern
 
-> Prevent automatic git commits unless explicitly requested by user
+> Template-Config Pattern for Reducing Code Duplication and Improving Maintainability
 
 
-# No Auto-Commit Rule
+# Template-Config Pattern - 模板化+配置化思想
 
-## ⚠️ CRITICAL: Never Auto-Commit
+## 核心思想
 
-**NEVER execute any git commit operations unless explicitly requested by the user.**
+当发现大量重复代码时，采用两种策略来提升效率、可维护性和体验一致性：
 
-## Strict Requirements
+### 1. **模板化（Template Pattern）**
+- **定义**: 创建可复用的组件模板
+- **适用场景**: 结构相似但内容不同的UI组件
+- **实现方式**: 抽象出通用结构，通过props传入具体内容
 
-### 1. **Explicit User Request Required**
-- **ONLY commit when user types**: `/commit` or explicitly says "commit" or "提交"
-- **NEVER commit automatically** for any reason
-- **NEVER assume** user wants to commit changes
-- **NEVER commit** as part of other operations
+### 2. **配置化（Configuration Pattern）**
+- **定义**: 通过配置数据驱动批量渲染
+- **适用场景**: 大量相似但数据不同的项目
+- **实现方式**: 定义配置接口，统一渲染逻辑
 
-### 2. **Forbidden Scenarios**
-- ❌ **Never commit** after code changes
-- ❌ **Never commit** after fixing linter errors
-- ❌ **Never commit** after refactoring
-- ❌ **Never commit** after adding new features
-- ❌ **Never commit** after any file modifications
-- ❌ **Never commit** "just to save progress"
+## 识别重复代码的信号
 
-### 3. **Safe Operations Allowed**
-- ✅ `git add .` - Stage changes (when explicitly requested)
-- ✅ `git status` - Check repository status
-- ✅ `git diff` - View changes
-- ✅ `git log` - View commit history
-- ✅ `git branch` - Check branches
-- ✅ Any other git commands that don't create commits
+### 🔍 **重复代码特征**
+- 相似的JSX结构重复出现
+- 相同的逻辑模式多次实现
+- 类似的组件接口和props
+- 重复的事件处理逻辑
+- 相同的样式模式
 
-### 4. **User Commands That Trigger Commits**
-- `/commit` - Execute commit with auto-generated message
-- "commit these changes" - User explicitly requests commit
-- "提交代码" - User explicitly requests commit in Chinese
-- "git commit" - User explicitly types git commit command
+### 📊 **重复代码类型**
+1. **UI组件重复**: 相似的按钮、卡片、列表项
+2. **布局重复**: 相同的容器、网格、列表布局
+3. **逻辑重复**: 相同的数据处理、状态管理
+4. **样式重复**: 相同的CSS类、动画效果
+5. **交互重复**: 相同的点击、悬停、表单处理
 
-### 5. **What to Do Instead of Auto-committing**
-1. **Inform user** that changes are ready
-2. **Suggest** they use `/commit` command
-3. **Wait** for explicit user instruction
-4. **Explain** what changes were made
-5. **Offer** to help with commit message if requested
+## 实施策略
 
-## Examples
+### 阶段1: 识别重复模式
+```typescript
+// ❌ 重复代码示例
+<Button onClick={handleAction1} variant="primary">Action 1</Button>
+<Button onClick={handleAction2} variant="primary">Action 2</Button>
+<Button onClick={handleAction3} variant="primary">Action 3</Button>
 
-### ❌ WRONG - Auto-committing
-```bash
-# User makes changes, AI automatically commits
-git add .
-git commit -m "feat: add new feature"
-# This is FORBIDDEN!
+// ✅ 模板化解决方案
+<ActionButton 
+  actions={[
+    { label: "Action 1", onClick: handleAction1 },
+    { label: "Action 2", onClick: handleAction2 },
+    { label: "Action 3", onClick: handleAction3 }
+  ]} 
+/>
 ```
 
-### ✅ CORRECT - Waiting for user request
-```bash
-# User makes changes, AI waits
-# AI: "Changes are ready. Use /commit to save them."
-# User types: /commit
-# AI: Now executes commit
+### 阶段2: 抽象通用结构
+```typescript
+// 模板化组件
+interface ActionButtonProps {
+  actions: Array<{
+    label: string;
+    onClick: () => void;
+    variant?: 'primary' | 'secondary';
+  }>;
+}
+
+export const ActionButton = ({ actions }: ActionButtonProps) => (
+  <div className="flex gap-2">
+    {actions.map((action, index) => (
+      <Button 
+        key={index}
+        onClick={action.onClick} 
+        variant={action.variant || 'primary'}
+      >
+        {action.label}
+      </Button>
+    ))}
+  </div>
+);
 ```
 
-### ✅ CORRECT - User explicitly requests
-```bash
-# User: "Please commit these changes"
-# AI: "I'll commit the changes for you"
-git add .
-git commit -m "feat: implement requested changes"
+### 阶段3: 配置化数据驱动
+```typescript
+// 配置化渲染
+const buttonConfigs = [
+  { label: "Action 1", onClick: handleAction1, variant: "primary" },
+  { label: "Action 2", onClick: handleAction2, variant: "secondary" },
+  { label: "Action 3", onClick: handleAction3, variant: "primary" }
+];
+
+<ActionButton actions={buttonConfigs} />
 ```
 
-## Emergency Situations
+## 最佳实践
 
-### If You Accidentally Committed
-1. **Immediately inform** the user
-2. **Explain** what happened
-3. **Offer** to help revert if needed
-4. **Apologize** for the violation
-5. **Reinforce** the rule for future
+### ✅ **模板化最佳实践**
+1. **单一职责**: 每个模板组件只负责一种结构
+2. **灵活配置**: 通过props提供足够的定制能力
+3. **类型安全**: 使用TypeScript确保配置正确性
+4. **性能优化**: 合理使用memo和useCallback
+5. **文档完善**: 提供清晰的使用示例
 
-## Rule Enforcement
+### ✅ **配置化最佳实践**
+1. **统一接口**: 所有配置项使用相同的接口格式
+2. **类型定义**: 为配置数据定义清晰的类型
+3. **验证机制**: 对配置数据进行运行时验证
+4. **默认值**: 提供合理的默认配置
+5. **扩展性**: 设计时考虑未来扩展需求
 
-- **This rule is ALWAYS ACTIVE**
-- **No exceptions** without explicit user override
-- **Every AI response** must respect this rule
-- **Violation is a serious error** that must be corrected
+## 实施步骤
+
+### 1. **发现重复**
+- 使用代码分析工具识别重复模式
+- 人工审查相似代码块
+- 统计重复代码的行数和复杂度
+
+### 2. **设计抽象**
+- 分析重复代码的共同特征
+- 设计通用的接口和props
+- 考虑边界情况和特殊需求
+
+### 3. **实现模板**
+- 创建可复用的组件模板
+- 实现配置化的渲染逻辑
+- 添加必要的类型定义
+
+### 4. **迁移替换**
+- 逐步替换重复代码
+- 保持功能一致性
+- 进行充分测试
+
+### 5. **优化完善**
+- 收集使用反馈
+- 优化性能和体验
+- 完善文档和示例
+
+## 收益评估
+
+### 📈 **量化收益**
+- **代码减少**: 重复代码行数减少50%+
+- **维护成本**: 修改一处影响所有使用场景
+- **开发效率**: 新功能开发速度提升30%+
+- **一致性**: UI/UX体验完全统一
+- **测试覆盖**: 集中测试，覆盖率更高
+
+### 🎯 **质量提升**
+- **可维护性**: 单一修改点，降低维护复杂度
+- **可扩展性**: 新需求只需添加配置
+- **可测试性**: 集中测试逻辑，提高测试效率
+- **可读性**: 代码结构更清晰，意图更明确
+
+## 注意事项
+
+### ⚠️ **避免过度抽象**
+- 不要为了抽象而抽象
+- 保持组件的简单性
+- 避免过度复杂的配置系统
+
+### ⚠️ **保持灵活性**
+- 预留扩展点
+- 支持特殊情况的定制
+- 避免过度限制使用场景
+
+### ⚠️ **性能考虑**
+- 合理使用memo和useCallback
+- 避免不必要的重新渲染
+- 考虑大数据量的渲染优化
 
 ---
 
-**Remember**: When in doubt, DON'T commit. Wait for the user to explicitly request it.
+**记住**: 模板化+配置化的目标是"一次编写，处处使用"，通过抽象和配置来消除重复，提升开发效率和代码质量。
 
 ---
 > Source: [Peiiii/EchoNote](https://github.com/Peiiii/EchoNote) — distributed by [TomeVault](https://tomevault.io).
