@@ -1,0 +1,9 @@
+{
+  "name": "spaquet--gemtracker",
+  "displayName": "gemtracker",
+  "description": "Quickly track and analyze your ruby gem dependencies",
+  "version": "1.0.0",
+  "author": "spaquet",
+  "homepage": "https://github.com/spaquet/gemtracker",
+  "skills": []
+}
