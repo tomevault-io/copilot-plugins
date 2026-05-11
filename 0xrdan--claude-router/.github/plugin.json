@@ -1,0 +1,9 @@
+{
+  "name": "0xrdan--claude-router",
+  "displayName": "claude-router",
+  "description": "Intelligent model orchestration for Claude Code - routes queries to optimal Claude model (Haiku/Sonnet/Opus) based on complexity. It also includes many more features. If this project is working well f",
+  "version": "1.0.0",
+  "author": "0xrdan",
+  "homepage": "https://github.com/0xrdan/claude-router",
+  "skills": []
+}
