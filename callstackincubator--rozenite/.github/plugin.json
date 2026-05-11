@@ -1,0 +1,9 @@
+{
+  "name": "callstackincubator--rozenite",
+  "displayName": "rozenite",
+  "description": "Plug-and-play panels for React Native DevTools. Install, enable, and start debugging in minutes.",
+  "version": "1.0.0",
+  "author": "callstackincubator",
+  "homepage": "https://github.com/callstackincubator/rozenite",
+  "skills": []
+}
