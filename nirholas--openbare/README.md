@@ -7,11 +7,11 @@ Decentralized web proxy network designed for censorship resistance, high availab
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nirholas/openbare](https://github.com/nirholas/openbare).
+Original source: `CLAUDE.md` in [nirholas/openbare](https://github.com/nirholas/openbare).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
