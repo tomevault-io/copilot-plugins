@@ -1,645 +1,595 @@
-## realtime-websocket-sse
+## rust-2024-best-practices
 
-> Guidelines for implementing real-time communication in Armature.
+> This project uses **Rust Edition 2024** and follows modern Rust best practices.
 
 
-# Real-time Features: WebSocket & SSE
+# Rust 2024 Best Practices
 
-Guidelines for implementing real-time communication in Armature.
+This project uses **Rust Edition 2024** and follows modern Rust best practices.
 
-## Choosing Between WebSocket and SSE
+## Edition Configuration
 
-| Feature | WebSocket | SSE |
-|---------|-----------|-----|
-| Direction | Bidirectional | Server → Client only |
-| Protocol | Custom | HTTP |
-| Reconnection | Manual | Automatic |
-| Browser Support | Good | Excellent |
-| Proxy Friendly | Sometimes | Yes |
-| Use Case | Chat, Games | Notifications, Feeds |
+All `Cargo.toml` files must specify edition 2024:
 
-## WebSocket Implementation
+```toml
+[package]
+name = "crate-name"
+version = "0.1.0"
+edition = "2024"
+```
 
-### Basic WebSocket Handler
+## Code Style
+
+### Use `rustfmt`
+
+Always format code with rustfmt before committing:
+
+```bash
+cargo fmt --all
+```
+
+### Use `clippy`
+
+Run clippy and fix all warnings:
+
+```bash
+cargo clippy --all-features --all-targets -- -D warnings
+```
+
+### Naming Conventions
 
 ```rust
-use armature::websocket::{WebSocket, Message, WebSocketUpgrade};
+// ✅ Good
+struct UserAccount { }           // Types: UpperCamelCase
+trait Validate { }               // Traits: UpperCamelCase
+enum HttpStatus { }              // Enums: UpperCamelCase
+fn create_user() { }             // Functions: snake_case
+const MAX_SIZE: usize = 100;     // Constants: SCREAMING_SNAKE_CASE
+static GLOBAL_CONFIG: &str = ""; // Statics: SCREAMING_SNAKE_CASE
+let user_name = "Alice";         // Variables: snake_case
+mod http_client;                 // Modules: snake_case
 
-#[controller("/ws")]
-pub struct WebSocketController;
+// ❌ Bad
+struct user_account { }          // Wrong case
+fn CreateUser() { }              // Wrong case
+const maxSize: usize = 100;      // Wrong case
+```
 
-impl WebSocketController {
-    #[get("/")]
-    async fn connect(&self, ws: WebSocketUpgrade) -> WebSocketResponse {
-        ws.on_upgrade(|socket| handle_socket(socket))
-    }
+## Error Handling
+
+### Use `Result` and `?` Operator
+
+```rust
+// ✅ Good: Use Result and ? operator
+pub fn parse_config(path: &str) -> Result<Config, Error> {
+    let contents = std::fs::read_to_string(path)?;
+    let config: Config = serde_json::from_str(&contents)?;
+    validate_config(&config)?;
+    Ok(config)
 }
 
-async fn handle_socket(mut socket: WebSocket) {
-    // Send welcome message
-    socket.send(Message::Text("Connected!".to_string())).await.ok();
+// ❌ Bad: Using unwrap in library code
+pub fn parse_config(path: &str) -> Config {
+    let contents = std::fs::read_to_string(path).unwrap(); // Don't panic!
+    serde_json::from_str(&contents).unwrap()
+}
+```
 
-    // Message loop
-    while let Some(msg) = socket.recv().await {
-        match msg {
-            Ok(Message::Text(text)) => {
-                // Echo back
-                socket.send(Message::Text(format!("Echo: {}", text))).await.ok();
-            }
-            Ok(Message::Binary(data)) => {
-                // Handle binary data
-                socket.send(Message::Binary(data)).await.ok();
-            }
-            Ok(Message::Ping(data)) => {
-                socket.send(Message::Pong(data)).await.ok();
-            }
-            Ok(Message::Close(_)) => break,
-            Err(e) => {
-                eprintln!("WebSocket error: {}", e);
-                break;
-            }
-            _ => {}
-        }
+### Use `thiserror` for Error Types
+
+```rust
+use thiserror::Error;
+
+#[derive(Debug, Error)]
+pub enum CacheError {
+    #[error("Redis error: {0}")]
+    Redis(#[from] redis::RedisError),
+
+    #[error("Serialization error: {0}")]
+    Serialization(String),
+
+    #[error("Cache key not found: {0}")]
+    NotFound(String),
+}
+```
+
+### Never Use `unwrap()` or `expect()` in Library Code
+
+```rust
+// ✅ Good: Propagate errors
+pub fn get_user(id: i32) -> Result<User, Error> {
+    database.query("SELECT * FROM users WHERE id = ?", id)?
+        .ok_or_else(|| Error::NotFound(format!("User {} not found", id)))
+}
+
+// ❌ Bad: Panicking in library code
+pub fn get_user(id: i32) -> User {
+    database.query("SELECT * FROM users WHERE id = ?", id)
+        .unwrap()
+        .expect("User not found") // Never use in library code!
+}
+
+// ✅ Acceptable: In application code, example code, or tests
+#[tokio::main]
+async fn main() {
+    let app = Application::create(AppModule);
+    app.listen(3000).await.expect("Failed to start server");
+}
+```
+
+## Async/Await
+
+### Use `async-trait` for Async Traits
+
+```rust
+use async_trait::async_trait;
+
+#[async_trait]
+pub trait Repository: Send + Sync {
+    async fn find_by_id(&self, id: i32) -> Result<User, Error>;
+    async fn save(&self, user: &User) -> Result<(), Error>;
+}
+```
+
+### Prefer `tokio` Runtime
+
+```rust
+// ✅ Good: Use tokio for async runtime
+#[tokio::main]
+async fn main() -> Result<(), Error> {
+    // Async code
+    Ok(())
+}
+
+// For tests
+#[tokio::test]
+async fn test_async_function() {
+    let result = async_function().await;
+    assert!(result.is_ok());
+}
+```
+
+### Use `.await` Properly
+
+```rust
+// ✅ Good: Await futures properly
+let user = fetch_user(id).await?;
+let posts = fetch_posts(user.id).await?;
+
+// ✅ Good: Concurrent execution with join!
+let (user, posts) = tokio::join!(
+    fetch_user(id),
+    fetch_posts(user_id)
+);
+
+// ❌ Bad: Blocking in async code
+async fn bad_example() {
+    std::thread::sleep(Duration::from_secs(1)); // Blocks entire thread!
+}
+
+// ✅ Good: Async sleep
+async fn good_example() {
+    tokio::time::sleep(Duration::from_secs(1)).await;
+}
+```
+
+## Ownership and Borrowing
+
+### Follow Ownership Rules
+
+```rust
+// ✅ Good: Clear ownership
+pub struct User {
+    pub id: i32,
+    pub name: String,
+}
+
+impl User {
+    // Takes ownership
+    pub fn new(name: String) -> Self {
+        Self { id: 0, name }
+    }
+
+    // Borrows immutably
+    pub fn display(&self) {
+        println!("{}", self.name);
+    }
+
+    // Borrows mutably
+    pub fn update_name(&mut self, name: String) {
+        self.name = name;
+    }
+
+    // Consumes self
+    pub fn into_dto(self) -> UserDto {
+        UserDto { name: self.name }
     }
 }
 ```
 
-### Room-Based Chat
+### Use References Appropriately
 
 ```rust
-use std::sync::Arc;
-use tokio::sync::{broadcast, RwLock};
-use std::collections::HashMap;
-
-#[derive(Clone)]
-pub struct ChatRooms {
-    rooms: Arc<RwLock<HashMap<String, broadcast::Sender<ChatMessage>>>>,
+// ✅ Good: Take references for read-only access
+pub fn validate_email(email: &str) -> bool {
+    email.contains('@')
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
-pub struct ChatMessage {
-    pub room: String,
-    pub user: String,
-    pub content: String,
-    pub timestamp: u64,
+// ❌ Bad: Unnecessary ownership
+pub fn validate_email(email: String) -> bool {
+    email.contains('@')
 }
 
-impl ChatRooms {
-    pub fn new() -> Self {
-        Self {
-            rooms: Arc::new(RwLock::new(HashMap::new())),
-        }
+// ✅ Good: Return owned data
+pub fn format_name(first: &str, last: &str) -> String {
+    format!("{} {}", first, last)
+}
+```
+
+### Prefer `&str` Over `&String`
+
+```rust
+// ✅ Good: Use &str for string parameters
+pub fn process_text(text: &str) -> String {
+    text.to_uppercase()
+}
+
+// ❌ Bad: Unnecessarily specific
+pub fn process_text(text: &String) -> String {
+    text.to_uppercase()
+}
+```
+
+## Type Safety
+
+### Use Newtypes for Type Safety
+
+```rust
+// ✅ Good: Type-safe wrappers
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct UserId(pub i32);
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct PostId(pub i32);
+
+// Now you can't accidentally mix them up
+fn get_user(id: UserId) -> Result<User, Error> { }
+fn get_post(id: PostId) -> Result<Post, Error> { }
+
+// ❌ Bad: Easy to mix up IDs
+fn get_user(id: i32) -> Result<User, Error> { }
+fn get_post(id: i32) -> Result<Post, Error> { }
+```
+
+### Use Enums for State
+
+```rust
+// ✅ Good: Type-safe state machine
+pub enum PaymentStatus {
+    Pending { amount: f64 },
+    Processing { transaction_id: String },
+    Completed { receipt: String },
+    Failed { error: String },
+}
+
+impl PaymentStatus {
+    pub fn is_final(&self) -> bool {
+        matches!(self, Self::Completed { .. } | Self::Failed { .. })
     }
+}
+```
 
-    pub async fn join(&self, room: &str) -> broadcast::Receiver<ChatMessage> {
-        let mut rooms = self.rooms.write().await;
+### Leverage the Type System
 
-        if let Some(tx) = rooms.get(room) {
-            tx.subscribe()
+```rust
+// ✅ Good: Use type system to prevent invalid states
+pub struct ValidatedEmail(String);
+
+impl ValidatedEmail {
+    pub fn new(email: String) -> Result<Self, Error> {
+        if email.contains('@') {
+            Ok(Self(email))
         } else {
-            let (tx, rx) = broadcast::channel(100);
-            rooms.insert(room.to_string(), tx);
-            rx
+            Err(Error::InvalidEmail)
         }
     }
 
-    pub async fn send(&self, message: ChatMessage) -> Result<(), Error> {
-        let rooms = self.rooms.read().await;
-
-        if let Some(tx) = rooms.get(&message.room) {
-            tx.send(message).map_err(|_| Error::ChannelClosed)?;
-        }
-
-        Ok(())
-    }
-
-    pub async fn leave(&self, room: &str) {
-        let mut rooms = self.rooms.write().await;
-
-        if let Some(tx) = rooms.get(room) {
-            if tx.receiver_count() == 0 {
-                rooms.remove(room);
-            }
-        }
+    pub fn as_str(&self) -> &str {
+        &self.0
     }
 }
 
-#[controller("/ws/chat")]
-pub struct ChatController {
-    rooms: ChatRooms,
-}
-
-impl ChatController {
-    #[get("/:room")]
-    async fn join_room(
-        &self,
-        room: Path<String>,
-        user: Query<UserQuery>,
-        ws: WebSocketUpgrade,
-    ) -> WebSocketResponse {
-        let rooms = self.rooms.clone();
-        let room_name = room.to_string();
-        let username = user.name.clone();
-
-        ws.on_upgrade(move |socket| async move {
-            handle_chat_socket(socket, rooms, room_name, username).await
-        })
-    }
-}
-
-async fn handle_chat_socket(
-    socket: WebSocket,
-    rooms: ChatRooms,
-    room: String,
-    user: String,
-) {
-    let (mut sender, mut receiver) = socket.split();
-    let mut rx = rooms.join(&room).await;
-
-    // Announce join
-    let join_msg = ChatMessage {
-        room: room.clone(),
-        user: "system".to_string(),
-        content: format!("{} joined the room", user),
-        timestamp: timestamp_now(),
-    };
-    rooms.send(join_msg).await.ok();
-
-    // Spawn task to forward broadcast messages to client
-    let room_clone = room.clone();
-    let send_task = tokio::spawn(async move {
-        while let Ok(msg) = rx.recv().await {
-            let json = serde_json::to_string(&msg).unwrap();
-            if sender.send(Message::Text(json)).await.is_err() {
-                break;
-            }
-        }
-    });
-
-    // Receive messages from client
-    let rooms_clone = rooms.clone();
-    let user_clone = user.clone();
-    let room_clone2 = room.clone();
-    let recv_task = tokio::spawn(async move {
-        while let Some(Ok(Message::Text(text))) = receiver.next().await {
-            let msg = ChatMessage {
-                room: room_clone2.clone(),
-                user: user_clone.clone(),
-                content: text,
-                timestamp: timestamp_now(),
-            };
-            rooms_clone.send(msg).await.ok();
-        }
-    });
-
-    // Wait for either task to complete
-    tokio::select! {
-        _ = send_task => {}
-        _ = recv_task => {}
-    }
-
-    // Announce leave
-    let leave_msg = ChatMessage {
-        room: room.clone(),
-        user: "system".to_string(),
-        content: format!("{} left the room", user),
-        timestamp: timestamp_now(),
-    };
-    rooms.send(leave_msg).await.ok();
-    rooms.leave(&room).await;
-}
+// Now you can't create invalid emails
+fn send_email(to: ValidatedEmail, body: &str) { }
 ```
 
-### WebSocket with Authentication
+## Pattern Matching
+
+### Use Exhaustive Pattern Matching
 
 ```rust
-use armature::auth::JwtService;
-
-#[controller("/ws")]
-pub struct AuthenticatedWebSocket {
-    jwt: JwtService,
+// ✅ Good: Exhaustive matching
+match status {
+    HttpStatus::Ok => handle_success(),
+    HttpStatus::NotFound => handle_not_found(),
+    HttpStatus::ServerError => handle_error(),
+    // Compiler ensures all cases are covered
 }
 
-impl AuthenticatedWebSocket {
-    #[get("/")]
-    async fn connect(
-        &self,
-        token: Query<TokenQuery>,
-        ws: WebSocketUpgrade,
-    ) -> Result<WebSocketResponse, Error> {
-        // Validate token before upgrading
-        let claims = self.jwt.verify(&token.token)?;
-
-        Ok(ws.on_upgrade(move |socket| async move {
-            handle_authenticated_socket(socket, claims).await
-        }))
-    }
-}
-
-async fn handle_authenticated_socket(mut socket: WebSocket, claims: Claims) {
-    // User is authenticated
-    socket.send(Message::Text(format!(
-        "Welcome, {}!", claims.sub
-    ))).await.ok();
-
-    // ... handle messages
+// ⚠️ Use _ sparingly and intentionally
+match status {
+    HttpStatus::Ok => handle_success(),
+    _ => handle_other(), // Only if appropriate
 }
 ```
 
-## Server-Sent Events (SSE)
-
-### Basic SSE Stream
+### Use `if let` for Single Pattern
 
 ```rust
-use armature::sse::{Sse, Event, KeepAlive};
-use tokio_stream::StreamExt;
-
-#[controller("/events")]
-pub struct EventController;
-
-impl EventController {
-    #[get("/")]
-    async fn stream(&self) -> Sse<impl Stream<Item = Result<Event, Error>>> {
-        let stream = async_stream::stream! {
-            let mut interval = tokio::time::interval(Duration::from_secs(1));
-
-            loop {
-                interval.tick().await;
-                let event = Event::default()
-                    .data(format!("Server time: {}", timestamp_now()));
-                yield Ok(event);
-            }
-        };
-
-        Sse::new(stream)
-            .keep_alive(KeepAlive::default())
-    }
+// ✅ Good: Use if let for single pattern
+if let Some(user) = find_user(id) {
+    process_user(user);
 }
+
+// ❌ Bad: Unnecessary match for single pattern
+match find_user(id) {
+    Some(user) => process_user(user),
+    None => {}
+}
+
+// ✅ Good: Use let-else for early return (Rust 2021+)
+let Some(user) = find_user(id) else {
+    return Err(Error::NotFound);
+};
 ```
 
-### Named Events with Data
+### Use `matches!` Macro
 
 ```rust
-#[derive(Serialize)]
-struct Notification {
-    id: String,
-    title: String,
-    body: String,
-    created_at: u64,
+// ✅ Good: Use matches! for boolean checks
+if matches!(status, HttpStatus::Ok | HttpStatus::Created) {
+    // Handle success cases
 }
 
-#[get("/notifications")]
-async fn notification_stream(&self, user_id: Auth<UserId>) -> Sse<impl Stream<Item = Result<Event, Error>>> {
-    let user_id = user_id.0;
-    let notifications = self.notification_service.subscribe(user_id).await;
-
-    let stream = notifications.map(|notification| {
-        let json = serde_json::to_string(&notification)?;
-        Ok(Event::default()
-            .event("notification")
-            .data(json)
-            .id(notification.id.clone()))
-    });
-
-    Sse::new(stream)
-        .keep_alive(
-            KeepAlive::new()
-                .interval(Duration::from_secs(15))
-                .text("keep-alive")
-        )
+// ❌ Bad: Verbose pattern matching
+if match status {
+    HttpStatus::Ok | HttpStatus::Created => true,
+    _ => false,
+} {
+    // Handle success cases
 }
 ```
 
-### SSE with Reconnection
+## Iterators
+
+### Prefer Iterators Over Loops
 
 ```rust
-#[get("/feed")]
-async fn feed_stream(
-    &self,
-    last_event_id: Header<"Last-Event-Id">,
-) -> Sse<impl Stream<Item = Result<Event, Error>>> {
-    // Resume from last event ID if reconnecting
-    let start_from = last_event_id
-        .as_deref()
-        .and_then(|id| id.parse::<u64>().ok())
-        .unwrap_or(0);
+// ✅ Good: Use iterators
+let even_squares: Vec<i32> = numbers
+    .iter()
+    .filter(|n| n % 2 == 0)
+    .map(|n| n * n)
+    .collect();
 
-    let stream = self.feed_service.stream_from(start_from).await
-        .map(|item| {
-            Ok(Event::default()
-                .event("feed-item")
-                .data(serde_json::to_string(&item)?)
-                .id(item.id.to_string())
-                .retry(Duration::from_secs(5)))
-        });
-
-    Sse::new(stream)
+// ❌ Bad: Manual loop
+let mut even_squares = Vec::new();
+for n in &numbers {
+    if n % 2 == 0 {
+        even_squares.push(n * n);
+    }
 }
+
+// ✅ Good: Use iterator methods
+let sum: i32 = numbers.iter().sum();
+let max = numbers.iter().max();
+let found = numbers.iter().find(|&&n| n > 10);
 ```
 
-## Broadcasting Patterns
-
-### Pub/Sub with Tokio Broadcast
+### Avoid Unnecessary `collect()`
 
 ```rust
-use tokio::sync::broadcast;
+// ✅ Good: Chain iterators
+let result = data
+    .iter()
+    .filter(|x| x.is_valid())
+    .map(|x| x.process())
+    .collect();
 
-pub struct EventBroadcaster {
-    tx: broadcast::Sender<ServerEvent>,
-}
-
-#[derive(Clone, Debug, Serialize)]
-#[serde(tag = "type")]
-pub enum ServerEvent {
-    UserOnline { user_id: i64 },
-    UserOffline { user_id: i64 },
-    NewMessage { from: i64, content: String },
-    SystemNotice { message: String },
-}
-
-impl EventBroadcaster {
-    pub fn new() -> Self {
-        let (tx, _) = broadcast::channel(1000);
-        Self { tx }
-    }
-
-    pub fn subscribe(&self) -> broadcast::Receiver<ServerEvent> {
-        self.tx.subscribe()
-    }
-
-    pub fn broadcast(&self, event: ServerEvent) {
-        // Ignore send errors (no subscribers)
-        let _ = self.tx.send(event);
-    }
-}
-
-#[controller("/events")]
-pub struct BroadcastController {
-    broadcaster: EventBroadcaster,
-}
-
-impl BroadcastController {
-    #[get("/stream")]
-    async fn stream(&self) -> Sse<impl Stream<Item = Result<Event, Error>>> {
-        let mut rx = self.broadcaster.subscribe();
-
-        let stream = async_stream::stream! {
-            while let Ok(event) = rx.recv().await {
-                let json = serde_json::to_string(&event)?;
-                yield Ok(Event::default()
-                    .event(event.event_type())
-                    .data(json));
-            }
-        };
-
-        Sse::new(stream)
-    }
-}
+// ❌ Bad: Multiple collects
+let filtered = data.iter().filter(|x| x.is_valid()).collect::<Vec<_>>();
+let result = filtered.iter().map(|x| x.process()).collect();
 ```
 
-### Channel per Client
+## Safety
+
+### Avoid `unsafe` Unless Necessary
 
 ```rust
-use tokio::sync::mpsc;
-
-pub struct ClientManager {
-    clients: Arc<RwLock<HashMap<ClientId, mpsc::Sender<ServerEvent>>>>,
+// ✅ Good: Safe Rust is preferred
+pub fn get_slice(data: &[u8], start: usize, len: usize) -> Option<&[u8]> {
+    data.get(start..start + len)
 }
 
-impl ClientManager {
-    pub async fn add_client(&self) -> (ClientId, mpsc::Receiver<ServerEvent>) {
-        let id = ClientId::new();
-        let (tx, rx) = mpsc::channel(100);
-
-        self.clients.write().await.insert(id.clone(), tx);
-        (id, rx)
-    }
-
-    pub async fn remove_client(&self, id: &ClientId) {
-        self.clients.write().await.remove(id);
-    }
-
-    pub async fn send_to(&self, id: &ClientId, event: ServerEvent) -> Result<(), Error> {
-        let clients = self.clients.read().await;
-        if let Some(tx) = clients.get(id) {
-            tx.send(event).await.map_err(|_| Error::ClientDisconnected)?;
-        }
-        Ok(())
-    }
-
-    pub async fn broadcast(&self, event: ServerEvent) {
-        let clients = self.clients.read().await;
-        for tx in clients.values() {
-            let _ = tx.send(event.clone()).await;
-        }
+// ❌ Bad: Unnecessary unsafe
+pub fn get_slice(data: &[u8], start: usize, len: usize) -> &[u8] {
+    unsafe {
+        std::slice::from_raw_parts(data.as_ptr().add(start), len)
     }
 }
 ```
 
-## Connection Management
-
-### Heartbeat/Ping-Pong
+### Document `unsafe` Code
 
 ```rust
-async fn handle_socket_with_heartbeat(mut socket: WebSocket) {
-    let mut heartbeat_interval = tokio::time::interval(Duration::from_secs(30));
-    let mut last_pong = Instant::now();
-
-    loop {
-        tokio::select! {
-            _ = heartbeat_interval.tick() => {
-                // Check if client is still alive
-                if last_pong.elapsed() > Duration::from_secs(60) {
-                    println!("Client timeout, disconnecting");
-                    break;
-                }
-
-                // Send ping
-                if socket.send(Message::Ping(vec![])).await.is_err() {
-                    break;
-                }
-            }
-            msg = socket.recv() => {
-                match msg {
-                    Some(Ok(Message::Pong(_))) => {
-                        last_pong = Instant::now();
-                    }
-                    Some(Ok(Message::Text(text))) => {
-                        // Handle message
-                    }
-                    Some(Ok(Message::Close(_))) | None => break,
-                    _ => {}
-                }
-            }
-        }
-    }
+// ✅ Good: Document safety invariants
+/// # Safety
+///
+/// Caller must ensure that:
+/// - `ptr` is valid and properly aligned
+/// - `ptr` points to `len` initialized elements
+/// - The memory is not accessed mutably elsewhere
+pub unsafe fn from_raw_parts(ptr: *const T, len: usize) -> &[T] {
+    std::slice::from_raw_parts(ptr, len)
 }
 ```
 
-### Connection Limits
+## Performance
+
+### Use `&[T]` Instead of `&Vec<T>`
 
 ```rust
-use std::sync::atomic::{AtomicUsize, Ordering};
-
-pub struct ConnectionLimiter {
-    current: AtomicUsize,
-    max: usize,
-}
-
-impl ConnectionLimiter {
-    pub fn new(max: usize) -> Self {
-        Self {
-            current: AtomicUsize::new(0),
-            max,
-        }
+// ✅ Good: More flexible
+pub fn process_items(items: &[Item]) -> Result<(), Error> {
+    for item in items {
+        process(item)?;
     }
-
-    pub fn try_acquire(&self) -> Option<ConnectionGuard> {
-        loop {
-            let current = self.current.load(Ordering::SeqCst);
-            if current >= self.max {
-                return None;
-            }
-
-            if self.current.compare_exchange(
-                current,
-                current + 1,
-                Ordering::SeqCst,
-                Ordering::SeqCst,
-            ).is_ok() {
-                return Some(ConnectionGuard { limiter: self });
-            }
-        }
-    }
+    Ok(())
 }
 
-pub struct ConnectionGuard<'a> {
-    limiter: &'a ConnectionLimiter,
+// ❌ Bad: Too specific
+pub fn process_items(items: &Vec<Item>) -> Result<(), Error> {
+    // Same code
+}
+```
+
+### Avoid Cloning When Not Needed
+
+```rust
+// ✅ Good: Borrow when possible
+pub fn format_user(user: &User) -> String {
+    format!("{} ({})", user.name, user.email)
 }
 
-impl Drop for ConnectionGuard<'_> {
-    fn drop(&mut self) {
-        self.limiter.current.fetch_sub(1, Ordering::SeqCst);
+// ❌ Bad: Unnecessary clone
+pub fn format_user(user: User) -> String {
+    format!("{} ({})", user.name, user.email)
+}
+
+// ✅ Good: Clone only when necessary
+pub fn cache_user(&mut self, user: User) {
+    self.cache.insert(user.id, user); // Needs ownership
+}
+```
+
+### Use `Cow` for Conditional Ownership
+
+```rust
+use std::borrow::Cow;
+
+// ✅ Good: Avoid allocation when possible
+pub fn ensure_prefix(s: &str, prefix: &str) -> Cow<str> {
+    if s.starts_with(prefix) {
+        Cow::Borrowed(s)
+    } else {
+        Cow::Owned(format!("{}{}", prefix, s))
     }
 }
 ```
 
-## Client-Side Examples
+## Traits
 
-### JavaScript WebSocket Client
+### Implement Standard Traits
 
-```javascript
-class WebSocketClient {
-  constructor(url) {
-    this.url = url;
-    this.reconnectAttempts = 0;
-    this.maxReconnectAttempts = 5;
-    this.connect();
-  }
+```rust
+// ✅ Good: Derive common traits
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub struct UserId(pub i32);
 
-  connect() {
-    this.ws = new WebSocket(this.url);
-
-    this.ws.onopen = () => {
-      console.log('Connected');
-      this.reconnectAttempts = 0;
-    };
-
-    this.ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      this.handleMessage(data);
-    };
-
-    this.ws.onclose = () => {
-      console.log('Disconnected');
-      this.reconnect();
-    };
-
-    this.ws.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
-  }
-
-  reconnect() {
-    if (this.reconnectAttempts < this.maxReconnectAttempts) {
-      this.reconnectAttempts++;
-      const delay = Math.min(1000 * Math.pow(2, this.reconnectAttempts), 30000);
-      setTimeout(() => this.connect(), delay);
+// Implement Display for user-facing output
+impl std::fmt::Display for UserId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "User({})", self.0)
     }
-  }
+}
 
-  send(data) {
-    if (this.ws.readyState === WebSocket.OPEN) {
-      this.ws.send(JSON.stringify(data));
+// Implement From for conversions
+impl From<i32> for UserId {
+    fn from(id: i32) -> Self {
+        Self(id)
     }
-  }
-
-  handleMessage(data) {
-    // Override in subclass
-  }
 }
 ```
 
-### JavaScript SSE Client
+### Use Trait Bounds Wisely
 
-```javascript
-class EventSourceClient {
-  constructor(url) {
-    this.eventSource = new EventSource(url);
+```rust
+// ✅ Good: Clear trait bounds
+pub fn serialize<T: Serialize>(value: &T) -> Result<String, Error> {
+    serde_json::to_string(value)
+        .map_err(|e| Error::Serialization(e.to_string()))
+}
 
-    this.eventSource.onopen = () => {
-      console.log('SSE connected');
-    };
-
-    this.eventSource.onerror = (error) => {
-      console.error('SSE error:', error);
-    };
-
-    // Listen for specific events
-    this.eventSource.addEventListener('notification', (event) => {
-      const data = JSON.parse(event.data);
-      this.handleNotification(data);
-    });
-
-    // Default message handler
-    this.eventSource.onmessage = (event) => {
-      console.log('Message:', event.data);
-    };
-  }
-
-  handleNotification(data) {
-    // Override in subclass
-  }
-
-  close() {
-    this.eventSource.close();
-  }
+// ✅ Good: Use where clause for complex bounds
+pub fn process<T>(data: T) -> Result<Output, Error>
+where
+    T: Serialize + DeserializeOwned + Clone + Send + Sync + 'static,
+{
+    // Implementation
 }
 ```
 
-## Best Practices
+## Documentation
 
-1. **Use SSE for server-to-client only** - Simpler, automatic reconnection
-2. **Use WebSocket for bidirectional** - Chat, games, collaboration
-3. **Implement heartbeats** for WebSocket connections
-4. **Handle reconnection** gracefully on both sides
-5. **Limit connections** per client/IP
-6. **Authenticate before upgrade** for WebSocket
-7. **Use event IDs** for SSE to enable resume
-8. **Set appropriate timeouts** for idle connections
-9. **Broadcast efficiently** with channels
-10. **Clean up** resources on disconnect
+### Document Public APIs
+
+```rust
+/// Validates a user email address.
+///
+/// # Arguments
+///
+/// * `email` - The email address to validate
+///
+/// # Returns
+///
+/// Returns `true` if the email is valid, `false` otherwise.
+///
+/// # Examples
+///
+/// ```
+/// use armature::validation::validate_email;
+///
+/// assert!(validate_email("user@example.com"));
+/// assert!(!validate_email("invalid"));
+/// ```
+pub fn validate_email(email: &str) -> bool {
+    email.contains('@') && email.contains('.')
+}
+```
+
+### Document Module Purpose
+
+```rust
+//! User authentication and authorization module.
+//!
+//! This module provides types and functions for handling user
+//! authentication, including password hashing, token generation,
+//! and permission checking.
+//!
+//! # Examples
+//!
+//! ```
+//! use armature::auth::*;
+//!
+//! let auth_service = AuthService::new();
+//! let user = auth_service.authenticate(credentials).await?;
+//! ```
+```
 
 ## Summary
 
-| Pattern | WebSocket | SSE |
-|---------|-----------|-----|
-| Chat | ✅ Best | ❌ |
-| Notifications | ⚠️ Works | ✅ Best |
-| Live Feed | ⚠️ Works | ✅ Best |
-| Gaming | ✅ Best | ❌ |
-| Collaboration | ✅ Best | ❌ |
-| Progress Updates | ⚠️ Works | ✅ Best |
+1. **Use Rust 2024 edition** in all Cargo.toml files
+2. **Run `rustfmt` and `clippy`** before committing
+3. **Use `Result` and `?`** for error handling, avoid `unwrap()`
+4. **Prefer borrowing** over cloning
+5. **Use iterators** over manual loops
+6. **Leverage the type system** for safety
+7. **Document public APIs** thoroughly
+8. **Write comprehensive tests**
+9. **Follow naming conventions** strictly
+10. **Avoid `unsafe`** unless absolutely necessary
+
+When in doubt, follow the [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/)!
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
