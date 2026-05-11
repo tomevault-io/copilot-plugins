@@ -1,297 +1,200 @@
-## environment-setup
+## hotkey-standards
 
-> Environment setup and configuration for LobeHub Editor development
+> Comprehensive hotkey architecture and management standards for LobeHub Editor
 
 
-# Environment Setup & Configuration
+# Hotkey Management Standards
 
-## Debug Environment Configuration
+## HotkeyOptions Interface
 
-### Environment Variables
-
-Control debug output using the `DEBUG` environment variable:
-
-```bash
-# Enable all LobeHub Editor debug output
-export DEBUG=lobe-editor:*
-
-# Enable specific categories
-export DEBUG=lobe-editor:kernel,lobe-editor:plugin:*
-
-# Enable with exclusions (all except demos)
-export DEBUG=lobe-editor:*,-lobe-editor:demo
-
-# Enable specific plugins only
-export DEBUG=lobe-editor:plugin:slash,lobe-editor:plugin:mention
-
-# Enable service debugging
-export DEBUG=lobe-editor:service:*
-
-# Enable upload debugging
-export DEBUG=lobe-editor:upload
-```
-
-### Development Scripts
-
-```json
-{
-  "scripts": {
-    "dev:debug": "DEBUG=lobe-editor:* npm run dev",
-    "dev:debug-kernel": "DEBUG=lobe-editor:kernel npm run dev",
-    "dev:debug-plugins": "DEBUG=lobe-editor:plugin:* npm run dev"
-  }
-}
-```
-
-### Browser Console Setup
-
-```javascript
-// Enable debugging
-localStorage.debug = 'lobe-editor:*';
-
-// Disable debugging
-localStorage.removeItem('debug');
-```
-
-## Development Environment
-
-### Node.js Environment Detection
-
-The debug system automatically detects development mode via:
-
-1. `process.env.NODE_ENV === 'development'`
-2. Webpack HMR presence: `window.webpackHotUpdate`
-3. Vite HMR presence: `window.__vite_plugin_react_preamble_installed__`
-4. Next.js development: `window.__NEXT_DATA__?.buildId === 'development'`
-5. Localhost URLs: `localhost`, `127.0.0.1`, `*.local`
-
-### Hot Reload Mode
-
-Enable hot reload mode for development:
+Use the existing [HotkeyOptions](mdc:src/utils/hotkey/registerHotkey.ts) interface for consistent hotkey behavior:
 
 ```typescript
-import { enableHotReload } from '@lobehub/editor';
-
-// In your app's entry point (development only)
-if (process.env.NODE_ENV === 'development') {
-  enableHotReload();
-}
+export type HotkeyOptions = {
+  enabled?: boolean;           // Controls if hotkey is active
+  preventDefault?: boolean;    // Prevent default browser behavior
+  stopImmediatePropagation?: boolean; // Stop immediate propagation
+  stopPropagation?: boolean;   // Stop event propagation
+};
 ```
 
-## IDE Configuration
+## Plugin Hotkey Architecture
 
-### VS Code Settings
+### Registry Pattern
 
-Create `.vscode/settings.json`:
+Create a `plugin/registry.ts` file for hotkey and command registration:
 
-```json
-{
-  "debug.terminal.clearBeforeReusing": true,
-  "terminal.integrated.env.linux": {
-    "DEBUG": "lobe-editor:*"
-  },
-  "terminal.integrated.env.osx": {
-    "DEBUG": "lobe-editor:*"
-  },
-  "terminal.integrated.env.windows": {
-    "DEBUG": "lobe-editor:*"
-  }
+```typescript
+import { mergeRegister } from '@lexical/utils';
+import { LexicalEditor } from 'lexical';
+import { IEditorKernel } from '@/types';
+import { HotkeyEnum } from '@/types/hotkey';
+
+export interface PluginRegistryOptions {
+  enableHotkey?: boolean;
+  // other plugin-specific options
 }
-```
 
-### Launch Configuration
-
-Create `.vscode/launch.json` for debugging:
-
-```json
-{
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Debug LobeHub Editor",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/node_modules/.bin/next",
-      "args": ["dev"],
-      "env": {
-        "DEBUG": "lobe-editor:*",
-        "NODE_ENV": "development"
+export function registerPluginCommands(
+  editor: LexicalEditor, 
+  kernel: IEditorKernel, 
+  options?: PluginRegistryOptions
+) {
+  const { enableHotkey = true } = options || {};
+  
+  return mergeRegister(
+    // Core commands (always registered)
+    editor.registerCommand(PLUGIN_COMMAND, handler, PRIORITY),
+    
+    // Hotkeys (conditionally enabled via HotkeyOptions.enabled)
+    kernel.registerHotkey(
+      HotkeyEnum.PluginHotkey,
+      () => editor.dispatchCommand(PLUGIN_COMMAND, payload),
+      {
+        enabled: enableHotkey, // Use HotkeyOptions.enabled
+        preventDefault: true,
+        stopPropagation: true,
       },
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
-    }
-  ]
+    ),
+  );
 }
 ```
 
-## Testing Environment
+### Plugin Integration
 
-### Test Configuration
-
-Configure debugging for tests in [vitest.config.ts](mdc:vitest.config.ts):
+Update [plugin/index.ts](mdc:src/plugins/*/plugin/index.ts) to use registry:
 
 ```typescript
-export default defineConfig({
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: ['./tests/setup.ts'],
-    env: {
-      DEBUG: 'lobe-editor:*',
-      NODE_ENV: 'test'
-    }
+export interface PluginOptions {
+  enableHotkey?: boolean;
+  // other options
+}
+
+export const Plugin: IEditorPluginConstructor<PluginOptions> = class {
+  constructor(
+    protected kernel: IEditorKernel,
+    public config?: PluginOptions, // Make config public
+  ) {
+    super();
+    // plugin setup
   }
-});
+
+  onInit(editor: LexicalEditor): void {
+    this.register(registerPluginCommands(editor, this.kernel, {
+      enableHotkey: this.config?.enableHotkey,
+    }));
+  }
+};
 ```
 
-### Test Setup
+### React Component Interface
 
-Create `tests/setup.ts`:
+Add `enableHotkey` to React component props:
 
 ```typescript
-import { enableHotReload } from '@lobehub/editor';
-
-// Enable debug logging in tests
-if (process.env.DEBUG) {
-  // Debug package will automatically pick up DEBUG env var
-  console.log('Debug logging enabled for tests');
+export interface ReactPluginProps {
+  enableHotkey?: boolean; // Default: true
+  // other props
 }
 
-// Enable hot reload for test environment
-enableHotReload();
+export const ReactPlugin: FC<ReactPluginProps> = ({ 
+  enableHotkey = true,
+  // other props
+}) => {
+  const [editor] = useLexicalComposerContext();
+  
+  useLayoutEffect(() => {
+    editor.registerPlugin(Plugin, {
+      enableHotkey,
+      // other config
+    });
+  }, [enableHotkey, /* other dependencies */]);
+  
+  return /* component JSX */;
+};
 ```
 
-## Production Configuration
+## Implementation Examples
 
-### Production Safety
+### Link Plugin ([src/plugins/link/](mdc:src/plugins/link/))
 
-The debug utilities are production-safe:
-
-- `devConsole.*` - Only logs in development (`NODE_ENV === 'development'`)
-- `debugLoggers.*` - Controlled by `DEBUG` environment variable
-- `prodSafeLogger.error/warn` - Always logs critical issues
-- `prodSafeLogger.debug/info` - Only logs when `DEBUG` is set
-
-### Production Build
-
-Ensure debug is disabled in production:
-
-```bash
-# Production build without debug
-NODE_ENV=production npm run build
-
-# Production with specific debug (not recommended)
-NODE_ENV=production DEBUG=lobe-editor:error npm run build
+```typescript
+// Registry with enableHotkey support
+kernel.registerHotkey(
+  HotkeyEnum.Link,
+  () => editor.dispatchCommand(TOGGLE_LINK_COMMAND, payload),
+  { enabled: enableHotkey, preventDefault: true, stopPropagation: true },
+);
 ```
 
-## Debugging Common Issues
+### List Plugin ([src/plugins/list/](mdc:src/plugins/list/))
 
-### Debug Not Working
-
-1. **Check environment variable**:
-   ```bash
-   echo $DEBUG
-   ```
-
-2. **Verify in browser console**:
-   ```javascript
-   console.log(localStorage.debug);
-   ```
-
-3. **Check if logger is created correctly**:
-   ```typescript
-   const logger = createDebugLogger('test');
-   console.log(logger.debug.enabled);
-   ```
-
-### Performance Issues
-
-1. **Disable demo logging**:
-   ```bash
-   DEBUG=lobe-editor:*,-lobe-editor:demo
-   ```
-
-2. **Focus on specific areas**:
-   ```bash
-   DEBUG=lobe-editor:kernel,lobe-editor:service:upload
-   ```
-
-### Hot Reload Issues
-
-1. **Verify hot reload mode**:
-   ```typescript
-   import { Kernel } from '@lobehub/editor';
-   console.log(Kernel.isHotReloadMode());
-   ```
-
-2. **Enable globally**:
-   ```typescript
-   import { enableHotReload } from '@lobehub/editor';
-   enableHotReload();
-   ```
-
-## Docker Environment
-
-### Dockerfile Configuration
-
-```dockerfile
-FROM node:18-alpine
-
-# Set debug environment for development
-ARG NODE_ENV=development
-ENV NODE_ENV=$NODE_ENV
-ENV DEBUG=lobe-editor:*
-
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-
-COPY . .
-RUN npm run build
-
-EXPOSE 3000
-CMD ["npm", "start"]
+```typescript
+// Multiple hotkeys with shared enableHotkey control
+kernel.registerHotkey(HotkeyEnum.UnorderedList, handler, { enabled: enableHotkey });
+kernel.registerHotkey(HotkeyEnum.OrderedList, handler, { enabled: enableHotkey });
 ```
 
-### Docker Compose
+### Common Plugin ([src/plugins/common/](mdc:src/plugins/common/))
 
-```yaml
-version: '3.8'
-services:
-  lobe-editor-dev:
-    build:
-      context: .
-      args:
-        NODE_ENV: development
-    environment:
-      - DEBUG=lobe-editor:*
-      - NODE_ENV=development
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-      - /app/node_modules
+```typescript
+// Text formatting hotkeys
+kernel.registerHotkey(HotkeyEnum.Bold, handler, { enabled: enableHotkey });
+kernel.registerHotkey(HotkeyEnum.Italic, handler, { enabled: enableHotkey });
 ```
 
-## Debug Output Examples
+## Usage Examples
 
-### Successful Debug Output
+### Disable All Hotkeys
 
-```
-lobe-editor:kernel [Editor] Registered decorator: slash +0ms
-lobe-editor:plugin:slash Slash plugin initialized +5ms
-lobe-editor:service:upload Upload service registered +2ms
-lobe-editor:plugin:mention Mention decorator registered +1ms
-```
-
-### Error Debug Output
-
-```
-lobe-editor:plugin:file File upload failed: Error: Network timeout +100ms
-lobe-editor:kernel [Editor] Attempting to register duplicate service "UploadService" +0ms
+```typescript
+<Editor
+  plugins={[ReactLinkPlugin, ReactListPlugin, ReactCodePlugin]}
+  linkOption={{ enableHotkey: false }}
+  listOption={{ enableHotkey: false }}
+  codeOption={{ enableHotkey: false }}
+/>
 ```
 
-This environment configuration ensures proper debugging capabilities throughout the development lifecycle while maintaining production safety.
+### Selective Hotkey Control
+
+```typescript
+<Editor
+  plugins={[ReactLinkPlugin, ReactListPlugin]}
+  linkOption={{ enableHotkey: true }}
+  listOption={{ enableHotkey: false }}
+/>
+```
+
+## Best Practices
+
+1. **Default Behavior**: Always default `enableHotkey` to `true`
+2. **Consistent Naming**: Use `enableHotkey` across all plugins
+3. **Registry Pattern**: Move hotkey logic to `registry.ts` files
+4. **HotkeyOptions**: Use `enabled` property from `HotkeyOptions` interface
+5. **React Separation**: Keep React components focused on UI, not hotkey logic
+6. **Framework Agnostic**: Hotkey logic should be in kernel layer, not React layer
+
+## Migration Checklist
+
+When refactoring existing plugins:
+
+- [ ] Create `plugin/registry.ts` file
+- [ ] Move hotkey registration from React components
+- [ ] Add `enableHotkey?: boolean` to plugin options
+- [ ] Add `enableHotkey?: boolean` to React props
+- [ ] Use `enabled` option in `kernel.registerHotkey()`
+- [ ] Make plugin `config` property `public`
+- [ ] Update React component to pass enableHotkey to plugin
+- [ ] Test hotkey enable/disable functionality
+
+## Benefits
+
+1. **Granular Control**: Users can disable hotkeys per plugin
+2. **Performance**: Disabled hotkeys don't consume resources
+3. **Accessibility**: Better support for users with different needs
+4. **Consistency**: Same pattern across all plugins
+5. **Framework Agnostic**: Hotkey logic stays in kernel layer
 
 ---
 > Source: [lobehub/lobe-editor](https://github.com/lobehub/lobe-editor) — distributed by [TomeVault](https://tomevault.io).
