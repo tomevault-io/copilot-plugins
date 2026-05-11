@@ -1,7 +1,6 @@
-## ultracite
+## diff0
 
-> Project Context - Rules, Standard and Linter
-
+> Concise rules for building accessible, fast, delightful UIs Use MUST/SHOULD/NEVER to guide decisions
 
 Concise rules for building accessible, fast, delightful UIs Use MUST/SHOULD/NEVER to guide decisions
 
