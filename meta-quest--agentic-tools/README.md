@@ -7,11 +7,11 @@ Agent Tool and Skills for VR Development on Meta Quest
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [meta-quest/agentic-tools](https://github.com/meta-quest/agentic-tools).
+Original source: `CLAUDE.md` in [meta-quest/agentic-tools](https://github.com/meta-quest/agentic-tools).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
