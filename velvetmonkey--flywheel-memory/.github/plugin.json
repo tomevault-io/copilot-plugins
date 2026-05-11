@@ -1,0 +1,9 @@
+{
+  "name": "velvetmonkey--flywheel-memory",
+  "displayName": "flywheel-memory",
+  "description": "MCP server giving AI a knowledge graph over Obsidian vaults. 13-layer scoring that learns. Local-first, zero cloud.",
+  "version": "1.0.0",
+  "author": "velvetmonkey",
+  "homepage": "https://github.com/velvetmonkey/flywheel-memory",
+  "skills": []
+}
