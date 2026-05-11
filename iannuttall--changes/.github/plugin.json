@@ -1,0 +1,9 @@
+{
+  "name": "iannuttall--changes",
+  "displayName": "changes",
+  "description": "A TUI to track changes to web pages, feeds, and APIs with readable diffs and optional AI summaries.",
+  "version": "1.0.0",
+  "author": "iannuttall",
+  "homepage": "https://github.com/iannuttall/changes",
+  "skills": []
+}
