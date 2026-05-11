@@ -1,0 +1,31 @@
+## aidev-ai-runners
+
+> AIRunner contract and how to add a new AI runner
+
+
+# aidev AI Runners
+
+## AIRunner contract
+
+From `src/ai/base.ts`:
+
+- `name: string` — short id (e.g. `'claude'`, `'cursor'`)
+- `isAvailable(): boolean` — true if the runner's CLI/binary is on PATH
+- `run(prompt: string, notes?: string): Promise<AIRunResult>` — returns `{ success, output, error }`
+
+Use `spawnSync(bin, [...args])` with array arguments only. No shell string interpolation.
+
+## Adding a runner
+
+1. Create `src/ai/<name>.ts` implementing `AIRunner`.
+2. In `src/ai/index.ts`: import the runner, add to `registry` and ensure `createRunners` uses `config.agents` (no change if already mapping by name).
+3. In `src/types.ts`: add the runner id to `AgentName`.
+4. In `src/config.ts`: add the id to `validAgents` in `loadConfig()`.
+5. In `src/commands/init.ts`: add the id to `VALID_AGENTS`.
+6. If the runner needs permission/availability checks during `aidev init`, add a branch in `validateAgentPermissions()` in `src/permissions.ts`.
+
+Run `npm run build` and `npm test` after changes.
+
+---
+> Source: [qelos-io/aidev](https://github.com/qelos-io/aidev) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-10 -->
