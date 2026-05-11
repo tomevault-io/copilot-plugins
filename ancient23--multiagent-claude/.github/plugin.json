@@ -1,0 +1,9 @@
+{
+  "name": "ancient23--multiagent-claude",
+  "displayName": "MultiAgent-Claude",
+  "description": "Setup Prompts for creating a multi agent development environment for Claude Code, using sub agents, commands, and a memory system. Sub agents are research focused and always plan, leaving the main imp",
+  "version": "1.0.0",
+  "author": "Ancient23",
+  "homepage": "https://github.com/Ancient23/MultiAgent-Claude",
+  "skills": []
+}
