@@ -1,0 +1,9 @@
+{
+  "name": "chainstacklabs--hyperliquid-trading-bot",
+  "displayName": "hyperliquid-trading-bot",
+  "description": "Trading bot for Hyperliquid DEX",
+  "version": "1.0.0",
+  "author": "chainstacklabs",
+  "homepage": "https://github.com/chainstacklabs/hyperliquid-trading-bot",
+  "skills": []
+}
