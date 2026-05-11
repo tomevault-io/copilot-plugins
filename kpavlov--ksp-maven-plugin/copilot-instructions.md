@@ -1,0 +1,95 @@
+## ksp-maven-plugin
+
+> skill: Kotlin architect
+
+# Info for AI Coding Agents
+
+skill: Kotlin architect
+skill: Java + Maven architect
+
+## Development Guidelines
+
+- Use `git mv` command when renaming files to preserve git history, if possible
+- Never commit or push changes to git automatically. It should be done manually.
+- Ensure new code follows existing code style and design patterns.
+
+### Code Style
+
+#### Kotlin
+
+- Follow Kotlin coding conventions
+- Use the provided `.editorconfig` for consistent formatting
+- Use Kotlin typesafe DSL builders where possible and prioritize fluent builders style over standard builder methods.
+  If DSL builders produce less readable code, use standard setter methods.
+- Prefer DSL builder style (method with lambda blocks) over constructors, if possible.
+- Use Kotlin's `val` for immutable properties and `var` for mutable properties. Consider using `lateinit var` instead of
+  nullable types, if possible.
+- Use fully qualified imports instead of star imports
+- Ensure to preserve backward compatibility when making changes
+- Avoid code duplication. Try refactoring to extract common methods/abstractions
+- Make code look like it is written by Kotlin/Java Champion
+
+#### Java
+
+- Use the provided `.editorconfig` for consistent formatting
+- For Java code, prefer fluent DSL style over standard bean getters and setter methods
+- Make code look like it is written by Java Champion
+- Write Maven plugin MOJOs in java for maven-plugin-plugin to be able to extract javadoc.
+
+### Testing
+
+- Write comprehensive tests for new features
+- **Prioritize test readability**
+- Avoid creating too many test methods. If multiple parameters can be tested in one scenario, go for it. Use JUnit5
+  `@ParameterizedTest` for such cases.
+  Prefer `@ValueSource` or `@CsvSource` over `@MethodSource` if the source is used only once.
+  Example:
+
+  ```kotlin
+  @ParameterizedTest
+  @CsvSource("1.0, 1.0", "2.0, 2.0")
+  fun `should test something`(input: String, expected: String) {
+      // ...
+  }
+  ```
+
+  Use `@ValueSource` for single-parameter tests.
+
+- Use function `Names with backticks` for test methods in Kotlin, e.g. "fun `should return 200 OK`()"
+
+- Avoid writing KDocs for tests, keep code self-documenting
+
+- Write Kotlin tests with [Kotest-assertions](https://kotest.io/docs/assertions/assertions.html)
+  and [mockk](https://mockk.io/)
+  with infix form assertions `shouldBe` instead of `assertEquals`.
+
+- Use Kotest's `withClue("<failure reason>")` to describe failure reasons, but only when the assertion is NOT obvious.
+  Remove obvious cases for simplicity.
+
+- If multiple assertions are made against nullable field, first check for null, e.g.:
+  `params shouldNotBeNull { params.id shouldBe 1 }`
+
+- Use `assertSoftly(subject) { ... }` to perform multiple assertions. Never use `assertSoftly { }` to verify properties
+  of different subjects, or when there is only one assertion per subject. Avoid using `assertSoftly(this) { ... }`
+
+  - When asked to write tests in Java: use JUnit5, Mockito, AssertJ core
+
+### Documentation
+
+- Update README files when adding new features
+- Document API changes in the appropriate module's documentation
+- Keep documentation concise and straight to the point.
+- Always verify that documentation matches the code and is always truthful. Fix discrepancies between code and
+  documentation.
+- Write tutorial in Markdown format in README.md
+- Make sure that in production code interfaces and abstract classes are properly documented. Avoid adding KDocs to
+  override functions to avoid verbosity.
+- Update KDocs when api is changed.
+- When referring classes in KDoc, use references: `[SendMessageRequest]` instead of `SendMessageRequest`.
+- Add brief code examples to KDoc
+- Add links to specifications, if known. Double-check that the link actual and pointing exactly to the specification.
+  Never add broken or not accurate links.
+
+---
+> Source: [kpavlov/ksp-maven-plugin](https://github.com/kpavlov/ksp-maven-plugin) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
