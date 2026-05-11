@@ -1,0 +1,9 @@
+{
+  "name": "outfitter-dev--blz",
+  "displayName": "blz",
+  "description": "Local-first, line-accurate search for blazing-fast lookups of llms.txt documentation. Human-friendly, Agent-ready.",
+  "version": "1.0.0",
+  "author": "outfitter-dev",
+  "homepage": "https://github.com/outfitter-dev/blz",
+  "skills": []
+}
