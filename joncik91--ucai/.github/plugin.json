@@ -1,0 +1,9 @@
+{
+  "name": "joncik91--ucai",
+  "displayName": "ucai",
+  "description": "A Claude Code plugin that solves the same problems as community frameworks (GSD, BMAD, Ralph, Agent OS) \u2014 but using the tool's native architecture instead of fighting it.",
+  "version": "1.0.0",
+  "author": "Joncik91",
+  "homepage": "https://github.com/Joncik91/ucai",
+  "skills": []
+}
