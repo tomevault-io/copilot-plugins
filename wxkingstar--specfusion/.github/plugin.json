@@ -1,0 +1,9 @@
+{
+  "name": "wxkingstar--specfusion",
+  "displayName": "SpecFusion",
+  "description": "\u5728 Claude Code / Cursor / Gemini CLI \u91cc\u76f4\u63a5\u641c 18 \u4e2a\u4e2d\u56fd\u5f00\u653e\u5e73\u53f0 API \u6587\u6863 | Search 18 Chinese platform API docs (WeChat, Feishu, DingTalk, Taobao, etc.) directly in your AI coding tool. 56,700+ docs, zero config.",
+  "version": "1.0.0",
+  "author": "wxkingstar",
+  "homepage": "https://github.com/wxkingstar/SpecFusion",
+  "skills": []
+}
