@@ -1,30 +1,45 @@
-## project-overview
+## routing
 
-> 这是一个基于 Vue 3 的消息中心 UI 项目，使用了以下技术栈：
+> 项目使用 Vue Router 进行路由管理。路由配置文件位于 [router/index.js](mdc:src/router/index.js)。
 
-# 项目概述
+# 路由规则
 
-这是一个基于 Vue 3 的消息中心 UI 项目，使用了以下技术栈：
+项目使用 Vue Router 进行路由管理。路由配置文件位于 [router/index.js](mdc:src/router/index.js)。
 
-- Vue 3 - 前端框架
-- Vue Router - 路由管理
-- Pinia - 状态管理
-- Vite - 构建工具
+## 路由配置
 
-## 项目结构
+当前配置了以下路由：
 
-- [main.js](mdc:src/main.js) - 应用程序入口点
-- [App.vue](mdc:src/App.vue) - 根组件
-- [router/index.js](mdc:src/router/index.js) - 路由配置
-- [stores/counter.js](mdc:src/stores/counter.js) - Pinia 状态管理示例
+- `/` - 首页，对应 [HomeView.vue](mdc:src/views/HomeView.vue)
+- `/about` - 关于页，对应 [AboutView.vue](mdc:src/views/AboutView.vue)（懒加载）
 
-## 目录结构
+## 添加新路由
 
-- `src/components/` - 可复用组件
-- `src/views/` - 页面级组件
-- `src/stores/` - Pinia 状态管理
-- `src/router/` - Vue Router 配置
-- `src/assets/` - 静态资源（图片、样式等）
+添加新路由时，请遵循以下步骤：
+
+1. 在 `src/views` 目录下创建新的视图组件
+2. 在 [router/index.js](mdc:src/router/index.js) 中添加新的路由配置
+3. 对于大型页面，建议使用懒加载方式导入组件：
+   ```js
+   component: () => import('../views/YourView.vue')
+   ```
+
+## 路由导航
+
+在组件中使用 `RouterLink` 组件进行导航：
+
+```vue
+<RouterLink to="/your-route">导航文本</RouterLink>
+```
+
+或者使用编程式导航：
+
+```js
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+router.push('/your-route')
+```
 
 ---
 > Source: [chen-banxia/message-center-ui](https://github.com/chen-banxia/message-center-ui) — distributed by [TomeVault](https://tomevault.io).
