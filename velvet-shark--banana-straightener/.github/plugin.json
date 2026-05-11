@@ -1,0 +1,9 @@
+{
+  "name": "velvet-shark--banana-straightener",
+  "displayName": "banana-straightener",
+  "description": "Self-correcting image generation for Gemini's Nano Banana model",
+  "version": "1.0.0",
+  "author": "velvet-shark",
+  "homepage": "https://github.com/velvet-shark/banana-straightener",
+  "skills": []
+}
