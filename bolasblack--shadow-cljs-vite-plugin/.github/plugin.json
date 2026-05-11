@@ -1,0 +1,9 @@
+{
+  "name": "bolasblack--shadow-cljs-vite-plugin",
+  "displayName": "shadow-cljs-vite-plugin",
+  "description": "A robust Vite plugin for seamless integration with shadow-cljs",
+  "version": "1.0.0",
+  "author": "bolasblack",
+  "homepage": "https://github.com/bolasblack/shadow-cljs-vite-plugin",
+  "skills": []
+}
