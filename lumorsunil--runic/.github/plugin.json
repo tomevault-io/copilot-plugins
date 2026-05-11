@@ -1,0 +1,9 @@
+{
+  "name": "lumorsunil--runic",
+  "displayName": "runic",
+  "description": "An interpreted language that aims to be a replacement for bash script.",
+  "version": "1.0.0",
+  "author": "lumorsunil",
+  "homepage": "https://github.com/lumorsunil/runic",
+  "skills": []
+}
