@@ -1,0 +1,9 @@
+{
+  "name": "codealive-ai--agents-reflection-skills",
+  "displayName": "agents-reflection-skills",
+  "description": "A comprehensive collection of meta-skills for Claude Code that enable self-management and reflection capabilities",
+  "version": "1.0.0",
+  "author": "CodeAlive-AI",
+  "homepage": "https://github.com/CodeAlive-AI/agents-reflection-skills",
+  "skills": []
+}
