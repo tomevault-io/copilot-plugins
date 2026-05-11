@@ -1,0 +1,9 @@
+{
+  "name": "metamusicx--llm-research-wiki",
+  "displayName": "llm-research-wiki",
+  "description": "A personal, LLM-maintained knowledge base for academic research. Implements Karpathy's LLM Wiki pattern with Claude Code.",
+  "version": "1.0.0",
+  "author": "MetamusicX",
+  "homepage": "https://github.com/MetamusicX/llm-research-wiki",
+  "skills": []
+}
