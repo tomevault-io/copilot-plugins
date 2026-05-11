@@ -1,0 +1,9 @@
+{
+  "name": "ai4quantum--qiskit-studio",
+  "displayName": "qiskit-studio",
+  "description": "A visual web interface powered by AI for quantum computing for development with Qiskit (PoC)",
+  "version": "1.0.0",
+  "author": "AI4quantum",
+  "homepage": "https://github.com/AI4quantum/qiskit-studio",
+  "skills": []
+}
