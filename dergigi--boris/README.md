@@ -2,6 +2,8 @@
 
 > Tome by [dergigi](https://github.com/dergigi/boris) — distributed by [TomeVault](https://tomevault.io)
 
+Read with Boris.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
