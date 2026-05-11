@@ -1,86 +1,90 @@
-## express-backend
+## project
 
-> Express Backend Development Conventions
+> Project Overview and Tech Stack
 
 
-# Express Backend Rules
+# Quick Blog — Project Overview
 
-## Architecture (MVC)
+## Tech Stack
 
-- **Routes** define endpoints and attach middleware — no business logic
-- **Controllers** handle request/response and delegate to models/helpers
-- **Models** define Mongoose schemas and data access methods
-- Keep routes thin; delegate ALL logic to controllers
+| Layer | Technologies |
+|-------|-------------|
+| Client | React 19, Vite 6, Tailwind CSS 4, React Router 7, Axios |
+| Server | Express 5, MongoDB (Mongoose 8), JWT (jsonwebtoken), bcryptjs |
+| Auth | JWT-based; admin panel with login |
+| Features | Blog CRUD, comments, AI content generation (Google Gemini), file uploads (Multer) |
+| Database | MongoDB via Docker Compose; migrate-mongo for migrations |
+| Build | ES Modules (`"type": "module"`) everywhere |
 
-## Async and Error Handling
+## Monorepo Layout
 
-- Wrap ALL async route handlers with `asyncHandler` from `helpers/asyncHandler.js`
-- Do NOT catch errors in controllers only to rethrow — let asyncHandler and errorHandler handle them
-- Use centralized `errorHandler` middleware (mounted last) for all error responses
-- Use response helpers from `helpers/response.js`:
-  - `sendSuccess(res, data, message, statusCode)` — successful responses
-  - `sendError(res, message, statusCode)` — error responses
-  - `sendData(res, data, count)` — data list responses
+```
+quick-blog/
+├── client/                  # React SPA (Vite)
+│   └── src/
+│       ├── api/             # Axios API calls, axiosConfig
+│       ├── components/      # UI by domain (admin, blog, comment, forms, layout, ui)
+│       ├── constants/       # routes, messages, categories, apiEndpoints
+│       ├── context/         # AppContext (global state)
+│       ├── hooks/           # api/queries, api/mutations, core, utils
+│       ├── pages/           # admin/, public/
+│       └── utils/           # formatters, helpers, validators
+│
+├── server/                  # Express API
+│   ├── server.js            # Entry point
+│   └── src/
+│       ├── configs/         # db.js, gemini.js
+│       ├── constants/       # messages.js
+│       ├── controllers/     # adminController, appController, blogController
+│       ├── helpers/         # asyncHandler, response
+│       ├── middleware/       # auth, errorHandler, multer, rateLimiter
+│       ├── models/          # Blog, Comment, User (Mongoose)
+│       ├── routes/          # adminRoutes, appRoutes, blogRoutes
+│       ├── utils/           # dbLogger, httpLogger, imageUrl
+│       └── validators/      # blogValidator
+│
+├── .claude/                 # Claude Code / Cursor AI configuration (canonical)
+│   ├── skills/              # On-demand domain knowledge
+│   ├── agents/              # Specialized subagents
+│   └── commands/            # Slash commands (/commit, /plan, etc.)
+│
+└── .cursor/                 # Cursor-specific config + symlinks
+    ├── rules/               # Always-on conventions (.mdc)
+    ├── commands → ../.claude/commands   # Symlink
+    ├── skills → ../.claude/skills       # Symlink
+    └── agents → ../.claude/agents       # Symlink
+```
 
-## Security
+## Key Scripts
 
-- **Helmet** for security headers — configured in server.js
-- **CORS** configured for `CLIENT_URL` — allow only trusted origins in production
-- **Rate limiting** via `express-rate-limit` on public and auth routes
-- **JWT auth** middleware in `middleware/auth.js` — protect all admin routes
-- **bcryptjs** for password hashing — NEVER store plain passwords
-- Never trust user input — always validate and sanitize
+| Script | Location | Purpose |
+|--------|----------|---------|
+| `npm run dev` | client/ | Vite dev server |
+| `npm run build` | client/ | Production build |
+| `npm run dev` | server/ | Start DB + nodemon |
+| `npm run server` | server/ | Nodemon only |
+| `npm run seed` | server/ | Seed database |
+| `npm run setup` | server/ | Start DB + seed |
+| `npm run db:start` | server/ | Start MongoDB via Docker |
+| `npm run migrate:up` | server/ | Run migrations |
 
-## Models (Mongoose)
+## Environment Variables
 
-- Schema files in `models/` with PascalCase singular names (Blog.js, Comment.js, User.js)
-- Define proper schema validation, indexes, and defaults
-- Use `timestamps: true` for automatic createdAt/updatedAt
-- Keep business logic in model methods or controller helpers, not in routes
+**Client** (`.env` with `VITE_` prefix):
+- `VITE_BASE_URL` — Express API URL (e.g., `http://localhost:5001`)
 
-## Validation
+**Server** (`.env`):
+- `MONGODB_URI` — MongoDB connection string
+- `JWT_SECRET` — Secret for JWT signing
+- `CLIENT_URL` — Allowed CORS origin
+- `GEMINI_API_KEY` — Google Gemini API key
 
-- Request validation in `validators/` directory (e.g., blogValidator.js)
-- Validate all user input (body, query, params) before business logic
-- Return clear validation error messages
+## Do Not
 
-## File Uploads
-
-- Use Multer middleware from `middleware/multer.js`
-- Validate file types and size in middleware
-- Store uploaded files in `uploads/` directory
-
-## Database and Config
-
-- MongoDB connection in `configs/db.js`
-- Gemini AI config in `configs/gemini.js`
-- All config via `dotenv` — document variables in `.env.example`
-- Migrations via `migrate-mongo` in `migrations/` directory
-- Seed data via `scripts/seed.js` with fixtures from `fixtures/`
-
-## Constants and Logging
-
-- User-facing messages in `constants/messages.js` — no hardcoded strings in controllers
-- Use `utils/dbLogger.js` and `utils/httpLogger.js` for logging
-- Do NOT use `console.log` for production logging
-
-## Middleware Order
-
-1. Security (helmet, cors)
-2. Body parsing (express.json, express.urlencoded)
-3. Static files (express.static for uploads)
-4. HTTP logging
-5. Rate limiting
-6. Routes (public first, then auth-protected)
-7. Error handler (LAST)
-
-## Code Style
-
-- ES Modules only (`import`/`export`) — no `require()`
-- Prefer `async/await` over callbacks and `.then()/.catch()`
-- camelCase for file names; PascalCase for model files
-- Max ~200 lines per file — extract helpers if larger
-- Single responsibility per middleware file
+- Mix client and server code; keep `client/` and `server/` strictly separate
+- Use `require()`; use ES module `import`/`export` only
+- Put business logic in route files; keep routes thin and delegate to controllers/models
+- Hardcode secrets or environment-specific URLs; use `.env` files
 
 ---
 > Source: [burnjohn/quick-blog](https://github.com/burnjohn/quick-blog) — distributed by [TomeVault](https://tomevault.io).
