@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--linkedin-content-creator",
+  "displayName": "linkedin-content-creator",
+  "description": "AI-powered LinkedIn content generator with text, image & carousel posts. Features smart AI research, content calendar, batch generation, and direct LinkedIn posting via OAuth. Built with React, TypeSc",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/linkedin-content-creator",
+  "skills": []
+}
