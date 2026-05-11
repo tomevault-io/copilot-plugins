@@ -1,0 +1,9 @@
+{
+  "name": "rameerez--pricing-plans",
+  "displayName": "pricing_plans",
+  "description": "\ud83d\udcb5 Define and enforce pricing plan limits in your Rails SaaS (entitlements, quotas, feature gating)",
+  "version": "1.0.0",
+  "author": "rameerez",
+  "homepage": "https://github.com/rameerez/pricing_plans",
+  "skills": []
+}
