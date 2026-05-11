@@ -1,0 +1,9 @@
+{
+  "name": "seac-25--kali-security-mcp",
+  "displayName": "Kali-Security-MCP",
+  "description": "\u8fde\u63a5kali linux\u4e0eClaudeCode\u7b49\u4e3b\u6d41\u5927\u6a21\u578b\u8fdb\u884c\u5168\u9762CTF\u6311\u6218\u53ca\u6e17\u900f\u6d4b\u8bd5\u7684MCP\uff0c\u9644\u5e26192\u4e2akali\u6e17\u900f\u5de5\u5177\uff0c\u53ea\u8981\u4f60\u6709\u5927\u6a21\u578b\uff0c\u5c31\u80fd\u641e\u5168\u9762\u6e17\u900f",
+  "version": "1.0.0",
+  "author": "SeaC-25",
+  "homepage": "https://github.com/SeaC-25/Kali-Security-MCP",
+  "skills": []
+}
