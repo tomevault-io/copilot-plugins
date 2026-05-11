@@ -1,6 +1,6 @@
 {
   "name": "mrgoonie--claudekit-cli",
-  "displayName": "claudekit",
+  "displayName": "claudekit-cli",
   "description": "A CLI command to get started with ClaudeKit",
   "version": "1.0.0",
   "author": "mrgoonie",
