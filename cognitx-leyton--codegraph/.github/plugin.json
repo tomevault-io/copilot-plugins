@@ -1,0 +1,9 @@
+{
+  "name": "cognitx-leyton--codegraph",
+  "displayName": "codegraph",
+  "description": "\ud83d\udd78\ufe0f Code knowledge graph for Claude Code & AI coding agents \u2014 index TypeScript, NestJS, React into Neo4j and query architecture in Cypher",
+  "version": "1.0.0",
+  "author": "cognitx-leyton",
+  "homepage": "https://github.com/cognitx-leyton/codegraph",
+  "skills": []
+}
