@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--ai-cli",
+  "displayName": "ai-cli",
+  "description": "Generate anything from your terminal",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/ai-cli",
+  "skills": []
+}
