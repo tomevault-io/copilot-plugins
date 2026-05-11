@@ -1,0 +1,9 @@
+{
+  "name": "codeforamerica--sebt-self-service-portal",
+  "displayName": "sebt-self-service-portal",
+  "description": "Self-service portal that allows parents/guardians of children eligible for Summer EBT to manage their benefit",
+  "version": "1.0.0",
+  "author": "codeforamerica",
+  "homepage": "https://github.com/codeforamerica/sebt-self-service-portal",
+  "skills": []
+}
