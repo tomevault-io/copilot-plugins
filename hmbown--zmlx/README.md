@@ -7,11 +7,11 @@ Triton‑style kernel toolkit for MLX plus a small upstream incubator: prototype
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Hmbown/ZMLX](https://github.com/Hmbown/ZMLX).
+Original source: `CLAUDE.md` in [Hmbown/ZMLX](https://github.com/Hmbown/ZMLX).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
