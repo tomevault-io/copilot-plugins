@@ -4,7 +4,7 @@
   "repo": "ideaforge",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/m2ai-st-metro/ideaforge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T02:19:52Z"
+  "distributed_at": "2026-05-11T07:18:18Z"
 }
