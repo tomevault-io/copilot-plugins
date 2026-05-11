@@ -1,0 +1,9 @@
+{
+  "name": "adham90--opentrace",
+  "displayName": "opentrace",
+  "description": "Observability engine for AI coding agents. Custom columnar log store, MCP-native, self-hosted on a $4/mo VM. No dashboards \u2014 your AI assistant sees production.",
+  "version": "1.0.0",
+  "author": "adham90",
+  "homepage": "https://github.com/adham90/opentrace",
+  "skills": []
+}
