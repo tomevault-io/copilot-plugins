@@ -1,117 +1,50 @@
-## docs-website-components
+## documentation-naming
 
-> When creating or modifying Angular components for the documentation website (`web/src/app/pages/docs/`), **always use external HTML template files** instead of inline templates.
+> All documentation files must follow these conventions:
 
-# Documentation Website Component Structure
+# Documentation Naming Convention
 
 ## Rule
+All documentation files must follow these conventions:
 
-When creating or modifying Angular components for the documentation website (`web/src/app/pages/docs/`), **always use external HTML template files** instead of inline templates.
+### File Naming
+- Use **UPPER_SNAKE_CASE** for all documentation file names
+- Example: `SECURITY_GUIDE.md`, `API_VERSIONING_GUIDE.md`, `ERROR_CORRELATION.md`
 
-## Structure
+### Location
+- All documentation files must be placed in the `docs/` folder
+- Website copies should be synced to `web/public/docs/`
 
-Each documentation page component should have the following file structure:
+### Examples
 
+**Correct:**
 ```
-web/src/app/pages/docs/pages/<component-name>/
-├── <component-name>.component.ts    # Component class with templateUrl
-├── <component-name>.component.html  # External HTML template
-└── <component-name>.component.scss  # Optional: Component-specific styles
-```
-
-## Component TypeScript Pattern
-
-```typescript
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-
-@Component({
-  selector: 'app-<component-name>',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './<component-name>.component.html',
-  styleUrls: ['./<component-name>.component.scss']  // Optional
-})
-export class <ComponentName>Component {
-  // Component logic
-}
+docs/GETTING_STARTED.md
+docs/API_REFERENCE.md
+docs/SECURITY_GUIDE.md
+docs/ERROR_CORRELATION_GUIDE.md
+docs/REQUEST_EXTRACTORS.md
 ```
 
-## Why This Rule Exists
-
-1. **Readability** - HTML templates for documentation pages can be large; separating them improves maintainability
-2. **Editor Support** - External HTML files get better syntax highlighting and IntelliSense
-3. **Consistency** - All documentation components follow the same pattern
-4. **Diffing** - Easier to review changes when HTML is in separate files
-5. **Hot Reload** - Some Angular tooling handles external templates better for HMR
-
-## Exceptions
-
-- Small utility components with minimal templates (< 10 lines) may use inline templates
-- The `DocPageComponent` shared component uses inline template as it's a wrapper
-
-## Examples
-
-### ✅ Good - External Template
-
-```typescript
-// grafana-dashboards.component.ts
-@Component({
-  selector: 'app-grafana-dashboards',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './grafana-dashboards.component.html',
-  styleUrls: ['./grafana-dashboards.component.scss']
-})
-export class GrafanaDashboardsComponent {
-  // ...
-}
+**Incorrect:**
+```
+docs/getting-started.md          # lowercase with hyphens
+docs/apiReference.md             # camelCase
+docs/security_guide.md           # lowercase
+README.md                        # should be in docs/ if it's documentation
+src/docs/guide.md               # wrong location
 ```
 
-### ❌ Bad - Inline Template (for doc pages)
+### Exceptions
+- `README.md` at project root is acceptable
+- `CHANGELOG.md` at project root is acceptable
+- `CONTRIBUTING.md` at project root is acceptable
+- `LICENSE` at project root is acceptable
 
-```typescript
-// grafana-dashboards.component.ts
-@Component({
-  selector: 'app-grafana-dashboards',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  template: `
-    <div class="doc-content">
-      <!-- Large HTML content here -->
-    </div>
-  `
-})
-export class GrafanaDashboardsComponent {
-  // ...
-}
-```
-
-## Shared Styles
-
-Documentation components should import the shared documentation styles:
-
-```scss
-// <component-name>.component.scss
-@use '../../_doc-content' as doc;
-
-// Component-specific styles here
-```
-
-## Adding New Documentation Pages
-
-When adding a new documentation page:
-
-1. Create the component directory: `web/src/app/pages/docs/pages/<name>/`
-2. Create `<name>.component.ts` with `templateUrl`
-3. Create `<name>.component.html` with the template
-4. Create `<name>.component.scss` importing shared styles
-5. Register in `docs.component.ts`:
-   - Import the component
-   - Add to `imports` array
-   - Add to `docs` array with `hasComponent: true`
-   - Add `@case` in the template switch
+### When Creating Documentation
+1. Name the file in UPPER_SNAKE_CASE with `.md` extension
+2. Place it in the `docs/` directory
+3. If needed for the website, also copy to `web/public/docs/`
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
