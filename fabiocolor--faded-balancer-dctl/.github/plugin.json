@@ -1,0 +1,9 @@
+{
+  "name": "fabiocolor--faded-balancer-dctl",
+  "displayName": "Faded-Balancer-DCTL",
+  "description": "DaVinci Resolve DCTL to rebalance faded film scans. Download the latest .dctl from Releases.",
+  "version": "1.0.0",
+  "author": "fabiocolor",
+  "homepage": "https://github.com/fabiocolor/Faded-Balancer-DCTL",
+  "skills": []
+}
