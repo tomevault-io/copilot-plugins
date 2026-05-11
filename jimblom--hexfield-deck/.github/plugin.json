@@ -1,0 +1,9 @@
+{
+  "name": "jimblom--hexfield-deck",
+  "displayName": "Hexfield-Deck",
+  "description": "Hexfield Deck is a markdown-powered task board for VS Code and Obsidian. Parse your markdown files into an interactive kanban board. Drag cards across columns, set due dates, apply tags, and manage yo",
+  "version": "1.0.0",
+  "author": "jimblom",
+  "homepage": "https://github.com/jimblom/Hexfield-Deck",
+  "skills": []
+}
