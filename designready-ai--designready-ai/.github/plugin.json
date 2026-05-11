@@ -1,0 +1,9 @@
+{
+  "name": "designready-ai--designready-ai",
+  "displayName": "designready-ai",
+  "description": "Score Figma designs for AI-readiness, fix issues, and generate   code prompts. Each prompt trains a reusable skill for your   design system.",
+  "version": "1.0.0",
+  "author": "designready-ai",
+  "homepage": "https://github.com/designready-ai/designready-ai",
+  "skills": []
+}
