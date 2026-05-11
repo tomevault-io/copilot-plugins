@@ -1,0 +1,9 @@
+{
+  "name": "boxlite-ai--boxrun",
+  "displayName": "boxrun",
+  "description": "Ultra-lightweight sandbox platform for AI agents. Powered by BoxLite.",
+  "version": "1.0.0",
+  "author": "boxlite-ai",
+  "homepage": "https://github.com/boxlite-ai/boxrun",
+  "skills": []
+}
