@@ -1,0 +1,9 @@
+{
+  "name": "chris-xperimntl--agent-knowledge",
+  "displayName": "agent-knowledge",
+  "description": "Local knowledge search for AI coding agents. Index repos, docs, and files with semantic + full-text search. Claude Code plugin & MCP server for fast, offline answers without web lookups or rate limits",
+  "version": "1.0.0",
+  "author": "chris-xperimntl",
+  "homepage": "https://github.com/chris-xperimntl/agent-knowledge",
+  "skills": []
+}
