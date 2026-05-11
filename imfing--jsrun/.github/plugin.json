@@ -1,0 +1,9 @@
+{
+  "name": "imfing--jsrun",
+  "displayName": "jsrun",
+  "description": "Modern JavaScript runtime in Python, powered by V8 and bridged by Rust",
+  "version": "1.0.0",
+  "author": "imfing",
+  "homepage": "https://github.com/imfing/jsrun",
+  "skills": []
+}
