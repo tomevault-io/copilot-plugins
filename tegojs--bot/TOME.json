@@ -4,7 +4,7 @@
   "repo": "bot",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tegojs/bot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T01:05:10Z"
+  "distributed_at": "2026-05-11T23:00:06Z"
 }
