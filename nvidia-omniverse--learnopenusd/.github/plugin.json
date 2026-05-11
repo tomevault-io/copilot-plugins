@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-omniverse--learnopenusd",
+  "displayName": "LearnOpenUSD",
+  "description": "Learning resources for Universal Scene Description (OpenUSD) including tutorials, examples, and reference materials to help developers understand and work with OpenUSD effectively",
+  "version": "1.0.0",
+  "author": "NVIDIA-Omniverse",
+  "homepage": "https://github.com/NVIDIA-Omniverse/LearnOpenUSD",
+  "skills": []
+}
