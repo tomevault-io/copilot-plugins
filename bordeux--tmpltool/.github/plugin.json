@@ -1,0 +1,9 @@
+{
+  "name": "bordeux--tmpltool",
+  "displayName": "tmpltool",
+  "description": "Fast template renderer supporting many datasources and hundreds of functions",
+  "version": "1.0.0",
+  "author": "bordeux",
+  "homepage": "https://github.com/bordeux/tmpltool",
+  "skills": []
+}
