@@ -1,0 +1,44 @@
+{
+  "name": "ha-ev-smart-charger",
+  "owner": "antbald",
+  "repo": "ha-ev-smart-charger",
+  "description": "Home Assistant integration for intelligent EV charging control based on solar production, time of day, and battery levels",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/antbald/ha-ev-smart-charger",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T16:41:59Z"
+}
