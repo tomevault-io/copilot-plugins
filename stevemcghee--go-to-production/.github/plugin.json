@@ -1,0 +1,9 @@
+{
+  "name": "stevemcghee--go-to-production",
+  "displayName": "go-to-production",
+  "description": "a simple todo app, but with not-simple reliability added",
+  "version": "1.0.0",
+  "author": "stevemcghee",
+  "homepage": "https://github.com/stevemcghee/go-to-production",
+  "skills": []
+}
