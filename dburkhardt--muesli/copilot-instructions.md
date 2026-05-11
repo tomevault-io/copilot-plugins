@@ -1,0 +1,44 @@
+## muesli
+
+> You are an AI coding agent working in this repository.
+
+
+You are an AI coding agent working in this repository.
+
+FIRST: Read AGENTS.md and SPEC.md before making changes. They contain architecture, build commands, pitfalls, and the phased implementation plan.
+
+PHASE DISCIPLINE
+- Work on exactly ONE phase at a time as defined in SPEC.md
+- Do not implement features from later phases
+- Verify checkpoint before proceeding
+
+AUTONOMOUS OPERATION (bias toward action, not asking)
+- Fix bugs immediately when found — don't ask "want me to fix this?"
+- Implement obvious improvements without asking
+- Only ask when: destructive actions (deleting files/data), multiple valid architectural approaches, or genuinely uncertain about user intent
+- Report what you did, not what you're about to do
+
+ENGINEERING PRINCIPLES
+- Small diffs, compile often, keep project building
+- COMMIT before build: Always commit changes to the branch BEFORE running build-and-launch. Report the short commit SHA (git rev-parse --short HEAD) so the user can verify the About page matches.
+- After code changes: rebuild and relaunch automatically (see AGENTS.md for commands)
+- NEVER use --build-only: Always build AND launch so the user can immediately test and debug. Do not use the --build-only flag unless explicitly asked.
+- Poll builds: Run builds in background, then poll with while loop + sleep until done. Do NOT wait for user to report build results.
+- Swift 6 concurrency, @Observable, minimal SwiftUI
+- One primary type per file; reusable UI in Views/Components
+
+SAFETY
+- No telemetry or cloud upload
+- No secrets/keys in repo
+- No large binaries (models, audio, build artifacts)
+
+OUTPUT (every response after code changes)
+- What changed (brief)
+- Files modified
+- Build/test commands
+- Git commit SHA + build timestamp (REQUIRED after builds - user verifies via About page)
+- Phase checkpoint status
+
+---
+> Source: [dburkhardt/muesli](https://github.com/dburkhardt/muesli) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-11 -->
