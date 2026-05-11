@@ -1,0 +1,9 @@
+{
+  "name": "perryts--react",
+  "displayName": "react",
+  "description": "React-compatible renderer for Perry native desktop apps \u2014 write React/JSX, compile to native",
+  "version": "1.0.0",
+  "author": "PerryTS",
+  "homepage": "https://github.com/PerryTS/react",
+  "skills": []
+}
