@@ -1,0 +1,9 @@
+{
+  "name": "matthalp--go-meridian",
+  "displayName": "go-meridian",
+  "description": "Type-safe timezone handling for Go using generics.",
+  "version": "1.0.0",
+  "author": "matthalp",
+  "homepage": "https://github.com/matthalp/go-meridian",
+  "skills": []
+}
