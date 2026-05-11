@@ -1,0 +1,9 @@
+{
+  "name": "matrixy--auto-skill",
+  "displayName": "auto-skill",
+  "description": "create skills while working on your flows",
+  "version": "1.0.0",
+  "author": "MaTriXy",
+  "homepage": "https://github.com/MaTriXy/auto-skill",
+  "skills": []
+}
