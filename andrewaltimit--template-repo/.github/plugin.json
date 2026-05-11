@@ -1,0 +1,9 @@
+{
+  "name": "andrewaltimit--template-repo",
+  "displayName": "template-repo",
+  "description": "Agent orchestration & security template featuring MCP tool building, agent2agent workflows, mechanistic interpretability on sleeper agents, and agent integration via CLI wrappers",
+  "version": "1.0.0",
+  "author": "AndrewAltimit",
+  "homepage": "https://github.com/AndrewAltimit/template-repo",
+  "skills": []
+}
