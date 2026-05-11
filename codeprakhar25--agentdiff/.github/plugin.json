@@ -1,0 +1,9 @@
+{
+  "name": "codeprakhar25--agentdiff",
+  "displayName": "agentdiff",
+  "description": "Line-level attribution for AI-assisted code. Audit every agent,    model, and prompt across your git history.",
+  "version": "1.0.0",
+  "author": "codeprakhar25",
+  "homepage": "https://github.com/codeprakhar25/agentdiff",
+  "skills": []
+}
