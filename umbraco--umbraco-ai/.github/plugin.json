@@ -1,0 +1,38 @@
+{
+  "name": "umbraco--umbraco-ai",
+  "displayName": "Umbraco.AI",
+  "description": " AI integration layer for Umbraco CMS, built on Microsoft.Extensions.AI. ",
+  "version": "1.0.0",
+  "author": "umbraco",
+  "homepage": "https://github.com/umbraco/Umbraco.AI",
+  "skills": [
+    {
+      "name": "changelog-management",
+      "description": ""
+    },
+    {
+      "name": "demo-site-automation",
+      "description": ""
+    },
+    {
+      "name": "demo-site-management",
+      "description": ""
+    },
+    {
+      "name": "release-manifest-management",
+      "description": ""
+    },
+    {
+      "name": "repo-setup",
+      "description": ""
+    },
+    {
+      "name": "session-hook-config",
+      "description": ""
+    },
+    {
+      "name": "web-environment-setup",
+      "description": ""
+    }
+  ]
+}
