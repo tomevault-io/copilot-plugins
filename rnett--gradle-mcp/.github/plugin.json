@@ -1,0 +1,9 @@
+{
+  "name": "rnett--gradle-mcp",
+  "displayName": "gradle-mcp",
+  "description": "A comprehensive MCP server for Gradle.",
+  "version": "1.0.0",
+  "author": "rnett",
+  "homepage": "https://github.com/rnett/gradle-mcp",
+  "skills": []
+}
