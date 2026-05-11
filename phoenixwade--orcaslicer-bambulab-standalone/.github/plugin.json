@@ -1,0 +1,9 @@
+{
+  "name": "phoenixwade--orcaslicer-bambulab-standalone",
+  "displayName": "OrcaSlicer-bambulab-standalone",
+  "description": "Standalone OrcaSlicer bambulab branch (detached from fork network)",
+  "version": "1.0.0",
+  "author": "phoenixwade",
+  "homepage": "https://github.com/phoenixwade/OrcaSlicer-bambulab-standalone",
+  "skills": []
+}
