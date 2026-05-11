@@ -7,11 +7,11 @@ A macOS menubar app for KEXP
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [isaacd9/kexp-menubar](https://github.com/isaacd9/kexp-menubar).
+Original source: `CLAUDE.md` in [isaacd9/kexp-menubar](https://github.com/isaacd9/kexp-menubar).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
