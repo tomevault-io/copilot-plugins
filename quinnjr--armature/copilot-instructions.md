@@ -1,183 +1,137 @@
-## performance-optimization
+## proc-macro-development
 
-> Performance optimization and profiling guidelines for Armature
+> Guidelines for developing procedural macros in armature-proc-macro
 
 
-# Performance Optimization
+# Procedural Macro Development
 
-Guidelines for optimizing performance and profiling the Armature framework.
+Standards for developing procedural macros in the Armature framework.
 
-## Benchmarking with Criterion
+## Core Principles
 
-```rust
-use criterion::{criterion_group, criterion_main, Criterion};
-use std::hint::black_box;
+1. **Use syn for parsing, quote for generation**
+2. **Preserve span information** for good error messages
+3. **Never panic** - use `syn::Error` for compile-time errors
+4. **Use fully qualified paths** to avoid conflicts
 
-fn bench_request_parsing(c: &mut Criterion) {
-    let data = setup_test_data();
-
-    c.bench_function("parse_request", |b| {
-        b.iter(|| {
-            black_box(parse_request(black_box(&data)))
-        })
-    });
-}
-
-criterion_group!(benches, bench_request_parsing);
-criterion_main!(benches);
-```
-
-## Memory Optimization
-
-### Arena Allocation
-
-Use arena allocators for request-scoped data:
+## Error Handling
 
 ```rust
-use armature_core::arena::{with_arena, reset_arena};
+use syn::{Error, Result};
 
-async fn handle_request(req: Request) -> Response {
-    with_arena(|arena| {
-        // Allocations here are freed together
-        let data = arena.alloc_str(&req.body);
-        process(data)
-    });
-
-    reset_arena(); // Free all at once
+fn validate_input(input: &DeriveInput) -> Result<()> {
+    if !matches!(input.data, Data::Struct(_)) {
+        return Err(Error::new_spanned(
+            input,
+            "#[injectable] can only be applied to structs"
+        ));
+    }
+    Ok(())
 }
 ```
 
-### Object Pools
+## Span Preservation
 
-Reuse frequently allocated objects:
+Always preserve spans for error messages:
 
 ```rust
-use crossbeam::queue::ArrayQueue;
-
-pub struct Pool<T> {
-    objects: ArrayQueue<T>,
-    factory: fn() -> T,
+// Good - preserves span
+let name = &input.ident;
+quote_spanned! {name.span()=>
+    impl #name { }
 }
 
-impl<T> Pool<T> {
-    pub fn get(&self) -> PoolGuard<T> {
-        let obj = self.objects.pop().unwrap_or_else(|| (self.factory)());
-        PoolGuard { pool: self, obj: Some(obj) }
+// Bad - loses span information
+let name_str = input.ident.to_string();
+let name = format_ident!("{}", name_str);
+```
+
+## Handling Generics
+
+```rust
+fn impl_trait(input: &DeriveInput) -> TokenStream {
+    let name = &input.ident;
+    let generics = &input.generics;
+    let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
+
+    quote! {
+        impl #impl_generics MyTrait for #name #ty_generics #where_clause {
+            // implementation
+        }
     }
 }
 ```
 
-### Bounded Collections
+## Hygiene
 
-Always bound caches to prevent memory leaks:
+Prefix generated identifiers to avoid conflicts:
 
 ```rust
-use lru::LruCache;
-use std::num::NonZeroUsize;
-
-// Good - bounded cache
-let cache: LruCache<Key, Value> = LruCache::new(NonZeroUsize::new(10_000).unwrap());
-
-// Bad - unbounded, can grow forever
-let cache: HashMap<Key, Value> = HashMap::new();
+let field_name = format_ident!("__armature_{}", field.ident.as_ref().unwrap());
 ```
 
-## Avoiding Allocations
+## Fully Qualified Paths
+
+Always use full paths in generated code:
 
 ```rust
-// Prefer &str over String in function parameters
-fn process(data: &str) { }  // Good
-fn process(data: String) { } // Allocates
+quote! {
+    // Good
+    ::std::result::Result::Ok(())
+    ::armature_core::Injectable
 
-// Use Cow for conditional ownership
-use std::borrow::Cow;
-fn normalize(s: &str) -> Cow<str> {
-    if needs_change(s) {
-        Cow::Owned(transform(s))
-    } else {
-        Cow::Borrowed(s)
+    // Bad - could conflict with user's imports
+    Result::Ok(())
+    Injectable
+}
+```
+
+## Testing
+
+Use `trybuild` for compile-fail tests:
+
+```rust
+#[test]
+fn test_compile_errors() {
+    let t = trybuild::TestCases::new();
+    t.compile_fail("tests/ui/*.rs");
+}
+```
+
+Verify output with `cargo-expand`:
+
+```bash
+cargo expand --example my_example
+```
+
+## Main Macros Reference
+
+| Macro | Purpose |
+|-------|---------|
+| `#[injectable]` | Register type with DI container |
+| `#[controller]` | Define HTTP controller with route prefix |
+| `#[module]` | Define module with providers/controllers |
+| `#[get]`, `#[post]`, etc. | HTTP route handlers |
+| `#[guard]` | Authorization guard |
+| `#[interceptor]` | Request/response interceptor |
+
+## Minimal Generated Code
+
+Keep generated code minimal:
+
+```rust
+// Good - minimal wrapper
+quote! {
+    impl Injectable for #name {
+        fn create(container: &Container) -> Self {
+            Self::new(container.resolve())
+        }
     }
 }
 
-// Use SmallVec for typically-small collections
-use smallvec::SmallVec;
-let items: SmallVec<[Item; 8]> = SmallVec::new();
+// Bad - too much generated code
+// Move logic to runtime library instead
 ```
-
-## Async Optimization
-
-```rust
-// Use tokio::join! for concurrent independent operations
-let (users, posts) = tokio::join!(
-    fetch_users(),
-    fetch_posts()
-);
-
-// Buffer streams for batching
-use futures::StreamExt;
-stream.chunks(100).for_each_concurrent(4, |batch| async {
-    process_batch(batch).await;
-});
-```
-
-## Memory Profiling
-
-Run memory profiling with DHAT:
-
-```bash
-./scripts/memory-profile.sh dhat 30
-```
-
-Check for leaks with Valgrind:
-
-```bash
-./scripts/memory-profile.sh valgrind 30
-```
-
-## Build Profiles
-
-```toml
-# Fast compilation for development
-[profile.dev]
-opt-level = 0
-
-# Maximum optimization for release
-[profile.release]
-opt-level = 3
-lto = "thin"
-codegen-units = 16
-
-# Maximum optimization, slower compile
-[profile.release-fat]
-inherits = "release"
-lto = "fat"
-codegen-units = 1
-```
-
-## Profiling Commands
-
-```bash
-# CPU flamegraph
-cargo flamegraph --release --example server
-
-# Memory profiling
-cargo run --example memory_profile_server --features memory-profiling
-
-# Benchmarks
-cargo bench --bench <name>
-
-# HTTP load testing
-oha -n 10000 -c 100 http://localhost:3000/
-```
-
-## Checklist
-
-- [ ] Use `black_box()` in benchmarks
-- [ ] Bound all caches with LRU or similar
-- [ ] Profile before optimizing
-- [ ] Use arena allocation for request data
-- [ ] Prefer `&str` over `String` parameters
-- [ ] Use `tokio::join!` for concurrent I/O
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
