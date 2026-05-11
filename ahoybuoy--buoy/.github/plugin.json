@@ -1,0 +1,9 @@
+{
+  "name": "ahoybuoy--buoy",
+  "displayName": "buoy",
+  "description": "Design system guardian for code. Anchors to design system, catches drift in React/Vue/Tailwind, reviews PRs automatically. Free for open source.",
+  "version": "1.0.0",
+  "author": "ahoybuoy",
+  "homepage": "https://github.com/ahoybuoy/buoy",
+  "skills": []
+}
