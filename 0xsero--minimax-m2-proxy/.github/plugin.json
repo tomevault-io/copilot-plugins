@@ -1,0 +1,9 @@
+{
+  "name": "0xsero--minimax-m2-proxy",
+  "displayName": "minimax-m2-proxy",
+  "description": "A proxy for minimax-m2, enabling interleaved thinking, and tool calls. ",
+  "version": "1.0.0",
+  "author": "0xSero",
+  "homepage": "https://github.com/0xSero/minimax-m2-proxy",
+  "skills": []
+}
