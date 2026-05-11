@@ -1,123 +1,297 @@
-## documentation-standards
+## environment-setup
 
-> Documentation standards and formatting guidelines for LobeHub Editor
+> Environment setup and configuration for LobeHub Editor development
 
 
-# Documentation Standards
+# Environment Setup & Configuration
 
-## Plugin Documentation Structure
+## Debug Environment Configuration
 
-All plugin documentation in `src/plugins/*/index.md` follows this standard format:
+### Environment Variables
 
-### Required Frontmatter
+Control debug output using the `DEBUG` environment variable:
+
+```bash
+# Enable all LobeHub Editor debug output
+export DEBUG=lobe-editor:*
+
+# Enable specific categories
+export DEBUG=lobe-editor:kernel,lobe-editor:plugin:*
+
+# Enable with exclusions (all except demos)
+export DEBUG=lobe-editor:*,-lobe-editor:demo
+
+# Enable specific plugins only
+export DEBUG=lobe-editor:plugin:slash,lobe-editor:plugin:mention
+
+# Enable service debugging
+export DEBUG=lobe-editor:service:*
+
+# Enable upload debugging
+export DEBUG=lobe-editor:upload
+```
+
+### Development Scripts
+
+```json
+{
+  "scripts": {
+    "dev:debug": "DEBUG=lobe-editor:* npm run dev",
+    "dev:debug-kernel": "DEBUG=lobe-editor:kernel npm run dev",
+    "dev:debug-plugins": "DEBUG=lobe-editor:plugin:* npm run dev"
+  }
+}
+```
+
+### Browser Console Setup
+
+```javascript
+// Enable debugging
+localStorage.debug = 'lobe-editor:*';
+
+// Disable debugging
+localStorage.removeItem('debug');
+```
+
+## Development Environment
+
+### Node.js Environment Detection
+
+The debug system automatically detects development mode via:
+
+1. `process.env.NODE_ENV === 'development'`
+2. Webpack HMR presence: `window.webpackHotUpdate`
+3. Vite HMR presence: `window.__vite_plugin_react_preamble_installed__`
+4. Next.js development: `window.__NEXT_DATA__?.buildId === 'development'`
+5. Localhost URLs: `localhost`, `127.0.0.1`, `*.local`
+
+### Hot Reload Mode
+
+Enable hot reload mode for development:
+
+```typescript
+import { enableHotReload } from '@lobehub/editor';
+
+// In your app's entry point (development only)
+if (process.env.NODE_ENV === 'development') {
+  enableHotReload();
+}
+```
+
+## IDE Configuration
+
+### VS Code Settings
+
+Create `.vscode/settings.json`:
+
+```json
+{
+  "debug.terminal.clearBeforeReusing": true,
+  "terminal.integrated.env.linux": {
+    "DEBUG": "lobe-editor:*"
+  },
+  "terminal.integrated.env.osx": {
+    "DEBUG": "lobe-editor:*"
+  },
+  "terminal.integrated.env.windows": {
+    "DEBUG": "lobe-editor:*"
+  }
+}
+```
+
+### Launch Configuration
+
+Create `.vscode/launch.json` for debugging:
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug LobeHub Editor",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/next",
+      "args": ["dev"],
+      "env": {
+        "DEBUG": "lobe-editor:*",
+        "NODE_ENV": "development"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}
+```
+
+## Testing Environment
+
+### Test Configuration
+
+Configure debugging for tests in [vitest.config.ts](mdc:vitest.config.ts):
+
+```typescript
+export default defineConfig({
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./tests/setup.ts'],
+    env: {
+      DEBUG: 'lobe-editor:*',
+      NODE_ENV: 'test'
+    }
+  }
+});
+```
+
+### Test Setup
+
+Create `tests/setup.ts`:
+
+```typescript
+import { enableHotReload } from '@lobehub/editor';
+
+// Enable debug logging in tests
+if (process.env.DEBUG) {
+  // Debug package will automatically pick up DEBUG env var
+  console.log('Debug logging enabled for tests');
+}
+
+// Enable hot reload for test environment
+enableHotReload();
+```
+
+## Production Configuration
+
+### Production Safety
+
+The debug utilities are production-safe:
+
+- `devConsole.*` - Only logs in development (`NODE_ENV === 'development'`)
+- `debugLoggers.*` - Controlled by `DEBUG` environment variable
+- `prodSafeLogger.error/warn` - Always logs critical issues
+- `prodSafeLogger.debug/info` - Only logs when `DEBUG` is set
+
+### Production Build
+
+Ensure debug is disabled in production:
+
+```bash
+# Production build without debug
+NODE_ENV=production npm run build
+
+# Production with specific debug (not recommended)
+NODE_ENV=production DEBUG=lobe-editor:error npm run build
+```
+
+## Debugging Common Issues
+
+### Debug Not Working
+
+1. **Check environment variable**:
+   ```bash
+   echo $DEBUG
+   ```
+
+2. **Verify in browser console**:
+   ```javascript
+   console.log(localStorage.debug);
+   ```
+
+3. **Check if logger is created correctly**:
+   ```typescript
+   const logger = createDebugLogger('test');
+   console.log(logger.debug.enabled);
+   ```
+
+### Performance Issues
+
+1. **Disable demo logging**:
+   ```bash
+   DEBUG=lobe-editor:*,-lobe-editor:demo
+   ```
+
+2. **Focus on specific areas**:
+   ```bash
+   DEBUG=lobe-editor:kernel,lobe-editor:service:upload
+   ```
+
+### Hot Reload Issues
+
+1. **Verify hot reload mode**:
+   ```typescript
+   import { Kernel } from '@lobehub/editor';
+   console.log(Kernel.isHotReloadMode());
+   ```
+
+2. **Enable globally**:
+   ```typescript
+   import { enableHotReload } from '@lobehub/editor';
+   enableHotReload();
+   ```
+
+## Docker Environment
+
+### Dockerfile Configuration
+
+```dockerfile
+FROM node:18-alpine
+
+# Set debug environment for development
+ARG NODE_ENV=development
+ENV NODE_ENV=$NODE_ENV
+ENV DEBUG=lobe-editor:*
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+### Docker Compose
 
 ```yaml
----
-nav: Plugins
-group: [Core|Plugins] or { title: "Group Name", order: -1 }
-title: PluginName
-description: Brief description explaining purpose, key features, and capabilities
-atomId: ReactComponentName (for React components)
----
+version: '3.8'
+services:
+  lobe-editor-dev:
+    build:
+      context: .
+      args:
+        NODE_ENV: development
+    environment:
+      - DEBUG=lobe-editor:*
+      - NODE_ENV=development
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
 ```
 
-### Required Sections
+## Debug Output Examples
 
-#### 1. Introduction
+### Successful Debug Output
 
-- Comprehensive explanation of plugin purpose and capabilities
-- Overview of architecture and key features
-- Context of how it fits in the editor ecosystem
-
-#### 2. Basic Usage (if applicable)
-
-- Demo code reference: `<code src="./demos/index.tsx"></code>`
-- Add attributes like `nopadding`, `center`, `iframe` as needed
-
-#### 3. Core Architecture
-
-Document beyond just React components:
-
-- **Plugin Systems**: Service integration, command patterns
-- **Node Architecture**: Custom node types and serialization
-- **Service Integration**: Business logic and data management
-- **Utility Functions**: Helper functions and operations
-
-#### 4. Components (if applicable)
-
-- **Component Name**: Brief description
-- **API Table**: Complete property documentation
-
-#### 5. Commands (if applicable)
-
-- Command examples with TypeScript code blocks
-- Parameter documentation
-- Usage patterns
-
-#### 6. Plugin Configuration
-
-- **PluginOptions**: Configuration interface documentation
-- **Theme Configuration**: CSS theme options
-- **Service APIs**: Interface documentation
-
-#### 7. Usage Examples
-
-- **Basic Setup**: Simple configuration
-- **Advanced Usage**: Complex scenarios
-- **Custom Implementations**: Extension patterns
-- **Integration Examples**: Real-world usage
-
-## API Documentation Format
-
-### Property Tables
-
-Use consistent table formatting:
-
-```markdown
-| Property | Description | Type | Default |
-| -------- | ----------- | ---- | ------- |
-| prop     | Description | `Type` | `default` |
+```
+lobe-editor:kernel [Editor] Registered decorator: slash +0ms
+lobe-editor:plugin:slash Slash plugin initialized +5ms
+lobe-editor:service:upload Upload service registered +2ms
+lobe-editor:plugin:mention Mention decorator registered +1ms
 ```
 
-### Code Examples
+### Error Debug Output
 
-- Use TypeScript for all code examples
-- Include proper imports and context
-- Show both basic and advanced usage patterns
-- Include error handling where relevant
+```
+lobe-editor:plugin:file File upload failed: Error: Network timeout +100ms
+lobe-editor:kernel [Editor] Attempting to register duplicate service "UploadService" +0ms
+```
 
-### Type Definitions
-
-- Document interfaces and types clearly
-- Show inheritance relationships
-- Include example usage
-
-## Writing Guidelines
-
-1. **Clarity**: Use clear, concise language
-2. **Completeness**: Cover all aspects of functionality
-3. **Consistency**: Follow established patterns
-4. **Technical Depth**: Go beyond surface-level descriptions
-5. **Practical Examples**: Provide actionable code samples
-
-## Component Documentation
-
-For React components in `src/react/*/index.md`:
-
-- Focus on component API and usage
-- Include comprehensive prop tables
-- Show integration patterns
-- Document event handlers and callbacks
-
-## Architecture Documentation
-
-When documenting plugin architecture:
-
-- Explain service integration
-- Document command patterns
-- Show node relationships
-- Cover serialization aspects
-- Include utility function descriptions
+This environment configuration ensures proper debugging capabilities throughout the development lifecycle while maintaining production safety.
 
 ---
 > Source: [lobehub/lobe-editor](https://github.com/lobehub/lobe-editor) — distributed by [TomeVault](https://tomevault.io).
