@@ -1,0 +1,44 @@
+{
+  "name": "burnout3",
+  "owner": "sp00nznet",
+  "repo": "burnout3",
+  "description": "A project to statically recompile the original Xbox version of Burnout 3: Takedown (2004, Criterion Games / EA) into a native Windows 11 x86-64 executable.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sp00nznet/burnout3",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T06:57:18Z"
+}
