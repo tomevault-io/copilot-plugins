@@ -1,0 +1,67 @@
+## code-standards
+
+> Code style and documentation standards for comfy-swap
+
+
+# Code Standards
+
+## Language
+
+- Write all code, comments, and commit messages in **English**
+- Variable names, function names, and constants in English
+- Error messages and logs in English
+
+## Code Style
+
+- Keep code clean, readable, and well-organized
+- Use consistent indentation and formatting
+- Remove dead code and unused imports
+- Prefer explicit over clever
+
+```javascript
+// ❌ BAD
+const x = a ? b ? c : d : e;
+
+// ✅ GOOD
+if (!a) return e;
+return b ? c : d;
+```
+
+## Comments
+
+- Only add comments when code intent is not self-evident
+- Avoid redundant comments that repeat what code does
+- Use comments for: trade-offs, constraints, non-obvious logic
+
+```javascript
+// ❌ BAD
+// increment counter
+counter++;
+
+// ✅ GOOD
+// Rate limit: max 10 requests per second per client
+if (requestCount > 10) return rateLimitError();
+```
+
+## Documentation
+
+- Keep only essential documentation
+- Remove outdated or redundant docs
+- README: brief, focused on getting started
+- No auto-generated boilerplate
+
+## Commit Messages
+
+- Use conventional commits format
+- Keep subject line under 72 characters
+- Focus on "why" not "what"
+
+```
+feat: add workflow auto-naming based on model and params
+fix: handle empty prompt object in export
+refactor: simplify parameter detection logic
+```
+
+---
+> Source: [kamjin3086/comfy-swap](https://github.com/kamjin3086/comfy-swap) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
