@@ -1,0 +1,9 @@
+{
+  "name": "czottmann--interfazzle",
+  "displayName": "interfazzle",
+  "description": "A Swift CLI tool for building simple Markdown docs for a package's public interface from its symbol graphs. LLMs love that stuff, too!",
+  "version": "1.0.0",
+  "author": "czottmann",
+  "homepage": "https://github.com/czottmann/interfazzle",
+  "skills": []
+}
