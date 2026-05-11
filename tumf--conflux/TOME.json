@@ -1,0 +1,44 @@
+{
+  "name": "conflux",
+  "owner": "tumf",
+  "repo": "conflux",
+  "description": "\ud83d\ude80 Spec-driven parallel coding orchestrator for AI agents | Automates OpenSpec changes with concurrent worktrees",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tumf/conflux",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T03:06:25Z"
+}
