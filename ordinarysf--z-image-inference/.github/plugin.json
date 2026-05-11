@@ -1,0 +1,9 @@
+{
+  "name": "ordinarysf--z-image-inference",
+  "displayName": "z-image-inference",
+  "description": "Run Z-Image-Turbo locally on Apple Silicon (M1/M2/M3/M4) with just two commands. MPS-optimized,   Gradio UI, bilingual support.",
+  "version": "1.0.0",
+  "author": "OrdinarySF",
+  "homepage": "https://github.com/OrdinarySF/z-image-inference",
+  "skills": []
+}
