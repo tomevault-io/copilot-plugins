@@ -1,0 +1,9 @@
+{
+  "name": "youversion--platform-sdk-reactnative",
+  "displayName": "platform-sdk-reactnative",
+  "description": "React Native SDK for the YouVersion Platform",
+  "version": "1.0.0",
+  "author": "youversion",
+  "homepage": "https://github.com/youversion/platform-sdk-reactnative",
+  "skills": []
+}
