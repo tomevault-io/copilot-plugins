@@ -1,0 +1,63 @@
+## embedded-ui-proxy
+
+> - Premature Optimization is the Root of All Evil
+
+# AGENTS
+
+- Premature Optimization is the Root of All Evil
+- 一切忖度しないこと
+- 常に日本語を利用すること
+- 全角と半角の間には半角スペースを入れること
+- 絵文字を使わないこと
+
+## レビューについて
+
+- レビューはかなり厳しくすること
+- レビューの表現は、シンプルにすること
+- レビューの表現は、日本語で行うこと
+- レビューの表現は、指摘内容を明確にすること
+- レビューの表現は、指摘内容を具体的にすること
+- レビューの表現は、指摘内容を優先順位をつけること
+- レビューの表現は、指摘内容を優先順位をつけて、重要なものから順に記載すること
+- ドキュメントは別に書いているので、ドキュメトに付いては考慮しないこと
+- 変更点とリリースノートの整合性を確認すること
+
+## コミットについて
+
+- 勝手にコミットしないこと
+- コミットメッセージは確認すること
+- コミットメッセージは日本語で書くこと
+- コミットメッセージは命令形で書くこと
+- コミットメッセージは〜するという形で書くこと
+
+## Python
+
+- uv を利用すること
+- Python 3.13 以降を前提とすること
+- match を利用すること
+- with を利用すること
+
+### 型アノテーションについて
+
+- Optional を利用せず `| None` を利用すること
+- Any を利用しないこと
+
+### フォーマッターについて
+
+Python コードを編集したらフォーマッターを実行すること。
+
+```bash
+uv run ruff format
+```
+
+### テストについて
+
+- モックやスタブを絶対に使わないこと
+- `uv run pytest test/ -v` を実行すること
+- テストは Python 3.14 以降を前提とすること
+- pytest を利用すること
+- pytest のテストは class を使わず def のみを利用すること
+
+---
+> Source: [voluntas/embedded-ui-proxy](https://github.com/voluntas/embedded-ui-proxy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
