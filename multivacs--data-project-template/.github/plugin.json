@@ -1,0 +1,9 @@
+{
+  "name": "multivacs--data-project-template",
+  "displayName": "data-project-template",
+  "description": "Custom template for data analysis and machine learning projects.",
+  "version": "1.0.0",
+  "author": "multivacs",
+  "homepage": "https://github.com/multivacs/data-project-template",
+  "skills": []
+}
