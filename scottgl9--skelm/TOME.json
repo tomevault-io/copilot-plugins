@@ -1,0 +1,44 @@
+{
+  "name": "skelm",
+  "owner": "scottgl9",
+  "repo": "skelm",
+  "description": "skelm - open-source framework for secure, agentic, long-running workflows. Authoring, scheduling, and operating typed pipelines that mix deterministic code, LLM inference, and agent loops under default-deny permissions.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/scottgl9/skelm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T21:05:02Z"
+}
