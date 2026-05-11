@@ -1,0 +1,9 @@
+{
+  "name": "elyin--gemini-bridge",
+  "displayName": "gemini-bridge",
+  "description": "A lightweight MCP server bridging AI agents to Google's Gemini AI via official CLI",
+  "version": "1.0.0",
+  "author": "eLyiN",
+  "homepage": "https://github.com/eLyiN/gemini-bridge",
+  "skills": []
+}
