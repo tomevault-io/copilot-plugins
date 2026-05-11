@@ -1,0 +1,9 @@
+{
+  "name": "beatwad--linkedin-ai-job-applier-ultimate",
+  "displayName": "LinkedIn-AI-Job-Applier-Ultimate",
+  "description": "AI-powered LinkedIn job application bot with Playwright automation, LLM integration, data anonymization, and Telegram reporting. Applies to ALL job types (not just Easy Apply), generates custom resume",
+  "version": "1.0.0",
+  "author": "beatwad",
+  "homepage": "https://github.com/beatwad/LinkedIn-AI-Job-Applier-Ultimate",
+  "skills": []
+}
