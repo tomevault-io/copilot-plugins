@@ -1,609 +1,476 @@
-## red-energy-api-structure
+## red-energy-authentication
 
-> > Last Updated: 2025-10-06
+> Developer reference for implementing and maintaining OAuth2 PKCE authentication with Red Energy's Okta-based API. This document provides implementation details, code references, and patterns for working with the authentication system.
 
-# Red Energy API Response Structure
+# Red Energy Authentication Reference
 
-> Last Updated: 2025-10-06
-> 
-> This document defines the actual API response structures returned by the Red Energy API and how they map to our internal data model.
+## Purpose
 
-## Overview
+Developer reference for implementing and maintaining OAuth2 PKCE authentication with Red Energy's Okta-based API. This document provides implementation details, code references, and patterns for working with the authentication system.
 
-The Red Energy API returns data in a specific structure that differs from typical REST API conventions. This document serves as the authoritative reference for understanding and validating API responses.
+**Use this reference when:**
+- Implementing authentication flows
+- Debugging authentication issues
+- Understanding token lifecycle management
+- Modifying credential handling
+- Implementing error recovery
 
----
+## Authentication Architecture
 
-## 1. Properties/Accounts Response
+### Flow Overview
 
-### Endpoint
-`GET /api/properties` or similar endpoint
+The Red Energy API uses a 5-step OAuth2 PKCE (Proof Key for Code Exchange) authentication flow:
 
-### Actual API Response Structure
-
-```json
-[
-  {
-    "propertyPhysicalNumber": 82227160,
-    "propertyNumber": "82227160.8490263",
-    "accountNumber": 8490263,
-    "address": {
-      "unit": null,
-      "unitType": null,
-      "house": "27",
-      "floor": null,
-      "building": null,
-      "street": "SUNNYSIDE CRES",
-      "streetType": null,
-      "suburb": "CASTLECRAG",
-      "pobox": null,
-      "townCity": null,
-      "postcode": "2068",
-      "state": "NSW",
-      "country": null,
-      "gentrackDisplayAddress": "27 SUNNYSIDE CRES, CASTLECRAG, NSW 2068",
-      "displayAddresses": {
-        "shortForm": "27 Sunnyside Crescent, Castlecrag",
-        "shortFormAlt": "27 Sunnyside Crescent, Castlecrag",
-        "extraShortForm": "27 Sunnyside Crescent",
-        "longForm": "27 Sunnyside Crescent\nCastlecrag NSW 2068",
-        "longFormAlt": "27 Sunnyside Crescent, Castlecrag, New South Wales 2 0 6 8"
-      },
-      "displayAddress": "27 SUNNYSIDE CRES\nCASTLECRAG  NSW  2068"
-    },
-    "consumers": [
-      {
-        "consumerNumber": 4235478511,
-        "propertyNumber": "82227160.8490263",
-        "accountNumber": 8490263,
-        "entryDate": "2024-09-13",
-        "finalDate": null,
-        "status": "ON",
-        "nmi": "4103296839",
-        "nmiWithChecksum": "41032968395",
-        "utility": "E",
-        "meterType": "INTERVAL",
-        "chargeClass": "RES",
-        "solar": true,
-        "lastBillDate": "2025-09-10",
-        "nextBillDate": "2025-10-11",
-        "latitude": -33.799045,
-        "longitude": 151.212185,
-        "balanceDollar": -75.0,
-        "arrearsDollar": 0.0,
-        "productName": "Qantas Red Saver",
-        "linesCompany": "Ausgrid",
-        "jurisdiction": "NSW",
-        "billingFrequency": "MONTHLY"
-      }
-    ]
-  }
-]
+```
+1. Username/Password → Okta Session Token
+2. Session Token → OAuth2 Authorization URL (with PKCE challenge)
+3. Authorization Redirect → Extract Authorization Code
+4. Authorization Code + PKCE Verifier → Access/Refresh Tokens
+5. Access Token → API Calls (Bearer Authentication)
 ```
 
-### Key Field Mappings
+### Implementation Location
 
-| API Field | Our Internal Field | Notes |
-|-----------|-------------------|-------|
-| `accountNumber` | `id` | Primary identifier for the property |
-| `consumers` | `services` | Array of services (electricity/gas) |
-| No direct field | `name` | Built from `address.displayAddresses.shortForm` or address parts |
-| `address` | `address` | Transformed to our address structure |
-
-### Property ID Resolution
-
-The integration looks for property ID in this order:
-1. `data.get("id")`
-2. `data.get("propertyId")`
-3. `data.get("property_id")`
-4. `data.get("accountNumber")` ✅ **Used by Red Energy API**
-5. Generated from address if none found
-
----
-
-## 2. Consumer/Service Structure
-
-### Actual API Structure
-
-```json
-{
-  "consumerNumber": 4235478511,
-  "accountNumber": 8490263,
-  "utility": "E",
-  "status": "ON",
-  "nmi": "4103296839",
-  "meterType": "INTERVAL",
-  "solar": true,
-  "productName": "Qantas Red Saver",
-  "linesCompany": "Ausgrid",
-  "balanceDollar": -75.0
-}
-```
-
-### Field Mappings
-
-| API Field | Our Internal Field | Transformation |
-|-----------|-------------------|----------------|
-| `consumerNumber` | `consumer_number` | Convert to string |
-| `utility` | `type` | `"E"` → `"electricity"`, `"G"` → `"gas"` |
-| `status` | `active` | `"ON"` → `true`, `"OFF"` → `false` |
-
-### Utility Code Mapping
+**Primary Implementation**: `custom_components/red_energy/api.py`
 
 ```python
-# API → Internal
-"E" → "electricity"
-"G" → "gas"
+class RedEnergyAPI:
+    """Main authentication flow in authenticate() method (lines 46-83)"""
 ```
 
-### Status Mapping
+### State Management
+
+Authentication state is managed through instance variables in `RedEnergyAPI`:
 
 ```python
-# API → Internal
-"ON" → True
-"OFF" → False
+self._access_token: Optional[str]      # Bearer token for API calls
+self._refresh_token: Optional[str]     # Token for refreshing access
+self._token_expires: Optional[datetime] # Expiration timestamp
 ```
 
----
+**Lines**: 41-43 in `api.py`
 
-## 3. Address Structure
+## Authentication Steps - Implementation Details
 
-### Actual API Structure
+### Step 1: Okta Session Token
 
-```json
-{
-  "unit": null,
-  "unitType": null,
-  "house": "27",
-  "floor": null,
-  "building": null,
-  "street": "SUNNYSIDE CRES",
-  "streetType": null,
-  "suburb": "CASTLECRAG",
-  "pobox": null,
-  "townCity": null,
-  "postcode": "2068",
-  "state": "NSW",
-  "country": null,
-  "gentrackDisplayAddress": "27 SUNNYSIDE CRES, CASTLECRAG, NSW 2068",
-  "displayAddresses": {
-    "shortForm": "27 Sunnyside Crescent, Castlecrag",
-    "shortFormAlt": "27 Sunnyside Crescent, Castlecrag",
-    "extraShortForm": "27 Sunnyside Crescent",
-    "longForm": "27 Sunnyside Crescent\nCastlecrag NSW 2068",
-    "longFormAlt": "27 Sunnyside Crescent, Castlecrag, New South Wales 2 0 6 8"
-  },
-  "displayAddress": "27 SUNNYSIDE CRES\nCASTLECRAG  NSW  2068"
-}
-```
+**Method**: `_get_session_token(username: str, password: str) -> tuple[str, str]`  
+**Lines**: 104-146 in `api.py`
 
-### Nullable Fields
-
-Address fields can be `null` in the API (e.g. unit-only, PO Box, or incomplete data). Validation must use `(data.get("field") or "").strip()` so that `None` does not cause `AttributeError: 'NoneType' object has no attribute 'strip'`.
-
-### Field Mappings
-
-| API Field | Our Internal Field | Transformation |
-|-----------|-------------------|----------------|
-| `house` + `street` | `street` | Combined: `"27 SUNNYSIDE CRES"` (handle null) |
-| `suburb` | `city` | Direct mapping |
-| `state` | `state` | Direct mapping |
-| `postcode` | `postcode` | Direct mapping |
-
-### Display Address Priority
-
-For property names, we use in order:
-1. `displayAddresses.shortForm` ✅ **Preferred** - "27 Sunnyside Crescent, Castlecrag"
-2. `displayAddresses.extraShortForm` - "27 Sunnyside Crescent"
-3. Built from `house` + `street` + `suburb`
-4. Fallback: `"Property {id}"`
-
----
-
-## 4. Customer Data Response
-
-### Actual API Structure
-
-```json
-{
-  "id": "CUST123456",
-  "name": "John Smith",
-  "email": "john.smith@example.com",
-  "phone": "0412345678",
-  "accounts": [...]
-}
-```
-
-### Field Mappings
-
-| API Field | Our Internal Field | Notes |
-|-----------|-------------------|-------|
-| `id` | `id` | Customer ID |
-| `name` | `name` | Customer name |
-| `email` | `email` | Contact email |
-| `phone` / `phoneNumber` / `mobile` | `phone` | First non-null value |
-
----
-
-## 5. Usage Data Response
-
-### Actual API Response Structure
-
-**Status:** Confirmed (2025-10-06)
-
-The Red Energy API `/usage/interval` endpoint returns **daily summaries** with half-hourly interval data:
-
-**API Response Format:**
-```json
-[
-  {
-    "usageDate": "2025-09-06",
-    "halfHours": [
-      {
-        "intervalStart": "2025-09-06T00:00:00+10:00",
-        "primaryConsumptionTariffComponent": "OFFPEAK",
-        "consumptionKwh": 0.128,
-        "consumptionDollar": 0.03,
-        "consumptionDollarIncGst": 0.0346,
-        "generationKwh": 0.0,
-        "generationDollar": 0.0,
-        "demandDetail": { ... },
-        "isPricingReliable": true,
-        "isPricingAvailable": true
-      },
-      // ... 47 more half-hour intervals (48 total per day)
-    ],
-    "maxDemandDetail": { ... },
-    "carbonEmissionTonne": 0.0057,
-    "minTemperatureC": 0.0,
-    "maxTemperatureC": 0.0,
-    "isPricingReliable": true,
-    "unreliablePricingExplanation": null,
-    "numUnreliablyPricedIntervals": 0,
-    "quality": "Actual",
-    "isConsumptionDollarGstInclusive": false,
-    "consumptionDollar": 1.65,     // Daily total (excl GST)
-    "generationDollar": -0.3279,   // Daily solar credit
-    "hasUnpricedUsage": false,
-    "numUnpricedIntervals": 0
-  },
-  // ... more days
-]
-```
-
-**Key Structure Elements:**
-- **Array of daily summaries** (30 items for 30-day request)
-- Each day contains:
-  - `usageDate`: Date in YYYY-MM-DD format
-  - `halfHours`: Array of 48 half-hourly intervals
-  - `consumptionDollar`: Daily total consumption cost (excl GST)
-  - `generationDollar`: Daily solar generation credit (negative value)
-  - `carbonEmissionTonne`: Daily carbon emissions
-  - Various quality/reliability indicators
-
-**Half-Hour Interval Fields:**
-- `intervalStart`: ISO 8601 timestamp
-- `consumptionKwh`: Consumption in kWh for this interval
-- `consumptionDollar`: Cost for this interval (excl GST)
-- `consumptionDollarIncGst`: Cost including GST
-- `generationKwh`: Solar generation in kWh (if applicable)
-- `generationDollar`: Solar generation credit
-- `primaryConsumptionTariffComponent`: Tariff rate (OFFPEAK, SHOULDER, PEAK)
-- `demandDetail`: Demand charge information
-
-### Internal Expected Structure
-
-Our validation layer expects this normalized format:
-
-```json
-{
-  "consumer_number": "4235478511",
-  "from_date": "2025-09-06",
-  "to_date": "2025-10-06",
-  "usage_data": [
-    {
-      "date": "2025-09-06",
-      "usage": 12.5,
-      "cost": 3.37
-    },
-    {
-      "date": "2025-09-07",
-      "usage": 14.2,
-      "cost": 3.83
+**Implementation**:
+```python
+# POST to Okta with username/password
+payload = {
+    "username": username,
+    "password": password,
+    "options": {
+        "warnBeforePasswordExpired": False,
+        "multiOptionalFactorEnroll": False
     }
-  ],
-  "total_usage": 26.7,
-  "total_cost": 7.20
 }
+# Returns: (session_token, expires_at)
 ```
 
-### API Transformation
+**Endpoint**: `https://redenergy.okta.com/api/v1/authn`  
+**Constant**: `RedEnergyAPI.OKTA_AUTH_URL` (line 36)
 
-The `api.py` module includes two transformation methods that convert Red Energy's format into our internal structure:
+**Error Handling**:
+- HTTP != 200: Parse Okta error response, raise `RedEnergyAuthError`
+- Status != "SUCCESS": Handle MFA/locked account scenarios
+- All errors logged with full context for debugging
 
-**1. `_transform_usage_data()`** - Converts overall API structure:
-- **List format**: Wraps list in object with consumer_number and date range
-- Calls `_normalize_usage_entry()` for each daily summary
-- Returns structure with metadata (consumer_number, from_date, to_date, usage_data)
+### Step 2: OAuth2 Discovery
 
-**2. `_normalize_usage_entry()`** - Aggregates daily data:
-- **Date**: Extracts from `usageDate` field
-- **Usage (kWh)**: Sums `consumptionKwh` from all 48 half-hour intervals in `halfHours` array
-- **Cost**: Combines `consumptionDollar` + `generationDollar` for net daily cost
-  - `consumptionDollar`: Daily consumption cost (excl GST)
-  - `generationDollar`: Solar generation credit (negative value)
-  - Net cost accounts for solar offsets automatically
-- **Unit**: Always "kWh"
+**Method**: `_get_discovery_data() -> Dict[str, Any]`  
+**Lines**: 85-90 in `api.py`
 
-**Transformation Process:**
-1. API returns 30 daily summaries, each with 48 half-hourly intervals
-2. For each day:
-   - Extract `usageDate` as the date
-   - Sum all `consumptionKwh` values from `halfHours` array (48 intervals)
-   - Calculate net cost: `consumptionDollar` + `generationDollar`
-3. Result: 30 normalized daily entries with date, total usage, net cost
+**Endpoint**: `https://login.redenergy.com.au/oauth2/default/.well-known/openid-configuration`  
+**Constant**: `RedEnergyAPI.DISCOVERY_URL` (line 33)
 
-### Field Requirements
+**Returns**:
+- `authorization_endpoint`: URL for authorization code request
+- `token_endpoint`: URL for token exchange
 
-| Field | Type | Required | Notes |
-|-------|------|----------|-------|
-| `consumer_number` | string | Yes | Must match consumer from property |
-| `usage_data` | array | Yes | Array of daily usage entries |
-| `usage_data[].date` | string | Yes | ISO 8601 date format |
-| `usage_data[].usage` | number | Yes | kWh or MJ |
-| `usage_data[].cost` | number | Yes | Dollar amount |
+### Step 3: PKCE Parameters
 
----
-
-## 6. Validation Rules
-
-### Property Validation
+**Code Verifier Generation**:  
+**Method**: `_generate_code_verifier() -> str`  
+**Lines**: 92-97 in `api.py`
 
 ```python
-# Required fields
-- accountNumber (becomes id)
-- address (object)
-- consumers (array)
-
-# Optional fields
-- propertyNumber
-- propertyPhysicalNumber
+# Generates 48-character random string
+# Character set: [a-zA-Z0-9\-\.\_\~] per RFC 7636
+alphabet = string.ascii_letters + string.digits + '-._~'
+return ''.join(secrets.choice(alphabet) for _ in range(48))
 ```
 
-### Consumer/Service Validation
+**Code Challenge Generation**:  
+**Method**: `_generate_code_challenge(verifier: str) -> str`  
+**Lines**: 99-102 in `api.py`
 
 ```python
-# Required fields
-- consumerNumber
-- utility ("E" or "G")
-
-# Optional fields (with defaults)
-- status (default: "ON")
-- accountNumber
+# SHA256 hash of verifier, base64url encoded
+digest = hashlib.sha256(verifier.encode()).digest()
+return base64.urlsafe_b64encode(digest).decode().rstrip('=')
 ```
 
-### Address Validation
+### Step 4: Authorization Code Retrieval
+
+**Method**: `_get_authorization_code(...) -> str`  
+**Lines**: 148-223 in `api.py` (approximate)
+
+**Process**:
+1. Build authorization URL with session token, client_id, PKCE challenge
+2. Follow redirects to capture authorization code
+3. Parse code from redirect URL query parameters
+
+**Redirect URI**: `au.com.redenergy://callback`  
+**Constant**: `RedEnergyAPI.REDIRECT_URI` (line 34)
+
+### Step 5: Token Exchange
+
+**Method**: `_exchange_code_for_tokens(...) -> None`  
+**Lines**: 225-259 in `api.py` (approximate)
+
+**Token Exchange Parameters**:
+```python
+{
+    'grant_type': 'authorization_code',
+    'code': auth_code,
+    'redirect_uri': REDIRECT_URI,
+    'client_id': client_id,
+    'code_verifier': code_verifier  # PKCE verifier
+}
+```
+
+**Sets State Variables**:
+- `self._access_token` - Used for API authentication
+- `self._refresh_token` - Used for token refresh
+- `self._token_expires` - Calculated from `expires_in` (default 3600s)
+
+## Token Lifecycle Management
+
+### Token Expiration
+
+**Default Expiration**: 1 hour (3600 seconds)
+
+**Expiration Check**: Before every API call  
+**Method**: `_ensure_authenticated() -> None`  
+**Lines**: 370-380 in `api.py` (approximate)
 
 ```python
-# Required fields
-- At least one of: house, street, suburb
-- state
-- postcode
-
-# Optional fields
-- unit, unitType, floor, building
-- displayAddresses
+if self._token_expires and datetime.now() >= self._token_expires:
+    if self._refresh_token:
+        await self._refresh_access_token()
+    else:
+        raise RedEnergyAuthError("Token expired and no refresh token available")
 ```
 
----
+### Token Refresh
 
-## 7. Common Issues and Solutions
+**Method**: `_refresh_access_token() -> None`  
+**Lines**: 382-415 in `api.py`
 
-### Issue 1: "No accounts found" or "Skipping account with invalid ID"
+**Process**:
+1. Get token endpoint from discovery URL
+2. POST with `grant_type=refresh_token` and refresh token
+3. Update `_access_token`, `_refresh_token`, and `_token_expires`
 
-**Cause:** Config flow receives raw API data without validation, looking for `id` field that doesn't exist (API has `accountNumber`)
-
-**Solution:** 
-- Always validate API responses in `validate_input()` before using
-- Call `validate_properties_data()` to transform `accountNumber` → `id`
-- Ensure validation handles both `consumers` (Red Energy) and `services` (generic)
-
-### Issue 2: Property ID mismatch
-
-**Cause:** Config has `"0"` but API returns actual account numbers
-
-**Solution:** 
-- Always use `accountNumber` from API
-- Convert to string for consistent comparison
-- Config migration v4 auto-fixes old configs
-
-### Issue 3: Service not detected
-
-**Cause:** Looking for `type: "electricity"` but API has `utility: "E"`
-
-**Solution:** Map utility codes:
+**Refresh Parameters**:
 ```python
-if utility == "E":
-    service_type = "electricity"
-elif utility == "G":
-    service_type = "gas"
-```
-
-### Issue 4: "Usage data must be a dictionary" validation error
-
-**Cause:** The Red Energy API `/usage/interval` endpoint returns data in various formats (often a list, not a dict), which doesn't match the validator's expected structure.
-
-**Solution:** 
-- The `api.py` module now includes `_transform_usage_data()` to handle multiple API formats
-- Automatically wraps list responses with required metadata
-- Extracts nested data from various field name variations
-- Returns empty structure for None/empty responses
-- See Section 5 "API Transformation" for details
-
-**Fixed in:** 2025-10-06
-
-### Issue 5: "Usage entry missing date" validation error
-
-**Cause:** Red Energy API returns **daily summaries** with half-hourly intervals in a nested structure:
-- Each day has `usageDate` (not `date`)
-- Usage data is in `halfHours` array (48 half-hourly intervals)
-- Costs are aggregated at day level (`consumptionDollar`, `generationDollar`)
-
-**Solution:**
-- Updated `_normalize_usage_entry()` to handle Red Energy's actual structure:
-  - Extracts `usageDate` as the date
-  - Sums all `consumptionKwh` values from `halfHours` array
-  - Combines consumption and generation costs for net daily cost
-  - Properly handles solar generation credits (negative values)
-- See Section 5 "API Transformation" for complete details
-
-**Fixed in:** 2025-10-06
-
-### Issue 6: "'NoneType' object has no attribute 'strip'" during validation
-
-**Cause:** The API returns `null` for address fields (e.g. `house`, `street`, `suburb`) when the key is present but the value is missing. Using `data.get("house", "").strip()` returns the default only when the key is absent; when the key exists with value `None`, `.strip()` is called on `None`.
-
-**Solution:** Use `(data.get("house") or "").strip()` (and same pattern for other address fields) so both missing keys and `None` values become empty strings before `.strip()`.
-
-**Fixed in:** 2025-02-10
-
----
-
-## 8. Data Transformation Examples
-
-### Example 1: Property Transformation
-
-**Input (API):**
-```json
 {
-  "accountNumber": 8490263,
-  "address": {
-    "house": "27",
-    "street": "SUNNYSIDE CRES",
-    "suburb": "CASTLECRAG",
-    "state": "NSW",
-    "postcode": "2068",
-    "displayAddresses": {
-      "shortForm": "27 Sunnyside Crescent, Castlecrag"
-    }
-  },
-  "consumers": [...]
+    'grant_type': 'refresh_token',
+    'refresh_token': self._refresh_token
 }
 ```
 
-**Output (Internal):**
-```json
-{
-  "id": "8490263",
-  "name": "27 Sunnyside Crescent, Castlecrag",
-  "address": {
-    "street": "27 SUNNYSIDE CRES",
-    "city": "CASTLECRAG",
-    "state": "NSW",
-    "postcode": "2068"
-  },
-  "services": [...]
-}
+**Error Handling**:
+- No refresh token: Raise `RedEnergyAuthError`
+- Refresh fails: Log error with full response context
+- Success: Log token refresh with new expiration
+
+## Configuration Flow Integration
+
+### Entry Point
+
+**File**: `custom_components/red_energy/config_flow.py`  
+**Function**: `validate_input(hass: HomeAssistant, data: dict) -> dict`  
+**Lines**: 51-107 in `config_flow.py`
+
+### Validation Process
+
+```python
+# 1. Validate configuration data format
+validate_config_data(data)
+
+# 2. Test credentials with full authentication
+api = RedEnergyAPI(session)
+auth_success = await api.test_credentials(
+    data[CONF_USERNAME],
+    data[CONF_PASSWORD],
+    data[CONF_CLIENT_ID]
+)
+
+# 3. Fetch customer data and properties
+raw_customer_data = await api.get_customer_data()
+raw_properties = await api.get_properties()
+
+# 4. Validate and return data
+customer_data = validate_customer_data(raw_customer_data)
+properties = validate_properties_data(raw_properties)
 ```
 
-### Example 2: Consumer Transformation
+### Credential Testing
 
-**Input (API):**
-```json
-{
-  "consumerNumber": 4235478511,
-  "utility": "E",
-  "status": "ON"
-}
+**Method**: `test_credentials(username, password, client_id) -> bool`  
+**Lines**: 261-269 in `api.py`
+
+**Implementation**:
+- Performs full `authenticate()` flow
+- Catches `RedEnergyAuthError` and returns `False`
+- Returns `True` only if full authentication succeeds
+
+## API Endpoints Reference
+
+### Authentication Endpoints
+
+| Purpose | URL | Constant |
+|---------|-----|----------|
+| Discovery | `https://login.redenergy.com.au/oauth2/default/.well-known/openid-configuration` | `DISCOVERY_URL` |
+| Okta Auth | `https://redenergy.okta.com/api/v1/authn` | `OKTA_AUTH_URL` |
+| Redirect | `au.com.redenergy://callback` | `REDIRECT_URI` |
+
+### Resource Endpoints
+
+**Base URL**: `https://selfservice.services.retail.energy/v1`  
+**Constant**: `RedEnergyAPI.BASE_API_URL` (line 35)
+
+| Endpoint | Purpose |
+|----------|---------|
+| `/customers/current` | Customer account data |
+| `/properties` | Properties/accounts list |
+| `/usage/interval` | Usage interval data |
+
+## Security Considerations
+
+### Credential Storage
+
+**Username/Password**:
+- Stored in Home Assistant config entry
+- Used only for initial authentication and re-authentication
+- Never logged (except sanitized username in debug logs)
+
+**Client ID**:
+- Must be captured from Red Energy mobile app
+- Specific to Red Energy's Okta application
+- Stored in config entry: `CONF_CLIENT_ID`
+- Required for OAuth2 flow
+
+**Access Token**:
+- Stored in API instance (`self._access_token`)
+- Used as Bearer token: `Authorization: Bearer {token}`
+- Expires after 1 hour
+- Not persisted between restarts
+
+**Refresh Token**:
+- Stored in API instance (`self._refresh_token`)
+- Used to obtain new access tokens
+- Not persisted between restarts
+- Requires re-authentication on HA restart
+
+### Transport Security
+
+- All endpoints use HTTPS
+- Certificate validation enabled by default
+- Uses `aiohttp.ClientSession` from Home Assistant
+- Timeout: 30 seconds (defined in `const.py` as `API_TIMEOUT`)
+
+### Error Exposure
+
+Authentication errors are logged with context but sanitized:
+- Full Okta error responses in debug logs
+- Client ID truncated in logs: `{client_id[:10]}...`
+- Passwords never logged
+- Username logged in debug context only
+
+## Error Handling Patterns
+
+### Exception Hierarchy
+
+```python
+RedEnergyAPIError            # Base exception
+└── RedEnergyAuthError       # Authentication-specific errors
 ```
 
-**Output (Internal):**
-```json
-{
-  "type": "electricity",
-  "consumer_number": "4235478511",
-  "active": true
-}
+**Defined**: Lines 22-27 in `api.py`
+
+### Authentication Error Scenarios
+
+| Error | Cause | Handling |
+|-------|-------|----------|
+| Invalid credentials | Wrong username/password | Raise `RedEnergyAuthError` with Okta error |
+| Invalid client_id | Wrong/expired client ID | Raise `RedEnergyAuthError` from token exchange |
+| Token expired | Access token > 1 hour old | Automatic refresh via `_refresh_access_token()` |
+| Refresh failed | Invalid refresh token | Raise `RedEnergyAuthError`, requires re-auth |
+| Network timeout | API unreachable | `async_timeout.timeout(API_TIMEOUT)` raises |
+| MFA required | Account has MFA enabled | Status != "SUCCESS" in Okta response |
+
+### Logging Strategy
+
+**Debug Level**:
+- Full authentication flow steps
+- Token expiration timestamps
+- PKCE parameters (verifier/challenge)
+- API endpoint calls
+
+**Error Level**:
+- Authentication failures with full context
+- Token refresh failures
+- Unexpected errors with stack traces
+
+**Example Debug Logs**:
+```python
+_LOGGER.debug("Starting Red Energy authentication")
+_LOGGER.debug("Obtained session token, expires: %s", session_expires)
+_LOGGER.debug("Generated PKCE - Verifier: %s, Challenge: %s", ...)
+_LOGGER.debug("Red Energy authentication successful - access token acquired")
 ```
 
----
+## Common Implementation Patterns
 
-## 9. Version History
+### Pattern 1: API Request with Authentication
 
-### v5 (2025-02-10)
-- ✅ Address validation handles `null` values from API (`house`, `street`, `suburb`, `city`, `state`, `postcode`)
-- ✅ Prevents `AttributeError: 'NoneType' object has no attribute 'strip'` during config flow validation
+```python
+# Every API method should call this first
+await self._ensure_authenticated()
 
-### v4 (2025-10-06)
-- ✅ Added support for `consumers` array (vs `services`)
-- ✅ Added `utility` → `type` mapping
-- ✅ Added `status` → `active` mapping
-- ✅ Added `consumerNumber` support
-- ✅ Added `suburb` → `city` mapping
-- ✅ Added `displayAddresses.shortForm` for property names
-- ✅ Auto-select all accounts by default
+# Then make API call with bearer token
+headers = {"Authorization": f"Bearer {self._access_token}"}
+async with self._session.get(url, headers=headers) as response:
+    response.raise_for_status()
+    return await response.json()
+```
 
-### v3 (Previous)
-- Added performance optimizations
-- Added device management
+### Pattern 2: Token Refresh on Expiration
 
-### v2 (Previous)
-- Added advanced sensors
-- Added polling options
+```python
+# Automatic in _ensure_authenticated()
+if self._token_expires and datetime.now() >= self._token_expires:
+    if self._refresh_token:
+        await self._refresh_access_token()
+    else:
+        raise RedEnergyAuthError("Token expired")
+```
 
-### v1 (Initial)
-- Basic property and service support
-- Expected different API structure
+### Pattern 3: Full Re-authentication
 
----
+```python
+# When refresh fails or no refresh token available
+try:
+    await api.authenticate(username, password, client_id)
+except RedEnergyAuthError as err:
+    _LOGGER.error("Re-authentication failed: %s", err)
+    # Handle failure (update config entry state, notify user)
+```
 
-## 10. Testing Checklist
+## Troubleshooting for Developers
 
-When updating API response handling:
+### Debugging Authentication Failures
 
-- [ ] Test with single property
-- [ ] Test with multiple properties
-- [ ] Test with electricity only
-- [ ] Test with gas only
-- [ ] Test with both utilities
-- [ ] Test with inactive service (status: "OFF")
-- [ ] Test with missing optional fields
-- [ ] Test property name generation
-- [ ] Test address parsing with unit number
-- [ ] Test address parsing without house number
-- [ ] Verify entity IDs are friendly
-- [ ] Verify all IDs are strings for comparison
+**Enable Debug Logging** (`configuration.yaml`):
+```yaml
+logger:
+  logs:
+    custom_components.red_energy: debug
+```
 
----
+**Check Log Patterns**:
+1. "Starting Red Energy authentication" - Flow initiated
+2. "Obtained session token" - Step 1 success
+3. "Generated PKCE" - Step 3 success
+4. "Red Energy authentication successful" - Full success
 
-## 11. References
+**Common Failure Points**:
+- **Step 1**: Invalid credentials → Check Okta error response in logs
+- **Step 4**: Authorization code failure → Check session token validity
+- **Step 5**: Token exchange failure → Check client_id, PKCE verifier
 
-- Integration: `custom_components/red_energy/`
-- Validation: `custom_components/red_energy/data_validation.py`
-- API Client: `custom_components/red_energy/api.py`
-- Config Flow: `custom_components/red_energy/config_flow.py`
-- Migration: `custom_components/red_energy/config_migration.py`
+### Testing Authentication Flow
 
----
+**Manual Test**:
+```python
+from custom_components.red_energy.api import RedEnergyAPI
+import aiohttp
 
-## 12. Future Considerations
+async def test():
+    async with aiohttp.ClientSession() as session:
+        api = RedEnergyAPI(session)
+        success = await api.test_credentials(username, password, client_id)
+        print(f"Auth success: {success}")
+```
 
-### Potential API Changes to Watch For
+**Integration Test**:
+```python
+# tests/test_config_flow_basic.py contains comprehensive auth tests
+# Tests cover: valid credentials, invalid credentials, network errors
+```
 
-1. **New Utility Types**: Currently only `"E"` and `"G"` - watch for new codes
-2. **Additional Status Values**: Currently only `"ON"` and `"OFF"` - watch for `"PENDING"`, `"SUSPENDED"`, etc.
-3. **New Address Fields**: API may add fields like `streetNumber`, `streetName` separately
-4. **Multiple Meters**: Some properties may have multiple meters per utility type
-5. **Solar Feed-in Data**: Consider separate handling for solar generation vs consumption
+### Common Developer Errors
 
-### Recommended Improvements
+**Issue**: "Token expired and no refresh token available"  
+**Cause**: API instance didn't persist through coordinator restart  
+**Fix**: Coordinator should maintain API instance or re-authenticate
 
-1. Cache API responses to reduce API calls
-2. Add retry logic for failed API calls
-3. Implement exponential backoff
-4. Add API rate limiting
-5. Monitor for API deprecation notices
-6. Add support for real-time usage data if API provides websockets
+**Issue**: "Invalid client ID"  
+**Cause**: Client ID changed by Red Energy or incorrectly captured  
+**Fix**: User must re-capture client_id from mobile app
+
+**Issue**: Authentication succeeds but API calls fail  
+**Cause**: Forgot to call `_ensure_authenticated()` before API request  
+**Fix**: Add `await self._ensure_authenticated()` before all API calls
+
+## Related Files
+
+### Core Implementation
+- `custom_components/red_energy/api.py` - Main authentication logic
+- `custom_components/red_energy/config_flow.py` - Setup flow integration
+- `custom_components/red_energy/const.py` - Constants and configuration keys
+
+### Validation
+- `custom_components/red_energy/data_validation.py` - Config data validation
+
+### Testing
+- `tests/test_config_flow_basic.py` - Authentication tests
+- `tests/test_config_flow.py` - Integration tests
+
+## Version History
+
+### Authentication Changes
+
+**v1.0.0** - Initial OAuth2 PKCE implementation
+- Full 5-step authentication flow
+- Automatic token refresh
+- Error recovery patterns
+
+**v2.0.0** - Enhanced error handling
+- Detailed Okta error logging
+- Improved timeout handling
+- Better MFA detection
+
+## Additional Resources
+
+### External Documentation
+- [RFC 7636 - PKCE](https://tools.ietf.org/html/rfc7636) - PKCE specification
+- [Okta Authentication API](https://developer.okta.com/docs/reference/api/authn/) - Okta session token flow
+- [OAuth 2.0 RFC 6749](https://tools.ietf.org/html/rfc6749) - OAuth2 specification
+
+### Red Energy Specific
+- [Red-Energy-API Project](https://github.com/craibo/Red-Energy-API) - Reference implementation
+- Mobile app network traffic - Source of client_id
+
+## Last Updated
+
+2025-10-06 - Initial authentication reference created
 
 ---
 > Source: [craibo/ha-red-energy-au](https://github.com/craibo/ha-red-energy-au) — distributed by [TomeVault](https://tomevault.io).
