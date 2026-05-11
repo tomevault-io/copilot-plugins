@@ -1,0 +1,9 @@
+{
+  "name": "agentclientprotocol--agent-client-protocol",
+  "displayName": "agent-client-protocol",
+  "description": " A protocol for connecting any editor to any agent",
+  "version": "1.0.0",
+  "author": "agentclientprotocol",
+  "homepage": "https://github.com/agentclientprotocol/agent-client-protocol",
+  "skills": []
+}
