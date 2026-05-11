@@ -1,0 +1,9 @@
+{
+  "name": "delineaxpm--delinea-mcp",
+  "displayName": "delinea-mcp",
+  "description": "MCP server for the Delinea Secret Server and Platform APIs",
+  "version": "1.0.0",
+  "author": "DelineaXPM",
+  "homepage": "https://github.com/DelineaXPM/delinea-mcp",
+  "skills": []
+}
