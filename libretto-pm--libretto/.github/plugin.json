@@ -1,0 +1,9 @@
+{
+  "name": "libretto-pm--libretto",
+  "displayName": "libretto",
+  "description": "Ultra-high-performance Composer-compatible dependency manager written in Rust",
+  "version": "1.0.0",
+  "author": "libretto-pm",
+  "homepage": "https://github.com/libretto-pm/libretto",
+  "skills": []
+}
