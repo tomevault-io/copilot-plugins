@@ -1,44 +1,66 @@
-## project-overview
+## svelte-components
 
-> Project architecture and conventions for whatmodelscanirun.com
+> Svelte 5 component conventions used in this project
 
 
-# Project Overview
+# Svelte Component Patterns
 
-Static SvelteKit 2 (Svelte 5) site that helps users find which AI models their GPU can run. Deployed to GitHub Pages at whatmodelscanirun.com.
+## Svelte 5 Runes (required)
 
-## Tech Stack
+This project uses Svelte 5 exclusively. Never use legacy Svelte 4 syntax.
 
-- **SvelteKit 2** with `@sveltejs/adapter-static` — builds to `build/`
-- **Svelte 5 runes** — `$state`, `$derived`, `$bindable`, `$props()` (no stores, no legacy syntax)
-- **JavaScript only** — no TypeScript
-- **Plain CSS** — CSS variables in `app.css`, scoped `<style>` blocks in components, no CSS framework
-- **Vitest** — unit tests for pure calculation functions
-- **PostHog** — lightweight analytics via `$lib/analytics.js`
+```js
+// Props with bindable values and defaults
+let { vram = $bindable(null), minContextK = $bindable(null) } = $props();
 
-## Key Architecture Decisions
+// Local reactive state
+let query = $state('');
 
-- **No runtime data fetching** — GPU and model data are static JSON imported at build time
-- **All calculation logic lives in `$lib/calculations.js`** — pure functions, no side effects, independently testable
-- **URL state** — query params (`?gpu=rtx-4090&ctx=32&speed=50`) synced via `replaceState` for sharing/bookmarking
-- **Single page** — one route (`+page.svelte`) wires `GpuInput` and `ModelResults` components
-- **Dark theme only** — design tokens defined as CSS variables in `:root`
+// Derived values (simple)
+let selectedGpu = $derived(gpus.find((g) => g.id === selectedGpuId) ?? null);
 
-## Data Flow
-
-```
-GpuInput (user selects GPU or enters VRAM)
-  → binds vram, bandwidth, minContextK, minTokPerSec to +page.svelte
-  → passed as props to ModelResults
-  → bucketModels() calculates fits / tight / noFit
+// Derived values (complex)
+let results = $derived.by(() => {
+  if (vram == null) return null;
+  return bucketModels(allModels, vram, bandwidth, minContextK, minTokPerSec);
+});
 ```
 
-## Commands
+## Event Handling
 
-- `npm run dev` — dev server on port 5173
-- `npm run build` — production build to `build/`
-- `npm test` — run Vitest tests
-- `npm run test:watch` — Vitest in watch mode
+Use lowercase `on` prefix directly on elements — not `on:event` (Svelte 4 syntax):
+
+```svelte
+<!-- ✅ Correct -->
+<input oninput={onManualInput} />
+<select onchange={onContextChange}>
+
+<!-- ❌ Wrong (Svelte 4) -->
+<input on:input={onManualInput} />
+```
+
+For component callbacks, pass functions as props (e.g. `onstatechange`, `onchange`).
+
+## Styling
+
+- Use scoped `<style>` blocks — no global class leakage
+- Reference CSS variables from `app.css` (e.g. `var(--surface)`, `var(--accent)`, `var(--border)`)
+- Mobile breakpoint at `600px` using `@media (max-width: 600px)`
+- Key variables: `--bg`, `--surface`, `--text`, `--text-muted`, `--accent`, `--border`, `--radius`, `--radius-sm`
+- Status colors: `--fits` (green), `--tight` (yellow), `--no-fit` (red) with matching `*-dim` and `*-border` variants
+
+## Layout Rendering
+
+Use `{@render children()}` for slot content (Svelte 5), not `<slot />`.
+
+## Static Asset References
+
+Use `{base}` from `$app/paths` when referencing assets in `static/`:
+
+```svelte
+import { base } from '$app/paths';
+<img src="{base}/logo.png" />
+```
 
 ---
 > Source: [BenD10/whatmodels](https://github.com/BenD10/whatmodels) — distributed by [TomeVault](https://tomevault.io).
