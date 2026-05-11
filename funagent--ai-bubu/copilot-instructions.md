@@ -1,66 +1,48 @@
-## tauri-rust
+## vue-frontend
 
-> Tauri 2 Rust 后端开发规范
+> Vue 3 前端组件与 TypeScript 开发规范
 
 
-# Tauri Rust 开发规范
+# Vue 前端开发规范
 
-## 代码质量
+## TypeScript
 
-- 必须通过 `cargo fmt` 和 `cargo clippy -- -D warnings`
-- 使用 `Result` 和 `?` 运算符处理错误，避免 `unwrap()`
-- 公开 API 添加文档注释 (`///`)
+- 使用 `import type` 进行类型导入: `import type { Foo } from './foo'`
+- 不使用 `any`，必要时用 `unknown` 替代
+- 不使用 `console.log`，用 `console.warn` / `console.error`
+- 未使用的变量以 `_` 前缀命名
 
-## Tauri 命令
+## Vue 组件
 
-- 命令函数使用 `#[tauri::command]` 宏
-- 在 `lib.rs` 中通过 `invoke_handler` 注册
-- 命令参数和返回值必须实现 `Serialize` / `Deserialize`
-- 异步命令返回 `Result<T, String>`
+- 组件命名: PascalCase（`PetCanvas.vue`）
+- composable 以 `use` 前缀命名（`useActivityScore.ts`）
+- 单文件组件使用 `<script setup lang="ts">`
+- props 使用 `defineProps<>()` 泛型语法
+- emits 使用 `defineEmits<>()` 泛型语法
 
-## 项目结构
+## 状态管理
 
-```
-src-tauri/src/
-├── lib.rs          # 入口，命令注册
-├── tray.rs         # 系统托盘
-├── steps.rs        # 步数持久化 (SQLite)
-├── skin_import.rs  # 皮肤导入
-├── monitor/        # 活跃度监测引擎
-│   ├── mod.rs      # MonitorEngine
-│   ├── scoring.rs  # 评分状态机
-│   ├── config.rs   # Provider 配置加载
-│   └── adapters/   # 适配器（sqlite, jsonl, process 等）
-└── social/         # 局域网社交
-    ├── mod.rs      # 社交模块入口
-    ├── discovery.rs # UDP 发现
-    └── protocol.rs  # 协议定义
-```
+- 使用 Pinia store，文件放在 `src/stores/`
+- store 命名: `use<Name>Store`（`useSkinStore`）
+- 跨组件通信优先使用 store，而非事件总线
 
-## 监测适配器
+## Tauri 交互
 
-- Provider 配置文件: `packages/app/providers/*.toml`
-- 支持的适配器类型: `sqlite`, `jsonl`, `process`, `vscode_ext`, `file_mtime`
-- 路径变量: `${HOME}`, `${APP_SUPPORT}`, `${APPDATA}`
-- 修改 provider 后需在 macOS/Windows/Linux 测试路径兼容性
+- 前端调用 Rust 命令: `import { invoke } from '@tauri-apps/api/core'`
+- 监听 Rust 事件: `import { listen } from '@tauri-apps/api/event'`
+- 持久化存储: 优先使用 Tauri Store plugin
 
-## 数据持久化
+## 样式
 
-- 步数数据使用 SQLite（`rusqlite`）
-- 设置使用 Tauri Store plugin
-- 数据库文件在用户 app data 目录
+- 使用 Vue SFC `<style scoped>` 局部样式
+- 全局样式在 `src/styles/main.css`
+- 颜色使用 CSS 变量（`var(--color-xxx)`）
 
-## 局域网社交
+## 测试
 
-- UDP 广播端口: 23456
-- 协议版本: `0.1.0`
-- 心跳包含: peer_id, nickname, daily_steps, activity_score, movement_state, pet_skin
-
-## 安全
-
-- CSP 策略在 `tauri.conf.json` 中配置
-- 添加外部资源访问需更新 CSP
-- 文件系统访问需在 capabilities 中声明
+- 测试文件与源文件同目录: `foo.ts` → `foo.test.ts`
+- 使用 Vitest + happy-dom
+- 覆盖范围: `src/utils/`, `src/stores/`
 
 ---
 > Source: [funAgent/ai-bubu](https://github.com/funAgent/ai-bubu) — distributed by [TomeVault](https://tomevault.io).
