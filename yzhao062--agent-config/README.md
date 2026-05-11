@@ -7,11 +7,11 @@ Personal agent configuration for Codex and Claude Code. Not intended for general
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yzhao062/agent-config](https://github.com/yzhao062/agent-config).
+Original source: `CLAUDE.md` in [yzhao062/agent-config](https://github.com/yzhao062/agent-config).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
