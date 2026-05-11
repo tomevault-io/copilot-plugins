@@ -1,0 +1,9 @@
+{
+  "name": "kaban-board--kaban",
+  "displayName": "kaban",
+  "description": "Terminal Kanban for AI Code Agents",
+  "version": "1.0.0",
+  "author": "kaban-board",
+  "homepage": "https://github.com/kaban-board/kaban",
+  "skills": []
+}
