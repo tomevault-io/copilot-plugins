@@ -1,0 +1,9 @@
+{
+  "name": "anotherai-dev--anotherai",
+  "displayName": "anotherai",
+  "description": "MCP server for AI engineering. Tools to compare any models, debug production, deploy prompts without a code change. Initial preview.",
+  "version": "1.0.0",
+  "author": "anotherai-dev",
+  "homepage": "https://github.com/anotherai-dev/anotherai",
+  "skills": []
+}
