@@ -1,0 +1,9 @@
+{
+  "name": "connorbritain--mssql-mcp-server",
+  "displayName": "mssql-mcp-server",
+  "description": "Enterprise MCP server for SQL Server with 20 tools for schema discovery, data operations, and administration.",
+  "version": "1.0.0",
+  "author": "ConnorBritain",
+  "homepage": "https://github.com/ConnorBritain/mssql-mcp-server",
+  "skills": []
+}
