@@ -1,0 +1,9 @@
+{
+  "name": "cloud-shuttle--leptos-shadcn-ui",
+  "displayName": "leptos-shadcn-ui",
+  "description": "\ud83d\ude80 Production-ready Leptos UI components with 100% TDD coverage. Advanced validation, accessibility-first design, and enterprise-grade quality. Built for Leptos v0.8+ with comprehensive testing, real-t",
+  "version": "1.0.0",
+  "author": "cloud-shuttle",
+  "homepage": "https://github.com/cloud-shuttle/leptos-shadcn-ui",
+  "skills": []
+}
