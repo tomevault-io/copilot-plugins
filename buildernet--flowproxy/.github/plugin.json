@@ -1,0 +1,9 @@
+{
+  "name": "buildernet--flowproxy",
+  "displayName": "FlowProxy",
+  "description": "Orderflow Ingestion, Processing and Multiplexing Engine",
+  "version": "1.0.0",
+  "author": "BuilderNet",
+  "homepage": "https://github.com/BuilderNet/FlowProxy",
+  "skills": []
+}
