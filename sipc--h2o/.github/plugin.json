@@ -1,0 +1,9 @@
+{
+  "name": "sipc--h2o",
+  "displayName": "H2O",
+  "description": "Hysteria2 Ops \u2014 One-stop management for your Hy2 nodes",
+  "version": "1.0.0",
+  "author": "SIPC",
+  "homepage": "https://github.com/SIPC/H2O",
+  "skills": []
+}
