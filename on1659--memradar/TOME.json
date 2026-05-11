@@ -1,0 +1,44 @@
+{
+  "name": "memradar",
+  "owner": "on1659",
+  "repo": "memradar",
+  "description": "\ub2f9\uc2e0\uc758 AI \ub300\ud654\uac00 \ub4e4\ub824\uc8fc\ub294 \uc774\uc57c\uae30 \u2014 Fun retrospective viewer for AI coding assistant conversations",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/on1659/memradar",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T09:40:55Z"
+}
