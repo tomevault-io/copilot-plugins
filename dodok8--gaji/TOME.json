@@ -4,7 +4,7 @@
   "repo": "gaji",
   "description": "Type-safe GitHub Actions workflows in TypeScript, GitHub Actions Justified Improvements",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dodok8/gaji",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T06:32:56Z"
+  "distributed_at": "2026-05-11T14:41:17Z"
 }
