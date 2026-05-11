@@ -1,7 +1,7 @@
 {
   "name": "ww-ai-lab--browser-use-playwright",
   "displayName": "browser-use-playwright",
-  "description": "browser-use-playwright",
+  "description": "\u4e00\u7ad9\u5f0f\u81ea\u52a8\u5316\u65b9\u6848\uff1aBrowser-Use \u4f4e\u4ee3\u7801\u5f55\u5236 \u2192 Playwright \u7a33\u5b9a\u6267\u884c \u2192 Browser-Use \u667a\u80fd\u81ea\u6108\u3002",
   "version": "1.0.0",
   "author": "WW-AI-Lab",
   "homepage": "https://github.com/WW-AI-Lab/browser-use-playwright",
