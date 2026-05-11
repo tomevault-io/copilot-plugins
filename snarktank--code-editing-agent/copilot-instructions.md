@@ -1,6 +1,6 @@
-## windsurf-rules
+## cursor-rules
 
-> Guidelines for creating and maintaining Windsurf rules to ensure consistency and effectiveness.
+> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
 
 
 - **Required Rule Structure:**
@@ -18,7 +18,7 @@
 
 - **File References:**
   - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
-  - Example: [prisma.md](.windsurf/rules/prisma.md) for rule references
+  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
   - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
 
 - **Code Examples:**
