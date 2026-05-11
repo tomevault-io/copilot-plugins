@@ -1,0 +1,9 @@
+{
+  "name": "rachuna-net-pl--artifacts-ansible-roles-set-hostname",
+  "displayName": "artifacts.ansible-roles.set-hostname",
+  "description": "Rola Ansible set-hostname \u2014 ustawia hostname serwera i aktualizuje /etc/hosts (wpis 127.0.1.1). Obs\u0142uguje Debian, Ubuntu, AlmaLinux (EL 7/8/9), Alpine.",
+  "version": "1.0.0",
+  "author": "rachuna-net-pl",
+  "homepage": "https://github.com/rachuna-net-pl/artifacts.ansible-roles.set-hostname",
+  "skills": []
+}
