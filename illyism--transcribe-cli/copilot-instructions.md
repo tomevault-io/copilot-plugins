@@ -1,65 +1,64 @@
-## cli-patterns
+## optimization
 
-> const input = args.find(arg => !arg.startsWith('--')) || args[0]
+> How audio optimization works and when it's applied
 
 
-# CLI Patterns
+# Audio Optimization Strategy
 
-## Argument Parsing
+## Default Behavior
 
-```typescript
-const input = args.find(arg => !arg.startsWith('--')) || args[0]
-const useRaw = args.includes('--raw')
+**ALL files are optimized by default with 1.2x speed** (based on A/B test results)
+
+### Why 1.2x Speed?
+
+A/B testing showed (see [test/compare.ts](mdc:test/compare.ts)):
+- 99.5% file size reduction (2.7GB → 12.8MB)
+- 9% faster processing (65.4s vs 72s)
+- Same cost ($0.006/min charged on original duration)
+- ~98% accuracy maintained
+- Automatic timestamp adjustment back to original speed
+
+### Implementation
+
+See [src/optimize.ts](mdc:src/optimize.ts):
+
+1. **Check file size**: Display size for user awareness
+2. **Speed up audio**: Use FFmpeg `atempo=1.2` filter
+3. **Adjust timestamps**: Divide all SRT timestamps by 1.2 to restore original timing
+4. **Cleanup**: Remove optimized file after transcription
+
+### Disabling Optimization
+
+Users can disable with `--raw` flag:
+```bash
+transcribe video.mp4 --raw  # Use original audio
 ```
 
-Always extract the file/URL first (non-flag argument), then check for flags.
-
-## Help Text
-
-Must include:
-- Usage line with placeholder
-- All flags and options
-- Multiple examples (local file, YouTube, with flags)
-- Current optimizations status
-- Supported formats
-- Configuration instructions
-
-## Error Messages
-
-Pattern: Always include helpful links and copy-paste commands:
-
+Or programmatically:
 ```typescript
-throw new Error(
-  'OPENAI_API_KEY not found.\n\n' +
-  '🔑 Get your API key: https://platform.openai.com/api-keys\n\n' +
-  'Then set it using ONE of these methods:\n\n' +
-  '1️⃣  Environment variable...\n' +
-  '2️⃣  Config file...\n\n' +
-  '📚 Full setup guide: https://github.com/...'
-)
+await transcribe({ inputPath, apiKey, optimize: false })
 ```
 
-## Config Resolution
+### Timestamp Adjustment
 
-Priority order:
-1. Environment variable (`OPENAI_API_KEY`)
-2. Config file (`~/.transcribe/config.json`)
+Critical: All SRT timestamps must be divided by the speed factor to match original video timing.
 
-Always try both before throwing error.
+See `adjustSRTTimestamps()` in [src/optimize.ts](mdc:src/optimize.ts) - converts timestamp to milliseconds, divides by speedFactor, then converts back.
 
-## Output Format
+## Alternative: Opus Compression
 
-```typescript
-console.log(`\n✅ SRT file saved to: ${result.srtPath}`)
-console.log(`\nTranscription preview:`)
-console.log('─'.repeat(60))
-console.log(result.text.substring(0, 500) + '...')
-console.log('─'.repeat(60))
-console.log(`\nLanguage: ${result.language}`)
-console.log(`Duration: ${result.duration.toFixed(2)}s`)
-```
+Tested but not used by default (see [test/test-opus.ts](mdc:test/test-opus.ts)):
+- Target: <25MB files
+- Uses Opus codec in OGG container
+- ~99% accuracy
+- Slower than speed optimization (86.8s vs 65.4s)
 
-Use emoji icons for progress steps: 🎬 🎥 📊 ⚡ 🎙️ ✅ ⏱️ 🧹
+## When Modifying Optimization
+
+1. Update [test/](mdc:test/) with new strategy
+2. Run comparison tests
+3. Update CHANGELOG with results
+4. Consider making it opt-in first (new flag)
 
 ---
 > Source: [Illyism/transcribe-cli](https://github.com/Illyism/transcribe-cli) — distributed by [TomeVault](https://tomevault.io).
