@@ -1,0 +1,9 @@
+{
+  "name": "lanerra--saga",
+  "displayName": "saga",
+  "description": "Autonomous, agentic, creative story writing system that incorporates stored embeddings and Knowledge Graphs.",
+  "version": "1.0.0",
+  "author": "Lanerra",
+  "homepage": "https://github.com/Lanerra/saga",
+  "skills": []
+}
