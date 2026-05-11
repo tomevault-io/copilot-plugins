@@ -1,0 +1,9 @@
+{
+  "name": "worldcoin--world-id-protocol",
+  "displayName": "world-id-protocol",
+  "description": "Main components and documentation for the World ID Protocol.",
+  "version": "1.0.0",
+  "author": "worldcoin",
+  "homepage": "https://github.com/worldcoin/world-id-protocol",
+  "skills": []
+}
