@@ -1,0 +1,9 @@
+{
+  "name": "dgerlanc--mmi",
+  "displayName": "mmi",
+  "description": "Mother May I - Automating permissions for Claude Code Bash tool calls",
+  "version": "1.0.0",
+  "author": "dgerlanc",
+  "homepage": "https://github.com/dgerlanc/mmi",
+  "skills": []
+}
