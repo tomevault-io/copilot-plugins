@@ -1,0 +1,9 @@
+{
+  "name": "salesably--salesably-marketplace",
+  "displayName": "salesably-marketplace",
+  "description": "Claude Code plugins for sales and marketing teams. Built by Salesably.ai.",
+  "version": "1.0.0",
+  "author": "Salesably",
+  "homepage": "https://github.com/Salesably/salesably-marketplace",
+  "skills": []
+}
