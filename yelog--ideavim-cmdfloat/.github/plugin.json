@@ -1,0 +1,9 @@
+{
+  "name": "yelog--ideavim-cmdfloat",
+  "displayName": "ideavim-cmdfloat",
+  "description": "Enhance the style and behavior of the command line for Ideavim",
+  "version": "1.0.0",
+  "author": "yelog",
+  "homepage": "https://github.com/yelog/ideavim-cmdfloat",
+  "skills": []
+}
