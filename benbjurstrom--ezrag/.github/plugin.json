@@ -1,0 +1,9 @@
+{
+  "name": "benbjurstrom--ezrag",
+  "displayName": "ezrag",
+  "description": "Turns your Obsidian vault into a Gemini-powered RAG index with semantic search, in-app chat, and an MCP endpoint ",
+  "version": "1.0.0",
+  "author": "benbjurstrom",
+  "homepage": "https://github.com/benbjurstrom/ezrag",
+  "skills": []
+}
