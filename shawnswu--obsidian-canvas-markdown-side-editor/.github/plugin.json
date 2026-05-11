@@ -1,0 +1,9 @@
+{
+  "name": "shawnswu--obsidian-canvas-markdown-side-editor",
+  "displayName": "Obsidian-Canvas-Markdown-Side-Editor",
+  "description": "Edit the Markdown from Canvas card in a right-side pane\u2014no zooming or context switching required. It features live preview powered by Obsidian\u2019s MarkdownRenderer, an optional read-only mode, auto-save",
+  "version": "1.0.0",
+  "author": "ShawnSWu",
+  "homepage": "https://github.com/ShawnSWu/Obsidian-Canvas-Markdown-Side-Editor",
+  "skills": []
+}
