@@ -4,7 +4,7 @@
   "repo": "spel",
   "description": "Idiomatic Clojure wrapper for Playwright. Browser automation, API testing, Allure reporting, and native CLI - for Chromium, Firefox, and WebKit",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Blockether/spel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T18:18:09Z"
+  "distributed_at": "2026-05-11T11:46:04Z"
 }
