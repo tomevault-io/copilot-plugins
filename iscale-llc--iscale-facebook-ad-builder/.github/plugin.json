@@ -1,0 +1,9 @@
+{
+  "name": "iscale-llc--iscale-facebook-ad-builder",
+  "displayName": "iscale-facebook-ad-builder",
+  "description": "AI-powered Facebook ad automation platform. Competitor research, ad copy generation, image creation, and campaign management. FastAPI + React + Claude.",
+  "version": "1.0.0",
+  "author": "iscale-llc",
+  "homepage": "https://github.com/iscale-llc/iscale-facebook-ad-builder",
+  "skills": []
+}
