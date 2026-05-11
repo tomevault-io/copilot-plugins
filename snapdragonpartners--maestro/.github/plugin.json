@@ -1,0 +1,9 @@
+{
+  "name": "snapdragonpartners--maestro",
+  "displayName": "maestro",
+  "description": "The Maestro App Factory: a highly-opinionated multi-agent orchestration tool for app development that emulates the workflow of high-functioning human development teams using AI agents",
+  "version": "1.0.0",
+  "author": "SnapdragonPartners",
+  "homepage": "https://github.com/SnapdragonPartners/maestro",
+  "skills": []
+}
