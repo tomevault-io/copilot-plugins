@@ -1,0 +1,9 @@
+{
+  "name": "donniedice--protondrive-linux",
+  "displayName": "protondrive-linux",
+  "description": "\ud83d\udc27The first unofficial desktop client for Proton Drive on Linux. Fast, lightweight, and built with Tauri.",
+  "version": "1.0.0",
+  "author": "DonnieDice",
+  "homepage": "https://github.com/DonnieDice/protondrive-linux",
+  "skills": []
+}
