@@ -1,0 +1,9 @@
+{
+  "name": "steipete--inngest",
+  "displayName": "inngest",
+  "description": "CLI to query inngest jobs",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/inngest",
+  "skills": []
+}
