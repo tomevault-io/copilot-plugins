@@ -1,0 +1,9 @@
+{
+  "name": "outshift-open--casa",
+  "displayName": "CASA",
+  "description": "Continuous Agent Semantic Authorization - Intent-scoped authorization for Kubernetes multi-agent systems, enforced at the network layer.",
+  "version": "1.0.0",
+  "author": "outshift-open",
+  "homepage": "https://github.com/outshift-open/CASA",
+  "skills": []
+}
