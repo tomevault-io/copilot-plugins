@@ -1,6 +1,8 @@
-# lgamila — distributed by TomeVault
+# lgamila
 
-> Originally from [LGamila/lgamila](https://github.com/LGamila/lgamila). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [LGamila/lgamila](https://github.com/LGamila/lgamila) — distributed by [TomeVault](https://tomevault.io)
+
+A community project for Moroccan streamers
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [LGamila/lgamila](https://github.com/L
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/LGamila)
+From [LGamila/lgamila](https://github.com/LGamila/lgamila) — a repo with 16+ stars on GitHub.
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install LGamila/lgamila
 ```
-Or browse all formats at [https://tomevault.io/claim/LGamila](https://tomevault.io/claim/LGamila).
+Source: [github.com/LGamila/lgamila](https://github.com/LGamila/lgamila).
 
 <!-- genome:d-i-s -->
