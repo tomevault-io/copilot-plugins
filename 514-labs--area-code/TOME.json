@@ -2,7 +2,7 @@
   "name": "area-code",
   "owner": "514-labs",
   "repo": "area-code",
-  "description": "",
+  "description": "A baseline repo for bootstrapping sophisticated applications that require a relatively sophisticated architecture",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/514-labs/area-code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T13:32:36Z"
+  "distributed_at": "2026-05-11T09:02:58Z"
 }
