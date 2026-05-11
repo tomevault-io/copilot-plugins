@@ -1,0 +1,9 @@
+{
+  "name": "managedcode--codexsharpsdk",
+  "displayName": "CodexSharpSDK",
+  "description": "CLI-first .NET 10 / C# SDK for OpenAI Codex CLI with typed thread API, streamed JSONL events, structured outputs",
+  "version": "1.0.0",
+  "author": "managedcode",
+  "homepage": "https://github.com/managedcode/CodexSharpSDK",
+  "skills": []
+}
