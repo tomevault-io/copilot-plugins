@@ -4,7 +4,7 @@
   "repo": "crypto-market-data",
   "description": "Live cryptocurrency and DeFi market data. Simple, easy, straight to the point.  Market data from CoinGecko \u2022  Originally built within Lyra Web3 Playground https://github.com/nirholas/lyra-web3-playground - ",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nirholas/crypto-market-data",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T17:10:40Z"
+  "distributed_at": "2026-05-11T02:44:06Z"
 }
