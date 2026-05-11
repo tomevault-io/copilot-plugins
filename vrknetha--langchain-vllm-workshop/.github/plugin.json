@@ -1,0 +1,9 @@
+{
+  "name": "vrknetha--langchain-vllm-workshop",
+  "displayName": "langchain-vllm-workshop",
+  "description": "LangChain v1 + vLLM Workshop: Build an AI Job Application Assistant with MCP integration",
+  "version": "1.0.0",
+  "author": "vrknetha",
+  "homepage": "https://github.com/vrknetha/langchain-vllm-workshop",
+  "skills": []
+}
