@@ -2,9 +2,9 @@
   "name": "mcpx",
   "owner": "evantahler",
   "repo": "mcpx",
-  "description": "",
+  "description": "A command-line interface for MCP servers. curl for MCP.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/evantahler/mcpx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T08:52:56Z"
+  "distributed_at": "2026-05-11T13:21:09Z"
 }
