@@ -1,0 +1,9 @@
+{
+  "name": "medright--infusion-scheduler",
+  "displayName": "infusion_scheduler",
+  "description": "Infusion Scheduler - Rails app and FastAPI agent",
+  "version": "1.0.0",
+  "author": "medright",
+  "homepage": "https://github.com/medright/infusion_scheduler",
+  "skills": []
+}
