@@ -1,0 +1,9 @@
+{
+  "name": "sp00nznet--burnout3",
+  "displayName": "burnout3",
+  "description": "A project to statically recompile the original Xbox version of Burnout 3: Takedown (2004, Criterion Games / EA) into a native Windows 11 x86-64 executable.",
+  "version": "1.0.0",
+  "author": "sp00nznet",
+  "homepage": "https://github.com/sp00nznet/burnout3",
+  "skills": []
+}
