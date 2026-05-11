@@ -1,0 +1,9 @@
+{
+  "name": "libragen--libragen",
+  "displayName": "libragen",
+  "description": "Create private, local RAG libraries that work offline\u2014no API keys, no cloud services. Share them as single files your whole team can use.",
+  "version": "1.0.0",
+  "author": "libragen",
+  "homepage": "https://github.com/libragen/libragen",
+  "skills": []
+}
