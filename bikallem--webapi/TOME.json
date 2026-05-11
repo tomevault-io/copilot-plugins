@@ -4,7 +4,7 @@
   "repo": "webapi",
   "description": "Semi-curated and generated Moonbit browser WebAPI. Includes APIs - dom, fetch, html, xhr, url, svg, uievents and more.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bikallem/webapi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T03:35:14Z"
+  "distributed_at": "2026-05-11T22:14:19Z"
 }
