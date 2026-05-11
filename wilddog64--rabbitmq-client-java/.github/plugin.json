@@ -1,0 +1,9 @@
+{
+  "name": "wilddog64--rabbitmq-client-java",
+  "displayName": "rabbitmq-client-java",
+  "description": "rabbitmq-client-java",
+  "version": "1.0.0",
+  "author": "wilddog64",
+  "homepage": "https://github.com/wilddog64/rabbitmq-client-java",
+  "skills": []
+}
