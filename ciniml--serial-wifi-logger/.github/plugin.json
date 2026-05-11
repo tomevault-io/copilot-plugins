@@ -1,0 +1,9 @@
+{
+  "name": "ciniml--serial-wifi-logger",
+  "displayName": "serial_wifi_logger",
+  "description": "Firmware to collect log data from USB-UART adapter through TCP with ESP32-S3",
+  "version": "1.0.0",
+  "author": "ciniml",
+  "homepage": "https://github.com/ciniml/serial_wifi_logger",
+  "skills": []
+}
