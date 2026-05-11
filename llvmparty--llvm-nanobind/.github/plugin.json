@@ -1,0 +1,9 @@
+{
+  "name": "llvmparty--llvm-nanobind",
+  "displayName": "llvm-nanobind",
+  "description": "\u26a0\ufe0f WIP: LLVM-C Python bindings with nanobind.",
+  "version": "1.0.0",
+  "author": "LLVMParty",
+  "homepage": "https://github.com/LLVMParty/llvm-nanobind",
+  "skills": []
+}
