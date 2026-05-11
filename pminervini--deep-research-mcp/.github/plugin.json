@@ -1,0 +1,9 @@
+{
+  "name": "pminervini--deep-research-mcp",
+  "displayName": "deep-research-mcp",
+  "description": "MCP server for OpenAI's Deep Research APIs, Gemini Deep Research Agent, Allen AI's DR-Tulu, and Hugging Face's Open Deep Research",
+  "version": "1.0.0",
+  "author": "pminervini",
+  "homepage": "https://github.com/pminervini/deep-research-mcp",
+  "skills": []
+}
