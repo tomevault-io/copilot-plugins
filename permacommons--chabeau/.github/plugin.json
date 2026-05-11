@@ -1,0 +1,9 @@
+{
+  "name": "permacommons--chabeau",
+  "displayName": "chabeau",
+  "description": "OpenAI-API compatible terminal chatbot and MCP client in Rust",
+  "version": "1.0.0",
+  "author": "permacommons",
+  "homepage": "https://github.com/permacommons/chabeau",
+  "skills": []
+}
