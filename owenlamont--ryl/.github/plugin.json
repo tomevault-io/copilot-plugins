@@ -1,0 +1,9 @@
+{
+  "name": "owenlamont--ryl",
+  "displayName": "ryl",
+  "description": "Re-implementation of yamllint in Rust",
+  "version": "1.0.0",
+  "author": "owenlamont",
+  "homepage": "https://github.com/owenlamont/ryl",
+  "skills": []
+}
