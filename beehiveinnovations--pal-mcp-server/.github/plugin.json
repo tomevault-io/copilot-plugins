@@ -1,0 +1,9 @@
+{
+  "name": "beehiveinnovations--pal-mcp-server",
+  "displayName": "pal-mcp-server",
+  "description": "The power of Claude Code / GeminiCLI / CodexCLI + [Gemini / OpenAI / OpenRouter / Azure / Grok / Ollama / Custom Model / All Of The Above] working as one.",
+  "version": "1.0.0",
+  "author": "BeehiveInnovations",
+  "homepage": "https://github.com/BeehiveInnovations/pal-mcp-server",
+  "skills": []
+}
