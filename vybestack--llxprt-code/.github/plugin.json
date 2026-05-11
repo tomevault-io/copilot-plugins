@@ -1,0 +1,9 @@
+{
+  "name": "vybestack--llxprt-code",
+  "displayName": "llxprt-code",
+  "description": "An open-source multi-provider AI assisted CLI development tool. Use whatever LLM you want to code in your terminal.",
+  "version": "1.0.0",
+  "author": "vybestack",
+  "homepage": "https://github.com/vybestack/llxprt-code",
+  "skills": []
+}
