@@ -1,0 +1,9 @@
+{
+  "name": "hancengiz--youtube-transcript-mcp",
+  "displayName": "youtube-transcript-mcp",
+  "description": "MCP server for retrieving YouTube video transcripts. Extract, summarize, and analyze video content with Claude Code or any other  MCP enabled AI Tool",
+  "version": "1.0.0",
+  "author": "hancengiz",
+  "homepage": "https://github.com/hancengiz/youtube-transcript-mcp",
+  "skills": []
+}
