@@ -7,11 +7,11 @@ Hub open-source de skills de IA da V4. Compartilhe skills, use as do time, cres�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [V4-Company/builders-hub](https://github.com/V4-Company/builders-hub).
+Original source: `CLAUDE.md` in [V4-Company/builders-hub](https://github.com/V4-Company/builders-hub).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
