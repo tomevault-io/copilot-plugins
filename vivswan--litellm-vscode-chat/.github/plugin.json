@@ -1,0 +1,9 @@
+{
+  "name": "vivswan--litellm-vscode-chat",
+  "displayName": "litellm-vscode-chat",
+  "description": "A VSCode extension to use LiteLLM Provider in Copilot Chat",
+  "version": "1.0.0",
+  "author": "Vivswan",
+  "homepage": "https://github.com/Vivswan/litellm-vscode-chat",
+  "skills": []
+}
