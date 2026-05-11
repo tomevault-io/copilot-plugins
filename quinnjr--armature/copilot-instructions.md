@@ -1,204 +1,645 @@
-## queue-background-jobs
+## realtime-websocket-sse
 
-> Guidelines for background job processing with armature-queue
+> Guidelines for implementing real-time communication in Armature.
 
 
-# Queue & Background Jobs
+# Real-time Features: WebSocket & SSE
 
-Standards for background job processing in Armature.
+Guidelines for implementing real-time communication in Armature.
 
-## Job Definition
+## Choosing Between WebSocket and SSE
+
+| Feature | WebSocket | SSE |
+|---------|-----------|-----|
+| Direction | Bidirectional | Server → Client only |
+| Protocol | Custom | HTTP |
+| Reconnection | Manual | Automatic |
+| Browser Support | Good | Excellent |
+| Proxy Friendly | Sometimes | Yes |
+| Use Case | Chat, Games | Notifications, Feeds |
+
+## WebSocket Implementation
+
+### Basic WebSocket Handler
 
 ```rust
-use armature_queue::{Job, JobContext, JobResult};
-use serde::{Deserialize, Serialize};
+use armature::websocket::{WebSocket, Message, WebSocketUpgrade};
 
-#[derive(Serialize, Deserialize)]
-pub struct SendEmailJob {
-    pub to: String,
-    pub subject: String,
-    pub body: String,
+#[controller("/ws")]
+pub struct WebSocketController;
+
+impl WebSocketController {
+    #[get("/")]
+    async fn connect(&self, ws: WebSocketUpgrade) -> WebSocketResponse {
+        ws.on_upgrade(|socket| handle_socket(socket))
+    }
 }
 
-impl Job for SendEmailJob {
-    const NAME: &'static str = "send_email";
-    const QUEUE: &'static str = "emails";
-    const MAX_RETRIES: u32 = 3;
-    const TIMEOUT: Duration = Duration::from_secs(30);
+async fn handle_socket(mut socket: WebSocket) {
+    // Send welcome message
+    socket.send(Message::Text("Connected!".to_string())).await.ok();
 
-    async fn perform(&self, ctx: &JobContext) -> JobResult {
-        let mailer = ctx.resolve::<Mailer>()?;
-
-        mailer.send(&self.to, &self.subject, &self.body).await?;
-
-        Ok(())
+    // Message loop
+    while let Some(msg) = socket.recv().await {
+        match msg {
+            Ok(Message::Text(text)) => {
+                // Echo back
+                socket.send(Message::Text(format!("Echo: {}", text))).await.ok();
+            }
+            Ok(Message::Binary(data)) => {
+                // Handle binary data
+                socket.send(Message::Binary(data)).await.ok();
+            }
+            Ok(Message::Ping(data)) => {
+                socket.send(Message::Pong(data)).await.ok();
+            }
+            Ok(Message::Close(_)) => break,
+            Err(e) => {
+                eprintln!("WebSocket error: {}", e);
+                break;
+            }
+            _ => {}
+        }
     }
 }
 ```
 
-## Enqueueing Jobs
+### Room-Based Chat
 
 ```rust
-// Immediate execution
-queue.enqueue(SendEmailJob {
-    to: "user@example.com".into(),
-    subject: "Welcome!".into(),
-    body: "Hello, welcome to our app.".into(),
-}).await?;
+use std::sync::Arc;
+use tokio::sync::{broadcast, RwLock};
+use std::collections::HashMap;
 
-// Delayed execution
-queue.enqueue_at(
-    SendEmailJob { /* ... */ },
-    Utc::now() + Duration::hours(1),
-).await?;
-
-// With priority
-queue.enqueue_with_priority(
-    SendEmailJob { /* ... */ },
-    Priority::High,
-).await?;
-```
-
-## Worker Configuration
-
-```rust
-let worker = Worker::new(queue)
-    .concurrency(4)
-    .queues(&["critical", "default", "low"])
-    .register::<SendEmailJob>()
-    .register::<ProcessImageJob>()
-    .register::<GenerateReportJob>();
-
-// Start processing
-worker.run().await?;
-```
-
-## Retry Strategy
-
-```rust
-impl Job for SendEmailJob {
-    fn retry_delay(&self, attempt: u32) -> Duration {
-        // Exponential backoff: 10s, 60s, 360s, ...
-        Duration::from_secs(10 * 6u64.pow(attempt - 1))
-    }
-
-    fn should_retry(&self, error: &JobError) -> bool {
-        // Don't retry permanent failures
-        !matches!(error, JobError::InvalidEmail(_))
-    }
-}
-```
-
-## Error Handling
-
-```rust
-#[derive(Error, Debug)]
-pub enum JobError {
-    #[error("Temporary failure: {0}")]
-    Temporary(String), // Will retry
-
-    #[error("Permanent failure: {0}")]
-    Permanent(String), // Won't retry
+#[derive(Clone)]
+pub struct ChatRooms {
+    rooms: Arc<RwLock<HashMap<String, broadcast::Sender<ChatMessage>>>>,
 }
 
-async fn perform(&self, ctx: &JobContext) -> JobResult {
-    match send_email(&self.to).await {
-        Ok(()) => Ok(()),
-        Err(e) if e.is_transient() => Err(JobError::Temporary(e.to_string()).into()),
-        Err(e) => Err(JobError::Permanent(e.to_string()).into()),
-    }
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ChatMessage {
+    pub room: String,
+    pub user: String,
+    pub content: String,
+    pub timestamp: u64,
 }
-```
 
-## Job Lifecycle Hooks
-
-```rust
-impl Job for ProcessImageJob {
-    async fn before_perform(&self, ctx: &JobContext) -> Result<(), JobError> {
-        tracing::info!(job_id = %ctx.job_id, "Starting image processing");
-        Ok(())
-    }
-
-    async fn after_perform(&self, ctx: &JobContext, result: &JobResult) {
-        match result {
-            Ok(()) => tracing::info!(job_id = %ctx.job_id, "Image processed"),
-            Err(e) => tracing::error!(job_id = %ctx.job_id, error = %e, "Processing failed"),
+impl ChatRooms {
+    pub fn new() -> Self {
+        Self {
+            rooms: Arc::new(RwLock::new(HashMap::new())),
         }
     }
 
-    async fn on_failure(&self, ctx: &JobContext, error: &JobError) {
-        // Send alert, update status, etc.
-        alert_team(format!("Job {} failed: {}", ctx.job_id, error)).await;
+    pub async fn join(&self, room: &str) -> broadcast::Receiver<ChatMessage> {
+        let mut rooms = self.rooms.write().await;
+
+        if let Some(tx) = rooms.get(room) {
+            tx.subscribe()
+        } else {
+            let (tx, rx) = broadcast::channel(100);
+            rooms.insert(room.to_string(), tx);
+            rx
+        }
+    }
+
+    pub async fn send(&self, message: ChatMessage) -> Result<(), Error> {
+        let rooms = self.rooms.read().await;
+
+        if let Some(tx) = rooms.get(&message.room) {
+            tx.send(message).map_err(|_| Error::ChannelClosed)?;
+        }
+
+        Ok(())
+    }
+
+    pub async fn leave(&self, room: &str) {
+        let mut rooms = self.rooms.write().await;
+
+        if let Some(tx) = rooms.get(room) {
+            if tx.receiver_count() == 0 {
+                rooms.remove(room);
+            }
+        }
+    }
+}
+
+#[controller("/ws/chat")]
+pub struct ChatController {
+    rooms: ChatRooms,
+}
+
+impl ChatController {
+    #[get("/:room")]
+    async fn join_room(
+        &self,
+        room: Path<String>,
+        user: Query<UserQuery>,
+        ws: WebSocketUpgrade,
+    ) -> WebSocketResponse {
+        let rooms = self.rooms.clone();
+        let room_name = room.to_string();
+        let username = user.name.clone();
+
+        ws.on_upgrade(move |socket| async move {
+            handle_chat_socket(socket, rooms, room_name, username).await
+        })
+    }
+}
+
+async fn handle_chat_socket(
+    socket: WebSocket,
+    rooms: ChatRooms,
+    room: String,
+    user: String,
+) {
+    let (mut sender, mut receiver) = socket.split();
+    let mut rx = rooms.join(&room).await;
+
+    // Announce join
+    let join_msg = ChatMessage {
+        room: room.clone(),
+        user: "system".to_string(),
+        content: format!("{} joined the room", user),
+        timestamp: timestamp_now(),
+    };
+    rooms.send(join_msg).await.ok();
+
+    // Spawn task to forward broadcast messages to client
+    let room_clone = room.clone();
+    let send_task = tokio::spawn(async move {
+        while let Ok(msg) = rx.recv().await {
+            let json = serde_json::to_string(&msg).unwrap();
+            if sender.send(Message::Text(json)).await.is_err() {
+                break;
+            }
+        }
+    });
+
+    // Receive messages from client
+    let rooms_clone = rooms.clone();
+    let user_clone = user.clone();
+    let room_clone2 = room.clone();
+    let recv_task = tokio::spawn(async move {
+        while let Some(Ok(Message::Text(text))) = receiver.next().await {
+            let msg = ChatMessage {
+                room: room_clone2.clone(),
+                user: user_clone.clone(),
+                content: text,
+                timestamp: timestamp_now(),
+            };
+            rooms_clone.send(msg).await.ok();
+        }
+    });
+
+    // Wait for either task to complete
+    tokio::select! {
+        _ = send_task => {}
+        _ = recv_task => {}
+    }
+
+    // Announce leave
+    let leave_msg = ChatMessage {
+        room: room.clone(),
+        user: "system".to_string(),
+        content: format!("{} left the room", user),
+        timestamp: timestamp_now(),
+    };
+    rooms.send(leave_msg).await.ok();
+    rooms.leave(&room).await;
+}
+```
+
+### WebSocket with Authentication
+
+```rust
+use armature::auth::JwtService;
+
+#[controller("/ws")]
+pub struct AuthenticatedWebSocket {
+    jwt: JwtService,
+}
+
+impl AuthenticatedWebSocket {
+    #[get("/")]
+    async fn connect(
+        &self,
+        token: Query<TokenQuery>,
+        ws: WebSocketUpgrade,
+    ) -> Result<WebSocketResponse, Error> {
+        // Validate token before upgrading
+        let claims = self.jwt.verify(&token.token)?;
+
+        Ok(ws.on_upgrade(move |socket| async move {
+            handle_authenticated_socket(socket, claims).await
+        }))
+    }
+}
+
+async fn handle_authenticated_socket(mut socket: WebSocket, claims: Claims) {
+    // User is authenticated
+    socket.send(Message::Text(format!(
+        "Welcome, {}!", claims.sub
+    ))).await.ok();
+
+    // ... handle messages
+}
+```
+
+## Server-Sent Events (SSE)
+
+### Basic SSE Stream
+
+```rust
+use armature::sse::{Sse, Event, KeepAlive};
+use tokio_stream::StreamExt;
+
+#[controller("/events")]
+pub struct EventController;
+
+impl EventController {
+    #[get("/")]
+    async fn stream(&self) -> Sse<impl Stream<Item = Result<Event, Error>>> {
+        let stream = async_stream::stream! {
+            let mut interval = tokio::time::interval(Duration::from_secs(1));
+
+            loop {
+                interval.tick().await;
+                let event = Event::default()
+                    .data(format!("Server time: {}", timestamp_now()));
+                yield Ok(event);
+            }
+        };
+
+        Sse::new(stream)
+            .keep_alive(KeepAlive::default())
     }
 }
 ```
 
-## Batch Jobs
+### Named Events with Data
 
 ```rust
-// Enqueue multiple jobs atomically
-queue.enqueue_batch(vec![
-    SendEmailJob { to: "user1@example.com".into(), /* ... */ },
-    SendEmailJob { to: "user2@example.com".into(), /* ... */ },
-    SendEmailJob { to: "user3@example.com".into(), /* ... */ },
-]).await?;
-```
+#[derive(Serialize)]
+struct Notification {
+    id: String,
+    title: String,
+    body: String,
+    created_at: u64,
+}
 
-## Scheduled Jobs (Cron)
+#[get("/notifications")]
+async fn notification_stream(&self, user_id: Auth<UserId>) -> Sse<impl Stream<Item = Result<Event, Error>>> {
+    let user_id = user_id.0;
+    let notifications = self.notification_service.subscribe(user_id).await;
 
-```rust
-use armature_cron::Schedule;
+    let stream = notifications.map(|notification| {
+        let json = serde_json::to_string(&notification)?;
+        Ok(Event::default()
+            .event("notification")
+            .data(json)
+            .id(notification.id.clone()))
+    });
 
-scheduler
-    .add("cleanup_expired_sessions", "0 0 * * *", || async {
-        cleanup_sessions().await
-    })
-    .add("generate_daily_report", "0 8 * * *", || async {
-        generate_report().await
-    })
-    .start()
-    .await?;
-```
-
-## Monitoring
-
-```rust
-// Get queue statistics
-let stats = queue.stats().await?;
-println!("Pending: {}", stats.pending);
-println!("Processing: {}", stats.processing);
-println!("Failed: {}", stats.failed);
-println!("Completed: {}", stats.completed);
-
-// Dead letter queue
-let dead_jobs = queue.dead_letter_queue().list(100).await?;
-for job in dead_jobs {
-    // Inspect or retry
-    queue.retry_dead_job(job.id).await?;
+    Sse::new(stream)
+        .keep_alive(
+            KeepAlive::new()
+                .interval(Duration::from_secs(15))
+                .text("keep-alive")
+        )
 }
 ```
 
-## Testing Jobs
+### SSE with Reconnection
 
 ```rust
-#[tokio::test]
-async fn test_send_email_job() {
-    let mock_mailer = MockMailer::new();
-    mock_mailer.expect_send().times(1).returning(|_, _, _| Ok(()));
+#[get("/feed")]
+async fn feed_stream(
+    &self,
+    last_event_id: Header<"Last-Event-Id">,
+) -> Sse<impl Stream<Item = Result<Event, Error>>> {
+    // Resume from last event ID if reconnecting
+    let start_from = last_event_id
+        .as_deref()
+        .and_then(|id| id.parse::<u64>().ok())
+        .unwrap_or(0);
 
-    let ctx = JobContext::test()
-        .with_service::<dyn Mailer>(Arc::new(mock_mailer));
+    let stream = self.feed_service.stream_from(start_from).await
+        .map(|item| {
+            Ok(Event::default()
+                .event("feed-item")
+                .data(serde_json::to_string(&item)?)
+                .id(item.id.to_string())
+                .retry(Duration::from_secs(5)))
+        });
 
-    let job = SendEmailJob {
-        to: "test@example.com".into(),
-        subject: "Test".into(),
-        body: "Body".into(),
+    Sse::new(stream)
+}
+```
+
+## Broadcasting Patterns
+
+### Pub/Sub with Tokio Broadcast
+
+```rust
+use tokio::sync::broadcast;
+
+pub struct EventBroadcaster {
+    tx: broadcast::Sender<ServerEvent>,
+}
+
+#[derive(Clone, Debug, Serialize)]
+#[serde(tag = "type")]
+pub enum ServerEvent {
+    UserOnline { user_id: i64 },
+    UserOffline { user_id: i64 },
+    NewMessage { from: i64, content: String },
+    SystemNotice { message: String },
+}
+
+impl EventBroadcaster {
+    pub fn new() -> Self {
+        let (tx, _) = broadcast::channel(1000);
+        Self { tx }
+    }
+
+    pub fn subscribe(&self) -> broadcast::Receiver<ServerEvent> {
+        self.tx.subscribe()
+    }
+
+    pub fn broadcast(&self, event: ServerEvent) {
+        // Ignore send errors (no subscribers)
+        let _ = self.tx.send(event);
+    }
+}
+
+#[controller("/events")]
+pub struct BroadcastController {
+    broadcaster: EventBroadcaster,
+}
+
+impl BroadcastController {
+    #[get("/stream")]
+    async fn stream(&self) -> Sse<impl Stream<Item = Result<Event, Error>>> {
+        let mut rx = self.broadcaster.subscribe();
+
+        let stream = async_stream::stream! {
+            while let Ok(event) = rx.recv().await {
+                let json = serde_json::to_string(&event)?;
+                yield Ok(Event::default()
+                    .event(event.event_type())
+                    .data(json));
+            }
+        };
+
+        Sse::new(stream)
+    }
+}
+```
+
+### Channel per Client
+
+```rust
+use tokio::sync::mpsc;
+
+pub struct ClientManager {
+    clients: Arc<RwLock<HashMap<ClientId, mpsc::Sender<ServerEvent>>>>,
+}
+
+impl ClientManager {
+    pub async fn add_client(&self) -> (ClientId, mpsc::Receiver<ServerEvent>) {
+        let id = ClientId::new();
+        let (tx, rx) = mpsc::channel(100);
+
+        self.clients.write().await.insert(id.clone(), tx);
+        (id, rx)
+    }
+
+    pub async fn remove_client(&self, id: &ClientId) {
+        self.clients.write().await.remove(id);
+    }
+
+    pub async fn send_to(&self, id: &ClientId, event: ServerEvent) -> Result<(), Error> {
+        let clients = self.clients.read().await;
+        if let Some(tx) = clients.get(id) {
+            tx.send(event).await.map_err(|_| Error::ClientDisconnected)?;
+        }
+        Ok(())
+    }
+
+    pub async fn broadcast(&self, event: ServerEvent) {
+        let clients = self.clients.read().await;
+        for tx in clients.values() {
+            let _ = tx.send(event.clone()).await;
+        }
+    }
+}
+```
+
+## Connection Management
+
+### Heartbeat/Ping-Pong
+
+```rust
+async fn handle_socket_with_heartbeat(mut socket: WebSocket) {
+    let mut heartbeat_interval = tokio::time::interval(Duration::from_secs(30));
+    let mut last_pong = Instant::now();
+
+    loop {
+        tokio::select! {
+            _ = heartbeat_interval.tick() => {
+                // Check if client is still alive
+                if last_pong.elapsed() > Duration::from_secs(60) {
+                    println!("Client timeout, disconnecting");
+                    break;
+                }
+
+                // Send ping
+                if socket.send(Message::Ping(vec![])).await.is_err() {
+                    break;
+                }
+            }
+            msg = socket.recv() => {
+                match msg {
+                    Some(Ok(Message::Pong(_))) => {
+                        last_pong = Instant::now();
+                    }
+                    Some(Ok(Message::Text(text))) => {
+                        // Handle message
+                    }
+                    Some(Ok(Message::Close(_))) | None => break,
+                    _ => {}
+                }
+            }
+        }
+    }
+}
+```
+
+### Connection Limits
+
+```rust
+use std::sync::atomic::{AtomicUsize, Ordering};
+
+pub struct ConnectionLimiter {
+    current: AtomicUsize,
+    max: usize,
+}
+
+impl ConnectionLimiter {
+    pub fn new(max: usize) -> Self {
+        Self {
+            current: AtomicUsize::new(0),
+            max,
+        }
+    }
+
+    pub fn try_acquire(&self) -> Option<ConnectionGuard> {
+        loop {
+            let current = self.current.load(Ordering::SeqCst);
+            if current >= self.max {
+                return None;
+            }
+
+            if self.current.compare_exchange(
+                current,
+                current + 1,
+                Ordering::SeqCst,
+                Ordering::SeqCst,
+            ).is_ok() {
+                return Some(ConnectionGuard { limiter: self });
+            }
+        }
+    }
+}
+
+pub struct ConnectionGuard<'a> {
+    limiter: &'a ConnectionLimiter,
+}
+
+impl Drop for ConnectionGuard<'_> {
+    fn drop(&mut self) {
+        self.limiter.current.fetch_sub(1, Ordering::SeqCst);
+    }
+}
+```
+
+## Client-Side Examples
+
+### JavaScript WebSocket Client
+
+```javascript
+class WebSocketClient {
+  constructor(url) {
+    this.url = url;
+    this.reconnectAttempts = 0;
+    this.maxReconnectAttempts = 5;
+    this.connect();
+  }
+
+  connect() {
+    this.ws = new WebSocket(this.url);
+
+    this.ws.onopen = () => {
+      console.log('Connected');
+      this.reconnectAttempts = 0;
     };
 
-    let result = job.perform(&ctx).await;
-    assert!(result.is_ok());
+    this.ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      this.handleMessage(data);
+    };
+
+    this.ws.onclose = () => {
+      console.log('Disconnected');
+      this.reconnect();
+    };
+
+    this.ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+  }
+
+  reconnect() {
+    if (this.reconnectAttempts < this.maxReconnectAttempts) {
+      this.reconnectAttempts++;
+      const delay = Math.min(1000 * Math.pow(2, this.reconnectAttempts), 30000);
+      setTimeout(() => this.connect(), delay);
+    }
+  }
+
+  send(data) {
+    if (this.ws.readyState === WebSocket.OPEN) {
+      this.ws.send(JSON.stringify(data));
+    }
+  }
+
+  handleMessage(data) {
+    // Override in subclass
+  }
 }
 ```
+
+### JavaScript SSE Client
+
+```javascript
+class EventSourceClient {
+  constructor(url) {
+    this.eventSource = new EventSource(url);
+
+    this.eventSource.onopen = () => {
+      console.log('SSE connected');
+    };
+
+    this.eventSource.onerror = (error) => {
+      console.error('SSE error:', error);
+    };
+
+    // Listen for specific events
+    this.eventSource.addEventListener('notification', (event) => {
+      const data = JSON.parse(event.data);
+      this.handleNotification(data);
+    });
+
+    // Default message handler
+    this.eventSource.onmessage = (event) => {
+      console.log('Message:', event.data);
+    };
+  }
+
+  handleNotification(data) {
+    // Override in subclass
+  }
+
+  close() {
+    this.eventSource.close();
+  }
+}
+```
+
+## Best Practices
+
+1. **Use SSE for server-to-client only** - Simpler, automatic reconnection
+2. **Use WebSocket for bidirectional** - Chat, games, collaboration
+3. **Implement heartbeats** for WebSocket connections
+4. **Handle reconnection** gracefully on both sides
+5. **Limit connections** per client/IP
+6. **Authenticate before upgrade** for WebSocket
+7. **Use event IDs** for SSE to enable resume
+8. **Set appropriate timeouts** for idle connections
+9. **Broadcast efficiently** with channels
+10. **Clean up** resources on disconnect
+
+## Summary
+
+| Pattern | WebSocket | SSE |
+|---------|-----------|-----|
+| Chat | ✅ Best | ❌ |
+| Notifications | ⚠️ Works | ✅ Best |
+| Live Feed | ⚠️ Works | ✅ Best |
+| Gaming | ✅ Best | ❌ |
+| Collaboration | ✅ Best | ❌ |
+| Progress Updates | ⚠️ Works | ✅ Best |
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
