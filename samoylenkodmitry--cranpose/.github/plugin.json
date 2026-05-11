@@ -1,0 +1,9 @@
+{
+  "name": "samoylenkodmitry--cranpose",
+  "displayName": "Cranpose",
+  "description": "Cranpose is a Jetpack Compose-inspired declarative Rust UI framework. https://crates.io/crates/cranpose",
+  "version": "1.0.0",
+  "author": "samoylenkodmitry",
+  "homepage": "https://github.com/samoylenkodmitry/Cranpose",
+  "skills": []
+}
