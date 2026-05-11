@@ -1,0 +1,9 @@
+{
+  "name": "oxidezap--whatsapp-rust",
+  "displayName": "whatsapp-rust",
+  "description": "Whatsapp client written purely in Rust based on whatsmeow and baileys",
+  "version": "1.0.0",
+  "author": "oxidezap",
+  "homepage": "https://github.com/oxidezap/whatsapp-rust",
+  "skills": []
+}
