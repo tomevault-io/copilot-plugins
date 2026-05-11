@@ -1,0 +1,9 @@
+{
+  "name": "calvinw--fl-studio-mcp",
+  "displayName": "fl-studio-mcp",
+  "description": "MCP server enabling LLM assistants to interact with FL Studio's piano roll",
+  "version": "1.0.0",
+  "author": "calvinw",
+  "homepage": "https://github.com/calvinw/fl-studio-mcp",
+  "skills": []
+}
