@@ -7,11 +7,11 @@ Agentic AI server in Rust. Multi-provider LLM routing, tool calling, RAG, MCP, m
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dirmacs/ares](https://github.com/dirmacs/ares).
+Original source: `CLAUDE.md` in [dirmacs/ares](https://github.com/dirmacs/ares).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
