@@ -1,0 +1,9 @@
+{
+  "name": "jrjsmrtn--tlx",
+  "displayName": "tlx",
+  "description": "A Spark DSL for writing TLA+/PlusCal specifications in Elixir",
+  "version": "1.0.0",
+  "author": "jrjsmrtn",
+  "homepage": "https://github.com/jrjsmrtn/tlx",
+  "skills": []
+}
