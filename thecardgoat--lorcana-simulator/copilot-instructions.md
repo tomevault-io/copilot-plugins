@@ -1,14 +1,14 @@
-## next-js
+## plan-product
 
-> Use this when changing nextJS related code, or creating pages or api routes
+> Plan a new product and install Agent OS in its codebase.
 
 
-# Next.js
+# Plan Product
 
-Next.js with TypeScript and Tailwind UI best practices
+Plan a new product and install Agent OS in its codebase.
 
-Refer to the guidelines located in this file:
-@.agent-os/standards/code-style/next-js.md 
+Refer to the instructions located in this file:
+@.agent-os/instructions/core/plan-product.md
 
 ---
 > Source: [TheCardGoat/lorcana-simulator](https://github.com/TheCardGoat/lorcana-simulator) — distributed by [TomeVault](https://tomevault.io).
