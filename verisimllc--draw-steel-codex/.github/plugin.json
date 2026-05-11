@@ -1,0 +1,9 @@
+{
+  "name": "verisimllc--draw-steel-codex",
+  "displayName": "draw-steel-codex",
+  "description": "The Lua code for the Draw Steel Codex, the official app for playing the Draw Steel role playing game digitally.",
+  "version": "1.0.0",
+  "author": "VerisimLLC",
+  "homepage": "https://github.com/VerisimLLC/draw-steel-codex",
+  "skills": []
+}
