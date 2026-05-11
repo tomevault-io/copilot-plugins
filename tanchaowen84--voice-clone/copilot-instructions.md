@@ -1,45 +1,12 @@
-## database-state-management
+## date-fns-best-practices
 
-> - Schema definitions in `src/db/schema.ts`
+> Best practices for date and time manipulation with date-fns
 
-# Database and State Management Guide
 
-## Database (Drizzle ORM)
-- Schema definitions in `src/db/schema.ts`
-- Migrations in `drizzle/`
-- Use `db:generate` to create new migration files based on schema changes
-- Use `db:migrate` to apply pending migrations to the database
-- Use `db:push` to sync schema changes directly to the database (development only)
-- Use `db:studio` to view and manage database data through the Drizzle Studio UI
-- Follow naming conventions for tables and columns
-- Use proper data types and constraints
-- Implement proper indexes
-- Handle relationships properly
-- Use transactions when needed
-
-## State Management (Zustand)
-- Store definitions in `src/stores/`
-- Keep stores modular and focused
-- Use TypeScript for store types
-- Implement proper state updates
-- Handle async operations properly
-- Use selectors for derived state
-- Implement proper error handling
-- Use middleware when needed
-- Keep store logic pure
-- Document complex state logic
-
-## Data Flow
-1. Server-side data fetching in server components
-2. Client-side state in Zustand stores
-3. Form state in React Hook Form
-4. API calls through server actions
-5. Database operations through Drizzle
-6. File storage through AWS S3
-7. Proper error handling at each layer
-8. Type safety throughout
-9. Proper validation with Zod
-10. Proper caching strategies
+- Use the `format` function for consistent date formatting across your application.
+- Implement proper timezone handling using the `utcToZonedTime` function.
+- Utilize the `intervalToDuration` function for calculating time differences.
+- Leverage the `isWithinInterval` function for date range checks.
 
 ---
 > Source: [tanchaowen84/voice-clone](https://github.com/tanchaowen84/voice-clone) — distributed by [TomeVault](https://tomevault.io).
