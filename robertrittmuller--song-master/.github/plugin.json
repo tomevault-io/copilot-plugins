@@ -1,0 +1,9 @@
+{
+  "name": "robertrittmuller--song-master",
+  "displayName": "song-master",
+  "description": "Use local or OpenRouter agents to write songs for Suno AI",
+  "version": "1.0.0",
+  "author": "robertrittmuller",
+  "homepage": "https://github.com/robertrittmuller/song-master",
+  "skills": []
+}
