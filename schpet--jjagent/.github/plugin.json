@@ -1,0 +1,9 @@
+{
+  "name": "schpet--jjagent",
+  "displayName": "jjagent",
+  "description": "track claude code sessions as jj-vcs changes",
+  "version": "1.0.0",
+  "author": "schpet",
+  "homepage": "https://github.com/schpet/jjagent",
+  "skills": []
+}
