@@ -1,0 +1,9 @@
+{
+  "name": "uipath--graphtty",
+  "displayName": "graphtty",
+  "description": "Turn any directed graph into colored ASCII art for your terminal with pure Python",
+  "version": "1.0.0",
+  "author": "UiPath",
+  "homepage": "https://github.com/UiPath/graphtty",
+  "skills": []
+}
