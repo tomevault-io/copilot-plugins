@@ -1,0 +1,9 @@
+{
+  "name": "langflow-ai--openrag",
+  "displayName": "openrag",
+  "description": "OpenRAG is a comprehensive, single package Retrieval-Augmented Generation platform built on Langflow, Docling, and Opensearch. ",
+  "version": "1.0.0",
+  "author": "langflow-ai",
+  "homepage": "https://github.com/langflow-ai/openrag",
+  "skills": []
+}
