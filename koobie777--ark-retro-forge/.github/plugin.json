@@ -1,0 +1,9 @@
+{
+  "name": "koobie777--ark-retro-forge",
+  "displayName": "ARK-Retro-Forge",
+  "description": "Portable .NET 8 C# ROM manager for PS/Nintendo/Xbox/SEGA: scan/clean/verify/compress/organize + emulator launch. Single-file EXE, no installer, dry-run by default.",
+  "version": "1.0.0",
+  "author": "koobie777",
+  "homepage": "https://github.com/koobie777/ARK-Retro-Forge",
+  "skills": []
+}
