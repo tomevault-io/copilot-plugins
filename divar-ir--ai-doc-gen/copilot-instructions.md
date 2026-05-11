@@ -1,135 +1,129 @@
-## project-overview
+## ai-doc-gen
 
-> Core project architecture, patterns, and conventions for the AI Documentation Generator
+> Multi-agent Python CLI tool that analyzes codebases and generates comprehensive documentation using specialized AI agents.
 
+# AI Documentation Generator
 
-# AI Documentation Generator - Project Overview
+Multi-agent Python CLI tool that analyzes codebases and generates comprehensive documentation using specialized AI agents.
 
-## Project Identity
+## Build & Test
 
-**Name**: ai-doc-gen  
-**Version**: 1.2.0  
-**Python**: 3.13 (strict requirement)  
-**Architecture**: Multi-agent CLI application with async/await patterns
+```bash
+# Install dependencies
+uv sync
 
-## Core Architecture
+# Run analysis
+uv run src/main.py analyze --repo-path .
 
-This is a **multi-agent AI system** that analyzes codebases and generates documentation using specialized AI agents:
+# Generate README
+uv run src/main.py generate readme --repo-path .
 
-### Handler-Agent Pattern
-- **Handlers** (`src/handlers/`) orchestrate workflows and manage configuration
-- **Agents** (`src/agents/`) execute AI-powered analysis using pydantic-ai
-- **Tools** (`src/agents/tools/`) provide file system access to agents
+# Generate AI assistant config files (CLAUDE.md, AGENTS.md, .cursor/rules/)
+uv run src/main.py generate ai-rules --repo-path .
 
-### Key Components
+# Format code
+uv run ruff format src/
 
-1. **Entry Point**: `src/main.py`
-   - Dynamic CLI argument generation from Pydantic models via reflection
-   - Command routing: `analyze`, `generate readme`, `generate ai-rules`, `cronjob analyze`
-   - Observability setup with Langfuse/OpenTelemetry
-
-2. **Configuration System**: `src/config.py`
-   - Multi-source loading: environment variables → YAML files → CLI arguments
-   - Hierarchical merging with explicit precedence
-   - All config validated through Pydantic models
-
-3. **Agent System**:
-   - **AnalyzerAgent**: Runs 5 concurrent specialized agents (structure, dependencies, data flow, request flow, API)
-   - **DocumenterAgent**: Generates README from analysis results
-   - **AIRulesAgent**: Generates AI assistant configuration files
-
-4. **Handler System**:
-   - **AnalyzeHandler**: Orchestrates code analysis
-   - **ReadmeHandler**: Manages README generation
-   - **AIRulesHandler**: Manages AI rules generation
-   - **JobAnalyzeHandler**: Automates GitLab project analysis with MR creation
-
-## Critical Patterns
-
-### 1. Configuration Hierarchy
-```python
-# Precedence: Pydantic defaults < YAML file < CLI args
-config = load_config(args, HandlerConfig, file_key="section.subsection")
+# Lint code
+uv run ruff check src/
 ```
 
-### 2. Concurrent Agent Execution
-```python
-# Error isolation - individual failures don't stop others
-results = await asyncio.gather(*tasks, return_exceptions=True)
+## Architecture
+
+- **Multi-Agent System**:
+  - 5 concurrent analysis agents (structure, dependencies, data flow, request flow, API)
+  - 2 concurrent generation agents (markdown generator, cursor rules generator)
+- **Handler Pattern**: Commands implement `AbstractHandler` with `handle()` method
+- **Tool-Based Agents**: Pydantic-AI agents with `FileReadTool` and `ListFilesTool`
+- **Configuration Hierarchy**: Pydantic defaults → YAML file → CLI arguments
+- **Async Execution**: `asyncio.gather()` for concurrent agent execution with error isolation
+
+**Tech Stack**: Python 3.13, pydantic-ai, OpenAI-compatible APIs, GitPython, python-gitlab, OpenTelemetry
+
+## Code Style
+
+- **Formatter**: Ruff (120 char lines, 4-space indent)
+- **Type Hints**: Pydantic models for all config/data structures
+- **Async/Await**: All agent operations are async
+- **Naming**: Snake case files/functions, Pascal case classes, `_private` methods
+- **Error Handling**: Graceful degradation, partial success acceptable, `ModelRetry` for tool errors
+
+## Testing
+
+No automated tests currently. Manual testing:
+```bash
+# Test analysis
+uv run src/main.py analyze --repo-path /path/to/test/repo
+
+# Test with exclusions
+uv run src/main.py analyze --repo-path . --exclude-data-flow
+
+# Test README generation
+uv run src/main.py generate readme --repo-path . --use-existing-readme
+
+# Test AI rules generation (skip existing files)
+uv run src/main.py generate ai-rules --repo-path . --skip-existing-claude-md
+
+# Test GitLab integration
+uv run src/main.py cronjob analyze --max-days-since-last-commit 7
 ```
 
-### 3. Pydantic Model Validation
-- All configuration uses Pydantic BaseModel with Field descriptors
-- Custom validators with `@model_validator(mode="after")`
-- Path validation and auto-resolution in BaseHandlerConfig
+## Git Workflow
 
-### 4. Tool-Based Agent Pattern
-```python
-agent = Agent(
-    name="Structure Analyzer",
-    model=model,
-    tools=[FileReadTool().get_tool(), ListFilesTool().get_tool()]
-)
-```
+**Branches**: `main` (production), `feature/*`, `fix/*`, `ai-analysis-YYYY-MM-DD` (automated)
 
-### 5. Retry Logic
-- **Agent-level**: 2 retries via pydantic-ai (configurable)
-- **HTTP-level**: 5 attempts with exponential backoff (1s → 60s max)
-- **Tool-level**: 2 retries with ModelRetry exceptions
+**Commits**: `[Category] Brief description` (Categories: Feature, Fix, Refactor, Docs, Config, AI)
 
-## File Organization
+**PRs**: Feature branch → main, squash merge, run ruff before submitting
 
-```
-src/
-├── main.py                    # CLI entry point
-├── config.py                  # Configuration management
-├── handlers/                  # Command handlers
-│   ├── base_handler.py       # Abstract base with config validation
-│   ├── analyze.py            # Analysis orchestration
-│   ├── readme.py             # README generation
-│   ├── ai_rules.py           # AI rules generation
-│   └── cronjob.py            # GitLab automation
-├── agents/                    # AI agents
-│   ├── analyzer.py           # Multi-agent analyzer
-│   ├── documenter.py         # README generator
-│   ├── ai_rules.py           # AI rules generator
-│   ├── prompts/              # YAML prompt templates
-│   └── tools/                # Agent tools
-│       ├── file_tool/        # File reading
-│       └── dir_tool/         # Directory listing
-└── utils/                     # Shared utilities
-    ├── logger.py             # Structured logging
-    ├── prompt_manager.py     # Jinja2 template rendering
-    ├── retry_client.py       # HTTP retry logic
-    ├── repo.py               # Git utilities
-    └── custom_models/        # Custom LLM providers
-```
+## Key Conventions
 
-## Key Dependencies
+**Configuration**:
+- Environment variables in `.env` (API keys, tokens)
+- Project config in `.ai/config.yaml` (analysis settings)
+- CLI args override YAML, YAML overrides env defaults
 
-- **pydantic-ai==1.0.15**: Core AI agent framework (CRITICAL)
-- **pydantic==2.12.0**: Data validation and settings
-- **logfire==4.12.0**: Observability and tracing
-- **python-gitlab==6.2.0**: GitLab API integration
-- **gitpython==3.1.45**: Git operations
-- **jinja2==3.1.6**: Prompt template rendering
+**File Structure**:
+- `src/handlers/` - Command handlers (analyze, readme, ai_rules, cronjob)
+- `src/agents/` - AI agents (analyzer, documenter, ai_rules_generator) + prompts + tools
+- `src/utils/` - Shared utilities (logger, retry client, prompt manager)
 
-## Environment Configuration
+**Agent Execution**:
+- 5 agents run concurrently via `asyncio.gather(return_exceptions=True)`
+- Individual failures logged but don't stop others
+- Partial success valid if ≥1 agent succeeds
+- Output: `.ai/docs/*.md` (structure, dependencies, data flow, request flow, API)
 
-All sensitive data in environment variables:
-- `ANALYZER_LLM_MODEL`, `ANALYZER_LLM_API_KEY`, `ANALYZER_LLM_BASE_URL`
-- `DOCUMENTER_LLM_MODEL`, `DOCUMENTER_LLM_API_KEY`, `DOCUMENTER_LLM_BASE_URL`
-- `AI_RULES_LLM_MODEL`, `AI_RULES_LLM_API_KEY`, `AI_RULES_LLM_BASE_URL`
-- `GITLAB_OAUTH_TOKEN`, `GITLAB_API_URL`
-- `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY` (optional)
+**Tools**:
+- `FileReadTool`: Read files with line ranges (default 200 lines)
+- `ListFilesTool`: Recursive listing with 100+ ignore patterns
+- Both retry 2 times on `ModelRetry` exceptions
 
-## Output Locations
+**LLM Settings**:
+- Temperature: 0.0 (deterministic)
+- Max tokens: 8192
+- Timeout: 180s
+- Retries: 2 per agent + 5 HTTP retries with exponential backoff
 
-- Analysis files: `{repo_path}/.ai/docs/*.md`
-- README: `{repo_path}/README.md`
-- AI Rules: `{repo_path}/CLAUDE.md`, `{repo_path}/AGENTS.md`, `{repo_path}/.cursor/rules/*.mdc`
-- Logs: `.logs/{repo_name}/{YYYY_MM_DD}/{timestamp}.log`
-- Config: `{repo_path}/.ai/config.yaml`
+**GitLab Integration**:
+- Branch: `ai-analysis-{YYYY-MM-DD}`
+- Commit: `[AI] Analyzer-Agent: Create/Update AI Analysis [skip ci]`
+- Filters: Not archived, recent activity, no existing branch/MR
+- Error isolation: Individual project failures don't stop batch
+
+**Logging**:
+- Location: `.logs/{repo_name}/{YYYY_MM_DD}/{timestamp}.log`
+- File: INFO level, Console: WARNING level
+- Structured data via ujson
+
+## Common Issues
+
+- **Import errors**: Run `uv sync`
+- **API key errors**: Check `.env` has correct keys (no quotes)
+- **Config not found**: Ensure `.ai/config.yaml` exists or use `--config`
+- **Permission denied**: Check write permissions for `.ai/docs/` and `README.md`
+- **Timeout errors**: Increase `*_LLM_TIMEOUT` in `.env`
+- **Partial analysis**: Check logs for agent failures, rerun to retry
 
 ---
 > Source: [divar-ir/ai-doc-gen](https://github.com/divar-ir/ai-doc-gen) — distributed by [TomeVault](https://tomevault.io).
