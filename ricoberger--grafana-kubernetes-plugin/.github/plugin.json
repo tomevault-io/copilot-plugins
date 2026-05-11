@@ -1,0 +1,9 @@
+{
+  "name": "ricoberger--grafana-kubernetes-plugin",
+  "displayName": "grafana-kubernetes-plugin",
+  "description": "The Grafana Kubernetes Plugin allows you to explore your Kubernetes resources and logs directly within Grafana.",
+  "version": "1.0.0",
+  "author": "ricoberger",
+  "homepage": "https://github.com/ricoberger/grafana-kubernetes-plugin",
+  "skills": []
+}
