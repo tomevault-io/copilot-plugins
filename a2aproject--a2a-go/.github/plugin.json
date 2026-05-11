@@ -1,0 +1,9 @@
+{
+  "name": "a2aproject--a2a-go",
+  "displayName": "a2a-go",
+  "description": "Golang SDK for A2A Protocol",
+  "version": "1.0.0",
+  "author": "a2aproject",
+  "homepage": "https://github.com/a2aproject/a2a-go",
+  "skills": []
+}
