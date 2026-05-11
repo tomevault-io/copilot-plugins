@@ -1,0 +1,9 @@
+{
+  "name": "erikmnovak--tamerop-jl",
+  "displayName": "TamerOp.jl",
+  "description": "Implementation of a library in Julia to conduct calculations on modules over posets, as per the following paper:",
+  "version": "1.0.0",
+  "author": "erikmnovak",
+  "homepage": "https://github.com/erikmnovak/TamerOp.jl",
+  "skills": []
+}
