@@ -1,0 +1,9 @@
+{
+  "name": "bernd--vibepit",
+  "displayName": "vibepit",
+  "description": "Run AI coding agents in isolated containers with network filtering.",
+  "version": "1.0.0",
+  "author": "bernd",
+  "homepage": "https://github.com/bernd/vibepit",
+  "skills": []
+}
