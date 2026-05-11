@@ -1,0 +1,9 @@
+{
+  "name": "thecardgoat--lorcana-simulator",
+  "displayName": "lorcana-simulator",
+  "description": "Typescript implementation of Lorcana Trading Card Game.",
+  "version": "1.0.0",
+  "author": "TheCardGoat",
+  "homepage": "https://github.com/TheCardGoat/lorcana-simulator",
+  "skills": []
+}
