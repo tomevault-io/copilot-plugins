@@ -4,7 +4,7 @@
   "repo": "claude-status",
   "description": "Customizable status line for Claude Code CLI - shows git status, GitHub CI, token usage, and task tracking (Claude tasks, kt, tk, beads)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kostyay/claude-status",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T10:50:13Z"
+  "distributed_at": "2026-05-11T20:34:38Z"
 }
