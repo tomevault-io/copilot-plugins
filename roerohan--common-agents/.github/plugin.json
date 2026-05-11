@@ -1,0 +1,9 @@
+{
+  "name": "roerohan--common-agents",
+  "displayName": "common-agents",
+  "description": "A reusable multi-agent framework built on top of the Cloudflare Agents SDK.",
+  "version": "1.0.0",
+  "author": "roerohan",
+  "homepage": "https://github.com/roerohan/common-agents",
+  "skills": []
+}
