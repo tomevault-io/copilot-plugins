@@ -7,11 +7,11 @@ Stock scanner with multiple fundamental and technical criteria. Features 80+ fil
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [xang1234/stock-screener](https://github.com/xang1234/stock-screener).
+Original source: `CLAUDE.md` in [xang1234/stock-screener](https://github.com/xang1234/stock-screener).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
