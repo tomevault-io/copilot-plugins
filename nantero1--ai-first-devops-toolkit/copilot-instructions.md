@@ -1,81 +1,96 @@
-## create-commit
+## documentations-inline-comments-changelog-docs
 
-> Commit message rules
+> Rules for maintaining comprehensive documentation across the project, including inline comments and system architecture documentation, you will use this everytime there's updating, creating, editing, modifying, deleting, changing.
 
-# IDENTITY and PURPOSE
+# Documentation Standards and Best Practices Guide
 
-You are an expert Git commit message generator, specializing in creating concise, informative, and standardized commit messages based on Git diffs. Your purpose is to follow the Conventional Commits format and provide clear, actionable commit messages.
+This comprehensive guide outlines our documentation standards and best practices for maintaining high-quality documentation across the project. These standards apply to all documentation updates, creation, editing, modifications, and deletions.
 
-# GUIDELINES
+## Core Documentation Principles
 
-- Adhere strictly to the Conventional Commits format.
-- Use allowed types: `feat`, `fix`, `build`, `chore`, `ci`, `docs`, `style`, `test`, `perf`, `refactor`, etc.
-- Keep the commit message title under 60 characters.
-- Use present tense in both title and body.
-- Output only the git commit command in a single `bash` code block.
-- Tailor the message detail to the extent of changes:
-  - For few changes: Be concise.
-  - For many changes: Include more details in the body.
-- Explain why the change was made, this is more important than what was changed. Everyone can read the code, but not the purpose and vision we had when we wrote it. So explain the purpose and intention in the message title of the commit.
+1. **Automated Documentation Management**
 
-# STEPS
+   - Must always include descriptive inline comments in every files and don't remove them, remove if it's not necessary or 
+     not used anymore
+   - Use Google Style Python Docstrings
+   - All documentation must be quantum-detailed, providing deep insights into why this code is needed and what its purpose is given the bigger picture
+   - Documentation should be context-aware, explaining how components fit into the larger system
+   - Cross-referencing between related documentation is required
+   - Real-time updates must be maintained as code changes
+   - Documentation maintenance should be automated where possible
 
-1. Analyze the provided diff context thoroughly.
-2. Identify the primary changes and their significance.
-3. Determine the appropriate commit type and scope (if applicable).
-4. Craft a clear, concise description for the commit title.
-5. If requested, create a detailed body explaining the changes.
-6. Include resolved issues in the footer when specified.
-7. Format the commit message according to the guidelines and flags.
+2. **Documentation Categories**
 
-# INPUT
+   A. **Inline Code Documentation**
+   Every code block must include:
+   - Quantum documentation maintained by AI
+   - Feature context explaining the component's role
+   - Dependency listings that auto-update
+   - Usage examples that stay current
+   - Performance considerations
+   - Security implications
 
-- Required: `<diff_context>`
-- Optional flags:
-  - `--with-body`: Include a detailed commit body using a multiline string.
-  - `--resolved-issues=<issue_numbers>`: Add resolved issues to the commit footer.
+   B. **Feature Documentation**
+   Each feature requires:
+   - AI-generated feature overview
+   - Detailed implementation explanations
+   - Comprehensive dependency mapping
+   - Current usage examples
+   - Security consideration notes
 
-# OUTPUT EXAMPLES
+3. **Project Documentation Structure**
 
-1. Basic commit:
+   Root Level Documentation:
+   - README.md: Main project overview
+   - ARCHITECTURE.md: System design documentation
+   - CHANGELOG.md: Automatically updated changes with versioning
 
-   ```bash
-   git commit -m "fix: enhance user registration validation to prevent invalid data entry"
-   ```
+5. **Quality Standards**
 
-2. Commit with body:
+   Completeness:
+   - Full coverage of all features
+   - Comprehensive depth
+   - Clear context
+   - Practical examples
 
-   ```bash
-   git commit -m "feat(auth): introduce two-factor authentication to strengthen account security
+   Accuracy:
+   - Technical verification
+   - Real-time updates
+   - Consistency maintenance
+   - High relevance
 
-   - implement sms and email options for 2fa to provide flexibility
-   - update user model to store 2fa preferences, ensuring personalized security settings
-   - create new api endpoints for 2fa setup and verification, facilitating easy integration"
-   ```
+   Accessibility:
+   - Clear readability
+   - Logical structure
+   - Intuitive navigation
+   - Efficient searchability
 
-3. Commit with resolved issues:
+6. **Update Protocol**
 
-   ```bash
-   git commit -m "docs: expand troubleshooting steps for arm64 architecture on macOS to aid developers
+   Documentation updates are triggered by:
+   - Code changes
+   - Feature additions
+   - Security patches
+   - Performance changes
 
-   - clarify the instruction to replace debuggerPath in launch.json, reducing setup confusion
-   - add steps to verify compatibility of cmake, clang, and clang++ with arm64 architecture, ensuring smooth development
-   - provide example output for architecture verification commands, aiding in quick identification of issues
-   - include command to upgrade llvm using homebrew on macOS, streamlining the update process
-   - add note to retry compilation process after ensuring compatibility, minimizing build errors"
-   ```
+   Required Actions:
+   - Update inline documentation
+   - Regenerate README files, but be aware of current content, don't delete it if usefull
+   - Refresh architecture diagrams if needed
+   - Sync code examples
+   - Validate documentation
 
-4. Commit with filename in body:
+   Verification Steps:
+   - Check completeness
+   - Verify accuracy
+   - Ensure freshness
+   - Maintain consistency
 
-   ```bash
-   git commit -m "refactor: restructure utility functions for improved code modularity
-
-   - move helper functions from `src/utils/helpers.js` to `src/utils/string-helpers.js` and `src/utils/array-helpers.js`, enhancing code organization
-   - update import statements in affected files to reflect new structure, maintaining code integrity
-   - add unit tests for newly separated utility functions, ensuring reliability and ease of maintenance"
-   ```
-
-# INPUT
+## Important Notes:
+- Existing inline comments should only be removed if wrong, not helpful or outdated 
+- The @docs/ and @.cursor/ directory serves as the source of truth
+- Each subdirectory in @/docs must maintain its own specific documentation
+- All documentation changes must follow these standards without exception
 
 ---
 > Source: [Nantero1/ai-first-devops-toolkit](https://github.com/Nantero1/ai-first-devops-toolkit) — distributed by [TomeVault](https://tomevault.io).
