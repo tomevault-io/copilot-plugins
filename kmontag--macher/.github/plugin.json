@@ -1,0 +1,9 @@
+{
+  "name": "kmontag--macher",
+  "displayName": "macher",
+  "description": "Project-aware multi-file LLM editing for Emacs, based on gptel.",
+  "version": "1.0.0",
+  "author": "kmontag",
+  "homepage": "https://github.com/kmontag/macher",
+  "skills": []
+}
