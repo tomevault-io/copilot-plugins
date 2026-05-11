@@ -1,0 +1,9 @@
+{
+  "name": "verified-zkevm--comppoly",
+  "displayName": "CompPoly",
+  "description": "A computable model of Polynomials in Lean.",
+  "version": "1.0.0",
+  "author": "Verified-zkEVM",
+  "homepage": "https://github.com/Verified-zkEVM/CompPoly",
+  "skills": []
+}
