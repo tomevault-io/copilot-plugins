@@ -1,0 +1,44 @@
+{
+  "name": "rein",
+  "owner": "jstxn",
+  "repo": "rein",
+  "description": "REIN is a lightweight and hands-off harness for stricter, more explicit agentic coding workflows. This is an evolution of https://github.com/jstxn/FEAR.md",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jstxn/rein",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T12:37:53Z"
+}
