@@ -7,14 +7,14 @@ A self correcting system for AI coding loops. Autonomous development with multi-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [sburl/CrossCheck](https://github.com/sburl/CrossCheck).
+Original source: `CLAUDE.md` in [sburl/CrossCheck](https://github.com/sburl/CrossCheck).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [sburl/CrossCheck](https://github.com/sburl/CrossCheck) — a repo with 23+ stars on GitHub.
