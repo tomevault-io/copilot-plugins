@@ -1,0 +1,9 @@
+{
+  "name": "gotgenes--pi-anthropic-auth",
+  "displayName": "pi-anthropic-auth",
+  "description": "Pi extension package for Anthropic OAuth compatibility",
+  "version": "1.0.0",
+  "author": "gotgenes",
+  "homepage": "https://github.com/gotgenes/pi-anthropic-auth",
+  "skills": []
+}
