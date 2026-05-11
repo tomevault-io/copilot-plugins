@@ -1,0 +1,44 @@
+{
+  "name": "designready-ai",
+  "owner": "designready-ai",
+  "repo": "designready-ai",
+  "description": "Score Figma designs for AI-readiness, fix issues, and generate   code prompts. Each prompt trains a reusable skill for your   design system.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/designready-ai/designready-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T05:34:56Z"
+}
