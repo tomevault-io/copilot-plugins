@@ -1,0 +1,9 @@
+{
+  "name": "aiknew--aiknew-admin",
+  "displayName": "aiknew-admin",
+  "description": "Vue3 Dashborad, built with Nest.js, Element Plus, and Typescript",
+  "version": "1.0.0",
+  "author": "aiknew",
+  "homepage": "https://github.com/aiknew/aiknew-admin",
+  "skills": []
+}
