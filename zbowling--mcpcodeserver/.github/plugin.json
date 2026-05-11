@@ -1,0 +1,9 @@
+{
+  "name": "zbowling--mcpcodeserver",
+  "displayName": "mcpcodeserver",
+  "description": "A Model Context Protocol (MCP) proxy server that translates tool calls into TypeScript code generation. Instead of making multiple tool calls back and forth, LLMs can write TypeScript code that calls ",
+  "version": "1.0.0",
+  "author": "zbowling",
+  "homepage": "https://github.com/zbowling/mcpcodeserver",
+  "skills": []
+}
