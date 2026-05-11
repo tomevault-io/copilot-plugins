@@ -1,520 +1,439 @@
-## documentation
+## gitflow-branching
 
-> All documentation for the Armature project must be generated in the `docs/` directory following these standards.
+> This project follows the **Gitflow** branching model for organized development and release management.
 
 
-# Documentation Standards
+# Gitflow Branching Strategy
 
-All documentation for the Armature project must be generated in the `docs/` directory following these standards.
+This project follows the **Gitflow** branching model for organized development and release management.
 
-## Directory Structure
+## Branch Structure
 
-All documentation files go directly in the `docs/` root directory. **Do NOT create subfolders.**
+### Main Branches (Long-lived)
+
+#### `main`
+- **Purpose:** Production-ready code
+- **Protected:** Yes
+- **Merged from:** `release/*` and `hotfix/*` only
+- **Never commit directly to this branch**
+
+#### `develop`
+- **Purpose:** Integration branch for features
+- **Protected:** Yes
+- **Merged from:** `feature/*`, `release/*`, and `hotfix/*`
+- **Base for:** All feature branches
+
+### Supporting Branches (Short-lived)
+
+#### `feature/*`
+- **Purpose:** New features or enhancements
+- **Naming:** `feature/<issue-number>-<short-description>`
+- **Examples:**
+  - `feature/123-add-websocket-support`
+  - `feature/456-user-authentication`
+- **Base:** `develop`
+- **Merge to:** `develop`
+- **Lifetime:** Duration of feature development
+
+#### `release/*`
+- **Purpose:** Prepare for production release
+- **Naming:** `release/<version>`
+- **Examples:**
+  - `release/1.0.0`
+  - `release/2.1.0`
+- **Base:** `develop`
+- **Merge to:** `main` and `develop`
+- **Lifetime:** Until release is finalized
+
+#### `hotfix/*`
+- **Purpose:** Critical bug fixes in production
+- **Naming:** `hotfix/<version>-<description>`
+- **Examples:**
+  - `hotfix/1.0.1-security-patch`
+  - `hotfix/2.1.1-memory-leak`
+- **Base:** `main`
+- **Merge to:** `main` and `develop`
+- **Lifetime:** Until hotfix is deployed
+
+## Workflow
+
+### Starting a New Feature
+
+```bash
+# Ensure develop is up to date
+git checkout develop
+git pull origin develop
+
+# Create feature branch
+git checkout -b feature/123-add-caching
+
+# Work on feature...
+git add .
+git commit -m "feat: add Redis caching support"
+
+# Push to remote
+git push origin feature/123-add-caching
+
+# Create Pull Request to develop
+```
+
+### Completing a Feature
+
+```bash
+# Update from develop
+git checkout develop
+git pull origin develop
+
+git checkout feature/123-add-caching
+git merge develop
+
+# Resolve any conflicts
+# Run tests
+cargo test --all-features
+
+# Push and create PR
+git push origin feature/123-add-caching
+```
+
+### Creating a Release
+
+```bash
+# Create release branch from develop
+git checkout develop
+git pull origin develop
+git checkout -b release/1.0.0
+
+# Update version numbers
+# Update CHANGELOG.md
+# Final testing
+
+# Commit release preparation
+git commit -am "chore: prepare release 1.0.0"
+
+# Merge to main
+git checkout main
+git merge --no-ff release/1.0.0
+git tag -a v1.0.0 -m "Release version 1.0.0"
+
+# Merge back to develop
+git checkout develop
+git merge --no-ff release/1.0.0
+
+# Push everything
+git push origin main develop --tags
+
+# Delete release branch
+git branch -d release/1.0.0
+git push origin --delete release/1.0.0
+```
+
+### Creating a Hotfix
+
+```bash
+# Create hotfix branch from main
+git checkout main
+git pull origin main
+git checkout -b hotfix/1.0.1-critical-fix
+
+# Fix the issue
+git commit -am "fix: resolve critical security vulnerability"
+
+# Merge to main
+git checkout main
+git merge --no-ff hotfix/1.0.1-critical-fix
+git tag -a v1.0.1 -m "Hotfix version 1.0.1"
+
+# Merge to develop
+git checkout develop
+git merge --no-ff hotfix/1.0.1-critical-fix
+
+# Push everything
+git push origin main develop --tags
+
+# Delete hotfix branch
+git branch -d hotfix/1.0.1-critical-fix
+git push origin --delete hotfix/1.0.1-critical-fix
+```
+
+## Commit Message Convention
+
+Follow **Conventional Commits** specification:
+
+### Format
 
 ```
-docs/
-├── README.md                    # Documentation index
-├── getting-started.md           # Getting started guide
-├── auth-guide.md                # Authentication guide
-├── cache-guide.md               # Cache guide
-├── cron-guide.md                # Cron guide
-├── queue-guide.md               # Queue guide
-├── deployment-guide.md          # Deployment guide
-└── *.md                         # All other documentation
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
 ```
 
-**Important:** Do NOT create subdirectories like `guides/`, `modules/`, or `examples/`. All `.md` files belong in `docs/` root.
+### Types
 
-## File Naming
+- **feat**: New feature
+- **fix**: Bug fix
+- **docs**: Documentation only changes
+- **style**: Code style changes (formatting, missing semicolons, etc.)
+- **refactor**: Code refactoring
+- **perf**: Performance improvements
+- **test**: Adding or updating tests
+- **chore**: Maintenance tasks, dependency updates
+- **ci**: CI/CD changes
+- **build**: Build system changes
 
-- Use **lowercase with hyphens**: `my-feature-guide.md`
-- Be **descriptive**: `oauth2-providers-guide.md` not `oauth.md`
-- Use **.md extension** for all Markdown files
-- Avoid abbreviations unless widely understood
+### Examples
 
-### Good Examples ✅
+```bash
+# Feature
+git commit -m "feat(queue): add job retry with exponential backoff"
 
-- `websocket-sse-guide.md`
-- `authentication-guide.md`
-- `rate-limiting-configuration.md`
+# Bug fix
+git commit -m "fix(auth): resolve JWT token expiration issue"
 
-### Bad Examples ❌
+# Documentation
+git commit -m "docs(readme): update installation instructions"
 
-- `WS_SSE.md` (uppercase, abbreviation)
-- `auth.md` (too generic)
-- `guide-1.md` (not descriptive)
+# Breaking change
+git commit -m "feat(api)!: change response format
 
-## Documentation Requirements
+BREAKING CHANGE: API responses now use camelCase instead of snake_case"
 
-### Every Feature Must Have Documentation
+# Multiple changes
+git commit -m "chore: update dependencies and fix linting issues
 
-When adding a new feature, you MUST create corresponding documentation in `docs/`:
+- Update tokio to 1.35
+- Update serde to 1.0.195
+- Fix clippy warnings in cache module"
+```
 
-1. **Feature Guide** (`docs/<feature>-guide.md`)
-   - Overview of the feature
-   - Key concepts
-   - Configuration options
-   - Step-by-step instructions
-   - Code examples
-   - Best practices
-   - Troubleshooting
+## Pull Request Guidelines
 
-2. **API Reference** (inline code docs)
-   - Rust doc comments (`///`)
-   - Examples in doc comments
-   - Clear parameter descriptions
+### Creating PRs
 
-3. **Code Examples** (`examples/` directory - code only)
-   - Working code example
-   - Comments explaining key parts
-   - README if complex
+1. **Base branch:**
+   - Features → `develop`
+   - Hotfixes → `main` (then merge to `develop`)
+   - Releases → `main` (then merge to `develop`)
 
-## Documentation Format
+2. **Title format:**
+   - Follow commit message convention
+   - Example: `feat: add WebSocket support for real-time updates`
 
-### Markdown Structure
+3. **Description must include:**
+   - Summary of changes
+   - Related issue numbers
+   - Testing performed
+   - Breaking changes (if any)
+
+### PR Template
 
 ```markdown
-# Title
+## Description
+Brief description of what this PR does
 
-Brief one-paragraph introduction.
+## Related Issues
+Closes #123
+Relates to #456
 
-## Table of Contents
+## Type of Change
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] Documentation update
 
-- [Section 1](#section-1)
-- [Section 2](#section-2)
+## Testing
+- [ ] Unit tests pass
+- [ ] Integration tests pass
+- [ ] Manual testing completed
 
-## Overview
+## Checklist
+- [ ] Code follows project style guidelines
+- [ ] Self-review completed
+- [ ] Documentation updated
+- [ ] Tests added/updated
+- [ ] No new warnings
+- [ ] Changelog updated (if applicable)
+```
 
-High-level explanation of what this is and why it exists.
+### Review Process
 
-## Features
+1. **All PRs require:**
+   - At least one approval
+   - All CI checks passing
+   - No merge conflicts
 
-- ✅ Feature 1
-- ✅ Feature 2
-- ✅ Feature 3
+2. **Before merging:**
+   - Rebase on target branch if needed
+   - Squash commits if too granular
+   - Use merge commit (no fast-forward)
 
-## Usage
+## Version Numbers
 
-### Basic Example
+Follow **Semantic Versioning** (SemVer):
 
-\`\`\`rust
-// Working code example
-use armature::prelude::*;
+```
+MAJOR.MINOR.PATCH
 
-#[tokio::main]
-async fn main() {
-    // Example code
-}
-\`\`\`
+1.0.0
+│ │ │
+│ │ └─ PATCH: Bug fixes, security patches
+│ └─── MINOR: New features, backward-compatible
+└───── MAJOR: Breaking changes
+```
 
-### Advanced Example
+### Examples
 
-More complex usage...
+- `1.0.0` → Initial release
+- `1.0.1` → Bug fix
+- `1.1.0` → New feature
+- `2.0.0` → Breaking change
 
-## Configuration
+## Branch Protection Rules
 
-Detailed configuration options...
+### `main` branch
+
+- ✅ Require pull request reviews before merging
+- ✅ Require status checks to pass
+- ✅ Require branches to be up to date
+- ✅ Require conversation resolution
+- ✅ Require signed commits
+- ❌ Allow force pushes
+- ❌ Allow deletions
+
+### `develop` branch
+
+- ✅ Require pull request reviews before merging
+- ✅ Require status checks to pass
+- ✅ Require branches to be up to date
+- ❌ Allow force pushes
+- ❌ Allow deletions
+
+## Tagging Strategy
+
+### Tag Format
+
+```
+v<MAJOR>.<MINOR>.<PATCH>[-<prerelease>]
+```
+
+### Examples
+
+```bash
+# Stable releases
+v1.0.0
+v1.1.0
+v2.0.0
+
+# Pre-releases
+v1.0.0-alpha.1
+v1.0.0-beta.1
+v1.0.0-rc.1
+```
+
+### Creating Tags
+
+```bash
+# Annotated tag (preferred)
+git tag -a v1.0.0 -m "Release version 1.0.0"
+
+# Push tag
+git push origin v1.0.0
+
+# Push all tags
+git push origin --tags
+```
 
 ## Best Practices
 
-1. Practice one
-2. Practice two
+### Do's ✅
 
-## Common Pitfalls
+- **Keep branches up to date** with their base branch
+- **Write descriptive commit messages**
+- **Rebase feature branches** before creating PR
+- **Delete branches** after merging
+- **Test thoroughly** before creating PR
+- **Keep PRs focused** on single feature/fix
+- **Update documentation** with code changes
+- **Use draft PRs** for work in progress
 
-- ❌ Don't do this
-- ✅ Do this instead
+### Don'ts ❌
 
-## API Reference
+- **Never force push** to `main` or `develop`
+- **Never commit directly** to `main` or `develop`
+- **Don't merge without review** (except hotfixes in emergencies)
+- **Don't leave stale branches** unmerged
+- **Don't mix features** in single branch
+- **Don't commit unfinished work** to shared branches
+- **Don't ignore merge conflicts**
+- **Don't skip CI checks**
 
-Link to generated API docs or inline reference.
+## Emergency Procedures
+
+### Critical Production Bug
+
+1. Create hotfix branch from `main`
+2. Fix the issue
+3. Fast-track PR review
+4. Merge to `main` and `develop`
+5. Deploy immediately
+6. Create post-mortem document
+
+### Reverting Changes
+
+```bash
+# Revert a commit
+git revert <commit-hash>
+
+# Revert a merge
+git revert -m 1 <merge-commit-hash>
+
+# Push the revert
+git push origin <branch>
+```
+
+## Branch Cleanup
+
+### Local Cleanup
+
+```bash
+# Delete merged local branches
+git branch --merged | grep -v "\*\|main\|develop" | xargs -n 1 git branch -d
+
+# Delete remote-tracking branches that no longer exist
+git fetch --prune
+```
+
+### Remote Cleanup
+
+```bash
+# Delete remote branch
+git push origin --delete feature/old-feature
+
+# Delete multiple remote branches
+git branch -r --merged | grep -v main | grep -v develop | sed 's/origin\///' | xargs -n 1 git push origin --delete
+```
+
+## Continuous Integration
+
+### Required Checks
+
+- ✅ All tests pass (`cargo test --all-features`)
+- ✅ No clippy warnings (`cargo clippy -- -D warnings`)
+- ✅ Code is formatted (`cargo fmt -- --check`)
+- ✅ Documentation builds (`cargo doc --no-deps`)
+- ✅ Minimum 85% code coverage
+- ✅ No security vulnerabilities (`cargo audit`)
 
 ## Summary
 
-Quick recap of key points.
-```
-
-### Required Sections
-
-Every guide must include:
-
-1. **Title** - Clear, descriptive
-2. **Overview** - What and why
-3. **Features** - Bullet list of capabilities
-4. **Usage** - At least one working example
-5. **Best Practices** - Dos and don'ts
-6. **Summary** - Quick reference
-
-## Code Examples
-
-### Requirements
-
-- **Must be runnable** without errors
-- **Include necessary imports**
-- **Add comments** for non-obvious code
-- **Use realistic scenarios**
-- **Show error handling**
-
-### Good Example ✅
-
-```rust
-use armature_queue::*;
-
-#[tokio::main]
-async fn main() -> Result<(), QueueError> {
-    // Connect to Redis
-    let queue = Queue::new("redis://localhost:6379", "default").await?;
-
-    // Enqueue a job
-    let job_id = queue.enqueue(
-        "send_email",
-        serde_json::json!({
-            "to": "user@example.com",
-            "subject": "Welcome!"
-        })
-    ).await?;
-
-    println!("Job enqueued: {}", job_id);
-    Ok(())
-}
-```
-
-### Bad Example ❌
-
-```rust
-// Incomplete, won't compile
-let queue = Queue::new("redis://localhost:6379");
-queue.enqueue("send_email", data);
-```
-
-## Inline Code Documentation
-
-### Rust Doc Comments
-
-```rust
-/// Brief one-line description.
-///
-/// More detailed explanation of what this does,
-/// including any important details.
-///
-/// # Arguments
-///
-/// * `param1` - Description of param1
-/// * `param2` - Description of param2
-///
-/// # Returns
-///
-/// What this function returns and when.
-///
-/// # Errors
-///
-/// Possible error conditions and what causes them.
-///
-/// # Examples
-///
-/// ```
-/// use armature_queue::Queue;
-///
-/// # async fn example() -> Result<(), QueueError> {
-/// let queue = Queue::new("redis://localhost:6379", "default").await?;
-/// # Ok(())
-/// # }
-/// ```
-///
-/// # Panics
-///
-/// Conditions under which this panics (if any).
-pub async fn example_function(param1: String, param2: i32) -> Result<String, Error> {
-    // Implementation
-}
-```
-
-### Module-Level Documentation
-
-```rust
-//! Job queue module for background processing.
-//!
-//! This module provides a Redis-backed job queue system with
-//! automatic retries, priorities, and scheduled jobs.
-//!
-//! # Examples
-//!
-//! ```no_run
-//! use armature_queue::*;
-//!
-//! # async fn example() -> Result<(), QueueError> {
-//! let queue = Queue::new("redis://localhost:6379", "default").await?;
-//! queue.enqueue("task", serde_json::json!({})).await?;
-//! # Ok(())
-//! # }
-//! ```
-```
-
-## Documentation Types
-
-### 1. Getting Started Guides
-
-**Purpose:** Help new users quickly start using the feature.
-
-**Structure:**
-- Prerequisites
-- Installation
-- Quick start (5 minutes or less)
-- Next steps
-
-### 2. Concept Guides
-
-**Purpose:** Explain concepts and architecture.
-
-**Structure:**
-- What is this?
-- Why does it exist?
-- How does it work?
-- When to use it?
-
-### 3. How-To Guides
-
-**Purpose:** Step-by-step instructions for specific tasks.
-
-**Structure:**
-- Problem statement
-- Prerequisites
-- Step-by-step solution
-- Verification
-- Troubleshooting
-
-### 4. Reference Documentation
-
-**Purpose:** Complete technical details.
-
-**Structure:**
-- All configuration options
-- All API methods
-- All types and enums
-- All error codes
-
-## Visual Aids
-
-### Use Diagrams When Helpful
-
-```markdown
-## Architecture
-
-\`\`\`
-┌──────────┐     ┌──────────┐     ┌──────────┐
-│  Client  │────▶│  Server  │────▶│ Database │
-└──────────┘     └──────────┘     └──────────┘
-\`\`\`
-```
-
-### Use Tables for Comparisons
-
-```markdown
-| Feature | Option A | Option B |
-|---------|----------|----------|
-| Speed   | Fast     | Slow     |
-| Memory  | Low      | High     |
-```
-
-### Use Lists for Steps
-
-```markdown
-1. First step
-2. Second step
-3. Third step
-```
-
-## Keeping Documentation Updated
-
-### When Code Changes, Update Docs
-
-**CRITICAL:** Documentation must be updated in the same PR as code changes.
-
-### Update Checklist
-
-- [ ] Inline code comments updated
-- [ ] API reference updated
-- [ ] User guide updated (if behavior changed)
-- [ ] Examples updated (if API changed)
-- [ ] README updated (if new feature)
-- [ ] CHANGELOG.md updated
-
-### Documentation Review
-
-Before merging:
-1. All code examples compile
-2. All links work
-3. No typos or grammar errors
-4. Formatting is consistent
-5. Screenshots are up to date (if any)
-
-## Linking
-
-### Internal Links
-
-```markdown
-See the [Authentication Guide](./AUTH_GUIDE.md) for details.
-
-Jump to [Configuration](#configuration) section.
-```
-
-### External Links
-
-```markdown
-See the [Rust Book](https://doc.rust-lang.org/book/) for more information.
-```
-
-### API Links
-
-```markdown
-See [`Queue::enqueue`](../armature-queue/src/queue.rs) for details.
-```
-
-## Common Patterns
-
-### Feature Documentation Template
-
-```markdown
-# Feature Name
-
-Brief description of what this feature does.
-
-## Features
-
-- ✅ Feature 1
-- ✅ Feature 2
-
-## Basic Usage
-
-\`\`\`rust
-// Working example
-\`\`\`
-
-## Configuration
-
-### Options
-
-- `option1` - Description
-- `option2` - Description
-
-## Examples
-
-### Example 1: Common Use Case
-
-\`\`\`rust
-// Example code
-\`\`\`
-
-### Example 2: Advanced Use Case
-
-\`\`\`rust
-// Example code
-\`\`\`
-
-## Best Practices
-
-1. Do this
-2. Don't do that
-
-## Troubleshooting
-
-### Problem 1
-
-**Symptom:** What you see
-
-**Cause:** Why it happens
-
-**Solution:** How to fix
-
-## API Reference
-
-Link to generated docs or detailed API listing.
-
-## Summary
-
-Key takeaways.
-```
-
-## Documentation Testing
-
-### Test Code Examples
-
-```bash
-# Test all doc examples
-cargo test --doc --all-features
-
-# Test specific module docs
-cargo test --doc --package armature-queue
-```
-
-### Check Links
-
-```bash
-# Use markdown link checker (install if needed)
-markdown-link-check docs/**/*.md
-```
-
-## Documentation Tools
-
-### Generate API Docs
-
-```bash
-# Generate and open API documentation
-cargo doc --all-features --no-deps --open
-```
-
-### Build Documentation Site
-
-```bash
-# If using mdBook or similar
-mdbook build docs/
-mdbook serve docs/
-```
-
-## Exception: Root README
-
-The **root README.md** stays in the project root directory, not in `docs/`.
-
-```
-armature/
-├── README.md          ← Project overview (root)
-├── docs/
-│   ├── README.md      ← Documentation index
-│   └── *.md           ← All other docs (flat, no subfolders)
-└── ...
-```
-
-## Documentation Metrics
-
-### Quality Indicators
-
-- ✅ All public APIs have doc comments
-- ✅ All features have user guides
-- ✅ All code examples compile
-- ✅ No broken links
-- ✅ No spelling errors
-- ✅ Consistent formatting
-
-### Coverage Goals
-
-- **100%** of public API documented
-- **100%** of features have guides
-- **90%+** of doc examples compile
-- **100%** of links work
-
-## Summary
-
-**Key Principles:**
-
-1. **Location:** All docs in `docs/` root directory - NO subfolders (except root README)
-2. **Naming:** lowercase-with-hyphens.md
-3. **Flat Structure:** All documentation files go directly in `docs/`, not in subdirectories
-4. **Completeness:** Every feature must have documentation
-5. **Quality:** Working code examples, clear explanations
-6. **Maintenance:** Update docs with code changes
-7. **Testing:** All examples must compile
-
-**Documentation is code!** Treat it with the same care and rigor. 📚
+| Branch Type | Base | Merge To | Naming |
+|------------|------|----------|--------|
+| `feature/*` | `develop` | `develop` | `feature/<issue>-<desc>` |
+| `release/*` | `develop` | `main`, `develop` | `release/<version>` |
+| `hotfix/*` | `main` | `main`, `develop` | `hotfix/<version>-<desc>` |
+
+**Key Principle:** Keep `main` production-ready at all times! 🚀
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
