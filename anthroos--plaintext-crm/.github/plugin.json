@@ -1,0 +1,9 @@
+{
+  "name": "anthroos--plaintext-crm",
+  "displayName": "plaintext-crm",
+  "description": "AI-native CRM that runs in your IDE. No SaaS, no dashboards \u2014 just CSV files and Claude Code.",
+  "version": "1.0.0",
+  "author": "anthroos",
+  "homepage": "https://github.com/anthroos/plaintext-crm",
+  "skills": []
+}
