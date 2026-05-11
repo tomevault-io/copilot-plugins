@@ -1,0 +1,44 @@
+{
+  "name": "activities-finder",
+  "owner": "ferspanghero",
+  "repo": "activities-finder",
+  "description": "An automated tool that aggregates event listings from curated local sources, filters them by date, city, and activity type, deduplicates across sources, and presents a consolidated list of things to do.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ferspanghero/activities-finder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T01:15:50Z"
+}
