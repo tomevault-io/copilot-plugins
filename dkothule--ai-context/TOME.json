@@ -1,0 +1,44 @@
+{
+  "name": "ai-context",
+  "owner": "dkothule",
+  "repo": "ai-context",
+  "description": "Unified context system for seamless multi-agent AI development. Works with Cursor, Claude Code, Codex, and Google Antigravity. Single source of truth, session continuity, and zero context loss when switching between AI assistants.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dkothule/ai-context",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T11:46:38Z"
+}
