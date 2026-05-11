@@ -1,0 +1,9 @@
+{
+  "name": "gtfb--altrp",
+  "displayName": "altrp",
+  "description": "Altrp is an opinionated, full-stack platform for rapidly building modern web applications. It's architected as a high-performance monorepo that integrates four key services: a static site, an admin pa",
+  "version": "1.0.0",
+  "author": "GTFB",
+  "homepage": "https://github.com/GTFB/altrp",
+  "skills": []
+}
