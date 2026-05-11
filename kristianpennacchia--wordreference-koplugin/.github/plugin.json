@@ -1,0 +1,9 @@
+{
+  "name": "kristianpennacchia--wordreference-koplugin",
+  "displayName": "wordreference.koplugin",
+  "description": "Lookup highlighted words or phrases on WordReference directly from KOReader.",
+  "version": "1.0.0",
+  "author": "kristianpennacchia",
+  "homepage": "https://github.com/kristianpennacchia/wordreference.koplugin",
+  "skills": []
+}
