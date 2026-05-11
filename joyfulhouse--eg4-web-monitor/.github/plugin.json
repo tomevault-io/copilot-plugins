@@ -1,0 +1,9 @@
+{
+  "name": "joyfulhouse--eg4-web-monitor",
+  "displayName": "eg4_web_monitor",
+  "description": "Local (RS485 Modbus) + Cloud hybrid integration for EG4 and Luxpower inverters \u2014 GridBOSS, FlexBOSS, 18kPV, 12kPV, XP, LXP-LB, and batteries",
+  "version": "1.0.0",
+  "author": "joyfulhouse",
+  "homepage": "https://github.com/joyfulhouse/eg4_web_monitor",
+  "skills": []
+}
