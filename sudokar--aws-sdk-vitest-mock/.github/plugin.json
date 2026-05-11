@@ -1,0 +1,9 @@
+{
+  "name": "sudokar--aws-sdk-vitest-mock",
+  "displayName": "aws-sdk-vitest-mock",
+  "description": "\ud83e\udeb6 A lightweight, \ud83d\udfe6 TypeScript-first mocking library for \u2601\ufe0f AWS SDK v3 and \u26a1 Vitest with \ud83d\udeab zero dependencies, \ud83d\udd01 full ESM/CJS support, \ud83d\udd17 chainable stubs, \ud83c\udfaf partial/strict request matching, \ud83d\udcdc sequential ",
+  "version": "1.0.0",
+  "author": "sudokar",
+  "homepage": "https://github.com/sudokar/aws-sdk-vitest-mock",
+  "skills": []
+}
