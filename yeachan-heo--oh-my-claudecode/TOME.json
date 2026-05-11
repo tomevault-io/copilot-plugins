@@ -1,10 +1,10 @@
 {
-  "name": "oh-my-c",
+  "name": "oh-my-claudecode",
   "owner": "Yeachan-Heo",
   "repo": "oh-my-claudecode",
   "description": "Teams-first Multi-agent orchestration for Claude Code",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "build-fix",
-      "path": "skills/build-fix",
-      "github_url": "https://github.com/Yeachan-Heo/oh-my-claudecode/tree/main/skills/build-fix",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/Yeachan-Heo/oh-my-claudecode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T16:05:53Z"
+  "distributed_at": "2026-05-11T10:33:29Z"
 }
