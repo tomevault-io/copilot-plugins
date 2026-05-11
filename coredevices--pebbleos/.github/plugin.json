@@ -1,0 +1,9 @@
+{
+  "name": "coredevices--pebbleos",
+  "displayName": "PebbleOS",
+  "description": "PebbleOS",
+  "version": "1.0.0",
+  "author": "coredevices",
+  "homepage": "https://github.com/coredevices/PebbleOS",
+  "skills": []
+}
