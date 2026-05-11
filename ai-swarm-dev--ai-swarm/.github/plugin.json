@@ -1,0 +1,9 @@
+{
+  "name": "ai-swarm-dev--ai-swarm",
+  "displayName": "ai-swarm",
+  "description": "Autonomous development orchestration powered by LLMs and Temporal.io. Plan, code, review, and deploy with an AI swarm.",
+  "version": "1.0.0",
+  "author": "ai-swarm-dev",
+  "homepage": "https://github.com/ai-swarm-dev/ai-swarm",
+  "skills": []
+}
