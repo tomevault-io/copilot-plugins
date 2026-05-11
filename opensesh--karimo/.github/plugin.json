@@ -1,0 +1,9 @@
+{
+  "name": "opensesh--karimo",
+  "displayName": "KARIMO",
+  "description": "Claude Code harness engineering plugin \u2014 plan mode on steroids. Product design-driven agent orchestration with sub-agents and agent teams, tuned for developers and designers shipping real features. Ph",
+  "version": "1.0.0",
+  "author": "opensesh",
+  "homepage": "https://github.com/opensesh/KARIMO",
+  "skills": []
+}
