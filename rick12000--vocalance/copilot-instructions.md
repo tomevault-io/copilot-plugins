@@ -1,32 +1,31 @@
-## python-best-practice-instructions
+## python-unit-testing
 
-> - Adopt the DRY principle. If code is repeated in multiple places, it should be functionalized and called in those places.
+> - Use pytest for all testing, use unittest for mocking.
 
-# Coding Style Guidelines
+# Testing Guidelines
 
-- Adopt the DRY principle. If code is repeated in multiple places, it should be functionalized and called in those places.
-- Make all inputs explicit. Avoid relying on state or shared context unless encapsulated.
-- Avoid implicit behavior (e.g., mutation of input lists, in place dataframe modification).
-- Variable names should be descriptive and reduced to the shortest possible length.
-- If a function returns multiple types, refactor. Don't return Union[str, dict, None].
-- Use pytest.mark.parametrize for testing functions with categorical input values.
-- If mocking in unit testing is required, mock external APIs and I/O only.
-- No print() statements anywhere in the code. Use logging instead.
-- No single-letter variable names unless in mathematical contexts or loops.
-- No hard coded values. Use constants or configuration files.
-- Don't use early returns in if else statements.
-- Don't create classes if functions are sufficient.
-- Keep modules small and focused (under 500 lines).
-- Comments should explain why, not what. Keep comments under 10% of code.
-- Don't write docstrings.
-- Don't rely on default values for function arguments.
-- Avoid *args or **kwargs unless absolutely necessary.
-- Use pydantic models for configuration values.
-- Keep __init__.py files empty and always use full, explicit import paths for modules, no relative imports.
-- Imports should be at the top of the file, unless there's a performance reason to import a module based on an in-function condition.
-- Avoid try and except statements.
-- Do not use emojis in code or logs.
-- Always call functions or methods or initializations with keyword arguments.
+- Use pytest for all testing, use unittest for mocking.
+- Use pytest.mark.parametrize for testing functions with categorical input values:
+    - For literals, you should automatically cycle through all possible Literal values in your parametrization.
+    - For ordinal categories or discrete inputs (eg. n_observations, n_recommendations, etc.) pick some sensible ranges (eg. 0 if allowed, or minimum otherwise, then a sensible every day value, say 10, then a very large value, if it's not computationally expensive, say 1000).
+- Mock external APIs and I/O only, do not use mocking as a crutch to abstract away components who's behaviour you need to test.
+- Use fixtures to store toy data, mocked objects or any other object you plan to reference in the main tests, particularly if it will be used more than once. If the toy data is small and specific to the one test it's called in, it's ok to define it inside the test function.
+- Never define nested functions (function def is inside another function) unless explicitly required because of scope (eg. nested generator builders).
+- Avoid defining helper functions at the top of a test module, tests should be simple and mostly check existing methods' outputs. Very complex tests may require helper functions, but this should be limited.
+- ALL fixtures need to be defined in the tests/conftest.py file, NEVER define them directly in a test module.
+- Do not test initialization of classes. Do not use asserts that just check if an attribute of a class exists, or is equal to what you just defined it as, these are bloated tests that accomplish little, but add maintenance cost.
+- If you're testing a function or method that returns a shaped object, always check the shape (should it be the same as the input's? Should it be different? Should it be a specific size based on the inputs you passed to the function? etc. based on these questions formulate asserts that check those shape aspects)
+- Test the intent behind a function or method, not form or attributes. Read through the function or method carefully, understand its goals and approach, then write meaningful tests that check quality of outputs relative to intent.
+- Do not add strings after asserts, eg. do NOT do this:
+    assert len(final_alphas) == len(initial_alphas), "Alpha count should remain consistent"
+    after any assert statement, it should just be assert len(final_alphas) == len(initial_alphas)
+- Keep comments to a minimum, comments should just explain more obscure asserts or tests.
+- Each unit test should be a function, functions should not be grouped in testing classes and should not have self attributes.
+- When testing mathematical functions, understand the derivations and test assumptions and outputs given mathematical constraints and theory.
+- Do not write excessive amounts of tests, focus on the most important aspects of each function.
+- Avoid lenghty code repetition. If multiple tests share the same set ups or fixture processing but only differ in asserts, join them in a single test and add comments before each assert.
+- Do not use try and except statements in testing. Tests should fail with their original traceback if they don't run.
+- Do not create test classes. Create a single function per test behaviour.
 
 ---
 > Source: [rick12000/vocalance](https://github.com/rick12000/vocalance) — distributed by [TomeVault](https://tomevault.io).
