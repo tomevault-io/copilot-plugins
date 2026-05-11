@@ -2,9 +2,9 @@
   "name": "palus",
   "owner": "iPaulPro",
   "repo": "palus",
-  "description": "",
+  "description": "Social media platform built on Lens",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/iPaulPro",
+  "source_url": "https://github.com/iPaulPro/palus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T17:08:14Z"
+  "distributed_at": "2026-05-11T07:44:00Z"
 }
