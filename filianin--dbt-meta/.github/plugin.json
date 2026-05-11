@@ -1,0 +1,9 @@
+{
+  "name": "filianin--dbt-meta",
+  "displayName": "dbt-meta",
+  "description": "AI-first CLI for dbt metadata extraction",
+  "version": "1.0.0",
+  "author": "Filianin",
+  "homepage": "https://github.com/Filianin/dbt-meta",
+  "skills": []
+}
