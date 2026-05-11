@@ -1,0 +1,9 @@
+{
+  "name": "knifecake--steady-queue",
+  "displayName": "steady-queue",
+  "description": "A DB-backed task backend for Django",
+  "version": "1.0.0",
+  "author": "knifecake",
+  "homepage": "https://github.com/knifecake/steady-queue",
+  "skills": []
+}
