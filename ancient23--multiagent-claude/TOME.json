@@ -1,0 +1,44 @@
+{
+  "name": "MultiAgent-Claude",
+  "owner": "Ancient23",
+  "repo": "MultiAgent-Claude",
+  "description": "Setup Prompts for creating a multi agent development environment for Claude Code, using sub agents, commands, and a memory system. Sub agents are research focused and always plan, leaving the main implementation to the parent agent.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ancient23/MultiAgent-Claude",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T22:57:46Z"
+}
