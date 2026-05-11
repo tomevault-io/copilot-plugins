@@ -1,25 +1,26 @@
-## src-lib
+## tests
 
-> Internal library modules - canvas, frame processing, event handling
+> Test files using Vitest with happy-dom environment
 
 
-- All exports must be marked `@internal` in JSDoc - these are not part of public API
-- Functions should be pure and focused on single responsibilities
-- Canvas operations go in `canvas.ts` - creation, styling, context handling
-- Frame processing logic in `frameProcessor.ts` - color extraction, blending
-- Event handling in `eventHandlers.ts` - factory functions for event listeners
-- Use named exports, not default exports
-- All functions need JSDoc with parameter descriptions and return types
-- Canvas contexts must be checked with type guards before use
-- Error handling: throw descriptive errors with context about which canvas/operation failed
-- Use constants from `../constants.ts` instead of magic numbers
-- Functions should accept options/types as parameters rather than accessing globals
-- All lib modules use `@module` tag (not `@packageDocumentation`)
-- Re-export via `src/lib/index.ts` barrel export
-- Prefer functional approach - avoid classes in lib modules
-- @file src/lib/canvas.ts
-- @file src/lib/frameProcessor.ts
-- @file src/lib/eventHandlers.ts
+- Use Vitest (`describe`, `it`, `expect`, `beforeEach`, `afterEach`, `vi`)
+- Test environment: happy-dom (configured in vitest.config.ts)
+- Always clean up DOM in `afterEach` with `document.body.innerHTML = ''`
+- Clean up `AmbientGlow` instances with `destroy()` in `afterEach`
+- Group related tests with `describe` blocks
+- Use descriptive test names: `it('should...', ...)`
+- Test both success and error cases (e.g., video without parent)
+- Use `expect().toThrow()` for error testing with specific error message matching
+- Mock `requestAnimationFrame` when testing animation loops if needed
+- Setup DOM elements in `beforeEach` - create parent, video, append to body
+- Import types from source: `import type { GlowOptions } from '../src/types'`
+- Test public API methods: constructor, `updateOptions()`, `destroy()`, `getIsDestroyed()`
+- Use `vi` from vitest for mocking (not jest mocks)
+- @file tests/unit.test.ts - Main AmbientGlow class tests
+- @file tests/integration.test.ts - Integration tests
+- @file tests/canvas.test.ts - Canvas utilities
+- @file tests/eventHandlers.test.ts - Event handler utilities
+- @file tests/frameProcessor.test.ts - Frame processing utilities
 
 ---
 > Source: [mike-at-redspace/video-ambient-glow](https://github.com/mike-at-redspace/video-ambient-glow) — distributed by [TomeVault](https://tomevault.io).
