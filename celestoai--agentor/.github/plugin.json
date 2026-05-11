@@ -1,0 +1,9 @@
+{
+  "name": "celestoai--agentor",
+  "displayName": "agentor",
+  "description": "Open source version of Claude Managed Agents. Fastest way to build and deploy reliable AI agents, MCP tools and  agent-to-agent.",
+  "version": "1.0.0",
+  "author": "CelestoAI",
+  "homepage": "https://github.com/CelestoAI/agentor",
+  "skills": []
+}
