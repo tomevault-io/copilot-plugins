@@ -1,0 +1,9 @@
+{
+  "name": "alpa8820--adk-ts",
+  "displayName": "adk-ts",
+  "description": "A TypeScript Agent Development Kit with multi-LLM, tool integration, memory, planning, and hierarchical agent orchestration for building production AI agents.",
+  "version": "1.0.0",
+  "author": "Alpa8820",
+  "homepage": "https://github.com/Alpa8820/adk-ts",
+  "skills": []
+}
