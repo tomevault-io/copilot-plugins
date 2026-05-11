@@ -7,11 +7,11 @@ Quran Management System
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Mahmoud9-dev/eqraa-center-hub](https://github.com/Mahmoud9-dev/eqraa-center-hub).
+Original source: `CLAUDE.md` in [Mahmoud9-dev/eqraa-center-hub](https://github.com/Mahmoud9-dev/eqraa-center-hub).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
