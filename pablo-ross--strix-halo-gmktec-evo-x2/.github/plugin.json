@@ -1,0 +1,9 @@
+{
+  "name": "pablo-ross--strix-halo-gmktec-evo-x2",
+  "displayName": "strix-halo-gmktec-evo-x2",
+  "description": "Configuration and documentation for optimizing Ubuntu 24.04 on AMD Ryzen AI Max+ 395 with Radeon 8060S for LLM inference using llama.cpp with ROCm 7 RC and rocWMMA.",
+  "version": "1.0.0",
+  "author": "pablo-ross",
+  "homepage": "https://github.com/pablo-ross/strix-halo-gmktec-evo-x2",
+  "skills": []
+}
