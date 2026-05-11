@@ -1,0 +1,9 @@
+{
+  "name": "hulupeep--specflow",
+  "displayName": "Specflow",
+  "description": "Specs that enforce themselves. Turn specs into contracts that can't be broken by helpful LLMs.",
+  "version": "1.0.0",
+  "author": "Hulupeep",
+  "homepage": "https://github.com/Hulupeep/Specflow",
+  "skills": []
+}
