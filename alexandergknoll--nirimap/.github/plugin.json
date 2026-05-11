@@ -1,0 +1,9 @@
+{
+  "name": "alexandergknoll--nirimap",
+  "displayName": "nirimap",
+  "description": "A minimal workspace minimap overlay for the Niri Wayland compositor.",
+  "version": "1.0.0",
+  "author": "alexandergknoll",
+  "homepage": "https://github.com/alexandergknoll/nirimap",
+  "skills": []
+}
