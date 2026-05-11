@@ -1,0 +1,9 @@
+{
+  "name": "openhands--benchmarks",
+  "displayName": "benchmarks",
+  "description": "Evaluation harness for OpenHands V1.",
+  "version": "1.0.0",
+  "author": "OpenHands",
+  "homepage": "https://github.com/OpenHands/benchmarks",
+  "skills": []
+}
