@@ -1,0 +1,9 @@
+{
+  "name": "codama-idl--renderers-js",
+  "displayName": "renderers-js",
+  "description": "JavaScript renderer compatible with the Solana Kit library",
+  "version": "1.0.0",
+  "author": "codama-idl",
+  "homepage": "https://github.com/codama-idl/renderers-js",
+  "skills": []
+}
