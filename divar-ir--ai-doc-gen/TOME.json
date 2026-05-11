@@ -4,7 +4,7 @@
   "repo": "ai-doc-gen",
   "description": "AI-powered multi-agent system that automatically analyzes codebases and generates comprehensive documentation. Features GitLab integration, concurrent processing, and multiple LLM support for better code understanding and developer onboarding.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/divar-ir/ai-doc-gen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T23:06:40Z"
+  "distributed_at": "2026-05-11T01:12:43Z"
 }
