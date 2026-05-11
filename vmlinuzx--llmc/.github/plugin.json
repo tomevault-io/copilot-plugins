@@ -1,0 +1,9 @@
+{
+  "name": "vmlinuzx--llmc",
+  "displayName": "llmc",
+  "description": "One stop shop - Local-first RAG stack with intelligent polyglot-code/docs, remote code execution, local llama enrichment, progressive disclosure tools, mcp server, sandboxed security.",
+  "version": "1.0.0",
+  "author": "vmlinuzx",
+  "homepage": "https://github.com/vmlinuzx/llmc",
+  "skills": []
+}
