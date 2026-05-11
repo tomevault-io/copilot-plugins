@@ -1,0 +1,9 @@
+{
+  "name": "coregx--relica",
+  "displayName": "relica",
+  "description": "Lightweight, type-safe database query builder for Go with zero production dependencies. Advanced SQL features (JOINs, subqueries, CTEs, window functions), batch operations (3x faster), LRU statement c",
+  "version": "1.0.0",
+  "author": "coregx",
+  "homepage": "https://github.com/coregx/relica",
+  "skills": []
+}
