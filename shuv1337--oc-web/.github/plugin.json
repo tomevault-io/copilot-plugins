@@ -1,0 +1,9 @@
+{
+  "name": "shuv1337--oc-web",
+  "displayName": "oc-web",
+  "description": "The original community-built web UI for OpenCode. Real-time session streaming, diff viewing, and workflow management. TanStack Start + React + Bun.",
+  "version": "1.0.0",
+  "author": "shuv1337",
+  "homepage": "https://github.com/shuv1337/oc-web",
+  "skills": []
+}
