@@ -1,11 +1,10 @@
-## global
+## routista
 
-> Global rules for the project
+> Read and follow `.agent/rules/project_rules.md` at the start of every conversation.
 
+# Claude Code Instructions
 
-# Your Rules Start Here
-
-- Always follow rules from `<workspace_root>/.agent/rules/project_rules.md` file
+Read and follow `.agent/rules/project_rules.md` at the start of every conversation.
 
 ---
 > Source: [JakubAnderwald/routista](https://github.com/JakubAnderwald/routista) — distributed by [TomeVault](https://tomevault.io).
