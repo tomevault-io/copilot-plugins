@@ -7,11 +7,11 @@ Cross-machine AI agent communication, plus a mobile app to control any terminal 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [leox255/loopsy](https://github.com/leox255/loopsy).
+Original source: `CLAUDE.md` in [leox255/loopsy](https://github.com/leox255/loopsy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
