@@ -1,0 +1,9 @@
+{
+  "name": "yehudacohen--typekro",
+  "displayName": "typekro",
+  "description": "Manage Kubernetes Resources with Complex Dependencies in Typescript",
+  "version": "1.0.0",
+  "author": "yehudacohen",
+  "homepage": "https://github.com/yehudacohen/typekro",
+  "skills": []
+}
