@@ -1,0 +1,9 @@
+{
+  "name": "pipelex--kajson",
+  "displayName": "kajson",
+  "description": "Powerful universal JSON encoder/decoder for Python objects with support for pydantic v2.",
+  "version": "1.0.0",
+  "author": "Pipelex",
+  "homepage": "https://github.com/Pipelex/kajson",
+  "skills": []
+}
