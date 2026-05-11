@@ -1,0 +1,9 @@
+{
+  "name": "jorgemunozl--psiformer-torch",
+  "displayName": "psiformer_torch",
+  "description": "self-attention neural torch ansatz for electronic structure calculations introduced in the paper  \u201cA Self-attention Ansatz for ab initio Quantum Chemistry\u201d from Google Deep Mind.",
+  "version": "1.0.0",
+  "author": "jorgemunozl",
+  "homepage": "https://github.com/jorgemunozl/psiformer_torch",
+  "skills": []
+}
