@@ -1,0 +1,9 @@
+{
+  "name": "inanimate-tech--courier",
+  "displayName": "courier",
+  "description": "Batteries-included ESP32 connectivity library \u2014 WiFi, WebSocket, MQTT, reconnection, all handled",
+  "version": "1.0.0",
+  "author": "inanimate-tech",
+  "homepage": "https://github.com/inanimate-tech/courier",
+  "skills": []
+}
