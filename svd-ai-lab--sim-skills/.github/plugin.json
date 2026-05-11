@@ -1,0 +1,9 @@
+{
+  "name": "svd-ai-lab--sim-skills",
+  "displayName": "sim-skills",
+  "description": "sim-skills \u2014 agent playbooks that teach LLMs how to drive every engineering tool, paired with the sim-cli runtime",
+  "version": "1.0.0",
+  "author": "svd-ai-lab",
+  "homepage": "https://github.com/svd-ai-lab/sim-skills",
+  "skills": []
+}
