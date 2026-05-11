@@ -1,0 +1,9 @@
+{
+  "name": "halos-org--halos",
+  "displayName": "halos",
+  "description": "HaLOS (Hat Labs Operating System) - Workspace managing custom Raspberry Pi OS distribution and marine applications",
+  "version": "1.0.0",
+  "author": "halos-org",
+  "homepage": "https://github.com/halos-org/halos",
+  "skills": []
+}
