@@ -1,0 +1,9 @@
+{
+  "name": "leftouterjoins--voicewrite",
+  "displayName": "voicewrite",
+  "description": "Private, on-device voice-to-text for macOS. Free, open source, no subscription.",
+  "version": "1.0.0",
+  "author": "leftouterjoins",
+  "homepage": "https://github.com/leftouterjoins/voicewrite",
+  "skills": []
+}
