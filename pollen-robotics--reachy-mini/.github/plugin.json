@@ -1,0 +1,9 @@
+{
+  "name": "pollen-robotics--reachy-mini",
+  "displayName": "reachy_mini",
+  "description": "Reachy Mini's SDK",
+  "version": "1.0.0",
+  "author": "pollen-robotics",
+  "homepage": "https://github.com/pollen-robotics/reachy_mini",
+  "skills": []
+}
