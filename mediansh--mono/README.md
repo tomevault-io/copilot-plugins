@@ -7,11 +7,11 @@ The feedback engine for modern teams.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mediansh/mono](https://github.com/mediansh/mono).
+Original source: `CLAUDE.md` in [mediansh/mono](https://github.com/mediansh/mono).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
