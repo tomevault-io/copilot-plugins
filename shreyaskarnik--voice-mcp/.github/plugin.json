@@ -1,0 +1,9 @@
+{
+  "name": "shreyaskarnik--voice-mcp",
+  "displayName": "voice-mcp",
+  "description": "Bidirectional voice MCP server for Claude Code \u2014 listen (STT) and speak (TTS) on Apple Silicon via mlx-audio",
+  "version": "1.0.0",
+  "author": "shreyaskarnik",
+  "homepage": "https://github.com/shreyaskarnik/voice-mcp",
+  "skills": []
+}
