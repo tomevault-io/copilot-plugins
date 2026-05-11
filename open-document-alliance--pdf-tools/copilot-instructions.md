@@ -1,0 +1,166 @@
+## pdf-tools
+
+> - `server/index.js`: Node MCP server exposing PDF tools shared by Claude Desktop and Cursor. Keep tool definitions and helper utilities here; prefer incremental updates over rewrites.
+
+# Repository Guidelines
+
+## Project Structure & Module Organization
+- `server/index.js`: Node MCP server exposing PDF tools shared by Claude Desktop and Cursor. Keep tool definitions and helper utilities here; prefer incremental updates over rewrites.
+- `pdf-toolkit-mcp-share/`: Packaged variant used by `package-for-friend.js`; mirror changes from `server/index.js` when APIs evolve.
+- `manifest.json` and `index.html`: Claude Desktop extension metadata and UI stub. Update versions alongside `package.json`.
+- `example-fw9.pdf`: Sample form for smoke tests. Keep anonymized assets only.
+
+### Tools currently shipped
+- `display_pdf`, `list_pdfs`, `read_pdf_fields`, `fill_pdf`, `bulk_fill_from_csv`, `save_profile`, `load_profile`, `list_profiles`, `fill_with_profile`, `extract_to_csv`, `validate_pdf`, `read_pdf_content`, `get_pdf_resource_uri`, `read_pdf_bytes` (app-only).
+
+## Build, Test, and Development Commands
+- `npm install`: install runtime dependencies (Node.js 18+).
+- `node server/index.js`: run the MCP server over stdio for local hosts (Cursor, Claude) and watch stderr for diagnostics.
+- `node package-for-friend.js`: regenerate `pdf-toolkit-mcp.zip`; requires the `zip` CLI and ensures shareable installers stay current.
+- `mcpb pack`: rebuild the `.mcpb` extension after code or asset updates; install via Claude Desktop to validate.
+
+## Coding Style & Naming Conventions
+- Use 2-space indentation, `const`/`let` semantics, and double-quoted strings to match `server/index.js` and shipped bundles.
+- Favor composable helpers over inlined logic; reuse `resolvePath`, `fillPdfFields`, and profile utilities instead of duplicating them.
+- Tool names stay snake_case (`list_pdfs`, `fill_pdf`); new tools should follow that pattern and return structured text blocks.
+
+## Testing Guidelines
+- No automated test suite yet; perform manual runs against `example-fw9.pdf` via the MCP host. Exercise `list_pdfs`, `read_pdf_fields`, `fill_pdf`, and one profile flow.
+- Validate CSV workflows with a two-row fixture before publishing; include a value with a comma to catch CSV parsing regressions.
+- Smoke-test new tools: `extract_to_csv` on two PDFs, `validate_pdf` on a partially filled form, `read_pdf_content` on text and scanned PDFs, and `get_pdf_resource_uri` with a local file path.
+
+## Commit & Pull Request Guidelines
+- Follow the existing imperative subject style (`Update index.html to improve structure`). Group related changes and note version bumps explicitly.
+- Include PR context: summary of affected tools, manual test evidence, linked issue if applicable, and screenshots only when UI assets change.
+- Regenerate artifacts (`pdf-toolkit-mcp.zip`, `.mcpb`) in separate commits or attach them to releases rather than merging binaries directly. Keep version numbers aligned across `package.json`, `manifest.json`, and the share bundle.
+
+## Maintainer Docs
+- `docs/MAINTAINERS.md` for architecture, packaging, and manual test checklist.
+- `docs/RELEASE.md` for release steps and artifact handling.
+- `docs/SUPPORT.md` for issue intake and triage flow.
+
+## Upstream Tracking
+- MCP spec/org: https://github.com/modelcontextprotocol
+- MCPB CLI: https://github.com/modelcontextprotocol/mcpb
+- SDK: `@modelcontextprotocol/sdk`
+
+## Security & Configuration Tips
+- Never hard-code personal paths; rely on `resolvePath` and default directories (`~/Documents`, `~/.pdf-toolkit-files`).
+- Scrub PDFs or CSVs before committing, and point contributors to local-only credentials files when testing protected documents.
+
+<!-- BEGIN BEADS INTEGRATION v:1 profile:full hash:d4f96305 -->
+## Issue Tracking with bd (beads)
+
+**IMPORTANT**: This project uses **bd (beads)** for ALL issue tracking. Do NOT use markdown TODOs, task lists, or other tracking methods.
+
+### Why bd?
+
+- Dependency-aware: Track blockers and relationships between issues
+- Git-friendly: Dolt-powered version control with native sync
+- Agent-optimized: JSON output, ready work detection, discovered-from links
+- Prevents duplicate tracking systems and confusion
+
+### Quick Start
+
+**Check for ready work:**
+
+```bash
+bd ready --json
+```
+
+**Create new issues:**
+
+```bash
+bd create "Issue title" --description="Detailed context" -t bug|feature|task -p 0-4 --json
+bd create "Issue title" --description="What this issue is about" -p 1 --deps discovered-from:bd-123 --json
+```
+
+**Claim and update:**
+
+```bash
+bd update <id> --claim --json
+bd update bd-42 --priority 1 --json
+```
+
+**Complete work:**
+
+```bash
+bd close bd-42 --reason "Completed" --json
+```
+
+### Issue Types
+
+- `bug` - Something broken
+- `feature` - New functionality
+- `task` - Work item (tests, docs, refactoring)
+- `epic` - Large feature with subtasks
+- `chore` - Maintenance (dependencies, tooling)
+
+### Priorities
+
+- `0` - Critical (security, data loss, broken builds)
+- `1` - High (major features, important bugs)
+- `2` - Medium (default, nice-to-have)
+- `3` - Low (polish, optimization)
+- `4` - Backlog (future ideas)
+
+### Workflow for AI Agents
+
+1. **Check ready work**: `bd ready` shows unblocked issues
+2. **Claim your task atomically**: `bd update <id> --claim`
+3. **Work on it**: Implement, test, document
+4. **Discover new work?** Create linked issue:
+   - `bd create "Found bug" --description="Details about what was found" -p 1 --deps discovered-from:<parent-id>`
+5. **Complete**: `bd close <id> --reason "Done"`
+
+### Auto-Sync
+
+bd automatically syncs via Dolt:
+
+- Each write auto-commits to Dolt history
+- Use `bd dolt push`/`bd dolt pull` for remote sync
+- No manual export/import needed!
+
+### Important Rules
+
+- ✅ Use bd for ALL task tracking
+- ✅ Always use `--json` flag for programmatic use
+- ✅ Link discovered work with `discovered-from` dependencies
+- ✅ Check `bd ready` before asking "what should I work on?"
+- ❌ Do NOT create markdown TODO lists
+- ❌ Do NOT use external issue trackers
+- ❌ Do NOT duplicate tracking systems
+
+For more details, see README.md and docs/QUICKSTART.md.
+
+## Landing the Plane (Session Completion)
+
+**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+
+**MANDATORY WORKFLOW:**
+
+1. **File issues for remaining work** - Create issues for anything that needs follow-up
+2. **Run quality gates** (if code changed) - Tests, linters, builds
+3. **Update issue status** - Close finished work, update in-progress items
+4. **PUSH TO REMOTE** - This is MANDATORY:
+   ```bash
+   git pull --rebase
+   bd dolt push
+   git push
+   git status  # MUST show "up to date with origin"
+   ```
+5. **Clean up** - Clear stashes, prune remote branches
+6. **Verify** - All changes committed AND pushed
+7. **Hand off** - Provide context for next session
+
+**CRITICAL RULES:**
+- Work is NOT complete until `git push` succeeds
+- NEVER stop before pushing - that leaves work stranded locally
+- NEVER say "ready to push when you are" - YOU must push
+- If push fails, resolve and retry until it succeeds
+
+<!-- END BEADS INTEGRATION -->
+
+---
+> Source: [Open-Document-Alliance/PDF-Tools](https://github.com/Open-Document-Alliance/PDF-Tools) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
