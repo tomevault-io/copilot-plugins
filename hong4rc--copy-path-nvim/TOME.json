@@ -1,0 +1,44 @@
+{
+  "name": "copy-path.nvim",
+  "owner": "hong4rc",
+  "repo": "copy-path.nvim",
+  "description": "Copy buffer paths to clipboard \u2014 11 path kinds, GitHub permalinks, file tree support, built-in picker. Zero config, LazyVim compatible.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hong4rc/copy-path.nvim",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T05:00:44Z"
+}
