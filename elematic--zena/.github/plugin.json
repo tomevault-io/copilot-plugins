@@ -1,0 +1,9 @@
+{
+  "name": "elematic--zena",
+  "displayName": "zena",
+  "description": "A new programming language for WASM",
+  "version": "1.0.0",
+  "author": "elematic",
+  "homepage": "https://github.com/elematic/zena",
+  "skills": []
+}
