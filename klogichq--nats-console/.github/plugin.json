@@ -1,0 +1,9 @@
+{
+  "name": "klogichq--nats-console",
+  "displayName": "nats-console",
+  "description": "A Modern, Open-Source Management Console for NATS JetStream.",
+  "version": "1.0.0",
+  "author": "KLogicHQ",
+  "homepage": "https://github.com/KLogicHQ/nats-console",
+  "skills": []
+}
