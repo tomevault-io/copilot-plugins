@@ -1,0 +1,9 @@
+{
+  "name": "mlxports--xlstm-metal",
+  "displayName": "xLSTM-metal",
+  "description": "xLSTM on MLX and PyTorch",
+  "version": "1.0.0",
+  "author": "MLXPorts",
+  "homepage": "https://github.com/MLXPorts/xLSTM-metal",
+  "skills": []
+}
