@@ -1,73 +1,40 @@
-## debug-mode-logging
+## specify-rules
 
-> Debug-mode logging from the sandboxed Flutter app — always POST to the debug server
+> Auto-generated from all feature plans. Last updated: 2025-09-22
 
+# app Development Guidelines
 
-# Debug-mode logging in this Flutter app
+Auto-generated from all feature plans. Last updated: 2025-09-22
 
-This is a Flutter app that runs **macOS sandboxed** in debug builds (entitlements
-enable `com.apple.security.app-sandbox` and `com.apple.security.network.client`).
-Sandboxed processes **cannot write to `~/.cursor/...`**, so any
-file-based debug instrumentation that targets the workspace log path will silently
-do nothing — the log file never gets created and you'll waste a reproduction cycle
-discovering this.
+## Active Technologies
+- Dart 3.0+ with Flutter 3.16+ + Flutter, dart_nostr, local_auth, shared_preferences (001-store-text-in-lockbox)
+- Dart 3.0+ / Flutter 3.16+ + Flutter, nostr_dart (Nostr protocol), shamir_secret_sharing (cryptographic library) (002-distributed-backup-of)
+- FlutterSecureStorage (local), Nostr relays (distributed) (002-distributed-backup-of)
+- Dart 3.0+ / Flutter 3.16+ + Flutter, ndk (Nostr protocol), ntcdcrypto (Shamir's Secret Sharing) (002-distributed-backup-of)
+- Dart 3.0+ with Flutter 3.16+ + Flutter, NDK (Nostr), flutter_secure_storage, crypto (003-lockbox-recovery)
+- FlutterSecureStorage for local data, Nostr relays for distributed shares (003-lockbox-recovery)
+- Dart 3.5.3, Flutter 3.35.0 (004-invitation-links)
+- SharedPreferences for invitation code tracking, FlutterSecureStorage for sensitive data (004-invitation-links)
 
-## Rule: instrument via HTTP, not file I/O
-
-When Cursor's debug mode provides a server endpoint and a workspace log path,
-**use the HTTP endpoint from inside the running app**. The endpoint is reachable
-because `network.client` is granted; the Cursor logging system writes the POSTed
-NDJSON to the log file for you. Do **not** use `dart:io File.writeAsStringSync`
-to append to the log path from app code.
-
-## Concrete Dart helper to drop into a file under instrumentation
-
-Replace the placeholders with the values from the current debug-mode system
-reminder (`SERVER_ENDPOINT`, `SESSION_ID`):
-
-```dart
-// #region agent log
-import 'dart:convert' as dbg_convert;
-import 'dart:io' as dbg_io;
-
-final dbg_io.HttpClient _dbgHttpClient = dbg_io.HttpClient()
-  ..connectionTimeout = const Duration(seconds: 1);
-
-void _dbgLog(String location, String message, Map<String, dynamic> data,
-    {String hypothesisId = ''}) {
-  final entry = <String, dynamic>{
-    'sessionId': 'SESSION_ID',
-    'id': 'log_${DateTime.now().microsecondsSinceEpoch}',
-    'timestamp': DateTime.now().millisecondsSinceEpoch,
-    'location': location,
-    'message': message,
-    'data': data,
-    if (hypothesisId.isNotEmpty) 'hypothesisId': hypothesisId,
-  };
-  final body = dbg_convert.utf8.encode(dbg_convert.jsonEncode(entry));
-  () async {
-    try {
-      final req = await _dbgHttpClient.postUrl(Uri.parse('SERVER_ENDPOINT'));
-      req.headers.set('Content-Type', 'application/json');
-      req.headers.set('X-Debug-Session-Id', 'SESSION_ID');
-      req.add(body);
-      final resp = await req.close();
-      await resp.drain<void>();
-    } catch (_) {}
-  }();
-}
-// #endregion
+## Project Structure
+```
+src/
+tests/
 ```
 
-## Reminders before asking the user to reproduce
+## Commands
+# Add commands for Dart 3.0+ with Flutter 3.16+
 
-- A hot **reload** does not pick up new top-level functions or imports — ask for
-  a hot **restart** (Shift+R in `flutter run`) when you've added the helper.
-- If a previous run produced no log lines and the app definitely rendered the
-  instrumented code path, suspect sandboxing first; switch to HTTP and retry
-  rather than re-instrumenting more places.
-- Pure Dart unit tests (`flutter test`) are **not** sandboxed and can use file
-  I/O safely if you ever instrument test-only code.
+## Code Style
+Dart 3.0+ with Flutter 3.16+: Follow standard conventions
+
+## Recent Changes
+- 004-invitation-links: Added Dart 3.5.3, Flutter 3.35.0
+- 003-lockbox-recovery: Added Dart 3.0+ with Flutter 3.16+ + Flutter, NDK (Nostr), flutter_secure_storage, crypto
+- 002-distributed-backup-of: Added Dart 3.0+ / Flutter 3.16+ + Flutter, ndk (Nostr protocol), ntcdcrypto (Shamir's Secret Sharing)
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->
 
 ---
 > Source: [mplorentz/horcrux](https://github.com/mplorentz/horcrux) — distributed by [TomeVault](https://tomevault.io).
