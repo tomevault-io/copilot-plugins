@@ -1,0 +1,9 @@
+{
+  "name": "koki-develop--mmcp",
+  "displayName": "mmcp",
+  "description": "\ud83d\udee0\ufe0f Manage your MCP (Model Context Protocol) server definitions in one place and apply them to supported agents.",
+  "version": "1.0.0",
+  "author": "koki-develop",
+  "homepage": "https://github.com/koki-develop/mmcp",
+  "skills": []
+}
