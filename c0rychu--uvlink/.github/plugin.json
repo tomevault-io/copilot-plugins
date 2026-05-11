@@ -1,0 +1,9 @@
+{
+  "name": "c0rychu--uvlink",
+  "displayName": "uvlink",
+  "description": "storing venv in a system-wise cache and symbolic link them back into project file",
+  "version": "1.0.0",
+  "author": "c0rychu",
+  "homepage": "https://github.com/c0rychu/uvlink",
+  "skills": []
+}
