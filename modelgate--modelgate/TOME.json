@@ -1,0 +1,44 @@
+{
+  "name": "modelgate",
+  "owner": "modelgate",
+  "repo": "modelgate",
+  "description": "ModelGate \u662f\u4e00\u4e2a\u5927\u6a21\u578b API \u7f51\u5173\uff0c\u63d0\u4f9b\u7edf\u4e00\u7684\u63a5\u53e3\u6765\u7ba1\u7406\u548c\u8f6c\u53d1\u5230\u591a\u4e2a\u5927\u6a21\u578b\u670d\u52a1\uff08OpenAI\u3001Anthropic\u3001DeepSeek\u3001\u667a\u8c31\u7b49\uff09\u3002\u652f\u6301\u7528\u6237\u7ba1\u7406\u3001API \u5bc6\u94a5\u7ba1\u7406\u3001\u8ba1\u8d39\u7cfb\u7edf\u3001\u8bf7\u6c42\u8bb0\u5f55\u7b49\u5b8c\u6574\u529f\u80fd\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/modelgate/modelgate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T14:05:25Z"
+}
