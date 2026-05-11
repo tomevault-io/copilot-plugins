@@ -7,11 +7,11 @@ Hire a phone to do your growth work
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Core-Mate/open-gui](https://github.com/Core-Mate/open-gui).
+Original source: `CLAUDE.md` in [Core-Mate/open-gui](https://github.com/Core-Mate/open-gui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
