@@ -1,14 +1,16 @@
-## tailwindcss-best-practices
+## typescript-best-practices
 
-> Best practices for styling with Tailwind CSS
+> TypeScript coding standards and type safety guidelines
 
 
-- Use utility-first approach for rapid development and maintainability
-- Implement responsive design using Tailwind's built-in breakpoints
-- Utilize the `@apply` directive for creating custom utility classes
-- Leverage Tailwind's JIT mode for improved performance and smaller bundle sizes
-- Utilize `tailwind-merge` for efficient class merging and overriding
-- Leverage `tailwindcss-animate` for easy animation implementation
+- Enable strict mode in your `tsconfig.json` for better type checking.
+- Use interfaces for object shapes and types for unions or intersections.
+- Leverage type inference where possible to reduce type annotations.
+- Use generics for reusable components and functions.
+- Use strict null checks to prevent null and undefined errors
+- Implement proper type inference using generics for reusable components.
+- Utilize type guards and assertions for runtime type checking.
+- Use `pnpm` as default package manager if run Command in Terminal.
 
 ---
 > Source: [tanchaowen84/voice-clone](https://github.com/tanchaowen84/voice-clone) — distributed by [TomeVault](https://tomevault.io).
