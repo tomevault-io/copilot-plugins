@@ -4,7 +4,7 @@
   "repo": "mcp-app-template",
   "description": "Template ChatGPT app - Designed to be modified by Claude Code or other coding agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sebderhy/mcp-app-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T08:19:31Z"
+  "distributed_at": "2026-05-11T20:20:48Z"
 }
