@@ -1,0 +1,9 @@
+{
+  "name": "stylus-developers-guild--bobcat-sdk",
+  "displayName": "bobcat-sdk",
+  "description": "bobcat-sdk is an opinionated codesize efficient Arbitrum Stylus and Orderbookkit Plugin SDK.",
+  "version": "1.0.0",
+  "author": "stylus-developers-guild",
+  "homepage": "https://github.com/stylus-developers-guild/bobcat-sdk",
+  "skills": []
+}
