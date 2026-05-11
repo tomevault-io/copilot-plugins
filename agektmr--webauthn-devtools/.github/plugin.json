@@ -1,0 +1,9 @@
+{
+  "name": "agektmr--webauthn-devtools",
+  "displayName": "webauthn-devtools",
+  "description": "A browser extension that allows you to audit WebAuthn interactions",
+  "version": "1.0.0",
+  "author": "agektmr",
+  "homepage": "https://github.com/agektmr/webauthn-devtools",
+  "skills": []
+}
