@@ -1,0 +1,9 @@
+{
+  "name": "suliatis--jumppack-nvim",
+  "displayName": "Jumppack.nvim",
+  "description": "Enhanced jumplist navigation for Neovim with visual interface",
+  "version": "1.0.0",
+  "author": "suliatis",
+  "homepage": "https://github.com/suliatis/Jumppack.nvim",
+  "skills": []
+}
