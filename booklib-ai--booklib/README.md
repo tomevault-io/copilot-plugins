@@ -7,11 +7,11 @@ Detects what your AI doesn't know about your project and fixes it. Post-training
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [booklib-ai/booklib](https://github.com/booklib-ai/booklib).
+Original source: `CLAUDE.md` in [booklib-ai/booklib](https://github.com/booklib-ai/booklib).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
