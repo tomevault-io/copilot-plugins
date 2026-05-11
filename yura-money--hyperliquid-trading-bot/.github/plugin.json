@@ -1,0 +1,9 @@
+{
+  "name": "yura-money--hyperliquid-trading-bot",
+  "displayName": "hyperliquid-trading-bot",
+  "description": "hyperliquid trading bot A Node.js (TypeScript) grid trading bot for Hyperliquid: configurable grid levels, WebSocket mid prices, limit orders via the official API stack, and risk rules (drawdown, posi",
+  "version": "1.0.0",
+  "author": "yura-money",
+  "homepage": "https://github.com/yura-money/hyperliquid-trading-bot",
+  "skills": []
+}
