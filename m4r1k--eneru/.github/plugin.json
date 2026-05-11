@@ -1,0 +1,9 @@
+{
+  "name": "m4r1k--eneru",
+  "displayName": "Eneru",
+  "description": "\u26a1 Eneru\u2014Intelligent UPS monitoring daemon for NUT (Network UPS Tools) with configurable multi-system shutdown orchestration, Discord notifications, and enterprise-grade power event handling.",
+  "version": "1.0.0",
+  "author": "m4r1k",
+  "homepage": "https://github.com/m4r1k/Eneru",
+  "skills": []
+}
