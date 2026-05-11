@@ -1,0 +1,9 @@
+{
+  "name": "csml-rpi--foam-agent",
+  "displayName": "Foam-Agent",
+  "description": "Foam-Agent: An end-to-end, composable multi-agent framework for automating CFD simulations in OpenFOAM. NeurIPS 2025 Machine Learning and the Physical Sciences Workshop.",
+  "version": "1.0.0",
+  "author": "csml-rpi",
+  "homepage": "https://github.com/csml-rpi/Foam-Agent",
+  "skills": []
+}
