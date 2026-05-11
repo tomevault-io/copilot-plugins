@@ -1,0 +1,9 @@
+{
+  "name": "evanlong-me--nvidia-anthropic-proxy",
+  "displayName": "nvidia-anthropic-proxy",
+  "description": "A Cloudflare Worker proxy that enables Claude Code to use NVIDIA NIM API models",
+  "version": "1.0.0",
+  "author": "evanlong-me",
+  "homepage": "https://github.com/evanlong-me/nvidia-anthropic-proxy",
+  "skills": []
+}
