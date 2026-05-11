@@ -4,7 +4,7 @@
   "repo": "EffectPatterns",
   "description": "A community-driven knowledge base of practical patterns for Effect-TS.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PaulJPhilp/EffectPatterns",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T21:03:11Z"
+  "distributed_at": "2026-05-11T06:43:13Z"
 }
