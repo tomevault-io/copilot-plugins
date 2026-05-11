@@ -1,0 +1,9 @@
+{
+  "name": "livekit--client-sdk-esp32",
+  "displayName": "client-sdk-esp32",
+  "description": "LiveKit Client SDK for ESP32 series chips. Easily enable real-time audio, video, and data for embedded projects.",
+  "version": "1.0.0",
+  "author": "livekit",
+  "homepage": "https://github.com/livekit/client-sdk-esp32",
+  "skills": []
+}
