@@ -1,0 +1,9 @@
+{
+  "name": "brettkinny--dotty-stackchan",
+  "displayName": "dotty-stackchan",
+  "description": "Self-hosted infrastructure for Dotty (M5Stack StackChan \u2192 xiaozhi-esp32-server \u2192 ZeroClaw)",
+  "version": "1.0.0",
+  "author": "BrettKinny",
+  "homepage": "https://github.com/BrettKinny/dotty-stackchan",
+  "skills": []
+}
