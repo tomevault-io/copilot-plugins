@@ -1,0 +1,9 @@
+{
+  "name": "mozilla-ai--any-llm",
+  "displayName": "any-llm",
+  "description": "Communicate with an LLM provider using a single interface",
+  "version": "1.0.0",
+  "author": "mozilla-ai",
+  "homepage": "https://github.com/mozilla-ai/any-llm",
+  "skills": []
+}
