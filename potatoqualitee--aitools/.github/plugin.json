@@ -1,0 +1,9 @@
+{
+  "name": "potatoqualitee--aitools",
+  "displayName": "aitools",
+  "description": "\ud83e\udde0 PowerShell wrapper for AI coding assistants with batch processing, persistent config, and Pester v4\u2192v5 migration automation",
+  "version": "1.0.0",
+  "author": "potatoqualitee",
+  "homepage": "https://github.com/potatoqualitee/aitools",
+  "skills": []
+}
