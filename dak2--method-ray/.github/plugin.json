@@ -1,0 +1,9 @@
+{
+  "name": "dak2--method-ray",
+  "displayName": "method-ray",
+  "description": "Static fast callable method checker for Ruby code.",
+  "version": "1.0.0",
+  "author": "dak2",
+  "homepage": "https://github.com/dak2/method-ray",
+  "skills": []
+}
