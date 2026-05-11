@@ -1,0 +1,9 @@
+{
+  "name": "jeevanssp--resume-optimizer",
+  "displayName": "resume-optimizer",
+  "description": "Open-source AI resume tailoring service \u2014 upload PDF, paste job description, get an ATS-optimized resume. Built with FastAPI, Vue 3, Google Gemini, and LaTeX.",
+  "version": "1.0.0",
+  "author": "JeevansSP",
+  "homepage": "https://github.com/JeevansSP/resume-optimizer",
+  "skills": []
+}
