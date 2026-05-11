@@ -1,34 +1,55 @@
-## rein-retro
+## rein-review
 
-> Use after a miss, regression, or suspicious shortcut. Captures what failed and what rule should change.
+> Use before committing. Self-reviews the current diff for unrelated changes, debug leftovers, test weakening, and scope drift.
 
 
-# rein-retro
+# rein-review
 
-Use this after a miss, failed check, or suspicious shortcut.
+Use this after implementation and before committing to review your own diff for problems that verification commands alone will not catch.
+
+## When To Use
+
+- Before any commit that touches more than a trivial change
+- After a multi-file implementation pass
+- When you are about to declare work complete
+
+## When Not To Use
+
+- The change is a single-line typo fix with no surrounding edits
+- rein-verify has already been run and covers diff review (avoid duplication)
 
 ## Steps
 
-1. State what failed.
-2. Identify the false assumption or missed search step.
-3. Classify the miss:
-   - bluffing
-   - incomplete search
-   - insufficient verification
-   - reward hacking
-   - other
-4. State what evidence would have prevented the miss.
-5. Propose one concrete protocol improvement.
+1. Read the full diff (staged and unstaged).
+2. For every changed file, verify you read it before editing it.
+3. Check for unrelated changes:
+   - files modified that are not part of the task
+   - formatting-only changes in files you did not need to touch
+   - import reordering or whitespace changes outside the task scope
+4. Check for debug leftovers:
+   - console.log, print, debugger statements
+   - commented-out code that should be removed
+   - TODO/FIXME comments added without justification
+5. Check for test and fixture integrity:
+   - tests removed or weakened without explanation
+   - assertions loosened (exact match to contains, strict to loose)
+   - test data changed to make failures disappear
+   - new tests that only assert the happy path
+6. Check for scope drift:
+   - refactors beyond what the task required
+   - new abstractions or helpers for one-time use
+   - feature additions not in the original scope
+7. If any issue is found, fix it before committing.
+8. If all checks pass, state what was reviewed and confirm the diff is clean.
 
 ## Output
 
-Emit a short retro note with:
+Emit a short review note with:
 
-- failure
-- root assumption
-- miss classification
-- missing evidence
-- rule or prompt update to add back into the harness
+- files reviewed
+- issues found (if any) and how they were resolved
+- confirmation that the diff is limited to the task scope
+- any caveats or remaining concerns
 
 ---
 > Source: [jstxn/rein](https://github.com/jstxn/rein) — distributed by [TomeVault](https://tomevault.io).
