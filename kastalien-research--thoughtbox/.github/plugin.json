@@ -1,0 +1,9 @@
+{
+  "name": "kastalien-research--thoughtbox",
+  "displayName": "thoughtbox",
+  "description": "Thoughtbox is an intention ledger for agents. Evaluate AI's decisions against its decision-making.",
+  "version": "1.0.0",
+  "author": "Kastalien-Research",
+  "homepage": "https://github.com/Kastalien-Research/thoughtbox",
+  "skills": []
+}
