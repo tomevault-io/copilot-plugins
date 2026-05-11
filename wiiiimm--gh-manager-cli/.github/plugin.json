@@ -1,0 +1,9 @@
+{
+  "name": "wiiiimm--gh-manager-cli",
+  "displayName": "gh-manager-cli",
+  "description": "TUI terminal app to manage GitHub repos. Clean up your account in 5 minutes. Archive, delete, rename repos with keyboard shortcuts. Alternative to clicking through github.com",
+  "version": "1.0.0",
+  "author": "wiiiimm",
+  "homepage": "https://github.com/wiiiimm/gh-manager-cli",
+  "skills": []
+}
