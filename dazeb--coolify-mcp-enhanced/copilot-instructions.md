@@ -1,66 +1,82 @@
-## 801-feature-workflow
+## 802-coolify-mcp-workflow
 
-> FOLLOW feature development workflow WHEN implementing new features TO ensure consistent, tested, and documented changes
+> FOLLOW Coolify MCP workflow WHEN implementing new Coolify API endpoints TO ensure consistent and tested MCP
 
 
-# Feature Development Workflow
+# Coolify MCP Development Workflow
 
 ## Context
-- When implementing new features from the features documentation
-- When making significant changes that require testing and documentation
-- When working on a feature branch
+- When implementing new Coolify API endpoints as MCP tools
+- When adding new features from the feature documentation
+- When extending the MCP server capabilities
 
 ## Requirements
-- Start from up-to-date main branch
-- Create feature branch with descriptive name (feature/feature-name)
-- Locate and review feature documentation in docs/features directory
-- Follow documentation requirements systematically
-- IMPORTANT Commit frequently to trigger pre-commit hooks (linting, formatting, tests)
-- CRITICAL Always stage ALL modified files after making changes
-- CRITICAL Always push changes to remote after committing
-- Add comprehensive tests for new functionality
-- Push completed work to remote for PR review
+1. Start by reviewing feature documentation in docs/features
+2. Verify endpoint exists in docs/openapi-chunks/* 
+3. Follow existing implementation patterns:
+   - Add types to src/types/coolify.ts
+   - Add client method to src/lib/coolify-client.ts
+   - Add MCP tool to src/lib/mcp-server.ts
+   - Add simple test in src/__tests__/mcp-server.test.ts
+4. Maintain strict TypeScript standards:
+   - Always include explicit return types on functions
+   - Import and use proper types from coolify.ts
+   - No implicit any types
+   - Follow existing type patterns
+5. Keep tests focused and properly mocked:
+   ```typescript
+   it('should call client methodName', async () => {
+     // Mock the method before calling it
+     const mockResponse = { /* expected shape */ };
+     const spy = jest.spyOn(server['client'], 'methodName')
+       .mockResolvedValue(mockResponse);
+
+     await server.method_name('test-uuid');
+     expect(spy).toHaveBeenCalledWith('test-uuid');
+   });
+   ```
+6. Follow gitflow as per 801-feature-workflow
 
 ## Examples
 <example>
-# Good workflow
-1. git checkout main && git pull
-2. git checkout -b feature/server-info
-3. Review docs/features/002-server-info-resource.md
-4. Implement ServerInfo interface
-5. Add getServerInfo method with tests
-6. git add . # Stage ALL changes
-7. Commit to run hooks: "feat: add server info interface"
-8. git push origin feature/server-info # Push changes immediately
-9. Implement ServerStatus interface
-10. Add getServerStatus method with tests
-11. git add . # Stage ALL changes again
-12. Commit to run hooks: "feat: add server status resource"
-13. git push origin feature/server-info # Push changes again
-14. Fix any linting issues
-15. git add . && git commit -m "fix: linting issues"
-16. git push origin feature/server-info
+# Good implementation
+1. Review docs/features/003-server-domains.md
+2. Verify /servers/{uuid}/domains in openapi.yaml
+3. Add ServerDomain interface to types
+4. Add getServerDomains() to client with proper types:
+   ```typescript
+   async getServerDomains(uuid: string): Promise<ServerDomain[]> {
+     return this.request<ServerDomain[]>(`/servers/${uuid}/domains`);
+   }
+   ```
+5. Add get_server_domains tool to MCP server
+6. Add properly mocked test:
+   ```typescript
+   const mockDomains = [{ ip: '1.2.3.4', domains: ['test.com'] }];
+   const spy = jest.spyOn(client, 'getServerDomains')
+     .mockResolvedValue(mockDomains);
+   ```
+7. Follow gitflow for commits and PR
 </example>
 
 <example type="invalid">
-# Poor workflow
+# Poor implementation
 1. Start coding without checking docs
-2. Make all changes in one big commit
-3. Skip tests or add them later
-4. Leave changes unstaged
-5. Forget to push changes to remote
-6. Push directly to main
-7. Fix linting issues after PR
+2. Add endpoint not in OpenAPI spec
+3. Create new patterns different from existing code
+4. Skip type definitions or use implicit any
+5. Write tests that make real HTTP calls
+6. Skip gitflow process
 </example>
 
-## Critical Points
 <critical>
-- ALWAYS work from feature documentation
-- NEVER skip tests for new functionality
-- Commit OFTEN to utilize pre-commit hooks
-- ALWAYS stage ALL modified files after making changes
-- ALWAYS push changes to remote after committing
-- Keep commits focused and well-described
+- ALWAYS verify endpoint exists in OpenAPI spec
+- ALWAYS include explicit return types on functions
+- ALWAYS mock HTTP calls in tests
+- NEVER introduce new patterns - follow existing code
+- Keep tests simple and fully mocked
+- Follow established file organization
+- Fix ALL linting errors before committing
 </critical> 
 
 ---
