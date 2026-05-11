@@ -1,19 +1,15 @@
-## docs-index
+## presets-and-tools
 
-> - **Start here**: [README.md](mdc:README.md)
+> - **Presets schema**: [presets/presets.json](mdc:presets/presets.json)
 
-### Documentation Map
+### Presets and Tooling
 
-- **Start here**: [README.md](mdc:README.md)
-- **Background**: [docs/BACKGROUND_FILM_FADING.md](mdc:docs/BACKGROUND_FILM_FADING.md)
-- **FAQ**: [docs/FAQ.md](mdc:docs/FAQ.md)
-- **Presets Companion**: [docs/presets_companion.md](mdc:docs/presets_companion.md)
-- **Internal Spec**: [internal/docs/SPECIFICATION.md](mdc:internal/docs/SPECIFICATION.md)
-- **API/Helpers**: [internal/docs/API.md](mdc:internal/docs/API.md), [internal/docs/DCTL_HELPERS.md](mdc:internal/docs/DCTL_HELPERS.md)
-
-Notes:
-- Keep examples in docs synced with `FadedBalancerDCTL.dctl` parameter names.
-- If doc updates affect usage, mirror changes in the README.
+- **Presets schema**: [presets/presets.json](mdc:presets/presets.json)
+  - Ensure preset parameter keys match `FadedBalancerDCTL.dctl`.
+  - Validate changes with [tools/validate_presets.py](mdc:tools/validate_presets.py).
+- **Release**: Use [tools/create_releases.sh](mdc:tools/create_releases.sh) to package artifacts.
+- **Docs sync**: Update [docs/presets_companion.md](mdc:docs/presets_companion.md) when presets change.
+- **Assets**: Reference sample images in [assets/before](mdc:assets/before/) and [assets/after](mdc:assets/after/) for before/after documentation.
 
 ---
 > Source: [fabiocolor/Faded-Balancer-DCTL](https://github.com/fabiocolor/Faded-Balancer-DCTL) — distributed by [TomeVault](https://tomevault.io).
