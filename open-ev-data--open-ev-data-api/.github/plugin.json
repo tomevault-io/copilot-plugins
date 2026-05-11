@@ -1,0 +1,9 @@
+{
+  "name": "open-ev-data--open-ev-data-api",
+  "displayName": "open-ev-data-api",
+  "description": "This repository provides a production-ready REST API for querying electric vehicle data from the OpenEV Data Dataset. Built with Rust for maximum performance, type safety and reliability.",
+  "version": "1.0.0",
+  "author": "open-ev-data",
+  "homepage": "https://github.com/open-ev-data/open-ev-data-api",
+  "skills": []
+}
