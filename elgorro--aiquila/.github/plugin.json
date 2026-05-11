@@ -1,0 +1,9 @@
+{
+  "name": "elgorro--aiquila",
+  "displayName": "aiquila",
+  "description": "Connect Claude AI to your Nextcloud via the Model Context Protocol. Browse, search, and manage files through natural conversation.",
+  "version": "1.0.0",
+  "author": "elgorro",
+  "homepage": "https://github.com/elgorro/aiquila",
+  "skills": []
+}
