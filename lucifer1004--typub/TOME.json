@@ -4,7 +4,7 @@
   "repo": "typub",
   "description": "Typub - A Typst-first local CMS",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lucifer1004/typub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T05:58:39Z"
+  "distributed_at": "2026-05-11T14:17:47Z"
 }
