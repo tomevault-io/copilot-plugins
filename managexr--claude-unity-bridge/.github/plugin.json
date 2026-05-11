@@ -1,7 +1,7 @@
 {
   "name": "managexr--claude-unity-bridge",
   "displayName": "claude-unity-bridge",
-  "description": "claude-unity-bridge",
+  "description": "A file-based Command Protocol enabling Claude Code to trigger Unity Editor operations. Built for multi-agent and highly parallelized workflows.",
   "version": "1.0.0",
   "author": "ManageXR",
   "homepage": "https://github.com/ManageXR/claude-unity-bridge",
