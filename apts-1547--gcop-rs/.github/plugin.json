@@ -1,0 +1,9 @@
+{
+  "name": "apts-1547--gcop-rs",
+  "displayName": "gcop-rs",
+  "description": "\ud83e\udd16 AI-powered Git commit message generator and code reviewer - Support Claude, OpenAI, Gemini",
+  "version": "1.0.0",
+  "author": "AptS-1547",
+  "homepage": "https://github.com/AptS-1547/gcop-rs",
+  "skills": []
+}
