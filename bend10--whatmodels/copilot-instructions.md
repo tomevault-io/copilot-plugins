@@ -1,66 +1,35 @@
-## data-files
+## deploy
 
-> How to add or edit GPUs and models in the JSON data files
+> How to deploy changes live to whatmodelscanirun.com
 
 
-# GPU and Model Data
+# Deploying Changes
 
-Data lives in `src/lib/data/` as static JSON, imported at build time. No runtime fetching.
+This site is deployed automatically via GitHub Pages. Pushing to `main` triggers a build and deploy.
 
-## Adding a GPU (`gpus.json`)
+## Steps
 
-Entries are grouped by manufacturer (NVIDIA, AMD, Intel, Apple), sorted newest-first within each group.
+1. **Make your changes** in the working tree.
+2. **Test locally** by running `npm run build` to ensure the static build succeeds. You can preview with `npm run preview`.
+3. **Commit** to the `main` branch with a descriptive message in imperative mood (e.g. "Add favicon", "Fix layout on mobile").
+4. **Push** to `origin/main`:
+   ```
+   git push origin main
+   ```
+5. **Verify deployment** — the GitHub Actions workflow (`.github/workflows/deploy.yml`) runs automatically:
+   - Checks out the repo
+   - Installs dependencies with `npm ci`
+   - Builds with `npm run build` (using `BASE_PATH` from GitHub Pages config)
+   - Uploads and deploys the `build/` directory to GitHub Pages
+6. **Check the result** at https://whatmodelscanirun.com
 
-Discrete GPU:
-```json
-{ "id": "rtx-5090", "name": "GeForce RTX 5090", "manufacturer": "NVIDIA", "vram_gb": 32, "bandwidth_gbps": 1792 }
-```
+## Key Details
 
-Apple Silicon (multiple memory configs with different bandwidths):
-```json
-{
-  "id": "m4-max",
-  "name": "M4 Max",
-  "manufacturer": "Apple",
-  "vram_options": [
-    { "vram_gb": 36, "bandwidth_gbps": 410 },
-    { "vram_gb": 64, "bandwidth_gbps": 546 }
-  ]
-}
-```
-
-- `id`: kebab-case unique identifier (used in URL params)
-- `manufacturer`: one of `"NVIDIA"`, `"AMD"`, `"Intel"`, `"Apple"` — used for dropdown grouping
-- Discrete GPUs have `vram_gb` + `bandwidth_gbps` at top level
-- Apple Silicon has `vram_options` array instead (no top-level `vram_gb`/`bandwidth_gbps`)
-
-## Adding a Model (`models.json`)
-
-Each entry represents one model at one quantization level:
-```json
-{
-  "id": "llama-3.1-8b-q4",
-  "name": "Llama 3.1 8B",
-  "params_b": 8.03,
-  "quantization": "Q4_K_M",
-  "weight_gb": 4.92,
-  "kv_per_1k_gb": 0.122,
-  "max_context_k": 128,
-  "mmlu_score": 69.4,
-  "features": ["tool_use"],
-  "notes": "32 layers, 8 KV heads, head_dim 128. GGUF Q4_K_M file size."
-}
-```
-
-Required fields:
-- `weight_gb`: actual GGUF file size (deterministic per model architecture and quantization format)
-- `kv_per_1k_gb`: `2 × layers × kv_heads × head_dim × 2 × 1000 / (1024³)` (fp16 KV cache)
-- `max_context_k`: from model card (e.g. 128 for 128K context)
-- `mmlu_score`: MMLU benchmark score (used for sorting and quality tier badges)
-- `features`: array of supported feature strings — `"vision"`, `"reasoning"`, `"tool_use"`. Use `[]` if the model has none. All quant variants of a model share the same features.
-- `notes`: include architecture details (layers, KV heads, head_dim) and weight source
-
-Models are grouped by family, with multiple quantization variants per model (typically Q4_K_M, Q8_0, fp16).
+- **Adapter**: `@sveltejs/adapter-static` — outputs to `build/`.
+- **Static assets**: Place files in `static/` (e.g. `favicon.svg`, `CNAME`, images). They are copied as-is to the build output.
+- **CNAME**: `static/CNAME` maps the custom domain `whatmodelscanirun.com`.
+- **Base path**: Handled automatically by the deploy workflow via `BASE_PATH` env var. Use `{base}` prefix from `$app/paths` when referencing static assets in Svelte components.
+- **No PR required**: This project deploys directly from `main`. Commit and push.
 
 ---
 > Source: [BenD10/whatmodels](https://github.com/BenD10/whatmodels) — distributed by [TomeVault](https://tomevault.io).
