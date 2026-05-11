@@ -1,0 +1,44 @@
+{
+  "name": "medusa-plugin-automations",
+  "owner": "codee-sh",
+  "repo": "medusa-plugin-automations",
+  "description": "Native automation engine for Medusa.js that allows you to create event-driven automations using triggers, conditions, and actions - directly inside the Medusa runtime.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/codee-sh/medusa-plugin-automations",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T14:24:57Z"
+}
