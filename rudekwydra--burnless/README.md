@@ -7,14 +7,14 @@ Multi-turn agent loops cost O(N²). Burnless makes them O(N). 88% cheaper at tur
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [Rudekwydra/burnless](https://github.com/Rudekwydra/burnless).
+Original source: `AGENTS.md` in [Rudekwydra/burnless](https://github.com/Rudekwydra/burnless).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Rudekwydra/burnless](https://github.com/Rudekwydra/burnless)
