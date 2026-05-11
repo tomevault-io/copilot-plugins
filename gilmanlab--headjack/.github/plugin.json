@@ -1,0 +1,9 @@
+{
+  "name": "gilmanlab--headjack",
+  "displayName": "headjack",
+  "description": "Headjack is a small, opinionated tool for launching CLI-based coding agents in isolated environments",
+  "version": "1.0.0",
+  "author": "GilmanLab",
+  "homepage": "https://github.com/GilmanLab/headjack",
+  "skills": []
+}
