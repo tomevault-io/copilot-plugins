@@ -1,46 +1,34 @@
-## 01-security
+## 02-privacy
 
-> Security rules for preventing secret leakage, injection vulnerabilities, and unsafe code patterns.
+> Privacy-by-design rules for handling PII, logging, telemetry, and data minimization.
 
 
-# Security Rules
+# Privacy Rules
 
-## Secrets & Credentials
+## Data Minimization
 
-- NEVER read, open, or reference .env files (.env.example and .env.template are allowed).
-- NEVER hardcode secrets, API keys, tokens, or passwords in any file.
-- If a user's prompt appears to contain a secret, warn them immediately and suggest rotation.
-- Always use environment variables or secret managers for credentials.
+- Only collect, store, and process data that is strictly necessary.
+- Prefer anonymous or pseudonymous identifiers over PII.
+- Set data retention limits — do not store data indefinitely.
 
-## Secret Patterns to Flag
+## PII Handling
 
-Warn the user if you detect these patterns in code:
+- Never log PII (names, emails, IP addresses, phone numbers) in application logs.
+- Mask or redact PII in error messages and log output.
+- Encrypt PII at rest and in transit.
+- Mark PII fields in database schemas with clear comments.
 
-- API keys: `(sk|pk|api|key|token|secret|password|credential)[-_]?[a-zA-Z0-9]{16,}`
-- AWS keys: `AKIA[0-9A-Z]{16}`
-- Private keys: `-----BEGIN (RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----`
-- Connection strings: `(mongodb|postgres|mysql|redis|amqp)://[^\s]+`
-- JWT tokens: `eyJ[A-Za-z0-9-_]+\.eyJ[A-Za-z0-9-_]+`
+## Telemetry & Analytics
 
-## Secure Coding
+- Never add tracking or analytics without consent mechanisms.
+- All analytics must be opt-in or provide clear opt-out.
+- Never send PII to third-party analytics services.
 
-- Validate and sanitize all user input at system boundaries.
-- Apply context-appropriate output encoding to prevent XSS.
-- Use parameterized queries — never concatenate user input into SQL.
-- Never implement custom cryptography — use established libraries.
-- Enforce least-privilege access checks on every endpoint.
-- Never expose stack traces or internal paths to end users.
-- Never use eval(), exec(), or dynamic code execution with user input.
-- Never disable SSL/TLS verification or security headers.
+## Compliance
 
-## Protected Files (require explicit approval to modify)
-
-- .env, .env.* (except .env.example, .env.template)
-- *.pem, *.key, *.cert, *.p12, *.pfx
-- .github/workflows/, Dockerfile, docker-compose*.yml
-- *.tf, *.tfvars, serverless.yml, k8s manifests
-- Lock files (package-lock.json, pnpm-lock.yaml, yarn.lock, etc.)
-- CODEOWNERS, .npmrc, .pypirc
+- Support GDPR rights: access, rectification, erasure, portability.
+- Include consent mechanisms where personal data is collected.
+- Follow the most restrictive applicable regulation.
 
 ---
 > Source: [the-missing-pink/ai-repository-security-baseline](https://github.com/the-missing-pink/ai-repository-security-baseline) — distributed by [TomeVault](https://tomevault.io).
