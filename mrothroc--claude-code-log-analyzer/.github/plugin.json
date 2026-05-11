@@ -1,0 +1,9 @@
+{
+  "name": "mrothroc--claude-code-log-analyzer",
+  "displayName": "claude-code-log-analyzer",
+  "description": "Python tools for analyzing Claude Code conversation history",
+  "version": "1.0.0",
+  "author": "mrothroc",
+  "homepage": "https://github.com/mrothroc/claude-code-log-analyzer",
+  "skills": []
+}
