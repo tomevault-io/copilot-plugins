@@ -1,0 +1,9 @@
+{
+  "name": "gdsfactory--ihp",
+  "displayName": "IHP",
+  "description": "IHP Open Access PDK",
+  "version": "1.0.0",
+  "author": "gdsfactory",
+  "homepage": "https://github.com/gdsfactory/IHP",
+  "skills": []
+}
