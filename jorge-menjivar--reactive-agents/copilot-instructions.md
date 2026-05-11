@@ -1,81 +1,303 @@
 ## reactive-agents
 
-> Comprehensive guide for implementing and maintaining Cerebras provider integration with their ultra-fast inference platform and security best practices.
+> This file provides guidance to AI assistants when working with code in this repository.
 
-## Instructions for AI Agent
+# Repository Guidelines
 
-When working with the Cerebras AI provider directory (`lib/server/ai-providers/cerebras/`), you MUST:
+This file provides guidance to AI assistants when working with code in this repository.
 
-### 1. Check Official Documentation First
-- Always reference the official Cerebras API documentation at: https://docs.cerebras.ai/
-- Verify current API endpoints, parameters, and response formats
-- Check for any recent API changes, deprecations, or new model releases
-- Review Cerebras's ultra-fast inference capabilities and specifications
+## Project Structure & Module Organization
 
-### 2. Validate API Endpoint Coverage
-- Ensure all implemented endpoints match the official Cerebras API specification
-- Verify HTTP methods, request/response schemas, and parameter requirements
-- Check that error handling follows Cerebras's documented error responses (400, 401, 403, 429, 500)
-- Implement proper handling for Cerebras-specific error codes and rate limiting
+This is a **TypeScript monorepo** using pnpm workspaces with three packages:
 
-### 3. Review Implementation Patterns
-- Confirm request/response type definitions align with Cerebras's official schemas
-- Validate authentication mechanisms (Authorization header with Bearer token)
-- Ensure rate limiting and retry logic follows Cerebras's guidelines
-- Implement proper timeout handling optimized for ultra-fast responses
-- Handle Cerebras's high-throughput inference patterns correctly
+```
+packages/
+├── web/           # Vite + TanStack Router SPA (React 19)
+│   └── src/
+│       ├── routes/        # TanStack Router file-based routes
+│       ├── components/    # React components
+│       ├── providers/     # React context providers
+│       ├── hooks/         # Custom React hooks
+│       └── api/           # API client functions
+├── api/           # Hono API server (Node.js)
+│   └── src/
+│       ├── api/           # API routes
+│       ├── ai-providers/  # AI provider integrations (40+)
+│       ├── connectors/    # Database connectors
+│       └── middlewares/   # Hono middlewares
+└── shared/        # Shared types, Zod schemas, utilities
+    └── src/
+        ├── types/         # TypeScript types
+        └── utils/         # Shared utilities
+```
 
-### 4. Security Best Practices
-- Never log or expose API keys in plaintext
-- Use environment variables or secure storage for API key management
-- Implement proper input validation and sanitization
-- Follow Cerebras's usage policies and content guidelines
-- Validate all user inputs before sending to the API
-- Implement proper error handling to avoid exposing sensitive information
+Other directories:
+- **`tests/`**: Vitest suites mirroring packages (client, server, shared)
+- **`examples/`**: Example implementations
+- **`supabase/`**: Local dev DB config, migrations, `seed.sql`
+- **`docker/`**: Docker configuration files
 
-### 5. Check for Missing Features
-- Compare implemented functionality against the full Cerebras API surface:
-  - Chat Completions API
-  - Completions API
-  - Streaming responses
-  - Function calling capabilities (if supported)
-  - Batch processing (if available)
-- Verify streaming implementation matches Cerebras's Server-Sent Events specification
-- Check support for latest models in Cerebras's catalog
+**Key path aliases**:
+- `@web/*` - Web package (`packages/web/src/*`)
+- `@api/*` or `@server/*` - API package (`packages/api/src/*`)
+- `@shared/*` - Shared package (`packages/shared/src/*`)
 
-### 6. Validate Configuration
-- Ensure model names match Cerebras's current model catalog
-- Check default values align with Cerebras's documented defaults
-- Validate token limits and context windows for each model
-- Implement proper model availability and capability checks
-- Handle Cerebras-specific parameters correctly
-- Optimize for ultra-fast inference speeds
+## Essential Commands
 
-## Provider-Specific Considerations
-- **Ultra-Fast Inference**: Leverage Cerebras's industry-leading inference speeds
-- **High Throughput**: Optimize for Cerebras's high-throughput capabilities
-- **Model Selection**: Understand different model capabilities and performance characteristics
-- **Streaming Optimization**: Take advantage of Cerebras's ultra-fast streaming responses
-- **Cost Efficiency**: Consider the performance benefits vs. cost trade-offs
-- **Latency Optimization**: Implement patterns that maximize Cerebras's speed advantages
+**You must run these commands after modifying any file to ensure code quality:**
+```bash
+pnpm typecheck  # TypeScript type checking (uses Turborepo) - REQUIRED
+pnpm check      # Biome linting and formatting - REQUIRED
+pnpm check:fix  # Auto-fix linting and formatting issues
+```
 
-## Before Making Changes to Cerebras Provider
-- Consult https://docs.cerebras.ai/ for the latest specification
-- Cross-reference with existing implementation in `lib/server/ai-providers/cerebras/`
-- Test with Cerebras's platform or official examples
-- Ensure changes maintain backward compatibility where possible
-- Update type definitions to match any API schema changes
-- Review Cerebras's performance benchmarks and optimization recommendations
+### Development Commands
+```bash
+# Installation and setup
+pnpm install
 
-## Files to Review
-- All files under `lib/server/ai-providers/cerebras/`
-- Related type definitions in `lib/shared/types/`
-- Cerebras-specific configurations, constants, and model definitions
-- Authentication and error handling utilities
-- High-performance inference and streaming implementations
+# Database
+supabase start  # Start local Supabase database
+supabase stop   # Stop local database
 
-**Note:** This rule ensures the Cerebras provider implementation stays current with the official API specification, follows security best practices, and properly leverages Cerebras's ultra-fast inference capabilities.
+# Development server (runs both web and API via Turborepo)
+pnpm dev        # Start all dev servers in parallel
+pnpm dev:web    # Start only web dev server (Vite on port 3000)
+pnpm dev:api    # Start only API dev server (Hono on port 8787)
+
+# Testing
+pnpm test                      # Run all tests (excludes in-depth integration tests)
+pnpm test path/to/test.ts      # Run specific test file
+pnpm test:watch                # Run tests in watch mode
+
+# In-depth integration tests (slower, more comprehensive)
+INCLUDE_IN_DEPTH=true pnpm test
+
+# Build (uses Turborepo with caching)
+pnpm build      # Build all packages
+pnpm build:web  # Build only web package
+pnpm build:api  # Build only API package
+
+# Code quality
+pnpm lint       # Run linter
+pnpm format     # Check formatting
+pnpm format:fix # Auto-fix formatting
+
+# API testing (all requests go through port 3000, proxied to API)
+curl "http://localhost:3000/v1/endpoint" -H "Authorization: Bearer reactive-agents"
+```
+
+## Architecture
+
+### Web Application (packages/web)
+- **Framework**: Vite + TanStack Router (SPA mode)
+- **Routing**: File-based routing in `src/routes/`
+  - `_main.tsx` - Layout wrapper with sidebar
+  - `$paramName` - Dynamic route parameters
+  - `.index.tsx` - Index routes for parent paths
+- **Auto-generated**: `routeTree.gen.ts` (do not edit, in .gitignore)
+
+### API Server (packages/api)
+- **Framework**: Hono web framework
+- **Entry**: `src/server.ts` (Node.js) or `src/index.ts` (Cloudflare Workers)
+- **Routes**: `src/api/v1/`
+
+### Request Flow
+```
+Browser (port 3000) → Vite/nginx proxy → API (port 8787)
+                           ↓
+                    /v1/* requests proxied
+```
+
+In development, Vite proxies `/v1/*` requests to the API server.
+In Docker, nginx handles the proxying.
+
+## API Structure (Hono-based)
+
+Key API endpoints:
+- `/v1/chat/completions` - OpenAI-compatible chat API
+- `/v1/reactive-agents/agents` - Agent management
+- `/v1/reactive-agents/evaluations` - Dataset and evaluation management
+- `/v1/reactive-agents/observability/logs` - Request logging
+
+**Hono Syntax**: Always use chained method syntax for proper type inference:
+```typescript
+// Use this pattern:
+const app = new Hono<AppEnv>().get().post().fetch();
+
+// Instead of:
+const app = new Hono<AppEnv>();
+app.get();
+app.post();
+app.fetch();
+```
+
+## Database Integration (Supabase)
+
+Uses **connector pattern** for data access:
+- Abstract interfaces: `UserDataStorageConnector`, `LogsStorageConnector`
+- Concrete implementation: Supabase connector
+- All CRUD operations use Zod schema validation
+
+Core data models:
+- `Agent` - AI agent configurations
+- `Dataset`/`Log` - Training/evaluation data with many-to-many relationships
+- `EvaluationRun`/`LogOutput` - Model evaluation system
+- `Feedback`/`ImprovedResponse` - User feedback loop
+
+Database management:
+- Migrations: `supabase/migrations/`
+- Seed data: `supabase/seed.sql`
+- Start/stop: `supabase start|stop`
+
+## Coding Style & Naming Conventions
+
+- **Language**: TypeScript, React 19, Vite, TanStack Router
+- **Formatting via Biome**: 2-space indent, LF, single quotes, semicolons, import organize
+  - Auto-fix: `pnpm check:fix` or `pnpm format:fix`
+- **Files**: kebab-case for filenames (e.g., `add-logs-dialog.tsx`)
+- **Components**: PascalCase exports
+- **Paths**: prefer `@web`, `@api`, `@shared` over long relative paths
+
+## Testing Guidelines
+
+**Framework**: Vitest (jsdom) + Testing Library
+- **Location**: under `tests/` mirroring source paths
+- **Naming**: `*.test.ts` or `*.test.tsx`
+- **Run**: `pnpm test` (CI mode) or `pnpm test:watch` (dev)
+- **Coverage**: Reports generated in text/json/html
+
+### Testing Patterns
+
+**Mock Strategy**: Always mock the full connector in tests:
+```typescript
+const mockUserDataStorageConnector: unknown = {
+  getAgents: vi.fn(),
+  createAgent: vi.fn(),
+  updateAgent: vi.fn(),
+  deleteAgent: vi.fn(),
+  // ... all other connector methods
+};
+```
+
+**Client API Tests**: Mock the entire API module:
+```typescript
+vi.mock('@web/api/v1/reactive-agents/agents', () => ({
+  getAgents: vi.fn().mockImplementation(async (params) => {
+    const response = await mockGet({ query: params });
+    if (!response.ok) throw new Error('Failed to fetch agents');
+    return response.json();
+  }),
+}));
+```
+
+**Server API Tests**: Use Hono testClient with middleware injection:
+```typescript
+const app = new Hono<AppEnv>()
+  .use('*', async (c, next) => {
+    c.set('user_data_storage_connector', mockConnector);
+    await next();
+  })
+  .route('/', routerUnderTest);
+
+const client = testClient(app);
+```
+
+## AI Provider System
+
+The application supports 40+ AI providers through a unified interface. Each provider implements:
+- `chat-complete` - Chat completions
+- `complete` - Text completions
+- `embed` - Embeddings
+- `image-generate` - Image generation
+
+Provider implementations are in `packages/api/src/ai-providers/[provider]/`.
+
+## Authentication
+
+- **API**: Hono middleware with Bearer token validation (`Authorization: Bearer reactive-agents`)
+- **Dashboard**: Client-side authentication (when ACCESS_PASSWORD is set)
+
+## Docker Deployment
+
+```bash
+docker compose up  # Start all services
+```
+
+Services:
+- **postgres**: PostgreSQL database
+- **postgrest**: PostgREST API for database access
+- **api**: Hono API server (port 8787 internal)
+- **web**: nginx serving Vite SPA (port 3000, proxies /v1/* to api)
+
+The web container uses nginx to:
+1. Serve static files from the Vite build
+2. Proxy `/v1/*` requests to the API container
+3. Handle SPA routing (fallback to index.html)
+
+## Agent Validation & Readiness
+
+- **Agent Requirements**: All agents must have at least one skill configured to be considered "ready"
+- **Skill Requirements**: All skills must meet the following to be considered "ready":
+  - At least one model must be configured
+  - If optimization is enabled, at least one evaluation must be configured
+- **Validation Logic**:
+  - Agent validation: `packages/shared/src/utils/agent-validation.ts`
+  - Skill validation: `packages/shared/src/utils/skill-validation.ts`
+
+## Skill Optimization System
+
+### System Prompt Evolution
+
+System prompts evolve through two distinct phases:
+
+1. **Early Regeneration (after 5 skill requests)**:
+   - Triggered once per skill when `evaluations_regenerated_at` is undefined
+   - Regenerates evaluations with real examples from the first 5 requests
+   - Generates new system prompts for ALL arms
+   - Resets all cluster `total_steps` to 0
+
+2. **Reflection-based Regeneration (ongoing per cluster)**:
+   - Triggered when all arms in a cluster meet the minimum request threshold
+   - Uses contrastive examples (high-scoring vs low-scoring logs)
+   - Conservative algorithm: best arm never modified
+
+### Internal Skills
+
+The system uses special auto-generated skills in the `reactive-agents` agent (defined in `RA_SKILLS` constant):
+- `system-prompt-seeding`: Initial prompt generation
+- `system-prompt-seeding-with-context`: Context-aware generation
+- `system-prompt-reflection`: Reflection-based improvements
+- `create-evaluations`: Evaluation method generation
+- `judge`: Evaluation scoring
+- `extract-task-and-outcome`: Task/outcome extraction
+- `embedding`: Text embedding generation
+
+## Development Workflow
+
+1. Run `pnpm dev` to start both web and API servers
+2. Web app available at `http://localhost:3000`
+3. API requests are proxied through port 3000
+4. **Always run `pnpm typecheck` and `pnpm check` after changes**
+5. Use TypeScript path aliases: `@web/*`, `@api/*`, `@shared/*`
+
+## Commit & Pull Request Guidelines
+
+- **Conventional Commits required**. Examples:
+  - `feat(server): add feedback endpoint`
+  - `fix(web): handle empty dataset state`
+- **Before pushing**: `pnpm typecheck && pnpm check && pnpm test`
+- **PRs include**: problem/solution summary, linked issues, screenshots for UI, test notes
+
+## Security & Configuration
+
+- **Secrets**: Never commit secrets; use `.env` for local development
+- **Environment variables**:
+  - `API_URL` - API server URL (server-side)
+  - `BEARER_TOKEN` - API authentication token
+  - `ACCESS_PASSWORD` - Dashboard password (optional)
+  - `JWT_SECRET` - JWT signing secret
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/jorge-menjivar) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [jorge-menjivar/reactive-agents](https://github.com/jorge-menjivar/reactive-agents) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
