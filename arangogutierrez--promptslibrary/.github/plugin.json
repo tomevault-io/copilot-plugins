@@ -1,0 +1,9 @@
+{
+  "name": "arangogutierrez--promptslibrary",
+  "displayName": "promptsLibrary",
+  "description": "Research-backed AI prompt templates for software engineering workflows. Designed for Cursor IDE and Claude.",
+  "version": "1.0.0",
+  "author": "ArangoGutierrez",
+  "homepage": "https://github.com/ArangoGutierrez/promptsLibrary",
+  "skills": []
+}
