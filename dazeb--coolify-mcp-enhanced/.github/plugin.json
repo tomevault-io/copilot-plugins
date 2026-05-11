@@ -1,0 +1,9 @@
+{
+  "name": "dazeb--coolify-mcp-enhanced",
+  "displayName": "coolify-mcp-enhanced",
+  "description": "Enhanced Coolify MCP Server - Deploy apps to Coolify directly from within your vscode/cursor/windsurf/claude-code workspace. ",
+  "version": "1.0.0",
+  "author": "dazeb",
+  "homepage": "https://github.com/dazeb/coolify-mcp-enhanced",
+  "skills": []
+}
