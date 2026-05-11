@@ -1,0 +1,9 @@
+{
+  "name": "hjinco--syncdown",
+  "displayName": "syncdown",
+  "description": "A CLI for syncing SaaS data into local Markdown files",
+  "version": "1.0.0",
+  "author": "hjinco",
+  "homepage": "https://github.com/hjinco/syncdown",
+  "skills": []
+}
