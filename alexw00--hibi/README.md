@@ -7,11 +7,11 @@ Paper-like Calendar for iOS
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AlexW00/hibi](https://github.com/AlexW00/hibi).
+Original source: `CLAUDE.md` in [AlexW00/hibi](https://github.com/AlexW00/hibi).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
