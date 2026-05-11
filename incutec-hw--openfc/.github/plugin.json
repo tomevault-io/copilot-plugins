@@ -1,0 +1,9 @@
+{
+  "name": "incutec-hw--openfc",
+  "displayName": "OpenFC",
+  "description": "20x20 Flight Controller for Betaflight with integrated break-away ELRS receiver.",
+  "version": "1.0.0",
+  "author": "incutec-hw",
+  "homepage": "https://github.com/incutec-hw/OpenFC",
+  "skills": []
+}
