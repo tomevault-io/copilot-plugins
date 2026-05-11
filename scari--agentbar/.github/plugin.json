@@ -1,0 +1,9 @@
+{
+  "name": "scari--agentbar",
+  "displayName": "AgentBar",
+  "description": "AgentBar is a macOS menu bar app that tracks AI coding assistant usage in one place.",
+  "version": "1.0.0",
+  "author": "scari",
+  "homepage": "https://github.com/scari/AgentBar",
+  "skills": []
+}
