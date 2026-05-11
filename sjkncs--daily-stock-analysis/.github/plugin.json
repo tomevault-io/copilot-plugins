@@ -1,0 +1,9 @@
+{
+  "name": "sjkncs--daily-stock-analysis",
+  "displayName": "daily_stock_analysis",
+  "description": "AI-powered stock analysis system with React Web UI  Gemini/DeepSeek multi-model, technical indicators, sentiment analysis, backtesting, multi-channel notifications (WeChat/Feishu/Telegram/Email)",
+  "version": "1.0.0",
+  "author": "sjkncs",
+  "homepage": "https://github.com/sjkncs/daily_stock_analysis",
+  "skills": []
+}
