@@ -1,0 +1,9 @@
+{
+  "name": "xgboosted--pandas-ta-classic",
+  "displayName": "pandas-ta-classic",
+  "description": "Technical Analysis Indicators - Pandas TA Classic is an easy to use Python 3 Pandas Extension with 200+ Indicators and Candlestick Patterns",
+  "version": "1.0.0",
+  "author": "xgboosted",
+  "homepage": "https://github.com/xgboosted/pandas-ta-classic",
+  "skills": []
+}
