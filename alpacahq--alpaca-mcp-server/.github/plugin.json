@@ -1,0 +1,9 @@
+{
+  "name": "alpacahq--alpaca-mcp-server",
+  "displayName": "alpaca-mcp-server",
+  "description": "Alpaca\u2019s official MCP Server lets you trade stocks, ETFs, crypto, and options, run data analysis, and build strategies in plain English directly from your favorite LLM tools and IDEs",
+  "version": "1.0.0",
+  "author": "alpacahq",
+  "homepage": "https://github.com/alpacahq/alpaca-mcp-server",
+  "skills": []
+}
