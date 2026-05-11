@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-nemo--automodel",
+  "displayName": "Automodel",
+  "description": "\ud83d\ude80 Pytorch Distributed native training library for LLMs/VLMs with OOTB Hugging Face support",
+  "version": "1.0.0",
+  "author": "NVIDIA-NeMo",
+  "homepage": "https://github.com/NVIDIA-NeMo/Automodel",
+  "skills": []
+}
