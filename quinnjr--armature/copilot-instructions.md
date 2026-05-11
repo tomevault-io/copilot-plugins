@@ -1,280 +1,499 @@
-## cli-development
+## cloud-integrations
 
-> Guidelines for developing the armature-cli tool
+> Guidelines for developing cloud provider integrations in Armature.
 
 
-# CLI Development
+# Cloud Provider Integrations
 
-Standards for developing the Armature CLI tool.
+Guidelines for developing cloud provider integrations in Armature.
 
-## Command Structure
+## Cloud Crates Overview
+
+| Crate | Provider | Services |
+|-------|----------|----------|
+| `armature-aws` | AWS | S3, DynamoDB, SQS, SNS, SES, Lambda, KMS, Cognito |
+| `armature-gcp` | GCP | Cloud Storage, Pub/Sub, Firestore, Spanner, BigQuery |
+| `armature-azure` | Azure | Blob Storage, Cosmos DB, Service Bus, Key Vault |
+| `armature-redis` | Redis | Connection pooling, Pub/Sub, Cluster |
+| `armature-lambda` | AWS Lambda | Lambda runtime integration |
+| `armature-cloudrun` | Cloud Run | Cloud Run runtime integration |
+| `armature-azure-functions` | Azure Functions | Azure Functions runtime |
+
+## Architecture Pattern
+
+### Feature-Gated Services
+
+Each cloud crate uses feature flags to enable only needed services:
+
+```toml
+# armature-aws/Cargo.toml
+[features]
+default = []
+full = ["s3", "dynamodb", "sqs", "sns", "ses", "lambda", "kms", "cognito"]
+s3 = ["aws-sdk-s3"]
+dynamodb = ["aws-sdk-dynamodb"]
+sqs = ["aws-sdk-sqs"]
+sns = ["aws-sdk-sns"]
+ses = ["aws-sdk-ses"]
+lambda = ["aws-sdk-lambda"]
+kms = ["aws-sdk-kms"]
+cognito = ["aws-sdk-cognitoidentityprovider"]
+```
+
+### Service Factory Pattern
 
 ```rust
-use clap::{Parser, Subcommand};
-
-#[derive(Parser)]
-#[command(name = "armature")]
-#[command(about = "Armature Framework CLI")]
-#[command(version)]
-pub struct Cli {
-    #[command(subcommand)]
-    pub command: Commands,
-
-    #[arg(short, long, global = true)]
-    pub verbose: bool,
+// armature-aws/src/lib.rs
+pub struct AwsServices {
+    config: AwsConfig,
+    #[cfg(feature = "s3")]
+    s3: OnceCell<S3Client>,
+    #[cfg(feature = "dynamodb")]
+    dynamodb: OnceCell<DynamoDbClient>,
+    // ... other services
 }
 
-#[derive(Subcommand)]
-pub enum Commands {
-    /// Create a new Armature project
-    New(NewCommand),
+impl AwsServices {
+    pub async fn new(config: AwsConfig) -> Result<Self, AwsError> {
+        Ok(Self {
+            config,
+            #[cfg(feature = "s3")]
+            s3: OnceCell::new(),
+            #[cfg(feature = "dynamodb")]
+            dynamodb: OnceCell::new(),
+        })
+    }
 
-    /// Generate code (controller, service, etc.)
-    Generate(GenerateCommand),
+    #[cfg(feature = "s3")]
+    pub fn s3(&self) -> Result<&S3Client, AwsError> {
+        self.s3.get_or_try_init(|| {
+            S3Client::new(&self.config.sdk_config)
+        })
+    }
 
-    /// Start development server
-    Dev(DevCommand),
-
-    /// Build for production
-    Build(BuildCommand),
+    #[cfg(feature = "dynamodb")]
+    pub fn dynamodb(&self) -> Result<&DynamoDbClient, AwsError> {
+        self.dynamodb.get_or_try_init(|| {
+            DynamoDbClient::new(&self.config.sdk_config)
+        })
+    }
 }
 ```
 
-## New Project Command
+### Configuration from Environment
 
 ```rust
-#[derive(Args)]
-pub struct NewCommand {
-    /// Project name
-    pub name: String,
-
-    /// Template to use
-    #[arg(short, long, default_value = "default")]
-    pub template: String,
-
-    /// Skip git initialization
-    #[arg(long)]
-    pub no_git: bool,
+// armature-aws/src/config.rs
+#[derive(Debug, Clone)]
+pub struct AwsConfig {
+    pub region: String,
+    pub sdk_config: SdkConfig,
+    enabled_services: HashSet<String>,
 }
 
-impl NewCommand {
-    pub async fn run(&self) -> Result<()> {
-        println!("Creating new project: {}", self.name);
+impl AwsConfig {
+    pub fn from_env() -> AwsConfigBuilder {
+        AwsConfigBuilder {
+            region: std::env::var("AWS_REGION").ok(),
+            profile: std::env::var("AWS_PROFILE").ok(),
+            endpoint_url: std::env::var("AWS_ENDPOINT_URL").ok(),
+            enabled_services: HashSet::new(),
+        }
+    }
 
-        // Create directory structure
-        create_project_structure(&self.name)?;
+    pub fn builder() -> AwsConfigBuilder {
+        AwsConfigBuilder::default()
+    }
+}
 
-        // Copy template files
-        copy_template(&self.template, &self.name)?;
+#[derive(Default)]
+pub struct AwsConfigBuilder {
+    region: Option<String>,
+    profile: Option<String>,
+    endpoint_url: Option<String>,
+    enabled_services: HashSet<String>,
+}
 
-        // Initialize git
-        if !self.no_git {
-            init_git(&self.name)?;
+impl AwsConfigBuilder {
+    pub fn region(mut self, region: impl Into<String>) -> Self {
+        self.region = Some(region.into());
+        self
+    }
+
+    pub fn enable_s3(mut self) -> Self {
+        self.enabled_services.insert("s3".to_string());
+        self
+    }
+
+    pub fn enable_dynamodb(mut self) -> Self {
+        self.enabled_services.insert("dynamodb".to_string());
+        self
+    }
+
+    pub async fn build(self) -> Result<AwsConfig, AwsError> {
+        let mut config_loader = aws_config::defaults(BehaviorVersion::latest());
+
+        if let Some(region) = &self.region {
+            config_loader = config_loader.region(Region::new(region.clone()));
         }
 
-        println!("✅ Project created successfully!");
-        println!("\nNext steps:");
-        println!("  cd {}", self.name);
-        println!("  cargo run");
-
-        Ok(())
-    }
-}
-```
-
-## Code Generation
-
-```rust
-#[derive(Subcommand)]
-pub enum GenerateCommand {
-    /// Generate a controller
-    Controller(GenerateControllerArgs),
-
-    /// Generate a service
-    Service(GenerateServiceArgs),
-
-    /// Generate a module
-    Module(GenerateModuleArgs),
-
-    /// Generate a migration
-    Migration(GenerateMigrationArgs),
-}
-
-#[derive(Args)]
-pub struct GenerateControllerArgs {
-    /// Controller name (e.g., "users" or "api/v1/users")
-    pub name: String,
-
-    /// Generate CRUD endpoints
-    #[arg(long)]
-    pub crud: bool,
-}
-
-impl GenerateControllerArgs {
-    pub fn run(&self) -> Result<()> {
-        let template = if self.crud {
-            include_str!("templates/controller_crud.rs.tmpl")
-        } else {
-            include_str!("templates/controller.rs.tmpl")
-        };
-
-        let rendered = render_template(template, &self.context())?;
-
-        let path = format!("src/controllers/{}.rs", self.name.to_snake_case());
-        fs::write(&path, rendered)?;
-
-        println!("✅ Created {}", path);
-
-        // Update mod.rs
-        update_mod_file("src/controllers/mod.rs", &self.name)?;
-
-        Ok(())
-    }
-}
-```
-
-## Development Server
-
-```rust
-#[derive(Args)]
-pub struct DevCommand {
-    /// Port to listen on
-    #[arg(short, long, default_value = "3000")]
-    pub port: u16,
-
-    /// Host to bind to
-    #[arg(long, default_value = "127.0.0.1")]
-    pub host: String,
-
-    /// Enable hot reload
-    #[arg(long, default_value = "true")]
-    pub hot_reload: bool,
-}
-
-impl DevCommand {
-    pub async fn run(&self) -> Result<()> {
-        println!("🚀 Starting development server on {}:{}", self.host, self.port);
-
-        if self.hot_reload {
-            // Watch for file changes
-            let watcher = FileWatcher::new(vec!["src/**/*.rs"])?;
-
-            loop {
-                // Build and run
-                let child = Command::new("cargo")
-                    .args(["run"])
-                    .env("ARMATURE_PORT", self.port.to_string())
-                    .spawn()?;
-
-                // Wait for changes
-                watcher.wait_for_changes().await?;
-
-                // Restart
-                child.kill()?;
-                println!("🔄 Restarting...");
-            }
-        } else {
-            Command::new("cargo")
-                .args(["run"])
-                .status()?;
+        if let Some(endpoint) = &self.endpoint_url {
+            config_loader = config_loader.endpoint_url(endpoint);
         }
 
-        Ok(())
+        let sdk_config = config_loader.load().await;
+
+        Ok(AwsConfig {
+            region: self.region.unwrap_or_else(|| "us-east-1".to_string()),
+            sdk_config,
+            enabled_services: self.enabled_services,
+        })
     }
 }
 ```
 
-## Template Files
-
-Store templates in `armature-cli/templates/`:
+## DI Integration Pattern
 
 ```rust
-// templates/controller.rs.tmpl
+// In user's module
 use armature::prelude::*;
+use armature_aws::*;
 
-#[controller("/{{path}}")]
-pub struct {{name}}Controller {
-    // Add dependencies here
+#[module(
+    providers: [AwsServicesProvider],
+    controllers: [FileController],
+)]
+struct CloudModule;
+
+// Provider for DI
+#[injectable]
+pub struct AwsServicesProvider {
+    services: Arc<AwsServices>,
 }
 
-#[get("")]
-async fn list(&self) -> Result<Json<Vec<{{model}}>>, Error> {
-    todo!()
+impl AwsServicesProvider {
+    pub async fn new() -> Result<Self, AwsError> {
+        let config = AwsConfig::from_env()
+            .enable_s3()
+            .enable_sqs()
+            .build()
+            .await?;
+
+        let services = AwsServices::new(config).await?;
+
+        Ok(Self {
+            services: Arc::new(services),
+        })
+    }
 }
 
-#[get("/:id")]
-async fn get(&self, id: Path<Uuid>) -> Result<Json<{{model}}>, Error> {
-    todo!()
-}
-```
-
-## Output Formatting
-
-```rust
-use console::{style, Emoji};
-
-static SUCCESS: Emoji = Emoji("✅", "[OK]");
-static ERROR: Emoji = Emoji("❌", "[ERR]");
-static INFO: Emoji = Emoji("ℹ️", "[INFO]");
-
-fn print_success(msg: &str) {
-    println!("{} {}", SUCCESS, style(msg).green());
+// Usage in controller
+#[controller("/files")]
+struct FileController {
+    aws: AwsServicesProvider,
 }
 
-fn print_error(msg: &str) {
-    eprintln!("{} {}", ERROR, style(msg).red());
-}
+impl FileController {
+    #[post("/upload")]
+    async fn upload(&self, body: Bytes) -> Result<Json<UploadResponse>, Error> {
+        let s3 = self.aws.services.s3()?;
 
-fn print_info(msg: &str) {
-    println!("{} {}", INFO, style(msg).cyan());
+        s3.put_object()
+            .bucket("my-bucket")
+            .key("file.txt")
+            .body(body.into())
+            .send()
+            .await?;
+
+        Ok(Json(UploadResponse { success: true }))
+    }
 }
 ```
 
 ## Error Handling
 
+### Unified Error Type
+
 ```rust
-use miette::{Diagnostic, Result};
+// armature-aws/src/error.rs
 use thiserror::Error;
 
-#[derive(Error, Diagnostic, Debug)]
-pub enum CliError {
-    #[error("Project '{0}' already exists")]
-    #[diagnostic(code(armature::project_exists))]
-    ProjectExists(String),
+#[derive(Debug, Error)]
+pub enum AwsError {
+    #[error("Configuration error: {0}")]
+    Config(String),
 
-    #[error("Template '{0}' not found")]
-    #[diagnostic(
-        code(armature::template_not_found),
-        help("Available templates: default, api, minimal")
-    )]
-    TemplateNotFound(String),
+    #[error("Service not enabled: {0}")]
+    ServiceNotEnabled(String),
 
-    #[error("Invalid project name: {0}")]
-    #[diagnostic(code(armature::invalid_name))]
-    InvalidName(String),
+    #[error("S3 error: {0}")]
+    #[cfg(feature = "s3")]
+    S3(#[from] aws_sdk_s3::Error),
+
+    #[error("DynamoDB error: {0}")]
+    #[cfg(feature = "dynamodb")]
+    DynamoDb(#[from] aws_sdk_dynamodb::Error),
+
+    #[error("SQS error: {0}")]
+    #[cfg(feature = "sqs")]
+    Sqs(#[from] aws_sdk_sqs::Error),
+
+    #[error("SDK error: {0}")]
+    Sdk(String),
+}
+
+// Convert to HTTP error
+impl From<AwsError> for armature_core::Error {
+    fn from(err: AwsError) -> Self {
+        armature_core::Error::ServiceUnavailable(err.to_string())
+    }
 }
 ```
 
-## Testing CLI Commands
+## Testing with LocalStack/Emulators
+
+### LocalStack for AWS
 
 ```rust
-#[test]
-fn test_new_command() {
-    let temp = tempdir().unwrap();
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-    let cmd = NewCommand {
-        name: "test-project".into(),
-        template: "default".into(),
-        no_git: true,
-    };
+    async fn localstack_config() -> AwsConfig {
+        AwsConfig::builder()
+            .region("us-east-1")
+            .endpoint_url("http://localhost:4566")
+            .enable_s3()
+            .build()
+            .await
+            .unwrap()
+    }
 
-    std::env::set_current_dir(&temp).unwrap();
-    cmd.run().unwrap();
+    #[tokio::test]
+    async fn test_s3_upload() {
+        let config = localstack_config().await;
+        let aws = AwsServices::new(config).await.unwrap();
+        let s3 = aws.s3().unwrap();
 
-    assert!(temp.path().join("test-project/Cargo.toml").exists());
-    assert!(temp.path().join("test-project/src/main.rs").exists());
+        // Create bucket
+        s3.create_bucket()
+            .bucket("test-bucket")
+            .send()
+            .await
+            .unwrap();
+
+        // Test upload
+        s3.put_object()
+            .bucket("test-bucket")
+            .key("test.txt")
+            .body(Bytes::from("hello").into())
+            .send()
+            .await
+            .unwrap();
+
+        // Verify
+        let result = s3.get_object()
+            .bucket("test-bucket")
+            .key("test.txt")
+            .send()
+            .await
+            .unwrap();
+
+        let body = result.body.collect().await.unwrap().into_bytes();
+        assert_eq!(body.as_ref(), b"hello");
+    }
 }
 ```
+
+### Docker Compose for Testing
+
+```yaml
+# docker-compose.test.yml
+version: '3.8'
+services:
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3,sqs,dynamodb,sns
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  gcp-emulator:
+    image: gcr.io/google.com/cloudsdktool/google-cloud-cli:emulators
+    ports:
+      - "8085:8085"
+    command: gcloud beta emulators pubsub start --host-port=0.0.0.0:8085
+```
+
+## GCP Integration Pattern
+
+```rust
+// armature-gcp/src/lib.rs
+pub struct GcpServices {
+    config: GcpConfig,
+    #[cfg(feature = "storage")]
+    storage: OnceCell<StorageClient>,
+    #[cfg(feature = "pubsub")]
+    pubsub: OnceCell<PubSubClient>,
+    #[cfg(feature = "firestore")]
+    firestore: OnceCell<FirestoreClient>,
+}
+
+impl GcpServices {
+    pub async fn new(config: GcpConfig) -> Result<Self, GcpError> {
+        Ok(Self {
+            config,
+            #[cfg(feature = "storage")]
+            storage: OnceCell::new(),
+            #[cfg(feature = "pubsub")]
+            pubsub: OnceCell::new(),
+            #[cfg(feature = "firestore")]
+            firestore: OnceCell::new(),
+        })
+    }
+
+    #[cfg(feature = "storage")]
+    pub async fn storage(&self) -> Result<&StorageClient, GcpError> {
+        self.storage.get_or_try_init(|| async {
+            StorageClient::new(&self.config).await
+        }).await
+    }
+}
+```
+
+## Azure Integration Pattern
+
+```rust
+// armature-azure/src/lib.rs
+pub struct AzureServices {
+    config: AzureConfig,
+    #[cfg(feature = "blob")]
+    blob: OnceCell<BlobServiceClient>,
+    #[cfg(feature = "cosmos")]
+    cosmos: OnceCell<CosmosClient>,
+    #[cfg(feature = "servicebus")]
+    servicebus: OnceCell<ServiceBusClient>,
+}
+
+impl AzureServices {
+    pub async fn new(config: AzureConfig) -> Result<Self, AzureError> {
+        Ok(Self {
+            config,
+            #[cfg(feature = "blob")]
+            blob: OnceCell::new(),
+            #[cfg(feature = "cosmos")]
+            cosmos: OnceCell::new(),
+            #[cfg(feature = "servicebus")]
+            servicebus: OnceCell::new(),
+        })
+    }
+}
+```
+
+## Redis Integration
+
+```rust
+// armature-redis/src/lib.rs
+use deadpool_redis::{Config, Pool, Runtime};
+
+pub struct RedisService {
+    pool: Pool,
+}
+
+impl RedisService {
+    pub async fn new(config: RedisConfig) -> Result<Self, RedisError> {
+        let cfg = Config::from_url(&config.url);
+        let pool = cfg.create_pool(Some(Runtime::Tokio1))?;
+
+        Ok(Self { pool })
+    }
+
+    pub async fn get(&self, key: &str) -> Result<Option<String>, RedisError> {
+        let mut conn = self.pool.get().await?;
+        let result: Option<String> = redis::cmd("GET")
+            .arg(key)
+            .query_async(&mut conn)
+            .await?;
+        Ok(result)
+    }
+
+    pub async fn set(&self, key: &str, value: &str, ttl: Option<Duration>) -> Result<(), RedisError> {
+        let mut conn = self.pool.get().await?;
+        let mut cmd = redis::cmd("SET");
+        cmd.arg(key).arg(value);
+
+        if let Some(ttl) = ttl {
+            cmd.arg("EX").arg(ttl.as_secs());
+        }
+
+        cmd.query_async(&mut conn).await?;
+        Ok(())
+    }
+
+    pub async fn publish(&self, channel: &str, message: &str) -> Result<(), RedisError> {
+        let mut conn = self.pool.get().await?;
+        redis::cmd("PUBLISH")
+            .arg(channel)
+            .arg(message)
+            .query_async(&mut conn)
+            .await?;
+        Ok(())
+    }
+}
+```
+
+## Serverless Runtime Integrations
+
+### AWS Lambda
+
+```rust
+// armature-lambda/src/lib.rs
+use lambda_runtime::{service_fn, LambdaEvent, Error};
+
+pub async fn run_lambda<H, Req, Res>(handler: H) -> Result<(), Error>
+where
+    H: Fn(Req) -> Res + Send + Sync + 'static,
+    Req: DeserializeOwned,
+    Res: Future<Output = Result<Response, Error>> + Send,
+{
+    lambda_runtime::run(service_fn(|event: LambdaEvent<Req>| async {
+        handler(event.payload).await
+    })).await
+}
+```
+
+### Cloud Run
+
+```rust
+// armature-cloudrun/src/lib.rs
+pub fn cloud_run_port() -> u16 {
+    std::env::var("PORT")
+        .ok()
+        .and_then(|p| p.parse().ok())
+        .unwrap_or(8080)
+}
+
+pub async fn run_cloud_run<M: Module>(module: M) -> Result<(), Error> {
+    let app = Application::create(module);
+    let port = cloud_run_port();
+    app.listen(port).await
+}
+```
+
+## Summary
+
+1. Use **feature flags** to enable only needed services
+2. Implement **lazy initialization** with `OnceCell`
+3. Support **environment-based configuration**
+4. Provide **unified error types** that convert to HTTP errors
+5. Include **DI integration** for seamless injection
+6. Use **local emulators** (LocalStack, etc.) for testing
+7. Follow consistent patterns across all cloud providers
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
