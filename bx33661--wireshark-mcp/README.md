@@ -7,11 +7,11 @@ Wireshark-MCP，Give your AI assistant a packet analyzer. Drop a .pcap file, ask
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bx33661/Wireshark-MCP](https://github.com/bx33661/Wireshark-MCP).
+Original source: `CLAUDE.md` in [bx33661/Wireshark-MCP](https://github.com/bx33661/Wireshark-MCP).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
