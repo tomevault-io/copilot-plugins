@@ -1,30 +1,31 @@
-## aidev-ai-runners
+## aidev-providers
 
-> AIRunner contract and how to add a new AI runner
+> TaskProvider contract and how to add a new provider
 
 
-# aidev AI Runners
+# aidev Providers
 
-## AIRunner contract
+## TaskProvider contract
 
-From `src/ai/base.ts`:
+Implement all methods from `src/providers/base.ts`:
 
-- `name: string` — short id (e.g. `'claude'`, `'cursor'`)
-- `isAvailable(): boolean` — true if the runner's CLI/binary is on PATH
-- `run(prompt: string, notes?: string): Promise<AIRunResult>` — returns `{ success, output, error }`
+- `fetchTasks(): Promise<Task[]>` — skip closed/done/cancelled/complete; map to `Task` (id, name, description, status, url, tags)
+- `postComment(taskId, text): Promise<void>`
+- `getComments(taskId): Promise<Comment[]>`
+- `updateStatus(taskId, status): Promise<void>`
+- `createTask(params: CreateTaskParams): Promise<CreateTaskResult>`
 
-Use `spawnSync(bin, [...args])` with array arguments only. No shell string interpolation.
+Use native `fetch` only. No shell interpolation; use `spawnSync(bin, [...args])` if calling CLI tools.
 
-## Adding a runner
+## Adding a provider
 
-1. Create `src/ai/<name>.ts` implementing `AIRunner`.
-2. In `src/ai/index.ts`: import the runner, add to `registry` and ensure `createRunners` uses `config.agents` (no change if already mapping by name).
-3. In `src/types.ts`: add the runner id to `AgentName`.
-4. In `src/config.ts`: add the id to `validAgents` in `loadConfig()`.
-5. In `src/commands/init.ts`: add the id to `VALID_AGENTS`.
-6. If the runner needs permission/availability checks during `aidev init`, add a branch in `validateAgentPermissions()` in `src/permissions.ts`.
+1. Create `src/providers/<name>.ts` implementing `TaskProvider`.
+2. In `src/providers/index.ts`: import the class and add a `case '<name>': return new XxxProvider(config);` in `createProvider()`.
+3. In `src/types.ts`: add provider-specific fields to `Config` if needed.
+4. In `src/config.ts`: in `loadConfig()`, add required env vars for the provider to the `required` check when `provider === '<name>'`; map env to config fields.
+5. Document in `.env.aidev.example` and README.md.
 
-Run `npm run build` and `npm test` after changes.
+For unimplemented providers, throw: `throw new Error('X provider is not yet implemented. Contributions welcome!');`
 
 ---
 > Source: [qelos-io/aidev](https://github.com/qelos-io/aidev) — distributed by [TomeVault](https://tomevault.io).
