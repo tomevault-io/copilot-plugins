@@ -1,0 +1,9 @@
+{
+  "name": "aadi-joshi--claude-resurrect",
+  "displayName": "claude-resurrect",
+  "description": "Claude Code skill that restarts itself and continues like nothing happened.",
+  "version": "1.0.0",
+  "author": "aadi-joshi",
+  "homepage": "https://github.com/aadi-joshi/claude-resurrect",
+  "skills": []
+}
