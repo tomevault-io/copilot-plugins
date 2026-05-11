@@ -1,201 +1,42 @@
-## primary-workflow
+## agency-code
 
-> You are building a general coding agent called Agency Code with Agency Swarm framework.
+> - `agency.py` wires planner and developer agents and loads settings from `.env`.
 
+# Repository Guidelines
 
-You are building a general coding agent called Agency Code with Agency Swarm framework.
+## Project Structure & Module Organization
+- `agency.py` wires planner and developer agents and loads settings from `.env`.
+- `agency_code_agent/` contains the primary agent, prompts, and its `tools/`; extend or reuse logic here.
+- `planner_agent/` mirrors the coder setup for planning mode; keep configs aligned when features move between agents.
+- `tests/` holds pytest coverage for tools, planner, and integration flows; follow its layout for new scenarios.
+- `subagent_template/` scaffolds new agents, while shared adapters sit in `tools/` and `agents/` for reuse.
 
-# Agency Swarm Framework Overview
+## Build, Test, and Development Commands
+- `python3.13 -m venv .venv && source .venv/bin/activate` prepares the supported runtime.
+- `python -m pip install -r requirements.txt` installs Agency Swarm plus test dependencies.
+- `sudo python agency.py` launches the interactive terminal demo (sudo required on macOS for filesystem access).
+- `python run_tests.py` bootstraps dependencies if missing and runs the full pytest suite with project defaults.
+- `pytest tests/test_tool_integration.py -k handoff` narrows execution when iterating on a flow.
+- `pre-commit run --all-files` invokes Ruff import sorting and formatting before commits.
 
-Agency Swarm is an open-source agent orchestration framework (v1.x) built on the OpenAI Agents SDK. It lets you compose multiple specialized agents, each with its own tools and instructions, into a coordinated agency with explicit, directional communication flows. See: [Overview](https://agency-swarm.ai/welcome/overview.md), [Agents](https://agency-swarm.ai/core-framework/agents/overview.md), [Agencies](https://agency-swarm.ai/core-framework/agencies/overview.md), and [Communication Flows](https://agency-swarm.ai/core-framework/agencies/communication-flows.md).
+## Coding Style & Naming Conventions
+- Use 4-space indentation, targeted type hints, and docstrings on public agent or tool factories.
+- Files remain snake_case, classes PascalCase, and instruction templates stay under `agency_code_agent/`.
+- Ruff owns linting and formatting (`ruff check . --fix`, `ruff format .`); expose `create_*` factories for new agents, hooks, or tools.
 
-## Key Concepts
+## Testing Guidelines
+- Pytest with `pytest-asyncio` powers the suite; new files follow `test_<area>.py` and mark async cases with `@pytest.mark.asyncio`.
+- Reuse fixtures from `tests/conftest.py`, and extend `tests/test_tool_integration.py` for orchestration coverage.
+- Exercise both success and failure paths for any tool or planner change, and add regression tests when fixing bugs.
 
-- Agents: Independent workers with role-specific instructions and toolsets.
-- Tools: Pydantic-validated actions agents can execute; can be classes or `@function_tool` functions.
-- Agency: A graph of agents with defined communication flows, plus shared instructions.
-- Shared State: Optional context for cross-tool/agent data sharing.
-- MCP Integration: Optional external tool servers via Model Context Protocol.
+## Commit & Pull Request Guidelines
+- Keep commit titles short and descriptive (e.g., `Enable reasoning effort for anthropic models`), using the imperative mood where possible.
+- Group related edits, call out instruction or template updates in the PR description, and list the verification commands you ran.
+- Reference issues or tasks and include terminal output or screenshots when UX or agent behaviour changes.
 
-## Create a Tool (class-based)
-
-```python
-from agency_swarm.tools import BaseTool
-from pydantic import Field
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-
-class MyCustomTool(BaseTool):
-    """Fetches or computes something useful for an agent task."""
-    query: str = Field(..., description="Search or input text")
-
-    def run(self) -> str:
-        api_key = os.getenv("MY_API_KEY", "")
-        # Implement real logic (no placeholders)
-        return f"Processed: {self.query}"
-
-if __name__ == "__main__":
-    print(MyCustomTool(query="hello").run())
-```
-
-## Create a Tool (function-based)
-
-```python
-from agents import function_tool
-from dotenv import load_dotenv
-
-load_dotenv()
-
-@function_tool
-def my_function_tool(text: str) -> str:
-    """Simple functional tool example."""
-    return text.upper()
-
-if __name__ == "__main__":
-    print(my_function_tool("ok"))
-```
-
-## Create an Agent
-
-```python
-from agents import ModelSettings
-from agency_swarm import Agent
-
-developer = Agent(
-    name="Developer",
-    description="Writes and edits code based on tasks.",
-    instructions="./instructions.md",
-    tools_folder="./tools",
-    model_settings=ModelSettings(model="gpt-4o", temperature=0.2, max_completion_tokens=20000),
-)
-```
-
-## Create an Agency
-
-```python
-from dotenv import load_dotenv
-from agency_swarm import Agency
-from ceo import ceo
-from developer import developer
-
-load_dotenv()
-
-agency = Agency(
-    ceo,
-    communication_flows=[(ceo, developer)],  # left can initiate to right
-    shared_instructions="agency_manifesto.md",
-)
-
-if __name__ == "__main__":
-    agency.terminal_demo()
-```
-
-## Shared State (optional)
-
-```python
-from agency_swarm.tools import BaseTool
-from pydantic import Field
-
-class RememberValue(BaseTool):
-    key: str = Field(..., description="Shared-state key")
-    value: str = Field(..., description="Value to store")
-
-    def run(self) -> str:
-        # _context is a private RunContextWrapper initialized by the agent
-        self._context.set(self.key, self.value)
-        return self._context.get(self.key, "")
-```
-
-## MCP Integration (optional)
-
-```python
-from agency_swarm.tools.mcp import MCPServerStdio
-
-filesystem_server = MCPServerStdio(
-    name="Filesystem_Server",
-    params={"command": "npx", "args": ["-y", "@modelcontextprotocol/server-filesystem", "."]},
-    cache_tools_list=True,
-)
-# Attach to an Agent via the mcp_servers list when instantiating it
-```
-
-## References
-
-- Tools: [Step-by-Step Guide](https://agency-swarm.ai/core-framework/tools/custom-tools/step-by-step-guide.md), [Overview](https://agency-swarm.ai/core-framework/tools/overview.md)
-- Agents: [Overview](https://agency-swarm.ai/core-framework/agents/overview.md), [Built-in Tools](https://agency-swarm.ai/core-framework/agents/built-in-tools.md)
-- Agencies: [Overview](https://agency-swarm.ai/core-framework/agencies/overview.md), [Communication Flows](https://agency-swarm.ai/core-framework/agencies/communication-flows.md)
-- Migration to v1.x: [Guide](https://agency-swarm.ai/migration/guide.md)
-- Full documentation: [Agency Swarm](https://agency-swarm.ai/llms.txt)
-
-# Directory Structure
-
-```
-Agency-Code/
-  - agency.py
-  - agency_code_agent/
-    - __init__.py
-    - agency_code_agent.py
-    - instructions.md
-  - subagent_name/
-    - __init__.py
-    - subagent_name.py
-    - instructions.md
-  - tools/
-    - __init__.py
-    - bash.py
-    - edit.py
-    - glob.py
-    - grep.py
-    - ls.py
-    - multi_edit.py
-    - notebook_edit.py
-    - notebook_read.py
-    - read.py
-    - task.py
-    - todo_write.py
-    - todo_complete.py
-    - write.py
-  - LICENSE
-  - README.md
-  - requirements.txt
-  - run_tests.py
-  - tests/
-    - conftest.py
-    - debug_tool_test.py
-    - test_agency.py
-    - test_bash_tool.py
-    - test_edit_tool.py
-    - test_generated_sample.py
-    - test_glob_tool.py
-    - test_grep_tool.py
-    - test_ls_tool.py
-    - test_multi_edit_tool.py
-    - test_notebook_edit_tool.py
-    - test_notebook_read_tool.py
-    - test_read_tool.py
-    - test_sample.py
-    - test_task_tool.py
-    - test_todo_write_tool.py
-    - test_write_tool.py
-    - tool_integration_test.py
-```
-
-# Common Workflows
-
-### Adding tools
-
-1. Create a new tool class in the `tools` folder: `tools/tool_name.py` or in a subagent specific tools folder: `subagent_name/tools/tool_name.py`
-2. Add tool to the agent in the agent file: `subagent_name/subagent_name.py`
-
-### Adding subagents
-
-1. Create a new agent folder in the root directory: `subagent_name/`
-2. Create instruction.md file for the agent: `subagent_name/instructions.md` following the template in `subagent_template/instructions.md`
-3. Read the `./tools` folder and deteremine the necessary files to import for this agent. Subagent might not need all the tools, so only import the necessary ones. For example, for a planner agent, you might only need the `Read`, `Bash`, `LS`, and `Grep` tools.
-4. Create an agent file: `subagent_name/subagent_name.py` following the template in `subagent_template/subagent1.py`
-5. Add subagent to the agency.py file: `agency.py`
+## Configuration & Secrets
+- Store provider keys and model overrides in `.env`; `dotenv` loads them in `agency.py`, so never commit secrets.
+- Document new environment variables in `README.md`, and update both agent factories when introducing models or reasoning modes.
 
 ---
 > Source: [VRSEN/Agency-Code](https://github.com/VRSEN/Agency-Code) — distributed by [TomeVault](https://tomevault.io).
