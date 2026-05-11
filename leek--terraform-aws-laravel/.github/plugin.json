@@ -1,0 +1,9 @@
+{
+  "name": "leek--terraform-aws-laravel",
+  "displayName": "terraform-aws-laravel",
+  "description": "Production-ready AWS infrastructure for Laravel applications using Terraform.",
+  "version": "1.0.0",
+  "author": "leek",
+  "homepage": "https://github.com/leek/terraform-aws-laravel",
+  "skills": []
+}
