@@ -1,0 +1,9 @@
+{
+  "name": "kenjudy--pdca-framework",
+  "displayName": "pdca-framework",
+  "description": "Human-supervised AI code generation using Plan-Do-Check-Act methodology with TDD and refactoring. Works as Claude Code skill or standalone prompts.",
+  "version": "1.0.0",
+  "author": "kenjudy",
+  "homepage": "https://github.com/kenjudy/pdca-framework",
+  "skills": []
+}
