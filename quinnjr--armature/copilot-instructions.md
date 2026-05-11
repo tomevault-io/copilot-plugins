@@ -1,319 +1,104 @@
-## no-direct-commits
+## no-unsolicited-documentation
 
-> **CRITICAL RULE:** Never commit directly to `main` or `develop` branches.
+> **DO NOT** generate summaries, markdown documentation, or other documentation files unless the user explicitly requests them.
 
-# No Direct Commits to Main and Develop
 
-**CRITICAL RULE:** Never commit directly to `main` or `develop` branches.
+# No Unsolicited Documentation or Summaries
 
-## Protected Branches
+## Rule
 
-### `main` branch
-- ❌ **NO direct commits**
-- ❌ **NO force pushes**
-- ✅ Only merge via Pull Requests from `release/*` or `hotfix/*`
+**DO NOT** generate summaries, markdown documentation, or other documentation files unless the user explicitly requests them.
 
-### `develop` branch
-- ❌ **NO direct commits**
-- ❌ **NO force pushes**
-- ✅ Only merge via Pull Requests from `feature/*`, `release/*`, or `hotfix/*`
+## What NOT to Do
 
-## Why This Rule Exists
+❌ **Don't create unsolicited summaries:**
+- Task summaries
+- Implementation summaries
+- Session summaries
+- Progress reports
+- Markdown recap documents
 
-1. **Code Review:** All changes must be reviewed before merging
-2. **CI/CD:** Automated tests must pass before integration
-3. **Quality Control:** Prevents untested code from reaching protected branches
-4. **Audit Trail:** Maintains clear history of what changed and why
-5. **Team Collaboration:** Ensures visibility of all changes
-6. **Rollback Safety:** Makes it easier to revert problematic changes
+❌ **Don't create unsolicited documentation:**
+- README files (unless explicitly requested)
+- CHANGELOG updates (unless explicitly requested)
+- Implementation guides
+- Status reports
+- Progress documentation
 
-## Correct Workflow
+❌ **Don't add verbose explanations:**
+- Long explanations of what was done
+- Detailed breakdowns of changes
+- Extensive commit message formatting in responses
 
-### For New Features
+## What TO Do
 
-```bash
-# ❌ WRONG - Never do this!
-git checkout develop
-git add .
-git commit -m "Add new feature"
-git push origin develop  # This will be rejected!
+✅ **Only provide:**
+- Direct answers to questions
+- Implementation of requested features
+- Error fixes and corrections
+- Brief confirmations of completed work
 
-# ✅ CORRECT
-git checkout develop
-git pull origin develop
-git checkout -b feature/123-new-feature
-git add .
-git commit -m "feat: add new feature"
-git push origin feature/123-new-feature
-# Then create Pull Request on GitHub/GitLab
+✅ **Create documentation when:**
+- User explicitly asks: "create a README", "document this", "write a guide"
+- Project documentation standards require it (see `documentation.mdc`)
+- Feature documentation is required by workspace rules
+
+✅ **Keep responses concise:**
+- Focus on the task at hand
+- Provide essential information only
+- Let the work speak for itself
+
+## Examples
+
+### ❌ Bad (Unsolicited Summary)
+
+```
+I've completed the task. Here's what I did:
+
+## Summary
+- Created 5 new files
+- Modified 3 existing files
+- Added comprehensive documentation
+
+## Files Changed
+1. file1.rs - Added feature X
+2. file2.rs - Fixed bug Y
+...
+(extensive breakdown)
 ```
 
-### For Bug Fixes
+### ✅ Good (Concise Confirmation)
 
-```bash
-# ❌ WRONG
-git checkout develop
-git commit -am "fix bug"
-git push origin develop  # This will be rejected!
-
-# ✅ CORRECT
-git checkout develop
-git pull origin develop
-git checkout -b feature/456-fix-bug
-git commit -am "fix: resolve issue with authentication"
-git push origin feature/456-fix-bug
-# Then create Pull Request
+```
+Task complete. Created the authentication module with JWT support.
 ```
 
-### For Hotfixes
+### ❌ Bad (Creating Unsolicited Docs)
 
-```bash
-# ❌ WRONG
-git checkout main
-git commit -am "urgent fix"
-git push origin main  # This will be rejected!
-
-# ✅ CORRECT
-git checkout main
-git pull origin main
-git checkout -b hotfix/1.0.1-critical-fix
-git commit -am "fix: resolve critical security issue"
-git push origin hotfix/1.0.1-critical-fix
-# Then create Pull Request to main AND develop
+```
+Let me also create a SUMMARY.md to document what we've done...
 ```
 
-## What If I Accidentally Commit?
+### ✅ Good (Only When Asked)
 
-### Before Pushing
-
-If you committed to `main` or `develop` locally but haven't pushed yet:
-
-```bash
-# Move the commit to a new branch
-git branch feature/my-changes
-git reset --hard origin/develop  # or origin/main
-git checkout feature/my-changes
-git push origin feature/my-changes
-# Now create Pull Request
+```
+User: "Create a summary of the authentication features"
+Assistant: (creates SUMMARY.md)
 ```
 
-### After Pushing (If Allowed)
+## Exception: Required Documentation
 
-If you somehow managed to push directly:
+The **only exception** is when documentation is required by workspace rules:
 
-```bash
-# Immediately notify the team
-# Revert the commit
-git checkout develop  # or main
-git revert HEAD
-git push origin develop  # or main
+1. **Feature documentation** - As per `documentation.mdc`, every feature MUST have documentation in `docs/`
+2. **API documentation** - Inline Rust doc comments (`///`) are required
+3. **Examples** - Working examples are required for new features
 
-# Then create proper feature branch with the fix
-git checkout -b feature/proper-implementation
-# Re-apply your changes properly
-git push origin feature/proper-implementation
-# Create Pull Request
-```
-
-## Emergency Exceptions
-
-In **extremely rare** emergency situations (production down, data loss, security breach), a direct commit *might* be necessary:
-
-### Emergency Procedure
-
-1. **Get approval** from team lead/CTO
-2. **Document reason** in commit message
-3. **Notify team** immediately in Slack/Discord
-4. **Create follow-up PR** with proper testing
-5. **Post-mortem** document after resolution
-
-```bash
-# Only in extreme emergency with approval
-git checkout main
-git commit -am "EMERGENCY: fix critical production outage
-
-Reason: Database connection pool exhausted causing 100% error rate
-Approved by: [Name]
-Impact: 10,000+ users affected
-Ticket: #CRITICAL-123"
-git push origin main
-
-# Immediately after, create proper PR for review
-git checkout -b hotfix/emergency-followup
-# Add tests, documentation, etc.
-git push origin hotfix/emergency-followup
-```
-
-## Pull Request Requirements
-
-All merges to `main` and `develop` must go through Pull Requests with:
-
-### Required Checks
-
-- ✅ At least one approval from code owner
-- ✅ All CI tests passing (`cargo test --all-features`)
-- ✅ No clippy warnings (`cargo clippy -- -D warnings`)
-- ✅ Code is formatted (`cargo fmt -- --check`)
-- ✅ No merge conflicts
-- ✅ Branch is up to date with target
-- ✅ All conversations resolved
-
-### PR Must Include
-
-- Clear description of changes
-- Link to related issue/ticket
-- Test coverage for new code
-- Documentation updates (if needed)
-- CHANGELOG update (for releases)
-
-## Branch Protection Setup
-
-### GitHub Settings
-
-```yaml
-# .github/branch-protection.yml (conceptual)
-branches:
-  main:
-    protection:
-      required_pull_request_reviews:
-        required_approving_review_count: 1
-        dismiss_stale_reviews: true
-      required_status_checks:
-        strict: true
-        contexts:
-          - "test"
-          - "lint"
-          - "format-check"
-      enforce_admins: true
-      restrictions: null
-
-  develop:
-    protection:
-      required_pull_request_reviews:
-        required_approving_review_count: 1
-      required_status_checks:
-        strict: true
-        contexts:
-          - "test"
-          - "lint"
-      enforce_admins: true
-```
-
-## Common Mistakes to Avoid
-
-### ❌ Mistake 1: "Just a quick fix"
-
-```bash
-# NO! Even small changes need PR
-git checkout develop
-git commit -am "fix typo"  # Still wrong!
-```
-
-### ❌ Mistake 2: "Nobody will notice"
-
-```bash
-# Everyone will notice, and CI should block it
-git push origin main  # Protected branch!
-```
-
-### ❌ Mistake 3: "I'm the only developer"
-
-```bash
-# Still wrong - maintains good habits and audit trail
-git commit --allow-empty -m "update"
-git push origin develop  # Bad practice!
-```
-
-### ❌ Mistake 4: Force pushing to fix
-
-```bash
-# NEVER force push to protected branches
-git push --force origin main  # Extremely bad!
-```
-
-## Enforcement
-
-### Git Hooks
-
-Add a pre-push hook to prevent accidents:
-
-```bash
-#!/bin/bash
-# .git/hooks/pre-push
-
-protected_branches='main develop'
-current_branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
-
-for branch in $protected_branches; do
-    if [ $branch = $current_branch ]; then
-        echo "🚫 Direct push to $current_branch is not allowed!"
-        echo "   Create a feature branch and use a Pull Request."
-        echo "   Run: git checkout -b feature/your-feature-name"
-        exit 1
-    fi
-done
-
-exit 0
-```
-
-### Make it executable
-
-```bash
-chmod +x .git/hooks/pre-push
-```
-
-## Team Communication
-
-If you see someone attempting to push directly to `main` or `develop`:
-
-### Gentle Reminder
-
-> Hey! I noticed you're trying to commit directly to [main/develop].
-> Let's create a feature branch instead so we can get it reviewed:
->
-> ```
-> git checkout -b feature/your-change
-> git push origin feature/your-change
-> ```
->
-> Then create a PR and I'll review it! 👍
+These are NOT optional and should be created automatically with new features.
 
 ## Summary
 
-### The Golden Rules
-
-1. ✅ **Always** create a feature/hotfix branch
-2. ✅ **Always** push to your branch
-3. ✅ **Always** create a Pull Request
-4. ✅ **Always** wait for review and approval
-5. ✅ **Always** ensure CI passes
-
-### Never Do This
-
-1. ❌ **Never** `git checkout main` and commit
-2. ❌ **Never** `git checkout develop` and commit
-3. ❌ **Never** force push to protected branches
-4. ❌ **Never** bypass CI checks
-5. ❌ **Never** merge without approval
-
-### Quick Reference
-
-```bash
-# The right way every time:
-git checkout develop
-git pull origin develop
-git checkout -b feature/my-feature
-# Make changes...
-git add .
-git commit -m "feat: add feature"
-git push origin feature/my-feature
-# Create PR on GitHub
-```
-
----
-
-**Remember:** If it feels like you're taking a shortcut, you probably are.
-Use branches and PRs - it's worth the extra 30 seconds! 🚀
+**Key Principle:** Only generate what is explicitly requested or required by project standards. Don't create summaries, recaps, or extra documentation files unless asked.
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
