@@ -1,0 +1,9 @@
+{
+  "name": "caomeiyouren--caomei-auth",
+  "displayName": "caomei-auth",
+  "description": "\u8349\u6885 Auth \u662f\u4e00\u4e2a\u57fa\u4e8e Nuxt \u5168\u6808\u6846\u67b6\u7684\u7edf\u4e00\u767b\u5f55\u5e73\u53f0\u3002\u652f\u6301 OAuth2.0 \u534f\u8bae\uff0c\u96c6\u6210\u90ae\u7bb1\u3001\u7528\u6237\u540d\u3001\u624b\u673a\u53f7\u3001\u9a8c\u8bc1\u7801\u3001\u793e\u4ea4\u5a92\u4f53\u7b49\u591a\u79cd\u767b\u5f55\u6ce8\u518c\u65b9\u5f0f\u3002",
+  "version": "1.0.0",
+  "author": "CaoMeiYouRen",
+  "homepage": "https://github.com/CaoMeiYouRen/caomei-auth",
+  "skills": []
+}
