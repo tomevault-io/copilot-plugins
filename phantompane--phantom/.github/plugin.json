@@ -1,0 +1,9 @@
+{
+  "name": "phantompane--phantom",
+  "displayName": "phantom",
+  "description": "A powerful CLI tool for seamless parallel development with Git worktrees.",
+  "version": "1.0.0",
+  "author": "phantompane",
+  "homepage": "https://github.com/phantompane/phantom",
+  "skills": []
+}
