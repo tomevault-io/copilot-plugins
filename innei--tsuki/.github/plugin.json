@@ -1,0 +1,9 @@
+{
+  "name": "innei--tsuki",
+  "displayName": "Tsuki",
+  "description": "\ud83c\udf19 TypeScript on Hono: NestJS-style decorators, DI, modules. Tsuki (moon) \u2194 Hono (flame).",
+  "version": "1.0.0",
+  "author": "Innei",
+  "homepage": "https://github.com/Innei/Tsuki",
+  "skills": []
+}
