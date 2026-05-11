@@ -1,0 +1,9 @@
+{
+  "name": "nenhang--contextgen",
+  "displayName": "ContextGen",
+  "description": "[ICLR 2026] ContextGen: Contextual Layout Anchoring for Identity-Consistent Multi-Instance Generation",
+  "version": "1.0.0",
+  "author": "nenhang",
+  "homepage": "https://github.com/nenhang/ContextGen",
+  "skills": []
+}
