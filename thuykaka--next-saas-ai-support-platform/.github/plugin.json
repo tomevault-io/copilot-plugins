@@ -1,0 +1,9 @@
+{
+  "name": "thuykaka--next-saas-ai-support-platform",
+  "displayName": "next-saas-ai-support-platform",
+  "description": "Build a real-time AI-powered customer support platform for B2B SaaS using Next.js 15, Convex, Turborepo, Clerk, Vapi, Sentry...",
+  "version": "1.0.0",
+  "author": "thuykaka",
+  "homepage": "https://github.com/thuykaka/next-saas-ai-support-platform",
+  "skills": []
+}
