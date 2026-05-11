@@ -1,0 +1,9 @@
+{
+  "name": "dirtybitgames--unityctl",
+  "displayName": "unityctl",
+  "description": "Remote control system for Unity Editor via CLI. Intended for use by AI.",
+  "version": "1.0.0",
+  "author": "DirtybitGames",
+  "homepage": "https://github.com/DirtybitGames/unityctl",
+  "skills": []
+}
