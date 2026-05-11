@@ -1,0 +1,9 @@
+{
+  "name": "yx0716--clawd-insights",
+  "displayName": "clawd-insights",
+  "description": "A fork of `rullerzhou-afk/clawd-on-desk` that keeps the real-time desktop pet experience and adds a local insights layer on top. It tracks agent activity on screen, scans local conversation history, a",
+  "version": "1.0.0",
+  "author": "yx0716",
+  "homepage": "https://github.com/yx0716/clawd-insights",
+  "skills": []
+}
