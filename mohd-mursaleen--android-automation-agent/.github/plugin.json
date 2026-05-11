@@ -1,0 +1,9 @@
+{
+  "name": "mohd-mursaleen--android-automation-agent",
+  "displayName": "android-automation-agent",
+  "description": "Termux friendly Android Automation skill for you Openclaw ",
+  "version": "1.0.0",
+  "author": "Mohd-Mursaleen",
+  "homepage": "https://github.com/Mohd-Mursaleen/android-automation-agent",
+  "skills": []
+}
