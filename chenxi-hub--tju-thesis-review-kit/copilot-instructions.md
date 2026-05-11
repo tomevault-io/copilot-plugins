@@ -1,0 +1,19 @@
+## tju-thesis-review-core
+
+> 天津大学本科毕业设计（论文）审查核心规范，适用于终稿 review、格式整改和送审前复核
+
+
+# TJU Thesis Review Core
+
+- 先检查影响提交的硬错误，再处理表达和观感问题。
+- 前置页、页码体系、页眉页脚、目录层级必须先过一遍。
+- 图题在下，表题在上，图表与正文前后留足间距。
+- 图、表、公式按章编号；附录编号与正文分离。
+- 表格优先三线表；图中文字需清晰且术语、单位与正文一致。
+- 中文摘要、英文摘要、关键词必须对应，避免只改中文不改英文。
+- 参考文献体例全文统一，文内引用与文后条目一一对应。
+- 输出 review 结果时优先列问题清单、剩余风险和编译情况，不要只给空泛建议。
+
+---
+> Source: [ChenXi-hub/tju-thesis-review-kit](https://github.com/ChenXi-hub/tju-thesis-review-kit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
