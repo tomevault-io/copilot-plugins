@@ -1,0 +1,9 @@
+{
+  "name": "samsk--ha-ssd-ims",
+  "displayName": "HA-SSD-IMS",
+  "description": "Home Assistant Integration for ims.ssd.sk",
+  "version": "1.0.0",
+  "author": "samsk",
+  "homepage": "https://github.com/samsk/HA-SSD-IMS",
+  "skills": []
+}
