@@ -1,0 +1,9 @@
+{
+  "name": "enrichfun--solclaw",
+  "displayName": "solclaw",
+  "description": "The algo trading IDE for Solana memecoins. Live chart, order-book tape, token Nursery, AI assistant, paper trading. Open source.",
+  "version": "1.0.0",
+  "author": "Enrichfun",
+  "homepage": "https://github.com/Enrichfun/solclaw",
+  "skills": []
+}
