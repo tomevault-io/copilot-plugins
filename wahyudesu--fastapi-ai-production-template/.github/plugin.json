@@ -1,0 +1,9 @@
+{
+  "name": "wahyudesu--fastapi-ai-production-template",
+  "displayName": "Fastapi-AI-Production-Template",
+  "description": "Simple starter template for your ML/AI projects (uv package manager, RestAPI with FastAPI and Dockerfile support)",
+  "version": "1.0.0",
+  "author": "wahyudesu",
+  "homepage": "https://github.com/wahyudesu/Fastapi-AI-Production-Template",
+  "skills": []
+}
