@@ -1,0 +1,9 @@
+{
+  "name": "andrisasuke--gemini-sql",
+  "displayName": "gemini-sql",
+  "description": "A modern, cross-platform SQL editor with AI-powered query generation. Built with Tauri, React, and Rust.",
+  "version": "1.0.0",
+  "author": "andrisasuke",
+  "homepage": "https://github.com/andrisasuke/gemini-sql",
+  "skills": []
+}
