@@ -1,0 +1,9 @@
+{
+  "name": "madison-hutson--claude-project-scaffolding",
+  "displayName": "claude-project-scaffolding",
+  "description": "Ready-to-use project scaffolding with quality gates, testing, and Claude Code integration. Problem This Solves: LLM-assisted development fails by silently expanding scope, degrading quality, and losin",
+  "version": "1.0.0",
+  "author": "madison-hutson",
+  "homepage": "https://github.com/madison-hutson/claude-project-scaffolding",
+  "skills": []
+}
