@@ -1,0 +1,9 @@
+{
+  "name": "mcpmux--mcp-mux",
+  "displayName": "mcp-mux",
+  "description": "Configure MCP servers once, connect every AI client through a single local gateway",
+  "version": "1.0.0",
+  "author": "mcpmux",
+  "homepage": "https://github.com/mcpmux/mcp-mux",
+  "skills": []
+}
