@@ -4,7 +4,7 @@
   "repo": "launcher",
   "description": "rustfs cross-platform launcher",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rustfs/launcher",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T22:10:52Z"
+  "distributed_at": "2026-05-11T09:04:56Z"
 }
