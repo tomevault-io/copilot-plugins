@@ -1,0 +1,9 @@
+{
+  "name": "filbot--flight-display",
+  "displayName": "flight-display",
+  "description": "Arduino code for an OLED flight display",
+  "version": "1.0.0",
+  "author": "filbot",
+  "homepage": "https://github.com/filbot/flight-display",
+  "skills": []
+}
