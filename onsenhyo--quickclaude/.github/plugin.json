@@ -1,0 +1,9 @@
+{
+  "name": "onsenhyo--quickclaude",
+  "displayName": "quickclaude",
+  "description": "CLI launcher for Claude Code \u2014 quickly pick and launch your recent projects",
+  "version": "1.0.0",
+  "author": "onsenhyo",
+  "homepage": "https://github.com/onsenhyo/quickclaude",
+  "skills": []
+}
