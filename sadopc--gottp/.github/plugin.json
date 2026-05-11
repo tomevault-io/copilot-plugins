@@ -1,0 +1,9 @@
+{
+  "name": "sadopc--gottp",
+  "displayName": "gottp",
+  "description": "A Postman/Insomnia-like TUI API client built in Go with Bubble Tea",
+  "version": "1.0.0",
+  "author": "sadopc",
+  "homepage": "https://github.com/sadopc/gottp",
+  "skills": []
+}
