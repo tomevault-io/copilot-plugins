@@ -1,0 +1,9 @@
+{
+  "name": "arthursoares--things-cloud-sdk",
+  "displayName": "things-cloud-sdk",
+  "description": "golang client for the culturedcode things cloud",
+  "version": "1.0.0",
+  "author": "arthursoares",
+  "homepage": "https://github.com/arthursoares/things-cloud-sdk",
+  "skills": []
+}
