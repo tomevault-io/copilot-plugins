@@ -1,0 +1,9 @@
+{
+  "name": "jigar-dhulla--laravel-whatsapp-ai-agent",
+  "displayName": "laravel-whatsapp-ai-agent",
+  "description": "A Laravel package for building WhatsApp AI agents on top of wacli",
+  "version": "1.0.0",
+  "author": "jigar-dhulla",
+  "homepage": "https://github.com/jigar-dhulla/laravel-whatsapp-ai-agent",
+  "skills": []
+}
