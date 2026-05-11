@@ -1,0 +1,9 @@
+{
+  "name": "0xsero--codex-local",
+  "displayName": "codex-local",
+  "description": "A modified Codex CLI application built to support local LLMs",
+  "version": "1.0.0",
+  "author": "0xSero",
+  "homepage": "https://github.com/0xSero/codex-local",
+  "skills": []
+}
