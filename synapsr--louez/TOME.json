@@ -1,0 +1,44 @@
+{
+  "name": "Louez",
+  "owner": "Synapsr",
+  "repo": "Louez",
+  "description": "\ud83c\udfe0 Open-source equipment rental platform. Manage inventory, reservations, customers & generate contracts. Beautiful storefronts for your rental business. Self-host for free or use our cloud. Built with Next.js, TypeScript & Tailwind.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Synapsr/Louez",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T02:15:02Z"
+}
