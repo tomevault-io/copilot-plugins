@@ -1,31 +1,26 @@
-## aidev-providers
+## aidev-tests
 
-> TaskProvider contract and how to add a new provider
+> Test conventions and commands for aidev
 
 
-# aidev Providers
+# aidev Tests
 
-## TaskProvider contract
+## Runner and layout
 
-Implement all methods from `src/providers/base.ts`:
+- Node.js built-in test runner: `node --require tsx/cjs --test 'src/__tests__/**/*.test.ts'`
+- Run with: `npm test`
+- Tests live in `src/__tests__/`. One test file per module when possible (e.g. `config.test.ts`, `run.test.ts`).
 
-- `fetchTasks(): Promise<Task[]>` — skip closed/done/cancelled/complete; map to `Task` (id, name, description, status, url, tags)
-- `postComment(taskId, text): Promise<void>`
-- `getComments(taskId): Promise<Comment[]>`
-- `updateStatus(taskId, status): Promise<void>`
-- `createTask(params: CreateTaskParams): Promise<CreateTaskResult>`
+## Conventions
 
-Use native `fetch` only. No shell interpolation; use `spawnSync(bin, [...args])` if calling CLI tools.
+- Use `describe` / `it` and `assert` from Node's `node:assert`.
+- For env-dependent tests (e.g. `loadConfig` with real env), use temp dirs or override `process.env` and restore after; config tests that need POSIX use conditional skip for Windows.
+- Mock external calls (fetch, spawnSync) where appropriate so tests don't hit real APIs or CLIs.
+- No `any`; explicit types. Follow project rule: `node:` prefix for built-ins.
 
-## Adding a provider
+## After changing code
 
-1. Create `src/providers/<name>.ts` implementing `TaskProvider`.
-2. In `src/providers/index.ts`: import the class and add a `case '<name>': return new XxxProvider(config);` in `createProvider()`.
-3. In `src/types.ts`: add provider-specific fields to `Config` if needed.
-4. In `src/config.ts`: in `loadConfig()`, add required env vars for the provider to the `required` check when `provider === '<name>'`; map env to config fields.
-5. Document in `.env.aidev.example` and README.md.
-
-For unimplemented providers, throw: `throw new Error('X provider is not yet implemented. Contributions welcome!');`
+Run `npm test` before committing. Fix any new failures in the touched area.
 
 ---
 > Source: [qelos-io/aidev](https://github.com/qelos-io/aidev) — distributed by [TomeVault](https://tomevault.io).
