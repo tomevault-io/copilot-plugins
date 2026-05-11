@@ -1,0 +1,9 @@
+{
+  "name": "jeremyruppel--claude-collider",
+  "displayName": "claude-collider",
+  "description": "MCP server and live coding suite for SuperCollider :robot: :musical_note: ",
+  "version": "1.0.0",
+  "author": "jeremyruppel",
+  "homepage": "https://github.com/jeremyruppel/claude-collider",
+  "skills": []
+}
