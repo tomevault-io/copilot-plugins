@@ -4,7 +4,7 @@
   "repo": "claude-plugin-product-management",
   "description": "claude plugin for product managers",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pmprompt/claude-plugin-product-management",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T11:37:51Z"
+  "distributed_at": "2026-05-11T16:43:30Z"
 }
