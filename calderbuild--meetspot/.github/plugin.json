@@ -1,0 +1,9 @@
+{
+  "name": "calderbuild--meetspot",
+  "displayName": "MeetSpot",
+  "description": "End the \"Where should we meet?\" debate by instantly finding a spot that\u2019s fair, convenient, and loved by everyone. An intelligent meeting point recommendation system.",
+  "version": "1.0.0",
+  "author": "calderbuild",
+  "homepage": "https://github.com/calderbuild/MeetSpot",
+  "skills": []
+}
