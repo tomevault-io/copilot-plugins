@@ -1,16 +1,61 @@
-## typescript-style
+## ai-phone-agent
 
-> TypeScript style — prefer arrow functions and consistent callbacks
+> **`AGENTS.md` and `CLAUDE.md` are intentionally the same.** Edit both when you change this document so Cursor and Claude Code stay aligned.
 
+# Agent instructions (developers)
 
-# TypeScript style
+**`AGENTS.md` and `CLAUDE.md` are intentionally the same.** Edit both when you change this document so Cursor and Claude Code stay aligned.
 
-Follow **`eslint.config.mjs`** (Airbnb + TypeScript + Prettier) first; this file only adds **arrow-function** preferences for the AI.
+## What this repo is
 
-- **Named / exported helpers:** Prefer `const fn = (): ReturnType => { ... }` over `function fn() { ... }`, unless hoisting is required, you need `function` for `this`/`arguments`, or the file already uses a pattern you must match in a tiny edit.
-- **Callbacks:** Use arrow functions — e.g. `.map((x) => ...)`, `promise.then((v) => ...)`, `array.filter((item) => ...)`. Avoid `function` callbacks unless the API requires a non-arrow receiver.
-- **Inline handlers:** Prefer `(args) => { ... }` for tool `execute`, event handlers, and similar.
-- **Consistency:** When touching existing code, prefer arrows for **new** lines; do not rewrite an entire file only to switch declaration style unless the user asks.
+- **Node.js + TypeScript** backend for **real phone calls** → **OpenAI Realtime** (voice).
+- Two integrations: **Twilio** (`src/service/twilio-phone/`) and **Amazon Connect + OpenAI SIP** (`src/service/amazon-connect-phone/openai-sip-webhook/`).
+- **Phone-only** — no browser voice UI in this kit.
+
+## Layout
+
+| Area | Role |
+|------|------|
+| `src/foundation/` | Shared OpenAI helpers, Twilio WebSocket, MCP servers, Amazon Connect SDK helpers. |
+| `src/service/twilio-phone/` | Twilio HTTP + wiring into foundation. |
+| `src/service/amazon-connect-phone/` | Connect: incoming webhook, accept/hangup, Realtime WS, tools, SIP instructions. |
+| `doc/` | Architecture and integration guides — **read before large changes.** |
+
+Imports use **`@/*` → `src/*`**; build uses **`tsc-alias`** for `dist/`.
+
+## Conventions
+
+- **Small, focused diffs** — match existing style; don’t refactor unrelated code.
+- **Lint / format** — ESLint uses **Airbnb** (`eslint-config-airbnb-base` + `@kesills/eslint-config-airbnb-typescript`) with **Prettier** (`eslint-config-prettier`). Run `npm run lint` and `npm run format` before you finish.
+- **Tools** — New Realtime tools: Zod schema + matching `parametersJsonSchema`, register in `openai-sip-webhook/tools/index.ts` (same pattern as existing tools).
+- **Voice prompts** — Connect SIP: `openai-sip-webhook/agents/` (e.g. `sip-instructions.ts`, `entry-agent.ts`). Twilio: `service/twilio-phone/agents/realtime-phone/`.
+
+## Security
+
+- **Never commit secrets** — `.env` is gitignored; use `.env.example` for keys **names** only.
+- **Don’t log** API keys, tokens, or full PII; sanitize error messages aimed at end users.
+
+## Commands
+
+```sh
+npm install
+npm run dev      # nodemon
+npm run build && npm run start
+npm run lint
+npm run format
+```
+
+## Docs index
+
+- [README.md](./README.md) — overview and quick start
+- [doc/ai-phone-agent-architecture.md](./doc/ai-phone-agent-architecture.md)
+- [doc/twilio-integration.md](./doc/twilio-integration.md)
+- [doc/amazon-connect-openai-webhook.md](./doc/amazon-connect-openai-webhook.md)
+- [doc/local-testing-twilio-and-amazon-connect-sip.md](./doc/local-testing-twilio-and-amazon-connect-sip.md)
+
+## Demo vs product
+
+Booking/post-booking MCP and trip-intake examples are **illustrative** — replace with your own product logic and compliance rules.
 
 ---
 > Source: [bobbylkchao/ai-phone-agent](https://github.com/bobbylkchao/ai-phone-agent) — distributed by [TomeVault](https://tomevault.io).
