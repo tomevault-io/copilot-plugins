@@ -4,7 +4,7 @@
   "repo": "agentic-tools",
   "description": "Agent Tool and Skills for VR Development on Meta Quest ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/meta-quest/agentic-tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T22:17:48Z"
+  "distributed_at": "2026-05-11T12:13:45Z"
 }
