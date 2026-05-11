@@ -1,0 +1,9 @@
+{
+  "name": "dlupiak--claude-session-dashboard",
+  "displayName": "claude-session-dashboard",
+  "description": "Claude Code Session Dashboard \u2014 local observability for ~/.claude sessions",
+  "version": "1.0.0",
+  "author": "dlupiak",
+  "homepage": "https://github.com/dlupiak/claude-session-dashboard",
+  "skills": []
+}
