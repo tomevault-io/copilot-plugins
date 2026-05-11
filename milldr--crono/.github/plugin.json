@@ -1,0 +1,9 @@
+{
+  "name": "milldr--crono",
+  "displayName": "crono",
+  "description": "CLI for Cronometer automation via Kernel.sh",
+  "version": "1.0.0",
+  "author": "milldr",
+  "homepage": "https://github.com/milldr/crono",
+  "skills": []
+}
