@@ -1,0 +1,9 @@
+{
+  "name": "pereviader--genjson",
+  "displayName": "GenJson",
+  "description": "High-Performance C# Span based source generated Json library. Works seamlessly in both Unity3d and plain C# projects",
+  "version": "1.0.0",
+  "author": "PereViader",
+  "homepage": "https://github.com/PereViader/GenJson",
+  "skills": []
+}
