@@ -1,0 +1,9 @@
+{
+  "name": "honojs--vscode",
+  "displayName": "vscode",
+  "description": "VSCode extension for Hono development",
+  "version": "1.0.0",
+  "author": "honojs",
+  "homepage": "https://github.com/honojs/vscode",
+  "skills": []
+}
