@@ -1,0 +1,9 @@
+{
+  "name": "illyism--transcribe-cli",
+  "displayName": "transcribe-cli",
+  "description": "\ud83c\udf99\ufe0f Fast CLI tool to transcribe audio/video files to SRT format using OpenAI Whisper API",
+  "version": "1.0.0",
+  "author": "Illyism",
+  "homepage": "https://github.com/Illyism/transcribe-cli",
+  "skills": []
+}
