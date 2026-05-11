@@ -1,0 +1,9 @@
+{
+  "name": "graphnode--r3d-cs",
+  "displayName": "r3d-cs",
+  "description": "The C# port of an advanced 3D rendering library built on top of raylib.",
+  "version": "1.0.0",
+  "author": "graphnode",
+  "homepage": "https://github.com/graphnode/r3d-cs",
+  "skills": []
+}
