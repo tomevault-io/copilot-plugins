@@ -1,0 +1,9 @@
+{
+  "name": "sweetspotsoundsystem--stemgen-rt",
+  "displayName": "stemgen-rt",
+  "description": "StemgenRT is a real-time low-latency music source separation plugin. Drop it on a track and get 4 separate stems: drums, bass, other, and vocals.",
+  "version": "1.0.0",
+  "author": "sweetspotsoundsystem",
+  "homepage": "https://github.com/sweetspotsoundsystem/stemgen-rt",
+  "skills": []
+}
