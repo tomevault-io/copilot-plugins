@@ -1,0 +1,9 @@
+{
+  "name": "renseiai--agentfactory",
+  "displayName": "agentfactory",
+  "description": "The open-source software factory \u2014 multi-agent fleet management for coding agents",
+  "version": "1.0.0",
+  "author": "RenseiAI",
+  "homepage": "https://github.com/RenseiAI/agentfactory",
+  "skills": []
+}
