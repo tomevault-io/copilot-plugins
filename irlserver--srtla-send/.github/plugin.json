@@ -1,0 +1,9 @@
+{
+  "name": "irlserver--srtla-send",
+  "displayName": "srtla_send",
+  "description": "SRTLA bonding sender in Rust - aggregate bandwidth and add redundancy across multiple network paths for SRT streaming.",
+  "version": "1.0.0",
+  "author": "irlserver",
+  "homepage": "https://github.com/irlserver/srtla_send",
+  "skills": []
+}
