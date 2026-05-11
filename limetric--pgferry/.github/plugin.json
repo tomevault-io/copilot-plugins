@@ -1,0 +1,9 @@
+{
+  "name": "limetric--pgferry",
+  "displayName": "pgferry",
+  "description": "Migrate MySQL, MariaDB, SQLite, or MSSQL databases to PostgreSQL with one config file and one binary.",
+  "version": "1.0.0",
+  "author": "Limetric",
+  "homepage": "https://github.com/Limetric/pgferry",
+  "skills": []
+}
