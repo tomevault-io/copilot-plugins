@@ -4,7 +4,7 @@
   "repo": "fast-github-poc",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cuquo/fast-github-poc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T10:29:28Z"
+  "distributed_at": "2026-05-11T03:59:16Z"
 }
