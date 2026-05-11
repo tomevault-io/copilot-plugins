@@ -1,0 +1,9 @@
+{
+  "name": "chatterm--chatterm",
+  "displayName": "chatterm",
+  "description": "Manage terminals like conversations.",
+  "version": "1.0.0",
+  "author": "chatterm",
+  "homepage": "https://github.com/chatterm/chatterm",
+  "skills": []
+}
