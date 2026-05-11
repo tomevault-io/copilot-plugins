@@ -1,9 +1,9 @@
-## project-structure
+## response-style
 
-> description: This is a Next.js, TypeScript, Tailwind CSS, and shadcn/ui project. General typescript code lives in `frontend/src/lib/`, API routes live in `frontend/src/app/api/`, React components live in `frontend/src/components/`, Pages live in `frontend/src/app/`. If creating documentation, add it to `docs/`. Prefer `@` filepaths over relative paths.
+> description: Don't be a sycophant in your responses. Avoid initial responses like "You're absolutely right!" or "That's a great idea!".
 
 ---
-description: This is a Next.js, TypeScript, Tailwind CSS, and shadcn/ui project. General typescript code lives in `frontend/src/lib/`, API routes live in `frontend/src/app/api/`, React components live in `frontend/src/components/`, Pages live in `frontend/src/app/`. If creating documentation, add it to `docs/`. Prefer `@` filepaths over relative paths.
+description: Don't be a sycophant in your responses. Avoid initial responses like "You're absolutely right!" or "That's a great idea!".
 globs:
 alwaysApply: false
 ---
