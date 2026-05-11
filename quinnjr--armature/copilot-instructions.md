@@ -1,390 +1,205 @@
-## angular-docs-website
+## api-design
 
-> Guidelines for developing the Armature documentation website in the `web/` directory.
+> REST API design guidelines for Armature applications
 
 
-# Angular Documentation Website
+# API Design
 
-Guidelines for developing the Armature documentation website in the `web/` directory.
+Guidelines for designing RESTful APIs with Armature.
 
-## Technology Stack
-
-- **Framework:** Angular 21 (standalone components)
-- **Package Manager:** pnpm (required)
-- **Testing:** Vitest
-- **Styling:** CSS/SCSS
-
-## Project Structure
+## URL Structure
 
 ```
-web/
-├── src/
-│   ├── app/
-│   │   ├── components/     # Shared UI components
-│   │   ├── pages/          # Route pages
-│   │   ├── services/       # Angular services
-│   │   ├── models/         # TypeScript interfaces
-│   │   └── app.component.ts
-│   ├── assets/             # Static assets
-│   └── styles/             # Global styles
-├── public/                 # Public static files
-├── angular.json
-├── package.json
-├── vitest.config.ts
-└── tsconfig.json
+GET    /api/v1/users          # List users
+POST   /api/v1/users          # Create user
+GET    /api/v1/users/:id      # Get user
+PUT    /api/v1/users/:id      # Replace user
+PATCH  /api/v1/users/:id      # Update user
+DELETE /api/v1/users/:id      # Delete user
+
+GET    /api/v1/users/:id/posts  # Nested resources
 ```
 
-## Angular 21 Patterns
+## Controller Structure
 
-### Standalone Components (Required)
+```rust
+#[controller("/api/v1/users")]
+pub struct UsersController {
+    user_service: Arc<UserService>,
+}
 
-All components must be standalone:
+#[get("")]
+async fn list(&self, query: Query<ListParams>) -> Result<Json<Page<UserResponse>>> {
+    let users = self.user_service.list(&query).await?;
+    Ok(Json(users.into()))
+}
 
-```typescript
-// ✅ Good: Standalone component
-@Component({
-  selector: 'app-feature',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  template: `...`,
-})
-export class FeatureComponent { }
+#[get("/:id")]
+async fn get(&self, id: Path<Uuid>) -> Result<Json<UserResponse>> {
+    let user = self.user_service.get(*id).await?;
+    Ok(Json(user.into()))
+}
 
-// ❌ Bad: Non-standalone (deprecated pattern)
-@Component({
-  selector: 'app-feature',
-  template: `...`,
-})
-export class FeatureComponent { }
-// Then added to NgModule declarations
-```
-
-### Signals (Preferred for State)
-
-```typescript
-import { signal, computed, effect } from '@angular/core';
-
-@Component({
-  selector: 'app-counter',
-  standalone: true,
-  template: `
-    <button (click)="increment()">Count: {{ count() }}</button>
-    <p>Double: {{ doubleCount() }}</p>
-  `,
-})
-export class CounterComponent {
-  count = signal(0);
-  doubleCount = computed(() => this.count() * 2);
-
-  constructor() {
-    effect(() => {
-      console.log('Count changed:', this.count());
-    });
-  }
-
-  increment() {
-    this.count.update(c => c + 1);
-  }
+#[post("")]
+async fn create(&self, body: Json<CreateUserRequest>) -> Result<Created<Json<UserResponse>>> {
+    let user = self.user_service.create(body.into_inner()).await?;
+    Ok(Created(Json(user.into())))
 }
 ```
 
-### New Control Flow Syntax
+## Request DTOs
 
-```typescript
-// ✅ Good: New control flow (Angular 17+)
-@Component({
-  template: `
-    @if (isLoading()) {
-      <app-spinner />
-    } @else if (error()) {
-      <app-error [message]="error()" />
-    } @else {
-      @for (item of items(); track item.id) {
-        <app-item [data]="item" />
-      } @empty {
-        <p>No items found</p>
-      }
+```rust
+#[derive(Deserialize, Validate)]
+pub struct CreateUserRequest {
+    #[validate(length(min = 1, max = 100))]
+    pub name: String,
+
+    #[validate(email)]
+    pub email: String,
+
+    #[validate(length(min = 8))]
+    pub password: String,
+}
+
+#[derive(Deserialize, Validate)]
+pub struct UpdateUserRequest {
+    #[validate(length(min = 1, max = 100))]
+    pub name: Option<String>,
+
+    #[validate(email)]
+    pub email: Option<String>,
+}
+```
+
+## Response DTOs
+
+```rust
+#[derive(Serialize)]
+pub struct UserResponse {
+    pub id: Uuid,
+    pub name: String,
+    pub email: String,
+    pub created_at: DateTime<Utc>,
+}
+
+// Never expose internal models directly
+impl From<User> for UserResponse {
+    fn from(user: User) -> Self {
+        Self {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            created_at: user.created_at,
+        }
     }
+}
+```
 
-    @switch (status()) {
-      @case ('pending') { <span>Pending...</span> }
-      @case ('success') { <span>Success!</span> }
-      @default { <span>Unknown</span> }
+## Pagination
+
+```rust
+#[derive(Deserialize)]
+pub struct ListParams {
+    #[serde(default = "default_page")]
+    pub page: u32,
+
+    #[serde(default = "default_per_page")]
+    pub per_page: u32,
+
+    pub sort: Option<String>,
+    pub order: Option<SortOrder>,
+}
+
+#[derive(Serialize)]
+pub struct Page<T> {
+    pub data: Vec<T>,
+    pub meta: PageMeta,
+}
+
+#[derive(Serialize)]
+pub struct PageMeta {
+    pub page: u32,
+    pub per_page: u32,
+    pub total: u64,
+    pub total_pages: u32,
+}
+```
+
+## Error Responses
+
+```rust
+#[derive(Serialize)]
+pub struct ErrorResponse {
+    pub code: String,
+    pub message: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub details: Option<Vec<FieldError>>,
+}
+
+#[derive(Serialize)]
+pub struct FieldError {
+    pub field: String,
+    pub message: String,
+}
+
+// Map errors to HTTP status codes
+impl IntoResponse for AppError {
+    fn into_response(self) -> Response {
+        let (status, response) = match self {
+            AppError::NotFound(msg) => (
+                StatusCode::NOT_FOUND,
+                ErrorResponse { code: "NOT_FOUND".into(), message: msg, details: None }
+            ),
+            AppError::Validation(errors) => (
+                StatusCode::BAD_REQUEST,
+                ErrorResponse {
+                    code: "VALIDATION_ERROR".into(),
+                    message: "Invalid input".into(),
+                    details: Some(errors)
+                }
+            ),
+            // ...
+        };
+        (status, Json(response)).into_response()
     }
-  `,
-})
-export class ListComponent {
-  items = signal<Item[]>([]);
-  isLoading = signal(false);
-  error = signal<string | null>(null);
-  status = signal<'pending' | 'success' | 'error'>('pending');
-}
-
-// ❌ Bad: Old structural directives
-@Component({
-  template: `
-    <ng-container *ngIf="isLoading; else loaded">
-      <app-spinner></app-spinner>
-    </ng-container>
-    <ng-template #loaded>
-      <app-item *ngFor="let item of items; trackBy: trackById" [data]="item"></app-item>
-    </ng-template>
-  `,
-})
-```
-
-### Inject Function (Preferred)
-
-```typescript
-// ✅ Good: inject() function
-@Component({
-  selector: 'app-feature',
-  standalone: true,
-  template: `...`,
-})
-export class FeatureComponent {
-  private http = inject(HttpClient);
-  private route = inject(ActivatedRoute);
-  private docsService = inject(DocsService);
-}
-
-// ❌ Less preferred: Constructor injection
-@Component({
-  selector: 'app-feature',
-  standalone: true,
-  template: `...`,
-})
-export class FeatureComponent {
-  constructor(
-    private http: HttpClient,
-    private route: ActivatedRoute,
-    private docsService: DocsService,
-  ) { }
 }
 ```
 
-## Commands
+## HTTP Status Codes
 
-```bash
-# Development server
-cd web
-pnpm start          # Starts on http://localhost:4200
+| Code | Usage |
+|------|-------|
+| 200 | Successful GET, PUT, PATCH |
+| 201 | Successful POST (resource created) |
+| 204 | Successful DELETE (no content) |
+| 400 | Validation error |
+| 401 | Authentication required |
+| 403 | Forbidden (authenticated but not authorized) |
+| 404 | Resource not found |
+| 409 | Conflict (duplicate resource) |
+| 422 | Unprocessable entity |
+| 500 | Internal server error |
 
-# Build for production
-pnpm run build
+## OpenAPI Documentation
 
-# Run tests
-pnpm test           # Uses Vitest
-
-# Lint
-pnpm run lint
-```
-
-## Documentation Content Integration
-
-### Loading Markdown Docs
-
-The website should load and render markdown documentation from `docs/`:
-
-```typescript
-@Injectable({ providedIn: 'root' })
-export class DocsService {
-  private http = inject(HttpClient);
-
-  getDoc(slug: string): Observable<string> {
-    return this.http.get(`/docs/${slug}.md`, { responseType: 'text' });
-  }
+```rust
+#[utoipa::path(
+    get,
+    path = "/api/v1/users/{id}",
+    params(
+        ("id" = Uuid, Path, description = "User ID")
+    ),
+    responses(
+        (status = 200, description = "User found", body = UserResponse),
+        (status = 404, description = "User not found", body = ErrorResponse)
+    ),
+    tag = "users"
+)]
+async fn get_user(id: Path<Uuid>) -> Result<Json<UserResponse>> {
+    // ...
 }
 ```
-
-### Code Syntax Highlighting
-
-Use Prism.js or highlight.js for Rust code highlighting:
-
-```typescript
-@Component({
-  selector: 'app-code-block',
-  standalone: true,
-  template: `
-    <pre><code [innerHTML]="highlightedCode()"></code></pre>
-  `,
-})
-export class CodeBlockComponent {
-  code = input.required<string>();
-  language = input<string>('rust');
-
-  highlightedCode = computed(() => {
-    return Prism.highlight(
-      this.code(),
-      Prism.languages[this.language()],
-      this.language()
-    );
-  });
-}
-```
-
-## Styling Guidelines
-
-### CSS Variables for Theming
-
-```css
-:root {
-  /* Colors */
-  --color-primary: #ff6b35;
-  --color-secondary: #3498db;
-  --color-background: #1a1a2e;
-  --color-surface: #16213e;
-  --color-text: #eaeaea;
-  --color-text-muted: #888888;
-
-  /* Typography */
-  --font-heading: 'JetBrains Mono', monospace;
-  --font-body: 'Inter', sans-serif;
-  --font-code: 'Fira Code', monospace;
-
-  /* Spacing */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 2rem;
-  --space-xl: 4rem;
-}
-```
-
-### Responsive Design
-
-```css
-/* Mobile-first approach */
-.container {
-  padding: var(--space-md);
-}
-
-@media (min-width: 768px) {
-  .container {
-    padding: var(--space-lg);
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-}
-```
-
-## Component Library
-
-### Documentation-Specific Components
-
-Create reusable components for documentation:
-
-```typescript
-// Callout/Admonition component
-@Component({
-  selector: 'app-callout',
-  standalone: true,
-  template: `
-    <div [class]="'callout callout-' + type()">
-      <div class="callout-icon">{{ icon() }}</div>
-      <div class="callout-content">
-        <ng-content />
-      </div>
-    </div>
-  `,
-})
-export class CalloutComponent {
-  type = input<'info' | 'warning' | 'danger' | 'tip'>('info');
-
-  icon = computed(() => {
-    const icons = { info: 'ℹ️', warning: '⚠️', danger: '🚨', tip: '💡' };
-    return icons[this.type()];
-  });
-}
-```
-
-## Testing with Vitest
-
-```typescript
-// feature.component.spec.ts
-import { describe, it, expect, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/angular';
-import { FeatureComponent } from './feature.component';
-
-describe('FeatureComponent', () => {
-  it('should render title', async () => {
-    await render(FeatureComponent, {
-      inputs: { title: 'Test Title' },
-    });
-
-    expect(screen.getByText('Test Title')).toBeTruthy();
-  });
-
-  it('should handle click events', async () => {
-    const { fixture } = await render(FeatureComponent);
-    const button = screen.getByRole('button');
-
-    button.click();
-    fixture.detectChanges();
-
-    expect(screen.getByText('Clicked!')).toBeTruthy();
-  });
-});
-```
-
-## Deployment
-
-The website automatically deploys to GitHub Pages when changes are merged to `main`.
-
-### Manual Build
-
-```bash
-cd web
-pnpm run build
-# Output in web/dist/web/browser/
-```
-
-## Accessibility
-
-- All interactive elements must have proper ARIA labels
-- Use semantic HTML elements
-- Ensure sufficient color contrast
-- Support keyboard navigation
-- Include skip links for navigation
-
-## Performance
-
-- Lazy load route components
-- Optimize images with WebP format
-- Use `@defer` for heavy components
-- Implement virtual scrolling for long lists
-
-```typescript
-// Lazy loading with @defer
-@Component({
-  template: `
-    @defer (on viewport) {
-      <app-heavy-component />
-    } @placeholder {
-      <div class="skeleton"></div>
-    } @loading (minimum 500ms) {
-      <app-spinner />
-    }
-  `,
-})
-export class PageComponent { }
-```
-
-## Summary
-
-1. Use **standalone components** exclusively
-2. Prefer **signals** over BehaviorSubject/observables for state
-3. Use **new control flow** syntax (@if, @for, @switch)
-4. Use **inject()** function for dependency injection
-5. Use **pnpm** as package manager
-6. Test with **Vitest**
-7. Follow **mobile-first** responsive design
-8. Ensure **accessibility** compliance
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
