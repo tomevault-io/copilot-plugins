@@ -1,85 +1,66 @@
-## import-ordering
+## react-apps
 
-> All imports in TypeScript/JavaScript files must follow this strict ordering:
+> This file applies to all React applications in the monorepo: `apps/app`, `apps/web`, and `apps/portal`.
 
 
-# Import Ordering Convention
+# React Applications Rules
 
-All imports in TypeScript/JavaScript files must follow this strict ordering:
+This file applies to all React applications in the monorepo: `apps/app`, `apps/web`, and `apps/portal`.
 
-1. **CSS and style files** - Stylesheet imports (e.g., `./index.css`, `@/styles/theme.css`, `.scss`, `.less`, `.sass`)
-2. **Node.js built-in modules** - Node.js core modules (e.g., `node:path`, `node:fs`, `node:url`)
-   - **REQUIRED**: All Node.js built-in modules MUST use the `node:` prefix (e.g., `node:path`, `node:fs`, `node:crypto`, `node:os`)
-   - **NEVER** use bare imports like `import path from "path"` - always use `import path from "node:path"`
-3. **React modules** - React and React-related packages (e.g., `react`, `react-dom`, `react-router`, `@react-oauth/google`, `@tanstack/react-query`)
-4. **External npm packages** - Other third-party packages (e.g., `zod`, `date-fns`, `lucide-react`, `@radix-ui/*`)
-5. **Lib modules** - Internal library functionality (`@/lib/*`)
-6. **Components modules** - React components (`@/components/*`)
-7. **Contexts modules** - React contexts (`@/contexts/*`)
-8. **Hooks modules** - Custom React hooks (`@/hooks/*`)
-9. **Schemas modules** - Zod validation schemas (`@/schemas/*`)
-10. **Types modules** - Type definitions (`@/types/*`)
-11. **Config** - Configuration files (`@/config`)
-12. **Relative imports** - Local file imports (`./`, `../`)
+## Tailwind Config Reference
 
-### Example
+- **ALWAYS reference the `tailwind.config.ts` file in the current app directory before creating or updating components**
+  - For `apps/app/`: reference `apps/app/tailwind.config.ts`
+  - For `apps/web/`: reference `apps/web/tailwind.config.ts`
+  - For `apps/portal/`: reference `apps/portal/tailwind.config.ts`
+  - Check available custom colors, animations, and design tokens defined in the config
+  - Use the predefined color palette (primary, secondary, destructive, muted, accent, etc.)
+  - Use custom background gradients (`gradient-page`, `gradient-button`, `gradient-title`) when appropriate
+  - Reference custom animations and keyframes if needed
+  - Ensure consistency with the existing design system
 
-```typescript
-// 1. CSS and style files
-import "./index.css";
-import "@/styles/theme.css";
+## React Query Hooks (where applicable)
 
-// 2. Node.js built-in modules
-import { readFileSync } from "node:fs";
+- **All `useQuery` hooks MUST be located in `src/hooks/queries/` or `src/hooks/`**
+  - Do not create inline `useQuery` calls in components or pages
+  - Create custom hooks in appropriate hook directories for all data fetching operations
+  - Export hooks from hook files and import them in components
 
-// 3. React modules
-// IMPORTANT: Always use named imports for React hooks (useState, useEffect, etc.)
-// NEVER use React.useState or React.useEffect - this causes production build errors
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
-import { useQuery } from "@tanstack/react-query";
+- **All `useMutation` hooks SHOULD be located in hook directories**
+  - Prefer creating mutation hooks in hook files for consistency
+  - Exceptions: Simple, component-specific mutations that don't need reuse can remain in components
+  - All server-related mutations (users, vhosts, queues, etc.) should be in hook files
 
-// 4. External npm packages
-import { z } from "zod";
-import { format } from "date-fns";
-import { Button } from "@radix-ui/react-button";
+- **Query hooks should:**
+  - Accept `serverId: string | null` when applicable
+  - Include `serverExists: boolean = true` parameter to prevent queries for deleted servers
+  - Handle query invalidation in `onSuccess` callbacks for mutations
+  - Use consistent query keys defined in `queryKeys` object
 
-// 5. Lib modules
-import { apiClient } from "@/lib/api";
-import { logger } from "@/lib/logger";
+- **Components should:**
+  - Import hooks from appropriate hook directories (`@/hooks/queries/` or `@/hooks/`)
+  - Handle UI-specific concerns (toast notifications, navigation, state updates) in components
+  - Pass `serverExists` validation to hooks when checking if server exists
 
-// 6. Components modules
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+## Component Structure
 
-// 7. Contexts modules
-import { useAuth } from "@/contexts/AuthContext";
+- **All React components should follow consistent patterns:**
+  - Use functional components with TypeScript
+  - Use hooks for state management and side effects
+  - Keep components focused and single-purpose
+  - Extract reusable logic into custom hooks
+  - Use proper TypeScript types for props and state
 
-// 8. Hooks modules
-import { useUser } from "@/hooks/useUser";
-import { useWorkspace } from "@/hooks/useWorkspace";
+## File Organization
 
-// 9. Schemas modules
-import { signUpSchema } from "@/schemas/forms";
-
-// 10. Types modules
-import { UserPlan } from "@/types/plans";
-
-// 11. Config
-import { config } from "@/config";
-
-// 12. Relative imports
-import { helperFunction } from "./utils";
-```
-
-### Enforcement
-
-This ordering is enforced by:
-
-- ESLint with `eslint-plugin-simple-import-sort`
-- Cursor rules (this file)
-
-Run `pnpm run lint:fix` to automatically fix import ordering.
+- **Follow the standard React app structure:**
+  - `src/components/` - Reusable UI components
+  - `src/pages/` - Page-level components
+  - `src/hooks/` - Custom React hooks
+  - `src/lib/` - Utility functions and helpers
+  - `src/contexts/` - React context providers
+  - `src/types/` - TypeScript type definitions
+  - `src/schemas/` - Zod validation schemas
 
 ---
 > Source: [getqarote/Qarote](https://github.com/getqarote/Qarote) — distributed by [TomeVault](https://tomevault.io).
