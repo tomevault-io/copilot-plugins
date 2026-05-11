@@ -7,15 +7,15 @@ Memory Mason automatically captures AI conversations and turns them into structu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [s-gryt/memory-mason](https://github.com/s-gryt/memory-mason).
+Original source: `.cursor/rules/*.mdc` in [s-gryt/memory-mason](https://github.com/s-gryt/memory-mason).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/s-gryt/memory-mason](https://github.com/s-gryt/memory-mason)
 
