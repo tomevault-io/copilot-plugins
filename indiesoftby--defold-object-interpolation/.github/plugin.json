@@ -1,0 +1,9 @@
+{
+  "name": "indiesoftby--defold-object-interpolation",
+  "displayName": "defold-object-interpolation",
+  "description": "Interpolate the position and rotation of a game object between fixed update steps.",
+  "version": "1.0.0",
+  "author": "indiesoftby",
+  "homepage": "https://github.com/indiesoftby/defold-object-interpolation",
+  "skills": []
+}
