@@ -1,0 +1,9 @@
+{
+  "name": "123jc-hu--del4rsvp",
+  "displayName": "DEL4RSVP",
+  "description": "This is the official implementation of the paper titled: DEL4RSVP: A Differentiable, Efficient, and Lightweight Framework for EEG-Based RSVP-BCIs",
+  "version": "1.0.0",
+  "author": "123jc-hu",
+  "homepage": "https://github.com/123jc-hu/DEL4RSVP",
+  "skills": []
+}
