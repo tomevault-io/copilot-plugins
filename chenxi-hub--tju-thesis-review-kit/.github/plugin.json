@@ -1,0 +1,9 @@
+{
+  "name": "chenxi-hub--tju-thesis-review-kit",
+  "displayName": "tju-thesis-review-kit",
+  "description": "Cursor, Codex, and Claude Code workflows, prompts, and a LaTeX starter template for reviewing Tianjin University undergraduate theses.",
+  "version": "1.0.0",
+  "author": "ChenXi-hub",
+  "homepage": "https://github.com/ChenXi-hub/tju-thesis-review-kit",
+  "skills": []
+}
