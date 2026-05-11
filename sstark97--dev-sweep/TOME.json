@@ -4,7 +4,7 @@
   "repo": "dev_sweep",
   "description": "CLI app to clean up your device for any trash data",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sstark97/dev_sweep",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T11:45:09Z"
+  "distributed_at": "2026-05-11T16:46:33Z"
 }
