@@ -4,7 +4,7 @@
   "repo": "ai-phone-agent",
   "description": "AI Phone Agent: A starter kit to build AI agents that answer real phone calls and talk to customers in real time (OpenAI Realtime). Node.js backend for Twilio & Amazon Connect - ship phone-first voice agents faster. Dial +1 (855) 522-2348 to try the demo.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bobbylkchao/ai-phone-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T20:59:14Z"
+  "distributed_at": "2026-05-11T17:02:00Z"
 }
