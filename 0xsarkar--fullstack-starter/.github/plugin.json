@@ -1,0 +1,9 @@
+{
+  "name": "0xsarkar--fullstack-starter",
+  "displayName": "fullstack-starter",
+  "description": "A Fullstack SaaS Starter Kit with Fastify Backend, React Frontend, and Admin Panel",
+  "version": "1.0.0",
+  "author": "0xSarkar",
+  "homepage": "https://github.com/0xSarkar/fullstack-starter",
+  "skills": []
+}
