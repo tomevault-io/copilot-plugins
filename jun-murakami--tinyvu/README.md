@@ -7,11 +7,11 @@ The most compact professional VU meter plugin available. for VST/AU/AAX/LV2/CLAP
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Jun-Murakami/TinyVU](https://github.com/Jun-Murakami/TinyVU).
+Original source: `CLAUDE.md` in [Jun-Murakami/TinyVU](https://github.com/Jun-Murakami/TinyVU).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
