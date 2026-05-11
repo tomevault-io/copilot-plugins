@@ -1,0 +1,9 @@
+{
+  "name": "tv-labs--bash",
+  "displayName": "bash",
+  "description": "Bash interpreter written in pure Elixir.  Execute shell scripts from Elixir with compile-time validation, persistent sessions, and the ability to extend Bash with Elixir functions.",
+  "version": "1.0.0",
+  "author": "tv-labs",
+  "homepage": "https://github.com/tv-labs/bash",
+  "skills": []
+}
