@@ -1,0 +1,9 @@
+{
+  "name": "daemonicai--teambuilder",
+  "displayName": "teambuilder",
+  "description": "Subagent team-building help for Claude Code",
+  "version": "1.0.0",
+  "author": "daemonicai",
+  "homepage": "https://github.com/daemonicai/teambuilder",
+  "skills": []
+}
