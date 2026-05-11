@@ -1,0 +1,9 @@
+{
+  "name": "wandb--catnip",
+  "displayName": "catnip",
+  "description": "Like catnip, a highly addictive agentic coding tool",
+  "version": "1.0.0",
+  "author": "wandb",
+  "homepage": "https://github.com/wandb/catnip",
+  "skills": []
+}
