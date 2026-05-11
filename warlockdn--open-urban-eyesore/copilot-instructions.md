@@ -1,42 +1,36 @@
-## frontend-structure
+## project-overview
 
-> The UI is built with Next.js 15 using the App Router pattern.
+> This is a full-stack Bengaluru map application with a Next.js frontend and Cloudflare Workers API backend.
 
-# Frontend Structure Guide
+# Bengaluru Map Project Overview
 
-The UI is built with Next.js 15 using the App Router pattern.
-Uses shadcn library.
+This is a full-stack Bengaluru map application with a Next.js frontend and Cloudflare Workers API backend.
 
-## Key Files
-- **Entry Point**: [page.tsx](mdc:ui/app/page.tsx) - Main application page
-- **Layout**: [layout.tsx](mdc:ui/app/layout.tsx) - Root layout with theme provider
-- **Main Component**: [map-screen.tsx](mdc:ui/components/map-screen.tsx) - Core map interface
-- **Theme Provider**: [theme-provider.tsx](mdc:ui/components/theme-provider.tsx) - Dark/light theme support
-- **Global Styles**: [globals.css](mdc:ui/app/globals.css) - Tailwind base styles
+## Architecture
+- **Frontend**: Next.js 15 with React 19, TypeScript, Tailwind CSS, and shadcn/ui components
+- **Backend**: Cloudflare Workers with Hono framework and OpenAPI integration
+- **Map Library**: React Leaflet for interactive mapping
+- **Styling**: Tailwind CSS with custom components and themes
 
-## Directory Structure
-- `ui/app/` - Next.js App Router pages and layouts
-- `ui/components/` - React components
-- `ui/components/ui/` - shadcn/ui reusable components
-- `ui/hooks/` - Custom React hooks
-- `ui/lib/` - Utility functions and configurations
-- `ui/public/` - Static assets
-- `ui/styles/` - Additional stylesheets
+## Key Technologies
+- **UI Framework**: Next.js 15 (App Router), React 19
+- **Map Integration**: Leaflet + React Leaflet for interactive maps
+- **UI Components**: shadcn/ui with Radix UI primitives
+- **Styling**: Tailwind CSS with custom animations
+- **Backend**: Cloudflare Workers, Hono, Chanfana (OpenAPI)
+- **Type Safety**: TypeScript throughout, Zod for validation
+- **Package Manager**: pnpm
 
-## Configuration Files
-- [package.json](mdc:ui/package.json) - Dependencies and scripts
-- [next.config.mjs](mdc:ui/next.config.mjs) - Next.js configuration
-- [tailwind.config.ts](mdc:ui/tailwind.config.ts) - Tailwind CSS configuration
-- [tsconfig.json](mdc:ui/tsconfig.json) - TypeScript configuration
-- [components.json](mdc:ui/components.json) - shadcn/ui configuration
+## Project Structure
+- `ui/` - Next.js frontend application
+- `api/` - Cloudflare Workers backend API
+- Main map component: [map-screen.tsx](mdc:ui/components/map-screen.tsx)
+- API endpoints in [api/src/endpoints/](mdc:api/src/endpoints)
 
-## Map Features
-The main map component includes:
-- Multiple tile layer options (Street, Satellite, Terrain, Dark, Light, Watercolor)
-- Zoom controls and reset functionality
-- Responsive design with mobile-friendly UI
-- Loading states and error handling
-- Bengaluru-centered default view (12.9716, 77.5946)
+## Development Commands
+- Frontend: `cd ui && pnpm dev`
+- Backend: `cd api && pnpm dev`
+- Deploy API: `cd api && pnpm deploy`
 
 ---
 > Source: [warlockdn/open-urban-eyesore](https://github.com/warlockdn/open-urban-eyesore) — distributed by [TomeVault](https://tomevault.io).
