@@ -1,0 +1,29 @@
+## tsumiki
+
+> 微分音対応のバーチャルアナログ・FMシンセサイザーを提供する VST3 プラグインです。
+
+# Tsumiki
+
+## ソフトウェア概要
+
+微分音対応のバーチャルアナログ・FMシンセサイザーを提供する VST3 プラグインです。
+NPlug ライブラリを使って作られています。
+
+## 基本コーディングルール
+
+- YOU MUST: コメントは日本語で書く
+- IMPORTANT: Microsoft が提唱する、標準的な C#14 のコーディングフォーマットに従う
+- IMPORTANT: 実装完了時に `dotnet build {プロジェクト名}.csproj` を実行し、エラー・警告がないことを確認する
+  - エラー・警告がある場合は必ず修正する。コンパイラーシンボルによる抑制は禁止
+
+## テストコーディングルール
+
+- テストファイルは、 `Tsumiki.Test/{名前空間}/{テスト対象の型名}Test.cs` に配置する
+    - 上記の名前空間は、型が属する名前空間の先頭から `Tsumiki` を除いたものである
+    - 名前空間とディレクトリは対応する (例: `Tsumiki.Core.Event` -> `Core/Event/`)
+- テストクラスは static とし、その型名はファイル名と同一にする
+- テストメソッド名は `{テスト対象のメソッド名}_{日本語によるテストの説明}` とする
+
+---
+> Source: [mino-ri/Tsumiki](https://github.com/mino-ri/Tsumiki) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-30 -->
