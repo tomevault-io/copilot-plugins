@@ -1,0 +1,9 @@
+{
+  "name": "scottgal--lucidrag",
+  "displayName": "lucidrag",
+  "description": "A full RAG (Retrieval Augmented Generation) system featuring a low friction GraphRAG and conversational interface on documents.",
+  "version": "1.0.0",
+  "author": "scottgal",
+  "homepage": "https://github.com/scottgal/lucidrag",
+  "skills": []
+}
