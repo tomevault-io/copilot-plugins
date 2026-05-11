@@ -1,0 +1,9 @@
+{
+  "name": "tumf--conflux",
+  "displayName": "conflux",
+  "description": "\ud83d\ude80 Spec-driven parallel coding orchestrator for AI agents | Automates OpenSpec changes with concurrent worktrees",
+  "version": "1.0.0",
+  "author": "tumf",
+  "homepage": "https://github.com/tumf/conflux",
+  "skills": []
+}
