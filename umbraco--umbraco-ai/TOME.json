@@ -1,0 +1,87 @@
+{
+  "name": "Umbraco.AI",
+  "owner": "umbraco",
+  "repo": "Umbraco.AI",
+  "description": " AI integration layer for Umbraco CMS, built on Microsoft.Extensions.AI. ",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "changelog-management",
+      "path": ".claude/skills/changelog-management",
+      "github_url": "https://github.com/umbraco/Umbraco.AI/tree/main/.claude/skills/changelog-management",
+      "description": ""
+    },
+    {
+      "name": "demo-site-automation",
+      "path": ".claude/skills/demo-site-automation",
+      "github_url": "https://github.com/umbraco/Umbraco.AI/tree/main/.claude/skills/demo-site-automation",
+      "description": ""
+    },
+    {
+      "name": "demo-site-management",
+      "path": ".claude/skills/demo-site-management",
+      "github_url": "https://github.com/umbraco/Umbraco.AI/tree/main/.claude/skills/demo-site-management",
+      "description": ""
+    },
+    {
+      "name": "release-manifest-management",
+      "path": ".claude/skills/release-manifest-management",
+      "github_url": "https://github.com/umbraco/Umbraco.AI/tree/main/.claude/skills/release-manifest-management",
+      "description": ""
+    },
+    {
+      "name": "repo-setup",
+      "path": ".claude/skills/repo-setup",
+      "github_url": "https://github.com/umbraco/Umbraco.AI/tree/main/.claude/skills/repo-setup",
+      "description": ""
+    },
+    {
+      "name": "session-hook-config",
+      "path": ".claude/skills/session-hook-config",
+      "github_url": "https://github.com/umbraco/Umbraco.AI/tree/main/.claude/skills/session-hook-config",
+      "description": ""
+    },
+    {
+      "name": "web-environment-setup",
+      "path": ".claude/skills/web-environment-setup",
+      "github_url": "https://github.com/umbraco/Umbraco.AI/tree/main/.claude/skills/web-environment-setup",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/umbraco/Umbraco.AI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T10:32:06Z"
+}
