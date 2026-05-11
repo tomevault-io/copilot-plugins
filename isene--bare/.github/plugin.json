@@ -1,0 +1,9 @@
+{
+  "name": "isene--bare",
+  "displayName": "bare",
+  "description": "Interactive shell in x86_64 Linux assembly. No libc, no runtime, pure syscalls.",
+  "version": "1.0.0",
+  "author": "isene",
+  "homepage": "https://github.com/isene/bare",
+  "skills": []
+}
