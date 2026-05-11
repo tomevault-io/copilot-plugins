@@ -4,7 +4,7 @@
   "repo": "web-sqlite-js",
   "description": "web-sqlite-js is a friendly, out-of-the-box SQLite database for the web that makes persistent client-side storage simple for every developer.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wuchuheng/web-sqlite-js",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T02:52:13Z"
+  "distributed_at": "2026-05-11T20:23:24Z"
 }
