@@ -1,0 +1,9 @@
+{
+  "name": "jamf-concepts--jamf-cli",
+  "displayName": "jamf-cli",
+  "description": "Unified CLI for the Jamf Platform",
+  "version": "1.0.0",
+  "author": "Jamf-Concepts",
+  "homepage": "https://github.com/Jamf-Concepts/jamf-cli",
+  "skills": []
+}
