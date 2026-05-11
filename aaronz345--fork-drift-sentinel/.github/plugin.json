@@ -1,0 +1,9 @@
+{
+  "name": "aaronz345--fork-drift-sentinel",
+  "displayName": "fork-drift-sentinel",
+  "description": "Read-only GitHub fork drift dashboard and local rebase risk analyzer",
+  "version": "1.0.0",
+  "author": "AaronZ345",
+  "homepage": "https://github.com/AaronZ345/fork-drift-sentinel",
+  "skills": []
+}
