@@ -1,0 +1,9 @@
+{
+  "name": "niqibiao--unity-cli-plugin",
+  "displayName": "unity-cli-plugin",
+  "description": "Claude Code / Codex plugin for Unity \u2014 AI-driven scene editing, GameObject/Component manipulation, profiling, and C# REPL via 40+ built-in commands. Works with any Unity 2022.3+ project.",
+  "version": "1.0.0",
+  "author": "niqibiao",
+  "homepage": "https://github.com/niqibiao/unity-cli-plugin",
+  "skills": []
+}
