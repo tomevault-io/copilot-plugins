@@ -1,0 +1,9 @@
+{
+  "name": "amrxtgh69--bytesurgeon",
+  "displayName": "ByteSurgeon",
+  "description": "Surgical JVM performance monitoring: Patch bytecode, hook agents, visualize hotspot and ofc no source code touched!",
+  "version": "1.0.0",
+  "author": "amrxtgh69",
+  "homepage": "https://github.com/amrxtgh69/ByteSurgeon",
+  "skills": []
+}
