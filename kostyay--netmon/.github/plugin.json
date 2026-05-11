@@ -1,0 +1,9 @@
+{
+  "name": "kostyay--netmon",
+  "displayName": "netmon",
+  "description": "TUI network monitor - live connections grouped by process, with search, sorting, and process management",
+  "version": "1.0.0",
+  "author": "kostyay",
+  "homepage": "https://github.com/kostyay/netmon",
+  "skills": []
+}
