@@ -1,0 +1,9 @@
+{
+  "name": "volcov--let-it-crash",
+  "displayName": "let_it_crash",
+  "description": "A testing library for crash recovery and OTP supervision behavior.",
+  "version": "1.0.0",
+  "author": "volcov",
+  "homepage": "https://github.com/volcov/let_it_crash",
+  "skills": []
+}
