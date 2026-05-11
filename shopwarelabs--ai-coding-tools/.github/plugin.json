@@ -1,0 +1,9 @@
+{
+  "name": "shopwarelabs--ai-coding-tools",
+  "displayName": "ai-coding-tools",
+  "description": "Claude Code plugin marketplace for Shopware development. Provides MCP servers, skills, agents, hooks, and commands to integrate development tools directly into your AI coding workflow.",
+  "version": "1.0.0",
+  "author": "shopwareLabs",
+  "homepage": "https://github.com/shopwareLabs/ai-coding-tools",
+  "skills": []
+}
