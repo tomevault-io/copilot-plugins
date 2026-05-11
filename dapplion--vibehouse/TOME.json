@@ -4,7 +4,7 @@
   "repo": "vibehouse",
   "description": "~vibehouse~ is a community-driven Ethereum consensus client. Same rock-solid Lighthouse core, but we ship faster, break things sometimes, and accept feature requests from literally anyone.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dapplion/vibehouse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T08:43:40Z"
+  "distributed_at": "2026-05-11T14:50:36Z"
 }
