@@ -1,0 +1,9 @@
+{
+  "name": "webmcp-org--examples",
+  "displayName": "examples",
+  "description": "MCP-B Examples - Browser-native Model Context Protocol implementations",
+  "version": "1.0.0",
+  "author": "WebMCP-org",
+  "homepage": "https://github.com/WebMCP-org/examples",
+  "skills": []
+}
