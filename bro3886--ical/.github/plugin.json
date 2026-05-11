@@ -1,0 +1,9 @@
+{
+  "name": "bro3886--ical",
+  "displayName": "ical",
+  "description": "A fast, ai-native macOS Calendar CLI built on go-eventkit",
+  "version": "1.0.0",
+  "author": "BRO3886",
+  "homepage": "https://github.com/BRO3886/ical",
+  "skills": []
+}
