@@ -1,0 +1,9 @@
+{
+  "name": "nutlope--open-deep-research",
+  "displayName": "open-deep-research",
+  "description": "The Open Deep Research app \u2013 generate reports with OSS LLMs",
+  "version": "1.0.0",
+  "author": "Nutlope",
+  "homepage": "https://github.com/Nutlope/open-deep-research",
+  "skills": []
+}
