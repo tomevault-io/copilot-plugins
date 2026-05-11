@@ -118,6 +118,5 @@ tsbridge/
 - All checks must pass before merging
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/jtdowney)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/jtdowney)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [jtdowney/tsbridge](https://github.com/jtdowney/tsbridge) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
