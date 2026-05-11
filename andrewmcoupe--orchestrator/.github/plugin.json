@@ -1,0 +1,9 @@
+{
+  "name": "andrewmcoupe--orchestrator",
+  "displayName": "orchestrator",
+  "description": "An event-sourced task orchestrator for AI-assisted software development. Breaks PRDs into tasks, runs them through configurable phases (test-author, implementer, auditor), manages git worktrees, and m",
+  "version": "1.0.0",
+  "author": "andrewmcoupe",
+  "homepage": "https://github.com/andrewmcoupe/orchestrator",
+  "skills": []
+}
