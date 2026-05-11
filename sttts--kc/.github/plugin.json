@@ -1,0 +1,9 @@
+{
+  "name": "sttts--kc",
+  "displayName": "kc",
+  "description": "Kubernetes Commander",
+  "version": "1.0.0",
+  "author": "sttts",
+  "homepage": "https://github.com/sttts/kc",
+  "skills": []
+}
