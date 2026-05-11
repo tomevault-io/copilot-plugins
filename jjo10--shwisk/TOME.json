@@ -4,7 +4,7 @@
   "repo": "shwisk",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jjo10/shwisk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T10:20:07Z"
+  "distributed_at": "2026-05-11T03:48:55Z"
 }
