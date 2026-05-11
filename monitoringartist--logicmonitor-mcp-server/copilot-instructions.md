@@ -1,38 +1,21 @@
-## coding
+## mcp
 
-> npm run build        # Build ESM and CJS versions
+> Folow MCP specification:
 
+--
+alwaysApply: true
+---
 
-# MCP TypeScript SDK Guide
+Folow MCP specification:
+https://modelcontextprotocol.io/docs/getting-started/intro
+https://modelcontextprotocol.io/docs/learn/architecture
+https://modelcontextprotocol.io/docs/learn/server-concepts
+https://modelcontextprotocol.io/docs/learn/client-concepts
+https://modelcontextprotocol.io/docs/develop/build-server
+https://modelcontextprotocol.io/specification/draft/basic/authorization
 
-## Build & Test Commands
-
-```sh
-npm run build        # Build ESM and CJS versions
-npm run lint         # Run ESLint
-npm test             # Run all tests
-npx jest path/to/file.test.ts  # Run specific test file
-npx jest -t "test name"        # Run tests matching pattern
-```
-
-## Code Style Guidelines
-
-- **TypeScript**: Strict type checking, ES modules, explicit return types
-- **Naming**: PascalCase for classes/types, camelCase for functions/variables
-- **Files**: Lowercase with hyphens, test files with `.test.ts` suffix
-- **Imports**: ES module style, include `.js` extension, group imports logically
-- **Error Handling**: Use TypeScript's strict mode, explicit error checking in tests
-- **Formatting**: 2-space indentation, semicolons required, single quotes preferred
-- **Testing**: Co-locate tests with source files, use descriptive test names
-- **Comments**: JSDoc for public APIs, inline comments for complex logic
-
-## Project Structure
-
-- `/src`: Source code with client, server, and shared modules
-- Tests alongside source files with `.test.ts` suffix
-- Node.js >= 18 required
-
-Run nmp run lint, npm run test, npm run build after implementation. Improve implementation if these tests are failing.
+Use Typescript SDK:
+https://github.com/modelcontextprotocol/typescript-sdk
 
 ---
 > Source: [monitoringartist/logicmonitor-mcp-server](https://github.com/monitoringartist/logicmonitor-mcp-server) — distributed by [TomeVault](https://tomevault.io).
