@@ -7,13 +7,13 @@ Gateway for routing coding agent requests across multiple chat platforms with wo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [its-ahoh/codey](https://github.com/its-ahoh/codey).
+Original source: `CLAUDE.md` in [its-ahoh/codey](https://github.com/its-ahoh/codey).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
