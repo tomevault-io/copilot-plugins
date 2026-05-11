@@ -7,11 +7,11 @@ Tool for making it easy to work with lots of AI agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Broomy-AI/broomy](https://github.com/Broomy-AI/broomy).
+Original source: `CLAUDE.md` in [Broomy-AI/broomy](https://github.com/Broomy-AI/broomy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
