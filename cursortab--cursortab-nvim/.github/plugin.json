@@ -1,0 +1,9 @@
+{
+  "name": "cursortab--cursortab-nvim",
+  "displayName": "cursortab.nvim",
+  "description": "Neovim edit completion plugin",
+  "version": "1.0.0",
+  "author": "cursortab",
+  "homepage": "https://github.com/cursortab/cursortab.nvim",
+  "skills": []
+}
