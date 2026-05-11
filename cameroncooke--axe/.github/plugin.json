@@ -1,0 +1,9 @@
+{
+  "name": "cameroncooke--axe",
+  "displayName": "AXe",
+  "description": "AXe is a CLI tool for interacting with Simulators using Apple's Private Accessibility APIs.",
+  "version": "1.0.0",
+  "author": "cameroncooke",
+  "homepage": "https://github.com/cameroncooke/AXe",
+  "skills": []
+}
