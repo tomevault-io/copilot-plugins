@@ -1,0 +1,26 @@
+## instructions
+
+> * Run standardrb --fix-unsafely on any .rb file you create or make edits to
+
+
+## Linting
+
+* Run standardrb --fix-unsafely on any .rb file you create or make edits to
+
+
+## Commit message titles
+
+* Do not use feat/chore prefixes for commit message titles
+
+## Type definitions
+
+* Do not update type definitions (rbi and rbs files) they get updated automatically on every gem build
+
+## Comments
+
+* Add generous YARD comments to the public methods you add. Add type definitions for parameters and return values
+* Specify @return [void] for methods that return no value / undefined value
+
+---
+> Source: [julik/scatter_gather](https://github.com/julik/scatter_gather) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-08 -->
