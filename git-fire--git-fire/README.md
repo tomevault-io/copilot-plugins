@@ -7,11 +7,11 @@ git-fire - the all-in-one repository lifecycle management tool
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [git-fire/git-fire](https://github.com/git-fire/git-fire).
+Original source: `CLAUDE.md` in [git-fire/git-fire](https://github.com/git-fire/git-fire).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
