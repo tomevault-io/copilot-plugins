@@ -1,0 +1,9 @@
+{
+  "name": "sendspin--sendspin-js",
+  "displayName": "sendspin-js",
+  "description": "TypeScript client library implementing the Sendspin Protocol",
+  "version": "1.0.0",
+  "author": "Sendspin",
+  "homepage": "https://github.com/Sendspin/sendspin-js",
+  "skills": []
+}
