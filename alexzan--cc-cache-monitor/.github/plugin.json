@@ -1,0 +1,9 @@
+{
+  "name": "alexzan--cc-cache-monitor",
+  "displayName": "cc-cache-monitor",
+  "description": "Diagnostic statusline extension for Claude Code that surfaces prompt-cache health in real time. Detects flush events from the cache invalidation bug.",
+  "version": "1.0.0",
+  "author": "AlexZan",
+  "homepage": "https://github.com/AlexZan/cc-cache-monitor",
+  "skills": []
+}
