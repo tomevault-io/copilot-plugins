@@ -4,7 +4,7 @@
   "repo": "dbflux",
   "description": "A fast, keyboard-first database client built with Rust and GPUI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/0xErwin1/dbflux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T05:54:40Z"
+  "distributed_at": "2026-05-11T19:39:52Z"
 }
