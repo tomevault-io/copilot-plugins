@@ -1,0 +1,9 @@
+{
+  "name": "deh40--clouddrop",
+  "displayName": "CloudDrop",
+  "description": "A modern, secure peer-to-peer file sharing tool built on Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "DeH40",
+  "homepage": "https://github.com/DeH40/CloudDrop",
+  "skills": []
+}
