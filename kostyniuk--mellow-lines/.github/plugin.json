@@ -1,0 +1,9 @@
+{
+  "name": "kostyniuk--mellow-lines",
+  "displayName": "mellow-lines",
+  "description": "A web app for creating animated videos of code morphing between steps. Paste code snippets, configure syntax highlighting and export smooth token-level transitions as WebM/MP4 videos.",
+  "version": "1.0.0",
+  "author": "kostyniuk",
+  "homepage": "https://github.com/kostyniuk/mellow-lines",
+  "skills": []
+}
