@@ -1,0 +1,9 @@
+{
+  "name": "amd-agi--maxtext-slurm",
+  "displayName": "maxtext-slurm",
+  "description": "Toolkit for launching and observing MaxText training on Slurm-managed GPU clusters",
+  "version": "1.0.0",
+  "author": "AMD-AGI",
+  "homepage": "https://github.com/AMD-AGI/maxtext-slurm",
+  "skills": []
+}
