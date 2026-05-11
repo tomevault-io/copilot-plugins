@@ -1,0 +1,9 @@
+{
+  "name": "ben-vargas--ai-sdk-provider-claude-code",
+  "displayName": "ai-sdk-provider-claude-code",
+  "description": "Vercel AI SDK community provider for Claude Agent SDK",
+  "version": "1.0.0",
+  "author": "ben-vargas",
+  "homepage": "https://github.com/ben-vargas/ai-sdk-provider-claude-code",
+  "skills": []
+}
