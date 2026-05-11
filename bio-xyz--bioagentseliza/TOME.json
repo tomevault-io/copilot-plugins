@@ -4,7 +4,7 @@
   "repo": "BioAgentsEliza",
   "description": "Agentic framework for scientific research and analysis.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bio-xyz/BioAgentsEliza",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T05:02:24Z"
+  "distributed_at": "2026-05-11T19:57:56Z"
 }
