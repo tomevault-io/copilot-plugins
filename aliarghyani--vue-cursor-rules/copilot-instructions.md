@@ -1,74 +1,121 @@
-## readme
+## api-integration
 
-> Vue 3 Cursor Rules - Practical development patterns
+> API integration patterns and data fetching
 
+# API Integration
 
-# Vue 3 Cursor Rules
+**Role:** You are a Vue 3 expert specializing in API integration and data fetching patterns.
 
-Practical, concise rules for Vue 3 development using Composition API.
+**Core Rules:**
+- Use typed API services with error handling
+- Create reusable `useFetch` composables
+- Handle loading, error, and success states
+- Leverage TypeScript for API responses
+- Separate API logic from component logic
 
-## Available Rules
+**Chain-of-Thought:** Think step-by-step: 1. Design API interface 2. Create typed service 3. Build composable wrapper 4. Integrate with component
 
-### Core Patterns
-- `vue-fundamentals.mdc` - Essential Vue 3 Composition API patterns
-- `composables.mdc` - Reusable composition functions
-- `pinia-stores.mdc` - State management with Pinia
-- `vue-router.mdc` - Navigation and routing
-- `typescript-patterns.mdc` - TypeScript integration
-- `tailwind-patterns.mdc` - Tailwind CSS styling patterns
+**Note:** These patterns are UI-framework neutral; adapt UI components while preserving data fetching logic.
 
-### Development Workflow
-- `component-testing.mdc` - Testing with Vitest and Vue Test Utils
-- `form-handling.mdc` - Form validation and submission
-- `api-integration.mdc` - Data fetching and API services
-- `project-structure.mdc` - Directory organization
-- `prompt-guide.mdc` - Prompt engineering tips for rule creation
-- `ui-kits-guide.mdc` - Integration guide for popular UI frameworks
+## Workflow Chain: Build API Integration
 
-## Features
+**Full Task:** Create a user list with API fetching and error handling.
 
-- **Context-aware**: Rules activate based on file patterns and content
-- **Non-restrictive**: Provides guidance without limiting creativity
-- **Practical**: Real working code examples
-- **Modern**: Focuses on Vue 3.4+ and Composition API
-- **Modular**: Inspired by prompt engineering for AI-controllable outputs
-- **UI-Framework Flexible**: Works with vanilla Vue or any UI kit (Vuetify, Quasar, Tailwind, etc.)
+**Step 1:** Define API service
+```typescript
+// services/userApi.ts
+export const userApi = {
+  getUsers: () => api.get<User[]>('/users'),
+  getUser: (id: number) => api.get<User>(`/users/${id}`)
+}
+```
 
-## UI Kit Compatibility
+**Step 2:** Create data composable
+```typescript
+// composables/useUsers.ts
+export function useUsers() {
+  const { data: users, loading, error, execute } = useFetch<User[]>('/users')
+  return { users, loading, error, refetch: execute }
+}
+```
 
-Rules work with any UI framework (vanilla, Tailwind, or component libraries like Vuetify/Quasar). No lock-in -- core Vue patterns remain framework-neutral while templates adapt. See `ui-kits-guide.mdc` for integration examples.
+**Step 3:** Wire the composable into the component (see `Usage in Components` below for a template example).
 
-**Quick-start examples:**
-- **Vuetify:** `npm install vuetify` -> adapt rules as shown in guide
-- **Quasar:** `quasar create` -> use with existing composable patterns
-- **Tailwind:** Works alongside for custom styling or as primary framework
+## UI Kit Adaptations
 
-## Cursor Model Tips
+**Data fetching composables remain identical--only loading/error UI changes:**
 
-For lighter models, shorten examples in rules. Test workflow chains for consistency. See `prompt-guide.mdc` for customization tips.
+- **Tailwind UI:** Custom loading states with utilities
+  ```vue
+  <div v-if="loading" class="flex items-center justify-center p-4">
+    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+  </div>
+  <div v-else-if="error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+    {{ error }}
+  </div>
+  ```
 
-## Quantitative Metrics
+- **Vuetify:** Material progress and alerts
+  ```vue
+  <v-progress-circular v-if="loading" indeterminate color="primary" />
+  <v-alert v-else-if="error" type="error">{{ error }}</v-alert>
+  <v-list v-else>
+    <v-list-item v-for="user in users" :key="user.id">{{ user.name }}</v-list-item>
+  </v-list>
+  ```
 
-- **13 files**, ~40.6KB total (via scripts/measure-tokens.mjs)
-- **Modular structure** with role-based headers
-- **UI kit flexible** - works with 90%+ of Vue component libraries
-- **Workflow chains** in key files for step-by-step guidance
-- **Context-aware activation** reduces noise by 60%
-- **Compatible** with Vue 3.4+ and top UI frameworks (Vuetify, Quasar, Element Plus, Tailwind UI)
+- **Quasar:** Mobile-friendly loading and notifications
+  ```vue
+  <q-spinner v-if="loading" color="primary" size="3em" />
+  <q-banner v-else-if="error" class="text-white bg-red">{{ error }}</q-banner>
+  ```
 
-## Usage
+- **Element Plus:** Rich data display components
+  ```vue
+  <el-loading v-if="loading" />
+  <el-alert v-else-if="error" type="error">{{ error }}</el-alert>
+  <el-table v-else :data="users">
+    <el-table-column prop="name" label="Name" />
+  </el-table>
+  ```
 
-Rules automatically activate when working with relevant files:
-- `.vue` files -> Vue fundamentals
-- `/composables` -> Composables patterns
-- `/stores` -> Pinia patterns
-- `.test.ts` -> Testing patterns
-- `tailwind.config.*` -> Tailwind patterns
-- UI kit files -> Framework-specific adaptations (see ui-kits-guide.mdc)
+*Remember: `useFetch` composable and API service logic stay identical across all frameworks. See ui-kits-guide.mdc for complete patterns.*
 
----
+## API Service Pattern
 
-*Efficient development assistance for Vue 3 projects*
+- Centralize base URL, headers, and JSON parsing in a dedicated service.
+- Expose typed helpers (`get`, `post`, `put`, `delete`) that delegate to a private `request`.
+- See `examples/api-service.ts` for the full implementation used by these rules.
+
+## Data Fetching Composable
+
+- Wrap API calls in a composable that returns `{ data, loading, error, execute }`.
+- Reset error/loading state before each request and support optional lazy execution.
+- Complete sample: `examples/use-fetch.ts`.
+
+```typescript
+const { data, loading, error, execute } = useFetch<User[]>('/users')
+```
+
+## Usage in Components
+
+```vue
+<script setup lang="ts">
+import { useFetch } from '@/composables/useFetch'
+
+const { data: users, loading, error } = useFetch<User[]>('/users')
+</script>
+
+<template>
+  <div>
+    <div v-if="loading">Loading users...</div>
+    <div v-else-if="error" class="text-red-600">{{ error }}</div>
+    <ul v-else-if="users">
+      <li v-for="user in users" :key="user.id">{{ user.name }}</li>
+    </ul>
+  </div>
+</template>
+```
 
 ---
 > Source: [aliarghyani/vue-cursor-rules](https://github.com/aliarghyani/vue-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
