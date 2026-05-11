@@ -1,0 +1,9 @@
+{
+  "name": "andycappdev--tuxbox",
+  "displayName": "tuxbox",
+  "description": "Linux driver for all TourBox models - Native feel with USB, Bluetooth, haptics and graphical configuration GUI.",
+  "version": "1.0.0",
+  "author": "AndyCappDev",
+  "homepage": "https://github.com/AndyCappDev/tuxbox",
+  "skills": []
+}
