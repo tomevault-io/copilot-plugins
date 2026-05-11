@@ -1,0 +1,9 @@
+{
+  "name": "geobond13--fiction-forge",
+  "displayName": "fiction-forge",
+  "description": "Prose pattern scanner + MCP context server for editing AI-assisted novels. Detects 24 AI writing fingerprints. Battle-tested on 286k words.",
+  "version": "1.0.0",
+  "author": "geobond13",
+  "homepage": "https://github.com/geobond13/fiction-forge",
+  "skills": []
+}
