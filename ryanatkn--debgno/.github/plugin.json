@@ -1,0 +1,9 @@
+{
+  "name": "ryanatkn--debgno",
+  "displayName": "debgno",
+  "description": "minimal Debian 13 desktop with GNOME and Wayland",
+  "version": "1.0.0",
+  "author": "ryanatkn",
+  "homepage": "https://github.com/ryanatkn/debgno",
+  "skills": []
+}
