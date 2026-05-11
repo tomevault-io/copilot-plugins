@@ -1,35 +1,30 @@
-## zod
+## qauth
 
-> Zod v4 validators—use standalone format validators, not z.string().email() etc. See https://zod.dev/api for full list.
+> <!-- nx configuration start-->
 
+<!-- nx configuration start-->
+<!-- Leave the start & end comments to automatically receive updates. -->
 
-# Zod v4 (QAuth)
+# General Guidelines for working with Nx
 
-This project uses **Zod v4**. Many format validators are **standalone functions**, not string methods.
+- For navigating/exploring the workspace, invoke the `nx-workspace` skill first - it has patterns for querying projects, targets, and dependencies
+- When running tasks (for example build, lint, test, e2e, etc.), always prefer running the task through `nx` (i.e. `nx run`, `nx run-many`, `nx affected`) instead of using the underlying tooling directly
+- Prefix nx commands with the workspace's package manager (e.g., `pnpm nx build`, `npm exec nx test`) - avoids using globally installed CLI
+- You have access to the Nx MCP server and its tools, use them to help the user
+- For Nx plugin best practices, check `node_modules/@nx/<plugin>/PLUGIN.md`. Not all plugins have this file - proceed without it if unavailable.
+- NEVER guess CLI flags - always check nx_docs or `--help` first when unsure
 
-## Standalone validators (do not use deprecated form)
+## Scaffolding & Generators
 
-| Use         | Not                  |
-| ----------- | -------------------- |
-| `z.email()` | `z.string().email()` |
-| `z.uuid()`  | `z.string().uuid()`  |
-| `z.url()`   | `z.string().url()`   |
+- For scaffolding tasks (creating apps, libs, project structure, setup), ALWAYS invoke the `nx-generate` skill FIRST before exploring or calling MCP tools
 
-Optional error message: `z.email('Invalid email format')`, `z.uuid('Invalid realm ID format')`, `z.url('Must be a valid URL')`.
+## When to use nx_docs
 
-## More string formats (Zod v4)
+- USE for: advanced config options, unfamiliar flags, migration guides, plugin configuration, edge cases
+- DON'T USE for: basic generator syntax (`nx g @nx/react:app`), standard commands, things you already know
+- The `nx-generate` skill handles generator discovery internally - don't call nx_docs just to look up generator syntax
 
-Also standalone: `z.httpUrl()`, `z.hostname()`, `z.jwt()`, `z.iso.date()`, `z.iso.datetime()`, `z.ipv4()`, `z.ipv6()`, `z.hex()`, `z.base64()`, etc. See [zod.dev/api](https://zod.dev/api) under "String formats."
-
-## Types from schemas
-
-```typescript
-export type RequestType = z.infer<typeof requestSchema>;
-```
-
-## Rule
-
-Do **not** use deprecated validators like `z.string().email()`, `z.string().uuid()`, or `z.string().url()`. If you learn another Zod v4 standalone validator, use it consistently and do not fall back to the old string-method form.
+<!-- nx configuration end-->
 
 ---
 > Source: [qauth-labs/qauth](https://github.com/qauth-labs/qauth) — distributed by [TomeVault](https://tomevault.io).
