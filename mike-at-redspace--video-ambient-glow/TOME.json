@@ -1,0 +1,44 @@
+{
+  "name": "video-ambient-glow",
+  "owner": "mike-at-redspace",
+  "repo": "video-ambient-glow",
+  "description": "YouTube-style ambient glow effects for HTML5 video. Zero dependencies, ~5.8KB minified, TypeScript support, smooth color-reactive backdrop.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mike-at-redspace/video-ambient-glow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T01:31:31Z"
+}
