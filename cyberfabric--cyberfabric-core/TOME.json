@@ -4,7 +4,7 @@
   "repo": "cyberfabric-core",
   "description": "All-in-one open-source platform for enterprise-grade multi-tenant and multi-tier SaaS Services development",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cyberfabric/cyberfabric-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T13:45:03Z"
+  "distributed_at": "2026-05-11T23:20:49Z"
 }
