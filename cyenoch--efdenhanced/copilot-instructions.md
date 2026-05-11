@@ -1,47 +1,20 @@
-## csharp-style
+## extracted-assets
 
-> - **类名**: PascalCase (例: `QuestTrackingManager`)
+> - `extracted_assets/Assets/Scenes/` - 关卡数据
 
-# C# 代码风格规范
+# 游戏资源指引
 
-## 命名约定
-- **类名**: PascalCase (例: `QuestTrackingManager`)
-- **方法名**: PascalCase (例: `UpdateQuestDisplay`)
-- **私有字段**: camelCase 或 _camelCase (例: `_logger`, `isEnabled`)
-- **公共属性**: PascalCase (例: `IsEnabled`)
-- **常量**: PascalCase 或 UPPER_CASE (例: `MaxRetries` 或 `MAX_RETRIES`)
+## 资源结构
+- `extracted_assets/Assets/Scenes/` - 关卡数据
+- `extracted_assets/Assets/Mesh/` - 3D 模型
+- `extracted_assets/Assets/Texture2D/` - 纹理
+- `extracted_assets/Assets/Sprite/` - UI 图形
+- `extracted_assets/Assets/Resources/` - 运行时资源
 
-## Unity 特定规范
-- 使用 Unity 生命周期方法时保持标准命名: `Awake()`, `Start()`, `Update()`, `OnDestroy()`
-- MonoBehaviour 子类应避免使用构造函数，初始化逻辑放在 `Awake()` 或 `Start()`
-- 协程方法名应以 "Coroutine" 或 "Co" 为前缀/后缀
-
-## Harmony 补丁规范
-- 补丁类应使用 `[HarmonyPatch]` 特性标记
-- 补丁方法命名:
-  - Prefix 方法: `Prefix` 或 `{MethodName}_Prefix`
-  - Postfix 方法: `Postfix` 或 `{MethodName}_Postfix`
-  - Transpiler 方法: `Transpiler` 或 `{MethodName}_Transpiler`
-- 使用 `try-catch` 包裹补丁逻辑，避免破坏原游戏功能
-- 参考 [Utils/ExceptionHelper.cs](mdc:Utils/ExceptionHelper.cs) 处理异常
-
-## 日志记录
-- 使用 [Utils/ModLogger.cs](mdc:Utils/ModLogger.cs) 而非 `Debug.Log`
-- 日志级别:
-  - `ModLogger.LogInfo()` - 常规信息
-  - `ModLogger.LogWarning()` - 警告
-  - `ModLogger.LogError()` - 错误
-  - `ModLogger.LogDebug()` - 调试信息
-
-## 错误处理
-- 使用 [Utils/ExceptionHelper.cs](mdc:Utils/ExceptionHelper.cs) 的 `HandleException()` 方法
-- 所有 Harmony 补丁必须有异常处理
-- 避免让异常传播到游戏代码
-
-## 代码组织
-- 相关功能应组织成独立的类
-- 避免在 [ModBehaviour.cs](mdc:ModBehaviour.cs) 中写过多逻辑
-- UI 组件应使用 [Utils/UI/](mdc:Utils/UI) 提供的构建器和组件
+## 使用规则
+- 用 `grep` 搜索资源，不要直接读取目录
+- 搜索模式: `grep pattern:"AssetName" path:"extracted_assets"`
+- 优先检查 Resources 文件夹
 
 ---
 > Source: [Cyenoch/EfDEnhanced](https://github.com/Cyenoch/EfDEnhanced) — distributed by [TomeVault](https://tomevault.io).
