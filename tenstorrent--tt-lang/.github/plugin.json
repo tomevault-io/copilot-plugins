@@ -1,0 +1,9 @@
+{
+  "name": "tenstorrent--tt-lang",
+  "displayName": "tt-lang",
+  "description": "A Python-based Domain-Specific Language (DSL) for authoring custom operations on Tenstorrent hardware.",
+  "version": "1.0.0",
+  "author": "tenstorrent",
+  "homepage": "https://github.com/tenstorrent/tt-lang",
+  "skills": []
+}
