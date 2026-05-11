@@ -1,12 +1,13 @@
-## app-settings-and-nostr
+## applesauce
 
-> when dealing with user and app settings
+> applesauce reference documentation and examples
 
 
-We use nostr to load/save/sync our settings.
+If you can use an applesauce-module for something, use applesauce.
 
-- https://nostrbook.dev/kinds/30078
-- https://github.com/nostr-protocol/nips/blob/master/78.md
+Documentation: https://hzrd149.github.io/applesauce/typedoc/modules.html
+
+When unsure how to use applesauce correctly, look at the examples in the `applesauce/packages/examples` directory.
 
 ---
 > Source: [dergigi/boris](https://github.com/dergigi/boris) — distributed by [TomeVault](https://tomevault.io).
