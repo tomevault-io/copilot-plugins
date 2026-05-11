@@ -7,11 +7,11 @@ Skillful Agent System Builder helps you create custom AI agent teams without wri
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [houarnu166/skillful-agent-system-builder](https://github.com/houarnu166/skillful-agent-system-builder).
+Original source: `CLAUDE.md` in [houarnu166/skillful-agent-system-builder](https://github.com/houarnu166/skillful-agent-system-builder).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
