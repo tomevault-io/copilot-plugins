@@ -1,0 +1,9 @@
+{
+  "name": "jovanrente--salon-unas-api",
+  "displayName": "salon-unas-api",
+  "description": "Sistema de gesti\u00f3n de citas para sal\u00f3n de u\u00f1as - Spring Boot + Kotlin",
+  "version": "1.0.0",
+  "author": "jovanrente",
+  "homepage": "https://github.com/jovanrente/salon-unas-api",
+  "skills": []
+}
