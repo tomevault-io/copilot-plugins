@@ -7,11 +7,11 @@ Interactive UniFi network topology map for Home Assistant. Visualize device conn
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [merlijntishauser/unifi-network-maps-ha](https://github.com/merlijntishauser/unifi-network-maps-ha).
+Original source: `CLAUDE.md` in [merlijntishauser/unifi-network-maps-ha](https://github.com/merlijntishauser/unifi-network-maps-ha).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
