@@ -4,7 +4,7 @@
   "repo": "ChalKak",
   "description": "Preview-first screenshot tool for Wayland + Hyprland  with a lightweight built-in annotation editor.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BitYoungjae/ChalKak",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T18:07:13Z"
+  "distributed_at": "2026-05-11T11:36:16Z"
 }
