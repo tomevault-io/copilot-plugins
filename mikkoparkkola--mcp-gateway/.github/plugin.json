@@ -1,0 +1,9 @@
+{
+  "name": "mikkoparkkola--mcp-gateway",
+  "displayName": "mcp-gateway",
+  "description": "Universal MCP Gateway - Single-port multiplexing with Meta-MCP for ~95% context token savings",
+  "version": "1.0.0",
+  "author": "MikkoParkkola",
+  "homepage": "https://github.com/MikkoParkkola/mcp-gateway",
+  "skills": []
+}
