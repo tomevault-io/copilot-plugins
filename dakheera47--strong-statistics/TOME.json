@@ -1,0 +1,44 @@
+{
+  "name": "strong-statistics",
+  "owner": "DaKheera47",
+  "repo": "strong-statistics",
+  "description": "Self\u2011hosted strength\u2011training analytics for Strong app exports. Import your CSV, see PRs, volume trends, rep ranges, and workout history \u2014 all stored locally in SQLite.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DaKheera47/strong-statistics",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T23:08:24Z"
+}
