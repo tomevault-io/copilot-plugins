@@ -1,0 +1,9 @@
+{
+  "name": "chohra-med--expo-boilerplate",
+  "displayName": "expo_boilerplate",
+  "description": "AI-first React Native + Expo boilerplate. Feature-first architecture, TypeScript, auth, i18n, theming, Redux Toolkit \u2014 with Cursor/Claude rules included. Lite version of AI Mobile Launcher.",
+  "version": "1.0.0",
+  "author": "chohra-med",
+  "homepage": "https://github.com/chohra-med/expo_boilerplate",
+  "skills": []
+}
