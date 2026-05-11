@@ -1,0 +1,9 @@
+{
+  "name": "nylas--cli",
+  "displayName": "cli",
+  "description": "Nylas CLI is a unified command-line tool for Nylas API authentication, email management (GPG signing/encryption), calendar, contacts, webhooks, timezone   utilities, and OTP extraction",
+  "version": "1.0.0",
+  "author": "nylas",
+  "homepage": "https://github.com/nylas/cli",
+  "skills": []
+}
