@@ -1,0 +1,9 @@
+{
+  "name": "artivisi--balaka",
+  "displayName": "balaka",
+  "description": "Open-source accounting application for Indonesian SMEs. Spring Boot 4 + Thymeleaf + PostgreSQL. Tax-compliant (PPN, PPh, Coretax), payroll, inventory, production, bank reconciliation, invoicing.",
+  "version": "1.0.0",
+  "author": "artivisi",
+  "homepage": "https://github.com/artivisi/balaka",
+  "skills": []
+}
