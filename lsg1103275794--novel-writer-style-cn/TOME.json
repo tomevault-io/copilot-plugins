@@ -1,0 +1,44 @@
+{
+  "name": "novel-writer-style-cn",
+  "owner": "lsg1103275794",
+  "repo": "novel-writer-style-cn",
+  "description": "\ud83c\udfa8 AI\u9a71\u52a8\u7684\u4e2d\u6587\u5c0f\u8bf4\u521b\u4f5c\u5de5\u5177 - \u57fa\u4e8e\u89c4\u683c\u9a71\u52a8\u5f00\u53d1\u7684\u667a\u80fd\u5199\u4f5c\u52a9\u624b\uff0c\u652f\u6301\u98ce\u683c\u5b66\u4e60\u4e0e\u6a21\u4eff",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lsg1103275794/novel-writer-style-cn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T17:58:26Z"
+}
