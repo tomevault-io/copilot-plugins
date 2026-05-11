@@ -1,0 +1,9 @@
+{
+  "name": "cervonwong--ilspy-mcp",
+  "displayName": "ILSpy-MCP",
+  "description": "ILSpy MCP Server (Model Context Protocol) for AI-assisted reverse-engineering of .NET binaries for autonomous Malware Analysis and Reverse Engineering.",
+  "version": "1.0.0",
+  "author": "cervonwong",
+  "homepage": "https://github.com/cervonwong/ILSpy-MCP",
+  "skills": []
+}
