@@ -1,0 +1,9 @@
+{
+  "name": "ofershap--readme-builder",
+  "displayName": "readme-builder",
+  "description": "Visual drag-and-drop README editor with live GitHub-flavored preview. SEO-optimized templates, 15+ block types, import/export markdown.",
+  "version": "1.0.0",
+  "author": "ofershap",
+  "homepage": "https://github.com/ofershap/readme-builder",
+  "skills": []
+}
