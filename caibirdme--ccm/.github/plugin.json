@@ -1,0 +1,9 @@
+{
+  "name": "caibirdme--ccm",
+  "displayName": "ccm",
+  "description": "A CLI tool to manage multiple Claude Code configuration profiles with interactive prompts. Easily switch between different providers and models, and launch Claude with a specific configuration.",
+  "version": "1.0.0",
+  "author": "caibirdme",
+  "homepage": "https://github.com/caibirdme/ccm",
+  "skills": []
+}
