@@ -1,0 +1,9 @@
+{
+  "name": "stanford-oval--churro",
+  "displayName": "Churro",
+  "description": "CHURRO is an OCR toolkit for historical document transcription, built to make handwritten and printed sources readable at high accuracy and lower cost.",
+  "version": "1.0.0",
+  "author": "stanford-oval",
+  "homepage": "https://github.com/stanford-oval/Churro",
+  "skills": []
+}
