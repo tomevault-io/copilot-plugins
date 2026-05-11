@@ -4,7 +4,7 @@
   "repo": "maverick",
   "description": "Offline-first LoRaWAN gateway + network server in a single binary. Runs on Raspberry Pi. No cloud required.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/antonygiomarxdev/maverick",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T18:01:16Z"
+  "distributed_at": "2026-05-11T13:08:41Z"
 }
