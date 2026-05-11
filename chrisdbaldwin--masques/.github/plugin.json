@@ -1,0 +1,9 @@
+{
+  "name": "chrisdbaldwin--masques",
+  "displayName": "Masques",
+  "description": "AssumeRole for Agents \u2014 temporary cognitive identities bundling intent, context, and lens. Claude Code plugin. ",
+  "version": "1.0.0",
+  "author": "ChrisDBaldwin",
+  "homepage": "https://github.com/ChrisDBaldwin/Masques",
+  "skills": []
+}
