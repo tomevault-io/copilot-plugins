@@ -1,0 +1,9 @@
+{
+  "name": "vibesurf-ai--claude-surf",
+  "displayName": "claude-surf",
+  "description": "A Claude Code plugin for control real browsers, execute AI skills, run workflows, and integrate with external apps.",
+  "version": "1.0.0",
+  "author": "vibesurf-ai",
+  "homepage": "https://github.com/vibesurf-ai/claude-surf",
+  "skills": []
+}
