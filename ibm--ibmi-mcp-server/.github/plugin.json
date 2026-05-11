@@ -1,0 +1,9 @@
+{
+  "name": "ibm--ibmi-mcp-server",
+  "displayName": "ibmi-mcp-server",
+  "description": "MCP server for  IBM i systems",
+  "version": "1.0.0",
+  "author": "IBM",
+  "homepage": "https://github.com/IBM/ibmi-mcp-server",
+  "skills": []
+}
