@@ -7,14 +7,14 @@ Cosmos-Curate is a powerful video curation system that processes, analyzes, and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [nvidia-cosmos/cosmos-curate](https://github.com/nvidia-cosmos/cosmos-curate).
+Original source: `AGENTS.md` in [nvidia-cosmos/cosmos-curate](https://github.com/nvidia-cosmos/cosmos-curate).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/nvidia-cosmos/cosmos-curate](https://github.com/nvidia-cosmos/cosmos-curate)
