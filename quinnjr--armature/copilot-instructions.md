@@ -1,50 +1,85 @@
-## documentation-naming
+## documentation-sync
 
-> All documentation files must follow these conventions:
+> Whenever documentation files are added or modified in the `docs/` directory, the corresponding website documentation in `web/` must also be updated.
 
-# Documentation Naming Convention
+# Documentation Sync Rule
 
 ## Rule
-All documentation files must follow these conventions:
 
-### File Naming
-- Use **UPPER_SNAKE_CASE** for all documentation file names
-- Example: `SECURITY_GUIDE.md`, `API_VERSIONING_GUIDE.md`, `ERROR_CORRELATION.md`
+Whenever documentation files are added or modified in the `docs/` directory, the corresponding website documentation in `web/` must also be updated.
 
-### Location
-- All documentation files must be placed in the `docs/` folder
-- Website copies should be synced to `web/public/docs/`
+## Background
 
-### Examples
+The Armature project has two documentation locations:
 
-**Correct:**
-```
-docs/GETTING_STARTED.md
-docs/API_REFERENCE.md
-docs/SECURITY_GUIDE.md
-docs/ERROR_CORRELATION_GUIDE.md
-docs/REQUEST_EXTRACTORS.md
-```
+1. **Source Documentation**: `docs/` directory - Markdown files for the framework
+2. **Website Documentation**: `web/src/app/pages/docs/` - Angular components that display the documentation
 
-**Incorrect:**
-```
-docs/getting-started.md          # lowercase with hyphens
-docs/apiReference.md             # camelCase
-docs/security_guide.md           # lowercase
-README.md                        # should be in docs/ if it's documentation
-src/docs/guide.md               # wrong location
+The website reads markdown files from `web/public/docs/` (which is symlinked to `docs/` in development).
+
+## Required Actions
+
+### When Adding New Documentation
+
+1. Create the markdown file in `docs/` following the `UPPER_SNAKE_CASE.md` naming convention
+2. Update `web/src/app/pages/docs/docs.component.ts` to include the new document in the documentation list:
+
+```typescript
+// Add to the docs array in DocsComponent
+{
+  title: 'Your New Guide',
+  filename: 'YOUR_NEW_GUIDE.md',
+  description: 'Brief description of what this guide covers'
+}
 ```
 
-### Exceptions
-- `README.md` at project root is acceptable
-- `CHANGELOG.md` at project root is acceptable
-- `CONTRIBUTING.md` at project root is acceptable
-- `LICENSE` at project root is acceptable
+3. Optionally update the website navigation if the document should appear in the main menu
 
-### When Creating Documentation
-1. Name the file in UPPER_SNAKE_CASE with `.md` extension
-2. Place it in the `docs/` directory
-3. If needed for the website, also copy to `web/public/docs/`
+### When Modifying Existing Documentation
+
+- Changes to existing `docs/*.md` files are automatically reflected on the website due to the symlink
+- No additional action needed unless renaming files
+
+### When Renaming Documentation
+
+1. Rename the file in `docs/` to the new `UPPER_SNAKE_CASE.md` name
+2. Update the `filename` field in `web/src/app/pages/docs/docs.component.ts`
+
+### When Deleting Documentation
+
+1. Remove the file from `docs/`
+2. Remove the corresponding entry from `web/src/app/pages/docs/docs.component.ts`
+
+## File Locations
+
+| Purpose | Location |
+|---------|----------|
+| Source docs | `docs/*.md` |
+| Docs component | `web/src/app/pages/docs/docs.component.ts` |
+| Docs styles | `web/src/app/pages/docs/docs.component.scss` |
+| Public symlink | `web/public/docs/` → `../../docs/` |
+
+## Example
+
+When adding a new guide called "Request Validation Guide":
+
+1. Create `docs/REQUEST_VALIDATION_GUIDE.md`
+2. Update `docs.component.ts`:
+
+```typescript
+docs = [
+  // ... existing docs ...
+  {
+    title: 'Request Validation Guide',
+    filename: 'REQUEST_VALIDATION_GUIDE.md',
+    description: 'How to validate incoming requests'
+  },
+];
+```
+
+## CI/CD Note
+
+The GitHub Actions workflow (`.github/workflows/docs.yml`) automatically copies all `docs/*.md` files to the deployed website during the build process. No manual copy step is needed for deployment.
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
