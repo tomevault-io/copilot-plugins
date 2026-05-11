@@ -1,0 +1,9 @@
+{
+  "name": "mike-at-redspace--video-ambient-glow",
+  "displayName": "video-ambient-glow",
+  "description": "YouTube-style ambient glow effects for HTML5 video. Zero dependencies, ~5.8KB minified, TypeScript support, smooth color-reactive backdrop.",
+  "version": "1.0.0",
+  "author": "mike-at-redspace",
+  "homepage": "https://github.com/mike-at-redspace/video-ambient-glow",
+  "skills": []
+}
