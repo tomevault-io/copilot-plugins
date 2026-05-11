@@ -1,0 +1,9 @@
+{
+  "name": "lombiq--tailwind-agent-skills",
+  "displayName": "Tailwind-Agent-Skills",
+  "description": "Agent-optimized Tailwind CSS v4 documentation skill with local snapshots and indexing.",
+  "version": "1.0.0",
+  "author": "Lombiq",
+  "homepage": "https://github.com/Lombiq/Tailwind-Agent-Skills",
+  "skills": []
+}
