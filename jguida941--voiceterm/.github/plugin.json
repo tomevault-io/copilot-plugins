@@ -1,0 +1,9 @@
+{
+  "name": "jguida941--voiceterm",
+  "displayName": "voiceterm",
+  "description": "Low-latency Rust terminal overlay for Codex and Claude Code with local Whisper STT, PTY passthrough, wake words, macros, memory tools, and a customizable HUD.",
+  "version": "1.0.0",
+  "author": "jguida941",
+  "homepage": "https://github.com/jguida941/voiceterm",
+  "skills": []
+}
