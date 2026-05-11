@@ -1,95 +1,123 @@
-## rein-cleanup
+## rein-go
 
-> Run a regression-tests-first cleanup/refactor workflow to reduce slop
+> Run one task through the full REIN flow from clarification through implementation, cleanup, review, and verification
 
 
-# rein-cleanup
+# rein-go
 
-Reduce bloated, noisy, repetitive, or over-abstracted code with a regression-tests-first, smell-by-smell cleanup workflow that preserves behavior and raises signal quality.
+Use this when the user wants one REIN-controlled flow instead of manually invoking `rein-interview`, `rein-plan`, implementation, cleanup, review, and verification as separate steps.
 
-## When to Use
+`rein-go` is the end-to-end orchestration surface for REIN.
 
-Use this skill when:
-- A code path works but feels bloated, noisy, repetitive, or over-abstracted
-- A user asks to "cleanup", "refactor", or "deslop" output
-- Follow-up implementation left duplicate code, dead code, weak boundaries, missing tests, or unnecessary wrapper layers
-- You need a disciplined cleanup workflow without broad rewrites
+## When To Use
 
-## Scoped File Lists
+- The user wants one continuous REIN workflow with minimal pauses
+- The task is broad enough to need clarification, planning, implementation, and post-implementation review
+- A completed `rein-interview` bundle already exists and should feed directly into planning and implementation
+- The user explicitly invokes `$rein-go`, `/rein-go`, or asks for a single flow command
 
-- This skill can accept a file list scope instead of a whole feature area.
-- When the caller provides a changed-files list, keep the cleanup strictly bounded to those files.
+## When Not To Use
 
-## Procedure
+- The task is already a tiny single-file change
+- The user explicitly wants only one stage, such as interview-only or plan-only work
+- The user wants to skip clarification and planning entirely
 
-1. Lock behavior with regression tests first
-   - Identify the behavior that must not change
-   - Add or run targeted regression tests before editing cleanup candidates
-   - If behavior is currently untested, create the narrowest test coverage needed first
+## Flow Contract
 
-2. Create a cleanup plan before code
-   - List the specific smells to remove
-   - Bound the pass to the requested files or scope
-   - If a file list scope is provided, keep the pass restricted to that changed-files list
-   - Order fixes from safest and highest-signal to riskiest
-   - Do not start coding until the cleanup plan is explicit
+- Public entrypoint: `rein go`
+- Wrapper triggers: `$rein-go` and `/rein-go`
+- Default posture: keep going with minimal pauses once the flow starts
+- Hard stop on:
+  - dangerous or destructive actions that require approval
+  - missing permissions or blocked tool access
+  - any failed stage: plan, implementation, cleanup, review, or verify
+- Preserve the current install and hook philosophy; do not turn REIN into a hook-first enforcement layer
 
-3. Categorize issues before editing
-   - Duplication: repeated logic, copy-paste branches, redundant helpers
-   - Dead code: unused code, unreachable branches, stale flags, debug leftovers
-   - Needless abstraction: pass-through wrappers, speculative indirection, single-use helper layers
-   - Boundary violations: hidden coupling, leaky responsibilities, wrong-layer imports or side effects
-   - Missing tests: behavior not locked, weak regression coverage, gaps around edge cases
+## Runtime Helper
 
-4. Execute passes one smell at a time
-   - Pass 1: dead code deletion
-   - Pass 2: duplicate removal
-   - Pass 3: naming and error handling cleanup
-   - Pass 4: test reinforcement
-   - Re-run targeted verification after each pass
-   - Avoid bundling unrelated refactors into the same edit set
+Start the flow through the runtime:
 
-5. Run quality gates
-   - Regression tests stay green
-   - Lint passes
-   - Typecheck passes
-   - Relevant unit and integration tests pass
-   - Static or security scan passes when available
-   - Diff stays minimal and scoped
-   - No new abstractions or dependencies unless explicitly required
+```bash
+rein go "<task>" --json
+```
 
-6. Finish with an evidence-dense report
-   - Changed files
-   - Simplifications made
-   - Tests, diagnostics, or build checks run
-   - Remaining risks
-   - Residual follow-ups or consciously deferred cleanup
+If a completed interview bundle already exists:
 
-## Output Guidance
+```bash
+rein go --from-interview <slug|path> --json
+```
 
-Deliver the cleanup result as a normal agent response in natural language.
+Then use:
 
-- Do not wrap the cleanup summary in a fenced markdown block unless the user explicitly asks for raw markdown.
-- A short paragraph plus flat bullets is preferred over a rigid template.
-- Cover:
-  - scope
-  - behavior lock
-  - cleanup plan
-  - passes completed
-  - quality gates
-  - changed files
-  - remaining risks
-- Use explicit `PASS` or `FAIL` labels only when they add clarity; otherwise speak plainly as the agent.
+```bash
+rein go status --slug <slug> --json
+rein go resume --slug <slug> --json
+rein go advance --slug <slug> --stage <stage> --status <completed|failed|blocked> ... --json
+```
 
-## Scenario Examples
+Treat the returned flow state as the source of truth for current stage, resume point, stop reason, and downstream stage artifacts.
 
-Good:
-- The user says `continue` after tests already lock behavior and the next smell pass is clear. Continue with the next bounded cleanup pass.
-- The user narrows the scope to a specific file after planning. Keep the regression-tests-first workflow, but apply the new scope locally.
+## Stage Order
 
-Bad:
-- Start rewriting architecture before protecting behavior with tests.
-- Collapse multiple smell categories into one large refactor with no intermediate verification.
+1. Interview
+   - Bare `rein go "<task>"` initializes the flow and starts `rein-interview` automatically.
+   - If the flow was started with `--from-interview`, the interview stage is marked completed from the bundle.
+   - While interview is still active, use the normal `rein interview ...` runtime commands and present the user-facing interview exactly like `rein-interview` does, including the clarity score and question frame.
+   - Never answer interview rounds on the user's behalf, never auto-crystallize, and never skip directly to planning in fresh mode.
+   - If `rein go resume --slug <slug> --json` still returns `currentStage: interview` and recommends `rein interview crystallize ...`, the interview is not done yet; crystallize first, then resume again to advance into planning.
+
+2. Plan
+   - The runtime creates a plan artifact from the completed `rein-interview` `result.json`.
+   - Planning is runtime-backed; it should not require a manual wrapper jump just to mark plan complete.
+   - Keep the plan minimum-sufficient and aligned to the interview bundle.
+
+3. Implementation
+   - Implement directly from the runtime plan artifact.
+   - Reuse existing runtime and patterns before inventing new abstractions.
+   - Do not drift into installer rewrites or hook-model changes unless the task explicitly requires them.
+   - When implementation is done, report it back into the runtime with `rein go advance ... --stage implementation --changed-files '<json>'`.
+
+4. Cleanup
+   - Run `rein-cleanup` on the changed-file scope recorded by the implementation stage.
+   - Keep cleanup bounded to the files and mess created by the task.
+   - Report the result back with `rein go advance ... --stage cleanup`.
+
+5. Review
+   - Run `rein-review` on the resulting diff.
+   - Fix any scope drift, debug leftovers, or suspicious test changes before continuing.
+   - Report the result back with `rein go advance ... --stage review`.
+
+6. Verify
+   - Run `rein-verify` before declaring completion.
+   - The flow is not done just because implementation passed.
+   - Report the result back with `rein go advance ... --stage verify`.
+
+## Stage Rules
+
+- Use `rein-interview` runtime commands for persistence and state.
+- Use the `rein go` runtime state as the source of truth for current stage, changed files, and resume behavior.
+- Use completed interview artifacts as the source of truth for downstream planning inputs.
+- Ask the user only when:
+  - a destructive step needs approval
+  - a permission boundary blocks the flow
+  - a critical product decision is still unresolved and cannot be verified from the repo
+- If a stage fails, stop at that stage and report the failure plainly instead of silently continuing.
+- Do not skip cleanup, review, or verification just because the earlier stages succeeded.
+
+## Output
+
+When the flow completes:
+- summarize the completed stages
+- name the key files changed
+- name the commands and tests run
+- state any remaining risks or uncertainties
+
+If the flow stops early:
+- name the failing stage
+- explain what blocked it
+- state the next resume point clearly
+
+Task: {{ARGUMENTS}}
 
 ---
 > Source: [jstxn/rein](https://github.com/jstxn/rein) — distributed by [TomeVault](https://tomevault.io).
