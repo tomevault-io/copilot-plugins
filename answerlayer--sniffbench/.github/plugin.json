@@ -1,0 +1,9 @@
+{
+  "name": "answerlayer--sniffbench",
+  "displayName": "sniffbench",
+  "description": "Evaluate coding agents. Like a sniff test, but it's a benchmark.",
+  "version": "1.0.0",
+  "author": "AnswerLayer",
+  "homepage": "https://github.com/AnswerLayer/sniffbench",
+  "skills": []
+}
