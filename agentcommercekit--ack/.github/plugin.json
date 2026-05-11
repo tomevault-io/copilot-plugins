@@ -1,0 +1,9 @@
+{
+  "name": "agentcommercekit--ack",
+  "displayName": "ack",
+  "description": "The Agent Commerce Kit (ACK)",
+  "version": "1.0.0",
+  "author": "agentcommercekit",
+  "homepage": "https://github.com/agentcommercekit/ack",
+  "skills": []
+}
