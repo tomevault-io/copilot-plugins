@@ -1,0 +1,9 @@
+{
+  "name": "parassharmaa--agent-sandbox",
+  "displayName": "agent-sandbox",
+  "description": "A sandboxed execution environment for AI agents via WASM",
+  "version": "1.0.0",
+  "author": "Parassharmaa",
+  "homepage": "https://github.com/Parassharmaa/agent-sandbox",
+  "skills": []
+}
