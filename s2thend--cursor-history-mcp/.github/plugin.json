@@ -1,0 +1,9 @@
+{
+  "name": "s2thend--cursor-history-mcp",
+  "displayName": "cursor-history-mcp",
+  "description": "MCP server for browsing, searching, and exporting Cursor AI chat history.",
+  "version": "1.0.0",
+  "author": "S2thend",
+  "homepage": "https://github.com/S2thend/cursor-history-mcp",
+  "skills": []
+}
