@@ -1,0 +1,9 @@
+{
+  "name": "zehjulianlp--startpage",
+  "displayName": "startpage",
+  "description": "Local-first browser start page with search, widgets, RSS, weather, transport and an Ollama-powered AI agent.",
+  "version": "1.0.0",
+  "author": "ZehJulianLp",
+  "homepage": "https://github.com/ZehJulianLp/startpage",
+  "skills": []
+}
