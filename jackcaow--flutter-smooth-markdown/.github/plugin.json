@@ -1,0 +1,9 @@
+{
+  "name": "jackcaow--flutter-smooth-markdown",
+  "displayName": "flutter-smooth-markdown",
+  "description": "A high-performance, streaming-ready Markdown renderer for Flutter. Supports LaTeX, Mermaid diagrams, tables, and smooth text selection.",
+  "version": "1.0.0",
+  "author": "JackCaow",
+  "homepage": "https://github.com/JackCaow/flutter-smooth-markdown",
+  "skills": []
+}
