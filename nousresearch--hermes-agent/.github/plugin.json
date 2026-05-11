@@ -1,0 +1,9 @@
+{
+  "name": "nousresearch--hermes-agent",
+  "displayName": "hermes-agent",
+  "description": "The agent that grows with you",
+  "version": "1.0.0",
+  "author": "NousResearch",
+  "homepage": "https://github.com/NousResearch/hermes-agent",
+  "skills": []
+}
