@@ -1,0 +1,9 @@
+{
+  "name": "srid--nix-agent-wire",
+  "displayName": "nix-agent-wire",
+  "description": "Nix Autowiring for LLM Agents",
+  "version": "1.0.0",
+  "author": "srid",
+  "homepage": "https://github.com/srid/nix-agent-wire",
+  "skills": []
+}
