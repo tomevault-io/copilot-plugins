@@ -1,54 +1,61 @@
-## architecture
+## cleanup-pattern
 
-> This is a dual-mode package (CLI + Library):
+> How to properly clean up temporary files in transcribe functions
 
 
-# @illyism/transcribe - Project Architecture
+# Cleanup Pattern
 
-## Package Structure
+## Always Use `finally` Blocks
 
-This is a dual-mode package (CLI + Library):
+All temporary files MUST be cleaned up in `finally` blocks:
 
-### Core Files
+```typescript
+let tempFile: string | null = null
+let optimizedFile: string | null = null
 
-- **[src/cli.ts](mdc:src/cli.ts)**: CLI entry point with argument parsing and user-facing commands
-- **[src/transcribe.ts](mdc:src/transcribe.ts)**: Core transcription logic with automatic optimization
-- **[src/optimize.ts](mdc:src/optimize.ts)**: Audio optimization (1.2x speed) and SRT timestamp adjustment
-- **[src/youtube.ts](mdc:src/youtube.ts)**: YouTube video download and audio extraction
-- **[src/types.ts](mdc:src/types.ts)**: TypeScript interfaces for Whisper API responses
-- **[src/index.ts](mdc:src/index.ts)**: Library entry point with public API exports
-
-### Key Patterns
-
-1. **Optimization by Default**: All files are automatically optimized with 1.2x speed unless `--raw` flag is used
-2. **Automatic Cleanup**: All temporary files (extracted audio, optimized audio, downloaded files) are cleaned up in `finally` blocks
-3. **Progressive Enhancement**: Works with local files, videos, and YouTube URLs
-4. **Error Messages**: Include helpful links and copy-paste commands for setup
-
-## Data Flow
-
+try {
+  // Processing logic...
+  tempFile = createTempFile()
+  optimizedFile = processFile(tempFile)
+  // ...
+} finally {
+  // Clean up in reverse order of creation
+  if (tempFile && existsSync(tempFile)) {
+    unlinkSync(tempFile)
+  }
+  if (optimizedFile && existsSync(optimizedFile)) {
+    unlinkSync(optimizedFile)
+  }
+  if (tempFile || optimizedFile) {
+    console.log('🧹 Cleaned up temporary files')
+  }
+}
 ```
-Input → YouTube Download (if URL) → Extract Audio (if video) → Optimize (if enabled) → Whisper API → SRT Generation → Timestamp Adjustment → Cleanup
+
+## Temporary File Naming
+
+Use timestamps to avoid conflicts:
+```typescript
+const tempPath = join(dir, `temp_${Date.now()}.mp3`)
+const optimizedPath = join(dir, `optimized_${Date.now()}.mp3`)
 ```
 
-## Dependencies
+## Files to Clean Up
 
-- **openai**: Official OpenAI SDK for Whisper API
-- **@distube/ytdl-core**: YouTube video/audio download
-- **FFmpeg** (peer): Required for video/audio processing
+1. **Extracted audio** from videos (`*_temp.mp3`)
+2. **Optimized audio** after speed adjustment (`optimized_*.mp3`)
+3. **Downloaded YouTube files** from temp directory
+4. **Test output files** (in test suite only)
 
-## Build Process
+## Never Delete
 
-- Uses Bun to bundle to ESM format
-- Targets Node.js 18+
-- Two outputs: `cli.js` (executable) and `index.js` (library)
-- CLI has shebang: `#!/usr/bin/env node`
+- Original input files
+- Generated SRT files
+- User-specified output paths
 
-## Testing
+## Error Handling
 
-- **[test/](mdc:test/)**: A/B testing suite for optimization strategies
-- Includes baseline, speed, and Opus compression tests
-- Generates comparison reports and recommendations
+Even if an error occurs, cleanup MUST run. That's why we use `finally` blocks, not just at the end of the function.
 
 ---
 > Source: [Illyism/transcribe-cli](https://github.com/Illyism/transcribe-cli) — distributed by [TomeVault](https://tomevault.io).
