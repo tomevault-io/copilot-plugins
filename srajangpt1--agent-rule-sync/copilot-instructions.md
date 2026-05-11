@@ -1,114 +1,140 @@
-## codepatterns
+## conventions
 
-> Code style conventions and patterns used throughout the TypeScript codebase
+> Established coding conventions for error handling, async patterns, function organization, and type usage
 
 
-- **Indentation Style**: Use 2 spaces for indentation, never tabs. All code files consistently use 2-space indentation.
-  - function example() {
-  const value = 1;
-  return value;
+- **Error Handling**: Always check for errors using instanceof Error before accessing error properties. Use instanceof Error before accessing .message. Return error objects with success: false and error message string. Log errors appropriately based on context (console.error for CLI, return error for library API).
+  - catch (error) {
+  return {
+    success: false,
+    error: error instanceof Error ? error.message : 'Unknown error occurred',
+  };
 }
-  - if (condition) {
-  doSomething();
+  - process.on('error', (err) => {
+  resolve({
+    installed: false,
+    error: err.message,
+  });
+});
+
+- **Async/Await Usage**: Always use async/await for asynchronous operations, never Promise chains (.then/.catch). Make async functions return Promise<T> with explicit type. Use try-catch blocks for error handling in async functions. Wrap callback-based APIs (like spawn) in Promise constructors.
+  - export async function generateRules(config: GenerateRulesConfig = {}): Promise<RulesManagerResult> {
+  try {
+    const result = await analyzeCodebase({ verbose });
+    // ...
+  } catch (error) {
+    // handle error
+  }
+}
+  - export async function checkCursorAgent(): Promise<CursorAgentCheck> {
+  return new Promise((resolve) => {
+    // callback-based logic
+  });
 }
 
-- **Naming Conventions**: Use camelCase for functions, variables, and method names. Use PascalCase for interfaces, types, classes, and exported types. Use descriptive, clear names that indicate purpose.
-  - camelCase: generateRules, checkCursorAgent, readExistingRules
-  - PascalCase: GenerateRulesConfig, AnalysisResult, CursorAgentCheck, RuleCategory
-
-- **Function Documentation**: All exported functions must have JSDoc-style comments with /** */ syntax. Include a brief description of what the function does. Document parameters and return types in TypeScript types, not JSDoc tags.
-  - /**
- * Check if cursor-agent is installed and accessible
- */
-export async function checkCursorAgent(): Promise<CursorAgentCheck>
-  - /**
- * Main function to generate cursor rules
- */
-export async function generateRules(config: GenerateRulesConfig = {}): Promise<RulesManagerResult>
-
-- **Import Organization**: Group imports logically: Node.js built-ins first (if any), then external dependencies, then local imports. Use named imports for clarity. Keep import statements at the top of the file.
-  - import { spawn } from 'child_process';
-import chalk from 'chalk';
-import { Command } from 'commander';
-import { generateRules } from './index';
-  - import * as fs from 'fs';
-import * as path from 'path';
-import { AnalysisData, RulesManagerResult } from './types';
-
-- **Export Patterns**: Use named exports (export function, export const) rather than default exports. Export types and interfaces explicitly using export interface/export type. Re-export related items from index.ts using export *.
+- **Function Organization**: Export functions at module level. Group related functions together. Use helper functions to break down complex logic. Keep functions focused on a single responsibility. Document exported functions with JSDoc comments.
   - export async function generateRules(...) { }
-  - export interface GenerateRulesConfig { }
-  - export * from './types';
+  - export async function checkAgent() { }
+  - export async function analyze(...) { }
+  - function createAnalysisPrompt(): string { }
+  - function parseRawOutput(rawOutput: string): AnalysisData | null { }
 
-- **File Organization**: One major concern per file. Related functions grouped together. Files named with kebab-case for multi-word names (e.g., rules-manager.ts), single words can use camelCase. Each file should have a clear, singular responsibility.
-  - src/analyzer.ts - handles cursor-agent integration
-  - src/rules-manager.ts - handles file system operations for rules
-  - src/cli.ts - handles CLI interface
+- **TypeScript Type Usage**: Define interfaces for all data structures. Use optional properties (?) for values that may be undefined. Use explicit return types on all exported functions. Use union types for literal value sets. Avoid any type, use unknown if type is truly unknown.
+  - export interface AnalysisResult {
+  success: boolean;
+  data?: AnalysisData;
+  error?: string;
+  rawOutput?: string;
+}
+  - ruleType?: 'always' | 'auto-attached' | 'agent-requested' | 'manual';
+  - export async function generateRules(config: GenerateRulesConfig = {}): Promise<RulesManagerResult>
 
-- **Code Formatting**: Use consistent spacing around operators, after commas, and in object literals. Use trailing commas in multiline arrays and objects. Use semicolons at end of statements.
-  - const config: GenerateRulesConfig = {
-  outputDir: options.output,
-  verbose: options.verbose,
-  dryRun: options.dryRun,
+- **Default Parameters**: Use default parameters for optional configuration options. Provide sensible defaults. Use object destructuring with defaults in function parameters.
+  - export async function generateRules(config: GenerateRulesConfig = {}): Promise<RulesManagerResult>
+  - export async function analyzeCodebase(options: AnalyzeOptions = {}): Promise<AnalysisResult> {
+  const { timeout = 300000, verbose = false } = options;
+}
+  - export async function analyze(verbose: boolean = false): Promise<AnalysisResult>
+
+- **Result Objects**: Use result objects with success boolean and additional data/error fields for function returns. This pattern allows for consistent error handling and data extraction. Include arrays for operation results (created, updated, unchanged).
+  - interface RulesManagerResult {
+  success: boolean;
+  created: string[];
+  updated: string[];
+  unchanged: string[];
+  error?: string;
+}
+  - return {
+  success: true,
+  created: ['file1.mdc'],
+  updated: [],
+  unchanged: [],
 };
-  - const files = ['file1', 'file2', 'file3'];
 
-- **String Literals**: Use single quotes for string literals throughout the codebase. Use template literals (backticks) for multi-line strings and string interpolation.
-  - const message = 'Simple string';
-  - const path = path.join(baseDir, '.cursor', 'rules');
-  - const prompt = `Analyze this entire codebase...`;
-
-- **Conditional Logic**: Prefer early returns for error conditions. Use explicit boolean checks (=== true, === false) when clarity is needed. Use optional chaining and nullish coalescing where appropriate.
-  - if (!agentCheck.installed) {
-  return { success: false, error: '...' };
+- **Verbose Logging Pattern**: Accept verbose boolean parameter for detailed logging. Check verbose flag before logging detailed information. Use console.log for verbose output, console.error for errors. Provide helpful progress messages during long operations. For large outputs, truncate and show length/preview.
+  - if (verbose) {
+  console.log(`Using cursor-agent: ${agentCheck.version}`);
 }
-  - const alwaysApply = category.alwaysApply !== undefined ? category.alwaysApply : category.ruleType === 'always' ? true : false;
-
-- **CLI Error Handling**: In CLI entry points (cli.ts), use process.exit() with appropriate exit codes (1 for errors, 0 for success) after displaying error messages. Library functions should return error objects instead of exiting.
-  - if (!agentCheck.installed) {
-  console.error(chalk.red('Error: ...'));
-  process.exit(1);
+  - if (verbose && analysisResult.success && analysisResult.data) {
+  console.log('Analysis successful, data received');
 }
-  - // In library functions, return errors instead:
-return { success: false, error: '...' };
+  - if (analysisResult.rawOutput.length < 500) {
+  console.log('Raw output:', analysisResult.rawOutput);
+} else {
+  console.log('Raw output (first 500 chars):', analysisResult.rawOutput.substring(0, 500));
+}
 
-- **Filename Comparison**: When comparing filenames for existence checks, use case-insensitive comparison by converting to lowercase. This prevents issues with case-sensitive file systems while maintaining compatibility.
-  - const existingFilenames = new Set(existingRules.map((r) => r.filename.toLowerCase()));
-  - const existingFile = existingRules.find((r) => r.filename.toLowerCase() === filename.toLowerCase());
+- **Dry Run Pattern**: Support dry-run mode for operations that modify files. Check dryRun flag before performing write operations. Log what would be done in dry-run mode. Return the same result structure whether dry-run or actual execution.
+  - if (!dryRun) {
+  fs.writeFileSync(filePath, mdc, 'utf-8');
+}
+result.created.push(filename);
+  - if (config.dryRun) {
+  console.log(chalk.yellow('DRY RUN MODE: No files will be written\n'));
+}
 
-- **TypeScript Utility Types**: Use TypeScript utility types like ReturnType<> when appropriate to avoid duplicating type definitions. This maintains type safety while reducing redundancy.
-  - export function getExistingRules(cwd?: string): ReturnType<typeof readExistingRules>
-  - const timeoutId: ReturnType<typeof setTimeout> = setTimeout(...);
+- **Nested JSON Parsing**: When parsing JSON from external tools, handle nested JSON structures. Check if the result is wrapped in a response object and extract the actual data. Support both direct JSON and string-encoded JSON within objects. Use type assertions with validation.
+  - let parsed = JSON.parse(jsonMatch[0]) as unknown;
+if (typeof parsed === 'object' && parsed !== null && 'result' in parsed) {
+  const wrapper = parsed as { result: unknown };
+  if (typeof wrapper.result === 'string') {
+    const resultMatch = wrapper.result.match(/\{[\s\S]*\}/);
+    if (resultMatch) {
+      parsed = JSON.parse(resultMatch[0]) as unknown;
+    }
+  }
+}
 
-- **Buffer Type Handling**: When handling Node.js Buffer objects from process streams, explicitly type them as Buffer in event handlers. Use .toString() method to convert Buffer to string.
-  - process.stdout.on('data', (data: Buffer) => {
-  output += data.toString();
+- **Process Stream Handling**: When handling process streams (stdout/stderr), accumulate output in string variables. Handle both stdout and stderr separately. Clear timeouts when processes close. Handle process errors separately from exit codes.
+  - let stdout = '';
+let stderr = '';
+childProcess.stdout.on('data', (data: Buffer) => {
+  stdout += data.toString();
 });
-  - childProcess.stdout.on('data', (data: Buffer) => {
-  const chunk = data.toString();
-  stdout += chunk;
+childProcess.on('close', (code) => {
+  clearTimeout(timeoutId);
+  // handle result
+});
+childProcess.on('error', (err) => {
+  clearTimeout(timeoutId);
+  // handle error
 });
 
-- **Unused Variable Naming**: Prefix unused variables and parameters with underscore (_) to indicate they are intentionally unused. ESLint is configured to ignore variables matching the pattern '^_'.
-  - function example(_unusedParam: string, usedParam: number) { }
-  - const [_first, _second, third] = array;
+- **Promise Resolution Pattern**: When wrapping callback-based APIs in Promises, always resolve with result objects rather than rejecting. This allows callers to check success status rather than using try-catch for expected failures.
+  - return new Promise((resolve) => {
+  process.on('close', (code) => {
+    resolve({ installed: code === 0 });
+  });
+  process.on('error', (err) => {
+    resolve({ installed: false, error: err.message });
+  });
+});
 
-- **Object Destructuring with Defaults**: Use object destructuring with default values in function parameters for configuration objects. Extract multiple properties at once with sensible defaults.
-  - const {
-  outputDir,
-  verbose = false,
-  dryRun = false,
-  cwd = process.cwd(),
-} = config;
-  - const { timeout = 300000, verbose = false, existingRules } = options;
-
-- **Array Method Chaining**: Use array methods like map(), filter(), find() with arrow functions for concise data transformations. Chain methods when appropriate for readability.
-  - const existingFilenames = new Set(
-  existingRules.map((r) => r.filename.toLowerCase())
-);
-  - existingRulesContext = existingRuleFiles
-  .map(file => `\n## ${file.filename}\n${file.content}`)
-  .join('\n\n---\n');
+- **Type Assertion Safety**: When using type assertions (as), validate the structure first. Use typeof checks and property existence checks before asserting types. Prefer type guards over assertions when possible.
+  - if (typeof parsed === 'object' && parsed !== null && 'result' in parsed) {
+  const wrapper = parsed as { result: unknown };
+  // safe to use wrapper
+}
 
 ---
 > Source: [Srajangpt1/agent-rule-sync](https://github.com/Srajangpt1/agent-rule-sync) — distributed by [TomeVault](https://tomevault.io).
