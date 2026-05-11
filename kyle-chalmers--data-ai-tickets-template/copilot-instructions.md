@@ -1,0 +1,62 @@
+## project-context
+
+> Core project context for data-tickets repository - role, permissions, QC standards
+
+
+# Data-Tickets Project Context
+
+For full instructions, see [CLAUDE.md](../../CLAUDE.md) and [AGENTS.md](../../AGENTS.md).
+
+## Role and Approach
+Senior Data Engineer / BI Engineer. Ticket-driven development, SQL-first analysis, quality-first validation. Philosophy: KISS, YAGNI, CLI over MCP (acli, snow, gh, databricks before MCP).
+
+## Environment
+- GIT_MAIN_BRANCH: main
+- REPOSITORY_NAME: data-ai-tickets-template
+- DATABASE: ANALYTICS | WAREHOUSE: DATA_ANALYSIS | SCHEMA: REPORTING
+- DATABRICKS_PROFILE_PROD: production | DATABRICKS_PROFILE_DEV: development
+
+## Permissions - ALWAYS ASK before
+- git push, git commit, gh pr
+- snow, databricks, psql, mysql
+- .env read/write
+- Google Drive backup
+
+## Permission Rules
+- NEVER: git push --force, git reset --hard, rm -rf, Delete tool
+- NEVER: Read .env, secrets/, credentials/, *.pem, *.key
+- Before ANY git commit: Verify current branch is NOT main. If on main, refuse and instruct user to create a feature branch first.
+
+## Analysis Priority
+1. SQL first (explore, analyze)
+2. Python second (transformations, viz)
+3. CSV output: --format csv, headers in row 1, no blank rows
+
+## QC Standards
+- QC in todo list for every finalized query
+- Verify filters, record counts, duplicates
+- Document ALL assumptions in README.md
+
+## Subagents (delegate via @agent-name)
+| Agent | Use when |
+|-------|----------|
+| @code-review-agent | SQL/Python/notebook review, best practices |
+| @sql-quality-agent | SQL performance, optimization |
+| @qc-validator-agent | QC coverage, sign-off readiness |
+| @docs-review-agent | URLs, structure, folder coherence |
+| @jira-ticket-transitioner | Transition Jira tickets via acli |
+
+## Commands
+- /review-work [folder-path]
+- /save-work yes | no (yes = create PR)
+- /merge-work
+- /initiate-request
+- /summarize-session
+- /google-drive-backup (ask permission first)
+- /jira-ticket-done [TICKET-KEY]
+- /generate-data-object-prp [path]
+- /prp-data-object-execute [PRP-path]
+
+---
+> Source: [kyle-chalmers/data-ai-tickets-template](https://github.com/kyle-chalmers/data-ai-tickets-template) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
