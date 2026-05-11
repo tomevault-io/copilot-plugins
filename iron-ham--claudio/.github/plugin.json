@@ -1,0 +1,9 @@
+{
+  "name": "iron-ham--claudio",
+  "displayName": "claudio",
+  "description": "Multi-instance Claude Code orchestrator using git worktrees",
+  "version": "1.0.0",
+  "author": "Iron-Ham",
+  "homepage": "https://github.com/Iron-Ham/claudio",
+  "skills": []
+}
