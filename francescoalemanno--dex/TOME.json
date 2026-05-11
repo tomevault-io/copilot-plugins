@@ -1,0 +1,44 @@
+{
+  "name": "dex",
+  "owner": "francescoalemanno",
+  "repo": "dex",
+  "description": "A structured orchestrator for AI coding agents. Give it a request \u2014 it plans, implements, and reviews the work automatically using your preferred coding CLI.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/francescoalemanno/dex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T06:01:07Z"
+}
