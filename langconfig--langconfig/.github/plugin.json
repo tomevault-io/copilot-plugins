@@ -1,0 +1,9 @@
+{
+  "name": "langconfig--langconfig",
+  "displayName": "langconfig",
+  "description": "LangConfig is a open-source visual workflow builder designed to make AI agent development accessible to everyone. Build, test, and share LangChain and LangGraph agent workflows with an intuitive drag-",
+  "version": "1.0.0",
+  "author": "LangConfig",
+  "homepage": "https://github.com/LangConfig/langconfig",
+  "skills": []
+}
