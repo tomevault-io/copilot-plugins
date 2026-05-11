@@ -1,38 +1,13 @@
-## project-structure
+## radix-ui-best-practices
 
-> - `src/app/`: Next.js app router pages and layouts
+> Best practices for using Radix UI components
 
-# Project Structure Guide
 
-## Core Directories
-- `src/app/`: Next.js app router pages and layouts
-- `src/components/`: Reusable React components
-- `src/lib/`: Utility functions and shared code
-- `src/db/`: Database schema and migrations using Drizzle ORM
-- `src/stores/`: Zustand state management
-- `src/actions/`: Server actions and API routes
-- `src/hooks/`: Custom React hooks
-- `src/types/`: TypeScript type definitions
-- `src/i18n/`: Internationalization setup
-- `src/mail/`: Email templates and mail functionality
-- `src/payment/`: Payment integration
-- `src/analytics/`: Analytics and tracking
-- `src/storage/`: File storage integration
-
-## Configuration Files
-- `next.config.ts`: Next.js configuration
-- `drizzle.config.ts`: Database configuration
-- `biome.json`: Code formatting and linting rules
-- `tsconfig.json`: TypeScript configuration
-- `components.json`: UI components configuration
-
-## Content Management
-- `content/`: MDX content files
-- `content-collections.ts`: Content collection configuration
-
-## Environment
-- `env.example`: Environment variables template
-- `global.d.ts`: Global TypeScript declarations
+- Use Radix UI primitives for building custom, accessible components
+- Utilize Radix UI's composition patterns for creating complex, reusable UI elements
+- Implement proper ARIA attributes and keyboard navigation for accessibility
+- Utilize Radix UI's built-in state management for complex components
+- Customize Radix UI components using the `asChild` prop for better flexibility
 
 ---
 > Source: [tanchaowen84/voice-clone](https://github.com/tanchaowen84/voice-clone) — distributed by [TomeVault](https://tomevault.io).
