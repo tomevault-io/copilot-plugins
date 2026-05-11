@@ -1,0 +1,9 @@
+{
+  "name": "atesgoral--vite-plugin-mcp-client-tools",
+  "displayName": "vite-plugin-mcp-client-tools",
+  "description": "Pluggable Vite MCP plugin that brings client-side tools to your existing Vite setup",
+  "version": "1.0.0",
+  "author": "atesgoral",
+  "homepage": "https://github.com/atesgoral/vite-plugin-mcp-client-tools",
+  "skills": []
+}
