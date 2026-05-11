@@ -1,0 +1,9 @@
+{
+  "name": "apex-engineers-inc--rustest",
+  "displayName": "rustest",
+  "description": "Pytest-style python test runner powered by Rust - built for speed \ud83d\ude80",
+  "version": "1.0.0",
+  "author": "Apex-Engineers-Inc",
+  "homepage": "https://github.com/Apex-Engineers-Inc/rustest",
+  "skills": []
+}
