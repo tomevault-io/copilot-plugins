@@ -4,7 +4,7 @@
   "repo": "Reddit-Options-Trader-ROT-",
   "description": "A modular research pipeline that turns trending Reddit discussions into structured market events and options trade ideas.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mattbusel/Reddit-Options-Trader-ROT-",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T02:52:05Z"
+  "distributed_at": "2026-05-11T07:48:36Z"
 }
