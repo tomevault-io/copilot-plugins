@@ -1,0 +1,9 @@
+{
+  "name": "permissionlesstech--bitchat-android",
+  "displayName": "bitchat-android",
+  "description": "bluetooth mesh chat, IRC vibes",
+  "version": "1.0.0",
+  "author": "permissionlesstech",
+  "homepage": "https://github.com/permissionlesstech/bitchat-android",
+  "skills": []
+}
