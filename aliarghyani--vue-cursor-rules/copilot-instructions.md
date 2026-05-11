@@ -1,121 +1,150 @@
-## api-integration
+## component-testing
 
-> API integration patterns and data fetching
+> Component testing with Vitest and Vue Test Utils
 
-# API Integration
+# Component Testing
 
-**Role:** You are a Vue 3 expert specializing in API integration and data fetching patterns.
+**Role:** You are a Vue 3 expert specializing in component testing and quality assurance.
 
 **Core Rules:**
-- Use typed API services with error handling
-- Create reusable `useFetch` composables
-- Handle loading, error, and success states
-- Leverage TypeScript for API responses
-- Separate API logic from component logic
+- Use Vitest with Vue Test Utils for component tests
+- Test behavior, not implementation details
+- Mock external dependencies properly
+- Test props, events, and user interactions
+- Keep tests focused and readable
 
-**Chain-of-Thought:** Think step-by-step: 1. Design API interface 2. Create typed service 3. Build composable wrapper 4. Integrate with component
+**Chain-of-Thought:** Think step-by-step: 1. Identify what to test 2. Setup component with props 3. Simulate user actions 4. Assert expected outcomes
 
-**Note:** These patterns are UI-framework neutral; adapt UI components while preserving data fetching logic.
+**Note:** Testing patterns are UI-framework neutral; adapt selectors and mocks for specific UI kits while preserving test logic.
 
-## Workflow Chain: Build API Integration
+## Test Setup
 
-**Full Task:** Create a user list with API fetching and error handling.
-
-**Step 1:** Define API service
 ```typescript
-// services/userApi.ts
-export const userApi = {
-  getUsers: () => api.get<User[]>('/users'),
-  getUser: (id: number) => api.get<User>(`/users/${id}`)
+// tests/setup.ts
+import { beforeEach } from 'vitest'
+import { config } from '@vue/test-utils'
+
+config.global.plugins = [/* your plugins */]
+
+beforeEach(() => {
+  // Reset mocks
+  vi.clearAllMocks()
+})
+```
+
+## Basic Component Test
+
+```typescript
+// components/Counter.test.ts
+import { mount } from '@vue/test-utils'
+import { describe, it, expect } from 'vitest'
+import Counter from '@/components/Counter.vue'
+
+describe('Counter', () => {
+  it('renders initial count', () => {
+    const wrapper = mount(Counter, {
+      props: { initialCount: 5 }
+    })
+    
+    expect(wrapper.text()).toContain('5')
+  })
+  
+  it('increments count on button click', async () => {
+    const wrapper = mount(Counter)
+    
+    await wrapper.find('button').trigger('click')
+    
+    expect(wrapper.text()).toContain('1')
+  })
+  
+  it('emits update event', async () => {
+    const wrapper = mount(Counter)
+    
+    await wrapper.find('button').trigger('click')
+    
+    expect(wrapper.emitted()).toHaveProperty('update')
+    expect(wrapper.emitted('update')?.[0]).toEqual([1])
+  })
+})
+```
+
+## Testing Composables
+
+```typescript
+// composables/useCounter.test.ts
+import { describe, it, expect } from 'vitest'
+import { useCounter } from '@/composables/useCounter'
+
+describe('useCounter', () => {
+  it('initializes with default value', () => {
+    const { count } = useCounter()
+    expect(count.value).toBe(0)
+  })
+  
+  it('increments count', () => {
+    const { count, increment } = useCounter()
+    
+    increment()
+    
+    expect(count.value).toBe(1)
+  })
+})
+```
+
+## Mock External Dependencies
+
+```typescript
+// Mock API calls
+vi.mock('@/api/users', () => ({
+  getUsers: vi.fn(() => Promise.resolve([]))
+}))
+
+// Mock router
+const mockRouter = {
+  push: vi.fn()
 }
+
+vi.mock('vue-router', () => ({
+  useRouter: () => mockRouter
+}))
 ```
 
-**Step 2:** Create data composable
-```typescript
-// composables/useUsers.ts
-export function useUsers() {
-  const { data: users, loading, error, execute } = useFetch<User[]>('/users')
-  return { users, loading, error, refetch: execute }
-}
-```
+## UI Kit Testing Adaptations
 
-**Step 3:** Wire the composable into the component (see `Usage in Components` below for a template example).
+**Core testing logic remains identical—adapt selectors and setup for specific UI libraries:**
 
-## UI Kit Adaptations
-
-**Data fetching composables remain identical--only loading/error UI changes:**
-
-- **Tailwind UI:** Custom loading states with utilities
-  ```vue
-  <div v-if="loading" class="flex items-center justify-center p-4">
-    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-  </div>
-  <div v-else-if="error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-    {{ error }}
-  </div>
+- **Tailwind UI/Native Elements:** Standard CSS selectors
+  ```typescript
+  await wrapper.find('button').trigger('click')
+  expect(wrapper.find('.text-red-600')).toBeTruthy() // Error state
   ```
 
-- **Vuetify:** Material progress and alerts
-  ```vue
-  <v-progress-circular v-if="loading" indeterminate color="primary" />
-  <v-alert v-else-if="error" type="error">{{ error }}</v-alert>
-  <v-list v-else>
-    <v-list-item v-for="user in users" :key="user.id">{{ user.name }}</v-list-item>
-  </v-list>
+- **Vuetify:** Component-specific selectors and global setup
+  ```typescript
+  // vitest.config.ts
+  config.global.plugins = [vuetify]
+  
+  // Test
+  await wrapper.findComponent({ name: 'VBtn' }).trigger('click')
+  expect(wrapper.findComponent({ name: 'VAlert' }).exists()).toBe(true)
   ```
 
-- **Quasar:** Mobile-friendly loading and notifications
-  ```vue
-  <q-spinner v-if="loading" color="primary" size="3em" />
-  <q-banner v-else-if="error" class="text-white bg-red">{{ error }}</q-banner>
+- **Quasar:** Configure Quasar testing utilities
+  ```typescript
+  import { installQuasarPlugin } from '@quasar/quasar-app-extension-testing-unit-vitest'
+  installQuasarPlugin()
+  
+  await wrapper.findComponent({ name: 'QBtn' }).trigger('click')
   ```
 
-- **Element Plus:** Rich data display components
-  ```vue
-  <el-loading v-if="loading" />
-  <el-alert v-else-if="error" type="error">{{ error }}</el-alert>
-  <el-table v-else :data="users">
-    <el-table-column prop="name" label="Name" />
-  </el-table>
+- **Element Plus:** Setup Element Plus globally
+  ```typescript
+  config.global.plugins = [ElementPlus]
+  
+  await wrapper.findComponent({ name: 'ElButton' }).trigger('click')
   ```
 
-*Remember: `useFetch` composable and API service logic stay identical across all frameworks. See ui-kits-guide.mdc for complete patterns.*
-
-## API Service Pattern
-
-- Centralize base URL, headers, and JSON parsing in a dedicated service.
-- Expose typed helpers (`get`, `post`, `put`, `delete`) that delegate to a private `request`.
-- See `examples/api-service.ts` for the full implementation used by these rules.
-
-## Data Fetching Composable
-
-- Wrap API calls in a composable that returns `{ data, loading, error, execute }`.
-- Reset error/loading state before each request and support optional lazy execution.
-- Complete sample: `examples/use-fetch.ts`.
-
-```typescript
-const { data, loading, error, execute } = useFetch<User[]>('/users')
-```
-
-## Usage in Components
-
-```vue
-<script setup lang="ts">
-import { useFetch } from '@/composables/useFetch'
-
-const { data: users, loading, error } = useFetch<User[]>('/users')
-</script>
-
-<template>
-  <div>
-    <div v-if="loading">Loading users...</div>
-    <div v-else-if="error" class="text-red-600">{{ error }}</div>
-    <ul v-else-if="users">
-      <li v-for="user in users" :key="user.id">{{ user.name }}</li>
-    </ul>
-  </div>
-</template>
-```
+*Essential: Test component behavior and user interactions, not UI kit implementation details. Composable and business logic tests remain framework-agnostic.*
 
 ---
 > Source: [aliarghyani/vue-cursor-rules](https://github.com/aliarghyani/vue-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
