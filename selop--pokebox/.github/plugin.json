@@ -1,0 +1,9 @@
+{
+  "name": "selop--pokebox",
+  "displayName": "pokebox",
+  "description": "This project displays Pokemon TCG cards utilizing ThreeJS and Off-Axis-Projection",
+  "version": "1.0.0",
+  "author": "selop",
+  "homepage": "https://github.com/selop/pokebox",
+  "skills": []
+}
