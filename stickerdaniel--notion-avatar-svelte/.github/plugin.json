@@ -1,0 +1,9 @@
+{
+  "name": "stickerdaniel--notion-avatar-svelte",
+  "displayName": "notion-avatar-svelte",
+  "description": "Notion-styled avatar editor for your Svelte project!",
+  "version": "1.0.0",
+  "author": "stickerdaniel",
+  "homepage": "https://github.com/stickerdaniel/notion-avatar-svelte",
+  "skills": []
+}
