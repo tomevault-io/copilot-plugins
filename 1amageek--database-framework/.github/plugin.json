@@ -1,0 +1,9 @@
+{
+  "name": "1amageek--database-framework",
+  "displayName": "database-framework",
+  "description": "Build your own database with pluggable indexes \u2014 vector, full-text, spatial, graph, and more on FoundationDB",
+  "version": "1.0.0",
+  "author": "1amageek",
+  "homepage": "https://github.com/1amageek/database-framework",
+  "skills": []
+}
