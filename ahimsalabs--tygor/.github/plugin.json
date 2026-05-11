@@ -1,0 +1,9 @@
+{
+  "name": "ahimsalabs--tygor",
+  "displayName": "tygor",
+  "description": " Type-safe backend for Go + TypeScript apps. ",
+  "version": "1.0.0",
+  "author": "ahimsalabs",
+  "homepage": "https://github.com/ahimsalabs/tygor",
+  "skills": []
+}
