@@ -1,0 +1,9 @@
+{
+  "name": "iamevanyt--electron-webauthn",
+  "displayName": "electron-webauthn",
+  "description": "Add native WebAuthn/FIDO2 support to Electron using macOS AuthenticationServices framework.",
+  "version": "1.0.0",
+  "author": "iamEvanYT",
+  "homepage": "https://github.com/iamEvanYT/electron-webauthn",
+  "skills": []
+}
