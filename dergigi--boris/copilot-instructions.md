@@ -1,13 +1,23 @@
-## web-bookmarks
+## zaps-and-zap-splits
 
-> anything to do with "web bookmarks" aka NIP-B0
+> Specification for zaps and zaps splits
 
 
-The app also supports web bookmarks (`kind:39701`) which are distinct from public/private bookmarks as defined in NIP-51.
+When we create highlights, we want to add `zap` tags to the event, to allow for value splits between the highlighter/curator and the author (or authors).
 
-See NIP-B0 for details:
+`zap` tags are defined in Appendix G of NIP-57:
+- https://github.com/nostr-protocol/nips/blob/master/57.md
 
-- https://github.com/nostr-protocol/nips/blob/master/B0.md
+More on `zap` tags here:
+- https://nostrbook.dev/tags/zap
+
+Note that nostr-native content might have `zap` tags already, which can be seen as the "author group" of e.g. the long-form article (writer, editor, designer, etc). We should respect these `zap` tags and include them into our "zap splits" appropriately.
+
+Example: if our zap-split setting is 50/50, and the nostr-native blog post has two authors, our zap splits should be as follows:
+
+- Highlighter: 50%
+- Author1: 25%
+- Author2: 25%
 
 ---
 > Source: [dergigi/boris](https://github.com/dergigi/boris) — distributed by [TomeVault](https://tomevault.io).
