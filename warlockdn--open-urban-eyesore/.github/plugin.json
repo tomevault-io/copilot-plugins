@@ -1,9 +1,9 @@
 {
   "name": "warlockdn--open-urban-eyesore",
   "displayName": "open-urban-eyesore",
-  "description": "open-urban-eyesore",
+  "description": "An open, community\u2011driven platform for documenting the state of public infrastructure \u2014 starting with potholes eventually extending to other civic infrastructure and civic domains (blocked roads, foot",
   "version": "1.0.0",
   "author": "warlockdn",
-  "homepage": "https://tomevault.io/claim/warlockdn",
+  "homepage": "https://github.com/warlockdn/open-urban-eyesore",
   "skills": []
 }
