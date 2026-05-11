@@ -4,7 +4,7 @@
   "repo": "third-brain-v5-skills",
   "description": "claude sikkls",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mark393295827/third-brain-v5-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T05:34:44Z"
+  "distributed_at": "2026-05-11T13:03:56Z"
 }
