@@ -1,0 +1,9 @@
+{
+  "name": "nslogmeng--swift-service",
+  "displayName": "swift-service",
+  "description": "A lightweight, zero-dependency, type-safe dependency injection framework for modern Swift.",
+  "version": "1.0.0",
+  "author": "nslogmeng",
+  "homepage": "https://github.com/nslogmeng/swift-service",
+  "skills": []
+}
