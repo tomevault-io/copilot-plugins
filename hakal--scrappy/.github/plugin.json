@@ -1,0 +1,9 @@
+{
+  "name": "hakal--scrappy",
+  "displayName": "scrappy",
+  "description": "A context-aware coding assistant that understands your entire codebase.",
+  "version": "1.0.0",
+  "author": "HakAl",
+  "homepage": "https://github.com/HakAl/scrappy",
+  "skills": []
+}
