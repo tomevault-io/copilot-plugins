@@ -1,0 +1,44 @@
+{
+  "name": "youtube-to-knowledge",
+  "owner": "velmighty",
+  "repo": "youtube-to-knowledge",
+  "description": "Turn any YouTube video into a transcript, summary, and knowledge graph - powered by Claude Code.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/velmighty/youtube-to-knowledge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T23:19:24Z"
+}
