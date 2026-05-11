@@ -1,0 +1,44 @@
+{
+  "name": "jellyfin-collection",
+  "owner": "4lx69",
+  "repo": "jellyfin-collection",
+  "description": "Kometa-compatible collection manager for Jellyfin with Sonarr/Radarr integration",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/4lx69/jellyfin-collection",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T20:03:29Z"
+}
