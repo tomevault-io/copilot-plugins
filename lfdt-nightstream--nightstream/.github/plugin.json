@@ -1,0 +1,9 @@
+{
+  "name": "lfdt-nightstream--nightstream",
+  "displayName": "Nightstream",
+  "description": "Lattice zkVM (post-quantum zkVM)",
+  "version": "1.0.0",
+  "author": "LFDT-Nightstream",
+  "homepage": "https://github.com/LFDT-Nightstream/Nightstream",
+  "skills": []
+}
