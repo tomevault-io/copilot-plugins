@@ -1,0 +1,9 @@
+{
+  "name": "meshery-extensions--meshery-academy",
+  "displayName": "meshery-academy",
+  "description": "Academy for Meshery",
+  "version": "1.0.0",
+  "author": "meshery-extensions",
+  "homepage": "https://github.com/meshery-extensions/meshery-academy",
+  "skills": []
+}
