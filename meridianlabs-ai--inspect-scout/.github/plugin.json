@@ -1,0 +1,9 @@
+{
+  "name": "meridianlabs-ai--inspect-scout",
+  "displayName": "inspect_scout",
+  "description": "In-depth analysis of AI agent transcripts.",
+  "version": "1.0.0",
+  "author": "meridianlabs-ai",
+  "homepage": "https://github.com/meridianlabs-ai/inspect_scout",
+  "skills": []
+}
