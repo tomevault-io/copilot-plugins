@@ -1,9 +1,9 @@
 {
   "name": "jtdowney--tsbridge",
   "displayName": "tsbridge",
-  "description": "tsbridge",
+  "description": "A lightweight proxy manager built on Tailscale's tsnet library that enables multiple HTTPS services on a Tailnet",
   "version": "1.0.0",
   "author": "jtdowney",
-  "homepage": "https://tomevault.io/claim/jtdowney",
+  "homepage": "https://github.com/jtdowney/tsbridge",
   "skills": []
 }
