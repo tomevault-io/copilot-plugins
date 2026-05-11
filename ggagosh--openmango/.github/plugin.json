@@ -1,0 +1,9 @@
+{
+  "name": "ggagosh--openmango",
+  "displayName": "openmango",
+  "description": "GPU-accelerated MongoDB client for macOS",
+  "version": "1.0.0",
+  "author": "ggagosh",
+  "homepage": "https://github.com/ggagosh/openmango",
+  "skills": []
+}
