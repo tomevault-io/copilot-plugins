@@ -1,0 +1,9 @@
+{
+  "name": "secup--projectultra",
+  "displayName": "ProjectUltra",
+  "description": "Experimental HF modem for amateur radio. Adaptive waveforms (MFSK/DPSK/OFDM), LDPC FEC, ARQ protocol. Work in progress.",
+  "version": "1.0.0",
+  "author": "secup",
+  "homepage": "https://github.com/secup/ProjectUltra",
+  "skills": []
+}
