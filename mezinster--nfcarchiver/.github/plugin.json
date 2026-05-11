@@ -1,0 +1,9 @@
+{
+  "name": "mezinster--nfcarchiver",
+  "displayName": "nfcarchiver",
+  "description": "Distributed data archive on NFC tags - Flutter app for Android/iOS",
+  "version": "1.0.0",
+  "author": "mezinster",
+  "homepage": "https://github.com/mezinster/nfcarchiver",
+  "skills": []
+}
