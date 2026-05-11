@@ -1,0 +1,9 @@
+{
+  "name": "mole-labs--aspectk",
+  "displayName": "aspectk",
+  "description": "A Simple AOP Library Similar as AspectJ works on Kotlin Multiplatform",
+  "version": "1.0.0",
+  "author": "Mole-Labs",
+  "homepage": "https://github.com/Mole-Labs/aspectk",
+  "skills": []
+}
