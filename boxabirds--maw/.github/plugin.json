@@ -1,0 +1,9 @@
+{
+  "name": "boxabirds--maw",
+  "displayName": "maw",
+  "description": "Multi Agent Worktrees: run your agent automatically in a separate worktree that's merged at the end. ",
+  "version": "1.0.0",
+  "author": "boxabirds",
+  "homepage": "https://github.com/boxabirds/maw",
+  "skills": []
+}
