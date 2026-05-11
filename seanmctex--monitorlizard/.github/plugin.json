@@ -1,0 +1,9 @@
+{
+  "name": "seanmctex--monitorlizard",
+  "displayName": "MonitorLizard",
+  "description": "A MacOS MenuBar utility to monitor Pull Request health",
+  "version": "1.0.0",
+  "author": "SeanMcTex",
+  "homepage": "https://github.com/SeanMcTex/MonitorLizard",
+  "skills": []
+}
