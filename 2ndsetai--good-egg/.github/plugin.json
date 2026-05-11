@@ -1,0 +1,9 @@
+{
+  "name": "2ndsetai--good-egg",
+  "displayName": "good-egg",
+  "description": "Trust scoring for GitHub PR authors based on contribution history.",
+  "version": "1.0.0",
+  "author": "2ndSetAI",
+  "homepage": "https://github.com/2ndSetAI/good-egg",
+  "skills": []
+}
