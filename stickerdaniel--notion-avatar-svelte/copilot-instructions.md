@@ -1,0 +1,28 @@
+## commit-message-instructions
+
+> Always follow this format for commit messages:
+
+Always follow this format for commit messages:
+type(scope): subject
+
+Types:
+
+- feat for new features
+- fix for bug fixes
+- docs for documentation
+- style for formatting/style
+- refactor for code restructuring
+- test for adding/updating tests
+- chore for maintenance tasks
+
+Keep subject concise (<50 chars), use imperative mood.
+Add detailed description after a blank line if needed.
+Reference issues with #issue_number.
+
+Example: fix(config): handle comments in environment variables
+
+After successfully implementing a feature, suggest a suitable commit message. Only commit (git commit) if the user explicitly asks you to.
+
+---
+> Source: [stickerdaniel/notion-avatar-svelte](https://github.com/stickerdaniel/notion-avatar-svelte) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
