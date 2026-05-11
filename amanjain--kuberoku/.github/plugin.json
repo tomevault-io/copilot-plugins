@@ -1,0 +1,9 @@
+{
+  "name": "amanjain--kuberoku",
+  "displayName": "kuberoku",
+  "description": "Heroku-like PaaS CLI for vanilla Kubernetes. Zero server-side components.",
+  "version": "1.0.0",
+  "author": "amanjain",
+  "homepage": "https://github.com/amanjain/kuberoku",
+  "skills": []
+}
