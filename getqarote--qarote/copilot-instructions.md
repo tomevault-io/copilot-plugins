@@ -1,132 +1,68 @@
-## unused-variables
+## when-to-create-rules
 
-> **NEVER prefix unused variables with `_` to suppress linter warnings.**
+> This document outlines when you should create or update cursor rules in this codebase.
 
-# Unused Variables Convention
 
-## Rule: Do Not Use Underscore Prefix for Unused Variables
+# When to Create or Update Cursor Rules
 
-**NEVER prefix unused variables with `_` to suppress linter warnings.**
+This document outlines when you should create or update cursor rules in this codebase.
 
-### ❌ WRONG - Using underscore prefix
+## When to CREATE a new rule
 
-```typescript
-// ❌ Don't do this
-const { data: _data, error } = someFunction();
-const { license: _updatedLicense, newVersion } = await renewLicense();
-```
+Create a new cursor rule file when:
 
-### ✅ CORRECT - Proper solutions
+1. **Architectural patterns or conventions** that are used across multiple files or modules
+   - Example: A specific pattern for handling errors, authentication, or data validation
+   - Example: A convention for organizing services or controllers
 
-#### 1. Remove the unused variable entirely
+2. **Complex domain logic** that requires explanation beyond what's obvious from the code
+   - Example: Business rules that aren't self-evident
+   - Example: Workflows that span multiple components
 
-```typescript
-// ✅ Only destructure what you need
-const { error } = someFunction();
-const { newVersion } = await renewLicense();
-```
+3. **Important design decisions** that affect how code should be written or organized
+   - Example: Why certain patterns are preferred over alternatives
+   - Example: Constraints that must be maintained (e.g., database schema relationships)
 
-#### 2. Use the variable if it provides value
+4. **Recurring patterns** that appear in multiple places and should be followed consistently
+   - Example: API response formatting conventions
+   - Example: Error handling patterns
 
-```typescript
-// ✅ Use it in logging or validation
-const { license: updatedLicense, newVersion } = await renewLicense();
+5. **Project structure conventions** that help navigate or understand the codebase
+   - Example: Where to find specific types of files
+   - Example: How different parts of the application interact
 
-logger.info(
-  {
-    licenseId: updatedLicense.id,
-    newVersion,
-    expiresAt: updatedLicense.expiresAt,
-  },
-  "License renewed successfully"
-);
-```
+## When to UPDATE an existing rule
 
-#### 3. If destructuring is required for API shape, use array position
+Update an existing rule when:
 
-```typescript
-// ✅ Use array destructuring with empty slots
-const [, newVersion] = await renewLicense(); // Skip first element
+1. **The pattern or convention has changed** - Update the rule to reflect the new approach
+2. **New information is discovered** - Add missing details that would help future development
+3. **The rule is outdated** - Remove or update information that's no longer accurate
+4. **The scope has expanded** - Add new examples or use cases that weren't covered
 
-// Or use object rest to ignore properties
-const { newVersion, ...rest } = await renewLicense();
-```
+## When NOT to create a rule
 
-## Why This Matters
+Do NOT create a rule for:
 
-- **Clarity**: Underscores hide the fact that we're not using returned data
-- **Code smell**: Unused variables often indicate incomplete implementation or incorrect API usage
-- **Refactoring opportunity**: Forces us to think about whether the variable should be used or if the API should change
-- **Consistency**: Keeps the codebase clean and intentional
+1. **One-off implementations** - Single-use code that won't be repeated
+2. **Simple, self-explanatory code** - Code that's clear without additional context
+3. **Temporary solutions** - Code that's meant to be replaced soon
+4. **Standard library usage** - Common patterns that are well-documented elsewhere
+5. **Minor variations** - Small differences that don't represent a pattern
 
-## When You Encounter Unused Variables
+## Rule file organization
 
-1. **Ask why it's unused** - Should it be used for logging, validation, or error handling?
-2. **Check if it's needed** - Can the destructuring be simplified?
-3. **Consider the API** - Should the function return less data?
-4. **Never use underscore** - It's a band-aid that hides the real issue
+- Place rules in `.cursor/rules/` directory at the appropriate level (root, `api/`, `app/`, etc.)
+- Use descriptive filenames that indicate the rule's purpose
+- Set `alwaysApply: true` for rules that should be active in every conversation
+- Group related rules logically (e.g., project structure, coding conventions, architecture)
 
-## Examples
+## Best practices
 
-### Destructuring API responses
-
-```typescript
-// ❌ Wrong
-const { license: _updatedLicense, newVersion } = await renewLicense(id, date);
-
-// ✅ Better - Only get what you need
-const { newVersion } = await renewLicense(id, date);
-
-// ✅ Or use it
-const { license: updatedLicense, newVersion } = await renewLicense(id, date);
-logger.info({ licenseId: updatedLicense.id, newVersion }, "License renewed");
-```
-
-### Function parameters
-
-```typescript
-// ❌ Wrong
-async function handler(req: Request, _res: Response) {
-  // ... only uses req
-}
-
-// ✅ Better - Remove unused parameter or use it
-async function handler(req: Request) {
-  // ... only uses req
-}
-```
-
-### TypeScript tuple destructuring
-
-```typescript
-// ❌ Wrong
-const [_error, data] = await somePromise();
-
-// ✅ Better - Use proper error handling
-const [error, data] = await somePromise();
-if (error) {
-  logger.error({ error }, "Operation failed");
-  return;
-}
-
-// ✅ Or use try-catch if appropriate
-try {
-  const data = await someOperation();
-  // ...
-} catch (error) {
-  logger.error({ error }, "Operation failed");
-}
-```
-
-## Exceptions
-
-There are NO exceptions. If ESLint complains about an unused variable:
-
-1. Remove it
-2. Use it
-3. Restructure the code
-
-Never silence the warning with an underscore prefix.
+- **Keep rules focused** - Each rule should cover a specific topic or pattern
+- **Keep rules current** - Review and update rules periodically as the codebase evolves
+- **Use examples** - Include concrete examples when they clarify the rule
+- **Be concise** - Rules should be helpful, not overwhelming
 
 ---
 > Source: [getqarote/Qarote](https://github.com/getqarote/Qarote) — distributed by [TomeVault](https://tomevault.io).
