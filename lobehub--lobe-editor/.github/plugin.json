@@ -1,0 +1,9 @@
+{
+  "name": "lobehub--lobe-editor",
+  "displayName": "lobe-editor",
+  "description": "\u2712\ufe0f Lobe Editor - a modern, extensible rich text editor built on Meta's Lexical framework with dual-architecture design, featuring both a powerful kernel and React integration. Optimized for AI applica",
+  "version": "1.0.0",
+  "author": "lobehub",
+  "homepage": "https://github.com/lobehub/lobe-editor",
+  "skills": []
+}
