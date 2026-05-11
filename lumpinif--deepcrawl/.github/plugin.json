@@ -1,0 +1,9 @@
+{
+  "name": "lumpinif--deepcrawl",
+  "displayName": "deepcrawl",
+  "description": "100% free and full open-source edge Firecrawl alternative with better links extraction for agents - that you can deploy to cloudflare or vercel by yourself.",
+  "version": "1.0.0",
+  "author": "lumpinif",
+  "homepage": "https://github.com/lumpinif/deepcrawl",
+  "skills": []
+}
