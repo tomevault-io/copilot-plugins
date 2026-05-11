@@ -4,7 +4,7 @@
   "repo": "IDO",
   "description": "Turn every moment into momentum",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/UbiquantAI/IDO",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T19:37:54Z"
+  "distributed_at": "2026-05-11T21:14:46Z"
 }
