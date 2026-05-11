@@ -1,0 +1,9 @@
+{
+  "name": "paralleldrive--aidd",
+  "displayName": "aidd",
+  "description": "The standard framework for AI Driven Development",
+  "version": "1.0.0",
+  "author": "paralleldrive",
+  "homepage": "https://github.com/paralleldrive/aidd",
+  "skills": []
+}
