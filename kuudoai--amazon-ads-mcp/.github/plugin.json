@@ -1,0 +1,9 @@
+{
+  "name": "kuudoai--amazon-ads-mcp",
+  "displayName": "amazon_ads_mcp",
+  "description": "Amazon Ads MCP - Model Context Protocol server for Amazon Advertising API",
+  "version": "1.0.0",
+  "author": "KuudoAI",
+  "homepage": "https://github.com/KuudoAI/amazon_ads_mcp",
+  "skills": []
+}
