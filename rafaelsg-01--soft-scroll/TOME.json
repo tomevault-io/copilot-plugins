@@ -1,0 +1,44 @@
+{
+  "name": "soft-scroll",
+  "owner": "rafaelsg-01",
+  "repo": "soft-scroll",
+  "description": "Soft Scroll is a free, open\u2011source Windows utility that delivers smooth scrolling system\u2011wide. Similar to \u201cSmoothScroll\u201d but free, portable, and configurable (single\u2011file .exe). Smooth Scrolling Free.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rafaelsg-01/soft-scroll",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T19:54:58Z"
+}
