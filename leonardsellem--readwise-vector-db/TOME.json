@@ -4,7 +4,7 @@
   "repo": "readwise-vector-db",
   "description": "Turn your Readwise library into a blazing-fast, self-hosted semantic search engine \u2013 complete with nightly syncs, vector search API, Prometheus metrics, and a streaming MCP server for LLM clients.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/leonardsellem/readwise-vector-db",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T22:43:56Z"
+  "distributed_at": "2026-05-11T09:19:03Z"
 }
