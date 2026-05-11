@@ -1,23 +1,30 @@
-# tsbridge
+# AI instruction files for tsbridge
 
-> Config by [jtdowney](https://github.com/jtdowney/tsbridge) — distributed by [TomeVault](https://tomevault.io/claim/jtdowney)
+> Sourced from [jtdowney/tsbridge](https://github.com/jtdowney/tsbridge) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+A lightweight proxy manager built on Tailscale's tsnet library that enables multiple HTTPS services on a Tailnet
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [jtdowney/tsbridge](https://github.com/jtdowney/tsbridge).
+Original source: `AGENTS.md` in [jtdowney/tsbridge](https://github.com/jtdowney/tsbridge).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/jtdowney](https://tomevault.io/claim/jtdowney)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/jtdowney/tsbridge](https://github.com/jtdowney/tsbridge)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/jtdowney) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install jtdowney/tsbridge
+```
+Source: [github.com/jtdowney/tsbridge](https://github.com/jtdowney/tsbridge).
+
+<!-- genome:a-i-q -->
