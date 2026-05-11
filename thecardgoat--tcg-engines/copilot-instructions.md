@@ -1,46 +1,86 @@
-## improve-prompt
+## minimal-changes-policy
 
-> When crafting prompts for AI assistance, follow these patterns to improve clarity and effectiveness:
+> Enforce conservative coding practices that make only user-requested changes without assumptions
 
-# Improve the User's Prompt Following the Patterns Below
+# Minimal Changes Policy
 
-When crafting prompts for AI assistance, follow these patterns to improve clarity and effectiveness:
+Enforce conservative coding practices that prioritize user intent and minimal scope changes.
 
-1. **Lead with the ask**: State your goal clearly at the beginning.
-   Example: "Summarize this PDF in 5 bullet points. The text is below: ..."
+<rule>
+name: minimal_changes_policy
+description: Ensure changes are minimal, user-directed, and avoid assumptions
+filters:
+  # Apply to all code changes
+  - type: event
+    pattern: "code_change"
+  # Apply to all file modifications
+  - type: event
+    pattern: "file_modify"
+  # Apply to feature additions
+  - type: content
+    pattern: "(?i)(add|create|implement|build)"
 
-2. **Repeat the key ask at the end**: For long contexts, reiterate the main request.
-   Example: "List pros & cons, keep it balanced. REMEMBER: 5 pros, 5 cons."
+actions:
+  - type: enforce
+    message: |
+      STRICT POLICY: Minimal Changes Only
 
-3. **Specify output shape**: Clearly define the expected format.
-   Example: "Return as: 1) short title, 2) table (CSV)."
+      NEVER do more than the user explicitly requested:
 
-4. **Use clear delimiters**: Use backticks, headings, or XML to separate sections.
-   Example: "Rate the style of the text between the fences."
+      1. **NO ASSUMPTIONS**:
+         - Do not assume user needs additional features
+         - Do not add "helpful" extras not requested
+         - Do not anticipate future requirements
+         - Ask clarifying questions if uncertain
 
-5. **Induce step-by-step thinking**: Encourage planning before execution.
-   Example: "Solve this puzzle. Think step-by-step before giving the final move."
+      2. **SCOPE LIMITATIONS**:
+         - Change ONLY what user specified
+         - Modify only ONE file per request (unless updating docs or splitting files)
+         - Make small, incremental changes
+         - Stop after completing the specific request
 
-6. **Ask it to plan its workflow**: For complex tasks, outline steps before execution.
-   Example: "We're writing an e-book. ❶ Outline chapters. ❷ Wait. ❸ When I say 'go', draft chapter 1."
+      3. **CLARIFICATION REQUIRED**:
+         - Ask questions when requirements are unclear
+         - Request specific details rather than guessing
+         - Confirm scope before making changes
+         - Never hallucinate requirements
 
-7. **Limit or widen knowledge sources**: Control the scope of information used.
-   Example: "Use only the info below. / Combine basic knowledge + this context."
+      4. **SIMPLICITY FOCUS**:
+         - Do not overcomplicate the codebase
+         - Keep solutions simple and direct
+         - Avoid architectural changes unless requested
+         - Maintain existing patterns
 
-8. **Guide information retrieval**: Help AI identify relevant documents.
-   Example: "List which docs look relevant, then answer."
+      5. **TESTING**:
+         - Run tests after making changes if tests exist
+         - Verify changes work as intended
+         - Report any test failures immediately
 
-9. **Show a style/example**: Provide a reference for tone and format.
-   Example: "Match the style of: <example>"
+      EXCEPTIONS (only change multiple files when):
+      - Updating related .md or .mdc documentation files
+      - Splitting a single file into multiple files
+      - User explicitly requests multi-file changes
 
-10. **Set correction handles**: Define clear criteria for adjustments.
-    Example: "If length > 150 words, shorten."
+examples:
+  - input: |
+      User: "Fix this bug in login.js"
+      
+      # Bad: Also refactor authentication, add logging, update styles
+      # Good: Fix only the specific bug mentioned
+    output: "Fixed only the specific bug in login.js"
 
-11. **Tell it when to stop or loop**: Specify when to conclude or continue.
-    Example: "Keep going until you list 20 ideas, then stop."
+  - input: |
+      User: "Add a button to the header"
+      
+      # Bad: Also improve header layout, add animations, update theme
+      # Good: Add only the requested button
+    output: "Added only the requested button to header"
 
-12. **Request the hidden reasoning**: Ask for underlying logic when needed.
-    Example: "Explain the reasoning behind your answer."
+metadata:
+  priority: critical
+  version: 1.0
+  enforcement: strict
+</rule>
 
 ---
 > Source: [TheCardGoat/tcg-engines](https://github.com/TheCardGoat/tcg-engines) — distributed by [TomeVault](https://tomevault.io).
