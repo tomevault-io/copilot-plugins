@@ -1,0 +1,9 @@
+{
+  "name": "webpack--docs-webpack-js-org",
+  "displayName": "docs.webpack.js.org",
+  "description": "webpack's new api docs wit mintlify",
+  "version": "1.0.0",
+  "author": "webpack",
+  "homepage": "https://github.com/webpack/docs.webpack.js.org",
+  "skills": []
+}
