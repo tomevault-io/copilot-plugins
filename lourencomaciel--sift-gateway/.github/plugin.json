@@ -1,0 +1,9 @@
+{
+  "name": "lourencomaciel--sift-gateway",
+  "displayName": "sift-gateway",
+  "description": "Reliability gateway for AI tool output: schema-stable, secret-safe, pagination-complete JSON for MCP and CLI agents.",
+  "version": "1.0.0",
+  "author": "lourencomaciel",
+  "homepage": "https://github.com/lourencomaciel/sift-gateway",
+  "skills": []
+}
