@@ -4,7 +4,7 @@
   "repo": "codemem",
   "description": "A lightweight persistent-memory companion for OpenCode & Claude",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kunickiaj/codemem",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T18:08:38Z"
+  "distributed_at": "2026-05-11T17:46:07Z"
 }
