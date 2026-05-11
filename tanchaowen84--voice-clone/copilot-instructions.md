@@ -1,13 +1,14 @@
-## stripe-best-practices
+## tailwindcss-best-practices
 
-> Best practices for integrating Stripe payments
+> Best practices for styling with Tailwind CSS
 
 
-- Use the `@stripe/stripe-js` package for client-side Stripe integration.
-- Implement proper error handling and user feedback for payment flows.
-- Utilize Stripe's Elements for secure, customizable payment inputs.
-- Leverage Stripe's Webhooks for real-time payment status updates.
-- Follow Stripe's best practices for PCI compliance and security
+- Use utility-first approach for rapid development and maintainability
+- Implement responsive design using Tailwind's built-in breakpoints
+- Utilize the `@apply` directive for creating custom utility classes
+- Leverage Tailwind's JIT mode for improved performance and smaller bundle sizes
+- Utilize `tailwind-merge` for efficient class merging and overriding
+- Leverage `tailwindcss-animate` for easy animation implementation
 
 ---
 > Source: [tanchaowen84/voice-clone](https://github.com/tanchaowen84/voice-clone) — distributed by [TomeVault](https://tomevault.io).
