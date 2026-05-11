@@ -7,11 +7,11 @@ Automated EoH
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [FeiLiu36/AutoEoH](https://github.com/FeiLiu36/AutoEoH).
+Original source: `CLAUDE.md` in [FeiLiu36/AutoEoH](https://github.com/FeiLiu36/AutoEoH).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
