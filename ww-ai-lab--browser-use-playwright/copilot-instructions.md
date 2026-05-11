@@ -1,86 +1,238 @@
-## readme
+## architecture-patterns
 
-> 本目录包含了Gaia RPA项目的完整开发规范和最佳实践，用于指导后续开发工作。
+> 架构模式和设计原则，包含核心架构模式、设计模式、数据模型设计、依赖注入、错误处理架构等
 
-# Gaia RPA Cursor Rules
+# 架构模式和设计原则
 
-本目录包含了Gaia RPA项目的完整开发规范和最佳实践，用于指导后续开发工作。
+## 核心架构模式
 
-## 规则文件说明
+### 三阶段架构
+项目采用"录制-执行-自愈"三阶段架构：
 
-### 1. project-overview.mdc
-- **项目概览**: 项目简介、核心架构、技术栈
-- **项目结构**: 目录结构说明和关键文件
-- **开发阶段**: 当前开发进度和计划
+1. **录制阶段** ([src/core/recorder.py](mdc:src/core/recorder.py))
+   - 使用 Browser-Use 进行智能录制
+   - 生成 JSON 格式的工作流文件
+   - 支持变量提取和参数化
 
-### 2. coding-standards.mdc
-- **Python编码规范**: 代码风格、类型注解、异步编程
-- **文档字符串**: Google风格的文档规范
-- **错误处理**: 异常处理和日志记录
-- **测试规范**: 单元测试和异步测试
+2. **执行阶段** (待实现)
+   - 使用 Playwright 进行高性能执行
+   - 支持并发执行和批处理
+   - 模板渲染和上下文管理
 
-### 3. architecture-patterns.mdc
-- **核心架构模式**: 三阶段架构和分层设计
-- **设计模式**: 策略模式、工厂模式、观察者模式
-- **数据模型设计**: Pydantic模型和序列化
-- **并发和异步设计**: 异步编程和并发控制
+3. **自愈阶段** (待实现)
+   - 使用 Browser-Use 进行错误修复
+   - 自动适应页面变化
+   - 工作流自进化
 
-### 4. web-ui-development.mdc
-- **FastAPI开发规范**: API路由设计和错误处理
-- **模板开发规范**: Jinja2模板和组件化设计
-- **前端JavaScript规范**: 模块化和异步请求处理
-- **性能优化**: 前端和后端优化策略
+### 分层架构
+```
+┌─────────────────────────────────────┐
+│           CLI & Web UI              │  # 用户接口层
+├─────────────────────────────────────┤
+│         Core Business Logic         │  # 核心业务逻辑
+│  ┌─────────┬─────────┬─────────────┐ │
+│  │Recorder │Executor │   Healer    │ │
+│  └─────────┴─────────┴─────────────┘ │
+├─────────────────────────────────────┤
+│           Models & Utils            │  # 数据模型和工具
+├─────────────────────────────────────┤
+│      External Dependencies         │  # 外部依赖
+│   Browser-Use | Playwright | APIs  │
+└─────────────────────────────────────┘
+```
 
-### 5. browser-automation.mdc
-- **Browser-Use集成**: 录制阶段实现和配置
-- **Playwright执行规范**: 执行器架构和步骤执行器
-- **浏览器配置管理**: Chrome Profile复用和浏览器池
-- **选择器优化策略**: 智能选择器生成和XPath优化
+## 设计模式
 
-### 6. development-workflow.mdc
-- **开发流程**: 分支管理和提交规范
-- **环境管理**: 虚拟环境和依赖管理
-- **代码质量保证**: 代码检查工具和预提交钩子
-- **调试和日志**: 结构化日志和性能监控
+### 1. 策略模式 (Strategy Pattern)
+用于不同的执行策略：
 
-## 使用指南
+```python
+from abc import ABC, abstractmethod
 
-### 新功能开发
-1. 查看 project-overview.mdc 了解项目整体架构
-2. 参考 architecture-patterns.mdc 选择合适的设计模式
-3. 遵循 coding-standards.mdc 编写代码
-4. 按照 development-workflow.mdc 提交代码
+class ExecutionStrategy(ABC):
+    @abstractmethod
+    async def execute(self, workflow: Workflow, context: Dict[str, str]) -> ExecutionResult:
+        pass
 
-### Web UI开发
-1. 参考 web-ui-development.mdc 了解技术栈
-2. 使用FastAPI创建RESTful API
-3. 使用Jinja2模板和Bootstrap构建前端
-4. 遵循模块化JavaScript开发规范
+class PlaywrightStrategy(ExecutionStrategy):
+    async def execute(self, workflow: Workflow, context: Dict[str, str]) -> ExecutionResult:
+        # Playwright 执行逻辑
+        pass
 
-### 浏览器自动化开发
-1. 查看 browser-automation.mdc 了解核心概念
-2. 使用Browser-Use进行录制功能开发
-3. 使用Playwright进行执行功能开发
-4. 实现智能的选择器优化和错误处理
+class BrowserUseStrategy(ExecutionStrategy):
+    async def execute(self, workflow: Workflow, context: Dict[str, str]) -> ExecutionResult:
+        # Browser-Use 执行逻辑
+        pass
+```
 
-## 重要提醒
+### 2. 工厂模式 (Factory Pattern)
+用于创建不同类型的步骤执行器：
 
-### 必须遵循的规范
-- ✅ 所有异步函数必须使用 `async/await`
-- ✅ 使用结构化日志记录
-- ✅ 遵循三阶段架构：录制→执行→自愈
-- ✅ 使用Pydantic进行数据验证
-- ✅ 实现适当的错误处理和重试机制
+```python
+class StepExecutorFactory:
+    @staticmethod
+    def create_executor(step_type: StepType) -> StepExecutor:
+        if step_type == StepType.NAVIGATE:
+            return NavigateExecutor()
+        elif step_type == StepType.CLICK:
+            return ClickExecutor()
+        # ... 其他步骤类型
+```
 
-### 开发阶段要求
-- **Phase 2**: 当前正在开发执行功能，需要实现Playwright执行器
-- **浏览器自动化**: 必须支持Browser-Use录制和Playwright执行
-- **并发处理**: 需要实现浏览器池和并发控制
-- **模板渲染**: 支持Jinja2模板变量替换
+### 3. 观察者模式 (Observer Pattern)
+用于执行过程的监控和日志记录：
 
-## 更新说明
+```python
+class ExecutionObserver(ABC):
+    @abstractmethod
+    def on_step_start(self, step: WorkflowStep):
+        pass
+    
+    @abstractmethod
+    def on_step_complete(self, step: WorkflowStep, result: StepResult):
+        pass
 
-这些规则基于项目当前状态（Phase 1完成，Phase 2进行中）制定，随着项目发展可能需要更新。如果发现规则与实际开发需求不符，请及时更新相关规则文件。
+class LoggingObserver(ExecutionObserver):
+    def on_step_start(self, step: WorkflowStep):
+        logger.info("步骤开始", step_id=step.id, step_type=step.type)
+```
+
+## 数据模型设计
+
+### 核心模型
+参考 [src/models/workflow.py](mdc:src/models/workflow.py) 的设计：
+
+- **Workflow**: 工作流主模型
+- **WorkflowStep**: 工作流步骤
+- **WorkflowVariable**: 工作流变量
+- **ExecutionResult**: 执行结果
+- **StepResult**: 步骤执行结果
+
+### 模型设计原则
+1. 使用 Pydantic 进行数据验证
+2. 支持 JSON 序列化/反序列化
+3. 包含必要的元数据（创建时间、更新时间等）
+4. 支持版本控制
+
+## 依赖注入
+
+### 服务容器
+创建简单的依赖注入容器：
+
+```python
+class Container:
+    def __init__(self):
+        self._services = {}
+    
+    def register(self, service_type: type, implementation: object):
+        self._services[service_type] = implementation
+    
+    def get(self, service_type: type):
+        return self._services.get(service_type)
+
+# 全局容器实例
+container = Container()
+```
+
+### 使用示例
+```python
+# 注册服务
+container.register(WorkflowRecorder, WorkflowRecorder())
+container.register(ScriptCleaner, ScriptCleaner())
+
+# 使用服务
+recorder = container.get(WorkflowRecorder)
+```
+
+## 错误处理架构
+
+### 异常层次结构
+```python
+class GaiaRPAError(Exception):
+    """Gaia RPA 基础异常"""
+    pass
+
+class WorkflowError(GaiaRPAError):
+    """工作流相关异常"""
+    pass
+
+class RecordingError(WorkflowError):
+    """录制异常"""
+    pass
+
+class ExecutionError(WorkflowError):
+    """执行异常"""
+    pass
+
+class HealingError(WorkflowError):
+    """自愈异常"""
+    pass
+```
+
+### 错误恢复策略
+1. **重试机制**: 对临时性错误进行重试
+2. **降级策略**: 当主要功能失败时使用备用方案
+3. **熔断器**: 防止级联失败
+4. **自愈机制**: 使用 Browser-Use 进行智能修复
+
+## 并发和异步设计
+
+### 异步优先
+- 所有 I/O 操作使用异步
+- 使用 `asyncio` 进行并发控制
+- 避免阻塞操作
+
+### 并发控制
+```python
+import asyncio
+from asyncio import Semaphore
+
+class ConcurrentExecutor:
+    def __init__(self, max_concurrent: int = 5):
+        self.semaphore = Semaphore(max_concurrent)
+    
+    async def execute_batch(self, workflows: List[Workflow]) -> List[ExecutionResult]:
+        tasks = [self._execute_single(workflow) for workflow in workflows]
+        return await asyncio.gather(*tasks, return_exceptions=True)
+    
+    async def _execute_single(self, workflow: Workflow) -> ExecutionResult:
+        async with self.semaphore:
+            # 执行单个工作流
+            pass
+```
+
+## 插件化架构
+
+### 插件接口
+```python
+class Plugin(ABC):
+    @abstractmethod
+    def get_name(self) -> str:
+        pass
+    
+    @abstractmethod
+    async def initialize(self):
+        pass
+    
+    @abstractmethod
+    async def execute(self, context: Dict[str, Any]) -> Any:
+        pass
+```
+
+### 插件管理器
+```python
+class PluginManager:
+    def __init__(self):
+        self.plugins: Dict[str, Plugin] = {}
+    
+    def register_plugin(self, plugin: Plugin):
+        self.plugins[plugin.get_name()] = plugin
+    
+    async def execute_plugin(self, name: str, context: Dict[str, Any]):
+        if plugin := self.plugins.get(name):
+            return await plugin.execute(context)
+        raise PluginNotFoundError(f"Plugin {name} not found")
+```
 
 ---
 > Source: [WW-AI-Lab/browser-use-playwright](https://github.com/WW-AI-Lab/browser-use-playwright) — distributed by [TomeVault](https://tomevault.io).
