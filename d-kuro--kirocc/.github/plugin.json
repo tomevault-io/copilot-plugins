@@ -1,0 +1,9 @@
+{
+  "name": "d-kuro--kirocc",
+  "displayName": "kirocc",
+  "description": "A local proxy server that relays Anthropic Messages API-compatible requests to the Kiro (Amazon Q) backend using Kiro CLI credentials.",
+  "version": "1.0.0",
+  "author": "d-kuro",
+  "homepage": "https://github.com/d-kuro/kirocc",
+  "skills": []
+}
