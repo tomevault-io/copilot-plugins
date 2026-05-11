@@ -1,0 +1,9 @@
+{
+  "name": "russellbrenner--auslaw-mcp",
+  "displayName": "auslaw-mcp",
+  "description": "MCP server for Australian and New Zealand legal research. Searches AustLII for case law and legislation, retrieves full-text judgements with paragraph numbers preserved, and supports OCR for scanned P",
+  "version": "1.0.0",
+  "author": "russellbrenner",
+  "homepage": "https://github.com/russellbrenner/auslaw-mcp",
+  "skills": []
+}
