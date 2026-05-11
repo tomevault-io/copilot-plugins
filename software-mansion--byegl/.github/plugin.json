@@ -1,0 +1,9 @@
+{
+  "name": "software-mansion--byegl",
+  "displayName": "byegl",
+  "description": "\ud83e\udd6f\ud83d\udc36 A reimplementation of the WebGL API on top of WebGPU, allowing for gradual migration into the future of 3d on the web",
+  "version": "1.0.0",
+  "author": "software-mansion",
+  "homepage": "https://github.com/software-mansion/byegl",
+  "skills": []
+}
