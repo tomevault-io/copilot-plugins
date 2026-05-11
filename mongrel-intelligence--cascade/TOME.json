@@ -4,7 +4,7 @@
   "repo": "cascade",
   "description": "Cascade orchestrates AI agents (Claude Code, Codex, opencode, LLMist) across your workflows in GitHub, Trello, Linear and Jira.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mongrel-intelligence/cascade",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T07:37:33Z"
+  "distributed_at": "2026-05-11T20:01:28Z"
 }
