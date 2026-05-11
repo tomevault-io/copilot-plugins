@@ -4,7 +4,7 @@
   "repo": "hatago-mcp-hub",
   "description": "Hatago MCP Hub is a lightweight hub server that provides unified management for multiple MCP servers.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/himorishige/hatago-mcp-hub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T10:42:32Z"
+  "distributed_at": "2026-05-11T22:41:55Z"
 }
