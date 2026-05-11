@@ -1,94 +1,23 @@
-## mod-development
+## project-overview
 
-> This is a mod for "Escape from Duckov" (NOT Escape from Tarkov) built with:
+> - C# (.NET Standard 2.1) + Unity + Harmony + `Duckov.Modding.ModBehaviour`
 
-# EfDEnhanced Mod Development Rules
+# EfDEnhanced 项目指引
 
-## Project Context
+## 技术栈
+- C# (.NET Standard 2.1) + Unity + Harmony + `Duckov.Modding.ModBehaviour`
 
-This is a mod for "Escape from Duckov" (NOT Escape from Tarkov) built with:
-- .NET Standard 2.1
-- Unity game engine integration
-- HarmonyLib for runtime patching
-- Game's official Modding framework
+## 文件结构
+- `ModBehaviour.cs` - 模组入口
+- `Features/` - 功能实现
+- `Patches/` - Harmony 补丁
+- `Utils/` - 工具类
 
-## Code Standards
-
-### Logging
-Always use [ModLogger](mdc:Utils/ModLogger.cs) instead of Unity's Debug.Log:
-
-```csharp
-ModLogger.Log("message");
-ModLogger.LogWarning("warning");
-ModLogger.LogError("error");
-ModLogger.Log("ComponentName", "message");
-
-TransformTreeLogger.LogTransformTree(transform);
-```
-
-### Harmony Patches
-- Place patches in `Patches/` directory
-- Group by game system (e.g., QuestPatches.cs, InventoryPatches.cs)
-- Always wrap patch logic in try-catch blocks
-- Use descriptive method names
-- Add component-specific logging
-
-```csharp
-[HarmonyPatch(typeof(TargetClass), "MethodName")]
-class MyPatch
-{
-    static void Prefix()
-    {
-        try
-        {
-            ModLogger.Log("MyPatch", "Executing patch");
-            // patch logic
-        }
-        catch (Exception ex)
-        {
-            ModLogger.LogError($"MyPatch failed: {ex}");
-        }
-    }
-}
-```
-
-### Error Handling
-- Catch exceptions in all patch methods
-- Log errors with context using ModLogger
-- Never let exceptions break game functionality
-- Handle null references gracefully
-
-### Code Organization
-- One feature = one file/class
-- Keep patches modular and loosely coupled
-- Place shared utilities in `Utils/` directory
-- Follow existing project structure
-
-## Key Dependencies
-
-Game assemblies referenced from [EfDEnhanced.csproj](mdc:EfDEnhanced.csproj):
-- `TeamSoda.Duckov.Core.dll` - Core game framework
-- `TeamSoda.Duckov.Utilities.dll` - Game utilities
-- `Assembly-CSharp.dll` - Main game logic
-- Unity engine assemblies
-- `0Harmony` (NuGet package)
-
-## Development Workflow
-
-1. Search decompiled code for target methods / modules
-2. Create patch file in `Patches/`
-3. Implement with try-catch and logging
-4. Build: `dotnet build`
-5. Deploy: `./scripts/deploy.sh`
-6. Test in-game with `./scripts/rlog.sh` for live logs
-
-## Documentation References
-
-- [CLAUDE.md](mdc:CLAUDE.md) - Complete project guide
-- [ModBehaviour.cs](mdc:ModBehaviour.cs) - Mod entry point
-- Extracted assets in [extracted_assets/](mdc:extracted_assets)
-- Game scene documentation in [docs/scenes/](mdc:docs/scenes)
-- Asset guides in [docs/assets/](mdc:docs/assets)
+## 开发规范
+- 补丁类放 `Patches/`
+- 新功能放 `Features/`
+- 工具类放 `Utils/`
+- UI 组件用 `Utils/UI/`
 
 ---
 > Source: [Cyenoch/EfDEnhanced](https://github.com/Cyenoch/EfDEnhanced) — distributed by [TomeVault](https://tomevault.io).
