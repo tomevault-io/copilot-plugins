@@ -1,0 +1,9 @@
+{
+  "name": "ljnchn--nodeseeker-docker",
+  "displayName": "nodeseeker-docker",
+  "description": "NodeSeeker Docker \u7248\u672c",
+  "version": "1.0.0",
+  "author": "ljnchn",
+  "homepage": "https://github.com/ljnchn/nodeseeker-docker",
+  "skills": []
+}
