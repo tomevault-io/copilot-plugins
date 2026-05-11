@@ -1,0 +1,9 @@
+{
+  "name": "element0lang--element-0",
+  "displayName": "element-0",
+  "description": "A small embeddable Lisp for the Zig ecosystem \u03bb",
+  "version": "1.0.0",
+  "author": "Element0Lang",
+  "homepage": "https://github.com/Element0Lang/element-0",
+  "skills": []
+}
