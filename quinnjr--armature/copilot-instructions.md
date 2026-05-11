@@ -1,830 +1,228 @@
-## testing-standards
+## websocket-sse
 
-> This project maintains **85% code coverage** with a focus on **quality testing** over mere coverage metrics.
+> Real-time communication with WebSockets and Server-Sent Events
 
 
-# Testing Standards
+# WebSocket & SSE
 
-This project maintains **85% code coverage** with a focus on **quality testing** over mere coverage metrics.
+Guidelines for real-time communication in Armature.
 
-## Coverage Target
-
-### 85% Coverage Goal
-
-```bash
-# Measure coverage with cargo-tarpaulin
-cargo tarpaulin --all-features --workspace --timeout 120 --out Xml --out Stdout
-
-# Or use cargo-llvm-cov
-cargo llvm-cov --all-features --workspace --html
-```
-
-**Target: 85% line coverage across the workspace**
-
-### Quality Over Quantity
-
-✅ **Good Coverage:**
-- Tests verify actual behavior
-- Tests catch real bugs
-- Tests document expected behavior
-- Tests are maintainable
-
-❌ **Bad Coverage:**
-- Tests just to increase percentage
-- Tests that don't verify anything meaningful
-- Tests that are brittle and break often
-- Tests that duplicate other tests
-
-### What Must Be Tested
-
-**High Priority (Aim for 95%+ coverage):**
-- Public API functions and methods
-- Business logic and algorithms
-- Error handling paths
-- Edge cases and boundary conditions
-- Data validation logic
-- Security-critical code
-
-**Medium Priority (Aim for 85%+ coverage):**
-- Internal helper functions
-- Configuration parsing
-- HTTP request/response handling
-- Middleware and interceptors
-
-**Lower Priority (Aim for 60%+ coverage):**
-- Simple getters/setters
-- Trivial constructors
-- Debug implementations
-- Logging statements
-
-**Can Skip:**
-- Generated code (proc macros)
-- Example code in `examples/`
-- Main entry points
-- Simple `#[derive]` implementations
-
-## Testing Pyramid
-
-### Unit Tests (70% of tests)
-
-Test individual functions and methods in isolation.
+## WebSocket Handler
 
 ```rust
-#[cfg(test)]
-mod tests {
-    use super::*;
+use armature_websocket::{WebSocket, Message};
 
-    #[test]
-    fn test_user_validation_valid_email() {
-        let user = User {
-            email: "user@example.com".to_string(),
-            name: "Alice".to_string(),
-        };
-        assert!(user.validate().is_ok());
-    }
-
-    #[test]
-    fn test_user_validation_invalid_email() {
-        let user = User {
-            email: "invalid-email".to_string(),
-            name: "Alice".to_string(),
-        };
-        let result = user.validate();
-        assert!(result.is_err());
-        assert!(matches!(result.unwrap_err(), ValidationError::InvalidEmail));
-    }
-
-    #[test]
-    fn test_edge_case_empty_name() {
-        let user = User {
-            email: "user@example.com".to_string(),
-            name: "".to_string(),
-        };
-        assert!(user.validate().is_err());
-    }
-}
-```
-
-### Integration Tests (25% of tests)
-
-Test how components work together.
-
-```rust
-// tests/integration_tests.rs
-use armature::prelude::*;
-use armature_testing::*;
-
-#[tokio::test]
-async fn test_user_registration_flow() {
-    // Arrange
-    let app = TestAppBuilder::new()
-        .add_module(UserModule::new())
-        .build()
-        .await
-        .unwrap();
-
-    let client = TestClient::new(app);
-
-    // Act
-    let response = client
-        .post("/api/users/register")
-        .json(&json!({
-            "email": "newuser@example.com",
-            "password": "SecurePass123!"
-        }))
-        .send()
-        .await;
-
-    // Assert
-    assert_eq!(response.status(), 201);
-    let body: UserDto = response.json().await;
-    assert_eq!(body.email, "newuser@example.com");
+#[controller("/ws")]
+pub struct WebSocketController {
+    connections: Arc<ConnectionManager>,
 }
 
-#[tokio::test]
-async fn test_authentication_and_authorization() {
-    let app = TestAppBuilder::new()
-        .add_module(AuthModule::new())
-        .add_module(UserModule::new())
-        .build()
-        .await
-        .unwrap();
+#[get("/chat")]
+async fn chat(&self, ws: WebSocket, user: AuthUser) -> Result<(), Error> {
+    let (tx, mut rx) = ws.split();
 
-    let client = TestClient::new(app);
+    // Register connection
+    self.connections.add(user.id, tx.clone()).await;
 
-    // Register user
-    let register_response = client
-        .post("/api/auth/register")
-        .json(&register_dto)
-        .send()
-        .await;
-
-    assert_eq!(register_response.status(), 201);
-
-    // Login
-    let login_response = client
-        .post("/api/auth/login")
-        .json(&login_dto)
-        .send()
-        .await;
-
-    let token = login_response.json::<TokenResponse>().await.token;
-
-    // Access protected route
-    let protected_response = client
-        .get("/api/users/me")
-        .bearer_auth(&token)
-        .send()
-        .await;
-
-    assert_eq!(protected_response.status(), 200);
-}
-```
-
-### End-to-End Tests (5% of tests)
-
-Test complete user workflows (fewer, more expensive tests).
-
-```rust
-// tests/e2e_tests.rs
-#[tokio::test]
-async fn test_complete_user_journey() {
-    // Start real server
-    let app = Application::create(AppModule);
-    let server = tokio::spawn(async move {
-        app.listen(8080).await.unwrap();
-    });
-
-    // Give server time to start
-    tokio::time::sleep(Duration::from_millis(100)).await;
-
-    let client = reqwest::Client::new();
-
-    // Complete workflow: register -> login -> create post -> fetch post -> delete
-    // ... full E2E test
+    // Handle incoming messages
+    while let Some(msg) = rx.next().await {
+        match msg? {
+            Message::Text(text) => {
+                self.handle_message(&user, &text).await?;
+            }
+            Message::Close(_) => break,
+            _ => {}
+        }
+    }
 
     // Cleanup
-    server.abort();
+    self.connections.remove(user.id).await;
+    Ok(())
 }
 ```
 
-## Testing Best Practices
-
-### AAA Pattern (Arrange-Act-Assert)
+## Connection Manager
 
 ```rust
-#[test]
-fn test_calculate_discount() {
-    // Arrange
-    let original_price = 100.0;
-    let discount_percentage = 20.0;
-
-    // Act
-    let discounted_price = calculate_discount(original_price, discount_percentage);
-
-    // Assert
-    assert_eq!(discounted_price, 80.0);
-}
-```
-
-### Test One Thing Per Test
-
-```rust
-// ✅ Good: Each test verifies one specific behavior
-#[test]
-fn test_valid_email_passes_validation() {
-    assert!(validate_email("user@example.com"));
+pub struct ConnectionManager {
+    connections: DashMap<UserId, Sender<Message>>,
 }
 
-#[test]
-fn test_email_without_at_fails_validation() {
-    assert!(!validate_email("invalid.email.com"));
-}
-
-#[test]
-fn test_email_without_domain_fails_validation() {
-    assert!(!validate_email("user@"));
-}
-
-// ❌ Bad: Testing multiple things
-#[test]
-fn test_email_validation() {
-    assert!(validate_email("user@example.com"));
-    assert!(!validate_email("invalid.email.com"));
-    assert!(!validate_email("user@"));
-    assert!(!validate_email("@example.com"));
-}
-```
-
-### Use Descriptive Test Names
-
-```rust
-// ✅ Good: Clear what is being tested
-#[test]
-fn test_user_login_with_valid_credentials_returns_token() { }
-
-#[test]
-fn test_user_login_with_invalid_password_returns_unauthorized() { }
-
-#[test]
-fn test_user_login_with_nonexistent_email_returns_not_found() { }
-
-// ❌ Bad: Unclear test names
-#[test]
-fn test_login() { }
-
-#[test]
-fn test_login2() { }
-
-#[test]
-fn test_user() { }
-```
-
-### Test Error Cases
-
-```rust
-#[test]
-fn test_division_by_zero_returns_error() {
-    let result = divide(10.0, 0.0);
-    assert!(result.is_err());
-    assert_eq!(
-        result.unwrap_err().to_string(),
-        "Division by zero"
-    );
-}
-
-#[test]
-fn test_invalid_json_returns_parse_error() {
-    let invalid_json = "{ invalid json }";
-    let result: Result<User, _> = serde_json::from_str(invalid_json);
-    assert!(result.is_err());
-}
-
-#[test]
-fn test_file_not_found_returns_io_error() {
-    let result = std::fs::read_to_string("nonexistent.txt");
-    assert!(result.is_err());
-    assert_eq!(result.unwrap_err().kind(), std::io::ErrorKind::NotFound);
-}
-```
-
-### Test Edge Cases and Boundaries
-
-```rust
-#[test]
-fn test_empty_string() {
-    assert_eq!(process_text(""), "");
-}
-
-#[test]
-fn test_very_long_string() {
-    let long_string = "a".repeat(10_000);
-    let result = process_text(&long_string);
-    assert_eq!(result.len(), 10_000);
-}
-
-#[test]
-fn test_unicode_characters() {
-    assert_eq!(process_text("Hello 世界 🦀"), "Hello 世界 🦀");
-}
-
-#[test]
-fn test_zero_value() {
-    assert_eq!(calculate_interest(0.0, 0.05), 0.0);
-}
-
-#[test]
-fn test_negative_value() {
-    assert!(calculate_interest(-100.0, 0.05).is_err());
-}
-
-#[test]
-fn test_maximum_value() {
-    let result = add_with_overflow(i32::MAX, 1);
-    assert!(result.is_err());
-}
-```
-
-### Use Test Fixtures and Helpers
-
-```rust
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    // Test fixture
-    fn create_test_user() -> User {
-        User {
-            id: UserId(1),
-            email: "test@example.com".to_string(),
-            name: "Test User".to_string(),
-            created_at: Utc::now(),
+impl ConnectionManager {
+    pub async fn broadcast(&self, message: &str) {
+        for entry in self.connections.iter() {
+            let _ = entry.value().send(Message::Text(message.into())).await;
         }
     }
 
-    // Test fixture with customization
-    fn create_user_with_email(email: &str) -> User {
-        User {
-            id: UserId(1),
-            email: email.to_string(),
-            name: "Test User".to_string(),
-            created_at: Utc::now(),
+    pub async fn send_to(&self, user_id: UserId, message: &str) -> Result<(), Error> {
+        if let Some(tx) = self.connections.get(&user_id) {
+            tx.send(Message::Text(message.into())).await?;
         }
+        Ok(())
     }
 
-    // Builder for complex objects
-    struct UserBuilder {
-        email: String,
-        name: String,
-        role: Role,
+    pub async fn send_to_room(&self, room: &str, message: &str) {
+        // Implement room-based routing
+    }
+}
+```
+
+## Message Protocol
+
+```rust
+#[derive(Serialize, Deserialize)]
+#[serde(tag = "type")]
+pub enum ClientMessage {
+    #[serde(rename = "join")]
+    Join { room: String },
+
+    #[serde(rename = "leave")]
+    Leave { room: String },
+
+    #[serde(rename = "message")]
+    Message { room: String, content: String },
+
+    #[serde(rename = "ping")]
+    Ping,
+}
+
+#[derive(Serialize, Deserialize)]
+#[serde(tag = "type")]
+pub enum ServerMessage {
+    #[serde(rename = "joined")]
+    Joined { room: String, users: Vec<String> },
+
+    #[serde(rename = "message")]
+    Message { from: String, content: String, timestamp: i64 },
+
+    #[serde(rename = "error")]
+    Error { code: String, message: String },
+
+    #[serde(rename = "pong")]
+    Pong,
+}
+```
+
+## Server-Sent Events
+
+```rust
+use armature_sse::{Sse, Event};
+
+#[controller("/events")]
+pub struct EventsController {
+    events: Arc<EventBroadcaster>,
+}
+
+#[get("/stream")]
+async fn stream(&self, user: AuthUser) -> Sse<impl Stream<Item = Event>> {
+    let rx = self.events.subscribe(user.id);
+
+    let stream = rx.map(|event| {
+        Event::default()
+            .event(&event.event_type)
+            .data(&event.data)
+            .id(&event.id)
+    });
+
+    Sse::new(stream)
+        .keep_alive(Duration::from_secs(30))
+}
+```
+
+## Event Broadcasting
+
+```rust
+pub struct EventBroadcaster {
+    sender: broadcast::Sender<ServerEvent>,
+}
+
+impl EventBroadcaster {
+    pub fn new(capacity: usize) -> Self {
+        let (sender, _) = broadcast::channel(capacity);
+        Self { sender }
     }
 
-    impl UserBuilder {
-        fn new() -> Self {
-            Self {
-                email: "test@example.com".to_string(),
-                name: "Test User".to_string(),
-                role: Role::User,
+    pub fn subscribe(&self, _user_id: UserId) -> broadcast::Receiver<ServerEvent> {
+        self.sender.subscribe()
+    }
+
+    pub fn broadcast(&self, event: ServerEvent) {
+        let _ = self.sender.send(event);
+    }
+}
+```
+
+## Heartbeat / Keep-Alive
+
+```rust
+async fn handle_connection(ws: WebSocket) {
+    let (tx, mut rx) = ws.split();
+
+    // Spawn heartbeat task
+    let heartbeat = tokio::spawn({
+        let tx = tx.clone();
+        async move {
+            let mut interval = tokio::time::interval(Duration::from_secs(30));
+            loop {
+                interval.tick().await;
+                if tx.send(Message::Ping(vec![])).await.is_err() {
+                    break;
+                }
             }
         }
+    });
 
-        fn email(mut self, email: &str) -> Self {
-            self.email = email.to_string();
-            self
+    // Handle messages...
+
+    heartbeat.abort();
+}
+```
+
+## Scaling with Redis Pub/Sub
+
+```rust
+use redis::AsyncCommands;
+
+pub struct RedisEventBroadcaster {
+    redis: ConnectionManager,
+    channel: String,
+}
+
+impl RedisEventBroadcaster {
+    pub async fn publish(&self, event: &ServerEvent) -> Result<(), Error> {
+        let payload = serde_json::to_string(event)?;
+        self.redis.publish(&self.channel, payload).await?;
+        Ok(())
+    }
+
+    pub async fn subscribe(&self) -> impl Stream<Item = ServerEvent> {
+        let mut pubsub = self.redis.get_async_pubsub().await.unwrap();
+        pubsub.subscribe(&self.channel).await.unwrap();
+
+        pubsub.into_on_message().filter_map(|msg| async {
+            let payload: String = msg.get_payload().ok()?;
+            serde_json::from_str(&payload).ok()
+        })
+    }
+}
+```
+
+## Error Handling
+
+```rust
+async fn handle_message(msg: Result<Message, Error>) -> ControlFlow<(), Message> {
+    match msg {
+        Ok(Message::Text(text)) => ControlFlow::Continue(Message::Text(text)),
+        Ok(Message::Close(_)) => ControlFlow::Break(()),
+        Err(e) => {
+            tracing::error!(?e, "WebSocket error");
+            ControlFlow::Break(())
         }
-
-        fn admin(mut self) -> Self {
-            self.role = Role::Admin;
-            self
-        }
-
-        fn build(self) -> User {
-            User {
-                id: UserId(1),
-                email: self.email,
-                name: self.name,
-                role: self.role,
-                created_at: Utc::now(),
-            }
-        }
-    }
-
-    #[test]
-    fn test_with_builder() {
-        let admin = UserBuilder::new()
-            .email("admin@example.com")
-            .admin()
-            .build();
-
-        assert_eq!(admin.role, Role::Admin);
+        _ => ControlFlow::Continue(Message::Ping(vec![])),
     }
 }
 ```
-
-### Mock External Dependencies
-
-```rust
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use armature_testing::*;
-
-    // Mock implementation
-    struct MockUserRepository {
-        users: Vec<User>,
-    }
-
-    #[async_trait]
-    impl UserRepository for MockUserRepository {
-        async fn find_by_id(&self, id: UserId) -> Result<Option<User>, Error> {
-            Ok(self.users.iter().find(|u| u.id == id).cloned())
-        }
-
-        async fn save(&self, user: &User) -> Result<(), Error> {
-            Ok(())
-        }
-    }
-
-    #[tokio::test]
-    async fn test_user_service_with_mock() {
-        // Arrange
-        let mock_repo = MockUserRepository {
-            users: vec![create_test_user()],
-        };
-        let service = UserService::new(mock_repo);
-
-        // Act
-        let user = service.get_user(UserId(1)).await.unwrap();
-
-        // Assert
-        assert_eq!(user.email, "test@example.com");
-    }
-
-    #[tokio::test]
-    async fn test_with_armature_mock() {
-        let mut mock = MockService::<dyn UserRepository>::new();
-
-        mock.expect_find_by_id()
-            .with(UserId(1))
-            .returning(|_| Ok(Some(create_test_user())));
-
-        let service = UserService::new(mock);
-        let user = service.get_user(UserId(1)).await.unwrap();
-
-        assert_eq!(user.email, "test@example.com");
-    }
-}
-```
-
-### Async Test Patterns
-
-```rust
-// Simple async test
-#[tokio::test]
-async fn test_async_function() {
-    let result = async_operation().await;
-    assert!(result.is_ok());
-}
-
-// With timeout
-#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-async fn test_with_timeout() {
-    let result = tokio::time::timeout(
-        Duration::from_secs(5),
-        long_running_operation()
-    ).await;
-
-    assert!(result.is_ok());
-}
-
-// Concurrent operations
-#[tokio::test]
-async fn test_concurrent_requests() {
-    let (result1, result2, result3) = tokio::join!(
-        fetch_user(1),
-        fetch_user(2),
-        fetch_user(3)
-    );
-
-    assert!(result1.is_ok());
-    assert!(result2.is_ok());
-    assert!(result3.is_ok());
-}
-
-// Test error propagation
-#[tokio::test]
-async fn test_error_propagation() {
-    let result = async_operation_that_fails().await;
-
-    assert!(result.is_err());
-    assert!(matches!(result.unwrap_err(), Error::NotFound(_)));
-}
-```
-
-## Property-Based Testing
-
-Use `proptest` or `quickcheck` for property-based testing:
-
-```rust
-use proptest::prelude::*;
-
-proptest! {
-    #[test]
-    fn test_reverse_twice_is_identity(s in ".*") {
-        let reversed_twice = reverse(&reverse(&s));
-        prop_assert_eq!(s, reversed_twice);
-    }
-
-    #[test]
-    fn test_addition_is_commutative(a in 0..1000i32, b in 0..1000i32) {
-        prop_assert_eq!(a + b, b + a);
-    }
-
-    #[test]
-    fn test_email_validation_never_panics(email in ".*") {
-        // Should never panic, even with invalid input
-        let _ = validate_email(&email);
-    }
-}
-```
-
-## Benchmark Tests
-
-Use `criterion` for performance testing:
-
-```rust
-use criterion::{black_box, criterion_group, criterion_main, Criterion};
-
-fn fibonacci(n: u64) -> u64 {
-    match n {
-        0 => 0,
-        1 => 1,
-        n => fibonacci(n - 1) + fibonacci(n - 2),
-    }
-}
-
-fn criterion_benchmark(c: &mut Criterion) {
-    c.bench_function("fib 20", |b| b.iter(|| fibonacci(black_box(20))));
-}
-
-criterion_group!(benches, criterion_benchmark);
-criterion_main!(benches);
-```
-
-## Test Organization
-
-### File Structure
-
-```
-project/
-├── src/
-│   ├── lib.rs
-│   ├── user.rs
-│   └── auth.rs
-├── tests/
-│   ├── integration_tests.rs
-│   ├── user_tests.rs
-│   └── auth_tests.rs
-└── benches/
-    └── benchmarks.rs
-```
-
-### Module-Level Tests
-
-```rust
-// src/user.rs
-pub struct User {
-    // fields
-}
-
-impl User {
-    pub fn validate(&self) -> Result<(), ValidationError> {
-        // implementation
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_validate_success() {
-        // Test in same file as implementation
-    }
-}
-```
-
-### Separate Test Files
-
-```rust
-// tests/user_tests.rs
-use armature::user::*;
-
-#[test]
-fn test_user_integration() {
-    // Integration test in separate file
-}
-```
-
-## Continuous Testing
-
-### Pre-Commit Hook
-
-```bash
-#!/bin/bash
-# .git/hooks/pre-commit
-
-echo "Running tests..."
-cargo test --all-features
-
-if [ $? -ne 0 ]; then
-    echo "Tests failed. Commit aborted."
-    exit 1
-fi
-
-echo "Checking code coverage..."
-cargo tarpaulin --all-features --workspace --timeout 120 | grep "^[0-9]"
-
-echo "Tests passed!"
-```
-
-### CI/CD Pipeline
-
-```yaml
-# .github/workflows/test.yml
-name: Tests
-
-on: [push, pull_request]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Install Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-
-      - name: Run tests
-        run: cargo test --all-features --workspace
-
-      - name: Run clippy
-        run: cargo clippy --all-features --all-targets -- -D warnings
-
-      - name: Check code coverage
-        run: |
-          cargo install cargo-tarpaulin
-          cargo tarpaulin --all-features --workspace --timeout 120 --out Xml
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
-        with:
-          files: ./cobertura.xml
-          fail_ci_if_error: true
-
-      - name: Check coverage threshold
-        run: |
-          coverage=$(cargo tarpaulin --all-features --workspace --timeout 120 | grep -oP '\d+\.\d+(?=%)')
-          if (( $(echo "$coverage < 85.0" | bc -l) )); then
-            echo "Coverage $coverage% is below 85% threshold"
-            exit 1
-          fi
-```
-
-## Coverage Tools Setup
-
-### Install cargo-tarpaulin
-
-```bash
-cargo install cargo-tarpaulin
-```
-
-### Install cargo-llvm-cov
-
-```bash
-cargo install cargo-llvm-cov
-```
-
-### Generate Coverage Report
-
-```bash
-# HTML report
-cargo tarpaulin --all-features --workspace --out Html
-
-# Open in browser
-open tarpaulin-report.html
-
-# Or with llvm-cov
-cargo llvm-cov --all-features --workspace --html
-open target/llvm-cov/html/index.html
-```
-
-## Quality Metrics
-
-### Coverage by Category
-
-- **Critical Path Code:** 95%+
-- **Public APIs:** 90%+
-- **Business Logic:** 85%+
-- **Utilities:** 80%+
-- **Simple Helpers:** 70%+
-
-### Test Quality Checklist
-
-- [ ] Tests are independent (can run in any order)
-- [ ] Tests are deterministic (no random failures)
-- [ ] Tests are fast (< 1s for unit tests)
-- [ ] Tests are isolated (no shared state)
-- [ ] Tests have clear names
-- [ ] Tests verify behavior, not implementation
-- [ ] Error paths are tested
-- [ ] Edge cases are covered
-- [ ] Mocks are used for external dependencies
-- [ ] Tests are maintainable
-
-## Anti-Patterns to Avoid
-
-### ❌ Testing Implementation Details
-
-```rust
-// ❌ Bad: Testing internal implementation
-#[test]
-fn test_internal_hash_calculation() {
-    let service = UserService::new();
-    assert_eq!(service.internal_hash("test"), 12345); // Too specific
-}
-
-// ✅ Good: Testing public behavior
-#[test]
-fn test_password_verification() {
-    let service = UserService::new();
-    let hash = service.hash_password("password123");
-    assert!(service.verify_password("password123", &hash));
-}
-```
-
-### ❌ Flaky Tests
-
-```rust
-// ❌ Bad: Time-dependent test
-#[test]
-fn test_cache_expiration() {
-    cache.set("key", "value", Duration::from_millis(100));
-    std::thread::sleep(Duration::from_millis(101)); // Flaky!
-    assert!(cache.get("key").is_none());
-}
-
-// ✅ Good: Use mock time
-#[test]
-fn test_cache_expiration() {
-    let mut mock_time = MockTime::new();
-    let cache = Cache::new_with_time(mock_time.clone());
-
-    cache.set("key", "value", Duration::from_secs(60));
-    mock_time.advance(Duration::from_secs(61));
-    assert!(cache.get("key").is_none());
-}
-```
-
-### ❌ Overly Complex Tests
-
-```rust
-// ❌ Bad: Too much setup
-#[test]
-fn test_complex_scenario() {
-    let db = setup_database();
-    let cache = setup_cache();
-    let service1 = setup_service1(&db);
-    let service2 = setup_service2(&cache);
-    let service3 = setup_service3(&service1, &service2);
-    // ... 50 more lines ...
-}
-
-// ✅ Good: Use test builders or fixtures
-#[test]
-fn test_user_creation() {
-    let app = TestAppBuilder::default().build();
-    let result = app.create_user(test_user_dto());
-    assert!(result.is_ok());
-}
-```
-
-## Summary
-
-1. **Maintain 85% code coverage** across the workspace
-2. **Focus on quality** over coverage percentage
-3. **Test behavior, not implementation**
-4. **Write fast, isolated, deterministic tests**
-5. **Use AAA pattern** (Arrange-Act-Assert)
-6. **Test error cases and edge cases**
-7. **Use mocks for external dependencies**
-8. **Run tests in CI/CD pipeline**
-9. **Keep tests maintainable**
-10. **Review coverage reports regularly**
-
-Remember: **100% coverage doesn't mean bug-free code. Quality matters more than quantity!**
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
