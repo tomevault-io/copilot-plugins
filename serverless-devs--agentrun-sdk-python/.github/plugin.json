@@ -1,0 +1,9 @@
+{
+  "name": "serverless-devs--agentrun-sdk-python",
+  "displayName": "agentrun-sdk-python",
+  "description": "Python SDK for AgentRun: Build and deploy AI Agents with Serverless runtime, sandbox execution, and enterprise-grade observability",
+  "version": "1.0.0",
+  "author": "Serverless-Devs",
+  "homepage": "https://github.com/Serverless-Devs/agentrun-sdk-python",
+  "skills": []
+}
