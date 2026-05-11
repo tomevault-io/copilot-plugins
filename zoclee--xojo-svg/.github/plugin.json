@@ -1,0 +1,9 @@
+{
+  "name": "zoclee--xojo-svg",
+  "displayName": "xojo-svg",
+  "description": "Library to render SVG images in Xojo.",
+  "version": "1.0.0",
+  "author": "Zoclee",
+  "homepage": "https://github.com/Zoclee/xojo-svg",
+  "skills": []
+}
