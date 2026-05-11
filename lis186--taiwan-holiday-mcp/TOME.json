@@ -1,0 +1,44 @@
+{
+  "name": "taiwan-holiday-mcp",
+  "owner": "lis186",
+  "repo": "taiwan-holiday-mcp",
+  "description": "\u4e00\u500b\u57fa\u65bc Model Context Protocol (MCP) \u7684\u53f0\u7063\u5047\u671f\u67e5\u8a62\u4f3a\u670d\u5668\uff0c\u70ba AI \u5de5\u5177\u63d0\u4f9b\u6e96\u78ba\u7684\u53f0\u7063\u570b\u5b9a\u5047\u65e5\u8cc7\u8a0a\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lis186/taiwan-holiday-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T10:26:15Z"
+}
