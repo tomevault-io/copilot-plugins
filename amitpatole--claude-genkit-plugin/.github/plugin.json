@@ -1,0 +1,9 @@
+{
+  "name": "amitpatole--claude-genkit-plugin",
+  "displayName": "claude-genkit-plugin",
+  "description": "Firebase Genkit Plugin for Claude Code",
+  "version": "1.0.0",
+  "author": "amitpatole",
+  "homepage": "https://github.com/amitpatole/claude-genkit-plugin",
+  "skills": []
+}
