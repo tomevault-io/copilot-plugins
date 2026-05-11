@@ -1,27 +1,47 @@
-## commit-message-instructions
+## notion-avatar-svelte
 
-> Always follow this format for commit messages:
+> Usage instructions for the notion svelte avatar editor
 
-Always follow this format for commit messages:
-type(scope): subject
+To render the Avatar Editor:
 
-Types:
+<!-- src/routes/+page.svelte -->
+<script lang="ts">
+	import AvatarCreator from '$lib/components/ui/avatar-editor/avatar-editor.svelte';
+</script>
 
-- feat for new features
-- fix for bug fixes
-- docs for documentation
-- style for formatting/style
-- refactor for code restructuring
-- test for adding/updating tests
-- chore for maintenance tasks
+<AvatarCreator />
 
-Keep subject concise (<50 chars), use imperative mood.
-Add detailed description after a blank line if needed.
-Reference issues with #issue_number.
+To access the avatar context anywhere in your app add to your +layout.svelte:
 
-Example: fix(config): handle comments in environment variables
+<!-- src/routes/+layout.svelte -->
+<script lang="ts">
+	import '../app.css';
+	import { avatarContext } from '$lib/components/ui/avatar-editor/avatarContext';
+	import { AvatarStoreClass } from '$lib/components/ui/avatar-editor/AvatarStore.svelte';
 
-After successfully implementing a feature, suggest a suitable commit message. Only commit (git commit) if the user explicitly asks you to.
+	let { children } = $props();
+
+	// Instantiate and set the AvatarStore in the context
+	// This makes it available to all child components within this layout.
+	avatarContext.set(new AvatarStoreClass());
+</script>
+
+{@render children()}
+
+then you can use in any component 
+
+<script lang="ts">
+	import * as Avatar from '$lib/components/ui/avatar';
+	import { avatarContext } from '$lib/components/ui/avatar-editor/avatarContext';
+	// Get the shared avatar store
+	const avatar = avatarContext.get();
+</script>
+
+<pre class="text-xs">{JSON.stringify(JSON.parse(avatar.configJSON), null, 2)}</pre>
+<Avatar.Root>
+	<Avatar.Image src={avatar.svgDataUrl} />
+	<Avatar.Fallback>Avatar</Avatar.Fallback>
+</Avatar.Root>
 
 ---
 > Source: [stickerdaniel/notion-avatar-svelte](https://github.com/stickerdaniel/notion-avatar-svelte) — distributed by [TomeVault](https://tomevault.io).
