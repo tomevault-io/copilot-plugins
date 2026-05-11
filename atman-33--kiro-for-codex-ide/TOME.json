@@ -1,0 +1,44 @@
+{
+  "name": "kiro-for-codex-ide",
+  "owner": "atman-33",
+  "repo": "kiro-for-codex-ide",
+  "description": "VS Code extension for spec-driven development with Codex CLI, leveraging OpenAI\u2019s Codex VS Code extension. Manage specs, steering docs, and prompts visually, tightly integrated with Codex.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/atman-33/kiro-for-codex-ide",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T18:19:23Z"
+}
