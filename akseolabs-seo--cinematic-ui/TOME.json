@@ -4,7 +4,7 @@
   "repo": "cinematic-ui",
   "description": "A reasoning-first cinematic web design skill. Makes AI think like a film director \u2014 research a real film, extract its visual language, translate it into page narrative and composition. Not a style picker. A director's workflow.   \u8b93 AI \u50cf\u96fb\u5f71\u5c0e\u6f14\u4e00\u6a23\u601d\u8003\u7684\u7db2\u7ad9\u8a2d\u8a08 Skill\u3002\u7814\u7a76\u771f\u5be6\u96fb\u5f71\u8a9e\u8a00\u3001\u8f49\u8b6f\u6210\u9801\u9762\u6558\u4e8b\u8207\u69cb\u5716\u3002\u4e0d\u662f\u98a8\u683c\u9078\u55ae\uff0c\u662f\u5c0e\u6f14\u5de5\u4f5c\u6d41\u3002",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/akseolabs-seo/cinematic-ui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T04:39:45Z"
+  "distributed_at": "2026-05-11T12:52:49Z"
 }
