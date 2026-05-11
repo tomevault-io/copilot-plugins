@@ -1,156 +1,213 @@
-## user-story-map
+## pet-circle
 
-> Living user story map for Pet Circle. Tracks implementation status of every user story by role. Consult when working on any screen to understand what is done, what is partial, and what is missing. UPDATE this file after completing work on any story.
+> Flutter app for collaborative canine respiratory monitoring (Sleeping Respiratory Rate / SRR).
 
+# Pet Circle — Claude Code Instructions
 
-# Pet Circle -- User Story Map
+## Project Overview
 
-Last updated: 2026-03-17 (Phase 2 in progress -- Firebase Auth + Firestore pets + Firestore subcollections)
+Flutter app for collaborative canine respiratory monitoring (Sleeping Respiratory Rate / SRR).
+Roles: Pet Owner and Veterinarian at the app level; Admin / Member / Viewer per-pet via care circles.
 
-## Update Protocol
+## Tech Stack
 
-After completing work on any user story listed below:
-1. Change its status to reflect the new state (DONE / PARTIAL / MISSING)
-2. Update the counts in the Summary section
-3. Move resolved PARTIAL items to the DONE section
-4. Add any newly discovered gaps to the appropriate section
+| Layer | Technology |
+|-------|-----------|
+| Language | Dart / Flutter (SDK ^3.10.4) |
+| Backend | Firebase (Auth, Firestore, Deep Links) |
+| Auth | Firebase Auth + Google Sign-In + Sign in with Apple |
+| Charts | Syncfusion Flutter Charts |
+| Notifications | flutter_local_notifications + timezone |
+| Localisation | flutter_localizations — `en` and `he` supported |
+| State | `ChangeNotifier` stores (global singletons) |
 
----
+## Architecture
 
-## App Architecture
+**Global store singletons** — all live in `lib/stores/`:
+- `petStore` — pets, care circle membership, access control
+- `measurementStore`, `medicationStore`, `noteStore` — per-pet Firestore subscriptions
+- `userStore`, `settingsStore`, `notificationStore` — user/app-level state
 
-Two app-level roles: **Owner** and **Vet** (selected at sign-in).
-Per-pet sharing via care circle with three roles:
-- **Admin**: Pet creator. Full control (edit, delete, manage circle, measure).
-- **Member**: Invited family/sitter. Can measure, view, add notes. Cannot edit pet or manage circle.
-- **Viewer**: Typically the vet. Can view everything, add clinical notes. Cannot measure or edit.
+Stores expose `subscribeForUser(uid)` / `cancelSubscription()` Firestore streams.
+When `kEnableFirebase = false` (in `lib/main.dart`), stores are seeded from `lib/data/mock_data.dart` instead.
 
-Permissions enforced via `CareCircleRole` enum with `CareCirclePermissions` extension in `lib/models/care_circle_member.dart`.
+**Services** (`lib/services/`) — thin Firestore/Firebase wrappers.
+**Models** (`lib/models/`) — immutable data classes with `copyWith`.
+**Screens** (`lib/screens/`) — organised by feature: `auth/`, `dashboard/`, `measurement/`, etc.
+**Widgets** (`lib/widgets/`) — shared UI: `NeumorphicCard`, `PrimaryButton`, `StatusBadge`, etc.
 
-Global active pet tracked in `petStore.activePetIndex` -- shared across all screens via header pet switcher.
+## Key Entry Points
 
----
+- **App entry**: `lib/main.dart` → `PetCircleApp`
+- **Routes**: `lib/app_routes.dart`
+- **Auth gate**: `lib/screens/auth/auth_gate.dart`
+- **Theme**: `lib/theme/app_theme.dart`
+- **Localisation**: `lib/l10n/` (generated from ARB files via `flutter gen-l10n`)
 
-## Status: DONE (63 stories) -- Phase 1 Complete + Phase 2 Partial
+## Code Conventions
 
-### Authentication & Onboarding
-- A1: Welcome screen with sign-up and sign-in buttons
-- A2: Role selection (Vet / Pet Owner) -- creates Firestore user doc if already authenticated
-- A3-A7: Email auth, Google, Apple, password reset -- LIVE (kEnableFirebase = true)
-- A8-A10: Email verification with resend and account switch -- LIVE
-- A11: AuthGate routing widget -- routes based on AuthProvider.routeState
-- A12: AuthProvider global singleton -- streams Firebase Auth + Firestore user profile
-- B1: Onboarding Step 1 -- name, searchable breed dropdown (BreedSearchField), age
-- B2: Onboarding Step 2 -- diagnosis saved to `Pet.diagnosis` field
-- B3: Onboarding Step 3 -- target rate saved to `settingsStore`
-- B4: Onboarding Step 4 -- care circle emails + role selection (Admin/Member/Viewer)
-- B25: Onboarding Back/Next buttons with persistent state (AutomaticKeepAliveClientMixin)
-- B26: Pet creation writes to Firestore via `PetStore.createPetWithFirestore()`, auto-adds owner as Admin
+- Models are **immutable** — always use `copyWith`, never mutate in-place.
+- Stores mutate their own private lists then call `notifyListeners()`.
+- All user-visible strings go through `AppLocalizations` (no hardcoded EN strings in widgets).
+- File naming: `snake_case.dart` for all Dart files.
+- Feature flag: `const bool kEnableFirebase = true` in `main.dart` — toggle for mock-data dev.
 
-### Owner Experience
-- B5: Owner dashboard with pet cards from `petStore` + empty state CTA
-- B6: Pet card tap navigates to pet detail
-- B7: Quick-action Measure / Trends buttons per pet
-- B8: Manual tap-to-count with haptics and BPM calculation
-- B9: Configurable timer durations (15s / 30s / 60s)
-- B10: "Add to Graph" saves measurement for active pet via `measurementStore` + Firestore subcollection
-- B11: Unified health trends -- single scrollable view with stats, chart, history
-- B12: Trends time-range filtering -- period dropdown filters chart + stats
-- B13: Medication add/edit wired to `medicationStore` + Firestore subcollection
-- B14: Export measurement data -- CSV preview dialog
-- B15: Pet detail reads from Firestore-backed `noteStore` and `measurementStore`
-- B16: "View Graph" navigates to trends tab
-- B17: Notifications from Firestore-backed `notificationStore` with tap-to-mark-read
-- B18: Dark mode toggle
-- B19: Language switcher (EN / HE)
-- B20: SRR thresholds saved to Firestore-backed `settingsStore`
-- B21: Care circle invite dialog from settings (role selection: Member/Viewer)
-- B22: Export all data dialog from settings
-- B23: Share with vet dialog from settings
-- B24: Push / emergency notification toggles wired to Firestore-backed `settingsStore`
-- M1: "Add Pet" button on owner dashboard navigates to onboarding
-- M2: Edit pet profile -- admin-only, bottom sheet with searchable breed dropdown + Firestore persistence
-- M3: Delete pet -- admin-only, long-press on pet card with confirmation
-- M5: Global pet switcher in header -- `petStore.activePetIndex` shared across all screens
-- M6: User profile management -- edit name/photo from settings
-- M7: Sign out from settings drawer with confirmation
-- M9: Care circle management -- remove members with confirmation
-- M10: Measurement deletion -- swipe-to-delete in history with confirmation
+## Common Commands
 
-### Medication
-- E6: Standalone Medication screen at bottom nav index 3
-- E7: Medication list with add, edit (tap to open pre-filled sheet), status, export
+<!-- AUTO-GENERATED from pubspec.yaml and firebase-status.md -->
+| Command | Description |
+|---------|-------------|
+| `flutter run` | Run on connected device / simulator |
+| `flutter test` | Run all tests |
+| `flutter test --coverage` | Run tests with coverage report |
+| `flutter analyze` | Lint and static analysis |
+| `flutter gen-l10n` | Regenerate localisation files from ARB |
+| `flutter pub get` | Install/update dependencies |
+| `flutter pub outdated` | Check for outdated packages |
+| `flutter build apk` | Build Android release APK |
+| `flutter build ios` | Build iOS release |
+| `flutterfire configure --project=pet-circle-app` | Regenerate Firebase config files |
+| `firebase deploy --only firestore:rules --project pet-circle-app` | Deploy Firestore security rules |
+<!-- END AUTO-GENERATED -->
 
-### Care Circle Sharing
-- S1: CareCircleRole enum (admin/member/viewer) with permissions extension + Firestore serialization
-- S2: Role-aware UI -- edit/delete only for admins, measure only for admin+member, viewer lock screen
-- S3: Invite flow offers Admin/Member/Viewer role selection (updated from Member/Viewer only)
-- S4: InvitationService -- creates Firestore invitation tokens, accepts via deep link
-- S5: DeepLinkService -- parses `petcircle://invite?token=XYZ`, stores pending tokens
-- S6: AuthGate handles invitation acceptance after authentication
-- S7: Settings invite dialog calls InvitationService + copies invite link to clipboard
-- S8: Remove member calls PetService.removeCareCircleMember() via Firestore
-- S9: Shared pets appear on owner dashboard with Member/Viewer role badge
-- S10: Delete pet calls PetService.deletePet() + UserService.removePetFromUser() via Firestore
+## Project Structure
 
-### Vet Experience
-- C1: Clinic overview dashboard from stores with real stats
-- C2: Summary stats from stores
-- C3: Patient card tap navigates to pet detail
-- C4: Clinical notes persisted via `noteStore` + Firestore subcollection
-- C5: Vet SRR trends -- data-driven chart
-- C6: Notifications from Firestore-backed `notificationStore`
+```
+lib/
+  main.dart            # App entry, kEnableFirebase flag, mock seeding
+  app_routes.dart      # Named route constants
+  firebase_options.dart
+  data/mock_data.dart  # Dev-mode seed data
+  models/              # Immutable data classes
+  stores/              # ChangeNotifier global singletons
+  services/            # Firestore / Firebase service layer
+  screens/             # Feature screens (auth, dashboard, measurement, …)
+  widgets/             # Shared UI components
+  theme/               # AppTheme, AppAssets
+  l10n/                # Localisation (en + he)
+assets/figma/          # Design assets
+docs/                  # PRD, bug log, firebase status, future features
+```
 
-### Cross-Cutting
-- E1: Bottom nav: Home, Trends, Measure, Medication
-- E2: Settings drawer from avatar tap
-- E3: Notifications drawer from bell icon (no dedicated tab)
-- E4: RTL layout for Hebrew
-- E5: Full dark mode support
-- E8: Searchable breed dropdown as shared widget (`lib/widgets/breed_search_field.dart`)
-- E9: All user-facing strings internationalized (enforced by cursor rule)
-- E10: Design system tokens enforced (enforced by cursor rule)
+## Where to Look
 
----
+| Task | Location |
+|------|---------|
+| Add a screen | `lib/screens/<feature>/`, register in `lib/app_routes.dart` + `main.dart` |
+| Add a model field | `lib/models/<model>.dart` — add to constructor + `copyWith` |
+| Add Firestore logic | `lib/services/pet_service.dart` or relevant service |
+| Change store state | `lib/stores/<store>.dart` — mutate private field, call `notifyListeners()` |
+| Add a localised string | `lib/l10n/app_en.arb` + `app_he.arb`, then `flutter gen-l10n` |
+| Track a bug | `docs/bug-log.md` |
+| Review future features | `docs/future-features.md` |
 
-## Status: Phase 2 IN PROGRESS
+## Current Status
 
-### Done in Phase 2
-- Firebase Auth enabled (`kEnableFirebase = true`)
-- Firestore user profiles via `UserService`
-- Firestore pet persistence via `PetService` (create, delete, care circle management)
-- `PetStore` streams pets from Firestore via `subscribeForUser(uid)`
-- Measurements, notes, and medications stream from Firestore subcollections
-- Pet edit persistence via `PetService.updatePet()`
-- Parent `Pet.latestMeasurement` stays in sync with measurement subcollection writes
-- User thresholds and preference toggles persist via Firestore-backed `settingsStore`
-- In-app notifications persist via Firestore-backed `notificationStore`
-- Dual-layer role architecture (App-Level: vet/owner + Care Circle: admin/member/viewer)
-- Invitation flow with deep link acceptance
-- Permission enforcement across all screens
+- **Phase:** Phase 2 — active feature development (Phase 1 complete: Firebase wiring, auth, stores, basic screens)
+- **Known bugs:** See `docs/bug-log.md`
+- **Planned features:** See `docs/future-features.md`
 
-### Remaining in Phase 2
-- Push notifications via FCM
-- Deploy repo-managed Firestore security rules
-- Harden invitation acceptance so strict rules do not need a self-join exception
+### Important constraints
+- Do not change Firestore document schema without also updating `firestore.rules`
+- `kEnableFirebase = true` in production; use `false` only for widget test dev
+- All new user-visible strings require entries in both `app_en.arb` and `app_he.arb`
 
-## Status: FUTURE (Phase 3-5)
+## Testing
 
-| Phase | Stories |
-|-------|---------|
-| 3 | VisionRR camera measurement, trend anomaly detection, automated SRR alerts, measurement reminders, vet-to-owner messaging |
-| 4 | PDF report generation, CSV file export (actual file), shareable health summaries, vet clinic analytics |
-| 5 | Apple Watch / WearOS companion, offline mode with sync |
+- Test files live in `test/` matching the source path.
+- Run with `flutter test`.
+- When `kEnableFirebase = false`, all stores work from mock data — useful for widget tests.
+- Shared test helpers in `test/helpers/` (`test_app.dart`, `mock_stores.dart`).
+- Coverage target: **80%+** line coverage.
 
 ---
 
-## Related Rules
+## Figma Design System Rules
 
-- `screen-completion-guide.mdc` -- screen-level checklist, auth screens, remaining work, feature backlog
-- `state-management.mdc` -- store patterns, access conventions, store registry, Firebase integration status, services
-- `figma-design-system.mdc` -- design tokens, colors, typography, spacing, Figma workflow
-- `design-system-enforcement.mdc` -- always-apply enforcement: tokens, components, i18n
-- `bug-tracking.mdc` -- always-apply: log all bugs to `docs/bug-log.md`
+### Figma Sources
+
+- **Design system**: https://www.figma.com/design/ApTk87wJXejOTzVtEnFJMw/Pet-circle?node-id=264-1093
+- **Views**: https://www.figma.com/design/ApTk87wJXejOTzVtEnFJMw/Pet-circle?node-id=167-107
+- **Conflict rule**: If design system and views disagree, **follow the views**.
+- **Migration mapping**: See `docs/design-system-migration.md` for complete token tables.
+
+### Required Figma-to-Code Flow
+
+1. Run `get_design_context` with the Figma node for the component/screen
+2. Run `get_screenshot` for a visual reference
+3. Download any assets from the Figma MCP asset endpoint
+4. Translate Figma output (React + Tailwind) into Flutter/Dart using project conventions
+5. Use the project's semantic token classes — **never hardcode hex values**
+6. Validate against the Figma screenshot for 1:1 visual parity
+
+### Design Token Architecture (3 layers)
+
+```
+lib/theme/
+  tokens/
+    colors.dart       # Primitive palette (AppPrimitives) — raw hex values
+    typography.dart   # Font definitions (AppTypography) — sizes, weights, line heights
+    spacing.dart      # Spacing + radius scales (AppSpacingTokens, AppRadiiTokens)
+    shadows.dart      # Shadow definitions (AppShadowTokens)
+  semantic/
+    color_scheme.dart # Semantic ThemeExtension (AppSemanticColors) — light + dark
+    text_theme.dart   # Semantic text styles (AppSemanticTextStyles)
+  app_theme.dart      # buildAppTheme() / buildDarkTheme() — wires everything
+  app_assets.dart     # Asset path registry
+```
+
+### Color System
+
+**Font:** Instrument Sans (variable font, `fontVariationSettings: "'wdth' 100"`)
+
+**Palette categories:** Ink (grays), Sky (backgrounds), Primary (purple #6B4EFF), Red, Green, Yellow, Blue.
+Each has 5 scales: Lightest, Lighter, Light, Base, Dark/Darkest.
+
+**IMPORTANT rules:**
+- NEVER hardcode hex colors in widgets or screens — always use semantic tokens
+- Access colors via `AppSemanticColors.of(context).primary` (ThemeExtension pattern)
+- Primary actions use `Primary/Base` (#6B4EFF) — NOT the old chocolate color
+- Text colors use `Ink/*` tokens — NOT hardcoded black
+- Background colors use `Sky/*` or `Primary/Lightest` — NOT hardcoded white
+
+### Typography System
+
+**Font family:** Instrument Sans (replaces Inter)
+**5 size categories:** Title 1 (48px), Title 2 (32px), Title 3 (24px), Large (18px), Regular (16px), Small (14px), Tiny (12px)
+**3 line-height variants per size:** None (= size), Tight, Normal
+**3 weights:** Bold (700), Medium (500), Regular (400)
+
+Access via `AppSemanticTextStyles.title1`, `AppSemanticTextStyles.largeBold`, etc.
+
+### Shadow System
+
+3 elevation levels (replaces neumorphic shadows):
+- `Shadow/Small` — subtle, for cards and containers
+- `Shadow/Medium` — moderate, for elevated elements
+- `Shadow/Large` — prominent, for modals and overlays
+
+### Component Conventions
+
+- Buttons: pill-shaped (`borderRadius: 48`), filled (Primary/Base bg) or outlined (Primary/Base border)
+- Cards: `borderRadius: 16`, `Primary/Lightest` bg or white, Shadow/Small
+- Icon buttons: circular (`borderRadius: 1000`), `Sky/Light` bg
+- Tab bar: **5 tabs** (Home, Trends, Diary, Measure, Medicine), active = Primary/Base
+- Inputs: `borderRadius: 16`, Sky/Lighter fill
+- Avatars: circular, 32px (small) or 64px (large)
+
+### Asset Handling
+
+- IMPORTANT: If Figma MCP returns a localhost source for images/SVGs, use that directly
+- DO NOT add new icon packages — all assets come from Figma payload
+- Store downloaded assets in `assets/figma/`
+
+### What NOT to Do
+
+- NEVER use the old `AppColorsTheme.of(context)` — use `AppSemanticColors.of(context)`
+- NEVER use the old `AppTextStyles.*` — use `AppSemanticTextStyles.*`
+- NEVER use neumorphic shadows — use `AppShadowTokens.*`
+- NEVER hardcode the old color values (chocolate, pink, cherry, offWhite, etc.)
+- NEVER skip the Figma screenshot comparison step
 
 ---
 > Source: [HiLuLiT/pet-circle](https://github.com/HiLuLiT/pet-circle) — distributed by [TomeVault](https://tomevault.io).
