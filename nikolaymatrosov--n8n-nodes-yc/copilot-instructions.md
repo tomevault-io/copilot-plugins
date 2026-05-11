@@ -1,36 +1,109 @@
-## n8n-nodes-yc
+## commit-message-format
 
-> - NEVER try to edit svg files. I'll do it myself.
+> All commit messages MUST follow the Conventional Commits specification.
 
-# Workspace Rules
+# Commit Message Format
 
-## Critical Global Rules
-- NEVER try to edit svg files. I'll do it myself.
-- **Always work from within the package directory** when running tests
-- **Mock all external dependencies** in unit tests
-- **Confirm test cases with user** before writing unit tests
-- **Typecheck is critical before committing** - always run `pnpm typecheck`
-- **When modifying pinia stores**, check for unused computed properties
-
-## Commit Messages
+## Conventional Commits
 All commit messages MUST follow the Conventional Commits specification.
-See `.cursor/rules/commit-message-format.mdc` for detailed guidelines.
 
-## New Node Documentation
-When adding a new n8n node, you MUST update documentation files.
-See `.cursor/rules/new-node-documentation.mdc` for the complete checklist.
+### Format
+```
+<type>[optional scope]: <description>
 
-**Quick reminder**: Update bug report template, both README files (EN & RU), and package.json.
+[optional body]
 
-## Testing
-What we use for testing and writing tests:
-- For testing nodes and other backend components, we use Jest for unit tests. Examples can be found in `packages/nodes-base/nodes/**/*test*`.
-- We use `nock` for server mocking
-- For frontend we use `vitest`
-- For e2e tests we use `Playwright` and `pnpm dev:e2e`. The old Cypress tests
-  are being migrated to Playwright, so please use Playwright for new tests.
+[optional footer(s)]
+```
 
-See `.cursor/rules/testing-guidelines.mdc` and `.cursor/rules/test-approach.mdc` for detailed testing guidelines.
+### Types
+- **feat**: A new feature
+- **fix**: A bug fix
+- **docs**: Documentation only changes
+- **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+- **refactor**: A code change that neither fixes a bug nor adds a feature
+- **perf**: A code change that improves performance
+- **test**: Adding missing tests or correcting existing tests
+- **build**: Changes that affect the build system or external dependencies
+- **ci**: Changes to CI configuration files and scripts
+- **chore**: Other changes that don't modify src or test files
+- **revert**: Reverts a previous commit
+
+### Scopes (examples for this project)
+- **compute**: YandexCloudCompute node
+- **containers**: YandexCloudContainers node
+- **streams**: YandexCloudDataStreams node
+- **functions**: YandexCloudFunctions node
+- **gpt**: YandexCloudGpt/LMChatYandexGpt nodes
+- **mq**: YandexCloudMessageQueue node
+- **storage**: YandexCloudObjectStorage node
+- **postbox**: YandexCloudPostbox node
+- **speechkit**: YandexCloudSpeechKit/STT nodes
+- **workflows**: YandexCloudWorkflows node
+- **creds**: Credentials
+- **utils**: Utility functions
+- **types**: Type definitions
+
+### Rules
+1. **Type is mandatory** and must be lowercase
+2. **Description is mandatory**, must be lowercase, and should not end with a period
+3. Use the imperative, present tense: "change" not "changed" nor "changes"
+4. Don't capitalize the first letter of the description
+5. Breaking changes must be indicated with `!` after type/scope OR in footer with `BREAKING CHANGE:`
+6. Keep the first line under 72 characters
+7. Body and footer are optional, separated by blank lines
+
+### Examples
+
+#### Simple commit
+```
+feat(gpt): add streaming support for chat completions
+```
+
+#### With scope and body
+```
+fix(storage): handle multipart upload errors correctly
+
+The multipart upload was failing silently when chunk size exceeded
+the limit. Now it properly validates and reports errors.
+```
+
+#### Breaking change
+```
+feat(mq)!: change message format to support metadata
+
+BREAKING CHANGE: Messages now use a new format with separate metadata field.
+Migration guide: wrap existing message content in { body: content, metadata: {} }
+```
+
+#### Multiple types in one commit (avoid this)
+```
+chore: update dependencies and fix linting issues
+```
+
+#### Without scope
+```
+docs: update README with installation instructions
+```
+
+#### Revert
+```
+revert: feat(gpt): add streaming support
+
+This reverts commit a1b2c3d4. Streaming caused memory issues in production.
+```
+
+### When NOT to use Conventional Commits
+- Quick WIP commits during development (use `wip: <description>` for these)
+- Merge commits (generated automatically)
+
+### Validation
+Before committing, ensure your message:
+- [ ] Starts with a valid type
+- [ ] Has a colon and space after type (or scope)
+- [ ] Has a meaningful description in imperative mood
+- [ ] Stays under 72 characters for the first line
+- [ ] Uses lowercase for type and description
 
 ---
 > Source: [nikolaymatrosov/n8n-nodes-yc](https://github.com/nikolaymatrosov/n8n-nodes-yc) — distributed by [TomeVault](https://tomevault.io).
