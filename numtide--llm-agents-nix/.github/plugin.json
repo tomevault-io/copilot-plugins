@@ -1,0 +1,9 @@
+{
+  "name": "numtide--llm-agents-nix",
+  "displayName": "llm-agents.nix",
+  "description": "Nix packages for AI coding agents and development tools. Automatically updated daily.",
+  "version": "1.0.0",
+  "author": "numtide",
+  "homepage": "https://github.com/numtide/llm-agents.nix",
+  "skills": []
+}
