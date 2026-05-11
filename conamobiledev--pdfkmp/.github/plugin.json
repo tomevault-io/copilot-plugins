@@ -1,0 +1,9 @@
+{
+  "name": "conamobiledev--pdfkmp",
+  "displayName": "PdfKmp",
+  "description": "OpenSource library for generate Pdf in KMP",
+  "version": "1.0.0",
+  "author": "ConaMobileDev",
+  "homepage": "https://github.com/ConaMobileDev/PdfKmp",
+  "skills": []
+}
