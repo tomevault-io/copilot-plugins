@@ -1,11 +1,12 @@
-## environment
+## pet-peeves
 
-> When executing code in the terminal During development ALWAYS use:
+> - If creating a data class, use Pydantic BaseModel, not python data classes.
 
-When executing code in the terminal During development ALWAYS use:
-conda activate vocalance_env_dev
-If you need to update the environment For the first time in a session  in any way always use uv pip install -e .
-Always explicitly use cmd not powershell to run Python code.
+
+- If creating a data class, use Pydantic BaseModel, not python data classes.
+- Do not add any comments to the code, unless essential or if the code is particularly obscure. Code should be self documenting. Only doc strings (google doc) are allowed.
+- Keep __init__.py files empty, always import modules from package root (dir containing package).
+- Do not use singletons.
 
 ---
 > Source: [rick12000/vocalance](https://github.com/rick12000/vocalance) — distributed by [TomeVault](https://tomevault.io).
