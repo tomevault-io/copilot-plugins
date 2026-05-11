@@ -1,0 +1,9 @@
+{
+  "name": "teo-mateo--llm-dock",
+  "displayName": "llm-dock",
+  "description": "Manage your local LLM inference services with Docker Compose",
+  "version": "1.0.0",
+  "author": "teo-mateo",
+  "homepage": "https://github.com/teo-mateo/llm-dock",
+  "skills": []
+}
