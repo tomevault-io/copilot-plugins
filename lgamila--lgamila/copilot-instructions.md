@@ -1,137 +1,87 @@
-## 020-codebase-structure
+## 030-coding-style
 
-> The project follows a monorepo structure using pnpm workspaces:
+> Coding Style: Guidelines for code formatting, naming conventions, and best practices
 
-# Codebase Structure and Commands
 
-## Project Structure
+# Coding Style Guidelines
 
-The project follows a monorepo structure using pnpm workspaces:
+## Technology-Specific Guidelines
 
-### Core Directories
-- `apps/` - Main applications
-  - `backend/` - Backend service with the following structure:
-    - `src/` - Source code
-      - `api/` - API routes and handlers
-      - `lib/` - Core libraries and utilities
-        - `auth/` - Authentication related code
-        - `cache/` - Caching mechanisms
-        - `db/` - Database interactions
-        - `errors/` - Error handling
-        - `middleware/` - Request middleware
-        - `repositories/` - Data access layer
-        - `services/` - Business logic
-      - `migrations/` - Database migrations
-      - `scripts/` - Utility scripts
-      - `types/` - TypeScript type definitions
-    - `drizzle/` - Database schema and migrations
-    - `static/` - Static assets
-  - `client/` - Web client application
-    - `src/` - Source code
-      - `assets/` - Static assets
-      - `components/` - React components
-        - `ui/` - Reusable UI components
-      - `hooks/` - Custom React hooks
-      - `lib/` - Utilities and helpers
-        - `guards/` - Route guards and protection
-        - `mutations/` - API mutation hooks
-        - `queries/` - API query hooks
-        - `utils/` - General utilities
-      - `pages/` - Page components
-      - `types/` - TypeScript type definitions
-    - `public/` - Public assets
-- `packages/` - Shared packages and utilities
-  - `shared/` - Shared utilities and type definitions
-    - `src/`
-      - `types/` - Shared type definitions
-      - `validation/` - Shared validation schemas
-  - `eslint-config/` - Shared eslint configuration
-  - `typescript-config/` - Shared typescript configuration
-- `.cursor/` - Project rules and documentation
-- `.vscode/` - VS Code configuration
-- `.turbo/` - Turborepo cache and configuration
+### TypeScript
+- Use TypeScript strictly - avoid `any` types
+- Use interfaces for object shapes that will be extended
+- Use type aliases for complex types and unions
+- Use the latest TypeScript features appropriately
 
-### Configuration Files
-- `package.json` - Project dependencies and scripts
-- `pnpm-workspace.yaml` - Workspace configuration
-- `turbo.json` - Turborepo configuration
-- `.npmrc` - NPM configuration
-- `.gitignore` - Git ignore configuration
+### React Components
+- Use functional components with hooks
+- Use named exports for components
+- Keep components small and focused on a single responsibility
+- Use proper prop typing
 
-## Available Commands
+### Backend (Hono)
+- Use middleware for cross-cutting concerns
+- Validate request data with Zod
+- Use proper error handling with structured responses
+- Structure routes logically by resource
 
-### Development Commands
-```bash
-# Start development servers
-pnpm dev                    # Start all development servers
-pnpm --filter backend dev   # Start backend development server
-pnpm --filter client dev    # Start client development server
+### Browser Extension (Plasmo)
+- Follow Plasmo framework conventions
+- Separate content scripts from background logic
+- Keep performance in mind for extension code
 
-# Code Quality
-pnpm lint                  # Run linting
-pnpm format               # Format code
-pnpm check-types         # Type check all packages
+## Comments and Documentation
+- Write self-documenting code, no need to add extra comments
+- Add comments for complex logic
+- Document public APIs and interfaces
+```typescript
+/**
+ * Fetches user data and handles pagination
+ * @param page - The page number to fetch
+ * @param limit - Number of items per page
+ * @returns Paginated user data
+ */
+async function fetchUsers(page: number, limit: number): Promise<PaginatedResponse<User>> {
+  // ...
+}
 ```
 
-### Database Commands (Backend)
+## Styling
+- Use Tailwind CSS for styling
+- Follow component-based styling practices
+- Use utility classes for one-off styling needs
+- Extract common patterns to shared components
+
+## Git Commit Guidelines
+
+### Commit Messages
+- Use conventional commits format
+- Include ticket number when applicable
+- Keep messages clear and concise
 ```bash
-pnpm --filter backend db:push      # Push schema to database
-pnpm --filter backend db:generate  # Generate migrations from schema changes
-pnpm --filter backend db:migrate   # Apply migrations to database
-pnpm --filter backend db:studio    # Launch Drizzle Studio
+# Format: <type>(<scope>): <description>
+feat(auth): add social login support
+fix(api): handle pagination edge cases
+chore(deps): update dependencies
 ```
 
-### Build Commands
+### Branch Names
+- Use feature/, bugfix/, hotfix/ prefixes
+- Include ticket number when applicable
+- Use kebab-case
 ```bash
-pnpm build                 # Build all packages
-pnpm --filter client build       # Build only client
+feature/KR-123-user-authentication
+bugfix/api-pagination
+hotfix/login-crash
 ```
 
-### Package Management
-```bash
-# Add dependencies to specific packages
-pnpm add <package> --filter <package-name>      # Add production dependency
-pnpm add -D <package> --filter <package-name>   # Add dev dependency
-```
+## Core Philosophy
 
-## Development Setup
-
-1. Install dependencies:
-   ```bash
-   npm i -g pnpm
-   pnpm install
-   ```
-
-2. Configure environment:
-   - Create appropriate environment files for each app
-   - Fill required environment variables
-
-3. Start development:
-   ```bash
-   # Start all apps
-   pnpm dev
-   
-   # Or start individual apps
-   pnpm --filter backend dev
-   pnpm --filter client dev
-   ```
-
-4. Build for production:
-   ```bash
-   pnpm build
-   ```
-
-## Best Practices
-
-1. Always use pnpm for package management
-2. Use the `--filter` flag when working with specific packages
-3. Keep shared code in the `packages/shared` directory
-4. Follow the established environment variable conventions
-5. Run code quality checks before committing:
-   ```bash
-   pnpm lint
-   pnpm check-types
-   ``` 
+- Code is primarily written for humans to read and understand, not just for computers to execute
+- "Explicit is better than implicit. Simple is better than complex. Readability counts."
+- Maintain consistency with existing code style when modifying files
+- Keep code DRY (Don't Repeat Yourself)
+- Prefer verbose variable names and maintainability over concise code
 
 ---
 > Source: [LGamila/lgamila](https://github.com/LGamila/lgamila) — distributed by [TomeVault](https://tomevault.io).
