@@ -1,0 +1,9 @@
+{
+  "name": "dstamand-msft--azuredevopspullrequestagent",
+  "displayName": "AzureDevOpsPullRequestAgent",
+  "description": "An agent that uses GitHub Copilot CLI to review a Pull Request in Azure DevOps.",
+  "version": "1.0.0",
+  "author": "dstamand-msft",
+  "homepage": "https://github.com/dstamand-msft/AzureDevOpsPullRequestAgent",
+  "skills": []
+}
