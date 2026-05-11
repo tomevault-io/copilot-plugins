@@ -1,16 +1,59 @@
-## base-models
+## best-practices
 
-> Rule to create BaseModels:
+> Provides methods for resizing, converting, and optimizing images.
 
-Rule to create BaseModels:
+# Best Practices Guide
 
-- Respect Pydantic v2 standards
-- Keep models focused and single-purpose
-- Use descriptive field names
-- Use type hints for all fields
-- Document complex validations
-- Use Optional[] for nullable fields
-- Use Field(default_factory=...) for mutable defaults
+This document outlines the core best practices and patterns used in our codebase.
+
+## Type Hints
+
+**Always Use Type Hints**
+   - Every function parameter must be typed
+   - Every function return must be typed
+   - Use type hints for all variables where type is not obvious
+
+## Factory Pattern
+
+1. **Use Factory Pattern for Object Creation**
+   - Create factories when dealing with multiple implementations
+
+## Documentation
+
+1. **Docstring Format**
+   - Quick description of the function/class
+   - List args and their types
+   - Document return values
+   - Example:
+   ```python
+   def process_image(image_path: str, size: Tuple[int, int]) -> bytes:
+       """Process and resize an image.
+       
+       Args:
+           image_path: Path to the source image
+           size: Tuple of (width, height) for resizing
+           
+       Returns:
+           Processed image as bytes
+       """
+       pass
+   ```
+
+2. **Class Documentation**
+   - Document class purpose and behavior
+   - Include examples if complex
+   ```python
+   class ImageProcessor:
+       """Handles image processing operations.
+       
+       Provides methods for resizing, converting, and optimizing images.
+       """
+   ```
+
+## Custom Exceptions
+
+1. **Graceful Error Handling**
+   - Use try/except blocks with specific exceptions and convert Python exceptions or third-party exceptions to custom ones only whne you can brign extra details and add sense to the reported exception
 
 ---
 > Source: [Pipelex/kajson](https://github.com/Pipelex/kajson) — distributed by [TomeVault](https://tomevault.io).
