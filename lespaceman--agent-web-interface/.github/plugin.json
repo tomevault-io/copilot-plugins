@@ -1,0 +1,9 @@
+{
+  "name": "lespaceman--agent-web-interface",
+  "displayName": "agent-web-interface",
+  "description": "A unified perception and interaction interface that enables AI agents to use the web efficiently",
+  "version": "1.0.0",
+  "author": "lespaceman",
+  "homepage": "https://github.com/lespaceman/agent-web-interface",
+  "skills": []
+}
