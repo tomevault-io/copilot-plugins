@@ -1,0 +1,9 @@
+{
+  "name": "qwenlm--qwen-code",
+  "displayName": "qwen-code",
+  "description": "An open-source AI agent that lives in your terminal.",
+  "version": "1.0.0",
+  "author": "QwenLM",
+  "homepage": "https://github.com/QwenLM/qwen-code",
+  "skills": []
+}
