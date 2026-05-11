@@ -1,0 +1,9 @@
+{
+  "name": "idiap--sdialog",
+  "displayName": "sdialog",
+  "description": "Synthetic Dialog Generation and Analysis with LLMs",
+  "version": "1.0.0",
+  "author": "idiap",
+  "homepage": "https://github.com/idiap/sdialog",
+  "skills": []
+}
