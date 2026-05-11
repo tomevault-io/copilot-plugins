@@ -1,7 +1,7 @@
 {
   "name": "mcginty--blew",
   "displayName": "blew",
-  "description": "blew",
+  "description": "A cross-platform BLE Central/Peripheral library, focused on P2P applications",
   "version": "1.0.0",
   "author": "mcginty",
   "homepage": "https://github.com/mcginty/blew",
