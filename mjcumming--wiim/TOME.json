@@ -4,7 +4,7 @@
   "repo": "wiim",
   "description": "WiiM (LinkPlay) Audio Integration for Home Assistant with multiroom support",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mjcumming/wiim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T00:09:27Z"
+  "distributed_at": "2026-05-11T11:04:36Z"
 }
