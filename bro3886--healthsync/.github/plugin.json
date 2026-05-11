@@ -1,0 +1,9 @@
+{
+  "name": "bro3886--healthsync",
+  "displayName": "healthsync",
+  "description": "Parse Apple Health exports into a local SQLite database",
+  "version": "1.0.0",
+  "author": "BRO3886",
+  "homepage": "https://github.com/BRO3886/healthsync",
+  "skills": []
+}
