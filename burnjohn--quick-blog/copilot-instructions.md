@@ -1,90 +1,78 @@
-## project
+## react-frontend
 
-> Project Overview and Tech Stack
+> React Frontend Development Conventions
 
 
-# Quick Blog — Project Overview
+# React Frontend Rules
 
-## Tech Stack
+## Code Organization
 
-| Layer | Technologies |
-|-------|-------------|
-| Client | React 19, Vite 6, Tailwind CSS 4, React Router 7, Axios |
-| Server | Express 5, MongoDB (Mongoose 8), JWT (jsonwebtoken), bcryptjs |
-| Auth | JWT-based; admin panel with login |
-| Features | Blog CRUD, comments, AI content generation (Google Gemini), file uploads (Multer) |
-| Database | MongoDB via Docker Compose; migrate-mongo for migrations |
-| Build | ES Modules (`"type": "module"`) everywhere |
+- Move ALL helper functions out of components to `utils/` or top of file
+- Extract constants to a separate constants file when there are 3+
+- Keep helper files colocated with components when specific to one feature
+- One component per file; max 200 lines per component — split if larger
+- File order: imports → constants → helpers → component → exports
 
-## Monorepo Layout
+## Component Architecture
 
-```
-quick-blog/
-├── client/                  # React SPA (Vite)
-│   └── src/
-│       ├── api/             # Axios API calls, axiosConfig
-│       ├── components/      # UI by domain (admin, blog, comment, forms, layout, ui)
-│       ├── constants/       # routes, messages, categories, apiEndpoints
-│       ├── context/         # AppContext (global state)
-│       ├── hooks/           # api/queries, api/mutations, core, utils
-│       ├── pages/           # admin/, public/
-│       └── utils/           # formatters, helpers, validators
-│
-├── server/                  # Express API
-│   ├── server.js            # Entry point
-│   └── src/
-│       ├── configs/         # db.js, gemini.js
-│       ├── constants/       # messages.js
-│       ├── controllers/     # adminController, appController, blogController
-│       ├── helpers/         # asyncHandler, response
-│       ├── middleware/       # auth, errorHandler, multer, rateLimiter
-│       ├── models/          # Blog, Comment, User (Mongoose)
-│       ├── routes/          # adminRoutes, appRoutes, blogRoutes
-│       ├── utils/           # dbLogger, httpLogger, imageUrl
-│       └── validators/      # blogValidator
-│
-├── .claude/                 # Claude Code / Cursor AI configuration (canonical)
-│   ├── skills/              # On-demand domain knowledge
-│   ├── agents/              # Specialized subagents
-│   └── commands/            # Slash commands (/commit, /plan, etc.)
-│
-└── .cursor/                 # Cursor-specific config + symlinks
-    ├── rules/               # Always-on conventions (.mdc)
-    ├── commands → ../.claude/commands   # Symlink
-    ├── skills → ../.claude/skills       # Symlink
-    └── agents → ../.claude/agents       # Symlink
-```
+- **Container components**: fetch data via hooks, pass props down, handle loading/error/empty states
+- **Presentational components**: receive props, render UI, no data fetching
+- Compose small, reusable components over large monolithic ones
+- Components must be pure — same inputs = same outputs
+- NEVER mutate props or state — treat as immutable
+- Side effects in `useEffect` only, never during render
+- Use early returns for loading and error states
 
-## Key Scripts
+## State Management
 
-| Script | Location | Purpose |
-|--------|----------|---------|
-| `npm run dev` | client/ | Vite dev server |
-| `npm run build` | client/ | Production build |
-| `npm run dev` | server/ | Start DB + nodemon |
-| `npm run server` | server/ | Nodemon only |
-| `npm run seed` | server/ | Seed database |
-| `npm run setup` | server/ | Start DB + seed |
-| `npm run db:start` | server/ | Start MongoDB via Docker |
-| `npm run migrate:up` | server/ | Run migrations |
+- PREFER local state (`useState`) over global state
+- PREFER props over Context — prop drilling is clearer for small trees
+- Use Context ONLY for truly global concerns (auth in `AppContext`)
+- Colocate state with the components that use it
+- URL-dependent state (filters, search, pagination) belongs in URL search params
 
-## Environment Variables
+## Hooks Rules
 
-**Client** (`.env` with `VITE_` prefix):
-- `VITE_BASE_URL` — Express API URL (e.g., `http://localhost:5001`)
+- Hooks at top level only — never in loops, conditions, or nested functions
+- Custom hooks start with `use`; data hooks live in `hooks/api/`
+- ALL data fetching in custom hooks (`hooks/api/queries/`, `hooks/api/mutations/`)
+- Use the core `useApiQuery` / `useApiMutation` patterns from `hooks/core/`
+- `useEffect` must synchronize with an external system — if not, it's misused
+- NEVER use `useEffect` for derived state — compute during render
+- NEVER chain `useEffect`s that trigger each other
 
-**Server** (`.env`):
-- `MONGODB_URI` — MongoDB connection string
-- `JWT_SECRET` — Secret for JWT signing
-- `CLIENT_URL` — Allowed CORS origin
-- `GEMINI_API_KEY` — Google Gemini API key
+## Derive, Don't Store
 
-## Do Not
+The #1 React anti-pattern to avoid:
+- NEVER store derived values in `useState` — compute during render
+- NEVER use `useState` + `useEffect` to sync a computed value
+- If a value can be calculated from existing props/state, calculate it inline
 
-- Mix client and server code; keep `client/` and `server/` strictly separate
-- Use `require()`; use ES module `import`/`export` only
-- Put business logic in route files; keep routes thin and delegate to controllers/models
-- Hardcode secrets or environment-specific URLs; use `.env` files
+## Tailwind CSS Conventions
+
+- Use Tailwind utility classes for ALL styling — no inline `style={}` objects
+- Use responsive prefixes (`sm:`, `md:`, `lg:`) for responsive design
+- Use dark mode variant (`dark:`) when supporting themes
+- Extract repeated utility combinations into component abstractions, not CSS files
+- Use the project's `ui/` components (Button, Card, Input, Badge, etc.) before creating new ones
+
+## API Layer
+
+- Centralized in `api/` directory using Axios with `axiosConfig.js`
+- API endpoint paths defined in `constants/apiEndpoints.js`
+- User-facing messages in `constants/messages.js`
+- Route paths in `constants/routes.js`
+
+## Routing
+
+- React Router v7 with pages under `pages/admin/` and `pages/public/`
+- Use barrel exports via `index.js` in each directory
+
+## Error Handling
+
+- Handle loading, error, and empty states in container components
+- Use `react-hot-toast` for user notifications
+- Try-catch in async functions within hooks
 
 ---
 > Source: [burnjohn/quick-blog](https://github.com/burnjohn/quick-blog) — distributed by [TomeVault](https://tomevault.io).
