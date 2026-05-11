@@ -1,0 +1,9 @@
+{
+  "name": "pigmej--aisanity",
+  "displayName": "aisanity",
+  "description": "Aisanity is a secure, hassle-free tool for running AI agents in isolated environments, protecting your host OS from risks while enabling seamless development workflows. It provides sandboxed container",
+  "version": "1.0.0",
+  "author": "pigmej",
+  "homepage": "https://github.com/pigmej/aisanity",
+  "skills": []
+}
