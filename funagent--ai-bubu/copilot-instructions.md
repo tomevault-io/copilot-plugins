@@ -1,46 +1,54 @@
-## astro-site
+## git-workflow
 
-> Astro 官网开发规范
+> Git 工作流与发版流程
 
 
-# 官网开发规范
+# Git 工作流
 
-## 技术栈
+## 分支策略
 
-- Astro 6，纯静态输出
-- 部署到 Vercel（配置在根 `vercel.json`）
-- 域名: aibubu.app
+- `main` — 主分支，保持稳定
+- `feat/*` — 功能分支
+- `fix/*` — 修复分支
 
-## 开发命令
+## Commit 规范
 
-- `pnpm dev:site` — 开发服务器
-- `pnpm build:site` — 构建
-- `pnpm preview:site` — 预览
+由 commitlint + Husky 强制执行 Conventional Commits。
 
-## i18n
+格式: `type(scope): description`
 
-- 支持中文 (zh) / 英文 (en)
-- 使用 `data-i18n` 属性进行文本切换
-- 图片/视频区分语言版本: `today.jpg` (zh) / `today_en.jpg` (en)
-- 语言偏好存储在 localStorage `aibubu-lang`
+scope 枚举: `app`, `site`, `skin`, `monitor`, `social`, `i18n`, `ci`, `deps`
 
-## 样式
+**使用 panda-git-commit skill 生成 commit message。**
 
-- 全局 CSS 在 `Base.astro` layout 中
-- 字体: Inter + Space Grotesk
-- CSS 变量: `--bg`, `--text`, `--surface`, `--border` 等
+## 发版流程
 
-## 资源
+```bash
+# 1. 更新版本号（同步三处）
+pnpm bump minor
 
-- 图片放在 `packages/site/public/`
-- 截图按语言命名: `screenshot/today.jpg`, `screenshot/today_en.jpg`
-- Demo 视频: `demo/demo.mp4`, `demo/demo_en.mp4`
+# 2. 生成 CHANGELOG
+git-cliff -o CHANGELOG.md
 
-## GitHub 链接
+# 3. 提交发版
+git add -A
+git commit -m "chore(app): release v0.x.0"
+git tag v0.x.0
+git push origin main --tags
+```
 
-仓库地址: `https://github.com/funAgent/ai-bubu`
+## CI/CD
 
-修改仓库相关链接时注意同步更新 index.astro、install.astro、privacy.astro。
+- **ci.yml** — PR/push 触发: lint + test + rust check + site build
+- **release.yml** — tag 触发: 跨平台构建 → Draft GitHub Release
+- **Vercel** — push 到 main 且 `packages/site/` 变更时自动部署官网
+
+## 版本号位置
+
+使用 `pnpm bump` 一键同步:
+1. `packages/app/package.json`
+2. `packages/app/src-tauri/Cargo.toml`
+3. `packages/app/src-tauri/tauri.conf.json`
 
 ---
 > Source: [funAgent/ai-bubu](https://github.com/funAgent/ai-bubu) — distributed by [TomeVault](https://tomevault.io).
