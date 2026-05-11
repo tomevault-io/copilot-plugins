@@ -2,7 +2,7 @@
   "name": "tcg-engines",
   "owner": "TheCardGoat",
   "repo": "tcg-engines",
-  "description": "",
+  "description": "Typescript implementation of TCG rules",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TheCardGoat/tcg-engines",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T20:41:09Z"
+  "distributed_at": "2026-05-11T08:36:03Z"
 }
