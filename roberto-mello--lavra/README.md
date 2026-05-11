@@ -7,11 +7,11 @@ A plugin with compound engineering workflows and memory for AI coding agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [roberto-mello/lavra](https://github.com/roberto-mello/lavra).
+Original source: `CLAUDE.md` in [roberto-mello/lavra](https://github.com/roberto-mello/lavra).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
