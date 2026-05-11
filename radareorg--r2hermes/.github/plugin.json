@@ -1,0 +1,9 @@
+{
+  "name": "radareorg--r2hermes",
+  "displayName": "r2hermes",
+  "description": "React Native VM (Hermes Bytecode Library) in C",
+  "version": "1.0.0",
+  "author": "radareorg",
+  "homepage": "https://github.com/radareorg/r2hermes",
+  "skills": []
+}
