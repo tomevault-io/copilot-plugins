@@ -1,0 +1,45 @@
+## hegemon
+
+> - When documenting mining setup, always include guidance to set `HEGEMON_SEEDS` with the currently approved seed list and note that miners must share the same seeds to avoid forks.
+
+# Always Be Shipping
+
+## Operator runbook updates
+
+- When documenting mining setup, always include guidance to set `HEGEMON_SEEDS` with the currently approved seed list and note that miners must share the same seeds to avoid forks.
+- Remind operators to enable time sync (NTP/chrony) because PoW timestamps are rejected if they exceed the future-skew bound.
+
+The product must be made real, not a mock up. DON'T BE A SYCOPHANT.
+
+# ExecPlans
+
+When writing complex features or significant refactors, use an ExecPlan (as described in .agent/PLANS.md) from design to implementation.
+
+# First-Run Setup
+
+Every fresh clone must begin with `make setup` followed by `make node`. The setup command installs toolchains, and `make node` builds the Substrate-based `hegemon-node` binary. Run `HEGEMON_MINE=1 ./target/release/hegemon-node --dev --tmp` to start a dev node with mining enabled.
+
+# macOS libclang
+
+On macOS, `librocksdb-sys` needs `libclang.dylib` available at build time. The `Makefile` exports `LIBCLANG_PATH` and `DYLD_LIBRARY_PATH` by checking:
+
+- `/Library/Developer/CommandLineTools/usr/lib`
+- `/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib`
+
+If you run `cargo` directly and hit `Library not loaded: @rpath/libclang.dylib`, export those variables yourself (matching the paths above) or run through `make` targets so the environment is set.
+
+# Design and Methods Docs
+
+Always consult DESIGN.md and METHODS.md before making code changes to ensure the implementation aligns with the documented plans, and update those documents whenever the architecture or methods evolve.
+
+# README Whitepaper
+
+Maintain the opening section of `README.md` as the canonical whitepaper for the project. The whitepaper must appear before the "Monorepo layout" and "Getting started" sections and must preserve the document title and subtitle.
+
+# Branding Guidelines
+
+Whenever you design or adjust any visual element, interface component, or documentation mock-up, consult `BRAND.md` to ensure colors, typography, layout, and motion adhere to the shared system. Document any intentional deviations in the relevant pull request.
+
+---
+> Source: [Pauli-Group/Hegemon](https://github.com/Pauli-Group/Hegemon) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
