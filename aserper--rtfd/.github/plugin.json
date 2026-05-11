@@ -1,0 +1,9 @@
+{
+  "name": "aserper--rtfd",
+  "displayName": "RTFD",
+  "description": "Spoonfeed your AI coding assistant with up to date documentation efficiently and without using a cloud service with the RTFD mcp server that runs on YOUR machine without any API key requirements!",
+  "version": "1.0.0",
+  "author": "aserper",
+  "homepage": "https://github.com/aserper/RTFD",
+  "skills": []
+}
