@@ -1,0 +1,9 @@
+{
+  "name": "yeomansiii--agent-ui-annotation",
+  "displayName": "agent-ui-annotation",
+  "description": "A web page annotation toolbar to help you better interact with AI coding agents.",
+  "version": "1.0.0",
+  "author": "YeomansIII",
+  "homepage": "https://github.com/YeomansIII/agent-ui-annotation",
+  "skills": []
+}
