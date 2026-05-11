@@ -1,0 +1,9 @@
+{
+  "name": "timvw--wt",
+  "displayName": "wt",
+  "description": "A fast, simple Git worktree helper written in Go",
+  "version": "1.0.0",
+  "author": "timvw",
+  "homepage": "https://github.com/timvw/wt",
+  "skills": []
+}
