@@ -4,7 +4,7 @@
   "repo": "midtown",
   "description": "A human-scale interface for multi-agent development",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/btucker/midtown",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T12:38:11Z"
+  "distributed_at": "2026-05-11T17:12:23Z"
 }
