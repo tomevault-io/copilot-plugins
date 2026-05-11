@@ -1,357 +1,226 @@
-## plugin-development
+## ado
 
-> Guidelines for developing ado plugins (actuators, operators, custom_experiments)
+> These guidelines apply to all code development in the ado codebase.
 
 
-# Plugin Development Guidelines
+# General Development Guidelines for ado
 
-These guidelines apply when developing plugins for ado.
-Plugins are developed under `plugins/` or `examples/` directories.
-All general development guidelines from `AGENTS.md` also apply.
+These guidelines apply to all code development in the ado codebase.
 
----
+## Code Structure
 
-## Plugin Structure
+- **orchestrator**: main Python package
+  - **schema**: pydantic models for properties, entities, experiments, and
+    measurement results
+  - **core**: pydantic models and associated code for the core resource types
+    managed by ado:
+    - discoveryspace
+    - operation
+    - samplestore
+    - datacontainer
+    - actuatorconfiguration
+  - **modules/actuators**: defines actuators, custom experiments, and their
+    associated management code (plugins, registry)
+  - **modules/operators**: defines operators and their associated management
+    code (plugins, collections, orchestration)
+  - **utilities**: common utilities
+  - **cli**: ado CLI
+  - **metastore**: code defining and interacting with the metastore, which
+    stores core resource types
+- **tests**: unit and integration tests (pytest)
+- **plugins**: actuator, operator, and custom_experiment plugins
+- **website**: mkdocs website and documentation
+- **examples**: examples of using ado
 
-### Package Organization
+### Structure Guidelines
 
-- **Actuators**: Each actuator is its own package under `plugins/actuators/`
-- **Operators**: Each operator is its own package under `plugins/operators/`
-- **Custom Experiments**: Can have multiple custom experiments in a single package under `plugins/custom_experiments/`
-
-### Directory Layout
-
-Each plugin package should contain:
-
-- `pyproject.toml` - Package configuration
-- `tests/` - Unit and integration tests (keep within the plugin package)
-- YAML examples - Example discoveryspace and operation files for the plugin
-- Plugin implementation code
-
----
-
-## Package Setup
-
-### Using setuptools_scm for Versioning
-
-Configure `pyproject.toml` to use `setuptools_scm` for automatic versioning:
-
-```toml
-[build-system]
-requires = ["setuptools", "setuptools_scm"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools_scm]
-root = "../../../"  # Points to repo root
-local_scheme = "node-and-timestamp"
-
-[project]
-name = "your-plugin-name"
-dynamic = ["version"]  # Version set automatically by setuptools_scm
-```
-
-`local_scheme = "node-and-timestamp"` makes each dirty (uncommitted) build
-produce a unique version using the git node and a timestamp (e.g.
-`1.2.3.dev4+gabcdef.d20260420123456`). Without it the default `dirty` scheme
-only appends `.d<date>`, so multiple dirty builds on the same day share the same
-version string. This matters for remote execution: Ray caches installed wheels by
-version, so a stale cached wheel will be used instead of a freshly built one if
-the version has not changed. See
-[remote-execution](../skills/remote-execution/SKILL.md) for the full diagnosis.
-
-### Dependencies
-
-**Always include ado-core** in the dependencies:
-
-```toml
-[project]
-dependencies = [
-    "ado-core",
-    # ... other dependencies
-]
-```
-
-### Installation
-
-Install the plugin into the top-level venv from the repo root:
-
-```bash
-uv pip install -e plugins/your_plugin_type/your_plugin
-```
-
-### Workspace Membership
-
-By default, plugins added in-tree are not workspace members and should
-not be added to `[tool.uv.workspace]` members in the root `pyproject.toml`.
-
-This means the plugins pyproject.toml should not include a `[tool.uv.sources]`
-section resolving `ado-core` via `{ workspace = true }`.
-
-Only add a plugin to the workspace when explicitly
-asked, for example when the plugin must be included in `uv sync` for CI or
-cross-plugin dependency resolution.
-
-If you mistakenly add `ado-core = { workspace = true }` to a plugin's
-`[tool.uv.sources]` without adding it to the workspace, `uv pip install`
-will fail with:
-
-```
-Failed to parse entry: `ado-core`
-`ado-core` references a workspace ... but is not a workspace member
-```
-
-### Adding Dependencies with uv
-
-Use `uv` to add new dependencies to your plugin:
-
-```bash
-cd plugins/actuators/your_plugin/
-uv add package-name
-```
+- Place new code in the most specific existing subpackage.
+- Do not create new top-level packages unless explicitly instructed.
 
 ---
 
-## Plugin Registration
+## Code Style
 
-### Actuators: Namespaced Packages
-
-Actuators use namespaced packages and require:
-
-1. Package structure under a namespace
-2. `actuator_definitions.yaml` file
-3. Optional `experiments.yaml` file
-
-```toml
-[tool.setuptools.package-data]
-your_actuator = [
-    "actuator_definitions.yaml",  # Required
-    "experiments.yaml"             # Optional
-]
-```
-
-### Operators and Custom Experiments: Entry Points
-
-Operators and custom experiments use entry points in `pyproject.toml`:
-
-**Operator Example:**
-
-```toml
-[project.entry-points."ado.operators"]
-ado-ray-tune = "ado_ray_tune.operator_function"
-```
-
-**Custom Experiment Example:**
-
-```toml
-[project.entry-points."ado.custom_experiments"]
-min_gpu_experiment = "autoconf.min_gpu_recommender"
-```
+- Use PEP8 naming conventions for new code.
+- **Exception**: use camelCase for fields of pydantic models.
+- Do not modify existing names unless explicitly asked, even if they do not
+  follow PEP8.
+- Use type annotations on all functions and methods, including return types.
+- Add docstrings to all functions and methods.
+- Use the pydantic annotated form for pydantic fields (see
+  `orchestrator/schema/entity.py`). Assign the default value to the Annotated
+  variable, not inside pydantic.Field. For any mutable default values such as
+  dictionaries, lists, tuples, or sets, use `default_factory` inside
+  pydantic.Field and do not assign a default to the Annotation.
+- Use discriminated unions when a type is a union (see `ExperimentType` in
+  `orchestrator/schema/experiment.py`).
+- Use the `Defaultable` type from `orchestrator/utilities/pydantic` for pydantic
+  fields that:
+  - accept `None`, but
+  - are always defaulted to a different type.
+- Use absolute imports within the repository unless the file already uses
+  relative imports.
+- Use `orchestrator.utilities.output.pydantic_model_as_yaml` for serializing
+  pydantic models to YAML.
+- Use Google style for docstrings.
 
 ---
 
-## Custom Experiments
+## Developer Tools
 
-### Decorator Requirements
+- All development tools (ruff, black, pytest, etc.) are available in the
+  project's **uv-managed virtual environment**.
+- Do not install tools globally.
+- Use the following pattern to execute tools:
 
-Custom experiments **must** use the `@custom_experiment` decorator correctly:
-
-```python
-from typing import Any
-from orchestrator.modules.actuators.custom_experiments import custom_experiment
-from orchestrator.schema.property import ConstitutiveProperty
-
-# Define your properties explicitly (or let ado infer from type annotations)
-MyProperty = ConstitutiveProperty(...)
-
-@custom_experiment(
-    required_properties=[MyProperty, ...],
-    optional_properties=[...],
-    output_property_identifiers=["output1", "output2"],
-    metadata={
-        "description": "Clear description of what this experiment does"
-    },
-    parameterization={},
-)
-def my_custom_experiment(my_property: float, ...) -> dict[str, Any]:
-    # Function parameters must match required/optional property identifiers
-    return {"output1": ..., "output2": ...}
-```
-
-**Key Points:**
-
-- Function **parameter names must match the property identifiers** — ado maps
-  values to the function by name, not by position
-- Positional parameters become required properties; keyword parameters become
-  optional properties
-- Type annotations on positional parameters allow ado to infer domains:
-  `float` → continuous, `int` → discrete, `Literal` → categorical
-- Return a `dict` whose keys include the `output_property_identifiers`
-- Define `output_property_identifiers` for measurement results
-- Include descriptive metadata
-
-For the full decorator API and worked examples, see
-[creating-custom-experiments.md](../../../website/docs/actuators/creating-custom-experiments.md).
+  uv run TOOLNAME
 
 ---
 
-## Testing Requirements
+## Code Development
 
-### Unit & Integration Test Location
+Use Test Driven Development
 
-Keep unit and integration tests **within the plugin package**,
-not in the top-level `tests/` directory.
+- For changes to existing code: First search for tests
+  that call this code and update them so the new behaviour is tested
+- For new functionality: Write tests first
+- Run pytest: confirm tests fail
+- Implement the code to be tested
+- Run pytest: check tests
+- Iterate until tests pass
 
-### Testing Checklist
+### Writing Tests
 
-Before considering a plugin complete, verify:
+- Check for existing fixtures before creating new ones:
+  - `tests/fixtures/`
+- Do not mock by default; prefer integration tests.
+  - Search for existing fixtures that provide same functionality
+  - If you really feel a mock is correct, confirm with the user before implementing
+- Test the full lifecycle for pydantic models:
+    create → dump → create from dump
 
-- **Plugin Installation**: Install the plugin into the top-level uv venv
-from the repo root:
+### Code Linting
 
-  ```bash
-  uv pip install -e plugins/your_plugin_type/your_plugin
-  ```
+- Linting must be run after any code changes and must pass before running tests.
+- Run **black** after changes:
 
-- **Confirm actuator or operator registration**:
+  uv run black $DIR
 
-Run
+- Run **ruff** after changes:
 
-```
-uv run ado get actuators --details
-```
+  uv run ruff check --fix $DIR
 
-or
+- Fix any issues reported by ruff that it could not fix automatically.
+- Run black and ruff at directory level for efficiency (e.g. `orchestrator/`,
+  `plugins/`, `tests/`).
+- Run the mkdocs linter on markdown files (\*.md) that have added or modified:
 
-```
-uv run ado get operators
-```
+  uv run markdownlint-cli2 NEW_OR_CHANGED_MARKDOWN_FILE --fix
 
-and confirm the plugin is installed
+- Run if YAML changed or added
 
-- **Experiment execution**: Use the `run_experiment` tool to verify custom_experiment or actuator experiments can execute successfully
+  pre-commit run yamlfmt
 
-For example:
+- Run if TOML changed or added
 
-```
-uv run run_experiment point.yaml
-```
-
-- **Valid DiscoverySpace YAML**: Create and validate a discoveryspace YAML that uses the experiment/actuator
-
-  ```bash
-  ado create discoveryspace -f space.yaml --dry-run
-  ```
-
-- **Valid Operation YAML**: Create and validate an operation YAML that uses the operator
-
-  ```bash
-  ado create operation -f operation.yaml --dry-run
-  ```
-
-- **Unit tests pass**: Run pytest on the plugin package
-
-  ```bash
-  uv run pytest plugins/your_plugin_type/your_plugin/tests/
-  ```
-
-### Example YAML Files
-
-Include example YAML files in your plugin package that demonstrate:
-
-- How to configure a discoveryspace with your actuator/experiment
-- How to configure an operation with your operator
-- Different use cases or configurations
+  uv run tombi fmt
 
 ---
 
-## Linting
+## Code Installation & Execution
 
-After making changes to plugin code, run linting at the plugin directory level:
+The project has a top-level virtual environment managed by uv. Plugins and
+examples within the repo are also uv managed and may have venvs.
 
-```bash
-cd plugins/actuators/your_plugin/
-uv run black .
-uv run ruff check --fix .
-uv run tombi fmt .
-```
-
-Fix any issues that ruff cannot automatically resolve.
+When installing packages, install into the top-level virtual environment.
+When executing code with uv, including pip, execute
+from the top level of this repo.
+This is to avoid accidentally using the local uv environments of plugins and examples
+within the repo.
 
 ---
 
-## Complete pyproject.toml Examples
+## Testing
 
-### Actuator Example
+### Code Testing
 
-```toml
-[build-system]
-requires = ["setuptools", "setuptools_scm"]
-build-backend = "setuptools.build_meta"
+- Each subpackage has a corresponding test directory under `tests/`, for example:
+  - `tests/schema/`
+  - `tests/core/`
+  - `tests/actuators/`
+  - `tests/operators/`
+  - `tests/metastore/`
+  - `tests/cli/`
+- Test files are often named after the **class or concept** being tested.
+  For example, `MeasurementResult` (defined in `result.py`) is
+  tested in `test_measurement_result.py`. When changing a class, look for
+  a test file whose name matches the class name before grepping.
+- To find all tests relevant to a change, search by the name of each modified
+  function, method, or field
+- As a final validation step after a change, run tests for all impacted subpackages.
+- All tests must pass before submitting changes.
+- Ensure the virtual environment is correctly set up before running tests:
 
-[tool.setuptools_scm]
-root = "../../../"
-local_scheme = "node-and-timestamp"
+  uv sync --reinstall --group test --group dev
 
-[tool.setuptools.packages.find]
-where = ["."]
-exclude = ["build", "build.*", "examples"]
+- Run tests in parallel (pytest-xdist) for quicker execution e.g.
 
-[tool.setuptools.package-data]
-my_actuator = ["actuator_definitions.yaml", "experiments.yaml"]
+  uv run pytest -n auto tests/
 
-[project]
-name = "my-actuator"
-description = "Description of your actuator"
-dynamic = ["version"]
-dependencies = [
-  "ado-core",
-]
-```
+### YAML Testing
 
-### Operator Example
+- Test any new or modified ado resource YAML using:
 
-```toml
-[build-system]
-requires = ["setuptools", "setuptools_scm"]
-build-backend = "setuptools.build_meta"
+  uv run ado create RESOURCETYPE -f FILE --dry-run
 
-[tool.setuptools_scm]
-root = "../../../"
-local_scheme = "node-and-timestamp"
+### ado CLI command-line construction and testing
 
-[project]
-name = "my-operator"
-dynamic = ["version"]
-dependencies = [
-  "ado-core",
-]
+- Confirm all ado CLI commands and options written in documentation are correct
 
-[project.entry-points."ado.operators"]
-my-operator = "my_operator.operator_function"
-```
+  uv run ado [COMMAND] --help uv run ado [COMMAND] [SUBCOMMAND1] ... --help
 
-### Custom Experiment Example
+- Leverage the --use-latest ado CLI command arg when writing documentation if an
+  "ado create" or "ado show" command requires the identifier of a previously
+  created resource
 
-```toml
-[project]
-name = "my-custom-experiment"
-description = "Description of your custom experiment"
-dynamic = ["version"]
-dependencies = [
-  "ado-core",
-]
+---
 
-[project.entry-points."ado.custom_experiments"]
-my_experiment = "my_package.my_experiment"
+## Agent Skills
 
-[build-system]
-requires = ["setuptools", "setuptools_scm"]
-build-backend = "setuptools.build_meta"
+When writing agent skills:
 
-[tool.setuptools_scm]
-root = "../../../"
-local_scheme = "node-and-timestamp"
-```
+- Be brief and to the point
+- Avoid ambiguous statements
+- Skills should be instructions on how to perform a specific task
+- Avoid duplication - before writing check the following sources and link
+  existing relevant data
+  - all skills under .cursor/skills/
+  - the examples under examples/
+  - the documentation under website/docs/
+- After writing a new skill:
+  - review if any information is more appropriate in an existing skill, rules or
+    AGENTS.md, if so move it there
+  - verify all file and directory paths referenced, exist in the repo
+  - check each section is within the scope declared in the skill's description
+    field
+- When creating YAML or code examples, prefer:
+  - using an external file
+  - linking it or including its contents in SKILL.md
+  - write tests for such files
+- Ensure the metadata of the skill is sufficient so it triggers when likely to
+  be required
+
+---
+
+## Links
+
+- For plugin development, see
+  [plugin-development.mdc](.cursor/rules/plugin-development.mdc)
+- For formulating problems with ado, see
+  [formulate problems for ado](.cursor/skills/formulate-discovery-problem/)
+- For using the ado CLI, see [using the ado CLI](.cursor/skills/using-ado-cli/)
+- For creating resource YAML files, see
+  [resource-yaml-creation](.cursor/skills/resource-yaml-creation/)
 
 ---
 > Source: [IBM/ado](https://github.com/IBM/ado) — distributed by [TomeVault](https://tomevault.io).
