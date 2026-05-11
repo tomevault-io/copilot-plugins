@@ -1,0 +1,9 @@
+{
+  "name": "webmcp-org--webmcp-sh",
+  "displayName": "webmcp-sh",
+  "description": "A modern web-based Model Context Protocol (MCP) playground for testing and developing MCP servers and clients",
+  "version": "1.0.0",
+  "author": "WebMCP-org",
+  "homepage": "https://github.com/WebMCP-org/webmcp-sh",
+  "skills": []
+}
