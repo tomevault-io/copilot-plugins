@@ -1,198 +1,189 @@
-## 70-tool-usage-guide
+## mcp-sap-docs
 
-> **Complete guide for understanding when to use which MCP tool in the SAP docs system.**
+> Operational guide for agents and contributors adding or updating documentation sources in this repository.
 
-# SAP Docs MCP Tool Usage Guide (Rule)
+# AGENTS.md
 
-**Complete guide for understanding when to use which MCP tool in the SAP docs system.**
+Operational guide for agents and contributors adding or updating documentation sources in this repository.
 
-## Tool Overview (5 Tools Available)
+## What This Repository Does
 
-The SAP docs MCP provides 5 specialized tools for different types of SAP documentation and content:
+`sap-docs-mcp` is an MCP server that:
 
-### **General Documentation Tools**
-1. **`search`** - Multi-source documentation search (alias: `sap_docs_search`)
-2. **`fetch`** - Retrieve specific documentation (alias: `sap_docs_get`)
+- pulls documentation from git submodules under `sources/`
+- builds a local search corpus in `dist/data/index.json`
+- builds SQLite FTS and embeddings (`dist/data/docs.sqlite`)
+- serves search/fetch tools for different variants (`sap-docs`, `abap`)
 
-### **Community & Help Tools**  
-3. **`sap_community_search`** - SAP Community blog posts and discussions
-4. **`sap_help_search`** - SAP Help Portal product documentation
-5. **`sap_help_get`** - Retrieve SAP Help content
+Core build/index flow:
 
-## When to Use Which Tool
+1. `setup.sh` initializes/updates submodules (variant-aware)
+2. `scripts/build-index.ts` scans configured source directories and creates `index.json`
+3. `scripts/build-fts.ts` builds BM25 index from `index.json`
+4. `scripts/build-embeddings.ts` builds semantic vectors
 
-### **`search` - Unified SAP Development Search**
-**Use for:**
-- **UI5 controls and components** (Button, Table, Wizard)
-- **CAP framework concepts** (entities, services, annotations)
-- **ABAP documentation** (all versions 7.52-7.58 + latest)
-- **Development frameworks** (wdi5 testing, UI5 Tooling)
-- **Best practices and examples** (ABAP cheat sheets, Clean ABAP)
-- **Fiori Elements showcases and patterns**
-- **TypeScript integration and setup**
-- **Cloud SDK and deployment topics**
+## Source Onboarding Model (Important)
 
-**Examples:**
+Adding a source is **not** one change in one file. A source typically needs coordinated updates in multiple places:
+
+1. `.gitmodules` (submodule URL/path/branch)
+2. `scripts/build-index.ts` (`SOURCES` entry with indexing path + file patterns)
+3. metadata config:
+   - `src/metadata.json` for `sap-docs` profile
+   - `config/variants/abap.metadata.json` if needed for `abap` profile
+4. variant config:
+   - `config/variants/sap-docs.json`
+   - `config/variants/abap.json` (if source should exist in ABAP variant)
+5. `setup.sh` sparse checkout mapping in `get_sparse_paths()` when only subfolders are needed
+6. optional test/docs updates (README, tests, validation docs)
+
+If any of these are missed, the source may clone but never be indexed, or index without usable URL generation, or only work in one variant.
+
+## Where Source Configuration Lives
+
+### 1) Submodule registration
+
+- File: `.gitmodules`
+- Purpose: declare repository origin and local path under `sources/`
+- Pattern:
+  - `path = sources/<source-folder>`
+  - `url = https://github.com/<org>/<repo>.git`
+  - `branch = main|master|...`
+
+### 2) Indexing input
+
+- File: `scripts/build-index.ts`
+- Purpose: tells indexer exactly where docs live and which files to scan
+- Structure: `SOURCES: SourceConfig[]`
+- Required fields:
+  - `repoName`
+  - `absDir` (often `join("sources", "<folder>", "docs")` or repo root)
+  - `id` (library ID used everywhere, e.g. `"/wdi5"`)
+  - `name`, `description`
+  - `filePattern` (`**/*.md`, `**/*.mdx`, etc.)
+  - `type` (`markdown`, `jsdoc`, `sample`)
+
+### 3) Search metadata and URL generation
+
+- File: `src/metadata.json` (sap-docs)
+- Purpose:
+  - boosts, tags, synonyms/acronym context
+  - source metadata for ranking and source identity
+  - source URL construction (`baseUrl`, `pathPattern`, `anchorStyle`)
+
+Minimal source entry fields:
+
+- `id`
+- `libraryId` (must match `build-index.ts` `id`)
+- `sourcePath` (relative to `sources/`)
+- `baseUrl`
+- `pathPattern`
+- `anchorStyle`
+- `description`, `tags`, `boost`
+
+### 4) Variant inclusion
+
+- File: `config/variants/sap-docs.json`
+  - add source `libraryId` to `sourceAllowlist`
+  - add submodule folder path to `submodulePaths`
+- File: `config/variants/abap.json`
+  - only if source should be available in ABAP variant
+
+### 5) Setup cloning behavior
+
+- File: `setup.sh`
+- Function: `get_sparse_paths()`
+- If source indexing scans only a subfolder (for example `docs`), add sparse mapping so setup pulls only required paths.
+- If whole repo is needed, no sparse mapping is required.
+
+## Existing Patterns To Reuse
+
+Examples already in repo:
+
+- Docs in `docs/` folder:
+  - `/btp-cloud-platform` -> `sources/btp-cloud-platform/docs`
+  - `/sap-artificial-intelligence` -> `sources/sap-artificial-intelligence/docs`
+- Docs from repo root:
+  - `/cap` -> `sources/cap-docs`
+- Mixed patterns (`mdx`, code docs, samples) exist in `cloud-sdk*` and `openui5`.
+
+## Terraform Provider BTP Candidate
+
+Candidate repository:
+
+- [SAP/terraform-provider-btp docs folder](https://github.com/SAP/terraform-provider-btp/tree/main/docs)
+
+Observed docs layout:
+
+- `docs/index.md`
+- `docs/data-sources/`
+- `docs/functions/`
+- `docs/list-resources/`
+- `docs/resources/`
+
+This matches the common "docs under `docs/`" onboarding pattern.
+
+### Proposed source identity (suggested)
+
+- submodule path: `sources/terraform-provider-btp`
+- library ID: `/terraform-provider-btp`
+- sourcePath: `terraform-provider-btp/docs`
+- file pattern: `**/*.md`
+- type: `markdown`
+
+### Proposed metadata URL mapping (suggested)
+
+- `baseUrl`: `https://github.com/SAP/terraform-provider-btp/blob/main`
+- `pathPattern`: `/docs/{file}`
+- `anchorStyle`: `github`
+
+This is consistent with existing GitHub-hosted docs sources already configured.
+
+## Step-by-Step Checklist For Adding A New Source
+
+1. Add `.gitmodules` entry for `sources/<new-folder>`
+2. Add new `SOURCES` entry in `scripts/build-index.ts`
+3. Add metadata source in `src/metadata.json`
+4. Add library mapping/context boosts only if useful
+5. Add to `config/variants/sap-docs.json`:
+   - `sourceAllowlist`
+   - `submodulePaths`
+6. Optionally add to `config/variants/abap.json` and ABAP metadata
+7. Add `setup.sh` sparse path mapping if docs are in a subfolder
+8. Run validation:
+   - `npm run build:index`
+   - `npm run build:fts`
+   - `npm run build:embeddings`
+   - or `npm run build`
+9. Smoke test search:
+   - start server
+   - run `search` with source filter and verify URLs/fetch behavior
+
+## Validation Commands
+
+Typical local verification:
+
+```bash
+MCP_VARIANT=sap-docs npm run setup
+MCP_VARIANT=sap-docs npm run build
+MCP_VARIANT=sap-docs npm run start:streamable
 ```
-search: "button properties"                # UI5 Button documentation
-search: "fiori elements annotations"       # Fiori Elements patterns  
-search: "wdi5 testing"                     # Testing framework
-search: "clean abap practices"             # Style guidelines
-search: "SELECT statements 7.58"           # ABAP syntax (specific version)
-search: "inline declarations"              # ABAP latest (default)
-search: "LOOP 7.57"                        # Auto-detects ABAP 7.57
+
+Targeted checks:
+
+```bash
+MCP_VARIANT=sap-docs npm run build:index
+MCP_VARIANT=sap-docs npm run build:fts
+MCP_VARIANT=sap-docs npm run build:embeddings
 ```
 
-**ABAP Integration:**
-- ABAP docs are fully integrated (no separate tools needed)
-- Latest ABAP shown by default for general queries
-- Version auto-detection from query (e.g., "LOOP 7.57" searches ABAP 7.57)
-- 40,761+ ABAP files across 8 versions (7.52-7.58 + latest)
+## Notes For Future Agents
 
-### **Tool Selection Matrix**
-
-| Query Type | Use This Tool | Reasoning |
-|------------|---------------|-----------|
-| "How do I create a Button?" | `search` | UI5 control examples and guides |
-| "SELECT statement syntax" | `search` | ABAP integrated - add version if needed |
-| "Fiori Elements annotations" | `search` | Cross-platform examples and showcases |
-| "TRY CATCH in ABAP 7.57" | `search` | ABAP with version auto-detection |
-| "Clean ABAP practices" | `search` | Style guides and best practices |
-| "LOOP AT internal table" | `search` | ABAP latest (or add version) |
-| "wdi5 testing setup" | `search` | Testing framework documentation |
-| "CDS view annotations" | `search` | CAP and examples unified |
-| "Community discussions on errors" | `sap_community_search` | Real-world solutions and discussions |
-| "S/4HANA configuration" | `sap_help_search` | Official product documentation |
-
-## Content Sources by Tool
-
-### **`search` Sources (27 total, including 8 ABAP versions)**
-- **ABAP**: 40,761+ files across 8 versions (7.52-7.58 + latest), cheat sheets, style guides, Fiori showcase
-- **UI5**: SAPUI5, OpenUI5 API/Samples, TypeScript, Custom Controls, Tooling, Web Components
-- **CAP**: Framework docs, Fiori Elements showcase  
-- **Testing**: wdi5 framework and examples
-- **Cloud**: Cloud SDK (JS/Java), AI SDK, Cloud MTA Build Tool
-- **Guidelines**: SAP style guides, community best practices
-
-### **Version Management (ABAP)**
-- **Latest by default**: General ABAP queries show latest version only
-- **Version auto-detection**: "LOOP 7.57" automatically filters to ABAP 7.57
-- **Smart filtering**: Prevents duplicate results across versions
-- **Context boosting**: Requested versions get 2.0x score boost
-
-## Advanced Usage Patterns
-
-### **Progressive Discovery**
-1. **Start broad**: Use `search` for general concepts (all sources)
-2. **Get specific**: Add version numbers for ABAP-specific versions
-3. **Cross-reference**: Use `sap_community_search` for real-world examples
-4. **Deep dive**: Use `sap_help_search` for product documentation
-
-### **ABAP Version-Specific Queries**
-```
-search: "NEW operator"              # Shows latest ABAP version
-search: "NEW operator 7.58"         # Targets ABAP 7.58 specifically
-search: "NEW operator 7.54"         # Targets ABAP 7.54 for compatibility check
-search: "LOOP 7.57"                 # Auto-detects and filters to ABAP 7.57
-```
-
-### **Comprehensive Multi-Source Coverage**
-```
-# For Fiori Elements development:
-search: "fiori elements annotations"          # Official docs + showcases
-sap_community_search: "fiori elements tips"   # Community insights
-sap_help_search: "Fiori Elements setup"       # Product guides
-
-# For ABAP development:
-search: "SELECT statements"                   # Latest ABAP + best practices
-search: "SELECT statements 7.53"              # Version-specific syntax
-sap_community_search: "ABAP SELECT performance" # Real-world tips
-```
-
-## Tool Response Formats
-
-### **Search Tools** (`search`, `sap_community_search`, `sap_help_search`)
-**Standard Output:**
-```
-Found X results for 'query':
-
-⭐️ **document-id** (Score: X.XX)
-   Title and description
-   Use in fetch
-```
-
-**ChatGPT/JSON Format:**
-```json
-{
-  "results": [
-    {
-      "id": "/cap/guides/domain-modeling",
-      "title": "Domain Modeling in CAP",
-      "url": "https://cap.cloud.sap/docs/guides/domain-modeling",
-      "snippet": "Learn about domain modeling...",
-      "score": 95.42
-    }
-  ]
-}
-```
-
-### **Get Tools** (`fetch`, `sap_help_get`)
-**Standard Output:**
-```
-**Source:** Documentation Type
-**Content:** Full formatted documentation content
-```
-
-**ChatGPT/JSON Format:**
-```json
-{
-  "id": "/cap/guides/domain-modeling",
-  "title": "Domain Modeling",
-  "text": "Full content here...",
-  "url": "https://cap.cloud.sap/docs/guides/domain-modeling"
-}
-```
-
-## Error Handling and Fallbacks
-
-### **No Results Found**
-- Each tool provides specific guidance on alternative search terms
-- `sap_docs_search`: Suggests UI5 controls, concepts, testing topics
-- `abap_search`: Suggests ABAP language constructs and statements
-
-### **Invalid IDs**
-- Get tools validate IDs and provide guidance on using search tools first
-- Version mismatches handled gracefully with defaults
-
-### **System Errors**
-- Graceful degradation with informative error messages
-- Logging for debugging and monitoring
-
-## Best Practices for LLMs
-
-### **Tool Selection Strategy**
-1. **Identify domain**: UI5/CAP/Testing → `sap_docs_search`, ABAP syntax → `abap_search`
-2. **Check scope**: Examples/guides → `sap_docs_search`, Official syntax → `abap_search`
-3. **Consider audience**: Developers → both tools, Language reference → `abap_search`
-
-### **Query Optimization**
-- **Specific terms**: Use exact control names, statement keywords
-- **Conceptual queries**: Use broader terms for discovery
-- **Multi-tool approach**: Use multiple tools for comprehensive coverage
-
-### **Response Enhancement**
-- **Cross-reference**: Suggest related tools when appropriate
-- **Version awareness**: Mention ABAP version relevance for syntax queries
-- **Context building**: Use multiple tools to build complete picture
-
-@file src/lib/BaseServerHandler.ts
-@file src/server.ts  
-@file src/streamable-http-server.ts
-@file src/lib/localDocs.ts
-@file docs/ABAP-INTEGRATION-SUMMARY.md
-@file docs/ABAP-USAGE-GUIDE.md
-@file docs/ARCHITECTURE.md
-@file docs/DEV.md
+- `sourceAllowlist` and `SOURCES` must align; mismatches silently exclude content.
+- `libraryId` must match across `build-index.ts`, metadata, and variant allowlists.
+- `submodulePaths` controls what `setup.sh` clones; missing path means source absent locally.
+- If URL generation looks wrong, verify `baseUrl` + `pathPattern` + `anchorStyle` first.
+- `docs/DISCOVERY_CENTER/*` exists as local docs material but is not part of current indexing pipeline unless explicitly wired.
 
 ---
 > Source: [marianfoo/mcp-sap-docs](https://github.com/marianfoo/mcp-sap-docs) — distributed by [TomeVault](https://tomevault.io).
