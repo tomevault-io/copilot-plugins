@@ -4,7 +4,7 @@
   "repo": "llama.cpp-turboquant-hip",
   "description": "TurboQuant KV cache compression for llama.cpp \u2014 HIP/ROCm port for AMD RDNA3 (gfx1100)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/domvox/llama.cpp-turboquant-hip",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T08:27:24Z"
+  "distributed_at": "2026-05-11T23:20:20Z"
 }
