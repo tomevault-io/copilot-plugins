@@ -1,0 +1,9 @@
+{
+  "name": "popstas--telegram-download-chat",
+  "displayName": "telegram-download-chat",
+  "description": "Download any Telegram chat history",
+  "version": "1.0.0",
+  "author": "popstas",
+  "homepage": "https://github.com/popstas/telegram-download-chat",
+  "skills": []
+}
