@@ -1,0 +1,9 @@
+{
+  "name": "quinnjr--armature",
+  "displayName": "armature",
+  "description": "A modern, type-safe HTTP framework for Rust heavily inspired by **Angular** and **NestJS**.",
+  "version": "1.0.0",
+  "author": "quinnjr",
+  "homepage": "https://github.com/quinnjr/armature",
+  "skills": []
+}
