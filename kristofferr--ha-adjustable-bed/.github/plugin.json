@@ -1,0 +1,9 @@
+{
+  "name": "kristofferr--ha-adjustable-bed",
+  "displayName": "ha-adjustable-bed",
+  "description": "Home Assistant integration for controlling smart adjustable beds via Bluetooth",
+  "version": "1.0.0",
+  "author": "kristofferR",
+  "homepage": "https://github.com/kristofferR/ha-adjustable-bed",
+  "skills": []
+}
