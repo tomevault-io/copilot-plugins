@@ -1,0 +1,9 @@
+{
+  "name": "dioptx--mcp-atom-of-thoughts",
+  "displayName": "mcp-atom-of-thoughts",
+  "description": "MCP server for structured AI reasoning \u2014 decompose problems into atomic thoughts with dependency graphs, confidence tracking, and interactive D3.js visualization",
+  "version": "1.0.0",
+  "author": "dioptx",
+  "homepage": "https://github.com/dioptx/mcp-atom-of-thoughts",
+  "skills": []
+}
