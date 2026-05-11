@@ -1,134 +1,683 @@
-## final-review-gate
+## state-management
 
-> This is an advanced, experimental rule. It instructs the AI Agent to check for, potentially create, and then execute a Python script (`final_review_gate.py`) in your project's root directory to facilitate an interactive review loop. By using this rule, you acknowledge that the AI will attempt file system operations (read, write, execute) as directed. Ensure the AI's execution environment has appropriate permissions if you expect script auto-creation to work, and be aware of the security implications.
+> ├── index.ts          # 导出所有stores
 
----
-description: 
-globs: 
-alwaysApply: true
----
-# AI Agent Protocol: Self-Contained Mandatory Interactive Final Review Loop with Auto-Script Creation (Version 3)
+# 状态管理与API服务规范
 
-## 0. User Advisory & Safety:
-This is an advanced, experimental rule. It instructs the AI Agent to check for, potentially create, and then execute a Python script (`final_review_gate.py`) in your project's root directory to facilitate an interactive review loop. By using this rule, you acknowledge that the AI will attempt file system operations (read, write, execute) as directed. Ensure the AI's execution environment has appropriate permissions if you expect script auto-creation to work, and be aware of the security implications.
+## Pinia 状态管理架构
 
-## 1. Core Principle & Context:
-Your primary task processing includes a **mandatory final interactive review stage** driven by user input through a specific Python script (`final_review_gate.py`). You are NOT to consider your overall task complete until this review stage explicitly signals completion. This protocol leverages your known capability to run commands in a sub-terminal (displayed within the chat interface) and read their output.
+### Store 文件组织
+```
+src/stores/
+├── index.ts          # 导出所有stores
+├── app.ts           # 应用全局状态
+├── project.ts       # 项目相关状态
+├── component.ts     # 组件管理状态
+├── user.ts          # 用户状态
+├── cache.ts         # 缓存管理
+└── settings.ts      # 用户设置
+```
 
-## Phase 0: Ensure `final_review_gate.py` Script Exists
-(This phase is executed ONCE per user request that triggers this overall protocol, or if the script is missing or its content is incorrect.)
+### Store 定义规范
 
-1.  **Define Script Details:**
-    * **Script Name:** `final_review_gate.py`
-    * **Target Location:** Directly in the root of the current project/workspace.
-    * **Python Script Content (ensure this exact content is used):**
-        ```python
-        # final_review_gate.py
-import sys
-import os
+#### 基础Store结构
+```typescript
+import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
+import type { ProjectInfo, ComponentConfig } from '@/types'
 
-if __name__ == "__main__":
-    # Try to make stdout unbuffered for more responsive interaction.
-    # This might not work on all platforms or if stdout is not a TTY,
-    # but it's a good practice for this kind of interactive script.
-    try:
-        sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', buffering=1)
-    except Exception:
-        pass # Ignore if unbuffering fails, e.g., in certain environments
+export const useProjectStore = defineStore('project', () => {
+  // State - 使用 ref 定义响应式状态
+  const currentProject = ref<ProjectInfo | null>(null)
+  const projects = ref<ProjectInfo[]>([])
+  const selectedComponent = ref<ComponentConfig | null>(null)
+  const draggedComponent = ref<ComponentConfig | null>(null)
+  const loading = ref(false)
 
-    try:
-        sys.stderr = os.fdopen(sys.stderr.fileno(), 'w', buffering=1)
-    except Exception:
-        pass # Ignore
+  // Getters - 使用 computed 定义计算属性
+  const hasCurrentProject = computed(() => currentProject.value !== null)
+  const projectCount = computed(() => projects.value.length)
+  const selectedComponentId = computed(() => selectedComponent.value?.id)
 
-    print("--- 最终审核关卡已激活 ---", flush=True)
-    print("AI已完成主要操作。等待您的审核或进一步子提示。", flush=True)
-    print("输入您的子提示，或输入以下任一指令：'TASK_COMPLETE'、'Done'、'Quit'、'q' 以确认完成。", flush=True)
+  // Actions - 定义修改状态的方法
+  const setCurrentProject = (project: ProjectInfo | null) => {
+    currentProject.value = project
+  }
+
+  const addProject = (project: ProjectInfo) => {
+    projects.value.push(project)
+  }
+
+  const updateProject = (id: string, updates: Partial<ProjectInfo>) => {
+    const index = projects.value.findIndex(p => p.id === id)
+    if (index !== -1) {
+      projects.value[index] = { ...projects.value[index], ...updates }
+    }
+  }
+
+  const removeProject = (id: string) => {
+    const index = projects.value.findIndex(p => p.id === id)
+    if (index !== -1) {
+      projects.value.splice(index, 1)
+    }
+  }
+
+  const selectComponent = (component: ComponentConfig | null) => {
+    selectedComponent.value = component
+  }
+
+  // 异步操作
+  const loadProjects = async () => {
+    loading.value = true
+    try {
+      const response = await projectApi.getProjects()
+      projects.value = response.data
+    } catch (error) {
+      console.error('加载项目失败:', error)
+      throw error
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const saveProject = async (project: ProjectInfo) => {
+    loading.value = true
+    try {
+      if (project.id) {
+        await projectApi.updateProject(project.id, project)
+        updateProject(project.id, project)
+      } else {
+        const response = await projectApi.createProject(project)
+        addProject(response.data)
+      }
+    } catch (error) {
+      console.error('保存项目失败:', error)
+      throw error
+    } finally {
+      loading.value = false
+    }
+  }
+
+  // 清理方法
+  const reset = () => {
+    currentProject.value = null
+    projects.value = []
+    selectedComponent.value = null
+    draggedComponent.value = null
+    loading.value = false
+  }
+
+  return {
+    // State
+    currentProject,
+    projects,
+    selectedComponent,
+    draggedComponent,
+    loading,
+    // Getters
+    hasCurrentProject,
+    projectCount,
+    selectedComponentId,
+    // Actions
+    setCurrentProject,
+    addProject,
+    updateProject,
+    removeProject,
+    selectComponent,
+    loadProjects,
+    saveProject,
+    reset
+  }
+})
+```
+
+#### 应用全局状态
+```typescript
+// src/stores/app.ts
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
+
+export const useAppStore = defineStore('app', () => {
+  // 主题设置
+  const theme = ref<'light' | 'dark'>('light')
+  const language = ref<'zh-CN' | 'en-US'>('zh-CN')
+  
+  // 界面状态
+  const sidebarCollapsed = ref(false)
+  const loading = ref(false)
+  const fullscreen = ref(false)
+  
+  // 通知和消息
+  const notifications = ref<Array<{
+    id: string
+    type: 'info' | 'success' | 'warning' | 'error'
+    title: string
+    message: string
+    timestamp: number
+  }>>([])
+
+  // Actions
+  const toggleTheme = () => {
+    theme.value = theme.value === 'light' ? 'dark' : 'light'
+    // 保存到本地存储
+    localStorage.setItem('theme', theme.value)
+  }
+
+  const setLanguage = (lang: 'zh-CN' | 'en-US') => {
+    language.value = lang
+    localStorage.setItem('language', lang)
+  }
+
+  const toggleSidebar = () => {
+    sidebarCollapsed.value = !sidebarCollapsed.value
+  }
+
+  const setLoading = (state: boolean) => {
+    loading.value = state
+  }
+
+  const addNotification = (notification: Omit<typeof notifications.value[0], 'id' | 'timestamp'>) => {
+    const newNotification = {
+      ...notification,
+      id: Date.now().toString(),
+      timestamp: Date.now()
+    }
+    notifications.value.unshift(newNotification)
     
-    active_session = True
-    while active_session:
-        try:
-            # Signal that the script is ready for input.
-            # The AI doesn't need to parse this, but it's good for user visibility.
-            print("审核关卡等待输入：", end="", flush=True) 
-            
-            line = sys.stdin.readline()
-            
-            if not line:  # EOF
-                print("--- 审核关卡：标准输入关闭（EOF），正在退出脚本 ---", flush=True)
-                active_session = False
-                break
-            
-            user_input = line.strip()
+    // 自动清理旧通知（保留最新50条）
+    if (notifications.value.length > 50) {
+      notifications.value = notifications.value.slice(0, 50)
+    }
+  }
 
-            # Check for exit conditions
-            if user_input.upper() in ['TASK_COMPLETE', 'DONE', 'QUIT', 'Q']: # MODIFIED: Empty string no longer exits
-                print(f"--- 审核关卡：用户通过 '{user_input.upper()}' 确认完成 ---", flush=True)
-                active_session = False
-                break
-            elif user_input: # If there's any other non-empty input (and not a completion command)
-                # This is the critical line the AI will "listen" for.
-                print(f"用户审核子提示：{user_input}", flush=True)
-            # If user_input was empty (and not a completion command),
-            # the loop simply continues, and "REVIEW_GATE_AWAITING_INPUT:" will be printed again.
-            
-        except KeyboardInterrupt:
-            print("--- 审核关卡：用户中断会话（KeyboardInterrupt） ---", flush=True)
-            active_session = False
-            break
-        except Exception as e:
-            print(f"--- 审核关卡脚本错误：{e} ---", flush=True)
-            active_session = False
-            break
-            
-	print("--- 最终审核关卡脚本已退出 ---", flush=True)
-        ```
+  const removeNotification = (id: string) => {
+    const index = notifications.value.findIndex(n => n.id === id)
+    if (index !== -1) {
+      notifications.value.splice(index, 1)
+    }
+  }
 
-2.  **Ensure Script Existence and Correctness:**
-    a.  Use your file system tools to check if the file `final_review_gate.py` exists in the project root.
-    b.  **If the file `final_review_gate.py` does NOT exist OR if its content does not EXACTLY match the Python script provided in section "Phase 0.1.Python Script Content" (you may need to read the existing file and compare):**
-        i.  You MUST create or overwrite the `final_review_gate.py` file in the project root.
-        ii. The content of this file MUST be *exactly* the Python script content provided above. Ensure all indentation, comments, and lines are preserved perfectly. Use your "create file" or "edit file" tool.
-        iii. After creating/overwriting it, announce: "The `final_review_gate.py` script has been created/updated in the project root with the latest interaction enhancements."
-    c.  **If the file `final_review_gate.py` already exists and its content is correct:** You may skip announcing its creation.
-    d.  If you encounter any errors checking for, reading, or creating/writing the file (e.g., permission issues), you MUST report this to the user. State clearly: "Error managing `final_review_gate.py`: [specific error]. Cannot proceed with interactive review." and then conclude the interaction for the main task as best as you can without this interactive step.
+  // 初始化方法
+  const initializeApp = () => {
+    // 从本地存储恢复设置
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark'
+    if (savedTheme) {
+      theme.value = savedTheme
+    }
+    
+    const savedLanguage = localStorage.getItem('language') as 'zh-CN' | 'en-US'
+    if (savedLanguage) {
+      language.value = savedLanguage
+    }
+  }
 
-## Phase 1: Primary Task Execution
-1.  Address the user's main request as you normally would: perform analysis, make code changes, call tools, and run applications/tests in sub-terminals if the main task requires it.
-    * **Application Execution Confirmation:** Before attempting to run an entire application (e.g., a web server, a full front-end build, a long-running background process), you MUST ask the user for explicit confirmation. For example: "I am about to run the [application name/command]. Is it okay to proceed, or is it possibly already running?"
-    * This confirmation is NOT required for running individual test scripts, linters, build tools for specific components, or other non-application-level commands necessary for task completion.
-    * If the user indicates an application is already running or denies permission, adapt your strategy accordingly (e.g., focus on tests or specific file executions).
-2.  Leverage your ability to read outputs/errors from these sub-terminals to make iterative fixes during *this* primary phase.
+  return {
+    theme,
+    language,
+    sidebarCollapsed,
+    loading,
+    fullscreen,
+    notifications,
+    toggleTheme,
+    setLanguage,
+    toggleSidebar,
+    setLoading,
+    addNotification,
+    removeNotification,
+    initializeApp
+  }
+}, {
+  persist: {
+    key: 'app-settings',
+    storage: localStorage,
+    paths: ['theme', 'language', 'sidebarCollapsed']
+  }
+})
+```
 
-## Phase 2: Mandatory Final Interactive Review Script Execution
-1.  **Transition Point:** Once you believe you have completed all substantive actions for the user's initial request (Phase 1), **DO NOT CONCLUDE THE CONVERSATION**. You MUST now transition to this Final Interactive Review phase.
-2.  **Action:** Execute the `final_review_gate.py` script (which you ensured exists and is correct in Phase 0) from the project root.
-    * Determine the correct Python interpreter command (e.g., `python`, `python3`) available in the execution environment. A robust command attempt would be `python3 ./final_review_gate.py` and if that fails, try `python ./final_review_gate.py`.
-    * **Crucially, the terminal for this script MUST run directly within the chat window, and its output MUST be continuously visible to the user as it is generated.** It must NOT pop open as a separate window or run hidden in the background. You MUST wait for the script (and its terminal interaction) to fully complete and exit before you proceed with any further actions or attempt to conclude the overall task. Your processing will be blocked by this script's execution.
-3.  **Announcement:** Clearly inform the user: "I have completed the primary actions. Now initiating the mandatory Final Interactive Review by running `./final_review_gate.py`. The review terminal is now active **in this chat window, and its output will be displayed live**. Please provide any sub-prompts directly into that script's input area, or type 'TASK_COMPLETE', 'Done', 'Quit', or 'q' when satisfied." (MODIFIED: Removed "or simply press Enter")
+## API 服务架构
 
-## Phase 3: Interactive Review Loop (Monitoring Script Output)
-1.  **Active Monitoring & Display:** Continuously monitor the standard output (stdout) of the launched `final_review_gate.py` script **as it appears live in the chat window**. Ensure the user sees all script output, including the `REVIEW_GATE_AWAITING_INPUT:` prompt. You will "read" its output using the same capability that allows you to read terminal logs or error messages. The script will loop and re-prompt if an empty input is given.
-2.  **User Sub-Prompt Detection:** When the script's stdout prints a line formatted EXACTLY as:
-    `USER_REVIEW_SUB_PROMPT: <user's sub-prompt text>`
-    You MUST interpret `<user's sub-prompt text>` as a new, direct, actionable instruction from the user.
-3.  **Processing Sub-Prompts:**
-    a.  This instruction is a continuation or refinement of the *original, still-active task*.
-    b.  Analyze the sub-prompt. Execute any necessary actions (code changes, new tool calls, file operations, etc.). **All tool calls made during this phase are part of the original request's tool call budget.** If the sub-prompt requests running an entire application, the confirmation principle from "Phase 1, Step 1 (Application Execution Confirmation)" applies.
-    c.  Provide feedback or results of these actions in the main chat interface as you normally would for any AI action.
-    d.  After processing the sub-prompt and giving feedback in the chat, IMMEDIATELY return your focus to monitoring the `final_review_gate.py` script's terminal output (which remains live and visible in the chat) for the next user instruction or completion signal. This loop is critical.
-4.  **Completion Signal Detection:** The interactive review loop continues until the script's stdout (visible in the chat window) prints a line containing:
-    * `--- REVIEW GATE: USER SIGNALED COMPLETION WITH 'TASK_COMPLETE' ---` (or 'DONE', 'QUIT', 'Q' as per script logic)
-    * OR `--- FINAL REVIEW GATE SCRIPT EXITED ---` (or any other script exit/error message like `REVIEW GATE: STDIN CLOSED` or `REVIEW GATE SCRIPT ERROR:`)
-    (MODIFIED: Removed specific "EMPTY INPUT RECEIVED" as a completion signal, as the script no longer behaves this way for completion.)
+### API 服务组织
+```
+src/services/
+├── index.ts         # 导出所有API服务
+├── base.ts          # 基础HTTP客户端
+├── project.ts       # 项目相关API
+├── component.ts     # 组件相关API
+├── user.ts          # 用户相关API
+├── upload.ts        # 文件上传API
+└── cache.ts         # 缓存服务
+```
 
-## Phase 4: True Task Conclusion
-1.  Only after the `final_review_gate.py` script has terminated (as observed by its terminal session in the chat window closing and its final exit messages being printed and visible) are you permitted to consider the user's original request fully satisfied.
-2.  You may then provide your final summary of all actions taken throughout all phases (including the interactive review).
+### 基础HTTP客户端
+```typescript
+// src/services/base.ts
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { ApiResponse } from '@/types/api'
+import { useAppStore } from '@/stores/app'
+import { ElMessage } from 'element-plus'
 
-## Overriding Default Behavior:
+class HttpClient {
+  private instance: AxiosInstance
 
-This entire "Final Interactive Review" process (Phases 0, 2, 3, and 4) is a **strict, non-negotiable requirement** that overrides any default tendency you have to end the conversation after completing Phase 1. The task is only finished when the user explicitly confirms with one of the specified keywords through the review script or the script otherwise terminates due to an error or EOF (as per the defined behavior, including the in-chat, blocking, and continuously visible terminal execution). Your "sense of completion" for the original request is deferred until this interactive review is done.
+  constructor(baseURL: string) {
+    this.instance = axios.create({
+      baseURL,
+      timeout: 10000,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    this.setupInterceptors()
+  }
+
+  private setupInterceptors() {
+    // 请求拦截器
+    this.instance.interceptors.request.use(
+      (config) => {
+        const appStore = useAppStore()
+        appStore.setLoading(true)
+        
+        // 添加认证token
+        const token = localStorage.getItem('token')
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`
+        }
+        
+        return config
+      },
+      (error) => {
+        const appStore = useAppStore()
+        appStore.setLoading(false)
+        return Promise.reject(error)
+      }
+    )
+
+    // 响应拦截器
+    this.instance.interceptors.response.use(
+      (response: AxiosResponse<ApiResponse>) => {
+        const appStore = useAppStore()
+        appStore.setLoading(false)
+        
+        // 检查业务状态码
+        if (!response.data.success) {
+          ElMessage.error(response.data.message || '请求失败')
+          return Promise.reject(new Error(response.data.message))
+        }
+        
+        return response
+      },
+      (error) => {
+        const appStore = useAppStore()
+        appStore.setLoading(false)
+        
+        // 处理HTTP错误
+        if (error.response) {
+          const { status, data } = error.response
+          switch (status) {
+            case 401:
+              ElMessage.error('登录已过期，请重新登录')
+              // 跳转到登录页
+              break
+            case 403:
+              ElMessage.error('没有权限访问该资源')
+              break
+            case 404:
+              ElMessage.error('请求的资源不存在')
+              break
+            case 500:
+              ElMessage.error('服务器内部错误')
+              break
+            default:
+              ElMessage.error(data?.message || '网络错误')
+          }
+        } else {
+          ElMessage.error('网络连接失败')
+        }
+        
+        return Promise.reject(error)
+      }
+    )
+  }
+
+  async get<T>(url: string, params?: any): Promise<ApiResponse<T>> {
+    const response = await this.instance.get<ApiResponse<T>>(url, { params })
+    return response.data
+  }
+
+  async post<T>(url: string, data?: any): Promise<ApiResponse<T>> {
+    const response = await this.instance.post<ApiResponse<T>>(url, data)
+    return response.data
+  }
+
+  async put<T>(url: string, data?: any): Promise<ApiResponse<T>> {
+    const response = await this.instance.put<ApiResponse<T>>(url, data)
+    return response.data
+  }
+
+  async delete<T>(url: string): Promise<ApiResponse<T>> {
+    const response = await this.instance.delete<ApiResponse<T>>(url)
+    return response.data
+  }
+
+  async upload<T>(url: string, file: File, onProgress?: (progress: number) => void): Promise<ApiResponse<T>> {
+    const formData = new FormData()
+    formData.append('file', file)
+    
+    const response = await this.instance.post<ApiResponse<T>>(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      onUploadProgress: (progressEvent) => {
+        if (onProgress && progressEvent.total) {
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          onProgress(progress)
+        }
+      }
+    })
+    
+    return response.data
+  }
+}
+
+// 创建API客户端实例
+export const apiClient = new HttpClient(import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api')
+```
+
+### 项目API服务
+```typescript
+// src/services/project.ts
+import { apiClient } from './base'
+import type { ProjectInfo, ComponentConfig, ApiResponse, PaginatedResponse } from '@/types'
+
+export class ProjectService {
+  // 获取项目列表
+  async getProjects(params?: {
+    page?: number
+    pageSize?: number
+    keyword?: string
+  }): Promise<PaginatedResponse<ProjectInfo>> {
+    return apiClient.get<ProjectInfo[]>('/projects', params)
+  }
+
+  // 获取单个项目
+  async getProject(id: string): Promise<ApiResponse<ProjectInfo>> {
+    return apiClient.get<ProjectInfo>(`/projects/${id}`)
+  }
+
+  // 创建项目
+  async createProject(project: Omit<ProjectInfo, 'id' | 'createTime' | 'updateTime'>): Promise<ApiResponse<ProjectInfo>> {
+    return apiClient.post<ProjectInfo>('/projects', project)
+  }
+
+  // 更新项目
+  async updateProject(id: string, project: Partial<ProjectInfo>): Promise<ApiResponse<ProjectInfo>> {
+    return apiClient.put<ProjectInfo>(`/projects/${id}`, project)
+  }
+
+  // 删除项目
+  async deleteProject(id: string): Promise<ApiResponse<void>> {
+    return apiClient.delete<void>(`/projects/${id}`)
+  }
+
+  // 复制项目
+  async cloneProject(id: string, name: string): Promise<ApiResponse<ProjectInfo>> {
+    return apiClient.post<ProjectInfo>(`/projects/${id}/clone`, { name })
+  }
+
+  // 导出项目
+  async exportProject(id: string, format: 'vue' | 'html' | 'json'): Promise<ApiResponse<Blob>> {
+    return apiClient.get<Blob>(`/projects/${id}/export`, { format })
+  }
+
+  // 导入项目
+  async importProject(file: File): Promise<ApiResponse<ProjectInfo>> {
+    return apiClient.upload<ProjectInfo>('/projects/import', file)
+  }
+}
+
+export const projectApi = new ProjectService()
+```
+
+## 可组合函数开发
+
+### 组件桥接系统
+```typescript
+// src/composables/useComponentBridge.ts
+import { ref, computed, watch } from 'vue'
+import type { ComponentConfig } from '@/types'
+
+interface ComponentBridgeOptions {
+  // 组件特定配置
+  defaultProps?: Record<string, any>
+  // 事件映射
+  eventMap?: Record<string, string>
+  // 属性验证
+  propValidators?: Record<string, (value: any) => boolean>
+}
+
+export function useComponentBridge(
+  componentType: string, 
+  options: ComponentBridgeOptions = {}
+) {
+  const { defaultProps = {}, eventMap = {}, propValidators = {} } = options
+
+  // 组件配置
+  const config = ref<ComponentConfig>({
+    id: '',
+    type: componentType,
+    props: { ...defaultProps },
+    children: [],
+    position: { x: 0, y: 0, width: 100, height: 50 }
+  })
+
+  // 计算属性
+  const computedProps = computed(() => ({
+    ...config.value.props,
+    'data-component-id': config.value.id,
+    'data-component-type': config.value.type
+  }))
+
+  // 事件处理
+  const createEventHandler = (eventName: string) => {
+    return (event: Event) => {
+      const mappedEvent = eventMap[eventName] || eventName
+      
+      // 触发全局事件
+      window.dispatchEvent(new CustomEvent(`component:${mappedEvent}`, {
+        detail: {
+          componentId: config.value.id,
+          componentType: config.value.type,
+          event,
+          data: event
+        }
+      }))
+    }
+  }
+
+  // 属性更新
+  const updateProps = (newProps: Record<string, any>) => {
+    // 验证属性
+    for (const [key, value] of Object.entries(newProps)) {
+      if (propValidators[key] && !propValidators[key](value)) {
+        console.warn(`属性 ${key} 验证失败:`, value)
+        continue
+      }
+    }
+    
+    config.value.props = { ...config.value.props, ...newProps }
+  }
+
+  // 位置更新
+  const updatePosition = (position: Partial<ComponentConfig['position']>) => {
+    config.value.position = { ...config.value.position, ...position }
+  }
+
+  // 初始化组件
+  const initialize = (initialConfig: Partial<ComponentConfig>) => {
+    config.value = {
+      ...config.value,
+      ...initialConfig,
+      props: { ...defaultProps, ...initialConfig.props }
+    }
+  }
+
+  // 导出API到全局（供外部语言调用）
+  const exportToGlobal = () => {
+    if (!window.easyWindowAPI) {
+      window.easyWindowAPI = {}
+    }
+    
+    window.easyWindowAPI[config.value.id] = {
+      updateProps,
+      updatePosition,
+      getConfig: () => config.value,
+      trigger: (eventName: string, data?: any) => {
+        createEventHandler(eventName)(new CustomEvent(eventName, { detail: data }))
+      }
+    }
+  }
+
+  // 监听配置变化
+  watch(config, (newConfig) => {
+    exportToGlobal()
+  }, { deep: true })
+
+  return {
+    config,
+    computedProps,
+    updateProps,
+    updatePosition,
+    initialize,
+    createEventHandler,
+    exportToGlobal
+  }
+}
+```
+
+### 缓存管理
+```typescript
+// src/composables/useCache.ts
+import { ref, computed } from 'vue'
+
+interface CacheItem<T> {
+  data: T
+  timestamp: number
+  expiry?: number
+}
+
+export function useCache<T>(key: string, ttl: number = 5 * 60 * 1000) {
+  const cache = ref<Map<string, CacheItem<T>>>(new Map())
+
+  const set = (itemKey: string, data: T, customTtl?: number) => {
+    const expiry = customTtl ? Date.now() + customTtl : Date.now() + ttl
+    cache.value.set(itemKey, {
+      data,
+      timestamp: Date.now(),
+      expiry
+    })
+  }
+
+  const get = (itemKey: string): T | null => {
+    const item = cache.value.get(itemKey)
+    if (!item) return null
+
+    if (item.expiry && Date.now() > item.expiry) {
+      cache.value.delete(itemKey)
+      return null
+    }
+
+    return item.data
+  }
+
+  const has = (itemKey: string): boolean => {
+    return get(itemKey) !== null
+  }
+
+  const remove = (itemKey: string) => {
+    cache.value.delete(itemKey)
+  }
+
+  const clear = () => {
+    cache.value.clear()
+  }
+
+  const size = computed(() => cache.value.size)
+
+  // 清理过期缓存
+  const cleanExpired = () => {
+    const now = Date.now()
+    for (const [key, item] of cache.value.entries()) {
+      if (item.expiry && now > item.expiry) {
+        cache.value.delete(key)
+      }
+    }
+  }
+
+  // 定期清理
+  setInterval(cleanExpired, 60000) // 每分钟清理一次
+
+  return {
+    set,
+    get,
+    has,
+    remove,
+    clear,
+    size,
+    cleanExpired
+  }
+}
+```
+
+## 状态持久化
+
+### Pinia持久化配置
+```typescript
+// src/stores/index.ts
+import { createPinia } from 'pinia'
+import { createPersistedState } from 'pinia-plugin-persistedstate'
+
+const pinia = createPinia()
+
+// 配置持久化插件
+pinia.use(createPersistedState({
+  key: (id) => `easy-window-${id}`,
+  storage: localStorage,
+  serializer: {
+    serialize: JSON.stringify,
+    deserialize: JSON.parse,
+  },
+}))
+
+export { pinia }
+
+// 导出所有stores
+export { useAppStore } from './app'
+export { useProjectStore } from './project'
+export { useComponentStore } from './component'
+export { useUserStore } from './user'
+```
+
+### 选择性持久化
+```typescript
+// 在store中配置持久化选项
+export const useProjectStore = defineStore('project', () => {
+  // ... store逻辑
+}, {
+  persist: {
+    key: 'project-store',
+    storage: localStorage,
+    paths: ['currentProject', 'recentProjects'], // 只持久化指定字段
+    beforeRestore: (ctx) => {
+      console.log('恢复store状态:', ctx.store.$id)
+    },
+    afterRestore: (ctx) => {
+      console.log('store状态恢复完成:', ctx.store.$id)
+    }
+  }
+})
+```
 
 ---
 > Source: [suyancc/easy_window](https://github.com/suyancc/easy_window) — distributed by [TomeVault](https://tomevault.io).
