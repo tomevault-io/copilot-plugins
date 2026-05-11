@@ -1,0 +1,9 @@
+{
+  "name": "aws--aws-durable-execution-sdk-python",
+  "displayName": "aws-durable-execution-sdk-python",
+  "description": "Lambda durable functions SDK",
+  "version": "1.0.0",
+  "author": "aws",
+  "homepage": "https://github.com/aws/aws-durable-execution-sdk-python",
+  "skills": []
+}
