@@ -1,0 +1,9 @@
+{
+  "name": "moonshot-partners--claude-code-sound-packs",
+  "displayName": "claude-code-sound-packs",
+  "description": "Add themed sound effects to Claude Code sessions via hooks. Warcraft, C&C Generals, and more",
+  "version": "1.0.0",
+  "author": "moonshot-partners",
+  "homepage": "https://github.com/moonshot-partners/claude-code-sound-packs",
+  "skills": []
+}
