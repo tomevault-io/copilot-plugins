@@ -7,11 +7,11 @@ Fen Browser is an independent browser engine focused on correctness and clean ar
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [FENBROWSER/fenbrowser](https://github.com/FENBROWSER/fenbrowser).
+Original source: `CLAUDE.md` in [FENBROWSER/fenbrowser](https://github.com/FENBROWSER/fenbrowser).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
