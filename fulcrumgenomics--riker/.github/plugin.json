@@ -1,0 +1,9 @@
+{
+  "name": "fulcrumgenomics--riker",
+  "displayName": "riker",
+  "description": "Spiritual successor to picard for sequencing qc",
+  "version": "1.0.0",
+  "author": "fulcrumgenomics",
+  "homepage": "https://github.com/fulcrumgenomics/riker",
+  "skills": []
+}
