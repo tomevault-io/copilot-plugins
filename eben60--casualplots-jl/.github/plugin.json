@@ -1,0 +1,9 @@
+{
+  "name": "eben60--casualplots-jl",
+  "displayName": "CasualPlots.jl",
+  "description": "CasualPlots.jl aims to provide a graphical user interface (GUI) to simplify the creation of plots in Julia. The tool is positioned in the middle ground between purely script-based plotting and standal",
+  "version": "1.0.0",
+  "author": "Eben60",
+  "homepage": "https://github.com/Eben60/CasualPlots.jl",
+  "skills": []
+}
