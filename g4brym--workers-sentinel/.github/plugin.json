@@ -1,0 +1,9 @@
+{
+  "name": "g4brym--workers-sentinel",
+  "displayName": "workers-sentinel",
+  "description": "A Poor Sentry clone made in Cloudflare Workers",
+  "version": "1.0.0",
+  "author": "G4brym",
+  "homepage": "https://github.com/G4brym/workers-sentinel",
+  "skills": []
+}
