@@ -1,212 +1,368 @@
-## middleware-development
+## module-development
 
-> Guidelines for creating middleware in Armature
+> Guidelines for creating new modules/crates in the Armature framework.
 
 
-# Middleware Development
+# Armature Module Development
 
-Standards for creating middleware and interceptors in Armature.
+Guidelines for creating new modules/crates in the Armature framework.
 
-## Middleware Structure
+## Module Structure
 
-```rust
-use armature_core::{Middleware, Request, Response, Next};
+Every new armature module should follow this structure:
 
-pub struct LoggingMiddleware {
-    logger: Arc<Logger>,
-}
-
-impl Middleware for LoggingMiddleware {
-    async fn handle(&self, req: Request, next: Next) -> Result<Response, Error> {
-        let start = Instant::now();
-        let method = req.method().clone();
-        let path = req.uri().path().to_string();
-
-        // Before handler
-        tracing::info!(%method, %path, "Request started");
-
-        // Call next middleware/handler
-        let response = next.run(req).await?;
-
-        // After handler
-        let duration = start.elapsed();
-        tracing::info!(
-            %method,
-            %path,
-            status = %response.status(),
-            duration_ms = %duration.as_millis(),
-            "Request completed"
-        );
-
-        Ok(response)
-    }
-}
+```
+armature-<name>/
+├── Cargo.toml
+├── src/
+│   ├── lib.rs           # Public API exports
+│   ├── config.rs        # Configuration types (if applicable)
+│   ├── error.rs         # Module-specific error types
+│   ├── traits.rs        # Core traits for the module
+│   └── ...              # Implementation files
+└── tests/
+    └── integration.rs   # Integration tests
 ```
 
-## Common Middleware Types
+## Cargo.toml Template
 
-### Request ID
+```toml
+[package]
+name = "armature-<name>"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Brief description of the module"
+keywords = ["armature", "<relevant>", "<keywords>"]
+categories = ["web-programming"]
 
-```rust
-pub struct RequestIdMiddleware;
+[dependencies]
+# Core dependencies - use workspace versions when available
+tokio = { version = "1.35", features = ["full"] }
+async-trait = "0.1"
+thiserror = "2.0"
+serde = { version = "1.0", features = ["derive"] }
 
-impl Middleware for RequestIdMiddleware {
-    async fn handle(&self, mut req: Request, next: Next) -> Result<Response, Error> {
-        let request_id = req
-            .headers()
-            .get("x-request-id")
-            .and_then(|v| v.to_str().ok())
-            .map(String::from)
-            .unwrap_or_else(|| Uuid::new_v4().to_string());
+# Optional: armature-core for DI integration
+armature-core = { path = "../armature-core", version = "0.1.0", optional = true }
 
-        req.extensions_mut().insert(RequestId(request_id.clone()));
+[features]
+default = []
+# Feature for DI integration
+di = ["armature-core"]
 
-        let mut response = next.run(req).await?;
-        response.headers_mut().insert(
-            "x-request-id",
-            HeaderValue::from_str(&request_id)?,
-        );
-
-        Ok(response)
-    }
-}
+[dev-dependencies]
+tokio-test = "0.4"
 ```
 
-### Rate Limiting
+## Error Handling Pattern
 
 ```rust
-pub struct RateLimitMiddleware {
-    limiter: Arc<RateLimiter>,
+// src/error.rs
+use thiserror::Error;
+
+#[derive(Debug, Error)]
+pub enum ModuleError {
+    #[error("Configuration error: {0}")]
+    Config(String),
+
+    #[error("Connection failed: {0}")]
+    Connection(String),
+
+    #[error("Operation failed: {0}")]
+    Operation(String),
+
+    #[error(transparent)]
+    Io(#[from] std::io::Error),
 }
 
-impl Middleware for RateLimitMiddleware {
-    async fn handle(&self, req: Request, next: Next) -> Result<Response, Error> {
-        let key = extract_client_key(&req);
+pub type Result<T> = std::result::Result<T, ModuleError>;
+```
 
-        if !self.limiter.check(&key).await {
-            return Err(Error::TooManyRequests);
+## Configuration Pattern
+
+```rust
+// src/config.rs
+use serde::{Deserialize, Serialize};
+
+/// Configuration for the module.
+///
+/// # Examples
+///
+/// ```rust
+/// use armature_<name>::Config;
+///
+/// let config = Config::builder()
+///     .option1("value")
+///     .option2(42)
+///     .build();
+/// ```
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Config {
+    pub option1: String,
+    pub option2: i32,
+    #[serde(default)]
+    pub optional_field: Option<String>,
+}
+
+impl Config {
+    pub fn builder() -> ConfigBuilder {
+        ConfigBuilder::default()
+    }
+
+    pub fn from_env() -> ConfigBuilder {
+        ConfigBuilder::from_env()
+    }
+}
+
+#[derive(Debug, Default)]
+pub struct ConfigBuilder {
+    option1: Option<String>,
+    option2: Option<i32>,
+    optional_field: Option<String>,
+}
+
+impl ConfigBuilder {
+    pub fn from_env() -> Self {
+        Self {
+            option1: std::env::var("MODULE_OPTION1").ok(),
+            option2: std::env::var("MODULE_OPTION2").ok().and_then(|v| v.parse().ok()),
+            optional_field: std::env::var("MODULE_OPTIONAL").ok(),
         }
-
-        next.run(req).await
-    }
-}
-```
-
-### CORS
-
-```rust
-pub struct CorsMiddleware {
-    config: CorsConfig,
-}
-
-impl Middleware for CorsMiddleware {
-    async fn handle(&self, req: Request, next: Next) -> Result<Response, Error> {
-        // Handle preflight
-        if req.method() == Method::OPTIONS {
-            return Ok(self.preflight_response(&req));
-        }
-
-        let mut response = next.run(req).await?;
-
-        // Add CORS headers
-        let headers = response.headers_mut();
-        headers.insert("access-control-allow-origin", self.config.origin.parse()?);
-        headers.insert("access-control-allow-methods", self.config.methods.parse()?);
-        headers.insert("access-control-allow-headers", self.config.headers.parse()?);
-
-        Ok(response)
-    }
-}
-```
-
-## Interceptors
-
-Interceptors wrap handlers with before/after logic:
-
-```rust
-#[interceptor]
-pub struct TimingInterceptor;
-
-impl Interceptor for TimingInterceptor {
-    async fn before(&self, ctx: &mut RequestContext) -> Result<(), Error> {
-        ctx.extensions_mut().insert(StartTime(Instant::now()));
-        Ok(())
     }
 
-    async fn after(&self, ctx: &RequestContext, response: &mut Response) -> Result<(), Error> {
-        if let Some(StartTime(start)) = ctx.extensions().get::<StartTime>() {
-            let duration = start.elapsed();
-            response.headers_mut().insert(
-                "x-response-time",
-                HeaderValue::from_str(&format!("{}ms", duration.as_millis()))?,
-            );
-        }
-        Ok(())
+    pub fn option1(mut self, value: impl Into<String>) -> Self {
+        self.option1 = Some(value.into());
+        self
     }
-}
-```
 
-## Error Handling Middleware
+    pub fn option2(mut self, value: i32) -> Self {
+        self.option2 = Some(value);
+        self
+    }
 
-```rust
-pub struct ErrorHandlerMiddleware;
+    pub fn optional_field(mut self, value: impl Into<String>) -> Self {
+        self.optional_field = Some(value.into());
+        self
+    }
 
-impl Middleware for ErrorHandlerMiddleware {
-    async fn handle(&self, req: Request, next: Next) -> Result<Response, Error> {
-        match next.run(req).await {
-            Ok(response) => Ok(response),
-            Err(error) => {
-                // Log the error
-                tracing::error!(?error, "Request failed");
-
-                // Convert to response
-                Ok(error.into_response())
-            }
+    pub fn build(self) -> Config {
+        Config {
+            option1: self.option1.unwrap_or_default(),
+            option2: self.option2.unwrap_or(0),
+            optional_field: self.optional_field,
         }
     }
 }
 ```
 
-## Middleware Registration
+## Service Pattern with DI Integration
 
 ```rust
-let app = App::new()
-    .middleware(RequestIdMiddleware)
-    .middleware(LoggingMiddleware::new(logger))
-    .middleware(CorsMiddleware::new(cors_config))
-    .middleware(RateLimitMiddleware::new(limiter))
-    .middleware(ErrorHandlerMiddleware);
-```
+// src/service.rs
+use crate::{Config, Result};
 
-## Order Matters
+/// Main service for the module.
+///
+/// Supports automatic dependency injection when the `di` feature is enabled.
+#[derive(Clone)]
+pub struct ModuleService {
+    config: Config,
+    // Internal state
+}
 
-Middleware executes in registration order (outside-in):
+impl ModuleService {
+    /// Create a new service with the given configuration.
+    pub fn new(config: Config) -> Self {
+        Self { config }
+    }
 
-```
-Request  → RequestId → Logging → CORS → Handler
-Response ← RequestId ← Logging ← CORS ← Handler
-```
+    /// Create with default configuration.
+    pub fn default() -> Self {
+        Self::new(Config::builder().build())
+    }
 
-## Testing Middleware
+    /// Primary operation of this module.
+    pub async fn do_something(&self, input: &str) -> Result<String> {
+        // Implementation
+        Ok(format!("Processed: {}", input))
+    }
+}
 
-```rust
-#[tokio::test]
-async fn test_request_id_middleware() {
-    let middleware = RequestIdMiddleware;
+// DI integration (when feature enabled)
+#[cfg(feature = "di")]
+mod di {
+    use super::*;
+    use armature_core::prelude::*;
 
-    let req = Request::builder()
-        .uri("/test")
-        .body(Body::empty())?;
-
-    let next = Next::new(|req| async {
-        Ok(Response::new(Body::empty()))
-    });
-
-    let response = middleware.handle(req, next).await?;
-
-    assert!(response.headers().contains_key("x-request-id"));
+    impl Provider for ModuleService {
+        fn create(_container: &Container) -> std::result::Result<Self, armature_core::Error> {
+            Ok(Self::default())
+        }
+    }
 }
 ```
+
+## Trait Definition Pattern
+
+```rust
+// src/traits.rs
+use async_trait::async_trait;
+use crate::Result;
+
+/// Core trait for module implementations.
+///
+/// Implement this trait to create custom backends.
+#[async_trait]
+pub trait Backend: Send + Sync {
+    /// Initialize the backend.
+    async fn init(&mut self) -> Result<()>;
+
+    /// Perform the main operation.
+    async fn execute(&self, input: &str) -> Result<String>;
+
+    /// Clean up resources.
+    async fn shutdown(&mut self) -> Result<()>;
+}
+```
+
+## lib.rs Structure
+
+```rust
+//! Armature <Name> Module
+//!
+//! This module provides <brief description>.
+//!
+//! # Features
+//!
+//! - Feature 1
+//! - Feature 2
+//!
+//! # Examples
+//!
+//! ```rust,no_run
+//! use armature_<name>::*;
+//!
+//! #[tokio::main]
+//! async fn main() -> Result<()> {
+//!     let service = ModuleService::new(
+//!         Config::builder()
+//!             .option1("value")
+//!             .build()
+//!     );
+//!
+//!     let result = service.do_something("input").await?;
+//!     println!("{}", result);
+//!     Ok(())
+//! }
+//! ```
+
+mod config;
+mod error;
+mod service;
+mod traits;
+
+// Re-export public API
+pub use config::{Config, ConfigBuilder};
+pub use error::{ModuleError, Result};
+pub use service::ModuleService;
+pub use traits::Backend;
+
+/// Prelude for convenient imports.
+pub mod prelude {
+    pub use crate::{Config, ModuleError, ModuleService, Result};
+}
+```
+
+## Adding to Workspace
+
+After creating the module, add it to the workspace `Cargo.toml`:
+
+```toml
+[workspace]
+members = [
+    # ... existing members
+    "armature-<name>",
+]
+```
+
+If the module should be optional in the main framework:
+
+```toml
+# In root Cargo.toml
+[dependencies]
+armature-<name> = { path = "armature-<name>", version = "0.1.0", optional = true }
+
+[features]
+<name> = ["armature-<name>"]
+full = [
+    # ... existing features
+    "<name>",
+]
+```
+
+## Documentation Requirements
+
+Every new module MUST have:
+
+1. **Inline documentation** - `///` comments on all public items
+2. **Module documentation** - `//!` at top of lib.rs
+3. **Examples** - In doc comments and in `examples/` directory
+4. **Feature guide** - In `docs/<name>-guide.md`
+
+## Testing Requirements
+
+1. **Unit tests** - In source files with `#[cfg(test)]`
+2. **Integration tests** - In `tests/` directory
+3. **Doc tests** - In documentation examples
+4. **Coverage** - Aim for 85%+ coverage
+
+```rust
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn test_basic_operation() {
+        let service = ModuleService::default();
+        let result = service.do_something("test").await;
+        assert!(result.is_ok());
+        assert_eq!(result.unwrap(), "Processed: test");
+    }
+
+    #[test]
+    fn test_config_builder() {
+        let config = Config::builder()
+            .option1("value")
+            .option2(42)
+            .build();
+
+        assert_eq!(config.option1, "value");
+        assert_eq!(config.option2, 42);
+    }
+}
+```
+
+## Checklist for New Modules
+
+- [ ] Created `armature-<name>/` directory
+- [ ] Created `Cargo.toml` with workspace inheritance
+- [ ] Created `src/lib.rs` with module documentation
+- [ ] Created `src/error.rs` with module-specific errors
+- [ ] Created `src/config.rs` with builder pattern
+- [ ] Created core service/trait implementations
+- [ ] Added to workspace `Cargo.toml`
+- [ ] Added optional feature to root `Cargo.toml`
+- [ ] Added unit tests
+- [ ] Added integration tests
+- [ ] Created `docs/<name>-guide.md`
+- [ ] Added example in `examples/`
+- [ ] All clippy warnings resolved
+- [ ] All tests passing
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
