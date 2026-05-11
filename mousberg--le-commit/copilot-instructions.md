@@ -1,9 +1,9 @@
-## development-practices
+## environment-variables
 
-> description: Make sure linting and building works before committing. Always offer to delete test files at the end of a session.
+> description: Next.js automatically loads environment variables from `.env.local`, `.env.production`, `.env.development`, and `.env` files. Use `process.env.VARIABLE_NAME` directly in API routes and server-side code. **Do NOT install dotenv** - Next.js handles this natively. For client-side variables, prefix with `NEXT_PUBLIC_`. Required variables include `WEBHOOK_SECRET` (default: `webhook-secret-dev` in development) and `ASHBY_SCORE_FIELD_ID` (Ashby custom field ID for AI scores with fallback default).
 
 ---
-description: Make sure linting and building works before committing. Always offer to delete test files at the end of a session.
+description: Next.js automatically loads environment variables from `.env.local`, `.env.production`, `.env.development`, and `.env` files. Use `process.env.VARIABLE_NAME` directly in API routes and server-side code. **Do NOT install dotenv** - Next.js handles this natively. For client-side variables, prefix with `NEXT_PUBLIC_`. Required variables include `WEBHOOK_SECRET` (default: `webhook-secret-dev` in development) and `ASHBY_SCORE_FIELD_ID` (Ashby custom field ID for AI scores with fallback default).
 globs:
 alwaysApply: false
 ---
