@@ -1,0 +1,9 @@
+{
+  "name": "errortzy--obsidian-pandoc-extended-markdown",
+  "displayName": "obsidian-pandoc-extended-markdown",
+  "description": "This plugin enables Obsidian to render Pandoc extended markdown lists, and adds useful sidebar for lists and footnotes",
+  "version": "1.0.0",
+  "author": "ErrorTzy",
+  "homepage": "https://github.com/ErrorTzy/obsidian-pandoc-extended-markdown",
+  "skills": []
+}
