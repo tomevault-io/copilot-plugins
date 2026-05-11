@@ -1,0 +1,9 @@
+{
+  "name": "the-missing-pink--ai-repository-security-baseline",
+  "displayName": "ai-repository-security-baseline",
+  "description": "A baseline configuration and guidelines for securing source code repositories, covering branch protection, access controls, secret scanning, and CI/CD hardening.",
+  "version": "1.0.0",
+  "author": "the-missing-pink",
+  "homepage": "https://github.com/the-missing-pink/ai-repository-security-baseline",
+  "skills": []
+}
