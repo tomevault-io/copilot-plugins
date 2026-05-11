@@ -1,0 +1,9 @@
+{
+  "name": "aibo-cora--occulta",
+  "displayName": "occulta",
+  "description": "Identity database application. Collect keys, encrypt messages.",
+  "version": "1.0.0",
+  "author": "aibo-cora",
+  "homepage": "https://github.com/aibo-cora/occulta",
+  "skills": []
+}
