@@ -1,0 +1,9 @@
+{
+  "name": "ai-dynamo--aiconfigurator",
+  "displayName": "aiconfigurator",
+  "description": "Offline optimization of your disaggregated Dynamo graph",
+  "version": "1.0.0",
+  "author": "ai-dynamo",
+  "homepage": "https://github.com/ai-dynamo/aiconfigurator",
+  "skills": []
+}
