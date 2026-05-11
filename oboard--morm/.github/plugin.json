@@ -1,0 +1,9 @@
+{
+  "name": "oboard--morm",
+  "displayName": "morm",
+  "description": "morm is a ORM toolkit for MoonBit.",
+  "version": "1.0.0",
+  "author": "oboard",
+  "homepage": "https://github.com/oboard/morm",
+  "skills": []
+}
