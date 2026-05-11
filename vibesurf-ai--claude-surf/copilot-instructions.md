@@ -1,0 +1,384 @@
+## claude-surf
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Claude-Surf is a Claude Code plugin that integrates with VibeSurf, exposing browser automation, AI skills, workflows, and external app integrations through a **pure markdown skill system**.
+
+**Key Dependency**: VibeSurf server must be running on `http://127.0.0.1:9335` for this plugin to function.
+
+## Architecture
+
+### Superpowers-Inspired Design
+
+This plugin follows the **superpowers** architecture pattern:
+
+- **No build system** - Pure markdown skills, no compilation
+- **Hook-based injection** - SessionStart injects skill content
+- **Frontmatter-driven** - `description` field defines triggers
+- **Direct API access** - Claude calls VibeSurf HTTP API directly
+
+### Project Structure
+
+```
+claude-surf/
+├── .claude-plugin/
+│   ├── plugin.json          # Plugin metadata
+│   └── marketplace.json     # Marketplace configuration
+├── hooks/
+│   ├── hooks.json           # Hook configuration
+│   ├── session-start.sh     # Health check + skill injection
+│   └── run-hook.cmd         # Cross-platform wrapper
+├── skills/
+│   ├── surf/                # Main entry skill (auto-injected)
+│   ├── search/              # AI web search
+│   ├── fetch/               # Fetch URL content as markdown
+│   ├── js_code/             # Structured data extraction
+│   ├── crawl/               # Page content extraction
+│   ├── summary/             # Page summarization
+│   ├── finance/             # Stock data
+│   ├── trend/               # Trending news
+│   ├── screenshot/          # Screenshots
+│   ├── browser/             # Direct browser control (21 actions)
+│   ├── browser-use/         # AI multi-step automation
+│   ├── website-api/         # Platform APIs (XiaoHongShu/etc)
+│   ├── workflows/           # Pre-built workflows
+│   └── integrations/        # External apps (Gmail/GitHub/etc)
+├── README.md
+└── CLAUDE.md
+```
+
+## Skill System
+
+### Auto-Injected Skill
+
+**`surf`** - Main entry point, automatically injected via SessionStart hook
+- Provides navigation to all other skills
+- Contains VibeSurf API documentation
+- No manual invocation needed
+
+### On-Demand Skills
+
+All other 13 skills are loaded via the **Skill tool** when needed:
+- `search` - AI web search
+- `fetch` - Fetch URL content as structured markdown
+- `js_code` - Extract structured data with auto-generated JS
+- `crawl` - Extract page content
+- `summary` - Summarize webpages
+- `finance` - Stock data from Yahoo Finance
+- `trend` - Trending news
+- `screenshot` - Page screenshots
+- `browser` - Direct browser control
+- `browser-use` - AI multi-step automation
+- `website-api` - Social platform APIs
+- `workflows` - Pre-built automations
+- `integrations` - Gmail/GitHub/Slack/etc
+
+### Skill Frontmatter
+
+Each `SKILL.md` file has YAML frontmatter:
+
+```yaml
+---
+name: skill-name
+description: Use when [triggering conditions and symptoms]
+---
+```
+
+**Critical**: The `description` field determines when Claude loads the skill. It should:
+- Start with "Use when..."
+- Describe triggering conditions, NOT workflow
+- Include specific symptoms and examples
+
+## VibeSurf API
+
+VibeSurf exposes three core HTTP endpoints at `http://127.0.0.1:9335`:
+
+### 1. List Available Actions
+```bash
+GET /api/tool/search?keyword={optional_keyword}
+```
+Returns all available VibeSurf actions.
+
+### 2. Get Action Parameters
+```bash
+GET /api/tool/{action_name}/params
+```
+Returns JSON schema for the action's parameters.
+
+### 3. Execute Action
+```bash
+POST /api/tool/execute
+Content-Type: application/json
+
+{
+  "action_name": "action_name_here",
+  "parameters": {
+    // action-specific parameters
+  }
+}
+```
+
+### Standard Workflow
+
+1. **Discover actions** → `GET /api/tool/search`
+2. **Get parameters** → `GET /api/tool/{action_name}/params`
+3. **Execute** → `POST /api/tool/execute`
+
+## Plugin Configuration
+
+### Claude Code Plugin Structure
+
+**`.claude-plugin/plugin.json`** - Plugin metadata
+```json
+{
+  "name": "surf",
+  "description": "VibeSurf integration - Control browsers, automate workflows...",
+  "version": "1.0.0"
+}
+```
+
+**`.claude-plugin/marketplace.json`** - Marketplace configuration
+```json
+{
+  "name": "claude-surf",
+  "plugins": [{
+    "name": "surf",
+    "source": "./"
+  }]
+}
+```
+
+**`hooks/hooks.json`** - SessionStart hook configuration
+```json
+{
+  "hooks": {
+    "SessionStart": [{
+      "matcher": "startup|resume|clear|compact",
+      "hooks": [{
+        "type": "command",
+        "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/run-hook.cmd\" session-start.sh"
+      }]
+    }]
+  }
+}
+```
+
+### Health Check Hook
+
+**`hooks/session-start.sh`** - Runs on session start:
+1. Checks if VibeSurf is running (`curl http://127.0.0.1:9335/health`)
+2. If running: Injects `surf` skill content to context
+3. If not running: Displays warning with installation instructions
+
+**Non-blocking**: Hook timeout is 3 seconds, won't prevent session start.
+
+## Skill Reference
+
+### AI Skills (8)
+
+| Skill | Action | Purpose |
+|-------|--------|---------|
+| `search` | `skill_search` | AI-powered web search (Gemini) |
+| `fetch` | `skill_fetch` | Fetch URL content as structured markdown |
+| `js_code` | `skill_code` | Auto-generate JS to extract lists/tables |
+| `crawl` | `skill_crawl` | Extract page content with LLM |
+| `summary` | `skill_summary` | Summarize webpage |
+| `finance` | `skill_finance` | Stock data from Yahoo Finance |
+| `trend` | `skill_trend` | Trending news from NewsNow |
+| `screenshot` | `skill_screenshot` | Take screenshots |
+
+### Browser Skills (2)
+
+| Skill | Actions | Purpose |
+|-------|---------|---------|
+| `browser` | 21 actions (browser.*) | Precise step-by-step control (navigate, click, input, etc.) |
+| `browser-use` | `execute_browser_use_agent` | Task-oriented sub-agent automation |
+
+**Note**: These two skills are **complementary**, not mutually exclusive. Both can accomplish the same tasks:
+- `browser-use`: High-level, describe goal + desired output, agent figures out steps
+- `browser`: Low-level, explicit control over each action
+- **Fallback pattern**: If browser-use fails → use `get_browser_state` → `browser.{action}` → repeat loop
+
+### Integration Skills (3)
+
+| Skill | Actions | Purpose |
+|-------|---------|---------|
+| `website-api` | 2 actions | XiaoHongShu, Weibo, Zhihu, Douyin, YouTube |
+| `workflows` | 2 actions | Pre-built automation sequences |
+| `integrations` | 4 actions | Gmail, GitHub, Slack, 100+ apps |
+
+## Important VibeSurf Actions
+
+### Browser-Use Agent (Task-Oriented Sub-Agent)
+
+**Action**: `execute_browser_use_agent`
+
+Launches autonomous AI agents for task-oriented automation:
+- Supports parallel execution (unique tab_id per agent)
+- Task-oriented: describe goal + desired output, agent figures out steps
+- Use for: Complex tasks, form filling, multi-site research, data extraction
+
+**When to use**: Complex tasks where describing the goal is easier than specifying steps
+
+**Fallback when it fails**: Use `browser` skill with `get_browser_state` → `browser.{action}` → repeat loop
+
+### Browser Actions (Precise Control)
+
+All `browser.*` actions for step-by-step manual control:
+- `browser.navigate` - Go to URL
+- `browser.click` - Click element
+- `browser.input` - Type text
+- `browser.switch` - Switch tabs
+- `browser.extract` - LLM data extraction
+- `browser.screenshot` - Take screenshot
+- `get_browser_state` - Inspect current page state
+- And 15 more...
+
+**Use for**: Any browser task where you want explicit control, or as fallback when browser-use fails
+
+### Extra Tools (Composio/MCP)
+
+- `get_all_toolkit_types` - List available apps
+- `search_tool` - Find tools in toolkit
+- `get_tool_info` - Get tool schema
+- `execute_extra_tool` - Run app action
+
+## Important: VibeSurf Execution Policy
+
+**CRITICAL**: Claude Code must NEVER run the `vibesurf` command or attempt to install/start VibeSurf.
+
+### Policy
+- **CRITICAL**: Read the status from SessionStart hook FIRST (shown at top of surf skill)
+  - Format: `<SURF_SKILLS>**VibeSurf Integration** - Status: running/not_running`
+  - **DO NOT IGNORE THIS STATUS** - it's already been checked
+- **NEVER** execute: `vibesurf`, `uv tool install vibesurf`, or similar commands
+- **IF Status: not_running**: Inform user to start VibeSurf manually, DO NOT run commands
+- **Manual re-check** (only if needed): `curl http://127.0.0.1:9335/health`
+
+### Why?
+- VibeSurf is a long-running service that users manage
+- It may require specific configurations or environments
+- Auto-starting could interfere with user's workflow
+
+## Testing the Plugin
+
+### Local Testing Workflow
+
+1. **User starts VibeSurf**: `vibesurf` (user does this, not Claude)
+2. **Install plugin**:
+   ```bash
+   /plugin marketplace add ./
+   /plugin install surf
+   ```
+3. **Restart Claude Code**
+4. **Test**: Ask Claude to search web, navigate browser, etc.
+
+### Verifying VibeSurf Connection
+
+```bash
+# Check if VibeSurf is running
+curl http://127.0.0.1:9335/health
+
+# List all available actions
+curl http://127.0.0.1:9335/api/tool/search
+
+# Get parameters for specific action
+curl http://127.0.0.1:9335/api/tool/skill_search/params
+```
+
+## Documentation Sync
+
+When modifying functionality:
+1. Update relevant `skills/*/SKILL.md` - affects Claude's behavior
+2. Update `README.md` - user-facing documentation
+3. Keep skill descriptions consistent with actual VibeSurf API
+4. Test with Claude Code to verify skill loading
+
+## Release Process
+
+**CRITICAL: Always update version before committing and pushing**
+
+When making changes that should be released:
+
+1. **Update version** in `.claude-plugin/plugin.json`:
+   ```json
+   {
+     "version": "X.Y.Z"
+   }
+   ```
+
+2. **Version numbering**:
+   - Major (X): Breaking changes, major new features
+   - Minor (Y): New features, backward compatible
+   - Patch (Z): Bug fixes, documentation updates
+
+3. **Then commit and push**:
+   ```bash
+   git add .
+   git commit -m "..."
+   git push
+   ```
+
+**⚠️ IMPORTANT**: Never commit without updating the version if the changes affect functionality or documentation that users rely on.
+
+## Key Design Patterns
+
+### Error Handling
+
+VibeSurf returns structured responses:
+```json
+{
+  "success": boolean,
+  "result": any,
+  "extracted_content": string,
+  "long_term_memory": string,
+  "attachments": string[]
+}
+```
+
+Handle errors by checking `success` field and `result` for error messages.
+
+### Action Discovery Pattern
+
+Before executing unknown actions:
+1. Search for action: `GET /api/tool/search?keyword=...`
+2. Get parameters: `GET /api/tool/{action}/params`
+3. Build request: `POST /api/tool/execute`
+
+### Skill Decision Making
+
+When user makes a browser/automation request:
+1. Consult `surf` skill (already in context)
+2. `surf` skill points to appropriate specialized skill
+3. Use Skill tool to load that skill
+4. Follow skill's guidance to call VibeSurf API
+
+### Browser vs Browser-Use Pattern
+
+**Complementary relationship** - not mutually exclusive:
+
+| Approach | Characteristics | Best For |
+|----------|----------------|----------|
+| **browser-use** | High-level, task-oriented sub-agent | Complex tasks, describe goal + output |
+| **browser** | Low-level, step-by-step control | Precise control, fallback mechanism |
+| **Hybrid** | Best reliability | Try browser-use first, fallback to browser if needed |
+
+**Fallback workflow when browser-use fails:**
+```
+1. get_browser_state    → Inspect page state and available elements
+2. browser.{action}     → Perform specific action
+3. get_browser_state    → Verify result and plan next step
+4. Repeat until complete
+```
+
+**Selection principle**: Choose based on task complexity and control needs, NOT step count. Both can handle multi-step workflows and form filling.
+
+---
+> Source: [vibesurf-ai/claude-surf](https://github.com/vibesurf-ai/claude-surf) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
