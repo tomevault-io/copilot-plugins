@@ -1,0 +1,9 @@
+{
+  "name": "vividfog--nordpool-predict-fi-hacs",
+  "displayName": "nordpool-predict-fi-hacs",
+  "description": "HACS integration for Nordpool Predict FI repo",
+  "version": "1.0.0",
+  "author": "vividfog",
+  "homepage": "https://github.com/vividfog/nordpool-predict-fi-hacs",
+  "skills": []
+}
