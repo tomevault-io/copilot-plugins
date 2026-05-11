@@ -4,7 +4,7 @@
   "repo": "hibi",
   "description": "Paper-like Calendar for iOS",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AlexW00/hibi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T14:07:52Z"
+  "distributed_at": "2026-05-11T04:43:43Z"
 }
