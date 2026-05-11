@@ -4,7 +4,7 @@
   "repo": "guillotine",
   "description": "An ultra-high performance and flexible EVM. Written in zig",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/evmts/guillotine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T17:54:26Z"
+  "distributed_at": "2026-05-11T04:58:56Z"
 }
