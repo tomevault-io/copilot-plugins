@@ -1,0 +1,9 @@
+{
+  "name": "preziosiraffaele--markdown-llm-nvim",
+  "displayName": "markdown-llm.nvim",
+  "description": "MarkdownLLM is a Neovim plugin that provides a simple, markdown-driven interface for interacting with LLM providers.",
+  "version": "1.0.0",
+  "author": "PreziosiRaffaele",
+  "homepage": "https://github.com/PreziosiRaffaele/markdown-llm.nvim",
+  "skills": []
+}
