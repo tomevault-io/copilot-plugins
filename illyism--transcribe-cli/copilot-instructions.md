@@ -1,79 +1,69 @@
-## testing
+## whisper-api
 
-> A/B testing framework for optimization strategies
+> OpenAI Whisper API integration patterns and supported formats
 
 
-# Testing Framework
+# Whisper API Integration
 
-## Test Structure
+## Supported Formats
 
-All tests in [test/](mdc:test/) follow this pattern:
+OpenAI Whisper API accepts:
+- `flac`, `m4a`, `mp3`, `mp4`, `mpeg`, `mpga`, `oga`, `ogg`, `wav`, `webm`
 
-```typescript
-async function testMethodName(inputPath: string) {
-  const startTime = Date.now()
-  
-  // 1. Validate input
-  // 2. Process audio with strategy
-  // 3. Transcribe with Whisper API
-  // 4. Calculate metrics
-  // 5. Save metrics.json
-  // 6. Return metrics object
-  
-  return metrics
-}
-```
-
-## Required Metrics
-
-Every test must track:
-
-```typescript
-interface TestMetrics {
-  method: string              // 'baseline', 'speed', 'opus'
-  originalSize: number        // Bytes
-  processedSize: number       // Bytes
-  compressionRatio: number    // processedSize / originalSize
-  originalDuration: number    // Seconds
-  processedDuration: number   // Seconds (may differ if sped up)
-  transcriptionTime: number   // Milliseconds
-  totalTime: number          // Milliseconds
-  estimatedCost: number      // Dollars
-  language: string
-  // Method-specific fields...
-}
-```
-
-## Adding New Optimization Strategies
-
-1. Create `test/test-newmethod.ts`
-2. Implement the test function following the pattern
-3. Export the function
-4. Add to [test/compare.ts](mdc:test/compare.ts) in `runAllTests()`
-5. Update comparison table logic if needed
-6. Document hypothesis in [test/README.md](mdc:test/README.md)
-
-## Running Tests
-
+**Important**: `opus` files are NOT supported directly. Use `ogg` container with Opus codec instead:
 ```bash
-cd test
-bun compare.ts /path/to/video.mp4
+ffmpeg -i input.mp3 -acodec libopus -f ogg output.ogg
 ```
 
-This runs all tests and generates:
-- Individual metrics in `output/{method}/metrics.json`
-- Comparison table
-- Recommendations based on file size
-- Full report in `output/comparison-report.json`
+## API Call Pattern
 
-## Test Output
+See [src/transcribe.ts](mdc:src/transcribe.ts):
 
-Never commit test output files. They're in `.gitignore`:
-- `*.srt`, `*.mp3`, `*.ogg` files
-- `metrics.json`
-- `comparison-report.json`
+```typescript
+const { default: OpenAI } = await import('openai')
+const openai = new OpenAI({ apiKey })
 
-Keep the directory structure with `.gitkeep` files.
+const fs = await import('fs')
+const audioFile = fs.createReadStream(audioPath)
+
+const transcription = await openai.audio.transcriptions.create({
+  file: audioFile,
+  model: 'whisper-1',
+  response_format: 'verbose_json',
+  timestamp_granularities: ['segment']  // Required for SRT timestamps
+})
+```
+
+## Response Format
+
+Always use `verbose_json` with `segment` granularity to get:
+- Segment-level timestamps (required for SRT)
+- Language detection
+- Full transcription text
+- Individual segment texts
+
+## Cost
+
+- $0.006 per minute of audio
+- Charged based on ORIGINAL audio duration (not sped-up duration)
+- No additional charges for multiple calls or retries
+
+## Error Handling
+
+Common errors:
+- **400 Invalid file format**: Check file extension matches actual format
+- **502 Bad Gateway**: OpenAI API temporary issue, retry after delay
+- **401 Unauthorized**: Invalid API key
+- **413 Request Entity Too Large**: File too large (max ~25MB recommended)
+
+## File Size Optimization
+
+To stay under 25MB and speed up uploads:
+1. Extract audio from video (removes video track)
+2. Speed up by 1.2x (reduces duration by 17%)
+3. Or use Opus compression at ~64kbps
+
+See [src/optimize.ts](mdc:src/optimize.ts) for implementation.
 
 ---
 > Source: [Illyism/transcribe-cli](https://github.com/Illyism/transcribe-cli) — distributed by [TomeVault](https://tomevault.io).
