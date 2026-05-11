@@ -1,18 +1,12 @@
-## best-practices
+## s4
 
-> Always try best to follow the best practices:
+> `s4` is a CLI tool helps AI coding agents by providing just enough context of the task at hands and specific instructions on what to do next.
 
-Always try best to follow the best practices:
+`s4` is a CLI tool helps AI coding agents by providing just enough context of the task at hands and specific instructions on what to do next.
 
-- Prefer short and side-effect free functions over long and side-effectful functions.
-- Prefer immutable data structures over mutable ones.
-- Prefer the simplest possible solution over the most complex one. Never over-engineer.
-- Use descriptive yet short names for variables, functions, classes, and modules. Exception: use single letter names for loop variables and parameters of one-liner functions.
-- Add documentation to all public functions and classes.
-- Write unit tests for all public functions and classes. Tests should be colocated with the code they test.
-- Look for opportunities to refactor code to reveal the underlying intent and remove duplication.
-- Never use `any` type.
-- When you import typescript file in this project, do not omit the extension `.ts`.
+Here's interesting thing: The project uses s4 itself to developing s4 further. @s4.yaml is S4 documentation about S4 project itself. All the information you need to know about this project is in that file.
+
+Always run `s4 status` to get the status of the project and the next action to take. This tool will give you the full context you need to know. Before stating you've completed the task, run `s4 status` again to make sure you've completed all the steps.
 
 ---
 > Source: [akngs/s4](https://github.com/akngs/s4) — distributed by [TomeVault](https://tomevault.io).
