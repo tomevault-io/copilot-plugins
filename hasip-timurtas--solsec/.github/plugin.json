@@ -1,0 +1,9 @@
+{
+  "name": "hasip-timurtas--solsec",
+  "displayName": "solsec",
+  "description": "\ud83d\udee1\ufe0f CLI toolkit for auditing Solana smart contracts. Includes static analysis, IDL-based fuzzing, plugin system, and multi-format reports.",
+  "version": "1.0.0",
+  "author": "hasip-timurtas",
+  "homepage": "https://github.com/hasip-timurtas/solsec",
+  "skills": []
+}
