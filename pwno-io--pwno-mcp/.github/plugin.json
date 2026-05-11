@@ -1,0 +1,9 @@
+{
+  "name": "pwno-io--pwno-mcp",
+  "displayName": "pwno-mcp",
+  "description": "MCP for Pwn",
+  "version": "1.0.0",
+  "author": "pwno-io",
+  "homepage": "https://github.com/pwno-io/pwno-mcp",
+  "skills": []
+}
