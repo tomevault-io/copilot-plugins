@@ -1,0 +1,9 @@
+{
+  "name": "mash--osc8wrap",
+  "displayName": "osc8wrap",
+  "description": "Make terminal output clickable - works with interactive programs like claude",
+  "version": "1.0.0",
+  "author": "mash",
+  "homepage": "https://github.com/mash/osc8wrap",
+  "skills": []
+}
