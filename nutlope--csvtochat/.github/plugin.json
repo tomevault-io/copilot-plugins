@@ -1,0 +1,9 @@
+{
+  "name": "nutlope--csvtochat",
+  "displayName": "csvtochat",
+  "description": "Chat with your CSVs easily & generate charts",
+  "version": "1.0.0",
+  "author": "Nutlope",
+  "homepage": "https://github.com/Nutlope/csvtochat",
+  "skills": []
+}
