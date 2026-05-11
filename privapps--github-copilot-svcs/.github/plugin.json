@@ -1,0 +1,9 @@
+{
+  "name": "privapps--github-copilot-svcs",
+  "displayName": "github-copilot-svcs",
+  "description": "Github Copilot Service Proxy",
+  "version": "1.0.0",
+  "author": "privapps",
+  "homepage": "https://github.com/privapps/github-copilot-svcs",
+  "skills": []
+}
