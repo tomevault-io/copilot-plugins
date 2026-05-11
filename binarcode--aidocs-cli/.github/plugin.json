@@ -1,0 +1,9 @@
+{
+  "name": "binarcode--aidocs-cli",
+  "displayName": "aidocs-cli",
+  "description": "AI-powered documentation generator CLI for Claude Code projects",
+  "version": "1.0.0",
+  "author": "BinarCode",
+  "homepage": "https://github.com/BinarCode/aidocs-cli",
+  "skills": []
+}
