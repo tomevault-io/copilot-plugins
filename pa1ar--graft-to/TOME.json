@@ -4,7 +4,7 @@
   "repo": "graft-to",
   "description": "backlinks graph for Craft Docs spaces",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pa1ar/graft-to",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T17:09:47Z"
+  "distributed_at": "2026-05-11T21:10:44Z"
 }
