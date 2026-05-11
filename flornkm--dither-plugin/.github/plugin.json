@@ -1,0 +1,9 @@
+{
+  "name": "flornkm--dither-plugin",
+  "displayName": "dither-plugin",
+  "description": "A plugin for tailwindcss to dither things.",
+  "version": "1.0.0",
+  "author": "flornkm",
+  "homepage": "https://github.com/flornkm/dither-plugin",
+  "skills": []
+}
