@@ -1,4 +1,4 @@
-# claudekit
+# claudekit-cli
 
 > Source: [mrgoonie/claudekit-cli](https://github.com/mrgoonie/claudekit-cli) — distributed by [TomeVault](https://tomevault.io)
 
@@ -7,11 +7,11 @@ A CLI command to get started with ClaudeKit
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mrgoonie/claudekit-cli](https://github.com/mrgoonie/claudekit-cli).
+Original source: `AGENTS.md` in [mrgoonie/claudekit-cli](https://github.com/mrgoonie/claudekit-cli).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
