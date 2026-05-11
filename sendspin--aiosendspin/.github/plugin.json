@@ -1,0 +1,9 @@
+{
+  "name": "sendspin--aiosendspin",
+  "displayName": "aiosendspin",
+  "description": "Async Python library implementing the Sendspin Protocol.",
+  "version": "1.0.0",
+  "author": "Sendspin",
+  "homepage": "https://github.com/Sendspin/aiosendspin",
+  "skills": []
+}
