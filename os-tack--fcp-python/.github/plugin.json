@@ -1,0 +1,9 @@
+{
+  "name": "os-tack--fcp-python",
+  "displayName": "fcp-python",
+  "description": "Python Code Intelligence FCP \u2014 query and refactor Python codebases via pylsp",
+  "version": "1.0.0",
+  "author": "os-tack",
+  "homepage": "https://github.com/os-tack/fcp-python",
+  "skills": []
+}
