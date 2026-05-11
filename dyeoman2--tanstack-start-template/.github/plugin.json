@@ -1,0 +1,9 @@
+{
+  "name": "dyeoman2--tanstack-start-template",
+  "displayName": "tanstack-start-template",
+  "description": "TanStack Start template with Convex real-time DB, BetterAuth, Tailwind, ShadcnUI, AI playground, admin dashboard, and automated setup scripts deployed on Netlify.",
+  "version": "1.0.0",
+  "author": "dyeoman2",
+  "homepage": "https://github.com/dyeoman2/tanstack-start-template",
+  "skills": []
+}
