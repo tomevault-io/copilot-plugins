@@ -1,0 +1,9 @@
+{
+  "name": "valtteriluomapareto--photo-export",
+  "displayName": "photo-export",
+  "description": "Export iCloud photos to local storage",
+  "version": "1.0.0",
+  "author": "valtteriluomapareto",
+  "homepage": "https://github.com/valtteriluomapareto/photo-export",
+  "skills": []
+}
