@@ -1,0 +1,9 @@
+{
+  "name": "vahor--n8n-kit",
+  "displayName": "n8n-kit",
+  "description": "Generate and deploy n8n workflows using code.",
+  "version": "1.0.0",
+  "author": "Vahor",
+  "homepage": "https://github.com/Vahor/n8n-kit",
+  "skills": []
+}
