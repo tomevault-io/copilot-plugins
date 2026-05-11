@@ -1,26 +1,24 @@
-## tests
+## wiki
 
-> Test files using Vitest with happy-dom environment
+> Documentation wiki files in Markdown format - git submodule for GitHub wiki
 
 
-- Use Vitest (`describe`, `it`, `expect`, `beforeEach`, `afterEach`, `vi`)
-- Test environment: happy-dom (configured in vitest.config.ts)
-- Always clean up DOM in `afterEach` with `document.body.innerHTML = ''`
-- Clean up `AmbientGlow` instances with `destroy()` in `afterEach`
-- Group related tests with `describe` blocks
-- Use descriptive test names: `it('should...', ...)`
-- Test both success and error cases (e.g., video without parent)
-- Use `expect().toThrow()` for error testing with specific error message matching
-- Mock `requestAnimationFrame` when testing animation loops if needed
-- Setup DOM elements in `beforeEach` - create parent, video, append to body
-- Import types from source: `import type { GlowOptions } from '../src/types'`
-- Test public API methods: constructor, `updateOptions()`, `destroy()`, `getIsDestroyed()`
-- Use `vi` from vitest for mocking (not jest mocks)
-- @file tests/unit.test.ts - Main AmbientGlow class tests
-- @file tests/integration.test.ts - Integration tests
-- @file tests/canvas.test.ts - Canvas utilities
-- @file tests/eventHandlers.test.ts - Event handler utilities
-- @file tests/frameProcessor.test.ts - Frame processing utilities
+- Use Markdown format for all documentation
+- Include code examples with syntax highlighting
+- Reference framework integrations: React, Vue, Svelte, Angular
+- API documentation should match types in `src/types.ts`
+- Include installation instructions, usage examples, configuration options
+- Use clear headings and structure
+- Link between pages where relevant
+- Examples should be copy-paste ready and tested
+- Include performance tips and best practices
+- Document all public API methods and options
+- **Note**: `wiki/` is a git submodule pointing to the GitHub wiki repository
+- After editing wiki files, publish with `npm run wiki` (runs `scripts/publish-wiki.sh`)
+- Remember to commit the submodule update in main repo: `git add wiki && git commit -m "Update wiki submodule"`
+- @file wiki/API-Reference.md
+- @file wiki/Examples.md
+- @file scripts/publish-wiki.sh
 
 ---
 > Source: [mike-at-redspace/video-ambient-glow](https://github.com/mike-at-redspace/video-ambient-glow) — distributed by [TomeVault](https://tomevault.io).
