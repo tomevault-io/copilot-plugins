@@ -4,7 +4,7 @@
   "repo": "Tubify",
   "description": "\u4e00\u6b3e\u7c21\u6f54\u7684 macOS YouTube \u5f71\u7247\u4e0b\u8f09\u5668\uff0c\u4f7f\u7528 yt-dlp \u4f5c\u70ba\u5f8c\u7aef",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cashwu/Tubify",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T11:01:22Z"
+  "distributed_at": "2026-05-11T20:39:31Z"
 }
