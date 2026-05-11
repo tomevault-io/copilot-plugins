@@ -1,0 +1,9 @@
+{
+  "name": "hayesjl77--squig-model-server",
+  "displayName": "Squig-Model-Server",
+  "description": "local LLM server with prarallel support.",
+  "version": "1.0.0",
+  "author": "hayesjl77",
+  "homepage": "https://github.com/hayesjl77/Squig-Model-Server",
+  "skills": []
+}
