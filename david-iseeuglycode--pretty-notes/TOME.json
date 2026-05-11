@@ -4,7 +4,7 @@
   "repo": "pretty-notes",
   "description": "A simple TypeScript project",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/david-iseeuglycode/pretty-notes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T07:04:09Z"
+  "distributed_at": "2026-05-11T01:59:01Z"
 }
