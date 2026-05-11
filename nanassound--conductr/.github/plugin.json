@@ -1,0 +1,9 @@
+{
+  "name": "nanassound--conductr",
+  "displayName": "conductr",
+  "description": "A generative sequencer that combine LLM and local rule based sequencer",
+  "version": "1.0.0",
+  "author": "nanassound",
+  "homepage": "https://github.com/nanassound/conductr",
+  "skills": []
+}
