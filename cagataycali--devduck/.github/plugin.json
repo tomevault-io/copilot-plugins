@@ -1,0 +1,9 @@
+{
+  "name": "cagataycali--devduck",
+  "displayName": "devduck",
+  "description": "Minimalist AI agent that fixes itself when things break.",
+  "version": "1.0.0",
+  "author": "cagataycali",
+  "homepage": "https://github.com/cagataycali/devduck",
+  "skills": []
+}
