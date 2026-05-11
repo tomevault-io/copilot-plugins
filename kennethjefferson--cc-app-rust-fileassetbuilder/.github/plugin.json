@@ -1,0 +1,9 @@
+{
+  "name": "kennethjefferson--cc-app-rust-fileassetbuilder",
+  "displayName": "cc_app_rust_FileAssetBuilder",
+  "description": "Rust-based CLI tool for parallel directory scanning and file consolidation into AI-consumable output",
+  "version": "1.0.0",
+  "author": "KennethJefferson",
+  "homepage": "https://github.com/KennethJefferson/cc_app_rust_FileAssetBuilder",
+  "skills": []
+}
