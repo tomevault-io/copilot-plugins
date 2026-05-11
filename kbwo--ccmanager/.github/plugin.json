@@ -1,0 +1,9 @@
+{
+  "name": "kbwo--ccmanager",
+  "displayName": "ccmanager",
+  "description": "Coding Agent Session Manager for Claude Code / Gemini CLI / Codex CLI / Cursor Agent / Copilot CLI / Cline CLI / OpenCode / Kimi CLI",
+  "version": "1.0.0",
+  "author": "kbwo",
+  "homepage": "https://github.com/kbwo/ccmanager",
+  "skills": []
+}
