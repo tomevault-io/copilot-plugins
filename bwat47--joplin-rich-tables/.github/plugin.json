@@ -1,0 +1,9 @@
+{
+  "name": "bwat47--joplin-rich-tables",
+  "displayName": "joplin-rich-tables",
+  "description": "A Joplin plugin to provide table rendering & table editing in the Markdown editor.",
+  "version": "1.0.0",
+  "author": "bwat47",
+  "homepage": "https://github.com/bwat47/joplin-rich-tables",
+  "skills": []
+}
