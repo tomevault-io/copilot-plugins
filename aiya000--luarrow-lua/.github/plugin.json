@@ -1,0 +1,9 @@
+{
+  "name": "aiya000--luarrow-lua",
+  "displayName": "luarrow.lua",
+  "description": "True pipeline operators and elegant Haskell-style function composition for Lua",
+  "version": "1.0.0",
+  "author": "aiya000",
+  "homepage": "https://github.com/aiya000/luarrow.lua",
+  "skills": []
+}
