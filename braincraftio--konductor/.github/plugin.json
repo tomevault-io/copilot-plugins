@@ -1,0 +1,9 @@
+{
+  "name": "braincraftio--konductor",
+  "displayName": "konductor",
+  "description": "Polyglot development environment - Nix flake, OCI container, and QCOW2 VM",
+  "version": "1.0.0",
+  "author": "braincraftio",
+  "homepage": "https://github.com/braincraftio/konductor",
+  "skills": []
+}
