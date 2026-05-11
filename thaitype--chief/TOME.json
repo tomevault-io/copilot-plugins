@@ -4,7 +4,7 @@
   "repo": "chief",
   "description": "A portable framework that reduces the cognitive load of working with AI coding agents \u2014 plan, build, verify, milestone by milestone.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thaitype/chief",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T18:03:32Z"
+  "distributed_at": "2026-05-11T11:32:05Z"
 }
