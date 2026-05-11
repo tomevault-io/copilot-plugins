@@ -1,0 +1,9 @@
+{
+  "name": "composablehorizons--jetpack-compose-boilerplate",
+  "displayName": "jetpack-compose-boilerplate",
+  "description": "A Jetpack Compose template to build apps using Compose on Android and Compose Unstyled.",
+  "version": "1.0.0",
+  "author": "composablehorizons",
+  "homepage": "https://github.com/composablehorizons/jetpack-compose-boilerplate",
+  "skills": []
+}
