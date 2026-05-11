@@ -1,0 +1,44 @@
+{
+  "name": "RustGPT-Chinese",
+  "owner": "H-Chris233",
+  "repo": "RustGPT-Chinese",
+  "description": "RustGPT\u7684\u4e2d\u6587\u7248\uff0c\u540c\u65f6\u505a\u4e86\u5927\u91cf\u6539\u8fdb(\u6027\u80fd\u4f18\u5316\uff0c\u591a\u5934\u81ea\u6ce8\u610f\u529b\u673a\u5236\u7b49)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/H-Chris233/RustGPT-Chinese",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T20:22:21Z"
+}
