@@ -1,0 +1,9 @@
+{
+  "name": "nokodo-labs--monorepo-template",
+  "displayName": "monorepo-template",
+  "description": "Modern full-stack boilerplate: FastAPI + Svelte 5. Production-ready with multi-stage builds.",
+  "version": "1.0.0",
+  "author": "nokodo-labs",
+  "homepage": "https://github.com/nokodo-labs/monorepo-template",
+  "skills": []
+}
