@@ -1,0 +1,9 @@
+{
+  "name": "pardeike--decompilerserver",
+  "displayName": "DecompilerServer",
+  "description": "A powerful MCP (Model Context Protocol) server for decompiling and analyzing .NET assemblies, with specialized support for Unity's Assembly-CSharp.dll files. DecompilerServer provides comprehensive de",
+  "version": "1.0.0",
+  "author": "pardeike",
+  "homepage": "https://github.com/pardeike/DecompilerServer",
+  "skills": []
+}
