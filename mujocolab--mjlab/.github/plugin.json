@@ -1,0 +1,9 @@
+{
+  "name": "mujocolab--mjlab",
+  "displayName": "mjlab",
+  "description": "Isaac Lab API, powered by MuJoCo-Warp, for RL and robotics research",
+  "version": "1.0.0",
+  "author": "mujocolab",
+  "homepage": "https://github.com/mujocolab/mjlab",
+  "skills": []
+}
