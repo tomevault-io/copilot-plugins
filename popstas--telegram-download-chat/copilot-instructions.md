@@ -1,0 +1,142 @@
+## telegram-download-chat
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Telegram Download Chat is a Python CLI utility that downloads and analyzes Telegram chat history. It provides both command-line and GUI interfaces for downloading messages from chats, groups, channels, or archived exports and saving them in JSON/TXT formats.
+
+### Key Components
+
+- **Core Engine** (`core/` package): Contains `TelegramChatDownloader` plus helper modules (`auth`, `config`, `download`, `entities`, `media`, `messages`, `context`, `render`) built on Telethon
+- **CLI Interface** (`cli.py`): Command-line interface with argument parsing and async message processing
+- **GUI Interface** (`gui_app.py`): PySide6-based graphical interface with threading for async operations
+- **MCP Server** (`mcp/` package): Model Context Protocol server exposing Telegram chat tools for AI assistants
+- **Configuration** (`paths.py`): Handles config file management and application directories
+
+### Architecture
+
+The application follows a modular design:
+1. **Configuration Layer**: YAML-based config with API credentials and user settings
+2. **Telegram Client Layer**: Telethon wrapper for authenticated API communication
+3. **Processing Layer**: Message filtering, date splitting, format conversion
+4. **Interface Layer**: CLI and GUI frontends sharing the same core functionality
+
+## Development Commands
+
+Use `.venv` virtual environment.
+
+### Setup Development Environment
+```bash
+# Install in development mode with all dependencies
+pip install -e ".[dev,gui]"
+
+# Or install from requirements
+pip install -r requirements.txt
+```
+
+### Testing
+```bash
+# Run tests
+pytest
+
+# Run tests with async support
+pytest -v
+
+# Run specific test
+pytest tests/test_telegram_download_chat.py::TestClass::test_method
+```
+
+### Code Quality
+```bash
+# Format code
+black src/ tests/
+
+# Sort imports
+isort src/ tests/
+
+# Type checking
+mypy src/
+```
+
+### Building
+```bash
+# Build package
+python -m build
+
+# Install from source
+pip install .
+
+# Build PyInstaller executables
+./build_macos.sh      # macOS
+./build_windows.ps1   # Windows
+```
+
+### Running
+```bash
+# CLI mode
+python -m telegram_download_chat username
+
+# GUI mode  
+python -m telegram_download_chat gui
+# or
+telegram-download-chat gui
+
+# From source
+python main.py  # Launches GUI by default
+```
+
+## Configuration
+
+- Config file auto-created at OS-specific locations (see `paths.py`)
+- Requires Telegram API credentials from https://my.telegram.org
+- Example config in `config.example.yml`
+- Supports optional proxy via `proxy_url` in config or `--proxy-url` CLI flag (socks5/socks4/http)
+- GUI provides config editing interface
+
+## Key Features to Understand
+
+### Message Processing
+- Downloads via Telethon's `iter_messages()` with pagination
+- Supports resume from interruption using temporary files
+- Can filter by date ranges, specific users, or message threads
+- Outputs JSON (full metadata), TXT (human-readable), and optionally HTML/PDF formats
+- Output is organized per-chat: `<chat_name>/messages.json`, `<chat_name>/messages.txt`, optionally `messages.html`/`messages.pdf`, and `<chat_name>/attachments/`
+
+### Authentication
+- Uses Telethon sessions for persistent login
+- GUI handles phone/code/password flow
+- CLI opens browser for authentication
+
+### Filtering & Splitting
+- `--subchat`: Extract message threads/replies
+- `--split`: Split output by month/year
+- `--user`: Filter by specific sender
+- `--max-date`: Messages on or before this date
+- `--min-date`: Messages on or after this date
+- `--media-placeholders`: Insert media type indicators (e.g. `[photo]`, `[file=name.pdf]`) in TXT output
+- `--media`: Download all media types with organized category directories (images/, videos/, documents/, audio/, stickers/, contacts/, locations/, polls/, etc.) and concurrent downloads (5 simultaneous). Supports photos, videos, documents, audio, stickers, contacts (VCF), geo locations (JSON), polls, dice, and games.
+
+### Export Formats
+- `--html`: Render a Telegram Web-style HTML page (uses Jinja2 templates)
+- `--pdf`: Render a PDF document (uses ReportLab)
+- Both flags work alongside existing JSON/TXT output and can be combined with `--media` for inline images
+
+### PyInstaller Integration
+- Custom hooks in `_pyinstaller/` for bundling
+- Platform-specific build scripts
+- GUI auto-launches when no CLI args provided
+
+### MCP Server
+- Exposes `telegram_get_messages` and `telegram_connection_status` tools
+- Uses task queue for serialized API calls
+- Supports stdio (Claude Desktop) and HTTP transports
+- Run with: `python -m telegram_download_chat.mcp`
+
+---
+> Source: [popstas/telegram-download-chat](https://github.com/popstas/telegram-download-chat) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
