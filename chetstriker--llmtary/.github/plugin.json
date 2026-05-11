@@ -1,0 +1,9 @@
+{
+  "name": "chetstriker--llmtary",
+  "displayName": "LLMtary",
+  "description": "Autonomous AI-powered penetration testing platform. LLM-driven recon, vulnerability analysis, and exploit validation for internal & external targets. Supports local AI (Ollama, LM Studio) and cloud mo",
+  "version": "1.0.0",
+  "author": "chetstriker",
+  "homepage": "https://github.com/chetstriker/LLMtary",
+  "skills": []
+}
