@@ -1,0 +1,24 @@
+## maxtext-slurm
+
+> When you need to run host-level commands (like `squeue`, `sbatch`, `sinfo`, `scancel`, `ssh`), first try running them directly. If they fail (e.g. command not found), you might be inside a container. In that case, check if `.host-cmd` is available by running `python3 /maxtext-slurm/.host-cmd/host_cmd.py --ping`. If it responds `ALIVE`, use it to run host commands, e.g. `python3 /maxtext-slurm/.host-cmd/host_cmd.py "squeue"` or `python3 /maxtext-slurm/.host-cmd/host_cmd.py "ssh node01 rocm-smi"`. All commands must be non-interactive. Always set `--timeout` to a reasonable estimate for the command (e.g. `--timeout 30` for quick queries like squeue/sinfo, `--timeout 60` for ssh). Avoid `export KEY=VALUE` in host-cmd — each invocation runs in a fresh shell so exports are lost anyway, and they pollute the environment if chained with `&&`. Use inline env vars instead (e.g. `FOO=bar ./script.sh`). If the ping does NOT respond, do not suggest starting the server — the environment may not support it (e.g. Kubernetes).
+
+When you need to run host-level commands (like `squeue`, `sbatch`, `sinfo`, `scancel`, `ssh`), first try running them directly. If they fail (e.g. command not found), you might be inside a container. In that case, check if `.host-cmd` is available by running `python3 /maxtext-slurm/.host-cmd/host_cmd.py --ping`. If it responds `ALIVE`, use it to run host commands, e.g. `python3 /maxtext-slurm/.host-cmd/host_cmd.py "squeue"` or `python3 /maxtext-slurm/.host-cmd/host_cmd.py "ssh node01 rocm-smi"`. All commands must be non-interactive. Always set `--timeout` to a reasonable estimate for the command (e.g. `--timeout 30` for quick queries like squeue/sinfo, `--timeout 60` for ssh). Avoid `export KEY=VALUE` in host-cmd — each invocation runs in a fresh shell so exports are lost anyway, and they pollute the environment if chained with `&&`. Use inline env vars instead (e.g. `FOO=bar ./script.sh`). If the ping does NOT respond, do not suggest starting the server — the environment may not support it (e.g. Kubernetes). Just tell the user the command is unavailable from inside this container. NEVER start the server yourself.
+
+**CAUTION**: This might be a shared cluster. NEVER `scancel` other users' jobs. Job owner fields are unreliable (e.g. all jobs show as `root`). To tell if a job is yours: check if a directory for that job ID exists under `outputs/`. If it does, the job is yours and you can cancel it. If not, it belongs to someone else — do not touch it.
+
+For performance analysis tasks, follow the instructions in `skills/performance-analysis/SKILL.md`.
+For per-kernel drill-down from xplane traces (`input_scatter_fusion`, `RaggedAllToAllKernelImpl`, step-time composition, main-stream-blocking analysis, cross-variant kernel comparison), follow `skills/profile-drill/SKILL.md`.
+For job triage tasks (failed, hanging, or running jobs), follow the instructions in `skills/job-log-triage/SKILL.md`.
+For TSDB diagnosis tasks (metrics queries, GPU/network health, incident root cause), follow the instructions in `skills/tsdb-diagnosis/SKILL.md`.
+For coredump debugging (GDB analysis, source code identification, crash root cause from core files), follow the instructions in `skills/coredump-debug/SKILL.md`.
+For model config tasks (adding a model, creating .gpu.yml configs, parallelism, batch size, quantization), follow the instructions in `skills/model-config-guide/SKILL.md`.
+For batch size sweeps (find optimal TGS, benchmark throughput, tune per_device_batch_size), follow the instructions in `skills/batch-sweep/SKILL.md`.
+For XLA / NCCL flag tuning of a single (model × parallelism) cell (collective-permute decomposer, all-gather combine threshold, overlap-limit, async-stream priority, cross-iteration prefetch knobs), follow the instructions in `skills/xla-tuning/SKILL.md`.
+For Docker container artifact checks (software versions, git hashes, source code inventory), follow the instructions in `skills/docker-artifact-check/SKILL.md`.
+For Telegram as I/O channel and REPL mode (notify me, send TG message, alert when done, wait for TG reply), follow the instructions in `skills/telegram/SKILL.md`.
+
+**Multi-job performance comparisons** (e.g., "why is job B slower than job A?"): Start with `skills/tsdb-diagnosis/SKILL.md` (Multi-Job Comparison workflow) to check system-level metrics (process counts, network, I/O, GPU health) before running `skills/performance-analysis/SKILL.md`. TSDB surfaces root causes that TraceLens cannot see (CPU contention, RCCL resource leaks, network errors). Only fall back to TraceLens if the TSDB comparison is inconclusive.
+
+---
+> Source: [AMD-AGI/maxtext-slurm](https://github.com/AMD-AGI/maxtext-slurm) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
