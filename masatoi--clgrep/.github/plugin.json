@@ -1,0 +1,9 @@
+{
+  "name": "masatoi--clgrep",
+  "displayName": "clgrep",
+  "description": "A semantic grep tool for Common Lisp codebases that understands Lisp structure and provides rich contextual information.",
+  "version": "1.0.0",
+  "author": "masatoi",
+  "homepage": "https://github.com/masatoi/clgrep",
+  "skills": []
+}
