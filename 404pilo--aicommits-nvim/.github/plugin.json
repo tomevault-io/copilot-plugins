@@ -1,0 +1,9 @@
+{
+  "name": "404pilo--aicommits-nvim",
+  "displayName": "aicommits.nvim",
+  "description": "Generate conventional commit messages using AI, directly in Neovim",
+  "version": "1.0.0",
+  "author": "404pilo",
+  "homepage": "https://github.com/404pilo/aicommits.nvim",
+  "skills": []
+}
