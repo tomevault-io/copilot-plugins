@@ -7,11 +7,11 @@ Build and publish OCI container images from the BEAM
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [intility/erlang-oci-builder](https://github.com/intility/erlang-oci-builder).
+Original source: `CLAUDE.md` in [intility/erlang-oci-builder](https://github.com/intility/erlang-oci-builder).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
