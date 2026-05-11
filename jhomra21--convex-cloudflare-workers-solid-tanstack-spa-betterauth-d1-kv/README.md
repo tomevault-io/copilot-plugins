@@ -7,15 +7,15 @@ Gen AI Canvas using Convex and Solid
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [jhomra21/convex-cloudflare-workers-solid-tanstack-spa-betterauth-D1-KV](https://github.com/jhomra21/convex-cloudflare-workers-solid-tanstack-spa-betterauth-D1-KV).
+Original source: `.cursor/rules/*.mdc` in [jhomra21/convex-cloudflare-workers-solid-tanstack-spa-betterauth-D1-KV](https://github.com/jhomra21/convex-cloudflare-workers-solid-tanstack-spa-betterauth-D1-KV).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/jhomra21/convex-cloudflare-workers-solid-tanstack-spa-betterauth-D1-KV](https://github.com/jhomra21/convex-cloudflare-workers-solid-tanstack-spa-betterauth-D1-KV)
 
