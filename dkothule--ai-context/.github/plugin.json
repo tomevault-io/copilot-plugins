@@ -1,0 +1,9 @@
+{
+  "name": "dkothule--ai-context",
+  "displayName": "ai-context",
+  "description": "Unified context system for seamless multi-agent AI development. Works with Cursor, Claude Code, Codex, and Google Antigravity. Single source of truth, session continuity, and zero context loss when sw",
+  "version": "1.0.0",
+  "author": "dkothule",
+  "homepage": "https://github.com/dkothule/ai-context",
+  "skills": []
+}
