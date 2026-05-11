@@ -1,0 +1,9 @@
+{
+  "name": "serbanghita--claude-code-plan-critique",
+  "displayName": "claude-code-plan-critique",
+  "description": "A Claude Code plugin for iterative plan review and execution. Plan->Critique (N times)->Execute",
+  "version": "1.0.0",
+  "author": "serbanghita",
+  "homepage": "https://github.com/serbanghita/claude-code-plan-critique",
+  "skills": []
+}
