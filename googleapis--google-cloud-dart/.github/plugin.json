@@ -1,0 +1,9 @@
+{
+  "name": "googleapis--google-cloud-dart",
+  "displayName": "google-cloud-dart",
+  "description": "[Experimental] Google Cloud Dart Client Libraries",
+  "version": "1.0.0",
+  "author": "googleapis",
+  "homepage": "https://github.com/googleapis/google-cloud-dart",
+  "skills": []
+}
