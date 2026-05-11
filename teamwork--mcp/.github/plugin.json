@@ -1,0 +1,9 @@
+{
+  "name": "teamwork--mcp",
+  "displayName": "mcp",
+  "description": "Teamwork.com MCP server",
+  "version": "1.0.0",
+  "author": "Teamwork",
+  "homepage": "https://github.com/Teamwork/mcp",
+  "skills": []
+}
