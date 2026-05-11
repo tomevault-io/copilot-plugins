@@ -7,11 +7,11 @@ iOS app for put.io
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [putdotio/putio-ios](https://github.com/putdotio/putio-ios).
+Original source: `CLAUDE.md` in [putdotio/putio-ios](https://github.com/putdotio/putio-ios).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
