@@ -1,143 +1,132 @@
-## tailwind-css
+## unused-variables
 
-> All styling must be done through Tailwind CSS classes and configuration, not inline styles or CSS-in-JS.
+> **NEVER prefix unused variables with `_` to suppress linter warnings.**
 
+# Unused Variables Convention
 
-# Tailwind CSS Usage Rules
+## Rule: Do Not Use Underscore Prefix for Unused Variables
 
-All styling must be done through Tailwind CSS classes and configuration, not inline styles or CSS-in-JS.
+**NEVER prefix unused variables with `_` to suppress linter warnings.**
 
-## Core Principles
+### ❌ WRONG - Using underscore prefix
 
-1. **No inline styles** - Never use `style={{}}` prop in React components
-2. **No CSS-in-JS** - Do not use styled-components, emotion, or similar libraries
-3. **Use Tailwind classes** - All styling should use Tailwind utility classes via `className`
-4. **Extend Tailwind config** - Custom colors, animations, and utilities go in `tailwind.config.ts`
-5. **Component classes in CSS** - Reusable component patterns go in `index.css` using `@layer components`
-
-## Allowed Approaches
-
-### ✅ Use Tailwind Utility Classes
-
-```tsx
-// ✅ Correct - Using Tailwind classes
-<div className="flex items-center justify-center min-h-screen bg-background">
-  <Card className="w-full max-w-md p-6">
-    <h1 className="text-2xl font-bold text-foreground">Title</h1>
-  </Card>
-</div>
-```
-
-### ✅ Extend Tailwind Config
-
-**`tailwind.config.ts`**:
 ```typescript
-export default {
-  theme: {
-    extend: {
-      colors: {
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-      },
-      backgroundImage: {
-        "gradient-button": "linear-gradient(to right, rgb(194 65 12), rgb(185 28 28))",
-      },
-      animation: {
-        "slide-in-right": "slide-in-right 1s ease-out forwards",
-      },
-    },
+// ❌ Don't do this
+const { data: _data, error } = someFunction();
+const { license: _updatedLicense, newVersion } = await renewLicense();
+```
+
+### ✅ CORRECT - Proper solutions
+
+#### 1. Remove the unused variable entirely
+
+```typescript
+// ✅ Only destructure what you need
+const { error } = someFunction();
+const { newVersion } = await renewLicense();
+```
+
+#### 2. Use the variable if it provides value
+
+```typescript
+// ✅ Use it in logging or validation
+const { license: updatedLicense, newVersion } = await renewLicense();
+
+logger.info(
+  {
+    licenseId: updatedLicense.id,
+    newVersion,
+    expiresAt: updatedLicense.expiresAt,
   },
-} satisfies Config;
+  "License renewed successfully"
+);
 ```
 
-**Component**:
-```tsx
-// ✅ Correct - Using custom Tailwind utilities from config
-<button className="bg-gradient-button hover:bg-gradient-button-hover">
-  Click me
-</button>
+#### 3. If destructuring is required for API shape, use array position
+
+```typescript
+// ✅ Use array destructuring with empty slots
+const [, newVersion] = await renewLicense(); // Skip first element
+
+// Or use object rest to ignore properties
+const { newVersion, ...rest } = await renewLicense();
 ```
 
-### ✅ Use Component Classes in CSS
+## Why This Matters
 
-**`index.css`**:
-```css
-@layer components {
-  .btn-primary {
-    @apply bg-gradient-button hover:bg-gradient-button-hover text-white font-medium px-6 py-2 rounded-md;
-  }
-  
-  .card-unified {
-    @apply bg-card border border-border rounded-lg shadow-sm;
-  }
+- **Clarity**: Underscores hide the fact that we're not using returned data
+- **Code smell**: Unused variables often indicate incomplete implementation or incorrect API usage
+- **Refactoring opportunity**: Forces us to think about whether the variable should be used or if the API should change
+- **Consistency**: Keeps the codebase clean and intentional
+
+## When You Encounter Unused Variables
+
+1. **Ask why it's unused** - Should it be used for logging, validation, or error handling?
+2. **Check if it's needed** - Can the destructuring be simplified?
+3. **Consider the API** - Should the function return less data?
+4. **Never use underscore** - It's a band-aid that hides the real issue
+
+## Examples
+
+### Destructuring API responses
+
+```typescript
+// ❌ Wrong
+const { license: _updatedLicense, newVersion } = await renewLicense(id, date);
+
+// ✅ Better - Only get what you need
+const { newVersion } = await renewLicense(id, date);
+
+// ✅ Or use it
+const { license: updatedLicense, newVersion } = await renewLicense(id, date);
+logger.info({ licenseId: updatedLicense.id, newVersion }, "License renewed");
+```
+
+### Function parameters
+
+```typescript
+// ❌ Wrong
+async function handler(req: Request, _res: Response) {
+  // ... only uses req
+}
+
+// ✅ Better - Remove unused parameter or use it
+async function handler(req: Request) {
+  // ... only uses req
 }
 ```
 
-**Component**:
-```tsx
-// ✅ Correct - Using component classes from CSS
-<button className="btn-primary">Click me</button>
-<Card className="card-unified">Content</Card>
+### TypeScript tuple destructuring
+
+```typescript
+// ❌ Wrong
+const [_error, data] = await somePromise();
+
+// ✅ Better - Use proper error handling
+const [error, data] = await somePromise();
+if (error) {
+  logger.error({ error }, "Operation failed");
+  return;
+}
+
+// ✅ Or use try-catch if appropriate
+try {
+  const data = await someOperation();
+  // ...
+} catch (error) {
+  logger.error({ error }, "Operation failed");
+}
 ```
 
-## Prohibited Approaches
+## Exceptions
 
-### ❌ Inline Styles
+There are NO exceptions. If ESLint complains about an unused variable:
 
-```tsx
-// ❌ Incorrect - Using inline styles
-<div style={{ display: "flex", alignItems: "center", padding: "1rem" }}>
-  Content
-</div>
+1. Remove it
+2. Use it
+3. Restructure the code
 
-// ✅ Correct - Use Tailwind classes
-<div className="flex items-center p-4">
-  Content
-</div>
-```
-
-### ❌ CSS-in-JS Libraries
-
-```tsx
-// ❌ Incorrect - Using styled-components or emotion
-const StyledButton = styled.button`
-  background: linear-gradient(to right, #c2410c, #b91c1c);
-  padding: 0.5rem 1rem;
-`;
-
-// ✅ Correct - Use Tailwind classes or component classes
-<button className="bg-gradient-button px-4 py-2">Click me</button>
-```
-
-## Button Styling
-
-- **Primary action buttons (CTAs) MUST use the gradient button classes:**
-  - Use `bg-gradient-button hover:bg-gradient-button-hover text-white` for all primary action buttons
-  - This applies to submit buttons, save buttons, create buttons, and any other primary CTAs
-  - **DO NOT** use hardcoded colors like `bg-orange-500 hover:bg-orange-600`
-
-## Toggle Input Styling
-
-- **Switch/Toggle components MUST use the gradient button classes when checked:**
-  - Use `data-[state=checked]:bg-gradient-button` for all Switch components
-  - This ensures toggle switches match the design system's gradient styling
-  - **DO NOT** rely on default `bg-primary` styling for switches
-
-## File Organization
-
-- **`tailwind.config.ts`** - Custom theme extensions (colors, animations, utilities)
-- **`index.css`** - Global styles, CSS variables, component classes (`@layer components`)
-- **`styles/*.css`** - Third-party component overrides only (e.g., `google-auth.css`)
-
-## Benefits
-
-- **Consistency**: All styles follow the same system
-- **Maintainability**: Styles are centralized and easy to update
-- **Performance**: Tailwind purges unused styles
-- **Type safety**: Tailwind classes are validated
-- **Reusability**: Custom utilities and components can be reused across the app
+Never silence the warning with an underscore prefix.
 
 ---
 > Source: [getqarote/Qarote](https://github.com/getqarote/Qarote) — distributed by [TomeVault](https://tomevault.io).
