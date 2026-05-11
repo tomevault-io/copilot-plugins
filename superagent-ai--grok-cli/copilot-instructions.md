@@ -1,56 +1,37 @@
-## typescript-conventions
+## grok-cli
 
-> TypeScript coding conventions and style guidelines
+> Grok CLI (`@vibe-kit/grok-cli`) is a single-package TypeScript CLI tool — no databases, Docker, or background services. See `README.md` for full documentation and usage.
+
+# AGENTS.md
+
+## Cursor Cloud specific instructions
+
+### Overview
+
+Grok CLI (`@vibe-kit/grok-cli`) is a single-package TypeScript CLI tool — no databases, Docker, or background services. See `README.md` for full documentation and usage.
+
+### Quick reference
 
 
-# TypeScript Conventions
+| Action        | Command                                                               |
+| ------------- | --------------------------------------------------------------------- |
+| Install deps  | `bun install` (installs Husky; pre-commit runs Biome on staged files) |
+| Typecheck     | `bun run typecheck`                                                   |
+| Build         | `bun run build`                                                       |
+| Run built CLI | `node dist/index.js`                                                  |
+| Headless mode | `node dist/index.js --prompt "..." --max-tool-rounds N`               |
+| CLI help      | `node dist/index.js --help`                                           |
 
-## Module System
 
-- This is an ESM project (`"type": "module"` in package.json).
-- Always use ES module `import`/`export` syntax — never `require()`.
-- When importing local modules, include the `.js` extension (TypeScript compiles `.ts` → `.js`):
-  ```typescript
-  import { GrokAgent } from "./agent/grok-agent.js";
-  ```
+### Known issues
 
-## TypeScript Configuration
+- **ESLint config is broken**: The repo has `.eslintrc.js` (legacy format) but uses ESLint 9 (`^9.31.0`) + `@typescript-eslint` v8, which require flat config (`eslint.config.js`). Additionally, `.eslintrc.js` uses `module.exports` (CJS) but `package.json` has `"type": "module"` (ESM). Running `bun run lint` will fail. Use `bun run typecheck` as the primary code quality check (this is also what CI enforces).
+- **Dev mode (`bun run dev` / `bun run dev:node`) fails at runtime**: `src/utils/model-config.ts` imports TypeScript interfaces (`UserSettings`, `ProjectSettings`) as value imports from `settings-manager.ts`. These type-only exports are erased at runtime by Bun and tsx, causing `SyntaxError: export '...' not found`. The fix is to use `import type` syntax, but this is a pre-existing repo issue. **Workaround**: build first (`bun run build`), then run the compiled version (`node dist/index.js`).
 
-- Target: ES2022, Module: ESNext, JSX: react
-- `strict: false` and `noImplicitAny: false` — the codebase does not enforce strict mode.
-- `moduleResolution: "Bundler"` is used.
-- Source files live in `src/`, compiled output goes to `dist/`.
+### Environment
 
-## Type Practices
-
-- Prefer explicit interfaces for public API boundaries (e.g. `ChatEntry`, `ToolResult`, `GrokToolCall`).
-- Use `type` imports when importing only types:
-  ```typescript
-  import type { ChatCompletionMessageParam } from "openai/resources/chat";
-  ```
-- `any` is acceptable where strict typing would add friction, but prefer narrower types when practical.
-- Shared types belong in `src/types/index.ts`.
-
-## Naming Conventions
-
-- **Files**: kebab-case (`grok-agent.ts`, `chat-interface.tsx`, `settings-manager.ts`).
-- **Classes**: PascalCase (`GrokAgent`, `TextEditorTool`, `BashTool`).
-- **Interfaces/Types**: PascalCase (`ChatEntry`, `ToolResult`, `StreamingChunk`).
-- **Functions/variables**: camelCase (`processUserMessage`, `loadApiKey`).
-- **Constants**: camelCase or UPPER_SNAKE_CASE for true constants (`GROK_TOOLS`).
-
-## Error Handling
-
-- Catch errors as `error: any` and access `.message` for display.
-- Tool execution methods return `ToolResult` objects (`{ success, output?, error? }`) rather than throwing.
-- Use `process.exit(1)` for fatal CLI errors.
-
-## ESLint Rules
-
-- `@typescript-eslint/no-unused-vars`: error
-- `@typescript-eslint/no-explicit-any`: warn
-
-Run `bun run lint` to check and `bun run typecheck` to verify types.
+- **Bun** must be installed (not pre-installed on Cloud VMs). The update script handles this.
+- `GROK_API_KEY` environment variable is required for API calls. Set it as a secret.
 
 ---
 > Source: [superagent-ai/grok-cli](https://github.com/superagent-ai/grok-cli) — distributed by [TomeVault](https://tomevault.io).
