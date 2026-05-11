@@ -1,0 +1,9 @@
+{
+  "name": "lambdasec--frame",
+  "displayName": "frame",
+  "description": "Frame is a Separation Logic Verification Tool with Security Scanning",
+  "version": "1.0.0",
+  "author": "lambdasec",
+  "homepage": "https://github.com/lambdasec/frame",
+  "skills": []
+}
