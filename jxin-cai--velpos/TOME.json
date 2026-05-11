@@ -4,7 +4,7 @@
   "repo": "velpos",
   "description": "Rapidly build a multi-Agent management dashboard based on Claude Code, integrating daily work and remote IM collaboration. It includes Claude Code monitoring, channel configuration and message notifications, with a Codex GUI optimized for non-technical users.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Jxin-Cai/velpos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T10:06:06Z"
+  "distributed_at": "2026-05-11T23:43:57Z"
 }
