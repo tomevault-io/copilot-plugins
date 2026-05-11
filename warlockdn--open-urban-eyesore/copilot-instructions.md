@@ -1,49 +1,36 @@
-## open-urban-eyesore
+## backend-api
 
-> 1. **Frontend Development**: `cd ui && pnpm install && pnpm dev`
+> The API is built with Cloudflare Workers using Hono framework and OpenAPI integration.
 
-# Development Workflow & Best Practices
+# Backend API Structure
 
-## Getting Started
-1. **Frontend Development**: `cd ui && pnpm install && pnpm dev`
-2. **Backend Development**: `cd api && pnpm install && pnpm dev`
-3. **Full Stack**: Run both commands in separate terminals
+The API is built with Cloudflare Workers using Hono framework and OpenAPI integration.
 
-## Code Style & Standards
-- **Package Manager**: Use `pnpm` exclusively
-- **TypeScript**: Strict mode enabled, use proper typing
-- **Components**: Use shadcn/ui components from `ui/components/ui/`
-- **Styling**: Tailwind CSS classes, avoid custom CSS when possible
-- **Validation**: Use Zod schemas for API validation
+## Key Files
+- **Entry Point**: [index.ts](mdc:api/src/index.ts) - Main worker entry point
+- **Types**: [types.ts](mdc:api/src/types.ts) - Shared TypeScript types
+- **Configuration**: [wrangler.jsonc](mdc:api/wrangler.jsonc) - Cloudflare Workers config
 
-## Map Development Guidelines
-- **Leaflet Integration**: Use React Leaflet components
-- **Coordinates**: Bengaluru center is `[12.9716, 77.5946]`
-- **Tile Layers**: Configured in `MAP_LAYERS` object in [map-screen.tsx](mdc:ui/components/map-screen.tsx)
-- **Icons**: Fix Leaflet default icons as shown in map component
+## API Endpoints
 
-## API Development Guidelines
-- **Endpoints**: Create new endpoints in [api/src/endpoints/](mdc:api/src/endpoints)
-- **OpenAPI**: Use Chanfana decorators for API documentation
-- **Validation**: Define Zod schemas for request/response validation
-- **Error Handling**: Use proper HTTP status codes
+## Technology Stack
+- **Runtime**: Cloudflare Workers
+- **Framework**: Hono for HTTP handling
+- **OpenAPI**: Chanfana for API documentation and validation
+- **Validation**: Zod schemas for type safety
+- **Deployment**: Wrangler CLI
 
-## File Organization
-- **Components**: Place reusable UI components in `ui/components/`
-- **Hooks**: Custom React hooks go in `ui/hooks/`
-- **Utils**: Utility functions in `ui/lib/`
-- **Types**: Shared types in respective `types.ts` files
+## Development
+- **Dev Server**: `pnpm dev` - Starts local development server
+- **Deploy**: `pnpm deploy` - Deploys to Cloudflare Workers
+- **Type Generation**: `pnpm cf-typegen` - Generates Cloudflare types
+- **Use cache as much as possible** - In get requests always prefer caching, when updating, update the cache
 
-## Docker Considerations
-- **Architecture**: Build images for AMD64 architecture
-- **Multi-stage**: Use multi-stage builds for optimization
-
-## Deployment
-- **Frontend**: Next.js deployment (Vercel recommended)
-- **Backend**: Cloudflare Workers via `wrangler deploy`
-- **Environment**: Configure environment variables in respective platforms
+## Configuration Files
+- [package.json](mdc:api/package.json) - Dependencies and scripts
+- [tsconfig.json](mdc:api/tsconfig.json) - TypeScript configuration
+- [worker-configuration.d.ts](mdc:api/worker-configuration.d.ts) - Generated Cloudflare types
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/warlockdn)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/warlockdn)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [warlockdn/open-urban-eyesore](https://github.com/warlockdn/open-urban-eyesore) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
