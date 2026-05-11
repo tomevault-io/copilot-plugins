@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "tankpkg",
   "homepage": "https://github.com/tankpkg/tank",
-  "skills": [
-    {
-      "name": "tank-node-express",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
