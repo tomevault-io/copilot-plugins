@@ -1,0 +1,9 @@
+{
+  "name": "cheswickdev--claude-opus-4-7-prompt-optimizer",
+  "displayName": "claude-opus-4.7-prompt-optimizer",
+  "description": "A meta-prompting system that transforms raw prompts into production-ready, XML-structured prompts optimized for Claude Opus 4.7. 11 codified rules, 10-component framework, complexity-based routing, ha",
+  "version": "1.0.0",
+  "author": "CheswickDEV",
+  "homepage": "https://github.com/CheswickDEV/claude-opus-4.7-prompt-optimizer",
+  "skills": []
+}
