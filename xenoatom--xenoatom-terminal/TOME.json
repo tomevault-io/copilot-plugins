@@ -4,7 +4,7 @@
   "repo": "XenoAtom.Terminal",
   "description": "A modern .NET replacement for System.Console",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/XenoAtom/XenoAtom.Terminal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T03:41:34Z"
+  "distributed_at": "2026-05-11T19:24:49Z"
 }
