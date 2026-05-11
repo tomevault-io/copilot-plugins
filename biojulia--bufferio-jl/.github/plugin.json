@@ -1,0 +1,9 @@
+{
+  "name": "biojulia--bufferio-jl",
+  "displayName": "BufferIO.jl",
+  "description": "The buffer is the interface",
+  "version": "1.0.0",
+  "author": "BioJulia",
+  "homepage": "https://github.com/BioJulia/BufferIO.jl",
+  "skills": []
+}
