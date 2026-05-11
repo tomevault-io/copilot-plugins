@@ -4,7 +4,7 @@
   "repo": "clawcage",
   "description": "Air-gapped Linux VM on your Mac for running Open Claw and other AI agents",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hackyguru/clawcage",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T03:37:09Z"
+  "distributed_at": "2026-05-11T05:36:15Z"
 }
