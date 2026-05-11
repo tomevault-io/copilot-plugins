@@ -1,0 +1,44 @@
+{
+  "name": "pubcast",
+  "owner": "wordflowlab",
+  "repo": "pubcast",
+  "description": "\u591a\u5e73\u53f0\u5185\u5bb9\u81ea\u52a8\u53d1\u5e03\u5de5\u5177\uff0c\u5185\u7f6e\u6d4f\u89c8\u5668\u5b9e\u73b0\u4e00\u952e\u5206\u53d1",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wordflowlab/pubcast",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T09:33:09Z"
+}
