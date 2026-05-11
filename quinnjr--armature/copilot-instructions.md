@@ -1,204 +1,117 @@
-## api-design
+## auto-commit
 
-> REST API design guidelines for Armature applications
+> Commit message format and auto-commit policy
 
 
-# API Design
+# Commit Message Convention
 
-Guidelines for designing RESTful APIs with Armature.
+**ALWAYS** use the `type(scope): description` format for ALL commits.
 
-## URL Structure
+## Format (Required)
 
 ```
-GET    /api/v1/users          # List users
-POST   /api/v1/users          # Create user
-GET    /api/v1/users/:id      # Get user
-PUT    /api/v1/users/:id      # Replace user
-PATCH  /api/v1/users/:id      # Update user
-DELETE /api/v1/users/:id      # Delete user
+<type>(<scope>): <description>
 
-GET    /api/v1/users/:id/posts  # Nested resources
+[optional body]
+
+[optional footer]
 ```
 
-## Controller Structure
+### Type (Required)
 
-```rust
-#[controller("/api/v1/users")]
-pub struct UsersController {
-    user_service: Arc<UserService>,
-}
+| Type | Description |
+|------|-------------|
+| `feat` | New feature |
+| `fix` | Bug fix |
+| `docs` | Documentation changes |
+| `refactor` | Code refactoring |
+| `test` | Adding or updating tests |
+| `chore` | Maintenance tasks, dependencies |
+| `style` | Code style/formatting changes |
+| `perf` | Performance improvements |
+| `ci` | CI/CD configuration |
+| `build` | Build system changes |
 
-#[get("")]
-async fn list(&self, query: Query<ListParams>) -> Result<Json<Page<UserResponse>>> {
-    let users = self.user_service.list(&query).await?;
-    Ok(Json(users.into()))
-}
+### Scope (Required)
 
-#[get("/:id")]
-async fn get(&self, id: Path<Uuid>) -> Result<Json<UserResponse>> {
-    let user = self.user_service.get(*id).await?;
-    Ok(Json(user.into()))
-}
+The scope indicates which part of the codebase is affected:
 
-#[post("")]
-async fn create(&self, body: Json<CreateUserRequest>) -> Result<Created<Json<UserResponse>>> {
-    let user = self.user_service.create(body.into_inner()).await?;
-    Ok(Created(Json(user.into())))
-}
+| Scope | When to use |
+|-------|-------------|
+| `core` | armature-core crate |
+| `auth` | armature-auth, armature-oauth2, armature-saml |
+| `cache` | armature-cache, armature-redis |
+| `queue` | armature-queue |
+| `di` | armature-di |
+| `macros` | armature-proc-macro |
+| `cli` | armature-cli |
+| `ws` | armature-websocket |
+| `sse` | armature-sse |
+| `db` | armature-diesel, armature-seaorm |
+| `aws` | armature-aws |
+| `gcp` | armature-gcp |
+| `azure` | armature-azure |
+| `docs` | Documentation files |
+| `examples` | Example code |
+| `tests` | Test files |
+| `deps` | Dependency updates |
+
+### Examples
+
+```bash
+# Features
+git commit -m "feat(auth): add OAuth2 provider support"
+git commit -m "feat(queue): implement job retry with exponential backoff"
+git commit -m "feat(ws): add room-based message broadcasting"
+
+# Bug fixes
+git commit -m "fix(cache): resolve Redis connection timeout"
+git commit -m "fix(core): handle empty request body correctly"
+
+# Documentation
+git commit -m "docs(readme): update installation instructions"
+git commit -m "docs(auth): add JWT configuration examples"
+
+# Refactoring
+git commit -m "refactor(core): simplify error handling"
+git commit -m "refactor(macros): reduce code duplication in derive macros"
+
+# Tests
+git commit -m "test(auth): add integration tests for OAuth2 flow"
+
+# Chores
+git commit -m "chore(deps): update tokio to 1.35"
+
+# Breaking changes (add ! after scope)
+git commit -m "feat(api)!: change response format to camelCase"
 ```
 
-## Request DTOs
+## Auto-Commit Policy
 
-```rust
-#[derive(Deserialize, Validate)]
-pub struct CreateUserRequest {
-    #[validate(length(min = 1, max = 100))]
-    pub name: String,
+Commit after completing tasks that modify files:
+- ✅ Implementing a feature
+- ✅ Fixing a bug
+- ✅ Refactoring code
+- ✅ Adding/updating documentation
+- ✅ Creating new files
+- ✅ Modifying configuration
 
-    #[validate(email)]
-    pub email: String,
+Do NOT commit when:
+- ❌ Changes are incomplete or broken
+- ❌ Tests are failing
+- ❌ User explicitly asks not to commit
+- ❌ Only reading files (no modifications)
 
-    #[validate(length(min = 8))]
-    pub password: String,
-}
+## Multi-File Commits
 
-#[derive(Deserialize, Validate)]
-pub struct UpdateUserRequest {
-    #[validate(length(min = 1, max = 100))]
-    pub name: Option<String>,
+When changes span multiple crates, use the most significant scope or `core`:
 
-    #[validate(email)]
-    pub email: Option<String>,
-}
-```
+```bash
+# Changes to multiple crates for a single feature
+git commit -m "feat(auth): add session management with Redis storage"
 
-## Response DTOs
-
-```rust
-#[derive(Serialize)]
-pub struct UserResponse {
-    pub id: Uuid,
-    pub name: String,
-    pub email: String,
-    pub created_at: DateTime<Utc>,
-}
-
-// Never expose internal models directly
-impl From<User> for UserResponse {
-    fn from(user: User) -> Self {
-        Self {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            created_at: user.created_at,
-        }
-    }
-}
-```
-
-## Pagination
-
-```rust
-#[derive(Deserialize)]
-pub struct ListParams {
-    #[serde(default = "default_page")]
-    pub page: u32,
-
-    #[serde(default = "default_per_page")]
-    pub per_page: u32,
-
-    pub sort: Option<String>,
-    pub order: Option<SortOrder>,
-}
-
-#[derive(Serialize)]
-pub struct Page<T> {
-    pub data: Vec<T>,
-    pub meta: PageMeta,
-}
-
-#[derive(Serialize)]
-pub struct PageMeta {
-    pub page: u32,
-    pub per_page: u32,
-    pub total: u64,
-    pub total_pages: u32,
-}
-```
-
-## Error Responses
-
-```rust
-#[derive(Serialize)]
-pub struct ErrorResponse {
-    pub code: String,
-    pub message: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub details: Option<Vec<FieldError>>,
-}
-
-#[derive(Serialize)]
-pub struct FieldError {
-    pub field: String,
-    pub message: String,
-}
-
-// Map errors to HTTP status codes
-impl IntoResponse for AppError {
-    fn into_response(self) -> Response {
-        let (status, response) = match self {
-            AppError::NotFound(msg) => (
-                StatusCode::NOT_FOUND,
-                ErrorResponse { code: "NOT_FOUND".into(), message: msg, details: None }
-            ),
-            AppError::Validation(errors) => (
-                StatusCode::BAD_REQUEST,
-                ErrorResponse {
-                    code: "VALIDATION_ERROR".into(),
-                    message: "Invalid input".into(),
-                    details: Some(errors)
-                }
-            ),
-            // ...
-        };
-        (status, Json(response)).into_response()
-    }
-}
-```
-
-## HTTP Status Codes
-
-| Code | Usage |
-|------|-------|
-| 200 | Successful GET, PUT, PATCH |
-| 201 | Successful POST (resource created) |
-| 204 | Successful DELETE (no content) |
-| 400 | Validation error |
-| 401 | Authentication required |
-| 403 | Forbidden (authenticated but not authorized) |
-| 404 | Resource not found |
-| 409 | Conflict (duplicate resource) |
-| 422 | Unprocessable entity |
-| 500 | Internal server error |
-
-## OpenAPI Documentation
-
-```rust
-#[utoipa::path(
-    get,
-    path = "/api/v1/users/{id}",
-    params(
-        ("id" = Uuid, Path, description = "User ID")
-    ),
-    responses(
-        (status = 200, description = "User found", body = UserResponse),
-        (status = 404, description = "User not found", body = ErrorResponse)
-    ),
-    tag = "users"
-)]
-async fn get_user(id: Path<Uuid>) -> Result<Json<UserResponse>> {
-    // ...
-}
+# Dependency updates across workspace
+git commit -m "chore(deps): update workspace dependencies"
 ```
 
 ---
