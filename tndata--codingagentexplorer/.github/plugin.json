@@ -1,0 +1,9 @@
+{
+  "name": "tndata--codingagentexplorer",
+  "displayName": "CodingAgentExplorer",
+  "description": "Real-time .NET proxy and dashboard for inspecting AI coding agent API calls (currently supports Claude Code)",
+  "version": "1.0.0",
+  "author": "tndata",
+  "homepage": "https://github.com/tndata/CodingAgentExplorer",
+  "skills": []
+}
