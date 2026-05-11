@@ -1,0 +1,9 @@
+{
+  "name": "sengac--fspec",
+  "displayName": "fspec",
+  "description": "FSPEC: The Spec-Driven, Multi-Agent Coding Factory. It is infrastructure for the \"Dark Factory\"\u2014the emerging model of fully autonomous software development where AI agents handle all implementation wh",
+  "version": "1.0.0",
+  "author": "sengac",
+  "homepage": "https://github.com/sengac/fspec",
+  "skills": []
+}
