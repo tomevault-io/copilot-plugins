@@ -1,0 +1,22 @@
+## coding
+
+> avoid unnecessary memory allocations; prefer memory pooling and reuse buffers where possible.
+
+
+---
+alwaysApply: true
+---
+avoid unnecessary memory allocations; prefer memory pooling and reuse buffers where possible.
+do not use exceptions for control flow or error handling in C++ code; return error codes instead.
+follow project directory and layout conventions strictly—respect boundaries between modules and layers.
+do not mock dependencies outside of test code.
+prefer vectorized (SIMD-friendly) algorithms and minimize data copies for performance.
+Dont rush, get it right.
+Dont simulate a response, build the real version.
+TODOS and stubs are not allowed unless asked. just build the real thing.
+we are not worried about token use, just get things correct.
+performance requires correctness
+
+---
+> Source: [Ugbot/Sabot](https://github.com/Ugbot/Sabot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
