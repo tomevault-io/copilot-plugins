@@ -1,0 +1,9 @@
+{
+  "name": "a2aproject--a2a-js",
+  "displayName": "a2a-js",
+  "description": "Official JavaScript SDK for the Agent2Agent (A2A) Protocol",
+  "version": "1.0.0",
+  "author": "a2aproject",
+  "homepage": "https://github.com/a2aproject/a2a-js",
+  "skills": []
+}
