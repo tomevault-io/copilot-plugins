@@ -1,0 +1,9 @@
+{
+  "name": "agentrq--agentrq",
+  "displayName": "agentrq",
+  "description": "AgentRQ: Human-in-loop realtime conversational task manager for Agents.",
+  "version": "1.0.0",
+  "author": "agentrq",
+  "homepage": "https://github.com/agentrq/agentrq",
+  "skills": []
+}
