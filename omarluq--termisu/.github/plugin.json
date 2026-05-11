@@ -1,0 +1,9 @@
+{
+  "name": "omarluq--termisu",
+  "displayName": "termisu",
+  "description": "\ud83c\udf6e Minimalistic API for writing text-based user interfaces in pure Crystal",
+  "version": "1.0.0",
+  "author": "omarluq",
+  "homepage": "https://github.com/omarluq/termisu",
+  "skills": []
+}
