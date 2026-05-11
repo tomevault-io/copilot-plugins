@@ -1,0 +1,44 @@
+{
+  "name": "fox-in-the-box",
+  "owner": "fox-in-the-box-ai",
+  "repo": "fox-in-the-box",
+  "description": "Fox in the Box: One-click Hermes Install \u2014 self-hosted AI assistant platform",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fox-in-the-box-ai/fox-in-the-box",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T19:30:10Z"
+}
