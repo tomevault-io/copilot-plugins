@@ -7,11 +7,11 @@ The control layer for AI Agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [synatrahq/synatra](https://github.com/synatrahq/synatra).
+Original source: `CLAUDE.md` in [synatrahq/synatra](https://github.com/synatrahq/synatra).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
