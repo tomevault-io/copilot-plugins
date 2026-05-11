@@ -1,0 +1,9 @@
+{
+  "name": "aegra--aegra",
+  "displayName": "aegra",
+  "description": "Open source alternative to LangGraph Platform (now LangSmith Deployments) - Self-hosted AI agent backend with FastAPI and PostgreSQL. Zero vendor lock-in, full control over your agent infrastructure.",
+  "version": "1.0.0",
+  "author": "aegra",
+  "homepage": "https://github.com/aegra/aegra",
+  "skills": []
+}
