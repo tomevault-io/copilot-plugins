@@ -4,7 +4,7 @@
   "repo": "xgenie-askcode",
   "description": "AI-powered codebase Q&A - Ask questions about any Git repository in plain language",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lawzlo/xgenie-askcode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T09:30:40Z"
+  "distributed_at": "2026-05-11T16:40:29Z"
 }
