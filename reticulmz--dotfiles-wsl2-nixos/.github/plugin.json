@@ -1,0 +1,9 @@
+{
+  "name": "reticulmz--dotfiles-wsl2-nixos",
+  "displayName": "dotfiles-wsl2-nixos",
+  "description": "WSL2 NixOS dotfiles",
+  "version": "1.0.0",
+  "author": "Reticulmz",
+  "homepage": "https://github.com/Reticulmz/dotfiles-wsl2-nixos",
+  "skills": []
+}
