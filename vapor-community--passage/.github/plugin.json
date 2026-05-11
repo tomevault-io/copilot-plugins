@@ -1,0 +1,9 @@
+{
+  "name": "vapor-community--passage",
+  "displayName": "passage",
+  "description": "IdM framework for Vapor with JWT, multi-identifier authentication (email/phone/username), passwordless login, email/phone verification, password reset, OAuth, and account linking.",
+  "version": "1.0.0",
+  "author": "vapor-community",
+  "homepage": "https://github.com/vapor-community/passage",
+  "skills": []
+}
