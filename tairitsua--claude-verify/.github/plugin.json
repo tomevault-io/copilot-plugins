@@ -1,0 +1,9 @@
+{
+  "name": "tairitsua--claude-verify",
+  "displayName": "claude-verify",
+  "description": "Claude code \u771f\u4f2a\u9274\u522b\u5de5\u5177",
+  "version": "1.0.0",
+  "author": "Tairitsua",
+  "homepage": "https://github.com/Tairitsua/claude-verify",
+  "skills": []
+}
