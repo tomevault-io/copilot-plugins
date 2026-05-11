@@ -1,14 +1,14 @@
-## create-spec
+## create-tasks
 
-> Create a detailed spec for a new feature with technical specifications and task breakdown
+> Create a tasks list with sub-tasks to execute a feature based on its spec.
 
 
-# Create Spec
+# Create Tasks
 
-Create a detailed spec for a new feature with technical specifications and task breakdown
+Create a tasks list with sub-tasks to execute a feature based on its spec.
 
 Refer to the instructions located in this file:
-@.agent-os/instructions/core/create-spec.md
+@.agent-os/instructions/core/create-tasks.md
 
 ---
 > Source: [TheCardGoat/tcg-engines](https://github.com/TheCardGoat/tcg-engines) — distributed by [TomeVault](https://tomevault.io).
