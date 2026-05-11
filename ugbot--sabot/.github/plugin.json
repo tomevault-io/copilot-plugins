@@ -1,0 +1,9 @@
+{
+  "name": "ugbot--sabot",
+  "displayName": "Sabot",
+  "description": "An Arrow based batch data processing tool for python",
+  "version": "1.0.0",
+  "author": "Ugbot",
+  "homepage": "https://github.com/Ugbot/Sabot",
+  "skills": []
+}
