@@ -1,0 +1,278 @@
+## confab-web
+
+> Backend API is documented in `backend/API.md`. **Keep this file up to date** when modifying API endpoints, request/response schemas, or authentication.
+
+# Confab Development Notes
+
+## API Documentation
+
+Backend API is documented in `backend/API.md`. **Keep this file up to date** when modifying API endpoints, request/response schemas, or authentication.
+
+## Documentation Maintenance
+
+When changing code, update the corresponding package/module README. Key things to keep current: file lists, exported API descriptions, invariants, dependency lists, and extension checklists. If a change spans multiple packages, also check the index READMEs (`backend/internal/README.md`, `frontend/src/README.md`) and `CLAUDE.md`. Documentation that contradicts the code is worse than no documentation.
+
+## Development Process
+
+**Follow this workflow for all implementation tasks:**
+
+### 1. Plan First
+
+Before writing any code, create a clear plan:
+- Use the TodoWrite tool to break down the task into concrete implementation steps
+- Consider edge cases, error handling, and potential impacts on existing code
+- For Linear tickets, update the issue with the plan before starting implementation
+
+### 2. Avoid Code Duplication (DRY)
+
+**Before implementing any logic, check if similar logic already exists elsewhere.**
+
+#### Common Duplication Patterns to Avoid
+
+1. **Query logic duplicated in SQL and Go** - If you have staleness/validity checks, they should exist in ONE place. Either SQL calls a shared function, or Go is the single source of truth.
+
+2. **Utility functions copied between packages** - Functions like `extractAgentID`, `mergeChunks`, `parseChunkKey` should live in ONE shared location and be imported everywhere.
+
+3. **Business logic in multiple code paths** - If both "on-demand" and "background worker" paths do the same thing, extract the shared logic to a common function.
+
+#### Where Shared Code Lives
+
+- **Chunk operations** (download, merge, parse keys): `internal/storage/chunks.go`
+- **Analytics computation**: `internal/analytics/` package
+- **Card staleness validation**: `internal/analytics/cards.go` (`IsValid`, `AllValid` methods)
+- **Smart recap generation**: `internal/analytics/smart_recap_generator.go`
+
+#### Before Writing New Code
+
+1. Search for existing implementations: `grep -r "functionName" backend/`
+2. Check if a similar pattern exists in related code paths
+3. If you find duplication, refactor to a shared location FIRST
+4. Add comments noting where the shared logic lives (e.g., "This mirrors AllValid() in cards.go")
+
+### 3. Test Coverage
+
+Every change should include appropriate tests. **Insufficient test coverage is not acceptable.**
+
+#### What to Test
+
+1. **Unit tests** for pure logic and helper functions:
+   - Data transformation functions
+   - Validation logic
+   - Parsing/formatting utilities
+   - Business rule calculations
+
+2. **Integration tests** for database operations:
+   - SQL queries (especially complex ones with JOINs, CTEs, aggregations)
+   - CRUD operations and edge cases
+   - Constraint violations and error handling
+   - Use `testutil.SetupTestEnvironment(t)` for containerized Postgres/MinIO
+
+3. **API tests** for HTTP handlers:
+   - Success paths with valid input
+   - Error responses for invalid input
+   - Authentication/authorization checks
+   - Edge cases (empty results, pagination bounds)
+
+#### Test Coverage Checklist
+
+Before presenting work, verify you have tests for:
+
+- [ ] **Happy path**: Does the feature work correctly with valid input?
+- [ ] **Edge cases**: Empty inputs, boundary values, nil/null handling
+- [ ] **Error cases**: Invalid input, missing data, permission denied
+- [ ] **SQL queries**: If you wrote SQL, test it with real data (integration test)
+- [ ] **Configuration**: If you added config options, test parsing and validation
+
+#### Test Patterns in This Codebase
+
+```go
+// Unit test (runs with -short)
+func TestHelperFunction(t *testing.T) {
+    // Test pure logic
+}
+
+// Integration test (requires Docker, skipped with -short)
+func TestDatabaseOperation(t *testing.T) {
+    if testing.Short() {
+        t.Skip("skipping integration test")
+    }
+    env := testutil.SetupTestEnvironment(t)
+    env.CleanDB(t)
+    // Test with real database
+}
+```
+
+#### When to Ask About Test Coverage
+
+If implementing a feature without tests, pause and ask:
+- "What test cases would give us confidence this works?"
+- "Are there edge cases I should test?"
+- "Should this have integration tests for the SQL queries?"
+
+### 4. Self-Review Before Presenting
+
+**Before presenting any result to the human, perform a thorough code review:**
+
+1. **Re-read all modified files directly** - Use the Read tool to review each changed file. Do not rely solely on memory or tests passing. Actually read the code again with fresh eyes.
+
+2. **Review critically, as if reviewing someone else's work:**
+   - Check for bugs, edge cases, and error handling gaps
+   - Look for logic errors and off-by-one mistakes
+   - Verify interactions between modified components work correctly
+   - Check that conditional logic handles all cases (especially error/null states)
+
+3. **Verify code quality:**
+   - Follows existing patterns and conventions in the codebase
+   - No debug code, TODOs, or incomplete implementations remain
+   - No security vulnerabilities introduced
+
+4. **Run all relevant tests and fix any failures**
+
+5. **Fix any issues found during review before showing the result**
+
+This self-review step is mandatory. Tests passing is necessary but not sufficient - bugs can exist in untested code paths. Direct code review catches issues that tests miss.
+
+## Running Tests
+
+**IMPORTANT:** Always run full backend tests (including integration tests) as the final verification step before presenting work. The `-short` flag is only for quick iteration during development - it does NOT provide adequate test coverage.
+
+```bash
+# Backend - FULL TESTS (required for final verification)
+# Requires Orbstack/Docker for integration tests
+cd backend && DOCKER_HOST=unix:///Users/santaclaude/.orbstack/run/docker.sock go test ./...
+
+# Backend - UNIT TESTS ONLY (quick iteration during development ONLY)
+# NOT sufficient as final verification - use full tests before presenting work
+cd backend && go test -short ./...
+
+# Frontend
+cd frontend && npm run build && npm run lint && npm test
+```
+
+**Important:** Always run frontend commands from the `frontend/` directory using `npm run`.
+Do NOT run `tsc`, `eslint`, or `vitest` directly — they are local binaries
+resolved via `node_modules/.bin` which `npm run` adds to PATH automatically.
+If commands fail with "command not found", run `npm install` first.
+
+### Sharded Backend Tests (Faster)
+
+Use `scripts/list-test-packages.sh` to discover all testable packages, then run one parallel Bash tool call per package:
+
+```bash
+# List all packages with tests (one per line):
+cd backend && ./scripts/list-test-packages.sh
+
+# Run each package as a separate parallel Bash call:
+DOCKER_HOST=unix:///Users/santaclaude/.orbstack/run/docker.sock go test <package>
+```
+
+**How to shard:** Run `./scripts/list-test-packages.sh`, then launch one parallel Bash tool call per package with `DOCKER_HOST=... go test <package>`. This is the same discovery CI uses.
+
+**Sharding rule:** Always shard by package, never by test name (`-run`/`-skip`).
+When a package is too slow, split it into sub-packages rather than adding name-based filters.
+CI discovers testable packages dynamically — no config changes needed when adding packages.
+
+Note: CLI is in a separate repo: https://github.com/ConfabulousDev/confab
+
+## Frontend Development
+
+### Theme Support
+
+The frontend supports light and dark themes. When adding CSS, use theme-aware CSS variables from `frontend/src/styles/variables.css`:
+
+- `--color-bg-primary`, `--color-bg-secondary` for backgrounds
+- `--color-text-primary`, `--color-text-secondary`, `--color-text-muted` for text
+- `--color-accent`, `--color-accent-hover` for accent colors
+- `--color-border` for borders
+
+Avoid hardcoded colors. Test changes in both themes.
+
+### Build and Test
+
+Always run build, lint, and test after every change:
+
+```bash
+cd frontend && npm run build && npm run lint && npm test
+```
+
+- **Build**: TypeScript compilation + Vite build. Catches type errors.
+- **Lint**: ESLint with strict rules. Must have 0 errors (warnings are OK).
+- **Test**: Vitest unit tests. All tests must pass.
+
+### Storybook
+
+When adding or modifying frontend components, always add or update Storybook stories:
+
+```bash
+cd frontend && npm run build-storybook  # Verify stories build
+cd frontend && npm run storybook        # Run locally to preview
+```
+
+Stories live alongside components (e.g., `Component.stories.tsx` next to `Component.tsx`).
+
+**All new or modified frontend components must have corresponding Storybook stories.** This ensures visual regression coverage is maintained alongside unit tests. When reviewing PRs, verify that stories exist for any new UI components or significant visual changes.
+
+## Adding Analytics Cards
+
+When adding new analytics cards to the session summary panel, **use the `/add-session-card` skill**. This provides a step-by-step playbook covering:
+
+- Database migrations (card-per-table architecture)
+- Backend collector, types, store operations, and compute logic
+- Frontend Zod schemas, components, and registry
+- Storybook stories and testing requirements
+
+## Updating Model Pricing
+
+When adding a new Anthropic model, update the pricing tables in **both** places (they must stay in sync):
+
+- **Backend**: `backend/internal/analytics/pricing.go` — `modelPricingTable`
+- **Frontend**: `frontend/src/utils/tokenStats.ts` — `MODEL_PRICING`
+
+Look up current prices on the Anthropic pricing page.
+
+## Finding Dead Code
+
+### Frontend (TypeScript)
+
+Use **knip** to find unused files, exports, and dependencies:
+
+```bash
+cd frontend && npm run knip
+```
+
+Knip categories:
+- **Unused files**: Truly dead code - delete these
+- **Unused exports**: Often intentional (barrel files, public API) - use judgment
+- **Unused dependencies**: Verify before removing (@types/* may be implicit)
+
+### Backend (Go)
+
+Two complementary tools for detecting unused code in the `backend/` directory:
+
+### staticcheck
+
+Catches unused unexported code (functions, types, vars, constants). Conservative with few false positives.
+
+```bash
+go install honnef.co/go/tools/cmd/staticcheck@latest
+staticcheck ./...
+```
+
+### deadcode -test
+
+Whole-program reachability analysis from `main()` and test entry points. Catches dead call chains.
+
+```bash
+go install golang.org/x/tools/cmd/deadcode@latest
+deadcode -test ./...
+```
+
+Note: Neither tool catches unused *exported* identifiers, since those could theoretically be used by external packages.
+
+## Cutting a Release
+
+Use the `/cut-release` skill. See `.claude/skills/cut-release/SKILL.md` for the full process.
+
+---
+> Source: [ConfabulousDev/confab-web](https://github.com/ConfabulousDev/confab-web) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
