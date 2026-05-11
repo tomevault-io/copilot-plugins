@@ -1,0 +1,9 @@
+{
+  "name": "whiteboardmonk--agcluster-container",
+  "displayName": "agcluster-container",
+  "description": "Self-hosted platform for Claude Agent SDK agents. Container isolation, real-time execution tracking, and Web UI dashboard",
+  "version": "1.0.0",
+  "author": "whiteboardmonk",
+  "homepage": "https://github.com/whiteboardmonk/agcluster-container",
+  "skills": []
+}
