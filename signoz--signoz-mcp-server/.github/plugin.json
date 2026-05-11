@@ -1,0 +1,9 @@
+{
+  "name": "signoz--signoz-mcp-server",
+  "displayName": "signoz-mcp-server",
+  "description": "MCP Server for SigNoz",
+  "version": "1.0.0",
+  "author": "SigNoz",
+  "homepage": "https://github.com/SigNoz/signoz-mcp-server",
+  "skills": []
+}
