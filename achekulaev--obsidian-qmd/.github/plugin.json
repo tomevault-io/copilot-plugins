@@ -1,0 +1,9 @@
+{
+  "name": "achekulaev--obsidian-qmd",
+  "displayName": "obsidian-qmd",
+  "description": "Local machine Semantic Search plugin for Obsidian based on QMD",
+  "version": "1.0.0",
+  "author": "achekulaev",
+  "homepage": "https://github.com/achekulaev/obsidian-qmd",
+  "skills": []
+}
