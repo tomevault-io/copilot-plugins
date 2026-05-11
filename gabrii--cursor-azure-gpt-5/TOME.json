@@ -4,7 +4,7 @@
   "repo": "Cursor-Azure-GPT-5",
   "description": "A service that allows Cursor to use Azure GPT-5 deployments.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gabrii/Cursor-Azure-GPT-5",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T02:36:06Z"
+  "distributed_at": "2026-05-11T19:08:39Z"
 }
