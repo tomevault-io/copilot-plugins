@@ -1,0 +1,9 @@
+{
+  "name": "builderz-labs--solana-claude-md",
+  "displayName": "solana-claude-md",
+  "description": "An open source CLAUDE.md configuration file for AI coding assistants building Solana programs.",
+  "version": "1.0.0",
+  "author": "builderz-labs",
+  "homepage": "https://github.com/builderz-labs/solana-claude-md",
+  "skills": []
+}
