@@ -1,0 +1,9 @@
+{
+  "name": "clement-tourriere--dbcrust",
+  "displayName": "dbcrust",
+  "description": "The modern database CLI that speaks your language \u2014 PostgreSQL, MySQL, SQLite with zero compromises.",
+  "version": "1.0.0",
+  "author": "clement-tourriere",
+  "homepage": "https://github.com/clement-tourriere/dbcrust",
+  "skills": []
+}
