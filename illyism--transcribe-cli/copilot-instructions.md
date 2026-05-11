@@ -1,69 +1,76 @@
-## whisper-api
+## youtube-support
 
-> OpenAI Whisper API integration patterns and supported formats
+> See [src/youtube.ts](mdc:src/youtube.ts):
 
 
-# Whisper API Integration
+# YouTube Integration
 
-## Supported Formats
+## URL Detection
 
-OpenAI Whisper API accepts:
-- `flac`, `m4a`, `mp3`, `mp4`, `mpeg`, `mpga`, `oga`, `ogg`, `wav`, `webm`
-
-**Important**: `opus` files are NOT supported directly. Use `ogg` container with Opus codec instead:
-```bash
-ffmpeg -i input.mp3 -acodec libopus -f ogg output.ogg
-```
-
-## API Call Pattern
-
-See [src/transcribe.ts](mdc:src/transcribe.ts):
+See [src/youtube.ts](mdc:src/youtube.ts):
 
 ```typescript
-const { default: OpenAI } = await import('openai')
-const openai = new OpenAI({ apiKey })
+function isYouTubeUrl(input: string): boolean {
+  const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|shorts\/)|youtu\.be\/)[\w-]+/
+  return youtubeRegex.test(input)
+}
+```
 
-const fs = await import('fs')
-const audioFile = fs.createReadStream(audioPath)
+Supports:
+- `https://youtube.com/watch?v=VIDEO_ID`
+- `https://www.youtube.com/watch?v=VIDEO_ID`
+- `https://youtu.be/VIDEO_ID`
+- `https://youtube.com/shorts/VIDEO_ID`
+- Without `https://` prefix
 
-const transcription = await openai.audio.transcriptions.create({
-  file: audioFile,
-  model: 'whisper-1',
-  response_format: 'verbose_json',
-  timestamp_granularities: ['segment']  // Required for SRT timestamps
+## Download Strategy
+
+Always download **audio-only** for faster processing:
+
+```typescript
+const audioStream = ytdl(url, {
+  quality: 'highestaudio',
+  filter: 'audioonly'
 })
 ```
 
-## Response Format
+This is much faster than downloading entire video (2-4GB → ~20-40MB).
 
-Always use `verbose_json` with `segment` granularity to get:
-- Segment-level timestamps (required for SRT)
-- Language detection
-- Full transcription text
-- Individual segment texts
+## Temporary File Management
 
-## Cost
+YouTube downloads go to system temp directory:
+```typescript
+const outputPath = join(tmpdir(), `${title}_${Date.now()}.mp3`)
+```
 
-- $0.006 per minute of audio
-- Charged based on ORIGINAL audio duration (not sped-up duration)
-- No additional charges for multiple calls or retries
+**Must be cleaned up** after transcription:
+```typescript
+finally {
+  if (downloadedFile && existsSync(downloadedFile)) {
+    unlinkSync(downloadedFile)
+    console.log('🧹 Cleaned up downloaded file')
+  }
+}
+```
 
-## Error Handling
+## File Naming
 
-Common errors:
-- **400 Invalid file format**: Check file extension matches actual format
-- **502 Bad Gateway**: OpenAI API temporary issue, retry after delay
-- **401 Unauthorized**: Invalid API key
-- **413 Request Entity Too Large**: File too large (max ~25MB recommended)
+YouTube video titles are sanitized:
+```typescript
+const title = info.videoDetails.title
+  .replace(/[^\w\s-]/g, '')  // Remove special chars
+  .replace(/\s+/g, '_')       // Replace spaces with underscores
+```
 
-## File Size Optimization
+## User Experience
 
-To stay under 25MB and speed up uploads:
-1. Extract audio from video (removes video track)
-2. Speed up by 1.2x (reduces duration by 17%)
-3. Or use Opus compression at ~64kbps
-
-See [src/optimize.ts](mdc:src/optimize.ts) for implementation.
+Show progress during YouTube download:
+```
+🎥 Fetching YouTube video info...
+📹 Downloading: Video Title Here
+⏱️  Duration: 21 minutes
+✅ Download complete!
+```
 
 ---
 > Source: [Illyism/transcribe-cli](https://github.com/Illyism/transcribe-cli) — distributed by [TomeVault](https://tomevault.io).
