@@ -1,0 +1,9 @@
+{
+  "name": "clipperhouse--go-allocations-vsix",
+  "displayName": "go-allocations-vsix",
+  "description": "A VS Code extension for easily discovering allocations in Go",
+  "version": "1.0.0",
+  "author": "clipperhouse",
+  "homepage": "https://github.com/clipperhouse/go-allocations-vsix",
+  "skills": []
+}
