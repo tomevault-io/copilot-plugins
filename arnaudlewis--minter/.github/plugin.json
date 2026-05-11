@@ -1,0 +1,9 @@
+{
+  "name": "arnaudlewis--minter",
+  "displayName": "minter",
+  "description": "A CLI tool for validating structured specification files. Parses a custom .spec DSL that defines behavioral contracts (given/when/then), enforces semantic rules, resolves   dependency graphs across sp",
+  "version": "1.0.0",
+  "author": "arnaudlewis",
+  "homepage": "https://github.com/arnaudlewis/minter",
+  "skills": []
+}
