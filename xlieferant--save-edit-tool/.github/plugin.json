@@ -1,0 +1,9 @@
+{
+  "name": "xlieferant--save-edit-tool",
+  "displayName": "Save-Edit-Tool",
+  "description": "Modern savegame editor for Euro Truck Simulator 2. Read, edit and save game data. | Moderner Savegame-Editor f\u00fcr ETS2 mit MSI-Installer und Auto-Updater.",
+  "version": "1.0.0",
+  "author": "xLieferant",
+  "homepage": "https://github.com/xLieferant/Save-Edit-Tool",
+  "skills": []
+}
