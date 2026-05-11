@@ -1,0 +1,44 @@
+{
+  "name": "mile",
+  "owner": "unco999",
+  "repo": "mile",
+  "description": "mile engine   rust+wgpu \u4e00\u4e2a\u91cd\u5ea6\u4f7f\u7528GPU\u5e76\u884c\u8ba1\u7b97\u7684\u5f15\u64ce",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/unco999/mile",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T12:36:47Z"
+}
