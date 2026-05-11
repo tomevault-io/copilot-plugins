@@ -1,120 +1,96 @@
-## hacs-topics
+## index
 
-> GitHub repository topics are required for HACS (Home Assistant Community Store) validation. These topics help users discover the integration and allow HACS to properly categorize and validate the custom component.
+> This directory contains project-specific rules, patterns, and documentation for the Red Energy Home Assistant integration.
 
-# HACS Repository Topics Reference
 
-## Purpose
+# Red Energy Integration Rules & Documentation
 
-GitHub repository topics are required for HACS (Home Assistant Community Store) validation. These topics help users discover the integration and allow HACS to properly categorize and validate the custom component.
+This directory contains project-specific rules, patterns, and documentation for the Red Energy Home Assistant integration.
 
-**When this matters:**
-- Initial HACS submission
-- HACS validation workflow execution
-- Repository discoverability in GitHub search
-- HACS integration categorization
+## Contents
 
-## Required Topics
+### 📋 API Documentation
 
-The following topics must be present on the GitHub repository for HACS validation to pass:
+- **[red-energy-api-structure.md](./red-energy-api-structure.mdc)** - Complete API response structure reference
+  - Property/Account response format
+  - Consumer/Service data structure
+  - Address field mappings
+  - Data transformation examples
+  - Validation rules
+  - Common issues and solutions
 
-### Core Topics (Mandatory)
-- `home-assistant`
-- `homeassistant` 
-- `custom-component`
-- `integration`
+### 🔐 Authentication
 
-### Domain-Specific Topics (Recommended)
-- `energy`
-- `australia`
-- `red-energy`
-- `python`
+- **[red-energy-authentication.md](./red-energy-authentication.mdc)** - OAuth2 PKCE authentication reference
+  - Authentication flow architecture
+  - Token lifecycle management
+  - Implementation details with code references
+  - Security considerations
+  - Error handling patterns
+  - Troubleshooting guide
 
-## HACS Validation Requirements
+### 🏪 HACS Configuration
 
-### hacs.json Valid Keys
-HACS strictly validates the `hacs.json` file. Only the following keys are allowed:
+- **[hacs-topics.md](./hacs-topics.mdc)** - HACS repository topics and validation reference
+  - Required and recommended topics
+  - HACS validation requirements
+  - hacs.json valid keys
+  - Topic verification and management
+  - Troubleshooting guide
 
-**Allowed:**
-- ✅ `name` (required) - Display name of the integration
-- ✅ `country` (optional) - Country codes where applicable (e.g., "AU")
-- ✅ `homeassistant` (optional) - Minimum Home Assistant version
+## Quick Reference
 
-**Not Allowed:**
-- ❌ `domains` - Must be defined as repository topics instead
-- ❌ `iot_class` - Must be defined in manifest.json instead
+### API Response Key Differences
 
-### Topics vs Manifest
-- **Topics** are set at the GitHub repository level
-- **Domains and IoT class** belong in `manifest.json`
-- HACS will fail validation if these are incorrectly placed in `hacs.json`
+The Red Energy API uses non-standard field names:
 
-## How to Verify Current Topics
+| Standard | Red Energy API | Notes |
+|----------|----------------|-------|
+| `services` | `consumers` | Array of utility services |
+| `type: "electricity"` | `utility: "E"` | Utility code mapping |
+| `consumer_number` | `consumerNumber` | camelCase format |
+| `active: true` | `status: "ON"` | String status |
+| `city` | `suburb` | Australian terminology |
 
-### Via GitHub Web Interface
-1. Navigate to https://github.com/craibo/ha-red-energy-au
-2. Check the "About" section on the right side
-3. Topics are displayed as clickable tags
+### Critical Implementation Details
 
-### Via GitHub CLI
-```bash
-gh repo view craibo/ha-red-energy-au --json repositoryTopics -q .repositoryTopics.nodes[].topic.name
+1. **Property IDs must be strings** for comparison
+2. **All accounts are auto-selected** during setup
+3. **Config v4 migration** auto-fixes old configs with wrong IDs
+4. **Service validation** handles both `consumers` and `services` arrays
+
+## Development Guidelines
+
+When working with this integration:
+
+1. **API Structure**: Always refer to `red-energy-api-structure.mdc` before modifying API response handling
+2. **Authentication**: Review `red-energy-authentication.mdc` when working with auth flows or token management
+3. **Testing**: Test with actual API responses, not mock data
+4. **Documentation**: Update version history when making structural changes
+5. **Validation**: Add new mappings/patterns to documentation when discovered
+6. **Code References**: Keep implementation references accurate when refactoring
+
+## File Organization
+
+```
+.cursor/rules/
+├── index.mdc                       # This file
+├── hacs-topics.mdc                 # HACS configuration reference
+├── red-energy-api-structure.mdc    # API structure reference
+└── red-energy-authentication.mdc   # OAuth2 authentication reference
 ```
 
-### Via GitHub API
-```bash
-curl -H "Accept: application/vnd.github.mercy-preview+json" \
-  https://api.github.com/repos/craibo/ha-red-energy-au/topics
-```
+## Related Files
 
-## How to Add or Update Topics
+- `custom_components/red_energy/api.py` - API client and authentication implementation
+- `custom_components/red_energy/config_flow.py` - Setup flow and credential validation
+- `custom_components/red_energy/data_validation.py` - Data validation and transformation
+- `custom_components/red_energy/config_migration.py` - Config version migrations
+- `tests/test_config_flow_basic.py` - Authentication and config flow tests
 
-### Method 1: GitHub Web Interface
-1. Navigate to repository main page
-2. Click the settings gear icon next to "About" section
-3. Add topics in the "Topics" field (separated by spaces or commas)
-4. Click "Save changes"
+## Last Updated
 
-### Method 2: GitHub CLI
-```bash
-gh repo edit craibo/ha-red-energy-au \
-  --add-topic "home-assistant" \
-  --add-topic "homeassistant" \
-  --add-topic "custom-component" \
-  --add-topic "integration" \
-  --add-topic "energy" \
-  --add-topic "australia" \
-  --add-topic "red-energy" \
-  --add-topic "python"
-```
-
-### Method 3: GitHub API
-```bash
-curl -X PUT \
-  -H "Authorization: token YOUR_TOKEN" \
-  -H "Accept: application/vnd.github.mercy-preview+json" \
-  https://api.github.com/repos/craibo/ha-red-energy-au/topics \
-  -d '{"names":["home-assistant","homeassistant","custom-component","integration","energy","australia","red-energy","python"]}'
-```
-
-## Expected Outcomes
-
-After correctly configuring topics:
-1. ✅ HACS topic validation passes
-2. ✅ HACS validation workflow completes successfully
-3. ✅ Integration becomes eligible for HACS inclusion
-4. ✅ Improved discoverability in GitHub search
-
-## Troubleshooting
-
-**Issue**: HACS validation fails with "Repository has no topics"
-**Solution**: Add at minimum the four core mandatory topics
-
-**Issue**: HACS validation fails with "Invalid keys in hacs.json"
-**Solution**: Remove `domains` and `iot_class` from hacs.json; ensure they're in manifest.json instead
-
-**Issue**: Topics added but validation still fails
-**Solution**: Wait a few minutes for GitHub API to update, then re-run HACS validation
+2025-10-06 - Added OAuth2 authentication reference documentation
 
 ---
 > Source: [craibo/ha-red-energy-au](https://github.com/craibo/ha-red-energy-au) — distributed by [TomeVault](https://tomevault.io).
