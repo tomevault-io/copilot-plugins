@@ -1,62 +1,26 @@
-## mcp-store
+## styling-guideline
 
-> MCP Server Interface UX Structure Plan
+> I want to fully copy the ui/ux style of <https://web3.career/>
 
 
-MCP Server Interface UX Structure Plan
+I want to fully copy the ui/ux style of <https://web3.career/>
 
-1.
+All the shadcn uis are inside /packages/ui/components/
 
-1. Navigation Flow
-   Login Dashboard Server Detail Back to Dashboard
-1. Login Page Structure
-   Container
-   Logo/Brand Area
-   Email Input Field
-   Password Input Field
-   Sign In Button
-1. Dashboard Page Structure
-   Page Layout
-   Header Bar
-   E
-   Logo + Title (left)
-   User Info Logout (right)
-   Main Content
-   Page Title
-   Page Subtitle
-   Server Cards Grid
-   Server Card (repeated)
-   Server Image/Icon
-   Server Name
-   Status Badge
-   Description Text
-   Category Tag
-   Download Count
-1. Server Detail Page Structure
-   Page Layout
-   Header Bar
-   Back Button Logo Title (left)
-   I
-   User Info Logout (right)
-   Main Content
-   Server Hero Section
-   Server Image
-   Server Name
-   Description
-   Metadata (Category | Downloads | Rating)
-   Details Section
-   E
-   Section Title
-   Detailed Description
-   Installation Section
-   Section Title
-   Installation Steps (repeated)
-   Step Number + Title
-   Step Description
-   Command Code Block
-   Copy Button
-1. Content Organization
-   Dashboard Cards Display:
+Donot use any color from yourself . instead use from /packages/styles/globals.css
+Except buttons all texts should be in white color
+
+Usage Rule
+When asked to use shaden components, use the MCP server.
+Planning Rule
+When asked to plan using anything related to shadcn:
+Use the MCP server during planning
+Apply components wherever components are applicable
+Use whole blocks where possible (e.g., login page, calendar)
+Implementation Rule
+When implementing:
+First call the demo tool to see how it is used
+Then implement it so that it is implemented correctly
 
 ---
 > Source: [sayandedotcom/tweakleaf](https://github.com/sayandedotcom/tweakleaf) — distributed by [TomeVault](https://tomevault.io).
