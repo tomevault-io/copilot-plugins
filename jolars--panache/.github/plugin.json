@@ -1,0 +1,9 @@
+{
+  "name": "jolars--panache",
+  "displayName": "panache",
+  "description": "Language server, formatter, and linter for Markdown, Quarto, and R Markdown",
+  "version": "1.0.0",
+  "author": "jolars",
+  "homepage": "https://github.com/jolars/panache",
+  "skills": []
+}
