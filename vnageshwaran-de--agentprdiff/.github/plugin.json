@@ -1,0 +1,9 @@
+{
+  "name": "vnageshwaran-de--agentprdiff",
+  "displayName": "agentprdiff",
+  "description": "Snapshot tests that catch behavioral regressions when models, prompts, or vendors change",
+  "version": "1.0.0",
+  "author": "vnageshwaran-de",
+  "homepage": "https://github.com/vnageshwaran-de/agentprdiff",
+  "skills": []
+}
