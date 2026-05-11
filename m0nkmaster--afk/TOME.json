@@ -4,7 +4,7 @@
   "repo": "afk",
   "description": "Away From Keyboard - A tool agnostic library for using the Ralph approach for software development with AI command line apps.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/m0nkmaster/afk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T03:02:04Z"
+  "distributed_at": "2026-05-11T02:42:48Z"
 }
