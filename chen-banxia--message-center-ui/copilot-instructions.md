@@ -1,58 +1,30 @@
-## development-guide
+## project-overview
 
-> - [vite.config.js](mdc:vite.config.js) - Vite 构建工具配置
+> 这是一个基于 Vue 3 的消息中心 UI 项目，使用了以下技术栈：
 
-# 开发指南
+# 项目概述
 
-## 项目设置
+这是一个基于 Vue 3 的消息中心 UI 项目，使用了以下技术栈：
 
-1. 安装依赖：
-   ```bash
-   npm install
-   ```
+- Vue 3 - 前端框架
+- Vue Router - 路由管理
+- Pinia - 状态管理
+- Vite - 构建工具
 
-2. 启动开发服务器：
-   ```bash
-   npm run dev
-   ```
+## 项目结构
 
-3. 构建生产版本：
-   ```bash
-   npm run build
-   ```
+- [main.js](mdc:src/main.js) - 应用程序入口点
+- [App.vue](mdc:src/App.vue) - 根组件
+- [router/index.js](mdc:src/router/index.js) - 路由配置
+- [stores/counter.js](mdc:src/stores/counter.js) - Pinia 状态管理示例
 
-4. 预览生产版本：
-   ```bash
-   npm run preview
-   ```
+## 目录结构
 
-## 项目配置
-
-- [vite.config.js](mdc:vite.config.js) - Vite 构建工具配置
-- [jsconfig.json](mdc:jsconfig.json) - JavaScript 配置
-
-## 代码风格指南
-
-### Vue 组件
-
-- 使用 `<script setup>` 语法
-- 组件名称使用 PascalCase 命名
-- 文件名与组件名一致
-- 视图组件以 `View` 结尾
-- 通用组件放在 `components` 目录
-- 页面级组件放在 `views` 目录
-
-### JavaScript
-
-- 使用 ES6+ 语法
-- 使用 `const` 和 `let`，避免使用 `var`
-- 使用箭头函数
-- 使用解构赋值
-
-### CSS
-
-- 组件样式使用 `scoped` 属性
-- 全局样式放在 `src/assets` 目录下
+- `src/components/` - 可复用组件
+- `src/views/` - 页面级组件
+- `src/stores/` - Pinia 状态管理
+- `src/router/` - Vue Router 配置
+- `src/assets/` - 静态资源（图片、样式等）
 
 ---
 > Source: [chen-banxia/message-center-ui](https://github.com/chen-banxia/message-center-ui) — distributed by [TomeVault](https://tomevault.io).
