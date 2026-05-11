@@ -4,7 +4,7 @@
   "repo": "jj-idea",
   "description": "Jujutsu plugin for IntelliJ IDEA",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kkkev/jj-idea",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T22:40:50Z"
+  "distributed_at": "2026-05-11T21:34:32Z"
 }
