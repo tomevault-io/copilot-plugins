@@ -1,64 +1,74 @@
-## optimization
+## publishing
 
-> How audio optimization works and when it's applied
+> How to publish and version the package
 
 
-# Audio Optimization Strategy
+# Publishing Workflow
 
-## Default Behavior
+## Version Strategy
 
-**ALL files are optimized by default with 1.2x speed** (based on A/B test results)
+Follow semantic versioning strictly:
 
-### Why 1.2x Speed?
+- **Patch** (3.0.0 → 3.0.1): Bug fixes, documentation updates
+- **Minor** (3.0.0 → 3.1.0): New features, backward compatible
+- **Major** (3.0.0 → 4.0.0): Breaking changes
 
-A/B testing showed (see [test/compare.ts](mdc:test/compare.ts)):
-- 99.5% file size reduction (2.7GB → 12.8MB)
-- 9% faster processing (65.4s vs 72s)
-- Same cost ($0.006/min charged on original duration)
-- ~98% accuracy maintained
-- Automatic timestamp adjustment back to original speed
+### Breaking Changes
 
-### Implementation
+Examples of breaking changes:
+- Changing default behavior (like enabling optimization by default)
+- Removing or renaming CLI flags
+- Changing API function signatures
+- Changing output format
 
-See [src/optimize.ts](mdc:src/optimize.ts):
+## Publishing Commands
 
-1. **Check file size**: Display size for user awareness
-2. **Speed up audio**: Use FFmpeg `atempo=1.2` filter
-3. **Adjust timestamps**: Divide all SRT timestamps by 1.2 to restore original timing
-4. **Cleanup**: Remove optimized file after transcription
-
-### Disabling Optimization
-
-Users can disable with `--raw` flag:
 ```bash
-transcribe video.mp4 --raw  # Use original audio
+cd /Users/illyism/Products/magicspace/magicspace-old/packages/transcribe
+
+# 1. Version bump
+npm version major  # or minor, or patch
+
+# 2. Build (happens automatically via prepublishOnly)
+# bun run build
+
+# 3. Publish
+npm publish
+
+# 4. Push to GitHub
+git push && git push --tags
+
+# 5. Create GitHub release
+gh release create v3.0.0 --title "..." --notes "..."
 ```
 
-Or programmatically:
-```typescript
-await transcribe({ inputPath, apiKey, optimize: false })
-```
+## Pre-Publish Checklist
 
-### Timestamp Adjustment
+- [ ] All changes committed
+- [ ] Tests pass (run manual tests in test/)
+- [ ] CHANGELOG.md updated
+- [ ] README.md updated with new features
+- [ ] No API keys or secrets in code
+- [ ] Build succeeds (`bun run build`)
+- [ ] Help text is current (`--help`)
 
-Critical: All SRT timestamps must be divided by the speed factor to match original video timing.
+## Files Included in Package
 
-See `adjustSRTTimestamps()` in [src/optimize.ts](mdc:src/optimize.ts) - converts timestamp to milliseconds, divides by speedFactor, then converts back.
+See `.npmignore`:
+- ✅ `dist/` (compiled code)
+- ✅ `README.md`
+- ✅ `LICENSE`
+- ❌ `src/` (source code)
+- ❌ `test/` (test suite)
+- ❌ `.env`, `.env.*`
 
-## Alternative: Opus Compression
+## GitHub Integration
 
-Tested but not used by default (see [test/test-opus.ts](mdc:test/test-opus.ts)):
-- Target: <25MB files
-- Uses Opus codec in OGG container
-- ~99% accuracy
-- Slower than speed optimization (86.8s vs 65.4s)
-
-## When Modifying Optimization
-
-1. Update [test/](mdc:test/) with new strategy
-2. Run comparison tests
-3. Update CHANGELOG with results
-4. Consider making it opt-in first (new flag)
+Always create a release after publishing:
+- Tag matches npm version (v3.0.0)
+- Include changelog in release notes
+- Link to NPM package
+- Mention breaking changes prominently
 
 ---
 > Source: [Illyism/transcribe-cli](https://github.com/Illyism/transcribe-cli) — distributed by [TomeVault](https://tomevault.io).
