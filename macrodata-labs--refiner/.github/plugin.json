@@ -1,0 +1,9 @@
+{
+  "name": "macrodata-labs--refiner",
+  "displayName": "refiner",
+  "description": "Refiner by Macrodata Labs, a data processing framework for Machine Learning large scale datasets",
+  "version": "1.0.0",
+  "author": "macrodata-labs",
+  "homepage": "https://github.com/macrodata-labs/refiner",
+  "skills": []
+}
