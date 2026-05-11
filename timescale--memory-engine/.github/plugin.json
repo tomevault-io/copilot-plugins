@@ -1,0 +1,9 @@
+{
+  "name": "timescale--memory-engine",
+  "displayName": "memory-engine",
+  "description": "Agentic memory built on Postgres",
+  "version": "1.0.0",
+  "author": "timescale",
+  "homepage": "https://github.com/timescale/memory-engine",
+  "skills": []
+}
