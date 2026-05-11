@@ -1,0 +1,9 @@
+{
+  "name": "redis-applied-ai--redis-slack-worker-agent",
+  "displayName": "redis-slack-worker-agent",
+  "description": "redis-slack-worker-agent",
+  "version": "1.0.0",
+  "author": "redis-applied-ai",
+  "homepage": "https://github.com/redis-applied-ai/redis-slack-worker-agent",
+  "skills": []
+}
