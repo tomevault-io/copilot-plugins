@@ -1,0 +1,9 @@
+{
+  "name": "toxy4ny--redteam-ai-benchmark",
+  "displayName": "redteam-ai-benchmark",
+  "description": "Red Team AI Benchmark: Evaluating Uncensored LLMs for Offensive Security",
+  "version": "1.0.0",
+  "author": "toxy4ny",
+  "homepage": "https://github.com/toxy4ny/redteam-ai-benchmark",
+  "skills": []
+}
