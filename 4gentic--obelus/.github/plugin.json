@@ -1,0 +1,9 @@
+{
+  "name": "4gentic--obelus",
+  "displayName": "obelus",
+  "description": "Offline, local-first peer review surface for AI-assisted papers. Web and desktop.",
+  "version": "1.0.0",
+  "author": "4gentic",
+  "homepage": "https://github.com/4gentic/obelus",
+  "skills": []
+}
