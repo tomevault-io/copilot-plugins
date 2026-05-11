@@ -1,0 +1,9 @@
+{
+  "name": "samuraigpt--seedance-2-generator",
+  "displayName": "seedance-2-generator",
+  "description": "Open-source Seedance 2.0 video generator \u2014 production-ready Next.js SaaS for text-to-video and multi-image reference editing. Stripe billing, credits, NextAuth, and Prisma out of the box.",
+  "version": "1.0.0",
+  "author": "SamurAIGPT",
+  "homepage": "https://github.com/SamurAIGPT/seedance-2-generator",
+  "skills": []
+}
