@@ -2,7 +2,7 @@
   "name": "open-urban-eyesore",
   "owner": "warlockdn",
   "repo": "open-urban-eyesore",
-  "description": "",
+  "description": "An open, community\u2011driven platform for documenting the state of public infrastructure \u2014 starting with potholes eventually extending to other civic infrastructure and civic domains (blocked roads, footpaths, waste dumps, etc.).",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/warlockdn",
+  "source_url": "https://github.com/warlockdn/open-urban-eyesore",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T06:33:26Z"
+  "distributed_at": "2026-05-11T09:34:13Z"
 }
