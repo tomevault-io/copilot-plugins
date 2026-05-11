@@ -1,0 +1,9 @@
+{
+  "name": "kpetridis24--lobsim",
+  "displayName": "lobsim",
+  "description": "Ultra fast, deterministic L3 limit order book replay + paper-execution engine designed for market microstructure research and strategy prototyping.",
+  "version": "1.0.0",
+  "author": "kpetridis24",
+  "homepage": "https://github.com/kpetridis24/lobsim",
+  "skills": []
+}
