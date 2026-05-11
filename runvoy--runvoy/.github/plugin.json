@@ -1,0 +1,9 @@
+{
+  "name": "runvoy--runvoy",
+  "displayName": "runvoy",
+  "description": "Serverless command runner",
+  "version": "1.0.0",
+  "author": "runvoy",
+  "homepage": "https://github.com/runvoy/runvoy",
+  "skills": []
+}
