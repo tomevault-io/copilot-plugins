@@ -1,0 +1,9 @@
+{
+  "name": "indate--cdp-tools-mcp",
+  "displayName": "cdp-tools-mcp",
+  "description": "MCP server that connects AI assistants to Chrome DevTools Protocol for runtime debugging - set breakpoints, inspect variables, monitor network traffic, and automate browser interactions",
+  "version": "1.0.0",
+  "author": "InDate",
+  "homepage": "https://github.com/InDate/cdp-tools-mcp",
+  "skills": []
+}
