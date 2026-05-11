@@ -1,0 +1,9 @@
+{
+  "name": "mosheavni--yaml-companion-nvim",
+  "displayName": "yaml-companion.nvim",
+  "description": "Get, set and autodetect YAML schemas in your buffers.",
+  "version": "1.0.0",
+  "author": "mosheavni",
+  "homepage": "https://github.com/mosheavni/yaml-companion.nvim",
+  "skills": []
+}
