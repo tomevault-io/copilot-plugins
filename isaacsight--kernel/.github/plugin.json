@@ -1,0 +1,9 @@
+{
+  "name": "isaacsight--kernel",
+  "displayName": "kernel",
+  "description": "kbot \u2014 the AI agent that dreams, learns, and evolves. 764+ tools, 35 agents, 20 providers. Music production, iPhone control, financial analysis, cyber threat intel. Always-on daemon. Runs offline. npm",
+  "version": "1.0.0",
+  "author": "isaacsight",
+  "homepage": "https://github.com/isaacsight/kernel",
+  "skills": []
+}
