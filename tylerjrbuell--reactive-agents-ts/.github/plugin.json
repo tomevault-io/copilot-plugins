@@ -1,9 +1,9 @@
 {
   "name": "tylerjrbuell--reactive-agents-ts",
   "displayName": "reactive-agents-ts",
-  "description": "reactive-agents-ts",
+  "description": "Composable TypeScript AI agent framework \u2014 Effect-TS type safety, 5 reasoning strategies, persistent gateway, real-time streaming, multi-agent A2A",
   "version": "1.0.0",
   "author": "tylerjrbuell",
-  "homepage": "https://tomevault.io/claim/tylerjrbuell",
+  "homepage": "https://github.com/tylerjrbuell/reactive-agents-ts",
   "skills": []
 }
