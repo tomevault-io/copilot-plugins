@@ -1,0 +1,9 @@
+{
+  "name": "jtsylve--ida-mcp",
+  "displayName": "ida-mcp",
+  "description": "A headless MCP server for IDA Pro 9+",
+  "version": "1.0.0",
+  "author": "jtsylve",
+  "homepage": "https://github.com/jtsylve/ida-mcp",
+  "skills": []
+}
