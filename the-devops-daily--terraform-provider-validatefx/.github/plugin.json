@@ -1,0 +1,9 @@
+{
+  "name": "the-devops-daily--terraform-provider-validatefx",
+  "displayName": "terraform-provider-validatefx",
+  "description": "Terraform provider to expose reusable validation functions",
+  "version": "1.0.0",
+  "author": "The-DevOps-Daily",
+  "homepage": "https://github.com/The-DevOps-Daily/terraform-provider-validatefx",
+  "skills": []
+}
