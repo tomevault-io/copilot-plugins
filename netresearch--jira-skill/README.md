@@ -7,11 +7,11 @@ AI agent plugin for Jira — CLI tools for issues, worklogs, sprints, and more |
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [netresearch/jira-skill](https://github.com/netresearch/jira-skill).
+Original source: `CLAUDE.md` in [netresearch/jira-skill](https://github.com/netresearch/jira-skill).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
