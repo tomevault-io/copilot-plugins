@@ -1,46 +1,97 @@
-## project
+## release
 
-> AIbubu 项目总览与基本规范
+> 版本发布流程
 
 
-# AIbubu 项目规范
+# 发布流程 Skill
 
-## 项目概述
+当用户要求发布新版本时（触发词：发布、release、发版、bump version），按以下步骤执行。
+每一步执行前向用户确认，获得许可后再操作。
 
-AI 步步 (AIbubu) 是一款 Tauri 2 桌面宠物应用，监测 AI 编码工具活跃度并量化为步数驱动桌面宠物。
+## Step 1: 预检
 
-## Monorepo 结构
+```bash
+git status
+git branch --show-current
+```
 
-- `packages/app/` — Tauri 桌面应用（Vue 3 前端 + Rust 后端）
-- `packages/site/` — Astro 官网
-- `scripts/` — 工具脚本
+- 确认当前在 `main` 分支
+- 确认工作区干净（无未提交变更）
+- 如果不满足，提示用户先处理
 
-## 常用命令
+## Step 2: 确认版本级别
 
-- `pnpm dev` / `pnpm tauri dev` — 开发
-- `pnpm test` — 测试
-- `pnpm lint` — ESLint 检查
-- `pnpm format` — Prettier 格式化
-- `pnpm validate:skins` — 校验皮肤
-- `pnpm bump <patch|minor|major>` — 版本号同步更新
+询问用户本次发布的版本级别：
+- `patch` — Bug 修复（0.1.0 → 0.1.1）
+- `minor` — 新功能（0.1.0 → 0.2.0）
+- `major` — 破坏性变更（0.1.0 → 1.0.0）
+- 或直接指定版本号（如 `0.2.0`）
 
-## Commit 规范
+## Step 3: 更新版本号
 
-Conventional Commits，由 commitlint 强制执行。
+```bash
+pnpm bump <level>
+```
 
-格式: `type(scope): description`
+脚本会同步更新三个文件：
+- `packages/app/package.json`
+- `packages/app/src-tauri/tauri.conf.json`
+- `packages/app/src-tauri/Cargo.toml`
 
-允许的 scope: `app`, `site`, `skin`, `monitor`, `social`, `i18n`, `ci`, `deps`
+## Step 4: 生成 Changelog
 
-提交时使用 **panda-git-commit** skill 生成 commit message。
+```bash
+git-cliff -o CHANGELOG.md
+```
 
-## 通用编码规范
+生成后展示 CHANGELOG 变更摘要，请用户确认。
 
-- 始终用中文回复用户
-- 修改代码前先询问用户确认
-- 不要自动执行 git add / commit / push
-- 不使用 `SELECT *`，明确指定列名
-- 路径别名: `@/` → `packages/app/src/`
+## Step 5: 提交发版 Commit
+
+```bash
+git add -A
+git commit -m "chore(app): release v<VERSION>"
+```
+
+注意：此处直接使用规范的 release commit 格式，不使用 panda-git-commit。
+
+## Step 6: 打 Tag
+
+```bash
+git tag v<VERSION>
+```
+
+## Step 7: 推送
+
+**需用户明确确认后才执行推送。**
+
+```bash
+git push origin main --tags
+```
+
+推送后告知用户：
+- GitHub Actions 会自动构建 macOS（双架构）、Windows、Linux 安装包
+- 构建会自动签名并生成 `latest.json`（应用内自动更新所需）
+- 构建完成后会创建 Draft Release，包含安装包和 `latest.json`
+- 需要到 GitHub Releases 页面手动发布
+- 发布后旧版本启动时会自动检测到新版本并提示更新
+
+## 首次配置（签名密钥）
+
+如果仓库还未配置签名密钥，需要先完成以下一次性设置：
+
+1. **生成密钥对**：`pnpm tauri signer generate -w ~/.tauri/aibubu.key`
+2. **填入公钥**：终端输出的公钥字符串 → `tauri.conf.json` 的 `plugins.updater.pubkey`
+3. **配置 GitHub Secrets**（Settings → Secrets → Actions）：
+   - `TAURI_SIGNING_PRIVATE_KEY` — 私钥文件内容（生成时不要设密码）
+4. 提交含 pubkey 的 `tauri.conf.json`
+
+## 注意事项
+
+- 版本号不要手动修改文件，必须使用 `pnpm bump` 保持三处同步
+- release commit 格式固定为 `chore(app): release v<VERSION>`
+- tag 格式固定为 `v<VERSION>`（如 `v0.2.0`）
+- 推送前必须获得用户明确确认
 
 ---
 > Source: [funAgent/ai-bubu](https://github.com/funAgent/ai-bubu) — distributed by [TomeVault](https://tomevault.io).
