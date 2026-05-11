@@ -4,7 +4,7 @@
   "repo": "broomy",
   "description": "Tool for making it easy to work with lots of AI agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Broomy-AI/broomy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T09:03:22Z"
+  "distributed_at": "2026-05-11T15:01:52Z"
 }
