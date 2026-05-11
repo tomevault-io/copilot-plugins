@@ -7,11 +7,11 @@ Your PC in your pocket — Control your PC remotely, execute commands & builds, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [techgniouss/pdagent](https://github.com/techgniouss/pdagent).
+Original source: `CLAUDE.md` in [techgniouss/pdagent](https://github.com/techgniouss/pdagent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
