@@ -1,0 +1,9 @@
+{
+  "name": "yelog--i18n-nvim",
+  "displayName": "i18n.nvim",
+  "description": "i18n preview and management plugin for neovim",
+  "version": "1.0.0",
+  "author": "yelog",
+  "homepage": "https://github.com/yelog/i18n.nvim",
+  "skills": []
+}
