@@ -1,0 +1,9 @@
+{
+  "name": "oofangoo--personal-finance-planner",
+  "displayName": "personal-finance-planner",
+  "description": "A modern, open-source personal finance planning app to help you manage your income, expenses, goals, and forecast your financial future. Built with Next.js, React, Tailwind CSS, TypeScript, and Rechar",
+  "version": "1.0.0",
+  "author": "oofangoo",
+  "homepage": "https://github.com/oofangoo/personal-finance-planner",
+  "skills": []
+}
