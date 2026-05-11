@@ -1,0 +1,9 @@
+{
+  "name": "dotaeva--scaffolding",
+  "displayName": "scaffolding",
+  "description": "Macro-powered SwiftUI navigation using the Coordinator pattern \u2014 type-safe routes with zero boilerplate.",
+  "version": "1.0.0",
+  "author": "dotaeva",
+  "homepage": "https://github.com/dotaeva/scaffolding",
+  "skills": []
+}
