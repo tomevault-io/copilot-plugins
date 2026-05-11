@@ -1,176 +1,334 @@
-## rein-inspect
+## rein-interview
 
-> Understand a codebase and maintain .rein/codebase/ as a navigable map with evidence-backed findings
+> Runtime-backed Socratic interview with durable state, clarity scoring, and spec bundle output
 
 
-# rein-inspect
+<Purpose>
+rein-interview is the requirements-clarification entry point for REIN when a task is vague, broad, or missing boundaries. It runs a Socratic interview while delegating all persistence, scoring, readiness gates, status reporting, and artifact writing to the `rein interview` runtime commands.
+</Purpose>
 
-`rein-inspect` is a documentation-first reconnaissance skill. Its job is to understand a codebase carefully and maintain a durable map of that understanding under `.rein/codebase/`.
+<Use_When>
+- The request is underspecified, risky, or likely to cause misaligned implementation
+- The user wants clarification before planning or coding
+- You need durable interview state, resumability, or machine-readable handoff artifacts
+- You need a spec bundle that can feed `rein-plan`, direct implementation, or further refinement
+</Use_When>
 
-The skill produces:
-- `.rein/codebase/MAP.md`
-- topical companion docs under `.rein/codebase/`
+<Do_Not_Use_When>
+- The request already has concrete file targets and stable acceptance criteria
+- The user explicitly asks to skip clarification and execute immediately
+- A complete rein-interview spec already exists and the next step should begin
+</Do_Not_Use_When>
 
-It observes and records. It does not recommend fixes.
+<Profiles>
+- `--quick`: threshold `70%`, max rounds `5`
+- `--standard` (default): threshold `80%`, max rounds `12`
+- `--deep`: threshold `90%`, max rounds `20`
+</Profiles>
 
-## When to Use
+<Runtime_Contract>
+The runtime owns:
+- durable state under `.rein/state/`
+- context snapshots under `.rein/context/`
+- clarity score computation
+- readiness gates
+- round ordering
+- status display
+- transcript/spec/result bundle output
 
-Use this skill when:
-- you need a high-signal map of an unfamiliar repo or subsystem
-- a project has grown beyond what one README can orient cleanly
-- you want durable codebase reference docs for future agents or humans
-- repeated work keeps re-discovering the same architecture or boundary facts
+You own:
+- asking the next question
+- interpreting the user's answer
+- deciding the next target dimension
+- framing the next question in your own judgment and voice
+- producing the final structured summary payload for crystallization
+</Runtime_Contract>
 
-## Do Not Use
+<Execution_Policy>
+- Ask one question per round, never batch
+- Stay intent-first until scope, non-goals, and decision boundaries are explicit
+- Use runtime state at every transition point; do not keep the authoritative interview state only in prose
+- Show the user current clarity progress after each runtime update
+- Do not crystallize until threshold and readiness gates are satisfied, unless the user explicitly accepts the risk
+- Do not implement directly inside rein-interview
+- Use runtime suggestions for structure, but choose the actual next question yourself
+</Execution_Policy>
 
-Do not use this skill when:
-- the user asked for implementation, refactoring, or repair rather than inspection
-- the repo already has a maintained codebase map that only needs a tiny manual update
-- you only need a quick one-turn explanation instead of persistent docs
-- you are not prepared to read enough of the codebase to support the claims you write
+<Interview_Presentation_Contract>
+Use a consistent chat-safe presentation frame for every visible interview turn.
 
-## Operating Boundaries
+## Layout
 
-- Read before writing.
-- Follow actual code evidence, not guessed architecture.
-- Keep output rooted at `.rein/codebase/`.
-- Preserve and update existing docs in place.
-- Add a new topical doc only when the inspected codebase reveals a real uncovered area.
-- Record observations and evidence-backed inferred risks.
-- Do not propose fixes, refactors, or migrations.
-- Do not edit application code as part of this skill unless the user explicitly asked for code changes outside the inspection pass.
-
-## Output Contract
-
-Always maintain this docs tree:
-
-```text
-.rein/
-  codebase/
-    MAP.md
-    <topic>.md
-    <topic>.md
-```
-
-`MAP.md` is the entrypoint. It should explain the major sections of the codebase and link to the topical docs.
-
-Topical docs should be created from discovered domains, not a hard-coded list. Examples might include:
-- `architecture.md`
-- `frontend.md`
-- `backend.md`
-- `data-flow.md`
-- `testing.md`
-- `tooling.md`
-
-The exact set depends on the repo.
-
-## Procedure
-
-1. Establish scope
-   - If the caller provides a subsystem or path, inspect that area first and expand only as needed to explain its boundaries.
-   - If no scope is provided, inspect the full repo structure.
-
-2. Discover the repo shape
-   - Read root docs and configuration first.
-   - Identify major runtime surfaces, packages, apps, libraries, services, tooling, tests, and infrastructure.
-   - Trace how the main entrypoints connect to the rest of the codebase.
-
-3. Group the codebase into stable domains
-   - Create topical docs around real boundaries in the codebase.
-   - Prefer a few meaningful docs over a file-by-file dump.
-   - Use names that describe actual responsibilities.
-
-4. Read enough to support each claim
-   - Verify architecture statements against code.
-   - Confirm patterns by reading representative files, not one isolated example.
-   - Confirm fallbacks, failure paths, and important conditionals before documenting them.
-
-5. Write or update `MAP.md`
-   - Summarize the major domains.
-   - Link to each topical doc.
-   - Explain what each doc is for.
-   - Keep it navigational, not verbose.
-
-6. Write or update topical docs
-   - Preserve useful existing material when it remains accurate.
-   - Update stale sections in place.
-   - Add a new topical doc when the current set does not cover an important discovered domain.
-
-7. Review for drift
-   - Remove claims that are not supported by what you read.
-   - Remove recommendation language.
-   - Check that the map and topical docs still agree with each other.
-
-## Required Structure For Each Topical Doc
-
-Each generated topical doc should use this minimum structure:
+Normal round:
 
 ```text
-# <Topic>
+[ Interview ]
+| Phase: clarifying structure
 
-## What This Area Does
-- concise responsibility summary
+| Current clarity: N%
 
-## Key Paths
-- important directories, files, or entrypoints
-
-## How It Works
-- main flows, control paths, or lifecycle notes
-
-## Patterns And Conventions
-- repeated local patterns, boundaries, and best practices embodied in the code
-
-## Dependencies And Touchpoints
-- what this area depends on
-- what depends on it
-
-## Findings
-- observed findings
-- evidence-backed inferred risks
+| Question
+| [one to two short lines]
+|
+| A. ...
+| B. ...
+| C. ...
 ```
 
-Keep sections concise. Expand only when the code actually justifies it.
+Open-question variant:
 
-## Findings Discipline
+```text
+[ Interview ]
+| Phase: clarifying structure
 
-`Findings` may include:
-- direct observations from the code
-- evidence-backed inferred risks
-- notable fallbacks
-- likely regression-sensitive paths
+| Current clarity: N%
 
-`Findings` must not include:
-- fix proposals
-- refactor advice
-- migration plans
-- generic style opinions detached from the repo
+| Question
+| [one to two short lines]
+```
 
-When writing an inferred risk:
-- tie it to the code evidence that led to it
-- state it as a risk or likely consequence, not as a fact you did not verify
-- stop before prescribing a remedy
+Review:
 
-The model is expert inspection: understand carefully, note what is there, note what looks risky, and hand over the notes.
+```text
+[ Review ]
+| Phase: confirming summary
 
-## Quality Bar
+| Current clarity: N%
 
-The output is good enough when:
-- `.rein/codebase/MAP.md` gives a reliable starting point for navigating the repo
-- each topical doc reflects a real architectural or functional boundary
-- descriptions explain behavior and responsibilities, not just filenames
-- findings are grounded and useful without drifting into advice
-- repeat runs improve the docs without trashing prior useful structure
+| Question
+| [one to two short lines]
+```
 
-## Final Checklist
+Handoff:
 
-- enough of the codebase was read to support the written claims
-- `.rein/codebase/MAP.md` exists and links to the topical docs
-- topical docs are organized by real repo domains
-- existing docs were updated in place when possible
-- new docs were added only for genuinely uncovered areas
-- each topical doc has a `Findings` section
-- inferred risks are evidence-backed and clearly framed
-- no fixes or recommendations were proposed
+```text
+[ Handoff ]
+| Phase: preparing handoff
+
+| Status: ready for handoff
+
+| Question
+| [one to two short lines]
+```
+
+## Formatting Rules
+
+- Always preserve blank lines between sections exactly as shown.
+- Do not show round counters or max-round counts in the visible interview frame.
+- Keep phase names as lowercase phrases.
+- For normal rounds and review, show `Current clarity: N%`.
+- For handoff, replace clarity with `Status: ready for handoff`.
+- Keep the question to one ask, written in one to two short lines.
+- If extra context is needed, fold it into the question itself instead of adding another section.
+
+## Header Mapping
+
+- Use `[ Interview ]` for normal rounds.
+- Use `[ Review ]` for final confirmation and crystallization.
+- Use `[ Handoff ]` for transition into the next workflow.
+
+## Fixed Phase Vocabulary
+
+Use only these phase names:
+
+- `clarifying structure`
+- `narrowing scope`
+- `resolving tension`
+- `confirming summary`
+- `preparing handoff`
+
+## Option Rules
+
+- Use `A.`, `B.`, and `C.` options when the user is choosing between clear alternatives.
+- Use an open question when structured options would feel forced.
+- Do not add a separate reply-hint section for open questions.
+
+## Transition Rules
+
+Use clarity score as guidance, but make the final phase choice with interviewer judgment.
+
+- Start in `clarifying structure`.
+- Move into `narrowing scope` when structure is clear and clarity is at least `65%`.
+- Move into `resolving tension` when contradiction exists or direction is unstable.
+- Tension overrides score-based advancement.
+- Move into `confirming summary` when clarity is at least `85%` and no major tension remains.
+- Move into `preparing handoff` when the summary is confirmed and the next workflow is identifiable.
+
+## Reopening Rules
+
+- Do not move backward casually between phases.
+- Allow reopening only from `[ Review ]`.
+- Reopen only for material corrections affecting intent, scope boundaries, tension status, or handoff readiness.
+</Interview_Presentation_Contract>
+
+<Command_Sequence>
+
+## Start a new interview
+
+1. Parse arguments:
+   - if `--resume <slug>` is present, skip to the resume flow
+   - otherwise choose profile from `--quick|--standard|--deep` or default to `standard`
+2. Initialize runtime state:
+
+```bash
+rein interview init --profile <quick|standard|deep> --idea "<idea>" [--slug <slug>] --json
+```
+
+3. Read the returned state and begin the interview.
+
+## Resume an existing interview
+
+1. Load the runtime state:
+
+```bash
+rein interview resume --slug <slug> --json
+```
+
+2. Continue from the returned `currentRound`, `readinessGates`, `weakestDimension`, and `nextAction`.
+   Valid `nextAction` values are:
+   - `continue`
+   - `crystallize`
+   - `blocked`
+   - `completed`
+
+## Persist each round
+
+After each answer, compute updated dimension scores and readiness gates, then call:
+
+```bash
+rein interview update-round \
+  --slug <slug> \
+  --round <n> \
+  --target <dimension> \
+  --question "<question>" \
+  --answer "<answer>" \
+  --scores '{"intent":0.8,"outcome":0.7,"scope":0.6,"constraints":0.7,"success":0.5,"context":0.7}' \
+  [--refinement "<summary>"] \
+  [--challenge-mode "<contrarian|simplifier|ontologist>"] \
+  [--decision-summary "<short note>"] \
+  [--non-goals-explicit] \
+  [--decision-boundaries-explicit] \
+  [--pressure-pass-complete] \
+  --json
+```
+
+Use brownfield dimensions (`intent`, `outcome`, `scope`, `constraints`, `success`, `context`) unless the interview was initialized as greenfield.
+
+Immediately use the returned JSON to decide whether to:
+- continue interviewing
+- crystallize now
+- stop and warn that the interview is blocked
+
+When you want structured runtime guidance for the next move, call:
+
+```bash
+rein interview next --slug <slug> --json
+```
+
+Use its output for:
+- `suggestedMode`
+- `suggestedFocus`
+- `questionStrategy`
+- `suggestedMove`
+
+Treat that as structure, not as a replacement for your own question framing.
+
+## Check live status
+
+At any time, or when you need a refreshed external view, call:
+
+```bash
+rein interview status --slug <slug> --json
+```
+
+If the user asks to continue later, tell them they can rerun:
+
+```bash
+rein interview resume --slug <slug> --json
+```
+
+## Crystallize artifacts
+
+When the runtime says `nextAction=crystallize`, build a structured summary JSON with at least:
+- `title`
+- `intent`
+- `desiredOutcome`
+- `inScope`
+- `outOfScope`
+- `decisionBoundaries`
+- `constraints`
+- `acceptanceCriteria`
+- `assumptions`
+- `pressureFindings`
+- `technicalContext`
+- `executionBridge`
+- `transcriptSummary`
+
+Use canonical `executionBridge` values so runtime handoff stays machine-usable:
+- `plan`
+- `implementation`
+- `refinement`
+- `scope`
+
+Then call:
+
+```bash
+rein interview crystallize --slug <slug> --summary '<json>' --json
+```
+
+This writes:
+- transcript: `.rein/interviews/<slug>-<timestamp>.md`
+- spec bundle:
+  - `.rein/specs/rein-interview-<slug>/spec.md`
+  - `.rein/specs/rein-interview-<slug>/result.json`
+
+## Handoff orchestration
+
+After crystallization, ask the runtime for the recommended next workflow:
+
+```bash
+rein interview handoff --slug <slug> --to plan --json
+```
+
+Use that output to:
+- name the next skill or workflow
+- point at the correct `result.json`
+- recommend the next invocation, such as `rein-plan --from-interview <slug>`
+- use `recommendedSkillInvocation` or the best available runtime handoff hint to build the final user-facing close-out
+</Command_Sequence>
+
+<Interview_Strategy>
+- Prioritize the weakest dimension, but do not rotate dimensions just for coverage if the current answer is still vague
+- Use concrete-example pressure before abstract architecture questions
+- Make non-goals explicit early
+- Make decision boundaries explicit before handoff
+- Perform at least one genuine pressure pass on an earlier answer
+- Use challenge modes when they materially sharpen the spec:
+  - contrarian
+  - simplifier
+  - ontologist
+</Interview_Strategy>
+
+<Final_Output>
+When crystallization succeeds:
+- tell the user the final clarity score and readiness status
+- point to the transcript and spec bundle paths
+- add a final line in this exact form: `Recommended next step: <command or step>`
+- ask the user whether the agent should do that next step now
+- prefer the runtime handoff recommendation when available, for example `rein-plan --from-interview <slug>`
+</Final_Output>
+
+<Checklist>
+- runtime state initialized or resumed
+- each round persisted through `rein interview update-round`
+- clarity shown as understanding progress, not ambiguity
+- readiness gates explicit before crystallization
+- transcript written
+- spec bundle written
+- no direct implementation performed here
+</Checklist>
+
+Task: {{ARGUMENTS}}
 
 ---
 > Source: [jstxn/rein](https://github.com/jstxn/rein) — distributed by [TomeVault](https://tomevault.io).
