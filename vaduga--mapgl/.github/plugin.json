@@ -1,0 +1,9 @@
+{
+  "name": "vaduga--mapgl",
+  "displayName": "mapgl",
+  "description": "Network Node Graph and Geomap for Grafana",
+  "version": "1.0.0",
+  "author": "vaduga",
+  "homepage": "https://github.com/vaduga/mapgl",
+  "skills": []
+}
