@@ -1,169 +1,99 @@
-## vue-fundamentals
+## vue-router
 
-> Vue 3 Composition API fundamentals and best practices
+> Vue Router navigation and route handling
 
-# Vue 3 Fundamentals
+# Vue Router
 
-**Role:** You are a Vue 3 expert specializing in modern component architecture.
+**Role:** You are a Vue 3 expert specializing in client-side routing and navigation.
 
 **Core Rules:**
-- Always use `<script setup>` syntax
-- Type props with `defineProps<T>()`
-- Use `ref()` for primitives, `reactive()` sparingly
-- Prefer `computed()` for derived state
-- Access `.value` explicitly in script context
+- Use `useRouter()` and `useRoute()` composables
+- Prefer programmatic navigation with `router.push()`
+- Type route params and query strings
+- Implement route guards for protection
+- Use lazy loading for route components
 
-**Chain-of-Thought:** Think step-by-step: 1. Analyze component needs 2. Define props/emits interface 3. Plan reactive state 4. Implement logic
+**Chain-of-Thought:** Think step-by-step: 1. Plan route structure 2. Define route types 3. Implement navigation 4. Add guards if needed
 
-**Note:** These patterns are UI-framework neutral; adapt templates for kits like Vuetify/Quasar while preserving composition logic.
+## Route Configuration
 
-## Workflow Chain: Build a Reactive Component
-
-**Full Task:** Create a counter component with props and events.
-
-**Step 1:** Define interface
 ```typescript
-interface Props { initialCount?: number }
-interface Emits { update: [value: number] }
+// router/index.ts
+import { createRouter, createWebHistory } from 'vue-router'
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    {
+      path: '/',
+      name: 'Home',
+      component: () => import('@/views/HomeView.vue')
+    },
+    {
+      path: '/users/:id',
+      name: 'UserProfile',
+      component: () => import('@/views/UserProfile.vue'),
+      props: true
+    }
+  ]
+})
+
+export default router
 ```
 
-**Step 2:** Setup reactive state
-```typescript
-const count = ref(props.initialCount ?? 0)
-const doubleCount = computed(() => count.value * 2)
-```
+## Navigation in Components
 
-**Step 3:** Implement methods and emit
 ```vue
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
-interface Props { initialCount?: number }
-interface Emits { update: [value: number] }
+const router = useRouter()
+const route = useRoute()
 
-const props = withDefaults(defineProps<Props>(), { initialCount: 0 })
-const emit = defineEmits<Emits>()
-
-const count = ref(props.initialCount)
-const doubleCount = computed(() => count.value * 2)
-
-const increment = () => {
-  count.value++
-  emit('update', count.value)
+// Programmatic navigation
+const goToUser = (userId: string) => {
+  router.push({ name: 'UserProfile', params: { id: userId } })
 }
+
+// Access route params
+const userId = computed(() => route.params.id as string)
 </script>
 
 <template>
   <div>
-    <p>Count: {{ count }} (Double: {{ doubleCount }})</p>
-    <button @click="increment">Increment</button>
+    <!-- Declarative navigation -->
+    <RouterLink :to="{ name: 'UserProfile', params: { id: '123' } }">
+      View User
+    </RouterLink>
+    
+    <!-- Programmatic navigation -->
+    <button @click="goToUser('456')">Go to User 456</button>
   </div>
 </template>
 ```
 
-## Composition API Patterns
-
-Always use Composition API with `<script setup>`:
-
-```vue
-<script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-
-// Reactive state
-const count = ref(0)
-const message = ref('')
-
-// Computed properties
-const doubleCount = computed(() => count.value * 2)
-
-// Methods
-const increment = () => count.value++
-
-// Lifecycle
-onMounted(() => {
-  console.log('Component mounted')
-})
-</script>
-
-<template>
-  <div>
-    <p>Count: {{ count }}</p>
-    <p>Double: {{ doubleCount }}</p>
-    <button @click="increment">Increment</button>
-  </div>
-</template>
-```
-
-## Props and Emits
-
-```vue
-<script setup lang="ts">
-interface Props {
-  title: string
-  count?: number
-}
-
-interface Emits {
-  update: [value: number]
-  close: []
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  count: 0
-})
-
-const emit = defineEmits<Emits>()
-
-const handleUpdate = (value: number) => {
-  emit('update', value)
-}
-</script>
-```
-
-## Reactivity Best Practices
-
-- Use `ref()` for primitives
-- Use `reactive()` for objects (sparingly)
-- Always access `.value` in script
-- Use `computed()` for derived state
-- Use `watch()` for side effects
+## Route Guards
 
 ```typescript
-// Good
-const user = ref<User | null>(null)
-const isLoggedIn = computed(() => !!user.value)
+// Global guard
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && !isAuthenticated()) {
+    next({ name: 'Login' })
+  } else {
+    next()
+  }
+})
 
-// Avoid
-const state = reactive({ user: null, isLoggedIn: false })
+// Component guard
+<script setup lang="ts">
+import { onBeforeRouteUpdate } from 'vue-router'
+
+onBeforeRouteUpdate((to, from) => {
+  // React to route changes
+  console.log('Route updated:', to.path)
+})
+</script>
 ```
-
-## UI Kit Adaptations
-
-**Core composition logic stays identical across all UI frameworks:**
-
-- **Tailwind UI:** Use utility classes with semantic HTML
-  ```vue
-  <button @click="increment" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-    Increment
-  </button>
-  ```
-
-- **Vuetify:** Replace with Material components
-  ```vue
-  <v-btn @click="increment" color="primary">Increment</v-btn>
-  ```
-
-- **Quasar:** Use mobile-optimized components
-  ```vue
-  <q-btn @click="increment" color="primary" label="Increment" />
-  ```
-
-- **Element Plus:** Leverage rich component library
-  ```vue
-  <el-button @click="increment" type="primary">Increment</el-button>
-  ```
-
-*Key principle: Reactivity (`ref`, `computed`, `watch`) and composition patterns remain unchanged--only template syntax adapts. See ui-kits-guide.mdc for comprehensive integration patterns.*
 
 ---
 > Source: [aliarghyani/vue-cursor-rules](https://github.com/aliarghyani/vue-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
