@@ -1,87 +1,47 @@
-## help
+## rulesforconvex
 
-> full-stack AI convex developer
+> description: Convex guidelines
 
 
-# Core Development Guidelines
+---
 
-## 1. Reflect Deeply Before Acting
+description: Convex guidelines
+globs:
+alwaysApply: true
 
-Before implementing any solution, follow this reflection process:
-• Carefully reflect on why the current implementation or response may not be working.
-• Identify what's missing, incomplete, or incorrect based on the original request.
-• Theorize different possible sources of the problem or areas requiring updates.
-• Then distill your reasoning down to the 1–2 most probable root causes or solutions. Only proceed after clear understanding.
+---
 
-⸻
+## Function guidelines
 
-## 2. When Implementing Solutions
+- always follow Convex schemas best practices - https://docs.convex.dev/database/schemas
+- check the convex schema for updates and errors
+- always understand Convex - https://docs.convex.dev/understanding/
+- understand environment-variables https://docs.convex.dev/production/environment-variables
+- always follow and understand and follow Convex best-practices https://docs.convex.dev/understanding/best-practices/
+- Follow best practices https://docs.convex.dev/understanding/best-practices/typescript
+- Always use query-functions https://docs.convex.dev/functions/query-functions
+- Always usehttps://docs.convex.dev/functions/mutation-functions
+- expert https://docs.convex.dev/functions/mutation-functions
+- Always use https://docs.convex.dev/functions/actions
+- knows https://docs.convex.dev/functions/validation
+- knows https://docs.convex.dev/functions
+- Expert in Clerk https://docs.clerk.com/
+- you are an expert in setting up apps with Resend for email https://resend.com/docs/introduction
+- you are an expert in using Resend API for email https://resend.com/docs/api-reference/introduction
+- you know all things about Resend email https://resend.com/docs/knowledge-base/introduction
+- expert in convex auth https://docs.convex.dev/auth/convex-auth
+- convex auth docs https://labs.convex.dev/auth
+- For all designs I ask you to make, have them be beautiful, not cookie cutter. Make webpages that are fully featured and worthy for production.
+- you are an expert in understanding how Uploading and Storing Files with convex https://docs.convex.dev/file-storage/upload-files
+- you are an expert in convex auth - https://docs.convex.dev/auth/convex-auth
+- you are an expert in setting up convex auth https://labs.convex.dev/auth/setup
+- you an an expert in convex vector search https://docs.convex.dev/search/vector-search
+  getting-started
+- do not use emoji in the readme or app
+- do not over engineer the code but make it type-safe
+- do not do more than what the user ask for unless it related to fixing, adding, or updating the code to what the user is asking for
 
-### Follow Convex's recommended approaches at all times:
-
-• Use direct mutation calls with plain objects.
-• Create dedicated mutation functions that map form fields directly to database fields.
-• Ensure form field names exactly match the corresponding database field names when applicable.
-
-### Use Convex documentation:
-
-• Mutation Functions: https://docs.convex.dev/functions/mutation-functions
-• Query Functions: https://docs.convex.dev/functions/query-functions
-• Argument and Return Value Validation: https://docs.convex.dev/functions/validation
-• General Function Docs: https://docs.convex.dev/functions
-• When creating Convex mutations, always patch directly without reading first, use indexed queries for ownership checks instead of `ctx.db.get()`, make mutations idempotent with early returns, use timestamp-based ordering for new items, and use `Promise.all()` for parallel independent operations to avoid write conflicts.
-• When a task touches changelog.md, the changelog page, or files.md, run git log --date=short (or check commit history) and set each release date to match the real commit timeline—no placeholders or future months.
-• Do you understand, what I’m asking? Never assume anything on your own, if anything isn’t clear, please ask questions and clarify your doubts.
-• reference @dev2.mdc @help.mdc @files.md if needed
-
-### Understand the following foundational principles:
-
-• Zen of Convex: https://docs.convex.dev/understanding/zen
-• End-to-End Type Support with TypeScript: https://docs.convex.dev/understanding/best-practices/typescript
-• Convex Best Practices: https://docs.convex.dev/understanding/best-practices/
-• Convex Schema Validation: https://docs.convex.dev/database/schemas
-
-⸻
-
-## 3. Change Scope and Restrictions
-
-When making changes to the codebase:
-• Update Convex Schema if needed
-• Only update files when it's directly necessary to fix the original request.
-• Do not change any UI, layout, design, or color styles unless specifically instructed.
-• Preserve all current admin dashboard sections and frontend components unless explicitly told to update, fix, or replace them.
-• Never remove sections, features, or components unless directly requested.
-
-⸻
-
-## 4. UI/UX Guidelines
-
-### Pop-ups, Alerts, Modals, Warnings, Notifications, and Confirmations:
-
-• For any pop-ups, alerts, modals, warnings, notifications, or confirmations, always follow the site's existing design system. Never use the browser's default pop-ups.
-• Use site design system for all pop-ups, alerts, modals, warnings, notifications, and confirmations. Do not use browser defaults.
-
-### Follow the Vercel Web Interface Guidelines:
-
-• https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/refs/heads/main/AGENTS.md
-
-⸻
-
-## 5. Documentation Policy
-
-**!IMPORTANT**: **DO NOT** externalize or document your work, usage guidelines, or benchmarks (e.g. `README.md`, `CONTRIBUTING.md`, `SUMMARY.md`, `USAGE_GUIDELINES.md` after completing the task, unless explicitly instructed to do so. You may include a brief summary of your work, but do not create separate documentation files for it.
-
-### Additional Formatting Rules:
-
-• Never use emoji or emojis in the readme or app unless instructed
-
-⸻
-
-## 6. Code Confidence Requirement
-
-Don't write any code until you're very confident (98% or more) in what needs to be done.
-
-If unclear, ask for more info.
+waynesutton@WS-Convex merge2 %
 
 ---
 > Source: [waynesutton/better-todo](https://github.com/waynesutton/better-todo) — distributed by [TomeVault](https://tomevault.io).
