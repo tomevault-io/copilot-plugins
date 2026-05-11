@@ -1,0 +1,9 @@
+{
+  "name": "nerdysoftpaw--openpublictransport",
+  "displayName": "openpublictransport",
+  "description": " Home Assistant integration for the public transport networks VRR (Verkehrsverbund Rhein-Ruhr), KVV (Karlsruher Verkehrsverbund), HVV (Hochbahn), Trafiklab (Sweden) and NTA (National Transport Authori",
+  "version": "1.0.0",
+  "author": "NerdySoftPaw",
+  "homepage": "https://github.com/NerdySoftPaw/openpublictransport",
+  "skills": []
+}
