@@ -1,17 +1,19 @@
-## dctl-style
+## docs-index
 
-> - **Precision**: Prefer `float` operations; avoid implicit type narrowing.
+> - **Start here**: [README.md](mdc:README.md)
 
-### DCTL Coding Guide
+### Documentation Map
 
-- **Precision**: Prefer `float` operations; avoid implicit type narrowing.
-- **Branching**: Minimize dynamic branching inside pixel loops; use lerp/mix where possible.
-- **Parameters**: Keep names/defaults aligned with [presets/presets.json](mdc:presets/presets.json) and [README.md](mdc:README.md).
-- **Helpers**: Reuse utilities from [internal/docs/DCTL_HELPERS.md](mdc:internal/docs/DCTL_HELPERS.md) and vendor [ColorConversion.h](mdc:internal/docs/vendor/DaVinciCTL/ColorConversion.h) when applicable.
-- **Performance**: Avoid repeated expensive math; precompute constants; clamp inputs as needed.
-- **Safety**: Handle out-of-gamut and NaNs defensively; clamp to [0, 1] where appropriate.
-- **Clarity**: Use descriptive variable names; early returns for error paths; keep nesting shallow.
-- **Docs**: Update [docs/FAQ.md](mdc:docs/FAQ.md) if behavior changes that affect users.
+- **Start here**: [README.md](mdc:README.md)
+- **Background**: [docs/BACKGROUND_FILM_FADING.md](mdc:docs/BACKGROUND_FILM_FADING.md)
+- **FAQ**: [docs/FAQ.md](mdc:docs/FAQ.md)
+- **Presets Companion**: [docs/presets_companion.md](mdc:docs/presets_companion.md)
+- **Internal Spec**: [internal/docs/SPECIFICATION.md](mdc:internal/docs/SPECIFICATION.md)
+- **API/Helpers**: [internal/docs/API.md](mdc:internal/docs/API.md), [internal/docs/DCTL_HELPERS.md](mdc:internal/docs/DCTL_HELPERS.md)
+
+Notes:
+- Keep examples in docs synced with `FadedBalancerDCTL.dctl` parameter names.
+- If doc updates affect usage, mirror changes in the README.
 
 ---
 > Source: [fabiocolor/Faded-Balancer-DCTL](https://github.com/fabiocolor/Faded-Balancer-DCTL) — distributed by [TomeVault](https://tomevault.io).
