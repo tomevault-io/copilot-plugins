@@ -1,0 +1,9 @@
+{
+  "name": "anolilab--anole-chat",
+  "displayName": "anole.chat",
+  "description": "A modern, feature-rich AI chat application built with React, Convex, and the Vercel AI SDK. Chat with multiple AI models, manage conversations with advanced tools, and enjoy a seamless real-time exper",
+  "version": "1.0.0",
+  "author": "anolilab",
+  "homepage": "https://github.com/anolilab/anole.chat",
+  "skills": []
+}
