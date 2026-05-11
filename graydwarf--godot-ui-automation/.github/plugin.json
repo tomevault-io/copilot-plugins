@@ -1,0 +1,9 @@
+{
+  "name": "graydwarf--godot-ui-automation",
+  "displayName": "godot-ui-automation",
+  "description": "Visual UI Test Automation framework for Godot 4.x - Record, playback, and validate user interface interactions",
+  "version": "1.0.0",
+  "author": "graydwarf",
+  "homepage": "https://github.com/graydwarf/godot-ui-automation",
+  "skills": []
+}
