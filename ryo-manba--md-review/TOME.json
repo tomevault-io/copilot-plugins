@@ -4,7 +4,7 @@
   "repo": "md-review",
   "description": "CLI tool for reviewing Markdown files with inline comments",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ryo-manba/md-review",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T05:47:20Z"
+  "distributed_at": "2026-05-11T22:44:15Z"
 }
