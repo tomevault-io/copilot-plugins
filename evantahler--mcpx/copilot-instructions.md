@@ -1,29 +1,261 @@
 ## mcpx
 
-> mcpx — A CLI for MCP servers. "curl for MCP."
+> Discover and use MCP tools via the mcpx CLI
 
-# CLAUDE.md
 
-## Project
+# mcpx — MCP Tool Discovery and Execution
 
-mcpx — A CLI for MCP servers. "curl for MCP."
+You have access to external tools via `mcpx`. Use this workflow:
 
-## Commands
+## 1. Search for tools
 
-- `bun run dev` — Run in development mode
-- `bun test` — Run tests
-- `bun lint` — Check formatting (prettier)
-- `bun format` — Auto-fix formatting
-- `bun run build` — Build single binary
+```bash
+mcpx search "<what you want to do>"
+```
+
+## 2. Inspect the tool schema
+
+```bash
+mcpx info <server> <tool>
+```
+
+This shows parameters, types, required fields, and the full JSON Schema.
+
+## 3. Execute the tool
+
+```bash
+mcpx exec <tool> '<json args>'                # server auto-resolved if unambiguous
+mcpx exec <server> <tool> '<json args>'       # explicit server (required if tool name exists on multiple servers)
+mcpx exec <server> <tool> -- --field value    # shell-flag args (typed via the tool's input schema)
+mcpx exec <server> <tool> -f params.json
+```
+
+Output is JSON by default. Use `--json` to force JSON output in any context — prefer this when you need to parse results programmatically. Use `--format markdown` for rich terminal rendering with colors, headings, and bullet lists.
 
 ## Rules
 
-- **Always bump the patch version in `package.json`** when making any code changes (source, tests, config). Use semver: patch for fixes/small changes, minor for new features, major for breaking changes.
-- **Always keep `README.md`, `.claude/skills/mcpx.md`, and `.cursor/rules/mcpx.mdc` in sync** with any CLI changes (commands, flags, syntax, examples). Both skill files include workflow steps, code examples, and a command table that must all reflect the current CLI surface.
-- **Always run `bun run format`** before committing to fix prettier formatting issues.
-- **Never merge or auto-merge a PR without explicit human approval.** Create the PR and report the URL, but do not merge it. The human will review and merge manually.
-- **When a PR closes a GitHub issue, include `Closes <issue URL>` in the PR body** (e.g., `Closes https://github.com/evantahler/mcpx/issues/29`). This lets GitHub auto-close the issue when the PR is merged.
+- Always search before executing — don't assume tool names exist
+- Always inspect the schema before executing — validate you have the right arguments
+- Use `mcpx search -k` for exact name matching
+- Pipe results through `jq` when you need to extract specific fields
+- Use `--json` when parsing output programmatically (automatic when piped, but explicit is safer)
+- Use `--format markdown` for rich terminal-rendered output with colors and formatting
+- Use `-v` for verbose debugging (HTTP details + JSON-RPC protocol messages) if an exec fails unexpectedly
+- Use `-l debug` to see all server log messages, or `-l error` for errors only
+
+## Examples
+
+```bash
+# Find tools related to sending messages
+mcpx search "send a message"
+
+# See what parameters Slack_SendMessage needs
+mcpx info arcade Slack_SendMessage
+
+# Send a message (server optional if tool name is unique)
+mcpx exec Slack_SendMessage '{"channel":"#general","message":"hello"}'
+
+# Or explicitly specify the server
+mcpx exec arcade Slack_SendMessage '{"channel":"#general","message":"hello"}'
+
+# Shell-flag form (anything after `--` is parsed against the tool's input schema)
+mcpx exec arcade Slack_SendMessage -- --channel "#general" --message "hello"
+
+# Chain commands — search repos and read the first result
+mcpx exec github search_repositories '{"query":"mcp"}' \
+  | jq -r '.content[0].text | fromjson | .items[0].full_name' \
+  | xargs -I {} mcpx exec github get_file_contents '{"owner":"{}","path":"README.md"}'
+
+# Read args from stdin
+echo '{"path":"./README.md"}' | mcpx exec filesystem read_file
+
+# Read args from a file with --file flag
+mcpx exec filesystem read_file -f params.json
+```
+
+## Troubleshooting
+
+- **"Not authenticated" / 401 error** → Run `mcpx auth <server>` to start the OAuth flow
+- **Exec timeout** → Use `-v` to see where it stalls; set `MCP_TIMEOUT=<seconds>` to increase the timeout (default: 1800)
+- **Search returns no results** → Try `mcpx search -k "*keyword*"` for glob matching, or `mcpx index` to rebuild the search index
+- **Missing or stale tools** → Run `mcpx index` to rebuild; any command that connects to a server also auto-updates the index
+- **Server won't connect** → Run `mcpx ping <server>` to check connectivity; use `-v` for protocol-level details
+- **Auth token expired** → Run `mcpx auth <server> -r` to force a token refresh
+
+## Long-running tools (Tasks)
+
+Some tools support async execution via MCP Tasks. mcpx auto-detects this.
+
+```bash
+# Default: waits for the task to complete, showing progress
+mcpx exec my-server long_running_tool '{"input": "data"}'
+
+# Return immediately with a task handle (for scripting/polling)
+mcpx exec my-server long_running_tool '{"input": "data"}' --no-wait
+
+# Check task status / retrieve result / cancel
+mcpx task get my-server <taskId>
+mcpx task result my-server <taskId>
+mcpx task cancel my-server <taskId>
+mcpx task list my-server
+```
+
+## Elicitation (Server-Requested Input)
+
+Some servers request user input mid-operation. mcpx handles this automatically in interactive mode. Use `-N` / `--no-interactive` to decline all elicitation (for scripts/CI), or `--json` to handle elicitation programmatically via stdin/stdout.
+
+## 6. Self-authorize (if needed)
+
+Cursor prompts you for every `mcpx exec` call. You can grant yourself granular permissions:
+
+```bash
+mcpx allow <server> --cursor              # all tools on a server
+mcpx allow <server> <tool> --cursor       # specific tool
+mcpx allow --all-read --cursor            # search, info, list, etc.
+mcpx allow --all --cursor                 # all mcpx exec calls
+mcpx allow --list --cursor                # show current permissions
+mcpx deny <server> --cursor               # revoke server permissions
+mcpx deny --all --cursor                  # revoke all permissions
+```
+
+This writes `Shell(mcpx exec:server:*)` patterns to `.cursor/cli.json`.
+
+## Authentication
+
+```bash
+mcpx auth <server>             # authenticate via browser
+mcpx auth <server> -s          # check token status and TTL
+mcpx auth <server> -r          # force token refresh
+mcpx auth <server> --no-index  # authenticate without rebuilding search index
+mcpx deauth <server>           # remove stored auth
+```
+
+## Available commands
+
+| Command                                | Purpose                           |
+| -------------------------------------- | --------------------------------- |
+| `mcpx`                                | List all servers and tools        |
+| `mcpx servers`                        | List servers (name, type, detail) |
+| `mcpx -d`                             | List with descriptions            |
+| `mcpx info <server>`                  | Server overview (version, capabilities, tools) |
+| `mcpx info <server> <tool>`           | Show tool schema                  |
+| `mcpx exec <server>`                  | List tools for a server           |
+| `mcpx exec <tool> '<json>'`           | Execute tool (server auto-resolved) |
+| `mcpx exec <server> <tool> '<json>'`  | Execute tool (explicit server)    |
+| `mcpx exec <server> <tool> -- --k=v`  | Execute with shell-flag args (typed via schema) |
+| `mcpx exec <server> <tool> -f file`   | Execute with args from file       |
+| `mcpx search "<query>"`               | Search tools (keyword + semantic) |
+| `mcpx search -k "<pattern>"`          | Keyword/glob search only          |
+| `mcpx search -q "<query>"`            | Semantic search only              |
+| `mcpx search -n <number> "<query>"`   | Limit number of results (default: 10) |
+| `mcpx index`                          | Build/rebuild search index        |
+| `mcpx index -i`                       | Show index status                 |
+| `mcpx auth <server>`                  | Authenticate with OAuth           |
+| `mcpx auth <server> -s`               | Check token status and TTL        |
+| `mcpx auth <server> -r`               | Force token refresh               |
+| `mcpx auth <server> --no-index`       | Authenticate without rebuilding index |
+| `mcpx deauth <server>`                | Remove stored authentication      |
+| `mcpx ping`                           | Check connectivity to all servers |
+| `mcpx ping <server> [server2...]`     | Check specific server(s)          |
+| `mcpx add <name> --command <cmd>`     | Add a stdio MCP server                              |
+| `mcpx add [name] --url <url>`         | Add an HTTP MCP server (name derived from URL if omitted) |
+| `mcpx remove <name>`                  | Remove an MCP server              |
+| `mcpx skill install --claude`         | Install mcpx skill for Claude     |
+| `mcpx skill install --cursor`         | Install mcpx rule for Cursor      |
+| `mcpx resource`                       | List all resources across servers |
+| `mcpx resource <server>`              | List resources for a server       |
+| `mcpx resource <server> <uri>`        | Read a specific resource          |
+| `mcpx prompt`                         | List all prompts across servers   |
+| `mcpx prompt <server>`                | List prompts for a server         |
+| `mcpx prompt <server> <name> '<json>'` | Get a specific prompt            |
+| `mcpx task list <server>`             | List tasks on a server            |
+| `mcpx task get <server> <taskId>`     | Get task status                   |
+| `mcpx task result <server> <taskId>`  | Retrieve completed task result    |
+| `mcpx task cancel <server> <taskId>`  | Cancel a running task             |
+| `mcpx allow <server> --cursor`        | Allow exec all tools on a server  |
+| `mcpx allow <server> <tools...> --cursor` | Allow specific tools only    |
+| `mcpx allow --all --cursor`           | Allow all mcpx exec calls         |
+| `mcpx allow --all-read --cursor`      | Allow read-only commands          |
+| `mcpx allow --list --cursor`          | Show current permissions          |
+| `mcpx deny <server> --cursor`         | Remove server permissions         |
+| `mcpx deny --all --cursor`            | Remove all mcpx permissions       |
+| `mcpx check-update`                   | Check for a newer version of mcpx |
+| `mcpx upgrade`                        | Upgrade mcpx to the latest version|
+
+## Global flags
+
+| Flag                        | Purpose                                                  |
+| --------------------------- | -------------------------------------------------------- |
+| `-j, --json`                | Force JSON output (default when piped)                   |
+| `-F, --format <format>`     | Output format: `json` or `markdown`                      |
+| `-v, --verbose`             | Show HTTP details and JSON-RPC protocol messages         |
+| `-d, --with-descriptions`   | Include tool descriptions in list output                 |
+| `-c, --config <path>`       | Specify config file location                             |
+| `-N, --no-interactive`      | Decline server elicitation requests (for scripted usage) |
+| `-S, --show-secrets`        | Show full auth tokens in verbose output (unmasked)       |
+| `-l, --log-level <level>`   | Minimum server log level to display (default: `warning`) |
+
+## `add` options
+
+| Flag                     | Purpose                                                                                                     |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------- |
+| `--command <cmd>`        | Command to run (stdio server)                                                                               |
+| `--args <arg>`           | Argument for the command. Repeatable, or comma-separated. Tokens after `--` are also appended (stdio only). |
+| `--env <KEY=VAL>`        | Environment variable. Repeatable, or comma-separated.                                                       |
+| `--cwd <dir>`            | Working directory for the command                                                                           |
+| `--url <url>`            | Server URL (HTTP server)                                                                                    |
+| `--header <Key:Value>`   | HTTP header. Repeatable.                                                                                    |
+| `--transport <type>`     | Transport: `sse` or `streamable-http`                                                                       |
+| `--allowed-tools <pat>`  | Allowed tool pattern. Repeatable, or comma-separated.                                                       |
+| `--disabled-tools <pat>` | Disabled tool pattern. Repeatable, or comma-separated.                                                      |
+| `-f, --force`            | Overwrite if server already exists                                                                          |
+| `--no-auth`              | Skip automatic OAuth after adding                                                                           |
+| `--no-index`             | Skip rebuilding the search index                                                                            |
+
+## `remove` options
+
+| Flag          | Purpose                                          |
+| ------------- | ------------------------------------------------ |
+| `--keep-auth` | Don't remove stored auth credentials             |
+| `--dry-run`   | Show what would be removed without changing files |
+
+## `skill install` options
+
+| Flag        | Purpose                                    |
+| ----------- | ------------------------------------------ |
+| `--claude`  | Install skill for Claude Code              |
+| `--cursor`  | Install rule for Cursor                    |
+| `--global`  | Install to global location (`~/`)          |
+| `--project` | Install to project location (default)      |
+| `-f, --force` | Overwrite if file already exists         |
+
+## Programmatic Usage (TypeScript SDK)
+
+For agents that don't have shell access (remote, persistent, or isolated agents), mcpx can be used as a TypeScript library:
+
+```typescript
+import { McpxClient } from "@evantahler/mcpx";
+
+const client = new McpxClient();
+const results = await client.search("send a message");
+const tool = await client.info("arcade", "Slack_SendMessage");
+const result = await client.exec("arcade", "Slack_SendMessage", { channel: "#general", message: "hello" });
+await client.close();
+```
+
+The SDK follows the same search → inspect → exec workflow. Server management (add, remove, auth) is still done via the CLI.
+
+## Environment variables
+
+| Variable          | Purpose                     | Default    |
+| ----------------- | --------------------------- | ---------- |
+| `MCP_CONFIG_PATH` | Config directory path       | `~/.mcpx/` |
+| `MCP_TIMEOUT`     | Request timeout (seconds)   | `1800`     |
+| `MCP_CONCURRENCY` | Parallel server connections | `5`        |
+| `MCP_MAX_RETRIES` | Retry attempts              | `3`        |
+| `MCP_STRICT_ENV`  | Error on missing `${VAR}`   | `true`     |
+| `MCP_DEBUG`       | Enable debug output         | `false`    |
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/evantahler) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [evantahler/mcpx](https://github.com/evantahler/mcpx) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
