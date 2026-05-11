@@ -2,9 +2,9 @@
   "name": "claude-unity-bridge",
   "owner": "ManageXR",
   "repo": "claude-unity-bridge",
-  "description": "",
+  "description": "A file-based Command Protocol enabling Claude Code to trigger Unity Editor operations. Built for multi-agent and highly parallelized workflows.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ManageXR/claude-unity-bridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T07:53:04Z"
+  "distributed_at": "2026-05-11T00:50:01Z"
 }
