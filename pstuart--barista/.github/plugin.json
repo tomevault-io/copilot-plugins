@@ -1,0 +1,9 @@
+{
+  "name": "pstuart--barista",
+  "displayName": "Barista",
+  "description": "A modular statusline for Claude Code CLI - real-time context usage, rate limits, costs, git status, and 20+ customizable modules",
+  "version": "1.0.0",
+  "author": "pstuart",
+  "homepage": "https://github.com/pstuart/Barista",
+  "skills": []
+}
