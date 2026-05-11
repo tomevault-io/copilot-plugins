@@ -1,0 +1,9 @@
+{
+  "name": "aurynrobotics--qt-widgeteer",
+  "displayName": "qt-widgeteer",
+  "description": "Remote control your Qt applications",
+  "version": "1.0.0",
+  "author": "AurynRobotics",
+  "homepage": "https://github.com/AurynRobotics/qt-widgeteer",
+  "skills": []
+}
