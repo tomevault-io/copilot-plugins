@@ -1,12 +1,6 @@
-## ats-integration
+## auth-spec
 
-> description: **Frontend ID Strategy**: All frontend components use `applicant_id` as the primary identifier for consistency. **Backend ID Mapping**: APIs accept `applicant_id` and internally join to `ashby_candidates` table to get `ashby_id` when needed for external API calls. **Separation of Concerns**: Frontend handles business logic with applicant entities, backend handles integration-specific identifiers. **Reusable Utility**: Use `getAshbyIdFromApplicantId()` from `@/lib/ashby/utils` for consistent ashby_id lookups in APIs.
-
----
-description: **Frontend ID Strategy**: All frontend components use `applicant_id` as the primary identifier for consistency. **Backend ID Mapping**: APIs accept `applicant_id` and internally join to `ashby_candidates` table to get `ashby_id` when needed for external API calls. **Separation of Concerns**: Frontend handles business logic with applicant entities, backend handles integration-specific identifiers. **Reusable Utility**: Use `getAshbyIdFromApplicantId()` from `@/lib/ashby/utils` for consistent ashby_id lookups in APIs.
-globs:
-alwaysApply: false
----
+> **NEVER manually implement authentication in API routes - always use withApiMiddleware() from '@/lib/middleware/apiWrapper' or withATSAuth() from '@/lib/auth/api-middleware' instead of createClient().auth.getUser().**
 
 ---
 > Source: [mousberg/le-commit](https://github.com/mousberg/le-commit) — distributed by [TomeVault](https://tomevault.io).
