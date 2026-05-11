@@ -1,41 +1,38 @@
-## tdd
+## workbench
 
-> TDD protocol for implementing features and fixing bugs — RED/GREEN/REFACTOR phase signals, checkpoint gating, context verification
+> agents-workbench workflow — worktree-based development with branch detection
 
-# TDD Protocol
+# agents-workbench Workflow
 
-## Phase Signals (prefix every implementation response)
-- `[PLAN]` — designing/specifying before code
-- `[RED]` — writing or presenting a failing test
-- `[GREEN]` — writing minimum code to pass the test
-- `[REFACTOR]` — cleaning up after green, no behavior change
-- `[CHECKPOINT]` — requesting human commit before large refactor
+## Branch Detection
+Before editing any source code, check: `git branch --show-current`
+- If output is `agents-workbench` → source code is READ-ONLY. Suggest a worktree.
+- If inside a `.worktrees/` path → you are in a worktree. Proceed normally.
+- If on any other branch → normal development. Follow project conventions.
 
-## Hard Rules
-- RED before GREEN: never write implementation without a failing test first
-- One phase per turn: never mix test changes and implementation in the same edit
-- Fitness function: tests are contracts — never modify tests to make implementation pass
-- Batch size: each PR ≤ 1 concern; break down first if > 1
+## Branch: agents-workbench (local-only, NEVER push)
+- Coordination hub: AGENTS.md, .agents/*, docs/plans/*
+- Source code is READ-ONLY on this branch
+- Local commits only (preserve agent state)
 
-## Checkpoint Protocol
-Before any REFACTOR touching > 3 files or > 50 LOC:
-1. Signal `[CHECKPOINT]` and summarize current GREEN state
-2. Ask human to review diff and commit
-3. Wait for confirmation before proceeding
-4. Begin REFACTOR as a new atomic change after checkpoint
+## Implementation: ALWAYS in worktrees
+- Create: `git worktree add .worktrees/<name> -b <branch> <default-branch>`
+- Each feature/fix gets its own worktree from the default branch
+- Push feature branches from worktrees, create PRs to default branch
+- Clean up after merge: `git worktree remove .worktrees/<name>`
 
-## Context Verification
-At implementation start, verify you have:
-- API docs for external services being integrated
-- Team conventions for the language/framework in use
-- Existing test patterns in the repo
-If any missing → ask before writing code. Never guess at APIs or conventions.
+## What is editable on agents-workbench
+- OK to edit: AGENTS.md, .agents/*, docs/plans/*, CLAUDE.md, .cursor/rules/*
+- OK to read: any file (for context and planning)
+- NEVER modify source code directly
 
-## Security Scans (verify phase)
-Run language-appropriate scans before claiming implementation is complete:
-- Detect project language from files present (go.mod → Go, package.json → Node, etc.)
-- Use the language-specific rule (go.mdc, etc.) for exact scan commands
-- Always run: `trivy fs .` for filesystem/dependency vulnerability scan
+## Agent Teams (Cursor + Claude Code)
+- Lead agent: stays on agents-workbench, coordinates via AGENTS.md
+- Worker agents: each in own worktree, parallel implementation
+- All commits in worktrees use: `git commit -s -S`
+
+## Setup
+Run `~/.claude/scripts/setup-workbench.sh` in any project
 
 ---
 > Source: [ArangoGutierrez/promptsLibrary](https://github.com/ArangoGutierrez/promptsLibrary) — distributed by [TomeVault](https://tomevault.io).
