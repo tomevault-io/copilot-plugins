@@ -1,0 +1,44 @@
+{
+  "name": "hyper-waterfall",
+  "owner": "postmelee",
+  "repo": "hyper-waterfall",
+  "description": "AI \ud398\uc5b4 \ud504\ub85c\uadf8\ub798\ubc0d\uc744 \uc704\ud55c \ud558\uc774\ud37c-\uc6cc\ud130\ud3f4 \ubc29\ubc95\ub860 \ud558\ub124\uc2a4",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/postmelee/hyper-waterfall",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-11T20:16:14Z"
+}
