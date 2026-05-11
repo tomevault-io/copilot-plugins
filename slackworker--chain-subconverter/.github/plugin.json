@@ -1,0 +1,9 @@
+{
+  "name": "slackworker--chain-subconverter",
+  "displayName": "chain-subconverter",
+  "description": "A sub-converter for OpenClash/Mihomo chain-proxy configuration.",
+  "version": "1.0.0",
+  "author": "slackworker",
+  "homepage": "https://github.com/slackworker/chain-subconverter",
+  "skills": []
+}
