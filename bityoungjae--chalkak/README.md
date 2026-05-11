@@ -7,11 +7,11 @@ Preview-first screenshot tool for Wayland + Hyprland  with a lightweight built-i
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [BitYoungjae/ChalKak](https://github.com/BitYoungjae/ChalKak).
+Original source: `CLAUDE.md` in [BitYoungjae/ChalKak](https://github.com/BitYoungjae/ChalKak).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
