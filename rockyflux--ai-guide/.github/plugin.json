@@ -1,0 +1,9 @@
+{
+  "name": "rockyflux--ai-guide",
+  "displayName": "ai-guide",
+  "description": "AI \u7f16\u7a0b\u5b9e\u8df5\u6307\u5357\uff1a\u4ece\u6a21\u578b\u9009\u578b\u5230\u9879\u76ee\u95ed\u73af\uff0c\u4f5c\u4e3a AI \u7f16\u7a0b\u5de5\u5177\u548c\u6700\u4f73\u5b9e\u8df5\u7684\u77e5\u8bc6\u4e2d\u5fc3\u3002",
+  "version": "1.0.0",
+  "author": "rockyflux",
+  "homepage": "https://github.com/rockyflux/ai-guide",
+  "skills": []
+}
