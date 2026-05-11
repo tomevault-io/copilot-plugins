@@ -1,0 +1,9 @@
+{
+  "name": "microsoftdocs--mcp",
+  "displayName": "mcp",
+  "description": "Official Microsoft Learn MCP Server and CLI tool \u2013 powering LLMs and AI agents with real-time, trusted Microsoft docs & code samples.",
+  "version": "1.0.0",
+  "author": "MicrosoftDocs",
+  "homepage": "https://github.com/MicrosoftDocs/mcp",
+  "skills": []
+}
