@@ -1,0 +1,9 @@
+{
+  "name": "uniflexai--tinynav",
+  "displayName": "tinynav",
+  "description": "TinyNav: A lightweight, hackable system to guide your robots anywhere.",
+  "version": "1.0.0",
+  "author": "UniflexAI",
+  "homepage": "https://github.com/UniflexAI/tinynav",
+  "skills": []
+}
