@@ -1,0 +1,9 @@
+{
+  "name": "fluidinference--swift-parakeet-mlx",
+  "displayName": "swift-parakeet-mlx",
+  "description": "Based on senstella/parakeet-mlx",
+  "version": "1.0.0",
+  "author": "FluidInference",
+  "homepage": "https://github.com/FluidInference/swift-parakeet-mlx",
+  "skills": []
+}
