@@ -1,0 +1,9 @@
+{
+  "name": "husamql3--hviz",
+  "displayName": "HViz",
+  "description": "CLI tool for visualizing your database schema",
+  "version": "1.0.0",
+  "author": "husamql3",
+  "homepage": "https://github.com/husamql3/HViz",
+  "skills": []
+}
