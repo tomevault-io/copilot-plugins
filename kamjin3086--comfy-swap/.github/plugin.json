@@ -1,0 +1,9 @@
+{
+  "name": "kamjin3086--comfy-swap",
+  "displayName": "comfy-swap",
+  "description": "Turn ComfyUI workflows into stable REST APIs and CLI commands. AI agent friendly.",
+  "version": "1.0.0",
+  "author": "kamjin3086",
+  "homepage": "https://github.com/kamjin3086/comfy-swap",
+  "skills": []
+}
