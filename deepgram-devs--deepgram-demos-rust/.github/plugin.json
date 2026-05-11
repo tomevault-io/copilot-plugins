@@ -1,0 +1,9 @@
+{
+  "name": "deepgram-devs--deepgram-demos-rust",
+  "displayName": "deepgram-demos-rust",
+  "description": "Useful demo applications for Deepgram Voice AI APIs, using the Rust language! \ud83e\udd80",
+  "version": "1.0.0",
+  "author": "deepgram-devs",
+  "homepage": "https://github.com/deepgram-devs/deepgram-demos-rust",
+  "skills": []
+}
