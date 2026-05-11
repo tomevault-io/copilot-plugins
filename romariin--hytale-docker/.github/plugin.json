@@ -1,0 +1,9 @@
+{
+  "name": "romariin--hytale-docker",
+  "displayName": "hytale-docker",
+  "description": "Start enjoying Hytale by running your own server effortlessly with Docker.",
+  "version": "1.0.0",
+  "author": "Romariin",
+  "homepage": "https://github.com/Romariin/hytale-docker",
+  "skills": []
+}
