@@ -1,0 +1,9 @@
+{
+  "name": "bbhunterpk-ux--memctx",
+  "displayName": "memctx",
+  "description": "Autonomous session memory for Claude Code. Never lose context, never repeat yourself. AI-powered summaries, searchable history, and automatic context injection. \ud83d\udce6 npm install -g memctx",
+  "version": "1.0.0",
+  "author": "bbhunterpk-ux",
+  "homepage": "https://github.com/bbhunterpk-ux/memctx",
+  "skills": []
+}
