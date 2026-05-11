@@ -1,135 +1,59 @@
-## security-patterns
+## golang-auth-api
 
-> Security patterns
+> - **Type**: Modular Monolith Go REST API using **Gin** framework.
 
-# Security Patterns and Best Practices
+# AI Coding Instructions for Auth API
 
-## Authentication Flow
+## 🔍 Project Context & Architecture
 
-### JWT Token Management
-- Access tokens: Short-lived (15 minutes default)
-- Refresh tokens: Long-lived (720 hours default)
-- Token rotation on refresh
-- Redis-based session management
+- **Type**: Modular Monolith Go REST API using **Gin** framework.
+- **Data Layer**: **PostgreSQL** with **GORM**, **Redis** for caching/sessions.
+- **Structure**: Clean Architecture-ish.
+  - `cmd/api/main.go`: Entry point, dependency injection wire-up.
+  - `internal/<domain>/`: Encapsulated features (e.g., `user`, `social`, `log`).
+  - `internal/<domain>/handler.go`: HTTP transport handling.
+  - `internal/<domain>/service.go`: Business rules.
+  - `internal/<domain>/repository.go`: Database interactions.
+  - `pkg/`: Shared code (DTOs, simplified models, utils).
 
-### Two-Factor Authentication (2FA)
-- TOTP (Time-based One-Time Password) implementation
-- QR code generation for authenticator apps
-- Recovery codes for backup access
-- Secure secret generation and storage
+## 🛠️ Build & Test Workflows
 
-### Social Authentication
-- OAuth2 flow with state verification
-- Secure provider callback handling
-- User account linking/creation
-- Scope validation
+- **Development**: Use `make dev` to run with hot-reload (Air).
+- **Testing**: Run `make test` for unit tests.
+- **Build**: `make build` generates generic binaries.
+- **Database**:
+  - Migrations run automatically on startup (`database.MigrateDatabase()`).
+  - Use `scripts/backup_db.sh` for backups.
 
-## Security Configuration
+## 📝 Conventions & Patterns
 
-### Security Scanning
-Configuration in [.gosec.json](mdc:.gosec.json):
-- Medium severity and confidence thresholds
-- Excludes vendor and node_modules directories
-- Includes test files in scanning
-- JSON output format for CI/CD integration
+- **Dependency Injection**: Manual DI in `main.go`. Initialize Repo -> Service -> Handler.
+- **Configuration**: **Viper** + `.env`. Check `cmd/api/main.go` for default key setups.
+- **Validation**: Use `go-playground/validator` struct tags in DTOs.
+- **Documentation**: Update Swagger comments (`// @Summary ...`) when changing handlers. Run `swag init` (often implied or manual) to regenerate docs in `docs/`.
+- **Security**:
+  - Use `internal/middleware` for JWT validation & RBAC.
+  - Don't expose raw GORM errors to API clients; wrap them.
+- **Logging**: Use `internal/log` service for audit trails (critical/important/info).
 
-### Environment Security
-- Never expose sensitive data in responses
-- Use environment variables for secrets
-- Hash passwords with bcrypt
-- Secure session management with Redis
+## ⚠️ Important Implementation Details
 
-## Authorization Patterns
+- **Social Auth**: Handlers in `internal/social` manage OAuth flows (Google, Github, FB).
+- **2FA**: `internal/twofa` handles TOTP logic.
+- **Redis**: Essential for token blacklisting and session data; ensure Redis is available.
+- **Database Modals**: GORM models often live in domain packages.
 
-### Middleware Protection
-- JWT validation in `middleware.AuthMiddleware()`
-- User context extraction
-- Route-level protection in [cmd/api/main.go](mdc:cmd/api/main.go)
+## 🚀 Examples
 
-### Role-Based Access Control (Future)
-- Admin routes prepared for role checking
-- Extensible middleware pattern
-- User role management ready
-
-## Input Validation and Sanitization
-
-### Request Validation
-- Use `go-playground/validator` tags in DTOs
-- Validate all user inputs before processing
-- Sanitize data before database operations
-- Parameterized queries to prevent SQL injection
-
-### Rate Limiting (Recommended)
-- Implement rate limiting for authentication endpoints
-- Protect against brute force attacks
-- Monitor suspicious activity patterns
-
-## Security Event Logging
-
-### Activity Logging System
-- Log all authentication events
-- Track user activities with context
-- Include IP address, user agent, timestamps
-- Pagination and filtering for security analysis
-
-### Security-Relevant Events
-- Login attempts (success/failure)
-- Password changes
-- 2FA enable/disable
-- Account modifications
-- Suspicious activity detection
-
-## Data Protection
-
-### Password Security
-- Bcrypt hashing with appropriate cost
-- Password complexity requirements
-- Secure password reset flow
-- Protection against timing attacks
-
-### Sensitive Data Handling
-- Never log sensitive information
-- Secure token storage and transmission
-- Proper secret rotation procedures
-- Clean error messages (no information leakage)
-
-## Network Security
-
-### HTTPS Requirements
-- Enforce HTTPS in production
-- Secure cookie settings
-- CORS policy implementation
-- Security headers configuration
-
-### Database Security
-- Connection pooling with limits
-- Secure connection strings
-- Database access control
-- Regular security updates
-
-## Vulnerability Management
-
-### Security Scanning Tools
-- gosec for Go-specific security issues
-- nancy for vulnerability scanning
-- Regular dependency updates
-- Automated security checks in CI/CD
-
-### Security Testing
-- Include security test cases
-- Test authentication flows
-- Validate authorization controls
-- Test input validation boundaries
-
-## Production Security Checklist
-
-### Deployment Security
-- Environment variable protection
-- Secure container images
-- Network isolation
-- Monitoring and alerting
-- Regular security audits
-- Incident response procedures
+- **Adding a new endpoint**:
+  1. Define DTO in `pkg/dto`.
+  2. add function to `Repository` interface & impl in `internal/<domain>/repository.go`.
+  3. Add logic to `Service` in `internal/<domain>/service.go`.
+  4. Register route in `Handler` and `main.go`.
+- **Log Activity**:
+  ```go
+  logQueryService.CreateLog(ctx, "USER_LOGIN", "User logged in", userID, "INFO")
+  ```
 
 ---
 > Source: [gjovanovicst/golang-auth-api](https://github.com/gjovanovicst/golang-auth-api) — distributed by [TomeVault](https://tomevault.io).
