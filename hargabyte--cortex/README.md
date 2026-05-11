@@ -7,11 +7,11 @@ Code graph tool for AI assistants - understand codebase structure, dependencies,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hargabyte/cortex](https://github.com/hargabyte/cortex).
+Original source: `CLAUDE.md` in [hargabyte/cortex](https://github.com/hargabyte/cortex).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
