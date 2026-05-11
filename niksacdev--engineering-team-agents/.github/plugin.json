@@ -1,0 +1,9 @@
+{
+  "name": "niksacdev--engineering-team-agents",
+  "displayName": "engineering-team-agents",
+  "description": "These are agent templates that can be used by teams to adopt a developer agent workflow for their repos.",
+  "version": "1.0.0",
+  "author": "niksacdev",
+  "homepage": "https://github.com/niksacdev/engineering-team-agents",
+  "skills": []
+}
