@@ -1,0 +1,9 @@
+{
+  "name": "gens-ai--autopilot",
+  "displayName": "autopilot",
+  "description": "Autonomous TDD workflow for Claude Code using Ralph Loop",
+  "version": "1.0.0",
+  "author": "Gens-ai",
+  "homepage": "https://github.com/Gens-ai/autopilot",
+  "skills": []
+}
