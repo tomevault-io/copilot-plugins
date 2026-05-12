@@ -4,7 +4,7 @@
   "repo": "dustoff",
   "description": "\ud83d\udd0d Scan for JavaScript/TypeScript build artifacts \ud83d\udce6 (node_modules \ud83d\udcc1, .next \u2699\ufe0f, dist \ud83d\udce4, .cache \ud83d\uddc2\ufe0f, coverage \ud83d\udcca, .turbo \ud83c\udf2a\ufe0f, .parcel-cache \ud83d\udce6, and more) cluttering your filesystem. \ud83d\udcbe See how much space each one is wasting, then select and delete them to reclaim disk space. \ud83e\uddf9",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/westpoint-io/dustoff",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T07:17:13Z"
+  "distributed_at": "2026-05-12T07:41:32Z"
 }
