@@ -1,0 +1,9 @@
+{
+  "name": "pranavnagrecha--awesomesalesforceskills",
+  "displayName": "AwesomeSalesforceSkills",
+  "description": "Open-source Salesforce knowledge layer for AI coding assistants. 982+ source-grounded skills, 75 agents, 38-tool MCP server with live-org metadata. pip install sfskills-mcp.",
+  "version": "1.0.0",
+  "author": "PranavNagrecha",
+  "homepage": "https://github.com/PranavNagrecha/AwesomeSalesforceSkills",
+  "skills": []
+}
