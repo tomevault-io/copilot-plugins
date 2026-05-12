@@ -1,0 +1,9 @@
+{
+  "name": "mda2av--http11probe",
+  "displayName": "Http11Probe",
+  "description": "An open testing platform that probes HTTP/1.1 servers against RFC 9110/9112 requirements, smuggling vectors, and malformed input handling. Add your framework, get compliance results automatically.",
+  "version": "1.0.0",
+  "author": "MDA2AV",
+  "homepage": "https://github.com/MDA2AV/Http11Probe",
+  "skills": []
+}
