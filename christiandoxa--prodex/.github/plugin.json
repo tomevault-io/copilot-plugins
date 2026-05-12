@@ -1,0 +1,9 @@
+{
+  "name": "christiandoxa--prodex",
+  "displayName": "prodex",
+  "description": "Codex/ChatGPT account pooling and safe auto rotate for Codex CLI and Claude Code",
+  "version": "1.0.0",
+  "author": "christiandoxa",
+  "homepage": "https://github.com/christiandoxa/prodex",
+  "skills": []
+}
