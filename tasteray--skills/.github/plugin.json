@@ -1,0 +1,9 @@
+{
+  "name": "tasteray--skills",
+  "displayName": "skills",
+  "description": "TasteRay skills for psychological profiling through natural conversation",
+  "version": "1.0.0",
+  "author": "tasteray",
+  "homepage": "https://github.com/tasteray/skills",
+  "skills": []
+}
