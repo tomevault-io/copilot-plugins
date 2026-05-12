@@ -4,7 +4,7 @@
   "repo": "OpenSail",
   "description": "OpenSail is the open-source alternative to Codex App, Claude Desktop, Cursor, and Cowork for agentic software work.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TesslateAI/OpenSail",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T18:16:04Z"
+  "distributed_at": "2026-05-12T20:04:29Z"
 }
