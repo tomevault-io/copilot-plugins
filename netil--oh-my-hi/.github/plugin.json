@@ -1,0 +1,9 @@
+{
+  "name": "netil--oh-my-hi",
+  "displayName": "oh-my-hi",
+  "description": "\ud83d\udc4b Claude Code harness insights dashboard \u2014 visual catalog and token analytics for skills, agents, plugins, hooks, memory, and more!",
+  "version": "1.0.0",
+  "author": "netil",
+  "homepage": "https://github.com/netil/oh-my-hi",
+  "skills": []
+}
