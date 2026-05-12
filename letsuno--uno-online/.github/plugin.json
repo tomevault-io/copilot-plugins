@@ -1,0 +1,9 @@
+{
+  "name": "letsuno--uno-online",
+  "displayName": "uno-online",
+  "description": "Multiplayer UNO card game with real-time gameplay, voice chat, and 33 house rules",
+  "version": "1.0.0",
+  "author": "letsuno",
+  "homepage": "https://github.com/letsuno/uno-online",
+  "skills": []
+}
