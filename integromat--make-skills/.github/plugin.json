@@ -1,0 +1,9 @@
+{
+  "name": "integromat--make-skills",
+  "displayName": "make-skills",
+  "description": "Make Skills",
+  "version": "1.0.0",
+  "author": "integromat",
+  "homepage": "https://github.com/integromat/make-skills",
+  "skills": []
+}
