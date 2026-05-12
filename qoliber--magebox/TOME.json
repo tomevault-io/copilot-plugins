@@ -1,0 +1,44 @@
+{
+  "name": "magebox",
+  "owner": "qoliber",
+  "repo": "magebox",
+  "description": "MageBox is a development environment for Magento 2 and MageOS. It runs PHP and Nginx natively on your machine while using Docker for supporting services like databases and caches.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qoliber/magebox",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T20:25:23Z"
+}
