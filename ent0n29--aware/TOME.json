@@ -4,7 +4,7 @@
   "repo": "aware",
   "description": "AWARE Fund - Smart Money Index for Prediction Markets",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ent0n29/aware",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T14:38:44Z"
+  "distributed_at": "2026-05-12T17:05:53Z"
 }
