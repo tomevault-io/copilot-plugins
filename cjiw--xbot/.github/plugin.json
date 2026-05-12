@@ -1,0 +1,9 @@
+{
+  "name": "cjiw--xbot",
+  "displayName": "xbot",
+  "description": "Extensible AI agent framework in Go \u2014 multi-channel (Feishu/Slack/CLI), sandboxed tool execution, MCP integration, multi-tenant sessions",
+  "version": "1.0.0",
+  "author": "CjiW",
+  "homepage": "https://github.com/CjiW/xbot",
+  "skills": []
+}
