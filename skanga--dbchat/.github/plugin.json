@@ -1,0 +1,9 @@
+{
+  "name": "skanga--dbchat",
+  "displayName": "DBchat",
+  "description": "A powerful MCP server that lets you have natural language conversations with your database. Ask it to do complex analysis, generate beautiful visualizations, or build custom interactive dashboards bas",
+  "version": "1.0.0",
+  "author": "skanga",
+  "homepage": "https://github.com/skanga/DBchat",
+  "skills": []
+}
