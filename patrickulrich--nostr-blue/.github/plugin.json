@@ -1,0 +1,9 @@
+{
+  "name": "patrickulrich--nostr-blue",
+  "displayName": "nostr.blue",
+  "description": "Full feature nostr client found at nostr.blue",
+  "version": "1.0.0",
+  "author": "patrickulrich",
+  "homepage": "https://github.com/patrickulrich/nostr.blue",
+  "skills": []
+}
