@@ -1,0 +1,9 @@
+{
+  "name": "chainstacklabs--web3-ai-trading-agent",
+  "displayName": "web3-ai-trading-agent",
+  "description": "Build an Autonomous Web3 AI Trading Agent (BASE + Uniswap V4 example)",
+  "version": "1.0.0",
+  "author": "chainstacklabs",
+  "homepage": "https://github.com/chainstacklabs/web3-ai-trading-agent",
+  "skills": []
+}
