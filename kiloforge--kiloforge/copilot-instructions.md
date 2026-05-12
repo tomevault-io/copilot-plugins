@@ -1,0 +1,54 @@
+## kiloforge
+
+> This repo uses git worktrees. Go's VCS stamping fails in worktrees because `.git` is a file, not a directory. **Do not manually pass `-buildvcs=false`** — the Makefile auto-detects VCS availability and falls back gracefully when needed (e.g., bare repo root).
+
+# Kiloforge — Agent Instructions
+
+## Worktree Build Fix (MANDATORY)
+
+This repo uses git worktrees. Go's VCS stamping fails in worktrees because `.git` is a file, not a directory. **Do not manually pass `-buildvcs=false`** — the Makefile auto-detects VCS availability and falls back gracefully when needed (e.g., bare repo root).
+
+Before running `go build`, `go test`, or any `go` command that touches VCS metadata, source the worktree env helper:
+
+```bash
+eval "$(.agent/kf/bin/kf-worktree-env.py)"
+```
+
+This exports `GIT_DIR` and `GIT_WORK_TREE` automatically. Use `KF_QUIET=1` to suppress output. Run `kf-worktree-env.py --help` for details.
+
+`make build` and `make test` already handle this — prefer Makefile targets when available.
+
+## Never Commit Build Artifacts
+
+**`backend/internal/adapter/dashboard/dist/`** is in `.gitignore`. Never `git add` it. The frontend is built via `make build-frontend` and embedded into the Go binary at compile time. If `dist/` is missing, run the build — do not commit artifacts.
+
+## Project Structure
+
+- `backend/` — Go backend (Cobra CLI, REST server, Gitea adapter)
+- `frontend/` — React dashboard (Vite, TanStack Query)
+- `.agent/kf/` — Kiloforge project management artifacts
+
+## Verification — Quality Gate (MANDATORY)
+
+**Nothing merges to main unless `make verify` passes.** This runs all tests, builds, and linters:
+
+```bash
+make verify   # runs: make test && make build && make lint
+```
+
+Before verification, run autoformatters so formatting fixes are captured in commits:
+
+```bash
+cd backend && gofmt -w . && goimports -w -local github.com/benbaldivia/crelay .
+```
+
+If any step fails, fix the issue before merging. Do not skip or use partial verification (e.g., running only one package's tests). The full suite must pass.
+
+## Guidelines
+
+- See `.agent/kf/code_styleguides/` for Go and build conventions
+- See `.agent/kf/product-guidelines.md` for design principles
+
+---
+> Source: [Kiloforge/kiloforge](https://github.com/Kiloforge/kiloforge) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
