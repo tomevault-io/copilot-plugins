@@ -1,0 +1,9 @@
+{
+  "name": "qoliber--magebox",
+  "displayName": "magebox",
+  "description": "MageBox is a development environment for Magento 2 and MageOS. It runs PHP and Nginx natively on your machine while using Docker for supporting services like databases and caches.",
+  "version": "1.0.0",
+  "author": "qoliber",
+  "homepage": "https://github.com/qoliber/magebox",
+  "skills": []
+}
