@@ -1,0 +1,9 @@
+{
+  "name": "ymahlau--bonni",
+  "displayName": "bonni",
+  "description": "BONNI: Bayesian Optimization via Neural Network surrogates and Interior Point Optimization",
+  "version": "1.0.0",
+  "author": "ymahlau",
+  "homepage": "https://github.com/ymahlau/bonni",
+  "skills": []
+}
