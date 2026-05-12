@@ -1,0 +1,9 @@
+{
+  "name": "taigrr--glaze-nvim",
+  "displayName": "glaze.nvim",
+  "description": "\ud83c\udf69 A Mason/Lazy-style manager for Go binaries in Neovim. Go + Lazy = Glaze.",
+  "version": "1.0.0",
+  "author": "taigrr",
+  "homepage": "https://github.com/taigrr/glaze.nvim",
+  "skills": []
+}
