@@ -1,0 +1,44 @@
+{
+  "name": "stealth-cli",
+  "owner": "Youhai020616",
+  "repo": "stealth-cli",
+  "description": "\ud83e\udd8a Anti-detection browser CLI powered by Camoufox \u2014 browse, screenshot, search, extract, crawl with C++ level fingerprint spoofing",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Youhai020616/stealth-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T13:19:23Z"
+}
