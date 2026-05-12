@@ -1,0 +1,9 @@
+{
+  "name": "ledati16--pwsw",
+  "displayName": "pwsw",
+  "description": "PipeWire Switcher - Automatically switch audio output based on active windows",
+  "version": "1.0.0",
+  "author": "ledati16",
+  "homepage": "https://github.com/ledati16/pwsw",
+  "skills": []
+}
