@@ -1,0 +1,44 @@
+{
+  "name": "contelligence",
+  "owner": "nadeemis",
+  "repo": "contelligence",
+  "description": "Contelligence helps teams, PMs, and analysts turn scattered content across Teams, SharePoint, Power BI, PDFs, and emails into structured decisions and deliverables \u2014 without manual chasing, copying, or stitching.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nadeemis/contelligence",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T21:13:59Z"
+}
