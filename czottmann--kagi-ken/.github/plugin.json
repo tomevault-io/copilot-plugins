@@ -1,0 +1,9 @@
+{
+  "name": "czottmann--kagi-ken",
+  "displayName": "kagi-ken",
+  "description": "Node package for accessing Kagi.com services (search and summarizer) using Kagi session tokens. Outputs structured JSON matching official API schemas.",
+  "version": "1.0.0",
+  "author": "czottmann",
+  "homepage": "https://github.com/czottmann/kagi-ken",
+  "skills": []
+}
