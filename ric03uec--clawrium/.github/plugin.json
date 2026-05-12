@@ -1,0 +1,9 @@
+{
+  "name": "ric03uec--clawrium",
+  "displayName": "clawrium",
+  "description": "CLI fleet management for AI agents on local networks - deploy, upgrade, and monitor OpenClaw/ZeroClaw/IronClaw across hosts via Ansible",
+  "version": "1.0.0",
+  "author": "ric03uec",
+  "homepage": "https://github.com/ric03uec/clawrium",
+  "skills": []
+}
