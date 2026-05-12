@@ -1,0 +1,44 @@
+{
+  "name": "GLM-OCR-server",
+  "owner": "ponpaku",
+  "repo": "GLM-OCR-server",
+  "description": "GLM-OCR\u3092\u4f7f\u3063\u305f\u30ed\u30fc\u30ab\u30ebOCR\u30b5\u30fc\u30d0\u30fc\uff08FastAPI + Web UI / \u753b\u50cf\u30fbPDF\u5bfe\u5fdc\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ponpaku/GLM-OCR-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T18:54:42Z"
+}
