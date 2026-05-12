@@ -7,11 +7,11 @@ Collaborative application security testing between humans and agents via CLI and
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [go-appsec/toolbox](https://github.com/go-appsec/toolbox).
+Original source: `CLAUDE.md` in [go-appsec/toolbox](https://github.com/go-appsec/toolbox).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
