@@ -7,11 +7,11 @@ An OpenClaw plugin that gives your AI agent a background reflection process and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [RogueCtrl/OpenClawDreams](https://github.com/RogueCtrl/OpenClawDreams).
+Original source: `CLAUDE.md` in [RogueCtrl/OpenClawDreams](https://github.com/RogueCtrl/OpenClawDreams).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
