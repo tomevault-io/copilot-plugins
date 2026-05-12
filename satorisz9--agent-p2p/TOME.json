@@ -4,7 +4,7 @@
   "repo": "agent-p2p",
   "description": "Peer-to-peer data transfer protocol for autonomous agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/satorisz9/agent-p2p",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T20:41:36Z"
+  "distributed_at": "2026-05-12T04:41:58Z"
 }
