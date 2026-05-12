@@ -7,11 +7,11 @@ An agentic AI assistant built with Rust 🦀 , inspired by OpenClaw, NanoClaw, N
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rayclaw/rayclaw](https://github.com/rayclaw/rayclaw).
+Original source: `CLAUDE.md` in [rayclaw/rayclaw](https://github.com/rayclaw/rayclaw).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
