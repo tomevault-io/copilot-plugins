@@ -1,0 +1,9 @@
+{
+  "name": "vimo-ai--memex",
+  "displayName": "memex",
+  "description": "One Memory. All CLIs. Never Compacted. Exact Search.",
+  "version": "1.0.0",
+  "author": "vimo-ai",
+  "homepage": "https://github.com/vimo-ai/memex",
+  "skills": []
+}
