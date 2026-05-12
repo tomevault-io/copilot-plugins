@@ -1,0 +1,9 @@
+{
+  "name": "jiahong-que-9527--sololakehouse",
+  "displayName": "SoloLakehouse",
+  "description": "SoloLakehouse: local-first lakehouse reference implementation with MinIO, Trino, Hive Metastore, and MLflow",
+  "version": "1.0.0",
+  "author": "Jiahong-Que-9527",
+  "homepage": "https://github.com/Jiahong-Que-9527/SoloLakehouse",
+  "skills": []
+}
