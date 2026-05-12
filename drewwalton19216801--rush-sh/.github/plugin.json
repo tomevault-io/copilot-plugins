@@ -1,0 +1,9 @@
+{
+  "name": "drewwalton19216801--rush-sh",
+  "displayName": "rush-sh",
+  "description": "A Rust-based Unix shell that aims for POSIX compliance and useful quality-of-life features",
+  "version": "1.0.0",
+  "author": "drewwalton19216801",
+  "homepage": "https://github.com/drewwalton19216801/rush-sh",
+  "skills": []
+}
