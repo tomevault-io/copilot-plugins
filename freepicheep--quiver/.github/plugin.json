@@ -1,0 +1,9 @@
+{
+  "name": "freepicheep--quiver",
+  "displayName": "quiver",
+  "description": "A fast Nu package and project manager, written in Rust.",
+  "version": "1.0.0",
+  "author": "freepicheep",
+  "homepage": "https://github.com/freepicheep/quiver",
+  "skills": []
+}
