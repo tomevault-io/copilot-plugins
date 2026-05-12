@@ -1,0 +1,9 @@
+{
+  "name": "denyherianto--niteni",
+  "displayName": "niteni",
+  "description": "Analyzes code changes via the Gemini API with a structured review prompt, then posts severity-classified findings as GitLab MR notes.",
+  "version": "1.0.0",
+  "author": "denyherianto",
+  "homepage": "https://github.com/denyherianto/niteni",
+  "skills": []
+}
