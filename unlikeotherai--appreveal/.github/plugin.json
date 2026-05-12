@@ -1,0 +1,9 @@
+{
+  "name": "unlikeotherai--appreveal",
+  "displayName": "AppReveal",
+  "description": "Debug-only in-app MCP server for iOS/macOS/Android/Flutter/ReactNative. Gives LLM agents Playwright-like control over native apps \u2014 UI, state, navigation, and diagnostics over the local network.",
+  "version": "1.0.0",
+  "author": "UnlikeOtherAI",
+  "homepage": "https://github.com/UnlikeOtherAI/AppReveal",
+  "skills": []
+}
