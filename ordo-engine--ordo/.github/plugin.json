@@ -1,0 +1,9 @@
+{
+  "name": "ordo-engine--ordo",
+  "displayName": "Ordo",
+  "description": "The open-source decision platform \u2014 author, test, and govern business rules at scale built in Rust",
+  "version": "1.0.0",
+  "author": "Ordo-Engine",
+  "homepage": "https://github.com/Ordo-Engine/Ordo",
+  "skills": []
+}
