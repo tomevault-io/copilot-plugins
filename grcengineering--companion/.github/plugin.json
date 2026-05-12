@@ -1,0 +1,9 @@
+{
+  "name": "grcengineering--companion",
+  "displayName": "companion",
+  "description": "A fully customisable and personalised lab builder which is tailored to your context, experience, current technical literacy, objectives and time allocation. You can use it in any LLM/AI chat app and b",
+  "version": "1.0.0",
+  "author": "grcengineering",
+  "homepage": "https://github.com/grcengineering/companion",
+  "skills": []
+}
