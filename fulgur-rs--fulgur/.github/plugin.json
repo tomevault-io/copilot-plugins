@@ -1,0 +1,9 @@
+{
+  "name": "fulgur-rs--fulgur",
+  "displayName": "fulgur",
+  "description": "Blazing fast HTML to PDF engine built on blitz and krilla",
+  "version": "1.0.0",
+  "author": "fulgur-rs",
+  "homepage": "https://github.com/fulgur-rs/fulgur",
+  "skills": []
+}
