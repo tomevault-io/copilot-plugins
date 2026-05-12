@@ -1,0 +1,9 @@
+{
+  "name": "ydeng11--rulesify",
+  "displayName": "rulesify",
+  "description": "Skill management tool for AI agents - discover and install pre-built workflows from Anthropic, OpenAI, and community sources",
+  "version": "1.0.0",
+  "author": "ydeng11",
+  "homepage": "https://github.com/ydeng11/rulesify",
+  "skills": []
+}
