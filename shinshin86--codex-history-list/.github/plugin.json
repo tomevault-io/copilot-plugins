@@ -1,0 +1,9 @@
+{
+  "name": "shinshin86--codex-history-list",
+  "displayName": "codex-history-list",
+  "description": "List Codex session histories from ~/.codex/sessions with cwd and first user ask.",
+  "version": "1.0.0",
+  "author": "shinshin86",
+  "homepage": "https://github.com/shinshin86/codex-history-list",
+  "skills": []
+}
