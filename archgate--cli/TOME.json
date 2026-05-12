@@ -4,7 +4,7 @@
   "repo": "cli",
   "description": "Enforce Architecture Decision Records as executable rules \u2014 for both humans and AI agents",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/archgate/cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T21:04:11Z"
+  "distributed_at": "2026-05-12T08:07:15Z"
 }
