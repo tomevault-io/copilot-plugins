@@ -1,0 +1,9 @@
+{
+  "name": "agencia-conversion--seo-brain",
+  "displayName": "seo-brain",
+  "description": "Agentic SEO operating system as a Claude Code plugin: project Wiki, DataForSEO workflows, content briefs, technical SEO, and human-approval gates.",
+  "version": "1.0.0",
+  "author": "agencia-conversion",
+  "homepage": "https://github.com/agencia-conversion/seo-brain",
+  "skills": []
+}
