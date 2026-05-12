@@ -1,0 +1,9 @@
+{
+  "name": "grefer--cblens",
+  "displayName": "CBLens",
+  "description": "CBLens\uff1a\u57fa\u4e8e Crank-Nicolson PDE \u7684 A \u80a1\u53ef\u8f6c\u503a\u5b9a\u4ef7\u3001\u516c\u544a\u4e8b\u4ef6\u89e3\u6790\u4e0e\u673a\u4f1a\u7b5b\u9009\u5de5\u4f5c\u53f0\uff0c\u652f\u6301 GUI/CLI \u7814\u7a76\u6d41\u3002",
+  "version": "1.0.0",
+  "author": "Grefer",
+  "homepage": "https://github.com/Grefer/CBLens",
+  "skills": []
+}
