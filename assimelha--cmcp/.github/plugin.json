@@ -1,0 +1,9 @@
+{
+  "name": "assimelha--cmcp",
+  "displayName": "cmcp",
+  "description": "Code Mode MCP \u2014 aggregate all your MCP servers behind search() + execute()",
+  "version": "1.0.0",
+  "author": "assimelha",
+  "homepage": "https://github.com/assimelha/cmcp",
+  "skills": []
+}
