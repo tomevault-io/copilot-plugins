@@ -1,0 +1,9 @@
+{
+  "name": "can-lehmann--metajit-cpp",
+  "displayName": "metajit.cpp",
+  "description": "A meta-tracing JIT",
+  "version": "1.0.0",
+  "author": "can-lehmann",
+  "homepage": "https://github.com/can-lehmann/metajit.cpp",
+  "skills": []
+}
