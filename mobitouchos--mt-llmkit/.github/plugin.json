@@ -1,0 +1,9 @@
+{
+  "name": "mobitouchos--mt-llmkit",
+  "displayName": "mt_llmkit",
+  "description": "A Flutter toolkit for local and cloud LLM apps. Run GGUF models on Android and iOS, connect to OpenAI, Gemini, Claude and others through one unified API, and build fully local RAG pipelines. Supports ",
+  "version": "1.0.0",
+  "author": "mobitouchOS",
+  "homepage": "https://github.com/mobitouchOS/mt_llmkit",
+  "skills": []
+}
