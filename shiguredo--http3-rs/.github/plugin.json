@@ -1,0 +1,9 @@
+{
+  "name": "shiguredo--http3-rs",
+  "displayName": "http3-rs",
+  "description": "HTTP/3 Library",
+  "version": "1.0.0",
+  "author": "shiguredo",
+  "homepage": "https://github.com/shiguredo/http3-rs",
+  "skills": []
+}
