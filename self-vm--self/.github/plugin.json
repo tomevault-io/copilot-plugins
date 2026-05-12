@@ -1,0 +1,9 @@
+{
+  "name": "self-vm--self",
+  "displayName": "self",
+  "description": "the virtual machine designed to integrate AI instructions as part of the instruction set.",
+  "version": "1.0.0",
+  "author": "self-vm",
+  "homepage": "https://github.com/self-vm/self",
+  "skills": []
+}
