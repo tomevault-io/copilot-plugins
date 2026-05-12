@@ -1,0 +1,9 @@
+{
+  "name": "amaar-mc--wit",
+  "displayName": "wit",
+  "description": "Agent coordination protocol \u2014 declare intents, lock symbols, detect conflicts before code is written",
+  "version": "1.0.0",
+  "author": "amaar-mc",
+  "homepage": "https://github.com/amaar-mc/wit",
+  "skills": []
+}
