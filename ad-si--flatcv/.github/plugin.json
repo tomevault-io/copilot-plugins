@@ -1,0 +1,9 @@
+{
+  "name": "ad-si--flatcv",
+  "displayName": "FlatCV",
+  "description": "Image processing and computer vision library in pure C",
+  "version": "1.0.0",
+  "author": "ad-si",
+  "homepage": "https://github.com/ad-si/FlatCV",
+  "skills": []
+}
