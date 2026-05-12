@@ -1,34 +1,53 @@
-## academic-writing
+## academic-writing-toolkit
 
-> Academic writing conventions — reading notes format, chapter structure, consistency rules
+> <!-- GENERATED FROM CLAUDE.md — do not edit. Run `make sync` after editing CLAUDE.md. -->
 
+# Academic Writing Project
 
-## Notes Format
+<!-- GENERATED FROM CLAUDE.md — do not edit. Run `make sync` after editing CLAUDE.md. -->
 
-Reading notes use a standardised template (`literature/reading_notes/_template_NOTES.md`) with required fields:
-- **Status**: `reading` | `completed` | `integrated`
-- **Relevance**: chapter and section reference (e.g. "Ch3 S3.2 — supports argument about X")
-- **Thesis Connections** table: maps note points to chapters, sections, and connection types (supports / challenges / extends)
-- **Key Terms** table: term, translation (if applicable), definition in context
-- Direct quotes must include page numbers: `> "quote" (p.N)`
+Configuration for Gemini CLI.
 
-## Chapter Structure
+## Skill Discovery
+Skills are located in `.agents/skills/`. Each `.md` file in that directory defines a skill for academic writing workflows (reading, note-taking, chapter drafting, verification, etc.).
 
-- Chapters live in `chapters/`, named `ch{N}_{slug}.md`
-- Sections numbered hierarchically: `## N.1`, `### N.1.1`
-- Each chapter ends with a `## References` section (Harvard style)
-- Template available at `chapters/_template.md`
+## Project Overview
+This project uses the academic-writing-toolkit skills for structured research and thesis writing.
+
+## Directories
+- Chapters: `chapters/`
+- Literature PDFs: `literature/`
+- Reading notes: `literature/reading_notes/`
+- Export output: `final_output/`
+
+## Targets
+- Total word count target: 80,000
+- Per-chapter targets: edit the table below
+
+| Chapter | Title | Target Words |
+|---------|-------|-------------|
+| Ch1 | Introduction | 5,000 |
+| Ch2 | Background | 10,000 |
+| Ch3 | Framework | 12,000 |
+| Ch4 | Methodology | 8,000 |
+| Ch5 | Results | 15,000 |
+| Ch6 | Discussion | 12,000 |
+| Ch7 | Practice | 8,000 |
+| Ch8 | Conclusion | 5,000 |
+
+## Reading Constraints
+- Max pages per read invocation: 15
+- Max pages per conversation: 90
+- Always complete reading notes before modifying chapters
 
 ## Writing Principles
+- Read first, write later — finish reading notes before editing chapters
+- Each source must have an independent notes file in `literature/reading_notes/`
+- Use British English for thesis text
+- Notes files follow the standardised format (see `literature/reading_notes/_template_NOTES.md`)
 
-- **Read first, write later** — complete reading notes for all sources before editing chapter text
-- **British English** throughout thesis text (favour, analyse, behaviour, programme)
-- **One notes file per source** — every PDF/text gets its own `_NOTES.md` in `literature/reading_notes/`
-- Max 15 pages per read invocation; max 90 pages per conversation
-
-## Cursor Note
-
-For full skill functionality (/read, /note, /verify, etc.), use Claude Code, Codex CLI, or Gemini CLI. Cursor rules provide baseline writing conventions only.
+## Citation
+- Citation style: harvard
 
 ---
 > Source: [yha9806/academic-writing-toolkit](https://github.com/yha9806/academic-writing-toolkit) — distributed by [TomeVault](https://tomevault.io).
