@@ -1,0 +1,9 @@
+{
+  "name": "pcc-labs--sweeper",
+  "displayName": "sweeper",
+  "description": "Multi threaded code maintenance with resource isolated subagents.",
+  "version": "1.0.0",
+  "author": "pcc-labs",
+  "homepage": "https://github.com/pcc-labs/sweeper",
+  "skills": []
+}
