@@ -1,0 +1,9 @@
+{
+  "name": "minhvoio--macu-minimize-ai-credit-usage",
+  "displayName": "macu_minimize-ai-credit-usage",
+  "description": "Minimize AI credit usage. Analyze tool call patterns across Claude Code, OpenCode & Codex to find unused tools and cut token waste without losing context the AI needs to see.",
+  "version": "1.0.0",
+  "author": "minhvoio",
+  "homepage": "https://github.com/minhvoio/macu_minimize-ai-credit-usage",
+  "skills": []
+}
