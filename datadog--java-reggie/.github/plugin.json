@@ -1,0 +1,9 @@
+{
+  "name": "datadog--java-reggie",
+  "displayName": "java-reggie",
+  "description": "A novel, bytecode generation based Java regular expression library",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/java-reggie",
+  "skills": []
+}
