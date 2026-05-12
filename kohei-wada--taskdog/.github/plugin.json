@@ -1,0 +1,9 @@
+{
+  "name": "kohei-wada--taskdog",
+  "displayName": "taskdog",
+  "description": "Terminal task manager with intelligent schedule optimization.Keyboard-only. No dragging, no micromanagement.",
+  "version": "1.0.0",
+  "author": "Kohei-Wada",
+  "homepage": "https://github.com/Kohei-Wada/taskdog",
+  "skills": []
+}
