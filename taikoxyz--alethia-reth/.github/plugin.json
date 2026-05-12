@@ -1,0 +1,9 @@
+{
+  "name": "taikoxyz--alethia-reth",
+  "displayName": "alethia-reth",
+  "description": "A high-performance Rust execution client for the Taiko Alethia protocol.",
+  "version": "1.0.0",
+  "author": "taikoxyz",
+  "homepage": "https://github.com/taikoxyz/alethia-reth",
+  "skills": []
+}
