@@ -1,0 +1,9 @@
+{
+  "name": "openipc--waybeam-venc",
+  "displayName": "waybeam_venc",
+  "description": "Standalone Video Encoder & Streamer for FPV",
+  "version": "1.0.0",
+  "author": "OpenIPC",
+  "homepage": "https://github.com/OpenIPC/waybeam_venc",
+  "skills": []
+}
