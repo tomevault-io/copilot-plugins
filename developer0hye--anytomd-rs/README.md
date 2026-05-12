@@ -7,11 +7,11 @@ Pure Rust document-to-Markdown converter for LLM workflows (DOCX, PPTX, XLSX, HT
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [developer0hye/anytomd-rs](https://github.com/developer0hye/anytomd-rs).
+Original source: `CLAUDE.md` in [developer0hye/anytomd-rs](https://github.com/developer0hye/anytomd-rs).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
