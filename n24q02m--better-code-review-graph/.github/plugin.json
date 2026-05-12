@@ -1,0 +1,9 @@
+{
+  "name": "n24q02m--better-code-review-graph",
+  "displayName": "better-code-review-graph",
+  "description": "Knowledge graph for token-efficient code reviews -- fixed search, configurable embeddings, qualified call resolution.",
+  "version": "1.0.0",
+  "author": "n24q02m",
+  "homepage": "https://github.com/n24q02m/better-code-review-graph",
+  "skills": []
+}
