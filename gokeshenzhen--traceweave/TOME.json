@@ -4,7 +4,7 @@
   "repo": "TraceWeave",
   "description": "\u7b80\u6d01\u7684\u6d4b\u8bd5\u5e73\u53f0\u65e5\u5fd7\uff0c\u6ce2\u5f62(FSDB/VCD)\uff0c\u6839\u56e0\u5206\u6790MCP Server. A Simple and Universal MCP Server to Debug Testbench Simulation  Failures Via Log Parsing And Waveform Analysis (FSDB/VCD)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gokeshenzhen/TraceWeave",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T08:52:17Z"
+  "distributed_at": "2026-05-12T07:50:16Z"
 }
