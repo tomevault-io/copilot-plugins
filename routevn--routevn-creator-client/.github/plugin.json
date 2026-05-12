@@ -1,0 +1,9 @@
+{
+  "name": "routevn--routevn-creator-client",
+  "displayName": "routevn-creator-client",
+  "description": "RouteVN Creator is a desktop application to create Visual Novels without any coding",
+  "version": "1.0.0",
+  "author": "RouteVN",
+  "homepage": "https://github.com/RouteVN/routevn-creator-client",
+  "skills": []
+}
