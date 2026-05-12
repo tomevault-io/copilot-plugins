@@ -1,0 +1,9 @@
+{
+  "name": "pipeboard-co--pipeboard-cli",
+  "displayName": "pipeboard-cli",
+  "description": "Command-line tool for managing Meta Ads, Google Ads, and TikTok Ads from your terminal. Create campaigns, pull reports, and manage ads across platforms with a single CLI.",
+  "version": "1.0.0",
+  "author": "pipeboard-co",
+  "homepage": "https://github.com/pipeboard-co/pipeboard-cli",
+  "skills": []
+}
