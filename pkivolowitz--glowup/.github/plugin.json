@@ -1,0 +1,9 @@
+{
+  "name": "pkivolowitz--glowup",
+  "displayName": "glowup",
+  "description": "A powerful LIFX lighting control system with many effects both 1D and 2D as well as sophisticated scheduling and virtual lights.",
+  "version": "1.0.0",
+  "author": "pkivolowitz",
+  "homepage": "https://github.com/pkivolowitz/glowup",
+  "skills": []
+}
