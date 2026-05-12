@@ -4,7 +4,7 @@
   "repo": "ClaudeGlance",
   "description": "Multi-terminal Claude Code status HUD for macOS",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MJYKIM99/ClaudeGlance",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T14:58:10Z"
+  "distributed_at": "2026-05-12T17:20:58Z"
 }
