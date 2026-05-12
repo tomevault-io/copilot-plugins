@@ -1,0 +1,9 @@
+{
+  "name": "anton15k--llm-wiki-agent",
+  "displayName": "llm_wiki_agent",
+  "description": "MCP server that turns raw sources into an interlinked Obsidian wiki with Claude Code.",
+  "version": "1.0.0",
+  "author": "Anton15K",
+  "homepage": "https://github.com/Anton15K/llm_wiki_agent",
+  "skills": []
+}
