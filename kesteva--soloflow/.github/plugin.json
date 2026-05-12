@@ -1,0 +1,9 @@
+{
+  "name": "kesteva--soloflow",
+  "displayName": "soloflow",
+  "description": "Soloflow is a hooks-based workflow orchestration for solo product development with Claude Code.",
+  "version": "1.0.0",
+  "author": "kesteva",
+  "homepage": "https://github.com/kesteva/soloflow",
+  "skills": []
+}
