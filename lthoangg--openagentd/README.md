@@ -1,13 +1,13 @@
-# AI instruction files for openagentd
+# OpenAgentd
 
-> Sourced from [lthoangg/openagentd](https://github.com/lthoangg/openagentd) and converted for every major platform by [TomeVault](https://tomevault.io)
+> Tome by [lthoangg](https://github.com/lthoangg/OpenAgentd) — distributed by [TomeVault](https://tomevault.io)
 
 Self-hosted AI agent OS — streaming chat, tool use, persistent memory, and multi-agent teams. Runs entirely on your machine.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lthoangg/openagentd](https://github.com/lthoangg/openagentd).
+Original source: `AGENTS.md` in [lthoangg/OpenAgentd](https://github.com/lthoangg/OpenAgentd).
 
 ## Also available for
 
@@ -17,14 +17,10 @@ Original source: `AGENTS.md` in [lthoangg/openagentd](https://github.com/lthoang
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/lthoangg/openagentd](https://github.com/lthoangg/openagentd)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/lthoangg/OpenAgentd](https://github.com/lthoangg/OpenAgentd)
 
 ---
 
-Install this config instantly:
-```
-npx tomevault install lthoangg/openagentd
-```
-Source: [github.com/lthoangg/openagentd](https://github.com/lthoangg/openagentd).
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
-<!-- genome:a-i-p -->
+<!-- genome:t-c-q -->
