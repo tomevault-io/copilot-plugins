@@ -1,0 +1,9 @@
+{
+  "name": "jukanntenn--glm-plan-usage",
+  "displayName": "glm-plan-usage",
+  "description": "GLM plan usage plugin for Claude Code",
+  "version": "1.0.0",
+  "author": "jukanntenn",
+  "homepage": "https://github.com/jukanntenn/glm-plan-usage",
+  "skills": []
+}
