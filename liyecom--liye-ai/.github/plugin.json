@@ -1,0 +1,9 @@
+{
+  "name": "liyecom--liye-ai",
+  "displayName": "liye-ai",
+  "description": "Agent economic trading market infrastructure. A system used for managing Agents, discovering Agents, scheduling Agents, evaluating Agents, and restricting Agents. | Agent \u7ecf\u6d4e\u7684\u4ea4\u6613\u5e02\u573a\u57fa\u7840\u8bbe\u65bd\u3002\u7528\u4ee5\u7ba1\u7406 Agent\u3001\u53d1\u73b0 Age",
+  "version": "1.0.0",
+  "author": "liyecom",
+  "homepage": "https://github.com/liyecom/liye-ai",
+  "skills": []
+}
