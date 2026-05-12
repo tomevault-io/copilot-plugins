@@ -1,0 +1,9 @@
+{
+  "name": "wealthystudent--ha-nanit",
+  "displayName": "ha-nanit",
+  "description": "Nanit baby monitor integration for Home Assistant (HACS)",
+  "version": "1.0.0",
+  "author": "wealthystudent",
+  "homepage": "https://github.com/wealthystudent/ha-nanit",
+  "skills": []
+}
