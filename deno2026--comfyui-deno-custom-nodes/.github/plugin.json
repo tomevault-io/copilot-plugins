@@ -1,0 +1,9 @@
+{
+  "name": "deno2026--comfyui-deno-custom-nodes",
+  "displayName": "comfyui-deno-custom-nodes",
+  "description": "ComfyUI custom nodes by Deno, starting with an image resize node.",
+  "version": "1.0.0",
+  "author": "Deno2026",
+  "homepage": "https://github.com/Deno2026/comfyui-deno-custom-nodes",
+  "skills": []
+}
