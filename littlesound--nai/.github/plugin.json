@@ -1,0 +1,9 @@
+{
+  "name": "littlesound--nai",
+  "displayName": "nai",
+  "description": "An interactive CLI that makes installing dependencies easy \u2014 with first-class catalog support.",
+  "version": "1.0.0",
+  "author": "LittleSound",
+  "homepage": "https://github.com/LittleSound/nai",
+  "skills": []
+}
