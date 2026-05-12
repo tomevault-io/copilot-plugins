@@ -1,0 +1,9 @@
+{
+  "name": "robertleoj--lensboy",
+  "displayName": "lensboy",
+  "description": "Camera calibration library with spline and parametric distortion models. Maximally powerful, minimally complex.",
+  "version": "1.0.0",
+  "author": "Robertleoj",
+  "homepage": "https://github.com/Robertleoj/lensboy",
+  "skills": []
+}
