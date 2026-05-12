@@ -4,7 +4,7 @@
   "repo": "awesome-claude-code",
   "description": "A repo that collects awsome learning materials/tools for Calude Code developers, aiming at 5X DEV efficiency",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zjh1943/awesome-claude-code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T02:19:30Z"
+  "distributed_at": "2026-05-12T22:22:35Z"
 }
