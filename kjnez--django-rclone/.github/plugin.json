@@ -1,0 +1,9 @@
+{
+  "name": "kjnez--django-rclone",
+  "displayName": "django-rclone",
+  "description": "Django database and media backup, powered by rclone.",
+  "version": "1.0.0",
+  "author": "kjnez",
+  "homepage": "https://github.com/kjnez/django-rclone",
+  "skills": []
+}
