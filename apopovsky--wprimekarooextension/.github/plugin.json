@@ -1,0 +1,9 @@
+{
+  "name": "apopovsky--wprimekarooextension",
+  "displayName": "WPrimeKarooExtension",
+  "description": "A Hammerhead Karoo extension to add a configurable W' (W Prime) data field",
+  "version": "1.0.0",
+  "author": "apopovsky",
+  "homepage": "https://github.com/apopovsky/WPrimeKarooExtension",
+  "skills": []
+}
