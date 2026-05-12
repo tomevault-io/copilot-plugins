@@ -7,11 +7,11 @@ From "build me this" to a PR you'd actually approve. Claude Code orchestration f
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [syedsaif666/LGTM](https://github.com/syedsaif666/LGTM).
+Original source: `CLAUDE.md` in [syedsaif666/LGTM](https://github.com/syedsaif666/LGTM).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
