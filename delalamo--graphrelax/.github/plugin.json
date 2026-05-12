@@ -1,0 +1,9 @@
+{
+  "name": "delalamo--graphrelax",
+  "displayName": "GraphRelax",
+  "description": "A drop-in replacement for Rosetta Relax",
+  "version": "1.0.0",
+  "author": "delalamo",
+  "homepage": "https://github.com/delalamo/GraphRelax",
+  "skills": []
+}
