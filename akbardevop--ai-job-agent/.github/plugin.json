@@ -1,0 +1,9 @@
+{
+  "name": "akbardevop--ai-job-agent",
+  "displayName": "ai-job-agent",
+  "description": "AI-powered job application automation toolkit \u2014 LinkedIn Easy Apply, Greenhouse, Lever, Jobvite, Ashby, Outlook triage, tracking. Built with Claude Code.",
+  "version": "1.0.0",
+  "author": "AkbarDevop",
+  "homepage": "https://github.com/AkbarDevop/ai-job-agent",
+  "skills": []
+}
