@@ -1,0 +1,9 @@
+{
+  "name": "dukex--crewbit",
+  "displayName": "crewbit",
+  "description": "Give life to an AI agent with a single command.",
+  "version": "1.0.0",
+  "author": "dukex",
+  "homepage": "https://github.com/dukex/crewbit",
+  "skills": []
+}
