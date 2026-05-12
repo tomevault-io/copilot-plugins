@@ -1,0 +1,9 @@
+{
+  "name": "fuswn--ylin",
+  "displayName": "ylin",
+  "description": "A fast, lightweight Markdown editor built with Tauri 2 + Rust. No framework, no bundler, just pure performance.",
+  "version": "1.0.0",
+  "author": "Fuswn",
+  "homepage": "https://github.com/Fuswn/ylin",
+  "skills": []
+}
