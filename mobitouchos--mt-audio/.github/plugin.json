@@ -1,0 +1,9 @@
+{
+  "name": "mobitouchos--mt-audio",
+  "displayName": "mt_audio",
+  "description": "A wrapper on select audio packages. Provides a clean, simple API to speed up basic audio integration. Supports Android Auto and Apple CarPlay.",
+  "version": "1.0.0",
+  "author": "mobitouchOS",
+  "homepage": "https://github.com/mobitouchOS/mt_audio",
+  "skills": []
+}
