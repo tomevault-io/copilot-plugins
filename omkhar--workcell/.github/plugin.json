@@ -1,0 +1,9 @@
+{
+  "name": "omkhar--workcell",
+  "displayName": "workcell",
+  "description": "Bounded local runtime and policy boundary for coding agents",
+  "version": "1.0.0",
+  "author": "omkhar",
+  "homepage": "https://github.com/omkhar/workcell",
+  "skills": []
+}
