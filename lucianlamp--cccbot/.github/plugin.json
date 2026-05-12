@@ -1,0 +1,9 @@
+{
+  "name": "lucianlamp--cccbot",
+  "displayName": "CCCBot",
+  "description": "Autonomous AI agent built on Claude Code Channels \u2014 scheduled tasks, heartbeat monitoring, auto-recovery, and persona config for Telegram & Discord",
+  "version": "1.0.0",
+  "author": "lucianlamp",
+  "homepage": "https://github.com/lucianlamp/CCCBot",
+  "skills": []
+}
