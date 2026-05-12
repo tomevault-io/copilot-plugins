@@ -1,0 +1,9 @@
+{
+  "name": "kauffinger--livewire-chat",
+  "displayName": "livewire-chat",
+  "description": "Laravel Livewire Chat UI Starter Kit",
+  "version": "1.0.0",
+  "author": "kauffinger",
+  "homepage": "https://github.com/kauffinger/livewire-chat",
+  "skills": []
+}
