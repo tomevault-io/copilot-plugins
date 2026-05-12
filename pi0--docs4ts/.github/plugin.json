@@ -1,0 +1,9 @@
+{
+  "name": "pi0--docs4ts",
+  "displayName": "docs4ts",
+  "description": "Extract JSDoc documentation from TypeScript/JavaScript source files and generate formatted Markdown",
+  "version": "1.0.0",
+  "author": "pi0",
+  "homepage": "https://github.com/pi0/docs4ts",
+  "skills": []
+}
