@@ -1,0 +1,9 @@
+{
+  "name": "jossephus--wren-lsp",
+  "displayName": "wren-lsp",
+  "description": "lsp implementation for wren",
+  "version": "1.0.0",
+  "author": "jossephus",
+  "homepage": "https://github.com/jossephus/wren-lsp",
+  "skills": []
+}
