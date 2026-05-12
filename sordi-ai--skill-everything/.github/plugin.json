@@ -1,0 +1,9 @@
+{
+  "name": "sordi-ai--skill-everything",
+  "displayName": "skill-everything",
+  "description": "Git-versioned agent memory: agents that never make the same mistake twice. Anthropic-Skill folder standard, multi-runtime (Claude Code, Cursor, Gemini CLI, OpenCode).",
+  "version": "1.0.0",
+  "author": "sordi-ai",
+  "homepage": "https://github.com/sordi-ai/skill-everything",
+  "skills": []
+}
