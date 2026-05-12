@@ -1,0 +1,9 @@
+{
+  "name": "beezly--sync-unifi-filters",
+  "displayName": "sync_unifi_filters",
+  "description": "Command-line tool for managing Unifi Network Controller content filtering rules",
+  "version": "1.0.0",
+  "author": "beezly",
+  "homepage": "https://github.com/beezly/sync_unifi_filters",
+  "skills": []
+}
