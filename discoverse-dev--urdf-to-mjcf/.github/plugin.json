@@ -1,0 +1,9 @@
+{
+  "name": "discoverse-dev--urdf-to-mjcf",
+  "displayName": "urdf-to-mjcf",
+  "description": "URDF to MJCF conversion tool with support for STL, OBJ, DAE formats, automatic recognition of mimic tags in URDF, configurable joint actuators, and one-click generation of sim-ready MJCF files.URDF\u5230MJ",
+  "version": "1.0.0",
+  "author": "discoverse-dev",
+  "homepage": "https://github.com/discoverse-dev/urdf-to-mjcf",
+  "skills": []
+}
