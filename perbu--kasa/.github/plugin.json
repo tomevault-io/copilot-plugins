@@ -1,0 +1,9 @@
+{
+  "name": "perbu--kasa",
+  "displayName": "kasa",
+  "description": "Agentic k8s client",
+  "version": "1.0.0",
+  "author": "perbu",
+  "homepage": "https://github.com/perbu/kasa",
+  "skills": []
+}
