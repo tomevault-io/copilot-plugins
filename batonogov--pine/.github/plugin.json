@@ -1,0 +1,9 @@
+{
+  "name": "batonogov--pine",
+  "displayName": "pine",
+  "description": "A code editor that belongs on your Mac. Native SwiftUI + AppKit, zero Electron.",
+  "version": "1.0.0",
+  "author": "batonogov",
+  "homepage": "https://github.com/batonogov/pine",
+  "skills": []
+}
