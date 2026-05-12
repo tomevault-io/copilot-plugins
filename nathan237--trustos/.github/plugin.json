@@ -1,0 +1,9 @@
+{
+  "name": "nathan237--trustos",
+  "displayName": "TrustOS",
+  "description": "\ud83e\udd80 TrustOS \u2014 264K lines of bare-metal Rust. Zero C, zero blobs. Desktop, native x86_64 compiler, browser, emulators, TLS 1.3, PXE self-replication. Source code ships in 4 educational versions (EN/FR). ",
+  "version": "1.0.0",
+  "author": "nathan237",
+  "homepage": "https://github.com/nathan237/TrustOS",
+  "skills": []
+}
