@@ -1,0 +1,9 @@
+{
+  "name": "anneschuth--claude-threads",
+  "displayName": "claude-threads",
+  "description": "Think of it as screen-sharing for AI pair programming, but everyone can type.",
+  "version": "1.0.0",
+  "author": "anneschuth",
+  "homepage": "https://github.com/anneschuth/claude-threads",
+  "skills": []
+}
