@@ -1,0 +1,9 @@
+{
+  "name": "alexklibisz--terraform-provider-terrifi",
+  "displayName": "terraform-provider-terrifi",
+  "description": "Yet another Terraform provider for UniFi",
+  "version": "1.0.0",
+  "author": "alexklibisz",
+  "homepage": "https://github.com/alexklibisz/terraform-provider-terrifi",
+  "skills": []
+}
