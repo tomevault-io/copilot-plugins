@@ -1,0 +1,9 @@
+{
+  "name": "liquid4all--leapsdk-examples",
+  "displayName": "LeapSDK-Examples",
+  "description": "Example apps for LeapSDK",
+  "version": "1.0.0",
+  "author": "Liquid4All",
+  "homepage": "https://github.com/Liquid4All/LeapSDK-Examples",
+  "skills": []
+}
