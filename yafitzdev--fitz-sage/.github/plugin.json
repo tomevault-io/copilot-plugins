@@ -1,0 +1,9 @@
+{
+  "name": "yafitzdev--fitz-sage",
+  "displayName": "fitz-sage",
+  "description": "The RAG library that says \"I don't know\" instead of hallucinating.",
+  "version": "1.0.0",
+  "author": "yafitzdev",
+  "homepage": "https://github.com/yafitzdev/fitz-sage",
+  "skills": []
+}
