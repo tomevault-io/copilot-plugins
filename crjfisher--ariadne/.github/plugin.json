@@ -1,0 +1,9 @@
+{
+  "name": "crjfisher--ariadne",
+  "displayName": "ariadne",
+  "description": "\ud83e\uddf5 Follow the thread through your codebase - find definitions, track references, and build call graphs with tree-sitter",
+  "version": "1.0.0",
+  "author": "CRJFisher",
+  "homepage": "https://github.com/CRJFisher/ariadne",
+  "skills": []
+}
