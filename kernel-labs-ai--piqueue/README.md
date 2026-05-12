@@ -7,11 +7,11 @@ Let anyone submit a coding task against your codebase.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Kernel-Labs-AI/piqueue](https://github.com/Kernel-Labs-AI/piqueue).
+Original source: `CLAUDE.md` in [Kernel-Labs-AI/piqueue](https://github.com/Kernel-Labs-AI/piqueue).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
