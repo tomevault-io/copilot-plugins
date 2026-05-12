@@ -1,0 +1,9 @@
+{
+  "name": "moyuan5989--mlx-forge",
+  "displayName": "mlx-forge",
+  "description": "LLM fine-tuning & RL framework for MLX.",
+  "version": "1.0.0",
+  "author": "moyuan5989",
+  "homepage": "https://github.com/moyuan5989/mlx-forge",
+  "skills": []
+}
