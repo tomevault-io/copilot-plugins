@@ -1,0 +1,9 @@
+{
+  "name": "dull-bird--cv-debug-mate-cpp",
+  "displayName": "cv_debug_mate_cpp",
+  "description": "C++ DebugMate: A Visual Studio Code extension for visualizing 1/2/3D data structures during C++ debugging.",
+  "version": "1.0.0",
+  "author": "dull-bird",
+  "homepage": "https://github.com/dull-bird/cv_debug_mate_cpp",
+  "skills": []
+}
