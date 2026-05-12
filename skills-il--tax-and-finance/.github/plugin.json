@@ -1,0 +1,9 @@
+{
+  "name": "skills-il--tax-and-finance",
+  "displayName": "tax-and-finance",
+  "description": "AI agent skills for Israeli tax, invoicing, VAT, and financial systems",
+  "version": "1.0.0",
+  "author": "skills-il",
+  "homepage": "https://github.com/skills-il/tax-and-finance",
+  "skills": []
+}
