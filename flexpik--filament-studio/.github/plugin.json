@@ -1,0 +1,9 @@
+{
+  "name": "flexpik--filament-studio",
+  "displayName": "filament-studio",
+  "description": "Dynamic data model manager for Filament \u2014 EAV storage, 33 field types, dashboards, multi-tenancy",
+  "version": "1.0.0",
+  "author": "flexpik",
+  "homepage": "https://github.com/flexpik/filament-studio",
+  "skills": []
+}
