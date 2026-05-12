@@ -1,0 +1,9 @@
+{
+  "name": "jellman86--yetanother-whosatmyfeeder",
+  "displayName": "YetAnother-WhosAtMyFeeder",
+  "description": "\ud83d\udc26 AI-powered bird identification for Frigate NVR. Classifies birds from your feeder camera using TensorFlow Lite and displays them in a real-time dashboard.",
+  "version": "1.0.0",
+  "author": "Jellman86",
+  "homepage": "https://github.com/Jellman86/YetAnother-WhosAtMyFeeder",
+  "skills": []
+}
