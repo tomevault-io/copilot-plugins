@@ -7,13 +7,13 @@ Video editing MCP server for AI agents. 87 FFmpeg and Hyperframes tools, Python 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [KyaniteLabs/mcp-video](https://github.com/KyaniteLabs/mcp-video).
+Original source: `AGENTS.md` in [KyaniteLabs/mcp-video](https://github.com/KyaniteLabs/mcp-video).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
