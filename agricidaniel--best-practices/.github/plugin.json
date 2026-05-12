@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--best-practices",
+  "displayName": "best-practices",
+  "description": "the kernel for shipping changes. engineering kernel underneath, agent kernel on top. read first. write second. verify third.",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/best-practices",
+  "skills": []
+}
