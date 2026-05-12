@@ -1,81 +1,56 @@
-## tools
+## aedifex
 
-> Editor tools structure in apps/editor
+> This repository uses shared architecture rules for AI assistants. Treat the rule files as the source of truth for architecture-sensitive work.
 
+# Pascal Agent Instructions
 
-# Tools
+This repository uses shared architecture rules for AI assistants. Treat the rule files as the source of truth for architecture-sensitive work.
 
-Tools are React components that capture user input (pointer, keyboard) and translate it into `useScene` mutations. They live exclusively in `apps/editor/components/tools/`.
+## Required Rule Sources
 
-## Lifecycle
+The canonical rules live in `.cursor/rules/*.mdc`.
 
-`ToolManager` reads `useEditor` (phase + mode + tool) and mounts the active tool component. When the tool changes, the old component unmounts, cleaning up any transient state.
+Claude-compatible paths are exposed in `.claude/rules/*.md`.
+Codex-compatible paths are exposed in `.codex/rules/*.md`.
 
-See @apps/editor/components/tools/tool-manager.tsx.
+Both should point to the same Cursor rule sources so Claude and Codex review the exact same rules.
 
-## Tool Categories by Phase
+## Architecture Rules
 
-**Site**
-- `site-boundary-editor` — draw/edit property boundary polygon
+Read the relevant rules before making or reviewing changes in these areas:
 
-**Structure**
-- `wall-tool` — draw walls segment by segment
-- `slab-tool` + `slab-boundary-editor` + `slab-hole-editor`
-- `ceiling-tool` + `ceiling-boundary-editor` + `ceiling-hole-editor`
-- `roof-tool`
-- `door-tool` + `door-move-tool`
-- `window-tool` + `window-move-tool`
-- `item-tool` + `item-move-tool`
-- `zone-tool` + `zone-boundary-editor`
+- `.codex/rules/systems.md` — core systems vs viewer systems, what each may do
+- `.codex/rules/renderers.md` — renderer responsibilities and prohibitions
+- `.codex/rules/tools.md` — editor tools live only in `apps/editor/components/tools/`
+- `.codex/rules/viewer-isolation.md` — viewer must stay editor-agnostic
+- `.codex/rules/layers.md`
+- `.codex/rules/selection-managers.md`
+- `.codex/rules/scene-registry.md`
+- `.codex/rules/spatial-queries.md`
+- `.codex/rules/node-schemas.md`
+- `.codex/rules/events.md`
 
-**Furnish**
-- `item-tool` — place furniture
+For architecture reviews, the first four are always required. Read the remaining rules when the diff touches their subject area.
 
-**Shared utilities**
-- `polygon-editor` — reusable boundary/hole editing logic
-- `cursor-sphere` — 3D cursor visualisation
+## Layer Boundaries
 
-## Pattern
+`packages/core` owns domain data and pure logic. It must not import Three.js, `packages/viewer`, `apps/editor`, rendering/UI concepts, tools, modes, phases, or view-specific concepts such as floorplan or paint preview.
 
-```tsx
-// apps/editor/components/tools/my-tool/index.tsx
-import { useScene } from '@pascal-app/core'
-import { useEditor } from '../../store/use-editor'
+`packages/viewer` owns the standalone 3D canvas, renderers, viewer systems, and genuine presentation state. It must not know about `useEditor`, editor tools, phases, modes, paint mode, floorplan state, or editor-only presentation vocabulary.
 
-export function MyTool() {
-  const createNode = useScene(s => s.createNode)
-  const setTool = useEditor(s => s.setTool)
+`apps/editor` owns the editing experience: tools, `useEditor`, panels, floorplan helpers, paint mode, keyboard shortcuts, command palette, action menus, cursor badges, and editor-only overlays. Editor features are injected into `<Viewer>` via props and children.
 
-  // Pointer handlers mutate the scene store directly.
-  // No local geometry — use a renderer for any preview mesh.
+## Review Expectations
 
-  return (
-    <mesh onPointerDown={handleDown} onPointerMove={handleMove}>
-      {/* ghost / preview geometry only */}
-    </mesh>
-  )
-}
-```
+When reviewing architecture changes:
 
-## Rules
+1. Classify every new file, type, store field, and exported helper as core, viewer, or editor before writing findings.
+2. Lead with layer-boundary blockers.
+3. Check hook hygiene for `useEditor`, `useScene`, and `useViewer`.
+4. Check selector performance for broad subscriptions and selectors that allocate fresh references.
+5. Skip formatting and import ordering unless they hide a real behavior or architecture issue.
 
-- **Tools mutate `useScene` for committed changes and `useLiveTransforms` for ephemeral drag state.** A tool's end-of-interaction write (click-to-commit, release-to-commit) goes to `useScene` and is captured in undo history. Per-mouse-move previews go to `useLiveTransforms` so history and subscribers aren't spammed.
-- **Live-drag exception for direct mesh transforms.** During an active drag a tool may apply a transform offset directly to `sceneRegistry.nodes.get(id).position`/`rotation`/`scale` *when and only when* the same offset is mirrored into `useLiveTransforms` for that node. This exception exists because the 3D renderers don't reconcile `useLiveTransforms` onto `mesh.position` yet; once a `LiveTransformSystem` does that, this exception goes away. Conditions:
-  - The mesh offset must mirror the `useLiveTransforms` entry (same delta on both), so anything reading `useLiveTransforms` sees the same preview as the 3D view.
-  - The offset must be cleared on tool unmount, cancel, *and* commit — both `mesh.position.set(0, 0, 0)` and `useLiveTransforms.clear(id)`.
-  - The tool must not generate or mutate geometry in this path — only transform writes. Geometry generation still belongs in a core system.
-- **No business logic in tools** — delegate geometry/constraint rules to core systems.
-- **Preview geometry is local** — transient meshes shown while a tool is active live in the tool component, not in the scene store.
-- **Clean up on unmount** — remove any pending/incomplete nodes *and* any live transforms/mesh offsets when the tool unmounts.
-- **Tools must not import from `@pascal-app/viewer`** — use the scene store and core hooks only. `sceneRegistry` is exported from `@pascal-app/core` and is the allowed door into the Three.js graph for the narrow purposes above.
-- Each tool should handle a single, well-scoped interaction. Split complex tools (e.g. "draw + move") into separate components selected by `useEditor`.
-
-## Adding a New Tool
-
-1. Create `apps/editor/components/tools/<name>/index.tsx`.
-2. Register the tool in `ToolManager` under the correct phase and mode.
-3. Add the tool identifier to the `useEditor` tool union type.
-4. If the tool requires new node types, add schema + renderer + system first.
+Use `.codex/skills/review-architecture/SKILL.md` when the user asks Codex to review a PR, audit a branch, or check architecture compliance.
 
 ---
 > Source: [TangSY/aedifex](https://github.com/TangSY/aedifex) — distributed by [TomeVault](https://tomevault.io).
