@@ -1,0 +1,9 @@
+{
+  "name": "paolodalprato--notebooklm-mcp-structured",
+  "displayName": "notebooklm-mcp-structured",
+  "description": "Enhanced MCP server for NotebookLM with structured prompts and source fidelity controls",
+  "version": "1.0.0",
+  "author": "paolodalprato",
+  "homepage": "https://github.com/paolodalprato/notebooklm-mcp-structured",
+  "skills": []
+}
