@@ -7,11 +7,11 @@ Reference-first AI image editing desktop for developers (macOS, Tauri, Rust).
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kevinshowkat/brood](https://github.com/kevinshowkat/brood).
+Original source: `CLAUDE.md` in [kevinshowkat/brood](https://github.com/kevinshowkat/brood).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
