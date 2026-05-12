@@ -1,0 +1,9 @@
+{
+  "name": "ronikobrosly--retroflow",
+  "displayName": "RetroFlow",
+  "description": "Python library for generating beautiful, retro ASCII flowcharts from simple text input.",
+  "version": "1.0.0",
+  "author": "ronikobrosly",
+  "homepage": "https://github.com/ronikobrosly/RetroFlow",
+  "skills": []
+}
