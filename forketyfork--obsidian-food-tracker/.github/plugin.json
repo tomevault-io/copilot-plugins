@@ -1,0 +1,9 @@
+{
+  "name": "forketyfork--obsidian-food-tracker",
+  "displayName": "obsidian-food-tracker",
+  "description": "An Obsidian plugin to track your food intake (calories, macronutrients) and nutritional information.",
+  "version": "1.0.0",
+  "author": "forketyfork",
+  "homepage": "https://github.com/forketyfork/obsidian-food-tracker",
+  "skills": []
+}
