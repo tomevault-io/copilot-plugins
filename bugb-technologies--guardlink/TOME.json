@@ -4,7 +4,7 @@
   "repo": "guardlink",
   "description": "AI-maintained security annotations for code. Continuous threat modeling, enforced in CI.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Bugb-Technologies/guardlink",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T13:22:44Z"
+  "distributed_at": "2026-05-12T17:23:38Z"
 }
