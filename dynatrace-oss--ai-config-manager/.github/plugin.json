@@ -1,0 +1,9 @@
+{
+  "name": "dynatrace-oss--ai-config-manager",
+  "displayName": "ai-config-manager",
+  "description": "ai-config-manager",
+  "version": "1.0.0",
+  "author": "dynatrace-oss",
+  "homepage": "https://github.com/dynatrace-oss/ai-config-manager",
+  "skills": []
+}
