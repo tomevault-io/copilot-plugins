@@ -1,0 +1,9 @@
+{
+  "name": "itsonlyjames--obsidian-sync-folds",
+  "displayName": "obsidian-sync-folds",
+  "description": "Obsidian plugin that enables syncing of fold states across devices",
+  "version": "1.0.0",
+  "author": "itsonlyjames",
+  "homepage": "https://github.com/itsonlyjames/obsidian-sync-folds",
+  "skills": []
+}
