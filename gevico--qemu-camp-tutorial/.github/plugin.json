@@ -1,0 +1,9 @@
+{
+  "name": "gevico--qemu-camp-tutorial",
+  "displayName": "qemu-camp-tutorial",
+  "description": "QEMU Camp Tutorial",
+  "version": "1.0.0",
+  "author": "gevico",
+  "homepage": "https://github.com/gevico/qemu-camp-tutorial",
+  "skills": []
+}
