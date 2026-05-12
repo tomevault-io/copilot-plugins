@@ -4,7 +4,7 @@
   "repo": "gemini-cli-config",
   "description": "My custom Gemini CLI config",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ksprashu/gemini-cli-config",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T00:34:54Z"
+  "distributed_at": "2026-05-12T11:30:09Z"
 }
