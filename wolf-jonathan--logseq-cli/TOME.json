@@ -4,7 +4,7 @@
   "repo": "logseq-cli",
   "description": "A Unix-composable CLI for the Logseq local HTTP API - built for humans and AI agents alike",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wolf-jonathan/logseq-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T11:03:37Z"
+  "distributed_at": "2026-05-12T00:13:24Z"
 }
