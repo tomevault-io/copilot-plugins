@@ -1,0 +1,9 @@
+{
+  "name": "exiw-ai--proofloop",
+  "displayName": "proofloop",
+  "description": "AI orchestrator that runs until done. Define what \"done\" means, go to sleep, wake up to verified results. Supports OpenCode, Codex, Claude Code,",
+  "version": "1.0.0",
+  "author": "exiw-ai",
+  "homepage": "https://github.com/exiw-ai/proofloop",
+  "skills": []
+}
