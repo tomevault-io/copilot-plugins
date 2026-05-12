@@ -1,0 +1,9 @@
+{
+  "name": "tayoun--flash-moe",
+  "displayName": "flash-moe",
+  "description": "Run a 35B MoE model at 10+ tok/s on a $600 Mac mini. Pure C/Metal inference engine streaming experts from SSD on Apple Silicon",
+  "version": "1.0.0",
+  "author": "tayoun",
+  "homepage": "https://github.com/tayoun/flash-moe",
+  "skills": []
+}
