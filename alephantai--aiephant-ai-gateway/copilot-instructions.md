@@ -1,27 +1,30 @@
-## docs-and-artifacts-path
+## infrastructure-guide
 
-> alephant-ai-gateway documentation and artifact paths; agents must follow when generating docs, plans, or audits
+> This directory contains all infrastructure-as-code and deployment scripts for the LLM Proxy project.
 
+# Infrastructure and Deployment
 
-# Documentation and artifact paths (mandatory)
+This directory contains all infrastructure-as-code and deployment scripts for the LLM Proxy project.
 
-Documentation and artifacts produced in **alephant-ai-gateway** must live under the repository paths below; **plans and audits must be written in Chinese.** Authoritative detail is in [docs/agent-docs/docs-and-artifacts-path.md](docs/agent-docs/docs-and-artifacts-path.md).
+## Docker Compose
 
-## Path rules
+- [infrastructure/compose.yaml](mdc:infrastructure/compose.yaml): Defines services like the proxy, database, Redis, and observability tooling.
 
-| Kind | Path |
-|------|------|
-| Agent docs | `alephant-ai-gateway/docs/agent-docs/` |
-| Human-facing docs | `alephant-ai-gateway/docs/human-docs/` |
-| Plans / audits / reviews | `alephant-ai-gateway/docs/plans/` |
+## Deployment Script
 
-## Agent requirements
+- [infrastructure/deploy.sh](mdc:infrastructure/deploy.sh): Bash script to deploy infrastructure and update services.
 
-- When adding **new agent-facing specs**, write them under `alephant-ai-gateway/docs/agent-docs/`.
-- When adding **new human-facing docs**, write them under `alephant-ai-gateway/docs/human-docs/`; do not put them in repo-root `docs-dev/` or `docs/`.
-- When adding **new plans** or **audit reports**, write them under `alephant-ai-gateway/docs/plans/`; do not put them in repo-root `docs-dev/plans/`.
-- Every **plan** must include an **execution checklist**: checkboxes `[]` / `[x]` that map one-to-one to tasks; mark `[x]` when each task is done.
-- When referencing docs or plans, treat `alephant-ai-gateway/docs/agent-docs`, `alephant-ai-gateway/docs/human-docs`, and `alephant-ai-gateway/docs/plans` as canonical locations.
+## Monitoring and Observability
+
+- [infrastructure/prometheus/](mdc:infrastructure/prometheus): Prometheus configuration files.
+- [infrastructure/grafana/](mdc:infrastructure/grafana): Grafana dashboards and data source definitions.
+- [infrastructure/loki/](mdc:infrastructure/loki): Loki log aggregation setup.
+- [infrastructure/tempo/](mdc:infrastructure/tempo): Tempo tracing configuration.
+- [infrastructure/opentelemetry-collector/](mdc:infrastructure/opentelemetry-collector): OpenTelemetry Collector pipelines.
+
+## Certificates
+
+- [infrastructure/self-signed-certs/](mdc:infrastructure/self-signed-certs): Self-signed TLS certificates for local development.
 
 ---
 > Source: [AlephantAI/AIephant-AI-Gateway](https://github.com/AlephantAI/AIephant-AI-Gateway) — distributed by [TomeVault](https://tomevault.io).
