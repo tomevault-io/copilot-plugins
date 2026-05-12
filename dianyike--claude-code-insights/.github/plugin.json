@@ -1,0 +1,9 @@
+{
+  "name": "dianyike--claude-code-insights",
+  "displayName": "claude-code-insights",
+  "description": "\u4e2d\u6587\u793e\u7fa4\u6700\u5b8c\u6574\u7684 Claude Code \u9032\u968e\u6307\u5357 \u2014 \u6db5\u84cb CLAUDE.md \u67b6\u69cb\u8a2d\u8a08\u3001Skills \u64b0\u5beb\u3001Subagent \u7de8\u6392\uff0c\u9644\u53ef\u76f4\u63a5\u4f7f\u7528\u7684\u5be6\u6230\u7bc4\u4f8b\u3002",
+  "version": "1.0.0",
+  "author": "dianyike",
+  "homepage": "https://github.com/dianyike/claude-code-insights",
+  "skills": []
+}
