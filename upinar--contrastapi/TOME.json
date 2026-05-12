@@ -1,0 +1,44 @@
+{
+  "name": "contrastapi",
+  "owner": "UPinar",
+  "repo": "contrastapi",
+  "description": "Security intelligence MCP server for AI agents \u2014 42 tools: CVE/KEV/CWE, domain audit, IOC/threat intel, MITRE ATLAS (AI/ML attacks) + bulk technique drill, MITRE D3FEND (defenses). Free tier, no API key.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/UPinar/contrastapi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T04:42:51Z"
+}
