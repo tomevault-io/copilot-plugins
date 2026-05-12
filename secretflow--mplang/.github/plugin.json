@@ -1,0 +1,9 @@
+{
+  "name": "secretflow--mplang",
+  "displayName": "mplang",
+  "description": "The multi-party programming language",
+  "version": "1.0.0",
+  "author": "secretflow",
+  "homepage": "https://github.com/secretflow/mplang",
+  "skills": []
+}
