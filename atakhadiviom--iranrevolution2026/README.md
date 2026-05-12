@@ -7,11 +7,11 @@ Interactive, open-source memorial website dedicated to commemorating individuals
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [atakhadiviom/IranRevolution2026](https://github.com/atakhadiviom/IranRevolution2026).
+Original source: `CLAUDE.md` in [atakhadiviom/IranRevolution2026](https://github.com/atakhadiviom/IranRevolution2026).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
