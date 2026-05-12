@@ -1,24 +1,24 @@
-# telegram-mcp — distributed by TomeVault
+# telegram-mcp
 
-> Originally from [newink/telegram-mcp](https://github.com/newink/telegram-mcp). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [newink/telegram-mcp](https://github.com/newink/telegram-mcp) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [newink/telegram-mcp](https://github.com/newink/telegram-mcp).
+Original source: `AGENTS.md` in [newink/telegram-mcp](https://github.com/newink/telegram-mcp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/newink)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/newink/telegram-mcp](https://github.com/newink/telegram-mcp)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/newink) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
