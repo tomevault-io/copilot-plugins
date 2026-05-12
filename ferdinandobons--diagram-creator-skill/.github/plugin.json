@@ -1,0 +1,9 @@
+{
+  "name": "ferdinandobons--diagram-creator-skill",
+  "displayName": "diagram-creator-skill",
+  "description": "Claude Code skill: Turn any input into beautiful architecture diagrams \u2014 self-contained HTML with dark theme, animations, zero dependencies",
+  "version": "1.0.0",
+  "author": "ferdinandobons",
+  "homepage": "https://github.com/ferdinandobons/diagram-creator-skill",
+  "skills": []
+}
