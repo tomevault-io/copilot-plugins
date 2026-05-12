@@ -1,0 +1,9 @@
+{
+  "name": "axiomhq--modeldb",
+  "displayName": "modeldb",
+  "description": "Free LLM API",
+  "version": "1.0.0",
+  "author": "axiomhq",
+  "homepage": "https://github.com/axiomhq/modeldb",
+  "skills": []
+}
