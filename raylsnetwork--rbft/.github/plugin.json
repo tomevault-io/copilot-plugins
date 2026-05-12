@@ -1,0 +1,9 @@
+{
+  "name": "raylsnetwork--rbft",
+  "displayName": "rbft",
+  "description": "Rayls Byzantine Fault Tolerant consensus built on Reth",
+  "version": "1.0.0",
+  "author": "raylsnetwork",
+  "homepage": "https://github.com/raylsnetwork/rbft",
+  "skills": []
+}
