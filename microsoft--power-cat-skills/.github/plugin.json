@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--power-cat-skills",
+  "displayName": "power-cat-skills",
+  "description": "Power Platform development extensions curated by Microsoft Power CAT (Customer Advisory Team)",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/power-cat-skills",
+  "skills": []
+}
