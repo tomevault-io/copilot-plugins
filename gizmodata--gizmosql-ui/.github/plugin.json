@@ -1,0 +1,9 @@
+{
+  "name": "gizmodata--gizmosql-ui",
+  "displayName": "gizmosql-ui",
+  "description": "A standalone GizmoSQL browser-based User interface",
+  "version": "1.0.0",
+  "author": "gizmodata",
+  "homepage": "https://github.com/gizmodata/gizmosql-ui",
+  "skills": []
+}
