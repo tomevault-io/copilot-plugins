@@ -1,0 +1,9 @@
+{
+  "name": "calderbuild--agentcut",
+  "displayName": "agentcut",
+  "description": "Multi-Agent AI Video Production Pipeline - 6 specialized agents collaborate to produce videos from a single prompt",
+  "version": "1.0.0",
+  "author": "calderbuild",
+  "homepage": "https://github.com/calderbuild/agentcut",
+  "skills": []
+}
