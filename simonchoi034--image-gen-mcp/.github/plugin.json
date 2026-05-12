@@ -1,0 +1,9 @@
+{
+  "name": "simonchoi034--image-gen-mcp",
+  "displayName": "image-gen-mcp",
+  "description": "This MCP server is responsible for generating images for both OpenAI and the Gemini Model.",
+  "version": "1.0.0",
+  "author": "simonChoi034",
+  "homepage": "https://github.com/simonChoi034/image-gen-mcp",
+  "skills": []
+}
