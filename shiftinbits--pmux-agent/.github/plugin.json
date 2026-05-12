@@ -1,0 +1,9 @@
+{
+  "name": "shiftinbits--pmux-agent",
+  "displayName": "pmux-agent",
+  "description": "Agent and CLI package for pmux",
+  "version": "1.0.0",
+  "author": "ShiftinBits",
+  "homepage": "https://github.com/ShiftinBits/pmux-agent",
+  "skills": []
+}
