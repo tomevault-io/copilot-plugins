@@ -1,0 +1,9 @@
+{
+  "name": "savannah-i-g--nanotracker-api-sdk",
+  "displayName": "nanotracker-api-sdk",
+  "description": "Drive a live nanoTracker session (https://federatedindustrial.com/tracker) from any AI coding agent. Local relay + MCP server + CLI + adapter snippets for Claude Code, Cursor, Cline, Continue, Aider, ",
+  "version": "1.0.0",
+  "author": "savannah-i-g",
+  "homepage": "https://github.com/savannah-i-g/nanotracker-api-sdk",
+  "skills": []
+}
