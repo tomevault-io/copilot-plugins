@@ -4,7 +4,7 @@
   "repo": "Zireael",
   "description": "Deterministic terminal UI core engine in C (FFI/ABI backend fo Rezi).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RtlZeroMemory/Zireael",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T22:51:19Z"
+  "distributed_at": "2026-05-12T11:43:12Z"
 }
