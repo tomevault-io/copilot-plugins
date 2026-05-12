@@ -1,0 +1,9 @@
+{
+  "name": "oleksandr-zhyhalo--logwiz",
+  "displayName": "logwiz",
+  "description": "Open-source, self-hosted log management platform built with SvelteKit and Quickwit!",
+  "version": "1.0.0",
+  "author": "oleksandr-zhyhalo",
+  "homepage": "https://github.com/oleksandr-zhyhalo/logwiz",
+  "skills": []
+}
