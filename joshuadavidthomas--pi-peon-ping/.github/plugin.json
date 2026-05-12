@@ -1,0 +1,9 @@
+{
+  "name": "joshuadavidthomas--pi-peon-ping",
+  "displayName": "pi-peon-ping",
+  "description": "A pi coding agent extension for peon-ping sound notification",
+  "version": "1.0.0",
+  "author": "joshuadavidthomas",
+  "homepage": "https://github.com/joshuadavidthomas/pi-peon-ping",
+  "skills": []
+}
