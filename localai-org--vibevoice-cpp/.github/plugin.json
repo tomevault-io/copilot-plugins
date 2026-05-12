@@ -1,0 +1,9 @@
+{
+  "name": "localai-org--vibevoice-cpp",
+  "displayName": "vibevoice.cpp",
+  "description": "C++ port of Microsoft VibeVoice built on ggml",
+  "version": "1.0.0",
+  "author": "localai-org",
+  "homepage": "https://github.com/localai-org/vibevoice.cpp",
+  "skills": []
+}
