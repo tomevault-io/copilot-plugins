@@ -1,0 +1,9 @@
+{
+  "name": "lostbean--jido-composer",
+  "displayName": "jido_composer",
+  "description": "Composable multi-agent workflows and LLM orchestrators with human-in-the-loop, checkpointing, and OpenTelemetry observability",
+  "version": "1.0.0",
+  "author": "lostbean",
+  "homepage": "https://github.com/lostbean/jido_composer",
+  "skills": []
+}
