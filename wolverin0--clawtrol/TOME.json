@@ -4,7 +4,7 @@
   "repo": "clawtrol",
   "description": "Mission control for your AI agents \ud83c\udfae",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wolverin0/clawtrol",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T05:07:08Z"
+  "distributed_at": "2026-05-12T13:19:54Z"
 }
