@@ -1,0 +1,168 @@
+## forgery
+
+> The backend is built with:
+
+# Developer Guide
+
+## Backend Architecture
+
+The backend is built with:
+
+- **Runtime**: Bun
+- **Framework**: Hono
+- **ORM**: Prisma (with SQLite)
+- **Database**: SQLite (local file)
+- **AI**: Google Generative AI (Gemini)
+
+### Layered Architecture
+
+We follow a strict layered architecture:
+
+1.  **API Layer (`src/api`)**: Handles HTTP requests, validation, and calls Service layer. **Do not access DB directly.**
+2.  **Service Layer (`src/service`)**: Contains business logic and interacts with the Database via Prisma.
+3.  **Data Layer (`src/db.ts`)**: Exports the Prisma Client instance.
+
+### Service Layer Patterns
+
+- **Instance Methods**: Define service logic as instance methods on a class, not static methods.
+- **Singleton Export**: Export a singleton instance of the service class.
+  ```typescript
+  export class MyService {
+    async doSomething() { ... }
+  }
+  export const myService = new MyService()
+  ```
+- **Usage**: Import and use the exported instance.
+  ```typescript
+  import { myService } from '../service/myService'
+  await myService.doSomething()
+  ```
+
+### Hono API Definitions
+
+- **Route Chaining**: Always define API routes using method chaining on a Hono instance. This ensures that the type definitions for inputs and outputs are correctly inferred and preserved in the exported type.
+- **Export Pattern**: Export the chained route instance as the default export.
+  ```typescript
+  const app = new Hono()
+  const route = app
+    .get('/', ...)
+    .post('/', ...)
+  export default route
+  ```
+- **Type Safety**: Use `zValidator` for request validation (query, json, form) to ensure full end-to-end type safety with the Hono RPC client.
+
+## Frontend Architecture
+
+The frontend is built with:
+
+- **Runtime**: Bun (Bundler & Runner)
+- **Framework**: React
+- **Styling**: Tailwind CSS + Shadcn UI (Components)
+- **State**: React Hooks (useState, useEffect)
+
+### Project Structure
+
+- `ui/`: Root of the frontend project.
+- `ui/index.html`: Entry point for the frontend.
+- `ui/App.tsx`: Main application component.
+- `ui/components/`: Reusable UI components.
+- `ui/index.css`: Global styles (Tailwind imports).
+
+### Development
+
+- **Run Dev**: `bun --hot src/index.ts` (Runs on port 3000)
+
+## Testing
+
+We use `bun:test` for testing.
+
+### Service Tests
+
+- Located in `src/service/*.test.ts`.
+- Mock `prisma` client using `mock.module('../db', ...)`.
+- **Important**: Due to `bun test` module caching in parallel execution, service tests must import the service under test dynamically with a cache-busting query parameter to ensure a fresh module instance (and thus fresh mocks).
+  ```typescript
+  // @ts-ignore
+  const { MyService } = await import(`./myService?v=${Date.now()}`)
+  ```
+
+### API Tests
+
+- Located in `src/api/*.test.ts`.
+- Mock the Service layer using `mock.module('../service/myService', ...)`.
+- Verify that the API calls the Service methods correctly.
+
+## Submission Rules
+
+- **Strict Requirement**: A submission is considered complete **only** when there is a single final code state in which **all** of the following pass **simultaneously**:
+  - `lint`
+  - `format`
+  - `typecheck`
+  - `test`
+
+- Fixes must be iterated until **no check causes any other check to fail**.
+- Do **not** submit intermediate states where some checks pass and others fail, even temporarily.
+
+- **Cleanup Requirement**: Remove all verification related files (scripts, screenshots, `verification/` folder) before submit.
+
+## Prisma Configuration & Migrations
+
+- Schema: `prisma/schema.prisma`
+- Generated Client: `src/generated/prisma`
+- Config: `prisma.config.ts` (Required for Prisma 7+)
+- Adapter: We use `@prisma/adapter-libsql` for SQLite compatibility with Bun.
+
+### Migration Workflow
+
+Whenever you modify the `prisma/schema.prisma` file, you **must** generate a corresponding migration file.
+
+**Do not create migration SQL files manually.**
+
+Instead, follow this workflow:
+
+1. Ensure you have a local SQLite database configured.
+2. Run the migration command:
+   ```bash
+   bun x prisma migrate dev --name <migration_name>
+   ```
+   This command will automatically:
+   - Detect changes in `schema.prisma`.
+   - Generate the SQL migration file in `prisma/migrations/`.
+   - Apply the changes to your local development database.
+   - Regenerate the Prisma Client.
+
+### Commands
+
+- Generate Client: `bun --bun run prisma generate`
+- Push Schema to DB (Prototyping only): `bun --bun run prisma db push`
+
+## ID Generation & Sorting
+
+- **ULID Default**: All models (except key-value stores like `Setting`) must use `@default(ulid())` for the `id` field in `schema.prisma`.
+  ```prisma
+  model Example {
+    id String @id @default(ulid())
+  }
+  ```
+- **No Manual Assignment**: Do not manually generate or assign ULIDs in application code (e.g., `src/service/*.ts`) for creating database records. Let Prisma handle it via the schema default.
+  - Exception: File names generated by `FileService` may still use `ulid()` internally, but this is separate from the database ID.
+- **Sorting**: All list APIs must order results by `id` descending (`orderBy: { id: 'desc' }`) to ensure consistent, time-based sorting (since ULIDs are sortable). Do not sort by `createdAt` as it is not indexed.
+
+## Known Issues
+
+- `bun test` module mocking can be sticky across test files running in the same process/worker. Use the dynamic import workaround in Service tests.
+
+## Infinite Scroll & Pagination
+
+- **Frontend**: Use the `useInfiniteScroll` hook for all list UIs.
+  - Located in `src/ui/hooks/use-infinite-scroll.ts`.
+  - Pass a `fetchData` function that accepts `page` and `limit`.
+- **Backend**:
+  - All list APIs must support pagination via `page` and `limit` query parameters.
+  - The default `limit` should be **20**.
+  - Services should implement pagination logic (Prisma `skip`/`take`).
+  - For mixed lists (built-in + DB), implement custom pagination logic in the Service layer.
+
+---
+> Source: [Yiling-J/forgery](https://github.com/Yiling-J/forgery) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
