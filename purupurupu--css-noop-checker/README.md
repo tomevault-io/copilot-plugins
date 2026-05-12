@@ -7,11 +7,11 @@ Chrome DevTools extension that detects CSS properties with no effect
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [purupurupu/css-noop-checker](https://github.com/purupurupu/css-noop-checker).
+Original source: `CLAUDE.md` in [purupurupu/css-noop-checker](https://github.com/purupurupu/css-noop-checker).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
