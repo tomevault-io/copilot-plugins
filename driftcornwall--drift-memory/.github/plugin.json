@@ -1,0 +1,9 @@
+{
+  "name": "driftcornwall--drift-memory",
+  "displayName": "drift-memory",
+  "description": "Biological Style Memory and verification system for agents in the wild. Currently CC based.",
+  "version": "1.0.0",
+  "author": "driftcornwall",
+  "homepage": "https://github.com/driftcornwall/drift-memory",
+  "skills": []
+}
