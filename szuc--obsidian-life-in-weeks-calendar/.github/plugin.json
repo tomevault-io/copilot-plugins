@@ -1,0 +1,9 @@
+{
+  "name": "szuc--obsidian-life-in-weeks-calendar",
+  "displayName": "obsidian-life-in-weeks-calendar",
+  "description": "Plugin for the Obsidian markdown editor. Displays a calendar of your life in weeks with weekly Periodic Notes plugin integration. Includes options for the traditional Memento Mori/Stoic style calendar",
+  "version": "1.0.0",
+  "author": "szuc",
+  "homepage": "https://github.com/szuc/obsidian-life-in-weeks-calendar",
+  "skills": []
+}
