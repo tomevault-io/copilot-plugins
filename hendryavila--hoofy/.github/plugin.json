@@ -1,0 +1,9 @@
+{
+  "name": "hendryavila--hoofy",
+  "displayName": "Hoofy",
+  "description": "Hoofy \u2014 AI development companion MCP server. Persistent memory, spec-driven development, adaptive change pipeline, Clarity Gate. 32 tools, single Go binary, zero deps.",
+  "version": "1.0.0",
+  "author": "HendryAvila",
+  "homepage": "https://github.com/HendryAvila/Hoofy",
+  "skills": []
+}
