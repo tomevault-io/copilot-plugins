@@ -1,0 +1,9 @@
+{
+  "name": "chorus-codes--chorus",
+  "displayName": "chorus",
+  "description": "Multi-LLM peer review for code decisions. Bring your own CLI; Chorus convenes 2-4 other LLMs to review the work before you ship.",
+  "version": "1.0.0",
+  "author": "chorus-codes",
+  "homepage": "https://github.com/chorus-codes/chorus",
+  "skills": []
+}
