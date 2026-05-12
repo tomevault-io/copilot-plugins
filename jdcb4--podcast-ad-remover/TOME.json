@@ -4,7 +4,7 @@
   "repo": "podcast-ad-remover",
   "description": "Podcast Ad Remover (AGPAR) - an AI-powered tool that automatically downloads podcasts, transcribes them (Whisper), detects ads (Gemini/GPT/Claude), and removes them",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jdcb4/podcast-ad-remover",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T19:43:59Z"
+  "distributed_at": "2026-05-12T19:00:16Z"
 }
