@@ -1,0 +1,9 @@
+{
+  "name": "annenpolka--cclog",
+  "displayName": "cclog",
+  "description": "Convert Claude Code conversation to Markdown with TUI",
+  "version": "1.0.0",
+  "author": "annenpolka",
+  "homepage": "https://github.com/annenpolka/cclog",
+  "skills": []
+}
