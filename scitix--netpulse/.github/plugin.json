@@ -1,0 +1,9 @@
+{
+  "name": "scitix--netpulse",
+  "displayName": "netpulse",
+  "description": "API Server for Network and Linux Automation",
+  "version": "1.0.0",
+  "author": "scitix",
+  "homepage": "https://github.com/scitix/netpulse",
+  "skills": []
+}
