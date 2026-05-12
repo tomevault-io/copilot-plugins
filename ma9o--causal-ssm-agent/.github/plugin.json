@@ -1,0 +1,9 @@
+{
+  "name": "ma9o--causal-ssm-agent",
+  "displayName": "causal-ssm-agent",
+  "description": "Opinionated LLM harness for end-to-end Bayesian causal inference on N-of-1 time series data",
+  "version": "1.0.0",
+  "author": "ma9o",
+  "homepage": "https://github.com/ma9o/causal-ssm-agent",
+  "skills": []
+}
