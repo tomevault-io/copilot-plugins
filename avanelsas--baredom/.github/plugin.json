@@ -1,0 +1,9 @@
+{
+  "name": "avanelsas--baredom",
+  "displayName": "baredom",
+  "description": "BareDOM: Lightweight CLJS UI components built on web standards (Custom Elements, Shadow DOM, ES modules). No framework, just the DOM",
+  "version": "1.0.0",
+  "author": "avanelsas",
+  "homepage": "https://github.com/avanelsas/baredom",
+  "skills": []
+}
