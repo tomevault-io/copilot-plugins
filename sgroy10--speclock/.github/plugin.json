@@ -1,0 +1,9 @@
+{
+  "name": "sgroy10--speclock",
+  "displayName": "speclock",
+  "description": "AI Constraint Engine \u2014 enforces CLAUDE.md, .cursorrules, AGENTS.md rules as laws. 51 MCP tools, 991 tests. Official MCP Registry. npx speclock protect",
+  "version": "1.0.0",
+  "author": "sgroy10",
+  "homepage": "https://github.com/sgroy10/speclock",
+  "skills": []
+}
