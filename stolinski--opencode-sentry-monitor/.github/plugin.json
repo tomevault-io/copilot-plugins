@@ -1,0 +1,9 @@
+{
+  "name": "stolinski--opencode-sentry-monitor",
+  "displayName": "opencode-sentry-monitor",
+  "description": "Use Sentry Agent Monitoring to add observability to your Opencode",
+  "version": "1.0.0",
+  "author": "stolinski",
+  "homepage": "https://github.com/stolinski/opencode-sentry-monitor",
+  "skills": []
+}
