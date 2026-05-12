@@ -1,0 +1,44 @@
+{
+  "name": "svelte-ssv",
+  "owner": "ShunichirouKamino",
+  "repo": "svelte-ssv",
+  "description": "Svelte Simple Form Validation \u2014 A lightweight Zod-based form validation library",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ShunichirouKamino/svelte-ssv",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T22:56:26Z"
+}
