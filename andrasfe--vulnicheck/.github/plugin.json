@@ -1,0 +1,9 @@
+{
+  "name": "andrasfe--vulnicheck",
+  "displayName": "vulnicheck",
+  "description": "Python vulnerability scanner & MCP security toolkit. Real-time dependency checking via OSV/NVD/GitHub Advisory DBs, Docker analysis, secrets detection, MCP config validation, LLM-powered risk assessme",
+  "version": "1.0.0",
+  "author": "andrasfe",
+  "homepage": "https://github.com/andrasfe/vulnicheck",
+  "skills": []
+}
