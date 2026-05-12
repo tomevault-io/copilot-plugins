@@ -1,0 +1,9 @@
+{
+  "name": "atelierarith--better-pluto-client",
+  "displayName": "better-pluto-client",
+  "description": "Pluto Client for VS Code(-like) editors",
+  "version": "1.0.0",
+  "author": "AtelierArith",
+  "homepage": "https://github.com/AtelierArith/better-pluto-client",
+  "skills": []
+}
