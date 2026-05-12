@@ -1,0 +1,9 @@
+{
+  "name": "untra--operator",
+  "displayName": "operator",
+  "description": "\ud83d\udcde Operator! Multi-agent orchestration application for AI assisted kanban shaped software development",
+  "version": "1.0.0",
+  "author": "untra",
+  "homepage": "https://github.com/untra/operator",
+  "skills": []
+}
