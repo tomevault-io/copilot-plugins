@@ -1,0 +1,9 @@
+{
+  "name": "open-cli-collective--slack-chat-api",
+  "displayName": "slack-chat-api",
+  "description": "Command-line interface for Slack",
+  "version": "1.0.0",
+  "author": "open-cli-collective",
+  "homepage": "https://github.com/open-cli-collective/slack-chat-api",
+  "skills": []
+}
