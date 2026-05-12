@@ -1,0 +1,9 @@
+{
+  "name": "seevee--weather-alerts-card",
+  "displayName": "weather_alerts_card",
+  "description": "Weather alerts dashboard card with severity indicators and progress timelines",
+  "version": "1.0.0",
+  "author": "seevee",
+  "homepage": "https://github.com/seevee/weather_alerts_card",
+  "skills": []
+}
