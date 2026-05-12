@@ -1,0 +1,9 @@
+{
+  "name": "hodgesmr--calgacus-mlx",
+  "displayName": "calgacus-mlx",
+  "description": "LLM Steganography: Hide a meaningful text inside another plausible text of comparable length.",
+  "version": "1.0.0",
+  "author": "hodgesmr",
+  "homepage": "https://github.com/hodgesmr/calgacus-mlx",
+  "skills": []
+}
