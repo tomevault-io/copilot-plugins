@@ -1,0 +1,9 @@
+{
+  "name": "jevandezande--uv-cookiecutter",
+  "displayName": "uv-cookiecutter",
+  "description": "Cookiecutter for setting up python projects with uv that just work",
+  "version": "1.0.0",
+  "author": "jevandezande",
+  "homepage": "https://github.com/jevandezande/uv-cookiecutter",
+  "skills": []
+}
