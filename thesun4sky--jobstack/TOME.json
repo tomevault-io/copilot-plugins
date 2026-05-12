@@ -1,0 +1,44 @@
+{
+  "name": "jobstack",
+  "owner": "thesun4sky",
+  "repo": "jobstack",
+  "description": "\ud55c\uad6d \ucde8\uc5c5 \ud1b5\ud569 \uc5d1\uc140\ub7ec\ub808\uc774\ud130 - Claude Code \uc2a4\ud0ac \uc2dc\uc2a4\ud15c. \uae30\uc5c5\ubd84\uc11d, \uc774\ub825\uc11c, \uc790\uc18c\uc11c, \ubaa8\uc758\uba74\uc811\uae4c\uc9c0.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/thesun4sky/jobstack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T04:50:12Z"
+}
