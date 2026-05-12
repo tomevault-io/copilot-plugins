@@ -1,0 +1,44 @@
+{
+  "name": "UnblockNeteaseMusic-utils",
+  "owner": "NeteaseCloudMusicApiEnhanced",
+  "repo": "UnblockNeteaseMusic-utils",
+  "description": "\u7f51\u6613\u4e91\u97f3\u4e50\u53d7\u9650\u6b4c\u66f2\u89e3\u9501API || UnblockNeteaseMusic-utils api",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NeteaseCloudMusicApiEnhanced/UnblockNeteaseMusic-utils",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T10:10:12Z"
+}
