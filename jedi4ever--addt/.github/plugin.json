@@ -1,0 +1,9 @@
+{
+  "name": "jedi4ever--addt",
+  "displayName": "addt",
+  "description": "Run AI coding agents safely in Docker containers. Your code stays isolated - no surprises on your host machine.",
+  "version": "1.0.0",
+  "author": "jedi4ever",
+  "homepage": "https://github.com/jedi4ever/addt",
+  "skills": []
+}
