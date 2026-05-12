@@ -1,0 +1,9 @@
+{
+  "name": "workflowsio--company-os-starter-kit",
+  "displayName": "company-os-starter-kit",
+  "description": "Build your own Company OS with Claude Code. CLAUDE.md template, 5 GTM skills, workflow plugin, safety hooks, and full blueprint.",
+  "version": "1.0.0",
+  "author": "Workflowsio",
+  "homepage": "https://github.com/Workflowsio/company-os-starter-kit",
+  "skills": []
+}
