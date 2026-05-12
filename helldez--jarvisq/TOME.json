@@ -1,0 +1,44 @@
+{
+  "name": "JarvisQ",
+  "owner": "Helldez",
+  "repo": "JarvisQ",
+  "description": "Private, on-device voice assistant - STT, LLM, and TTS running fully locally. Powered by the Tether QVAC SDK. Mobile (Android via Expo + React Native) and desktop (Windows / macOS / Linux via Electron) from a shared hexagonal core.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Helldez/JarvisQ",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T10:31:07Z"
+}
