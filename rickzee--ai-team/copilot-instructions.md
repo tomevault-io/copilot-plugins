@@ -1,42 +1,48 @@
-## testing-standards
+## ai-team
 
-> Testing standards and structure for ai-team
+> This file is loaded into Claude Code sessions via repository context. Keep it concise; expand static guidance in `docs/` and dynamic retrieval via RAG when enabled.
 
+# AI-Team project conventions (Claude Agent SDK)
 
-# Test Requirements
+This file is loaded into Claude Code sessions via repository context. Keep it concise; expand static guidance in `docs/` and dynamic retrieval via RAG when enabled.
 
-- **Unit coverage**: ≥90% for `src/ai_team/`
-- **Integration**: all crew handoffs and tool chains
-- **Guardrails**: adversarial tests with known-bad inputs
-- **Pydantic models**: validation, serialization, edge cases
+## Engineering standards
 
-# File Naming
+- Python 3.11+ with type hints on public APIs and Google-style docstrings for non-trivial modules.
+- Formatting: Black; lint: Ruff (zero warnings in CI). Types: mypy on `src/ai_team` (see `pyproject.toml` overrides).
+- Use **structlog** for logging; do not use bare `print()` in library code.
+- Configuration via **Pydantic Settings** / environment variables; never commit secrets (no `.env` in git).
+- Paths: validate workspace boundaries; reject `..` traversal and sensitive filenames (`.env`, credentials) for automated writes.
 
-- Unit: `tests/unit/test_{module}.py`
-- Integration: `tests/integration/test_{feature}_integration.py`
-- E2E: `tests/e2e/test_end_to_end.py`
-- Performance: `tests/performance/test_benchmarks.py`
+## Security
 
-# Fixtures
+- No `eval()`, `exec()`, or `os.system()` in tools or generated automation.
+- Subprocess: use argument lists, `shell=False`.
+- YAML: `yaml.safe_load` only (never unsafe load).
 
-Use `tests/conftest.py`: `mock_ollama`, `sample_project_description`, `sample_requirements_doc`, `sample_code_files`.
+## Testing
 
-# Test Structure
+- Pytest for unit and integration tests; prefer mocks for LLM and external APIs in CI.
+- New tools and guardrails require adversarial and happy-path tests per project rules.
 
-Use class-based tests and parametrize for variants:
+## Multi-agent workspace layout
 
-```python
-class TestSecurityGuardrails:
-    def test_detects_eval_in_code(self, security_guardrail):
-        result = security_guardrail.code_safety_guardrail("x = eval(user_input)")
-        assert result.status == "fail"
-        assert "eval" in result.message
+Orchestration backends use a per-run workspace (often `./workspace/<id>/`) with:
 
-    @pytest.mark.parametrize("dangerous_code", ["eval('1+1')", "__builtins__['eval']('1+1')"])
-    def test_detects_eval_variants(self, security_guardrail, dangerous_code):
-        result = security_guardrail.code_safety_guardrail(dangerous_code)
-        assert result.status == "fail"
-```
+- `docs/` — requirements, architecture, summaries, `test_results.json`
+- `src/` — generated application code
+- `tests/` — generated or augmented tests
+- `logs/` — `phases.jsonl`, `costs.jsonl`, `audit.jsonl`, `session.json`
+
+Agents coordinate through these paths (file-based handoff), not a shared in-memory state object.
+
+## Backends
+
+- **crewai** — OpenRouter / LiteLLM; existing CrewAI flows.
+- **langgraph** — OpenRouter; graph checkpointing and streaming.
+- **claude-agent-sdk** — Anthropic API key; Claude Agent SDK + Claude Code runtime; native MCP and session persistence.
+
+Choose the backend explicitly (`--backend`); do not assume OpenRouter keys work for the Claude Agent SDK backend.
 
 ---
 > Source: [RickZee/ai-team](https://github.com/RickZee/ai-team) — distributed by [TomeVault](https://tomevault.io).
