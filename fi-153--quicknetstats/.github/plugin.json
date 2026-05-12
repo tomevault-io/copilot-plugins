@@ -1,0 +1,9 @@
+{
+  "name": "fi-153--quicknetstats",
+  "displayName": "QuickNetStats",
+  "description": "A Menu Bar utility to display network informations to determine if the machine is connected to the internet,  its IP addresses and more",
+  "version": "1.0.0",
+  "author": "FI-153",
+  "homepage": "https://github.com/FI-153/QuickNetStats",
+  "skills": []
+}
