@@ -7,11 +7,11 @@ Polyman is a CLI tool that will allow codeforces problem setters to never get ou
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [HamzaHassanain/polyman](https://github.com/HamzaHassanain/polyman).
+Original source: `CLAUDE.md` in [HamzaHassanain/polyman](https://github.com/HamzaHassanain/polyman).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
