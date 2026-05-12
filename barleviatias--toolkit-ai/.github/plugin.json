@@ -1,0 +1,9 @@
+{
+  "name": "barleviatias--toolkit-ai",
+  "displayName": "toolkit-ai",
+  "description": "Package manager for AI coding assistants \u2014 manage skills, agents & MCPs across Claude Code, Codex, Copilot, and Cursor",
+  "version": "1.0.0",
+  "author": "barleviatias",
+  "homepage": "https://github.com/barleviatias/toolkit-ai",
+  "skills": []
+}
