@@ -1,0 +1,237 @@
+## jj-desc
+
+> <!-- OPENSPEC:START -->
+
+<!-- OPENSPEC:START -->
+# OpenSpec Instructions
+
+These instructions are for AI assistants working in this project.
+
+Always open `@/openspec/AGENTS.md` when the request:
+- Mentions planning or proposals (words like proposal, spec, change, plan)
+- Introduces new capabilities, breaking changes, architecture shifts, or big performance/security work
+- Sounds ambiguous and you need the authoritative spec before coding
+
+Use `@/openspec/AGENTS.md` to learn:
+- How to create and apply change proposals
+- Spec format and conventions
+- Project structure and guidelines
+
+Keep this managed block so 'openspec update' can refresh the instructions.
+
+<!-- OPENSPEC:END -->
+
+# jj-desc Development Guide
+
+A CLI tool that generates jj commit descriptions using LLM providers.
+
+**Language:** Rust 2024 Edition | **MSRV:** 1.85+
+
+## Build Commands
+
+```bash
+cargo build              # Development build
+cargo build --release    # Release build (LTO, stripped)
+cargo install --path .   # Install from source
+cargo check              # Check without building
+```
+
+## Test Commands
+
+```bash
+cargo test                              # Run all tests
+cargo test test_error_display           # Single test (partial match)
+cargo test --exact test_provider_from_str  # Exact match
+cargo test config::                     # Tests in module
+cargo test -- --nocapture               # Show output
+cargo test -- --test-threads=1          # Single-threaded (env var tests)
+```
+
+## Lint & Format
+
+```bash
+cargo fmt                                      # Format code
+cargo fmt --check                              # Check formatting (CI)
+cargo clippy --all-features -- -D warnings     # Lint (warnings as errors, CI)
+./scripts/pre-commit-install.sh                # Install pre-commit hooks (recommended)
+pre-commit run --all-files                     # Run all pre-commit checks manually
+```
+
+**Pre-commit hooks:** Install hooks to automatically run CI checks before commit/push:
+- Prevents CI failures by catching issues locally
+- Same checks as GitHub Actions CI
+- Use `git commit --no-verify` to skip (not recommended)
+
+## Code Style
+
+### Import Order
+
+```rust
+// 1. Standard library
+use std::env;
+
+// 2. External crates (alphabetically)
+use anyhow::{Context, Result};
+use clap::Parser;
+
+// 3. Internal modules
+use crate::config::Config;
+```
+
+### Naming Conventions
+
+| Element | Convention | Example |
+|---------|------------|---------|
+| Structs/Enums | PascalCase | `JjDescError`, `Config` |
+| Functions | snake_case | `get_diff`, `from_env` |
+| Constants | SCREAMING_SNAKE_CASE | `SYSTEM_PROMPT` |
+| Modules | snake_case | `openai_compat` |
+
+### Error Handling
+
+Use `thiserror` for custom errors and `anyhow` for context:
+
+```rust
+#[derive(Error, Debug)]
+pub enum JjDescError {
+    #[error("API key not set")]
+    MissingApiKey,
+    #[error("API request failed: {0}")]
+    ApiError(#[from] reqwest::Error),
+}
+
+// Add context with anyhow
+Config::from_env().context("Failed to load config")?;
+```
+
+### Async Patterns
+
+```rust
+#[tokio::main]
+async fn main() -> Result<()> { ... }
+
+#[async_trait]
+pub trait LlmClient: Send + Sync {
+    async fn generate_description(&self, diff: &str) -> Result<String, JjDescError>;
+}
+
+#[instrument(skip(self, diff))]  // tracing span
+async fn generate_description(&self, diff: &str) -> Result<String, JjDescError> { ... }
+```
+
+### Struct Design
+
+```rust
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct Config { ... }
+
+// Builder pattern
+impl Config {
+    pub fn with_model(mut self, model: Option<String>) -> Self {
+        if let Some(m) = model { self.model = m; }
+        self
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct ApiRequest { ... }
+```
+
+### Test Patterns
+
+```rust
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_example() {
+        assert_eq!(expected, actual);
+    }
+
+    // Env var tests: use unsafe block with save/restore
+    #[test]
+    fn test_with_env_vars() {
+        unsafe {
+            let original = env::var("VAR").ok();
+            env::set_var("VAR", "value");
+            // ... test ...
+            env::remove_var("VAR");
+            if let Some(v) = original { env::set_var("VAR", v); }
+        }
+    }
+}
+```
+
+### Documentation
+
+- Module-level: `// Brief description` at file top
+- Public APIs: `/// Description` doc comments
+
+## Project Structure
+
+```
+src/
+├── main.rs       # Entry point, CLI orchestration
+├── cli.rs        # Command-line args (clap)
+├── config.rs     # Configuration, env vars
+├── error.rs      # Custom errors (thiserror)
+├── jj.rs         # jj VCS interaction
+├── llm/          # LLM client implementations
+│   ├── mod.rs
+│   ├── anthropic.rs
+│   └── openai_compat.rs
+├── prompt.rs     # Prompt templates
+└── provider.rs   # Provider enum/traits
+```
+
+## CI/CD
+
+GitHub Actions on push/PR to `main`:
+- **test**: `cargo test` (Rust 1.85 + stable)
+- **lint**: `cargo clippy -- -D warnings`
+- **format**: `cargo fmt --check`
+
+## Release Process
+
+**Quick Start:**
+```bash
+# Minor release (0.3.0 → 0.4.0)
+./scripts/release.sh minor
+
+# Patch release (0.3.0 → 0.3.1)
+./scripts/release.sh patch
+```
+
+**See [RELEASE.md](RELEASE.md) for complete documentation.**
+
+### What Happens Automatically
+
+After you push a tag, GitHub Actions:
+1. ✅ Builds binaries for all platforms (Linux, macOS, Windows)
+2. ✅ Creates GitHub Release with binaries and install scripts
+3. ✅ Updates Homebrew formula automatically
+
+### jj-Friendly Workflow
+
+This project uses **manual version management** (not release-plz) because:
+- ✅ No Conventional Commits required
+- ✅ Natural language commit messages work fine
+- ✅ Full control over release timing
+- ✅ Better compatibility with jj workflow
+
+## Key Dependencies
+
+| Crate | Purpose |
+|-------|---------|
+| clap | CLI parsing (derive macros) |
+| tokio | Async runtime |
+| reqwest | HTTP client (rustls-tls) |
+| serde | JSON serialization |
+| thiserror/anyhow | Error handling |
+| tracing | Structured logging |
+| rstest | Test framework (dev) |
+
+---
+> Source: [tumf/jj-desc](https://github.com/tumf/jj-desc) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
