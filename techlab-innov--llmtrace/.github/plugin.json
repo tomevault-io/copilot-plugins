@@ -1,0 +1,9 @@
+{
+  "name": "techlab-innov--llmtrace",
+  "displayName": "llmtrace",
+  "description": "Zero-code LLM security & observability proxy. Real-time prompt injection detection, PII scanning, and cost control for OpenAI-compatible APIs. Built in Rust.",
+  "version": "1.0.0",
+  "author": "techlab-innov",
+  "homepage": "https://github.com/techlab-innov/llmtrace",
+  "skills": []
+}
