@@ -7,11 +7,11 @@ Modern HTTP tooling built in Rust
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [WalshyDev/orb](https://github.com/WalshyDev/orb).
+Original source: `CLAUDE.md` in [WalshyDev/orb](https://github.com/WalshyDev/orb).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
