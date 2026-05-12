@@ -1,0 +1,9 @@
+{
+  "name": "mlcommons--endpoints",
+  "displayName": "endpoints",
+  "description": "MLCommons Inference Endpoints repository",
+  "version": "1.0.0",
+  "author": "mlcommons",
+  "homepage": "https://github.com/mlcommons/endpoints",
+  "skills": []
+}
