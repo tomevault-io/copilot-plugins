@@ -1,0 +1,9 @@
+{
+  "name": "lainnet-42--polymarket-auto-trading-agent",
+  "displayName": "polymarket-auto-trading-agent",
+  "description": "Autonomous Polymarket trading agent powered by Claude Code. Expiry convergence strategy, 94.7% win rate over 2 weeks live testing.",
+  "version": "1.0.0",
+  "author": "LainNet-42",
+  "homepage": "https://github.com/LainNet-42/polymarket-auto-trading-agent",
+  "skills": []
+}
