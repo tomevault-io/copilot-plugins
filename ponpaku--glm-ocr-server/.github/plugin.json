@@ -1,0 +1,9 @@
+{
+  "name": "ponpaku--glm-ocr-server",
+  "displayName": "GLM-OCR-server",
+  "description": "GLM-OCR\u3092\u4f7f\u3063\u305f\u30ed\u30fc\u30ab\u30ebOCR\u30b5\u30fc\u30d0\u30fc\uff08FastAPI + Web UI / \u753b\u50cf\u30fbPDF\u5bfe\u5fdc\uff09",
+  "version": "1.0.0",
+  "author": "ponpaku",
+  "homepage": "https://github.com/ponpaku/GLM-OCR-server",
+  "skills": []
+}
