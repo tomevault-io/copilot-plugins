@@ -1,0 +1,9 @@
+{
+  "name": "lvlup-sw--strategos",
+  "displayName": "strategos",
+  "description": "Fluent DSL for building durable agentic workflows and ontologies in .NET.",
+  "version": "1.0.0",
+  "author": "lvlup-sw",
+  "homepage": "https://github.com/lvlup-sw/strategos",
+  "skills": []
+}
