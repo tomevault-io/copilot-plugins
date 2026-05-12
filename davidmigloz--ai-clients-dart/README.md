@@ -7,11 +7,11 @@ A collection of Dart client libraries for popular AI APIs. Provides type-safe, w
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [davidmigloz/ai_clients_dart](https://github.com/davidmigloz/ai_clients_dart).
+Original source: `CLAUDE.md` in [davidmigloz/ai_clients_dart](https://github.com/davidmigloz/ai_clients_dart).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
