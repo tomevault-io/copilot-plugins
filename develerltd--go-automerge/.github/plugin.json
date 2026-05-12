@@ -1,0 +1,9 @@
+{
+  "name": "develerltd--go-automerge",
+  "displayName": "go-automerge",
+  "description": "A full port of the JS/rust automerge codebase to pure-go",
+  "version": "1.0.0",
+  "author": "develerltd",
+  "homepage": "https://github.com/develerltd/go-automerge",
+  "skills": []
+}
