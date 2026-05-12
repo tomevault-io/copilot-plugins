@@ -1,0 +1,9 @@
+{
+  "name": "pavelzw--pixi-skills",
+  "displayName": "pixi-skills",
+  "description": "Manage coding agent skills using pixi",
+  "version": "1.0.0",
+  "author": "pavelzw",
+  "homepage": "https://github.com/pavelzw/pixi-skills",
+  "skills": []
+}
