@@ -1,0 +1,9 @@
+{
+  "name": "hellanglez--burn-in-cceverywhere-codex",
+  "displayName": "burn-in-cceverywhere-codex",
+  "description": "Autonomous agent loop for Codex CLI powered by gpt-5.2. Port of burn-in-cceverywhere-ralph with enhancements for Codex.",
+  "version": "1.0.0",
+  "author": "hellangleZ",
+  "homepage": "https://github.com/hellangleZ/burn-in-cceverywhere-codex",
+  "skills": []
+}
