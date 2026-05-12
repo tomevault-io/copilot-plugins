@@ -1,0 +1,9 @@
+{
+  "name": "sids--pi-extensions",
+  "displayName": "pi-extensions",
+  "description": "Extensions for pi coding agent",
+  "version": "1.0.0",
+  "author": "sids",
+  "homepage": "https://github.com/sids/pi-extensions",
+  "skills": []
+}
