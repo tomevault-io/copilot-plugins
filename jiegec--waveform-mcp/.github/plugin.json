@@ -1,0 +1,9 @@
+{
+  "name": "jiegec--waveform-mcp",
+  "displayName": "waveform-mcp",
+  "description": "MCP server to read waveform files",
+  "version": "1.0.0",
+  "author": "jiegec",
+  "homepage": "https://github.com/jiegec/waveform-mcp",
+  "skills": []
+}
