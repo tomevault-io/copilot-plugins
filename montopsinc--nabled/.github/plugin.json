@@ -1,0 +1,9 @@
+{
+  "name": "montopsinc--nabled",
+  "displayName": "nabled",
+  "description": "nabled aims to be Rust's goto library for Linear Algebra & ML: performant, comprehensive, and correct. ",
+  "version": "1.0.0",
+  "author": "MontOpsInc",
+  "homepage": "https://github.com/MontOpsInc/nabled",
+  "skills": []
+}
