@@ -1,0 +1,9 @@
+{
+  "name": "alephantai--aiephant-ai-gateway",
+  "displayName": "AIephant-AI-Gateway",
+  "description": "Alephant AI Gateway is an open source, OpenAI-compatible AI Gateway for 50+ providers, 320+ models, and custom model backends.",
+  "version": "1.0.0",
+  "author": "AlephantAI",
+  "homepage": "https://github.com/AlephantAI/AIephant-AI-Gateway",
+  "skills": []
+}
