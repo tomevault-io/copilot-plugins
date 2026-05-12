@@ -1,0 +1,9 @@
+{
+  "name": "opentiny--webmcp-sdk",
+  "displayName": "webmcp-sdk",
+  "description": "A smart application development toolkit that instantly empowers your applications with AI capabilities. Using WebMCP + WebSkills, just a few lines of code can transform your existing business applicat",
+  "version": "1.0.0",
+  "author": "opentiny",
+  "homepage": "https://github.com/opentiny/webmcp-sdk",
+  "skills": []
+}
