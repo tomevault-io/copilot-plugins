@@ -1,7 +1,7 @@
 {
-  "name": "openagentd",
+  "name": "OpenAgentd",
   "owner": "lthoangg",
-  "repo": "openagentd",
+  "repo": "OpenAgentd",
   "description": "Self-hosted AI agent OS \u2014 streaming chat, tool use, persistent memory, and multi-agent teams. Runs entirely on your machine.",
   "type": "config",
   "source_format": "AGENTS.md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/lthoangg/openagentd",
+  "source_url": "https://github.com/lthoangg/OpenAgentd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T05:44:27Z"
+  "distributed_at": "2026-05-12T08:55:57Z"
 }
