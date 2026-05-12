@@ -1,0 +1,9 @@
+{
+  "name": "d8a-tech--d8a",
+  "displayName": "d8a",
+  "description": "Warehouse-native Analytics compatible with Google Analytics and Matomo tracking protocols. Ingest into ClickHouse, BigQuery or CSV/Parquet on S3/GCS/local fs while maintaining complete control over yo",
+  "version": "1.0.0",
+  "author": "d8a-tech",
+  "homepage": "https://github.com/d8a-tech/d8a",
+  "skills": []
+}
