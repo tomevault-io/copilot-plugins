@@ -4,7 +4,7 @@
   "repo": "thresher",
   "description": "OSS Projects are cool, vulnerabilities and threats arent. AI scan environment for scanning OSS projects for threats, malware, security issues.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thresher-sh/thresher",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T03:05:13Z"
+  "distributed_at": "2026-05-12T23:41:46Z"
 }
