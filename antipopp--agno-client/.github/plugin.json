@@ -1,0 +1,9 @@
+{
+  "name": "antipopp--agno-client",
+  "displayName": "agno-client",
+  "description": "Independent open-source client library for Agno agents",
+  "version": "1.0.0",
+  "author": "antipopp",
+  "homepage": "https://github.com/antipopp/agno-client",
+  "skills": []
+}
