@@ -1,0 +1,44 @@
+{
+  "name": "obsidian-transcriber",
+  "owner": "dsebastien",
+  "repo": "obsidian-transcriber",
+  "description": "Transcriber converts images in your Obsidian vault to Markdown using Ollama vision models running locally on your machine.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dsebastien/obsidian-transcriber",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T21:37:01Z"
+}
