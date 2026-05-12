@@ -1,0 +1,9 @@
+{
+  "name": "nidhinjs--prompt-mini",
+  "displayName": "prompt-mini",
+  "description": "A Claude Code plugin that stops vague prompts before they run. Detects your stack, asks targeted questions, and forges a structured prompt. Zero credits wasted.",
+  "version": "1.0.0",
+  "author": "nidhinjs",
+  "homepage": "https://github.com/nidhinjs/prompt-mini",
+  "skills": []
+}
