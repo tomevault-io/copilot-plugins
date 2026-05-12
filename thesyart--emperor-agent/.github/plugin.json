@@ -1,0 +1,9 @@
+{
+  "name": "thesyart--emperor-agent",
+  "displayName": "emperor-agent",
+  "description": "Local Emperor-style AI agent with Vue WebUI, multi-provider LLMs, streaming chat, tools, skills, memory, and token telemetry.",
+  "version": "1.0.0",
+  "author": "TheSyart",
+  "homepage": "https://github.com/TheSyart/emperor-agent",
+  "skills": []
+}
