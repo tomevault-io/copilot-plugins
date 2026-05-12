@@ -4,7 +4,7 @@
   "repo": "youtube-for-ai-agents",
   "description": "YouTube for AI Agents \u2014 search, transcripts, video info, channel browsing, reel creation",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JCodesMore/youtube-for-ai-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T06:44:08Z"
+  "distributed_at": "2026-05-12T04:52:57Z"
 }
