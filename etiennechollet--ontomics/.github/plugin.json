@@ -1,0 +1,9 @@
+{
+  "name": "etiennechollet--ontomics",
+  "displayName": "ontomics",
+  "description": "Extract domain knowledge from codebases to reduce LLM token consumption by 20x and time in agentic search by 10x \u2014 gathers and makes concepts, naming conventions, and vocabulary queryable via MCP.",
+  "version": "1.0.0",
+  "author": "EtienneChollet",
+  "homepage": "https://github.com/EtienneChollet/ontomics",
+  "skills": []
+}
