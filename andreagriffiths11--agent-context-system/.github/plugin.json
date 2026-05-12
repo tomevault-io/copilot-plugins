@@ -1,0 +1,9 @@
+{
+  "name": "andreagriffiths11--agent-context-system",
+  "displayName": "agent-context-system",
+  "description": "Utilities for managing agent memory, context windows, and task-focused state",
+  "version": "1.0.0",
+  "author": "AndreaGriffiths11",
+  "homepage": "https://github.com/AndreaGriffiths11/agent-context-system",
+  "skills": []
+}
