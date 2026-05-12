@@ -1,0 +1,9 @@
+{
+  "name": "bretfisher--silent-rebuilds",
+  "displayName": "silent-rebuilds",
+  "description": "Testing dependabot, digestabot, and renovate against container image updates",
+  "version": "1.0.0",
+  "author": "BretFisher",
+  "homepage": "https://github.com/BretFisher/silent-rebuilds",
+  "skills": []
+}
