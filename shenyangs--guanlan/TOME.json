@@ -1,0 +1,44 @@
+{
+  "name": "Guanlan",
+  "owner": "shenyangs",
+  "repo": "Guanlan",
+  "description": "\u89c2\u6f9c / Guanlan\uff1aAI Agent \u7684\u4e2d\u6587\u4e92\u8054\u7f51\u7814\u7a76\u3001\u9605\u8bfb\u4e0e\u4fe1\u6e90\u8def\u7531\u5de5\u5177\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shenyangs/Guanlan",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T11:21:57Z"
+}
