@@ -7,11 +7,11 @@ AI writing assistant built with FastAPI, LangChain, LangGraph, RAG, and OpenAI-c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [guoguo-tju/write_agent](https://github.com/guoguo-tju/write_agent).
+Original source: `CLAUDE.md` in [guoguo-tju/write_agent](https://github.com/guoguo-tju/write_agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
