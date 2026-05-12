@@ -4,7 +4,7 @@
   "repo": "cja_auto_sdr",
   "description": "Adobe Customer Journey Analytics (CJA) Solution Design Reference generator with Data View diff comparison, multi-format output, snapshot tracking, and automated quality validation. Production-ready CLI for analytics governance.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/brian-a-au/cja_auto_sdr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T15:33:31Z"
+  "distributed_at": "2026-05-12T18:40:51Z"
 }
