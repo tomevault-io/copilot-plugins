@@ -1,0 +1,9 @@
+{
+  "name": "bhavikmalhotra--threatpad",
+  "displayName": "ThreatPad",
+  "description": "Open-source collaborative note-taking platform for cybersecurity and CTI        teams. IOC auto-extraction, STIX 2.1 export, real-time editing, RBAC, version     history, and audit logging. Self-hoste",
+  "version": "1.0.0",
+  "author": "bhavikmalhotra",
+  "homepage": "https://github.com/bhavikmalhotra/ThreatPad",
+  "skills": []
+}
