@@ -1,0 +1,9 @@
+{
+  "name": "vanzan01--pi-agent-sdk-starter",
+  "displayName": "pi-agent-sdk-starter",
+  "description": "A batteries-included starter for building agentic desktop apps with Pi SDK and configurable providers.",
+  "version": "1.0.0",
+  "author": "vanzan01",
+  "homepage": "https://github.com/vanzan01/pi-agent-sdk-starter",
+  "skills": []
+}
