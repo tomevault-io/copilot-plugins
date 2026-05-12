@@ -1,0 +1,9 @@
+{
+  "name": "cometsh--atex",
+  "displayName": "atex",
+  "description": "An Elixir toolkit for the AT Protocol.",
+  "version": "1.0.0",
+  "author": "cometsh",
+  "homepage": "https://github.com/cometsh/atex",
+  "skills": []
+}
