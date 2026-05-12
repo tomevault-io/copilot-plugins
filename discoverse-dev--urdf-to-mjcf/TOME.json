@@ -1,0 +1,44 @@
+{
+  "name": "urdf-to-mjcf",
+  "owner": "discoverse-dev",
+  "repo": "urdf-to-mjcf",
+  "description": "URDF to MJCF conversion tool with support for STL, OBJ, DAE formats, automatic recognition of mimic tags in URDF, configurable joint actuators, and one-click generation of sim-ready MJCF files.URDF\u5230MJCF\u8f6c\u6362\u5de5\u5177\uff0c\u652f\u6301stl\u3001obj\u3001dae\u683c\u5f0f\uff0c\u81ea\u52a8\u8bc6\u522burdf\u4e2d\u7684mimic\u6807\u7b7e\uff0c\u53ef\u914d\u7f6e\u5173\u8282\u9a71\u52a8\u5668\uff0c\u4e00\u952e\u751f\u6210sim-ready\u7684mjcf\u6587\u4ef6\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/discoverse-dev/urdf-to-mjcf",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T03:02:22Z"
+}
