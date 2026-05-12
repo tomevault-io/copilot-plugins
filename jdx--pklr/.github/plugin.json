@@ -1,0 +1,9 @@
+{
+  "name": "jdx--pklr",
+  "displayName": "pklr",
+  "description": "Pure Rust pkl configuration language parser and evaluator",
+  "version": "1.0.0",
+  "author": "jdx",
+  "homepage": "https://github.com/jdx/pklr",
+  "skills": []
+}
