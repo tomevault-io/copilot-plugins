@@ -1,0 +1,9 @@
+{
+  "name": "tomgranot--hubspot-admin-skills",
+  "displayName": "hubspot-admin-skills",
+  "description": "32 Claude Code skills for auditing, cleaning, enriching, and automating your HubSpot CRM",
+  "version": "1.0.0",
+  "author": "TomGranot",
+  "homepage": "https://github.com/TomGranot/hubspot-admin-skills",
+  "skills": []
+}
