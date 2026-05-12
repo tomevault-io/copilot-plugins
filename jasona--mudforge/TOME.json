@@ -4,7 +4,7 @@
   "repo": "mudforge",
   "description": "A modern MUD driver using Node.js and Typescript that is inspired by many of the design philosophies of the old LP MUDs.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jasona/mudforge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T11:01:22Z"
+  "distributed_at": "2026-05-12T16:35:56Z"
 }
