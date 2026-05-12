@@ -1,0 +1,9 @@
+{
+  "name": "photon-hq--imessage-kit",
+  "displayName": "imessage-kit",
+  "description": "A type-safe, elegant iMessage SDK for macOS with zero dependencies",
+  "version": "1.0.0",
+  "author": "photon-hq",
+  "homepage": "https://github.com/photon-hq/imessage-kit",
+  "skills": []
+}
