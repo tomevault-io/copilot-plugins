@@ -1,0 +1,9 @@
+{
+  "name": "adamgell--intunecommander",
+  "displayName": "IntuneCommander",
+  "description": "A .NET 10 desktop application and CLI for managing Microsoft Intune configurations across Commercial, GCC, GCC-High, and DoD clouds. Features a React UI, drift detection, export/import, and baseline c",
+  "version": "1.0.0",
+  "author": "adamgell",
+  "homepage": "https://github.com/adamgell/IntuneCommander",
+  "skills": []
+}
