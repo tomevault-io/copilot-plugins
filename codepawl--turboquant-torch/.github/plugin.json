@@ -1,0 +1,9 @@
+{
+  "name": "codepawl--turboquant-torch",
+  "displayName": "turboquant-torch",
+  "description": "PyTorch implementation of TurboQuant. Near-optimal vector quantization for KV cache compression and vector search. 3-bit with zero accuracy loss.",
+  "version": "1.0.0",
+  "author": "codepawl",
+  "homepage": "https://github.com/codepawl/turboquant-torch",
+  "skills": []
+}
