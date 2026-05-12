@@ -1,0 +1,9 @@
+{
+  "name": "chrisjenx--compose2pdf",
+  "displayName": "compose2pdf",
+  "description": "Render Compose Desktop content to PDF",
+  "version": "1.0.0",
+  "author": "chrisjenx",
+  "homepage": "https://github.com/chrisjenx/compose2pdf",
+  "skills": []
+}
