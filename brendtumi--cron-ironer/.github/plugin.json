@@ -1,0 +1,9 @@
+{
+  "name": "brendtumi--cron-ironer",
+  "displayName": "cron-ironer",
+  "description": "cron-ironer is a developer-friendly cli tool for visualizing and optimizing your crontab schedules. It helps you identify overlaps, gaps, and scheduling bottlenecks using intuitive heatmaps and intell",
+  "version": "1.0.0",
+  "author": "brendtumi",
+  "homepage": "https://github.com/brendtumi/cron-ironer",
+  "skills": []
+}
