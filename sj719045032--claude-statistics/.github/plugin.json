@@ -1,0 +1,9 @@
+{
+  "name": "sj719045032--claude-statistics",
+  "displayName": "claude-statistics",
+  "description": "A macOS menu bar app for monitoring Claude Code usage, session statistics, and cost tracking.",
+  "version": "1.0.0",
+  "author": "sj719045032",
+  "homepage": "https://github.com/sj719045032/claude-statistics",
+  "skills": []
+}
