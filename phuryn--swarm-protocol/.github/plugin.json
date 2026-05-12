@@ -1,0 +1,9 @@
+{
+  "name": "phuryn--swarm-protocol",
+  "displayName": "swarm-protocol",
+  "description": "Coordination protocol for agent-first teams. No UI. No sprints. No Jira. Just state sync.",
+  "version": "1.0.0",
+  "author": "phuryn",
+  "homepage": "https://github.com/phuryn/swarm-protocol",
+  "skills": []
+}
