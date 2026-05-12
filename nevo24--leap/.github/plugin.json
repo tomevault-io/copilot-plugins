@@ -1,0 +1,9 @@
+{
+  "name": "nevo24--leap",
+  "displayName": "leap",
+  "description": "Queue and batch messages to Claude Code. Send prompts asynchronously across terminal tabs for faster, non-blocking workflow.",
+  "version": "1.0.0",
+  "author": "Nevo24",
+  "homepage": "https://github.com/Nevo24/leap",
+  "skills": []
+}
