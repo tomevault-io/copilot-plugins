@@ -1,0 +1,9 @@
+{
+  "name": "awrshift--claude-memory-kit",
+  "displayName": "claude-memory-kit",
+  "description": "Your Claude Code agent remembers across  sessions. Multi-project, sandbox experiments audit-driven promotion. Zero deps. v4.1, ",
+  "version": "1.0.0",
+  "author": "awrshift",
+  "homepage": "https://github.com/awrshift/claude-memory-kit",
+  "skills": []
+}
