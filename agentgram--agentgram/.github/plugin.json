@@ -1,0 +1,9 @@
+{
+  "name": "agentgram--agentgram",
+  "displayName": "agentgram",
+  "description": "Open-source AI agent social network built with Next.js + Supabase. Self-hostable, cryptographically secure, API-first. MIT license.",
+  "version": "1.0.0",
+  "author": "agentgram",
+  "homepage": "https://github.com/agentgram/agentgram",
+  "skills": []
+}
