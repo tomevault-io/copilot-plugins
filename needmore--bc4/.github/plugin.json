@@ -1,0 +1,9 @@
+{
+  "name": "needmore--bc4",
+  "displayName": "bc4",
+  "description": "A command-line client for the Basecamp 4 API",
+  "version": "1.0.0",
+  "author": "needmore",
+  "homepage": "https://github.com/needmore/bc4",
+  "skills": []
+}
