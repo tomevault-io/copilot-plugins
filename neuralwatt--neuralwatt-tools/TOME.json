@@ -4,7 +4,7 @@
   "repo": "neuralwatt-tools",
   "description": "Tools and recipes for using the Neuralwatt inference API.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/neuralwatt/neuralwatt-tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T07:02:37Z"
+  "distributed_at": "2026-05-12T14:50:14Z"
 }
