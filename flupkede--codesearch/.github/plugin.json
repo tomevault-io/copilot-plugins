@@ -1,0 +1,9 @@
+{
+  "name": "flupkede--codesearch",
+  "displayName": "codesearch",
+  "description": "Multi-repo semantic code search MCP server in Rust \u2014 hybrid vector + BM25 retrieval, tree-sitter AST chunking, fully offline. For OpenCode, Claude Code, Cursor, and any MCP client.",
+  "version": "1.0.0",
+  "author": "flupkede",
+  "homepage": "https://github.com/flupkede/codesearch",
+  "skills": []
+}
