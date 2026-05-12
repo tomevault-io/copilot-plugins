@@ -1,0 +1,9 @@
+{
+  "name": "sshh12--modal-claude-agent-sdk-python",
+  "displayName": "modal-claude-agent-sdk-python",
+  "description": "This package wraps the Claude Agent SDK to execute AI agents in secure, scalable Modal containers. It provides progressive complexity\u2014simple usage mirrors the original Agent SDK, while advanced featur",
+  "version": "1.0.0",
+  "author": "sshh12",
+  "homepage": "https://github.com/sshh12/modal-claude-agent-sdk-python",
+  "skills": []
+}
