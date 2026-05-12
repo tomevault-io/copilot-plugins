@@ -1,0 +1,9 @@
+{
+  "name": "balaji01-4d--pgxcli",
+  "displayName": "pgxcli",
+  "description": "Postgres CLI with autocompletion and syntax highlighting",
+  "version": "1.0.0",
+  "author": "Balaji01-4D",
+  "homepage": "https://github.com/Balaji01-4D/pgxcli",
+  "skills": []
+}
