@@ -1,0 +1,9 @@
+{
+  "name": "luka12-dev--aurionos",
+  "displayName": "AurionOS",
+  "description": "A custom 32-bit x86 operating system built from scratch in C and Assembly. Features a graphical window manager, TCP/IP stack, and custom filesystem. Developed solo in 14 days. by a 13-year-old",
+  "version": "1.0.0",
+  "author": "Luka12-dev",
+  "homepage": "https://github.com/Luka12-dev/AurionOS",
+  "skills": []
+}
