@@ -1,0 +1,9 @@
+{
+  "name": "anysoftkeyboard--janus",
+  "displayName": "janus",
+  "description": "An Android app that provides contextual word translations by leveraging the human-curated Wikipedia",
+  "version": "1.0.0",
+  "author": "AnySoftKeyboard",
+  "homepage": "https://github.com/AnySoftKeyboard/janus",
+  "skills": []
+}
