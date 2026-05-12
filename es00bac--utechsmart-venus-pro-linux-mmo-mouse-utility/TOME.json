@@ -4,7 +4,7 @@
   "repo": "UtechSmart-Venus-Pro-Linux-MMO-Mouse-Utility",
   "description": "Reverse-engineered Linux configuration utility for the UtechSmart Venus Pro MMO mouse.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Es00bac/UtechSmart-Venus-Pro-Linux-MMO-Mouse-Utility",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T15:17:44Z"
+  "distributed_at": "2026-05-12T18:35:26Z"
 }
