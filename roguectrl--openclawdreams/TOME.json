@@ -4,7 +4,7 @@
   "repo": "OpenClawDreams",
   "description": "An OpenClaw plugin that gives your AI agent a background reflection process and nightly dream cycle \u2014 encrypted memory, autonomous synthesis, and surreal narrative generation.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RogueCtrl/OpenClawDreams",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T02:47:12Z"
+  "distributed_at": "2026-05-12T12:39:32Z"
 }
