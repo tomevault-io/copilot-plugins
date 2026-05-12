@@ -1,0 +1,44 @@
+{
+  "name": "music-to-midi",
+  "owner": "mason369",
+  "repo": "music-to-midi",
+  "description": "\u97f3\u4e50\u8f6cMIDI\u8f6c\u6362\u5668 - Convert audio to multi-track MIDI with lyrics embedding",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mason369/music-to-midi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T19:33:16Z"
+}
