@@ -1,0 +1,9 @@
+{
+  "name": "productdevbook--devir",
+  "displayName": "devir",
+  "description": "Dev Runner CLI - Terminal UI for managing multiple dev services with colored logs, filtering, and MCP integration for Claude Code",
+  "version": "1.0.0",
+  "author": "productdevbook",
+  "homepage": "https://github.com/productdevbook/devir",
+  "skills": []
+}
