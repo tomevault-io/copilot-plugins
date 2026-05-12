@@ -4,7 +4,7 @@
   "repo": "ez-stack",
   "description": "The Stacked PR CLI for agents - Manage worktrees, atomic PRs, and more all from the CLI",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rohoswagger/ez-stack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T11:10:47Z"
+  "distributed_at": "2026-05-12T08:38:24Z"
 }
