@@ -1,0 +1,9 @@
+{
+  "name": "morphllm--opencode-morph-plugin",
+  "displayName": "opencode-morph-plugin",
+  "description": "OpenCode plugin for Morph - FastApply, WarpGrep codebase search, FlashCompact",
+  "version": "1.0.0",
+  "author": "morphllm",
+  "homepage": "https://github.com/morphllm/opencode-morph-plugin",
+  "skills": []
+}
