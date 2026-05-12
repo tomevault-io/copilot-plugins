@@ -7,14 +7,14 @@ YouTube for AI Agents — search, transcripts, video info, channel browsing, ree
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [JCodesMore/youtube-for-ai-agents](https://github.com/JCodesMore/youtube-for-ai-agents).
+Original source: `CLAUDE.md` in [JCodesMore/youtube-for-ai-agents](https://github.com/JCodesMore/youtube-for-ai-agents).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/JCodesMore/youtube-for-ai-agents](https://github.com/JCodesMore/youtube-for-ai-agents)
