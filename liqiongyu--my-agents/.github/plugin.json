@@ -1,0 +1,9 @@
+{
+  "name": "liqiongyu--my-agents",
+  "displayName": "my-agents",
+  "description": "A monorepo for creating, managing, and publishing reusable Agent skills (Claude Code skills).",
+  "version": "1.0.0",
+  "author": "liqiongyu",
+  "homepage": "https://github.com/liqiongyu/my-agents",
+  "skills": []
+}
