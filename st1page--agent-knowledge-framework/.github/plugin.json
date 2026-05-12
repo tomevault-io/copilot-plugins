@@ -1,0 +1,9 @@
+{
+  "name": "st1page--agent-knowledge-framework",
+  "displayName": "agent-knowledge-framework",
+  "description": "Agent team knowledge framework with layered structure for principles, skills, insights, and experience",
+  "version": "1.0.0",
+  "author": "st1page",
+  "homepage": "https://github.com/st1page/agent-knowledge-framework",
+  "skills": []
+}
