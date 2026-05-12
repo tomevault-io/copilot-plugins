@@ -1,0 +1,9 @@
+{
+  "name": "marmot-protocol--marmot-ts",
+  "displayName": "marmot-ts",
+  "description": "TypeScript implementation of the Marmot protocol",
+  "version": "1.0.0",
+  "author": "marmot-protocol",
+  "homepage": "https://github.com/marmot-protocol/marmot-ts",
+  "skills": []
+}
