@@ -1,0 +1,9 @@
+{
+  "name": "nyaomaru--changelog-bot",
+  "displayName": "changelog-bot",
+  "description": "Automatic create changelog with AI. \ud83e\udd16 It provides CLI and github actions. \ud83d\ude80  https://www.npmjs.com/package/@nyaomaru/changelog-bot",
+  "version": "1.0.0",
+  "author": "nyaomaru",
+  "homepage": "https://github.com/nyaomaru/changelog-bot",
+  "skills": []
+}
