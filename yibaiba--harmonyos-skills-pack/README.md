@@ -7,11 +7,11 @@ HarmonyOS Ark 项目从 0 到 1 落地时，如何快速得到可执行的目录
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yibaiba/harmonyos-skills-pack](https://github.com/yibaiba/harmonyos-skills-pack).
+Original source: `CLAUDE.md` in [yibaiba/harmonyos-skills-pack](https://github.com/yibaiba/harmonyos-skills-pack).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
