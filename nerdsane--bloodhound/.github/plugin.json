@@ -1,0 +1,9 @@
+{
+  "name": "nerdsane--bloodhound",
+  "displayName": "bloodhound",
+  "description": "Deterministic simulation testing platform for hunting bugs in distributed systems",
+  "version": "1.0.0",
+  "author": "nerdsane",
+  "homepage": "https://github.com/nerdsane/bloodhound",
+  "skills": []
+}
