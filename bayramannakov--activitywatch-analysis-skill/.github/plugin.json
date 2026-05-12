@@ -1,0 +1,9 @@
+{
+  "name": "bayramannakov--activitywatch-analysis-skill",
+  "displayName": "activitywatch-analysis-skill",
+  "description": "Claude Code skill for weekly productivity analysis using ActivityWatch data. Calculates focus scores, detects death loops, generates actionable insights.",
+  "version": "1.0.0",
+  "author": "BayramAnnakov",
+  "homepage": "https://github.com/BayramAnnakov/activitywatch-analysis-skill",
+  "skills": []
+}
