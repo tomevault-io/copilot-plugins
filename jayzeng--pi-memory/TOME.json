@@ -4,7 +4,7 @@
   "repo": "pi-memory",
   "description": "Persistent memory extension for pi with daily logs, scratchpad, and optional qmd\u2011powered semantic search.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jayzeng/pi-memory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T13:00:19Z"
+  "distributed_at": "2026-05-12T09:13:08Z"
 }
