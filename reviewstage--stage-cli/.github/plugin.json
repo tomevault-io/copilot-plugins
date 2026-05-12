@@ -1,0 +1,9 @@
+{
+  "name": "reviewstage--stage-cli",
+  "displayName": "stage-cli",
+  "description": "A viewer for reviewing local code changes in small individual chapters. Works with any AI agent.",
+  "version": "1.0.0",
+  "author": "ReviewStage",
+  "homepage": "https://github.com/ReviewStage/stage-cli",
+  "skills": []
+}
