@@ -1,0 +1,9 @@
+{
+  "name": "wasm-ecosystem--warpo",
+  "displayName": "warpo",
+  "description": "next generation assemblyscript compiler",
+  "version": "1.0.0",
+  "author": "wasm-ecosystem",
+  "homepage": "https://github.com/wasm-ecosystem/warpo",
+  "skills": []
+}
