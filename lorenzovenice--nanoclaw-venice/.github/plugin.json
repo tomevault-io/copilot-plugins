@@ -1,0 +1,9 @@
+{
+  "name": "lorenzovenice--nanoclaw-venice",
+  "displayName": "nanoclaw-venice",
+  "description": "NanoClaw (Venice API) \u2014 Personal AI assistant powered by Venice AI. Fork of NanoClaw with WhatsApp + Telegram support.",
+  "version": "1.0.0",
+  "author": "lorenzovenice",
+  "homepage": "https://github.com/lorenzovenice/nanoclaw-venice",
+  "skills": []
+}
