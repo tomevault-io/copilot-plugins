@@ -1,0 +1,9 @@
+{
+  "name": "cogitatortech--gaggle",
+  "displayName": "gaggle",
+  "description": "A DuckDB extension for working with Kaggle datasets",
+  "version": "1.0.0",
+  "author": "CogitatorTech",
+  "homepage": "https://github.com/CogitatorTech/gaggle",
+  "skills": []
+}
