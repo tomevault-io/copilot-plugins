@@ -4,7 +4,7 @@
   "repo": "virgil-training-overlay",
   "description": "[ARCHIVED] macOS Swift CLI utility for application focus monitoring \u2014 low relevance utility",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/a-organvm/virgil-training-overlay",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T00:34:33Z"
+  "distributed_at": "2026-05-12T22:13:05Z"
 }
