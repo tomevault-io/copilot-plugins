@@ -1,0 +1,9 @@
+{
+  "name": "chainapsis--oko",
+  "displayName": "oko",
+  "description": "Oko is an open-source embedded wallet stack that provides passwordless crypto experience via multi-party computation",
+  "version": "1.0.0",
+  "author": "chainapsis",
+  "homepage": "https://github.com/chainapsis/oko",
+  "skills": []
+}
