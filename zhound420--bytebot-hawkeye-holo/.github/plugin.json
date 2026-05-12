@@ -1,0 +1,9 @@
+{
+  "name": "zhound420--bytebot-hawkeye-holo",
+  "displayName": "bytebot-hawkeye-holo",
+  "description": "A bytebot variant that uses Holo 1.5 7b to control the desktop",
+  "version": "1.0.0",
+  "author": "zhound420",
+  "homepage": "https://github.com/zhound420/bytebot-hawkeye-holo",
+  "skills": []
+}
