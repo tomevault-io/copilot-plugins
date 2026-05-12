@@ -1,0 +1,9 @@
+{
+  "name": "fozikio--cortex-engine",
+  "displayName": "cortex-engine",
+  "description": "Cognitive engine for AI agents \u2014 semantic memory, observations, embeddings, dream consolidation. Cloud Run service + MCP tools.",
+  "version": "1.0.0",
+  "author": "Fozikio",
+  "homepage": "https://github.com/Fozikio/cortex-engine",
+  "skills": []
+}
