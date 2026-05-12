@@ -1,0 +1,9 @@
+{
+  "name": "vecna-labs--open-trajectory-gym",
+  "displayName": "open-trajectory-gym",
+  "description": "Agentic RL post-training framework",
+  "version": "1.0.0",
+  "author": "vecna-labs",
+  "homepage": "https://github.com/vecna-labs/open-trajectory-gym",
+  "skills": []
+}
