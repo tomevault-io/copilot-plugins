@@ -1,0 +1,9 @@
+{
+  "name": "danmartuszewski--hop",
+  "displayName": "hop",
+  "description": "Fast, elegant SSH connection manager with a TUI dashboard and MCP server",
+  "version": "1.0.0",
+  "author": "danmartuszewski",
+  "homepage": "https://github.com/danmartuszewski/hop",
+  "skills": []
+}
