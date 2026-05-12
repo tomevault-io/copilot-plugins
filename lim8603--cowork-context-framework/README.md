@@ -7,14 +7,14 @@ Reusable AI–human collaboration frameworks for project‑level context enginee
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [lim8603/cowork-context-framework](https://github.com/lim8603/cowork-context-framework).
+Original source: `AGENTS.md` in [lim8603/cowork-context-framework](https://github.com/lim8603/cowork-context-framework).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/lim8603/cowork-context-framework](https://github.com/lim8603/cowork-context-framework)
