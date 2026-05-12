@@ -1,0 +1,9 @@
+{
+  "name": "wuzf--claude-channels-patch",
+  "displayName": "claude-channels-patch",
+  "description": "Cross-platform patcher for enabling Claude Code --channels support on official binaries and installs.",
+  "version": "1.0.0",
+  "author": "wuzf",
+  "homepage": "https://github.com/wuzf/claude-channels-patch",
+  "skills": []
+}
