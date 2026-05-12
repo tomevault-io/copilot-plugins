@@ -1,0 +1,9 @@
+{
+  "name": "ourresearch--openalex-walden",
+  "displayName": "openalex-walden",
+  "description": "Data pipelines for OpenAlex",
+  "version": "1.0.0",
+  "author": "ourresearch",
+  "homepage": "https://github.com/ourresearch/openalex-walden",
+  "skills": []
+}
