@@ -1,0 +1,9 @@
+{
+  "name": "muidea--skill-hub",
+  "displayName": "skill-hub",
+  "description": "\u4e00\u6b3e\u4e13\u4e3a AI \u65f6\u4ee3\u5f00\u53d1\u8005\u8bbe\u8ba1\u7684\u201c\u6280\u80fd\uff08Prompt/Script\uff09\u751f\u547d\u5468\u671f\u7ba1\u7406\u5de5\u5177\u201d\u3002\u5b83\u65e8\u5728\u89e3\u51b3 AI \u6307\u4ee4\u788e\u7247\u5316\u3001\u8de8\u5de5\u5177\u540c\u6b65\u96be\u3001\u7f3a\u4e4f\u7248\u672c\u63a7\u5236\u7b49\u75db\u70b9\u3002",
+  "version": "1.0.0",
+  "author": "muidea",
+  "homepage": "https://github.com/muidea/skill-hub",
+  "skills": []
+}
