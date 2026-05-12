@@ -1,0 +1,9 @@
+{
+  "name": "tijs--attic",
+  "displayName": "attic",
+  "description": "iCloud Photos backup CLI for any S3 compatible storage provider",
+  "version": "1.0.0",
+  "author": "tijs",
+  "homepage": "https://github.com/tijs/attic",
+  "skills": []
+}
