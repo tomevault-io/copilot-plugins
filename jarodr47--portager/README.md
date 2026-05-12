@@ -7,11 +7,11 @@ Portage is a Kubernetes operator that declaratively syncs container images betwe
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jarodr47/Portager](https://github.com/jarodr47/Portager).
+Original source: `CLAUDE.md` in [jarodr47/Portager](https://github.com/jarodr47/Portager).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
