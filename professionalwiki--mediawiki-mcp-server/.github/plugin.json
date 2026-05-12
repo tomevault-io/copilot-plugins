@@ -1,0 +1,9 @@
+{
+  "name": "professionalwiki--mediawiki-mcp-server",
+  "displayName": "MediaWiki-MCP-Server",
+  "description": "Model Context Protocol (MCP) Server to connect your AI with any MediaWiki",
+  "version": "1.0.0",
+  "author": "ProfessionalWiki",
+  "homepage": "https://github.com/ProfessionalWiki/MediaWiki-MCP-Server",
+  "skills": []
+}
