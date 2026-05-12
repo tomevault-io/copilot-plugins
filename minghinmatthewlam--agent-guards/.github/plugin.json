@@ -1,0 +1,9 @@
+{
+  "name": "minghinmatthewlam--agent-guards",
+  "displayName": "agent-guards",
+  "description": "Shared guardrails, skills, and bootstrap scripts for AI coding agents",
+  "version": "1.0.0",
+  "author": "minghinmatthewlam",
+  "homepage": "https://github.com/minghinmatthewlam/agent-guards",
+  "skills": []
+}
