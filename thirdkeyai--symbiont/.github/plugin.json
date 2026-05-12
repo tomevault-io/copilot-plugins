@@ -1,0 +1,9 @@
+{
+  "name": "thirdkeyai--symbiont",
+  "displayName": "Symbiont",
+  "description": "Rust-native runtime for executing AI agents and tools under explicit policy, identity, and audit controls.",
+  "version": "1.0.0",
+  "author": "ThirdKeyAI",
+  "homepage": "https://github.com/ThirdKeyAI/Symbiont",
+  "skills": []
+}
