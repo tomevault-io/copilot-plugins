@@ -1,0 +1,9 @@
+{
+  "name": "chainstacklabs--pumpfun-cli",
+  "displayName": "pumpfun-cli",
+  "description": "CLI for trading with pump.fun",
+  "version": "1.0.0",
+  "author": "chainstacklabs",
+  "homepage": "https://github.com/chainstacklabs/pumpfun-cli",
+  "skills": []
+}
