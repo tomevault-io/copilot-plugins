@@ -4,7 +4,7 @@
   "repo": "TARS",
   "description": "TARS is a centralized hub for discovering, creating, editing, and managing Claude Code resources. It provides a visual interface for managing skills, agents, commands, hooks, MCP servers, and plugins across multiple projects with safe apply/rollback operations and profile-based configuration sharing.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/inceptyon-labs/TARS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T13:00:34Z"
+  "distributed_at": "2026-05-12T16:47:53Z"
 }
