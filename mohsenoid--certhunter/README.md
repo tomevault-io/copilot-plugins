@@ -7,11 +7,11 @@ An Android Util app which help querying installed apps certificate's fingerprint
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mohsenoid/CertHunter](https://github.com/mohsenoid/CertHunter).
+Original source: `CLAUDE.md` in [mohsenoid/CertHunter](https://github.com/mohsenoid/CertHunter).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
