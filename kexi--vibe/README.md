@@ -7,11 +7,11 @@ Super fast Git worktree management tool with Copy-on-Write optimization
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kexi/vibe](https://github.com/kexi/vibe).
+Original source: `CLAUDE.md` in [kexi/vibe](https://github.com/kexi/vibe).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
