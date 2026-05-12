@@ -1,0 +1,9 @@
+{
+  "name": "flashus--detrix",
+  "displayName": "detrix",
+  "description": "Observe any line of running code \u2014 no restarts, no code changes, production-safe",
+  "version": "1.0.0",
+  "author": "flashus",
+  "homepage": "https://github.com/flashus/detrix",
+  "skills": []
+}
