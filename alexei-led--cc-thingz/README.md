@@ -7,14 +7,14 @@ Battle-tested Claude Code (Codex and Gemini) plugin marketplace — 27 skills, 3
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [alexei-led/cc-thingz](https://github.com/alexei-led/cc-thingz).
+Original source: `AGENTS.md` in [alexei-led/cc-thingz](https://github.com/alexei-led/cc-thingz).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/alexei-led/cc-thingz](https://github.com/alexei-led/cc-thingz)
