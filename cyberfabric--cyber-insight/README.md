@@ -7,13 +7,13 @@ Cyber Insight defines roles and activities, connects to your systems through rea
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [cyberfabric/cyber-insight](https://github.com/cyberfabric/cyber-insight).
+Original source: `AGENTS.md` in [cyberfabric/cyber-insight](https://github.com/cyberfabric/cyber-insight).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
