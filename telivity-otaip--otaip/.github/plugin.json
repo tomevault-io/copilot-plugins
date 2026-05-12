@@ -1,0 +1,9 @@
+{
+  "name": "telivity-otaip--otaip",
+  "displayName": "otaip",
+  "description": "Open Travel AI Platform \u2014 domain-specific AI agent orchestration for the travel industry",
+  "version": "1.0.0",
+  "author": "telivity-otaip",
+  "homepage": "https://github.com/telivity-otaip/otaip",
+  "skills": []
+}
