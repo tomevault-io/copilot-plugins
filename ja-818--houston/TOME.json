@@ -4,7 +4,7 @@
   "repo": "houston",
   "description": "Open source platform for AI-native products. Pre-built AI agents with real tools and 1000+ integrations, in a Rust engine + Tauri desktop app. Free forever.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ja-818/houston",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T19:32:14Z"
+  "distributed_at": "2026-05-12T03:19:46Z"
 }
