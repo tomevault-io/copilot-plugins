@@ -1,0 +1,9 @@
+{
+  "name": "ethereum-optimism--actions",
+  "displayName": "actions",
+  "description": "DeFi Actions SDK for the OP Stack",
+  "version": "1.0.0",
+  "author": "ethereum-optimism",
+  "homepage": "https://github.com/ethereum-optimism/actions",
+  "skills": []
+}
