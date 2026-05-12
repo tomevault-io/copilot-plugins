@@ -1,0 +1,9 @@
+{
+  "name": "lcharvol--claude-god",
+  "displayName": "Claude-God",
+  "description": "\ud83d\udda5\ufe0f macOS menu bar app to monitor your Claude AI usage in real-time \u2014 \ud83d\udcca quota tracking, \ud83c\udf19 peak/off-peak indicator, \u26a1 session costs, \ud83d\udd25 burn rate predictions, \ud83d\udcc8 usage heatmaps, \ud83d\udcb0 ROI analytics, \ud83e\udde9 desktop",
+  "version": "1.0.0",
+  "author": "Lcharvol",
+  "homepage": "https://github.com/Lcharvol/Claude-God",
+  "skills": []
+}
