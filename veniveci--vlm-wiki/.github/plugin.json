@@ -1,0 +1,9 @@
+{
+  "name": "veniveci--vlm-wiki",
+  "displayName": "VLM-wiki",
+  "description": "A full-modal personal knowledge base built on the Karpathy LLM Wiki concept.",
+  "version": "1.0.0",
+  "author": "VeniVeci",
+  "homepage": "https://github.com/VeniVeci/VLM-wiki",
+  "skills": []
+}
