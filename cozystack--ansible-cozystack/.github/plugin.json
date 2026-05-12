@@ -1,0 +1,9 @@
+{
+  "name": "cozystack--ansible-cozystack",
+  "displayName": "ansible-cozystack",
+  "description": "Ansible collection for installing Cozystack on generic Kubernetes clusters",
+  "version": "1.0.0",
+  "author": "cozystack",
+  "homepage": "https://github.com/cozystack/ansible-cozystack",
+  "skills": []
+}
