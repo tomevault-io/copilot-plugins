@@ -1,0 +1,44 @@
+{
+  "name": "xhs-autopilot",
+  "owner": "Jinsong-Zhou",
+  "repo": "xhs-autopilot",
+  "description": "\u5c0f\u7ea2\u4e66\u5185\u5bb9\u521b\u4f5c\u81ea\u52a8\u9a7e\u9a76 \u2014 AI Agent \u5168\u6d41\u7a0b\u81ea\u52a8\u5316",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jinsong-Zhou/xhs-autopilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T09:24:35Z"
+}
