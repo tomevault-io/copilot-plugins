@@ -1,0 +1,44 @@
+{
+  "name": "jubensha-ai",
+  "owner": "JianWang97",
+  "repo": "jubensha-ai",
+  "description": "AI\u5267\u672c\u6740\uff0cAgent\u5267\u672c\u6f14\u7ece\u3002\u652f\u6301AI\u5267\u672c\u751f\u6210\u3001TTS\u8bed\u97f3\u64ad\u62a5\u3001AI\u56fe\u50cf\u751f\u6210\u7b49\u529f\u80fd\u3002\u63a5\u5165minimax\u3002AI-powered murder mystery game where all characters are played by AI. Features AI script generation, TTS voice broadcasting, and AI image generation.Agent Play",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JianWang97/jubensha-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T00:42:25Z"
+}
