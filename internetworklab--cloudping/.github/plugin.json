@@ -1,0 +1,9 @@
+{
+  "name": "internetworklab--cloudping",
+  "displayName": "cloudping",
+  "description": "Simple web-based ping & traceroute",
+  "version": "1.0.0",
+  "author": "internetworklab",
+  "homepage": "https://github.com/internetworklab/cloudping",
+  "skills": []
+}
