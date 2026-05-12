@@ -1,0 +1,9 @@
+{
+  "name": "mick-gsk--drift",
+  "displayName": "drift",
+  "description": "Detect architectural erosion from AI-generated code. Static analyzer for pattern fragmentation, architecture violations & mutant duplicates.",
+  "version": "1.0.0",
+  "author": "mick-gsk",
+  "homepage": "https://github.com/mick-gsk/drift",
+  "skills": []
+}
