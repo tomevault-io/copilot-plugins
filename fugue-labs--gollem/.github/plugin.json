@@ -1,0 +1,9 @@
+{
+  "name": "fugue-labs--gollem",
+  "displayName": "gollem",
+  "description": "The production agent framework for Go \u2014 type-safe agents, structured output, multi-provider streaming, guardrails, and multi-agent orchestration with zero core dependencies.",
+  "version": "1.0.0",
+  "author": "fugue-labs",
+  "homepage": "https://github.com/fugue-labs/gollem",
+  "skills": []
+}
