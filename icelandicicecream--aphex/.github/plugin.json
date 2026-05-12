@@ -1,0 +1,9 @@
+{
+  "name": "icelandicicecream--aphex",
+  "displayName": "aphex",
+  "description": "A modern, extensible headless CMS built with SvelteKit, featuring a portable core package, database/storage agnostic adapters, and a Sanity-inspired admin interface.",
+  "version": "1.0.0",
+  "author": "IcelandicIcecream",
+  "homepage": "https://github.com/IcelandicIcecream/aphex",
+  "skills": []
+}
