@@ -4,7 +4,7 @@
   "repo": "disunday",
   "description": "Control opencode from Discord. Say goodbye to Sundays\u2014manage your AI coding projects 24/7 through Discord channels.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/code-xhyun/disunday",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T01:04:09Z"
+  "distributed_at": "2026-05-12T12:19:40Z"
 }
