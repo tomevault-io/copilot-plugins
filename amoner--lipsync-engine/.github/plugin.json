@@ -1,0 +1,9 @@
+{
+  "name": "amoner--lipsync-engine",
+  "displayName": "lipsync-engine",
+  "description": "Zero-dependency, renderer-agnostic streaming lip-sync engine for browser-based 2D animation. Real-time viseme detection via AudioWorklet + Web Audio API.",
+  "version": "1.0.0",
+  "author": "Amoner",
+  "homepage": "https://github.com/Amoner/lipsync-engine",
+  "skills": []
+}
