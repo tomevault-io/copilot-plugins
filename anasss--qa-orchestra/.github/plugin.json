@@ -1,0 +1,9 @@
+{
+  "name": "anasss--qa-orchestra",
+  "displayName": "qa-orchestra",
+  "description": "AI-powered QA orchestration for Claude Code. 10 agents, from diff analysis to bug reports.",
+  "version": "1.0.0",
+  "author": "Anasss",
+  "homepage": "https://github.com/Anasss/qa-orchestra",
+  "skills": []
+}
