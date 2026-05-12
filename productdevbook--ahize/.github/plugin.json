@@ -1,0 +1,9 @@
+{
+  "name": "productdevbook--ahize",
+  "displayName": "ahize",
+  "description": "One unified API for 18 live-chat & customer-support widgets. Zero deps, tree-shakeable, SSR-safe, CSP-aware, strict TypeScript.",
+  "version": "1.0.0",
+  "author": "productdevbook",
+  "homepage": "https://github.com/productdevbook/ahize",
+  "skills": []
+}
