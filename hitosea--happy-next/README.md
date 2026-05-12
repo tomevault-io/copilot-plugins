@@ -7,11 +7,11 @@ A multi-model AI workspace for Claude Code & Codex, featuring orchestration, rea
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hitosea/happy-next](https://github.com/hitosea/happy-next).
+Original source: `CLAUDE.md` in [hitosea/happy-next](https://github.com/hitosea/happy-next).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
