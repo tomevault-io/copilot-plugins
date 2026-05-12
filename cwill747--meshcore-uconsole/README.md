@@ -7,11 +7,11 @@ A gtk-based meshcore companion node and network analyzer for the ClockworkPi uco
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cwill747/meshcore-uconsole](https://github.com/cwill747/meshcore-uconsole).
+Original source: `CLAUDE.md` in [cwill747/meshcore-uconsole](https://github.com/cwill747/meshcore-uconsole).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
