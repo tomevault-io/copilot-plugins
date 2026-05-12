@@ -1,0 +1,9 @@
+{
+  "name": "savvides--idstack",
+  "displayName": "idstack",
+  "description": "Evidence-based instructional design skills for Claude Code. 9 AI skills that check alignment, accessibility, cognitive load, and evidence strength. Import from any LMS or authoring tool.",
+  "version": "1.0.0",
+  "author": "savvides",
+  "homepage": "https://github.com/savvides/idstack",
+  "skills": []
+}
