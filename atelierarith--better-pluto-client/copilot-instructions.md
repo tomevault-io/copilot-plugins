@@ -1,0 +1,363 @@
+## better-pluto-client
+
+> Pluto.jl リアクティブノートブックの機能を、ブラウザではなく VS Code の UI で表示・操作するための拡張機能。
+
+# BetterPlutoClient - VS Code Extension
+
+## プロジェクト概要
+
+Pluto.jl リアクティブノートブックの機能を、ブラウザではなく VS Code の UI で表示・操作するための拡張機能。
+
+**リポジトリ**: https://github.com/AtelierArith/better-pluto-client
+
+## 目標
+
+- Pluto.jl のバックエンド（Julia サーバー）に接続し、セル実行・リアクティビティを実現
+- ブラウザを開かずに VS Code 内で完結したノートブック体験を提供
+- Pluto.jl の既存機能（パッケージ管理、リアクティブ実行、エラー表示など）を活用
+
+## 現在のアーキテクチャ
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ VS Code Extension                                        │
+│  ┌─────────────────────┐  ┌───────────────────────────┐ │
+│  │ PlutoNotebook       │  │ PlutoServer               │ │
+│  │ Controller          │─▶│ (WebSocket)               │ │
+│  │                     │  │                           │ │
+│  │ - セル実行管理      │  │ - Pluto.jl プロセス管理   │ │
+│  │ - 出力レンダリング  │  │ - WebSocket通信           │ │
+│  │ - 状態管理          │  │ - MessagePack encode/decode│ │
+│  └─────────────────────┘  └───────────────────────────┘ │
+│            │                          │                  │
+│            ▼                          │                  │
+│  ┌─────────────────────┐              │                  │
+│  │ pluto-renderer      │              │                  │
+│  │ (Custom Renderer)   │              │                  │
+│  │                     │              │                  │
+│  │ - HTML出力表示      │              │                  │
+│  │ - MathJax数式対応   │              │                  │
+│  │ - インタラクティブ  │              │                  │
+│  │   ウィジェット対応  │◀─────────────┘                  │
+│  │ - Plotly/JS実行     │    (bond updates)              │
+│  └─────────────────────┘                                │
+└─────────────────────────────────────────────────────────┘
+                             │
+                             ▼ WebSocket (MessagePack)
+┌─────────────────────────────────────────────────────────┐
+│ Pluto.jl Server (Julia)                                  │
+│  - セル実行                                              │
+│  - リアクティブ依存関係管理                               │
+│  - パッケージ管理                                        │
+│  - エラーハンドリング                                    │
+└─────────────────────────────────────────────────────────┘
+```
+
+## 実装タスク
+
+### Phase 1: Pluto.jl サーバー接続 ✅
+- [x] Pluto.jl サーバーの起動/管理 (`PlutoServer.ts`)
+- [x] WebSocket クライアント実装 (MessagePack + ws)
+- [x] メッセージプロトコル理解・実装
+- [x] VS Code Notebook API との統合
+- [ ] エラーハンドリング改善
+- [ ] 接続状態の UI 表示
+
+### Phase 2: UI 連携 ✅
+- [x] セル実行結果の表示（Pluto形式）
+- [x] エラー表示（Pluto.jl フォーマット）
+- [x] リアクティブ更新の反映
+- [x] 実行中状態の表示
+- [x] インタラクティブウィジェット対応（PlutoUI: Slider, Select, Checkbox, Clock 等）
+- [x] Pluto.jl 同一のツリー出力表示（折りたたみ可能）
+- [x] 画像出力（PNG, SVG）
+- [x] MathJax 3 による数式レンダリング
+- [x] セル折りたたみ（code_folded）対応
+- [x] Plotly/JS ベースのビジュアライゼーション（スクリプト実行対応）
+- [x] 専用出力チャンネル（"BetterPlutoClient"）
+- [x] 内部セル（TOML パッケージメタデータ）のラウンドトリップ保存
+- [x] スマートセル同期（変更されたセルのみ更新送信）
+- [x] 起動時セル実行の改善（VS Code 実行オブジェクト生成）
+- [x] `last_run_timestamp` による実行完了検出
+
+### Phase 3: 完全な機能
+- [ ] パッケージ管理 UI
+- [ ] 変数エクスプローラー
+- [ ] ドキュメント表示
+- [ ] セル依存関係グラフ表示
+- [ ] プロットライブラリ完全対応（Plots.jl 等）
+
+## 拡張機能コマンド・キーバインド
+
+| コマンド | タイトル | キーバインド | アイコン |
+|---------|--------|------------|---------|
+| `pluto-notebook.openAsPlutoNotebook` | Open as Pluto Notebook | - | - |
+| `pluto-notebook.startKernel` | Start Pluto Kernel | - | `$(play)` |
+| `pluto-notebook.stopKernel` | Stop Pluto Kernel | - | `$(stop)` |
+| `pluto-notebook.restartKernel` | Restart Pluto Kernel | - | `$(refresh)` |
+| `pluto-notebook.wrapInBeginEnd` | Wrap Cell in begin...end | `Cmd+Shift+B` | `$(code)` |
+| `pluto-notebook.saveAndExecute` | Save and Execute Modified Cells | `Cmd+S` | - |
+| `pluto-notebook.toggleCellFolded` | Toggle Cell Code Visibility | - | `$(eye)` |
+
+## Pluto.jl WebSocket プロトコル
+
+### サーバー起動
+
+```julia
+import Pluto
+Pluto.run(
+    launch_browser=false,      # ブラウザを開かない
+    host="127.0.0.1",
+    port=1234,
+    require_secret_for_access=false  # 開発用
+)
+```
+
+### メッセージ形式
+
+- **シリアライゼーション**: MessagePack (バイナリ)
+- **ライブラリ**: `@msgpack/msgpack` (npm)
+
+### 主要メッセージタイプ
+
+| Client → Server | 説明 |
+|-----------------|------|
+| `connect` | 初期接続ハンドシェイク |
+| `update_notebook` | セルコード・順序の更新 |
+| `run_multiple_cells` | セル実行リクエスト |
+| `interrupt_all` | 実行中断 |
+| `reset_shared_state` | 状態リセット（全状態取得） |
+
+| Server → Client | 説明 |
+|-----------------|------|
+| `👋` | 接続応答（セッション情報） |
+| `notebook_diff` | 状態差分（JSONPatch形式） |
+| `pong` | Ping応答 |
+
+### セル実行フロー
+
+```
+Client                          Server
+  │                               │
+  │─── run_multiple_cells ───────▶│
+  │    {cells: ["uuid1"]}         │
+  │                               │ (リアクティブ実行)
+  │◀─── notebook_diff ───────────│
+  │    {running: true}            │
+  │                               │
+  │◀─── notebook_diff ───────────│
+  │    {output: {...},            │
+  │     running: false}           │
+```
+
+### 状態オブジェクト構造
+
+```typescript
+interface NotebookState {
+    notebook_id: string;
+    path: string;
+    process_status: "ready" | "starting" | "waiting_for_permission";
+
+    cell_inputs: {
+        [cell_id: string]: {
+            cell_id: string;
+            code: string;
+            code_folded: boolean;
+        }
+    };
+
+    cell_results: {
+        [cell_id: string]: {
+            cell_id: string;
+            output: any;           // レンダリング済み出力
+            queued: boolean;
+            running: boolean;
+            errored: boolean;
+            runtime: number;       // 秒
+            last_run_timestamp: number; // 最終実行タイムスタンプ
+        }
+    };
+
+    cell_order: string[];          // 表示順
+    cell_execution_order: string[]; // 実行順（依存関係順）
+}
+```
+
+### 接続ライフサイクル
+
+1. WebSocket接続 (`ws://host:port/`)
+2. `connect` メッセージ送信
+3. `👋` 応答受信
+4. `reset_shared_state` で全状態取得
+5. `notebook_diff` で状態差分を継続受信
+
+## 参考資料
+
+- `Pluto.jl/src/webserver/WebServer.jl` - WebSocket サーバー実装
+- `Pluto.jl/src/webserver/Dynamic.jl` - メッセージハンドラー定義
+- `Pluto.jl/src/webserver/Session.jl` - セッション管理
+- `Pluto.jl/src/webserver/PutUpdates.jl` - 状態更新・差分送信
+- `Pluto.jl/frontend/common/PlutoConnection.js` - クライアント実装参考
+- `docs/PLUTO_SERVER_PROCESSING.md` - サーバーメッセージ処理の詳細解析
+
+## 開発コマンド
+
+```bash
+# 依存パッケージのインストール
+yarn install
+
+# 拡張機能のビルド
+yarn compile
+
+# 開発モード（ウォッチ）
+yarn watch
+
+# パッケージ（プロダクションビルド）
+yarn package
+
+# リント
+yarn lint
+
+# テスト
+yarn test
+
+# Pluto接続テスト（スタンドアロン）
+node test-pluto-connection.js
+```
+
+## Cursor/VS Code へのインストール
+
+### VSIX パッケージ作成とインストール
+
+```bash
+# 1. パッケージ化（VSIX ファイル作成）
+npx vsce package
+
+# 2. Cursor にインストール
+cursor --install-extension better-pluto-client-0.0.1.vsix
+
+# 3. インストール確認
+cursor --list-extensions | grep pluto
+
+# 4. Cursor を再起動または Cmd+Shift+P → "Developer: Reload Window"
+```
+
+### VS Code の場合
+
+```bash
+# VS Code にインストール
+code --install-extension better-pluto-client-0.0.1.vsix
+```
+
+### アンインストール
+
+```bash
+# Cursor からアンインストール
+cursor --uninstall-extension undefined_publisher.better-pluto-client
+
+# VS Code からアンインストール
+code --uninstall-extension undefined_publisher.better-pluto-client
+```
+
+### 開発中のデバッグ実行（推奨）
+
+VSIX を作らずに素早くテストする場合：
+
+1. Cursor/VS Code でプロジェクトフォルダを開く
+2. `F5` を押す → Extension Development Host が起動
+3. そこで `.jl` ファイルを開いてテスト
+4. コード変更後は `Cmd+R` でリロード
+
+## テスト方法
+
+### 動作確認
+
+1. `yarn compile` でビルド
+2. `npx vsce package && cursor --install-extension better-pluto-client-0.0.1.vsix`
+3. Cursor を再起動
+4. `samples/Basic.jl` を開く
+5. セルの追加・削除・実行をテスト
+
+### 現在の実行モード
+
+**Pluto.jl サーバー接続モードで動作中。**
+
+`.jl` ファイルを開くと VS Code の Notebook UI で表示され、セル実行時に Pluto.jl サーバーが自動起動します。
+
+#### 対応している機能
+
+- **リアクティブ実行**: セル間の依存関係を自動解析し、変更時に関連セルを再実行
+- **インタラクティブウィジェット**: `@bind` マクロで PlutoUI の Slider, Select, Checkbox, Clock 等を使用可能
+- **ツリー出力**: 配列やオブジェクトを Pluto.jl と同一の折りたたみ可能な形式で表示
+- **画像出力**: PNG, JPEG, SVG をサポート
+- **数式レンダリング**: MathJax 3 による LaTeX 数式表示
+- **セル折りたたみ**: Pluto.jl の code_folded 属性に対応（`╟─` マーカー）
+- **JS ビジュアライゼーション**: Plotly 等の JavaScript ベースのプロット表示
+- **エラー表示**: Pluto.jl のスタックトレースを表示
+- **出力チャンネル**: "BetterPlutoClient" チャンネルでサーバーログを確認可能
+- **内部セル保存**: パッケージメタデータ（TOML）のラウンドトリップ保存
+- **スマートセル同期**: 変更されたセルのみサーバーに更新送信
+
+## ワークスペース設定
+
+- `editor.formatOnSave`: `false`（Pluto ノートブックのフォーマット崩れ防止）
+
+## ファイル構成
+
+```
+src/
+├── extension.ts               # エントリーポイント、出力チャンネル管理、レンダラーメッセージング (389行)
+├── PlutoNotebookController.ts # ノートブックコントローラー（セル実行、出力レンダリング）(1,954行)
+├── PlutoNotebookSerializer.ts # ノートブックシリアライザー（ファイル読み書き、内部セル保存）(363行)
+├── PlutoNotebookParser.ts     # .jl ファイルパーサー（Pluto形式解析、内部セル抽出）(288行)
+├── PlutoServer.ts             # Pluto.jl サーバー管理、WebSocket通信 (1,157行)
+├── pluto-renderer.ts          # カスタムレンダラー（HTML出力、MathJax、JS実行）(531行)
+└── test/
+    └── extension.test.ts      # テストスイート（プレースホルダー）
+
+tsconfig.json                  # メイン TypeScript 設定（Node16, ES2022）
+tsconfig.renderer.json         # レンダラー用 TypeScript 設定（ES2020 + DOM）
+webpack.config.js              # Webpack 設定（extension + renderer の2エントリ）
+eslint.config.mjs              # ESLint 設定
+
+samples/
+├── Basic.jl                   # 基本サンプル（変数代入、算術、パッケージ管理）
+└── Example.jl                 # 応用サンプル（Plots, PlutoUI, 画像表示）
+
+docs/
+└── PLUTO_SERVER_PROCESSING.md # Pluto.jl サーバーメッセージ処理の詳細解析
+
+pluto-webview/
+└── pluto-loader.html          # Webview ローダー（未使用）
+```
+
+### 主要コンポーネント
+
+| ファイル | 役割 |
+|---------|------|
+| `PlutoNotebookController.ts` | VS Code Notebook API との統合、セル実行管理、出力変換、セル折りたたみ、スマートセル同期 |
+| `PlutoServer.ts` | Pluto.jl プロセスの起動・管理、WebSocket通信、MessagePack encode/decode、`last_run_timestamp` 処理 |
+| `pluto-renderer.ts` | HTML出力のレンダリング、MathJax 数式、`@bind` ウィジェット、Plotly/JS 実行 |
+| `PlutoNotebookSerializer.ts` | `.jl` ファイルの読み書き、セルメタデータ管理、内部セル（TOML）保存 |
+| `PlutoNotebookParser.ts` | Pluto.jl 形式の `.jl` ファイル解析、セル抽出、内部セル（`internalCells` Map）収集 |
+| `extension.ts` | 拡張機能の初期化、出力チャンネル、レンダラーメッセージング |
+
+### 依存パッケージ
+
+| パッケージ | 用途 |
+|-----------|------|
+| `@msgpack/msgpack` | Pluto.jl WebSocket メッセージのシリアライゼーション |
+| `ws` | WebSocket クライアント |
+
+### 開発用依存パッケージ（主要）
+
+| パッケージ | バージョン |
+|-----------|----------|
+| `typescript` | ^5.9.3 |
+| `webpack` | ^5.104.1 |
+| `eslint` | ^9.39.2 |
+| `@types/vscode` | ^1.80.0 |
+
+---
+> Source: [AtelierArith/better-pluto-client](https://github.com/AtelierArith/better-pluto-client) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
