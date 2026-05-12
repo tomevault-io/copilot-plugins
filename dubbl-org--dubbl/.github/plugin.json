@@ -1,0 +1,9 @@
+{
+  "name": "dubbl-org--dubbl",
+  "displayName": "dubbl",
+  "description": "A full-featured, open-source alternative to Xero and QuickBooks. It is API-first, developer-friendly, and built for teams that want full control over their financial data.",
+  "version": "1.0.0",
+  "author": "dubbl-org",
+  "homepage": "https://github.com/dubbl-org/dubbl",
+  "skills": []
+}
