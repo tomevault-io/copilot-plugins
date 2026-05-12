@@ -1,0 +1,9 @@
+{
+  "name": "savageops--iex",
+  "displayName": "iex",
+  "description": "iEx (`intelligent expressions`) is a Rust-first search framework designed to evolve beyond linear regex workflows.",
+  "version": "1.0.0",
+  "author": "savageops",
+  "homepage": "https://github.com/savageops/iex",
+  "skills": []
+}
