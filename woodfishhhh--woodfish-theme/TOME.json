@@ -1,0 +1,44 @@
+{
+  "name": "Woodfish-Theme",
+  "owner": "woodfishhhh",
+  "repo": "Woodfish-Theme",
+  "description": "\u4e00\u4e2a\u4f18\u96c5\u7684 VSCode \u6e10\u53d8\u4e3b\u9898\uff0c\u63d0\u4f9b\u73b0\u4ee3\u5316\u7684\u89c6\u89c9\u4f53\u9a8c\u548c\u8212\u9002\u7684\u7f16\u7a0b\u73af\u5883\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/woodfishhhh/Woodfish-Theme",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T00:04:58Z"
+}
