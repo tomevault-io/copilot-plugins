@@ -1,0 +1,9 @@
+{
+  "name": "hical61--hical",
+  "displayName": "Hical",
+  "description": "Modern C++ web framework with C++26 reflection and PMR memory pools \u2014 built on Boost.Asio/Beast, coroutines, high performance",
+  "version": "1.0.0",
+  "author": "Hical61",
+  "homepage": "https://github.com/Hical61/Hical",
+  "skills": []
+}
