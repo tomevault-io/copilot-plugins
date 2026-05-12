@@ -1,0 +1,9 @@
+{
+  "name": "yeraze--meshmonitor",
+  "displayName": "meshmonitor",
+  "description": "Web tool for monitoring a Meshtastic Node Deployment over TCP/HTTP",
+  "version": "1.0.0",
+  "author": "Yeraze",
+  "homepage": "https://github.com/Yeraze/meshmonitor",
+  "skills": []
+}
