@@ -1,0 +1,9 @@
+{
+  "name": "jharsono--tui-skeleton",
+  "displayName": "tui-skeleton",
+  "description": "Animated skeleton loading widgets for Ratatui",
+  "version": "1.0.0",
+  "author": "jharsono",
+  "homepage": "https://github.com/jharsono/tui-skeleton",
+  "skills": []
+}
