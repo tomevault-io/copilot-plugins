@@ -1,0 +1,9 @@
+{
+  "name": "magnusopera--fscript",
+  "displayName": "FScript",
+  "description": "Functional language interpreter - F#/ML inspired",
+  "version": "1.0.0",
+  "author": "MagnusOpera",
+  "homepage": "https://github.com/MagnusOpera/FScript",
+  "skills": []
+}
