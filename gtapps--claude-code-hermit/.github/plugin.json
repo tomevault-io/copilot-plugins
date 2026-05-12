@@ -1,0 +1,9 @@
+{
+  "name": "gtapps--claude-code-hermit",
+  "displayName": "claude-code-hermit",
+  "description": "A personal assistant that lives in your project and that actually learns \u2014 pure Claude Code",
+  "version": "1.0.0",
+  "author": "gtapps",
+  "homepage": "https://github.com/gtapps/claude-code-hermit",
+  "skills": []
+}
