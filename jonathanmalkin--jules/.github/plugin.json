@@ -1,0 +1,9 @@
+{
+  "name": "jonathanmalkin--jules",
+  "displayName": "jules",
+  "description": "A Claude Code Reference Implementation \u2014 30 skills, 23 rules, 9 hooks, 5 agents. Reference implementation for building a personal AI collabtor..",
+  "version": "1.0.0",
+  "author": "jonathanmalkin",
+  "homepage": "https://github.com/jonathanmalkin/jules",
+  "skills": []
+}
