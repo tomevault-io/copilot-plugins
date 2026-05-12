@@ -1,0 +1,9 @@
+{
+  "name": "mr8bithk--claude-terminal",
+  "displayName": "claude-terminal",
+  "description": "Tabbed terminal manager for Claude Code sessions \u2014 run multiple AI coding agents side-by-side with worktree integration, session persistence,  and auto-naming. Built with Electron for Windows.",
+  "version": "1.0.0",
+  "author": "Mr8BitHK",
+  "homepage": "https://github.com/Mr8BitHK/claude-terminal",
+  "skills": []
+}
