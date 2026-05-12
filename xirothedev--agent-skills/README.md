@@ -7,11 +7,11 @@ A collection of skills for AI coding agents. Skills are packaged instructions an
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [xirothedev/agent-skills](https://github.com/xirothedev/agent-skills).
+Original source: `CLAUDE.md` in [xirothedev/agent-skills](https://github.com/xirothedev/agent-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
