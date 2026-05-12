@@ -1,22 +1,25 @@
-## nightly-rustfmt
+## project-overview
 
-> Enforce nightly rustfmt style for Rust code generation
+> This project is a Rust-based LLM (Large Language Model) proxy/router service that handles API requests to various LLM providers like OpenAI and Anthropic.
 
+# LLM Proxy Project Overview
 
-# Nightly Rustfmt Requirement
+This project is a Rust-based LLM (Large Language Model) proxy/router service that handles API requests to various LLM providers like OpenAI and Anthropic.
 
-When generating or editing Rust code in this repository:
+## Key Files and Directories
 
-- Produce code that matches nightly rustfmt output, not stable-only formatting.
-- Follow the repository `rustfmt.toml` style, including import grouping and line wrapping behavior expected by nightly rustfmt.
-- Avoid committing formatting that would be rewritten by pre-push hooks.
-- If Rust files are changed, run `cargo +nightly fmt` before finalizing changes whenever possible.
-- Treat nightly rustfmt compliance as required for completion.
+- [ai-gateway/src/main.rs](mdc:ai-gateway/src/main.rs) - Main entry point for the application
+- [ai-gateway/src/lib.rs](mdc:ai-gateway/src/lib.rs) - Exposes the main modules of the application
+- [ai-gateway/src/app.rs](mdc:ai-gateway/src/app.rs) - Core application setup and HTTP server
+- [ai-gateway/src/router/](mdc:ai-gateway/src/router) - Contains routing logic for API requests
+- [ai-gateway/src/config/](mdc:ai-gateway/src/config) - Configuration handling
+- [crates/](mdc:crates) - Contains smaller crates for specific functionality
 
-## Quick Examples
+## Specialized Crates
 
-- Prefer grouped crate imports when nightly rustfmt would merge them.
-- Wrap long doc comments and long string literals as nightly rustfmt expects.
+- [crates/telemetry/](mdc:crates/telemetry) - Telemetry and logging infrastructure
+- [crates/metrics/](mdc:crates/metrics) - Metrics collection and reporting
+- [crates/weighted-balance/](mdc:crates/weighted-balance) - Load balancing logic for LLM providers
 
 ---
 > Source: [AlephantAI/AIephant-AI-Gateway](https://github.com/AlephantAI/AIephant-AI-Gateway) — distributed by [TomeVault](https://tomevault.io).
