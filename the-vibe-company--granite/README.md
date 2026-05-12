@@ -7,11 +7,11 @@ Local-first knowledge compiler for humans and agents. Inspired by Karpathy's vis
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [The-Vibe-Company/Granite](https://github.com/The-Vibe-Company/Granite).
+Original source: `CLAUDE.md` in [The-Vibe-Company/Granite](https://github.com/The-Vibe-Company/Granite).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
