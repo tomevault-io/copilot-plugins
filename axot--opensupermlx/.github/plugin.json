@@ -1,0 +1,9 @@
+{
+  "name": "axot--opensupermlx",
+  "displayName": "OpenSuperMLX",
+  "description": "macOS app for real-time audio transcription powered by MLX on Apple Silicon",
+  "version": "1.0.0",
+  "author": "axot",
+  "homepage": "https://github.com/axot/OpenSuperMLX",
+  "skills": []
+}
