@@ -4,7 +4,7 @@
   "repo": "infoq-scaffold-ai",
   "description": "SpringBoot 3.x + Vue 3.x + React 19.x \u811a\u624b\u67b6",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LuckyKuang/infoq-scaffold-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T06:43:26Z"
+  "distributed_at": "2026-05-12T14:56:16Z"
 }
