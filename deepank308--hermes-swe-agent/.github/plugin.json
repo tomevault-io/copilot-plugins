@@ -1,0 +1,9 @@
+{
+  "name": "deepank308--hermes-swe-agent",
+  "displayName": "hermes-swe-agent",
+  "description": "Autonomous AI coding agent triggered by Linear tickets \u2014 spins up full dev environments on EC2, writes code, runs tests, and opens PRs with live preview URLs.",
+  "version": "1.0.0",
+  "author": "Deepank308",
+  "homepage": "https://github.com/Deepank308/hermes-swe-agent",
+  "skills": []
+}
