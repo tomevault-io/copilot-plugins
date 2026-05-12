@@ -4,7 +4,7 @@
   "repo": "harness-init",
   "description": "OpenAI harness engineering repo initialization scaffold for agent-first development. Works with Claude Code, Codex, Cursor.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Gizele1/harness-init",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T00:46:43Z"
+  "distributed_at": "2026-05-12T22:48:01Z"
 }
