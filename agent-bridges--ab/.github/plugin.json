@@ -1,0 +1,9 @@
+{
+  "name": "agent-bridges--ab",
+  "displayName": "ab",
+  "description": "agent-bridge",
+  "version": "1.0.0",
+  "author": "agent-bridges",
+  "homepage": "https://github.com/agent-bridges/ab",
+  "skills": []
+}
