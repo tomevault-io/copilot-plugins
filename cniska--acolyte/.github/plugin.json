@@ -1,0 +1,9 @@
+{
+  "name": "cniska--acolyte",
+  "displayName": "acolyte",
+  "description": "A terminal-first AI coding agent. Open-source, observable, and built for developer control.",
+  "version": "1.0.0",
+  "author": "cniska",
+  "homepage": "https://github.com/cniska/acolyte",
+  "skills": []
+}
