@@ -1,0 +1,9 @@
+{
+  "name": "mattbusel--every-other-token",
+  "displayName": "Every-Other-Token",
+  "description": "A real-time LLM stream interceptor for token-level interaction research",
+  "version": "1.0.0",
+  "author": "Mattbusel",
+  "homepage": "https://github.com/Mattbusel/Every-Other-Token",
+  "skills": []
+}
