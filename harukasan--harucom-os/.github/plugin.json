@@ -1,0 +1,9 @@
+{
+  "name": "harukasan--harucom-os",
+  "displayName": "harucom-os",
+  "description": "Harucom OS is the firmware of Harucom Board.",
+  "version": "1.0.0",
+  "author": "harukasan",
+  "homepage": "https://github.com/harukasan/harucom-os",
+  "skills": []
+}
