@@ -1,0 +1,9 @@
+{
+  "name": "imweb-project--imweb",
+  "displayName": "ImWeb",
+  "description": "Browser-based reimagining of Steina Vasulka's & Tom Demeyer's Image/ine video synthesis instrument (STEIM) \u2014 real-time video compositing, 3D, WebGL/WebGPU",
+  "version": "1.0.0",
+  "author": "imweb-project",
+  "homepage": "https://github.com/imweb-project/ImWeb",
+  "skills": []
+}
