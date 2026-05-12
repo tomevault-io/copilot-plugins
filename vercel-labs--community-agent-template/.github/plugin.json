@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--community-agent-template",
+  "displayName": "community-agent-template",
+  "description": "Open source AI-powered Slack community management bot with a built-in Next.js admin panel. Uses Chat SDK, AI SDK, and Vercel Workflow.",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/community-agent-template",
+  "skills": []
+}
