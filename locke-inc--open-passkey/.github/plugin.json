@@ -1,0 +1,9 @@
+{
+  "name": "locke-inc--open-passkey",
+  "displayName": "open-passkey",
+  "description": "Post-quantum passkeys for servers and clients",
+  "version": "1.0.0",
+  "author": "locke-inc",
+  "homepage": "https://github.com/locke-inc/open-passkey",
+  "skills": []
+}
