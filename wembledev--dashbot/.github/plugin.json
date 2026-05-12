@@ -1,0 +1,9 @@
+{
+  "name": "wembledev--dashbot",
+  "displayName": "dashbot",
+  "description": "A real-time AI dashboard for your OpenClaw agent",
+  "version": "1.0.0",
+  "author": "wembledev",
+  "homepage": "https://github.com/wembledev/dashbot",
+  "skills": []
+}
