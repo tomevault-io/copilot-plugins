@@ -1,0 +1,9 @@
+{
+  "name": "dotcommander--cclint",
+  "displayName": "cclint",
+  "description": "Linter for Claude Code agents, commands, and skills",
+  "version": "1.0.0",
+  "author": "dotcommander",
+  "homepage": "https://github.com/dotcommander/cclint",
+  "skills": []
+}
