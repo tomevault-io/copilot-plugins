@@ -4,7 +4,7 @@
   "repo": "fred",
   "description": "the UI and agentic backend of the fred innovation track",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ThalesGroup/fred",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T01:36:33Z"
+  "distributed_at": "2026-05-12T04:55:16Z"
 }
