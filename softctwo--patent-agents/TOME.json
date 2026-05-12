@@ -1,0 +1,44 @@
+{
+  "name": "patent-agents",
+  "owner": "softctwo",
+  "repo": "patent-agents",
+  "description": "AI-Powered Patent Writing and Drawing Agents - \u652f\u6301\u53d1\u660e\u4e13\u5229\u3001\u5b9e\u7528\u65b0\u578b\u3001\u5916\u89c2\u8bbe\u8ba1\u4e13\u5229\u64b0\u5199\u53ca\u9644\u56fe\u7ed8\u5236\uff0c\u57fa\u4e8eGoogle Gemini 2.0 Flash\u5f00\u53d1\uff0c\u5b8c\u5168\u7b26\u5408\u4e13\u5229\u5ba1\u67e5\u6307\u5357\u8981\u6c42",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/softctwo/patent-agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T05:30:10Z"
+}
