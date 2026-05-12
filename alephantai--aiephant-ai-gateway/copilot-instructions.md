@@ -1,33 +1,41 @@
-## architecture
+## code-conventions
 
-> This document outlines the architecture of the LLM Proxy system.
+> This document outlines the code conventions and best practices used in the LLM Proxy codebase.
 
-# LLM Proxy Architecture
+# Code Conventions and Best Practices
 
-This document outlines the architecture of the LLM Proxy system.
+This document outlines the code conventions and best practices used in the LLM Proxy codebase.
 
-## Core Components
+## Rust Conventions
 
-### Server and Routing
-- [ai-gateway/src/app.rs](mdc:ai-gateway/src/app.rs) - Main application server setup
-- [ai-gateway/src/router/](mdc:ai-gateway/src/router) - API request routing logic
-- [ai-gateway/src/dispatcher.rs](mdc:ai-gateway/src/dispatcher.rs) - Dispatches requests to appropriate providers
+- Use the 2024 edition of Rust as specified in [Cargo.toml](mdc:Cargo.toml)
+- Follow the formatting rules in [rustfmt.toml](mdc:rustfmt.toml)
+- Use clippy lints defined in the workspace configuration:
+  - All clippy lints are set to "deny"
+  - Pedantic lints are set to "warn"
 
-### Provider Integration
-- [ai-gateway/src/balancer/](mdc:ai-gateway/src/balancer) - Load balancing between different LLM providers
+## Error Handling
 
-### Configuration and Error Handling
-- [ai-gateway/src/config/](mdc:ai-gateway/src/config) - Application configuration
-- [ai-gateway/src/error/](mdc:ai-gateway/src/error) - Error handling and reporting
+- Use `thiserror` for defining error types
+- Structured errors in [ai-gateway/src/error/](mdc:ai-gateway/src/error)
 
-### Middleware and Utils
-- [ai-gateway/src/middleware/](mdc:ai-gateway/src/middleware) - HTTP middleware components
-- [ai-gateway/src/utils/](mdc:ai-gateway/src/utils) - Utility functions and helpers
+## Type Definitions
 
-### Observability
-- [ai-gateway/src/logger/](mdc:ai-gateway/src/logger) - Logging infrastructure
-- [crates/telemetry/](mdc:crates/telemetry) - Telemetry for tracing and metrics
-- [crates/metrics/](mdc:crates/metrics) - Metrics collection and reporting
+- Leverage Rust's type system for safety
+- Common types in [ai-gateway/src/types/](mdc:ai-gateway/src/types)
+
+## Testing Approaches
+
+- Unit tests alongside the code they test
+- Integration tests in separate directories
+- Use the `serial_test` crate for tests that can't run in parallel
+- Leverage the test utilities in [ai-gateway/src/tests/](mdc:ai-gateway/src/tests)
+
+## Dependency Management
+
+- Common dependencies are defined at the workspace level
+- Version pinning for all dependencies
+- Minimal dependency usage with feature flags when appropriate
 
 ---
 > Source: [AlephantAI/AIephant-AI-Gateway](https://github.com/AlephantAI/AIephant-AI-Gateway) — distributed by [TomeVault](https://tomevault.io).
