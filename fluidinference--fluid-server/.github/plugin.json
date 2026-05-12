@@ -1,0 +1,9 @@
+{
+  "name": "fluidinference--fluid-server",
+  "displayName": "fluid-server",
+  "description": "Local AI server for your Windows apps.",
+  "version": "1.0.0",
+  "author": "FluidInference",
+  "homepage": "https://github.com/FluidInference/fluid-server",
+  "skills": []
+}
