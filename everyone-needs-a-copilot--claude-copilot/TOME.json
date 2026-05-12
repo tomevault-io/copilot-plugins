@@ -1,0 +1,44 @@
+{
+  "name": "claude-copilot",
+  "owner": "Everyone-Needs-A-Copilot",
+  "repo": "claude-copilot",
+  "description": "Transform Claude Code into a full development team. 11 specialized agents (Architect, Engineer, QA, Security, UX, DevOps, and more), persistent memory across sessions, and 25,000+ on-demand skills. Works immediately for solo devs\u2014customizable with your team's standards, methodologies, and proprietary knowledge.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Everyone-Needs-A-Copilot/claude-copilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T19:01:24Z"
+}
