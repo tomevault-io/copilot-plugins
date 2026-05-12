@@ -1,0 +1,9 @@
+{
+  "name": "rickmanelius--markdown-provenance",
+  "displayName": "markdown-provenance",
+  "description": "A Claude Claude slash command to establish strong provenance for any markdown file (fingerprints with IPFS and stores in Arweave)",
+  "version": "1.0.0",
+  "author": "rickmanelius",
+  "homepage": "https://github.com/rickmanelius/markdown-provenance",
+  "skills": []
+}
