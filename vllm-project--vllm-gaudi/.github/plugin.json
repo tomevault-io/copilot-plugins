@@ -1,0 +1,9 @@
+{
+  "name": "vllm-project--vllm-gaudi",
+  "displayName": "vllm-gaudi",
+  "description": "Community maintained hardware plugin for vLLM on Intel Gaudi",
+  "version": "1.0.0",
+  "author": "vllm-project",
+  "homepage": "https://github.com/vllm-project/vllm-gaudi",
+  "skills": []
+}
