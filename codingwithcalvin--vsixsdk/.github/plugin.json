@@ -1,0 +1,9 @@
+{
+  "name": "codingwithcalvin--vsixsdk",
+  "displayName": "VsixSdk",
+  "description": "An MSBuild SDK for building Visual Studio extensions (VSIX) using modern SDK-style projects.",
+  "version": "1.0.0",
+  "author": "CodingWithCalvin",
+  "homepage": "https://github.com/CodingWithCalvin/VsixSdk",
+  "skills": []
+}
