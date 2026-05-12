@@ -4,7 +4,7 @@
   "repo": "MacTools",
   "description": "\u514d\u8d39\u3001\u5f00\u6e90\u7684\u539f\u751f macOS \u83dc\u5355\u680f\u5de5\u5177\u96c6\u5408\u3002",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ggbond268/MacTools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T04:31:34Z"
+  "distributed_at": "2026-05-12T23:59:47Z"
 }
