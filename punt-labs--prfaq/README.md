@@ -7,11 +7,11 @@ Amazon Working Backwards PR/FAQ process — generate well-grounded professional 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [punt-labs/prfaq](https://github.com/punt-labs/prfaq).
+Original source: `CLAUDE.md` in [punt-labs/prfaq](https://github.com/punt-labs/prfaq).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
