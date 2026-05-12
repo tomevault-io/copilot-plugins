@@ -4,7 +4,7 @@
   "repo": "Portager",
   "description": "Portage is a Kubernetes operator that declaratively syncs container images between registries. The name comes from the act of carrying cargo between two bodies of water, which is exactly what this does: carrying container images between two registries.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jarodr47/Portager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T07:13:03Z"
+  "distributed_at": "2026-05-12T07:38:36Z"
 }
