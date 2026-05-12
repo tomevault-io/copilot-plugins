@@ -4,7 +4,7 @@
   "repo": "waybar-ai-usage",
   "description": "Monitor Claude Code and OpenAI Codex CLI usage directly in your Waybar status bar.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NihilDigit/waybar-ai-usage",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T20:55:48Z"
+  "distributed_at": "2026-05-12T21:32:36Z"
 }
