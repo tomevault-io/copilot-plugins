@@ -1,0 +1,9 @@
+{
+  "name": "joelhans--bmo-agent",
+  "displayName": "bmo-agent",
+  "description": "a self-improving coding agent",
+  "version": "1.0.0",
+  "author": "joelhans",
+  "homepage": "https://github.com/joelhans/bmo-agent",
+  "skills": []
+}
