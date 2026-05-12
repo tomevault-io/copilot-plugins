@@ -1,0 +1,9 @@
+{
+  "name": "roasbeef--claude-agent-sdk-go",
+  "displayName": "claude-agent-sdk-go",
+  "description": "Go SDK for Claude Code \u2013 build AI agents with tool use, MCP integration, and streaming",
+  "version": "1.0.0",
+  "author": "Roasbeef",
+  "homepage": "https://github.com/Roasbeef/claude-agent-sdk-go",
+  "skills": []
+}
