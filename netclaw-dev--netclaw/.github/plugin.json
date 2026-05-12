@@ -1,0 +1,9 @@
+{
+  "name": "netclaw-dev--netclaw",
+  "displayName": "netclaw",
+  "description": "Simple, secure, reliable agents. Self-hosted. Open source. Built with .NET.",
+  "version": "1.0.0",
+  "author": "netclaw-dev",
+  "homepage": "https://github.com/netclaw-dev/netclaw",
+  "skills": []
+}
