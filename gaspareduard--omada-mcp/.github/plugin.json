@@ -1,0 +1,9 @@
+{
+  "name": "gaspareduard--omada-mcp",
+  "displayName": "Omada-mcp",
+  "description": "Security-first MCP server for TP-Link Omada, with a stdio-first runtime, capability-gated tools, and OpenAPI-based network automation.",
+  "version": "1.0.0",
+  "author": "gaspareduard",
+  "homepage": "https://github.com/gaspareduard/Omada-mcp",
+  "skills": []
+}
