@@ -1,0 +1,9 @@
+{
+  "name": "bigbio--quantmsdiann",
+  "displayName": "quantmsdiann",
+  "description": "quantms workflow for DIANN tool including DIA and DDA analysis",
+  "version": "1.0.0",
+  "author": "bigbio",
+  "homepage": "https://github.com/bigbio/quantmsdiann",
+  "skills": []
+}
