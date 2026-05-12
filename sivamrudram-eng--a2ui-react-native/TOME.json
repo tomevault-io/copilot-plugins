@@ -1,0 +1,44 @@
+{
+  "name": "a2ui-react-native",
+  "owner": "sivamrudram-eng",
+  "repo": "a2ui-react-native",
+  "description": "A2UI React Native Renderer - Render Google's A2UI declarative UI specification in React Native",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sivamrudram-eng/a2ui-react-native",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T17:13:25Z"
+}
