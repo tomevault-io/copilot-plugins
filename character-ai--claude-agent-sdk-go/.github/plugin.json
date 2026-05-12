@@ -1,0 +1,9 @@
+{
+  "name": "character-ai--claude-agent-sdk-go",
+  "displayName": "claude-agent-sdk-go",
+  "description": "Go SDK for Claude agents",
+  "version": "1.0.0",
+  "author": "character-ai",
+  "homepage": "https://github.com/character-ai/claude-agent-sdk-go",
+  "skills": []
+}
