@@ -1,0 +1,44 @@
+{
+  "name": "aikyo",
+  "owner": "marukun712",
+  "repo": "aikyo",
+  "description": "aikyo\u306f\u3001\u76f8\u4e92\u306b\u3064\u306a\u304c\u308bAI\u30b3\u30f3\u30d1\u30cb\u30aa\u30f3\u3092\u4f5c\u6210\u3059\u308b\u305f\u3081\u306e\u30d5\u30ec\u30fc\u30e0\u30ef\u30fc\u30af\u3067\u3059\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/marukun712/aikyo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T08:49:01Z"
+}
