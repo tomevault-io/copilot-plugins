@@ -1,0 +1,9 @@
+{
+  "name": "siedlarczyk--obsfs",
+  "displayName": "obsfs",
+  "description": "A FUSE filesystem that exposes system metrics as plain text files",
+  "version": "1.0.0",
+  "author": "Siedlarczyk",
+  "homepage": "https://github.com/Siedlarczyk/obsfs",
+  "skills": []
+}
