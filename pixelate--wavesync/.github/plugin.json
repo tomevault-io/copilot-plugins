@@ -1,0 +1,9 @@
+{
+  "name": "pixelate--wavesync",
+  "displayName": "wavesync",
+  "description": "Sync your music library to Octatrack, TP-7 or Playdate",
+  "version": "1.0.0",
+  "author": "pixelate",
+  "homepage": "https://github.com/pixelate/wavesync",
+  "skills": []
+}
