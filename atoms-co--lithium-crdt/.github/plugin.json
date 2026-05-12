@@ -1,0 +1,9 @@
+{
+  "name": "atoms-co--lithium-crdt",
+  "displayName": "lithium-crdt",
+  "description": "CRDT implementation with near-zero memory overhead",
+  "version": "1.0.0",
+  "author": "atoms-co",
+  "homepage": "https://github.com/atoms-co/lithium-crdt",
+  "skills": []
+}
