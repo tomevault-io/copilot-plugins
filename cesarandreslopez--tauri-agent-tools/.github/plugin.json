@@ -1,0 +1,9 @@
+{
+  "name": "cesarandreslopez--tauri-agent-tools",
+  "displayName": "tauri-agent-tools",
+  "description": "Agent-driven inspection toolkit for Tauri desktop apps",
+  "version": "1.0.0",
+  "author": "cesarandreslopez",
+  "homepage": "https://github.com/cesarandreslopez/tauri-agent-tools",
+  "skills": []
+}
