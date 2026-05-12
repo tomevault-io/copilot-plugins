@@ -7,11 +7,11 @@ A CLI for creating Cloudflare API tokens (User Tokens) with an interactive, guid
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mynameistito/create-cf-token](https://github.com/mynameistito/create-cf-token).
+Original source: `CLAUDE.md` in [mynameistito/create-cf-token](https://github.com/mynameistito/create-cf-token).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
