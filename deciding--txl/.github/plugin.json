@@ -1,0 +1,9 @@
+{
+  "name": "deciding--txl",
+  "displayName": "txl",
+  "description": "TeraXLang - Triton Extension for LLM. As fast as FlashAttention FlashMLA, etc.",
+  "version": "1.0.0",
+  "author": "deciding",
+  "homepage": "https://github.com/deciding/txl",
+  "skills": []
+}
