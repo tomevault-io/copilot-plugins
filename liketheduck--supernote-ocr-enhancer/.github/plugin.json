@@ -1,0 +1,9 @@
+{
+  "name": "liketheduck--supernote-ocr-enhancer",
+  "displayName": "supernote-ocr-enhancer",
+  "description": "Enhance Supernote .note files with Apple Vision Framework OCR - local, private, fast, and accurate handwriting recognition with word-level bounding boxes",
+  "version": "1.0.0",
+  "author": "liketheduck",
+  "homepage": "https://github.com/liketheduck/supernote-ocr-enhancer",
+  "skills": []
+}
