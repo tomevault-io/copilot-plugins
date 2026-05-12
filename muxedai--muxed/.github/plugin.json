@@ -1,0 +1,9 @@
+{
+  "name": "muxedai--muxed",
+  "displayName": "muxed",
+  "description": "Offload MCP tools to an interactive CLI. Agent's context stays clean.",
+  "version": "1.0.0",
+  "author": "muxedai",
+  "homepage": "https://github.com/muxedai/muxed",
+  "skills": []
+}
