@@ -1,0 +1,9 @@
+{
+  "name": "rtazima--claude-proj-blueprint",
+  "displayName": "claude-proj-blueprint",
+  "description": "Modular, level-based project template for Claude Code + Obsidian + Figma. Pick your maturity level (L1-L4). Plug in your specs. Ship.",
+  "version": "1.0.0",
+  "author": "rtazima",
+  "homepage": "https://github.com/rtazima/claude-proj-blueprint",
+  "skills": []
+}
