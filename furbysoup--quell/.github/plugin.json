@@ -1,0 +1,9 @@
+{
+  "name": "furbysoup--quell",
+  "displayName": "quell",
+  "description": "Windows-native terminal proxy that eliminates scroll-jumping and flicker for AI CLI tools. Sits between your    terminal and Claude Code, Gemini CLI, or GitHub Copilot. Rust, ConPTY, zero telemetry.",
+  "version": "1.0.0",
+  "author": "FurbySoup",
+  "homepage": "https://github.com/FurbySoup/quell",
+  "skills": []
+}
