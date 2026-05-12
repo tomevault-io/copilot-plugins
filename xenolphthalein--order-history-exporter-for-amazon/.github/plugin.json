@@ -1,0 +1,9 @@
+{
+  "name": "xenolphthalein--order-history-exporter-for-amazon",
+  "displayName": "order-history-exporter-for-amazon",
+  "description": "Export your Amazon order history as JSON or CSV files",
+  "version": "1.0.0",
+  "author": "Xenolphthalein",
+  "homepage": "https://github.com/Xenolphthalein/order-history-exporter-for-amazon",
+  "skills": []
+}
