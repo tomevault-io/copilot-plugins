@@ -1,0 +1,9 @@
+{
+  "name": "gleanwork--mcp-server-tester",
+  "displayName": "mcp-server-tester",
+  "description": "Playwright-based testing and eval framework for MCP servers with LLM-as-a-judge",
+  "version": "1.0.0",
+  "author": "gleanwork",
+  "homepage": "https://github.com/gleanwork/mcp-server-tester",
+  "skills": []
+}
