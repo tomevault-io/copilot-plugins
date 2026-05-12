@@ -1,0 +1,9 @@
+{
+  "name": "dimirolz--mcpmock",
+  "displayName": "mcpmock",
+  "description": "Rapid MCP server prototyping from a single YAML file",
+  "version": "1.0.0",
+  "author": "Dimirolz",
+  "homepage": "https://github.com/Dimirolz/mcpmock",
+  "skills": []
+}
