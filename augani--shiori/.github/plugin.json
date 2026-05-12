@@ -1,0 +1,9 @@
+{
+  "name": "augani--shiori",
+  "displayName": "shiori",
+  "description": "A fast, lightweight, GPU-accelerated code editor for macOS built in Rust",
+  "version": "1.0.0",
+  "author": "Augani",
+  "homepage": "https://github.com/Augani/shiori",
+  "skills": []
+}
