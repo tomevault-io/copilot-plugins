@@ -4,7 +4,7 @@
   "repo": "dashyard",
   "description": "An AI-native Prometheus dashboard.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tokuhirom/dashyard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T02:34:43Z"
+  "distributed_at": "2026-05-12T12:34:19Z"
 }
