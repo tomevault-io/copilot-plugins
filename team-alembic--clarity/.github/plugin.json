@@ -1,0 +1,9 @@
+{
+  "name": "team-alembic--clarity",
+  "displayName": "clarity",
+  "description": "Clarity is an interactive introspection and visualization tool for Elixir, Ash and Phoenix projects.",
+  "version": "1.0.0",
+  "author": "team-alembic",
+  "homepage": "https://github.com/team-alembic/clarity",
+  "skills": []
+}
