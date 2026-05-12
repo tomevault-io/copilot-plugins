@@ -1,0 +1,9 @@
+{
+  "name": "red-hat-data-services--agentic-starter-kits",
+  "displayName": "agentic-starter-kits",
+  "description": "Starter kits for building and deploying AI agents. Run interactively locally or deploy to Red Hat OpenShift (including RHOAI) via LlamaStack.",
+  "version": "1.0.0",
+  "author": "red-hat-data-services",
+  "homepage": "https://github.com/red-hat-data-services/agentic-starter-kits",
+  "skills": []
+}
