@@ -1,147 +1,58 @@
-## use-latest-packages
+## agentic-dev-ecosystem-template
 
-> when setting up new projects or installing packages
+> This repo maintains a compounding `vault/` of project knowledge. The vault is the
 
+## Vault Protocol
 
-# Use Latest Package Versions and Configurations
+This repo maintains a compounding `vault/` of project knowledge. The vault is the
+first place you look and the last place you write.
 
-## Core Principle
-Always use the latest stable versions of packages and their current configuration patterns when setting up new projects or adding dependencies.
+### At Session Start
 
-## Package Installation Rules
+1. Read `vault/INDEX.md` to see what's documented.
+2. If the task touches a topic with an existing vault page, read it BEFORE reading source code.
+3. If the task touches a topic WITHOUT a vault page, note it — you'll write one at the end.
 
-### 1. Check Current Best Practices
-Before installing any package:
-- Use Context7 to get the latest setup instructions
-- Check official documentation for current version
-- Verify the correct configuration format for the current major version
-- Don't rely on outdated patterns from training data
+### During the Session
 
-### 2. Version-Specific Configurations
-Many packages change their configuration between major versions:
-- **TailwindCSS v4**: Requires `@tailwindcss/postcss` (not just `tailwindcss`)
-- **Vite**: Configuration syntax evolves between versions
-- **React**: Hooks and patterns change across versions
-- **Testing libraries**: Setup and API changes
+- When you encounter something non-obvious (a gotcha, a decision, a pattern):
+  - Check if `vault/` has a page for it. If yes, do not re-discover it.
+  - If no, note it for end-of-session capture.
+- Never cite internal knowledge the user can't verify. If it's not in `vault/`, don't claim it as fact.
 
-### 3. Installation Pattern
-```bash
-# CORRECT: Install with latest compatible versions
-npm install -D package-name
+### At Session End
 
-# WRONG: Don't specify old versions unless required
-npm install -D package-name@old-version
-```
+When the session produced a decision, solved a non-obvious problem, or established a pattern:
 
-### 4. Configuration Files
-When creating configuration files:
-- Use the format for the CURRENT major version
-- Check if separate companion packages are needed (e.g., @tailwindcss/postcss)
-- Verify plugin syntax matches current version
-- Use ES modules syntax when supported
+1. Write a vault page. Location rules (match the directories that exist in this repo's `vault/`):
+   - Decisions (why we chose X over Y) → `vault/decisions/ADR-NNN-<slug>.md` (next sequential number)
+   - Postmortems → `vault/incidents/<YYYY-MM-DD>-<slug>.md`
+   - Service/component notes, runbooks, gotchas → `vault/services/<service>.md`
+   - Personas → `vault/personas/<name>.md`
+   - Cross-cutting topic hubs → `vault/moc/<topic>.md` (a "Map of Content" that links related pages)
+   - Glossary entries → append to `vault/glossary.md`
+2. Update `vault/INDEX.md` to link the new page.
+3. One page per topic. If a page grows > 300 lines, split it (same threshold as `vault/INDEX.md`).
 
-## Common Package Gotchas
+### Writing Style
 
-### TailwindCSS
-- **v3**: Used `tailwindcss: {}` in postcss.config.js
-- **v4**: Requires `@tailwindcss/postcss` package and `'@tailwindcss/postcss': {}` in config
-- **Action**: Always check which version and use correct setup
+- Plain markdown. No front-matter unless required by another tool.
+- Lead with the **bottom line**: the answer in the first 2 lines, details below.
+- Use the present tense for current state ("we use Redis") and past tense for history ("we tried DynamoDB, it didn't fit").
+- Include dates on decisions — these age, and agents need to know how fresh a claim is.
+- No prose walls. Headers, lists, tables, code blocks.
 
-### PostCSS Plugins
-- Some plugins move to separate packages between versions
-- Always verify the current plugin name and package
-- Check if autoprefixer is bundled or separate
+### Never
 
-### Build Tools (Vite, Webpack, etc.)
-- Configuration syntax changes between major versions
-- Plugin APIs evolve
-- Check current documentation for setup
+- Put secrets in `vault/`. It's git-tracked — assume public.
+- Put PII in `vault/`. Same reason.
+- Write vault pages that duplicate code comments. The vault is for things code can't express.
+- Leave `vault/INDEX.md` out of date. The index is the API.
 
-### Testing Frameworks
-- Setup files and configuration location changes
-- Global test utilities may require different imports
-- Verify current best practices for the version being used
+### Skills Involved
 
-## Decision Process
-
-When setting up a new dependency:
-
-1. **Identify the package needed**
-   - What functionality is required?
-   - What's the standard package for this in the ecosystem?
-
-2. **Get current documentation**
-   - Use Context7 to fetch latest setup instructions
-   - Check official docs for current version
-   - Look for migration guides if coming from older version
-
-3. **Install with correct packages**
-   - Install main package
-   - Install any required companion packages
-   - Install peer dependencies
-
-4. **Configure using current patterns**
-   - Use the configuration format for current version
-   - Don't use deprecated patterns
-   - Follow current best practices
-
-5. **Verify setup works**
-   - Test that configuration is correct
-   - Check for deprecation warnings
-   - Ensure dev server/build works
-
-## Examples
-
-### Good: TailwindCSS v4 Setup
-```bash
-# Install both required packages
-npm install -D tailwindcss @tailwindcss/postcss
-
-# postcss.config.js - CURRENT v4 format
-export default {
-  plugins: {
-    '@tailwindcss/postcss': {},
-  },
-}
-```
-
-### Bad: TailwindCSS v3 Setup (outdated)
-```bash
-# Missing @tailwindcss/postcss
-npm install -D tailwindcss postcss autoprefixer
-
-# postcss.config.js - OLD v3 format
-export default {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-}
-```
-
-## When to Use Older Versions
-
-Only use older package versions when:
-- Working with an existing codebase that requires it
-- Specific compatibility requirements exist
-- Documented technical constraint requires it
-
-**Document the reason** when using older versions.
-
-## Workflow Integration
-
-This rule applies during:
-- New project initialization
-- Adding new dependencies
-- Setting up build tools
-- Configuring testing frameworks
-- Installing UI libraries
-- Adding any third-party packages
-
-## Related Workflows
-- `/setup-tailwindcss` - Correct TailwindCSS v4 setup
-- Project initialization workflows
-- Dependency management workflows
+- `wiki-query` — called first, reads relevant vault pages for the current intent.
+- `wiki-update` — called last, writes new or updated pages before session ends.
 
 ---
 > Source: [djscheuf/agentic-dev-ecosystem-template](https://github.com/djscheuf/agentic-dev-ecosystem-template) — distributed by [TomeVault](https://tomevault.io).
