@@ -1,0 +1,9 @@
+{
+  "name": "lnagel--hass-ufh-controller",
+  "displayName": "hass-ufh-controller",
+  "description": "Home Assistant Underfloor Heating Controller",
+  "version": "1.0.0",
+  "author": "lnagel",
+  "homepage": "https://github.com/lnagel/hass-ufh-controller",
+  "skills": []
+}
