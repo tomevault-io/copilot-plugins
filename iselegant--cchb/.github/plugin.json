@@ -1,0 +1,9 @@
+{
+  "name": "iselegant--cchb",
+  "displayName": "cchb",
+  "description": "Fast TUI tool to browse, search, and resume your Claude Code session history",
+  "version": "1.0.0",
+  "author": "iselegant",
+  "homepage": "https://github.com/iselegant/cchb",
+  "skills": []
+}
