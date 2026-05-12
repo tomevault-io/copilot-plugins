@@ -1,0 +1,9 @@
+{
+  "name": "kingjing1--podcast-transcript-txt-skill",
+  "displayName": "podcast-transcript-txt-skill",
+  "description": "Turn any podcast URL into a clean TXT transcript \u2014 YouTube, Xiaoyuzhou, Apple Podcasts, X.",
+  "version": "1.0.0",
+  "author": "KingJing1",
+  "homepage": "https://github.com/KingJing1/podcast-transcript-txt-skill",
+  "skills": []
+}
