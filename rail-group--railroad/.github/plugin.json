@@ -1,0 +1,9 @@
+{
+  "name": "rail-group--railroad",
+  "displayName": "railroad",
+  "description": "Planning suite from the RAIL Group @ GMU supporting multi-agent concurrent planning under uncertainty, among other capabilities",
+  "version": "1.0.0",
+  "author": "RAIL-group",
+  "homepage": "https://github.com/RAIL-group/railroad",
+  "skills": []
+}
