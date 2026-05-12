@@ -1,0 +1,9 @@
+{
+  "name": "suxrobgm--jobpilot",
+  "displayName": "jobpilot",
+  "description": "Claude Code plugin that autonomously searches job boards, auto-fills applications, generates cover letters, and preps for interviews - powered by your resume",
+  "version": "1.0.0",
+  "author": "suxrobGM",
+  "homepage": "https://github.com/suxrobGM/jobpilot",
+  "skills": []
+}
