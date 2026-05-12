@@ -1,0 +1,9 @@
+{
+  "name": "inercia--mcpshell",
+  "displayName": "MCPShell",
+  "description": "Use shell scripts as MCP tools",
+  "version": "1.0.0",
+  "author": "inercia",
+  "homepage": "https://github.com/inercia/MCPShell",
+  "skills": []
+}
