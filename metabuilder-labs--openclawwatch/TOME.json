@@ -4,7 +4,7 @@
   "repo": "openclawwatch",
   "description": "Observability for Autonomous AI agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Metabuilder-Labs/openclawwatch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T01:15:05Z"
+  "distributed_at": "2026-05-12T23:08:51Z"
 }
