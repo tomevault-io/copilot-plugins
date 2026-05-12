@@ -1,0 +1,337 @@
+## hass-ufh-controller
+
+> This document provides essential guidelines for AI agents working on this codebase.
+
+# CLAUDE.md - AI Agent Guidelines
+
+This document provides essential guidelines for AI agents working on this codebase.
+
+## Critical Context
+
+**This code controls heating for real homes.** Mistakes can result in:
+- Pipes freezing and bursting (costly property damage)
+- Excessive energy bills
+- Uncomfortable living conditions
+- Hardware damage to valves and boilers
+
+**Quality and correctness are paramount.** When in doubt, ask questions rather than make assumptions.
+
+## Environment Setup
+
+**ALWAYS run before any code quality checks:**
+
+```bash
+uv sync --dev
+```
+
+This installs all dependencies including dev extras (pytest, ruff, ty).
+
+## Pre-Commit Checklist
+
+**BEFORE committing any changes, run ALL of these checks in order:**
+
+```bash
+# 1. Run tests first - ensures code works correctly
+uv run pytest
+
+# 2. Format code with ruff (auto-fixes formatting issues)
+uv run ruff format .
+
+# 3. Lint with ruff (auto-fixes what it can)
+uv run ruff check . --fix
+
+# 4. Type check with ty
+uv run ty check
+```
+
+**All checks must pass before committing.** CI will reject PRs that fail any of these.
+
+## Pre-PR Checklist
+
+**BEFORE creating a pull request, validate that your changes have 100% test coverage:**
+
+```bash
+# 1. Generate coverage XML report
+uv run pytest --cov=custom_components/ufh_controller --cov-branch --cov-report=xml
+
+# 2. Check diff coverage against main branch (100% required)
+uv run diff-cover coverage.xml --compare-branch=main --fail-under=100
+```
+
+**If diff coverage fails:**
+1. Review the output to see which specific lines lack coverage
+2. Add tests for the uncovered lines
+3. Re-run the diff coverage check until it passes
+
+**Why this matters:** Codecov enforces diff coverage on PRs. Validating locally prevents wasted reviewer time on PRs that will fail CI.
+
+## Project Structure
+
+```
+custom_components/ufh_controller/
+├── __init__.py          # Entry point, async_setup_entry
+├── coordinator.py       # DataUpdateCoordinator (main control loop)
+├── config_flow.py       # UI configuration flows
+├── const.py             # Constants, defaults, enums
+├── data.py              # Custom types (UFHControllerConfigEntry, UFHControllerData)
+├── device.py            # Device info helpers
+├── entity.py            # Base entity classes (UFHControllerEntity, UFHControllerZoneEntity)
+├── recorder.py          # Recorder query helpers (state averages, window detection)
+├── core/
+│   ├── controller.py    # Control logic orchestration
+│   ├── zone.py          # Zone state and decision logic
+│   ├── pid.py           # PID controller implementation
+│   ├── history.py       # Observation period datetime helpers
+│   ├── ema.py           # EMA filter for temperature smoothing
+│   ├── heating_curve.py # Heating curve for outdoor temp compensation
+│   └── hysteresis.py    # Hysteresis rounding for display flicker prevention
+├── climate.py           # Climate entity platform
+├── sensor.py            # Sensor entities (duty cycle, PID values)
+├── binary_sensor.py     # Binary sensors (blocked, heat request)
+├── select.py            # Mode selector entity
+└── switch.py            # Switch entities (flush enabled)
+
+tests/                   # Test suite (see Test Organization below)
+│   ├── unit/            # Pure logic tests, no HA dependencies
+│   ├── integration/     # Entity platform tests with mocked HA
+│   ├── scenarios/       # End-to-end workflows and resilience
+│   └── config/          # Config flows and setup lifecycle
+docs/                    # Documentation (see docs/index.md for full list)
+```
+
+## Documentation Synchronization
+
+**The `docs/` directory is the source of truth for design decisions.** See `docs/index.md` for the full documentation structure.
+
+When making changes:
+1. Check if your changes align with the documentation
+2. If changes conflict with the docs, update BOTH the code AND relevant doc files
+3. Never leave the documentation out of sync with the implementation
+4. Document any new features, entities, or configuration options in the appropriate doc file
+
+## Testing Requirements
+
+### Test Coverage
+- **Overall**: 90% minimum (enforced in pyproject.toml and CI)
+- **Core Modules**: 100% target, 98% minimum acceptable (critical control logic)
+
+### Bug Fixes: Reproduce First
+When fixing bugs:
+1. **Write a failing test case first** that reproduces the bug
+2. Verify the test fails as expected
+3. Implement the fix
+4. Verify the test now passes
+5. Add any additional edge case tests
+
+This ensures bugs don't regress and documents the expected behavior.
+
+### New Features: Test Thoroughly
+- Write tests for all new functionality
+- Cover edge cases (null values, boundary conditions, error states)
+- Test integration with Home Assistant entities where applicable
+
+### Test Fixtures
+Common fixtures are in `tests/conftest.py`:
+- `mock_config_entry` - Config entry with one zone
+- `mock_config_entry_no_zones` - Config entry without zones
+- `mock_config_entry_multiple_zones` - Config entry with two zones
+- `mock_config_entry_with_heat_request` - Config entry with heat request entity
+- `mock_config_entry_all_entities` - Config entry with all controller-level entities
+- `mock_config_entry_with_supply_temp` - Config entry with supply temp entity
+- `mock_temp_sensor` - Sets up mock temperature sensor and valve states
+- `mock_recorder` - Mocked Home Assistant recorder
+
+Helper functions (not fixtures, call directly in tests):
+- `setup_zone_pid()` - Set up zone temperature and update PID
+- `setup_zone_historical()` - Set up zone historical data for flow/window blocking
+
+### Test Organization
+
+Tests are organized into four directories based on their scope and dependencies:
+
+**`tests/unit/`** - Pure logic tests
+- Testing a single class/function in isolation
+- No Home Assistant dependencies (no `hass` fixture)
+- Examples: PID controller math, observation window calculations
+
+**`tests/integration/`** - Entity platform tests
+- Testing entity platforms (climate, sensor, binary_sensor, etc.)
+- Testing component interaction with mocked Home Assistant state
+- Requires `hass` fixture and mock entities
+- Examples: climate entity behavior, controller orchestration, zone evaluation
+
+**`tests/scenarios/`** - End-to-end workflow tests
+- Testing realistic user workflows from start to finish
+- Testing resilience (failures, recovery, state persistence)
+- Multi-step operations over time (coordinator updates)
+- Examples: state persistence across restarts, database failure recovery
+
+**`tests/config/`** - Configuration and setup tests
+- Testing config flows (UI configuration)
+- Testing setup/unload lifecycle
+- Testing conditional entity creation based on config
+- Examples: config flow validation, entry setup/unload
+
+## Code Quality Standards
+
+### Ruff Configuration
+- Line length: 88 characters
+- Target: Python 3.13+
+- Select: ALL rules (with specific ignores, see pyproject.toml)
+- Tests have relaxed rules for asserts, magic values, etc.
+
+### Type Annotations
+- Use type hints for all function signatures
+- Use TypedDict for structured dictionaries (see const.py)
+- Run `uv run ty check` to verify
+
+### Constants
+- Extract magic numbers to `const.py`
+- Use typed defaults (TimingDefaults, PIDDefaults, SetpointDefaults, PresetDefaults)
+- Document units in comments (seconds, percentages, ratios)
+
+## Git Commit Practices
+
+### Good Commit History
+- **Each meaningful change deserves its own commit**
+- Prefer new incremental commits over amending
+- Write clear, descriptive commit messages
+- Use conventional format: `Fix X`, `Add Y`, `Update Z`
+- PRs are squash-merged, so we can have detailed commit history during development
+
+
+## Common Pitfalls to Avoid
+
+### 1. Forgetting `uv sync`
+```bash
+# WRONG - tools not installed
+uv run pytest  # Error: pytest not found
+
+# RIGHT
+uv sync --dev
+uv run pytest
+```
+
+### 2. Committing Without Full Check Cycle
+```bash
+# WRONG - only ran tests
+uv run pytest
+git commit
+
+# RIGHT - full verification
+uv run pytest && uv run ruff format . && uv run ruff check . --fix && uv run ty check
+git commit
+```
+
+### 3. Not Updating Documentation
+```python
+# WRONG - Added new entity without documenting
+# (creates silent drift between docs and code)
+
+# RIGHT - Update docs/entities.md with new entity details
+```
+
+### 4. Fixing Bugs Without Tests
+```python
+# WRONG - Just fix the code
+def calculate_duty_cycle(...):
+    return fixed_value  # "trust me it works now"
+
+# RIGHT - Write failing test first
+def test_duty_cycle_edge_case():
+    # This test should fail before the fix
+    assert calculate_duty_cycle(edge_case) == expected
+```
+
+### 5. Floating-Point Equality in Tests
+Use `pytest.approx()` for asserting float values that have passed through
+any computation (division, interpolation, averaging). Direct assign-and-read
+without computation can use `==`. Dictionary comparisons with nested floats
+are especially dangerous — assert float fields individually with `approx()`.
+
+### 6. Running Commands with Paths Outside the Working Directory
+Do not use `git -C`, `find /`, or similar flags that reference paths outside the
+current working directory. They are unnecessary and cause permission check failures.
+Prefer relative paths from the project root and avoid changing working directories
+when possible.
+
+## CI Workflows
+
+The CI runs three workflow files on PRs:
+
+1. **checks.yml** - Unit tests with pytest
+2. **lint.yml** - Ruff check, Ruff format, ty type check
+3. **validate.yml** - Hassfest and HACS validation
+
+All must pass for PR approval.
+
+## Quick Reference Commands
+
+```bash
+# Setup environment
+uv sync --dev
+
+# Run tests
+uv run pytest
+
+# Run tests with coverage
+uv run pytest --cov=custom_components/ufh_controller --cov-branch
+
+# Format code
+uv run ruff format .
+
+# Lint and auto-fix
+uv run ruff check . --fix
+
+# Type check
+uv run ty check
+
+# Full pre-commit check
+uv run pytest && uv run ruff format . && uv run ruff check . --fix && uv run ty check
+
+# Check diff coverage (before creating PR)
+uv run pytest --cov=custom_components/ufh_controller --cov-branch --cov-report=xml && uv run diff-cover coverage.xml --compare-branch=main --fail-under=100
+
+# Bump version (updates pyproject.toml and manifest.json)
+uv run bump-my-version bump patch  # 0.1.3 → 0.1.4
+uv run bump-my-version bump minor  # 0.1.3 → 0.2.0
+uv run bump-my-version bump major  # 0.1.3 → 1.0.0
+```
+
+## Domain Knowledge
+
+### PID Control
+- Proportional-Integral-Derivative controller for temperature regulation
+- Output is duty cycle (0-100%) representing heating demand
+- Integral term has anti-windup protection
+
+### Observation Period
+- 2-hour windows aligned to midnight by default (00:00, 02:00, 04:00...)
+- Zones get quota based on duty cycle average
+- Prevents rapid valve cycling
+
+### Safety Features
+- Window/door detection blocks heating (prevents energy waste)
+- Minimum run time prevents valve wear
+- DHW (hot water) priority for system coordination
+
+### EMA Filtering
+- Temperature readings are smoothed via Exponential Moving Average filter
+- Configurable time constant (tau); tau=0 disables filtering
+
+### Heating Curve
+- Outdoor temperature compensation via two-point linear interpolation
+- Adjusts supply target temperature based on outdoor conditions
+
+### Hysteresis Rounding
+- Temperature display uses hysteresis to prevent flicker
+- Raw value must cross boundary by 0.03°C before display changes
+
+### Home Assistant Integration
+- Uses ConfigEntry with subentries for zones
+- DataUpdateCoordinator for state management
+- Recorder queries for historical state averages
+
+---
+> Source: [lnagel/hass-ufh-controller](https://github.com/lnagel/hass-ufh-controller) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
