@@ -1,0 +1,9 @@
+{
+  "name": "minorcell--album",
+  "displayName": "album",
+  "description": "A cloud space system built on Next.js + Prisma + MySQL + TOS.",
+  "version": "1.0.0",
+  "author": "minorcell",
+  "homepage": "https://github.com/minorcell/album",
+  "skills": []
+}
