@@ -1,0 +1,9 @@
+{
+  "name": "kenzo-pj--unifast",
+  "displayName": "unifast",
+  "description": "High-performance Markdown and MDX compiler with a Rust core.",
+  "version": "1.0.0",
+  "author": "kenzo-pj",
+  "homepage": "https://github.com/kenzo-pj/unifast",
+  "skills": []
+}
