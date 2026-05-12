@@ -7,11 +7,11 @@ OSS Projects are cool, vulnerabilities and threats arent. AI scan environment fo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [thresher-sh/thresher](https://github.com/thresher-sh/thresher).
+Original source: `CLAUDE.md` in [thresher-sh/thresher](https://github.com/thresher-sh/thresher).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
