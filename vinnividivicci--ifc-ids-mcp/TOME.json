@@ -4,7 +4,7 @@
   "repo": "ifc-ids-mcp",
   "description": "An MCP to create IDS files deterministically using IfcOpenShell's IfcTester",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vinnividivicci/ifc-ids-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T00:41:43Z"
+  "distributed_at": "2026-05-12T22:44:20Z"
 }
