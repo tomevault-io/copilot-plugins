@@ -1,0 +1,9 @@
+{
+  "name": "ainame--tuzuru",
+  "displayName": "tuzuru",
+  "description": "Tuzuru (\u7db4\u308b) is a dead simple blogging tool. Write a plain md and store it in Git. That's it.",
+  "version": "1.0.0",
+  "author": "ainame",
+  "homepage": "https://github.com/ainame/tuzuru",
+  "skills": []
+}
