@@ -1,0 +1,9 @@
+{
+  "name": "canonical--signal-studio",
+  "displayName": "signal-studio",
+  "description": "Signal Studio is for SREs who refuse noisy observability.",
+  "version": "1.0.0",
+  "author": "canonical",
+  "homepage": "https://github.com/canonical/signal-studio",
+  "skills": []
+}
