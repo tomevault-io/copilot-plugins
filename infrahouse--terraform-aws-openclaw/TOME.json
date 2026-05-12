@@ -1,0 +1,44 @@
+{
+  "name": "terraform-aws-openclaw",
+  "owner": "infrahouse",
+  "repo": "terraform-aws-openclaw",
+  "description": "Terraform module for OpenClaw AI agent gateway on AWS with ALB, Cognito authentication, EFS persistence, and multi-provider LLM support (Bedrock, Anthropic, OpenAI, Ollama). ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/infrahouse/terraform-aws-openclaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T06:14:54Z"
+}
