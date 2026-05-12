@@ -1,0 +1,9 @@
+{
+  "name": "matthewjberger--nightshade",
+  "displayName": "nightshade",
+  "description": "A data-oriented game engine written in Rust with a custom ECS \ud83e\udd80 Works on Windows/Linux/MacOS/Web/OpenXR",
+  "version": "1.0.0",
+  "author": "matthewjberger",
+  "homepage": "https://github.com/matthewjberger/nightshade",
+  "skills": []
+}
