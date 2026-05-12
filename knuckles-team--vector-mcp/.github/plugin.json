@@ -1,0 +1,9 @@
+{
+  "name": "knuckles-team--vector-mcp",
+  "displayName": "vector-mcp",
+  "description": "Vector MCP Server for AI Agents - Supports ChromaDB, Couchbase, MongoDB, Qdrant, and PGVector",
+  "version": "1.0.0",
+  "author": "Knuckles-Team",
+  "homepage": "https://github.com/Knuckles-Team/vector-mcp",
+  "skills": []
+}
