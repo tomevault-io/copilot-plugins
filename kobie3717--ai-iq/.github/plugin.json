@@ -1,0 +1,9 @@
+{
+  "name": "kobie3717--ai-iq",
+  "displayName": "ai-iq",
+  "description": "AI-IQ: Persistent context system for AI coding assistants. AI doesn't need knowledge \u2014 it needs relevant context. Hybrid search (FTS+semantic), graph intelligence, zero config.",
+  "version": "1.0.0",
+  "author": "kobie3717",
+  "homepage": "https://github.com/kobie3717/ai-iq",
+  "skills": []
+}
