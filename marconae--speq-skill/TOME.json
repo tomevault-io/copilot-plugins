@@ -2,9 +2,9 @@
   "name": "speq-skill",
   "owner": "marconae",
   "repo": "speq-skill",
-  "description": "",
+  "description": "A light-weight and straightforward system for spec-driven development with Claude Code or OpenAI Codex",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/marconae",
+  "source_url": "https://github.com/marconae/speq-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T10:08:07Z"
+  "distributed_at": "2026-05-12T18:40:21Z"
 }
