@@ -1,0 +1,9 @@
+{
+  "name": "360-geo--copc-converter",
+  "displayName": "copc-converter",
+  "description": "A fast, memory-efficient converter that turns LAS/LAZ point cloud files into COPC (Cloud-Optimized Point Cloud) files.",
+  "version": "1.0.0",
+  "author": "360-geo",
+  "homepage": "https://github.com/360-geo/copc-converter",
+  "skills": []
+}
