@@ -1,0 +1,9 @@
+{
+  "name": "rozd--theme-kit",
+  "displayName": "theme-kit",
+  "description": "Native-feeling theming for SwiftUI \u2014 style tokens that resolve through the environment, with code generation for your app's design system.",
+  "version": "1.0.0",
+  "author": "rozd",
+  "homepage": "https://github.com/rozd/theme-kit",
+  "skills": []
+}
