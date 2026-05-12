@@ -1,0 +1,9 @@
+{
+  "name": "mthines--sync-tray",
+  "displayName": "sync-tray",
+  "description": "Native macOS menu bar app for rclone sync monitoring. Real-time status, smart notifications, clickable file history, and external drive detection. Pure SwiftUI, no dependencies",
+  "version": "1.0.0",
+  "author": "mthines",
+  "homepage": "https://github.com/mthines/sync-tray",
+  "skills": []
+}
