@@ -1,0 +1,9 @@
+{
+  "name": "hanc00l--nemo-agent-v1",
+  "displayName": "nemo-agent-v1",
+  "description": "\u57fa\u4e8e Claude Code \u7684\u81ea\u52a8\u5316\u6e17\u900f\u6d4b\u8bd5 Agent\uff0c\u76ee\u6807\u662f\u8fbe\u5230\u4e2d\u9ad8\u7ea7\u7f51\u7edc\u5b89\u5168\u4e13\u5bb6\u6c34\u5e73\u3002",
+  "version": "1.0.0",
+  "author": "hanc00l",
+  "homepage": "https://github.com/hanc00l/nemo-agent-v1",
+  "skills": []
+}
