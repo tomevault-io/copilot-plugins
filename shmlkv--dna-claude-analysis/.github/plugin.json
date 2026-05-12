@@ -1,0 +1,9 @@
+{
+  "name": "shmlkv--dna-claude-analysis",
+  "displayName": "dna-claude-analysis",
+  "description": "Run scripts, explore your genome, and get personalized explanations \u2014 all in natural dialogue.",
+  "version": "1.0.0",
+  "author": "shmlkv",
+  "homepage": "https://github.com/shmlkv/dna-claude-analysis",
+  "skills": []
+}
