@@ -1,0 +1,9 @@
+{
+  "name": "luizomf--lgtm1",
+  "displayName": "lgtm1",
+  "description": "Base pr\u00e1tica para aprender observabilidade com LGTM Stack, FastAPI, Grafana, Loki, Tempo, Mimir e Alloy.",
+  "version": "1.0.0",
+  "author": "luizomf",
+  "homepage": "https://github.com/luizomf/lgtm1",
+  "skills": []
+}
