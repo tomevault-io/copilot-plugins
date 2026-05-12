@@ -1,0 +1,9 @@
+{
+  "name": "grom-dev--effect-tg",
+  "displayName": "effect-tg",
+  "description": "\ud83d\udee0\ufe0f Effectful library for crafting Telegram bots.",
+  "version": "1.0.0",
+  "author": "grom-dev",
+  "homepage": "https://github.com/grom-dev/effect-tg",
+  "skills": []
+}
