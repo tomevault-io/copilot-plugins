@@ -1,0 +1,9 @@
+{
+  "name": "optave--ops-codegraph-tool",
+  "displayName": "ops-codegraph-tool",
+  "description": "Code intelligence CLI \u2014 function-level dependency graph across 11 languages, 30-tool MCP server for AI agents, complexity metrics, architecture boundary enforcement, CI quality gates, git diff impact ",
+  "version": "1.0.0",
+  "author": "optave",
+  "homepage": "https://github.com/optave/ops-codegraph-tool",
+  "skills": []
+}
