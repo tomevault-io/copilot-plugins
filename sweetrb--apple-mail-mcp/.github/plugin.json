@@ -1,0 +1,9 @@
+{
+  "name": "sweetrb--apple-mail-mcp",
+  "displayName": "apple-mail-mcp",
+  "description": "MCP server for Apple Mail - read, search, send, and manage emails via Claude",
+  "version": "1.0.0",
+  "author": "sweetrb",
+  "homepage": "https://github.com/sweetrb/apple-mail-mcp",
+  "skills": []
+}
