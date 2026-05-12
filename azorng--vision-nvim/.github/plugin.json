@@ -1,0 +1,9 @@
+{
+  "name": "azorng--vision-nvim",
+  "displayName": "vision.nvim",
+  "description": "share your neovim context with agents through visual mode",
+  "version": "1.0.0",
+  "author": "azorng",
+  "homepage": "https://github.com/azorng/vision.nvim",
+  "skills": []
+}
