@@ -1,0 +1,9 @@
+{
+  "name": "rukh-debug--nextdns-analytics-dashboard",
+  "displayName": "nextdns-analytics-dashboard",
+  "description": "A simple DNS analytics dashboard powered by next(dns/js)",
+  "version": "1.0.0",
+  "author": "rukh-debug",
+  "homepage": "https://github.com/rukh-debug/nextdns-analytics-dashboard",
+  "skills": []
+}
