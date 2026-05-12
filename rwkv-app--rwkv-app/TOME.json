@@ -4,7 +4,7 @@
   "repo": "RWKV_APP",
   "description": "A fast, lightweight, and extensible RWKV chat UI powered by Flutter. Offline-ready, multi-backend support, ideal for local RWKV inference.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RWKV-APP/RWKV_APP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T19:40:00Z"
+  "distributed_at": "2026-05-12T02:51:04Z"
 }
