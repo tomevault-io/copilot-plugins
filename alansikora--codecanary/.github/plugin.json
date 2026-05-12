@@ -1,0 +1,9 @@
+{
+  "name": "alansikora--codecanary",
+  "displayName": "codecanary",
+  "description": "Send a canary into every PR and catch issues before they reach production. No canaries are harmed in the process.",
+  "version": "1.0.0",
+  "author": "alansikora",
+  "homepage": "https://github.com/alansikora/codecanary",
+  "skills": []
+}
