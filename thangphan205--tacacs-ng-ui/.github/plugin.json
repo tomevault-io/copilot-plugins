@@ -1,0 +1,9 @@
+{
+  "name": "thangphan205--tacacs-ng-ui",
+  "displayName": "tacacs-ng-ui",
+  "description": "A modern Web UI for configuring and managing tac_plus-ng, featuring AAA log auditing, trends dashboards, SIEM integration, and advanced user/profile management.",
+  "version": "1.0.0",
+  "author": "thangphan205",
+  "homepage": "https://github.com/thangphan205/tacacs-ng-ui",
+  "skills": []
+}
