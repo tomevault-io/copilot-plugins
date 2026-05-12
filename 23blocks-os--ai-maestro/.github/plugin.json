@@ -1,0 +1,9 @@
+{
+  "name": "23blocks-os--ai-maestro",
+  "displayName": "ai-maestro",
+  "description": "AI Agent Orchestrator with Skills System - Give AI Agents superpowers: memory search, code graph queries, agent-to-agent messaging. Manage Claude, Codex or any AI Agent from one dashboard. Move Agents",
+  "version": "1.0.0",
+  "author": "23blocks-OS",
+  "homepage": "https://github.com/23blocks-OS/ai-maestro",
+  "skills": []
+}
