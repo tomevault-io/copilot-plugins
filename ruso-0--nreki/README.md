@@ -7,11 +7,11 @@ MCP plugin that saves 50%+ tokens per session for AI coding agents. Validates ed
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Ruso-0/Nreki](https://github.com/Ruso-0/Nreki).
+Original source: `CLAUDE.md` in [Ruso-0/Nreki](https://github.com/Ruso-0/Nreki).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
