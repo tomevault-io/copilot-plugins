@@ -4,7 +4,7 @@
   "repo": "pharos-watch",
   "description": "Pharos Watch stablecoin dashboard repository",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TokenBrice/pharos-watch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T00:50:05Z"
+  "distributed_at": "2026-05-12T12:10:15Z"
 }
