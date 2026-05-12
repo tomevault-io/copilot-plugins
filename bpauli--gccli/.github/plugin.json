@@ -1,0 +1,9 @@
+{
+  "name": "bpauli--gccli",
+  "displayName": "gccli",
+  "description": "A command-line interface for Garmin Connect \u2014 activities, health, courses, workouts, devices, and more \u2014 with JSON output and secure credential storage.",
+  "version": "1.0.0",
+  "author": "bpauli",
+  "homepage": "https://github.com/bpauli/gccli",
+  "skills": []
+}
