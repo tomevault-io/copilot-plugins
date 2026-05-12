@@ -1,0 +1,9 @@
+{
+  "name": "treyorr--pocket-agents",
+  "displayName": "pocket-agents",
+  "description": "Self-contained agent backend with tools, RAG, and durable runs. One binary, no external services.",
+  "version": "1.0.0",
+  "author": "treyorr",
+  "homepage": "https://github.com/treyorr/pocket-agents",
+  "skills": []
+}
