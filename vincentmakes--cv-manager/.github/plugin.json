@@ -1,0 +1,9 @@
+{
+  "name": "vincentmakes--cv-manager",
+  "displayName": "cv-manager",
+  "description": "A CV Manager, easy to use to manage multiple version of CVs in a slick customisable template",
+  "version": "1.0.0",
+  "author": "vincentmakes",
+  "homepage": "https://github.com/vincentmakes/cv-manager",
+  "skills": []
+}
