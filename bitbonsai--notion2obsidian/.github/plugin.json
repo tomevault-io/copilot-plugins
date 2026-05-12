@@ -1,0 +1,9 @@
+{
+  "name": "bitbonsai--notion2obsidian",
+  "displayName": "notion2obsidian",
+  "description": "High-performance CLI tool to migrate Notion exports to Obsidian-compatible markdown format",
+  "version": "1.0.0",
+  "author": "bitbonsai",
+  "homepage": "https://github.com/bitbonsai/notion2obsidian",
+  "skills": []
+}
