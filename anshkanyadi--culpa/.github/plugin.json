@@ -1,0 +1,9 @@
+{
+  "name": "anshkanyadi--culpa",
+  "displayName": "culpa",
+  "description": "Deterministic replay & counterfactual debugging for AI agents. Record every decision. Replay failures at zero cost. Fork at any point to test \"what if?\"",
+  "version": "1.0.0",
+  "author": "AnshKanyadi",
+  "homepage": "https://github.com/AnshKanyadi/culpa",
+  "skills": []
+}
