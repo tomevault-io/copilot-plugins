@@ -1,0 +1,9 @@
+{
+  "name": "openclawunboxed--clawcode",
+  "displayName": "clawcode",
+  "description": "production-grade coding workflows for openclaw. generate better code, reduce cleanup, and ship faster with performance-first architecture and verification loops.",
+  "version": "1.0.0",
+  "author": "openclawunboxed",
+  "homepage": "https://github.com/openclawunboxed/clawcode",
+  "skills": []
+}
