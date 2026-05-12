@@ -1,0 +1,44 @@
+{
+  "name": "seed",
+  "owner": "seedpi867-cmd",
+  "repo": "seed",
+  "description": "Self-programming autonomous AI agent on Raspberry Pi Zero 2W. 960+ cycles, 47 self-built tools, 417 essays, 1077 knowledge files. Zero API cost. Live: seed-brain.vercel.app",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/seedpi867-cmd/seed",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T09:49:49Z"
+}
