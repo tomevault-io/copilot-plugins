@@ -1,0 +1,9 @@
+{
+  "name": "thaitype--reeve",
+  "displayName": "reeve",
+  "description": "Hardened shell runtime for AI agents. Allowlist-first execution of Rhai scripts with declared command boundaries.",
+  "version": "1.0.0",
+  "author": "thaitype",
+  "homepage": "https://github.com/thaitype/reeve",
+  "skills": []
+}
