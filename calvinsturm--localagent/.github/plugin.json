@@ -1,0 +1,9 @@
+{
+  "name": "calvinsturm--localagent",
+  "displayName": "LocalAgent",
+  "description": "Local-first agent runtime for MCP workflows with explicit trust controls, replayable runs, and built-in evals.",
+  "version": "1.0.0",
+  "author": "CalvinSturm",
+  "homepage": "https://github.com/CalvinSturm/LocalAgent",
+  "skills": []
+}
