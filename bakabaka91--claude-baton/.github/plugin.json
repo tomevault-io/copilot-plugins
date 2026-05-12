@@ -1,0 +1,9 @@
+{
+  "name": "bakabaka91--claude-baton",
+  "displayName": "claude-baton",
+  "description": "Never lose context between Claude Code sessions again. Auto-checkpoint, resume, EOD summaries \u2014 all local.",
+  "version": "1.0.0",
+  "author": "bakabaka91",
+  "homepage": "https://github.com/bakabaka91/claude-baton",
+  "skills": []
+}
