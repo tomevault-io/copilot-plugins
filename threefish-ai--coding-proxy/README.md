@@ -7,11 +7,11 @@ A High-Availability, Transparent, and Smart Multi-Vendor Proxy for Claude Code. 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ThreeFish-AI/coding-proxy](https://github.com/ThreeFish-AI/coding-proxy).
+Original source: `CLAUDE.md` in [ThreeFish-AI/coding-proxy](https://github.com/ThreeFish-AI/coding-proxy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
