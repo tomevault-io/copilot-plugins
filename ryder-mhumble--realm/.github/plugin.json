@@ -1,0 +1,9 @@
+{
+  "name": "ryder-mhumble--realm",
+  "displayName": "Realm",
+  "description": "See your AI agents work. Real-time 3D visualization of Claude Code activity, multi-agent orchestration, and REST API integration for external systems.",
+  "version": "1.0.0",
+  "author": "Ryder-MHumble",
+  "homepage": "https://github.com/Ryder-MHumble/Realm",
+  "skills": []
+}
