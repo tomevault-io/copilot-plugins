@@ -1,0 +1,9 @@
+{
+  "name": "abeggled--openbridgeserver",
+  "displayName": "openbridgeserver",
+  "description": "Open Source Multiprotocol AI Server for Building Automation (KNX/Modbus/1-Wire via MQTT)",
+  "version": "1.0.0",
+  "author": "abeggled",
+  "homepage": "https://github.com/abeggled/openbridgeserver",
+  "skills": []
+}
