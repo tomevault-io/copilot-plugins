@@ -1,0 +1,9 @@
+{
+  "name": "mapbox--mcp-devkit-server",
+  "displayName": "mcp-devkit-server",
+  "description": "Developer-focused Mapbox MCP Server",
+  "version": "1.0.0",
+  "author": "mapbox",
+  "homepage": "https://github.com/mapbox/mcp-devkit-server",
+  "skills": []
+}
