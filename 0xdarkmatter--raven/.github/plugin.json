@@ -1,0 +1,9 @@
+{
+  "name": "0xdarkmatter--raven",
+  "displayName": "raven",
+  "description": "SQLite-backed role-addressable message bus for agent sessions",
+  "version": "1.0.0",
+  "author": "0xDarkMatter",
+  "homepage": "https://github.com/0xDarkMatter/raven",
+  "skills": []
+}
