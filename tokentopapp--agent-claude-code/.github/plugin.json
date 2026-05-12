@@ -1,0 +1,9 @@
+{
+  "name": "tokentopapp--agent-claude-code",
+  "displayName": "agent-claude-code",
+  "description": "tokentop agent plugin for Claude Code \u2014 session parsing, credential discovery, and real-time cost tracking for Anthropic's CLI",
+  "version": "1.0.0",
+  "author": "tokentopapp",
+  "homepage": "https://github.com/tokentopapp/agent-claude-code",
+  "skills": []
+}
