@@ -1,0 +1,9 @@
+{
+  "name": "axonops--cqlai",
+  "displayName": "cqlai",
+  "description": "Modern AI-powered CQL shell for Apache Cassandra\u00ae with rich terminal UI, cqlsh compatibility, and natural language query generation",
+  "version": "1.0.0",
+  "author": "axonops",
+  "homepage": "https://github.com/axonops/cqlai",
+  "skills": []
+}
