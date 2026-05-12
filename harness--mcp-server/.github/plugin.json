@@ -1,0 +1,9 @@
+{
+  "name": "harness--mcp-server",
+  "displayName": "mcp-server",
+  "description": "This is the official repo for the Harness MCP server",
+  "version": "1.0.0",
+  "author": "harness",
+  "homepage": "https://github.com/harness/mcp-server",
+  "skills": []
+}
