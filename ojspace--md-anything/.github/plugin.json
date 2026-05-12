@@ -1,0 +1,9 @@
+{
+  "name": "ojspace--md-anything",
+  "displayName": "md-anything",
+  "description": "Local-first CLI + MCP server: Any file \u2192 AI-ready Markdown + JSON",
+  "version": "1.0.0",
+  "author": "ojspace",
+  "homepage": "https://github.com/ojspace/md-anything",
+  "skills": []
+}
