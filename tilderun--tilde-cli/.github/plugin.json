@@ -1,0 +1,9 @@
+{
+  "name": "tilderun--tilde-cli",
+  "displayName": "tilde-cli",
+  "description": "The official Tilde.run CLI",
+  "version": "1.0.0",
+  "author": "tilderun",
+  "homepage": "https://github.com/tilderun/tilde-cli",
+  "skills": []
+}
