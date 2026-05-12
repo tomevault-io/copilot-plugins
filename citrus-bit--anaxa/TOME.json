@@ -1,0 +1,44 @@
+{
+  "name": "Anaxa",
+  "owner": "Citrus-bit",
+  "repo": "Anaxa",
+  "description": "Anaxa \u662f\u4e00\u4e2a\u9762\u5411\u79d1\u7814\u5de5\u4f5c\u6d41\u7684\u5f00\u6e90\u667a\u80fd\u4f53\u7cfb\u7edf\u3002\u5b83\u4e0d\u662f\u5355\u7eaf\u7684\u804a\u5929\u673a\u5668\u4eba\uff0c\u4e5f\u4e0d\u662f\u65e0\u4eba\u76d1\u7ba1\u7684\u81ea\u52a8\u53d1\u8bba\u6587\u673a\u5668\uff0c\u800c\u662f\u628a\u6587\u732e\u68c0\u7d22\u3001\u8bc1\u636e\u5ba1\u8ba1\u3001\u5b9e\u9a8c\u6267\u884c\u3001\u8bba\u6587\u5199\u4f5c\u3001\u540c\u884c\u8bc4\u5ba1\u5f0f\u68c0\u67e5\u548c\u6700\u7ec8\u4ea7\u7269\u6253\u5305\u653e\u8fdb\u540c\u4e00\u4e2a\u53ef\u8ffd\u8e2a\u7684\u7814\u7a76\u751f\u547d\u5468\u671f\u4e2d\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Citrus-bit/Anaxa",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T22:33:37Z"
+}
