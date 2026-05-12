@@ -1,0 +1,9 @@
+{
+  "name": "zstings--claude-code-zh-cn",
+  "displayName": "claude-code-zh-cn",
+  "description": "claude-code-zh-cn",
+  "version": "1.0.0",
+  "author": "zstings",
+  "homepage": "https://github.com/zstings/claude-code-zh-cn",
+  "skills": []
+}
