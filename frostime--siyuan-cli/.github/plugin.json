@@ -1,0 +1,9 @@
+{
+  "name": "frostime--siyuan-cli",
+  "displayName": "siyuan-cli",
+  "description": "An Agent-First CLI for SiYuan (in beta stage now)",
+  "version": "1.0.0",
+  "author": "frostime",
+  "homepage": "https://github.com/frostime/siyuan-cli",
+  "skills": []
+}
