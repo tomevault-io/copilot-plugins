@@ -1,0 +1,9 @@
+{
+  "name": "maddada--vsmux",
+  "displayName": "VSmux",
+  "description": "Manage all your CLI & T3code coding agent sessions without leaving your IDE. Supports splits, groups, session persistence, running/done indicators, and much more. Contributions very welcome!",
+  "version": "1.0.0",
+  "author": "maddada",
+  "homepage": "https://github.com/maddada/VSmux",
+  "skills": []
+}
