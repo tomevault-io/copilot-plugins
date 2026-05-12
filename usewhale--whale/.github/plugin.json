@@ -1,0 +1,9 @@
+{
+  "name": "usewhale--whale",
+  "displayName": "whale",
+  "description": "DeepSeek-native coding agent for the terminal.",
+  "version": "1.0.0",
+  "author": "usewhale",
+  "homepage": "https://github.com/usewhale/whale",
+  "skills": []
+}
