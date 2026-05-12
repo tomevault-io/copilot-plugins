@@ -1,0 +1,9 @@
+{
+  "name": "seomikewaltman--openclaw-secure",
+  "displayName": "openclaw-secure",
+  "description": "Hardware-gated secret management for AI agents. Secures Clawdbot API keys with pluggable backends (Keychain, 1Password, Bitwarden, and more).",
+  "version": "1.0.0",
+  "author": "seomikewaltman",
+  "homepage": "https://github.com/seomikewaltman/openclaw-secure",
+  "skills": []
+}
