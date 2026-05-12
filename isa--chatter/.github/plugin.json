@@ -1,0 +1,9 @@
+{
+  "name": "isa--chatter",
+  "displayName": "chatter",
+  "description": "A rust cli tool that generates new voices and turn text/files into audio files",
+  "version": "1.0.0",
+  "author": "isa",
+  "homepage": "https://github.com/isa/chatter",
+  "skills": []
+}
