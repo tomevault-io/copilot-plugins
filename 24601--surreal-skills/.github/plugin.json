@@ -1,0 +1,9 @@
+{
+  "name": "24601--surreal-skills",
+  "displayName": "surreal-skills",
+  "description": "Expert SurrealDB 3 skill for AI coding agents (Claude, Codex, Amp, Gemini CLI, Copilot, Cursor). SurrealQL, multi-model data modeling, graph queries, vector search, WASM extensions, and full ecosystem",
+  "version": "1.0.0",
+  "author": "24601",
+  "homepage": "https://github.com/24601/surreal-skills",
+  "skills": []
+}
