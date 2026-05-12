@@ -1,0 +1,9 @@
+{
+  "name": "linuxarena--control-tower",
+  "displayName": "control-tower",
+  "description": "A python library built on top of UKAISI Inspect to support Control research, by Redwood",
+  "version": "1.0.0",
+  "author": "linuxarena",
+  "homepage": "https://github.com/linuxarena/control-tower",
+  "skills": []
+}
