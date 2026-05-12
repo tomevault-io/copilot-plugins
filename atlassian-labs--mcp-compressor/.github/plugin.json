@@ -1,0 +1,9 @@
+{
+  "name": "atlassian-labs--mcp-compressor",
+  "displayName": "mcp-compressor",
+  "description": "An MCP server wrapper for reducing tokens consumed by MCP tools.",
+  "version": "1.0.0",
+  "author": "atlassian-labs",
+  "homepage": "https://github.com/atlassian-labs/mcp-compressor",
+  "skills": []
+}
