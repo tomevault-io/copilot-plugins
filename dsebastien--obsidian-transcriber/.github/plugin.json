@@ -1,0 +1,9 @@
+{
+  "name": "dsebastien--obsidian-transcriber",
+  "displayName": "obsidian-transcriber",
+  "description": "Transcriber converts images in your Obsidian vault to Markdown using Ollama vision models running locally on your machine.",
+  "version": "1.0.0",
+  "author": "dsebastien",
+  "homepage": "https://github.com/dsebastien/obsidian-transcriber",
+  "skills": []
+}
