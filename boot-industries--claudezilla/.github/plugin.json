@@ -1,0 +1,9 @@
+{
+  "name": "boot-industries--claudezilla",
+  "displayName": "claudezilla",
+  "description": "Firefox browser automation for Claude Code. No Google account required.",
+  "version": "1.0.0",
+  "author": "boot-industries",
+  "homepage": "https://github.com/boot-industries/claudezilla",
+  "skills": []
+}
