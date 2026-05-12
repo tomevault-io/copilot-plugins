@@ -4,7 +4,7 @@
   "repo": "china-stock-analyst",
   "description": "\u4e2d\u56fd\u80a1\u7968\u5206\u6790\u5e08-china-stock-analyst",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wjt0321/china-stock-analyst",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T01:04:00Z"
+  "distributed_at": "2026-05-12T05:57:30Z"
 }
