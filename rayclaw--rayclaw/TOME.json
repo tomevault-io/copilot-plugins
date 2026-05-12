@@ -4,7 +4,7 @@
   "repo": "rayclaw",
   "description": "An agentic AI assistant built with Rust \ud83e\udd80 , inspired by OpenClaw, NanoClaw, NullClaw, ZeroClaw, and MicroClaw and incorporating some of their design ideas. Contributions welcome!",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rayclaw/rayclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T07:05:57Z"
+  "distributed_at": "2026-05-12T07:32:42Z"
 }
