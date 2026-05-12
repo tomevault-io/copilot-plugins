@@ -1,0 +1,9 @@
+{
+  "name": "emisso-ai--emisso-sii",
+  "displayName": "emisso-sii",
+  "description": "TypeScript SDK for Chile's SII \u2014 electronic invoicing (DTE), certificate auth, and invoice listing (RCV)",
+  "version": "1.0.0",
+  "author": "emisso-ai",
+  "homepage": "https://github.com/emisso-ai/emisso-sii",
+  "skills": []
+}
