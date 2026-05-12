@@ -1,0 +1,9 @@
+{
+  "name": "80x-djh--attio-cli",
+  "displayName": "attio-cli",
+  "description": "CLI for the Attio CRM API. Built for scripts, agents, and humans who prefer terminals.",
+  "version": "1.0.0",
+  "author": "80x-djh",
+  "homepage": "https://github.com/80x-djh/attio-cli",
+  "skills": []
+}
