@@ -1,0 +1,9 @@
+{
+  "name": "freecomputinglab--rheo",
+  "displayName": "rheo",
+  "description": "Typesetting and static site engine based on Typst",
+  "version": "1.0.0",
+  "author": "freecomputinglab",
+  "homepage": "https://github.com/freecomputinglab/rheo",
+  "skills": []
+}
