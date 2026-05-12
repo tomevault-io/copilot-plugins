@@ -1,0 +1,9 @@
+{
+  "name": "recurpixel--notify",
+  "displayName": "Notify",
+  "description": "Modular, DI-native multi-channel notification library for ASP.NET Core. Email, SMS, Push, WhatsApp, Slack, Discord, Teams and more \u2014 one interface, bring your own keys, own your data.",
+  "version": "1.0.0",
+  "author": "RecurPixel",
+  "homepage": "https://github.com/RecurPixel/Notify",
+  "skills": []
+}
