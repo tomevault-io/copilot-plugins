@@ -1,0 +1,44 @@
+{
+  "name": "vibe-learn",
+  "owner": "gkaria",
+  "repo": "vibe-learn",
+  "description": "Learn as your AI coding assistant builds.  You can outsource your thinking, but you can't outsource your understanding. A learning companion for the vibe coding era.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gkaria/vibe-learn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T13:08:34Z"
+}
