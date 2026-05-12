@@ -1,0 +1,9 @@
+{
+  "name": "damianlaczynski--jirabridge",
+  "displayName": "JiraBridge",
+  "description": "Interactive CLI to synchronize Markdown backlog in Git with Jira",
+  "version": "1.0.0",
+  "author": "damianlaczynski",
+  "homepage": "https://github.com/damianlaczynski/JiraBridge",
+  "skills": []
+}
