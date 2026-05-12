@@ -1,0 +1,9 @@
+{
+  "name": "woaihekele--octovalve",
+  "displayName": "Octovalve",
+  "description": "Secure the bridge between LLMs and your servers. Octovalve provides a policy-driven remote gateway to audit, validate, and control every tool call before execution.",
+  "version": "1.0.0",
+  "author": "woaihekele",
+  "homepage": "https://github.com/woaihekele/Octovalve",
+  "skills": []
+}
