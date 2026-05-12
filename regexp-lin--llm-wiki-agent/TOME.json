@@ -4,7 +4,7 @@
   "repo": "llm-wiki-agent",
   "description": "AI-powered wiki agent that ingests source documents, extracts knowledge, and builds a persistent, interlinked knowledge base with querying, linting, and graph visualization.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/regexp-lin/llm-wiki-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T18:33:05Z"
+  "distributed_at": "2026-05-12T00:07:27Z"
 }
