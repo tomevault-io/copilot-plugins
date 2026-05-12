@@ -2,9 +2,9 @@
   "name": "context-creator",
   "owner": "matiasvillaverde",
   "repo": "context-creator",
-  "description": "",
+  "description": "A high-performance Rust CLI for optimizing context engineering in agentic programming.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/matiasvillaverde/context-creator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T00:14:04Z"
+  "distributed_at": "2026-05-12T00:56:27Z"
 }
