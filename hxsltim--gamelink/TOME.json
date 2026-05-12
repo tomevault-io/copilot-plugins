@@ -1,0 +1,44 @@
+{
+  "name": "GameLink",
+  "owner": "HXSLtim",
+  "repo": "GameLink",
+  "description": "GameLink \u662f\u4e00\u4e2a\u73b0\u4ee3\u5316\u7684\u6e38\u620f\u966a\u73a9\u7ba1\u7406\u5e73\u53f0\uff0c\u91c7\u7528 Go \u540e\u7aef + React \u524d\u7aef\u7684\u67b6\u6784\uff0c\u4e3a\u6e38\u620f\u966a\u73a9\u670d\u52a1\u63d0\u4f9b\u9ad8\u6548\u7684\u8ba2\u5355\u5206\u53d1\u3001\u7528\u6237\u7ba1\u7406\u548c\u966a\u73a9\u5e08\u7ba1\u7406\u529f\u80fd\u3002  \u6838\u5fc3\u529f\u80fd \ud83c\udfaf \u667a\u80fd\u8ba2\u5355\u5206\u53d1 - \u81ea\u52a8\u5339\u914d\u7528\u6237\u4e0e\u966a\u73a9\u5e08\uff0c\u652f\u6301\u62a2\u5355\u6c60\u548c\u5ba2\u670d\u6307\u6d3e \ud83d\udc65 \u591a\u89d2\u8272\u7ba1\u7406 - \u7528\u6237/\u966a\u73a9\u5e08/\u7ba1\u7406\u5458\u6743\u9650\u4f53\u7cfb \ud83d\udcac \u5b9e\u65f6\u901a\u8baf - WebSocket \u5373\u65f6\u901a\u8baf\uff0c\u652f\u6301\u7fa4\u804a\u548c\u79c1\u804a \ud83d\udcb3 \u5b8c\u6574\u652f\u4ed8 - \u8ba2\u5355\u652f\u4ed8\u3001\u9000\u6b3e\u3001\u6536\u76ca\u7ed3\u7b97\u4e00\u4f53\u5316 \ud83d\udcca \u6570\u636e\u76d1\u63a7 - \u5b9e\u65f6\u8ba2\u5355\u72b6\u6001\u3001\u6536\u76ca\u7edf\u8ba1\u3001\u7cfb\u7edf\u6307\u6807 \ud83d\udd10 \u5b89\u5168\u8ba4\u8bc1 - JWT + RBAC \u6743\u9650\u63a7\u5236",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HXSLtim/GameLink",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T05:41:17Z"
+}
