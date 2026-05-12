@@ -1,0 +1,9 @@
+{
+  "name": "poma-ai--megavibe",
+  "displayName": "megavibe",
+  "description": "Give Claude Code a memory that never dies. Persistent context, automatic recovery, remote access.",
+  "version": "1.0.0",
+  "author": "poma-ai",
+  "homepage": "https://github.com/poma-ai/megavibe",
+  "skills": []
+}
