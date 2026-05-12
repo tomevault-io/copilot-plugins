@@ -1,0 +1,9 @@
+{
+  "name": "cursortouch--macos-mcp",
+  "displayName": "MacOS-MCP",
+  "description": "Lightweight MCP server for computer use in MacOS",
+  "version": "1.0.0",
+  "author": "CursorTouch",
+  "homepage": "https://github.com/CursorTouch/MacOS-MCP",
+  "skills": []
+}
