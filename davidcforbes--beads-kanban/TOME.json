@@ -4,7 +4,7 @@
   "repo": "Beads-Kanban",
   "description": "A VSCode extension built on top of steveyegge/Beads that provides a KanBan, Tableview, and record-level add/edit screens ",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/davidcforbes/Beads-Kanban",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T15:46:52Z"
+  "distributed_at": "2026-05-12T15:01:15Z"
 }
