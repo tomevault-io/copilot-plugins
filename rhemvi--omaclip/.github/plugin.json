@@ -1,0 +1,9 @@
+{
+  "name": "rhemvi--omaclip",
+  "displayName": "omaclip",
+  "description": "A desktop clipboard manager for Omarchy, works in Linux and macOS",
+  "version": "1.0.0",
+  "author": "rhemvi",
+  "homepage": "https://github.com/rhemvi/omaclip",
+  "skills": []
+}
