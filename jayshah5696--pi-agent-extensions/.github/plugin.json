@@ -1,0 +1,9 @@
+{
+  "name": "jayshah5696--pi-agent-extensions",
+  "displayName": "pi-agent-extensions",
+  "description": "Collection of extensions for pi coding agent (sessions, ask_user, handoff)",
+  "version": "1.0.0",
+  "author": "jayshah5696",
+  "homepage": "https://github.com/jayshah5696/pi-agent-extensions",
+  "skills": []
+}
