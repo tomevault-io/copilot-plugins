@@ -1,0 +1,9 @@
+{
+  "name": "aygp-dr--liquid-neural-networks",
+  "displayName": "liquid-neural-networks",
+  "description": "Liquid Neural Networks (LNN) - Continuous-time neural dynamics inspired by C. elegans. Parameter-efficient AI with 19-302 neurons for complex tasks. Hybrid Clojure/Python implementation.",
+  "version": "1.0.0",
+  "author": "aygp-dr",
+  "homepage": "https://github.com/aygp-dr/liquid-neural-networks",
+  "skills": []
+}
