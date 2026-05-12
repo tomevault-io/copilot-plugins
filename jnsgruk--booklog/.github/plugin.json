@@ -1,0 +1,9 @@
+{
+  "name": "jnsgruk--booklog",
+  "displayName": "booklog",
+  "description": "B{ook}log is a self-hosted, multi-user book tracking platform for avid readers. Each user maintains a personal library and wishlist, with per-user readings, stats, and timeline.",
+  "version": "1.0.0",
+  "author": "jnsgruk",
+  "homepage": "https://github.com/jnsgruk/booklog",
+  "skills": []
+}
