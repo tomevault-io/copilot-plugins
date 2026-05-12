@@ -1,0 +1,9 @@
+{
+  "name": "hoangsonww--wealthwise-finance-tracker",
+  "displayName": "WealthWise-Finance-Tracker",
+  "description": "A full-stack personal finance manager powered by Agentic AI, MCP, Next.js, Express, MongoDB, and a TypeScript Turborepo. Track accounts, transactions, budgets, goals, and analytics with a responsive U",
+  "version": "1.0.0",
+  "author": "hoangsonww",
+  "homepage": "https://github.com/hoangsonww/WealthWise-Finance-Tracker",
+  "skills": []
+}
