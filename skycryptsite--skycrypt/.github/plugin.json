@@ -1,0 +1,9 @@
+{
+  "name": "skycryptsite--skycrypt",
+  "displayName": "SkyCrypt",
+  "description": "Official SkyCrypt website \u2014 a Hypixel SkyBlock stats viewer for checking player profiles, skills, net worth, dungeons, slayers, accessories, collections, pets, armor, weapons, and progression using pu",
+  "version": "1.0.0",
+  "author": "skycryptsite",
+  "homepage": "https://github.com/skycryptsite/SkyCrypt",
+  "skills": []
+}
