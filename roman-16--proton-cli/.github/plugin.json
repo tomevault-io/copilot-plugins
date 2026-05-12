@@ -1,0 +1,9 @@
+{
+  "name": "roman-16--proton-cli",
+  "displayName": "proton-cli",
+  "description": "An unofficial command-line tool for Proton \u2014 Mail, Drive, Calendar, Contacts, and Pass from your terminal.",
+  "version": "1.0.0",
+  "author": "roman-16",
+  "homepage": "https://github.com/roman-16/proton-cli",
+  "skills": []
+}
