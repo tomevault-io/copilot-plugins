@@ -1,0 +1,9 @@
+{
+  "name": "nijaru--sy",
+  "displayName": "sy",
+  "description": "Modern file sync tool with delta transfers, 40-79% faster than rsync",
+  "version": "1.0.0",
+  "author": "nijaru",
+  "homepage": "https://github.com/nijaru/sy",
+  "skills": []
+}
