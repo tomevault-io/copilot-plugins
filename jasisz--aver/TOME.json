@@ -4,7 +4,7 @@
   "repo": "aver",
   "description": "Aver is a programming language for auditable AI-written code",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jasisz/aver",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T09:04:41Z"
+  "distributed_at": "2026-05-12T07:58:06Z"
 }
