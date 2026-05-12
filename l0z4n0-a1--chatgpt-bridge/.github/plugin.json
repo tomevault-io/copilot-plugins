@@ -1,0 +1,9 @@
+{
+  "name": "l0z4n0-a1--chatgpt-bridge",
+  "displayName": "chatgpt-bridge",
+  "description": "Localhost OpenAI-compatible HTTP proxy that uses your ChatGPT subscription via OAuth \u2014 including image generation (gpt-image-2).",
+  "version": "1.0.0",
+  "author": "l0z4n0-a1",
+  "homepage": "https://github.com/l0z4n0-a1/chatgpt-bridge",
+  "skills": []
+}
