@@ -1,0 +1,9 @@
+{
+  "name": "earendil-works--pi",
+  "displayName": "pi",
+  "description": "AI agent toolkit: coding agent CLI, unified LLM API, TUI & web UI libraries, Slack bot, vLLM pods",
+  "version": "1.0.0",
+  "author": "earendil-works",
+  "homepage": "https://github.com/earendil-works/pi",
+  "skills": []
+}
