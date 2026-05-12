@@ -1,0 +1,9 @@
+{
+  "name": "codefromkarl--contextatlas",
+  "displayName": "ContextAtlas",
+  "description": "ContextAtlas \u2014 context infrastructure for AI coding agents: hybrid retrieval, project memory and retrieval observability via CLI, MCP server or embeddable library. Tree-sitter indexing, LanceDB vector",
+  "version": "1.0.0",
+  "author": "codefromkarl",
+  "homepage": "https://github.com/codefromkarl/ContextAtlas",
+  "skills": []
+}
