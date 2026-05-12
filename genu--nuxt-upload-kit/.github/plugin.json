@@ -1,0 +1,9 @@
+{
+  "name": "genu--nuxt-upload-kit",
+  "displayName": "nuxt-upload-kit",
+  "description": "An upload manager with built-in validation, image compression, thumbnail generation, and cloud storage support.",
+  "version": "1.0.0",
+  "author": "genu",
+  "homepage": "https://github.com/genu/nuxt-upload-kit",
+  "skills": []
+}
