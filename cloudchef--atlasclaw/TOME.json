@@ -4,7 +4,7 @@
   "repo": "atlasclaw",
   "description": "AtlasClaw is an enterprise agent framework supporting mutliple users and multi system integration. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CloudChef/atlasclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T01:05:21Z"
+  "distributed_at": "2026-05-12T05:58:25Z"
 }
