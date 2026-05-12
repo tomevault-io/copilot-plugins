@@ -1,0 +1,9 @@
+{
+  "name": "thearchitectit--agent-guardrails-template",
+  "displayName": "agent-guardrails-template",
+  "description": "Template repository with AI agent guardrails, safety protocols, and sprint task framework. For Claude, GPT, Gemini, and all LLMs.",
+  "version": "1.0.0",
+  "author": "TheArchitectit",
+  "homepage": "https://github.com/TheArchitectit/agent-guardrails-template",
+  "skills": []
+}
