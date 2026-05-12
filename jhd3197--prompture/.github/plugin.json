@@ -1,0 +1,9 @@
+{
+  "name": "jhd3197--prompture",
+  "displayName": "Prompture",
+  "description": "Prompture is an API-first library for requesting structured JSON output from LLMs (or any structure), validating it against a schema, and running comparative tests between models.",
+  "version": "1.0.0",
+  "author": "jhd3197",
+  "homepage": "https://github.com/jhd3197/Prompture",
+  "skills": []
+}
