@@ -1,0 +1,9 @@
+{
+  "name": "azure-samples--ai-gateway-dev-portal",
+  "displayName": "ai-gateway-dev-portal",
+  "description": "AI Gateway Dev Portal powered by Azure API Management",
+  "version": "1.0.0",
+  "author": "Azure-Samples",
+  "homepage": "https://github.com/Azure-Samples/ai-gateway-dev-portal",
+  "skills": []
+}
