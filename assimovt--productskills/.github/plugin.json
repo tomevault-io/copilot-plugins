@@ -1,0 +1,9 @@
+{
+  "name": "assimovt--productskills",
+  "displayName": "productskills",
+  "description": "Product skills for AI agents \u2014 discovery, strategy, prioritization, and PRD writing",
+  "version": "1.0.0",
+  "author": "assimovt",
+  "homepage": "https://github.com/assimovt/productskills",
+  "skills": []
+}
