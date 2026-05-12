@@ -1,0 +1,9 @@
+{
+  "name": "anemll--anemll-profile",
+  "displayName": "anemll-profile",
+  "description": "ANE (Apple Neural Engine) CostModel profiler for CoreML models",
+  "version": "1.0.0",
+  "author": "Anemll",
+  "homepage": "https://github.com/Anemll/anemll-profile",
+  "skills": []
+}
