@@ -1,0 +1,9 @@
+{
+  "name": "jamf-concepts--mcp-hub",
+  "displayName": "mcp-hub",
+  "description": "Jamf's open source mcp for Jamf Pro, Jamf Protect and Jamf Security",
+  "version": "1.0.0",
+  "author": "Jamf-Concepts",
+  "homepage": "https://github.com/Jamf-Concepts/mcp-hub",
+  "skills": []
+}
