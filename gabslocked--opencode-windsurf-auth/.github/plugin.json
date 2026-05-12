@@ -1,0 +1,9 @@
+{
+  "name": "gabslocked--opencode-windsurf-auth",
+  "displayName": "opencode-windsurf-auth",
+  "description": "OpenCode plugin for Windsurf/Codeium models - OpenAI-compatible local API",
+  "version": "1.0.0",
+  "author": "gabslocked",
+  "homepage": "https://github.com/gabslocked/opencode-windsurf-auth",
+  "skills": []
+}
