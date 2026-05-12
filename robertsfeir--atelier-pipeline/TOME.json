@@ -1,0 +1,44 @@
+{
+  "name": "atelier-pipeline",
+  "owner": "robertsfeir",
+  "repo": "atelier-pipeline",
+  "description": "Multi-agent orchestration plugin for Claude Code \u2014 10 specialized agents, persistent Brain memory, quality gates, continuous QA, wave-based parallel execution, and mechanical enforcement hooks",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/robertsfeir/atelier-pipeline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T13:25:45Z"
+}
