@@ -1,0 +1,9 @@
+{
+  "name": "duolahypercho--codex-knowledge-llm",
+  "displayName": "codex-knowledge-llm",
+  "description": "Codex plugin and Obsidian vault kit for turning anything into a knowledge system.",
+  "version": "1.0.0",
+  "author": "duolahypercho",
+  "homepage": "https://github.com/duolahypercho/codex-knowledge-llm",
+  "skills": []
+}
