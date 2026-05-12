@@ -7,11 +7,11 @@ Sistema de gestión de proyectos, impulsado por OpenCode y ClaudeCode como asist
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [gonzalezpazmonica/pm-workspace](https://github.com/gonzalezpazmonica/pm-workspace).
+Original source: `CLAUDE.md` in [gonzalezpazmonica/pm-workspace](https://github.com/gonzalezpazmonica/pm-workspace).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
