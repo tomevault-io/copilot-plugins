@@ -1,0 +1,9 @@
+{
+  "name": "pi0--vite-plugin-remix3",
+  "displayName": "vite-plugin-remix3",
+  "description": "\ud83c\udfce\ufe0f Vite plugin that unblocks Remix v3 apps to be developed, optimized and deployed everywhere with Nitro.",
+  "version": "1.0.0",
+  "author": "pi0",
+  "homepage": "https://github.com/pi0/vite-plugin-remix3",
+  "skills": []
+}
