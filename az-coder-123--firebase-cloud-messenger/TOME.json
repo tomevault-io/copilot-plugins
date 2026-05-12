@@ -1,0 +1,44 @@
+{
+  "name": "firebase-cloud-messenger",
+  "owner": "az-coder-123",
+  "repo": "firebase-cloud-messenger",
+  "description": "An open-source Flutter application designed to streamline FCM testing using the modern HTTP v1 API. It simplifies OAuth 2.0 authentication via Service Account (.json), manages device tokens, and allows real-time payload debugging on macOS, Windows, and Mobile.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/az-coder-123/firebase-cloud-messenger",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T19:36:19Z"
+}
