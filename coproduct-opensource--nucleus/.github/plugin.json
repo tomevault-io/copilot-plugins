@@ -1,0 +1,9 @@
+{
+  "name": "coproduct-opensource--nucleus",
+  "displayName": "nucleus",
+  "description": "Enforced permissions for AI agents - policy + enforcement in one stack",
+  "version": "1.0.0",
+  "author": "coproduct-opensource",
+  "homepage": "https://github.com/coproduct-opensource/nucleus",
+  "skills": []
+}
