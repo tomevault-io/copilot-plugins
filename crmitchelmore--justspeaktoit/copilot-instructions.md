@@ -1,0 +1,411 @@
+## justspeaktoit
+
+> This project maintains **separate version tracks** for macOS and iOS:
+
+# Repository Guidelines
+
+## Versioning & Release Process
+
+This project maintains **separate version tracks** for macOS and iOS:
+
+### Version Discovery
+
+**CRITICAL: Always check the ACTUAL latest release before creating a new version.**
+
+```bash
+# Find the latest macOS release version:
+gh release list --repo crmitchelmore/justspeaktoit | grep "mac-v" | head -1
+
+# Or check GitHub releases page for mac-v* tags
+# Example: if latest is mac-v0.9.1 → next should be mac-v0.9.2
+
+# The VERSION file is NOT authoritative for releases - always check GitHub tags
+```
+
+### Tag Conventions
+
+| Platform | Tag Format | Example | Workflow Triggered |
+|----------|------------|---------|-------------------|
+| macOS | `mac-v*` | `mac-v0.7.7` | `.github/workflows/release-mac.yml` |
+| iOS | `ios-v*` | `ios-v0.9.1` | `.github/workflows/release-ios.yml` (manual) |
+| Legacy | `v*` | `v0.7.5` | None (deprecated) |
+
+### macOS Release Process
+
+Releases are **fully automated** via conventional commits:
+
+1. Push to `main` with a releasable commit type (`feat:`, `fix:`, `perf:`, or breaking change)
+2. `auto-release.yml` determines the version bump and creates a `mac-v*` tag
+3. `release-mac.yml` builds, notarises, publishes to GitHub Releases, updates appcast.xml, and updates Homebrew tap
+
+Manual releases are still possible by creating and pushing a `mac-v*` tag directly.
+
+### iOS Release Process
+
+1. iOS uses **manual workflow dispatch** (not tag-triggered)
+2. Go to Actions → "Release iOS (TestFlight)" → Run workflow
+3. Enter version number (check App Store Connect for current version)
+
+### VERSION File
+
+The `VERSION` file is a **hint** used as fallback when no tag is present. It does NOT control the release version - the **tag determines the version**. Keep it updated but always verify against actual releases.
+
+### Post-Release Support
+
+When a user reports that a freshly shipped macOS release won't install or launch, perform the remediation directly when the environment permits filesystem/app actions; otherwise provide these exact steps for the user to run locally:
+1. Download the latest `mac-v*` DMG.
+2. Back up the existing app to a persistent location, e.g. `mv /Applications/JustSpeakToIt.app ~/Desktop/JustSpeakToIt.app.bak-$(date +%s)`.
+3. Replace `/Applications/JustSpeakToIt.app` with the app from the DMG.
+4. Verify launch locally (e.g. `open -n /Applications/JustSpeakToIt.app`) before asking the user to retry.
+5. If local install verification is requested, confirm `/Applications/JustSpeakToIt.app` exists, read `CFBundleShortVersionString`, and verify the process is running.
+
+## Project Structure & Module Organization
+
+This project uses **Swift Package Manager** for modularization with cross-platform support:
+
+```
+Package.swift           # Defines all targets and dependencies
+Sources/
+├── SpeakCore/          # Shared cross-platform library (types, protocols, keychain)
+├── SpeakApp/           # macOS application (executable)
+└── SpeakiOS/           # iOS library (views, services, with #if os(iOS) guards)
+SpeakiOSApp/            # iOS app entry point (@main)
+Project.swift           # Tuist manifest (Xcode project generation)
+Workspace.swift         # Tuist workspace manifest
+Just Speak to It.xcodeproj/ # Generated Xcode project
+Tests/                  # XCTest suite
+```
+
+### Swift Package Targets
+
+| Target | Type | Platform | Description |
+|--------|------|----------|-------------|
+| `SpeakCore` | Library | macOS + iOS | Cross-platform types, protocols, secure storage |
+| `SpeakApp` | Executable | macOS | macOS SwiftUI application |
+| `SpeakiOSLib` | Library | iOS | iOS views and services (exported with `public` APIs) |
+
+### Modularization Patterns
+
+1. **Shared code in SpeakCore**: Types, protocols, and utilities that work on both platforms
+2. **Platform guards**: Use `#if os(iOS)` / `#if os(macOS)` for platform-specific code
+3. **Public APIs for libraries**: Types in `SpeakiOSLib` must be `public` for Xcode project to access
+4. **Tuist links packages**: `Project.swift` references the local Swift package for Xcode generation
+
+### iOS App Structure
+
+The iOS app is built via Xcode but sources come from Swift packages:
+- `SpeakiOSApp/SpeakiOSApp.swift` - Entry point with `@main`
+- Links `SpeakCore` and `SpeakiOSLib` as package dependencies
+- Run `tuist generate` and open `"Just Speak to It.xcworkspace"` in Xcode to build/run on device
+
+## Build, Test, and Development Commands
+
+### macOS (SwiftPM)
+- `make` or `make run` – Build and launch the macOS app
+- `make build` – Debug compilation only
+- `make rebuild` – Clean and rebuild from scratch
+- `make test` – Execute XCTest suite
+- `swift build --target SpeakiOSLib` – Verify iOS library compiles
+
+### iOS (Xcode)
+- `tuist generate` – Generate the Xcode workspace
+- `open "Just Speak to It.xcworkspace"` – Open in Xcode
+- Select device/simulator and build (Cmd+B)
+- Or use xcodebuild MCP for automation (see below)
+
+### Linting
+```bash
+swift package plugin --allow-writing-to-package-directory swiftlint --strict --target SpeakApp
+swift package plugin --allow-writing-to-package-directory swiftformat --target SpeakApp
+```
+- CI SwiftLint also runs with `.swiftlint-baseline.json`; the baseline is line-number-sensitive, so prefer exact-line inline suppressions when unblocking lint to avoid baseline drift.
+
+## MCP Tools
+
+### xcodebuild MCP
+Installed globally via npm for Xcode build automation:
+```bash
+npm install -g xcodebuildmcp
+```
+
+The MCP server provides tools for:
+- Project/workspace discovery
+- Building for iOS/macOS targets
+- Simulator management
+- App deployment and testing
+
+### Usage Pattern
+When xcodebuild MCP is available, prefer it for:
+- Automated iOS builds without opening Xcode
+- CI/CD pipeline integration
+- Simulator lifecycle management
+
+## Design Patterns
+
+### Liquid Glass (iOS 26+)
+See `.copilot/skills/liquid-glass.md` for Apple's Liquid Glass design guidance.
+
+Key principles:
+- **Glass for controls layer** (toolbars, nav bars, floating controls) - not content
+- **System components first** - they apply Liquid Glass automatically
+- **Remove custom backgrounds** on navigation chrome
+- **SF Symbols** for icon-only controls with accessibility labels
+- **Spring animations** for natural motion
+- **Tint sparingly** - only for semantic emphasis (critical actions)
+
+### Cross-Platform Code
+```swift
+// In SpeakCore (shared)
+public struct TranscriptionResult: Sendable { ... }
+
+// In SpeakiOS (iOS-only)
+#if os(iOS)
+public final class iOSLiveTranscriber: ObservableObject { ... }
+#endif
+```
+
+## Coding Style & Naming Conventions
+- Swift files use 4-space indentation and LF line endings (configured via `.swiftformat`)
+- Prefer expressive type names (`ContentView`, `SpeakApp`)
+- Keep new API surface `internal` unless exposure is required for cross-module use
+- Use `public` for types that need to be accessed from Xcode project or other modules
+- Enforce linting via `.swiftlint.yml`; rules include `explicit_self`, `implicit_return`, line-length 120/160
+
+## Testing Guidelines
+- Tests live under `Tests/SpeakAppTests` and rely on XCTest
+- Name specs `test<Behaviour>_<Expectation>()` to mirror scenarios
+- Run `make test` locally before PRs
+- iOS testing requires device/simulator via Xcode
+
+## Commit & Pull Request Guidelines
+- **Never use `git add -A` or `git add .`** — always stage specific files (`git add <path>`) to avoid committing other agents' work
+- **Use Conventional Commits** — this is mandatory as commit types drive automated releases
+- Commit types that **trigger a release**: `feat:` (minor bump), `fix:` / `perf:` (patch bump), breaking changes via `!` suffix or `BREAKING CHANGE` footer (major bump)
+- Commit types that **do not release**: `chore:`, `docs:`, `ci:`, `style:`, `test:`, `refactor:`, `build:`
+- Keep commits scoped to a single concern
+- Use platform tags in scope: `feat(mac):`, `fix(ios):` — these feed Sparkle release notes
+- Pull requests should describe motivation, note user-visible changes, and reference related issues
+- Include `make test` output or screenshots when UI shifts
+- Direct pushes to `main` are blocked by branch protection; create a branch and PR even for small fixes, then merge through the normal repo gate.
+
+### Automated Release Process
+- Every push to `main` triggers `.github/workflows/auto-release.yml`
+- The workflow analyses conventional commits since the last `mac-v*` tag
+- If releasable commits exist, it creates a new `mac-v*` tag which triggers the full macOS build/notarise/release pipeline
+- The `VERSION` file is updated as a best-effort side effect; the **tag is the source of truth**
+- Non-releasable commits (chore, docs, ci, etc.) do not create a release
+
+### Working with Auto-Release
+- After pushing a releasable commit (`feat:`, `fix:`, `perf:`), the bot pushes a VERSION bump commit to main
+- Scope does not affect macOS auto-release: `feat(ios):`, `fix(ios):`, and `perf(ios):` on `main` still create a new `mac-v*` tag because `.github/workflows/auto-release.yml` matches commit type, not scope.
+- You must `git pull --rebase origin main` before your next push, or it will be rejected
+- If you have unstaged changes: `git stash && git pull --rebase origin main && git stash pop`
+
+### PR merge unblock checklist
+- If `gh pr merge` says “required status checks are expected” while checks look green, inspect `mergeStateStatus`; if `BEHIND`, rebase on `origin/main` and force-push with lease.
+- After each push, re-check unresolved review threads (especially CodeRabbit), as new threads can be created on updated diffs and still block merge.
+- If admin merge fails with `All comments must be resolved.`, resolve the remaining review threads before retrying.
+
+## SwiftUI Concurrency Patterns
+
+### Singleton ObservableObjects
+- Use `@ObservedObject` (not `@StateObject`) when referencing singletons like `TipStore.shared`
+- Singletons manage their own lifecycle; `@StateObject` causes ownership conflicts and crashes
+
+### Child View Button Actions
+- Don't pass `@ObservedObject` to child views that have button actions
+- Pass primitive values (e.g., `isPurchasing: Bool`) and access singleton directly in action:
+  ```swift
+  Button {
+      Task { @MainActor in
+          await MySingleton.shared.doWork()
+      }
+  }
+  ```
+
+### Async Delays in SwiftUI
+- Prefer `.task { try? await Task.sleep(for: .seconds(2)) }` over `DispatchQueue.asyncAfter`
+- The `.task` modifier properly handles view lifecycle and cancellation
+
+### MainActor Deadlock Anti-Pattern
+- **Never** use `DispatchSemaphore.wait()` on the MainActor while spawning `Task { @MainActor in }` — this is an instant deadlock
+- The semaphore blocks the MainActor, preventing the task from ever executing to signal it
+- Use `Thread.sleep` for brief synchronous delays, or restructure as fully `async`
+
+### NotificationCenter Block-Based Observers
+- `addObserver(forName:object:queue:block:)` returns an opaque `NSObjectProtocol` token — **always store it**
+- Remove with `NotificationCenter.default.removeObserver(token)`, NOT `removeObserver(self, name:, object:)`
+- The `removeObserver(self, name:, object:)` variant is for target-action observers only
+- Failing to store and remove the token causes a memory leak on each registration cycle
+
+### Audio Engine Resource Cleanup
+- When adding guard-let error paths in transcription code, always clean up audio resources started before the guard point
+- Call `audioEngine.stop()` and `audioEngine.inputNode.removeTap(onBus: 0)` before throwing
+- Compare with existing cleanup paths in the same function to ensure consistency
+
+## AssemblyAI Universal Streaming
+
+### Turn message semantics
+- With `format_turns=true`, each turn produces TWO end-of-turn messages: unformatted then formatted. Only commit the formatted one.
+- `transcript` contains only finalised words (`word_is_final=true`). Non-final words appear only in the `words` array.
+- Track `turn_order` to replace (not append) segments for the same turn.
+- Interim text uses replacement semantics — AssemblyAI sends the full turn text each time, not deltas.
+
+### Pre-processing prompt
+- AssemblyAI streaming v3 does **not** support an arbitrary `prompt` parameter — only `keyterms_prompt`.
+- `keyterms_prompt` entries are sourced from `assemblyAIKeyterms` (comma-separated, max 50 chars each, max 100 items).
+- The `postProcessingSystemPrompt` is applied post-transcription by `PostProcessingManager`, not by the streaming API.
+- When a pre-processing prompt is active, LLM post-processing is automatically skipped.
+
+### Rollout preference
+- Prefer core live-transcription integration first; add advanced v3 controls only when a clear app need is confirmed.
+- Keep style control in post-processing (`postProcessingSystemPrompt`); streaming v3 supports `keyterms_prompt` only.
+
+### Connection reliability
+- Use EU host first (`streaming.eu.assemblyai.com`) and retry once on global host (`streaming.assemblyai.com`) only when failure occurs before `Begin`.
+- Guard shared live-stream state (`webSocketTask`, `isStopping`, callbacks, `sessionDidBegin`) with synchronisation when accessed from receive/send completions and lifecycle methods.
+- During delayed stop cleanup, clear `webSocketTask` only when it is the same task instance being terminated (`===`) to avoid wiping a newly-started session.
+- Do not establish fallback/reconnect sockets after stopping has begun.
+- On failure cleanup, capture the active session before async cancellation so failed runs still persist to History.
+
+### Live audio framing + shutdown guarantees
+- Live PCM chunk duration must be 50-1000ms (100ms preferred); sub-50ms frames can trigger close code 3007 (`Input Duration Violation`).
+- Stop sequencing must be: flush pending PCM, await pending WebSocket send completions (bounded timeout), send `ForceEndpoint`, then `Terminate`.
+- If users report “batch-like” live behaviour (no live text), run a direct WebSocket probe first and capture close code/reason before changing app logic.
+
+### Key files
+- `AssemblyAITranscriptionProvider.swift` — WebSocket client, response models
+- `TranscriptionManager.swift` (`AssemblyAILiveController`) — turn handling, audio processing
+
+## Accessibility Text Insertion
+
+### API semantics
+- `kAXSelectedTextAttribute` — inserts at cursor position (or replaces selection). Preferred default.
+- `kAXValueAttribute` — replaces the entire field content. Use as fallback.
+- Not all apps support `kAXSelectedTextAttribute`; fall back gracefully.
+- `SmartTextOutput` skips accessibility entirely for known problematic apps (Electron, Chromium, etc.).
+- Do not probe the focused AX element synchronously at recording start; check permission only, then defer AX readiness checks until the first insertion attempt.
+
+### Settings
+- `AccessibilityInsertionMode`: `.insertAtCursor` (default) or `.replaceAll`
+- Only relevant when `TextOutputMethod` is `.smart` or `.accessibilityOnly`
+
+## OpenClaw Hands-Free Voice Mode (iOS)
+
+### Conversation loop
+- Keep Conversation Mode user-configurable and available directly on the OpenClaw chat screen.
+- In Conversation Mode, use the loop: record → send → speak → auto-resume listening.
+- Auto-resume must remain configurable so users can opt out.
+
+### Acknowledge controls
+- Support multiple acknowledgement paths: on-screen tap, headset single-tap (remote command), and optional keyword.
+- Treat acknowledgement keywords as control input and trim them from transcript text before sending.
+
+### Latency rules
+- Avoid fixed sleeps for connection readiness; wait for connection state with timeout and explicit error.
+- Provide a low-latency speech option that skips summarisation before TTS when enabled.
+
+### iOS control ergonomics
+- Prefer native iOS controls (for example, `Toggle` with switch style) over custom checkbox-like controls in chat/input surfaces.
+- Keep interactive controls at least 44pt high/wide, and size message composer inputs to a comfortable HIG-aligned minimum (around 50pt).
+- If acknowledgement hints are shown, make the interaction target explicit (for example, “Tap the chat area…”).
+
+## Commit Message Tagging
+- Prefix commit messages with a platform tag or scope: `[mac]`/`[ios]` or `(mac)`/`(ios)` (e.g., `fix: [mac] add recording sound picker` or `fix(mac): add recording sound picker`).
+- These tags/scopes feed the Sparkle release notes generator so macOS updates only list mac-specific changes.
+
+## Security & Configuration Tips
+- Do not commit personalised signing assets
+- Keep bundle identifiers within `Config/AppInfo.plist` and adjust via scripts
+- API keys stored in Keychain via `SecureStorage` (SpeakCore) / `SecureAppStorage` (SpeakApp)
+- Keychain service: `com.github.speakapp.credentials`, account: `speak-app-secrets`
+
+## App Store Connect / iOS Signing (sensitive)
+- App Store Connect API Key ID: stored in secure notes (do not commit)
+- App Store Connect Issuer ID: stored in secure notes (do not commit)
+- App Store Connect API key: store base64 in `.env` as `APP_STORE_CONNECT_API_KEY` (do not commit)
+- iOS distribution cert: store base64 in `.env` as `IOS_DISTRIBUTION_P12` (password in `.env` as `IOS_DISTRIBUTION_PASSWORD`)
+- GitHub secrets used by CI: `APP_STORE_CONNECT_API_KEY`, `APP_STORE_CONNECT_ISSUER_ID`, `APPLE_TEAM_ID`, `IOS_DISTRIBUTION_P12`, `IOS_DISTRIBUTION_PASSWORD`, `IOS_APPSTORE_PROFILE`, `IOS_WIDGET_APPSTORE_PROFILE`
+- Required entitlements: App Group `group.com.justspeaktoit.ios` and iCloud container `iCloud.com.justspeaktoit.ios`
+- Never commit private keys or provisioning profile contents.
+
+## Sentry Error Monitoring
+- **Region:** EU (de.sentry.io) — use `https://de.sentry.io/api/0/` for all API calls
+- **Org slug:** `tally-lz`
+- **Project slug:** `justspeaktoit`
+- **Auth token:** stored in `.env` as `SENTRY_AUTH_TOKEN` (do not commit)
+- **DSN:** configured in `Sources/SpeakApp/SentryManager.swift`
+- **GitHub CI secret:** `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`
+
+### Querying Sentry from CLI
+```bash
+# Load token from .env
+export SENTRY_AUTH_TOKEN="$(sed -n 's/^SENTRY_AUTH_TOKEN=//p' .env | tail -n1)"
+export SENTRY_ORG="tally-lz"
+export SENTRY_PROJECT="justspeaktoit"
+
+# List unresolved issues
+curl -s -H "Authorization: Bearer $SENTRY_AUTH_TOKEN" \
+  "https://de.sentry.io/api/0/projects/$SENTRY_ORG/$SENTRY_PROJECT/issues/?query=is:unresolved&sort=date&limit=25"
+
+# Get latest event for an issue
+curl -s -H "Authorization: Bearer $SENTRY_AUTH_TOKEN" \
+  "https://de.sentry.io/api/0/organizations/$SENTRY_ORG/issues/{ISSUE_ID}/events/latest/"
+
+# Ignore/resolve an issue
+curl -s -X PUT -H "Authorization: Bearer $SENTRY_AUTH_TOKEN" -H "Content-Type: application/json" \
+  -d '{"status":"ignored"}' \
+  "https://de.sentry.io/api/0/organizations/$SENTRY_ORG/issues/{ISSUE_ID}/"
+```
+
+<!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
+## Beads Issue Tracker
+
+This project uses **bd (beads)** for issue tracking. Run `bd prime` to see full workflow context and commands.
+
+### Quick Reference
+
+```bash
+bd ready              # Find available work
+bd show <id>          # View issue details
+bd update <id> --claim  # Claim work
+bd close <id>         # Complete work
+```
+
+### Rules
+
+- Use `bd` for ALL task tracking -- do NOT use TodoWrite, TaskCreate, or markdown TODO lists
+- Run `bd prime` for detailed command reference and session close protocol
+- Use `bd remember` for persistent knowledge -- do NOT use MEMORY.md files
+- Keep Beads automation on Copilot CLI surfaces (`AGENTS.md` and repo-local `.github/hooks/*.json`); do NOT add Claude-specific Beads files such as `CLAUDE.md` or `.claude/settings.json`
+
+## Session Completion
+
+**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+
+**MANDATORY WORKFLOW:**
+
+1. **File issues for remaining work** - Create issues for anything that needs follow-up
+2. **Run quality gates** (if code changed) - Tests, linters, builds
+3. **Update issue status** - Close finished work, update in-progress items
+4. **PUSH TO REMOTE** - This is MANDATORY:
+   ```bash
+   git pull --rebase
+   bd dolt push
+   git push
+   git status  # MUST show "up to date with origin"
+   ```
+5. **Clean up** - Clear stashes, prune remote branches
+6. **Verify** - All changes committed AND pushed
+7. **Hand off** - Provide context for next session
+
+**CRITICAL RULES:**
+- Work is NOT complete until `git push` succeeds
+- NEVER stop before pushing - that leaves work stranded locally
+- NEVER say "ready to push when you are" - YOU must push
+- If push fails, resolve and retry until it succeeds
+<!-- END BEADS INTEGRATION -->
+
+---
+> Source: [crmitchelmore/justspeaktoit](https://github.com/crmitchelmore/justspeaktoit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-08 -->
