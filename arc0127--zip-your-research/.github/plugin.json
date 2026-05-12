@@ -1,0 +1,9 @@
+{
+  "name": "arc0127--zip-your-research",
+  "displayName": "ZIP-your-Research",
+  "description": "Upload the full package as a ZIP via ChatGPT, follow the guidelines and then enjoy your research.",
+  "version": "1.0.0",
+  "author": "ARC0127",
+  "homepage": "https://github.com/ARC0127/ZIP-your-Research",
+  "skills": []
+}
