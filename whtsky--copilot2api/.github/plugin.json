@@ -1,0 +1,9 @@
+{
+  "name": "whtsky--copilot2api",
+  "displayName": "copilot2api",
+  "description": "Lightweight Go proxy that exposes GitHub Copilot as OpenAI and Anthropic compatible API endpoints",
+  "version": "1.0.0",
+  "author": "whtsky",
+  "homepage": "https://github.com/whtsky/copilot2api",
+  "skills": []
+}
