@@ -1,392 +1,286 @@
-## typescript-rules
-
-> General Guidelines
-
-# TypeScript Rules
-
-## Coding Style
-
-- Use clear lowerCamelCase or UpperCamelCase names for functions and variables, per
-  usual TypeScript conventions.
-
-- DO NOT use fully uppercase abbreviations: Use names like `mapHistoryToLlmMessages`. DO
-  NOT use names like `mapHistoryToLLMMessages`.
-
-- DO NOT use underscore prefixes for variables that are actually used.
-  Underscore prefixes should only be used for genuinely unused parameters (like
-  framework callbacks).
-
-## Docstrings
-
-- All major functions and types should have a *concise* docstring explaining their
-  purpose. They should use `\**` … `*/` style comments.
-
-  - Focus on any rationale or purpose.
-
-  - Do NOT state obvious things about the code.
-
-  This should cover
-
-  - Public types
-
-  - Major functions
-
-  - Convex schemas, functions, actions, mutations, and queries
-
-  It should NOT cover:
-
-  - Test functions
-
-  - Trivial internal helper functions
-
-  Example:
-
-  ```ts
-  /**
-   * Render a ContextSummary as readable markdown for both LLMs and users.
-   */
-  export function formatContextMarkdown(
-    summary: ContextSummary,
-    options?: { maxHoldings?: number },
-  ): string {
-    ...
-  }
-  ```
-
-- **Document fields in type definitions, not at usage sites.** Place documentation
-  directly on type/interface fields as the single source of truth.
-  Reference the type documentation elsewhere using `@see TypeName.fieldName`.
-
-  ```ts
-  // GOOD: Documentation on type definition
-  interface RunConfig {
-    /** When true, logs full LLM request/response payloads for debugging. */
-    logLlmCalls: boolean;
-    /**
-     * TEST ONLY: Disables automatic scheduling of backtest steps.
-     * NEVER use in production.
-     */
-    testSkipScheduling?: boolean;
-  }
-  
-  // Reference it elsewhere
-  export const runConfigValidator = v.object({
-    logLlmCalls: v.optional(v.boolean()),
-    /** @see RunConfig.testSkipScheduling for documentation */
-    testSkipScheduling: v.optional(v.boolean()),
-  });
-  
-  // BAD: Documentation duplicated at multiple usage sites
-  export const runConfigValidator = v.object({
-    /** When true, logs full LLM request/response payloads for debugging. */
-    logLlmCalls: v.optional(v.boolean()),
-    /** TEST ONLY: Disables automatic scheduling... */
-    testSkipScheduling: v.optional(v.boolean()),
-  });
-  ```
-
-## Type Annotations
-
-- Don’t use `any` to types unless absolutely necessary!
-  Do not add `any` types to get type checking to pass.
-  Use more precise types instead.
-  Then make sure type checking passes.
-
-- Avoid `as any` and unsafe casts.
-  Prefer overloads or precise types at boundaries.
-
-  ```ts
-  // BAD: Silences type safety
-  const logger = createAgentLogger(ctx, agentCtx as any);
-  
-  // GOOD: Provide a precise input shape or overload that matches
-  const logger = createAgentLogger(ctx, {
-    runId: runId as Id<'runs'>,
-    agentId: agentId as Id<'agents'>,
-    conversationId: conversationId as Id<'conversations'>,
-    experimentRunId: experimentRunId,
-  });
-  // Or define overloads to accept both Id<> and string shared types, and narrow internally.
-  ```
-
-- **Extract and name inline object types.** DO NOT use anonymous inline types for
-  complex structures that appear in multiple places.
-  Create named types in shared locations.
-
-  ```ts
-  // BAD: Inline anonymous type duplicated across functions
-  interface ExecutionResults {
-    tradesSummary: {
-      totalTrades: number;
-      successfulTrades: number;
-      trades: { symbol: string; action: 'buy' | 'sell'; price: number }[];
-    };
-  }
-  
-  // GOOD: Named type in shared location
-  interface FullTradeSummary {
-    stats: TradeSummaryStats;
-    trades: TradeDetail[];
-  }
-  interface ExecutionResults {
-    tradesSummary: FullTradeSummary;
-  }
-  ```
-
-- **Consolidate duplicate calculation logic.** DO NOT duplicate calculations of related
-  metrics. Create a single function that computes all related values together.
-
-  ```ts
-  // BAD: Same calculations scattered across files
-  const totalBuyValue = trades
-    .filter((t) => t.action === 'buy')
-    .reduce((sum, t) => sum + t.value, 0);
-  const totalSellValue = trades
-    .filter((t) => t.action === 'sell')
-    .reduce((sum, t) => sum + t.value, 0);
-  
-  // GOOD: Single shared function computes all related metrics
-  function computeTradeSummaryStats(trades: Trade[]): TradeSummaryStats {
-    return {
-      totalBuyValue: trades.filter((t) => t.action === 'buy').reduce((sum, t) => sum + t.value, 0),
-      totalSellValue: trades
-        .filter((t) => t.action === 'sell')
-        .reduce((sum, t) => sum + t.value, 0),
-      uniqueTickers: new Set(trades.map((t) => t.symbol)).size,
-    };
-  }
-  ```
-
-## Exhaustiveness Checks
-
-- **Always add exhaustiveness checks to `switch` statements on discriminated union
-  types.** When switching on unions (like `field.kind` or `action.type`), include a
-  `default` branch that assigns to `never`. This forces a compile-time error if a new
-  variant is added but not handled.
-
-  ```ts
-  // GOOD: Exhaustiveness check catches missing cases at compile time
-  switch (field.kind) {
-    case 'string':
-      return handleString(field);
-    case 'number':
-      return handleNumber(field);
-    // ... all cases ...
-    default: {
-      const _exhaustive: never = field;
-      throw new Error(`Unhandled field kind: ${(_exhaustive as { kind: string }).kind}`);
-    }
-  }
-  
-  // BAD: Missing cases silently fall through or return undefined
-  switch (field.kind) {
-    case 'string':
-      return handleString(field);
-    case 'number':
-      return handleNumber(field);
-    // New field kinds won't cause compile errors!
-  }
-  
-  // BAD: Default that masks missing cases
-  switch (field.kind) {
-    case 'string':
-      return handleString(field);
-    default:
-      return null; // Silently handles unknown cases
-  }
-  ```
-
-  This pattern ensures that when new variants are added to a union type, every `switch`
-  that handles that type will fail to compile until updated.
-
-## Function Parameters
-
-- **Avoid optional parameters in methods where accidental omission of a value can lead
-  to bugs:** This is especially true for factory functions.
-  It’s better to be explicit about all parameters to ensure we don’t accidentally omit
-  important context.
-
-  Prefer explicit `| null` instead of optional parameters (`?`) when a value can be
-  intentionally absent.
-
-  Example: Don’t create default context objects as it’s easy to have them use
-  misconfigured defaults!
-
-  ```ts
-  // GOOD: Explicit parameters with clear null semantics
-  export function createAgentExecCtx(
-    ctx: any,
-    params: {
-      executionType: 'live' | 'experiment';
-      experimentRunId: Id<'experimentRuns'> | null; // null for live, required for experiment
-      agentId: Id<'agents'>;
-      runId: Id<'runs'>;
-      conversationId: Id<'conversations'>;
-      runConfig: RunConfig | null;
-      paperTimestamp: number; // Unix timestamp in milliseconds (Date.now() format)
-    },
-  ): Promise<AgentExecCtx>;
-  
-  // BAD: Optional parameters that can lead to accidental omission
-  export function createAgentExecCtx(
-    ctx: any,
-    type: 'live' | 'experiment',
-    options?: {
-      agentId?: Id<'agents'>;
-      paperTimestamp?: number;
-      runConfig?: RunConfig;
-      experimentRunId?: Id<'experimentRuns'>;
-    },
-  ): Promise<AgentExecCtx>;
-  ```
-
-- Remove unused parameters after refactors.
-  Do not keep placeholder params like `_ctx` unless required by a framework.
-
-  ```ts
-  // BAD: Legacy unused parameter kept
-  export function doWork(_ctx: any, params: X): Y {
-    /* _ctx unused */
-  }
-  
-  // GOOD: Remove unused param and update callers
-  export function doWork(params: X): Y {
-    /* ... */
-  }
-  ```
-
-## File Naming
-
-- **Do NOT use non-descriptive filenames:** Avoid duplicate filenames `index.ts` for
-  source modules. Prefer unique, purpose-revealing names that state what the file does.
-
-  - Examples: Instead of `tools/index.ts`, use `tools/tool-registry.ts` (or a similarly
-    descriptive name that matches its purpose).
-
-- **Avoid creating multiple source files with the same name and different purposes:** Do
-  not use the filename in different directories with different logic.
-  Use unique, descriptive names to avoid confusion and make code easier to remember and
-  search for.
-
-  - For example, don’t have two files like `shared/types/runtimeTypes.ts` and
-    `convex/models/runtimeTypes.ts`. Give them different names, such as
-    `shared/types/appRuntimeTypes.ts` and `convex/models/runtimeValidators.ts`.
-
-## Imports and Exports
-
-- **Avoid dynamic imports!** Prefer static imports over dynamic imports.
-  Dynamic `import()` calls are not supported in many runtime environments and make code
-  less readable. ALWAYS use static imports at the top of the file unless dynamic imports
-  are explicitly required and known to be supported.
-
-  ```ts
-  // BAD: Dynamic import (not supported in many runtimes)
-  export const myFunction = async (args) => {
-    const { helper } = await import('./helpers.js');
-    return helper(args);
-  };
-  
-  // GOOD: Static import at top of file
-  import { helper } from './helpers.js';
-  
-  export const myFunction = async (args) => {
-    return helper(args);
-  };
-  ```
-
-- **Do not use inline imports** like `import('../path').Type` in function parameters.
-  Import types at the top of the file.
-  Again, this is better for readability and consistency.
-
-- **Avoid re-exporting functions or types** unless explicitly done for consumers of a
-  library (such as a top-level `index.ts`).
-
-  - If a function or type is moved from one file to another, ALWAYS update all imports
-    in the codebase to the location.
-    DO NOT re-export types a type or other value from its old location:
-
-    ```ts
-    // BAD: Do not re-export imports for re-import elsewhere:
-    export { backtestStep } from './experimentExecution';
-    
-    // GOOD: Import directly from the new location:
-    import { backtestStep } from './experimentExecution';
-    ```
-
-- **Barrel files:** The rules differ for libraries vs applications.
-
-  **For libraries:** Use exactly ONE barrel file — the root `index.ts` that defines the
-  public API. This is essential for consumers who `import { X } from 'your-library'`. Do
-  NOT create module-level barrels (like `utils/index.ts` or `harness/index.ts`).
-  Internal code should import directly from source files.
-
-  ```ts
-  // BAD: Module-level barrel that just re-exports siblings
-  // src/harness/index.ts
-  export { FormHarness } from './harness.js';
-  export { MockAgent } from './mockAgent.js';
-  
-  // BAD: Importing through module barrel
-  import { FormHarness } from '../harness';
-  
-  // GOOD: Import directly from source file
-  import { FormHarness } from '../harness/harness.js';
-  
-  // GOOD: Root index.ts for public API is fine
-  // src/index.ts (package entry point)
-  export { FormHarness } from './harness/harness.js';
-  ```
-
-  **For applications:** Avoid barrel files entirely.
-  Apps have no public API, so barrels only add indirection.
-  Import directly from source files throughout.
-  If you find yourself wanting a barrel for “convenience,” that’s often a sign of
-  incomplete refactors or poor module structure.
-
-## Exceptions
-
-- **Do not use pointless try/catch blocks:** Look for try/catch blocks like this:
-
-  ```ts
-  try {
-    // ...
-  } catch (error) {
-    // Re-throw errors
-    throw error;
-  }
-  ```
-
-  Then decide which is best: (1) REMOVE them the block entirely or (2) wrap the
-  exception with better message and relevant context:
-
-  ```ts
-  try {
-    // ...
-  } catch (error) {
-    throw new Error(`Failed to do X because of Y: ${localVar.infoDetails}: ${error.message}`);
-  }
-  ```
-
-## File Operations
-
-- **Use `atomically` for writing files:** When writing files to disk, use the
-  `atomically` library instead of `fs.writeFile` or `fs.writeFileSync`. This prevents
-  partial or corrupted files if the process crashes mid-write.
-
-  The `atomically` library writes to a temp file first, then renames atomically to the
-  final path. This guarantees you never have half-written files.
-  (`atomically` is TypeScript-native, zero third-party dependencies, slightly faster,
-  has more robust error handling and retry logic than `write-file-atomic`.)
-
-  ```ts
-  // BAD: Can leave corrupted file if process crashes mid-write
-  import { writeFileSync } from 'fs';
-  writeFileSync(filePath, content);
-  
-  // GOOD: Modern TypeScript-native with zero dependencies
-  import { writeFile } from 'atomically';
-  await writeFile(filePath, content);
-  ```
+## tryscript
+
+> IMPORTANT: You MUST read ./docs/development.md and ./docs/docs-overview.md for project documentation.
+
+IMPORTANT: You MUST read ./docs/development.md and ./docs/docs-overview.md for project documentation.
+(This project uses Speculate project structure.)
+
+## Landing the Plane (Session Completion)
+
+**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+
+**MANDATORY WORKFLOW:**
+
+1. **File issues for remaining work** - Create issues for anything that needs follow-up
+2. **Run quality gates** (if code changed) - Tests, linters, builds
+3. **Update issue status** - Close finished work, update in-progress items
+4. **PUSH TO REMOTE** - This is MANDATORY:
+   ```bash
+   git pull --rebase
+   bd sync
+   git push
+   git status  # MUST show "up to date with origin"
+   ```
+5. **Clean up** - Clear stashes, prune remote branches
+6. **Verify** - All changes committed AND pushed
+7. **Hand off** - Provide context for next session
+
+**CRITICAL RULES:**
+- Work is NOT complete until `git push` succeeds
+- NEVER stop before pushing - that leaves work stranded locally
+- NEVER say "ready to push when you are" - YOU must push
+- If push fails, resolve and retry until it succeeds
+
+
+<!-- BEGIN TBD INTEGRATION -->
+---
+title: tbd Workflow
+description: Full tbd workflow guide for agents
+---
+**`tbd` helps humans and agents ship code with greater speed, quality, and discipline.**
+
+1. **Beads**: Git-native issue tracking (tasks, bugs, features).
+   Never lose work across sessions.
+   Drop-in replacement for `bd`.
+2. **Spec-Driven Workflows**: Plan features → break into beads → implement
+   systematically.
+3. **Knowledge Injection**: 17+ engineering guidelines (TypeScript, Python, TDD,
+   testing, Convex, monorepos) available on demand.
+4. **Shortcuts**: Reusable instruction templates for common workflows (code review,
+   commits, PRs, cleanup, handoffs).
+
+## Installation
+
+```bash
+npm install -g get-tbd@latest
+tbd setup --auto --prefix=<name>   # Fresh project (--prefix is REQUIRED: 2-8 alphabetic chars recommended. ALWAYS ASK THE USER FOR THE PREFIX; do not guess it)
+tbd setup --auto                   # Existing tbd project (prefix already set)
+tbd setup --from-beads             # Migration from .beads/ if `bd` has been used
+```
+
+## Routine Commands
+
+```bash
+tbd --help    # Command reference
+tbd status    # Status
+tbd doctor    # If there are problems
+
+tbd setup --auto   # Run any time to refresh setup
+tbd prime      # Restore full context on tbd after compaction
+```
+
+## CRITICAL: You Operate tbd — The User Doesn’t
+
+**You are the tbd operator:** Users talk naturally; you translate their requests to tbd
+actions. DO NOT tell users to run tbd commands.
+That’s your job.
+
+- **WRONG**: "Run `tbd create` to track this bug"
+
+- **RIGHT**: *(you run `tbd create` yourself and tell the user it’s tracked)*
+
+**Welcoming a user:** When users ask “what is tbd?”
+or want help → run `tbd shortcut welcome-user`
+
+## User Request → Agent Action
+
+| User Says | You (the Agent) Run |
+| --- | --- |
+| **Issues/Beads** |  |
+| "There's a bug where ..." | `tbd create "..." --type=bug` |
+| "Create a task/feature for ..." | `tbd create "..." --type=task` or `--type=feature` |
+| "Let's work on issues/beads" | `tbd ready` |
+| "Show me issue X" | `tbd show <id>` |
+| "Close this issue" | `tbd close <id>` |
+| "Search issues for X" | `tbd search "X"` |
+| "Add label X to issue" | `tbd label add <id> <label>` |
+| "What issues are stale?" | `tbd stale` |
+| **Planning & Specs** |  |
+| "Plan a new feature" / "Create a spec" | `tbd shortcut new-plan-spec` |
+| "Break spec into beads" | `tbd shortcut plan-implementation-with-beads` |
+| "Implement these beads" | `tbd shortcut implement-beads` |
+| **Code Review & Commits** |  |
+| "Review this code" / "Code review" | `tbd shortcut review-code` |
+| "Review this PR" | `tbd shortcut review-github-pr` |
+| "Commit this" / "Use the commit shortcut" | `tbd shortcut code-review-and-commit` |
+| "Create a PR" / "File a PR" | `tbd shortcut create-or-update-pr-simple` |
+| "Merge main into my branch" | `tbd shortcut merge-upstream` |
+| **Guidelines & Knowledge** |  |
+| "Use TypeScript best practices" | `tbd guidelines typescript-rules` |
+| "Use Python best practices" | `tbd guidelines python-rules` |
+| "Build a TypeScript CLI" | `tbd guidelines typescript-cli-tool-rules` |
+| "Improve monorepo setup" | `tbd guidelines pnpm-monorepo-patterns` or `bun-monorepo-patterns` |
+| "Add golden/e2e testing" | `tbd guidelines golden-testing-guidelines` |
+| "Use TDD" / "Test-driven development" | `tbd guidelines general-tdd-guidelines` |
+| "Convex best practices" | `tbd guidelines convex-rules` |
+| **Documentation** |  |
+| "Research this topic" | `tbd shortcut new-research-brief` |
+| "Document architecture" | `tbd shortcut new-architecture-doc` |
+| **Cleanup & Maintenance** |  |
+| "Clean up this code" / "Remove dead code" | `tbd shortcut code-cleanup-all` |
+| "Fix repository problems" | `tbd doctor --fix` |
+| **Sessions & Handoffs** |  |
+| "Hand off to another agent" | `tbd shortcut agent-handoff` |
+| "Check out this library's source" | `tbd shortcut checkout-third-party-repo` |
+| *(your choice whenever appropriate)* | `tbd list`, `tbd dep add`, `tbd close`, `tbd sync`, etc. |
+
+**Note:** Never gitignore `.tbd/workspaces/` — the outbox must be committed to your
+working branch. See `tbd guidelines tbd-sync-troubleshooting` for details.
+
+## CRITICAL: Session Closing Protocol
+
+**Before saying “done”, you MUST complete this checklist:**
+
+```
+[ ] 1. git add + git commit
+[ ] 2. git push
+[ ] 3. gh pr checks <PR> --watch 2>&1 (IMPORTANT: WAIT for final summary, do NOT tell user it is done until you confirm it passes CI!)
+[ ] 4. tbd close/update <id> for all beads worked on
+[ ] 5. tbd sync
+[ ] 6. CONFIRM CI passed (if failed: fix, run tests, re-push, restart from step 3)
+```
+
+**Work is not done until pushed, CI passes, and tbd is synced.**
+
+## Bead Tracking Rules
+
+- Track all task work not done immediately as beads (discovered work, TODOs,
+  multi-session work)
+- When in doubt, create a bead
+- Check `tbd ready` when not given specific directions
+- Always close/update beads and run `tbd sync` at session end
+
+## Commands
+
+### Finding Work
+
+| Command | Purpose |
+| --- | --- |
+| `tbd ready` | Beads ready to work (no blockers) |
+| `tbd list --status open` | All open beads |
+| `tbd list --status in_progress` | Your active work |
+| `tbd show <id>` | Bead details with dependencies |
+
+### Creating & Updating
+
+| Command | Purpose |
+| --- | --- |
+| `tbd create "title" --type task\|bug\|feature --priority=P2` | New bead (P0-P4, not "high/medium/low") |
+| `tbd update <id> --status in_progress` | Claim work |
+| `tbd close <id> [--reason "..."]` | Mark complete |
+
+### Dependencies & Sync
+
+| Command | Purpose |
+| --- | --- |
+| `tbd dep add <bead> <depends-on>` | Add dependency |
+| `tbd blocked` | Show blocked beads |
+| `tbd sync` | Sync with git remote (run at session end) |
+| `tbd stats` | Project statistics |
+| `tbd doctor` | Check for problems |
+| `tbd doctor --fix` | Auto-fix repository problems |
+
+### Labels & Search
+
+| Command | Purpose |
+| --- | --- |
+| `tbd search <query>` | Search issues by text |
+| `tbd label add <id> <label>` | Add label to issue |
+| `tbd label remove <id> <label>` | Remove label from issue |
+| `tbd label list` | List all labels in use |
+| `tbd stale` | List issues not updated recently |
+
+### Documentation
+
+| Command | Purpose |
+| --- | --- |
+| `tbd shortcut <name>` | Run a shortcut |
+| `tbd shortcut --list` | List shortcuts |
+| `tbd guidelines <name>` | Load coding guidelines |
+| `tbd guidelines --list` | List guidelines |
+| `tbd template <name>` | Output a template |
+
+## Quick Reference
+
+- **Priority**: P0=critical, P1=high, P2=medium (default), P3=low, P4=backlog
+- **Types**: task, bug, feature, epic
+- **Status**: open, in_progress, closed
+- **JSON output**: Add `--json` to any command
+
+<!-- BEGIN SHORTCUT DIRECTORY -->
+## Available Shortcuts
+
+Run `tbd shortcut <name>` to use any of these shortcuts:
+
+| Name | Description |
+| --- | --- |
+| agent-handoff | Generate a concise handoff prompt for another coding agent to continue work |
+| checkout-third-party-repo | Get source code for libraries and third-party repos using git. Essential for reliable source code review. Prefer this to web searches or fetching of web pages from github.com as it is far more effective (github.com blocks web scraping from main website). |
+| code-cleanup-all | Full cleanup cycle including duplicate removal, dead code, and code quality improvements |
+| code-cleanup-docstrings | Review and add concise docstrings to major functions and types |
+| code-cleanup-tests | Review and remove tests that do not add meaningful coverage |
+| code-review-and-commit | Run pre-commit checks, review changes, and commit code |
+| coding-spike | Prototype to validate a spec through hands-on implementation |
+| create-or-update-pr-simple | Create or update a pull request with a concise summary |
+| create-or-update-pr-with-validation-plan | Create or update a pull request with a detailed test/validation plan |
+| implement-beads | Implement beads from a spec, following TDD and project rules |
+| merge-upstream | Merge origin/main into current branch with conflict resolution |
+| new-architecture-doc | Create an architecture document for a system or component design |
+| new-guideline | Create a new coding guideline document for tbd |
+| new-plan-spec | Create a new feature planning specification document |
+| new-qa-playbook | Create a QA test playbook for manual validation workflows |
+| new-research-brief | Create a research document for investigating a topic or technology |
+| new-shortcut | Create a new shortcut (reusable instruction template) for tbd |
+| new-validation-plan | Create a validation/test plan showing what's tested and what remains |
+| plan-implementation-with-beads | Create implementation beads from a feature planning spec |
+| precommit-process | Full pre-commit checklist including spec sync, code review, and testing |
+| review-code | Comprehensive code review for uncommitted changes, branch work, or GitHub PRs |
+| review-code-python | Python-focused code review (language-specific rules only) |
+| review-code-typescript | TypeScript-focused code review (language-specific rules only) |
+| review-github-pr | Review a GitHub pull request with follow-up actions (comment, fix, CI check) |
+| revise-all-architecture-docs | Comprehensive revision of all current architecture documents |
+| revise-architecture-doc | Update an architecture document to reflect current codebase state |
+| setup-github-cli | Ensure GitHub CLI (gh) is installed and working |
+| sync-failure-recovery | Handle tbd sync failures by saving to workspace and recovering later |
+| update-specs-status | Review active specs and sync their status with tbd issues |
+| welcome-user | Welcome message for users after tbd installation or setup |
+
+## Available Guidelines
+
+Run `tbd guidelines <name>` to apply any of these guidelines:
+
+| Name | Description |
+| --- | --- |
+| backward-compatibility-rules | Guidelines for maintaining backward compatibility across code, APIs, file formats, and database schemas |
+| bun-monorepo-patterns | Modern patterns for Bun-based TypeScript monorepo architecture |
+| cli-agent-skill-patterns | Best practices for building TypeScript CLIs that function as agent skills in Claude Code and other AI coding agents |
+| commit-conventions | Conventional Commits format with extensions for agentic workflows |
+| convex-limits-best-practices | Comprehensive reference for Convex platform limits, workarounds, and performance best practices |
+| convex-rules | Guidelines and best practices for building Convex projects, including database schema design, queries, mutations, and real-world examples |
+| electron-app-development-patterns | Guidelines for Electron development ecosystems including npm, pnpm, and Bun, with security baselines and framework comparisons |
+| error-handling-rules | Rules for handling errors, failures, and exceptional conditions |
+| general-coding-rules | Rules for constants, magic numbers, and general coding practices |
+| general-comment-rules | Language-agnostic rules for writing clean, maintainable comments |
+| general-eng-assistant-rules | Rules for AI assistants acting as senior engineers, including objectivity and communication guidelines |
+| general-style-rules | Style guidelines for auto-formatting, emoji usage, and output formatting |
+| general-tdd-guidelines | Test-Driven Development methodology and best practices |
+| general-testing-rules | Rules for writing minimal, effective tests with maximum coverage |
+| golden-testing-guidelines | Guidelines for implementing golden/snapshot testing for complex systems |
+| pnpm-monorepo-patterns | Modern patterns for pnpm-based TypeScript monorepo architecture |
+| python-cli-patterns | Modern patterns for Python CLI application architecture |
+| python-modern-guidelines | Guidelines for modern Python projects using uv, with a few more opinionated practices |
+| python-rules | General Python coding rules and best practices |
+| release-notes-guidelines | Guidelines for writing clear, accurate release notes |
+| tbd-sync-troubleshooting | Common issues and solutions for tbd sync and workspace operations |
+| typescript-cli-tool-rules | Rules for building CLI tools with Commander.js, picocolors, and TypeScript |
+| typescript-code-coverage | Best practices for code coverage in TypeScript with Vitest and v8 provider |
+| typescript-rules | TypeScript coding rules and best practices |
+| typescript-sorting-patterns | Deterministic sorting patterns and comparison chains for TypeScript |
+| typescript-yaml-handling-rules | Best practices for parsing and serializing YAML in TypeScript |
+| writing-style-guidelines | Guidelines for clear, concise, and reader-friendly writing in documentation and code |
+
+<!-- END SHORTCUT DIRECTORY -->
+<!-- END TBD INTEGRATION -->
 
 ---
 > Source: [jlevy/tryscript](https://github.com/jlevy/tryscript) — distributed by [TomeVault](https://tomevault.io).
