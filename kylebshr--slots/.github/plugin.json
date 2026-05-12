@@ -1,0 +1,9 @@
+{
+  "name": "kylebshr--slots",
+  "displayName": "slots",
+  "description": "Convenient SwiftUI view slots without the init explosion",
+  "version": "1.0.0",
+  "author": "kylebshr",
+  "homepage": "https://github.com/kylebshr/slots",
+  "skills": []
+}
