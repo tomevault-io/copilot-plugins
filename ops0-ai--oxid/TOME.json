@@ -4,7 +4,7 @@
   "repo": "oxid",
   "description": "A standalone infrastructure-as-code engine that saves the state in a database. Open-source alternative to Terraform.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ops0-ai/oxid",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T13:06:27Z"
+  "distributed_at": "2026-05-12T09:16:14Z"
 }
