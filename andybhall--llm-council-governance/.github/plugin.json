@@ -1,0 +1,9 @@
+{
+  "name": "andybhall--llm-council-governance",
+  "displayName": "llm-council-governance",
+  "description": "Testing different group governance models for Karpathy's llm-council",
+  "version": "1.0.0",
+  "author": "andybhall",
+  "homepage": "https://github.com/andybhall/llm-council-governance",
+  "skills": []
+}
