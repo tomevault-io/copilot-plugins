@@ -1,0 +1,9 @@
+{
+  "name": "isartor-ai--isartor",
+  "displayName": "Isartor",
+  "description": "Open-source Prompt Firewall \u2014 deflect up to 95% of redundant LLM traffic before it leaves your infrastructure. Documents: https://isartor-ai.github.io/Isartor/index.html",
+  "version": "1.0.0",
+  "author": "isartor-ai",
+  "homepage": "https://github.com/isartor-ai/Isartor",
+  "skills": []
+}
