@@ -1,0 +1,9 @@
+{
+  "name": "xianyvbang--xymusic",
+  "displayName": "XyMusic",
+  "description": "\u652f\u6301Android\u7684\u54b8\u9c7c\u97f3\u4e50\u64ad\u653e\u5668,\u53ef\u4ee5\u8fde\u63a5\u90e8\u7f72\u5728NAS\u4e0a\u7684\u97f3\u4e50\u670d\u52a1,\u76ee\u524d\u652f\u6301\u7684\u670d\u52a1\u6709Jellyfin,Emby,Subsonic,Navidrome,Plex",
+  "version": "1.0.0",
+  "author": "xianyvbang",
+  "homepage": "https://github.com/xianyvbang/XyMusic",
+  "skills": []
+}
