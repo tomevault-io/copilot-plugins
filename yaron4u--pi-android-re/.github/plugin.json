@@ -1,0 +1,9 @@
+{
+  "name": "yaron4u--pi-android-re",
+  "displayName": "pi-android-re",
+  "description": "Android RE skills for Pi coding agent - static (decompile/API extraction) + dynamic (Frida hooking/bypass)",
+  "version": "1.0.0",
+  "author": "yaron4u",
+  "homepage": "https://github.com/yaron4u/pi-android-re",
+  "skills": []
+}
