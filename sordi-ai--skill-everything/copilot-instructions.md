@@ -1,183 +1,135 @@
-## self-extension-workflow
+## svg-check
 
-> Apply when executing the self-extension workflow. Six steps from a mistake to a merged rule, with CI gates and CODEOWNERS approval.
+> Apply when editing, generating, or reviewing any SVG diagram. Pixel-perfect Playwright bbox-check is the acceptance test — eyeballing is not sufficient. Run on every SVG before declaring done.
 
 
-# Self-extension workflow
-*Exact prompt and procedure the agent executes after every mistake. The agent never pushes to `main` directly. Every self-extension is a PR.*
+# Sub-Skill: SVG Check
 
-> *Five agent steps plus a search-prerequisite, from mistake to merged rule. The agent never pushes to main. Every rule that lands is CODEOWNERS-approved. This page is the contract.*
+**Purpose.** Catch text-overflow and foreign-rect-intersection bugs in SVG diagrams *before* commit. LLM eyeball review at 4× zoom misses these bug classes consistently — measurement is the only reliable test.
 
-<!-- target: ~1100 tokens -->
-
----
-
-## TRIGGER CONDITIONS
-*Five conditions. Any one of them starts the workflow.*
-
-The agent starts this workflow when **any** of these is met:
-
-- A test fails and the agent wrote the faulty code.
-- A code review comment corrects the agent.
-- The agent realises during implementation that its first approach was wrong.
-- A deployment problem occurs that the agent caused.
-- The user explicitly says: "That was wrong" / "Remember this".
+The acceptance test is the script output. Not your visual judgment.
 
 ---
 
-## STEP-BY-STEP PROCEDURE
-*Five steps after the search-prerequisite. Every step is mandatory before the next one.*
+## When to apply
 
-### Step 0 — Search before write
-*Mandatory. Duplicates in the error log destroy the signal.*
+Apply this skill whenever:
 
-Before creating a new error entry, search the existing error log:
+- you are editing an existing SVG (`*.svg` in any docs/diagrams folder),
+- you are producing a new SVG from scratch,
+- a designer agent reports an SVG as "clean" — verify with the script,
+- you are reviewing a PR that touches `*.svg`.
 
-```text
-1. Read skills/error-log/SKILL.md.
-2. Search for similar errors (same category + similar context).
-3. If a similar entry exists:
-   - Increment its `count` field by 1.
-   - Update `last_seen` to today.
-   - Supplement the context if needed.
-   - Do NOT create a new entry.
-4. Only if no similar entry exists, continue with Step 1.
-```
+---
 
-### Step 1 — Analyse the error
-*The agent answers six questions before writing anything.*
+## The two bug classes the script catches
 
-```text
-1. What exactly did I do? (concrete code/action)
-2. What should I have done instead?
-3. Why did I do it wrong? (false assumption, missing knowledge, carelessness)
-4. Which category applies?
-   - development: code error, wrong implementation
-   - git: commit/branch mistake
-   - deployment: deployment order, configuration
-   - security: security vulnerability
-   - performance: N+1, missing indexes, oversized datasets
-   - domain: wrong understanding of business rules
-5. How severe was the error? (critical/high/medium/low)
-6. Which target file does the rule belong in?
-```
+1. **OVERFLOW (own-container)**: a `<text>` whose rendered bbox extends past the bounds of its containing `<rect>` (in the same `<g>`). Caught by `getBBox()` measurement, tolerance 2 px.
 
-### Step 2 — Determine new error ID
-*Take the next number after the latest entry.*
+2. **FOREIGN-RECT INTERSECT**: a `<text>` whose viewport bbox intersects a `<rect>` that is *not* an ancestor of the text — i.e. a tagline ascender that touches a structural box above/below it. Caught by `getBoundingClientRect()` intersection, tolerance 2 px.
+
+Both classes filter false-positives: rects smaller than 40 × 18 (legend swatches) are not treated as containers; texts that start more than 5 px outside a rect's horizontal range are not treated as contained.
+
+---
+
+## How to run
+
+The script lives next to this file: [`overflow-check.js`](./overflow-check.js). It needs Playwright installed once per machine.
+
+### One-time setup
 
 ```bash
-# Find last entry in error-log.md
-grep "id: ERR-" skills/error-log/SKILL.md | tail -1
-# Take next number: ERR-2026-004 -> ERR-2026-005
+# From the skill folder
+cd skills/svg-check
+bash setup.sh
 ```
 
-### Step 3 — Formulate the entry
-*Action directive only. The CI verb allow-list rejects anything else.*
+Or manually:
 
-Use the template at `skills/error-log/_entry-template.md`. The schema at [`schemas/error-entry.json`](../../schemas/error-entry.json) is enforced by CI.
+```bash
+npm install playwright
+npx playwright install chromium --with-deps
+```
 
-> [!WARNING]
-> **CI GATE · verb allow-list** — `new_rule` must start with one of `Always`, `Never`, `Before`, `After`, `Prefer`, `Avoid`, `Use`, `Do`, `Ensure`. Anything else is rejected.
+### Run on one SVG
 
-Bad: `"SQL injection is dangerous"`
-Good: `"Never concatenate user input directly into SQL queries. Always use prepared statements."`
+```bash
+node skills/svg-check/overflow-check.js path/to/diagram.svg
+```
 
-### Step 4 — Determine target file
-*One file per category. Domain rules go to a project file, not a global one.*
+### Run on all SVGs in a folder
 
-| Error category | Target file |
+```bash
+for svg in path/to/*.svg; do
+  out=$(node skills/svg-check/overflow-check.js "$svg" 2>&1)
+  if echo "$out" | grep -q "FOUND"; then
+    echo "FAIL: $svg"; echo "$out" | grep -E "FOUND|  \[|  \""
+  fi
+done
+```
+
+The script exits non-zero when issues are found — suitable for use as a pre-commit gate or CI step.
+
+---
+
+## Acceptance criteria
+
+The script output **must** contain both of these lines, verbatim, for every SVG in scope:
+
+```
+OVERFLOW: CLEAN — 0 text overflows past their containing rect
+FOREIGN-RECT INTERSECT: CLEAN — 0 text-vs-foreign-rect intersections
+```
+
+Anything else means **not done**. Fix the SVG (shorten text, widen rect, move element, change font-size) and re-run until both lines are CLEAN.
+
+In addition, after the script is CLEAN, render a Playwright screenshot in light + dark mode and visually cross-check for bug classes the script does not cover (see § *Limits* below).
+
+---
+
+## How to fix common overflow patterns
+
+| Pattern | Fix |
 |---|---|
-| `development` | `skills/code-quality/SKILL.md` |
-| `git` | `skills/git-conventions/SKILL.md` |
-| `deployment` | `skills/review-deployment/SKILL.md` |
-| `security` | `skills/code-quality/SKILL.md` (Security section) |
-| `performance` | `skills/code-quality/SKILL.md` (Performance section) |
-| `domain` | `skills/<project>/SKILL.md` |
-
-### Step 5 — Insert the rule
-*At the end of the matching section. Reference the ERR-ID.*
-
-1. Open the target file.
-2. Find the matching category section.
-3. Add the new rule at the end of the section.
-4. Add reference: `Reference: ERR-YYYY-NNN`.
-
-### Step 6 — Open a PR
-*Never push to `main` directly. The label triggers the lint-rules workflow.*
-
-```bash
-git checkout -b learn/ERR-YYYY-NNN
-git add skills/
-git diff --cached            # MANDATORY human review step
-git commit -m "learn(errors): ERR-YYYY-NNN — <short description>
-
-Co-Authored-By: <your real name> <your-email@example.com>"
-git push -u origin learn/ERR-YYYY-NNN
-gh pr create --label needs-rule-review \
-             --title "learn(errors): ERR-YYYY-NNN" \
-             --body "Auto-generated rule. Reviewer: confirm rule wording and target file. CI \`lint-rules\` must pass."
-```
-
-![PR flow — branch, commit, push, PR; lint-rules and auto-approve-rule-pr CI gates run in parallel; CODEOWNERS human gate; squash-merge into main behind branch protection](../../docs/pr-flow.svg)
-
-*Branch through CI gates and CODEOWNERS into a squash-merge on `main`.*
-
-**Why a PR (not a direct commit).** *Four layers of gating.*
-
-| Layer | What it gates | Where |
-|---|---|---|
-| `lint-rules` | Schema + verb allow-list + forbidden patterns | [`schemas/error-entry.json`](../../schemas/error-entry.json) |
-| `auto-approve-rule-pr` | Diff scope (`skills/**` — error-log entry plus the target sub-skill) and `Co-Authored-By:` trailer | `.github/workflows/auto-approve-rule-pr.yml` |
-| Branch protection | CODEOWNERS approval for `skills/error-log/` | `.github/CODEOWNERS` |
-| Human review | Final read of rule wording and target file | maintainer |
-
-> [!NOTE]
-> **CI GATE · four-layer gating** — Every rule that goes live has been seen by a human. The validator is best-effort, not airtight — see [SECURITY.md](../../SECURITY.md) Limitations section.
-
-The commit type `learn` makes self-extension visible in `git log --grep="learn("`.
+| Mono-tag text wider than its 200 px box | Move trailing content to a `mono-dim` line below, or drop the suffix entirely. Match the sibling-box pattern. |
+| Tagline ascenders touch the rect above | Extend the SVG viewBox height (`500 → 520`) and move the tagline down. Other elements stay put. |
+| Two-line label tight in a folder glyph | Move from `y=22/33` to `y=21/34` (13 px line-height instead of 11 px). |
+| Annotation text overflowing a chip | Either widen the chip rect or shorten the annotation. Do **not** suppress the script — fix the SVG. |
 
 ---
 
-## FALSE POSITIVES IN THE VALIDATOR
-*When a legitimate rule must mention a forbidden pattern (e.g. preventing `subprocess` misuse).*
+## Examples
 
-1. Add the new error ID to `skills/error-log/exceptions.yml`:
-   ```yaml
-   allow_forbidden_pattern_for:
-     - ERR-YYYY-NNN  # rationale: rule must mention `subprocess` to be specific
-   ```
-2. Open the PR. CODEOWNERS approval is required for `exceptions.yml` changes — the bypass is auditable in git history.
-3. The verb allow-list still applies even with a bypass entry.
+See [`EXAMPLES.md`](./EXAMPLES.md) for real before/after fixes with script output.
 
 ---
 
-## CONSOLIDATION LOOP
-*When the error log exceeds 50 entries. Manual diff review until eval framework lands.*
+## Limits — what the script does NOT catch
 
-```text
-1. Read all entries in skills/error-log/SKILL.md.
-2. Group by root_cause similarity.
-3. For groups with the same root cause:
-   - Keep the most detailed entry.
-   - Sum up all `count` values.
-   - Set `last_seen` to the most recent date.
-   - Delete the duplicates.
-4. For entries older than 6 months with severity: low:
-   - Archive (move to a comment block or separate archive file).
-   - The rules derived from them remain in the sub-skills.
-5. Open a PR: "chore(errors): consolidate error log (N entries merged)".
-```
+These remain eyeball-only for now. When a missed bug class surfaces, extend the script with a new check class — do not rely on agent self-reporting.
 
-LLM-driven consolidation is non-deterministic. Until the eval framework (Phase 2 roadmap) reports a stable baseline, do consolidation **manually** with diff review. The threshold of 50 entries is a soft signal, not a forced rebuild.
+- **Text-vs-line overlaps**: a `<text>` crossing an `<line>` arrow.
+- **≥12 px clearance** between text-baseline and the nearest line below it.
+- **Sibling text overlaps**: two `<text>` elements at the same coords.
+- **Color contrast ratio** in dark mode.
+- **Glyph render quality** at small sizes (≤ 10 px).
 
 ---
 
-## WHY THIS SUB-SKILL MATTERS
-*Self-extension as a normal version-control discipline.*
+## Why this skill exists (incident history)
 
-The agent doesn't just fix errors — it learns from them, and **every lesson is a Git commit you can review, revert, or share.** The PR-flow brings the standard engineering toolkit to rule learning: deterministic validation, branch protection, CODEOWNERS approval, and a public audit trail.
+- **2026-05-11 #1**: a four-designer parallel review declared `architecture.svg` clean. The GEMINI CLI loader-tag overflowed its 200 px box by 42.6 px. No agent measured.
+- **2026-05-11 #2**: a follow-up three-cycle eyeball review missed that the tagline ascenders intruded into the folder-strip border above. The fix was a 20 px viewBox extension; the bug was a 2 px overlap that the agents could not detect by sight.
 
-> ***Your agent's mistakes — versioned. Self-learning skills, every commit. One source, four agent runtimes.*** *That's the loop.*
+The script was built after the second miss. It catches both bug classes in under 5 seconds.
+
+The rule that follows from these incidents: **don't trust agent self-reports of "no issues at 4× zoom". Trust the measurement.**
+
+---
+
+## Required output for "done"
+
+When reporting work on any SVG, paste the script output verbatim — both *before* the fix (showing the bug) and *after* the fix (showing CLEAN). Without that paste, the work is not done.
 
 ---
 > Source: [sordi-ai/skill-everything](https://github.com/sordi-ai/skill-everything) — distributed by [TomeVault](https://tomevault.io).
