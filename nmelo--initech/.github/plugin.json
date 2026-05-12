@@ -1,0 +1,9 @@
+{
+  "name": "nmelo--initech",
+  "displayName": "initech",
+  "description": "An agent runtime for agents who collaborate with each other from one terminal. Optimized for steerability.",
+  "version": "1.0.0",
+  "author": "nmelo",
+  "homepage": "https://github.com/nmelo/initech",
+  "skills": []
+}
