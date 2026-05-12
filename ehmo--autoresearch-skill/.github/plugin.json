@@ -1,0 +1,9 @@
+{
+  "name": "ehmo--autoresearch-skill",
+  "displayName": "autoresearch-skill",
+  "description": "Autonomous codebase improvement",
+  "version": "1.0.0",
+  "author": "ehmo",
+  "homepage": "https://github.com/ehmo/autoresearch-skill",
+  "skills": []
+}
