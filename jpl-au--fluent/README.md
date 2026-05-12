@@ -7,11 +7,11 @@ Type-safe HTML generation for Go using a fluent API. No templates, native types,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jpl-au/fluent](https://github.com/jpl-au/fluent).
+Original source: `CLAUDE.md` in [jpl-au/fluent](https://github.com/jpl-au/fluent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
