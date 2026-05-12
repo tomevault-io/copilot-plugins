@@ -1,0 +1,9 @@
+{
+  "name": "symfony--ai-demo",
+  "displayName": "ai-demo",
+  "description": "Symfony AI Demo Application",
+  "version": "1.0.0",
+  "author": "symfony",
+  "homepage": "https://github.com/symfony/ai-demo",
+  "skills": []
+}
