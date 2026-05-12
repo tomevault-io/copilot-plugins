@@ -1,0 +1,9 @@
+{
+  "name": "alex-popov-tech--claude-rio",
+  "displayName": "claude-rio",
+  "description": "Make Claude Code suggest the right skills and agents at the right time - automatically activate your custom workflows when they're most relevant",
+  "version": "1.0.0",
+  "author": "alex-popov-tech",
+  "homepage": "https://github.com/alex-popov-tech/claude-rio",
+  "skills": []
+}
