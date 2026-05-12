@@ -1,0 +1,9 @@
+{
+  "name": "leestott--interview-doctor-js",
+  "displayName": "interview-doctor-js",
+  "description": "\ud83c\udfe5 AI-powered interview preparation assistant \u2014 100% offline using Foundry Local, RAG (TF-IDF + Cosine Similarity), and SQLite. Upload your CV, paste a job description, get tailored interview questions",
+  "version": "1.0.0",
+  "author": "leestott",
+  "homepage": "https://github.com/leestott/interview-doctor-js",
+  "skills": []
+}
