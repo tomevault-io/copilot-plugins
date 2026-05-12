@@ -1,0 +1,9 @@
+{
+  "name": "nick-pape--grackle",
+  "displayName": "grackle",
+  "description": "Manage and orchestrate AI coding agents (Claude Code, Copilot, Goose, etc.) on remote machines \u2014 task decomposition, multi-agent coordination, and real-time visibility across environments.",
+  "version": "1.0.0",
+  "author": "nick-pape",
+  "homepage": "https://github.com/nick-pape/grackle",
+  "skills": []
+}
