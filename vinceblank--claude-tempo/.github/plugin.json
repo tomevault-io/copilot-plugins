@@ -1,0 +1,9 @@
+{
+  "name": "vinceblank--claude-tempo",
+  "displayName": "claude-tempo",
+  "description": "MCP server for multi-session Claude Code coordination via Temporal",
+  "version": "1.0.0",
+  "author": "vinceblank",
+  "homepage": "https://github.com/vinceblank/claude-tempo",
+  "skills": []
+}
