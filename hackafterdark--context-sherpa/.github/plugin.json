@@ -1,0 +1,9 @@
+{
+  "name": "hackafterdark--context-sherpa",
+  "displayName": "context-sherpa",
+  "description": "Context Sherpa MCP server provides code mapping, deterministic feedback loops, and tiered inference for AI coding agents to increase accuracy and optimize token usage.",
+  "version": "1.0.0",
+  "author": "hackafterdark",
+  "homepage": "https://github.com/hackafterdark/context-sherpa",
+  "skills": []
+}
