@@ -1,0 +1,9 @@
+{
+  "name": "sxzz--stackblitz-mcp",
+  "displayName": "stackblitz-mcp",
+  "description": "MCP server for reading files from StackBlitz projects",
+  "version": "1.0.0",
+  "author": "sxzz",
+  "homepage": "https://github.com/sxzz/stackblitz-mcp",
+  "skills": []
+}
