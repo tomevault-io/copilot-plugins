@@ -1,0 +1,9 @@
+{
+  "name": "callavicka--opencode-blackbox",
+  "displayName": "opencode-blackbox",
+  "description": "Blackbox testing plugin for OpenCode",
+  "version": "1.0.0",
+  "author": "CalLavicka",
+  "homepage": "https://github.com/CalLavicka/opencode-blackbox",
+  "skills": []
+}
