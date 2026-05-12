@@ -1,0 +1,9 @@
+{
+  "name": "notdesigned--wechat-oracle",
+  "displayName": "WeChat-Oracle",
+  "description": "\u672c\u5730\u5316\u7684\u5fae\u4fe1\u7fa4\u804a\u5f52\u6863 + \u5728\u7fa4\u91cc @ \u5b83\u95ee\u95ee\u9898\u7684 LLM \u52a9\u624b (WeFlow + wx4py + DeepSeek)",
+  "version": "1.0.0",
+  "author": "NotDesigned",
+  "homepage": "https://github.com/NotDesigned/WeChat-Oracle",
+  "skills": []
+}
