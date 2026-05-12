@@ -1,0 +1,9 @@
+{
+  "name": "ekleziast--kiwi-voice",
+  "displayName": "kiwi-voice",
+  "description": "Voice interface for OpenClaw with speaker recognition, voice-gated security, real-time barge-in, and multi-provider streaming TTS",
+  "version": "1.0.0",
+  "author": "ekleziast",
+  "homepage": "https://github.com/ekleziast/kiwi-voice",
+  "skills": []
+}
