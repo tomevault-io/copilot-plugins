@@ -7,11 +7,11 @@ Stop paying SEVENTEEN DIFFERENT BILLS for your shitty todo app. Stop pretending 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mynameistito/justfuckingusecloudflare](https://github.com/mynameistito/justfuckingusecloudflare).
+Original source: `CLAUDE.md` in [mynameistito/justfuckingusecloudflare](https://github.com/mynameistito/justfuckingusecloudflare).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
