@@ -1,0 +1,9 @@
+{
+  "name": "mic-dkfz--meisenmeister",
+  "displayName": "MeisenMeister",
+  "description": "Winning Solution of the ODELIA Breast MRI Challenge 2025",
+  "version": "1.0.0",
+  "author": "MIC-DKFZ",
+  "homepage": "https://github.com/MIC-DKFZ/MeisenMeister",
+  "skills": []
+}
