@@ -1,0 +1,9 @@
+{
+  "name": "wakeless--agent-tracker",
+  "displayName": "agent-tracker",
+  "description": "A way to track where and what your agents are doing!",
+  "version": "1.0.0",
+  "author": "wakeless",
+  "homepage": "https://github.com/wakeless/agent-tracker",
+  "skills": []
+}
