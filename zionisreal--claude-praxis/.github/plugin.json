@@ -1,0 +1,9 @@
+{
+  "name": "zionisreal--claude-praxis",
+  "displayName": "Claude-Praxis",
+  "description": "The most systematic harness system for Claude Code. Constitutional, file-based execution framework with anti-XY discipline, plan-as-files memory, validated completion, and mode-aware overhead.",
+  "version": "1.0.0",
+  "author": "ZIONISREAL",
+  "homepage": "https://github.com/ZIONISREAL/Claude-Praxis",
+  "skills": []
+}
