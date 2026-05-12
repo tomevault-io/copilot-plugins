@@ -4,7 +4,7 @@
   "repo": "lde",
   "description": "A package manager, test runner and runtime for Lua, written in Lua.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lde-org/lde",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T17:55:13Z"
+  "distributed_at": "2026-05-12T19:56:13Z"
 }
