@@ -1,0 +1,9 @@
+{
+  "name": "litash--moomoo-api-mcp",
+  "displayName": "moomoo-api-mcp",
+  "description": "MCP Server for AI Agents to use Moomoo OpenAPI (https://www.moomoo.com/OpenAPI)",
+  "version": "1.0.0",
+  "author": "Litash",
+  "homepage": "https://github.com/Litash/moomoo-api-mcp",
+  "skills": []
+}
