@@ -1,0 +1,9 @@
+{
+  "name": "ondata--normattiva-2-md",
+  "displayName": "normattiva_2_md",
+  "description": "Trasforma i testi delle leggi italiane in formato leggibile e pronto per l'uso con intelligenze artificiali",
+  "version": "1.0.0",
+  "author": "ondata",
+  "homepage": "https://github.com/ondata/normattiva_2_md",
+  "skills": []
+}
