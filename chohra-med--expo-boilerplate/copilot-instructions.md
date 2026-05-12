@@ -1,42 +1,33 @@
-## best-practices
+## expo-boilerplate
 
-> Advanced Best Practices covering Error Handling, Environment Variables, Performance, and Accessibility rules
+> Cross-tool context file. Read by Cursor, Antigravity, Claude Code, and any other AI coding tools connected to this repository.
 
+# AGENTS.md — MobileLauncher LT
 
-# Advanced Best Practices
+Cross-tool context file. Read by Cursor, Antigravity, Claude Code, and any other AI coding tools connected to this repository.
 
-## 🔴 Error Handling & Observability
+## Project
 
-### 1. API Error Handling
-- Never allow API failures to crash the app or fail silently.
-- When calling RTK Query mutations, handle `.unwrap()` errors or `isRejectedWithValue` reliably.
-- Use explicit `try/catch` and fire user-facing toasts (e.g., via `react-native-toast-message`) on failure.
+AI-first React Native + Expo 55 boilerplate. Feature-first architecture. TypeScript strict. Lite version of [AI Mobile Launcher](https://www.aimobilelauncher.com/).
 
-### 2. Global Error Boundaries
-- Since `react-native-error-boundary` is installed, ensure that any major rendering block is wrapped where appropriate.
-- Log fatal crashes to the logging service before presenting the fallback UI.
+**Core tech:** Expo 55 · React Native 0.83.6 · React 19 · TypeScript strict · Redux Toolkit · RTK Query · Restyle · MMKV · Reanimated 4 · FlashList · Biome
 
-## 🟢 Environment Variables & Secrets
+---
 
-- Never use `process.env` scattered across components.
-- Validate environment variables at startup. Use `zod` to schemas in a central config file (e.g., `src/config/env.ts`) so missing or invalid keys throw an immediate exception.
-- Never commit `.env` or credentials. Use `Expo Secure Store` for user session tokens or keys, never `MMKV` for sensitive data.
+## 🎯 The Master Rules Location
 
-## 🚀 Performance & Reanimated
+**CRITICAL INSTRUCTION:** To prevent drift and inconsistency, the full, single-source-of-truth rules for this project reside in `.cursor/rules/`.
 
-### 1. Animations with Reanimated 4
-- Differentiate between the UI thread and the JS Thread. Use `runOnJS` when invoking state changes from a worklet.
-- Avoid passing massive objects to worklets; pick out primitive dependencies.
+Before writing any new code, components, or making architectural decisions, you **MUST** read the contents of the following files based on the task context:
 
-### 2. Image Loading
-- Prefer `Expo Image` over standard React Native `Image` for aggressive caching and memory performance, especially in `FlashList` components.
+| Topic | Look in |
+|---|---|
+| Full Architecture & Feature-First Directory Structure | `.cursor/rules/app_feature_first_architecture.mdc` |
+| Code Standards, UI, Navigation, Redux, State & Testing | `.cursor/rules/app_rules.mdc` |
+| Advanced Best Practices (Error Handling, Env Vars, A11y) | `.cursor/rules/best_practices.mdc` |
+| Base Architecture Explanations | `ai_articles/memory-bank/` |
 
-## ♿ Accessibility (A11y)
-
-All UI elements must be accessible.
-- Pass `accessibilityRole="button"` and `accessibilityLabel` to all custom touchables.
-- Account for scaling text. Since we use Restyle, configure typography variants to respect dynamic font types cleanly without breaking layout.
-- Use `accessibilityState` dynamically (e.g., `selected`, `disabled`) so screen readers announce correct context.
+**If you fail to observe these files, you risk producing legacy or hallucinated code that violates the stringent requirements of this architecture.** Please use your ability to read local files to ingest these rules prior to generating code.
 
 ---
 > Source: [chohra-med/expo_boilerplate](https://github.com/chohra-med/expo_boilerplate) — distributed by [TomeVault](https://tomevault.io).
