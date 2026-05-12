@@ -1,0 +1,9 @@
+{
+  "name": "teuchezh--dynamic-weather-card",
+  "displayName": "dynamic-weather-card",
+  "description": "Dynamic Weather Card for Home Assistant ",
+  "version": "1.0.0",
+  "author": "teuchezh",
+  "homepage": "https://github.com/teuchezh/dynamic-weather-card",
+  "skills": []
+}
