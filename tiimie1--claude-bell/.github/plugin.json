@@ -1,0 +1,9 @@
+{
+  "name": "tiimie1--claude-bell",
+  "displayName": "claude-bell",
+  "description": "Notification sounds for Claude Code \u2014 get audible chimes when tasks finish, need attention, or hit context limits. Pure Go, zero dependencies, macOS native.",
+  "version": "1.0.0",
+  "author": "Tiimie1",
+  "homepage": "https://github.com/Tiimie1/claude-bell",
+  "skills": []
+}
