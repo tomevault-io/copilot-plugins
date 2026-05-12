@@ -4,7 +4,7 @@
   "repo": "sperax-crypto-mcp",
   "description": "MCP server and plugin for Sperax Protocol \u2013 USDs, SPA, veSPA & Demeter on Arbitrum and BNB Chain. Listed on Anthropic's official MCP Registry.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sperax/sperax-crypto-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T15:00:44Z"
+  "distributed_at": "2026-05-12T17:23:05Z"
 }
