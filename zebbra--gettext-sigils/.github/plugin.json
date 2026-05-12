@@ -1,0 +1,9 @@
+{
+  "name": "zebbra--gettext-sigils",
+  "displayName": "gettext_sigils",
+  "description": "An Elixir library that provides a ~t sigil for using Gettext",
+  "version": "1.0.0",
+  "author": "zebbra",
+  "homepage": "https://github.com/zebbra/gettext_sigils",
+  "skills": []
+}
