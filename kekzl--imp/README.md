@@ -7,11 +7,11 @@ High-performance LLM inference engine in C++/CUDA for NVIDIA Blackwell GPUs (RTX
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kekzl/imp](https://github.com/kekzl/imp).
+Original source: `CLAUDE.md` in [kekzl/imp](https://github.com/kekzl/imp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
