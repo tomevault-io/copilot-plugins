@@ -1,0 +1,44 @@
+{
+  "name": "siyuan-agent-bridge",
+  "owner": "alone-tree",
+  "repo": "siyuan-agent-bridge",
+  "description": "\u628a\u601d\u6e90\u7b14\u8bb0\u505a\u6210AI agent\u7684\u77e5\u8bc6\u5e93",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/alone-tree/siyuan-agent-bridge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T20:17:29Z"
+}
