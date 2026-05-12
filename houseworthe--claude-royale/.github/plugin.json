@@ -1,0 +1,9 @@
+{
+  "name": "houseworthe--claude-royale",
+  "displayName": "claude-royale",
+  "description": "AI agents playing Clash Royale autonomously. Claude Code + multi-agent architecture reached 1000+ trophies live on Twitch.",
+  "version": "1.0.0",
+  "author": "houseworthe",
+  "homepage": "https://github.com/houseworthe/claude-royale",
+  "skills": []
+}
