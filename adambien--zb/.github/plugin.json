@@ -1,0 +1,9 @@
+{
+  "name": "adambien--zb",
+  "displayName": "zb",
+  "description": "Lightweight Java build tool with zero external dependencies. Compiles projects, auto-detects main classes, and   generates executable JARs using pure Java 21+. Supports .zb configuration files and aut",
+  "version": "1.0.0",
+  "author": "AdamBien",
+  "homepage": "https://github.com/AdamBien/zb",
+  "skills": []
+}
