@@ -1,0 +1,9 @@
+{
+  "name": "pamelafox--github-repo-maintainer-agent",
+  "displayName": "github-repo-maintainer-agent",
+  "description": "An agent for managing updates to my GitHub repos",
+  "version": "1.0.0",
+  "author": "pamelafox",
+  "homepage": "https://github.com/pamelafox/github-repo-maintainer-agent",
+  "skills": []
+}
