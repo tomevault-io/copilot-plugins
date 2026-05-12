@@ -7,11 +7,11 @@ Production-grade, agent-portable image prompting skill for Nano Banana Pro and N
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Emily2040/nano-banana-image-skill](https://github.com/Emily2040/nano-banana-image-skill).
+Original source: `CLAUDE.md` in [Emily2040/nano-banana-image-skill](https://github.com/Emily2040/nano-banana-image-skill).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
