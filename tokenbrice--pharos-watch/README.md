@@ -7,11 +7,11 @@ Pharos Watch stablecoin dashboard repository
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [TokenBrice/pharos-watch](https://github.com/TokenBrice/pharos-watch).
+Original source: `CLAUDE.md` in [TokenBrice/pharos-watch](https://github.com/TokenBrice/pharos-watch).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
