@@ -1,0 +1,9 @@
+{
+  "name": "kaichen--twitter-web-exporter-obsync",
+  "displayName": "twitter-web-exporter-obsync",
+  "description": "\u8fd9\u662f FORK prinsss/twitter-web-exporter \u7684\u81ea\u52a8\u540c\u6b65 Obsidian \u7248\u672c",
+  "version": "1.0.0",
+  "author": "kaichen",
+  "homepage": "https://github.com/kaichen/twitter-web-exporter-obsync",
+  "skills": []
+}
