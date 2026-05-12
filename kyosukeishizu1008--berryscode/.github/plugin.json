@@ -1,0 +1,9 @@
+{
+  "name": "kyosukeishizu1008--berryscode",
+  "displayName": "berryscode",
+  "description": "Native IDE for the Bevy game engine, built in Bevy + Rust. Scene editor, ECS inspector, AI agent, mobile build, Godot project read-only viewer.",
+  "version": "1.0.0",
+  "author": "KyosukeIshizu1008",
+  "homepage": "https://github.com/KyosukeIshizu1008/berryscode",
+  "skills": []
+}
