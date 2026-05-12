@@ -1,0 +1,9 @@
+{
+  "name": "ominou5--funnel-architect-plugin",
+  "displayName": "funnel-architect-plugin",
+  "description": "Turn Claude into a full-stack sales funnel architect. Build high-converting funnels with optimized UI/UX, page speed, mobile responsiveness, and deploy to any platform.",
+  "version": "1.0.0",
+  "author": "ominou5",
+  "homepage": "https://github.com/ominou5/funnel-architect-plugin",
+  "skills": []
+}
