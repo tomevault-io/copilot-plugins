@@ -1,0 +1,9 @@
+{
+  "name": "neckbeardprince--nes-outage-status-checker",
+  "displayName": "nes-outage-status-checker",
+  "description": "Checks outage events from nespower.com",
+  "version": "1.0.0",
+  "author": "NeckBeardPrince",
+  "homepage": "https://github.com/NeckBeardPrince/nes-outage-status-checker",
+  "skills": []
+}
