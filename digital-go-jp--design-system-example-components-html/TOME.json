@@ -1,0 +1,44 @@
+{
+  "name": "design-system-example-components-html",
+  "owner": "digital-go-jp",
+  "repo": "design-system-example-components-html",
+  "description": "\u30c7\u30b8\u30bf\u30eb\u5e81\u30c7\u30b6\u30a4\u30f3\u30b7\u30b9\u30c6\u30e0\u306e\u30b5\u30f3\u30d7\u30eb\u30b3\u30f3\u30dd\u30fc\u30cd\u30f3\u30c8\uff08HTML\u7248\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/digital-go-jp/design-system-example-components-html",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T00:57:23Z"
+}
