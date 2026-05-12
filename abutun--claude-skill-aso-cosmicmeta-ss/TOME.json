@@ -1,0 +1,44 @@
+{
+  "name": "claude-skill-aso-cosmicmeta-ss",
+  "owner": "abutun",
+  "repo": "claude-skill-aso-cosmicmeta-ss",
+  "description": "ASO Screenshot Generator - High-converting App Store & Google Play screenshots with device frames, benefit-driven headlines, and multi-language support",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/abutun/claude-skill-aso-cosmicmeta-ss",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T23:03:03Z"
+}
