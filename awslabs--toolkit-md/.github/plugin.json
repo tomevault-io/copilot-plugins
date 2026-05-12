@@ -1,0 +1,9 @@
+{
+  "name": "awslabs--toolkit-md",
+  "displayName": "toolkit-md",
+  "description": "CLI tools for maintaining Markdown content like documentation and tutorials",
+  "version": "1.0.0",
+  "author": "awslabs",
+  "homepage": "https://github.com/awslabs/toolkit-md",
+  "skills": []
+}
