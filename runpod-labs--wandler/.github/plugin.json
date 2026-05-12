@@ -1,0 +1,9 @@
+{
+  "name": "runpod-labs--wandler",
+  "displayName": "wandler",
+  "description": "transformers.js inference server",
+  "version": "1.0.0",
+  "author": "runpod-labs",
+  "homepage": "https://github.com/runpod-labs/wandler",
+  "skills": []
+}
