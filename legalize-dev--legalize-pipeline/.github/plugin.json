@@ -1,0 +1,9 @@
+{
+  "name": "legalize-dev--legalize-pipeline",
+  "displayName": "legalize-pipeline",
+  "description": "Legislaci\u00f3n espa\u00f1ola como repositorio Git \u2014 cada ley es un fichero Markdown, cada reforma un commit",
+  "version": "1.0.0",
+  "author": "legalize-dev",
+  "homepage": "https://github.com/legalize-dev/legalize-pipeline",
+  "skills": []
+}
