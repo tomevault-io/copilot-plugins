@@ -1,0 +1,9 @@
+{
+  "name": "mockzilla--mockzilla",
+  "displayName": "mockzilla",
+  "description": "OpenAPI mock server generator with portable and codegen modes, realistic responses, proxying, latency simulation, and request validation",
+  "version": "1.0.0",
+  "author": "mockzilla",
+  "homepage": "https://github.com/mockzilla/mockzilla",
+  "skills": []
+}
