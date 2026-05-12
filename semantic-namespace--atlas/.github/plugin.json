@@ -1,0 +1,9 @@
+{
+  "name": "semantic-namespace--atlas",
+  "displayName": "atlas",
+  "description": "Atlas rethinks how system entities are identified. Query, validate, and visualize your system semantics as a single graph ",
+  "version": "1.0.0",
+  "author": "semantic-namespace",
+  "homepage": "https://github.com/semantic-namespace/atlas",
+  "skills": []
+}
