@@ -1,0 +1,9 @@
+{
+  "name": "rsasaki0109--dynamic-3d-object-removal",
+  "displayName": "dynamic-3d-object-removal",
+  "description": "Numpy-only dynamic object removal for LiDAR point clouds. 3D box crop + temporal filtering, ROS2 realtime node, public AV2 demos.",
+  "version": "1.0.0",
+  "author": "rsasaki0109",
+  "homepage": "https://github.com/rsasaki0109/dynamic-3d-object-removal",
+  "skills": []
+}
