@@ -1,0 +1,9 @@
+{
+  "name": "az-coder-123--firebase-cloud-messenger",
+  "displayName": "firebase-cloud-messenger",
+  "description": "An open-source Flutter application designed to streamline FCM testing using the modern HTTP v1 API. It simplifies OAuth 2.0 authentication via Service Account (.json), manages device tokens, and allow",
+  "version": "1.0.0",
+  "author": "az-coder-123",
+  "homepage": "https://github.com/az-coder-123/firebase-cloud-messenger",
+  "skills": []
+}
