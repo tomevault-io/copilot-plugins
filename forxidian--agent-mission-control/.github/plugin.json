@@ -1,0 +1,9 @@
+{
+  "name": "forxidian--agent-mission-control",
+  "displayName": "agent-mission-control",
+  "description": "Local mission-control dashboard for Codex, OpenCode, Claude Code, and compatible agent sessions.",
+  "version": "1.0.0",
+  "author": "forxidian",
+  "homepage": "https://github.com/forxidian/agent-mission-control",
+  "skills": []
+}
