@@ -1,0 +1,9 @@
+{
+  "name": "nickromanek--clawbridge",
+  "displayName": "clawbridge",
+  "description": "Free, open-source AI agent for browser & desktop automation. Plain English commands, workflow recording, BYOK. No telemetry, no cloud servers needed. ",
+  "version": "1.0.0",
+  "author": "NickRomanek",
+  "homepage": "https://github.com/NickRomanek/clawbridge",
+  "skills": []
+}
