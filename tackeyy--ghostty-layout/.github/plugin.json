@@ -1,0 +1,9 @@
+{
+  "name": "tackeyy--ghostty-layout",
+  "displayName": "ghostty-layout",
+  "description": "CLI tool to apply split layouts to Ghostty terminal",
+  "version": "1.0.0",
+  "author": "tackeyy",
+  "homepage": "https://github.com/tackeyy/ghostty-layout",
+  "skills": []
+}
