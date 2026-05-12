@@ -4,7 +4,7 @@
   "repo": "dory",
   "description": "One memory layer for every AI agent. Local-first, markdown source of truth, and CLI/HTTP/MCP native. Your agent forgot who you are. Again. Dory fixes that.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/deeflect/dory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T11:17:46Z"
+  "distributed_at": "2026-05-12T00:18:25Z"
 }
