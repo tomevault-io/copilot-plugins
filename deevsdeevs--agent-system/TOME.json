@@ -4,7 +4,7 @@
   "repo": "agent-system",
   "description": "Just a set of claude/codex skills to be 10x Deevs' engineer",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DeevsDeevs/agent-system",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T20:34:27Z"
+  "distributed_at": "2026-05-12T21:14:28Z"
 }
