@@ -1,0 +1,44 @@
+{
+  "name": "SkillsMaster",
+  "owner": "zhls-ayl",
+  "repo": "SkillsMaster",
+  "description": "SkillsMaster \u662f\u4e00\u4e2a\u9762\u5411 macOS \u7684\u539f\u751f\u5e94\u7528\uff0c\u7528\u7edf\u4e00\u7684\u56fe\u5f62\u754c\u9762\u7ba1\u7406\u591a\u79cd AI \u7f16\u7a0b\u4ee3\u7406\u7684 Skills\u3002\u5b83\u805a\u7126\u4e8e **\u626b\u63cf\u3001\u5c55\u793a\u3001\u5b89\u88c5\u3001\u7f16\u8f91\u3001\u66f4\u65b0\u3001\u540c\u6b65**\uff0c\u628a\u672c\u5730\u76ee\u5f55\u3001symbolic link / physical copy\u3001lock file \u4e0e Repository \u6765\u6e90\u6574\u5408\u6210\u4e00\u5957\u53ef\u7ef4\u62a4\u7684\u5de5\u4f5c\u6d41\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zhls-ayl/SkillsMaster",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T20:41:45Z"
+}
