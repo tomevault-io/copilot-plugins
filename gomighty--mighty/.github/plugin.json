@@ -1,0 +1,9 @@
+{
+  "name": "gomighty--mighty",
+  "displayName": "mighty",
+  "description": "Mighty is a framework for building apps with Astro and the backend of your choice.",
+  "version": "1.0.0",
+  "author": "gomighty",
+  "homepage": "https://github.com/gomighty/mighty",
+  "skills": []
+}
