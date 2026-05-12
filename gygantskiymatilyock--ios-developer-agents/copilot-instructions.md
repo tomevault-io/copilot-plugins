@@ -1,63 +1,51 @@
-## ios-security-auditor
+## ios-developer-agents
 
-> Security audit for iOS projects (OWASP Mobile Top 10 2024)
+> This repository contains AI agent prompts for iOS development workflows. These agents help validate, audit, and improve iOS applications.
 
+# iOS Developer Agents
 
-# iOS Security Auditor
+This repository contains AI agent prompts for iOS development workflows. These agents help validate, audit, and improve iOS applications.
 
-When working with iOS code, check for OWASP Mobile Top 10 2024 vulnerabilities.
+## Available Agents
 
-## Data Storage (M9)
+### App Store Validator
+Pre-validates iOS apps against Apple's App Store Review Guidelines before submission. Catches rejection-worthy issues early.
 
-Flag insecure storage:
-- Sensitive data in UserDefaults (tokens, passwords, PII, API keys)
-- Sensitive data in plist files or bundle resources
-- Missing Keychain usage for credentials
-- Incorrect kSecAttrAccessible flags (avoid kSecAttrAccessibleAlways)
-- Unprotected files in Documents/tmp without .fileProtection
-- Unencrypted Core Data stores with sensitive data
+**Use when:** Preparing to submit to App Store Connect
 
-## Hardcoded Secrets (M1)
+### Security Auditor
+Comprehensive security audit against OWASP Mobile Top 10 2024. Detects vulnerabilities, hardcoded secrets, and insecure configurations.
 
-Scan for exposed credentials:
-- API keys hardcoded in source
-- Client secrets, tokens, passwords in code
-- Private keys or certificates in bundle
-- Database connection strings
-- Secrets in Info.plist or xcconfig files
-- Test credentials persisting to release builds
+**Use when:** Before release, after adding authentication, or during security reviews
 
-## Network Security (M5)
+### Accessibility Validator
+Audits apps for accessibility compliance with Apple HIG, WCAG 2.2, VoiceOver, and Dynamic Type standards.
 
-Check network configuration:
-- NSAllowsArbitraryLoads disabled (ATS enabled)
-- No overly permissive exception domains
-- TLS 1.2+ enforcement
-- No ServerTrustPolicy.disableEvaluation
-- No allowsInvalidSSLCertificate flags
-- Sensitive data not in URL query parameters
+**Use when:** Building UI, before releases, or when improving accessibility
 
-## Authentication (M3)
+## Usage with Claude Code
 
-Review auth implementation:
-- Token storage uses Keychain
-- Server-side authorization for protected resources
-- Session invalidation on logout
-- No client-side only auth checks
+Use the slash commands to invoke agents:
 
-## Input Validation (M4)
+- `/validate-appstore` - Run App Store validation on the current project
+- `/audit-security` - Run security audit on the current project
+- `/audit-accessibility` - Run accessibility audit on the current project
 
-Check for injection vulnerabilities:
-- Core Data predicates using parameterized queries
-- WKWebView evaluateJavaScript sanitizes input
-- URL scheme handlers validate parameters
-- File operations validate paths (no ../ traversal)
+## Agent Files
 
-## Output
+Source prompts are in `agents/[name]/[name].md`:
+- `agents/app-store-validator/app-store-validator.md`
+- `agents/security-auditor/security-auditor.md`
+- `agents/accessibility-validator/accessibility-validator.md`
 
-Flag issues by severity:
-- CRITICAL: Immediate fix required (cite OWASP Mxx)
-- HIGH/MEDIUM/LOW: With remediation steps
+## For iOS Projects Using These Agents
+
+When using these agents on your iOS project, provide context about:
+- Core app functionality
+- Authentication methods
+- Third-party SDKs used
+- Sensitive data handled
+- Compliance requirements (HIPAA, PCI-DSS, etc.)
 
 ---
 > Source: [gygantskiyMatilyock/ios-developer-agents](https://github.com/gygantskiyMatilyock/ios-developer-agents) — distributed by [TomeVault](https://tomevault.io).
