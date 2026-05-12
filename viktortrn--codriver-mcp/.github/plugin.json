@@ -1,0 +1,9 @@
+{
+  "name": "viktortrn--codriver-mcp",
+  "displayName": "codriver-mcp",
+  "description": "CoDriver - AI-powered Desktop Automation via MCP. Lets Claude control any desktop application through screenshots, accessibility trees, and input injection. The co-driver for human-AI collaboration.",
+  "version": "1.0.0",
+  "author": "ViktorTrn",
+  "homepage": "https://github.com/ViktorTrn/codriver-mcp",
+  "skills": []
+}
