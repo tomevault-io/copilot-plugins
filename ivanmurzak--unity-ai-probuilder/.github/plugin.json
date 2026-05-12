@@ -1,0 +1,9 @@
+{
+  "name": "ivanmurzak--unity-ai-probuilder",
+  "displayName": "Unity-AI-ProBuilder",
+  "description": "AI-powered 3D modeling tools for Unity ProBuilder. Enables AI assistants to create and manipulate editable meshes through natural language commands. Create primitive shapes, extrude faces, bevel edges",
+  "version": "1.0.0",
+  "author": "IvanMurzak",
+  "homepage": "https://github.com/IvanMurzak/Unity-AI-ProBuilder",
+  "skills": []
+}
