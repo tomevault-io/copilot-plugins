@@ -1,0 +1,9 @@
+{
+  "name": "zeviance--moltworker-zero",
+  "displayName": "moltworker-zero",
+  "description": "Run ZeroClaw (Fast, small, and fully autonomous AI assistant infrastructure) on Cloudflare Workers",
+  "version": "1.0.0",
+  "author": "zeviance",
+  "homepage": "https://github.com/zeviance/moltworker-zero",
+  "skills": []
+}
