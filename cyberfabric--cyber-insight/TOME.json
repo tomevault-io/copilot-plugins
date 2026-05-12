@@ -4,7 +4,7 @@
   "repo": "cyber-insight",
   "description": "Cyber Insight defines roles and activities, connects to your systems through ready-to-use connectors (including AI tools), and measures productivity at individual, team, and organization levels. Drill from headline metrics down to source data.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cyberfabric/cyber-insight",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T16:38:33Z"
+  "distributed_at": "2026-05-12T22:44:47Z"
 }
