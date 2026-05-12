@@ -1,0 +1,9 @@
+{
+  "name": "devolutions--pinget",
+  "displayName": "pinget",
+  "description": "Portable WinGet (pinget)",
+  "version": "1.0.0",
+  "author": "Devolutions",
+  "homepage": "https://github.com/Devolutions/pinget",
+  "skills": []
+}
