@@ -1,0 +1,9 @@
+{
+  "name": "abdenasser--neohtop-cli",
+  "displayName": "neohtop-cli",
+  "description": "All the power of NeoHtop, right in your terminal. Real-time CPU sparklines, memory bars, process tree view, search, filters, themes & more.",
+  "version": "1.0.0",
+  "author": "Abdenasser",
+  "homepage": "https://github.com/Abdenasser/neohtop-cli",
+  "skills": []
+}
