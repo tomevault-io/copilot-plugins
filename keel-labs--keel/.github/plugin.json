@@ -1,0 +1,9 @@
+{
+  "name": "keel-labs--keel",
+  "displayName": "keel",
+  "description": "An AI assistant whose memory belongs to you. Local-first Mac app, plain markdown workspace, bring your own model.",
+  "version": "1.0.0",
+  "author": "Keel-Labs",
+  "homepage": "https://github.com/Keel-Labs/keel",
+  "skills": []
+}
