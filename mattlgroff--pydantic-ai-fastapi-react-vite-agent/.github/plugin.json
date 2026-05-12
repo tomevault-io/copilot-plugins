@@ -1,0 +1,9 @@
+{
+  "name": "mattlgroff--pydantic-ai-fastapi-react-vite-agent",
+  "displayName": "pydantic-ai-fastapi-react-vite-agent",
+  "description": "A simple full-stack agent with Pydantic AI + FastAPI on the backend and React TypeScript + Vite on the frontend. Using uv and bun.",
+  "version": "1.0.0",
+  "author": "mattlgroff",
+  "homepage": "https://github.com/mattlgroff/pydantic-ai-fastapi-react-vite-agent",
+  "skills": []
+}
