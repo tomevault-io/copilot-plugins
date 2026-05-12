@@ -1,0 +1,9 @@
+{
+  "name": "knqiufan--misaka",
+  "displayName": "Misaka",
+  "description": "Misaka \u662f\u4e00\u4e2a\u57fa\u4e8e Python + Flet\uff08Flutter\uff09\u6784\u5efa\u7684 Claude Code \u684c\u9762 GUI \u5ba2\u6237\u7aef\u3002Misaka is a desktop GUI client for Claude Code built with Python + Flet (Flutter).",
+  "version": "1.0.0",
+  "author": "knqiufan",
+  "homepage": "https://github.com/knqiufan/Misaka",
+  "skills": []
+}
