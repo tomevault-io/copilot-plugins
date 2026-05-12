@@ -4,7 +4,7 @@
   "repo": "clawforge",
   "description": "One dashboard for all your AI assistants",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ClawForgeAI/clawforge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T11:16:28Z"
+  "distributed_at": "2026-05-12T08:44:30Z"
 }
