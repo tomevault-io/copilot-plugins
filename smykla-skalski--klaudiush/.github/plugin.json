@@ -1,0 +1,9 @@
+{
+  "name": "smykla-skalski--klaudiush",
+  "displayName": "klaudiush",
+  "description": "A validation dispatcher for Claude Code hooks that enforces git workflow standards, commit message conventions, and code quality rules",
+  "version": "1.0.0",
+  "author": "smykla-skalski",
+  "homepage": "https://github.com/smykla-skalski/klaudiush",
+  "skills": []
+}
