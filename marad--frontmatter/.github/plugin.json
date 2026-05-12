@@ -1,0 +1,9 @@
+{
+  "name": "marad--frontmatter",
+  "displayName": "frontmatter",
+  "description": "A powerful CLI tool for managing YAML frontmatter in text files",
+  "version": "1.0.0",
+  "author": "marad",
+  "homepage": "https://github.com/marad/frontmatter",
+  "skills": []
+}
