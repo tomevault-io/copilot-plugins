@@ -1,0 +1,9 @@
+{
+  "name": "dsebastien--obsidian-hidden-folders-access",
+  "displayName": "obsidian-hidden-folders-access",
+  "description": "Shows hidden folders in Obsidian and ensures that all the notes in those folders are also indexed",
+  "version": "1.0.0",
+  "author": "dsebastien",
+  "homepage": "https://github.com/dsebastien/obsidian-hidden-folders-access",
+  "skills": []
+}
