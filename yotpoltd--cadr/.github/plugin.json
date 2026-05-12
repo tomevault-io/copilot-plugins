@@ -1,0 +1,9 @@
+{
+  "name": "yotpoltd--cadr",
+  "displayName": "cADR",
+  "description": "\ud83e\udd16 AI-powered ADR generation - Automatically capture and document architectural decisions as you code ",
+  "version": "1.0.0",
+  "author": "YotpoLtd",
+  "homepage": "https://github.com/YotpoLtd/cADR",
+  "skills": []
+}
