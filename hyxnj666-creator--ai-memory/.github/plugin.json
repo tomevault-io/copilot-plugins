@@ -1,0 +1,9 @@
+{
+  "name": "hyxnj666-creator--ai-memory",
+  "displayName": "ai-memory",
+  "description": "Extract structured knowledge from Cursor & Claude Code conversations into git-trackable Markdown files",
+  "version": "1.0.0",
+  "author": "hyxnj666-creator",
+  "homepage": "https://github.com/hyxnj666-creator/ai-memory",
+  "skills": []
+}
