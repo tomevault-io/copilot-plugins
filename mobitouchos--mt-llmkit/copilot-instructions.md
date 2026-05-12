@@ -1,0 +1,133 @@
+## mt-llmkit
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+**mt_llmkit** is a Flutter plugin that enables running Large Language Models (LLMs) locally on Android and iOS using [llamadart](https://pub.dev/packages/llamadart) (`0.6.10`). It provides real-time streaming inference, performance metrics, cloud AI chat providers, and a fully local RAG pipeline.
+
+## Commands
+
+```bash
+# Install dependencies
+flutter pub get
+
+# Run all tests
+flutter test
+
+# Run a specific test file
+flutter test test/src/core/performance_metrics_test.dart
+
+# Run tests with coverage
+flutter test --coverage
+
+# Lint
+flutter analyze
+
+# Format
+dart format lib/ test/ example/lib/
+
+# Run the example app
+cd example && flutter pub get && flutter run
+```
+
+## Architecture
+
+### Public API
+
+`lib/llmcpp.dart` is the single export file. It re-exports everything from `src/` plus `LlamaImageContent`, `LlamaTextContent`, `LlamaContentPart`, `GpuBackend`, `LoraAdapterConfig`, `GenerationGrammarTrigger` from `llamadart`.
+
+### Class Hierarchy
+
+```
+LlmInterface (abstract interface)               ← lib/src/core/llm_interface.dart
+  └─ LocalModel                                 ← lib/src/gguf/local_model.dart (public API)
+       ├─ LlmModelIsolated  → Dart Isolate      ← lib/src/models/llm_model_isolated.dart
+       └─ LlmModelStandard  → in-process        ← lib/src/models/llm_model_standard.dart
+```
+
+`LocalModel` selects the backend via `ModelBackend` enum (`isolate` | `inProcess`). Both share the same lifecycle: `loadModel(path)` → generate → `dispose()`.
+
+### Three Generation Methods
+
+1. `sendPrompt(prompt) → Stream<String>` — raw token stream
+2. `sendPromptComplete(prompt) → Future<String>` — full response as a single string
+3. `sendPromptStream(prompt) → Stream<StreamingChunk>` — **recommended**: live streaming + real-time metrics
+
+All three accept an optional `images` parameter for vision models.
+
+`StreamingChunk` carries: `text`, `metrics` (`PerformanceMetrics`), and `isFinal` flag.
+
+### Configuration
+
+`LlmConfig` is an immutable config object (`lib/src/core/llm_config.dart`). Key parameters:
+
+| Parameter | Default | Description |
+|---|---|---|
+| `temp` | 0.72 | Sampling temperature |
+| `nGpuLayers` | 64 | GPU layers offloaded |
+| `nCtx` | 8192 | Context window in tokens |
+| `nBatch` | 4096 | Batch size |
+| `nThreads` | 6 | CPU threads |
+| `topK` | 64 | Top-K sampling |
+| `topP` | 0.95 | Top-P sampling |
+| `penaltyRepeat` | 1.1 | Repetition penalty |
+| `mmprojPath` | null | Path to mmproj GGUF for vision |
+| `chatTemplate` | null | Custom Jinja chat template string; `null` uses the model's embedded template |
+
+### Prompt Format
+
+Override the model's built-in chat template via `LlmConfig.chatTemplate` (a raw Jinja/GGUF template string). When `null` the model file's embedded template is used automatically — no manual format selection required.
+
+### System message support
+
+`LlmModelIsolated` decodes `\x01SYS\x01`/`\x01USR\x01` markers in `sendPrompt*` calls to pass proper `[system, user]` messages to the underlying engine. `RagPipeline` uses this to inject the RAG system prompt.
+
+### Performance Metrics
+
+`PerformanceMetrics` (`lib/src/core/performance_metrics.dart`) tracks `tokensGenerated`, `durationMs`, `tokensPerSecond`, `msPerToken`. Counts are exact: each llamadart callback emits one token, incremented via `+= 1` in the streaming loop.
+
+### Cloud AI Providers
+
+`AIChatProvider` interface in `lib/src/api/ai_chat_provider.dart`. Implementations:
+
+- `OpenAIChatProvider`, `GeminiChatProvider`, `ClaudeChatProvider`, `MistralChatProvider`
+
+Use `AIChatProviderFactory.create(AIChatProviderType)` to instantiate. Exceptions are in `lib/src/api/chat_exceptions.dart`.
+
+### RAG Pipeline
+
+`RagEngine` (`lib/src/rag/rag_engine.dart`) uses two standalone components:
+
+- `LlamaEmbeddingProvider` — standalone embed isolate (CPU-only)
+- `LocalModel` — generation isolate (GPU configured)
+
+`RagPipeline` injects system + user content as `\x01SYS\x01{system}\x01USR\x01{question}` via `sendPromptStream`.
+
+### Native Libraries
+
+- Android: pre-compiled `.so` files in `android/src/main/jniLibs/{arm64-v8a,x86_64}/`
+- iOS: native frameworks via CocoaPods (`ios/llmcpp.podspec`)
+- Loading managed transparently by `llamadart` via Dart Build Hooks
+
+## Test Infrastructure
+
+Tests live in:
+
+```
+test/
+├── helpers/test_helpers.dart          ← TestHelpers, TestConfigBuilder, shared fixtures
+├── src/api/                           ← cloud provider tests
+├── src/core/                          ← LlmConfig, PerformanceMetrics tests
+└── src/models/                        ← LlmModelBase/Isolated/Standard tests
+```
+
+`flutter analyze` must show **0 issues**; `flutter test` must pass all tests.
+
+---
+> Source: [mobitouchOS/mt_llmkit](https://github.com/mobitouchOS/mt_llmkit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
