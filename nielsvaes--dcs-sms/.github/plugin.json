@@ -1,0 +1,9 @@
+{
+  "name": "nielsvaes--dcs-sms",
+  "displayName": "dcs-sms",
+  "description": "Lightweight DCS World scripting framework + DCS Mission Editor improvements",
+  "version": "1.0.0",
+  "author": "nielsvaes",
+  "homepage": "https://github.com/nielsvaes/dcs-sms",
+  "skills": []
+}
