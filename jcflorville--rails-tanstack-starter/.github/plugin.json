@@ -1,0 +1,9 @@
+{
+  "name": "jcflorville--rails-tanstack-starter",
+  "displayName": "rails-tanstack-starter",
+  "description": "Production-ready monorepo template: Rails 8 API + Vite/React/TypeScript/TanStack Router & Query + Tailwind + Kamal 2 deploy",
+  "version": "1.0.0",
+  "author": "jcflorville",
+  "homepage": "https://github.com/jcflorville/rails-tanstack-starter",
+  "skills": []
+}
