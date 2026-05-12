@@ -1,0 +1,44 @@
+{
+  "name": "prompt-refiner",
+  "owner": "JacobHuang91",
+  "repo": "prompt-refiner",
+  "description": "\ud83d\ude80 Lightweight Python library for building production LLM applications with smart context management and automatic token optimization. Save 10-20% on API costs while fitting RAG docs, chat history, and prompts into your token budget.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JacobHuang91/prompt-refiner",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T21:34:35Z"
+}
