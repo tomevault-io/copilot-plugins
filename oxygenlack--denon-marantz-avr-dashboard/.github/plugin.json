@@ -1,0 +1,9 @@
+{
+  "name": "oxygenlack--denon-marantz-avr-dashboard",
+  "displayName": "Denon-Marantz-AVR-Dashboard",
+  "description": "Real-time web dashboard for Denon/Marantz AVR receivers \u2014 React + FastAPI, telnet control, HEOS media support",
+  "version": "1.0.0",
+  "author": "OxygenLack",
+  "homepage": "https://github.com/OxygenLack/Denon-Marantz-AVR-Dashboard",
+  "skills": []
+}
