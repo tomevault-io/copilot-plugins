@@ -1,0 +1,44 @@
+{
+  "name": "Octovalve",
+  "owner": "woaihekele",
+  "repo": "Octovalve",
+  "description": "Secure the bridge between LLMs and your servers. Octovalve provides a policy-driven remote gateway to audit, validate, and control every tool call before execution.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/woaihekele/Octovalve",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T19:00:53Z"
+}
