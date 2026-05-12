@@ -1,0 +1,9 @@
+{
+  "name": "watat83--document-chat-system",
+  "displayName": "document-chat-system",
+  "description": "Open-source document chat platform with semantic search, RAG (Retrieval Augmented Generation), and multi-provider AI support (OpenRouter, OpenAI, ImageRouter).",
+  "version": "1.0.0",
+  "author": "watat83",
+  "homepage": "https://github.com/watat83/document-chat-system",
+  "skills": []
+}
