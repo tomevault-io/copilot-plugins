@@ -1,0 +1,9 @@
+{
+  "name": "pailat--adk-llm-bridge",
+  "displayName": "adk-llm-bridge",
+  "description": "Connect Google ADK TypeScript to Vercel AI Gateway and 100+ LLM models",
+  "version": "1.0.0",
+  "author": "pailat",
+  "homepage": "https://github.com/pailat/adk-llm-bridge",
+  "skills": []
+}
