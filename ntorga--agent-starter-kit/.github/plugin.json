@@ -1,0 +1,9 @@
+{
+  "name": "ntorga--agent-starter-kit",
+  "displayName": "agent-starter-kit",
+  "description": "The scaffold for your multi-model, personalized Natural Language AI Harness (NLAH) .",
+  "version": "1.0.0",
+  "author": "ntorga",
+  "homepage": "https://github.com/ntorga/agent-starter-kit",
+  "skills": []
+}
