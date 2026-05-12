@@ -1,0 +1,9 @@
+{
+  "name": "aqueeb--confluence2md",
+  "displayName": "confluence2md",
+  "description": "Convert Confluence MIME exports (.doc) to clean Markdown",
+  "version": "1.0.0",
+  "author": "aqueeb",
+  "homepage": "https://github.com/aqueeb/confluence2md",
+  "skills": []
+}
