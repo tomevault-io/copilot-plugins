@@ -7,11 +7,11 @@ GPU-accelerated CLI tool for AI agents, to control computer via screen, mouse, a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yaroshevych/desktopctl](https://github.com/yaroshevych/desktopctl).
+Original source: `CLAUDE.md` in [yaroshevych/desktopctl](https://github.com/yaroshevych/desktopctl).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
