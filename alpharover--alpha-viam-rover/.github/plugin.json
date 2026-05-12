@@ -1,0 +1,9 @@
+{
+  "name": "alpharover--alpha-viam-rover",
+  "displayName": "alpha_viam_rover",
+  "description": "testing and proving the bot bashing method for robotics",
+  "version": "1.0.0",
+  "author": "alpharover",
+  "homepage": "https://github.com/alpharover/alpha_viam_rover",
+  "skills": []
+}
