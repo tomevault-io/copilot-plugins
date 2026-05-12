@@ -1,0 +1,9 @@
+{
+  "name": "shokai--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Claude Code Agent Skills",
+  "version": "1.0.0",
+  "author": "shokai",
+  "homepage": "https://github.com/shokai/agent-skills",
+  "skills": []
+}
