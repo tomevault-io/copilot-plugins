@@ -1,0 +1,9 @@
+{
+  "name": "sunwood-ai-labs--codex-remote-control-lab",
+  "displayName": "codex-remote-control-lab",
+  "description": "Local-first Codex app-server and token-protected LAN phone bridge experiments",
+  "version": "1.0.0",
+  "author": "Sunwood-ai-labs",
+  "homepage": "https://github.com/Sunwood-ai-labs/codex-remote-control-lab",
+  "skills": []
+}
