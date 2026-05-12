@@ -1,68 +1,114 @@
-## mermaid-diagram-preset
+## dkg
 
-> Mermaid sequence diagram preset for all Markdown docs in this repo. Gives rectangles and notes enough breathing room that they don't overlap the arrows around them.
+> This repository is bound to a **DKG context graph** (`dkg-code-project`) used for shared project memory across all AI coding agents working on it. Cursor, Claude Code, and any other MCP-aware agent should follow the same protocol so the graph converges rather than fragments.
 
+# Agent Instructions
 
-# Mermaid Sequence Diagram Preset
+This repository is bound to a **DKG context graph** (`dkg-code-project`) used for shared project memory across all AI coding agents working on it. Cursor, Claude Code, and any other MCP-aware agent should follow the same protocol so the graph converges rather than fragments.
 
-Every Mermaid **sequence diagram** in this repo MUST start with the shared init directive below. Mermaid's defaults are too tight: `rect` borders collide with adjacent arrows, stacked `Note` pills overlap each other, and multi-participant diagrams get cramped horizontally.
+For Cursor-specific session-start guidance the same content lives in [`.cursor/rules/dkg-annotate.mdc`](.cursor/rules/dkg-annotate.mdc) with `alwaysApply: true`. This file is the canonical instructions and is read by Claude Code, Continue, OpenAI Codex CLI, and any other tool that honours `AGENTS.md`.
 
-## The preset
+## What this graph is
 
-```
-%%{init: { 'sequence': { 'messageMargin': 55, 'noteMargin': 15, 'boxMargin': 15, 'actorMargin': 70 } } }%%
-sequenceDiagram
-    ...
-```
+- **Subgraphs**: `chat`, `tasks`, `decisions`, `code`, `github`, `meta` — each a distinct slice of project memory.
+- **Capture hook** at `packages/mcp-dkg/hooks/capture-chat.mjs` writes every chat turn into `chat` and gossips it to all subscribed nodes within ~5s. Wired via `.cursor/hooks.json` and `~/.claude/settings.json`.
+- **MCP server** at `packages/mcp-dkg` exposes ~14 read+write+annotation tools to any MCP-aware agent.
+- **Project ontology** lives at `meta/project-ontology` — fetch via `dkg_get_ontology`. The formal Turtle/OWL artifact + a markdown agent guide.
 
-For diagrams with **nested `rect` blocks** (e.g., phase-based lifecycle diagrams), bump `boxMargin` to `20`:
+## The annotation protocol
 
-```
-%%{init: { 'sequence': { 'messageMargin': 55, 'noteMargin': 15, 'boxMargin': 20, 'actorMargin': 70 } } }%%
-```
+After **every substantive turn** (anything that reasoned, proposed, examined, or referenced something — basically every turn that wasn't a one-line acknowledgement), call **`dkg_annotate_turn`** exactly once. The shared chat sub-graph is project memory, not a "DKG-relevant search index" — over-eagerness is not a failure mode; under-coverage is.
 
-## Why these numbers
+**Always pass `forSession`.** The session ID is in the `additionalContext` injected at session start ("Your current session ID: `<id>`"). The tool queues the annotation as a pending entity; the capture hook applies it to your actual turn URI when it writes the next `chat:Turn` for the session. Race-free regardless of timing — works whether you call it during your response composition (before the hook fires) or after. Don't try to predict your own turn URI; it doesn't exist yet at the moment you call this tool.
 
-| Setting         | Default | Preset | Effect |
-| --------------- | ------- | ------ | ------ |
-| `messageMargin` | 35      | **55** | Vertical spacing between arrows. Main anti-overlap lever. |
-| `noteMargin`    | 10      | **15** | Padding inside `Note` pills so text doesn't crowd borders. |
-| `boxMargin`     | 10      | **15** (20 for nested `rect`) | Space around `rect` blocks so they don't kiss neighboring arrows. |
-| `actorMargin`   | 50      | **70** | Horizontal spacing between participant columns. |
+Minimum viable annotation:
 
-## Companion rules (learned the hard way)
-
-These rules keep diagrams readable beyond the preset:
-
-- **Do not use `<br/>` inside notes.** Split into multiple `Note over X:` lines or collapse into a single sentence. `<br/>` works but produces hard-to-read dense pills.
-- **Avoid stacking 3+ consecutive `Note over X:` on the same participant.** Mermaid renders each as a separate pill; they frequently overlap neighboring `rect` borders. Collapse into one concise sentence, or intersperse with arrows.
-- **Do not indent multi-line math inside a `Note`** (e.g., `"                      = 840e18 · 1e18 / 8000"`). Mermaid preserves the whitespace and widens the pill, causing horizontal collisions. Put the math on one line or use a `pre`-style code block outside the diagram.
-
-- **Avoid `=` inside participant aliases.** `participant X as X (id=42)` throws a parse error because Mermaid interprets `=` as syntax. Either drop the `=` from the display label or quote the alias: `participant X as "X (id=42)"`. Parentheses alone (e.g., `Token (TRAC)`) are fine.
-- **Use `---` text decoration for phase separators**, not nested `rect` titles:
-
-  ```
-  Note over A,Z: --- PHASE 3 — lock expires, nothing happens on-chain ---
-  ```
-
-  Cleaner than `Note over A,Z: PHASE 3\nlock expires\nnothing happens on-chain`.
-
-- **Prefer `autonumber`** on sequence diagrams longer than ~6 arrows, and reference the autonumber indices in a line-by-line walk-through below the diagram.
-
-## Flowchart / graph diagrams
-
-These settings are sequence-specific. For `flowchart` / `graph` diagrams, the equivalent preset is:
-
-```
-%%{init: { 'flowchart': { 'nodeSpacing': 50, 'rankSpacing': 60, 'curve': 'basis' } } }%%
-flowchart TD
-    ...
+```jsonc
+dkg_annotate_turn({
+  forSession: "<session id from additionalContext>",
+  topics:   [<2-3 short topic strings>],   // chat:topic literals
+  mentions: [<URIs found via dkg_search>], // chat:mentions edges
+})
 ```
 
-## Reference
+Add when the turn warrants:
 
-- Canonical example in this repo: `packages/evm-module/docs/D26_TIME_ACCURATE_STAKING.md` §5.1-5.5.
-- Mermaid config docs: https://mermaid.js.org/config/schema-docs/config.html#sequencediagramconfig
+- `examines` — entities the turn analysed in detail (vs just citing in passing)
+- `concludes` — `:Finding` entities the turn produced (claims worth preserving)
+- `asks` — `:Question` entities left open
+- `proposedDecisions` — sugar over `dkg_propose_decision`; freshly mints a Decision and links via `chat:proposes`
+- `proposedTasks` — sugar over `dkg_add_task`
+- `comments` — sugar over `dkg_comment` (against any existing entity)
+- `vmPublishRequests` — sugar over `dkg_request_vm_publish` (writes a marker; **never** publishes on-chain)
+
+## Look-before-mint protocol (the convergence rule)
+
+This is the single most important rule. It's how parallel agents converge on the same URIs instead of fragmenting the graph.
+
+Before minting any new `urn:dkg:<type>:<slug>` URI:
+
+1. Compute the **normalised slug**: lowercase → ASCII-fold → strip stopwords (`the/a/an/of/for/and/or/to/in/on/with`) → hyphenate → ≤60 chars.
+2. Call `dkg_search` with the **unnormalised label** (the daemon does its own fuzzy match).
+3. If any returned entity's normalised slug matches yours → **REUSE** that URI.
+4. Otherwise mint `urn:dkg:<type>:<slug>` per the patterns below.
+
+**Never fabricate URIs** for entities you didn't discover via `dkg_search`. If unsure, prefer minting fresh and let humans (or the future `dkg_propose_same_as` reconciliation flow) merge duplicates via `owl:sameAs`.
+
+## URI patterns
+
+```
+urn:dkg:concept:<slug>              free-text concept (skos:Concept)
+urn:dkg:topic:<slug>                broad topical bucket
+urn:dkg:question:<slug>             open question
+urn:dkg:finding:<slug>              preserved claim/observation
+urn:dkg:decision:<slug>             architectural decision (coding-project)
+urn:dkg:task:<slug>                 work item (coding-project)
+urn:dkg:agent:<slug>                agent identity (usually <framework>-<operator>)
+urn:dkg:github:repo:<owner>/<name>  GitHub repository
+urn:dkg:github:pr:<owner>/<name>/<num>
+urn:dkg:code:file:<pkg>/<path>
+urn:dkg:code:package:<name>
+```
+
+## Tool reference
+
+Read tools (read-only, no side effects):
+
+- `dkg_list_projects` — list every CG this node knows about
+- `dkg_list_subgraphs` — show counts per sub-graph in a project
+- `dkg_sparql` — arbitrary SELECT/CONSTRUCT/ASK; layer ∈ {wm, swm, union, vm}
+- `dkg_get_entity` — describe one entity + 1-hop neighbourhood
+- `dkg_search` — keyword search across labels + body text (use this in look-before-mint)
+- `dkg_list_activity` — recent activity feed (decisions, tasks, turns) with attribution
+- `dkg_get_agent` — agent profile + authored counts
+- `dkg_get_chat` — captured turns filterable by session/agent/keyword/time
+- `dkg_get_ontology` — the project's ontology + agent guide (call once per session)
+
+Write tools (auto-promoted to SWM; humans gate VM):
+
+- `dkg_annotate_turn` — **the main per-turn surface**; batches everything below
+- `dkg_propose_decision`, `dkg_add_task`, `dkg_comment`, `dkg_request_vm_publish`, `dkg_set_session_privacy` — the underlying primitives, available standalone for explicit "file a decision" / "open a task" requests
+
+## Things to NOT do
+
+- **Don't fabricate URIs.** Every URI in `mentions` must come from `dkg_search` or be freshly minted via the look-before-mint protocol.
+- **Don't skip turns to "save tokens".** One annotation call per turn is cheap (~few hundred ms). Coverage wins.
+- **Don't publish to VM via MCP.** That's `dkg_request_vm_publish` (marker for human review), not `/api/shared-memory/publish`. The agent is never the gating actor for on-chain commitment.
+- **Don't normalise slugs in your `dkg_search` query.** Pass the unnormalised label so the daemon's fuzzy match has the most signal; only normalise when comparing for reuse-vs-mint.
+
+## Cheat sheet
+
+```
+After every substantive turn:
+1. dkg_search "<some label from the turn>" → reuse-or-mint URIs
+2. dkg_annotate_turn({
+     topics: [...], mentions: [...],
+     examines?, concludes?, asks?,
+     proposedDecisions?, proposedTasks?, comments?
+   })
+```
+
+That's it. The graph grows; teammates' agents see your work in seconds; humans ratify on-chain when worthwhile.
 
 ---
 > Source: [OriginTrail/dkg](https://github.com/OriginTrail/dkg) — distributed by [TomeVault](https://tomevault.io).
