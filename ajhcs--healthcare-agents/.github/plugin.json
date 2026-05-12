@@ -1,0 +1,9 @@
+{
+  "name": "ajhcs--healthcare-agents",
+  "displayName": "healthcare-agents",
+  "description": "Portable prompt and SKILL.md pack with 51 specialist AI agents for US healthcare administration workflows.",
+  "version": "1.0.0",
+  "author": "ajhcs",
+  "homepage": "https://github.com/ajhcs/healthcare-agents",
+  "skills": []
+}
