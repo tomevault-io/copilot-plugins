@@ -7,11 +7,11 @@ Kubernetes helm chart for OpenClaw (former Moltbot/Clawdbot)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [feiskyer/openclaw-kubernetes](https://github.com/feiskyer/openclaw-kubernetes).
+Original source: `CLAUDE.md` in [feiskyer/openclaw-kubernetes](https://github.com/feiskyer/openclaw-kubernetes).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
