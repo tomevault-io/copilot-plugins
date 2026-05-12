@@ -1,0 +1,9 @@
+{
+  "name": "nick-baumann--milton",
+  "displayName": "Milton",
+  "description": "A self-learning chess engine that trains itself, gates promotions, and plays Lichess.",
+  "version": "1.0.0",
+  "author": "nick-baumann",
+  "homepage": "https://github.com/nick-baumann/Milton",
+  "skills": []
+}
