@@ -4,7 +4,7 @@
   "repo": "DaoFlow",
   "description": "Instead of AWS wrapper, we're building bare metal  / VM wrappers for you. Open source alternative to AWS/Vercel/Heroku. Hosting your flow, from Vibe Coding to IPO.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DaoFlow-dev/DaoFlow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T07:46:54Z"
+  "distributed_at": "2026-05-12T06:45:24Z"
 }
