@@ -1,0 +1,9 @@
+{
+  "name": "earayu--treadstone",
+  "displayName": "treadstone",
+  "description": "Agent-native sandbox infrastructure. Sandboxes for agents that don't wait for humans.",
+  "version": "1.0.0",
+  "author": "earayu",
+  "homepage": "https://github.com/earayu/treadstone",
+  "skills": []
+}
