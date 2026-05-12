@@ -1,0 +1,9 @@
+{
+  "name": "sadopc--magnetism",
+  "displayName": "magnetism",
+  "description": "Free, open-source macOS window manager. Keyboard shortcuts, drag-to-edge snapping, multi-display support. A native Swift alternative to Magnet.",
+  "version": "1.0.0",
+  "author": "sadopc",
+  "homepage": "https://github.com/sadopc/magnetism",
+  "skills": []
+}
