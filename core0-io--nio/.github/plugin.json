@@ -1,0 +1,9 @@
+{
+  "name": "core0-io--nio",
+  "displayName": "nio",
+  "description": "Execution assurance agent guard and observability for autonomous AI operating in production.",
+  "version": "1.0.0",
+  "author": "core0-io",
+  "homepage": "https://github.com/core0-io/nio",
+  "skills": []
+}
