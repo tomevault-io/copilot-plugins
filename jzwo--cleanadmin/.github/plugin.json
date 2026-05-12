@@ -1,0 +1,9 @@
+{
+  "name": "jzwo--cleanadmin",
+  "displayName": "CleanAdmin",
+  "description": "A CleanDDD-based full-stack admin template built with .NET 10, Aspire, and Blazor.",
+  "version": "1.0.0",
+  "author": "jzwo",
+  "homepage": "https://github.com/jzwo/CleanAdmin",
+  "skills": []
+}
