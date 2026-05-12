@@ -1,0 +1,44 @@
+{
+  "name": "zhiforge",
+  "owner": "yfge",
+  "repo": "zhiforge",
+  "description": "\u77e5\u70bc \u2014 \u5c06 Markdown \u77e5\u8bc6\u5e93\u81ea\u52a8\u8f6c\u5316\u4e3a\u77e5\u4e4e\u56de\u7b54\u5e76\u53d1\u5e03\u3002\u652f\u6301 Claude Code \u548c OpenClaw\uff0c\u5168\u81ea\u52a8\u95ed\u73af\uff1a\u70ed\u70b9\u641c\u7d22 \u2192 \u77e5\u8bc6\u5e93\u5339\u914d \u2192 AI \u64b0\u5199 \u2192 \u53d1\u5e03 \u2192 \u8d28\u91cf\u5ba1\u6838 \u2192 \u56de\u5b58",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yfge/zhiforge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T12:57:12Z"
+}
