@@ -1,0 +1,9 @@
+{
+  "name": "tarasko--aiofastnet",
+  "displayName": "aiofastnet",
+  "description": "Fast transport/protocol networking for asyncio",
+  "version": "1.0.0",
+  "author": "tarasko",
+  "homepage": "https://github.com/tarasko/aiofastnet",
+  "skills": []
+}
