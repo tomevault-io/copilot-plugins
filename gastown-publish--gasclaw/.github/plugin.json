@@ -1,0 +1,9 @@
+{
+  "name": "gastown-publish--gasclaw",
+  "displayName": "gasclaw",
+  "description": "Single-container deployment: Gastown + OpenClaw + KimiGas \u2014 multi-agent AI workspace with Telegram overseer",
+  "version": "1.0.0",
+  "author": "gastown-publish",
+  "homepage": "https://github.com/gastown-publish/gasclaw",
+  "skills": []
+}
