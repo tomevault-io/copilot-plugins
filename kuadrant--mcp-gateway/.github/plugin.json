@@ -1,0 +1,9 @@
+{
+  "name": "kuadrant--mcp-gateway",
+  "displayName": "mcp-gateway",
+  "description": "An envoy-based MCP Gateway that integrates with Istio and policy attachment mechanisms for authN, authZ, rate limiting and more.",
+  "version": "1.0.0",
+  "author": "Kuadrant",
+  "homepage": "https://github.com/Kuadrant/mcp-gateway",
+  "skills": []
+}
