@@ -1,0 +1,9 @@
+{
+  "name": "guzus--tg-claude",
+  "displayName": "tg-claude",
+  "description": "Telegram/Discord client for Claude Code",
+  "version": "1.0.0",
+  "author": "guzus",
+  "homepage": "https://github.com/guzus/tg-claude",
+  "skills": []
+}
