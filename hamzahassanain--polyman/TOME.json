@@ -4,7 +4,7 @@
   "repo": "polyman",
   "description": "Polyman is a CLI tool that will allow codeforces problem setters to never get out of their coding environment to create a new problem. You can create, test, or update your problems and then submit them to polygon directly from your terminal.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HamzaHassanain/polyman",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T00:34:17Z"
+  "distributed_at": "2026-05-12T22:41:31Z"
 }
