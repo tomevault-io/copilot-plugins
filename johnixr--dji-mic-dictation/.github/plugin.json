@@ -1,0 +1,9 @@
+{
+  "name": "johnixr--dji-mic-dictation",
+  "displayName": "dji-mic-dictation",
+  "description": "Turn DJI Mic Mini into a wireless dictation remote for macOS with auto-Enter. One button, three virtual actions via Karabiner state machine.",
+  "version": "1.0.0",
+  "author": "Johnixr",
+  "homepage": "https://github.com/Johnixr/dji-mic-dictation",
+  "skills": []
+}
