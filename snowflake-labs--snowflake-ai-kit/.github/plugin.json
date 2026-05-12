@@ -1,0 +1,9 @@
+{
+  "name": "snowflake-labs--snowflake-ai-kit",
+  "displayName": "snowflake-ai-kit",
+  "description": "Snowflake AI Kit: Cortex Code plugin for automatic Snowflake routing, envelope-based permission policy, and one-command installers for Snowflake CLI + Cortex Code CLI.",
+  "version": "1.0.0",
+  "author": "Snowflake-Labs",
+  "homepage": "https://github.com/Snowflake-Labs/snowflake-ai-kit",
+  "skills": []
+}
