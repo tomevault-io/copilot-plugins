@@ -1,0 +1,9 @@
+{
+  "name": "cedriccmh--claude-auto-patch",
+  "displayName": "claude-auto-patch",
+  "description": "Configurable auto-patch system for Claude Code. Survives updates, smart caching, cross-platform. Includes AI-assisted patch creation skill.",
+  "version": "1.0.0",
+  "author": "Cedriccmh",
+  "homepage": "https://github.com/Cedriccmh/claude-auto-patch",
+  "skills": []
+}
