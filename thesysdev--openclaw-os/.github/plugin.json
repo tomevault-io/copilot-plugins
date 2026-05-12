@@ -1,0 +1,9 @@
+{
+  "name": "thesysdev--openclaw-os",
+  "displayName": "openclaw-os",
+  "description": "The default workspace for OpenClaw",
+  "version": "1.0.0",
+  "author": "thesysdev",
+  "homepage": "https://github.com/thesysdev/openclaw-os",
+  "skills": []
+}
