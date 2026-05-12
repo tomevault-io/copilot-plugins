@@ -1,0 +1,9 @@
+{
+  "name": "avirajkhare00--yoyo",
+  "displayName": "yoyo",
+  "description": "yoyo is a local MCP server for repository reading and change work. It exists to make coding agents less hallucinated, more grounded, and more truthful when they answer questions about a real codebase.",
+  "version": "1.0.0",
+  "author": "avirajkhare00",
+  "homepage": "https://github.com/avirajkhare00/yoyo",
+  "skills": []
+}
