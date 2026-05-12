@@ -1,0 +1,9 @@
+{
+  "name": "lucapohl-angel--atlas-os",
+  "displayName": "ATLAS_OS",
+  "description": "Hook-driven multi-agent CLI \u2014 one prompt to specs, code, tests, and a shipped release.",
+  "version": "1.0.0",
+  "author": "lucapohl-angel",
+  "homepage": "https://github.com/lucapohl-angel/ATLAS_OS",
+  "skills": []
+}
