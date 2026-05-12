@@ -1,0 +1,9 @@
+{
+  "name": "warlockee--oxrl",
+  "displayName": "oxRL",
+  "description": "A lightweight post-training framework for LLMs and VLMs. 51 algorithms, 38 verified models. Scales with DeepSpeed, vLLM, and Ray.   ",
+  "version": "1.0.0",
+  "author": "warlockee",
+  "homepage": "https://github.com/warlockee/oxRL",
+  "skills": []
+}
