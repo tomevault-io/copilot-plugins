@@ -1,0 +1,9 @@
+{
+  "name": "makash--agent-infra-security",
+  "displayName": "agent-infra-security",
+  "description": "Security skills for AI coding agents \u2014 incident response for supply chain attacks, credential rotation, IOC detection. Works with Claude Code, Codex, Cursor, or as standalone scripts and runbooks.",
+  "version": "1.0.0",
+  "author": "makash",
+  "homepage": "https://github.com/makash/agent-infra-security",
+  "skills": []
+}
