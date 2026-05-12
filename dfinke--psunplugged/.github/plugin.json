@@ -1,0 +1,9 @@
+{
+  "name": "dfinke--psunplugged",
+  "displayName": "PSUnplugged",
+  "description": "PowerShell orchestration shell for OpenAI Codex App Server",
+  "version": "1.0.0",
+  "author": "dfinke",
+  "homepage": "https://github.com/dfinke/PSUnplugged",
+  "skills": []
+}
