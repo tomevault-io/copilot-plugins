@@ -1,0 +1,9 @@
+{
+  "name": "iikarus--dragon-brain",
+  "displayName": "Dragon-Brain",
+  "description": "Dragon Brain \u2014 persistent long-term memory for AI agents via MCP (Model Context Protocol). Knowledge graph (FalkorDB) + vector search (Qdrant) + CUDA GPU embeddings. Works with Claude, Gemini CLI, Cur",
+  "version": "1.0.0",
+  "author": "iikarus",
+  "homepage": "https://github.com/iikarus/Dragon-Brain",
+  "skills": []
+}
