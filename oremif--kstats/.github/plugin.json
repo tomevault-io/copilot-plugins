@@ -1,0 +1,9 @@
+{
+  "name": "oremif--kstats",
+  "displayName": "kstats",
+  "description": "Kotlin Multiplatform statistics library: distributions, hypothesis tests, correlation, descriptive stats, and sampling",
+  "version": "1.0.0",
+  "author": "Oremif",
+  "homepage": "https://github.com/Oremif/kstats",
+  "skills": []
+}
