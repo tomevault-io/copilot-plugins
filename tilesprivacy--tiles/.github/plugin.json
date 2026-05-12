@@ -1,0 +1,9 @@
+{
+  "name": "tilesprivacy--tiles",
+  "displayName": "tiles",
+  "description": "Local-first private AI assistant for everyday use. Runs on-device models with encrypted P2P sync, keeping your data and identity local, and supports sharing chats publicly on ATProto.",
+  "version": "1.0.0",
+  "author": "tilesprivacy",
+  "homepage": "https://github.com/tilesprivacy/tiles",
+  "skills": []
+}
