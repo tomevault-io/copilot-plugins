@@ -1,0 +1,9 @@
+{
+  "name": "meraki-digital--repo-template",
+  "displayName": "repo-template",
+  "description": "AI-assisted development template with structured SRS/PRD/task workflows",
+  "version": "1.0.0",
+  "author": "meraki-digital",
+  "homepage": "https://github.com/meraki-digital/repo-template",
+  "skills": []
+}
