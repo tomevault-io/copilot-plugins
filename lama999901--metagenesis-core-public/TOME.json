@@ -1,0 +1,44 @@
+{
+  "name": "metagenesis-core-public",
+  "owner": "Lama999901",
+  "repo": "metagenesis-core-public",
+  "description": "A notary for computations. Cryptographic verification infrastructure for computational claims. Anchored to physical reality. Offline-verifiable by anyone. Patent pending.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Lama999901/metagenesis-core-public",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T21:31:08Z"
+}
