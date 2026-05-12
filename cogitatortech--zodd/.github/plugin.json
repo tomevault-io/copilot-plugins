@@ -1,0 +1,9 @@
+{
+  "name": "cogitatortech--zodd",
+  "displayName": "zodd",
+  "description": "A small embeddable Datalog engine in Zig \u26a1",
+  "version": "1.0.0",
+  "author": "CogitatorTech",
+  "homepage": "https://github.com/CogitatorTech/zodd",
+  "skills": []
+}
