@@ -1,0 +1,9 @@
+{
+  "name": "abdelstark--jepa-rs",
+  "displayName": "jepa-rs",
+  "description": "Joint Embedding Predictive Architecture for World Models, written in Rust.",
+  "version": "1.0.0",
+  "author": "AbdelStark",
+  "homepage": "https://github.com/AbdelStark/jepa-rs",
+  "skills": []
+}
