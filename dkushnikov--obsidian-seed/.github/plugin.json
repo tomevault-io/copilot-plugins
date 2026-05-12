@@ -1,0 +1,9 @@
+{
+  "name": "dkushnikov--obsidian-seed",
+  "displayName": "obsidian-seed",
+  "description": "Build a personal Obsidian vault that fits YOUR life \u2014 not a template. Powered by Claude Code.",
+  "version": "1.0.0",
+  "author": "dkushnikov",
+  "homepage": "https://github.com/dkushnikov/obsidian-seed",
+  "skills": []
+}
