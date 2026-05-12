@@ -1,0 +1,9 @@
+{
+  "name": "477-studio--claude-gym",
+  "displayName": "claude-gym",
+  "description": "A pixel-art exercise companion that nudges you to move during long Claude Code runs",
+  "version": "1.0.0",
+  "author": "477-Studio",
+  "homepage": "https://github.com/477-Studio/claude-gym",
+  "skills": []
+}
