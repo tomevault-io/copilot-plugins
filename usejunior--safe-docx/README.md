@@ -7,14 +7,14 @@ Safe DOCX suite: docx-primitives, docx-comparison, safe-docx MCP server
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [UseJunior/safe-docx](https://github.com/UseJunior/safe-docx).
+Original source: `AGENTS.md` in [UseJunior/safe-docx](https://github.com/UseJunior/safe-docx).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [UseJunior/safe-docx](https://github.com/UseJunior/safe-docx) — a repo with 24+ stars on GitHub.
