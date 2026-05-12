@@ -1,0 +1,9 @@
+{
+  "name": "adoptai--tabby",
+  "displayName": "tabby",
+  "description": "Secure headless chatty browser tabs",
+  "version": "1.0.0",
+  "author": "adoptai",
+  "homepage": "https://github.com/adoptai/tabby",
+  "skills": []
+}
