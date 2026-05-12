@@ -1,0 +1,9 @@
+{
+  "name": "consi--flowcus",
+  "displayName": "flowcus",
+  "description": "Flowcus is a high performance NetFlow/IPFIX collector with embedded database and query interface",
+  "version": "1.0.0",
+  "author": "consi",
+  "homepage": "https://github.com/consi/flowcus",
+  "skills": []
+}
