@@ -1,0 +1,9 @@
+{
+  "name": "fable-hub--fable-actor",
+  "displayName": "Fable.Actor",
+  "description": "F# Actors for Fable and Beam",
+  "version": "1.0.0",
+  "author": "fable-hub",
+  "homepage": "https://github.com/fable-hub/Fable.Actor",
+  "skills": []
+}
