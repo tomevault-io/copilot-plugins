@@ -1,0 +1,9 @@
+{
+  "name": "vicarious11--agenttop",
+  "displayName": "agenttop",
+  "description": "htop for AI coding agents \u2014 monitor token usage, costs, and workflows across Claude Code, Cursor, Kiro, Codex, and Copilot",
+  "version": "1.0.0",
+  "author": "vicarious11",
+  "homepage": "https://github.com/vicarious11/agenttop",
+  "skills": []
+}
