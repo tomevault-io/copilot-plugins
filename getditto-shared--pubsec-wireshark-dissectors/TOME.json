@@ -4,7 +4,7 @@
   "repo": "pubsec-wireshark-dissectors",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/getditto-shared/pubsec-wireshark-dissectors",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T19:09:03Z"
+  "distributed_at": "2026-05-12T18:39:49Z"
 }
