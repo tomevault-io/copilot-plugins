@@ -1,0 +1,9 @@
+{
+  "name": "shdsjh123-cpu--claude-code-blog-builder",
+  "displayName": "claude-code-blog-builder",
+  "description": "Claude Code plugin for AI-assisted blog content creation ? 4 subagents, /setup interview, keyword banks, sanitize gate.",
+  "version": "1.0.0",
+  "author": "shdsjh123-cpu",
+  "homepage": "https://github.com/shdsjh123-cpu/claude-code-blog-builder",
+  "skills": []
+}
