@@ -1,0 +1,9 @@
+{
+  "name": "wavespeedai--wavespeed-python",
+  "displayName": "wavespeed-python",
+  "description": "WaveSpeedAI Python Client \u2014 Official Python SDK for WaveSpeedAI inference platform. This library provides a clean, unified, and high-performance API and serverless integration layer for your applicati",
+  "version": "1.0.0",
+  "author": "WaveSpeedAI",
+  "homepage": "https://github.com/WaveSpeedAI/wavespeed-python",
+  "skills": []
+}
