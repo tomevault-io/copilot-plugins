@@ -1,0 +1,9 @@
+{
+  "name": "lcalmsky--ghostty-claude-intellij",
+  "displayName": "ghostty-claude-intellij",
+  "description": "IntelliJ plugin to open Ghostty terminal with Claude Code, sending current file and selection context via keyboard shortcut",
+  "version": "1.0.0",
+  "author": "lcalmsky",
+  "homepage": "https://github.com/lcalmsky/ghostty-claude-intellij",
+  "skills": []
+}
