@@ -1,0 +1,9 @@
+{
+  "name": "sshadows--business-central-mcp",
+  "displayName": "business-central-mcp",
+  "description": "MCP server for Microsoft Dynamics 365 Business Central via reverse-engineered WebUI protocol. Enables AI assistants like Claude to interact with BC through the native WebSocket interface.",
+  "version": "1.0.0",
+  "author": "SShadowS",
+  "homepage": "https://github.com/SShadowS/business-central-mcp",
+  "skills": []
+}
