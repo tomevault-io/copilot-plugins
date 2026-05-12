@@ -1,0 +1,9 @@
+{
+  "name": "im-anishraj--instagram-comment-to-dm",
+  "displayName": "instagram-comment-to-dm",
+  "description": "Open-source Instagram comment-to-DM automation. Keyword triggers \u2192 auto DM. Built on Meta Graph API. Self-hostable. Next.js + BullMQ + Prisma.",
+  "version": "1.0.0",
+  "author": "im-anishraj",
+  "homepage": "https://github.com/im-anishraj/instagram-comment-to-dm",
+  "skills": []
+}
