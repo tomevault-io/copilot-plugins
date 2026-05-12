@@ -1,0 +1,9 @@
+{
+  "name": "shreeve--rip-lang",
+  "displayName": "rip-lang",
+  "description": "A modern language that compiles to JavaScript",
+  "version": "1.0.0",
+  "author": "shreeve",
+  "homepage": "https://github.com/shreeve/rip-lang",
+  "skills": []
+}
