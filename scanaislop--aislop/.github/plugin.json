@@ -1,0 +1,9 @@
+{
+  "name": "scanaislop--aislop",
+  "displayName": "aislop",
+  "description": "The engineering standards layer and quality gate for AI-written code. Catches the slop AI agents leave behind, enforces your team's rules, scores every change 0\u2013100. Per-edit hook + MCP server for Cla",
+  "version": "1.0.0",
+  "author": "scanaislop",
+  "homepage": "https://github.com/scanaislop/aislop",
+  "skills": []
+}
