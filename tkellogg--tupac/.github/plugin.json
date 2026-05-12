@@ -1,0 +1,9 @@
+{
+  "name": "tkellogg--tupac",
+  "displayName": "tupac",
+  "description": "A terminal MCP client based on the OpenAI responses API.",
+  "version": "1.0.0",
+  "author": "tkellogg",
+  "homepage": "https://github.com/tkellogg/tupac",
+  "skills": []
+}
