@@ -1,0 +1,231 @@
+## unifi-ai-network-management
+
+> This repository packages a UniFi API skill plus owner-operated setup and safety tooling. It supports OpenClaw and Hermes Agent directly, and the same `SKILL.md` directory can be adapted to any agent framework that supports filesystem skills or tool instructions.
+
+# Agent Integration Guide
+
+This repository packages a UniFi API skill plus owner-operated setup and safety tooling. It supports OpenClaw and Hermes Agent directly, and the same `SKILL.md` directory can be adapted to any agent framework that supports filesystem skills or tool instructions.
+
+## Canonical Skill Directory
+
+The skill is contained in:
+
+```text
+skill/unifi-api/
+```
+
+Install it as a directory, not as a single markdown file. The directory must keep this shape:
+
+```text
+unifi-api/
+|-- SKILL.md
+|-- scripts/unifi_api.py
+|-- references/api-surfaces.md
+|-- references/endpoints.md
+|-- references/task-recipes.md
+|-- references/troubleshooting.md
+`-- agents/openai.yaml
+```
+
+The helper script is part of the skill contract. The agent should prefer deterministic helper calls over hand-written curl commands.
+
+## OpenClaw Install Path
+
+Default OpenClaw path:
+
+```text
+~/.openclaw/workspace/skills/unifi-api/
+```
+
+The provided installer does this automatically:
+
+```bash
+./setup.sh --target openclaw
+```
+
+Manual install:
+
+```bash
+mkdir -p ~/.openclaw/workspace/skills
+cp -a skill/unifi-api ~/.openclaw/workspace/skills/unifi-api
+chmod -R u+rwX,go-rwx ~/.openclaw/workspace/skills/unifi-api
+python3 -m py_compile ~/.openclaw/workspace/skills/unifi-api/scripts/unifi_api.py
+```
+
+Then run your agent framework's skill refresh/check command, for example:
+
+```bash
+openclaw skills check --agent <agent-name>
+```
+
+
+## Hermes Agent Install Path
+
+Hermes Agent supports `SKILL.md` skills under:
+
+```text
+~/.hermes/skills/<skill-name>/
+```
+
+Install this package for Hermes with:
+
+```bash
+./setup.sh --target hermes
+source ~/.bashrc
+unifi-setup-openclaw
+unifi-status-openclaw
+hermes doctor
+```
+
+The installer copies:
+
+```text
+skill/unifi-api/ -> ~/.hermes/skills/unifi-api/
+env.example      -> ~/.hermes/unifi.env
+scripts/*        -> ~/.local/bin/
+```
+
+For Hermes, start a fresh session after installation so the skill catalog reloads. The skill should become available by name/description and, in Hermes interfaces that expose skill slash commands, as the `unifi-api` skill.
+
+Hermes references used for this layout: Hermes documents skills as `SKILL.md` files in `~/.hermes/skills/`, and its install diagnostics use `hermes doctor`.
+
+## Other Agent Frameworks
+
+For non-OpenClaw/non-Hermes frameworks:
+
+1. Copy `skill/unifi-api/` into the framework's skill/tool directory.
+2. Make sure the framework can read `SKILL.md`.
+3. Preserve `references/` and `scripts/` next to `SKILL.md`.
+4. Expose Python 3 to the agent runtime.
+5. Set credentials in a private env file or process environment.
+6. Instruct the agent to load `SKILL.md` when the user mentions UniFi, Ubiquiti, UDM, Network Application, clients, APs, switches, VLANs, SSIDs, firewall rules, or network diagnostics.
+
+## Credential File
+
+Default env locations:
+
+```text
+~/.openclaw/unifi.env  # OpenClaw
+~/.hermes/unifi.env    # Hermes
+```
+
+The helper also checks:
+
+```text
+~/.openclaw/.env
+~/.openclaw/openclaw.env
+~/.openclaw/workspace/.env
+~/.hermes/unifi.env
+~/.hermes/.env
+~/.hermes/skills/unifi-api/.env
+<skill-dir>/.env
+```
+
+Use `env.example` as the template. The repository should not contain a committed `.env`; copy `env.example` to the selected private runtime env path or let `setup.sh` do it. Never commit a real env file.
+
+## Operational Commands And Agent Boundaries
+
+The repository installs explicit target commands such as:
+
+```bash
+# OpenClaw
+unifi-setup-openclaw
+unifi-status-openclaw
+unifi-backup-openclaw
+unifi-restore-openclaw
+
+# Hermes
+unifi-setup-hermes
+unifi-status-hermes
+unifi-backup-hermes
+unifi-restore-hermes
+```
+
+`unifi-setup-openclaw`, `unifi-setup-hermes`, the matching status aliases, and break-glass local access-control commands are owner/operator commands.
+
+The matching backup and restore commands are part of safe network change management and are included in `SKILL.md`. Agents may run backups on demand or before major changes. Agents may run restore dry-runs after the user asks for rollback. Agents must ask which backup date/time to use when multiple restore points exist, summarize the dry-run, and apply only after explicit user confirmation.
+
+## Agent Behavior Contract
+
+A safe UniFi agent should:
+
+1. Prefer read-only API calls first.
+2. Prefer official APIs over legacy private endpoints.
+3. Use exact object identity before writes: site, name, MAC/IP/model/id.
+4. Avoid broad changes based on vague requests.
+5. Run the matching backup command (`unifi-backup-openclaw` or `unifi-backup-hermes`) before major changes and report the backup path.
+6. For restore requests, list backup date/time folders and ask which restore point to use when multiple exist.
+7. Run restore dry-run first, then apply only after explicit confirmation.
+8. Explain intended endpoint/action before high-impact writes.
+9. Verify after every write.
+10. Never reveal API keys, passwords, cookies, CSRF tokens, or raw sensitive config.
+11. Report failures with endpoint path and HTTP status, not secrets.
+
+## Helper Script Examples
+
+From an installed OpenClaw target:
+
+```bash
+python3 ~/.openclaw/workspace/skills/unifi-api/scripts/unifi_api.py env
+python3 ~/.openclaw/workspace/skills/unifi-api/scripts/unifi_api.py site-manager-get /sites
+python3 ~/.openclaw/workspace/skills/unifi-api/scripts/unifi_api.py network-get /sites
+python3 ~/.openclaw/workspace/skills/unifi-api/scripts/unifi_api.py legacy-clients --site default
+```
+
+From an installed Hermes target:
+
+```bash
+python3 ~/.hermes/skills/unifi-api/scripts/unifi_api.py env
+python3 ~/.hermes/skills/unifi-api/scripts/unifi_api.py site-manager-get /sites
+python3 ~/.hermes/skills/unifi-api/scripts/unifi_api.py network-get /sites
+python3 ~/.hermes/skills/unifi-api/scripts/unifi_api.py legacy-clients --site default
+```
+
+Write helpers require an explicit acknowledgement flag:
+
+OpenClaw target:
+
+```bash
+python3 ~/.openclaw/workspace/skills/unifi-api/scripts/unifi_api.py legacy-post /api/s/default/cmd/stamgr \
+  --body '{"cmd":"kick-sta","mac":"aa:bb:cc:dd:ee:ff"}' \
+  --yes-I-understand
+```
+
+Hermes target:
+
+```bash
+python3 ~/.hermes/skills/unifi-api/scripts/unifi_api.py legacy-post /api/s/default/cmd/stamgr \
+  --body '{"cmd":"kick-sta","mac":"aa:bb:cc:dd:ee:ff"}' \
+  --yes-I-understand
+```
+
+## Validation Checklist
+
+After installation:
+
+```bash
+python3 ~/.openclaw/workspace/skills/unifi-api/scripts/unifi_api.py env      # OpenClaw
+python3 ~/.hermes/skills/unifi-api/scripts/unifi_api.py env                 # Hermes
+python3 -m py_compile ~/.openclaw/workspace/skills/unifi-api/scripts/unifi_api.py  # OpenClaw
+python3 -m py_compile ~/.hermes/skills/unifi-api/scripts/unifi_api.py              # Hermes
+```
+
+If OpenClaw is installed:
+
+```bash
+openclaw skills check --agent <agent-name>
+```
+
+Expected result: the skill named `unifi-api` is eligible and visible to the intended agent.
+
+If Hermes is installed:
+
+```bash
+hermes doctor
+```
+
+Expected result: Hermes diagnostics pass and a fresh Hermes session can discover the `unifi-api` skill from `~/.hermes/skills/unifi-api/`.
+
+---
+> Source: [AEON-7/unifi-ai-network-management](https://github.com/AEON-7/unifi-ai-network-management) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-11 -->
