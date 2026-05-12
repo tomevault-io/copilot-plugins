@@ -1,0 +1,9 @@
+{
+  "name": "mouxue56-debug--opendeepseek",
+  "displayName": "opendeepseek",
+  "description": "OpenDeepSeek: one-click local DeepSeek V4 Agent with Open WebUI and Hermes",
+  "version": "1.0.0",
+  "author": "mouxue56-debug",
+  "homepage": "https://github.com/mouxue56-debug/opendeepseek",
+  "skills": []
+}
