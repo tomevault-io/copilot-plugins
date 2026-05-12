@@ -1,0 +1,9 @@
+{
+  "name": "dearbobby9--refbib",
+  "displayName": "RefBib",
+  "description": "Extract real BibTeX from academic PDF references. No AI hallucinations \u2014 just real citations from CrossRef, Semantic Scholar, and DBLP.",
+  "version": "1.0.0",
+  "author": "DearBobby9",
+  "homepage": "https://github.com/DearBobby9/RefBib",
+  "skills": []
+}
