@@ -1,0 +1,9 @@
+{
+  "name": "airattop--n8n-self-hosted",
+  "displayName": "n8n-self-hosted",
+  "description": "Production-ready Docker Compose setup for a scalable and secure self-hosted n8n. Includes Caddy (auto-HTTPS), workers, backup scripts, and security best practices out of the box.",
+  "version": "1.0.0",
+  "author": "AiratTop",
+  "homepage": "https://github.com/AiratTop/n8n-self-hosted",
+  "skills": []
+}
