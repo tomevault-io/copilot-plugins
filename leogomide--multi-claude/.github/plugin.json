@@ -1,0 +1,9 @@
+{
+  "name": "leogomide--multi-claude",
+  "displayName": "multi-claude",
+  "description": "CLI tool to manage multiple API providers and launch Claude Code with the correct environment variables",
+  "version": "1.0.0",
+  "author": "leogomide",
+  "homepage": "https://github.com/leogomide/multi-claude",
+  "skills": []
+}
