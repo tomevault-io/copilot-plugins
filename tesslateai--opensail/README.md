@@ -7,11 +7,11 @@ OpenSail is the open-source alternative to Codex App, Claude Desktop, Cursor, an
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [TesslateAI/OpenSail](https://github.com/TesslateAI/OpenSail).
+Original source: `CLAUDE.md` in [TesslateAI/OpenSail](https://github.com/TesslateAI/OpenSail).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
