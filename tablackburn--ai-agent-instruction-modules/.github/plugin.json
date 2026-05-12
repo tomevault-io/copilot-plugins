@@ -1,0 +1,9 @@
+{
+  "name": "tablackburn--ai-agent-instruction-modules",
+  "displayName": "ai-agent-instruction-modules",
+  "description": "AIM: Modular, opt-in AI agent instructions for any codebase",
+  "version": "1.0.0",
+  "author": "tablackburn",
+  "homepage": "https://github.com/tablackburn/ai-agent-instruction-modules",
+  "skills": []
+}
