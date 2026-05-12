@@ -1,0 +1,9 @@
+{
+  "name": "spree--storefront",
+  "displayName": "storefront",
+  "description": "Open-source Next.js eCommerce storefront for @spree. REST API, TypeScript SDK, Stripe payments, multi-region, checkout. MIT license.",
+  "version": "1.0.0",
+  "author": "spree",
+  "homepage": "https://github.com/spree/storefront",
+  "skills": []
+}
