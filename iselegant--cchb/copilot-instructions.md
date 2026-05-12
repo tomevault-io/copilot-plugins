@@ -1,0 +1,49 @@
+## cchb
+
+> - Always read `docs/` directory first to understand the current specification and project context before starting any work
+
+# CLAUDE.md
+
+## Development Rules
+
+### Context First
+- Always read `docs/` directory first to understand the current specification and project context before starting any work
+- This ensures all changes are aligned with the documented design
+
+### Specification Changes
+- When any specification change occurs, always update `docs/SPECIFICATION.md` first
+- Confirm the updated specification with the user before proceeding with implementation
+- Do not implement changes that deviate from the documented specification without approval
+
+### Development Methodology
+- Follow TDD (Test-Driven Development) strictly, regardless of change size
+  1. Write failing tests first (Red)
+  2. Run `cargo test` to confirm the tests fail (Red confirmation)
+  3. Implement minimum code to pass tests (Green)
+  4. Run `cargo test` to confirm the tests pass (Green confirmation)
+  5. Refactor while keeping tests green (Refactor)
+- Never skip writing tests before implementation
+- Never skip confirming test failure/success at each step
+- "Obviously correct" is not an excuse to skip the cycle
+
+### Architecture Decision Records (ADR)
+- Record significant design and architecture decisions as ADRs in `docs/adr/`
+- Use the format: `docs/adr/NNNN-short-title.md` (e.g., `docs/adr/0001-use-ratatui-for-tui.md`)
+- Each ADR should include: Title, Status (Proposed/Accepted/Deprecated/Superseded), Context, Decision, and Consequences
+- Create an ADR when making decisions about: technology choices, architectural patterns, significant API design, data format choices, or any decision that future developers would benefit from understanding
+
+### Code Quality
+- All compiler warnings and clippy warnings must be resolved
+- Run `cargo clippy` and `cargo fmt --check` before considering any change complete
+- Do not leave warnings for later — fix them immediately
+
+### Documentation
+- All documentation must be written in English
+- This includes README.md, docs/, ADRs, comments in code, and any other project documentation
+- After every implementation, check whether documentation (SPECIFICATION.md, ADRs, etc.) needs updating
+- If updates are needed, apply them before marking the task complete
+- If no updates are needed, explicitly state so with a brief reason
+
+---
+> Source: [iselegant/cchb](https://github.com/iselegant/cchb) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
