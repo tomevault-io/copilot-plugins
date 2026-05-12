@@ -1,0 +1,9 @@
+{
+  "name": "minh-tam-solution--endiorbot",
+  "displayName": "EndiorBot",
+  "description": "Local-first AI agent orchestrator for SDLC workflows \u2014 14 role-based agents, 5 channels, 39 unified commands. Tool-agnostic. MIT.",
+  "version": "1.0.0",
+  "author": "Minh-Tam-Solution",
+  "homepage": "https://github.com/Minh-Tam-Solution/EndiorBot",
+  "skills": []
+}
