@@ -1,0 +1,9 @@
+{
+  "name": "bejamas--data-slot",
+  "displayName": "data-slot",
+  "description": "vanilla JS behavior primitives for accessible components",
+  "version": "1.0.0",
+  "author": "bejamas",
+  "homepage": "https://github.com/bejamas/data-slot",
+  "skills": []
+}
