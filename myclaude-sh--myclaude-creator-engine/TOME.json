@@ -4,7 +4,7 @@
   "repo": "myclaude-creator-engine",
   "description": "The creation pipeline for Claude Code products \u2014 research, create, validate, publish. 13 types, 20 quality patterns, zero coding required.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/myclaude-sh/myclaude-creator-engine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T15:39:13Z"
+  "distributed_at": "2026-05-12T02:30:36Z"
 }
