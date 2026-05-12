@@ -1,0 +1,9 @@
+{
+  "name": "funkyoz--json-stream",
+  "displayName": "json-stream",
+  "description": "PHP library for streaming JSON parsing, avoiding memory issues",
+  "version": "1.0.0",
+  "author": "FunkyOz",
+  "homepage": "https://github.com/FunkyOz/json-stream",
+  "skills": []
+}
