@@ -1,0 +1,9 @@
+{
+  "name": "robertsfeir--atelier-pipeline",
+  "displayName": "atelier-pipeline",
+  "description": "Multi-agent orchestration plugin for Claude Code \u2014 10 specialized agents, persistent Brain memory, quality gates, continuous QA, wave-based parallel execution, and mechanical enforcement hooks",
+  "version": "1.0.0",
+  "author": "robertsfeir",
+  "homepage": "https://github.com/robertsfeir/atelier-pipeline",
+  "skills": []
+}
