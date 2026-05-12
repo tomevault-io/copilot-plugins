@@ -1,0 +1,9 @@
+{
+  "name": "allierays--agentic-loop",
+  "displayName": "agentic-loop",
+  "description": "(Mostly) autonomous AI coding toolkit for Claude Code  based on RALPH and PRD-driven development.",
+  "version": "1.0.0",
+  "author": "allierays",
+  "homepage": "https://github.com/allierays/agentic-loop",
+  "skills": []
+}
