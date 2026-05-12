@@ -1,0 +1,9 @@
+{
+  "name": "openyabby--openyabby",
+  "displayName": "OpenYabby",
+  "description": "Voice-driven multi-agent assistant \u2014 Realtime API + CLI runners + multi-channel orchestration.",
+  "version": "1.0.0",
+  "author": "OpenYabby",
+  "homepage": "https://github.com/OpenYabby/OpenYabby",
+  "skills": []
+}
