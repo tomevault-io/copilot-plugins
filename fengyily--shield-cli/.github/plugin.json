@@ -1,0 +1,9 @@
+{
+  "name": "fengyily--shield-cli",
+  "displayName": "shield-cli",
+  "description": "Access any internal service from your browser. No VPN, no client, one command. Shield CLI is a browser-first internal service gateway \u2014 SSH terminals, remote desktops, database admin, web apps \u2014 all a",
+  "version": "1.0.0",
+  "author": "fengyily",
+  "homepage": "https://github.com/fengyily/shield-cli",
+  "skills": []
+}
