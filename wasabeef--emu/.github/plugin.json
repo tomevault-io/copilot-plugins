@@ -1,0 +1,9 @@
+{
+  "name": "wasabeef--emu",
+  "displayName": "emu",
+  "description": "A TUI for managing Android emulators and iOS simulators.",
+  "version": "1.0.0",
+  "author": "wasabeef",
+  "homepage": "https://github.com/wasabeef/emu",
+  "skills": []
+}
