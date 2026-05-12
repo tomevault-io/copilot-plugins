@@ -1,0 +1,9 @@
+{
+  "name": "heikki-laitala--pruner",
+  "displayName": "pruner",
+  "description": "Cut AI coding agent costs 15-62% and time 39-64%. Structural code indexing that gives Claude Code, Codex & Copilot the right context in one shot \u2014 no LLM, no embeddings, no API keys.",
+  "version": "1.0.0",
+  "author": "heikki-laitala",
+  "homepage": "https://github.com/heikki-laitala/pruner",
+  "skills": []
+}
