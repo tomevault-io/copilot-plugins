@@ -1,0 +1,9 @@
+{
+  "name": "wevm--curl-md",
+  "displayName": "curl.md",
+  "description": "URL to markdown for agents",
+  "version": "1.0.0",
+  "author": "wevm",
+  "homepage": "https://github.com/wevm/curl.md",
+  "skills": []
+}
