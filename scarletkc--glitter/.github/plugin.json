@@ -1,0 +1,9 @@
+{
+  "name": "scarletkc--glitter",
+  "displayName": "glitter",
+  "description": "Glitter is a cross\u2011platform CLI for encrypted file transfers. It auto\u2011discovers peers, confirms on receive, shows progress/throughput, and supports i18n.",
+  "version": "1.0.0",
+  "author": "scarletkc",
+  "homepage": "https://github.com/scarletkc/glitter",
+  "skills": []
+}
