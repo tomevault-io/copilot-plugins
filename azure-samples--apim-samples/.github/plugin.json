@@ -1,0 +1,9 @@
+{
+  "name": "azure-samples--apim-samples",
+  "displayName": "Apim-Samples",
+  "description": "This repository provides a playground to safely experiment with and learn Azure API Management (APIM) policies in various architectures.",
+  "version": "1.0.0",
+  "author": "Azure-Samples",
+  "homepage": "https://github.com/Azure-Samples/Apim-Samples",
+  "skills": []
+}
