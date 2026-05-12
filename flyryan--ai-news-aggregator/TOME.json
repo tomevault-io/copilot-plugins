@@ -4,7 +4,7 @@
   "repo": "ai-news-aggregator",
   "description": "Multi-agent AI news pipeline powered by Claude Opus 4.6 with extended thinking",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/flyryan/ai-news-aggregator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T15:06:00Z"
+  "distributed_at": "2026-05-12T17:25:12Z"
 }
