@@ -1,228 +1,168 @@
-## websocket-sse
+## armature
 
-> Real-time communication with WebSockets and Server-Sent Events
+> Instructions for AI coding agents working on the Armature framework.
 
+# AGENTS.md
 
-# WebSocket & SSE
+Instructions for AI coding agents working on the Armature framework.
 
-Guidelines for real-time communication in Armature.
+## Project Overview
 
-## WebSocket Handler
+Armature is a type-safe HTTP framework for Rust inspired by Angular and NestJS. It combines decorator syntax (via proc macros) and dependency injection with Rust's performance and safety. The codebase is a Cargo workspace with 60+ crates.
 
-```rust
-use armature_websocket::{WebSocket, Message};
+## Build & Test Commands
 
-#[controller("/ws")]
-pub struct WebSocketController {
-    connections: Arc<ConnectionManager>,
-}
+```bash
+# Build (without SAML — use this by default)
+cargo build --features full
 
-#[get("/chat")]
-async fn chat(&self, ws: WebSocket, user: AuthUser) -> Result<(), Error> {
-    let (tx, mut rx) = ws.split();
+# Build (with SAML — requires libxml2-dev, libxmlsec1-dev, libxmlsec1-openssl)
+cargo build --features full-with-saml
 
-    // Register connection
-    self.connections.add(user.id, tx.clone()).await;
+# Run all tests
+cargo test --features full
 
-    // Handle incoming messages
-    while let Some(msg) = rx.next().await {
-        match msg? {
-            Message::Text(text) => {
-                self.handle_message(&user, &text).await?;
-            }
-            Message::Close(_) => break,
-            _ => {}
-        }
-    }
+# Run doc tests only
+cargo test --doc --features full
 
-    // Cleanup
-    self.connections.remove(user.id).await;
-    Ok(())
-}
+# Run a specific crate's tests
+cargo test -p armature-core --features full
+
+# Format check
+cargo fmt -- --check
+
+# Lint (allowed warnings match CI config)
+cargo clippy --all-targets --features full -- -D warnings \
+  -A clippy::collapsible_if \
+  -A clippy::result_large_err \
+  -A dead_code \
+  -A clippy::useless_vec \
+  -A clippy::unwrap_or_default
+
+# Run benchmarks
+cargo bench
 ```
 
-## Connection Manager
+**SAML is optional.** Most development uses `--features full` without SAML. Only use `full-with-saml` when working on SAML-related code and you have the system libraries installed.
 
-```rust
-pub struct ConnectionManager {
-    connections: DashMap<UserId, Sender<Message>>,
-}
+## Repository Structure
 
-impl ConnectionManager {
-    pub async fn broadcast(&self, message: &str) {
-        for entry in self.connections.iter() {
-            let _ = entry.value().send(Message::Text(message.into())).await;
-        }
-    }
-
-    pub async fn send_to(&self, user_id: UserId, message: &str) -> Result<(), Error> {
-        if let Some(tx) = self.connections.get(&user_id) {
-            tx.send(Message::Text(message.into())).await?;
-        }
-        Ok(())
-    }
-
-    pub async fn send_to_room(&self, room: &str, message: &str) {
-        // Implement room-based routing
-    }
-}
+```
+armature-framework/          # Workspace root, Cargo.toml defines all members
+├── armature-core/           # HTTP routing, middleware, DI container, Application bootstrap
+├── armature-proc-macro/     # Procedural macros: #[controller], #[get], #[injectable], #[module]
+├── armature-log/            # Structured logging
+├── armature-auth/           # JWT, OAuth2, SAML, RBAC, guards
+├── armature-jwt/            # JWT token management (HS256/RS256/ES256)
+├── armature-security/       # CORS, CSP, HSTS, CSRF
+├── armature-config/         # Type-safe config (env, .env, JSON, TOML)
+├── armature-cache/          # Redis/Memcached/in-memory caching
+├── armature-redis/          # Centralized Redis client
+├── armature-queue/          # Background job queues
+├── armature-events/         # Event bus (pub/sub)
+├── armature-eventsourcing/  # Event sourcing, projections, snapshots
+├── armature-cqrs/           # Command/Query Responsibility Segregation
+├── armature-graphql/        # GraphQL server (schema-first and code-first)
+├── armature-openapi/        # OpenAPI/Swagger generation
+├── armature-opentelemetry/  # Distributed tracing (Jaeger, Zipkin, Prometheus)
+├── armature-websocket/      # WebSocket with rooms and broadcasting
+├── armature-messaging/      # RabbitMQ, Kafka, NATS
+├── armature-aws/            # AWS SDK (S3, DynamoDB, SQS, SNS, Lambda, etc.)
+├── armature-gcp/            # GCP SDK (Storage, Pub/Sub, Firestore, BigQuery)
+├── armature-azure/          # Azure SDK (Blob, Cosmos, Service Bus, Key Vault)
+├── armature-lambda/         # AWS Lambda integration
+├── armature-cloudrun/       # GCP Cloud Run integration
+├── armature-azure-functions/# Azure Functions integration
+├── armature-cli/            # Code generation & dev server CLI
+├── armature-testing/        # Testing utilities, mocks, spies
+├── armature-validation/     # Validation framework
+├── armature-ratelimit/      # Rate limiting (token bucket, sliding window)
+├── armature-compression/    # gzip/brotli/zstd compression
+├── armature-distributed/    # Distributed locks, leader election
+├── armature-discovery/      # Service discovery (Consul, etcd)
+├── armature-toon/           # Token-optimized serialization for LLMs
+├── armature-ferron/         # Custom Rhai scripting engine
+├── armature-rhai/           # Embedded Rhai scripting
+├── armature-diesel/         # Diesel ORM integration
+├── armature-seaorm/         # SeaORM integration
+├── armature-storage/        # Cloud file/blob storage
+├── armature-mail/           # Email sending
+├── armature-push/           # Push notifications
+├── armature-payments/       # Payment processing (Stripe, PayPal)
+├── armature-admin/          # Auto-generated admin dashboard
+├── armature-collab/         # Real-time collaboration (CRDTs)
+├── armature-analytics/      # Analytics pipeline
+├── armature-siem/           # Security info & event management
+├── armature-files/          # File upload/processing
+├── armature-tenancy/        # Multi-tenancy
+├── armature-features/       # Feature flags
+├── armature-opensearch/     # Full-text search
+├── armature-i18n/           # Internationalization
+├── armature-metrics/        # Prometheus metrics
+├── armature-audit/          # Audit logging
+├── armature-webhooks/       # Webhook handling
+├── armature-cron/           # Scheduled tasks
+├── armature-acme/           # Let's Encrypt certificates
+├── armature-http-client/    # HTTP client
+├── armature-grpc/           # gRPC integration
+├── armature-graphql-client/ # GraphQL client
+├── armature-app/            # Build full Armature apps in Rhai scripts (zero Rust)
+├── armature-macros/         # Additional macros
+├── armature-macros-utils/   # Macro utilities
+├── docs/                    # 70+ guides
+├── examples/                # 60+ working examples
+├── benches/                 # Benchmarks (micro, comparison, profiling)
+├── tests/                   # Integration tests
+└── templates/               # Project scaffolding templates (excluded from workspace)
 ```
 
-## Message Protocol
+## Architecture Patterns
 
-```rust
-#[derive(Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum ClientMessage {
-    #[serde(rename = "join")]
-    Join { room: String },
+The framework follows NestJS/Angular conventions adapted to Rust:
 
-    #[serde(rename = "leave")]
-    Leave { room: String },
+- **Decorators** are proc macros: `#[controller]`, `#[get]`, `#[post]`, `#[injectable]`, `#[module]`
+- **Dependency injection** is field-based — add a service type as a struct field and it's auto-injected
+- **Modules** group providers (services) and controllers with `#[module(...)]`
+- **Application bootstrap** via `Application::create::<AppModule>().await`
+- **Guards** implement the `Guard` trait for authorization
+- **Middleware** implements the `Middleware` trait for request/response pipeline
+- **Lifecycle hooks**: `OnModuleInit`, `OnModuleDestroy`, `OnApplicationBootstrap`, `OnApplicationShutdown`
 
-    #[serde(rename = "message")]
-    Message { room: String, content: String },
+## Key Conventions
 
-    #[serde(rename = "ping")]
-    Ping,
-}
+- **Rust 2024 edition**, MSRV 1.89
+- **Async-first**: Built on Tokio + Hyper. All handlers are `async`
+- **Feature flags**: The crate uses feature flags extensively. `full` enables everything except SAML. `full-with-saml` enables everything
+- Core types: `HttpRequest`, `HttpResponse`, `Router`, `Container`, `Application`, `Error`
+- Error type has 30+ variants with status codes, help text, and client/server classification
+- Response builder is fluent: `HttpResponse::ok().json(&data)?`
+- Extractors use attribute macros: `#[body]`, `#[param("id")]`, `#[query("page")]`, `#[header("authorization")]`
+- Services are singletons — created once, shared via `Arc`
 
-#[derive(Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum ServerMessage {
-    #[serde(rename = "joined")]
-    Joined { room: String, users: Vec<String> },
+## Git Workflow
 
-    #[serde(rename = "message")]
-    Message { from: String, content: String, timestamp: i64 },
+- **`main`** — stable release branch, target for PRs
+- **`develop`** — active development branch
+- Branch naming: `feature/*`, `bugfix/*`
+- CI runs on push to `main`/`develop` and on all PRs
+- CI checks: format, clippy, tests (Linux/macOS/Windows, stable/beta/nightly), doc tests, example builds
 
-    #[serde(rename = "error")]
-    Error { code: String, message: String },
+## Performance Notes
 
-    #[serde(rename = "pong")]
-    Pong,
-}
-```
+- Target: Actix-competitive performance (currently 242k req/sec plaintext)
+- JSON serialization is a known optimization area
+- Benchmark suite in `benches/` covers micro, comparison, and profiling scenarios
+- Do not regress performance without justification — run `cargo bench` before and after changes
 
-## Server-Sent Events
+## When Making Changes
 
-```rust
-use armature_sse::{Sse, Event};
-
-#[controller("/events")]
-pub struct EventsController {
-    events: Arc<EventBroadcaster>,
-}
-
-#[get("/stream")]
-async fn stream(&self, user: AuthUser) -> Sse<impl Stream<Item = Event>> {
-    let rx = self.events.subscribe(user.id);
-
-    let stream = rx.map(|event| {
-        Event::default()
-            .event(&event.event_type)
-            .data(&event.data)
-            .id(&event.id)
-    });
-
-    Sse::new(stream)
-        .keep_alive(Duration::from_secs(30))
-}
-```
-
-## Event Broadcasting
-
-```rust
-pub struct EventBroadcaster {
-    sender: broadcast::Sender<ServerEvent>,
-}
-
-impl EventBroadcaster {
-    pub fn new(capacity: usize) -> Self {
-        let (sender, _) = broadcast::channel(capacity);
-        Self { sender }
-    }
-
-    pub fn subscribe(&self, _user_id: UserId) -> broadcast::Receiver<ServerEvent> {
-        self.sender.subscribe()
-    }
-
-    pub fn broadcast(&self, event: ServerEvent) {
-        let _ = self.sender.send(event);
-    }
-}
-```
-
-## Heartbeat / Keep-Alive
-
-```rust
-async fn handle_connection(ws: WebSocket) {
-    let (tx, mut rx) = ws.split();
-
-    // Spawn heartbeat task
-    let heartbeat = tokio::spawn({
-        let tx = tx.clone();
-        async move {
-            let mut interval = tokio::time::interval(Duration::from_secs(30));
-            loop {
-                interval.tick().await;
-                if tx.send(Message::Ping(vec![])).await.is_err() {
-                    break;
-                }
-            }
-        }
-    });
-
-    // Handle messages...
-
-    heartbeat.abort();
-}
-```
-
-## Scaling with Redis Pub/Sub
-
-```rust
-use redis::AsyncCommands;
-
-pub struct RedisEventBroadcaster {
-    redis: ConnectionManager,
-    channel: String,
-}
-
-impl RedisEventBroadcaster {
-    pub async fn publish(&self, event: &ServerEvent) -> Result<(), Error> {
-        let payload = serde_json::to_string(event)?;
-        self.redis.publish(&self.channel, payload).await?;
-        Ok(())
-    }
-
-    pub async fn subscribe(&self) -> impl Stream<Item = ServerEvent> {
-        let mut pubsub = self.redis.get_async_pubsub().await.unwrap();
-        pubsub.subscribe(&self.channel).await.unwrap();
-
-        pubsub.into_on_message().filter_map(|msg| async {
-            let payload: String = msg.get_payload().ok()?;
-            serde_json::from_str(&payload).ok()
-        })
-    }
-}
-```
-
-## Error Handling
-
-```rust
-async fn handle_message(msg: Result<Message, Error>) -> ControlFlow<(), Message> {
-    match msg {
-        Ok(Message::Text(text)) => ControlFlow::Continue(Message::Text(text)),
-        Ok(Message::Close(_)) => ControlFlow::Break(()),
-        Err(e) => {
-            tracing::error!(?e, "WebSocket error");
-            ControlFlow::Break(())
-        }
-        _ => ControlFlow::Continue(Message::Ping(vec![])),
-    }
-}
-```
+1. Run `cargo fmt` before committing
+2. Run clippy with the CI flags shown above — do not introduce new warnings
+3. Run `cargo test --features full` to validate
+4. If adding a new crate, add it to the workspace `members` in root `Cargo.toml`
+5. If adding public API, add doc comments and a doc test
+6. If adding a new feature, add an example in `examples/` and a guide in `docs/`
+7. Keep the NestJS/Angular decorator-style patterns consistent — don't introduce foreign paradigms
 
 ---
 > Source: [quinnjr/armature](https://github.com/quinnjr/armature) — distributed by [TomeVault](https://tomevault.io).
