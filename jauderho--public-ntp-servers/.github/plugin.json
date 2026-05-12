@@ -1,0 +1,9 @@
+{
+  "name": "jauderho--public-ntp-servers",
+  "displayName": "public-ntp-servers",
+  "description": "Public NTP Time Servers",
+  "version": "1.0.0",
+  "author": "jauderho",
+  "homepage": "https://github.com/jauderho/public-ntp-servers",
+  "skills": []
+}
