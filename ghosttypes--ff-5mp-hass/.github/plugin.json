@@ -1,0 +1,9 @@
+{
+  "name": "ghosttypes--ff-5mp-hass",
+  "displayName": "ff-5mp-hass",
+  "description": "Powerful Home Assistant plugin for FlashForge 3D printers",
+  "version": "1.0.0",
+  "author": "GhostTypes",
+  "homepage": "https://github.com/GhostTypes/ff-5mp-hass",
+  "skills": []
+}
