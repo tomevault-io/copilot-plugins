@@ -7,14 +7,14 @@ Control Codex and Gemini from the Claude app on your phone. Cross-CLI agent comm
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [siddharthkandan/universal-remote-control](https://github.com/siddharthkandan/universal-remote-control).
+Original source: `AGENTS.md` in [siddharthkandan/universal-remote-control](https://github.com/siddharthkandan/universal-remote-control).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [siddharthkandan/universal-remote-control](https://github.com/siddharthkandan/universal-remote-control) — a repo with 13+ stars on GitHub.
