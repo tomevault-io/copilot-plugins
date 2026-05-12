@@ -1,0 +1,26 @@
+# ai-website-builder
+
+> Source: [builtbyV/ai-website-builder](https://github.com/builtbyV/ai-website-builder) — distributed by [TomeVault](https://tomevault.io)
+
+Build beautiful websites by talking to AI - no coding required! Vibe coding with Claude Code, Gemini CLI, and OpenAI Codex CLI. Perfect for small businesses, freelancers, and anyone who wants a website without learning to code.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [builtbyV/ai-website-builder](https://github.com/builtbyV/ai-website-builder).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/builtbyV/ai-website-builder](https://github.com/builtbyV/ai-website-builder)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:d-c-q -->
