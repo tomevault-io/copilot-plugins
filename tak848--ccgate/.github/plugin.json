@@ -1,0 +1,9 @@
+{
+  "name": "tak848--ccgate",
+  "displayName": "ccgate",
+  "description": "LLM-powered PermissionRequest hook for coding agents (e.g. Claude Code)",
+  "version": "1.0.0",
+  "author": "tak848",
+  "homepage": "https://github.com/tak848/ccgate",
+  "skills": []
+}
