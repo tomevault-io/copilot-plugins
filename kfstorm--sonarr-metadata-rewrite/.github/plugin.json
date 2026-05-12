@@ -1,0 +1,9 @@
+{
+  "name": "kfstorm--sonarr-metadata-rewrite",
+  "displayName": "sonarr-metadata-rewrite",
+  "description": "Automatically translates Sonarr TV show metadata files to your preferred language using TMDB",
+  "version": "1.0.0",
+  "author": "kfstorm",
+  "homepage": "https://github.com/kfstorm/sonarr-metadata-rewrite",
+  "skills": []
+}
