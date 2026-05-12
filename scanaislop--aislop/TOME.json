@@ -1,0 +1,44 @@
+{
+  "name": "aislop",
+  "owner": "scanaislop",
+  "repo": "aislop",
+  "description": "The engineering standards layer and quality gate for AI-written code. Catches the slop AI agents leave behind, enforces your team's rules, scores every change 0\u2013100. Per-edit hook + MCP server for Claude Code, Cursor, Codex. 8+ languages. Deterministic.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/scanaislop/aislop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T21:19:03Z"
+}
