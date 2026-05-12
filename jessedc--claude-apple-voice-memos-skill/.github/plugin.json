@@ -1,0 +1,9 @@
+{
+  "name": "jessedc--claude-apple-voice-memos-skill",
+  "displayName": "claude-apple-voice-memos-skill",
+  "description": "An agent skill to extract and process transcripts from Apple Voice Memos into useful summaries. ",
+  "version": "1.0.0",
+  "author": "jessedc",
+  "homepage": "https://github.com/jessedc/claude-apple-voice-memos-skill",
+  "skills": []
+}
