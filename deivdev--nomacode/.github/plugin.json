@@ -1,0 +1,9 @@
+{
+  "name": "deivdev--nomacode",
+  "displayName": "nomacode",
+  "description": "AI coding assistant on mobile - Run Claude Code, OpenCode, Codex on Android via Termux",
+  "version": "1.0.0",
+  "author": "deivdev",
+  "homepage": "https://github.com/deivdev/nomacode",
+  "skills": []
+}
