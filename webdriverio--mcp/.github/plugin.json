@@ -1,0 +1,9 @@
+{
+  "name": "webdriverio--mcp",
+  "displayName": "mcp",
+  "description": "A Model Context Protocol (MCP) server that enables AI assistants to interact with web browsers and mobile applications using WebDriverIO. Automate Chrome browsers, iOS apps, and Android apps\u2014all throu",
+  "version": "1.0.0",
+  "author": "webdriverio",
+  "homepage": "https://github.com/webdriverio/mcp",
+  "skills": []
+}
