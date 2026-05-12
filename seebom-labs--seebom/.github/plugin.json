@@ -1,0 +1,9 @@
+{
+  "name": "seebom-labs--seebom",
+  "displayName": "seebom",
+  "description": "standalone, Kubernetes-native Software Bill of Materials (SBOM) visualization and governance platform",
+  "version": "1.0.0",
+  "author": "seebom-labs",
+  "homepage": "https://github.com/seebom-labs/seebom",
+  "skills": []
+}
