@@ -1,0 +1,9 @@
+{
+  "name": "caigee-cmd--claude-petty",
+  "displayName": "claude-petty",
+  "description": "A native macOS menu bar app with  Claude Code pet.",
+  "version": "1.0.0",
+  "author": "caigee-cmd",
+  "homepage": "https://github.com/caigee-cmd/claude-petty",
+  "skills": []
+}
