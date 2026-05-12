@@ -1,0 +1,9 @@
+{
+  "name": "crisog--ffmpeg-rest",
+  "displayName": "ffmpeg-rest",
+  "description": "FFmpeg REST API with S3-compatible Storage Support",
+  "version": "1.0.0",
+  "author": "crisog",
+  "homepage": "https://github.com/crisog/ffmpeg-rest",
+  "skills": []
+}
