@@ -1,0 +1,9 @@
+{
+  "name": "inference-gateway--google-calendar-agent",
+  "displayName": "google-calendar-agent",
+  "description": "A2A agent server enabling Google Calendar scheduling, retrieval, and automation",
+  "version": "1.0.0",
+  "author": "inference-gateway",
+  "homepage": "https://github.com/inference-gateway/google-calendar-agent",
+  "skills": []
+}
