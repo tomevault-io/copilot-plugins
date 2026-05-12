@@ -1,0 +1,9 @@
+{
+  "name": "mainactordev--construkt",
+  "displayName": "Construkt",
+  "description": "Build native iOS apps using the clean, modern syntax of SwiftUI, while keeping the full power and reliability of UIKit.",
+  "version": "1.0.0",
+  "author": "MainActorDev",
+  "homepage": "https://github.com/MainActorDev/Construkt",
+  "skills": []
+}
