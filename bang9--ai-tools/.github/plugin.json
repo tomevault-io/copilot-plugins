@@ -1,0 +1,9 @@
+{
+  "name": "bang9--ai-tools",
+  "displayName": "ai-tools",
+  "description": "A collection of tools for Claude Code to operate more efficiently",
+  "version": "1.0.0",
+  "author": "bang9",
+  "homepage": "https://github.com/bang9/ai-tools",
+  "skills": []
+}
