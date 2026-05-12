@@ -1,0 +1,9 @@
+{
+  "name": "ianrowan--thyroidearlydetection",
+  "displayName": "thyroidEarlyDetection",
+  "description": "Early detection ML models for hyperthyroid data",
+  "version": "1.0.0",
+  "author": "ianrowan",
+  "homepage": "https://github.com/ianrowan/thyroidEarlyDetection",
+  "skills": []
+}
