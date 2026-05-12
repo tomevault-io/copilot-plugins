@@ -4,7 +4,7 @@
   "repo": "janee",
   "description": "Secrets management for AI agents via MCP \u2022 @janeesecure",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rsdouglas/janee",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T06:43:48Z"
+  "distributed_at": "2026-05-12T13:26:16Z"
 }
