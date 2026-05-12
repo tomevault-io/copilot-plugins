@@ -1,0 +1,9 @@
+{
+  "name": "manasvardhan--bench-my-llm",
+  "displayName": "bench-my-llm",
+  "description": "\ud83c\udfce\ufe0f Dead-simple LLM benchmarking CLI - latency, cost, and quality metrics",
+  "version": "1.0.0",
+  "author": "ManasVardhan",
+  "homepage": "https://github.com/ManasVardhan/bench-my-llm",
+  "skills": []
+}
