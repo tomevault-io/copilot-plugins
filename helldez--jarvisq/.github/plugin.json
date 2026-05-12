@@ -1,0 +1,9 @@
+{
+  "name": "helldez--jarvisq",
+  "displayName": "JarvisQ",
+  "description": "Private, on-device voice assistant - STT, LLM, and TTS running fully locally. Powered by the Tether QVAC SDK. Mobile (Android via Expo + React Native) and desktop (Windows / macOS / Linux via Electron",
+  "version": "1.0.0",
+  "author": "Helldez",
+  "homepage": "https://github.com/Helldez/JarvisQ",
+  "skills": []
+}
