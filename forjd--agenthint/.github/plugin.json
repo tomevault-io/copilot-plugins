@@ -1,0 +1,9 @@
+{
+  "name": "forjd--agenthint",
+  "displayName": "agenthint",
+  "description": "Detect AI agent runtimes so CLIs can choose agent-friendly output",
+  "version": "1.0.0",
+  "author": "forjd",
+  "homepage": "https://github.com/forjd/agenthint",
+  "skills": []
+}
