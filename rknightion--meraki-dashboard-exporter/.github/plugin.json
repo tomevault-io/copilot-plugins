@@ -1,0 +1,9 @@
+{
+  "name": "rknightion--meraki-dashboard-exporter",
+  "displayName": "meraki-dashboard-exporter",
+  "description": "Meraki Dashboard Prometheus & OTEL Exporter / Collector",
+  "version": "1.0.0",
+  "author": "rknightion",
+  "homepage": "https://github.com/rknightion/meraki-dashboard-exporter",
+  "skills": []
+}
