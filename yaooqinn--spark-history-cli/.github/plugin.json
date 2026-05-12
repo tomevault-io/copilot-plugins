@@ -1,0 +1,9 @@
+{
+  "name": "yaooqinn--spark-history-cli",
+  "displayName": "spark-history-cli",
+  "description": "CLI tool for querying Apache Spark History Server REST API",
+  "version": "1.0.0",
+  "author": "yaooqinn",
+  "homepage": "https://github.com/yaooqinn/spark-history-cli",
+  "skills": []
+}
