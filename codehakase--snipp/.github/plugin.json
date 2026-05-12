@@ -1,0 +1,9 @@
+{
+  "name": "codehakase--snipp",
+  "displayName": "snipp",
+  "description": "Minimalist macOS screenshot utility built with Rust + Tauri v2",
+  "version": "1.0.0",
+  "author": "codehakase",
+  "homepage": "https://github.com/codehakase/snipp",
+  "skills": []
+}
