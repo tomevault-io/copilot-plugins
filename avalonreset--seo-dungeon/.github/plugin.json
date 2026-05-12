@@ -1,0 +1,9 @@
+{
+  "name": "avalonreset--seo-dungeon",
+  "displayName": "seo-dungeon",
+  "description": "Gamified 16-bit dungeon crawler that turns SEO audits into boss battles. Runs with Claude or Codex using the Claude SEO v1.9.8 engine.",
+  "version": "1.0.0",
+  "author": "avalonreset",
+  "homepage": "https://github.com/avalonreset/seo-dungeon",
+  "skills": []
+}
