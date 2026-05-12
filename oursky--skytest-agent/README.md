@@ -7,11 +7,11 @@ AI-powered web automation agent for natural language testing. Built with Next.js
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [oursky/skytest-agent](https://github.com/oursky/skytest-agent).
+Original source: `CLAUDE.md` in [oursky/skytest-agent](https://github.com/oursky/skytest-agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
