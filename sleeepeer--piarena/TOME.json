@@ -4,7 +4,7 @@
   "repo": "PIArena",
   "description": "[ACL 2026] PIArena: A Platform for Prompt Injection Evaluation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sleeepeer/PIArena",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T06:40:01Z"
+  "distributed_at": "2026-05-12T07:07:27Z"
 }
