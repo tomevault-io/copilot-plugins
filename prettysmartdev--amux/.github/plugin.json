@@ -1,0 +1,9 @@
+{
+  "name": "prettysmartdev--amux",
+  "displayName": "amux",
+  "description": "Multi-agent terminal multiplexer for secure code and claw agents. Coordinate agents across projects and tasks.",
+  "version": "1.0.0",
+  "author": "prettysmartdev",
+  "homepage": "https://github.com/prettysmartdev/amux",
+  "skills": []
+}
