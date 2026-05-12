@@ -4,7 +4,7 @@
   "repo": "Traceplane",
   "description": "Multi-Agent Continuity Layer \u2014 Keep your AI agents on a single, observable, handoff-ready work thread",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jaxxchen003/Traceplane",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T15:01:41Z"
+  "distributed_at": "2026-05-12T01:14:49Z"
 }
