@@ -1,0 +1,9 @@
+{
+  "name": "kaluchi--jdtbridge",
+  "displayName": "jdtbridge",
+  "description": "Eclipse plugin exposing JDT SearchEngine, refactoring, diagnostics, and test runner over HTTP for AI coding assistants and CLI tools",
+  "version": "1.0.0",
+  "author": "kaluchi",
+  "homepage": "https://github.com/kaluchi/jdtbridge",
+  "skills": []
+}
