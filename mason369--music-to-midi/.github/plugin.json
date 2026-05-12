@@ -1,0 +1,9 @@
+{
+  "name": "mason369--music-to-midi",
+  "displayName": "music-to-midi",
+  "description": "\u97f3\u4e50\u8f6cMIDI\u8f6c\u6362\u5668 - Convert audio to multi-track MIDI with lyrics embedding",
+  "version": "1.0.0",
+  "author": "mason369",
+  "homepage": "https://github.com/mason369/music-to-midi",
+  "skills": []
+}
