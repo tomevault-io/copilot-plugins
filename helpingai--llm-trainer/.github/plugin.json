@@ -1,0 +1,9 @@
+{
+  "name": "helpingai--llm-trainer",
+  "displayName": "llm-trainer",
+  "description": "A complete framework for training Large Language Models from scratch",
+  "version": "1.0.0",
+  "author": "HelpingAI",
+  "homepage": "https://github.com/HelpingAI/llm-trainer",
+  "skills": []
+}
