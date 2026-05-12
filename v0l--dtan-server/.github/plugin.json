@@ -1,0 +1,9 @@
+{
+  "name": "v0l--dtan-server",
+  "displayName": "dtan-server",
+  "description": "DTAN server / P2P relay",
+  "version": "1.0.0",
+  "author": "v0l",
+  "homepage": "https://github.com/v0l/dtan-server",
+  "skills": []
+}
