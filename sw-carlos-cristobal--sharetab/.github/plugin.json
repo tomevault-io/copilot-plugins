@@ -1,0 +1,9 @@
+{
+  "name": "sw-carlos-cristobal--sharetab",
+  "displayName": "sharetab",
+  "description": "Self-hosted, open-source Splitwise alternative with AI receipt scanning. One Docker container, no external database.",
+  "version": "1.0.0",
+  "author": "sw-carlos-cristobal",
+  "homepage": "https://github.com/sw-carlos-cristobal/sharetab",
+  "skills": []
+}
