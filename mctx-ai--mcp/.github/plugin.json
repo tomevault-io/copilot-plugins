@@ -1,0 +1,9 @@
+{
+  "name": "mctx-ai--mcp",
+  "displayName": "mcp",
+  "description": "TypeScript framework for building MCP servers hosted on mctx. Includes CLI, dev server, and deployment tooling.",
+  "version": "1.0.0",
+  "author": "mctx-ai",
+  "homepage": "https://github.com/mctx-ai/mcp",
+  "skills": []
+}
