@@ -1,0 +1,9 @@
+{
+  "name": "aiqinxuancai--e-packager",
+  "displayName": "e-packager",
+  "description": "\u5b9e\u9a8c\u9879\u76ee\uff0c\u5c06\u6613\u8bed\u8a00 .e \u5de5\u7a0b\u6587\u4ef6\u89e3\u5305\u4e3a\u53ef\u8bfb\u76ee\u5f55\uff0c\u6216\u5c06\u76ee\u5f55\u56de\u5305\u4e3a .e \u6587\u4ef6\u3002 \u8ba9\u6613\u8bed\u8a00\u9879\u76ee\u4eab\u6709 Git \u7248\u672c\u7ba1\u7406\u3001\u4ee3\u7801 Diff\u3001AI \u8f85\u52a9\u7f16\u8f91\u7b49\u73b0\u4ee3\u5f00\u53d1\u4f53\u9a8c\u3002",
+  "version": "1.0.0",
+  "author": "aiqinxuancai",
+  "homepage": "https://github.com/aiqinxuancai/e-packager",
+  "skills": []
+}
