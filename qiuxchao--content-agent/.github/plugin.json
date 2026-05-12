@@ -1,0 +1,9 @@
+{
+  "name": "qiuxchao--content-agent",
+  "displayName": "content-agent",
+  "description": "\u8f93\u5165\u4e3b\u9898\uff0c\u81ea\u52a8\u641c\u7d22\u7d20\u6750\u3001\u751f\u6210\u5fae\u4fe1\u516c\u4f17\u53f7/\u5c0f\u7ea2\u4e66/\u77e5\u4e4e\u6587\u7ae0\u5e76\u914d\u56fe\u3002\u57fa\u4e8e LangGraph + LangChain\uff0c\u652f\u6301\u4efb\u610f\u6a21\u578b\u3002",
+  "version": "1.0.0",
+  "author": "qiuxchao",
+  "homepage": "https://github.com/qiuxchao/content-agent",
+  "skills": []
+}
