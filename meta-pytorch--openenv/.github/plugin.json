@@ -1,0 +1,9 @@
+{
+  "name": "meta-pytorch--openenv",
+  "displayName": "OpenEnv",
+  "description": "An interface library for RL post training with environments. ",
+  "version": "1.0.0",
+  "author": "meta-pytorch",
+  "homepage": "https://github.com/meta-pytorch/OpenEnv",
+  "skills": []
+}
