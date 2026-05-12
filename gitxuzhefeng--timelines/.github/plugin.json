@@ -1,0 +1,9 @@
+{
+  "name": "gitxuzhefeng--timelines",
+  "displayName": "timelines",
+  "description": "Local-first AI time tracking and analytics for macOS and Windows, built with Tauri.",
+  "version": "1.0.0",
+  "author": "gitxuzhefeng",
+  "homepage": "https://github.com/gitxuzhefeng/timelines",
+  "skills": []
+}
