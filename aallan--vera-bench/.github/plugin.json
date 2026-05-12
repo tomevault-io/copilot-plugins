@@ -1,0 +1,9 @@
+{
+  "name": "aallan--vera-bench",
+  "displayName": "vera-bench",
+  "description": "VeraBench: a benchmark suite for LLM code generation in Vera",
+  "version": "1.0.0",
+  "author": "aallan",
+  "homepage": "https://github.com/aallan/vera-bench",
+  "skills": []
+}
