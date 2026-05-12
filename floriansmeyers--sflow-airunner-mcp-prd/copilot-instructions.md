@@ -1,0 +1,145 @@
+## sflow-airunner-mcp-prd
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Rules
+
+- **Always update CLAUDE.md** when making changes that affect architecture, conventions, URL resolution logic, helper functions, or any other information documented here. Keep this file in sync with the codebase.
+
+## Overview
+
+Single-file MCP server that schedules and executes Claude Code CLI tasks via cron expressions. Built with FastMCP and stores jobs/runs in SQLite. Features a web dashboard, webhook support, dynamic MCP server creation, and token/cost tracking.
+
+## Commands
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run server (stdio transport for Claude Desktop)
+python server.py
+
+# Run with SSE transport (enables web dashboard + remote access)
+MCP_TRANSPORT=sse python server.py
+# Dashboard available at http://localhost:8080/
+
+# Run with ngrok for remote access from claude.ai
+NGROK_AUTHTOKEN=your_token python server.py
+# ngrok tunnel URL will be printed on startup
+```
+
+## Architecture
+
+The server runs three concurrent async components in separate threads:
+
+1. **MCP Server** - Exposes 25+ tools via FastMCP (jobs, runs, webhooks, credentials, settings)
+2. **Scheduler Loop** - Checks every 60 seconds for jobs due based on cron expressions
+3. **Run Processor Loop** - Picks up pending runs and executes them (handles restarts gracefully)
+
+Jobs execute via `claude_agent_sdk` using the `sdk_query()` streaming API. Token usage and costs are parsed from the SDK response.
+
+## Directory Structure
+
+```
+├── server.py           # Main MCP server
+├── jobs.db             # SQLite database
+├── fixed-servers/      # Built-in MCP servers (e.g., email)
+│   └── email/
+│       ├── server.py
+│       └── metadata.json
+├── dynamic_servers/    # User-created MCP servers via create_mcp_server tool
+│   ├── cat-facts/
+│   └── r2-images/
+└── deploy/             # Deployment configs (systemd, nginx, deploy script)
+```
+
+## Database
+
+SQLite at `./jobs.db` with tables:
+- `jobs` - Scheduled tasks with cron expressions, prompts, timeout settings
+- `runs` - Execution history with output, tokens, cost, state (pending/running/finished/error)
+- `webhooks` - HTTP endpoints that trigger prompts with payload templating
+- `settings` - Configuration for allowed tools, MCP servers, credentials
+
+## MCP Tools
+
+**Job Management:** `list_jobs`, `get_job`, `create_job`, `update_job`, `delete_job`, `trigger_job`
+
+**Run Management:** `list_runs`, `get_run`, `kill_run`
+
+**Webhooks:** `create_webhook`, `list_webhooks`, `get_webhook`, `update_webhook`, `delete_webhook`
+
+**Dynamic MCP Servers:** `create_mcp_server`, `list_dynamic_mcp_servers`, `get_dynamic_mcp_server`, `update_mcp_server`, `delete_mcp_server`, `enable_mcp_server`, `disable_mcp_server`
+
+**Fixed MCP Servers:** `list_fixed_mcp_servers`, `enable_fixed_server`, `disable_fixed_server`
+
+**Credential Management:** `set_server_credential`, `get_server_credentials`, `list_required_credentials`, `get_unconfigured_servers`, `delete_server_credential`
+
+**Internal MCP:** `invoke_internal_mcp_tool`
+
+## URL Resolution
+
+Two helpers in `server.py` resolve the public-facing server URL. Both follow the same priority order:
+
+1. `PUBLIC_URL` env var (highest priority)
+2. `NGROK_PUBLIC_URL` global (set when an ngrok tunnel is active)
+3. Fallback
+
+| Helper | Fallback | Used by |
+|--------|----------|---------|
+| `get_server_url()` | `http://localhost:8080` | OAuth, general server links |
+| `get_webhook_base_url()` | DB setting `webhook_base_url`, then `http://localhost:8080` | All webhook URL generation (`create_webhook`, `list_webhooks`, `get_webhook`, `api_webhooks_handler`) |
+
+When adding new code that builds user-facing URLs, use one of these helpers instead of hardcoding `localhost` or reading from the DB directly.
+
+## Credential Management
+
+All MCP server credentials are stored in the database (`settings.mcp_env_vars`). Each server declares required environment variables in its `metadata.json`:
+
+```json
+{
+  "env_vars": [
+    {"name": "API_KEY", "description": "API key for service", "required": true, "sensitive": true},
+    {"name": "ORG_ID", "description": "Organization identifier", "required": true, "sensitive": false}
+  ]
+}
+```
+
+Use MCP tools to manage credentials:
+- `set_server_credential("server-name", "VAR_NAME", "value")` - Set a credential
+- `get_server_credentials("server-name")` - View configured credentials (values masked)
+- `list_required_credentials("server-name")` - See what a server needs
+- `get_unconfigured_servers()` - Find servers missing required credentials
+
+When creating dynamic servers with `create_mcp_server`, env vars can be auto-detected from code patterns like `os.environ.get("VAR_NAME")`.
+
+## Web Dashboard (SSE mode only)
+
+- Cost overview (today/week/total)
+- Quick run for ad-hoc prompts
+- Job/run/webhook management
+- Fixed and dynamic MCP server management
+- Credential configuration per server
+- Live run output streaming
+
+## Key Dependencies
+
+- `fastmcp` - MCP protocol implementation
+- `claude-agent-sdk` - Core execution engine for running jobs
+- `croniter` - Cron expression parsing
+- `sendgrid`, `requests` - Email provider integrations
+- `uvicorn` - ASGI server for SSE transport
+- `pyngrok` - ngrok tunnel for remote access from claude.ai
+- `python-dotenv` - `.env` file loading
+- `PyJWT` - JWT token handling for OAuth
+- `beautifulsoup4` - Web scraping
+- `boto3` - AWS integration
+- `playwright` - Browser automation
+
+---
+> Source: [floriansmeyers/SFLOW-AIRunner-MCP-PRD](https://github.com/floriansmeyers/SFLOW-AIRunner-MCP-PRD) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
