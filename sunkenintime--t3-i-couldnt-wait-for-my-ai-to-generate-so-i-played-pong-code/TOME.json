@@ -4,7 +4,7 @@
   "repo": "t3-i-couldnt-wait-for-my-ai-to-generate-so-i-played-pong-code",
   "description": "Personal t3code fork: Pong sidebar easter egg and timeline height work",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SunkenInTime/t3-i-couldnt-wait-for-my-ai-to-generate-so-i-played-pong-code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T03:07:48Z"
+  "distributed_at": "2026-05-12T23:48:14Z"
 }
