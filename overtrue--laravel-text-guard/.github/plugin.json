@@ -1,0 +1,9 @@
+{
+  "name": "overtrue--laravel-text-guard",
+  "displayName": "laravel-text-guard",
+  "description": "A powerful string sanitization and normalization tool for Laravel that can be used as validation rules or standalone utility. / \u53ef\u4f5c Rule \u4e5f\u53ef\u5355\u7528\u7684\u5b57\u7b26\u4e32\u6e05\u6d17/\u89c4\u8303\u5316\u5de5\u5177",
+  "version": "1.0.0",
+  "author": "overtrue",
+  "homepage": "https://github.com/overtrue/laravel-text-guard",
+  "skills": []
+}
