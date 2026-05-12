@@ -1,0 +1,9 @@
+{
+  "name": "omar-obando--qwen-orchestrator",
+  "displayName": "qwen-orchestrator",
+  "description": "Qwen Orchestrator is a powerful extension built exclusively for Qwen Code \u2014 the open-source AI coding CLI by Alibaba. It transforms a single AI coding assistant into a coordinated team of 22 specializ",
+  "version": "1.0.0",
+  "author": "Omar-Obando",
+  "homepage": "https://github.com/Omar-Obando/qwen-orchestrator",
+  "skills": []
+}
