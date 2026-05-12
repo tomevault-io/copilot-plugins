@@ -1,0 +1,9 @@
+{
+  "name": "co-l--leangraph",
+  "displayName": "leangraph",
+  "description": "A lightweight, embeddable graph database with full Cypher query support, powered by SQLite.",
+  "version": "1.0.0",
+  "author": "co-l",
+  "homepage": "https://github.com/co-l/leangraph",
+  "skills": []
+}
