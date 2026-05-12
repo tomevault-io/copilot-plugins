@@ -4,7 +4,7 @@
   "repo": "orb",
   "description": "Modern HTTP tooling built in Rust",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WalshyDev/orb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T15:16:29Z"
+  "distributed_at": "2026-05-12T18:33:21Z"
 }
