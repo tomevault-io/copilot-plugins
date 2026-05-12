@@ -1,0 +1,9 @@
+{
+  "name": "context-graph-ai--contextdb",
+  "displayName": "contextdb",
+  "description": "Embedded database for agentic memory \u2014 relational, graph, and vector under unified MVCC transactions",
+  "version": "1.0.0",
+  "author": "context-graph-ai",
+  "homepage": "https://github.com/context-graph-ai/contextdb",
+  "skills": []
+}
