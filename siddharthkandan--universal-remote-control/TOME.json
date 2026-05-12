@@ -4,7 +4,7 @@
   "repo": "universal-remote-control",
   "description": "Control Codex and Gemini from the Claude app on your phone. Cross-CLI agent communication via MCP.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/siddharthkandan/universal-remote-control",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T08:36:29Z"
+  "distributed_at": "2026-05-12T16:52:35Z"
 }
