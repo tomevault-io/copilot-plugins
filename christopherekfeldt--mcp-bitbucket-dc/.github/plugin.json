@@ -1,0 +1,9 @@
+{
+  "name": "christopherekfeldt--mcp-bitbucket-dc",
+  "displayName": "mcp-bitbucket-dc",
+  "description": "MCP server for Bitbucket Data Center \u2014 code search, file browsing, PRs, commits, and more",
+  "version": "1.0.0",
+  "author": "christopherekfeldt",
+  "homepage": "https://github.com/christopherekfeldt/mcp-bitbucket-dc",
+  "skills": []
+}
