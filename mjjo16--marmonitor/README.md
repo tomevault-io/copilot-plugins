@@ -7,14 +7,14 @@ tmux status bar monitor for AI coding agents — track Claude, Codex, Gemini se
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [mjjo16/marmonitor](https://github.com/mjjo16/marmonitor).
+Original source: `CLAUDE.md` in [mjjo16/marmonitor](https://github.com/mjjo16/marmonitor).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [mjjo16/marmonitor](https://github.com/mjjo16/marmonitor) — a repo with 21+ stars on GitHub.
