@@ -1,0 +1,9 @@
+{
+  "name": "tinylabscom--mvm",
+  "displayName": "mvm",
+  "description": "Manage Firecracker microVMs on macOS/Linux via Lima \u2014 one command from zero to SSH session.",
+  "version": "1.0.0",
+  "author": "tinylabscom",
+  "homepage": "https://github.com/tinylabscom/mvm",
+  "skills": []
+}
