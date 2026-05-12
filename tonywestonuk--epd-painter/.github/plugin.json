@@ -1,0 +1,9 @@
+{
+  "name": "tonywestonuk--epd-painter",
+  "displayName": "EPD_Painter",
+  "description": "Fast m5paperS3 epaper driver",
+  "version": "1.0.0",
+  "author": "tonywestonuk",
+  "homepage": "https://github.com/tonywestonuk/EPD_Painter",
+  "skills": []
+}
