@@ -1,0 +1,9 @@
+{
+  "name": "lukeocodes--touch-grass",
+  "displayName": "touch-grass",
+  "description": "Chrome extension that turns GitHub contribution graphs into animated grass fields",
+  "version": "1.0.0",
+  "author": "lukeocodes",
+  "homepage": "https://github.com/lukeocodes/touch-grass",
+  "skills": []
+}
