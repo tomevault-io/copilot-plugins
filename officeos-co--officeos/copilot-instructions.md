@@ -1,0 +1,38 @@
+## officeos
+
+> Open-source, self-hosted, model-agnostic agent infrastructure. The obvious choice for companies that want to run AI agents on their own cloud. Not competing with Claude or ChatGPT — this is the Kubernetes of agents.
+
+# EnterpriseAgentOs
+
+Open-source, self-hosted, model-agnostic agent infrastructure. The obvious choice for companies that want to run AI agents on their own cloud. Not competing with Claude or ChatGPT — this is the Kubernetes of agents.
+
+**Philosophy**: AI models will commoditize. The value is in the orchestration and integration layer. We use MCP (Model Context Protocol) as the universal standard for tool integrations — any community MCP server plugs in, and we also publish our own custom MCP servers for integrations that don't exist yet.
+
+## Architecture
+
+- **Pod executor** (`packages/pod-executor`) — shell-like environment for agents, deployed as K8s pods
+- **Agentic loop** (`apps/backend/.../AgentTurnService.cs`) — the core reasoning loop, runs in the backend, max 25 iterations per turn
+- **Tools** (`apps/backend/.../Tools/`) — built-in tools (shell, file_read, file_write, file_edit, content_search, glob_search, memory, http)
+- **MCP integration** (in progress) — agents connect to MCP servers for external tool access. Replaces the old skill system.
+- **Channels** (`packages/channels`) — TypeScript sidecar for Telegram, WhatsApp, Slack, Teams
+- **Dashboard** (`apps/dashboard`) — Next.js operator UI
+
+The backend uses strict structured logging — agent interactions are a sequence of typed log entries (message_in, tool_call, tool_result, message_out), not chat messages.
+
+# Backend
+
+The backend uses clean architecture: Api, Application, Domain, Infrastructure. Database entities are decoupled from domain models — each repository maps entities to rich domain records. We use event-driven architecture with MediatR domain events. This is critical — always use events where possible.
+
+# Dashboard
+
+Clean architecture with domain separation under `apps/dashboard/src/features` (agents, analytics, manage). Each domain has its own api, types, and components. Tabs use URL parameters, not JS state.
+
+# Rules
+
+- never try to run the application yourself, after having changed the code your done; rather you should build the code or lint it only check if it compiles
+- dont care about legacy integrations the default should always be to just delete the old entirely
+- the default integration should be big-bang-integration unless i explicitely tell you to.
+
+---
+> Source: [officeos-co/officeos](https://github.com/officeos-co/officeos) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-11 -->
