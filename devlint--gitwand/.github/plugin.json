@@ -1,0 +1,9 @@
+{
+  "name": "devlint--gitwand",
+  "displayName": "GitWand",
+  "description": "GitWand automatically resolves trivial Git merge conflicts \u2014 the ones that waste your time but don't need human judgment. Think of it as PhpStorm's magic wand, everywhere.",
+  "version": "1.0.0",
+  "author": "devlint",
+  "homepage": "https://github.com/devlint/GitWand",
+  "skills": []
+}
