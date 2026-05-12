@@ -4,7 +4,7 @@
   "repo": "imp",
   "description": "High-performance LLM inference engine in C++/CUDA for NVIDIA Blackwell GPUs (RTX 5090)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kekzl/imp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T12:32:28Z"
+  "distributed_at": "2026-05-12T08:51:28Z"
 }
