@@ -1,0 +1,9 @@
+{
+  "name": "llm-d-incubation--llm-d-fast-model-actuation",
+  "displayName": "llm-d-fast-model-actuation",
+  "description": "Kubernetes controllers for fast model actuation using vLLM sleep/wake and launcher-based model swapping",
+  "version": "1.0.0",
+  "author": "llm-d-incubation",
+  "homepage": "https://github.com/llm-d-incubation/llm-d-fast-model-actuation",
+  "skills": []
+}
