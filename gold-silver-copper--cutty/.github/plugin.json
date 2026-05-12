@@ -1,0 +1,9 @@
+{
+  "name": "gold-silver-copper--cutty",
+  "displayName": "CuTTY",
+  "description": "A wgpu powered terminal emulator, pronounced \"cutie\"",
+  "version": "1.0.0",
+  "author": "gold-silver-copper",
+  "homepage": "https://github.com/gold-silver-copper/CuTTY",
+  "skills": []
+}
