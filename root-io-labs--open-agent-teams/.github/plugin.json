@@ -1,0 +1,9 @@
+{
+  "name": "root-io-labs--open-agent-teams",
+  "displayName": "open-agent-teams",
+  "description": "OAT is a framework for running teams of AI coding agents that collaborate on a shared codebase.",
+  "version": "1.0.0",
+  "author": "Root-IO-Labs",
+  "homepage": "https://github.com/Root-IO-Labs/open-agent-teams",
+  "skills": []
+}
