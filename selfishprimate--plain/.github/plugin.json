@@ -1,0 +1,9 @@
+{
+  "name": "selfishprimate--plain",
+  "displayName": "plain",
+  "description": "PLAIN (Product Language for AI Notation) is a structured markdown specification format designed to bridge the gap between product vision and AI-generated code.",
+  "version": "1.0.0",
+  "author": "selfishprimate",
+  "homepage": "https://github.com/selfishprimate/plain",
+  "skills": []
+}
