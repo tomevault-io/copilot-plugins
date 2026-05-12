@@ -1,0 +1,9 @@
+{
+  "name": "aiamblichus--haevn",
+  "displayName": "haevn",
+  "description": "A Chrome extension for exporting and preserving conversations from various AI platforms including Gemini, ChatGPT, and Poe.",
+  "version": "1.0.0",
+  "author": "aiamblichus",
+  "homepage": "https://github.com/aiamblichus/haevn",
+  "skills": []
+}
