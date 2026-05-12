@@ -1,0 +1,9 @@
+{
+  "name": "ahatornn--enumerable",
+  "displayName": "enumerable",
+  "description": "Functional data processing in Go with lazy iterators and generics. Efficient, composable, and memory-friendly.",
+  "version": "1.0.0",
+  "author": "ahatornn",
+  "homepage": "https://github.com/ahatornn/enumerable",
+  "skills": []
+}
