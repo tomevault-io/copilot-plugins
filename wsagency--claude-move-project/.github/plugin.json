@@ -1,0 +1,9 @@
+{
+  "name": "wsagency--claude-move-project",
+  "displayName": "claude-move-project",
+  "description": "Move Claude Code projects while preserving session history",
+  "version": "1.0.0",
+  "author": "wsagency",
+  "homepage": "https://github.com/wsagency/claude-move-project",
+  "skills": []
+}
