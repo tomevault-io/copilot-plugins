@@ -4,7 +4,7 @@
   "repo": "fossilrepo",
   "description": "fossilrepo server omnibus stack",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ConflictHQ/fossilrepo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T11:00:52Z"
+  "distributed_at": "2026-05-12T00:10:27Z"
 }
