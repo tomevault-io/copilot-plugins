@@ -1,0 +1,9 @@
+{
+  "name": "ophwug--docs",
+  "displayName": "docs",
+  "description": "Unofficial documentation of unofficial fixes and tweaks to comma and unofficial openpilot hardware",
+  "version": "1.0.0",
+  "author": "ophwug",
+  "homepage": "https://github.com/ophwug/docs",
+  "skills": []
+}
