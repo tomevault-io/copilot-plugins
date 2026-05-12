@@ -1,0 +1,9 @@
+{
+  "name": "esagduyu--project-tiro",
+  "displayName": "project-tiro",
+  "description": "A local-first, open-source reading OS for the AI age. Save web articles and newsletters as clean markdown. Claude Opus 4.6 generates daily digests, finds cross-document connections, and learns your re",
+  "version": "1.0.0",
+  "author": "esagduyu",
+  "homepage": "https://github.com/esagduyu/project-tiro",
+  "skills": []
+}
