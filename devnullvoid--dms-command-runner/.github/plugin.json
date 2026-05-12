@@ -1,0 +1,9 @@
+{
+  "name": "devnullvoid--dms-command-runner",
+  "displayName": "dms-command-runner",
+  "description": "Command Runner plugin for DankMaterialShell - Execute shell commands from the launcher",
+  "version": "1.0.0",
+  "author": "devnullvoid",
+  "homepage": "https://github.com/devnullvoid/dms-command-runner",
+  "skills": []
+}
