@@ -1,0 +1,9 @@
+{
+  "name": "willwebster5--talonctl",
+  "displayName": "talonctl",
+  "description": "Infrastructure as code for CrowdStrike \u2014 manage detections, workflows, saved searches, and more with a Terraform-like lifecycle.",
+  "version": "1.0.0",
+  "author": "willwebster5",
+  "homepage": "https://github.com/willwebster5/talonctl",
+  "skills": []
+}
