@@ -1,0 +1,9 @@
+{
+  "name": "harperaa--bastionclaw",
+  "displayName": "bastionclaw",
+  "description": "Personal AI assistant with container isolation and semantic memory",
+  "version": "1.0.0",
+  "author": "harperaa",
+  "homepage": "https://github.com/harperaa/bastionclaw",
+  "skills": []
+}
