@@ -1,0 +1,9 @@
+{
+  "name": "agodianel--esp32-claude-workbench",
+  "displayName": "esp32-claude-workbench",
+  "description": "Deterministic AI workflow for ESP32 firmware development \u2014 structured missions, implementation contracts, debug playbooks, testing-first approach, and Claude Code skills for safe, repeatable embedded ",
+  "version": "1.0.0",
+  "author": "agodianel",
+  "homepage": "https://github.com/agodianel/esp32-claude-workbench",
+  "skills": []
+}
