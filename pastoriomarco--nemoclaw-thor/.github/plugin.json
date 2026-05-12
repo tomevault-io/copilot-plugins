@@ -1,0 +1,9 @@
+{
+  "name": "pastoriomarco--nemoclaw-thor",
+  "displayName": "NemoClaw-Thor",
+  "description": "Scripts and fixes for running NVIDIA NemoClaw on Jetson AGX Thor",
+  "version": "1.0.0",
+  "author": "pastoriomarco",
+  "homepage": "https://github.com/pastoriomarco/NemoClaw-Thor",
+  "skills": []
+}
