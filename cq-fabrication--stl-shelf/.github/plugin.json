@@ -1,0 +1,9 @@
+{
+  "name": "cq-fabrication--stl-shelf",
+  "displayName": "stl-shelf",
+  "description": "Personal library management for 3D printable models. Organize your designs, track versions, and preview models in your browser. Built for makers building businesses.",
+  "version": "1.0.0",
+  "author": "CQ-Fabrication",
+  "homepage": "https://github.com/CQ-Fabrication/stl-shelf",
+  "skills": []
+}
