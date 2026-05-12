@@ -1,0 +1,9 @@
+{
+  "name": "verified-zkevm--evm-asm",
+  "displayName": "evm-asm",
+  "description": "evm-asm",
+  "version": "1.0.0",
+  "author": "Verified-zkEVM",
+  "homepage": "https://github.com/Verified-zkEVM/evm-asm",
+  "skills": []
+}
