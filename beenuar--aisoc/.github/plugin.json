@@ -1,0 +1,9 @@
+{
+  "name": "beenuar--aisoc",
+  "displayName": "AiSOC",
+  "description": "Open-source AI-powered Security Operations Center \u2014 alert fusion, purple-team drills, agent-assisted triage, MITRE ATT&CK investigation. MIT-licensed, self-hostable.",
+  "version": "1.0.0",
+  "author": "beenuar",
+  "homepage": "https://github.com/beenuar/AiSOC",
+  "skills": []
+}
