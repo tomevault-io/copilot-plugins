@@ -1,0 +1,9 @@
+{
+  "name": "moneo--laravel-rag",
+  "displayName": "laravel-rag",
+  "description": "A complete, driver based RAG pipeline for Laravel with pgvector & sqlite-vec, streaming, agentic retrieval, hybrid search, evals, MCP server, Filament admin.",
+  "version": "1.0.0",
+  "author": "moneo",
+  "homepage": "https://github.com/moneo/laravel-rag",
+  "skills": []
+}
