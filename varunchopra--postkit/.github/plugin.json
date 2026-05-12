@@ -1,0 +1,9 @@
+{
+  "name": "varunchopra--postkit",
+  "displayName": "postkit",
+  "description": "Postgres-native identity, configuration, metering, and job queues. ",
+  "version": "1.0.0",
+  "author": "varunchopra",
+  "homepage": "https://github.com/varunchopra/postkit",
+  "skills": []
+}
