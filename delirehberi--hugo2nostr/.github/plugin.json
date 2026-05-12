@@ -1,0 +1,9 @@
+{
+  "name": "delirehberi--hugo2nostr",
+  "displayName": "hugo2nostr",
+  "description": "A CLI tool that bridges Hugo static sites and the Nostr network. Publish your blog posts as kind:30023 long-form articles, sync posts back from relays, and manage deletions \u2014 all from one command.",
+  "version": "1.0.0",
+  "author": "delirehberi",
+  "homepage": "https://github.com/delirehberi/hugo2nostr",
+  "skills": []
+}
