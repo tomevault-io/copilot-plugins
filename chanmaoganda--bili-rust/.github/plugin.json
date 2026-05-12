@@ -1,0 +1,9 @@
+{
+  "name": "chanmaoganda--bili-rust",
+  "displayName": "bili-rust",
+  "description": "Tauri 2 desktop Bilibili client (Rust + Leptos/WASM)",
+  "version": "1.0.0",
+  "author": "chanmaoganda",
+  "homepage": "https://github.com/chanmaoganda/bili-rust",
+  "skills": []
+}
