@@ -1,0 +1,9 @@
+{
+  "name": "fitchmultz--pi-cursor-sdk",
+  "displayName": "pi-cursor-sdk",
+  "description": "Cursor SDK provider extension for pi, adding Cursor models to pi's native model picker.",
+  "version": "1.0.0",
+  "author": "fitchmultz",
+  "homepage": "https://github.com/fitchmultz/pi-cursor-sdk",
+  "skills": []
+}
