@@ -1,0 +1,9 @@
+{
+  "name": "vladkens--delta-farmer",
+  "displayName": "delta-farmer",
+  "description": "\ud83e\udd16 Delta-neutral trading automation for perp DEX airdrops. Farm points while you sleep.",
+  "version": "1.0.0",
+  "author": "vladkens",
+  "homepage": "https://github.com/vladkens/delta-farmer",
+  "skills": []
+}
