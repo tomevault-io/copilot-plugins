@@ -1,0 +1,9 @@
+{
+  "name": "tumf--jj-desc",
+  "displayName": "jj-desc",
+  "description": "Generate jj (Jujutsu) commit descriptions automatically using LLMs",
+  "version": "1.0.0",
+  "author": "tumf",
+  "homepage": "https://github.com/tumf/jj-desc",
+  "skills": []
+}
