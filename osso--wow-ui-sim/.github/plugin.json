@@ -1,0 +1,9 @@
+{
+  "name": "osso--wow-ui-sim",
+  "displayName": "wow-ui-sim",
+  "description": "WoW UI Simulator - Load and render WoW addons outside the game",
+  "version": "1.0.0",
+  "author": "Osso",
+  "homepage": "https://github.com/Osso/wow-ui-sim",
+  "skills": []
+}
