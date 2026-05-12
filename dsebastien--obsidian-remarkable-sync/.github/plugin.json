@@ -1,0 +1,9 @@
+{
+  "name": "dsebastien--obsidian-remarkable-sync",
+  "displayName": "obsidian-remarkable-sync",
+  "description": "Connect your reMarkable tablet to Obsidian. List, download, and sync notebook pages as images.",
+  "version": "1.0.0",
+  "author": "dsebastien",
+  "homepage": "https://github.com/dsebastien/obsidian-remarkable-sync",
+  "skills": []
+}
