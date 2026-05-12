@@ -1,15 +1,37 @@
-## tju-thesis-writing-voice
+## tju-thesis-review-kit
 
-> 天津大学本科毕设学术语体约束，避免内部材料口吻、答辩备忘表达和路径化叙述
+> This repository packages reusable workflows for reviewing Tianjin University undergraduate theses.
 
+# AGENTS.md
 
-# TJU Thesis Writing Voice
+This repository packages reusable workflows for reviewing Tianjin University undergraduate theses.
 
-- 不要把本地路径、内部 PDF 文件名、脚本文件名写成摘要或正文主论据。
-- 不要使用“答辩中应”“读者应”“为了方便展示”这类答辩备忘口吻。
-- 图注、表注优先写“指标口径 + 可比性边界 + 数据来源”，不要写过程说明。
-- 保持学术表达克制、客观、可检验，避免绝对化和模板化空话。
-- 修改中文摘要后，同步检查英文摘要和英文关键词。
+## When working on a thesis repository
+
+- Read `PROJECT.md` first when it exists. Treat it as the source of stable project facts.
+- Read `MEMORY.md` when it exists for advisor preferences, known issues, and current review focus.
+- Prioritize submission-blocking issues before style polishing.
+- Prefer minimal necessary edits. Do not casually alter the thesis conclusion, data scope, or chapter logic.
+
+## Review priorities
+
+1. Front matter order, page numbering, headers/footers, and table of contents.
+2. Abstracts and keywords, including Chinese/English consistency.
+3. Figures, tables, equations, appendix numbering, and caption placement.
+4. Citation consistency between in-text references and bibliography entries.
+5. Writing tone: remove local paths, internal file names, and defense-note style phrasing.
+
+## Hard checks
+
+- Figure captions go below figures; table captions go above tables.
+- Figures, tables, and equations should use chapter-based numbering.
+- Tables should prefer three-line formatting.
+- Chinese and English abstracts should stay aligned.
+- Output review results with findings first, then touched files, residual risks, and compile status.
+
+## Reusable skill
+
+For detailed thesis review workflow, read `.codex/skills/tju-thesis-reviewer/SKILL.md`.
 
 ---
 > Source: [ChenXi-hub/tju-thesis-review-kit](https://github.com/ChenXi-hub/tju-thesis-review-kit) — distributed by [TomeVault](https://tomevault.io).
