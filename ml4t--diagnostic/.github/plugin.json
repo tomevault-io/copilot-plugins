@@ -1,0 +1,9 @@
+{
+  "name": "ml4t--diagnostic",
+  "displayName": "diagnostic",
+  "description": "Comprehensive diagnostics library for quantitative finance ML workflows",
+  "version": "1.0.0",
+  "author": "ml4t",
+  "homepage": "https://github.com/ml4t/diagnostic",
+  "skills": []
+}
