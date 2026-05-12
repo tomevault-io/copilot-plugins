@@ -1,0 +1,44 @@
+{
+  "name": "AlterLab_GameForge",
+  "owner": "AlterLab-IEU",
+  "repo": "AlterLab_GameForge",
+  "description": "\ud83c\udfae 34 production-grade Claude Code skills for indie game development \u2014 studio agents, workflow skills, engine specialists, genre packs, and CI validation. From concept to launch.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AlterLab-IEU/AlterLab_GameForge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T03:14:06Z"
+}
