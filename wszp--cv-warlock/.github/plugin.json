@@ -1,0 +1,9 @@
+{
+  "name": "wszp--cv-warlock",
+  "displayName": "cv-warlock",
+  "description": "RLM-powered CV tailoring for job applications.",
+  "version": "1.0.0",
+  "author": "WSzP",
+  "homepage": "https://github.com/WSzP/cv-warlock",
+  "skills": []
+}
