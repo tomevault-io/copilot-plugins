@@ -1,0 +1,9 @@
+{
+  "name": "aexol-studio--basecamp-to-llm",
+  "displayName": "basecamp-to-llm",
+  "description": "Small CLI to fetch tasks from Card Tables from BaseCamp",
+  "version": "1.0.0",
+  "author": "aexol-studio",
+  "homepage": "https://github.com/aexol-studio/basecamp-to-llm",
+  "skills": []
+}
