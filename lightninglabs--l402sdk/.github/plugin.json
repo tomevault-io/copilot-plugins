@@ -1,0 +1,9 @@
+{
+  "name": "lightninglabs--l402sdk",
+  "displayName": "L402sdk",
+  "description": "L402 client SDK for AI agent frameworks \u2014 pay for APIs with Lightning",
+  "version": "1.0.0",
+  "author": "lightninglabs",
+  "homepage": "https://github.com/lightninglabs/L402sdk",
+  "skills": []
+}
