@@ -1,0 +1,9 @@
+{
+  "name": "csabakovacs--rulesmith",
+  "displayName": "rulesmith",
+  "description": "Local-first CLI + MCP server that maps repositories and generates evidence-backed AI agent instructions (AGENTS.md, CLAUDE.md, Copilot).",
+  "version": "1.0.0",
+  "author": "CsabaKovacs",
+  "homepage": "https://github.com/CsabaKovacs/rulesmith",
+  "skills": []
+}
