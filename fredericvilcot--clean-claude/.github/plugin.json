@@ -1,0 +1,9 @@
+{
+  "name": "fredericvilcot--clean-claude",
+  "displayName": "clean-claude",
+  "description": "Stop prompting. Start crafting. \u2014 Transforms Claude Code into 6 reactive AI agents (PO, Architect, Frontend, Backend, QA, DevOps) that collaborate to deliver clean, tested, architected React + TypeScr",
+  "version": "1.0.0",
+  "author": "fredericvilcot",
+  "homepage": "https://github.com/fredericvilcot/clean-claude",
+  "skills": []
+}
