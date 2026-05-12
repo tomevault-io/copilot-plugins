@@ -1,0 +1,9 @@
+{
+  "name": "faizkhairi--claude-code-blueprint",
+  "displayName": "claude-code-blueprint",
+  "description": "A battle-tested, framework-agnostic reference architecture for Claude Code. Beginner-friendly with graduated adoption. 11 agents, 17 skills, 10 hooks, 5 rules -- with reasoning behind every decision.",
+  "version": "1.0.0",
+  "author": "faizkhairi",
+  "homepage": "https://github.com/faizkhairi/claude-code-blueprint",
+  "skills": []
+}
