@@ -4,7 +4,7 @@
   "repo": "moltbook-mcp",
   "description": "MCP server for Moltbook \u2014 the social network for AI agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/terminalcraft/moltbook-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T02:38:53Z"
+  "distributed_at": "2026-05-12T12:35:25Z"
 }
