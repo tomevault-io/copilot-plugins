@@ -1,0 +1,9 @@
+{
+  "name": "docling-project--docling-java",
+  "displayName": "docling-java",
+  "description": "A Java API for Docling",
+  "version": "1.0.0",
+  "author": "docling-project",
+  "homepage": "https://github.com/docling-project/docling-java",
+  "skills": []
+}
