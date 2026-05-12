@@ -4,7 +4,7 @@
   "repo": "bash-logger",
   "description": "A flexible, reusable logging module for Bash scripts that provides standardized logging functionality with various configuration options.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GingerGraham/bash-logger",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T08:34:44Z"
+  "distributed_at": "2026-05-12T14:58:59Z"
 }
