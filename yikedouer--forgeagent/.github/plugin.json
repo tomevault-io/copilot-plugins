@@ -1,0 +1,9 @@
+{
+  "name": "yikedouer--forgeagent",
+  "displayName": "ForgeAgent",
+  "description": "A Python coding agent built from scratch by studying claw-code (Claude Code). Learning project for understanding Agent architecture layer by layer.",
+  "version": "1.0.0",
+  "author": "yikedouer",
+  "homepage": "https://github.com/yikedouer/ForgeAgent",
+  "skills": []
+}
