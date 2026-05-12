@@ -1,0 +1,9 @@
+{
+  "name": "paddo-tech--tether-cli",
+  "displayName": "tether-cli",
+  "description": "Sync dotfiles and packages across machines",
+  "version": "1.0.0",
+  "author": "paddo-tech",
+  "homepage": "https://github.com/paddo-tech/tether-cli",
+  "skills": []
+}
