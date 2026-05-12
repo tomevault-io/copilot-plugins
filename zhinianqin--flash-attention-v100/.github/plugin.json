@@ -1,0 +1,9 @@
+{
+  "name": "zhinianqin--flash-attention-v100",
+  "displayName": "flash-attention-v100",
+  "description": "forked from vllm-project/flash-attention",
+  "version": "1.0.0",
+  "author": "zhinianqin",
+  "homepage": "https://github.com/zhinianqin/flash-attention-v100",
+  "skills": []
+}
