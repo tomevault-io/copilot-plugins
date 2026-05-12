@@ -1,0 +1,9 @@
+{
+  "name": "entropy-cloud--nop-chaos-flux",
+  "displayName": "nop-chaos-flux",
+  "description": "NOP Chaos Flux is a modern rewrite of the Baidu AMIS low-code renderer, leveraging the React 19 + TypeScript 5.9 + Zustand + Vite 8 technology stack. It supports schema-driven declarative rendering fo",
+  "version": "1.0.0",
+  "author": "entropy-cloud",
+  "homepage": "https://github.com/entropy-cloud/nop-chaos-flux",
+  "skills": []
+}
