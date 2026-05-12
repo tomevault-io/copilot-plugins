@@ -1,0 +1,44 @@
+{
+  "name": "XyMusic",
+  "owner": "xianyvbang",
+  "repo": "XyMusic",
+  "description": "\u652f\u6301Android\u7684\u54b8\u9c7c\u97f3\u4e50\u64ad\u653e\u5668,\u53ef\u4ee5\u8fde\u63a5\u90e8\u7f72\u5728NAS\u4e0a\u7684\u97f3\u4e50\u670d\u52a1,\u76ee\u524d\u652f\u6301\u7684\u670d\u52a1\u6709Jellyfin,Emby,Subsonic,Navidrome,Plex",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xianyvbang/XyMusic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T06:22:10Z"
+}
