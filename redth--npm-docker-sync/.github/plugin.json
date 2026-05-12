@@ -1,0 +1,9 @@
+{
+  "name": "redth--npm-docker-sync",
+  "displayName": "npm-docker-sync",
+  "description": "Nginx Proxy Manager Docker Label Sync",
+  "version": "1.0.0",
+  "author": "Redth",
+  "homepage": "https://github.com/Redth/npm-docker-sync",
+  "skills": []
+}
