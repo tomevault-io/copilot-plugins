@@ -1,0 +1,9 @@
+{
+  "name": "replikativ--raster",
+  "displayName": "raster",
+  "description": "Fast, functional numerical computing for Clojure/JVM.",
+  "version": "1.0.0",
+  "author": "replikativ",
+  "homepage": "https://github.com/replikativ/raster",
+  "skills": []
+}
