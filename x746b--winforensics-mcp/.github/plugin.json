@@ -1,0 +1,9 @@
+{
+  "name": "x746b--winforensics-mcp",
+  "displayName": "winforensics-mcp",
+  "description": "A comprehensive MCP server for Windows digital forensics on KALI Linux",
+  "version": "1.0.0",
+  "author": "x746b",
+  "homepage": "https://github.com/x746b/winforensics-mcp",
+  "skills": []
+}
