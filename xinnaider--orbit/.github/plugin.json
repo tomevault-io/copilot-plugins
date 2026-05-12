@@ -1,0 +1,9 @@
+{
+  "name": "xinnaider--orbit",
+  "displayName": "orbit",
+  "description": "Desktop app for running multiple Claude Code agents simultaneously.",
+  "version": "1.0.0",
+  "author": "xinnaider",
+  "homepage": "https://github.com/xinnaider/orbit",
+  "skills": []
+}
