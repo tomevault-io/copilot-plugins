@@ -1,0 +1,44 @@
+{
+  "name": "astraa",
+  "owner": "puri-adityakumar",
+  "repo": "astraa",
+  "description": "Astraa (\u0905\u0938\u094d\u0924\u094d\u0930) browser-based utility toolkit that brings together a collection of powerful tools and games in one place.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/puri-adityakumar/astraa",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T04:37:48Z"
+}
