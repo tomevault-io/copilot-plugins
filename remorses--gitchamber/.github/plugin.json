@@ -1,0 +1,9 @@
+{
+  "name": "remorses--gitchamber",
+  "displayName": "gitchamber",
+  "description": "Download GitHub repos locally. opensrc alternative that does not edit your AGENTS.md",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/gitchamber",
+  "skills": []
+}
