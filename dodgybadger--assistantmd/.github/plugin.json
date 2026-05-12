@@ -1,0 +1,9 @@
+{
+  "name": "dodgybadger--assistantmd",
+  "displayName": "AssistantMD",
+  "description": "Markdown-native chat UI and agent harness for automating research and knowledge workflows.",
+  "version": "1.0.0",
+  "author": "DodgyBadger",
+  "homepage": "https://github.com/DodgyBadger/AssistantMD",
+  "skills": []
+}
