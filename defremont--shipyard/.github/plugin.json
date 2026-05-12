@@ -1,0 +1,9 @@
+{
+  "name": "defremont--shipyard",
+  "displayName": "Shipyard",
+  "description": "Local-first development dashboard: manage projects, tasks, git, and terminals easily. No cloud, no accounts, just localhost",
+  "version": "1.0.0",
+  "author": "defremont",
+  "homepage": "https://github.com/defremont/Shipyard",
+  "skills": []
+}
