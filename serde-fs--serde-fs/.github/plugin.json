@@ -1,0 +1,9 @@
+{
+  "name": "serde-fs--serde-fs",
+  "displayName": "Serde.FS",
+  "description": "A deterministic, reflection\u2011free serialization and RPC platform for F#. Powered by Serde\u2011style source generation for .NET and (soon) Fable.",
+  "version": "1.0.0",
+  "author": "serde-fs",
+  "homepage": "https://github.com/serde-fs/Serde.FS",
+  "skills": []
+}
