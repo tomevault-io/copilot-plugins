@@ -1,0 +1,9 @@
+{
+  "name": "amix--dunk",
+  "displayName": "dunk",
+  "description": "Review diffs in a terminal UI, leave inline comments, and let coding agents fix them",
+  "version": "1.0.0",
+  "author": "amix",
+  "homepage": "https://github.com/amix/dunk",
+  "skills": []
+}
