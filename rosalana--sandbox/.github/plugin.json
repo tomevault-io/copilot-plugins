@@ -1,0 +1,9 @@
+{
+  "name": "rosalana--sandbox",
+  "displayName": "sandbox",
+  "description": "Lightweight WebGL wrapper for simple, beautiful shader effects",
+  "version": "1.0.0",
+  "author": "rosalana",
+  "homepage": "https://github.com/rosalana/sandbox",
+  "skills": []
+}
