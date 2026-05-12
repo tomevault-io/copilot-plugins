@@ -1,41 +1,44 @@
-## code-conventions
+## development-guide
 
-> This document outlines the code conventions and best practices used in the LLM Proxy codebase.
+> This document provides guidance for developing and testing the LLM Proxy.
 
-# Code Conventions and Best Practices
+# Development Guide
 
-This document outlines the code conventions and best practices used in the LLM Proxy codebase.
+This document provides guidance for developing and testing the LLM Proxy.
 
-## Rust Conventions
+## Setup
 
-- Use the 2024 edition of Rust as specified in [Cargo.toml](mdc:Cargo.toml)
-- Follow the formatting rules in [rustfmt.toml](mdc:rustfmt.toml)
-- Use clippy lints defined in the workspace configuration:
-  - All clippy lints are set to "deny"
-  - Pedantic lints are set to "warn"
+1. Install Rust: https://www.rust-lang.org/tools/install
+2. Install direnv: https://direnv.net
+3. Configure environment variables:
+   - Copy [.envrc.template](mdc:.envrc.template) to `.envrc`
+   - Fill out the required API keys and configuration
 
-## Error Handling
+## Running Locally
 
-- Use `thiserror` for defining error types
-- Structured errors in [ai-gateway/src/error/](mdc:ai-gateway/src/error)
+- Start the router: `cargo run`
+- Test with a sample request: `cargo run -p test`
 
-## Type Definitions
+## File Structure Conventions
 
-- Leverage Rust's type system for safety
-- Common types in [ai-gateway/src/types/](mdc:ai-gateway/src/types)
+### Main Application
+- [ai-gateway/src/main.rs](mdc:ai-gateway/src/main.rs) - Application entry point
+- [ai-gateway/src/lib.rs](mdc:ai-gateway/src/lib.rs) - Library exports
 
-## Testing Approaches
+### Tests
+- [ai-gateway/tests/](mdc:ai-gateway/tests) - Integration tests
+- [ai-gateway/src/tests/](mdc:ai-gateway/src/tests) - Test utilities
+- Unit tests are typically located alongside the code they test
 
-- Unit tests alongside the code they test
-- Integration tests in separate directories
-- Use the `serial_test` crate for tests that can't run in parallel
-- Leverage the test utilities in [ai-gateway/src/tests/](mdc:ai-gateway/src/tests)
+## Testing
 
-## Dependency Management
+- Run tests: `cargo test --all-features`
 
-- Common dependencies are defined at the workspace level
-- Version pinning for all dependencies
-- Minimal dependency usage with feature flags when appropriate
+## Crate Organization
+
+- Core application logic is in the [ai-gateway/](mdc:ai-gateway) directory
+- Supporting libraries are in the [crates/](mdc:crates) directory
+- External dependencies are defined in the root [Cargo.toml](mdc:Cargo.toml)
 
 ---
 > Source: [AlephantAI/AIephant-AI-Gateway](https://github.com/AlephantAI/AIephant-AI-Gateway) — distributed by [TomeVault](https://tomevault.io).
