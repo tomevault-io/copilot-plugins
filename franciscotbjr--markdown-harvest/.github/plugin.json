@@ -1,0 +1,9 @@
+{
+  "name": "franciscotbjr--markdown-harvest",
+  "displayName": "markdown-harvest",
+  "description": "A Rust crate designed to extract, clean, and convert web content from URLs found in text messages into clean Markdown format. Originally created as an auxiliary component for Retrieval-Augmented Gener",
+  "version": "1.0.0",
+  "author": "franciscotbjr",
+  "homepage": "https://github.com/franciscotbjr/markdown-harvest",
+  "skills": []
+}
