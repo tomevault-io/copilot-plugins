@@ -4,7 +4,7 @@
   "repo": "databricks-lab",
   "description": "A Databricks and PySpark learning laboratory, fully architected and developed by AI agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alexeyban/databricks-lab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T02:42:05Z"
+  "distributed_at": "2026-05-12T06:11:02Z"
 }
