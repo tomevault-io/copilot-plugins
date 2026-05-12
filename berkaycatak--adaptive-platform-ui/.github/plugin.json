@@ -1,0 +1,9 @@
+{
+  "name": "berkaycatak--adaptive-platform-ui",
+  "displayName": "adaptive_platform_ui",
+  "description": "  Adaptive Flutter widgets with native iOS 26+ Liquid Glass designs and automatic platform detection for iOS, Android, and web.",
+  "version": "1.0.0",
+  "author": "berkaycatak",
+  "homepage": "https://github.com/berkaycatak/adaptive_platform_ui",
+  "skills": []
+}
