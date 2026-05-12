@@ -1,0 +1,9 @@
+{
+  "name": "cdsecurity--cdsecurity-skills",
+  "displayName": "cdsecurity-skills",
+  "description": "Claude Code skills for smart contract security \u2014 by CD Security",
+  "version": "1.0.0",
+  "author": "CDSecurity",
+  "homepage": "https://github.com/CDSecurity/cdsecurity-skills",
+  "skills": []
+}
