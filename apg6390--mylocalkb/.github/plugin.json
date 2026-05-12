@@ -1,0 +1,9 @@
+{
+  "name": "apg6390--mylocalkb",
+  "displayName": "myLocalKb",
+  "description": "Offline local-first personal knowledge base with document upload, vector search, and Ollama-powered RAG chat.",
+  "version": "1.0.0",
+  "author": "apg6390",
+  "homepage": "https://github.com/apg6390/myLocalKb",
+  "skills": []
+}
