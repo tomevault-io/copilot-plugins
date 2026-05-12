@@ -1,0 +1,9 @@
+{
+  "name": "becrafter--prompt-manager",
+  "displayName": "prompt-manager",
+  "description": "\u57fa\u4e8eMCP\u534f\u8bae\u7684Prompt\u7ba1\u7406\u670d\u52a1\uff1a\u652f\u6301HTTP\u6d41\u5f0f\u4f20\u8f93\u3001Web/\u684c\u9762\u53cc\u7aef\u7ba1\u7406\u3002",
+  "version": "1.0.0",
+  "author": "BeCrafter",
+  "homepage": "https://github.com/BeCrafter/prompt-manager",
+  "skills": []
+}
