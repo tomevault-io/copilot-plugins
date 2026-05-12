@@ -1,0 +1,9 @@
+{
+  "name": "contextbridge--planbridge",
+  "displayName": "planbridge",
+  "description": "Review your agent's plan the way you review code.",
+  "version": "1.0.0",
+  "author": "contextbridge",
+  "homepage": "https://github.com/contextbridge/planbridge",
+  "skills": []
+}
