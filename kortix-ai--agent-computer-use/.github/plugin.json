@@ -1,0 +1,9 @@
+{
+  "name": "kortix-ai--agent-computer-use",
+  "displayName": "agent-computer-use",
+  "description": "Computer use CLI for AI agents",
+  "version": "1.0.0",
+  "author": "kortix-ai",
+  "homepage": "https://github.com/kortix-ai/agent-computer-use",
+  "skills": []
+}
