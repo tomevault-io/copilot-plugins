@@ -1,0 +1,9 @@
+{
+  "name": "rfunix--tengu",
+  "displayName": "tengu",
+  "description": "AI-powered penetration testing MCP server",
+  "version": "1.0.0",
+  "author": "rfunix",
+  "homepage": "https://github.com/rfunix/tengu",
+  "skills": []
+}
