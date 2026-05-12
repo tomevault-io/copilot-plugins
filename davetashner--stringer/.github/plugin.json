@@ -1,0 +1,9 @@
+{
+  "name": "davetashner--stringer",
+  "displayName": "stringer",
+  "description": "Accelerates agentic development in legacy codebases. Creates context and backlogs for agents via pretty good static analysis. Saves inference tokens.",
+  "version": "1.0.0",
+  "author": "davetashner",
+  "homepage": "https://github.com/davetashner/stringer",
+  "skills": []
+}
