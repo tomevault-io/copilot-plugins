@@ -7,11 +7,11 @@ A standalone infrastructure-as-code engine that saves the state in a database. O
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ops0-ai/oxid](https://github.com/ops0-ai/oxid).
+Original source: `CLAUDE.md` in [ops0-ai/oxid](https://github.com/ops0-ai/oxid).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
