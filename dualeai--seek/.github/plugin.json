@@ -1,0 +1,9 @@
+{
+  "name": "dualeai--seek",
+  "displayName": "seek",
+  "description": "Fast trigram-based code search CLI for large codebases. Wraps zoekt into a single binary with auto-indexing, dirty file tracking, and AI-agent-optimized output.",
+  "version": "1.0.0",
+  "author": "dualeai",
+  "homepage": "https://github.com/dualeai/seek",
+  "skills": []
+}
