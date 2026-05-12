@@ -1,0 +1,9 @@
+{
+  "name": "alikhil--kubectl-find",
+  "displayName": "kubectl-find",
+  "description": "Missing kubectl UNIX-find-like plugin to find resources and perform action on them",
+  "version": "1.0.0",
+  "author": "alikhil",
+  "homepage": "https://github.com/alikhil/kubectl-find",
+  "skills": []
+}
