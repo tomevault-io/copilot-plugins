@@ -1,0 +1,9 @@
+{
+  "name": "berlinguyinca--ai-sync",
+  "displayName": "ai-sync",
+  "description": "Git-backed sync for ~/.claude across macOS, Linux, and Windows/WSL",
+  "version": "1.0.0",
+  "author": "berlinguyinca",
+  "homepage": "https://github.com/berlinguyinca/ai-sync",
+  "skills": []
+}
