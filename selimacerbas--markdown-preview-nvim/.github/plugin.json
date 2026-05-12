@@ -1,0 +1,9 @@
+{
+  "name": "selimacerbas--markdown-preview-nvim",
+  "displayName": "markdown-preview.nvim",
+  "description": "Live Markdown preview for Neovim with Mermaid diagrams, LaTeX math (KaTeX), scroll sync, and syntax highlighting. Pure Lua, zero npm dependencies.",
+  "version": "1.0.0",
+  "author": "selimacerbas",
+  "homepage": "https://github.com/selimacerbas/markdown-preview.nvim",
+  "skills": []
+}
