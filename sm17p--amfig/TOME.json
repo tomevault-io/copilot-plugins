@@ -4,7 +4,7 @@
   "repo": "amfig",
   "description": "Figma-like Layout Inspector For Web",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sm17p/amfig",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T17:05:35Z"
+  "distributed_at": "2026-05-12T01:04:58Z"
 }
