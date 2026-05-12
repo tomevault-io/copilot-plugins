@@ -1,0 +1,9 @@
+{
+  "name": "chiptoma--validex",
+  "displayName": "validex",
+  "description": "Type-safe validation rules built on Zod 4 \u2014 25 rules, 141 error codes, tree-shakeable, i18n-ready",
+  "version": "1.0.0",
+  "author": "chiptoma",
+  "homepage": "https://github.com/chiptoma/validex",
+  "skills": []
+}
