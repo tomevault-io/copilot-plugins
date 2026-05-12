@@ -1,0 +1,9 @@
+{
+  "name": "okedeji--hybernate",
+  "displayName": "hybernate",
+  "description": "Automatically pause, scale, and clean up idle Kubernetes workloads to cut cluster costs.",
+  "version": "1.0.0",
+  "author": "okedeji",
+  "homepage": "https://github.com/okedeji/hybernate",
+  "skills": []
+}
