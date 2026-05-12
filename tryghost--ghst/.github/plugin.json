@@ -1,0 +1,9 @@
+{
+  "name": "tryghost--ghst",
+  "displayName": "ghst",
+  "description": "A modern Ghost CLI tool",
+  "version": "1.0.0",
+  "author": "TryGhost",
+  "homepage": "https://github.com/TryGhost/ghst",
+  "skills": []
+}
