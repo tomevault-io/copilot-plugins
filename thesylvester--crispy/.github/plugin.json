@@ -1,0 +1,9 @@
+{
+  "name": "thesylvester--crispy",
+  "displayName": "crispy",
+  "description": "A GUI for Claude Code and Codex, built for multi-agent orchestration \u2014 with 'superthink' adversarial verification, agent memory, and Discord remote access",
+  "version": "1.0.0",
+  "author": "TheSylvester",
+  "homepage": "https://github.com/TheSylvester/crispy",
+  "skills": []
+}
