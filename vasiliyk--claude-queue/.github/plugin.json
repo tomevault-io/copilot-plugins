@@ -1,0 +1,9 @@
+{
+  "name": "vasiliyk--claude-queue",
+  "displayName": "claude-queue",
+  "description": "Queue multiple Claude Code tasks with priorities and dependencies. Monitors Claude Plan limits, auto-pauses at capacity, and resumes when limits reset.",
+  "version": "1.0.0",
+  "author": "vasiliyk",
+  "homepage": "https://github.com/vasiliyk/claude-queue",
+  "skills": []
+}
