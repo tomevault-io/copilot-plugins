@@ -1,0 +1,9 @@
+{
+  "name": "masterchiefm--pymol-ai-assistant",
+  "displayName": "pymol-ai-assistant",
+  "description": "A PyMOL plugin that enable ai-assistant. You can use human words to manipulate the molecule.",
+  "version": "1.0.0",
+  "author": "Masterchiefm",
+  "homepage": "https://github.com/Masterchiefm/pymol-ai-assistant",
+  "skills": []
+}
