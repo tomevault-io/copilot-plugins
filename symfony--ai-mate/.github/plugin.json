@@ -1,0 +1,9 @@
+{
+  "name": "symfony--ai-mate",
+  "displayName": "ai-mate",
+  "description": "AI development assistant MCP server for Symfony projects",
+  "version": "1.0.0",
+  "author": "symfony",
+  "homepage": "https://github.com/symfony/ai-mate",
+  "skills": []
+}
