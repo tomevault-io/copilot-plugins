@@ -1,0 +1,9 @@
+{
+  "name": "ageniti--ageniti",
+  "displayName": "Ageniti",
+  "description": "A standard SDK for building agent-facing apps across MCP, CLI, React, and AI tool stacks.",
+  "version": "1.0.0",
+  "author": "Ageniti",
+  "homepage": "https://github.com/Ageniti/Ageniti",
+  "skills": []
+}
