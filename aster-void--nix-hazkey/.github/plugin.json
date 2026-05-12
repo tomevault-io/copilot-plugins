@@ -1,0 +1,9 @@
+{
+  "name": "aster-void--nix-hazkey",
+  "displayName": "nix-hazkey",
+  "description": "fcitx5-hazkey packaged for NixOS and Home Manager",
+  "version": "1.0.0",
+  "author": "aster-void",
+  "homepage": "https://github.com/aster-void/nix-hazkey",
+  "skills": []
+}
