@@ -7,11 +7,11 @@ Discord frontend for Claude Code CLI - chat with Claude Code via Discord threads
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ebibibi/claude-code-discord-bridge](https://github.com/ebibibi/claude-code-discord-bridge).
+Original source: `CLAUDE.md` in [ebibibi/claude-code-discord-bridge](https://github.com/ebibibi/claude-code-discord-bridge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
