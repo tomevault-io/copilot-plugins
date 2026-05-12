@@ -4,7 +4,7 @@
   "repo": "coding-proxy",
   "description": "A High-Availability, Transparent, and Smart Multi-Vendor Proxy for Claude Code. Support Claude Plans, GitHub Copilot, Google Antigravity, ZAI/GLM, MiniMax, Qwen, Xiaomi, Kimi, Doubao...",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ThreeFish-AI/coding-proxy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T02:55:06Z"
+  "distributed_at": "2026-05-12T23:37:09Z"
 }
