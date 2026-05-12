@@ -1,19 +1,18 @@
-## project-rule
+## duplistatus
 
 > - **Node.js**: >=24.12.0
 
 
-# duplistatus Project Rules (v1.0.3)
+# duplistatus Project Rules (v1.0.2)
 
 ## Stack & Versions
 
 - **Node.js**: >=24.12.0
-- **TypeScript**: ^5.9.3
-- **Next.js (App Router)**: ^16.1.6
-- **pnpm**: >=10.24.0 (packageManager: pnpm@10.30.3)
-- **React & React-DOM**: ^19.2.4
-- **Tailwind CSS**: ^4.2.1
-- **i18n**: i18next + react-i18next; **ai-i18n-tools** for extract/sync/translate (UI + Docusaurus + SVG)
+- **TypeScript**: ~5.9.3
+- **Next.js (App Router)**: ^16.0.10
+- **pnpm**: >=10.24.0 (packageManager: pnpm@10.26.0)
+- **React & React-DOM**: ^19.2.3
+- **Tailwind CSS**: ^4.1.18
 - **@radix-ui/react-*** modules: latest versions
 - **ESLint**: bundled with Next.js
 - **Prettier**: not used
@@ -21,7 +20,7 @@
 ## Project Architecture
 
 - **Main app**: Next.js App Router using `output: 'standalone'` (run the generated `server.js` in production)
-- **Cron service**: Background service under `src/cron-service/` (bundled for production; runs on 8667 dev, 9667 prod)
+- **Cron service**: Separate background service under `src/cron-service/` with its own REST API
 - **Database**: SQLite at `data/backups.db`
 - **Security**: `data/.duplistatus.key` must have 0400 permissions
 
@@ -59,12 +58,11 @@ pnpm typecheck        # Run TypeScript checks
 
 ## Important Files
 
-- `src/proxy.ts` - Request proxy (locale cookie, legacy URL redirects)
+- `src/middleware.ts` - Middleware for request headers and /docs rewrites
 - `src/cron-service/` - Background task service
 - `src/lib/` - Shared utilities (DB, cron-client, types)
 - `data/backups.db` - SQLite database
 - `data/.duplistatus.key` - Security key file (must be 0400)
-- `ai-i18n-tools.config.json` - i18n extract/translate configuration (repo root)
 
 ## Change Tracking
 
@@ -74,18 +72,15 @@ pnpm typecheck        # Run TypeScript checks
 
 - Duplicati servers POST to `/api/upload` (JSON backup reports)
 - Notifications via ntfy and optional SMTP
-- Docker images: `wsjbr/duplistatus` and `ghcr.io/wsj-br/duplistatus`
+- Docker images: `docker.io/wsjbr/duplistatus` and `ghcr.io/wsj-br/duplistatus`
 
 ## Testing & Debugging
 
-No automated tests.
+No automated tests. 
 
 ## Key Patterns
 
 - DB access: use functions in `src/lib/db.ts`
-- **Translations**: Prefer **`useTranslation().t('…')`** at the point of use (English source = key). Server code uses `getServerI18n()` / shared locale JSON. See `AGENTS.md` and `ai-i18n-tools.config.json`.
-
-- When updating the documentation, only update the english version at `./dev` or `./documentation/docs` folders. Don't need to translate or update translations.
 
 ---
 > Source: [wsj-br/duplistatus](https://github.com/wsj-br/duplistatus) — distributed by [TomeVault](https://tomevault.io).
