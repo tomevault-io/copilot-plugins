@@ -1,0 +1,9 @@
+{
+  "name": "gevico--machina",
+  "displayName": "machina",
+  "description": "A modular full-system emulator written in Rust",
+  "version": "1.0.0",
+  "author": "gevico",
+  "homepage": "https://github.com/gevico/machina",
+  "skills": []
+}
