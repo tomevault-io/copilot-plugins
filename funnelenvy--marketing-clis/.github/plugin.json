@@ -1,0 +1,9 @@
+{
+  "name": "funnelenvy--marketing-clis",
+  "displayName": "marketing-clis",
+  "description": "Open source CLIs for marketing tools \u2014 GA4, Ahrefs, Meta Ads, Mailchimp, Buffer",
+  "version": "1.0.0",
+  "author": "FunnelEnvy",
+  "homepage": "https://github.com/FunnelEnvy/marketing-clis",
+  "skills": []
+}
