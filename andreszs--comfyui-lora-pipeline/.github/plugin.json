@@ -1,0 +1,9 @@
+{
+  "name": "andreszs--comfyui-lora-pipeline",
+  "displayName": "ComfyUI-Lora-Pipeline",
+  "description": "Area-based LoRA scheduling and area conditioning wrappers for ComfyUI.",
+  "version": "1.0.0",
+  "author": "andreszs",
+  "homepage": "https://github.com/andreszs/ComfyUI-Lora-Pipeline",
+  "skills": []
+}
