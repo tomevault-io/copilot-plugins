@@ -1,0 +1,9 @@
+{
+  "name": "radiergummi--tspages",
+  "displayName": "tspages",
+  "description": "A lightweight static site hosting platform for your Tailscale network.",
+  "version": "1.0.0",
+  "author": "Radiergummi",
+  "homepage": "https://github.com/Radiergummi/tspages",
+  "skills": []
+}
