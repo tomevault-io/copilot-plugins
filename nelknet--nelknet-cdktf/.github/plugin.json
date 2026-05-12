@@ -1,0 +1,9 @@
+{
+  "name": "nelknet--nelknet-cdktf",
+  "displayName": "Nelknet.Cdktf",
+  "description": "F# Computation Expression Interface for CDKTF",
+  "version": "1.0.0",
+  "author": "nelknet",
+  "homepage": "https://github.com/nelknet/Nelknet.Cdktf",
+  "skills": []
+}
