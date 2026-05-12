@@ -1,0 +1,9 @@
+{
+  "name": "mhamza15--forest",
+  "displayName": "forest",
+  "description": "\ud83c\udf33 A simple CLI tool to create Git worktrees in new tmux sessions.",
+  "version": "1.0.0",
+  "author": "mhamza15",
+  "homepage": "https://github.com/mhamza15/forest",
+  "skills": []
+}
