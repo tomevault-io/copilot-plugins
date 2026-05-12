@@ -1,0 +1,9 @@
+{
+  "name": "contextvm--relatr",
+  "displayName": "relatr",
+  "description": "Comprehensive service that computes trust scores for Nostr",
+  "version": "1.0.0",
+  "author": "ContextVM",
+  "homepage": "https://github.com/ContextVM/relatr",
+  "skills": []
+}
