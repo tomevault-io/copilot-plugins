@@ -1,0 +1,9 @@
+{
+  "name": "tyssejc--junction",
+  "displayName": "junction",
+  "description": "Next-generation, Git-native event collection and routing system. A replacement for Adobe Launch and Google Tag Manager built for the modern web.",
+  "version": "1.0.0",
+  "author": "tyssejc",
+  "homepage": "https://github.com/tyssejc/junction",
+  "skills": []
+}
