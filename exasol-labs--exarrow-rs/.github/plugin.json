@@ -1,0 +1,9 @@
+{
+  "name": "exasol-labs--exarrow-rs",
+  "displayName": "exarrow-rs",
+  "description": "ADBC-compatible driver for Exasol with Apache Arrow data format support. Written in Rust \ud83e\udd80",
+  "version": "1.0.0",
+  "author": "exasol-labs",
+  "homepage": "https://github.com/exasol-labs/exarrow-rs",
+  "skills": []
+}
