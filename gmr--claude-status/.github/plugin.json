@@ -1,0 +1,9 @@
+{
+  "name": "gmr--claude-status",
+  "displayName": "claude-status",
+  "description": "macOS Menu Bar + Desktop Widget for Claude Code Session Monitoring",
+  "version": "1.0.0",
+  "author": "gmr",
+  "homepage": "https://github.com/gmr/claude-status",
+  "skills": []
+}
