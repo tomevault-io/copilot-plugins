@@ -4,7 +4,7 @@
   "repo": "nanogpt-provider-openclaw",
   "description": "OpenClaw Plugin to use NanoGPT as provider",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/deadronos/nanogpt-provider-openclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T12:31:23Z"
+  "distributed_at": "2026-05-12T00:22:25Z"
 }
