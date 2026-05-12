@@ -1,0 +1,9 @@
+{
+  "name": "anzax--dockashell",
+  "displayName": "dockashell",
+  "description": "DockaShell is an MCP server that gives AI agents isolated Docker containers to work in. MCP tools for shell access, file operations, and full audit trail.",
+  "version": "1.0.0",
+  "author": "anzax",
+  "homepage": "https://github.com/anzax/dockashell",
+  "skills": []
+}
