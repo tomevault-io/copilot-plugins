@@ -1,0 +1,9 @@
+{
+  "name": "luna-prompts--skillnote",
+  "displayName": "skillnote",
+  "description": "The open-source skill registry for AI coding agents. Create, manage, and distribute SKILL.md files across Openclaw, Claude Code, Cursor, Codex, OpenHands, Antigravity, and more.",
+  "version": "1.0.0",
+  "author": "luna-prompts",
+  "homepage": "https://github.com/luna-prompts/skillnote",
+  "skills": []
+}
