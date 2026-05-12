@@ -1,0 +1,44 @@
+{
+  "name": "22b-studio",
+  "owner": "sinmb79",
+  "repo": "22b-studio",
+  "description": "\uc9c0\ube0c\ub9ac \uc2a4\ud0c0\uc77c \uc560\ub2c8\uba54\uc774\uc158 \uc81c\uc791\uc744 \uc704\ud55c n8n-first \uc6cc\ud06c\ud50c\ub85c\uc6b0 \ud15c\ud50c\ub9bf | n8n-first Ghibli animation workflow templates",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sinmb79/22b-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T12:49:26Z"
+}
