@@ -1,0 +1,9 @@
+{
+  "name": "tranquil-flow--hermes-neurovision",
+  "displayName": "hermes-neurovision",
+  "description": "Terminal neurovisualizer for Hermes Agent. 42 animated themes. Watch your AI think.",
+  "version": "1.0.0",
+  "author": "Tranquil-Flow",
+  "homepage": "https://github.com/Tranquil-Flow/hermes-neurovision",
+  "skills": []
+}
