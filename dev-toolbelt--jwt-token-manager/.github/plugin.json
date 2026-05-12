@@ -1,0 +1,9 @@
+{
+  "name": "dev-toolbelt--jwt-token-manager",
+  "displayName": "jwt-token-manager",
+  "description": "A framework-agnostic PHP library for encoding, decoding, and validating JSON Web Tokens (JWT) with support for RSA, HMAC, ECDSA, and EdDSA algorithms.",
+  "version": "1.0.0",
+  "author": "Dev-Toolbelt",
+  "homepage": "https://github.com/Dev-Toolbelt/jwt-token-manager",
+  "skills": []
+}
