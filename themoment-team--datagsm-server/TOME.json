@@ -2,9 +2,9 @@
   "name": "datagsm-server",
   "owner": "themoment-team",
   "repo": "datagsm-server",
-  "description": "",
+  "description": "\uad11\uc8fc\uc18c\ud504\ud2b8\uc6e8\uc5b4\ub9c8\uc774\uc2a4\ud130\uace0\ub4f1\ud559\uad50 OpenAPI & OAuth \ud50c\ub7ab\ud3fc",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/themoment-team",
+  "source_url": "https://github.com/themoment-team/datagsm-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T03:30:46Z"
+  "distributed_at": "2026-05-12T11:20:57Z"
 }
