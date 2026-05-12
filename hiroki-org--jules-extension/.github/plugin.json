@@ -1,0 +1,9 @@
+{
+  "name": "hiroki-org--jules-extension",
+  "displayName": "jules-extension",
+  "description": "VSCode extension for google Jules API",
+  "version": "1.0.0",
+  "author": "Hiroki-org",
+  "homepage": "https://github.com/Hiroki-org/jules-extension",
+  "skills": []
+}
