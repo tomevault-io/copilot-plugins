@@ -1,0 +1,9 @@
+{
+  "name": "open-cli-collective--atlassian-cli",
+  "displayName": "atlassian-cli",
+  "description": "CLI tools for Atlassian products and capabilities",
+  "version": "1.0.0",
+  "author": "open-cli-collective",
+  "homepage": "https://github.com/open-cli-collective/atlassian-cli",
+  "skills": []
+}
