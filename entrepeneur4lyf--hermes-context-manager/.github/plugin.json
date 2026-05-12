@@ -1,0 +1,9 @@
+{
+  "name": "entrepeneur4lyf--hermes-context-manager",
+  "displayName": "hermes-context-manager",
+  "description": "Hermes Agent port of pi-dynamic-context-pruning plugin with additions",
+  "version": "1.0.0",
+  "author": "entrepeneur4lyf",
+  "homepage": "https://github.com/entrepeneur4lyf/hermes-context-manager",
+  "skills": []
+}
