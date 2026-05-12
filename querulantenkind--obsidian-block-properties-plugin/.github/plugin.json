@@ -1,0 +1,9 @@
+{
+  "name": "querulantenkind--obsidian-block-properties-plugin",
+  "displayName": "obsidian-block-properties-plugin",
+  "description": "Add metadata and links to individual blocks in Obsidian. Extends block reference syntax to include key-value properties, enabling block-level metadata without splitting notes. Features visual styling,",
+  "version": "1.0.0",
+  "author": "Querulantenkind",
+  "homepage": "https://github.com/Querulantenkind/obsidian-block-properties-plugin",
+  "skills": []
+}
