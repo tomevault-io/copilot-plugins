@@ -1,0 +1,9 @@
+{
+  "name": "nadercas--supafast",
+  "displayName": "supafast",
+  "description": "Deploy a production-hardened Supabase instance to Hetzner in ~10 minutes. All secrets are generated in your browser using Web Crypto API and never transmitted to any server.",
+  "version": "1.0.0",
+  "author": "nadercas",
+  "homepage": "https://github.com/nadercas/supafast",
+  "skills": []
+}
