@@ -1,0 +1,9 @@
+{
+  "name": "isene--simplicityos",
+  "displayName": "SimplicityOS",
+  "description": "The Simple OS - based on the Forth programming language",
+  "version": "1.0.0",
+  "author": "isene",
+  "homepage": "https://github.com/isene/SimplicityOS",
+  "skills": []
+}
