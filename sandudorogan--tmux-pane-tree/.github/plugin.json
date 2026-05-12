@@ -1,0 +1,9 @@
+{
+  "name": "sandudorogan--tmux-pane-tree",
+  "displayName": "tmux-pane-tree",
+  "description": "\u2523nteractive tmux pane tree with live agent badges and Vim-style navigation.",
+  "version": "1.0.0",
+  "author": "sandudorogan",
+  "homepage": "https://github.com/sandudorogan/tmux-pane-tree",
+  "skills": []
+}
