@@ -1,0 +1,9 @@
+{
+  "name": "kirbah--mcp-youtube",
+  "displayName": "mcp-youtube",
+  "description": "High-efficiency YouTube MCP server: Get token-optimized, structured data for your LLMs using the YouTube Data API v3.",
+  "version": "1.0.0",
+  "author": "kirbah",
+  "homepage": "https://github.com/kirbah/mcp-youtube",
+  "skills": []
+}
