@@ -1,0 +1,9 @@
+{
+  "name": "unitaryfoundation--clifft",
+  "displayName": "clifft",
+  "description": "Fast Exact Simulation of Near-Clifford Quantum Circuits",
+  "version": "1.0.0",
+  "author": "unitaryfoundation",
+  "homepage": "https://github.com/unitaryfoundation/clifft",
+  "skills": []
+}
