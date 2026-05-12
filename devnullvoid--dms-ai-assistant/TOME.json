@@ -4,7 +4,7 @@
   "repo": "dms-ai-assistant",
   "description": "AI chat assistant plugin for DankMaterialShell with multi-provider support, streaming responses, and markdown rendering",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/devnullvoid/dms-ai-assistant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T08:32:39Z"
+  "distributed_at": "2026-05-12T14:57:54Z"
 }
