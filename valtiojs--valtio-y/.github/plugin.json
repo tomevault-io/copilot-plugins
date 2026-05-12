@@ -1,0 +1,9 @@
+{
+  "name": "valtiojs--valtio-y",
+  "displayName": "valtio-y",
+  "description": "Two-way sync between Valtio proxies and Yjs CRDTs",
+  "version": "1.0.0",
+  "author": "valtiojs",
+  "homepage": "https://github.com/valtiojs/valtio-y",
+  "skills": []
+}
