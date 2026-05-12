@@ -1,0 +1,9 @@
+{
+  "name": "jarred-sumner--mactrace",
+  "displayName": "mactrace",
+  "description": "Minimal strace for macOS - trace system calls of any process using Instruments.",
+  "version": "1.0.0",
+  "author": "Jarred-Sumner",
+  "homepage": "https://github.com/Jarred-Sumner/mactrace",
+  "skills": []
+}
