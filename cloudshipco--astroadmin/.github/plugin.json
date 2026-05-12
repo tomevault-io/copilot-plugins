@@ -1,0 +1,9 @@
+{
+  "name": "cloudshipco--astroadmin",
+  "displayName": "astroadmin",
+  "description": "A content management system for Astro sites - auto-generates forms from your Zod schemas",
+  "version": "1.0.0",
+  "author": "cloudshipco",
+  "homepage": "https://github.com/cloudshipco/astroadmin",
+  "skills": []
+}
