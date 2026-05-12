@@ -4,7 +4,7 @@
   "repo": "Pacsea",
   "description": "Fast TUI for searching, inspecting, and queueing pacman/AUR packages.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Firstp1ck/Pacsea",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T22:14:20Z"
+  "distributed_at": "2026-05-12T22:07:39Z"
 }
