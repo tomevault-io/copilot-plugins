@@ -4,7 +4,7 @@
   "repo": "perplexity-web-wrapper",
   "description": "Use your existing Perplexity subscription with MCP - no API costs. Web wrapper + MCP server for coding agents (Claude Code, Cursor, Windsurf, etc.)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/balakumardev/perplexity-web-wrapper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T15:09:54Z"
+  "distributed_at": "2026-05-12T17:27:15Z"
 }
