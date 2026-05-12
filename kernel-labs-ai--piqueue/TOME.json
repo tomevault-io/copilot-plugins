@@ -4,7 +4,7 @@
   "repo": "piqueue",
   "description": "Let anyone submit a coding task against your codebase.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kernel-Labs-AI/piqueue",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T15:07:36Z"
+  "distributed_at": "2026-05-12T09:46:11Z"
 }
