@@ -1,0 +1,9 @@
+{
+  "name": "hammergpt--claude-co-desk",
+  "displayName": "claude-co-desk",
+  "description": "A local AI task automation system built on Claude Code framework, exploring the limits of AI agents with full system resource control.",
+  "version": "1.0.0",
+  "author": "HammerGPT",
+  "homepage": "https://github.com/HammerGPT/claude-co-desk",
+  "skills": []
+}
