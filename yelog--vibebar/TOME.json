@@ -4,7 +4,7 @@
   "repo": "vibebar",
   "description": "VibeBar is a lightweight macOS menu bar app that monitors live TUI session activity for Claude Code, Codex, and OpenCode.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yelog/vibebar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T11:05:02Z"
+  "distributed_at": "2026-05-12T08:36:18Z"
 }
