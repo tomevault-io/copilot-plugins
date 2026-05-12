@@ -1,0 +1,9 @@
+{
+  "name": "panda850819--murmur-voice",
+  "displayName": "murmur-voice",
+  "description": "Privacy-first voice-to-text for macOS and Windows. Local Whisper (Metal/CUDA) or Groq cloud, with LLM post-processing. Built with Rust + Tauri 2.",
+  "version": "1.0.0",
+  "author": "panda850819",
+  "homepage": "https://github.com/panda850819/murmur-voice",
+  "skills": []
+}
