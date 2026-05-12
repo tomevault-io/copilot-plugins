@@ -1,0 +1,9 @@
+{
+  "name": "nulab--bee",
+  "displayName": "bee",
+  "description": "Command-line tool to view and manage Backlog, inspired by GitHub CLI.",
+  "version": "1.0.0",
+  "author": "nulab",
+  "homepage": "https://github.com/nulab/bee",
+  "skills": []
+}
