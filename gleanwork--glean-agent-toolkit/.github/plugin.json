@@ -1,0 +1,9 @@
+{
+  "name": "gleanwork--glean-agent-toolkit",
+  "displayName": "glean-agent-toolkit",
+  "description": "AI Agent toolkit for adapting Glean's enterprise tools across multiple frameworks",
+  "version": "1.0.0",
+  "author": "gleanwork",
+  "homepage": "https://github.com/gleanwork/glean-agent-toolkit",
+  "skills": []
+}
