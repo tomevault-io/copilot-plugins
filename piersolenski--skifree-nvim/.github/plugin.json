@@ -1,0 +1,9 @@
+{
+  "name": "piersolenski--skifree-nvim",
+  "displayName": "skifree.nvim",
+  "description": "A Neovim plugin inspired by the classic Windows 3.1 game SkiFree",
+  "version": "1.0.0",
+  "author": "piersolenski",
+  "homepage": "https://github.com/piersolenski/skifree.nvim",
+  "skills": []
+}
