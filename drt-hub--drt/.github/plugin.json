@@ -1,0 +1,9 @@
+{
+  "name": "drt-hub--drt",
+  "displayName": "drt",
+  "description": "Reverse ETL for the code-first data stack",
+  "version": "1.0.0",
+  "author": "drt-hub",
+  "homepage": "https://github.com/drt-hub/drt",
+  "skills": []
+}
