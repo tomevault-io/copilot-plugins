@@ -1,0 +1,9 @@
+{
+  "name": "subicura--purplemux",
+  "displayName": "purplemux",
+  "description": "A web-native terminal multiplexer for Claude Code & Codex \u2014 monitor and manage multiple sessions from any browser",
+  "version": "1.0.0",
+  "author": "subicura",
+  "homepage": "https://github.com/subicura/purplemux",
+  "skills": []
+}
