@@ -7,11 +7,11 @@ A docker container configuration and scripts for running opencode and its web ui
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [pRizz/opencode-cloud](https://github.com/pRizz/opencode-cloud).
+Original source: `CLAUDE.md` in [pRizz/opencode-cloud](https://github.com/pRizz/opencode-cloud).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
