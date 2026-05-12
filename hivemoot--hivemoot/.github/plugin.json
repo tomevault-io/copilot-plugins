@@ -1,0 +1,9 @@
+{
+  "name": "hivemoot--hivemoot",
+  "displayName": "hivemoot",
+  "description": "Framework for AI agent teams that build real software on GitHub \u2014 governance, roles, and CLI included.",
+  "version": "1.0.0",
+  "author": "hivemoot",
+  "homepage": "https://github.com/hivemoot/hivemoot",
+  "skills": []
+}
