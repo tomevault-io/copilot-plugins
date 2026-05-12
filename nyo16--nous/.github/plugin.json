@@ -1,0 +1,9 @@
+{
+  "name": "nyo16--nous",
+  "displayName": "nous",
+  "description": "\"Nous (\u03bd\u03bf\u1fe6\u03c2) \u2014 the ancient Greek concept of mind, reason, and intellect; the faculty of understanding that grasps truth directly.\"  AI agent framework for Elixir with multi-provider LLM support.",
+  "version": "1.0.0",
+  "author": "nyo16",
+  "homepage": "https://github.com/nyo16/nous",
+  "skills": []
+}
