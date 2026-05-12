@@ -1,0 +1,9 @@
+{
+  "name": "opendataloader-project--opendataloader-bench",
+  "displayName": "opendataloader-bench",
+  "description": "OpenDataLoader Benchmark",
+  "version": "1.0.0",
+  "author": "opendataloader-project",
+  "homepage": "https://github.com/opendataloader-project/opendataloader-bench",
+  "skills": []
+}
