@@ -1,0 +1,9 @@
+{
+  "name": "foundatiofx--foundatio-mediator",
+  "displayName": "Foundatio.Mediator",
+  "description": "Blazingly fast, convention-based C# mediator powered by source generators and interceptors.",
+  "version": "1.0.0",
+  "author": "FoundatioFx",
+  "homepage": "https://github.com/FoundatioFx/Foundatio.Mediator",
+  "skills": []
+}
