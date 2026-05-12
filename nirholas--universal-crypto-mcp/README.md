@@ -7,11 +7,11 @@ Universal MCP server for AI agents to interact with any* blockchain via natural 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nirholas/universal-crypto-mcp](https://github.com/nirholas/universal-crypto-mcp).
+Original source: `CLAUDE.md` in [nirholas/universal-crypto-mcp](https://github.com/nirholas/universal-crypto-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
