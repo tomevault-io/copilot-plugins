@@ -1,0 +1,9 @@
+{
+  "name": "christopherwxyz--remix-mcp",
+  "displayName": "remix-mcp",
+  "description": "A high-performance MCP (Model Context Protocol) server that enables AI assistants to control Ableton Live in real-time.",
+  "version": "1.0.0",
+  "author": "christopherwxyz",
+  "homepage": "https://github.com/christopherwxyz/remix-mcp",
+  "skills": []
+}
