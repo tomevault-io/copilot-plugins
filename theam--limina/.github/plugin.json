@@ -1,0 +1,9 @@
+{
+  "name": "theam--limina",
+  "displayName": "limina",
+  "description": "Autonomous research harness for AI agents. Give it a measurable goal \u2014 it hypothesizes, experiments,   and iterates until it finds a solution or tells you what it learned.",
+  "version": "1.0.0",
+  "author": "theam",
+  "homepage": "https://github.com/theam/limina",
+  "skills": []
+}
