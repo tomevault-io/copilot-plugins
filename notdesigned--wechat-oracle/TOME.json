@@ -1,0 +1,44 @@
+{
+  "name": "WeChat-Oracle",
+  "owner": "NotDesigned",
+  "repo": "WeChat-Oracle",
+  "description": "\u672c\u5730\u5316\u7684\u5fae\u4fe1\u7fa4\u804a\u5f52\u6863 + \u5728\u7fa4\u91cc @ \u5b83\u95ee\u95ee\u9898\u7684 LLM \u52a9\u624b (WeFlow + wx4py + DeepSeek)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NotDesigned/WeChat-Oracle",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T22:37:17Z"
+}
