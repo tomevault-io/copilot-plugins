@@ -1,0 +1,9 @@
+{
+  "name": "junebash--swift-task-store",
+  "displayName": "swift-task-store",
+  "description": "Manage unstructured async tasks with ease",
+  "version": "1.0.0",
+  "author": "junebash",
+  "homepage": "https://github.com/junebash/swift-task-store",
+  "skills": []
+}
