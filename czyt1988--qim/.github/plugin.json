@@ -1,0 +1,9 @@
+{
+  "name": "czyt1988--qim",
+  "displayName": "QIm",
+  "description": "Qt-native wrapper for ImPlot/ImPlot3D. Enables high-performance scientific visualization (2D/3D plots, heatmaps) in Qt apps. GPU-accelerated, million-point rendering with Qt signals/slots API. Ideal f",
+  "version": "1.0.0",
+  "author": "czyt1988",
+  "homepage": "https://github.com/czyt1988/QIm",
+  "skills": []
+}
