@@ -1,0 +1,9 @@
+{
+  "name": "smithersai--gui",
+  "displayName": "gui",
+  "description": "Plue - Swift and Zig multi-agent coding assistant built on ghostty",
+  "version": "1.0.0",
+  "author": "smithersai",
+  "homepage": "https://github.com/smithersai/gui",
+  "skills": []
+}
