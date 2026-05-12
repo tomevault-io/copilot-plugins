@@ -1,0 +1,9 @@
+{
+  "name": "dannymac180--openclaw-operator",
+  "displayName": "openclaw-operator",
+  "description": "OpenClaw Operator gives coding agents like Codex and Claude Code the context and playbooks needed to set up, validate, and troubleshoot a local OpenClaw installation.",
+  "version": "1.0.0",
+  "author": "DannyMac180",
+  "homepage": "https://github.com/DannyMac180/openclaw-operator",
+  "skills": []
+}
