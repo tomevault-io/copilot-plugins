@@ -1,0 +1,9 @@
+{
+  "name": "zackham--stepwise",
+  "displayName": "stepwise",
+  "description": "Portable workflow orchestration for agents and humans",
+  "version": "1.0.0",
+  "author": "zackham",
+  "homepage": "https://github.com/zackham/stepwise",
+  "skills": []
+}
