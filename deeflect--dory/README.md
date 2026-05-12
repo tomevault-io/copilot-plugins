@@ -7,11 +7,11 @@ One memory layer for every AI agent. Local-first, markdown source of truth, and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [deeflect/dory](https://github.com/deeflect/dory).
+Original source: `CLAUDE.md` in [deeflect/dory](https://github.com/deeflect/dory).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
