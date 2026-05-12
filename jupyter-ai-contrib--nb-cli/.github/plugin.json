@@ -1,0 +1,9 @@
+{
+  "name": "jupyter-ai-contrib--nb-cli",
+  "displayName": "nb-cli",
+  "description": "A CLI-first interface for AI agents to work with notebooks",
+  "version": "1.0.0",
+  "author": "jupyter-ai-contrib",
+  "homepage": "https://github.com/jupyter-ai-contrib/nb-cli",
+  "skills": []
+}
