@@ -1,0 +1,9 @@
+{
+  "name": "nonatofabio--local-faiss-mcp",
+  "displayName": "local_faiss_mcp",
+  "description": "Local FAISS vector store as an MCP server \u2013 Agent Memory, drop-in local semantic search for Claude / Copilot / Agents.",
+  "version": "1.0.0",
+  "author": "nonatofabio",
+  "homepage": "https://github.com/nonatofabio/local_faiss_mcp",
+  "skills": []
+}
