@@ -1,0 +1,9 @@
+{
+  "name": "vikingmute--scrambl",
+  "displayName": "scrambl",
+  "description": "Scrambl is a zero-dependency TypeScript library for creating text scramble, decode, and reveal animations in Vanilla JS, React, and Vue.",
+  "version": "1.0.0",
+  "author": "vikingmute",
+  "homepage": "https://github.com/vikingmute/scrambl",
+  "skills": []
+}
