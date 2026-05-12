@@ -1,0 +1,9 @@
+{
+  "name": "railyard-dev--railguard",
+  "displayName": "railguard",
+  "description": "Safe runtime for Claude Code, built to be yours.",
+  "version": "1.0.0",
+  "author": "railyard-dev",
+  "homepage": "https://github.com/railyard-dev/railguard",
+  "skills": []
+}
