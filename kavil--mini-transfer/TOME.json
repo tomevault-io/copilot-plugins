@@ -1,0 +1,44 @@
+{
+  "name": "mini-transfer",
+  "owner": "kavil",
+  "repo": "mini-transfer",
+  "description": "\u4e00\u4e2a\u8f7b\u91cf\u7ea7\uff087M\uff09\u7684\u8de8\u5e73\u53f0\u684c\u9762\u5e94\u7528\u7a0b\u5e8f\uff0c\u7528\u4e8e\u5728 PC \u548c\u79fb\u52a8\u8bbe\u5907\u4e4b\u95f4\u8fdb\u884c\u6587\u4ef6\u4f20\u8f93\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kavil/mini-transfer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T14:42:12Z"
+}
