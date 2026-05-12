@@ -1,0 +1,44 @@
+{
+  "name": "content-agent",
+  "owner": "qiuxchao",
+  "repo": "content-agent",
+  "description": "\u8f93\u5165\u4e3b\u9898\uff0c\u81ea\u52a8\u641c\u7d22\u7d20\u6750\u3001\u751f\u6210\u5fae\u4fe1\u516c\u4f17\u53f7/\u5c0f\u7ea2\u4e66/\u77e5\u4e4e\u6587\u7ae0\u5e76\u914d\u56fe\u3002\u57fa\u4e8e LangGraph + LangChain\uff0c\u652f\u6301\u4efb\u610f\u6a21\u578b\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qiuxchao/content-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T02:53:25Z"
+}
