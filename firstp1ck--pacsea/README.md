@@ -7,11 +7,11 @@ Fast TUI for searching, inspecting, and queueing pacman/AUR packages.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Firstp1ck/Pacsea](https://github.com/Firstp1ck/Pacsea).
+Original source: `CLAUDE.md` in [Firstp1ck/Pacsea](https://github.com/Firstp1ck/Pacsea).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
