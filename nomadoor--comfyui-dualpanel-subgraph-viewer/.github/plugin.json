@@ -1,0 +1,9 @@
+{
+  "name": "nomadoor--comfyui-dualpanel-subgraph-viewer",
+  "displayName": "ComfyUI-DualPanel-Subgraph-Viewer",
+  "description": "ComfyUI-DualPanel-Subgraph-Viewer",
+  "version": "1.0.0",
+  "author": "nomadoor",
+  "homepage": "https://github.com/nomadoor/ComfyUI-DualPanel-Subgraph-Viewer",
+  "skills": []
+}
