@@ -1,0 +1,9 @@
+{
+  "name": "eunomia-bpf--nccl-ebpf",
+  "displayName": "nccl-eBPF",
+  "description": "nccl-eBPF",
+  "version": "1.0.0",
+  "author": "eunomia-bpf",
+  "homepage": "https://github.com/eunomia-bpf/nccl-eBPF",
+  "skills": []
+}
