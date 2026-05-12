@@ -1,0 +1,9 @@
+{
+  "name": "kawaiipantsu--telegramdigger",
+  "displayName": "telegramdigger",
+  "description": "This tool is an implementation of the Telegram Bot API for Linux terminal use. It's ment for quick OSINT and grading useful information or to do things like takedown, destroy or grab messages. Note, t",
+  "version": "1.0.0",
+  "author": "kawaiipantsu",
+  "homepage": "https://github.com/kawaiipantsu/telegramdigger",
+  "skills": []
+}
