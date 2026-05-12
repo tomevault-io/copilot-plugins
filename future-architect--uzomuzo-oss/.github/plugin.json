@@ -1,0 +1,9 @@
+{
+  "name": "future-architect--uzomuzo-oss",
+  "displayName": "uzomuzo-oss",
+  "description": "Dead code doesn't get patched. Detect abandoned & end-of-life dependencies that SCA tools miss \u2014 before they become the next xz-utils.",
+  "version": "1.0.0",
+  "author": "future-architect",
+  "homepage": "https://github.com/future-architect/uzomuzo-oss",
+  "skills": []
+}
