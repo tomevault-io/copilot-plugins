@@ -1,0 +1,9 @@
+{
+  "name": "adhocteam--usai-api",
+  "displayName": "usai-api",
+  "description": "\ud83c\uddfa\ud83c\uddf8 Node.js client library for the USAi.gov API - Government AI service with OpenAI-compatible interface",
+  "version": "1.0.0",
+  "author": "adhocteam",
+  "homepage": "https://github.com/adhocteam/usai-api",
+  "skills": []
+}
