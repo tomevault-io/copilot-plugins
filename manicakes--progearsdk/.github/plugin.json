@@ -1,0 +1,9 @@
+{
+  "name": "manicakes--progearsdk",
+  "displayName": "ProGearSDK",
+  "description": "A modern game engine SDK for the NeoGeo AES/MVS.",
+  "version": "1.0.0",
+  "author": "manicakes",
+  "homepage": "https://github.com/manicakes/ProGearSDK",
+  "skills": []
+}
