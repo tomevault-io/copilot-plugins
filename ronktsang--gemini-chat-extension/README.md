@@ -7,13 +7,13 @@ Transform your Gemini experience with powerful tools designed to boost your prod
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [RonkTsang/gemini-chat-extension](https://github.com/RonkTsang/gemini-chat-extension).
+Original source: `AGENTS.md` in [RonkTsang/gemini-chat-extension](https://github.com/RonkTsang/gemini-chat-extension).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
