@@ -7,11 +7,11 @@ Aver is a programming language for auditable AI-written code
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jasisz/aver](https://github.com/jasisz/aver).
+Original source: `CLAUDE.md` in [jasisz/aver](https://github.com/jasisz/aver).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
