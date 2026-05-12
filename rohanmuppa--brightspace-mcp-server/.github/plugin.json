@@ -1,0 +1,9 @@
+{
+  "name": "rohanmuppa--brightspace-mcp-server",
+  "displayName": "brightspace-mcp-server",
+  "description": "MCP server for Brightspace (D2L). Check grades, due dates, assignments, announcements, rosters, syllabus & course content via Claude, ChatGPT, Cursor, Windsurf, or any MCP client. Works with any schoo",
+  "version": "1.0.0",
+  "author": "RohanMuppa",
+  "homepage": "https://github.com/RohanMuppa/brightspace-mcp-server",
+  "skills": []
+}
