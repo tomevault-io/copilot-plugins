@@ -1,0 +1,9 @@
+{
+  "name": "webba-creative-technologies--forge",
+  "displayName": "forge",
+  "description": "A React component library with built-in motion, themeable tokens, and AI skill packs for Claude Code and Cursor.",
+  "version": "1.0.0",
+  "author": "Webba-Creative-Technologies",
+  "homepage": "https://github.com/Webba-Creative-Technologies/forge",
+  "skills": []
+}
