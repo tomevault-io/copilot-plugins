@@ -1,0 +1,44 @@
+{
+  "name": "companion",
+  "owner": "grcengineering",
+  "repo": "companion",
+  "description": "A fully customisable and personalised lab builder which is tailored to your context, experience, current technical literacy, objectives and time allocation. You can use it in any LLM/AI chat app and build amazing custom learning paths which will be extremely specific and tailored to you.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/grcengineering/companion",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T07:30:10Z"
+}
