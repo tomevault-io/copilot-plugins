@@ -7,11 +7,11 @@ Multi-chain dust sweeper that consolidates small token balances into DeFi yield.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Sperax/sweep](https://github.com/Sperax/sweep).
+Original source: `CLAUDE.md` in [Sperax/sweep](https://github.com/Sperax/sweep).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
