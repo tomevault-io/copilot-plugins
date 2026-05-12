@@ -1,0 +1,9 @@
+{
+  "name": "rowlando--coros-workout-mcp",
+  "displayName": "coros-workout-mcp",
+  "description": "MCP server for creating COROS strength workouts via the Training Hub API",
+  "version": "1.0.0",
+  "author": "rowlando",
+  "homepage": "https://github.com/rowlando/coros-workout-mcp",
+  "skills": []
+}
