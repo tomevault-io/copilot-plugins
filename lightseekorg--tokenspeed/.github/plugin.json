@@ -1,0 +1,9 @@
+{
+  "name": "lightseekorg--tokenspeed",
+  "displayName": "tokenspeed",
+  "description": "TokenSpeed is a speed-of-light LLM inference engine.",
+  "version": "1.0.0",
+  "author": "lightseekorg",
+  "homepage": "https://github.com/lightseekorg/tokenspeed",
+  "skills": []
+}
