@@ -1,0 +1,44 @@
+{
+  "name": "mathmodel-skill",
+  "owner": "handsomeZR-netizen",
+  "repo": "mathmodel-skill",
+  "description": "\u4e09\u7ade\u8d5b (CUMCM/MCM/\u7535\u5de5\u676f) \u6570\u5b66\u5efa\u6a21 skill \u2014 harness-agnostic, \u540c\u65f6\u652f\u6301 Claude Code \u4e0e Codex CLI, \u5168\u7a0b\u95ee\u7b54\u5f0f (Friendly Mode), 10 \u9636\u6bb5 + 4 \u53cd\u9988\u5c42 + per-Qi \u52a0\u6743\u805a\u5408 + \u9898\u578b dim \u52a0\u6743 + empirical \u5b9e\u6d4b\u5206\u4f4d\u951a\u5b9a",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/handsomeZR-netizen/mathmodel-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T22:49:27Z"
+}
