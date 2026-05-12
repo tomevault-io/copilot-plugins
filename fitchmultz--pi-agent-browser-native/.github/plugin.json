@@ -1,0 +1,9 @@
+{
+  "name": "fitchmultz--pi-agent-browser-native",
+  "displayName": "pi-agent-browser-native",
+  "description": "pi extension that exposes agent-browser as a native tool for browser automation",
+  "version": "1.0.0",
+  "author": "fitchmultz",
+  "homepage": "https://github.com/fitchmultz/pi-agent-browser-native",
+  "skills": []
+}
