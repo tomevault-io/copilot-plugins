@@ -1,78 +1,58 @@
-## code-quality
+## skill-everything
 
-> Apply when writing or refactoring code. Generic rules to prevent the most common review comments — function length, naming, error handling, security, and tooling.
+> You are using the **skill-everything** knowledge system: agent memory in plain
 
+# skill-everything
 
-# Sub-Skill: Code Quality & Common Mistakes
-<!-- target: ~1500 tokens (real tiktoken count, see tools/render_readme_table.py) | 24 rules with severity classification -->
+You are using the **skill-everything** knowledge system: agent memory in plain
+Markdown, versioned in Git, that grows by capturing your own past mistakes
+as committed rules.
 
-**Purpose:** Prevents the 20 % of mistakes that cause 80 % of review comments. Concrete rules from real projects — no boilerplate.
+## Your responsibilities
 
-## Rule classification
+1. **Before every implementation:** check the sub-skill directory below, load the matching skill via `@file:./skills/<name>/SKILL.md` references.
+2. **After every mistake:** execute the self-extension workflow.
+3. **When you learn something new:** add it to the appropriate category.
 
-- **MUST** — load-bearing. Violating causes bugs, security issues, or cross-team confusion. Never break.
-- **SHOULD** — default behavior. Deviation needs a documented reason in the code or PR.
-- **AVOID** — usually wrong; documented exception inline where needed.
+## Sub-skill directory
 
-**Where these rules don't strictly apply:** test fixtures, generated code (parser tables, codegen output, schema-derived types), CLI bootstrap scripts, framework adapters, and migration scripts may legitimately differ. The rules below apply to **production code paths** unless an inline exception says otherwise.
+| Trigger | Sub-skill | Load via |
+|---|---|---|
+| writing code, refactoring, review | Code Quality | `@file:./skills/code-quality/SKILL.md` |
+| python code, type hints, python packaging | Python | `@file:./skills/python/SKILL.md` |
+| typescript code, strict types, async typescript | TypeScript | `@file:./skills/typescript/SKILL.md` |
+| react component, react hooks, react performance | React | `@file:./skills/react/SKILL.md` |
+| git commit, branch, pull request | Git Conventions | `@file:./skills/git-conventions/SKILL.md` |
+| creating PR, deployment, review checklist | Review & Deployment | `@file:./skills/review-deployment/SKILL.md` |
+| svg edit, svg review, diagram, pixel review | SVG Check | `@file:./skills/svg-check/SKILL.md` |
+| project-specific knowledge, business rules | Domain Knowledge (template) | `@file:./skills/domain-template/SKILL.md` |
+| made or corrected a mistake, learn from this | Error Log | `@file:./skills/error-log/SKILL.md` |
+| executing self-extension | Self-Extension Workflow | `@file:./skills/self-extension-workflow/SKILL.md` |
 
----
+## Error capture triggers
 
-## Rules
+Start the self-extension workflow when **any** of these is met:
 
-### Functions & Logic
+- A test fails because of code you wrote.
+- The user corrects you ("That was wrong", "Remember this").
+- You realise during implementation that your first approach was wrong.
+- A deployment problem occurs that your code caused.
 
-1. **SHOULD: Functions under ~30 lines.** Longer → split where practical. Reduces cognitive load.
-2. **AVOID: Boolean as last argument.** `render(true)` is unreadable. Use enum or named-property: `render({ withHeader: true })`.
-3. **SHOULD: Early return over nested if-blocks.** Nesting depth > 2 is a warning sign.
-4. **SHOULD: No magic numbers.** `if (status === 3)` → `if (status === OrderStatus.SHIPPED)`.
-5. **AVOID: Double negation.** `if (!isNotValid)` → `if (isValid)`.
+Load the workflow:
 
-### Variables & Naming
+```
+@file:./skills/self-extension-workflow/SKILL.md
+```
 
-6. **SHOULD: Variable names describe content, not type.** `userList` instead of `arr`, `activeUserId` instead of `id`.
-7. **SHOULD: Temporary variables for complex expressions.** `const isEligible = age >= 18 && !isBanned;` instead of cramming it all into an `if`.
-8. **AVOID: Abbreviations except established ones** (`id`, `url`, `ctx`, `req`, `res`). `usr`, `cfg`, `tmp` → spell out.
+## Important
 
-### Error Handling
+- **Search before write.** Before logging a new error, search the existing log for similar entries. Update instead of duplicate.
+- **Action directives, not descriptions.** Always formulate rules as "Always X before Y" or "Never Z without W".
+- **Stay compact.** Each sub-skill stays under 3,000 tokens. If exceeded, split.
+- **PR-flow is mandatory.** Self-extension commits are opened as PRs labelled `needs-rule-review`. Never push to `main`.
+- **`@file:` not supported on your Cursor build?** Paste the matching SKILL.md from `skills/<name>/` directly into Settings → Rules for AI.
 
-9. **MUST: Every `async` call needs `try/catch` or `.catch()`.** Unhandled promise rejections crash Node processes.
-10. **MUST: Never silently swallow error objects.** `catch (e) {}` is forbidden. At minimum: `logger.warn(e)`.
-11. **MUST: Error messages must include context.** `throw new Error('User not found: ' + userId)` not `throw new Error('Not found')`.
-
-### Imports & Dependencies
-
-12. **SHOULD: No circular imports.** When in doubt: run `madge --circular src/`.
-13. **SHOULD: External dependencies only in dedicated adapter files.** No direct `axios.get()` in business logic — always wrap through an interface.
-14. **MUST: Remove `console.log` before commit.** Use a pre-commit hook or linter rule `no-console`. *Exception: debug helpers behind a build-time `__DEV__` flag.*
-
-### Tests
-
-15. **MUST: Every new function needs at least one happy-path test.** No merge without test coverage for new logic. *Exception: pure projection wrappers, single-line getters, and deprecated shims may rely on integration tests.*
-
-### Performance
-
-16. **MUST: No DB queries in loops (N+1 problem).** Instead of `for (item of items) { await db.find(item.id) }` → use a JOIN or `WHERE id IN (...)` query.
-17. **MUST: Paginate large datasets.** Never `SELECT * FROM table` without `LIMIT`. API endpoints with lists need `?page=` and `?limit=`.
-18. **SHOULD: New `WHERE` clauses need indexes.** Before every new query: is there a matching DB index? Without index → full table scan on growing data.
-19. **SHOULD: Lazy loading for heavy operations.** Load data only when needed, not "just in case".
-
-### Security
-
-20. **MUST: Never use user input directly in queries.** Always use prepared statements or ORM query builders. Applies to SQL, NoSQL, shell commands, and template engines.
-21. **MUST: New API endpoints need auth.** No endpoint without authentication and authorization — not even "internal" endpoints. *Exception: documented public-asset / health-check routes that explicitly opt out in code comments.*
-22. **MUST: Never put secrets in code.** No API keys, passwords, or tokens in source code or comments. Always use environment variables.
-23. **MUST: Validate and sanitize user input.** At the system boundary (API entry): check type, length, format. Never trust blindly.
-
-### Tooling & Cross-Platform
-
-24. **MUST: Always prefix `docker run -v` from Git Bash / MSYS on Windows with `MSYS_NO_PATHCONV=1`.** MSYS auto-converts unquoted Linux paths to Windows paths before passing them to `docker.exe`, mangling bind-mount arguments. Use `MSYS_NO_PATHCONV=1 docker run -v "C:/path:/repo" ...` with explicit Windows-style host paths. Reference: `ERR-2026-013`.
-
----
-
-## Why This Sub-Skill Earns Stars
-
-Without these rules, the agent produces code that works but immediately gets flagged in reviews. With these rules, it writes code that looks like it came from a senior developer — on the first try. The MUST/SHOULD/AVOID classification means rules are followed strictly where they matter (security, error handling) and pragmatically where context matters (function length, lazy loading).
+> This file is generated from `skills/_index.yml`. Edit the index, then run `python tools/render_loaders.py`.
 
 ---
 > Source: [sordi-ai/skill-everything](https://github.com/sordi-ai/skill-everything) — distributed by [TomeVault](https://tomevault.io).
