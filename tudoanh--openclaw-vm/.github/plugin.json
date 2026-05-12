@@ -1,0 +1,9 @@
+{
+  "name": "tudoanh--openclaw-vm",
+  "displayName": "openclaw-vm",
+  "description": "A vagrant Ubuntu box for running OpenClaw",
+  "version": "1.0.0",
+  "author": "tudoanh",
+  "homepage": "https://github.com/tudoanh/openclaw-vm",
+  "skills": []
+}
