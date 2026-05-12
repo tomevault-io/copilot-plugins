@@ -1,0 +1,9 @@
+{
+  "name": "rossumai--rossum-agents",
+  "displayName": "rossum-agents",
+  "description": "AI-powered Rossum orchestration: Document workflows conversationally, debug pipelines automatically, and configure automation through natural language.",
+  "version": "1.0.0",
+  "author": "rossumai",
+  "homepage": "https://github.com/rossumai/rossum-agents",
+  "skills": []
+}
