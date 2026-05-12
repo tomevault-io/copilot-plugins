@@ -1,0 +1,9 @@
+{
+  "name": "opendatahub-io--skills-registry",
+  "displayName": "skills-registry",
+  "description": "skills-registry",
+  "version": "1.0.0",
+  "author": "opendatahub-io",
+  "homepage": "https://github.com/opendatahub-io/skills-registry",
+  "skills": []
+}
