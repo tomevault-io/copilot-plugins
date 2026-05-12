@@ -1,0 +1,9 @@
+{
+  "name": "ukgovernmentbeis--reward-hacking-misalignment",
+  "displayName": "reward-hacking-misalignment",
+  "description": "Reproducing \"Natural Emergent Misalignment from Reward Hacking\" (MacDiarmid et al., Anthropic 2025) with open-source models. Includes reward-hackable RL environments, misalignment evaluations, trainin",
+  "version": "1.0.0",
+  "author": "UKGovernmentBEIS",
+  "homepage": "https://github.com/UKGovernmentBEIS/reward-hacking-misalignment",
+  "skills": []
+}
