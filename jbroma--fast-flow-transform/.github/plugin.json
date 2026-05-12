@@ -1,0 +1,9 @@
+{
+  "name": "jbroma--fast-flow-transform",
+  "displayName": "fast-flow-transform",
+  "description": "Fast Flow-to-JavaScript transform with bundler adapters for webpack, Rspack, Vite, Rollup, and more.",
+  "version": "1.0.0",
+  "author": "jbroma",
+  "homepage": "https://github.com/jbroma/fast-flow-transform",
+  "skills": []
+}
