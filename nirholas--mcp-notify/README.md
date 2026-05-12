@@ -7,11 +7,11 @@ Monitor the Model Context Protocol (MCP) Registry for new, updated, and removed 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nirholas/mcp-notify](https://github.com/nirholas/mcp-notify).
+Original source: `CLAUDE.md` in [nirholas/mcp-notify](https://github.com/nirholas/mcp-notify).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
