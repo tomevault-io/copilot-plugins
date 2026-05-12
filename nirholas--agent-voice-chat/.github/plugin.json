@@ -1,0 +1,9 @@
+{
+  "name": "nirholas--agent-voice-chat",
+  "displayName": "agent-voice-chat",
+  "description": "TypeScript SDK and CLI for building AI agents that autonomously join, listen, and speak in X/Twitter Spaces. Supports multiple LLM providers (OpenAI, Claude, Groq), speech-to-text (Whisper, Deepgram),",
+  "version": "1.0.0",
+  "author": "nirholas",
+  "homepage": "https://github.com/nirholas/agent-voice-chat",
+  "skills": []
+}
