@@ -1,0 +1,9 @@
+{
+  "name": "studiozedward--pip-token",
+  "displayName": "pip-token",
+  "description": "PipBoy-style VS Code Extension to understand your Claude Code usage. Now live.",
+  "version": "1.0.0",
+  "author": "studiozedward",
+  "homepage": "https://github.com/studiozedward/pip-token",
+  "skills": []
+}
