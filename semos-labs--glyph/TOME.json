@@ -4,7 +4,7 @@
   "repo": "glyph",
   "description": "TypeScript TUI framework \u2014 React renderer for full-screen, interactive terminal apps with flexbox layout and focus system.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/semos-labs/glyph",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T02:57:21Z"
+  "distributed_at": "2026-05-12T13:09:05Z"
 }
