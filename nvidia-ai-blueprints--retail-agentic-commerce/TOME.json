@@ -4,7 +4,7 @@
   "repo": "Retail-Agentic-Commerce",
   "description": "Reference implementation of the Agentic Commerce Protocol (ACP) and Universal Commerce Protocol (UCP)- enabling AI-powered checkout   negotiation while maintaining merchant control.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NVIDIA-AI-Blueprints/Retail-Agentic-Commerce",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T13:07:06Z"
+  "distributed_at": "2026-05-12T16:53:06Z"
 }
