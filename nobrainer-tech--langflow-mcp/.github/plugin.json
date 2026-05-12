@@ -1,0 +1,9 @@
+{
+  "name": "nobrainer-tech--langflow-mcp",
+  "displayName": "langflow-mcp",
+  "description": "MCP server for Langflow \u2014 gives AI assistants full access to Langflow workflow automation (93 tools, consolidated mode)",
+  "version": "1.0.0",
+  "author": "nobrainer-tech",
+  "homepage": "https://github.com/nobrainer-tech/langflow-mcp",
+  "skills": []
+}
