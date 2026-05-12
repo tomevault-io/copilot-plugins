@@ -1,0 +1,9 @@
+{
+  "name": "rangersui--elastik",
+  "displayName": "Elastik",
+  "description": "curl is all you need. Bytes over HTTP, packets over CoAP, one path between intelligences.",
+  "version": "1.0.0",
+  "author": "rangersui",
+  "homepage": "https://github.com/rangersui/Elastik",
+  "skills": []
+}
