@@ -4,7 +4,7 @@
   "repo": "claude-coach-kit",
   "description": "\ud83d\ude80 Open-source marketing automation toolkit for coaches & solopreneurs \u2014 built entirely with Claude. Email sequences, payment tracking, UTM attribution, analytics dashboard. Supabase + React.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/krishna-build/claude-coach-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T06:42:38Z"
+  "distributed_at": "2026-05-12T07:10:28Z"
 }
