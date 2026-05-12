@@ -1,0 +1,9 @@
+{
+  "name": "awdemos--regicideos",
+  "displayName": "RegicideOS",
+  "description": "AI-native Rust first Linux distribution based on Gentoo, BtrFS, Cosmic-Desktop.",
+  "version": "1.0.0",
+  "author": "awdemos",
+  "homepage": "https://github.com/awdemos/RegicideOS",
+  "skills": []
+}
