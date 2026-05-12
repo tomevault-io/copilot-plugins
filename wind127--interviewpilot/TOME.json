@@ -1,0 +1,44 @@
+{
+  "name": "InterviewPilot",
+  "owner": "wind127",
+  "repo": "InterviewPilot",
+  "description": "\u628a\u201c\u7b80\u5386 + \u9762\u8bd5\u5f55\u5c4f + \u77e5\u8bc6\u5e93\u201d\u8f6c\u6210\u53ef\u6267\u884c\u590d\u76d8\u7ed3\u679c\uff1a\u771f\u5b9e\u95ee\u7b54\u3001\u5206\u6790\u62a5\u544a\u3001\u6a21\u62df\u9762\u8bd5\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wind127/InterviewPilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T12:01:24Z"
+}
