@@ -1,0 +1,9 @@
+{
+  "name": "axiomhq--ai",
+  "displayName": "ai",
+  "description": "Axiom's AI SDK",
+  "version": "1.0.0",
+  "author": "axiomhq",
+  "homepage": "https://github.com/axiomhq/ai",
+  "skills": []
+}
