@@ -1,0 +1,9 @@
+{
+  "name": "fiberplane--mcp-gateway",
+  "displayName": "mcp-gateway",
+  "description": "Gateway for inspecting and auditing your MCP servers",
+  "version": "1.0.0",
+  "author": "fiberplane",
+  "homepage": "https://github.com/fiberplane/mcp-gateway",
+  "skills": []
+}
