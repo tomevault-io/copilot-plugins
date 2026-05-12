@@ -1,0 +1,9 @@
+{
+  "name": "ie3jp--illustrator-mcp-server",
+  "displayName": "illustrator-mcp-server",
+  "description": "MCP server for reading, manipulating, and exporting Adobe Illustrator design data",
+  "version": "1.0.0",
+  "author": "ie3jp",
+  "homepage": "https://github.com/ie3jp/illustrator-mcp-server",
+  "skills": []
+}
