@@ -1,0 +1,9 @@
+{
+  "name": "wouter0100--homeassistant-nanokvm",
+  "displayName": "homeassistant-nanokvm",
+  "description": "Sipeed NanoKVM integration for Home Assistant",
+  "version": "1.0.0",
+  "author": "Wouter0100",
+  "homepage": "https://github.com/Wouter0100/homeassistant-nanokvm",
+  "skills": []
+}
