@@ -4,7 +4,7 @@
   "repo": "duplistatus",
   "description": "Web dashboard for monitoring Duplicati backups with overdue alerts, notifications, and backup logging.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wsj-br/duplistatus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T00:53:33Z"
+  "distributed_at": "2026-05-12T04:57:07Z"
 }
