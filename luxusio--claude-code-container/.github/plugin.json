@@ -1,0 +1,9 @@
+{
+  "name": "luxusio--claude-code-container",
+  "displayName": "claude-code-container",
+  "description": "Single command. Isolated environment. No setup required.",
+  "version": "1.0.0",
+  "author": "Luxusio",
+  "homepage": "https://github.com/Luxusio/claude-code-container",
+  "skills": []
+}
