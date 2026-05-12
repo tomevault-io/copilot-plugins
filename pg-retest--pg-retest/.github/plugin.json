@@ -1,0 +1,9 @@
+{
+  "name": "pg-retest--pg-retest",
+  "displayName": "pg-retest",
+  "description": "Database Workload Capture and Replay",
+  "version": "1.0.0",
+  "author": "pg-retest",
+  "homepage": "https://github.com/pg-retest/pg-retest",
+  "skills": []
+}
