@@ -1,0 +1,9 @@
+{
+  "name": "shaharia-lab--agento",
+  "displayName": "agento",
+  "description": "Production ready Personal AI Agent Platform using Claude Code CLI. Focused on productivity, reliability and security at it's core",
+  "version": "1.0.0",
+  "author": "shaharia-lab",
+  "homepage": "https://github.com/shaharia-lab/agento",
+  "skills": []
+}
