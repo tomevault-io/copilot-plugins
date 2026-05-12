@@ -4,7 +4,7 @@
   "repo": "Theseus",
   "description": "OSS Ship of Theseus",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jordanhubbard/Theseus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T14:43:19Z"
+  "distributed_at": "2026-05-12T01:09:13Z"
 }
