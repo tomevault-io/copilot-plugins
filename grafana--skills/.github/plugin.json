@@ -1,0 +1,9 @@
+{
+  "name": "grafana--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/skills",
+  "skills": []
+}
