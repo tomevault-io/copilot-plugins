@@ -1,0 +1,9 @@
+{
+  "name": "bryjen--shadcnblazor",
+  "displayName": "ShadcnBlazor",
+  "description": "shadcn/ui components for Blazor. Copies components into your project\u2014you own the code.",
+  "version": "1.0.0",
+  "author": "bryjen",
+  "homepage": "https://github.com/bryjen/ShadcnBlazor",
+  "skills": []
+}
