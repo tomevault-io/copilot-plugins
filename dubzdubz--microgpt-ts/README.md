@@ -7,11 +7,11 @@ A complete GPT built from scratch in TypeScript with zero dependencies
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dubzdubz/microgpt-ts](https://github.com/dubzdubz/microgpt-ts).
+Original source: `CLAUDE.md` in [dubzdubz/microgpt-ts](https://github.com/dubzdubz/microgpt-ts).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
