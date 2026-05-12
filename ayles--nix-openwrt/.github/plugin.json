@@ -1,0 +1,9 @@
+{
+  "name": "ayles--nix-openwrt",
+  "displayName": "nix-openwrt",
+  "description": "nix-openwrt",
+  "version": "1.0.0",
+  "author": "ayles",
+  "homepage": "https://github.com/ayles/nix-openwrt",
+  "skills": []
+}
