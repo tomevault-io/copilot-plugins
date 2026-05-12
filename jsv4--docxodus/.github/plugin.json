@@ -1,0 +1,9 @@
+{
+  "name": "jsv4--docxodus",
+  "displayName": "Docxodus",
+  "description": "Office XML Redline Engine Based on OpenXML SDK (Forked from OpenXMLTools)",
+  "version": "1.0.0",
+  "author": "JSv4",
+  "homepage": "https://github.com/JSv4/Docxodus",
+  "skills": []
+}
