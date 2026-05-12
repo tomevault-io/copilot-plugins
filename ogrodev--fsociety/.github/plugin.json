@@ -1,0 +1,9 @@
+{
+  "name": "ogrodev--fsociety",
+  "displayName": "fsociety",
+  "description": "Multi-plugin marketplace for Claude Code offensive security plugins",
+  "version": "1.0.0",
+  "author": "ogrodev",
+  "homepage": "https://github.com/ogrodev/fsociety",
+  "skills": []
+}
