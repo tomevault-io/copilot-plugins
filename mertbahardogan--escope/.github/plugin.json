@@ -1,0 +1,9 @@
+{
+  "name": "mertbahardogan--escope",
+  "displayName": "escope",
+  "description": "escope - a powerful command-line interface tool for Elasticsearch cluster diagnostics and monitoring.",
+  "version": "1.0.0",
+  "author": "mertbahardogan",
+  "homepage": "https://github.com/mertbahardogan/escope",
+  "skills": []
+}
