@@ -1,0 +1,9 @@
+{
+  "name": "tmikov--imgui-react-runtime",
+  "displayName": "imgui-react-runtime",
+  "description": "React + Dear ImGui + Static Hermes",
+  "version": "1.0.0",
+  "author": "tmikov",
+  "homepage": "https://github.com/tmikov/imgui-react-runtime",
+  "skills": []
+}
