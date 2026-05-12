@@ -1,0 +1,9 @@
+{
+  "name": "amitrechavia--langsmith-mcp-server-js",
+  "displayName": "langsmith-mcp-server-js",
+  "description": "A TypeScript implementation of langsmith MCP",
+  "version": "1.0.0",
+  "author": "amitrechavia",
+  "homepage": "https://github.com/amitrechavia/langsmith-mcp-server-js",
+  "skills": []
+}
