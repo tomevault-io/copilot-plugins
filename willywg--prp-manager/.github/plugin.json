@@ -1,0 +1,9 @@
+{
+  "name": "willywg--prp-manager",
+  "displayName": "prp-manager",
+  "description": "Agent Skill for creating and executing PRPs (Product Requirements Prompts) using Context Engineering principles. Works with Claude Code, Cursor, Windsurf, and other compatible agents.",
+  "version": "1.0.0",
+  "author": "willywg",
+  "homepage": "https://github.com/willywg/prp-manager",
+  "skills": []
+}
