@@ -4,7 +4,7 @@
   "repo": "RNCopilot",
   "description": "  Production-ready React Native Expo starter template with auth, theming, i18n, and 33+ UI components                                                       ",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FouadMagdy01/RNCopilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T13:59:47Z"
+  "distributed_at": "2026-05-12T21:02:06Z"
 }
