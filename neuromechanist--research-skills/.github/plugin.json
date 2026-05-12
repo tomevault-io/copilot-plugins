@@ -1,0 +1,9 @@
+{
+  "name": "neuromechanist--research-skills",
+  "displayName": "research-skills",
+  "description": "Claude Code plugin with skills for academic research: literature search, grant writing, scientific figures, and grant review",
+  "version": "1.0.0",
+  "author": "neuromechanist",
+  "homepage": "https://github.com/neuromechanist/research-skills",
+  "skills": []
+}
