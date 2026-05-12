@@ -1,0 +1,9 @@
+{
+  "name": "nozikov--vless-relay-setup",
+  "displayName": "vless-relay-setup",
+  "description": "Self-hosted two-hop VPN with traffic masking (VLESS + XTLS-Reality). Automated setup on two VPS servers.",
+  "version": "1.0.0",
+  "author": "nozikov",
+  "homepage": "https://github.com/nozikov/vless-relay-setup",
+  "skills": []
+}
