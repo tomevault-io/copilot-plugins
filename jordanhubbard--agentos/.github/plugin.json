@@ -1,0 +1,9 @@
+{
+  "name": "jordanhubbard--agentos",
+  "displayName": "agentos",
+  "description": "The world's first operating system for agents, not humans. Built on seL4 microkernel with capability-based security and agent-native vibe-coding.",
+  "version": "1.0.0",
+  "author": "jordanhubbard",
+  "homepage": "https://github.com/jordanhubbard/agentos",
+  "skills": []
+}
