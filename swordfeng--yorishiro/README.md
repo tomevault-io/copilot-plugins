@@ -7,11 +7,11 @@ Yorishiro: Extract character souls from films/novels, generate SOUL.md for AI ro
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [swordfeng/yorishiro](https://github.com/swordfeng/yorishiro).
+Original source: `CLAUDE.md` in [swordfeng/yorishiro](https://github.com/swordfeng/yorishiro).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
