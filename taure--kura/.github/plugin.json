@@ -1,0 +1,9 @@
+{
+  "name": "taure--kura",
+  "displayName": "kura",
+  "description": "Database layer for Erlang",
+  "version": "1.0.0",
+  "author": "Taure",
+  "homepage": "https://github.com/Taure/kura",
+  "skills": []
+}
