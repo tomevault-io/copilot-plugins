@@ -1,0 +1,9 @@
+{
+  "name": "ascending-llc--jarvis-registry",
+  "displayName": "jarvis-registry",
+  "description": "Connect any AI copilot or autonomous agent to your enterprise tools \u2014 through a single, secure MCP/Agent gateway with built-in identity, access control, and full observability.",
+  "version": "1.0.0",
+  "author": "ascending-llc",
+  "homepage": "https://github.com/ascending-llc/jarvis-registry",
+  "skills": []
+}
