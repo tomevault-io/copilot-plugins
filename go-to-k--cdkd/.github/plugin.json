@@ -1,0 +1,9 @@
+{
+  "name": "go-to-k--cdkd",
+  "displayName": "cdkd",
+  "description": "A from-scratch CDK CLI with its own deployment engine, provisioning via AWS SDK instead of CloudFormation.",
+  "version": "1.0.0",
+  "author": "go-to-k",
+  "homepage": "https://github.com/go-to-k/cdkd",
+  "skills": []
+}
