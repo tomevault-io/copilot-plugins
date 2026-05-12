@@ -1,0 +1,9 @@
+{
+  "name": "mcp360--mtarsier",
+  "displayName": "mTarsier",
+  "description": "mTarsier - The Open Source MCP & Skill Manager for Claude, Cursor, VS Code & any AI client.",
+  "version": "1.0.0",
+  "author": "mcp360",
+  "homepage": "https://github.com/mcp360/mTarsier",
+  "skills": []
+}
