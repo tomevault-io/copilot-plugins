@@ -1,0 +1,9 @@
+{
+  "name": "strandzen--appimage-manager",
+  "displayName": "AppImage-Manager",
+  "description": "Lightweight MacOS style AppImage installer with management options. Built for KDE Plasma 6.",
+  "version": "1.0.0",
+  "author": "strandzen",
+  "homepage": "https://github.com/strandzen/AppImage-Manager",
+  "skills": []
+}
