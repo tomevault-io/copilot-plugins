@@ -1,0 +1,9 @@
+{
+  "name": "lum1104--mer-factory",
+  "displayName": "MER-Factory",
+  "description": "\ud83d\ude80 Pre-process, annotate, evaluate, and train your Affect Computing (e.g., Multimodal Emotion Recognition, Sentiment Analysis) datasets ALL within MER-Factory! (LangGraph Based Agent Workflow)",
+  "version": "1.0.0",
+  "author": "Lum1104",
+  "homepage": "https://github.com/Lum1104/MER-Factory",
+  "skills": []
+}
