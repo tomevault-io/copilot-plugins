@@ -1,0 +1,9 @@
+{
+  "name": "epheterson--immich-apple-silicon",
+  "displayName": "immich-apple-silicon",
+  "description": "Maximize Apple Silicon usage with Immich in Docker \u2014 ML, VideoToolbox transcoding, Core Image thumbnails",
+  "version": "1.0.0",
+  "author": "epheterson",
+  "homepage": "https://github.com/epheterson/immich-apple-silicon",
+  "skills": []
+}
