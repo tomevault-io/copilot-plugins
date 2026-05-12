@@ -1,0 +1,9 @@
+{
+  "name": "jyami-kim--claude-runner",
+  "displayName": "claude-runner",
+  "description": "A lightweight native macOS menu bar app that displays Claude Code session status in real time with a horizontal traffic light icon, letting you instantly see which sessions are waiting for user input ",
+  "version": "1.0.0",
+  "author": "jyami-kim",
+  "homepage": "https://github.com/jyami-kim/claude-runner",
+  "skills": []
+}
