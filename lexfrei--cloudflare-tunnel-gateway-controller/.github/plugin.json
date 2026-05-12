@@ -1,0 +1,9 @@
+{
+  "name": "lexfrei--cloudflare-tunnel-gateway-controller",
+  "displayName": "cloudflare-tunnel-gateway-controller",
+  "description": "Kubernetes controller for Cloudflare Tunnel Gateway",
+  "version": "1.0.0",
+  "author": "lexfrei",
+  "homepage": "https://github.com/lexfrei/cloudflare-tunnel-gateway-controller",
+  "skills": []
+}
