@@ -1,0 +1,9 @@
+{
+  "name": "chickenloner--systrace",
+  "displayName": "SysTrace",
+  "description": "A GUI tool used to parse Sysmon log and display as process tree",
+  "version": "1.0.0",
+  "author": "ChickenLoner",
+  "homepage": "https://github.com/ChickenLoner/SysTrace",
+  "skills": []
+}
