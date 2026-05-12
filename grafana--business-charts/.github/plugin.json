@@ -1,0 +1,9 @@
+{
+  "name": "grafana--business-charts",
+  "displayName": "business-charts",
+  "description": "The Business Charts plugin integrates the powerful Apache ECharts library into Grafana, enabling you to create rich, interactive charts and graphs within your dashboards. Built on pure JavaScript and ",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/business-charts",
+  "skills": []
+}
