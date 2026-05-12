@@ -1,0 +1,87 @@
+## stl-shelf
+
+> STL Shelf is a unified full-stack TypeScript app (TanStack Start) for managing a personal library of 3D printable models (STL, 3MF, OBJ).
+
+# AGENTS.md
+
+STL Shelf is a unified full-stack TypeScript app (TanStack Start) for managing a personal library of 3D printable models (STL, 3MF, OBJ).
+
+Package manager: Bun (`bun@1.3.5`). Use `bun` commands, not npm/yarn.
+
+Non-standard commands:
+
+- Dev server: `bun dev` (runs on port 3000)
+- Lint: `bun lint` (oxlint --fix)
+- Format: `bun format` (oxfmt --write .)
+- Type check: `bun check-types` (tsgo)
+- Lint/format checks: `bun check` (oxlint + oxfmt, no autofix)
+- Build: `bun build` (do not run if the dev server is already running)
+- Preview build: `bun preview`
+- Production server: `bun start`
+- Tests: `bun test` (vitest run)
+- Ngrok tunnel (Polar webhooks): `bun run ngrok`
+- Docs list: `bun docs:list`
+
+Quality gate:
+
+- Always run `bun check` and `bun check-types` before replying in the final message.
+
+Database:
+
+- PSQL connection: `psql "postgresql://stlshelf:stlshelf_dev_password@localhost:5432/stlshelf"`
+- Drizzle commands: `bun db:generate`, `bun db:migrate`, `bun db:push`, `bun db:studio`, `bun db:seed`
+- Seed data: `bun db:seed` (runs `drizzle/seeds/*.sql`)
+- Docker services: `docker compose up -d`, `docker compose down`, `docker compose logs -f`, `docker compose restart minio`
+- Migration guidelines:
+- Always change schema in `src/lib/db/schema` first, then run `bun db:generate` to produce SQL + update `drizzle/meta/_journal.json`.
+- Never add or edit `drizzle/*.sql` by hand without a matching entry in `drizzle/meta/_journal.json` (migrations are driven by the journal).
+- Confirm the newest migration exists in both `drizzle/*.sql` and `drizzle/meta/_journal.json` before deploy.
+- Run `bun db:migrate` locally after generating, and ensure prod deploys run `bun db:migrate` before serving traffic.
+
+MinIO CORS (first-time setup):
+
+- `docker exec stl-shelf-minio mc alias set local http://localhost:9000 stlshelf stlshelf_minio_dev_password`
+- `docker exec stl-shelf-minio mc admin config set local api cors_allow_origin="http://localhost:3000"`
+- `docker compose restart minio`
+
+Local OAuth testing (ngrok):
+
+- `bun run ngrok`
+- `.env`: `NGROK_DOMAIN=yourname.ngrok-free.app`, `NGROK_PORT=3000` (optional), `AUTH_URL=https://yourname.ngrok-free.app`, `WEB_URL=https://yourname.ngrok-free.app`
+- Polar webhook: `https://yourname.ngrok-free.app/api/auth/polar/webhooks`
+
+Data backup:
+
+- Postgres: `docker exec stl-shelf-postgres pg_dump -U stlshelf stlshelf > backup.sql`
+- MinIO: `docker run --rm -v stl-shelf_minio_data:/data -v $(pwd):/backup alpine tar czf /backup/minio-backup.tar.gz /data`
+
+Maintenance scripts:
+
+- `bun retention:sweep`
+- `bun account-deletion:sweep`
+
+Git:
+
+- Always run git commands directly; never touch or create `.git/index.lock`.
+
+If a command fails due to insufficient permissions, you must elevate the command to the user for approval.
+
+UI/UX Redesigns:
+
+- Preserve brand colors + fonts; don’t re-theme.
+- Prefer task-based IA (Overview / Files / Versions / Print Profiles) to avoid deep scroll.
+- Avoid redundant surfaces (no separate sheet if inline history exists).
+
+More details:
+
+- [Architecture](docs/agents/architecture.md)
+- [Commands](docs/agents/commands.md)
+- [Tech stack](docs/agents/tech-stack.md)
+- [Engineering principles](docs/agents/principles.md)
+- [Server patterns](docs/agents/server-patterns.md)
+- [Frontend architecture](docs/agents/frontend.md)
+- [Code quality standards](docs/agents/code-quality.md)
+
+---
+> Source: [CQ-Fabrication/stl-shelf](https://github.com/CQ-Fabrication/stl-shelf) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-08 -->
