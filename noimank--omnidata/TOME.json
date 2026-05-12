@@ -1,0 +1,44 @@
+{
+  "name": "OmniData",
+  "owner": "noimank",
+  "repo": "OmniData",
+  "description": "OmniData \u662f\u4e00\u4e2a\u57fa\u4e8e Playwright \u548c FastAPI \u6784\u5efa\u7684\u4f01\u4e1a\u7ea7\u53ef\u6269\u5c55\u7f51\u9875\u722c\u866b\u6846\u67b6\uff0c\u63d2\u4ef6\u5316\u6269\u5c55\u652f\u6301\u63a5\u5165\u591a\u79cd\u6570\u636e\u6e90\uff0c\u81ea\u7531\u7ec4\u5408\u591a\u4e2amcp\uff0c\u5e73\u66ffakshare\uff0c\u4e3a\u4e2a\u4eba\u91d1\u878d\u91cf\u5316\u63d0\u4f9b\u63a5\u53e3\u6570\u636e\u652f\u6301",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/noimank/OmniData",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T07:52:13Z"
+}
