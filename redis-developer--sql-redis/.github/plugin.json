@@ -1,0 +1,9 @@
+{
+  "name": "redis-developer--sql-redis",
+  "displayName": "sql-redis",
+  "description": "SQL to Redis command translation utility",
+  "version": "1.0.0",
+  "author": "redis-developer",
+  "homepage": "https://github.com/redis-developer/sql-redis",
+  "skills": []
+}
