@@ -1,0 +1,9 @@
+{
+  "name": "tfausak--pylo",
+  "displayName": "Pylo",
+  "description": "Convert a device into a Home accessory.",
+  "version": "1.0.0",
+  "author": "tfausak",
+  "homepage": "https://github.com/tfausak/Pylo",
+  "skills": []
+}
