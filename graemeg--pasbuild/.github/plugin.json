@@ -1,0 +1,9 @@
+{
+  "name": "graemeg--pasbuild",
+  "displayName": "PasBuild",
+  "description": "Build automation tool for Free Pascal projects.",
+  "version": "1.0.0",
+  "author": "graemeg",
+  "homepage": "https://github.com/graemeg/PasBuild",
+  "skills": []
+}
