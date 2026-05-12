@@ -1,0 +1,44 @@
+{
+  "name": "job_kanban",
+  "owner": "gagagazan",
+  "repo": "job_kanban",
+  "description": "\u672c\u5730\u4f18\u5148\u7684\u770b\u677f\u5de5\u5177\uff0c\u7528\u4e8e\u4e0eAI\u534f\u540c\u8ddf\u8e2a\u5de5\u4f5c\u673a\u4f1a\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gagagazan/job_kanban",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T05:07:22Z"
+}
