@@ -1,0 +1,9 @@
+{
+  "name": "indras-mirror--llama-cpp-mtp",
+  "displayName": "llama.cpp-mtp",
+  "description": "Fused TBQ4 Flash Attention + MTP + Shared Tensors for llama.cpp \u2014 82+ tok/s with lossless 4.25 bpv KV cache at 200K context on RTX 4090",
+  "version": "1.0.0",
+  "author": "Indras-Mirror",
+  "homepage": "https://github.com/Indras-Mirror/llama.cpp-mtp",
+  "skills": []
+}
