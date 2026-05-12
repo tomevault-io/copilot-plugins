@@ -1,0 +1,9 @@
+{
+  "name": "ccarvalho-eng--dialekt",
+  "displayName": "dialekt",
+  "description": "AI language tutor with CEFR enforcement, formal/informal register, and native-phonetic transliteration",
+  "version": "1.0.0",
+  "author": "ccarvalho-eng",
+  "homepage": "https://github.com/ccarvalho-eng/dialekt",
+  "skills": []
+}
