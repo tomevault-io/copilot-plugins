@@ -1,0 +1,9 @@
+{
+  "name": "ash-ai-org--ash-ai",
+  "displayName": "ash-ai",
+  "description": "Deploy Claude agents as production APIs \u2014 with sessions, streaming, sandboxing, and persistence handled for you.",
+  "version": "1.0.0",
+  "author": "ash-ai-org",
+  "homepage": "https://github.com/ash-ai-org/ash-ai",
+  "skills": []
+}
