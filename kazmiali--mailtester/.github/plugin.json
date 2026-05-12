@@ -1,0 +1,9 @@
+{
+  "name": "kazmiali--mailtester",
+  "displayName": "mailtester",
+  "description": "Fast, lightweight Node.js email validation library \u2014 RFC 5322, typo detection, disposable email blocking, MX & SMTP verification. TypeScript-first. 25KB.",
+  "version": "1.0.0",
+  "author": "kazmiali",
+  "homepage": "https://github.com/kazmiali/mailtester",
+  "skills": []
+}
