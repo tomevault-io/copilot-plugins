@@ -1,0 +1,9 @@
+{
+  "name": "ethereal-lemons--limebot-os",
+  "displayName": "LimeBot-OS",
+  "description": "LimeBot Open Source a self-hosted, agentic AI assistant with multi-channel support, persistent memory, and a real-time web dashboard.",
+  "version": "1.0.0",
+  "author": "Ethereal-Lemons",
+  "homepage": "https://github.com/Ethereal-Lemons/LimeBot-OS",
+  "skills": []
+}
