@@ -1,0 +1,9 @@
+{
+  "name": "cloud-shuttle--leptos-helios",
+  "displayName": "leptos-helios",
+  "description": "\ud83d\ude80 High-performance Rust visualization library for Leptos v0.8 with WebGPU acceleration. Achieves 20fps+ for 100K points with type-safe chart specifications and compile-time validation.",
+  "version": "1.0.0",
+  "author": "cloud-shuttle",
+  "homepage": "https://github.com/cloud-shuttle/leptos-helios",
+  "skills": []
+}
