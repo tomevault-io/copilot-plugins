@@ -1,0 +1,9 @@
+{
+  "name": "rizqme--raya",
+  "displayName": "raya",
+  "description": "Typescript-like Syntax married with Golang-like concurrency",
+  "version": "1.0.0",
+  "author": "rizqme",
+  "homepage": "https://github.com/rizqme/raya",
+  "skills": []
+}
