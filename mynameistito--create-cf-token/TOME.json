@@ -4,7 +4,7 @@
   "repo": "create-cf-token",
   "description": "A CLI for creating Cloudflare API tokens (User Tokens) with an interactive, guided prompt flow.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mynameistito/create-cf-token",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T00:44:14Z"
+  "distributed_at": "2026-05-12T22:46:10Z"
 }
