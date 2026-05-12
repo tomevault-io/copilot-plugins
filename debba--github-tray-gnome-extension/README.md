@@ -7,11 +7,11 @@ A GNOME Shell extension that puts your GitHub dashboard in the top bar. Track no
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [debba/github-tray-gnome-extension](https://github.com/debba/github-tray-gnome-extension).
+Original source: `CLAUDE.md` in [debba/github-tray-gnome-extension](https://github.com/debba/github-tray-gnome-extension).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
