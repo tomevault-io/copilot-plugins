@@ -1,0 +1,9 @@
+{
+  "name": "cholf5--xray-reality-vision-installer",
+  "displayName": "xray-reality-vision-installer",
+  "description": "Python3 \u81ea\u52a8\u5316\u90e8\u7f72\u811a\u672c\uff0c\u7528\u4e8e\u5728 Ubuntu VPS \u4e0a\u4e00\u952e\u642d\u5efa VLESS + Reality + Vision\uff08Xray-core\uff09",
+  "version": "1.0.0",
+  "author": "cholf5",
+  "homepage": "https://github.com/cholf5/xray-reality-vision-installer",
+  "skills": []
+}
