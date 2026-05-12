@@ -1,0 +1,9 @@
+{
+  "name": "parkejunior--jellycc-cli",
+  "displayName": "jellycc-cli",
+  "description": "A CLI to ensure Jellyfin Direct Play compatibility.",
+  "version": "1.0.0",
+  "author": "parkejunior",
+  "homepage": "https://github.com/parkejunior/jellycc-cli",
+  "skills": []
+}
