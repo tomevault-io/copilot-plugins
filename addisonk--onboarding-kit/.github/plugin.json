@@ -1,0 +1,9 @@
+{
+  "name": "addisonk--onboarding-kit",
+  "displayName": "onboarding-kit",
+  "description": "Drop-in onboarding flows for Next.js + shadcn/ui",
+  "version": "1.0.0",
+  "author": "addisonk",
+  "homepage": "https://github.com/addisonk/onboarding-kit",
+  "skills": []
+}
