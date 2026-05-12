@@ -1,0 +1,9 @@
+{
+  "name": "pcharbon70--triple-store",
+  "displayName": "triple_store",
+  "description": "A RDF triple-store for the elixir ecosystem",
+  "version": "1.0.0",
+  "author": "pcharbon70",
+  "homepage": "https://github.com/pcharbon70/triple_store",
+  "skills": []
+}
