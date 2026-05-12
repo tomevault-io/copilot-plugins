@@ -1,0 +1,9 @@
+{
+  "name": "tallpress--nnav",
+  "displayName": "nnav",
+  "description": "lnav for NATS",
+  "version": "1.0.0",
+  "author": "tallpress",
+  "homepage": "https://github.com/tallpress/nnav",
+  "skills": []
+}
