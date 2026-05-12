@@ -4,7 +4,7 @@
   "repo": "lumina-wiki",
   "description": "An AI-powered research assistant for reading, understanding, organizing, and connecting knowledge, implementation of Karpathy's LLM Wiki",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tronghieu/lumina-wiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T03:34:52Z"
+  "distributed_at": "2026-05-12T05:02:43Z"
 }
