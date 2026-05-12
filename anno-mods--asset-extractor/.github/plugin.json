@@ -1,0 +1,9 @@
+{
+  "name": "anno-mods--asset-extractor",
+  "displayName": "asset-extractor",
+  "description": "Utility tool to automate extraction and conversion of the assets for using them in other tools or wikis. Works for Anno 1800 and 117.",
+  "version": "1.0.0",
+  "author": "anno-mods",
+  "homepage": "https://github.com/anno-mods/asset-extractor",
+  "skills": []
+}
