@@ -1,0 +1,9 @@
+{
+  "name": "riwsky--iosef",
+  "displayName": "iosef",
+  "description": "a CLI and MCP server for iOS Simulator automation, designed for agents",
+  "version": "1.0.0",
+  "author": "riwsky",
+  "homepage": "https://github.com/riwsky/iosef",
+  "skills": []
+}
