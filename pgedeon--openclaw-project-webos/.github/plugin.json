@@ -1,0 +1,9 @@
+{
+  "name": "pgedeon--openclaw-project-webos",
+  "displayName": "openclaw-project-webos",
+  "description": "OpenClaw Desktop \u2014 WebOS-style project management dashboard with native kanban board, Gantt timeline, activity feed, and workflow runbooks",
+  "version": "1.0.0",
+  "author": "pgedeon",
+  "homepage": "https://github.com/pgedeon/openclaw-project-webos",
+  "skills": []
+}
