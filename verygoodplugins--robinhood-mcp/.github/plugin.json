@@ -1,0 +1,9 @@
+{
+  "name": "verygoodplugins--robinhood-mcp",
+  "displayName": "robinhood-mcp",
+  "description": "Read-only MCP server for Robinhood portfolio research",
+  "version": "1.0.0",
+  "author": "verygoodplugins",
+  "homepage": "https://github.com/verygoodplugins/robinhood-mcp",
+  "skills": []
+}
