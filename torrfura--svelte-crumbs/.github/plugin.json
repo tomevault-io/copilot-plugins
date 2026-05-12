@@ -1,0 +1,9 @@
+{
+  "name": "torrfura--svelte-crumbs",
+  "displayName": "svelte-crumbs",
+  "description": "Svelte async / ssr breadcrumbs",
+  "version": "1.0.0",
+  "author": "torrfura",
+  "homepage": "https://github.com/torrfura/svelte-crumbs",
+  "skills": []
+}
