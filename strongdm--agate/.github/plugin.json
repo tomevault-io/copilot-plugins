@@ -1,0 +1,9 @@
+{
+  "name": "strongdm--agate",
+  "displayName": "agate",
+  "description": "an AI rock tumbler (orchestrator)",
+  "version": "1.0.0",
+  "author": "strongdm",
+  "homepage": "https://github.com/strongdm/agate",
+  "skills": []
+}
