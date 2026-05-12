@@ -1,0 +1,9 @@
+{
+  "name": "lvlup-sw--exarchos",
+  "displayName": "exarchos",
+  "description": "A local-first SDLC workflow harness \u2014 a concurrent event-sourced process manager with cooperative agents.",
+  "version": "1.0.0",
+  "author": "lvlup-sw",
+  "homepage": "https://github.com/lvlup-sw/exarchos",
+  "skills": []
+}
