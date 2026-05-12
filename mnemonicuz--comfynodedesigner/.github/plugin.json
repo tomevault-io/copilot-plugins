@@ -1,0 +1,9 @@
+{
+  "name": "mnemonicuz--comfynodedesigner",
+  "displayName": "ComfyNodeDesigner",
+  "description": "Template maker for ComfyUI nodes.",
+  "version": "1.0.0",
+  "author": "MNeMoNiCuZ",
+  "homepage": "https://github.com/MNeMoNiCuZ/ComfyNodeDesigner",
+  "skills": []
+}
