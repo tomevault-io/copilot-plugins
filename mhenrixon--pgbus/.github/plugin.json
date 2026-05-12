@@ -1,0 +1,9 @@
+{
+  "name": "mhenrixon--pgbus",
+  "displayName": "pgbus",
+  "description": "PostgreSQL-native job processing and event bus for Rails, built on PGMQ",
+  "version": "1.0.0",
+  "author": "mhenrixon",
+  "homepage": "https://github.com/mhenrixon/pgbus",
+  "skills": []
+}
