@@ -1,0 +1,44 @@
+{
+  "name": "funnel-architect-plugin",
+  "owner": "ominou5",
+  "repo": "funnel-architect-plugin",
+  "description": "Turn Claude into a full-stack sales funnel architect. Build high-converting funnels with optimized UI/UX, page speed, mobile responsiveness, and deploy to any platform.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ominou5/funnel-architect-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T07:19:30Z"
+}
