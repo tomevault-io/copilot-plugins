@@ -1,0 +1,9 @@
+{
+  "name": "phrazzld--spellbook",
+  "displayName": "spellbook",
+  "description": "Portable skill library for AI coding agents: debugging, PR workflows, design systems, incident response, and domain playbooks.",
+  "version": "1.0.0",
+  "author": "phrazzld",
+  "homepage": "https://github.com/phrazzld/spellbook",
+  "skills": []
+}
