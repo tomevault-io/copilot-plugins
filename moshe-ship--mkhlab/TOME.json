@@ -1,0 +1,44 @@
+{
+  "name": "mkhlab",
+  "owner": "Moshe-ship",
+  "repo": "mkhlab",
+  "description": "\ud83e\udd85 \u0645\u062e\u0644\u0628 \u2014 Arabic-first OpenClaw plugin. 14 Arabic AI skills, dialect-aware, culturally sensitive.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Moshe-ship/mkhlab",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T03:20:41Z"
+}
