@@ -1,0 +1,9 @@
+{
+  "name": "kittimasak--thai-token-optimizer",
+  "displayName": "thai-token-optimizer",
+  "description": "A Thai token optimization tool for AI coding agents that keeps commands, code, and technical details accurate.",
+  "version": "1.0.0",
+  "author": "kittimasak",
+  "homepage": "https://github.com/kittimasak/thai-token-optimizer",
+  "skills": []
+}
