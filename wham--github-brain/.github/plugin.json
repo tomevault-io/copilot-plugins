@@ -1,0 +1,9 @@
+{
+  "name": "wham--github-brain",
+  "displayName": "github-brain",
+  "description": "An experimental GitHub MCP server with local database.",
+  "version": "1.0.0",
+  "author": "wham",
+  "homepage": "https://github.com/wham/github-brain",
+  "skills": []
+}
