@@ -1,0 +1,9 @@
+{
+  "name": "risorseartificiali--anti-vocale",
+  "displayName": "anti-vocale",
+  "description": "Android app for transcribing voice messages locally on-device, with no internet required.",
+  "version": "1.0.0",
+  "author": "RisorseArtificiali",
+  "homepage": "https://github.com/RisorseArtificiali/anti-vocale",
+  "skills": []
+}
