@@ -1,0 +1,9 @@
+{
+  "name": "openagentsinc--psionic",
+  "displayName": "psionic",
+  "description": "Rust ML stack",
+  "version": "1.0.0",
+  "author": "OpenAgentsInc",
+  "homepage": "https://github.com/OpenAgentsInc/psionic",
+  "skills": []
+}
