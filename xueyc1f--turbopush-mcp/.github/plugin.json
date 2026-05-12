@@ -1,0 +1,9 @@
+{
+  "name": "xueyc1f--turbopush-mcp",
+  "displayName": "turbopush-mcp",
+  "description": "TurboPush MCP Server - Connect AI agents (Claude, OpenClaw) to publish content across 20+ platforms including WeChat, Douyin, Bilibili, Xiaohongshu, and more   via Model Context Protocol.",
+  "version": "1.0.0",
+  "author": "xueyc1f",
+  "homepage": "https://github.com/xueyc1f/turbopush-mcp",
+  "skills": []
+}
