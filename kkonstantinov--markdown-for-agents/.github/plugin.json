@@ -1,0 +1,9 @@
+{
+  "name": "kkonstantinov--markdown-for-agents",
+  "displayName": "markdown-for-agents",
+  "description": "HTML to Markdown converter for AI agents. 90+% fewer tokens, one dependency, works everywhere.",
+  "version": "1.0.0",
+  "author": "KKonstantinov",
+  "homepage": "https://github.com/KKonstantinov/markdown-for-agents",
+  "skills": []
+}
