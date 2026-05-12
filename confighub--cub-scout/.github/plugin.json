@@ -1,0 +1,9 @@
+{
+  "name": "confighub--cub-scout",
+  "displayName": "cub-scout",
+  "description": "Explore and map GitOps in your clusters",
+  "version": "1.0.0",
+  "author": "confighub",
+  "homepage": "https://github.com/confighub/cub-scout",
+  "skills": []
+}
