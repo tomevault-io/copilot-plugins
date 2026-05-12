@@ -1,0 +1,9 @@
+{
+  "name": "aha-app--json-completer",
+  "displayName": "json_completer",
+  "description": "Ruby gem for completing partial JSON strings with stateful incremental parsing. Ideal for streaming JSON processing, handling truncated data, and incomplete API responses",
+  "version": "1.0.0",
+  "author": "aha-app",
+  "homepage": "https://github.com/aha-app/json_completer",
+  "skills": []
+}
