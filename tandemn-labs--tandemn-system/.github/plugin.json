@@ -1,0 +1,9 @@
+{
+  "name": "tandemn-labs--tandemn-system",
+  "displayName": "tandemn-system",
+  "description": "Tandemn's server is the core orchestration engine that deploys, schedules, and optimizes large-scale AI inference workloads across heterogeneous GPU infrastructure.",
+  "version": "1.0.0",
+  "author": "Tandemn-Labs",
+  "homepage": "https://github.com/Tandemn-Labs/tandemn-system",
+  "skills": []
+}
