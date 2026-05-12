@@ -1,0 +1,9 @@
+{
+  "name": "tortastudios--python-ai-guardrails-template",
+  "displayName": "python-ai-guardrails-template",
+  "description": "Engineering guardrails for AI-generated Python code. Enforces types, tests, complexity limits, security, and architecture automatically.",
+  "version": "1.0.0",
+  "author": "tortastudios",
+  "homepage": "https://github.com/tortastudios/python-ai-guardrails-template",
+  "skills": []
+}
