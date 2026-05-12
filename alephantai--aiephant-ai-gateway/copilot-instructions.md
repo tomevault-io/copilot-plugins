@@ -1,37 +1,33 @@
-## api-workflow
+## architecture
 
-> This document outlines common patterns and the request workflow in the LLM Proxy.
+> This document outlines the architecture of the LLM Proxy system.
 
-# API Workflow and Patterns
+# LLM Proxy Architecture
 
-This document outlines common patterns and the request workflow in the LLM Proxy.
+This document outlines the architecture of the LLM Proxy system.
 
-## Request Flow
+## Core Components
 
-1. API request received by [ai-gateway/src/app.rs](mdc:ai-gateway/src/app.rs)
-2. Middleware processing in [ai-gateway/src/middleware/](mdc:ai-gateway/src/middleware)
-3. Routing via [ai-gateway/src/router/](mdc:ai-gateway/src/router)
-4. Request dispatching in [ai-gateway/src/dispatcher.rs](mdc:ai-gateway/src/dispatcher.rs)
-5. Provider selection via [ai-gateway/src/balancer/](mdc:ai-gateway/src/balancer)
-6. Response processing and return
+### Server and Routing
+- [ai-gateway/src/app.rs](mdc:ai-gateway/src/app.rs) - Main application server setup
+- [ai-gateway/src/router/](mdc:ai-gateway/src/router) - API request routing logic
+- [ai-gateway/src/dispatcher.rs](mdc:ai-gateway/src/dispatcher.rs) - Dispatches requests to appropriate providers
 
-## Common Patterns
+### Provider Integration
+- [ai-gateway/src/balancer/](mdc:ai-gateway/src/balancer) - Load balancing between different LLM providers
 
-### Error Handling
+### Configuration and Error Handling
+- [ai-gateway/src/config/](mdc:ai-gateway/src/config) - Application configuration
+- [ai-gateway/src/error/](mdc:ai-gateway/src/error) - Error handling and reporting
 
-- Errors are defined in [ai-gateway/src/error/](mdc:ai-gateway/src/error)
-- Return structured errors to API clients
+### Middleware and Utils
+- [ai-gateway/src/middleware/](mdc:ai-gateway/src/middleware) - HTTP middleware components
+- [ai-gateway/src/utils/](mdc:ai-gateway/src/utils) - Utility functions and helpers
 
-### Configuration
-
-- Configuration is loaded from files and environment variables
-- See [ai-gateway/src/config/](mdc:ai-gateway/src/config) for details
-
-### Testing
-
-- Unit tests alongside code
-- Integration tests in [ai-gateway/tests/](mdc:ai-gateway/tests)
-- Mock services for external APIs in [ai-gateway/stubs/](mdc:ai-gateway/stubs)
+### Observability
+- [ai-gateway/src/logger/](mdc:ai-gateway/src/logger) - Logging infrastructure
+- [crates/telemetry/](mdc:crates/telemetry) - Telemetry for tracing and metrics
+- [crates/metrics/](mdc:crates/metrics) - Metrics collection and reporting
 
 ---
 > Source: [AlephantAI/AIephant-AI-Gateway](https://github.com/AlephantAI/AIephant-AI-Gateway) — distributed by [TomeVault](https://tomevault.io).
