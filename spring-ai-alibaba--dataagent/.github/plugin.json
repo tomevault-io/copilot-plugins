@@ -1,0 +1,9 @@
+{
+  "name": "spring-ai-alibaba--dataagent",
+  "displayName": "DataAgent",
+  "description": "Spring AI Alibaba DataAgent",
+  "version": "1.0.0",
+  "author": "spring-ai-alibaba",
+  "homepage": "https://github.com/spring-ai-alibaba/DataAgent",
+  "skills": []
+}
