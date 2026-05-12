@@ -7,11 +7,11 @@ Run AWS CDK and Terraform infrastructure locally — zero code changes required
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [local-web-services/local-web-services](https://github.com/local-web-services/local-web-services).
+Original source: `CLAUDE.md` in [local-web-services/local-web-services](https://github.com/local-web-services/local-web-services).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
