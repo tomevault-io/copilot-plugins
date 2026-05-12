@@ -1,0 +1,9 @@
+{
+  "name": "clackups--draftling",
+  "displayName": "draftling",
+  "description": "A writerdeck firmware for esp32-s3",
+  "version": "1.0.0",
+  "author": "clackups",
+  "homepage": "https://github.com/clackups/draftling",
+  "skills": []
+}
