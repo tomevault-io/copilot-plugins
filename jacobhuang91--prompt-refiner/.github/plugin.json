@@ -1,0 +1,9 @@
+{
+  "name": "jacobhuang91--prompt-refiner",
+  "displayName": "prompt-refiner",
+  "description": "\ud83d\ude80 Lightweight Python library for building production LLM applications with smart context management and automatic token optimization. Save 10-20% on API costs while fitting RAG docs, chat history, and",
+  "version": "1.0.0",
+  "author": "JacobHuang91",
+  "homepage": "https://github.com/JacobHuang91/prompt-refiner",
+  "skills": []
+}
