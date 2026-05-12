@@ -1,0 +1,9 @@
+{
+  "name": "neeltom92--sre-copilot",
+  "displayName": "sre-copilot",
+  "description": "AI Powered SRE Observability agent",
+  "version": "1.0.0",
+  "author": "neeltom92",
+  "homepage": "https://github.com/neeltom92/sre-copilot",
+  "skills": []
+}
