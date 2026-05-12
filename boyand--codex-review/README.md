@@ -7,11 +7,11 @@ Claude Code plugin for multi-round Codex reviews of plans and implementations.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [boyand/codex-review](https://github.com/boyand/codex-review).
+Original source: `CLAUDE.md` in [boyand/codex-review](https://github.com/boyand/codex-review).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
