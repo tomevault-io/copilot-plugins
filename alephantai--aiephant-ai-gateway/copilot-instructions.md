@@ -1,30 +1,22 @@
-## infrastructure-guide
+## nightly-rustfmt
 
-> This directory contains all infrastructure-as-code and deployment scripts for the LLM Proxy project.
+> Enforce nightly rustfmt style for Rust code generation
 
-# Infrastructure and Deployment
 
-This directory contains all infrastructure-as-code and deployment scripts for the LLM Proxy project.
+# Nightly Rustfmt Requirement
 
-## Docker Compose
+When generating or editing Rust code in this repository:
 
-- [infrastructure/compose.yaml](mdc:infrastructure/compose.yaml): Defines services like the proxy, database, Redis, and observability tooling.
+- Produce code that matches nightly rustfmt output, not stable-only formatting.
+- Follow the repository `rustfmt.toml` style, including import grouping and line wrapping behavior expected by nightly rustfmt.
+- Avoid committing formatting that would be rewritten by pre-push hooks.
+- If Rust files are changed, run `cargo +nightly fmt` before finalizing changes whenever possible.
+- Treat nightly rustfmt compliance as required for completion.
 
-## Deployment Script
+## Quick Examples
 
-- [infrastructure/deploy.sh](mdc:infrastructure/deploy.sh): Bash script to deploy infrastructure and update services.
-
-## Monitoring and Observability
-
-- [infrastructure/prometheus/](mdc:infrastructure/prometheus): Prometheus configuration files.
-- [infrastructure/grafana/](mdc:infrastructure/grafana): Grafana dashboards and data source definitions.
-- [infrastructure/loki/](mdc:infrastructure/loki): Loki log aggregation setup.
-- [infrastructure/tempo/](mdc:infrastructure/tempo): Tempo tracing configuration.
-- [infrastructure/opentelemetry-collector/](mdc:infrastructure/opentelemetry-collector): OpenTelemetry Collector pipelines.
-
-## Certificates
-
-- [infrastructure/self-signed-certs/](mdc:infrastructure/self-signed-certs): Self-signed TLS certificates for local development.
+- Prefer grouped crate imports when nightly rustfmt would merge them.
+- Wrap long doc comments and long string literals as nightly rustfmt expects.
 
 ---
 > Source: [AlephantAI/AIephant-AI-Gateway](https://github.com/AlephantAI/AIephant-AI-Gateway) — distributed by [TomeVault](https://tomevault.io).
