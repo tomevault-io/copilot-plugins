@@ -1,0 +1,9 @@
+{
+  "name": "kantord--headson",
+  "displayName": "headson",
+  "description": "head/tail for structured data - summarize/preview JSON/YAML and source code",
+  "version": "1.0.0",
+  "author": "kantord",
+  "homepage": "https://github.com/kantord/headson",
+  "skills": []
+}
