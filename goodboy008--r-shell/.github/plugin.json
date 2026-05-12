@@ -1,0 +1,9 @@
+{
+  "name": "goodboy008--r-shell",
+  "displayName": "r-shell",
+  "description": "\ud83d\ude80  Lightweight open-source SSH/SFTP/FTP client built with Rust & Tauri 2. Only ~34 MB memory. Installer under 10 MB . Split terminals, SFTP, GPU monitoring. macOS/Windows/Linux.",
+  "version": "1.0.0",
+  "author": "GOODBOY008",
+  "homepage": "https://github.com/GOODBOY008/r-shell",
+  "skills": []
+}
