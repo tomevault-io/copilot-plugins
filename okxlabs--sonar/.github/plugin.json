@@ -1,0 +1,9 @@
+{
+  "name": "okxlabs--sonar",
+  "displayName": "sonar",
+  "description": "A CLI tool for local Solana transaction simulation (LiteSVM) plus common developer utilities",
+  "version": "1.0.0",
+  "author": "okxlabs",
+  "homepage": "https://github.com/okxlabs/sonar",
+  "skills": []
+}
