@@ -1,0 +1,44 @@
+{
+  "name": "RIPDPI",
+  "owner": "po4yka",
+  "repo": "RIPDPI",
+  "description": "Android app for internet speed-up during active DPI with a local SOCKS5 proxy and VPN mode, powered by in-repo Rust native modules. Features adaptive DPI evasion strategies, encrypted DNS (DoH/DoT/DNSCrypt), per-network policy memory, handover-aware live re-evaluation, and integrated network diagnostics.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/po4yka/RIPDPI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T20:59:54Z"
+}
