@@ -1,0 +1,9 @@
+{
+  "name": "deepankarm--agent-chaos",
+  "displayName": "agent-chaos",
+  "description": "Chaos engineering for AI agents",
+  "version": "1.0.0",
+  "author": "deepankarm",
+  "homepage": "https://github.com/deepankarm/agent-chaos",
+  "skills": []
+}
