@@ -1,0 +1,44 @@
+{
+  "name": "prompt-manager",
+  "owner": "BeCrafter",
+  "repo": "prompt-manager",
+  "description": "\u57fa\u4e8eMCP\u534f\u8bae\u7684Prompt\u7ba1\u7406\u670d\u52a1\uff1a\u652f\u6301HTTP\u6d41\u5f0f\u4f20\u8f93\u3001Web/\u684c\u9762\u53cc\u7aef\u7ba1\u7406\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BeCrafter/prompt-manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T06:40:35Z"
+}
