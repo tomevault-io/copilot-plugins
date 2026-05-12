@@ -1,0 +1,9 @@
+{
+  "name": "miskibin--tygodnik-sejmowy",
+  "displayName": "tygodnik-sejmowy",
+  "description": "Source code for tygodniksejmowy.pl  Final website displaying polish parliamentary data ",
+  "version": "1.0.0",
+  "author": "miskibin",
+  "homepage": "https://github.com/miskibin/tygodnik-sejmowy",
+  "skills": []
+}
