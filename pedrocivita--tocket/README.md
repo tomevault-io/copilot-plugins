@@ -7,14 +7,14 @@ Tocket Transmition Protocol
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [pedrocivita/tocket](https://github.com/pedrocivita/tocket).
+Original source: `CLAUDE.md` in [pedrocivita/tocket](https://github.com/pedrocivita/tocket).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [pedrocivita/tocket](https://github.com/pedrocivita/tocket) — a repo with 35+ stars on GitHub.
