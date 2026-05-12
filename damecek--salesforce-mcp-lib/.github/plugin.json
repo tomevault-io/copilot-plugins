@@ -1,0 +1,9 @@
+{
+  "name": "damecek--salesforce-mcp-lib",
+  "displayName": "salesforce-mcp-lib",
+  "description": "Salesforce MCP Library is a local stdio bridge for Salesforce MCP endpoints using OAuth client credentials, featuring a reusable Apex MCP library and JSON-RPC 2.0 core.",
+  "version": "1.0.0",
+  "author": "Damecek",
+  "homepage": "https://github.com/Damecek/salesforce-mcp-lib",
+  "skills": []
+}
