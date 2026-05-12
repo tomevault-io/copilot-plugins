@@ -1,0 +1,9 @@
+{
+  "name": "cmlonder--notebooklm-chunker",
+  "displayName": "notebooklm-chunker",
+  "description": "Heading-aware PDF chunking with resumable source and Studio workflows for turning long documents into interactive NotebookLM learning kits.",
+  "version": "1.0.0",
+  "author": "cmlonder",
+  "homepage": "https://github.com/cmlonder/notebooklm-chunker",
+  "skills": []
+}
