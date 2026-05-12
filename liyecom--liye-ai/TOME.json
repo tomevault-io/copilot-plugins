@@ -1,0 +1,44 @@
+{
+  "name": "liye-ai",
+  "owner": "liyecom",
+  "repo": "liye-ai",
+  "description": "Agent economic trading market infrastructure. A system used for managing Agents, discovering Agents, scheduling Agents, evaluating Agents, and restricting Agents. | Agent \u7ecf\u6d4e\u7684\u4ea4\u6613\u5e02\u573a\u57fa\u7840\u8bbe\u65bd\u3002\u7528\u4ee5\u7ba1\u7406 Agent\u3001\u53d1\u73b0 Agent\u3001\u8c03\u5ea6 Agent\u3001\u8bc4\u4f30 Agent\u3001\u7ea6\u675f Agent \u7684\u7cfb\u7edf\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liyecom/liye-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T19:09:46Z"
+}
