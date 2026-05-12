@@ -1,0 +1,44 @@
+{
+  "name": "qwen-orchestrator",
+  "owner": "Omar-Obando",
+  "repo": "qwen-orchestrator",
+  "description": "Qwen Orchestrator is a powerful extension built exclusively for Qwen Code \u2014 the open-source AI coding CLI by Alibaba. It transforms a single AI coding assistant into a coordinated team of 22 specialized AI agents that work together like a professional software development department.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Omar-Obando/qwen-orchestrator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T11:05:38Z"
+}
