@@ -1,0 +1,9 @@
+{
+  "name": "trillion-labs--claude-code-orchestrator",
+  "displayName": "claude-code-orchestrator",
+  "description": "Web-based dashboard for managing multiple Claude Code sessions across local and remote machines",
+  "version": "1.0.0",
+  "author": "trillion-labs",
+  "homepage": "https://github.com/trillion-labs/claude-code-orchestrator",
+  "skills": []
+}
