@@ -1,0 +1,9 @@
+{
+  "name": "nihadmemmedli--quorvex-ai",
+  "displayName": "quorvex_ai",
+  "description": "Convert plain English test specs into self-healing Playwright tests using AI. Browser exploration, auto-fix, load/security/API/LLM testing. Open source.",
+  "version": "1.0.0",
+  "author": "NihadMemmedli",
+  "homepage": "https://github.com/NihadMemmedli/quorvex_ai",
+  "skills": []
+}
