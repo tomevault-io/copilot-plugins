@@ -1,0 +1,9 @@
+{
+  "name": "test1111111111111112--llama-cpp-turboquant-gemma4",
+  "displayName": "llama-cpp-turboquant-gemma4",
+  "description": "TurboQuant llama.cpp fork with optimized turbo4 kernels for Gemma 4 D=256/512 heads \u2014 lazy K/V, batch decode, warp-cooperative write. 120 t/s with 3.8x KV compression on RTX 3090.",
+  "version": "1.0.0",
+  "author": "test1111111111111112",
+  "homepage": "https://github.com/test1111111111111112/llama-cpp-turboquant-gemma4",
+  "skills": []
+}
