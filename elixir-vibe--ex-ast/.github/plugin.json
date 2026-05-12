@@ -1,0 +1,9 @@
+{
+  "name": "elixir-vibe--ex-ast",
+  "displayName": "ex_ast",
+  "description": "Search, replace, and diff Elixir code by AST pattern",
+  "version": "1.0.0",
+  "author": "elixir-vibe",
+  "homepage": "https://github.com/elixir-vibe/ex_ast",
+  "skills": []
+}
