@@ -1,0 +1,9 @@
+{
+  "name": "datar-psa--clad-body",
+  "displayName": "clad-body",
+  "description": "ISO 8559-1 body measurements for Anny and MHR parametric body models \u2014 loaders, circumferences, and anthropometry.",
+  "version": "1.0.0",
+  "author": "datar-psa",
+  "homepage": "https://github.com/datar-psa/clad-body",
+  "skills": []
+}
