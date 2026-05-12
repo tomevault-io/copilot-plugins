@@ -1,0 +1,9 @@
+{
+  "name": "hanzzh--openmindmap",
+  "displayName": "openMindMap",
+  "description": "A powerful Obsidian plugin that automatically renders Markdown files as interactive D3.js mind maps with AI-powered node suggestions and cross-device support.",
+  "version": "1.0.0",
+  "author": "Hanzzh",
+  "homepage": "https://github.com/Hanzzh/openMindMap",
+  "skills": []
+}
