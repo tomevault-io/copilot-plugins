@@ -1,0 +1,9 @@
+{
+  "name": "kookylo--claude-workflow-generator",
+  "displayName": "claude_workflow_generator",
+  "description": "A curated collection of professional n8n workflow templates and resources designed to automate business processes. These templates are built with modern best practices and can be imported directly int",
+  "version": "1.0.0",
+  "author": "Kookylo",
+  "homepage": "https://github.com/Kookylo/claude_workflow_generator",
+  "skills": []
+}
