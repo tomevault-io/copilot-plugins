@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--zero-native",
+  "displayName": "zero-native",
+  "description": "Build native desktop + mobile apps with web UI and Zig",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/zero-native",
+  "skills": []
+}
