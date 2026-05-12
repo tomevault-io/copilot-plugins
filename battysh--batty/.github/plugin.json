@@ -1,0 +1,9 @@
+{
+  "name": "battysh--batty",
+  "displayName": "batty",
+  "description": "Supervised agent execution for software teams. Kanban-driven, tmux-native, test-gated.",
+  "version": "1.0.0",
+  "author": "battysh",
+  "homepage": "https://github.com/battysh/batty",
+  "skills": []
+}
