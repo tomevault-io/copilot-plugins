@@ -4,7 +4,7 @@
   "repo": "swift-ast-lint",
   "description": "\ud83d\udd28 Build your own Swift linter at the syntax level.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ryu0118/swift-ast-lint",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T15:34:40Z"
+  "distributed_at": "2026-05-12T01:40:32Z"
 }
