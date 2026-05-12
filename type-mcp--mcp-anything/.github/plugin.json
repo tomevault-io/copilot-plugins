@@ -1,0 +1,9 @@
+{
+  "name": "type-mcp--mcp-anything",
+  "displayName": "mcp-anything",
+  "description": "One command to turn any codebase into an MCP server",
+  "version": "1.0.0",
+  "author": "Type-MCP",
+  "homepage": "https://github.com/Type-MCP/mcp-anything",
+  "skills": []
+}
