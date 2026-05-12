@@ -1,0 +1,9 @@
+{
+  "name": "jessepwj--agent-teams-mcp",
+  "displayName": "agent-teams-mcp",
+  "description": "MCP server: Claude Code as team lead coordinating worker agents, with true push notifications via FileChanged + asyncRewake",
+  "version": "1.0.0",
+  "author": "jessepwj",
+  "homepage": "https://github.com/jessepwj/agent-teams-mcp",
+  "skills": []
+}
