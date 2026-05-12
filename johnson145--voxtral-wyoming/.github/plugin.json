@@ -1,0 +1,9 @@
+{
+  "name": "johnson145--voxtral-wyoming",
+  "displayName": "voxtral_wyoming",
+  "description": "Offline Speech-to-Text (STT) service using Mistral's Voxtral model with Wyoming protocol compatibility for Home Assistant Assist integration.",
+  "version": "1.0.0",
+  "author": "Johnson145",
+  "homepage": "https://github.com/Johnson145/voxtral_wyoming",
+  "skills": []
+}
