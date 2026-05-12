@@ -1,0 +1,9 @@
+{
+  "name": "ch00k--claude-review",
+  "displayName": "claude-review",
+  "description": "Collaborate and iterate on documents with Claude Code",
+  "version": "1.0.0",
+  "author": "Ch00k",
+  "homepage": "https://github.com/Ch00k/claude-review",
+  "skills": []
+}
