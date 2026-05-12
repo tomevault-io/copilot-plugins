@@ -1,0 +1,9 @@
+{
+  "name": "bukamasedo--graphite",
+  "displayName": "graphite",
+  "description": "Local-first markdown note-taking app built with Tauri + React",
+  "version": "1.0.0",
+  "author": "bukamasedo",
+  "homepage": "https://github.com/bukamasedo/graphite",
+  "skills": []
+}
