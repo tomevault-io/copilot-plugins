@@ -1,0 +1,9 @@
+{
+  "name": "mastersof-ai--harness",
+  "displayName": "harness",
+  "description": "Agent runtime with full system prompt control. Define agents in markdown, run them in a terminal TUI or multi-user web UI. Powered by the Claude Agent SDK.",
+  "version": "1.0.0",
+  "author": "mastersof-ai",
+  "homepage": "https://github.com/mastersof-ai/harness",
+  "skills": []
+}
