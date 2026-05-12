@@ -1,0 +1,9 @@
+{
+  "name": "grab--talktofigmadesktop",
+  "displayName": "TalkToFigmaDesktop",
+  "description": "A powerful desktop application bridging Figma and AI tools via Model Context Protocol Seamless integration between Figma designs and AI assistants",
+  "version": "1.0.0",
+  "author": "grab",
+  "homepage": "https://github.com/grab/TalkToFigmaDesktop",
+  "skills": []
+}
