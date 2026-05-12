@@ -1,0 +1,9 @@
+{
+  "name": "meta-pytorch--torchcomms",
+  "displayName": "torchcomms",
+  "description": "torchcomms: a modern PyTorch communications API",
+  "version": "1.0.0",
+  "author": "meta-pytorch",
+  "homepage": "https://github.com/meta-pytorch/torchcomms",
+  "skills": []
+}
