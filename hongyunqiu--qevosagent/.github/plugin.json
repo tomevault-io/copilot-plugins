@@ -1,0 +1,9 @@
+{
+  "name": "hongyunqiu--qevosagent",
+  "displayName": "QevosAgent",
+  "description": "QevosAgent is a minimalist agent runtime for real tool-calling workflows with persistent artifacts, recoverable memory, and observable execution.",
+  "version": "1.0.0",
+  "author": "HongyunQiu",
+  "homepage": "https://github.com/HongyunQiu/QevosAgent",
+  "skills": []
+}
