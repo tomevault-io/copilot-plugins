@@ -1,0 +1,9 @@
+{
+  "name": "matteocelani--f1-telemetry",
+  "displayName": "f1-telemetry",
+  "description": "Open Source live F1 telemetry analytics. A Next.js/Node.js monorepo decoding the official SignalR feed into real-time WebSockets.",
+  "version": "1.0.0",
+  "author": "matteocelani",
+  "homepage": "https://github.com/matteocelani/f1-telemetry",
+  "skills": []
+}
