@@ -1,0 +1,9 @@
+{
+  "name": "illscience--vibe-debug",
+  "displayName": "vibe-debug",
+  "description": "CLI debugger that lets coding agents inspect live Python runtime state, with optional MCP integration.",
+  "version": "1.0.0",
+  "author": "illscience",
+  "homepage": "https://github.com/illscience/vibe-debug",
+  "skills": []
+}
