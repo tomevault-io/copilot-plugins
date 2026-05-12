@@ -1,0 +1,9 @@
+{
+  "name": "makoni--actioneer-gtk",
+  "displayName": "actioneer-gtk",
+  "description": "A native GNOME desktop client for GitHub Actions",
+  "version": "1.0.0",
+  "author": "makoni",
+  "homepage": "https://github.com/makoni/actioneer-gtk",
+  "skills": []
+}
