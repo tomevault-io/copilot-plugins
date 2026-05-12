@@ -1,0 +1,9 @@
+{
+  "name": "odyth--red-queen",
+  "displayName": "red-queen",
+  "description": "Deterministic orchestrator for AI coding agents \u2014 zero tokens, full SDLC pipeline, human-in-the-loop gates.",
+  "version": "1.0.0",
+  "author": "odyth",
+  "homepage": "https://github.com/odyth/red-queen",
+  "skills": []
+}
