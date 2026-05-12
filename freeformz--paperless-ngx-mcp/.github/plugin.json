@@ -1,0 +1,9 @@
+{
+  "name": "freeformz--paperless-ngx-mcp",
+  "displayName": "paperless-ngx-mcp",
+  "description": "MCP server for Paperless-ngx document management",
+  "version": "1.0.0",
+  "author": "freeformz",
+  "homepage": "https://github.com/freeformz/paperless-ngx-mcp",
+  "skills": []
+}
