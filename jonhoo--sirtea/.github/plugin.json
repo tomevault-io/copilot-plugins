@@ -1,0 +1,9 @@
+{
+  "name": "jonhoo--sirtea",
+  "displayName": "sirtea",
+  "description": "Generate SRT subtitle files from video using the Gladia speech-to-text API",
+  "version": "1.0.0",
+  "author": "jonhoo",
+  "homepage": "https://github.com/jonhoo/sirtea",
+  "skills": []
+}
