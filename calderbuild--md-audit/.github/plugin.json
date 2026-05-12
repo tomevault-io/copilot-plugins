@@ -1,0 +1,9 @@
+{
+  "name": "calderbuild--md-audit",
+  "displayName": "MD_Audit",
+  "description": "Intelligent Markdown SEO Diagnostic Agent - Dual-engine analysis combining rule-based checking with AI semantic analysis",
+  "version": "1.0.0",
+  "author": "calderbuild",
+  "homepage": "https://github.com/calderbuild/MD_Audit",
+  "skills": []
+}
