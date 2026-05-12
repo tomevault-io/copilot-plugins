@@ -1,0 +1,9 @@
+{
+  "name": "ngoquocviet2001--codex-keyring",
+  "displayName": "codex-keyring",
+  "description": "Native multi-account manager for Codex with manual alias switching and auto-switch failover.",
+  "version": "1.0.0",
+  "author": "NgoQuocViet2001",
+  "homepage": "https://github.com/NgoQuocViet2001/codex-keyring",
+  "skills": []
+}
