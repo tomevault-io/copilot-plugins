@@ -1,0 +1,9 @@
+{
+  "name": "j7-dev--everything-github-copilot",
+  "displayName": "everything-github-copilot",
+  "description": "rewrite everything-claude-code for github-copilot",
+  "version": "1.0.0",
+  "author": "j7-dev",
+  "homepage": "https://github.com/j7-dev/everything-github-copilot",
+  "skills": []
+}
