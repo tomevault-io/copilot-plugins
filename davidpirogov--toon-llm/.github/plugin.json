@@ -1,0 +1,9 @@
+{
+  "name": "davidpirogov--toon-llm",
+  "displayName": "toon-llm",
+  "description": "Token-Oriented Object Notation (TOON) is an LLM-optimized data serialization format implemented in Python.",
+  "version": "1.0.0",
+  "author": "davidpirogov",
+  "homepage": "https://github.com/davidpirogov/toon-llm",
+  "skills": []
+}
