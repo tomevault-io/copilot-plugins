@@ -7,11 +7,11 @@ ProContext acts as a documentation layer for AI coding agents, providing them wi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [procontexthq/procontext](https://github.com/procontexthq/procontext).
+Original source: `CLAUDE.md` in [procontexthq/procontext](https://github.com/procontexthq/procontext).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
