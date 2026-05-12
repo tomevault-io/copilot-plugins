@@ -1,0 +1,242 @@
+## emperor-agent
+
+> - 默认使用中文沟通；涉及命令、路径、配置 key 时可保留英文原文。
+
+# AGENTS.md · Emperor Agent 协作指南
+
+## 0. 用户与沟通约定
+
+- 默认使用中文沟通；涉及命令、路径、配置 key 时可保留英文原文。
+- 这个仓库是“可持续迭代的个人 Agent 工程”，不是 demo。做改动时优先考虑长期可维护性。
+
+## 1. 项目定位（一句话）
+
+`Emperor Agent` 是一个本地运行的 Python 智能体系统，包含：
+
+- 多 Provider LLM 调用层
+- 工具调用与子代理派遣
+- 三层记忆 + 自动压缩
+- WebSocket 流式 WebUI（Vue3 + Vite + Tailwind）
+- 附件上传（图像/文档）与多模态输入链路
+
+## 2. 先看哪里（最小阅读路径）
+
+当你第一次接手任务，优先按这个顺序读：
+
+1. `README.md`
+2. `agent/loop.py`（装配与主循环）
+3. `agent/runner.py`（单轮执行、工具循环、容错）
+4. `agent/webui.py`（HTTP/WS API）
+5. `agent/memory.py` + `agent/compactor.py`（记忆与压缩）
+6. `agent/model_config.py` + `agent/providers/*`（模型配置与 provider 实现）
+7. `agent/tools/*` + `agent/subagents/*`（工具与子代理能力边界）
+8. `webui/src/composables/useRuntime.ts` + `useBootstrap.ts` + `components/panels/ModelPanel.vue`
+
+## 3. 关键目录地图
+
+### 后端
+
+- `agent.py`：CLI 入口
+- `webui.py`：WebUI 服务入口
+- `agent/loop.py`：系统装配（memory / tools / subagents / runner）
+- `agent/runner.py`：LLM 调用循环、工具并发、空响应与截断恢复
+- `agent/webui.py`：`/api/*` 与 `/ws`，并托管 `webui/dist`
+- `agent/model_config.py`：新旧 schema 兼容、entry 激活、保存与脱敏
+- `agent/providers/`：OpenAI-compatible / Anthropic / Bedrock
+- `agent/tools/`：内建工具实现（命令、读写、搜索、todo、子代理）
+- `agent/attachments.py`：附件落盘、MIME 校验、PDF/文本抽取、图片 base64 编码
+- `agent/memory.py`：长期记忆、历史日志、checkpoint 恢复
+- `agent/compactor.py`：历史压缩，更新 `MEMORY.local.md` / `USER.local.md`
+
+### 前端
+
+- `webui/src/App.vue`：全局注入、斜杠命令、页面壳
+- `webui/src/composables/useRuntime.ts`：WS 生命周期、事件流、消息状态机
+- `webui/src/composables/useBootstrap.ts`：bootstrap 与 CRUD API 客户端
+- `webui/src/components/chat/Composer.vue`：输入框、附件上传、上下文用量环
+- `webui/src/components/panels/ModelPanel.vue`：模型条目管理、文本/视觉连通测试
+- `webui/src/views/*`：7 个一级路由页面
+
+### 配置与模板
+
+- `templates/SOUL.md`：人格与语气（当前要求前缀“奉天承运皇帝诏曰”）
+- `templates/TOOL.md`：工具使用偏好
+- `templates/init/USER.md`、`templates/init/MEMORY.md`：首次启动模板
+- `templates/subagents/*.md`：子代理身份模板
+- `skills/*/SKILL.md`：技能说明
+
+## 4. 本地运行与构建命令
+
+### Python
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp model_config.example.json model_config.json
+python agent.py
+```
+
+### WebUI
+
+```bash
+cd webui
+npm install
+npm run build
+cd ..
+python webui.py
+```
+
+开发模式前端可单跑：
+
+```bash
+cd webui
+npm run dev
+```
+
+Vite 会代理 `/api` 与 `/ws` 到 `127.0.0.1:8765`。
+
+## 5. 运行时核心机制（必须理解）
+
+### 5.1 turn 执行链路
+
+`AgentLoop.history`（内存） -> `AgentRunner.step_async` -> provider -> 工具循环 -> assistant 收敛输出。
+
+重要细节：
+
+- 每个 turn 开始先写 `memory/_checkpoint.json`
+- 工具批次结束再写一次 checkpoint（保证 tool_calls 与 tool result 成对）
+- turn 正常落地后清 checkpoint
+- 重启时优先恢复 checkpoint，否则加载 `history.jsonl` 未归档段
+
+### 5.2 上下文治理（防爆 token）
+
+`runner` 在每次模型调用前会：
+
+1. `_pair_tool_calls`：修复/补全 tool_call 对应 tool 消息，防止 OpenAI 格式报错
+2. `_cap_tool_result`：单条工具结果硬截断（默认约 8KB）
+3. `_shrink_old_tool_results`：旧的大工具结果摘要化（保留最近 10 条原文）
+
+### 5.3 错误恢复
+
+- 空响应自动重试（最多 2 次，注入 nudge）
+- `finish_reason=length/max_tokens` 自动续写（最多 3 次）
+
+### 5.4 记忆压缩
+
+- `TokenTracker.should_compact(max_context, threshold=0.7)` 决定是否触发
+- 压缩 `history[:-K]`（`K=10`）并更新：
+  - `memory/YYYY-MM-DD.md`
+  - `memory/MEMORY.local.md`
+  - `templates/USER.local.md`
+
+## 6. WebSocket 事件协议（前后端联动改动必看）
+
+核心事件：
+
+- `message_delta`
+- `tool_call` / `tool_result` / `tool_error`
+- `subagent_*`（start/delta/tool_call/tool_result/done/error）
+- `assistant_done`
+- `ready`
+- `context_usage`
+
+`useRuntime.ts` 负责：
+
+- 本地消息状态机
+- 断线重连（带 `last_seq` 回放）
+- localStorage 快照恢复
+- 未完成 assistant 的中断收尾
+
+凡是新增后端事件，必须同步更新前端 `types.ts` 和 `useRuntime.ts` 分支逻辑。
+
+## 7. 模型配置机制（常见改动区）
+
+`model_config.json` 是真实配置文件；`/api/model-config` 返回时会脱敏 key。
+
+当前 schema：
+
+- `models[]`：多条目（name/id/provider/apiKey/apiBase/...）
+- `agents.defaults.model`：当前激活 entry name
+- `providers.*`：兜底凭证层
+
+注意：
+
+- 前端传回 `***xxxx` 占位 key 时，后端会还原旧值
+- `/api/model-test` 的视觉测试通过后，会把 `supportsVision=true` 写回 entry
+
+## 8. 附件与多模态链路
+
+- 上传 API：`POST /api/attachments`
+- 落盘路径：`memory/attachments/YYYY-MM/{hash8}-{name}.{ext}`
+- 文档会尽可能抽取 sidecar 文本 `*.txt`
+- 支持视觉的 entry：图片走 OpenAI `image_url` block
+- 不支持视觉：图片转为提示文本（不丢消息）
+- 文档抽取文本会拼进用户消息，结尾附落盘路径给 `read_file` 兜底
+
+## 9. 工具与子代理边界
+
+### 内建工具
+
+- `run_command`, `web_fetch`, `read_file`, `write_file`, `edit_file`, `glob`, `grep`, `load_skill`, `update_todos`, `dispatch_subagent`
+
+### 并发规则
+
+- `read_only && !exclusive` 的工具会被 runner 并发执行
+- `dispatch_subagent` 标记为并发安全，可同轮并发派遣
+
+### 子代理
+
+由 `agent/subagents/registry.py` 内置白名单控制能力，模板只负责口吻和职责，不承载权限。
+
+## 10. 修改代码时的项目内规
+
+### 10.1 不应提交的文件
+
+严格不要提交：
+
+- `memory/`
+- `model_config.json`
+- `templates/USER.local.md`
+- `.env`
+- `webui/dist/`
+- `webui/node_modules/`
+
+### 10.2 新能力扩展路径
+
+- 新 provider：`agent/providers/registry.py` + `factory.py` + 对应 provider 文件
+- 新工具：`agent/tools/` 新建类 + `agent/loop.py` 注册
+- 新子代理：`templates/subagents/*.md` + `subagents/registry.py` 白名单
+- 新技能：`skills/<name>/SKILL.md`
+
+### 10.3 前端改动注意
+
+- API 字段改动必须同步：
+  - `webui/src/types.ts`
+  - `useBootstrap.ts` / `useRuntime.ts`
+  - 相关 panel/view
+- 新图标放仓库根 `assets/`，并在 `webui/src/assets.ts` 注册
+
+## 11. 常见排查清单（出问题先看）
+
+1. 页面白屏：确认 `webui/dist/index.html` 是否存在，必要时 `npm run build`
+2. 消息不流式：检查 `/ws` 连接状态与浏览器控制台 event
+3. 工具历史报错：优先看 `runner._pair_tool_calls` 保护是否被绕过
+4. 压缩异常：检查 `templates/agent/compact_prompt.md` 输出 XML 标签是否齐全
+5. 附件不可用：看 MIME 是否在 `ALLOWED_*_MIMES`，以及大小限制
+6. 模型 key 丢失：确认前端是否传回 `***` 占位，后端还原逻辑是否被改坏
+
+## 12. 给未来 agent 的执行建议
+
+- 小改动优先最小 patch，不做无关重构。
+- 涉及行为变化时，必须同时更新 README 或本文件对应章节。
+- 做完改动至少做一次“路径验证”：能启动、能发消息、关键 API 不 500。
+- 若发现代码与 README 不一致，以“当前代码行为”为准并回写文档。
+
+---
+
+最后提醒：这是一个强调“持续演进”的仓库。你不是来一次性修补，而是来给下一位接手者留下清晰、可运行、可验证的轨道。
+
+---
+> Source: [TheSyart/emperor-agent](https://github.com/TheSyart/emperor-agent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-11 -->
