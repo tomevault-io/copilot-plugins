@@ -1,0 +1,9 @@
+{
+  "name": "hypatia-earth--zero",
+  "displayName": "zero",
+  "description": "Serverless weather globe rendering ECMWF forecasts in browser using WebGPU",
+  "version": "1.0.0",
+  "author": "hypatia-earth",
+  "homepage": "https://github.com/hypatia-earth/zero",
+  "skills": []
+}
