@@ -4,7 +4,7 @@
   "repo": "procontext",
   "description": "ProContext acts as a documentation layer for AI coding agents, providing them with accurate and up-to-date library documentation.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/procontexthq/procontext",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T16:46:56Z"
+  "distributed_at": "2026-05-12T10:01:25Z"
 }
