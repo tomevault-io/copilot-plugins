@@ -1,0 +1,9 @@
+{
+  "name": "syscca--web3hermes",
+  "displayName": "Web3Hermes",
+  "description": "\u3010Hermes WebUI\u3011Hermes-Agent \u4e2d\u6587\u7248 WebUI\uff0c\u4fbf\u4e8e\u4e2d\u56fd\u7528\u6237\u4f7f\u7528\u3002\u7531 https://github.com/nesquena/hermes-webui \u4fee\u6539\u800c\u6765",
+  "version": "1.0.0",
+  "author": "syscca",
+  "homepage": "https://github.com/syscca/Web3Hermes",
+  "skills": []
+}
