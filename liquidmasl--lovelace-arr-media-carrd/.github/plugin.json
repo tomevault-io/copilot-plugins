@@ -1,0 +1,9 @@
+{
+  "name": "liquidmasl--lovelace-arr-media-carrd",
+  "displayName": "lovelace-arr-media-carrd",
+  "description": "A Lovelace card for Home Assistant to display Radarr and Sonarr queues and libraries",
+  "version": "1.0.0",
+  "author": "Liquidmasl",
+  "homepage": "https://github.com/Liquidmasl/lovelace-arr-media-carrd",
+  "skills": []
+}
