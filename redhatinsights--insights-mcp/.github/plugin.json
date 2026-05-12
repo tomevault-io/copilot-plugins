@@ -1,0 +1,9 @@
+{
+  "name": "redhatinsights--insights-mcp",
+  "displayName": "insights-mcp",
+  "description": "An MCP server to connect insights functionality to an AI / LLM",
+  "version": "1.0.0",
+  "author": "RedHatInsights",
+  "homepage": "https://github.com/RedHatInsights/insights-mcp",
+  "skills": []
+}
