@@ -4,7 +4,7 @@
   "repo": "ai-team",
   "description": "Repository with Gemini Extensions useful for teams and Claude Code marketplace",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dezkareid/ai-team",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T17:09:45Z"
+  "distributed_at": "2026-05-12T10:12:46Z"
 }
