@@ -1,0 +1,9 @@
+{
+  "name": "computelesscomputer--autoprompter",
+  "displayName": "autoprompter",
+  "description": "autonomous teleprompter that follows along in real-time",
+  "version": "1.0.0",
+  "author": "ComputelessComputer",
+  "homepage": "https://github.com/ComputelessComputer/autoprompter",
+  "skills": []
+}
