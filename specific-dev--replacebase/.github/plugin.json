@@ -1,0 +1,9 @@
+{
+  "name": "specific-dev--replacebase",
+  "displayName": "replacebase",
+  "description": "Typescript library to help you migrate away from Supabase",
+  "version": "1.0.0",
+  "author": "specific-dev",
+  "homepage": "https://github.com/specific-dev/replacebase",
+  "skills": []
+}
