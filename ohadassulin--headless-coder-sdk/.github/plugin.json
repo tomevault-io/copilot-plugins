@@ -1,0 +1,9 @@
+{
+  "name": "ohadassulin--headless-coder-sdk",
+  "displayName": "headless-coder-sdk",
+  "description": "Unified SDK for headless AI coders (Codex, Claude, Gemini)",
+  "version": "1.0.0",
+  "author": "OhadAssulin",
+  "homepage": "https://github.com/OhadAssulin/headless-coder-sdk",
+  "skills": []
+}
