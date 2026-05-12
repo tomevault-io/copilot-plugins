@@ -1,0 +1,9 @@
+{
+  "name": "go-wombat--dockterminal",
+  "displayName": "dockterminal",
+  "description": "CRT-styled Docker management dashboard. Manage stacks, containers, logs and shell \u2014 all from a terminal-inspired UI.",
+  "version": "1.0.0",
+  "author": "go-wombat",
+  "homepage": "https://github.com/go-wombat/dockterminal",
+  "skills": []
+}
