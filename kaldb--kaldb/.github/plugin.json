@@ -1,0 +1,9 @@
+{
+  "name": "kaldb--kaldb",
+  "displayName": "kaldb",
+  "description": "KalDB is a cloud-native polystore for search and analytics",
+  "version": "1.0.0",
+  "author": "kaldb",
+  "homepage": "https://github.com/kaldb/kaldb",
+  "skills": []
+}
