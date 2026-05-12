@@ -1,0 +1,9 @@
+{
+  "name": "mylanconnolly--typster",
+  "displayName": "typster",
+  "description": "Another Typst renderer for Elixir",
+  "version": "1.0.0",
+  "author": "mylanconnolly",
+  "homepage": "https://github.com/mylanconnolly/typster",
+  "skills": []
+}
