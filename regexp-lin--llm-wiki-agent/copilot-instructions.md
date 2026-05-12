@@ -1,37 +1,70 @@
-## wiki-source-code
+## llm-wiki-agent
 
-> LLM Wiki Agent — TypeScript source code conventions
+> This wiki is maintained entirely by the coding agent. No API key or Node.js scripts needed — just open this repo with `gemini` or Antigravity and talk to it.
 
+# LLM Wiki Agent — Gemini CLI / Antigravity Instructions
 
-# TypeScript Source Code Conventions
+This wiki is maintained entirely by the coding agent. No API key or Node.js scripts needed — just open this repo with `gemini` or Antigravity and talk to it.
 
-## Project Stack
+## How to Use
 
-- **Runtime**: Node.js 22.16.0 + TypeScript (ESM)
-- **LLM**: Anthropic Claude via `@anthropic-ai/sdk`
-- **Graph**: graphology + graphology-communities-louvain + vis.js
-- **CLI**: commander
-- **Package manager**: pnpm
+Describe what you want in plain English:
+- *"Ingest this file: raw/papers/my-paper.md"*
+- *"What does the wiki say about transformer models?"*
+- *"Check the wiki for orphan pages and contradictions"*
+- *"Build the knowledge graph"*
 
-## Architecture
+Or use shorthand triggers:
+- `ingest <file>` → runs the Ingest Workflow
+- `query: <question>` → runs the Query Workflow
+- `lint` → runs the Lint Workflow
+- `build graph` → runs the Graph Workflow
 
-```
-src/
-├── shared/        # Shared modules (types, constants, utils)
-├── workflows/     # Four core workflows (ingest, query, lint, graph)
-└── cli/           # CLI entry points (thin wrappers over workflows)
-```
+## Wiki Schema
 
-- Business logic lives in `src/workflows/`, CLI parsing lives in `src/cli/`.
-- Shared utilities in `src/shared/` — do not duplicate code across workflows.
-- All imports use `.js` extension (ESM requirement).
-- Model names are centralized in `src/shared/constants.ts`.
+Read `WIKI_SCHEMA.md` at the project root for the full wiki data model: directory layout, page format, frontmatter, naming conventions, index and log formats.
 
-## Quality
+---
 
-- Run `pnpm typecheck` before committing.
-- Run `pnpm lint` and `pnpm format` to check code standards.
-- TypeScript strict mode is enabled — no `any` types unless absolutely necessary.
+## Ingest Workflow
+
+Triggered by: *"ingest <file>"*
+
+1. Read the source document fully
+2. Read `wiki/index.md` and `wiki/overview.md` for current wiki context
+3. Write `wiki/sources/<slug>.md` (source page format per WIKI_SCHEMA.md)
+4. Update `wiki/index.md` — add entry under Sources
+5. Update `wiki/overview.md` — revise synthesis if warranted
+6. Update/create entity and concept pages
+7. Flag contradictions with existing wiki content
+8. Append to `wiki/log.md`: `## [YYYY-MM-DD] ingest | <Title>`
+
+---
+
+## Query Workflow
+
+Triggered by: *"query: <question>"*
+
+1. Read `wiki/index.md` — identify relevant pages
+2. Read those pages
+3. Synthesize answer with `[[PageName]]` citations
+4. Offer to save as `wiki/syntheses/<slug>.md`
+
+---
+
+## Lint Workflow
+
+Triggered by: *"lint"*
+
+Check for: orphan pages, broken links, contradictions, stale content, missing entity pages, data gaps.
+
+---
+
+## Graph Workflow
+
+Triggered by: *"build graph"*
+
+Try `pnpm dev:graph --open` first. If unavailable, build graph.json and graph.html manually from wikilinks.
 
 ---
 > Source: [regexp-lin/llm-wiki-agent](https://github.com/regexp-lin/llm-wiki-agent) — distributed by [TomeVault](https://tomevault.io).
