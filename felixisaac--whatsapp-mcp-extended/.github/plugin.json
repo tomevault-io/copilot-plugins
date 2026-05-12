@@ -1,0 +1,9 @@
+{
+  "name": "felixisaac--whatsapp-mcp-extended",
+  "displayName": "whatsapp-mcp-extended",
+  "description": "Extended WhatsApp MCP server with 41 tools - reactions, group management, polls, presence, newsletters & more. Fork of lharries/whatsapp-mcp",
+  "version": "1.0.0",
+  "author": "FelixIsaac",
+  "homepage": "https://github.com/FelixIsaac/whatsapp-mcp-extended",
+  "skills": []
+}
