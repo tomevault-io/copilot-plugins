@@ -1,0 +1,9 @@
+{
+  "name": "unisone--openclaw-config",
+  "displayName": "openclaw-config",
+  "description": "Production-tested configs, scripts, and workspace templates for OpenClaw. Hardening guides, memory engine, skill routing, agent personas, and CI security scanning.",
+  "version": "1.0.0",
+  "author": "unisone",
+  "homepage": "https://github.com/unisone/openclaw-config",
+  "skills": []
+}
