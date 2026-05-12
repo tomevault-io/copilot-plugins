@@ -7,11 +7,11 @@ A flexible, reusable logging module for Bash scripts that provides standardized 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [GingerGraham/bash-logger](https://github.com/GingerGraham/bash-logger).
+Original source: `CLAUDE.md` in [GingerGraham/bash-logger](https://github.com/GingerGraham/bash-logger).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
