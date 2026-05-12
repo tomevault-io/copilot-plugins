@@ -4,7 +4,7 @@
   "repo": "zedra",
   "description": "Mobile code editor. Runs on your desktop. Built on Rust, powered by Zed's GPUI, P2P secure tunnel with Iroh QUIC/UDP. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tanlethanh/zedra",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T15:11:15Z"
+  "distributed_at": "2026-05-12T17:28:19Z"
 }
