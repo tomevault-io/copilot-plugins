@@ -1,0 +1,9 @@
+{
+  "name": "sweetrb--apple-notes-mcp",
+  "displayName": "apple-notes-mcp",
+  "description": "MCP server for Apple Notes - create, search, update, and manage notes via Claude and other AI assistants",
+  "version": "1.0.0",
+  "author": "sweetrb",
+  "homepage": "https://github.com/sweetrb/apple-notes-mcp",
+  "skills": []
+}
