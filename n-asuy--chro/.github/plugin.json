@@ -1,0 +1,9 @@
+{
+  "name": "n-asuy--chro",
+  "displayName": "chro",
+  "description": "Chro is basically Codex / Claude Code x Obsidian: a local-first markdown workspace with parallel agents, worktree isolation, diffs, and built-in git.",
+  "version": "1.0.0",
+  "author": "n-asuy",
+  "homepage": "https://github.com/n-asuy/chro",
+  "skills": []
+}
