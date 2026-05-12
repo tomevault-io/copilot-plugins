@@ -1,19 +1,19 @@
-## tailwind-shadcn
+## astro-strapi-starter
 
-> Tailwind CSS 4 + shadcn-style UI — global.css, components.json, cn(), Astro + React
+> Astro x Strapi starter — layout, content collections, block renderer vs StrapiBlocks, types
 
 
-# Tailwind CSS 4 and shadcn-style components (this starter)
+# Astro Strapi starter
 
-- **Tailwind v4** is applied via `@tailwindcss/vite` in `astro.config.mjs`. Global entry: `src/styles/global.css` with `@import 'tailwindcss'`, `@theme`, and shadcn theme imports. Prefer **utilities** and existing **CSS variables** from that file; extend tokens in `@theme` when adding project-wide design changes.
+- **Stack:** Astro 6, Strapi 5, `@sensinum/astro-strapi-loader`, `@sensinum/astro-strapi-blocks` (read [`.ai/AGENTS.md`](../../.ai/AGENTS.md) and [`.ai/astro-strapi-starter/SKILL.md`](../../.ai/astro-strapi-starter/SKILL.md)). **Onboarding:** copy or fetch upstream raw `SKILL` for loader/blocks (pin to `package.json` versions) per the starter skill — stubs are not a substitute for full upstream docs.
 
-- **Shadcn-style React components** live in `src/components/ui/` and are generated from [shadcn/ui](https://ui.shadcn.com/) using `components.json` (New York style, `src/styles/global.css`). Use the shadcn CLI to add or update components; do not hand-copy unrelated project snippets.
+- **Content:** `src/content.config.ts` exports `collections` from `generateCollections`. Handle Strapi unavailability in `try/catch` so static builds or local dev can still run.
 
-- **Class merging** for React: use `cn()` from `@/lib/utils` (clsx + tailwind-merge). For Astro, use regular `class` strings or `clsx` where the starter already does.
+- **Two patterns:** (1) **Dynamic zone** entries with `__component` → `BlockRenderer.astro` and siblings under `src/components/blocks/`. (2) **Rich text Blocks JSON** from Strapi 5 → `<StrapiBlocks />` inside those components when the field is a Blocks editor, not a separate dynamic-zone component.
 
-- **Astro + Tailwind** showcase components and **React** shadcn elements coexist; keep **spacing, color, and radius** consistent with the design tokens in `global.css` so the UI looks unified.
+- **Types:** Under `src/types/strapi/`, add or edit focused modules and **re-export** from `index.ts`. Align with Content Builder / Content API; the loader emits Zod from schema introspection — hand types should match the same shapes.
 
-- This repo does **not** include proprietary Tailwind Insiders “agent rules.” Follow public [Tailwind v4 documentation](https://tailwindcss.com/docs) and the patterns already in the codebase.
+- **Do not** commit `.env` or real API tokens. Use `env.example` as the template for variable names.
 
 ---
 > Source: [VirtusLab-Open-Source/astro-strapi-starter](https://github.com/VirtusLab-Open-Source/astro-strapi-starter) — distributed by [TomeVault](https://tomevault.io).
