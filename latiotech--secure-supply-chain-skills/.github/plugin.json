@@ -1,0 +1,9 @@
+{
+  "name": "latiotech--secure-supply-chain-skills",
+  "displayName": "secure-supply-chain-skills",
+  "description": "A set of tools for claude code to fix insecure software supply chain configurations",
+  "version": "1.0.0",
+  "author": "latiotech",
+  "homepage": "https://github.com/latiotech/secure-supply-chain-skills",
+  "skills": []
+}
