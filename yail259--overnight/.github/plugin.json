@@ -1,0 +1,9 @@
+{
+  "name": "yail259--overnight",
+  "displayName": "overnight",
+  "description": "Batch job runner for Claude Code - queue tasks, run overnight, wake up to results",
+  "version": "1.0.0",
+  "author": "yail259",
+  "homepage": "https://github.com/yail259/overnight",
+  "skills": []
+}
