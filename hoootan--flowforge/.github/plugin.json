@@ -1,0 +1,9 @@
+{
+  "name": "hoootan--flowforge",
+  "displayName": "flowforge",
+  "description": "Production-ready AI workflow orchestration platform with durable execution, event-driven workflows, and LLM integration",
+  "version": "1.0.0",
+  "author": "hoootan",
+  "homepage": "https://github.com/hoootan/flowforge",
+  "skills": []
+}
