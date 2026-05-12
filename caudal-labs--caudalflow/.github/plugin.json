@@ -1,0 +1,9 @@
+{
+  "name": "caudal-labs--caudalflow",
+  "displayName": "caudalflow",
+  "description": "A visual canvas for AI conversations. Branch into sidequests, explore in parallel, and merge insights back together.",
+  "version": "1.0.0",
+  "author": "caudal-labs",
+  "homepage": "https://github.com/caudal-labs/caudalflow",
+  "skills": []
+}
