@@ -1,0 +1,9 @@
+{
+  "name": "brb-dreaming--biological-twin",
+  "displayName": "biological-twin",
+  "description": "Meet your biological twin \u2014 a digital mirror born from your DNA that explains you to yourself. Built with Opus 4.6 for the Claude Code Hackathon.",
+  "version": "1.0.0",
+  "author": "brb-dreaming",
+  "homepage": "https://github.com/brb-dreaming/biological-twin",
+  "skills": []
+}
