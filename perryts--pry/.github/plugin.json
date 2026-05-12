@@ -1,0 +1,9 @@
+{
+  "name": "perryts--pry",
+  "displayName": "pry",
+  "description": "A fast, native JSON viewer built with Perry \u2014 TypeScript compiled to native ARM64",
+  "version": "1.0.0",
+  "author": "PerryTS",
+  "homepage": "https://github.com/PerryTS/pry",
+  "skills": []
+}
