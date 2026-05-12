@@ -1,0 +1,9 @@
+{
+  "name": "makepad--llama-antirez-deepseek",
+  "displayName": "llama_antirez_deepseek",
+  "description": "llama_antirez_deepseek",
+  "version": "1.0.0",
+  "author": "makepad",
+  "homepage": "https://github.com/makepad/llama_antirez_deepseek",
+  "skills": []
+}
