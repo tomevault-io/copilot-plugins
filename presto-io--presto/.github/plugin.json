@@ -1,0 +1,9 @@
+{
+  "name": "presto-io--presto",
+  "displayName": "Presto",
+  "description": "Markdown \u2192 Typst \u2192 PDF \u684c\u9762\u6392\u7248\u5de5\u5177",
+  "version": "1.0.0",
+  "author": "Presto-io",
+  "homepage": "https://github.com/Presto-io/Presto",
+  "skills": []
+}
