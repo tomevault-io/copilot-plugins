@@ -7,11 +7,11 @@ A set of pi-extensions, including pi-continuous-learning that continually improv
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [MattDevy/pi-extensions](https://github.com/MattDevy/pi-extensions).
+Original source: `CLAUDE.md` in [MattDevy/pi-extensions](https://github.com/MattDevy/pi-extensions).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
