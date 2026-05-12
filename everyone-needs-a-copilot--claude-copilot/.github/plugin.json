@@ -1,0 +1,9 @@
+{
+  "name": "everyone-needs-a-copilot--claude-copilot",
+  "displayName": "claude-copilot",
+  "description": "Transform Claude Code into a full development team. 11 specialized agents (Architect, Engineer, QA, Security, UX, DevOps, and more), persistent memory across sessions, and 25,000+ on-demand skills. Wo",
+  "version": "1.0.0",
+  "author": "Everyone-Needs-A-Copilot",
+  "homepage": "https://github.com/Everyone-Needs-A-Copilot/claude-copilot",
+  "skills": []
+}
