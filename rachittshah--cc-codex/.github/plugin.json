@@ -1,0 +1,9 @@
+{
+  "name": "rachittshah--cc-codex",
+  "displayName": "cc-codex",
+  "description": "Codex + Claude Code Integration: Use OpenAI Codex for planning/reasoning and Claude Code CLI for implementation",
+  "version": "1.0.0",
+  "author": "rachittshah",
+  "homepage": "https://github.com/rachittshah/cc-codex",
+  "skills": []
+}
