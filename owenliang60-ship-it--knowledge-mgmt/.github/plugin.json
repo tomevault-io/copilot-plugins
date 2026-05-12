@@ -1,0 +1,9 @@
+{
+  "name": "owenliang60-ship-it--knowledge-mgmt",
+  "displayName": "knowledge-mgmt",
+  "description": "Claude Code skills for personal knowledge management: atomic note-taking + spaced repetition",
+  "version": "1.0.0",
+  "author": "owenliang60-ship-it",
+  "homepage": "https://github.com/owenliang60-ship-it/knowledge-mgmt",
+  "skills": []
+}
