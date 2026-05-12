@@ -4,7 +4,7 @@
   "repo": "cc-hdrm",
   "description": "macOS menu bar utility showing Claude subscription 5h/7d session headroom at a glance",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rajish/cc-hdrm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T02:50:58Z"
+  "distributed_at": "2026-05-12T12:40:35Z"
 }
