@@ -1,0 +1,9 @@
+{
+  "name": "tobias0409--obsidian-printer",
+  "displayName": "obsidian_printer",
+  "description": "Printer is an Obsidian plugin that lets you turn your notes into clean, professional-looking PDFs using Pandoc and Typst",
+  "version": "1.0.0",
+  "author": "tobias0409",
+  "homepage": "https://github.com/tobias0409/obsidian_printer",
+  "skills": []
+}
