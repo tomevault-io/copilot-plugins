@@ -1,0 +1,9 @@
+{
+  "name": "eliasstravik--rowbound",
+  "displayName": "rowbound",
+  "description": "Open-source CLI and MCP server for Google Sheets enrichment \u2014 waterfalls, conditions, HTTP API integrations",
+  "version": "1.0.0",
+  "author": "eliasstravik",
+  "homepage": "https://github.com/eliasstravik/rowbound",
+  "skills": []
+}
