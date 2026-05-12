@@ -1,0 +1,9 @@
+{
+  "name": "cocoanetics--swiftports",
+  "displayName": "SwiftPorts",
+  "description": "Swift ports of upstream projects (currently: SwiftGH = a port of the GitHub CLI)",
+  "version": "1.0.0",
+  "author": "Cocoanetics",
+  "homepage": "https://github.com/Cocoanetics/SwiftPorts",
+  "skills": []
+}
