@@ -1,0 +1,9 @@
+{
+  "name": "basecamp--hey-cli",
+  "displayName": "hey-cli",
+  "description": "HEY CLI and Agent Skills",
+  "version": "1.0.0",
+  "author": "basecamp",
+  "homepage": "https://github.com/basecamp/hey-cli",
+  "skills": []
+}
