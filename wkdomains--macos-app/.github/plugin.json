@@ -1,0 +1,9 @@
+{
+  "name": "wkdomains--macos-app",
+  "displayName": "macos-app",
+  "description": "A macOS browser for developers and coding agents. wkdomains lets tools like Codex and Claude Code see the page you are viewing, capture screenshots, inspect XHR/fetch calls, understand JSON response s",
+  "version": "1.0.0",
+  "author": "wkdomains",
+  "homepage": "https://github.com/wkdomains/macos-app",
+  "skills": []
+}
