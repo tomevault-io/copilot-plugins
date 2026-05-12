@@ -1,0 +1,9 @@
+{
+  "name": "lhl--devstack",
+  "displayName": "devstack",
+  "description": "Agentic practices knowledge base + supporting software toolkit",
+  "version": "1.0.0",
+  "author": "lhl",
+  "homepage": "https://github.com/lhl/devstack",
+  "skills": []
+}
