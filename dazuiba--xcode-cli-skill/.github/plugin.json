@@ -1,0 +1,9 @@
+{
+  "name": "dazuiba--xcode-cli-skill",
+  "displayName": "xcode-cli-skill",
+  "description": "CLI + Skill wrapper official Xcode 26.3+ MCP tools, so the \"Allow access to Xcode?\" popup only appears once per computer boot, plus a Skill that saves ~5K tokens of context per conversation.",
+  "version": "1.0.0",
+  "author": "dazuiba",
+  "homepage": "https://github.com/dazuiba/xcode-cli-skill",
+  "skills": []
+}
