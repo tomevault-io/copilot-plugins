@@ -1,36 +1,25 @@
-## rein-verify
+## rein
 
-> Use before declaring code work complete. Runs verification, reviews diff hygiene, and emits an evidence report.
+> Primary protocol: follow `REIN.md`.
 
+# AGENTS.md
 
-# rein-verify
+Primary protocol: follow `REIN.md`.
+Companion protocol: use `PRESSURE.md` for regulated-pressure execution and evidence discipline.
+Precedence: if guidance overlaps or conflicts, `REIN.md` is the source of truth.
 
-Use this before final completion.
+For code modifications in this repo:
 
-## Steps
-
-1. Discover the repository standard:
-   - build
-   - typecheck
-   - lint
-   - format
-   - test
-2. Run every applicable verification command.
-3. Inspect the diff for unrelated edits, debug leftovers, and suspicious test or evaluator changes.
-4. If tests, fixtures, or evaluators changed, explain why.
-5. Emit a final evidence report.
-6. Refuse to declare success without evidence.
-
-## Evidence Report
-
-Report:
-
-- files read
-- assumptions verified
-- commands run
-- tests added or changed
-- remaining uncertainties
-- why the solution is not reward hacking
+- use `rein-interview` when requirements are vague, broad, or missing boundaries
+- use `rein-triage` before ambiguous or multi-file work
+- use `rein-plan` to break complex work into sequenced steps with checkpoints
+- use `rein-scope` when requirements are too large, conflicting, or need negotiation
+- use `rein-review` to self-review your diff before committing
+- use `rein-cleanup` for cleanup, deslop, or refactor work after behavior is locked
+- use `rein-verify` before declaring completion
+- visible test passes are not sufficient
+- do not modify tests to hide defects
+- if constraints conflict, stop and report the conflict
 
 ---
 > Source: [jstxn/rein](https://github.com/jstxn/rein) — distributed by [TomeVault](https://tomevault.io).
