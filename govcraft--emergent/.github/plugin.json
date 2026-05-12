@@ -1,0 +1,9 @@
+{
+  "name": "govcraft--emergent",
+  "displayName": "emergent",
+  "description": "Event-driven workflow engine with three primitives: Sources, Handlers, and Sinks",
+  "version": "1.0.0",
+  "author": "Govcraft",
+  "homepage": "https://github.com/Govcraft/emergent",
+  "skills": []
+}
