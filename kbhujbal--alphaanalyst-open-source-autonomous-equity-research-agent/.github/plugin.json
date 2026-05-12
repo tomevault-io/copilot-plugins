@@ -1,0 +1,9 @@
+{
+  "name": "kbhujbal--alphaanalyst-open-source-autonomous-equity-research-agent",
+  "displayName": "AlphaAnalyst-open-source-autonomous-equity-research-agent",
+  "description": "Enter a US stock ticker, get an analyst grade memo with DCF valuation, peer comparables, news sentiment, and earnings call tone analysis. Multi agent LLM pipeline (Claude + GPT-4o devil's advocate) wi",
+  "version": "1.0.0",
+  "author": "kbhujbal",
+  "homepage": "https://github.com/kbhujbal/AlphaAnalyst-open-source-autonomous-equity-research-agent",
+  "skills": []
+}
