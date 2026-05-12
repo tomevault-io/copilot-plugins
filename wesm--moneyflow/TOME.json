@@ -4,7 +4,7 @@
   "repo": "moneyflow",
   "description": "Moneyflow: Personal Finance Data Interface for Power Users (supporting backends like Monarch Money, YNAB)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wesm/moneyflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T19:49:13Z"
+  "distributed_at": "2026-05-12T20:56:22Z"
 }
