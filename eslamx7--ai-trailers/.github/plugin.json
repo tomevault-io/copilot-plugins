@@ -1,0 +1,9 @@
+{
+  "name": "eslamx7--ai-trailers",
+  "displayName": "ai-trailers",
+  "description": "Capture AI coding tool prompts as standard git trailers in commit messages. Supports Claude Code, Kiro, Gemini, and Codex.",
+  "version": "1.0.0",
+  "author": "EslaMx7",
+  "homepage": "https://github.com/EslaMx7/ai-trailers",
+  "skills": []
+}
