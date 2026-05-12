@@ -1,0 +1,9 @@
+{
+  "name": "graflowai--graflow",
+  "displayName": "graflow",
+  "description": "Composable Python framework for LLM agent workflows focused on simplicity and developer experience. We \u2764\ufe0f OSS.",
+  "version": "1.0.0",
+  "author": "GraflowAI",
+  "homepage": "https://github.com/GraflowAI/graflow",
+  "skills": []
+}
