@@ -1,0 +1,9 @@
+{
+  "name": "alperhankendi--ctxo",
+  "displayName": "Ctxo",
+  "description": "MCP server for AI coding agents. Instead of reading files one by one, your agent gets dependency graphs, git intent, blast radius, and change health in a single call. Works with any language deep anal",
+  "version": "1.0.0",
+  "author": "alperhankendi",
+  "homepage": "https://github.com/alperhankendi/Ctxo",
+  "skills": []
+}
