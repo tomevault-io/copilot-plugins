@@ -1,0 +1,9 @@
+{
+  "name": "dvygolov--tg-nakrutkaguard",
+  "displayName": "TG.NakrutkaGuard",
+  "description": "This bot helps to prevent bot attacks in Telegram channels/groups. When a lot of users try to subscribe to your channel/group during a small amount of time, the bot kicks them all.",
+  "version": "1.0.0",
+  "author": "dvygolov",
+  "homepage": "https://github.com/dvygolov/TG.NakrutkaGuard",
+  "skills": []
+}
