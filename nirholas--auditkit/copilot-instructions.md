@@ -1,72 +1,60 @@
 ## auditkit
 
-> Guidelines for Gemini and Google AI agents in this repository.
+> AuditKit is a zero-API-key website auditor (Next.js 15, TypeScript, pnpm monorepo). It scores sites across 6 pillars and generates AI agent ZIPs to fix detected issues.
 
-# GEMINI.md — AuditKit
+# GitHub Copilot Instructions — AuditKit
 
-Guidelines for Gemini and Google AI agents in this repository.
+## Project
 
-## What is AuditKit?
+AuditKit is a zero-API-key website auditor (Next.js 15, TypeScript, pnpm monorepo). It scores sites across 6 pillars and generates AI agent ZIPs to fix detected issues.
 
-AuditKit is an open-source, zero-API-key website auditor. Paste a URL → get a full audit across 6 pillars → download a ZIP of AI agent files that are pre-written to fix every detected issue.
+## Tech Stack
 
-**Live pillars**: Performance · SEO · Accessibility · Security · Structured Data · AI Readiness
+- **Frontend**: Next.js 15 App Router, React 19, TypeScript, Tailwind CSS v4
+- **Monorepo**: pnpm workspaces + Turborepo
+- **Packages**: `@auditkit/collectors` → `@auditkit/analyzer` → `@auditkit/generator`
 
-## No API Keys Required
+## Key Patterns
 
-| Data Source | How |
-|---|---|
-| Performance / LCP / CLS / FID | PageSpeed Insights (keyless) |
-| Real-user field data (CrUX) | Extracted from PSI `loadingExperience` block |
-| Security headers | Direct `HEAD` fetch |
-| Meta / OG / Schema.org | Direct HTML parse |
-| `robots.txt` / `llms.txt` | Direct fetch |
-| GitHub file checks | `raw.githubusercontent.com` HEAD requests |
-| GitHub repo metadata | Unauthenticated `api.github.com` (60 req/hr) |
-
-## Repository Layout
-
-```
-apps/
-  web/              Next.js 15 frontend + API route
-packages/
-  collectors/       Data collection (pagespeed, crux, meta-parser, observatory, github)
-  scorer/           Scoring functions per pillar
-  analyzer/         Orchestrator — runs all collectors, returns AuditResult
-  generator/        ZIP generator with AGENTS.md, CLAUDE.md, GEMINI.md, skill files
-```
-
-## Key Types (packages/collectors/src/types.ts)
-
-```ts
-interface PillarScore {
-  id: PillarId
-  score: number        // 0–100
-  grade: string        // A+, A, B...
-  issues: AuditIssue[]
-}
-
-interface AuditIssue {
-  severity: 'critical' | 'warning' | 'info'
-  message: string
-  fix?: string         // plain-English fix description
+### Collector pattern (always use this shape)
+```typescript
+export async function collectSomething(url: string): Promise<CollectorResult<SomeData>> {
+  const start = Date.now()
+  try {
+    // ... do work
+    return { status: 'ok', data, durationMs: Date.now() - start }
+  } catch (err) {
+    return { status: 'error', error: err instanceof Error ? err.message : 'Failed', durationMs: Date.now() - start }
+  }
 }
 ```
 
-## Running Locally
-
-```bash
-git clone https://github.com/nirholas/AuditKit
-cd AuditKit
-pnpm install
-bun run dev   # → http://localhost:3000
+### Scoring pattern
+```typescript
+export function scoreSomething(data: SomeData): PillarScore {
+  let score = 100
+  const issues: AuditIssue[] = []
+  // deduct points and push issues
+  score = Math.max(0, Math.min(100, score))
+  return { id: 'some-pillar', label: 'Some Pillar', score, grade: gradeFromScore(score), issues }
+}
 ```
 
-## Extending
+## Rules
 
-To add a new check: create `packages/collectors/src/{name}.ts`, export `collect{Name}(): Promise<CollectorResult<T>>`, add scorer in `packages/scorer/src/index.ts`, wire into `packages/analyzer/src/index.ts`.
+1. **Never throw** in a collector — always return `CollectorResult`
+2. **No API keys** — if a check needs a key, find a keyless alternative
+3. **Always add `AbortSignal.timeout(ms)`** to every `fetch()`
+4. Scores are always 0–100 — clamp with `Math.max(0, Math.min(100, n))`
+5. Prefer `interface` over `type` for object shapes
+6. `critical` severity issues deduct ≥15 points
+
+## Do Not
+
+- Add a database or auth in Phase 1
+- Change the ZIP file structure without updating README
+- Use `any` — everything must be typed
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/nirholas)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/nirholas)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [nirholas/AuditKit](https://github.com/nirholas/AuditKit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
