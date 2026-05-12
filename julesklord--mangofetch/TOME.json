@@ -4,7 +4,7 @@
   "repo": "mangofetch",
   "description": "tui/cli tool for fetch everythin' in internet (fork of omniget)",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/julesklord/mangofetch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T02:33:49Z"
+  "distributed_at": "2026-05-12T23:31:59Z"
 }
