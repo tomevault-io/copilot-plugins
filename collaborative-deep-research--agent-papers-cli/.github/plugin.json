@@ -1,0 +1,9 @@
+{
+  "name": "collaborative-deep-research--agent-papers-cli",
+  "displayName": "agent-papers-cli",
+  "description": "agent-papers-cli",
+  "version": "1.0.0",
+  "author": "collaborative-deep-research",
+  "homepage": "https://github.com/collaborative-deep-research/agent-papers-cli",
+  "skills": []
+}
