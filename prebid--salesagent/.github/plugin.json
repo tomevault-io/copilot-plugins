@@ -1,0 +1,9 @@
+{
+  "name": "prebid--salesagent",
+  "displayName": "salesagent",
+  "description": "A media sales agent that implements the AdCP Media Buy protocol",
+  "version": "1.0.0",
+  "author": "prebid",
+  "homepage": "https://github.com/prebid/salesagent",
+  "skills": []
+}
