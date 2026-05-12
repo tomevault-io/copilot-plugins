@@ -4,7 +4,7 @@
   "repo": "pi-hashline-edit",
   "description": "A pi coding agent extension that overrides the built-in read, grep, and edit tools with content-anchored line references (LINE:HASH|content).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RimuruW/pi-hashline-edit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T13:01:54Z"
+  "distributed_at": "2026-05-12T09:14:09Z"
 }
