@@ -1,0 +1,9 @@
+{
+  "name": "marciogranzotto--lottie-tools",
+  "displayName": "lottie-tools",
+  "description": "An open-source web-based animation editor for creating and editing Lottie animations. Import SVGs, create keyframe animations, edit existing Lottie files, and export to JSON format.",
+  "version": "1.0.0",
+  "author": "marciogranzotto",
+  "homepage": "https://github.com/marciogranzotto/lottie-tools",
+  "skills": []
+}
