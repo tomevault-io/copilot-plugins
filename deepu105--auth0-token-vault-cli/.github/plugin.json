@@ -1,0 +1,9 @@
+{
+  "name": "deepu105--auth0-token-vault-cli",
+  "displayName": "auth0-token-vault-cli",
+  "description": " Access third-party services (Gmail, Slack, etc.) on behalf of authenticated users via Auth0 Token Vault Designed for both humans and AI agents.",
+  "version": "1.0.0",
+  "author": "deepu105",
+  "homepage": "https://github.com/deepu105/auth0-token-vault-cli",
+  "skills": []
+}
