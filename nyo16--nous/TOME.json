@@ -1,0 +1,44 @@
+{
+  "name": "nous",
+  "owner": "nyo16",
+  "repo": "nous",
+  "description": "\"Nous (\u03bd\u03bf\u1fe6\u03c2) \u2014 the ancient Greek concept of mind, reason, and intellect; the faculty of understanding that grasps truth directly.\"  AI agent framework for Elixir with multi-provider LLM support.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nyo16/nous",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T07:37:10Z"
+}
