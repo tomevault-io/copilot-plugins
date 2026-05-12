@@ -1,0 +1,9 @@
+{
+  "name": "codika-io--clave",
+  "displayName": "clave",
+  "description": "A macOS desktop app for managing multiple Claude Code sessions",
+  "version": "1.0.0",
+  "author": "codika-io",
+  "homepage": "https://github.com/codika-io/clave",
+  "skills": []
+}
