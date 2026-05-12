@@ -1,0 +1,9 @@
+{
+  "name": "mhayes853--swift-cactus",
+  "displayName": "swift-cactus",
+  "description": "Crossplatform Swift SDK for Cactus hybrid inference and running LLMs locally in your app.",
+  "version": "1.0.0",
+  "author": "mhayes853",
+  "homepage": "https://github.com/mhayes853/swift-cactus",
+  "skills": []
+}
