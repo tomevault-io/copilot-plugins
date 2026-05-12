@@ -1,0 +1,9 @@
+{
+  "name": "vincentgourbin--ltx-video-swift-mlx",
+  "displayName": "ltx-video-swift-mlx",
+  "description": "LTX-2 text-to-video generation for Apple Silicon using MLX Swift",
+  "version": "1.0.0",
+  "author": "VincentGourbin",
+  "homepage": "https://github.com/VincentGourbin/ltx-video-swift-mlx",
+  "skills": []
+}
