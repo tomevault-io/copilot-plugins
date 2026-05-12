@@ -1,0 +1,9 @@
+{
+  "name": "srinitude--pi-until-done",
+  "displayName": "pi-until-done",
+  "description": "A Pi extension command that executes raw user intent to completion with strict, verifiable termination. `/until-done` runs until a truthful terminal state: 1) all criteria are objectively satisfied or",
+  "version": "1.0.0",
+  "author": "srinitude",
+  "homepage": "https://github.com/srinitude/pi-until-done",
+  "skills": []
+}
