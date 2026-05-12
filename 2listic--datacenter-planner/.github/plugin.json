@@ -1,0 +1,9 @@
+{
+  "name": "2listic--datacenter-planner",
+  "displayName": "datacenter-planner",
+  "description": "Create your Data center starting from a 2D plan. Place your racks and your cooling system in a detailed 3D scene to find the best solution.",
+  "version": "1.0.0",
+  "author": "2listic",
+  "homepage": "https://github.com/2listic/datacenter-planner",
+  "skills": []
+}
