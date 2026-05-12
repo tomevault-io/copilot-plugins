@@ -7,11 +7,11 @@ A Unix-composable CLI for the Logseq local HTTP API - built for humans and AI ag
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wolf-jonathan/logseq-cli](https://github.com/wolf-jonathan/logseq-cli).
+Original source: `CLAUDE.md` in [wolf-jonathan/logseq-cli](https://github.com/wolf-jonathan/logseq-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
