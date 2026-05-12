@@ -1,0 +1,9 @@
+{
+  "name": "amazon-mq--rabbitmq-stream-s3",
+  "displayName": "rabbitmq-stream-s3",
+  "description": "A RabbitMQ plugin for practically infinite stream storage in S3",
+  "version": "1.0.0",
+  "author": "amazon-mq",
+  "homepage": "https://github.com/amazon-mq/rabbitmq-stream-s3",
+  "skills": []
+}
