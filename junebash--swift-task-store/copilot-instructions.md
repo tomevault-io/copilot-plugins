@@ -1,0 +1,59 @@
+## swift-task-store
+
+> swift-task-store is a Swift 6 library providing `TaskStore`, an observable container for managing keyed async tasks with configurable duplicate-key handling.
+
+# Claude Code Instructions
+
+## Project Overview
+
+swift-task-store is a Swift 6 library providing `TaskStore`, an observable container for managing keyed async tasks with configurable duplicate-key handling.
+
+## Background
+
+- [Task Management in Swift Part 1: The Problem](https://www.junebash.com/posts/task-management-in-swift-part-1-the-problem/)
+- [Task Management in Swift Part 2: Introducing the TaskStore](https://www.junebash.com/posts/task-management-in-swift-part-2-introducing-the/)
+- [Task Management in Swift Part 3: Duplicate Key Behavior](https://www.junebash.com/posts/task-management-in-swift-part-3-duplicate-key/)
+
+## Build & Test
+
+```bash
+swift build    # Build the library
+swift test     # Run all tests
+```
+
+## Architecture
+
+- `TaskStore<Key>` - Main `@Observable` class managing tasks by key
+- `TaskStoreDuplicateKeyBehavior` - Value type configuring how duplicate keys are handled
+- `TaskNameProvider` - Protocol for customizable task naming (SwiftUI-style pattern)
+  - Built-in: `.keyDescription`, `.constant("name")`, `.fromKey { ... }`
+  - Modifiers: `.withPrefix("prefix")`, `.withIncrementingSuffix()`
+- Three task creation methods:
+  - `addConcurrentTask` - Runs on global concurrent executor (but still propagates TaskLocal values, unlike `Task.detached`)
+  - `addIsolatedTask` - Inherits caller's actor isolation (like `Task.init`)
+  - `addImmediateTask` - Uses `Task.immediate` (Swift 6.2+, SE-0472) to run synchronously until first suspension point
+
+## Key Implementation Details
+
+- Uses `isolation: isolated (any Actor)? = #isolation` parameter to capture caller's actor context for thread safety
+- Internal `TaskData` struct pairs tasks with IDs to prevent stale task cleanup when tasks share keys
+- Cannot conform to `Sendable` due to `@Observable` mutable state; isolation is handled via the `isolation` parameter instead
+
+## Testing
+
+Tests use Swift Testing framework with:
+- `actor TestState<T>` for thread-safe mutable state in tests
+- `actor OrderTracker` for tracking event ordering
+- `AsyncStream` for synchronizing task start/finish signals
+
+Avoid using `confirmation()` for tasks that start asynchronously without awaiting inside the confirmation block.
+
+## Code Style
+
+- Empty line after imports
+- Empty lines should have no whitespace
+- Never force unwrap or force try
+
+---
+> Source: [junebash/swift-task-store](https://github.com/junebash/swift-task-store) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
