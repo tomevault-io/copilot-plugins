@@ -1,0 +1,9 @@
+{
+  "name": "lloydrichards--effect-boxes",
+  "displayName": "effect-boxes",
+  "description": "A functional layout system for terminal applications built with Effect.js. Create TUIs with composable boxes, ANSI styling, and reactive components.",
+  "version": "1.0.0",
+  "author": "lloydrichards",
+  "homepage": "https://github.com/lloydrichards/effect-boxes",
+  "skills": []
+}
