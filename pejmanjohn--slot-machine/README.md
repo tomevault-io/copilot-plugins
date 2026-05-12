@@ -7,11 +7,11 @@ An open-source skill for running parallel implementations, reviewing them indepe
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [pejmanjohn/slot-machine](https://github.com/pejmanjohn/slot-machine).
+Original source: `CLAUDE.md` in [pejmanjohn/slot-machine](https://github.com/pejmanjohn/slot-machine).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
