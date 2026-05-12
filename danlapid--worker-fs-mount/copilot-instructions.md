@@ -1,0 +1,236 @@
+## worker-fs-mount
+
+> This file provides guidance to Claude Code when working with this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code when working with this repository.
+
+## Project Overview
+
+**worker-fs-mount** is an npm package that allows Cloudflare Workers to mount WorkerEntrypoints as virtual filesystems. It provides a drop-in replacement for `node:fs/promises` that intercepts filesystem calls and redirects mounted paths to WorkerEntrypoint implementations via jsrpc.
+
+### Key Concept
+
+Users call `mount('/mnt/path', stub)` where `stub` is a WorkerEntrypoint (from `ctx.exports`, `env.SERVICE`, or a Durable Object stub). After mounting, any `node:fs/promises` operation targeting that path is forwarded to the stub's methods.
+
+```typescript
+import { env } from 'cloudflare:workers';
+import { mount } from 'worker-fs-mount';
+import fs from 'node:fs/promises';  // Aliased to our implementation
+
+// Mount at module level using importable env
+mount('/mnt/storage', env.STORAGE_SERVICE);
+
+export default {
+  async fetch(request) {
+    await fs.readFile('/mnt/storage/file.txt');  // → calls env.STORAGE_SERVICE.readFile('/file.txt')
+  }
+};
+```
+
+**Global/module-level mounts** (preferred): Mount at module scope using `import { env, exports } from 'cloudflare:workers'`. Works for R2, KV, service bindings, and same-worker entrypoints. Simple, no cleanup needed.
+
+**Request-scoped mounts**: Required for Durable Objects (getting a DO stub is IO and requires request scope). Use `withMounts` when different requests need different mounts (e.g., per-user DOs) to prevent mount collisions.
+
+## Project Structure
+
+This is a pnpm monorepo with the following structure:
+
+```
+worker-fs-mount/
+├── packages/
+│   ├── worker-fs-mount/         # Main package - mount system and fs/promises replacement
+│   │   ├── src/
+│   │   │   ├── index.ts         # Entry point - exports public API (mount, withMounts, etc.)
+│   │   │   ├── fs-promises.ts   # Drop-in replacement for node:fs/promises
+│   │   │   ├── types.ts         # TypeScript interfaces (WorkerFilesystem, Stat, DirEntry)
+│   │   │   ├── utils.ts         # Shared utilities (createFsError, normalizePath, etc.)
+│   │   │   └── registry.ts      # Mount registry - mount(), unmount(), withMounts(), isMounted()
+│   │   └── README.md
+│   ├── durable-object-fs/       # Durable Object filesystem implementation (SQLite storage)
+│   ├── r2-fs/                   # R2 bucket filesystem implementation
+│   ├── memory-fs/               # In-memory filesystem implementation
+│   └── tests/                   # Integration tests
+│       ├── index.ts             # Test worker entry point
+│       ├── index.test.ts        # Integration tests using vitest
+│       └── wrangler.toml        # Test worker config with alias
+├── examples/
+│   ├── durable-object-backed-fs/  # Example using durable-object-fs
+│   └── r2-backed-fs/              # Example using r2-fs
+├── package.json                 # Root workspace scripts
+├── pnpm-workspace.yaml          # pnpm workspace configuration
+└── CLAUDE.md                    # This file
+```
+
+## Build & Development Commands
+
+From the root directory:
+
+```bash
+pnpm install         # Install dependencies (uses pnpm workspaces)
+pnpm build           # Compile TypeScript to dist/
+pnpm dev             # Watch mode compilation
+pnpm typecheck       # Type check without emitting
+pnpm test            # Run integration tests
+pnpm clean           # Remove dist/
+```
+
+## Architecture
+
+### How Module Aliasing Works
+
+The package uses wrangler's `[alias]` feature to replace `node:fs/promises` at build time:
+
+1. Users add an alias in their `wrangler.toml`:
+   ```toml
+   [alias]
+   "node:fs/promises" = "worker-fs-mount/fs"
+   ```
+
+2. **`fs-promises.ts`** exports all standard `node:fs/promises` functions
+3. Each function checks if the path is under a mount:
+   - If mounted: calls the stub's method via jsrpc and returns the result
+   - If not mounted: calls the real `node:fs/promises` method (via `node:fs` sync module's `.promises`)
+
+### Mount Registry (`registry.ts`)
+
+- `mounts`: `Map<string, Mount>` - stores active mounts keyed by normalized path
+- `mount(path, stub)`: validates path, checks for conflicts, adds to registry
+- `findMount(path)`: iterates mounts to find longest matching prefix
+- `normalizePath(path)`: removes trailing slashes, collapses multiple slashes
+
+### Type System (`types.ts`)
+
+- **`WorkerFilesystem`**: stream-first interface that mounted stubs must implement
+  - Required (6): `stat`, `createReadStream`, `createWriteStream`, `readdir`, `mkdir`, `rm`
+  - Optional (2): `symlink`, `readlink`
+  - Derived operations (implemented in fs-promises.ts): `readFile`, `writeFile`, `truncate`, `rename`, `cp`, `unlink`, `access`, `appendFile`
+- **`Stat`**: `{ type: 'file'|'directory'|'symlink', size: number, lastModified?: Date, ... }`
+- **`DirEntry`**: `{ name: string, type: 'file'|'directory'|'symlink' }`
+
+## Key Implementation Details
+
+### Path Handling
+
+- All mount paths must be absolute (start with `/`)
+- Paths are normalized: trailing slashes removed, multiple slashes collapsed
+- Reserved paths (`/bundle`, `/tmp`, `/dev`) cannot be mounted over
+- Nested mounts are not allowed (can't mount `/a/b` if `/a` is mounted)
+
+### Type Conversions (in fs-promises.ts)
+
+- `toNodeStats(Stat)`: converts our Stat to Node.js Stats object with all required methods (`isFile()`, `isDirectory()`, etc.)
+- `toNodeDirent(DirEntry)`: converts our DirEntry to Node.js Dirent object
+- `createFsError(code, syscall, path)`: creates Node.js-style errors with `.code`, `.syscall`, `.path`
+
+### Cross-Mount Operations
+
+- `rename`: throws `EXDEV` if source and dest are on different mounts
+- `copyFile`/`cp`: works across mounts by reading from source and writing to dest
+- Directory copy across mounts is not yet implemented (throws `EISDIR`)
+
+## Testing
+
+Tests run a real wrangler worker with the alias configured, making HTTP requests to test the full flow.
+
+### Running Tests
+
+```bash
+pnpm test            # Run all tests
+pnpm test:watch      # Watch mode
+```
+
+### Test Architecture
+
+The tests use a **pnpm workspace** setup where `packages/tests/` is a workspace package that depends on the `worker-fs-mount` package. This demonstrates real-world usage where the alias references an npm package.
+
+1. **`pnpm-workspace.yaml`** defines `packages/*` as workspace packages
+
+2. **`packages/tests/package.json`** declares dependency on worker-fs-mount:
+   ```json
+   {
+     "dependencies": {
+       "worker-fs-mount": "workspace:*"
+     }
+   }
+   ```
+
+3. **`packages/tests/wrangler.toml`** configures the alias to use the package:
+   ```toml
+   [alias]
+   "node:fs/promises" = "worker-fs-mount/fs"
+   ```
+
+4. **`packages/tests/index.ts`** is the test worker that:
+   - Mounts `ctx.exports.MemoryFilesystem` at `/mnt/test`
+   - Exposes HTTP endpoints for each fs operation
+   - Uses the aliased `node:fs/promises`
+
+5. **`packages/tests/index.test.ts`** spawns `wrangler dev` and makes HTTP requests
+
+6. **`packages/tests/memory-filesystem.ts`** is an in-memory WorkerFilesystem implementation
+
+## Common Development Tasks
+
+### Adding a New fs Method
+
+Most fs methods should be derived from the core streaming interface. Only add to `WorkerFilesystem` if the operation cannot be expressed using the existing core methods.
+
+**For derived operations** (preferred):
+1. Add the function to `packages/worker-fs-mount/src/fs-promises.ts`
+2. Implement using `createReadStream`, `createWriteStream`, `stat`, `rm`, etc.
+3. Add test endpoint in `packages/tests/index.ts`
+4. Add test case in `packages/tests/index.test.ts`
+5. Update README.md with the new method
+
+**For core operations** (only if truly necessary):
+1. Add method to `WorkerFilesystem` interface in `packages/worker-fs-mount/src/types.ts`
+2. Implement in all filesystem packages (memory-fs, r2-fs, durable-object-fs)
+3. Add wrapper in `fs-promises.ts`
+4. Add tests and update docs
+
+### Adding a New Export
+
+1. Add to `packages/worker-fs-mount/src/index.ts` exports
+2. Run `pnpm build` to regenerate `.d.ts` files
+3. Update README.md API Reference section
+
+## Dependencies
+
+- **@types/node**: Node.js type definitions (for fs types)
+- **typescript**: TypeScript compiler
+- **vitest**: Test runner
+- **wrangler**: Cloudflare Workers CLI (for testing)
+
+The package has no runtime dependencies - it only uses `node:fs/promises` and `node:buffer` which are available in the Workers runtime.
+
+## Package Exports
+
+The package provides two entry points:
+
+```json
+{
+  "exports": {
+    ".": "./dist/index.js",         // mount(), withMounts(), unmount(), isMounted(), etc.
+    "./fs": "./dist/fs-promises.js", // Drop-in replacement for node:fs/promises
+    "./utils": "./dist/utils.js"     // Shared utilities for filesystem implementations
+  }
+}
+```
+
+## Related Documentation
+
+- **README.md**: User-facing documentation with examples (in packages/worker-fs-mount/)
+
+## Coding Standards
+
+- TypeScript strict mode enabled
+- ESM modules only (`"type": "module"` in package.json)
+- Use `.js` extensions in imports (required for ESM)
+- Follow Node.js fs error conventions (use `createFsError()`)
+- All async methods should handle both mounted and non-mounted paths
+
+---
+> Source: [danlapid/worker-fs-mount](https://github.com/danlapid/worker-fs-mount) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
