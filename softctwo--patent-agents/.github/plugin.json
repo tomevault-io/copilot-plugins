@@ -1,0 +1,9 @@
+{
+  "name": "softctwo--patent-agents",
+  "displayName": "patent-agents",
+  "description": "AI-Powered Patent Writing and Drawing Agents - \u652f\u6301\u53d1\u660e\u4e13\u5229\u3001\u5b9e\u7528\u65b0\u578b\u3001\u5916\u89c2\u8bbe\u8ba1\u4e13\u5229\u64b0\u5199\u53ca\u9644\u56fe\u7ed8\u5236\uff0c\u57fa\u4e8eGoogle Gemini 2.0 Flash\u5f00\u53d1\uff0c\u5b8c\u5168\u7b26\u5408\u4e13\u5229\u5ba1\u67e5\u6307\u5357\u8981\u6c42",
+  "version": "1.0.0",
+  "author": "softctwo",
+  "homepage": "https://github.com/softctwo/patent-agents",
+  "skills": []
+}
