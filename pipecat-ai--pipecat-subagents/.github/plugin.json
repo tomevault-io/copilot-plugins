@@ -1,0 +1,9 @@
+{
+  "name": "pipecat-ai--pipecat-subagents",
+  "displayName": "pipecat-subagents",
+  "description": "Distributed Subagents Framework for Pipecat",
+  "version": "1.0.0",
+  "author": "pipecat-ai",
+  "homepage": "https://github.com/pipecat-ai/pipecat-subagents",
+  "skills": []
+}
