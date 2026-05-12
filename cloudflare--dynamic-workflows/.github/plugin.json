@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--dynamic-workflows",
+  "displayName": "dynamic-workflows",
+  "description": "dynamic-workflows",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/dynamic-workflows",
+  "skills": []
+}
