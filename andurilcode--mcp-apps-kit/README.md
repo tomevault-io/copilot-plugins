@@ -7,11 +7,11 @@ A TypeScript framework for building interactive MCP applications that work seaml
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AndurilCode/mcp-apps-kit](https://github.com/AndurilCode/mcp-apps-kit).
+Original source: `CLAUDE.md` in [AndurilCode/mcp-apps-kit](https://github.com/AndurilCode/mcp-apps-kit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
