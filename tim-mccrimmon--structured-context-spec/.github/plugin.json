@@ -1,0 +1,9 @@
+{
+  "name": "tim-mccrimmon--structured-context-spec",
+  "displayName": "structured-context-spec",
+  "description": "A community-driven specification for creating, validating, and versioning structured context for AI systems",
+  "version": "1.0.0",
+  "author": "tim-mccrimmon",
+  "homepage": "https://github.com/tim-mccrimmon/structured-context-spec",
+  "skills": []
+}
