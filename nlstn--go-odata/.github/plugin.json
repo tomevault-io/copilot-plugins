@@ -1,0 +1,9 @@
+{
+  "name": "nlstn--go-odata",
+  "displayName": "go-odata",
+  "description": "go-odata is a Go library for building OData v4\u2013compliant REST services.",
+  "version": "1.0.0",
+  "author": "NLstn",
+  "homepage": "https://github.com/NLstn/go-odata",
+  "skills": []
+}
