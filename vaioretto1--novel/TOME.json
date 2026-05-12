@@ -1,0 +1,44 @@
+{
+  "name": "Novel",
+  "owner": "VaIOReTto1",
+  "repo": "Novel",
+  "description": "\u7528kotlin\u548cReact Native\u5b9e\u73b0\u7684\u4eff\u756a\u8304\u5c0f\u8bf4app",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/VaIOReTto1/Novel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T04:40:37Z"
+}
