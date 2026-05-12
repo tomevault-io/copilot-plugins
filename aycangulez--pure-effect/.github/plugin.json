@@ -1,0 +1,9 @@
+{
+  "name": "aycangulez--pure-effect",
+  "displayName": "pure-effect",
+  "description": "A zero-dependency effect library for JavaScript and TypeScript with built-in support for dependency injection, retry, and OpenTelemetry where business logic is plain data you can test without mocks.",
+  "version": "1.0.0",
+  "author": "aycangulez",
+  "homepage": "https://github.com/aycangulez/pure-effect",
+  "skills": []
+}
