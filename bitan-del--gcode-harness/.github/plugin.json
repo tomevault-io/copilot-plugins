@@ -1,0 +1,9 @@
+{
+  "name": "bitan-del--gcode-harness",
+  "displayName": "gcode-harness",
+  "description": "A fast, customizable coding agent harness built in Rust.",
+  "version": "1.0.0",
+  "author": "bitan-del",
+  "homepage": "https://github.com/bitan-del/gcode-harness",
+  "skills": []
+}
