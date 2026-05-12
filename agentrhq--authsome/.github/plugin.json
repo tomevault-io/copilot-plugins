@@ -1,0 +1,9 @@
+{
+  "name": "agentrhq--authsome",
+  "displayName": "authsome",
+  "description": "Local auth cli for AI agents. Log in once via Oauth2/API Key. Every agent stays authenticated \u2014 headless, no SaaS, credentials never leave your machine. ",
+  "version": "1.0.0",
+  "author": "agentrhq",
+  "homepage": "https://github.com/agentrhq/authsome",
+  "skills": []
+}
