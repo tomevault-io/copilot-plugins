@@ -7,11 +7,11 @@ AWS Kiro 自动注册工具，集成 Tempmail.lol，支持导入到 claude-api�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ZHOUKAILIAN/kiro-manager](https://github.com/ZHOUKAILIAN/kiro-manager).
+Original source: `CLAUDE.md` in [ZHOUKAILIAN/kiro-manager](https://github.com/ZHOUKAILIAN/kiro-manager).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
