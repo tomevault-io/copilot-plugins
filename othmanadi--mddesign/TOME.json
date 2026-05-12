@@ -4,7 +4,7 @@
   "repo": "MDDesign",
   "description": "Orchestrator plugin: composes planning-with-files, DESIGN.md, memory routing, agent teams, and session handoff into one contract for any modern coding agent. Cross-IDE.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OthmanAdi/MDDesign",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T02:33:35Z"
+  "distributed_at": "2026-05-12T09:48:48Z"
 }
