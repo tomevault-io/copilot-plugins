@@ -1,0 +1,9 @@
+{
+  "name": "stockvaluation-io--stockvaluation-io",
+  "displayName": "stockvaluation_io",
+  "description": "Open-source DCF valuation app that turns a stock ticker into transparent Damodaran-style assumptions, valuation output, bull/bear thesis, and a chat workspace for building your own narrative.",
+  "version": "1.0.0",
+  "author": "stockvaluation-io",
+  "homepage": "https://github.com/stockvaluation-io/stockvaluation_io",
+  "skills": []
+}
