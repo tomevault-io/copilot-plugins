@@ -1,0 +1,9 @@
+{
+  "name": "fourninecs--turul-app",
+  "displayName": "turul-app",
+  "description": "Privacy-first multi-cloud analyzer for AWS and GCP. 200+ scanners covering cost, security posture, IAM, network reachability, CIS compliance, and Well-Architected reviews \u2014 with built-in AI chat. Loca",
+  "version": "1.0.0",
+  "author": "FournineCS",
+  "homepage": "https://github.com/FournineCS/turul-app",
+  "skills": []
+}
