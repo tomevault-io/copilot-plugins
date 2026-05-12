@@ -1,0 +1,9 @@
+{
+  "name": "nmrtn--nanopm",
+  "displayName": "nanopm",
+  "description": "Autonomous product management for Claude Code. Always-on, adversarial, doesn't sugarcoat.",
+  "version": "1.0.0",
+  "author": "nmrtn",
+  "homepage": "https://github.com/nmrtn/nanopm",
+  "skills": []
+}
