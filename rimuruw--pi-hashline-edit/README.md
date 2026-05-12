@@ -7,11 +7,11 @@ A pi coding agent extension that overrides the built-in read, grep, and edit too
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [RimuruW/pi-hashline-edit](https://github.com/RimuruW/pi-hashline-edit).
+Original source: `CLAUDE.md` in [RimuruW/pi-hashline-edit](https://github.com/RimuruW/pi-hashline-edit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
