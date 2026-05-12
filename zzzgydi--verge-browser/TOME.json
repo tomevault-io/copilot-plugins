@@ -4,7 +4,7 @@
   "repo": "verge-browser",
   "description": "A browser sandbox platform for agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zzzgydi/verge-browser",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-08T01:08:02Z"
+  "distributed_at": "2026-05-12T05:59:20Z"
 }
