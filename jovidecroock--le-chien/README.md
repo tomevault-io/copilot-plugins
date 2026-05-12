@@ -7,11 +7,11 @@ A chat application hosted on CF workers built with preact
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [JoviDeCroock/le-chien](https://github.com/JoviDeCroock/le-chien).
+Original source: `CLAUDE.md` in [JoviDeCroock/le-chien](https://github.com/JoviDeCroock/le-chien).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
