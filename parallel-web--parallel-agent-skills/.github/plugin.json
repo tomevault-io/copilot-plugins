@@ -1,0 +1,9 @@
+{
+  "name": "parallel-web--parallel-agent-skills",
+  "displayName": "parallel-agent-skills",
+  "description": "parallel-agent-skills",
+  "version": "1.0.0",
+  "author": "parallel-web",
+  "homepage": "https://github.com/parallel-web/parallel-agent-skills",
+  "skills": []
+}
