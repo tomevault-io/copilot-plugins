@@ -1,0 +1,9 @@
+{
+  "name": "juanibiapina--pi-powerbar",
+  "displayName": "pi-powerbar",
+  "description": "Pi extension that renders a persistent powerline status bar with left/right segments updated via events",
+  "version": "1.0.0",
+  "author": "juanibiapina",
+  "homepage": "https://github.com/juanibiapina/pi-powerbar",
+  "skills": []
+}
