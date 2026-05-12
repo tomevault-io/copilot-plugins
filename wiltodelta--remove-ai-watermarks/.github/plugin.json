@@ -1,0 +1,9 @@
+{
+  "name": "wiltodelta--remove-ai-watermarks",
+  "displayName": "remove-ai-watermarks",
+  "description": "CLI and library for removing visible (Gemini) and invisible (SynthID, C2PA, EXIF) AI watermarks from images",
+  "version": "1.0.0",
+  "author": "wiltodelta",
+  "homepage": "https://github.com/wiltodelta/remove-ai-watermarks",
+  "skills": []
+}
