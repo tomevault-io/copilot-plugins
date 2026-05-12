@@ -1,0 +1,9 @@
+{
+  "name": "kassaila--vue-router-citadel",
+  "displayName": "vue-router-citadel",
+  "description": "Vue Router Citadel is a middleware-driven navigation control system for Vue Router that lets you build layered, predictable, and scalable route protection.",
+  "version": "1.0.0",
+  "author": "Kassaila",
+  "homepage": "https://github.com/Kassaila/vue-router-citadel",
+  "skills": []
+}
