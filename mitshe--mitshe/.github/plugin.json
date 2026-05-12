@@ -1,0 +1,9 @@
+{
+  "name": "mitshe--mitshe",
+  "displayName": "mitshe",
+  "description": "AI development platform sessions in isolated Docker containers, workflow automation, self-hosted.",
+  "version": "1.0.0",
+  "author": "mitshe",
+  "homepage": "https://github.com/mitshe/mitshe",
+  "skills": []
+}
