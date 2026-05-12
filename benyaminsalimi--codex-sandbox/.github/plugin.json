@@ -1,0 +1,9 @@
+{
+  "name": "benyaminsalimi--codex-sandbox",
+  "displayName": "codex-sandbox",
+  "description": "Base docker image with codex included ",
+  "version": "1.0.0",
+  "author": "benyaminsalimi",
+  "homepage": "https://github.com/benyaminsalimi/codex-sandbox",
+  "skills": []
+}
