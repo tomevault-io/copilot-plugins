@@ -1,0 +1,9 @@
+{
+  "name": "bonan-group--xtalui",
+  "displayName": "xtalui",
+  "description": "Terminal based crystal structure viewer",
+  "version": "1.0.0",
+  "author": "bonan-group",
+  "homepage": "https://github.com/bonan-group/xtalui",
+  "skills": []
+}
