@@ -1,0 +1,9 @@
+{
+  "name": "ericosiu--marketing-os-starter",
+  "displayName": "marketing-os-starter",
+  "description": "An AI marketing team you can clone and run in 30 minutes. 4 specialized agents, 5 skills, structured handoffs, persistent memory. Built on Claude Code.",
+  "version": "1.0.0",
+  "author": "ericosiu",
+  "homepage": "https://github.com/ericosiu/marketing-os-starter",
+  "skills": []
+}
