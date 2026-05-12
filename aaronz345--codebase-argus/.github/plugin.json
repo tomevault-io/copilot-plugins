@@ -1,0 +1,9 @@
+{
+  "name": "aaronz345--codebase-argus",
+  "displayName": "codebase-argus",
+  "description": "Multi-agent codebase review for PRs, CI, and downstream fork syncs.",
+  "version": "1.0.0",
+  "author": "AaronZ345",
+  "homepage": "https://github.com/AaronZ345/codebase-argus",
+  "skills": []
+}
