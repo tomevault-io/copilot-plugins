@@ -1,0 +1,9 @@
+{
+  "name": "aisa-team--agent-skills",
+  "displayName": "agent-skills",
+  "description": "skills integrated with AIsa API keys",
+  "version": "1.0.0",
+  "author": "AIsa-team",
+  "homepage": "https://github.com/AIsa-team/agent-skills",
+  "skills": []
+}
