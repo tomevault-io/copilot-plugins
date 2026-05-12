@@ -1,0 +1,9 @@
+{
+  "name": "scalablecapital--action-surefire-report",
+  "displayName": "action-surefire-report",
+  "description": "Reports surefire test results as GitHub Checks",
+  "version": "1.0.0",
+  "author": "ScalableCapital",
+  "homepage": "https://github.com/ScalableCapital/action-surefire-report",
+  "skills": []
+}
