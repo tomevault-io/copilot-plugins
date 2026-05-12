@@ -1,0 +1,9 @@
+{
+  "name": "captainsafia--hone",
+  "displayName": "hone",
+  "description": "CLI integration test runner for command-line apps with a custom DSL",
+  "version": "1.0.0",
+  "author": "captainsafia",
+  "homepage": "https://github.com/captainsafia/hone",
+  "skills": []
+}
