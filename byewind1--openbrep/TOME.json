@@ -1,0 +1,44 @@
+{
+  "name": "openbrep",
+  "owner": "byewind1",
+  "repo": "openbrep",
+  "description": " OpenBrep \u2014 \u9762\u5411 ArchiCAD \u9ad8\u9636\u7528\u6237\u548c GDL \u5f00\u53d1\u8005\u7684 AI \u5de5\u4f5c\u53f0\u3002\u7f16\u8bd1\u9a8c\u8bc1\u3001\u77e5\u8bc6\u9a71\u52a8\u3001\u8d44\u4ea7\u53ef\u8ffd\u6eaf",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/byewind1/openbrep",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T19:13:25Z"
+}
