@@ -1,0 +1,9 @@
+{
+  "name": "blockful--clickup-cli",
+  "displayName": "clickup-cli",
+  "description": "A CLI for ClickUp optimized for AI agents",
+  "version": "1.0.0",
+  "author": "blockful",
+  "homepage": "https://github.com/blockful/clickup-cli",
+  "skills": []
+}
