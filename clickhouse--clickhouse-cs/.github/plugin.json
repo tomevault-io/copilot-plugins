@@ -1,0 +1,9 @@
+{
+  "name": "clickhouse--clickhouse-cs",
+  "displayName": "clickhouse-cs",
+  "description": "Official .NET client for ClickHouse DB",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/clickhouse-cs",
+  "skills": []
+}
