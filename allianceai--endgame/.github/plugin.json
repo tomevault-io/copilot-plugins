@@ -1,0 +1,9 @@
+{
+  "name": "allianceai--endgame",
+  "displayName": "endgame",
+  "description": "A unified framework for tabular, time-series, and multimodal machine learning",
+  "version": "1.0.0",
+  "author": "allianceai",
+  "homepage": "https://github.com/allianceai/endgame",
+  "skills": []
+}
