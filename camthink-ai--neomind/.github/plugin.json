@@ -1,0 +1,9 @@
+{
+  "name": "camthink-ai--neomind",
+  "displayName": "NeoMind",
+  "description": "NeoMind is a Rust-based edge AI platform that enables autonomous device management and automated decision-making through Large Language Models (LLMs).",
+  "version": "1.0.0",
+  "author": "camthink-ai",
+  "homepage": "https://github.com/camthink-ai/NeoMind",
+  "skills": []
+}
