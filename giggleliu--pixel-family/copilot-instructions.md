@@ -1,0 +1,92 @@
+## pixel-family
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project
+
+Pixel Family — a Typst package (`pixel-family`) that renders 16x16 pixel art characters as native inline vector graphics (zero dependencies).
+
+Repo: GiggleLiu/pixel-family. Compiler: Typst 0.13.1+.
+
+## Commands
+
+```bash
+make              # compile manual + render SVGs
+make manual       # compile manual.pdf only
+make images       # render character SVGs into images/
+make install      # install to local Typst packages (~/.local/share/typst/packages/local/)
+make uninstall    # remove local package
+make test         # install + compile manual (the test suite)
+make clean        # remove generated files
+make bump-version V=X.Y.Z   # bump version in all files
+make release-pkg  V=X.Y.Z   # stage package files in dist/
+typst watch manual.typ manual.pdf  # live reload during development
+```
+
+There is no separate test file — `manual.typ` exercises all characters, sizes, colors, and skin tones. If it compiles, everything works.
+
+## Architecture
+
+**`lib.typ`** — Package entrypoint. In order:
+1. Color palette constants and `palette` dictionary
+2. `pixel-grid(data, colors, cell-size)` — core renderer: groups pixels by color, emits one `curve()` per color with multi-subpath
+3. `_char-box(size, baseline, data, colors)` — helper wrapping pixel-grid into inline `box(width, height)`
+4. Character function definitions (one per character, all share the same signature)
+
+**`characters/batch-*.typ`** — Pure data files (no imports). Each character exports:
+- `xxx-data`: 16x16 array of color indices (0=transparent, 1=skin, 2=hair, 3=shirt, 4=pants, 5=eyes, 6+=accents)
+- `xxx-colors(skin, hair, shirt, pants)`: returns the color palette array
+
+Four batches: `batch-1-initial.typ` (full-body: Bob, Alice, Christina, Mary, Eve), `batch-2-top.typ` (bust: Frank, Grace, Trent, Mallory, Victor), `batch-3-top.typ` (bust: Ina, Murphy, Bella), `batch-4-robots.typ` (bust robots: Bolt, Pixel, Crank, Nova, Sentinel).
+
+**`images/render.typ`** — Renders all characters as a single gallery grid (`images/gallery.svg`). Not part of the published package.
+
+**`manual.typ`** — Documentation + test suite. Not part of the published package.
+
+## Designing a Character (Skill: /design-character)
+
+Interactive workflow: asks user's name + description, generates 3 pixel art variants as PDF for review, suggests function names, then integrates the chosen design into the repo and commits.
+
+## Adding a Character (Skill: /add-character)
+
+When adding new characters, follow this checklist exactly:
+
+1. Add `xxx-data` and `xxx-colors` to the appropriate `characters/batch-*.typ` (or create a new batch file)
+2. In `lib.typ`: import the batch file (if new), add a character function using `_char-box`
+3. In `images/render.typ`: add the character to the `characters` array
+4. In `manual.typ`: add bio section, update title page, update API table
+5. Run `make test` to verify
+6. Run `make images` to regenerate the gallery SVG, then **commit and push `images/gallery.svg`**
+7. Edit the [Vote for your favorite character!](https://github.com/GiggleLiu/pixel-family/discussions/1) with `gh` to include the new characters
+
+## Key Design Decisions
+
+- `baseline: auto` centers characters with text via `(size - 1em) / 2`; pass `0pt` for bottom alignment
+- `pixel-grid` takes a `cell-size` length parameter; `_char-box` passes `size / 16`
+- Color index 5 maps to `pants` color (reused for eyes/details — both typically black)
+- Accent colors (pin, glasses, flower, etc.) are hardcoded in `xxx-colors()`, not exposed as parameters
+- Batch files are pure data with no imports to avoid circular dependencies
+- `typst.toml` excludes images/, manual.*, Makefile, CLAUDE.md, .github/* from the published package
+
+## Releasing (Skill: /release)
+
+Run `/release X.Y.Z` to release a new version. The skill handles:
+version bump (`make bump-version`), testing, building, git tag, GitHub release,
+and Typst Universe PR via the `GiggleLiu/packages` fork.
+
+`make bump-version V=X.Y.Z` updates version in: `typst.toml`, `lib.typ`, `manual.typ`, `README.md`.
+`make release-pkg V=X.Y.Z` rewrites the manual download link in the packaged README to point to the specific release (e.g. `releases/download/vX.Y.Z/manual.pdf`) instead of `/latest/`. The source README keeps using `/latest/`.
+`Makefile` reads version dynamically from `typst.toml` (`CUR_VERSION`).
+
+## Reference
+
+- Pixel art reference: `~/tcode/pixel-people.typ` (Brave Workz LINE Store)
+- Style reference: `~/tcode/periodic-table`
+
+---
+> Source: [GiggleLiu/pixel-family](https://github.com/GiggleLiu/pixel-family) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
