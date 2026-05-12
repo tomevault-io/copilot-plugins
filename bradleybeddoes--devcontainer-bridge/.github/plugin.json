@@ -1,0 +1,9 @@
+{
+  "name": "bradleybeddoes--devcontainer-bridge",
+  "displayName": "devcontainer-bridge",
+  "description": "Automatic port forwarding and browser URL opening between devcontainers and the host machine for CLI users.",
+  "version": "1.0.0",
+  "author": "bradleybeddoes",
+  "homepage": "https://github.com/bradleybeddoes/devcontainer-bridge",
+  "skills": []
+}
