@@ -1,0 +1,9 @@
+{
+  "name": "osodevops--kafka-backup",
+  "displayName": "kafka-backup",
+  "description": "High-performance Kafka backup and restore with point-in-time recovery. Supports Local file, S3, Azure, GCS. Open source (MIT).",
+  "version": "1.0.0",
+  "author": "osodevops",
+  "homepage": "https://github.com/osodevops/kafka-backup",
+  "skills": []
+}
