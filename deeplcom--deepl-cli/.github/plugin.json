@@ -1,0 +1,9 @@
+{
+  "name": "deeplcom--deepl-cli",
+  "displayName": "deepl-cli",
+  "description": "DeepL CLI is a comprehensive, developer-friendly command-line tool that integrates DeepL's powerful Translate, Write, and Voice APIs.",
+  "version": "1.0.0",
+  "author": "DeepLcom",
+  "homepage": "https://github.com/DeepLcom/deepl-cli",
+  "skills": []
+}
