@@ -1,0 +1,9 @@
+{
+  "name": "geoblocks--etter",
+  "displayName": "etter",
+  "description": "etter transforms natural language location queries into structured geographic filters that can be used by search engines and spatial databases. It uses Large Language Models (LLMs) to understand multi",
+  "version": "1.0.0",
+  "author": "geoblocks",
+  "homepage": "https://github.com/geoblocks/etter",
+  "skills": []
+}
