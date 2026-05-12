@@ -1,0 +1,44 @@
+{
+  "name": "murmur-voice",
+  "owner": "panda850819",
+  "repo": "murmur-voice",
+  "description": "Privacy-first voice-to-text for macOS and Windows. Local Whisper (Metal/CUDA) or Groq cloud, with LLM post-processing. Built with Rust + Tauri 2.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/panda850819/murmur-voice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T09:54:27Z"
+}
