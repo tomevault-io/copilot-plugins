@@ -1,0 +1,9 @@
+{
+  "name": "lumina-video--lumina-video",
+  "displayName": "lumina-video",
+  "description": "Zero-copy hardware-accelerated video SDK for Rust (Android, iOS, Linux, macOS, Web, Windows)",
+  "version": "1.0.0",
+  "author": "lumina-video",
+  "homepage": "https://github.com/lumina-video/lumina-video",
+  "skills": []
+}
