@@ -1,0 +1,9 @@
+{
+  "name": "oymy--dida365-ai-tools",
+  "displayName": "dida365-ai-tools",
+  "description": "Dida365 AI Tools - MCP Server & CLI for \u6ef4\u7b54\u6e05\u5355, manage your tasks with Claude Code or command line",
+  "version": "1.0.0",
+  "author": "oymy",
+  "homepage": "https://github.com/oymy/dida365-ai-tools",
+  "skills": []
+}
