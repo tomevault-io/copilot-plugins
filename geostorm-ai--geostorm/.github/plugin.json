@@ -1,0 +1,9 @@
+{
+  "name": "geostorm-ai--geostorm",
+  "displayName": "geostorm",
+  "description": "Monitor how AI systems perceive and recommend your software across GPT, Claude, Gemini, and more.",
+  "version": "1.0.0",
+  "author": "geostorm-ai",
+  "homepage": "https://github.com/geostorm-ai/geostorm",
+  "skills": []
+}
