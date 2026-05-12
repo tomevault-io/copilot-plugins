@@ -1,0 +1,9 @@
+{
+  "name": "msonnb--fedisky",
+  "displayName": "fedisky",
+  "description": "ActivityPub extension for Bluesky PDS",
+  "version": "1.0.0",
+  "author": "msonnb",
+  "homepage": "https://github.com/msonnb/fedisky",
+  "skills": []
+}
