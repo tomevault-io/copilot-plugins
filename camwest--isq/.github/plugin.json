@@ -1,0 +1,9 @@
+{
+  "name": "camwest--isq",
+  "displayName": "isq",
+  "description": "A CLI for GitHub & Linear issues. Instant. Offline-first. AI-agent native.",
+  "version": "1.0.0",
+  "author": "camwest",
+  "homepage": "https://github.com/camwest/isq",
+  "skills": []
+}
