@@ -7,11 +7,11 @@ Multi-Agent Continuity Layer — Keep your AI agents on a single, observable, ha
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jaxxchen003/Traceplane](https://github.com/jaxxchen003/Traceplane).
+Original source: `CLAUDE.md` in [jaxxchen003/Traceplane](https://github.com/jaxxchen003/Traceplane).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
