@@ -4,7 +4,7 @@
   "repo": "claudometer",
   "description": "\ud83d\udcca Claudometer - Don't let \"Usage limit reached\" catch you off guard. Real-time Claude usage monitoring for macOS & Linux with near-limit alerts.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/leonardocouy/claudometer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T14:55:38Z"
+  "distributed_at": "2026-05-12T17:18:51Z"
 }
