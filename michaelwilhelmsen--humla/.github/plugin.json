@@ -1,0 +1,9 @@
+{
+  "name": "michaelwilhelmsen--humla",
+  "displayName": "humla",
+  "description": "Personal macOS meeting transcription \u2014 OpenAI / Speechmatics / on-device Whisper, per-note summary presets, Tauri 2 + Rust + Swift",
+  "version": "1.0.0",
+  "author": "michaelwilhelmsen",
+  "homepage": "https://github.com/michaelwilhelmsen/humla",
+  "skills": []
+}
