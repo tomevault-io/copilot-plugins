@@ -1,0 +1,9 @@
+{
+  "name": "tobitege--codlogs",
+  "displayName": "codlogs",
+  "description": "Search, export and sanitize local Codex sessions",
+  "version": "1.0.0",
+  "author": "tobitege",
+  "homepage": "https://github.com/tobitege/codlogs",
+  "skills": []
+}
