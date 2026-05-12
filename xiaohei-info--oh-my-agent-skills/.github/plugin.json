@@ -1,0 +1,9 @@
+{
+  "name": "xiaohei-info--oh-my-agent-skills",
+  "displayName": "oh-my-agent-skills",
+  "description": "Open-source bundle of agent methodologies and Hermes-compatible skills.",
+  "version": "1.0.0",
+  "author": "xiaohei-info",
+  "homepage": "https://github.com/xiaohei-info/oh-my-agent-skills",
+  "skills": []
+}
