@@ -1,0 +1,9 @@
+{
+  "name": "tambo-ai--thestandupapp",
+  "displayName": "thestandupapp",
+  "description": "a generative dashboard for your team's standup.",
+  "version": "1.0.0",
+  "author": "tambo-ai",
+  "homepage": "https://github.com/tambo-ai/thestandupapp",
+  "skills": []
+}
