@@ -1,0 +1,44 @@
+{
+  "name": "macu_minimize-ai-credit-usage",
+  "owner": "minhvoio",
+  "repo": "macu_minimize-ai-credit-usage",
+  "description": "Minimize AI credit usage. Analyze tool call patterns across Claude Code, OpenCode & Codex to find unused tools and cut token waste without losing context the AI needs to see.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/minhvoio/macu_minimize-ai-credit-usage",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T12:17:03Z"
+}
