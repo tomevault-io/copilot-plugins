@@ -1,0 +1,9 @@
+{
+  "name": "dansnow--orpc-msw",
+  "displayName": "orpc-msw",
+  "description": "A utility library for type-safe mocking of OpenAPI-based oRPC contracts using Mock Service Worker (MSW) for robust testing and development.",
+  "version": "1.0.0",
+  "author": "DanSnow",
+  "homepage": "https://github.com/DanSnow/orpc-msw",
+  "skills": []
+}
