@@ -1,0 +1,9 @@
+{
+  "name": "cayde-6--icalendar",
+  "displayName": "icalendar",
+  "description": "TypeScript CalDAV/iCalendar toolkit",
+  "version": "1.0.0",
+  "author": "cayde-6",
+  "homepage": "https://github.com/cayde-6/icalendar",
+  "skills": []
+}
