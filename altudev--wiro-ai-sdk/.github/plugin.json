@@ -1,0 +1,9 @@
+{
+  "name": "altudev--wiro-ai-sdk",
+  "displayName": "wiro-ai-sdk",
+  "description": "Unofficial Community Maintained Wiro AI Sdk package for Node.js developers.",
+  "version": "1.0.0",
+  "author": "altudev",
+  "homepage": "https://github.com/altudev/wiro-ai-sdk",
+  "skills": []
+}
