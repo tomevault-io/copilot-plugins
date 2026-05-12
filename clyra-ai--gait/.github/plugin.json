@@ -1,0 +1,9 @@
+{
+  "name": "clyra-ai--gait",
+  "displayName": "gait",
+  "description": "Policy-as-code for AI agents. Gait enforces boundaries at the tool boundary before actions execute. YAML policy, CI integration, signed traces. The .eslintrc for agent behavior.",
+  "version": "1.0.0",
+  "author": "Clyra-AI",
+  "homepage": "https://github.com/Clyra-AI/gait",
+  "skills": []
+}
