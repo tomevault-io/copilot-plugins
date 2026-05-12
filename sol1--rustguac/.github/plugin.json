@@ -1,0 +1,9 @@
+{
+  "name": "sol1--rustguac",
+  "displayName": "rustguac",
+  "description": "Lightweight Rust replacement for Apache Guacamole \u2014 browser-based SSH, RDP, VNC, and web sessions via guacd with SSH jump hosts, Kerberos NLA, Vault address book, and OIDC SSO",
+  "version": "1.0.0",
+  "author": "sol1",
+  "homepage": "https://github.com/sol1/rustguac",
+  "skills": []
+}
