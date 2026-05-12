@@ -1,0 +1,9 @@
+{
+  "name": "galyarderlabs--galyarder-agent",
+  "displayName": "galyarder-agent",
+  "description": "An agentic digital characters that live where you already talk: WhatsApp, Telegram, Discord, Slack, Email, and CLI. Give them memory, a face, tools, GWS access, workflow automation, and the ability to",
+  "version": "1.0.0",
+  "author": "galyarderlabs",
+  "homepage": "https://github.com/galyarderlabs/galyarder-agent",
+  "skills": []
+}
