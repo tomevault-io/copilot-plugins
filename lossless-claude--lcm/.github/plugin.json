@@ -1,0 +1,9 @@
+{
+  "name": "lossless-claude--lcm",
+  "displayName": "lcm",
+  "description": "Lossless context management for Claude Code",
+  "version": "1.0.0",
+  "author": "lossless-claude",
+  "homepage": "https://github.com/lossless-claude/lcm",
+  "skills": []
+}
