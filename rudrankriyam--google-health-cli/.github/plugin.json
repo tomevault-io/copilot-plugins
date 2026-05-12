@@ -1,0 +1,9 @@
+{
+  "name": "rudrankriyam--google-health-cli",
+  "displayName": "Google-Health-CLI",
+  "description": "Unofficial Google-Health-CLI for the Google Health API, written in Go",
+  "version": "1.0.0",
+  "author": "rudrankriyam",
+  "homepage": "https://github.com/rudrankriyam/Google-Health-CLI",
+  "skills": []
+}
