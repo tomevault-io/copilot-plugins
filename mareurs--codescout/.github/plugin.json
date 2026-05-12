@@ -1,0 +1,9 @@
+{
+  "name": "mareurs--codescout",
+  "displayName": "codescout",
+  "description": "High-performance coding agent toolkit MCP server \u2014 IDE-grade code intelligence for LLMs",
+  "version": "1.0.0",
+  "author": "mareurs",
+  "homepage": "https://github.com/mareurs/codescout",
+  "skills": []
+}
