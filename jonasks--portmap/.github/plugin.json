@@ -1,0 +1,9 @@
+{
+  "name": "jonasks--portmap",
+  "displayName": "portmap",
+  "description": "map names to localhost ports, made for agents and humans",
+  "version": "1.0.0",
+  "author": "JonasKs",
+  "homepage": "https://github.com/JonasKs/portmap",
+  "skills": []
+}
