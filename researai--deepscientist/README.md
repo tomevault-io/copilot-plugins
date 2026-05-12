@@ -7,11 +7,11 @@ Now, Stronger AI Pushes Frontiers, Stronger Our Shared Future.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ResearAI/DeepScientist](https://github.com/ResearAI/DeepScientist).
+Original source: `CLAUDE.md` in [ResearAI/DeepScientist](https://github.com/ResearAI/DeepScientist).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
