@@ -1,0 +1,9 @@
+{
+  "name": "casedash--casedash",
+  "displayName": "CaseDash",
+  "description": "Compact Windows dashboard for dedicated PC telemetry screens",
+  "version": "1.0.0",
+  "author": "casedash",
+  "homepage": "https://github.com/casedash/CaseDash",
+  "skills": []
+}
