@@ -1,0 +1,44 @@
+{
+  "name": "railroad",
+  "owner": "RAIL-group",
+  "repo": "railroad",
+  "description": "Planning suite from the RAIL Group @ GMU supporting multi-agent concurrent planning under uncertainty, among other capabilities",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/RAIL-group/railroad",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-12T12:20:43Z"
+}
