@@ -1,0 +1,9 @@
+{
+  "name": "marcelocaporale--codex-agent-mem",
+  "displayName": "codex-agent-mem",
+  "description": "Local-first Model Context Protocol (MCP) memory layer for Codex CLI/Desktop, Claude Code, Gemini CLI, Qwen/DeepSeek/Ollama and agent workflows. SQLite + FTS5 compact context packs, token savings, read",
+  "version": "1.0.0",
+  "author": "MarceloCaporale",
+  "homepage": "https://github.com/MarceloCaporale/codex-agent-mem",
+  "skills": []
+}
