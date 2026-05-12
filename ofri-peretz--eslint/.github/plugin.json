@@ -1,0 +1,9 @@
+{
+  "name": "ofri-peretz--eslint",
+  "displayName": "eslint",
+  "description": "Modern TypeScript ESLint plugin development framework with monorepo tooling",
+  "version": "1.0.0",
+  "author": "ofri-peretz",
+  "homepage": "https://github.com/ofri-peretz/eslint",
+  "skills": []
+}
