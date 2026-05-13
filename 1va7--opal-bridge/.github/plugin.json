@@ -1,0 +1,9 @@
+{
+  "name": "1va7--opal-bridge",
+  "displayName": "opal-bridge",
+  "description": "Cross-agent session translator (Claude Code <-> Codex CLI)",
+  "version": "1.0.0",
+  "author": "1va7",
+  "homepage": "https://github.com/1va7/opal-bridge",
+  "skills": []
+}
