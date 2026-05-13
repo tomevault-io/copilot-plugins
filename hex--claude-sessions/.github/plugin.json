@@ -1,0 +1,9 @@
+{
+  "name": "hex--claude-sessions",
+  "displayName": "claude-sessions",
+  "description": "Session manager for Claude Code with automatic documentation and artifact tracking",
+  "version": "1.0.0",
+  "author": "hex",
+  "homepage": "https://github.com/hex/claude-sessions",
+  "skills": []
+}
