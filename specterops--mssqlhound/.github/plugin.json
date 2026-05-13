@@ -1,0 +1,9 @@
+{
+  "name": "specterops--mssqlhound",
+  "displayName": "MSSQLHound",
+  "description": "Go (formerly PowerShell) collector for adding MSSQL attack paths to BloodHound with OpenGraph",
+  "version": "1.0.0",
+  "author": "SpecterOps",
+  "homepage": "https://github.com/SpecterOps/MSSQLHound",
+  "skills": []
+}
