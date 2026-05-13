@@ -1,9 +1,9 @@
 {
   "name": "masrurimz--betterz-stack",
   "displayName": "betterz-stack",
-  "description": "betterz-stack",
+  "description": "A modern, opinionated full-stack TypeScript template with TanStack Start, oRPC, Drizzle ORM, and Clean Architecture patterns",
   "version": "1.0.0",
   "author": "masrurimz",
-  "homepage": "https://tomevault.io/claim/masrurimz",
+  "homepage": "https://github.com/masrurimz/betterz-stack",
   "skills": []
 }
