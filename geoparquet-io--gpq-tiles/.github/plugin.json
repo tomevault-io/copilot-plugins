@@ -1,0 +1,9 @@
+{
+  "name": "geoparquet-io--gpq-tiles",
+  "displayName": "gpq-tiles",
+  "description": "A prototype of GeoParquet to PMTiles in Rust",
+  "version": "1.0.0",
+  "author": "geoparquet-io",
+  "homepage": "https://github.com/geoparquet-io/gpq-tiles",
+  "skills": []
+}
