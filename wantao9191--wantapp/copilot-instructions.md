@@ -1,45 +1,57 @@
-## antd-usage
+## api-development
 
-> Ant Design 组件使用规范
+> API 路由开发规范
 
 
-# Ant Design 使用规范
+# API 路由开发规范
 
-## 主题配置
+## 路由结构
 
-项目使用自定义 Ant Design 主题，配置在 [src/lib/antd-config.ts](mdc:src/lib/antd-config.ts)：
+API 路由遵循 RESTful 设计：
 
-- 主色调: `#1890ff`
-- 圆角: `6px`
-- 禁用线框模式
+- `GET /api/admin/users` - 获取用户列表
+- `POST /api/admin/users` - 创建用户
+- `GET /api/admin/users/[id]` - 获取单个用户
+- `PUT /api/admin/users/[id]` - 更新用户
+- `DELETE /api/admin/users/[id]` - 删除用户
 
-## 组件使用
+## 认证中间件
 
-- 所有 Ant Design 组件必须通过 `@ant-design/nextjs-registry` 包装
-- 使用 `ConfigProvider` 应用主题
-- 优先使用 Ant Design 的 Form 组件进行表单处理
-- 使用 `App` 组件包装以支持全局配置
+所有受保护的 API 路由都会经过 [src/middleware.ts](mdc:src/middleware.ts) 认证：
 
-## 布局组件
+- 检查 `Authorization: Bearer <token>` 头
+- 验证 JWT token 有效性
+- 公共 API 路径无需认证
 
-项目包含自定义布局组件：
+## 响应格式
 
-- `BasicLayout` - 基础布局容器
-- `BasicHeader` - 顶部导航
-- `BasicAside` - 侧边栏
-- `BasicTabs` - 标签页管理
+统一使用以下响应格式：
 
-## 表单处理
+```typescript
+{
+  code: number,      // HTTP 状态码
+  message: string,   // 响应消息
+  data: any | null   // 响应数据
+}
+```
 
-- 使用 `Form.Item` 包装表单字段
-- 使用 `FormItemRenderer` 进行动态表单渲染
-- 表单验证使用 Zod 进行类型安全验证
+## 错误处理
 
-## 图标使用
+- 使用 `createErrorResponse` 创建错误响应
+- 根据错误类型返回相应的 HTTP 状态码
+- 记录详细的错误日志用于调试
 
-- 使用 `@ant-design/icons` 提供的图标
-- 自定义图标放在 `AppIcons` 组件中
-- 支持 UnoCSS 图标预设
+## 数据库操作
+
+- 使用 Drizzle ORM 进行数据库操作
+- 所有数据库操作都要进行错误处理
+- 使用事务处理复杂的数据操作
+
+## CORS 配置
+
+- 开发环境允许所有源 (`*`)
+- 生产环境限制允许的源
+- 支持预检请求 (OPTIONS)
 
 ---
 > Source: [wantao9191/wantapp](https://github.com/wantao9191/wantapp) — distributed by [TomeVault](https://tomevault.io).
