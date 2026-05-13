@@ -1,0 +1,9 @@
+{
+  "name": "andyzengmath--quantum-loop",
+  "displayName": "quantum-loop",
+  "description": "Spec-driven autonomous development loop for Claude Code. Combines structured PRD generation, dependency DAG execution, two-stage review gates, and Iron Law verification.",
+  "version": "1.0.0",
+  "author": "andyzengmath",
+  "homepage": "https://github.com/andyzengmath/quantum-loop",
+  "skills": []
+}
