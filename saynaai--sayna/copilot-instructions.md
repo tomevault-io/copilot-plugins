@@ -1,364 +1,284 @@
-## rust
+## sayna
 
-> Comprehensive best practices for Rust development (Edition 2024)
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Rust Best Practices (2024-2025)
+# CLAUDE.md
 
-This document outlines a comprehensive set of best practices for Rust development, covering various aspects from code organization to security and tooling. Adhering to these guidelines will help you write idiomatic, efficient, secure, and maintainable Rust code.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-**Note:** This project uses **Rust Edition 2024** (released Feb 2025 with Rust 1.85).
+## Project Overview
 
-## 1. Code Organization and Structure
+Sayna is a real-time voice processing server built in Rust that provides unified Speech-to-Text (STT) and Text-to-Speech (TTS) services through WebSocket and REST APIs. It integrates with LiveKit for real-time audio streaming and includes advanced noise filtering using DeepFilterNet.
 
-### 1.1. Directory Structure
+## Development Commands
 
--   **`src/`**: Contains all the Rust source code.
-    -   **`main.rs`**: The entry point for binary crates.
-    -   **`lib.rs`**: The entry point for library crates.
-    -   **`bin/`**:  Contains source files for multiple binary executables within the same project.  Each file in `bin/` will be compiled into a separate executable.
-    -   **`modules/` or `components/`**: (Optional)  For larger projects, group related modules or components into subdirectories. Use descriptive names.
-    -   **`tests/`**:  Integration tests. (See Testing section below for more details.)
-    -   **`examples/`**: Example code that demonstrates how to use the library.
--   **`benches/`**: Benchmark tests (using `criterion` or similar).
--   **`Cargo.toml`**: Project manifest file.
--   **`Cargo.lock`**: Records the exact versions of dependencies used. **Do not manually edit.**
--   **`.gitignore`**: Specifies intentionally untracked files that Git should ignore.
--   **`README.md`**: Project documentation, including usage instructions, build instructions, and license information.
+```bash
+cargo run                    # Run development server
+cargo run -- -c config.yaml  # Run with YAML config file
+cargo test                   # Run all tests
+cargo test test_name         # Run specific test
+cargo build --release        # Build for release
+cargo check                  # Check without building
+cargo fmt                    # Format code
+cargo clippy                 # Run linter
+docker build -t saynaai/sayna .      # Build Docker image
+```
 
+### Feature Flags
+By default, no optional features are enabled.
 
-sayna/
-├── Cargo.toml
-├── Cargo.lock
-├── src/
-│   ├── main.rs         # Entry point for a binary crate
-│   ├── lib.rs          # Entry point for a library crate
-│   ├── modules/
-│   │   ├── module_a.rs # A module within the crate
-│   │   └── module_b.rs # Another module
-│   └── bin/
-│       ├── cli_tool.rs # A separate binary executable
-│       └── worker.rs   # Another binary executable
-├── tests/
-│   └── integration_test.rs # Integration tests
-├── benches/
-│   └── my_benchmark.rs # Benchmark tests using Criterion
-├── examples/
-│   └── example_usage.rs # Example code using the library
-├── README.md
+- `stt-vad` (disabled by default): Silero-VAD voice activity detection with integrated ONNX-based turn detection. When enabled, VAD monitors audio for silence and triggers the turn detection model to confirm if the speaker's turn is complete.
+- `noise-filter` (disabled by default): DeepFilterNet noise suppression. Disable to reduce dependencies.
+- `openapi` (disabled by default): OpenAPI 3.1 specification generation using utoipa crate.
 
+```bash
+cargo check                                        # Default build, no optional features
+cargo check --no-default-features                  # Explicitly disable optional features
+cargo build --features stt-vad                     # Enable VAD with turn detection
+cargo build --features stt-vad,openapi             # Enable specific features
+cargo run --features openapi -- openapi -o docs/openapi.yaml  # Generate OpenAPI spec
+```
 
-### 1.2. File Naming Conventions
+## High-Level Architecture
 
--   Rust source files use the `.rs` extension.
--   Module files (e.g., `module_a.rs`) should be named after the module they define.
--   Use snake_case for file names (e.g., `my_module.rs`).
+### Development Rules
 
-### 1.3. Module Organization
+The codebase includes detailed development rules in `.cursor/rules/`:
+- **`rust.mdc`**: Rust best practices, design patterns, performance, security, testing
+- **`core.mdc`**: STT/TTS provider abstractions (`BaseSTT`, `TTSProvider` traits)
+- **`axum.mdc`**: Axum framework patterns for WebSocket and REST APIs
+- **`livekit.mdc`**: LiveKit integration patterns and WebSocket API details
+- **`openapi.mdc`**: OpenAPI 3.1 documentation guidelines using utoipa
 
--   Use modules to organize code into logical units.
--   Declare modules in `lib.rs` or `main.rs` using the `mod` keyword.
--   Use `pub mod` to make modules public.
--   Create separate files for each module to improve readability and maintainability.
--   Use `use` statements to bring items from other modules into scope.
+Always consult these rule files when implementing new features.
 
-```rust
-// lib.rs
+### Core Components
 
-pub mod my_module;
+1. **VoiceManager** (`src/core/voice_manager/`): Central coordinator for STT/TTS
+   - Manages provider lifecycle and switching
+   - Thread-safe with `Arc<RwLock<>>` for concurrent access
+   - Handles callbacks for STT results and audio output
 
-mod internal_module; // Not public
+2. **Provider System** (`src/core/stt/` and `src/core/tts/`):
+   - Trait-based abstraction for pluggable providers
+   - **STT**: Deepgram, Google (gRPC), ElevenLabs, Microsoft Azure, Cartesia
+   - **TTS**: Deepgram, ElevenLabs, Google, Microsoft Azure, Cartesia
 
+3. **WebSocket Handler** (`src/handlers/ws/`):
+   - Real-time bidirectional communication at `/ws`
+   - Processes audio streams, config updates, control messages
 
-rust
-// my_module.rs
+4. **LiveKit Integration** (`src/livekit/`):
+   - WebRTC audio streaming with room/participant management
+   - Audio track subscription and data message forwarding
 
-pub fn my_function() {
-    //...
+5. **DeepFilterNet** (`src/utils/noise_filter.rs`):
+   - Advanced noise reduction with thread pool for CPU-intensive operations
+
+6. **Authentication** (`src/auth/` and `src/middleware/auth.rs`):
+   - Optional JWT-based auth with external validation service
+
+7. **VAD + Turn Detection** (`src/core/vad/`, `src/core/turn_detect/`) - Feature-gated: `stt-vad`:
+   - **SileroVAD**: ONNX-based voice activity detection model
+   - **SilenceTracker**: Tracks continuous silence duration from VAD
+   - **Turn Detection**: ONNX-based model that confirms turn completion when silence is detected
+   - Integrates with VoiceManager for audio processing
+   - VAD and turn detection are always bundled together under `stt-vad` feature
+
+### Voice Activity Detection (VAD) with Turn Detection
+
+When `stt-vad` feature is enabled, Sayna provides both Silero-VAD for audio-level silence detection and smart-turn v3 model for semantic turn detection. Both features are always bundled together under the `stt-vad` feature flag.
+
+**Why Use Both VAD and Smart-Turn?**
+
+VAD (Silero) provides:
+- Fast, efficient silence detection (~2ms per frame)
+- Low latency feedback on speech activity
+- Immediate signal when user stops speaking
+
+Smart-Turn provides:
+- Semantic understanding of turn completion
+- Higher accuracy (>90% for most languages)
+- Context-aware decision making
+
+**Combined Pattern**: VAD detects silence first (fast, cheap), then smart-turn confirms if the turn is semantically complete (more accurate, slightly slower). This two-stage approach provides both speed and accuracy.
+
+**How it works:**
+```
+Audio In -> VAD -> SilenceTracker -> TurnEnd Event -> Smart-Turn -> speech_final
+                         ^                               |
+                         |                               |
+                         +-- If false, reset and wait ---+
+```
+
+1. Audio frames are processed through Silero-VAD ONNX model
+2. When configurable silence threshold (default: 200ms per PipeCat recommendation) is detected, the smart-turn model is triggered
+3. The smart-turn model analyzes the accumulated audio to confirm if the turn is complete
+4. If confirmed, an artificial `speech_final` event is emitted
+5. If smart-turn returns false (turn incomplete), the system resets and waits for the next silence detection
+
+**Smart-Turn Model:**
+- Model: [pipecat-ai/smart-turn-v3](https://huggingface.co/pipecat-ai/smart-turn-v3)
+- Version: `smart-turn-v3.2-cpu.onnx` (quantized int8)
+- Input: Up to 8 seconds of 16kHz mono PCM audio (minimum 0.5 seconds required)
+- Input Format: Mel spectrogram (1, 80, 800) via Whisper-style preprocessing
+- Output: Probability that the speaker has finished their turn (0.0-1.0)
+- Architecture: Whisper Tiny encoder + linear classifier (~8M parameters)
+- Performance: Feature extraction ~10-30ms + model inference ~12-20ms = ~50ms total (release build)
+
+**Filler Sound Handling:**
+- Smart-Turn v2/v3 is explicitly trained on filler words ("um", "mmm", "ehhh")
+- The model recognizes these as "user still thinking" patterns
+- Audio buffer is preserved across speech pauses for full context analysis
+- Minimum 0.5 seconds of audio required before turn detection runs
+
+**Mel Spectrogram Parameters (Whisper Standard):**
+- Sample Rate: 16000 Hz
+- FFT Size: 400
+- Hop Length: 160
+- Mel Bins: 80
+- Max Frames: 800 (8 seconds)
+
+**Configuration:**
+```yaml
+vad:
+  threshold: 0.5              # Speech probability threshold for VAD (0.0-1.0)
+  silence_duration_ms: 200    # Silence duration to trigger turn detection (PipeCat: stop_secs=0.2)
+  min_speech_duration_ms: 250 # Minimum speech before checking silence (filters filler sounds)
+
+turn_detect:
+  threshold: 0.6              # Turn completion probability threshold (0.0-1.0), increased for robustness
+  num_threads: 4              # ONNX inference threads (default: 4)
+  # Advanced options (rarely need changing):
+  # model_path: /path/to/model.onnx  # Override model location
+  # model_url: https://...           # Override download URL
+  # use_quantized: true              # Use int8 quantized model (default: true)
+```
+
+> **Note:** When `stt-vad` is compiled, VAD and turn detection are always active. There is no runtime `enabled` toggle.
+
+**WebSocket API:**
+```json
+{
+  "type": "config",
+  "vad": {
+    "silence_duration_ms": 200
+  }
 }
 ```
 
-### 1.4. Component Architecture
+### Request Flow
 
--   For larger applications, consider using a component-based architecture.
--   Each component should be responsible for a specific part of the application's functionality.
--   Components should communicate with each other through well-defined interfaces (traits).
--   Consider using dependency injection to decouple components and improve testability.
+1. Client connects to `/ws` WebSocket endpoint
+2. Client sends config with provider selection
+3. Server sends `Ready` message with `stream_id` and LiveKit room info
+4. Audio processing: Incoming audio → DeepFilterNet (optional) → STT → Text
+5. TTS: Text → TTS Provider → Audio → Client
+6. For LiveKit: Call `POST /livekit/token` to get participant token
 
-### 1.5. Code Splitting Strategies
+### Key Design Patterns
 
--   Split code into smaller, reusable modules.
--   Use feature flags to conditionally compile code for different platforms or features.
--   Consider using dynamic linking (if supported by your target platform) to reduce binary size.
+- **Factory Pattern**: Provider creation through factory functions
+- **Observer Pattern**: Callback registration for STT/TTS events
+- **Singleton Pattern**: Lazy static for DeepFilterNet model
+- **Actor Pattern**: Message passing for WebSocket communication
 
-## 2. Common Patterns and Anti-patterns
+## Configuration
 
-### 2.1. Design Patterns
+See [config.example.yaml](config.example.yaml) for all available options.
 
--   **Builder Pattern**: For constructing complex objects with many optional parameters.
--   **Factory Pattern**: For creating objects without specifying their concrete types.
--   **Observer Pattern**: For implementing event-driven systems.
--   **Strategy Pattern**: For selecting algorithms at runtime.
--   **Visitor Pattern**: For adding new operations to existing data structures without modifying them.
+**Priority**: YAML File > Environment Variables > .env File > Defaults
 
-### 2.2. Recommended Approaches for Common Tasks
+Key environment variables:
+- `DEEPGRAM_API_KEY`, `ELEVENLABS_API_KEY`, `CARTESIA_API_KEY`
+- `GOOGLE_APPLICATION_CREDENTIALS` (path to service account JSON)
+- `AZURE_SPEECH_SUBSCRIPTION_KEY`, `AZURE_SPEECH_REGION`
+- `LIVEKIT_URL`, `LIVEKIT_API_KEY`, `LIVEKIT_API_SECRET`
+- `AUTH_REQUIRED`, `AUTH_SERVICE_URL`, `AUTH_SIGNING_KEY_PATH`
 
--   **Data Structures**: Use `Vec` for dynamic arrays, `HashMap` for key-value pairs, `HashSet` for unique elements, `BTreeMap` and `BTreeSet` for sorted collections.
--   **Concurrency**: Use `Arc` and `Mutex` for shared mutable state, channels for message passing, and the `rayon` crate for data parallelism.
--   **Asynchronous Programming**: Use `async` and `await` for writing asynchronous code.
--   **Error Handling**: Use the `Result` type for recoverable errors and `panic!` for unrecoverable errors.
+## Adding New Providers
 
-### 2.3. Anti-patterns and Code Smells
+### STT Providers
 
--   **Unnecessary Cloning**: Avoid cloning data unless it is absolutely necessary. Use references instead.
--   **Excessive `unwrap()` Calls**: Handle errors properly instead of using `unwrap()`, which can cause the program to panic.
--   **Overuse of `unsafe`**: Minimize the use of `unsafe` code and carefully review any unsafe code to ensure it is correct.
--   **Ignoring Compiler Warnings**: Treat compiler warnings as errors and fix them.
--   **Premature Optimization**: Focus on writing clear, correct code first, and then optimize only if necessary.
+1. Implement `BaseSTT` trait in `src/core/stt/`
+2. Create provider-specific config struct
+3. Add factory function following existing pattern
+4. Register in `src/core/stt/mod.rs` (enum + factory)
+5. Add tests
 
-### 2.4. State Management
+### TTS Providers
 
--   **Immutability by Default**: Prefer immutable data structures and functions that return new values instead of modifying existing ones.
--   **Ownership and Borrowing**: Use Rust's ownership and borrowing system to manage memory and prevent data races.
--   **Interior Mutability**: Use `Cell`, `RefCell`, `Mutex`, and `RwLock` for interior mutability when necessary, but be careful to avoid data races.
+1. Implement `TTSProvider` trait in `src/core/tts/`
+2. Add factory function
+3. Update `VoiceManager` configuration support
+4. Add tests
 
-### 2.5. Error Handling
+See existing implementations for patterns:
+- WebSocket-based: Deepgram, ElevenLabs, Cartesia, Azure
+- gRPC-based: Google
 
--   **`Result<T, E>`**: Use `Result` to represent fallible operations. `T` is the success type, and `E` is the error type.
--   **`Option<T>`**: Use `Option` to represent the possibility of a missing value. `Some(T)` for a value, `None` for no value.
--   **`?` Operator**: Use the `?` operator to propagate errors up the call stack.
--   **Custom Error Types**: Define custom error types using enums or structs to provide more context about errors.
--   **`anyhow` and `thiserror` Crates**: Consider using the `anyhow` crate for simple error handling and the `thiserror` crate for defining custom error types.
+## API Endpoints
 
-## 3. Performance Considerations
+### REST
+- `GET /` - Health check (public)
+- `GET /voices` - List TTS voices
+- `POST /speak` - Generate speech from text
+- `POST /livekit/token` - Generate LiveKit participant token
+- `GET /recording/{stream_id}` - Download recording from S3
+- `GET/POST /sip/hooks` - Manage SIP webhook hooks
 
-### 3.1. Optimization Techniques
+### WebSocket
+- `/ws` - Real-time voice processing
+  - Receives: Config, audio data, speak commands, **clear command**, send_message, sip_transfer
+  - Sends: Ready, STT results, TTS audio, messages, participant_connected, participant_disconnected, track_subscribed, tts_playback_complete, vad_event, error, sip_transfer_error
+  - **Clear command**: Immediately stops TTS and clears audio buffers (fire-and-forget, respects `allow_interruption` setting)
 
--   **Profiling**: Use profiling tools to identify performance bottlenecks:
-    -   **Samply**: Modern profiler with Firefox Profiler UI (recommended for 2024+)
-    -   **pprof-rs**: CPU profiler with Criterion integration
-    -   **cargo-flamegraph**: Classic flamegraph generation
-    -   **Bytehound**: Best available memory profiling tool for Rust
-    -   **DHAT/dhat-rs**: Memory profiling and allocation tracking
--   **Benchmarking**: Use benchmarking tools to measure performance:
-    -   **Divan**: Modern go-to benchmark framework (simpler API than Criterion)
-    -   **Criterion**: Mature statistical benchmarking
-    -   **Iai-Callgrind**: Instruction-count based (reliable in CI environments)
--   **Zero-Cost Abstractions**: Leverage Rust's zero-cost abstractions, such as iterators, closures, and generics.
--   **Inlining**: Use the `#[inline]` attribute to encourage the compiler to inline functions.
--   **LTO (Link-Time Optimization)**: Enable LTO to improve performance by optimizing across crate boundaries.
+### Webhooks
+- `POST /livekit/webhook` - LiveKit event receiver (signature verified)
 
-### 3.2. Memory Management
+See [docs/](docs/) for detailed API documentation.
 
--   **Minimize Allocations**: Reduce the number of allocations and deallocations by reusing memory and using stack allocation when possible.
--   **Avoid Copying Large Data Structures**: Use references or smart pointers to avoid copying large data structures.
--   **Use Efficient Data Structures**: Choose the right data structure for the job based on its performance characteristics.
--   **Consider `Box` and `Rc`**: `Box` for single ownership heap allocation, `Rc` and `Arc` for shared ownership (latter thread-safe).
+## Critical Files
 
-### 3.3. Rendering Optimization
+- `src/core/voice_manager/manager.rs`: Central voice processing orchestration
+- `src/core/voice_manager/stt_result.rs`: STT result processing with VAD integration
+- `src/core/vad/detector.rs`: Silero-VAD detector (feature-gated: `stt-vad`)
+- `src/core/vad/silence_tracker.rs`: Silence duration tracking for turn detection
+- `src/core/turn_detect/assets.rs`: Model download and hash verification for smart-turn (feature-gated: `stt-vad`)
+- `src/core/turn_detect/config.rs`: Configuration and constants for smart-turn detection
+- `src/core/turn_detect/detector.rs`: Smart-turn audio-based turn detection (feature-gated: `stt-vad`)
+- `src/core/turn_detect/feature_extractor.rs`: Mel spectrogram extraction for smart-turn (feature-gated: `stt-vad`)
+- `src/core/turn_detect/model_manager.rs`: ONNX model management for smart-turn (feature-gated: `stt-vad`)
+- `src/handlers/ws/handler.rs`: WebSocket message handling
+- `src/livekit/manager.rs`: LiveKit room management
+- `src/config/mod.rs`: Configuration loading and merging
+- `src/errors/mod.rs`: Centralized error types (thiserror)
+- `src/docs/openapi.rs`: OpenAPI spec generation (feature-gated: `openapi`)
 
--   **(Relevant if the Rust application involves rendering, e.g., a game or GUI)**
--   **Batch draw calls**: Combine multiple draw calls into a single draw call to reduce overhead.
--   **Use efficient data structures**: Use data structures that are optimized for rendering, such as vertex buffers and index buffers.
--   **Profile rendering performance**: Use profiling tools to identify rendering bottlenecks.
+## Testing
 
-### 3.4. Bundle Size Optimization
-
--   **Strip Debug Symbols**: Remove debug symbols from release builds to reduce binary size.
--   **Enable LTO**: LTO can also reduce binary size by removing dead code.
--   **Use `minisize` Profile**: Create a `minisize` profile in `Cargo.toml` for optimizing for size.
--   **Avoid Unnecessary Dependencies**: Only include the dependencies that are absolutely necessary.
-
-### 3.5. Lazy Loading
-
--   **Load Resources on Demand**: Load resources (e.g., images, sounds, data files) only when they are needed.
--   **Use a Loading Screen**: Display a loading screen while resources are being loaded.
--   **Consider Streaming**: Stream large resources from disk or network instead of loading them all at once.
-
-## 4. Security Best Practices
-
-### 4.1. Security Auditing Tools
-
--   **cargo-audit**: Audit dependencies for known vulnerabilities (uses RustSec Advisory Database)
-    ```bash
-    cargo install cargo-audit
-    cargo audit
-    ```
--   **cargo-deny**: Check dependencies for licenses, bans, and advisories
--   Run security audits in CI pipelines and pre-commit hooks
-
-### 4.2. Common Vulnerabilities
-
--   **Buffer Overflows**: Prevent buffer overflows by using safe indexing methods (e.g., `get()`, `get_mut()`) and validating input sizes.
--   **SQL Injection**: Prevent SQL injection by using parameterized queries and escaping user input.
--   **Cross-Site Scripting (XSS)**: Prevent XSS by escaping user input when rendering HTML.
--   **Command Injection**: Prevent command injection by avoiding the use of `std::process::Command` with user-supplied arguments.
--   **Denial of Service (DoS)**: Protect against DoS attacks by limiting resource usage (e.g., memory, CPU, network connections).
--   **Integer Overflows**: Use `checked_add`, `checked_sub`, `checked_mul`, etc. Enable `overflow-checks = true` in Cargo.toml for release builds.
--   **Use-After-Free**:  Rust's ownership system largely prevents this, but be cautious when using `unsafe` code or dealing with raw pointers.
--   **Data Races**:  Avoid data races by using appropriate synchronization primitives (`Mutex`, `RwLock`, channels).
--   **Uninitialized Memory**: Rust generally initializes memory, but `unsafe` code can bypass this.  Be careful when working with uninitialized memory.
-
-### 4.3. Input Validation
-
--   **Validate All Input**: Validate all input from external sources, including user input, network data, and file contents.
--   **Use a Whitelist Approach**: Define a set of allowed values and reject any input that does not match.
--   **Sanitize Input**: Remove or escape any potentially dangerous characters from input.
--   **Limit Input Length**: Limit the length of input strings to prevent buffer overflows.
--   **Check Data Types**: Ensure that input data is of the expected type.
-
-## 5. Testing Approaches
-
-### 5.1. Unit Testing
-
--   **Test Individual Units of Code**: Write unit tests to verify the correctness of individual functions, modules, and components.
--   **Use the `#[test]` Attribute**: Use the `#[test]` attribute to mark functions as unit tests.
--   **Use `assert!` and `assert_eq!`**: Use `assert!` and `assert_eq!` macros to check that the code behaves as expected.
--   **Test Driven Development (TDD)**: Consider writing tests before writing code.
--   **Table-Driven Tests**:  Use parameterized tests or table-driven tests for testing multiple scenarios with different inputs.
-
-### 5.1.1. Modern Testing Tools
-
--   **cargo-nextest**: Next-generation test runner with better performance and output
--   **rstest**: Fixture-based testing (like pytest fixtures) with `#[rstest]` macro
--   **proptest**: Property-based testing with automatic shrinking
--   **QuickCheck**: Alternative property-based testing framework
-
-```rust
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_add() {
-        assert_eq!(add(2, 3), 5);
-    }
-}
+```bash
+cargo test                          # All tests
+cargo test test_name                # Specific test
+cargo test -- --nocapture           # With output
+cargo test --features stt-vad       # Tests including VAD feature tests
 ```
 
+- Unit tests: Embedded in modules using `#[cfg(test)]`
+- Integration tests: In `/tests/` directory
+- Use `#[tokio::test]` for async tests
 
-### 5.2. Integration Testing
+## OpenAPI Documentation
 
--   **Test Interactions Between Components**: Write integration tests to verify that different components of the application work together correctly.
--   **Create a `tests/` Directory**: Place integration tests in a `tests/` directory at the root of the project.
--   **Use Separate Test Files**: Create separate test files for each integration test.
+```bash
+# Generate YAML spec
+cargo run --features openapi -- openapi -o docs/openapi.yaml
 
-### 5.3. End-to-End Testing
+# Generate JSON spec
+cargo run --features openapi -- openapi --format json -o docs/openapi.json
+```
 
--   **Test the Entire Application**: Write end-to-end tests to verify that the entire application works as expected.
--   **Use a Testing Framework**: Use a testing framework (e.g., `cucumber`, `selenium`) to automate end-to-end tests.
--   **Test User Flows**: Test common user flows to ensure that the application is usable.
-
-### 5.4. Test Organization
-
--   **Group Tests by Functionality**: Organize tests into modules and submodules based on the functionality they test.
--   **Use Descriptive Test Names**: Use descriptive test names that clearly indicate what the test is verifying.
--   **Keep Tests Separate from Production Code**: Keep tests in separate files and directories to avoid cluttering the production code.
--   **Run tests frequently**: Integrate tests into your development workflow and run them frequently to catch errors early.
-
-### 5.5. Mocking and Stubbing
-
--   **Use Mocking Libraries**: Use mocking libraries (e.g., `mockall`, `mockito`) to create mock objects for testing.
--   **Use Traits for Interfaces**: Define traits for interfaces to enable mocking and stubbing.
--   **Avoid Global State**: Avoid global state to make it easier to mock and stub dependencies.
-
-## 6. Common Pitfalls and Gotchas
-
-### 6.1. Frequent Mistakes
-
--   **Borrowing Rules**: Misunderstanding Rust's borrowing rules can lead to compile-time errors. Ensure you understand ownership, borrowing, and lifetimes.
--   **Move Semantics**: Be aware of move semantics and how they affect ownership. Data is moved by default, not copied.
--   **Lifetime Annotations**: Forgetting lifetime annotations can lead to compile-time errors. Annotate lifetimes when necessary.
--   **Error Handling**: Not handling errors properly can lead to unexpected panics. Use `Result` and the `?` operator to handle errors gracefully.
--   **Unsafe Code**: Overusing or misusing `unsafe` code can lead to undefined behavior and security vulnerabilities.
-
-### 6.2. Edge Cases
-
--   **Integer Overflow**: Be aware of integer overflow and use checked arithmetic methods to prevent it.
--   **Unicode**: Handle Unicode characters correctly to avoid unexpected behavior.
--   **File Paths**: Handle file paths correctly, especially when dealing with different operating systems.
--   **Concurrency**: Be careful when writing concurrent code to avoid data races and deadlocks.
-
-### 6.3. Version-Specific Issues
-
--   **Check Release Notes**: Review the release notes for new versions of Rust to identify any breaking changes or new features that may affect your code.
--   **Use `rustup`**: Use `rustup` to manage multiple versions of Rust.
--   **Update Dependencies**: Keep your dependencies up to date to take advantage of bug fixes and new features.
-
-### 6.4. Compatibility Concerns
-
--   **C Interoperability**: Be careful when interacting with C code to avoid undefined behavior.
--   **Platform-Specific Code**: Use conditional compilation to handle platform-specific code.
--   **WebAssembly**: Be aware of the limitations of WebAssembly when targeting the web.
-
-### 6.5. Debugging Strategies
-
--   **Use `println!`**: Use `println!` statements for quick debugging (remove before committing).
--   **Use a Debugger**: Use a debugger (e.g., `gdb`, `lldb`) to step through the code and inspect variables.
--   **Use `assert!`**: Use `assert!` to check that the code behaves as expected.
--   **Use Structured Logging**: Prefer `tracing` over `log` for structured, async-aware logging:
-    -   Use `#[instrument]` macro to automatically capture function arguments
-    -   Use `tracing-subscriber` for log formatting and filtering
-    -   Configure via `RUST_LOG` environment variable
-    -   Integrate with OpenTelemetry via `tracing-opentelemetry` for production observability
--   **Clippy**: Use Clippy to catch common mistakes and improve code quality.
--   **Profiling**: Use Samply or cargo-flamegraph to profile and visualize the execution of your code.
-
-## 7. Tooling and Environment
-
-### 7.1. Recommended Development Tools
-
--   **Rustup**: For managing Rust toolchains and versions.
--   **Cargo**: The Rust package manager and build tool.
--   **IDE/Editor**: VS Code with the rust-analyzer extension, IntelliJ Rust, or other editors with Rust support.
--   **Clippy**: A linter for Rust code.
--   **Rustfmt**: A code formatter for Rust code.
--   **Cargo-edit**: A utility for easily modifying `Cargo.toml` dependencies.
--   **Cargo-watch**: Automatically runs tests on file changes.
--   **lldb or GDB**: Debuggers for Rust applications.
-
-### 7.2. Build Configuration
-
--   **Use `Cargo.toml`**: Configure build settings, dependencies, and metadata in the `Cargo.toml` file.
--   **Use Profiles**: Define different build profiles for development, release, and testing.
--   **Feature Flags**: Use feature flags to conditionally compile code for different platforms or features.
-
-toml
-[package]
-name = "sayna"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-serde = { version = "1.0", features = ["derive"] }
-
-[dev-dependencies]
-rand = "0.8"
-
-[features]
-default = ["serde"] # 'default' feature enables 'serde'
-expensive_feature = []
-
-[profile.release]
-opt-level = 3
-debug = false
-lto = true
-
-
-### 7.3. Linting and Formatting
-
--   **Use Clippy**: Use Clippy to catch common mistakes and enforce coding standards.
--   **Use Rustfmt**: Use Rustfmt to automatically format code according to the Rust style guide.
--   **Configure Editor**: Configure your editor to automatically run Clippy and Rustfmt on save.
--   **Pre-commit Hooks**: Set up pre-commit hooks to run Clippy and Rustfmt before committing code.
-
-# Run Clippy
-cargo clippy
-
-# Run Rustfmt
-cargo fmt
-
-
-By following these best practices, you can write high-quality Rust code that is efficient, secure, and maintainable. Remember to stay up-to-date with the latest Rust features and best practices to continuously improve your skills and knowledge.
+See `.cursor/rules/openapi.mdc` for annotation guidelines.
 
 ---
 > Source: [SaynaAI/sayna](https://github.com/SaynaAI/sayna) — distributed by [TomeVault](https://tomevault.io).
