@@ -1,0 +1,9 @@
+{
+  "name": "outlinersclub-cpu--tradingview-gratis",
+  "displayName": "tradingview-gratis",
+  "description": "Clon open-source de TradingView para crypto. Construido con Next.js + lightweight-charts + Binance WebSocket. Alternativa gratis a TradingView Pro pensada para LATAM.",
+  "version": "1.0.0",
+  "author": "outlinersclub-cpu",
+  "homepage": "https://github.com/outlinersclub-cpu/tradingview-gratis",
+  "skills": []
+}
