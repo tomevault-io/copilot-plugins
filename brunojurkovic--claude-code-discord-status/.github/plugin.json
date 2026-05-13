@@ -1,0 +1,9 @@
+{
+  "name": "brunojurkovic--claude-code-discord-status",
+  "displayName": "claude-code-discord-status",
+  "description": "Show what Claude Code is doing as a live Discord Rich Presence card. Tracks sessions, displays current activity, and gets hilariously unhinged when you're running multiple instances.",
+  "version": "1.0.0",
+  "author": "BrunoJurkovic",
+  "homepage": "https://github.com/BrunoJurkovic/claude-code-discord-status",
+  "skills": []
+}
