@@ -1,0 +1,9 @@
+{
+  "name": "akvise--trends-checker",
+  "displayName": "trends-checker",
+  "description": " Python CLI for Google Trends analysis with advanced rate limiting, cookie auth, and   beautiful terminal output. Built on pytrends with enterprise features.",
+  "version": "1.0.0",
+  "author": "akvise",
+  "homepage": "https://github.com/akvise/trends-checker",
+  "skills": []
+}
