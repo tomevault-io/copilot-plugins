@@ -2,9 +2,9 @@
   "name": "filesql",
   "owner": "nao1215",
   "repo": "filesql",
-  "description": "",
+  "description": "sql driver for CSV, TSV, LTSV, JSON, Parquet, Excel with gzip, bzip2, xz, zstd support.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/nao1215",
+  "source_url": "https://github.com/nao1215/filesql",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T10:46:23Z"
+  "distributed_at": "2026-05-13T07:12:39Z"
 }
