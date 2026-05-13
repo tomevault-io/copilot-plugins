@@ -7,11 +7,11 @@ A privacy-focused web UI for LLMs (OpenAI-compatible APIs and Ollama) designed t
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nwtgck/naidan](https://github.com/nwtgck/naidan).
+Original source: `CLAUDE.md` in [nwtgck/naidan](https://github.com/nwtgck/naidan).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
