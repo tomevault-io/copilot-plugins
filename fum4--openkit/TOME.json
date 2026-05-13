@@ -4,7 +4,7 @@
   "repo": "openkit",
   "description": "The platform for your agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fum4/openkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T17:36:31Z"
+  "distributed_at": "2026-05-13T05:11:34Z"
 }
