@@ -1,0 +1,9 @@
+{
+  "name": "alex-jb--orallexa-ai-trading-agent",
+  "displayName": "orallexa-ai-trading-agent",
+  "description": "Self-tuning multi-agent AI trading system. 8-source signal fusion (Polymarket + Kalshi + 10 ML models incl. Kronos foundation model), Bull/Bear/Judge debate on Claude Opus 4.7, Portfolio Manager gate.",
+  "version": "1.0.0",
+  "author": "alex-jb",
+  "homepage": "https://github.com/alex-jb/orallexa-ai-trading-agent",
+  "skills": []
+}
