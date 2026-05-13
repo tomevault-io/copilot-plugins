@@ -1,0 +1,9 @@
+{
+  "name": "frikallo--axiom",
+  "displayName": "axiom",
+  "description": "High-performance C++ tensor library with NumPy/PyTorch-like API",
+  "version": "1.0.0",
+  "author": "Frikallo",
+  "homepage": "https://github.com/Frikallo/axiom",
+  "skills": []
+}
