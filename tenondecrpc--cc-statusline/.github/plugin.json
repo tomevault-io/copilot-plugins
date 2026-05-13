@@ -1,0 +1,9 @@
+{
+  "name": "tenondecrpc--cc-statusline",
+  "displayName": "cc-statusline",
+  "description": "Claude Statusline: a lightweight Bash + jq statusline for Claude Code with model, context, rate limit, git/worktree,   cost, duration, and install/uninstall support. No heavy runtime required.",
+  "version": "1.0.0",
+  "author": "tenondecrpc",
+  "homepage": "https://github.com/tenondecrpc/cc-statusline",
+  "skills": []
+}
