@@ -1,0 +1,9 @@
+{
+  "name": "entityprocess--agentv",
+  "displayName": "agentv",
+  "description": "Light-weight AI agent evaluation and optimization framework",
+  "version": "1.0.0",
+  "author": "EntityProcess",
+  "homepage": "https://github.com/EntityProcess/agentv",
+  "skills": []
+}
