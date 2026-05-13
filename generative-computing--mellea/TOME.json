@@ -4,7 +4,7 @@
   "repo": "mellea",
   "description": "Mellea is a library for writing generative programs. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/generative-computing/mellea",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T22:41:41Z"
+  "distributed_at": "2026-05-13T09:26:10Z"
 }
