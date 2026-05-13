@@ -1,0 +1,9 @@
+{
+  "name": "mbeliou--shadcn-dioxus",
+  "displayName": "shadcn-dioxus",
+  "description": "shadcn/ui, but for Dioxus and Rust \ud83e\udd80",
+  "version": "1.0.0",
+  "author": "MBeliou",
+  "homepage": "https://github.com/MBeliou/shadcn-dioxus",
+  "skills": []
+}
