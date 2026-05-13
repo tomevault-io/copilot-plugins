@@ -1,0 +1,9 @@
+{
+  "name": "postman-devrel--postman-claude-code-plugin",
+  "displayName": "postman-claude-code-plugin",
+  "description": "Official Postman plugin for Claude Code",
+  "version": "1.0.0",
+  "author": "Postman-Devrel",
+  "homepage": "https://github.com/Postman-Devrel/postman-claude-code-plugin",
+  "skills": []
+}
