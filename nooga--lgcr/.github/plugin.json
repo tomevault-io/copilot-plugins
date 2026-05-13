@@ -1,0 +1,9 @@
+{
+  "name": "nooga--lgcr",
+  "displayName": "lgcr",
+  "description": "A small Linux container runtime written in let-go ",
+  "version": "1.0.0",
+  "author": "nooga",
+  "homepage": "https://github.com/nooga/lgcr",
+  "skills": []
+}
