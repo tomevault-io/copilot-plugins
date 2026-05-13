@@ -1,0 +1,9 @@
+{
+  "name": "krilliac--sparkengine",
+  "displayName": "SparkEngine",
+  "description": "A free, open-source C++23 3D game engine for FPS and beyond \u2014 DirectX 12, Vulkan, Jolt Physics, ECS, ImGui editor, AngelScript scripting",
+  "version": "1.0.0",
+  "author": "Krilliac",
+  "homepage": "https://github.com/Krilliac/SparkEngine",
+  "skills": []
+}
