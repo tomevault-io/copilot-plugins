@@ -1,0 +1,9 @@
+{
+  "name": "0xmariowu--agentlint",
+  "displayName": "AgentLint",
+  "description": "The linter for your agent harness. Works with Claude Code, Codex, and Cursor.",
+  "version": "1.0.0",
+  "author": "0xmariowu",
+  "homepage": "https://github.com/0xmariowu/AgentLint",
+  "skills": []
+}
