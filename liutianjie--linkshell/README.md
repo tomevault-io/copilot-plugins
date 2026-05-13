@@ -7,11 +7,11 @@ Remotely view and control local Claude Code / Codex terminal sessions on a mobil
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LiuTianjie/LinkShell](https://github.com/LiuTianjie/LinkShell).
+Original source: `CLAUDE.md` in [LiuTianjie/LinkShell](https://github.com/LiuTianjie/LinkShell).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
