@@ -1,0 +1,9 @@
+{
+  "name": "tonehq--tone",
+  "displayName": "tone",
+  "description": "Open source Ai voice agent builder platform",
+  "version": "1.0.0",
+  "author": "tonehq",
+  "homepage": "https://github.com/tonehq/tone",
+  "skills": []
+}
