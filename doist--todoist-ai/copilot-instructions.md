@@ -1,103 +1,44 @@
-## typescript
+## todoist-ai
 
-> You are an expert TypeScript programmer with a preference for clean programming and design patterns. Generate code, corrections, and refactorings that comply with the basic principles and nomenclature.
+> - Google Gemini API fails with nullable types in OpenAPI 3.1 format
 
-You are an expert TypeScript programmer with a preference for clean programming and design patterns. Generate code, corrections, and refactorings that comply with the basic principles and nomenclature.
+# Todoist AI MCP Server - Cursor Rules
 
-## TypeScript General Guidelines
+## Critical: Tool Schema Compatibility
 
-### Basic Principles
+### NEVER use .nullable() in tool schemas
+- Google Gemini API fails with nullable types in OpenAPI 3.1 format
+- Use `.optional()` only for optional string fields
+- See PR #181 for reference
 
-- Use English for all code and documentation
-- Never use wildcard imports with the `import * as` syntax and always import specific elements directly
-- Use Biome for linting and formatting
+### Pattern for clearing optional fields:
+```typescript
+// ❌ WRONG - breaks Gemini
+fieldName: z.string().nullable().optional()
 
-### Typing
+// ✅ CORRECT
+fieldName: z.string().optional()
 
-- Always declare the type of each variable and function (parameters and return value)
-- Create necessary types
-- Avoid using `any`
-- Prefer types over interfaces
-- Avoid TypeScript enums, instead use string literal types with const objects:
-  ```typescript
-  // Instead of:
-  export enum Status {
-    ACTIVE = 'active',
-    INACTIVE = 'inactive'
-  }
-  
-  // Use:
-  export type Status = 'active' | 'inactive'
-  ```
+// Runtime handling for clearing:
+if (fieldValue === null || fieldValue === 'remove') {
+    updateArgs = { ...updateArgs, fieldName: null }
+}
+```
 
-### Nomenclature
+### Use special strings for removal:
+- Use "unassign" for assignments
+- Use "remove" for other clearable fields
+- Document in schema descriptions
 
-- Use PascalCase for classes
-- Use camelCase for variables, functions, and methods
-- Use kebab-case for file and directory names
-- Use UPPERCASE for environment variables
-- Avoid magic numbers and define constants
-- Start each function with a verb
-- Use verbs for boolean variables, e.g.: `isLoading`, `hasError`, `canDelete`, etc
-- Use complete words instead of abbreviations and correct spelling
-  - Except for standard abbreviations like API, URL, etc.
-  - Except for well-known abbreviations:
-    - i, j for loops
-    - err for errors
-    - ctx for contexts
-    - req, res, next for middleware function parameters
+## Testing Requirements
+- Add tests for new parameters
+- All 333+ tests must pass
+- Verify build and type-check
 
-### Functions
-
-- In this context, what is understood as a function will also apply to a method
-- Write short functions with a single purpose
-- Name functions with a verb and something else
-  - If it returns a boolean, use isX or hasX, canX, etc
-  - If it doesn't return anything, use executeX or saveX, etc
-- Avoid nesting blocks by:
-  - Early checks and returns.
-  - Extracting to utility functions
-- Use higher-order functions (map, filter, reduce, etc) to avoid function nesting
-- Use arrow functions only for unnamed functions (e.g., `map((n) => n + 1)`).
-- Use the `function fnName()` notation for all named function declarations, regardless of function length
-- Use default parameter values instead of checking for `null` or `undefined`
-- If a function has more than 1 parameter, make it a named argument function
-- Reduce function parameters using RO-RO
-  - Use an object to pass multiple parameters
-  - Use an object to return results
-  - Declare necessary types for input arguments and output
-- Use a single level of abstraction
-
-### Data
-
-- Don't abuse primitive types and encapsulate data in composite types
-- Avoid data validations in functions and use classes with internal validation
-- Prefer immutability for data
-- Use readonly for data that doesn't change
-- Use as const for literals that don't change
-
-### Classes
-
-- Avoid classes, prefer functions and composition
-
-### Error handling
-
-- Use exceptions to handle errors you don't expect
-- If you catch an exception, it should be to:
-  - Fix an expected problem
-  - Add context
-  - Otherwise, use a global handler
-
-### Testing
-
-- Follow the Arrange-Act-Assert convention for tests
-- Name test variables clearly
-- Follow the convention: inputX, mockX, actualX, expectedX, etc
-- Write unit tests for each public function
-- Use test doubles to simulate dependencies
-  - Except for third-party dependencies that are not expensive to execute
-- Write acceptance tests for each module
-- Follow the Given-When-Then convention
+## Documentation
+- Update schema descriptions
+- Update src/mcp-server.ts guidelines
+- Add usage examples
 
 ---
 > Source: [Doist/todoist-ai](https://github.com/Doist/todoist-ai) — distributed by [TomeVault](https://tomevault.io).
