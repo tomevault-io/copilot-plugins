@@ -1,0 +1,9 @@
+{
+  "name": "valkey-io--valkey-glide-csharp",
+  "displayName": "valkey-glide-csharp",
+  "description": "An open source Valkey client library that supports Valkey, and Redis open source 6.2, 7.0 and 7.2. Valkey GLIDE is designed for reliability, optimized performance, and high-availability, for Valkey an",
+  "version": "1.0.0",
+  "author": "valkey-io",
+  "homepage": "https://github.com/valkey-io/valkey-glide-csharp",
+  "skills": []
+}
