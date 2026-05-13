@@ -1,0 +1,9 @@
+{
+  "name": "alexandrosnt--reach",
+  "displayName": "Reach",
+  "description": "A modern, cross-platform SSH client and remote server management tool. Tabbed terminals, SFTP file browser, port forwarding, system monitoring, AI assistant, encrypted vault, Ansible & OpenTofu automa",
+  "version": "1.0.0",
+  "author": "alexandrosnt",
+  "homepage": "https://github.com/alexandrosnt/Reach",
+  "skills": []
+}
