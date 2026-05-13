@@ -7,11 +7,11 @@ Live cryptocurrency and DeFi market data. Simple, easy, straight to the point.  
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nirholas/crypto-market-data](https://github.com/nirholas/crypto-market-data).
+Original source: `CLAUDE.md` in [nirholas/crypto-market-data](https://github.com/nirholas/crypto-market-data).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
