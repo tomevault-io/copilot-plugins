@@ -1,0 +1,9 @@
+{
+  "name": "ryder-mhumble--evolabeler-aiagent-mlops",
+  "displayName": "EvoLabeler-AIAgent-MLOps",
+  "description": "An AI-powered MLOps engine for self-evolving remote sensing object detection, driven by a Multi-Agent system based on the IDEATE framework.",
+  "version": "1.0.0",
+  "author": "Ryder-MHumble",
+  "homepage": "https://github.com/Ryder-MHumble/EvoLabeler-AIAgent-MLOps",
+  "skills": []
+}
