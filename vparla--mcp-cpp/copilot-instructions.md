@@ -1,0 +1,30 @@
+## 00-agent-skill-enforcement
+
+> >-
+
+
+<!--
+==========================================================================================================
+SPDX-License-Identifier: MIT
+Copyright (c) 2025 Vinny Parla
+File: .cursor/rules/00-agent-skill-enforcement.mdc
+Purpose: Cursor rule that enforces mcp-cpp agent and skill guardrails
+==========================================================================================================
+-->
+
+# mcp-cpp Agent And Skill Enforcement
+
+- Read `agents.md` and `SKILLS.MD` at session start and before each materially new task.
+- Select every matching skill from `SKILLS.MD` before proposing or running commands.
+- Use Docker only. Windows commands go through `wsl -d Ubuntu -- bash -lc "..."`.
+- Do not use bind mounts, named volumes, `docker cp`, `-o type=local`, or any Docker pattern that writes back to
+  the host.
+- Use sequential verification for auth, remotes, repo creation, commits, and pushes. Never parallelize a
+  state-changing command with its verification command.
+- Treat every failure as blocking, even if it looks unrelated to the active request. Fix it immediately, rerun the
+  failed gate, and only then continue.
+- If a task truly requires host writes, host IPC, or host network access, stop and ask the human first.
+
+---
+> Source: [vparla/mcp-cpp](https://github.com/vparla/mcp-cpp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-13 -->
