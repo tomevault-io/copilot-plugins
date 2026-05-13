@@ -4,7 +4,7 @@
   "repo": "agents2",
   "description": "O'Reilly Live Learning: Build Production-Ready AI Agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/timothywarner-org/agents2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T10:40:09Z"
+  "distributed_at": "2026-05-13T12:47:38Z"
 }
