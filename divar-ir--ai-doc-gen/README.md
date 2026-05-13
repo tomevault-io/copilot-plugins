@@ -7,11 +7,11 @@ AI-powered multi-agent system that automatically analyzes codebases and generate
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [divar-ir/ai-doc-gen](https://github.com/divar-ir/ai-doc-gen).
+Original source: `CLAUDE.md` in [divar-ir/ai-doc-gen](https://github.com/divar-ir/ai-doc-gen).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
