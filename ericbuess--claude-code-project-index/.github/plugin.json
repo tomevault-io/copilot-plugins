@@ -1,0 +1,9 @@
+{
+  "name": "ericbuess--claude-code-project-index",
+  "displayName": "claude-code-project-index",
+  "description": "PROJECT_INDEX system for Claude Code - provides architectural awareness for AI coding",
+  "version": "1.0.0",
+  "author": "ericbuess",
+  "homepage": "https://github.com/ericbuess/claude-code-project-index",
+  "skills": []
+}
