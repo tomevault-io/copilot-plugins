@@ -1,0 +1,9 @@
+{
+  "name": "fin-agent--finagent-frontend",
+  "displayName": "finagent-frontend",
+  "description": "frontend in react",
+  "version": "1.0.0",
+  "author": "fin-agent",
+  "homepage": "https://github.com/fin-agent/finagent-frontend",
+  "skills": []
+}
