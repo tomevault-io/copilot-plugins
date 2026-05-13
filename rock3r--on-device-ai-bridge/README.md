@@ -7,11 +7,11 @@ Exposes Apple's on-device AI (FoundationModels framework) as an OpenAI-compatibl
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rock3r/on-device-ai-bridge](https://github.com/rock3r/on-device-ai-bridge).
+Original source: `CLAUDE.md` in [rock3r/on-device-ai-bridge](https://github.com/rock3r/on-device-ai-bridge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
