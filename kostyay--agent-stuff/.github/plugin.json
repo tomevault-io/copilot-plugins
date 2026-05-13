@@ -1,0 +1,9 @@
+{
+  "name": "kostyay--agent-stuff",
+  "displayName": "agent-stuff",
+  "description": "Extensions, skills, and themes for Pi \u2014 the coding agent. TUI tools, brainstorming, code review, planning, and workflow automation.",
+  "version": "1.0.0",
+  "author": "kostyay",
+  "homepage": "https://github.com/kostyay/agent-stuff",
+  "skills": []
+}
