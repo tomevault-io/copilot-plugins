@@ -7,11 +7,11 @@ A lightweight Go tool for detecting file tampering by comparing content-based ha
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [catatsuy/kekkai](https://github.com/catatsuy/kekkai).
+Original source: `CLAUDE.md` in [catatsuy/kekkai](https://github.com/catatsuy/kekkai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
