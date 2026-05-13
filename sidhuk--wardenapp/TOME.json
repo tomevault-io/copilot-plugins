@@ -4,7 +4,7 @@
   "repo": "WardenApp",
   "description": "\ud83d\udee1\ufe0f Warden - A Fully Native AI Chat App For macOS ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SidhuK/WardenApp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T10:41:35Z"
+  "distributed_at": "2026-05-13T19:18:08Z"
 }
