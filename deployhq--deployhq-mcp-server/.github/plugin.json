@@ -1,0 +1,9 @@
+{
+  "name": "deployhq--deployhq-mcp-server",
+  "displayName": "deployhq-mcp-server",
+  "description": "DeployHQ MCP Server",
+  "version": "1.0.0",
+  "author": "deployhq",
+  "homepage": "https://github.com/deployhq/deployhq-mcp-server",
+  "skills": []
+}
