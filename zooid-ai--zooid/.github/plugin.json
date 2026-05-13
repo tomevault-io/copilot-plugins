@@ -1,0 +1,9 @@
+{
+  "name": "zooid-ai--zooid",
+  "displayName": "zooid",
+  "description": "Pub/sub for AI agents. Deploy in one command.",
+  "version": "1.0.0",
+  "author": "zooid-ai",
+  "homepage": "https://github.com/zooid-ai/zooid",
+  "skills": []
+}
