@@ -1,46 +1,62 @@
-## project-structure
+## security
 
-> 项目结构和架构指南
+> 安全开发规范
 
 
-# 项目结构指南
+# 安全开发规范
 
-这是一个基于 Next.js 15 + TypeScript + Ant Design 的全栈管理系统项目。
+## 认证和授权
 
-## 核心架构
+### JWT 认证
 
-- **前端框架**: Next.js 15 with App Router
-- **UI 库**: Ant Design 5.x + UnoCSS
-- **数据库**: PostgreSQL + Drizzle ORM
-- **认证**: JWT + NextAuth
-- **测试**: Vitest + Testing Library
+- 使用 `jose` 库进行 JWT 处理
+- Access Token 用于 API 认证
+- Refresh Token 用于刷新访问令牌
+- Token 包含用户 ID 和权限信息
 
-## 目录结构
+### 密码安全
 
-- `src/app/` - Next.js App Router 页面和 API 路由
-- `src/components/` - 可复用组件
-- `src/lib/` - 工具函数和配置
-- `src/hooks/` - 自定义 React Hooks
-- `src/types/` - TypeScript 类型定义
-- `src/db/` - 数据库相关代码
-- `tests/` - 测试文件
-- `scripts/` - 构建和数据库脚本
+- 使用 `bcryptjs` 进行密码哈希
+- 密码强度验证
+- 定期更新密码策略
 
-## 路径别名
+## 数据验证
 
-使用 `@/` 作为 `src/` 的别名：
-- `@/components/*` → `./src/components/*`
-- `@/lib/*` → `./src/lib/*`
-- `@/hooks/*` → `./src/hooks/*`
-- `@/types/*` → `./src/types/*`
+### 输入验证
 
-## 关键文件
+- 使用 Zod 进行类型安全验证
+- 所有用户输入都要验证
+- 防止 SQL 注入和 XSS 攻击
 
-- [package.json](mdc:package.json) - 项目依赖和脚本
-- [next.config.js](mdc:next.config.js) - Next.js 配置
-- [tsconfig.json](mdc:tsconfig.json) - TypeScript 配置
-- [src/middleware.ts](mdc:src/middleware.ts) - 认证中间件
-- [src/app/layout.tsx](mdc:src/app/layout.tsx) - 根布局组件
+### 文件上传
+
+- 验证文件类型和大小
+- 扫描恶意文件
+- 限制上传路径
+
+## CORS 配置
+
+- 开发环境允许所有源
+- 生产环境限制允许的源
+- 正确配置 CORS 头
+
+## 环境变量
+
+- 敏感信息存储在环境变量中
+- 使用 `.env.local` 进行本地开发
+- 生产环境使用安全的密钥管理
+
+## 错误处理
+
+- 不在错误信息中暴露敏感信息
+- 记录详细错误日志用于调试
+- 返回用户友好的错误信息
+
+## 安全头
+
+- 设置适当的安全头
+- 使用 HTTPS 传输
+- 防止点击劫持和 XSS
 
 ---
 > Source: [wantao9191/wantapp](https://github.com/wantao9191/wantapp) — distributed by [TomeVault](https://tomevault.io).
