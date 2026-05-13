@@ -1,0 +1,44 @@
+{
+  "name": "comics.banast.as",
+  "owner": "banastas",
+  "repo": "comics.banast.as",
+  "description": "A modern, responsive web app for managing comic book collections with analytics, financial tracking, and mobile-friendly browsing. Self-host your own collection manager with React, TypeScript, and Tailwind CSS.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/banastas/comics.banast.as",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T22:56:52Z"
+}
