@@ -7,11 +7,11 @@ A production-ready template for building modern desktop applications with Tauri 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dannysmith/tauri-template](https://github.com/dannysmith/tauri-template).
+Original source: `CLAUDE.md` in [dannysmith/tauri-template](https://github.com/dannysmith/tauri-template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
