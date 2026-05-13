@@ -1,0 +1,9 @@
+{
+  "name": "antoniolg--play-store-mcp",
+  "displayName": "play-store-mcp",
+  "description": "An MCP server that connects to Play Store Console and release new App versions from an MCP Client",
+  "version": "1.0.0",
+  "author": "antoniolg",
+  "homepage": "https://github.com/antoniolg/play-store-mcp",
+  "skills": []
+}
