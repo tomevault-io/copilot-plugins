@@ -1,0 +1,9 @@
+{
+  "name": "mikedemarais--grok-skill",
+  "displayName": "grok-skill",
+  "description": "Claude Code Skill that routes Twitter/X prompts to Grok-4 Live Search.",
+  "version": "1.0.0",
+  "author": "mikedemarais",
+  "homepage": "https://github.com/mikedemarais/grok-skill",
+  "skills": []
+}
