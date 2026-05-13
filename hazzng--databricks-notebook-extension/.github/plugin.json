@@ -1,0 +1,9 @@
+{
+  "name": "hazzng--databricks-notebook-extension",
+  "displayName": "Databricks-Notebook-Extension",
+  "description": "VSCode Extension for better development experience in ide for databricks",
+  "version": "1.0.0",
+  "author": "Hazzng",
+  "homepage": "https://github.com/Hazzng/Databricks-Notebook-Extension",
+  "skills": []
+}
