@@ -1,0 +1,9 @@
+{
+  "name": "skanehira--ghost",
+  "displayName": "ghost",
+  "description": "Simple background process manager for Unix systems",
+  "version": "1.0.0",
+  "author": "skanehira",
+  "homepage": "https://github.com/skanehira/ghost",
+  "skills": []
+}
