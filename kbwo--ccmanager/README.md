@@ -7,11 +7,11 @@ Coding Agent Session Manager for Claude Code / Gemini CLI / Codex CLI / Cursor A
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kbwo/ccmanager](https://github.com/kbwo/ccmanager).
+Original source: `CLAUDE.md` in [kbwo/ccmanager](https://github.com/kbwo/ccmanager).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
