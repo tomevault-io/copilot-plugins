@@ -4,7 +4,7 @@
   "repo": "tsbridge",
   "description": "A lightweight proxy manager built on Tailscale's tsnet library that enables multiple HTTPS services on a Tailnet",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jtdowney/tsbridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T06:55:25Z"
+  "distributed_at": "2026-05-13T15:13:32Z"
 }
