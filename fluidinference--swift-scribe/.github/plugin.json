@@ -1,0 +1,9 @@
+{
+  "name": "fluidinference--swift-scribe",
+  "displayName": "swift-scribe",
+  "description": "Fully local, no dependency scribe. Speak into your microphone and summarize. Requires iOS 26 and MacOS 26 to use the advanced transcription model and foundational model for summaries",
+  "version": "1.0.0",
+  "author": "FluidInference",
+  "homepage": "https://github.com/FluidInference/swift-scribe",
+  "skills": []
+}
