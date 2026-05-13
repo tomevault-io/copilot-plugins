@@ -1,0 +1,9 @@
+{
+  "name": "ruzin--stenoai",
+  "displayName": "stenoai",
+  "description": "Privacy focused AI notepad using locally hosted Small Language Models. Capture beautiful notes whilst keeping your data confidential. Pefect for government, finance and legal professionals.",
+  "version": "1.0.0",
+  "author": "ruzin",
+  "homepage": "https://github.com/ruzin/stenoai",
+  "skills": []
+}
