@@ -1,0 +1,9 @@
+{
+  "name": "oisee--zmjs",
+  "displayName": "zmjs",
+  "description": "Mini JavaScript Engine for SAP ABAP \u2014 tree-walking interpreter, 2100 LOC, Test262 230/266",
+  "version": "1.0.0",
+  "author": "oisee",
+  "homepage": "https://github.com/oisee/zmjs",
+  "skills": []
+}
