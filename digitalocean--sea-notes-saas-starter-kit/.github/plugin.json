@@ -1,0 +1,9 @@
+{
+  "name": "digitalocean--sea-notes-saas-starter-kit",
+  "displayName": "sea-notes-saas-starter-kit",
+  "description": "A production-ready Next.js SaaS notes starter kit on DigitalOcean App Platform \u2014 includes GradientAI, Stripe payments, Resend email, and Spaces storage.",
+  "version": "1.0.0",
+  "author": "digitalocean",
+  "homepage": "https://github.com/digitalocean/sea-notes-saas-starter-kit",
+  "skills": []
+}
