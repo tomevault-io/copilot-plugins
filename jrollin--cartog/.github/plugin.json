@@ -1,0 +1,9 @@
+{
+  "name": "jrollin--cartog",
+  "displayName": "cartog",
+  "description": "claude code with treesitter and query capability (RLM)",
+  "version": "1.0.0",
+  "author": "jrollin",
+  "homepage": "https://github.com/jrollin/cartog",
+  "skills": []
+}
