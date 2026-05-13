@@ -1,0 +1,9 @@
+{
+  "name": "ciscodevnet--foundry-security-spec",
+  "displayName": "foundry-security-spec",
+  "description": "An open specification for agentic AI security evaluation and testing, from Cisco.",
+  "version": "1.0.0",
+  "author": "CiscoDevNet",
+  "homepage": "https://github.com/CiscoDevNet/foundry-security-spec",
+  "skills": []
+}
