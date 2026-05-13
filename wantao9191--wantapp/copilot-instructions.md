@@ -1,60 +1,66 @@
-## database
+## overview
 
-> 数据库开发规范
+> Cursor 规则总览和快速参考
 
 
-# 数据库开发规范
+# Cursor 规则总览
 
-## 数据库技术栈
+本项目包含以下 Cursor 规则文件，帮助 AI 更好地理解和协助开发：
 
-- **数据库**: PostgreSQL
-- **ORM**: Drizzle ORM
-- **迁移**: Drizzle Kit
-- **连接**: postgres 驱动
+## 📁 项目结构规则
+- **文件**: `project-structure.mdc`
+- **作用**: 项目架构、目录结构、路径别名
+- **适用**: 所有文件
 
-## 数据库配置
+## 💻 编码规范
+- **文件**: `coding-standards.mdc`
+- **作用**: TypeScript、React 编码规范
+- **适用**: `*.ts`, `*.tsx`, `*.js`, `*.jsx`
 
-数据库配置在 [src/db/index.ts](mdc:src/db/index.ts) 中：
+## 🎨 Ant Design 使用
+- **文件**: `antd-usage.mdc`
+- **作用**: Ant Design 组件使用规范
+- **适用**: `*.tsx` 文件
 
-- 使用环境变量配置连接
-- 支持开发和生产环境
-- 连接池配置优化
+## 🔌 API 开发
+- **文件**: `api-development.mdc`
+- **作用**: API 路由开发规范
+- **适用**: `src/app/api/**/*.ts`
 
-## Schema 定义
+## 🧪 测试规范
+- **文件**: `testing.mdc`
+- **作用**: 测试开发规范和最佳实践
+- **适用**: `tests/**/*.test.{ts,tsx}`
 
-数据库模式定义在 [src/db/schema.ts](mdc:src/db/schema.ts)：
+## 🗄️ 数据库规范
+- **文件**: `database.mdc`
+- **作用**: 数据库操作和迁移规范
+- **适用**: `src/db/**/*.ts`, `drizzle/**/*.sql`
 
-- 使用 Drizzle 的 schema 语法
-- 定义表结构和关系
-- 包含索引和约束
+## 🔒 安全规范
+- **文件**: `security.mdc`
+- **作用**: 安全开发规范和最佳实践
+- **适用**: `src/lib/**/*.ts`, `src/middleware.ts`
 
-## 迁移管理
+## ⚡ 性能优化
+- **文件**: `performance.mdc`
+- **作用**: 性能优化规范和最佳实践
+- **适用**: `src/**/*.{ts,tsx}`
 
-- 迁移文件在 `drizzle/` 目录
-- 使用 `pnpm db:generate` 生成迁移
-- 使用 `pnpm db:migrate` 应用迁移
-- 使用 `pnpm db:push` 直接推送 schema
+## 🚀 快速开始
 
-## 数据库脚本
+1. **开发环境**: `pnpm dev`
+2. **类型检查**: `pnpm type-check`
+3. **代码检查**: `pnpm lint`
+4. **格式化**: `pnpm format`
+5. **测试**: `pnpm test`
+6. **构建**: `pnpm build`
 
-项目包含多个数据库管理脚本：
+## 📝 注意事项
 
-- `scripts/create-database.ts` - 创建数据库
-- `scripts/seed.ts` - 种子数据
-- `scripts/insert-menus.ts` - 插入菜单数据
-
-## 查询优化
-
-- 使用 Drizzle 的类型安全查询
-- 合理使用索引
-- 避免 N+1 查询问题
-- 使用事务处理复杂操作
-
-## 数据验证
-
-- 使用 Zod 进行数据验证
-- 在 API 层进行输入验证
-- 数据库层进行约束验证
+- 所有规则都基于项目的实际配置和代码风格
+- 规则会根据项目发展持续更新
+- 遇到问题时，优先参考相关规则文件
 
 ---
 > Source: [wantao9191/wantapp](https://github.com/wantao9191/wantapp) — distributed by [TomeVault](https://tomevault.io).
