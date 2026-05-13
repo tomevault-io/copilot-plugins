@@ -1,0 +1,9 @@
+{
+  "name": "jminchannel--convertapk",
+  "displayName": "ConvertAPK",
+  "description": "\u8fd9\u662f\u4e00\u6b3e\u53ef\u4ee5\u5c06Web \u9879\u76ee/HTML\u7f51\u9875\u5feb\u901f\u6253\u5305\u6210\u5b89\u5353APK \u7684\u5de5\u5177\u7ad9\u3002\u4f60\u53ef\u4ee5\u5728\u540c\u4e00\u754c\u9762\u4e2d\u5b8c\u6210\u914d\u7f6e\u6784\u5efa\uff0c\u7136\u540e\u4e0b\u8f7d\u4f60\u7684Android\u5b89\u88c5\u5305\uff01",
+  "version": "1.0.0",
+  "author": "Jminchannel",
+  "homepage": "https://github.com/Jminchannel/ConvertAPK",
+  "skills": []
+}
