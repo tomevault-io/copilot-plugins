@@ -7,11 +7,11 @@ A Local-First, AI-driven BI desktop app | 一款本地优先的智能商业分�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wansanai/wansan-studio](https://github.com/wansanai/wansan-studio).
+Original source: `CLAUDE.md` in [wansanai/wansan-studio](https://github.com/wansanai/wansan-studio).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
