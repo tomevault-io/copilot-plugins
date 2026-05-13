@@ -1,0 +1,9 @@
+{
+  "name": "packmindhub--context-evaluator",
+  "displayName": "context-evaluator",
+  "description": "Evaluator context and documentation setup for ai coding agents",
+  "version": "1.0.0",
+  "author": "PackmindHub",
+  "homepage": "https://github.com/PackmindHub/context-evaluator",
+  "skills": []
+}
