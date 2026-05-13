@@ -1,0 +1,44 @@
+{
+  "name": "kotlin-winrt",
+  "owner": "compose-fluent",
+  "repo": "kotlin-winrt",
+  "description": "kotlin-winrt is a Kotlin/JVM binding system that provides idiomatic, coroutine\u2011friendly access to Windows Runtime (WinRT) APIs, enabling Kotlin developers to build Windows desktop applications with seamless integration of native Windows features.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/compose-fluent/kotlin-winrt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T00:08:32Z"
+}
