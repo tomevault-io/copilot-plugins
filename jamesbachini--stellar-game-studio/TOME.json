@@ -4,7 +4,7 @@
   "repo": "Stellar-Game-Studio",
   "description": "A development tool for building web3 games on Stellar",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jamesbachini/Stellar-Game-Studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T21:18:53Z"
+  "distributed_at": "2026-05-13T09:10:11Z"
 }
