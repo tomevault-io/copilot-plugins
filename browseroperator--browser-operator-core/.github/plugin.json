@@ -1,0 +1,9 @@
+{
+  "name": "browseroperator--browser-operator-core",
+  "displayName": "browser-operator-core",
+  "description": "Browser Operator - The AI browser with built in Multi-Agent platform! Open source alternative to ChatGPT Atlas, Perplexity Comet, Dia and Microsoft CoPilot Edge Browser",
+  "version": "1.0.0",
+  "author": "BrowserOperator",
+  "homepage": "https://github.com/BrowserOperator/browser-operator-core",
+  "skills": []
+}
