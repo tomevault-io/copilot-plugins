@@ -1,0 +1,9 @@
+{
+  "name": "embarrassingmoment--transitionfx-dev",
+  "displayName": "TransitionFX_Dev",
+  "description": "Unreal Engine 5 plugin providing various screen transition effects (Fade, Iris, Pixelate, etc.)",
+  "version": "1.0.0",
+  "author": "EmbarrassingMoment",
+  "homepage": "https://github.com/EmbarrassingMoment/TransitionFX_Dev",
+  "skills": []
+}
