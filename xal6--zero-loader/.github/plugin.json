@@ -1,0 +1,9 @@
+{
+  "name": "xal6--zero-loader",
+  "displayName": "zero-loader",
+  "description": "Polymorphic x64 shellcode loader \u2014 indirect syscalls, phantom DLL hollowing, call stack spoofing, patchless AMSI/ETW    bypass, zero CRT dependency",
+  "version": "1.0.0",
+  "author": "xAL6",
+  "homepage": "https://github.com/xAL6/zero-loader",
+  "skills": []
+}
