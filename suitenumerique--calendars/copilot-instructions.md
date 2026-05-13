@@ -1,0 +1,140 @@
+## calendars
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+La Suite Calendars is a modern calendar application for managing events and schedules.  It's a full-stack application with:
+- **Backend**: Django 5 REST API with PostgreSQL
+- **Frontend**: Next.js 15 with React 19
+- **CalDAV Server**: SabreDAV (PHP-based) for calendar protocol support : https://sabre.io/dav/
+- **Authentication**: Keycloak OIDC provider
+
+In this project, you can create events, invite people to events, create calendars, and invite others to share and manage those calendars, allowing them to add and manage events as well. Every invitation sends an email with an ICS file attached; this also happens for event updates and cancellations.
+
+## Common Commands
+
+### Development Setup
+```bash
+make bootstrap          # Initial setup: builds containers, runs migrations, starts services
+make start              # Start all services (backend + frontend containers)
+make start-back         # Start backend services only (for local frontend development)
+make stop               # Stop all containers
+make down               # Stop and remove containers, networks, volumes
+make update             # Update project after pulling changes
+```
+
+### Backend Development
+```bash
+make test-back -- path/to/test.py::TestClass::test_method  # Run specific test
+make test-back-parallel                                     # Run all tests in parallel
+make lint                                                   # Run all linters (back + front)
+make lint-back                                              # Run back-end linters only
+make migrate                                                # Run Django migrations
+make makemigrations                                         # Create new migrations
+make shell-back-django                                      # Django shell
+make shell-db                                               # PostgreSQL shell
+```
+
+### Frontend Development
+```bash
+make install-front      # Install frontend dependencies
+make lint-front         # Run ESLint on frontend
+make typecheck-front    # Run TypeScript type checker
+make test-front         # Run frontend tests
+cd src/frontend/apps/calendars && npm test              # Run frontend tests (local)
+cd src/frontend/apps/calendars && npm run test:watch    # Watch mode (local)
+```
+
+### E2E Tests
+```bash
+make test-e2e                                    # Run all e2e tests
+make test-e2e -- --project chromium --headed     # Run with specific browser
+```
+
+## Architecture
+
+### Backend Structure (`src/backend/`)
+- `calendars/` - Django project configuration, settings, Celery app
+- `core/` - Main application code:
+  - `api/` - DRF viewsets and serializers
+  - `models.py` - Database models
+  - `services/` - Business logic
+  - `authentication/` - OIDC authentication
+  - `tests/` - pytest test files
+
+### Frontend Structure (`src/frontend/`)
+npm workspaces:
+- `apps/calendars/` - Main Next.js application
+  - `src/features/` - Feature modules (calendar, auth, api, i18n, etc.)
+  - `src/pages/` - Next.js pages
+  - `src/hooks/` - Custom React hooks
+- `apps/e2e/` - Playwright end-to-end tests
+
+### CalDAV Server (`src/caldav/`)
+PHP SabreDAV server providing CalDAV protocol support, running against the shared PostgreSQL database.
+
+**IMPORTANT: Never query the SabreDAV database tables directly from Django.** Always interact with CalDAV through the SabreDAV HTTP API (PROPFIND, REPORT, PUT, etc.).
+
+### Development Services
+
+| Service | URL / Port | Description |
+|---------|------------|-------------|
+| **Frontend** | [http://localhost:8930](http://localhost:8930) | Next.js Calendar frontend |
+| **Backend API** | [http://localhost:8931](http://localhost:8931) | Django REST API |
+| **CalDAV** | [http://localhost:8932](http://localhost:8932) | SabreDAV CalDAV server |
+| **Redis** | 8934 | Cache and Celery broker |
+| **Keycloak** | [http://localhost:8935](http://localhost:8935) | OIDC identity provider |
+| **PostgreSQL** | 8936 | Database server |
+| **Mailcatcher** | [http://localhost:8937](http://localhost:8937) | Email testing interface |
+
+## Key Technologies
+
+### Backend
+- Django 5 with Django REST Framework
+- Celery with Redis for background tasks
+- pytest for testing (use `bin/pytest` wrapper)
+- Ruff for linting/formatting (100 char line length for pylint compatibility)
+
+### Frontend
+- Next.js 15 with React 19
+- @tanstack/react-query for data fetching
+- tsdav/ical.js/tsics for CalDAV client integration : https://tsdav.vercel.app/docs/intro / https://github.com/Neuvernetzung/ts-ics
+- @gouvfr-lasuite/cunningham-react for UI components : https://github.com/suitenumerique/cunningham
+- Jest for unit tests
+- Playwright for e2e tests
+
+## Code Style
+
+### Python
+- Follow PEP 8 with 100 character line limit
+- Use Django REST Framework viewsets for APIs
+- Business logic in models and services, keep views thin
+- Use `select_related`/`prefetch_related` for query optimization
+
+### TypeScript/React
+- Feature-based folder structure under `src/features/`
+- Use React Query for server state management as possible, if it is not possible, don't worry. 
+- Use the vercel-react-best-practices skill when you write a react code 
+- Please, make many tiny files and separate components in differentes files
+- Check for Lint and TypeScript errors before telling me that you have finished
+
+### Git
+
+- Maximum line length: 80 characters.
+- Each commit must have a title and a description.
+- The commit title should start with a Gitmoji, then the area in parentheses
+  (e.g. back, front, docs), then your chosen title.
+
+# Workflow
+- Be sure to typecheck when you're done making a series of code changes
+- Prefer running single tests, and not the whole test suite, for performance
+
+---
+> Source: [suitenumerique/calendars](https://github.com/suitenumerique/calendars) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
