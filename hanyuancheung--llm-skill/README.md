@@ -7,11 +7,11 @@ A minimal three-layer SKILL system for LLM agents, inspired by Karpathy's LLM-Wi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hanyuancheung/llm-skill](https://github.com/hanyuancheung/llm-skill).
+Original source: `CLAUDE.md` in [hanyuancheung/llm-skill](https://github.com/hanyuancheung/llm-skill).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
