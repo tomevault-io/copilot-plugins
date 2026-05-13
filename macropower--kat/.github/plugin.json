@@ -1,0 +1,9 @@
+{
+  "name": "macropower--kat",
+  "displayName": "kat",
+  "description": "TUI and rule-based rendering engine for Kubernetes manifests",
+  "version": "1.0.0",
+  "author": "MacroPower",
+  "homepage": "https://github.com/MacroPower/kat",
+  "skills": []
+}
