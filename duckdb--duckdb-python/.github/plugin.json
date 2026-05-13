@@ -1,0 +1,9 @@
+{
+  "name": "duckdb--duckdb-python",
+  "displayName": "duckdb-python",
+  "description": "The DuckDB Python package",
+  "version": "1.0.0",
+  "author": "duckdb",
+  "homepage": "https://github.com/duckdb/duckdb-python",
+  "skills": []
+}
