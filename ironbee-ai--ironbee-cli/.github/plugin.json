@@ -1,0 +1,9 @@
+{
+  "name": "ironbee-ai--ironbee-cli",
+  "displayName": "ironbee-cli",
+  "description": "IronBee CLI - Verification and Intelligence Layer for Coding Agents",
+  "version": "1.0.0",
+  "author": "ironbee-ai",
+  "homepage": "https://github.com/ironbee-ai/ironbee-cli",
+  "skills": []
+}
