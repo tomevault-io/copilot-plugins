@@ -1,0 +1,9 @@
+{
+  "name": "kimimgo--awesome-ai-cae",
+  "displayName": "awesome-ai-cae",
+  "description": "A curated list of 113 AI-ready tools for Computer-Aided Engineering \u2014 CFD, FEA, SPH, DEM, differentiable simulation, neural operators, PINNs, MCP servers. Python APIs, CLI, mesh generation, optimizati",
+  "version": "1.0.0",
+  "author": "kimimgo",
+  "homepage": "https://github.com/kimimgo/awesome-ai-cae",
+  "skills": []
+}
