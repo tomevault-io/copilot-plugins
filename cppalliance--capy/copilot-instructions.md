@@ -1,13 +1,7 @@
-## doc-awaitable
+## doc-concept
 
-> doc javadoc for async awaitable functions of I/O objects
+> doc javadoc for concept declaration
 
-
-**Checklist for an outstanding async/awaitable function javadoc:**
-
-Revised checklist:
-
----
 
 - Keep the ascii-art to a minimum, only add dividers if the class declaration is very long
 - Don't emit @tparam for deduced types or concepts
@@ -15,21 +9,17 @@ Revised checklist:
 - Never list std::bad_alloc
 - Don't document detail:: or implementation symbols
 
-**Checklist for an outstanding awaitable function javadoc:**
+**Rules for concept javadocs:**
 
-- **Brief** — One-sentence summary starting with a verb, e.g. "Read data from the stream asynchronously."
-- **Extended description** — Short paragraph explaining what the function does. State that it is an asynchronous operation that suspends the calling coroutine until completion. If composed, state which underlying operations it is implemented in terms of.
-- **Completion conditions** — Bulleted `@li` list of conditions under which the operation completes and the coroutine resumes (e.g. "The supplied buffers are full", "An error occurs", "The operation was canceled").
-- **Concurrency and overlap** — State which operations may be simultaneously in flight. E.g. for a read: "At most one write operation may be in flight concurrently with this read operation. No other read operations may be in flight until this operation completes." Clarify that simultaneous in-flight operations does *not* imply that the initiating calls themselves may be made concurrently; all calls to the stream must be made from the same implicit or explicit serialization context.
-- **`@param` for each parameter** — Including ownership/lifetime semantics. For buffers: state that the caller retains ownership and must guarantee validity until the operation completes. For string/view parameters: state whether the implementation copies the data or requires it to remain valid for the duration.
-- **`@return`** — Describe the returned aggregate and its elements. The first element is always `error_code`. Name and describe each subsequent element (e.g. "bytes_transferred", "endpoint"). Note that the result is customarily destructured by the caller.
-- **Error conditions** — Document the notable `error_code` values or conditions that may appear in the first element. E.g. `capy::cond::canceled` if the stop token was activated or the i/o object's `cancel()` was called, EOF conditions, protocol-specific errors, etc. State that error codes should be compared to error conditions, not specific values.
-- **`@throws`** — Typically only for precondition violations. State which preconditions trigger exceptions, or state that no exceptions are thrown during normal operation.
-- **Cancellation** — State that the operation supports cancellation via `stop_token` propagated through the IoAwaitable protocol, or via the i/o object's `cancel()` member. State that the resulting error compares equal to `capy::cond::canceled`.
-- **`@par Example`** — Two or three `@code` blocks showing different usage patterns: typical happy path with destructuring, error handling, cancellation, different overloads, etc.
-- **`@note` / `@par Remarks`** — Behavioral gotchas. E.g. "This operation may not read all of the requested bytes." Or equivalence to another overload.
-- **`@tparam`** — For non-variadic template parameters. State the concept requirement (e.g. "The type must satisfy the *AsyncStream* concept"). Don't document `Args...`.
-- **`@see`** — Always last. Cross-references to related functions, concepts, and relevant RFC sections.
+- **Brief** — One sentence naming the concept and stating what a conforming type does. E.g. "Concept for types that consume buffer data using callee-owned buffers."
+- **Extended description** — A short paragraph summarizing the pattern the concept models, its purpose, and how it contrasts with related concepts.
+- **`@tparam`** — One entry per template parameter to the concept.
+- **`@par Syntactic Requirements`** — Bulleted `@li` list of every expression that must be valid. For each, state the member name, its arguments, and what it returns (including whether the return type must satisfy another concept like `IoAwaitable`). State the decomposed result tuple.
+- **`@par Semantic Requirements`** — Grouped by operation. For each operation, a bulleted `@li` list describing its behavior, preconditions, postconditions, success/error semantics, and any state transitions (e.g. "no further operations are permitted after EOF").
+- **`@par Buffer Lifetime`** (or equivalent resource lifetime section) — If the concept involves borrowed resources (buffers, handles, views), state exactly when they are valid and what invalidates them.
+- **`@par Conforming Signatures`** — A single `@code` block showing the canonical signatures using pseudo-syntax (e.g. `IoAwaitable auto`). This is the quick-reference that implementers copy from.
+- **`@par Example`** — A `@code` block showing a generic algorithm templated on the concept, demonstrating typical usage with destructuring, error handling, and interaction with related concepts.
+- **`@see`** — Always last. Cross-references to related concepts, concrete models, and foundational concepts the signatures depend on.
 
 ---
 > Source: [cppalliance/capy](https://github.com/cppalliance/capy) — distributed by [TomeVault](https://tomevault.io).
