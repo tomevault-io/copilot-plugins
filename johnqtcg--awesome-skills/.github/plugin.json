@@ -1,0 +1,9 @@
+{
+  "name": "johnqtcg--awesome-skills",
+  "displayName": "awesome-skills",
+  "description": " A curated system of production-ready Claude Code skills with quantitative evaluation reports, golden test fixtures, and engineering workflow integration.",
+  "version": "1.0.0",
+  "author": "johnqtcg",
+  "homepage": "https://github.com/johnqtcg/awesome-skills",
+  "skills": []
+}
