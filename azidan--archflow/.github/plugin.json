@@ -1,0 +1,9 @@
+{
+  "name": "azidan--archflow",
+  "displayName": "archflow",
+  "description": "Phase-based AI development framework for Claude Code. Orchestrates 16+ specialized agents through the full software lifecycle.",
+  "version": "1.0.0",
+  "author": "AZidan",
+  "homepage": "https://github.com/AZidan/archflow",
+  "skills": []
+}
