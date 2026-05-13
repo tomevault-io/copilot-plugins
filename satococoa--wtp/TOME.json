@@ -4,7 +4,7 @@
   "repo": "wtp",
   "description": "\ud83c\udf33 A powerful Git worktree CLI tool with automated setup, branch tracking, and smart navigation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/satococoa/wtp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T06:49:58Z"
+  "distributed_at": "2026-05-13T15:11:27Z"
 }
