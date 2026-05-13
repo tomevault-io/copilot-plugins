@@ -1,0 +1,9 @@
+{
+  "name": "minara-ai--crypto-skill-benchmark",
+  "displayName": "crypto-skill-benchmark",
+  "description": "A safety-first benchmark for crypto AI skills.",
+  "version": "1.0.0",
+  "author": "Minara-AI",
+  "homepage": "https://github.com/Minara-AI/crypto-skill-benchmark",
+  "skills": []
+}
