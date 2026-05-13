@@ -1,0 +1,9 @@
+{
+  "name": "cimatic--zod-gen",
+  "displayName": "zod_gen",
+  "description": "Generate Zod schemas and TypeScript types from Rust types. Use with zod_gen_derive for automatic #[derive(ZodSchema)] support and serde rename compatibility.",
+  "version": "1.0.0",
+  "author": "cimatic",
+  "homepage": "https://github.com/cimatic/zod_gen",
+  "skills": []
+}
