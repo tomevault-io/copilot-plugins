@@ -4,7 +4,7 @@
   "repo": "ctxmv",
   "description": "\ud83c\udfe0 A CLI tool to migrate sessions between AI coding agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ryu0118/ctxmv",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T10:00:25Z"
+  "distributed_at": "2026-05-13T01:46:44Z"
 }
