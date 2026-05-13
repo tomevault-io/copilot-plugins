@@ -1,0 +1,9 @@
+{
+  "name": "zebangeth--rent-or-buy-homes",
+  "displayName": "rent-or-buy.homes",
+  "description": "A web app that helps you figure out whether buying or renting a home makes you richer.",
+  "version": "1.0.0",
+  "author": "zebangeth",
+  "homepage": "https://github.com/zebangeth/rent-or-buy.homes",
+  "skills": []
+}
