@@ -1,0 +1,9 @@
+{
+  "name": "dockers-x--cfui",
+  "displayName": "cfui",
+  "description": "cloudflared webUI",
+  "version": "1.0.0",
+  "author": "dockers-x",
+  "homepage": "https://github.com/dockers-x/cfui",
+  "skills": []
+}
