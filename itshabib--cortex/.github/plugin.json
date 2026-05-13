@@ -1,0 +1,9 @@
+{
+  "name": "itshabib--cortex",
+  "displayName": "cortex",
+  "description": "Multi-agent orchestration system built on Elixir/OTP.  DAG workflows + mesh mode + real-time LiveView dashboards on local, docker , and kubernetes. ",
+  "version": "1.0.0",
+  "author": "itsHabib",
+  "homepage": "https://github.com/itsHabib/cortex",
+  "skills": []
+}
