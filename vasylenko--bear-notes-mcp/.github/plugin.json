@@ -1,0 +1,9 @@
+{
+  "name": "vasylenko--bear-notes-mcp",
+  "displayName": "bear-notes-mcp",
+  "description": "MCP Server for Bear note taking app available as Claude Desktop extension or standalone server for any other AI tool",
+  "version": "1.0.0",
+  "author": "vasylenko",
+  "homepage": "https://github.com/vasylenko/bear-notes-mcp",
+  "skills": []
+}
