@@ -1,0 +1,9 @@
+{
+  "name": "chats-lab--toolshield",
+  "displayName": "ToolShield",
+  "description": "Official implementation for paper \"Unsafer in Many Turns: Benchmarking and Defending Multi-Turn Safety Risks in Tool-Using Agents\"",
+  "version": "1.0.0",
+  "author": "CHATS-lab",
+  "homepage": "https://github.com/CHATS-lab/ToolShield",
+  "skills": []
+}
