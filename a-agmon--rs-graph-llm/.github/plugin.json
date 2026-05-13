@@ -1,0 +1,9 @@
+{
+  "name": "a-agmon--rs-graph-llm",
+  "displayName": "rs-graph-llm",
+  "description": "High-performance framework for building interactive multi-agent workflow systems in Rust",
+  "version": "1.0.0",
+  "author": "a-agmon",
+  "homepage": "https://github.com/a-agmon/rs-graph-llm",
+  "skills": []
+}
