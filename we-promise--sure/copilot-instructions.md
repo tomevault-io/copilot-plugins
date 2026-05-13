@@ -1,55 +1,23 @@
-## cursor-rules
+## general-rules
 
-> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
+> Miscellaneous rules to get the AI to behave
 
+# General rules for AI 
 
-- **Required Rule Structure:**
-  ```markdown
-  ---
-  description: Clear, one-line description of what the rule enforces
-  globs: path/to/files/*.ext, other/path/**/*
-  alwaysApply: boolean
-  ---
+- Use `Current.user` for the current user. Do NOT use `current_user`.
+- Use `Current.family` for the current family. Do NOT use `current_family`.
+- Prior to generating any code, carefully read the project conventions and guidelines
+  - Read [project-design.mdc](mdc:.cursor/rules/project-design.mdc) to understand the codebase
+  - Read [project-conventions.mdc](mdc:.cursor/rules/project-conventions.mdc) to understand _how_ to write code for the codebase
+  - Read [ui-ux-design-guidelines.mdc](mdc:.cursor/rules/ui-ux-design-guidelines.mdc) to understand how to implement frontend code specifically
+- ActiveRecord migrations must inherit from `ActiveRecord::Migration[7.2]`. Do **not** use version 8.0 yet.
 
-  - **Main Points in Bold**
-    - Sub-points with details
-    - Examples and explanations
-  ```
+## Prohibited actions
 
-- **File References:**
-  - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
-  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
-  - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
-
-- **Code Examples:**
-  - Use language-specific code blocks
-  ```typescript
-  // ✅ DO: Show good examples
-  const goodExample = true;
-  
-  // ❌ DON'T: Show anti-patterns
-  const badExample = false;
-  ```
-
-- **Rule Content Guidelines:**
-  - Start with high-level overview
-  - Include specific, actionable requirements
-  - Show examples of correct implementation
-  - Reference existing code when possible
-  - Keep rules DRY by referencing other rules
-
-- **Rule Maintenance:**
-  - Update rules when new patterns emerge
-  - Add examples from actual codebase
-  - Remove outdated patterns
-  - Cross-reference related rules
-
-- **Best Practices:**
-  - Use bullet points for clarity
-  - Keep descriptions concise
-  - Include both DO and DON'T examples
-  - Reference actual code over theoretical examples
-  - Use consistent formatting across rules
+- Do not run `rails server` in your responses.
+- Do not run `touch tmp/restart.txt`
+- Do not run `rails credentials`
+- Do not automatically run migrations
 
 ---
 > Source: [we-promise/sure](https://github.com/we-promise/sure) — distributed by [TomeVault](https://tomevault.io).
