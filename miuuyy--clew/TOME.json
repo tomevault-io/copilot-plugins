@@ -4,7 +4,7 @@
   "repo": "Clew",
   "description": "Clear path from where you are to what you want to learn. AI agent turns goals and topic dumps into graph with visible dependencies (generative roadmap.sh)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/miuuyy/Clew",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T06:44:27Z"
+  "distributed_at": "2026-05-13T00:44:55Z"
 }
