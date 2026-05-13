@@ -7,11 +7,11 @@ Transform Claude Code into a complete development studio with 40+ specialized AI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [arnaldo-delisio/claude-code-studio](https://github.com/arnaldo-delisio/claude-code-studio).
+Original source: `CLAUDE.md` in [arnaldo-delisio/claude-code-studio](https://github.com/arnaldo-delisio/claude-code-studio).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
