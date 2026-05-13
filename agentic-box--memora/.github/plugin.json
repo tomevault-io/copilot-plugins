@@ -1,0 +1,9 @@
+{
+  "name": "agentic-box--memora",
+  "displayName": "memora",
+  "description": "Give your AI agents persistent memory.",
+  "version": "1.0.0",
+  "author": "agentic-box",
+  "homepage": "https://github.com/agentic-box/memora",
+  "skills": []
+}
