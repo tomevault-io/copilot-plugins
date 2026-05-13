@@ -1,0 +1,9 @@
+{
+  "name": "anon-dot-com--vaultrunner",
+  "displayName": "vaultrunner",
+  "description": "The missing auth layer for Claude browser automation. Secure logins. Automatic MFA. Learned login patterns.",
+  "version": "1.0.0",
+  "author": "anon-dot-com",
+  "homepage": "https://github.com/anon-dot-com/vaultrunner",
+  "skills": []
+}
