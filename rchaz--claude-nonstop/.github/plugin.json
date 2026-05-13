@@ -1,0 +1,9 @@
+{
+  "name": "rchaz--claude-nonstop",
+  "displayName": "claude-nonstop",
+  "description": "Multi-account switching and Slack remote access for Claude Code",
+  "version": "1.0.0",
+  "author": "rchaz",
+  "homepage": "https://github.com/rchaz/claude-nonstop",
+  "skills": []
+}
