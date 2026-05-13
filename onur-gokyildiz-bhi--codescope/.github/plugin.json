@@ -1,0 +1,9 @@
+{
+  "name": "onur-gokyildiz-bhi--codescope",
+  "displayName": "codescope",
+  "description": "GraphRAG for code. Graph-first (not embeddings-first) code intelligence: 32 MCP tools, LSP bridge, CUDA-aware, 99%+ cheaper than traditional RAG. Rust-native, fully local. Works with Claude Code, Curs",
+  "version": "1.0.0",
+  "author": "onur-gokyildiz-bhi",
+  "homepage": "https://github.com/onur-gokyildiz-bhi/codescope",
+  "skills": []
+}
