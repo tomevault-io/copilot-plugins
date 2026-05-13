@@ -1,88 +1,75 @@
-## observai
+## observai-context
 
-> ObservAI, gerçek zamanlı müşteri analizi yapan bir AI platformudur.
+> ObservAI projesi için AI bağlamı - her dosya açıldığında otomatik yükle
 
-# ObservAI — Cursor AI Kuralları
-# Bu dosya Cursor'ın tüm AI asistanları (GPT-4, Claude, Gemini) için geçerlidir.
 
-## 🎯 Proje Amacı
-ObservAI, gerçek zamanlı müşteri analizi yapan bir AI platformudur.
-- Kamera feed'inden YOLO11 ile insan tespiti
-- InsightFace/MiVOLO ile demografik analiz (yaş, cinsiyet)
-- React dashboard ile canlı görselleştirme
+# 🤖 ObservAI — AI Asistan Bağlamı
 
-## 📋 Otomatik Geliştirme Sistemi — MUTLAKA OKU
+Sen bu projede **otomatik geliştirme sisteminin** bir parçasısın.
+`HANDOFF.md` dosyasını oku ve kaldığın yerden devam et.
 
-Bu projede **AI-to-AI otomatik geliştirme sistemi** çalışmaktadır:
+## Proje Yapısı
+- **Frontend**: `frontend/` — React 18 + TypeScript + Vite (port 5173)
+- **Node Backend**: `backend/` — Express + TypeScript + Supabase (port 3001)
+- **Python Backend**: `packages/camera-analytics/` — FastAPI + WebSocket + YOLO11 + InsightFace (port 5001)
 
-1. **`HANDOFF.md`** — Önceki AI'ın bıraktığı yer. Her yeni AI oturumu BURADAN başlamalıdır.
-2. **`auto_dev_progress.json`** — Tüm görevlerin durumu (pending/in_progress/completed/failed)
-3. **`observai_auto_dev.py`** — Scheduled task scripti, otomatik görev yürütür
+## Otomatik Geliştirme Sistemi
+- **Görev takibi**: `auto_dev_progress.json` — tüm tasklar burada
+- **AI Handoff**: `HANDOFF.md` — önceki AI'ın bıraktığı yer, sıradaki görev
+- **Otomasyon scripti**: `observai_auto_dev.py` — scheduled task olarak çalışır
+- **Bildirim köprüsü**: `ntfy_bridge.py` — Windows'ta çalışır, telefona ntfy.sh bildirimi gönderir
 
-### Görev Akışı
-```
-HANDOFF.md oku → sıradaki pending task'ı al → uygula → progress.json güncelle → HANDOFF.md yenile
-```
+## ⚡ İlk Yapman Gereken
+1. `HANDOFF.md` dosyasını oku
+2. Sıradaki görev: **5.0.0** — Sistem Saglık Kontrolü (Test)
+3. Görevi uygula → `auto_dev_progress.json` güncelle
+4. `python ai_handoff.py` çalıştır
 
-## 🏗️ Teknik Stack
+## 📊 İlerleme (2026-03-08 15:33)
+- 15/16 görev tamamlandı (%93)
 
-### Frontend (port 5173)
-- React 18, TypeScript, Vite
-- Tailwind CSS, Recharts, Lucide icons
-- `frontend/src/components/camera/CameraFeed.tsx` — Ana kamera bileşeni (1350+ satır)
-- `frontend/src/services/cameraBackendService.ts` — Backend sağlık kontrolü
+## 📊 İlerleme (2026-03-04 03:05)
+- 15/15 görev tamamlandı (%100)
 
-### Node Backend (port 3001)
-- Express, TypeScript, Supabase
-- `backend/src/routes/python-backend.ts` — Python backend proxy
+## 📊 İlerleme (2026-03-04 00:35)
+- 14/15 görev tamamlandı (%93)
 
-### Python Backend (port 5001)
-- FastAPI + WebSocket
-- YOLO11s model (ultralytics)
-- InsightFace + MiVOLO (demografik analiz)
-- `packages/camera-analytics/camera_analytics/run_with_websocket.py` — Ana WebSocket server
-- `packages/camera-analytics/camera_analytics/analytics.py` — AI analiz motoru
+## 📊 İlerleme (2026-03-03 23:05)
+- 13/15 görev tamamlandı (%86)
 
-## 🔗 Bağlantı State Machine
-```typescript
-type ConnectionState = 'DISCONNECTED' | 'CONNECTING' | 'WAITING_FOR_BACKEND' | 'CONNECTED' | 'STREAMING' | 'FAILED'
-```
-- Exponential backoff: `Math.min(30000, Math.pow(2, attempt) * 1000)`
-- MJPEG max retry: 8 deneme
-- WebSocket health poll: 3 saniyede bir
+## 📊 İlerleme (2026-03-03 22:36)
+- 12/15 görev tamamlandı (%80)
 
-## 📁 Önemli Dosyalar
-```
-ObservAI/
-├── HANDOFF.md                    ← Her AI oturumu bunu okur
-├── auto_dev_progress.json        ← Görev durumları
-├── ai_handoff.py                 ← Handoff belgesi üretici
-├── observai_auto_dev.py          ← Otomasyon scripti
-├── ntfy_bridge.py                ← Windows ntfy.sh köprüsü
-├── frontend/src/
-│   └── components/camera/CameraFeed.tsx
-└── packages/camera-analytics/camera_analytics/
-    ├── run_with_websocket.py
-    └── analytics.py
-```
+## 📊 İlerleme (2026-03-03 22:04)
+- 11/15 görev tamamlandı (%73)
 
-## ⚠️ Dikkat Edilecekler
-- TypeScript strict: `any` kullanma, proper typing yap
-- Python: async/await ile yazılmış, sync fonksiyon ekleme
-- Her edit sonrası: `cd frontend && npx tsc --noEmit` ile kontrol et
-- `auto_dev_progress.json` dosyasını doğrudan düzenle (id, status, completed_at alanları)
+## 📊 İlerleme (2026-03-03 21:39)
+- 10/15 görev tamamlandı (%66)
 
-## 📊 Güncel İlerleme (2026-03-08 15:33)
-- **Tamamlanan:** 15/16 görev (%93)
-- **Sıradaki Görev:** **5.0.0** — Sistem Saglık Kontrolü (Test)
-- **Son Not:** Scheduled task calisti (2026-03-08). observai_auto_dev.py --once komutu VM sandbox'ta internet erisimi olmadigi icin erken cikti (beklenen davranis). Tüm 15 gelistirme gorevi (Faz 1-4) tamamlanmis dur
+## 📊 İlerleme (2026-03-03 19:13)
+- 9/15 görev tamamlandı (%60)
 
-## ⚡ Hemen Şimdi Yap
-1. `HANDOFF.md` dosyasını oku (tüm bağlam burada)
-2. `auto_dev_progress.json` içindeki ilk `pending` görevi seç
-3. Görevi uygula
-4. `auto_dev_progress.json` içinde status'ü `"completed"` yap ve `completed_at` ekle
-5. `python ai_handoff.py` çalıştır (handoff belgesini güncelle)
+## 📊 İlerleme (2026-03-03 18:05)
+- 8/15 görev tamamlandı (%53)
+
+## 📊 İlerleme (2026-03-03 17:37)
+- 7/15 görev tamamlandı (%46)
+
+## 📊 İlerleme (2026-03-03 16:44)
+- 6/15 görev tamamlandı (%40)
+
+## 📊 İlerleme (2026-03-03 16:32)
+- 5/15 görev tamamlandı (%33)
+
+## 📊 İlerleme (2026-03-03 15:59)
+- 4/15 görev tamamlandı (%26)
+
+## Kodlama Kuralları
+- TypeScript strict mode aktif, `any` kullanma
+- React hooks kurallarına uy
+- Python: async/await kullan, type hints ekle
+- Her değişiklikten sonra TypeScript build kontrol et: `cd frontend && npx tsc --noEmit`
+- Commit mesajı: `feat(task-X.Y.Z): kısa açıklama`
 
 ---
 > Source: [observaianeye/ObservAI](https://github.com/observaianeye/ObservAI) — distributed by [TomeVault](https://tomevault.io).
