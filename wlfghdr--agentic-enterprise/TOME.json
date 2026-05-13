@@ -4,7 +4,7 @@
   "repo": "agentic-enterprise",
   "description": "Agentic Enterprise - a framework to run an enterprise with Git and Agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wlfghdr/agentic-enterprise",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T17:44:09Z"
+  "distributed_at": "2026-05-13T05:14:23Z"
 }
