@@ -1,0 +1,9 @@
+{
+  "name": "silentely--esim-tools",
+  "displayName": "eSIM-Tools",
+  "description": "\u4e13\u4e3aGiffgaff\u548cSimyo\u7528\u6237\u8bbe\u8ba1\u7684eSIM\u7ba1\u7406\u5de5\u5177\u96c6\uff0c\u652f\u6301\u5b8c\u6574\u7684eSIM\u7533\u8bf7\u3001\u8bbe\u5907\u66f4\u6362\u548c\u4e8c\u7ef4\u7801\u751f\u6210\u6d41\u7a0b\u3002(A modern eSIM management toolkit designed specifically for Giffgaff and Simyo users, supporting the complete eSIM application, activation, and ",
+  "version": "1.0.0",
+  "author": "Silentely",
+  "homepage": "https://github.com/Silentely/eSIM-Tools",
+  "skills": []
+}
