@@ -1,0 +1,9 @@
+{
+  "name": "imolatte--claude-cli-telegram",
+  "displayName": "claude-cli-telegram",
+  "description": "Turn your Mac/Linux into a remote Claude Code terminal via Telegram. Spawns real CLI \u2014 sessions, streaming, approvals, voice, git panel, 30+ commands.",
+  "version": "1.0.0",
+  "author": "Imolatte",
+  "homepage": "https://github.com/Imolatte/claude-cli-telegram",
+  "skills": []
+}
