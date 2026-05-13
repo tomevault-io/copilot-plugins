@@ -1,0 +1,9 @@
+{
+  "name": "zbruhnke--claude-code-starter",
+  "displayName": "claude-code-starter",
+  "description": "Production-ready Claude Code configuration template with stack presets, security hooks, and automation tools",
+  "version": "1.0.0",
+  "author": "zbruhnke",
+  "homepage": "https://github.com/zbruhnke/claude-code-starter",
+  "skills": []
+}
