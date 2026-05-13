@@ -1,0 +1,9 @@
+{
+  "name": "rdrkr--aerospacebar",
+  "displayName": "AeroSpaceBar",
+  "description": "A modern macOS menu bar application for managing AeroSpace window manager spaces and windows with a beautiful SwiftUI interface",
+  "version": "1.0.0",
+  "author": "rdrkr",
+  "homepage": "https://github.com/rdrkr/AeroSpaceBar",
+  "skills": []
+}
