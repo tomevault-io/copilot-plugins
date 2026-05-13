@@ -1,0 +1,9 @@
+{
+  "name": "pattty847--subtext",
+  "displayName": "Subtext",
+  "description": "Local-first app for downloading media, generating transcripts, and running private AI analysis with Whisper and Ollama",
+  "version": "1.0.0",
+  "author": "pattty847",
+  "homepage": "https://github.com/pattty847/Subtext",
+  "skills": []
+}
