@@ -7,11 +7,11 @@ MCP server for ERPNext / Frappe ERP — Interactive UI viewers
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Casys-AI/mcp-erpnext](https://github.com/Casys-AI/mcp-erpnext).
+Original source: `CLAUDE.md` in [Casys-AI/mcp-erpnext](https://github.com/Casys-AI/mcp-erpnext).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
