@@ -1,0 +1,9 @@
+{
+  "name": "voglster--lumbergh",
+  "displayName": "lumbergh",
+  "description": "Self-hosted web dashboard for supervising multiple Claude Code AI sessions in tmux. Live terminals, real-time git diffs, file browser, todo lists, prompt templates, and mobile PWA support. Micromanage",
+  "version": "1.0.0",
+  "author": "voglster",
+  "homepage": "https://github.com/voglster/lumbergh",
+  "skills": []
+}
