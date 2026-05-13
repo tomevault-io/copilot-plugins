@@ -1,0 +1,9 @@
+{
+  "name": "dosier--kodio",
+  "displayName": "kodio",
+  "description": "Kotlin multiplatform Audio System Library",
+  "version": "1.0.0",
+  "author": "dosier",
+  "homepage": "https://github.com/dosier/kodio",
+  "skills": []
+}
