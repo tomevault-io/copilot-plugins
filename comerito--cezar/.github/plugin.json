@@ -1,0 +1,9 @@
+{
+  "name": "comerito--cezar",
+  "displayName": "cezar",
+  "description": "Cezar brings order to chaotic GitHub backlogs. Sync issues locally, let Claude analyze them, then triage through a clean interactive CLI. Find duplicates first \u2014 more actions coming. Built for maintai",
+  "version": "1.0.0",
+  "author": "comerito",
+  "homepage": "https://github.com/comerito/cezar",
+  "skills": []
+}
