@@ -4,7 +4,7 @@
   "repo": "cognitox",
   "description": "\ud83d\udfe3 : An Amazon Cognito Emulator for local development",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/unvalley/cognitox",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T20:10:30Z"
+  "distributed_at": "2026-05-13T08:56:12Z"
 }
