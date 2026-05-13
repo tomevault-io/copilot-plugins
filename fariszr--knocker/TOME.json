@@ -4,7 +4,7 @@
   "repo": "knocker",
   "description": "Knocker, a knock based access control service for your homelab",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FarisZR/knocker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T15:09:39Z"
+  "distributed_at": "2026-05-13T03:14:17Z"
 }
