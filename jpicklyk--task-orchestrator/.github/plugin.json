@@ -1,0 +1,9 @@
+{
+  "name": "jpicklyk--task-orchestrator",
+  "displayName": "task-orchestrator",
+  "description": "Server-enforced workflow discipline for AI agents. An MCP server providing persistent work items, dependency graphs, quality gates, and actor attribution. Schemas define what agents must produce \u2014 the",
+  "version": "1.0.0",
+  "author": "jpicklyk",
+  "homepage": "https://github.com/jpicklyk/task-orchestrator",
+  "skills": []
+}
