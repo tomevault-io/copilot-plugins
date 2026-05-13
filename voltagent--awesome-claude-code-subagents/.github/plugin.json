@@ -1,0 +1,9 @@
+{
+  "name": "voltagent--awesome-claude-code-subagents",
+  "displayName": "awesome-claude-code-subagents",
+  "description": "A collection of 100+ specialized Claude Code subagents covering a wide range of development use cases",
+  "version": "1.0.0",
+  "author": "VoltAgent",
+  "homepage": "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "skills": []
+}
