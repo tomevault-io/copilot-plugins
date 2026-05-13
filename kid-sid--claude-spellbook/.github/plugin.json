@@ -1,0 +1,9 @@
+{
+  "name": "kid-sid--claude-spellbook",
+  "displayName": "claude-spellbook",
+  "description": "A curated collection of skills, prompts, and workflows that extend Claude's capabilities \u2014 your personal grimoire for AI-powered development.",
+  "version": "1.0.0",
+  "author": "kid-sid",
+  "homepage": "https://github.com/kid-sid/claude-spellbook",
+  "skills": []
+}
