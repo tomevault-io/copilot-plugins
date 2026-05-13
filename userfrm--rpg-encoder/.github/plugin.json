@@ -1,0 +1,9 @@
+{
+  "name": "userfrm--rpg-encoder",
+  "displayName": "rpg-encoder",
+  "description": "MCP server that gives AI coding agents semantic understanding of any codebase. Search by intent, auto-sync on edits, whole-repo context in one call. Rust + tree-sitter, 15 languages, 28 tools.",
+  "version": "1.0.0",
+  "author": "userFRM",
+  "homepage": "https://github.com/userFRM/rpg-encoder",
+  "skills": []
+}
