@@ -1,0 +1,9 @@
+{
+  "name": "jp-knj--xmdx",
+  "displayName": "xmdx",
+  "description": "streaming Markdown/MDX engine built with Rust, designed for high-performance processing in Astro frameworks.",
+  "version": "1.0.0",
+  "author": "jp-knj",
+  "homepage": "https://github.com/jp-knj/xmdx",
+  "skills": []
+}
