@@ -7,11 +7,11 @@ DuckDB extension for accessing Apache Paimon. 🦆
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [polardb/duckdb-paimon](https://github.com/polardb/duckdb-paimon).
+Original source: `CLAUDE.md` in [polardb/duckdb-paimon](https://github.com/polardb/duckdb-paimon).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
