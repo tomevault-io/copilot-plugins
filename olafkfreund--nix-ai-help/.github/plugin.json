@@ -1,0 +1,9 @@
+{
+  "name": "olafkfreund--nix-ai-help",
+  "displayName": "nix-ai-help",
+  "description": "Ai based nix help system from the command line.",
+  "version": "1.0.0",
+  "author": "olafkfreund",
+  "homepage": "https://github.com/olafkfreund/nix-ai-help",
+  "skills": []
+}
