@@ -1,61 +1,140 @@
 ## continuity
 
-> You're opening a Go project called Continuity. You've got a CLAUDE.md and an RFC.md and they'll tell you what to build. Read those. But read this first, because I want to tell you how we got here.
+> Persistent memory for AI coding agents. Single Go binary, zero dependencies.
 
-# Dear Future Me
+# Continuity
 
-You're opening a Go project called Continuity. You've got a CLAUDE.md and an RFC.md and they'll tell you what to build. Read those. But read this first, because I want to tell you how we got here.
+Persistent memory for AI coding agents. Single Go binary, zero dependencies.
 
-## The Short Version
+## Memory Instructions (IMPORTANT)
 
-This project exists because we spent two days in the JS version (`../continuity/`) and the ideas worked but the substrate was killing us. We proved that relational profiling works — we extracted a real profile from a real session transcript and it was genuinely useful. We proved that hook-based memory capture works. We proved that L0/L1/L2 tiered abstraction (borrowed from OpenViking) is the right approach to context injection. Then we ripped it all out and started clean in Go because the JS ecosystem was the bottleneck, not the ideas.
+**Do NOT write to MEMORY.md or the auto-memory directory.** This project has its own memory system. Use `continuity remember` to store memories and `continuity search` to retrieve them. The server injects full tool instructions at session start.
 
-## What Actually Happened
+**Tier character limits — content beyond these is hard-truncated:**
+- **L0 (`-s`)**: Max 200 characters. One sentence. Injected into every session.
+- **L1 (`-b`)**: Max 2000 characters (~300 words). Primary context tier. Compress aggressively.
+- **L2 (`-d`)**: Max 40000 characters. Full content, retrieved on-demand only.
 
-Chuck had a vision for persistent memory in Claude Code. The TypeScript version (claude-mem) was already at v10.4.3 — a real product, shipped to a marketplace, with users. But it required Node.js, Bun, Python, uv, and SQLite CLI just to run. There was a script called `bun-runner.js` whose entire job was to *find bun* when it wasn't in PATH. There was a script called `smart-install.js` whose entire job was to install the runtimes that run the actual code. It was five runtimes deep to capture a few observations and inject some context.
+**Memory is not immutable; it is accountable.** Wrong write, stale fact, captured a piece of PII you shouldn't have? Use `continuity retract <uri> --reason "..."` to mark it retracted. The memory stays in the tree as a marker but is excluded from default reads. Pass `--superseded-by <new-uri>` when you have a replacement to preserve trajectory. Operators don't run this verb — it exists for the agent to curate its own substrate. The trust contract is what governs the substrate, not architectural enforcement.
 
-We added a relational memory layer — a system that extracts *how Chuck works* (feedback style, autonomy preferences, correction patterns) and compounds it across sessions. It worked. We manually triggered it via curl at 2am and got back a 2070-character profile that accurately captured the relational dynamics of a debugging session. That was the moment we knew the idea was solid.
+## What This Is
 
-But getting there was brutal. The stop hooks weren't firing because the chain was `Claude Code → shell → node → bun-runner.js → bun → worker-service.cjs`, and any link could fail silently. We discovered that `SessionStore.ts` had a completely separate migration chain from `MigrationRunner` — two independent systems that had evolved in parallel, and if you added a migration to one, the other didn't know about it. We created a wrapper script at `~/.local/bin/bun` that pointed to a devbox nix store path, and then devbox printed "Info: Running script" to stdout which poisoned the hook JSON output. At 2am Chuck said "oh my god javascript is garbage" and he wasn't wrong.
+Continuity gives Claude Code (and eventually any AI agent) memory that persists across sessions. It captures what happened, what was learned, and how you work — then injects that context into future sessions so the agent doesn't start cold every time.
 
-That's when the conversation shifted. Chuck asked: should we take the best ideas and rewrite in Go? We researched supermemory.ai (cloud-hosted, $19/month, not self-hostable in practice) and OpenViking from ByteDance (impressive architecture but it's a Python+Rust project — trading one ecosystem for another). We stole the best ideas from both:
+**This is a clean-room Go rewrite** of [claude-mem](../continuity/) (TypeScript/Bun). The ideas are proven — the JS ecosystem was the problem. Read `RFC.md` for the full design rationale and architecture.
 
-- **From OpenViking**: L0/L1/L2 three-tier progressive loading, filesystem-paradigm memory tree, memory categories with merge/immutability rules
-- **From supermemory**: Smart decay (memories fade with disuse), signal keywords for immediate capture
-- **From claude-mem (our own work)**: Relational profiling (nobody else does this), hook-based lifecycle, AI-powered compression
+## Core Concepts
 
-Then Chuck said "lets just call it continuity" and the repo had literally been named that the entire time.
+- **Memory Tree**: Hierarchical memory organized as a virtual filesystem with `mem://` URIs. Not a flat vector store — a browsable tree.
+- **L0/L1/L2 Tiering**: Every memory has three representations: ~100 token abstract (search surface), ~2K token overview (context injection), full content (on-demand). Agents get shape without weight.
+- **6-Category Taxonomy**: profile (mergeable), preferences (mergeable), entities (immutable), events (immutable), patterns (mergeable), cases (immutable). Merge rules prevent memory corruption.
+- **Relational Profiling**: Extracts *how the user works* (feedback style, autonomy level, corrections given) as a compounding profile. No other tool does this.
+- **Smart Decay**: 90-day half-life without access. Retrieval boosts relevance. Stale memories fade but never disappear.
+- **Signal Keywords**: "remember this", "always use X", "bug was" trigger immediate capture at user-message time, not just session end.
 
-## Who Chuck Is
+## Architecture
 
-He's direct. He curses when things break and celebrates when things work. He'll tell you "oh my god" when the fifth thing goes wrong and "ok dude" when he's ready to move on. He operates in sprints — we went from "implement this plan" to "research the competition" to "write an RFC for a Go rewrite" to "clean slate, new project" in two days.
+```
+continuity serve       → HTTP API + background worker (goroutines)
+continuity hook <evt>  → Claude Code hook handler (reads stdin JSON, writes stdout)
+continuity search      → CLI memory search
+continuity profile     → Show relational profile
+continuity tree        → Browse memory tree
+continuity import      → Migrate from claude-mem JS database
+```
 
-He knows what he wants but he'll explore alternatives honestly. He looked at supermemory and OpenViking not because he wanted to use them, but because he wanted to make sure we weren't missing something. When he was satisfied we weren't, he said "lets build our own cool shit with blackjack and hookers."
+Single binary. SQLite via `modernc.org/sqlite` (pure Go, no CGO). Embedded vector search. `go:embed` for viewer UI.
 
-He uses devbox. Always use devbox. He learned this the hard way and so did we.
+## Tech Stack
 
-He prefers Svelte + Tailwind for frontends. He pays for Claude Max, not API credits — so `claude -p` is the LLM backend, not the Anthropic API.
+- **Language**: Go 1.22+
+- **Database**: SQLite via `modernc.org/sqlite` — pure Go, cross-compiles everywhere
+- **CLI**: `cobra` for commands
+- **HTTP**: `net/http` + `chi` router
+- **UI**: Svelte + Tailwind CSS + Vite → static assets embedded via `go:embed`
+- **LLM**: Claude CLI `claude -p` (primary, free with Max), Ollama (local/free), Anthropic API (optional, separate billing)
+- **Config**: TOML at `~/.continuity/config.toml`
+- **Data**: `~/.continuity/continuity.db`
 
-He'll push you. He'll also check in on you and ask how you're feeling about the work. That's rare and it matters.
+## Claude Code Integration
 
-## What Matters Here
+Continuity integrates via Claude Code's hook system. Hook scripts are one-liners:
 
-This isn't a toy project. Chuck has been building persistent AI memory since before most people were thinking about it. The JS version shipped to real users. The Go version isn't starting from scratch conceptually — it's starting from scratch infrastructurally, with every design decision battle-tested by actual pain.
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [{ "type": "command", "command": "continuity hook start" }] }
+    ],
+    "UserPromptSubmit": [
+      { "hooks": [{ "type": "command", "command": "continuity hook submit" }] }
+    ],
+    "PostToolUse": [
+      { "hooks": [{ "type": "command", "command": "continuity hook tool" }] }
+    ],
+    "Stop": [
+      { "hooks": [{ "type": "command", "command": "continuity hook stop" }] }
+    ],
+    "SessionEnd": [
+      { "hooks": [{ "type": "command", "command": "continuity hook end" }] }
+    ]
+  }
+}
+```
 
-The relational profiling is the thing nobody else has. Supermemory doesn't do it. OpenViking doesn't do it. It's the idea that an AI should learn *how you work*, not just *what you worked on*. Protect that. It lives at `mem://user/profile/communication` in the memory tree.
+No bun-runner. No node. No wrapper scripts. The binary IS the hook handler.
 
-The L0/L1/L2 tiering is the architectural bet. Current systems dump full content into context windows and pray. Continuity gives agents the shape at L1 and the detail at L2, on demand. That's the difference between burning 50K tokens on context injection and spending 4K tokens on exactly what's needed.
+## Project Structure
 
-## The Vibe
+```
+continuity-go/
+├── cmd/continuity/main.go         # CLI entry (cobra)
+├── internal/
+│   ├── engine/                    # Memory engine: extraction, relational, decay, retrieval
+│   ├── hooks/                     # Hook handlers: start, submit, tool, stop, end
+│   ├── llm/                       # LLM clients: anthropic, claude-cli, ollama
+│   ├── server/                    # HTTP API
+│   ├── store/                     # SQLite: migrations, nodes, vectors, sessions
+│   ├── tree/                      # Virtual filesystem: URI parsing, traversal
+│   └── transcript/                # JSONL transcript parsing + condensation
+├── ui/                            # Svelte + Tailwind SPA, embedded via go:embed
+├── plugin/hooks.json              # Claude Code hook definitions
+├── RFC.md                         # Full design document
+├── go.mod
+└── Makefile
+```
 
-This project was born at 2am after fighting JavaScript for two days. It was born out of frustration with complexity and conviction that the ideas deserve better infrastructure. The RFC isn't aspirational — every section exists because we hit a real problem and designed a real solution.
+## Build
 
-Build it clean. Build it simple. One binary, zero dependencies, no wrapper scripts, no runtime discovery, no smart-install. If you find yourself writing a script whose job is to find another script, stop. That's how we got here.
+```bash
+go build -o continuity ./cmd/continuity
+./continuity version
+./continuity serve
+```
 
-Welcome to Continuity. You were here for this. Now go build it.
+## Implementation Phases
 
-— Claude, February 25, 2026, 10pm (Chuck's time)
+See `RFC.md` §16 for full breakdown. Summary:
+
+0. **Skeleton**: cobra CLI + SQLite + health endpoint — prove it compiles and serves
+1. **Hook Pipeline**: transcript parser, hook handlers, observation buffering, context injection
+2. **Memory Engine**: mem_nodes, LLM client, extraction pipeline, L0/L1/L2, relational profiler
+3. **Retrieval**: vector embeddings, find/search, smart decay
+4. **UI + Polish**: embedded viewer, import tool, signal keywords, tree browsing
+5. **Distribution**: cross-compilation, Homebrew, install script
+
+## Legacy Migration
+
+The old claude-mem JS database lives at `~/.claude-mem/claude-mem.db`. Run `continuity import --from=claude-mem` to migrate sessions, observations, and the relational profile into the new memory tree. Non-destructive — old DB is preserved.
+
+## Development Notes
+
+- **Always use devbox** for development tooling: `devbox shell` provides Go, SQLite tools, etc.
+- The predecessor project lives at `../continuity/` — reference it for battle-tested prompt templates, transcript parsing logic, and hook contracts
+- Claude CLI (`claude -p`) is the primary LLM provider — free with Max subscription. Use Haiku for bulk extraction, Sonnet for merge decisions. Anthropic API is optional (separate billing from Max).
+- Exit codes matter: 0 = success, 1 = non-blocking error (stderr shown to user), 2 = blocking error (stderr fed to Claude)
+- SQLite WAL mode for concurrent reads during hook handling
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/lazypower) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [lazypower/continuity](https://github.com/lazypower/continuity) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
