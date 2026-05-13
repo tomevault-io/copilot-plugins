@@ -1,0 +1,9 @@
+{
+  "name": "sonberg--zeta",
+  "displayName": "zeta",
+  "description": "A composable, type-safe, async-first validation framework for .NET",
+  "version": "1.0.0",
+  "author": "Sonberg",
+  "homepage": "https://github.com/Sonberg/zeta",
+  "skills": []
+}
