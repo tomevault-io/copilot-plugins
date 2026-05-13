@@ -7,11 +7,11 @@ A CLI to create short-lived (8 hours) GitHub App User Access Token for secure lo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [suzuki-shunsuke/ghtkn](https://github.com/suzuki-shunsuke/ghtkn).
+Original source: `CLAUDE.md` in [suzuki-shunsuke/ghtkn](https://github.com/suzuki-shunsuke/ghtkn).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
