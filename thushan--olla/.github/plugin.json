@@ -1,0 +1,9 @@
+{
+  "name": "thushan--olla",
+  "displayName": "olla",
+  "description": "High-performance lightweight proxy and load balancer for LLM infrastructure. Intelligent routing, automatic failover and unified model discovery across local and remote inference backends.",
+  "version": "1.0.0",
+  "author": "thushan",
+  "homepage": "https://github.com/thushan/olla",
+  "skills": []
+}
