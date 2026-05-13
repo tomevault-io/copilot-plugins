@@ -4,7 +4,7 @@
   "repo": "grove",
   "description": "A hosted knowledge API that makes Obsidian vaults searchable and writable from any Claude surface.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jmilinovich/grove",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T07:03:44Z"
+  "distributed_at": "2026-05-13T00:51:19Z"
 }
