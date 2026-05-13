@@ -1,0 +1,9 @@
+{
+  "name": "callobuzz--cob-shopify-mcp",
+  "displayName": "cob-shopify-mcp",
+  "description": "Production-grade MCP server and CLI tool for Shopify Admin GraphQL API \u2014 49+ tools, YAML-extensible, dual auth, dual transport, Docker-ready",
+  "version": "1.0.0",
+  "author": "callobuzz",
+  "homepage": "https://github.com/callobuzz/cob-shopify-mcp",
+  "skills": []
+}
