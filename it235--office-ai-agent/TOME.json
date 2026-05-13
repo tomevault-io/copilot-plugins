@@ -4,7 +4,7 @@
   "repo": "office-ai-agent",
   "description": "\u5f00\u6e90OfficeAI\u63d2\u4ef6\uff0c\u652f\u6301Excel/Word/PPT/WPS\uff08Office AI intelligent agent plugin based on Visual Studio+VSTO+VB.net (compatible with WPS).\uff09",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/it235/office-ai-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T08:33:31Z"
+  "distributed_at": "2026-05-13T17:12:04Z"
 }
