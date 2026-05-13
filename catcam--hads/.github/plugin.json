@@ -1,0 +1,9 @@
+{
+  "name": "catcam--hads",
+  "displayName": "hads",
+  "description": "Human-AI Document Standard \u2014 lightweight convention for AI-optimized technical documentation",
+  "version": "1.0.0",
+  "author": "catcam",
+  "homepage": "https://github.com/catcam/hads",
+  "skills": []
+}
