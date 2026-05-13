@@ -1,0 +1,9 @@
+{
+  "name": "chongdashu--cc-statusline",
+  "displayName": "cc-statusline",
+  "description": "Transform your Claude Code experience with a beautiful, informative statusline",
+  "version": "1.0.0",
+  "author": "chongdashu",
+  "homepage": "https://github.com/chongdashu/cc-statusline",
+  "skills": []
+}
