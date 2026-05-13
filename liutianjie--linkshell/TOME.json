@@ -4,7 +4,7 @@
   "repo": "LinkShell",
   "description": "Remotely view and control local Claude Code / Codex terminal sessions on a mobile device.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LiuTianjie/LinkShell",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T05:14:30Z"
+  "distributed_at": "2026-05-13T00:22:23Z"
 }
