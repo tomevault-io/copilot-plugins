@@ -1,0 +1,9 @@
+{
+  "name": "cometkim--cc-monitor-worker",
+  "displayName": "cc-monitor-worker",
+  "description": "Claude Code monitoring with Cloudflare Workers & Workers Analytics Engine",
+  "version": "1.0.0",
+  "author": "cometkim",
+  "homepage": "https://github.com/cometkim/cc-monitor-worker",
+  "skills": []
+}
