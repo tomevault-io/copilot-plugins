@@ -1,0 +1,9 @@
+{
+  "name": "cursortouch--windows-mcp",
+  "displayName": "Windows-MCP",
+  "description": "MCP Server for Computer Use in Windows",
+  "version": "1.0.0",
+  "author": "CursorTouch",
+  "homepage": "https://github.com/CursorTouch/Windows-MCP",
+  "skills": []
+}
