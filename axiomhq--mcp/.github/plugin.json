@@ -1,0 +1,9 @@
+{
+  "name": "axiomhq--mcp",
+  "displayName": "mcp",
+  "description": "Axiom MCP Server",
+  "version": "1.0.0",
+  "author": "axiomhq",
+  "homepage": "https://github.com/axiomhq/mcp",
+  "skills": []
+}
