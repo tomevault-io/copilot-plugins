@@ -1,0 +1,9 @@
+{
+  "name": "compose-fluent--kotlin-winrt",
+  "displayName": "kotlin-winrt",
+  "description": "kotlin-winrt is a Kotlin/JVM binding system that provides idiomatic, coroutine\u2011friendly access to Windows Runtime (WinRT) APIs, enabling Kotlin developers to build Windows desktop applications with se",
+  "version": "1.0.0",
+  "author": "compose-fluent",
+  "homepage": "https://github.com/compose-fluent/kotlin-winrt",
+  "skills": []
+}
