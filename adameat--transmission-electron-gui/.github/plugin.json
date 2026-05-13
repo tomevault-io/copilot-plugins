@@ -1,0 +1,9 @@
+{
+  "name": "adameat--transmission-electron-gui",
+  "displayName": "transmission-electron-gui",
+  "description": "Modern Electron desktop GUI for Transmission daemon RPC.",
+  "version": "1.0.0",
+  "author": "adameat",
+  "homepage": "https://github.com/adameat/transmission-electron-gui",
+  "skills": []
+}
