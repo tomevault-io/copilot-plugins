@@ -1,8 +1,8 @@
 {
-  "name": "SeedX",
+  "name": "seedx",
   "owner": "CaoYuhaoCarl",
-  "repo": "SeedX",
-  "description": "Turn any question into a structured, agent-evaluated mastery path with plans, exercises, checkpoints, and real-world transfer.",
+  "repo": "seedx",
+  "description": "SeedX turns any idea/question into a structured, agent-evaluated mastery path with plans, exercises, checkpoints, and real-world transfer.",
   "type": "config",
   "source_format": "AGENTS.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/CaoYuhaoCarl/SeedX",
+  "source_url": "https://github.com/CaoYuhaoCarl/seedx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T00:49:01Z"
+  "distributed_at": "2026-05-13T01:18:40Z"
 }
