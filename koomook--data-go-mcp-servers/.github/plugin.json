@@ -1,0 +1,9 @@
+{
+  "name": "koomook--data-go-mcp-servers",
+  "displayName": "data-go-mcp-servers",
+  "description": "Korea public data portal (data.go.kr) API MCP servers",
+  "version": "1.0.0",
+  "author": "Koomook",
+  "homepage": "https://github.com/Koomook/data-go-mcp-servers",
+  "skills": []
+}
