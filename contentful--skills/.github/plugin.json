@@ -1,0 +1,9 @@
+{
+  "name": "contentful--skills",
+  "displayName": "skills",
+  "description": "Skills for teaching agents how to build on Contentful.",
+  "version": "1.0.0",
+  "author": "contentful",
+  "homepage": "https://github.com/contentful/skills",
+  "skills": []
+}
