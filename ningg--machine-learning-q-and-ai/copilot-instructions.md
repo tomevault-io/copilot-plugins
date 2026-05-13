@@ -1,16 +1,60 @@
-## development
+## md-formatting
 
-> - Refer to the main [README.md](mdc:README.md) and [docs/README.md](mdc:docs/README.md) for setup, build, and contribution instructions.
+> - 图片应存放于 [docs/images/](mdc:docs/images/) 目录，命名格式为 `chXX-figYY.png`（如 ch01-fig01.png）。
 
-# Development and Contribution Guidelines
+# Markdown 格式规范（图片、公式、代码块等）
 
-- Refer to the main [README.md](mdc:README.md) and [docs/README.md](mdc:docs/README.md) for setup, build, and contribution instructions.
-- All documentation content should be placed in the appropriate chapter subdirectory under [docs/](mdc:docs/).
-- Images should be stored in [docs/images/](mdc:docs/images/) and named according to the convention: `chXX-figYY.png`.
-- Scripts for content processing are located in [scripts/](mdc:scripts/).
-- Follow Markdown best practices and keep content clear and concise.
-- When adding or editing chapters, update the sidebar in [docs/_sidebar.md](mdc:docs/_sidebar.md) if necessary.
-description: Development and contribution guidelines for the ML Q&A documentation project
+## 图片插入
+- 图片应存放于 [docs/images/](mdc:docs/images/) 目录，命名格式为 `chXX-figYY.png`（如 ch01-fig01.png）。
+- 插入图片时使用相对路径，例如：
+  ```markdown
+  ![描述性文字](../images/ch01-fig01.png)
+  ```
+- 推荐图片居中显示，可用 HTML 标签：
+  ```html
+  <div align="center">
+    <img src="../images/ch01-fig01.png" alt="描述性文字" width="60%" />
+  </div>
+  ```
+- 图片下方可添加图片说明，使用 HTML 标签 `<div><b>Figure XX.YY</b></div>` 包裹，例如：
+  ```html
+  <div><b>Figure 01.03</b></div>
+  ```
+- 引用图片的写法，统一用 [XX.YY](#fig-chXX-figYY) 的形式
+
+
+## 公式书写
+- 使用美元符号 `$...$` 表示行内公式，例如：`$y = mx + b$`
+- 使用双美元符号 `$$...$$` 或 `\[ ... \]` 表示块级公式，例如：
+  ```markdown
+  $$
+  y = \frac{1}{1 + e^{-x}}
+  $$
+  ```
+- 推荐使用标准 LaTeX 语法。
+
+## 代码块
+- 使用三反引号（```）包裹代码，并注明语言类型（如 python、bash、json 等），例如：
+  ```python
+  def hello():
+      print("Hello, world!")
+  ```
+- 代码应缩进规范，必要时添加注释。
+  
+
+## Tips信息
+- 输入 Tips 时，对 Tips 前最近的段落，中文翻译，并添加中文翻译后的内容。
+- 翻译的风格，尽量保持原文的表达，不要进行过多的修饰；同时尽可能保持 AI 领域的术语命名、尽可能通俗简练。
+
+
+## 其他 Markdown 规范
+- 标题层级清晰，一级标题用于章节名，二级及以下标题用于小节。
+- 列表、引用、表格等遵循标准 Markdown 语法。
+- 保持内容简洁、条理清晰。
+
+description:
+globs:
+alwaysApply: false
 ---
 
 ---
