@@ -1,0 +1,9 @@
+{
+  "name": "jiayuxu0--create-fastapi-app",
+  "displayName": "create-fastapi-app",
+  "description": "\u4f01\u4e1a\u7ea7 FastAPI \u9879\u76ee\u751f\u6210\u5668\u3002\u57fa\u4e8e Cookiecutter\uff0c\u4e00\u952e\u521b\u5efa\u5305\u542b JWT \u8ba4\u8bc1\u3001RBAC \u6743\u9650\u3001\u4e09\u5c42\u67b6\u6784\u7684\u751f\u4ea7\u5c31\u7eea FastAPI \u9879\u76ee\u3002Enterprise FastAPI project generator. One-click creation of production-ready FastAPI projects with JWT auth, RBAC, and clea",
+  "version": "1.0.0",
+  "author": "JiayuXu0",
+  "homepage": "https://github.com/JiayuXu0/create-fastapi-app",
+  "skills": []
+}
