@@ -1,0 +1,44 @@
+{
+  "name": "st-chat-input-multimodal",
+  "owner": "tsuzukia21",
+  "repo": "st-chat-input-multimodal",
+  "description": "A multimodal chat input component for Streamlit with file upload, voice recording, and text input capabilities",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tsuzukia21/st-chat-input-multimodal",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T23:11:49Z"
+}
