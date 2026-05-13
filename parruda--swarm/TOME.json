@@ -1,0 +1,44 @@
+{
+  "name": "swarm",
+  "owner": "parruda",
+  "repo": "swarm",
+  "description": "Ruby gems for general-purpose AI agent systems: automation, research, data processing, customer support, content creation. SwarmSDK provides single-process orchestration, persistent memory with semantic   search, node workflows, and hooks. SwarmMemory/SwarmCLI included. Claude Swarm v1 for dev teams.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/parruda/swarm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T19:06:41Z"
+}
