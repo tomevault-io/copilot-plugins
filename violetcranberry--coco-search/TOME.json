@@ -4,7 +4,7 @@
   "repo": "coco-search",
   "description": "Local-first hybrid semantic code search tool. Indexes codebases into PostgreSQL with pgvector embeddings via Ollama, combines vector similarity + keyword   search with RRF fusion. Supports 30+ languages. Features CLI, MCP server, WEB dashboard and interactive REPL.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/VioletCranberry/coco-search",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T15:44:07Z"
+  "distributed_at": "2026-05-13T03:20:15Z"
 }
