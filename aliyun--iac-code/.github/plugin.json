@@ -1,0 +1,9 @@
+{
+  "name": "aliyun--iac-code",
+  "displayName": "iac-code",
+  "description": "AI-powered Infrastructure as Code (IaC) assistant.",
+  "version": "1.0.0",
+  "author": "aliyun",
+  "homepage": "https://github.com/aliyun/iac-code",
+  "skills": []
+}
