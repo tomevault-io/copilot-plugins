@@ -1,0 +1,9 @@
+{
+  "name": "m96-chan--0xbitnet",
+  "displayName": "0xBitNet",
+  "description": "Run BitNet b1.58 ternary LLMs with WebGPU \u2014 in browsers and native apps",
+  "version": "1.0.0",
+  "author": "m96-chan",
+  "homepage": "https://github.com/m96-chan/0xBitNet",
+  "skills": []
+}
