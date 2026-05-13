@@ -1,0 +1,9 @@
+{
+  "name": "ykdojo--paper-search",
+  "displayName": "paper-search",
+  "description": "Claude Code plugin for searching 250M+ academic papers via OpenAlex. Search by keyword, look up by DOI, sort by citations or date. No API key needed.",
+  "version": "1.0.0",
+  "author": "ykdojo",
+  "homepage": "https://github.com/ykdojo/paper-search",
+  "skills": []
+}
