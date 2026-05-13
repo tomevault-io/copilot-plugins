@@ -1,0 +1,9 @@
+{
+  "name": "clidey--dory",
+  "displayName": "dory",
+  "description": "A lightweight static site generator for technical documentation.",
+  "version": "1.0.0",
+  "author": "clidey",
+  "homepage": "https://github.com/clidey/dory",
+  "skills": []
+}
