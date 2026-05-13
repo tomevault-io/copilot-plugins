@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-alarm",
+  "displayName": "capacitor-alarm",
+  "description": "Capacitor  Plugin to set and open the native alarms",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-alarm",
+  "skills": []
+}
