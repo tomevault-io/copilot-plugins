@@ -7,11 +7,11 @@ A toolkit of custom commands, hooks, and utilities for Claude Code
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [carlrannaberg/claudekit](https://github.com/carlrannaberg/claudekit).
+Original source: `CLAUDE.md` in [carlrannaberg/claudekit](https://github.com/carlrannaberg/claudekit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
