@@ -1,0 +1,9 @@
+{
+  "name": "kymidd--agentcore-agenticslackbot",
+  "displayName": "AgentCore_AgenticSlackBot",
+  "description": "AWS AgentCore Agentic Slack Bot full architecture",
+  "version": "1.0.0",
+  "author": "KyMidd",
+  "homepage": "https://github.com/KyMidd/AgentCore_AgenticSlackBot",
+  "skills": []
+}
