@@ -1,0 +1,9 @@
+{
+  "name": "icellan--runar",
+  "displayName": "runar",
+  "description": "Write Bitcoin smart contracts in TypeScript, Go, Rust, Solidity, or Move. Compile to Bitcoin Script",
+  "version": "1.0.0",
+  "author": "icellan",
+  "homepage": "https://github.com/icellan/runar",
+  "skills": []
+}
