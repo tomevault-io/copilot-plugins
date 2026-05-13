@@ -1,0 +1,9 @@
+{
+  "name": "duneanalytics--dune-dbt-template",
+  "displayName": "dune-dbt-template",
+  "description": "dbt-trino template repo for DuneSQL Trino Connector data transformations API",
+  "version": "1.0.0",
+  "author": "duneanalytics",
+  "homepage": "https://github.com/duneanalytics/dune-dbt-template",
+  "skills": []
+}
