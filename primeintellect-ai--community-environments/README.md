@@ -7,11 +7,11 @@ Lightly-reviewed collection of community environments
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [PrimeIntellect-ai/community-environments](https://github.com/PrimeIntellect-ai/community-environments).
+Original source: `CLAUDE.md` in [PrimeIntellect-ai/community-environments](https://github.com/PrimeIntellect-ai/community-environments).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
