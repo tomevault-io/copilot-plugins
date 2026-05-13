@@ -1,0 +1,9 @@
+{
+  "name": "ghostwriternr--claude-code-containers",
+  "displayName": "claude-code-containers",
+  "description": "Use Claude Code on Cloudflare to solve GitHub issues",
+  "version": "1.0.0",
+  "author": "ghostwriternr",
+  "homepage": "https://github.com/ghostwriternr/claude-code-containers",
+  "skills": []
+}
