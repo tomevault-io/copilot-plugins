@@ -1,0 +1,9 @@
+{
+  "name": "dividor--evidencelab",
+  "displayName": "evidencelab",
+  "description": "Evidence lab is a free open source platform that provides a document pipeline, search, AI-powered information discovery tools, and MCP/A2A integration to AI platforms.",
+  "version": "1.0.0",
+  "author": "dividor",
+  "homepage": "https://github.com/dividor/evidencelab",
+  "skills": []
+}
