@@ -1,0 +1,30 @@
+## geosql
+
+> A skill is a set of local instructions to follow that is stored in a `SKILL.md` file.
+
+# AGENTS.md instructions for geosql
+
+## Skills
+A skill is a set of local instructions to follow that is stored in a `SKILL.md` file.
+
+### Available skills
+- geosql: Build and optionally execute cost-safe Overture Maps SQL for BigQuery with dry-run budget checks. Use when users need map-ready SQL, executed results, or over-budget fallback options. (file: geosql/SKILL.md)
+
+### How to use skills
+- Trigger rules: If the user names the skill (`$geosql`) or the request clearly matches its description, use it for that turn.
+- Loading: Open `geosql/SKILL.md` and follow it.
+- Scope: Do not carry this skill across turns unless re-mentioned or clearly required by the new request.
+
+## References
+- Claude Skills docs: https://code.claude.com/docs/en/skills
+- Agent Skills open standard: https://agentskills.io
+
+## Skill Best Practices
+- Keep frontmatter concise: use short `description`, include `argument-hint` when slash arguments are expected.
+- Keep one canonical source per artifact: no duplicate `SKILL.md` or script logic copies.
+- Put deterministic execution logic in `scripts/` and reference those scripts explicitly from `SKILL.md`.
+- Keep instructions focused and scannable; move deep details to supporting files only when needed.
+
+---
+> Source: [dekart-xyz/geosql](https://github.com/dekart-xyz/geosql) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-12 -->
