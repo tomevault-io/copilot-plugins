@@ -1,0 +1,9 @@
+{
+  "name": "eratchev--social-ai-poc",
+  "displayName": "social-ai-poc",
+  "description": "AI workflow orchestration system exploring LLM provider abstraction, structured extraction pipelines, and backend-driven content generation",
+  "version": "1.0.0",
+  "author": "eratchev",
+  "homepage": "https://github.com/eratchev/social-ai-poc",
+  "skills": []
+}
