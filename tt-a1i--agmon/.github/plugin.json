@@ -1,0 +1,9 @@
+{
+  "name": "tt-a1i--agmon",
+  "displayName": "agmon",
+  "description": "htop for AI Agents \u2014 monitor token usage, costs & tool calls across Claude Code and Codex in real time",
+  "version": "1.0.0",
+  "author": "tt-a1i",
+  "homepage": "https://github.com/tt-a1i/agmon",
+  "skills": []
+}
