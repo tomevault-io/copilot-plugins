@@ -1,0 +1,9 @@
+{
+  "name": "amadad--schwab-cli-tools",
+  "displayName": "schwab-cli-tools",
+  "description": "Agent-friendly Schwab CLI tools for portfolio analysis and market insights",
+  "version": "1.0.0",
+  "author": "amadad",
+  "homepage": "https://github.com/amadad/schwab-cli-tools",
+  "skills": []
+}
