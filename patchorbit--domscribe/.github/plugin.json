@@ -1,0 +1,9 @@
+{
+  "name": "patchorbit--domscribe",
+  "displayName": "domscribe",
+  "description": "Domscribe is a pixel-to-code development tool that bridges the gap between running web applications and their source code.",
+  "version": "1.0.0",
+  "author": "patchorbit",
+  "homepage": "https://github.com/patchorbit/domscribe",
+  "skills": []
+}
