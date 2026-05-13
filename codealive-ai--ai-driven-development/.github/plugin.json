@@ -1,0 +1,9 @@
+{
+  "name": "codealive-ai--ai-driven-development",
+  "displayName": "ai-driven-development",
+  "description": "Practices, protocols, and skills for AI-driven software development. 18 skills + 1 Bash safety hook for Claude Code, Codex CLI, OpenCode, Cursor, Gemini CLI, Antigravity, and any agent supporting the ",
+  "version": "1.0.0",
+  "author": "CodeAlive-AI",
+  "homepage": "https://github.com/CodeAlive-AI/ai-driven-development",
+  "skills": []
+}
