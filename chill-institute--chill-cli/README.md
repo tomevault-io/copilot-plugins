@@ -7,11 +7,11 @@ CLI client for chill.institute
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [chill-institute/chill-cli](https://github.com/chill-institute/chill-cli).
+Original source: `CLAUDE.md` in [chill-institute/chill-cli](https://github.com/chill-institute/chill-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
