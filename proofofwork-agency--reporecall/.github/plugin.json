@@ -1,0 +1,9 @@
+{
+  "name": "proofofwork-agency--reporecall",
+  "displayName": "reporecall",
+  "description": "Local codebase memory, auto-generated wiki, and interactive architecture dashboard for Claude Code and MCP. AST indexing, call graphs, hybrid search, topology analysis. 0 tool calls, 3-8x fewer tokens",
+  "version": "1.0.0",
+  "author": "proofofwork-agency",
+  "homepage": "https://github.com/proofofwork-agency/reporecall",
+  "skills": []
+}
