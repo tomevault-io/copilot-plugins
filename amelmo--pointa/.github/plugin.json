@@ -1,0 +1,9 @@
+{
+  "name": "amelmo--pointa",
+  "displayName": "pointa",
+  "description": "Chrome extension to annotate your app and report bugs. Then let your AI coding tool fix everything in one shot.",
+  "version": "1.0.0",
+  "author": "AmElmo",
+  "homepage": "https://github.com/AmElmo/pointa",
+  "skills": []
+}
