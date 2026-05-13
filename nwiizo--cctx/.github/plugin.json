@@ -1,0 +1,9 @@
+{
+  "name": "nwiizo--cctx",
+  "displayName": "cctx",
+  "description": "Claude Code context manager for switching between multiple settings.json configurations",
+  "version": "1.0.0",
+  "author": "nwiizo",
+  "homepage": "https://github.com/nwiizo/cctx",
+  "skills": []
+}
