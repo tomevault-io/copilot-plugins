@@ -1,0 +1,9 @@
+{
+  "name": "owainlewis--agent-worker",
+  "displayName": "agent-worker",
+  "description": "Secure and scalable way to delegate work to AI agents from anywhere. Build a team of agents that work for you.",
+  "version": "1.0.0",
+  "author": "owainlewis",
+  "homepage": "https://github.com/owainlewis/agent-worker",
+  "skills": []
+}
