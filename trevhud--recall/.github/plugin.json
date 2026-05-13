@@ -1,0 +1,9 @@
+{
+  "name": "trevhud--recall",
+  "displayName": "recall",
+  "description": "Fully local AI meeting recorder for macOS \u2014 Whisper transcription, Llama summaries, zero cloud dependencies",
+  "version": "1.0.0",
+  "author": "trevhud",
+  "homepage": "https://github.com/trevhud/recall",
+  "skills": []
+}
