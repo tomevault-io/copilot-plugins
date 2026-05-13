@@ -1,0 +1,9 @@
+{
+  "name": "maxch3306--openclaw-maxauto",
+  "displayName": "openclaw-maxauto",
+  "description": "A vendor-free, open-source desktop app that wraps OpenClaw. No login, no credits, no vendor lock-in \u2014 just a double-click installer that manages OpenClaw's setup and provides a polished GUI.",
+  "version": "1.0.0",
+  "author": "Maxch3306",
+  "homepage": "https://github.com/Maxch3306/openclaw-maxauto",
+  "skills": []
+}
