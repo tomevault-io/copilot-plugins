@@ -1,0 +1,9 @@
+{
+  "name": "pipelex--cocode",
+  "displayName": "cocode",
+  "description": "Cocode is the friend of your code, it is a powerful command-line tool for analyzing and processing code repositories. It converts repository structures and contents into text formats, extracts code in",
+  "version": "1.0.0",
+  "author": "Pipelex",
+  "homepage": "https://github.com/Pipelex/cocode",
+  "skills": []
+}
