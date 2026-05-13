@@ -1,0 +1,9 @@
+{
+  "name": "kayedspace--laravel-n8n",
+  "displayName": "laravel-n8n",
+  "description": "Laravel N8N: A complete, expressive and fluent Laravel client for the n8n public REST API and Webhooks Triggering.",
+  "version": "1.0.0",
+  "author": "kayedspace",
+  "homepage": "https://github.com/kayedspace/laravel-n8n",
+  "skills": []
+}
