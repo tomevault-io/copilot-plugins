@@ -1,0 +1,9 @@
+{
+  "name": "just-every--mcp-screenshot-website-fast",
+  "displayName": "mcp-screenshot-website-fast",
+  "description": "Quickly screenshots webpages and converts to an LLM friendly size",
+  "version": "1.0.0",
+  "author": "just-every",
+  "homepage": "https://github.com/just-every/mcp-screenshot-website-fast",
+  "skills": []
+}
