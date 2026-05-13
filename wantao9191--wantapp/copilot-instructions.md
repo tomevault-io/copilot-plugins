@@ -1,62 +1,59 @@
-## security
+## testing
 
-> 安全开发规范
+> 测试开发规范
 
 
-# 安全开发规范
+# 测试开发规范
 
-## 认证和授权
+## 测试框架
 
-### JWT 认证
+项目使用 Vitest + Testing Library 进行测试：
 
-- 使用 `jose` 库进行 JWT 处理
-- Access Token 用于 API 认证
-- Refresh Token 用于刷新访问令牌
-- Token 包含用户 ID 和权限信息
+- 单元测试: 测试工具函数和 Hooks
+- 组件测试: 测试 React 组件
+- API 测试: 测试 API 路由
+- 集成测试: 测试完整功能流程
 
-### 密码安全
+## 测试文件组织
 
-- 使用 `bcryptjs` 进行密码哈希
-- 密码强度验证
-- 定期更新密码策略
+```
+tests/
+├── api/           # API 路由测试
+├── components/    # 组件测试
+├── hooks/         # Hook 测试
+├── lib/           # 工具函数测试
+├── integration/   # 集成测试
+└── setup/         # 测试配置
+```
 
-## 数据验证
+## 测试命名
 
-### 输入验证
+- 测试文件: `*.test.{ts,tsx}`
+- 测试描述: 使用中文描述测试场景
+- 测试用例: 使用 `describe` 和 `it` 组织
 
-- 使用 Zod 进行类型安全验证
-- 所有用户输入都要验证
-- 防止 SQL 注入和 XSS 攻击
+## 测试脚本
 
-### 文件上传
+项目提供多种测试命令：
 
-- 验证文件类型和大小
-- 扫描恶意文件
-- 限制上传路径
+- `pnpm test` - 运行所有测试
+- `pnpm test:watch` - 监听模式
+- `pnpm test:coverage` - 生成覆盖率报告
+- `pnpm test:api` - 仅运行 API 测试
+- `pnpm test:ui` - 仅运行 UI 测试
 
-## CORS 配置
+## 测试数据
 
-- 开发环境允许所有源
-- 生产环境限制允许的源
-- 正确配置 CORS 头
+- 使用 `@testing-library/jest-dom` 提供 DOM 断言
+- 使用 `jsdom` 环境模拟浏览器
+- 测试数据使用工厂函数生成
 
-## 环境变量
+## 最佳实践
 
-- 敏感信息存储在环境变量中
-- 使用 `.env.local` 进行本地开发
-- 生产环境使用安全的密钥管理
-
-## 错误处理
-
-- 不在错误信息中暴露敏感信息
-- 记录详细错误日志用于调试
-- 返回用户友好的错误信息
-
-## 安全头
-
-- 设置适当的安全头
-- 使用 HTTPS 传输
-- 防止点击劫持和 XSS
+- 每个测试用例只测试一个功能点
+- 使用 `beforeEach` 和 `afterEach` 进行清理
+- 模拟外部依赖（API、数据库等）
+- 测试边界条件和错误情况
 
 ---
 > Source: [wantao9191/wantapp](https://github.com/wantao9191/wantapp) — distributed by [TomeVault](https://tomevault.io).
