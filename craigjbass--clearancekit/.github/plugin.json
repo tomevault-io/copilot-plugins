@@ -1,0 +1,9 @@
+{
+  "name": "craigjbass--clearancekit",
+  "displayName": "clearancekit",
+  "description": "ClearanceKit intercepts file-system access events on macOS and enforces per-process access policies.",
+  "version": "1.0.0",
+  "author": "craigjbass",
+  "homepage": "https://github.com/craigjbass/clearancekit",
+  "skills": []
+}
