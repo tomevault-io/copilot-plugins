@@ -1,0 +1,9 @@
+{
+  "name": "openapi--openapi-generic-sdk",
+  "displayName": "openapi-generic-sdk",
+  "description": "\ud83d\udc19 A fully-featured and well-defined generic API client to interact with Openapi\u00ae",
+  "version": "1.0.0",
+  "author": "openapi",
+  "homepage": "https://github.com/openapi/openapi-generic-sdk",
+  "skills": []
+}
