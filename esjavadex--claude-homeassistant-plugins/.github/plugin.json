@@ -1,0 +1,9 @@
+{
+  "name": "esjavadex--claude-homeassistant-plugins",
+  "displayName": "claude-homeassistant-plugins",
+  "description": "Claude Plugins, Skills, Agents Marketplace for Home Assistant",
+  "version": "1.0.0",
+  "author": "ESJavadex",
+  "homepage": "https://github.com/ESJavadex/claude-homeassistant-plugins",
+  "skills": []
+}
