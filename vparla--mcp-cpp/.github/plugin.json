@@ -1,0 +1,9 @@
+{
+  "name": "vparla--mcp-cpp",
+  "displayName": "mcp-cpp",
+  "description": "Model Context Protocol implementation in Pure C++20.  See https://modelcontextprotocol.io/docs/sdk for context",
+  "version": "1.0.0",
+  "author": "vparla",
+  "homepage": "https://github.com/vparla/mcp-cpp",
+  "skills": []
+}
