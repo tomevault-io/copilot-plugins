@@ -1,0 +1,9 @@
+{
+  "name": "agentara--skills",
+  "displayName": "skills",
+  "description": "Original and practical skills for AI builders.",
+  "version": "1.0.0",
+  "author": "agentara",
+  "homepage": "https://github.com/agentara/skills",
+  "skills": []
+}
