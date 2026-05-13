@@ -1,0 +1,9 @@
+{
+  "name": "dbankscard--jamf-mcp-server",
+  "displayName": "jamf-mcp-server",
+  "description": "Model Context Protocol server enabling AI assistants (Claude, ChatGPT) to manage Jamf Pro through natural   language. Search devices, deploy policies, execute scripts, manage profiles, and generate co",
+  "version": "1.0.0",
+  "author": "dbankscard",
+  "homepage": "https://github.com/dbankscard/jamf-mcp-server",
+  "skills": []
+}
