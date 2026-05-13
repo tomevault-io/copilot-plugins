@@ -1,0 +1,9 @@
+{
+  "name": "pantic14--smartinstantindex",
+  "displayName": "smartinstantindex",
+  "description": "Free desktop tool to submit URLs to Google Indexing API. GUI + CLI, multi-site, respects daily quota. Windows / macOS / Linux. ",
+  "version": "1.0.0",
+  "author": "pantic14",
+  "homepage": "https://github.com/pantic14/smartinstantindex",
+  "skills": []
+}
