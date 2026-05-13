@@ -1,0 +1,9 @@
+{
+  "name": "nflverse--nflreadpy",
+  "displayName": "nflreadpy",
+  "description": "python port of nflreadr package for loading nflverse data",
+  "version": "1.0.0",
+  "author": "nflverse",
+  "homepage": "https://github.com/nflverse/nflreadpy",
+  "skills": []
+}
