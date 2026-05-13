@@ -4,7 +4,7 @@
   "repo": "domainstack.io",
   "description": "\ud83e\uddf0 All-in-one domain name intelligence as a service",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jakejarvis/domainstack.io",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T12:07:31Z"
+  "distributed_at": "2026-05-13T02:37:20Z"
 }
