@@ -4,7 +4,7 @@
   "repo": "hanlin-ai",
   "description": "A SwiftUI-based Chat App for LLMs on iOS",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CherryHQ/hanlin-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T14:48:52Z"
+  "distributed_at": "2026-05-13T03:09:04Z"
 }
