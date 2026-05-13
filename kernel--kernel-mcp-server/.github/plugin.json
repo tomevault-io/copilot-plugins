@@ -1,0 +1,9 @@
+{
+  "name": "kernel--kernel-mcp-server",
+  "displayName": "kernel-mcp-server",
+  "description": "Open-source MCP server for secure, low-latency cloud-browser automation on Kernel.",
+  "version": "1.0.0",
+  "author": "kernel",
+  "homepage": "https://github.com/kernel/kernel-mcp-server",
+  "skills": []
+}
