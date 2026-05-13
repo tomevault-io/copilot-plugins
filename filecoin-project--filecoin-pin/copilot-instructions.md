@@ -1,0 +1,115 @@
+## filecoin-pin
+
+> IPFS persistence layer for Filecoin with verifiable storage proofs. TypeScript library + CLI + GitHub Action.
+
+# Filecoin Pin
+
+IPFS persistence layer for Filecoin with verifiable storage proofs. TypeScript library + CLI + GitHub Action.
+
+## What This Is
+
+Bridges IPFS content to Filecoin storage providers with cryptographic guarantees. Production tool + reference implementation for building on synapse-sdk.
+
+**Affordances**: CLI (`add`, `payments`, `data-set`), GitHub Action, core library (published npm modules), IPFS Pinning Server (`server` daemon).
+
+**Stack**: filecoin-pin → synapse-sdk → FOC contracts (FWSS, FilecoinPay, PDPVerifier, SPRegistry) + Curio.
+
+**Status**: Supports Mainnet, Calibration testnet, and local devnet (foc-devnet). CLI defaults to Mainnet.
+
+## Design Philosophy
+
+**Reference Implementation**: Demonstrates opinionated, documented patterns for building on synapse-sdk. Code clarity and educational value over abstraction.
+
+**Developer Learning**: Primary use case is teaching developers how to build on FOC stack. Favor explicit, traceable code over clever shortcuts.
+
+**Simple API Surface**: Keep public interfaces minimal and focused. Complexity lives in internal implementation, not exposed APIs.
+
+## Architecture
+
+```
+src/
+├── cli.ts, server.ts              # Commander.js CLI + Fastify server
+├── add/, import/, data-set/       # Command implementations
+├── core/                          # Published library (see package.json exports)
+│   ├── car/                       # CAR file handling (CARv1 streaming)
+│   ├── payments/                  # Payment setup/status
+│   ├── metadata/                  # Metadata normalization
+│   ├── piece/                     # Piece status queries
+│   ├── synapse/                   # SDK initialization patterns
+│   ├── upload/                    # Upload workflows
+│   ├── unixfs/                    # Helia integration, browser/node variants
+│   └── utils/                     # Formatting, constants
+└── common/                        # Internal shared code
+```
+
+**Data flow**: Files → Helia/UnixFS → CAR → Synapse SDK → FOC contracts + Curio → PieceCID + proofs.
+
+## Development
+
+**Prerequisite**: `pnpm` available locally (`corepack enable` once if needed)
+
+**Setup**: `pnpm install && pnpm run build && pnpm test`
+
+**Scripts**: `pnpm run build` (tsc), `pnpm run dev` (tsx watch), `pnpm test` (lint + typecheck + unit + integration), `pnpm run lint:fix`
+
+**Requirements**: Node.js 24+, TypeScript ES modules, Biome linting
+
+**Tests**: Vitest (unit + integration), mock SDK at `src/test/mocks/synapse-sdk.js`
+
+## Key Patterns
+
+**Synapse SDK**: Initialize via `initializeSynapse()` in `src/core/synapse/index.ts`. Upload via `executeUpload()` in `src/core/upload/index.ts` with progress events (`stored`, `pullProgress`, `copyComplete`, `piecesAdded`, `piecesConfirmed`). Returns `{pieceCid, size, copies, failures}`.
+
+**CAR files**: CARv1 streaming, handle 3 root cases (single/multiple/none), use zero CID for no roots. See `src/core/car/car-blockstore.ts`.
+
+**UnixFS**: Helia for directory imports, chunking, CID calculation. See `src/core/unixfs/`.
+
+**Payments**: `getPaymentStatus()`, `setMaxAllowances()`, `validatePaymentCapacity()` in `src/core/payments/index.ts`.
+
+## Biome Linting (Critical)
+
+- **NO** `!` operator → use `?.` or explicit checks
+- **MUST** use `.js` extensions in imports (`import {x} from './y.js'` even for .ts)
+- **NO** semicolons at line end (`semicolons: "asNeeded"`)
+- **MUST** use kebab-case filenames
+
+## Common Pitfalls
+
+1. Import extensions required (`.js` even for .ts files)
+2. Handle 3 CAR root cases (none/single/multiple)
+3. Provider info may be undefined
+4. Clean up CAR files and Helia instances on failure
+5. Browser vs Node variants (check package.json exports)
+
+## Documentation
+
+**Glossary**: `documentation/glossary.md` is the authoritative terminology reference.
+
+- Documentation files in `documentation/` should reference and link to glossary entries for key terms (e.g., `[Storage Provider](glossary.md#storage-provider)`)
+- Glossary entries should cross-link to related terms using anchor links (e.g., `[Data Set](#data-set)`)
+- Avoid overlinking: link first mention of a term in each section, not every occurrence
+- Update glossary when introducing new concepts or terminology
+
+## CLI & Environment
+
+**Commands**: `payments setup --auto`, `add <path>`, `import <car-file>`, `payments status`, `data-set <id>`, `server`
+
+**Network**: `--network mainnet|calibration|devnet` (default: `mainnet`). Devnet reads config from foc-devnet's `devnet-info.json` and auto-resolves private key and RPC URL. `--network` and `--rpc-url` are mutually exclusive. When `--rpc-url`/`RPC_URL` is set, the chain is derived by probing the endpoint's `eth_chainId`.
+
+**Required env**: `PRIVATE_KEY=0x...` (with USDFC tokens; not needed for devnet)
+
+**Optional**: `NETWORK`, `RPC_URL`, `FOC_DEVNET_BASEDIR`, `DEVNET_INFO_PATH`, `DEVNET_USER_INDEX`, `PORT`, `HOST`, `DATABASE_PATH`, `CAR_STORAGE_PATH`, `LOG_LEVEL`
+
+**Default data dirs for pinning server**: Linux `~/.local/share/filecoin-pin/`, macOS `~/Library/Application Support/filecoin-pin/`, Windows `%APPDATA%/filecoin-pin/`
+
+## Git Policy
+
+Conventional commits. Never `git commit` or `git push` without explicit user permission. Ask first, draft message, wait for approval.
+
+## License
+
+Apache-2.0 OR MIT
+
+---
+> Source: [filecoin-project/filecoin-pin](https://github.com/filecoin-project/filecoin-pin) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-13 -->
