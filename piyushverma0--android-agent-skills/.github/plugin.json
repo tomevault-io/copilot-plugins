@@ -1,0 +1,9 @@
+{
+  "name": "piyushverma0--android-agent-skills",
+  "displayName": "android-agent-skills",
+  "description": "27 Android skills for AI agents (Claude Code, Codex, Cursor). Fixes Supabase auth, Hilt errors, design inconsistency, kapt\u2192ksp, missing UiState states. Reduced my token bills 5\u00d7. FitGenZ AI shipped in",
+  "version": "1.0.0",
+  "author": "piyushverma0",
+  "homepage": "https://github.com/piyushverma0/android-agent-skills",
+  "skills": []
+}
