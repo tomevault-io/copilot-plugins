@@ -1,0 +1,9 @@
+{
+  "name": "haymon-ai--dbmcp",
+  "displayName": "dbmcp",
+  "description": "Database MCP server for MySQL, MariaDB, PostgreSQL, and SQLite -  with builtin PII redaction and write-prevention",
+  "version": "1.0.0",
+  "author": "haymon-ai",
+  "homepage": "https://github.com/haymon-ai/dbmcp",
+  "skills": []
+}
