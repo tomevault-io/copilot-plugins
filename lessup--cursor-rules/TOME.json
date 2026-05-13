@@ -1,0 +1,44 @@
+{
+  "name": "cursor-rules",
+  "owner": "LessUp",
+  "repo": "cursor-rules",
+  "description": "Archive-grade Cursor .mdc \u89c4\u5219\u5e93 | 26 \u4e2a\u9ad8\u8d28\u91cf\u89c4\u5219\uff0c\u9759\u6001\u76ee\u5f55\uff0c\u4f4e\u6f02\u79fb\u8bbe\u8ba1",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LessUp/cursor-rules",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T23:39:31Z"
+}
