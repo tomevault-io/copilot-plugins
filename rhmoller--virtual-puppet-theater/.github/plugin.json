@@ -1,0 +1,9 @@
+{
+  "name": "rhmoller--virtual-puppet-theater",
+  "displayName": "virtual-puppet-theater",
+  "description": "A virtual hand puppet theater where you control a puppet with your hand and voice, and AI controls another puppet.",
+  "version": "1.0.0",
+  "author": "rhmoller",
+  "homepage": "https://github.com/rhmoller/virtual-puppet-theater",
+  "skills": []
+}
