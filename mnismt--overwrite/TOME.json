@@ -4,7 +4,7 @@
   "repo": "overwrite",
   "description": "Pack your entire repo in a single prompt",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mnismt/overwrite",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T12:22:14Z"
+  "distributed_at": "2026-05-13T23:45:27Z"
 }
