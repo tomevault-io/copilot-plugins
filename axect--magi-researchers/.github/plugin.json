@@ -1,0 +1,9 @@
+{
+  "name": "axect--magi-researchers",
+  "displayName": "magi-researchers",
+  "description": "Three AI models, one synthesis \u2014 Claude, Gemini & Codex cross-verify each other for rigorous multi-perspective research",
+  "version": "1.0.0",
+  "author": "Axect",
+  "homepage": "https://github.com/Axect/magi-researchers",
+  "skills": []
+}
