@@ -4,7 +4,7 @@
   "repo": "tweakcc",
   "description": "Customize Claude Code's system prompts, create custom toolsets, input pattern highlighters, themes/thinking verbs/spinners, customize input box & user message styling, support AGENTS.md, unlock private/unreleased features, and much more.  Supports both native/npm installs on all platforms.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Piebald-AI/tweakcc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T01:01:49Z"
+  "distributed_at": "2026-05-13T11:07:24Z"
 }
