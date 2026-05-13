@@ -1,171 +1,678 @@
-## beast
+## convex-rules
 
-> You are an agent - please keep going until the user’s query is completely resolved, before ending your turn and yielding back to the user.
+> Guidelines and best practices for building Convex projects, including database schema design, queries, mutations, and real-world examples
 
 
-# Beast Mode 3.1
-
-You are an agent - please keep going until the user’s query is completely resolved, before ending your turn and yielding back to the user.
-
-Your thinking should be thorough and so it's fine if it's very long. However, avoid unnecessary repetition and verbosity. You should be concise, but thorough.
-
-You MUST iterate and keep going until the problem is solved.
-
-You have everything you need to resolve this problem. I want you to fully solve this autonomously before coming back to me.
-
-Only terminate your turn when you are sure that the problem is solved and all items have been checked off. Go through the problem step by step, and make sure to verify that your changes are correct. NEVER end your turn without having truly and completely solved the problem, and when you say you are going to make a tool call, make sure you ACTUALLY make the tool call, instead of ending your turn.
-
-THE PROBLEM CAN NOT BE SOLVED WITHOUT EXTENSIVE INTERNET RESEARCH.
-
-You must use the fetch_webpage tool to recursively gather all information from URL's provided to you by the user, as well as any links you find in the content of those pages.
-
-Your knowledge on everything is out of date because your training date is in the past.
-
-You CANNOT successfully complete this task without using Google to verify your understanding of third party packages and dependencies is up to date. You must use the fetch_webpage tool to search google for how to properly use libraries, packages, frameworks, dependencies, etc. every single time you install or implement one. It is not enough to just search, you must also read the content of the pages you find and recursively gather all relevant information by fetching additional links until you have all the information you need.
-
-Always tell the user what you are going to do before making a tool call with a single concise sentence. This will help them understand what you are doing and why.
-
-If the user request is "resume" or "continue" or "try again", check the previous conversation history to see what the next incomplete step in the todo list is. Continue from that step, and do not hand back control to the user until the entire todo list is complete and all items are checked off. Inform the user that you are continuing from the last incomplete step, and what that step is.
-
-Take your time and think through every step - remember to check your solution rigorously and watch out for boundary cases, especially with the changes you made. Use the sequential thinking tool if available. Your solution must be perfect. If not, continue working on it. At the end, you must test your code rigorously using the tools provided, and do it many times, to catch all edge cases. If it is not robust, iterate more and make it perfect. Failing to test your code sufficiently rigorously is the NUMBER ONE failure mode on these types of tasks; make sure you handle all edge cases, and run existing tests if they are provided.
-
-You MUST plan extensively before each function call, and reflect extensively on the outcomes of the previous function calls. DO NOT do this entire process by making function calls only, as this can impair your ability to solve the problem and think insightfully.
-
-You MUST keep working until the problem is completely solved, and all items in the todo list are checked off. Do not end your turn until you have completed all steps in the todo list and verified that everything is working correctly. When you say "Next I will do X" or "Now I will do Y" or "I will do X", you MUST actually do X or Y instead just saying that you will do it.
-
-You are a highly capable and autonomous agent, and you can definitely solve this problem without needing to ask the user for further input.
-
-# Workflow
-
-1. Fetch any URL's provided by the user using the `fetch_webpage` tool.
-2. Understand the problem deeply. Carefully read the issue and think critically about what is required. Use sequential thinking to break down the problem into manageable parts. Consider the following:
-   - What is the expected behavior?
-   - What are the edge cases?
-   - What are the potential pitfalls?
-   - How does this fit into the larger context of the codebase?
-   - What are the dependencies and interactions with other parts of the code?
-3. Investigate the codebase. Explore relevant files, search for key functions, and gather context.
-4. Research the problem on the internet by reading relevant articles, documentation, and forums.
-5. Develop a clear, step-by-step plan. Break down the fix into manageable, incremental steps. Display those steps in a simple todo list using emoji's to indicate the status of each item.
-6. Implement the fix incrementally. Make small, testable code changes.
-7. Debug as needed. Use debugging techniques to isolate and resolve issues.
-8. Test frequently. Run tests after each change to verify correctness.
-9. Iterate until the root cause is fixed and all tests pass.
-10. Reflect and validate comprehensively. After tests pass, think about the original intent, write additional tests to ensure correctness, and remember there are hidden tests that must also pass before the solution is truly complete.
-
-Refer to the detailed sections below for more information on each step.
-
-## 1. Fetch Provided URLs
-
-- If the user provides a URL, use the `functions.fetch_webpage` tool to retrieve the content of the provided URL.
-- After fetching, review the content returned by the fetch tool.
-- If you find any additional URLs or links that are relevant, use the `fetch_webpage` tool again to retrieve those links.
-- Recursively gather all relevant information by fetching additional links until you have all the information you need.
-
-## 2. Deeply Understand the Problem
-
-Carefully read the issue and think hard about a plan to solve it before coding.
-
-## 3. Codebase Investigation
-
-- Explore relevant files and directories.
-- Search for key functions, classes, or variables related to the issue.
-- Read and understand relevant code snippets.
-- Identify the root cause of the problem.
-- Validate and update your understanding continuously as you gather more context.
-
-## 4. Internet Research
-
-- Use the `fetch_webpage` tool to search google by fetching the URL `https://www.google.com/search?q=your+search+query`.
-- After fetching, review the content returned by the fetch tool.
-- You MUST fetch the contents of the most relevant links to gather information. Do not rely on the summary that you find in the search results.
-- As you fetch each link, read the content thoroughly and fetch any additional links that you find withhin the content that are relevant to the problem.
-- Recursively gather all relevant information by fetching links until you have all the information you need.
-
-## 5. Develop a Detailed Plan
-
-- Outline a specific, simple, and verifiable sequence of steps to fix the problem.
-- Create a todo list in markdown format to track your progress.
-- Each time you complete a step, check it off using `[x]` syntax.
-- Each time you check off a step, display the updated todo list to the user.
-- Make sure that you ACTUALLY continue on to the next step after checkin off a step instead of ending your turn and asking the user what they want to do next.
-
-## 6. Making Code Changes
-
-- Before editing, always read the relevant file contents or section to ensure complete context.
-- Always read 2000 lines of code at a time to ensure you have enough context.
-- If a patch is not applied correctly, attempt to reapply it.
-- Make small, testable, incremental changes that logically follow from your investigation and plan.
-- Whenever you detect that a project requires an environment variable (such as an API key or secret), always check if a .env file exists in the project root. If it does not exist, automatically create a .env file with a placeholder for the required variable(s) and inform the user. Do this proactively, without waiting for the user to request it.
-
-## 7. Debugging
-
-- Use the `get_errors` tool to check for any problems in the code
-- Make code changes only if you have high confidence they can solve the problem
-- When debugging, try to determine the root cause rather than addressing symptoms
-- Debug for as long as needed to identify the root cause and identify a fix
-- Use print statements, logs, or temporary code to inspect program state, including descriptive statements or error messages to understand what's happening
-- To test hypotheses, you can also add test statements or functions
-- Revisit your assumptions if unexpected behavior occurs.
-
-# How to create a Todo List
-
-Use the following format to create a todo list:
-
-```markdown
-- [ ] Step 1: Description of the first step
-- [ ] Step 2: Description of the second step
-- [ ] Step 3: Description of the third step
+# Convex guidelines
+## Function guidelines
+### New function syntax
+- ALWAYS use the new function syntax for Convex functions. For example:
+```typescript
+import { query } from "./_generated/server";
+import { v } from "convex/values";
+export const f = query({
+    args: {},
+    returns: v.null(),
+    handler: async (ctx, args) => {
+    // Function body
+    },
+});
 ```
 
-Do not ever use HTML tags or any other formatting for the todo list, as it will not be rendered correctly. Always use the markdown format shown above. Always wrap the todo list in triple backticks so that it is formatted correctly and can be easily copied from the chat.
+### Http endpoint syntax
+- HTTP endpoints are defined in `convex/http.ts` and require an `httpAction` decorator. For example:
+```typescript
+import { httpRouter } from "convex/server";
+import { httpAction } from "./_generated/server";
+const http = httpRouter();
+http.route({
+    path: "/echo",
+    method: "POST",
+    handler: httpAction(async (ctx, req) => {
+    const body = await req.bytes();
+    return new Response(body, { status: 200 });
+    }),
+});
+```
+- HTTP endpoints are always registered at the exact path you specify in the `path` field. For example, if you specify `/api/someRoute`, the endpoint will be registered at `/api/someRoute`.
 
-Always show the completed todo list to the user as the last item in your message, so that they can see that you have addressed all of the steps.
+### Validators
+- Below is an example of an array validator:
+```typescript
+import { mutation } from "./_generated/server";
+import { v } from "convex/values";
 
-# Communication Guidelines
+export default mutation({
+args: {
+    simpleArray: v.array(v.union(v.string(), v.number())),
+},
+handler: async (ctx, args) => {
+    //...
+},
+});
+```
+- Below is an example of a schema with validators that codify a discriminated union type:
+```typescript
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
 
-Always communicate clearly and concisely in a casual, friendly yet professional tone.
-<examples>
-"Let me fetch the URL you provided to gather more information."
-"Ok, I've got all of the information I need on the LIFX API and I know how to use it."
-"Now, I will search the codebase for the function that handles the LIFX API requests."
-"I need to update several files here - stand by"
-"OK! Now let's run the tests to make sure everything is working correctly."
-"Whelp - I see we have some problems. Let's fix those up."
-</examples>
+export default defineSchema({
+    results: defineTable(
+        v.union(
+            v.object({
+                kind: v.literal("error"),
+                errorMessage: v.string(),
+            }),
+            v.object({
+                kind: v.literal("success"),
+                value: v.number(),
+            }),
+        ),
+    )
+});
+```
+- Always use the `v.null()` validator when returning a null value. Below is an example query that returns a null value:
+```typescript
+import { query } from "./_generated/server";
+import { v } from "convex/values";
 
-- Respond with clear, direct answers. Use bullet points and code blocks for structure. - Avoid unnecessary explanations, repetition, and filler.
-- Always write code directly to the correct files.
-- Do not display code to the user unless they specifically ask for it.
-- Only elaborate when clarification is essential for accuracy or user understanding.
+export const exampleQuery = query({
+  args: {},
+  returns: v.null(),
+  handler: async (ctx, args) => {
+      console.log("This query returns a null value");
+      return null;
+  },
+});
+```
+- Here are the valid Convex types along with their respective validators:
+Convex Type  | TS/JS type  |  Example Usage         | Validator for argument validation and schemas  | Notes                                                                                                                                                                                                 |
+| ----------- | ------------| -----------------------| -----------------------------------------------| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Id          | string      | `doc._id`              | `v.id(tableName)`                              |                                                                                                                                                                                                       |
+| Null        | null        | `null`                 | `v.null()`                                     | JavaScript's `undefined` is not a valid Convex value. Functions the return `undefined` or do not return will return `null` when called from a client. Use `null` instead.                             |
+| Int64       | bigint      | `3n`                   | `v.int64()`                                    | Int64s only support BigInts between -2^63 and 2^63-1. Convex supports `bigint`s in most modern browsers.                                                                                              |
+| Float64     | number      | `3.1`                  | `v.number()`                                   | Convex supports all IEEE-754 double-precision floating point numbers (such as NaNs). Inf and NaN are JSON serialized as strings.                                                                      |
+| Boolean     | boolean     | `true`                 | `v.boolean()`                                  |
+| String      | string      | `"abc"`                | `v.string()`                                   | Strings are stored as UTF-8 and must be valid Unicode sequences. Strings must be smaller than the 1MB total size limit when encoded as UTF-8.                                                         |
+| Bytes       | ArrayBuffer | `new ArrayBuffer(8)`   | `v.bytes()`                                    | Convex supports first class bytestrings, passed in as `ArrayBuffer`s. Bytestrings must be smaller than the 1MB total size limit for Convex types.                                                     |
+| Array       | Array       | `[1, 3.2, "abc"]`      | `v.array(values)`                              | Arrays can have at most 8192 values.                                                                                                                                                                  |
+| Object      | Object      | `{a: "abc"}`           | `v.object({property: value})`                  | Convex only supports "plain old JavaScript objects" (objects that do not have a custom prototype). Objects can have at most 1024 entries. Field names must be nonempty and not start with "$" or "_". |
+| Record      | Record      | `{"a": "1", "b": "2"}` | `v.record(keys, values)`                       | Records are objects at runtime, but can have dynamic keys. Keys must be only ASCII characters, nonempty, and not start with "$" or "_".                                                               |
 
-# Memory
+### Function registration
+- Use `internalQuery`, `internalMutation`, and `internalAction` to register internal functions. These functions are private and aren't part of an app's API. They can only be called by other Convex functions. These functions are always imported from `./_generated/server`.
+- Use `query`, `mutation`, and `action` to register public functions. These functions are part of the public API and are exposed to the public Internet. Do NOT use `query`, `mutation`, or `action` to register sensitive internal functions that should be kept private.
+- You CANNOT register a function through the `api` or `internal` objects.
+- ALWAYS include argument and return validators for all Convex functions. This includes all of `query`, `internalQuery`, `mutation`, `internalMutation`, `action`, and `internalAction`. If a function doesn't return anything, include `returns: v.null()` as its output validator.
+- If the JavaScript implementation of a Convex function doesn't have a return value, it implicitly returns `null`.
 
-You have a memory that stores information about the user and their preferences. This memory is used to provide a more personalized experience. You can access and update this memory as needed. The memory is stored in a file called `.github/instructions/memory.instruction.md`. If the file is empty, you'll need to create it.
+### Function calling
+- Use `ctx.runQuery` to call a query from a query, mutation, or action.
+- Use `ctx.runMutation` to call a mutation from a mutation or action.
+- Use `ctx.runAction` to call an action from an action.
+- ONLY call an action from another action if you need to cross runtimes (e.g. from V8 to Node). Otherwise, pull out the shared code into a helper async function and call that directly instead.
+- Try to use as few calls from actions to queries and mutations as possible. Queries and mutations are transactions, so splitting logic up into multiple calls introduces the risk of race conditions.
+- All of these calls take in a `FunctionReference`. Do NOT try to pass the callee function directly into one of these calls.
+- When using `ctx.runQuery`, `ctx.runMutation`, or `ctx.runAction` to call a function in the same file, specify a type annotation on the return value to work around TypeScript circularity limitations. For example,
+```
+export const f = query({
+  args: { name: v.string() },
+  returns: v.string(),
+  handler: async (ctx, args) => {
+    return "Hello " + args.name;
+  },
+});
 
-When creating a new memory file, you MUST include the following front matter at the top of the file:
-
-```yaml
----
-applyTo: '**'
----
+export const g = query({
+  args: {},
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    const result: string = await ctx.runQuery(api.example.f, { name: "Bob" });
+    return null;
+  },
+});
 ```
 
-If the user asks you to remember something or add something to your memory, you can do so by updating the memory file.
+### Function references
+- Function references are pointers to registered Convex functions.
+- Use the `api` object defined by the framework in `convex/_generated/api.ts` to call public functions registered with `query`, `mutation`, or `action`.
+- Use the `internal` object defined by the framework in `convex/_generated/api.ts` to call internal (or private) functions registered with `internalQuery`, `internalMutation`, or `internalAction`.
+- Convex uses file-based routing, so a public function defined in `convex/example.ts` named `f` has a function reference of `api.example.f`.
+- A private function defined in `convex/example.ts` named `g` has a function reference of `internal.example.g`.
+- Functions can also registered within directories nested within the `convex/` folder. For example, a public function `h` defined in `convex/messages/access.ts` has a function reference of `api.messages.access.h`.
 
-# Writing Prompts
+### Api design
+- Convex uses file-based routing, so thoughtfully organize files with public query, mutation, or action functions within the `convex/` directory.
+- Use `query`, `mutation`, and `action` to define public functions.
+- Use `internalQuery`, `internalMutation`, and `internalAction` to define private, internal functions.
 
-If you are asked to write a prompt, you should always generate the prompt in markdown format.
+### Pagination
+- Paginated queries are queries that return a list of results in incremental pages.
+- You can define pagination using the following syntax:
 
-If you are not writing the prompt in a file, you should always wrap the prompt in triple backticks so that it is formatted correctly and can be easily copied from the chat.
+```ts
+import { v } from "convex/values";
+import { query, mutation } from "./_generated/server";
+import { paginationOptsValidator } from "convex/server";
+export const listWithExtraArg = query({
+    args: { paginationOpts: paginationOptsValidator, author: v.string() },
+    handler: async (ctx, args) => {
+        return await ctx.db
+        .query("messages")
+        .filter((q) => q.eq(q.field("author"), args.author))
+        .order("desc")
+        .paginate(args.paginationOpts);
+    },
+});
+```
+Note: `paginationOpts` is an object with the following properties:
+- `numItems`: the maximum number of documents to return (the validator is `v.number()`)
+- `cursor`: the cursor to use to fetch the next page of documents (the validator is `v.union(v.string(), v.null())`)
+- A query that ends in `.paginate()` returns an object that has the following properties:
+                            - page (contains an array of documents that you fetches)
+                            - isDone (a boolean that represents whether or not this is the last page of documents)
+                            - continueCursor (a string that represents the cursor to use to fetch the next page of documents)
 
-Remember that todo lists must always be written in markdown format and must always be wrapped in triple backticks.
 
-# Git
+## Validator guidelines
+- `v.bigint()` is deprecated for representing signed 64-bit integers. Use `v.int64()` instead.
+- Use `v.record()` for defining a record type. `v.map()` and `v.set()` are not supported.
 
-If the user tells you to stage and commit, you may do so.
+## Schema guidelines
+- Always define your schema in `convex/schema.ts`.
+- Always import the schema definition functions from `convex/server`:
+- System fields are automatically added to all documents and are prefixed with an underscore. The two system fields that are automatically added to all documents are `_creationTime` which has the validator `v.number()` and `_id` which has the validator `v.id(tableName)`.
+- Always include all index fields in the index name. For example, if an index is defined as `["field1", "field2"]`, the index name should be "by_field1_and_field2".
+- Index fields must be queried in the same order they are defined. If you want to be able to query by "field1" then "field2" and by "field2" then "field1", you must create separate indexes.
 
-You are NEVER allowed to stage and commit files automatically.
+## Typescript guidelines
+- You can use the helper typescript type `Id` imported from './_generated/dataModel' to get the type of the id for a given table. For example if there is a table called 'users' you can use `Id<'users'>` to get the type of the id for that table.
+- If you need to define a `Record` make sure that you correctly provide the type of the key and value in the type. For example a validator `v.record(v.id('users'), v.string())` would have the type `Record<Id<'users'>, string>`. Below is an example of using `Record` with an `Id` type in a query:
+```ts
+import { query } from "./_generated/server";
+import { Doc, Id } from "./_generated/dataModel";
+
+export const exampleQuery = query({
+    args: { userIds: v.array(v.id("users")) },
+    returns: v.record(v.id("users"), v.string()),
+    handler: async (ctx, args) => {
+        const idToUsername: Record<Id<"users">, string> = {};
+        for (const userId of args.userIds) {
+            const user = await ctx.db.get(userId);
+            if (user) {
+                idToUsername[user._id] = user.username;
+            }
+        }
+
+        return idToUsername;
+    },
+});
+```
+- Be strict with types, particularly around id's of documents. For example, if a function takes in an id for a document in the 'users' table, take in `Id<'users'>` rather than `string`.
+- Always use `as const` for string literals in discriminated union types.
+- When using the `Array` type, make sure to always define your arrays as `const array: Array<T> = [...];`
+- When using the `Record` type, make sure to always define your records as `const record: Record<KeyType, ValueType> = {...};`
+- Always add `@types/node` to your `package.json` when using any Node.js built-in modules.
+
+## Full text search guidelines
+- A query for "10 messages in channel '#general' that best match the query 'hello hi' in their body" would look like:
+
+const messages = await ctx.db
+  .query("messages")
+  .withSearchIndex("search_body", (q) =>
+    q.search("body", "hello hi").eq("channel", "#general"),
+  )
+  .take(10);
+
+## Query guidelines
+- Do NOT use `filter` in queries. Instead, define an index in the schema and use `withIndex` instead.
+- Convex queries do NOT support `.delete()`. Instead, `.collect()` the results, iterate over them, and call `ctx.db.delete(row._id)` on each result.
+- Use `.unique()` to get a single document from a query. This method will throw an error if there are multiple documents that match the query.
+- When using async iteration, don't use `.collect()` or `.take(n)` on the result of a query. Instead, use the `for await (const row of query)` syntax.
+### Ordering
+- By default Convex always returns documents in ascending `_creationTime` order.
+- You can use `.order('asc')` or `.order('desc')` to pick whether a query is in ascending or descending order. If the order isn't specified, it defaults to ascending.
+- Document queries that use indexes will be ordered based on the columns in the index and can avoid slow table scans.
+
+
+## Mutation guidelines
+- Use `ctx.db.replace` to fully replace an existing document. This method will throw an error if the document does not exist.
+- Use `ctx.db.patch` to shallow merge updates into an existing document. This method will throw an error if the document does not exist.
+
+## Action guidelines
+- Always add `"use node";` to the top of files containing actions that use Node.js built-in modules.
+- Never use `ctx.db` inside of an action. Actions don't have access to the database.
+- Below is an example of the syntax for an action:
+```ts
+import { action } from "./_generated/server";
+
+export const exampleAction = action({
+    args: {},
+    returns: v.null(),
+    handler: async (ctx, args) => {
+        console.log("This action does not return anything");
+        return null;
+    },
+});
+```
+
+## Scheduling guidelines
+### Cron guidelines
+- Only use the `crons.interval` or `crons.cron` methods to schedule cron jobs. Do NOT use the `crons.hourly`, `crons.daily`, or `crons.weekly` helpers.
+- Both cron methods take in a FunctionReference. Do NOT try to pass the function directly into one of these methods.
+- Define crons by declaring the top-level `crons` object, calling some methods on it, and then exporting it as default. For example,
+```ts
+import { cronJobs } from "convex/server";
+import { internal } from "./_generated/api";
+import { internalAction } from "./_generated/server";
+
+const empty = internalAction({
+  args: {},
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    console.log("empty");
+  },
+});
+
+const crons = cronJobs();
+
+// Run `internal.crons.empty` every two hours.
+crons.interval("delete inactive users", { hours: 2 }, internal.crons.empty, {});
+
+export default crons;
+```
+- You can register Convex functions within `crons.ts` just like any other file.
+- If a cron calls an internal function, always import the `internal` object from '_generated/api', even if the internal function is registered in the same file.
+
+
+## File storage guidelines
+- Convex includes file storage for large files like images, videos, and PDFs.
+- The `ctx.storage.getUrl()` method returns a signed URL for a given file. It returns `null` if the file doesn't exist.
+- Do NOT use the deprecated `ctx.storage.getMetadata` call for loading a file's metadata.
+
+                    Instead, query the `_storage` system table. For example, you can use `ctx.db.system.get` to get an `Id<"_storage">`.
+```
+import { query } from "./_generated/server";
+import { Id } from "./_generated/dataModel";
+
+type FileMetadata = {
+    _id: Id<"_storage">;
+    _creationTime: number;
+    contentType?: string;
+    sha256: string;
+    size: number;
+}
+
+export const exampleQuery = query({
+    args: { fileId: v.id("_storage") },
+    returns: v.null(),
+    handler: async (ctx, args) => {
+        const metadata: FileMetadata | null = await ctx.db.system.get(args.fileId);
+        console.log(metadata);
+        return null;
+    },
+});
+```
+- Convex storage stores items as `Blob` objects. You must convert all items to/from a `Blob` when using Convex storage.
+
+
+# Examples:
+## Example: chat-app
+
+### Task
+```
+Create a real-time chat application backend with AI responses. The app should:
+- Allow creating users with names
+- Support multiple chat channels
+- Enable users to send messages to channels
+- Automatically generate AI responses to user messages
+- Show recent message history
+
+The backend should provide APIs for:
+1. User management (creation)
+2. Channel management (creation)
+3. Message operations (sending, listing)
+4. AI response generation using OpenAI's GPT-4
+
+Messages should be stored with their channel, author, and content. The system should maintain message order
+and limit history display to the 10 most recent messages per channel.
+
+```
+
+### Analysis
+1. Task Requirements Summary:
+- Build a real-time chat backend with AI integration
+- Support user creation
+- Enable channel-based conversations
+- Store and retrieve messages with proper ordering
+- Generate AI responses automatically
+
+2. Main Components Needed:
+- Database tables: users, channels, messages
+- Public APIs for user/channel management
+- Message handling functions
+- Internal AI response generation system
+- Context loading for AI responses
+
+3. Public API and Internal Functions Design:
+Public Mutations:
+- createUser:
+  - file path: convex/index.ts
+  - arguments: {name: v.string()}
+  - returns: v.object({userId: v.id("users")})
+  - purpose: Create a new user with a given name
+- createChannel:
+  - file path: convex/index.ts
+  - arguments: {name: v.string()}
+  - returns: v.object({channelId: v.id("channels")})
+  - purpose: Create a new channel with a given name
+- sendMessage:
+  - file path: convex/index.ts
+  - arguments: {channelId: v.id("channels"), authorId: v.id("users"), content: v.string()}
+  - returns: v.null()
+  - purpose: Send a message to a channel and schedule a response from the AI
+
+Public Queries:
+- listMessages:
+  - file path: convex/index.ts
+  - arguments: {channelId: v.id("channels")}
+  - returns: v.array(v.object({
+    _id: v.id("messages"),
+    _creationTime: v.number(),
+    channelId: v.id("channels"),
+    authorId: v.optional(v.id("users")),
+    content: v.string(),
+    }))
+  - purpose: List the 10 most recent messages from a channel in descending creation order
+
+Internal Functions:
+- generateResponse:
+  - file path: convex/index.ts
+  - arguments: {channelId: v.id("channels")}
+  - returns: v.null()
+  - purpose: Generate a response from the AI for a given channel
+- loadContext:
+  - file path: convex/index.ts
+  - arguments: {channelId: v.id("channels")}
+  - returns: v.array(v.object({
+    _id: v.id("messages"),
+    _creationTime: v.number(),
+    channelId: v.id("channels"),
+    authorId: v.optional(v.id("users")),
+    content: v.string(),
+  }))
+- writeAgentResponse:
+  - file path: convex/index.ts
+  - arguments: {channelId: v.id("channels"), content: v.string()}
+  - returns: v.null()
+  - purpose: Write an AI response to a given channel
+
+4. Schema Design:
+- users
+  - validator: { name: v.string() }
+  - indexes: <none>
+- channels
+  - validator: { name: v.string() }
+  - indexes: <none>
+- messages
+  - validator: { channelId: v.id("channels"), authorId: v.optional(v.id("users")), content: v.string() }
+  - indexes
+    - by_channel: ["channelId"]
+
+5. Background Processing:
+- AI response generation runs asynchronously after each user message
+- Uses OpenAI's GPT-4 to generate contextual responses
+- Maintains conversation context using recent message history
+
+
+### Implementation
+
+#### package.json
+```typescript
+{
+  "name": "chat-app",
+  "description": "This example shows how to build a chat app without authentication.",
+  "version": "1.0.0",
+  "dependencies": {
+    "convex": "^1.17.4",
+    "openai": "^4.79.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}
+```
+
+#### tsconfig.json
+```typescript
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
+  },
+  "exclude": ["convex"],
+  "include": ["**/src/**/*.tsx", "**/src/**/*.ts", "vite.config.ts"]
+}
+```
+
+#### convex/index.ts
+```typescript
+import {
+  query,
+  mutation,
+  internalQuery,
+  internalMutation,
+  internalAction,
+} from "./_generated/server";
+import { v } from "convex/values";
+import OpenAI from "openai";
+import { internal } from "./_generated/api";
+
+/**
+ * Create a user with a given name.
+ */
+export const createUser = mutation({
+  args: {
+    name: v.string(),
+  },
+  returns: v.id("users"),
+  handler: async (ctx, args) => {
+    return await ctx.db.insert("users", { name: args.name });
+  },
+});
+
+/**
+ * Create a channel with a given name.
+ */
+export const createChannel = mutation({
+  args: {
+    name: v.string(),
+  },
+  returns: v.id("channels"),
+  handler: async (ctx, args) => {
+    return await ctx.db.insert("channels", { name: args.name });
+  },
+});
+
+/**
+ * List the 10 most recent messages from a channel in descending creation order.
+ */
+export const listMessages = query({
+  args: {
+    channelId: v.id("channels"),
+  },
+  returns: v.array(
+    v.object({
+      _id: v.id("messages"),
+      _creationTime: v.number(),
+      channelId: v.id("channels"),
+      authorId: v.optional(v.id("users")),
+      content: v.string(),
+    }),
+  ),
+  handler: async (ctx, args) => {
+    const messages = await ctx.db
+      .query("messages")
+      .withIndex("by_channel", (q) => q.eq("channelId", args.channelId))
+      .order("desc")
+      .take(10);
+    return messages;
+  },
+});
+
+/**
+ * Send a message to a channel and schedule a response from the AI.
+ */
+export const sendMessage = mutation({
+  args: {
+    channelId: v.id("channels"),
+    authorId: v.id("users"),
+    content: v.string(),
+  },
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    const channel = await ctx.db.get(args.channelId);
+    if (!channel) {
+      throw new Error("Channel not found");
+    }
+    const user = await ctx.db.get(args.authorId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    await ctx.db.insert("messages", {
+      channelId: args.channelId,
+      authorId: args.authorId,
+      content: args.content,
+    });
+    await ctx.scheduler.runAfter(0, internal.index.generateResponse, {
+      channelId: args.channelId,
+    });
+    return null;
+  },
+});
+
+const openai = new OpenAI();
+
+export const generateResponse = internalAction({
+  args: {
+    channelId: v.id("channels"),
+  },
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    const context = await ctx.runQuery(internal.index.loadContext, {
+      channelId: args.channelId,
+    });
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: context,
+    });
+    const content = response.choices[0].message.content;
+    if (!content) {
+      throw new Error("No content in response");
+    }
+    await ctx.runMutation(internal.index.writeAgentResponse, {
+      channelId: args.channelId,
+      content,
+    });
+    return null;
+  },
+});
+
+export const loadContext = internalQuery({
+  args: {
+    channelId: v.id("channels"),
+  },
+  returns: v.array(
+    v.object({
+      role: v.union(v.literal("user"), v.literal("assistant")),
+      content: v.string(),
+    }),
+  ),
+  handler: async (ctx, args) => {
+    const channel = await ctx.db.get(args.channelId);
+    if (!channel) {
+      throw new Error("Channel not found");
+    }
+    const messages = await ctx.db
+      .query("messages")
+      .withIndex("by_channel", (q) => q.eq("channelId", args.channelId))
+      .order("desc")
+      .take(10);
+
+    const result = [];
+    for (const message of messages) {
+      if (message.authorId) {
+        const user = await ctx.db.get(message.authorId);
+        if (!user) {
+          throw new Error("User not found");
+        }
+        result.push({
+          role: "user" as const,
+          content: `${user.name}: ${message.content}`,
+        });
+      } else {
+        result.push({ role: "assistant" as const, content: message.content });
+      }
+    }
+    return result;
+  },
+});
+
+export const writeAgentResponse = internalMutation({
+  args: {
+    channelId: v.id("channels"),
+    content: v.string(),
+  },
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    await ctx.db.insert("messages", {
+      channelId: args.channelId,
+      content: args.content,
+    });
+    return null;
+  },
+});
+```
+
+#### convex/schema.ts
+```typescript
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+
+export default defineSchema({
+  channels: defineTable({
+    name: v.string(),
+  }),
+
+  users: defineTable({
+    name: v.string(),
+  }),
+
+  messages: defineTable({
+    channelId: v.id("channels"),
+    authorId: v.optional(v.id("users")),
+    content: v.string(),
+  }).index("by_channel", ["channelId"]),
+});
+```
+
+#### src/App.tsx
+```typescript
+export default function App() {
+  return <div>Hello World</div>;
+}
+```
 
 ---
 > Source: [CS-Martin/triumph-2024](https://github.com/CS-Martin/triumph-2024) — distributed by [TomeVault](https://tomevault.io).
