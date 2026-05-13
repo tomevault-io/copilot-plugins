@@ -1,0 +1,9 @@
+{
+  "name": "adobe--aio-commerce-sdk",
+  "displayName": "aio-commerce-sdk",
+  "description": "Provides a collection of packages designed for use with Adobe App Builder together with Adobe Commerce.",
+  "version": "1.0.0",
+  "author": "adobe",
+  "homepage": "https://github.com/adobe/aio-commerce-sdk",
+  "skills": []
+}
