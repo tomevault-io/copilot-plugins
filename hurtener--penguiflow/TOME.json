@@ -1,0 +1,63 @@
+{
+  "name": "penguiflow",
+  "owner": "hurtener",
+  "repo": "penguiflow",
+  "description": "A tiny, dependency-light Python library (penguiflow) that lets define typed, concurrent agent pipelines.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "databricks-apps-cookie-auth",
+      "path": ".claude/skills/databricks-apps-cookie-auth",
+      "github_url": "https://github.com/hurtener/penguiflow/tree/main/.claude/skills/databricks-apps-cookie-auth",
+      "description": ""
+    },
+    {
+      "name": "library-implementation-principles",
+      "path": ".claude/skills/library-implementation-principles",
+      "github_url": "https://github.com/hurtener/penguiflow/tree/main/.claude/skills/library-implementation-principles",
+      "description": ""
+    },
+    {
+      "name": "update-local-development-agents",
+      "path": ".claude/skills/update-local-development-agents",
+      "github_url": "https://github.com/hurtener/penguiflow/tree/main/.claude/skills/update-local-development-agents",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hurtener/penguiflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T10:30:09Z"
+}
