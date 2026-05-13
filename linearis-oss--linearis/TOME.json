@@ -4,7 +4,7 @@
   "repo": "linearis",
   "description": "CLI tool for Linear.app with JSON output, smart ID resolution, and optimized GraphQL queries. Designed for LLM agents and humans who prefer structured data.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/linearis-oss/linearis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T14:53:57Z"
+  "distributed_at": "2026-05-13T03:10:31Z"
 }
