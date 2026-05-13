@@ -1,0 +1,9 @@
+{
+  "name": "beijaflor--tmuxrs",
+  "displayName": "tmuxrs",
+  "description": "A modern, Rust-based tmux session manager with centralized configuration and directory-aware execution.",
+  "version": "1.0.0",
+  "author": "beijaflor",
+  "homepage": "https://github.com/beijaflor/tmuxrs",
+  "skills": []
+}
