@@ -4,7 +4,7 @@
   "repo": "any-llm",
   "description": "Communicate with an LLM provider using a single interface",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mozilla-ai/any-llm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T04:17:46Z"
+  "distributed_at": "2026-05-13T13:09:57Z"
 }
