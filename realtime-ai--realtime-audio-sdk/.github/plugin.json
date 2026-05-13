@@ -1,0 +1,9 @@
+{
+  "name": "realtime-ai--realtime-audio-sdk",
+  "displayName": "realtime-audio-sdk",
+  "description": "Realtime Audio SDK for the Web \u2014 audio capture, echo cancellation (AEC), voice activity detection (VAD), and real-time encoding (Opus/PCM). ",
+  "version": "1.0.0",
+  "author": "realtime-ai",
+  "homepage": "https://github.com/realtime-ai/realtime-audio-sdk",
+  "skills": []
+}
