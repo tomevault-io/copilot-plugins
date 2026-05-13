@@ -1,0 +1,9 @@
+{
+  "name": "bofai--mcp-server-tron",
+  "displayName": "mcp-server-tron",
+  "description": "TRON Ecosystem MCP Server",
+  "version": "1.0.0",
+  "author": "BofAI",
+  "homepage": "https://github.com/BofAI/mcp-server-tron",
+  "skills": []
+}
