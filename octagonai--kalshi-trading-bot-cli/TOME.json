@@ -4,7 +4,7 @@
   "repo": "kalshi-trading-bot-cli",
   "description": "AI-native CLI for trading Kalshi prediction markets. Runs deep fundamental research, generates independent probability estimates, computes edge vs. live order books, and executes trades with Kelly sizing and a 5-gate risk engine. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OctagonAI/kalshi-trading-bot-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T04:53:45Z"
+  "distributed_at": "2026-05-13T13:18:52Z"
 }
