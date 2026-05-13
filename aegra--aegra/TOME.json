@@ -4,7 +4,7 @@
   "repo": "aegra",
   "description": "Open source alternative to LangGraph Platform (now LangSmith Deployments) - Self-hosted AI agent backend with FastAPI and PostgreSQL. Zero vendor lock-in, full control over your agent infrastructure.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aegra/aegra",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T01:11:22Z"
+  "distributed_at": "2026-05-13T11:10:27Z"
 }
