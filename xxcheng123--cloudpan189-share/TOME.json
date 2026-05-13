@@ -1,0 +1,44 @@
+{
+  "name": "cloudpan189-share",
+  "owner": "xxcheng123",
+  "repo": "cloudpan189-share",
+  "description": "CloudPan189 Share \u662f\u4e00\u6b3e\u4e13\u4e3a\u5929\u7ffc\u4e91\u76d8\u8bbe\u8ba1\u7684\u667a\u80fd\u6587\u4ef6\u5206\u4eab\u7ba1\u7406\u5de5\u5177\u3002\u8be5\u7cfb\u7edf\u80fd\u591f\u5c06\u5929\u7ffc\u4e91\u76d8\u7684\u5206\u4eab\u94fe\u63a5\u8f6c\u6362\u4e3a\u6807\u51c6\u7684\u76ee\u5f55\u7ed3\u6784\uff0c\u5e76\u901a\u8fc7 WebDAV \u534f\u8bae\u63d0\u4f9b\u7edf\u4e00\u7684\u6587\u4ef6\u8bbf\u95ee\u63a5\u53e3\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xxcheng123/cloudpan189-share",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T10:51:47Z"
+}
