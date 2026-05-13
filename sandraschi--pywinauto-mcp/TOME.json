@@ -2,9 +2,9 @@
   "name": "pywinauto-mcp",
   "owner": "sandraschi",
   "repo": "pywinauto-mcp",
-  "description": "",
+  "description": "MCP 3.2 Server for Windows Automation with associated webapp Wraps window/UI analysis, mouse, keyboard, screenshots, OCR, and optional face recog and keylogger",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sandraschi/pywinauto-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T09:16:56Z"
+  "distributed_at": "2026-05-13T18:37:09Z"
 }
