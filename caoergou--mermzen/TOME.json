@@ -4,7 +4,7 @@
   "repo": "MermZen",
   "description": "A clean, lightweight Mermaid diagram editor \u2014 hand-drawn style, live preview, and one-click export.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/caoergou/MermZen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T13:35:13Z"
+  "distributed_at": "2026-05-13T02:51:08Z"
 }
