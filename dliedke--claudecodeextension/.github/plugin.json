@@ -1,0 +1,9 @@
+{
+  "name": "dliedke--claudecodeextension",
+  "displayName": "ClaudeCodeExtension",
+  "description": "A Visual Studio .NET extension that provides a better interface for Claude Code CLI, OpenAI Codex, Cursor Agent, Opencode CLI and Qwen Code with support for multi-line prompts with image or file attac",
+  "version": "1.0.0",
+  "author": "dliedke",
+  "homepage": "https://github.com/dliedke/ClaudeCodeExtension",
+  "skills": []
+}
