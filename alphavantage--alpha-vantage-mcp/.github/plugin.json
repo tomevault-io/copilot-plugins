@@ -1,0 +1,9 @@
+{
+  "name": "alphavantage--alpha-vantage-mcp",
+  "displayName": "alpha_vantage_mcp",
+  "description": "Alpha Vantage MCP Server",
+  "version": "1.0.0",
+  "author": "alphavantage",
+  "homepage": "https://github.com/alphavantage/alpha_vantage_mcp",
+  "skills": []
+}
