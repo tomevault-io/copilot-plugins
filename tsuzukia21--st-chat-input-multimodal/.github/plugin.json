@@ -1,0 +1,9 @@
+{
+  "name": "tsuzukia21--st-chat-input-multimodal",
+  "displayName": "st-chat-input-multimodal",
+  "description": "A multimodal chat input component for Streamlit with file upload, voice recording, and text input capabilities",
+  "version": "1.0.0",
+  "author": "tsuzukia21",
+  "homepage": "https://github.com/tsuzukia21/st-chat-input-multimodal",
+  "skills": []
+}
