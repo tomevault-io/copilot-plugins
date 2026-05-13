@@ -1,0 +1,9 @@
+{
+  "name": "y0sif--whisrs",
+  "displayName": "whisrs",
+  "description": "Linux-first voice-to-text dictation tool for Wayland, X11, Niri, Hyprland & Sway, written in Rust",
+  "version": "1.0.0",
+  "author": "y0sif",
+  "homepage": "https://github.com/y0sif/whisrs",
+  "skills": []
+}
