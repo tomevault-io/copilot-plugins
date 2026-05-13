@@ -1,0 +1,9 @@
+{
+  "name": "hatch3r--hatch3r",
+  "displayName": "hatch3r",
+  "description": "Production-ready spec driven development setup for AI coding agents in any repo with one command. Pre-configured with 11 agents, 22 skills, 18 rules, 25 commands & MCP integrations for Cursor, GitHub ",
+  "version": "1.0.0",
+  "author": "hatch3r",
+  "homepage": "https://github.com/hatch3r/hatch3r",
+  "skills": []
+}
