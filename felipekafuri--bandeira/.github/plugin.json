@@ -1,0 +1,9 @@
+{
+  "name": "felipekafuri--bandeira",
+  "displayName": "bandeira",
+  "description": "Self-hosted, open-source feature flags. Single binary + SQLite.",
+  "version": "1.0.0",
+  "author": "felipekafuri",
+  "homepage": "https://github.com/felipekafuri/bandeira",
+  "skills": []
+}
