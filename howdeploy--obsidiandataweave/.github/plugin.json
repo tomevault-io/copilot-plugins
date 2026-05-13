@@ -1,0 +1,9 @@
+{
+  "name": "howdeploy--obsidiandataweave",
+  "displayName": "ObsidianDataWeave",
+  "description": "A toolkit of Claude skills and user guides that turns NotebookLM notes into an Obsidian MOC + Zettelkasten knowledge system.",
+  "version": "1.0.0",
+  "author": "howdeploy",
+  "homepage": "https://github.com/howdeploy/ObsidianDataWeave",
+  "skills": []
+}
