@@ -1,0 +1,9 @@
+{
+  "name": "eyalamirmusic--nanotest",
+  "displayName": "NanoTest",
+  "description": "Macro-free unit testing framework for C++ and CMake.",
+  "version": "1.0.0",
+  "author": "eyalamirmusic",
+  "homepage": "https://github.com/eyalamirmusic/NanoTest",
+  "skills": []
+}
