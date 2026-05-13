@@ -1,0 +1,9 @@
+{
+  "name": "wkwan--flo",
+  "displayName": "flo",
+  "description": "Fast Vulkan 3D Renderer Integrated with the Bevy Game Engine",
+  "version": "1.0.0",
+  "author": "wkwan",
+  "homepage": "https://github.com/wkwan/flo",
+  "skills": []
+}
