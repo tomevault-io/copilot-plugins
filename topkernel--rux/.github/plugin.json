@@ -1,0 +1,9 @@
+{
+  "name": "topkernel--rux",
+  "displayName": "Rux",
+  "description": "Yet another Linux-like kernel in Rust\u2014fully AI-generated.Full POSIX & Linux ABI compatible: run any Linux binary directly, no recompile.Not reinventing the wheel, just a fun experiment to test AI & Ru",
+  "version": "1.0.0",
+  "author": "topkernel",
+  "homepage": "https://github.com/topkernel/Rux",
+  "skills": []
+}
