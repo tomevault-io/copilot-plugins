@@ -4,7 +4,7 @@
   "repo": "PdfKmp",
   "description": "OpenSource library for generate Pdf in KMP",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ConaMobileDev/PdfKmp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T05:53:03Z"
+  "distributed_at": "2026-05-13T14:59:07Z"
 }
