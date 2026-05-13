@@ -1,0 +1,9 @@
+{
+  "name": "gdsfactory--circulax",
+  "displayName": "circulax",
+  "description": "Circulax is a differentiable circuit simulation framework built on JAX, Optimistix and Diffrax",
+  "version": "1.0.0",
+  "author": "gdsfactory",
+  "homepage": "https://github.com/gdsfactory/circulax",
+  "skills": []
+}
