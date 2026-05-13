@@ -1,0 +1,9 @@
+{
+  "name": "aker-dev--microfolio",
+  "displayName": "microfolio",
+  "description": "A modern static portfolio generator based on SvelteKit 2 and Tailwind CSS 4",
+  "version": "1.0.0",
+  "author": "aker-dev",
+  "homepage": "https://github.com/aker-dev/microfolio",
+  "skills": []
+}
