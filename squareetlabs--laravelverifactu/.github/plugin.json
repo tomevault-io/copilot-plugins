@@ -1,0 +1,9 @@
+{
+  "name": "squareetlabs--laravelverifactu",
+  "displayName": "LaravelVerifactu",
+  "description": "Paquete Laravel para gesti\u00f3n y registro de facturaci\u00f3n electr\u00f3nica VeriFactu. Compatible con Laravel 10 a 12.x",
+  "version": "1.0.0",
+  "author": "squareetlabs",
+  "homepage": "https://github.com/squareetlabs/LaravelVerifactu",
+  "skills": []
+}
