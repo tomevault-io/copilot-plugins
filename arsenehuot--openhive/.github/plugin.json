@@ -1,0 +1,9 @@
+{
+  "name": "arsenehuot--openhive",
+  "displayName": "openhive",
+  "description": "Open-source Slack alternative you can self-host in minutes. Built with Next.js, Supabase & LiveKit.",
+  "version": "1.0.0",
+  "author": "arseneHuot",
+  "homepage": "https://github.com/arseneHuot/openhive",
+  "skills": []
+}
