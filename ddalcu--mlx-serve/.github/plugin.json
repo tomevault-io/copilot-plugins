@@ -1,0 +1,9 @@
+{
+  "name": "ddalcu--mlx-serve",
+  "displayName": "mlx-serve",
+  "description": "Native LLM inference server for Apple Silicon. OpenAI + Anthropic API compatible. No Python. Includes MLX Core macOS app with chat, agent mode, and tool calling.",
+  "version": "1.0.0",
+  "author": "ddalcu",
+  "homepage": "https://github.com/ddalcu/mlx-serve",
+  "skills": []
+}
