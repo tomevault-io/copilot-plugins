@@ -1,0 +1,9 @@
+{
+  "name": "davidbudnick--redis-tui",
+  "displayName": "redis-tui",
+  "description": "Redis TUI Manager",
+  "version": "1.0.0",
+  "author": "davidbudnick",
+  "homepage": "https://github.com/davidbudnick/redis-tui",
+  "skills": []
+}
