@@ -7,11 +7,11 @@ On-device vision CLI - Apple Vision framework OCR, image classification, and obj
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Arthur-Ficial/auge](https://github.com/Arthur-Ficial/auge).
+Original source: `CLAUDE.md` in [Arthur-Ficial/auge](https://github.com/Arthur-Ficial/auge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
