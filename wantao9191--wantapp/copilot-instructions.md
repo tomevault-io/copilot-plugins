@@ -1,66 +1,79 @@
-## overview
+## performance
 
-> Cursor 规则总览和快速参考
+> 性能优化规范
 
 
-# Cursor 规则总览
+# 性能优化规范
 
-本项目包含以下 Cursor 规则文件，帮助 AI 更好地理解和协助开发：
+## Next.js 优化
 
-## 📁 项目结构规则
-- **文件**: `project-structure.mdc`
-- **作用**: 项目架构、目录结构、路径别名
-- **适用**: 所有文件
+### 构建优化
 
-## 💻 编码规范
-- **文件**: `coding-standards.mdc`
-- **作用**: TypeScript、React 编码规范
-- **适用**: `*.ts`, `*.tsx`, `*.js`, `*.jsx`
+- 使用 `next build` 进行生产构建
+- 启用 `removeConsole` 移除生产环境 console
+- 使用 `standalone` 输出模式
 
-## 🎨 Ant Design 使用
-- **文件**: `antd-usage.mdc`
-- **作用**: Ant Design 组件使用规范
-- **适用**: `*.tsx` 文件
+### 开发优化
 
-## 🔌 API 开发
-- **文件**: `api-development.mdc`
-- **作用**: API 路由开发规范
-- **适用**: `src/app/api/**/*.ts`
+- 使用 `--turbo` 模式加速开发
+- 配置内存模式避免磁盘 I/O
+- 优化 Webpack 配置
 
-## 🧪 测试规范
-- **文件**: `testing.mdc`
-- **作用**: 测试开发规范和最佳实践
-- **适用**: `tests/**/*.test.{ts,tsx}`
+## React 优化
 
-## 🗄️ 数据库规范
-- **文件**: `database.mdc`
-- **作用**: 数据库操作和迁移规范
-- **适用**: `src/db/**/*.ts`, `drizzle/**/*.sql`
+### 组件优化
 
-## 🔒 安全规范
-- **文件**: `security.mdc`
-- **作用**: 安全开发规范和最佳实践
-- **适用**: `src/lib/**/*.ts`, `src/middleware.ts`
+- 使用 `React.memo` 避免不必要的重渲染
+- 使用 `useMemo` 和 `useCallback` 优化计算
+- 合理使用 `useState` 和 `useEffect`
 
-## ⚡ 性能优化
-- **文件**: `performance.mdc`
-- **作用**: 性能优化规范和最佳实践
-- **适用**: `src/**/*.{ts,tsx}`
+### 代码分割
 
-## 🚀 快速开始
+- 使用动态导入进行代码分割
+- 按路由分割页面组件
+- 懒加载非关键组件
 
-1. **开发环境**: `pnpm dev`
-2. **类型检查**: `pnpm type-check`
-3. **代码检查**: `pnpm lint`
-4. **格式化**: `pnpm format`
-5. **测试**: `pnpm test`
-6. **构建**: `pnpm build`
+## 数据库优化
 
-## 📝 注意事项
+### 查询优化
 
-- 所有规则都基于项目的实际配置和代码风格
-- 规则会根据项目发展持续更新
-- 遇到问题时，优先参考相关规则文件
+- 使用索引优化查询性能
+- 避免 N+1 查询问题
+- 使用连接池管理数据库连接
+
+### 缓存策略
+
+- 实现适当的缓存策略
+- 使用 Redis 进行数据缓存
+- 合理设置缓存过期时间
+
+## 资源优化
+
+### 图片优化
+
+- 使用 Next.js Image 组件
+- 支持 WebP 和 AVIF 格式
+- 实现响应式图片
+
+### 字体优化
+
+- 使用 Google Fonts 优化
+- 预加载关键字体
+- 使用 `font-display: swap`
+
+## 监控和分析
+
+### 性能监控
+
+- 使用 Web Vitals 监控性能
+- 实现错误边界捕获错误
+- 记录性能指标
+
+### 代码分析
+
+- 使用 ESLint 进行代码检查
+- 使用 TypeScript 进行类型检查
+- 定期进行代码审查
 
 ---
 > Source: [wantao9191/wantapp](https://github.com/wantao9191/wantapp) — distributed by [TomeVault](https://tomevault.io).
