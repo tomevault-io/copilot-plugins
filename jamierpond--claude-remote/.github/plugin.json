@@ -1,0 +1,9 @@
+{
+  "name": "jamierpond--claude-remote",
+  "displayName": "claude-remote",
+  "description": "Mobile chat interface for Claude CLI with E2E encryption. Access Claude from your phone via Cloudflare tunnel.",
+  "version": "1.0.0",
+  "author": "jamierpond",
+  "homepage": "https://github.com/jamierpond/claude-remote",
+  "skills": []
+}
