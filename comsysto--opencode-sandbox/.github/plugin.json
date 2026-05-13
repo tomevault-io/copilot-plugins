@@ -1,0 +1,9 @@
+{
+  "name": "comsysto--opencode-sandbox",
+  "displayName": "opencode-sandbox",
+  "description": "Sandbox for opencode based on docker and mise",
+  "version": "1.0.0",
+  "author": "comsysto",
+  "homepage": "https://github.com/comsysto/opencode-sandbox",
+  "skills": []
+}
