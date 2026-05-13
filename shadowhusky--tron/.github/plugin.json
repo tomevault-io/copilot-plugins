@@ -1,0 +1,9 @@
+{
+  "name": "shadowhusky--tron",
+  "displayName": "Tron",
+  "description": "Self-hosted AI-powered terminal. Run shells, use local or cloud LLMs (Ollama, OpenAI, Claude), and get agent-assisted commands from your desktop.",
+  "version": "1.0.0",
+  "author": "Shadowhusky",
+  "homepage": "https://github.com/Shadowhusky/Tron",
+  "skills": []
+}
