@@ -1,0 +1,9 @@
+{
+  "name": "team-attention--mcproxy",
+  "displayName": "mcproxy",
+  "description": "MCP Proxy with tool filtering for Claude Code",
+  "version": "1.0.0",
+  "author": "team-attention",
+  "homepage": "https://github.com/team-attention/mcproxy",
+  "skills": []
+}
