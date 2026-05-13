@@ -1,0 +1,9 @@
+{
+  "name": "indosaram--hwpers",
+  "displayName": "hwpers",
+  "description": "A Rust library for parsing Korean Hangul Word Processor (HWP) files with full layout rendering support",
+  "version": "1.0.0",
+  "author": "Indosaram",
+  "homepage": "https://github.com/Indosaram/hwpers",
+  "skills": []
+}
