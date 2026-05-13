@@ -1,0 +1,9 @@
+{
+  "name": "the0807--git-graph-plus",
+  "displayName": "git-graph-plus",
+  "description": "A modern Git visualization tool for VS Code. Understand your commit history, manage branches, and work with Git more intuitively.",
+  "version": "1.0.0",
+  "author": "the0807",
+  "homepage": "https://github.com/the0807/git-graph-plus",
+  "skills": []
+}
