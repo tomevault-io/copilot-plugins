@@ -1,0 +1,17 @@
+## no-run-motely
+
+> Do not execute or run Motely (CLI, WASM, or any Motely process). Edit and analyze only.
+
+
+# Do not run Motely
+
+- **Never** run Motely: no `dotnet run` on Motely.CLI, Motely.WASM, or any Motely project.
+- **Never** build Motely for the purpose of executing it (e.g. no "run a search to verify").
+- You may **build** the solution (e.g. `dotnet build BalatroSeedOracle.sln`) to verify compile errors.
+- You may **read**, **edit**, and **analyze** Motely code; do not execute it.
+
+Reason: Executing Motely (especially long-running search) consumes large amounts of tokens/time; keep changes to code-only unless the user explicitly asks to run something.
+
+---
+> Source: [OptimusPi/BalatroSeedOracle](https://github.com/OptimusPi/BalatroSeedOracle) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-13 -->
