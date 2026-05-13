@@ -1,0 +1,9 @@
+{
+  "name": "fc-fuz--claude-code-governance",
+  "displayName": "claude-code-governance",
+  "description": "Automated governance framework for Claude Code \u2014 multi-model council, WIP lifecycle hooks, company memory, and security gates",
+  "version": "1.0.0",
+  "author": "FC-FUZ",
+  "homepage": "https://github.com/FC-FUZ/claude-code-governance",
+  "skills": []
+}
