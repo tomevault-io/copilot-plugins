@@ -1,0 +1,9 @@
+{
+  "name": "adidacta--pmf-detective",
+  "displayName": "pmf-detective",
+  "description": "Claude Code plugin for Product-Market Fit validation through 5 structured sprints",
+  "version": "1.0.0",
+  "author": "adidacta",
+  "homepage": "https://github.com/adidacta/pmf-detective",
+  "skills": []
+}
