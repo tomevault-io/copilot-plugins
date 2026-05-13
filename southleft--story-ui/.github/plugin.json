@@ -1,0 +1,9 @@
+{
+  "name": "southleft--story-ui",
+  "displayName": "story-ui",
+  "description": "AI-powered Storybook story generator \u2014 works with any framework, any design system, any LLM provider",
+  "version": "1.0.0",
+  "author": "southleft",
+  "homepage": "https://github.com/southleft/story-ui",
+  "skills": []
+}
