@@ -7,11 +7,11 @@ A full-featured web-based Claude Code client that provides complete interactive 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [d-kimuson/claude-code-viewer](https://github.com/d-kimuson/claude-code-viewer).
+Original source: `CLAUDE.md` in [d-kimuson/claude-code-viewer](https://github.com/d-kimuson/claude-code-viewer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
