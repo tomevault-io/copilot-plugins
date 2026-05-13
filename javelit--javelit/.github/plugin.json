@@ -1,0 +1,9 @@
+{
+  "name": "javelit--javelit",
+  "displayName": "javelit",
+  "description": "The simplest way to build data apps and webapps in Java. Inspired by Streamlit.",
+  "version": "1.0.0",
+  "author": "javelit",
+  "homepage": "https://github.com/javelit/javelit",
+  "skills": []
+}
