@@ -1,0 +1,9 @@
+{
+  "name": "shotgun-sh--shotgun",
+  "displayName": "shotgun",
+  "description": "Spec Driven Development \ud83e\udd20 Write codebase-aware specs for AI coding agents so they don't derail.",
+  "version": "1.0.0",
+  "author": "shotgun-sh",
+  "homepage": "https://github.com/shotgun-sh/shotgun",
+  "skills": []
+}
