@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--deepsec",
+  "displayName": "deepsec",
+  "description": "Deepsec is a security harness for finding vulnerabilities in your codebase powered by coding agents",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/deepsec",
+  "skills": []
+}
