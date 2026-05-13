@@ -1,0 +1,9 @@
+{
+  "name": "lqomg--clueark",
+  "displayName": "ClueArk",
+  "description": "\u4e2a\u4ebaAI\u60c5\u62a5\u52a9\u624b\uff0c\u5168\u7f51\u8bdd\u9898\u76d1\u63a7\uff1a\u5173\u952e\u8bcd\u9a71\u52a8\u805a\u5408\u591a\u4fe1\u6e90\uff0cRSS + \u53ef\u9009Web\u722c\u866b\uff0cNestJS / React / MongoDB\uff0cDocker Compose \u4e00\u952e\u90e8\u7f72\u3002",
+  "version": "1.0.0",
+  "author": "lqomg",
+  "homepage": "https://github.com/lqomg/ClueArk",
+  "skills": []
+}
