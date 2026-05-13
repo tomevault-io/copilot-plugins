@@ -1,0 +1,9 @@
+{
+  "name": "morgaesis--tooler",
+  "displayName": "tooler",
+  "description": "Automate CLI tool management from GitHub Releases. Simple runs, version control, and auto-updates. ",
+  "version": "1.0.0",
+  "author": "morgaesis",
+  "homepage": "https://github.com/morgaesis/tooler",
+  "skills": []
+}
