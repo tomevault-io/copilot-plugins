@@ -1,0 +1,15 @@
+## chapter-structure
+
+> The documentation is organized into 30 chapters, each located in its own subdirectory under [docs/](mdc:docs/). Each chapter directory (e.g., [ch01/](mdc:docs/ch01/), [ch02/](mdc:docs/ch02/), ..., [ch30/](mdc:docs/ch30/)) contains a main markdown file (e.g., [_books_ml-q-and-ai-ch01.md](mdc:docs/ch01/_books_ml-q-and-ai-ch01.md)) that holds the content for that chapter. Images for each chapter are stored in [docs/images/](mdc:docs/images/), named according to the chapter and figure number (e.g., ch01-fig01.png).
+
+# Chapter Structure and Organization
+
+The documentation is organized into 30 chapters, each located in its own subdirectory under [docs/](mdc:docs/). Each chapter directory (e.g., [ch01/](mdc:docs/ch01/), [ch02/](mdc:docs/ch02/), ..., [ch30/](mdc:docs/ch30/)) contains a main markdown file (e.g., [_books_ml-q-and-ai-ch01.md](mdc:docs/ch01/_books_ml-q-and-ai-ch01.md)) that holds the content for that chapter. Images for each chapter are stored in [docs/images/](mdc:docs/images/), named according to the chapter and figure number (e.g., ch01-fig01.png).
+
+The sidebar and navigation are managed by [_sidebar.md](mdc:docs/_sidebar.md). The introduction and other supporting materials are in [docs/introduction/](mdc:docs/introduction/).
+description: Chapter structure and organization for the 30 ML Q&A chapters
+---
+
+---
+> Source: [ningg/Machine-Learning-Q-and-AI](https://github.com/ningg/Machine-Learning-Q-and-AI) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-13 -->
