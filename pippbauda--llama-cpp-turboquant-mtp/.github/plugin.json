@@ -1,0 +1,9 @@
+{
+  "name": "pippbauda--llama-cpp-turboquant-mtp",
+  "displayName": "llama.cpp-turboquant-mtp",
+  "description": "llama.cpp with TurboQuant+ and MTP integration",
+  "version": "1.0.0",
+  "author": "PippBauda",
+  "homepage": "https://github.com/PippBauda/llama.cpp-turboquant-mtp",
+  "skills": []
+}
