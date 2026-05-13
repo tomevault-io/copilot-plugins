@@ -1,0 +1,9 @@
+{
+  "name": "arnoox--herkos",
+  "displayName": "herkos",
+  "description": "Compile-Time Memory Isolation via WebAssembly and Rust Transpilation",
+  "version": "1.0.0",
+  "author": "arnoox",
+  "homepage": "https://github.com/arnoox/herkos",
+  "skills": []
+}
