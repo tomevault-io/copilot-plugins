@@ -1,0 +1,9 @@
+{
+  "name": "philipschmid--textwarden",
+  "displayName": "textwarden",
+  "description": "Grammar checking that respects your privacy. Real-time spelling and style suggestions across all macOS apps, running entirely on-device.",
+  "version": "1.0.0",
+  "author": "PhilipSchmid",
+  "homepage": "https://github.com/PhilipSchmid/textwarden",
+  "skills": []
+}
