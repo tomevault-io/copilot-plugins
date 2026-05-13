@@ -4,7 +4,7 @@
   "repo": "php-saas",
   "description": "The everything-included starter kit for your next idea",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/php-saas/php-saas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T04:57:39Z"
+  "distributed_at": "2026-05-13T13:22:04Z"
 }
