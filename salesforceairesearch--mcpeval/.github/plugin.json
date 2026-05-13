@@ -1,0 +1,9 @@
+{
+  "name": "salesforceairesearch--mcpeval",
+  "displayName": "MCPEval",
+  "description": "MCP-based Agent Deep Evaluation System",
+  "version": "1.0.0",
+  "author": "SalesforceAIResearch",
+  "homepage": "https://github.com/SalesforceAIResearch/MCPEval",
+  "skills": []
+}
