@@ -1,0 +1,9 @@
+{
+  "name": "zhanex--legax",
+  "displayName": "legax",
+  "description": "Mobile-first remote control for coding agents, with self-hosted relay, Telegram support, and local-first privacy.",
+  "version": "1.0.0",
+  "author": "zhanex",
+  "homepage": "https://github.com/zhanex/legax",
+  "skills": []
+}
