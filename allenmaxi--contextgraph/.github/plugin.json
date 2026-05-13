@@ -1,0 +1,9 @@
+{
+  "name": "allenmaxi--contextgraph",
+  "displayName": "ContextGraph",
+  "description": "Shared memory bus for MCP-compatible agents with permissions, subscriptions, and optional payments.",
+  "version": "1.0.0",
+  "author": "AllenMaxi",
+  "homepage": "https://github.com/AllenMaxi/ContextGraph",
+  "skills": []
+}
