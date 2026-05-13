@@ -4,7 +4,7 @@
   "repo": "no-autopilot",
   "description": "You can use AI all you want \u2014 just don't submit on autopilot.    Gentle PR guardrails that encourage human ownership. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eljojo/no-autopilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T16:42:54Z"
+  "distributed_at": "2026-05-13T04:54:08Z"
 }
