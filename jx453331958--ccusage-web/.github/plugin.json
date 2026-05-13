@@ -1,0 +1,9 @@
+{
+  "name": "jx453331958--ccusage-web",
+  "displayName": "ccusage-web",
+  "description": "Web dashboard for monitoring Claude Code usage and costs. Built with Next.js, ECharts, and SQLite.",
+  "version": "1.0.0",
+  "author": "jx453331958",
+  "homepage": "https://github.com/jx453331958/ccusage-web",
+  "skills": []
+}
