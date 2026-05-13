@@ -1,0 +1,9 @@
+{
+  "name": "hikaps--playnite-overlay",
+  "displayName": "playnite-overlay",
+  "description": "An in-game overlay for Playnite \u2014 quick game switching, controller support, and session management without leaving your game.",
+  "version": "1.0.0",
+  "author": "hikaps",
+  "homepage": "https://github.com/hikaps/playnite-overlay",
+  "skills": []
+}
