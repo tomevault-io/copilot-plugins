@@ -1,0 +1,9 @@
+{
+  "name": "web3dev1337--agent-workspace",
+  "displayName": "agent-workspace",
+  "description": "All your projects in one workspace. Run multiple CLI agents in parallel across different repos. Runs on your hardware, accessed through the desktop app or the browser. Bring your own plans.",
+  "version": "1.0.0",
+  "author": "web3dev1337",
+  "homepage": "https://github.com/web3dev1337/agent-workspace",
+  "skills": []
+}
