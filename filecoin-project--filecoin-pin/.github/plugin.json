@@ -1,0 +1,9 @@
+{
+  "name": "filecoin-project--filecoin-pin",
+  "displayName": "filecoin-pin",
+  "description": "IPFS Pinning Service API implementation that pins to Filecoin's PDP service",
+  "version": "1.0.0",
+  "author": "filecoin-project",
+  "homepage": "https://github.com/filecoin-project/filecoin-pin",
+  "skills": []
+}
