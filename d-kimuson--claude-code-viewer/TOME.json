@@ -4,7 +4,7 @@
   "repo": "claude-code-viewer",
   "description": "A full-featured web-based Claude Code client that provides complete interactive functionality for managing Claude Code projects",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/d-kimuson/claude-code-viewer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T14:08:43Z"
+  "distributed_at": "2026-05-13T03:00:04Z"
 }
