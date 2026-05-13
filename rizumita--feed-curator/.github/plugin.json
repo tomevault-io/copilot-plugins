@@ -1,0 +1,9 @@
+{
+  "name": "rizumita--feed-curator",
+  "displayName": "feed-curator",
+  "description": "Personalized RSS briefings for developers, powered by Claude Code. No API keys needed.",
+  "version": "1.0.0",
+  "author": "rizumita",
+  "homepage": "https://github.com/rizumita/feed-curator",
+  "skills": []
+}
