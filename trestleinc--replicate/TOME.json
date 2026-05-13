@@ -4,7 +4,7 @@
   "repo": "replicate",
   "description": "local first with convex",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/trestleinc/replicate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T12:11:29Z"
+  "distributed_at": "2026-05-13T02:38:13Z"
 }
