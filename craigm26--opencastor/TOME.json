@@ -1,0 +1,44 @@
+{
+  "name": "OpenCastor",
+  "owner": "craigm26",
+  "repo": "OpenCastor",
+  "description": "OpenCastor \u2014 productized open-core RCAN runtime. Gateway-as-kernel + drivers + fleet + cloud bridge + UI. Layer 4 of the OpenCastor stack. See rcan.dev/compatibility for protocol versions.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/craigm26/OpenCastor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T04:35:04Z"
+}
