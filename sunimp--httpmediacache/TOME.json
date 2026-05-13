@@ -1,0 +1,44 @@
+{
+  "name": "HTTPMediaCache",
+  "owner": "sunimp",
+  "repo": "HTTPMediaCache",
+  "description": "Swift \u672c\u5730 HTTP \u591a\u5a92\u4f53\u7f13\u5b58\u5e93\uff0c\u652f\u6301 AVPlayer \u4ee3\u7406\u64ad\u653e\u3001Range \u7f13\u5b58\u3001HLS \u6539\u5199\u3001\u9884\u52a0\u8f7d\u548c iOS/macOS\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sunimp/HTTPMediaCache",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T00:14:18Z"
+}
