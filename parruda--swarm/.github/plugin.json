@@ -1,0 +1,9 @@
+{
+  "name": "parruda--swarm",
+  "displayName": "swarm",
+  "description": "Ruby gems for general-purpose AI agent systems: automation, research, data processing, customer support, content creation. SwarmSDK provides single-process orchestration, persistent memory with semant",
+  "version": "1.0.0",
+  "author": "parruda",
+  "homepage": "https://github.com/parruda/swarm",
+  "skills": []
+}
