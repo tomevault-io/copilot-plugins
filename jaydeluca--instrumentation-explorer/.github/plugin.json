@@ -1,0 +1,9 @@
+{
+  "name": "jaydeluca--instrumentation-explorer",
+  "displayName": "instrumentation-explorer",
+  "description": "Experimental demo using the java instrumentation metadata",
+  "version": "1.0.0",
+  "author": "jaydeluca",
+  "homepage": "https://github.com/jaydeluca/instrumentation-explorer",
+  "skills": []
+}
