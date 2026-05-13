@@ -1,0 +1,44 @@
+{
+  "name": "BNI-VP-Autopilot",
+  "owner": "AlexChanshuo",
+  "repo": "BNI-VP-Autopilot",
+  "description": "\u5168\u81ea\u52d5\u5316\u7684BNI\u526f\u4e3b\u5e2d \u2014 Apache 2.0 licensed template of a Telegram + LINE + Obsidian agent that automates the BNI Vice President role. Vexa meeting bot + 5-tier fuzzy attendance + 3 pipelines (post-meeting, LinePc Computer Use, AI News Broadcaster). Built on OpenClaw + Karpathy LLM-Wiki.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AlexChanshuo/BNI-VP-Autopilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T13:04:42Z"
+}
