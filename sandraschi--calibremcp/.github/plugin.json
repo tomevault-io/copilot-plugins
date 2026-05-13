@@ -1,0 +1,9 @@
+{
+  "name": "sandraschi--calibremcp",
+  "displayName": "calibremcp",
+  "description": "FastMCP 2.14.1 server for Calibre e-book library management through Claude Desktop and othe MCP cllients",
+  "version": "1.0.0",
+  "author": "sandraschi",
+  "homepage": "https://github.com/sandraschi/calibremcp",
+  "skills": []
+}
