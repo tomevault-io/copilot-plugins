@@ -1,0 +1,9 @@
+{
+  "name": "circuit-synth--circuit-synth",
+  "displayName": "circuit-synth",
+  "description": "Better Boards, Faster!  Python-defined circuits with Claude Code as your intelligent design partner",
+  "version": "1.0.0",
+  "author": "circuit-synth",
+  "homepage": "https://github.com/circuit-synth/circuit-synth",
+  "skills": []
+}
