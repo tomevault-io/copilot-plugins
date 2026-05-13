@@ -1,0 +1,44 @@
+{
+  "name": "ouro-loop",
+  "owner": "VictorVVedtion",
+  "repo": "ouro-loop",
+  "description": "Give AI coding agents (Claude Code, Cursor, Aider, Codex) a structured autonomous loop with guardrails \u2014 boundaries, 5 verification gates, 3-layer self-reflection, and autonomous remediation. pip install ouro-loop. Zero dependencies.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/VictorVVedtion/ouro-loop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T02:04:01Z"
+}
