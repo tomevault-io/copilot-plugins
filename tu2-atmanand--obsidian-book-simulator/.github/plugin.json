@@ -1,0 +1,9 @@
+{
+  "name": "tu2-atmanand--obsidian-book-simulator",
+  "displayName": "obsidian-book-simulator",
+  "description": "This is a plugin for Obsidian which helps you to combine your notes from the folder hierarchy in a single contineous note and create virtual version of it.",
+  "version": "1.0.0",
+  "author": "tu2-atmanand",
+  "homepage": "https://github.com/tu2-atmanand/obsidian-book-simulator",
+  "skills": []
+}
