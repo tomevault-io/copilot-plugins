@@ -1,0 +1,9 @@
+{
+  "name": "ouim-me--reacher",
+  "displayName": "reacher",
+  "description": "Securely connect Claude.ai to your machines (SSH), APIs, browser, and memory , your infra, your control.",
+  "version": "1.0.0",
+  "author": "ouim-me",
+  "homepage": "https://github.com/ouim-me/reacher",
+  "skills": []
+}
