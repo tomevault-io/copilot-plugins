@@ -1,0 +1,9 @@
+{
+  "name": "womendefiningai--claudecode-writer",
+  "displayName": "claudecode-writer",
+  "description": "A Claude Code workspace that transforms ideas into multi-format content: research \u2192 long-form articles \u2192 platform-specific versions (LinkedIn, newsletter, social media, podcast Q&A)",
+  "version": "1.0.0",
+  "author": "WomenDefiningAI",
+  "homepage": "https://github.com/WomenDefiningAI/claudecode-writer",
+  "skills": []
+}
