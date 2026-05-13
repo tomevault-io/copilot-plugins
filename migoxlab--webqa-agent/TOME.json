@@ -1,0 +1,44 @@
+{
+  "name": "webqa-agent",
+  "owner": "MigoXLab",
+  "repo": "webqa-agent",
+  "description": "Autonomous web browser agent that audits performance, functionality & UX for engineers and vibe-coding creators. \u7f51\u7ad9\u81ea\u4e3b\u8bc4\u4f30\u6d4b\u8bd5 Agent\uff0c\u652f\u6301 GUI/CLI \u4e00\u952e\u5b8c\u6210\u6027\u80fd\u3001\u529f\u80fd\u4f7f\u7528\u4e0e\u4ea4\u4e92\u4f53\u9a8c\u7684\u6d4b\u8bd5\u8bc4\u4f30",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MigoXLab/webqa-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T10:49:46Z"
+}
