@@ -1,0 +1,9 @@
+{
+  "name": "nativephp--mobile-starter",
+  "displayName": "mobile-starter",
+  "description": "A base starter kit for your next NativePHP mobile app",
+  "version": "1.0.0",
+  "author": "NativePHP",
+  "homepage": "https://github.com/NativePHP/mobile-starter",
+  "skills": []
+}
