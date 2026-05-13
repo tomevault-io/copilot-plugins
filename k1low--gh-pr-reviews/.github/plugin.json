@@ -1,0 +1,9 @@
+{
+  "name": "k1low--gh-pr-reviews",
+  "displayName": "gh-pr-reviews",
+  "description": "gh-pr-reviews is a GitHub CLI ( gh ) extension that identifies unresolved review comments in a pull request.",
+  "version": "1.0.0",
+  "author": "k1LoW",
+  "homepage": "https://github.com/k1LoW/gh-pr-reviews",
+  "skills": []
+}
