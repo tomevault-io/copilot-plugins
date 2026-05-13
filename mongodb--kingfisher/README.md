@@ -7,11 +7,11 @@ Find, validate, and map the impact of leaked secrets across your stack. Revoke f
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mongodb/kingfisher](https://github.com/mongodb/kingfisher).
+Original source: `CLAUDE.md` in [mongodb/kingfisher](https://github.com/mongodb/kingfisher).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
