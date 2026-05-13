@@ -4,7 +4,7 @@
   "repo": "fff",
   "description": "The fastest and the most accurate file search toolkit for AI agents, Neovim, Rust, C, and NodeJS",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dmtrKovalenko/fff",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T22:11:11Z"
+  "distributed_at": "2026-05-13T09:19:32Z"
 }
