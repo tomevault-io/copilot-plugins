@@ -1,75 +1,65 @@
-## self-improve
+## stimulus-conventions
 
-> Guidelines for continuously improving Cursor rules based on emerging code patterns and best practices.
+> This rule describes how to write Stimulus controllers.
 
+This rule describes how to write Stimulus controllers.
 
-- **Rule Improvement Triggers:**
-  - New code patterns not covered by existing rules
-  - Repeated similar implementations across files
-  - Common error patterns that could be prevented
-  - New libraries or tools being used consistently
-  - Emerging best practices in the codebase
+- **Use declarative actions, not imperative event listeners**
+  - Instead of assigning a Stimulus target and binding it to an event listener in the initializer, always write Controllers + ERB views declaratively by using Stimulus actions in ERB to call methods in the Stimulus JS controller.  Below are good vs. bad code.
 
-- **Analysis Process:**
-  - Compare new code with existing rules
-  - Identify patterns that should be standardized
-  - Look for references to external documentation
-  - Check for consistent error handling patterns
-  - Monitor test patterns and coverage
+  BAD code:
 
-- **Rule Updates:**
-  - **Add New Rules When:**
-    - A new technology/pattern is used in 3+ files
-    - Common bugs could be prevented by a rule
-    - Code reviews repeatedly mention the same feedback
-    - New security or performance patterns emerge
+  ```js
+  // BAD!!!! DO NOT DO THIS!!
+  // Imperative - controller does all the work
+  export default class extends Controller {
+    static targets = ["button", "content"]
 
-  - **Modify Existing Rules When:**
-    - Better examples exist in the codebase
-    - Additional edge cases are discovered
-    - Related rules have been updated
-    - Implementation details have changed
+    connect() {
+      this.buttonTarget.addEventListener("click", this.toggle.bind(this))
+    }
 
-- **Example Pattern Recognition:**
-  ```typescript
-  // If you see repeated patterns like:
-  const data = await prisma.user.findMany({
-    select: { id: true, email: true },
-    where: { status: 'ACTIVE' }
-  });
-  
-  // Consider adding to [prisma.mdc](mdc:.cursor/rules/prisma.mdc):
-  // - Standard select fields
-  // - Common where conditions
-  // - Performance optimization patterns
+    toggle() {
+      this.contentTarget.classList.toggle("hidden")
+      this.buttonTarget.textContent = this.contentTarget.classList.contains("hidden") ? "Show" : "Hide"
+    }
+  }
   ```
 
-- **Rule Quality Checks:**
-  - Rules should be actionable and specific
-  - Examples should come from actual code
-  - References should be up to date
-  - Patterns should be consistently enforced
+  GOOD code:
 
-- **Continuous Improvement:**
-  - Monitor code review comments
-  - Track common development questions
-  - Update rules after major refactors
-  - Add links to relevant documentation
-  - Cross-reference related rules
+  ```erb
+  <!-- Declarative - HTML declares what happens -->
 
-- **Rule Deprecation:**
-  - Mark outdated patterns as deprecated
-  - Remove rules that no longer apply
-  - Update references to deprecated rules
-  - Document migration paths for old patterns
+  <div data-controller="toggle">
+    <button data-action="click->toggle#toggle" data-toggle-target="button">Show</button>
+    <div data-toggle-target="content" class="hidden">Hello World!</div>
+  </div>
+  ```
 
-- **Documentation Updates:**
-  - Keep examples synchronized with code
-  - Update references to external docs
-  - Maintain links between related rules
-  - Document breaking changes
+  ```js
+  // Declarative - controller just responds
+  export default class extends Controller {
+    static targets = ["button", "content"]
 
-Follow [cursor_rules.mdc](mdc:.cursor/rules/cursor_rules.mdc) for proper rule formatting and structure.
+    toggle() {
+      this.contentTarget.classList.toggle("hidden")
+      this.buttonTarget.textContent = this.contentTarget.classList.contains("hidden") ? "Show" : "Hide"
+    }
+  }
+  ```
+
+- **Keep Stimulus controllers lightweight and simple**
+  - Always aim for less than 7 controller targets. Any more is a sign of too much complexity.
+  - Use private methods and expose a clear public API
+
+- **Keep Stimulus controllers focused on what they do best**
+  - Domain logic does NOT belong in a Stimulus controller
+  - Stimulus controllers should aim for a single responsibility, or a group of highly related responsibilities
+  - Make good use of Stimulus's callbacks, actions, targets, values, and classes
+
+- **Component controllers should not be used outside the component**
+  - If a Stimulus controller is in the app/components directory, it should only be used in its component view. It should not be used anywhere in app/views.
 
 ---
 > Source: [we-promise/sure](https://github.com/we-promise/sure) — distributed by [TomeVault](https://tomevault.io).
