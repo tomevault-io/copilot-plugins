@@ -4,7 +4,7 @@
   "repo": "OmniVAD-Kit",
   "description": "Cross-platform VAD & Audio Event Detection toolkit \u2014 Python (PyPI) + TypeScript (npm) + C API. DFSMN models ~2MB, 200x real-time. Runs everywhere: native, browser (WASM), Node.js.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lifeiteng/OmniVAD-Kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T11:16:33Z"
+  "distributed_at": "2026-05-13T02:19:14Z"
 }
