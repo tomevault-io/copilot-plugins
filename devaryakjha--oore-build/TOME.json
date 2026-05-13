@@ -4,7 +4,7 @@
   "repo": "oore.build",
   "description": "Self-hosted, Flutter-first mobile CI and internal app distribution platform.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/devaryakjha/oore.build",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T21:32:42Z"
+  "distributed_at": "2026-05-13T09:12:15Z"
 }
