@@ -1,0 +1,9 @@
+{
+  "name": "autonomy-logic--openplc-runtime",
+  "displayName": "openplc-runtime",
+  "description": "OpenPLC Runtime v4 designed to run programs built on OpenPLC Editor v4",
+  "version": "1.0.0",
+  "author": "Autonomy-Logic",
+  "homepage": "https://github.com/Autonomy-Logic/openplc-runtime",
+  "skills": []
+}
