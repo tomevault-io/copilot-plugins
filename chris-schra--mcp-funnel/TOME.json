@@ -4,7 +4,7 @@
   "repo": "mcp-funnel",
   "description": "Finally, a proxy that does what grep does for logs - filters out the noise. Stop carrying 70k tokens of tools you'll never use. It's like tree-shaking, but for MCP. \ud83d\ude80",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chris-schra/mcp-funnel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T12:33:54Z"
+  "distributed_at": "2026-05-13T02:41:21Z"
 }
