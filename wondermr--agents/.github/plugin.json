@@ -1,0 +1,9 @@
+{
+  "name": "wondermr--agents",
+  "displayName": "Agents",
+  "description": "Universal MCP Server for AI Agent Roles, Skills & Cognitive Implants",
+  "version": "1.0.0",
+  "author": "WonderMr",
+  "homepage": "https://github.com/WonderMr/Agents",
+  "skills": []
+}
