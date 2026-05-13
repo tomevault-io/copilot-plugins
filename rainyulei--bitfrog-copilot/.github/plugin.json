@@ -1,0 +1,9 @@
+{
+  "name": "rainyulei--bitfrog-copilot",
+  "displayName": "bitfrog-copilot",
+  "description": "7+1 AI development agents for GitHub Copilot with Chinese philosophy-driven thinking models. Brainstorm, plan, execute, debug, review, mentor, and Mozi autonomous deep worker.",
+  "version": "1.0.0",
+  "author": "rainyulei",
+  "homepage": "https://github.com/rainyulei/bitfrog-copilot",
+  "skills": []
+}
