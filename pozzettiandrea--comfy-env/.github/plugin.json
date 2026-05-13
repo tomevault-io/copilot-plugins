@@ -1,0 +1,9 @@
+{
+  "name": "pozzettiandrea--comfy-env",
+  "displayName": "comfy-env",
+  "description": "CUDA dependency management and process isolation for ComfyUI custom nodes",
+  "version": "1.0.0",
+  "author": "PozzettiAndrea",
+  "homepage": "https://github.com/PozzettiAndrea/comfy-env",
+  "skills": []
+}
