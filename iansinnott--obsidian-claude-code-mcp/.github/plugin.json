@@ -1,0 +1,9 @@
+{
+  "name": "iansinnott--obsidian-claude-code-mcp",
+  "displayName": "obsidian-claude-code-mcp",
+  "description": "Connect Claude Code and other AI tools to your Obsidian notes using Model Context Protocol (MCP)",
+  "version": "1.0.0",
+  "author": "iansinnott",
+  "homepage": "https://github.com/iansinnott/obsidian-claude-code-mcp",
+  "skills": []
+}
