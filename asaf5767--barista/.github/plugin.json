@@ -1,0 +1,9 @@
+{
+  "name": "asaf5767--barista",
+  "displayName": "barista",
+  "description": "Control your De'Longhi coffee machine from your terminal, browser, or any automation. BLE-to-HTTP bridge for ECAM machines.",
+  "version": "1.0.0",
+  "author": "asaf5767",
+  "homepage": "https://github.com/asaf5767/barista",
+  "skills": []
+}
