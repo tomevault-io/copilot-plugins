@@ -1,0 +1,44 @@
+{
+  "name": "zero-loader",
+  "owner": "xAL6",
+  "repo": "zero-loader",
+  "description": "Polymorphic x64 shellcode loader \u2014 indirect syscalls, phantom DLL hollowing, call stack spoofing, patchless AMSI/ETW    bypass, zero CRT dependency",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xAL6/zero-loader",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T02:17:44Z"
+}
