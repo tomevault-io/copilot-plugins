@@ -1,0 +1,9 @@
+{
+  "name": "jacobvanorder--uikitgesturesforswiftui",
+  "displayName": "UIKitGesturesForSwiftUI",
+  "description": "Advanced gesture recognizers for SwiftUI, leveraging UIGestureRecognizerRepresentable for full UIKit feature parity and complex interaction support.",
+  "version": "1.0.0",
+  "author": "jacobvanorder",
+  "homepage": "https://github.com/jacobvanorder/UIKitGesturesForSwiftUI",
+  "skills": []
+}
