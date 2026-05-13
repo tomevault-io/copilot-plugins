@@ -1,0 +1,44 @@
+{
+  "name": "seedream-image-mcp",
+  "owner": "wearzdk",
+  "repo": "seedream-image-mcp",
+  "description": "\ud83d\ude80 PixelMCP | \u4e3a\u4f60\u7684 Cursor\u3001Claude Code \u7b49\u96c6\u6210AI\u7ed8\u753b\u80fd\u529b\uff0c\u8ba9AI\u751f\u6210\u7684\u9875\u9762\u4e0d\u518d\u5355\u8c03\uff01",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wearzdk/seedream-image-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T21:10:29Z"
+}
