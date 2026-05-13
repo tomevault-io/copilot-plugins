@@ -1,0 +1,9 @@
+{
+  "name": "davidguttman--whisper-rocm",
+  "displayName": "whisper-rocm",
+  "description": "whisper-rocm",
+  "version": "1.0.0",
+  "author": "davidguttman",
+  "homepage": "https://github.com/davidguttman/whisper-rocm",
+  "skills": []
+}
