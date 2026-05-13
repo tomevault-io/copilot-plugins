@@ -1,0 +1,9 @@
+{
+  "name": "hoangsnowy--floworchestrator",
+  "displayName": "FlowOrchestrator",
+  "description": "Code-first DAG workflow orchestration for .NET. Runs in your existing ASP.NET Core app \u2014 Hangfire, in-process, or Azure Service Bus runtime. Built-in dashboard, OpenTelemetry native, conditional branc",
+  "version": "1.0.0",
+  "author": "hoangsnowy",
+  "homepage": "https://github.com/hoangsnowy/FlowOrchestrator",
+  "skills": []
+}
