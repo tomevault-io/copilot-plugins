@@ -1,0 +1,9 @@
+{
+  "name": "leanprover--lean-eval",
+  "displayName": "lean-eval",
+  "description": "Comparator-based Lean formal mathematics eval",
+  "version": "1.0.0",
+  "author": "leanprover",
+  "homepage": "https://github.com/leanprover/lean-eval",
+  "skills": []
+}
