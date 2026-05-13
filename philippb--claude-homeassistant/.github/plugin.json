@@ -1,0 +1,9 @@
+{
+  "name": "philippb--claude-homeassistant",
+  "displayName": "claude-homeassistant",
+  "description": "Allows to program your home automations in plain english via Claude Code on your computer.",
+  "version": "1.0.0",
+  "author": "philippb",
+  "homepage": "https://github.com/philippb/claude-homeassistant",
+  "skills": []
+}
