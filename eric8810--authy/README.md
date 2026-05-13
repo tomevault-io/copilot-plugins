@@ -7,11 +7,11 @@ A CLI secrets store & dispatch tool built for AI agents.  Authy stores encrypted
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [eric8810/authy](https://github.com/eric8810/authy).
+Original source: `CLAUDE.md` in [eric8810/authy](https://github.com/eric8810/authy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
