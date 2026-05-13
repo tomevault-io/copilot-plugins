@@ -1,92 +1,57 @@
-## documentation-patterns
+## overview
 
-> Documentation writing and structure patterns for figui
+> Overview of all available cursor rules for figui development
 
 
-# Documentation Patterns
+# Figui Cursor Rules Overview
 
-## MDX Documentation Structure
+This project has several cursor rules to help with development:
 
-All documentation in **[content/docs/](mdc:content/docs/)** should follow consistent patterns:
+## Always Applied Rules
 
-### Component Documentation Template
+### [Project Structure](mdc:.cursor/rules/project-structure.mdc)
 
-````mdx
----
-title: Component Name
-description: Brief description of what the component does
----
+- **Always Active** - Provides comprehensive overview of the figui project
+- Explains directory structure, tech stack, and key files
+- Helps understand the Next.js + component library architecture
 
-import { ComponentDemo } from '@/registry/ui3/examples/component-demo';
-import { ComponentPreview } from '@/components/component-preview';
+## File-Specific Rules
 
-# Component Name
+### [Component Development](mdc:.cursor/rules/component-development.mdc)
 
-Brief description and use cases for the component.
+- **Applies to**: `registry/ui3/ui/*.tsx`, `registry/ui3/examples/*.tsx`
+- Guidelines for creating UI components and demos
+- Component architecture patterns using Base UI
+- Registry integration requirements
 
-## Installation
+### [Documentation Patterns](mdc:.cursor/rules/documentation-patterns.mdc)
 
-Install the component via the registry:
+- **Applies to**: `content/docs/**/*.mdx`, `app/docs/**/*.tsx`
+- MDX documentation structure and templates
+- Component documentation standards
+- Navigation and code example patterns
 
-```bash
-npx figui@latest add component-name
-```
-````
+### [Code Style](mdc:.cursor/rules/code-style.mdc)
+
+- **Applies to**: `*.ts`, `*.tsx`, `*.js`, `*.jsx`
+- TypeScript and React best practices
+- Prettier configuration and formatting rules
+- Tailwind CSS usage guidelines
+
+## Manual Rules
+
+### [Registry System](mdc:.cursor/rules/registry-system.mdc)
+
+- **Manual activation** - Deep dive into the component registry
+- Component installation workflow
+- Registry file formats and configuration
+- Step-by-step guide for adding new components
 
 ## Usage
 
-<ComponentPreview>
-  <ComponentDemo />
-</ComponentPreview>
-
-### Basic Example
-
-```tsx
-import { Component } from '@/components/ui/component';
-
-export default function Example() {
-  return <Component>Content</Component>;
-}
-```
-
-### Props
-
-| Prop    | Type                     | Default   | Description           |
-| ------- | ------------------------ | --------- | --------------------- |
-| variant | 'default' \| 'secondary' | 'default' | Visual style variant  |
-| size    | 'sm' \| 'md' \| 'lg'     | 'md'      | Size of the component |
-
-## Examples
-
-Show various use cases and configurations.
-
-## Accessibility
-
-Document keyboard navigation, ARIA attributes, and screen reader support.
-
-```
-
-### Navigation Structure
-
-- Update **[content/docs/meta.json](mdc:content/docs/meta.json)** for navigation
-- Organize components by category (Form, Layout, Feedback, etc.)
-- Use consistent naming: kebab-case for files, Title Case for display
-
-### Code Examples
-
-- Use **[ComponentPreview](mdc:components/component-preview.tsx)** for interactive demos
-- Include both basic and advanced usage examples
-- Show proper TypeScript types and imports
-- Reference actual demo components from **[registry/ui3/examples/](mdc:registry/ui3/examples/)**
-
-### Writing Guidelines
-
-- Start with a clear, concise description
-- Include installation instructions for each component
-- Document all props with types and descriptions
-- Provide accessibility information
-- Use consistent terminology throughout
-```
+- Rules are automatically applied based on file patterns
+- Use `/docs` or describe your task to trigger relevant rule activation
+- The project structure rule is always active for context
 
 ---
 > Source: [anxndsgn/FigUI](https://github.com/anxndsgn/FigUI) — distributed by [TomeVault](https://tomevault.io).
