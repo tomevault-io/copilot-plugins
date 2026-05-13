@@ -1,0 +1,44 @@
+{
+  "name": "Machine-Learning-Q-and-AI",
+  "owner": "ningg",
+  "repo": "Machine-Learning-Q-and-AI",
+  "description": "\u5927\u6a21\u578b\u6280\u672f30\u8bb2\uff08\u539f\u7248\uff09\uff0c\u4e2d\u6587\u7248\u672c\u3001\u4e2d\u6587\u6279\u6ce8\uff0c30 Essential Questions and Answers on Machine Learning and AI\uff0c\u767e\u9762\u5927\u6a21\u578b",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ningg/Machine-Learning-Q-and-AI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T23:11:26Z"
+}
