@@ -4,7 +4,7 @@
   "repo": "PDF-Tools",
   "description": "PDF Filler for Claude Desktop (using Claude Desktop Extensions)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Open-Document-Alliance/PDF-Tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T07:16:19Z"
+  "distributed_at": "2026-05-13T15:22:00Z"
 }
