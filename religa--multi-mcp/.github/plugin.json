@@ -1,0 +1,9 @@
+{
+  "name": "religa--multi-mcp",
+  "displayName": "multi_mcp",
+  "description": "Multi-Model chat, code review and analysis MCP Server for Claude Code",
+  "version": "1.0.0",
+  "author": "religa",
+  "homepage": "https://github.com/religa/multi_mcp",
+  "skills": []
+}
