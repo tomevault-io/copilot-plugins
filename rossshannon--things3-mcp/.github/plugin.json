@@ -1,0 +1,9 @@
+{
+  "name": "rossshannon--things3-mcp",
+  "displayName": "Things3-MCP",
+  "description": "MCP server for Things 3 with read/write support for tasks, projects, areas and tags.",
+  "version": "1.0.0",
+  "author": "rossshannon",
+  "homepage": "https://github.com/rossshannon/Things3-MCP",
+  "skills": []
+}
