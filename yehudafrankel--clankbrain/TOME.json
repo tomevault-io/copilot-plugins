@@ -4,7 +4,7 @@
   "repo": "clankbrain",
   "description": "Memory + workflows for Claude Code that compound across sessions",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/YehudaFrankel/clankbrain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T11:35:36Z"
+  "distributed_at": "2026-05-13T02:21:11Z"
 }
