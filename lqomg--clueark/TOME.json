@@ -1,0 +1,44 @@
+{
+  "name": "ClueArk",
+  "owner": "lqomg",
+  "repo": "ClueArk",
+  "description": "\u4e2a\u4ebaAI\u60c5\u62a5\u52a9\u624b\uff0c\u5168\u7f51\u8bdd\u9898\u76d1\u63a7\uff1a\u5173\u952e\u8bcd\u9a71\u52a8\u805a\u5408\u591a\u4fe1\u6e90\uff0cRSS + \u53ef\u9009Web\u722c\u866b\uff0cNestJS / React / MongoDB\uff0cDocker Compose \u4e00\u952e\u90e8\u7f72\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lqomg/ClueArk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T08:38:23Z"
+}
