@@ -1,0 +1,9 @@
+{
+  "name": "realtime-ai--blastoff-llm",
+  "displayName": "blastoff-llm",
+  "description": "a super fast llm response using small llm model to prefix large llm model",
+  "version": "1.0.0",
+  "author": "realtime-ai",
+  "homepage": "https://github.com/realtime-ai/blastoff-llm",
+  "skills": []
+}
