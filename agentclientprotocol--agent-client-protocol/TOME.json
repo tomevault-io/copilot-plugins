@@ -4,7 +4,7 @@
   "repo": "agent-client-protocol",
   "description": " A protocol for connecting any editor to any agent",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agentclientprotocol/agent-client-protocol",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T06:36:30Z"
+  "distributed_at": "2026-05-13T15:05:37Z"
 }
