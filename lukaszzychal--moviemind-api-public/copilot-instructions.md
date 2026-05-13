@@ -1,17 +1,26 @@
-## 030-breaking-changes
+## 040-quality-tools
 
-> If a change may affect DB schema/data, API contracts, identifiers/slugs, validation rules, or existing behavior:
+> When PHP code changes:
 
 
-# Breaking changes: stop and analyze
+# Quality tools before commit (short)
 
-If a change may affect DB schema/data, API contracts, identifiers/slugs, validation rules, or existing behavior:
-STOP and provide:
-1) what breaks (exactly)
-2) affected endpoints/data
-3) safe plan: backward compatibility, migration steps, rollout, rollback
-4) tests covering existing data/clients
-Only then implement.
+When PHP code changes:
+- run Pint
+- run PHPStan
+- run php artisan test
+
+When Markdown changes:
+- run markdownlint fix/check (project config)
+
+When security-sensitive changes:
+- run gitleaks (checks staged files via pre-commit hook)
+- run composer audit
+
+Note: GitLeaks is configured with useDefault=true to detect GitHub tokens and other secrets.
+The pre-commit hook runs GitLeaks automatically before each commit.
+
+Do not repeat long command blocks in every response. Mention only what is relevant to the current change.
 
 ---
 > Source: [lukaszzychal/moviemind-api-public](https://github.com/lukaszzychal/moviemind-api-public) — distributed by [TomeVault](https://tomevault.io).
