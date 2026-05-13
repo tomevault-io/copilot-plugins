@@ -4,7 +4,7 @@
   "repo": "copilot-api",
   "description": "Turn GitHub Copilot into OpenAI/Anthropic API compatible server. Usable with Claude Code Or Codex Or Opencode! Please read README.md completely before use!",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/caozhiyuan/copilot-api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T18:49:55Z"
+  "distributed_at": "2026-05-13T07:07:48Z"
 }
