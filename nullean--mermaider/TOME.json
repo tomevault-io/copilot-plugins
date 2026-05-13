@@ -4,7 +4,7 @@
   "repo": "mermaider",
   "description": "A pure dotnet mermaid parser, layout engine AND renderer, no js runtime, AOT ready.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nullean/mermaider",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T13:04:35Z"
+  "distributed_at": "2026-05-13T02:48:00Z"
 }
