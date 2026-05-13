@@ -4,7 +4,7 @@
   "repo": "pm-copilot",
   "description": "MCP server that triangulates customer support tickets and feature requests to help PMs decide what to build next",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dkships/pm-copilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T16:50:31Z"
+  "distributed_at": "2026-05-13T04:56:25Z"
 }
