@@ -1,0 +1,9 @@
+{
+  "name": "sourcegraph--cra-github",
+  "displayName": "cra-github",
+  "description": "Amp Code Review GitHub App",
+  "version": "1.0.0",
+  "author": "sourcegraph",
+  "homepage": "https://github.com/sourcegraph/cra-github",
+  "skills": []
+}
