@@ -1,0 +1,9 @@
+{
+  "name": "sienklogic--plan-build-run",
+  "displayName": "plan-build-run",
+  "description": "Plan it. Build it. Run it. A Claude Code plugin for structured development with context-engineered agents.",
+  "version": "1.0.0",
+  "author": "SienkLogic",
+  "homepage": "https://github.com/SienkLogic/plan-build-run",
+  "skills": []
+}
