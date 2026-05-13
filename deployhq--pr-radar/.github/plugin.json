@@ -1,0 +1,9 @@
+{
+  "name": "deployhq--pr-radar",
+  "displayName": "pr-radar",
+  "description": "All your PRs in one place. CI status, unresolved comments, deployments, and sound alerts \u2014 right from your browser toolbar. Free Chrome extension by DeployHQ.",
+  "version": "1.0.0",
+  "author": "deployhq",
+  "homepage": "https://github.com/deployhq/pr-radar",
+  "skills": []
+}
