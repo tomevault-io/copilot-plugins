@@ -1,0 +1,9 @@
+{
+  "name": "gi11es--deckard",
+  "displayName": "deckard",
+  "description": "Native macOS terminal manager for Claude Code and Codex",
+  "version": "1.0.0",
+  "author": "gi11es",
+  "homepage": "https://github.com/gi11es/deckard",
+  "skills": []
+}
