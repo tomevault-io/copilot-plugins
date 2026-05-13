@@ -1,0 +1,9 @@
+{
+  "name": "codejunkie99--agentic-harness",
+  "displayName": "agentic-harness",
+  "description": "Rust-native agent runtime, SDK, and CLI for software agents",
+  "version": "1.0.0",
+  "author": "codejunkie99",
+  "homepage": "https://github.com/codejunkie99/agentic-harness",
+  "skills": []
+}
