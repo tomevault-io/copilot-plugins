@@ -1,0 +1,9 @@
+{
+  "name": "jtsylve--re-mcp",
+  "displayName": "re-mcp",
+  "description": "A headless MCP server for IDA Pro and Ghidra",
+  "version": "1.0.0",
+  "author": "jtsylve",
+  "homepage": "https://github.com/jtsylve/re-mcp",
+  "skills": []
+}
