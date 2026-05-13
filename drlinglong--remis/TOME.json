@@ -1,0 +1,44 @@
+{
+  "name": "Remis",
+  "owner": "Drlinglong",
+  "repo": "Remis",
+  "description": "Project Remis Paradox Mod \u6c49\u5316\u81ea\u52a8\u5316\u5de5\u5382Project Remis Paradox Mod Localization Factory",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Drlinglong/Remis",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T20:43:31Z"
+}
