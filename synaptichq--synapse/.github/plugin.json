@@ -1,0 +1,9 @@
+{
+  "name": "synaptichq--synapse",
+  "displayName": "Synapse",
+  "description": "Multi-agent MCP orchestrator for Solana DeFi - routes tasks to specialized Claude agents, synthesizes results, acts   autonomously.",
+  "version": "1.0.0",
+  "author": "SynapticHQ",
+  "homepage": "https://github.com/SynapticHQ/Synapse",
+  "skills": []
+}
