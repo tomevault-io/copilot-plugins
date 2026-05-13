@@ -1,0 +1,9 @@
+{
+  "name": "buck2hub--cargo-buckal",
+  "displayName": "cargo-buckal",
+  "description": "Seamlessly build Cargo projects with Buck2 \u2014 the simpler alternative to Reindeer",
+  "version": "1.0.0",
+  "author": "buck2hub",
+  "homepage": "https://github.com/buck2hub/cargo-buckal",
+  "skills": []
+}
