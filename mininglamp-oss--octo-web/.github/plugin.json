@@ -1,0 +1,9 @@
+{
+  "name": "mininglamp-oss--octo-web",
+  "displayName": "octo-web",
+  "description": "Web & desktop (Electron) client for the OCTO open workplace \u2014 one React + TypeScript codebase shipping browser and PC surfaces, with first-class AI agent UX.",
+  "version": "1.0.0",
+  "author": "Mininglamp-OSS",
+  "homepage": "https://github.com/Mininglamp-OSS/octo-web",
+  "skills": []
+}
