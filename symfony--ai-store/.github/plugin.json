@@ -1,0 +1,9 @@
+{
+  "name": "symfony--ai-store",
+  "displayName": "ai-store",
+  "description": "Low-level abstraction for storing and retrieving documents in a vector store.",
+  "version": "1.0.0",
+  "author": "symfony",
+  "homepage": "https://github.com/symfony/ai-store",
+  "skills": []
+}
