@@ -7,11 +7,11 @@ memos类开源高颜值便签应用
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [XuYouo/MeowNocode](https://github.com/XuYouo/MeowNocode).
+Original source: `CLAUDE.md` in [XuYouo/MeowNocode](https://github.com/XuYouo/MeowNocode).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
