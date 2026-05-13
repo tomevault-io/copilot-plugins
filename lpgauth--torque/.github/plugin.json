@@ -1,0 +1,9 @@
+{
+  "name": "lpgauth--torque",
+  "displayName": "torque",
+  "description": "High-performance JSON library for Elixir via Rustler NIFs, powered by sonic-rs (SIMD-accelerated)",
+  "version": "1.0.0",
+  "author": "lpgauth",
+  "homepage": "https://github.com/lpgauth/torque",
+  "skills": []
+}
