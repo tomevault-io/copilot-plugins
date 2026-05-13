@@ -1,0 +1,9 @@
+{
+  "name": "hey-diga--imploid",
+  "displayName": "imploid",
+  "description": "Automates the implementation leg of agentic coding by orchestrating Claude and   Codex processors to clone, branch, and work GitHub issues in parallel",
+  "version": "1.0.0",
+  "author": "Hey-Diga",
+  "homepage": "https://github.com/Hey-Diga/imploid",
+  "skills": []
+}
