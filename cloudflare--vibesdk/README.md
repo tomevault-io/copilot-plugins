@@ -7,11 +7,11 @@ An open-source vibe coding platform that helps you build your own vibe-coding pl
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cloudflare/vibesdk](https://github.com/cloudflare/vibesdk).
+Original source: `CLAUDE.md` in [cloudflare/vibesdk](https://github.com/cloudflare/vibesdk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
