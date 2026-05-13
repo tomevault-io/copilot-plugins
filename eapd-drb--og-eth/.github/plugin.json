@@ -1,0 +1,9 @@
+{
+  "name": "eapd-drb--og-eth",
+  "displayName": "OG-ETH",
+  "description": "Overlapping-generations macroeconomic model of Ethiopia",
+  "version": "1.0.0",
+  "author": "EAPD-DRB",
+  "homepage": "https://github.com/EAPD-DRB/OG-ETH",
+  "skills": []
+}
