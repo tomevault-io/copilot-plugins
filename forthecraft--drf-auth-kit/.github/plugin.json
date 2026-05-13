@@ -1,0 +1,9 @@
+{
+  "name": "forthecraft--drf-auth-kit",
+  "displayName": "drf-auth-kit",
+  "description": "Modern Django REST Framework authentication toolkit with JWT cookies, social login, and 2FA support",
+  "version": "1.0.0",
+  "author": "forthecraft",
+  "homepage": "https://github.com/forthecraft/drf-auth-kit",
+  "skills": []
+}
