@@ -1,0 +1,9 @@
+{
+  "name": "leanethereum--leanspec",
+  "displayName": "leanSpec",
+  "description": "Lean Ethereum protocol specifications and test vector generation framework.",
+  "version": "1.0.0",
+  "author": "leanEthereum",
+  "homepage": "https://github.com/leanEthereum/leanSpec",
+  "skills": []
+}
