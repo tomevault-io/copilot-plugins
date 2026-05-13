@@ -1,0 +1,9 @@
+{
+  "name": "wbopan--cui",
+  "displayName": "cui",
+  "description": "A web UI for Claude Code agents",
+  "version": "1.0.0",
+  "author": "wbopan",
+  "homepage": "https://github.com/wbopan/cui",
+  "skills": []
+}
