@@ -1,0 +1,9 @@
+{
+  "name": "mentorzx--production-fix-flow",
+  "displayName": "production-fix-flow",
+  "description": "Backend orchestration platform for operational API workflows with validation, storage and observability layers.",
+  "version": "1.0.0",
+  "author": "Mentorzx",
+  "homepage": "https://github.com/Mentorzx/production-fix-flow",
+  "skills": []
+}
