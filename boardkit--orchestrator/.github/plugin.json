@@ -1,0 +1,9 @@
+{
+  "name": "boardkit--orchestrator",
+  "displayName": "orchestrator",
+  "description": "Orchestrator for shared AI agents and documentation synchronization across multi-repo organizations.",
+  "version": "1.0.0",
+  "author": "BoardKit",
+  "homepage": "https://github.com/BoardKit/orchestrator",
+  "skills": []
+}
