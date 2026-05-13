@@ -1,0 +1,9 @@
+{
+  "name": "engraphcode--castr",
+  "displayName": "castr",
+  "description": "Ingest schemas in formats such as OpenAPI or Zod, convert to Canonical Ast Representation, output as another format",
+  "version": "1.0.0",
+  "author": "EngraphCode",
+  "homepage": "https://github.com/EngraphCode/castr",
+  "skills": []
+}
