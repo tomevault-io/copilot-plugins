@@ -1,0 +1,44 @@
+{
+  "name": "agent-pack",
+  "owner": "kcosr",
+  "repo": "agent-pack",
+  "description": "agent-pack is a local-first CLI for packaging agent context: it bundles prompts, tasks, references, and skills into a durable brief, tracks progress in repo state, and hydrates git-backed context from cache.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kcosr/agent-pack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T12:33:53Z"
+}
