@@ -1,0 +1,44 @@
+{
+  "name": "FlowOrchestrator",
+  "owner": "hoangsnowy",
+  "repo": "FlowOrchestrator",
+  "description": "Code-first DAG workflow orchestration for .NET. Runs in your existing ASP.NET Core app \u2014 Hangfire, in-process, or Azure Service Bus runtime. Built-in dashboard, OpenTelemetry native, conditional branching, human-in-loop signals.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hoangsnowy/FlowOrchestrator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T02:05:29Z"
+}
