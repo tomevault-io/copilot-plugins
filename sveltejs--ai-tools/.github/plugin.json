@@ -1,0 +1,9 @@
+{
+  "name": "sveltejs--ai-tools",
+  "displayName": "ai-tools",
+  "description": "The official svelte MCP for all your agentic needs.",
+  "version": "1.0.0",
+  "author": "sveltejs",
+  "homepage": "https://github.com/sveltejs/ai-tools",
+  "skills": []
+}
