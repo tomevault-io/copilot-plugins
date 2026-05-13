@@ -1,0 +1,9 @@
+{
+  "name": "aegixx--aws-loggy",
+  "displayName": "aws-loggy",
+  "description": "A fast, native desktop app for browsing and tailing AWS CloudWatch logs",
+  "version": "1.0.0",
+  "author": "aegixx",
+  "homepage": "https://github.com/aegixx/aws-loggy",
+  "skills": []
+}
