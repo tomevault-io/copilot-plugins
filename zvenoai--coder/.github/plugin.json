@@ -1,0 +1,9 @@
+{
+  "name": "zvenoai--coder",
+  "displayName": "coder",
+  "description": "Async AI coding orchestrator: turns Yandex Tracker tasks into Claude Agent SDK workflows and GitHub PRs, with code review, deployment checks, and supervised auto-merge.",
+  "version": "1.0.0",
+  "author": "zvenoai",
+  "homepage": "https://github.com/zvenoai/coder",
+  "skills": []
+}
