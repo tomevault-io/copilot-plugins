@@ -1,0 +1,9 @@
+{
+  "name": "fsender--biliticketmonitor",
+  "displayName": "BiliTicketMonitor",
+  "description": "A Bilibili Ticket Monitor use C++. Extendable.",
+  "version": "1.0.0",
+  "author": "fsender",
+  "homepage": "https://github.com/fsender/BiliTicketMonitor",
+  "skills": []
+}
