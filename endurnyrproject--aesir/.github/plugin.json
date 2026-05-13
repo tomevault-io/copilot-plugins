@@ -1,0 +1,9 @@
+{
+  "name": "endurnyrproject--aesir",
+  "displayName": "aesir",
+  "description": "A Ragnarok Online Server written in Elixir",
+  "version": "1.0.0",
+  "author": "EndurnyrProject",
+  "homepage": "https://github.com/EndurnyrProject/aesir",
+  "skills": []
+}
