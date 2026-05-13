@@ -1,0 +1,9 @@
+{
+  "name": "terryso--claude-auto-resume",
+  "displayName": "claude-auto-resume",
+  "description": "A shell script utility that automatically resumes Claude CLI tasks when usage limits are lifted.",
+  "version": "1.0.0",
+  "author": "terryso",
+  "homepage": "https://github.com/terryso/claude-auto-resume",
+  "skills": []
+}
