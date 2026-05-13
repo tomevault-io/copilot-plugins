@@ -7,11 +7,11 @@ Finally, a proxy that does what grep does for logs - filters out the noise. Stop
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [chris-schra/mcp-funnel](https://github.com/chris-schra/mcp-funnel).
+Original source: `CLAUDE.md` in [chris-schra/mcp-funnel](https://github.com/chris-schra/mcp-funnel).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
