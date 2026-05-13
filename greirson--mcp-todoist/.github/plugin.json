@@ -1,0 +1,9 @@
+{
+  "name": "greirson--mcp-todoist",
+  "displayName": "mcp-todoist",
+  "description": "MCP server that connects Claude to Todoist for natural language task and project   management with bulk operations",
+  "version": "1.0.0",
+  "author": "greirson",
+  "homepage": "https://github.com/greirson/mcp-todoist",
+  "skills": []
+}
