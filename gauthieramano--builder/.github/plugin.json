@@ -1,0 +1,9 @@
+{
+  "name": "gauthieramano--builder",
+  "displayName": "builder",
+  "description": "Minimal \"Lovable-style\" tool that transforms natural-language prompts into client-only pages (with Next.js 16 / Vercel AI SDK 6)",
+  "version": "1.0.0",
+  "author": "gauthieramano",
+  "homepage": "https://github.com/gauthieramano/builder",
+  "skills": []
+}
