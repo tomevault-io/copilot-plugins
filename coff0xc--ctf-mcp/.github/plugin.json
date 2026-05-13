@@ -1,0 +1,9 @@
+{
+  "name": "coff0xc--ctf-mcp",
+  "displayName": "CTF-MCP",
+  "description": "MCP Server for CTF challenges - 126 tools for Web/Crypto/Pwn | CTF \u6311\u6218 MCP \u670d\u52a1\u5668 - Web/\u5bc6\u7801\u5b66/\u4e8c\u8fdb\u5236\u5229\u7528\u5de5\u5177\u96c6",
+  "version": "1.0.0",
+  "author": "Coff0xc",
+  "homepage": "https://github.com/Coff0xc/CTF-MCP",
+  "skills": []
+}
