@@ -4,7 +4,7 @@
   "repo": "tinker-cookbook",
   "description": "Post-training with Tinker",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thinking-machines-lab/tinker-cookbook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T04:13:44Z"
+  "distributed_at": "2026-05-13T13:08:23Z"
 }
