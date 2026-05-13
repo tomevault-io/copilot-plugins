@@ -1,0 +1,9 @@
+{
+  "name": "nwiizo--ccswarm",
+  "displayName": "ccswarm",
+  "description": "Multi-agent orchestration system using Claude Code with Git worktree isolation and specialized AI agents for collaborative development",
+  "version": "1.0.0",
+  "author": "nwiizo",
+  "homepage": "https://github.com/nwiizo/ccswarm",
+  "skills": []
+}
