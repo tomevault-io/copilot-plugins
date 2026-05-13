@@ -1,0 +1,9 @@
+{
+  "name": "supermemoryai--llm-bridge",
+  "displayName": "llm-bridge",
+  "description": "Interoperability between input formats of various LLMs, with observability, error handling, etc. built in.",
+  "version": "1.0.0",
+  "author": "supermemoryai",
+  "homepage": "https://github.com/supermemoryai/llm-bridge",
+  "skills": []
+}
