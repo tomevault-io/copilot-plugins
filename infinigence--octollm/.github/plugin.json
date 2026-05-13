@@ -1,0 +1,9 @@
+{
+  "name": "infinigence--octollm",
+  "displayName": "octollm",
+  "description": "An LLM API gateway framework",
+  "version": "1.0.0",
+  "author": "infinigence",
+  "homepage": "https://github.com/infinigence/octollm",
+  "skills": []
+}
