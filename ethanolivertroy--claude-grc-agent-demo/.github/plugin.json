@@ -1,0 +1,9 @@
+{
+  "name": "ethanolivertroy--claude-grc-agent-demo",
+  "displayName": "claude-grc-agent-demo",
+  "description": "Create a domain specific (GRC) agent with the Claude Agent SDK",
+  "version": "1.0.0",
+  "author": "ethanolivertroy",
+  "homepage": "https://github.com/ethanolivertroy/claude-grc-agent-demo",
+  "skills": []
+}
