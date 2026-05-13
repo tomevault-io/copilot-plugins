@@ -1,12 +1,14 @@
-## pages
+## setup
 
-> * Prefer to fetch data at the page level most of the time. Ask me if you think you should do differently, based on the use case.
+> To setup the project:
 
-* Prefer to fetch data at the page level most of the time. Ask me if you think you should do differently, based on the use case.
-* When possible, rely on the type safe return (typed by Nuxt) of useFetch and don't manually type the response. For example:
-  * DO THIS: `const {data} = await useFetch('/api/posts') // data is automatically typed`
-  * NOT THIS: `const {data} = await useFetch<Post>('/api/posts') // manually typing response is bad and leads to maintainence issues`
-* Break down pages into smaller components.
+
+To setup the project:
+
+1. Run `ni` to install dependencies
+2. Copy `.env.example` to `.env` and fill in the values
+3. Copy `.env.test.example` to `.env.test` and fill in the values
+4. Run `nr dev` to start the development server
 
 ---
 > Source: [vueschool/aidd-workhop](https://github.com/vueschool/aidd-workhop) — distributed by [TomeVault](https://tomevault.io).
