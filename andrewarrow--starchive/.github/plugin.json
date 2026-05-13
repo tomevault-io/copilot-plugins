@@ -1,0 +1,9 @@
+{
+  "name": "andrewarrow--starchive",
+  "displayName": "starchive",
+  "description": "browser plugin to send youtube, insta (all social videos) to local backend and process audio and video in all sorts of ways.",
+  "version": "1.0.0",
+  "author": "andrewarrow",
+  "homepage": "https://github.com/andrewarrow/starchive",
+  "skills": []
+}
