@@ -1,0 +1,9 @@
+{
+  "name": "geronimodiclemente--raven-nest",
+  "displayName": "raven-nest",
+  "description": "Multi-agent terminal for Claude Code, Codex & Gemini. Open-source desktop app \u2014 Electron + React. Built for developers running multiple AI agents in parallel.",
+  "version": "1.0.0",
+  "author": "GeronimoDiClemente",
+  "homepage": "https://github.com/GeronimoDiClemente/raven-nest",
+  "skills": []
+}
