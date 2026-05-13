@@ -1,0 +1,44 @@
+{
+  "name": "LaravelVerifactu",
+  "owner": "squareetlabs",
+  "repo": "LaravelVerifactu",
+  "description": "Paquete Laravel para gesti\u00f3n y registro de facturaci\u00f3n electr\u00f3nica VeriFactu. Compatible con Laravel 10 a 12.x",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/squareetlabs/LaravelVerifactu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T22:42:43Z"
+}
