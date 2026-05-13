@@ -1,0 +1,9 @@
+{
+  "name": "gradio-app--trackio",
+  "displayName": "trackio",
+  "description": "A lightweight, local-first, and \ud83c\udd93 experiment tracking library from Hugging Face \ud83e\udd17",
+  "version": "1.0.0",
+  "author": "gradio-app",
+  "homepage": "https://github.com/gradio-app/trackio",
+  "skills": []
+}
