@@ -1,0 +1,9 @@
+{
+  "name": "frostyard--snosi",
+  "displayName": "snosi",
+  "description": "A bootable container image build system using mkosi for creating Debian-based bootable containers and system extensions (sysexts).",
+  "version": "1.0.0",
+  "author": "frostyard",
+  "homepage": "https://github.com/frostyard/snosi",
+  "skills": []
+}
