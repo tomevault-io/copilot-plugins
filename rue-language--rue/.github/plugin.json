@@ -1,0 +1,9 @@
+{
+  "name": "rue-language--rue",
+  "displayName": "rue",
+  "description": "A programming language that is higher level than Rust but lower level than Go. Someday, anyways.",
+  "version": "1.0.0",
+  "author": "rue-language",
+  "homepage": "https://github.com/rue-language/rue",
+  "skills": []
+}
