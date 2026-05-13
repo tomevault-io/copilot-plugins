@@ -1,0 +1,9 @@
+{
+  "name": "zhongweili--nanobanana-mcp-server",
+  "displayName": "nanobanana-mcp-server",
+  "description": "AI image generation MCP server powered by Google Gemini, with smart model selection and 4K output",
+  "version": "1.0.0",
+  "author": "zhongweili",
+  "homepage": "https://github.com/zhongweili/nanobanana-mcp-server",
+  "skills": []
+}
