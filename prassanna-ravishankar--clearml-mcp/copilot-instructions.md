@@ -1,63 +1,88 @@
-## linting-philosophy
+## test-coverage-improvement
 
-> linting philosophy and file-level ruff configuration
+> test coverage improvement patterns and lessons learned
 
 
-# Linting Philosophy: File-Level Ignores Over Global
+# Test Coverage Improvement: From 34% to 69%
 
-## Core Principle
-**Use file-level ignores unless we truly need global ones.** Different file types have different requirements - main source code should have strict linting, while tests and examples need appropriate flexibility.
+## Achievement Summary
+**Improved test coverage by +35 percentage points** (34% → 69%) through comprehensive behavioral testing rewrite.
 
-## Configuration Structure
-Linting rules are configured in [pyproject.toml](mdc:pyproject.toml) `[tool.ruff.lint]` section:
+## What We Learned
 
-### Global Ignores (11 rules)
-Only **truly global style choices** that apply project-wide:
-- Exception handling style: `TRY003`, `EM101`, `EM102`, `B904`, `TRY300`, `BLE001`
-- Docstring formatting consistency: `D203`, `D205`, `D212`, `D400`, `D407`, `D415`
-- Import/typing consistency: `UP035`, `RUF013`, `COM812`
-- Build/maintenance: `CPY`, `ERA`, `W293`
+### ❌ White-Box Testing Problems (Original 34%)
+- **Brittle tests** that broke during refactoring
+- **Implementation-dependent** test structure
+- **Incomplete coverage** of public API behaviors
+- **Hard to maintain** when internal code changed
 
-### File-Level Ignores (per-file-ignores)
+### ✅ Behavioral Testing Success (New 69%)
+- **Stable tests** that survive refactoring
+- **Complete public API coverage** - every function tested
+- **Realistic scenarios** with proper edge case handling
+- **Easy to maintain** - tests focus on contracts, not internals
 
-#### Test Files (`tests/**/*.py`)
-**11 ignores** for test-specific patterns:
-- `S101` - Assert usage (required in tests)
-- `ANN*` - Type annotations (relaxed for test helpers)
-- `PLR2004` - Magic values (acceptable in test data)
-- `SIM103`, `B007`, `ARG*` - Test helper patterns
+## Key Implementation Patterns
 
-#### Example Files (`examples/**/*.py`)
-**17 ignores** for demo code flexibility:
-- `T201` - Print statements (examples need output)
-- `E402`, `E501` - Import placement, line length (demo flexibility)
-- `F401` - Unused imports (examples may import for demonstration)
-- `ANN*`, `D*` - Relaxed typing and documentation
-- `BLE001` - Broad exception handling (simplified examples)
-
-#### Main Source (`src/clearml_mcp/clearml_mcp.py`)
-**4 specific ignores** for legitimate architectural needs:
-- `C901` - Complex function (compare_tasks function)
-- `PERF401`, `C401` - Performance patterns (specific instances)
-- `PLR0913` - Argument count (specific functions)
-
-## Benefits
-✅ **Strict main code**: Source files enforce high quality standards
-✅ **Appropriate flexibility**: Tests and examples have relaxed rules where needed
-✅ **Clear rationale**: Each ignore is documented with specific reasoning
-✅ **Maintainable**: File-specific concerns handled at file level, not globally
-
-## Verification
-```bash
-# All files pass with appropriate rules
-ruff check src/ tests/ examples/
-# Pre-commit hooks work
-pre-commit run --all-files
-# CI workflows use GitHub format
-ruff check --output-format=github src/ tests/ examples/
+### Comprehensive Mock Strategy
+```python
+# Mock external dependencies completely
+@patch('clearml.Task.get_task')
+@patch('clearml.Task.query_tasks')
+# Test all public API paths with realistic data
 ```
 
-This approach ensures code quality without over-restricting different file types that serve different purposes.
+### Edge Case Coverage
+- **Missing attributes**: Handle optional fields gracefully
+- **Empty responses**: Test when API returns no data
+- **Error conditions**: Test exception handling paths
+- **Different data structures**: Test various response formats
+
+### Proper Mock Attribute Handling
+```python
+# Correct way to mock optional attributes
+with patch('builtins.hasattr') as mock_hasattr:
+    mock_hasattr.side_effect = lambda obj, attr: not (obj is mock_obj and attr == "missing_field")
+```
+
+## Coverage Configuration
+Configuration in [pyproject.toml](mdc:pyproject.toml):
+```toml
+[tool.coverage.run]
+branch = true
+source = ["src"]
+omit = ["_*.py", "__*.py"]
+
+[tool.coverage.report]
+skip_empty = true
+show_missing = true
+fail_under = 65  # Raised from default after improvement
+```
+
+## Testing Commands
+```bash
+# Coverage testing (matches CI exactly)
+coverage run -m pytest tests && coverage report
+
+# Local development
+uv run pytest --verbose --color=yes tests
+uv run coverage run -m pytest tests && uv run coverage report
+```
+
+## Success Metrics
+- ✅ **Coverage**: 69% (vs 34% before)
+- ✅ **Test count**: 26 comprehensive behavioral tests
+- ✅ **API coverage**: All public functions tested
+- ✅ **Edge cases**: Missing data, errors, empty responses
+- ✅ **Stability**: Tests survive refactoring
+- ✅ **CI integration**: Passes in all environments
+
+## Key Files
+- Test suite: [tests/test_clearml_mcp.py](mdc:tests/test_clearml_mcp.py)
+- Coverage config: [pyproject.toml](mdc:pyproject.toml) `[tool.coverage.*]`
+- CI testing: [.github/workflows/ci.yml](mdc:.github/workflows/ci.yml)
+
+This improvement demonstrates that **behavioral testing with comprehensive mocking** is far more effective than white-box testing for achieving both high coverage and maintainable tests.
 
 ---
 > Source: [prassanna-ravishankar/clearml-mcp](https://github.com/prassanna-ravishankar/clearml-mcp) — distributed by [TomeVault](https://tomevault.io).
