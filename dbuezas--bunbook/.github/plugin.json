@@ -1,0 +1,9 @@
+{
+  "name": "dbuezas--bunbook",
+  "displayName": "bunbook",
+  "description": "A VS Code notebook extension for running TypeScript with Bun. Fast startup, shared state across cells, inline Plotly charts, and full TypeScript intellisense.",
+  "version": "1.0.0",
+  "author": "dbuezas",
+  "homepage": "https://github.com/dbuezas/bunbook",
+  "skills": []
+}
