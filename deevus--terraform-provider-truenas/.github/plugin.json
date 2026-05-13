@@ -1,0 +1,9 @@
+{
+  "name": "deevus--terraform-provider-truenas",
+  "displayName": "terraform-provider-truenas",
+  "description": "Terraform provider for TrueNAS SCALE and Community editions",
+  "version": "1.0.0",
+  "author": "deevus",
+  "homepage": "https://github.com/deevus/terraform-provider-truenas",
+  "skills": []
+}
