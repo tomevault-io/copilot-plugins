@@ -1,25 +1,20 @@
-## documentation
+## review
 
-> - Use sentence case for headings
+> - Error handling: All async operations should use try/catch or the Result pattern
 
 
-# Documentation Conventions
+# Review Context
 
-## READMEs
+## Patterns to check
 
-- Use sentence case for headings
+- Error handling: All async operations should use try/catch or the Result pattern
+- Validation: Public API endpoints must validate input before processing
 
-## Code comments
+## Files to reference
 
-- Use JSDoc for all exported functions (except React components)
-- Document "why" not "what" in inline comments (does not apply to JSDoc comments)
-- Don't comment obvious code
+## Known areas of risk
 
-## API documentation
-
-- Use OpenAPI 3.0 format
-- Include example requests and responses
-- Document error responses, not just success cases
+- Payment operations must be idempotent; check for duplicate handling
 
 ---
 > Source: [GuRuGuMaWaRu/nextjs_job-prep_ai](https://github.com/GuRuGuMaWaRu/nextjs_job-prep_ai) — distributed by [TomeVault](https://tomevault.io).
