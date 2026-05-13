@@ -1,0 +1,141 @@
+{
+  "name": "nephoran-intent-operator",
+  "owner": "thc1006",
+  "repo": "nephoran-intent-operator",
+  "description": "This project is an LLM-Enhanced Nephio R5 and O-RAN Network Automation System. It integrates a Large Language Model with Nephio's intent-based automation to provide a natural language interface for managing and orchestrating telecommunications network functions.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "accessibility-compliance",
+      "path": ".claude/skills/accessibility-compliance",
+      "github_url": "https://github.com/thc1006/nephoran-intent-operator/tree/main/.claude/skills/accessibility-compliance",
+      "description": ""
+    },
+    {
+      "name": "api-design-principles",
+      "path": ".claude/skills/api-design-principles",
+      "github_url": "https://github.com/thc1006/nephoran-intent-operator/tree/main/.claude/skills/api-design-principles",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "path": ".claude/skills/architecture-patterns",
+      "github_url": "https://github.com/thc1006/nephoran-intent-operator/tree/main/.claude/skills/architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "design-system-patterns",
+      "path": ".claude/skills/design-system-patterns",
+      "github_url": "https://github.com/thc1006/nephoran-intent-operator/tree/main/.claude/skills/design-system-patterns",
+      "description": ""
+    },
+    {
+      "name": "event-store-design",
+      "path": ".claude/skills/event-store-design",
+      "github_url": "https://github.com/thc1006/nephoran-intent-operator/tree/main/.claude/skills/event-store-design",
+      "description": ""
+    },
+    {
+      "name": "gateway-api",
+      "path": ".claude/skills/gateway-api",
+      "github_url": "https://github.com/thc1006/nephoran-intent-operator/tree/main/.claude/skills/gateway-api",
+      "description": ""
+    },
+    {
+      "name": "gitops-workflow",
+      "path": ".claude/skills/gitops-workflow",
+      "github_url": "https://github.com/thc1006/nephoran-intent-operator/tree/main/.claude/skills/gitops-workflow",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-scaffolding",
+      "path": ".claude/skills/helm-chart-scaffolding",
+      "github_url": "https://github.com/thc1006/nephoran-intent-operator/tree/main/.claude/skills/helm-chart-scaffolding",
+      "description": ""
+    },
+    {
+      "name": "interaction-design",
+      "path": ".claude/skills/interaction-design",
+      "github_url": "https://github.com/thc1006/nephoran-intent-operator/tree/main/.claude/skills/interaction-design",
+      "description": ""
+    },
+    {
+      "name": "linkerd-patterns",
+      "path": ".claude/skills/linkerd-patterns",
+      "github_url": "https://github.com/thc1006/nephoran-intent-operator/tree/main/.claude/skills/linkerd-patterns",
+      "description": ""
+    },
+    {
+      "name": "multi-cloud-architecture",
+      "path": ".claude/skills/multi-cloud-architecture",
+      "github_url": "https://github.com/thc1006/nephoran-intent-operator/tree/main/.claude/skills/multi-cloud-architecture",
+      "description": ""
+    },
+    {
+      "name": "postgresql",
+      "path": ".claude/skills/skills/postgresql",
+      "github_url": "https://github.com/thc1006/nephoran-intent-operator/tree/main/.claude/skills/skills/postgresql",
+      "description": ""
+    },
+    {
+      "name": "responsive-design",
+      "path": ".claude/skills/responsive-design",
+      "github_url": "https://github.com/thc1006/nephoran-intent-operator/tree/main/.claude/skills/responsive-design",
+      "description": ""
+    },
+    {
+      "name": "visual-design-foundations",
+      "path": ".claude/skills/visual-design-foundations",
+      "github_url": "https://github.com/thc1006/nephoran-intent-operator/tree/main/.claude/skills/visual-design-foundations",
+      "description": ""
+    },
+    {
+      "name": "web-component-design",
+      "path": ".claude/skills/web-component-design",
+      "github_url": "https://github.com/thc1006/nephoran-intent-operator/tree/main/.claude/skills/web-component-design",
+      "description": ""
+    },
+    {
+      "name": "workflow-orchestration-patterns",
+      "path": ".claude/skills/workflow-orchestration-patterns",
+      "github_url": "https://github.com/thc1006/nephoran-intent-operator/tree/main/.claude/skills/workflow-orchestration-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/thc1006/nephoran-intent-operator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T18:30:08Z"
+}
