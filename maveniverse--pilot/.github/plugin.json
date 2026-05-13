@@ -1,0 +1,9 @@
+{
+  "name": "maveniverse--pilot",
+  "displayName": "pilot",
+  "description": "Interactive terminal UI for Maven \u2014 search Central, explore dependency   trees, manage updates.",
+  "version": "1.0.0",
+  "author": "maveniverse",
+  "homepage": "https://github.com/maveniverse/pilot",
+  "skills": []
+}
