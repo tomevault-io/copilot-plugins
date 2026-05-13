@@ -7,11 +7,11 @@ ask dori! harness engineering practice
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [InoneSummer/saju_harness_practice](https://github.com/InoneSummer/saju_harness_practice).
+Original source: `CLAUDE.md` in [InoneSummer/saju_harness_practice](https://github.com/InoneSummer/saju_harness_practice).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
