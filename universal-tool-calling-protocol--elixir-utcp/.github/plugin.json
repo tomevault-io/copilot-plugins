@@ -1,0 +1,9 @@
+{
+  "name": "universal-tool-calling-protocol--elixir-utcp",
+  "displayName": "elixir-utcp",
+  "description": "An Elixir implementation of the Universal Tool Calling Protocol ",
+  "version": "1.0.0",
+  "author": "universal-tool-calling-protocol",
+  "homepage": "https://github.com/universal-tool-calling-protocol/elixir-utcp",
+  "skills": []
+}
