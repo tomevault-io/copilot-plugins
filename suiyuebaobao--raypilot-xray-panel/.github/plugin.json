@@ -1,0 +1,9 @@
+{
+  "name": "suiyuebaobao--raypilot-xray-panel",
+  "displayName": "raypilot-xray-panel",
+  "description": "RayPilot: Xray/VLESS Reality VPN & proxy subscription panel with Clash/mihomo, relay nodes, traffic accounting, node-agent, and one-click deployment.",
+  "version": "1.0.0",
+  "author": "suiyuebaobao",
+  "homepage": "https://github.com/suiyuebaobao/raypilot-xray-panel",
+  "skills": []
+}
