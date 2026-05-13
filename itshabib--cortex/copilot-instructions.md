@@ -1,0 +1,63 @@
+## cortex
+
+> mix deps.get && mix ecto.create && mix ecto.migrate && mix test
+
+# Cortex
+
+## Quick Start
+```bash
+mix deps.get && mix ecto.create && mix ecto.migrate && mix test
+```
+
+## Architecture
+- Agent GenServer: lib/cortex/agent/
+- Orchestration: lib/cortex/orchestration/
+- Gossip: lib/cortex/gossip/
+- Mesh: lib/cortex/mesh/
+- Web: lib/cortex_web/
+- Store: lib/cortex/store/
+- Telemetry: lib/cortex/telemetry.ex
+- Performance: lib/cortex/perf/
+
+## Skills
+- `/cortex-config` — interactively create a Cortex YAML config (workflow, mesh, or gossip)
+
+## Coding Style
+- @moduledoc, @doc, @spec on all public functions
+- defstruct with @enforce_keys for required fields
+- Pattern match in function heads
+- Return {:ok, value} | {:error, reason} from fallible functions
+- Tests mirror lib/ structure, use async: true where safe
+
+## Important
+- Do NOT pipe `mix test` to `tail`, `grep`, or any other command — it hangs forever. Run it bare or with `; echo $?`.
+
+## Commands
+```bash
+mix test                           # run all tests
+mix test --trace                   # verbose
+mix test test/cortex/agent/        # specific dir
+mix compile --warnings-as-errors   # CI compile check
+mix format --check-formatted       # CI format check
+mix phx.server                     # start web server (port 4000)
+mix run bench/agent_bench.exs      # agent benchmarks
+mix run bench/gossip_bench.exs     # gossip benchmarks
+mix run bench/dag_bench.exs        # DAG benchmarks
+```
+
+## Before You Commit
+1. mix format
+2. mix compile --warnings-as-errors
+3. mix credo --strict
+4. mix test (all pass)
+5. No IO.inspect or dbg() left in code
+
+## Linting
+- `mix credo --strict` — code quality (style, complexity, refactoring hints)
+- `mix dialyzer` — static type checking (first run builds PLT, takes a few min)
+- `make lint` — runs both
+- `.dialyzer_ignore.exs` — known false positives (Mix tasks, defensive catch-alls)
+
+---
+> Source: [itsHabib/cortex](https://github.com/itsHabib/cortex) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
