@@ -1,0 +1,9 @@
+{
+  "name": "adrhill--asdex",
+  "displayName": "asdex",
+  "description": "Automatic Sparse Differentiation in JAX.",
+  "version": "1.0.0",
+  "author": "adrhill",
+  "homepage": "https://github.com/adrhill/asdex",
+  "skills": []
+}
