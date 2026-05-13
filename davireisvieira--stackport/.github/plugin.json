@@ -1,0 +1,9 @@
+{
+  "name": "davireisvieira--stackport",
+  "displayName": "stackport",
+  "description": "Open-source universal AWS resource browser for LocalStack, MiniStack, Moto, and real AWS",
+  "version": "1.0.0",
+  "author": "DaviReisVieira",
+  "homepage": "https://github.com/DaviReisVieira/stackport",
+  "skills": []
+}
