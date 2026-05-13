@@ -4,7 +4,7 @@
   "repo": "roxy",
   "description": "Local dev proxy \u2014 replace localhost:PORT with custom .roxy domains, trusted HTTPS, built-in DNS, Docker auto-discovery,  static file serving, and WebSocket support",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rbas/roxy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T20:41:48Z"
+  "distributed_at": "2026-05-13T09:03:29Z"
 }
