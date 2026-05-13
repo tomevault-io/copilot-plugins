@@ -1,0 +1,9 @@
+{
+  "name": "redis-developer--a2a-redis",
+  "displayName": "a2a-redis",
+  "description": "Redis integrations for Google's A2A Python SDK",
+  "version": "1.0.0",
+  "author": "redis-developer",
+  "homepage": "https://github.com/redis-developer/a2a-redis",
+  "skills": []
+}
