@@ -1,0 +1,9 @@
+{
+  "name": "archcore-ai--cli",
+  "displayName": "cli",
+  "description": "Git-native context for AI coding agents \u2014 CLI and local MCP server",
+  "version": "1.0.0",
+  "author": "archcore-ai",
+  "homepage": "https://github.com/archcore-ai/cli",
+  "skills": []
+}
