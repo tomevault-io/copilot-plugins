@@ -7,11 +7,11 @@ Call Python from Go without CGO or microservices - Unix domain socket based IPC 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [YuminosukeSato/pyproc](https://github.com/YuminosukeSato/pyproc).
+Original source: `CLAUDE.md` in [YuminosukeSato/pyproc](https://github.com/YuminosukeSato/pyproc).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
