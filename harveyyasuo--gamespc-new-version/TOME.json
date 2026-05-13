@@ -1,0 +1,44 @@
+{
+  "name": "GamesPC-new-version",
+  "owner": "HarveyYasuo",
+  "repo": "GamesPC-new-version",
+  "description": "\u26a0\ufe0f Aviso Importante: Descarga de APK  \u00a1Gracias por descargar nuestra app!  Recuerda que esta versi\u00f3n se instal\u00f3 fuera de Google Play Store. Por tu seguridad, Android mostrar\u00e1 una advertencia sobre la fuente de la APK. Confirma la instalaci\u00f3n para proceder. ",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HarveyYasuo/GamesPC-new-version",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T06:40:28Z"
+}
