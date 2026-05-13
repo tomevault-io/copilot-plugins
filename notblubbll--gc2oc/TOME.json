@@ -1,0 +1,44 @@
+{
+  "name": "gc2oc",
+  "owner": "notBlubbll",
+  "repo": "gc2oc",
+  "description": "GithubCopilot2OpenChat - Ollama-emulating API proxy that routes Visual Studio 2026 Copilot Chat requests to opencode-cloudmodels",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/notBlubbll/gc2oc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T12:32:48Z"
+}
