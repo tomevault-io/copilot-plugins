@@ -1,0 +1,9 @@
+{
+  "name": "antonioaemartins--claude-code-proxy",
+  "displayName": "claude-code-proxy",
+  "description": "API proxy for Claude CLI \u2014 exposes Anthropic Messages API and OpenAI Chat Completions endpoints, powered by your Claude Max subscription",
+  "version": "1.0.0",
+  "author": "AntonioAEMartins",
+  "homepage": "https://github.com/AntonioAEMartins/claude-code-proxy",
+  "skills": []
+}
