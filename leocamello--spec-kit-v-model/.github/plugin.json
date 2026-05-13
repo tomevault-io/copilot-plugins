@@ -1,0 +1,9 @@
+{
+  "name": "leocamello--spec-kit-v-model",
+  "displayName": "spec-kit-v-model",
+  "description": "V-Model Extension Pack for Spec Kit \u2014 enforces paired generation of development specs and test specs with regulatory-grade traceability",
+  "version": "1.0.0",
+  "author": "leocamello",
+  "homepage": "https://github.com/leocamello/spec-kit-v-model",
+  "skills": []
+}
