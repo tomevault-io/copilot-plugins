@@ -1,0 +1,9 @@
+{
+  "name": "openwhispr--openwhispr",
+  "displayName": "openwhispr",
+  "description": "Voice-to-text dictation app with local (Nvidia Parakeet/Whisper) and cloud models (BYOK). Privacy-first and available cross-platform.",
+  "version": "1.0.0",
+  "author": "OpenWhispr",
+  "homepage": "https://github.com/OpenWhispr/openwhispr",
+  "skills": []
+}
