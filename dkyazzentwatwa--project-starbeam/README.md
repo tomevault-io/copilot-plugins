@@ -7,11 +7,11 @@ The Ultimate ESP32 Jammer w/ 5 Radios.  #RIPflipper -- V2 OUT NOW
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dkyazzentwatwa/project-starbeam](https://github.com/dkyazzentwatwa/project-starbeam).
+Original source: `CLAUDE.md` in [dkyazzentwatwa/project-starbeam](https://github.com/dkyazzentwatwa/project-starbeam).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
