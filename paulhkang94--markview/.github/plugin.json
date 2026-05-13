@@ -1,0 +1,9 @@
+{
+  "name": "paulhkang94--markview",
+  "displayName": "markview",
+  "description": "Native macOS markdown preview + MCP server for Claude Code. Swift/SwiftUI, GFM, Mermaid, syntax highlighting. No Electron.",
+  "version": "1.0.0",
+  "author": "paulhkang94",
+  "homepage": "https://github.com/paulhkang94/markview",
+  "skills": []
+}
