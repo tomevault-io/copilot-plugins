@@ -1,0 +1,9 @@
+{
+  "name": "echovic--blade-code",
+  "displayName": "blade-code",
+  "description": "AI-powered CLI coding agent with 20+ built-in tools, MCP support, and multi-model providers",
+  "version": "1.0.0",
+  "author": "echoVic",
+  "homepage": "https://github.com/echoVic/blade-code",
+  "skills": []
+}
