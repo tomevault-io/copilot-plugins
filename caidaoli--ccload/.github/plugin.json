@@ -1,0 +1,9 @@
+{
+  "name": "caidaoli--ccload",
+  "displayName": "ccLoad",
+  "description": "High-performance AI API proxy with smart routing, failover, monitoring, and protocol transforms for Claude Code, Codex, Gemini, and OpenAI.",
+  "version": "1.0.0",
+  "author": "caidaoli",
+  "homepage": "https://github.com/caidaoli/ccLoad",
+  "skills": []
+}
