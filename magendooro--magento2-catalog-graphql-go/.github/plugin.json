@@ -1,0 +1,9 @@
+{
+  "name": "magendooro--magento2-catalog-graphql-go",
+  "displayName": "magento2-catalog-graphql-go",
+  "description": "High-performance Go drop-in replacement for Magento 2's products() GraphQL query. Reads directly from Magento's MySQL database, delivering identical results at 7-18x the speed of PHP. Supports all pro",
+  "version": "1.0.0",
+  "author": "magendooro",
+  "homepage": "https://github.com/magendooro/magento2-catalog-graphql-go",
+  "skills": []
+}
