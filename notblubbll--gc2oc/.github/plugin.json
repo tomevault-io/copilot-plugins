@@ -1,0 +1,9 @@
+{
+  "name": "notblubbll--gc2oc",
+  "displayName": "gc2oc",
+  "description": "GithubCopilot2OpenChat - Ollama-emulating API proxy that routes Visual Studio 2026 Copilot Chat requests to opencode-cloudmodels",
+  "version": "1.0.0",
+  "author": "notBlubbll",
+  "homepage": "https://github.com/notBlubbll/gc2oc",
+  "skills": []
+}
