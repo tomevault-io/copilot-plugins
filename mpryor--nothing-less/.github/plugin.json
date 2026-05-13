@@ -1,0 +1,9 @@
+{
+  "name": "mpryor--nothing-less",
+  "displayName": "nothing-less",
+  "description": "A TUI pager with advanced support for tabular data, inferring/swapping delimiters, and real-time event parsing. ",
+  "version": "1.0.0",
+  "author": "mpryor",
+  "homepage": "https://github.com/mpryor/nothing-less",
+  "skills": []
+}
