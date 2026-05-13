@@ -7,11 +7,11 @@ The browser engine for agents. HTML in, Semantic Object Model out. 10x token com
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [plasmate-labs/plasmate](https://github.com/plasmate-labs/plasmate).
+Original source: `CLAUDE.md` in [plasmate-labs/plasmate](https://github.com/plasmate-labs/plasmate).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
