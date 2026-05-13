@@ -7,11 +7,11 @@ Cross-platform VAD & Audio Event Detection toolkit — Python (PyPI) + TypeScrip
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lifeiteng/OmniVAD-Kit](https://github.com/lifeiteng/OmniVAD-Kit).
+Original source: `CLAUDE.md` in [lifeiteng/OmniVAD-Kit](https://github.com/lifeiteng/OmniVAD-Kit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
