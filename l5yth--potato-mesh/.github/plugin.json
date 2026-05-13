@@ -1,0 +1,9 @@
+{
+  "name": "l5yth--potato-mesh",
+  "displayName": "potato-mesh",
+  "description": "A federated, Meshtastic AND Meshcore node dashboard for your local community. No MQTT clutter, just local LoRa aether.",
+  "version": "1.0.0",
+  "author": "l5yth",
+  "homepage": "https://github.com/l5yth/potato-mesh",
+  "skills": []
+}
