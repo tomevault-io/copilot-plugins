@@ -1,0 +1,9 @@
+{
+  "name": "laurelkorwin--claude-onramp",
+  "displayName": "claude-onramp",
+  "description": "Ready-to-use configuration to make Claude Code more accessible to non-engineers",
+  "version": "1.0.0",
+  "author": "laurelkorwin",
+  "homepage": "https://github.com/laurelkorwin/claude-onramp",
+  "skills": []
+}
