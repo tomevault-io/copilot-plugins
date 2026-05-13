@@ -1,0 +1,9 @@
+{
+  "name": "richhaase--agentic-code-reviewer",
+  "displayName": "agentic-code-reviewer",
+  "description": "Automated parallel code reviewer using AI Coding Agent CLIs",
+  "version": "1.0.0",
+  "author": "richhaase",
+  "homepage": "https://github.com/richhaase/agentic-code-reviewer",
+  "skills": []
+}
