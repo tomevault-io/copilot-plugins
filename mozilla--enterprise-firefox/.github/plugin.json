@@ -1,0 +1,9 @@
+{
+  "name": "mozilla--enterprise-firefox",
+  "displayName": "enterprise-firefox",
+  "description": "enterprise-firefox",
+  "version": "1.0.0",
+  "author": "mozilla",
+  "homepage": "https://github.com/mozilla/enterprise-firefox",
+  "skills": []
+}
