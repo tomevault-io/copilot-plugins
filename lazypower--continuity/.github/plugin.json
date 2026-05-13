@@ -1,7 +1,7 @@
 {
   "name": "lazypower--continuity",
   "displayName": "continuity",
-  "description": "continuity",
+  "description": "Give claude the memory of a pair-programmer. No serious dependencies, all substance",
   "version": "1.0.0",
   "author": "lazypower",
   "homepage": "https://github.com/lazypower/continuity",
