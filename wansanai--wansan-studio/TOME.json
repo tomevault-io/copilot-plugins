@@ -4,7 +4,7 @@
   "repo": "wansan-studio",
   "description": "A Local-First, AI-driven BI desktop app | \u4e00\u6b3e\u672c\u5730\u4f18\u5148\u7684\u667a\u80fd\u5546\u4e1a\u5206\u6790\u684c\u9762\u7aef\u3002Turn local data into professional charts privately via natural language.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wansanai/wansan-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T07:42:38Z"
+  "distributed_at": "2026-05-13T16:41:06Z"
 }
