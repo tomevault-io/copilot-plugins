@@ -1,0 +1,9 @@
+{
+  "name": "howyoungchen--deeproleplay",
+  "displayName": "deepRolePlay",
+  "description": "DeepRolePlay is a groundbreaking multi-agent role-playing system that completely solves the character forgetting problem of traditional large language models through Agent collaboration mechanisms.",
+  "version": "1.0.0",
+  "author": "howyoungchen",
+  "homepage": "https://github.com/howyoungchen/deepRolePlay",
+  "skills": []
+}
