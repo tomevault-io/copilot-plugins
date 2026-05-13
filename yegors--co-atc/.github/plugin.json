@@ -1,0 +1,9 @@
+{
+  "name": "yegors--co-atc",
+  "displayName": "co-atc",
+  "description": "Air traffic control simulator that leverages local SDRs for ADSB telemetry and VHF coms with optional \"AI based capabilities\"",
+  "version": "1.0.0",
+  "author": "yegors",
+  "homepage": "https://github.com/yegors/co-atc",
+  "skills": []
+}
