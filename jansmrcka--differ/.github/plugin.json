@@ -1,0 +1,9 @@
+{
+  "name": "jansmrcka--differ",
+  "displayName": "differ",
+  "description": "Terminal UI git diff viewer with two-panel layout, syntax highlighting, vim keybindings, and AI-powered commits. Built with Go + Bubble Tea.",
+  "version": "1.0.0",
+  "author": "JanSmrcka",
+  "homepage": "https://github.com/JanSmrcka/differ",
+  "skills": []
+}
