@@ -1,0 +1,9 @@
+{
+  "name": "amirhosssein0--simple-operator",
+  "displayName": "simple-operator",
+  "description": "Simple operator for Kubernetes with Go",
+  "version": "1.0.0",
+  "author": "amirhosssein0",
+  "homepage": "https://github.com/amirhosssein0/simple-operator",
+  "skills": []
+}
