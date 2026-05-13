@@ -1,0 +1,9 @@
+{
+  "name": "isomoes--claude-code-zed",
+  "displayName": "claude-code-zed",
+  "description": "Zed extension for Claude Code CLI integration",
+  "version": "1.0.0",
+  "author": "isomoes",
+  "homepage": "https://github.com/isomoes/claude-code-zed",
+  "skills": []
+}
