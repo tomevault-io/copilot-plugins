@@ -1,57 +1,49 @@
-## overview
+## project-structure
 
-> Overview of all available cursor rules for figui development
+> Figui project structure and organization
 
 
-# Figui Cursor Rules Overview
+# Figui Project Structure
 
-This project has several cursor rules to help with development:
+This is a Next.js-based UI component library with documentation, similar to shadcn/ui.
 
-## Always Applied Rules
+## Key Directories
 
-### [Project Structure](mdc:.cursor/rules/project-structure.mdc)
+- **[app/](mdc:app/)** - Next.js App Router pages and layouts
+  - **[app/docs/](mdc:app/docs/)** - Documentation pages using fumadocs
+  - **[app/layout.tsx](mdc:app/layout.tsx)** - Root layout with theme provider
+- **[components/](mdc:components/)** - Shared React components for the documentation site
+  - **[components/component-preview.tsx](mdc:components/component-preview.tsx)** - Preview component for docs
+  - **[components/theme-provider.tsx](mdc:components/theme-provider.tsx)** - Theme context provider
 
-- **Always Active** - Provides comprehensive overview of the figui project
-- Explains directory structure, tech stack, and key files
-- Helps understand the Next.js + component library architecture
+- **[registry/ui3/](mdc:registry/ui3/)** - Component registry (like shadcn/ui)
+  - **[registry/ui3/ui/](mdc:registry/ui3/ui/)** - Actual UI components
+  - **[registry/ui3/examples/](mdc:registry/ui3/examples/)** - Component demo examples
+- **[content/docs/](mdc:content/docs/)** - MDX documentation content
+  - **[content/docs/components/](mdc:content/docs/components/)** - Component documentation
+  - **[content/docs/meta.json](mdc:content/docs/meta.json)** - Navigation metadata
 
-## File-Specific Rules
+- **[public/r/](mdc:public/r/)** - Registry JSON files for component installation
+- **[lib/](mdc:lib/)** - Utility functions and shared logic
 
-### [Component Development](mdc:.cursor/rules/component-development.mdc)
+## Tech Stack
 
-- **Applies to**: `registry/ui3/ui/*.tsx`, `registry/ui3/examples/*.tsx`
-- Guidelines for creating UI components and demos
-- Component architecture patterns using Base UI
-- Registry integration requirements
+- **Next.js 15** with App Router and React 19
+- **TypeScript** for type safety
+- **Tailwind CSS 4** for styling
+- **Fumadocs** for documentation
+- **Base UI Components** (@base-ui/react) for unstyled primitives
+- **MDX** for documentation content
+- **Prettier** with Tailwind plugin for formatting
 
-### [Documentation Patterns](mdc:.cursor/rules/documentation-patterns.mdc)
+## Key Files
 
-- **Applies to**: `content/docs/**/*.mdx`, `app/docs/**/*.tsx`
-- MDX documentation structure and templates
-- Component documentation standards
-- Navigation and code example patterns
+- **[package.json](mdc:package.json)** - Dependencies and scripts
+- **[registry.json](mdc:registry.json)** - Component registry configuration
+- **[source.config.ts](mdc:source.config.ts)** - Fumadocs source configuration
+- **[components.json](mdc:components.json)** - Component installation configuration
 
-### [Code Style](mdc:.cursor/rules/code-style.mdc)
-
-- **Applies to**: `*.ts`, `*.tsx`, `*.js`, `*.jsx`
-- TypeScript and React best practices
-- Prettier configuration and formatting rules
-- Tailwind CSS usage guidelines
-
-## Manual Rules
-
-### [Registry System](mdc:.cursor/rules/registry-system.mdc)
-
-- **Manual activation** - Deep dive into the component registry
-- Component installation workflow
-- Registry file formats and configuration
-- Step-by-step guide for adding new components
-
-## Usage
-
-- Rules are automatically applied based on file patterns
-- Use `/docs` or describe your task to trigger relevant rule activation
-- The project structure rule is always active for context
+---
 
 ---
 > Source: [anxndsgn/FigUI](https://github.com/anxndsgn/FigUI) — distributed by [TomeVault](https://tomevault.io).
