@@ -7,11 +7,11 @@ The Mozaiks core is a self-hostable runtime for deploying AI-driven, multi-tenan
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [BlocUnited-LLC/mozaiks](https://github.com/BlocUnited-LLC/mozaiks).
+Original source: `CLAUDE.md` in [BlocUnited-LLC/mozaiks](https://github.com/BlocUnited-LLC/mozaiks).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
