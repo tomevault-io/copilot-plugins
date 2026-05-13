@@ -1,0 +1,9 @@
+{
+  "name": "eunomia-bpf--schedcp",
+  "displayName": "schedcp",
+  "description": "MCP Server for Linux Scheduler Management and Auto optimization",
+  "version": "1.0.0",
+  "author": "eunomia-bpf",
+  "homepage": "https://github.com/eunomia-bpf/schedcp",
+  "skills": []
+}
