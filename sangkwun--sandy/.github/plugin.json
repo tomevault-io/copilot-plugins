@@ -1,0 +1,9 @@
+{
+  "name": "sangkwun--sandy",
+  "displayName": "sandy",
+  "description": "Deterministic MCP scenario replay for AI agents \u2014 create once, replay without LLM inference",
+  "version": "1.0.0",
+  "author": "Sangkwun",
+  "homepage": "https://github.com/Sangkwun/sandy",
+  "skills": []
+}
