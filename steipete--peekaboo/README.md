@@ -7,11 +7,11 @@ Peekaboo is a macOS CLI & optional MCP server that enables AI agents to capture 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [steipete/Peekaboo](https://github.com/steipete/Peekaboo).
+Original source: `CLAUDE.md` in [steipete/Peekaboo](https://github.com/steipete/Peekaboo).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
