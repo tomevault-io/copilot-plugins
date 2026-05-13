@@ -4,7 +4,7 @@
   "repo": "aws-doctor",
   "description": "Powerful open-source CLI to audit security, costs, and best practices in AWS. \ud83e\ude7a \u2601\ufe0f",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/elC0mpa/aws-doctor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T14:38:42Z"
+  "distributed_at": "2026-05-13T03:03:49Z"
 }
