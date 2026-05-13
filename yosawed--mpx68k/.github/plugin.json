@@ -1,0 +1,9 @@
+{
+  "name": "yosawed--mpx68k",
+  "displayName": "MPX68K",
+  "description": "MPX68K: Sharp X68000 emulator for macOS (Apple Silicon and Intel Mac). SpriteKit UI, GameController, FDD/HDD, TATE.",
+  "version": "1.0.0",
+  "author": "YosAwed",
+  "homepage": "https://github.com/YosAwed/MPX68K",
+  "skills": []
+}
