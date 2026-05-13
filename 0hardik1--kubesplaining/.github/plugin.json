@@ -1,0 +1,9 @@
+{
+  "name": "0hardik1--kubesplaining",
+  "displayName": "kubesplaining",
+  "description": "Kubernetes security assessment CLI: RBAC, pod-escape, and privilege-escalation path analysis. Cloudsplaining for Kubernetes.",
+  "version": "1.0.0",
+  "author": "0hardik1",
+  "homepage": "https://github.com/0hardik1/kubesplaining",
+  "skills": []
+}
