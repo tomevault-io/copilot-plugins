@@ -4,7 +4,7 @@
   "repo": "Masques",
   "description": "AssumeRole for Agents \u2014 temporary cognitive identities bundling intent, context, and lens. Claude Code plugin. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ChrisDBaldwin/Masques",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T00:30:08Z"
+  "distributed_at": "2026-05-13T10:59:20Z"
 }
