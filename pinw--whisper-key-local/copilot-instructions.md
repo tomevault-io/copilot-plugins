@@ -1,0 +1,19 @@
+## whisper-key-local
+
+> https://github.com/PinW/whisper-key-local
+
+https://github.com/PinW/whisper-key-local
+
+@docs/project-index.md
+@docs/platform-abstraction.md
+
+- Test app startup: `/test-from-wsl` (launch only, no interaction)
+- Ask user for real test before committing
+- Prefer elegant code that is modular and consistent
+- Use explicit variable/function names
+- **AVOID COMMENTS** IF AT ALL POSSIBLE! DO NOT WRITE DOCSTRINGS!
+- **No backward compatibility** - Break old formats freely
+
+---
+> Source: [PinW/whisper-key-local](https://github.com/PinW/whisper-key-local) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
