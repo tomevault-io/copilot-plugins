@@ -4,7 +4,7 @@
   "repo": "notebooklm-mcp",
   "description": "MCP server for Google NotebookLM \u2014 32 tools for notebooks, sources, research, and studio content generation",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/m4yk3ldev/notebooklm-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T11:04:52Z"
+  "distributed_at": "2026-05-13T06:48:28Z"
 }
