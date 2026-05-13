@@ -1,0 +1,9 @@
+{
+  "name": "oaustegard--llm-as-computer",
+  "displayName": "llm-as-computer",
+  "description": "Testing Percepta's claim that transformers can execute programs via 2D convex hull attention",
+  "version": "1.0.0",
+  "author": "oaustegard",
+  "homepage": "https://github.com/oaustegard/llm-as-computer",
+  "skills": []
+}
