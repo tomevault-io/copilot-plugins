@@ -1,0 +1,9 @@
+{
+  "name": "kiliczsh--claude-cmd",
+  "displayName": "claude-cmd",
+  "description": "Claude Code Commands Manager",
+  "version": "1.0.0",
+  "author": "kiliczsh",
+  "homepage": "https://github.com/kiliczsh/claude-cmd",
+  "skills": []
+}
