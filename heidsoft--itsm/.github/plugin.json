@@ -1,0 +1,26 @@
+{
+  "name": "heidsoft--itsm",
+  "displayName": "itsm",
+  "description": "Enterprise IT Service Management Platform built with Go/Gin and Next.js",
+  "version": "1.0.0",
+  "author": "heidsoft",
+  "homepage": "https://github.com/heidsoft/itsm",
+  "skills": [
+    {
+      "name": "component-standardization",
+      "description": ""
+    },
+    {
+      "name": "env-troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "frontend-audit-fix",
+      "description": ""
+    },
+    {
+      "name": "frontend-maintenance",
+      "description": ""
+    }
+  ]
+}
