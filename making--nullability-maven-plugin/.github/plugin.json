@@ -1,0 +1,9 @@
+{
+  "name": "making--nullability-maven-plugin",
+  "displayName": "nullability-maven-plugin",
+  "description": "A Maven plugin that configures ErrorProne and NullAway for nullability checking",
+  "version": "1.0.0",
+  "author": "making",
+  "homepage": "https://github.com/making/nullability-maven-plugin",
+  "skills": []
+}
