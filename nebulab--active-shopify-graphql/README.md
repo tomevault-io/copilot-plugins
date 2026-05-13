@@ -7,11 +7,11 @@ Bringing domain object peace of mind to the world of Shopify GraphQL APIs
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nebulab/active_shopify_graphql](https://github.com/nebulab/active_shopify_graphql).
+Original source: `CLAUDE.md` in [nebulab/active_shopify_graphql](https://github.com/nebulab/active_shopify_graphql).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
