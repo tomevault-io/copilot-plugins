@@ -1,0 +1,9 @@
+{
+  "name": "lfnovo--podcast-creator",
+  "displayName": "podcast-creator",
+  "description": "A simple to use python library for creating podcasts with support for many LLM and TTS providers",
+  "version": "1.0.0",
+  "author": "lfnovo",
+  "homepage": "https://github.com/lfnovo/podcast-creator",
+  "skills": []
+}
