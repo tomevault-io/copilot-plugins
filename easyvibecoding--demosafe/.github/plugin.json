@@ -1,0 +1,9 @@
+{
+  "name": "easyvibecoding--demosafe",
+  "displayName": "demosafe",
+  "description": "macOS tool that masks API keys during demos, livestreams, and tutorials. Menu Bar App + VS Code Extension + Chrome Extension.",
+  "version": "1.0.0",
+  "author": "easyvibecoding",
+  "homepage": "https://github.com/easyvibecoding/demosafe",
+  "skills": []
+}
