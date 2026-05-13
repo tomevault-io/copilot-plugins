@@ -1,0 +1,9 @@
+{
+  "name": "rivalsecurity--sastbench",
+  "displayName": "sastbench",
+  "description": "Benchmark and evaluation framework for static application security testing (SAST) and vulnerability analysis agents.",
+  "version": "1.0.0",
+  "author": "RivalSecurity",
+  "homepage": "https://github.com/RivalSecurity/sastbench",
+  "skills": []
+}
