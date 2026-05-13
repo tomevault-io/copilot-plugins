@@ -1,0 +1,9 @@
+{
+  "name": "simonstaton--agentmanager",
+  "displayName": "AgentManager",
+  "description": "Conduct autonomous Claude Code agents at scale safely. Human-on-the-loop orchestration platform with kill switch, cost tracking, and inter-agent messaging.",
+  "version": "1.0.0",
+  "author": "simonstaton",
+  "homepage": "https://github.com/simonstaton/AgentManager",
+  "skills": []
+}
