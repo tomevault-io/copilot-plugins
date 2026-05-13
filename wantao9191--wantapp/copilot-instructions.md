@@ -1,47 +1,60 @@
-## coding-standards
+## database
 
-> TypeScript 和 React 编码规范
+> 数据库开发规范
 
 
-# 编码规范
+# 数据库开发规范
 
-## TypeScript 规范
+## 数据库技术栈
 
-- 使用严格的 TypeScript 配置 (`strict: true`)
-- 优先使用 `interface` 定义对象类型
-- 使用 `type` 定义联合类型和复杂类型
-- 所有函数参数和返回值都要有明确的类型注解
-- 使用 `as const` 进行常量断言
+- **数据库**: PostgreSQL
+- **ORM**: Drizzle ORM
+- **迁移**: Drizzle Kit
+- **连接**: postgres 驱动
 
-## React 组件规范
+## 数据库配置
 
-- 使用函数式组件和 Hooks
-- 组件名使用 PascalCase
-- Props 接口以组件名 + Props 命名
-- 使用 `React.FC` 或直接函数声明
-- 优先使用 `useState` 和 `useEffect`
+数据库配置在 [src/db/index.ts](mdc:src/db/index.ts) 中：
 
-## 导入规范
+- 使用环境变量配置连接
+- 支持开发和生产环境
+- 连接池配置优化
 
-- 使用绝对路径导入 (`@/` 别名)
-- 第三方库导入在前，本地导入在后
-- 按字母顺序排列导入
-- 使用命名导入而非默认导入（除非必要）
+## Schema 定义
 
-## 文件命名
+数据库模式定义在 [src/db/schema.ts](mdc:src/db/schema.ts)：
 
-- 组件文件使用 PascalCase: `UserProfile.tsx`
-- Hook 文件使用 camelCase: `useAuth.ts`
-- 工具文件使用 kebab-case: `auth-helper.ts`
-- 类型文件使用 kebab-case: `database.ts`
+- 使用 Drizzle 的 schema 语法
+- 定义表结构和关系
+- 包含索引和约束
 
-## 代码风格
+## 迁移管理
 
-- 使用分号结尾
-- 使用 2 个空格缩进
-- 字符串优先使用单引号
-- 对象和数组末尾添加逗号
-- 使用 Prettier 进行代码格式化
+- 迁移文件在 `drizzle/` 目录
+- 使用 `pnpm db:generate` 生成迁移
+- 使用 `pnpm db:migrate` 应用迁移
+- 使用 `pnpm db:push` 直接推送 schema
+
+## 数据库脚本
+
+项目包含多个数据库管理脚本：
+
+- `scripts/create-database.ts` - 创建数据库
+- `scripts/seed.ts` - 种子数据
+- `scripts/insert-menus.ts` - 插入菜单数据
+
+## 查询优化
+
+- 使用 Drizzle 的类型安全查询
+- 合理使用索引
+- 避免 N+1 查询问题
+- 使用事务处理复杂操作
+
+## 数据验证
+
+- 使用 Zod 进行数据验证
+- 在 API 层进行输入验证
+- 数据库层进行约束验证
 
 ---
 > Source: [wantao9191/wantapp](https://github.com/wantao9191/wantapp) — distributed by [TomeVault](https://tomevault.io).
