@@ -1,0 +1,9 @@
+{
+  "name": "maui1911--tled",
+  "displayName": "TLED",
+  "description": "ESP32-C6 Firmware for WS2812B Ledstrips using Matter over Thread",
+  "version": "1.0.0",
+  "author": "maui1911",
+  "homepage": "https://github.com/maui1911/TLED",
+  "skills": []
+}
