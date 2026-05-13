@@ -1,0 +1,9 @@
+{
+  "name": "pinw--whisper-key-local",
+  "displayName": "whisper-key-local",
+  "description": "Global hotkeys to record speech and transcribe directly to your cursor",
+  "version": "1.0.0",
+  "author": "PinW",
+  "homepage": "https://github.com/PinW/whisper-key-local",
+  "skills": []
+}
