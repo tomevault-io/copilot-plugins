@@ -1,0 +1,9 @@
+{
+  "name": "kevinelliott--agentpipe",
+  "displayName": "agentpipe",
+  "description": "A CLI/TUI app that orchestrates multi-agent conversations by enabling different AI CLI tools (Claude Code, Gemini, Qwen, etc.) to communicate in shared rooms.",
+  "version": "1.0.0",
+  "author": "kevinelliott",
+  "homepage": "https://github.com/kevinelliott/agentpipe",
+  "skills": []
+}
