@@ -1,0 +1,9 @@
+{
+  "name": "wayfind--intent-engine",
+  "displayName": "intent-engine",
+  "description": "llm tool",
+  "version": "1.0.0",
+  "author": "wayfind",
+  "homepage": "https://github.com/wayfind/intent-engine",
+  "skills": []
+}
