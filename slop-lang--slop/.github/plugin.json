@@ -1,0 +1,9 @@
+{
+  "name": "slop-lang--slop",
+  "displayName": "slop",
+  "description": "Symbolic LLM-Optimized Programming language",
+  "version": "1.0.0",
+  "author": "slop-lang",
+  "homepage": "https://github.com/slop-lang/slop",
+  "skills": []
+}
