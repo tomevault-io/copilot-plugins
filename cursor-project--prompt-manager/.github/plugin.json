@@ -1,0 +1,9 @@
+{
+  "name": "cursor-project--prompt-manager",
+  "displayName": "prompt-manager",
+  "description": "Efficient management and quick access to AI Prompt templates for Cursor/VSCode",
+  "version": "1.0.0",
+  "author": "cursor-project",
+  "homepage": "https://github.com/cursor-project/prompt-manager",
+  "skills": []
+}
