@@ -1,0 +1,9 @@
+{
+  "name": "mitkox--aegis",
+  "displayName": "aegis",
+  "description": "Aegis- a local zero-trust AI gate for OS and Apps packages",
+  "version": "1.0.0",
+  "author": "mitkox",
+  "homepage": "https://github.com/mitkox/aegis",
+  "skills": []
+}
