@@ -1,0 +1,9 @@
+{
+  "name": "erans--pgsqlite",
+  "displayName": "pgsqlite",
+  "description": "A PostgreSQL protocol adapter for SQLite databases. This project allows PostgreSQL clients to connect to and query SQLite databases using the PostgreSQL wire protocol.",
+  "version": "1.0.0",
+  "author": "erans",
+  "homepage": "https://github.com/erans/pgsqlite",
+  "skills": []
+}
