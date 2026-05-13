@@ -4,7 +4,7 @@
   "repo": "ultra-mcp",
   "description": "100x Your Claude Code, Gemini CLI, Cursor and/or any coding tools with MCP client support",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RealMikeChong/ultra-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T06:56:50Z"
+  "distributed_at": "2026-05-13T15:14:03Z"
 }
