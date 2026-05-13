@@ -1,0 +1,9 @@
+{
+  "name": "zxdxjtu--claudecode-rule2hook",
+  "displayName": "claudecode-rule2hook",
+  "description": "Transform natural language project rules into Claude Code automation hooks - Write rules in plain English and let Claude  automatically generate powerful hooks for code formatting, testing, validation",
+  "version": "1.0.0",
+  "author": "zxdxjtu",
+  "homepage": "https://github.com/zxdxjtu/claudecode-rule2hook",
+  "skills": []
+}
