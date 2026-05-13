@@ -1,49 +1,139 @@
-## project-structure
+## registry-system
 
-> Figui project structure and organization
+> Registry system patterns and component installation workflow
 
 
-# Figui Project Structure
+# Registry System Guidelines
 
-This is a Next.js-based UI component library with documentation, similar to shadcn/ui.
+## Overview
 
-## Key Directories
+The figui registry system enables users to install components directly into their projects, similar to shadcn/ui.
 
-- **[app/](mdc:app/)** - Next.js App Router pages and layouts
-  - **[app/docs/](mdc:app/docs/)** - Documentation pages using fumadocs
-  - **[app/layout.tsx](mdc:app/layout.tsx)** - Root layout with theme provider
-- **[components/](mdc:components/)** - Shared React components for the documentation site
-  - **[components/component-preview.tsx](mdc:components/component-preview.tsx)** - Preview component for docs
-  - **[components/theme-provider.tsx](mdc:components/theme-provider.tsx)** - Theme context provider
+## Registry Structure
 
-- **[registry/ui3/](mdc:registry/ui3/)** - Component registry (like shadcn/ui)
-  - **[registry/ui3/ui/](mdc:registry/ui3/ui/)** - Actual UI components
-  - **[registry/ui3/examples/](mdc:registry/ui3/examples/)** - Component demo examples
-- **[content/docs/](mdc:content/docs/)** - MDX documentation content
-  - **[content/docs/components/](mdc:content/docs/components/)** - Component documentation
-  - **[content/docs/meta.json](mdc:content/docs/meta.json)** - Navigation metadata
+### Component Registry Files
 
-- **[public/r/](mdc:public/r/)** - Registry JSON files for component installation
-- **[lib/](mdc:lib/)** - Utility functions and shared logic
+- **[registry.json](mdc:registry.json)** - Main registry configuration
+- **[public/r/\*.json](mdc:public/r/)** - Individual component registry files
+- **[registry/ui3/ui/](mdc:registry/ui3/ui/)** - Source component files
+- **[registry/ui3/examples/](mdc:registry/ui3/examples/)** - Demo components
 
-## Tech Stack
+### Registry JSON Format
 
-- **Next.js 15** with App Router and React 19
-- **TypeScript** for type safety
-- **Tailwind CSS 4** for styling
-- **Fumadocs** for documentation
-- **Base UI Components** (@base-ui/react) for unstyled primitives
-- **MDX** for documentation content
-- **Prettier** with Tailwind plugin for formatting
+Each component in **[public/r/](mdc:public/r/)** follows this structure:
 
-## Key Files
+```json
+{
+  "name": "component-name",
+  "type": "registry:ui",
+  "files": [
+    {
+      "path": "ui/component-name.tsx",
+      "content": "// component source code",
+      "type": "registry:ui"
+    }
+  ],
+  "dependencies": ["@base-ui/react"],
+  "devDependencies": [],
+  "tailwind": {
+    "config": {
+      // Tailwind config additions if needed
+    }
+  }
+}
+```
 
-- **[package.json](mdc:package.json)** - Dependencies and scripts
-- **[registry.json](mdc:registry.json)** - Component registry configuration
-- **[source.config.ts](mdc:source.config.ts)** - Fumadocs source configuration
-- **[components.json](mdc:components.json)** - Component installation configuration
+## Adding New Components
 
----
+### 1. Create Component
+
+Create the component in **[registry/ui3/ui/component-name.tsx](mdc:registry/ui3/ui/)**:
+
+```tsx
+import * as React from 'react';
+import { cn } from '@/lib/utils';
+
+// Component implementation following the patterns in component-development.mdc
+```
+
+### 2. Create Demo
+
+Create demo in **[registry/ui3/examples/component-name-demo.tsx](mdc:registry/ui3/examples/)**:
+
+```tsx
+import { ComponentName } from '@/registry/ui3/ui/component-name';
+
+export default function ComponentNameDemo() {
+  return <ComponentName>Demo content</ComponentName>;
+}
+```
+
+### 3. Generate Registry File
+
+Use the build command to generate the registry JSON:
+
+```bash
+pnpm registry:build
+```
+
+This creates/updates the corresponding **[public/r/component-name.json](mdc:public/r/)** file.
+
+### 4. Update Navigation
+
+Add the component to **[content/docs/components/meta.json](mdc:content/docs/components/meta.json)**:
+
+```json
+{
+  "title": "Components",
+  "pages": ["component-name"]
+}
+```
+
+### 5. Create Documentation
+
+Create **[content/docs/components/component-name.mdx](mdc:content/docs/components/)** following the documentation patterns.
+
+## Registry Configuration
+
+### Main Registry Config
+
+The **[registry.json](mdc:registry.json)** file defines:
+
+- Available components and their metadata
+- Component categories and organization
+- Default installation paths and configurations
+
+### Components Configuration
+
+The **[components.json](mdc:components.json)** file configures:
+
+- Installation paths for different component types
+- Tailwind CSS configuration
+- TypeScript path aliases
+- Styling framework preferences
+
+## Installation Workflow
+
+Users install components via:
+
+```bash
+npx figui@latest add component-name
+```
+
+This command:
+
+1. Fetches the component JSON from **[public/r/component-name.json](mdc:public/r/)**
+2. Installs dependencies
+3. Copies component files to the user's project
+4. Updates their **[components.json](mdc:components.json)** configuration
+
+## Best Practices
+
+- Always test components work when installed fresh
+- Keep registry files up to date with source changes
+- Ensure dependencies are minimal and documented
+- Test installation in a clean project before releasing
+- Follow semantic versioning for breaking changes
 
 ---
 > Source: [anxndsgn/FigUI](https://github.com/anxndsgn/FigUI) — distributed by [TomeVault](https://tomevault.io).
