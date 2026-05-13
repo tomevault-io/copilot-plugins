@@ -1,0 +1,9 @@
+{
+  "name": "kenanking--zotwatch",
+  "displayName": "ZotWatch",
+  "description": "AI-powered paper recommendations based on your the Zotero library.",
+  "version": "1.0.0",
+  "author": "kenanking",
+  "homepage": "https://github.com/kenanking/ZotWatch",
+  "skills": []
+}
