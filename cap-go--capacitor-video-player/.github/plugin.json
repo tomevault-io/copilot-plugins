@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-video-player",
+  "displayName": "capacitor-video-player",
+  "description": "Capacitor plugin to play video in native player",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-video-player",
+  "skills": []
+}
