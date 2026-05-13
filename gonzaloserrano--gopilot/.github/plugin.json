@@ -1,0 +1,9 @@
+{
+  "name": "gonzaloserrano--gopilot",
+  "displayName": "gopilot",
+  "description": "A Go Skill for Claude distributed as a Plugin.",
+  "version": "1.0.0",
+  "author": "gonzaloserrano",
+  "homepage": "https://github.com/gonzaloserrano/gopilot",
+  "skills": []
+}
