@@ -7,11 +7,11 @@ Ngent wraps command-line agents that speak the Agent Client Protocol (ACP) into 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [beyond5959/ngent](https://github.com/beyond5959/ngent).
+Original source: `CLAUDE.md` in [beyond5959/ngent](https://github.com/beyond5959/ngent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
