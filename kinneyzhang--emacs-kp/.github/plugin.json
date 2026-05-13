@@ -1,0 +1,9 @@
+{
+  "name": "kinneyzhang--emacs-kp",
+  "displayName": "emacs-kp",
+  "description": "Implement of Knuth-plass algorithm in emacs-lisp, support for mixed typesetting of CJK and Latin languages.",
+  "version": "1.0.0",
+  "author": "Kinneyzhang",
+  "homepage": "https://github.com/Kinneyzhang/emacs-kp",
+  "skills": []
+}
