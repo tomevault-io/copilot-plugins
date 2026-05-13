@@ -4,7 +4,7 @@
   "repo": "pyproc",
   "description": "Call Python from Go without CGO or microservices - Unix domain socket based IPC for ML inference and data processin",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/YuminosukeSato/pyproc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T19:04:02Z"
+  "distributed_at": "2026-05-13T07:15:14Z"
 }
