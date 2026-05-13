@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-pay",
+  "displayName": "capacitor-pay",
+  "description": "Capacitor plugin to trigger native payment for iOS(Apple pay) and Android(Google Pay)",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-pay",
+  "skills": []
+}
