@@ -1,0 +1,9 @@
+{
+  "name": "ngpepin--stylometric-transfer",
+  "displayName": "stylometric-transfer",
+  "description": "Interpretable stylometric profiling + author-style transfer built on explicit and LLM-genenated JSON fingerprints and local measurements. Fingerprint your corpus, inspect/visualize signals, then LLM-g",
+  "version": "1.0.0",
+  "author": "ngpepin",
+  "homepage": "https://github.com/ngpepin/stylometric-transfer",
+  "skills": []
+}
