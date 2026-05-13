@@ -1,0 +1,9 @@
+{
+  "name": "jiayuxu0--fastapi-template",
+  "displayName": "FastAPI-Template",
+  "description": "A production-ready FastAPI backend template with clean architecture. \u4e00\u4e2a\u529f\u80fd\u5b8c\u6574\u3001\u67b6\u6784\u6e05\u6670\u7684\u4f01\u4e1a\u7ea7FastAPI\u540e\u7aef\u6a21\u677f\uff0c\u4e13\u4e3a\u56e2\u961f\u5f00\u53d1\u8bbe\u8ba1\uff0c\u5f00\u7bb1\u5373\u7528\u3002",
+  "version": "1.0.0",
+  "author": "JiayuXu0",
+  "homepage": "https://github.com/JiayuXu0/FastAPI-Template",
+  "skills": []
+}
