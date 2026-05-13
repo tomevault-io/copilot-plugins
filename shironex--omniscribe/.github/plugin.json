@@ -1,0 +1,9 @@
+{
+  "name": "shironex--omniscribe",
+  "displayName": "omniscribe",
+  "description": "Orchestrate multiple AI coding sessions in parallel",
+  "version": "1.0.0",
+  "author": "Shironex",
+  "homepage": "https://github.com/Shironex/omniscribe",
+  "skills": []
+}
