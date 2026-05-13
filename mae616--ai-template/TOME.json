@@ -1,0 +1,81 @@
+{
+  "name": "ai-template",
+  "owner": "mae616",
+  "repo": "ai-template",
+  "description": "Feedback only OSS: Claude Code \u30d9\u30fc\u30b9\u306e AI \u5354\u8abf\u958b\u767a\u3092\u652f\u3048\u308b\u30d7\u30ed\u30f3\u30d7\u30c8\u30fb\u30b9\u30ad\u30eb\u30fb\u904b\u7528\u30eb\u30fc\u30eb\u306e\u30c6\u30f3\u30d7\u30ec\u30fc\u30c8",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "architecture-expert",
+      "path": ".claude/skills/architecture-expert",
+      "github_url": "https://github.com/mae616/ai-template/tree/main/.claude/skills/architecture-expert",
+      "description": ""
+    },
+    {
+      "name": "creative-coder",
+      "path": ".claude/skills/creative-coder",
+      "github_url": "https://github.com/mae616/ai-template/tree/main/.claude/skills/creative-coder",
+      "description": ""
+    },
+    {
+      "name": "developer-specialist",
+      "path": ".claude/skills/developer-specialist",
+      "github_url": "https://github.com/mae616/ai-template/tree/main/.claude/skills/developer-specialist",
+      "description": ""
+    },
+    {
+      "name": "frontend-implementation",
+      "path": ".claude/skills/frontend-implementation",
+      "github_url": "https://github.com/mae616/ai-template/tree/main/.claude/skills/frontend-implementation",
+      "description": ""
+    },
+    {
+      "name": "persona-designer",
+      "path": ".claude/skills/persona-designer",
+      "github_url": "https://github.com/mae616/ai-template/tree/main/.claude/skills/persona-designer",
+      "description": ""
+    },
+    {
+      "name": "ui-designer",
+      "path": ".claude/skills/ui-designer",
+      "github_url": "https://github.com/mae616/ai-template/tree/main/.claude/skills/ui-designer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mae616/ai-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T16:30:09Z"
+}
