@@ -1,0 +1,9 @@
+{
+  "name": "linchuang2008--nightmend",
+  "displayName": "nightmend",
+  "description": "AI-powered open-source monitoring platform with auto-remediation. 6 built-in runbooks, MCP integration (global first), DeepSeek root cause analysis. 5-minute Docker setup.",
+  "version": "1.0.0",
+  "author": "LinChuang2008",
+  "homepage": "https://github.com/LinChuang2008/nightmend",
+  "skills": []
+}
