@@ -7,11 +7,11 @@ Minimal, zero-dependency LLM inference in pure C11. CPU-first with NEON/AVX2 SIM
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [artalis-io/bitnet.c](https://github.com/artalis-io/bitnet.c).
+Original source: `CLAUDE.md` in [artalis-io/bitnet.c](https://github.com/artalis-io/bitnet.c).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
