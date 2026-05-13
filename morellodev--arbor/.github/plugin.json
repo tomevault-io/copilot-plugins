@@ -1,0 +1,9 @@
+{
+  "name": "morellodev--arbor",
+  "displayName": "arbor",
+  "description": "A friendly CLI for managing git worktrees",
+  "version": "1.0.0",
+  "author": "morellodev",
+  "homepage": "https://github.com/morellodev/arbor",
+  "skills": []
+}
