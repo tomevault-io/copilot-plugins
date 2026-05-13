@@ -1,0 +1,9 @@
+{
+  "name": "leongj--foundry-agent-devtools",
+  "displayName": "foundry-agent-devtools",
+  "description": "A UI and CLI for viewing objects in the Microsoft Foundry Agent Service",
+  "version": "1.0.0",
+  "author": "leongj",
+  "homepage": "https://github.com/leongj/foundry-agent-devtools",
+  "skills": []
+}
