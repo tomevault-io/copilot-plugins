@@ -4,7 +4,7 @@
   "repo": "chameleon",
   "description": "Claude Code skill that tailors a master resume YAML to a specific job posting and renders it to PDF.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/davidalecrim1/chameleon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T15:51:52Z"
+  "distributed_at": "2026-05-13T04:40:28Z"
 }
