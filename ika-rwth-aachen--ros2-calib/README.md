@@ -7,11 +7,11 @@ Make your calibration dreams come true. ros2_calib is a Multi-Sensor Calibration
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ika-rwth-aachen/ros2_calib](https://github.com/ika-rwth-aachen/ros2_calib).
+Original source: `CLAUDE.md` in [ika-rwth-aachen/ros2_calib](https://github.com/ika-rwth-aachen/ros2_calib).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
