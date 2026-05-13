@@ -1,0 +1,9 @@
+{
+  "name": "sihaoliu--ai-usage",
+  "displayName": "ai-usage",
+  "description": "Check your Claude/Codex/Gemini, and learn how much money you save",
+  "version": "1.0.0",
+  "author": "SihaoLiu",
+  "homepage": "https://github.com/SihaoLiu/ai-usage",
+  "skills": []
+}
