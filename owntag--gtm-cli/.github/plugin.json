@@ -1,0 +1,9 @@
+{
+  "name": "owntag--gtm-cli",
+  "displayName": "gtm-cli",
+  "description": "A command line interface for Google Tag Manager API",
+  "version": "1.0.0",
+  "author": "owntag",
+  "homepage": "https://github.com/owntag/gtm-cli",
+  "skills": []
+}
