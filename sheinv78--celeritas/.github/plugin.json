@@ -1,0 +1,9 @@
+{
+  "name": "sheinv78--celeritas",
+  "displayName": "Celeritas",
+  "description": "High-performance music engine for .NET with SIMD-accelerated operations. Fast note manipulation, chord analysis, and musical theory computations",
+  "version": "1.0.0",
+  "author": "sheinv78",
+  "homepage": "https://github.com/sheinv78/Celeritas",
+  "skills": []
+}
