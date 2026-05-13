@@ -1,0 +1,9 @@
+{
+  "name": "rexlunae--dioxus-bulma",
+  "displayName": "dioxus-bulma",
+  "description": "A rust library for Dioxus that offers the Bulma CSS components.",
+  "version": "1.0.0",
+  "author": "rexlunae",
+  "homepage": "https://github.com/rexlunae/dioxus-bulma",
+  "skills": []
+}
