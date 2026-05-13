@@ -1,77 +1,63 @@
-## ci-cd-philosophy
+## linting-philosophy
 
-> CI/CD pipeline philosophy and quality gates
+> linting philosophy and file-level ruff configuration
 
 
-# CI/CD Philosophy: Comprehensive Quality Gates
+# Linting Philosophy: File-Level Ignores Over Global
 
 ## Core Principle
-**Every change must pass all quality gates before merge.** Use UV for fast, reliable builds and comprehensive testing across platforms and Python versions.
+**Use file-level ignores unless we truly need global ones.** Different file types have different requirements - main source code should have strict linting, while tests and examples need appropriate flexibility.
 
-## Pipeline Structure
-Main CI workflow: [.github/workflows/ci.yml](mdc:.github/workflows/ci.yml)
+## Configuration Structure
+Linting rules are configured in [pyproject.toml](mdc:pyproject.toml) `[tool.ruff.lint]` section:
 
-### Quality Gates (All Required)
+### Global Ignores (11 rules)
+Only **truly global style choices** that apply project-wide:
+- Exception handling style: `TRY003`, `EM101`, `EM102`, `B904`, `TRY300`, `BLE001`
+- Docstring formatting consistency: `D203`, `D205`, `D212`, `D400`, `D407`, `D415`
+- Import/typing consistency: `UP035`, `RUF013`, `COM812`
+- Build/maintenance: `CPY`, `ERA`, `W293`
 
-#### 1. **Lint Job** (`lint`)
-- **Ruff check** with GitHub format for PR annotations
-- **Ruff format check** to ensure consistent formatting
-- **Ty type checking** (non-blocking warnings, informational)
+### File-Level Ignores (per-file-ignores)
 
-#### 2. **Test Job** (`test`)
-- **Matrix testing**: Ubuntu/macOS/Windows × Python 3.10-3.13
-- **pytest** with verbose output and color
-- **Coverage reporting** with 65% minimum threshold
-- **Parallel execution** across all combinations
+#### Test Files (`tests/**/*.py`)
+**11 ignores** for test-specific patterns:
+- `S101` - Assert usage (required in tests)
+- `ANN*` - Type annotations (relaxed for test helpers)
+- `PLR2004` - Magic values (acceptable in test data)
+- `SIM103`, `B007`, `ARG*` - Test helper patterns
 
-#### 3. **Pre-commit Job** (`pre-commit`)
-- **All pre-commit hooks** including basic checks, YAML/TOML/JSON validation
-- **Ruff integration** for consistent linting and formatting
-- **End-of-file fixing** and **trailing whitespace removal**
+#### Example Files (`examples/**/*.py`)
+**17 ignores** for demo code flexibility:
+- `T201` - Print statements (examples need output)
+- `E402`, `E501` - Import placement, line length (demo flexibility)
+- `F401` - Unused imports (examples may import for demonstration)
+- `ANN*`, `D*` - Relaxed typing and documentation
+- `BLE001` - Broad exception handling (simplified examples)
 
-#### 4. **Build Job** (`build`)
-- **UV build** for wheel and source distribution
-- **Twine check** for package validation
-- **Artifact upload** for deployment readiness
+#### Main Source (`src/clearml_mcp/clearml_mcp.py`)
+**4 specific ignores** for legitimate architectural needs:
+- `C901` - Complex function (compare_tasks function)
+- `PERF401`, `C401` - Performance patterns (specific instances)
+- `PLR0913` - Argument count (specific functions)
 
-#### 5. **Install-test Job** (`install-test`)
-- **Cross-platform wheel installation** testing
-- **CLI entry point verification** across all platforms
-- **Import testing** to ensure package integrity
+## Benefits
+✅ **Strict main code**: Source files enforce high quality standards
+✅ **Appropriate flexibility**: Tests and examples have relaxed rules where needed
+✅ **Clear rationale**: Each ignore is documented with specific reasoning
+✅ **Maintainable**: File-specific concerns handled at file level, not globally
 
-## Key Configuration Files
-- Main CI: [.github/workflows/ci.yml](mdc:.github/workflows/ci.yml)
-- Coverage config: [pyproject.toml](mdc:pyproject.toml) `[tool.coverage.*]`
-- Pre-commit: [.pre-commit-config.yaml](mdc:.pre-commit-config.yaml)
-- Package build: [pyproject.toml](mdc:pyproject.toml) `[build-system]`
-
-## UV-First Approach
-This project uses **UV exclusively** for:
-- ✅ Dependency management and virtual environments
-- ✅ Build and publish workflows
-- ✅ Fast, reliable Python environment setup
-- ❌ **NOT Smithery** (per project memory: uses uvx only for ClearML integration)
-
-## Quality Standards
-- **Test Coverage**: 65% minimum (currently 69%)
-- **Platform Support**: Ubuntu, macOS, Windows
-- **Python Support**: 3.10, 3.11, 3.12, 3.13
-- **Code Quality**: Ruff with file-level ignores for appropriate flexibility
-- **Type Safety**: Ty checking with informational warnings
-
-## Verification Commands
+## Verification
 ```bash
-# Local testing (matches CI)
-uv run pytest --verbose --color=yes tests
-uv run coverage run -m pytest tests && uv run coverage report
-ruff check --output-format=github src/ tests/ examples/
-ruff format --check src/ tests/ examples/
-uv run ty check
+# All files pass with appropriate rules
+ruff check src/ tests/ examples/
+# Pre-commit hooks work
 pre-commit run --all-files
-uv build
+# CI workflows use GitHub format
+ruff check --output-format=github src/ tests/ examples/
 ```
 
-This comprehensive approach ensures high quality, cross-platform compatibility, and deployment readiness for every change.
+This approach ensures code quality without over-restricting different file types that serve different purposes.
 
 ---
 > Source: [prassanna-ravishankar/clearml-mcp](https://github.com/prassanna-ravishankar/clearml-mcp) — distributed by [TomeVault](https://tomevault.io).
