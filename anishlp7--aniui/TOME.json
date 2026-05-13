@@ -2,9 +2,9 @@
   "name": "aniui",
   "owner": "anishlp7",
   "repo": "aniui",
-  "description": "",
+  "description": " Beautiful React Native components. Copy. Paste. Ship.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/anishlp7",
+  "source_url": "https://github.com/anishlp7/aniui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T13:50:18Z"
+  "distributed_at": "2026-05-13T01:43:08Z"
 }
