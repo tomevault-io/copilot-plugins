@@ -1,0 +1,9 @@
+{
+  "name": "ziniman--ai-instruct",
+  "displayName": "ai-instruct",
+  "description": "Drop-in markdown guides and Claude Code skills for the domains developers Google when shipping a website: AWS deployment, Google Analytics 4, SEO/LLMO & agent-readiness, web accessibility, and Core We",
+  "version": "1.0.0",
+  "author": "ziniman",
+  "homepage": "https://github.com/ziniman/ai-instruct",
+  "skills": []
+}
