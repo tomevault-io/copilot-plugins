@@ -1,0 +1,9 @@
+{
+  "name": "keijiro--trianglesplattingtest",
+  "displayName": "TriangleSplattingTest",
+  "description": "A Unity importer for Triangle Splatting (.off) files, developed with agentic coding.",
+  "version": "1.0.0",
+  "author": "keijiro",
+  "homepage": "https://github.com/keijiro/TriangleSplattingTest",
+  "skills": []
+}
