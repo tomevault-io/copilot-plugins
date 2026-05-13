@@ -1,0 +1,9 @@
+{
+  "name": "xaskasdf--gpu-nvme-direct",
+  "displayName": "gpu-nvme-direct",
+  "description": "GPU-initiated NVMe I/O via PCIe BAR MMIO \u2014 CUDA kernels directly issue NVMe commands, eliminating CPU from the storage data path",
+  "version": "1.0.0",
+  "author": "xaskasdf",
+  "homepage": "https://github.com/xaskasdf/gpu-nvme-direct",
+  "skills": []
+}
