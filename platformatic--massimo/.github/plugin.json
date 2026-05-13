@@ -1,0 +1,9 @@
+{
+  "name": "platformatic--massimo",
+  "displayName": "massimo",
+  "description": "Massimo is an API SDK client and CLI tool for creating clients for remote OpenAPI or GraphQL APIs",
+  "version": "1.0.0",
+  "author": "platformatic",
+  "homepage": "https://github.com/platformatic/massimo",
+  "skills": []
+}
