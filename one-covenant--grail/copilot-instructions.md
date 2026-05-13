@@ -1,16 +1,11 @@
-## dependencies
+## minimal-change-preference
 
-> - Use `uv` only. Pin exact versions in `pyproject.toml`; run `uv lock` and `uv sync --all-extras`. Do not edit `uv.lock`.
+> - Primary: fully satisfy the stated task requirements and constraints.
 
-# Dependencies (Concise)
-
-- Use `uv` only. Pin exact versions in `pyproject.toml`; run `uv lock` and `uv sync --all-extras`. Do not edit `uv.lock`.
-- Python 3.12+.
-- Lint/format: Ruff — `uv run ruff check .`, `uv run ruff format .`.
-- Defaults: full type hints; `logging.getLogger(__name__)` (no `print`); PEP 8, 100 cols; asyncio with timeouts; seed RNG; never log secrets; use dotenv; HTTPS.
-- Compatibility: keep Torch/Transformers/Tokenizers aligned; align `bittensor` with CLI/network.
-- Never write .md files unless explicitly asked to.
--
+- Primary: fully satisfy the stated task requirements and constraints.
+- Secondary: minimize lines of code and scope of changes.
+- Prefer small, targeted edits; reuse existing code and patterns; avoid rewrites.
+- When trade-offs arise, prioritize correctness/spec over minimality and note the rationale.
 
 ---
 > Source: [one-covenant/grail](https://github.com/one-covenant/grail) — distributed by [TomeVault](https://tomevault.io).
