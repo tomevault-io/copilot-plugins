@@ -1,0 +1,9 @@
+{
+  "name": "mastepanoski--claude-skills",
+  "displayName": "claude-skills",
+  "description": "UX/UI evaluation, AI governance, and AI security skills for AI coding assistants. Audit interfaces with Nielsen heuristics, WCAG, Don Norman principles. Assess AI risk with NIST AI RMF, ISO 42001, OWA",
+  "version": "1.0.0",
+  "author": "mastepanoski",
+  "homepage": "https://github.com/mastepanoski/claude-skills",
+  "skills": []
+}
