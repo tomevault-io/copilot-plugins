@@ -1,0 +1,9 @@
+{
+  "name": "backbay-labs--hush",
+  "displayName": "hush",
+  "description": "Portable security rules for the action boundary of AI agents",
+  "version": "1.0.0",
+  "author": "backbay-labs",
+  "homepage": "https://github.com/backbay-labs/hush",
+  "skills": []
+}
