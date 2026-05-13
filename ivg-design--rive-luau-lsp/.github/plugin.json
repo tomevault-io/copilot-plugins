@@ -1,0 +1,9 @@
+{
+  "name": "ivg-design--rive-luau-lsp",
+  "displayName": "rive-luau-lsp",
+  "description": "VS Code language server for Rive's Luau scripting \u2014 rich tooltips, autocomplete, diagnostics, and IntelliSense for artists and designers",
+  "version": "1.0.0",
+  "author": "ivg-design",
+  "homepage": "https://github.com/ivg-design/rive-luau-lsp",
+  "skills": []
+}
