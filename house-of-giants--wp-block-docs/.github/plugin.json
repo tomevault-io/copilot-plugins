@@ -1,0 +1,9 @@
+{
+  "name": "house-of-giants--wp-block-docs",
+  "displayName": "wp-block-docs",
+  "description": "A searchable reference for WordPress Gutenberg block markup",
+  "version": "1.0.0",
+  "author": "house-of-giants",
+  "homepage": "https://github.com/house-of-giants/wp-block-docs",
+  "skills": []
+}
