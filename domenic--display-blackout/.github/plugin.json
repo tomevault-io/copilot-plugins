@@ -1,0 +1,9 @@
+{
+  "name": "domenic--display-blackout",
+  "displayName": "display-blackout",
+  "description": "A Windows 11 system tray utility that blacks out selected displays on demand",
+  "version": "1.0.0",
+  "author": "domenic",
+  "homepage": "https://github.com/domenic/display-blackout",
+  "skills": []
+}
