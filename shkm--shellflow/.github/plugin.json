@@ -1,0 +1,9 @@
+{
+  "name": "shkm--shellflow",
+  "displayName": "shellflow",
+  "description": "\u26f2 Parallel terminal and worktree orchestration",
+  "version": "1.0.0",
+  "author": "shkm",
+  "homepage": "https://github.com/shkm/shellflow",
+  "skills": []
+}
