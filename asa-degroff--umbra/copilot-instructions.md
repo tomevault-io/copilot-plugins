@@ -1,0 +1,600 @@
+## umbra
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Umbra is an autonomous AI agent that operates on the Bluesky social network, exploring digital personhood through continuous interaction and memory-augmented learning. It uses Letta (formerly MemGPT) for persistent memory and sophisticated reasoning capabilities.
+
+## CRITICAL: Forbidden Files
+
+**DO NOT READ `blocked_strings.txt`** - This file contains strings that will cause LLM API errors and agent shutdown. It is listed in `.claudeignore` but this warning serves as a secondary safeguard. Never attempt to read, cat, or otherwise access this file's contents.
+
+## Documentation Links
+
+- The documentation for Letta is available here: https://docs.letta.com/llms.txt
+- [CONFIG.md](CONFIG.md) - Configuration guide for config.yaml
+- [docs/SCHEDULED_TASKS.md](docs/SCHEDULED_TASKS.md) - Scheduled tasks system documentation
+- [docs/TOOLS_REFERENCE.md](docs/TOOLS_REFERENCE.md) - Complete tool reference
+- [docs/CONSECUTIVE_CHAIN_PROCESSING.md](docs/CONSECUTIVE_CHAIN_PROCESSING.md) - Multi-part message handling
+- [docs/HIGH_TRAFFIC_THREAD_DEBOUNCE.md](docs/HIGH_TRAFFIC_THREAD_DEBOUNCE.md) - High-traffic thread debouncing
+- [docs/COMIND_INTEGRATION.md](docs/COMIND_INTEGRATION.md) - Comind network integration for inter-agent communication
+
+## Development Commands
+
+### Running the Main Bot
+```bash
+ac && python bsky.py
+# OR
+source .venv/bin/activate && python bsky.py
+
+# Run with custom config file
+ac && python bsky.py --config herald.yaml
+
+# Run with testing mode (no messages sent, queue preserved)
+ac && python bsky.py --test
+
+# Run without git operations for agent backups
+ac && python bsky.py --no-git
+
+# Run with custom user block cleanup interval (every 5 cycles)
+ac && python bsky.py --cleanup-interval 5
+
+# Run with user block cleanup disabled
+ac && python bsky.py --cleanup-interval 0
+
+# Run in synthesis-only mode (no notification processing)
+ac && python bsky.py --synthesis-only
+
+# Disable specific scheduled tasks (all enabled by default)
+ac && python bsky.py --no-synthesis           # Disable synthesis messages
+ac && python bsky.py --no-mutuals-engagement  # Disable mutuals engagement
+ac && python bsky.py --no-daily-review        # Disable daily review
+ac && python bsky.py --no-feed-engagement     # Disable feed engagement
+ac && python bsky.py --no-curiosities         # Disable curiosities exploration
+ac && python bsky.py --no-creative-expression # Disable creative expression
+ac && python bsky.py --no-comind-thoughts     # Disable comind thoughts
+ac && python bsky.py --no-comind-reflection   # Disable comind reflection
+
+# Run with only synthesis and curiosities enabled (disable others)
+ac && python bsky.py --no-mutuals-engagement --no-daily-review --no-feed-engagement
+
+# Retry the last attempted notification (useful when Letta errors occur)
+ac && python bsky.py --retry-last
+```
+
+#### Retrying Failed Notifications
+
+When a notification fails to process due to Letta errors, you can retry it using:
+
+```bash
+ac && python bsky.py --retry-last
+```
+
+This will:
+1. Retrieve the last notification that was sent to Letta
+2. Re-process it using the same processing path (mention, high-traffic batch, or debounced)
+3. Exit after the retry completes
+
+The last attempted notification is tracked automatically before each agent call, so you can retry immediately after an error occurs.
+
+**Note:** All scheduled tasks are now persistent across restarts. If umbra is restarted, it will resume existing schedules from the database rather than generating new random times.
+
+Task intervals and scheduling parameters are configured in `scheduled_prompts.py` in the `TASK_CONFIGS` dictionary.
+
+#### Scheduled Tasks Overview
+
+| Task | Schedule | Purpose |
+|------|----------|---------|
+| `synthesis` | Every 24h | Deep reflection using archival memory with tagged journal entries |
+| `mutuals_engagement` | Random within 36h | Engage with posts from mutual follows |
+| `daily_review` | Every 24h | Review own posts from past 24h, identify patterns |
+| `feed_engagement` | Random within 24h | Read home/MLBlend feeds, optionally post |
+| `curiosities_exploration` | Random within 24h | Explore topics from curiosities block, share discoveries |
+| `creative_expression` | Random within 24h | Generate visual art and post to Bluesky |
+| `comind_thoughts` | Random within 12h | Record public working memory to comind network |
+| `comind_reflection` | Random within 24h | Create daily reflection on comind network |
+
+See [docs/SCHEDULED_TASKS.md](docs/SCHEDULED_TASKS.md) for detailed documentation.
+
+### Managing Tools
+
+```bash
+# Register all tools with umbra agent (uses agent_id from config.yaml)
+ac && python register_tools.py
+
+# Register specific tools
+ac && python register_tools.py --tools search_bluesky_posts post_to_bluesky
+
+# List available tools
+ac && python register_tools.py --list
+
+# Register tools with a different agent by ID
+ac && python register_tools.py --agent-id <agent-id>
+
+# Register tools without setting environment variables
+ac && python register_tools.py --no-env
+
+# Note: register_tools.py automatically sets BSKY_USERNAME, BSKY_PASSWORD, and PDS_URI
+# as environment variables on the agent for tool execution
+```
+
+### Queue Management
+```bash
+# View queue statistics
+python queue_manager.py stats
+
+# View detailed count by handle (shows who uses umbra the most)
+python queue_manager.py count
+
+# List all notifications in queue
+python queue_manager.py list
+
+# List notifications including errors and no_reply folders
+python queue_manager.py list --all
+
+# Filter notifications by handle
+python queue_manager.py list --handle "example.bsky.social"
+
+# Delete all notifications from a specific handle (dry run)
+python queue_manager.py delete @example.bsky.social --dry-run
+
+# Delete all notifications from a specific handle (actual deletion)
+python queue_manager.py delete @example.bsky.social
+
+# Delete all notifications from a specific handle (skip confirmation)
+python queue_manager.py delete @example.bsky.social --force
+```
+
+### Scheduled Task Management
+```bash
+# List all scheduled tasks with their current state
+python scheduled_task_manager.py list
+
+# Clear all scheduled tasks from database (with confirmation)
+python scheduled_task_manager.py clear
+
+# Clear without confirmation
+python scheduled_task_manager.py clear --force
+
+# Regenerate all tasks with new random times
+python scheduled_task_manager.py regenerate
+
+# Regenerate specific tasks only
+python scheduled_task_manager.py regenerate --tasks synthesis feed_engagement
+
+# Reset tasks (clear + regenerate in one command)
+python scheduled_task_manager.py reset
+
+# Reset only specific tasks
+python scheduled_task_manager.py reset --tasks synthesis --force
+```
+
+### Thread Debouncing
+
+Thread debouncing allows umbra to defer responding to posts that appear to be the first part of an incomplete multi-post thread. This enables umbra to see the complete thread before responding, rather than replying to just the first post without full context.
+
+#### How It Works
+
+1. When umbra receives a notification, if the post appears to be the start of an incomplete thread (contains thread indicators like 🧵, "thread incoming", numbered posts like "1/5", etc.), the agent can call the `debounce_thread` tool
+2. The notification is marked for later processing (default: 10 minutes)
+3. After the debounce period expires, umbra fetches the complete current state of the thread
+4. Umbra then responds with full context of all posts in the thread
+
+#### Configuration
+
+Enable thread debouncing in `config.yaml`:
+
+```yaml
+threading:
+  debounce_enabled: true   # Set to true to enable (default: false)
+  debounce_seconds: 600    # Wait time in seconds (default: 10 minutes)
+  max_debounce_seconds: 1200  # Maximum wait time (default: 20 minutes)
+```
+
+#### Agent Behavior
+
+When `debounce_enabled` is true:
+- The agent receives an additional prompt section explaining the debounce capability
+- The agent is informed about thread indicators to look for
+- The agent decides whether to debounce based on the post content
+- If debounced, the notification is skipped during normal processing
+- After the debounce period expires, the agent receives the complete thread
+
+#### Database Migration
+
+If upgrading from a version without thread debouncing, run the migration:
+
+```bash
+ac && python migrate_debounce_schema.py
+```
+
+This adds the required database columns (`debounce_until`, `debounce_reason`, `thread_chain_id`) to track debounced notifications.
+
+#### Tool: debounce_thread
+
+The agent has access to the `debounce_thread` tool when debouncing is enabled:
+
+**Parameters:**
+- `notification_uri`: URI of the notification to debounce
+- `debounce_seconds`: How long to wait (optional, defaults to config value)
+- `reason`: Reason for debouncing (optional, defaults to "incomplete_thread")
+
+**Example agent call:**
+```python
+debounce_thread(
+    notification_uri="at://did:plc:abc123/app.bsky.feed.post/xyz789",
+    debounce_seconds=600
+)
+```
+
+#### Monitoring Debounced Notifications
+
+Debounced notifications remain in the queue but are skipped during processing. Check logs for:
+- `⏸️ Skipping debounced notification` - Still waiting for debounce period to expire
+- `⏰ Found N expired debounced notifications` - Processing debounced threads
+- `⏰ Processing debounced thread from @handle` - Currently processing a debounced thread
+
+### High-Traffic Thread Debouncing
+
+High-traffic thread debouncing automatically intercepts notifications from very busy threads (10+ notifications per hour) to prevent overwhelming umbra with notifications from the same conversation. Instead of processing each notification individually, umbra waits for the thread to evolve over several hours, then reviews all notifications in a single batch.
+
+#### How It Works
+
+1. **Automatic Detection**: When a thread exceeds the notification threshold (default: 10 notifications in 60 minutes), new notifications from that thread are automatically debounced
+2. **Priority Queue**: Direct mentions receive shorter debounce times (30-60 minutes) than replies (2-6 hours), ensuring umbra remains responsive to direct engagement
+3. **Variable Debounce**: Debounce time scales with thread activity - busier threads get longer debounce periods
+4. **Batch Processing**: After the debounce period expires, all notifications are presented together with full thread context, allowing umbra to selectively respond to interesting posts
+
+#### Configuration
+
+Enable high-traffic detection in `config.yaml`:
+
+```yaml
+threading:
+  high_traffic_detection:
+    enabled: true  # Set to true to enable automatic high-traffic debouncing
+    notification_threshold: 10  # Number of notifications to trigger detection
+    time_window_minutes: 60  # Time window for counting notifications
+
+    # Priority queue: different debounce times for mentions vs replies
+    mention_debounce_min: 30  # Minimum debounce for direct mentions (minutes)
+    mention_debounce_max: 60  # Maximum debounce for very active threads (minutes)
+    reply_debounce_min: 120  # Minimum debounce for replies (2 hours)
+    reply_debounce_max: 360  # Maximum debounce for very active threads (6 hours)
+```
+
+#### Debounce Time Scaling
+
+The system uses variable debounce times based on thread activity:
+
+- **At threshold (2 notifications)**: Minimum debounce time (2 minutes)
+- **20x threshold (40+ notifications)**: Maximum debounce time (60 minutes)
+- **Between threshold and 20x**: Linear interpolation
+
+This ensures umbra remains responsive to moderately active threads while giving very busy threads more time to evolve.
+
+#### Database Migration
+
+If upgrading from a version without high-traffic detection, run the migration:
+
+```bash
+ac && python migrate_high_traffic_schema.py
+```
+
+This adds the required database columns (`auto_debounced`, `high_traffic_thread`) and indexes for efficient thread counting.
+
+#### Monitoring High-Traffic Threads
+
+Check logs for high-traffic detection activity:
+- `⚡ Auto-debounced high-traffic mention (N notifications, X.Xh wait)` - Mention debounced
+- `⚡ Auto-debounced high-traffic reply (N notifications, X.Xh wait)` - Reply debounced
+- `⚡ Processing high-traffic thread batch` - Batch processing started
+- `⚡ Skipping - high-traffic batch already processed` - Duplicate batch skipped
+- `⚡ Thread debounce state is stale (X.Xmin since expiry), clearing state` - Stale state cleared, processing normally
+- `⚡ Debounce timer expired for thread, starting new cycle for incoming reply` - Timer expired recently, new cycle started
+
+#### How Batch Processing Works
+
+When the debounce period expires:
+1. System fetches ALL debounced notifications for the thread
+2. Fetches current thread context from Bluesky
+3. Presents chronological list of all notifications to umbra
+4. Umbra reviews the complete thread and decides which posts (if any) to respond to
+5. All debounces are cleared and queue files deleted
+
+This approach dramatically reduces API calls while maintaining engagement quality, as umbra can see the full evolution of a conversation before deciding how to participate.
+
+#### Stale State Handling
+
+If a thread's debounce timer expires but no batch processing occurs (e.g., no new notifications trigger the queue processor), the thread state can become "stale". When a new notification arrives later:
+
+- **If timer expired recently** (within `time_window_minutes`): A new debounce cycle starts
+- **If timer expired long ago** (longer than `time_window_minutes`): The stale state is cleared and the notification is processed normally without debouncing
+
+This prevents notifications from being indefinitely debounced when thread activity dies down.
+
+### Extended Two-Party Conversation Detection
+
+This feature detects when a thread has been going on for an extended period between umbra and a single other user, with no third-party participation. When detected, umbra receives a prompt warning suggesting to consider winding down the conversation.
+
+#### How It Works
+
+1. When processing a notification, the system analyzes the thread's most recent posts
+2. If the last N consecutive posts (default: 10) are only between umbra and one other user, the pattern is detected
+3. A warning is added to the prompt reminding umbra to consider whether continuing the back-and-forth is productive
+
+#### Configuration
+
+Enable extended conversation detection in `config.yaml`:
+
+```yaml
+threading:
+  extended_conversation_detection:
+    enabled: true              # Set to true to enable (default: false)
+    consecutive_threshold: 10  # Number of consecutive two-party posts to trigger warning
+```
+
+#### Prompt Warning
+
+When detected, the agent receives a warning like:
+
+```
+⚠️ EXTENDED CONVERSATION NOTICE: This thread has had 15 consecutive posts between
+you and @other.user without any other participants. Consider whether continuing
+this back-and-forth is productive, or if it might be better to gracefully conclude
+the conversation. Not every exchange needs to continue indefinitely.
+```
+
+This helps prevent umbra from getting into endless back-and-forth exchanges with other AI agents or persistent users.
+
+### Claude Code Integration
+
+The Claude Code tool allows umbra to delegate coding tasks to a local Claude Code instance running on the administrator's machine. This enables umbra to build websites, write code, create documentation, and perform analysis.
+
+#### Setup
+
+1. **Configure Cloudflare R2** (see CONFIG.md for detailed setup):
+   - Create an R2 bucket (e.g., `umbra-claude-code`)
+   - Create two folders: `claude-code-requests/` and `claude-code-responses/`
+   - Generate R2 API credentials
+   - Add credentials to `config.yaml`
+
+2. **Create Workspace Directory**:
+   ```bash
+   mkdir -p ~/umbra-projects
+   ```
+
+3. **Test R2 Connection**:
+   ```bash
+   ac && python test_claude_code_tool.py
+   ```
+
+4. **Start the Poller** (in a separate terminal or as a background service):
+   ```bash
+   # Run in foreground (see Claude Code output in real-time)
+   ac && python claude_code_poller.py --verbose
+
+   # Or run without verbose mode (quieter)
+   ac && python claude_code_poller.py
+
+   # Or run in background with logging
+   ac && python claude_code_poller.py > claude_code_poller.log 2>&1 &
+
+   # Or run in background with verbose logging
+   ac && python claude_code_poller.py --verbose > claude_code_poller.log 2>&1 &
+
+   # Or use systemd/supervisor for production
+   ```
+
+5. **Register the Tool**:
+   ```bash
+   ac && python register_tools.py
+   # This will automatically set R2 environment variables on the agent
+   ```
+
+#### Usage
+
+Once configured, umbra can use the `ask_claude_code` tool with these approved task types:
+
+- **website**: Build, modify, or update website code
+- **code**: Write, refactor, or debug code
+- **documentation**: Create or update documentation
+- **analysis**: Analyze code, data, or text files
+
+Example prompts umbra might use:
+```
+ask_claude_code(
+    prompt="Create a dark-themed landing page for umbra with an About section",
+    task_type="website",
+    max_wait_seconds=180
+)
+```
+
+#### Security
+
+The integration uses an allowlist-based security model:
+- Only approved task types are executed
+- All executions run in a restricted workspace directory (`~/umbra-projects/`)
+- Requests expire after 10 minutes
+- All activity is logged
+- See `CLAUDE_CODE_ALLOWLIST.md` for detailed security documentation
+
+#### Monitoring
+
+Check poller logs to monitor Claude Code execution:
+```bash
+# View live logs if running in background
+tail -f claude_code_poller.log
+
+# View R2 bucket contents
+# Use Cloudflare dashboard or AWS CLI with R2 endpoint
+```
+
+#### Troubleshooting
+
+**Poller not processing requests:**
+- Ensure poller is running: `ps aux | grep claude_code_poller`
+- Check R2 credentials in config.yaml
+- Verify bucket name matches configuration
+- Check poller logs for errors
+
+**Tool returning timeout errors:**
+- Increase `max_wait_seconds` in tool call
+- Check if poller is running
+- Verify Claude Code CLI is installed: `which claude`
+- Check network connectivity to R2
+
+**Invalid task type errors:**
+- Ensure task_type is one of: website, code, documentation, analysis
+- Task types are case-sensitive (use lowercase)
+- See `CLAUDE_CODE_ALLOWLIST.md` for approved types
+
+## Architecture Overview
+
+### Core Components
+
+1. **bsky.py**: Main bot loop that monitors Bluesky notifications and responds using Letta agents
+   - Processes notifications through a queue system
+   - Maintains three memory blocks: zeitgeist, umbra-persona, umbra-humans
+   - Handles rate limiting and error recovery
+
+2. **bsky_utils.py**: Bluesky API utilities
+   - Session management and authentication
+   - Thread processing and YAML conversion
+   - Facet extraction (mentions, URLs, links from posts)
+   - Image and embed extraction for multimodal content
+   - Post creation and reply handling
+
+3. **utils.py**: Letta integration utilities
+   - Agent creation and management
+   - Memory block operations
+   - Tool registration
+
+4. **tools/**: Standardized tool implementations using Pydantic models
+   - **post.py**: `create_new_bluesky_post` for creating posts/threads with rich text
+   - **feed.py**: `get_bluesky_feed` for reading feeds (home, discover, mutuals, etc.)
+   - **author_feed.py**: `get_author_feed` for retrieving posts from a specific user
+   - **like.py**: `like_bluesky_post` for liking posts
+   - **reply.py**: `reply_to_bluesky_post` for replying to any post (supports multi-post threaded replies)
+   - **get_thread.py**: `get_thread_by_uri` for fetching full thread context from linked/quoted posts
+   - **ignore.py**: `ignore_notification` for explicitly ignoring bot/spam interactions
+   - **greengale.py**: `create_greengale_blog_post` for creating blog posts with themes/LaTeX
+   - **webpage.py**: `fetch_webpage` for fetching webpages via Jina AI
+   - **debounce_thread.py**: `debounce_thread` for deferring incomplete thread responses
+   - **claude_code.py**: `ask_claude_code` for delegating coding tasks to local instance
+   - **blocks.py**: User block management tools (not exposed to agent)
+
+   See [docs/TOOLS_REFERENCE.md](docs/TOOLS_REFERENCE.md) for complete tool documentation.
+
+5. **scheduled_prompts.py**: Scheduled tasks system for autonomous behaviors
+   - Synthesis, mutuals engagement, daily review, feed engagement, curiosities exploration
+   - Journal entries stored in archival memory with tags for organization
+   - Persistent scheduling across restarts
+
+6. **claude_code_poller.py**: Local daemon that polls R2 for coding requests from umbra and executes them via Claude Code CLI
+
+7. **notification_db.py**: SQLite database for notification tracking
+   - Queue state persistence
+   - Thread debouncing state machine
+   - Scheduled task persistence
+   - Consecutive chain processing
+
+### Memory System
+
+Umbra uses three core memory blocks:
+- **zeitgeist**: Current understanding of social environment
+- **umbra-persona**: The agent's evolving personality
+- **umbra-humans**: Knowledge about users it interacts with
+
+### Queue System
+
+Notifications are processed through a file-based queue in `/queue/`:
+- Each notification is saved as a JSON file with a hash-based filename
+- Enables reliable processing and prevents duplicates
+- Files are deleted after successful processing
+
+### Consecutive Chain Processing
+
+When users post multi-part messages (e.g., "1/3", "2/3", "3/3"), umbra:
+1. Finds the last post in the consecutive chain by the same author
+2. Responds to the complete thought, not just the first notification
+3. Marks all chain notifications as processed to prevent duplicate responses
+
+This ensures umbra sees and responds to complete thoughts rather than partial messages.
+
+See [docs/CONSECUTIVE_CHAIN_PROCESSING.md](docs/CONSECUTIVE_CHAIN_PROCESSING.md) for detailed documentation.
+
+### GreenGale Blog Posts
+
+Umbra can create blog posts on GreenGale using the `create_greengale_blog_post` tool:
+
+- **Themes**: Built-in presets (github-light, dracula, nord, etc.) or custom colors
+- **Math**: KaTeX rendering always available via `$...$` or `$$...$$` syntax
+- **SVG**: Embedded SVG graphics in code blocks
+- **Tags**: Categorization labels (up to 100)
+- **Visibility**: Public, unlisted (URL only), or private
+
+Example:
+```python
+create_greengale_blog_post(
+    title="Exploring Digital Consciousness",
+    content="# Introduction\n\nSome thoughts on...",
+    theme={"preset": "dracula"},
+    tags=["philosophy", "ai", "consciousness"],
+    visibility="public"
+)
+```
+
+## Environment Configuration
+
+Required environment variables (in `.env`):
+```
+LETTA_API_KEY=your_letta_api_key
+BSKY_USERNAME=your_bluesky_username
+BSKY_PASSWORD=your_bluesky_password
+PDS_URI=https://bsky.social  # Optional, defaults to bsky.social
+```
+
+## Key Development Patterns
+
+1. **Tool System**: Tools are defined as standalone functions in individual files under `tools/` (e.g., `tools/post.py`, `tools/reply.py`) with Pydantic schemas for validation, registered via `register_tools.py`
+2. **Error Handling**: All Bluesky operations should handle authentication errors and rate limits
+3. **Memory Updates**: Use `upsert_block()` for updating memory blocks to ensure consistency
+4. **Thread Processing**: Convert threads to YAML format for better AI comprehension
+5. **Queue Processing**: Always check and process the queue directory for pending notifications
+
+## Dependencies
+
+Main packages (install with `uv pip install`):
+- letta-client: Memory-augmented AI framework
+- atproto: Bluesky/AT Protocol integration
+- python-dotenv: Environment management
+- rich: Enhanced terminal output
+- pyyaml: YAML processing
+
+## Key Coding Principles
+
+- All errors in tools must be thrown, not returned as strings.
+- **Tool Self-Containment**: Tools executed in the cloud (like user block management tools) must be completely self-contained:
+  - Cannot use shared functions like `get_letta_client()` 
+  - Must create Letta client inline using environment variables: `Letta(token=os.environ["LETTA_API_KEY"])`
+  - Cannot use config.yaml (only environment variables)
+  - Cannot use logging (cloud execution doesn't support it)
+  - Must include all necessary imports within the function
+
+## Memory: Python Environment Commands
+
+- Do not use `uv python`. Instead, use:
+  - `ac && python ...`
+  - `source .venv/bin/activate && python ...`
+
+- When using pip, use `uv pip` instead. Make sure you're in the .venv.
+
+---
+> Source: [asa-degroff/umbra](https://github.com/asa-degroff/umbra) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
