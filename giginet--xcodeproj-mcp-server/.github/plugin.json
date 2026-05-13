@@ -1,0 +1,9 @@
+{
+  "name": "giginet--xcodeproj-mcp-server",
+  "displayName": "xcodeproj-mcp-server",
+  "description": "A Model Context Protocol Server to manipulate *.xcodeproj",
+  "version": "1.0.0",
+  "author": "giginet",
+  "homepage": "https://github.com/giginet/xcodeproj-mcp-server",
+  "skills": []
+}
