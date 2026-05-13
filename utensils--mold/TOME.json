@@ -4,7 +4,7 @@
   "repo": "mold",
   "description": "Local AI image generation CLI \u2014 FLUX, SD 1.5, SDXL & Z-Image diffusion models on your GPU",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/utensils/mold",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T09:05:59Z"
+  "distributed_at": "2026-05-13T01:09:16Z"
 }
