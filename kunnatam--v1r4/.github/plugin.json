@@ -1,0 +1,9 @@
+{
+  "name": "kunnatam--v1r4",
+  "displayName": "V1R4",
+  "description": "Voice avatar for Claude Code. Local TTS, lipsync, cursor tracking, and mood expressions. Powered by Kokoro, Three.js, and Tauri.",
+  "version": "1.0.0",
+  "author": "Kunnatam",
+  "homepage": "https://github.com/Kunnatam/V1R4",
+  "skills": []
+}
