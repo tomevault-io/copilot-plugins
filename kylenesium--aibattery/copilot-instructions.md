@@ -1,0 +1,91 @@
+## aibattery
+
+> macOS menu bar app showing Claude API usage at a glance. Built with Swift/SwiftUI, SPM, macOS 13+.
+
+# AI Battery — AI Agent Guide
+
+macOS menu bar app showing Claude API usage at a glance. Built with Swift/SwiftUI, SPM, macOS 13+.
+
+## Spec-Driven Workflow
+
+The `spec/` folder is the single source of truth.
+
+1. **Spec first** — describe the desired state in the relevant spec file
+2. **Code second** — update code to match the spec
+3. **Never diverge** — if you find spec/code drift, fix the spec first
+4. **Before any push to main** — ensure all spec files and `README.md` reflect the current state of the code. No merge goes out with stale docs.
+
+| File | Covers |
+|------|--------|
+| `spec/ARCHITECTURE.md` | App structure, data flow, project tree, build config |
+| `spec/DATA_LAYER.md` | Models, services, algorithms, ViewModel |
+| `spec/UI_SPEC.md` | Views, layout, colors, typography, ASCII mockup |
+| `spec/CONSTANTS.md` | Every hardcoded value: thresholds, URLs, timings |
+
+## Build & Run
+
+```bash
+swift build -c release
+
+# Bundle and launch
+mkdir -p .build/AIBattery.app/Contents/MacOS
+cp .build/release/AIBattery .build/AIBattery.app/Contents/MacOS/
+cp AIBattery/Info.plist .build/AIBattery.app/Contents/
+open .build/AIBattery.app
+```
+
+## Testing
+
+```bash
+# Run all tests (requires Xcode installed for Swift Testing framework)
+swift test
+```
+
+Tests use Swift's `Testing` framework with `@testable import AIBatteryCore`.
+
+The package has 3 SPM targets:
+- **AIBatteryCore** (`.target`) — all logic: models, services, views, utilities
+- **AIBattery** (`.executableTarget`) — thin `@main` entry point, imports AIBatteryCore
+- **AIBatteryCoreTests** (`.testTarget`) — unit tests, `@testable import AIBatteryCore`
+
+CI runs on every push via GitHub Actions (`macos-15` runner): build → test → bundle.
+
+## Code Conventions
+
+- **Singletons**: Services use `static let shared`
+- **Models**: Plain structs, `Codable` where needed
+- **Views**: Data via init params — no `EnvironmentObject`
+- **State**: `UsageViewModel` is the only `ObservableObject` (`@MainActor`)
+- **Formatting**: `TokenFormatter` for numbers, `ModelNameMapper` for model IDs
+- **Dependencies**: Sparkle 2 for auto-update + Apple frameworks
+- **File naming**: One primary type per file, filename matches type name
+
+## Key Design Decisions
+
+These aren't obvious from reading the code — know them before making changes:
+
+- Claude Code 5-hour / 7-day usage may come from Claude Code client metadata rather than public `/v1/messages` headers
+- Legacy unified `anthropic-ratelimit-unified-*` headers still exist in some paths, but public Anthropic API docs now describe standard `anthropic-ratelimit-*` headers instead
+- JSONL must be streamed via `FileHandle` (never load full file into memory)
+- JSONL tokens must not double-count with `stats-cache.json` (see DATA_LAYER.md)
+- `OAuthManager.exchangeCode()` returns `Result<Void, AuthError>` — callers handle typed errors. Validates state parameter for CSRF protection.
+- `APIFetchResult.isCached` distinguishes fresh API data from stale cache — always check before treating as fresh. Cache expires after 1 hour.
+- OAuth refresh: transient errors (network + server 5xx) keep `isAuthenticated` true (retry next cycle); only auth errors trigger logout. Token endpoint retries 5xx up to 2 times with backoff. Token refresh fires 5 min before expiry to avoid clock-skew 401s. Concurrent refresh attempts are serialized via a shared task.
+- StatusChecker backs off 60s after failures — no immediate retries
+- SessionLogReader per-file cache stores fingerprints only (modDate + fileSize); raw entry arrays released after merge into cachedAllEntries. On dirty cycle, only changed files re-parsed — eliminates double-storage. Trailing JSONL lines without closing `}` are skipped; leftover buffer capped at 1MB (oversized lines discarded)
+- NotificationManager fires once per outage via `UNUserNotificationCenter`, deduplicates per component, resets on recovery
+- `~/.claude.json` oauthAccount may not match the OAuth token's org if user switched accounts
+
+## Security
+
+- OAuth refresh token lives in macOS Keychain under service `"AIBattery"` — access token is memory-only (re-derived from refresh on launch), expiry timestamp in UserDefaults. Only 1 Keychain item per account to minimize Sparkle update prompts.
+- Never log token values — mask or redact in error messages
+- JSONL reads are token-count-only — never parse, store, or display message content
+- Notifications use `UNUserNotificationCenter` — no shell process or string escaping needed
+- PKCE (SHA-256) protects the OAuth code exchange — the verifier never leaves the process
+- App bundle is ad-hoc codesigned with hardened runtime — gives Keychain a stable identity for ACL whitelisting
+- All network requests use HTTPS with system certificate validation — no custom trust or pinning overrides
+
+---
+> Source: [KyleNesium/AIBattery](https://github.com/KyleNesium/AIBattery) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
