@@ -4,7 +4,7 @@
   "repo": "xllm",
   "description": "A high-performance inference engine for LLM, VLM, DiT and REC models, optimized for diverse AI accelerators.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jd-opensource/xllm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T18:44:46Z"
+  "distributed_at": "2026-05-13T07:04:20Z"
 }
