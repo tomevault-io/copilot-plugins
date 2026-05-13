@@ -1,0 +1,44 @@
+{
+  "name": "remote-controller",
+  "owner": "isongxw",
+  "repo": "remote-controller",
+  "description": "\u4e00\u4e2a\u57fa\u4e8e Python Flask \u7684\u73b0\u4ee3\u5316\u8fdc\u7a0b\u63a7\u5236\u5e94\u7528\uff0c\u901a\u8fc7 Web \u754c\u9762\u5b9e\u73b0\u5bf9\u8ba1\u7b97\u673a\u952e\u76d8\u3001\u9f20\u6807\u548c\u89e6\u6478\u677f\u7684\u8fdc\u7a0b\u63a7\u5236\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/isongxw/remote-controller",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T12:31:46Z"
+}
