@@ -1,0 +1,9 @@
+{
+  "name": "ksdme--ut",
+  "displayName": "ut",
+  "description": "A Rust based utilty toolbox for developers. Inspired from https://it-tools.tech",
+  "version": "1.0.0",
+  "author": "ksdme",
+  "homepage": "https://github.com/ksdme/ut",
+  "skills": []
+}
