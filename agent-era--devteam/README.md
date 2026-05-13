@@ -7,11 +7,11 @@ Run a team of local coding agents in your terminal. Launch multiple Claude Code,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [agent-era/devteam](https://github.com/agent-era/devteam).
+Original source: `CLAUDE.md` in [agent-era/devteam](https://github.com/agent-era/devteam).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
