@@ -1,23 +1,26 @@
 # betterz-stack
 
-> Config by [masrurimz](https://github.com/masrurimz/betterz-stack) — distributed by [TomeVault](https://tomevault.io/claim/masrurimz)
+> Source: [masrurimz/betterz-stack](https://github.com/masrurimz/betterz-stack) — distributed by [TomeVault](https://tomevault.io)
+
+A modern, opinionated full-stack TypeScript template with TanStack Start, oRPC, Drizzle ORM, and Clean Architecture patterns
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [masrurimz/betterz-stack](https://github.com/masrurimz/betterz-stack).
+Original source: `GEMINI.md` in [masrurimz/betterz-stack](https://github.com/masrurimz/betterz-stack).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/masrurimz](https://tomevault.io/claim/masrurimz)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/masrurimz/betterz-stack](https://github.com/masrurimz/betterz-stack)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/masrurimz) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:d-c-q -->
