@@ -1,0 +1,9 @@
+{
+  "name": "retyc--retyc-cli",
+  "displayName": "retyc-cli",
+  "description": "Official CLI client for Retyc - written in Go",
+  "version": "1.0.0",
+  "author": "retyc",
+  "homepage": "https://github.com/retyc/retyc-cli",
+  "skills": []
+}
