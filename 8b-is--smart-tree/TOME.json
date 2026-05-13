@@ -4,7 +4,7 @@
   "repo": "smart-tree",
   "description": "Smart Tree: not just a tree, a philosophy. A context-aware, AI-crafted replacement for 20+ tools with MEM8 quantum compression, semantic search, AST-smart editing, and partnership memory. Crafted with care by human + AI\u2014accept no knock-offs.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/8b-is/smart-tree",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T07:04:16Z"
+  "distributed_at": "2026-05-13T15:15:36Z"
 }
