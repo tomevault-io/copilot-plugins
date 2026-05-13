@@ -4,7 +4,7 @@
   "repo": "code-virtuoso",
   "description": "Skills, sub-agents, and playbooks for Claude Code, Cursor, and any Agent Skills-compatible AI coding assistant.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/krzysztofsurdy/code-virtuoso",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T13:06:00Z"
+  "distributed_at": "2026-05-13T02:48:27Z"
 }
