@@ -1,0 +1,9 @@
+{
+  "name": "judinilabs--mcp-code-graph",
+  "displayName": "mcp-code-graph",
+  "description": "MCP Server for code graph analysis and visualization by CodeGPT",
+  "version": "1.0.0",
+  "author": "JudiniLabs",
+  "homepage": "https://github.com/JudiniLabs/mcp-code-graph",
+  "skills": []
+}
