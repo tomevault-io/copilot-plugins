@@ -1,0 +1,9 @@
+{
+  "name": "pstrzalk--mcp-on-rails",
+  "displayName": "mcp-on-rails",
+  "description": "A Rails application template for bootstrapping Rails + MCP applications",
+  "version": "1.0.0",
+  "author": "pstrzalk",
+  "homepage": "https://github.com/pstrzalk/mcp-on-rails",
+  "skills": []
+}
