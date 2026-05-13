@@ -1,0 +1,9 @@
+{
+  "name": "hudy9x--uml",
+  "displayName": "uml",
+  "description": "A modern, intuitive desktop application for creating and editing UML diagrams with real-time rendering. Built using Tauri and React TypeScript",
+  "version": "1.0.0",
+  "author": "hudy9x",
+  "homepage": "https://github.com/hudy9x/uml",
+  "skills": []
+}
