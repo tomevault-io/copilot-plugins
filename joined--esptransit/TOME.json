@@ -4,7 +4,7 @@
   "repo": "ESPTransit",
   "description": "ESP32-P4 public transit departures display open firmware",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/joined/ESPTransit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T10:59:36Z"
+  "distributed_at": "2026-05-13T02:09:14Z"
 }
