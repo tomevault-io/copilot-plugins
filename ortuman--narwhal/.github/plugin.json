@@ -1,0 +1,9 @@
+{
+  "name": "ortuman--narwhal",
+  "displayName": "narwhal",
+  "description": "An extensible message broker for edge applications",
+  "version": "1.0.0",
+  "author": "ortuman",
+  "homepage": "https://github.com/ortuman/narwhal",
+  "skills": []
+}
