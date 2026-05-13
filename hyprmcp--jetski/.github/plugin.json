@@ -1,0 +1,9 @@
+{
+  "name": "hyprmcp--jetski",
+  "displayName": "jetski",
+  "description": "Authentication, analytics, and prompt visibility for MCP servers with zero code changes. Supports OAuth2.1, DCR, real-time logs, and client onboarding out of the box",
+  "version": "1.0.0",
+  "author": "hyprmcp",
+  "homepage": "https://github.com/hyprmcp/jetski",
+  "skills": []
+}
