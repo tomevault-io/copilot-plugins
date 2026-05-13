@@ -7,11 +7,11 @@ A development tool for building web3 games on Stellar
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jamesbachini/Stellar-Game-Studio](https://github.com/jamesbachini/Stellar-Game-Studio).
+Original source: `CLAUDE.md` in [jamesbachini/Stellar-Game-Studio](https://github.com/jamesbachini/Stellar-Game-Studio).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
