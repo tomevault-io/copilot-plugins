@@ -1,0 +1,30 @@
+# taskwarrior-ng
+
+> Tome by [meirm](https://github.com/meirm/taskwarrior-ng) — distributed by [TomeVault](https://tomevault.io)
+
+a Wrapper to share tasks between humans and AI agents
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [meirm/taskwarrior-ng](https://github.com/meirm/taskwarrior-ng).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+## Bundled Skills (1)
+
+- [taskwarrior](https://github.com/meirm/taskwarrior-ng/tree/main/examples/skills/taskwarrior)
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/meirm/taskwarrior-ng](https://github.com/meirm/taskwarrior-ng)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:t-c-p -->
