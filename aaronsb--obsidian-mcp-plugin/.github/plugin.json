@@ -1,0 +1,9 @@
+{
+  "name": "aaronsb--obsidian-mcp-plugin",
+  "displayName": "obsidian-mcp-plugin",
+  "description": "High-performance Model Context Protocol (MCP) server for Obsidian that provides AI tools with direct vault access through semantic operations and HTTP transport.",
+  "version": "1.0.0",
+  "author": "aaronsb",
+  "homepage": "https://github.com/aaronsb/obsidian-mcp-plugin",
+  "skills": []
+}
