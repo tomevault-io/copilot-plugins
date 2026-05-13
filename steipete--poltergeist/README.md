@@ -7,11 +7,11 @@ The ghost that keeps your builds fresh - Universal hot reload, file watcher and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [steipete/poltergeist](https://github.com/steipete/poltergeist).
+Original source: `CLAUDE.md` in [steipete/poltergeist](https://github.com/steipete/poltergeist).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
