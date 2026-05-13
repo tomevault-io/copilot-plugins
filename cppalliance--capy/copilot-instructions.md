@@ -1,6 +1,6 @@
-## doc-errors
+## doc-general
 
-> doc javadoc error error_code error_condition enum
+> doc javadoc for general types and functions
 
 
 - Keep the ascii-art to a minimum, only add dividers if the class declaration is very long
@@ -9,32 +9,27 @@
 - Never list std::bad_alloc
 - Don't document detail:: or implementation symbols
 
-**Rules for error_code enum javadocs:**
+**Rules for general type javadocs:**
 
-- **Brief** — One sentence stating the error category, e.g. "Error codes for WebSocket stream operations."
-- **Extended description** — State which operations produce these codes and which error category they belong to.
-- **Portability warning** — State explicitly that callers must never compare received `error_code` values against this enum directly. Received error codes should always be compared against error conditions, which are portable across implementations. These enum values are implementation details subject to change.
-- **Per-enumerator** — Each value gets a short description of the failure it represents.
-- **`@see`** — The corresponding error condition enum, the error category, and the functions that produce these codes.
+- **Brief** — One sentence stating what the type is and its primary purpose.
+- **Extended description** — What it does, when to use it, how it relates to other types in the library. Mention ownership semantics, copyability/movability, and thread safety if relevant.
+- **`@tparam`** — For each non-variadic template parameter, state its role and any concept requirements.
+- **`@par Example`** — One or more `@code` blocks showing construction and typical usage.
+- **`@note`** — Gotchas, lifetime constraints, or non-obvious behavior.
+- **`@see`** — Always last. Related types, concepts, and functions.
 
 ---
 
-**Rules for error_condition enum javadocs:**
+**Rules for general function javadocs:**
 
-- **Brief** — One sentence stating the condition category, e.g. "Portable error conditions for WebSocket operations."
-- **Extended description** — State that these are the conditions callers should compare against when handling errors. State which `error_code` enums map to these conditions.
-- **Per-enumerator** — Each value gets a description of the abstract failure class it represents, and under what circumstances a received `error_code` will compare equal to it. E.g. "An `error_code` compares equal to `canceled` when the stop token was activated or the i/o object's `cancel()` was called."
-- **`@par Example`** — A `@code` block showing idiomatic comparison:
-   ```cpp
-   auto [ec, n] = co_await stream.async_read(bufs);
-   if(ec == cond::canceled)
-       // handle cancellation
-   else if(ec == cond::end_of_stream)
-       // handle EOF
-   else if(ec)
-       // handle other errors
-   ```
-- **`@see`** — The corresponding error_code enum(s), the error category, and relevant operations.
+- **Brief** — One sentence starting with a verb describing what the function does. If it returns a value, start with "Return".
+- **Extended description** — Preconditions, what the function does, and any side effects. State complexity if non-obvious.
+- **`@param`** — For each parameter. Include ownership, lifetime, and validity requirements.
+- **`@return`** — What is returned and under what conditions the return value varies.
+- **`@throws`** — Each exception type and the condition that triggers it. If noexcept, say so.
+- **`@par Example`** — One or more `@code` blocks. More examples when the function has multiple usage patterns or overloads.
+- **`@note`** — Gotchas, performance considerations, or surprising behavior.
+- **`@see`** — Always last. Related functions, types, and concepts.
 
 ---
 > Source: [cppalliance/capy](https://github.com/cppalliance/capy) — distributed by [TomeVault](https://tomevault.io).
