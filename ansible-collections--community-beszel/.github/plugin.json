@@ -1,0 +1,9 @@
+{
+  "name": "ansible-collections--community-beszel",
+  "displayName": "community.beszel",
+  "description": "Ansible content to automate the configuration of Beszel Hub and Agents.",
+  "version": "1.0.0",
+  "author": "ansible-collections",
+  "homepage": "https://github.com/ansible-collections/community.beszel",
+  "skills": []
+}
