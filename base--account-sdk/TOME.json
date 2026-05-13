@@ -4,7 +4,7 @@
   "repo": "account-sdk",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/base/account-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T07:14:49Z"
+  "distributed_at": "2026-05-13T15:20:57Z"
 }
