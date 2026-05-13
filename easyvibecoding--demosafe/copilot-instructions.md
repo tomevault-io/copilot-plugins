@@ -1,0 +1,125 @@
+## demosafe
+
+> Demo-safe API Key Manager — macOS system-level tool that masks API keys during demos, livestreams, and tutorials. Three-layer architecture: Swift Core Engine + VS Code Extension + Chrome Extension.
+
+# CLAUDE.md
+
+## Project Overview
+
+Demo-safe API Key Manager — macOS system-level tool that masks API keys during demos, livestreams, and tutorials. Three-layer architecture: Swift Core Engine + VS Code Extension + Chrome Extension.
+
+## Git
+
+- **Author**: All commits MUST use `--author="easyvibecoding <easyvibecoding@gmail.com>"`
+- **Remote**: `git@github-easyvibecoding:easyvibecoding/demosafe.git` (SSH alias)
+- **Convention**: [Conventional Commits](https://www.conventionalcommits.org/) — `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`
+- **License**: Apache License 2.0 — all new files must be consistent
+
+## Build Commands
+
+```bash
+# TypeScript (from project root)
+npm install                    # Install all workspace dependencies
+npm run build:all              # Build shared + VS Code + Chrome extensions
+npm run lint                   # Lint all TypeScript workspaces
+npm run type-check             # Type check all TypeScript workspaces
+
+# Individual packages
+npm run build:vscode           # VS Code Extension only
+npm run build:chrome           # Chrome Extension only
+npm run build:shared           # Shared IPC protocol types only
+
+# Swift Core
+cd packages/swift-core
+swift build                    # Debug build
+swift build -c release         # Release build
+swift test                     # Run tests
+```
+
+## Project Structure
+
+```
+packages/
+├── swift-core/              # macOS Menu Bar App (Swift/SwiftUI, macOS 14+)
+├── vscode-extension/        # VS Code Extension (TypeScript, esbuild)
+└── chrome-extension/        # Chrome Extension (Manifest V3, esbuild)
+shared/
+└── ipc-protocol/            # Shared IPC type definitions (TypeScript)
+docs/                        # Architecture docs (Traditional Chinese)
+docs/en/                     # Architecture docs (English)
+files_demo/                  # Reference implementation for terminal masking
+```
+
+## Architecture
+
+```
+[VS Code Extension] <-> [Core Engine (Swift)] <-> [Chrome Extension]
+           WebSocket ws://127.0.0.1:{port}
+                           |
+                   [macOS Keychain]
+```
+
+- **IPC**: WebSocket on localhost, auto-assigned port, config at `~/.demosafe/ipc.json`
+- **Pattern sync**: Core → Extensions via `pattern_cache_sync` event
+- **State sync**: `state_changed` event broadcasts Demo Mode / Context changes
+
+## Security Red Lines
+
+These are absolute rules — never violate them:
+
+1. **Plaintext keys only flow**: Keychain → ClipboardEngine → NSPasteboard. No other path.
+2. **IPC never transmits plaintext** — only masked representations and key IDs
+3. **WebSocket binds to 127.0.0.1 ONLY** — no 0.0.0.0, no external interfaces
+4. **ipc.json permissions 600** — user read/write only
+5. **Handshake token required** — refreshed on every Core restart
+6. **Never commit real API keys** — use fake/test keys only
+
+## Key Technical Decisions
+
+- **MenuBarExtra**: Must use native menu style (Toggle, Button as direct children). Custom VStack layouts have broken click areas.
+- **Settings window**: `SettingsWindowController` with `NSApp.setActivationPolicy(.regular)` + `orderFrontRegardless()` for menu-bar-only apps.
+- **NWProtocolWebSocket**: `isComplete` in `receiveMessage` means per-message, NOT per-connection. Only close on error or `.close` opcode.
+- **VS Code Decoration**: Hide original text with `opacity: '0'` + `letterSpacing: '-1em'`; show masked text via `after` pseudo-element padded to original length.
+- **Chrome Content Script**: Must request `get_state` from background on load to get current Demo Mode state.
+- **Floating Toolbox**: Uses `NSPanel` (not NSWindow) with `.nonactivatingPanel` + `.floating` level. Does NOT call `setActivationPolicy(.regular)` — HUD must not show dock icon.
+- **HotkeyManager hold detection**: Must listen for `flagsChanged` events (not just keyDown/keyUp) to detect modifier key release. `CGEventType.flagsChanged` is the only way to detect ⌃/⌥ release.
+- **Keychain ACL**: Test keys must be added by DemoSafe itself (via `VaultManager.addKey`), NOT by external tools (`security` CLI or separate Swift scripts). Keychain ACL is bound to the creating binary's code signature — every recompile invalidates externally-created entries. DEBUG builds auto-seed test keys via `seedTestKeysIfNeeded()` in AppState.
+- **Platform patterns Single Source of Truth**: All platform definitions (regex, selectors, pre-hide CSS) are in `capture-patterns.ts`. To add a new platform: add ONE entry to `CAPTURE_PATTERNS[]` + add URL to `manifest.json`. `pre-hide.ts` and `masker.ts` import from it — no duplication.
+- **Pre-hide anti-flash**: Three layers: (1) Per-platform manifest CSS files (`dist/css/prehide-*.css`) injected before any JS; (2) `pre-hide.ts` at `document_start` with instant MutationObserver for dialogs; (3) Passive masking runs capture-before-mask to avoid race condition.
+- **Per-platform CSS isolation**: Separate CSS files per hostname generated by `scripts/generate-prehide-css.js` at build time. Each platform gets its own `content_scripts` entry in `manifest.json` to prevent cross-platform selector collisions.
+- **Clipboard writeText interception**: `clipboard-patch.ts` runs in `"world": "MAIN"` (page context) to patch `navigator.clipboard.writeText`. Dispatches `CustomEvent('demosafe-clipboard-write')` for content script (ISOLATED world) to listen. Needed for platforms using programmatic clipboard (AI Studio, AWS, Stripe).
+- **React SPA input masking**: For dialog inputs in React/Vue SPAs, do NOT set `visibility: visible` after masking — the framework overwrites `input.value` but keeps our inline styles, exposing plaintext. Instead, keep inputs hidden by manifest CSS.
+- **AWS dual-key capture**: AWS has Access Key ID (`AKIA...`, DOM scan) + Secret Access Key (no prefix, 40-char base64, clipboard-only capture via `isAwsConsolePage()` in `handleClipboardText()`).
+- **Toast stacking**: Multiple consecutive captures show stacked toasts (each calculates top offset from existing toasts) instead of replacing the previous one.
+- **NMH dual-path IPC**: NativeMessagingHost supports both `get_config` (direct ipc.json read) and WS relay (`get_state`, `submit_captured_key`, `toggle_demo_mode`). WS relay uses `URLSessionWebSocketTask` short-lived connection (~20-60ms). clientType `"nmh"` — Core skips NMH in broadcast. `sendRequest()` in service-worker.ts tries WS first, then NMH fallback.
+- **NMH no plaintext queue**: When both WS and NMH fail for `submit_captured_key`, the key is NOT queued to `chrome.storage.local`. Storing plaintext API keys in browser storage violates security red line #1. The key is lost and must be re-captured.
+- **NMH isConnected semantics**: NMH relay success does NOT set `state.isConnected = true` — NMH is a one-shot relay, not a persistent connection. Popup shows "Connected (NMH)" via `connectionPath` field only, while WS reconnect continues independently.
+- **NMHInstaller**: Core auto-installs NMH binary + Chrome manifest from app bundle Resources on startup. Uses binary file size comparison for version checking. `install.sh` retained as manual fallback.
+- **Smart Key Extraction confirmation dialog**: Three-tier confidence strategy: >= 0.7 auto-store, 0.35~0.7 mask + confirmation dialog, < 0.35 ignore. Dialog is inline content script overlay with editable service name, 30s auto-dismiss, Escape support, queue for multiple pending. rejectedKeys Set persists for page lifetime.
+- **Universal Masking/Detection toggles**: Two popup toggles (default OFF) extend masking and detection to non-supported platforms. Supported platforms unaffected — Demo Mode auto-enables both. Stored in chrome.storage.local.
+- **Generic key pattern**: `generic-key` pattern (confidence 0.50) matches common prefixes (key-, token-, api-, secret-, sk-, pk-, rk-) + 30+ char alphanumeric. prefix is empty string — KEY_PREFIXES filters empty prefixes to prevent containsFullKey() false positives.
+- **Turbo navigation pre-hide**: `turbo:before-render` listener in pre-hide.ts hides key elements in incoming body BEFORE Turbo renders. Prevents GitHub PAT flash on partial page transition.
+- **OpenAI pre-hide scope**: preHideCSS must NOT include `td.api-key-token .api-key-token-value` — these are truncated previews (sk-...QngA) that never match full patterns, causing permanent hidden state.
+- **Toast duration**: 25 seconds (changed from 10s for better visibility during demos).
+- **Sequential paste pre-fetch**: `SequentialPasteEngine` pre-fetches ALL key values from Keychain before starting the paste sequence. This ensures Keychain auth dialogs (if any) appear upfront, not between ⌘V→Tab→⌘V steps. Phase 2 writes directly to `NSPasteboard`, bypassing `ClipboardEngine.copyToClipboard`.
+- **CGEvent modifier isolation**: When simulating ⌘V followed by Tab, the Tab `CGEvent` must explicitly set `flags = []` to clear residual Command modifier. Without this, the system interprets Tab as ⌘Tab (app switcher). Use `CGEventSource(stateID: .combinedSessionState)` for isolated event sources.
+- **Paste key shortcut**: Changed from `⌃⌥[1-9]` to `⌃⌥⌘[1-9]` to avoid conflicts with system/app shortcuts. All ⌃⌥⌘ shortcuts are consistent: D (demo), V (capture), [1-9] (paste).
+- **Clipboard capture whitespace stripping**: `detectKeysInClipboard()` strips all whitespace and newlines from clipboard content before pattern matching (`components(separatedBy: .whitespacesAndNewlines).joined()`). API keys never contain spaces, but clipboard copy may introduce line breaks from word-wrap.
+- **Clipboard capture built-in patterns**: `ClipboardEngine.builtInCapturePatterns` contains 22 well-known API key patterns (OpenAI, Anthropic, GitHub, AWS, Google, Stripe, etc.) for detecting NEW keys not yet in the vault. This is separate from `patternCacheEntries()` which only matches stored keys.
+- **NSAlert in menu bar app**: Must call `alert.layout()` then set `alert.window.level = .floating` + `orderFrontRegardless()` before `runModal()`. Without this, the alert either doesn't appear or creates a dock icon. Do NOT use `setActivationPolicy(.regular)`.
+- **Terminal masking sync block buffering** (experimental): Shielded Terminal buffers PTY output by detecting DEC 2026 sync block markers (`\x1b[?2026h`/`\x1b[?2026l`). Complete sync blocks are masked atomically. Non-sync data uses 30ms timeout buffer. This matches claude-chill's approach.
+- **Terminal masking ANSI-aware matching**: `maskTerminalOutput()` strips ANSI escape codes AND all whitespace (spaces, tabs, newlines) before regex matching. Ink word-wraps long keys with `\r\n` + indentation; stripping all whitespace allows regex to match keys across visual line breaks. Structural characters (ANSI + whitespace) within matched ranges are preserved in output via `extractStructural()`.
+- **Terminal masking node-pty loading**: Triple fallback: (1) `require('node-pty')`, (2) `require(vscode.env.appRoot + '/node_modules.asar.unpacked/node-pty')`, (3) `require(vscode.env.appRoot + '/node_modules/node-pty')`. Falls back to `child_process.spawn` line-mode terminal.
+- **System-wide masking** (experimental): Uses `AXObserver` + `kAXFocusedUIElementChangedNotification` / `kAXValueChangedNotification` to monitor focused text elements across all apps. `AXBoundsForRange` provides precise multi-line text coordinates. NSPanel overlay with `ignoresMouseEvents = true` for click-through. Settings toggle (`systemWideMasking` in UserDefaults), only active when both setting AND Demo Mode are ON.
+- **System-wide masking performance**: 10ms initial scan delay, 30ms debounce for changes, 500ms polling fallback. Actual processing 2-6ms. Immediate scan on app switch. Text cache (`lastScannedText`) prevents redundant overlay updates.
+- **System-wide masking coordinate conversion**: AX API uses top-left origin, AppKit uses bottom-left. Convert via `primaryScreenHeight - axY - height`. Multi-screen: use primary screen height as reference.
+
+## Documentation
+
+- `docs/` — Traditional Chinese (primary)
+- `docs/en/` — English translations
+- Key docs: `docs/01-product-spec/implementation-status.md` for what's done/planned
+
+---
+> Source: [easyvibecoding/demosafe](https://github.com/easyvibecoding/demosafe) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
