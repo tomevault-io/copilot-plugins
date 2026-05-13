@@ -1,0 +1,44 @@
+{
+  "name": "jamf-mcp-server",
+  "owner": "dbankscard",
+  "repo": "jamf-mcp-server",
+  "description": "Model Context Protocol server enabling AI assistants (Claude, ChatGPT) to manage Jamf Pro through natural   language. Search devices, deploy policies, execute scripts, manage profiles, and generate compliance   reports using conversational queries.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dbankscard/jamf-mcp-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T23:02:44Z"
+}
