@@ -1,0 +1,9 @@
+{
+  "name": "pkhamre--opencode-docker",
+  "displayName": "opencode-docker",
+  "description": "A security-hardened Docker environment for running the OpenCode CLI in complete isolation.",
+  "version": "1.0.0",
+  "author": "pkhamre",
+  "homepage": "https://github.com/pkhamre/opencode-docker",
+  "skills": []
+}
