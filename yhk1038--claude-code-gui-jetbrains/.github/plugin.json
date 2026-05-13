@@ -1,0 +1,9 @@
+{
+  "name": "yhk1038--claude-code-gui-jetbrains",
+  "displayName": "claude-code-gui-jetbrains",
+  "description": "Claude Code GUI Plugin for Jetbrains IDE",
+  "version": "1.0.0",
+  "author": "yhk1038",
+  "homepage": "https://github.com/yhk1038/claude-code-gui-jetbrains",
+  "skills": []
+}
