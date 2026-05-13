@@ -1,0 +1,9 @@
+{
+  "name": "tidesurf--core",
+  "displayName": "core",
+  "description": "Connect Chromium to LLM agents via token-efficient DOM compression. 50-200 tokens per page.",
+  "version": "1.0.0",
+  "author": "TideSurf",
+  "homepage": "https://github.com/TideSurf/core",
+  "skills": []
+}
