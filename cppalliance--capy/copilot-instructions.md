@@ -1,6 +1,6 @@
-## doc-concept
+## doc-errors
 
-> doc javadoc for concept declaration
+> doc javadoc error error_code error_condition enum
 
 
 - Keep the ascii-art to a minimum, only add dividers if the class declaration is very long
@@ -9,17 +9,32 @@
 - Never list std::bad_alloc
 - Don't document detail:: or implementation symbols
 
-**Rules for concept javadocs:**
+**Rules for error_code enum javadocs:**
 
-- **Brief** — One sentence naming the concept and stating what a conforming type does. E.g. "Concept for types that consume buffer data using callee-owned buffers."
-- **Extended description** — A short paragraph summarizing the pattern the concept models, its purpose, and how it contrasts with related concepts.
-- **`@tparam`** — One entry per template parameter to the concept.
-- **`@par Syntactic Requirements`** — Bulleted `@li` list of every expression that must be valid. For each, state the member name, its arguments, and what it returns (including whether the return type must satisfy another concept like `IoAwaitable`). State the decomposed result tuple.
-- **`@par Semantic Requirements`** — Grouped by operation. For each operation, a bulleted `@li` list describing its behavior, preconditions, postconditions, success/error semantics, and any state transitions (e.g. "no further operations are permitted after EOF").
-- **`@par Buffer Lifetime`** (or equivalent resource lifetime section) — If the concept involves borrowed resources (buffers, handles, views), state exactly when they are valid and what invalidates them.
-- **`@par Conforming Signatures`** — A single `@code` block showing the canonical signatures using pseudo-syntax (e.g. `IoAwaitable auto`). This is the quick-reference that implementers copy from.
-- **`@par Example`** — A `@code` block showing a generic algorithm templated on the concept, demonstrating typical usage with destructuring, error handling, and interaction with related concepts.
-- **`@see`** — Always last. Cross-references to related concepts, concrete models, and foundational concepts the signatures depend on.
+- **Brief** — One sentence stating the error category, e.g. "Error codes for WebSocket stream operations."
+- **Extended description** — State which operations produce these codes and which error category they belong to.
+- **Portability warning** — State explicitly that callers must never compare received `error_code` values against this enum directly. Received error codes should always be compared against error conditions, which are portable across implementations. These enum values are implementation details subject to change.
+- **Per-enumerator** — Each value gets a short description of the failure it represents.
+- **`@see`** — The corresponding error condition enum, the error category, and the functions that produce these codes.
+
+---
+
+**Rules for error_condition enum javadocs:**
+
+- **Brief** — One sentence stating the condition category, e.g. "Portable error conditions for WebSocket operations."
+- **Extended description** — State that these are the conditions callers should compare against when handling errors. State which `error_code` enums map to these conditions.
+- **Per-enumerator** — Each value gets a description of the abstract failure class it represents, and under what circumstances a received `error_code` will compare equal to it. E.g. "An `error_code` compares equal to `canceled` when the stop token was activated or the i/o object's `cancel()` was called."
+- **`@par Example`** — A `@code` block showing idiomatic comparison:
+   ```cpp
+   auto [ec, n] = co_await stream.async_read(bufs);
+   if(ec == cond::canceled)
+       // handle cancellation
+   else if(ec == cond::end_of_stream)
+       // handle EOF
+   else if(ec)
+       // handle other errors
+   ```
+- **`@see`** — The corresponding error_code enum(s), the error category, and relevant operations.
 
 ---
 > Source: [cppalliance/capy](https://github.com/cppalliance/capy) — distributed by [TomeVault](https://tomevault.io).
