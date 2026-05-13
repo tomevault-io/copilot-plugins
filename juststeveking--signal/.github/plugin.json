@@ -1,0 +1,9 @@
+{
+  "name": "juststeveking--signal",
+  "displayName": "signal",
+  "description": "Signal is a PHP library that turns PHP attributes into living documentation. Annotate your classes and methods with Signal's attributes, then run a single command to generate Markdown and JSON docs th",
+  "version": "1.0.0",
+  "author": "JustSteveKing",
+  "homepage": "https://github.com/JustSteveKing/signal",
+  "skills": []
+}
