@@ -1,74 +1,92 @@
-## component-development
+## documentation-patterns
 
-> Component development patterns for figui registry
+> Documentation writing and structure patterns for figui
 
 
-# Component Development Guidelines
+# Documentation Patterns
 
-## Registry Component Structure
+## MDX Documentation Structure
 
-All UI components in **[registry/ui3/ui/](mdc:registry/ui3/ui/)** should follow these patterns:
+All documentation in **[content/docs/](mdc:content/docs/)** should follow consistent patterns:
 
-### Component Architecture
+### Component Documentation Template
 
-- Use **@base-ui/react** for unstyled primitives when available
-- Follow compound component patterns for complex components
-- Use `forwardRef` for components that need DOM refs
-- Export component with proper TypeScript interfaces
+````mdx
+---
+title: Component Name
+description: Brief description of what the component does
+---
 
-### Example Component Pattern
+import { ComponentDemo } from '@/registry/ui3/examples/component-demo';
+import { ComponentPreview } from '@/components/component-preview';
+
+# Component Name
+
+Brief description and use cases for the component.
+
+## Installation
+
+Install the component via the registry:
+
+```bash
+npx figui@latest add component-name
+```
+````
+
+## Usage
+
+<ComponentPreview>
+  <ComponentDemo />
+</ComponentPreview>
+
+### Basic Example
 
 ```tsx
-import * as React from 'react';
-import { BaseComponent } from '@base-ui/react/BaseComponent';
-import { cn } from '@/lib/utils';
+import { Component } from '@/components/ui/component';
 
-interface ComponentProps extends React.ComponentProps<typeof BaseComponent> {
-  variant?: 'default' | 'secondary';
-  size?: 'sm' | 'md' | 'lg';
+export default function Example() {
+  return <Component>Content</Component>;
 }
-
-const Component = React.forwardRef<
-  React.ElementRef<typeof BaseComponent>,
-  ComponentProps
->(({ className, variant = 'default', size = 'md', ...props }, ref) => {
-  return (
-    <BaseComponent
-      ref={ref}
-      className={cn(
-        'base-styles',
-        variantStyles[variant],
-        sizeStyles[size],
-        className,
-      )}
-      {...props}
-    />
-  );
-});
-
-Component.displayName = 'Component';
-export { Component };
 ```
 
-### Demo Components
+### Props
 
-- Demo components in **[registry/ui3/examples/](mdc:registry/ui3/examples/)** should showcase all variants
-- Include proper TypeScript examples
-- Use realistic data and use cases
-- Export as default function named `ComponentDemo`
+| Prop    | Type                     | Default   | Description           |
+| ------- | ------------------------ | --------- | --------------------- |
+| variant | 'default' \| 'secondary' | 'default' | Visual style variant  |
+| size    | 'sm' \| 'md' \| 'lg'     | 'md'      | Size of the component |
 
-### Styling Guidelines
+## Examples
 
-- Use Tailwind CSS classes exclusively
-- Follow the existing design tokens and spacing scale
-- Ensure dark mode compatibility with theme-aware classes
-- Use `cn()` utility from **[lib/utils.ts](mdc:lib/utils.ts)** for conditional styling
+Show various use cases and configurations.
 
-### Registry Integration
+## Accessibility
 
-- Each component needs a corresponding JSON file in **[public/r/](mdc:public/r/)**
-- Update **[registry.json](mdc:registry.json)** with component metadata
-- Ensure component is importable via the registry system
+Document keyboard navigation, ARIA attributes, and screen reader support.
+
+```
+
+### Navigation Structure
+
+- Update **[content/docs/meta.json](mdc:content/docs/meta.json)** for navigation
+- Organize components by category (Form, Layout, Feedback, etc.)
+- Use consistent naming: kebab-case for files, Title Case for display
+
+### Code Examples
+
+- Use **[ComponentPreview](mdc:components/component-preview.tsx)** for interactive demos
+- Include both basic and advanced usage examples
+- Show proper TypeScript types and imports
+- Reference actual demo components from **[registry/ui3/examples/](mdc:registry/ui3/examples/)**
+
+### Writing Guidelines
+
+- Start with a clear, concise description
+- Include installation instructions for each component
+- Document all props with types and descriptions
+- Provide accessibility information
+- Use consistent terminology throughout
+```
 
 ---
 > Source: [anxndsgn/FigUI](https://github.com/anxndsgn/FigUI) — distributed by [TomeVault](https://tomevault.io).
