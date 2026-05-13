@@ -1,0 +1,9 @@
+{
+  "name": "luoyingwen--opencode-chat-bot",
+  "displayName": "opencode-chat-bot",
+  "description": "OpenCode mobile client via all OpenClaw channels or Dingtalk&Feisu in standalone mode: run and monitor AI coding tasks from your phone while everything runs locally on your machine.",
+  "version": "1.0.0",
+  "author": "luoyingwen",
+  "homepage": "https://github.com/luoyingwen/opencode-chat-bot",
+  "skills": []
+}
