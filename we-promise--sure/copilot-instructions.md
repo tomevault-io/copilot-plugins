@@ -1,65 +1,87 @@
-## stimulus-conventions
+## testing
 
-> This rule describes how to write Stimulus controllers.
+> Use this rule to learn how to write tests for the codebase.
 
-This rule describes how to write Stimulus controllers.
+Use this rule to learn how to write tests for the codebase.
 
-- **Use declarative actions, not imperative event listeners**
-  - Instead of assigning a Stimulus target and binding it to an event listener in the initializer, always write Controllers + ERB views declaratively by using Stimulus actions in ERB to call methods in the Stimulus JS controller.  Below are good vs. bad code.
+Due to the open-source nature of this project, we have chosen Minitest + Fixtures for testing to maximize familiarity and predictability.
 
-  BAD code:
+- **General testing rules**
+  - Always use Minitest and fixtures for testing, NEVER rspec or factories
+  - Keep fixtures to a minimum.  Most models should have 2-3 fixtures maximum that represent the "base cases" for that model.  "Edge cases" should be created on the fly, within the context of the test which it is needed.
+  - For tests that require a large number of fixture records to be created, use Rails helpers to help create the records needed for the test, then inline the creation. For example, [entries_test_helper.rb](mdc:test/support/entries_test_helper.rb) provides helpers to easily do this.
 
-  ```js
-  // BAD!!!! DO NOT DO THIS!!
-  // Imperative - controller does all the work
-  export default class extends Controller {
-    static targets = ["button", "content"]
+- **Write minimal, effective tests**
+  - Use system tests sparingly as they increase the time to complete the test suite
+  - Only write tests for critical and important code paths
+  - Write tests as you go, when required
+  - Take a practical approach to testing.  Tests are effective when their presence _significantly increases confidence in the codebase_.
 
-    connect() {
-      this.buttonTarget.addEventListener("click", this.toggle.bind(this))
-    }
+  Below are examples of necessary vs. unnecessary tests:
 
-    toggle() {
-      this.contentTarget.classList.toggle("hidden")
-      this.buttonTarget.textContent = this.contentTarget.classList.contains("hidden") ? "Show" : "Hide"
-    }
-  }
+  ```rb
+  # GOOD!!
+  # Necessary test - in this case, we're testing critical domain business logic
+  test "syncs balances" do
+    Holding::Syncer.any_instance.expects(:sync_holdings).returns([]).once
+
+    @account.expects(:start_date).returns(2.days.ago.to_date)
+
+    Balance::ForwardCalculator.any_instance.expects(:calculate).returns(
+      [
+        Balance.new(date: 1.day.ago.to_date, balance: 1000, cash_balance: 1000, currency: "USD"),
+        Balance.new(date: Date.current, balance: 1000, cash_balance: 1000, currency: "USD")
+      ]
+    )
+
+    assert_difference "@account.balances.count", 2 do
+      Balance::Syncer.new(@account, strategy: :forward).sync_balances
+    end
+  end
+
+  # BAD!!
+  # Unnecessary test - in this case, this is simply testing ActiveRecord's functionality
+  test "saves balance" do 
+    balance_record = Balance.new(balance: 100, currency: "USD")
+
+    assert balance_record.save
+  end
   ```
 
-  GOOD code:
+- **Test boundaries correctly**
+  - Distinguish between commands and query methods. Test output of query methods; test that commands were called with the correct params. See an example below:
 
-  ```erb
-  <!-- Declarative - HTML declares what happens -->
+  ```rb
+  class ExampleClass
+    def do_something
+      result = 2 + 2
 
-  <div data-controller="toggle">
-    <button data-action="click->toggle#toggle" data-toggle-target="button">Show</button>
-    <div data-toggle-target="content" class="hidden">Hello World!</div>
-  </div>
+      CustomEventProcessor.process_result(result)
+
+      result
+    end
+  end
+
+  class ExampleClass < ActiveSupport::TestCase
+    test "boundaries are tested correctly" do 
+      result = ExampleClass.new.do_something
+
+      # GOOD - we're only testing that the command was received, not internal implementation details
+      # The actual tests for CustomEventProcessor belong in a different test suite!
+      CustomEventProcessor.expects(:process_result).with(4).once
+
+      # GOOD - we're testing the implementation of ExampleClass inside its own test suite
+      assert_equal 4, result
+    end
+  end
   ```
 
-  ```js
-  // Declarative - controller just responds
-  export default class extends Controller {
-    static targets = ["button", "content"]
+  - Never test the implementation details of one class in another classes test suite
 
-    toggle() {
-      this.contentTarget.classList.toggle("hidden")
-      this.buttonTarget.textContent = this.contentTarget.classList.contains("hidden") ? "Show" : "Hide"
-    }
-  }
-  ```
-
-- **Keep Stimulus controllers lightweight and simple**
-  - Always aim for less than 7 controller targets. Any more is a sign of too much complexity.
-  - Use private methods and expose a clear public API
-
-- **Keep Stimulus controllers focused on what they do best**
-  - Domain logic does NOT belong in a Stimulus controller
-  - Stimulus controllers should aim for a single responsibility, or a group of highly related responsibilities
-  - Make good use of Stimulus's callbacks, actions, targets, values, and classes
-
-- **Component controllers should not be used outside the component**
-  - If a Stimulus controller is in the app/components directory, it should only be used in its component view. It should not be used anywhere in app/views.
+- **Stubs and mocks**
+  - Use `mocha` gem
+  - Always prefer `OpenStruct` when creating mock instances, or in complex cases, a mock class
+  - Only mock what's necessary. If you're not testing return values, don't mock a return value.
 
 ---
 > Source: [we-promise/sure](https://github.com/we-promise/sure) — distributed by [TomeVault](https://tomevault.io).
