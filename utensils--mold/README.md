@@ -7,11 +7,11 @@ Local AI image generation CLI — FLUX, SD 1.5, SDXL & Z-Image diffusion models 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [utensils/mold](https://github.com/utensils/mold).
+Original source: `CLAUDE.md` in [utensils/mold](https://github.com/utensils/mold).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
