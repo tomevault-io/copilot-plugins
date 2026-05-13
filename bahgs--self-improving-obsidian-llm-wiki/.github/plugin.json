@@ -1,0 +1,9 @@
+{
+  "name": "bahgs--self-improving-obsidian-llm-wiki",
+  "displayName": "Self-Improving-Obsidian-LLM-Wiki",
+  "description": "An Obsidian-first, agent-maintained LLM Wiki framework that turns raw sources into linked notes, concepts, summaries, and evolving schema rules.",
+  "version": "1.0.0",
+  "author": "Bahgs",
+  "homepage": "https://github.com/Bahgs/Self-Improving-Obsidian-LLM-Wiki",
+  "skills": []
+}
