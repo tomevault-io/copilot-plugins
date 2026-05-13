@@ -1,0 +1,9 @@
+{
+  "name": "fearvox--multica-ultimate-workbench",
+  "displayName": "multica-ultimate-workbench",
+  "description": "Public multi-agent workbench skill pack for SDD, review gates, context discipline, VM lanes, Sanity context, and autonomous agent coordination.",
+  "version": "1.0.0",
+  "author": "Fearvox",
+  "homepage": "https://github.com/Fearvox/multica-ultimate-workbench",
+  "skills": []
+}
