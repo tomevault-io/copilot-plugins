@@ -1,0 +1,9 @@
+{
+  "name": "synth1s--cloak",
+  "displayName": "cloak",
+  "description": "Cloak your Claude. Switch identities in seconds.",
+  "version": "1.0.0",
+  "author": "synth1s",
+  "homepage": "https://github.com/synth1s/cloak",
+  "skills": []
+}
