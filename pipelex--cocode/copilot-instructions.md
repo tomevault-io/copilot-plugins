@@ -1,108 +1,177 @@
-## pytest-standards
+## python-standards
 
-> Guidelines for writing unit tests
+> Python coding standards and best practices
 
-# Writing unit tests
+# Coding Standards & Best Practices for Python Code
 
-## Unit test generalities
+This document outlines the core coding standards, best practices, and quality control procedures for the codebase.
 
-NEVER USE unittest.mock or MagicMock. YOU MUST USE pytest-mock instead.
+## Variables, loops and indexes
 
-### Test file structure
+    - Variable names should have a minimum length of 3 characters. No exceptions: name your `for` loop indexes like `index_foobar`, your exceptions `exc` or more specific like `validation_error` when there are several layers of exceptions, and use `for key, value in ...` for key/value pairs.
+    - When looping on the keys of a dict, use `for key in the_dict` rather than `for key in the_dict.keys()` otherwise you won't pass linting.
+    - Avoid inline for loops, unless it's ultra-simple and holds on oneline.
+    - If you have a variable that will get its value differently through different code paths, declare it first with a type, e.g. `pipe_code: str` but DO NOT give it a default value like `pipe_code: str = ""` unless it's really justified. We want the variable to be unbound until all paths are covered, and the linters will help us avoid bugs this way.
 
-- Name test files with `test_` prefix
-- Place test files in the appropriate test category directory:
-    - `tests/unit/` - for unit tests that test individual functions/classes in isolation
-    - `tests/integration/` - for integration tests that test component interactions
-    - `tests/e2e/` - for end-to-end tests that test complete workflows
-    - `tests/test_pipelines/` - for test pipeline definitions (PLX files and their structuring python files)
-- Fixtures are defined in conftest.py modules at different levels of the hierarchy, their scope is handled by pytest
-- Test data is placed inside test_data.py at different levels of the hierarchy, they must be imported with package paths from the root like `tests.pipelex.test_data`. Their content is all constants, regrouped inside classes to keep things tidy.
-- Always put test inside Test classes.
-- The pipelex pipelines should be stored in `tests/test_pipelines` as well as the related structured Output classes that inherit from `StructuredContent`
+## Enums and tests
 
-### Markers
+    - When defining enums related to string values, always inherit from `StrEnum`
+    - Never test equality to an enum value: use match/case, even to single out 1 case out of 10 cases. To avoid heavy match/case code in awkward places, add methods to the enum class such as `is_foobar()`. This is to avoid bugs: when new enum values are added we want the linter to complain. Use the `|` operator to group cases
+    - As our match/case constructs over enums are always exhaustive, NEVER add a default `case _: ...`. Otherwise, you won't pass linting.
 
-Apply the appropriate markers:
-- "llm: uses an LLM to generate text or objects"
-- "img_gen: uses an image generation AI"
-- "extract: uses text/image extraction from documents"
-- "inference: uses either an LLM or an image generation AI"
-- "gha_disabled: will not be able to run properly on GitHub Actions"
+## Imports
 
-Several markers may be applied. For instance, if the test uses an LLM, then it uses inference, so you must mark with both `inference`and `llm`.
+### **Imports at the top of the file**
 
-### Important rules
+    - Import all necessary libraries at the top of the file
+    - Do not import libraries in functions or classes unless in very specific cases, to be discussed with the user, as they would required a `# noqa: ...` comment to pass linting
+    - Do not bother with ordering the imports, our Ruff linter will handle it for us. Same goes with removing unused imports.
 
-- Never use the unittest.mock. Use pytest-mock.
+- **Logging and Pretty Printing**:
 
-### Test Class Structure
+    - Both `log()` and `pretty_print()` can be imported from `pipelex` directly:
+    ```python
+    from pipelex import log, pretty_print
 
-- Always group the tests of a module into a test class:
+    log.info("Hello, world!")
+    ```
+    - Both have a title arg which is handy when logging/printing objects:
 
-```python
-@pytest.mark.llm
-@pytest.mark.inference
-@pytest.mark.asyncio(loop_scope="class")
-class TestFooBar:
-    @pytest.mark.parametrize(
-        "topic, test_case_blueprint",
-        [
-            TestCases.CASE_1,
-            TestCases.CASE_2,
-        ],
-    )
-    async def test_pipe_processing(
-        self,
-        request: FixtureRequest,
-        topic: str,
-        test_case_blueprint: StuffBlueprint,
-    ):
-        # Test implementation
+    ```python
+    log.verbose("Hello, world!", title="Your first Pipelex log")
+    pretty_print(output_object, title="Your first Pipelex output")
+    ```
+    - Both handle formatting json using Rich, pretty_print makes it prettier.
+
+- **StrEnum and Self type**:
+
+    - Both `StrEnum` and `Self` must be imported from `pipelex.types` (handles python retrocompatibility):
+    ```python
+    from pipelex.types import Self, StrEnum
+    ```
+
+## Typing
+
+### **Always Use Type Hints**
+
+    - Every function parameter must be typed
+    - Every function return must be typed
+    - Use type hints for all variables where type is not obvious
+    - Use dict, list, tuple types with lowercase first letter: dict[], list[], tuple[]
+    - Use type hints for all fields
+    - Use Field(default_factory=...) for mutable defaults
+    - Use `# pyright: ignore[specificError]` or `# type: ignore` only as a last resort. In particular, if you are sure about the type, you often solve issues by using cast() or creating a new typed variable.
+
+### **BaseModel / Pydantic Standards**
+
+    - Use `BaseModel` and respect Pydantic v2 standards
+    - Use the modern `ConfigDict` when needed, e.g. `model_config = ConfigDict(extra="forbid", strict=True)`
+    - Keep models focused and single-purpose
+    - For list fields with non-string items in BaseModels, use `empty_list_factory_of()` to avoid linter complaints:
+      ```python
+      from pydantic import BaseModel, Field
+      from pipelex.tools.typing.pydantic_utils import empty_list_factory_of
+      
+      class MyModel(BaseModel):
+          names: list[str] = Field(default_factory=list)  # OK for strings
+          numbers: list[int] = Field(default_factory=empty_list_factory_of(int), description="A list of numbers")
+          items: list[MyItem] = Field(default_factory=empty_list_factory_of(MyItem), description="A list of items")
+      ```
+
+## Factory Pattern
+
+    - Use Factory Pattern for object creation when dealing with multiple implementations
+    - Our factory methods are named `make_from_...` and such
+
+## Error Handling
+
+    - Always catch exceptions at the place where you can add useful context to it.
+    - Use try/except blocks with specific exceptions
+    - Convert third-party exceptions to our custom ones
+    - NEVER catch the generic Exception, only catch specific exceptions, except at the root of CLI commands
+    - NEVER raise generic exceptions like ValueError or TypeError, create new error classes and raise them instead
+    - Always add `from exc` to the exception
+   
+   ```python
+   try:
+       self.models_manager.setup()
+   except RoutingProfileLibraryNotFoundError as exc:
+       msg = "The routing library could not be found, please call `pipelex init config` to create it"
+       raise PipelexSetupError(msg) from exc
+   ```
+
+   **Note**: Following Ruff rules, we set the error message as a variable before raising it, for cleaner error traces.
+
+## Documentation
+
+1. **Docstring Format**
+   ```python
+   def process_image(image_path: str, size: tuple[int, int]) -> bytes:
+       """Process and resize an image.
+       
+       Args:
+           image_path: Path to the source image
+           size: Tuple of (width, height) for resizing
+           
+       Returns:
+           Processed image as bytes
+       """
+       pass
+   ```
+
+2. **Class Documentation**
+   ```python
+   class ImageProcessor:
+       """Handles image processing operations.
+       
+       Provides methods for resizing, converting, and optimizing images.
+       """
+   ```
+
+## Code Quality Checks
+
+### Linting and Type Checking
+
+Before finalizing a task, run:
+```bash
+make fix-unused-imports
+make check
 ```
 
-- Never more than 1 class per test file.
-- When testing one method, if possible, limit the number of test functions, but with different test cases in parameters
-- Sometimes it can be convenient to access the test's name in its body, for instance to include into a job_id. To achieve that, add the argument `request: FixtureRequest` into the signature and then you can get the test name using `cast(str, request.node.originalname),  # type: ignore`. 
+This runs multiple code quality tools:
+- Pyright: Static type checking
+- Ruff: Fast Python linter  
+- Mypy: Static type checker
 
-### Test Data Organization
+Always fix any issues reported by these tools before proceeding.
 
-- If it's not already there, create a `test_data.py` file in the proper test directory
-- Define test cases using `StuffBlueprint`:
+### Running Tests
 
-```python
-class TestCases:
-    CASE_BLUEPRINT_1 = StuffBlueprint(
-        name="test_case_1",
-        concept_code="domain.ConceptName1",
-        value="test_value"
-    )
-    CASE_BLUEPRINT_2 = StuffBlueprint(
-        name="test_case_2",
-        concept_code="domain.ConceptName2",
-        value="test_value"
-    )
+1. **Quick Test Run** (no LLM/image generation):
+   ```bash
+   make tp
+   ```
+   Runs tests with markers: `(dry_runnable or not (inference or llm or img_gen or extract)) and not (needs_output or pipelex_api)`
 
-    CASE_BLUEPRINTS: ClassVar[list[tuple[str, str]]] = [  # topic, blueprint"
-        ("topic1", CASE_BLUEPRINT_1),
-        ("topic2", CASE_BLUEPRINT_2),
-    ]
-```
+2. **Specific Tests**:
+   ```bash
+   make tp TEST=TestClassName
+   # or
+   make tp TEST=test_function_name
+   ```
+   Note: Matches names starting with the provided string.
 
-Note how we avoid initializing a default mutable value within a class instance, instead we use ClassVar.
-Also note that we provide a topic for the test case, which is purely for convenience.
+**Important**: Never run `make ti`, `make test-inference`, `make te`, `make test-extract`, `make tg`, or `make test-img-gen` - these use costly inference.
 
-## Best Practices for Testing
+## Pipelines
 
-- Whenever possible, use strong asserts to test value, not just type and presence.
-- Use parametrize for multiple test cases
-- Test both success and failure cases
-- Verify working memory state
-- Check output structure and content
-- Use meaningful test case names
-- Include docstrings explaining test purpose but not on top of the file
-- Log outputs for debugging
-- Generate reports for cost tracking
+- Always validate pipelines after creation/edit with `make validate`.
+  Iterate if there are errors.
+
+## Project Structure
+
+- **Tests**: `tests/` directory
+- **Documentation**: `docs/` directory
 
 ---
 > Source: [Pipelex/cocode](https://github.com/Pipelex/cocode) — distributed by [TomeVault](https://tomevault.io).
