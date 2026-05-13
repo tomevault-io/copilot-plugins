@@ -1,11 +1,16 @@
-## commands
+## docs
 
-> Guidelines for running commands
+> Guidelines for writing documentation
 
-# Commands
+# Writing Docs
 
-  - When you want to run commands such as `python`, `pytest` or any of our CLI such as `pipelex` or `cocode`, ALWAYS use the current obvious virtual env. If the installaton is standard, the venv is named `.venv` so always check that first.
-  
+Write docs and answer questions about writing docs.
+
+We use Material for MkDocs. All markdown in our docs must be compatible with Material for MkDocs and done using best practices to get the best results with Material for MkDocs.
+
+## MkDocs Markdown Requirements
+
+- Always add a blank line before any bullet lists or numbered lists in MkDocs markdown.
 
 ---
 > Source: [Pipelex/cocode](https://github.com/Pipelex/cocode) — distributed by [TomeVault](https://tomevault.io).
