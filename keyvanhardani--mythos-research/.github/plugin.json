@@ -1,0 +1,9 @@
+{
+  "name": "keyvanhardani--mythos-research",
+  "displayName": "mythos-research",
+  "description": "Outside-in replication of Anthropic's Mythos Preview / Project Glasswing \u2014 open-source agentic vulnerability-discovery scaffold on Claude Opus 4.7. Eight-phase sink-guided pipeline, ~$1/run, OSS self-",
+  "version": "1.0.0",
+  "author": "Keyvanhardani",
+  "homepage": "https://github.com/Keyvanhardani/mythos-research",
+  "skills": []
+}
