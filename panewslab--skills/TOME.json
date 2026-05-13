@@ -4,7 +4,7 @@
   "repo": "skills",
   "description": "PANews Agent Toolkit is PANews's official agent package for cryptocurrency and blockchain news discovery, creator workflows, and PANews web-page reading.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/panewslab/skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T08:56:36Z"
+  "distributed_at": "2026-05-13T01:01:32Z"
 }
