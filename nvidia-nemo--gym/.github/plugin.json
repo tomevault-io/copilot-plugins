@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-nemo--gym",
+  "displayName": "Gym",
+  "description": "Evaluate and improve models and agents using environments",
+  "version": "1.0.0",
+  "author": "NVIDIA-NeMo",
+  "homepage": "https://github.com/NVIDIA-NeMo/Gym",
+  "skills": []
+}
