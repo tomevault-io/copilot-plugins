@@ -1,0 +1,9 @@
+{
+  "name": "korabench--benchmark",
+  "displayName": "benchmark",
+  "description": "Everything needed to run the KORA benchmark for AI Child Safety.",
+  "version": "1.0.0",
+  "author": "korabench",
+  "homepage": "https://github.com/korabench/benchmark",
+  "skills": []
+}
