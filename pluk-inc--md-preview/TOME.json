@@ -4,7 +4,7 @@
   "repo": "md-preview",
   "description": "A simple Markdown viewer for reading .md files",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pluk-inc/md-preview",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T14:14:01Z"
+  "distributed_at": "2026-05-13T03:00:34Z"
 }
