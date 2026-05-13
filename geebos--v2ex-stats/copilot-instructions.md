@@ -1,10 +1,11 @@
-## principle
+## ut
 
-> AI instruction file for v2ex-stats by geebos
+> 代码行数不超过 20 行的函数，单测代码放到 {filename}.test.ts
 
-禁止自动提交代码
-禁止创建示例文件
-禁止创建演示文件
+单测编写规则
+使用 `@/` 引用文件
+代码行数不超过 20 行的函数，单测代码放到 {filename}.test.ts
+代码行数超过 20 行的函数，单测代码放到单独的文件 {filename}.{functionName}.test.ts
 
 ---
 > Source: [geebos/v2ex-stats](https://github.com/geebos/v2ex-stats) — distributed by [TomeVault](https://tomevault.io).
