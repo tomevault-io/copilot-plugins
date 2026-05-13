@@ -1,0 +1,9 @@
+{
+  "name": "coolapso--tfimport",
+  "displayName": "tfimport",
+  "description": "Automatically import infrastructure to tfstate",
+  "version": "1.0.0",
+  "author": "coolapso",
+  "homepage": "https://github.com/coolapso/tfimport",
+  "skills": []
+}
