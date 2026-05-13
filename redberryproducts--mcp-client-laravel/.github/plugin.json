@@ -1,0 +1,9 @@
+{
+  "name": "redberryproducts--mcp-client-laravel",
+  "displayName": "mcp-client-laravel",
+  "description": "Laravel-native client for Model Context Protocol (MCP) servers. Built by Redberry (Diamond-tier Laravel partner). Used by LarAgent and other frameworks to enable AI agent functionality.",
+  "version": "1.0.0",
+  "author": "RedberryProducts",
+  "homepage": "https://github.com/RedberryProducts/mcp-client-laravel",
+  "skills": []
+}
