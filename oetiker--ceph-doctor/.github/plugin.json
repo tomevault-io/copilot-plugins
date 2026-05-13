@@ -1,0 +1,9 @@
+{
+  "name": "oetiker--ceph-doctor",
+  "displayName": "ceph-doctor",
+  "description": "Tool to show extra information while ceph is repairing itself",
+  "version": "1.0.0",
+  "author": "oetiker",
+  "homepage": "https://github.com/oetiker/ceph-doctor",
+  "skills": []
+}
