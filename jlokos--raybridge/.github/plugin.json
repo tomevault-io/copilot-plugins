@@ -1,0 +1,9 @@
+{
+  "name": "jlokos--raybridge",
+  "displayName": "raybridge",
+  "description": "MCP server that bridges Raycast extensions to any MCP-compatible client",
+  "version": "1.0.0",
+  "author": "jlokos",
+  "homepage": "https://github.com/jlokos/raybridge",
+  "skills": []
+}
