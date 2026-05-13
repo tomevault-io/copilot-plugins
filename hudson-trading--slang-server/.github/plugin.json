@@ -1,0 +1,9 @@
+{
+  "name": "hudson-trading--slang-server",
+  "displayName": "slang-server",
+  "description": "A SystemVerilog language server based on the Slang library.",
+  "version": "1.0.0",
+  "author": "hudson-trading",
+  "homepage": "https://github.com/hudson-trading/slang-server",
+  "skills": []
+}
