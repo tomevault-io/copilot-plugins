@@ -1,0 +1,9 @@
+{
+  "name": "mitsuhiko--sloppy-xml-py",
+  "displayName": "sloppy-xml-py",
+  "description": "A Python library to parse malformed XML",
+  "version": "1.0.0",
+  "author": "mitsuhiko",
+  "homepage": "https://github.com/mitsuhiko/sloppy-xml-py",
+  "skills": []
+}
