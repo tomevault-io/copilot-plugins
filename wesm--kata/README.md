@@ -7,11 +7,11 @@ Local-first issue tracking for AI-assisted software work, with an agent-friendly
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wesm/kata](https://github.com/wesm/kata).
+Original source: `CLAUDE.md` in [wesm/kata](https://github.com/wesm/kata).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
