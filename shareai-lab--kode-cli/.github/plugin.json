@@ -1,0 +1,9 @@
+{
+  "name": "shareai-lab--kode-cli",
+  "displayName": "Kode-CLI",
+  "description": "Kode CLI \u2014 Design for post-human workflows. One unit agent for every human & computer task.",
+  "version": "1.0.0",
+  "author": "shareAI-lab",
+  "homepage": "https://github.com/shareAI-lab/Kode-CLI",
+  "skills": []
+}
