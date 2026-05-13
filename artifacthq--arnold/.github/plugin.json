@@ -1,0 +1,9 @@
+{
+  "name": "artifacthq--arnold",
+  "displayName": "Arnold",
+  "description": "Arnold is an opinionated documentation-first development toolkit that runs as a native extension inside Claude Code.",
+  "version": "1.0.0",
+  "author": "ArtifactHQ",
+  "homepage": "https://github.com/ArtifactHQ/Arnold",
+  "skills": []
+}
