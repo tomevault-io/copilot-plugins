@@ -1,0 +1,9 @@
+{
+  "name": "macula-io--macula",
+  "displayName": "macula",
+  "description": "MonoRepo for the Macula HTTP/3 Mesh for the BEAM",
+  "version": "1.0.0",
+  "author": "macula-io",
+  "homepage": "https://github.com/macula-io/macula",
+  "skills": []
+}
