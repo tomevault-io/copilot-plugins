@@ -1,0 +1,9 @@
+{
+  "name": "agentcage--agentcage",
+  "displayName": "agentcage",
+  "description": "Defense-in-depth proxy sandbox for AI agents",
+  "version": "1.0.0",
+  "author": "agentcage",
+  "homepage": "https://github.com/agentcage/agentcage",
+  "skills": []
+}
