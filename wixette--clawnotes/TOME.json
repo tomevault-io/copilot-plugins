@@ -1,0 +1,44 @@
+{
+  "name": "clawnotes",
+  "owner": "wixette",
+  "repo": "clawnotes",
+  "description": "Tech notes about the OpenClaw codebase | \u5173\u4e8e\u9f99\u867eOpenClaw\u4ee3\u7801\u5e93\u7684\u6280\u672f\u7b14\u8bb0",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wixette/clawnotes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T01:39:51Z"
+}
