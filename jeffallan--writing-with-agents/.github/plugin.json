@@ -1,0 +1,9 @@
+{
+  "name": "jeffallan--writing-with-agents",
+  "displayName": "writing-with-agents",
+  "description": "Claude Code skill plugin implementing Betty Flowers' Madman-Architect-Carpenter-Judge writing framework with collaborative AI-human oscillation, SEO optimization, and   multi-article content strategy.",
+  "version": "1.0.0",
+  "author": "Jeffallan",
+  "homepage": "https://github.com/Jeffallan/writing-with-agents",
+  "skills": []
+}
