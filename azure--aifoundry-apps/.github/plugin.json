@@ -1,0 +1,9 @@
+{
+  "name": "azure--aifoundry-apps",
+  "displayName": "aifoundry-apps",
+  "description": "Enables solution engineers to customize, deploy, and collaborate on multi-agent AI solutions using Azure AI Foundry",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/aifoundry-apps",
+  "skills": []
+}
