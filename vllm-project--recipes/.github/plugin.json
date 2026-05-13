@@ -1,0 +1,9 @@
+{
+  "name": "vllm-project--recipes",
+  "displayName": "recipes",
+  "description": "Common recipes to run vLLM",
+  "version": "1.0.0",
+  "author": "vllm-project",
+  "homepage": "https://github.com/vllm-project/recipes",
+  "skills": []
+}
