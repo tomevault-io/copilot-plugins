@@ -4,7 +4,7 @@
   "repo": "Operator",
   "description": "A minimal, un-opinionated agent library for Swift providing conversation and tool calling",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bensyverson/Operator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T13:16:26Z"
+  "distributed_at": "2026-05-13T02:49:47Z"
 }
