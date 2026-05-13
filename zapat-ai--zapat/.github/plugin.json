@@ -1,0 +1,9 @@
+{
+  "name": "zapat-ai--zapat",
+  "displayName": "zapat",
+  "description": "Autonomous dev pipeline powered by Claude Code. Triages issues, implements features, reviews code, and auto-merges \u2014 all triggered by a single label.",
+  "version": "1.0.0",
+  "author": "zapat-ai",
+  "homepage": "https://github.com/zapat-ai/zapat",
+  "skills": []
+}
