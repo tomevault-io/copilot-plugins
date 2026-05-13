@@ -1,0 +1,9 @@
+{
+  "name": "fam-tung-lam--health-connector",
+  "displayName": "health_connector",
+  "description": "A unified, type-safe Flutter plugin for accessing health data across Android and iOS platforms.",
+  "version": "1.0.0",
+  "author": "fam-tung-lam",
+  "homepage": "https://github.com/fam-tung-lam/health_connector",
+  "skills": []
+}
