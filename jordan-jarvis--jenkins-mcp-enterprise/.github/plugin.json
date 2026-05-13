@@ -1,0 +1,9 @@
+{
+  "name": "jordan-jarvis--jenkins-mcp-enterprise",
+  "displayName": "jenkins-mcp-enterprise",
+  "description": "The most advanced Jenkins MCP server available - Enterprise debugging, multi-instance management, AI-powered failure analysis, vector search, and configurable diagnostics for complex CI/CD pipelines.",
+  "version": "1.0.0",
+  "author": "Jordan-Jarvis",
+  "homepage": "https://github.com/Jordan-Jarvis/jenkins-mcp-enterprise",
+  "skills": []
+}
