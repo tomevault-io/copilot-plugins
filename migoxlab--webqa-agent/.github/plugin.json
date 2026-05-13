@@ -1,0 +1,9 @@
+{
+  "name": "migoxlab--webqa-agent",
+  "displayName": "webqa-agent",
+  "description": "Autonomous web browser agent that audits performance, functionality & UX for engineers and vibe-coding creators. \u7f51\u7ad9\u81ea\u4e3b\u8bc4\u4f30\u6d4b\u8bd5 Agent\uff0c\u652f\u6301 GUI/CLI \u4e00\u952e\u5b8c\u6210\u6027\u80fd\u3001\u529f\u80fd\u4f7f\u7528\u4e0e\u4ea4\u4e92\u4f53\u9a8c\u7684\u6d4b\u8bd5\u8bc4\u4f30",
+  "version": "1.0.0",
+  "author": "MigoXLab",
+  "homepage": "https://github.com/MigoXLab/webqa-agent",
+  "skills": []
+}
