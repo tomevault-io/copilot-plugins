@@ -1,0 +1,9 @@
+{
+  "name": "dagger--container-use",
+  "displayName": "container-use",
+  "description": "Development environments for coding agents. Enable multiple agents to work safely and independently with your preferred stack.",
+  "version": "1.0.0",
+  "author": "dagger",
+  "homepage": "https://github.com/dagger/container-use",
+  "skills": []
+}
