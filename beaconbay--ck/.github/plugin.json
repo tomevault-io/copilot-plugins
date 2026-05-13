@@ -1,0 +1,9 @@
+{
+  "name": "beaconbay--ck",
+  "displayName": "ck",
+  "description": "Local first semantic and hybrid BM25 grep / search tool for use by AI and humans! ",
+  "version": "1.0.0",
+  "author": "BeaconBay",
+  "homepage": "https://github.com/BeaconBay/ck",
+  "skills": []
+}
