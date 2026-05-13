@@ -7,11 +7,11 @@ Agentic Enterprise - a framework to run an enterprise with Git and Agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wlfghdr/agentic-enterprise](https://github.com/wlfghdr/agentic-enterprise).
+Original source: `CLAUDE.md` in [wlfghdr/agentic-enterprise](https://github.com/wlfghdr/agentic-enterprise).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
