@@ -1,0 +1,9 @@
+{
+  "name": "krnel-ai--krnel-graph",
+  "displayName": "krnel-graph",
+  "description": "Lightweight representation engineering dataflow operations for agent developers.",
+  "version": "1.0.0",
+  "author": "krnel-ai",
+  "homepage": "https://github.com/krnel-ai/krnel-graph",
+  "skills": []
+}
