@@ -1,0 +1,9 @@
+{
+  "name": "gdzig--gdzig",
+  "displayName": "gdzig",
+  "description": "Zig bindings for Godot 4",
+  "version": "1.0.0",
+  "author": "gdzig",
+  "homepage": "https://github.com/gdzig/gdzig",
+  "skills": []
+}
