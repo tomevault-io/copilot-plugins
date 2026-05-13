@@ -1,0 +1,9 @@
+{
+  "name": "chrislloyd--git-remote-sqlite",
+  "displayName": "git-remote-sqlite",
+  "description": "Single-file Git repos that can replicate with Litestream",
+  "version": "1.0.0",
+  "author": "chrislloyd",
+  "homepage": "https://github.com/chrislloyd/git-remote-sqlite",
+  "skills": []
+}
