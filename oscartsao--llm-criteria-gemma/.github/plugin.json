@@ -1,0 +1,9 @@
+{
+  "name": "oscartsao--llm-criteria-gemma",
+  "displayName": "LLM_Criteria_Gemma",
+  "description": "LLM Classification with Gemma and Mentallama",
+  "version": "1.0.0",
+  "author": "OscarTsao",
+  "homepage": "https://github.com/OscarTsao/LLM_Criteria_Gemma",
+  "skills": []
+}
