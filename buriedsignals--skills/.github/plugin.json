@@ -1,0 +1,9 @@
+{
+  "name": "buriedsignals--skills",
+  "displayName": "skills",
+  "description": "Public skills for journalists to use.",
+  "version": "1.0.0",
+  "author": "buriedsignals",
+  "homepage": "https://github.com/buriedsignals/skills",
+  "skills": []
+}
