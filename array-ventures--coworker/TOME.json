@@ -4,7 +4,7 @@
   "repo": "coworker",
   "description": "Open-source AI agent with MCP UI, app builder, A2A protocol, skills marketplace, and multi-provider chat. Built with Mastra. Alternative to OpenClaw.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Array-Ventures/coworker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T15:39:03Z"
+  "distributed_at": "2026-05-13T03:18:52Z"
 }
