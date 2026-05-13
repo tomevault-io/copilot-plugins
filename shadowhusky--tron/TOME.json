@@ -1,0 +1,44 @@
+{
+  "name": "Tron",
+  "owner": "Shadowhusky",
+  "repo": "Tron",
+  "description": "Self-hosted AI-powered terminal. Run shells, use local or cloud LLMs (Ollama, OpenAI, Claude), and get agent-assisted commands from your desktop.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Shadowhusky/Tron",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T04:45:06Z"
+}
