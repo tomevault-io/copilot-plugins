@@ -1,0 +1,9 @@
+{
+  "name": "justinabrahms--frm",
+  "displayName": "frm",
+  "description": "CLI for managing personal contacts. Can be agent-driven. Uses CardDAV (apple/fastmail contacts). Your AI agent (or you) checks who you're overdue to contact, preps context for meetings, and logs inter",
+  "version": "1.0.0",
+  "author": "justinabrahms",
+  "homepage": "https://github.com/justinabrahms/frm",
+  "skills": []
+}
