@@ -7,11 +7,11 @@ Fast CLI for browser automation — Playwright + stealth behind a persistent dae
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [forjd/browse](https://github.com/forjd/browse).
+Original source: `CLAUDE.md` in [forjd/browse](https://github.com/forjd/browse).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
