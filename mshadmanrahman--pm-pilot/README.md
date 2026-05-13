@@ -7,11 +7,11 @@ Claude Code configured for PMs. Meeting prep, PRDs, stakeholder intel — 25 ski
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mshadmanrahman/pm-pilot](https://github.com/mshadmanrahman/pm-pilot).
+Original source: `CLAUDE.md` in [mshadmanrahman/pm-pilot](https://github.com/mshadmanrahman/pm-pilot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
