@@ -1,9 +1,9 @@
 {
   "name": "nao1215--filesql",
   "displayName": "filesql",
-  "description": "filesql",
+  "description": "sql driver for CSV, TSV, LTSV, JSON, Parquet, Excel with gzip, bzip2, xz, zstd support.",
   "version": "1.0.0",
   "author": "nao1215",
-  "homepage": "https://tomevault.io/claim/nao1215",
+  "homepage": "https://github.com/nao1215/filesql",
   "skills": []
 }
