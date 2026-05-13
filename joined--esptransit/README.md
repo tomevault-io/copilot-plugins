@@ -7,11 +7,11 @@ ESP32-P4 public transit departures display open firmware
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [joined/ESPTransit](https://github.com/joined/ESPTransit).
+Original source: `CLAUDE.md` in [joined/ESPTransit](https://github.com/joined/ESPTransit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
