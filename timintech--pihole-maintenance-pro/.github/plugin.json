@@ -1,0 +1,9 @@
+{
+  "name": "timintech--pihole-maintenance-pro",
+  "displayName": "pihole-maintenance-pro",
+  "description": "Pi-hole Maintenance PRO MAX for Pi-hole v6.x on Raspberry Pi: automated apt updates, Gravity refresh, logging, backups, health checks.",
+  "version": "1.0.0",
+  "author": "TimInTech",
+  "homepage": "https://github.com/TimInTech/pihole-maintenance-pro",
+  "skills": []
+}
