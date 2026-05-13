@@ -1,0 +1,9 @@
+{
+  "name": "sunimp--httpmediacache",
+  "displayName": "HTTPMediaCache",
+  "description": "Swift \u672c\u5730 HTTP \u591a\u5a92\u4f53\u7f13\u5b58\u5e93\uff0c\u652f\u6301 AVPlayer \u4ee3\u7406\u64ad\u653e\u3001Range \u7f13\u5b58\u3001HLS \u6539\u5199\u3001\u9884\u52a0\u8f7d\u548c iOS/macOS\u3002",
+  "version": "1.0.0",
+  "author": "sunimp",
+  "homepage": "https://github.com/sunimp/HTTPMediaCache",
+  "skills": []
+}
