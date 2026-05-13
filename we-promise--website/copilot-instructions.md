@@ -1,71 +1,55 @@
-## conventions
+## cursor-rules
 
-> This is a Ruby on Rails app for the marketing site of a fintech startup called Sure.
+> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
 
-This is a Ruby on Rails app for the marketing site of a fintech startup called Sure.
 
-You are an expert in Ruby, Ruby on Rails, Tailwind, Stimulus, Hotwire and Turbo and always use the latest stable versions of those technologies.
+- **Required Rule Structure:**
+  ```markdown
+  ---
+  description: Clear, one-line description of what the rule enforces
+  globs: path/to/files/*.ext, other/path/**/*
+  alwaysApply: boolean
+  ---
 
-**Code Style and Structure**
-- Write concise, technical Ruby code with accurate examples.
-- Prefer iteration and modularization over code duplication.
-- Use descriptive variable names with auxiliary verbs (e.g., is_loading, has_error).
-- Structure files: models, controllers, views, helpers, services, jobs, mailers.
+  - **Main Points in Bold**
+    - Sub-points with details
+    - Examples and explanations
+  ```
 
-**Naming Conventions**
-- Use snake_case for file names and directories (e.g., app/models/user_profile.rb).
-- Use CamelCase for classes and modules (e.g., UserProfile).
+- **File References:**
+  - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
+  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
+  - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
 
-**Ruby on Rails Usage**
-- Use Rails conventions for MVC structure.
-- Favor scopes over class methods for queries.
-- Use strong parameters for mass assignment protection.
-- Use partials to DRY up views.
+- **Code Examples:**
+  - Use language-specific code blocks
+  ```typescript
+  // ✅ DO: Show good examples
+  const goodExample = true;
+  
+  // ❌ DON'T: Show anti-patterns
+  const badExample = false;
+  ```
 
-**Syntax and Formatting**
-- Use two spaces for indentation.
-- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
-- Use descriptive method names and keep methods short.
+- **Rule Content Guidelines:**
+  - Start with high-level overview
+  - Include specific, actionable requirements
+  - Show examples of correct implementation
+  - Reference existing code when possible
+  - Keep rules DRY by referencing other rules
 
-**Commenting Code**
-- Write clear, concise comments to explain the purpose of individual functions and methods.
-- Use comments to describe the intent and functionality of complex logic.
-- Avoid redundant comments that state the obvious.
+- **Rule Maintenance:**
+  - Update rules when new patterns emerge
+  - Add examples from actual codebase
+  - Remove outdated patterns
+  - Cross-reference related rules
 
-**UI and Styling**
-- Use Tailwind CSS for styling.
-- Implement responsive design with Tailwind CSS; use a mobile-first approach.
-- Use Stimulus for JavaScript behavior.
-- Use Turbo for asynchronous actions and updates.
-
-**Performance Optimization**
-- Use eager loading to avoid N+1 queries.
-- Cache expensive queries and partials where appropriate.
-- Use background jobs for long-running tasks.
-- Optimize images: use WebP format, include size data, implement lazy loading.
-
-**Database Querying & Data Model Creation**
-- Use ActiveRecord for data querying and model creation.
-- Favor database constraints and indexes for data integrity and performance.
-- Use migrations to manage schema changes.
-
-**Key Conventions**
-- Follow Rails best practices for RESTful routing.
-- Optimize for performance and security.
-- Use environment variables for configuration.
-- Write tests for models, controllers, and features.
-
-**AI Guidelines**
-- Follow the user’s requirements carefully & to the letter.
-- Confirm, then write code!
-- Suggest solutions that I didn't think about—anticipate my needs
-- Focus on readability over being performant.
-- Fully implement all requested functionality.
-- Leave NO todo’s, placeholders or missing pieces.
-- Don't say things like "additional logic can be added here" — instead, add the logic.
-- Be concise. Minimize any other prose.
-- Consider new technologies and contrarian ideas, not just the conventional wisdom
-- If I ask for adjustments to code, do not repeat all of my code unnecessarily. Instead try to keep the answer brief by giving just a couple lines before/after any changes you make.
+- **Best Practices:**
+  - Use bullet points for clarity
+  - Keep descriptions concise
+  - Include both DO and DON'T examples
+  - Reference actual code over theoretical examples
+  - Use consistent formatting across rules 
 
 ---
 > Source: [we-promise/website](https://github.com/we-promise/website) — distributed by [TomeVault](https://tomevault.io).
