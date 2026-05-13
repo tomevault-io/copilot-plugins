@@ -1,84 +1,108 @@
-## llms
+## pytest-standards
 
-> LLM configuration and usage guidelines
+> Guidelines for writing unit tests
 
-# Rules to choose LLM models used in PipeLLMs.
+# Writing unit tests
 
-## LLM Configuration System
+## Unit test generalities
 
-In order to use it in a pipe, an LLM is referenced by its llm_handle (alias) and possibly by an llm_preset.
-LLM configurations are managed through the new inference backend system with files located in `.pipelex/inference/`:
+NEVER USE unittest.mock or MagicMock. YOU MUST USE pytest-mock instead.
 
-- **Model Deck**: `.pipelex/inference/deck/base_deck.toml` and `.pipelex/inference/deck/overrides.toml`
-- **Backends**: `.pipelex/inference/backends.toml` and `.pipelex/inference/backends/*.toml`
-- **Routing**: `.pipelex/inference/routing_profiles.toml`
+### Test file structure
 
-## LLM Handles
+- Name test files with `test_` prefix
+- Place test files in the appropriate test category directory:
+    - `tests/unit/` - for unit tests that test individual functions/classes in isolation
+    - `tests/integration/` - for integration tests that test component interactions
+    - `tests/e2e/` - for end-to-end tests that test complete workflows
+    - `tests/test_pipelines/` - for test pipeline definitions (PLX files and their structuring python files)
+- Fixtures are defined in conftest.py modules at different levels of the hierarchy, their scope is handled by pytest
+- Test data is placed inside test_data.py at different levels of the hierarchy, they must be imported with package paths from the root like `tests.pipelex.test_data`. Their content is all constants, regrouped inside classes to keep things tidy.
+- Always put test inside Test classes.
+- The pipelex pipelines should be stored in `tests/test_pipelines` as well as the related structured Output classes that inherit from `StructuredContent`
 
-An llm_handle can be either:
-1. **A direct model name** (like "gpt-4o-mini", "claude-3-sonnet") - automatically available for all models loaded by the inference backend system
-2. **An alias** - user-defined shortcuts that map to model names, defined in the `[aliases]` section:
+### Markers
 
-```toml
-[aliases]
-base-claude = "claude-4.5-sonnet"
-base-gpt = "gpt-5"
-base-gemini = "gemini-2.5-flash"
-base-mistral = "mistral-medium"
+Apply the appropriate markers:
+- "llm: uses an LLM to generate text or objects"
+- "img_gen: uses an image generation AI"
+- "extract: uses text/image extraction from documents"
+- "inference: uses either an LLM or an image generation AI"
+- "gha_disabled: will not be able to run properly on GitHub Actions"
+
+Several markers may be applied. For instance, if the test uses an LLM, then it uses inference, so you must mark with both `inference`and `llm`.
+
+### Important rules
+
+- Never use the unittest.mock. Use pytest-mock.
+
+### Test Class Structure
+
+- Always group the tests of a module into a test class:
+
+```python
+@pytest.mark.llm
+@pytest.mark.inference
+@pytest.mark.asyncio(loop_scope="class")
+class TestFooBar:
+    @pytest.mark.parametrize(
+        "topic, test_case_blueprint",
+        [
+            TestCases.CASE_1,
+            TestCases.CASE_2,
+        ],
+    )
+    async def test_pipe_processing(
+        self,
+        request: FixtureRequest,
+        topic: str,
+        test_case_blueprint: StuffBlueprint,
+    ):
+        # Test implementation
 ```
 
-The system first looks for direct model names, then checks aliases if no direct match is found. The system handles model routing through backends automatically.
+- Never more than 1 class per test file.
+- When testing one method, if possible, limit the number of test functions, but with different test cases in parameters
+- Sometimes it can be convenient to access the test's name in its body, for instance to include into a job_id. To achieve that, add the argument `request: FixtureRequest` into the signature and then you can get the test name using `cast(str, request.node.originalname),  # type: ignore`. 
 
-## Using an LLM Handle in a PipeLLM
+### Test Data Organization
 
-Here is an example of using an llm_handle to specify which LLM to use in a PipeLLM:
+- If it's not already there, create a `test_data.py` file in the proper test directory
+- Define test cases using `StuffBlueprint`:
 
-```plx
-[pipe.hello_world]
-type = "PipeLLM"
-description = "Write text about Hello World."
-output = "Text"
-model = { model = "gpt-5", temperature = 0.9 }
-prompt = """
-Write a haiku about Hello World.
-"""
+```python
+class TestCases:
+    CASE_BLUEPRINT_1 = StuffBlueprint(
+        name="test_case_1",
+        concept_code="domain.ConceptName1",
+        value="test_value"
+    )
+    CASE_BLUEPRINT_2 = StuffBlueprint(
+        name="test_case_2",
+        concept_code="domain.ConceptName2",
+        value="test_value"
+    )
+
+    CASE_BLUEPRINTS: ClassVar[list[tuple[str, str]]] = [  # topic, blueprint"
+        ("topic1", CASE_BLUEPRINT_1),
+        ("topic2", CASE_BLUEPRINT_2),
+    ]
 ```
 
-As you can see, to use the LLM, you must also indicate the temperature (float between 0 and 1) and max_tokens (either an int or the string "auto").
+Note how we avoid initializing a default mutable value within a class instance, instead we use ClassVar.
+Also note that we provide a topic for the test case, which is purely for convenience.
 
-## LLM Presets
+## Best Practices for Testing
 
-Presets are meant to record the choice of an llm with its hyper parameters (temperature and max_tokens) if it's good for a particular task. LLM Presets are skill-oriented.
-
-Examples:
-```toml
-llm_for_complex_reasoning = { model = "base-claude", temperature = 1 }
-llm_to_extract_invoice = { model = "claude-3-7-sonnet", temperature = 0.1, max_tokens = "auto" }
-```
-
-The interest is that these presets can be used to set the LLM choice in a PipeLLM, like this:
-
-```plx
-[pipe.extract_invoice]
-type = "PipeLLM"
-description = "Extract invoice information from an invoice text transcript"
-inputs = { invoice_text = "InvoiceText" }
-output = "Invoice"
-model = "llm_to_extract_invoice"
-prompt = """
-Extract invoice information from this invoice:
-
-The category of this invoice is: $invoice_details.category.
-
-@invoice_text
-"""
-```
-
-The setting here `model = "llm_to_extract_invoice"` works because "llm_to_extract_invoice" has been declared as an llm_preset in the deck.
-You must not use an LLM preset in a PipeLLM that does not exist in the deck. If needed, you can add llm presets.
-
-
-You can override the predefined llm presets by setting them in `.pipelex/inference/deck/overrides.toml`.
+- Whenever possible, use strong asserts to test value, not just type and presence.
+- Use parametrize for multiple test cases
+- Test both success and failure cases
+- Verify working memory state
+- Check output structure and content
+- Use meaningful test case names
+- Include docstrings explaining test purpose but not on top of the file
+- Log outputs for debugging
+- Generate reports for cost tracking
 
 ---
 > Source: [Pipelex/cocode](https://github.com/Pipelex/cocode) — distributed by [TomeVault](https://tomevault.io).
