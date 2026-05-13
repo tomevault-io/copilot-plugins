@@ -1,0 +1,9 @@
+{
+  "name": "mmohet--efficiencytool",
+  "displayName": "EfficiencyTool",
+  "description": "A bash script wrapped with Swift to send pids to efficiency core",
+  "version": "1.0.0",
+  "author": "Mmohet",
+  "homepage": "https://github.com/Mmohet/EfficiencyTool",
+  "skills": []
+}
