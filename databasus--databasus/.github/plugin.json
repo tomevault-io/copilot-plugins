@@ -1,0 +1,9 @@
+{
+  "name": "databasus--databasus",
+  "displayName": "databasus",
+  "description": "Database backup tool (PostgreSQL, MySQL\\MariaDB and MongoDB)",
+  "version": "1.0.0",
+  "author": "databasus",
+  "homepage": "https://github.com/databasus/databasus",
+  "skills": []
+}
