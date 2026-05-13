@@ -1,0 +1,9 @@
+{
+  "name": "neo773--docker-volume-snapshots",
+  "displayName": "docker-volume-snapshots",
+  "description": "docker-volume-snapshots",
+  "version": "1.0.0",
+  "author": "neo773",
+  "homepage": "https://github.com/neo773/docker-volume-snapshots",
+  "skills": []
+}
