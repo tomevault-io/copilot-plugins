@@ -1,0 +1,82 @@
+## rockbot
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Build & Test Commands
+
+```bash
+# Build
+dotnet build RockBot.slnx
+
+# Run all tests (unit only, no RabbitMQ needed)
+dotnet test RockBot.slnx
+
+# Run all tests including integration tests (requires RabbitMQ)
+ROCKBOT_RABBITMQ_HOST=localhost dotnet test RockBot.slnx
+
+# Run a single test by fully qualified name
+dotnet test RockBot.slnx --filter "FullyQualifiedName~MessageEnvelopeTests.Create_SetsDefaults"
+
+# Run tests by category/class
+dotnet test RockBot.slnx --filter "ClassName~RabbitMqIntegrationTests"
+```
+
+## Architecture
+
+RockBot is an **event-driven autonomous agent framework** built on .NET 10. It replaces traditional game-loop agent patterns with a **message-based, decoupled swarm architecture** where agents communicate exclusively via a message bus.
+
+**Core design principle: "Nothing trusts the LLM."** Agents run in separate processes with no shared memory, communicating only through messages. This provides process isolation so LLM-generated code cannot access the host directly.
+
+### Project Structure
+
+- **`src/RockBot.Messaging.Abstractions/`** — Provider-agnostic messaging contracts (`IMessagePublisher`, `IMessageSubscriber`, `MessageEnvelope`, `MessageResult`)
+- **`src/RockBot.Messaging.RabbitMQ/`** — RabbitMQ implementation with topic exchange, dead-letter queues, and per-consumer channels
+- **`tests/RockBot.Messaging.Tests/`** — MSTest unit tests + RabbitMQ integration tests (gated by `ROCKBOT_RABBITMQ_HOST` env var)
+- **`design/`** — Architecture docs, messaging design, security model, and open questions
+
+### Messaging Design
+
+`MessageEnvelope` is a sealed record carrying: MessageId, MessageType, CorrelationId, ReplyTo, Source, Destination, Timestamp, Body (`ReadOnlyMemory<byte>`), and Headers. The body is raw bytes for transport agnosticism; convenience extensions (`ToEnvelope<T>`/`GetPayload<T>`) handle JSON serialization via System.Text.Json with camelCase policy.
+
+`MessageResult` (Ack/Retry/DeadLetter) enables manual acknowledgment — handlers explicitly decide message fate.
+
+Topics use hierarchical dot-separated naming: `agent.task.*`, `llm.request`, `tool.invoke.*`, etc. Wildcard subscriptions are supported (`*` single-level, `#` multi-level).
+
+### RabbitMQ Provider
+
+- One connection per process (heavyweight), one channel per consumer (not thread-safe)
+- Topic exchange `rockbot` with dead-letter exchange `rockbot.dlx`
+- AMQP header mapping uses `rb-` prefix for custom headers (Source, Destination, user headers)
+- DI registration via `services.AddRockBotRabbitMq(options => ...)` — registers connection manager, publisher, and subscriber as singletons
+
+### AgentLoopRunner — the single LLM entry point
+
+**All LLM tool-calling interactions MUST go through `AgentLoopRunner.RunAsync`.** Do not call `ILlmClient.GetResponseAsync` directly from message handlers — that bypasses critical cross-cutting concerns:
+
+- Reasoning scaffolding injection (iteration budget, step-by-step planning)
+- DateTime context injection
+- Completion evaluation (post-loop re-prompting when tasks are incomplete)
+- Hallucination and capability-denial nudging
+- Context overflow trimming
+- Token and tool-call metrics recording
+
+`RunAsync` handles both native (FunctionInvokingChatClient) and text-based tool-calling paths. Every handler — `UserMessageHandler`, `ScheduledTaskHandler`, `SubagentRunner`, A2A handlers — routes through it.
+
+### Key Conventions
+
+- **Nullable reference types** enabled — respect null-safety throughout
+- **ImplicitUsings** enabled — no need for common using statements
+- **Async-first** — all I/O is Task-based, no blocking calls
+- **Rocks** (not Moq) is the mocking framework for tests
+- Integration tests return `Assert.Inconclusive` when RabbitMQ is unavailable rather than failing
+- Integration tests use unique exchange names per run to avoid cross-contamination
+- **Configuration** — Use the standard .NET 10 configuration stack: `appsettings.json`, environment variables, `dotnet user-secrets` for local dev, Kubernetes Secrets for deployment. No custom config mechanisms.
+- **Console apps** — Use `Spectre.Console` for argument parsing, prompts, and CLI output in any console applications
+
+---
+> Source: [MarimerLLC/rockbot](https://github.com/MarimerLLC/rockbot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
