@@ -1,0 +1,9 @@
+{
+  "name": "tunnckocore--zagora",
+  "displayName": "zagora",
+  "description": "A minimalist & robust way to create type-safe and error-safe never throwing functions & libraries in TypeScript. No batteries, no routers, just functions.",
+  "version": "1.0.0",
+  "author": "tunnckoCore",
+  "homepage": "https://github.com/tunnckoCore/zagora",
+  "skills": []
+}
