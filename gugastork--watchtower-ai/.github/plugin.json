@@ -1,0 +1,9 @@
+{
+  "name": "gugastork--watchtower-ai",
+  "displayName": "watchtower-ai",
+  "description": "A community-driven repository of AI workflows, prompts, agents, tools and experiments from the WatchTower builders community.",
+  "version": "1.0.0",
+  "author": "gugastork",
+  "homepage": "https://github.com/gugastork/watchtower-ai",
+  "skills": []
+}
