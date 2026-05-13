@@ -1,0 +1,9 @@
+{
+  "name": "superbasicstudio--claude-conductor",
+  "displayName": "claude-conductor",
+  "description": "Claude Conductor - a simple Claude Code framework",
+  "version": "1.0.0",
+  "author": "superbasicstudio",
+  "homepage": "https://github.com/superbasicstudio/claude-conductor",
+  "skills": []
+}
