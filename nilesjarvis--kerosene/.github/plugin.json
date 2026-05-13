@@ -1,0 +1,9 @@
+{
+  "name": "nilesjarvis--kerosene",
+  "displayName": "kerosene",
+  "description": "Native Hyperliquid Trading Terminal written in Rust and iced. ",
+  "version": "1.0.0",
+  "author": "nilesjarvis",
+  "homepage": "https://github.com/nilesjarvis/kerosene",
+  "skills": []
+}
