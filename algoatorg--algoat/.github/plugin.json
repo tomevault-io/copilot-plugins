@@ -1,0 +1,9 @@
+{
+  "name": "algoatorg--algoat",
+  "displayName": "ALgoat",
+  "description": "The algo trading IDE for Solana memecoins. Live chart, order-book tape, token Nursery, AI assistant, paper trading. Open source.",
+  "version": "1.0.0",
+  "author": "ALgoatorg",
+  "homepage": "https://github.com/ALgoatorg/ALgoat",
+  "skills": []
+}
