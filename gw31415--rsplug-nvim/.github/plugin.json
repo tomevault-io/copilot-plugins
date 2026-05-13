@@ -1,0 +1,9 @@
+{
+  "name": "gw31415--rsplug-nvim",
+  "displayName": "rsplug.nvim",
+  "description": "A blazingly fast Neovim plugin manager written in Rust",
+  "version": "1.0.0",
+  "author": "gw31415",
+  "homepage": "https://github.com/gw31415/rsplug.nvim",
+  "skills": []
+}
