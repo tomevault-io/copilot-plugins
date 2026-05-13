@@ -4,7 +4,7 @@
   "repo": "pipelex",
   "description": "Declarative language for composable Al workflows. Devtool for agents and mere humans.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Pipelex/pipelex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T10:05:16Z"
+  "distributed_at": "2026-05-13T19:08:57Z"
 }
