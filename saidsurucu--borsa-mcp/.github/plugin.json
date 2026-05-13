@@ -1,0 +1,9 @@
+{
+  "name": "saidsurucu--borsa-mcp",
+  "displayName": "borsa-mcp",
+  "description": "MCP Server for Turkish & American Stock Exchange and Fund Data",
+  "version": "1.0.0",
+  "author": "saidsurucu",
+  "homepage": "https://github.com/saidsurucu/borsa-mcp",
+  "skills": []
+}
