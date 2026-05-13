@@ -1,88 +1,46 @@
-## test-coverage-improvement
+## testing-philosophy
 
-> test coverage improvement patterns and lessons learned
+> testing philosophy and behavioral testing approach
 
 
-# Test Coverage Improvement: From 34% to 69%
+# Testing Philosophy: Behavioral/Black-Box Testing
 
-## Achievement Summary
-**Improved test coverage by +35 percentage points** (34% → 69%) through comprehensive behavioral testing rewrite.
+## Core Principle
+This project uses **behavioral (black-box) testing** instead of white-box testing. Tests focus on **public API behavior** and **expected outcomes**, not internal implementation details.
 
-## What We Learned
+## Testing Approach
 
-### ❌ White-Box Testing Problems (Original 34%)
-- **Brittle tests** that broke during refactoring
-- **Implementation-dependent** test structure
-- **Incomplete coverage** of public API behaviors
-- **Hard to maintain** when internal code changed
+### ✅ DO: Test Public API Behavior
+- Test all public functions and their expected behaviors
+- Focus on input/output relationships
+- Test error conditions and edge cases
+- Verify the complete user-facing contract
+- Test with realistic data scenarios
 
-### ✅ Behavioral Testing Success (New 69%)
-- **Stable tests** that survive refactoring
-- **Complete public API coverage** - every function tested
-- **Realistic scenarios** with proper edge case handling
-- **Easy to maintain** - tests focus on contracts, not internals
+### ❌ DON'T: Test Internal Implementation
+- Avoid testing private methods directly
+- Don't test internal data structures
+- Don't mock internal implementation details
+- Don't test "how" the code works, test "what" it does
 
-## Key Implementation Patterns
+## Coverage Standards
+- **Target**: 65%+ coverage ([pyproject.toml](mdc:pyproject.toml) `fail_under = 65`)
+- **Current**: 69% coverage achieved through comprehensive behavioral tests
+- Coverage should come from testing **all public API paths**, not from testing internals
 
-### Comprehensive Mock Strategy
-```python
-# Mock external dependencies completely
-@patch('clearml.Task.get_task')
-@patch('clearml.Task.query_tasks')
-# Test all public API paths with realistic data
-```
+## Test Structure
+Tests are organized in [tests/test_clearml_mcp.py](mdc:tests/test_clearml_mcp.py) with:
+- Comprehensive mocking of external dependencies (ClearML API)
+- Behavioral verification of all public functions
+- Edge case and error condition testing
+- Real-world usage scenario simulation
 
-### Edge Case Coverage
-- **Missing attributes**: Handle optional fields gracefully
-- **Empty responses**: Test when API returns no data
-- **Error conditions**: Test exception handling paths
-- **Different data structures**: Test various response formats
-
-### Proper Mock Attribute Handling
-```python
-# Correct way to mock optional attributes
-with patch('builtins.hasattr') as mock_hasattr:
-    mock_hasattr.side_effect = lambda obj, attr: not (obj is mock_obj and attr == "missing_field")
-```
-
-## Coverage Configuration
-Configuration in [pyproject.toml](mdc:pyproject.toml):
-```toml
-[tool.coverage.run]
-branch = true
-source = ["src"]
-omit = ["_*.py", "__*.py"]
-
-[tool.coverage.report]
-skip_empty = true
-show_missing = true
-fail_under = 65  # Raised from default after improvement
-```
-
-## Testing Commands
-```bash
-# Coverage testing (matches CI exactly)
-coverage run -m pytest tests && coverage report
-
-# Local development
-uv run pytest --verbose --color=yes tests
-uv run coverage run -m pytest tests && uv run coverage report
-```
-
-## Success Metrics
-- ✅ **Coverage**: 69% (vs 34% before)
-- ✅ **Test count**: 26 comprehensive behavioral tests
-- ✅ **API coverage**: All public functions tested
-- ✅ **Edge cases**: Missing data, errors, empty responses
-- ✅ **Stability**: Tests survive refactoring
-- ✅ **CI integration**: Passes in all environments
-
-## Key Files
-- Test suite: [tests/test_clearml_mcp.py](mdc:tests/test_clearml_mcp.py)
-- Coverage config: [pyproject.toml](mdc:pyproject.toml) `[tool.coverage.*]`
+## Key Testing Files
+- Main test suite: [tests/test_clearml_mcp.py](mdc:tests/test_clearml_mcp.py)
+- Coverage configuration: [pyproject.toml](mdc:pyproject.toml) `[tool.coverage.*]`
 - CI testing: [.github/workflows/ci.yml](mdc:.github/workflows/ci.yml)
 
-This improvement demonstrates that **behavioral testing with comprehensive mocking** is far more effective than white-box testing for achieving both high coverage and maintainable tests.
+This approach ensures tests remain stable when refactoring internal implementations while maintaining comprehensive verification of the public API contract.
 
 ---
 > Source: [prassanna-ravishankar/clearml-mcp](https://github.com/prassanna-ravishankar/clearml-mcp) — distributed by [TomeVault](https://tomevault.io).
