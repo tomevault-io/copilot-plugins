@@ -7,11 +7,11 @@ QuickBooks Online CLI for humans and AI agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [voska/qbo-cli](https://github.com/voska/qbo-cli).
+Original source: `CLAUDE.md` in [voska/qbo-cli](https://github.com/voska/qbo-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
