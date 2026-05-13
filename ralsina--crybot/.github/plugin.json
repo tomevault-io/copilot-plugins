@@ -1,0 +1,9 @@
+{
+  "name": "ralsina--crybot",
+  "displayName": "crybot",
+  "description": "Crybot - Crystal-based Personal AI Assistant with z.ai GLM support, tool calling, and Telegram integration",
+  "version": "1.0.0",
+  "author": "ralsina",
+  "homepage": "https://github.com/ralsina/crybot",
+  "skills": []
+}
