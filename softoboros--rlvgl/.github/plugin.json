@@ -1,0 +1,9 @@
+{
+  "name": "softoboros--rlvgl",
+  "displayName": "rlvgl",
+  "description": "A pure rusts port of LVGL for embedded use",
+  "version": "1.0.0",
+  "author": "SoftOboros",
+  "homepage": "https://github.com/SoftOboros/rlvgl",
+  "skills": []
+}
