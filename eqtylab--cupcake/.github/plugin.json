@@ -1,0 +1,9 @@
+{
+  "name": "eqtylab--cupcake",
+  "displayName": "cupcake",
+  "description": "A native policy enforcement layer for AI coding agents. Built on OPA/Rego.",
+  "version": "1.0.0",
+  "author": "eqtylab",
+  "homepage": "https://github.com/eqtylab/cupcake",
+  "skills": []
+}
