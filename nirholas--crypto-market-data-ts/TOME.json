@@ -4,7 +4,7 @@
   "repo": "crypto-market-data-ts",
   "description": "Comprehensive cryptocurrency market data service with CoinGecko, DeFiLlama, and Fear & Greed Index. Built-in caching, rate limiting, and Edge Runtime compatibility.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nirholas/crypto-market-data-ts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T00:48:45Z"
+  "distributed_at": "2026-05-13T11:03:22Z"
 }
