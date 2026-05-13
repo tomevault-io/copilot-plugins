@@ -7,11 +7,11 @@ Runtime governance for AI agents. Contracts enforce what tools can do — before
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [edictum-ai/edictum](https://github.com/edictum-ai/edictum).
+Original source: `CLAUDE.md` in [edictum-ai/edictum](https://github.com/edictum-ai/edictum).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
