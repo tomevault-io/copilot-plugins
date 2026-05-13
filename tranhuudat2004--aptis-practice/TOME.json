@@ -1,0 +1,44 @@
+{
+  "name": "aptis-practice",
+  "owner": "TranHuuDat2004",
+  "repo": "aptis-practice",
+  "description": "M\u1ed9t trang web luy\u1ec7n thi Aptis ESOL t\u01b0\u01a1ng t\u00e1c \u0111\u01b0\u1ee3c g\u1ed3m c\u00e1c t\u00ednh n\u0103ng: Drag & Drop, Audio Player v\u00e0 b\u1ed9 \u0111\u1ebfm gi\u1edd. X\u00e2y d\u1ef1ng b\u1eb1ng HTML, CSS v\u00e0 JavaScript.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TranHuuDat2004/aptis-practice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T18:34:35Z"
+}
