@@ -1,0 +1,9 @@
+{
+  "name": "pydantic--fasta2a",
+  "displayName": "fasta2a",
+  "description": "Convert an AI Agent into a A2A server! \u2728",
+  "version": "1.0.0",
+  "author": "pydantic",
+  "homepage": "https://github.com/pydantic/fasta2a",
+  "skills": []
+}
