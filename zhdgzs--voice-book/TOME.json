@@ -4,7 +4,7 @@
   "repo": "voice-book",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhdgzs/voice-book",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T09:47:48Z"
+  "distributed_at": "2026-05-13T18:45:13Z"
 }
