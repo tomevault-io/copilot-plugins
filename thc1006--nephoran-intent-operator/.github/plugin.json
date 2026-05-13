@@ -1,0 +1,74 @@
+{
+  "name": "thc1006--nephoran-intent-operator",
+  "displayName": "nephoran-intent-operator",
+  "description": "This project is an LLM-Enhanced Nephio R5 and O-RAN Network Automation System. It integrates a Large Language Model with Nephio's intent-based automation to provide a natural language interface for ma",
+  "version": "1.0.0",
+  "author": "thc1006",
+  "homepage": "https://github.com/thc1006/nephoran-intent-operator",
+  "skills": [
+    {
+      "name": "accessibility-compliance",
+      "description": ""
+    },
+    {
+      "name": "api-design-principles",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "design-system-patterns",
+      "description": ""
+    },
+    {
+      "name": "event-store-design",
+      "description": ""
+    },
+    {
+      "name": "gateway-api",
+      "description": ""
+    },
+    {
+      "name": "gitops-workflow",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-scaffolding",
+      "description": ""
+    },
+    {
+      "name": "interaction-design",
+      "description": ""
+    },
+    {
+      "name": "linkerd-patterns",
+      "description": ""
+    },
+    {
+      "name": "multi-cloud-architecture",
+      "description": ""
+    },
+    {
+      "name": "postgresql",
+      "description": ""
+    },
+    {
+      "name": "responsive-design",
+      "description": ""
+    },
+    {
+      "name": "visual-design-foundations",
+      "description": ""
+    },
+    {
+      "name": "web-component-design",
+      "description": ""
+    },
+    {
+      "name": "workflow-orchestration-patterns",
+      "description": ""
+    }
+  ]
+}
