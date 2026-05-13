@@ -1,0 +1,9 @@
+{
+  "name": "alif-munim--autosae",
+  "displayName": "autosae",
+  "description": "Adapting Karpathy's autoresearch to train SAEs on language models.",
+  "version": "1.0.0",
+  "author": "alif-munim",
+  "homepage": "https://github.com/alif-munim/autosae",
+  "skills": []
+}
