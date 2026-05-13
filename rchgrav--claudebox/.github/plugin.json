@@ -1,0 +1,9 @@
+{
+  "name": "rchgrav--claudebox",
+  "displayName": "claudebox",
+  "description": "The Ultimate Claude Code Docker Development Environment - Run Claude AI's coding assistant in a fully containerized, reproducible environment with pre-configured development profiles.",
+  "version": "1.0.0",
+  "author": "RchGrav",
+  "homepage": "https://github.com/RchGrav/claudebox",
+  "skills": []
+}
