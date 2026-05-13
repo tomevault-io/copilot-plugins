@@ -4,7 +4,7 @@
   "repo": "openrag",
   "description": "OpenRAG is a comprehensive, single package Retrieval-Augmented Generation platform built on Langflow, Docling, and Opensearch. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/langflow-ai/openrag",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T04:10:59Z"
+  "distributed_at": "2026-05-13T13:07:53Z"
 }
