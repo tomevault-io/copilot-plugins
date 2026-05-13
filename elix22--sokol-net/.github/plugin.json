@@ -1,0 +1,9 @@
+{
+  "name": "elix22--sokol-net",
+  "displayName": "Sokol.NET",
+  "description": "Cross-platform graphics framework for C# with .NET NativeAOT | Desktop \u2022 Mobile \u2022 Web | Direct3D \u2022 Metal \u2022 OpenGL \u2022 WebGL",
+  "version": "1.0.0",
+  "author": "elix22",
+  "homepage": "https://github.com/elix22/Sokol.NET",
+  "skills": []
+}
