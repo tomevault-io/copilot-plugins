@@ -1,0 +1,9 @@
+{
+  "name": "opengradient--tee-gateway",
+  "displayName": "tee-gateway",
+  "description": "TEE-secured inference node for 3rd-party LLM inference requests",
+  "version": "1.0.0",
+  "author": "OpenGradient",
+  "homepage": "https://github.com/OpenGradient/tee-gateway",
+  "skills": []
+}
