@@ -1,0 +1,9 @@
+{
+  "name": "nizos--tdd-guard",
+  "displayName": "tdd-guard",
+  "description": "Automated TDD enforcement for Claude Code",
+  "version": "1.0.0",
+  "author": "nizos",
+  "homepage": "https://github.com/nizos/tdd-guard",
+  "skills": []
+}
