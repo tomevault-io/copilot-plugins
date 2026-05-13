@@ -4,7 +4,7 @@
   "repo": "Tachikoma",
   "description": "One interface, every AI model. A Swift SDK to interface with AI providers.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/steipete/Tachikoma",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T22:53:03Z"
+  "distributed_at": "2026-05-13T10:42:48Z"
 }
