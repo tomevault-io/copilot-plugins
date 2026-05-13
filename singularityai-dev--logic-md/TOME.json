@@ -1,0 +1,44 @@
+{
+  "name": "logic-md",
+  "owner": "SingularityAI-Dev",
+  "repo": "logic-md",
+  "description": "The declarative reasoning layer for AI agents.  A portable, framework-agnostic file format for specifying how an agent thinks \u2014 strategy, step DAGs, contracts, quality gates, and fallback policies \u2014 declared in YAML rather than hardcoded in Python.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SingularityAI-Dev/logic-md",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T00:41:12Z"
+}
