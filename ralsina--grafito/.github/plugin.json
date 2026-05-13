@@ -1,0 +1,9 @@
+{
+  "name": "ralsina--grafito",
+  "displayName": "grafito",
+  "description": "A simple, nice journald web frontend",
+  "version": "1.0.0",
+  "author": "ralsina",
+  "homepage": "https://github.com/ralsina/grafito",
+  "skills": []
+}
