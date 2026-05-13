@@ -1,0 +1,44 @@
+{
+  "name": "word-learning-system",
+  "owner": "1137043480",
+  "repo": "word-learning-system",
+  "description": "An intelligent adaptive vocabulary learning system for Chinese as a Foreign Language (CFL) \u2014 built from master's thesis research at Peking University. Features AI-driven personalized learning, SM-2 spaced repetition, and real-time analytics.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/1137043480/word-learning-system",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T01:43:35Z"
+}
