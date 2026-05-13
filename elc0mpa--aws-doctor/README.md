@@ -7,11 +7,11 @@ Powerful open-source CLI to audit security, costs, and best practices in AWS. �
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [elC0mpa/aws-doctor](https://github.com/elC0mpa/aws-doctor).
+Original source: `CLAUDE.md` in [elC0mpa/aws-doctor](https://github.com/elC0mpa/aws-doctor).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
