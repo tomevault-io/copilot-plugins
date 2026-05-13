@@ -1,0 +1,9 @@
+{
+  "name": "singularityai-dev--logic-md",
+  "displayName": "logic-md",
+  "description": "The declarative reasoning layer for AI agents.  A portable, framework-agnostic file format for specifying how an agent thinks \u2014 strategy, step DAGs, contracts, quality gates, and fallback policies \u2014 d",
+  "version": "1.0.0",
+  "author": "SingularityAI-Dev",
+  "homepage": "https://github.com/SingularityAI-Dev/logic-md",
+  "skills": []
+}
