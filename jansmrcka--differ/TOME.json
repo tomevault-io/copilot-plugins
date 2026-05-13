@@ -1,0 +1,44 @@
+{
+  "name": "differ",
+  "owner": "JanSmrcka",
+  "repo": "differ",
+  "description": "Terminal UI git diff viewer with two-panel layout, syntax highlighting, vim keybindings, and AI-powered commits. Built with Go + Bubble Tea.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JanSmrcka/differ",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T04:55:30Z"
+}
