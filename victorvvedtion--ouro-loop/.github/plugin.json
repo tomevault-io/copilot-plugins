@@ -1,0 +1,9 @@
+{
+  "name": "victorvvedtion--ouro-loop",
+  "displayName": "ouro-loop",
+  "description": "Give AI coding agents (Claude Code, Cursor, Aider, Codex) a structured autonomous loop with guardrails \u2014 boundaries, 5 verification gates, 3-layer self-reflection, and autonomous remediation. pip inst",
+  "version": "1.0.0",
+  "author": "VictorVVedtion",
+  "homepage": "https://github.com/VictorVVedtion/ouro-loop",
+  "skills": []
+}
