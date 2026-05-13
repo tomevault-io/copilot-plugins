@@ -1,0 +1,9 @@
+{
+  "name": "quasi--cl-mcp-server",
+  "displayName": "cl-mcp-server",
+  "description": "Common Lisp REPL Superpower for Agents",
+  "version": "1.0.0",
+  "author": "quasi",
+  "homepage": "https://github.com/quasi/cl-mcp-server",
+  "skills": []
+}
