@@ -1,0 +1,44 @@
+{
+  "name": "just-scrape",
+  "owner": "ScrapeGraphAI",
+  "repo": "just-scrape",
+  "description": "CLI for AI-powered web scraping, structured data extraction, web search, multi-page crawling, and scheduled   page-change monitoring  powered by the ScrapeGraph AI API. Turn any URL into markdown, HTML, screenshots,  links, images, summaries, or brand assets; pull structured JSON with a prompt + schema; watch pages on a cron  with webhook alert",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ScrapeGraphAI/just-scrape",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T09:15:21Z"
+}
