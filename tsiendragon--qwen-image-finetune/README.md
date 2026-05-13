@@ -7,11 +7,11 @@ Repo for Qwen Image Finetune
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tsiendragon/qwen-image-finetune](https://github.com/tsiendragon/qwen-image-finetune).
+Original source: `CLAUDE.md` in [tsiendragon/qwen-image-finetune](https://github.com/tsiendragon/qwen-image-finetune).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
