@@ -1,13 +1,16 @@
-## chapter-structure
+## development
 
-> The documentation is organized into 30 chapters, each located in its own subdirectory under [docs/](mdc:docs/). Each chapter directory (e.g., [ch01/](mdc:docs/ch01/), [ch02/](mdc:docs/ch02/), ..., [ch30/](mdc:docs/ch30/)) contains a main markdown file (e.g., [_books_ml-q-and-ai-ch01.md](mdc:docs/ch01/_books_ml-q-and-ai-ch01.md)) that holds the content for that chapter. Images for each chapter are stored in [docs/images/](mdc:docs/images/), named according to the chapter and figure number (e.g., ch01-fig01.png).
+> - Refer to the main [README.md](mdc:README.md) and [docs/README.md](mdc:docs/README.md) for setup, build, and contribution instructions.
 
-# Chapter Structure and Organization
+# Development and Contribution Guidelines
 
-The documentation is organized into 30 chapters, each located in its own subdirectory under [docs/](mdc:docs/). Each chapter directory (e.g., [ch01/](mdc:docs/ch01/), [ch02/](mdc:docs/ch02/), ..., [ch30/](mdc:docs/ch30/)) contains a main markdown file (e.g., [_books_ml-q-and-ai-ch01.md](mdc:docs/ch01/_books_ml-q-and-ai-ch01.md)) that holds the content for that chapter. Images for each chapter are stored in [docs/images/](mdc:docs/images/), named according to the chapter and figure number (e.g., ch01-fig01.png).
-
-The sidebar and navigation are managed by [_sidebar.md](mdc:docs/_sidebar.md). The introduction and other supporting materials are in [docs/introduction/](mdc:docs/introduction/).
-description: Chapter structure and organization for the 30 ML Q&A chapters
+- Refer to the main [README.md](mdc:README.md) and [docs/README.md](mdc:docs/README.md) for setup, build, and contribution instructions.
+- All documentation content should be placed in the appropriate chapter subdirectory under [docs/](mdc:docs/).
+- Images should be stored in [docs/images/](mdc:docs/images/) and named according to the convention: `chXX-figYY.png`.
+- Scripts for content processing are located in [scripts/](mdc:scripts/).
+- Follow Markdown best practices and keep content clear and concise.
+- When adding or editing chapters, update the sidebar in [docs/_sidebar.md](mdc:docs/_sidebar.md) if necessary.
+description: Development and contribution guidelines for the ML Q&A documentation project
 ---
 
 ---
