@@ -1,0 +1,9 @@
+{
+  "name": "bahdotsh--blogr",
+  "displayName": "blogr",
+  "description": "Write, edit, and publish your blog without ever leaving your terminal!",
+  "version": "1.0.0",
+  "author": "bahdotsh",
+  "homepage": "https://github.com/bahdotsh/blogr",
+  "skills": []
+}
