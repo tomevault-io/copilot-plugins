@@ -1,0 +1,206 @@
+## task-orchestrator
+
+> A Kotlin-based MCP server providing hierarchical work item management with dependency tracking, note schemas, and role-based workflow automation.
+
+## Project: MCP Task Orchestrator
+
+A Kotlin-based MCP server providing hierarchical work item management with dependency tracking, note schemas, and role-based workflow automation.
+
+**Key Technologies:**
+- Kotlin 2.2.0 with Coroutines
+- Exposed ORM 1.0.0-beta-2 for SQLite
+- MCP SDK 0.9.0 (with Ktor Streamable HTTP transport)
+- Flyway for database migrations
+- Gradle with Kotlin DSL / Docker
+
+## Build Commands
+
+```bash
+./gradlew build                        # fat JAR → current/build/libs/
+./gradlew clean build
+./gradlew test
+./gradlew test --tests "*ToolTest"
+
+java -jar current/build/libs/mcp-task-orchestrator-*.jar
+
+# Docker (most common)
+docker build -t task-orchestrator:dev .
+docker run --rm -i \
+  -v mcp-task-data:/app/data \
+  -v "$(pwd)"/.taskorchestrator:/project/.taskorchestrator:ro \
+  -e AGENT_CONFIG_DIR=/project \
+  task-orchestrator:dev
+```
+
+## Architecture
+
+Source lives under `current/`.
+
+**Package root:** `io.github.jpicklyk.mcptask.current`
+**Source root:** `current/src/main/kotlin/io/github/jpicklyk/mcptask/current/`
+
+```
+domain/
+  model/       — WorkItem, Note, Dependency, Role, Priority, RoleTransition, LifecycleMode, WorkItemSchema
+  repository/  — WorkItemRepository, NoteRepository, DependencyRepository, RoleTransitionRepository
+
+application/
+  tools/items/      — ManageItemsTool, QueryItemsTool
+  tools/notes/      — ManageNotesTool, QueryNotesTool
+  tools/dependency/ — ManageDependenciesTool, QueryDependenciesTool
+  tools/workflow/   — AdvanceItemTool, GetNextStatusTool, GetNextItemTool, GetBlockedItemsTool, GetContextTool
+  tools/compound/   — CreateWorkTreeTool, CompleteTreeTool
+  service/          — RoleTransitionHandler, NoteSchemaService, CascadeDetector, WorkTreeExecutor
+
+infrastructure/
+  database/schema/      — WorkItemsTable, NotesTable, DependenciesTable, RoleTransitionsTable
+  database/schema/management/ — DirectDatabaseSchemaManager, FlywayDatabaseSchemaManager, SchemaManagerFactory
+  repository/           — SQLite implementations, RepositoryProvider
+  config/               — YamlWorkItemSchemaService (typealias YamlNoteSchemaService)
+
+interfaces/mcp/
+  CurrentMcpServer.kt, McpToolAdapter.kt
+```
+
+**Entry point:** `current/src/main/kotlin/io/github/jpicklyk/mcptask/current/CurrentMain.kt`
+
+## Modes of Operation
+
+- **Orchestration** (default) — orchestrator pushes items through phases via `advance_item`
+- **Claim** (opt-in) — consumers pull work via `claim_item`, holding TTL-based ownership before advancing
+
+The optional `actor_authentication` config block adds JWKS-based identity verification — independent of claim mode (claim works without it). See [`current/docs/fleet-deployment.md`](current/docs/fleet-deployment.md).
+
+## Trait System (Orchestration Signals)
+
+Traits are **composable orchestration signals** declared in `.taskorchestrator/config.yaml` under the `traits:` key. They are NOT merely note requirements. Each trait carries three dimensions:
+
+1. **Note requirements** -- notes with `key`, `role`, `required` that merge into an item's resolved schema and enforce gates
+2. **Guidance** -- `guidance` text on each note telling agents HOW to fill it (context, constraints, structure)
+3. **Skill routing** -- optional `skill` pointer (e.g., `skill: "migration-review"`) that routes evaluation to a specialized skill
+
+**Resolution flow:** `ToolExecutionContext.resolveSchema(item)` merges trait notes from two sources:
+- `defaultTraits` on the schema type definition (always applied to items of that type)
+- Per-item `traits` from the item's `properties` JSON bag (applied via `PropertiesHelper.extractTraits()`)
+
+Base schema note keys win on duplicates; first-trait-in-order wins for duplicate trait keys.
+
+**Example:** An item typed `feature-task` with trait `needs-migration-review` gets the base `feature-task` notes PLUS the `migration-assessment` note (queue phase, required, with `migration-review` skill pointer and guidance about SQLite table recreation patterns). The orchestrator sees this merged schema via `get_context(itemId=...)` and routes accordingly -- dispatching a migration-specialized agent or invoking the migration-review skill.
+
+**Key files:**
+
+| What | Path |
+|------|------|
+| Trait definitions | `.taskorchestrator/config.yaml` -> `traits:` section |
+| Schema resolution + trait merging | `current/.../application/tools/ToolExecutionContext.kt` -> `resolveSchema()`, `mergeTraits()` |
+| Properties helper | `current/.../application/tools/PropertiesHelper.kt` -> `extractTraits()`, `mergeTraits()` |
+| Domain models | `WorkItemSchema.kt` (`defaultTraits`), `NoteSchemaEntry.kt` (`skill`, `guidance`) |
+
+## Tight Coupling Areas
+
+### ToolExecutionContext
+Constructed in `CurrentMcpServer.kt` as `ToolExecutionContext(repositoryProvider, noteSchemaService)`. Adding a new service dependency requires updating **both** the context class and the server construction site.
+
+### DirectDatabaseSchemaManager
+Maintains a manually-ordered table list in foreign-key dependency order. New tables must be inserted at the correct position — the compiler cannot detect wrong ordering.
+
+## Configuration Directory (AGENT_CONFIG_DIR)
+
+**CRITICAL:** All services reading from `.taskorchestrator/` MUST support the `AGENT_CONFIG_DIR` environment variable.
+
+```kotlin
+private fun getConfigPath(): Path {
+    val projectRoot = Paths.get(
+        System.getenv("AGENT_CONFIG_DIR") ?: System.getProperty("user.dir")
+    )
+    return projectRoot.resolve(".taskorchestrator/config.yaml")
+}
+```
+
+- In Docker: `-e AGENT_CONFIG_DIR=/project` (where config is mounted)
+- In local dev: not needed (uses working directory)
+- Currently used by: `YamlWorkItemSchemaService`
+
+## Adding New Components
+
+### New MCP Tool
+1. Extend `BaseToolDefinition` in `current/src/main/kotlin/.../application/tools/`
+2. Register in `CurrentMcpServer.kt`
+3. Update `current/docs/api-reference.md`
+4. Add tests in `current/src/test/kotlin/application/tools/`
+
+### New Database Migration
+Create `current/src/main/resources/db/migration/V{N}__{Description}.sql`. SQLite has no `ALTER COLUMN` — schema changes require table recreation. New tables in `DirectDatabaseSchemaManager` must be inserted in foreign-key order.
+
+### New Gradle Dependency
+Add to `gradle/libs.versions.toml` (`[versions]` + `[libraries]`), then reference as `libs.{name}` in `build.gradle.kts`. Check Maven Central for the latest version.
+
+## Database Management
+
+**Key environment variables:**
+- `DATABASE_PATH` — SQLite file path (default: `data/current-tasks.db`)
+- `USE_FLYWAY` — enable Flyway migrations (default: `true` in Docker)
+- `AGENT_CONFIG_DIR` — directory containing `.taskorchestrator/` (default: working dir)
+- `MCP_TRANSPORT` — `stdio` (default) or `http`
+- `MCP_HTTP_PORT` — HTTP port (default: `3001`)
+- `LOG_LEVEL` — DEBUG / INFO / WARN / ERROR (default: `INFO`)
+- `FLYWAY_REPAIR` — run repair and exit (default: `false`)
+- `DEGRADED_MODE_POLICY` — overrides `actor_authentication.degraded_mode_policy` in config; values: `accept-cached` (default) | `accept-self-reported` | `reject`; invalid value = startup failure
+
+**Migration files:** `current/src/main/resources/db/migration/`
+
+## Testing
+
+- Tests mirror source under `current/src/test/kotlin/`
+- JUnit 5 + MockK; H2 in-memory database for repository tests
+- **Never pipe `./gradlew` output to `tail`** — run directly and read full output
+
+## Common File Locations
+
+| What | Path |
+|------|------|
+| Entry point | `current/src/main/kotlin/.../current/CurrentMain.kt` |
+| MCP Server | `current/.../interfaces/mcp/CurrentMcpServer.kt` |
+| Tool definitions | `current/.../application/tools/` |
+| Domain models | `current/.../domain/model/` |
+| Repositories | `current/.../infrastructure/repository/` |
+| Migrations | `current/src/main/resources/db/migration/` |
+| Workflow config | `.taskorchestrator/config.yaml` |
+| Note schema service | `current/.../infrastructure/config/YamlWorkItemSchemaService.kt` (backward-compat typealias `YamlNoteSchemaService`) |
+| Plugin | `claude-plugins/task-orchestrator/` |
+| Tests | `current/src/test/kotlin/` |
+
+## Claude Code Plugin Discovery
+
+Two skill systems — do not confuse them:
+
+**Project-level skills** (`.claude/skills/`) — auto-discovered, no config needed:
+- `/prepare-release` — version bump, changelog, release PR
+- `/feature-implementation` — guided feature lifecycle
+
+**Plugin skills** (`claude-plugins/task-orchestrator/skills/`) — require activation via `.claude/settings.json`:
+```json
+{ "enabledPlugins": { "task-orchestrator@task-orchestrator-marketplace": true } }
+```
+- Marketplace name: `task-orchestrator-marketplace` (from `.claude-plugin/marketplace.json` → `name`)
+- If plugin stops loading: `/plugin marketplace add .claude-plugin` then `/plugin enable task-orchestrator@task-orchestrator-marketplace`
+- After editing plugin files: remove and re-add the marketplace (content is cached)
+
+## Documentation
+
+- `current/docs/` — quick-start, api-reference, workflow-guide, fleet-deployment
+
+## Git Workflow
+
+**PR-per-feature flow** — the PR boundary is the **parent feature**, not individual child tasks. For a `feature-implementation` parent with N children (Parallel tier), all children commit to a shared feature worktree on a single `feat/<slug>` branch; one PR opens when the parent feature reaches terminal. For Direct/Delegated tier (single items), each item gets its own branch and PR. Local `main` always tracks `origin/main`. See the `/implement` skill (Step 2 worktree setup, Step 6 finalization) and `.claude/skills/implement/WORKTREE.md` (Shared feature worktree) for the full process.
+
+- Follow conventional commits, reference issue numbers
+- All tests must pass before committing
+- Never force-push `main`
+- Feature branches push to origin and merge via PR (squash merge on GitHub)
+- After PR merges: `git checkout main && git pull origin main && git branch -D <branch>`
+- Database migrations require special attention
+
+---
+> Source: [jpicklyk/task-orchestrator](https://github.com/jpicklyk/task-orchestrator) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
