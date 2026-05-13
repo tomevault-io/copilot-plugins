@@ -1,0 +1,9 @@
+{
+  "name": "sivchari--govalid",
+  "displayName": "govalid",
+  "description": "Up to 45x faster.  Auto generate type-safe validation code for structs based on markers.",
+  "version": "1.0.0",
+  "author": "sivchari",
+  "homepage": "https://github.com/sivchari/govalid",
+  "skills": []
+}
