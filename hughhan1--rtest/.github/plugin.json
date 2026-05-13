@@ -1,0 +1,14 @@
+{
+  "name": "hughhan1--rtest",
+  "displayName": "rtest",
+  "description": "Python test runner built in Rust",
+  "version": "1.0.0",
+  "author": "hughhan1",
+  "homepage": "https://github.com/hughhan1/rtest",
+  "skills": [
+    {
+      "name": "release",
+      "description": ""
+    }
+  ]
+}
