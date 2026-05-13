@@ -1,0 +1,9 @@
+{
+  "name": "phasenexa--nexa-bidkit",
+  "displayName": "nexa-bidkit",
+  "description": "Python library for building day-ahead and intraday auction bids for European power markets. Curve construction, block bids, linked orders, exclusive groups, and EUPHEMIA-compatible output. Built for t",
+  "version": "1.0.0",
+  "author": "phasenexa",
+  "homepage": "https://github.com/phasenexa/nexa-bidkit",
+  "skills": []
+}
