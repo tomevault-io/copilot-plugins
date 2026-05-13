@@ -4,7 +4,7 @@
   "repo": "llm-skill",
   "description": "A minimal three-layer SKILL system for LLM agents, inspired by Karpathy's LLM-Wiki idea",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hanyuancheung/llm-skill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T03:44:31Z"
+  "distributed_at": "2026-05-13T12:59:37Z"
 }
