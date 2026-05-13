@@ -1,0 +1,9 @@
+{
+  "name": "tomaspavlin--rohlik-mcp",
+  "displayName": "rohlik-mcp",
+  "description": "MCP server that lets you shop groceries across the Rohlik Group platforms (Rohlik.cz, Knuspr.de, Gurkerl.at, Kifli.hu, Sezamo.ro)",
+  "version": "1.0.0",
+  "author": "tomaspavlin",
+  "homepage": "https://github.com/tomaspavlin/rohlik-mcp",
+  "skills": []
+}
