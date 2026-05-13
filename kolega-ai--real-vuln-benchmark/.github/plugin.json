@@ -1,0 +1,9 @@
+{
+  "name": "kolega-ai--real-vuln-benchmark",
+  "displayName": "Real-Vuln-Benchmark",
+  "description": "A benchmark for SAST security scanners against a suite of realistic OS apps.",
+  "version": "1.0.0",
+  "author": "kolega-ai",
+  "homepage": "https://github.com/kolega-ai/Real-Vuln-Benchmark",
+  "skills": []
+}
