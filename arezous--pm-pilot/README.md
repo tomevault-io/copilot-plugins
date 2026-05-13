@@ -7,11 +7,11 @@ AI copilot for product managers. Built for Claude Code and Cursor.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [arezous/pm-pilot](https://github.com/arezous/pm-pilot).
+Original source: `CLAUDE.md` in [arezous/pm-pilot](https://github.com/arezous/pm-pilot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
