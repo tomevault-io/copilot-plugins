@@ -1,0 +1,9 @@
+{
+  "name": "eanticev--ue-gameplay-work-balancer",
+  "displayName": "ue-gameplay-work-balancer",
+  "description": "Unreal Engine Plugin that helps you spread work (time slice it) across multiple frames so your game maintains a stable frame rate (FPS).",
+  "version": "1.0.0",
+  "author": "eanticev",
+  "homepage": "https://github.com/eanticev/ue-gameplay-work-balancer",
+  "skills": []
+}
