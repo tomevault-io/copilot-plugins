@@ -1,0 +1,9 @@
+{
+  "name": "quinnjr--claude-code-profiles",
+  "displayName": "claude-code-profiles",
+  "description": "Manage multiple Claude Code configuration profiles. Switch between work, personal, and other accounts without logging in and out.",
+  "version": "1.0.0",
+  "author": "quinnjr",
+  "homepage": "https://github.com/quinnjr/claude-code-profiles",
+  "skills": []
+}
