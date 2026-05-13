@@ -1,0 +1,9 @@
+{
+  "name": "blinkzer0--phys-mcp",
+  "displayName": "Phys-MCP",
+  "description": "A physics focused calculator for LLM's using Model Context Protocol (MCP)",
+  "version": "1.0.0",
+  "author": "BlinkZer0",
+  "homepage": "https://github.com/BlinkZer0/Phys-MCP",
+  "skills": []
+}
