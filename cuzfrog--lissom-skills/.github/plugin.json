@@ -1,0 +1,9 @@
+{
+  "name": "cuzfrog--lissom-skills",
+  "displayName": "lissom-skills",
+  "description": "Light weight Claude Skills and Agents for every day tasks.",
+  "version": "1.0.0",
+  "author": "cuzfrog",
+  "homepage": "https://github.com/cuzfrog/lissom-skills",
+  "skills": []
+}
