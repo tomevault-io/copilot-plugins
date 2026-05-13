@@ -1,0 +1,9 @@
+{
+  "name": "streamer45--streamkit",
+  "displayName": "streamkit",
+  "description": "StreamKit is a self-hosted real-time media processing engine with pluggable node-based pipelines",
+  "version": "1.0.0",
+  "author": "streamer45",
+  "homepage": "https://github.com/streamer45/streamkit",
+  "skills": []
+}
