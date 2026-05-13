@@ -7,14 +7,14 @@ Ingest schemas in formats such as OpenAPI or Zod, convert to Canonical Ast Repre
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [EngraphCode/castr](https://github.com/EngraphCode/castr).
+Original source: `GEMINI.md` in [EngraphCode/castr](https://github.com/EngraphCode/castr).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 From [EngraphCode/castr](https://github.com/EngraphCode/castr) — a repo with 0+ stars on GitHub.
