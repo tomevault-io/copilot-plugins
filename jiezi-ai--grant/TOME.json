@@ -1,0 +1,44 @@
+{
+  "name": "grant",
+  "owner": "jiezi-ai",
+  "repo": "grant",
+  "description": "\u89e3\u5b57\u8ba1\u5212 \u2014 \u5927\u5b66\u751f AI \u8d44\u52a9\u9879\u76ee / Jiezi Grant",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jiezi-ai/grant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T00:42:36Z"
+}
