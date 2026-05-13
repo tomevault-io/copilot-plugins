@@ -4,7 +4,7 @@
   "repo": "auge",
   "description": "On-device vision CLI - Apple Vision framework OCR, image classification, and object detection from the command line",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Arthur-Ficial/auge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T04:51:23Z"
+  "distributed_at": "2026-05-13T00:09:01Z"
 }
