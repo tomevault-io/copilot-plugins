@@ -1,0 +1,9 @@
+{
+  "name": "dekart-xyz--geosql",
+  "displayName": "geosql",
+  "description": "Claude SKILL for data scientists and analysts working geospatial data in BigQuery and Snowflake.",
+  "version": "1.0.0",
+  "author": "dekart-xyz",
+  "homepage": "https://github.com/dekart-xyz/geosql",
+  "skills": []
+}
