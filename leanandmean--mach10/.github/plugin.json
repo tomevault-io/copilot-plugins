@@ -1,0 +1,9 @@
+{
+  "name": "leanandmean--mach10",
+  "displayName": "mach10",
+  "description": "Claude Code plugin for structured, AI-driven software development. Orchestrates complex workflows -- from issue assessment to staged implementation to review and merge -- giving developers the speed o",
+  "version": "1.0.0",
+  "author": "LeanAndMean",
+  "homepage": "https://github.com/LeanAndMean/mach10",
+  "skills": []
+}
