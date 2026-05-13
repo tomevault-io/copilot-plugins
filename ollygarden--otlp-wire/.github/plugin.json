@@ -1,0 +1,9 @@
+{
+  "name": "ollygarden--otlp-wire",
+  "displayName": "otlp-wire",
+  "description": "OTLP wire format utilities for Go - zero-allocation counting, sharding, and routing for high-throughput telemetry pipelines",
+  "version": "1.0.0",
+  "author": "ollygarden",
+  "homepage": "https://github.com/ollygarden/otlp-wire",
+  "skills": []
+}
