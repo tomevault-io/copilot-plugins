@@ -1,0 +1,9 @@
+{
+  "name": "agno-agi--agent-platform-railway",
+  "displayName": "agent-platform-railway",
+  "description": "Agent platform you build, run, and improve using coding agents.",
+  "version": "1.0.0",
+  "author": "agno-agi",
+  "homepage": "https://github.com/agno-agi/agent-platform-railway",
+  "skills": []
+}
