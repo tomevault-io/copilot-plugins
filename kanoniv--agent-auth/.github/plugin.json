@@ -1,0 +1,9 @@
+{
+  "name": "kanoniv--agent-auth",
+  "displayName": "agent-auth",
+  "description": "Cryptographic identity and delegation for AI agents",
+  "version": "1.0.0",
+  "author": "kanoniv",
+  "homepage": "https://github.com/kanoniv/agent-auth",
+  "skills": []
+}
