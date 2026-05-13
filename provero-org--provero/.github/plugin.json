@@ -1,0 +1,9 @@
+{
+  "name": "provero-org--provero",
+  "displayName": "provero",
+  "description": "Declarative data quality engine. Define checks in YAML, run anywhere.",
+  "version": "1.0.0",
+  "author": "provero-org",
+  "homepage": "https://github.com/provero-org/provero",
+  "skills": []
+}
