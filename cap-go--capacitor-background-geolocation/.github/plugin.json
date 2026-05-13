@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-background-geolocation",
+  "displayName": "capacitor-background-geolocation",
+  "description": "Capacitor plugin that sends you accurate geolocation updates, even while the app is in the background.",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-background-geolocation",
+  "skills": []
+}
