@@ -1,0 +1,9 @@
+{
+  "name": "sarulab-speech--sidon",
+  "displayName": "Sidon",
+  "description": "Training code and dataset cleasing with Sidon",
+  "version": "1.0.0",
+  "author": "sarulab-speech",
+  "homepage": "https://github.com/sarulab-speech/Sidon",
+  "skills": []
+}
