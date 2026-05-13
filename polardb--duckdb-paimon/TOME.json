@@ -4,7 +4,7 @@
   "repo": "duckdb-paimon",
   "description": "DuckDB extension for accessing Apache Paimon. \ud83e\udd86",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/polardb/duckdb-paimon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T13:50:29Z"
+  "distributed_at": "2026-05-13T02:54:37Z"
 }
