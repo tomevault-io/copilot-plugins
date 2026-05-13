@@ -1,0 +1,9 @@
+{
+  "name": "chewingglass--solana-graph-explorer",
+  "displayName": "solana-graph-explorer",
+  "description": "Explore solana accounts via an interconnected graph interface",
+  "version": "1.0.0",
+  "author": "ChewingGlass",
+  "homepage": "https://github.com/ChewingGlass/solana-graph-explorer",
+  "skills": []
+}
