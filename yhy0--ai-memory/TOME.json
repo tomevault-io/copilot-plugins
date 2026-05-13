@@ -1,0 +1,44 @@
+{
+  "name": "ai_memory",
+  "owner": "yhy0",
+  "repo": "ai_memory",
+  "description": "\u672c\u76ee\u5f55\u5b58\u653e AI\uff08\u5982 Cursor\uff09\u7528\u4e8e\u4fdd\u6301\u9879\u76ee\u4e0a\u4e0b\u6587\u7684\u201c\u6301\u4e45\u5c42\u8bb0\u5fc6\u201d\u6587\u4ef6\uff0c\u89e3\u51b3 AI \u5728\u591a\u9879\u76ee\u3001\u591a\u8f6e\u5bf9\u8bdd\u4e2d\u4e22\u5931\u4e0a\u4e0b\u6587\u7684\u95ee\u9898\u3002",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yhy0/ai_memory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T16:36:59Z"
+}
