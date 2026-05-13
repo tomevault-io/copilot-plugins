@@ -4,7 +4,7 @@
   "repo": "spacelift-intent",
   "description": "Intent lets you provision and manage cloud infrastructure using natural language",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/spacelift-io/spacelift-intent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T15:14:53Z"
+  "distributed_at": "2026-05-13T03:16:09Z"
 }
