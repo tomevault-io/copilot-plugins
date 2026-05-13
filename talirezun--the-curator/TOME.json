@@ -1,0 +1,44 @@
+{
+  "name": "the-curator",
+  "owner": "talirezun",
+  "repo": "the-curator",
+  "description": "A local, AI-powered knowledge system. Feed it documents \u2014 articles, PDFs, notes \u2014 and it automatically builds an interlinked wiki of key people, tools, and ideas. Have a multi-turn AI conversation with your knowledge. Explore everything as a visual knowledge graph in Obsidian. Sync seamlessly across computers via a private GitHub repository.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/talirezun/the-curator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T15:02:58Z"
+}
