@@ -1,0 +1,9 @@
+{
+  "name": "cascadeprotocol--cascade",
+  "displayName": "Cascade",
+  "description": "Autonomous arbitrage scanner - monitors price spreads across 4 Solana DEXes, evaluates paths with Claude, executes in milliseconds.",
+  "version": "1.0.0",
+  "author": "CascadeProtocol",
+  "homepage": "https://github.com/CascadeProtocol/Cascade",
+  "skills": []
+}
