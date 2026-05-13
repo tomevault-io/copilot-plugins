@@ -1,0 +1,9 @@
+{
+  "name": "fulcrumgenomics--ferro-hgvs",
+  "displayName": "ferro-hgvs",
+  "description": "A high-performance HGVS variant nomenclature parser and normalizer written in Rust",
+  "version": "1.0.0",
+  "author": "fulcrumgenomics",
+  "homepage": "https://github.com/fulcrumgenomics/ferro-hgvs",
+  "skills": []
+}
