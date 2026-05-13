@@ -1,0 +1,9 @@
+{
+  "name": "kylenesium--aibattery",
+  "displayName": "AIBattery",
+  "description": "A battery style usage meter for Claude Code. Rate limits, context health, and token usage in your macOS menu bar.",
+  "version": "1.0.0",
+  "author": "KyleNesium",
+  "homepage": "https://github.com/KyleNesium/AIBattery",
+  "skills": []
+}
