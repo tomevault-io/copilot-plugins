@@ -1,0 +1,9 @@
+{
+  "name": "petabridge--memorizer",
+  "displayName": "memorizer",
+  "description": "Vector-search powered agent memory MCP server",
+  "version": "1.0.0",
+  "author": "petabridge",
+  "homepage": "https://github.com/petabridge/memorizer",
+  "skills": []
+}
