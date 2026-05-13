@@ -1,0 +1,9 @@
+{
+  "name": "hxpe-dev--kotofetch",
+  "displayName": "kotofetch",
+  "description": "kotofetch is a small, configurable CLI that displays Japanese quotes in the terminal.",
+  "version": "1.0.0",
+  "author": "hxpe-dev",
+  "homepage": "https://github.com/hxpe-dev/kotofetch",
+  "skills": []
+}
