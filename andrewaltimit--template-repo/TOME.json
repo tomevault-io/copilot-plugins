@@ -4,7 +4,7 @@
   "repo": "template-repo",
   "description": "Agent orchestration & security template featuring MCP tool building, agent2agent workflows, mechanistic interpretability on sleeper agents, and agent integration via CLI wrappers",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AndrewAltimit/template-repo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T05:01:38Z"
+  "distributed_at": "2026-05-13T13:27:52Z"
 }
