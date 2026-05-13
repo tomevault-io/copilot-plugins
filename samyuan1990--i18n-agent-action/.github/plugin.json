@@ -1,0 +1,9 @@
+{
+  "name": "samyuan1990--i18n-agent-action",
+  "displayName": "i18n-agent-action",
+  "description": "An Agent running in GHA for free us from i18n works in documentation repos",
+  "version": "1.0.0",
+  "author": "SamYuan1990",
+  "homepage": "https://github.com/SamYuan1990/i18n-agent-action",
+  "skills": []
+}
