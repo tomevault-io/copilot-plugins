@@ -1,0 +1,9 @@
+{
+  "name": "craigm26--opencastor",
+  "displayName": "OpenCastor",
+  "description": "OpenCastor \u2014 productized open-core RCAN runtime. Gateway-as-kernel + drivers + fleet + cloud bridge + UI. Layer 4 of the OpenCastor stack. See rcan.dev/compatibility for protocol versions.",
+  "version": "1.0.0",
+  "author": "craigm26",
+  "homepage": "https://github.com/craigm26/OpenCastor",
+  "skills": []
+}
