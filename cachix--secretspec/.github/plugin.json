@@ -1,0 +1,9 @@
+{
+  "name": "cachix--secretspec",
+  "displayName": "secretspec",
+  "description": "Declarative secrets, every environment, any provider.",
+  "version": "1.0.0",
+  "author": "cachix",
+  "homepage": "https://github.com/cachix/secretspec",
+  "skills": []
+}
