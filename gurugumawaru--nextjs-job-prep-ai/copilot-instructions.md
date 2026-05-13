@@ -1,17 +1,25 @@
-## debugging
+## documentation
 
-> AI instruction file for nextjs_job-prep_ai by GuRuGuMaWaRu
+> - Use sentence case for headings
 
 
-# Debugging Context
+# Documentation Conventions
 
-## Common issues
+## READMEs
 
-## Useful commands
+- Use sentence case for headings
 
-## Known flaky tests
+## Code comments
 
-## Debugging tips
+- Use JSDoc for all exported functions (except React components)
+- Document "why" not "what" in inline comments (does not apply to JSDoc comments)
+- Don't comment obvious code
+
+## API documentation
+
+- Use OpenAPI 3.0 format
+- Include example requests and responses
+- Document error responses, not just success cases
 
 ---
 > Source: [GuRuGuMaWaRu/nextjs_job-prep_ai](https://github.com/GuRuGuMaWaRu/nextjs_job-prep_ai) — distributed by [TomeVault](https://tomevault.io).
