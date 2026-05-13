@@ -1,0 +1,9 @@
+{
+  "name": "nicmarti--claudette",
+  "displayName": "Claudette",
+  "description": "Persistent incremental knowledge graph for token-efficient code reviews with Claude Code",
+  "version": "1.0.0",
+  "author": "nicmarti",
+  "homepage": "https://github.com/nicmarti/Claudette",
+  "skills": []
+}
