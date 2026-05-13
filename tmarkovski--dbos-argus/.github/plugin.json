@@ -1,0 +1,9 @@
+{
+  "name": "tmarkovski--dbos-argus",
+  "displayName": "dbos-argus",
+  "description": "A self-hosted, open-source, read-only workflow viewer for DBOS Transact applications.",
+  "version": "1.0.0",
+  "author": "tmarkovski",
+  "homepage": "https://github.com/tmarkovski/dbos-argus",
+  "skills": []
+}
