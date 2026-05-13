@@ -4,7 +4,7 @@
   "repo": "kotlinx-schema",
   "description": "Kotlin Multiplatform library that generates JSON Schemas from your methods and classes both at compile-time via Kotlin Symbol Processing(KSP) and at runtime via reflection or kotlinx.serialization.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kotlin/kotlinx-schema",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T12:41:36Z"
+  "distributed_at": "2026-05-13T02:43:35Z"
 }
