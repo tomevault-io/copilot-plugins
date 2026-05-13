@@ -1,13 +1,12 @@
-## sigil-instrumentation
+## sigil-sdk
 
-> Guide Cursor agents to add Grafana Sigil instrumentation to consumer codebases.
+> You are running in GitHub Copilot Chat / Agent mode.
 
+# GitHub Copilot Prompt: Sigil Instrumentation
 
-# Cursor Prompt: Sigil Instrumentation
-
-You are running in Cursor with full repository context.
-- Keep edits surgical and grouped by opportunity.
-- Run focused checks after each opportunity and include results.
+You are running in GitHub Copilot Chat / Agent mode.
+- Keep patches easy to review and maintain.
+- Add concise rationale comments only where logic is non-obvious.
 
 ## Sigil Agent-First Instrumentation Brief
 
