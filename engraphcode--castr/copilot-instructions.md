@@ -1,9 +1,10 @@
-## tdd
+## castr
 
-> TDD is mandatory
+> Read [AGENT.md](.agent/directives/AGENT.md)
 
+# GEMINI.md
 
-Read and follow `.agent/rules/tdd.md`.
+Read [AGENT.md](.agent/directives/AGENT.md)
 
 ---
 > Source: [EngraphCode/castr](https://github.com/EngraphCode/castr) — distributed by [TomeVault](https://tomevault.io).
