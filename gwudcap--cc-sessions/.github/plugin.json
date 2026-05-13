@@ -1,0 +1,9 @@
+{
+  "name": "gwudcap--cc-sessions",
+  "displayName": "cc-sessions",
+  "description": "an opinionated approach to productive development with Claude Code",
+  "version": "1.0.0",
+  "author": "GWUDCAP",
+  "homepage": "https://github.com/GWUDCAP/cc-sessions",
+  "skills": []
+}
