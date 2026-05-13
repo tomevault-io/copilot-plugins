@@ -1,0 +1,9 @@
+{
+  "name": "lf-decentralized-trust-labs--fabric-x-ansible-collection",
+  "displayName": "fabric-x-ansible-collection",
+  "description": "Ansible collection for build and run Fabric-X networks.",
+  "version": "1.0.0",
+  "author": "LF-Decentralized-Trust-labs",
+  "homepage": "https://github.com/LF-Decentralized-Trust-labs/fabric-x-ansible-collection",
+  "skills": []
+}
