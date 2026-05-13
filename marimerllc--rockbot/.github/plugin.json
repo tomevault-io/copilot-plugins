@@ -1,0 +1,9 @@
+{
+  "name": "marimerllc--rockbot",
+  "displayName": "rockbot",
+  "description": "Autonomous personal agent designed to be cloud-native",
+  "version": "1.0.0",
+  "author": "MarimerLLC",
+  "homepage": "https://github.com/MarimerLLC/rockbot",
+  "skills": []
+}
