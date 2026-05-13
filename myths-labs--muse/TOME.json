@@ -1,0 +1,44 @@
+{
+  "name": "muse",
+  "owner": "myths-labs",
+  "repo": "muse",
+  "description": "\ud83c\udf00 MUSE \u2014 Memory-Unified Skills & Execution. A pure-Markdown OS for AI pair programming with lossless cross-conversation context management.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/myths-labs/muse",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T01:32:26Z"
+}
