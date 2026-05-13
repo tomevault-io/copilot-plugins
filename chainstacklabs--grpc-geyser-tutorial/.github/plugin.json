@@ -1,0 +1,9 @@
+{
+  "name": "chainstacklabs--grpc-geyser-tutorial",
+  "displayName": "grpc-geyser-tutorial",
+  "description": "This repository provides Python examples that show how to get live updates from the Solana blockchain using the Yellowstone gRPC plugin",
+  "version": "1.0.0",
+  "author": "chainstacklabs",
+  "homepage": "https://github.com/chainstacklabs/grpc-geyser-tutorial",
+  "skills": []
+}
