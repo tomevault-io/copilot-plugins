@@ -1,0 +1,9 @@
+{
+  "name": "inkbox-ai--iphone-harness",
+  "displayName": "iphone-harness",
+  "description": "Direct iPhone control via Appium/XCUITest. iOS analogue of browser-harness.",
+  "version": "1.0.0",
+  "author": "inkbox-ai",
+  "homepage": "https://github.com/inkbox-ai/iphone-harness",
+  "skills": []
+}
