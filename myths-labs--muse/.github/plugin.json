@@ -1,0 +1,9 @@
+{
+  "name": "myths-labs--muse",
+  "displayName": "muse",
+  "description": "\ud83c\udf00 MUSE \u2014 Memory-Unified Skills & Execution. A pure-Markdown OS for AI pair programming with lossless cross-conversation context management.",
+  "version": "1.0.0",
+  "author": "myths-labs",
+  "homepage": "https://github.com/myths-labs/muse",
+  "skills": []
+}
