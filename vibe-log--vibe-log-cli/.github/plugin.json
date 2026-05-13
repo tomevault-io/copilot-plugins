@@ -1,0 +1,9 @@
+{
+  "name": "vibe-log--vibe-log-cli",
+  "displayName": "vibe-log-cli",
+  "description": "A CLI tool for logging and analyzing Claude Code and Cursor ai-driven coding session.",
+  "version": "1.0.0",
+  "author": "vibe-log",
+  "homepage": "https://github.com/vibe-log/vibe-log-cli",
+  "skills": []
+}
