@@ -1,0 +1,44 @@
+{
+  "name": "claudecode-writer",
+  "owner": "WomenDefiningAI",
+  "repo": "claudecode-writer",
+  "description": "A Claude Code workspace that transforms ideas into multi-format content: research \u2192 long-form articles \u2192 platform-specific versions (LinkedIn, newsletter, social media, podcast Q&A)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/WomenDefiningAI/claudecode-writer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T03:11:28Z"
+}
