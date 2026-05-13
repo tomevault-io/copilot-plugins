@@ -1,16 +1,10 @@
-## api
+## common-errors
 
-> * All API endpoints follow the OpenAPI specification.
+> Rules describing how to respond to common errors
 
-* All API endpoints follow the OpenAPI specification.
-* When creating new resources (like users, posts, etc) use the following command to bootsrap all CRUD API endpoints: `npx hygen resource new --name [singular-resource-name-here]`
-* ALWAYS read the created files for more direction (feel free to delete any that end up not being used)
-* When creating one-off API endpoints (not full resources) bootstrap the API file with the command: `npx hygen api new --path [path-relative to server/api] --method [get, post, put, delete]`
-* ALWAYS read the created files after running the hygen command.
-* If you need to create an API endpoint that supports streaming:
-  *  Don't use one of the hygen commands
-  *  DO use the Nuxt MCP for reference
-  *  Do define the return response with the `sendStream` function
+
+
+* If you see the error `ENFILE: file table overflow, watch warning` stop the dev server, run `npx nuxi cleanup`, and start the server again. This is especially common after writing E2E tests.
 
 ---
 > Source: [vueschool/aidd-workhop](https://github.com/vueschool/aidd-workhop) — distributed by [TomeVault](https://tomevault.io).
