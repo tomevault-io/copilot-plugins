@@ -1,0 +1,9 @@
+{
+  "name": "realrossmanngroup--orcaslicer-bambulab",
+  "displayName": "OrcaSlicer-bambulab",
+  "description": "OrcaSlicer fork with restored BambuNetwork support for Bambu Lab printers.",
+  "version": "1.0.0",
+  "author": "realrossmanngroup",
+  "homepage": "https://github.com/realrossmanngroup/OrcaSlicer-bambulab",
+  "skills": []
+}
