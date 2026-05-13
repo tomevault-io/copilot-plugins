@@ -1,0 +1,9 @@
+{
+  "name": "groq--openbench",
+  "displayName": "openbench",
+  "description": "Provider-agnostic, open-source evaluation infrastructure for language models",
+  "version": "1.0.0",
+  "author": "groq",
+  "homepage": "https://github.com/groq/openbench",
+  "skills": []
+}
