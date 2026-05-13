@@ -1,0 +1,9 @@
+{
+  "name": "awattar--claude-code-best-practices",
+  "displayName": "claude-code-best-practices",
+  "description": "\ud83d\udcbb Best practices and examples for using Claude Code - Anthropic\u2019s terminal-native AI - for writing, editing, and refactoring code with deep project awareness, prompt design, and safe automation.",
+  "version": "1.0.0",
+  "author": "awattar",
+  "homepage": "https://github.com/awattar/claude-code-best-practices",
+  "skills": []
+}
