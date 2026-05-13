@@ -1,0 +1,9 @@
+{
+  "name": "mogenius--renovate-operator",
+  "displayName": "renovate-operator",
+  "description": "Operator to streamline renovate executions in Kubernetes",
+  "version": "1.0.0",
+  "author": "mogenius",
+  "homepage": "https://github.com/mogenius/renovate-operator",
+  "skills": []
+}
