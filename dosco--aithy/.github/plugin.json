@@ -1,0 +1,9 @@
+{
+  "name": "dosco--aithy",
+  "displayName": "aithy",
+  "description": "A personal AI agent that can work safely on your machine, remember useful context, and keep its data under your control.",
+  "version": "1.0.0",
+  "author": "dosco",
+  "homepage": "https://github.com/dosco/aithy",
+  "skills": []
+}
