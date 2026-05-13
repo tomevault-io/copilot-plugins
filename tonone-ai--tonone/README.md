@@ -7,11 +7,11 @@ One session. Two commands. Full team. Zero meetings.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tonone-ai/tonone](https://github.com/tonone-ai/tonone).
+Original source: `CLAUDE.md` in [tonone-ai/tonone](https://github.com/tonone-ai/tonone).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
