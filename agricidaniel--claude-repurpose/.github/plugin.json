@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--claude-repurpose",
+  "displayName": "claude-repurpose",
+  "description": "Content Repurposing Engine for Claude Code. Turn 1 piece of content into 10+ platform-optimized posts for Twitter, LinkedIn, Instagram, Facebook, YouTube, Skool, Reddit, and newsletters.",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/claude-repurpose",
+  "skills": []
+}
