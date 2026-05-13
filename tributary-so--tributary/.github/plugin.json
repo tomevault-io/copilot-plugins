@@ -1,0 +1,14 @@
+{
+  "name": "tributary-so--tributary",
+  "displayName": "tributary",
+  "description": "Bringing Web2's subscription simplicity to Web3. Tributary enables any Solana-based business to offer truly automated recurring payments",
+  "version": "1.0.0",
+  "author": "tributary-so",
+  "homepage": "https://github.com/tributary-so/tributary",
+  "skills": [
+    {
+      "name": "solana-payments",
+      "description": ""
+    }
+  ]
+}
