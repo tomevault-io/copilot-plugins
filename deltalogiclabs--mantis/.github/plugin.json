@@ -1,0 +1,9 @@
+{
+  "name": "deltalogiclabs--mantis",
+  "displayName": "Mantis",
+  "description": "An autonomous liquidity agent that watches Meteora DLMM pools, reasons over live on-chain data, and rebalances positions before they bleed.",
+  "version": "1.0.0",
+  "author": "DeltaLogicLabs",
+  "homepage": "https://github.com/DeltaLogicLabs/Mantis",
+  "skills": []
+}
