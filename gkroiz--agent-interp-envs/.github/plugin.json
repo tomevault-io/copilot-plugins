@@ -1,0 +1,9 @@
+{
+  "name": "gkroiz--agent-interp-envs",
+  "displayName": "agent-interp-envs",
+  "description": "A framework for testing and evaluating AI agents across various task domains, designed for misalignment interpretability research.",
+  "version": "1.0.0",
+  "author": "gkroiz",
+  "homepage": "https://github.com/gkroiz/agent-interp-envs",
+  "skills": []
+}
