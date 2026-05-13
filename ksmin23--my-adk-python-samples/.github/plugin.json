@@ -1,0 +1,9 @@
+{
+  "name": "ksmin23--my-adk-python-samples",
+  "displayName": "my-adk-python-samples",
+  "description": "A collection of Python agent samples built with the Google Agent Development Kit (ADK), demonstrating integrations   with services like BigQuery and Vertex AI Search.",
+  "version": "1.0.0",
+  "author": "ksmin23",
+  "homepage": "https://github.com/ksmin23/my-adk-python-samples",
+  "skills": []
+}
