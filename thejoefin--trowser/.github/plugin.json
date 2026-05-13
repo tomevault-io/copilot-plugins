@@ -1,0 +1,9 @@
+{
+  "name": "thejoefin--trowser",
+  "displayName": "trowser",
+  "description": "Trowser is a WinUI 3 Windows desktop application that lets you pin browser shortcuts as tray icons. Click a tray icon to open a flyout WebView2 panel right from the taskbar, or pop it out into a stand",
+  "version": "1.0.0",
+  "author": "TheJoeFin",
+  "homepage": "https://github.com/TheJoeFin/trowser",
+  "skills": []
+}
