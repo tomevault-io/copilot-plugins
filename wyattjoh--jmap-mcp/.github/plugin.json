@@ -1,0 +1,9 @@
+{
+  "name": "wyattjoh--jmap-mcp",
+  "displayName": "jmap-mcp",
+  "description": "A Model Context Protocol (MCP) server that provides tools for interacting with JMAP (JSON Meta Application Protocol) email servers. Built with Deno and using the jmap-jam client library.",
+  "version": "1.0.0",
+  "author": "wyattjoh",
+  "homepage": "https://github.com/wyattjoh/jmap-mcp",
+  "skills": []
+}
