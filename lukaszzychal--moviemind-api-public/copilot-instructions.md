@@ -1,14 +1,46 @@
-## 050-security-baseline
+## 060-testing-policy
 
-> - Never add/commit secrets. Prefer environment variables. Never log secrets.
+> **Always write tests before implementation. Follow the Red-Green-Refactor cycle:**
 
 
-# Security baseline
+# Testing policy (TDD + mocks)
 
-- Never add/commit secrets. Prefer environment variables. Never log secrets.
-- Validate input, enforce auth/authorization, and consider rate limiting for public endpoints.
-- If output/logs may contain sensitive data: stop and warn.
-- For AI-related features: treat user input as untrusted (prompt injection). Keep strict output formats.
+## TDD (Test-Driven Development)
+
+**Always write tests before implementation. Follow the Red-Green-Refactor cycle:**
+
+### Red-Green-Refactor Cycle
+
+1. **RED** - Write a test that defines the requirement
+   - Test should fail initially (no implementation exists)
+   - Test describes the expected behavior
+   - This ensures the test is actually testing something
+
+2. **GREEN** - Write minimal code to pass the test
+   - Write only the code necessary to make the test pass
+   - Don't over-engineer at this stage
+   - Goal is to get to green as quickly as possible
+
+3. **REFACTOR** - Improve code while keeping tests passing
+   - Clean up the code
+   - Remove duplication
+   - Improve readability
+   - Ensure all tests still pass
+
+**IMPORTANT:** Never write implementation code before writing tests. This violates TDD principles.
+
+## Test Types
+
+- Use Feature tests for endpoints and integration flows.
+- Use Unit tests for pure business logic.
+- Mock only external boundaries (e.g., OpenAI, TMDb). Avoid mocking internal repositories/services.
+- Prefer custom fakes/test doubles for interfaces.
+
+## Feature Flags in Tests
+
+- **Developer flags (`category: 'experiments'`):** Test by manually enabling the flag in dev/staging. Do NOT enable developer flags in production.
+- **Product flags:** Test both enabled/disabled states when the flag affects behavior.
+- **After feature deployment:** Remove developer flags and their conditional code from tests.
 
 ---
 > Source: [lukaszzychal/moviemind-api-public](https://github.com/lukaszzychal/moviemind-api-public) — distributed by [TomeVault](https://tomevault.io).
