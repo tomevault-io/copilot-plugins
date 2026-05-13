@@ -1,0 +1,9 @@
+{
+  "name": "alperduzgun--jerico-console",
+  "displayName": "jerico-console",
+  "description": "Claude Code orchestrator - manage multiple AI coding sessions from a single terminal via tmux",
+  "version": "1.0.0",
+  "author": "alperduzgun",
+  "homepage": "https://github.com/alperduzgun/jerico-console",
+  "skills": []
+}
