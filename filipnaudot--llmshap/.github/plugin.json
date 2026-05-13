@@ -1,0 +1,9 @@
+{
+  "name": "filipnaudot--llmshap",
+  "displayName": "llmSHAP",
+  "description": "llmSHAP: a multi-threaded LLM explainability framework",
+  "version": "1.0.0",
+  "author": "filipnaudot",
+  "homepage": "https://github.com/filipnaudot/llmSHAP",
+  "skills": []
+}
