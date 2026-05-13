@@ -1,0 +1,9 @@
+{
+  "name": "weise25--localsite-ai",
+  "displayName": "LocalSite-ai",
+  "description": "Generate Web Pages and Components with text prompts, with Local Models. (or Cloud Models, if you want)",
+  "version": "1.0.0",
+  "author": "weise25",
+  "homepage": "https://github.com/weise25/LocalSite-ai",
+  "skills": []
+}
