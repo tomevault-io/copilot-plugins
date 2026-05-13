@@ -1,0 +1,9 @@
+{
+  "name": "hybirdss--smartest-tv",
+  "displayName": "smartest-tv",
+  "description": "\ud83d\udcfa Control any smart TV with natural language. Play Netflix by name from your terminal. PyPI: stv \u00b7 MCP server \u00b7 LG/Samsung/Roku/Android",
+  "version": "1.0.0",
+  "author": "Hybirdss",
+  "homepage": "https://github.com/Hybirdss/smartest-tv",
+  "skills": []
+}
