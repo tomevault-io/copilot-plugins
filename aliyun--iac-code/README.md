@@ -1,0 +1,26 @@
+# iac-code
+
+> Source: [aliyun/iac-code](https://github.com/aliyun/iac-code) — distributed by [TomeVault](https://tomevault.io)
+
+AI-powered Infrastructure as Code (IaC) assistant.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [aliyun/iac-code](https://github.com/aliyun/iac-code).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [aliyun/iac-code](https://github.com/aliyun/iac-code) — a repo with 16+ stars on GitHub.
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-s -->
