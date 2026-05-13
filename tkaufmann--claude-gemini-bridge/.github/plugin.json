@@ -1,0 +1,9 @@
+{
+  "name": "tkaufmann--claude-gemini-bridge",
+  "displayName": "claude-gemini-bridge",
+  "description": "\ud83e\udd16 Intelligent integration between Claude Code and Google Gemini for large-scale code analysis",
+  "version": "1.0.0",
+  "author": "tkaufmann",
+  "homepage": "https://github.com/tkaufmann/claude-gemini-bridge",
+  "skills": []
+}
